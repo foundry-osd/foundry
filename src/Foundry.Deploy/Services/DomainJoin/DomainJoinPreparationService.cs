@@ -8,6 +8,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.DomainJoin;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Security;
 
@@ -20,8 +21,23 @@ public interface IDomainJoinPreparationService
     DomainJoinPreparationResult Prepare(DeployDomainJoinSettings settings, string computerName, DomainJoinSubmission? submission);
 }
 
-/// <summary>Resolves owned inputs without contacting AD or acquiring another media unlock.</summary>
-public sealed class DomainJoinPreparationService(IDeploymentSecretKeySession keys) : IDomainJoinPreparationService
+/// <summary>Checks the join account stored on Zero-touch media with the domain before the deployment starts.</summary>
+public interface IZeroTouchMediaCredentialCheck
+{
+    /// <summary>
+    /// Checks the join account stored on Zero-touch media for the selected domain (the default when none is selected). The
+    /// credentials are decrypted only for the verifier call and erased when it returns. Returns <see langword="null"/> without
+    /// contacting the domain when the media is not Zero-touch, is locked, or holds no usable credentials for that domain.
+    /// </summary>
+    Task<DomainCredentialCheckResult?> VerifyMediaCredentialsAsync(DeployDomainJoinSettings settings, string? selectedDomainId,
+        IDomainCredentialVerifier verifier, CancellationToken token);
+}
+
+/// <summary>
+/// Resolves owned inputs without contacting AD or acquiring another media unlock. The Zero-touch media check reaches AD only
+/// through the verifier it is given.
+/// </summary>
+public sealed class DomainJoinPreparationService(IDeploymentSecretKeySession keys) : IDomainJoinPreparationService, IZeroTouchMediaCredentialCheck
 {
     /// <summary>Requires a concrete final name and validated runtime metadata before accepting credentials.</summary>
     public DomainJoinPreparationResult Prepare(DeployDomainJoinSettings settings, string computerName, DomainJoinSubmission? submission)
@@ -60,38 +76,73 @@ public sealed class DomainJoinPreparationService(IDeploymentSecretKeySession key
             computerName, organizationalUnit, submission.Password.Span));
     }
 
+    /// <inheritdoc />
+    public async Task<DomainCredentialCheckResult?> VerifyMediaCredentialsAsync(DeployDomainJoinSettings settings, string? selectedDomainId,
+        IDomainCredentialVerifier verifier, CancellationToken token)
+    {
+        ArgumentNullException.ThrowIfNull(verifier);
+        if (settings is not { IsEnabled: true, Mode: DomainJoinMode.Automatic } || settings.Domains is null) return null;
+        DomainJoinCredentialPayload? payload;
+        try
+        {
+            DeployDomainJoinDomainSettings? domain = ResolveDomain(settings, selectedDomainId);
+            if (domain is null || ValidateEnvelope(domain) is not null) return null;
+            payload = DecryptPayload(domain);
+        }
+        catch (Exception ex) when (ex is CryptographicException or InvalidDataException or ArgumentException or InvalidOperationException or FormatException)
+        {
+            return null;
+        }
+
+        using (payload)
+        {
+            return await verifier.VerifyAsync(payload.Context, payload.Password, token);
+        }
+    }
+
     private DomainJoinPreparationResult PrepareAutomatic(DeployDomainJoinSettings settings, DeployDomainJoinDomainSettings? domain,
         string computerName, DomainJoinSubmission? submission)
     {
         if (domain is null) return DomainJoinPreparationResult.Invalid(DomainJoinPreparationFailure.MetadataInvalid);
+        if (ValidateEnvelope(domain) is { } failure) return DomainJoinPreparationResult.Invalid(failure);
+        DomainJoinCredentialPayload payload = DecryptPayload(domain);
+        using (payload)
+        {
+            return DomainJoinPreparationResult.Ready(new(payload.Context, computerName,
+                ResolveOrganizationalUnit(settings, domain, submission?.SelectedOuId, submission?.TypedOuDistinguishedName), payload.Password.Span));
+        }
+    }
+
+    /// <summary>Returns why the domain's stored credentials cannot be decrypted, or <see langword="null"/> when they can be tried.</summary>
+    private DomainJoinPreparationFailure? ValidateEnvelope(DeployDomainJoinDomainSettings domain)
+    {
         SecretEnvelope? envelope = domain.EncryptedCredentials;
-        if (!keys.IsUnlocked || envelope is null)
-            return DomainJoinPreparationResult.Invalid(DomainJoinPreparationFailure.UnlockRequired);
+        if (!keys.IsUnlocked || envelope is null) return DomainJoinPreparationFailure.UnlockRequired;
         if (envelope.Ciphertext is null ||
             envelope.Ciphertext.Length > (DomainJoinConfigurationValidator.MaximumCredentialPayloadBytes + 2) / 3 * 4 ||
             envelope.Nonce is null || envelope.Nonce.Length > 24 ||
             envelope.Tag is null || envelope.Tag.Length > 24)
-            return DomainJoinPreparationResult.Invalid(DomainJoinPreparationFailure.CredentialsInvalid);
+            return DomainJoinPreparationFailure.CredentialsInvalid;
+        return null;
+    }
+
+    /// <summary>Decrypts the domain's stored credentials into an owned payload; every intermediate buffer is erased.</summary>
+    private DomainJoinCredentialPayload DecryptPayload(DeployDomainJoinDomainSettings domain)
+    {
         // The payload only decodes for the domain and account it was written for.
         var expected = new DomainJoinCredentialContext(domain.DomainName, domain.AccountName ?? "");
         byte[]? key = null;
         byte[]? plaintext = null;
-        DomainJoinCredentialPayload? payload = null;
         try
         {
             key = keys.GetKeyCopy();
-            plaintext = MediaSecretEnvelopeProtector.DecryptBytes(envelope, key, MediaSecretEnvelopeProtector.DeploymentKeyId);
-            payload = DomainJoinCredentialPayloadCodec.Decode(plaintext, expected);
+            plaintext = MediaSecretEnvelopeProtector.DecryptBytes(domain.EncryptedCredentials!, key, MediaSecretEnvelopeProtector.DeploymentKeyId);
+            return DomainJoinCredentialPayloadCodec.Decode(plaintext, expected);
         }
         finally
         {
             if (key is not null) CryptographicOperations.ZeroMemory(key);
             if (plaintext is not null) CryptographicOperations.ZeroMemory(plaintext);
-        }
-        using (payload)
-        {
-            return DomainJoinPreparationResult.Ready(new(payload.Context, computerName,
-                ResolveOrganizationalUnit(settings, domain, submission?.SelectedOuId, submission?.TypedOuDistinguishedName), payload.Password.Span));
         }
     }
 

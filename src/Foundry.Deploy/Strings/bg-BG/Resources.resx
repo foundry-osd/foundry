@@ -256,6 +256,33 @@
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Страници за внедряване</value>
   </data>
+  <data name="Debug.DomainJoin.CredentialCheck" xml:space="preserve">
+    <value>Проверка на акаунта</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountDisabled" xml:space="preserve">
+    <value>Акаунтът е забранен</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountLocked" xml:space="preserve">
+    <value>Акаунтът е заключен</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Checking" xml:space="preserve">
+    <value>Проверява се</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.DomainUnreachable" xml:space="preserve">
+    <value>Домейнът е недостъпен</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Inconclusive" xml:space="preserve">
+    <value>Не може да се провери</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.PasswordExpired" xml:space="preserve">
+    <value>Паролата е изтекла</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Rejected" xml:space="preserve">
+    <value>Отхвърлен</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Valid" xml:space="preserve">
+    <value>Валиден</value>
+  </data>
   <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
     <value>Интерактивно</value>
   </data>
@@ -366,8 +393,26 @@
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Акаунт (DOMAIN\user или user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Този акаунт е забранен или изтекъл в домейна. Използвайте друг акаунт.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Въведете акаунта като DOMAIN\user или user@domain.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Този акаунт е заключен в домейна. Отключете го или използвайте друг акаунт.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Акаунтът не можа да бъде проверен. Изберете отново Напред, за да продължите; грешна парола би се проявила едва след рестартирането.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Проверка на акаунта в домейна...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Домейнът отхвърли този акаунт или парола. Проверете ги и опитайте отново.</value>
+  </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Акаунтът е потвърден от домейна.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Местоположение по подразбиране в домейна</value>
@@ -390,6 +435,9 @@
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Въведете валидно име на домейн, например corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Домейнът не е достъпен от тази мрежа, затова акаунтът не беше проверен. Изберете отново Напред, за да продължите; грешна парола би се проявила едва след рестартирането.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Данните за присъединяване към домейна липсват или са невалидни. Разполагането не е започнало.</value>
   </data>
@@ -405,11 +453,32 @@
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Парола</value>
   </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Паролата на този акаунт е изтекла или трябва да бъде сменена. Сменете я и опитайте отново.</value>
+  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Присъединяване към домейн</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Това издание на Windows не може да се присъедини към домейн. Инсталирането на Windows продължава без присъединяване.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Акаунтът за присъединяване, записан на носителя, е забранен или изтекъл в домейна. Разполагането не е започнало. Администраторът трябва да зададе друг акаунт във Foundry OSD и да създаде носителя отново.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Акаунтът за присъединяване, записан на носителя, е заключен в домейна. Разполагането не е започнало. Отключете акаунта или помолете администратора да зададе друг акаунт във Foundry OSD и да създаде носителя отново.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Акаунтът за присъединяване, записан на носителя, не можа да бъде проверен. Грешна парола би се проявила едва след рестартирането.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Домейнът отхвърли акаунта за присъединяване, записан на носителя. Разполагането не е започнало. Администраторът трябва да коригира акаунта във Foundry OSD и да създаде носителя отново.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Домейнът не е достъпен от тази мрежа, затова акаунтът за присъединяване, записан на носителя, не беше проверен. Грешна парола би се проявила едва след рестартирането.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Паролата на акаунта за присъединяване, записан на носителя, е изтекла или трябва да бъде сменена. Разполагането не е започнало. Администраторът трябва да актуализира паролата във Foundry OSD и да създаде носителя отново.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

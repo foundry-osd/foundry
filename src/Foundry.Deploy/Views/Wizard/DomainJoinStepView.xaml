@@ -19,7 +19,21 @@
             Style="{StaticResource ScrollViewerContentGutterStyle}"
             VerticalScrollBarVisibility="Auto">
             <Grid MinHeight="{Binding ActualHeight, ElementName=PageContentScrollViewer}">
+                <!--
+                    Spacers as tall as the check card, above and below the fields: the fields keep the same center as without a card,
+                    and on a short window the last field can still scroll above the card instead of hiding behind it.
+                -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Border Height="{Binding ActualHeight, ElementName=CredentialCheckCard}" />
+                <Border
+                    Grid.Row="2"
+                    Height="{Binding ActualHeight, ElementName=CredentialCheckCard}" />
                 <StackPanel
+                    Grid.Row="1"
                     MaxWidth="600"
                     Margin="0,0,0,32"
                     HorizontalAlignment="Stretch"
@@ -146,5 +160,40 @@
                 </StackPanel>
             </Grid>
         </ScrollViewer>
+
+        <!--  The credential check reports in a card over the bottom of the page, outside the centered fields.  -->
+        <controls:InfoBar x:Name="CredentialCheckCard"
+            Grid.Row="1"
+            VerticalAlignment="Bottom"
+            Message="{Binding CredentialCheckMessage}"
+            Severity="{Binding CredentialCheckSeverity, FallbackValue={x:Static controls:InfoBarSeverity.Informational}, TargetNullValue={x:Static controls:InfoBarSeverity.Informational}}"
+            Visibility="{Binding IsCredentialCheckShown, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <controls:InfoBar.Style>
+                <Style TargetType="controls:InfoBar">
+                    <Style.Triggers>
+                        <!--  Keeps the vertical scroll bar of the page usable when it is shown, as the content gutter does.  -->
+                        <DataTrigger
+                            Binding="{Binding ComputedVerticalScrollBarVisibility, ElementName=PageContentScrollViewer}"
+                            Value="Visible">
+                            <Setter
+                                Property="Margin"
+                                Value="0,0,24,0" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding IsCheckingCredentials}"
+                            Value="True">
+                            <Setter Property="Body">
+                                <Setter.Value>
+                                    <ProgressBar
+                                        Height="4"
+                                        IsIndeterminate="True"
+                                        Style="{StaticResource DeployProgressBarStyle}" />
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </controls:InfoBar.Style>
+        </controls:InfoBar>
     </Grid>
 </UserControl>

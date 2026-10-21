@@ -256,6 +256,33 @@ Licenciran prema MIT licenci.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Stranice za implementaciju</value>
   </data>
+  <data name="Debug.DomainJoin.CredentialCheck" xml:space="preserve">
+    <value>Provjera računa</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountDisabled" xml:space="preserve">
+    <value>Račun onemogućen</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountLocked" xml:space="preserve">
+    <value>Račun zaključan</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Checking" xml:space="preserve">
+    <value>Provjera u tijeku</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.DomainUnreachable" xml:space="preserve">
+    <value>Domena nedostupna</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Inconclusive" xml:space="preserve">
+    <value>Nije moguće provjeriti</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.PasswordExpired" xml:space="preserve">
+    <value>Lozinka istekla</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Rejected" xml:space="preserve">
+    <value>Odbijen</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Valid" xml:space="preserve">
+    <value>Valjan</value>
+  </data>
   <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
     <value>Interaktivno</value>
   </data>
@@ -366,8 +393,26 @@ Radnja: Provjerite atribute diska i ponovno pokušajte implementaciju.</value>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Račun (DOMAIN\user ili user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Ovaj je račun onemogućen ili istekao u domeni. Upotrijebite drugi račun.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Unesite račun u obliku DOMAIN\user ili user@domain.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Ovaj je račun zaključan u domeni. Otključajte ga ili upotrijebite drugi račun.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Račun nije moguće provjeriti. Ponovno odaberite Dalje za nastavak; pogrešna lozinka pokazala bi se tek nakon ponovnog pokretanja.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Provjera računa u domeni...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Domena je odbila ovaj račun ili lozinku. Provjerite ih i pokušajte ponovno.</value>
+  </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Domena je potvrdila račun.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Zadano mjesto domene</value>
@@ -390,6 +435,9 @@ Radnja: Provjerite atribute diska i ponovno pokušajte implementaciju.</value>
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Unesite valjan naziv domene, na primjer corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Domena nije dostupna iz ove mreže pa račun nije provjeren. Ponovno odaberite Dalje za nastavak; pogrešna lozinka pokazala bi se tek nakon ponovnog pokretanja.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Podaci za pridruživanje domeni nedostaju ili nisu valjani. Implementacija nije započela.</value>
   </data>
@@ -405,11 +453,32 @@ Radnja: Provjerite atribute diska i ponovno pokušajte implementaciju.</value>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Lozinka</value>
   </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Lozinka ovog računa je istekla ili je treba promijeniti. Promijenite je, a zatim pokušajte ponovno.</value>
+  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Pridruživanje domeni</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Ovo izdanje sustava Windows ne može se pridružiti domeni. Instalacija sustava Windows nastavlja se bez pridruživanja.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Račun za pridruživanje spremljen na mediju onemogućen je ili istekao u domeni. Implementacija nije započela. Administrator mora u Foundry OSD-u postaviti drugi račun i ponovno stvoriti medij.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Račun za pridruživanje spremljen na mediju zaključan je u domeni. Implementacija nije započela. Otključajte račun ili zatražite od administratora da u Foundry OSD-u postavi drugi račun i ponovno stvori medij.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Račun za pridruživanje spremljen na mediju nije moguće provjeriti. Pogrešna lozinka pokazala bi se tek nakon ponovnog pokretanja.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Domena je odbila račun za pridruživanje spremljen na mediju. Implementacija nije započela. Administrator mora ispraviti račun u Foundry OSD-u i ponovno stvoriti medij.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Domena nije dostupna iz ove mreže pa račun za pridruživanje spremljen na mediju nije provjeren. Pogrešna lozinka pokazala bi se tek nakon ponovnog pokretanja.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Lozinka računa za pridruživanje spremljenog na mediju je istekla ili je treba promijeniti. Implementacija nije započela. Administrator mora ažurirati lozinku u Foundry OSD-u i ponovno stvoriti medij.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

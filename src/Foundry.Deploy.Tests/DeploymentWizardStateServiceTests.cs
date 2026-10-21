@@ -90,6 +90,23 @@ public sealed class DeploymentWizardStateServiceTests
         Assert.Equal(expected, new DeploymentWizardStateService().CanGoNext(snapshot));
     }
 
+    [Theory]
+    [InlineData(DeploymentWizardStepId.DomainJoin)]
+    [InlineData(DeploymentWizardStepId.Summary)]
+    public void DomainCredentialCheck_BlocksBackwardNavigationWhileItRuns(DeploymentWizardStepId step)
+    {
+        var service = new DeploymentWizardStateService();
+        DeploymentWizardStateSnapshot idle = CreateSnapshot(step) with
+        {
+            AvailableSteps = DeploymentWizardStepDefinition.CreateSequence(includeAutopilot: false, includeDomainJoin: true)
+        };
+
+        Assert.True(service.CanGoPrevious(idle));
+        Assert.True(service.CanNavigate(idle));
+        Assert.False(service.CanGoPrevious(idle with { IsCheckingDomainCredentials = true }));
+        Assert.False(service.CanNavigate(idle with { IsCheckingDomainCredentials = true }));
+    }
+
     private static DeploymentWizardStateSnapshot CreateSnapshot(
         DeploymentWizardStepId currentStepId,
         bool includeAutopilot = false,

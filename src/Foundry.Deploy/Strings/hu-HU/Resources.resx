@@ -256,6 +256,33 @@ Licenc az MIT licenc alatt.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Bevezetési oldalak</value>
   </data>
+  <data name="Debug.DomainJoin.CredentialCheck" xml:space="preserve">
+    <value>Fiókellenőrzés</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountDisabled" xml:space="preserve">
+    <value>Fiók letiltva</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountLocked" xml:space="preserve">
+    <value>Fiók zárolva</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Checking" xml:space="preserve">
+    <value>Ellenőrzés folyamatban</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.DomainUnreachable" xml:space="preserve">
+    <value>Tartomány nem érhető el</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Inconclusive" xml:space="preserve">
+    <value>Nem ellenőrizhető</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.PasswordExpired" xml:space="preserve">
+    <value>Jelszó lejárt</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Rejected" xml:space="preserve">
+    <value>Elutasítva</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Valid" xml:space="preserve">
+    <value>Érvényes</value>
+  </data>
   <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
     <value>Interaktív</value>
   </data>
@@ -366,8 +393,26 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Fiók (DOMAIN\user vagy user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Ez a fiók le van tiltva vagy lejárt a tartományban. Használjon másik fiókot.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>A fiókot DOMAIN\user vagy user@domain formában adja meg.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Ez a fiók zárolva van a tartományban. Oldja fel a zárolást, vagy használjon másik fiókot.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>A fiókot nem sikerült ellenőrizni. A folytatáshoz válassza ismét a Tovább gombot; a hibás jelszó csak az újraindítás után derülne ki.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>A fiók ellenőrzése a tartományban...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>A tartomány elutasította ezt a fiókot vagy jelszót. Ellenőrizze őket, és próbálkozzon újra.</value>
+  </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>A tartomány ellenőrizte a fiókot.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>A tartomány alapértelmezett helye</value>
@@ -390,6 +435,9 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Adjon meg érvényes tartománynevet, például: corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>A tartomány nem érhető el erről a hálózatról, ezért a fiók ellenőrzése elmaradt. A folytatáshoz válassza ismét a Tovább gombot; a hibás jelszó csak az újraindítás után derülne ki.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>A tartományhoz csatlakozás adatai hiányoznak vagy érvénytelenek. A telepítés nem indult el.</value>
   </data>
@@ -405,11 +453,32 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Jelszó</value>
   </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>A fiók jelszava lejárt, vagy módosítani kell. Módosítsa, majd próbálkozzon újra.</value>
+  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Tartományhoz csatlakozás</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Ez a Windows-kiadás nem csatlakoztatható tartományhoz. A Windows telepítése enélkül folytatódik.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Az adathordozón tárolt csatlakozási fiók le van tiltva vagy lejárt a tartományban. A telepítés nem indult el. A rendszergazdának másik fiókot kell beállítania a Foundry OSD-ben, és újra létre kell hoznia az adathordozót.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Az adathordozón tárolt csatlakozási fiók zárolva van a tartományban. A telepítés nem indult el. Oldja fel a fiók zárolását, vagy kérje meg a rendszergazdát, hogy állítson be másik fiókot a Foundry OSD-ben, és hozza létre újra az adathordozót.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Az adathordozón tárolt csatlakozási fiókot nem sikerült ellenőrizni. A hibás jelszó csak az újraindítás után derülne ki.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>A tartomány elutasította az adathordozón tárolt csatlakozási fiókot. A telepítés nem indult el. A rendszergazdának ki kell javítania a fiókot a Foundry OSD-ben, és újra létre kell hoznia az adathordozót.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>A tartomány nem érhető el erről a hálózatról, ezért az adathordozón tárolt csatlakozási fiók ellenőrzése elmaradt. A hibás jelszó csak az újraindítás után derülne ki.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Az adathordozón tárolt csatlakozási fiók jelszava lejárt, vagy módosítani kell. A telepítés nem indult el. A rendszergazdának frissítenie kell a jelszót a Foundry OSD-ben, és újra létre kell hoznia az adathordozót.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

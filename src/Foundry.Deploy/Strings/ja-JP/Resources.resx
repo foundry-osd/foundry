@@ -256,6 +256,33 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>導入ページ</value>
   </data>
+  <data name="Debug.DomainJoin.CredentialCheck" xml:space="preserve">
+    <value>アカウントの確認</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountDisabled" xml:space="preserve">
+    <value>アカウントの無効化</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountLocked" xml:space="preserve">
+    <value>アカウントのロックアウト</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Checking" xml:space="preserve">
+    <value>確認中</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.DomainUnreachable" xml:space="preserve">
+    <value>ドメインに到達不可</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Inconclusive" xml:space="preserve">
+    <value>確認できません</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.PasswordExpired" xml:space="preserve">
+    <value>パスワードの期限切れ</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Rejected" xml:space="preserve">
+    <value>拒否</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Valid" xml:space="preserve">
+    <value>有効</value>
+  </data>
   <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
     <value>対話型</value>
   </data>
@@ -366,8 +393,26 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>アカウント (DOMAIN\userまたはuser@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>このアカウントはドメインで無効化されているか、期限切れです。別のアカウントを使用してください。</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>アカウントはDOMAIN\userまたはuser@domainの形式で入力してください。</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>このアカウントはドメインでロックアウトされています。ロックを解除するか、別のアカウントを使用してください。</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>アカウントを確認できませんでした。続行するには、もう一度 [次へ] を選択してください。パスワードが間違っている場合は、再起動後にしか判明しません。</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>ドメインでアカウントを確認しています...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>ドメインがこのアカウントまたはパスワードを拒否しました。確認してもう一度お試しください。</value>
+  </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>ドメインによってアカウントが確認されました。</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>ドメインの既定の場所</value>
@@ -390,6 +435,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>corp.contoso.comなどの有効なドメイン名を入力してください。</value>
   </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>このネットワークからドメインに到達できなかったため、アカウントは確認されていません。続行するには、もう一度 [次へ] を選択してください。パスワードが間違っている場合は、再起動後にしか判明しません。</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>ドメイン参加の情報がないか、無効です。展開は開始されていません。</value>
   </data>
@@ -405,11 +453,32 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>パスワード</value>
   </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>このアカウントのパスワードは期限切れか、変更が必要です。変更してから、もう一度お試しください。</value>
+  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>ドメイン参加</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>このWindowsエディションはドメインに参加できません。ドメインに参加せずにWindowsのインストールを続行します。</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>メディアに保存されている参加アカウントはドメインで無効化されているか、期限切れです。展開は開始されていません。管理者が Foundry OSD で別のアカウントを設定し、メディアを作成し直す必要があります。</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>メディアに保存されている参加アカウントはドメインでロックアウトされています。展開は開始されていません。アカウントのロックを解除するか、管理者に Foundry OSD で別のアカウントを設定してメディアを作成し直すよう依頼してください。</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>メディアに保存されている参加アカウントを確認できませんでした。パスワードが間違っている場合は、再起動後にしか判明しません。</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>メディアに保存されている参加アカウントがドメインによって拒否されました。展開は開始されていません。管理者が Foundry OSD でアカウントを修正し、メディアを作成し直す必要があります。</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>このネットワークからドメインに到達できなかったため、メディアに保存されている参加アカウントは確認されていません。パスワードが間違っている場合は、再起動後にしか判明しません。</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>メディアに保存されている参加アカウントのパスワードは期限切れか、変更が必要です。展開は開始されていません。管理者が Foundry OSD でパスワードを更新し、メディアを作成し直す必要があります。</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

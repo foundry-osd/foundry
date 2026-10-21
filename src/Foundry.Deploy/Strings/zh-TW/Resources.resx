@@ -256,6 +256,33 @@
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>部署頁面</value>
   </data>
+  <data name="Debug.DomainJoin.CredentialCheck" xml:space="preserve">
+    <value>帳戶驗證</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountDisabled" xml:space="preserve">
+    <value>帳戶已停用</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountLocked" xml:space="preserve">
+    <value>帳戶已鎖定</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Checking" xml:space="preserve">
+    <value>正在驗證</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.DomainUnreachable" xml:space="preserve">
+    <value>無法連線到網域</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Inconclusive" xml:space="preserve">
+    <value>無法驗證</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.PasswordExpired" xml:space="preserve">
+    <value>密碼已過期</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Rejected" xml:space="preserve">
+    <value>已拒絕</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Valid" xml:space="preserve">
+    <value>有效</value>
+  </data>
   <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
     <value>互動式</value>
   </data>
@@ -366,8 +393,26 @@ ErrorCode=0x80070005
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>帳戶（DOMAIN\user 或 user@domain）</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>此帳戶在網域中已停用或已過期。請使用其他帳戶。</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>請以 DOMAIN\user 或 user@domain 格式輸入帳戶。</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>此帳戶在網域中已遭鎖定。請解除鎖定或使用其他帳戶。</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>無法驗證帳戶。再次選取 [下一步] 以繼續；密碼錯誤只會在重新啟動後才顯現。</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>正在向網域驗證帳戶...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>網域拒絕了此帳戶或密碼。請檢查後再試一次。</value>
+  </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>網域已驗證此帳戶。</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>網域預設位置</value>
@@ -390,6 +435,9 @@ ErrorCode=0x80070005
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>請輸入有效的網域名稱，例如 corp.contoso.com。</value>
   </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>無法從此網路連線到網域，因此未驗證帳戶。再次選取 [下一步] 以繼續；密碼錯誤只會在重新啟動後才顯現。</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>網域加入資訊遺漏或無效。部署尚未開始。</value>
   </data>
@@ -405,11 +453,32 @@ ErrorCode=0x80070005
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>密碼</value>
   </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>此帳戶的密碼已過期或必須變更。請變更密碼，然後再試一次。</value>
+  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>網域加入</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>此 Windows 版本無法加入網域。Windows 安裝將繼續進行，不會加入網域。</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>媒體上儲存的加入帳戶在網域中已停用或已過期。部署尚未開始。系統管理員必須在 Foundry OSD 中設定其他帳戶並重新建立媒體。</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>媒體上儲存的加入帳戶在網域中已遭鎖定。部署尚未開始。請解除鎖定該帳戶，或請系統管理員在 Foundry OSD 中設定其他帳戶並重新建立媒體。</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>無法驗證媒體上儲存的加入帳戶。密碼錯誤只會在重新啟動後才顯現。</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>網域拒絕了媒體上儲存的加入帳戶。部署尚未開始。系統管理員必須在 Foundry OSD 中更正該帳戶並重新建立媒體。</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>無法從此網路連線到網域，因此未驗證媒體上儲存的加入帳戶。密碼錯誤只會在重新啟動後才顯現。</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>媒體上儲存的加入帳戶密碼已過期或必須變更。部署尚未開始。系統管理員必須在 Foundry OSD 中更新密碼並重新建立媒體。</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

@@ -256,6 +256,33 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Bereitstellungsseiten</value>
   </data>
+  <data name="Debug.DomainJoin.CredentialCheck" xml:space="preserve">
+    <value>Kontoprüfung</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountDisabled" xml:space="preserve">
+    <value>Konto deaktiviert</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountLocked" xml:space="preserve">
+    <value>Konto gesperrt</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Checking" xml:space="preserve">
+    <value>Wird geprüft</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.DomainUnreachable" xml:space="preserve">
+    <value>Domäne nicht erreichbar</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Inconclusive" xml:space="preserve">
+    <value>Prüfung nicht möglich</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.PasswordExpired" xml:space="preserve">
+    <value>Kennwort abgelaufen</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Rejected" xml:space="preserve">
+    <value>Abgelehnt</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Valid" xml:space="preserve">
+    <value>Gültig</value>
+  </data>
   <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
     <value>Interaktiv</value>
   </data>
@@ -366,8 +393,26 @@ Aktion: Überprüfen Sie die Datenträgerattribute, und wiederholen Sie die Bere
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Konto (DOMAIN\user oder user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Dieses Konto ist in der Domäne deaktiviert oder abgelaufen. Verwenden Sie ein anderes Konto.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Geben Sie das Konto als DOMAIN\user oder user@domain ein.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Dieses Konto ist in der Domäne gesperrt. Entsperren Sie es, oder verwenden Sie ein anderes Konto.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Das Konto konnte nicht überprüft werden. Wählen Sie erneut Weiter, um fortzufahren; ein falsches Kennwort würde sich erst nach dem Neustart zeigen.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Konto wird bei der Domäne überprüft...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Die Domäne hat dieses Konto oder Kennwort abgelehnt. Überprüfen Sie die Angaben, und versuchen Sie es erneut.</value>
+  </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Konto von der Domäne bestätigt.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Standardort der Domäne</value>
@@ -390,6 +435,9 @@ Aktion: Überprüfen Sie die Datenträgerattribute, und wiederholen Sie die Bere
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Geben Sie einen gültigen Domänennamen ein, z. B. corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Die Domäne ist von diesem Netzwerk aus nicht erreichbar, daher wurde das Konto nicht überprüft. Wählen Sie erneut Weiter, um fortzufahren; ein falsches Kennwort würde sich erst nach dem Neustart zeigen.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Die Angaben für den Domänenbeitritt fehlen oder sind ungültig. Die Bereitstellung wurde nicht gestartet.</value>
   </data>
@@ -405,11 +453,32 @@ Aktion: Überprüfen Sie die Datenträgerattribute, und wiederholen Sie die Bere
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Kennwort</value>
   </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Das Kennwort dieses Kontos ist abgelaufen oder muss geändert werden. Ändern Sie es, und versuchen Sie es dann erneut.</value>
+  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Domänenbeitritt</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Diese Windows-Edition kann keiner Domäne beitreten. Die Windows-Installation wird ohne Domänenbeitritt fortgesetzt.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Das auf dem Medium gespeicherte Beitrittskonto ist in der Domäne deaktiviert oder abgelaufen. Die Bereitstellung wurde nicht gestartet. Der Administrator muss in Foundry OSD ein anderes Konto festlegen und das Medium neu erstellen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Das auf dem Medium gespeicherte Beitrittskonto ist in der Domäne gesperrt. Die Bereitstellung wurde nicht gestartet. Entsperren Sie das Konto, oder lassen Sie den Administrator in Foundry OSD ein anderes Konto festlegen und das Medium neu erstellen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Das auf dem Medium gespeicherte Beitrittskonto konnte nicht überprüft werden. Ein falsches Kennwort würde sich erst nach dem Neustart zeigen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Die Domäne hat das auf dem Medium gespeicherte Beitrittskonto abgelehnt. Die Bereitstellung wurde nicht gestartet. Der Administrator muss das Konto in Foundry OSD korrigieren und das Medium neu erstellen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Die Domäne ist von diesem Netzwerk aus nicht erreichbar, daher wurde das auf dem Medium gespeicherte Beitrittskonto nicht überprüft. Ein falsches Kennwort würde sich erst nach dem Neustart zeigen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Das Kennwort des auf dem Medium gespeicherten Beitrittskontos ist abgelaufen oder muss geändert werden. Die Bereitstellung wurde nicht gestartet. Der Administrator muss das Kennwort in Foundry OSD aktualisieren und das Medium neu erstellen.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

@@ -256,6 +256,33 @@
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Σελίδες ανάπτυξης</value>
   </data>
+  <data name="Debug.DomainJoin.CredentialCheck" xml:space="preserve">
+    <value>Έλεγχος λογαριασμού</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountDisabled" xml:space="preserve">
+    <value>Απενεργοποιημένος λογαριασμός</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountLocked" xml:space="preserve">
+    <value>Κλειδωμένος λογαριασμός</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Checking" xml:space="preserve">
+    <value>Έλεγχος σε εξέλιξη</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.DomainUnreachable" xml:space="preserve">
+    <value>Ο τομέας δεν είναι προσβάσιμος</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Inconclusive" xml:space="preserve">
+    <value>Δεν ήταν δυνατός ο έλεγχος</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.PasswordExpired" xml:space="preserve">
+    <value>Ο κωδικός πρόσβασης έληξε</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Rejected" xml:space="preserve">
+    <value>Απορρίφθηκε</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Valid" xml:space="preserve">
+    <value>Έγκυρος</value>
+  </data>
   <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
     <value>Διαδραστική</value>
   </data>
@@ -366,8 +393,26 @@
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Λογαριασμός (DOMAIN\user ή user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Αυτός ο λογαριασμός είναι απενεργοποιημένος ή έχει λήξει στον τομέα. Χρησιμοποιήστε άλλο λογαριασμό.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Εισαγάγετε τον λογαριασμό ως DOMAIN\user ή user@domain.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Αυτός ο λογαριασμός είναι κλειδωμένος στον τομέα. Ξεκλειδώστε τον ή χρησιμοποιήστε άλλο λογαριασμό.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Δεν ήταν δυνατός ο έλεγχος του λογαριασμού. Επιλέξτε ξανά Επόμενο για να συνεχίσετε· ένας λανθασμένος κωδικός πρόσβασης θα φαινόταν μόνο μετά την επανεκκίνηση.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Έλεγχος του λογαριασμού στον τομέα...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Ο τομέας απέρριψε αυτόν τον λογαριασμό ή τον κωδικό πρόσβασης. Ελέγξτε τα και δοκιμάστε ξανά.</value>
+  </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Ο λογαριασμός επαληθεύτηκε από τον τομέα.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Προεπιλεγμένη θέση τομέα</value>
@@ -390,6 +435,9 @@
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Εισαγάγετε ένα έγκυρο όνομα τομέα, όπως corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Ο τομέας δεν είναι προσβάσιμος από αυτό το δίκτυο, οπότε ο λογαριασμός δεν ελέγχθηκε. Επιλέξτε ξανά Επόμενο για να συνεχίσετε· ένας λανθασμένος κωδικός πρόσβασης θα φαινόταν μόνο μετά την επανεκκίνηση.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Τα στοιχεία σύνδεσης σε τομέα λείπουν ή δεν είναι έγκυρα. Η ανάπτυξη δεν έχει ξεκινήσει.</value>
   </data>
@@ -405,11 +453,32 @@
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Κωδικός πρόσβασης</value>
   </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Ο κωδικός πρόσβασης αυτού του λογαριασμού έχει λήξει ή πρέπει να αλλάξει. Αλλάξτε τον και δοκιμάστε ξανά.</value>
+  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Σύνδεση σε τομέα</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Αυτή η έκδοση των Windows δεν μπορεί να συνδεθεί σε τομέα. Η εγκατάσταση των Windows συνεχίζεται χωρίς σύνδεση.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Ο λογαριασμός σύνδεσης που είναι αποθηκευμένος στο μέσο είναι απενεργοποιημένος ή έχει λήξει στον τομέα. Η ανάπτυξη δεν έχει ξεκινήσει. Ο διαχειριστής πρέπει να ορίσει άλλο λογαριασμό στο Foundry OSD και να δημιουργήσει ξανά το μέσο.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Ο λογαριασμός σύνδεσης που είναι αποθηκευμένος στο μέσο είναι κλειδωμένος στον τομέα. Η ανάπτυξη δεν έχει ξεκινήσει. Ξεκλειδώστε τον λογαριασμό ή ζητήστε από τον διαχειριστή να ορίσει άλλο λογαριασμό στο Foundry OSD και να δημιουργήσει ξανά το μέσο.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Δεν ήταν δυνατός ο έλεγχος του λογαριασμού σύνδεσης που είναι αποθηκευμένος στο μέσο. Ένας λανθασμένος κωδικός πρόσβασης θα φαινόταν μόνο μετά την επανεκκίνηση.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Ο τομέας απέρριψε τον λογαριασμό σύνδεσης που είναι αποθηκευμένος στο μέσο. Η ανάπτυξη δεν έχει ξεκινήσει. Ο διαχειριστής πρέπει να διορθώσει τον λογαριασμό στο Foundry OSD και να δημιουργήσει ξανά το μέσο.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Ο τομέας δεν είναι προσβάσιμος από αυτό το δίκτυο, οπότε ο λογαριασμός σύνδεσης που είναι αποθηκευμένος στο μέσο δεν ελέγχθηκε. Ένας λανθασμένος κωδικός πρόσβασης θα φαινόταν μόνο μετά την επανεκκίνηση.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Ο κωδικός πρόσβασης του λογαριασμού σύνδεσης που είναι αποθηκευμένος στο μέσο έχει λήξει ή πρέπει να αλλάξει. Η ανάπτυξη δεν έχει ξεκινήσει. Ο διαχειριστής πρέπει να ενημερώσει τον κωδικό πρόσβασης στο Foundry OSD και να δημιουργήσει ξανά το μέσο.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

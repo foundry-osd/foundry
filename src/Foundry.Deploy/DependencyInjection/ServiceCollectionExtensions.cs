@@ -5,6 +5,7 @@
 using System.Globalization;
 using System.Net.Http;
 using System.Runtime.InteropServices;
+using Foundry.Core.Services.DomainJoin;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.ApplicationShell;
 using Foundry.Deploy.Services.Autopilot;
@@ -97,7 +98,11 @@ public static class ServiceCollectionExtensions
         });
         services.AddSingleton<IDeploymentLaunchPreparationService, DeploymentLaunchPreparationService>();
 
-        services.AddSingleton<IDomainJoinPreparationService, DomainJoinPreparationService>();
+        services.AddSingleton<DomainJoinPreparationService>();
+        services.AddSingleton<IDomainJoinPreparationService>(sp => sp.GetRequiredService<DomainJoinPreparationService>());
+        services.AddSingleton<IZeroTouchMediaCredentialCheck>(sp => sp.GetRequiredService<DomainJoinPreparationService>());
+        services.AddSingleton<IDomainCredentialVerifier, DomainCredentialVerifier>();
+        services.AddSingleton<IZeroTouchDomainCredentialCheck, ZeroTouchDomainCredentialCheck>();
         services.AddSingleton<IDeploymentExecutionService, DeploymentExecutionService>();
         services.AddSingleton<UtilityProcessRunner>();
         services.AddSingleton<IProcessRunner, ProcessRunner>();

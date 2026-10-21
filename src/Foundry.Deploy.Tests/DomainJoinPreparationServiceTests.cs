@@ -7,6 +7,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.DomainJoin;
 using Foundry.Deploy.Services.DomainJoin;
 using Foundry.Deploy.Services.Security;
 
@@ -81,6 +82,55 @@ public sealed class DomainJoinPreparationServiceTests
         Assert.Equal(DomainJoinPreparationStatus.Ready, result.Status);
         Assert.Equal("corp.test", result.Input!.CredentialContext.DomainName);
         Assert.Equal("OU=Sales,DC=corp,DC=test", result.Input.TargetOuDn);
+    }
+
+    [Theory]
+    [InlineData(null, "corp.test", "CORP\\join", "corp secret")]
+    [InlineData("emea", "emea.test", "EMEA\\join", "emea secret")]
+    public async Task MediaCredentialsAreVerifiedForTheSelectedDomainAndThenErased(string? domainId, string domain, string account, string secret)
+    {
+        using var keys = Unlocked(out byte[] key);
+        var verifier = new CapturingVerifier();
+
+        DomainCredentialCheckResult? result = await new DomainJoinPreparationService(keys)
+            .VerifyMediaCredentialsAsync(TwoDomains(DomainJoinMode.Automatic, key), domainId, verifier, CancellationToken.None);
+
+        Assert.Equal(DomainCredentialCheckOutcome.Valid, result?.Outcome);
+        Assert.Equal(domain, verifier.Context?.DomainName);
+        Assert.Equal(account, verifier.Context?.AccountName);
+        Assert.Equal(secret, verifier.PasswordAtCall);
+        Assert.All(verifier.PasswordMemory.ToArray(), value => Assert.Equal('\0', value));
+    }
+
+    [Fact]
+    public async Task MediaCredentialsAreNotVerifiedWhenTheMediaIsLockedOrInteractive()
+    {
+        using var locked = new DeploymentSecretKeySession();
+        using var keys = Unlocked(out byte[] key);
+        var verifier = new CapturingVerifier();
+
+        Assert.Null(await new DomainJoinPreparationService(locked)
+            .VerifyMediaCredentialsAsync(TwoDomains(DomainJoinMode.Automatic, key), null, verifier, CancellationToken.None));
+        Assert.Null(await new DomainJoinPreparationService(keys)
+            .VerifyMediaCredentialsAsync(TwoDomains(DomainJoinMode.Interactive), null, verifier, CancellationToken.None));
+        Assert.Null(verifier.Context);
+    }
+
+    private sealed class CapturingVerifier : IDomainCredentialVerifier
+    {
+        public DomainJoinCredentialContext? Context { get; private set; }
+
+        public string? PasswordAtCall { get; private set; }
+
+        public ReadOnlyMemory<char> PasswordMemory { get; private set; }
+
+        public Task<DomainCredentialCheckResult> VerifyAsync(DomainJoinCredentialContext context, ReadOnlyMemory<char> password, CancellationToken token)
+        {
+            Context = context;
+            PasswordAtCall = new string(password.Span);
+            PasswordMemory = password;
+            return Task.FromResult(new DomainCredentialCheckResult(DomainCredentialCheckOutcome.Valid));
+        }
     }
 
     [Fact]

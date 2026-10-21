@@ -26,6 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.DirectoryServices.Protocols" Version="10.0.13" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Foundry.Telemetry\Foundry.Telemetry.csproj" />
     <ProjectReference Include="..\Foundry.Utilities\Foundry.Utilities.csproj" />
   </ItemGroup>

@@ -4,10 +4,10 @@
 
 using System.DirectoryServices.Protocols;
 using System.Net;
-using System.Runtime.InteropServices;
 using System.Security;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.DomainJoin;
 namespace Foundry.PostInstall.Windows;
 
 /// <summary>Owns a signed/sealed connection to one writable DC for serialized reads and at most one move.</summary>
@@ -51,7 +51,6 @@ internal sealed class DomainComputerAccountDirectory : IDomainComputerAccountDir
     private const int LdapServerDown = 81;
     private const int LdapConnectError = 91;
     private const int NoSuchObject = 32;
-    private const uint ForceRediscovery = 0x1;
     private LdapConnection? connection;
     private string domain = string.Empty;
     private string namingContext = string.Empty;
@@ -276,28 +275,7 @@ internal sealed class DomainComputerAccountDirectory : IDomainComputerAccountDir
     public void Dispose() { connection?.Dispose(); connection = null; }
     private static string LocateController(string domain, bool forceRediscovery)
     {
-        nint buffer = 0;
-        try
-        {
-            uint status = DsGetDcName(null, domain, 0, null,
-                0x10 | 0x20000 | 0x40000000 | 0x1000 | (forceRediscovery ? ForceRediscovery : 0), out buffer);
-            if (status != 0) throw new DomainDirectoryException(nativeError: unchecked((int)status), transient: true);
-            var info = Marshal.PtrToStructure<DomainControllerInfo>(buffer);
-            string foundDomain = Marshal.PtrToStringUni(info.DomainName) ?? string.Empty;
-            string controller = (Marshal.PtrToStringUni(info.DomainControllerName) ?? string.Empty).TrimStart('\\');
-            if (DomainJoinCredentialContext.CanonicalizeDomainName(foundDomain) != domain || !DomainJoinCredentialContext.IsValidDomainName(controller)) throw new DomainDirectoryException();
-            return controller;
-        }
-        finally { if (buffer != 0) NetApiBufferFree(buffer); }
+        if (DomainControllerLocator.TryLocate(domain, forceRediscovery, out string controller, out int nativeError)) return controller;
+        throw nativeError != 0 ? new DomainDirectoryException(nativeError: nativeError, transient: true) : new DomainDirectoryException();
     }
-    [StructLayout(LayoutKind.Sequential)]
-    private struct DomainControllerInfo
-    {
-        public nint DomainControllerName; public nint DomainControllerAddress; public uint DomainControllerAddressType;
-        public Guid DomainGuid; public nint DomainName; public nint DnsForestName; public uint Flags; public nint DcSiteName; public nint ClientSiteName;
-    }
-    [DllImport("netapi32.dll", EntryPoint = "DsGetDcNameW", ExactSpelling = true, CharSet = CharSet.Unicode)]
-    private static extern uint DsGetDcName(string? computerName, string? domainName, nint domainGuid, string? siteName, uint flags, out nint buffer);
-    [DllImport("netapi32.dll", ExactSpelling = true)]
-    private static extern uint NetApiBufferFree(nint buffer);
 }

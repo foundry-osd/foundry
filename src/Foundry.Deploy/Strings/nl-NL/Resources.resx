@@ -256,6 +256,33 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Implementatiepagina's</value>
   </data>
+  <data name="Debug.DomainJoin.CredentialCheck" xml:space="preserve">
+    <value>Accountcontrole</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountDisabled" xml:space="preserve">
+    <value>Account uitgeschakeld</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountLocked" xml:space="preserve">
+    <value>Account vergrendeld</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Checking" xml:space="preserve">
+    <value>Bezig met controleren</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.DomainUnreachable" xml:space="preserve">
+    <value>Domein onbereikbaar</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Inconclusive" xml:space="preserve">
+    <value>Kon niet worden gecontroleerd</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.PasswordExpired" xml:space="preserve">
+    <value>Wachtwoord verlopen</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Rejected" xml:space="preserve">
+    <value>Geweigerd</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Valid" xml:space="preserve">
+    <value>Geldig</value>
+  </data>
   <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
     <value>Interactief</value>
   </data>
@@ -366,8 +393,26 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Account (DOMAIN\user of user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Dit account is uitgeschakeld of verlopen in het domein. Gebruik een ander account.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Voer het account in als DOMAIN\user of user@domain.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Dit account is vergrendeld in het domein. Ontgrendel het of gebruik een ander account.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Het account kon niet worden gecontroleerd. Selecteer opnieuw Volgende om door te gaan; een onjuist wachtwoord zou pas na het opnieuw opstarten blijken.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Account wordt gecontroleerd bij het domein...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Het domein heeft dit account of wachtwoord geweigerd. Controleer ze en probeer het opnieuw.</value>
+  </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Account geverifieerd door het domein.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Standaardlocatie van het domein</value>
@@ -390,6 +435,9 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Voer een geldige domeinnaam in, zoals corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Het domein is vanaf dit netwerk niet bereikbaar, dus het account is niet gecontroleerd. Selecteer opnieuw Volgende om door te gaan; een onjuist wachtwoord zou pas na het opnieuw opstarten blijken.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>De gegevens voor domeintoetreding ontbreken of zijn ongeldig. De implementatie is niet gestart.</value>
   </data>
@@ -405,11 +453,32 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Wachtwoord</value>
   </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Het wachtwoord van dit account is verlopen of moet worden gewijzigd. Wijzig het en probeer het opnieuw.</value>
+  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Domeintoetreding</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Deze Windows-editie kan niet toetreden tot een domein. De Windows-installatie gaat verder zonder domeintoetreding.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Het toetredingsaccount op het medium is uitgeschakeld of verlopen in het domein. De implementatie is niet gestart. De beheerder moet een ander account instellen in Foundry OSD en het medium opnieuw maken.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Het toetredingsaccount op het medium is vergrendeld in het domein. De implementatie is niet gestart. Ontgrendel het account, of laat de beheerder een ander account instellen in Foundry OSD en het medium opnieuw maken.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Het toetredingsaccount op het medium kon niet worden gecontroleerd. Een onjuist wachtwoord zou pas na het opnieuw opstarten blijken.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Het domein heeft het toetredingsaccount op het medium geweigerd. De implementatie is niet gestart. De beheerder moet het account in Foundry OSD corrigeren en het medium opnieuw maken.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Het domein is vanaf dit netwerk niet bereikbaar, dus het toetredingsaccount op het medium is niet gecontroleerd. Een onjuist wachtwoord zou pas na het opnieuw opstarten blijken.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Het wachtwoord van het toetredingsaccount op het medium is verlopen of moet worden gewijzigd. De implementatie is niet gestart. De beheerder moet het wachtwoord in Foundry OSD bijwerken en het medium opnieuw maken.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

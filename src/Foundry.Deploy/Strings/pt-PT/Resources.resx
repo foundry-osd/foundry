@@ -256,6 +256,33 @@ Licenciado sob a licença MIT.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Páginas de implementação</value>
   </data>
+  <data name="Debug.DomainJoin.CredentialCheck" xml:space="preserve">
+    <value>Verificação da conta</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountDisabled" xml:space="preserve">
+    <value>Conta desativada</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountLocked" xml:space="preserve">
+    <value>Conta bloqueada</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Checking" xml:space="preserve">
+    <value>A verificar</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.DomainUnreachable" xml:space="preserve">
+    <value>Domínio inacessível</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Inconclusive" xml:space="preserve">
+    <value>Não foi possível verificar</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.PasswordExpired" xml:space="preserve">
+    <value>Palavra-passe expirada</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Rejected" xml:space="preserve">
+    <value>Rejeitada</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Valid" xml:space="preserve">
+    <value>Válida</value>
+  </data>
   <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
     <value>Interativo</value>
   </data>
@@ -366,8 +393,26 @@ Ação: verifique os atributos do disco e tente novamente a implementação.</va
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Conta (DOMAIN\user ou user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Esta conta está desativada ou expirada no domínio. Utilize outra conta.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Introduza a conta como DOMAIN\user ou user@domain.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Esta conta está bloqueada no domínio. Desbloqueie-a ou utilize outra conta.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Não foi possível verificar a conta. Selecione Seguinte novamente para continuar; uma palavra-passe errada só se revelaria após o reinício.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>A verificar a conta junto do domínio...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>O domínio rejeitou esta conta ou palavra-passe. Verifique-as e tente novamente.</value>
+  </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Conta verificada pelo domínio.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Localização predefinida do domínio</value>
@@ -390,6 +435,9 @@ Ação: verifique os atributos do disco e tente novamente a implementação.</va
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Introduza um nome de domínio válido, como corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Não foi possível contactar o domínio a partir desta rede, pelo que a conta não foi verificada. Selecione Seguinte novamente para continuar; uma palavra-passe errada só se revelaria após o reinício.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>As informações de associação ao domínio estão em falta ou não são válidas. A implementação não foi iniciada.</value>
   </data>
@@ -405,11 +453,32 @@ Ação: verifique os atributos do disco e tente novamente a implementação.</va
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Palavra-passe</value>
   </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>A palavra-passe desta conta expirou ou tem de ser alterada. Altere-a e tente novamente.</value>
+  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Associação ao domínio</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Esta edição do Windows não pode ser associada a um domínio. A instalação do Windows continua sem a associação.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>A conta de associação guardada no suporte está desativada ou expirada no domínio. A implementação não foi iniciada. O administrador tem de definir outra conta no Foundry OSD e criar novamente o suporte.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>A conta de associação guardada no suporte está bloqueada no domínio. A implementação não foi iniciada. Desbloqueie a conta ou peça ao administrador para definir outra conta no Foundry OSD e criar novamente o suporte.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Não foi possível verificar a conta de associação guardada no suporte. Uma palavra-passe errada só se revelaria após o reinício.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>O domínio rejeitou a conta de associação guardada no suporte. A implementação não foi iniciada. O administrador tem de corrigir a conta no Foundry OSD e criar novamente o suporte.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Não foi possível contactar o domínio a partir desta rede, pelo que a conta de associação guardada no suporte não foi verificada. Uma palavra-passe errada só se revelaria após o reinício.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>A palavra-passe da conta de associação guardada no suporte expirou ou tem de ser alterada. A implementação não foi iniciada. O administrador tem de atualizar a palavra-passe no Foundry OSD e criar novamente o suporte.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

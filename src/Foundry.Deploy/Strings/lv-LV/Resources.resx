@@ -256,6 +256,33 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Izvietošanas lapas</value>
   </data>
+  <data name="Debug.DomainJoin.CredentialCheck" xml:space="preserve">
+    <value>Konta pārbaude</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountDisabled" xml:space="preserve">
+    <value>Konts atspējots</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountLocked" xml:space="preserve">
+    <value>Konts bloķēts</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Checking" xml:space="preserve">
+    <value>Notiek pārbaude</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.DomainUnreachable" xml:space="preserve">
+    <value>Domēns nav sasniedzams</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Inconclusive" xml:space="preserve">
+    <value>Nevarēja pārbaudīt</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.PasswordExpired" xml:space="preserve">
+    <value>Parolei beidzies derīgums</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Rejected" xml:space="preserve">
+    <value>Noraidīts</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Valid" xml:space="preserve">
+    <value>Derīgs</value>
+  </data>
   <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
     <value>Interaktīvi</value>
   </data>
@@ -366,8 +393,26 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Konts (DOMAIN\user vai user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Šis konts domēnā ir atspējots vai tam ir beidzies derīgums. Izmantojiet citu kontu.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Ievadiet kontu formātā DOMAIN\user vai user@domain.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Šis konts domēnā ir bloķēts. Atbloķējiet to vai izmantojiet citu kontu.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Kontu nevarēja pārbaudīt. Lai turpinātu, vēlreiz atlasiet Tālāk; nepareiza parole atklātos tikai pēc restartēšanas.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Notiek konta pārbaude domēnā...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Domēns noraidīja šo kontu vai paroli. Pārbaudiet tos un mēģiniet vēlreiz.</value>
+  </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Domēns apstiprināja kontu.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Domēna noklusējuma atrašanās vieta</value>
@@ -390,6 +435,9 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Ievadiet derīgu domēna nosaukumu, piemēram, corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Domēns nav sasniedzams no šī tīkla, tāpēc konts netika pārbaudīts. Lai turpinātu, vēlreiz atlasiet Tālāk; nepareiza parole atklātos tikai pēc restartēšanas.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Pievienošanās domēnam informācijas trūkst vai tā nav derīga. Izvietošana nav sākta.</value>
   </data>
@@ -405,11 +453,32 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Parole</value>
   </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Šī konta parolei ir beidzies derīgums, vai tā ir jāmaina. Nomainiet to un pēc tam mēģiniet vēlreiz.</value>
+  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Pievienošanās domēnam</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Šo Windows izdevumu nevar pievienot domēnam. Windows instalēšana turpinās bez pievienošanās domēnam.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Datu nesējā saglabātais pievienošanās konts domēnā ir atspējots vai tam ir beidzies derīgums. Izvietošana nav sākta. Administratoram programmā Foundry OSD ir jāiestata cits konts un jāizveido datu nesējs no jauna.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Datu nesējā saglabātais pievienošanās konts domēnā ir bloķēts. Izvietošana nav sākta. Atbloķējiet kontu vai lūdziet administratoram programmā Foundry OSD iestatīt citu kontu un izveidot datu nesēju no jauna.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Datu nesējā saglabāto pievienošanās kontu nevarēja pārbaudīt. Nepareiza parole atklātos tikai pēc restartēšanas.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Domēns noraidīja datu nesējā saglabāto pievienošanās kontu. Izvietošana nav sākta. Administratoram ir jāizlabo konts programmā Foundry OSD un jāizveido datu nesējs no jauna.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Domēns nav sasniedzams no šī tīkla, tāpēc datu nesējā saglabātais pievienošanās konts netika pārbaudīts. Nepareiza parole atklātos tikai pēc restartēšanas.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Datu nesējā saglabātā pievienošanās konta parolei ir beidzies derīgums, vai tā ir jāmaina. Izvietošana nav sākta. Administratoram ir jāatjaunina parole programmā Foundry OSD un jāizveido datu nesējs no jauna.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

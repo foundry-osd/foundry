@@ -256,6 +256,33 @@ Licencjonowany na licencji MIT.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Strony wdrożeniowe</value>
   </data>
+  <data name="Debug.DomainJoin.CredentialCheck" xml:space="preserve">
+    <value>Sprawdzanie konta</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountDisabled" xml:space="preserve">
+    <value>Konto wyłączone</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountLocked" xml:space="preserve">
+    <value>Konto zablokowane</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Checking" xml:space="preserve">
+    <value>Sprawdzanie</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.DomainUnreachable" xml:space="preserve">
+    <value>Domena nieosiągalna</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Inconclusive" xml:space="preserve">
+    <value>Nie można sprawdzić</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.PasswordExpired" xml:space="preserve">
+    <value>Hasło wygasło</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Rejected" xml:space="preserve">
+    <value>Odrzucone</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Valid" xml:space="preserve">
+    <value>Prawidłowe</value>
+  </data>
   <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
     <value>Interaktywnie</value>
   </data>
@@ -366,8 +393,26 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Konto (DOMAIN\user lub user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>To konto jest wyłączone lub wygasło w domenie. Użyj innego konta.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Wprowadź konto w formacie DOMAIN\user lub user@domain.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>To konto jest zablokowane w domenie. Odblokuj je lub użyj innego konta.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Nie można sprawdzić konta. Wybierz ponownie Dalej, aby kontynuować; błędne hasło ujawniłoby się dopiero po ponownym uruchomieniu.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Sprawdzanie konta w domenie...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Domena odrzuciła to konto lub hasło. Sprawdź je i spróbuj ponownie.</value>
+  </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Konto zweryfikowane przez domenę.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Domyślna lokalizacja domeny</value>
@@ -390,6 +435,9 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Wprowadź prawidłową nazwę domeny, na przykład corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Nie można połączyć się z domeną z tej sieci, więc konto nie zostało sprawdzone. Wybierz ponownie Dalej, aby kontynuować; błędne hasło ujawniłoby się dopiero po ponownym uruchomieniu.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Brak informacji o dołączaniu do domeny lub są one nieprawidłowe. Wdrażanie nie zostało rozpoczęte.</value>
   </data>
@@ -405,11 +453,32 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Hasło</value>
   </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Hasło tego konta wygasło lub musi zostać zmienione. Zmień je, a następnie spróbuj ponownie.</value>
+  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Dołączanie do domeny</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Ta edycja systemu Windows nie może dołączyć do domeny. Instalacja systemu Windows jest kontynuowana bez dołączania.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Konto dołączania zapisane na nośniku jest wyłączone lub wygasło w domenie. Wdrażanie nie zostało rozpoczęte. Administrator musi ustawić inne konto w Foundry OSD i ponownie utworzyć nośnik.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Konto dołączania zapisane na nośniku jest zablokowane w domenie. Wdrażanie nie zostało rozpoczęte. Odblokuj konto lub poproś administratora o ustawienie innego konta w Foundry OSD i ponowne utworzenie nośnika.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Nie można sprawdzić konta dołączania zapisanego na nośniku. Błędne hasło ujawniłoby się dopiero po ponownym uruchomieniu.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Domena odrzuciła konto dołączania zapisane na nośniku. Wdrażanie nie zostało rozpoczęte. Administrator musi poprawić konto w Foundry OSD i ponownie utworzyć nośnik.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Nie można połączyć się z domeną z tej sieci, więc konto dołączania zapisane na nośniku nie zostało sprawdzone. Błędne hasło ujawniłoby się dopiero po ponownym uruchomieniu.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Hasło konta dołączania zapisanego na nośniku wygasło lub musi zostać zmienione. Wdrażanie nie zostało rozpoczęte. Administrator musi zaktualizować hasło w Foundry OSD i ponownie utworzyć nośnik.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

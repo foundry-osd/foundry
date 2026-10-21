@@ -256,6 +256,33 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Dağıtım sayfaları</value>
   </data>
+  <data name="Debug.DomainJoin.CredentialCheck" xml:space="preserve">
+    <value>Hesap denetimi</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountDisabled" xml:space="preserve">
+    <value>Hesap devre dışı</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountLocked" xml:space="preserve">
+    <value>Hesap kilitli</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Checking" xml:space="preserve">
+    <value>Denetleniyor</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.DomainUnreachable" xml:space="preserve">
+    <value>Etki alanına ulaşılamıyor</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Inconclusive" xml:space="preserve">
+    <value>Denetlenemedi</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.PasswordExpired" xml:space="preserve">
+    <value>Parolanın süresi doldu</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Rejected" xml:space="preserve">
+    <value>Reddedildi</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Valid" xml:space="preserve">
+    <value>Geçerli</value>
+  </data>
   <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
     <value>Etkileşimli</value>
   </data>
@@ -366,8 +393,26 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Hesap (DOMAIN\user veya user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Bu hesap etki alanında devre dışı veya süresi dolmuş. Başka bir hesap kullanın.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Hesabı DOMAIN\user veya user@domain biçiminde girin.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Bu hesap etki alanında kilitli. Kilidini açın veya başka bir hesap kullanın.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Hesap denetlenemedi. Devam etmek için yeniden İleri'yi seçin; yanlış bir parola ancak yeniden başlatmadan sonra ortaya çıkar.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Hesap etki alanında denetleniyor...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Etki alanı bu hesabı veya parolayı reddetti. Bunları denetleyip yeniden deneyin.</value>
+  </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Hesap etki alanı tarafından doğrulandı.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Etki alanının varsayılan konumu</value>
@@ -390,6 +435,9 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>corp.contoso.com gibi geçerli bir etki alanı adı girin.</value>
   </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Etki alanına bu ağdan ulaşılamadı, bu nedenle hesap denetlenmedi. Devam etmek için yeniden İleri'yi seçin; yanlış bir parola ancak yeniden başlatmadan sonra ortaya çıkar.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Etki alanına katılma bilgileri eksik veya geçersiz. Dağıtım başlamadı.</value>
   </data>
@@ -405,11 +453,32 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Parola</value>
   </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Bu hesabın parolasının süresi doldu veya parolanın değiştirilmesi gerekiyor. Parolayı değiştirip yeniden deneyin.</value>
+  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Etki alanına katılma</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Bu Windows sürümü etki alanına katılamaz. Windows kurulumu etki alanına katılmadan devam eder.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Medyada depolanan katılma hesabı etki alanında devre dışı veya süresi dolmuş. Dağıtım başlamadı. Yöneticinin Foundry OSD'de başka bir hesap ayarlaması ve medyayı yeniden oluşturması gerekir.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Medyada depolanan katılma hesabı etki alanında kilitli. Dağıtım başlamadı. Hesabın kilidini açın veya yöneticiden Foundry OSD'de başka bir hesap ayarlamasını ve medyayı yeniden oluşturmasını isteyin.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Medyada depolanan katılma hesabı denetlenemedi. Yanlış bir parola ancak yeniden başlatmadan sonra ortaya çıkar.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Etki alanı, medyada depolanan katılma hesabını reddetti. Dağıtım başlamadı. Yöneticinin hesabı Foundry OSD'de düzeltmesi ve medyayı yeniden oluşturması gerekir.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Etki alanına bu ağdan ulaşılamadı, bu nedenle medyada depolanan katılma hesabı denetlenmedi. Yanlış bir parola ancak yeniden başlatmadan sonra ortaya çıkar.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Medyada depolanan katılma hesabının parolasının süresi doldu veya parolanın değiştirilmesi gerekiyor. Dağıtım başlamadı. Yöneticinin parolayı Foundry OSD'de güncellemesi ve medyayı yeniden oluşturması gerekir.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

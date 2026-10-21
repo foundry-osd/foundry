@@ -256,6 +256,33 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Diegimo puslapiai</value>
   </data>
+  <data name="Debug.DomainJoin.CredentialCheck" xml:space="preserve">
+    <value>Paskyros tikrinimas</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountDisabled" xml:space="preserve">
+    <value>Paskyra išjungta</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountLocked" xml:space="preserve">
+    <value>Paskyra užrakinta</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Checking" xml:space="preserve">
+    <value>Tikrinama</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.DomainUnreachable" xml:space="preserve">
+    <value>Domenas nepasiekiamas</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Inconclusive" xml:space="preserve">
+    <value>Nepavyko patikrinti</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.PasswordExpired" xml:space="preserve">
+    <value>Slaptažodžio galiojimas baigėsi</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Rejected" xml:space="preserve">
+    <value>Atmesta</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Valid" xml:space="preserve">
+    <value>Tinkama</value>
+  </data>
   <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
     <value>Interaktyvus</value>
   </data>
@@ -366,8 +393,26 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Paskyra (DOMAIN\user arba user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Ši paskyra domene išjungta arba jos galiojimas baigėsi. Naudokite kitą paskyrą.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Įveskite paskyrą formatu DOMAIN\user arba user@domain.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Ši paskyra domene užrakinta. Atrakinkite ją arba naudokite kitą paskyrą.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Paskyros patikrinti nepavyko. Norėdami tęsti, dar kartą pasirinkite Kitas; neteisingas slaptažodis paaiškėtų tik po paleidimo iš naujo.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Tikrinama paskyra domene...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Domenas atmetė šią paskyrą arba slaptažodį. Patikrinkite juos ir bandykite dar kartą.</value>
+  </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Domenas patvirtino paskyrą.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Numatytoji domeno vieta</value>
@@ -390,6 +435,9 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value>
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Įveskite tinkamą domeno vardą, pvz., corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Domeno nepavyko pasiekti iš šio tinklo, todėl paskyra nebuvo patikrinta. Norėdami tęsti, dar kartą pasirinkite Kitas; neteisingas slaptažodis paaiškėtų tik po paleidimo iš naujo.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Prisijungimo prie domeno informacijos trūksta arba ji netinkama. Diegimas nepradėtas.</value>
   </data>
@@ -405,11 +453,32 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Slaptažodis</value>
   </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Šios paskyros slaptažodžio galiojimas baigėsi arba jį reikia pakeisti. Pakeiskite jį ir bandykite dar kartą.</value>
+  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Prisijungimas prie domeno</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Šio Windows leidimo negalima prijungti prie domeno. Windows diegimas tęsiamas be prisijungimo prie domeno.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Laikmenoje įrašyta prisijungimo paskyra domene išjungta arba jos galiojimas baigėsi. Diegimas nepradėtas. Administratorius turi programoje Foundry OSD nustatyti kitą paskyrą ir iš naujo sukurti laikmeną.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Laikmenoje įrašyta prisijungimo paskyra domene užrakinta. Diegimas nepradėtas. Atrakinkite paskyrą arba paprašykite administratoriaus programoje Foundry OSD nustatyti kitą paskyrą ir iš naujo sukurti laikmeną.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Laikmenoje įrašytos prisijungimo paskyros patikrinti nepavyko. Neteisingas slaptažodis paaiškėtų tik po paleidimo iš naujo.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Domenas atmetė laikmenoje įrašytą prisijungimo paskyrą. Diegimas nepradėtas. Administratorius turi pataisyti paskyrą programoje Foundry OSD ir iš naujo sukurti laikmeną.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Domeno nepavyko pasiekti iš šio tinklo, todėl laikmenoje įrašyta prisijungimo paskyra nebuvo patikrinta. Neteisingas slaptažodis paaiškėtų tik po paleidimo iš naujo.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Laikmenoje įrašytos prisijungimo paskyros slaptažodžio galiojimas baigėsi arba jį reikia pakeisti. Diegimas nepradėtas. Administratorius turi atnaujinti slaptažodį programoje Foundry OSD ir iš naujo sukurti laikmeną.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

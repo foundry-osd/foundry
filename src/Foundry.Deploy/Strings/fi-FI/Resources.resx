@@ -256,6 +256,33 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Käyttöönottosivut</value>
   </data>
+  <data name="Debug.DomainJoin.CredentialCheck" xml:space="preserve">
+    <value>Tilin tarkistus</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountDisabled" xml:space="preserve">
+    <value>Tili poistettu käytöstä</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountLocked" xml:space="preserve">
+    <value>Tili lukittu</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Checking" xml:space="preserve">
+    <value>Tarkistetaan</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.DomainUnreachable" xml:space="preserve">
+    <value>Toimialue ei tavoitettavissa</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Inconclusive" xml:space="preserve">
+    <value>Tarkistus epäonnistui</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.PasswordExpired" xml:space="preserve">
+    <value>Salasana vanhentunut</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Rejected" xml:space="preserve">
+    <value>Hylätty</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Valid" xml:space="preserve">
+    <value>Kelvollinen</value>
+  </data>
   <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
     <value>Interaktiivinen</value>
   </data>
@@ -366,8 +393,26 @@ Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Tili (DOMAIN\user tai user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Tämä tili on poistettu käytöstä tai vanhentunut toimialueella. Käytä toista tiliä.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Anna tili muodossa DOMAIN\user tai user@domain.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Tämä tili on lukittu toimialueella. Avaa sen lukitus tai käytä toista tiliä.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Tiliä ei voitu tarkistaa. Jatka valitsemalla Seuraava uudelleen; väärä salasana paljastuisi vasta uudelleenkäynnistyksen jälkeen.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Tiliä tarkistetaan toimialueelta...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Toimialue hylkäsi tämän tilin tai salasanan. Tarkista ne ja yritä uudelleen.</value>
+  </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Toimialue vahvisti tilin.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Toimialueen oletussijainti</value>
@@ -390,6 +435,9 @@ Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value>
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Anna kelvollinen toimialueen nimi, esimerkiksi corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Toimialueeseen ei saatu yhteyttä tästä verkosta, joten tiliä ei tarkistettu. Jatka valitsemalla Seuraava uudelleen; väärä salasana paljastuisi vasta uudelleenkäynnistyksen jälkeen.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Toimialueeseen liittymisen tiedot puuttuvat tai ovat virheellisiä. Käyttöönotto ei ole alkanut.</value>
   </data>
@@ -405,11 +453,32 @@ Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Salasana</value>
   </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Tämän tilin salasana on vanhentunut tai se on vaihdettava. Vaihda se ja yritä sitten uudelleen.</value>
+  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Toimialueeseen liittyminen</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Tätä Windows-versiota ei voi liittää toimialueeseen. Windowsin asennus jatkuu ilman liittämistä.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Tietovälineelle tallennettu liittymistili on poistettu käytöstä tai vanhentunut toimialueella. Käyttöönotto ei ole alkanut. Järjestelmänvalvojan on määritettävä toinen tili Foundry OSD:ssä ja luotava tietoväline uudelleen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Tietovälineelle tallennettu liittymistili on lukittu toimialueella. Käyttöönotto ei ole alkanut. Avaa tilin lukitus tai pyydä järjestelmänvalvojaa määrittämään toinen tili Foundry OSD:ssä ja luomaan tietoväline uudelleen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Tietovälineelle tallennettua liittymistiliä ei voitu tarkistaa. Väärä salasana paljastuisi vasta uudelleenkäynnistyksen jälkeen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Toimialue hylkäsi tietovälineelle tallennetun liittymistilin. Käyttöönotto ei ole alkanut. Järjestelmänvalvojan on korjattava tili Foundry OSD:ssä ja luotava tietoväline uudelleen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Toimialueeseen ei saatu yhteyttä tästä verkosta, joten tietovälineelle tallennettua liittymistiliä ei tarkistettu. Väärä salasana paljastuisi vasta uudelleenkäynnistyksen jälkeen.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Tietovälineelle tallennetun liittymistilin salasana on vanhentunut tai se on vaihdettava. Käyttöönotto ei ole alkanut. Järjestelmänvalvojan on päivitettävä salasana Foundry OSD:ssä ja luotava tietoväline uudelleen.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

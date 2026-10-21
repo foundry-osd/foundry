@@ -256,6 +256,33 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Juurutamise lehed</value>
   </data>
+  <data name="Debug.DomainJoin.CredentialCheck" xml:space="preserve">
+    <value>Konto kontroll</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountDisabled" xml:space="preserve">
+    <value>Konto keelatud</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountLocked" xml:space="preserve">
+    <value>Konto lukustatud</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Checking" xml:space="preserve">
+    <value>Kontrollimine</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.DomainUnreachable" xml:space="preserve">
+    <value>Domeen pole kättesaadav</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Inconclusive" xml:space="preserve">
+    <value>Ei saanud kontrollida</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.PasswordExpired" xml:space="preserve">
+    <value>Parool aegunud</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Rejected" xml:space="preserve">
+    <value>Tagasi lükatud</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Valid" xml:space="preserve">
+    <value>Kehtiv</value>
+  </data>
   <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
     <value>Interaktiivne</value>
   </data>
@@ -366,8 +393,26 @@ Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Konto (DOMAIN\user või user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>See konto on domeenis keelatud või aegunud. Kasutage muud kontot.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Sisestage konto kujul DOMAIN\user või user@domain.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>See konto on domeenis lukustatud. Avage see või kasutage muud kontot.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Kontot ei saanud kontrollida. Jätkamiseks valige uuesti Edasi; vale parool ilmneks alles pärast taaskäivitust.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Kontot kontrollitakse domeenis...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Domeen lükkas selle konto või parooli tagasi. Kontrollige neid ja proovige uuesti.</value>
+  </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Domeen kinnitas konto.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Domeeni vaikeasukoht</value>
@@ -390,6 +435,9 @@ Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value>
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Sisestage kehtiv domeeninimi, näiteks corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Domeeniga ei saadud sellest võrgust ühendust, seega kontot ei kontrollitud. Jätkamiseks valige uuesti Edasi; vale parool ilmneks alles pärast taaskäivitust.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Domeeniga liitumise teave puudub või ei kehti. Juurutamine pole alanud.</value>
   </data>
@@ -405,11 +453,32 @@ Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Parool</value>
   </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Selle konto parool on aegunud või tuleb muuta. Muutke see ja proovige siis uuesti.</value>
+  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Domeeniga liitumine</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>See Windowsi väljaanne ei saa domeeniga liituda. Windowsi installimine jätkub ilma selleta.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Andmekandjale salvestatud liitumiskonto on domeenis keelatud või aegunud. Juurutamine pole alanud. Administraator peab Foundry OSD-s määrama muu konto ja andmekandja uuesti looma.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Andmekandjale salvestatud liitumiskonto on domeenis lukustatud. Juurutamine pole alanud. Avage konto või laske administraatoril Foundry OSD-s muu konto määrata ja andmekandja uuesti luua.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Andmekandjale salvestatud liitumiskontot ei saanud kontrollida. Vale parool ilmneks alles pärast taaskäivitust.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Domeen lükkas andmekandjale salvestatud liitumiskonto tagasi. Juurutamine pole alanud. Administraator peab konto Foundry OSD-s parandama ja andmekandja uuesti looma.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Domeeniga ei saadud sellest võrgust ühendust, seega andmekandjale salvestatud liitumiskontot ei kontrollitud. Vale parool ilmneks alles pärast taaskäivitust.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Andmekandjale salvestatud liitumiskonto parool on aegunud või tuleb muuta. Juurutamine pole alanud. Administraator peab parooli Foundry OSD-s värskendama ja andmekandja uuesti looma.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

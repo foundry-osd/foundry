@@ -256,6 +256,33 @@
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>דפי פריסה</value>
   </data>
+  <data name="Debug.DomainJoin.CredentialCheck" xml:space="preserve">
+    <value>בדיקת חשבון</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountDisabled" xml:space="preserve">
+    <value>החשבון מושבת</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountLocked" xml:space="preserve">
+    <value>החשבון נעול</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Checking" xml:space="preserve">
+    <value>בודק</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.DomainUnreachable" xml:space="preserve">
+    <value>התחום אינו זמין</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Inconclusive" xml:space="preserve">
+    <value>לא ניתן היה לבדוק</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.PasswordExpired" xml:space="preserve">
+    <value>תוקף הסיסמה פג</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Rejected" xml:space="preserve">
+    <value>נדחה</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Valid" xml:space="preserve">
+    <value>תקף</value>
+  </data>
   <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
     <value>אינטראקטיבי</value>
   </data>
@@ -366,8 +393,26 @@ ErrorCode=0x80070005
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>חשבון (DOMAIN\user או user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>חשבון זה מושבת או שתוקפו פג בתחום. השתמש בחשבון אחר.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>הזן את החשבון בתבנית DOMAIN\user או user@domain.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>חשבון זה נעול בתחום. בטל את הנעילה או השתמש בחשבון אחר.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>לא ניתן היה לבדוק את החשבון. בחר שוב 'הבא' כדי להמשיך; סיסמה שגויה תתגלה רק לאחר ההפעלה מחדש.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>בודק את החשבון מול התחום...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>התחום דחה את החשבון או את הסיסמה. בדוק אותם ונסה שוב.</value>
+  </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>החשבון אומת על ידי התחום.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>מיקום ברירת המחדל של התחום</value>
@@ -390,6 +435,9 @@ ErrorCode=0x80070005
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>הזן שם תחום תקין, כגון corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>לא ניתן היה להגיע לתחום מרשת זו, ולכן החשבון לא נבדק. בחר שוב 'הבא' כדי להמשיך; סיסמה שגויה תתגלה רק לאחר ההפעלה מחדש.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>פרטי ההצטרפות לתחום חסרים או אינם תקינים. הפריסה לא התחילה.</value>
   </data>
@@ -405,11 +453,32 @@ ErrorCode=0x80070005
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>סיסמה</value>
   </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>תוקף הסיסמה של חשבון זה פג או שיש לשנות אותה. שנה אותה ונסה שוב.</value>
+  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>הצטרפות לתחום</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>מהדורת Windows זו אינה יכולה להצטרף לתחום. התקנת Windows ממשיכה ללא הצטרפות.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>חשבון ההצטרפות השמור במדיה מושבת או שתוקפו פג בתחום. הפריסה לא התחילה. על מנהל המערכת להגדיר חשבון אחר ב-Foundry OSD וליצור את המדיה מחדש.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>חשבון ההצטרפות השמור במדיה נעול בתחום. הפריסה לא התחילה. בטל את נעילת החשבון, או בקש ממנהל המערכת להגדיר חשבון אחר ב-Foundry OSD וליצור את המדיה מחדש.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>לא ניתן היה לבדוק את חשבון ההצטרפות השמור במדיה. סיסמה שגויה תתגלה רק לאחר ההפעלה מחדש.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>התחום דחה את חשבון ההצטרפות השמור במדיה. הפריסה לא התחילה. על מנהל המערכת לתקן את החשבון ב-Foundry OSD וליצור את המדיה מחדש.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>לא ניתן היה להגיע לתחום מרשת זו, ולכן חשבון ההצטרפות השמור במדיה לא נבדק. סיסמה שגויה תתגלה רק לאחר ההפעלה מחדש.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>תוקף הסיסמה של חשבון ההצטרפות השמור במדיה פג או שיש לשנות אותה. הפריסה לא התחילה. על מנהל המערכת לעדכן את הסיסמה ב-Foundry OSD וליצור את המדיה מחדש.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

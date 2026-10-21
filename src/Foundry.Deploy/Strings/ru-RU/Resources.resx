@@ -256,6 +256,33 @@
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Страницы развертывания</value>
   </data>
+  <data name="Debug.DomainJoin.CredentialCheck" xml:space="preserve">
+    <value>Проверка учетной записи</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountDisabled" xml:space="preserve">
+    <value>Учетная запись отключена</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountLocked" xml:space="preserve">
+    <value>Учетная запись заблокирована</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Checking" xml:space="preserve">
+    <value>Выполняется проверка</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.DomainUnreachable" xml:space="preserve">
+    <value>Домен недоступен</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Inconclusive" xml:space="preserve">
+    <value>Не удалось проверить</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.PasswordExpired" xml:space="preserve">
+    <value>Срок действия пароля истек</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Rejected" xml:space="preserve">
+    <value>Отклонена</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Valid" xml:space="preserve">
+    <value>Действительна</value>
+  </data>
   <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
     <value>Интерактивно</value>
   </data>
@@ -366,8 +393,26 @@
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Учетная запись (DOMAIN\user или user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Эта учетная запись отключена или ее срок действия истек в домене. Используйте другую учетную запись.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Укажите учетную запись в формате DOMAIN\user или user@domain.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Эта учетная запись заблокирована в домене. Разблокируйте ее или используйте другую учетную запись.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Не удалось проверить учетную запись. Чтобы продолжить, снова нажмите «Далее»; неверный пароль обнаружится только после перезагрузки.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Проверка учетной записи в домене...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Домен отклонил эту учетную запись или пароль. Проверьте их и повторите попытку.</value>
+  </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Учетная запись подтверждена доменом.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Расположение домена по умолчанию</value>
@@ -390,6 +435,9 @@
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Укажите допустимое имя домена, например corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Домен недоступен из этой сети, поэтому учетная запись не проверена. Чтобы продолжить, снова нажмите «Далее»; неверный пароль обнаружится только после перезагрузки.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Сведения для присоединения к домену отсутствуют или недопустимы. Развертывание не начато.</value>
   </data>
@@ -405,11 +453,32 @@
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Пароль</value>
   </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Срок действия пароля этой учетной записи истек, или его необходимо сменить. Смените пароль и повторите попытку.</value>
+  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Присоединение к домену</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Эта редакция Windows не может присоединиться к домену. Установка Windows продолжается без присоединения.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Учетная запись для присоединения, сохраненная на носителе, отключена или ее срок действия истек в домене. Развертывание не начато. Администратор должен задать другую учетную запись в Foundry OSD и создать носитель заново.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Учетная запись для присоединения, сохраненная на носителе, заблокирована в домене. Развертывание не начато. Разблокируйте учетную запись или попросите администратора задать другую учетную запись в Foundry OSD и создать носитель заново.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Не удалось проверить учетную запись для присоединения, сохраненную на носителе. Неверный пароль обнаружится только после перезагрузки.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Домен отклонил учетную запись для присоединения, сохраненную на носителе. Развертывание не начато. Администратор должен исправить учетную запись в Foundry OSD и создать носитель заново.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Домен недоступен из этой сети, поэтому учетная запись для присоединения, сохраненная на носителе, не проверена. Неверный пароль обнаружится только после перезагрузки.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Срок действия пароля учетной записи для присоединения, сохраненной на носителе, истек, или его необходимо сменить. Развертывание не начато. Администратор должен обновить пароль в Foundry OSD и создать носитель заново.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

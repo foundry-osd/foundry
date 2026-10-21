@@ -256,6 +256,33 @@ Licencované podľa licencie MIT.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Stránky nasadenia</value>
   </data>
+  <data name="Debug.DomainJoin.CredentialCheck" xml:space="preserve">
+    <value>Overenie konta</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountDisabled" xml:space="preserve">
+    <value>Konto zakázané</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountLocked" xml:space="preserve">
+    <value>Konto uzamknuté</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Checking" xml:space="preserve">
+    <value>Prebieha overenie</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.DomainUnreachable" xml:space="preserve">
+    <value>Doména nedostupná</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Inconclusive" xml:space="preserve">
+    <value>Nedá sa overiť</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.PasswordExpired" xml:space="preserve">
+    <value>Platnosť hesla vypršala</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Rejected" xml:space="preserve">
+    <value>Odmietnuté</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Valid" xml:space="preserve">
+    <value>Platné</value>
+  </data>
   <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
     <value>Interaktívne</value>
   </data>
@@ -366,8 +393,26 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value>
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Účet (DOMAIN\user alebo user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Toto konto je v doméne zakázané alebo mu vypršala platnosť. Použite iné konto.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Zadajte účet v tvare DOMAIN\user alebo user@domain.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Toto konto je v doméne uzamknuté. Odomknite ho alebo použite iné konto.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Konto sa nepodarilo overiť. Pokračujte opätovným výberom tlačidla Ďalej; nesprávne heslo by sa prejavilo až po reštarte.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Prebieha overenie konta v doméne...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Doména toto konto alebo heslo odmietla. Skontrolujte ich a skúste to znova.</value>
+  </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Konto bolo overené doménou.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Predvolené umiestnenie domény</value>
@@ -390,6 +435,9 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value>
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Zadajte platný názov domény, napríklad corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Doména nie je z tejto siete dostupná, preto konto nebolo overené. Pokračujte opätovným výberom tlačidla Ďalej; nesprávne heslo by sa prejavilo až po reštarte.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Údaje na pripojenie k doméne chýbajú alebo sú neplatné. Nasadenie sa nezačalo.</value>
   </data>
@@ -405,11 +453,32 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value>
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Heslo</value>
   </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Platnosť hesla tohto konta vypršala alebo ho treba zmeniť. Zmeňte ho a skúste to znova.</value>
+  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Pripojenie k doméne</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Túto edíciu systému Windows nemožno pripojiť k doméne. Inštalácia systému Windows pokračuje bez pripojenia.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Konto na pripojenie uložené na médiu je v doméne zakázané alebo mu vypršala platnosť. Nasadenie sa nezačalo. Správca musí vo Foundry OSD nastaviť iné konto a médium vytvoriť znova.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Konto na pripojenie uložené na médiu je v doméne uzamknuté. Nasadenie sa nezačalo. Odomknite konto alebo požiadajte správcu, aby vo Foundry OSD nastavil iné konto a médium vytvoril znova.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Konto na pripojenie uložené na médiu sa nepodarilo overiť. Nesprávne heslo by sa prejavilo až po reštarte.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Doména odmietla konto na pripojenie uložené na médiu. Nasadenie sa nezačalo. Správca musí konto opraviť vo Foundry OSD a médium vytvoriť znova.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Doména nie je z tejto siete dostupná, preto konto na pripojenie uložené na médiu nebolo overené. Nesprávne heslo by sa prejavilo až po reštarte.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Platnosť hesla konta na pripojenie uloženého na médiu vypršala alebo ho treba zmeniť. Nasadenie sa nezačalo. Správca musí heslo aktualizovať vo Foundry OSD a médium vytvoriť znova.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>

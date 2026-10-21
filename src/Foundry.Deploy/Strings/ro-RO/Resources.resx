@@ -256,6 +256,33 @@ Licențiat sub licența MIT.</value>
   <data name="Debug.DeploymentPages" xml:space="preserve">
     <value>Pagini de implementare</value>
   </data>
+  <data name="Debug.DomainJoin.CredentialCheck" xml:space="preserve">
+    <value>Verificarea contului</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountDisabled" xml:space="preserve">
+    <value>Cont dezactivat</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.AccountLocked" xml:space="preserve">
+    <value>Cont blocat</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Checking" xml:space="preserve">
+    <value>Se verifică</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.DomainUnreachable" xml:space="preserve">
+    <value>Domeniu inaccesibil</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Inconclusive" xml:space="preserve">
+    <value>Nu a putut fi verificat</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.PasswordExpired" xml:space="preserve">
+    <value>Parolă expirată</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Rejected" xml:space="preserve">
+    <value>Respins</value>
+  </data>
+  <data name="Debug.DomainJoin.CredentialCheck.Valid" xml:space="preserve">
+    <value>Acceptat</value>
+  </data>
   <data name="Debug.DomainJoin.Interactive" xml:space="preserve">
     <value>Interactiv</value>
   </data>
@@ -366,8 +393,26 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
   <data name="DomainJoin.Account" xml:space="preserve">
     <value>Cont (DOMAIN\user sau user@domain)</value>
   </data>
+  <data name="DomainJoin.AccountDisabled" xml:space="preserve">
+    <value>Acest cont este dezactivat sau expirat în domeniu. Utilizați alt cont.</value>
+  </data>
   <data name="DomainJoin.AccountInvalid" xml:space="preserve">
     <value>Introduceți contul ca DOMAIN\user sau user@domain.</value>
+  </data>
+  <data name="DomainJoin.AccountLocked" xml:space="preserve">
+    <value>Acest cont este blocat în domeniu. Deblocați-l sau utilizați alt cont.</value>
+  </data>
+  <data name="DomainJoin.CheckInconclusive" xml:space="preserve">
+    <value>Contul nu a putut fi verificat. Selectați din nou Înainte pentru a continua; o parolă greșită s-ar vedea doar după repornire.</value>
+  </data>
+  <data name="DomainJoin.CheckingCredentials" xml:space="preserve">
+    <value>Se verifică contul în domeniu...</value>
+  </data>
+  <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
+    <value>Domeniul a respins acest cont sau această parolă. Verificați-le și încercați din nou.</value>
+  </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Cont verificat de domeniu.</value>
   </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Locația implicită a domeniului</value>
@@ -390,6 +435,9 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
   <data name="DomainJoin.DomainInvalid" xml:space="preserve">
     <value>Introduceți un nume de domeniu valid, de exemplu corp.contoso.com.</value>
   </data>
+  <data name="DomainJoin.DomainUnreachable" xml:space="preserve">
+    <value>Domeniul nu poate fi accesat din această rețea, așa că contul nu a fost verificat. Selectați din nou Înainte pentru a continua; o parolă greșită s-ar vedea doar după repornire.</value>
+  </data>
   <data name="DomainJoin.Invalid" xml:space="preserve">
     <value>Informațiile de asociere la domeniu lipsesc sau nu sunt valide. Implementarea nu a început.</value>
   </data>
@@ -405,11 +453,32 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
   <data name="DomainJoin.Password" xml:space="preserve">
     <value>Parolă</value>
   </data>
+  <data name="DomainJoin.PasswordExpired" xml:space="preserve">
+    <value>Parola acestui cont a expirat sau trebuie schimbată. Schimbați-o, apoi încercați din nou.</value>
+  </data>
   <data name="DomainJoin.Title" xml:space="preserve">
     <value>Asociere la domeniu</value>
   </data>
   <data name="DomainJoin.UnsupportedEdition" xml:space="preserve">
     <value>Această ediție Windows nu se poate asocia la un domeniu. Instalarea Windows continuă fără asociere.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountDisabled" xml:space="preserve">
+    <value>Contul de asociere stocat pe suport este dezactivat sau expirat în domeniu. Implementarea nu a început. Administratorul trebuie să seteze alt cont în Foundry OSD și să creeze din nou suportul.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchAccountLocked" xml:space="preserve">
+    <value>Contul de asociere stocat pe suport este blocat în domeniu. Implementarea nu a început. Deblocați contul sau cereți administratorului să seteze alt cont în Foundry OSD și să creeze din nou suportul.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCheckInconclusive" xml:space="preserve">
+    <value>Contul de asociere stocat pe suport nu a putut fi verificat. O parolă greșită s-ar vedea doar după repornire.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchCredentialsRejected" xml:space="preserve">
+    <value>Domeniul a respins contul de asociere stocat pe suport. Implementarea nu a început. Administratorul trebuie să corecteze contul în Foundry OSD și să creeze din nou suportul.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchDomainUnreachable" xml:space="preserve">
+    <value>Domeniul nu poate fi accesat din această rețea, așa că contul de asociere stocat pe suport nu a fost verificat. O parolă greșită s-ar vedea doar după repornire.</value>
+  </data>
+  <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
+    <value>Parola contului de asociere stocat pe suport a expirat sau trebuie schimbată. Implementarea nu a început. Administratorul trebuie să actualizeze parola în Foundry OSD și să creeze din nou suportul.</value>
   </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
