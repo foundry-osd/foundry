@@ -106,6 +106,7 @@ public sealed class TelemetryValueNormalizerTests
     [InlineData("Home", "core")]
     [InlineData("Home N", "coren")]
     [InlineData("Home Single Language", "coresinglelanguage")]
+    [InlineData("Home China", "corecountryspecific")]
     [InlineData("enterprise n", "enterprisen")]
     [InlineData("Enterprise-N", "enterprisen")]
     [InlineData("ProfessionalStudent", "professionalstudent")]

@@ -76,6 +76,7 @@ internal static class TelemetryValueNormalizer
             "home" => "core",
             "homen" => "coren",
             "homesinglelanguage" => "coresinglelanguage",
+            "homechina" => "corecountryspecific",
             string lowered => lowered
         };
 
