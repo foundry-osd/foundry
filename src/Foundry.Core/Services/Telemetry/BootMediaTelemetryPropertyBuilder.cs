@@ -4,6 +4,7 @@
 
 using System.Globalization;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Adk;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Media;
 using Foundry.Core.Services.WinPe;
@@ -28,6 +29,9 @@ public static class BootMediaTelemetryPropertyBuilder
     /// <param name="duration">Total media creation duration.</param>
     /// <param name="connectRuntimePayloadSource">Source of the generated Connect runtime payload.</param>
     /// <param name="deployRuntimePayloadSource">Source of the generated Deploy runtime payload.</param>
+    /// <param name="diagnostic">Structured failure diagnostic, or <see langword="null"/> when none was produced.</param>
+    /// <param name="operationId">Correlation identifier of the media operation.</param>
+    /// <param name="adkStatus">Windows ADK state used for the media operation; its version is sent only when it parses as a version.</param>
     /// <returns>Telemetry properties approved for `osd:boot_media_finished`.</returns>
     public static IReadOnlyDictionary<string, object?> Build(
         string bootMediaTarget,
@@ -40,7 +44,8 @@ public static class BootMediaTelemetryPropertyBuilder
         string connectRuntimePayloadSource,
         string deployRuntimePayloadSource,
         WinPeDiagnostic? diagnostic = null,
-        string? operationId = null)
+        string? operationId = null,
+        AdkInstallationStatus? adkStatus = null)
     {
         ArgumentNullException.ThrowIfNull(options);
         ArgumentNullException.ThrowIfNull(document);
@@ -108,6 +113,7 @@ public static class BootMediaTelemetryPropertyBuilder
         AddOperatingSystemSelectionTelemetryProperties(properties, document.OperatingSystemSelection);
         properties["customization_any_enabled"] =
             (bool)properties["customization_any_enabled"]! || document.OperatingSystemSelection.IsEnabled || unattend.IsEnabled || customImages.IsEnabled || postInstallation.IsEnabled;
+        AddAdkTelemetryProperties(properties, adkStatus);
         AddLocalizationTelemetryProperties(properties, document.Localization);
         AddNetworkTelemetryProperties(properties, document.Network, options.AreRequiredSecretsReady);
 
@@ -265,11 +271,32 @@ public static class BootMediaTelemetryPropertyBuilder
         properties["os_selection_default_edition_configured"] = hasDefaultEdition;
     }
 
+    private static void AddAdkTelemetryProperties(IDictionary<string, object?> properties, AdkInstallationStatus? adkStatus)
+    {
+        string? installedVersion = adkStatus?.InstalledVersion?.Trim();
+        if (installedVersion is { Length: > 0 and <= 64 } && Version.TryParse(installedVersion, out _))
+        {
+            properties["adk_version"] = installedVersion;
+        }
+
+        properties["adk_version_relation"] = (adkStatus?.VersionRelation ?? AdkVersionRelation.Unknown) switch
+        {
+            AdkVersionRelation.BelowSupported => "below_supported",
+            AdkVersionRelation.Supported => "supported",
+            AdkVersionRelation.AboveSupported => "above_supported",
+            _ => "unknown"
+        };
+    }
+
     private static void AddLocalizationTelemetryProperties(
         IDictionary<string, object?> properties,
         LocalizationSettings localization)
     {
         properties["deployment_time_zone_configured"] = !string.IsNullOrWhiteSpace(localization.DefaultTimeZoneId);
+        if (!string.IsNullOrWhiteSpace(localization.DefaultTimeZoneId))
+        {
+            properties["deployment_time_zone_id"] = localization.DefaultTimeZoneId.Trim();
+        }
     }
 
     private static void AddNetworkTelemetryProperties(

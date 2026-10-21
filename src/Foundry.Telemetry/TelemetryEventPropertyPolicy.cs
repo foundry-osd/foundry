@@ -16,6 +16,11 @@ public static class TelemetryEventPropertyPolicy
         .Select(culture => culture.Name)
         .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
+    // .NET resolves IANA IDs and keeps them as the zone Id, so only the Windows IDs listed by the system are accepted.
+    private static readonly Lazy<HashSet<string>> KnownWindowsTimeZoneIds = new(() => TimeZoneInfo.GetSystemTimeZones()
+        .Select(timeZone => timeZone.Id)
+        .ToHashSet(StringComparer.Ordinal));
+
     private static readonly HashSet<string> SensitiveKeys = new(StringComparer.OrdinalIgnoreCase)
     {
         "ssid",
@@ -161,6 +166,9 @@ public static class TelemetryEventPropertyPolicy
                 "os_selection_allowed_edition_count",
                 "os_selection_default_edition_configured",
                 "deployment_time_zone_configured",
+                "deployment_time_zone_id",
+                "adk_version",
+                "adk_version_relation",
                 "network_any_enabled",
                 "network_wired_dot1x_enabled",
                 "network_wired_dot1x_profile_configured",
@@ -335,10 +343,14 @@ public static class TelemetryEventPropertyPolicy
     };
 
     // A keyboard layout is either the language default or an eight-digit hexadecimal KLID; anything else is dropped.
+    // A time zone must be a Windows time zone ID of this machine, so free text and IANA IDs never leave the process.
     private static bool IsAllowedBootMediaValue(string key, object? value) => key switch
     {
         "boot_media_winpe_keyboard_layout" => value is string text &&
             (text == "default" || text.Length == 8 && text.All(char.IsAsciiHexDigit)),
+        "adk_version" => value is string version && version.Length <= 64 && Version.TryParse(version, out _),
+        "adk_version_relation" => value is "unknown" or "below_supported" or "supported" or "above_supported",
+        "deployment_time_zone_id" => value is string timeZoneId && KnownWindowsTimeZoneIds.Value.Contains(timeZoneId),
         _ => true
     };
 

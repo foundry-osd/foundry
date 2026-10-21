@@ -722,4 +722,47 @@ public sealed class TelemetryEventPropertyPolicyTests
 
         Assert.Empty(result);
     }
+
+    [Theory]
+    [InlineData("adk_version", "10.1.26100.2454", true)]
+    [InlineData("adk_version", "abc", false)]
+    [InlineData("adk_version", "10.1.26100.2454 (beta)", false)]
+    [InlineData("adk_version_relation", "unknown", true)]
+    [InlineData("adk_version_relation", "below_supported", true)]
+    [InlineData("adk_version_relation", "supported", true)]
+    [InlineData("adk_version_relation", "above_supported", true)]
+    [InlineData("adk_version_relation", "newer", false)]
+    public void Sanitize_ForBootMediaFinished_KeepsOnlyValidAdkFields(string key, string value, bool kept)
+    {
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(
+            TelemetryEvents.OsdBootMediaFinished,
+            new Dictionary<string, object?> { [key] = value });
+
+        Assert.Equal(kept, result.ContainsKey(key));
+    }
+
+    [Fact]
+    public void Sanitize_ForBootMediaFinished_DropsOverlongAdkVersion()
+    {
+        string value = "1." + new string('0', 63);
+
+        Assert.Empty(TelemetryEventPropertyPolicy.Sanitize(
+            TelemetryEvents.OsdBootMediaFinished,
+            new Dictionary<string, object?> { ["adk_version"] = value }));
+    }
+
+    [Theory]
+    [InlineData("Romance Standard Time", true)]
+    [InlineData("UTC", true)]
+    [InlineData("Europe/Paris", false)]
+    [InlineData("My office", false)]
+    [InlineData("", false)]
+    public void Sanitize_ForBootMediaFinished_KeepsOnlyKnownTimeZoneIds(string value, bool kept)
+    {
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(
+            TelemetryEvents.OsdBootMediaFinished,
+            new Dictionary<string, object?> { ["deployment_time_zone_id"] = value });
+
+        Assert.Equal(kept, result.ContainsKey("deployment_time_zone_id"));
+    }
 }
