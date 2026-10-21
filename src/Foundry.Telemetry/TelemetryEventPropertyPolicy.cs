@@ -266,7 +266,7 @@ public static class TelemetryEventPropertyPolicy
     /// </summary>
     /// <param name="eventName">Stable telemetry event name.</param>
     /// <param name="properties">Candidate event properties before filtering.</param>
-    /// <returns>Allowed event properties with known sensitive values removed.</returns>
+    /// <returns>Allowed event properties with known sensitive values removed and values in their canonical spelling.</returns>
     public static IReadOnlyDictionary<string, object?> Sanitize(string eventName, IReadOnlyDictionary<string, object?> properties)
     {
         if (!AllowedPropertiesByEvent.TryGetValue(eventName, out HashSet<string>? allowedProperties))
@@ -301,14 +301,15 @@ public static class TelemetryEventPropertyPolicy
                 }
                 else if (value is string text && IsAllowedBootstrapValue(key, text))
                 {
-                    sanitized[key] = text;
+                    sanitized[key] = TelemetryValueNormalizer.Normalize(eventName, key, text);
                 }
                 continue;
             }
 
-            sanitized[key] = isCustomDeployment
-                ? SanitizeCustomImageMetadata(key, value)
-                : value;
+            sanitized[key] = TelemetryValueNormalizer.Normalize(
+                eventName,
+                key,
+                isCustomDeployment ? SanitizeCustomImageMetadata(key, value) : value);
         }
 
         return sanitized;

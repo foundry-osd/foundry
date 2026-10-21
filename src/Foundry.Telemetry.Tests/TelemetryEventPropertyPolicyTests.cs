@@ -395,8 +395,8 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.Equal("x64", result["boot_media_architecture"]);
         Assert.Equal("Prepare WinPE workspace", result["boot_media_creation_failed_step_name"]);
         Assert.Equal("process", result["boot_media_failure_kind"]);
-        Assert.Equal("nonzero_exit", result["boot_media_failure_reason"]);
-        Assert.Equal("WINPE_BUILD_FAILED", result["boot_media_failure_code"]);
+        Assert.Equal("non_zero_exit", result["boot_media_failure_reason"]);
+        Assert.Equal("winpe_build_failed", result["boot_media_failure_code"]);
         Assert.Equal("copype", result["boot_media_failure_tool"]);
         Assert.Equal(5, result["boot_media_failure_exit_code"]);
         Assert.Equal("operation-1", result["operation_id"]);
