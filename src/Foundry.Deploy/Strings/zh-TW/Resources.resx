@@ -411,6 +411,9 @@ ErrorCode=0x80070005
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>網域拒絕了此帳戶或密碼。請檢查後再試一次。</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>網域已驗證此帳戶。</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>網域預設位置</value>
   </data>

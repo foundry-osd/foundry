@@ -411,6 +411,9 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value>
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>Doména toto konto alebo heslo odmietla. Skontrolujte ich a skúste to znova.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Konto bolo overené doménou.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Predvolené umiestnenie domény</value>
   </data>

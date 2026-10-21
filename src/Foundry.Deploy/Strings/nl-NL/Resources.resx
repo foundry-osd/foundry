@@ -411,6 +411,9 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>Het domein heeft dit account of wachtwoord geweigerd. Controleer ze en probeer het opnieuw.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Account geverifieerd door het domein.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Standaardlocatie van het domein</value>
   </data>

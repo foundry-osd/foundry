@@ -411,6 +411,9 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>A tartomány elutasította ezt a fiókot vagy jelszót. Ellenőrizze őket, és próbálkozzon újra.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>A tartomány ellenőrizte a fiókot.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>A tartomány alapértelmezett helye</value>
   </data>

@@ -411,6 +411,9 @@ Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value>
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>Domeen lükkas selle konto või parooli tagasi. Kontrollige neid ja proovige uuesti.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Domeen kinnitas konto.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Domeeni vaikeasukoht</value>
   </data>

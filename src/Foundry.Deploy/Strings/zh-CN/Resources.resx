@@ -411,6 +411,9 @@
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>域拒绝了此账户或密码。请检查后重试。</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>域已验证该账户。</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>域默认位置</value>
   </data>

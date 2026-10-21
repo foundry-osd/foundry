@@ -411,6 +411,9 @@ Akce: Ověřte atributy disku a opakujte nasazení.</value>
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>Doména tento účet nebo heslo odmítla. Zkontrolujte je a zkuste to znovu.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Účet byl ověřen doménou.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Výchozí umístění domény</value>
   </data>

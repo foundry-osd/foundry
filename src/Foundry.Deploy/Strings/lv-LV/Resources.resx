@@ -411,6 +411,9 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>Domēns noraidīja šo kontu vai paroli. Pārbaudiet tos un mēģiniet vēlreiz.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Domēns apstiprināja kontu.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Domēna noklusējuma atrašanās vieta</value>
   </data>

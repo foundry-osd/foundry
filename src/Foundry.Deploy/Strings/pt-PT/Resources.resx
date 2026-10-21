@@ -411,6 +411,9 @@ Ação: verifique os atributos do disco e tente novamente a implementação.</va
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>O domínio rejeitou esta conta ou palavra-passe. Verifique-as e tente novamente.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Conta verificada pelo domínio.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Localização predefinida do domínio</value>
   </data>

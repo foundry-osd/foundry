@@ -411,6 +411,9 @@ Handling: Bekræft diskattributter, og prøv implementeringen igen.</value>
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>Domænet afviste denne konto eller adgangskode. Kontrollér dem, og prøv igen.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Kontoen er bekræftet af domænet.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Domænets standardplacering</value>
   </data>

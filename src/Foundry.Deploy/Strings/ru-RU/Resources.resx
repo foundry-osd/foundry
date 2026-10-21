@@ -411,6 +411,9 @@
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>Домен отклонил эту учетную запись или пароль. Проверьте их и повторите попытку.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Учетная запись подтверждена доменом.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Расположение домена по умолчанию</value>
   </data>

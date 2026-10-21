@@ -411,6 +411,9 @@ Aktion: Überprüfen Sie die Datenträgerattribute, und wiederholen Sie die Bere
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>Die Domäne hat dieses Konto oder Kennwort abgelehnt. Überprüfen Sie die Angaben, und versuchen Sie es erneut.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Konto von der Domäne bestätigt.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Standardort der Domäne</value>
   </data>

@@ -411,6 +411,9 @@ Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value>
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>Toimialue hylkäsi tämän tilin tai salasanan. Tarkista ne ja yritä uudelleen.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Toimialue vahvisti tilin.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Toimialueen oletussijainti</value>
   </data>

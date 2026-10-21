@@ -411,6 +411,9 @@
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>โดเมนปฏิเสธบัญชีหรือรหัสผ่านนี้ ตรวจสอบแล้วลองอีกครั้ง</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>โดเมนยืนยันบัญชีแล้ว</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>ตำแหน่งเริ่มต้นของโดเมน</value>
   </data>

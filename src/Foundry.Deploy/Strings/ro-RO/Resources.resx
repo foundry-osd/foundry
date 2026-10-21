@@ -411,6 +411,9 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>Domeniul a respins acest cont sau această parolă. Verificați-le și încercați din nou.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Cont verificat de domeniu.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Locația implicită a domeniului</value>
   </data>

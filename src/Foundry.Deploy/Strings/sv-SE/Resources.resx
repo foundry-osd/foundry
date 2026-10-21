@@ -411,6 +411,9 @@ Detaljer: Åtkomst nekad vid montering av bild till målsökväg.
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>Domänen avvisade det här kontot eller lösenordet. Kontrollera dem och försök igen.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Kontot har verifierats av domänen.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Domänens standardplats</value>
   </data>

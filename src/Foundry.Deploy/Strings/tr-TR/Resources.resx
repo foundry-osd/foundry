@@ -411,6 +411,9 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>Etki alanı bu hesabı veya parolayı reddetti. Bunları denetleyip yeniden deneyin.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Hesap etki alanı tarafından doğrulandı.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Etki alanının varsayılan konumu</value>
   </data>

@@ -411,6 +411,9 @@ ErrorCode=0x80070005
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>התחום דחה את החשבון או את הסיסמה. בדוק אותם ונסה שוב.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>החשבון אומת על ידי התחום.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>מיקום ברירת המחדל של התחום</value>
   </data>

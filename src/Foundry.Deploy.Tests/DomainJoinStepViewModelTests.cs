@@ -5,7 +5,9 @@
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.DomainJoin;
+using Foundry.Deploy.Controls;
 using Foundry.Deploy.Services.DomainJoin;
+using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.ViewModels;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -516,11 +518,13 @@ public sealed class DomainJoinStepViewModelTests
         using var step = InteractiveStepWithCredentials();
 
         Assert.True(step.NeedsCredentialCheck);
+        Assert.Null(step.CredentialCheckSeverity);
         Assert.True(await step.ConfirmCredentialsAsync(verifier, CancellationToken.None));
         Assert.Equal(DomainCredentialCheckState.Valid, step.CredentialCheckState);
         Assert.False(step.NeedsCredentialCheck);
         Assert.True(step.IsValid);
-        Assert.Equal(string.Empty, step.CredentialCheckMessage);
+        Assert.Equal(InfoBarSeverity.Success, step.CredentialCheckSeverity);
+        Assert.Equal(LocalizationText.GetString("DomainJoin.CredentialsVerified"), step.CredentialCheckMessage);
         Assert.Equal(1, verifier.Calls);
     }
 
@@ -533,8 +537,7 @@ public sealed class DomainJoinStepViewModelTests
         Assert.False(await step.ConfirmCredentialsAsync(verifier, CancellationToken.None));
         Assert.Equal(DomainCredentialCheckState.Rejected, step.CredentialCheckState);
         Assert.False(step.IsValid);
-        Assert.True(step.HasCredentialCheckError);
-        Assert.False(step.HasCredentialCheckWarning);
+        Assert.Equal(InfoBarSeverity.Error, step.CredentialCheckSeverity);
         Assert.NotEqual(string.Empty, step.CredentialCheckMessage);
         Assert.False(await step.ConfirmCredentialsAsync(verifier, CancellationToken.None));
         Assert.Equal(1, verifier.Calls);
@@ -577,7 +580,7 @@ public sealed class DomainJoinStepViewModelTests
 
         Assert.False(await step.ConfirmCredentialsAsync(verifier, CancellationToken.None));
         Assert.Equal(DomainCredentialCheckState.Warning, step.CredentialCheckState);
-        Assert.True(step.HasCredentialCheckWarning);
+        Assert.Equal(InfoBarSeverity.Warning, step.CredentialCheckSeverity);
         Assert.True(step.IsValid);
         Assert.True(step.NeedsCredentialCheck);
 
@@ -624,6 +627,8 @@ public sealed class DomainJoinStepViewModelTests
         Task<bool> confirmation = step.ConfirmCredentialsAsync(new ScriptedVerifier(pending.Task), CancellationToken.None);
 
         Assert.True(step.IsCheckingCredentials);
+        Assert.Equal(InfoBarSeverity.Informational, step.CredentialCheckSeverity);
+        Assert.Equal(LocalizationText.GetString("DomainJoin.CheckingCredentials"), step.CredentialCheckMessage);
         Assert.False(step.IsValid);
         pending.SetResult(new(DomainCredentialCheckOutcome.Valid));
         Assert.True(await confirmation);
@@ -671,6 +676,7 @@ public sealed class DomainJoinStepViewModelTests
 
         Assert.Equal(["corp"], media.CheckedDomainIds);
         Assert.Equal(DomainCredentialCheckState.Valid, step.CredentialCheckState);
+        Assert.Equal(InfoBarSeverity.Success, step.CredentialCheckSeverity);
         Assert.True(step.IsValid);
     }
 
@@ -700,7 +706,7 @@ public sealed class DomainJoinStepViewModelTests
 
         Assert.Equal(DomainCredentialCheckState.Rejected, step.CredentialCheckState);
         Assert.False(step.IsValid);
-        Assert.True(step.HasCredentialCheckError);
+        Assert.Equal(InfoBarSeverity.Error, step.CredentialCheckSeverity);
         Assert.Contains("Foundry OSD", step.CredentialCheckMessage);
 
         step.SelectedDomainChoice = step.DomainChoices[^1];
@@ -719,9 +725,11 @@ public sealed class DomainJoinStepViewModelTests
 
         step.BeginZeroTouchCheck(media, NoNetworkVerifier, NullLogger.Instance);
 
-        Assert.True(step.HasCredentialCheckWarning);
+        Assert.Equal(InfoBarSeverity.Warning, step.CredentialCheckSeverity);
         Assert.True(step.IsValid);
-        Assert.DoesNotContain("Next", step.CredentialCheckMessage);
+        Assert.Equal(LocalizationText.GetString(outcome == DomainCredentialCheckOutcome.ControllerUnavailable
+            ? "DomainJoin.ZeroTouchDomainUnreachable"
+            : "DomainJoin.ZeroTouchCheckInconclusive"), step.CredentialCheckMessage);
     }
 
     [Fact]

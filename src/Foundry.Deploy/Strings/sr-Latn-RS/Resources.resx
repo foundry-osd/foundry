@@ -411,6 +411,9 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value>
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>Domen je odbio ovaj nalog ili lozinku. Proverite ih i pokušajte ponovo.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Domen je potvrdio nalog.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Podrazumevana lokacija domena</value>
   </data>

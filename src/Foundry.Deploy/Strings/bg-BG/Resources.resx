@@ -411,6 +411,9 @@
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>Домейнът отхвърли този акаунт или парола. Проверете ги и опитайте отново.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Акаунтът е потвърден от домейна.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Местоположение по подразбиране в домейна</value>
   </data>

@@ -411,6 +411,9 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>Le domaine a refusé ce compte ou ce mot de passe. Vérifiez-les et réessayez.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Compte vérifié par le domaine.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Emplacement par défaut du domaine</value>
   </data>

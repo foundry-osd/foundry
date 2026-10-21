@@ -411,6 +411,9 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>Domena odrzuciła to konto lub hasło. Sprawdź je i spróbuj ponownie.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Konto zweryfikowane przez domenę.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Domyślna lokalizacja domeny</value>
   </data>

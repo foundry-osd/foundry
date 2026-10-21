@@ -411,6 +411,9 @@
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>Ο τομέας απέρριψε αυτόν τον λογαριασμό ή τον κωδικό πρόσβασης. Ελέγξτε τα και δοκιμάστε ξανά.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Ο λογαριασμός επαληθεύτηκε από τον τομέα.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Προεπιλεγμένη θέση τομέα</value>
   </data>

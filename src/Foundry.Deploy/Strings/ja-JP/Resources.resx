@@ -411,6 +411,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>ドメインがこのアカウントまたはパスワードを拒否しました。確認してもう一度お試しください。</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>ドメインによってアカウントが確認されました。</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>ドメインの既定の場所</value>
   </data>

@@ -411,6 +411,9 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value>
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>Domenas atmetė šią paskyrą arba slaptažodį. Patikrinkite juos ir bandykite dar kartą.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Domenas patvirtino paskyrą.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Numatytoji domeno vieta</value>
   </data>

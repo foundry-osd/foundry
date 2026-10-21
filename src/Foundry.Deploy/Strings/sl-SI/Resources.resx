@@ -411,6 +411,9 @@ Ukrep: Preverite atribute diska in znova poskusite razmestiti.</value>
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>Domena je zavrnila ta račun ali geslo. Preverite ju in poskusite znova.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Domena je preverila račun.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Privzeto mesto domene</value>
   </data>

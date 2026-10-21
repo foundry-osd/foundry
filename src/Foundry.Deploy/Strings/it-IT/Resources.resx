@@ -411,6 +411,9 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>Il dominio ha rifiutato questo account o questa password. Verificali e riprova.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Account verificato dal dominio.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Posizione predefinita del dominio</value>
   </data>

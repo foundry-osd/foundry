@@ -411,6 +411,9 @@
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>رفض النطاق هذا الحساب أو كلمة المرور هذه. تحقق منهما وحاول مرة أخرى.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>تم التحقق من الحساب بواسطة النطاق.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>الموقع الافتراضي للنطاق</value>
   </data>

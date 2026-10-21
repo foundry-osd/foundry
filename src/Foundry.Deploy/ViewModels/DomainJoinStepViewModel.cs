@@ -9,6 +9,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.DomainJoin;
+using Foundry.Deploy.Controls;
 using Foundry.Deploy.Services.DomainJoin;
 using Foundry.Deploy.Services.Localization;
 using Microsoft.Extensions.Logging;
@@ -183,12 +184,31 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
 
     public bool IsCheckingCredentials => CredentialCheckState == DomainCredentialCheckState.Checking;
 
-    public bool HasCredentialCheckError => CredentialCheckState == DomainCredentialCheckState.Rejected;
+    /// <summary>
+    /// Gets the severity of the card that reports the check at the bottom of the step: in progress, accepted, warning or refused.
+    /// <see langword="null"/> means the current inputs have not been checked and no card is shown.
+    /// </summary>
+    public InfoBarSeverity? CredentialCheckSeverity => CredentialCheckState switch
+    {
+        DomainCredentialCheckState.Checking => InfoBarSeverity.Informational,
+        DomainCredentialCheckState.Valid => InfoBarSeverity.Success,
+        DomainCredentialCheckState.Rejected => InfoBarSeverity.Error,
+        DomainCredentialCheckState.Warning or DomainCredentialCheckState.WarningAcknowledged => InfoBarSeverity.Warning,
+        _ => null
+    };
 
-    public bool HasCredentialCheckWarning => CredentialCheckState is DomainCredentialCheckState.Warning or DomainCredentialCheckState.WarningAcknowledged;
+    /// <summary>Gets whether the check card is shown.</summary>
+    public bool IsCredentialCheckShown => CredentialCheckSeverity is not null;
 
-    /// <summary>Gets the localized rejection or warning shown below the fields of the step, or an empty string.</summary>
-    public string CredentialCheckMessage => settings.Mode == DomainJoinMode.Automatic ? ZeroTouchCredentialCheckMessage : (CredentialCheckState, LastCredentialCheck?.Outcome) switch
+    /// <summary>Gets the localized text of that card, or an empty string when no card is shown.</summary>
+    public string CredentialCheckMessage => CredentialCheckState switch
+    {
+        DomainCredentialCheckState.Checking => LocalizationText.GetString("DomainJoin.CheckingCredentials"),
+        DomainCredentialCheckState.Valid => LocalizationText.GetString("DomainJoin.CredentialsVerified"),
+        _ => settings.Mode == DomainJoinMode.Automatic ? ZeroTouchCredentialCheckMessage : InteractiveCredentialCheckMessage
+    };
+
+    private string InteractiveCredentialCheckMessage => (CredentialCheckState, LastCredentialCheck?.Outcome) switch
     {
         (DomainCredentialCheckState.Rejected, DomainCredentialCheckOutcome.AccountLocked) => LocalizationText.GetString("DomainJoin.AccountLocked"),
         (DomainCredentialCheckState.Rejected, DomainCredentialCheckOutcome.PasswordExpired) => LocalizationText.GetString("DomainJoin.PasswordExpired"),
@@ -498,8 +518,8 @@ public sealed partial class DomainJoinStepViewModel : ObservableObject, IDisposa
     {
         OnPropertyChanged(nameof(NeedsCredentialCheck));
         OnPropertyChanged(nameof(IsCheckingCredentials));
-        OnPropertyChanged(nameof(HasCredentialCheckError));
-        OnPropertyChanged(nameof(HasCredentialCheckWarning));
+        OnPropertyChanged(nameof(CredentialCheckSeverity));
+        OnPropertyChanged(nameof(IsCredentialCheckShown));
         OnPropertyChanged(nameof(CredentialCheckMessage));
         OnPropertyChanged(nameof(IsValid));
         StateChanged?.Invoke(this, EventArgs.Empty);

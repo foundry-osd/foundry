@@ -38,7 +38,8 @@ public sealed class LocalizationResourceTests
             "DomainJoin.CheckingCredentials", "DomainJoin.CredentialsRejected", "DomainJoin.AccountLocked",
             "DomainJoin.PasswordExpired", "DomainJoin.AccountDisabled", "DomainJoin.DomainUnreachable", "DomainJoin.CheckInconclusive",
             "DomainJoin.ZeroTouchCredentialsRejected", "DomainJoin.ZeroTouchAccountLocked", "DomainJoin.ZeroTouchPasswordExpired",
-            "DomainJoin.ZeroTouchAccountDisabled", "DomainJoin.ZeroTouchDomainUnreachable", "DomainJoin.ZeroTouchCheckInconclusive"
+            "DomainJoin.ZeroTouchAccountDisabled", "DomainJoin.ZeroTouchDomainUnreachable", "DomainJoin.ZeroTouchCheckInconclusive",
+            "DomainJoin.CredentialsVerified"
         ];
         foreach (string key in requiredKeys)
         {

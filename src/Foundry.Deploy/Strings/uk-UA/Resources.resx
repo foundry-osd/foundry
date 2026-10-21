@@ -411,6 +411,9 @@ ErrorCode=0x80070005
   <data name="DomainJoin.CredentialsRejected" xml:space="preserve">
     <value>Домен відхилив цей обліковий запис або пароль. Перевірте їх і повторіть спробу.</value>
   </data>
+  <data name="DomainJoin.CredentialsVerified" xml:space="preserve">
+    <value>Обліковий запис підтверджено доменом.</value>
+  </data>
   <data name="DomainJoin.DefaultDestination" xml:space="preserve">
     <value>Розташування домену за замовчуванням</value>
   </data>
