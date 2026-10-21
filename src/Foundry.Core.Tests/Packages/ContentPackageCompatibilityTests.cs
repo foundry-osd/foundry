@@ -6,7 +6,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using Foundry.Core.Models.Packages;
-using Foundry.Core.Models.PreOobe;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Packages;
 

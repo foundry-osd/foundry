@@ -4,7 +4,6 @@
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Packages;
-using Foundry.Core.Models.PreOobe;
 
 namespace Foundry.Core.Services.Packages;
 

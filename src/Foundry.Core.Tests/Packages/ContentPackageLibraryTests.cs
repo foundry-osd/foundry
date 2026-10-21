@@ -4,7 +4,6 @@
 
 using System.Security.Cryptography;
 using Foundry.Core.Models.Packages;
-using Foundry.Core.Models.PreOobe;
 using Foundry.Core.Services.Packages;
 
 namespace Foundry.Core.Tests.Packages;
