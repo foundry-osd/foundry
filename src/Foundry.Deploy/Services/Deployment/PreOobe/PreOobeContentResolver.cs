@@ -81,6 +81,7 @@ public class PreOobeContentResolver
             {
                 if (settings.ManifestId is null && settings.ManifestHash is null)
                     throw new InvalidDataException("Package actions require an authenticated external media manifest.");
+                // Kept ahead of the reader so a malformed binding keeps its own message instead of "incompatible".
                 if (!Guid.TryParseExact(settings.ManifestId, "N", out _) || !ContentPackagePathPolicy.IsValidHash(settings.ManifestHash))
                     throw new InvalidDataException("Post-installation media binding is invalid.");
                 var kind = ContentPackageKind.PostInstallation;
@@ -93,11 +94,6 @@ public class PreOobeContentResolver
                     var matches = media.Manifest!.Packages.Where(item => item.ContentHash.Equals(package.ContentHash, StringComparison.OrdinalIgnoreCase)).ToArray();
                     if (matches.Length != 1) throw new InvalidDataException("Required post-installation package is missing or ambiguous.");
                     var item = matches[0];
-                    if (item.RelativePath != $"{kind.MediaRoot}/Packages/{package.ContentHash}/files")
-                        throw new InvalidDataException("Package content is outside the canonical media cache.");
-                    ContentPackageManifestCodec.Validate(item.Manifest, ContentPackageKind.PostInstallation);
-                    if (!ContentPackageManifestCodec.GetContentHash(item.Manifest).Equals(package.ContentHash, StringComparison.OrdinalIgnoreCase))
-                        throw new InvalidDataException("Package manifest hash differs from its immutable identity.");
                     foreach (var action in ApplicableActions(context.Request).Where(action => action.Package?.ContentHash == package.ContentHash))
                     {
                         if (action.EntryPoint is not null && !item.Manifest.Files.Any(file => file.RelativePath.Equals(action.EntryPoint, StringComparison.OrdinalIgnoreCase)))

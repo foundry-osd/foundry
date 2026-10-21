@@ -56,6 +56,7 @@ public sealed class ContentPackageMediaReader(ContentPackageKind kind)
         {
             string path = Path.Combine(root, kind.MediaRoot.Replace('/', Path.DirectorySeparatorChar), "manifests", manifestId + ".json");
             if (!File.Exists(path)) continue;
+            // Cheap size check avoids reading an oversized file; the length is re-checked after the read because the file can change in between.
             if (new FileInfo(path).Length > kind.MaximumMediaManifestBytes) { mismatch = true; continue; }
             byte[] bytes = await File.ReadAllBytesAsync(path, cancellationToken).ConfigureAwait(false);
             if (bytes.Length > kind.MaximumMediaManifestBytes || !Convert.ToHexString(SHA256.HashData(bytes)).Equals(manifestHash, StringComparison.OrdinalIgnoreCase))

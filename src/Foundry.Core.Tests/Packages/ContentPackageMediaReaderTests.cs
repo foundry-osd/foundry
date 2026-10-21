@@ -81,6 +81,28 @@ public sealed class ContentPackageMediaReaderTests : IDisposable
         Assert.Equal(media.Packages[0].ContentHash, result.Manifest!.Packages.Single().ContentHash);
     }
 
+    [Fact]
+    public async Task AcceptsALenientHandWrittenMediaManifest()
+    {
+        string id = Guid.NewGuid().ToString("N");
+        string root = NewRoot();
+        var package = CreateMedia(id).Packages[0];
+        var file = package.Manifest.Files[0];
+        string json = $$"""
+            { // hand-written
+              "SchemaVersion": 1, "ID": "{{id}}",
+              "packages": [ { "contenthash": "{{package.ContentHash}}", "RelativePath": "{{package.RelativePath}}",
+                "manifest": { "files": [ { "relativePath": "{{file.RelativePath}}", "length": {{file.Length}}, "SHA256": "{{file.Sha256}}", } ], } }, ],
+            }
+            """;
+        string directory = Path.Combine(root, "Cache", "PreOobe", "manifests");
+        Directory.CreateDirectory(directory);
+        byte[] bytes = System.Text.Encoding.UTF8.GetBytes(json);
+        await File.WriteAllBytesAsync(Path.Combine(directory, id + ".json"), bytes, Cancellation);
+        var result = await new ContentPackageMediaReader(Kind).ReadAsync([root], id, Convert.ToHexString(SHA256.HashData(bytes)), Cancellation);
+        Assert.Equal(ContentPackageMediaStatus.Found, result.Status);
+    }
+
     public void Dispose()
     {
         if (Directory.Exists(temp)) Directory.Delete(temp, recursive: true);
