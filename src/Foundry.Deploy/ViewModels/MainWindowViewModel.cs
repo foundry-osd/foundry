@@ -713,7 +713,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             DomainJoinStep.EndZeroTouchCheck();
         }
 
-        if (isArrival && IsDebugSafeMode && _debugCredentialVerifier is { } debugVerifier && DomainJoinStep.NeedsCredentialCheck)
+        if (isArrival && IsDebugSafeMode && _debugCredentialVerifier is { } debugVerifier && DomainJoinStep.RequiresCredentials &&
+            DomainJoinStep.CredentialCheckState == DomainCredentialCheckState.NotChecked)
         {
             _isDebugCredentialPreviewPending = false;
             _ = RunDomainCredentialCheckAsync(debugVerifier);
@@ -856,8 +857,10 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     {
         _debugDomainJoinMode = mode;
         ReplaceDebugCredentialVerifier();
-        _isDebugCredentialPreviewPending = true;
         _wizardContext.ApplyDebugDomainJoin(DebugDomainJoinScenarios.Create(mode));
+        // Set once the step is configured: configuring raises refreshes that would consume an earlier flag.
+        _isDebugCredentialPreviewPending = true;
+        UpdateStepCredentialCheck();
         OnPropertyChanged(nameof(IsDebugDomainJoinNoneMode));
         OnPropertyChanged(nameof(IsDebugDomainJoinInteractiveMode));
         OnPropertyChanged(nameof(IsDebugDomainJoinZeroTouchMode));

@@ -2,7 +2,10 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:Foundry.Deploy.Controls">
-    <!--  Brushes and glyphs follow the WinUI 3 InfoBar: severity background, card stroke, and a filled status circle.  -->
+    <!--
+        Brushes and glyphs follow the WinUI 3 InfoBar: severity background, card stroke, and a filled status circle. Informational
+        uses the solid attention background, because the card may sit over content and the regular one is see-through in dark.
+    -->
     <Border
         Padding="12"
         BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
@@ -12,7 +15,7 @@
             <Style TargetType="Border">
                 <Setter
                     Property="Background"
-                    Value="{DynamicResource SystemFillColorAttentionBackgroundBrush}" />
+                    Value="{DynamicResource SystemFillColorSolidAttentionBackgroundBrush}" />
                 <Style.Triggers>
                     <DataTrigger
                         Binding="{Binding Severity, ElementName=Root}"

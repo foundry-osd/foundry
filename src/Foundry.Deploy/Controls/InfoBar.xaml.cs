@@ -7,22 +7,6 @@ using System.Windows.Controls;
 
 namespace Foundry.Deploy.Controls;
 
-/// <summary>Says how important the message of an <see cref="InfoBar"/> is, as the WinUI 3 InfoBar does.</summary>
-public enum InfoBarSeverity
-{
-    /// <summary>Neutral information, such as an operation in progress.</summary>
-    Informational,
-
-    /// <summary>An operation succeeded.</summary>
-    Success,
-
-    /// <summary>Something needs attention but does not block the technician.</summary>
-    Warning,
-
-    /// <summary>Something failed or blocks the technician.</summary>
-    Error
-}
-
 /// <summary>
 /// A WPF card aligned on the WinUI 3 InfoBar: a filled severity glyph, an optional title, a message and an optional content
 /// area below them (for example a progress bar). Colors come from the Fluent theme severity brushes, so the card follows the
@@ -59,6 +43,7 @@ public partial class InfoBar : UserControl
         InitializeComponent();
     }
 
+    /// <summary>Gets or sets the severity, which sets the background color and the status glyph.</summary>
     public InfoBarSeverity Severity
     {
         get => (InfoBarSeverity)GetValue(SeverityProperty);
@@ -72,6 +57,7 @@ public partial class InfoBar : UserControl
         set => SetValue(TitleProperty, value);
     }
 
+    /// <summary>Gets or sets the text of the card.</summary>
     public string Message
     {
         get => (string)GetValue(MessageProperty);

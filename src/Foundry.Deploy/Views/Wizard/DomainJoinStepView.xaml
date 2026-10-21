@@ -171,6 +171,14 @@
             <controls:InfoBar.Style>
                 <Style TargetType="controls:InfoBar">
                     <Style.Triggers>
+                        <!--  Keeps the vertical scroll bar of the page usable when it is shown, as the content gutter does.  -->
+                        <DataTrigger
+                            Binding="{Binding ComputedVerticalScrollBarVisibility, ElementName=PageContentScrollViewer}"
+                            Value="Visible">
+                            <Setter
+                                Property="Margin"
+                                Value="0,0,24,0" />
+                        </DataTrigger>
                         <DataTrigger
                             Binding="{Binding IsCheckingCredentials}"
                             Value="True">
