@@ -27,7 +27,7 @@ public class PreOobeUnattendPrecedenceService(IProcessRunner processRunner)
     {
         string path = Path.Combine(partition, "Windows", "Panther", "unattend.xml");
         if (!File.Exists(path)) return final ? new(false, DomainJoinSkipCode.ComputerNameMismatch) : new(true);
-        Foundry.Core.Services.Packages.PreOobePackagePathPolicy.ValidateNoReparsePoints(path);
+        Foundry.Core.Services.Packages.ContentPackagePathPolicy.ValidateNoReparsePoints(path);
         if (new FileInfo(path).Length > UnattendFileService.MaximumFileSizeBytes)
             throw new InvalidDataException("The answer file exceeds the supported size limit.");
         byte[] bytes = await File.ReadAllBytesAsync(path, cancellationToken).ConfigureAwait(false);

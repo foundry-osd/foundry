@@ -25,7 +25,7 @@ public sealed class WinPePreOobeMediaTests : IDisposable
         using var package = await publisher.PrepareAsync(library, settings, Cancellation);
         string media = Path.Combine(root, "Workspaces", Guid.NewGuid().ToString("N"), "Scratch", "Iso",
             "custom-iso-" + Guid.NewGuid().ToString("N"), "media");
-        Assert.All(package.Files, file => Assert.True(Path.Combine(media, file.RelativePath).Length > PreOobePackagePathPolicy.MaximumFullPathLength));
+        Assert.All(package.Files, file => Assert.True(Path.Combine(media, file.RelativePath).Length > ContentPackageKind.PostInstallation.MaximumFullPathLength));
 
         await publisher.PublishAsync(package, media, Cancellation);
 

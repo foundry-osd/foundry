@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Models.Packages;
 using Foundry.Core.Models.PreOobe;
 
 namespace Foundry.Core.Services.Packages;
@@ -13,7 +14,7 @@ public sealed class PreOobePackageLease : IDisposable, IAsyncDisposable
     private readonly IReadOnlyList<FileStream> handles;
     private bool disposed;
 
-    internal PreOobePackageLease(PreOobePackageReference reference, PreOobePackageManifest manifest, string directory,
+    internal PreOobePackageLease(PreOobePackageReference reference, ContentPackageManifest manifest, string directory,
         IReadOnlyList<PreOobePackageSourceFile> files, IReadOnlyList<FileStream> handles)
     {
         Reference = reference;
@@ -24,7 +25,7 @@ public sealed class PreOobePackageLease : IDisposable, IAsyncDisposable
     }
 
     public PreOobePackageReference Reference { get; }
-    public PreOobePackageManifest Manifest { get; }
+    public ContentPackageManifest Manifest { get; }
     public string ContentDirectoryPath { get; }
     public IReadOnlyList<PreOobePackageSourceFile> Files { get; }
 

@@ -64,8 +64,8 @@ public sealed class PreOobeTargetStagingService
             foreach (var file in content.RuntimeManifest.Files)
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                string sourcePath = PreOobePackagePathPolicy.Resolve(content.RuntimeDirectory, file.RelativePath);
-                string destination = PreOobePackagePathPolicy.Resolve(layout.RuntimePreOobe, file.RelativePath);
+                string sourcePath = ContentPackagePathPolicy.PostInstallation.Resolve(content.RuntimeDirectory, file.RelativePath);
+                string destination = ContentPackagePathPolicy.PostInstallation.Resolve(layout.RuntimePreOobe, file.RelativePath);
                 _protectDirectory(Path.GetDirectoryName(destination)!);
                 await using (var source = await PreOobeContentResolver.OpenVerifiedAsync(sourcePath, file.Length, file.Sha256, cancellationToken).ConfigureAwait(false))
                 await using (var target = new FileStream(destination, FileMode.CreateNew, FileAccess.Write, FileShare.None))
@@ -87,7 +87,7 @@ public sealed class PreOobeTargetStagingService
                 foreach (var file in context.NetworkProfileRoamingPayload.DataFiles)
                 {
                     string relative = "Payloads/" + file.FileName.Replace('\\', '/');
-                    PreOobePackagePathPolicy.ValidateRelativePath(relative);
+                    ContentPackagePathPolicy.PostInstallation.ValidateRelativePath(relative);
                     string destination = Path.Combine(layout.Root, relative.Replace('/', Path.DirectorySeparatorChar));
                     _protectDirectory(Path.GetDirectoryName(destination)!);
                     byte[] bytes = file.Bytes ?? Encoding.UTF8.GetBytes(file.Content);
@@ -139,11 +139,11 @@ public sealed class PreOobeTargetStagingService
                 string relative = $"Payloads/PostInstall/{operationId}/{package.ContentHash}";
                 string destinationRoot = Path.Combine(layout.Root, relative.Replace('/', Path.DirectorySeparatorChar));
                 _protectDirectory(destinationRoot);
-                foreach (string directory in package.Manifest.Directories) _protectDirectory(PreOobePackagePathPolicy.Resolve(destinationRoot, directory));
+                foreach (string directory in package.Manifest.Directories) _protectDirectory(ContentPackagePathPolicy.PostInstallation.Resolve(destinationRoot, directory));
                 foreach (var file in package.Manifest.Files)
                 {
-                    string sourcePath = PreOobePackagePathPolicy.Resolve(package.SourceRoot, file.RelativePath);
-                    string destination = PreOobePackagePathPolicy.Resolve(destinationRoot, file.RelativePath);
+                    string sourcePath = ContentPackagePathPolicy.PostInstallation.Resolve(package.SourceRoot, file.RelativePath);
+                    string destination = ContentPackagePathPolicy.PostInstallation.Resolve(destinationRoot, file.RelativePath);
                     _protectDirectory(Path.GetDirectoryName(destination)!);
                     await using (var source = await PreOobeContentResolver.OpenVerifiedAsync(sourcePath, file.Length, file.Sha256, cancellationToken).ConfigureAwait(false))
                     await using (var target = new FileStream(destination, FileMode.CreateNew, FileAccess.Write, FileShare.None))
@@ -258,14 +258,14 @@ public sealed class PreOobeTargetStagingService
                 Exception? domainRollbackFailure = null;
                 if (domainCredentialCreated)
                 {
-                    try { PreOobePackagePathPolicy.ValidateNoReparsePoints(domainCredentialPath!); File.Delete(domainCredentialPath!); }
+                    try { ContentPackagePathPolicy.ValidateNoReparsePoints(domainCredentialPath!); File.Delete(domainCredentialPath!); }
                     catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException)
                     { domainRollbackFailure = exception; }
                 }
                 foreach (string path in unpublishedNetworkFiles.Concat(
                     domainRollbackFailure is null ? unpublishedStateFiles.AsEnumerable().Reverse() : []))
                 {
-                    try { PreOobePackagePathPolicy.ValidateNoReparsePoints(path); File.Delete(path); }
+                    try { ContentPackagePathPolicy.ValidateNoReparsePoints(path); File.Delete(path); }
                     catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException) { }
                 }
                 if (domainRollbackFailure is not null)
@@ -277,7 +277,7 @@ public sealed class PreOobeTargetStagingService
     /// <summary>Protects files created beneath an owned target directory before sensitive inputs arrive.</summary>
     internal static void ProtectDirectory(string path)
     {
-        PreOobePackagePathPolicy.ValidateNoReparsePoints(path);
+        ContentPackagePathPolicy.ValidateNoReparsePoints(path);
         var directory = Directory.CreateDirectory(path);
         var security = new DirectorySecurity();
         security.SetAccessRuleProtection(isProtected: true, preserveInheritance: false);

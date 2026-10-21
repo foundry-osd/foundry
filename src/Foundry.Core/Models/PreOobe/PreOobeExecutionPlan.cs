@@ -4,6 +4,7 @@
 
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Models.Packages;
 
 namespace Foundry.Core.Models.PreOobe;
 
@@ -40,7 +41,7 @@ public sealed record PreOobeStagedPackage
     public string ContentHash { get; init; } = string.Empty;
     /// <summary>Path relative to the installed Windows Temp/Foundry ownership root.</summary>
     public string RelativePath { get; init; } = string.Empty;
-    public PreOobePackageManifest Manifest { get; init; } = new();
+    public ContentPackageManifest Manifest { get; init; } = new();
 }
 
 /// <summary>Registers disposal ownership separately from immutable file identity, including generated directory content.</summary>

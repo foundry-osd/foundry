@@ -6,6 +6,7 @@ using System.Security.AccessControl;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Models.Packages;
 using Foundry.Core.Models.PreOobe;
 using Foundry.Core.Services.Configuration;
 
@@ -29,10 +30,10 @@ public sealed class PreOobePackageLibraryService
         try
         {
             string directory = ContentPath(reference.ContentHash);
-            PreOobePackageManifest manifest = ReadManifest(directory, reference.ContentHash);
+            ContentPackageManifest manifest = ReadManifest(directory, reference.ContentHash);
             return manifest.Files.Count == reference.FileCount && manifest.Files.Sum(file => file.Length) == reference.Length &&
-                manifest.Files.All(file => File.Exists(PreOobePackagePathPolicy.Resolve(Path.Combine(directory, "files"), file.RelativePath)) &&
-                    new FileInfo(PreOobePackagePathPolicy.Resolve(Path.Combine(directory, "files"), file.RelativePath)).Length == file.Length);
+                manifest.Files.All(file => File.Exists(ContentPackagePathPolicy.PostInstallation.Resolve(Path.Combine(directory, "files"), file.RelativePath)) &&
+                    new FileInfo(ContentPackagePathPolicy.PostInstallation.Resolve(Path.Combine(directory, "files"), file.RelativePath)).Length == file.Length);
         }
         catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException or ArgumentException or OverflowException) { return false; }
     }
@@ -43,7 +44,7 @@ public sealed class PreOobePackageLibraryService
         ArgumentException.ThrowIfNullOrWhiteSpace(sourcePath);
         cancellationToken.ThrowIfCancellationRequested();
         string source = Path.GetFullPath(sourcePath);
-        PreOobePackagePathPolicy.ValidateNoReparsePoints(source);
+        ContentPackagePathPolicy.ValidateNoReparsePoints(source);
         if (IsWithin(source, root) || (Directory.Exists(source) && IsWithin(root, source)))
             throw new InvalidDataException("PreOobe.PackageSourceOverlapsLibrary");
         bool isDirectory = Directory.Exists(source);
@@ -58,16 +59,16 @@ public sealed class PreOobePackageLibraryService
         List<FileStream> sourceHandles = [];
         try
         {
-            foreach (string directory in inventory.Directories) Directory.CreateDirectory(PreOobePackagePathPolicy.Resolve(filesRoot, directory));
-            List<PreOobePackageFile> files = [];
+            foreach (string directory in inventory.Directories) Directory.CreateDirectory(ContentPackagePathPolicy.PostInstallation.Resolve(filesRoot, directory));
+            List<ContentPackageFile> files = [];
             foreach (string relativePath in inventory.Files)
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                FileStream input = OpenRead(PreOobePackagePathPolicy.Resolve(sourceRoot, relativePath));
+                FileStream input = OpenRead(ContentPackagePathPolicy.PostInstallation.Resolve(sourceRoot, relativePath));
                 sourceHandles.Add(input);
                 if (new DriveInfo(Path.GetPathRoot(filesRoot)!).AvailableFreeSpace < input.Length)
                     throw new IOException("PreOobe.InsufficientPackageSpace");
-                string target = PreOobePackagePathPolicy.Resolve(filesRoot, relativePath);
+                string target = ContentPackagePathPolicy.PostInstallation.Resolve(filesRoot, relativePath);
                 Directory.CreateDirectory(Path.GetDirectoryName(target)!);
                 await using (FileStream output = new(target, FileMode.CreateNew, FileAccess.Write, FileShare.None, 128 * 1024,
                     FileOptions.Asynchronous | FileOptions.SequentialScan))
@@ -86,8 +87,8 @@ public sealed class PreOobePackageLibraryService
                 files.Add(new() { RelativePath = relativePath, Length = input.Length, Sha256 = hash });
             }
             if (isDirectory && !SameInventory(inventory, Inventory(sourceRoot))) throw new InvalidDataException("PreOobe.PackageSourceChanged");
-            var manifest = new PreOobePackageManifest { Directories = inventory.Directories, Files = files };
-            byte[] manifestBytes = PreOobePackageManifestCodec.Serialize(manifest);
+            var manifest = new ContentPackageManifest { Directories = inventory.Directories, Files = files };
+            byte[] manifestBytes = ContentPackageManifestCodec.Serialize(manifest);
             string contentHash = Convert.ToHexStringLower(SHA256.HashData(manifestBytes));
             string destination = ContentPath(contentHash);
             ValidateDestination(manifest, Path.Combine(destination, "files"));
@@ -136,18 +137,18 @@ public sealed class PreOobePackageLibraryService
         string directory = ContentPath(contentHash);
         if (!Directory.Exists(directory)) return;
         await using (PreOobePackageLease validation = await AcquireCoreAsync(contentHash, cancellationToken, verifyContent: false).ConfigureAwait(false)) { }
-        PreOobePackageManifest manifest = ReadManifest(directory, contentHash);
+        ContentPackageManifest manifest = ReadManifest(directory, contentHash);
         List<FileStream> deleteHandles = [];
         try
         {
-            foreach (PreOobePackageFile file in manifest.Files)
-                deleteHandles.Add(new(PreOobePackagePathPolicy.Resolve(Path.Combine(directory, "files"), file.RelativePath), FileMode.Open, FileAccess.ReadWrite, FileShare.Delete));
+            foreach (ContentPackageFile file in manifest.Files)
+                deleteHandles.Add(new(ContentPackagePathPolicy.PostInstallation.Resolve(Path.Combine(directory, "files"), file.RelativePath), FileMode.Open, FileAccess.ReadWrite, FileShare.Delete));
             deleteHandles.Add(new(Path.Combine(directory, "manifest.json"), FileMode.Open, FileAccess.ReadWrite, FileShare.Delete));
             cancellationToken.ThrowIfCancellationRequested();
             foreach (FileStream handle in deleteHandles) File.Delete(handle.Name);
             foreach (FileStream handle in deleteHandles) handle.Dispose();
             foreach (string child in manifest.Directories.OrderByDescending(path => path.Length))
-                Directory.Delete(PreOobePackagePathPolicy.Resolve(Path.Combine(directory, "files"), child), recursive: false);
+                Directory.Delete(ContentPackagePathPolicy.PostInstallation.Resolve(Path.Combine(directory, "files"), child), recursive: false);
             Directory.Delete(Path.Combine(directory, "files"), recursive: false);
             Directory.Delete(directory, recursive: false);
         }
@@ -155,11 +156,11 @@ public sealed class PreOobePackageLibraryService
     }
 
     /// <summary>Checks actual library and target prefixes against installer path limits before copying.</summary>
-    public static void ValidateDestination(PreOobePackageManifest manifest, string destinationRoot)
+    public static void ValidateDestination(ContentPackageManifest manifest, string destinationRoot)
     {
-        PreOobePackageManifestCodec.Validate(manifest);
+        ContentPackageManifestCodec.Validate(manifest, ContentPackageKind.PostInstallation);
         foreach (string path in manifest.Directories.Concat(manifest.Files.Select(file => file.RelativePath)))
-            _ = PreOobePackagePathPolicy.Resolve(destinationRoot, path);
+            _ = ContentPackagePathPolicy.PostInstallation.Resolve(destinationRoot, path);
     }
 
     private async Task<PreOobePackageLease> AcquireCoreAsync(string hash, CancellationToken cancellationToken, bool verifyContent = true)
@@ -171,20 +172,20 @@ public sealed class PreOobePackageLibraryService
         {
             FileStream metadata = OpenRead(Path.Combine(directory, "manifest.json"));
             handles.Add(metadata);
-            if (metadata.Length is 0 or > PreOobePackageManifestCodec.MaximumManifestBytes) throw new InvalidDataException("PreOobe.InvalidPackageManifest");
+            if (metadata.Length is 0 or > ContentPackageManifestCodec.MaximumManifestBytes) throw new InvalidDataException("ContentPackage.InvalidPackageManifest");
             byte[] bytes = new byte[checked((int)metadata.Length)];
             await metadata.ReadExactlyAsync(bytes, cancellationToken).ConfigureAwait(false);
-            PreOobePackageManifest manifest = PreOobePackageManifestCodec.Deserialize(bytes, hash);
+            ContentPackageManifest manifest = ContentPackageManifestCodec.Deserialize(bytes, hash, ContentPackageKind.PostInstallation);
             ValidateDestination(manifest, filesRoot);
             SourceInventory inventory = Inventory(filesRoot);
             if (!SameInventory(new(manifest.Directories, manifest.Files.Select(file => file.RelativePath).ToArray()), inventory) ||
                 Directory.EnumerateFileSystemEntries(directory).Any(path => Path.GetFileName(path) is not ("files" or "manifest.json")))
                 throw new InvalidDataException("PreOobe.PackageContentChanged");
             List<PreOobePackageSourceFile> sources = [];
-            foreach (PreOobePackageFile file in manifest.Files)
+            foreach (ContentPackageFile file in manifest.Files)
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                string path = PreOobePackagePathPolicy.Resolve(filesRoot, file.RelativePath);
+                string path = ContentPackagePathPolicy.PostInstallation.Resolve(filesRoot, file.RelativePath);
                 FileStream input = OpenRead(path);
                 handles.Add(input);
                 if (verifyContent && (input.Length != file.Length || !Convert.ToHexStringLower(await SHA256.HashDataAsync(input, cancellationToken).ConfigureAwait(false)).Equals(file.Sha256, StringComparison.OrdinalIgnoreCase)))
@@ -197,7 +198,7 @@ public sealed class PreOobePackageLibraryService
         catch { foreach (FileStream handle in handles) handle.Dispose(); throw; }
     }
 
-    private static PreOobePackageReference CreateReference(PreOobePackageManifest manifest, string hash, string name) => new()
+    private static PreOobePackageReference CreateReference(ContentPackageManifest manifest, string hash, string name) => new()
     {
         ContentHash = hash,
         DisplayName = name,
@@ -208,7 +209,7 @@ public sealed class PreOobePackageLibraryService
     /// <summary>Replaces a damaged known revision only when no consumer holds its content and no unmanaged entries would be removed.</summary>
     private void RepairOwnedRevision(string destination, string pending, string hash, CancellationToken cancellationToken)
     {
-        PreOobePackageManifest manifest = ReadManifest(destination, hash);
+        ContentPackageManifest manifest = ReadManifest(destination, hash);
         string filesRoot = Path.Combine(destination, "files");
         SourceInventory inventory = Directory.Exists(filesRoot) ? Inventory(filesRoot) : new([], []);
         var ownedFiles = manifest.Files.Select(file => file.RelativePath).ToHashSet(StringComparer.Ordinal);
@@ -225,13 +226,13 @@ public sealed class PreOobePackageLibraryService
             // Existing leases deny write/delete sharing. Hold all replacement handles before changing any path.
             replacementHandles.Add(new(Path.Combine(destination, "manifest.json"), FileMode.Open, FileAccess.ReadWrite, FileShare.Delete));
             foreach (string relative in inventory.Files)
-                replacementHandles.Add(new(PreOobePackagePathPolicy.Resolve(filesRoot, relative), FileMode.Open, FileAccess.ReadWrite, FileShare.Delete));
+                replacementHandles.Add(new(ContentPackagePathPolicy.PostInstallation.Resolve(filesRoot, relative), FileMode.Open, FileAccess.ReadWrite, FileShare.Delete));
             cancellationToken.ThrowIfCancellationRequested();
         }
         finally { foreach (FileStream handle in replacementHandles) handle.Dispose(); }
 
         // Windows cannot rename a directory with open children; the caller's library lock still excludes new leases.
-        PreOobePackagePathPolicy.ValidateNoReparsePoints(destination);
+        ContentPackagePathPolicy.ValidateNoReparsePoints(destination);
         Directory.Move(destination, retired);
         try { Directory.Move(pending, destination); }
         catch
@@ -242,26 +243,26 @@ public sealed class PreOobePackageLibraryService
 
         // Delete only the recorded old entries. Unexpected additions stay in the retired directory.
         foreach (string relative in inventory.Files)
-            File.Delete(PreOobePackagePathPolicy.Resolve(Path.Combine(retired, "files"), relative));
+            File.Delete(ContentPackagePathPolicy.PostInstallation.Resolve(Path.Combine(retired, "files"), relative));
         foreach (string relative in inventory.Directories.OrderByDescending(path => path.Length))
-            Directory.Delete(PreOobePackagePathPolicy.Resolve(Path.Combine(retired, "files"), relative), recursive: false);
+            Directory.Delete(ContentPackagePathPolicy.PostInstallation.Resolve(Path.Combine(retired, "files"), relative), recursive: false);
         if (Directory.Exists(Path.Combine(retired, "files"))) Directory.Delete(Path.Combine(retired, "files"), recursive: false);
-        PreOobePackagePathPolicy.ValidateNoReparsePoints(Path.Combine(retired, "manifest.json"));
+        ContentPackagePathPolicy.ValidateNoReparsePoints(Path.Combine(retired, "manifest.json"));
         File.Delete(Path.Combine(retired, "manifest.json"));
         Directory.Delete(retired, recursive: false);
     }
 
     private string ContentPath(string hash)
     {
-        if (!PreOobePackagePathPolicy.IsValidHash(hash)) throw new InvalidDataException("PreOobe.InvalidPackageReference");
+        if (!ContentPackagePathPolicy.IsValidHash(hash)) throw new InvalidDataException("PreOobe.InvalidPackageReference");
         string path = Path.Combine(root, "content", hash.ToLowerInvariant());
-        PreOobePackagePathPolicy.ValidateNoReparsePoints(path);
+        ContentPackagePathPolicy.ValidateNoReparsePoints(path);
         return path;
     }
 
     private FileStream AcquireLibraryLock()
     {
-        PreOobePackagePathPolicy.ValidateNoReparsePoints(root);
+        ContentPackagePathPolicy.ValidateNoReparsePoints(root);
         Directory.CreateDirectory(root);
         var security = new DirectorySecurity();
         security.SetAccessRuleProtection(isProtected: true, preserveInheritance: false);
@@ -277,18 +278,18 @@ public sealed class PreOobePackageLibraryService
         return new(Path.Combine(root, ".lock"), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
     }
 
-    private static PreOobePackageManifest ReadManifest(string directory, string hash)
+    private static ContentPackageManifest ReadManifest(string directory, string hash)
     {
         using FileStream stream = OpenRead(Path.Combine(directory, "manifest.json"));
-        if (stream.Length is 0 or > PreOobePackageManifestCodec.MaximumManifestBytes) throw new InvalidDataException("PreOobe.InvalidPackageManifest");
+        if (stream.Length is 0 or > ContentPackageManifestCodec.MaximumManifestBytes) throw new InvalidDataException("ContentPackage.InvalidPackageManifest");
         byte[] bytes = new byte[checked((int)stream.Length)];
         stream.ReadExactly(bytes);
-        return PreOobePackageManifestCodec.Deserialize(bytes, hash);
+        return ContentPackageManifestCodec.Deserialize(bytes, hash, ContentPackageKind.PostInstallation);
     }
 
     private static FileStream OpenRead(string path)
     {
-        PreOobePackagePathPolicy.ValidateNoReparsePoints(path);
+        ContentPackagePathPolicy.ValidateNoReparsePoints(path);
         return new(path, FileMode.Open, FileAccess.Read, FileShare.Read, 128 * 1024, FileOptions.Asynchronous | FileOptions.SequentialScan);
     }
 
@@ -309,15 +310,15 @@ public sealed class PreOobePackageLibraryService
         var names = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         while (pending.TryPop(out string? directory))
         {
-            PreOobePackagePathPolicy.ValidateNoReparsePoints(directory);
+            ContentPackagePathPolicy.ValidateNoReparsePoints(directory);
             foreach (string path in Directory.EnumerateFileSystemEntries(directory))
             {
                 string relative = Path.GetRelativePath(rootDirectory, path).Replace('\\', '/');
-                _ = PreOobePackagePathPolicy.Resolve(rootDirectory, relative);
-                if (!names.Add(relative)) throw new InvalidDataException("PreOobe.DuplicatePackagePath");
+                _ = ContentPackagePathPolicy.PostInstallation.Resolve(rootDirectory, relative);
+                if (!names.Add(relative)) throw new InvalidDataException("ContentPackage.DuplicatePackagePath");
                 if (Directory.Exists(path)) { directories.Add(relative); pending.Push(path); }
                 else files.Add(relative);
-                if (files.Count > PreOobePackageManifestCodec.MaximumFiles || directories.Count > PreOobePackageManifestCodec.MaximumDirectories)
+                if (files.Count > ContentPackageKind.PostInstallation.MaximumFiles || directories.Count > ContentPackageKind.PostInstallation.MaximumDirectories)
                     throw new InvalidDataException("PreOobe.PackageTooManyFiles");
             }
         }
@@ -332,10 +333,10 @@ public sealed class PreOobePackageLibraryService
 
     private static void DeleteOwnedTree(string directory)
     {
-        PreOobePackagePathPolicy.ValidateNoReparsePoints(directory);
+        ContentPackagePathPolicy.ValidateNoReparsePoints(directory);
         foreach (string path in Directory.EnumerateFileSystemEntries(directory))
         {
-            PreOobePackagePathPolicy.ValidateNoReparsePoints(path);
+            ContentPackagePathPolicy.ValidateNoReparsePoints(path);
             if (Directory.Exists(path)) DeleteOwnedTree(path);
             else File.Delete(path);
         }

@@ -4,6 +4,7 @@
 
 using System.Security.Cryptography;
 using System.Text.Json;
+using Foundry.Core.Models.Packages;
 using Foundry.Core.Models.PreOobe;
 using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Deployment.PreOobe;
@@ -19,7 +20,7 @@ internal static class NativeRuntimeFixture
     {
         string directory = Path.Combine(root, "postinstall-runtime");
         Directory.CreateDirectory(directory);
-        var files = new List<PreOobePackageFile>();
+        var files = new List<ContentPackageFile>();
         foreach (string name in new[] { "Foundry.PostInstall.exe", "Launch.cmd" })
         {
             byte[] bytes = System.Text.Encoding.UTF8.GetBytes("fixture");

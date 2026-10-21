@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Security.Cryptography;
+using Foundry.Core.Models.Packages;
 using Foundry.Core.Models.PreOobe;
 using Foundry.Core.Services.Packages;
 
@@ -219,24 +220,24 @@ public sealed class PreOobePackageLibraryTests : IDisposable
     [InlineData("a./script.ps1")]
     [InlineData("a /script.ps1")]
     [InlineData("a\\script.ps1")]
-    public void UnsafePortablePathsAreRejected(string path) => Assert.Throws<InvalidDataException>(() => PreOobePackagePathPolicy.ValidateRelativePath(path));
+    public void UnsafePortablePathsAreRejected(string path) => Assert.Throws<InvalidDataException>(() => ContentPackagePathPolicy.PostInstallation.ValidateRelativePath(path));
 
     [Fact]
     public void CanonicalIdentityIsIndependentOfInputOrderButIncludesDirectories()
     {
-        var a = new PreOobePackageFile { RelativePath = "a", Length = 0, Sha256 = Convert.ToHexStringLower(SHA256.HashData([])) };
+        var a = new ContentPackageFile { RelativePath = "a", Length = 0, Sha256 = Convert.ToHexStringLower(SHA256.HashData([])) };
         var b = a with { RelativePath = "b" };
-        var first = new PreOobePackageManifest { Files = [a, b] };
-        Assert.Equal(PreOobePackageManifestCodec.GetContentHash(first), PreOobePackageManifestCodec.GetContentHash(first with { Files = [b, a] }));
-        Assert.NotEqual(PreOobePackageManifestCodec.GetContentHash(first), PreOobePackageManifestCodec.GetContentHash(first with { Directories = ["empty"] }));
-        Assert.Throws<InvalidDataException>(() => PreOobePackageManifestCodec.Serialize(first with { Files = [a, a with { RelativePath = "A" }] }));
+        var first = new ContentPackageManifest { Files = [a, b] };
+        Assert.Equal(ContentPackageManifestCodec.GetContentHash(first), ContentPackageManifestCodec.GetContentHash(first with { Files = [b, a] }));
+        Assert.NotEqual(ContentPackageManifestCodec.GetContentHash(first), ContentPackageManifestCodec.GetContentHash(first with { Directories = ["empty"] }));
+        Assert.Throws<InvalidDataException>(() => ContentPackageManifestCodec.Serialize(first with { Files = [a, a with { RelativePath = "A" }] }));
     }
 
     [Fact]
     public void DestinationPrefixIsRevalidated()
     {
         string longRoot = "C:\\" + new string('a', 245);
-        Assert.Throws<InvalidDataException>(() => PreOobePackagePathPolicy.Resolve(longRoot, "long-file-name.exe"));
+        Assert.Throws<InvalidDataException>(() => ContentPackagePathPolicy.PostInstallation.Resolve(longRoot, "long-file-name.exe"));
     }
 
     private string CreateSource()

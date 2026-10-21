@@ -4,6 +4,7 @@
 
 using System.IO.Compression;
 using System.Text.Json;
+using Foundry.Core.Models.Packages;
 using Foundry.Core.Models.Runtime;
 using Foundry.Core.Services.Runtime;
 using Foundry.Utilities.IO;
@@ -466,7 +467,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
 
         if (applicationName == "Foundry.PostInstall")
         {
-            var files = new List<Models.PreOobe.PreOobePackageFile>();
+            var files = new List<Models.Packages.ContentPackageFile>();
             foreach (string name in new[] { "Foundry.PostInstall.exe", "Launch.cmd" })
             {
                 string path = Path.Combine(publishDirectory, name);

@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Models.Packages;
+
 namespace Foundry.Core.Models.PreOobe;
 
 /// <summary>Binds external package snapshots to one immutable media generation.</summary>
@@ -17,5 +19,5 @@ public sealed record PreOobeMediaPackage
 {
     public string ContentHash { get; init; } = string.Empty;
     public string RelativePath { get; init; } = string.Empty;
-    public PreOobePackageManifest Manifest { get; init; } = new();
+    public ContentPackageManifest Manifest { get; init; } = new();
 }

@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using Foundry.Core.Models.Packages;
 using Foundry.Core.Models.PreOobe;
 
 namespace Foundry.Deploy.Services.Deployment.PreOobe;
@@ -30,4 +31,4 @@ internal sealed class PreOobePreparedContent : IDisposable
     }
 }
 
-internal sealed record PreOobePreparedPackage(string ContentHash, string SourceRoot, PreOobePackageManifest Manifest);
+internal sealed record PreOobePreparedPackage(string ContentHash, string SourceRoot, ContentPackageManifest Manifest);

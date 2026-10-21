@@ -80,7 +80,7 @@ public class PreOobeContentResolver
             {
                 if (settings.ManifestId is null && settings.ManifestHash is null)
                     throw new InvalidDataException("Package actions require an authenticated external media manifest.");
-                if (!Guid.TryParseExact(settings.ManifestId, "N", out _) || !PreOobePackagePathPolicy.IsValidHash(settings.ManifestHash))
+                if (!Guid.TryParseExact(settings.ManifestId, "N", out _) || !ContentPackagePathPolicy.IsValidHash(settings.ManifestHash))
                     throw new InvalidDataException("Post-installation media binding is invalid.");
                 (string Root, PreOobeMediaManifest Manifest)? media = null;
                 foreach (string root in MediaRoots())
@@ -105,8 +105,8 @@ public class PreOobeContentResolver
                     var item = matches[0];
                     if (item.RelativePath != $"Cache/PreOobe/Packages/{package.ContentHash}/files")
                         throw new InvalidDataException("Package content is outside the canonical media cache.");
-                    PreOobePackageManifestCodec.Validate(item.Manifest);
-                    if (!PreOobePackageManifestCodec.GetContentHash(item.Manifest).Equals(package.ContentHash, StringComparison.OrdinalIgnoreCase))
+                    ContentPackageManifestCodec.Validate(item.Manifest, ContentPackageKind.PostInstallation);
+                    if (!ContentPackageManifestCodec.GetContentHash(item.Manifest).Equals(package.ContentHash, StringComparison.OrdinalIgnoreCase))
                         throw new InvalidDataException("Package manifest hash differs from its immutable identity.");
                     foreach (var action in ApplicableActions(context.Request).Where(action => action.Package?.ContentHash == package.ContentHash))
                     {
@@ -119,11 +119,11 @@ public class PreOobeContentResolver
                     if (item.Manifest.SchemaVersion != 1 || item.Manifest.Files.Count != package.FileCount || item.Manifest.Files.Sum(file => file.Length) != package.Length)
                         throw new InvalidDataException("Post-installation package identity does not match its reference.");
                     foreach (string relative in item.Manifest.Files.Select(file => file.RelativePath).Concat(item.Manifest.Directories))
-                        PreOobePackagePathPolicy.ResolveLexically($@"C:\Windows\Temp\Foundry\Payloads\PostInstall\{new string('0', 32)}\{package.ContentHash}", relative);
+                        ContentPackagePathPolicy.PostInstallation.ResolveLexically($@"C:\Windows\Temp\Foundry\Payloads\PostInstall\{new string('0', 32)}\{package.ContentHash}", relative);
                     foreach (var file in item.Manifest.Files)
                     {
-                        PreOobePackagePathPolicy.ValidateRelativePath(file.RelativePath);
-                        string filePath = PreOobePackagePathPolicy.Resolve(source, file.RelativePath);
+                        ContentPackagePathPolicy.PostInstallation.ValidateRelativePath(file.RelativePath);
+                        string filePath = ContentPackagePathPolicy.PostInstallation.Resolve(source, file.RelativePath);
                         await RequireSeparateSourceAsync(context, filePath, cancellationToken).ConfigureAwait(false);
                         prepared.Files.Add((filePath, await OpenVerifiedAsync(filePath, file.Length, file.Sha256, cancellationToken).ConfigureAwait(false)));
                     }
@@ -171,7 +171,7 @@ public class PreOobeContentResolver
 
     internal static async Task<FileStream> OpenVerifiedAsync(string path, long length, string hash, CancellationToken cancellationToken)
     {
-        if (length < 0 || !PreOobePackagePathPolicy.IsValidHash(hash)) throw new InvalidDataException("Invalid package file metadata.");
+        if (length < 0 || !ContentPackagePathPolicy.IsValidHash(hash)) throw new InvalidDataException("Invalid package file metadata.");
         CustomImageSourceLease.EnsureRegularPath(path);
         var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, 81920, FileOptions.Asynchronous);
         try

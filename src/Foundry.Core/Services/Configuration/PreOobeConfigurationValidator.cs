@@ -77,7 +77,7 @@ public static class PreOobeConfigurationValidator
     }
 
     public static bool IsValidReference(PreOobePackageReference reference) =>
-        PreOobePackagePathPolicy.IsValidHash(reference.ContentHash) && reference.Length >= 0 && reference.FileCount is > 0 and <= 10_000 &&
+        ContentPackagePathPolicy.IsValidHash(reference.ContentHash) && reference.Length >= 0 && reference.FileCount is > 0 and <= 10_000 &&
         !string.IsNullOrWhiteSpace(reference.DisplayName) && reference.DisplayName.Length <= 256 && !reference.DisplayName.Any(char.IsControl);
 
     /// <summary>Enabled customization requires at least one enabled action and available content; incomplete drafts remain editable.</summary>
@@ -88,7 +88,7 @@ public static class PreOobeConfigurationValidator
     private static bool IsRelative(string? value)
     {
         if (value is null) return true;
-        try { PreOobePackagePathPolicy.ValidateRelativePath(value); return true; }
+        try { ContentPackagePathPolicy.PostInstallation.ValidateRelativePath(value); return true; }
         catch (InvalidDataException) { return false; }
     }
 

@@ -4,6 +4,7 @@
 
 using System.Security.Cryptography;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Models.Packages;
 using Foundry.Core.Models.PreOobe;
 using Serilog;
 
@@ -452,7 +453,7 @@ public sealed class PreOobeOrchestrator(string root, string planHash, ExecutionJ
             }
             if (!actual.SetEquals(package.Manifest.Files.Select(file => file.RelativePath.Replace('\\', '/'))))
                 throw new InvalidDataException("Staged content inventory mismatch.");
-            foreach (PreOobePackageFile file in package.Manifest.Files)
+            foreach (ContentPackageFile file in package.Manifest.Files)
             {
                 string path = OwnedPaths.Resolve(packageRoot, file.RelativePath);
                 if (new FileInfo(path).Length != file.Length) throw new InvalidDataException("Staged content size mismatch.");

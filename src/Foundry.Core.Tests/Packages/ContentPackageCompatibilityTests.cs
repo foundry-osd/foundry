@@ -5,6 +5,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using Foundry.Core.Models.Packages;
 using Foundry.Core.Models.PreOobe;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Packages;
@@ -21,17 +22,17 @@ public sealed class ContentPackageCompatibilityTests
     [Fact]
     public void StoredPostInstallationManifestKeepsItsBytesAndHash()
     {
-        PreOobePackageManifest manifest = CreateManifest();
+        ContentPackageManifest manifest = CreateManifest();
 
-        Assert.Equal(ExpectedManifestJson, Encoding.UTF8.GetString(PreOobePackageManifestCodec.Serialize(manifest)));
-        Assert.Equal(ExpectedContentHash, PreOobePackageManifestCodec.GetContentHash(manifest));
+        Assert.Equal(ExpectedManifestJson, Encoding.UTF8.GetString(ContentPackageManifestCodec.Serialize(manifest)));
+        Assert.Equal(ExpectedContentHash, ContentPackageManifestCodec.GetContentHash(manifest));
     }
 
     [Fact]
     public void StoredMediaManifestKeepsItsJson()
     {
-        PreOobePackageManifest manifest = CreateManifest();
-        string hash = PreOobePackageManifestCodec.GetContentHash(manifest);
+        ContentPackageManifest manifest = CreateManifest();
+        string hash = ContentPackageManifestCodec.GetContentHash(manifest);
         var media = new PreOobeMediaManifest
         {
             Id = "0123456789abcdef0123456789abcdef",
@@ -42,13 +43,13 @@ public sealed class ContentPackageCompatibilityTests
         Assert.Equal(ExpectedMediaManifestJson, JsonSerializer.Serialize(media, options));
     }
 
-    private static PreOobePackageManifest CreateManifest() => new()
+    private static ContentPackageManifest CreateManifest() => new()
     {
         Directories = ["bin", "bin/x64"],
         Files =
         [
-            new PreOobePackageFile { RelativePath = "bin/x64/setup.exe", Length = 3, Sha256 = Convert.ToHexStringLower(SHA256.HashData("abc"u8)) },
-            new PreOobePackageFile { RelativePath = "readme.txt", Length = 0, Sha256 = Convert.ToHexStringLower(SHA256.HashData([])) }
+            new ContentPackageFile { RelativePath = "bin/x64/setup.exe", Length = 3, Sha256 = Convert.ToHexStringLower(SHA256.HashData("abc"u8)) },
+            new ContentPackageFile { RelativePath = "readme.txt", Length = 0, Sha256 = Convert.ToHexStringLower(SHA256.HashData([])) }
         ]
     };
 }

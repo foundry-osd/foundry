@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Models.Packages;
 using Foundry.Core.Models.PreOobe;
 using Foundry.PostInstall.Execution;
 
@@ -72,7 +73,7 @@ public sealed class LifecycleSafetyTests
         Directory.CreateDirectory(packageRoot);
         string content = Path.Combine(packageRoot, "input.txt");
         File.WriteAllText(content, "original");
-        var manifest = new PreOobePackageManifest
+        var manifest = new ContentPackageManifest
         {
             Files = [new() { RelativePath = "input.txt", Length = new FileInfo(content).Length,
                 Sha256 = Convert.ToHexStringLower(System.Security.Cryptography.SHA256.HashData(File.ReadAllBytes(content))) }]

@@ -7,14 +7,14 @@ using Foundry.Core.Services.Packages;
 
 namespace Foundry.Core.Tests.Packages;
 
-public sealed class PreOobePackagePathPolicyTests
+public sealed class ContentPackagePathPolicyTests
 {
     [Fact]
     public void ResolveLexically_FutureDestinationDoesNotInspectReparsePoints()
     {
         using var junction = new TemporaryJunction();
 
-        string resolved = PreOobePackagePathPolicy.ResolveLexically(junction.Link, "package/script.ps1");
+        string resolved = ContentPackagePathPolicy.PostInstallation.ResolveLexically(junction.Link, "package/script.ps1");
 
         Assert.Equal(Path.Combine(junction.Link, "package", "script.ps1"), resolved);
         Assert.False(Directory.Exists(Path.Combine(junction.Target, "package")));
@@ -25,13 +25,13 @@ public sealed class PreOobePackagePathPolicyTests
     {
         using var junction = new TemporaryJunction();
 
-        Assert.Throws<InvalidDataException>(() => PreOobePackagePathPolicy.Resolve(junction.Link, "package/script.ps1"));
+        Assert.Throws<InvalidDataException>(() => ContentPackagePathPolicy.PostInstallation.Resolve(junction.Link, "package/script.ps1"));
     }
 
     [Fact]
     public void ResolveLexically_NormalizesFutureRoot()
     {
-        string resolved = PreOobePackagePathPolicy.ResolveLexically(@"C:\Future\unused\..\Payloads\", "package/script.ps1");
+        string resolved = ContentPackagePathPolicy.PostInstallation.ResolveLexically(@"C:\Future\unused\..\Payloads\", "package/script.ps1");
 
         Assert.Equal(@"C:\Future\Payloads\package\script.ps1", resolved);
     }
@@ -50,13 +50,28 @@ public sealed class PreOobePackagePathPolicyTests
     [InlineData("a\\script.ps1")]
     public void ResolveLexically_UnsafeRelativePathIsRejected(string path)
     {
-        Assert.Throws<InvalidDataException>(() => PreOobePackagePathPolicy.ResolveLexically(@"C:\Future\Payloads", path));
+        Assert.Throws<InvalidDataException>(() => ContentPackagePathPolicy.PostInstallation.ResolveLexically(@"C:\Future\Payloads", path));
     }
 
     [Fact]
     public void ResolveLexically_RelativePathBeyondLimitIsRejected()
     {
-        Assert.Throws<InvalidDataException>(() => PreOobePackagePathPolicy.ResolveLexically(@"C:\Future", new string('a', 111)));
+        Assert.Throws<InvalidDataException>(() => ContentPackagePathPolicy.PostInstallation.ResolveLexically(@"C:\Future", new string('a', 111)));
+    }
+
+    [Fact]
+    public void ValidateRelativePath_PostInstallationAcceptsExactlyTheLimit()
+    {
+        ContentPackagePathPolicy.PostInstallation.ValidateRelativePath(new string('a', 110));
+    }
+
+    [Fact]
+    public void ValidateRelativePath_UsesTheLimitOfItsKind()
+    {
+        var longerKind = ContentPackageKind.PostInstallation with { MaximumRelativePathLength = 150 };
+
+        new ContentPackagePathPolicy(longerKind).ValidateRelativePath(new string('a', 111));
+        Assert.Throws<InvalidDataException>(() => ContentPackagePathPolicy.PostInstallation.ValidateRelativePath(new string('a', 111)));
     }
 
     [Theory]
@@ -67,12 +82,12 @@ public sealed class PreOobePackagePathPolicyTests
         string root = @"C:\" + new string('a', rootNameLength);
         if (accepted)
         {
-            string resolved = PreOobePackagePathPolicy.ResolveLexically(root, "script.ps1");
+            string resolved = ContentPackagePathPolicy.PostInstallation.ResolveLexically(root, "script.ps1");
             Assert.Equal(root + @"\script.ps1", resolved);
         }
         else
         {
-            Assert.Throws<InvalidDataException>(() => PreOobePackagePathPolicy.ResolveLexically(root, "script.ps1"));
+            Assert.Throws<InvalidDataException>(() => ContentPackagePathPolicy.PostInstallation.ResolveLexically(root, "script.ps1"));
         }
     }
 
