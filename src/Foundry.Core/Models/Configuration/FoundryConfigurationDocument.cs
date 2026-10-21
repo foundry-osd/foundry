@@ -39,6 +39,9 @@ public sealed record FoundryConfigurationDocument
     /// <summary>Gets portable custom image references and deployment source defaults.</summary>
     public CustomImagesSettings CustomImages { get; init; } = new();
 
+    /// <summary>Gets portable custom driver set references and the default set.</summary>
+    public CustomDriverSetsSettings CustomDrivers { get; init; } = new();
+
     /// <summary>Gets ordered post-installation actions and portable package references.</summary>
     public PreOobeSettings PreOobe { get; init; } = new();
 

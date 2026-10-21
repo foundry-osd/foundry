@@ -52,6 +52,9 @@ public sealed record FoundryDeployConfigurationDocument
     /// <summary>Gets custom source defaults bound to external media content.</summary>
     public Foundry.Core.Models.Configuration.Deploy.DeployCustomImagesSettings CustomImages { get; init; } = new();
 
+    /// <summary>Gets the offered custom driver sets and external media manifest binding.</summary>
+    public Foundry.Core.Models.Configuration.Deploy.DeployCustomDriversSettings CustomDrivers { get; init; } = new();
+
     /// <summary>
     /// Gets network profile roaming settings used during deployment.
     /// </summary>

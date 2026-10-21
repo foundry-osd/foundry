@@ -43,6 +43,9 @@ public sealed record FoundryDeployConfigurationDocument
     /// <summary>Gets custom image defaults and external media manifest binding.</summary>
     public DeployCustomImagesSettings CustomImages { get; init; } = new();
 
+    /// <summary>Gets the offered custom driver sets and external media manifest binding.</summary>
+    public DeployCustomDriversSettings CustomDrivers { get; init; } = new();
+
     /// <summary>Gets post-installation actions bound to external media content.</summary>
     public DeployPreOobeSettings PreOobe { get; init; } = new();
 
