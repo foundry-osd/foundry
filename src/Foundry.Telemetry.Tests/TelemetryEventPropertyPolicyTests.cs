@@ -765,4 +765,19 @@ public sealed class TelemetryEventPropertyPolicyTests
 
         Assert.Equal(kept, result.ContainsKey("deployment_time_zone_id"));
     }
+
+    [Theory]
+    [InlineData("payload_version", "26.10.18.1", true)]
+    [InlineData("payload_version", "latest", false)]
+    [InlineData("boot_media_target", "usb", true)]
+    [InlineData("boot_media_target", "iso", true)]
+    [InlineData("boot_media_target", "dvd", false)]
+    public void Sanitize_ForBootstrapFailed_RetainsPayloadVersionAndMediaTarget(string key, string value, bool kept)
+    {
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(
+            TelemetryEvents.BootstrapFailed,
+            new Dictionary<string, object?> { [key] = value });
+
+        Assert.Equal(kept, result.ContainsKey(key));
+    }
 }

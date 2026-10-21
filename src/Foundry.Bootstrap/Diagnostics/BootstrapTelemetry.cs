@@ -22,6 +22,7 @@ internal sealed class BootstrapTelemetry : ILogEventSink
     private string? recoveryRoot;
     private Task recovery = Task.CompletedTask;
     private int terminalOutcomeRecorded;
+    private string bootMediaTarget = TelemetryBootMediaTargets.Unknown;
 
     /// <summary>Enables capture only after valid media preferences; no transport starts here.</summary>
     internal void Configure(string winPeRoot, string? cacheRoot)
@@ -29,12 +30,13 @@ internal sealed class BootstrapTelemetry : ILogEventSink
         try
         {
             root = winPeRoot;
+            bootMediaTarget = cacheRoot is null ? TelemetryBootMediaTargets.Iso : TelemetryBootMediaTargets.Usb;
             settings = RuntimeTelemetryConsent.ReadBootstrap(ReadFile(Path.Combine(root, "Config", "foundry.bootstrap.config.json")));
             recoveryRoot = Path.Combine(cacheRoot ?? winPeRoot, "Logs");
             if (settings is null) { return; }
             string version = typeof(BootstrapTelemetry).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "unknown";
             var context = TelemetryContextFactory.Create(TelemetryApps.FoundryBootstrap, version, TelemetryBuildConfiguration.Current,
-                "winpe", settings.RuntimePayloadSource, cacheRoot is null ? "iso" : "usb",
+                "winpe", settings.RuntimePayloadSource, bootMediaTarget,
                 RuntimeInformation.OSArchitecture.ToString().ToLowerInvariant(), CultureInfo.CurrentUICulture.Name);
             pipeline = new BootstrapTelemetryPipeline(
                 new(settings.IsEnabled, settings.HostUrl, settings.ProjectToken, settings.InstallId), context,
@@ -69,7 +71,10 @@ internal sealed class BootstrapTelemetry : ILogEventSink
         catch { }
     }
 
-    /// <summary>Maps only terminal failures to product events; diagnostics use their own consent.</summary>
+    /// <summary>
+    /// Maps only terminal failures to product events; diagnostics use their own consent. The payload version is the
+    /// version of the application that failed, not the Bootstrap version carried by the event context.
+    /// </summary>
     internal void Complete(BootstrapResult result, TimeSpan elapsed)
     {
         if (Interlocked.Exchange(ref terminalOutcomeRecorded, 1) != 0 || result.Outcome != BootstrapOutcome.Failed) { return; }
@@ -85,6 +90,8 @@ internal sealed class BootstrapTelemetry : ILogEventSink
                 ["child_exit_code"] = result.ChildExitCode,
                 ["child_startup_stage"] = result.ChildStartupStage,
                 ["payload_source"] = settings?.RuntimePayloadSource,
+                ["payload_version"] = result.PayloadVersion,
+                ["boot_media_target"] = bootMediaTarget,
                 ["architecture"] = RuntimeInformation.OSArchitecture.ToString().ToLowerInvariant()
             });
         }

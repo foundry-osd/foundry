@@ -160,6 +160,42 @@ public sealed class BootstrapCoordinatorTests
         Assert.DoesNotContain("deploy", fixture.Calls);
     }
 
+    [Fact]
+    public async Task ConnectFailureCarriesTheConnectPayloadVersion()
+    {
+        using var fixture = new Fixture { ConnectExit = 7, ReadPayloadVersion = ReadTestPayloadVersion };
+        BootstrapResult result = await fixture.RunAsync();
+        Assert.Equal(BootstrapOutcome.Failed, result.Outcome);
+        Assert.Equal("26.10.18.1", result.PayloadVersion);
+    }
+
+    [Fact]
+    public async Task DeployFailureCarriesTheDeployPayloadVersion()
+    {
+        using var fixture = new Fixture { DeployFails = true, ReadPayloadVersion = ReadTestPayloadVersion };
+        BootstrapResult result = await fixture.RunAsync();
+        Assert.Equal(BootstrapOutcome.Failed, result.Outcome);
+        Assert.Equal(BootstrapStage.Deploy, result.Stage);
+        Assert.Equal("26.10.20.3", result.PayloadVersion);
+    }
+
+    [Fact]
+    public async Task ConnectResolutionFailureHasNoPayloadVersion()
+    {
+        using var fixture = new Fixture { ConnectResolveFails = true, ReadPayloadVersion = ReadTestPayloadVersion };
+        BootstrapResult result = await fixture.RunAsync();
+        Assert.Equal(BootstrapOutcome.Failed, result.Outcome);
+        Assert.Equal(BootstrapStage.Connect, result.Stage);
+        Assert.Null(result.PayloadVersion);
+    }
+
+    private static string? ReadTestPayloadVersion(string executable) => executable switch
+    {
+        "Foundry.Connect.exe" => "26.10.18.1",
+        "Foundry.Deploy.exe" => "26.10.20.3",
+        _ => "1.0.0.0"
+    };
+
     private sealed class Fixture : IDisposable, IRuntimeResolver, ISystemPreparation, IApplicationLauncher, IBootstrapLogPersistence
     {
         private readonly Serilog.Core.Logger logger = new LoggerConfiguration().CreateLogger();
@@ -178,16 +214,22 @@ public sealed class BootstrapCoordinatorTests
         internal bool ConnectTimeout { get; init; }
         internal bool ObserveDiagnostics { get; init; }
         internal bool EarlyClockFails { get; init; }
+        internal bool ConnectResolveFails { get; init; }
+        internal Func<string, string?>? ReadPayloadVersion { get; init; }
         internal List<BootstrapResult> Outcomes { get; } = [];
 
         internal Task<BootstrapResult> RunAsync() => new BootstrapCoordinator(Context, this, this, this, this,
             logger, Progress.Add,
             ObserveDiagnostics ? () => Calls.Add("delivery") : null,
-            ObserveDiagnostics ? (result, _) => Outcomes.Add(result) : null).RunAsync(cancellation.Token);
+            ObserveDiagnostics ? (result, _) => Outcomes.Add(result) : null, ReadPayloadVersion).RunAsync(cancellation.Token);
 
         public Task<string> ResolveAsync(string applicationName, bool skipReleaseLookup, CancellationToken cancellationToken)
         {
             Calls.Add($"{applicationName}:{skipReleaseLookup}");
+            if (ConnectResolveFails && applicationName == "Foundry.Connect")
+            {
+                throw new InvalidDataException("No authenticated Connect runtime is available.");
+            }
             if (PostInstallFails && applicationName == "Foundry.PostInstall")
             {
                 throw new InvalidDataException("No authenticated PostInstall runtime is available.");

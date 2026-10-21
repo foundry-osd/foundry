@@ -61,7 +61,8 @@ public static class TelemetryEventPropertyPolicy
             [TelemetryEvents.BootstrapFailed] = new(StringComparer.Ordinal)
             {
                 "failure_category", "last_stage", "elapsed_seconds", "child_application",
-                "child_exit_code", "payload_source", "payload_version", "architecture", "child_startup_stage"
+                "child_exit_code", "payload_source", "payload_version", "architecture", "child_startup_stage",
+                "boot_media_target"
             },
             [TelemetryEvents.AppDailyActive] = new(StringComparer.Ordinal)
             {
@@ -323,6 +324,7 @@ public static class TelemetryEventPropertyPolicy
         "architecture" => value is "x64" or "arm64",
         "child_startup_stage" => value is "managed_started" or "configuration_loaded" or "ui_ready" or "startup_failed",
         "payload_version" => value.Length <= 64 && Version.TryParse(value, out _),
+        "boot_media_target" => value is TelemetryBootMediaTargets.Iso or TelemetryBootMediaTargets.Usb,
         _ => false
     };
 
