@@ -66,7 +66,7 @@ public static class BootMediaTelemetryPropertyBuilder
             ["boot_media_creation_success"] = success,
             ["boot_media_creation_duration_seconds"] = Math.Round(duration.TotalSeconds, 2),
             ["boot_media_creation_failed_step_name"] = failedStepName,
-            ["boot_media_failure_kind"] = diagnostic?.FailureKind,
+            ["boot_media_failure_kind"] = ResolveFailureKind(success, diagnostic),
             ["boot_media_failure_reason"] = diagnostic?.FailureReason,
             ["boot_media_failure_code"] = diagnostic?.Code,
             ["boot_media_failure_tool"] = diagnostic?.ToolName,
@@ -111,6 +111,7 @@ public static class BootMediaTelemetryPropertyBuilder
         AddPostInstallationTelemetryProperties(properties, postInstallation);
         AddDomainJoinTelemetryProperties(properties, document.DomainJoin ?? new DomainJoinSettings());
         AddOperatingSystemSelectionTelemetryProperties(properties, document.OperatingSystemSelection);
+        // True when any Customization page option, OS selection, unattend, custom images or post-installation is enabled.
         properties["customization_any_enabled"] =
             (bool)properties["customization_any_enabled"]! || document.OperatingSystemSelection.IsEnabled || unattend.IsEnabled || customImages.IsEnabled || postInstallation.IsEnabled;
         AddAdkTelemetryProperties(properties, adkStatus);
@@ -118,6 +119,17 @@ public static class BootMediaTelemetryPropertyBuilder
         AddNetworkTelemetryProperties(properties, document.Network, options.AreRequiredSecretsReady);
 
         return properties;
+    }
+
+    // Every failed run is classified so failure breakdowns never show an empty kind; a successful run sends none.
+    private static string? ResolveFailureKind(bool success, WinPeDiagnostic? diagnostic)
+    {
+        if (success)
+        {
+            return null;
+        }
+
+        return string.IsNullOrWhiteSpace(diagnostic?.FailureKind) ? WinPeFailureKinds.Unknown : diagnostic.FailureKind;
     }
 
     /// <summary>
@@ -198,21 +210,21 @@ public static class BootMediaTelemetryPropertyBuilder
             machineNaming.IsEnabled && machineNaming.Mode == MachineNamingMode.Composed ? machineNaming.Components.Count : 0;
         properties["customization_machine_naming_component_types"] =
             ResolveMachineNamingComponentTypes(machineNaming);
-        properties["customization_machine_naming_separator"] = ToTelemetryValue(machineNaming.Separator);
-        properties["customization_machine_naming_casing"] = ToTelemetryValue(machineNaming.Casing);
+        properties["customization_machine_naming_separator"] = machineNaming.IsEnabled ? ToTelemetryValue(machineNaming.Separator) : null;
+        properties["customization_machine_naming_casing"] = machineNaming.IsEnabled ? ToTelemetryValue(machineNaming.Casing) : null;
         properties["customization_machine_naming_truncation_directions"] =
             ResolveMachineNamingTruncationDirections(machineNaming);
         properties["customization_machine_naming_editing_enabled"] =
             machineNaming.IsEnabled && machineNaming.AllowEditingDuringDeployment;
         properties["customization_oobe_enabled"] = oobe.IsEnabled;
         properties["customization_oobe_skip_license_terms"] = oobe.IsEnabled && oobe.SkipLicenseTerms;
-        properties["customization_oobe_diagnostic_data_level"] = ToTelemetryValue(oobe.DiagnosticDataLevel);
+        properties["customization_oobe_diagnostic_data_level"] = oobe.IsEnabled ? ToTelemetryValue(oobe.DiagnosticDataLevel) : null;
         properties["customization_oobe_hide_privacy_setup"] = oobe.IsEnabled && oobe.HidePrivacySetup;
         properties["customization_oobe_tailored_experiences_enabled"] = oobe.IsEnabled && oobe.AllowTailoredExperiences;
         properties["customization_oobe_advertising_id_enabled"] = oobe.IsEnabled && oobe.AllowAdvertisingId;
         properties["customization_oobe_online_speech_recognition_enabled"] = oobe.IsEnabled && oobe.AllowOnlineSpeechRecognition;
         properties["customization_oobe_inking_typing_diagnostics_enabled"] = oobe.IsEnabled && oobe.AllowInkingAndTypingDiagnostics;
-        properties["customization_oobe_location_access"] = ToTelemetryValue(oobe.LocationAccess);
+        properties["customization_oobe_location_access"] = oobe.IsEnabled ? ToTelemetryValue(oobe.LocationAccess) : null;
         properties["customization_appx_removal_enabled"] = isAppxRemovalEnabled;
         properties["customization_appx_removal_package_count"] = isAppxRemovalEnabled ? selectedAppxPackages.Length : 0;
         properties["customization_appx_removal_profile"] = ResolveAppxRemovalProfile(selectedAppxPackages, isAppxRemovalEnabled);

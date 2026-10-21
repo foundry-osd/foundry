@@ -13,4 +13,9 @@ public static class WinPeFailureKinds
     public const string FileSystem = "file_system";
     public const string Cancellation = "cancellation";
     public const string Internal = "internal";
+
+    /// <summary>
+    /// Reported for a failed media run that produced no diagnostic or a diagnostic without a failure kind.
+    /// </summary>
+    public const string Unknown = "unknown";
 }

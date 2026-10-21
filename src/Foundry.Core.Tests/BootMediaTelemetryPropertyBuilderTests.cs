@@ -1209,4 +1209,96 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             TelemetryRuntimePayloadSources.None,
             diagnostic,
             adkStatus: adkStatus);
+
+    [Fact]
+    public void Build_FailedWithoutDiagnostic_ReportsUnknownFailureKind()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildWith(success: false, failedStepName: "Customize boot image");
+
+        Assert.Equal(WinPeFailureKinds.Unknown, result["boot_media_failure_kind"]);
+    }
+
+    [Fact]
+    public void Build_FailedWithDiagnosticWithoutKind_ReportsUnknownFailureKind()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildWith(
+            success: false,
+            diagnostic: new WinPeDiagnostic("WINPE_BUILD_FAILED", "Build failed.") with { FailureKind = string.Empty });
+
+        Assert.Equal(WinPeFailureKinds.Unknown, result["boot_media_failure_kind"]);
+    }
+
+    [Fact]
+    public void Build_FailedWithDiagnosticKind_ReportsDiagnosticKind()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildWith(
+            success: false,
+            diagnostic: new WinPeDiagnostic("WINPE_BUILD_FAILED", "Build failed.", failureKind: WinPeFailureKinds.Tooling));
+
+        Assert.Equal(WinPeFailureKinds.Tooling, result["boot_media_failure_kind"]);
+    }
+
+    [Fact]
+    public void Build_Succeeded_OmitsFailureKind()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildWith(
+            diagnostic: new WinPeDiagnostic("WINPE_BUILD_FAILED", "Build failed.", failureKind: WinPeFailureKinds.Tooling));
+
+        Assert.Null(result.GetValueOrDefault("boot_media_failure_kind"));
+    }
+
+    [Fact]
+    public void Build_OobeDisabled_OmitsDiagnosticLevelAndLocation()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildWith(CreateCustomizationDocument(oobeEnabled: false, machineNamingEnabled: false));
+
+        Assert.Null(result.GetValueOrDefault("customization_oobe_diagnostic_data_level"));
+        Assert.Null(result.GetValueOrDefault("customization_oobe_location_access"));
+    }
+
+    [Fact]
+    public void Build_OobeEnabled_ReportsDiagnosticLevelAndLocation()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildWith(CreateCustomizationDocument(oobeEnabled: true, machineNamingEnabled: false));
+
+        Assert.Equal("off", result["customization_oobe_diagnostic_data_level"]);
+        Assert.Equal("force_off", result["customization_oobe_location_access"]);
+    }
+
+    [Fact]
+    public void Build_MachineNamingDisabled_OmitsSeparatorAndCasing()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildWith(CreateCustomizationDocument(oobeEnabled: false, machineNamingEnabled: false));
+
+        Assert.Null(result.GetValueOrDefault("customization_machine_naming_separator"));
+        Assert.Null(result.GetValueOrDefault("customization_machine_naming_casing"));
+    }
+
+    [Fact]
+    public void Build_MachineNamingEnabled_ReportsSeparatorAndCasing()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildWith(CreateCustomizationDocument(oobeEnabled: false, machineNamingEnabled: true));
+
+        Assert.Equal("hyphen", result["customization_machine_naming_separator"]);
+        Assert.Equal("uppercase", result["customization_machine_naming_casing"]);
+    }
+
+    private static FoundryConfigurationDocument CreateCustomizationDocument(bool oobeEnabled, bool machineNamingEnabled) => new()
+    {
+        Customization = new CustomizationSettings
+        {
+            Oobe = new OobeSettings
+            {
+                IsEnabled = oobeEnabled,
+                DiagnosticDataLevel = OobeDiagnosticDataLevel.Off,
+                LocationAccess = OobeLocationAccessMode.ForceOff
+            },
+            MachineNaming = new MachineNamingSettings
+            {
+                IsEnabled = machineNamingEnabled,
+                Separator = MachineNameSeparator.Hyphen,
+                Casing = MachineNameCasing.Uppercase
+            }
+        }
+    };
 }
