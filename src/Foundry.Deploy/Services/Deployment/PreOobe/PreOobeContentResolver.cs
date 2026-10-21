@@ -83,28 +83,17 @@ public class PreOobeContentResolver
                     throw new InvalidDataException("Package actions require an authenticated external media manifest.");
                 if (!Guid.TryParseExact(settings.ManifestId, "N", out _) || !ContentPackagePathPolicy.IsValidHash(settings.ManifestHash))
                     throw new InvalidDataException("Post-installation media binding is invalid.");
-                (string Root, ContentPackageMediaManifest Manifest)? media = null;
-                foreach (string root in MediaRoots())
-                {
-                    string path = Path.Combine(root, "Cache", "PreOobe", "manifests", settings.ManifestId + ".json");
-                    if (!File.Exists(path)) continue;
-                    await RequireSeparateSourceAsync(context, path, cancellationToken).ConfigureAwait(false);
-                    if (new FileInfo(path).Length > 16 * 1024 * 1024) throw new InvalidDataException("Post-installation media manifest exceeds its size limit.");
-                    byte[] bytes = await File.ReadAllBytesAsync(path, cancellationToken).ConfigureAwait(false);
-                    if (bytes.Length > 16 * 1024 * 1024 || !Convert.ToHexString(SHA256.HashData(bytes)).Equals(settings.ManifestHash, StringComparison.OrdinalIgnoreCase)) continue;
-                    var manifest = JsonSerializer.Deserialize<ContentPackageMediaManifest>(bytes, ConfigurationJsonDefaults.SerializerOptions)
-                        ?? throw new InvalidDataException("Post-installation media manifest is invalid.");
-                    if (manifest.SchemaVersion != 1 || manifest.Id != settings.ManifestId) throw new InvalidDataException("Post-installation media generation is incompatible.");
-                    media = (root, manifest);
-                    break;
-                }
-                if (media is null) throw new InvalidDataException("The referenced post-installation media generation is unavailable.");
+                var kind = ContentPackageKind.PostInstallation;
+                var media = await new ContentPackageMediaReader(kind).ReadAsync(MediaRoots(), settings.ManifestId, settings.ManifestHash, cancellationToken).ConfigureAwait(false);
+                if (media.Status == ContentPackageMediaStatus.Incompatible) throw new InvalidDataException("Post-installation media generation is incompatible.");
+                if (media.Status != ContentPackageMediaStatus.Found) throw new InvalidDataException("The referenced post-installation media generation is unavailable.");
+                await RequireSeparateSourceAsync(context, Path.Combine(media.Root!, kind.MediaRoot.Replace('/', Path.DirectorySeparatorChar), "manifests", settings.ManifestId + ".json"), cancellationToken).ConfigureAwait(false);
                 foreach (var package in packages)
                 {
-                    var matches = media.Value.Manifest.Packages.Where(item => item.ContentHash.Equals(package.ContentHash, StringComparison.OrdinalIgnoreCase)).ToArray();
+                    var matches = media.Manifest!.Packages.Where(item => item.ContentHash.Equals(package.ContentHash, StringComparison.OrdinalIgnoreCase)).ToArray();
                     if (matches.Length != 1) throw new InvalidDataException("Required post-installation package is missing or ambiguous.");
                     var item = matches[0];
-                    if (item.RelativePath != $"Cache/PreOobe/Packages/{package.ContentHash}/files")
+                    if (item.RelativePath != $"{kind.MediaRoot}/Packages/{package.ContentHash}/files")
                         throw new InvalidDataException("Package content is outside the canonical media cache.");
                     ContentPackageManifestCodec.Validate(item.Manifest, ContentPackageKind.PostInstallation);
                     if (!ContentPackageManifestCodec.GetContentHash(item.Manifest).Equals(package.ContentHash, StringComparison.OrdinalIgnoreCase))
@@ -116,7 +105,7 @@ public class PreOobeContentResolver
                         if (action.WorkingDirectory is not null && !item.Manifest.Directories.Contains(action.WorkingDirectory, StringComparer.OrdinalIgnoreCase))
                             throw new InvalidDataException("The configured working directory is missing from the package.");
                     }
-                    string source = Path.Combine(media.Value.Root, item.RelativePath.Replace('/', Path.DirectorySeparatorChar));
+                    string source = Path.Combine(media.Root!, item.RelativePath.Replace('/', Path.DirectorySeparatorChar));
                     if (item.Manifest.SchemaVersion != 1 || item.Manifest.Files.Count != package.FileCount || item.Manifest.Files.Sum(file => file.Length) != package.Length)
                         throw new InvalidDataException("Post-installation package identity does not match its reference.");
                     foreach (string relative in item.Manifest.Files.Select(file => file.RelativePath).Concat(item.Manifest.Directories))
