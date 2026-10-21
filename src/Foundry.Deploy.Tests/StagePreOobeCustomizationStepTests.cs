@@ -268,7 +268,7 @@ public sealed class StagePreOobeCustomizationStepTests
         using var temp = new TemporaryDirectory();
         string source = Path.Combine(temp.RootPath, "hello.ps1");
         await File.WriteAllTextAsync(source, "Write-Output 'fixture'", TestContext.Current.CancellationToken);
-        var library = new Foundry.Core.Services.Packages.PreOobePackageLibraryService(Path.Combine(temp.RootPath, "library"));
+        var library = new Foundry.Core.Services.Packages.ContentPackageLibraryService(Path.Combine(temp.RootPath, "library"), Foundry.Core.Services.Packages.ContentPackageKind.PostInstallation);
         var reference = await library.ImportAsync(source, TestContext.Current.CancellationToken);
         var settings = new Foundry.Core.Models.Configuration.PreOobeSettings
         {

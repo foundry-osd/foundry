@@ -9,7 +9,7 @@ using Foundry.Core.Services.Packages;
 
 namespace Foundry.Core.Tests.Packages;
 
-public sealed class PreOobePackageLibraryTests : IDisposable
+public sealed class ContentPackageLibraryTests : IDisposable
 {
     private readonly string root = Path.Combine(Path.GetTempPath(), "Fpkg", Guid.NewGuid().ToString("N"));
     private CancellationToken Cancellation => TestContext.Current.CancellationToken;
@@ -234,6 +234,37 @@ public sealed class PreOobePackageLibraryTests : IDisposable
     }
 
     [Fact]
+    public async Task ImportRejectsFolderWithoutInfWhenKindRequiresIt()
+    {
+        string source = CreateSource();
+        await File.WriteAllTextAsync(Path.Combine(source, "readme.txt"), "text", Cancellation);
+        var library = Library(ContentPackageKind.PostInstallation with { RequiresInfFile = true });
+        var exception = await Assert.ThrowsAsync<InvalidDataException>(() => library.ImportAsync(source, Cancellation));
+        Assert.Equal("ContentPackage.MissingInfFile", exception.Message);
+        Assert.False(Directory.Exists(Path.Combine(root, "library", "content")));
+    }
+
+    [Fact]
+    public async Task ImportAcceptsUppercaseInfExtension()
+    {
+        string source = CreateSource();
+        await File.WriteAllTextAsync(Path.Combine(source, "NET.INF"), "[Version]", Cancellation);
+        var library = Library(ContentPackageKind.PostInstallation with { RequiresInfFile = true });
+        var reference = await library.ImportAsync(source, Cancellation);
+        Assert.Equal(1, reference.FileCount);
+    }
+
+    [Fact]
+    public void ManifestValidationRejectsMoreFilesThanTheKindAllows()
+    {
+        var file = new ContentPackageFile { RelativePath = "a", Length = 0, Sha256 = Convert.ToHexStringLower(SHA256.HashData([])) };
+        var manifest = new ContentPackageManifest { Files = [file, file with { RelativePath = "b" }] };
+        var kind = ContentPackageKind.PostInstallation with { MaximumFiles = 1 };
+        Assert.Throws<InvalidDataException>(() => ContentPackageManifestCodec.Validate(manifest, kind));
+        ContentPackageManifestCodec.Validate(manifest, ContentPackageKind.PostInstallation);
+    }
+
+    [Fact]
     public void DestinationPrefixIsRevalidated()
     {
         string longRoot = "C:\\" + new string('a', 245);
@@ -246,6 +277,6 @@ public sealed class PreOobePackageLibraryTests : IDisposable
         Directory.CreateDirectory(path);
         return path;
     }
-    private PreOobePackageLibraryService Library() => new(Path.Combine(root, "library"));
+    private ContentPackageLibraryService Library(ContentPackageKind? kind = null) => new(Path.Combine(root, "library"), kind ?? ContentPackageKind.PostInstallation);
     public void Dispose() { if (Directory.Exists(root)) Directory.Delete(root, recursive: true); }
 }

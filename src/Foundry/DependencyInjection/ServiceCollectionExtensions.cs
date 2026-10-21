@@ -163,7 +163,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton(_ => new Foundry.Core.Services.Images.CustomImageLibraryService(Constants.CustomImagesDirectoryPath));
         services.AddSingleton<CustomImageImportDialogService>();
         services.AddTransient<CustomImagesViewModel>();
-        services.AddSingleton(_ => new Foundry.Core.Services.Packages.PreOobePackageLibraryService(Constants.PostInstallPackagesDirectoryPath));
+        services.AddSingleton(_ => new Foundry.Core.Services.Packages.ContentPackageLibraryService(Constants.PostInstallPackagesDirectoryPath, Foundry.Core.Services.Packages.ContentPackageKind.PostInstallation));
         services.AddTransient<PostInstallationViewModel>();
         services.AddTransient<UnattendConfigurationViewModel>();
         services.AddTransient<NetworkConfigurationViewModel>();

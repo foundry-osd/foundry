@@ -178,7 +178,7 @@ public sealed class DeploymentPreflightTests
         using var fixture = new PipelineFixture { Mode = mode };
         string script = Path.Combine(fixture.Root, "script.ps1");
         await File.WriteAllTextAsync(script, "exit 0", TestContext.Current.CancellationToken);
-        var library = new PreOobePackageLibraryService(Path.Combine(fixture.Root, "library"));
+        var library = new ContentPackageLibraryService(Path.Combine(fixture.Root, "library"), Foundry.Core.Services.Packages.ContentPackageKind.PostInstallation);
         var reference = await library.ImportAsync(script, TestContext.Current.CancellationToken);
         var settings = new Foundry.Core.Models.Configuration.PreOobeSettings
         {

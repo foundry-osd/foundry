@@ -11,7 +11,7 @@ public sealed partial class DeploymentProfileCoordinator
 {
     /// <summary>Removes an action and deletes its cached content only after saving and checking all local profile references.</summary>
     /// <returns>False when the action was removed but content cleanup could not safely complete.</returns>
-    public async Task<bool> RemovePostInstallationActionAsync(PreOobeSettings expected, string actionId, PreOobePackageLibraryService library)
+    public async Task<bool> RemovePostInstallationActionAsync(PreOobeSettings expected, string actionId, ContentPackageLibraryService library)
     {
         using var suspension = SuspendActivation();
         await gate.WaitAsync(lifetime.Token);

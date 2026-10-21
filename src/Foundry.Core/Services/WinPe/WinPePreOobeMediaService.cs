@@ -29,7 +29,7 @@ public sealed class WinPePreOobeMediaService : IWinPePreOobeMediaPublisher
     internal WinPePreOobeMediaService(Func<string, long> availableBytes) => this.availableBytes = availableBytes;
 
     /// <summary>Freezes enabled package versions before boot configuration is generated.</summary>
-    public async Task<WinPePreOobeMediaLease> PrepareAsync(PreOobePackageLibraryService library, PreOobeSettings settings,
+    public async Task<WinPePreOobeMediaLease> PrepareAsync(ContentPackageLibraryService library, PreOobeSettings settings,
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(library);
@@ -41,10 +41,10 @@ public sealed class WinPePreOobeMediaService : IWinPePreOobeMediaPublisher
             List<WinPePreOobeMediaFile> files = [];
             List<string> directories = [];
             long manifestBudget = 4096;
-            foreach (PreOobePackageReference reference in settings.Actions.Where(action => settings.IsEnabled && action.IsEnabled && action.Package is not null)
+            foreach (ContentPackageReference reference in settings.Actions.Where(action => settings.IsEnabled && action.IsEnabled && action.Package is not null)
                 .Select(action => action.Package!).DistinctBy(package => package.ContentHash, StringComparer.OrdinalIgnoreCase))
             {
-                PreOobePackageLease lease = await library.AcquireAsync(reference.ContentHash, cancellationToken).ConfigureAwait(false);
+                ContentPackageLease lease = await library.AcquireAsync(reference.ContentHash, cancellationToken).ConfigureAwait(false);
                 leases.Add(lease);
                 if (lease.Reference.Length != reference.Length || lease.Reference.FileCount != reference.FileCount)
                     throw new InvalidDataException("PreOobe.InvalidPackageReference");

@@ -115,12 +115,12 @@ public sealed class WinPePreOobeMediaTests : IDisposable
         Assert.Equal(settings.Actions[0].Package!.ContentHash, Assert.Single(decoded.Packages).ContentHash);
     }
 
-    private async Task<(PreOobePackageLibraryService Library, PreOobeSettings Settings)> InputsAsync()
+    private async Task<(ContentPackageLibraryService Library, PreOobeSettings Settings)> InputsAsync()
     {
         string source = Path.Combine(root, "source");
         Directory.CreateDirectory(Path.Combine(source, "empty"));
         await File.WriteAllTextAsync(Path.Combine(source, "setup.ps1"), "exit 0", Cancellation);
-        var library = new PreOobePackageLibraryService(Path.Combine(root, "library"));
+        var library = new ContentPackageLibraryService(Path.Combine(root, "library"), Foundry.Core.Services.Packages.ContentPackageKind.PostInstallation);
         var reference = await library.ImportAsync(source, Cancellation);
         var action = PreOobeActionSettings.Create(PreOobeActionKind.PowerShell, "Setup") with { Package = reference, EntryPoint = "setup.ps1" };
         return (library, new() { IsEnabled = true, Actions = [action] });

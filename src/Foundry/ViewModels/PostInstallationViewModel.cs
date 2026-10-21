@@ -16,14 +16,14 @@ namespace Foundry.ViewModels;
 public sealed partial class PostInstallationViewModel : ObservableObject, IDisposable
 {
     private readonly IFoundryConfigurationStateService state;
-    private readonly PreOobePackageLibraryService library;
+    private readonly ContentPackageLibraryService library;
     private readonly IFilePickerService picker;
     private readonly IApplicationLocalizationService localization;
     private readonly DeploymentProfileCoordinator profiles;
     private bool applying;
     private bool disposed;
 
-    public PostInstallationViewModel(IFoundryConfigurationStateService state, PreOobePackageLibraryService library,
+    public PostInstallationViewModel(IFoundryConfigurationStateService state, ContentPackageLibraryService library,
         IFilePickerService picker, IApplicationLocalizationService localization, DeploymentProfileCoordinator profiles)
     {
         this.state = state;

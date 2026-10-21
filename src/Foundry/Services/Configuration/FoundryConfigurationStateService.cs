@@ -36,7 +36,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     private readonly AppSettingsService appSettingsService;
     private readonly ILogger logger;
     private readonly Foundry.Core.Services.Images.CustomImageLibraryService customImageLibrary;
-    private readonly Foundry.Core.Services.Packages.PreOobePackageLibraryService postInstallPackages;
+    private readonly Foundry.Core.Services.Packages.ContentPackageLibraryService postInstallPackages;
     private UnattendSettings? validatedUnattendSettings;
     private IReadOnlyList<UnattendSourceValidation> unattendSourceValidations = [];
     private readonly List<(UnattendSettings Settings, Task<IReadOnlyList<UnattendSourceValidation>> Read)> unattendSourceReads = [];
@@ -53,7 +53,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         AppSettingsService appSettingsService,
         ILogger logger,
         Foundry.Core.Services.Images.CustomImageLibraryService customImageLibrary,
-        Foundry.Core.Services.Packages.PreOobePackageLibraryService postInstallPackages)
+        Foundry.Core.Services.Packages.ContentPackageLibraryService postInstallPackages)
     {
         this.foundryConfigurationService = foundryConfigurationService;
         this.deployConfigurationGenerator = deployConfigurationGenerator;

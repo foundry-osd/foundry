@@ -47,7 +47,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IWinPeIsoMediaService isoMediaService;
     private readonly IWinPeUsbMediaService usbMediaService;
     private readonly CustomImageLibraryService customImageLibrary;
-    private readonly PreOobePackageLibraryService postInstallPackages;
+    private readonly ContentPackageLibraryService postInstallPackages;
     private readonly IFilePickerService filePickerService;
     private readonly IFoundryConfigurationStateService foundryConfigurationStateService;
     private readonly IConfigurationOverviewService configurationOverviewService;
@@ -93,7 +93,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IWinPeIsoMediaService isoMediaService,
         IWinPeUsbMediaService usbMediaService,
         CustomImageLibraryService customImageLibrary,
-        PreOobePackageLibraryService postInstallPackages,
+        ContentPackageLibraryService postInstallPackages,
         IFilePickerService filePickerService,
         IFoundryConfigurationStateService foundryConfigurationStateService,
         IConfigurationOverviewService configurationOverviewService,
