@@ -26,6 +26,14 @@ Each count is an integer capped at 1,000. The event describes the captured confi
 
 Commands, arguments, action or software names and identifiers, hashes, paths, and script content are excluded. Existing telemetry consent and debug controls are unchanged. No PostInstall runtime events are introduced.
 
+## Bounded identifiers
+
+- `osd:boot_media_finished` sends `adk_version` only when the detected ADK version parses as a version of at most 64 characters, and always sends `adk_version_relation` (`unknown`, `below_supported`, `supported` or `above_supported`).
+- `osd:boot_media_finished` sends `deployment_time_zone_id` only when a default time zone is selected; the policy keeps it only when it is a Windows time zone ID listed by the system, so free text and IANA IDs are dropped.
+- `osd:boot_media_finished` always sends `boot_media_failure_kind` on failure (`unknown` when no diagnostic classified it) and never on success. OOBE diagnostic level and location access, and machine naming separator and casing, are sent only when their page option is enabled.
+- `deploy:session_finished` sends the OOBE flags `deploy_oobe_enabled`, `deploy_oobe_administrator_enabled` and `deploy_oobe_account_creation_skipped` as Booleans, and `deploy_oobe_additional_account_count` as an integer from 0 through 100. No account names are sent.
+- `bootstrap:failed` sends `payload_version`, the file version of the Connect or Deploy payload resolved for the failed stage (absent before any payload is resolved), and `boot_media_target` (`iso` or `usb`).
+
 ## Exception grouping
 
 `PostHogExceptionTracker` sets `$exception_fingerprint` so PostHog Error Tracking groups issues by stable failure context:
