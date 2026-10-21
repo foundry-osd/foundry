@@ -49,7 +49,7 @@ internal static class WinPeCustomImageIsoMastering
             await new WinPeCustomImageMediaService().PublishAsync(package, Path.Combine(staging, "media"), cancellationToken,
                 WinPeScaledProgress.Create(progress, 0, split)).ConfigureAwait(false);
         if (postInstallation is not null)
-            await new WinPeContentPackageMediaService(ContentPackageKind.PostInstallation).PublishAsync(postInstallation, Path.Combine(staging, "media"), cancellationToken,
+            await new WinPeContentPackageMediaService(postInstallation.Kind).PublishAsync(postInstallation, Path.Combine(staging, "media"), cancellationToken,
                 WinPeScaledProgress.Create(progress, split, 100)).ConfigureAwait(false);
     }
 

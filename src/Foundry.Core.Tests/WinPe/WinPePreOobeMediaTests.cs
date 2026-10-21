@@ -129,6 +129,30 @@ public sealed class WinPePreOobeMediaTests : IDisposable
         Assert.StartsWith("Cache/PreOobe/manifests/", package.ManifestRelativePath, StringComparison.Ordinal);
     }
 
+    private static readonly ContentPackageKind OtherKind = ContentPackageKind.PostInstallation with { Name = "Other", MediaRoot = "Cache/Other" };
+
+    [Fact]
+    public async Task PrepareRejectsALibraryOfAnotherKind()
+    {
+        var (library, settings) = await InputsAsync();
+        var service = new WinPeContentPackageMediaService(OtherKind, _ => long.MaxValue);
+        await Assert.ThrowsAsync<ArgumentException>(() => service.PrepareAsync(library, [settings.Actions[0].Package!], Cancellation));
+    }
+
+    [Fact]
+    public async Task LeaseOperationsRejectALeaseOfAnotherKind()
+    {
+        var (library, settings) = await InputsAsync();
+        using var package = await new WinPePreOobeMediaService().PrepareAsync(library, settings, Cancellation);
+        var service = new WinPeContentPackageMediaService(OtherKind, _ => long.MaxValue);
+        string media = Path.Combine(root, "media");
+        await Assert.ThrowsAsync<ArgumentException>(() => service.ValidateSourcesAsync(package, Cancellation));
+        await Assert.ThrowsAsync<ArgumentException>(() => service.GetRequiredBytesAsync(package, media, Cancellation));
+        await Assert.ThrowsAsync<ArgumentException>(() => service.ValidateCapacityAsync(package, media, 0, Cancellation));
+        await Assert.ThrowsAsync<ArgumentException>(() => service.PublishAsync(package, media, Cancellation));
+        Assert.False(Directory.Exists(Path.Combine(media, OtherKind.MediaRoot)));
+    }
+
     private async Task<(ContentPackageLibraryService Library, PreOobeSettings Settings)> InputsAsync()
     {
         string source = Path.Combine(root, "source");

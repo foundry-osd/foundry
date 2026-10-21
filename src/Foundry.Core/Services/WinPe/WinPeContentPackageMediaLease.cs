@@ -27,10 +27,12 @@ public sealed class WinPeContentPackageMediaLease : IDisposable
         ManifestHash = Convert.ToHexStringLower(SHA256.HashData(bytes));
     }
 
+    /// <summary>Kind that owns the media root and limits this lease was prepared for.</summary>
     public ContentPackageKind Kind { get; }
     public ContentPackageMediaManifest Manifest { get; }
     public string ManifestId => Manifest.Id;
     public string ManifestHash { get; }
+    /// <summary>Media-relative path of the media manifest, under the kind's media root.</summary>
     public string ManifestRelativePath => $"{Kind.MediaRoot}/manifests/{ManifestId}.json";
     public byte[] ManifestBytes { get; }
     public IReadOnlyList<WinPeContentPackageMediaFile> Files { get; }

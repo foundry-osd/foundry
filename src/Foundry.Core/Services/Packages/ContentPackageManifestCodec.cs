@@ -16,6 +16,7 @@ namespace Foundry.Core.Services.Packages;
 /// </remarks>
 public static class ContentPackageManifestCodec
 {
+    /// <summary>Maximum size of a serialized package manifest, shared by every kind.</summary>
     public const int MaximumManifestBytes = 8 * 1024 * 1024;
     private static readonly JsonSerializerOptions Options = new()
     {
@@ -24,6 +25,7 @@ public static class ContentPackageManifestCodec
         MaxDepth = 8
     };
 
+    /// <summary>Produces the canonical manifest bytes whose SHA-256 is the package content hash.</summary>
     public static byte[] Serialize(ContentPackageManifest manifest)
     {
         ValidateStructure(manifest);
@@ -37,8 +39,10 @@ public static class ContentPackageManifestCodec
         return bytes;
     }
 
+    /// <summary>Returns the lowercase SHA-256 of the canonical manifest bytes.</summary>
     public static string GetContentHash(ContentPackageManifest manifest) => Convert.ToHexStringLower(SHA256.HashData(Serialize(manifest)));
 
+    /// <summary>Reads canonical manifest bytes after checking their hash, structure and the limits of <paramref name="kind"/>.</summary>
     public static ContentPackageManifest Deserialize(ReadOnlySpan<byte> bytes, string expectedHash, ContentPackageKind kind)
     {
         if (bytes.Length is 0 or > MaximumManifestBytes || !ContentPackagePathPolicy.IsValidHash(expectedHash) ||

@@ -5,9 +5,17 @@
 namespace Foundry.Core.Services.Packages;
 
 /// <summary>Limits imported and staged paths to ordinary Windows files, using the length limits of one <see cref="ContentPackageKind"/>.</summary>
-/// <param name="kind">Kind whose relative and full path length limits apply.</param>
-public sealed class ContentPackagePathPolicy(ContentPackageKind kind)
+public sealed class ContentPackagePathPolicy
 {
+    private readonly ContentPackageKind kind;
+
+    /// <summary>Creates a policy that applies the path length limits of <paramref name="kind"/>.</summary>
+    public ContentPackagePathPolicy(ContentPackageKind kind)
+    {
+        ArgumentNullException.ThrowIfNull(kind);
+        this.kind = kind;
+    }
+
     /// <summary>Policy for post-installation packages, whose short limits suit legacy installer tools.</summary>
     public static ContentPackagePathPolicy PostInstallation { get; } = new(ContentPackageKind.PostInstallation);
 

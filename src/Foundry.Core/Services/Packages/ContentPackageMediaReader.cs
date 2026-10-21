@@ -25,15 +25,29 @@ public enum ContentPackageMediaStatus
     Found
 }
 
-/// <summary>Result of <see cref="ContentPackageMediaReader.ReadAsync"/>; Root and Manifest are set only when Found.</summary>
-public sealed record ContentPackageMediaReadResult(ContentPackageMediaStatus Status, string? Root, ContentPackageMediaManifest? Manifest);
+/// <summary>Result of <see cref="ContentPackageMediaReader.ReadAsync"/>; Root, Manifest and ManifestPath are set only when Found.</summary>
+/// <param name="Status">Outcome of the lookup.</param>
+/// <param name="Root">Candidate root that holds the verified manifest.</param>
+/// <param name="Manifest">The verified media manifest.</param>
+/// <param name="ManifestPath">Full path of the verified manifest file.</param>
+public sealed record ContentPackageMediaReadResult(ContentPackageMediaStatus Status, string? Root, ContentPackageMediaManifest? Manifest, string? ManifestPath = null);
 
 /// <summary>
 /// Finds and verifies the media manifest that binds package snapshots to one media generation.
 /// Candidate roots are supplied by the caller; the reader never enumerates volumes itself.
 /// </summary>
-public sealed class ContentPackageMediaReader(ContentPackageKind kind)
+public sealed class ContentPackageMediaReader
 {
+    private readonly ContentPackageKind kind;
+
+    /// <summary>Creates a reader that applies the media root and limits of <paramref name="kind"/>.</summary>
+    /// <param name="kind">Kind whose media root and media manifest limit apply.</param>
+    public ContentPackageMediaReader(ContentPackageKind kind)
+    {
+        ArgumentNullException.ThrowIfNull(kind);
+        this.kind = kind;
+    }
+
     // Same lenient reading rules the Deploy runtime has always applied to media manifests.
     private static readonly JsonSerializerOptions Options = new()
     {
@@ -69,7 +83,7 @@ public sealed class ContentPackageMediaReader(ContentPackageKind kind)
             catch (JsonException) { return Result(ContentPackageMediaStatus.Incompatible); }
             if (manifest is null || manifest.SchemaVersion != 1 || manifest.Id != manifestId || !HasCanonicalPackages(manifest))
                 return Result(ContentPackageMediaStatus.Incompatible);
-            return new(ContentPackageMediaStatus.Found, root, manifest);
+            return new(ContentPackageMediaStatus.Found, root, manifest, path);
         }
         return Result(mismatch ? ContentPackageMediaStatus.HashMismatch : ContentPackageMediaStatus.NotFound);
     }
@@ -80,8 +94,10 @@ public sealed class ContentPackageMediaReader(ContentPackageKind kind)
     {
         try
         {
+            if (manifest.Packages is null) return false;
             foreach (var package in manifest.Packages)
             {
+                if (package is null || package.ContentHash is null || package.RelativePath is null || package.Manifest is null) return false;
                 if (package.RelativePath != $"{kind.MediaRoot}/Packages/{package.ContentHash}/files") return false;
                 ContentPackageManifestCodec.Validate(package.Manifest, kind);
                 if (!ContentPackageManifestCodec.GetContentHash(package.Manifest).Equals(package.ContentHash, StringComparison.OrdinalIgnoreCase)) return false;

@@ -17,14 +17,24 @@ namespace Foundry.Core.Services.WinPe;
 /// Publishes complete content package generations of one kind outside boot.wim without pruning other generations.
 /// Temporary media staging supports long host paths; installer path limits apply separately to package imports and target staging.
 /// </summary>
-/// <param name="kind">The content package kind that drives the media root and the media manifest limit.</param>
-public sealed class WinPeContentPackageMediaService(ContentPackageKind kind) : IWinPeContentPackageMediaPublisher
+public sealed class WinPeContentPackageMediaService : IWinPeContentPackageMediaPublisher
 {
     internal const long ReserveBytes = 64L * 1024 * 1024;
     private static readonly JsonSerializerOptions MediaJsonOptions = new(ConfigurationJsonDefaults.SerializerOptions) { WriteIndented = false };
-    private readonly Func<string, long> availableBytes = WindowsVolumeStorage.GetAvailableBytes;
+    private readonly ContentPackageKind kind;
+    private readonly Func<string, long> availableBytes;
 
-    internal WinPeContentPackageMediaService(ContentPackageKind kind, Func<string, long> availableBytes) : this(kind) => this.availableBytes = availableBytes;
+    /// <summary>Creates a publisher for one content package kind.</summary>
+    /// <param name="kind">The content package kind that drives the media root and the media manifest limit.</param>
+    public WinPeContentPackageMediaService(ContentPackageKind kind) : this(kind, WindowsVolumeStorage.GetAvailableBytes) { }
+
+    internal WinPeContentPackageMediaService(ContentPackageKind kind, Func<string, long> availableBytes)
+    {
+        ArgumentNullException.ThrowIfNull(kind);
+        ArgumentNullException.ThrowIfNull(availableBytes);
+        this.kind = kind;
+        this.availableBytes = availableBytes;
+    }
 
     /// <summary>Freezes the referenced package versions before boot configuration is generated.</summary>
     public async Task<WinPeContentPackageMediaLease> PrepareAsync(ContentPackageLibraryService library, IReadOnlyList<ContentPackageReference> references,
@@ -32,6 +42,7 @@ public sealed class WinPeContentPackageMediaService(ContentPackageKind kind) : I
     {
         ArgumentNullException.ThrowIfNull(library);
         ArgumentNullException.ThrowIfNull(references);
+        if (library.Kind != kind) throw new ArgumentException($"The library holds '{library.Kind.Name}' packages but this service publishes '{kind.Name}' packages.", nameof(library));
         List<IDisposable> leases = [];
         try
         {
@@ -62,9 +73,10 @@ public sealed class WinPeContentPackageMediaService(ContentPackageKind kind) : I
         catch { foreach (IDisposable lease in leases.AsEnumerable().Reverse()) lease.Dispose(); throw; }
     }
 
+    /// <summary>Verifies that every held source file still matches its recorded length and SHA-256.</summary>
     public async Task ValidateSourcesAsync(WinPeContentPackageMediaLease package, CancellationToken cancellationToken)
     {
-        package.ThrowIfDisposed();
+        ThrowIfInvalidLease(package);
         foreach (WinPeContentPackageMediaFile file in package.Files)
             if (!await MatchesAsync(file.SourcePath, file.Length, file.ContentHash, cancellationToken).ConfigureAwait(false))
                 throw new InvalidDataException("ContentPackage.PackageContentChanged");
@@ -73,7 +85,7 @@ public sealed class WinPeContentPackageMediaService(ContentPackageKind kind) : I
     /// <summary>Counts only new/replacement bytes while retaining prior files, generations and a staging reserve.</summary>
     public async Task<long> GetRequiredBytesAsync(WinPeContentPackageMediaLease package, string root, CancellationToken cancellationToken)
     {
-        package.ThrowIfDisposed();
+        ThrowIfInvalidLease(package);
         long required = checked(ReserveBytes + package.ManifestBytes.LongLength);
         foreach (WinPeContentPackageMediaFile file in package.Files)
             if (!await MatchesAsync(CustomImagePathPolicy.ResolveRelativePath(root, file.RelativePath), file.Length, file.ContentHash, cancellationToken).ConfigureAwait(false))
@@ -81,8 +93,10 @@ public sealed class WinPeContentPackageMediaService(ContentPackageKind kind) : I
         return required;
     }
 
+    /// <summary>Throws when the media volume cannot hold the required bytes plus <paramref name="additionalBytes"/>.</summary>
     public async Task ValidateCapacityAsync(WinPeContentPackageMediaLease package, string root, long additionalBytes, CancellationToken cancellationToken)
     {
+        ThrowIfInvalidLease(package);
         if (availableBytes(root) < checked(await GetRequiredBytesAsync(package, root, cancellationToken).ConfigureAwait(false) + additionalBytes))
             throw new IOException("ContentPackage.InsufficientMediaSpace");
     }
@@ -91,6 +105,7 @@ public sealed class WinPeContentPackageMediaService(ContentPackageKind kind) : I
     public async Task PublishAsync(WinPeContentPackageMediaLease package, string root, CancellationToken cancellationToken,
         IProgress<WinPeMediaProgress>? progress = null)
     {
+        ThrowIfInvalidLease(package);
         await ValidateSourcesAsync(package, cancellationToken).ConfigureAwait(false);
         string ownedRoot = CustomImagePathPolicy.ResolveRelativePath(root, kind.MediaRoot);
         Directory.CreateDirectory(ownedRoot);
@@ -163,6 +178,13 @@ public sealed class WinPeContentPackageMediaService(ContentPackageKind kind) : I
         }
     }
 
+    private void ThrowIfInvalidLease(WinPeContentPackageMediaLease package)
+    {
+        ArgumentNullException.ThrowIfNull(package);
+        package.ThrowIfDisposed();
+        if (package.Kind != kind) throw new ArgumentException($"The lease holds '{package.Kind.Name}' packages but this service publishes '{kind.Name}' packages.", nameof(package));
+    }
+
     private static async Task<bool> MatchesAsync(string path, long length, string hash, CancellationToken cancellationToken)
     {
         CustomImagePathPolicy.ValidateNoReparsePoints(path);
@@ -172,10 +194,15 @@ public sealed class WinPeContentPackageMediaService(ContentPackageKind kind) : I
     }
 }
 
+/// <summary>Publishes a prepared content package lease to external media.</summary>
 internal interface IWinPeContentPackageMediaPublisher
 {
+    /// <summary>Verifies that every held source file still matches its recorded identity.</summary>
     Task ValidateSourcesAsync(WinPeContentPackageMediaLease package, CancellationToken cancellationToken);
+    /// <summary>Returns the bytes the media volume needs to publish the lease.</summary>
     Task<long> GetRequiredBytesAsync(WinPeContentPackageMediaLease package, string root, CancellationToken cancellationToken);
+    /// <summary>Throws when the media volume cannot hold the lease plus additional bytes.</summary>
     Task ValidateCapacityAsync(WinPeContentPackageMediaLease package, string root, long additionalBytes, CancellationToken cancellationToken);
+    /// <summary>Copies the lease content to the media root and exposes its manifest last.</summary>
     Task PublishAsync(WinPeContentPackageMediaLease package, string root, CancellationToken cancellationToken, IProgress<WinPeMediaProgress>? progress = null);
 }

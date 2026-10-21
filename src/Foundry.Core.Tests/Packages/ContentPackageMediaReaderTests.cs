@@ -103,6 +103,70 @@ public sealed class ContentPackageMediaReaderTests : IDisposable
         Assert.Equal(ContentPackageMediaStatus.Found, result.Status);
     }
 
+    [Fact]
+    public async Task ReturnsHashMismatchForAnOversizedManifest()
+    {
+        string id = Guid.NewGuid().ToString("N");
+        string root = NewRoot();
+        string directory = Path.Combine(root, "Cache", "PreOobe", "manifests");
+        Directory.CreateDirectory(directory);
+        await using (var stream = new FileStream(Path.Combine(directory, id + ".json"), FileMode.Create, FileAccess.Write))
+            stream.SetLength(Kind.MaximumMediaManifestBytes + 1L);
+        var result = await new ContentPackageMediaReader(Kind).ReadAsync([root], id, new string('a', 64), Cancellation);
+        Assert.Equal(ContentPackageMediaStatus.HashMismatch, result.Status);
+    }
+
+    [Fact]
+    public async Task ReturnsIncompatibleForAnUnsupportedSchemaVersion()
+    {
+        string id = Guid.NewGuid().ToString("N");
+        string root = NewRoot();
+        string hash = WriteMedia(root, CreateMedia(id) with { SchemaVersion = 2 });
+        Assert.Equal(ContentPackageMediaStatus.Incompatible, (await new ContentPackageMediaReader(Kind).ReadAsync([root], id, hash, Cancellation)).Status);
+    }
+
+    [Fact]
+    public async Task ReturnsIncompatibleWhenTheManifestIdDiffersFromTheBinding()
+    {
+        string id = Guid.NewGuid().ToString("N");
+        string root = NewRoot();
+        string hash = WriteMedia(root, CreateMedia(Guid.NewGuid().ToString("N")), id);
+        Assert.Equal(ContentPackageMediaStatus.Incompatible, (await new ContentPackageMediaReader(Kind).ReadAsync([root], id, hash, Cancellation)).Status);
+    }
+
+    [Fact]
+    public async Task ReturnsIncompatibleForMalformedJsonWithAValidHash()
+    {
+        string id = Guid.NewGuid().ToString("N");
+        string root = NewRoot();
+        string hash = WriteRaw(root, id, "{ not json"u8.ToArray());
+        Assert.Equal(ContentPackageMediaStatus.Incompatible, (await new ContentPackageMediaReader(Kind).ReadAsync([root], id, hash, Cancellation)).Status);
+    }
+
+    [Theory]
+    [InlineData("""{"schemaVersion":1,"id":"{id}","packages":null}""")]
+    [InlineData("""{"schemaVersion":1,"id":"{id}","packages":[null]}""")]
+    [InlineData("""{"schemaVersion":1,"id":"{id}","packages":[{"contentHash":null,"relativePath":null,"manifest":null}]}""")]
+    [InlineData("""{"schemaVersion":1,"id":"{id}","packages":[{"contentHash":"abc","relativePath":"Cache/PreOobe/Packages/abc/files","manifest":{"files":null,"directories":null}}]}""")]
+    public async Task ReturnsIncompatibleForNullPackageContent(string template)
+    {
+        string id = Guid.NewGuid().ToString("N");
+        string root = NewRoot();
+        string hash = WriteRaw(root, id, System.Text.Encoding.UTF8.GetBytes(template.Replace("{id}", id)));
+        Assert.Equal(ContentPackageMediaStatus.Incompatible, (await new ContentPackageMediaReader(Kind).ReadAsync([root], id, hash, Cancellation)).Status);
+    }
+
+    [Fact]
+    public async Task ReturnsTheVerifiedManifestPathWhenFound()
+    {
+        string id = Guid.NewGuid().ToString("N");
+        string root = NewRoot();
+        string hash = WriteMedia(root, CreateMedia(id));
+        var found = await new ContentPackageMediaReader(Kind).ReadAsync([root], id, hash, Cancellation);
+        Assert.Equal(Path.Combine(root, "Cache", "PreOobe", "manifests", id + ".json"), found.ManifestPath);
+        Assert.Null((await new ContentPackageMediaReader(Kind).ReadAsync([NewRoot()], id, hash, Cancellation)).ManifestPath);
+    }
+
     public void Dispose()
     {
         if (Directory.Exists(temp)) Directory.Delete(temp, recursive: true);
@@ -129,12 +193,14 @@ public sealed class ContentPackageMediaReaderTests : IDisposable
         };
     }
 
-    private static string WriteMedia(string root, ContentPackageMediaManifest media)
+    private static string WriteMedia(string root, ContentPackageMediaManifest media, string? fileId = null)
+        => WriteRaw(root, fileId ?? media.Id, JsonSerializer.SerializeToUtf8Bytes(media, ConfigurationJsonDefaults.SerializerOptions));
+
+    private static string WriteRaw(string root, string id, byte[] bytes)
     {
         string directory = Path.Combine(root, "Cache", "PreOobe", "manifests");
         Directory.CreateDirectory(directory);
-        byte[] bytes = JsonSerializer.SerializeToUtf8Bytes(media, ConfigurationJsonDefaults.SerializerOptions);
-        File.WriteAllBytes(Path.Combine(directory, media.Id + ".json"), bytes);
+        File.WriteAllBytes(Path.Combine(directory, id + ".json"), bytes);
         return Convert.ToHexString(SHA256.HashData(bytes));
     }
 }

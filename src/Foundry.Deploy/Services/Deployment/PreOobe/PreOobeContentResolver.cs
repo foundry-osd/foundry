@@ -88,7 +88,7 @@ public class PreOobeContentResolver
                 var media = await new ContentPackageMediaReader(kind).ReadAsync(MediaRoots(), settings.ManifestId, settings.ManifestHash, cancellationToken).ConfigureAwait(false);
                 if (media.Status == ContentPackageMediaStatus.Incompatible) throw new InvalidDataException("Post-installation media generation is incompatible.");
                 if (media.Status != ContentPackageMediaStatus.Found) throw new InvalidDataException("The referenced post-installation media generation is unavailable.");
-                await RequireSeparateSourceAsync(context, Path.Combine(media.Root!, kind.MediaRoot.Replace('/', Path.DirectorySeparatorChar), "manifests", settings.ManifestId + ".json"), cancellationToken).ConfigureAwait(false);
+                await RequireSeparateSourceAsync(context, media.ManifestPath!, cancellationToken).ConfigureAwait(false);
                 foreach (var package in packages)
                 {
                     var matches = media.Manifest!.Packages.Where(item => item.ContentHash.Equals(package.ContentHash, StringComparison.OrdinalIgnoreCase)).ToArray();
