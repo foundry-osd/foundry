@@ -355,7 +355,7 @@ public sealed class BootstrapTelemetryPipelineTests
 
         Assert.Equal("stage_failed", record.Properties!["failure_category"]);
         Assert.Equal("deployment_preparation", record.Properties["last_stage"]);
-        Assert.Equal(TelemetryDefaults.SchemaVersion, record.Properties["telemetry_schema_version"]);
+        Assert.Equal(3, record.Properties["telemetry_schema_version"]);
     }
 
     [Fact]
