@@ -279,8 +279,9 @@ public sealed class StagePreOobeCustomizationStepTests
         };
         using var runtime = NativeRuntimeFixture.Create(temp.RootPath);
         using var recovery = new PostInstallRuntimeRecoveryTests.Fixture();
-        var publisher = new Foundry.Core.Services.WinPe.WinPePreOobeMediaService();
-        using var media = await publisher.PrepareAsync(library, settings, TestContext.Current.CancellationToken);
+        var facade = new Foundry.Core.Services.WinPe.WinPePreOobeMediaService();
+        var publisher = new Foundry.Core.Services.WinPe.WinPeContentPackageMediaService(Foundry.Core.Services.Packages.ContentPackageKind.PostInstallation);
+        using var media = await facade.PrepareAsync(library, settings, TestContext.Current.CancellationToken);
         string mediaRoot = Path.Combine(temp.RootPath, "media");
         Directory.CreateDirectory(mediaRoot);
         await publisher.PublishAsync(media, mediaRoot, TestContext.Current.CancellationToken);

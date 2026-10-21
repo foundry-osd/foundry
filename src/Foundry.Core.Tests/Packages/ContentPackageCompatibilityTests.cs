@@ -33,10 +33,10 @@ public sealed class ContentPackageCompatibilityTests
     {
         ContentPackageManifest manifest = CreateManifest();
         string hash = ContentPackageManifestCodec.GetContentHash(manifest);
-        var media = new PreOobeMediaManifest
+        var media = new ContentPackageMediaManifest
         {
             Id = "0123456789abcdef0123456789abcdef",
-            Packages = [new PreOobeMediaPackage { ContentHash = hash, RelativePath = $"Cache/PreOobe/Packages/{hash}/files", Manifest = manifest }]
+            Packages = [new ContentPackageMediaPackage { ContentHash = hash, RelativePath = $"Cache/PreOobe/Packages/{hash}/files", Manifest = manifest }]
         };
         var options = new JsonSerializerOptions(ConfigurationJsonDefaults.SerializerOptions) { WriteIndented = false };
 

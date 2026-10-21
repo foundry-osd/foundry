@@ -5,6 +5,7 @@
 using System.Runtime.InteropServices;
 using System.Text;
 using Foundry.Core.Services.Images;
+using Foundry.Core.Services.Packages;
 using Foundry.Utilities.Storage;
 
 namespace Foundry.Core.Services.WinPe;
@@ -34,7 +35,7 @@ internal static class WinPeCustomImageIsoMastering
     /// post-installation copies report into <paramref name="progress"/> as one <c>0..100</c> range.
     /// </summary>
     internal static async Task PrepareAsync(WinPeBuildArtifact artifact, WinPeCustomImageMediaLease? package,
-        WinPePreOobeMediaLease? postInstallation, string staging, string preparedOutput, string requestedOutput, CancellationToken cancellationToken,
+        WinPeContentPackageMediaLease? postInstallation, string staging, string preparedOutput, string requestedOutput, CancellationToken cancellationToken,
         IProgress<WinPeMediaProgress>? progress = null)
     {
         long bootBytes = CountBytes(artifact.MediaDirectoryPath);
@@ -48,7 +49,7 @@ internal static class WinPeCustomImageIsoMastering
             await new WinPeCustomImageMediaService().PublishAsync(package, Path.Combine(staging, "media"), cancellationToken,
                 WinPeScaledProgress.Create(progress, 0, split)).ConfigureAwait(false);
         if (postInstallation is not null)
-            await new WinPePreOobeMediaService().PublishAsync(postInstallation, Path.Combine(staging, "media"), cancellationToken,
+            await new WinPeContentPackageMediaService(ContentPackageKind.PostInstallation).PublishAsync(postInstallation, Path.Combine(staging, "media"), cancellationToken,
                 WinPeScaledProgress.Create(progress, split, 100)).ConfigureAwait(false);
     }
 

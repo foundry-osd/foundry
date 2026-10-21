@@ -186,8 +186,9 @@ public sealed class DeploymentPreflightTests
             Actions = [new() { Id = Guid.NewGuid().ToString("N"), Name = "Fixture", Kind = Foundry.Core.Models.Configuration.PreOobeActionKind.PowerShell,
                 Package = reference, EntryPoint = "script.ps1", Process = new() }]
         };
-        var publisher = new Foundry.Core.Services.WinPe.WinPePreOobeMediaService();
-        using var media = await publisher.PrepareAsync(library, settings, TestContext.Current.CancellationToken);
+        var facade = new Foundry.Core.Services.WinPe.WinPePreOobeMediaService();
+        var publisher = new Foundry.Core.Services.WinPe.WinPeContentPackageMediaService(Foundry.Core.Services.Packages.ContentPackageKind.PostInstallation);
+        using var media = await facade.PrepareAsync(library, settings, TestContext.Current.CancellationToken);
         Directory.CreateDirectory(fixture.CacheRoot);
         await publisher.PublishAsync(media, fixture.CacheRoot, TestContext.Current.CancellationToken);
         fixture.PostInstall = new() { IsEnabled = true, Actions = settings.Actions, ManifestId = media.ManifestId, ManifestHash = media.ManifestHash };

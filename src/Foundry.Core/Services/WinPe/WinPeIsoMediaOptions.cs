@@ -13,7 +13,7 @@ public sealed record WinPeIsoMediaOptions
     /// <summary>Publishes installation images outside boot.wim through an output-specific ISO staging tree.</summary>
     public WinPeCustomImageMediaLease? CustomImages { get; init; }
     /// <summary>Publishes post-installation content outside boot.wim, including media without a custom Windows image.</summary>
-    public WinPePreOobeMediaLease? PostInstallation { get; init; }
+    public WinPeContentPackageMediaLease? PostInstallation { get; init; }
     /// <summary>Binds the exact custom-image package to the configuration provisioned into boot.wim.</summary>
     public string? DeployConfigurationJson { get; init; }
     public IProgress<WinPeMediaProgress>? Progress { get; init; }

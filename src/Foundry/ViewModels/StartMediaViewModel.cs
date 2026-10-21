@@ -1362,7 +1362,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     {
         WinPeWorkspaceLease? operationLease = null;
         WinPeCustomImageMediaLease? customImages = null;
-        WinPePreOobeMediaLease? postInstallation = null;
+        WinPeContentPackageMediaLease? postInstallation = null;
 
         try
         {
@@ -1560,7 +1560,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         WinPeRuntimePayloadProvisioningOptions runtimePayloadProvisioning,
         TelemetrySettings deployTelemetrySettings,
         WinPeCustomImageMediaLease? customImages,
-        WinPePreOobeMediaLease postInstallation)
+        WinPeContentPackageMediaLease postInstallation)
     {
         bool isHardwareHashMode = options.IsAutopilotEnabled &&
                                   options.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload;
@@ -3106,6 +3106,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         WinPeToolPaths Tools,
         WinPeRuntimePayloadProvisioningOptions RuntimePayloadProvisioning,
         WinPeCustomImageMediaLease? CustomImages,
-        WinPePreOobeMediaLease PostInstallation,
+        WinPeContentPackageMediaLease PostInstallation,
         string DeployConfigurationJson);
 }

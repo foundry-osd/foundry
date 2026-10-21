@@ -6,6 +6,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Models.Packages;
 using Foundry.Core.Models.PreOobe;
 using Foundry.Core.Services.Packages;
 using Foundry.Deploy.Services.Configuration;
@@ -82,7 +83,7 @@ public class PreOobeContentResolver
                     throw new InvalidDataException("Package actions require an authenticated external media manifest.");
                 if (!Guid.TryParseExact(settings.ManifestId, "N", out _) || !ContentPackagePathPolicy.IsValidHash(settings.ManifestHash))
                     throw new InvalidDataException("Post-installation media binding is invalid.");
-                (string Root, PreOobeMediaManifest Manifest)? media = null;
+                (string Root, ContentPackageMediaManifest Manifest)? media = null;
                 foreach (string root in MediaRoots())
                 {
                     string path = Path.Combine(root, "Cache", "PreOobe", "manifests", settings.ManifestId + ".json");
@@ -91,7 +92,7 @@ public class PreOobeContentResolver
                     if (new FileInfo(path).Length > 16 * 1024 * 1024) throw new InvalidDataException("Post-installation media manifest exceeds its size limit.");
                     byte[] bytes = await File.ReadAllBytesAsync(path, cancellationToken).ConfigureAwait(false);
                     if (bytes.Length > 16 * 1024 * 1024 || !Convert.ToHexString(SHA256.HashData(bytes)).Equals(settings.ManifestHash, StringComparison.OrdinalIgnoreCase)) continue;
-                    var manifest = JsonSerializer.Deserialize<PreOobeMediaManifest>(bytes, ConfigurationJsonDefaults.SerializerOptions)
+                    var manifest = JsonSerializer.Deserialize<ContentPackageMediaManifest>(bytes, ConfigurationJsonDefaults.SerializerOptions)
                         ?? throw new InvalidDataException("Post-installation media manifest is invalid.");
                     if (manifest.SchemaVersion != 1 || manifest.Id != settings.ManifestId) throw new InvalidDataException("Post-installation media generation is incompatible.");
                     media = (root, manifest);

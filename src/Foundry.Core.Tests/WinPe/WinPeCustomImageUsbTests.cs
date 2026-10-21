@@ -5,7 +5,8 @@
 using System.Text;
 using System.Text.Json;
 using Foundry.Core.Models.Configuration.Deploy;
-using Foundry.Core.Models.PreOobe;
+using Foundry.Core.Models.Packages;
+using Foundry.Core.Services.Packages;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.WinPe;
 
@@ -84,7 +85,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         var runner = new Runner(publisher);
         var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher);
         using var images = new WinPeCustomImageMediaLease("images", Encoding.UTF8.GetBytes("{}"), [], []);
-        using var post = new WinPePreOobeMediaLease(new PreOobeMediaManifest { Id = "post" }, Encoding.UTF8.GetBytes("{}"), [], [], []);
+        using var post = new WinPeContentPackageMediaLease(ContentPackageKind.PostInstallation, new ContentPackageMediaManifest { Id = "post" }, Encoding.UTF8.GetBytes("{}"), [], [], []);
         string config = JsonSerializer.Serialize(new FoundryDeployConfigurationDocument
         {
             PreOobe = new() { ManifestId = post.ManifestId, ManifestHash = post.ManifestHash },
@@ -119,7 +120,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         var runner = new Runner(publisher);
         var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher);
         using var images = new WinPeCustomImageMediaLease("images", Encoding.UTF8.GetBytes("{}"), [], []);
-        using var post = new WinPePreOobeMediaLease(new PreOobeMediaManifest { Id = "post" }, Encoding.UTF8.GetBytes("{}"), [], [], []);
+        using var post = new WinPeContentPackageMediaLease(ContentPackageKind.PostInstallation, new ContentPackageMediaManifest { Id = "post" }, Encoding.UTF8.GetBytes("{}"), [], [], []);
         string config = JsonSerializer.Serialize(new FoundryDeployConfigurationDocument
         {
             PreOobe = new() { ManifestId = post.ManifestId, ManifestHash = post.ManifestHash },
@@ -159,7 +160,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         var runner = new CreateRunner();
         var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher);
         using var images = new WinPeCustomImageMediaLease("images", Encoding.UTF8.GetBytes("{}"), [], []);
-        using var post = new WinPePreOobeMediaLease(new PreOobeMediaManifest { Id = "post" }, Encoding.UTF8.GetBytes("{}"), [], [], []);
+        using var post = new WinPeContentPackageMediaLease(ContentPackageKind.PostInstallation, new ContentPackageMediaManifest { Id = "post" }, Encoding.UTF8.GetBytes("{}"), [], [], []);
         string config = JsonSerializer.Serialize(new FoundryDeployConfigurationDocument
         {
             PreOobe = new() { ManifestId = post.ManifestId, ManifestHash = post.ManifestHash },
@@ -194,20 +195,20 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
             report => Assert.InRange(report.Percent, MediaCreationProgressPlan.UsbFormattingCompletePercent, 80));
     }
 
-    private sealed class Publisher(bool fail, bool reportProgress = false) : IWinPeCustomImageMediaPublisher, IWinPePreOobeMediaPublisher
+    private sealed class Publisher(bool fail, bool reportProgress = false) : IWinPeCustomImageMediaPublisher, IWinPeContentPackageMediaPublisher
     {
         internal const string PublishStatus = "Publishing test content.";
         internal bool PublishAttempted { get; private set; }
         internal IReadOnlyList<string> ValidatedInputs { get; private set; } = [];
         internal long? AdditionalCapacityBytes { get; private set; }
-        public Task ValidateSourcesAsync(WinPePreOobeMediaLease package, CancellationToken cancellationToken) => Task.CompletedTask;
-        public Task<long> GetRequiredBytesAsync(WinPePreOobeMediaLease package, string root, CancellationToken cancellationToken) => Task.FromResult(2048L);
-        public Task ValidateCapacityAsync(WinPePreOobeMediaLease package, string root, long extra, CancellationToken cancellationToken)
+        public Task ValidateSourcesAsync(WinPeContentPackageMediaLease package, CancellationToken cancellationToken) => Task.CompletedTask;
+        public Task<long> GetRequiredBytesAsync(WinPeContentPackageMediaLease package, string root, CancellationToken cancellationToken) => Task.FromResult(2048L);
+        public Task ValidateCapacityAsync(WinPeContentPackageMediaLease package, string root, long extra, CancellationToken cancellationToken)
         {
             AdditionalCapacityBytes = extra;
             return Task.CompletedTask;
         }
-        public Task PublishAsync(WinPePreOobeMediaLease package, string root, CancellationToken token, IProgress<WinPeMediaProgress>? progress = null)
+        public Task PublishAsync(WinPeContentPackageMediaLease package, string root, CancellationToken token, IProgress<WinPeMediaProgress>? progress = null)
         {
             PublishAttempted = true;
             ReportPublishProgress(progress);
