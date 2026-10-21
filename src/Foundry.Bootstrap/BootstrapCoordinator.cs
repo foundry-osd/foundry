@@ -14,7 +14,8 @@ namespace Foundry.Bootstrap;
 
 /// <summary>
 /// Runs the finite, ordered WinPE boot workflow. Every result carries the version of the payload resolved for the
-/// current stage; <paramref name="readPayloadVersion"/> defaults to the executable file version and must not throw.
+/// current stage, or none when that stage has not resolved one yet. <paramref name="readPayloadVersion"/> defaults to
+/// the executable file version and must not throw.
 /// </summary>
 internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeResolver runtime,
     ISystemPreparation preparation, IApplicationLauncher launcher, IBootstrapLogPersistence persistence,
@@ -107,6 +108,8 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
 
         cancellationToken.ThrowIfCancellationRequested();
         stage = BootstrapStage.System;
+        // A later failure must not be attributed to Connect; the next payload version is read once Deploy resolves.
+        payloadVersion = null;
         Report(BootstrapStatus.Running, "Preparing the system clock and time zone");
         await BestEffortAsync(() => preparation.PrepareSystemAsync(cancellationToken),
             "Some system preparation was unavailable. Continuing.").ConfigureAwait(false);

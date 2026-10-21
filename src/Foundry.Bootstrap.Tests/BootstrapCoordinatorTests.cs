@@ -189,6 +189,16 @@ public sealed class BootstrapCoordinatorTests
         Assert.Null(result.PayloadVersion);
     }
 
+    [Fact]
+    public async Task DeployResolutionFailureHasNoPayloadVersion()
+    {
+        using var fixture = new Fixture { DeployResolveFails = true, ReadPayloadVersion = ReadTestPayloadVersion };
+        BootstrapResult result = await fixture.RunAsync();
+        Assert.Equal(BootstrapOutcome.Failed, result.Outcome);
+        Assert.Equal(BootstrapStage.DeploymentPreparation, result.Stage);
+        Assert.Null(result.PayloadVersion);
+    }
+
     private static string? ReadTestPayloadVersion(string executable) => executable switch
     {
         "Foundry.Connect.exe" => "26.10.18.1",
@@ -215,6 +225,7 @@ public sealed class BootstrapCoordinatorTests
         internal bool ObserveDiagnostics { get; init; }
         internal bool EarlyClockFails { get; init; }
         internal bool ConnectResolveFails { get; init; }
+        internal bool DeployResolveFails { get; init; }
         internal Func<string, string?>? ReadPayloadVersion { get; init; }
         internal List<BootstrapResult> Outcomes { get; } = [];
 
@@ -226,6 +237,10 @@ public sealed class BootstrapCoordinatorTests
         public Task<string> ResolveAsync(string applicationName, bool skipReleaseLookup, CancellationToken cancellationToken)
         {
             Calls.Add($"{applicationName}:{skipReleaseLookup}");
+            if (DeployResolveFails && applicationName == "Foundry.Deploy")
+            {
+                throw new InvalidDataException("No authenticated Deploy runtime is available.");
+            }
             if (ConnectResolveFails && applicationName == "Foundry.Connect")
             {
                 throw new InvalidDataException("No authenticated Connect runtime is available.");
