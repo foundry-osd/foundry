@@ -2249,7 +2249,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             ResolveRuntimePayloadSource(runtimePayloadProvisioning.Connect),
             ResolveRuntimePayloadSource(runtimePayloadProvisioning.Deploy),
             diagnostic,
-            operationId);
+            operationId,
+            adkService.CurrentStatus);
 
         logger.Debug(
             "Tracking media telemetry event. Target={Target}, UsbOperation={UsbOperation}, Success={Success}, FailedStepName={FailedStepName}, DurationSeconds={DurationSeconds}, Architecture={Architecture}, BootImageSource={BootImageSource}, SignatureMode={SignatureMode}, ConnectRuntimePayloadSource={ConnectRuntimePayloadSource}, DeployRuntimePayloadSource={DeployRuntimePayloadSource}.",

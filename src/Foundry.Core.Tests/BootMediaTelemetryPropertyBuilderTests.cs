@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Adk;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Media;
 using Foundry.Core.Services.Telemetry;
@@ -504,7 +505,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.False(result.ContainsKey("connect_configured"));
         Assert.False(result.ContainsKey("deploy_configured"));
         Assert.DoesNotContain(result.Values.OfType<string>(), value => value.Contains("CorpWifi", StringComparison.OrdinalIgnoreCase));
-        Assert.DoesNotContain(result.Values.OfType<string>(), value => value.Contains("Romance Standard Time", StringComparison.OrdinalIgnoreCase));
+        Assert.Equal("Romance Standard Time", result["deployment_time_zone_id"]);
         Assert.DoesNotContain(result.Values.OfType<string>(), value => value.Contains("Microsoft.Xbox", StringComparison.OrdinalIgnoreCase));
     }
 
@@ -1128,4 +1129,176 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             Assert.False(result.ContainsKey("deployment_reboot_delay_seconds"));
         }
     }
+
+    [Fact]
+    public void Build_ReportsAdkVersionAndRelation()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildWith(
+            adkStatus: CreateAdkStatus("10.1.26100.2454", AdkVersionRelation.Supported));
+
+        Assert.Equal("10.1.26100.2454", result["adk_version"]);
+        Assert.Equal("supported", result["adk_version_relation"]);
+    }
+
+    [Theory]
+    [InlineData("10.1.26100.2454 (beta)")]
+    [InlineData("")]
+    [InlineData(null)]
+    public void Build_OmitsUnparsableAdkVersion(string? installedVersion)
+    {
+        IReadOnlyDictionary<string, object?> result = BuildWith(
+            adkStatus: CreateAdkStatus(installedVersion, AdkVersionRelation.AboveSupported));
+
+        Assert.False(result.ContainsKey("adk_version"));
+        Assert.Equal("above_supported", result["adk_version_relation"]);
+    }
+
+    [Fact]
+    public void Build_WithoutAdkStatus_ReportsUnknownRelation()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildWith();
+
+        Assert.False(result.ContainsKey("adk_version"));
+        Assert.Equal("unknown", result["adk_version_relation"]);
+    }
+
+    [Fact]
+    public void Build_ReportsSelectedTimeZoneId()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildWith(new FoundryConfigurationDocument
+        {
+            Localization = new LocalizationSettings { DefaultTimeZoneId = " Romance Standard Time " }
+        });
+
+        Assert.Equal("Romance Standard Time", result["deployment_time_zone_id"]);
+        Assert.Equal(true, result["deployment_time_zone_configured"]);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("  ")]
+    public void Build_OmitsTimeZoneIdWhenAutomatic(string? timeZoneId)
+    {
+        IReadOnlyDictionary<string, object?> result = BuildWith(new FoundryConfigurationDocument
+        {
+            Localization = new LocalizationSettings { DefaultTimeZoneId = timeZoneId }
+        });
+
+        Assert.False(result.ContainsKey("deployment_time_zone_id"));
+        Assert.Equal(false, result["deployment_time_zone_configured"]);
+    }
+
+    private static AdkInstallationStatus CreateAdkStatus(string? installedVersion, AdkVersionRelation relation) =>
+        new(true, true, true, installedVersion, relation, null);
+
+    private static IReadOnlyDictionary<string, object?> BuildWith(
+        FoundryConfigurationDocument? document = null,
+        bool success = true,
+        string? failedStepName = null,
+        WinPeDiagnostic? diagnostic = null,
+        AdkInstallationStatus? adkStatus = null) =>
+        BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
+            new MediaPreflightOptions(),
+            document ?? new FoundryConfigurationDocument(),
+            success,
+            failedStepName,
+            TimeSpan.Zero,
+            TelemetryRuntimePayloadSources.None,
+            TelemetryRuntimePayloadSources.None,
+            diagnostic,
+            adkStatus: adkStatus);
+
+    [Fact]
+    public void Build_FailedWithoutDiagnostic_ReportsUnknownFailureKind()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildWith(success: false, failedStepName: "Customize boot image");
+
+        Assert.Equal(WinPeFailureKinds.Unknown, result["boot_media_failure_kind"]);
+    }
+
+    [Fact]
+    public void Build_FailedWithDiagnosticWithoutKind_ReportsUnknownFailureKind()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildWith(
+            success: false,
+            diagnostic: new WinPeDiagnostic("WINPE_BUILD_FAILED", "Build failed.") with { FailureKind = string.Empty });
+
+        Assert.Equal(WinPeFailureKinds.Unknown, result["boot_media_failure_kind"]);
+    }
+
+    [Fact]
+    public void Build_FailedWithDiagnosticKind_ReportsDiagnosticKind()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildWith(
+            success: false,
+            diagnostic: new WinPeDiagnostic("WINPE_BUILD_FAILED", "Build failed.", failureKind: WinPeFailureKinds.Tooling));
+
+        Assert.Equal(WinPeFailureKinds.Tooling, result["boot_media_failure_kind"]);
+    }
+
+    [Fact]
+    public void Build_Succeeded_OmitsFailureKind()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildWith(
+            diagnostic: new WinPeDiagnostic("WINPE_BUILD_FAILED", "Build failed.", failureKind: WinPeFailureKinds.Tooling));
+
+        Assert.Null(result.GetValueOrDefault("boot_media_failure_kind"));
+    }
+
+    [Fact]
+    public void Build_OobeDisabled_OmitsDiagnosticLevelAndLocation()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildWith(CreateCustomizationDocument(oobeEnabled: false, machineNamingEnabled: false));
+
+        Assert.Null(result.GetValueOrDefault("customization_oobe_diagnostic_data_level"));
+        Assert.Null(result.GetValueOrDefault("customization_oobe_location_access"));
+    }
+
+    [Fact]
+    public void Build_OobeEnabled_ReportsDiagnosticLevelAndLocation()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildWith(CreateCustomizationDocument(oobeEnabled: true, machineNamingEnabled: false));
+
+        Assert.Equal("off", result["customization_oobe_diagnostic_data_level"]);
+        Assert.Equal("force_off", result["customization_oobe_location_access"]);
+    }
+
+    [Fact]
+    public void Build_MachineNamingDisabled_OmitsSeparatorAndCasing()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildWith(CreateCustomizationDocument(oobeEnabled: false, machineNamingEnabled: false));
+
+        Assert.Null(result.GetValueOrDefault("customization_machine_naming_separator"));
+        Assert.Null(result.GetValueOrDefault("customization_machine_naming_casing"));
+    }
+
+    [Fact]
+    public void Build_MachineNamingEnabled_ReportsSeparatorAndCasing()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildWith(CreateCustomizationDocument(oobeEnabled: false, machineNamingEnabled: true));
+
+        Assert.Equal("hyphen", result["customization_machine_naming_separator"]);
+        Assert.Equal("uppercase", result["customization_machine_naming_casing"]);
+    }
+
+    private static FoundryConfigurationDocument CreateCustomizationDocument(bool oobeEnabled, bool machineNamingEnabled) => new()
+    {
+        Customization = new CustomizationSettings
+        {
+            Oobe = new OobeSettings
+            {
+                IsEnabled = oobeEnabled,
+                DiagnosticDataLevel = OobeDiagnosticDataLevel.Off,
+                LocationAccess = OobeLocationAccessMode.ForceOff
+            },
+            MachineNaming = new MachineNamingSettings
+            {
+                IsEnabled = machineNamingEnabled,
+                Separator = MachineNameSeparator.Hyphen,
+                Casing = MachineNameCasing.Uppercase
+            }
+        }
+    };
 }

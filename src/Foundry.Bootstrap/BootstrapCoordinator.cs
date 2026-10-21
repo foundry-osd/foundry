@@ -12,15 +12,21 @@ using Serilog;
 
 namespace Foundry.Bootstrap;
 
-/// <summary>Runs the finite, ordered WinPE boot workflow.</summary>
+/// <summary>
+/// Runs the finite, ordered WinPE boot workflow. Every result carries the version of the payload resolved for the
+/// current stage, or none when that stage has not resolved one yet. <paramref name="readPayloadVersion"/> defaults to
+/// the executable file version and must not throw.
+/// </summary>
 internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeResolver runtime,
     ISystemPreparation preparation, IApplicationLauncher launcher, IBootstrapLogPersistence persistence,
     ILogger logger, Action<BootstrapProgress> progress, Action? deliveryReady = null,
-    Action<BootstrapResult, TimeSpan>? completed = null)
+    Action<BootstrapResult, TimeSpan>? completed = null, Func<string, string?>? readPayloadVersion = null)
 {
     private BootstrapStage stage = BootstrapStage.Environment;
     private BootstrapStage? loggedStage;
     private long stageStarted;
+    private readonly Func<string, string?> readPayloadVersion = readPayloadVersion ?? ReadFileVersion;
+    private string? payloadVersion;
 
     internal async Task<BootstrapResult> RunAsync(CancellationToken cancellationToken)
     {
@@ -34,12 +40,12 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
-            result = new BootstrapResult(BootstrapOutcome.Cancelled, stage);
+            result = new BootstrapResult(BootstrapOutcome.Cancelled, stage, PayloadVersion: payloadVersion);
         }
         catch (Exception exception)
         {
             logger.Error(exception, "Bootstrap stage {Stage} failed", stage);
-            result = new BootstrapResult(BootstrapOutcome.Failed, stage);
+            result = new BootstrapResult(BootstrapOutcome.Failed, stage, PayloadVersion: payloadVersion);
         }
 
         try
@@ -88,6 +94,7 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
         stage = BootstrapStage.Connect;
         Report(BootstrapStatus.Running, "Preparing Foundry Connect");
         string connect = await runtime.ResolveAsync("Foundry.Connect", context.ConnectIsDebug, cancellationToken).ConfigureAwait(false);
+        payloadVersion = readPayloadVersion(connect);
 
         Report(BootstrapStatus.Running, "Waiting for Foundry Connect");
         ApplicationLaunchResult connectResult = await launcher.RunConnectAsync(connect, context.ConnectConfigurationPath,
@@ -95,12 +102,14 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
         if (!connectResult.Succeeded)
         {
             return new BootstrapResult(connectResult.ExitCode == 20 ? BootstrapOutcome.Cancelled : BootstrapOutcome.Failed,
-                stage, connectResult.ExitCode, connectResult.FailureCategory, connectResult.LastStage);
+                stage, connectResult.ExitCode, connectResult.FailureCategory, connectResult.LastStage, PayloadVersion: payloadVersion);
         }
         Report(BootstrapStatus.Completed, "Foundry Connect completed");
 
         cancellationToken.ThrowIfCancellationRequested();
         stage = BootstrapStage.System;
+        // A later failure must not be attributed to Connect; the next payload version is read once Deploy resolves.
+        payloadVersion = null;
         Report(BootstrapStatus.Running, "Preparing the system clock and time zone");
         await BestEffortAsync(() => preparation.PrepareSystemAsync(cancellationToken),
             "Some system preparation was unavailable. Continuing.").ConfigureAwait(false);
@@ -117,6 +126,7 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
         }
 
         string deploy = await runtime.ResolveAsync("Foundry.Deploy", context.DeployIsDebug, cancellationToken).ConfigureAwait(false);
+        payloadVersion = readPayloadVersion(deploy);
         Report(BootstrapStatus.Running, "Preparing Foundry PostInstall");
         string postInstall = await runtime.ResolveAsync("Foundry.PostInstall", context.DeployIsDebug, cancellationToken).ConfigureAwait(false);
         var deployEnvironment = new Dictionary<string, string?>(context.ChildEnvironment)
@@ -129,7 +139,13 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
         cancellationToken.ThrowIfCancellationRequested();
         ApplicationLaunchResult deployResult = await launcher.StartDeployAsync(deploy, deployEnvironment, cancellationToken).ConfigureAwait(false);
         return new BootstrapResult(deployResult.Succeeded ? BootstrapOutcome.Succeeded : BootstrapOutcome.Failed, stage,
-            deployResult.ExitCode, deployResult.FailureCategory, deployResult.LastStage, deployResult.ReadinessConfirmed);
+            deployResult.ExitCode, deployResult.FailureCategory, deployResult.LastStage, deployResult.ReadinessConfirmed, payloadVersion);
+    }
+
+    private static string? ReadFileVersion(string executable)
+    {
+        try { return FileVersionInfo.GetVersionInfo(executable).FileVersion; }
+        catch { return null; }
     }
 
     private async Task BestEffortAsync(Func<Task> action, string warning)

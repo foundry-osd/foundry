@@ -16,9 +16,12 @@ internal sealed record BootstrapProgress(BootstrapStage Stage, BootstrapStatus S
 /// <summary>Distinguishes operator cancellation from an unrecoverable boot failure.</summary>
 internal enum BootstrapOutcome { Succeeded, Cancelled, Failed }
 
-/// <summary>Terminal result retains the failing stage and child code for diagnostics.</summary>
+/// <summary>
+/// Terminal result retains the failing stage and child code for diagnostics. <see cref="PayloadVersion"/> is the file
+/// version of the last runtime payload resolved before the result, or <see langword="null"/> when none was resolved.
+/// </summary>
 internal sealed record BootstrapResult(BootstrapOutcome Outcome, BootstrapStage Stage, int? ChildExitCode = null,
-    string? FailureCategory = null, string? ChildStartupStage = null, bool ReadinessConfirmed = false)
+    string? FailureCategory = null, string? ChildStartupStage = null, bool ReadinessConfirmed = false, string? PayloadVersion = null)
 {
     internal int ExitCode => Outcome switch
     {

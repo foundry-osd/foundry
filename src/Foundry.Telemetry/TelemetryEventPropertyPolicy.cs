@@ -16,6 +16,11 @@ public static class TelemetryEventPropertyPolicy
         .Select(culture => culture.Name)
         .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
+    // .NET resolves IANA IDs and keeps them as the zone Id, so only the Windows IDs listed by the system are accepted.
+    private static readonly Lazy<HashSet<string>> KnownWindowsTimeZoneIds = new(() => TimeZoneInfo.GetSystemTimeZones()
+        .Select(timeZone => timeZone.Id)
+        .ToHashSet(StringComparer.Ordinal));
+
     private static readonly HashSet<string> SensitiveKeys = new(StringComparer.OrdinalIgnoreCase)
     {
         "ssid",
@@ -56,7 +61,8 @@ public static class TelemetryEventPropertyPolicy
             [TelemetryEvents.BootstrapFailed] = new(StringComparer.Ordinal)
             {
                 "failure_category", "last_stage", "elapsed_seconds", "child_application",
-                "child_exit_code", "payload_source", "payload_version", "architecture", "child_startup_stage"
+                "child_exit_code", "payload_source", "payload_version", "architecture", "child_startup_stage",
+                "boot_media_target"
             },
             [TelemetryEvents.AppDailyActive] = new(StringComparer.Ordinal)
             {
@@ -161,6 +167,9 @@ public static class TelemetryEventPropertyPolicy
                 "os_selection_allowed_edition_count",
                 "os_selection_default_edition_configured",
                 "deployment_time_zone_configured",
+                "deployment_time_zone_id",
+                "adk_version",
+                "adk_version_relation",
                 "network_any_enabled",
                 "network_wired_dot1x_enabled",
                 "network_wired_dot1x_profile_configured",
@@ -233,6 +242,10 @@ public static class TelemetryEventPropertyPolicy
                 "deploy_domain_join_domain_source",
                 "deploy_domain_join_ou_source",
                 "deploy_domain_join_status",
+                "deploy_oobe_enabled",
+                "deploy_oobe_administrator_enabled",
+                "deploy_oobe_additional_account_count",
+                "deploy_oobe_account_creation_skipped",
                 "deploy_completion_reboot_mode",
                 "deploy_completion_reboot_delay_seconds"
             }
@@ -268,7 +281,7 @@ public static class TelemetryEventPropertyPolicy
         {
             if (!allowedProperties.Contains(key) || IsSensitiveKey(key) || !IsAllowedUnattendValue(key, value) ||
                 !IsAllowedCustomImageValue(key, value) || !IsAllowedPostInstallationValue(key, value) ||
-                !IsAllowedBootMediaValue(key, value))
+                !IsAllowedBootMediaValue(key, value) || !IsAllowedDeployOobeValue(key, value))
             {
                 continue;
             }
@@ -311,6 +324,7 @@ public static class TelemetryEventPropertyPolicy
         "architecture" => value is "x64" or "arm64",
         "child_startup_stage" => value is "managed_started" or "configuration_loaded" or "ui_ready" or "startup_failed",
         "payload_version" => value.Length <= 64 && Version.TryParse(value, out _),
+        "boot_media_target" => value is TelemetryBootMediaTargets.Iso or TelemetryBootMediaTargets.Usb,
         _ => false
     };
 
@@ -331,10 +345,21 @@ public static class TelemetryEventPropertyPolicy
     };
 
     // A keyboard layout is either the language default or an eight-digit hexadecimal KLID; anything else is dropped.
+    // A time zone must be a Windows time zone ID of this machine, so free text and IANA IDs never leave the process.
     private static bool IsAllowedBootMediaValue(string key, object? value) => key switch
     {
         "boot_media_winpe_keyboard_layout" => value is string text &&
             (text == "default" || text.Length == 8 && text.All(char.IsAsciiHexDigit)),
+        "adk_version" => value is string version && version.Length <= 64 && Version.TryParse(version, out _),
+        "adk_version_relation" => value is "unknown" or "below_supported" or "supported" or "above_supported",
+        "deployment_time_zone_id" => value is string timeZoneId && KnownWindowsTimeZoneIds.Value.Contains(timeZoneId),
+        _ => true
+    };
+
+    private static bool IsAllowedDeployOobeValue(string key, object? value) => key switch
+    {
+        "deploy_oobe_enabled" or "deploy_oobe_administrator_enabled" or "deploy_oobe_account_creation_skipped" => value is bool,
+        "deploy_oobe_additional_account_count" => value is int and >= 0 and <= 100,
         _ => true
     };
 
