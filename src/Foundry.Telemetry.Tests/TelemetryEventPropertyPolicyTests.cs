@@ -395,8 +395,8 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.Equal("x64", result["boot_media_architecture"]);
         Assert.Equal("Prepare WinPE workspace", result["boot_media_creation_failed_step_name"]);
         Assert.Equal("process", result["boot_media_failure_kind"]);
-        Assert.Equal("nonzero_exit", result["boot_media_failure_reason"]);
-        Assert.Equal("WINPE_BUILD_FAILED", result["boot_media_failure_code"]);
+        Assert.Equal("non_zero_exit", result["boot_media_failure_reason"]);
+        Assert.Equal("winpe_build_failed", result["boot_media_failure_code"]);
         Assert.Equal("copype", result["boot_media_failure_tool"]);
         Assert.Equal(5, result["boot_media_failure_exit_code"]);
         Assert.Equal("operation-1", result["operation_id"]);
@@ -567,7 +567,7 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.Equal("catalog", result["deploy_os_source"]);
         Assert.Equal("windows_11", result["deploy_os_product"]);
         Assert.Equal("2026-07", result["deploy_os_update_month"]);
-        Assert.Equal("pro", result["deploy_os_edition"]);
+        Assert.Equal("professional", result["deploy_os_edition"]);
         Assert.Equal("ret", result["deploy_os_license_channel"]);
         Assert.Equal(6, result["deploy_os_image_index"]);
         Assert.Equal("dell", result["deploy_driver_pack_vendor"]);

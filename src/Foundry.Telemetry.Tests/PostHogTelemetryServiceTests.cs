@@ -239,7 +239,7 @@ public sealed class PostHogTelemetryServiceTests
         Assert.Equal(TelemetryRuntimeModes.Desktop, properties.GetProperty("app_runtime").GetString());
         Assert.Equal("x64", properties.GetProperty("app_runtime_architecture").GetString());
         Assert.Equal("en-US", properties.GetProperty("app_locale").GetString());
-        Assert.Equal(TelemetryDefaults.SchemaVersion, properties.GetProperty("telemetry_schema_version").GetInt32());
+        Assert.Equal(3, properties.GetProperty("telemetry_schema_version").GetInt32());
         Assert.False(properties.TryGetProperty("runtime", out _));
         Assert.False(properties.TryGetProperty("runtime_payload_source", out _));
         Assert.False(properties.TryGetProperty("runtime_architecture", out _));

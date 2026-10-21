@@ -337,6 +337,28 @@ public sealed class BootstrapTelemetryPipelineTests
     }
 
     [Fact]
+    public void PersistedLegacyFailure_IsRevalidatedWithCanonicalStage()
+    {
+        using var folder = new TestFolder();
+        var legacy = new BootstrapPendingRecord(Guid.NewGuid(),
+            BootstrapTelemetryJournal.Scope("https://example.test", "public", "install"),
+            BootstrapTelemetryDestination.Analytics, DateTimeOffset.UtcNow,
+            new Dictionary<string, object>
+            {
+                ["failure_category"] = "stage_failed",
+                ["last_stage"] = "deploymentpreparation",
+                ["telemetry_schema_version"] = 2
+            }, null);
+        File.WriteAllLines(folder.Path, [JsonSerializer.Serialize(legacy)]);
+
+        BootstrapPendingRecord record = Assert.Single(new BootstrapTelemetryJournal(folder.Path).Records);
+
+        Assert.Equal("stage_failed", record.Properties!["failure_category"]);
+        Assert.Equal("deployment_preparation", record.Properties["last_stage"]);
+        Assert.Equal(3, record.Properties["telemetry_schema_version"]);
+    }
+
+    [Fact]
     public async Task InvalidJournalNumber_DoesNotDiscardOtherValidRecords()
     {
         using var folder = new TestFolder();

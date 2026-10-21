@@ -34,6 +34,20 @@ Commands, arguments, action or software names and identifiers, hashes, paths, an
 - `deploy:session_finished` sends the OOBE flags `deploy_oobe_enabled`, `deploy_oobe_administrator_enabled` and `deploy_oobe_account_creation_skipped` as Booleans, and `deploy_oobe_additional_account_count` as an integer from 0 through 100. No account names are sent.
 - `bootstrap:failed` sends `payload_version`, the file version of the Connect or Deploy payload resolved for the failed stage (absent before any payload is resolved), and `boot_media_target` (`iso` or `usb`).
 
+## Canonical values
+
+Since `telemetry_schema_version` 3, `TelemetryValueNormalizer` rewrites values after validation, so each meaning has one spelling. Property names do not change, and every mapping keeps an already canonical value, so persisted `bootstrap:failed` records are revalidated without being dropped.
+
+| Property | Canonical values |
+| --- | --- |
+| `boot_media_failure_kind`, `deploy_session_failure_reason` | `cancelled` for a cancellation (was `cancellation` and `caller_cancelled`). A cancelled deployment also sends `deploy_session_failure_kind = cancelled`. |
+| `boot_media_failure_reason` | `non_zero_exit` (was `nonzero_exit`). |
+| `boot_media_failure_code`, `deploy_session_failure_code` | Lowercase. |
+| `boot_media_failure_tool` | Lowercase without `.exe`; `7zip`, `adk` and `makewinpemedia` for their display names; `other` for anything outside `[a-z0-9._-]{1,32}`. |
+| `boot_media_creation_failed_step_name` | One of `MediaCreationStepNames`, otherwise `unknown`. |
+| `deploy_driver_pack_selection_kind`, `deploy_autopilot_hash_upload_state`, `boot_media_boot_image_source`, `last_stage` | snake_case, for example `oem_catalog`, `upload_timed_out`, `winre_wifi`, `deployment_preparation`. |
+| `deploy_os_edition` | Windows edition ID for catalog and custom images (`professional` for `Pro`, `core` for `Home`), otherwise `unknown`. |
+
 ## Exception grouping
 
 `PostHogExceptionTracker` sets `$exception_fingerprint` so PostHog Error Tracking groups issues by stable failure context:

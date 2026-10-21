@@ -12,7 +12,12 @@ public static class TelemetryDefaults
     /// <summary>
     /// Gets the current telemetry event contract version.
     /// </summary>
-    public const int SchemaVersion = 2;
+    /// <remarks>
+    /// Version 3 keeps property names and sends canonical values: snake_case enum values, one cancelled failure
+    /// vocabulary, lowercase failure codes, normalized tool names, canonical Windows edition names, and only stable
+    /// media step names.
+    /// </remarks>
+    public const int SchemaVersion = 3;
 
     /// <summary>
     /// Gets the PostHog EU ingestion host used by official Foundry telemetry.

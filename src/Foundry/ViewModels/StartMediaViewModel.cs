@@ -612,6 +612,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             _ => TelemetryBootMediaUsbOperations.None
         };
         WinPeDiagnostic? failureDiagnostic = null;
+        // Telemetry keeps the tracked step: a diagnostic stage can be a dynamic label, which stays in logs only.
+        string? telemetryFailedStepName = null;
         DeploymentMediaProtectionMaterial? deploymentProtectionMaterial = null;
         DeploymentBuildSnapshot? snapshot = null;
         FoundryConfigurationDocument capturedConfiguration = foundryConfigurationStateService.Current;
@@ -755,6 +757,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     failureKind: isTimeout ? WinPeFailureKinds.Network : WinPeFailureKinds.Internal,
                     failureReason: isTimeout ? WinPeFailureReasons.Timeout : WinPeFailureReasons.Unexpected,
                     exception: ex);
+            telemetryFailedStepName = telemetryProgressTracker.CurrentStepName;
             string failedStepName = string.IsNullOrWhiteSpace(failureDiagnostic.Stage)
                 ? telemetryProgressTracker.CurrentStepName
                 : failureDiagnostic.Stage;
@@ -820,6 +823,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 OperationOutcome.Cancelled,
                 GetOperationTitle(target, OperationOutcome.Cancelled),
                 BuildCancelledMessage(target));
+            telemetryFailedStepName = telemetryProgressTracker.CurrentStepName;
             failureDiagnostic = new WinPeDiagnostic(
                 WinPeErrorCodes.OperationCancelled,
                 "Boot media creation was cancelled.",
@@ -857,7 +861,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                         options,
                         capturedConfiguration,
                         success,
-                        success ? null : telemetryProgressTracker.CurrentStepName,
+                        success ? null : telemetryFailedStepName ?? telemetryProgressTracker.CurrentStepName,
                         stopwatch.Elapsed,
                         operationId,
                         failureDiagnostic,
