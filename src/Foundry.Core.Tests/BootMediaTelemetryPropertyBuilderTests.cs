@@ -1188,6 +1188,34 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.Equal(false, result["deployment_time_zone_configured"]);
     }
 
+    [Fact]
+    public void Build_UnknownFailedStepName_ReportsUnknown()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildWith(
+            success: false,
+            failedStepName: "Apply boot image international settings (fr-FR)");
+
+        Assert.Equal(MediaCreationStepNames.Unknown, result["boot_media_creation_failed_step_name"]);
+    }
+
+    [Fact]
+    public void Build_KnownFailedStepName_IsKept()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildWith(
+            success: false,
+            failedStepName: MediaCreationStepNames.CustomizeBootImage);
+
+        Assert.Equal(MediaCreationStepNames.CustomizeBootImage, result["boot_media_creation_failed_step_name"]);
+    }
+
+    [Fact]
+    public void Build_Succeeded_OmitsFailedStepName()
+    {
+        IReadOnlyDictionary<string, object?> result = BuildWith(failedStepName: MediaCreationStepNames.CustomizeBootImage);
+
+        Assert.Null(result.GetValueOrDefault("boot_media_creation_failed_step_name"));
+    }
+
     private static AdkInstallationStatus CreateAdkStatus(string? installedVersion, AdkVersionRelation relation) =>
         new(true, true, true, installedVersion, relation, null);
 

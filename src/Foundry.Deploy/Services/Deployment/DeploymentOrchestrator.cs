@@ -546,6 +546,12 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             properties["deploy_session_failure_reason"] = failure.Reason;
             properties["deploy_session_failure_code"] = failure.Code;
         }
+        else if (cancelled)
+        {
+            // A cancellation has no DeploymentFailure; report it with the same kind and reason as a cancelled media run.
+            properties["deploy_session_failure_kind"] = DeploymentFailureKinds.Cancelled;
+            properties["deploy_session_failure_reason"] = DeploymentFailureReasons.CallerCancelled;
+        }
 
         _logger.LogDebug(
             "Tracking deployment telemetry event. Success={Success}, Cancelled={Cancelled}, DurationSeconds={DurationSeconds}, CompletedStepCount={CompletedStepCount}, FailedStepName={FailedStepName}, Mode={Mode}, IsDryRun={IsDryRun}, HardwareVendor={HardwareVendor}, HardwareModel={HardwareModel}, OsProduct={OsProduct}, OsVersion={OsVersion}, DriverPackSelectionKind={DriverPackSelectionKind}, DriverPackVendor={DriverPackVendor}, DriverPackModel={DriverPackModel}.",

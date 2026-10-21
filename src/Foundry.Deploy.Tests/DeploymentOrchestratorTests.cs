@@ -152,6 +152,27 @@ public sealed class DeploymentOrchestratorTests
     }
 
     [Fact]
+    public async Task TrackDeploymentCompleted_Cancelled_ReportsCancelledKindAndReason()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        using var cancellation = new CancellationTokenSource();
+        var telemetry = new RecordingTelemetryService();
+        var orchestrator = new DeploymentOrchestrator(new FakeOperationProgressService(), new FakeDeploymentLogService(), new FakeTargetDiskService(),
+            DeploymentStepNames.ExecutionOrder.Select(name => new SucceedingStep(name)), telemetry, NullLogger<DeploymentOrchestrator>.Instance);
+        orchestrator.CompletionStarting += (_, _) => cancellation.Cancel();
+
+        DeploymentResult result = await orchestrator.RunAsync(CreateCancellationContext(workspace.RootPath), cancellation.Token);
+
+        Assert.True(result.IsCancelled);
+        IReadOnlyDictionary<string, object?> properties = Assert.Single(telemetry.Events).Properties;
+        Assert.Equal(DeploymentFailureKinds.Cancelled, properties["deploy_session_failure_kind"]);
+        Assert.Equal(DeploymentFailureReasons.CallerCancelled, properties["deploy_session_failure_reason"]);
+        IReadOnlyDictionary<string, object?> sent = TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.DeploySessionFinished, properties);
+        Assert.Equal("cancelled", sent["deploy_session_failure_kind"]);
+        Assert.Equal("cancelled", sent["deploy_session_failure_reason"]);
+    }
+
+    [Fact]
     public async Task RunAsync_WhenCancellationNeedsTerminalPersistence_KeepsOperationGateUntilCleanupFinishes()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
@@ -814,7 +835,8 @@ public sealed class DeploymentOrchestratorTests
         TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
         Assert.True((bool)telemetryEvent.Properties["deploy_session_cancelled"]!);
         Assert.False((bool)telemetryEvent.Properties["deploy_session_success"]!);
-        Assert.False(telemetryEvent.Properties.ContainsKey("deploy_session_failure_kind"));
+        Assert.Equal(DeploymentFailureKinds.Cancelled, telemetryEvent.Properties["deploy_session_failure_kind"]);
+        Assert.Equal(DeploymentFailureReasons.CallerCancelled, telemetryEvent.Properties["deploy_session_failure_reason"]);
         LogEntry terminalLog = Assert.Single(logger.Entries, entry => entry.Properties.ContainsKey("Outcome"));
         Assert.Equal("cancelled", terminalLog.Properties["Outcome"]);
         Assert.Equal(true, terminalLog.Properties["Cancelled"]);

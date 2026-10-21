@@ -25,7 +25,7 @@ public static class BootMediaTelemetryPropertyBuilder
     /// <param name="options">Resolved media creation options.</param>
     /// <param name="document">Configuration captured for the media operation. Image counts describe intended inclusion even if creation fails.</param>
     /// <param name="success">Whether media creation completed successfully.</param>
-    /// <param name="failedStepName">Failed media creation step name, or <see langword="null"/> when successful.</param>
+    /// <param name="failedStepName">Failed media creation step name, or <see langword="null"/> when successful; names outside <see cref="MediaCreationStepNames"/> are sent as unknown.</param>
     /// <param name="duration">Total media creation duration.</param>
     /// <param name="connectRuntimePayloadSource">Source of the generated Connect runtime payload.</param>
     /// <param name="deployRuntimePayloadSource">Source of the generated Deploy runtime payload.</param>
@@ -65,7 +65,7 @@ public static class BootMediaTelemetryPropertyBuilder
                 : TelemetryBootMediaUsbOperations.None,
             ["boot_media_creation_success"] = success,
             ["boot_media_creation_duration_seconds"] = Math.Round(duration.TotalSeconds, 2),
-            ["boot_media_creation_failed_step_name"] = failedStepName,
+            ["boot_media_creation_failed_step_name"] = success ? null : MediaCreationStepNames.Normalize(failedStepName),
             ["boot_media_failure_kind"] = ResolveFailureKind(success, diagnostic),
             ["boot_media_failure_reason"] = diagnostic?.FailureReason,
             ["boot_media_failure_code"] = diagnostic?.Code,
