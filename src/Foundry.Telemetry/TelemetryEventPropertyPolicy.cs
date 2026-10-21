@@ -318,7 +318,8 @@ public static class TelemetryEventPropertyPolicy
     private static bool IsAllowedBootstrapValue(string key, string value) => key switch
     {
         "failure_category" => value is "child_exit" or "stage_failed" or "readiness_timeout" or "startup_failed" or "capability_invalid",
-        "last_stage" => value is "environment" or "connect" or "system" or "deploymentpreparation" or "deploy",
+        // Older Bootstrap versions persisted "deploymentpreparation"; both spellings stay valid so journal records survive.
+        "last_stage" => value is "environment" or "connect" or "system" or "deploymentpreparation" or "deployment_preparation" or "deploy",
         "child_application" => value is TelemetryApps.FoundryConnect or TelemetryApps.FoundryDeploy or "none",
         "payload_source" => value is TelemetryRuntimePayloadSources.None or TelemetryRuntimePayloadSources.Debug or
             TelemetryRuntimePayloadSources.Release or TelemetryRuntimePayloadSources.Unknown,
@@ -388,15 +389,19 @@ public static class TelemetryEventPropertyPolicy
                 Version.TryParse(text, out _) ? text : "unknown",
             "deploy_os_architecture" => text is "x86" or "x64" or "arm" or "arm64" ? text : "unknown",
             "deploy_os_language" => KnownLanguageNames.Contains(text) ? text : "unknown",
-            "deploy_os_edition" => IsKnownWindowsEdition(text) ? text : "unknown",
+            // Missing custom editions become an empty string, which the value normalizer reports as unknown.
+            "deploy_os_edition" => text,
             "deploy_os_license_channel" or "deploy_os_update_month" => "unknown",
             _ => value
         };
     }
 
-    private static bool IsKnownWindowsEdition(string value) => value is
+    /// <summary>Returns whether a lowercase edition name is a known Windows edition ID.</summary>
+    internal static bool IsKnownWindowsEdition(string value) => value is
         "core" or "coren" or "corecountryspecific" or "coresinglelanguage" or
         "professional" or "professionaln" or "professionaleducation" or "professionaleducationn" or
+        "professionalstudent" or "professionalstudentn" or
+        "coreconnected" or "coreconnectedn" or "coreconnectedsinglelanguage" or "coreconnectedcountryspecific" or
         "professionalworkstation" or "professionalworkstationn" or
         "education" or "educationn" or "enterprise" or "enterprisen" or "enterprises" or "enterprisesn" or
         "enterpriseeval" or "enterpriseneval" or "enterpriseseval" or "enterprisesneval" or

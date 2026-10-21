@@ -68,4 +68,74 @@ public sealed class TelemetryValueNormalizerTests
         Assert.Equal("winpe_build_failed", result["boot_media_failure_code"]);
         Assert.Equal("dism", result["boot_media_failure_tool"]);
     }
+
+    [Theory]
+    [InlineData(TelemetryEvents.DeploySessionFinished, "deploy_driver_pack_selection_kind", "oemcatalog", "oem_catalog")]
+    [InlineData(TelemetryEvents.DeploySessionFinished, "deploy_driver_pack_selection_kind", "microsoftupdatecatalog", "microsoft_update_catalog")]
+    [InlineData(TelemetryEvents.DeploySessionFinished, "deploy_driver_pack_selection_kind", "oem_catalog", "oem_catalog")]
+    [InlineData(TelemetryEvents.DeploySessionFinished, "deploy_driver_pack_selection_kind", "none", "none")]
+    [InlineData(TelemetryEvents.DeploySessionFinished, "deploy_autopilot_hash_upload_state", "notplanned", "not_planned")]
+    [InlineData(TelemetryEvents.DeploySessionFinished, "deploy_autopilot_hash_upload_state", "dryrunprepared", "dry_run_prepared")]
+    [InlineData(TelemetryEvents.DeploySessionFinished, "deploy_autopilot_hash_upload_state", "skippedcertificateexpired", "skipped_certificate_expired")]
+    [InlineData(TelemetryEvents.DeploySessionFinished, "deploy_autopilot_hash_upload_state", "skippedmissingconfiguration", "skipped_missing_configuration")]
+    [InlineData(TelemetryEvents.DeploySessionFinished, "deploy_autopilot_hash_upload_state", "capturefailed", "capture_failed")]
+    [InlineData(TelemetryEvents.DeploySessionFinished, "deploy_autopilot_hash_upload_state", "uploadfailed", "upload_failed")]
+    [InlineData(TelemetryEvents.DeploySessionFinished, "deploy_autopilot_hash_upload_state", "uploadtimedout", "upload_timed_out")]
+    [InlineData(TelemetryEvents.DeploySessionFinished, "deploy_autopilot_hash_upload_state", "not_planned", "not_planned")]
+    [InlineData(TelemetryEvents.DeploySessionFinished, "deploy_autopilot_hash_upload_state", "completed", "completed")]
+    [InlineData(TelemetryEvents.OsdBootMediaFinished, "boot_media_boot_image_source", "winrewifi", "winre_wifi")]
+    [InlineData(TelemetryEvents.OsdBootMediaFinished, "boot_media_boot_image_source", "winre_wifi", "winre_wifi")]
+    [InlineData(TelemetryEvents.OsdBootMediaFinished, "boot_media_boot_image_source", "winpe", "winpe")]
+    [InlineData(TelemetryEvents.BootstrapFailed, "last_stage", "deploymentpreparation", "deployment_preparation")]
+    [InlineData(TelemetryEvents.BootstrapFailed, "last_stage", "deployment_preparation", "deployment_preparation")]
+    [InlineData(TelemetryEvents.BootstrapFailed, "last_stage", "connect", "connect")]
+    public void Normalize_SendsSnakeCaseEnumValues(string eventName, string key, string value, string expected)
+    {
+        Assert.Equal(expected, TelemetryValueNormalizer.Normalize(eventName, key, value));
+    }
+
+    [Theory]
+    [InlineData("Pro", "professional")]
+    [InlineData("pro", "professional")]
+    [InlineData("professional", "professional")]
+    [InlineData("Pro N", "professionaln")]
+    [InlineData("Pro Education", "professionaleducation")]
+    [InlineData("Pro Education N", "professionaleducationn")]
+    [InlineData("Pro for Workstations", "professionalworkstation")]
+    [InlineData("Pro for Workstations N", "professionalworkstationn")]
+    [InlineData("Home", "core")]
+    [InlineData("Home N", "coren")]
+    [InlineData("Home Single Language", "coresinglelanguage")]
+    [InlineData("enterprise n", "enterprisen")]
+    [InlineData("Enterprise-N", "enterprisen")]
+    [InlineData("ProfessionalStudent", "professionalstudent")]
+    [InlineData("CoreConnectedSingleLanguage", "coreconnectedsinglelanguage")]
+    [InlineData("My custom edition", "unknown")]
+    [InlineData("unknown", "unknown")]
+    public void Normalize_CanonicalizesWindowsEditions(string value, string expected)
+    {
+        Assert.Equal(expected, TelemetryValueNormalizer.Normalize(TelemetryEvents.DeploySessionFinished, "deploy_os_edition", value));
+    }
+
+    [Theory]
+    [InlineData("catalog")]
+    [InlineData("custom")]
+    public void Sanitize_ForDeploySessionFinished_SendsCanonicalEditionForEverySource(string source)
+    {
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(
+            TelemetryEvents.DeploySessionFinished,
+            new Dictionary<string, object?> { ["deploy_os_source"] = source, ["deploy_os_edition"] = "Pro" });
+
+        Assert.Equal("professional", result["deploy_os_edition"]);
+    }
+
+    [Fact]
+    public void Sanitize_ForBootstrapFailed_KeepsLegacyStageSpellingAsCanonicalValue()
+    {
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(
+            TelemetryEvents.BootstrapFailed,
+            new Dictionary<string, object?> { ["last_stage"] = "deploymentpreparation" });
+
+        Assert.Equal("deployment_preparation", result["last_stage"]);
+    }
 }

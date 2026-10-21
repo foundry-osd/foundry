@@ -567,7 +567,7 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.Equal("catalog", result["deploy_os_source"]);
         Assert.Equal("windows_11", result["deploy_os_product"]);
         Assert.Equal("2026-07", result["deploy_os_update_month"]);
-        Assert.Equal("pro", result["deploy_os_edition"]);
+        Assert.Equal("professional", result["deploy_os_edition"]);
         Assert.Equal("ret", result["deploy_os_license_channel"]);
         Assert.Equal(6, result["deploy_os_image_index"]);
         Assert.Equal("dell", result["deploy_driver_pack_vendor"]);

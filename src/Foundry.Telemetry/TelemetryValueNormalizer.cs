@@ -36,8 +36,50 @@ internal static class TelemetryValueNormalizer
             "deploy_session_failure_reason" => text == "caller_cancelled" ? "cancelled" : text,
             "boot_media_failure_code" or "deploy_session_failure_code" => text.ToLowerInvariant(),
             "boot_media_failure_tool" => NormalizeToolName(text),
+            "deploy_driver_pack_selection_kind" => text switch
+            {
+                "oemcatalog" => "oem_catalog",
+                "microsoftupdatecatalog" => "microsoft_update_catalog",
+                _ => text
+            },
+            "deploy_autopilot_hash_upload_state" => text switch
+            {
+                "notplanned" => "not_planned",
+                "dryrunprepared" => "dry_run_prepared",
+                "skippedcertificateexpired" => "skipped_certificate_expired",
+                "skippedmissingconfiguration" => "skipped_missing_configuration",
+                "capturefailed" => "capture_failed",
+                "uploadfailed" => "upload_failed",
+                "uploadtimedout" => "upload_timed_out",
+                _ => text
+            },
+            "boot_media_boot_image_source" => text == "winrewifi" ? "winre_wifi" : text,
+            "last_stage" when eventName == TelemetryEvents.BootstrapFailed =>
+                text == "deploymentpreparation" ? "deployment_preparation" : text,
+            "deploy_os_edition" => NormalizeWindowsEdition(text),
             _ => text
         };
+    }
+
+    // Catalog and custom images name editions differently (Pro, Professional, Pro N); one canonical name is sent.
+    private static string NormalizeWindowsEdition(string edition)
+    {
+        string normalized = new(edition.Where(character => character is not (' ' or '-')).ToArray());
+        normalized = normalized.ToLowerInvariant() switch
+        {
+            "pro" => "professional",
+            "pron" => "professionaln",
+            "proeducation" => "professionaleducation",
+            "proeducationn" => "professionaleducationn",
+            "proforworkstations" => "professionalworkstation",
+            "proforworkstationsn" => "professionalworkstationn",
+            "home" => "core",
+            "homen" => "coren",
+            "homesinglelanguage" => "coresinglelanguage",
+            string lowered => lowered
+        };
+
+        return TelemetryEventPropertyPolicy.IsKnownWindowsEdition(normalized) ? normalized : "unknown";
     }
 
     // Tool names come from fixed diagnostics but mix casing, extensions and display names; anything else becomes "other".
