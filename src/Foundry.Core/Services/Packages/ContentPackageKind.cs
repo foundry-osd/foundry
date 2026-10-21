@@ -50,4 +50,18 @@ public sealed record ContentPackageKind
         RequiresInfFile = false,
         PrunesMediaOnUpdate = false
     };
+
+    /// <summary>Custom driver sets; paths keep the full host and USB prefix within the long-path limit of Windows.</summary>
+    public static ContentPackageKind Drivers { get; } = new()
+    {
+        Name = "Drivers",
+        MaximumRelativePathLength = 150,
+        MaximumFullPathLength = 32_767,
+        MaximumFiles = 20_000,
+        MaximumDirectories = 20_000,
+        MaximumMediaManifestBytes = 64 * 1024 * 1024,
+        MediaRoot = "Cache/DriverPacks/Custom",
+        RequiresInfFile = true,
+        PrunesMediaOnUpdate = true
+    };
 }

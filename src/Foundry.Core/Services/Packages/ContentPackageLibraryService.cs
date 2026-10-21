@@ -7,7 +7,6 @@ using System.Security.Cryptography;
 using System.Security.Principal;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Packages;
-using Foundry.Core.Services.Configuration;
 
 namespace Foundry.Core.Services.Packages;
 
@@ -35,7 +34,7 @@ public sealed class ContentPackageLibraryService
     /// <summary>Performs lightweight readiness checks; consumers must acquire a fully verified lease before use.</summary>
     public bool IsAvailable(ContentPackageReference reference)
     {
-        if (!PreOobeConfigurationValidator.IsValidReference(reference)) return false;
+        if (!IsValidReference(reference, Kind)) return false;
         try
         {
             string directory = ContentPath(reference.ContentHash);
@@ -46,6 +45,11 @@ public sealed class ContentPackageLibraryService
         }
         catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException or ArgumentException or OverflowException) { return false; }
     }
+
+    /// <summary>Checks a reference against the limits of <paramref name="kind"/> instead of the post-installation configuration limits.</summary>
+    internal static bool IsValidReference(ContentPackageReference reference, ContentPackageKind kind) =>
+        ContentPackagePathPolicy.IsValidHash(reference.ContentHash) && reference.Length >= 0 && reference.FileCount > 0 && reference.FileCount <= kind.MaximumFiles &&
+        !string.IsNullOrWhiteSpace(reference.DisplayName) && reference.DisplayName.Length <= 256 && !reference.DisplayName.Any(char.IsControl);
 
     /// <summary>Freezes a file or folder without modifying the source. Identical bytes and relative names reuse one version.</summary>
     public async Task<ContentPackageReference> ImportAsync(string sourcePath, CancellationToken cancellationToken = default)

@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Security.Cryptography;
+using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Packages;
 using Foundry.Core.Services.Packages;
 
@@ -268,6 +269,41 @@ public sealed class ContentPackageLibraryTests : IDisposable
     {
         string longRoot = "C:\\" + new string('a', 245);
         Assert.Throws<InvalidDataException>(() => ContentPackagePathPolicy.PostInstallation.Resolve(longRoot, "long-file-name.exe"));
+    }
+
+    [Fact]
+    public async Task DriversImportSucceedsWhenTheHostPathExceeds260Characters()
+    {
+        string source = CreateSource();
+        string relativePath = "drivers/" + new string('a', 138) + ".inf";
+        Assert.Equal(150, relativePath.Length);
+        string sourceFile = Path.Combine(source, relativePath.Replace('/', Path.DirectorySeparatorChar));
+        Directory.CreateDirectory(Path.GetDirectoryName(sourceFile)!);
+        await File.WriteAllTextAsync(sourceFile, "[Version]", Cancellation);
+        string libraryRoot = Path.Combine(root, new string('n', 100), new string('m', 100), "library");
+        var library = new ContentPackageLibraryService(libraryRoot, ContentPackageKind.Drivers);
+
+        var reference = await library.ImportAsync(source, Cancellation);
+        using var lease = await library.AcquireAsync(reference.ContentHash, Cancellation);
+
+        Assert.True(Path.Combine(libraryRoot, "content", reference.ContentHash, "files", relativePath).Length > 260);
+        Assert.Equal(9, lease.Files.Single().Length);
+        Assert.Equal(9, new FileInfo(lease.Files.Single().SourcePath).Length);
+        Assert.True(library.IsAvailable(reference));
+    }
+
+    [Theory]
+    [InlineData(15_000, true, false)]
+    [InlineData(20_000, true, false)]
+    [InlineData(20_001, false, false)]
+    [InlineData(10_000, true, true)]
+    [InlineData(0, false, false)]
+    public void ReferenceFileCountIsValidatedAgainstTheLibraryKind(int fileCount, bool drivers, bool postInstallation)
+    {
+        var reference = new ContentPackageReference { ContentHash = new string('a', 64), DisplayName = "Set", Length = 1, FileCount = fileCount };
+
+        Assert.Equal(drivers, ContentPackageLibraryService.IsValidReference(reference, ContentPackageKind.Drivers));
+        Assert.Equal(postInstallation, ContentPackageLibraryService.IsValidReference(reference, ContentPackageKind.PostInstallation));
     }
 
     private string CreateSource()
