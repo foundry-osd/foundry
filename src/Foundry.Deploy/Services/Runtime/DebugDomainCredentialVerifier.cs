@@ -15,7 +15,7 @@ public enum DebugDomainCredentialCheckScenario
     /// <summary>The check does not run, which is the default in debug safe mode.</summary>
     None,
 
-    /// <summary>The check never answers, so the progress line stays visible.</summary>
+    /// <summary>The check never answers, so the card stays in progress.</summary>
     Checking,
 
     /// <summary>The domain accepts the account.</summary>

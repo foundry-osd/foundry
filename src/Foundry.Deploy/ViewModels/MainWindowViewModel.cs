@@ -59,6 +59,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private DebugDomainCredentialCheckScenario _debugCredentialCheckScenario = DebugDomainCredentialCheckScenario.None;
     private DebugDomainCredentialVerifier? _debugCredentialVerifier;
     private bool _isCheckingLaunchCredentials;
+    private bool _wasOnDomainJoinStep;
+    private bool _isDebugCredentialPreviewPending;
     private BootMediaUpdateReason _bootMediaUpdateReason;
     private BootMediaUpdateReason? _debugBootMediaUpdateReasonOverride;
     private bool _isInitialized;
@@ -692,16 +694,29 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         PreviousWizardStepCommand.NotifyCanExecuteChanged();
     }
 
-    /// <summary>Runs the Zero-touch check of the media account while the Domain Join step is shown, never in debug safe mode without a debug answer.</summary>
-    private void UpdateZeroTouchCredentialCheck()
+    /// <summary>
+    /// Runs the Zero-touch check of the media account while the Domain Join step is shown, never in debug safe mode without a
+    /// debug answer. In debug safe mode, Interactive media also shows the chosen debug answer as soon as the step is shown, so the
+    /// card can be reviewed without typing an account.
+    /// </summary>
+    private void UpdateStepCredentialCheck()
     {
-        if (CurrentWizardStepId == DeploymentWizardStepId.DomainJoin && CredentialVerifier is { } verifier && ZeroTouchMediaCredentialCheck is { } mediaCheck)
+        bool isOnStep = CurrentWizardStepId == DeploymentWizardStepId.DomainJoin;
+        bool isArrival = isOnStep && (!_wasOnDomainJoinStep || _isDebugCredentialPreviewPending);
+        _wasOnDomainJoinStep = isOnStep;
+        if (isOnStep && CredentialVerifier is { } verifier && ZeroTouchMediaCredentialCheck is { } mediaCheck)
         {
             DomainJoinStep.BeginZeroTouchCheck(mediaCheck, verifier, _logger);
         }
         else
         {
             DomainJoinStep.EndZeroTouchCheck();
+        }
+
+        if (isArrival && IsDebugSafeMode && _debugCredentialVerifier is { } debugVerifier && DomainJoinStep.NeedsCredentialCheck)
+        {
+            _isDebugCredentialPreviewPending = false;
+            _ = RunDomainCredentialCheckAsync(debugVerifier);
         }
     }
 
@@ -841,6 +856,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     {
         _debugDomainJoinMode = mode;
         ReplaceDebugCredentialVerifier();
+        _isDebugCredentialPreviewPending = true;
         _wizardContext.ApplyDebugDomainJoin(DebugDomainJoinScenarios.Create(mode));
         OnPropertyChanged(nameof(IsDebugDomainJoinNoneMode));
         OnPropertyChanged(nameof(IsDebugDomainJoinInteractiveMode));
@@ -860,7 +876,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         DomainJoinStep.EndZeroTouchCheck();
         // Configuring the step again resets its inputs and discards the previous answer; the media configuration stays the same.
         DomainJoinStep.Configure(_wizardContext.DomainJoin);
-        UpdateZeroTouchCredentialCheck();
+        _isDebugCredentialPreviewPending = true;
+        UpdateStepCredentialCheck();
         foreach (string name in new[]
                  {
                      nameof(IsDebugCredentialCheckNoneScenario), nameof(IsDebugCredentialCheckCheckingScenario), nameof(IsDebugCredentialCheckValidScenario),
@@ -1029,7 +1046,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             .First(item => item.step.Id == _wizardNavigationState.CurrentStepId)
             .index;
         UpdateWizardStepStates();
-        UpdateZeroTouchCredentialCheck();
+        UpdateStepCredentialCheck();
         OnPropertyChanged(nameof(IsReturningToSummary));
         PreviousWizardStepCommand.NotifyCanExecuteChanged();
         NextWizardStepCommand.NotifyCanExecuteChanged();
