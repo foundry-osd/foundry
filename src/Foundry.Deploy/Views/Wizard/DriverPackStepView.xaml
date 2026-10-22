@@ -95,21 +95,11 @@
                         Margin="0,0,0,8"
                         Style="{StaticResource BodyStrongTextBlockStyle}"
                         Text="{Binding DataContext.Strings[DriverPack.CustomDriverSetLabel], ElementName=ViewRoot}" />
-                    <ListBox
+                    <ComboBox
                         AutomationProperties.Name="{Binding DataContext.Strings[DriverPack.CustomDriverSetLabel], ElementName=ViewRoot}"
-                        BorderThickness="0"
-                        ItemContainerStyle="{StaticResource DriverOptionItemStyle}"
+                        DisplayMemberPath="DisplayName"
                         ItemsSource="{Binding CustomDriverSetOptions}"
-                        SelectedItem="{Binding SelectedCustomDriverSet}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock
-                                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                                    Text="{Binding DisplayName}"
-                                    TextWrapping="Wrap" />
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                        SelectedItem="{Binding SelectedCustomDriverSet}" />
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
