@@ -480,6 +480,15 @@ Detaljer: Åtkomst nekad vid montering av bild till målsökväg.
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Lösenordet för anslutningskontot som finns sparat på mediet har gått ut eller måste ändras. Distributionen har inte startat. Administratören måste uppdatera lösenordet i Foundry OSD och skapa mediet igen.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>De anpassade drivrutinerna på det här mediet klarade inte integritetskontrollen och erbjuds inte. Välj en annan drivrutinskälla eller skapa startmediet på nytt.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Anpassade drivrutiner</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Drivrutinsuppsättning</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

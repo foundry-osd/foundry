@@ -480,6 +480,15 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>La password dell'account di aggiunta salvato sul supporto è scaduta o deve essere cambiata. La distribuzione non è iniziata. L'amministratore deve aggiornare la password in Foundry OSD e ricreare il supporto.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>I driver personalizzati su questo supporto non hanno superato il controllo di integrità e non vengono proposti. Scegliere un'altra origine dei driver o ricreare il supporto di avvio.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Driver personalizzati</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Set di driver</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

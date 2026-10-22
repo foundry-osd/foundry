@@ -6,21 +6,32 @@ using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.DomainJoin;
+using Foundry.Deploy.Services.Drivers;
 using Foundry.Deploy.Services.Startup;
 using Foundry.Deploy.ViewModels;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using CoreDeployNetworkSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkSettings;
 
 namespace Foundry.Deploy.Services.Wizard;
 
 public sealed class DeploymentWizardContext : IDisposable
 {
+    private readonly CustomDriverSetCatalogService? _customDriverSetCatalog;
+    private readonly ILogger _logger;
+    private readonly CancellationTokenSource _lifetime = new();
+    private int _customDriverDiscoveryVersion;
     private bool _isDisposed;
 
     public DeploymentWizardContext(
         DeploymentPreparationViewModel preparation,
         OperatingSystemCatalogViewModel operatingSystemCatalog,
-        DriverPackSelectionViewModel driverPackSelection)
+        DriverPackSelectionViewModel driverPackSelection,
+        CustomDriverSetCatalogService? customDriverSetCatalog = null,
+        ILogger<DeploymentWizardContext>? logger = null)
     {
+        _customDriverSetCatalog = customDriverSetCatalog;
+        _logger = logger ?? NullLogger<DeploymentWizardContext>.Instance;
         Preparation = preparation ?? throw new ArgumentNullException(nameof(preparation));
         OperatingSystemCatalog = operatingSystemCatalog ?? throw new ArgumentNullException(nameof(operatingSystemCatalog));
         DriverPackSelection = driverPackSelection ?? throw new ArgumentNullException(nameof(driverPackSelection));
@@ -124,6 +135,8 @@ public sealed class DeploymentWizardContext : IDisposable
         CustomImages.Dispose();
         Preparation.Dispose();
         DriverPackSelection.Dispose();
+        _lifetime.Cancel();
+        _lifetime.Dispose();
         _isDisposed = true;
     }
 
@@ -137,6 +150,7 @@ public sealed class DeploymentWizardContext : IDisposable
         Completion = document.Completion ?? new DeployCompletionSettings();
         OperatingSystemCatalog.ApplyOperatingSystemSelection(document.OperatingSystemSelection);
         CustomImages.Configure(document.CustomImages ?? new());
+        _ = DiscoverCustomDriverSetsAsync(document.CustomDrivers ?? new());
         Preparation.ApplyMachineNamingConfiguration(
             document.Customization.MachineNaming ?? new DeployMachineNamingSettings());
         Network = document.Network ?? new CoreDeployNetworkSettings();
@@ -177,6 +191,46 @@ public sealed class DeploymentWizardContext : IDisposable
         Preparation.UpdateUnattendContext(
             SelectedOperatingSystem?.Architecture ?? OperatingSystemCatalog.EffectiveOsArchitecture,
             DomainJoinPreparationService.IsRequiredFor(DomainJoin, SelectedOperatingSystem, DomainJoinStep.IsJoinDeclined));
+    }
+
+    /// <summary>
+    /// Looks for the bound custom driver sets on the boot media and offers them in the Drivers step. Runs from the UI thread, so
+    /// the result is applied there; a missing or invalid media keeps today's driver default.
+    /// </summary>
+    private async Task DiscoverCustomDriverSetsAsync(Foundry.Core.Models.Configuration.Deploy.DeployCustomDriversSettings settings)
+    {
+        int version = ++_customDriverDiscoveryVersion;
+        if (_customDriverSetCatalog is null || !settings.IsEnabled)
+        {
+            return;
+        }
+
+        CustomDriverSetCatalog catalog;
+        try
+        {
+            catalog = await _customDriverSetCatalog.DiscoverAsync(settings, _lifetime.Token);
+        }
+        catch (OperationCanceledException)
+        {
+            return;
+        }
+        catch (Exception exception)
+        {
+            _logger.LogWarning(exception, "Custom driver set discovery failed.");
+            catalog = new(CustomDriverSetCatalogStatus.Unavailable, []);
+        }
+
+        if (_isDisposed || version != _customDriverDiscoveryVersion)
+        {
+            return;
+        }
+
+        if (catalog.Status != CustomDriverSetCatalogStatus.Available)
+        {
+            _logger.LogWarning("Custom driver sets are not offered (status {Status}); the default driver source applies.", catalog.Status);
+        }
+
+        DriverPackSelection.ConfigureCustomDriverSets(catalog, settings.DefaultSetId);
     }
 
     private void RefreshDriverPackSelectionContext()

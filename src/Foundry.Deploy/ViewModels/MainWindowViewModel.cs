@@ -562,6 +562,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 SelectedOperatingSystem = SelectedOperatingSystem,
                 DriverPackSelectionKind = effectiveDriverPackKind,
                 SelectedDriverPack = effectiveDriverPack,
+                SelectedCustomDriverSet = DriverPackSelection.ResolveEffectiveCustomDriverSet(),
                 ApplyFirmwareUpdates = Preparation.ApplyFirmwareUpdates,
                 IsAutopilotEnabled = Preparation.IsAutopilotEnabled,
                 AutopilotProvisioningMode = Preparation.AutopilotProvisioningMode,
@@ -795,6 +796,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         Unattend = Preparation.SelectedUnattend,
         DriverPackSelectionKind = DriverPackSelection.EffectiveSelectionKind,
         DriverPack = DriverPackSelection.ResolveEffectiveSelection(),
+        CustomDriverSet = DriverPackSelection.ResolveEffectiveCustomDriverSet(),
         ApplyFirmwareUpdates = Preparation.ApplyFirmwareUpdates,
         IsAutopilotEnabled = Preparation.IsAutopilotEnabled,
         AutopilotProvisioningMode = Preparation.AutopilotProvisioningMode,
@@ -1220,6 +1222,15 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         if (DriverPackSelection.EffectiveSelectionKind == DriverPackSelectionKind.MicrosoftUpdateCatalog)
         {
             return [new(GetString("DriverPack.Source"), GetString("DriverPack.MicrosoftUpdateCatalog"))];
+        }
+
+        if (DriverPackSelection.EffectiveSelectionKind == DriverPackSelectionKind.CustomDriverSet)
+        {
+            return
+            [
+                new(GetString("DriverPack.Source"), GetString("DriverPack.CustomDriverSet")),
+                new(GetString("DriverPack.CustomDriverSetLabel"), DriverPackSelection.SelectedCustomDriverSet?.DisplayName ?? string.Empty)
+            ];
         }
 
         string manufacturer = DriverPackSelection.SelectedDriverPackOption?.DisplayName ?? GetString("DriverPack.Oem");

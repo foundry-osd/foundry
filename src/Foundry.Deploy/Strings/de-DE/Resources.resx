@@ -480,6 +480,15 @@ Aktion: Überprüfen Sie die Datenträgerattribute, und wiederholen Sie die Bere
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Das Kennwort des auf dem Medium gespeicherten Beitrittskontos ist abgelaufen oder muss geändert werden. Die Bereitstellung wurde nicht gestartet. Der Administrator muss das Kennwort in Foundry OSD aktualisieren und das Medium neu erstellen.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Die benutzerdefinierten Treiber auf diesem Medium haben die Integritätsprüfung nicht bestanden und werden nicht angeboten. Wählen Sie eine andere Treiberquelle oder erstellen Sie das Startmedium neu.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Benutzerdefinierte Treiber</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Treibersatz</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

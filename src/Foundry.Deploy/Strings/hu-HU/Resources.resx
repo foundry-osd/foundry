@@ -480,6 +480,15 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Az adathordozón tárolt csatlakozási fiók jelszava lejárt, vagy módosítani kell. A telepítés nem indult el. A rendszergazdának frissítenie kell a jelszót a Foundry OSD-ben, és újra létre kell hoznia az adathordozót.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Az adathordozón lévő egyéni illesztőprogramok nem feleltek meg az integritás-ellenőrzésnek, ezért nem választhatók. Válasszon másik illesztőprogram-forrást, vagy hozza létre újra a rendszerindító adathordozót.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Egyéni illesztőprogramok</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Illesztőprogram-készlet</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

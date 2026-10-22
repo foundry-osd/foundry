@@ -480,6 +480,15 @@ Veiksmas: patikrinkite disko atributus ir bandykite iš naujo įdiegti.</value>
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Laikmenoje įrašytos prisijungimo paskyros slaptažodžio galiojimas baigėsi arba jį reikia pakeisti. Diegimas nepradėtas. Administratorius turi atnaujinti slaptažodį programoje Foundry OSD ir iš naujo sukurti laikmeną.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Šios laikmenos pasirinktinės tvarkyklės neišlaikė vientisumo patikros ir nesiūlomos. Pasirinkite kitą tvarkyklių šaltinį arba iš naujo sukurkite įkrovos laikmeną.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Pasirinktinės tvarkyklės</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Tvarkyklių rinkinys</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

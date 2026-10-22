@@ -480,6 +480,15 @@ Ukrep: Preverite atribute diska in znova poskusite razmestiti.</value>
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Geslo računa za pridružitev, shranjenega na mediju, je poteklo ali ga je treba spremeniti. Uvajanje se ni začelo. Skrbnik mora posodobiti geslo v Foundry OSD in znova ustvariti medij.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Gonilniki po meri na tem nosilcu niso prestali preverjanja celovitosti in niso na voljo. Izberite drug vir gonilnikov ali znova ustvarite zagonski nosilec.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Gonilniki po meri</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Nabor gonilnikov</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

@@ -480,6 +480,15 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value>
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Lozinka naloga za pridruživanje sačuvanog na mediju je istekla ili mora da se promeni. Primena nije započeta. Administrator mora da ažurira lozinku u Foundry OSD-u i ponovo napravi medij.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Prilagođeni drajveri na ovom mediju nisu prošli proveru integriteta i nisu ponuđeni. Izaberite drugi izvor drajvera ili ponovo napravite medij za pokretanje.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Prilagođeni drajveri</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Skup drajvera</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

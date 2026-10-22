@@ -480,6 +480,15 @@
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>介质上存储的加入账户的密码已过期或必须更改。部署尚未开始。管理员必须在 Foundry OSD 中更新密码并重新创建介质。</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>此介质上的自定义驱动程序未通过完整性检查，因此不提供。请选择其他驱动程序来源，或重新创建启动介质。</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>自定义驱动程序</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>驱动程序集</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

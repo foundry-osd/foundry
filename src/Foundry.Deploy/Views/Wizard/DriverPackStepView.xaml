@@ -17,25 +17,35 @@
             Style="{StaticResource ScrollViewerContentGutterStyle}"
             VerticalScrollBarVisibility="Auto">
             <StackPanel>
+                <StackPanel.Resources>
+                    <Style x:Key="DriverOptionItemStyle"
+                        TargetType="ListBoxItem">
+                        <Setter
+                            Property="HorizontalContentAlignment"
+                            Value="Stretch" />
+                        <Setter
+                            Property="Margin"
+                            Value="0,0,0,8" />
+                        <Setter
+                            Property="Padding"
+                            Value="16,12" />
+                    </Style>
+                </StackPanel.Resources>
+
+                <!--  Non-blocking: the other driver sources stay usable when the custom sets fail verification.  -->
+                <controls:InfoBar
+                    Margin="0,0,0,12"
+                    Message="{Binding DataContext.Strings[DriverPack.CustomDriverIntegrityWarning], ElementName=ViewRoot}"
+                    Severity="{x:Static controls:InfoBarSeverity.Warning}"
+                    Visibility="{Binding HasCustomDriverIntegrityWarning, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
                 <ListBox
                     Padding="0,4,0,0"
                     AutomationProperties.Name="{Binding DataContext.Strings[DriverPack.Source], ElementName=ViewRoot}"
                     BorderThickness="0"
+                    ItemContainerStyle="{StaticResource DriverOptionItemStyle}"
                     ItemsSource="{Binding DriverPackOptions}"
                     SelectedItem="{Binding SelectedDriverPackOption}">
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
-                            <Setter
-                                Property="HorizontalContentAlignment"
-                                Value="Stretch" />
-                            <Setter
-                                Property="Margin"
-                                Value="0,0,0,8" />
-                            <Setter
-                                Property="Padding"
-                                Value="16,12" />
-                        </Style>
-                    </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -76,6 +86,30 @@
                         IsEnabled="{Binding IsDriverPackVersionSelectionEnabled}"
                         ItemsSource="{Binding DriverPackVersionOptions}"
                         SelectedItem="{Binding SelectedDriverPackVersion}" />
+                </StackPanel>
+
+                <StackPanel
+                    Margin="0,12,0,0"
+                    Visibility="{Binding IsCustomDriverSetSelectionEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBlock
+                        Margin="0,0,0,8"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding DataContext.Strings[DriverPack.CustomDriverSetLabel], ElementName=ViewRoot}" />
+                    <ListBox
+                        AutomationProperties.Name="{Binding DataContext.Strings[DriverPack.CustomDriverSetLabel], ElementName=ViewRoot}"
+                        BorderThickness="0"
+                        ItemContainerStyle="{StaticResource DriverOptionItemStyle}"
+                        ItemsSource="{Binding CustomDriverSetOptions}"
+                        SelectedItem="{Binding SelectedCustomDriverSet}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{Binding DisplayName}"
+                                    TextWrapping="Wrap" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

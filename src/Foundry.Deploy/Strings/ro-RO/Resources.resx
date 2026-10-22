@@ -480,6 +480,15 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Parola contului de asociere stocat pe suport a expirat sau trebuie schimbată. Implementarea nu a început. Administratorul trebuie să actualizeze parola în Foundry OSD și să creeze din nou suportul.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Driverele particularizate de pe acest suport nu au trecut verificarea integrității și nu sunt oferite. Alegeți altă sursă de drivere sau recreați suportul de pornire.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Drivere particularizate</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Set de drivere</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

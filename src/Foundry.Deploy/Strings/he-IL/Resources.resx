@@ -480,6 +480,15 @@ ErrorCode=0x80070005
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>תוקף הסיסמה של חשבון ההצטרפות השמור במדיה פג או שיש לשנות אותה. הפריסה לא התחילה. על מנהל המערכת לעדכן את הסיסמה ב-Foundry OSD וליצור את המדיה מחדש.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>מנהלי ההתקנים המותאמים אישית במדיה זו לא עברו את בדיקת התקינות ואינם מוצעים. בחר מקור אחר למנהלי התקנים או צור מחדש את מדיית האתחול.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>מנהלי התקנים מותאמים אישית</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>ערכת מנהלי התקנים</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

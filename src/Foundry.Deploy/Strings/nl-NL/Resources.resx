@@ -480,6 +480,15 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Het wachtwoord van het toetredingsaccount op het medium is verlopen of moet worden gewijzigd. De implementatie is niet gestart. De beheerder moet het wachtwoord in Foundry OSD bijwerken en het medium opnieuw maken.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>De aangepaste stuurprogramma's op dit medium zijn niet door de integriteitscontrole gekomen en worden niet aangeboden. Kies een andere bron voor stuurprogramma's of maak het opstartmedium opnieuw.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Aangepaste stuurprogramma's</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Stuurprogrammaset</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

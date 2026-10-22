@@ -8,6 +8,7 @@ using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.DriverPacks;
+using Foundry.Deploy.Services.Drivers;
 using Foundry.Deploy.Services.Localization;
 
 namespace Foundry.Deploy.ViewModels;
@@ -20,6 +21,7 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
     private const string LenovoDriverPackOptionKey = "oem:lenovo";
     private const string HpDriverPackOptionKey = "oem:hp";
     private const string MicrosoftOemDriverPackOptionKey = "oem:microsoft";
+    private const string CustomDriverSetOptionKey = "custom-driver-set";
 
     private readonly IDriverPackSelectionService _driverPackSelectionService;
     private HardwareProfile? _detectedHardware;
@@ -27,6 +29,8 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
     private string _effectiveArchitecture;
     private bool _isUpdatingDriverPackOptionSelection;
     private bool _hasUserSelectedDriverPackOption;
+    private CustomDriverSetCatalogStatus _customDriverSetCatalogStatus = CustomDriverSetCatalogStatus.Unavailable;
+    private string? _defaultCustomDriverSetId;
 
     public DriverPackSelectionViewModel(
         IDriverPackSelectionService driverPackSelectionService,
@@ -52,8 +56,15 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
     [NotifyPropertyChangedFor(nameof(IsOemDriverSourceSelected))]
     [NotifyPropertyChangedFor(nameof(IsDriverPackModelSelectionEnabled))]
     [NotifyPropertyChangedFor(nameof(IsDriverPackVersionSelectionEnabled))]
+    [NotifyPropertyChangedFor(nameof(IsCustomDriverSourceSelected))]
+    [NotifyPropertyChangedFor(nameof(IsCustomDriverSetSelectionEnabled))]
     [NotifyPropertyChangedFor(nameof(SelectedDriverPackSelectionDisplay))]
     private DriverPackOptionItem? selectedDriverPackOption;
+
+    /// <summary>Gets or sets the custom driver set picked by the operator; it applies only while the custom source is selected.</summary>
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(SelectedDriverPackSelectionDisplay))]
+    private CustomDriverSetOption? selectedCustomDriverSet;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(SelectedDriverPackSelectionDisplay))]
@@ -71,6 +82,9 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
 
     public ObservableCollection<string> DriverPackVersionOptions { get; } = [];
 
+    /// <summary>Gets the verified custom driver sets found on the boot media, in configuration order.</summary>
+    public ObservableCollection<CustomDriverSetOption> CustomDriverSetOptions { get; } = [];
+
     public DriverPackSelectionKind EffectiveSelectionKind => GetEffectiveSelectionKind();
 
     public bool IsOemDriverSourceSelected => SelectedDriverPackOption?.Kind == DriverPackSelectionKind.OemCatalog;
@@ -79,7 +93,48 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
 
     public bool IsDriverPackVersionSelectionEnabled => IsDriverPackModelSelectionEnabled && DriverPackVersionOptions.Count > 0;
 
+    /// <summary>Gets whether the custom driver set source is selected.</summary>
+    public bool IsCustomDriverSourceSelected => SelectedDriverPackOption?.Kind == DriverPackSelectionKind.CustomDriverSet;
+
+    /// <summary>Gets whether the operator can pick a custom driver set.</summary>
+    public bool IsCustomDriverSetSelectionEnabled => IsCustomDriverSourceSelected && CustomDriverSetOptions.Count > 0;
+
+    /// <summary>Gets whether the media holds a custom driver set manifest that failed verification; the wizard stays usable.</summary>
+    public bool HasCustomDriverIntegrityWarning => _customDriverSetCatalogStatus == CustomDriverSetCatalogStatus.Invalid;
+
     public string SelectedDriverPackSelectionDisplay => BuildSelectedDriverPackSelectionDisplay();
+
+    /// <summary>
+    /// Applies the custom driver set discovery outcome. The custom source is offered only when the catalog is available with at
+    /// least one set; a configured default set is preselected unless the operator already chose a source.
+    /// </summary>
+    public void ConfigureCustomDriverSets(CustomDriverSetCatalog catalog, string? defaultSetId)
+    {
+        ArgumentNullException.ThrowIfNull(catalog);
+
+        string? previousSetId = SelectedCustomDriverSet?.Id;
+        _customDriverSetCatalogStatus = catalog.Status;
+        _defaultCustomDriverSetId = string.IsNullOrWhiteSpace(defaultSetId) ? null : defaultSetId.Trim();
+
+        CustomDriverSetOptions.Clear();
+        if (catalog.Status == CustomDriverSetCatalogStatus.Available)
+        {
+            foreach (CustomDriverSetOption set in catalog.Sets)
+            {
+                CustomDriverSetOptions.Add(set);
+            }
+        }
+
+        SelectedCustomDriverSet = FindCustomDriverSet(previousSetId);
+        OnPropertyChanged(nameof(HasCustomDriverIntegrityWarning));
+        RefreshDriverPackOptions();
+    }
+
+    /// <summary>Returns the custom driver set to deploy, or null when another source is selected or no set is picked.</summary>
+    public CustomDriverSetOption? ResolveEffectiveCustomDriverSet()
+    {
+        return IsCustomDriverSourceSelected ? SelectedCustomDriverSet : null;
+    }
 
     public void ReplaceCatalog(IReadOnlyList<DriverPackCatalogItem> driverPacks)
     {
@@ -117,8 +172,12 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
 
     public bool HasValidSelection()
     {
-        return GetEffectiveSelectionKind() != DriverPackSelectionKind.OemCatalog ||
-               ResolveEffectiveDriverPackSelection() is not null;
+        return GetEffectiveSelectionKind() switch
+        {
+            DriverPackSelectionKind.OemCatalog => ResolveEffectiveDriverPackSelection() is not null,
+            DriverPackSelectionKind.CustomDriverSet => ResolveEffectiveCustomDriverSet() is not null,
+            _ => true
+        };
     }
 
     partial void OnSelectedDriverPackOptionChanged(DriverPackOptionItem? value)
@@ -129,7 +188,13 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
         }
 
         _hasUserSelectedDriverPackOption = true;
+        PreselectDefaultCustomDriverSet();
         RefreshDriverPackModelAndVersionOptions();
+    }
+
+    partial void OnSelectedCustomDriverSetChanged(CustomDriverSetOption? value)
+    {
+        NotifyDriverPackSelectionStateChanged();
     }
 
     partial void OnSelectedDriverPackModelChanged(string value)
@@ -212,12 +277,13 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
             _isUpdatingDriverPackOptionSelection = false;
         }
 
+        PreselectDefaultCustomDriverSet();
         RefreshDriverPackModelAndVersionOptions(preserveVersion);
     }
 
     private DriverPackOptionItem[] BuildDriverPackOptions()
     {
-        return
+        List<DriverPackOptionItem> options =
         [
             CreateNoneDriverPackOption(),
             CreateMicrosoftUpdateCatalogOption(),
@@ -226,6 +292,29 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
             CreateOemDriverPackOption(HpDriverPackOptionKey, "HP"),
             CreateOemDriverPackOption(MicrosoftOemDriverPackOptionKey, "Microsoft")
         ];
+
+        if (CustomDriverSetOptions.Count > 0)
+        {
+            options.Add(CreateCustomDriverSetOption());
+        }
+
+        return [.. options];
+    }
+
+    private CustomDriverSetOption? FindCustomDriverSet(string? setId)
+    {
+        return string.IsNullOrWhiteSpace(setId)
+            ? null
+            : CustomDriverSetOptions.FirstOrDefault(set => set.Id.Equals(setId, StringComparison.OrdinalIgnoreCase));
+    }
+
+    // The operator picks a set manually; only a configured default is filled in for them.
+    private void PreselectDefaultCustomDriverSet()
+    {
+        if (IsCustomDriverSourceSelected && SelectedCustomDriverSet is null)
+        {
+            SelectedCustomDriverSet = FindCustomDriverSet(_defaultCustomDriverSetId);
+        }
     }
 
     private DriverPackCatalogItem[] BuildSourceDriverPackCandidates()
@@ -406,6 +495,13 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
             return null;
         }
 
+        // An available default set wins over hardware detection, including on virtual machines.
+        if (FindCustomDriverSet(_defaultCustomDriverSetId) is not null &&
+            options.FirstOrDefault(option => option.Kind == DriverPackSelectionKind.CustomDriverSet) is { } customOption)
+        {
+            return customOption;
+        }
+
         if (_detectedHardware?.IsVirtualMachine == true)
         {
             return options.FirstOrDefault(option => option.Kind == DriverPackSelectionKind.None)
@@ -458,6 +554,17 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
         };
     }
 
+    private DriverPackOptionItem CreateCustomDriverSetOption()
+    {
+        return new DriverPackOptionItem
+        {
+            Key = CustomDriverSetOptionKey,
+            DisplayName = GetString("DriverPack.CustomDriverSet"),
+            Kind = DriverPackSelectionKind.CustomDriverSet,
+            DriverPack = null
+        };
+    }
+
     private static DriverPackOptionItem CreateOemDriverPackOption(string key, string displayName)
     {
         return new DriverPackOptionItem
@@ -482,6 +589,12 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
             return GetString("DriverPack.MicrosoftUpdateCatalog");
         }
 
+        if (selectionKind == DriverPackSelectionKind.CustomDriverSet)
+        {
+            string sourceName = GetString("DriverPack.CustomDriverSet");
+            return SelectedCustomDriverSet is { } set ? $"{sourceName} | {set.DisplayName}" : sourceName;
+        }
+
         DriverPackCatalogItem? selectedPack = ResolveEffectiveDriverPackSelection();
         if (selectedPack is null)
         {
@@ -502,6 +615,8 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
         OnPropertyChanged(nameof(IsOemDriverSourceSelected));
         OnPropertyChanged(nameof(IsDriverPackModelSelectionEnabled));
         OnPropertyChanged(nameof(IsDriverPackVersionSelectionEnabled));
+        OnPropertyChanged(nameof(IsCustomDriverSourceSelected));
+        OnPropertyChanged(nameof(IsCustomDriverSetSelectionEnabled));
         OnPropertyChanged(nameof(SelectedDriverPackSelectionDisplay));
         RaiseStateChanged();
     }

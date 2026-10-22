@@ -480,6 +480,15 @@ Handling: Bekreft diskattributter og prøv distribusjon på nytt.</value>
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Passordet til tilknytningskontoen som er lagret på mediet, er utløpt eller må endres. Distribusjonen har ikke startet. Administratoren må oppdatere passordet i Foundry OSD og opprette mediet på nytt.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>De egendefinerte driverne på dette mediet besto ikke integritetskontrollen og tilbys ikke. Velg en annen driverkilde, eller opprett oppstartsmediet på nytt.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Egendefinerte drivere</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Driversett</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

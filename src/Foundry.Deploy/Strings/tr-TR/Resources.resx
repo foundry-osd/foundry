@@ -480,6 +480,15 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Medyada depolanan katılma hesabının parolasının süresi doldu veya parolanın değiştirilmesi gerekiyor. Dağıtım başlamadı. Yöneticinin parolayı Foundry OSD'de güncellemesi ve medyayı yeniden oluşturması gerekir.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Bu ortamdaki özel sürücüler bütünlük denetimini geçemedi ve sunulmuyor. Başka bir sürücü kaynağı seçin veya önyükleme ortamını yeniden oluşturun.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Özel sürücüler</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Sürücü kümesi</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

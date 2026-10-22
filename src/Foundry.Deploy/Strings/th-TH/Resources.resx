@@ -480,6 +480,15 @@
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>รหัสผ่านของบัญชีสำหรับเข้าร่วมที่จัดเก็บไว้บนสื่อหมดอายุหรือต้องเปลี่ยน การปรับใช้ยังไม่เริ่มต้น ผู้ดูแลระบบต้องอัปเดตรหัสผ่านใน Foundry OSD และสร้างสื่อใหม่</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>ไดรเวอร์แบบกำหนดเองบนสื่อนี้ไม่ผ่านการตรวจสอบความสมบูรณ์และจะไม่แสดงให้เลือก เลือกแหล่งไดรเวอร์อื่นหรือสร้างสื่อสำหรับเริ่มระบบใหม่</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>ไดรเวอร์แบบกำหนดเอง</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>ชุดไดรเวอร์</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

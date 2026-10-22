@@ -480,6 +480,15 @@ ErrorCode=0x80070005
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>媒體上儲存的加入帳戶密碼已過期或必須變更。部署尚未開始。系統管理員必須在 Foundry OSD 中更新密碼並重新建立媒體。</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>此媒體上的自訂驅動程式未通過完整性檢查，因此不提供。請選擇其他驅動程式來源，或重新建立開機媒體。</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>自訂驅動程式</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>驅動程式集</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

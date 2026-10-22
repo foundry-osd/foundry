@@ -480,6 +480,15 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value>
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Platnosť hesla konta na pripojenie uloženého na médiu vypršala alebo ho treba zmeniť. Nasadenie sa nezačalo. Správca musí heslo aktualizovať vo Foundry OSD a médium vytvoriť znova.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Vlastné ovládače na tomto médiu neprešli kontrolou integrity a nie sú ponúkané. Vyberte iný zdroj ovládačov alebo znova vytvorte spúšťacie médium.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Vlastné ovládače</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Sada ovládačov</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

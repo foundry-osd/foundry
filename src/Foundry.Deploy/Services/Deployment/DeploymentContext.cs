@@ -72,6 +72,12 @@ public sealed record DeploymentContext
     public DriverPackCatalogItem? DriverPack { get; init; }
 
     /// <summary>
+    /// Gets the custom driver set to stage and inject when <see cref="DriverPackSelectionKind"/> is <see cref="DriverPackSelectionKind.CustomDriverSet"/>,
+    /// with its verified package manifest and media root.
+    /// </summary>
+    public CustomDriverSetOption? CustomDriverSet { get; init; }
+
+    /// <summary>
     /// Gets a value indicating whether matching firmware updates should be downloaded and applied.
     /// </summary>
     public bool ApplyFirmwareUpdates { get; init; } = true;

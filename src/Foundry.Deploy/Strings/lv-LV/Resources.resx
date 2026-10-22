@@ -480,6 +480,15 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Datu nesējā saglabātā pievienošanās konta parolei ir beidzies derīgums, vai tā ir jāmaina. Izvietošana nav sākta. Administratoram ir jāatjaunina parole programmā Foundry OSD un jāizveido datu nesējs no jauna.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Šī datu nesēja pielāgotie draiveri neizturēja integritātes pārbaudi un netiek piedāvāti. Izvēlieties citu draiveru avotu vai izveidojiet sāknēšanas datu nesēju no jauna.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Pielāgoti draiveri</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Draiveru kopa</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

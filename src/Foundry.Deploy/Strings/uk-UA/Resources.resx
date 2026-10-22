@@ -480,6 +480,15 @@ ErrorCode=0x80070005
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Термін дії пароля облікового запису для приєднання, збереженого на носії, минув, або його потрібно змінити. Розгортання не розпочато. Адміністратор має оновити пароль у Foundry OSD і створити носій заново.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Користувацькі драйвери на цьому носії не пройшли перевірку цілісності й не пропонуються. Виберіть інше джерело драйверів або створіть завантажувальний носій заново.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Користувацькі драйвери</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Набір драйверів</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

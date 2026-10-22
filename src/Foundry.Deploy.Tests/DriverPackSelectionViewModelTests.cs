@@ -4,6 +4,7 @@
 
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.DriverPacks;
+using Foundry.Deploy.Services.Drivers;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.ViewModels;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -224,6 +225,157 @@ public sealed class DriverPackSelectionViewModelTests
         model.UpdateSelectionContext(null, operatingSystem with { Architecture = "arm64" }, "x64");
 
         Assert.Equal("newer-arm64", model.ResolveEffectiveSelection()?.Id);
+    }
+
+    [Fact]
+    public void CustomOptionHiddenWhenCatalogUnavailable()
+    {
+        using DriverPackSelectionViewModel model = CreatePhysicalLenovoModel();
+
+        model.ConfigureCustomDriverSets(new CustomDriverSetCatalog(CustomDriverSetCatalogStatus.Unavailable, []), "set-a");
+        Assert.DoesNotContain(model.DriverPackOptions, option => option.Kind == DriverPackSelectionKind.CustomDriverSet);
+
+        model.ConfigureCustomDriverSets(new CustomDriverSetCatalog(CustomDriverSetCatalogStatus.Available, []), null);
+        Assert.DoesNotContain(model.DriverPackOptions, option => option.Kind == DriverPackSelectionKind.CustomDriverSet);
+        Assert.Empty(model.CustomDriverSetOptions);
+    }
+
+    [Fact]
+    public void CustomOptionListedWhenSetsAvailable()
+    {
+        using DriverPackSelectionViewModel model = CreatePhysicalLenovoModel();
+
+        model.ConfigureCustomDriverSets(CreateAvailableCatalog("set-a", "set-b"), null);
+
+        DriverPackOptionItem custom = Assert.Single(model.DriverPackOptions, option => option.Kind == DriverPackSelectionKind.CustomDriverSet);
+        Assert.Equal("custom-driver-set", custom.Key);
+        Assert.Equal(["set-a", "set-b"], model.CustomDriverSetOptions.Select(set => set.Id));
+        Assert.Equal(DriverPackSelectionKind.MicrosoftUpdateCatalog, model.EffectiveSelectionKind);
+        Assert.False(model.IsCustomDriverSourceSelected);
+        Assert.False(model.IsCustomDriverSetSelectionEnabled);
+        Assert.False(model.HasCustomDriverIntegrityWarning);
+    }
+
+    [Fact]
+    public void DefaultSetPreselectedOnVirtualMachine()
+    {
+        using var model = new DriverPackSelectionViewModel(
+            new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance), new LocalizationService(), "x64");
+        model.UpdateSelectionContext(
+            new HardwareProfile { Manufacturer = "Microsoft Corporation", Model = "Virtual Machine", IsVirtualMachine = true },
+            new OperatingSystemCatalogItem { WindowsRelease = "11", ReleaseId = "25H2", Architecture = "x64" },
+            "x64");
+        model.ReplaceCatalog([]);
+
+        model.ConfigureCustomDriverSets(CreateAvailableCatalog("set-a", "set-b"), "set-b");
+
+        Assert.Equal(DriverPackSelectionKind.CustomDriverSet, model.EffectiveSelectionKind);
+        Assert.True(model.IsCustomDriverSourceSelected);
+        Assert.True(model.IsCustomDriverSetSelectionEnabled);
+        Assert.Equal("set-b", model.SelectedCustomDriverSet?.Id);
+        Assert.Equal("set-b", model.ResolveEffectiveCustomDriverSet()?.Id);
+        Assert.True(model.HasValidSelection());
+    }
+
+    [Fact]
+    public void MissingDefaultFallsBackToCurrentLogicWithoutWarning()
+    {
+        using DriverPackSelectionViewModel model = CreatePhysicalLenovoModel();
+
+        model.ConfigureCustomDriverSets(new CustomDriverSetCatalog(CustomDriverSetCatalogStatus.Unavailable, []), "set-a");
+
+        Assert.Equal(DriverPackSelectionKind.MicrosoftUpdateCatalog, model.EffectiveSelectionKind);
+        Assert.Null(model.SelectedCustomDriverSet);
+        Assert.Null(model.ResolveEffectiveCustomDriverSet());
+        Assert.False(model.HasCustomDriverIntegrityWarning);
+
+        model.ConfigureCustomDriverSets(CreateAvailableCatalog("set-a"), "unknown-set");
+
+        Assert.Equal(DriverPackSelectionKind.MicrosoftUpdateCatalog, model.EffectiveSelectionKind);
+        Assert.Null(model.SelectedCustomDriverSet);
+        Assert.False(model.HasCustomDriverIntegrityWarning);
+    }
+
+    [Fact]
+    public void InvalidCatalogFallsBackAndRaisesIntegrityWarning()
+    {
+        using DriverPackSelectionViewModel model = CreatePhysicalLenovoModel();
+        var changed = new List<string?>();
+        model.PropertyChanged += (_, e) => changed.Add(e.PropertyName);
+
+        model.ConfigureCustomDriverSets(new CustomDriverSetCatalog(CustomDriverSetCatalogStatus.Invalid, []), "set-a");
+
+        Assert.True(model.HasCustomDriverIntegrityWarning);
+        Assert.Contains(nameof(DriverPackSelectionViewModel.HasCustomDriverIntegrityWarning), changed);
+        Assert.Equal(DriverPackSelectionKind.MicrosoftUpdateCatalog, model.EffectiveSelectionKind);
+        Assert.DoesNotContain(model.DriverPackOptions, option => option.Kind == DriverPackSelectionKind.CustomDriverSet);
+        Assert.True(model.HasValidSelection());
+    }
+
+    [Fact]
+    public void CustomSelectionRequiresASet()
+    {
+        using DriverPackSelectionViewModel model = CreatePhysicalLenovoModel();
+        model.ConfigureCustomDriverSets(CreateAvailableCatalog("set-a", "set-b"), null);
+
+        model.SelectedDriverPackOption = model.DriverPackOptions.Single(option => option.Kind == DriverPackSelectionKind.CustomDriverSet);
+
+        Assert.True(model.IsCustomDriverSourceSelected);
+        Assert.True(model.IsCustomDriverSetSelectionEnabled);
+        Assert.Null(model.SelectedCustomDriverSet);
+        Assert.False(model.HasValidSelection());
+
+        model.SelectedCustomDriverSet = model.CustomDriverSetOptions[0];
+
+        Assert.True(model.HasValidSelection());
+        Assert.Equal("set-a", model.ResolveEffectiveCustomDriverSet()?.Id);
+
+        model.SelectedDriverPackOption = model.DriverPackOptions.Single(option => option.Kind == DriverPackSelectionKind.MicrosoftUpdateCatalog);
+
+        Assert.Null(model.ResolveEffectiveCustomDriverSet());
+    }
+
+    [Fact]
+    public void SummaryShowsSetName()
+    {
+        using DriverPackSelectionViewModel model = CreatePhysicalLenovoModel();
+        model.ConfigureCustomDriverSets(CreateAvailableCatalog("set-a", "set-b"), "set-a");
+
+        Assert.Equal($"{model.Strings["DriverPack.CustomDriverSet"]} | Set set-a", model.SelectedDriverPackSelectionDisplay);
+        Assert.Equal(model.Strings["DriverPack.CustomDriverSet"], model.DriverPackOptions.Single(option => option.Kind == DriverPackSelectionKind.CustomDriverSet).DisplayName);
+
+        model.SelectedCustomDriverSet = model.CustomDriverSetOptions[1];
+
+        Assert.Equal($"{model.Strings["DriverPack.CustomDriverSet"]} | Set set-b", model.SelectedDriverPackSelectionDisplay);
+    }
+
+    private static DriverPackSelectionViewModel CreatePhysicalLenovoModel()
+    {
+        var model = new DriverPackSelectionViewModel(
+            new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance), new LocalizationService(), "x64");
+        model.UpdateSelectionContext(
+            new HardwareProfile { Manufacturer = "Lenovo", Model = "ThinkPad T14 Gen 5", Product = "21ML" },
+            new OperatingSystemCatalogItem { WindowsRelease = "11", ReleaseId = "25H2", Architecture = "x64" },
+            "x64");
+        model.ReplaceCatalog([CreateCatalogItem("x13", "25H2", new DateTimeOffset(2026, 1, 1, 0, 0, 0, TimeSpan.Zero))]);
+        return model;
+    }
+
+    private static CustomDriverSetCatalog CreateAvailableCatalog(params string[] ids)
+    {
+        return new CustomDriverSetCatalog(
+            CustomDriverSetCatalogStatus.Available,
+            ids.Select(id => new CustomDriverSetOption
+            {
+                Id = id,
+                DisplayName = $"Set {id}",
+                ContentHash = new string('a', 64),
+                Length = 10,
+                FileCount = 1,
+                InfCount = 1,
+                MediaRoot = @"E:\",
+                Manifest = new()
+            }).ToArray());
     }
 
     private static DriverPackCatalogItem CreateCatalogItem(

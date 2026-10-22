@@ -480,6 +480,15 @@ Ação: verifique os atributos do disco e tente novamente a implementação.</va
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>A palavra-passe da conta de associação guardada no suporte expirou ou tem de ser alterada. A implementação não foi iniciada. O administrador tem de atualizar a palavra-passe no Foundry OSD e criar novamente o suporte.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Os controladores personalizados deste suporte não passaram na verificação de integridade e não são disponibilizados. Escolha outra origem de controladores ou volte a criar o suporte de arranque.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Controladores personalizados</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Conjunto de controladores</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

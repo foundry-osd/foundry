@@ -29,6 +29,10 @@ public sealed record DeploymentLaunchRequest
     public required OperatingSystemMetadata? SelectedOperatingSystem { get; init; }
     public required DriverPackSelectionKind DriverPackSelectionKind { get; init; }
     public required DriverPackCatalogItem? SelectedDriverPack { get; init; }
+
+    /// <summary>Gets the custom driver set picked in the wizard; set only when <see cref="DriverPackSelectionKind"/> is <see cref="DriverPackSelectionKind.CustomDriverSet"/>.</summary>
+    public CustomDriverSetOption? SelectedCustomDriverSet { get; init; }
+
     public required bool ApplyFirmwareUpdates { get; init; }
     public required bool IsAutopilotEnabled { get; init; }
     public required AutopilotProvisioningMode AutopilotProvisioningMode { get; init; }

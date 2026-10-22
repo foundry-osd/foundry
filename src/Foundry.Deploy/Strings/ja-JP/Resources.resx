@@ -480,6 +480,15 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>メディアに保存されている参加アカウントのパスワードは期限切れか、変更が必要です。展開は開始されていません。管理者が Foundry OSD でパスワードを更新し、メディアを作成し直す必要があります。</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>このメディアのカスタム ドライバーは整合性チェックに合格しなかったため、表示されません。別のドライバー ソースを選択するか、ブート メディアを作成し直してください。</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>カスタム ドライバー</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>ドライバー セット</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>

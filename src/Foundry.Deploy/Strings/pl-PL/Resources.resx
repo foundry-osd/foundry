@@ -480,6 +480,15 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Hasło konta dołączania zapisanego na nośniku wygasło lub musi zostać zmienione. Wdrażanie nie zostało rozpoczęte. Administrator musi zaktualizować hasło w Foundry OSD i ponownie utworzyć nośnik.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Niestandardowe sterowniki na tym nośniku nie przeszły kontroli integralności i nie są oferowane. Wybierz inne źródło sterowników lub utwórz ponownie nośnik rozruchowy.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Niestandardowe sterowniki</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Zestaw sterowników</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>
