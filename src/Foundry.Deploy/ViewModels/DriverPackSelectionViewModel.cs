@@ -305,7 +305,7 @@ public sealed partial class DriverPackSelectionViewModel : LocalizedViewModelBas
     {
         return string.IsNullOrWhiteSpace(setId)
             ? null
-            : CustomDriverSetOptions.FirstOrDefault(set => set.Id.Equals(setId, StringComparison.OrdinalIgnoreCase));
+            : CustomDriverSetOptions.FirstOrDefault(set => set.Id.Equals(setId, StringComparison.Ordinal));
     }
 
     // The operator picks a set manually; only a configured default is filled in for them.

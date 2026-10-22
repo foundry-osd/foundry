@@ -159,6 +159,8 @@ public sealed class ExtractDriverPackStep : DeploymentStepBase
         string? sourceRoot = set is null ? null : CustomDriverSetStagingService.ResolveSourceRoot(set);
         if (set is null || !Directory.Exists(sourceRoot))
         {
+            await context.AppendLogAsync(DeploymentLogLevel.Warning,
+                "Custom driver set unavailable: the selected set is no longer on the boot media.", cancellationToken).ConfigureAwait(false);
             return CreateMissingCustomDriverSetFailure();
         }
 
@@ -182,6 +184,11 @@ public sealed class ExtractDriverPackStep : DeploymentStepBase
         {
             return CreateMissingCustomDriverSetFailure();
         }
+        catch (IOException) when (!Directory.Exists(sourceRoot))
+        {
+            // Removable media pulled during the copy surfaces as a device I/O error rather than a missing file.
+            return CreateMissingCustomDriverSetFailure();
+        }
         catch (InvalidDataException)
         {
             return CreateCustomDriverIntegrityFailure();
@@ -189,6 +196,7 @@ public sealed class ExtractDriverPackStep : DeploymentStepBase
 
         context.RuntimeState.DriverPackInstallMode = executionPlan.InstallMode;
         context.RuntimeState.DriverPackExtractionMethod = executionPlan.ExtractionMethod.ToString();
+        context.RuntimeState.DriverPackSelectionKind = context.Request.DriverPackSelectionKind;
         context.RuntimeState.DriverPackName = set.DisplayName;
         context.RuntimeState.ExtractedDriverPackPath = stagedPath;
         return DeploymentStepResult.Succeeded("Custom drivers staged.");
@@ -208,6 +216,7 @@ public sealed class ExtractDriverPackStep : DeploymentStepBase
         await File.WriteAllTextAsync(Path.Combine(simulatedPath, "dryrun.inf"), "; dry-run only", cancellationToken).ConfigureAwait(false);
         context.RuntimeState.DriverPackInstallMode = executionPlan.InstallMode;
         context.RuntimeState.DriverPackExtractionMethod = executionPlan.ExtractionMethod.ToString();
+        context.RuntimeState.DriverPackSelectionKind = context.Request.DriverPackSelectionKind;
         context.RuntimeState.DriverPackName = set.DisplayName;
         context.RuntimeState.ExtractedDriverPackPath = simulatedPath;
         await context.AppendLogAsync(DeploymentLogLevel.Info,

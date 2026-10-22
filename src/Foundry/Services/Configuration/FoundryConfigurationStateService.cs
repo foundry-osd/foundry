@@ -458,6 +458,18 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     {
         ContentPackageReference[] packages = Current.CustomDrivers.Sets.Select(set => set.Package)
             .DistinctBy(package => package.ContentHash, StringComparer.OrdinalIgnoreCase).ToArray();
+        await InspectCustomDriverSetsAsync(packages);
+    }
+
+    /// <inheritdoc />
+    public Task InspectCustomDriverSetAsync(ContentPackageReference package)
+    {
+        ArgumentNullException.ThrowIfNull(package);
+        return InspectCustomDriverSetsAsync([package]);
+    }
+
+    private async Task InspectCustomDriverSetsAsync(ContentPackageReference[] packages)
+    {
         try
         {
             await Task.Run(() => customDriverAvailability.Inspect(customDriverSetLibrary, packages));

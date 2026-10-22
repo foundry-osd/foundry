@@ -1168,10 +1168,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
         finally
         {
-            workspace?.CustomImages?.Dispose();
-            workspace?.PostInstallation.Dispose();
-            workspace?.CustomDrivers?.Dispose();
-            CleanupPreparedWorkspace(workspace?.Lease);
+            ReleasePreparedWorkspace(workspace?.CustomImages, workspace?.PostInstallation, workspace?.CustomDrivers, workspace?.Lease);
         }
     }
 
@@ -1287,10 +1284,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
         finally
         {
-            workspace?.CustomImages?.Dispose();
-            workspace?.PostInstallation.Dispose();
-            workspace?.CustomDrivers?.Dispose();
-            CleanupPreparedWorkspace(workspace?.Lease);
+            ReleasePreparedWorkspace(workspace?.CustomImages, workspace?.PostInstallation, workspace?.CustomDrivers, workspace?.Lease);
         }
     }
 
@@ -1360,10 +1354,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
         finally
         {
-            workspace?.CustomImages?.Dispose();
-            workspace?.PostInstallation.Dispose();
-            workspace?.CustomDrivers?.Dispose();
-            CleanupPreparedWorkspace(workspace?.Lease);
+            ReleasePreparedWorkspace(workspace?.CustomImages, workspace?.PostInstallation, workspace?.CustomDrivers, workspace?.Lease);
         }
     }
 
@@ -1568,10 +1559,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
         catch
         {
-            customImages?.Dispose();
-            postInstallation?.Dispose();
-            customDrivers?.Dispose();
-            CleanupPreparedWorkspace(operationLease);
+            ReleasePreparedWorkspace(customImages, postInstallation, customDrivers, operationLease);
             throw;
         }
     }
@@ -1946,6 +1934,38 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private string LocalizeStatus(string? resourceKey)
     {
         return resourceKey is null ? string.Empty : localizationService.GetString(resourceKey);
+    }
+
+    /// <summary>
+    /// Releases prepared external content in reverse acquisition order (driver sets, post-installation content, custom images),
+    /// then removes the operation workspace. Each step runs even when an earlier one throws, so one failed release cannot keep
+    /// other library files leased or leave the workspace behind.
+    /// </summary>
+    private void ReleasePreparedWorkspace(WinPeCustomImageMediaLease? customImages, WinPeContentPackageMediaLease? postInstallation,
+        WinPeContentPackageMediaLease? customDrivers, WinPeWorkspaceLease? operationLease)
+    {
+        try
+        {
+            customDrivers?.Dispose();
+        }
+        finally
+        {
+            try
+            {
+                postInstallation?.Dispose();
+            }
+            finally
+            {
+                try
+                {
+                    customImages?.Dispose();
+                }
+                finally
+                {
+                    CleanupPreparedWorkspace(operationLease);
+                }
+            }
+        }
     }
 
     private void CleanupPreparedWorkspace(WinPeWorkspaceLease? operationLease)

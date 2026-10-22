@@ -209,32 +209,40 @@ public sealed class DeploymentWizardContext : IDisposable
             return;
         }
 
-        CustomDriverSetCatalog catalog;
+        // This task is not awaited: every failure, including applying the result, must be handled here.
         try
         {
-            catalog = await _customDriverSetCatalog.DiscoverAsync(settings, _lifetime.Token);
+            CustomDriverSetCatalog catalog;
+            try
+            {
+                catalog = await _customDriverSetCatalog.DiscoverAsync(settings, _lifetime.Token);
+            }
+            catch (Exception exception) when (exception is not OperationCanceledException)
+            {
+                _logger.LogWarning(exception, "Custom driver set discovery failed.");
+                catalog = new(CustomDriverSetCatalogStatus.Unavailable, []);
+            }
+
+            if (_isDisposed || version != _customDriverDiscoveryVersion)
+            {
+                return;
+            }
+
+            if (catalog.Status != CustomDriverSetCatalogStatus.Available)
+            {
+                _logger.LogWarning("Custom driver sets are not offered (status {Status}); the default driver source applies.", catalog.Status);
+            }
+
+            DriverPackSelection.ConfigureCustomDriverSets(catalog, settings.DefaultSetId);
         }
         catch (OperationCanceledException)
         {
-            return;
+            // The wizard was disposed while discovery ran; there is nothing to apply.
         }
         catch (Exception exception)
         {
-            _logger.LogWarning(exception, "Custom driver set discovery failed.");
-            catalog = new(CustomDriverSetCatalogStatus.Unavailable, []);
+            _logger.LogWarning(exception, "Custom driver sets could not be offered; the default driver source applies.");
         }
-
-        if (_isDisposed || version != _customDriverDiscoveryVersion)
-        {
-            return;
-        }
-
-        if (catalog.Status != CustomDriverSetCatalogStatus.Available)
-        {
-            _logger.LogWarning("Custom driver sets are not offered (status {Status}); the default driver source applies.", catalog.Status);
-        }
-
-        DriverPackSelection.ConfigureCustomDriverSets(catalog, settings.DefaultSetId);
     }
 
     private void RefreshDriverPackSelectionContext()

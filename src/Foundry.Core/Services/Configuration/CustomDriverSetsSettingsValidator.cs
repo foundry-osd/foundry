@@ -10,7 +10,10 @@ namespace Foundry.Core.Services.Configuration;
 /// <summary>Validates driver set identity and selection only; the content of each package is checked when it is imported.</summary>
 public static class CustomDriverSetsSettingsValidator
 {
+    /// <summary>Maximum number of driver sets in one profile, included or not.</summary>
     public const int MaximumSets = 256;
+
+    /// <summary>Maximum length of a driver set display name, in characters.</summary>
     public const int MaximumDisplayNameLength = 200;
 
     /// <summary>Validates profile settings, optionally requiring an included set for media creation.</summary>

@@ -195,6 +195,12 @@ public interface IFoundryConfigurationStateService
     Task RefreshCustomDriversReadinessAsync();
 
     /// <summary>
+    /// Checks one driver set package off the UI thread, then publishes the updated readiness. Called after an import so a
+    /// set previously recorded as missing becomes available without a full refresh.
+    /// </summary>
+    Task InspectCustomDriverSetAsync(ContentPackageReference package);
+
+    /// <summary>
     /// Replaces telemetry settings propagated into generated runtime configuration.
     /// </summary>
     /// <param name="settings">New telemetry settings.</param>

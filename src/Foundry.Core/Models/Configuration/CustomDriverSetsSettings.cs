@@ -20,7 +20,7 @@ public sealed record CustomDriverSetsSettings
 /// <summary>Identifies an immutable driver package while keeping its profile-specific label and inclusion mutable.</summary>
 public sealed record CustomDriverSetReference
 {
-    /// <summary>Gets the stable identifier of this profile entry (GUID in "N" format).</summary>
+    /// <summary>Gets the stable identifier of this profile entry (OSD generates a GUID in "N" format).</summary>
     public string Id { get; init; } = string.Empty;
 
     /// <summary>Gets the label shown to the user, 1 to 200 characters.</summary>

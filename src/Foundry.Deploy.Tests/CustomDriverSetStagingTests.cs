@@ -114,6 +114,7 @@ public sealed class CustomDriverSetStagingTests : IDisposable
         Assert.Equal(DriverPackInstallMode.OfflineInf, fixture.Context.RuntimeState.DriverPackInstallMode);
         Assert.Equal(nameof(DriverPackExtractionMethod.CustomDriverSetCopy), fixture.Context.RuntimeState.DriverPackExtractionMethod);
         Assert.Equal(media.Set.DisplayName, fixture.Context.RuntimeState.DriverPackName);
+        Assert.Equal(DriverPackSelectionKind.CustomDriverSet, fixture.Context.RuntimeState.DriverPackSelectionKind);
     }
 
     [Fact]
@@ -127,10 +128,112 @@ public sealed class CustomDriverSetStagingTests : IDisposable
         Assert.Equal(DeploymentStepState.Succeeded, result.State);
         Assert.Equal(DriverPackInstallMode.OfflineInf, fixture.Context.RuntimeState.DriverPackInstallMode);
         Assert.Single(Directory.EnumerateFiles(fixture.Context.RuntimeState.ExtractedDriverPackPath!, "*.inf"));
+        Assert.Equal(DriverPackSelectionKind.CustomDriverSet, fixture.Context.RuntimeState.DriverPackSelectionKind);
         Assert.False(Directory.Exists(Path.Combine(fixture.CustomRoot, media.Set.ContentHash)));
     }
 
-    public void Dispose() { if (Directory.Exists(root)) Directory.Delete(root, recursive: true); }
+    [Fact]
+    public async Task StagingReportsMissingPayloadWhenTheMediaDisappearsDuringTheCopy()
+    {
+        CustomDriverSetMedia media = await CustomDriverSetMedia.PublishAsync(Path.Combine(root, "media"), Cancellation);
+        using var fixture = new StepFixture(root, media.Set, sourceDiskNumber: 2);
+
+        DeploymentStepResult result = await fixture.CreateStep(new RemovingMediaStaging()).ExecuteAsync(fixture.Context, Cancellation);
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Equal("missing_driver_payload", result.Failure?.Code);
+        Assert.Null(fixture.Context.RuntimeState.ExtractedDriverPackPath);
+    }
+
+    [Fact]
+    public async Task StagingFailsClosedWhenAMediaFileHasAnotherLength()
+    {
+        CustomDriverSetMedia media = await CustomDriverSetMedia.PublishAsync(Path.Combine(root, "media"), Cancellation);
+        await File.AppendAllTextAsync(Path.Combine(media.PackageRoot, "net.sys"), " extra", Cancellation);
+        string destinationRoot = Path.Combine(root, "target", "Custom");
+
+        await Assert.ThrowsAsync<InvalidDataException>(() =>
+            new CustomDriverSetStagingService().StageAsync(media.Set, destinationRoot, null, Cancellation));
+
+        Assert.False(Directory.Exists(Path.Combine(destinationRoot, media.Set.ContentHash)));
+    }
+
+    [Fact]
+    public async Task StagingRefusesAReparsePointInTheMediaTree()
+    {
+        CustomDriverSetMedia media = await CustomDriverSetMedia.PublishAsync(Path.Combine(root, "media"), Cancellation);
+        string wifi = Path.Combine(media.PackageRoot, "wifi");
+        string redirected = Path.Combine(root, "redirected-wifi");
+        Directory.Move(wifi, redirected);
+        if (!TryCreateJunction(wifi, redirected)) Assert.Skip("A directory junction could not be created on this machine.");
+        string destinationRoot = Path.Combine(root, "target", "Custom");
+
+        await Assert.ThrowsAsync<InvalidDataException>(() =>
+            new CustomDriverSetStagingService().StageAsync(media.Set, destinationRoot, null, Cancellation));
+
+        Assert.False(Directory.Exists(Path.Combine(destinationRoot, media.Set.ContentHash)));
+    }
+
+    [Fact]
+    public async Task CancelledStagingRemovesThePartialSet()
+    {
+        CustomDriverSetMedia media = await CustomDriverSetMedia.PublishAsync(Path.Combine(root, "media"), Cancellation);
+        string destinationRoot = Path.Combine(root, "target", "Custom");
+        using var cancellation = new CancellationTokenSource();
+        // Cancels after the first verified file, so a partial set exists on the target when cancellation is observed.
+        var cancelAfterFirstFile = new SynchronousProgress(_ => cancellation.Cancel());
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
+            new CustomDriverSetStagingService().StageAsync(media.Set, destinationRoot, cancelAfterFirstFile, cancellation.Token));
+
+        Assert.False(Directory.Exists(Path.Combine(destinationRoot, media.Set.ContentHash)));
+    }
+
+    public void Dispose()
+    {
+        if (!Directory.Exists(root)) return;
+        // Remove junctions first so deleting the tree never follows them.
+        foreach (string directory in Directory.EnumerateDirectories(root, "*", SearchOption.AllDirectories)
+                     .Where(path => (File.GetAttributes(path) & FileAttributes.ReparsePoint) != 0).ToArray())
+            Directory.Delete(directory);
+        Directory.Delete(root, recursive: true);
+    }
+
+    private static bool TryCreateJunction(string link, string target)
+    {
+        try
+        {
+            using var process = System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("cmd.exe", $"/c mklink /J \"{link}\" \"{target}\"")
+            {
+                CreateNoWindow = true,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true
+            })!;
+            process.WaitForExit();
+            return process.ExitCode == 0 && Directory.Exists(link);
+        }
+        catch (Exception exception) when (exception is System.ComponentModel.Win32Exception or InvalidOperationException)
+        {
+            return false;
+        }
+    }
+
+    /// <summary>Reports progress on the calling thread, unlike <see cref="Progress{T}"/>, so the test controls when cancellation happens.</summary>
+    private sealed class SynchronousProgress(Action<double> report) : IProgress<double>
+    {
+        public void Report(double value) => report(value);
+    }
+
+    /// <summary>Simulates removable media pulled during the copy: the source disappears and the read fails with a device I/O error.</summary>
+    private sealed class RemovingMediaStaging : ICustomDriverSetStagingService
+    {
+        public Task<string> StageAsync(CustomDriverSetOption set, string destinationRoot, IProgress<double>? progress, CancellationToken cancellationToken)
+        {
+            Directory.Delete(set.MediaRoot, recursive: true);
+            throw new IOException("The device is not ready.");
+        }
+    }
 
     /// <summary>Runs the extract step for a custom set against a fake target whose source disk number the test chooses.</summary>
     private sealed class StepFixture : IDisposable
@@ -153,8 +256,8 @@ public sealed class CustomDriverSetStagingTests : IDisposable
 
         public string CustomRoot { get; }
 
-        public ExtractDriverPackStep CreateStep() =>
-            new(new DriverPackStrategyResolver(), new UnusedExtractionService(), new CustomDriverSetStagingService());
+        public ExtractDriverPackStep CreateStep(ICustomDriverSetStagingService? staging = null) =>
+            new(new DriverPackStrategyResolver(), new UnusedExtractionService(), staging ?? new CustomDriverSetStagingService());
 
         public static DeploymentContext CreateRequest(string root, CustomDriverSetOption set) => new()
         {

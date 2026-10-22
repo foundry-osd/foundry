@@ -119,7 +119,7 @@ public sealed class WinPeCustomDriverSetMediaTests : IDisposable
         await File.WriteAllTextAsync(Path.Combine(source, "c.sys"), "driver", Cancellation);
         ContentPackageReference reference = await library.ImportAsync(source, Cancellation);
 
-        using ContentPackageLease lease = await library.AcquireAsync(reference.ContentHash, Cancellation);
+        using ContentPackageLease lease = await library.Library.AcquireAsync(reference.ContentHash, Cancellation);
 
         Assert.Equal(ContentPackageKind.Drivers, library.Library.Kind);
         Assert.True(library.IsAvailable(reference));

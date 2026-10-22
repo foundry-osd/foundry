@@ -31,10 +31,6 @@ public sealed class CustomDriverSetLibrary
     /// <summary>Performs lightweight readiness checks; media preparation still acquires a fully verified lease.</summary>
     public bool IsAvailable(ContentPackageReference reference) => Library.IsAvailable(reference);
 
-    /// <summary>Acquires a verified lease that keeps the package files in place until it is disposed.</summary>
-    public Task<ContentPackageLease> AcquireAsync(string contentHash, CancellationToken cancellationToken = default) =>
-        Library.AcquireAsync(contentHash, cancellationToken);
-
     /// <summary>Removes an unreferenced, unleased package from the library.</summary>
     public Task DeleteAsync(string contentHash, IEnumerable<string> referencedHashes, CancellationToken cancellationToken = default) =>
         Library.DeleteAsync(contentHash, referencedHashes, cancellationToken);

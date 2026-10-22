@@ -51,7 +51,10 @@ public sealed record ContentPackageKind
         PrunesMediaOnUpdate = false
     };
 
-    /// <summary>Custom driver sets; paths keep the full host and USB prefix within the long-path limit of Windows.</summary>
+    /// <summary>
+    /// Custom driver sets; paths keep the full host and USB prefix within the long-path limit of Windows.
+    /// Each package must contain at least one INF file (case-insensitive), and USB updates prune unreferenced sets.
+    /// </summary>
     public static ContentPackageKind Drivers { get; } = new()
     {
         Name = "Drivers",

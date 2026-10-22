@@ -179,6 +179,9 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
                 package.ContentHash, package.FileCount, package.Length, infCount);
             if (disposed) return;
             infCounts[package.ContentHash] = infCount;
+            // Re-importing content that was recorded as missing must clear that state without a manual refresh.
+            await state.InspectCustomDriverSetAsync(package);
+            if (disposed) return;
             if (profiles.Active?.LocalId != profileId)
             {
                 Logger.Information("Custom driver set import not added because the active profile changed. ContentHash={ContentHash}", package.ContentHash);
