@@ -64,7 +64,7 @@ public sealed partial class CustomDriverSetImportViewModel : ObservableObject, I
     public string NameValidationMessage => existingNames.Contains(DisplayName.Trim()) ? Text("DuplicateName") : string.Empty;
     public int MaximumNameLength => CustomDriverSetsSettingsValidator.MaximumDisplayNameLength;
     public string ProgressText => Text("ImportProgressStatus");
-    public string ProgressPercentText => (Math.Clamp(Progress, 0d, 100d) / 100d).ToString("P0", CultureInfo.CurrentUICulture);
+    public string ProgressPercentText => (double.IsFinite(Progress) ? Math.Clamp(Progress, 0d, 100d) / 100d : 0d).ToString("P0", CultureInfo.CurrentUICulture);
     public string Title => Text("ImportLabel");
     public string ImportLabel => Text("ImportButton");
     public string FolderLabel => Text("ImportFolderLabel");

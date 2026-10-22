@@ -16,7 +16,7 @@
     PrimaryButtonText="{x:Bind ViewModel.ImportLabel, Mode=OneWay}"
     Style="{ThemeResource DefaultContentDialogStyle}">
     <StackPanel
-        Width="{ThemeResource FoundryDialogMinWidth}"
+        Width="480"
         Padding="0,4,0,8"
         Spacing="{ThemeResource FoundryContentGroupSpacing}">
         <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
