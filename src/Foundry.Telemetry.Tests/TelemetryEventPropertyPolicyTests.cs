@@ -133,6 +133,37 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.Empty(TelemetryEventPropertyPolicy.Sanitize(eventName, new Dictionary<string, object?> { [key] = value }));
     }
 
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    [InlineData(256)]
+    public void Sanitize_ForBootMediaFinished_RetainsCustomDriverSetCount(int count)
+    {
+        var properties = new Dictionary<string, object?>
+        {
+            ["boot_media_custom_drivers_count"] = count,
+            ["boot_media_custom_driver_set_name"] = "Private drivers",
+            ["boot_media_custom_driver_set_hash"] = "private-hash"
+        };
+
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.OsdBootMediaFinished, properties);
+
+        Assert.Single(result);
+        Assert.Equal(count, result["boot_media_custom_drivers_count"]);
+    }
+
+    [Theory]
+    [InlineData(TelemetryEvents.OsdBootMediaFinished, -1)]
+    [InlineData(TelemetryEvents.OsdBootMediaFinished, 257)]
+    [InlineData(TelemetryEvents.OsdBootMediaFinished, "2")]
+    [InlineData(TelemetryEvents.OsdBootMediaFinished, 2L)]
+    [InlineData(TelemetryEvents.DeploySessionFinished, 2)]
+    [InlineData(TelemetryEvents.ConnectSessionReady, 2)]
+    public void Sanitize_DropsInvalidOrMisplacedCustomDriverSetCount(string eventName, object value)
+    {
+        Assert.Empty(TelemetryEventPropertyPolicy.Sanitize(eventName, new Dictionary<string, object?> { ["boot_media_custom_drivers_count"] = value }));
+    }
+
     [Fact]
     public void Sanitize_ForCustomDeployment_RetainsTechnicalMetadataAndFullBuild()
     {

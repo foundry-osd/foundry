@@ -8,6 +8,12 @@ Custom images extend the existing event taxonomy. `osd:boot_media_finished` incl
 
 No image names, index names, paths, hashes, or image/profile identifiers are added to Product Analytics. Catalog metadata keeps its existing contract. Import lifecycle messages remain diagnostic logs governed by remote diagnostics consent. The telemetry and debug controls are unchanged; no separate import event is introduced.
 
+## Custom driver sets
+
+`osd:boot_media_finished` includes `boot_media_custom_drivers_count`: the number of included driver sets in the operation's captured configuration, zero when the Custom drivers page is disabled. Like the custom image count, it represents the intended selection when media creation fails or is cancelled. The property policy accepts only an integer from zero through 256 (the driver set limit of a profile) on this event and drops it elsewhere.
+
+Set names, identifiers, content hashes, and paths are never sent.
+
 ## Post-installation configuration
 
 `osd:boot_media_finished` includes a snapshot of the media operation's post-installation configuration:

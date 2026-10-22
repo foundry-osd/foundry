@@ -94,6 +94,7 @@ public static class TelemetryEventPropertyPolicy
                 "boot_media_drivers_custom_enabled",
                 "boot_media_custom_images_enabled",
                 "boot_media_custom_images_count",
+                "boot_media_custom_drivers_count",
                 "boot_media_default_os_source",
                 "boot_media_connect_runtime_payload_source",
                 "boot_media_deploy_runtime_payload_source",
@@ -355,6 +356,8 @@ public static class TelemetryEventPropertyPolicy
         "adk_version" => value is string version && version.Length <= 64 && Version.TryParse(version, out _),
         "adk_version_relation" => value is "unknown" or "below_supported" or "supported" or "above_supported",
         "deployment_time_zone_id" => value is string timeZoneId && KnownWindowsTimeZoneIds.Value.Contains(timeZoneId),
+        // Bounded by the custom driver set limit of an authoring profile.
+        "boot_media_custom_drivers_count" => value is int and >= 0 and <= 256,
         _ => true
     };
 

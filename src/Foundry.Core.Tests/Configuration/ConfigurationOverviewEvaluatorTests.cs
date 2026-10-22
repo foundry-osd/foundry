@@ -86,6 +86,52 @@ public sealed class ConfigurationOverviewEvaluatorTests
     }
 
     [Fact]
+    public void CustomDriversItemIsNotReadyWhenEnabledWithoutIncludedSet()
+    {
+        var settings = new CustomDriverSetsSettings { IsEnabled = true, Sets = [CreateDriverSet(isIncluded: false)] };
+        var configuration = new FoundryConfigurationDocument { CustomDrivers = settings };
+
+        ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(
+            CreateContext(configuration) with { IsCustomDriversReady = CustomDriverSetsSettingsValidator.IsReady(settings, _ => true) });
+
+        Assert.Equal(ConfigurationOverviewState.NeedsAttention, evaluation[ConfigurationOverviewItem.CustomDrivers]);
+        Assert.Equal(ConfigurationOverviewState.NeedsAttention, ConfigurationOverviewNavigationEvaluator.EvaluateTarget(
+            evaluation, ConfigurationNavigationTarget.CustomDrivers));
+    }
+
+    [Theory]
+    [InlineData(true, ConfigurationOverviewState.Configured)]
+    [InlineData(false, ConfigurationOverviewState.NeedsAttention)]
+    public void CustomDriversItemIsNotReadyWhenLibraryContentIsMissing(bool isAvailable, ConfigurationOverviewState expected)
+    {
+        var settings = new CustomDriverSetsSettings { IsEnabled = true, Sets = [CreateDriverSet(isIncluded: true)] };
+        var configuration = new FoundryConfigurationDocument { CustomDrivers = settings };
+
+        ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(
+            CreateContext(configuration) with { IsCustomDriversReady = CustomDriverSetsSettingsValidator.IsReady(settings, _ => isAvailable) });
+
+        Assert.Equal(expected, evaluation[ConfigurationOverviewItem.CustomDrivers]);
+        Assert.Equal(expected, ConfigurationOverviewNavigationEvaluator.EvaluateTarget(
+            evaluation, ConfigurationNavigationTarget.CustomDrivers));
+    }
+
+    [Fact]
+    public void CustomDriversItemIsDisabledWhenSectionIsOff()
+    {
+        var configuration = new FoundryConfigurationDocument
+        {
+            CustomDrivers = new CustomDriverSetsSettings { IsEnabled = false, Sets = [CreateDriverSet(isIncluded: true)] }
+        };
+
+        ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(
+            CreateContext(configuration) with { IsCustomDriversReady = false });
+
+        Assert.Equal(ConfigurationOverviewState.Disabled, evaluation[ConfigurationOverviewItem.CustomDrivers]);
+        Assert.Equal(ConfigurationOverviewState.Disabled, ConfigurationOverviewNavigationEvaluator.EvaluateTarget(
+            evaluation, ConfigurationNavigationTarget.CustomDrivers));
+    }
+
+    [Fact]
     public void Evaluate_CustomImagesForAnotherMediaArchitecture_NeedsAttention()
     {
         var configuration = new FoundryConfigurationDocument
@@ -469,6 +515,14 @@ public sealed class ConfigurationOverviewEvaluatorTests
 
         Assert.Equal(ConfigurationOverviewState.NeedsAttention, state);
     }
+
+    private static CustomDriverSetReference CreateDriverSet(bool isIncluded) => new()
+    {
+        Id = Guid.NewGuid().ToString("N"),
+        DisplayName = "Synthetic drivers",
+        Package = new ContentPackageReference { ContentHash = new string('a', 64), DisplayName = "Synthetic drivers", FileCount = 1, Length = 1 },
+        IsIncluded = isIncluded
+    };
 
     private static ConfigurationOverviewContext CreateContext(FoundryConfigurationDocument configuration)
     {

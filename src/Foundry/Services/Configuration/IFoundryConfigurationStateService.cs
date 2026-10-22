@@ -176,6 +176,20 @@ public interface IFoundryConfigurationStateService
     /// <summary>Invalidates overview readiness after local image content changes without changing the profile.</summary>
     void RefreshCustomImageReadiness();
 
+    /// <summary>Persists the custom driver set references, inclusion state and default set.</summary>
+    /// <param name="settings">The replacement driver set configuration.</param>
+    /// <param name="requirePersistence">Requires a successful write before publishing the change, for destructive cache cleanup.</param>
+    void UpdateCustomDrivers(CustomDriverSetsSettings settings, bool requirePersistence = false);
+
+    /// <summary>
+    /// Checks that an enabled section includes a set and that every included set is available in the local library;
+    /// full hash verification occurs when media preparation acquires the packages.
+    /// </summary>
+    bool IsCustomDriversReady { get; }
+
+    /// <summary>Invalidates overview readiness after local driver set content changes without changing the profile.</summary>
+    void RefreshCustomDriversReadiness();
+
     /// <summary>
     /// Replaces telemetry settings propagated into generated runtime configuration.
     /// </summary>

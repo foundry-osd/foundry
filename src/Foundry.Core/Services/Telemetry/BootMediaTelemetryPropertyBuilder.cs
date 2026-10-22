@@ -53,6 +53,7 @@ public static class BootMediaTelemetryPropertyBuilder
         UnattendSettings unattend = document.Unattend ?? new UnattendSettings();
         CustomImagesSettings customImages = document.CustomImages ?? new CustomImagesSettings();
         PreOobeSettings postInstallation = document.PreOobe ?? new PreOobeSettings();
+        CustomDriverSetsSettings customDrivers = document.CustomDrivers ?? new CustomDriverSetsSettings();
         DeploymentRebootTelemetryValue rebootPolicy = DeploymentRebootTelemetryValueResolver.Resolve(
             document.General.AutomaticRebootEnabled,
             document.General.AutomaticRebootDelaySeconds);
@@ -90,6 +91,7 @@ public static class BootMediaTelemetryPropertyBuilder
             ["boot_media_drivers_custom_enabled"] = !string.IsNullOrWhiteSpace(options.CustomDriverDirectoryPath),
             ["boot_media_custom_images_enabled"] = customImages.IsEnabled,
             ["boot_media_custom_images_count"] = customImages.IsEnabled ? customImages.Images.Count(image => image.IsIncluded) : 0,
+            ["boot_media_custom_drivers_count"] = customDrivers.IsEnabled ? customDrivers.Sets.Count(set => set.IsIncluded) : 0,
             ["boot_media_default_os_source"] = customImages.IsEnabled && customImages.DefaultSource == CustomImageSource.Custom ? "custom" : "catalog",
             ["boot_media_connect_runtime_payload_source"] = connectRuntimePayloadSource,
             ["boot_media_deploy_runtime_payload_source"] = deployRuntimePayloadSource,
