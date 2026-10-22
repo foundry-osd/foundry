@@ -796,6 +796,9 @@
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Набори драйвери</value>
   </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>Активният профил се промени по време на импортирането, затова наборът драйвери не беше добавен. Импортирайте папката отново в този профил.</value>
+  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Не е налично при стартиране чрез PXE. Персонализираните драйвери изискват пълния ISO или USB носител.</value>
   </data>
@@ -831,6 +834,9 @@
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Проверка на персонализираните набори драйвери…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>Проверява се…</value>
   </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Архитектура</value>

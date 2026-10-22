@@ -796,6 +796,9 @@ Licenseret under MIT-licensen.</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Driversæt</value>
   </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>Den aktive profil blev skiftet under importen, så driversættet blev ikke tilføjet. Importér mappen igen i denne profil.</value>
+  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Ikke tilgængelig ved PXE-start. Brugerdefinerede drivere kræver det komplette ISO- eller USB-medie.</value>
   </data>
@@ -831,6 +834,9 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Kontrollerer brugerdefinerede driversæt…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>Kontrollerer…</value>
   </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arkitektur</value>

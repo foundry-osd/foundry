@@ -796,6 +796,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Draiveru kopas</value>
   </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>Importēšanas laikā mainījās aktīvais profils, tāpēc draiveru kopa netika pievienota. Importējiet mapi šajā profilā vēlreiz.</value>
+  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Nav pieejams, sāknējot ar PXE. Pielāgotiem draiveriem nepieciešams pilns ISO vai USB datu nesējs.</value>
   </data>
@@ -831,6 +834,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Notiek pielāgoto draiveru kopu pārbaude…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>Notiek pārbaude…</value>
   </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arhitektūra</value>

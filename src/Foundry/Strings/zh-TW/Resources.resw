@@ -796,6 +796,9 @@
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>驅動程式集</value>
   </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>匯入期間作用中的設定檔已變更，因此未新增驅動程式集。請在此設定檔中重新匯入資料夾。</value>
+  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>使用 PXE 開機時無法使用。自訂驅動程式需要完整的 ISO 或 USB 媒體。</value>
   </data>
@@ -831,6 +834,9 @@
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>正在驗證自訂驅動程式集…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>正在檢查…</value>
   </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>架構</value>

@@ -796,6 +796,9 @@
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>ชุดไดรเวอร์</value>
   </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>โปรไฟล์ที่ใช้งานอยู่เปลี่ยนไประหว่างการนำเข้า จึงไม่ได้เพิ่มชุดไดรเวอร์ นำเข้าโฟลเดอร์อีกครั้งในโปรไฟล์นี้</value>
+  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>ไม่พร้อมใช้งานเมื่อบูตด้วย PXE ไดรเวอร์แบบกำหนดเองต้องใช้สื่อ ISO หรือ USB ฉบับเต็ม</value>
   </data>
@@ -831,6 +834,9 @@
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>กำลังตรวจสอบชุดไดรเวอร์แบบกำหนดเอง…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>กำลังตรวจสอบ…</value>
   </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>สถาปัตยกรรม</value>

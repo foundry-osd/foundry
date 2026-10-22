@@ -796,6 +796,9 @@ Sous licence MIT.</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Ensembles de pilotes</value>
   </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>Le profil actif a changé pendant l'importation : l'ensemble de pilotes n'a pas été ajouté. Importez de nouveau le dossier dans ce profil.</value>
+  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Non disponible avec un démarrage PXE. Les pilotes personnalisés nécessitent le média ISO ou USB complet.</value>
   </data>
@@ -831,6 +834,9 @@ Sous licence MIT.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Vérification des ensembles de pilotes personnalisés…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>Vérification…</value>
   </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architecture</value>

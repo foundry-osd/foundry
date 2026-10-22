@@ -796,6 +796,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Ohjainjoukot</value>
   </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>Aktiivinen profiili vaihtui tuonnin aikana, joten ohjainjoukkoa ei lisätty. Tuo kansio uudelleen tähän profiiliin.</value>
+  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Ei käytettävissä PXE-käynnistyksessä. Mukautetut ohjaimet edellyttävät täydellistä ISO- tai USB-tietovälinettä.</value>
   </data>
@@ -831,6 +834,9 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Tarkistetaan mukautettuja ohjainjoukkoja…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>Tarkistetaan…</value>
   </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arkkitehtuuri</value>

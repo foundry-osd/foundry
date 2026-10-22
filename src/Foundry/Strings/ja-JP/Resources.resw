@@ -796,6 +796,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>ドライバー セット</value>
   </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>インポート中にアクティブなプロファイルが変更されたため、ドライバー セットは追加されませんでした。このプロファイルでフォルダーをもう一度インポートしてください。</value>
+  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>PXE ブートでは使用できません。カスタム ドライバーには、完全な ISO または USB メディアが必要です。</value>
   </data>
@@ -831,6 +834,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>カスタム ドライバー セットを検証しています…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>確認しています…</value>
   </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>アーキテクチャ</value>

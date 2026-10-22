@@ -796,6 +796,9 @@
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>ערכות מנהלי התקנים</value>
   </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>הפרופיל הפעיל השתנה במהלך הייבוא, ולכן ערכת מנהלי ההתקנים לא נוספה. יש לייבא שוב את התיקיה בפרופיל זה.</value>
+  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>לא זמין באתחול PXE. מנהלי התקנים מותאמים אישית דורשים את מדיית ה-ISO או ה-USB המלאה.</value>
   </data>
@@ -831,6 +834,9 @@
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>מאמת ערכות מנהלי התקנים מותאמות אישית…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>בודק…</value>
   </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>ארכיטקטורה</value>

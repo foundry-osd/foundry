@@ -796,6 +796,9 @@ Licensed under the MIT License.</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Driver sets</value>
   </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>The active profile changed during the import, so the driver set was not added. Import the folder again in this profile.</value>
+  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Not available with PXE boot. Custom drivers require the full ISO or USB media.</value>
   </data>
@@ -831,6 +834,9 @@ Licensed under the MIT License.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Verifying custom driver sets…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>Checking…</value>
   </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architecture</value>

@@ -796,6 +796,9 @@
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Σύνολα προγραμμάτων οδήγησης</value>
   </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>Το ενεργό προφίλ άλλαξε κατά την εισαγωγή, επομένως το σύνολο προγραμμάτων οδήγησης δεν προστέθηκε. Εισαγάγετε ξανά τον φάκελο σε αυτό το προφίλ.</value>
+  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Δεν διατίθεται με εκκίνηση PXE. Τα προσαρμοσμένα προγράμματα οδήγησης απαιτούν το πλήρες μέσο ISO ή USB.</value>
   </data>
@@ -831,6 +834,9 @@
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Επαλήθευση προσαρμοσμένων συνόλων προγραμμάτων οδήγησης…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>Έλεγχος…</value>
   </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Αρχιτεκτονική</value>

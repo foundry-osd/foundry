@@ -796,6 +796,9 @@
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>驱动程序集</value>
   </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>导入期间活动配置文件已更改，因此未添加驱动程序集。请在此配置文件中重新导入该文件夹。</value>
+  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>PXE 启动时不可用。自定义驱动程序需要完整的 ISO 或 USB 介质。</value>
   </data>
@@ -831,6 +834,9 @@
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>正在验证自定义驱动程序集…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>正在检查…</value>
   </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>体系结构</value>

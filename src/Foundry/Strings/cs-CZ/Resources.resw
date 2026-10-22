@@ -796,6 +796,9 @@ Licencováno pod licencí MIT.</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Sady ovladačů</value>
   </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>Během importu se změnil aktivní profil, proto sada ovladačů nebyla přidána. Importujte složku znovu v tomto profilu.</value>
+  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Není k dispozici při spuštění přes PXE. Vlastní ovladače vyžadují úplné médium ISO nebo USB.</value>
   </data>
@@ -831,6 +834,9 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Ověřování vlastních sad ovladačů…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>Probíhá kontrola…</value>
   </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architektura</value>

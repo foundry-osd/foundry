@@ -796,6 +796,9 @@ Licenciran prema MIT licenci.</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Skupovi upravljačkih programa</value>
   </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>Aktivni profil promijenio se tijekom uvoza pa skup upravljačkih programa nije dodan. Ponovno uvezite mapu u ovaj profil.</value>
+  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Nije dostupno uz PXE pokretanje. Prilagođeni upravljački programi zahtijevaju cijeli ISO ili USB medij.</value>
   </data>
@@ -831,6 +834,9 @@ Licenciran prema MIT licenci.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Provjera prilagođenih skupova upravljačkih programa…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>Provjera…</value>
   </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arhitektura</value>

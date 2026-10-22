@@ -796,6 +796,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Illesztőprogram-készletek</value>
   </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>Az aktív profil megváltozott az importálás közben, ezért az illesztőprogram-készlet nem lett hozzáadva. Importálja újra a mappát ebben a profilban.</value>
+  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>PXE-rendszerindítással nem érhető el. Az egyéni illesztőprogramokhoz a teljes ISO- vagy USB-adathordozó szükséges.</value>
   </data>
@@ -831,6 +834,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Egyéni illesztőprogram-készletek ellenőrzése…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>Ellenőrzés…</value>
   </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architektúra</value>

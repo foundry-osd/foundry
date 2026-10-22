@@ -796,6 +796,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Draiverikomplektid</value>
   </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>Aktiivne profiil muutus importimise ajal, seega draiverikomplekti ei lisatud. Importige kaust selles profiilis uuesti.</value>
+  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Pole PXE-käivitusega saadaval. Kohandatud draiverid nõuavad täielikku ISO- või USB-meediumit.</value>
   </data>
@@ -831,6 +834,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Kohandatud draiverikomplektide kontrollimine…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>Kontrollimine…</value>
   </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arhitektuur</value>

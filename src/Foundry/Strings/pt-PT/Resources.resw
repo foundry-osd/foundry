@@ -796,6 +796,9 @@ Licenciado sob a licença MIT.</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Conjuntos de controladores</value>
   </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>O perfil ativo mudou durante a importação, pelo que o conjunto de controladores não foi adicionado. Importe novamente a pasta neste perfil.</value>
+  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Não disponível com arranque PXE. Os controladores personalizados requerem o suporte ISO ou USB completo.</value>
   </data>
@@ -831,6 +834,9 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>A verificar os conjuntos de controladores personalizados…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>A verificar…</value>
   </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arquitetura</value>

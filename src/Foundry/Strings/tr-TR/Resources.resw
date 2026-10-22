@@ -796,6 +796,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Sürücü kümeleri</value>
   </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>İçeri aktarma sırasında etkin profil değiştiği için sürücü kümesi eklenmedi. Klasörü bu profile yeniden içeri aktarın.</value>
+  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>PXE önyüklemesiyle kullanılamaz. Özel sürücüler tam ISO veya USB medyasını gerektirir.</value>
   </data>
@@ -831,6 +834,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Özel sürücü kümeleri doğrulanıyor…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>Denetleniyor…</value>
   </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Mimari</value>

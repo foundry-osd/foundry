@@ -17,7 +17,7 @@
         Spacing="{ThemeResource FoundryContentGroupSpacing}">
         <TextBox
             Header="{x:Bind ViewModel.NameLabel, Mode=OneWay}"
-            MaxLength="200"
+            MaxLength="{x:Bind ViewModel.MaximumNameLength}"
             Text="{x:Bind ViewModel.RenameText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <TextBlock
             Foreground="{ThemeResource SystemFillColorCriticalBrush}"

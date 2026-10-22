@@ -796,6 +796,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Treibersätze</value>
   </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>Das aktive Profil wurde während des Imports gewechselt, daher wurde der Treibersatz nicht hinzugefügt. Importieren Sie den Ordner in diesem Profil erneut.</value>
+  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Nicht verfügbar bei PXE-Start. Benutzerdefinierte Treiber erfordern das vollständige ISO- oder USB-Medium.</value>
   </data>
@@ -831,6 +834,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Benutzerdefinierte Treibersätze werden überprüft…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>Wird geprüft…</value>
   </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architektur</value>

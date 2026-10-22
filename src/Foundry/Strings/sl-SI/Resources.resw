@@ -796,6 +796,9 @@ Licencirano pod licenco MIT.</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Nabori gonilnikov</value>
   </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>Med uvozom se je aktivni profil spremenil, zato nabor gonilnikov ni bil dodan. Znova uvozite mapo v ta profil.</value>
+  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Ni na voljo pri zagonu PXE. Gonilniki po meri zahtevajo celoten medij ISO ali USB.</value>
   </data>
@@ -831,6 +834,9 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Preverjanje naborov gonilnikov po meri…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>Preverjanje…</value>
   </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arhitektura</value>

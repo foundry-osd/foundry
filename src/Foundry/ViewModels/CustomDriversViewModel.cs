@@ -30,6 +30,8 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
     private readonly Dictionary<string, PackageState> packageStates = new(StringComparer.OrdinalIgnoreCase);
     private bool applying;
     private bool disposed;
+    private bool libraryStateLoaded;
+    private bool inspectingUnknown;
 
     public CustomDriversViewModel(IFoundryConfigurationStateService state, CustomDriverSetLibrary library, IFilePickerService picker,
         IDialogService dialogs, IApplicationLocalizationService localization, DeploymentProfileCoordinator profiles)
@@ -71,13 +73,14 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
     public bool CanEdit => CanAct && HasSelection;
     public bool CanRename => CanEdit && RenameText.Trim().Length is > 0 and <= CustomDriverSetsSettingsValidator.MaximumDisplayNameLength && !RenameText.Any(char.IsControl);
     public bool CanClearDefault => CanAct && state.Current.CustomDrivers.DefaultSetId is not null;
+    public int MaximumNameLength => CustomDriverSetsSettingsValidator.MaximumDisplayNameLength;
     public bool HasReadinessIssue => !state.IsCustomDriversReady;
     public string ReadinessMessage
     {
         get
         {
             if (!state.Current.CustomDrivers.Sets.Any(set => set.IsIncluded)) return Text("ReadinessNoIncludedSet");
-            CustomDriverSetRow? missing = Sets.FirstOrDefault(row => row.IsIncluded && !row.IsAvailable);
+            CustomDriverSetRow? missing = Sets.FirstOrDefault(row => row.IsIncluded && row.IsAvailable == false);
             return missing is not null ? localization.FormatString("CustomDrivers.ReadinessMissingContent", missing.Name) : Text("ReadinessInvalid");
         }
     }
@@ -132,11 +135,12 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
         IsBusy = true;
         try
         {
-            ContentPackageReference[] packages = state.Current.CustomDrivers.Sets.Select(set => set.Package).ToArray();
+            ContentPackageReference[] packages = DistinctPackages(state.Current.CustomDrivers);
             var refreshed = await Task.Run(() => packages.ToDictionary(package => package.ContentHash, Inspect, StringComparer.OrdinalIgnoreCase));
             if (disposed) return;
             packageStates.Clear();
             foreach ((string hash, PackageState packageState) in refreshed) packageStates[hash] = packageState;
+            libraryStateLoaded = true;
             state.RefreshCustomDriversReadiness();
         }
         catch (Exception exception)
@@ -158,6 +162,8 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
         }
 
         IsBusy = true;
+        // The import is bound to the profile that was active when it started; an activation during the copy must not receive it.
+        Guid? profileId = profiles.Active?.LocalId;
         try
         {
             string? source = await picker.PickFolderAsync(new FolderPickerRequest(Text("ImportPickerTitle")));
@@ -172,6 +178,12 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
                 package.ContentHash, package.FileCount, package.Length, packageState.InfCount);
             if (disposed) return;
             packageStates[package.ContentHash] = packageState;
+            if (profiles.Active?.LocalId != profileId)
+            {
+                Logger.Information("Custom driver set import not added because the active profile changed. ContentHash={ContentHash}", package.ContentHash);
+                StatusMessage = Text("ProfileChanged");
+                return;
+            }
             AddImportedSet(package);
         }
         catch (OperationCanceledException) when (cancellation.IsCancellationRequested)
@@ -203,6 +215,12 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
             return;
         }
 
+        if (settings.Sets.Count >= CustomDriverSetsSettingsValidator.MaximumSets)
+        {
+            StatusMessage = Text("SetLimitReached");
+            return;
+        }
+
         string name = CreateUniqueName(package.DisplayName, settings);
         var set = new CustomDriverSetReference
         {
@@ -229,7 +247,12 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
         return name;
     }
 
-    private static string Truncate(string value, int length) => value.Length <= length ? value : value[..length];
+    /// <summary>Cuts to <paramref name="length"/> UTF-16 units without splitting a surrogate pair.</summary>
+    private static string Truncate(string value, int length)
+    {
+        if (value.Length <= length) return value;
+        return char.IsHighSurrogate(value[length - 1]) ? value[..(length - 1)] : value[..length];
+    }
 
     /// <summary>Maps library error codes to actionable messages; any other failure keeps the generic message.</summary>
     private string DescribeImportFailure(Exception exception, string? relativePath) => exception.Message switch
@@ -330,6 +353,31 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
         return new(available, available ? library.TryCountInfFiles(package.ContentHash) : null);
     }
 
+    private static ContentPackageReference[] DistinctPackages(CustomDriverSetsSettings settings) =>
+        settings.Sets.Select(set => set.Package).DistinctBy(package => package.ContentHash, StringComparer.OrdinalIgnoreCase).ToArray();
+
+    /// <summary>Inspects packages that have no cached library state off the UI thread, then re-renders the table.</summary>
+    private async Task InspectUnknownPackagesAsync()
+    {
+        if (inspectingUnknown || disposed) return;
+        inspectingUnknown = true;
+        try
+        {
+            ContentPackageReference[] packages = DistinctPackages(state.Current.CustomDrivers)
+                .Where(package => !packageStates.ContainsKey(package.ContentHash)).ToArray();
+            var inspected = await Task.Run(() => packages.Select(package => (package.ContentHash, State: Inspect(package))).ToArray());
+            if (disposed) return;
+            foreach ((string hash, PackageState packageState) in inspected) packageStates[hash] = packageState;
+        }
+        catch (Exception exception)
+        {
+            Logger.Warning(exception, "Custom driver set library state could not be inspected.");
+            return;
+        }
+        finally { inspectingUnknown = false; }
+        ApplyState();
+    }
+
     private void ApplyState()
     {
         if (disposed) return;
@@ -341,21 +389,23 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
             IsEnabled = settings.IsEnabled;
             SelectedSet = null;
             Sets.Clear();
+            bool hasUnknownState = false;
             foreach (CustomDriverSetReference set in settings.Sets)
             {
-                if (!packageStates.TryGetValue(set.Package.ContentHash, out PackageState? packageState))
-                {
-                    packageState = Inspect(set.Package);
-                    packageStates[set.Package.ContentHash] = packageState;
-                }
+                // Library checks touch every file of a set, so unknown sets render as "checking" until a background inspection fills the cache.
+                packageStates.TryGetValue(set.Package.ContentHash, out PackageState? packageState);
+                hasUnknownState |= packageState is null;
                 bool isDefault = settings.DefaultSetId == set.Id;
-                Sets.Add(new(set, packageState.InfCount, ByteSizeFormatter.Format(localization, (ulong)set.Package.Length),
+                string status = packageState is null ? Text("StatusChecking") :
+                    localization.GetString(packageState.IsAvailable ? "CustomImages.Available" : "CustomImages.Missing");
+                Sets.Add(new(set, packageState?.InfCount, ByteSizeFormatter.Format(localization, (ulong)set.Package.Length),
                     localization.GetString(set.IsIncluded ? "CustomImages.Yes" : "CustomImages.No"),
                     localization.GetString(isDefault ? "CustomImages.Yes" : "CustomImages.No"),
-                    localization.GetString(packageState.IsAvailable ? "CustomImages.Available" : "CustomImages.Missing"),
-                    isDefault, packageState.IsAvailable));
+                    status, isDefault, packageState?.IsAvailable));
             }
             SelectedSet = Sets.FirstOrDefault(row => row.Reference.Id == selectedId);
+            // The initial load is handled by RefreshAsync on Loaded; later unknown sets (profile switch) are inspected here.
+            if (hasUnknownState && libraryStateLoaded) _ = InspectUnknownPackagesAsync();
             OnPropertyChanged(nameof(HasReadinessIssue));
             OnPropertyChanged(nameof(ReadinessMessage));
             OnPropertyChanged(nameof(HasSets));
@@ -388,7 +438,7 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
 
 /// <summary>Displays one driver set of the active profile with its library state.</summary>
 public sealed record CustomDriverSetRow(CustomDriverSetReference Reference, int? InfCount, string Size, string Included, string Default,
-    string Status, bool IsDefault, bool IsAvailable)
+    string Status, bool IsDefault, bool? IsAvailable)
 {
     public string Name => Reference.DisplayName;
     public bool IsIncluded => Reference.IsIncluded;
@@ -396,5 +446,10 @@ public sealed record CustomDriverSetRow(CustomDriverSetReference Reference, int?
     public long Length => Reference.Package.Length;
     public Style IncludedStyle => (Style)Application.Current.Resources[IsIncluded ? "FoundrySuccessTextBlockStyle" : "FoundrySecondaryTextBlockStyle"];
     public Style DefaultStyle => (Style)Application.Current.Resources[IsDefault ? "FoundrySuccessTextBlockStyle" : "FoundrySecondaryTextBlockStyle"];
-    public Style StatusStyle => (Style)Application.Current.Resources[IsAvailable ? "FoundrySuccessTextBlockStyle" : "FoundryCriticalTextBlockStyle"];
+    public Style StatusStyle => (Style)Application.Current.Resources[IsAvailable switch
+    {
+        true => "FoundrySuccessTextBlockStyle",
+        false => "FoundryCriticalTextBlockStyle",
+        null => "FoundrySecondaryTextBlockStyle"
+    }];
 }

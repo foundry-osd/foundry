@@ -796,6 +796,9 @@ Licensierad under MIT-licensen.</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Drivrutinsuppsättningar</value>
   </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>Den aktiva profilen ändrades under importen, så drivrutinsuppsättningen lades inte till. Importera mappen igen i den här profilen.</value>
+  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Inte tillgängligt vid PXE-start. Anpassade drivrutiner kräver det fullständiga ISO- eller USB-mediet.</value>
   </data>
@@ -831,6 +834,9 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Verifierar anpassade drivrutinsuppsättningar…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>Kontrollerar…</value>
   </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arkitektur</value>

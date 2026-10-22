@@ -796,6 +796,9 @@
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>مجموعات برامج التشغيل</value>
   </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>تغيّر ملف التعريف النشط أثناء الاستيراد، لذلك لم تتم إضافة مجموعة برامج التشغيل. استورد المجلد مرة أخرى في ملف التعريف هذا.</value>
+  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>غير متاح مع إقلاع PXE. تتطلب برامج التشغيل المخصصة وسائط ISO أو USB الكاملة.</value>
   </data>
@@ -831,6 +834,9 @@
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>جارٍ التحقق من مجموعات برامج التشغيل المخصصة…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>جارٍ التحقق…</value>
   </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>البنية</value>
