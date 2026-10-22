@@ -17,6 +17,8 @@ namespace Foundry.Core.Tests.WinPe;
 
 public sealed class WinPeMountedImageAssetProvisioningServiceTests
 {
+    private const string HighPerformancePowerSchemeCommand = "powercfg /s 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c";
+
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
@@ -155,11 +157,13 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         Assert.Contains(startnetLines, line => line.Equals("wpeinit", StringComparison.OrdinalIgnoreCase));
         Assert.Contains(startnetLines, line => line.Equals("echo existing", StringComparison.OrdinalIgnoreCase));
         Assert.Single(startnetLines, line => line.Equals(@"call X:\Foundry\Bootstrap\Launch.cmd", StringComparison.OrdinalIgnoreCase));
-        Assert.True(Array.IndexOf(startnetLines, "wpeinit") < Array.IndexOf(startnetLines, @"call X:\Foundry\Bootstrap\Launch.cmd"));
+        Assert.Single(startnetLines, line => line.Equals(HighPerformancePowerSchemeCommand, StringComparison.OrdinalIgnoreCase));
+        Assert.True(Array.IndexOf(startnetLines, "wpeinit") < Array.IndexOf(startnetLines, HighPerformancePowerSchemeCommand));
+        Assert.True(Array.IndexOf(startnetLines, HighPerformancePowerSchemeCommand) < Array.IndexOf(startnetLines, @"call X:\Foundry\Bootstrap\Launch.cmd"));
     }
 
     [Fact]
-    public async Task ProvisionAsync_WhenRunTwice_DoesNotDuplicateBootstrapInvocation()
+    public async Task ProvisionAsync_WhenRunTwice_DoesNotDuplicateStartnetCommands()
     {
         using TempMountedImage image = TempMountedImage.Create();
         string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
@@ -182,6 +186,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
 
         string[] startnetLines = await File.ReadAllLinesAsync(Path.Combine(image.System32Path, "startnet.cmd"), TestContext.Current.CancellationToken);
         Assert.Single(startnetLines, line => line.Equals(@"call X:\Foundry\Bootstrap\Launch.cmd", StringComparison.OrdinalIgnoreCase));
+        Assert.Single(startnetLines, line => line.Equals(HighPerformancePowerSchemeCommand, StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]
