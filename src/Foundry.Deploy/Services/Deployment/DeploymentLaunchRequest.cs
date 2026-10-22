@@ -33,6 +33,9 @@ public sealed record DeploymentLaunchRequest
     /// <summary>Gets the custom driver set picked in the wizard; set only when <see cref="DriverPackSelectionKind"/> is <see cref="DriverPackSelectionKind.CustomDriverSet"/>.</summary>
     public CustomDriverSetOption? SelectedCustomDriverSet { get; init; }
 
+    /// <summary>Gets the custom driver media binding used to re-check the selected set before the target disk changes.</summary>
+    public Foundry.Core.Models.Configuration.Deploy.DeployCustomDriversSettings CustomDrivers { get; init; } = new();
+
     public required bool ApplyFirmwareUpdates { get; init; }
     public required bool IsAutopilotEnabled { get; init; }
     public required AutopilotProvisioningMode AutopilotProvisioningMode { get; init; }

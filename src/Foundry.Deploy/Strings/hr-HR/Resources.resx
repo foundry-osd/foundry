@@ -1002,6 +1002,9 @@ Nastaviti s implementacijom?</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Sakrij particiju oporavka</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Pripremi prilagođene upravljačke programe</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Kopiraj datoteku odgovora</value>
   </data>
@@ -1328,6 +1331,12 @@ Nastaviti s implementacijom?</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>Odabrana datoteka upravljačkog programa „{0}” iz Microsoft Update Cataloga ne sadrži INF datoteke.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Prilagođeni upravljački programi su pripremljeni.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>Odabrani prilagođeni upravljački programi nisu dostupni ili nisu prošli provjeru. Ponovno priključite medij za implementaciju ili ponovno pokrenite implementaciju i odaberite drugi izvor upravljačkih programa.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Zatraženo je postavljanje paketa upravljačkih programa za prvo pokretanje bez podržane naredbe.</value>

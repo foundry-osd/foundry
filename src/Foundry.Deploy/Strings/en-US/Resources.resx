@@ -1002,6 +1002,9 @@ Continue with deployment?</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Hide recovery partition</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Stage custom drivers</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Copy answer file</value>
   </data>
@@ -1328,6 +1331,12 @@ Continue with deployment?</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>The selected Microsoft Update Catalog driver file '{0}' contains no INF files.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Custom drivers staged.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>The selected custom drivers are unavailable or failed verification. Reconnect the deployment media, or restart deployment and choose another driver source.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>First-boot driver pack staging was requested without a supported command.</value>

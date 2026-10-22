@@ -1002,6 +1002,9 @@ ErrorCode=0x80070005
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>隱藏復原分割區</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>暫存自訂驅動程式</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>複製回應檔案</value>
   </data>
@@ -1328,6 +1331,12 @@ ErrorCode=0x80070005
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>選取的 Microsoft Update Catalog 驅動程式檔案「{0}」未包含 INF 檔案。</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>已暫存自訂驅動程式。</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>選取的自訂驅動程式無法使用或未通過驗證。請重新連接部署媒體，或重新啟動部署並選擇其他驅動程式來源。</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>已要求首次開機時暫存驅動程式套件，但未提供支援的命令。</value>

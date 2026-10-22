@@ -1002,6 +1002,9 @@ Vil du fortsætte med implementeringen?</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Skjul genoprettelsespartition</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Klargør brugerdefinerede drivere</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Kopiér svarfil</value>
   </data>
@@ -1328,6 +1331,12 @@ Vil du fortsætte med implementeringen?</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>Den valgte driverfil '{0}' fra Microsoft Update Catalog indeholder ingen INF-filer.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Brugerdefinerede drivere er klargjort.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>De valgte brugerdefinerede drivere er ikke tilgængelige eller bestod ikke kontrollen. Tilslut installationsmediet igen, eller genstart installationen, og vælg en anden driverkilde.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Der blev anmodet om klargøring af driverpakke ved første start uden en understøttet kommando.</value>

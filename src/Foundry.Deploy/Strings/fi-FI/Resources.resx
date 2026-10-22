@@ -1002,6 +1002,9 @@ Jatketaanko käyttöönottoa?</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Piilota palautusosio</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Valmistele mukautetut ohjaimet</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Kopioi vastaustiedosto</value>
   </data>
@@ -1328,6 +1331,12 @@ Jatketaanko käyttöönottoa?</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>Valittu Microsoft Update Catalogin ohjaintiedosto '{0}' ei sisällä INF-tiedostoja.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Mukautetut ohjaimet valmisteltu.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>Valitut mukautetut ohjaimet eivät ole käytettävissä, tai ne eivät läpäisseet tarkistusta. Yhdistä käyttöönottotietoväline uudelleen tai käynnistä käyttöönotto uudelleen ja valitse toinen ohjainlähde.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Ensimmäisen käynnistyksen ohjainpaketin vaiheistusta pyydettiin ilman tuettua komentoa.</value>

@@ -1002,6 +1002,9 @@
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>隐藏恢复分区</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>暂存自定义驱动程序</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>复制应答文件</value>
   </data>
@@ -1328,6 +1331,12 @@
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>所选 Microsoft Update Catalog 驱动程序文件“{0}”不包含 INF 文件。</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>已暂存自定义驱动程序。</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>所选自定义驱动程序不可用或未通过验证。请重新连接部署介质，或重新启动部署并选择其他驱动程序来源。</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>在没有支持的命令的情况下请求了首次启动驱动程序包暂存。</value>

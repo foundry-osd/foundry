@@ -1002,6 +1002,9 @@ Fortsätt med implementeringen?</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Dölj återställningspartition</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Förbered anpassade drivrutiner</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Kopiera svarsfil</value>
   </data>
@@ -1328,6 +1331,12 @@ Fortsätt med implementeringen?</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>Den valda drivrutinsfilen '{0}' från Microsoft Update Catalog innehåller inga INF-filer.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Anpassade drivrutiner har förberetts.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>De valda anpassade drivrutinerna är inte tillgängliga eller klarade inte verifieringen. Anslut distributionsmediet igen, eller starta om distributionen och välj en annan drivrutinskälla.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Första start av drivrutinspaketet begärdes utan ett kommando som stöds.</value>

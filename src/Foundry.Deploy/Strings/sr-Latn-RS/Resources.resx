@@ -1002,6 +1002,9 @@ Operativni sistem: {4}
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Sakrij particiju za oporavak</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Pripremi prilagođene drajvere</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Kopiraj datoteku odgovora</value>
   </data>
@@ -1328,6 +1331,12 @@ Operativni sistem: {4}
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>Izabrana datoteka upravljačkog programa „{0}” iz Microsoft Update Catalog-a ne sadrži INF datoteke.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Prilagođeni drajveri su pripremljeni.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>Izabrani prilagođeni drajveri nisu dostupni ili nisu prošli proveru. Ponovo povežite medij za implementaciju ili ponovo pokrenite implementaciju i izaberite drugi izvor drajvera.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Zatraženo je postavljanje paketa drajvera za prvo pokretanje bez podržane komande.</value>

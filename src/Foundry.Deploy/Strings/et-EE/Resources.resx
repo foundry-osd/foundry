@@ -1002,6 +1002,9 @@ Kas jätkata juurutamisega?</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Peida taastesektsioon</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Valmista kohandatud draiverid ette</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Kopeeri vastusefail</value>
   </data>
@@ -1328,6 +1331,12 @@ Kas jätkata juurutamisega?</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>Valitud Microsoft Update Catalogi draiverifail „{0}“ ei sisalda INF-faile.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Kohandatud draiverid on ette valmistatud.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>Valitud kohandatud draiverid pole saadaval või ei läbinud kontrolli. Ühenda juurutusmeedium uuesti või taaskäivita juurutus ja vali muu draiveriallikas.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Esmakäivituse draiveripaketi etapistamist taotleti ilma toetatud käsuta.</value>

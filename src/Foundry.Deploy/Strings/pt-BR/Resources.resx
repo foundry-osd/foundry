@@ -1002,6 +1002,9 @@ Continuar com a implantação?</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Ocultar partição de recuperação</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Preparar drivers personalizados</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Copiar arquivo de respostas</value>
   </data>
@@ -1328,6 +1331,12 @@ Continuar com a implantação?</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>O arquivo de driver selecionado '{0}' do Microsoft Update Catalog não contém arquivos INF.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Drivers personalizados preparados.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>Os drivers personalizados selecionados não estão disponíveis ou falharam na verificação. Reconecte a mídia de implantação ou reinicie a implantação e escolha outra fonte de drivers.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>A preparação do pacote de driver de primeira inicialização foi solicitada sem um comando compatível.</value>

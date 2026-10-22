@@ -77,6 +77,9 @@ public sealed record DeploymentContext
     /// </summary>
     public CustomDriverSetOption? CustomDriverSet { get; init; }
 
+    /// <summary>Gets the custom driver media binding, re-checked against the media before the first destructive step.</summary>
+    public Foundry.Core.Models.Configuration.Deploy.DeployCustomDriversSettings CustomDrivers { get; init; } = new();
+
     /// <summary>
     /// Gets a value indicating whether matching firmware updates should be downloaded and applied.
     /// </summary>

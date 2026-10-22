@@ -21,7 +21,8 @@ public sealed class PreflightDeploymentStep(
     Foundry.Core.Services.Images.ICustomImageMetadataReader? customMetadataReader = null,
     PreOobe.PreOobeContentResolver? postInstallResolver = null,
     IWindowsNativeDeploymentService? nativeService = null,
-    Architecture? deviceArchitecture = null) : DeploymentStepBase
+    Architecture? deviceArchitecture = null,
+    Drivers.CustomDriverSetCatalogService? customDriverSetCatalog = null) : DeploymentStepBase
 {
     public override string Name => DeploymentStepNames.PreflightDeployment;
 
@@ -59,6 +60,7 @@ public sealed class PreflightDeploymentStep(
                 Serilog.Log.ForContext<PreflightDeploymentStep>().Error(exception, "Post-installation readiness validation failed.");
                 return Failed("PostInstall.PreflightFailed", "postinstall_preflight_failed");
             }
+            await EnsureCustomDriverSetOnMediaAsync(context, cancellationToken).ConfigureAwait(false);
             if (context.Request.OperatingSystem is CustomImageSelection custom)
                 return await PrepareCustomImageAsync(context, custom, cancellationToken).ConfigureAwait(false);
             ValidateCatalog(context.Request);
@@ -218,9 +220,40 @@ public sealed class PreflightDeploymentStep(
         }
     }
 
-    /// <summary>Budgets archives and deferred installer copies using current external cache headroom.</summary>
+    /// <summary>
+    /// Re-reads the bound driver media manifest so a set removed or replaced since the wizard stops the deployment before the target
+    /// disk changes. The set must still be listed with the same hash on the same volume, because staging reads it from there, and that
+    /// volume must not be on the target disk, which preparation erases.
+    /// </summary>
+    private async Task EnsureCustomDriverSetOnMediaAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
+    {
+        if (context.Request.DriverPackSelectionKind != DriverPackSelectionKind.CustomDriverSet) return;
+        CustomDriverSetOption selected = context.Request.CustomDriverSet ?? throw CustomDriversGuard(DeploymentFailureReasons.MissingResource, "missing_driver_payload");
+        Drivers.CustomDriverSetCatalog catalog = await (customDriverSetCatalog ?? new Drivers.CustomDriverSetCatalogService())
+            .DiscoverAsync(context.Request.CustomDrivers, cancellationToken).ConfigureAwait(false);
+        if (catalog.Status == Drivers.CustomDriverSetCatalogStatus.Unavailable)
+            throw CustomDriversGuard(DeploymentFailureReasons.MissingResource, "missing_driver_payload");
+        bool listed = catalog.Sets.Any(set => set.Id == selected.Id &&
+            set.ContentHash.Equals(selected.ContentHash, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(Path.GetFullPath(set.MediaRoot), Path.GetFullPath(selected.MediaRoot), StringComparison.OrdinalIgnoreCase));
+        if (!listed || !await ExtractDriverPackStep.IsCustomDriverSourceSeparateAsync(context,
+                Drivers.CustomDriverSetStagingService.ResolveSourceRoot(selected), cancellationToken).ConfigureAwait(false))
+            throw CustomDriversGuard(DeploymentFailureReasons.InvalidInput, "custom_driver_integrity");
+    }
+
+    private static DeploymentOperationException CustomDriversGuard(string reason, string code) => new(
+        DeploymentFailure.Guard(DeploymentOperationNames.PreflightDeployment, reason, code),
+        LocalizationText.GetString("StepResult.CustomDriversUnavailable"));
+
+    /// <summary>Budgets archives, deferred installer copies and custom driver sets using current external cache headroom.</summary>
     internal static long ResolveTargetDriverBytes(DeploymentStepExecutionContext context, long? externalHeadroom)
     {
+        if (context.Request.DriverPackSelectionKind == DriverPackSelectionKind.CustomDriverSet)
+        {
+            // The set is always copied onto the target before injection, whatever external cache headroom exists.
+            return context.Request.CustomDriverSet?.Length ?? 0;
+        }
+
         DriverPackCatalogItem? driver = context.Request.DriverPack;
         if (driver is null || context.Request.DriverPackSelectionKind is DriverPackSelectionKind.None or DriverPackSelectionKind.MicrosoftUpdateCatalog)
         {

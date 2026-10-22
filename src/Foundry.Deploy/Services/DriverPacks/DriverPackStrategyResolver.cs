@@ -44,6 +44,18 @@ public sealed class DriverPackStrategyResolver : IDriverPackStrategyResolver
             };
         }
 
+        if (selectionKind == DriverPackSelectionKind.CustomDriverSet)
+        {
+            // The set is already an INF folder on the boot media: it is copied, then applied offline like an extracted pack.
+            return CreatePlan(
+                DriverPackInstallMode.OfflineInf,
+                DriverPackExtractionMethod.CustomDriverSetCopy,
+                DeferredDriverPackageCommandKind.None,
+                downloadedPath,
+                string.Empty,
+                string.Empty);
+        }
+
         if (driverPack is null)
         {
             throw new InvalidOperationException("A driver pack selection is required to resolve the package strategy.");

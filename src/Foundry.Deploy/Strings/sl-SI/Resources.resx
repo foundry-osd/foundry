@@ -1002,6 +1002,9 @@ Ali želite nadaljevati z uvajanjem?</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Skrij obnovitveno particijo</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Pripravi gonilnike po meri</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Kopiraj datoteko odgovorov</value>
   </data>
@@ -1328,6 +1331,12 @@ Ali želite nadaljevati z uvajanjem?</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>Izbrana datoteka gonilnika »{0}« iz Microsoft Update Catalog ne vsebuje datotek INF.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Gonilniki po meri so pripravljeni.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>Izbrani gonilniki po meri niso na voljo ali niso prestali preverjanja. Znova priključite namestitveni medij ali znova zaženite uvajanje in izberite drug vir gonilnikov.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Zahtevana je bila priprava paketa gonilnikov pri prvem zagonu brez podprtega ukaza.</value>

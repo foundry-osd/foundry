@@ -1002,6 +1002,9 @@ Doorgaan met de implementatie?</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Herstelpartitie verbergen</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Aangepaste stuurprogramma's klaarzetten</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Antwoordbestand kopiëren</value>
   </data>
@@ -1328,6 +1331,12 @@ Doorgaan met de implementatie?</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>Het geselecteerde Microsoft Update Catalog-stuurprogrammabestand '{0}' bevat geen INF-bestanden.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Aangepaste stuurprogramma's klaargezet.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>De geselecteerde aangepaste stuurprogramma's zijn niet beschikbaar of zijn niet door de controle gekomen. Sluit de implementatiemedia opnieuw aan, of start de implementatie opnieuw en kies een andere bron voor stuurprogramma's.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Er is een fasering van het driverpakket voor het eerst opstarten aangevraagd zonder een ondersteunde opdracht.</value>

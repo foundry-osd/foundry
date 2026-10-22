@@ -1002,6 +1002,9 @@ ErrorCode=0x80070005
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Приховати розділ відновлення</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Підготувати користувацькі драйвери</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Скопіювати файл відповідей</value>
   </data>
@@ -1328,6 +1331,12 @@ ErrorCode=0x80070005
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>Вибраний файл драйвера «{0}» із Microsoft Update Catalog не містить файлів INF.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Користувацькі драйвери підготовлено.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>Вибрані користувацькі драйвери недоступні або не пройшли перевірку. Повторно під'єднайте носій для розгортання або перезапустіть розгортання й виберіть інше джерело драйверів.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Надійшов запит на проміжне встановлення пакета драйверів першого завантаження без підтримуваної команди.</value>

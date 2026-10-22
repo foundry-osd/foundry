@@ -54,6 +54,9 @@ public sealed class DeploymentWizardContext : IDisposable
     public DomainJoinStepViewModel DomainJoinStep { get; }
     public OperatingSystemMetadata? SelectedOperatingSystem => CustomImages.IsCustom ? CustomImages.Selection : OperatingSystemCatalog.SelectedOperatingSystem;
     public Foundry.Core.Models.Configuration.Deploy.DeployPreOobeSettings PreOobe { get; private set; } = new();
+
+    /// <summary>Gets the custom driver media binding from the Deploy configuration; deployment re-checks it before changing the target disk.</summary>
+    public Foundry.Core.Models.Configuration.Deploy.DeployCustomDriversSettings CustomDrivers { get; private set; } = new();
     public Foundry.Core.Models.Configuration.Deploy.DeployDomainJoinSettings DomainJoin { get; private set; } = new();
     public DeployCompletionSettings Completion { get; private set; } = new();
     public CoreDeployNetworkSettings Network { get; private set; } = new();
@@ -150,7 +153,8 @@ public sealed class DeploymentWizardContext : IDisposable
         Completion = document.Completion ?? new DeployCompletionSettings();
         OperatingSystemCatalog.ApplyOperatingSystemSelection(document.OperatingSystemSelection);
         CustomImages.Configure(document.CustomImages ?? new());
-        _ = DiscoverCustomDriverSetsAsync(document.CustomDrivers ?? new());
+        CustomDrivers = document.CustomDrivers ?? new();
+        _ = DiscoverCustomDriverSetsAsync(CustomDrivers);
         Preparation.ApplyMachineNamingConfiguration(
             document.Customization.MachineNaming ?? new DeployMachineNamingSettings());
         Network = document.Network ?? new CoreDeployNetworkSettings();

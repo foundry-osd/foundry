@@ -1002,6 +1002,9 @@ Folytatja a telepítést?</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Helyreállítási partíció elrejtése</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Egyéni illesztőprogramok előkészítése</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Válaszfájl másolása</value>
   </data>
@@ -1328,6 +1331,12 @@ Folytatja a telepítést?</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>A kiválasztott „{0}” Microsoft Update Catalog-illesztőprogramfájl nem tartalmaz INF-fájlokat.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Az egyéni illesztőprogramok előkészítve.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>A kiválasztott egyéni illesztőprogramok nem érhetők el, vagy nem mentek át az ellenőrzésen. Csatlakoztassa újra a telepítési adathordozót, vagy indítsa újra a telepítést, és válasszon másik illesztőprogram-forrást.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Az első rendszerindítási illesztőprogram-csomag szakaszolását támogatott parancs nélkül kérték.</value>

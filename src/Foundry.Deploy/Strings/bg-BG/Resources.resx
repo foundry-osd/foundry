@@ -1002,6 +1002,9 @@
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Скриване на възстановителния дял</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Подготовка на потребителски драйвери</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Копиране на файл с отговори</value>
   </data>
@@ -1328,6 +1331,12 @@
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>Избраният файл с драйвери „{0}“ от Microsoft Update Catalog не съдържа INF файлове.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Потребителските драйвери са подготвени.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>Избраните потребителски драйвери не са налични или не преминаха проверката. Свържете отново носителя за разполагане или рестартирайте разполагането и изберете друг източник на драйвери.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Беше поискано поставяне на пакет драйвери за първо зареждане без поддържана команда.</value>

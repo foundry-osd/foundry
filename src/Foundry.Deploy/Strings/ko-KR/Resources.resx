@@ -1002,6 +1002,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>복구 파티션 숨기기</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>사용자 지정 드라이버 준비</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>응답 파일 복사</value>
   </data>
@@ -1328,6 +1331,12 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>선택한 Microsoft Update Catalog 드라이버 파일 '{0}'에 INF 파일이 없습니다.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>사용자 지정 드라이버가 준비되었습니다.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>선택한 사용자 지정 드라이버를 사용할 수 없거나 확인에 실패했습니다. 배포 미디어를 다시 연결하거나 배포를 다시 시작하고 다른 드라이버 원본을 선택하세요.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>지원되는 명령 없이 처음 부팅 드라이버 팩 준비가 요청되었습니다.</value>

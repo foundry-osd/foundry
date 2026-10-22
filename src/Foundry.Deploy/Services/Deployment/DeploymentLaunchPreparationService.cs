@@ -182,6 +182,7 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             DriverPackSelectionKind = request.DriverPackSelectionKind,
             DriverPack = request.SelectedDriverPack,
             CustomDriverSet = request.DriverPackSelectionKind == DriverPackSelectionKind.CustomDriverSet ? request.SelectedCustomDriverSet : null,
+            CustomDrivers = request.CustomDrivers,
             ApplyFirmwareUpdates = request.ApplyFirmwareUpdates,
             IsAutopilotEnabled = request.IsAutopilotEnabled,
             AutopilotProvisioningMode = request.AutopilotProvisioningMode,

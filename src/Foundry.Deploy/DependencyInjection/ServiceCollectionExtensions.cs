@@ -106,6 +106,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IZeroTouchDomainCredentialCheck, ZeroTouchDomainCredentialCheck>();
         services.AddSingleton<IDeploymentExecutionService, DeploymentExecutionService>();
         services.AddSingleton<CustomDriverSetCatalogService>(sp => new CustomDriverSetCatalogService(sp.GetRequiredService<IVolumeDiscovery>(), sp.GetRequiredService<ILogger<CustomDriverSetCatalogService>>()));
+        services.AddSingleton<ICustomDriverSetStagingService>(sp => new CustomDriverSetStagingService(sp.GetRequiredService<ILogger<CustomDriverSetStagingService>>()));
         services.AddSingleton<UtilityProcessRunner>();
         services.AddSingleton<IProcessRunner, ProcessRunner>();
         services.AddSingleton<IArchiveExtractionService, ArchiveExtractionService>();

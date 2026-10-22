@@ -1002,6 +1002,9 @@ ErrorCode=0x80070005
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>הסתרת מחיצת השחזור</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>הכנת מנהלי התקנים מותאמים אישית</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>העתקת קובץ תשובות</value>
   </data>
@@ -1328,6 +1331,12 @@ ErrorCode=0x80070005
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>קובץ מנהל ההתקן '{0}' שנבחר מ-Microsoft Update Catalog אינו מכיל קובצי INF.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>מנהלי ההתקנים המותאמים אישית הוכנו.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>מנהלי ההתקנים המותאמים אישית שנבחרו אינם זמינים או שנכשלו באימות. יש לחבר מחדש את מדיית הפריסה, או להפעיל מחדש את הפריסה ולבחור מקור אחר למנהלי התקנים.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>התבקשה שלב חבילת מנהל התקן אתחול ראשון ללא פקודה נתמכת.</value>

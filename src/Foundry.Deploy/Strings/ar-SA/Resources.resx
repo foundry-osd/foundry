@@ -1002,6 +1002,9 @@
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>إخفاء قسم الاسترداد</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>تجهيز برامج التشغيل المخصصة</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>نسخ ملف الإجابات</value>
   </data>
@@ -1328,6 +1331,12 @@
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>لا يحتوي ملف برنامج التشغيل المحدد من Microsoft Update Catalog ‏'{0}' على أي ملفات INF.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>تم تجهيز برامج التشغيل المخصصة.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>برامج التشغيل المخصصة المحددة غير متاحة أو فشل التحقق منها. أعد توصيل وسيط النشر، أو أعد تشغيل النشر واختر مصدرًا آخر لبرامج التشغيل.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>تم طلب التدريج المرحلي لحزمة برنامج التشغيل للتمهيد الأول بدون أمر مدعوم.</value>

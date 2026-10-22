@@ -35,6 +35,10 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
             case DriverPackSelectionKind.None:
                 return DeploymentStepResult.Skipped("Driver pack disabled (None selected).");
 
+            case DriverPackSelectionKind.CustomDriverSet:
+                // The plan omits this step for custom sets; they are staged from the boot media by the extract step.
+                return DeploymentStepResult.Skipped("No driver pack download required.");
+
             case DriverPackSelectionKind.MicrosoftUpdateCatalog:
             {
                 HardwareProfile hardwareProfile = context.RuntimeState.HardwareProfile
@@ -140,6 +144,11 @@ public sealed class DownloadDriverPackStep : DeploymentStepBase
         {
             await Task.Delay(120, cancellationToken).ConfigureAwait(false);
             return DeploymentStepResult.Skipped("Driver pack disabled (None selected).");
+        }
+
+        if (context.Request.DriverPackSelectionKind == DriverPackSelectionKind.CustomDriverSet)
+        {
+            return DeploymentStepResult.Skipped("No driver pack download required.");
         }
 
         string downloadRoot = context.ResolveWorkspaceTempPath("DriverPack", "DryRun");

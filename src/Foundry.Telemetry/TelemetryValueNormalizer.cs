@@ -40,6 +40,7 @@ internal static class TelemetryValueNormalizer
             {
                 "oemcatalog" => "oem_catalog",
                 "microsoftupdatecatalog" => "microsoft_update_catalog",
+                "customdriverset" => "custom_driver_set",
                 _ => text
             },
             "deploy_autopilot_hash_upload_state" => text switch

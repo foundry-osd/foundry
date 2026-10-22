@@ -1002,6 +1002,9 @@ Sistema operativo: {4}
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Ocultar partición de recuperación</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Preparar controladores personalizados</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Copiar archivo de respuestas</value>
   </data>
@@ -1328,6 +1331,12 @@ Sistema operativo: {4}
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>El archivo de controladores seleccionado '{0}' de Microsoft Update Catalog no contiene archivos INF.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Controladores personalizados preparados.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>Los controladores personalizados seleccionados no están disponibles o no superaron la verificación. Vuelva a conectar el medio de implementación, o reinicie la implementación y elija otro origen de controladores.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Se solicitó la preparación del paquete de controladores del primer arranque sin un comando compatible.</value>
