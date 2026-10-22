@@ -15,6 +15,9 @@ namespace Foundry.Core.Services.WinPe;
 public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedImageAssetProvisioningService
 {
     private const string BootstrapInvocation = @"call X:\Foundry\Bootstrap\Launch.cmd";
+
+    // Microsoft recommends the built-in High Performance scheme (SCHEME_MIN) in WinPE to speed up deployments.
+    private const string HighPerformancePowerSchemeCommand = "powercfg /s 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c";
     private const string BootstrapLauncher = """
         @echo off
         setlocal
@@ -102,13 +105,17 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
             : [];
 
         lines.RemoveAll(line => line.Contains("FoundryBootstrap.ps1", StringComparison.OrdinalIgnoreCase) ||
-            line.Trim().Equals(BootstrapInvocation, StringComparison.OrdinalIgnoreCase));
+            line.Trim().Equals(BootstrapInvocation, StringComparison.OrdinalIgnoreCase) ||
+            line.Trim().Equals(HighPerformancePowerSchemeCommand, StringComparison.OrdinalIgnoreCase));
 
-        if (!lines.Any(line => line.Trim().Equals("wpeinit", StringComparison.OrdinalIgnoreCase)))
+        int wpeinitIndex = lines.FindIndex(line => line.Trim().Equals("wpeinit", StringComparison.OrdinalIgnoreCase));
+        if (wpeinitIndex < 0)
         {
             lines.Insert(0, "wpeinit");
+            wpeinitIndex = 0;
         }
 
+        lines.Insert(wpeinitIndex + 1, HighPerformancePowerSchemeCommand);
         lines.Add(BootstrapInvocation);
         if (!lines[0].Trim().Equals("@echo off", StringComparison.OrdinalIgnoreCase))
         {
