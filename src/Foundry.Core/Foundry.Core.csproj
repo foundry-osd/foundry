@@ -17,6 +17,9 @@
     <EmbeddedResource Include="Assets\WinPe\ProvisionUsbDisk.ps1">
       <LogicalName>Foundry.Core.WinPe.ProvisionUsbDisk</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Assets\WinPe\winpe.jpg">
+      <LogicalName>Foundry.Core.WinPe.Background</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

@@ -163,6 +163,17 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
             {
                 return await FailWithDiscardAsync(assetProvisioningResult.Error!, session).ConfigureAwait(false);
             }
+
+            WinPeResult backgroundResult = await WinPeBootBackgroundProvisioner.ApplyAsync(
+                _processRunner,
+                session.MountDirectoryPath,
+                artifact.WorkingDirectoryPath,
+                CancellationToken.None).ConfigureAwait(false);
+
+            if (!backgroundResult.IsSuccess)
+            {
+                return await FailWithDiscardAsync(backgroundResult.Error!, session).ConfigureAwait(false);
+            }
             cancellationToken.ThrowIfCancellationRequested();
         }
 

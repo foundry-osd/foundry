@@ -105,6 +105,52 @@ public sealed class WinPeMountedImageCustomizationServiceTests
         Assert.Contains(runner.Executions, execution => execution.Arguments.Contains("/Commit", StringComparison.OrdinalIgnoreCase));
     }
 
+    [Fact]
+    public async Task CustomizeAsync_WithAssetProvisioning_AppliesFoundryBackgroundToOfflineImage()
+    {
+        using TempWinPeArtifact temp = TempWinPeArtifact.Create();
+        var runner = new FakeCustomizationRunner();
+        var service = new WinPeMountedImageCustomizationService(
+            runner, new FakeDriverInjectionService(), new FakeInternationalizationService(),
+            new FakeAssetProvisioningService(), new FakeRuntimePayloadProvisioningService());
+
+        WinPeResult result = await service.CustomizeAsync(CreateOptionsWithAssets(temp), TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        byte[] background = await File.ReadAllBytesAsync(
+            Path.Combine(temp.Artifact.MountDirectoryPath, "Windows", "System32", "winpe.jpg"),
+            TestContext.Current.CancellationToken);
+        Assert.Equal([0xFF, 0xD8, 0xFF], background[..3]);
+
+        string[] registryCommands = [.. runner.Executions.Where(IsRegistryCommand).Select(execution => execution.Arguments)];
+        Assert.Equal(3, registryCommands.Length);
+        string hivePath = Path.Combine(temp.Artifact.MountDirectoryPath, "Windows", "System32", "config", "SOFTWARE");
+        Assert.StartsWith("load ", registryCommands[0], StringComparison.Ordinal);
+        Assert.Contains(hivePath, registryCommands[0], StringComparison.OrdinalIgnoreCase);
+        Assert.Contains(@"\Microsoft\Windows NT\CurrentVersion\WinPE"" /v CustomBackground /t REG_EXPAND_SZ /d X:\Windows\System32\winpe.jpg /f", registryCommands[1], StringComparison.Ordinal);
+        Assert.StartsWith("unload ", registryCommands[2], StringComparison.Ordinal);
+        int unloadIndex = runner.Executions.FindIndex(IsRegistryCommand) + 2;
+        Assert.True(unloadIndex < runner.Executions.FindIndex(execution => execution.Arguments.Contains("/Commit", StringComparison.Ordinal)));
+    }
+
+    [Fact]
+    public async Task CustomizeAsync_WhenBackgroundRegistryWriteFails_UnloadsHiveAndDiscardsImage()
+    {
+        using TempWinPeArtifact temp = TempWinPeArtifact.Create();
+        var runner = new FakeCustomizationRunner { FailingArgumentsPrefix = "add " };
+        var service = new WinPeMountedImageCustomizationService(
+            runner, new FakeDriverInjectionService(), new FakeInternationalizationService(),
+            new FakeAssetProvisioningService(), new FakeRuntimePayloadProvisioningService());
+
+        WinPeResult result = await service.CustomizeAsync(CreateOptionsWithAssets(temp), TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal("reg.exe", result.Error?.ToolName);
+        Assert.Single(runner.Executions, execution => IsRegistryCommand(execution) && execution.Arguments.StartsWith("unload ", StringComparison.Ordinal));
+        Assert.Single(runner.Executions, execution => execution.Arguments.Contains("/Discard", StringComparison.Ordinal));
+        Assert.DoesNotContain(runner.Executions, execution => execution.Arguments.Contains("/Commit", StringComparison.Ordinal));
+    }
+
     [Theory]
     [InlineData(0)]
     [InlineData(7)]
@@ -299,6 +345,23 @@ public sealed class WinPeMountedImageCustomizationServiceTests
         Assert.DoesNotContain(runner.Executions, item => item.Arguments.Contains("/Commit", StringComparison.Ordinal));
     }
 
+    private static WinPeMountedImageCustomizationOptions CreateOptionsWithAssets(TempWinPeArtifact temp)
+    {
+        return new WinPeMountedImageCustomizationOptions
+        {
+            Artifact = temp.Artifact,
+            Tools = temp.Tools,
+            BootImagePreparation = AdkImage,
+            WinPeLanguage = "en-US",
+            AssetProvisioning = new WinPeMountedImageAssetProvisioningOptions()
+        };
+    }
+
+    private static bool IsRegistryCommand(WinPeProcessExecution execution)
+    {
+        return Path.GetFileName(execution.FileName).Equals("reg.exe", StringComparison.OrdinalIgnoreCase);
+    }
+
     private sealed class TempWinPeArtifact : IDisposable
     {
         private TempWinPeArtifact(string rootPath, WinPeBuildArtifact artifact, WinPeToolPaths tools)
@@ -356,6 +419,7 @@ public sealed class WinPeMountedImageCustomizationServiceTests
     {
         public Action<string, CancellationToken>? OnRun { get; init; }
         public int DiscardExitCode { get; init; }
+        public string? FailingArgumentsPrefix { get; init; }
         public List<WinPeProcessExecution> Executions { get; } = [];
 
         public Task<WinPeProcessExecution> RunAsync(
@@ -368,7 +432,9 @@ public sealed class WinPeMountedImageCustomizationServiceTests
             OnRun?.Invoke(arguments, cancellationToken);
             var execution = new WinPeProcessExecution
             {
-                ExitCode = arguments.Contains("/Discard", StringComparison.Ordinal) ? DiscardExitCode : 0,
+                ExitCode = arguments.Contains("/Discard", StringComparison.Ordinal) ? DiscardExitCode
+                    : FailingArgumentsPrefix is not null && arguments.StartsWith(FailingArgumentsPrefix, StringComparison.Ordinal) ? 1
+                    : 0,
                 FileName = fileName,
                 Arguments = arguments,
                 WorkingDirectory = workingDirectory
