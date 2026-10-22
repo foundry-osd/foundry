@@ -4,10 +4,12 @@
 
 using System.Text;
 using System.Text.Json;
+using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Models.Packages;
 using Foundry.Core.Services.Packages;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.Drivers;
 using Foundry.Core.Services.WinPe;
 
 namespace Foundry.Core.Tests.WinPe;
@@ -158,7 +160,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         WinPeTestMediaLayout.Create(root, WinPeArchitecture.X64);
         var publisher = new Publisher(fail: false, reportProgress: true);
         var runner = new CreateRunner();
-        var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher);
+        var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher, publisher);
         using var images = new WinPeCustomImageMediaLease("images", Encoding.UTF8.GetBytes("{}"), [], []);
         using var post = new WinPeContentPackageMediaLease(ContentPackageKind.PostInstallation, new ContentPackageMediaManifest { Id = "post" }, Encoding.UTF8.GetBytes("{}"), [], [], []);
         string config = JsonSerializer.Serialize(new FoundryDeployConfigurationDocument
@@ -193,6 +195,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         Assert.All(
             progress.Reports.Where(report => report.Status == Publisher.PublishStatus),
             report => Assert.InRange(report.Percent, MediaCreationProgressPlan.UsbFormattingCompletePercent, 80));
+        Assert.Empty(publisher.Pruned);
     }
 
     [Fact]
@@ -295,6 +298,73 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         Assert.Equal(WinPeProgressStatuses.UsbBootPartitionUpdated, progress.Reports[^1].Status);
     }
 
+    [Fact]
+    public async Task UsbUpdateWithoutDriverSetsRemovesOldSetsAndTheirManifests()
+    {
+        WinPeTestMediaLayout.Create(root, WinPeArchitecture.X64);
+        using TemporaryDriveMapping boot = TemporaryDriveMapping.Create(root, "boot");
+        using TemporaryDriveMapping cache = TemporaryDriveMapping.Create(root, "cache");
+        WinPeTestMediaLayout.Create(boot.RootPath, WinPeArchitecture.X64);
+        var driversPublisher = new WinPeContentPackageMediaService(ContentPackageKind.Drivers, _ => long.MaxValue);
+        var library = new CustomDriverSetLibrary(Path.Combine(root, "library"));
+        string source = Path.Combine(root, "old-set");
+        Directory.CreateDirectory(source);
+        await File.WriteAllTextAsync(Path.Combine(source, "old.inf"), "[Version]", TestContext.Current.CancellationToken);
+        ContentPackageReference old = await library.ImportAsync(source, TestContext.Current.CancellationToken);
+        string oldManifest;
+        using (WinPeContentPackageMediaLease previous = await driversPublisher.PrepareAsync(library.Library, [old], TestContext.Current.CancellationToken))
+        {
+            await driversPublisher.PublishAsync(previous, cache.RootPath, TestContext.Current.CancellationToken);
+            oldManifest = Path.Combine(cache.RootPath, previous.ManifestRelativePath);
+        }
+        var progress = new CollectingProgress<WinPeMediaProgress>();
+
+        WinPeResult<WinPeUsbProvisionResult> result = await UpdateWithoutContentAsync(boot, cache, driversPublisher, progress);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.False(Directory.Exists(Path.Combine(cache.RootPath, "Cache", "DriverPacks", "Custom", "Packages", old.ContentHash)));
+        Assert.False(File.Exists(oldManifest));
+        Assert.DoesNotContain(progress.Reports, report => report.Status == WinPeProgressStatuses.CustomDriversCleanupSkipped);
+    }
+
+    [Fact]
+    public async Task UsbUpdateWithoutDriverSetsLeavesMediaWithoutDriversRootUntouched()
+    {
+        WinPeTestMediaLayout.Create(root, WinPeArchitecture.X64);
+        using TemporaryDriveMapping boot = TemporaryDriveMapping.Create(root, "boot");
+        using TemporaryDriveMapping cache = TemporaryDriveMapping.Create(root, "cache");
+        WinPeTestMediaLayout.Create(boot.RootPath, WinPeArchitecture.X64);
+        var progress = new CollectingProgress<WinPeMediaProgress>();
+
+        WinPeResult<WinPeUsbProvisionResult> result = await UpdateWithoutContentAsync(boot, cache,
+            new WinPeContentPackageMediaService(ContentPackageKind.Drivers, _ => long.MaxValue), progress);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.False(Directory.Exists(Path.Combine(cache.RootPath, "Cache", "DriverPacks", "Custom")));
+        Assert.DoesNotContain(progress.Reports, report => report.Status == WinPeProgressStatuses.CustomDriversCleanupSkipped);
+    }
+
+    private async Task<WinPeResult<WinPeUsbProvisionResult>> UpdateWithoutContentAsync(TemporaryDriveMapping boot, TemporaryDriveMapping cache,
+        WinPeContentPackageMediaService driversPublisher, IProgress<WinPeMediaProgress> progress)
+    {
+        var publisher = new Publisher(fail: false);
+        var runner = new Runner(publisher, boot.DriveLetter, cache.DriveLetter, formatSucceeds: true, expectPublication: false);
+        var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher, driversPublisher);
+        var options = new UsbOutputOptions
+        {
+            TargetDiskNumber = 9,
+            ExpectedDiskFriendlyName = "Safe USB",
+            ExpectedDiskSerialNumber = "SERIAL",
+            ExpectedDiskUniqueId = "UNIQUE",
+            ExpectedDiskBusType = "USB",
+            ExpectedDiskSizeBytes = 64000000000,
+            Progress = progress
+        };
+        return await service.UpdateBootPartitionAsync(options,
+            new() { WorkingDirectoryPath = root, MediaDirectoryPath = root }, new() { PowerShellPath = "shadowed" }, false,
+            TestContext.Current.CancellationToken);
+    }
+
     private static WinPeContentPackageMediaLease DriversLease()
     {
         string hash = new('a', 64);
@@ -349,6 +419,11 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
             return failPrune ? Task.FromException<ContentPackagePruneResult>(new IOException("Access denied"))
                 : Task.FromResult(new ContentPackagePruneResult(0, 0, []));
         }
+        public Task<ContentPackagePruneResult> PruneAllAsync(string root, CancellationToken cancellationToken)
+        {
+            Pruned.Add("all");
+            return Task.FromResult(new ContentPackagePruneResult(0, 0, []));
+        }
         public Task ValidateSourcesAsync(WinPeCustomImageMediaLease package, CancellationToken cancellationToken = default) => Task.CompletedTask;
         public Task ValidateInputDisksAsync(IEnumerable<string> paths, int disk, CancellationToken token)
         {
@@ -377,7 +452,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         }
     }
 
-    private sealed class Runner(Publisher publisher, string bootDrive = "S:", string cacheDrive = "T:", bool formatSucceeds = false) : IWinPeProcessRunner
+    private sealed class Runner(Publisher publisher, string bootDrive = "S:", string cacheDrive = "T:", bool formatSucceeds = false, bool expectPublication = true) : IWinPeProcessRunner
     {
         internal bool FormattingAttempted { get; private set; }
         public Task<WinPeProcessExecution> RunAsync(string file, string arguments, string working, CancellationToken token, IReadOnlyDictionary<string, string>? environmentOverrides = null)
@@ -388,7 +463,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
             bool format = script.Contains("Format-Volume", StringComparison.Ordinal);
             if (format)
             {
-                Assert.True(publisher.PublishAttempted);
+                Assert.Equal(expectPublication, publisher.PublishAttempted);
                 FormattingAttempted = true;
             }
             string output = layout

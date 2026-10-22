@@ -141,6 +141,65 @@ public sealed class WinPeContentPackagePruneTests : IDisposable
     }
 
     [Fact]
+    public async Task PruneRefusesAPackageFolderThatIsAJunction()
+    {
+        ContentPackageReference current = await ImportAsync("current");
+        using WinPeContentPackageMediaLease lease = await PrepareAsync(current);
+        await service.PublishAsync(lease, Media, Cancellation);
+        ContentPackageReference old = await ImportAsync("old");
+        string oldManifest = await PublishAsync(old);
+        string outside = Path.Combine(root, "outside");
+        Directory.Move(PackagePath(old), outside);
+        if (!TryCreateJunction(PackagePath(old), outside, out string failure)) Assert.Skip($"Junction creation is not available here: {failure}");
+
+        ContentPackagePruneResult result = await service.PruneAsync(lease, Media, Cancellation);
+
+        Assert.Equal(0, result.RemovedPackages);
+        Assert.Equal(0, result.RemovedManifests);
+        Assert.True(Directory.Exists(PackagePath(old)));
+        Assert.True(File.Exists(Path.Combine(outside, "files", "old.inf")));
+        Assert.True(File.Exists(Path.Combine(outside, "files", "sub", "old.sys")));
+        Assert.True(File.Exists(oldManifest));
+        Assert.Contains($"{MediaRoot}/Packages/{old.ContentHash}", result.RetainedUnknownEntries);
+        Directory.Delete(PackagePath(old));
+    }
+
+    [Fact]
+    public async Task PruneAllRemovesEveryDescribedSetAndItsManifest()
+    {
+        ContentPackageReference first = await ImportAsync("first");
+        ContentPackageReference second = await ImportAsync("second");
+        string firstManifest = await PublishAsync(first);
+        string secondManifest = await PublishAsync(first, second);
+        string notes = Path.Combine(Media, MediaRoot, "Packages", "notes.txt");
+        await File.WriteAllTextAsync(notes, "user", Cancellation);
+
+        ContentPackagePruneResult result = await service.PruneAllAsync(Media, Cancellation);
+
+        Assert.Equal(2, result.RemovedPackages);
+        Assert.Equal(2, result.RemovedManifests);
+        Assert.False(Directory.Exists(PackagePath(first)));
+        Assert.False(Directory.Exists(PackagePath(second)));
+        Assert.False(File.Exists(firstManifest));
+        Assert.False(File.Exists(secondManifest));
+        Assert.True(File.Exists(notes));
+        Assert.Equal([$"{MediaRoot}/Packages/notes.txt"], result.RetainedUnknownEntries);
+    }
+
+    [Fact]
+    public async Task PruneAllDoesNothingWithoutTheMediaRoot()
+    {
+        Directory.CreateDirectory(Media);
+
+        ContentPackagePruneResult result = await service.PruneAllAsync(Media, Cancellation);
+
+        Assert.Equal(0, result.RemovedPackages);
+        Assert.Equal(0, result.RemovedManifests);
+        Assert.Empty(result.RetainedUnknownEntries);
+        Assert.False(Directory.Exists(Path.Combine(Media, "Cache")));
+    }
+
+    [Fact]
     public async Task PruneThrowsForPostInstallationKind()
     {
         using var lease = new WinPeContentPackageMediaLease(ContentPackageKind.PostInstallation,
@@ -148,6 +207,7 @@ public sealed class WinPeContentPackagePruneTests : IDisposable
         var postInstallation = new WinPeContentPackageMediaService(ContentPackageKind.PostInstallation, _ => long.MaxValue);
 
         await Assert.ThrowsAsync<InvalidOperationException>(() => postInstallation.PruneAsync(lease, Media, Cancellation));
+        await Assert.ThrowsAsync<InvalidOperationException>(() => postInstallation.PruneAllAsync(Media, Cancellation));
     }
 
     private CustomDriverSetLibrary Library => library ??= new CustomDriverSetLibrary(Path.Combine(root, "library"));

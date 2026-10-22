@@ -15,7 +15,7 @@ using Serilog;
 namespace Foundry.Core.Services.WinPe;
 
 /// <summary>
-/// Publishes complete content package generations of one kind outside boot.wim; only kinds that prune on USB update remove older generations, through <see cref="PruneAsync"/>.
+/// Publishes complete content package generations of one kind outside boot.wim; only kinds that prune on USB update remove older generations, through the prune methods.
 /// Temporary media staging supports long host paths; installer path limits apply separately to package imports and target staging.
 /// </summary>
 public sealed class WinPeContentPackageMediaService : IWinPeContentPackageMediaPublisher
@@ -209,15 +209,37 @@ public sealed class WinPeContentPackageMediaService : IWinPeContentPackageMediaP
         if (!await MatchesAsync(CustomImagePathPolicy.ResolveRelativePath(root, current.ManifestRelativePath), current.ManifestBytes.Length,
             current.ManifestHash, cancellationToken).ConfigureAwait(false))
             throw new InvalidDataException("ContentPackage.InvalidMediaBinding");
+        return await PruneUnderLockAsync(ownedRoot, current.ManifestId + ".json",
+            current.Manifest.Packages.Select(package => package.ContentHash).ToHashSet(StringComparer.OrdinalIgnoreCase), cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Removes every package folder and media manifest of the kind when an update publishes no generation of it, with the same
+    /// rules as <see cref="PruneAsync(WinPeContentPackageMediaLease, string, CancellationToken)"/>. Does nothing when the media root is absent.
+    /// </summary>
+    /// <exception cref="InvalidOperationException">The kind does not prune media on update.</exception>
+    public async Task<ContentPackagePruneResult> PruneAllAsync(string root, CancellationToken cancellationToken)
+    {
+        if (!kind.PrunesMediaOnUpdate) throw new InvalidOperationException($"'{kind.Name}' media content is not pruned on update.");
+        ArgumentException.ThrowIfNullOrWhiteSpace(root);
+        string ownedRoot = CustomImagePathPolicy.ResolveRelativePath(root, kind.MediaRoot);
+        if (!Directory.Exists(ownedRoot)) return new(0, 0, []);
+        using var publicationLock = new FileStream(CustomImagePathPolicy.ResolveRelativePath(ownedRoot, ".publish.lock"), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+        return await PruneUnderLockAsync(ownedRoot, null, new HashSet<string>(StringComparer.OrdinalIgnoreCase), cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <summary>Removes packages first, then manifests, so a failed run keeps a description for anything left behind.</summary>
+    private async Task<ContentPackagePruneResult> PruneUnderLockAsync(string ownedRoot, string? currentManifestName, HashSet<string> referenced,
+        CancellationToken cancellationToken)
+    {
         List<string> retained = [];
-        Dictionary<string, ContentPackageMediaManifest> previous = await ReadPreviousManifestsAsync(ownedRoot, current, retained, cancellationToken).ConfigureAwait(false);
-        var referenced = current.Manifest.Packages.Select(package => package.ContentHash).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        Dictionary<string, ContentPackageMediaManifest> previous = await ReadPreviousManifestsAsync(ownedRoot, currentManifestName, retained, cancellationToken).ConfigureAwait(false);
         int removedPackages = RemoveUnreferencedPackages(ownedRoot, referenced, previous.Values, retained, cancellationToken);
         int removedManifests = RemoveObsoleteManifests(ownedRoot, referenced, previous, cancellationToken);
         return new(removedPackages, removedManifests, retained);
     }
 
-    private async Task<Dictionary<string, ContentPackageMediaManifest>> ReadPreviousManifestsAsync(string ownedRoot, WinPeContentPackageMediaLease current,
+    private async Task<Dictionary<string, ContentPackageMediaManifest>> ReadPreviousManifestsAsync(string ownedRoot, string? currentManifestName,
         List<string> retained, CancellationToken cancellationToken)
     {
         Dictionary<string, ContentPackageMediaManifest> manifests = new(StringComparer.OrdinalIgnoreCase);
@@ -228,7 +250,7 @@ public sealed class WinPeContentPackageMediaService : IWinPeContentPackageMediaP
         foreach (FileSystemInfo entry in Entries(directory))
         {
             cancellationToken.ThrowIfCancellationRequested();
-            if (entry.Name.Equals(current.ManifestId + ".json", StringComparison.OrdinalIgnoreCase)) continue;
+            if (entry.Name.Equals(currentManifestName, StringComparison.OrdinalIgnoreCase)) continue;
             ContentPackageMediaManifest? manifest = null;
             if (entry is FileInfo file && !IsReparsePoint(file) && IsManifestName(entry.Name) && file.Length <= kind.MaximumMediaManifestBytes)
             {
@@ -364,4 +386,6 @@ internal interface IWinPeContentPackageMediaPublisher
     Task PublishAsync(WinPeContentPackageMediaLease package, string root, CancellationToken cancellationToken, IProgress<WinPeMediaProgress>? progress = null);
     /// <summary>Removes media content that only older generations reference; throws for kinds that do not prune.</summary>
     Task<ContentPackagePruneResult> PruneAsync(WinPeContentPackageMediaLease current, string root, CancellationToken cancellationToken);
+    /// <summary>Removes all media content of the kind when the update publishes no generation of it; throws for kinds that do not prune.</summary>
+    Task<ContentPackagePruneResult> PruneAllAsync(string root, CancellationToken cancellationToken);
 }

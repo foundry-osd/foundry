@@ -129,19 +129,26 @@ public sealed partial class WinPeUsbMediaService
     }
 
     /// <summary>
-    /// Removes driver sets that the just-published generation no longer references, once BOOT was rewritten and verified.
+    /// Removes driver sets that the just-published generation no longer references, or every driver set when the update
+    /// publishes none, once BOOT was rewritten and verified. Runs only in the update flow.
     /// Cleanup is best-effort: the new media is already complete, so any failure is logged and reported without failing the update.
     /// </summary>
     private async Task PruneCustomDriversAsync(UsbOutputOptions options, string dataRoot, CancellationToken cancellationToken)
     {
-        if (options.CustomDrivers is null) return;
         ILogger logger = Log.ForContext<WinPeUsbMediaService>();
         try
         {
-            ContentPackagePruneResult result = await _customDriversPublisher.PruneAsync(options.CustomDrivers, dataRoot, cancellationToken).ConfigureAwait(false);
+            ContentPackagePruneResult result = options.CustomDrivers is null
+                ? await _customDriversPublisher.PruneAllAsync(dataRoot, cancellationToken).ConfigureAwait(false)
+                : await _customDriversPublisher.PruneAsync(options.CustomDrivers, dataRoot, cancellationToken).ConfigureAwait(false);
             logger.Information(
                 "Unused custom driver sets pruned from USB media. RemovedPackages={RemovedPackages} RemovedManifests={RemovedManifests} RetainedUnknownEntries={RetainedUnknownEntries}",
                 result.RemovedPackages, result.RemovedManifests, result.RetainedUnknownEntries.Count);
+        }
+        catch (OperationCanceledException)
+        {
+            logger.Information("Unused custom driver set pruning was cancelled; the update continues.");
+            ReportProgress(options.Progress, 91, WinPeProgressStatuses.CustomDriversCleanupSkipped);
         }
         catch (Exception exception)
         {
