@@ -346,6 +346,28 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         Assert.False(publisher.PublishAttempted);
     }
 
+    [Fact]
+    public async Task UsbUpdateSkipsPruningWhenTheCacheDriveNoLongerBelongsToTheTargetDisk()
+    {
+        WinPeTestMediaLayout.Create(root, WinPeArchitecture.X64);
+        using TemporaryDriveMapping boot = TemporaryDriveMapping.Create(root, "boot");
+        using TemporaryDriveMapping cache = TemporaryDriveMapping.Create(root, "cache");
+        WinPeTestMediaLayout.Create(boot.RootPath, WinPeArchitecture.X64);
+        var publisher = new Publisher(fail: false, failDestinationDisk: true);
+        var runner = new Runner(publisher, boot.DriveLetter, cache.DriveLetter, formatSucceeds: true, expectPublication: false);
+        var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher, publisher);
+        var progress = new CollectingProgress<WinPeMediaProgress>();
+        UsbOutputOptions options = UpdateOptions(null, null, null) with { Progress = progress };
+
+        WinPeResult<WinPeUsbProvisionResult> result = await service.UpdateBootPartitionAsync(options,
+            new() { WorkingDirectoryPath = root, MediaDirectoryPath = root }, new() { PowerShellPath = "shadowed" }, false,
+            TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Empty(publisher.Pruned);
+        Assert.Contains(progress.Reports, report => report.Status == WinPeProgressStatuses.CustomDriversCleanupSkipped);
+    }
+
     private static UsbOutputOptions UpdateOptions(WinPeCustomImageMediaLease? images, WinPeContentPackageMediaLease? post,
         WinPeContentPackageMediaLease? drivers) => new()
         {
@@ -494,7 +516,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
             }
         }, ConfigurationJsonDefaults.SerializerOptions);
 
-    private sealed class Publisher(bool fail, bool reportProgress = false, bool failPrune = false) : IWinPeCustomImageMediaPublisher, IWinPeContentPackageMediaPublisher
+    private sealed class Publisher(bool fail, bool reportProgress = false, bool failPrune = false, bool failDestinationDisk = false) : IWinPeCustomImageMediaPublisher, IWinPeContentPackageMediaPublisher
     {
         internal const string PublishStatus = "Publishing test content.";
         internal bool PublishAttempted { get; private set; }
@@ -539,7 +561,9 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
             AdditionalCapacityBytes = extra;
             return Task.CompletedTask;
         }
-        public Task ValidateDestinationDiskAsync(string root, int disk, CancellationToken token) => Task.CompletedTask;
+        public Task ValidateDestinationDiskAsync(string root, int disk, CancellationToken token) => failDestinationDisk
+            ? Task.FromException(new InvalidDataException("The custom-image destination no longer belongs to the selected USB disk."))
+            : Task.CompletedTask;
         public Task PublishAsync(WinPeCustomImageMediaLease package, string root, CancellationToken token = default, IProgress<WinPeMediaProgress>? progress = null)
         {
             PublishAttempted = true;

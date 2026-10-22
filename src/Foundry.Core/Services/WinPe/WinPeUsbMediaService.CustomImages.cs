@@ -131,13 +131,16 @@ public sealed partial class WinPeUsbMediaService
     /// <summary>
     /// Removes driver sets that the just-published generation no longer references, or every driver set when the update
     /// publishes none, once BOOT was rewritten and verified. Runs only in the update flow.
-    /// Cleanup is best-effort: the new media is already complete, so any failure is logged and reported without failing the update.
+    /// Cleanup is best-effort: the new media is already complete, so any failure, including a cache drive that no longer
+    /// belongs to the target disk, is logged and reported without failing the update.
     /// </summary>
     private async Task PruneCustomDriversAsync(UsbOutputOptions options, string dataRoot, CancellationToken cancellationToken)
     {
         ILogger logger = Log.ForContext<WinPeUsbMediaService>();
         try
         {
+            // The cache drive letter may have been reassigned while BOOT was rewritten; never delete from another disk.
+            await _customImagePublisher.ValidateDestinationDiskAsync(dataRoot, options.TargetDiskNumber!.Value, cancellationToken).ConfigureAwait(false);
             ContentPackagePruneResult result = options.CustomDrivers is null
                 ? await _customDriversPublisher.PruneAllAsync(dataRoot, cancellationToken).ConfigureAwait(false)
                 : await _customDriversPublisher.PruneAsync(options.CustomDrivers, dataRoot, cancellationToken).ConfigureAwait(false);
