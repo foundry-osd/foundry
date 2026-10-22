@@ -166,8 +166,22 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
         Guid? profileId = profiles.Active?.LocalId;
         try
         {
-            CustomDriverSetImportResult? imported = await importDialog.ShowAsync();
-            if (imported is null || disposed) return;
+            CustomDriverSetImportResult? imported;
+            string? existingSetId;
+            try { (imported, existingSetId) = await importDialog.ShowAsync(); }
+            catch (Exception exception)
+            {
+                Logger.Warning(exception, "Custom driver set import dialog failed.");
+                if (!disposed) StatusMessage = Text("ImportFailed");
+                return;
+            }
+            if (disposed) return;
+            if (imported is null)
+            {
+                if (existingSetId is not null && profiles.Active?.LocalId == profileId)
+                    SelectedSet = Sets.FirstOrDefault(row => row.Reference.Id == existingSetId);
+                return;
+            }
             infCounts[imported.Package.ContentHash] = imported.InfCount;
             if (profiles.Active?.LocalId != profileId)
             {
@@ -176,11 +190,6 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
                 return;
             }
             AddImportedSet(imported);
-        }
-        catch (Exception exception)
-        {
-            Logger.Warning(exception, "Custom driver set import dialog failed.");
-            if (!disposed) StatusMessage = Text("ImportFailed");
         }
         finally { IsBusy = false; }
     }

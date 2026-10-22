@@ -13,12 +13,15 @@ public sealed class CustomDriverSetImportDialogService(CustomDriverSetLibrary li
     IFoundryConfigurationStateService state, IApplicationLocalizationService localization)
 {
     /// <summary>Shows the import dialog for the active profile.</summary>
-    /// <returns>The new set to add, or <see langword="null"/> when the dialog was canceled or the content is already in the profile.</returns>
-    public async Task<CustomDriverSetImportResult?> ShowAsync()
+    /// <returns>
+    /// The new set to add, or <see langword="null"/> when nothing was imported; <c>ExistingSetId</c> names the profile set that already
+    /// holds the content of the last attempt, if any.
+    /// </returns>
+    public async Task<(CustomDriverSetImportResult? Imported, string? ExistingSetId)> ShowAsync()
     {
         using var viewModel = new CustomDriverSetImportViewModel(library, picker, state, localization);
         var dialog = new CustomDriverSetImportDialog(viewModel) { XamlRoot = App.MainWindow.Content.XamlRoot };
         await dialog.ShowAsync();
-        return viewModel.Result;
+        return (viewModel.Result, viewModel.ExistingSetId);
     }
 }

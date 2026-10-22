@@ -73,6 +73,9 @@ public sealed partial class CustomDriverSetImportViewModel : ObservableObject, I
     /// <summary>Gets the imported set to add to the profile, or <see langword="null"/> when nothing was imported.</summary>
     public CustomDriverSetImportResult? Result { get; private set; }
 
+    /// <summary>Gets the id of the profile set that already holds the last imported content, so the page can select it.</summary>
+    public string? ExistingSetId { get; private set; }
+
     private string Text(string key) => localization.GetString("CustomDrivers." + key);
 
     [RelayCommand]
@@ -113,6 +116,7 @@ public sealed partial class CustomDriverSetImportViewModel : ObservableObject, I
         string name = DisplayName.Trim();
         using var operation = new CancellationTokenSource();
         cancellation = operation;
+        ExistingSetId = null;
         Message = string.Empty;
         Progress = 0;
         IsBusy = true;
@@ -128,12 +132,18 @@ public sealed partial class CustomDriverSetImportViewModel : ObservableObject, I
                 package.ContentHash, package.FileCount, package.Length, infCount);
             // Re-importing content that was recorded as missing must clear that state without a manual refresh.
             await state.InspectCustomDriverSetAsync(package);
-            if (disposed) return false;
+            // The copy can reach 100% before Cancel; a request made during the INF count or inspection must still add nothing.
+            if (disposed || operation.IsCancellationRequested)
+            {
+                Logger.Information("Custom driver set import canceled.");
+                return false;
+            }
             CustomDriverSetReference? existing = state.Current.CustomDrivers.Sets.FirstOrDefault(set =>
                 set.Package.ContentHash.Equals(package.ContentHash, StringComparison.OrdinalIgnoreCase));
             if (existing is not null)
             {
                 Logger.Information("Custom driver set import not added because the profile already contains its content. ContentHash={ContentHash}", package.ContentHash);
+                ExistingSetId = existing.Id;
                 ShowMessage(localization.FormatString("CustomDrivers.AlreadyInProfile", existing.DisplayName), InfoBarSeverity.Informational);
                 return false;
             }

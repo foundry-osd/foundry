@@ -88,7 +88,8 @@ public sealed class ContentPackageLibraryService
         if (Kind.RequiresInfFile && !inventory.Files.Any(file => file.EndsWith(".inf", StringComparison.OrdinalIgnoreCase)))
             throw new InvalidDataException("ContentPackage.MissingInfFile");
         // Metadata lengths only size the progress; the manifest keeps the lengths read from the open handles.
-        var reporter = new ImportProgressReporter(progress, inventory.Files.Sum(file => new FileInfo(paths.Resolve(sourceRoot, file)).Length), inventory.Files.Count);
+        long totalBytes = progress is null ? 0 : inventory.Files.Sum(file => new FileInfo(paths.Resolve(sourceRoot, file)).Length);
+        var reporter = new ImportProgressReporter(progress, totalBytes, inventory.Files.Count);
         using FileStream libraryLock = AcquireLibraryLock();
         string pending = Path.Combine(root, "pending", Guid.NewGuid().ToString("N"));
         string filesRoot = Path.Combine(pending, "files");
@@ -112,11 +113,13 @@ public sealed class ContentPackageLibraryService
                 await using (FileStream output = new(target, FileMode.CreateNew, FileAccess.Write, FileShare.None, CopyBufferSize,
                     FileOptions.Asynchronous | FileOptions.SequentialScan))
                 {
-                    // The source handle denies writers, so hashing the bytes while copying them equals hashing the source afterwards.
                     hash = await HashAsync(input, output, buffer, reporter, cancellationToken).ConfigureAwait(false);
                     await output.FlushAsync(cancellationToken).ConfigureAwait(false);
                     output.Flush(flushToDisk: true);
                 }
+                input.Position = 0;
+                if (!hash.Equals(await HashAsync(input, null, buffer, reporter, cancellationToken).ConfigureAwait(false), StringComparison.Ordinal))
+                    throw new InvalidDataException("ContentPackage.PackageSourceChanged");
                 await using (FileStream copied = OpenRead(target))
                 {
                     if (copied.Length != input.Length || !hash.Equals(await HashAsync(copied, null, buffer, reporter, cancellationToken).ConfigureAwait(false), StringComparison.Ordinal))
@@ -402,19 +405,20 @@ public sealed class ContentPackageLibraryService
     private sealed record SourceInventory(IReadOnlyList<string> Directories, IReadOnlyList<string> Files);
 
     /// <summary>
-    /// Turns copy and verification chunks into one completion. Reports are throttled to a whole-percent change or
+    /// Turns the copy, source re-hash and copy verification chunks into one completion. Reports are throttled to a whole-percent change or
     /// <see cref="ReportIntervalMilliseconds"/>, whichever comes first, and are clamped so a source that grows after the
     /// inventory cannot report more than the totals.
     /// </summary>
     private sealed class ImportProgressReporter(IProgress<ContentPackageImportProgress>? progress, long totalBytes, int totalFiles)
     {
+        private const int PassCount = 3;
         private const long ReportIntervalMilliseconds = 100;
         private long processedBytes;
         private int completedFiles;
         private long lastPercent = -1;
         private long lastReportTime;
 
-        /// <summary>Counts bytes of either pass; each file is read once to copy it and once to verify the copy.</summary>
+        /// <summary>Counts bytes of any pass; each file is read three times: to copy it, to re-hash the source and to verify the copy.</summary>
         public void Advance(int bytes)
         {
             processedBytes += bytes;
@@ -433,7 +437,7 @@ public sealed class ContentPackageLibraryService
         private void Report()
         {
             if (progress is null) return;
-            long completedBytes = Math.Min(processedBytes / 2, totalBytes);
+            long completedBytes = Math.Min(processedBytes / PassCount, totalBytes);
             int files = Math.Min(completedFiles, totalFiles);
             long percent = totalBytes > 0 ? completedBytes * 100 / totalBytes : files * 100L / totalFiles;
             long now = Environment.TickCount64;

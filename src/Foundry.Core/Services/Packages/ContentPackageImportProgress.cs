@@ -8,8 +8,8 @@ namespace Foundry.Core.Services.Packages;
 /// Reports one content package import as a single copy-and-verify completion; it carries no file names.
 /// </summary>
 /// <param name="CompletedBytes">
-/// Average of the bytes copied and the bytes verified, so the copy pass and the verification pass weigh equally;
-/// it reaches <paramref name="TotalBytes"/> when both passes have finished.
+/// Average of the bytes read by the copy, the source re-hash and the copy verification, so the three passes weigh equally;
+/// it reaches <paramref name="TotalBytes"/> when all three passes have finished.
 /// </param>
 /// <param name="TotalBytes">Package size measured from file metadata during the source inventory.</param>
 /// <param name="CompletedFiles">Files copied and verified.</param>
