@@ -195,14 +195,106 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
             report => Assert.InRange(report.Percent, MediaCreationProgressPlan.UsbFormattingCompletePercent, 80));
     }
 
+    [Fact]
+    public async Task UsbPublishesDriverSetsAfterPostInstallation()
+    {
+        WinPeTestMediaLayout.Create(root, WinPeArchitecture.X64);
+        var publisher = new Publisher(fail: false);
+        var runner = new Runner(publisher);
+        var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher, publisher);
+        using var images = new WinPeCustomImageMediaLease("images", Encoding.UTF8.GetBytes("{}"), [], []);
+        using var post = new WinPeContentPackageMediaLease(ContentPackageKind.PostInstallation, new ContentPackageMediaManifest { Id = "post" }, Encoding.UTF8.GetBytes("{}"), [], [], []);
+        using var drivers = DriversLease();
+        var options = new UsbOutputOptions
+        {
+            TargetDiskNumber = 9,
+            ExpectedDiskFriendlyName = "Safe USB",
+            ExpectedDiskSerialNumber = "SERIAL",
+            ExpectedDiskUniqueId = "UNIQUE",
+            ExpectedDiskBusType = "USB",
+            ExpectedDiskSizeBytes = 64000000000,
+            CustomImages = images,
+            PostInstallation = post,
+            CustomDrivers = drivers,
+            DeployConfigurationJson = BoundConfiguration(images, post, drivers)
+        };
+
+        _ = await service.UpdateBootPartitionAsync(options,
+            new() { WorkingDirectoryPath = root, MediaDirectoryPath = root }, new() { PowerShellPath = "shadowed" }, false,
+            TestContext.Current.CancellationToken);
+
+        Assert.Equal(["images", ContentPackageKind.PostInstallation.Name, ContentPackageKind.Drivers.Name], publisher.Published);
+        Assert.Equal(2048L + 4096L, publisher.AdditionalCapacityBytes);
+        Assert.True(runner.FormattingAttempted);
+    }
+
+    [Fact]
+    public async Task UsbUpdateFailsCapacityBeforeFormattingWhenDriversDoNotFit()
+    {
+        WinPeTestMediaLayout.Create(root, WinPeArchitecture.X64);
+        var publisher = new Publisher(fail: false);
+        var runner = new Runner(publisher);
+        var driversPublisher = new WinPeContentPackageMediaService(ContentPackageKind.Drivers, _ => 0);
+        var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher, driversPublisher);
+        using var drivers = DriversLease();
+        var options = new UsbOutputOptions
+        {
+            TargetDiskNumber = 9,
+            ExpectedDiskFriendlyName = "Safe USB",
+            ExpectedDiskSerialNumber = "SERIAL",
+            ExpectedDiskUniqueId = "UNIQUE",
+            ExpectedDiskBusType = "USB",
+            ExpectedDiskSizeBytes = 64000000000,
+            CustomDrivers = drivers,
+            DeployConfigurationJson = BoundConfiguration(null, null, drivers)
+        };
+
+        WinPeResult<WinPeUsbProvisionResult> result = await service.UpdateBootPartitionAsync(options,
+            new() { WorkingDirectoryPath = root, MediaDirectoryPath = root }, new() { PowerShellPath = "shadowed" }, false,
+            TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.CustomImageMediaFailed, result.Error!.Code);
+        Assert.Contains("ContentPackage.InsufficientMediaSpace", result.Error.Details);
+        Assert.False(publisher.PublishAttempted);
+        Assert.False(runner.FormattingAttempted);
+    }
+
+    private static WinPeContentPackageMediaLease DriversLease()
+    {
+        string hash = new('a', 64);
+        var manifest = new ContentPackageMediaManifest
+        {
+            Id = "drivers",
+            Packages = [new() { ContentHash = hash, RelativePath = $"Cache/DriverPacks/Custom/Packages/{hash}/files", Manifest = new() }]
+        };
+        return new WinPeContentPackageMediaLease(ContentPackageKind.Drivers, manifest, Encoding.UTF8.GetBytes("{\"drivers\":1}"), [], [], []);
+    }
+
+    private static string BoundConfiguration(WinPeCustomImageMediaLease? images, WinPeContentPackageMediaLease? post, WinPeContentPackageMediaLease drivers) =>
+        JsonSerializer.Serialize(new FoundryDeployConfigurationDocument
+        {
+            PreOobe = post is null ? new() : new() { ManifestId = post.ManifestId, ManifestHash = post.ManifestHash },
+            CustomImages = images is null ? new() : new() { IsEnabled = true, ManifestId = images.ManifestId, ManifestHash = images.ManifestHash },
+            CustomDrivers = new()
+            {
+                IsEnabled = true,
+                Sets = [new() { Id = "set", DisplayName = "Set", ContentHash = drivers.Manifest.Packages[0].ContentHash, FileCount = 1 }],
+                ManifestId = drivers.ManifestId,
+                ManifestHash = drivers.ManifestHash
+            }
+        }, ConfigurationJsonDefaults.SerializerOptions);
+
     private sealed class Publisher(bool fail, bool reportProgress = false) : IWinPeCustomImageMediaPublisher, IWinPeContentPackageMediaPublisher
     {
         internal const string PublishStatus = "Publishing test content.";
         internal bool PublishAttempted { get; private set; }
+        internal List<string> Published { get; } = [];
         internal IReadOnlyList<string> ValidatedInputs { get; private set; } = [];
         internal long? AdditionalCapacityBytes { get; private set; }
         public Task ValidateSourcesAsync(WinPeContentPackageMediaLease package, CancellationToken cancellationToken) => Task.CompletedTask;
-        public Task<long> GetRequiredBytesAsync(WinPeContentPackageMediaLease package, string root, CancellationToken cancellationToken) => Task.FromResult(2048L);
+        public Task<long> GetRequiredBytesAsync(WinPeContentPackageMediaLease package, string root, CancellationToken cancellationToken) =>
+            Task.FromResult(package.Kind == ContentPackageKind.Drivers ? 4096L : 2048L);
         public Task ValidateCapacityAsync(WinPeContentPackageMediaLease package, string root, long extra, CancellationToken cancellationToken)
         {
             AdditionalCapacityBytes = extra;
@@ -211,6 +303,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         public Task PublishAsync(WinPeContentPackageMediaLease package, string root, CancellationToken token, IProgress<WinPeMediaProgress>? progress = null)
         {
             PublishAttempted = true;
+            Published.Add(package.Kind.Name);
             ReportPublishProgress(progress);
             return fail ? Task.FromException(new IOException("Disk full")) : Task.CompletedTask;
         }
@@ -229,6 +322,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         public Task PublishAsync(WinPeCustomImageMediaLease package, string root, CancellationToken token = default, IProgress<WinPeMediaProgress>? progress = null)
         {
             PublishAttempted = true;
+            Published.Add("images");
             ReportPublishProgress(progress);
             return fail ? Task.FromException(new IOException("Disk full")) : Task.CompletedTask;
         }

@@ -14,6 +14,8 @@ public sealed record WinPeIsoMediaOptions
     public WinPeCustomImageMediaLease? CustomImages { get; init; }
     /// <summary>Publishes post-installation content outside boot.wim, including media without a custom Windows image.</summary>
     public WinPeContentPackageMediaLease? PostInstallation { get; init; }
+    /// <summary>Retains verified custom driver set packages outside boot.wim; published after post-installation content.</summary>
+    public WinPeContentPackageMediaLease? CustomDrivers { get; init; }
     /// <summary>Binds the exact custom-image package to the configuration provisioned into boot.wim.</summary>
     public string? DeployConfigurationJson { get; init; }
     public IProgress<WinPeMediaProgress>? Progress { get; init; }

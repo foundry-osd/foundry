@@ -25,13 +25,13 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
     internal const string UsbUnsafeTargetMarker = "FOUNDRY_USB_UNSAFE_TARGET";
 
     /// <summary>
-    /// Progress range of custom image and post-installation copies when a USB drive is created. It starts where
+    /// Progress range of custom image, post-installation and driver set copies when a USB drive is created. It starts where
     /// partitioning ends, so the final-media progress maps it to the copy phase.
     /// </summary>
     private static readonly (int Start, int End) CreateContentProgressRange = (MediaCreationProgressPlan.UsbFormattingCompletePercent, 80);
 
     /// <summary>
-    /// Progress range of custom image and post-installation copies when a USB drive is updated, before BOOT is formatted.
+    /// Progress range of custom image, post-installation and driver set copies when a USB drive is updated, before BOOT is formatted.
     /// </summary>
     private static readonly (int Start, int End) UpdateContentProgressRange = (22, 34);
 
@@ -39,6 +39,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
     private readonly IWinPeRuntimePayloadProvisioningService _runtimePayloadProvisioningService;
     private readonly IWinPeCustomImageMediaPublisher _customImagePublisher;
     private readonly IWinPeContentPackageMediaPublisher _postInstallationPublisher;
+    private readonly IWinPeContentPackageMediaPublisher _customDriversPublisher;
 
     public WinPeUsbMediaService()
         : this(new WinPeProcessRunner(), new WinPeRuntimePayloadProvisioningService())
@@ -54,12 +55,14 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
         IWinPeProcessRunner processRunner,
         IWinPeRuntimePayloadProvisioningService runtimePayloadProvisioningService,
         IWinPeCustomImageMediaPublisher? customImagePublisher = null,
-        IWinPeContentPackageMediaPublisher? postInstallationPublisher = null)
+        IWinPeContentPackageMediaPublisher? postInstallationPublisher = null,
+        IWinPeContentPackageMediaPublisher? customDriversPublisher = null)
     {
         _processRunner = processRunner;
         _runtimePayloadProvisioningService = runtimePayloadProvisioningService;
         _customImagePublisher = customImagePublisher ?? new WinPeCustomImageMediaService();
         _postInstallationPublisher = postInstallationPublisher ?? new WinPeContentPackageMediaService(ContentPackageKind.PostInstallation);
+        _customDriversPublisher = customDriversPublisher ?? new WinPeContentPackageMediaService(ContentPackageKind.Drivers);
     }
 
     public async Task<WinPeResult<IReadOnlyList<WinPeUsbDiskCandidate>>> GetUsbCandidatesAsync(

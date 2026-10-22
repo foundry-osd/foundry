@@ -225,6 +225,43 @@ public sealed class WinPeCustomImageIsoTests : IDisposable
         Assert.Equal(cancel ? "prior ISO" : "new ISO", File.ReadAllText(output));
     }
 
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task IsoCapacityIncludesDriverSets(bool fits)
+    {
+        string work = Path.Combine(root, "work");
+        string media = Path.Combine(work, "media");
+        Directory.CreateDirectory(Path.Combine(media, "sources"));
+        Directory.CreateDirectory(Path.Combine(work, "bootbins"));
+        File.WriteAllText(Path.Combine(media, "sources", "boot.wim"), "boot");
+        string source = Path.Combine(root, "net.inf");
+        File.WriteAllText(source, "[Version]");
+        string hash = Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes("[Version]")));
+        string relative = $"Cache/DriverPacks/Custom/Packages/{hash}/files/net.inf";
+        using var drivers = new WinPeContentPackageMediaLease(ContentPackageKind.Drivers, new ContentPackageMediaManifest { Id = "drivers" }, Encoding.UTF8.GetBytes("{}"),
+            [new(source, relative, 9, hash)], [], []);
+        string staging = Path.Combine(root, "staging");
+        string output = Path.Combine(root, "out", "foundry.iso");
+        // Staging, the prepared output and the requested output share one volume and directory: two payload copies.
+        long required = 2 * (4 + drivers.TotalBytes + WinPeCustomImageMediaService.DataReserveBytes);
+
+        Task prepare = WinPeCustomImageIsoMastering.PrepareAsync(new() { WorkingDirectoryPath = work, MediaDirectoryPath = media },
+            null, null, drivers, staging, output, output, _ => fits ? required : required - 1, _ => "NTFS", TestContext.Current.CancellationToken);
+
+        if (fits)
+        {
+            await prepare;
+            Assert.Equal("[Version]", File.ReadAllText(Path.Combine(staging, "media", relative)));
+            Assert.True(File.Exists(Path.Combine(staging, "media", drivers.ManifestRelativePath)));
+        }
+        else
+        {
+            await Assert.ThrowsAsync<IOException>(() => prepare);
+            Assert.False(Directory.Exists(staging));
+        }
+    }
+
     private sealed class IsoRunner(Action<string, string> run) : IWinPeProcessRunner
     {
         public Task<WinPeProcessExecution> RunAsync(string file, string arguments, string working, CancellationToken token, IReadOnlyDictionary<string, string>? environmentOverrides = null)

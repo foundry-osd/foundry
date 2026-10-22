@@ -64,6 +64,8 @@ public static class WinPeProgressStatuses
     public const string CustomImagesVerified = "Custom Windows images verified.";
     public const string StagingPostInstallation = "Staging post-installation content.";
     public const string PostInstallationVerified = "Post-installation content verified.";
+    public const string StagingCustomDrivers = "Staging custom driver sets.";
+    public const string CustomDriversVerified = "Custom driver sets verified.";
 
     public const string ValidatingUsbTarget = "Validating USB target.";
     public const string CheckingUsbTargetSafety = "Checking USB target safety.";

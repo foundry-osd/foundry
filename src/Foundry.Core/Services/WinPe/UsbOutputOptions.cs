@@ -37,6 +37,8 @@ public sealed record UsbOutputOptions
     public WinPeCustomImageMediaLease? CustomImages { get; init; }
     /// <summary>Retains verified custom post-installation packages outside boot.wim.</summary>
     public WinPeContentPackageMediaLease? PostInstallation { get; init; }
+    /// <summary>Retains verified custom driver set packages outside boot.wim; published after post-installation content.</summary>
+    public WinPeContentPackageMediaLease? CustomDrivers { get; init; }
     public IProgress<WinPeDownloadProgress>? DownloadProgress { get; init; }
     public IProgress<WinPeMediaProgress>? Progress { get; init; }
     public bool PreserveBuildWorkspace { get; init; }

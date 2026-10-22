@@ -57,7 +57,7 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
         string? preparedOutputPath = null;
         string? safeWorkspacePath = null;
         string currentStage = "Prepare ISO output path";
-        bool hasExternalContent = options.CustomImages is not null || options.PostInstallation is not null;
+        bool hasExternalContent = options.CustomImages is not null || options.PostInstallation is not null || options.CustomDrivers is not null;
         string isoTool = hasExternalContent ? "Oscdimg" : "MakeWinPEMedia";
         StrongBox<int> finalizeRetryCount = new(0);
 
@@ -77,11 +77,13 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
                     WinPeCustomImageMediaService.ValidateConfigurationBinding(options.CustomImages, options.DeployConfigurationJson ?? string.Empty);
                 if (options.PostInstallation is not null)
                     WinPePreOobeMediaService.ValidateConfigurationBinding(options.PostInstallation, options.DeployConfigurationJson ?? string.Empty);
+                if (options.CustomDrivers is not null)
+                    WinPeCustomDriverSetMediaService.ValidateConfigurationBinding(options.CustomDrivers, options.DeployConfigurationJson ?? string.Empty);
                 _ = WinPeCustomImageIsoMastering.ResolveOscdimg(preparedWorkspace.Tools);
                 string temporaryRoot = string.IsNullOrWhiteSpace(options.IsoTempDirectoryPath)
                     ? Path.GetDirectoryName(preparedOutputPath)! : options.IsoTempDirectoryPath;
                 safeWorkspacePath = Path.Combine(temporaryRoot, "custom-iso-" + Guid.NewGuid().ToString("N"));
-                await WinPeCustomImageIsoMastering.PrepareAsync(preparedWorkspace.Artifact, options.CustomImages, options.PostInstallation,
+                await WinPeCustomImageIsoMastering.PrepareAsync(preparedWorkspace.Artifact, options.CustomImages, options.PostInstallation, options.CustomDrivers,
                     safeWorkspacePath, preparedOutputPath, requestedOutputPath, cancellationToken,
                     WinPeScaledProgress.Create(options.Progress, 20, 40)).ConfigureAwait(false);
                 makeWinPeMediaWorkspacePath = safeWorkspacePath;

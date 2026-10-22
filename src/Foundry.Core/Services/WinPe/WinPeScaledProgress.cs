@@ -29,6 +29,22 @@ internal sealed class WinPeScaledProgress : IProgress<WinPeMediaProgress>
         return parent is null ? null : new WinPeScaledProgress(parent, start, end);
     }
 
+    /// <summary>
+    /// Splits a progress range between external content copied in order: custom images, post-installation content,
+    /// then driver sets. Custom images are usually far larger, so the weights are 70, 15 and 15, normalized over the
+    /// content that is present; absent content gets an empty share.
+    /// </summary>
+    /// <returns>The percentages where the custom image share and the post-installation share end.</returns>
+    internal static (int ImagesEnd, int PostInstallationEnd) SplitExternalContent(int start, int end,
+        bool hasImages, bool hasPostInstallation, bool hasDrivers)
+    {
+        int images = hasImages ? 70 : 0;
+        int postInstallation = hasPostInstallation ? 15 : 0;
+        int total = images + postInstallation + (hasDrivers ? 15 : 0);
+        if (total == 0) return (start, start);
+        return (start + ((end - start) * images / total), start + ((end - start) * (images + postInstallation) / total));
+    }
+
     public void Report(WinPeMediaProgress value)
     {
         int percent = start + ((end - start) * Math.Clamp(value.Percent, 0, 100) / 100);

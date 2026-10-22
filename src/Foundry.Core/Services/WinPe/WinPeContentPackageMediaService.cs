@@ -23,6 +23,8 @@ public sealed class WinPeContentPackageMediaService : IWinPeContentPackageMediaP
     private static readonly JsonSerializerOptions MediaJsonOptions = new(ConfigurationJsonDefaults.SerializerOptions) { WriteIndented = false };
     private readonly ContentPackageKind kind;
     private readonly Func<string, long> availableBytes;
+    private readonly string stagingStatus;
+    private readonly string verifiedStatus;
 
     /// <summary>Creates a publisher for one content package kind.</summary>
     /// <param name="kind">The content package kind that drives the media root and the media manifest limit.</param>
@@ -34,6 +36,10 @@ public sealed class WinPeContentPackageMediaService : IWinPeContentPackageMediaP
         ArgumentNullException.ThrowIfNull(availableBytes);
         this.kind = kind;
         this.availableBytes = availableBytes;
+        // Statuses follow the kind so the progress text names the content being copied.
+        (stagingStatus, verifiedStatus) = kind == ContentPackageKind.Drivers
+            ? (WinPeProgressStatuses.StagingCustomDrivers, WinPeProgressStatuses.CustomDriversVerified)
+            : (WinPeProgressStatuses.StagingPostInstallation, WinPeProgressStatuses.PostInstallationVerified);
     }
 
     /// <summary>Freezes the referenced package versions before boot configuration is generated.</summary>
@@ -135,7 +141,7 @@ public sealed class WinPeContentPackageMediaService : IWinPeContentPackageMediaP
                     copied.Add((temporary, destination));
                 }
                 completed = checked(completed + file.Length);
-                progress?.Report(new() { Percent = (int)(completed * 90.0 / Math.Max(1, package.TotalBytes)), Status = WinPeProgressStatuses.StagingPostInstallation });
+                progress?.Report(new() { Percent = (int)(completed * 90.0 / Math.Max(1, package.TotalBytes)), Status = stagingStatus });
             }
             foreach (string directory in package.Directories) Directory.CreateDirectory(CustomImagePathPolicy.ResolveRelativePath(root, directory));
             foreach ((string temporary, string destination) in copied)
@@ -164,7 +170,7 @@ public sealed class WinPeContentPackageMediaService : IWinPeContentPackageMediaP
                 Directory.CreateDirectory(Path.GetDirectoryName(manifest)!);
                 File.Move(temporary, manifest);
             }
-            progress?.Report(new() { Percent = 100, Status = WinPeProgressStatuses.PostInstallationVerified });
+            progress?.Report(new() { Percent = 100, Status = verifiedStatus });
         }
         finally
         {
