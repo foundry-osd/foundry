@@ -38,6 +38,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     private readonly Foundry.Core.Services.Images.CustomImageLibraryService customImageLibrary;
     private readonly Foundry.Core.Services.Packages.ContentPackageLibraryService postInstallPackages;
     private readonly Foundry.Core.Services.Drivers.CustomDriverSetLibrary customDriverSetLibrary;
+    private readonly Foundry.Core.Services.Drivers.CustomDriverSetAvailabilityCache customDriverAvailability = new();
     private UnattendSettings? validatedUnattendSettings;
     private IReadOnlyList<UnattendSourceValidation> unattendSourceValidations = [];
     private readonly List<(UnattendSettings Settings, Task<IReadOnlyList<UnattendSourceValidation>> Read)> unattendSourceReads = [];
@@ -447,10 +448,28 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     }
 
     /// <inheritdoc />
-    public bool IsCustomDriversReady => CustomDriverSetsSettingsValidator.IsReady(Current.CustomDrivers, customDriverSetLibrary.IsAvailable);
+    public bool IsCustomDriversReady => customDriverAvailability.IsReady(Current.CustomDrivers);
 
     /// <inheritdoc />
-    public void RefreshCustomDriversReadiness() => StateChanged?.Invoke(this, EventArgs.Empty);
+    public bool? GetCustomDriverSetAvailability(string contentHash) => customDriverAvailability.GetAvailability(contentHash);
+
+    /// <inheritdoc />
+    public async Task RefreshCustomDriversReadinessAsync()
+    {
+        ContentPackageReference[] packages = Current.CustomDrivers.Sets.Select(set => set.Package)
+            .DistinctBy(package => package.ContentHash, StringComparer.OrdinalIgnoreCase).ToArray();
+        try
+        {
+            await Task.Run(() => customDriverAvailability.Inspect(customDriverSetLibrary, packages));
+        }
+        catch (Exception exception)
+        {
+            logger.Warning(exception, "Custom driver set availability could not be checked. PackageCount={PackageCount}", packages.Length);
+            return;
+        }
+
+        StateChanged?.Invoke(this, EventArgs.Empty);
+    }
 
     /// <inheritdoc />
     public void UpdateTelemetry(TelemetrySettings settings)

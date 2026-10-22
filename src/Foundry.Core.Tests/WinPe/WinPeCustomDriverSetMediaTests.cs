@@ -137,6 +137,31 @@ public sealed class WinPeCustomDriverSetMediaTests : IDisposable
         Assert.Null(library.TryCountInfFiles("not-a-hash"));
     }
 
+    [Fact]
+    public async Task AvailabilityCacheTreatsUninspectedSetsAsAvailableAndReportsInspectedMissingContent()
+    {
+        var (library, settings) = await InputsAsync();
+        var missing = new CustomDriverSetReference
+        {
+            Id = Guid.NewGuid().ToString("N"),
+            DisplayName = "Missing",
+            Package = settings.Sets[0].Package with { ContentHash = new string('b', 64) }
+        };
+        CustomDriverSetsSettings withMissing = settings with { Sets = [settings.Sets[0], missing] };
+        var cache = new CustomDriverSetAvailabilityCache();
+
+        Assert.Null(cache.GetAvailability(missing.Package.ContentHash));
+        Assert.True(cache.IsReady(withMissing));
+
+        cache.Inspect(library, withMissing.Sets.Select(set => set.Package));
+
+        Assert.True(cache.GetAvailability(settings.Sets[0].Package.ContentHash.ToUpperInvariant()));
+        Assert.False(cache.GetAvailability(missing.Package.ContentHash));
+        Assert.True(cache.IsReady(settings));
+        Assert.False(cache.IsReady(withMissing));
+        Assert.True(cache.IsReady(withMissing with { Sets = [settings.Sets[0], missing with { IsIncluded = false }] }));
+    }
+
     private async Task<(CustomDriverSetLibrary Library, CustomDriverSetsSettings Settings)> InputsAsync()
     {
         var library = new CustomDriverSetLibrary(Path.Combine(root, "library"));

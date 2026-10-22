@@ -182,13 +182,17 @@ public interface IFoundryConfigurationStateService
     void UpdateCustomDrivers(CustomDriverSetsSettings settings, bool requirePersistence = false);
 
     /// <summary>
-    /// Checks that an enabled section includes a set and that every included set is available in the local library;
-    /// full hash verification occurs when media preparation acquires the packages.
+    /// Checks that an enabled section includes a set and that no included set is known to be missing from the local library.
+    /// Availability comes from the cache filled by <see cref="RefreshCustomDriversReadinessAsync"/>, so this never touches the
+    /// filesystem; a set not inspected yet is not treated as missing. Full hash verification occurs when media preparation acquires the packages.
     /// </summary>
     bool IsCustomDriversReady { get; }
 
-    /// <summary>Invalidates overview readiness after local driver set content changes without changing the profile.</summary>
-    void RefreshCustomDriversReadiness();
+    /// <summary>Gets the cached library availability of a driver set package, or <see langword="null"/> when it was not inspected yet.</summary>
+    bool? GetCustomDriverSetAvailability(string contentHash);
+
+    /// <summary>Checks the library availability of every driver set of the profile off the UI thread, then publishes the updated readiness.</summary>
+    Task RefreshCustomDriversReadinessAsync();
 
     /// <summary>
     /// Replaces telemetry settings propagated into generated runtime configuration.

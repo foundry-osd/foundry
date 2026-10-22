@@ -330,6 +330,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     public async Task InitializeAsync()
     {
         RefreshEvaluation();
+        // Driver set availability is cached; check it off the UI thread so the overview and the media gate use current library state.
+        await foundryConfigurationStateService.RefreshCustomDriversReadinessAsync();
 
         if (adkService.CurrentStatus.CanCreateMediaFor(SelectedArchitecture?.Value ?? WinPeArchitecture.X64))
         {

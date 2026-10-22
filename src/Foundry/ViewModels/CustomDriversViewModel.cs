@@ -27,7 +27,8 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
     private readonly IApplicationLocalizationService localization;
     private readonly DeploymentProfileCoordinator profiles;
     private readonly CancellationTokenSource cancellation = new();
-    private readonly Dictionary<string, PackageState> packageStates = new(StringComparer.OrdinalIgnoreCase);
+    private readonly Dictionary<string, int?> infCounts = new(StringComparer.OrdinalIgnoreCase);
+    private readonly HashSet<string> requestedInspections = new(StringComparer.OrdinalIgnoreCase);
     private bool applying;
     private bool disposed;
     private bool libraryStateLoaded;
@@ -126,7 +127,7 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
         OnPropertyChanged(nameof(IncludeSymbol));
     }
 
-    /// <summary>Re-reads the library state of every set off the UI thread, then refreshes readiness.</summary>
+    /// <summary>Re-checks library availability (state service cache) and INF counts off the UI thread, then re-renders the table.</summary>
     [RelayCommand]
     public async Task RefreshAsync()
     {
@@ -135,13 +136,13 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
         IsBusy = true;
         try
         {
-            ContentPackageReference[] packages = DistinctPackages(state.Current.CustomDrivers);
-            var refreshed = await Task.Run(() => packages.ToDictionary(package => package.ContentHash, Inspect, StringComparer.OrdinalIgnoreCase));
+            await state.RefreshCustomDriversReadinessAsync();
             if (disposed) return;
-            packageStates.Clear();
-            foreach ((string hash, PackageState packageState) in refreshed) packageStates[hash] = packageState;
+            infCounts.Clear();
+            await LoadInfCountsAsync();
+            if (disposed) return;
             libraryStateLoaded = true;
-            state.RefreshCustomDriversReadiness();
+            ApplyState();
         }
         catch (Exception exception)
         {
@@ -173,11 +174,11 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
             CancellationToken token = cancellation.Token;
             // The library walks and hashes the whole folder; keep that work off the UI thread.
             ContentPackageReference package = await Task.Run(() => library.ImportAsync(source, token), token);
-            PackageState packageState = await Task.Run(() => Inspect(package), token);
+            int? infCount = await Task.Run(() => library.TryCountInfFiles(package.ContentHash), token);
             Logger.Information("Custom driver set import completed. ContentHash={ContentHash}, FileCount={FileCount}, Length={Length}, InfCount={InfCount}",
-                package.ContentHash, package.FileCount, package.Length, packageState.InfCount);
+                package.ContentHash, package.FileCount, package.Length, infCount);
             if (disposed) return;
-            packageStates[package.ContentHash] = packageState;
+            infCounts[package.ContentHash] = infCount;
             if (profiles.Active?.LocalId != profileId)
             {
                 Logger.Information("Custom driver set import not added because the active profile changed. ContentHash={ContentHash}", package.ContentHash);
@@ -347,27 +348,35 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
         finally { IsBusy = false; }
     }
 
-    private PackageState Inspect(ContentPackageReference package)
-    {
-        bool available = library.IsAvailable(package);
-        return new(available, available ? library.TryCountInfFiles(package.ContentHash) : null);
-    }
-
     private static ContentPackageReference[] DistinctPackages(CustomDriverSetsSettings settings) =>
         settings.Sets.Select(set => set.Package).DistinctBy(package => package.ContentHash, StringComparer.OrdinalIgnoreCase).ToArray();
 
-    /// <summary>Inspects packages that have no cached library state off the UI thread, then re-renders the table.</summary>
+    /// <summary>Reads the INF count of available packages without a count yet; the manifest read runs off the UI thread.</summary>
+    private async Task LoadInfCountsAsync()
+    {
+        ContentPackageReference[] packages = DistinctPackages(state.Current.CustomDrivers)
+            .Where(package => state.GetCustomDriverSetAvailability(package.ContentHash) == true && !infCounts.ContainsKey(package.ContentHash))
+            .ToArray();
+        if (packages.Length == 0) return;
+        var counts = await Task.Run(() => packages.Select(package => (package.ContentHash, Count: library.TryCountInfFiles(package.ContentHash))).ToArray());
+        foreach ((string hash, int? count) in counts) infCounts[hash] = count;
+    }
+
+    /// <summary>
+    /// Fills the availability cache and INF counts for sets that appeared after the initial load (profile switch, import).
+    /// Each package is requested once per page so a failing check cannot loop.
+    /// </summary>
     private async Task InspectUnknownPackagesAsync()
     {
         if (inspectingUnknown || disposed) return;
         inspectingUnknown = true;
         try
         {
-            ContentPackageReference[] packages = DistinctPackages(state.Current.CustomDrivers)
-                .Where(package => !packageStates.ContainsKey(package.ContentHash)).ToArray();
-            var inspected = await Task.Run(() => packages.Select(package => (package.ContentHash, State: Inspect(package))).ToArray());
+            if (DistinctPackages(state.Current.CustomDrivers).Any(package =>
+                state.GetCustomDriverSetAvailability(package.ContentHash) is null && requestedInspections.Add(package.ContentHash)))
+                await state.RefreshCustomDriversReadinessAsync();
             if (disposed) return;
-            foreach ((string hash, PackageState packageState) in inspected) packageStates[hash] = packageState;
+            await LoadInfCountsAsync();
         }
         catch (Exception exception)
         {
@@ -392,19 +401,21 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
             bool hasUnknownState = false;
             foreach (CustomDriverSetReference set in settings.Sets)
             {
-                // Library checks touch every file of a set, so unknown sets render as "checking" until a background inspection fills the cache.
-                packageStates.TryGetValue(set.Package.ContentHash, out PackageState? packageState);
-                hasUnknownState |= packageState is null;
+                // Availability comes from the state service cache; sets not checked yet render as "checking" without touching the filesystem.
+                string hash = set.Package.ContentHash;
+                bool? isAvailable = state.GetCustomDriverSetAvailability(hash);
+                int? infCount = isAvailable == true && infCounts.TryGetValue(hash, out int? count) ? count : null;
+                hasUnknownState |= (isAvailable is null && !requestedInspections.Contains(hash)) || (isAvailable == true && !infCounts.ContainsKey(hash));
                 bool isDefault = settings.DefaultSetId == set.Id;
-                string status = packageState is null ? Text("StatusChecking") :
-                    localization.GetString(packageState.IsAvailable ? "CustomImages.Available" : "CustomImages.Missing");
-                Sets.Add(new(set, packageState?.InfCount, ByteSizeFormatter.Format(localization, (ulong)set.Package.Length),
+                string status = isAvailable is null ? Text("StatusChecking") :
+                    localization.GetString(isAvailable.Value ? "CustomImages.Available" : "CustomImages.Missing");
+                Sets.Add(new(set, infCount, ByteSizeFormatter.Format(localization, (ulong)set.Package.Length),
                     localization.GetString(set.IsIncluded ? "CustomImages.Yes" : "CustomImages.No"),
                     localization.GetString(isDefault ? "CustomImages.Yes" : "CustomImages.No"),
-                    status, isDefault, packageState?.IsAvailable));
+                    status, isDefault, isAvailable));
             }
             SelectedSet = Sets.FirstOrDefault(row => row.Reference.Id == selectedId);
-            // The initial load is handled by RefreshAsync on Loaded; later unknown sets (profile switch) are inspected here.
+            // The initial load is handled by RefreshAsync on Loaded; sets that appear later are inspected here.
             if (hasUnknownState && libraryStateLoaded) _ = InspectUnknownPackagesAsync();
             OnPropertyChanged(nameof(HasReadinessIssue));
             OnPropertyChanged(nameof(ReadinessMessage));
@@ -431,9 +442,6 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
         cancellation.Cancel();
         cancellation.Dispose();
     }
-
-    /// <summary>Library state of one package: whether its files are present and, when they are, how many INF files it holds.</summary>
-    private sealed record PackageState(bool IsAvailable, int? InfCount);
 }
 
 /// <summary>Displays one driver set of the active profile with its library state.</summary>
