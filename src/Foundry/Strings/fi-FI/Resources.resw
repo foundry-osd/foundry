@@ -784,8 +784,8 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Valitse ohjainkansio</value>
   </data>
-  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
-    <value>Kopioidaan ja tarkistetaan ohjaintiedostoja… {0} %</value>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Kopioidaan ja tarkistetaan ohjaintiedostoja…</value>
   </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Tämä kansio sisältää symbolisen linkin, liitoskohdan tai pilvipaikkamerkin. Kopioi ohjaimet tavalliseen paikalliseen kansioon ja yritä sitten uudelleen.</value>

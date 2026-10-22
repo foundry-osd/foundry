@@ -784,8 +784,8 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Treiberordner auswählen</value>
   </data>
-  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
-    <value>Treiberdateien werden kopiert und überprüft… {0} %</value>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Treiberdateien werden kopiert und überprüft…</value>
   </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Dieser Ordner enthält eine symbolische Verknüpfung, eine Verzeichnisverbindung oder einen Cloud-Platzhalter. Kopieren Sie die Treiber in einen normalen lokalen Ordner, und versuchen Sie es dann erneut.</value>

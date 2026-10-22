@@ -784,8 +784,8 @@
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Изберете папка с драйвери</value>
   </data>
-  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
-    <value>Копиране и проверка на файловете на драйверите… {0} %</value>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Копиране и проверка на файловете на драйверите…</value>
   </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Тази папка съдържа символна връзка, точка на свързване или запазено място в облака. Копирайте драйверите в обикновена локална папка и опитайте отново.</value>

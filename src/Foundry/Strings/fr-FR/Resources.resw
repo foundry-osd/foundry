@@ -784,8 +784,8 @@ Sous licence MIT.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Sélectionner un dossier de pilotes</value>
   </data>
-  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
-    <value>Copie et vérification des fichiers de pilotes… {0} %</value>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Copie et vérification des fichiers de pilotes…</value>
   </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Ce dossier contient un lien symbolique, une jonction ou un espace réservé cloud. Copiez les pilotes dans un dossier local ordinaire, puis réessayez.</value>

@@ -784,8 +784,8 @@
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Επιλέξτε φάκελο προγραμμάτων οδήγησης</value>
   </data>
-  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
-    <value>Αντιγραφή και επαλήθευση αρχείων προγραμμάτων οδήγησης… {0} %</value>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Αντιγραφή και επαλήθευση αρχείων προγραμμάτων οδήγησης…</value>
   </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Αυτός ο φάκελος περιέχει συμβολική σύνδεση, σημείο σύνδεσης ή σύμβολο κράτησης θέσης cloud. Αντιγράψτε τα προγράμματα οδήγησης σε έναν κανονικό τοπικό φάκελο και δοκιμάστε ξανά.</value>

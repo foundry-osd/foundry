@@ -784,8 +784,8 @@ Licencováno pod licencí MIT.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Vyberte složku s ovladači</value>
   </data>
-  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
-    <value>Kopírování a ověřování souborů ovladačů… {0} %</value>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Kopírování a ověřování souborů ovladačů…</value>
   </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Tato složka obsahuje symbolický odkaz, spojení nebo zástupný symbol cloudu. Zkopírujte ovladače do běžné místní složky a zkuste to znovu.</value>

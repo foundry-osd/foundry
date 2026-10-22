@@ -784,8 +784,8 @@
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>בחירת תיקיית מנהלי התקנים</value>
   </data>
-  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
-    <value>מעתיק ומאמת קובצי מנהלי התקנים… {0}%</value>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>מעתיק ומאמת קובצי מנהלי התקנים…</value>
   </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>תיקיה זו מכילה קישור סמלי, צומת או מציין מקום בענן. יש להעתיק את מנהלי ההתקנים לתיקיה מקומית רגילה ולנסות שוב.</value>

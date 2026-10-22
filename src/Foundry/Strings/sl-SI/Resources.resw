@@ -784,8 +784,8 @@ Licencirano pod licenco MIT.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Izberite mapo z gonilniki</value>
   </data>
-  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
-    <value>Kopiranje in preverjanje datotek gonilnikov… {0} %</value>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Kopiranje in preverjanje datotek gonilnikov…</value>
   </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Ta mapa vsebuje simbolno povezavo, stičišče ali označbo mesta v oblaku. Kopirajte gonilnike v običajno lokalno mapo in poskusite znova.</value>

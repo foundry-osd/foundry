@@ -784,8 +784,8 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Bir sürücü klasörü seçin</value>
   </data>
-  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
-    <value>Sürücü dosyaları kopyalanıyor ve doğrulanıyor… %{0}</value>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Sürücü dosyaları kopyalanıyor ve doğrulanıyor…</value>
   </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Bu klasör bir sembolik bağlantı, bir birleşim noktası veya bir bulut yer tutucusu içeriyor. Sürücüleri normal bir yerel klasöre kopyalayın, ardından yeniden deneyin.</value>

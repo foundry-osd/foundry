@@ -784,8 +784,8 @@ Licensierad under MIT-licensen.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Välj en drivrutinsmapp</value>
   </data>
-  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
-    <value>Kopierar och verifierar drivrutinsfiler… {0} %</value>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Kopierar och verifierar drivrutinsfiler…</value>
   </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Den här mappen innehåller en symbolisk länk, en knutpunkt eller en molnplatshållare. Kopiera drivrutinerna till en vanlig lokal mapp och försök sedan igen.</value>

@@ -16,7 +16,8 @@
     PrimaryButtonText="{x:Bind ViewModel.ImportLabel, Mode=OneWay}"
     Style="{ThemeResource DefaultContentDialogStyle}">
     <StackPanel
-        Width="{ThemeResource FoundryWideInputMinWidth}"
+        Width="{ThemeResource FoundryDialogMinWidth}"
+        Padding="0,4,0,8"
         Spacing="{ThemeResource FoundryContentGroupSpacing}">
         <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
             <Grid.ColumnDefinitions>
@@ -50,17 +51,31 @@
                 Visibility="{x:Bind ViewModel.HasNameValidation, Mode=OneWay}" />
         </StackPanel>
         <StackPanel
-            Spacing="{ThemeResource FoundryTextGroupSpacing}"
+            Spacing="{ThemeResource FoundryContentGroupSpacing}"
             Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}">
-            <ProgressBar
-                AutomationProperties.Name="{x:Bind ViewModel.ProgressText, Mode=OneWay}"
-                Maximum="100"
-                Value="{x:Bind ViewModel.Progress, Mode=OneWay}" />
             <TextBlock
                 AutomationProperties.LiveSetting="Polite"
-                Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
                 Text="{x:Bind ViewModel.ProgressText, Mode=OneWay}"
-                TextWrapping="WrapWholeWords" />
+                TextWrapping="Wrap" />
+            <Grid ColumnSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ProgressBar
+                    VerticalAlignment="Center"
+                    AutomationProperties.Name="{x:Bind ViewModel.ProgressText, Mode=OneWay}"
+                    Maximum="100"
+                    Minimum="0"
+                    Value="{x:Bind ViewModel.Progress, Mode=OneWay}" />
+                <TextBlock
+                    Grid.Column="1"
+                    MinWidth="40"
+                    VerticalAlignment="Center"
+                    AutomationProperties.AccessibilityView="Raw"
+                    Text="{x:Bind ViewModel.ProgressPercentText, Mode=OneWay}"
+                    TextAlignment="Right" />
+            </Grid>
         </StackPanel>
         <InfoBar
             IsClosable="False"

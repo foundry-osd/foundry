@@ -784,8 +784,8 @@ Licenciran prema MIT licenci.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Odaberite mapu s upravljačkim programima</value>
   </data>
-  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
-    <value>Kopiranje i provjera datoteka upravljačkih programa… {0} %</value>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Kopiranje i provjera datoteka upravljačkih programa…</value>
   </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Ova mapa sadrži simboličku vezu, spoj ili rezervirano mjesto u oblaku. Kopirajte upravljačke programe u običnu lokalnu mapu, a zatim pokušajte ponovno.</value>

@@ -784,8 +784,8 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>드라이버 폴더 선택</value>
   </data>
-  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
-    <value>드라이버 파일을 복사하고 확인하는 중… {0}%</value>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>드라이버 파일을 복사하고 확인하는 중…</value>
   </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>이 폴더에 기호화된 링크, 연결 지점 또는 클라우드 자리 표시자가 있습니다. 드라이버를 일반 로컬 폴더로 복사한 다음 다시 시도하세요.</value>

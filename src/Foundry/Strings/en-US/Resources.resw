@@ -784,8 +784,8 @@ Licensed under the MIT License.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Select a driver folder</value>
   </data>
-  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
-    <value>Copying and verifying driver files… {0}%</value>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Copying and verifying driver files…</value>
   </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>This folder contains a symbolic link, a junction or a cloud placeholder. Copy the drivers to a regular local folder, then try again.</value>

@@ -784,8 +784,8 @@
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>เลือกโฟลเดอร์ไดรเวอร์</value>
   </data>
-  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
-    <value>กำลังคัดลอกและตรวจสอบไฟล์ไดรเวอร์… {0}%</value>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>กำลังคัดลอกและตรวจสอบไฟล์ไดรเวอร์…</value>
   </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>โฟลเดอร์นี้มีลิงก์สัญลักษณ์ จุดเชื่อมต่อ หรือตัวยึดตำแหน่งบนคลาวด์ คัดลอกไดรเวอร์ไปยังโฟลเดอร์ในเครื่องทั่วไป แล้วลองอีกครั้ง</value>

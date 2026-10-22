@@ -784,8 +784,8 @@
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>حدد مجلد برامج تشغيل</value>
   </data>
-  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
-    <value>جارٍ نسخ ملفات برامج التشغيل والتحقق منها… {0}%</value>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>جارٍ نسخ ملفات برامج التشغيل والتحقق منها…</value>
   </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>يحتوي هذا المجلد على ارتباط رمزي أو نقطة توصيل أو عنصر نائب سحابي. انسخ برامج التشغيل إلى مجلد محلي عادي، ثم حاول مرة أخرى.</value>

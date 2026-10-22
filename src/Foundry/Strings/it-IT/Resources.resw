@@ -784,8 +784,8 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Seleziona una cartella di driver</value>
   </data>
-  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
-    <value>Copia e verifica dei file dei driver in corso… {0}%</value>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Copia e verifica dei file dei driver in corso…</value>
   </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Questa cartella contiene un collegamento simbolico, una giunzione o un segnaposto cloud. Copia i driver in una normale cartella locale, quindi riprova.</value>

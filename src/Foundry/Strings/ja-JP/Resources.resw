@@ -784,8 +784,8 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>ドライバー フォルダーを選択</value>
   </data>
-  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
-    <value>ドライバー ファイルをコピーして検証しています… {0}%</value>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>ドライバー ファイルをコピーして検証しています…</value>
   </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>このフォルダーには、シンボリック リンク、ジャンクション、またはクラウド プレースホルダーが含まれています。ドライバーを通常のローカル フォルダーにコピーしてから、もう一度お試しください。</value>

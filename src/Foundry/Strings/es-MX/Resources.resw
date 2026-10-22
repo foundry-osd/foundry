@@ -784,8 +784,8 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Seleccionar una carpeta de controladores</value>
   </data>
-  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
-    <value>Copiando y verificando los archivos de controladores… {0} %</value>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Copiando y verificando los archivos de controladores…</value>
   </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Esta carpeta contiene un vínculo simbólico, una unión o un marcador de posición en la nube. Copie los controladores a una carpeta local normal e inténtelo de nuevo.</value>

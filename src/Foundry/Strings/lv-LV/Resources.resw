@@ -784,8 +784,8 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Atlasiet draiveru mapi</value>
   </data>
-  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
-    <value>Notiek draiveru failu kopēšana un pārbaude… {0}%</value>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Notiek draiveru failu kopēšana un pārbaude…</value>
   </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Šajā mapē ir simboliskā saite, savienojuma punkts vai mākoņa vietturis. Kopējiet draiverus parastā lokālā mapē un mēģiniet vēlreiz.</value>

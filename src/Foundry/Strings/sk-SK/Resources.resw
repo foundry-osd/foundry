@@ -784,8 +784,8 @@ Licencované podľa licencie MIT.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Vyberte priečinok s ovládačmi</value>
   </data>
-  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
-    <value>Kopírujú sa a overujú súbory ovládačov… {0} %</value>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Kopírujú sa a overujú súbory ovládačov…</value>
   </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Tento priečinok obsahuje symbolické prepojenie, spojenie alebo zástupný symbol cloudu. Skopírujte ovládače do bežného lokálneho priečinka a skúste to znova.</value>

@@ -784,8 +784,8 @@ Licențiat sub licența MIT.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Selectați un folder de drivere</value>
   </data>
-  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
-    <value>Se copiază și se verifică fișierele driverelor… {0} %</value>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Se copiază și se verifică fișierele driverelor…</value>
   </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Acest folder conține o legătură simbolică, o joncțiune sau un substituent în cloud. Copiați driverele într-un folder local obișnuit, apoi încercați din nou.</value>

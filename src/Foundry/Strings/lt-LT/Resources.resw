@@ -784,8 +784,8 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Pasirinkite tvarkyklių aplanką</value>
   </data>
-  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
-    <value>Kopijuojami ir tikrinami tvarkyklių failai… {0} %</value>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Kopijuojami ir tikrinami tvarkyklių failai…</value>
   </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Šiame aplanke yra simbolinė nuoroda, sankirta arba debesies vietos rezervavimo ženklas. Nukopijuokite tvarkykles į įprastą vietinį aplanką ir bandykite dar kartą.</value>

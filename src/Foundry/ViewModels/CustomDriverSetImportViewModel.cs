@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Globalization;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Configuration;
@@ -48,7 +49,7 @@ public sealed partial class CustomDriverSetImportViewModel : ObservableObject, I
     [NotifyPropertyChangedFor(nameof(CanImport), nameof(CanEdit))]
     public partial bool IsBusy { get; set; }
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(ProgressText))]
+    [NotifyPropertyChangedFor(nameof(ProgressPercentText))]
     public partial double Progress { get; set; }
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HasMessage))]
@@ -62,7 +63,8 @@ public sealed partial class CustomDriverSetImportViewModel : ObservableObject, I
     public bool HasNameValidation => !string.IsNullOrEmpty(NameValidationMessage);
     public string NameValidationMessage => existingNames.Contains(DisplayName.Trim()) ? Text("DuplicateName") : string.Empty;
     public int MaximumNameLength => CustomDriverSetsSettingsValidator.MaximumDisplayNameLength;
-    public string ProgressText => localization.FormatString("CustomDrivers.ImportProgressFormat", (int)Math.Floor(Progress));
+    public string ProgressText => Text("ImportProgressStatus");
+    public string ProgressPercentText => (Math.Clamp(Progress, 0d, 100d) / 100d).ToString("P0", CultureInfo.CurrentUICulture);
     public string Title => Text("ImportLabel");
     public string ImportLabel => Text("ImportButton");
     public string FolderLabel => Text("ImportFolderLabel");

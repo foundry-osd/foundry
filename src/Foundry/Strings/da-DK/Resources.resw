@@ -784,8 +784,8 @@ Licenseret under MIT-licensen.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Vælg en drivermappe</value>
   </data>
-  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
-    <value>Kopierer og kontrollerer driverfiler… {0} %</value>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Kopierer og kontrollerer driverfiler…</value>
   </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Denne mappe indeholder et symbolsk link, en forbindelse eller en cloudpladsholder. Kopiér driverne til en almindelig lokal mappe, og prøv derefter igen.</value>
