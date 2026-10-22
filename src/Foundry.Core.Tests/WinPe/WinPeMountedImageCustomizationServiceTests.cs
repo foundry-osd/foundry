@@ -144,7 +144,7 @@ public sealed class WinPeMountedImageCustomizationServiceTests
     }
 
     [Fact]
-    public async Task CustomizeAsync_ForWinReWifi_AppliesDependencyFilesBeforeDriverInjection()
+    public async Task CustomizeAsync_ForWinReWithWifi_AppliesDependencyFilesBeforeDriverInjection()
     {
         using TempWinPeArtifact temp = TempWinPeArtifact.Create();
         string stagedDependency = Path.Combine(temp.RootPath, "cache", "wireless", "dmcmnutils.dll");
