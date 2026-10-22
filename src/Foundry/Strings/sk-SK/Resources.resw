@@ -736,6 +736,102 @@ Licencované podľa licencie MIT.</value>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>nedostupné</value>
   </data>
+  <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
+    <value>Tento priečinok už v tomto profile je ako {0}.</value>
+  </data>
+  <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
+    <value>Sada ovládačov bola odstránená, ale jej lokálnu kópiu sa nepodarilo odstrániť.</value>
+  </data>
+  <data name="CustomDrivers.DefaultLabel" xml:space="preserve">
+    <value>Predvolená sada</value>
+  </data>
+  <data name="CustomDrivers.DefaultSetName" xml:space="preserve">
+    <value>Sada ovládačov</value>
+  </data>
+  <data name="CustomDrivers.DuplicateName" xml:space="preserve">
+    <value>V tomto profile už existuje sada ovládačov s týmto názvom.</value>
+  </data>
+  <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
+    <value>Žiadne vlastné sady ovládačov. Začnite importom priečinka, ktorý obsahuje ovládače .inf.</value>
+  </data>
+  <data name="CustomDrivers.EnableLabel" xml:space="preserve">
+    <value>Povoliť vlastné ovládače</value>
+  </data>
+  <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
+    <value>Súbory</value>
+  </data>
+  <data name="CustomDrivers.ImportFailed" xml:space="preserve">
+    <value>Sadu ovládačov sa nepodarilo importovať. Skontrolujte prístup k priečinku a skúste to znova. Podrobnosti sú v denníku.</value>
+  </data>
+  <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
+    <value>Na disku nie je dostatok voľného miesta na import tejto sady ovládačov. Uvoľnite miesto a skúste to znova.</value>
+  </data>
+  <data name="CustomDrivers.ImportInvalidPath" xml:space="preserve">
+    <value>Cesta v tomto priečinku je príliš dlhá alebo neplatná: {0}. Skráťte ju alebo premenujte a skúste to znova.</value>
+  </data>
+  <data name="CustomDrivers.ImportLabel" xml:space="preserve">
+    <value>Importovať priečinok</value>
+  </data>
+  <data name="CustomDrivers.ImportMissingInf" xml:space="preserve">
+    <value>Tento priečinok neobsahuje žiadny súbor .inf. Vyberte priečinok s ovládačmi INF.</value>
+  </data>
+  <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
+    <value>Vyberte priečinok s ovládačmi</value>
+  </data>
+  <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
+    <value>Tento priečinok obsahuje symbolické prepojenie, spojenie alebo zástupný symbol cloudu. Skopírujte ovládače do bežného lokálneho priečinka a skúste to znova.</value>
+  </data>
+  <data name="CustomDrivers.ImportSourceChanged" xml:space="preserve">
+    <value>Priečinok sa počas kopírovania zmenil. Zatvorte programy, ktoré doň zapisujú, a skúste to znova.</value>
+  </data>
+  <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
+    <value>Tento priečinok obsahuje pre sadu ovládačov príliš veľa súborov alebo podpriečinkov.</value>
+  </data>
+  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
+    <value>Kopírujú sa a overujú súbory ovládačov…</value>
+  </data>
+  <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
+    <value>Súbory INF</value>
+  </data>
+  <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
+    <value>Sady ovládačov</value>
+  </data>
+  <data name="CustomDrivers.PxeWarning" xml:space="preserve">
+    <value>Nie je k dispozícii pri spustení cez PXE. Vlastné ovládače vyžadujú úplné médium ISO alebo USB.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
+    <value>Sady ovládačov tohto profilu nie sú platné. Pred vytvorením alebo aktualizáciou média skontrolujte zahrnuté sady a predvolenú sadu.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
+    <value>Lokálna kópia sady {0} chýba alebo je poškodená. Pred vytvorením alebo aktualizáciou média priečinok znova importujte alebo sadu vylúčte.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
+    <value>Pred vytvorením alebo aktualizáciou média zahrňte do tohto profilu aspoň jednu sadu ovládačov alebo vypnite vlastné ovládače.</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
+    <value>Odstrániť sadu ovládačov</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) sa odstráni z aktuálneho profilu.</value>
+  </data>
+  <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
+    <value>Sadu ovládačov sa nepodarilo odstrániť. Skúste to znova.</value>
+  </data>
+  <data name="CustomDrivers.RemoveTitle" xml:space="preserve">
+    <value>Odstrániť sadu ovládačov?</value>
+  </data>
+  <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
+    <value>Jej lokálna kópia sa odstráni, ak ju nepoužíva iný profil. Pôvodný priečinok a existujúce médiá sa nezmenia.</value>
+  </data>
+  <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
+    <value>Nastaviť ako predvolenú</value>
+  </data>
+  <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
+    <value>Tento profil dosiahol maximálny počet sád ovládačov. Pred importom ďalšej jednu odstráňte.</value>
+  </data>
+  <data name="CustomDrivers.StageVerifying" xml:space="preserve">
+    <value>Overujú sa vlastné sady ovládačov…</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architektúra</value>
   </data>
@@ -2458,6 +2554,12 @@ Licencované podľa licencie MIT.</value>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
   </data>
+  <data name="Nav_CustomDriversKey.Description" xml:space="preserve">
+    <value>Importujte priečinky s ovládačmi a ponúknite ich ako zdroj ovládačov vo Foundry Deploy.</value>
+  </data>
+  <data name="Nav_CustomDriversKey.Title" xml:space="preserve">
+    <value>Vlastné ovládače</value>
+  </data>
   <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
     <value>Importujte obrazy systému Windows zo súborov ISO alebo WIM a zahrňte ich do médií na nasadenie.</value>
   </data>
@@ -3544,10 +3646,10 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
     <value>Vytvoriť USB</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>Voliteľný priečinok obsahujúci ďalšie ovládače .inf.</value>
+    <value>Voliteľný priečinok ovládačov .inf pridávaných do zavádzacieho obrazu WinPE.</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>Vlastný priečinok ovládača</value>
+    <value>Ďalší priečinok ovládačov WinPE</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
     <value>Vyberte priečinok vlastného ovládača</value>
@@ -3556,10 +3658,10 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>Vyberte voliteľné ovládače dodávateľa a vlastný priečinok ovládačov.</value>
+    <value>Ovládače pridávané iba do zavádzacieho obrazu WinPE, napríklad sieťové a úložné ovládače. Ak chcete pridať ovládače do nasadeného systému Windows, použite stránku Vlastné ovládače.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Možnosti ovládača</value>
+    <value>Ovládače WinPE</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3651,6 +3753,9 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>Ukladá sa zavádzací obraz…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingCustomDrivers" xml:space="preserve">
+    <value>Kopírujú sa vlastné sady ovládačov…</value>
+  </data>
   <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
     <value>Kopírujú sa vlastné obrazy systému Windows…</value>
   </data>
@@ -3666,8 +3771,14 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Vytvára sa oddiel vyrovnávacej pamäte…</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
+    <value>Nepoužívané vlastné sady ovládačov sa nepodarilo odstrániť z jednotky USB.</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Vlastné ovládače zaberajú aspoň {0}; maximum je {1}. Vyberte iba sieťové ovládače a ovládače úložiska potrebné pre Windows PE.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversVerified" xml:space="preserve">
+    <value>Vlastné sady ovládačov boli overené.</value>
   </data>
   <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
     <value>{0} ({1})</value>

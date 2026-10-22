@@ -19,13 +19,17 @@ public sealed class ContentPackagePathPolicy
     /// <summary>Policy for post-installation packages, whose short limits suit legacy installer tools.</summary>
     public static ContentPackagePathPolicy PostInstallation { get; } = new(ContentPackageKind.PostInstallation);
 
+    /// <summary>Key of <see cref="Exception.Data"/> that holds the rejected relative path of a <c>ContentPackage.InvalidPackagePath</c> error.</summary>
+    /// <remarks>The message stays the stable error code; the path travels separately so the UI can name it.</remarks>
+    public const string RelativePathDataKey = "RelativePath";
+
     public static bool IsValidHash(string? hash) => hash is { Length: 64 } && hash.All(Uri.IsHexDigit);
 
     /// <summary>Validates path syntax and the kind's relative path length.</summary>
     public void ValidateRelativePath(string? path)
     {
         if (path?.Length > kind.MaximumRelativePathLength)
-            throw new InvalidDataException("ContentPackage.InvalidPackagePath");
+            throw InvalidPath(path);
         ValidatePathSyntax(path);
     }
 
@@ -33,19 +37,19 @@ public sealed class ContentPackagePathPolicy
     internal static void ValidatePathSyntax(string? path)
     {
         if (string.IsNullOrWhiteSpace(path) || Path.IsPathRooted(path) || path.Contains('\\'))
-            throw new InvalidDataException("ContentPackage.InvalidPackagePath");
+            throw InvalidPath(path);
         foreach (string component in path.Split('/'))
         {
             if (component.Length is 0 or > 255 || component is "." or ".." || component.EndsWith('.') || component.EndsWith(' ') ||
                 component.Any(character => character < 32 || "<>:\"|?*".Contains(character)))
-                throw new InvalidDataException("ContentPackage.InvalidPackagePath");
+                throw InvalidPath(path);
             string basename = component.Split('.')[0];
             if (basename.Equals("CON", StringComparison.OrdinalIgnoreCase) || basename.Equals("PRN", StringComparison.OrdinalIgnoreCase) ||
                 basename.Equals("AUX", StringComparison.OrdinalIgnoreCase) || basename.Equals("NUL", StringComparison.OrdinalIgnoreCase) ||
                 basename.Equals("CONIN$", StringComparison.OrdinalIgnoreCase) || basename.Equals("CONOUT$", StringComparison.OrdinalIgnoreCase) ||
                 (basename.Length == 4 && (basename.StartsWith("COM", StringComparison.OrdinalIgnoreCase) || basename.StartsWith("LPT", StringComparison.OrdinalIgnoreCase)) &&
                     "123456789¹²³".Contains(basename[3])))
-                throw new InvalidDataException("ContentPackage.InvalidPackagePath");
+                throw InvalidPath(path);
         }
     }
 
@@ -65,8 +69,15 @@ public sealed class ContentPackagePathPolicy
         string fullRoot = Path.TrimEndingDirectorySeparator(Path.GetFullPath(root));
         string resolved = Path.GetFullPath(Path.Combine(fullRoot, relativePath.Replace('/', Path.DirectorySeparatorChar)));
         if (!resolved.StartsWith(fullRoot + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) || resolved.Length > kind.MaximumFullPathLength)
-            throw new InvalidDataException("ContentPackage.InvalidPackagePath");
+            throw InvalidPath(relativePath);
         return resolved;
+    }
+
+    private static InvalidDataException InvalidPath(string? relativePath)
+    {
+        var exception = new InvalidDataException("ContentPackage.InvalidPackagePath");
+        if (relativePath is not null) exception.Data[RelativePathDataKey] = relativePath;
+        return exception;
     }
 
     public static void ValidateNoReparsePoints(string path)

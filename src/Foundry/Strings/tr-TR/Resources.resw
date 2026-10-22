@@ -736,6 +736,102 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Kullanılamıyor</value>
   </data>
+  <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
+    <value>Bu klasör bu profilde zaten {0} olarak bulunuyor.</value>
+  </data>
+  <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
+    <value>Sürücü kümesi kaldırıldı ancak yerel kopyası silinemedi.</value>
+  </data>
+  <data name="CustomDrivers.DefaultLabel" xml:space="preserve">
+    <value>Varsayılan küme</value>
+  </data>
+  <data name="CustomDrivers.DefaultSetName" xml:space="preserve">
+    <value>Sürücü kümesi</value>
+  </data>
+  <data name="CustomDrivers.DuplicateName" xml:space="preserve">
+    <value>Bu profilde bu ada sahip bir sürücü kümesi zaten var.</value>
+  </data>
+  <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
+    <value>Özel sürücü kümesi yok. Başlamak için .inf sürücüleri içeren bir klasörü içeri aktarın.</value>
+  </data>
+  <data name="CustomDrivers.EnableLabel" xml:space="preserve">
+    <value>Özel sürücüleri etkinleştir</value>
+  </data>
+  <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
+    <value>Dosyalar</value>
+  </data>
+  <data name="CustomDrivers.ImportFailed" xml:space="preserve">
+    <value>Sürücü kümesi içeri aktarılamadı. Klasöre erişimi denetleyin, ardından yeniden deneyin. Ayrıntılar günlükte yer alır.</value>
+  </data>
+  <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
+    <value>Bu sürücü kümesini içeri aktarmak için yeterli boş disk alanı yok. Yer açın, ardından yeniden deneyin.</value>
+  </data>
+  <data name="CustomDrivers.ImportInvalidPath" xml:space="preserve">
+    <value>Bu klasördeki bir yol çok uzun veya geçersiz: {0}. Yolu kısaltın veya yeniden adlandırın, ardından yeniden deneyin.</value>
+  </data>
+  <data name="CustomDrivers.ImportLabel" xml:space="preserve">
+    <value>Klasörü içeri aktar</value>
+  </data>
+  <data name="CustomDrivers.ImportMissingInf" xml:space="preserve">
+    <value>Bu klasör hiç .inf dosyası içermiyor. INF sürücüleri içeren bir klasör seçin.</value>
+  </data>
+  <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
+    <value>Bir sürücü klasörü seçin</value>
+  </data>
+  <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
+    <value>Bu klasör bir sembolik bağlantı, bir birleşim noktası veya bir bulut yer tutucusu içeriyor. Sürücüleri normal bir yerel klasöre kopyalayın, ardından yeniden deneyin.</value>
+  </data>
+  <data name="CustomDrivers.ImportSourceChanged" xml:space="preserve">
+    <value>Klasör kopyalanırken değişti. Klasöre yazan programları kapatın, ardından yeniden deneyin.</value>
+  </data>
+  <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
+    <value>Bu klasör bir sürücü kümesi için çok fazla dosya veya alt klasör içeriyor.</value>
+  </data>
+  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
+    <value>Sürücü dosyaları kopyalanıyor ve doğrulanıyor…</value>
+  </data>
+  <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
+    <value>INF dosyaları</value>
+  </data>
+  <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
+    <value>Sürücü kümeleri</value>
+  </data>
+  <data name="CustomDrivers.PxeWarning" xml:space="preserve">
+    <value>PXE önyüklemesiyle kullanılamaz. Özel sürücüler tam ISO veya USB medyasını gerektirir.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
+    <value>Bu profilin sürücü kümeleri geçerli değil. Medya oluşturmadan veya güncelleştirmeden önce dahil edilen kümeleri ve varsayılan kümeyi denetleyin.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
+    <value>{0} öğesinin yerel kopyası eksik veya hasarlı. Medya oluşturmadan veya güncelleştirmeden önce klasörü yeniden içeri aktarın ya da kümeyi hariç tutun.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
+    <value>Medya oluşturmadan veya güncelleştirmeden önce bu profile en az bir sürücü kümesi ekleyin ya da özel sürücüleri kapatın.</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
+    <value>Sürücü kümesini kaldır</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) geçerli profilden kaldırılacak.</value>
+  </data>
+  <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
+    <value>Sürücü kümesi kaldırılamadı. Yeniden deneyin.</value>
+  </data>
+  <data name="CustomDrivers.RemoveTitle" xml:space="preserve">
+    <value>Sürücü kümesi kaldırılsın mı?</value>
+  </data>
+  <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
+    <value>Başka bir profil kullanmıyorsa yerel kopyası silinir. Özgün klasör ve mevcut medya değiştirilmez.</value>
+  </data>
+  <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
+    <value>Varsayılan olarak ayarla</value>
+  </data>
+  <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
+    <value>Bu profil en fazla sürücü kümesi sayısına ulaştı. Başka bir küme içeri aktarmadan önce birini kaldırın.</value>
+  </data>
+  <data name="CustomDrivers.StageVerifying" xml:space="preserve">
+    <value>Özel sürücü kümeleri doğrulanıyor…</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Mimari</value>
   </data>
@@ -2458,6 +2554,12 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
   </data>
+  <data name="Nav_CustomDriversKey.Description" xml:space="preserve">
+    <value>Sürücü klasörlerini içeri aktarın ve Foundry Deploy'da sürücü kaynağı olarak sunun.</value>
+  </data>
+  <data name="Nav_CustomDriversKey.Title" xml:space="preserve">
+    <value>Özel sürücüler</value>
+  </data>
   <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
     <value>Windows görüntülerini ISO veya WIM dosyalarından içeri aktarın ve dağıtım medyasına ekleyin.</value>
   </data>
@@ -3544,10 +3646,10 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>USB oluştur</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>Ek .inf sürücülerini içeren isteğe bağlı klasör.</value>
+    <value>WinPE önyükleme görüntüsüne eklenen .inf sürücülerinin bulunduğu isteğe bağlı klasör.</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>Özel sürücü klasörü</value>
+    <value>Ek WinPE sürücü klasörü</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
     <value>Özel sürücü klasörünü seçin</value>
@@ -3556,10 +3658,10 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>İsteğe bağlı satıcı sürücülerini ve özel bir sürücü klasörünü seçin.</value>
+    <value>Yalnızca WinPE önyükleme görüntüsüne eklenen ağ ve depolama sürücüleri gibi sürücüler. Dağıtılan Windows'a sürücü eklemek için Özel sürücüler sayfasını kullanın.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Sürücü seçenekleri</value>
+    <value>WinPE sürücüleri</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3651,6 +3753,9 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>Önyükleme görüntüsü kaydediliyor…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingCustomDrivers" xml:space="preserve">
+    <value>Özel sürücü kümeleri kopyalanıyor…</value>
+  </data>
   <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
     <value>Özel Windows görüntüleri kopyalanıyor…</value>
   </data>
@@ -3666,8 +3771,14 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Önbellek bölümü oluşturuluyor…</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
+    <value>Kullanılmayan özel sürücü kümeleri USB sürücüsünden kaldırılamadı.</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Özel sürücülerin toplam boyutu en az {0}; üst sınır {1}. Yalnızca Windows PE için gereken ağ ve depolama sürücülerini seçin.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversVerified" xml:space="preserve">
+    <value>Özel sürücü kümeleri doğrulandı.</value>
   </data>
   <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
     <value>{0} ({1})</value>

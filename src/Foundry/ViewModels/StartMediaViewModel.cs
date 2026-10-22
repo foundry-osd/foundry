@@ -1477,6 +1477,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 snapshot.Configuration.PreOobe, cancellationToken);
             if (snapshot.Configuration.CustomDrivers.IsEnabled)
             {
+                ReportPhase(MediaCreationPhase.Preparing, 90, localizationService.GetString("CustomDrivers.StageVerifying"));
                 // Preparation rejects an enabled section without included sets, matching the readiness check that blocks media creation.
                 customDrivers = await WinPeCustomDriverSetMediaService.PrepareAsync(customDriverSetLibrary,
                     snapshot.Configuration.CustomDrivers, cancellationToken);
@@ -1910,6 +1911,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             WinPeProgressStatuses.FinalizingIsoOutput => "StartMedia.Operation.FinalizingIsoOutput",
             WinPeProgressStatuses.StagingCustomImages => "StartMedia.Operation.CopyingCustomImages",
             WinPeProgressStatuses.StagingPostInstallation => "StartMedia.Operation.CopyingPostInstallation",
+            WinPeProgressStatuses.StagingCustomDrivers => "StartMedia.Operation.CopyingCustomDrivers",
+            WinPeProgressStatuses.CustomDriversVerified => "StartMedia.Operation.CustomDriversVerified",
+            WinPeProgressStatuses.CustomDriversCleanupSkipped => "StartMedia.Operation.CustomDriversCleanupSkipped",
             WinPeProgressStatuses.ValidatingUsbTarget => "StartMedia.Operation.ValidatingUsbTarget",
             WinPeProgressStatuses.CheckingUsbTargetSafety => "StartMedia.Operation.CheckingUsbTargetSafety",
             WinPeProgressStatuses.InspectingUsbMediaLayout => "StartMedia.Operation.InspectingUsbMediaLayout",
@@ -2547,6 +2551,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     ? GetBlockingReasonText(MediaPreflightBlockingReason.CustomImageArchitectureMismatch)
                     : localizationService.GetString("Nav_CustomImagesKey.Description"),
                 ConfigurationNavigationTarget.CustomImages),
+            CreateOverviewItem(ConfigurationOverviewItem.CustomDrivers, overview, "Nav_CustomDriversKey.Title",
+                localizationService.GetString("Nav_CustomDriversKey.Description"),
+                ConfigurationNavigationTarget.CustomDrivers),
             CreateOverviewItem(ConfigurationOverviewItem.PostInstallation, overview, "Nav_PostInstallationKey.Title",
                 localizationService.GetString("Nav_PostInstallationKey.Description"),
                 ConfigurationNavigationTarget.PostInstallation),

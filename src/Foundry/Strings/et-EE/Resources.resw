@@ -736,6 +736,102 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Pole saadaval</value>
   </data>
+  <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
+    <value>See kaust on selles profiilis juba nimega {0}.</value>
+  </data>
+  <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
+    <value>Draiverikomplekt eemaldati, kuid selle kohalikku koopiat ei saanud kustutada.</value>
+  </data>
+  <data name="CustomDrivers.DefaultLabel" xml:space="preserve">
+    <value>Vaikekomplekt</value>
+  </data>
+  <data name="CustomDrivers.DefaultSetName" xml:space="preserve">
+    <value>Draiverikomplekt</value>
+  </data>
+  <data name="CustomDrivers.DuplicateName" xml:space="preserve">
+    <value>Selles profiilis on selle nimega draiverikomplekt juba olemas.</value>
+  </data>
+  <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
+    <value>Kohandatud draiverikomplektid puuduvad. Alustamiseks importige kaust, mis sisaldab .inf-draivereid.</value>
+  </data>
+  <data name="CustomDrivers.EnableLabel" xml:space="preserve">
+    <value>Luba kohandatud draiverid</value>
+  </data>
+  <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
+    <value>Failid</value>
+  </data>
+  <data name="CustomDrivers.ImportFailed" xml:space="preserve">
+    <value>Draiverikomplekti ei saanud importida. Kontrollige juurdepääsu kaustale ja proovige uuesti. Üksikasjad on logis.</value>
+  </data>
+  <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
+    <value>Selle draiverikomplekti importimiseks pole piisavalt vaba kettaruumi. Vabastage ruumi ja proovige uuesti.</value>
+  </data>
+  <data name="CustomDrivers.ImportInvalidPath" xml:space="preserve">
+    <value>Selle kausta tee on liiga pikk või sobimatu: {0}. Lühendage või nimetage see ümber ja proovige uuesti.</value>
+  </data>
+  <data name="CustomDrivers.ImportLabel" xml:space="preserve">
+    <value>Impordi kaust</value>
+  </data>
+  <data name="CustomDrivers.ImportMissingInf" xml:space="preserve">
+    <value>See kaust ei sisalda ühtegi .inf-faili. Valige INF-draiveritega kaust.</value>
+  </data>
+  <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
+    <value>Valige draiverikaust</value>
+  </data>
+  <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
+    <value>See kaust sisaldab sümbollinki, ühenduspunkti või pilve kohatäitjat. Kopeerige draiverid tavalisse kohalikku kausta ja proovige uuesti.</value>
+  </data>
+  <data name="CustomDrivers.ImportSourceChanged" xml:space="preserve">
+    <value>Kaust muutus kopeerimise ajal. Sulgege programmid, mis sellesse kirjutavad, ja proovige uuesti.</value>
+  </data>
+  <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
+    <value>See kaust sisaldab draiverikomplekti jaoks liiga palju faile või alamkaustu.</value>
+  </data>
+  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
+    <value>Draiverifailide kopeerimine ja kontrollimine…</value>
+  </data>
+  <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
+    <value>INF-failid</value>
+  </data>
+  <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
+    <value>Draiverikomplektid</value>
+  </data>
+  <data name="CustomDrivers.PxeWarning" xml:space="preserve">
+    <value>Pole PXE-käivitusega saadaval. Kohandatud draiverid nõuavad täielikku ISO- või USB-meediumit.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
+    <value>Selle profiili draiverikomplektid pole kehtivad. Kontrollige kaasatud komplekte ja vaikekomplekti enne meediumi loomist või värskendamist.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
+    <value>{0} kohalik koopia puudub või on kahjustatud. Importige kaust uuesti või jätke komplekt välja enne meediumi loomist või värskendamist.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
+    <value>Kaasake sellesse profiili vähemalt üks draiverikomplekt või lülitage kohandatud draiverid välja enne meediumi loomist või värskendamist.</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
+    <value>Eemalda draiverikomplekt</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) eemaldatakse praegusest profiilist.</value>
+  </data>
+  <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
+    <value>Draiverikomplekti ei saanud eemaldada. Proovige uuesti.</value>
+  </data>
+  <data name="CustomDrivers.RemoveTitle" xml:space="preserve">
+    <value>Kas eemaldada draiverikomplekt?</value>
+  </data>
+  <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
+    <value>Selle kohalik koopia kustutatakse, kui ükski teine profiil seda ei kasuta. Algset kausta ja olemasolevaid andmekandjaid ei muudeta.</value>
+  </data>
+  <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
+    <value>Määra vaikeväärtuseks</value>
+  </data>
+  <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
+    <value>See profiil on jõudnud draiverikomplektide maksimaalse arvuni. Enne uue importimist eemaldage üks.</value>
+  </data>
+  <data name="CustomDrivers.StageVerifying" xml:space="preserve">
+    <value>Kohandatud draiverikomplektide kontrollimine…</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arhitektuur</value>
   </data>
@@ -2458,6 +2554,12 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
   </data>
+  <data name="Nav_CustomDriversKey.Description" xml:space="preserve">
+    <value>Importige draiverikaustu ja pakkuge neid Foundry Deploys draiveriallikana.</value>
+  </data>
+  <data name="Nav_CustomDriversKey.Title" xml:space="preserve">
+    <value>Kohandatud draiverid</value>
+  </data>
   <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
     <value>Importige Windowsi tõmmiseid ISO- või WIM-failidest ja lisage need juurutusmeediumidele.</value>
   </data>
@@ -3544,10 +3646,10 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Loo USB</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>Valikuline kaust, mis sisaldab täiendavaid .inf-draivereid.</value>
+    <value>Valikuline kaust .inf-draiveritega, mis lisatakse WinPE alglaadimistõmmisele.</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>Kohandatud draiveri kaust</value>
+    <value>Täiendav WinPE draiverikaust</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
     <value>Valige kohandatud draiveri kaust</value>
@@ -3556,10 +3658,10 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>Valige valikulised müüja draiverid ja kohandatud draiveri kaust.</value>
+    <value>Draiverid, mis lisatakse ainult WinPE alglaadimistõmmisele, näiteks võrgu- ja salvestusdraiverid. Juurutatud Windowsile draiverite lisamiseks kasutage lehte Kohandatud draiverid.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Draiverite valikud</value>
+    <value>WinPE draiverid</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3651,6 +3753,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>Alglaadimistõmmise salvestamine…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingCustomDrivers" xml:space="preserve">
+    <value>Kohandatud draiverikomplektide kopeerimine…</value>
+  </data>
   <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
     <value>Kohandatud Windowsi tõmmiste kopeerimine…</value>
   </data>
@@ -3666,8 +3771,14 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Vahemälu partitsiooni loomine…</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
+    <value>Kasutamata kohandatud draiverikomplekte ei saanud USB-draivilt eemaldada.</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Kohandatud draiverid võtavad kokku vähemalt {0}; lubatud ülempiir on {1}. Valige ainult Windows PE jaoks vajalikud võrgu- ja salvestusdraiverid.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversVerified" xml:space="preserve">
+    <value>Kohandatud draiverikomplektid on kontrollitud.</value>
   </data>
   <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
     <value>{0} ({1})</value>

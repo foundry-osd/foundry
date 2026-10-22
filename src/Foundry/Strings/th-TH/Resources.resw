@@ -736,6 +736,102 @@
   <data name="Common.Unavailable" xml:space="preserve">
     <value>ไม่พร้อมใช้งาน</value>
   </data>
+  <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
+    <value>โฟลเดอร์นี้อยู่ในโปรไฟล์นี้แล้วในชื่อ {0}</value>
+  </data>
+  <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
+    <value>นำชุดไดรเวอร์ออกแล้ว แต่ไม่สามารถลบสำเนาในเครื่องได้</value>
+  </data>
+  <data name="CustomDrivers.DefaultLabel" xml:space="preserve">
+    <value>ชุดเริ่มต้น</value>
+  </data>
+  <data name="CustomDrivers.DefaultSetName" xml:space="preserve">
+    <value>ชุดไดรเวอร์</value>
+  </data>
+  <data name="CustomDrivers.DuplicateName" xml:space="preserve">
+    <value>มีชุดไดรเวอร์ชื่อนี้อยู่ในโปรไฟล์นี้แล้ว</value>
+  </data>
+  <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
+    <value>ยังไม่มีชุดไดรเวอร์แบบกำหนดเอง นำเข้าโฟลเดอร์ที่มีไดรเวอร์ .inf เพื่อเริ่มต้น</value>
+  </data>
+  <data name="CustomDrivers.EnableLabel" xml:space="preserve">
+    <value>เปิดใช้ไดรเวอร์แบบกำหนดเอง</value>
+  </data>
+  <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
+    <value>ไฟล์</value>
+  </data>
+  <data name="CustomDrivers.ImportFailed" xml:space="preserve">
+    <value>ไม่สามารถนำเข้าชุดไดรเวอร์ได้ ตรวจสอบสิทธิ์เข้าถึงโฟลเดอร์ แล้วลองอีกครั้ง ดูรายละเอียดได้ในบันทึก</value>
+  </data>
+  <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
+    <value>พื้นที่ดิสก์ว่างไม่เพียงพอสำหรับนำเข้าชุดไดรเวอร์นี้ เพิ่มพื้นที่ว่าง แล้วลองอีกครั้ง</value>
+  </data>
+  <data name="CustomDrivers.ImportInvalidPath" xml:space="preserve">
+    <value>เส้นทางในโฟลเดอร์นี้ยาวเกินไปหรือไม่ถูกต้อง: {0} ย่อหรือเปลี่ยนชื่อ แล้วลองอีกครั้ง</value>
+  </data>
+  <data name="CustomDrivers.ImportLabel" xml:space="preserve">
+    <value>นำเข้าโฟลเดอร์</value>
+  </data>
+  <data name="CustomDrivers.ImportMissingInf" xml:space="preserve">
+    <value>โฟลเดอร์นี้ไม่มีไฟล์ .inf เลือกโฟลเดอร์ที่มีไดรเวอร์ INF</value>
+  </data>
+  <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
+    <value>เลือกโฟลเดอร์ไดรเวอร์</value>
+  </data>
+  <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
+    <value>โฟลเดอร์นี้มีลิงก์สัญลักษณ์ จุดเชื่อมต่อ หรือตัวยึดตำแหน่งบนคลาวด์ คัดลอกไดรเวอร์ไปยังโฟลเดอร์ในเครื่องทั่วไป แล้วลองอีกครั้ง</value>
+  </data>
+  <data name="CustomDrivers.ImportSourceChanged" xml:space="preserve">
+    <value>โฟลเดอร์มีการเปลี่ยนแปลงระหว่างการคัดลอก ปิดโปรแกรมที่เขียนลงในโฟลเดอร์ แล้วลองอีกครั้ง</value>
+  </data>
+  <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
+    <value>โฟลเดอร์นี้มีไฟล์หรือโฟลเดอร์ย่อยมากเกินไปสำหรับชุดไดรเวอร์</value>
+  </data>
+  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
+    <value>กำลังคัดลอกและตรวจสอบไฟล์ไดรเวอร์…</value>
+  </data>
+  <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
+    <value>ไฟล์ INF</value>
+  </data>
+  <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
+    <value>ชุดไดรเวอร์</value>
+  </data>
+  <data name="CustomDrivers.PxeWarning" xml:space="preserve">
+    <value>ไม่พร้อมใช้งานเมื่อบูตด้วย PXE ไดรเวอร์แบบกำหนดเองต้องใช้สื่อ ISO หรือ USB ฉบับเต็ม</value>
+  </data>
+  <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
+    <value>ชุดไดรเวอร์ของโปรไฟล์นี้ไม่ถูกต้อง ตรวจสอบชุดที่รวมไว้และชุดเริ่มต้นก่อนสร้างหรืออัปเดตสื่อ</value>
+  </data>
+  <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
+    <value>สำเนาในเครื่องของ {0} หายไปหรือเสียหาย นำเข้าโฟลเดอร์อีกครั้งหรือแยกชุดนี้ออกก่อนสร้างหรืออัปเดตสื่อ</value>
+  </data>
+  <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
+    <value>รวมชุดไดรเวอร์อย่างน้อยหนึ่งชุดไว้ในโปรไฟล์นี้ หรือปิดไดรเวอร์แบบกำหนดเอง ก่อนสร้างหรืออัปเดตสื่อ</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
+    <value>นำชุดไดรเวอร์ออก</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) จะถูกนำออกจากโปรไฟล์ปัจจุบัน</value>
+  </data>
+  <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
+    <value>ไม่สามารถนำชุดไดรเวอร์ออกได้ ลองอีกครั้ง</value>
+  </data>
+  <data name="CustomDrivers.RemoveTitle" xml:space="preserve">
+    <value>นำชุดไดรเวอร์ออกไหม</value>
+  </data>
+  <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
+    <value>สำเนาในเครื่องจะถูกลบ เว้นแต่มีโปรไฟล์อื่นใช้งานอยู่ โฟลเดอร์ต้นฉบับและสื่อที่มีอยู่จะไม่เปลี่ยนแปลง</value>
+  </data>
+  <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
+    <value>ตั้งเป็นค่าเริ่มต้น</value>
+  </data>
+  <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
+    <value>โปรไฟล์นี้มีชุดไดรเวอร์ครบจำนวนสูงสุดแล้ว นำชุดหนึ่งออกก่อนนำเข้าชุดอื่น</value>
+  </data>
+  <data name="CustomDrivers.StageVerifying" xml:space="preserve">
+    <value>กำลังตรวจสอบชุดไดรเวอร์แบบกำหนดเอง…</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>สถาปัตยกรรม</value>
   </data>
@@ -2458,6 +2554,12 @@
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
   </data>
+  <data name="Nav_CustomDriversKey.Description" xml:space="preserve">
+    <value>นำเข้าโฟลเดอร์ไดรเวอร์และเสนอเป็นแหล่งไดรเวอร์ใน Foundry Deploy</value>
+  </data>
+  <data name="Nav_CustomDriversKey.Title" xml:space="preserve">
+    <value>ไดรเวอร์แบบกำหนดเอง</value>
+  </data>
   <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
     <value>นำเข้าอิมเมจ Windows จากไฟล์ ISO หรือ WIM และรวมไว้ในสื่อการปรับใช้</value>
   </data>
@@ -3544,10 +3646,10 @@
     <value>สร้าง USB</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>โฟลเดอร์เสริมที่มีไดรเวอร์ .inf เพิ่มเติม</value>
+    <value>โฟลเดอร์เสริมของไดรเวอร์ .inf ที่เพิ่มลงในอิมเมจสำหรับบูต WinPE</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>โฟลเดอร์ไดรเวอร์แบบกำหนดเอง</value>
+    <value>โฟลเดอร์ไดรเวอร์ WinPE เพิ่มเติม</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
     <value>เลือกโฟลเดอร์ไดรเวอร์ที่กำหนดเอง</value>
@@ -3556,10 +3658,10 @@
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>เลือกไดรเวอร์ของผู้จำหน่ายเพิ่มเติมและโฟลเดอร์ไดรเวอร์ที่กำหนดเอง</value>
+    <value>ไดรเวอร์ที่เพิ่มลงในอิมเมจสำหรับบูต WinPE เท่านั้น เช่น ไดรเวอร์เครือข่ายและที่เก็บข้อมูล หากต้องการเพิ่มไดรเวอร์ลงใน Windows ที่ปรับใช้ ให้ใช้ไดรเวอร์แบบกำหนดเอง</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>ตัวเลือกไดรเวอร์</value>
+    <value>ไดรเวอร์ WinPE</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3651,6 +3753,9 @@
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>กำลังบันทึกอิมเมจสำหรับบูต…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingCustomDrivers" xml:space="preserve">
+    <value>กำลังคัดลอกชุดไดรเวอร์แบบกำหนดเอง…</value>
+  </data>
   <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
     <value>กำลังคัดลอกอิมเมจ Windows แบบกำหนดเอง…</value>
   </data>
@@ -3666,8 +3771,14 @@
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>กำลังสร้างพาร์ติชันแคช…</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
+    <value>ไม่สามารถนำชุดไดรเวอร์แบบกำหนดเองที่ไม่ได้ใช้ออกจากไดรฟ์ USB ได้</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>ไดรเวอร์ที่กำหนดเองมีขนาดรวมอย่างน้อย {0} โดยมีขนาดสูงสุด {1} เลือกเฉพาะไดรเวอร์เครือข่ายและที่เก็บข้อมูลที่ Windows PE ต้องใช้เท่านั้น</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversVerified" xml:space="preserve">
+    <value>ตรวจสอบชุดไดรเวอร์แบบกำหนดเองแล้ว</value>
   </data>
   <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
     <value>{0} ({1})</value>

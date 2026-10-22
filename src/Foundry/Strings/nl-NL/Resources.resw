@@ -736,6 +736,102 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Niet beschikbaar</value>
   </data>
+  <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
+    <value>Deze map staat al in dit profiel als {0}.</value>
+  </data>
+  <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
+    <value>De stuurprogrammaset is verwijderd, maar de lokale kopie kan niet worden verwijderd.</value>
+  </data>
+  <data name="CustomDrivers.DefaultLabel" xml:space="preserve">
+    <value>Standaardset</value>
+  </data>
+  <data name="CustomDrivers.DefaultSetName" xml:space="preserve">
+    <value>Stuurprogrammaset</value>
+  </data>
+  <data name="CustomDrivers.DuplicateName" xml:space="preserve">
+    <value>Er bestaat al een stuurprogrammaset met deze naam in dit profiel.</value>
+  </data>
+  <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
+    <value>Geen aangepaste stuurprogrammasets. Importeer een map met .inf-stuurprogramma's om te beginnen.</value>
+  </data>
+  <data name="CustomDrivers.EnableLabel" xml:space="preserve">
+    <value>Aangepaste stuurprogramma's inschakelen</value>
+  </data>
+  <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
+    <value>Bestanden</value>
+  </data>
+  <data name="CustomDrivers.ImportFailed" xml:space="preserve">
+    <value>De stuurprogrammaset kan niet worden geïmporteerd. Controleer de toegang tot de map en probeer het opnieuw. Details staan in het logboek.</value>
+  </data>
+  <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
+    <value>Onvoldoende vrije schijfruimte om deze stuurprogrammaset te importeren. Maak ruimte vrij en probeer het opnieuw.</value>
+  </data>
+  <data name="CustomDrivers.ImportInvalidPath" xml:space="preserve">
+    <value>Een pad in deze map is te lang of ongeldig: {0}. Kort het in of wijzig de naam en probeer het opnieuw.</value>
+  </data>
+  <data name="CustomDrivers.ImportLabel" xml:space="preserve">
+    <value>Map importeren</value>
+  </data>
+  <data name="CustomDrivers.ImportMissingInf" xml:space="preserve">
+    <value>Deze map bevat geen .inf-bestand. Selecteer een map met INF-stuurprogramma's.</value>
+  </data>
+  <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
+    <value>Selecteer een stuurprogrammamap</value>
+  </data>
+  <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
+    <value>Deze map bevat een symbolische koppeling, een junction of een tijdelijke cloudaanduiding. Kopieer de stuurprogramma's naar een gewone lokale map en probeer het opnieuw.</value>
+  </data>
+  <data name="CustomDrivers.ImportSourceChanged" xml:space="preserve">
+    <value>De map is gewijzigd tijdens het kopiëren. Sluit programma's die ernaar schrijven en probeer het opnieuw.</value>
+  </data>
+  <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
+    <value>Deze map bevat te veel bestanden of submappen voor een stuurprogrammaset.</value>
+  </data>
+  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
+    <value>Stuurprogrammabestanden kopiëren en controleren…</value>
+  </data>
+  <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
+    <value>INF-bestanden</value>
+  </data>
+  <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
+    <value>Stuurprogrammasets</value>
+  </data>
+  <data name="CustomDrivers.PxeWarning" xml:space="preserve">
+    <value>Niet beschikbaar bij opstarten via PXE. Aangepaste stuurprogramma's vereisen de volledige ISO- of USB-media.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
+    <value>De stuurprogrammasets van dit profiel zijn niet geldig. Controleer de opgenomen sets en de standaardset voordat u media maakt of bijwerkt.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
+    <value>De lokale kopie van {0} ontbreekt of is beschadigd. Importeer de map opnieuw of sluit de set uit voordat u media maakt of bijwerkt.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
+    <value>Neem ten minste één stuurprogrammaset op in dit profiel, of schakel aangepaste stuurprogramma's uit, voordat u media maakt of bijwerkt.</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
+    <value>Stuurprogrammaset verwijderen</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) wordt uit het huidige profiel verwijderd.</value>
+  </data>
+  <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
+    <value>De stuurprogrammaset kan niet worden verwijderd. Probeer het opnieuw.</value>
+  </data>
+  <data name="CustomDrivers.RemoveTitle" xml:space="preserve">
+    <value>Stuurprogrammaset verwijderen?</value>
+  </data>
+  <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
+    <value>De lokale kopie wordt verwijderd, tenzij een ander profiel deze gebruikt. De oorspronkelijke map en bestaande media blijven ongewijzigd.</value>
+  </data>
+  <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
+    <value>Als standaard instellen</value>
+  </data>
+  <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
+    <value>Dit profiel heeft het maximale aantal stuurprogrammasets bereikt. Verwijder er een voordat u een andere importeert.</value>
+  </data>
+  <data name="CustomDrivers.StageVerifying" xml:space="preserve">
+    <value>Aangepaste stuurprogrammasets controleren…</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architectuur</value>
   </data>
@@ -2458,6 +2554,12 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
   </data>
+  <data name="Nav_CustomDriversKey.Description" xml:space="preserve">
+    <value>Importeer stuurprogrammamappen en bied ze aan als stuurprogrammabron in Foundry Deploy.</value>
+  </data>
+  <data name="Nav_CustomDriversKey.Title" xml:space="preserve">
+    <value>Aangepaste stuurprogramma's</value>
+  </data>
   <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
     <value>Importeer Windows-installatiekopieën uit ISO- of WIM-bestanden en neem ze op in implementatiemedia.</value>
   </data>
@@ -3544,10 +3646,10 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>USB maken</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>Optionele map met extra .inf-stuurprogramma's.</value>
+    <value>Optionele map met .inf-stuurprogramma's die aan de WinPE-opstartinstallatiekopie worden toegevoegd.</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>Aangepaste stuurprogrammamap</value>
+    <value>Extra WinPE-stuurprogrammamap</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
     <value>Selecteer een aangepaste stuurprogrammamap</value>
@@ -3556,10 +3658,10 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>Selecteer optionele leveranciersstuurprogramma's en een aangepaste stuurprogrammamap.</value>
+    <value>Stuurprogramma's die alleen aan de WinPE-opstartinstallatiekopie worden toegevoegd, zoals netwerk- en opslagstuurprogramma's. Gebruik Aangepaste stuurprogramma's om stuurprogramma's aan de geïmplementeerde Windows toe te voegen.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Opties voor stuurprogramma's</value>
+    <value>WinPE-stuurprogramma's</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3651,6 +3753,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>Opstartimage opslaan…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingCustomDrivers" xml:space="preserve">
+    <value>Aangepaste stuurprogrammasets kopiëren…</value>
+  </data>
   <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
     <value>Aangepaste Windows-installatiekopieën kopiëren…</value>
   </data>
@@ -3666,8 +3771,14 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Cachepartitie maken…</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
+    <value>Ongebruikte aangepaste stuurprogrammasets kunnen niet van het USB-station worden verwijderd.</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>De aangepaste stuurprogramma's nemen minstens {0} in beslag; het maximum is {1}. Selecteer alleen de netwerk- en opslagstuurprogramma's die Windows PE nodig heeft.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversVerified" xml:space="preserve">
+    <value>Aangepaste stuurprogrammasets gecontroleerd.</value>
   </data>
   <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
     <value>{0} ({1})</value>

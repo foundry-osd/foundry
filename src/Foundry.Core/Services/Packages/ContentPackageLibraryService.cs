@@ -46,6 +46,14 @@ public sealed class ContentPackageLibraryService
         catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException or ArgumentException or OverflowException) { return false; }
     }
 
+    /// <summary>Reads the manifest of an imported package for display metadata, without hashing its files or taking the library lock.</summary>
+    /// <returns>The manifest, or <see langword="null"/> when the package is missing, damaged or the hash is invalid.</returns>
+    public ContentPackageManifest? TryReadManifest(string contentHash)
+    {
+        try { return ReadManifest(ContentPath(contentHash), contentHash); }
+        catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException or ArgumentException) { return null; }
+    }
+
     /// <summary>Checks a reference against the limits of <paramref name="kind"/> instead of the post-installation configuration limits.</summary>
     internal static bool IsValidReference(ContentPackageReference reference, ContentPackageKind kind) =>
         ContentPackagePathPolicy.IsValidHash(reference.ContentHash) && reference.Length >= 0 && reference.FileCount > 0 && reference.FileCount <= kind.MaximumFiles &&

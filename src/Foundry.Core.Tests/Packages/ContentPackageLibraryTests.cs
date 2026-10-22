@@ -272,6 +272,22 @@ public sealed class ContentPackageLibraryTests : IDisposable
     }
 
     [Fact]
+    public async Task InvalidPathRejectionCarriesTheOffendingRelativePath()
+    {
+        string source = CreateSource();
+        string relativePath = "drivers/" + new string('a', 139) + ".inf";
+        Assert.Equal(151, relativePath.Length);
+        string sourceFile = Path.Combine(source, relativePath.Replace('/', Path.DirectorySeparatorChar));
+        Directory.CreateDirectory(Path.GetDirectoryName(sourceFile)!);
+        await File.WriteAllTextAsync(sourceFile, "[Version]", Cancellation);
+
+        var exception = await Assert.ThrowsAsync<InvalidDataException>(() => Library(ContentPackageKind.Drivers).ImportAsync(source, Cancellation));
+
+        Assert.Equal("ContentPackage.InvalidPackagePath", exception.Message);
+        Assert.Equal(relativePath, exception.Data[ContentPackagePathPolicy.RelativePathDataKey]);
+    }
+
+    [Fact]
     public async Task DriversImportSucceedsWhenTheHostPathExceeds260Characters()
     {
         string source = CreateSource();

@@ -736,6 +736,102 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Ei saatavilla</value>
   </data>
+  <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
+    <value>Tämä kansio on jo tässä profiilissa nimellä {0}.</value>
+  </data>
+  <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
+    <value>Ohjainjoukko poistettiin, mutta sen paikallista kopiota ei voitu poistaa.</value>
+  </data>
+  <data name="CustomDrivers.DefaultLabel" xml:space="preserve">
+    <value>Oletusjoukko</value>
+  </data>
+  <data name="CustomDrivers.DefaultSetName" xml:space="preserve">
+    <value>Ohjainjoukko</value>
+  </data>
+  <data name="CustomDrivers.DuplicateName" xml:space="preserve">
+    <value>Tässä profiilissa on jo samanniminen ohjainjoukko.</value>
+  </data>
+  <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
+    <value>Ei mukautettuja ohjainjoukkoja. Aloita tuomalla kansio, joka sisältää .inf-ohjaimia.</value>
+  </data>
+  <data name="CustomDrivers.EnableLabel" xml:space="preserve">
+    <value>Ota mukautetut ohjaimet käyttöön</value>
+  </data>
+  <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
+    <value>Tiedostot</value>
+  </data>
+  <data name="CustomDrivers.ImportFailed" xml:space="preserve">
+    <value>Ohjainjoukkoa ei voitu tuoda. Tarkista kansion käyttöoikeudet ja yritä sitten uudelleen. Tiedot ovat lokissa.</value>
+  </data>
+  <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
+    <value>Levytilaa ei ole tarpeeksi tämän ohjainjoukon tuomiseen. Vapauta tilaa ja yritä sitten uudelleen.</value>
+  </data>
+  <data name="CustomDrivers.ImportInvalidPath" xml:space="preserve">
+    <value>Tämän kansion polku on liian pitkä tai virheellinen: {0}. Lyhennä tai nimeä se uudelleen ja yritä sitten uudelleen.</value>
+  </data>
+  <data name="CustomDrivers.ImportLabel" xml:space="preserve">
+    <value>Tuo kansio</value>
+  </data>
+  <data name="CustomDrivers.ImportMissingInf" xml:space="preserve">
+    <value>Tämä kansio ei sisällä yhtään .inf-tiedostoa. Valitse kansio, jossa on INF-ohjaimia.</value>
+  </data>
+  <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
+    <value>Valitse ohjainkansio</value>
+  </data>
+  <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
+    <value>Tämä kansio sisältää symbolisen linkin, liitoskohdan tai pilvipaikkamerkin. Kopioi ohjaimet tavalliseen paikalliseen kansioon ja yritä sitten uudelleen.</value>
+  </data>
+  <data name="CustomDrivers.ImportSourceChanged" xml:space="preserve">
+    <value>Kansio muuttui kopioinnin aikana. Sulje ohjelmat, jotka kirjoittavat siihen, ja yritä sitten uudelleen.</value>
+  </data>
+  <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
+    <value>Tämä kansio sisältää liian monta tiedostoa tai alikansiota ohjainjoukolle.</value>
+  </data>
+  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
+    <value>Kopioidaan ja tarkistetaan ohjaintiedostoja…</value>
+  </data>
+  <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
+    <value>INF-tiedostot</value>
+  </data>
+  <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
+    <value>Ohjainjoukot</value>
+  </data>
+  <data name="CustomDrivers.PxeWarning" xml:space="preserve">
+    <value>Ei käytettävissä PXE-käynnistyksessä. Mukautetut ohjaimet edellyttävät täydellistä ISO- tai USB-tietovälinettä.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
+    <value>Tämän profiilin ohjainjoukot eivät ole kelvollisia. Tarkista sisällytetyt joukot ja oletusjoukko ennen tietovälineen luomista tai päivittämistä.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
+    <value>Kohteen {0} paikallinen kopio puuttuu tai on vioittunut. Tuo kansio uudelleen tai jätä joukko pois ennen tietovälineen luomista tai päivittämistä.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
+    <value>Sisällytä tähän profiiliin vähintään yksi ohjainjoukko tai poista mukautetut ohjaimet käytöstä ennen tietovälineen luomista tai päivittämistä.</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
+    <value>Poista ohjainjoukko</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) poistetaan nykyisestä profiilista.</value>
+  </data>
+  <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
+    <value>Ohjainjoukkoa ei voitu poistaa. Yritä uudelleen.</value>
+  </data>
+  <data name="CustomDrivers.RemoveTitle" xml:space="preserve">
+    <value>Poistetaanko ohjainjoukko?</value>
+  </data>
+  <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
+    <value>Sen paikallinen kopio poistetaan, ellei jokin toinen profiili käytä sitä. Alkuperäistä kansiota ja olemassa olevia tietovälineitä ei muuteta.</value>
+  </data>
+  <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
+    <value>Aseta oletukseksi</value>
+  </data>
+  <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
+    <value>Tässä profiilissa on jo suurin sallittu määrä ohjainjoukkoja. Poista yksi ennen uuden tuomista.</value>
+  </data>
+  <data name="CustomDrivers.StageVerifying" xml:space="preserve">
+    <value>Tarkistetaan mukautettuja ohjainjoukkoja…</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arkkitehtuuri</value>
   </data>
@@ -2458,6 +2554,12 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
   </data>
+  <data name="Nav_CustomDriversKey.Description" xml:space="preserve">
+    <value>Tuo ohjainkansioita ja tarjoa niitä ohjainlähteenä Foundry Deployssa.</value>
+  </data>
+  <data name="Nav_CustomDriversKey.Title" xml:space="preserve">
+    <value>Mukautetut ohjaimet</value>
+  </data>
   <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
     <value>Tuo Windows-näköistiedostoja ISO- tai WIM-tiedostoista ja sisällytä ne käyttöönottotietovälineisiin.</value>
   </data>
@@ -3544,10 +3646,10 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Luo USB</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>Valinnainen kansio, joka sisältää lisää .inf-ajureita.</value>
+    <value>Valinnainen kansio, jonka .inf-ohjaimet lisätään WinPE-käynnistysnäköistiedostoon.</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>Mukautettu ohjainkansio</value>
+    <value>WinPE:n lisäohjainkansio</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
     <value>Valitse mukautettu ohjainkansio</value>
@@ -3556,10 +3658,10 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>Valitse valinnaiset toimittajan ohjaimet ja mukautettu ohjainkansio.</value>
+    <value>Ohjaimet, jotka lisätään vain WinPE-käynnistysnäköistiedostoon, kuten verkko- ja tallennusohjaimet. Jos haluat lisätä ohjaimia käyttöön otettavaan Windowsiin, käytä Mukautetut ohjaimet -sivua.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Ohjainasetukset</value>
+    <value>WinPE-ohjaimet</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3651,6 +3753,9 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>Tallennetaan käynnistysnäköistiedostoa…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingCustomDrivers" xml:space="preserve">
+    <value>Kopioidaan mukautettuja ohjainjoukkoja…</value>
+  </data>
   <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
     <value>Kopioidaan mukautettuja Windows-näköistiedostoja…</value>
   </data>
@@ -3666,8 +3771,14 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Luodaan välimuistiosiota…</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
+    <value>Käyttämättömiä mukautettuja ohjainjoukkoja ei voitu poistaa USB-asemasta.</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Mukautetut ohjaimet vievät vähintään {0}; enimmäismäärä on {1}. Valitse vain Windows PE:n tarvitsemat verkko- ja tallennusohjaimet.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversVerified" xml:space="preserve">
+    <value>Mukautetut ohjainjoukot on tarkistettu.</value>
   </data>
   <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
     <value>{0} ({1})</value>

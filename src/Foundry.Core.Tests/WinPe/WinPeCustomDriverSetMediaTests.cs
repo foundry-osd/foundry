@@ -126,6 +126,17 @@ public sealed class WinPeCustomDriverSetMediaTests : IDisposable
         Assert.Equal(2, CustomDriverSetLibrary.CountInfFiles(lease.Manifest));
     }
 
+    [Fact]
+    public async Task LibraryReadsTheInfCountWithoutALeaseAndReturnsNullForMissingContent()
+    {
+        var library = new CustomDriverSetLibrary(Path.Combine(root, "library"));
+        ContentPackageReference reference = await ImportAsync(library, "counted", "net.inf");
+
+        Assert.Equal(1, library.TryCountInfFiles(reference.ContentHash));
+        Assert.Null(library.TryCountInfFiles(new string('a', 64)));
+        Assert.Null(library.TryCountInfFiles("not-a-hash"));
+    }
+
     private async Task<(CustomDriverSetLibrary Library, CustomDriverSetsSettings Settings)> InputsAsync()
     {
         var library = new CustomDriverSetLibrary(Path.Combine(root, "library"));

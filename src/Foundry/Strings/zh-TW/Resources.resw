@@ -736,6 +736,102 @@
   <data name="Common.Unavailable" xml:space="preserve">
     <value>無法使用</value>
   </data>
+  <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
+    <value>此資料夾已以 {0} 的名稱存在於此設定檔中。</value>
+  </data>
+  <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
+    <value>已移除驅動程式集，但無法刪除其本機複本。</value>
+  </data>
+  <data name="CustomDrivers.DefaultLabel" xml:space="preserve">
+    <value>預設集</value>
+  </data>
+  <data name="CustomDrivers.DefaultSetName" xml:space="preserve">
+    <value>驅動程式集</value>
+  </data>
+  <data name="CustomDrivers.DuplicateName" xml:space="preserve">
+    <value>此設定檔中已存在同名驅動程式集。</value>
+  </data>
+  <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
+    <value>沒有自訂驅動程式集。請匯入包含 .inf 驅動程式的資料夾以開始。</value>
+  </data>
+  <data name="CustomDrivers.EnableLabel" xml:space="preserve">
+    <value>啟用自訂驅動程式</value>
+  </data>
+  <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
+    <value>檔案</value>
+  </data>
+  <data name="CustomDrivers.ImportFailed" xml:space="preserve">
+    <value>無法匯入驅動程式集。請檢查資料夾的存取權限，然後再試一次。詳細資料請參閱記錄。</value>
+  </data>
+  <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
+    <value>可用磁碟空間不足，無法匯入此驅動程式集。請釋放空間，然後再試一次。</value>
+  </data>
+  <data name="CustomDrivers.ImportInvalidPath" xml:space="preserve">
+    <value>此資料夾中的某個路徑過長或無效：{0}。請縮短路徑或重新命名，然後再試一次。</value>
+  </data>
+  <data name="CustomDrivers.ImportLabel" xml:space="preserve">
+    <value>匯入資料夾</value>
+  </data>
+  <data name="CustomDrivers.ImportMissingInf" xml:space="preserve">
+    <value>此資料夾不包含任何 .inf 檔案。請選取包含 INF 驅動程式的資料夾。</value>
+  </data>
+  <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
+    <value>選取驅動程式資料夾</value>
+  </data>
+  <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
+    <value>此資料夾包含符號連結、連接點或雲端預留位置。請將驅動程式複製到一般的本機資料夾，然後再試一次。</value>
+  </data>
+  <data name="CustomDrivers.ImportSourceChanged" xml:space="preserve">
+    <value>複製期間資料夾已變更。請關閉正在寫入該資料夾的程式，然後再試一次。</value>
+  </data>
+  <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
+    <value>此資料夾包含的檔案或子資料夾過多，無法作為驅動程式集。</value>
+  </data>
+  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
+    <value>正在複製並驗證驅動程式檔案…</value>
+  </data>
+  <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
+    <value>INF 檔案</value>
+  </data>
+  <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
+    <value>驅動程式集</value>
+  </data>
+  <data name="CustomDrivers.PxeWarning" xml:space="preserve">
+    <value>使用 PXE 開機時無法使用。自訂驅動程式需要完整的 ISO 或 USB 媒體。</value>
+  </data>
+  <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
+    <value>此設定檔的驅動程式集無效。在建立或更新媒體之前，請檢查包含的集與預設集。</value>
+  </data>
+  <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
+    <value>{0} 的本機複本遺失或已損毀。在建立或更新媒體之前，請重新匯入資料夾或排除該集。</value>
+  </data>
+  <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
+    <value>在建立或更新媒體之前，請在此設定檔中至少包含一個驅動程式集，或關閉自訂驅動程式。</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
+    <value>移除驅動程式集</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) 將從目前的設定檔中移除。</value>
+  </data>
+  <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
+    <value>無法移除驅動程式集。請再試一次。</value>
+  </data>
+  <data name="CustomDrivers.RemoveTitle" xml:space="preserve">
+    <value>要移除驅動程式集嗎？</value>
+  </data>
+  <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
+    <value>除非其他設定檔正在使用，否則會刪除其本機複本。原始資料夾及現有媒體不會變更。</value>
+  </data>
+  <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
+    <value>設為預設</value>
+  </data>
+  <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
+    <value>此設定檔的驅動程式集數量已達上限。請先移除一個，再匯入其他驅動程式集。</value>
+  </data>
+  <data name="CustomDrivers.StageVerifying" xml:space="preserve">
+    <value>正在驗證自訂驅動程式集…</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>架構</value>
   </data>
@@ -2458,6 +2554,12 @@
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
   </data>
+  <data name="Nav_CustomDriversKey.Description" xml:space="preserve">
+    <value>匯入驅動程式資料夾，並在 Foundry Deploy 中將其作為驅動程式來源提供。</value>
+  </data>
+  <data name="Nav_CustomDriversKey.Title" xml:space="preserve">
+    <value>自訂驅動程式</value>
+  </data>
   <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
     <value>從 ISO 或 WIM 檔案匯入 Windows 映像，並將其包含在部署媒體中。</value>
   </data>
@@ -3544,10 +3646,10 @@
     <value>建立 USB</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>包含其他 .inf 驅動程式的選用資料夾。</value>
+    <value>包含新增至 WinPE 開機映像之 .inf 驅動程式的選用資料夾。</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>自訂驅動程式資料夾</value>
+    <value>其他 WinPE 驅動程式資料夾</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
     <value>選取自訂驅動程式資料夾</value>
@@ -3556,10 +3658,10 @@
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>選取選用的廠商驅動程式和自訂驅動程式資料夾。</value>
+    <value>僅新增至 WinPE 開機映像的驅動程式，例如網路與儲存驅動程式。若要將驅動程式新增至部署的 Windows，請使用「自訂驅動程式」。</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>驅動程式選項</value>
+    <value>WinPE 驅動程式</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3651,6 +3753,9 @@
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>正在儲存開機映像…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingCustomDrivers" xml:space="preserve">
+    <value>正在複製自訂驅動程式集…</value>
+  </data>
   <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
     <value>正在複製自訂 Windows 映像…</value>
   </data>
@@ -3666,8 +3771,14 @@
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>正在建立快取分割區…</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
+    <value>無法從 USB 磁碟機移除未使用的自訂驅動程式集。</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>自訂驅動程式的總大小至少為 {0}，上限為 {1}。請僅選取 Windows PE 所需的網路和儲存驅動程式。</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversVerified" xml:space="preserve">
+    <value>已驗證自訂驅動程式集。</value>
   </data>
   <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
     <value>{0} ({1})</value>

@@ -736,6 +736,102 @@
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Недоступно</value>
   </data>
+  <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
+    <value>Эта папка уже есть в этом профиле под именем {0}.</value>
+  </data>
+  <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
+    <value>Набор драйверов удалён, но его локальную копию удалить не удалось.</value>
+  </data>
+  <data name="CustomDrivers.DefaultLabel" xml:space="preserve">
+    <value>Набор по умолчанию</value>
+  </data>
+  <data name="CustomDrivers.DefaultSetName" xml:space="preserve">
+    <value>Набор драйверов</value>
+  </data>
+  <data name="CustomDrivers.DuplicateName" xml:space="preserve">
+    <value>В этом профиле уже есть набор драйверов с таким именем.</value>
+  </data>
+  <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
+    <value>Нет пользовательских наборов драйверов. Для начала импортируйте папку с драйверами .inf.</value>
+  </data>
+  <data name="CustomDrivers.EnableLabel" xml:space="preserve">
+    <value>Включить пользовательские драйверы</value>
+  </data>
+  <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
+    <value>Файлы</value>
+  </data>
+  <data name="CustomDrivers.ImportFailed" xml:space="preserve">
+    <value>Не удалось импортировать набор драйверов. Проверьте доступ к папке и повторите попытку. Подробности см. в журнале.</value>
+  </data>
+  <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
+    <value>Недостаточно свободного места на диске для импорта этого набора драйверов. Освободите место и повторите попытку.</value>
+  </data>
+  <data name="CustomDrivers.ImportInvalidPath" xml:space="preserve">
+    <value>Путь в этой папке слишком длинный или недопустимый: {0}. Сократите или переименуйте его и повторите попытку.</value>
+  </data>
+  <data name="CustomDrivers.ImportLabel" xml:space="preserve">
+    <value>Импортировать папку</value>
+  </data>
+  <data name="CustomDrivers.ImportMissingInf" xml:space="preserve">
+    <value>В этой папке нет ни одного файла .inf. Выберите папку с драйверами INF.</value>
+  </data>
+  <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
+    <value>Выберите папку с драйверами</value>
+  </data>
+  <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
+    <value>Эта папка содержит символическую ссылку, точку соединения или облачный заполнитель. Скопируйте драйверы в обычную локальную папку и повторите попытку.</value>
+  </data>
+  <data name="CustomDrivers.ImportSourceChanged" xml:space="preserve">
+    <value>Папка изменилась во время копирования. Закройте программы, которые записывают в неё, и повторите попытку.</value>
+  </data>
+  <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
+    <value>В этой папке слишком много файлов или вложенных папок для набора драйверов.</value>
+  </data>
+  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
+    <value>Копирование и проверка файлов драйверов…</value>
+  </data>
+  <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
+    <value>Файлы INF</value>
+  </data>
+  <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
+    <value>Наборы драйверов</value>
+  </data>
+  <data name="CustomDrivers.PxeWarning" xml:space="preserve">
+    <value>Недоступно при загрузке по PXE. Пользовательским драйверам требуется полный носитель ISO или USB.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
+    <value>Наборы драйверов этого профиля недействительны. Перед созданием или обновлением носителя проверьте включённые наборы и набор по умолчанию.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
+    <value>Локальная копия набора {0} отсутствует или повреждена. Перед созданием или обновлением носителя импортируйте папку повторно или исключите набор.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
+    <value>Перед созданием или обновлением носителя включите в этот профиль хотя бы один набор драйверов или отключите пользовательские драйверы.</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
+    <value>Удалить набор драйверов</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) будет удалён из текущего профиля.</value>
+  </data>
+  <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
+    <value>Не удалось удалить набор драйверов. Повторите попытку.</value>
+  </data>
+  <data name="CustomDrivers.RemoveTitle" xml:space="preserve">
+    <value>Удалить набор драйверов?</value>
+  </data>
+  <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
+    <value>Его локальная копия удаляется, если она не используется другим профилем. Исходная папка и уже созданные носители не изменятся.</value>
+  </data>
+  <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
+    <value>Сделать набором по умолчанию</value>
+  </data>
+  <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
+    <value>В этом профиле достигнуто максимальное число наборов драйверов. Удалите один, прежде чем импортировать другой.</value>
+  </data>
+  <data name="CustomDrivers.StageVerifying" xml:space="preserve">
+    <value>Проверка пользовательских наборов драйверов…</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Архитектура</value>
   </data>
@@ -2458,6 +2554,12 @@
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
   </data>
+  <data name="Nav_CustomDriversKey.Description" xml:space="preserve">
+    <value>Импортируйте папки с драйверами и предлагайте их как источник драйверов в Foundry Deploy.</value>
+  </data>
+  <data name="Nav_CustomDriversKey.Title" xml:space="preserve">
+    <value>Пользовательские драйверы</value>
+  </data>
   <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
     <value>Импортируйте образы Windows из файлов ISO или WIM и включайте их в носители для развёртывания.</value>
   </data>
@@ -3544,10 +3646,10 @@
     <value>Создать USB</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>Дополнительная папка, содержащая дополнительные драйверы .inf.</value>
+    <value>Необязательная папка с драйверами .inf, добавляемыми в загрузочный образ WinPE.</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>Пользовательская папка с драйверами</value>
+    <value>Дополнительная папка драйверов WinPE</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
     <value>Выберите папку с пользовательским драйвером</value>
@@ -3556,10 +3658,10 @@
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>Выберите дополнительные драйверы поставщика и папку с пользовательскими драйверами.</value>
+    <value>Драйверы, добавляемые только в загрузочный образ WinPE, например сетевые драйверы и драйверы хранилища. Чтобы добавить драйверы в развёртываемую Windows, используйте страницу «Пользовательские драйверы».</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Параметры драйвера</value>
+    <value>Драйверы WinPE</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3651,6 +3753,9 @@
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>Сохранение загрузочного образа…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingCustomDrivers" xml:space="preserve">
+    <value>Копирование пользовательских наборов драйверов…</value>
+  </data>
   <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
     <value>Копирование пользовательских образов Windows…</value>
   </data>
@@ -3666,8 +3771,14 @@
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Создание раздела кэша…</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
+    <value>Не удалось удалить неиспользуемые пользовательские наборы драйверов с USB-накопителя.</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Пользовательские драйверы занимают не менее {0}; допустимый максимум — {1}. Выберите только сетевые драйверы и драйверы хранилища, необходимые для Windows PE.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversVerified" xml:space="preserve">
+    <value>Пользовательские наборы драйверов проверены.</value>
   </data>
   <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
     <value>{0} ({1})</value>

@@ -39,6 +39,11 @@ public sealed class CustomDriverSetLibrary
     public Task DeleteAsync(string contentHash, IEnumerable<string> referencedHashes, CancellationToken cancellationToken = default) =>
         Library.DeleteAsync(contentHash, referencedHashes, cancellationToken);
 
+    /// <summary>Counts the INF files of an imported set from its manifest, without hashing the files.</summary>
+    /// <returns>The INF count, or <see langword="null"/> when the package is missing or damaged.</returns>
+    public int? TryCountInfFiles(string contentHash) =>
+        Library.TryReadManifest(contentHash) is { } manifest ? CountInfFiles(manifest) : null;
+
     /// <summary>Counts the INF files of a package manifest, comparing the extension case-insensitively.</summary>
     public static int CountInfFiles(ContentPackageManifest manifest)
     {

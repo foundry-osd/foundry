@@ -736,6 +736,102 @@ Licenciado sob a licença MIT.</value>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Indisponível</value>
   </data>
+  <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
+    <value>Esta pasta já está neste perfil como {0}.</value>
+  </data>
+  <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
+    <value>O conjunto de controladores foi removido, mas não foi possível eliminar a sua cópia local.</value>
+  </data>
+  <data name="CustomDrivers.DefaultLabel" xml:space="preserve">
+    <value>Conjunto predefinido</value>
+  </data>
+  <data name="CustomDrivers.DefaultSetName" xml:space="preserve">
+    <value>Conjunto de controladores</value>
+  </data>
+  <data name="CustomDrivers.DuplicateName" xml:space="preserve">
+    <value>Já existe um conjunto de controladores com este nome neste perfil.</value>
+  </data>
+  <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
+    <value>Nenhum conjunto de controladores personalizado. Importe uma pasta que contenha controladores .inf para começar.</value>
+  </data>
+  <data name="CustomDrivers.EnableLabel" xml:space="preserve">
+    <value>Ativar controladores personalizados</value>
+  </data>
+  <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
+    <value>Ficheiros</value>
+  </data>
+  <data name="CustomDrivers.ImportFailed" xml:space="preserve">
+    <value>Não foi possível importar o conjunto de controladores. Verifique o acesso à pasta e tente novamente. Os detalhes estão no registo.</value>
+  </data>
+  <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
+    <value>Não existe espaço livre em disco suficiente para importar este conjunto de controladores. Liberte espaço e tente novamente.</value>
+  </data>
+  <data name="CustomDrivers.ImportInvalidPath" xml:space="preserve">
+    <value>Um caminho nesta pasta é demasiado longo ou inválido: {0}. Encurte-o ou mude-lhe o nome e tente novamente.</value>
+  </data>
+  <data name="CustomDrivers.ImportLabel" xml:space="preserve">
+    <value>Importar pasta</value>
+  </data>
+  <data name="CustomDrivers.ImportMissingInf" xml:space="preserve">
+    <value>Esta pasta não contém nenhum ficheiro .inf. Selecione uma pasta com controladores INF.</value>
+  </data>
+  <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
+    <value>Selecionar uma pasta de controladores</value>
+  </data>
+  <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
+    <value>Esta pasta contém uma ligação simbólica, uma junção ou um marcador de posição na nuvem. Copie os controladores para uma pasta local normal e tente novamente.</value>
+  </data>
+  <data name="CustomDrivers.ImportSourceChanged" xml:space="preserve">
+    <value>A pasta foi alterada durante a cópia. Feche os programas que escrevem nela e tente novamente.</value>
+  </data>
+  <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
+    <value>Esta pasta contém demasiados ficheiros ou subpastas para um conjunto de controladores.</value>
+  </data>
+  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
+    <value>A copiar e verificar os ficheiros de controladores…</value>
+  </data>
+  <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
+    <value>Ficheiros INF</value>
+  </data>
+  <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
+    <value>Conjuntos de controladores</value>
+  </data>
+  <data name="CustomDrivers.PxeWarning" xml:space="preserve">
+    <value>Não disponível com arranque PXE. Os controladores personalizados requerem o suporte ISO ou USB completo.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
+    <value>Os conjuntos de controladores deste perfil não são válidos. Verifique os conjuntos incluídos e o conjunto predefinido antes de criar ou atualizar o suporte.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
+    <value>A cópia local de {0} está em falta ou danificada. Importe novamente a pasta ou exclua o conjunto antes de criar ou atualizar o suporte.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
+    <value>Inclua pelo menos um conjunto de controladores neste perfil, ou desative os controladores personalizados, antes de criar ou atualizar o suporte.</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
+    <value>Remover conjunto de controladores</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) será removido do perfil atual.</value>
+  </data>
+  <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
+    <value>Não foi possível remover o conjunto de controladores. Tente novamente.</value>
+  </data>
+  <data name="CustomDrivers.RemoveTitle" xml:space="preserve">
+    <value>Remover o conjunto de controladores?</value>
+  </data>
+  <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
+    <value>A cópia local é eliminada, exceto se outro perfil a utilizar. A pasta original e os suportes existentes não são alterados.</value>
+  </data>
+  <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
+    <value>Definir como predefinido</value>
+  </data>
+  <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
+    <value>Este perfil atingiu o número máximo de conjuntos de controladores. Remova um antes de importar outro.</value>
+  </data>
+  <data name="CustomDrivers.StageVerifying" xml:space="preserve">
+    <value>A verificar os conjuntos de controladores personalizados…</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arquitetura</value>
   </data>
@@ -2458,6 +2554,12 @@ Licenciado sob a licença MIT.</value>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
   </data>
+  <data name="Nav_CustomDriversKey.Description" xml:space="preserve">
+    <value>Importe pastas de controladores e disponibilize-as como origem de controladores no Foundry Deploy.</value>
+  </data>
+  <data name="Nav_CustomDriversKey.Title" xml:space="preserve">
+    <value>Controladores personalizados</value>
+  </data>
   <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
     <value>Importe imagens do Windows de ficheiros ISO ou WIM e inclua-as no suporte de implementação.</value>
   </data>
@@ -3544,10 +3646,10 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>Criar USB</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>Pasta opcional com controladores .inf adicionais.</value>
+    <value>Pasta opcional de controladores .inf adicionados à imagem de arranque do WinPE.</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>Pasta de controladores personalizados</value>
+    <value>Pasta adicional de controladores do WinPE</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
     <value>Selecionar a pasta de controladores personalizados</value>
@@ -3556,10 +3658,10 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>Selecione controladores opcionais do fabricante e uma pasta de controladores personalizados.</value>
+    <value>Controladores adicionados apenas à imagem de arranque do WinPE, como controladores de rede e de armazenamento. Para adicionar controladores ao Windows implementado, utilize Controladores personalizados.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Opções de controladores</value>
+    <value>Controladores do WinPE</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3651,6 +3753,9 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>A guardar a imagem de arranque…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingCustomDrivers" xml:space="preserve">
+    <value>A copiar os conjuntos de controladores personalizados…</value>
+  </data>
   <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
     <value>A copiar imagens personalizadas do Windows…</value>
   </data>
@@ -3666,8 +3771,14 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>A criar a partição de cache…</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
+    <value>Não foi possível remover da unidade USB os conjuntos de controladores personalizados não utilizados.</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Os controladores personalizados ocupam pelo menos {0}; o máximo é {1}. Selecione apenas os controladores de rede e armazenamento necessários para o Windows PE.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversVerified" xml:space="preserve">
+    <value>Conjuntos de controladores personalizados verificados.</value>
   </data>
   <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
     <value>{0} ({1})</value>

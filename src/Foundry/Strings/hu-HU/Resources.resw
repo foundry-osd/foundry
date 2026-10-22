@@ -736,6 +736,102 @@ Licenc az MIT licenc alatt.</value>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nem elérhető</value>
   </data>
+  <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
+    <value>Ez a mappa már szerepel ebben a profilban {0} néven.</value>
+  </data>
+  <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
+    <value>Az illesztőprogram-készlet el lett távolítva, de a helyi másolatát nem sikerült törölni.</value>
+  </data>
+  <data name="CustomDrivers.DefaultLabel" xml:space="preserve">
+    <value>Alapértelmezett készlet</value>
+  </data>
+  <data name="CustomDrivers.DefaultSetName" xml:space="preserve">
+    <value>Illesztőprogram-készlet</value>
+  </data>
+  <data name="CustomDrivers.DuplicateName" xml:space="preserve">
+    <value>Ebben a profilban már létezik ilyen nevű illesztőprogram-készlet.</value>
+  </data>
+  <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
+    <value>Nincsenek egyéni illesztőprogram-készletek. A kezdéshez importáljon egy .inf illesztőprogramokat tartalmazó mappát.</value>
+  </data>
+  <data name="CustomDrivers.EnableLabel" xml:space="preserve">
+    <value>Egyéni illesztőprogramok engedélyezése</value>
+  </data>
+  <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
+    <value>Fájlok</value>
+  </data>
+  <data name="CustomDrivers.ImportFailed" xml:space="preserve">
+    <value>Az illesztőprogram-készletet nem sikerült importálni. Ellenőrizze a mappához való hozzáférést, majd próbálkozzon újra. A részletek a naplóban találhatók.</value>
+  </data>
+  <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
+    <value>Nincs elég szabad lemezterület az illesztőprogram-készlet importálásához. Szabadítson fel helyet, majd próbálkozzon újra.</value>
+  </data>
+  <data name="CustomDrivers.ImportInvalidPath" xml:space="preserve">
+    <value>A mappában lévő egyik elérési út túl hosszú vagy érvénytelen: {0}. Rövidítse le vagy nevezze át, majd próbálkozzon újra.</value>
+  </data>
+  <data name="CustomDrivers.ImportLabel" xml:space="preserve">
+    <value>Mappa importálása</value>
+  </data>
+  <data name="CustomDrivers.ImportMissingInf" xml:space="preserve">
+    <value>Ez a mappa nem tartalmaz .inf fájlt. Válasszon INF-illesztőprogramokat tartalmazó mappát.</value>
+  </data>
+  <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
+    <value>Válasszon illesztőprogram-mappát</value>
+  </data>
+  <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
+    <value>Ez a mappa szimbolikus hivatkozást, csomópontot vagy felhőbeli helyőrzőt tartalmaz. Másolja az illesztőprogramokat egy hagyományos helyi mappába, majd próbálkozzon újra.</value>
+  </data>
+  <data name="CustomDrivers.ImportSourceChanged" xml:space="preserve">
+    <value>A mappa megváltozott a másolás közben. Zárja be a mappába író programokat, majd próbálkozzon újra.</value>
+  </data>
+  <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
+    <value>Ez a mappa túl sok fájlt vagy almappát tartalmaz egy illesztőprogram-készlethez.</value>
+  </data>
+  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
+    <value>Illesztőprogram-fájlok másolása és ellenőrzése…</value>
+  </data>
+  <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
+    <value>INF-fájlok</value>
+  </data>
+  <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
+    <value>Illesztőprogram-készletek</value>
+  </data>
+  <data name="CustomDrivers.PxeWarning" xml:space="preserve">
+    <value>PXE-rendszerindítással nem érhető el. Az egyéni illesztőprogramokhoz a teljes ISO- vagy USB-adathordozó szükséges.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
+    <value>A profil illesztőprogram-készletei érvénytelenek. Adathordozó létrehozása vagy frissítése előtt ellenőrizze a hozzáadott készleteket és az alapértelmezett készletet.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
+    <value>A(z) {0} helyi másolata hiányzik vagy sérült. Adathordozó létrehozása vagy frissítése előtt importálja újra a mappát, vagy zárja ki a készletet.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
+    <value>Adathordozó létrehozása vagy frissítése előtt adjon hozzá legalább egy illesztőprogram-készletet ehhez a profilhoz, vagy kapcsolja ki az egyéni illesztőprogramokat.</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
+    <value>Illesztőprogram-készlet eltávolítása</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
+    <value>A(z) {0} ({1}) el lesz távolítva az aktuális profilból.</value>
+  </data>
+  <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
+    <value>Az illesztőprogram-készletet nem sikerült eltávolítani. Próbálkozzon újra.</value>
+  </data>
+  <data name="CustomDrivers.RemoveTitle" xml:space="preserve">
+    <value>Eltávolítja az illesztőprogram-készletet?</value>
+  </data>
+  <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
+    <value>A helyi másolata törlődik, kivéve, ha egy másik profil használja. Az eredeti mappa és a meglévő adathordozók nem változnak.</value>
+  </data>
+  <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
+    <value>Beállítás alapértelmezettként</value>
+  </data>
+  <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
+    <value>Ez a profil elérte az illesztőprogram-készletek maximális számát. Egy újabb importálása előtt távolítson el egyet.</value>
+  </data>
+  <data name="CustomDrivers.StageVerifying" xml:space="preserve">
+    <value>Egyéni illesztőprogram-készletek ellenőrzése…</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architektúra</value>
   </data>
@@ -2458,6 +2554,12 @@ Licenc az MIT licenc alatt.</value>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
   </data>
+  <data name="Nav_CustomDriversKey.Description" xml:space="preserve">
+    <value>Importáljon illesztőprogram-mappákat, és kínálja fel őket illesztőprogram-forrásként a Foundry Deployban.</value>
+  </data>
+  <data name="Nav_CustomDriversKey.Title" xml:space="preserve">
+    <value>Egyéni illesztőprogramok</value>
+  </data>
   <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
     <value>Importáljon Windows-lemezképeket ISO- vagy WIM-fájlokból, és adja hozzá őket a telepítési adathordozókhoz.</value>
   </data>
@@ -3544,10 +3646,10 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>USB létrehozása</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>Opcionális mappa, amely további .inf illesztőprogramokat tartalmaz.</value>
+    <value>Opcionális mappa .inf illesztőprogramokkal, amelyek a WinPE rendszerindító lemezképhez lesznek hozzáadva.</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>Egyéni illesztőprogram-mappa</value>
+    <value>További WinPE-illesztőprogram-mappa</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
     <value>Válassza ki az egyéni illesztőprogram-mappát</value>
@@ -3556,10 +3658,10 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>Válasszon opcionális szállítói illesztőprogramokat és egy egyéni illesztőprogram-mappát.</value>
+    <value>Csak a WinPE rendszerindító lemezképhez hozzáadott illesztőprogramok, például hálózati és tárolóillesztőprogramok. Ha a telepített Windowshoz szeretne illesztőprogramokat adni, használja az Egyéni illesztőprogramok lapot.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Illesztőprogram-beállítások</value>
+    <value>WinPE-illesztőprogramok</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3651,6 +3753,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>A rendszerindító lemezkép mentése…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingCustomDrivers" xml:space="preserve">
+    <value>Egyéni illesztőprogram-készletek másolása…</value>
+  </data>
   <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
     <value>Egyéni Windows-lemezképek másolása…</value>
   </data>
@@ -3666,8 +3771,14 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>A gyorsítótár-partíció létrehozása…</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
+    <value>A nem használt egyéni illesztőprogram-készleteket nem sikerült eltávolítani az USB-meghajtóról.</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Az egyéni illesztőprogramok mérete legalább {0}; a felső határ {1}. Csak a Windows PE számára szükséges hálózati és tárolóillesztőket válassza ki.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversVerified" xml:space="preserve">
+    <value>Az egyéni illesztőprogram-készletek ellenőrizve.</value>
   </data>
   <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
     <value>{0} ({1})</value>

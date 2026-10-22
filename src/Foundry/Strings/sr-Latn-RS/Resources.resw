@@ -736,6 +736,102 @@ Licencirano pod MIT licencom.</value>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nedostupno</value>
   </data>
+  <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
+    <value>Ova fascikla je već u ovom profilu kao {0}.</value>
+  </data>
+  <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
+    <value>Skup drajvera je uklonjen, ali njegovu lokalnu kopiju nije moguće izbrisati.</value>
+  </data>
+  <data name="CustomDrivers.DefaultLabel" xml:space="preserve">
+    <value>Podrazumevani skup</value>
+  </data>
+  <data name="CustomDrivers.DefaultSetName" xml:space="preserve">
+    <value>Skup drajvera</value>
+  </data>
+  <data name="CustomDrivers.DuplicateName" xml:space="preserve">
+    <value>U ovom profilu već postoji skup drajvera sa ovim nazivom.</value>
+  </data>
+  <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
+    <value>Nema prilagođenih skupova drajvera. Uvezite fasciklu koja sadrži .inf drajvere da biste počeli.</value>
+  </data>
+  <data name="CustomDrivers.EnableLabel" xml:space="preserve">
+    <value>Omogući prilagođene drajvere</value>
+  </data>
+  <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
+    <value>Datoteke</value>
+  </data>
+  <data name="CustomDrivers.ImportFailed" xml:space="preserve">
+    <value>Skup drajvera nije moguće uvesti. Proverite pristup fascikli, a zatim pokušajte ponovo. Detalji su u evidenciji.</value>
+  </data>
+  <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
+    <value>Nema dovoljno slobodnog prostora na disku za uvoz ovog skupa drajvera. Oslobodite prostor, a zatim pokušajte ponovo.</value>
+  </data>
+  <data name="CustomDrivers.ImportInvalidPath" xml:space="preserve">
+    <value>Putanja u ovoj fascikli je predugačka ili nije važeća: {0}. Skratite je ili preimenujte, a zatim pokušajte ponovo.</value>
+  </data>
+  <data name="CustomDrivers.ImportLabel" xml:space="preserve">
+    <value>Uvezi fasciklu</value>
+  </data>
+  <data name="CustomDrivers.ImportMissingInf" xml:space="preserve">
+    <value>Ova fascikla ne sadrži nijednu .inf datoteku. Izaberite fasciklu sa INF drajverima.</value>
+  </data>
+  <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
+    <value>Izaberite fasciklu sa drajverima</value>
+  </data>
+  <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
+    <value>Ova fascikla sadrži simboličku vezu, spoj ili čuvar mesta u oblaku. Kopirajte drajvere u običnu lokalnu fasciklu, a zatim pokušajte ponovo.</value>
+  </data>
+  <data name="CustomDrivers.ImportSourceChanged" xml:space="preserve">
+    <value>Fascikla se promenila tokom kopiranja. Zatvorite programe koji upisuju u nju, a zatim pokušajte ponovo.</value>
+  </data>
+  <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
+    <value>Ova fascikla sadrži previše datoteka ili potfascikli za skup drajvera.</value>
+  </data>
+  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
+    <value>Kopiranje i provera datoteka drajvera…</value>
+  </data>
+  <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
+    <value>INF datoteke</value>
+  </data>
+  <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
+    <value>Skupovi drajvera</value>
+  </data>
+  <data name="CustomDrivers.PxeWarning" xml:space="preserve">
+    <value>Nije dostupno uz PXE pokretanje. Prilagođeni drajveri zahtevaju ceo ISO ili USB medij.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
+    <value>Skupovi drajvera ovog profila nisu važeći. Pre kreiranja ili ažuriranja medija proverite uključene skupove i podrazumevani skup.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
+    <value>Lokalna kopija skupa {0} nedostaje ili je oštećena. Pre kreiranja ili ažuriranja medija ponovo uvezite fasciklu ili isključite skup.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
+    <value>Pre kreiranja ili ažuriranja medija uključite bar jedan skup drajvera u ovaj profil ili isključite prilagođene drajvere.</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
+    <value>Ukloni skup drajvera</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) biće uklonjen iz trenutnog profila.</value>
+  </data>
+  <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
+    <value>Skup drajvera nije moguće ukloniti. Pokušajte ponovo.</value>
+  </data>
+  <data name="CustomDrivers.RemoveTitle" xml:space="preserve">
+    <value>Ukloniti skup drajvera?</value>
+  </data>
+  <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
+    <value>Njegova lokalna kopija se briše osim ako je koristi drugi profil. Originalna fascikla i postojeći mediji se ne menjaju.</value>
+  </data>
+  <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
+    <value>Postavi kao podrazumevano</value>
+  </data>
+  <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
+    <value>Ovaj profil je dostigao maksimalan broj skupova drajvera. Uklonite jedan pre uvoza drugog.</value>
+  </data>
+  <data name="CustomDrivers.StageVerifying" xml:space="preserve">
+    <value>Provera prilagođenih skupova drajvera…</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arhitektura</value>
   </data>
@@ -2458,6 +2554,12 @@ Licencirano pod MIT licencom.</value>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
   </data>
+  <data name="Nav_CustomDriversKey.Description" xml:space="preserve">
+    <value>Uvezite fascikle sa drajverima i ponudite ih kao izvor drajvera u alatki Foundry Deploy.</value>
+  </data>
+  <data name="Nav_CustomDriversKey.Title" xml:space="preserve">
+    <value>Prilagođeni drajveri</value>
+  </data>
   <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
     <value>Uvezite Windows slike iz ISO ili WIM datoteka i uključite ih u medije za implementaciju.</value>
   </data>
@@ -3544,10 +3646,10 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Kreiraj USB</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>Opciona fascikla koja sadrži dodatne .inf drajvere.</value>
+    <value>Opciona fascikla sa .inf drajverima koji se dodaju u WinPE sliku za pokretanje.</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>Prilagođena fascikla drajvera</value>
+    <value>Dodatna fascikla WinPE drajvera</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
     <value>Izaberite prilagođenu fasciklu drajvera</value>
@@ -3556,10 +3658,10 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>Izaberite opcione upravljačke programe dobavljača i prilagođenu fasciklu drajvera.</value>
+    <value>Drajveri koji se dodaju samo u WinPE sliku za pokretanje, na primer mrežni drajveri i drajveri za skladištenje. Da biste dodali drajvere u primenjeni Windows, koristite Prilagođeni drajveri.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Opcije drajvera</value>
+    <value>WinPE drajveri</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3651,6 +3753,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>Čuvanje slike za pokretanje…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingCustomDrivers" xml:space="preserve">
+    <value>Kopiranje prilagođenih skupova drajvera…</value>
+  </data>
   <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
     <value>Kopiranje prilagođenih Windows slika…</value>
   </data>
@@ -3666,8 +3771,14 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Kreiranje particije keša…</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
+    <value>Nekorišćene prilagođene skupove drajvera nije moguće ukloniti sa USB diska.</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Prilagođeni upravljački programi zauzimaju najmanje {0}; najveća dozvoljena veličina je {1}. Izaberite samo mrežne upravljačke programe i upravljačke programe za skladištenje potrebne za Windows PE.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversVerified" xml:space="preserve">
+    <value>Prilagođeni skupovi drajvera su provereni.</value>
   </data>
   <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
     <value>{0} ({1})</value>

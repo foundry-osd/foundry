@@ -736,6 +736,102 @@ Licensierad under MIT-licensen.</value>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Ej tillgänglig</value>
   </data>
+  <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
+    <value>Den här mappen finns redan i profilen som {0}.</value>
+  </data>
+  <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
+    <value>Drivrutinsuppsättningen togs bort, men den lokala kopian kunde inte tas bort.</value>
+  </data>
+  <data name="CustomDrivers.DefaultLabel" xml:space="preserve">
+    <value>Standarduppsättning</value>
+  </data>
+  <data name="CustomDrivers.DefaultSetName" xml:space="preserve">
+    <value>Drivrutinsuppsättning</value>
+  </data>
+  <data name="CustomDrivers.DuplicateName" xml:space="preserve">
+    <value>Det finns redan en drivrutinsuppsättning med detta namn i profilen.</value>
+  </data>
+  <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
+    <value>Inga anpassade drivrutinsuppsättningar. Importera en mapp som innehåller .inf-drivrutiner för att börja.</value>
+  </data>
+  <data name="CustomDrivers.EnableLabel" xml:space="preserve">
+    <value>Aktivera anpassade drivrutiner</value>
+  </data>
+  <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
+    <value>Filer</value>
+  </data>
+  <data name="CustomDrivers.ImportFailed" xml:space="preserve">
+    <value>Drivrutinsuppsättningen kunde inte importeras. Kontrollera åtkomsten till mappen och försök sedan igen. Information finns i loggen.</value>
+  </data>
+  <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
+    <value>Det finns inte tillräckligt med ledigt diskutrymme för att importera drivrutinsuppsättningen. Frigör utrymme och försök sedan igen.</value>
+  </data>
+  <data name="CustomDrivers.ImportInvalidPath" xml:space="preserve">
+    <value>En sökväg i den här mappen är för lång eller ogiltig: {0}. Korta ned eller byt namn på den och försök sedan igen.</value>
+  </data>
+  <data name="CustomDrivers.ImportLabel" xml:space="preserve">
+    <value>Importera mapp</value>
+  </data>
+  <data name="CustomDrivers.ImportMissingInf" xml:space="preserve">
+    <value>Den här mappen innehåller ingen .inf-fil. Välj en mapp med INF-drivrutiner.</value>
+  </data>
+  <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
+    <value>Välj en drivrutinsmapp</value>
+  </data>
+  <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
+    <value>Den här mappen innehåller en symbolisk länk, en knutpunkt eller en molnplatshållare. Kopiera drivrutinerna till en vanlig lokal mapp och försök sedan igen.</value>
+  </data>
+  <data name="CustomDrivers.ImportSourceChanged" xml:space="preserve">
+    <value>Mappen ändrades medan den kopierades. Stäng program som skriver till den och försök sedan igen.</value>
+  </data>
+  <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
+    <value>Den här mappen innehåller för många filer eller undermappar för en drivrutinsuppsättning.</value>
+  </data>
+  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
+    <value>Kopierar och verifierar drivrutinsfiler…</value>
+  </data>
+  <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
+    <value>INF-filer</value>
+  </data>
+  <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
+    <value>Drivrutinsuppsättningar</value>
+  </data>
+  <data name="CustomDrivers.PxeWarning" xml:space="preserve">
+    <value>Inte tillgängligt vid PXE-start. Anpassade drivrutiner kräver det fullständiga ISO- eller USB-mediet.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
+    <value>Profilens drivrutinsuppsättningar är ogiltiga. Kontrollera de inkluderade uppsättningarna och standarduppsättningen innan du skapar eller uppdaterar medier.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
+    <value>Den lokala kopian av {0} saknas eller är skadad. Importera mappen igen eller exkludera uppsättningen innan du skapar eller uppdaterar medier.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
+    <value>Inkludera minst en drivrutinsuppsättning i profilen, eller stäng av anpassade drivrutiner, innan du skapar eller uppdaterar medier.</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
+    <value>Ta bort drivrutinsuppsättning</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) tas bort från den aktuella profilen.</value>
+  </data>
+  <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
+    <value>Drivrutinsuppsättningen kunde inte tas bort. Försök igen.</value>
+  </data>
+  <data name="CustomDrivers.RemoveTitle" xml:space="preserve">
+    <value>Vill du ta bort drivrutinsuppsättningen?</value>
+  </data>
+  <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
+    <value>Den lokala kopian tas bort om ingen annan profil använder den. Originalmappen och befintliga medier ändras inte.</value>
+  </data>
+  <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
+    <value>Ange som standard</value>
+  </data>
+  <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
+    <value>Profilen har nått det högsta antalet drivrutinsuppsättningar. Ta bort en innan du importerar en till.</value>
+  </data>
+  <data name="CustomDrivers.StageVerifying" xml:space="preserve">
+    <value>Verifierar anpassade drivrutinsuppsättningar…</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arkitektur</value>
   </data>
@@ -2458,6 +2554,12 @@ Licensierad under MIT-licensen.</value>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
   </data>
+  <data name="Nav_CustomDriversKey.Description" xml:space="preserve">
+    <value>Importera drivrutinsmappar och erbjud dem som drivrutinskälla i Foundry Deploy.</value>
+  </data>
+  <data name="Nav_CustomDriversKey.Title" xml:space="preserve">
+    <value>Anpassade drivrutiner</value>
+  </data>
   <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
     <value>Importera Windows-avbildningar från ISO- eller WIM-filer och inkludera dem på distributionsmedier.</value>
   </data>
@@ -3544,10 +3646,10 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>Skapa USB</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>Valfri mapp som innehåller ytterligare .inf-drivrutiner.</value>
+    <value>Valfri mapp med .inf-drivrutiner som läggs till i WinPE-startavbildningen.</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>Anpassad drivrutinsmapp</value>
+    <value>Ytterligare WinPE-drivrutinsmapp</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
     <value>Välj anpassad drivrutinsmapp</value>
@@ -3556,10 +3658,10 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>Välj valfria leverantörsdrivrutiner och en anpassad drivrutinsmapp.</value>
+    <value>Drivrutiner som endast läggs till i WinPE-startavbildningen, till exempel nätverks- och lagringsdrivrutiner. Använd Anpassade drivrutiner för att lägga till drivrutiner i den distribuerade Windows.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Drivrutinsalternativ</value>
+    <value>WinPE-drivrutiner</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3651,6 +3753,9 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>Sparar startavbildningen…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingCustomDrivers" xml:space="preserve">
+    <value>Kopierar anpassade drivrutinsuppsättningar…</value>
+  </data>
   <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
     <value>Kopierar anpassade Windows-avbildningar…</value>
   </data>
@@ -3666,8 +3771,14 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Skapar cachepartitionen…</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
+    <value>Oanvända anpassade drivrutinsuppsättningar kunde inte tas bort från USB-enheten.</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>De anpassade drivrutinerna tar minst {0}; maxgränsen är {1}. Välj endast de nätverks- och lagringsdrivrutiner som Windows PE behöver.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversVerified" xml:space="preserve">
+    <value>Anpassade drivrutinsuppsättningar har verifierats.</value>
   </data>
   <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
     <value>{0} ({1})</value>

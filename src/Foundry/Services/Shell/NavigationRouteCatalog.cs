@@ -43,6 +43,7 @@ public static class NavigationRouteCatalog
         CreatePrimary<InteractiveDomainJoinPage>("Nav_InteractiveDomainJoinKey", "E928", NavigationSection.DomainJoin),
         CreatePrimary<OsSelectionPage>("Nav_OsSelectionKey", "EC77", NavigationSection.Customization),
         CreatePrimary<CustomImagesPage>("Nav_CustomImagesKey", "E958", NavigationSection.Customization),
+        CreatePrimary<CustomDriversPage>("Nav_CustomDriversKey", "E964", NavigationSection.Customization),
         CreatePrimary<UnattendPage>("Nav_UnattendKey", "E8A5", NavigationSection.Customization),
         CreatePrimary<MachineNamingPage>("Nav_MachineNamingKey", "E8AC", NavigationSection.Customization),
         CreatePrimary<OobePage>("Nav_OobeKey", "F133", NavigationSection.Customization),

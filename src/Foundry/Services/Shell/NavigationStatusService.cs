@@ -103,6 +103,11 @@ internal sealed class NavigationStatusService : INavigationStatusService
             return ConfigurationNavigationTarget.CustomImages;
         }
 
+        if (pageType == typeof(CustomDriversPage))
+        {
+            return ConfigurationNavigationTarget.CustomDrivers;
+        }
+
         if (pageType == typeof(PostInstallationPage))
         {
             return ConfigurationNavigationTarget.PostInstallation;
