@@ -149,6 +149,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
 
         int[] percents = progress.Reports.Select(report => report.Percent).ToArray();
         Assert.Equal(percents.Order(), percents);
+        Assert.Contains(progress.Reports, report => report.Status == WinPeProgressStatuses.CheckingMediaContent && report.Percent == 20);
         Assert.All(
             progress.Reports.Where(report => report.Status == Publisher.PublishStatus),
             report => Assert.InRange(report.Percent, 22, 34));
@@ -191,6 +192,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
 
         int[] percents = progress.Reports.Select(report => report.Percent).ToArray();
         Assert.Equal(percents.Order(), percents);
+        Assert.Contains(progress.Reports, report => report.Status == WinPeProgressStatuses.CheckingMediaContent && report.Percent == 10);
         Assert.Contains(progress.Reports, report => report.Status == Publisher.PublishStatus);
         Assert.All(
             progress.Reports.Where(report => report.Status == Publisher.PublishStatus),

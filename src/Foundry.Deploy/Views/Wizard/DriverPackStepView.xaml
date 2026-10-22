@@ -17,21 +17,6 @@
             Style="{StaticResource ScrollViewerContentGutterStyle}"
             VerticalScrollBarVisibility="Auto">
             <StackPanel>
-                <StackPanel.Resources>
-                    <Style x:Key="DriverOptionItemStyle"
-                        TargetType="ListBoxItem">
-                        <Setter
-                            Property="HorizontalContentAlignment"
-                            Value="Stretch" />
-                        <Setter
-                            Property="Margin"
-                            Value="0,0,0,8" />
-                        <Setter
-                            Property="Padding"
-                            Value="16,12" />
-                    </Style>
-                </StackPanel.Resources>
-
                 <!--  Non-blocking: the other driver sources stay usable when the custom sets fail verification.  -->
                 <controls:InfoBar
                     Margin="0,0,0,12"
@@ -43,9 +28,21 @@
                     Padding="0,4,0,0"
                     AutomationProperties.Name="{Binding DataContext.Strings[DriverPack.Source], ElementName=ViewRoot}"
                     BorderThickness="0"
-                    ItemContainerStyle="{StaticResource DriverOptionItemStyle}"
                     ItemsSource="{Binding DriverPackOptions}"
                     SelectedItem="{Binding SelectedDriverPackOption}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter
+                                Property="HorizontalContentAlignment"
+                                Value="Stretch" />
+                            <Setter
+                                Property="Margin"
+                                Value="0,0,0,8" />
+                            <Setter
+                                Property="Padding"
+                                Value="16,12" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
