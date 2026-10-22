@@ -760,8 +760,14 @@ Licenc az MIT licenc alatt.</value>
   <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
     <value>Fájlok</value>
   </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Importálás</value>
+  </data>
   <data name="CustomDrivers.ImportFailed" xml:space="preserve">
     <value>Az illesztőprogram-készletet nem sikerült importálni. Ellenőrizze a mappához való hozzáférést, majd próbálkozzon újra. A részletek a naplóban találhatók.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Illesztőprogram-mappa</value>
   </data>
   <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
     <value>Nincs elég szabad lemezterület az illesztőprogram-készlet importálásához. Szabadítson fel helyet, majd próbálkozzon újra.</value>
@@ -778,6 +784,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Válasszon illesztőprogram-mappát</value>
   </data>
+  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
+    <value>Illesztőprogram-fájlok másolása és ellenőrzése… {0}%</value>
+  </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Ez a mappa szimbolikus hivatkozást, csomópontot vagy felhőbeli helyőrzőt tartalmaz. Másolja az illesztőprogramokat egy hagyományos helyi mappába, majd próbálkozzon újra.</value>
   </data>
@@ -786,9 +795,6 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
     <value>Ez a mappa túl sok fájlt vagy almappát tartalmaz egy illesztőprogram-készlethez.</value>
-  </data>
-  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
-    <value>Illesztőprogram-fájlok másolása és ellenőrzése…</value>
   </data>
   <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
     <value>INF-fájlok</value>

@@ -760,8 +760,14 @@
   <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
     <value>Файли</value>
   </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Імпортувати</value>
+  </data>
   <data name="CustomDrivers.ImportFailed" xml:space="preserve">
     <value>Не вдалося імпортувати набір драйверів. Перевірте доступ до папки й повторіть спробу. Подробиці див. у журналі.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Папка з драйверами</value>
   </data>
   <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
     <value>Недостатньо вільного місця на диску для імпорту цього набору драйверів. Звільніть місце й повторіть спробу.</value>
@@ -778,6 +784,9 @@
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Виберіть папку з драйверами</value>
   </data>
+  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
+    <value>Копіювання та перевірка файлів драйверів… {0} %</value>
+  </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Ця папка містить символьне посилання, точку з'єднання або хмарний заповнювач. Скопіюйте драйвери до звичайної локальної папки й повторіть спробу.</value>
   </data>
@@ -786,9 +795,6 @@
   </data>
   <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
     <value>Ця папка містить забагато файлів або вкладених папок для набору драйверів.</value>
-  </data>
-  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
-    <value>Копіювання та перевірка файлів драйверів…</value>
   </data>
   <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
     <value>Файли INF</value>

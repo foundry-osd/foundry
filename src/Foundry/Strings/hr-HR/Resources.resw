@@ -760,8 +760,14 @@ Licenciran prema MIT licenci.</value>
   <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
     <value>Datoteke</value>
   </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Uvezi</value>
+  </data>
   <data name="CustomDrivers.ImportFailed" xml:space="preserve">
     <value>Skup upravljačkih programa nije moguće uvesti. Provjerite pristup mapi, a zatim pokušajte ponovno. Pojedinosti su u zapisniku.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Mapa s upravljačkim programima</value>
   </data>
   <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
     <value>Nema dovoljno slobodnog prostora na disku za uvoz ovog skupa upravljačkih programa. Oslobodite prostor, a zatim pokušajte ponovno.</value>
@@ -778,6 +784,9 @@ Licenciran prema MIT licenci.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Odaberite mapu s upravljačkim programima</value>
   </data>
+  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
+    <value>Kopiranje i provjera datoteka upravljačkih programa… {0} %</value>
+  </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Ova mapa sadrži simboličku vezu, spoj ili rezervirano mjesto u oblaku. Kopirajte upravljačke programe u običnu lokalnu mapu, a zatim pokušajte ponovno.</value>
   </data>
@@ -786,9 +795,6 @@ Licenciran prema MIT licenci.</value>
   </data>
   <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
     <value>Ova mapa sadrži previše datoteka ili podmapa za skup upravljačkih programa.</value>
-  </data>
-  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
-    <value>Kopiranje i provjera datoteka upravljačkih programa…</value>
   </data>
   <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
     <value>INF datoteke</value>

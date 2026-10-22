@@ -760,8 +760,14 @@ Licenciado sob a licença MIT.</value>
   <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
     <value>Arquivos</value>
   </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Importar</value>
+  </data>
   <data name="CustomDrivers.ImportFailed" xml:space="preserve">
     <value>Não foi possível importar o conjunto de drivers. Verifique o acesso à pasta e tente novamente. Os detalhes estão no log.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Pasta de drivers</value>
   </data>
   <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
     <value>Não há espaço livre em disco suficiente para importar este conjunto de drivers. Libere espaço e tente novamente.</value>
@@ -778,6 +784,9 @@ Licenciado sob a licença MIT.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Selecione uma pasta de drivers</value>
   </data>
+  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
+    <value>Copiando e verificando os arquivos de driver… {0}%</value>
+  </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Esta pasta contém um link simbólico, uma junção ou um espaço reservado na nuvem. Copie os drivers para uma pasta local comum e tente novamente.</value>
   </data>
@@ -786,9 +795,6 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
     <value>Esta pasta contém arquivos ou subpastas demais para um conjunto de drivers.</value>
-  </data>
-  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
-    <value>Copiando e verificando os arquivos de driver…</value>
   </data>
   <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
     <value>Arquivos INF</value>

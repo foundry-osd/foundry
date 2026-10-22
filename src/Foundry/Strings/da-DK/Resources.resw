@@ -760,8 +760,14 @@ Licenseret under MIT-licensen.</value>
   <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
     <value>Filer</value>
   </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Importér</value>
+  </data>
   <data name="CustomDrivers.ImportFailed" xml:space="preserve">
     <value>Driversættet kunne ikke importeres. Kontrollér adgangen til mappen, og prøv derefter igen. Detaljerne findes i loggen.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Drivermappe</value>
   </data>
   <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
     <value>Der er ikke nok ledig diskplads til at importere dette driversæt. Frigør plads, og prøv derefter igen.</value>
@@ -778,6 +784,9 @@ Licenseret under MIT-licensen.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Vælg en drivermappe</value>
   </data>
+  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
+    <value>Kopierer og kontrollerer driverfiler… {0} %</value>
+  </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Denne mappe indeholder et symbolsk link, en forbindelse eller en cloudpladsholder. Kopiér driverne til en almindelig lokal mappe, og prøv derefter igen.</value>
   </data>
@@ -786,9 +795,6 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
     <value>Denne mappe indeholder for mange filer eller undermapper til et driversæt.</value>
-  </data>
-  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
-    <value>Kopierer og kontrollerer driverfiler…</value>
   </data>
   <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
     <value>INF-filer</value>

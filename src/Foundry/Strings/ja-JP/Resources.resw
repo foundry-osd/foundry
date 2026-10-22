@@ -760,8 +760,14 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
     <value>ファイル</value>
   </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>インポート</value>
+  </data>
   <data name="CustomDrivers.ImportFailed" xml:space="preserve">
     <value>ドライバー セットをインポートできませんでした。フォルダーへのアクセスを確認してから、もう一度お試しください。詳細はログに記録されています。</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>ドライバー フォルダー</value>
   </data>
   <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
     <value>このドライバー セットをインポートするための空きディスク領域が不足しています。領域を空けてから、もう一度お試しください。</value>
@@ -778,6 +784,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>ドライバー フォルダーを選択</value>
   </data>
+  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
+    <value>ドライバー ファイルをコピーして検証しています… {0}%</value>
+  </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>このフォルダーには、シンボリック リンク、ジャンクション、またはクラウド プレースホルダーが含まれています。ドライバーを通常のローカル フォルダーにコピーしてから、もう一度お試しください。</value>
   </data>
@@ -786,9 +795,6 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
     <value>このフォルダーには、ドライバー セットとしては多すぎるファイルまたはサブフォルダーが含まれています。</value>
-  </data>
-  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
-    <value>ドライバー ファイルをコピーして検証しています…</value>
   </data>
   <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
     <value>INF ファイル</value>

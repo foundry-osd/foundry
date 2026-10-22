@@ -760,8 +760,14 @@
   <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
     <value>קבצים</value>
   </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>ייבוא</value>
+  </data>
   <data name="CustomDrivers.ImportFailed" xml:space="preserve">
     <value>לא ניתן היה לייבא את ערכת מנהלי ההתקנים. יש לבדוק את הגישה לתיקיה ולנסות שוב. הפרטים נמצאים ביומן.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>תיקיית מנהלי התקנים</value>
   </data>
   <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
     <value>אין מספיק שטח פנוי בדיסק לייבוא ערכת מנהלי התקנים זו. יש לפנות שטח ולנסות שוב.</value>
@@ -778,6 +784,9 @@
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>בחירת תיקיית מנהלי התקנים</value>
   </data>
+  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
+    <value>מעתיק ומאמת קובצי מנהלי התקנים… {0}%</value>
+  </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>תיקיה זו מכילה קישור סמלי, צומת או מציין מקום בענן. יש להעתיק את מנהלי ההתקנים לתיקיה מקומית רגילה ולנסות שוב.</value>
   </data>
@@ -786,9 +795,6 @@
   </data>
   <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
     <value>תיקיה זו מכילה יותר מדי קבצים או תיקיות משנה עבור ערכת מנהלי התקנים.</value>
-  </data>
-  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
-    <value>מעתיק ומאמת קובצי מנהלי התקנים…</value>
   </data>
   <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
     <value>קובצי INF</value>

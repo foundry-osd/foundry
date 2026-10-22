@@ -760,8 +760,14 @@
   <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
     <value>Αρχεία</value>
   </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Εισαγωγή</value>
+  </data>
   <data name="CustomDrivers.ImportFailed" xml:space="preserve">
     <value>Δεν ήταν δυνατή η εισαγωγή του συνόλου προγραμμάτων οδήγησης. Ελέγξτε την πρόσβαση στον φάκελο και δοκιμάστε ξανά. Οι λεπτομέρειες βρίσκονται στο αρχείο καταγραφής.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Φάκελος προγραμμάτων οδήγησης</value>
   </data>
   <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
     <value>Δεν υπάρχει αρκετός ελεύθερος χώρος στον δίσκο για την εισαγωγή αυτού του συνόλου προγραμμάτων οδήγησης. Ελευθερώστε χώρο και δοκιμάστε ξανά.</value>
@@ -778,6 +784,9 @@
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Επιλέξτε φάκελο προγραμμάτων οδήγησης</value>
   </data>
+  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
+    <value>Αντιγραφή και επαλήθευση αρχείων προγραμμάτων οδήγησης… {0} %</value>
+  </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Αυτός ο φάκελος περιέχει συμβολική σύνδεση, σημείο σύνδεσης ή σύμβολο κράτησης θέσης cloud. Αντιγράψτε τα προγράμματα οδήγησης σε έναν κανονικό τοπικό φάκελο και δοκιμάστε ξανά.</value>
   </data>
@@ -786,9 +795,6 @@
   </data>
   <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
     <value>Αυτός ο φάκελος περιέχει πάρα πολλά αρχεία ή υποφακέλους για ένα σύνολο προγραμμάτων οδήγησης.</value>
-  </data>
-  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
-    <value>Αντιγραφή και επαλήθευση αρχείων προγραμμάτων οδήγησης…</value>
   </data>
   <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
     <value>Αρχεία INF</value>

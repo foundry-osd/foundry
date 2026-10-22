@@ -760,8 +760,14 @@ Sous licence MIT.</value>
   <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
     <value>Fichiers</value>
   </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Importer</value>
+  </data>
   <data name="CustomDrivers.ImportFailed" xml:space="preserve">
     <value>L'ensemble de pilotes n'a pas pu être importé. Vérifiez l'accès au dossier, puis réessayez. Les détails figurent dans le journal.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Dossier de pilotes</value>
   </data>
   <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
     <value>Espace disque insuffisant pour importer cet ensemble de pilotes. Libérez de l'espace, puis réessayez.</value>
@@ -778,6 +784,9 @@ Sous licence MIT.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Sélectionner un dossier de pilotes</value>
   </data>
+  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
+    <value>Copie et vérification des fichiers de pilotes… {0} %</value>
+  </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Ce dossier contient un lien symbolique, une jonction ou un espace réservé infonuagique. Copiez les pilotes dans un dossier local ordinaire, puis réessayez.</value>
   </data>
@@ -786,9 +795,6 @@ Sous licence MIT.</value>
   </data>
   <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
     <value>Ce dossier contient trop de fichiers ou de sous-dossiers pour un ensemble de pilotes.</value>
-  </data>
-  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
-    <value>Copie et vérification des fichiers de pilotes…</value>
   </data>
   <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
     <value>Fichiers INF</value>

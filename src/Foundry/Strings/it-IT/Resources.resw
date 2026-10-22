@@ -760,8 +760,14 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
     <value>File</value>
   </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Importa</value>
+  </data>
   <data name="CustomDrivers.ImportFailed" xml:space="preserve">
     <value>Impossibile importare il set di driver. Verifica l'accesso alla cartella, quindi riprova. I dettagli sono nel log.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Cartella dei driver</value>
   </data>
   <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
     <value>Spazio libero su disco insufficiente per importare questo set di driver. Libera spazio, quindi riprova.</value>
@@ -778,6 +784,9 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Seleziona una cartella di driver</value>
   </data>
+  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
+    <value>Copia e verifica dei file dei driver in corso… {0}%</value>
+  </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Questa cartella contiene un collegamento simbolico, una giunzione o un segnaposto cloud. Copia i driver in una normale cartella locale, quindi riprova.</value>
   </data>
@@ -786,9 +795,6 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
     <value>Questa cartella contiene troppi file o sottocartelle per un set di driver.</value>
-  </data>
-  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
-    <value>Copia e verifica dei file dei driver in corso…</value>
   </data>
   <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
     <value>File INF</value>

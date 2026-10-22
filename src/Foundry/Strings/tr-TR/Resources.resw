@@ -760,8 +760,14 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
     <value>Dosyalar</value>
   </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>İçe aktar</value>
+  </data>
   <data name="CustomDrivers.ImportFailed" xml:space="preserve">
     <value>Sürücü kümesi içeri aktarılamadı. Klasöre erişimi denetleyin, ardından yeniden deneyin. Ayrıntılar günlükte yer alır.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Sürücü klasörü</value>
   </data>
   <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
     <value>Bu sürücü kümesini içeri aktarmak için yeterli boş disk alanı yok. Yer açın, ardından yeniden deneyin.</value>
@@ -778,6 +784,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Bir sürücü klasörü seçin</value>
   </data>
+  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
+    <value>Sürücü dosyaları kopyalanıyor ve doğrulanıyor… %{0}</value>
+  </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Bu klasör bir sembolik bağlantı, bir birleşim noktası veya bir bulut yer tutucusu içeriyor. Sürücüleri normal bir yerel klasöre kopyalayın, ardından yeniden deneyin.</value>
   </data>
@@ -786,9 +795,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
     <value>Bu klasör bir sürücü kümesi için çok fazla dosya veya alt klasör içeriyor.</value>
-  </data>
-  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
-    <value>Sürücü dosyaları kopyalanıyor ve doğrulanıyor…</value>
   </data>
   <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
     <value>INF dosyaları</value>

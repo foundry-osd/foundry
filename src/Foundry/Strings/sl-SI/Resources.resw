@@ -760,8 +760,14 @@ Licencirano pod licenco MIT.</value>
   <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
     <value>Datoteke</value>
   </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Uvozi</value>
+  </data>
   <data name="CustomDrivers.ImportFailed" xml:space="preserve">
     <value>Nabora gonilnikov ni bilo mogoče uvoziti. Preverite dostop do mape in poskusite znova. Podrobnosti so v dnevniku.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Mapa z gonilniki</value>
   </data>
   <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
     <value>Na disku ni dovolj prostora za uvoz tega nabora gonilnikov. Sprostite prostor in poskusite znova.</value>
@@ -778,6 +784,9 @@ Licencirano pod licenco MIT.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Izberite mapo z gonilniki</value>
   </data>
+  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
+    <value>Kopiranje in preverjanje datotek gonilnikov… {0} %</value>
+  </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Ta mapa vsebuje simbolno povezavo, stičišče ali označbo mesta v oblaku. Kopirajte gonilnike v običajno lokalno mapo in poskusite znova.</value>
   </data>
@@ -786,9 +795,6 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
     <value>Ta mapa vsebuje preveč datotek ali podmap za nabor gonilnikov.</value>
-  </data>
-  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
-    <value>Kopiranje in preverjanje datotek gonilnikov…</value>
   </data>
   <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
     <value>Datoteke INF</value>

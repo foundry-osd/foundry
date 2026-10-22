@@ -760,8 +760,14 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
     <value>Faili</value>
   </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Importēt</value>
+  </data>
   <data name="CustomDrivers.ImportFailed" xml:space="preserve">
     <value>Draiveru kopu neizdevās importēt. Pārbaudiet piekļuvi mapei un mēģiniet vēlreiz. Detalizēta informācija ir žurnālā.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Draiveru mape</value>
   </data>
   <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
     <value>Diskā nepietiek brīvas vietas, lai importētu šo draiveru kopu. Atbrīvojiet vietu un mēģiniet vēlreiz.</value>
@@ -778,6 +784,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Atlasiet draiveru mapi</value>
   </data>
+  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
+    <value>Notiek draiveru failu kopēšana un pārbaude… {0}%</value>
+  </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Šajā mapē ir simboliskā saite, savienojuma punkts vai mākoņa vietturis. Kopējiet draiverus parastā lokālā mapē un mēģiniet vēlreiz.</value>
   </data>
@@ -786,9 +795,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
     <value>Šajā mapē ir pārāk daudz failu vai apakšmapju draiveru kopai.</value>
-  </data>
-  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
-    <value>Notiek draiveru failu kopēšana un pārbaude…</value>
   </data>
   <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
     <value>INF faili</value>

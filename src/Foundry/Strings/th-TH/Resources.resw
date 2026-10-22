@@ -760,8 +760,14 @@
   <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
     <value>ไฟล์</value>
   </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>นำเข้า</value>
+  </data>
   <data name="CustomDrivers.ImportFailed" xml:space="preserve">
     <value>ไม่สามารถนำเข้าชุดไดรเวอร์ได้ ตรวจสอบสิทธิ์เข้าถึงโฟลเดอร์ แล้วลองอีกครั้ง ดูรายละเอียดได้ในบันทึก</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>โฟลเดอร์ไดรเวอร์</value>
   </data>
   <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
     <value>พื้นที่ดิสก์ว่างไม่เพียงพอสำหรับนำเข้าชุดไดรเวอร์นี้ เพิ่มพื้นที่ว่าง แล้วลองอีกครั้ง</value>
@@ -778,6 +784,9 @@
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>เลือกโฟลเดอร์ไดรเวอร์</value>
   </data>
+  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
+    <value>กำลังคัดลอกและตรวจสอบไฟล์ไดรเวอร์… {0}%</value>
+  </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>โฟลเดอร์นี้มีลิงก์สัญลักษณ์ จุดเชื่อมต่อ หรือตัวยึดตำแหน่งบนคลาวด์ คัดลอกไดรเวอร์ไปยังโฟลเดอร์ในเครื่องทั่วไป แล้วลองอีกครั้ง</value>
   </data>
@@ -786,9 +795,6 @@
   </data>
   <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
     <value>โฟลเดอร์นี้มีไฟล์หรือโฟลเดอร์ย่อยมากเกินไปสำหรับชุดไดรเวอร์</value>
-  </data>
-  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
-    <value>กำลังคัดลอกและตรวจสอบไฟล์ไดรเวอร์…</value>
   </data>
   <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
     <value>ไฟล์ INF</value>

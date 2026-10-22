@@ -760,8 +760,14 @@ Licencirano pod MIT licencom.</value>
   <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
     <value>Datoteke</value>
   </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Uvezi</value>
+  </data>
   <data name="CustomDrivers.ImportFailed" xml:space="preserve">
     <value>Skup drajvera nije moguće uvesti. Proverite pristup fascikli, a zatim pokušajte ponovo. Detalji su u evidenciji.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Fascikla sa drajverima</value>
   </data>
   <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
     <value>Nema dovoljno slobodnog prostora na disku za uvoz ovog skupa drajvera. Oslobodite prostor, a zatim pokušajte ponovo.</value>
@@ -778,6 +784,9 @@ Licencirano pod MIT licencom.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Izaberite fasciklu sa drajverima</value>
   </data>
+  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
+    <value>Kopiranje i provera datoteka drajvera… {0} %</value>
+  </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Ova fascikla sadrži simboličku vezu, spoj ili čuvar mesta u oblaku. Kopirajte drajvere u običnu lokalnu fasciklu, a zatim pokušajte ponovo.</value>
   </data>
@@ -786,9 +795,6 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
     <value>Ova fascikla sadrži previše datoteka ili potfascikli za skup drajvera.</value>
-  </data>
-  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
-    <value>Kopiranje i provera datoteka drajvera…</value>
   </data>
   <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
     <value>INF datoteke</value>

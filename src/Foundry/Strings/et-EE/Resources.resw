@@ -760,8 +760,14 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
     <value>Failid</value>
   </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Impordi</value>
+  </data>
   <data name="CustomDrivers.ImportFailed" xml:space="preserve">
     <value>Draiverikomplekti ei saanud importida. Kontrollige juurdepääsu kaustale ja proovige uuesti. Üksikasjad on logis.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Draiverikaust</value>
   </data>
   <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
     <value>Selle draiverikomplekti importimiseks pole piisavalt vaba kettaruumi. Vabastage ruumi ja proovige uuesti.</value>
@@ -778,6 +784,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Valige draiverikaust</value>
   </data>
+  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
+    <value>Draiverifailide kopeerimine ja kontrollimine… {0} %</value>
+  </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>See kaust sisaldab sümbollinki, ühenduspunkti või pilve kohatäitjat. Kopeerige draiverid tavalisse kohalikku kausta ja proovige uuesti.</value>
   </data>
@@ -786,9 +795,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
     <value>See kaust sisaldab draiverikomplekti jaoks liiga palju faile või alamkaustu.</value>
-  </data>
-  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
-    <value>Draiverifailide kopeerimine ja kontrollimine…</value>
   </data>
   <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
     <value>INF-failid</value>

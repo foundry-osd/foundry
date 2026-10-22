@@ -760,8 +760,14 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
     <value>Bestanden</value>
   </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Importeren</value>
+  </data>
   <data name="CustomDrivers.ImportFailed" xml:space="preserve">
     <value>De stuurprogrammaset kan niet worden geïmporteerd. Controleer de toegang tot de map en probeer het opnieuw. Details staan in het logboek.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Stuurprogrammamap</value>
   </data>
   <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
     <value>Onvoldoende vrije schijfruimte om deze stuurprogrammaset te importeren. Maak ruimte vrij en probeer het opnieuw.</value>
@@ -778,6 +784,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Selecteer een stuurprogrammamap</value>
   </data>
+  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
+    <value>Stuurprogrammabestanden kopiëren en controleren… {0}%</value>
+  </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Deze map bevat een symbolische koppeling, een junction of een tijdelijke cloudaanduiding. Kopieer de stuurprogramma's naar een gewone lokale map en probeer het opnieuw.</value>
   </data>
@@ -786,9 +795,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
     <value>Deze map bevat te veel bestanden of submappen voor een stuurprogrammaset.</value>
-  </data>
-  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
-    <value>Stuurprogrammabestanden kopiëren en controleren…</value>
   </data>
   <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
     <value>INF-bestanden</value>

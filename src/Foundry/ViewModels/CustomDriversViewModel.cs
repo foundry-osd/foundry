@@ -7,7 +7,6 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Drivers;
-using Foundry.Core.Services.Packages;
 using Foundry.Services.Application;
 using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
@@ -22,11 +21,10 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
 {
     private readonly IFoundryConfigurationStateService state;
     private readonly CustomDriverSetLibrary library;
-    private readonly IFilePickerService picker;
+    private readonly CustomDriverSetImportDialogService importDialog;
     private readonly IDialogService dialogs;
     private readonly IApplicationLocalizationService localization;
     private readonly DeploymentProfileCoordinator profiles;
-    private readonly CancellationTokenSource cancellation = new();
     private readonly Dictionary<string, int?> infCounts = new(StringComparer.OrdinalIgnoreCase);
     private readonly HashSet<string> requestedInspections = new(StringComparer.OrdinalIgnoreCase);
     private bool applying;
@@ -34,12 +32,12 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
     private bool libraryStateLoaded;
     private bool inspectingUnknown;
 
-    public CustomDriversViewModel(IFoundryConfigurationStateService state, CustomDriverSetLibrary library, IFilePickerService picker,
+    public CustomDriversViewModel(IFoundryConfigurationStateService state, CustomDriverSetLibrary library, CustomDriverSetImportDialogService importDialog,
         IDialogService dialogs, IApplicationLocalizationService localization, DeploymentProfileCoordinator profiles)
     {
         this.state = state;
         this.library = library;
-        this.picker = picker;
+        this.importDialog = importDialog;
         this.dialogs = dialogs;
         this.localization = localization;
         this.profiles = profiles;
@@ -63,7 +61,6 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CanToggle), nameof(CanAct), nameof(CanEdit), nameof(CanRename), nameof(CanClearDefault))]
     public partial bool IsBusy { get; set; }
-    [ObservableProperty] public partial bool IsImporting { get; set; }
 
     public bool CanToggle => !IsBusy && !disposed;
     public bool CanAct => IsEnabled && CanToggle;
@@ -91,7 +88,6 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
     public string PxeWarning => Text("PxeWarning");
     public string EnableLabel => Text("EnableLabel");
     public string ImportLabel => Text("ImportLabel");
-    public string ImportingMessage => Text("ImportingContent");
     public string EmptyMessage => Text("EmptyMessage");
     public string LibraryLabel => Text("LibraryLabel");
     public string SetDefaultLabel => Text("SetDefaultLabel");
@@ -151,6 +147,10 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
         finally { IsBusy = false; }
     }
 
+    /// <summary>
+    /// Opens the import dialog, which owns the copy, its progress and import failures. The new set is added only while the profile
+    /// that was active when the dialog opened is still active.
+    /// </summary>
     [RelayCommand]
     private async Task ImportAsync()
     {
@@ -163,112 +163,49 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
         }
 
         IsBusy = true;
-        // The import is bound to the profile that was active when it started; an activation during the copy must not receive it.
         Guid? profileId = profiles.Active?.LocalId;
         try
         {
-            string? source = await picker.PickFolderAsync(new FolderPickerRequest(Text("ImportPickerTitle")));
-            if (source is null || disposed) return;
-            IsImporting = true;
-            Logger.Information("Custom driver set import started.");
-            CancellationToken token = cancellation.Token;
-            // The library walks and hashes the whole folder; keep that work off the UI thread.
-            ContentPackageReference package = await Task.Run(() => library.ImportAsync(source, token), token);
-            int? infCount = await Task.Run(() => library.TryCountInfFiles(package.ContentHash), token);
-            Logger.Information("Custom driver set import completed. ContentHash={ContentHash}, FileCount={FileCount}, Length={Length}, InfCount={InfCount}",
-                package.ContentHash, package.FileCount, package.Length, infCount);
-            if (disposed) return;
-            infCounts[package.ContentHash] = infCount;
-            // Re-importing content that was recorded as missing must clear that state without a manual refresh.
-            await state.InspectCustomDriverSetAsync(package);
-            if (disposed) return;
+            CustomDriverSetImportResult? imported = await importDialog.ShowAsync();
+            if (imported is null || disposed) return;
+            infCounts[imported.Package.ContentHash] = imported.InfCount;
             if (profiles.Active?.LocalId != profileId)
             {
-                Logger.Information("Custom driver set import not added because the active profile changed. ContentHash={ContentHash}", package.ContentHash);
+                Logger.Information("Custom driver set import not added because the active profile changed. ContentHash={ContentHash}", imported.Package.ContentHash);
                 StatusMessage = Text("ProfileChanged");
                 return;
             }
-            AddImportedSet(package);
-        }
-        catch (OperationCanceledException) when (cancellation.IsCancellationRequested)
-        {
-            Logger.Information("Custom driver set import canceled.");
+            AddImportedSet(imported);
         }
         catch (Exception exception)
         {
-            string? relativePath = exception.Data[ContentPackagePathPolicy.RelativePathDataKey] as string;
-            Logger.Warning(exception, "Custom driver set import failed. ErrorCode={ErrorCode}, RelativePath={RelativePath}", exception.Message, relativePath);
-            if (!disposed) StatusMessage = DescribeImportFailure(exception, relativePath);
+            Logger.Warning(exception, "Custom driver set import dialog failed.");
+            if (!disposed) StatusMessage = Text("ImportFailed");
         }
-        finally
-        {
-            IsImporting = false;
-            IsBusy = false;
-        }
+        finally { IsBusy = false; }
     }
 
-    private void AddImportedSet(ContentPackageReference package)
+    private void AddImportedSet(CustomDriverSetImportResult imported)
     {
         CustomDriverSetsSettings settings = state.Current.CustomDrivers;
-        CustomDriverSetReference? existing = settings.Sets.FirstOrDefault(set =>
-            set.Package.ContentHash.Equals(package.ContentHash, StringComparison.OrdinalIgnoreCase));
-        if (existing is not null)
-        {
-            SelectedSet = Sets.FirstOrDefault(row => row.Reference.Id == existing.Id);
-            StatusMessage = localization.FormatString("CustomDrivers.AlreadyInProfile", existing.DisplayName);
-            return;
-        }
-
         if (settings.Sets.Count >= CustomDriverSetsSettingsValidator.MaximumSets)
         {
             StatusMessage = Text("SetLimitReached");
             return;
         }
 
-        string name = CreateUniqueName(package.DisplayName, settings);
+        ContentPackageReference package = imported.Package;
         var set = new CustomDriverSetReference
         {
             Id = Guid.NewGuid().ToString("N"),
-            DisplayName = name,
+            DisplayName = imported.Name,
             // A drive root has no folder name; the package label must stay non-empty to remain a valid reference.
-            Package = string.IsNullOrWhiteSpace(package.DisplayName) ? package with { DisplayName = name } : package,
+            Package = string.IsNullOrWhiteSpace(package.DisplayName) ? package with { DisplayName = imported.Name } : package,
             IsIncluded = true
         };
         state.UpdateCustomDrivers(settings with { Sets = settings.Sets.Append(set).ToArray() });
         SelectedSet = Sets.FirstOrDefault(row => row.Reference.Id == set.Id);
     }
-
-    /// <summary>Defaults the label to the folder name and appends a counter when the profile already uses it.</summary>
-    private string CreateUniqueName(string folderName, CustomDriverSetsSettings settings)
-    {
-        string baseName = string.IsNullOrWhiteSpace(folderName) ? Text("DefaultSetName") : folderName.Trim();
-        string name = Truncate(baseName, CustomDriverSetsSettingsValidator.MaximumDisplayNameLength);
-        for (int counter = 2; settings.Sets.Any(set => set.DisplayName.Equals(name, StringComparison.OrdinalIgnoreCase)); counter++)
-        {
-            string suffix = $" ({counter})";
-            name = Truncate(baseName, CustomDriverSetsSettingsValidator.MaximumDisplayNameLength - suffix.Length).TrimEnd() + suffix;
-        }
-        return name;
-    }
-
-    /// <summary>Cuts to <paramref name="length"/> UTF-16 units without splitting a surrogate pair.</summary>
-    private static string Truncate(string value, int length)
-    {
-        if (value.Length <= length) return value;
-        return char.IsHighSurrogate(value[length - 1]) ? value[..(length - 1)] : value[..length];
-    }
-
-    /// <summary>Maps library error codes to actionable messages; any other failure keeps the generic message.</summary>
-    private string DescribeImportFailure(Exception exception, string? relativePath) => exception.Message switch
-    {
-        "ContentPackage.InvalidPackagePath" when relativePath is not null => localization.FormatString("CustomDrivers.ImportInvalidPath", relativePath),
-        "ContentPackage.PackageTooManyFiles" => Text("ImportTooManyFiles"),
-        "ContentPackage.MissingInfFile" or "ContentPackage.EmptyPackage" => Text("ImportMissingInf"),
-        "ContentPackage.PackageSourceChanged" => Text("ImportSourceChanged"),
-        "ContentPackage.InsufficientPackageSpace" => Text("ImportInsufficientSpace"),
-        "ContentPackage.RedirectedPackagePath" => Text("ImportRedirected"),
-        _ => Text("ImportFailed")
-    };
 
     [RelayCommand]
     private void ToggleIncluded()
@@ -442,8 +379,6 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
         disposed = true;
         state.StateChanged -= OnStateChanged;
         localization.LanguageChanged -= OnLanguageChanged;
-        cancellation.Cancel();
-        cancellation.Dispose();
     }
 }
 

@@ -760,8 +760,14 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
     <value>Archivos</value>
   </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Importar</value>
+  </data>
   <data name="CustomDrivers.ImportFailed" xml:space="preserve">
     <value>No se pudo importar el conjunto de controladores. Verifique el acceso a la carpeta e inténtelo de nuevo. Encontrará los detalles en el registro.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Carpeta de controladores</value>
   </data>
   <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
     <value>No hay suficiente espacio libre en disco para importar este conjunto de controladores. Libere espacio e inténtelo de nuevo.</value>
@@ -778,6 +784,9 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Seleccionar una carpeta de controladores</value>
   </data>
+  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
+    <value>Copiando y verificando los archivos de controladores… {0} %</value>
+  </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Esta carpeta contiene un vínculo simbólico, una unión o un marcador de posición en la nube. Copie los controladores a una carpeta local normal e inténtelo de nuevo.</value>
   </data>
@@ -786,9 +795,6 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
     <value>Esta carpeta contiene demasiados archivos o subcarpetas para un conjunto de controladores.</value>
-  </data>
-  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
-    <value>Copiando y verificando los archivos de controladores…</value>
   </data>
   <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
     <value>Archivos INF</value>

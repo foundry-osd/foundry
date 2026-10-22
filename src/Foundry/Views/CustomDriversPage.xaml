@@ -100,18 +100,6 @@
                                 </CommandBar.PrimaryCommands>
                             </CommandBar>
                         </ScrollViewer>
-                        <StackPanel
-                            Spacing="{ThemeResource FoundryTextGroupSpacing}"
-                            Visibility="{x:Bind ViewModel.IsImporting, Mode=OneWay}">
-                            <ProgressBar
-                                AutomationProperties.Name="{x:Bind ViewModel.ImportingMessage, Mode=OneWay}"
-                                IsIndeterminate="{x:Bind ViewModel.IsImporting, Mode=OneWay}" />
-                            <TextBlock
-                                AutomationProperties.LiveSetting="Polite"
-                                Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
-                                Text="{x:Bind ViewModel.ImportingMessage, Mode=OneWay}"
-                                TextWrapping="WrapWholeWords" />
-                        </StackPanel>
                         <TextBlock
                             Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
                             Text="{x:Bind ViewModel.EmptyMessage, Mode=OneWay}"

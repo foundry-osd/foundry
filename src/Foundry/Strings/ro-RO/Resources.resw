@@ -760,8 +760,14 @@ Licențiat sub licența MIT.</value>
   <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
     <value>Fișiere</value>
   </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Importă</value>
+  </data>
   <data name="CustomDrivers.ImportFailed" xml:space="preserve">
     <value>Setul de drivere nu a putut fi importat. Verificați accesul la folder, apoi încercați din nou. Detaliile se află în jurnal.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Folder de drivere</value>
   </data>
   <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
     <value>Nu există suficient spațiu liber pe disc pentru a importa acest set de drivere. Eliberați spațiu, apoi încercați din nou.</value>
@@ -778,6 +784,9 @@ Licențiat sub licența MIT.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Selectați un folder de drivere</value>
   </data>
+  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
+    <value>Se copiază și se verifică fișierele driverelor… {0} %</value>
+  </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Acest folder conține o legătură simbolică, o joncțiune sau un substituent în cloud. Copiați driverele într-un folder local obișnuit, apoi încercați din nou.</value>
   </data>
@@ -786,9 +795,6 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
     <value>Acest folder conține prea multe fișiere sau subfoldere pentru un set de drivere.</value>
-  </data>
-  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
-    <value>Se copiază și se verifică fișierele driverelor…</value>
   </data>
   <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
     <value>Fișiere INF</value>

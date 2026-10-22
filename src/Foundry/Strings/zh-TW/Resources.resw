@@ -760,8 +760,14 @@
   <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
     <value>檔案</value>
   </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>匯入</value>
+  </data>
   <data name="CustomDrivers.ImportFailed" xml:space="preserve">
     <value>無法匯入驅動程式集。請檢查資料夾的存取權限，然後再試一次。詳細資料請參閱記錄。</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>驅動程式資料夾</value>
   </data>
   <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
     <value>可用磁碟空間不足，無法匯入此驅動程式集。請釋放空間，然後再試一次。</value>
@@ -778,6 +784,9 @@
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>選取驅動程式資料夾</value>
   </data>
+  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
+    <value>正在複製並驗證驅動程式檔案… {0}%</value>
+  </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>此資料夾包含符號連結、連接點或雲端預留位置。請將驅動程式複製到一般的本機資料夾，然後再試一次。</value>
   </data>
@@ -786,9 +795,6 @@
   </data>
   <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
     <value>此資料夾包含的檔案或子資料夾過多，無法作為驅動程式集。</value>
-  </data>
-  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
-    <value>正在複製並驗證驅動程式檔案…</value>
   </data>
   <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
     <value>INF 檔案</value>

@@ -760,8 +760,14 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
     <value>Dateien</value>
   </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Importieren</value>
+  </data>
   <data name="CustomDrivers.ImportFailed" xml:space="preserve">
     <value>Der Treibersatz konnte nicht importiert werden. Prüfen Sie den Zugriff auf den Ordner, und versuchen Sie es dann erneut. Details stehen im Protokoll.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Treiberordner</value>
   </data>
   <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
     <value>Nicht genügend freier Speicherplatz, um diesen Treibersatz zu importieren. Geben Sie Speicherplatz frei, und versuchen Sie es dann erneut.</value>
@@ -778,6 +784,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Treiberordner auswählen</value>
   </data>
+  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
+    <value>Treiberdateien werden kopiert und überprüft… {0} %</value>
+  </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Dieser Ordner enthält eine symbolische Verknüpfung, eine Verzeichnisverbindung oder einen Cloud-Platzhalter. Kopieren Sie die Treiber in einen normalen lokalen Ordner, und versuchen Sie es dann erneut.</value>
   </data>
@@ -786,9 +795,6 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
     <value>Dieser Ordner enthält zu viele Dateien oder Unterordner für einen Treibersatz.</value>
-  </data>
-  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
-    <value>Treiberdateien werden kopiert und überprüft…</value>
   </data>
   <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
     <value>INF-Dateien</value>

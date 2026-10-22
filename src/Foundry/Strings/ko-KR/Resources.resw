@@ -760,8 +760,14 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
     <value>파일</value>
   </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>가져오기</value>
+  </data>
   <data name="CustomDrivers.ImportFailed" xml:space="preserve">
     <value>드라이버 세트를 가져오지 못했습니다. 폴더에 대한 액세스 권한을 확인한 다음 다시 시도하세요. 자세한 내용은 로그에 있습니다.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>드라이버 폴더</value>
   </data>
   <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
     <value>이 드라이버 세트를 가져올 디스크 여유 공간이 부족합니다. 공간을 확보한 다음 다시 시도하세요.</value>
@@ -778,6 +784,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>드라이버 폴더 선택</value>
   </data>
+  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
+    <value>드라이버 파일을 복사하고 확인하는 중… {0}%</value>
+  </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>이 폴더에 기호화된 링크, 연결 지점 또는 클라우드 자리 표시자가 있습니다. 드라이버를 일반 로컬 폴더로 복사한 다음 다시 시도하세요.</value>
   </data>
@@ -786,9 +795,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
     <value>이 폴더에는 드라이버 세트에 비해 파일이나 하위 폴더가 너무 많습니다.</value>
-  </data>
-  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
-    <value>드라이버 파일을 복사하고 확인하는 중…</value>
   </data>
   <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
     <value>INF 파일</value>

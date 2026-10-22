@@ -760,8 +760,14 @@ Licencjonowany na licencji MIT.</value>
   <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
     <value>Pliki</value>
   </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Importuj</value>
+  </data>
   <data name="CustomDrivers.ImportFailed" xml:space="preserve">
     <value>Nie udało się zaimportować zestawu sterowników. Sprawdź dostęp do folderu, a następnie spróbuj ponownie. Szczegóły znajdują się w dzienniku.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Folder sterowników</value>
   </data>
   <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
     <value>Za mało wolnego miejsca na dysku, aby zaimportować ten zestaw sterowników. Zwolnij miejsce, a następnie spróbuj ponownie.</value>
@@ -778,6 +784,9 @@ Licencjonowany na licencji MIT.</value>
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>Wybierz folder sterowników</value>
   </data>
+  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
+    <value>Kopiowanie i weryfikowanie plików sterowników… {0}%</value>
+  </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>Ten folder zawiera link symboliczny, połączenie katalogowe lub symbol zastępczy w chmurze. Skopiuj sterowniki do zwykłego folderu lokalnego, a następnie spróbuj ponownie.</value>
   </data>
@@ -786,9 +795,6 @@ Licencjonowany na licencji MIT.</value>
   </data>
   <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
     <value>Ten folder zawiera zbyt wiele plików lub podfolderów jak na zestaw sterowników.</value>
-  </data>
-  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
-    <value>Kopiowanie i weryfikowanie plików sterowników…</value>
   </data>
   <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
     <value>Pliki INF</value>

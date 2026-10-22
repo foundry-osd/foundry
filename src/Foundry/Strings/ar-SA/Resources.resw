@@ -760,8 +760,14 @@
   <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
     <value>الملفات</value>
   </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>استيراد</value>
+  </data>
   <data name="CustomDrivers.ImportFailed" xml:space="preserve">
     <value>تعذر استيراد مجموعة برامج التشغيل. تحقق من صلاحية الوصول إلى المجلد، ثم حاول مرة أخرى. تتوفر التفاصيل في السجل.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>مجلد برامج التشغيل</value>
   </data>
   <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
     <value>لا توجد مساحة خالية كافية على القرص لاستيراد مجموعة برامج التشغيل هذه. حرّر مساحة، ثم حاول مرة أخرى.</value>
@@ -778,6 +784,9 @@
   <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
     <value>حدد مجلد برامج تشغيل</value>
   </data>
+  <data name="CustomDrivers.ImportProgressFormat" xml:space="preserve">
+    <value>جارٍ نسخ ملفات برامج التشغيل والتحقق منها… {0}%</value>
+  </data>
   <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
     <value>يحتوي هذا المجلد على ارتباط رمزي أو نقطة توصيل أو عنصر نائب سحابي. انسخ برامج التشغيل إلى مجلد محلي عادي، ثم حاول مرة أخرى.</value>
   </data>
@@ -786,9 +795,6 @@
   </data>
   <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
     <value>يحتوي هذا المجلد على عدد كبير جدًا من الملفات أو المجلدات الفرعية لمجموعة برامج تشغيل.</value>
-  </data>
-  <data name="CustomDrivers.ImportingContent" xml:space="preserve">
-    <value>جارٍ نسخ ملفات برامج التشغيل والتحقق منها…</value>
   </data>
   <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
     <value>ملفات INF</value>
