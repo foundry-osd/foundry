@@ -30,14 +30,27 @@ public sealed partial class WinPeCustomImageMediaService : IWinPeCustomImageMedi
         this.resolveDisk = resolveDisk;
     }
 
-    /// <summary>Protects all prepared build inputs when their storage has been redirected onto removable media.</summary>
+    /// <summary>
+    /// Protects all prepared build inputs when their storage has been redirected onto removable media. The physical disk is
+    /// resolved once per distinct drive root and reused for every input on it, because each resolution starts a PowerShell
+    /// process and a driver set can hold thousands of files; paths without a usable root are resolved individually.
+    /// </summary>
     public async Task ValidateInputDisksAsync(IEnumerable<string> paths, int targetDisk, CancellationToken cancellationToken)
     {
+        var rootDisks = new Dictionary<string, int?>(StringComparer.OrdinalIgnoreCase);
         foreach (string path in paths.Distinct(StringComparer.OrdinalIgnoreCase))
         {
             cancellationToken.ThrowIfCancellationRequested();
             CustomImagePathPolicy.ValidateNoReparsePoints(path);
-            int? sourceDisk = await resolveDisk(path, cancellationToken).ConfigureAwait(false);
+            string? pathRoot = Path.GetPathRoot(path);
+            int? sourceDisk;
+            if (string.IsNullOrEmpty(pathRoot))
+                sourceDisk = await resolveDisk(path, cancellationToken).ConfigureAwait(false);
+            else if (!rootDisks.TryGetValue(pathRoot, out sourceDisk))
+            {
+                sourceDisk = await resolveDisk(path, cancellationToken).ConfigureAwait(false);
+                rootDisks[pathRoot] = sourceDisk;
+            }
             if (!sourceDisk.HasValue || sourceDisk.Value == targetDisk)
                 throw new InvalidDataException("A media input is on the target disk or its physical disk could not be verified.");
         }
