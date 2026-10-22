@@ -3753,6 +3753,9 @@
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Создание носителя отменено.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Проверка копируемого содержимого…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Проверка возможности безопасного стирания USB-накопителя…</value>
   </data>

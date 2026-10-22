@@ -3753,6 +3753,9 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Medieopprettingen ble avbrutt.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Kontrollerer innholdet som skal kopieres…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Kontrollerer at USB-stasjonen trygt kan slettes…</value>
   </data>

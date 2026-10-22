@@ -3753,6 +3753,9 @@
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>تم إلغاء إنشاء الوسائط.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>جارٍ التحقق من المحتوى المراد نسخه…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>جارٍ التأكد من أن مسح قرص USB آمن…</value>
   </data>

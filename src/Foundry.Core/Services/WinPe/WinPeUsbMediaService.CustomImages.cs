@@ -9,9 +9,10 @@ namespace Foundry.Core.Services.WinPe;
 public sealed partial class WinPeUsbMediaService
 {
     private async Task<WinPeResult> PrepareCustomImagesAsync(UsbOutputOptions options, WinPeBuildArtifact artifact, WinPeToolPaths tools,
-        string? existingDataRoot, CancellationToken cancellationToken)
+        string? existingDataRoot, int stagePercent, CancellationToken cancellationToken)
     {
         if (!HasExternalContent(options)) return WinPeResult.Success();
+        ReportProgress(options.Progress, stagePercent, WinPeProgressStatuses.CheckingMediaContent);
         try
         {
             if (options.CustomImages is not null)

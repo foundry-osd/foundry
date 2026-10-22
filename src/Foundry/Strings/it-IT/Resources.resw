@@ -3753,6 +3753,9 @@ Password e chiavi di accesso incluse: {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>La creazione del supporto è stata annullata.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Verifica del contenuto da copiare…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Verifica che l'unità USB possa essere cancellata in sicurezza…</value>
   </data>

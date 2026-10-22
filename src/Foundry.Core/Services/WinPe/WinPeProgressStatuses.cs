@@ -71,6 +71,7 @@ public static class WinPeProgressStatuses
     public const string ValidatingUsbTarget = "Validating USB target.";
     public const string CheckingUsbTargetSafety = "Checking USB target safety.";
     public const string InspectingUsbMediaLayout = "Inspecting USB media layout.";
+    public const string CheckingMediaContent = "Checking media content.";
     public const string PartitioningUsbTarget = "Partitioning and formatting USB target.";
     public const string OpeningUsbDisk = "Opening USB disk.";
     public const string PreparingUsbDiskAttributes = "Preparing USB disk attributes.";

@@ -3753,6 +3753,9 @@ Mots de passe et clés d'accès inclus : {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>La création du support a été annulée.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Vérification du contenu à copier…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Vérification que la clé USB peut être effacée sans risque…</value>
   </data>

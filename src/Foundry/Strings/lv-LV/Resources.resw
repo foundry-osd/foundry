@@ -3753,6 +3753,9 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Datu nesēja izveide tika atcelta.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Notiek kopējamā satura pārbaude…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Notiek pārbaude, vai USB disku var droši dzēst…</value>
   </data>

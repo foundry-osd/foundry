@@ -3753,6 +3753,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Het maken van media is geannuleerd.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Te kopiëren inhoud controleren…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Controleren of de USB-schijf veilig kan worden gewist…</value>
   </data>

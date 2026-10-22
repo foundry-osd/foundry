@@ -3753,6 +3753,9 @@
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>已取消建立媒體。</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>正在檢查要複製的內容…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>正在確認可以安全清除 USB 磁碟機…</value>
   </data>

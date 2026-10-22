@@ -3753,6 +3753,9 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Oprettelsen af mediet blev annulleret.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Kontrollerer indholdet, der skal kopieres…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Kontrollerer, at USB-drevet kan slettes sikkert…</value>
   </data>

@@ -296,7 +296,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
             return WinPeResult<WinPeUsbProvisionResult>.Failure(mediaValidation.Error!);
         }
 
-        WinPeResult customValidation = await PrepareCustomImagesAsync(options, artifact, tools, null, cancellationToken).ConfigureAwait(false);
+        WinPeResult customValidation = await PrepareCustomImagesAsync(options, artifact, tools, null, 10, cancellationToken).ConfigureAwait(false);
         if (!customValidation.IsSuccess) return WinPeResult<WinPeUsbProvisionResult>.Failure(customValidation.Error!);
 
         ReportProgress(options.Progress, 20, WinPeProgressStatuses.PartitioningUsbTarget);
@@ -424,7 +424,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
         }
 
         WinPeResult customValidation = await PrepareCustomImagesAsync(options, artifact, tools,
-            $"{layout.CacheDriveLetter}\\", cancellationToken).ConfigureAwait(false);
+            $"{layout.CacheDriveLetter}\\", 20, cancellationToken).ConfigureAwait(false);
         if (!customValidation.IsSuccess) return WinPeResult<WinPeUsbProvisionResult>.Failure(customValidation.Error!);
 
         ReportProgress(options.Progress, 35, WinPeProgressStatuses.FormattingUsbBootPartition);

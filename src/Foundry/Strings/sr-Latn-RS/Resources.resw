@@ -3753,6 +3753,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Kreiranje medijuma je otkazano.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Provera sadržaja za kopiranje…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Provera da li je USB disk bezbedno obrisati…</value>
   </data>

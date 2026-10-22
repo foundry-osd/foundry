@@ -3753,6 +3753,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>미디어 만들기가 취소되었습니다.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>복사할 콘텐츠를 확인하는 중…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>USB 드라이브를 안전하게 지울 수 있는지 확인하는 중…</value>
   </data>

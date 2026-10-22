@@ -3753,6 +3753,9 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Median luonti peruutettiin.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Tarkistetaan kopioitavaa sisältöä…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Varmistetaan, että USB-aseman voi tyhjentää turvallisesti…</value>
   </data>

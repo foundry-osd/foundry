@@ -3753,6 +3753,9 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Vytváranie média bolo zrušené.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Kontrola obsahu na kopírovanie…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Overuje sa, či možno disk USB bezpečne vymazať…</value>
   </data>

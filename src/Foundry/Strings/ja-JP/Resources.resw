@@ -3753,6 +3753,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>メディアの作成はキャンセルされました。</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>コピーするコンテンツを確認しています…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>USB ドライブを安全に消去できることを確認しています…</value>
   </data>

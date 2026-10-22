@@ -3753,6 +3753,9 @@
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Η δημιουργία μέσου ακυρώθηκε.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Έλεγχος του περιεχομένου προς αντιγραφή…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Έλεγχος ότι η μονάδα USB μπορεί να διαγραφεί με ασφάλεια…</value>
   </data>

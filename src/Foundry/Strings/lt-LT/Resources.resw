@@ -3753,6 +3753,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Laikmenos kūrimas atšauktas.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Tikrinamas kopijuojamas turinys…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Tikrinama, ar USB diską galima saugiai ištrinti…</value>
   </data>

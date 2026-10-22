@@ -3753,6 +3753,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Die Medienerstellung wurde abgebrochen.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Zu kopierende Inhalte werden überprüft…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Es wird geprüft, ob das USB-Laufwerk sicher gelöscht werden kann…</value>
   </data>

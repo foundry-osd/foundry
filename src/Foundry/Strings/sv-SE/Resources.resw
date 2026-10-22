@@ -3753,6 +3753,9 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Skapandet av media avbröts.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Kontrollerar innehållet som ska kopieras…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Kontrollerar att USB-enheten kan raderas på ett säkert sätt…</value>
   </data>

@@ -3753,6 +3753,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Meediumi loomine tühistati.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Kopeeritava sisu kontrollimine…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Kontrollimine, kas USB-ketast saab ohutult kustutada…</value>
   </data>

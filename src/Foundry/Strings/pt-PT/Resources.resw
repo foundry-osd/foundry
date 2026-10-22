@@ -3753,6 +3753,9 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>A criação do suporte foi cancelada.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>A verificar o conteúdo a copiar…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>A verificar se a unidade USB pode ser apagada em segurança…</value>
   </data>

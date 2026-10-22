@@ -3753,6 +3753,9 @@ Dołączone hasła i klucze dostępu: {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Tworzenie nośnika zostało anulowane.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Sprawdzanie zawartości do skopiowania…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Sprawdzanie, czy dysk USB można bezpiecznie wymazać…</value>
   </data>

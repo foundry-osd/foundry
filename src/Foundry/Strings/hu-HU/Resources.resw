@@ -3753,6 +3753,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Az adathordozó létrehozása megszakadt.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>A másolandó tartalom ellenőrzése…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Annak ellenőrzése, hogy az USB-meghajtó biztonságosan törölhető-e…</value>
   </data>

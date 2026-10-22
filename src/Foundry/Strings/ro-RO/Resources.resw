@@ -3753,6 +3753,9 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Crearea suportului a fost anulată.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Se verifică conținutul de copiat…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Se verifică dacă unitatea USB poate fi ștearsă în siguranță…</value>
   </data>

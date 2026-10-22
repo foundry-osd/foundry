@@ -1910,6 +1910,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             WinPeProgressStatuses.ValidatingUsbTarget => "StartMedia.Operation.ValidatingUsbTarget",
             WinPeProgressStatuses.CheckingUsbTargetSafety => "StartMedia.Operation.CheckingUsbTargetSafety",
             WinPeProgressStatuses.InspectingUsbMediaLayout => "StartMedia.Operation.InspectingUsbMediaLayout",
+            WinPeProgressStatuses.CheckingMediaContent => "StartMedia.Operation.CheckingMediaContent",
             WinPeProgressStatuses.PartitioningUsbTarget => "StartMedia.Operation.PartitioningUsbTarget",
             WinPeProgressStatuses.OpeningUsbDisk => "StartMedia.Operation.OpeningUsbDisk",
             WinPeProgressStatuses.PreparingUsbDiskAttributes => "StartMedia.Operation.PreparingUsbDiskAttributes",

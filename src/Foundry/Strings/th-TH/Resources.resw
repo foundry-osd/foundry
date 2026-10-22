@@ -3753,6 +3753,9 @@
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>ยกเลิกการสร้างสื่อแล้ว</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>กำลังตรวจสอบเนื้อหาที่จะคัดลอก…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>กำลังตรวจสอบว่าสามารถลบข้อมูลในไดรฟ์ USB ได้อย่างปลอดภัย…</value>
   </data>

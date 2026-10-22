@@ -3753,6 +3753,9 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Se canceló la creación del medio.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Comprobando el contenido que se va a copiar…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Verificando que la unidad USB se pueda borrar de forma segura…</value>
   </data>

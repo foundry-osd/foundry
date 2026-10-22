@@ -3753,6 +3753,9 @@ Passwords and access keys included: {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Media creation was canceled.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Checking the content to copy…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Making sure the USB drive is safe to erase…</value>
   </data>
