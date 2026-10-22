@@ -3825,6 +3825,9 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Se extrage imaginea Windows…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Conținutul adăugat pe suport (imagini Windows personalizate, conținut post-instalare sau drivere personalizate) nu a putut fi pregătit. Deschideți folderul de jurnale pentru detalii, apoi încercați din nou.</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>A eșuat la pasul {0} din {1}: {2}.</value>
   </data>
@@ -4013,6 +4016,9 @@ Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Un fișier de pe suportul de pornire are {0}; FAT32 acceptă cel mult {1} per fișier. Reduceți dimensiunea imaginii de pornire sau creați un ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>Partiția cache USB nu are suficient spațiu liber pentru conținutul actualizat, deoarece conținutul anterior rămâne pe unitate în timpul actualizării. Nu s-a șters și nu s-a formatat nimic. Creați din nou suportul USB în loc să îl actualizați.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Este posibil ca unitatea USB să nu mai poată porni un dispozitiv. Creați-o sau actualizați-o din nou înainte de a o folosi.</value>

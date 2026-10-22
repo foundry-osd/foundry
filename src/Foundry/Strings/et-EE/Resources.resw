@@ -3825,6 +3825,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Windowsi tõmmise ekstraktimine…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Meediumile lisatud sisu (kohandatud Windowsi tõmmised, installijärgne sisu või kohandatud draiverid) ei õnnestunud ette valmistada. Üksikasjade nägemiseks avage logikaust ja proovige seejärel uuesti.</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Tõrge tekkis sammus {0}/{1}: {2}.</value>
   </data>
@@ -4013,6 +4016,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Käivituskandja faili suurus on {0}; FAT32 toetab kuni {1} faili kohta. Vähendage käivitustõmmise suurust või looge ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>USB vahemälu partitsioonil pole uuendatud sisu jaoks piisavalt vaba ruumi, sest eelmine sisu jääb uuendamise ajaks draivile. Midagi pole kustutatud ega vormindatud. Looge USB-meedium uuesti, selle asemel et seda uuendada.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>USB-ketas ei pruugi enam seadet käivitada. Enne kasutamist looge või värskendage see uuesti.</value>

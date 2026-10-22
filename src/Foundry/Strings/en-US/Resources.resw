@@ -3825,6 +3825,9 @@ Passwords and access keys included: {2}</value>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Extracting the Windows image…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>The content added to the media (custom Windows images, post-installation content or custom drivers) could not be prepared. Open the log folder for details, then try again.</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>It failed during step {0} of {1}: {2}.</value>
   </data>
@@ -4013,6 +4016,9 @@ Passwords and access keys included: {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>A boot media file is {0}; FAT32 supports at most {1} per file. Reduce the boot image size or create an ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>The USB cache partition does not have enough free space for the updated content, because the previous content stays on the drive during the update. Nothing has been erased or formatted. Create the USB media again instead of updating it.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>The USB drive may no longer start a device. Create or update it again before you use it.</value>

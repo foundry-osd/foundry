@@ -3825,6 +3825,9 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Notiek Windows attēla izvilkšana…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Neizdevās sagatavot datu nesējam pievienoto saturu (pielāgotus Windows attēlus, saturu pēc instalēšanas vai pielāgotus draiverus). Atveriet žurnālu mapi, lai skatītu detalizētu informāciju, un pēc tam mēģiniet vēlreiz.</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Kļūda radās darbībā {0} no {1}: {2}.</value>
   </data>
@@ -4013,6 +4016,9 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Sāknēšanas datu nesēja faila lielums ir {0}; FAT32 atbalsta ne vairāk kā {1} vienam failam. Samaziniet sāknēšanas attēla lielumu vai izveidojiet ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>USB kešatmiņas nodalījumā nav pietiekami daudz brīvas vietas atjauninātajam saturam, jo iepriekšējais saturs atjaunināšanas laikā paliek diskā. Nekas nav izdzēsts vai formatēts. Atjaunināšanas vietā izveidojiet USB datu nesēju no jauna.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Iespējams, USB disks vairs nevar startēt ierīci. Pirms tā lietošanas izveidojiet vai atjauniniet to vēlreiz.</value>

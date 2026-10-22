@@ -3825,6 +3825,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Išgaunamas Windows atvaizdas…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Nepavyko paruošti į laikmeną įtraukto turinio (pasirinktinių Windows atvaizdų, turinio po diegimo arba pasirinktinių tvarkyklių). Išsamią informaciją rasite žurnalų aplanke, tada bandykite dar kartą.</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Klaida įvyko atliekant {0} veiksmą iš {1}: {2}.</value>
   </data>
@@ -4013,6 +4016,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Paleidimo laikmenos failo dydis yra {0}; FAT32 palaiko ne daugiau kaip {1} vienam failui. Sumažinkite paleidimo atvaizdo dydį arba sukurkite ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>USB talpyklos skaidinyje nepakanka laisvos vietos atnaujintam turiniui, nes ankstesnis turinys atnaujinimo metu lieka diske. Niekas nebuvo ištrinta ar suformatuota. Užuot atnaujinę, iš naujo sukurkite USB laikmeną.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Iš USB disko gali nebepavykti paleisti įrenginio. Prieš naudodami jį sukurkite arba atnaujinkite iš naujo.</value>

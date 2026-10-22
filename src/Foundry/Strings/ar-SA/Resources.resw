@@ -3825,6 +3825,9 @@
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>جارٍ استخراج صورة Windows…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>تعذر تجهيز المحتوى المضاف إلى الوسائط (صور Windows المخصصة أو محتوى ما بعد التثبيت أو برامج التشغيل المخصصة). افتح مجلد السجل للاطلاع على التفاصيل، ثم حاول مرة أخرى.</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>فشلت العملية أثناء الخطوة {0} من {1}: {2}.</value>
   </data>
@@ -4013,6 +4016,9 @@
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>حجم أحد ملفات وسائط التمهيد هو {0}؛ ويدعم FAT32 حدًا أقصى قدره {1} لكل ملف. قلل حجم صورة التمهيد أو أنشئ ملف ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>لا يحتوي قسم ذاكرة التخزين المؤقت على USB على مساحة فارغة كافية للمحتوى المحدّث، لأن المحتوى السابق يبقى على محرك الأقراص أثناء التحديث. لم يتم مسح أي شيء أو تهيئته. أنشئ وسائط USB من جديد بدلاً من تحديثها.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>قد لا يتمكن قرص USB بعد الآن من تشغيل جهاز. أنشئه أو حدّثه مرة أخرى قبل استخدامه.</value>

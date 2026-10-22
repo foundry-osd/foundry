@@ -3825,6 +3825,9 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Extrahuje sa obraz Windows…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Obsah pridaný na médium (vlastné obrazy systému Windows, obsah po inštalácii alebo vlastné ovládače) sa nepodarilo pripraviť. Podrobnosti nájdete v priečinku denníkov. Potom to skúste znova.</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Chyba nastala v kroku {0} z {1}: {2}.</value>
   </data>
@@ -4013,6 +4016,9 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Súbor na spúšťacom médiu má veľkosť {0}; FAT32 podporuje maximálne {1} na súbor. Zmenšite spúšťací obraz alebo vytvorte ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>Oddiel vyrovnávacej pamäte na USB nemá dostatok voľného miesta pre aktualizovaný obsah, pretože predchádzajúci obsah zostáva na jednotke počas aktualizácie. Nič nebolo vymazané ani naformátované. Namiesto aktualizácie vytvorte médium USB znova.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Z disku USB sa už možno nebude dať spustiť zariadenie. Pred použitím ho znova vytvorte alebo aktualizujte.</value>

@@ -3825,6 +3825,9 @@
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Извличане на образа на Windows…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Съдържанието, добавено към носителя (персонализирани образи на Windows, съдържание след инсталиране или персонализирани драйвери), не можа да бъде подготвено. Отворете папката с регистрационни файлове за подробности, след което опитайте пак.</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Грешката възникна на стъпка {0} от {1}: {2}.</value>
   </data>
@@ -4013,6 +4016,9 @@
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Файл на носителя за стартиране е с размер {0}; FAT32 поддържа най-много {1} на файл. Намалете размера на образа за стартиране или създайте ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>Кеш дялът на USB няма достатъчно свободно място за обновеното съдържание, защото предишното съдържание остава на устройството по време на обновяването. Нищо не е изтрито или форматирано. Създайте USB носителя отново, вместо да го обновявате.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>USB дискът може вече да не стартира устройство. Създайте го или го актуализирайте отново, преди да го използвате.</value>

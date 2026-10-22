@@ -3825,6 +3825,9 @@
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>กำลังแยกอิมเมจ Windows…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>ไม่สามารถเตรียมเนื้อหาที่เพิ่มลงในสื่อ (อิมเมจ Windows แบบกำหนดเอง เนื้อหาหลังการติดตั้ง หรือไดรเวอร์แบบกำหนดเอง) ได้ เปิดโฟลเดอร์บันทึกเพื่อดูรายละเอียด แล้วลองอีกครั้ง</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>ล้มเหลวระหว่างขั้นตอนที่ {0} จาก {1}: {2}</value>
   </data>
@@ -4013,6 +4016,9 @@
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>ไฟล์บนสื่อบูตมีขนาด {0} แต่ FAT32 รองรับได้สูงสุด {1} ต่อไฟล์ ลดขนาดอิมเมจบูตหรือสร้าง ISO</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>พาร์ติชันแคชบน USB มีพื้นที่ว่างไม่เพียงพอสำหรับเนื้อหาที่อัปเดต เนื่องจากเนื้อหาเดิมยังคงอยู่ในไดรฟ์ระหว่างการอัปเดต ยังไม่มีการลบหรือฟอร์แมตข้อมูล ให้สร้างสื่อ USB ใหม่แทนการอัปเดต</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>ไดรฟ์ USB นี้อาจใช้เริ่มระบบอุปกรณ์ไม่ได้อีกต่อไป ให้สร้างหรืออัปเดตใหม่อีกครั้งก่อนใช้งาน</value>

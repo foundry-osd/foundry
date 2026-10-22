@@ -3825,6 +3825,9 @@
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>正在擷取 Windows 映像…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>無法準備新增至媒體的內容（自訂 Windows 映像、安裝後內容或自訂驅動程式）。請開啟記錄資料夾查看詳細資料，然後再試一次。</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>在第 {0} 步（共 {1} 步）失敗：{2}。</value>
   </data>
@@ -4013,6 +4016,9 @@
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>開機媒體中的某個檔案大小為 {0}，而 FAT32 支援的單一檔案大小上限為 {1}。請縮小開機映像的大小或建立 ISO。</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>由於更新期間先前的內容仍會保留在磁碟機上，USB 快取分割區沒有足夠的可用空間來存放更新後的內容。尚未執行任何清除或格式化作業。請重新建立 USB 媒體，而不是更新它。</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>此 USB 磁碟機可能無法再讓裝置開機。使用前請重新建立或更新。</value>

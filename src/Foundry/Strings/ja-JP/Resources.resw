@@ -3825,6 +3825,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Windows イメージを抽出しています…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>メディアに追加したコンテンツ (カスタム Windows イメージ、インストール後のコンテンツ、またはカスタム ドライバー) を準備できませんでした。ログ フォルダーを開いて詳細を確認してから、もう一度お試しください。</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>ステップ {0}/{1} で失敗しました: {2}。</value>
   </data>
@@ -4013,6 +4016,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>ブートメディア内のファイルのサイズは {0} ですが、FAT32 のファイルサイズの上限は {1} です。ブートイメージのサイズを小さくするか、ISO を作成してください。</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>以前のコンテンツは更新中もドライブに残るため、USB のキャッシュ パーティションに更新後のコンテンツを格納する空き領域が不足しています。消去やフォーマットは行われていません。更新する代わりに USB メディアを作成し直してください。</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>この USB ドライブからデバイスを起動できなくなっている可能性があります。使用する前に、もう一度作成または更新してください。</value>

@@ -3825,6 +3825,9 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Windows görüntüsü ayıklanıyor…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Medyaya eklenen içerik (özel Windows görüntüleri, kurulum sonrası içerik veya özel sürücüler) hazırlanamadı. Ayrıntılar için günlük klasörünü açın, ardından tekrar deneyin.</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Adım {0}/{1} sırasında başarısız oldu: {2}.</value>
   </data>
@@ -4013,6 +4016,9 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Önyükleme medyasındaki bir dosyanın boyutu {0}; FAT32 dosya başına en fazla {1} destekler. Önyükleme görüntüsünün boyutunu küçültün veya bir ISO oluşturun.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>Önceki içerik güncelleme sırasında sürücüde kaldığı için USB önbellek bölümünde güncellenen içerik için yeterli boş alan yok. Hiçbir şey silinmedi veya biçimlendirilmedi. USB medyasını güncellemek yerine yeniden oluşturun.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>USB sürücüsü artık bir cihazı başlatamayabilir. Kullanmadan önce yeniden oluşturun veya güncelleştirin.</value>

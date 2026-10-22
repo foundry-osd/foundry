@@ -3825,6 +3825,9 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Extraherar Windows-avbildningen…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Innehållet som lagts till på mediet (anpassade Windows-avbildningar, innehåll efter installation eller anpassade drivrutiner) kunde inte förberedas. Öppna loggmappen för mer information och försök sedan igen.</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Det misslyckades under steg {0} av {1}: {2}.</value>
   </data>
@@ -4013,6 +4016,9 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>En fil på startmediet är {0}; FAT32 stöder högst {1} per fil. Minska startavbildningens storlek eller skapa en ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>USB-cachepartitionen har inte tillräckligt med ledigt utrymme för det uppdaterade innehållet, eftersom det tidigare innehållet finns kvar på enheten under uppdateringen. Inget har raderats eller formaterats. Skapa USB-mediet igen i stället för att uppdatera det.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>USB-enheten kanske inte längre kan starta en dator. Skapa eller uppdatera den igen innan du använder den.</value>

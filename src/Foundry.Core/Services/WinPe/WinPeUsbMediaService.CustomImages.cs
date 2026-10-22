@@ -76,7 +76,7 @@ public sealed partial class WinPeUsbMediaService
                 else
                     await _customDriversPublisher.ValidateCapacityAsync(options.CustomDrivers!, existingDataRoot, runtimeBytes, cancellationToken).ConfigureAwait(false);
                 WinPeResult publication = await PublishCustomImagesAsync(options, artifact, tools, existingDataRoot,
-                    UpdateContentProgressRange, cancellationToken).ConfigureAwait(false);
+                    UpdateContentProgressRange, updatesExistingMedia: true, cancellationToken).ConfigureAwait(false);
                 if (!publication.IsSuccess) return publication;
                 // Recheck provenance after a potentially long copy and immediately before BOOT mutation.
                 await _customImagePublisher.ValidateInputDisksAsync(sourcePaths, options.TargetDiskNumber!.Value, cancellationToken).ConfigureAwait(false);
@@ -85,7 +85,7 @@ public sealed partial class WinPeUsbMediaService
         }
         catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException or ArgumentException or System.Text.Json.JsonException or OverflowException)
         {
-            return CustomImageFailure(exception);
+            return ExternalContentFailure(options, exception, updatesExistingMedia: existingDataRoot is not null);
         }
     }
 
@@ -94,7 +94,7 @@ public sealed partial class WinPeUsbMediaService
     /// <paramref name="progressRange"/> so the copy cannot restart the stage percentage.
     /// </summary>
     private async Task<WinPeResult> PublishCustomImagesAsync(UsbOutputOptions options, WinPeBuildArtifact artifact,
-        WinPeToolPaths tools, string dataRoot, (int Start, int End) progressRange, CancellationToken cancellationToken)
+        WinPeToolPaths tools, string dataRoot, (int Start, int End) progressRange, bool updatesExistingMedia, CancellationToken cancellationToken)
     {
         if (!HasExternalContent(options)) return WinPeResult.Success();
         try
@@ -124,7 +124,7 @@ public sealed partial class WinPeUsbMediaService
         }
         catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException or ArgumentException or OverflowException)
         {
-            return CustomImageFailure(exception);
+            return ExternalContentFailure(options, exception, updatesExistingMedia);
         }
     }
 
@@ -160,7 +160,23 @@ public sealed partial class WinPeUsbMediaService
     private static bool HasExternalContent(UsbOutputOptions options) =>
         options.CustomImages is not null || options.PostInstallation is not null || options.CustomDrivers is not null;
 
-    private static WinPeResult CustomImageFailure(Exception exception) => WinPeResult.Failure(
-        WinPeErrorCodes.CustomImageMediaFailed, "Custom Windows image media preparation failed.", exception.Message,
-        stage: "Prepare custom Windows images", exception: exception);
+    /// <summary>
+    /// Maps an external content failure to a diagnostic. A capacity shortfall during an update gets its own code, because
+    /// old generations still occupy the cache partition and only recreating the media reclaims that space. Other failures
+    /// name custom images only when they are the sole external content; otherwise the neutral external content code applies.
+    /// </summary>
+    private static WinPeResult ExternalContentFailure(UsbOutputOptions options, Exception exception, bool updatesExistingMedia)
+    {
+        if (updatesExistingMedia && exception is WinPeMediaCapacityException)
+            return WinPeResult.Failure(WinPeErrorCodes.UsbCacheCapacityInsufficient,
+                "The USB cache partition has insufficient free space for the updated media content.", exception.Message,
+                stage: ExternalMediaContentStage, exception: exception);
+        return options.PostInstallation is null && options.CustomDrivers is null
+            ? WinPeResult.Failure(WinPeErrorCodes.CustomImageMediaFailed, "Custom Windows image media preparation failed.", exception.Message,
+                stage: "Prepare custom Windows images", exception: exception)
+            : WinPeResult.Failure(WinPeErrorCodes.ExternalMediaContentFailed, "External media content preparation failed.", exception.Message,
+                stage: ExternalMediaContentStage, exception: exception);
+    }
+
+    private const string ExternalMediaContentStage = "Prepare external media content";
 }

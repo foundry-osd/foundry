@@ -3825,6 +3825,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Windows-image uitpakken…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>De inhoud die aan het medium is toegevoegd (aangepaste Windows-installatiekopieën, inhoud na de installatie of aangepaste stuurprogramma's) kon niet worden voorbereid. Open de logboekmap voor details en probeer het daarna opnieuw.</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>De fout trad op tijdens stap {0} van {1}: {2}.</value>
   </data>
@@ -4013,6 +4016,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Een bestand op het opstartmedium is {0} groot; FAT32 ondersteunt maximaal {1} per bestand. Verklein de opstartkopie of maak een ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>De USB-cachepartitie heeft niet genoeg vrije ruimte voor de bijgewerkte inhoud, omdat de vorige inhoud tijdens het bijwerken op het station blijft staan. Er is niets gewist of geformatteerd. Maak het USB-medium opnieuw in plaats van het bij te werken.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Een apparaat kan mogelijk niet meer opstarten vanaf de USB-schijf. Maak de schijf opnieuw of werk deze bij voordat u deze gebruikt.</value>

@@ -780,6 +780,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     WinPeErrorCodes.UsbBootCapacityInsufficient => FormatMediaCapacityFailure("StartMedia.Operation.UsbBootCapacityInsufficient", failureDiagnostic),
                     WinPeErrorCodes.UsbBootCapacityUnknown => localizationService.GetString("StartMedia.Operation.UsbBootCapacityUnknown"),
                     WinPeErrorCodes.UsbBootFileTooLarge => FormatMediaCapacityFailure("StartMedia.Operation.UsbBootFileTooLarge", failureDiagnostic),
+                    WinPeErrorCodes.UsbCacheCapacityInsufficient => localizationService.GetString("StartMedia.Operation.UsbCacheCapacityInsufficient"),
+                    WinPeErrorCodes.ExternalMediaContentFailed => localizationService.GetString("StartMedia.Operation.ExternalMediaContentFailed"),
                     WinPeErrorCodes.IsoCreateFailed when IsIsoOutputLocked(failureDiagnostic) => string.Format(
                         CultureInfo.CurrentCulture,
                         localizationService.GetString("StartMedia.Operation.IsoOutputLocked"),
@@ -794,7 +796,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             if (failureDiagnostic.Code is WinPeErrorCodes.CustomDriversTooLarge
                 or WinPeErrorCodes.UsbBootCapacityInsufficient
                 or WinPeErrorCodes.UsbBootCapacityUnknown
-                or WinPeErrorCodes.UsbBootFileTooLarge)
+                or WinPeErrorCodes.UsbBootFileTooLarge
+                or WinPeErrorCodes.UsbCacheCapacityInsufficient)
             {
                 logger.Warning(
                     "Final boot media operation failed validation. FailedStepName={FailedStepName}, DurationMs={DurationMs}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, RequiredBytes={RequiredBytes}, AvailableBytes={AvailableBytes}",

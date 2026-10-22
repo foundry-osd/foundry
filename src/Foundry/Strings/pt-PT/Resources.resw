@@ -3825,6 +3825,9 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>A extrair a imagem do Windows…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Não foi possível preparar o conteúdo adicionado ao suporte (imagens personalizadas do Windows, conteúdo de pós-instalação ou controladores personalizados). Abra a pasta de registos para ver os detalhes e tente novamente.</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Falhou no passo {0} de {1}: {2}.</value>
   </data>
@@ -4013,6 +4016,9 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Um ficheiro do suporte de arranque ocupa {0}; o FAT32 suporta no máximo {1} por ficheiro. Reduza o tamanho da imagem de arranque ou crie uma ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>A partição de cache USB não tem espaço livre suficiente para o conteúdo atualizado, porque o conteúdo anterior permanece na unidade durante a atualização. Nada foi apagado ou formatado. Crie novamente o suporte USB em vez de o atualizar.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>A unidade USB poderá já não conseguir iniciar um dispositivo. Volte a criá-la ou a atualizá-la antes de a utilizar.</value>

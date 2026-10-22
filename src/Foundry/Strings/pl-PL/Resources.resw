@@ -3825,6 +3825,9 @@ Dołączone hasła i klucze dostępu: {2}</value>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Wyodrębnianie obrazu systemu Windows…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Nie można przygotować zawartości dodanej do nośnika (niestandardowych obrazów systemu Windows, zawartości po instalacji lub sterowników niestandardowych). Otwórz folder dziennika, aby zobaczyć szczegóły, a następnie spróbuj ponownie.</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Błąd wystąpił w kroku {0} z {1}: {2}.</value>
   </data>
@@ -4013,6 +4016,9 @@ Dołączone hasła i klucze dostępu: {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Plik na nośniku rozruchowym ma rozmiar {0}; FAT32 obsługuje maksymalnie {1} na plik. Zmniejsz rozmiar obrazu rozruchowego lub utwórz obraz ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>Partycja pamięci podręcznej USB nie ma wystarczającej ilości wolnego miejsca na zaktualizowaną zawartość, ponieważ poprzednia zawartość pozostaje na dysku podczas aktualizacji. Niczego nie usunięto ani nie sformatowano. Zamiast aktualizować nośnik USB, utwórz go ponownie.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Uruchomienie urządzenia z tego dysku USB może już nie być możliwe. Przed użyciem utwórz go lub zaktualizuj ponownie.</value>

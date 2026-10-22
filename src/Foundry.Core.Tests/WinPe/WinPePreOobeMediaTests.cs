@@ -93,7 +93,7 @@ public sealed class WinPePreOobeMediaTests : IDisposable
         WinPePreOobeMediaService.ValidateConfigurationBinding(package, bound);
         Assert.Throws<InvalidDataException>(() => WinPePreOobeMediaService.ValidateConfigurationBinding(package, config));
         string media = Path.Combine(root, "media");
-        await Assert.ThrowsAsync<IOException>(() => publisher.PublishAsync(package, media, Cancellation));
+        await Assert.ThrowsAsync<WinPeMediaCapacityException>(() => publisher.PublishAsync(package, media, Cancellation));
         Assert.False(File.Exists(Path.Combine(media, package.ManifestRelativePath)));
     }
 

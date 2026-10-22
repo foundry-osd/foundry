@@ -3825,6 +3825,9 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Trekker ut Windows-avbildningen…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Innholdet som er lagt til mediet (tilpassede Windows-avbildninger, innhold etter installasjon eller tilpassede drivere), kunne ikke klargjøres. Åpne loggmappen for detaljer, og prøv deretter igjen.</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Det mislyktes under trinn {0} av {1}: {2}.</value>
   </data>
@@ -4013,6 +4016,9 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>En fil på oppstartsmediet er {0}; FAT32 støtter maksimalt {1} per fil. Reduser størrelsen på oppstartsavbildningen eller opprett en ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>USB-cache-partisjonen har ikke nok ledig plass til det oppdaterte innholdet, fordi det tidligere innholdet blir værende på stasjonen under oppdateringen. Ingenting er slettet eller formatert. Opprett USB-mediet på nytt i stedet for å oppdatere det.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>USB-stasjonen kan kanskje ikke lenger starte en enhet. Opprett eller oppdater den på nytt før du bruker den.</value>

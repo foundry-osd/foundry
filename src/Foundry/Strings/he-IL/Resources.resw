@@ -3825,6 +3825,9 @@
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>מחלץ את תמונת Windows…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>לא ניתן היה להכין את התוכן שנוסף למדיה (תמונות Windows מותאמות אישית, תוכן לאחר ההתקנה או מנהלי התקנים מותאמים אישית). יש לפתוח את תיקיית היומן לפרטים ולנסות שוב.</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>הפעולה נכשלה בשלב {0} מתוך {1}: {2}.</value>
   </data>
@@ -4013,6 +4016,9 @@
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>גודל קובץ במדיית האתחול הוא {0}; FAT32 תומך לכל היותר ב-{1} לקובץ. יש להקטין את תמונת האתחול או ליצור ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>במחיצת המטמון בכונן ה-USB אין מספיק שטח פנוי לתוכן המעודכן, מכיוון שהתוכן הקודם נשאר בכונן במהלך העדכון. לא בוצעו מחיקה או אתחול. יש ליצור מחדש את מדיית ה-USB במקום לעדכן אותה.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>ייתכן שכונן ה-USB כבר לא יאתחל מכשיר. צור או עדכן אותו שוב לפני השימוש.</value>

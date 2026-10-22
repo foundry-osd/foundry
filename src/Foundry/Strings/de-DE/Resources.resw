@@ -3825,6 +3825,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Windows-Abbild wird extrahiert…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Der zum Medium hinzugefügte Inhalt (benutzerdefinierte Windows-Abbilder, Inhalte nach der Installation oder benutzerdefinierte Treiber) konnte nicht vorbereitet werden. Öffnen Sie den Protokollordner für Details und versuchen Sie es dann erneut.</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Der Fehler trat in Schritt {0} von {1} auf: {2}.</value>
   </data>
@@ -4013,6 +4016,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Eine Datei des Startmediums ist {0} groß; FAT32 unterstützt höchstens {1} pro Datei. Verkleinern Sie das Startabbild oder erstellen Sie ein ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>Die USB-Cache-Partition hat nicht genug freien Speicherplatz für den aktualisierten Inhalt, da der bisherige Inhalt während der Aktualisierung auf dem Laufwerk bleibt. Es wurde nichts gelöscht oder formatiert. Erstellen Sie das USB-Medium neu, anstatt es zu aktualisieren.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Möglicherweise kann mit dem USB-Laufwerk kein Gerät mehr gestartet werden. Erstellen oder aktualisieren Sie es erneut, bevor Sie es verwenden.</value>

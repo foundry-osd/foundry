@@ -3825,6 +3825,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Izdvajanje Windows slike…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Sadržaj dodat na medijum (prilagođene Windows slike, sadržaj posle instalacije ili prilagođeni drajveri) nije moguće pripremiti. Otvorite fasciklu evidencije za detalje, pa pokušajte ponovo.</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Greška je nastala u koraku {0} od {1}: {2}.</value>
   </data>
@@ -4013,6 +4016,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Datoteka na medijumu za pokretanje zauzima {0}; FAT32 podržava najviše {1} po datoteci. Smanjite veličinu slike za pokretanje ili napravite ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>Particija keša na USB-u nema dovoljno slobodnog prostora za ažurirani sadržaj jer prethodni sadržaj ostaje na disku tokom ažuriranja. Ništa nije obrisano niti formatirano. Umesto ažuriranja, ponovo napravite USB medijum.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Uređaj se možda više neće pokretati sa ovog USB diska. Ponovo ga kreirajte ili ažurirajte pre upotrebe.</value>

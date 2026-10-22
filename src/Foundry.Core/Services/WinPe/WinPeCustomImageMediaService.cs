@@ -83,7 +83,7 @@ public sealed partial class WinPeCustomImageMediaService : IWinPeCustomImageMedi
     public async Task ValidateCapacityAsync(WinPeCustomImageMediaLease package, string root, long additionalBytes, CancellationToken cancellationToken)
     {
         long required = checked(await GetRequiredBytesAsync(package, root, cancellationToken).ConfigureAwait(false) + additionalBytes);
-        if (availableBytes(root) < required) throw new IOException("The data volume has insufficient free space for the custom images and runtime payloads.");
+        if (availableBytes(root) < required) throw new WinPeMediaCapacityException("The data volume has insufficient free space for the custom images and runtime payloads.");
     }
 
     /// <summary>Stages new files, verifies them, and publishes the manifest last; cancellation never removes old generations.</summary>
@@ -97,7 +97,7 @@ public sealed partial class WinPeCustomImageMediaService : IWinPeCustomImageMedi
         string lockPath = CustomImagePathPolicy.ResolveRelativePath(customRoot, ".publish.lock");
         using var publicationLease = new FileStream(lockPath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
         long required = await GetRequiredBytesAsync(package, destinationRoot, cancellationToken).ConfigureAwait(false);
-        if (availableBytes(destinationRoot) < required) throw new IOException("The data volume has insufficient free space for the custom images and staging reserve.");
+        if (availableBytes(destinationRoot) < required) throw new WinPeMediaCapacityException("The data volume has insufficient free space for the custom images and staging reserve.");
         string pending = Path.Combine(customRoot, ".pending-" + Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(pending);
         try

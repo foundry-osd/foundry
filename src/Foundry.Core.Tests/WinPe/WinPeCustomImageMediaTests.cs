@@ -65,7 +65,7 @@ public sealed class WinPeCustomImageMediaTests : IDisposable
         IReadOnlyDictionary<string, string> existingFiles = await SeedDestinationAsync(package, destination);
         var service = new WinPeCustomImageMediaService(_ => 0, (_, _) => Task.FromResult<int?>(1));
 
-        await Assert.ThrowsAsync<IOException>(() => service.PublishAsync(package, destination, TestContext.Current.CancellationToken));
+        await Assert.ThrowsAsync<WinPeMediaCapacityException>(() => service.PublishAsync(package, destination, TestContext.Current.CancellationToken));
 
         Assert.False(File.Exists(Path.Combine(destination, package.ManifestRelativePath)));
         foreach ((string path, string content) in existingFiles)

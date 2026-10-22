@@ -3825,6 +3825,9 @@
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>正在提取 Windows 映像…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>无法准备添加到介质的内容（自定义 Windows 映像、安装后内容或自定义驱动程序）。请打开日志文件夹查看详细信息，然后重试。</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>在第 {0} 步（共 {1} 步）失败：{2}。</value>
   </data>
@@ -4013,6 +4016,9 @@
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>启动介质中的某个文件大小为 {0}，而 FAT32 支持的单个文件大小上限为 {1}。请减小启动映像的大小或创建 ISO。</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>由于更新期间之前的内容仍保留在驱动器上，USB 缓存分区没有足够的可用空间来存放更新后的内容。尚未执行任何擦除或格式化操作。请重新创建 USB 介质，而不是更新它。</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>该 USB 驱动器可能无法再启动设备。请在使用前重新创建或更新它。</value>

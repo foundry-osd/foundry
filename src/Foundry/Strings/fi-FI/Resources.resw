@@ -3825,6 +3825,9 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Puretaan Windows-näköistiedostoa…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Tietovälineeseen lisättyä sisältöä (mukautetut Windows-näköistiedostot, asennuksen jälkeinen sisältö tai mukautetut ohjaimet) ei voitu valmistella. Avaa lokikansio nähdäksesi tiedot ja yritä sitten uudelleen.</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Virhe tapahtui vaiheessa {0}/{1}: {2}.</value>
   </data>
@@ -4013,6 +4016,9 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Käynnistysmedian tiedoston koko on {0}; FAT32 tukee enintään {1} tiedostoa kohden. Pienennä käynnistysnäköistiedostoa tai luo ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>USB-aseman välimuistiosiolla ei ole tarpeeksi vapaata tilaa päivitetylle sisällölle, koska aiempi sisältö pysyy asemalla päivityksen ajan. Mitään ei ole poistettu tai alustettu. Luo USB-tietoväline uudelleen sen päivittämisen sijaan.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>USB-asemalta ei ehkä voi enää käynnistää laitetta. Luo tai päivitä se uudelleen ennen käyttöä.</value>

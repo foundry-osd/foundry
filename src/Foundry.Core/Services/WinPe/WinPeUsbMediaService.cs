@@ -320,7 +320,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
         string bootRootPath = $"{provisionedUsb.BootDriveLetter}\\";
         string cacheRootPath = $"{provisionedUsb.CacheDriveLetter}\\";
         WinPeResult customPublication = await PublishCustomImagesAsync(options, artifact, tools, cacheRootPath,
-            CreateContentProgressRange, cancellationToken).ConfigureAwait(false);
+            CreateContentProgressRange, updatesExistingMedia: false, cancellationToken).ConfigureAwait(false);
         if (!customPublication.IsSuccess) return WinPeResult<WinPeUsbProvisionResult>.Failure(customPublication.Error!);
         ReportProgress(options.Progress, 80, WinPeProgressStatuses.CopyingWinPeMediaToUsb);
         cancellationToken.ThrowIfCancellationRequested();

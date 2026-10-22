@@ -3825,6 +3825,9 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Ekstrahiranje slike sistema Windows…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Vsebine, dodane na medij (prilagojene slike sistema Windows, vsebina po namestitvi ali gonilniki po meri), ni bilo mogoče pripraviti. Za podrobnosti odprite mapo dnevnikov in poskusite znova.</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Napaka je nastala v koraku {0} od {1}: {2}.</value>
   </data>
@@ -4013,6 +4016,9 @@ Vključena gesla in ključi za dostop: {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Datoteka na zagonskem mediju je velika {0}; FAT32 podpira največ {1} na datoteko. Zmanjšajte velikost zagonske slike ali ustvarite ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>Particija predpomnilnika na USB nima dovolj prostega prostora za posodobljeno vsebino, ker prejšnja vsebina med posodabljanjem ostane na pogonu. Nič ni bilo izbrisano ali formatirano. Namesto posodabljanja znova ustvarite medij USB.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Z diska USB morda ne bo več mogoče zagnati naprave. Pred uporabo ga znova ustvarite ali posodobite.</value>

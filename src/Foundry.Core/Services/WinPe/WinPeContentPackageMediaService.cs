@@ -107,7 +107,7 @@ public sealed class WinPeContentPackageMediaService : IWinPeContentPackageMediaP
     {
         ThrowIfInvalidLease(package);
         if (availableBytes(root) < checked(await GetRequiredBytesAsync(package, root, cancellationToken).ConfigureAwait(false) + additionalBytes))
-            throw new IOException("ContentPackage.InsufficientMediaSpace");
+            throw new WinPeMediaCapacityException("ContentPackage.InsufficientMediaSpace");
     }
 
     /// <summary>Verifies staged files before exposing the manifest, so canceled publication leaves older boot configurations usable.</summary>

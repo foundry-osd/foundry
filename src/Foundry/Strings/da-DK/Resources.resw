@@ -3825,6 +3825,9 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Udpakker Windows-afbildningen…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Det indhold, der er tilføjet mediet (brugerdefinerede Windows-afbildninger, indhold efter installation eller brugerdefinerede drivere), kunne ikke forberedes. Åbn logmappen for at se detaljer, og prøv derefter igen.</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Det mislykkedes under trin {0} af {1}: {2}.</value>
   </data>
@@ -4013,6 +4016,9 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>En fil på startmediet fylder {0}; FAT32 understøtter højst {1} pr. fil. Reducer startafbildningens størrelse, eller opret en ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>USB-cachepartitionen har ikke nok ledig plads til det opdaterede indhold, fordi det tidligere indhold forbliver på drevet under opdateringen. Intet er blevet slettet eller formateret. Opret USB-mediet igen i stedet for at opdatere det.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>USB-drevet kan muligvis ikke længere starte en enhed. Opret eller opdater det igen, før du bruger det.</value>

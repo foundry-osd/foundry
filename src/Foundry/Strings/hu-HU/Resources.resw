@@ -3825,6 +3825,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>A Windows-lemezkép kibontása…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Az adathordozóhoz hozzáadott tartalom (egyéni Windows-lemezképek, telepítés utáni tartalom vagy egyéni illesztőprogramok) nem készíthető elő. A részletekért nyissa meg a naplómappát, majd próbálja újra.</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>A hiba a(z) {0}/{1}. lépésben történt: {2}.</value>
   </data>
@@ -4013,6 +4016,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Az indító adathordozó egyik fájlja {0} méretű; a FAT32 fájlonként legfeljebb {1} méretet támogat. Csökkentse az indító lemezkép méretét, vagy hozzon létre ISO-t.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>Az USB gyorsítótár-partícióján nincs elég szabad hely a frissített tartalomhoz, mert a korábbi tartalom a frissítés alatt a meghajtón marad. Sem törlés, sem formázás nem történt. Frissítés helyett hozza létre újra az USB-adathordozót.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Előfordulhat, hogy az USB-meghajtóról már nem indítható el eszköz. Használat előtt hozza létre vagy frissítse újra.</value>

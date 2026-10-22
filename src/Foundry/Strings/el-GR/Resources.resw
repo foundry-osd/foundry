@@ -3825,6 +3825,9 @@
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Εξαγωγή της εικόνας των Windows…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η προετοιμασία του περιεχομένου που προστέθηκε στο μέσο (προσαρμοσμένες εικόνες Windows, περιεχόμενο μετά την εγκατάσταση ή προσαρμοσμένα προγράμματα οδήγησης). Ανοίξτε τον φάκελο αρχείων καταγραφής για λεπτομέρειες και δοκιμάστε ξανά.</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Η αποτυχία προέκυψε στο βήμα {0} από {1}: {2}.</value>
   </data>
@@ -4013,6 +4016,9 @@
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Ένα αρχείο του μέσου εκκίνησης έχει μέγεθος {0}· το FAT32 υποστηρίζει έως {1} ανά αρχείο. Μειώστε το μέγεθος του ειδώλου εκκίνησης ή δημιουργήστε ένα ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>Το διαμέρισμα προσωρινής μνήμης του USB δεν έχει αρκετό ελεύθερο χώρο για το ενημερωμένο περιεχόμενο, επειδή το προηγούμενο περιεχόμενο παραμένει στη μονάδα κατά την ενημέρωση. Δεν έχει γίνει διαγραφή ή διαμόρφωση. Δημιουργήστε ξανά το μέσο USB αντί να το ενημερώσετε.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Η μονάδα USB ενδέχεται να μην μπορεί πλέον να εκκινήσει μια συσκευή. Δημιουργήστε ή ενημερώστε την ξανά πριν τη χρησιμοποιήσετε.</value>

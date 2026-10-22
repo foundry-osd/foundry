@@ -3825,6 +3825,9 @@
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Извлечение образа Windows…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Не удалось подготовить содержимое, добавленное на носитель (пользовательские образы Windows, содержимое после установки или пользовательские драйверы). Откройте папку журналов, чтобы просмотреть подробности, затем повторите попытку.</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Сбой на шаге {0} из {1}: {2}.</value>
   </data>
@@ -4013,6 +4016,9 @@
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Размер файла на загрузочном носителе составляет {0}; FAT32 поддерживает не более {1} на файл. Уменьшите размер загрузочного образа или создайте ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>В разделе кэша на USB недостаточно свободного места для обновлённого содержимого, так как прежнее содержимое остаётся на накопителе во время обновления. Удаление и форматирование не выполнялись. Создайте USB-носитель заново вместо его обновления.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Возможно, с этого USB-накопителя больше не удастся запустить устройство. Перед использованием создайте или обновите его заново.</value>

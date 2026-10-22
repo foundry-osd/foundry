@@ -3825,6 +3825,9 @@ Mots de passe et clés d'accès inclus : {2}</value>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Extraction de l'image Windows…</value>
   </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Le contenu ajouté au média (images Windows personnalisées, contenu de post-installation ou pilotes personnalisés) n'a pas pu être préparé. Ouvrez le dossier des journaux pour plus de détails, puis réessayez.</value>
+  </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>L'échec s'est produit à l'étape {0} sur {1} : {2}.</value>
   </data>
@@ -4013,6 +4016,9 @@ Mots de passe et clés d'accès inclus : {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Un fichier du support de démarrage occupe {0} ; FAT32 prend en charge au maximum {1} par fichier. Réduisez la taille de l'image de démarrage ou créez un ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>La partition de cache USB n'a pas assez d'espace libre pour le contenu mis à jour, car l'ancien contenu reste sur le lecteur pendant la mise à jour. Aucune donnée n'a été effacée et aucun formatage n'a été effectué. Recréez le média USB au lieu de le mettre à jour.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Il est possible que la clé USB ne permette plus de démarrer un appareil. Recréez-la ou mettez-la à jour avant de l'utiliser.</value>
