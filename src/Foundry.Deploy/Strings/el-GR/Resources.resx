@@ -480,6 +480,15 @@
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Ο κωδικός πρόσβασης του λογαριασμού σύνδεσης που είναι αποθηκευμένος στο μέσο έχει λήξει ή πρέπει να αλλάξει. Η ανάπτυξη δεν έχει ξεκινήσει. Ο διαχειριστής πρέπει να ενημερώσει τον κωδικό πρόσβασης στο Foundry OSD και να δημιουργήσει ξανά το μέσο.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Τα προσαρμοσμένα προγράμματα οδήγησης σε αυτό το μέσο δεν πέρασαν τον έλεγχο ακεραιότητας και δεν προσφέρονται. Επιλέξτε άλλη προέλευση προγραμμάτων οδήγησης ή δημιουργήστε ξανά το μέσο εκκίνησης.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Προσαρμοσμένα προγράμματα οδήγησης</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Σύνολο προγραμμάτων οδήγησης</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>
@@ -993,6 +1002,9 @@
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Απόκρυψη διαμερίσματος αποκατάστασης</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Προετοιμασία προσαρμοσμένων προγραμμάτων οδήγησης</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Αντιγραφή αρχείου απαντήσεων</value>
   </data>
@@ -1319,6 +1331,12 @@
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>Το επιλεγμένο αρχείο οδηγού «{0}» από το Microsoft Update Catalog δεν περιέχει αρχεία INF.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Τα προσαρμοσμένα προγράμματα οδήγησης προετοιμάστηκαν.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>Τα επιλεγμένα προσαρμοσμένα προγράμματα οδήγησης δεν είναι διαθέσιμα ή απέτυχαν στον έλεγχο. Συνδέστε ξανά το μέσο ανάπτυξης ή επανεκκινήστε την ανάπτυξη και επιλέξτε άλλη πηγή προγραμμάτων οδήγησης.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Ζητήθηκε η εγκατάσταση του πακέτου προγράμματος οδήγησης πρώτης εκκίνησης χωρίς υποστηριζόμενη εντολή.</value>

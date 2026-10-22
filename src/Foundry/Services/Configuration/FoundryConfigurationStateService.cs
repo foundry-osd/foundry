@@ -37,6 +37,8 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     private readonly ILogger logger;
     private readonly Foundry.Core.Services.Images.CustomImageLibraryService customImageLibrary;
     private readonly Foundry.Core.Services.Packages.ContentPackageLibraryService postInstallPackages;
+    private readonly Foundry.Core.Services.Drivers.CustomDriverSetLibrary customDriverSetLibrary;
+    private readonly Foundry.Core.Services.Drivers.CustomDriverSetAvailabilityCache customDriverAvailability = new();
     private UnattendSettings? validatedUnattendSettings;
     private IReadOnlyList<UnattendSourceValidation> unattendSourceValidations = [];
     private readonly List<(UnattendSettings Settings, Task<IReadOnlyList<UnattendSourceValidation>> Read)> unattendSourceReads = [];
@@ -53,7 +55,8 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         AppSettingsService appSettingsService,
         ILogger logger,
         Foundry.Core.Services.Images.CustomImageLibraryService customImageLibrary,
-        Foundry.Core.Services.Packages.ContentPackageLibraryService postInstallPackages)
+        Foundry.Core.Services.Packages.ContentPackageLibraryService postInstallPackages,
+        Foundry.Core.Services.Drivers.CustomDriverSetLibrary customDriverSetLibrary)
     {
         this.foundryConfigurationService = foundryConfigurationService;
         this.deployConfigurationGenerator = deployConfigurationGenerator;
@@ -66,6 +69,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         this.logger = logger.ForContext<FoundryConfigurationStateService>();
         this.customImageLibrary = customImageLibrary;
         this.postInstallPackages = postInstallPackages;
+        this.customDriverSetLibrary = customDriverSetLibrary;
         FoundryConfigurationDocument loaded = Load(out bool isLegacyMigration);
         loaded = FoundryConfigurationMigration.MigrateDefaultIsoOutput(loaded, Constants.LegacyDefaultIsoPath, Constants.DefaultIsoPath);
         if (isLegacyMigration)
@@ -111,7 +115,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     {
         get
         {
-            if (!IsUnattendConfigurationReady || !IsCustomImagesReady || !IsPostInstallationReady)
+            if (!IsUnattendConfigurationReady || !IsCustomImagesReady || !IsPostInstallationReady || !IsCustomDriversReady)
             {
                 return false;
             }
@@ -432,6 +436,52 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     public bool IsCustomImagesReady => !Current.CustomImages.IsEnabled ||
         (Foundry.Core.Services.Images.CustomImageSettingsValidator.Validate(Current.CustomImages, requireIncludedImage: true).Count == 0 &&
         Current.CustomImages.Images.Where(image => image.IsIncluded).All(customImageLibrary.IsAvailable));
+
+    /// <inheritdoc />
+    public void UpdateCustomDrivers(CustomDriverSetsSettings settings, bool requirePersistence = false)
+    {
+        ArgumentNullException.ThrowIfNull(settings);
+        FoundryConfigurationDocument candidate = Current with { CustomDrivers = settings };
+        Save(SanitizeForPersistence(candidate), throwOnFailure: requirePersistence);
+        Current = candidate;
+        StateChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    /// <inheritdoc />
+    public bool IsCustomDriversReady => customDriverAvailability.IsReady(Current.CustomDrivers);
+
+    /// <inheritdoc />
+    public bool? GetCustomDriverSetAvailability(string contentHash) => customDriverAvailability.GetAvailability(contentHash);
+
+    /// <inheritdoc />
+    public async Task RefreshCustomDriversReadinessAsync()
+    {
+        ContentPackageReference[] packages = Current.CustomDrivers.Sets.Select(set => set.Package)
+            .DistinctBy(package => package.ContentHash, StringComparer.OrdinalIgnoreCase).ToArray();
+        await InspectCustomDriverSetsAsync(packages);
+    }
+
+    /// <inheritdoc />
+    public Task InspectCustomDriverSetAsync(ContentPackageReference package)
+    {
+        ArgumentNullException.ThrowIfNull(package);
+        return InspectCustomDriverSetsAsync([package]);
+    }
+
+    private async Task InspectCustomDriverSetsAsync(ContentPackageReference[] packages)
+    {
+        try
+        {
+            await Task.Run(() => customDriverAvailability.Inspect(customDriverSetLibrary, packages));
+        }
+        catch (Exception exception)
+        {
+            logger.Warning(exception, "Custom driver set availability could not be checked. PackageCount={PackageCount}", packages.Length);
+            return;
+        }
+
+        StateChanged?.Invoke(this, EventArgs.Empty);
+    }
 
     /// <inheritdoc />
     public void UpdateTelemetry(TelemetrySettings settings)

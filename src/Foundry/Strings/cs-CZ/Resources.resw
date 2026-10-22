@@ -736,6 +736,114 @@ Licencováno pod licencí MIT.</value>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Není k dispozici</value>
   </data>
+  <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
+    <value>Tato složka již v tomto profilu je jako {0}.</value>
+  </data>
+  <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
+    <value>Sada ovladačů byla odebrána, ale její místní kopii nelze odstranit.</value>
+  </data>
+  <data name="CustomDrivers.DefaultLabel" xml:space="preserve">
+    <value>Výchozí sada</value>
+  </data>
+  <data name="CustomDrivers.DefaultSetName" xml:space="preserve">
+    <value>Sada ovladačů</value>
+  </data>
+  <data name="CustomDrivers.DuplicateName" xml:space="preserve">
+    <value>V tomto profilu již existuje sada ovladačů s tímto názvem.</value>
+  </data>
+  <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
+    <value>Žádné vlastní sady ovladačů. Začněte importem složky, která obsahuje ovladače .inf.</value>
+  </data>
+  <data name="CustomDrivers.EnableLabel" xml:space="preserve">
+    <value>Povolit vlastní ovladače</value>
+  </data>
+  <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
+    <value>Soubory</value>
+  </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Importovat</value>
+  </data>
+  <data name="CustomDrivers.ImportFailed" xml:space="preserve">
+    <value>Sadu ovladačů nelze importovat. Zkontrolujte přístup ke složce a zkuste to znovu. Podrobnosti jsou v protokolu.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Složka s ovladači</value>
+  </data>
+  <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
+    <value>Na disku není dostatek volného místa pro import této sady ovladačů. Uvolněte místo a zkuste to znovu.</value>
+  </data>
+  <data name="CustomDrivers.ImportInvalidPath" xml:space="preserve">
+    <value>Cesta v této složce je příliš dlouhá nebo neplatná: {0}. Zkraťte ji nebo přejmenujte a zkuste to znovu.</value>
+  </data>
+  <data name="CustomDrivers.ImportLabel" xml:space="preserve">
+    <value>Importovat složku</value>
+  </data>
+  <data name="CustomDrivers.ImportMissingInf" xml:space="preserve">
+    <value>Tato složka neobsahuje žádný soubor .inf. Vyberte složku s ovladači INF.</value>
+  </data>
+  <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
+    <value>Vyberte složku s ovladači</value>
+  </data>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Kopírování a ověřování souborů ovladačů…</value>
+  </data>
+  <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
+    <value>Tato složka obsahuje symbolický odkaz, spojení nebo zástupný symbol cloudu. Zkopírujte ovladače do běžné místní složky a zkuste to znovu.</value>
+  </data>
+  <data name="CustomDrivers.ImportSourceChanged" xml:space="preserve">
+    <value>Složka se během kopírování změnila. Zavřete programy, které do ní zapisují, a zkuste to znovu.</value>
+  </data>
+  <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
+    <value>Tato složka obsahuje pro sadu ovladačů příliš mnoho souborů nebo podsložek.</value>
+  </data>
+  <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
+    <value>Soubory INF</value>
+  </data>
+  <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
+    <value>Sady ovladačů</value>
+  </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>Během importu se změnil aktivní profil, proto sada ovladačů nebyla přidána. Importujte složku znovu v tomto profilu.</value>
+  </data>
+  <data name="CustomDrivers.PxeWarning" xml:space="preserve">
+    <value>Není k dispozici při spuštění přes PXE. Vlastní ovladače vyžadují úplné médium ISO nebo USB.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
+    <value>Sady ovladačů tohoto profilu nejsou platné. Před vytvořením nebo aktualizací média zkontrolujte zahrnuté sady a výchozí sadu.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
+    <value>Místní kopie sady {0} chybí nebo je poškozená. Před vytvořením nebo aktualizací média složku znovu importujte nebo sadu vylučte.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
+    <value>Před vytvořením nebo aktualizací média zahrňte do tohoto profilu alespoň jednu sadu ovladačů nebo vypněte vlastní ovladače.</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
+    <value>Odebrat sadu ovladačů</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) bude odebrána z aktuálního profilu.</value>
+  </data>
+  <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
+    <value>Sadu ovladačů nelze odebrat. Zkuste to znovu.</value>
+  </data>
+  <data name="CustomDrivers.RemoveTitle" xml:space="preserve">
+    <value>Odebrat sadu ovladačů?</value>
+  </data>
+  <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
+    <value>Její místní kopie se odstraní, pokud ji nepoužívá jiný profil. Původní složka a existující média se nezmění.</value>
+  </data>
+  <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
+    <value>Nastavit jako výchozí</value>
+  </data>
+  <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
+    <value>Tento profil dosáhl maximálního počtu sad ovladačů. Před importem další jednu odeberte.</value>
+  </data>
+  <data name="CustomDrivers.StageVerifying" xml:space="preserve">
+    <value>Ověřování vlastních sad ovladačů…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>Probíhá kontrola…</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architektura</value>
   </data>
@@ -2458,6 +2566,12 @@ Licencováno pod licencí MIT.</value>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
   </data>
+  <data name="Nav_CustomDriversKey.Description" xml:space="preserve">
+    <value>Importujte složky s ovladači a nabídněte je jako zdroj ovladačů ve Foundry Deploy.</value>
+  </data>
+  <data name="Nav_CustomDriversKey.Title" xml:space="preserve">
+    <value>Vlastní ovladače</value>
+  </data>
   <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
     <value>Importujte bitové kopie Windows ze souborů ISO nebo WIM a zahrňte je do médií pro nasazení.</value>
   </data>
@@ -3544,10 +3658,10 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Vytvořit USB</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>Volitelná složka obsahující další ovladače .inf.</value>
+    <value>Volitelná složka ovladačů .inf přidávaných do spouštěcí bitové kopie WinPE.</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>Vlastní složka ovladače</value>
+    <value>Další složka ovladačů WinPE</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
     <value>Vyberte vlastní složku ovladače</value>
@@ -3556,10 +3670,10 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>Vyberte volitelné ovladače dodavatele a vlastní složku ovladačů.</value>
+    <value>Ovladače přidávané pouze do spouštěcí bitové kopie WinPE, například síťové a úložné ovladače. Chcete-li přidat ovladače do nasazeného systému Windows, použijte stránku Vlastní ovladače.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Možnosti ovladače</value>
+    <value>Ovladače WinPE</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3639,6 +3753,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Vytváření média bylo zrušeno.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Kontrola obsahu ke zkopírování…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Ověřování, že disk USB lze bezpečně vymazat…</value>
   </data>
@@ -3650,6 +3767,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>Ukládání spouštěcího obrazu…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingCustomDrivers" xml:space="preserve">
+    <value>Kopírování vlastních sad ovladačů…</value>
   </data>
   <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
     <value>Kopírování vlastních bitových kopií Windows…</value>
@@ -3666,8 +3786,14 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Vytváření oddílu mezipaměti…</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
+    <value>Nepoužívané vlastní sady ovladačů nelze odebrat z jednotky USB.</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Vlastní ovladače zabírají alespoň {0}; maximum je {1}. Vyberte pouze síťové ovladače a ovladače úložiště potřebné pro Windows PE.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversVerified" xml:space="preserve">
+    <value>Vlastní sady ovladačů byly ověřeny.</value>
   </data>
   <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
     <value>{0} ({1})</value>
@@ -3707,6 +3833,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Extrahování obrazu Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Obsah přidaný na médium (vlastní bitové kopie Windows, obsah po instalaci nebo vlastní ovladače) se nepodařilo připravit. Podrobnosti najdete ve složce protokolů. Potom to zkuste znovu.</value>
   </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Chyba nastala v kroku {0} z {1}: {2}.</value>
@@ -3896,6 +4025,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Soubor na spouštěcím médiu má velikost {0}; FAT32 podporuje maximálně {1} na soubor. Zmenšete spouštěcí bitovou kopii nebo vytvořte ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>Oddíl mezipaměti na USB nemá dost volného místa pro aktualizovaný obsah, protože předchozí obsah zůstává na jednotce po dobu aktualizace. Nic nebylo smazáno ani naformátováno. Místo aktualizace vytvořte médium USB znovu.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Z disku USB možná už nepůjde spustit zařízení. Před použitím ho znovu vytvořte nebo aktualizujte.</value>

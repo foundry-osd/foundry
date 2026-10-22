@@ -480,6 +480,15 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Az adathordozón tárolt csatlakozási fiók jelszava lejárt, vagy módosítani kell. A telepítés nem indult el. A rendszergazdának frissítenie kell a jelszót a Foundry OSD-ben, és újra létre kell hoznia az adathordozót.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Az adathordozón lévő egyéni illesztőprogramok nem feleltek meg az integritás-ellenőrzésnek, ezért nem választhatók. Válasszon másik illesztőprogram-forrást, vagy hozza létre újra a rendszerindító adathordozót.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Egyéni illesztőprogramok</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Illesztőprogram-készlet</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>
@@ -993,6 +1002,9 @@ Folytatja a telepítést?</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Helyreállítási partíció elrejtése</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Egyéni illesztőprogramok előkészítése</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Válaszfájl másolása</value>
   </data>
@@ -1319,6 +1331,12 @@ Folytatja a telepítést?</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>A kiválasztott „{0}” Microsoft Update Catalog-illesztőprogramfájl nem tartalmaz INF-fájlokat.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Az egyéni illesztőprogramok előkészítve.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>A kiválasztott egyéni illesztőprogramok nem érhetők el, vagy nem mentek át az ellenőrzésen. Csatlakoztassa újra a telepítési adathordozót, vagy indítsa újra a telepítést, és válasszon másik illesztőprogram-forrást.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Az első rendszerindítási illesztőprogram-csomag szakaszolását támogatott parancs nélkül kérték.</value>

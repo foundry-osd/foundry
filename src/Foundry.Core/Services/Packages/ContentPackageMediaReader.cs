@@ -78,14 +78,22 @@ public sealed class ContentPackageMediaReader
                 mismatch = true;
                 continue;
             }
-            ContentPackageMediaManifest? manifest;
-            try { manifest = JsonSerializer.Deserialize<ContentPackageMediaManifest>(bytes, Options); }
-            catch (JsonException) { return Result(ContentPackageMediaStatus.Incompatible); }
-            if (manifest is null || manifest.SchemaVersion != 1 || manifest.Id != manifestId || !HasCanonicalPackages(manifest))
-                return Result(ContentPackageMediaStatus.Incompatible);
-            return new(ContentPackageMediaStatus.Found, root, manifest, path);
+            ContentPackageMediaManifest? manifest = Parse(bytes, manifestId);
+            return manifest is null ? Result(ContentPackageMediaStatus.Incompatible) : new(ContentPackageMediaStatus.Found, root, manifest, path);
         }
         return Result(mismatch ? ContentPackageMediaStatus.HashMismatch : ContentPackageMediaStatus.NotFound);
+    }
+
+    /// <summary>
+    /// Parses media manifest bytes with the lenient reading rules and returns the manifest only when its id is
+    /// <paramref name="manifestId"/> and every package satisfies the kind rules. The caller checks size and hash.
+    /// </summary>
+    internal ContentPackageMediaManifest? Parse(ReadOnlySpan<byte> bytes, string manifestId)
+    {
+        ContentPackageMediaManifest? manifest;
+        try { manifest = JsonSerializer.Deserialize<ContentPackageMediaManifest>(bytes, Options); }
+        catch (JsonException) { return null; }
+        return manifest is null || manifest.SchemaVersion != 1 || manifest.Id != manifestId || !HasCanonicalPackages(manifest) ? null : manifest;
     }
 
     private static ContentPackageMediaReadResult Result(ContentPackageMediaStatus status) => new(status, null, null);

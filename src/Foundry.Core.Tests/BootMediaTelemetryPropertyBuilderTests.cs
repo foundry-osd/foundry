@@ -166,6 +166,41 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.DoesNotContain(result.Values, value => value?.ToString()?.Contains("private-image", StringComparison.Ordinal) == true);
     }
 
+    [Theory]
+    [InlineData(true, 2)]
+    [InlineData(false, 0)]
+    public void Build_ReportsIncludedCustomDriverSetsWithoutSetMetadata(bool enabled, int expectedCount)
+    {
+        var document = new FoundryConfigurationDocument
+        {
+            CustomDrivers = new CustomDriverSetsSettings
+            {
+                IsEnabled = enabled,
+                DefaultSetId = "private-set-id",
+                Sets =
+                [
+                    CreateDriverSet("private-set-id", isIncluded: true),
+                    CreateDriverSet("private-set-excluded", isIncluded: false),
+                    CreateDriverSet("private-set-other", isIncluded: true)
+                ]
+            }
+        };
+
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
+            new MediaPreflightOptions(),
+            document,
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.Equal(expectedCount, result["boot_media_custom_drivers_count"]);
+        Assert.DoesNotContain(result.Values, value => value?.ToString()?.Contains("private-set", StringComparison.Ordinal) == true);
+    }
+
     [Fact]
     public void Build_MissingCustomImageSettingsReportsCatalogDefaults()
     {
@@ -1310,6 +1345,14 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.Equal("hyphen", result["customization_machine_naming_separator"]);
         Assert.Equal("uppercase", result["customization_machine_naming_casing"]);
     }
+
+    private static CustomDriverSetReference CreateDriverSet(string id, bool isIncluded) => new()
+    {
+        Id = id,
+        DisplayName = "private-set-label",
+        Package = new ContentPackageReference { ContentHash = "private-set-hash", DisplayName = "private-set-package", FileCount = 1, Length = 1 },
+        IsIncluded = isIncluded
+    };
 
     private static FoundryConfigurationDocument CreateCustomizationDocument(bool oobeEnabled, bool machineNamingEnabled) => new()
     {

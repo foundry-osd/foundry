@@ -98,6 +98,7 @@ public sealed record WinPeDiagnostic
         {
             WinPeErrorCodes.ValidationFailed or WinPeErrorCodes.CustomDriversTooLarge => (WinPeFailureKinds.Validation, WinPeFailureReasons.InvalidInput),
             WinPeErrorCodes.UsbBootCapacityInsufficient or WinPeErrorCodes.UsbBootCapacityUnknown or WinPeErrorCodes.UsbBootFileTooLarge
+                or WinPeErrorCodes.UsbCacheCapacityInsufficient
                 or WinPeErrorCodes.LocalSpaceInsufficient or WinPeErrorCodes.LocalSpaceUnknown =>
                 (WinPeFailureKinds.Validation, WinPeFailureReasons.DiskValidation),
             WinPeErrorCodes.OperationCancelled => (WinPeFailureKinds.Cancellation, WinPeFailureReasons.Cancelled),

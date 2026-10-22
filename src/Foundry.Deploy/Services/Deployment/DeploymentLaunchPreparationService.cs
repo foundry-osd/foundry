@@ -117,6 +117,12 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             return DeploymentLaunchPreparationResult.Failure(normalizedComputerName);
         }
 
+        if (request.DriverPackSelectionKind == DriverPackSelectionKind.CustomDriverSet &&
+            request.SelectedCustomDriverSet is null)
+        {
+            return DeploymentLaunchPreparationResult.Failure(normalizedComputerName);
+        }
+
         if (request.IsAutopilotEnabled &&
             request.AutopilotProvisioningMode == AutopilotProvisioningMode.JsonProfile &&
             request.SelectedAutopilotProfile is null)
@@ -175,6 +181,8 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             OperatingSystem = request.SelectedOperatingSystem,
             DriverPackSelectionKind = request.DriverPackSelectionKind,
             DriverPack = request.SelectedDriverPack,
+            CustomDriverSet = request.DriverPackSelectionKind == DriverPackSelectionKind.CustomDriverSet ? request.SelectedCustomDriverSet : null,
+            CustomDrivers = request.CustomDrivers,
             ApplyFirmwareUpdates = request.ApplyFirmwareUpdates,
             IsAutopilotEnabled = request.IsAutopilotEnabled,
             AutopilotProvisioningMode = request.AutopilotProvisioningMode,

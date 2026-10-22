@@ -49,6 +49,7 @@ public static class FoundryConfigurationMigration
             : document;
 
         migrated = migrated with { CustomImages = migrated.CustomImages ?? new CustomImagesSettings() };
+        migrated = migrated with { CustomDrivers = migrated.CustomDrivers ?? new CustomDriverSetsSettings() };
         migrated = migrated with { PreOobe = migrated.PreOobe ?? new PreOobeSettings() };
         migrated = migrated with { DomainJoin = WithoutNullLists(migrated.DomainJoin ?? new DomainJoinSettings()) };
         DomainJoinConfigurationValidator.ThrowIfProvisioningModesConflict(migrated.Autopilot, migrated.DomainJoin);

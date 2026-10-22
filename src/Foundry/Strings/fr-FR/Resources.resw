@@ -736,6 +736,114 @@ Sous licence MIT.</value>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Indisponible</value>
   </data>
+  <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
+    <value>Ce dossier figure déjà dans ce profil sous le nom {0}.</value>
+  </data>
+  <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
+    <value>L'ensemble de pilotes a été supprimé, mais sa copie locale n'a pas pu être effacée.</value>
+  </data>
+  <data name="CustomDrivers.DefaultLabel" xml:space="preserve">
+    <value>Ensemble par défaut</value>
+  </data>
+  <data name="CustomDrivers.DefaultSetName" xml:space="preserve">
+    <value>Ensemble de pilotes</value>
+  </data>
+  <data name="CustomDrivers.DuplicateName" xml:space="preserve">
+    <value>Un ensemble de pilotes portant ce nom existe déjà dans ce profil.</value>
+  </data>
+  <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
+    <value>Aucun ensemble de pilotes personnalisé. Importez un dossier contenant des pilotes .inf pour commencer.</value>
+  </data>
+  <data name="CustomDrivers.EnableLabel" xml:space="preserve">
+    <value>Activer les pilotes personnalisés</value>
+  </data>
+  <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
+    <value>Fichiers</value>
+  </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Importer</value>
+  </data>
+  <data name="CustomDrivers.ImportFailed" xml:space="preserve">
+    <value>L'ensemble de pilotes n'a pas pu être importé. Vérifiez l'accès au dossier, puis réessayez. Les détails figurent dans le journal.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Dossier de pilotes</value>
+  </data>
+  <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
+    <value>Espace disque insuffisant pour importer cet ensemble de pilotes. Libérez de l'espace, puis réessayez.</value>
+  </data>
+  <data name="CustomDrivers.ImportInvalidPath" xml:space="preserve">
+    <value>Un chemin de ce dossier est trop long ou non valide : {0}. Raccourcissez-le ou renommez-le, puis réessayez.</value>
+  </data>
+  <data name="CustomDrivers.ImportLabel" xml:space="preserve">
+    <value>Importer un dossier</value>
+  </data>
+  <data name="CustomDrivers.ImportMissingInf" xml:space="preserve">
+    <value>Ce dossier ne contient aucun fichier .inf. Sélectionnez un dossier contenant des pilotes INF.</value>
+  </data>
+  <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
+    <value>Sélectionner un dossier de pilotes</value>
+  </data>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Copie et vérification des fichiers de pilotes…</value>
+  </data>
+  <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
+    <value>Ce dossier contient un lien symbolique, une jonction ou un espace réservé cloud. Copiez les pilotes dans un dossier local ordinaire, puis réessayez.</value>
+  </data>
+  <data name="CustomDrivers.ImportSourceChanged" xml:space="preserve">
+    <value>Le dossier a été modifié pendant la copie. Fermez les programmes qui y écrivent, puis réessayez.</value>
+  </data>
+  <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
+    <value>Ce dossier contient trop de fichiers ou de sous-dossiers pour un ensemble de pilotes.</value>
+  </data>
+  <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
+    <value>Fichiers INF</value>
+  </data>
+  <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
+    <value>Ensembles de pilotes</value>
+  </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>Le profil actif a changé pendant l'importation : l'ensemble de pilotes n'a pas été ajouté. Importez de nouveau le dossier dans ce profil.</value>
+  </data>
+  <data name="CustomDrivers.PxeWarning" xml:space="preserve">
+    <value>Non disponible avec un démarrage PXE. Les pilotes personnalisés nécessitent le média ISO ou USB complet.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
+    <value>Les ensembles de pilotes de ce profil ne sont pas valides. Vérifiez les ensembles inclus et l'ensemble par défaut avant de créer ou de mettre à jour un média.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
+    <value>La copie locale de {0} est manquante ou endommagée. Importez de nouveau le dossier ou excluez l'ensemble avant de créer ou de mettre à jour un média.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
+    <value>Incluez au moins un ensemble de pilotes dans ce profil, ou désactivez les pilotes personnalisés, avant de créer ou de mettre à jour un média.</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
+    <value>Supprimer l'ensemble de pilotes</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) sera supprimé du profil actuel.</value>
+  </data>
+  <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
+    <value>L'ensemble de pilotes n'a pas pu être supprimé. Réessayez.</value>
+  </data>
+  <data name="CustomDrivers.RemoveTitle" xml:space="preserve">
+    <value>Supprimer l'ensemble de pilotes ?</value>
+  </data>
+  <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
+    <value>Sa copie locale est supprimée, sauf si un autre profil l'utilise. Le dossier d'origine et les médias existants ne sont pas modifiés.</value>
+  </data>
+  <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
+    <value>Définir par défaut</value>
+  </data>
+  <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
+    <value>Ce profil a atteint le nombre maximal d'ensembles de pilotes. Supprimez-en un avant d'en importer un autre.</value>
+  </data>
+  <data name="CustomDrivers.StageVerifying" xml:space="preserve">
+    <value>Vérification des ensembles de pilotes personnalisés…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>Vérification…</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architecture</value>
   </data>
@@ -2458,6 +2566,12 @@ Sous licence MIT.</value>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
   </data>
+  <data name="Nav_CustomDriversKey.Description" xml:space="preserve">
+    <value>Importez des dossiers de pilotes et proposez-les comme source de pilotes dans Foundry Deploy.</value>
+  </data>
+  <data name="Nav_CustomDriversKey.Title" xml:space="preserve">
+    <value>Pilotes personnalisés</value>
+  </data>
   <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
     <value>Importez des images Windows depuis des fichiers ISO ou WIM et incluez-les dans les médias de déploiement.</value>
   </data>
@@ -3544,10 +3658,10 @@ Mots de passe et clés d'accès inclus : {2}</value>
     <value>Créer le média USB</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>Dossier optionnel contenant des pilotes .inf supplémentaires.</value>
+    <value>Dossier optionnel de pilotes .inf ajoutés à l'image de démarrage WinPE.</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>Dossier de pilotes personnalisé</value>
+    <value>Dossier de pilotes WinPE supplémentaire</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
     <value>Sélectionner le dossier de pilotes personnalisé</value>
@@ -3556,10 +3670,10 @@ Mots de passe et clés d'accès inclus : {2}</value>
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>Sélectionner les pilotes constructeur optionnels et un dossier de pilotes personnalisé.</value>
+    <value>Pilotes ajoutés uniquement à l'image de démarrage WinPE, comme les pilotes réseau et de stockage. Pour ajouter des pilotes au Windows déployé, utilisez Pilotes personnalisés.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Options de pilotes</value>
+    <value>Pilotes WinPE</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3639,6 +3753,9 @@ Mots de passe et clés d'accès inclus : {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>La création du média a été annulée.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Vérification du contenu à copier…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Vérification que la clé USB peut être effacée sans risque…</value>
   </data>
@@ -3650,6 +3767,9 @@ Mots de passe et clés d'accès inclus : {2}</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>Enregistrement de l'image de démarrage…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingCustomDrivers" xml:space="preserve">
+    <value>Copie des ensembles de pilotes personnalisés…</value>
   </data>
   <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
     <value>Copie des images Windows personnalisées…</value>
@@ -3666,8 +3786,14 @@ Mots de passe et clés d'accès inclus : {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Création de la partition cache…</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
+    <value>Les ensembles de pilotes personnalisés inutilisés n'ont pas pu être supprimés du lecteur USB.</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Les pilotes personnalisés occupent au moins {0} ; le maximum est de {1}. Sélectionnez uniquement les pilotes réseau et de stockage nécessaires à Windows PE.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversVerified" xml:space="preserve">
+    <value>Ensembles de pilotes personnalisés vérifiés.</value>
   </data>
   <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
     <value>{0} ({1})</value>
@@ -3707,6 +3833,9 @@ Mots de passe et clés d'accès inclus : {2}</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Extraction de l'image Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Le contenu ajouté au média (images Windows personnalisées, contenu de post-installation ou pilotes personnalisés) n'a pas pu être préparé. Ouvrez le dossier des journaux pour plus de détails, puis réessayez.</value>
   </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>L'échec s'est produit à l'étape {0} sur {1} : {2}.</value>
@@ -3896,6 +4025,9 @@ Mots de passe et clés d'accès inclus : {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Un fichier du support de démarrage occupe {0} ; FAT32 prend en charge au maximum {1} par fichier. Réduisez la taille de l'image de démarrage ou créez un ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>La partition cache USB ne dispose pas d'assez d'espace libre pour le contenu mis à jour, car l'ancien contenu reste sur le lecteur pendant la mise à jour. Aucune donnée n'a été effacée et aucun formatage n'a été effectué. Recréez le média USB au lieu de le mettre à jour.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Il est possible que la clé USB ne permette plus de démarrer un appareil. Recréez-la ou mettez-la à jour avant de l'utiliser.</value>

@@ -480,6 +480,15 @@ Akce: Ověřte atributy disku a opakujte nasazení.</value>
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Platnost hesla účtu pro připojení uloženého na médiu vypršela nebo je nutné ho změnit. Nasazení nebylo zahájeno. Správce musí heslo aktualizovat ve Foundry OSD a médium vytvořit znovu.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Vlastní ovladače na tomto médiu neprošly kontrolou integrity a nejsou nabízeny. Zvolte jiný zdroj ovladačů nebo spouštěcí médium vytvořte znovu.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Vlastní ovladače</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Sada ovladačů</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>
@@ -993,6 +1002,9 @@ Pokračovat v nasazování?</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Skrýt oddíl obnovení</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Připravit vlastní ovladače</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Zkopírovat soubor odpovědí</value>
   </data>
@@ -1319,6 +1331,12 @@ Pokračovat v nasazování?</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>Vybraný soubor ovladače „{0}“ z Microsoft Update Catalog neobsahuje žádné soubory INF.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Vlastní ovladače jsou připravené.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>Vybrané vlastní ovladače nejsou k dispozici nebo neprošly ověřením. Znovu připojte médium pro nasazení nebo nasazení restartujte a vyberte jiný zdroj ovladačů.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>První spuštění balíčku ovladače bylo požadováno bez podporovaného příkazu.</value>

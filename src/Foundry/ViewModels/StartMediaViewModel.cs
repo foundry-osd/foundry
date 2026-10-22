@@ -10,6 +10,7 @@ using System.Text;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.Drivers;
 using Foundry.Core.Services.Images;
 using Foundry.Core.Services.Packages;
 using Foundry.Core.Services.Media;
@@ -48,6 +49,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IWinPeUsbMediaService usbMediaService;
     private readonly CustomImageLibraryService customImageLibrary;
     private readonly ContentPackageLibraryService postInstallPackages;
+    private readonly CustomDriverSetLibrary customDriverSetLibrary;
     private readonly IFilePickerService filePickerService;
     private readonly IFoundryConfigurationStateService foundryConfigurationStateService;
     private readonly IConfigurationOverviewService configurationOverviewService;
@@ -94,6 +96,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IWinPeUsbMediaService usbMediaService,
         CustomImageLibraryService customImageLibrary,
         ContentPackageLibraryService postInstallPackages,
+        CustomDriverSetLibrary customDriverSetLibrary,
         IFilePickerService filePickerService,
         IFoundryConfigurationStateService foundryConfigurationStateService,
         IConfigurationOverviewService configurationOverviewService,
@@ -123,6 +126,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.usbMediaService = usbMediaService;
         this.customImageLibrary = customImageLibrary;
         this.postInstallPackages = postInstallPackages;
+        this.customDriverSetLibrary = customDriverSetLibrary;
         this.filePickerService = filePickerService;
         this.foundryConfigurationStateService = foundryConfigurationStateService;
         this.configurationOverviewService = configurationOverviewService;
@@ -326,6 +330,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     public async Task InitializeAsync()
     {
         RefreshEvaluation();
+        // Driver set availability is cached; check it off the UI thread so the overview and the media gate use current library state.
+        await foundryConfigurationStateService.RefreshCustomDriversReadinessAsync();
 
         if (adkService.CurrentStatus.CanCreateMediaFor(SelectedArchitecture?.Value ?? WinPeArchitecture.X64))
         {
@@ -774,6 +780,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     WinPeErrorCodes.UsbBootCapacityInsufficient => FormatMediaCapacityFailure("StartMedia.Operation.UsbBootCapacityInsufficient", failureDiagnostic),
                     WinPeErrorCodes.UsbBootCapacityUnknown => localizationService.GetString("StartMedia.Operation.UsbBootCapacityUnknown"),
                     WinPeErrorCodes.UsbBootFileTooLarge => FormatMediaCapacityFailure("StartMedia.Operation.UsbBootFileTooLarge", failureDiagnostic),
+                    WinPeErrorCodes.UsbCacheCapacityInsufficient => localizationService.GetString("StartMedia.Operation.UsbCacheCapacityInsufficient"),
+                    WinPeErrorCodes.ExternalMediaContentFailed => localizationService.GetString("StartMedia.Operation.ExternalMediaContentFailed"),
                     WinPeErrorCodes.IsoCreateFailed when IsIsoOutputLocked(failureDiagnostic) => string.Format(
                         CultureInfo.CurrentCulture,
                         localizationService.GetString("StartMedia.Operation.IsoOutputLocked"),
@@ -788,7 +796,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             if (failureDiagnostic.Code is WinPeErrorCodes.CustomDriversTooLarge
                 or WinPeErrorCodes.UsbBootCapacityInsufficient
                 or WinPeErrorCodes.UsbBootCapacityUnknown
-                or WinPeErrorCodes.UsbBootFileTooLarge)
+                or WinPeErrorCodes.UsbBootFileTooLarge
+                or WinPeErrorCodes.UsbCacheCapacityInsufficient)
             {
                 logger.Warning(
                     "Final boot media operation failed validation. FailedStepName={FailedStepName}, DurationMs={DurationMs}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, RequiredBytes={RequiredBytes}, AvailableBytes={AvailableBytes}",
@@ -1142,6 +1151,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     PreparedWorkspace = workspace.PreparedWorkspace,
                     CustomImages = workspace.CustomImages,
                     PostInstallation = workspace.PostInstallation,
+                    CustomDrivers = workspace.CustomDrivers,
                     DeployConfigurationJson = workspace.DeployConfigurationJson,
                     OutputIsoPath = options.IsoOutputPath,
                     IsoTempDirectoryPath = Path.Combine(workspace.Lease.OperationDirectoryPath, "Scratch", "Iso"),
@@ -1158,9 +1168,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
         finally
         {
-            workspace?.CustomImages?.Dispose();
-            workspace?.PostInstallation.Dispose();
-            CleanupPreparedWorkspace(workspace?.Lease);
+            ReleasePreparedWorkspace(workspace?.CustomImages, workspace?.PostInstallation, workspace?.CustomDrivers, workspace?.Lease);
         }
     }
 
@@ -1253,6 +1261,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     RuntimePayloadProvisioning = workspace.RuntimePayloadProvisioning,
                     CustomImages = workspace.CustomImages,
                     PostInstallation = workspace.PostInstallation,
+                    CustomDrivers = workspace.CustomDrivers,
                     DeployConfigurationJson = workspace.DeployConfigurationJson,
                     DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(
                         new Progress<WinPeDownloadProgress>(ReportDownloadProgress)),
@@ -1275,9 +1284,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
         finally
         {
-            workspace?.CustomImages?.Dispose();
-            workspace?.PostInstallation.Dispose();
-            CleanupPreparedWorkspace(workspace?.Lease);
+            ReleasePreparedWorkspace(workspace?.CustomImages, workspace?.PostInstallation, workspace?.CustomDrivers, workspace?.Lease);
         }
     }
 
@@ -1324,6 +1331,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     RuntimePayloadProvisioning = workspace.RuntimePayloadProvisioning,
                     CustomImages = workspace.CustomImages,
                     PostInstallation = workspace.PostInstallation,
+                    CustomDrivers = workspace.CustomDrivers,
                     DeployConfigurationJson = workspace.DeployConfigurationJson,
                     DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(
                         new Progress<WinPeDownloadProgress>(ReportDownloadProgress)),
@@ -1346,9 +1354,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
         finally
         {
-            workspace?.CustomImages?.Dispose();
-            workspace?.PostInstallation.Dispose();
-            CleanupPreparedWorkspace(workspace?.Lease);
+            ReleasePreparedWorkspace(workspace?.CustomImages, workspace?.PostInstallation, workspace?.CustomDrivers, workspace?.Lease);
         }
     }
 
@@ -1363,6 +1369,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         WinPeWorkspaceLease? operationLease = null;
         WinPeCustomImageMediaLease? customImages = null;
         WinPeContentPackageMediaLease? postInstallation = null;
+        WinPeContentPackageMediaLease? customDrivers = null;
 
         try
         {
@@ -1464,6 +1471,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             ReportPhase(MediaCreationPhase.Preparing, 80, localizationService.GetString("StartMedia.Operation.PreparingPostInstallation"));
             postInstallation = await new WinPePreOobeMediaService().PrepareAsync(postInstallPackages,
                 snapshot.Configuration.PreOobe, cancellationToken);
+            if (snapshot.Configuration.CustomDrivers.IsEnabled)
+            {
+                ReportPhase(MediaCreationPhase.Preparing, 90, localizationService.GetString("CustomDrivers.StageVerifying"));
+                // Preparation rejects an enabled section without included sets, matching the readiness check that blocks media creation.
+                customDrivers = await WinPeCustomDriverSetMediaService.PrepareAsync(customDriverSetLibrary,
+                    snapshot.Configuration.CustomDrivers, cancellationToken);
+            }
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.GenerateProvisioningPayloads);
             FoundryConnectProvisioningBundle connectBundle = snapshot.CreateConnectProvisioningBundle(
@@ -1486,7 +1500,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             try
             {
                 assetProvisioning = CreateAssetProvisioningOptions(options, snapshot, tools, connectBundle,
-                    deploymentProtectionMaterial, runtimePayloadProvisioning, deployTelemetrySettings, customImages, postInstallation);
+                    deploymentProtectionMaterial, runtimePayloadProvisioning, deployTelemetrySettings, customImages, postInstallation, customDrivers);
                 preparationResult = await workspacePreparationService.PrepareAsync(
                     new WinPeWorkspacePreparationOptions
                     {
@@ -1540,13 +1554,12 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 },
                 customImages,
                 postInstallation,
+                customDrivers,
                 assetProvisioning.DeployConfigurationJson!);
         }
         catch
         {
-            customImages?.Dispose();
-            postInstallation?.Dispose();
-            CleanupPreparedWorkspace(operationLease);
+            ReleasePreparedWorkspace(customImages, postInstallation, customDrivers, operationLease);
             throw;
         }
     }
@@ -1560,7 +1573,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         WinPeRuntimePayloadProvisioningOptions runtimePayloadProvisioning,
         TelemetrySettings deployTelemetrySettings,
         WinPeCustomImageMediaLease? customImages,
-        WinPeContentPackageMediaLease postInstallation)
+        WinPeContentPackageMediaLease postInstallation,
+        WinPeContentPackageMediaLease? customDrivers)
     {
         bool isHardwareHashMode = options.IsAutopilotEnabled &&
                                   options.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload;
@@ -1579,6 +1593,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             deployConfigurationJson = WinPeCustomImageMediaService.BindConfiguration(customImages, deployConfigurationJson);
         }
         deployConfigurationJson = WinPePreOobeMediaService.BindConfiguration(postInstallation, deployConfigurationJson);
+        // Driver sets bind last so the configuration written into boot.wim carries all three media generations.
+        if (customDrivers is not null)
+        {
+            deployConfigurationJson = WinPeCustomDriverSetMediaService.BindConfiguration(customDrivers, deployConfigurationJson);
+        }
 
         return new WinPeMountedImageAssetProvisioningOptions
         {
@@ -1885,9 +1904,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             WinPeProgressStatuses.FinalizingIsoOutput => "StartMedia.Operation.FinalizingIsoOutput",
             WinPeProgressStatuses.StagingCustomImages => "StartMedia.Operation.CopyingCustomImages",
             WinPeProgressStatuses.StagingPostInstallation => "StartMedia.Operation.CopyingPostInstallation",
+            WinPeProgressStatuses.StagingCustomDrivers => "StartMedia.Operation.CopyingCustomDrivers",
+            WinPeProgressStatuses.CustomDriversVerified => "StartMedia.Operation.CustomDriversVerified",
+            WinPeProgressStatuses.CustomDriversCleanupSkipped => "StartMedia.Operation.CustomDriversCleanupSkipped",
             WinPeProgressStatuses.ValidatingUsbTarget => "StartMedia.Operation.ValidatingUsbTarget",
             WinPeProgressStatuses.CheckingUsbTargetSafety => "StartMedia.Operation.CheckingUsbTargetSafety",
             WinPeProgressStatuses.InspectingUsbMediaLayout => "StartMedia.Operation.InspectingUsbMediaLayout",
+            WinPeProgressStatuses.CheckingMediaContent => "StartMedia.Operation.CheckingMediaContent",
             WinPeProgressStatuses.PartitioningUsbTarget => "StartMedia.Operation.PartitioningUsbTarget",
             WinPeProgressStatuses.OpeningUsbDisk => "StartMedia.Operation.OpeningUsbDisk",
             WinPeProgressStatuses.PreparingUsbDiskAttributes => "StartMedia.Operation.PreparingUsbDiskAttributes",
@@ -1912,6 +1935,38 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private string LocalizeStatus(string? resourceKey)
     {
         return resourceKey is null ? string.Empty : localizationService.GetString(resourceKey);
+    }
+
+    /// <summary>
+    /// Releases prepared external content in reverse acquisition order (driver sets, post-installation content, custom images),
+    /// then removes the operation workspace. Each step runs even when an earlier one throws, so one failed release cannot keep
+    /// other library files leased or leave the workspace behind.
+    /// </summary>
+    private void ReleasePreparedWorkspace(WinPeCustomImageMediaLease? customImages, WinPeContentPackageMediaLease? postInstallation,
+        WinPeContentPackageMediaLease? customDrivers, WinPeWorkspaceLease? operationLease)
+    {
+        try
+        {
+            customDrivers?.Dispose();
+        }
+        finally
+        {
+            try
+            {
+                postInstallation?.Dispose();
+            }
+            finally
+            {
+                try
+                {
+                    customImages?.Dispose();
+                }
+                finally
+                {
+                    CleanupPreparedWorkspace(operationLease);
+                }
+            }
+        }
     }
 
     private void CleanupPreparedWorkspace(WinPeWorkspaceLease? operationLease)
@@ -2522,6 +2577,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     ? GetBlockingReasonText(MediaPreflightBlockingReason.CustomImageArchitectureMismatch)
                     : localizationService.GetString("Nav_CustomImagesKey.Description"),
                 ConfigurationNavigationTarget.CustomImages),
+            CreateOverviewItem(ConfigurationOverviewItem.CustomDrivers, overview, "Nav_CustomDriversKey.Title",
+                localizationService.GetString("Nav_CustomDriversKey.Description"),
+                ConfigurationNavigationTarget.CustomDrivers),
             CreateOverviewItem(ConfigurationOverviewItem.PostInstallation, overview, "Nav_PostInstallationKey.Title",
                 localizationService.GetString("Nav_PostInstallationKey.Description"),
                 ConfigurationNavigationTarget.PostInstallation),
@@ -3107,5 +3165,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         WinPeRuntimePayloadProvisioningOptions RuntimePayloadProvisioning,
         WinPeCustomImageMediaLease? CustomImages,
         WinPeContentPackageMediaLease PostInstallation,
+        WinPeContentPackageMediaLease? CustomDrivers,
         string DeployConfigurationJson);
 }

@@ -480,6 +480,15 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Parola contului de asociere stocat pe suport a expirat sau trebuie schimbată. Implementarea nu a început. Administratorul trebuie să actualizeze parola în Foundry OSD și să creeze din nou suportul.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Driverele particularizate de pe acest suport nu au trecut verificarea integrității și nu sunt oferite. Alegeți altă sursă de drivere sau recreați suportul de pornire.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Drivere particularizate</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Set de drivere</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>
@@ -993,6 +1002,9 @@ Continuați cu implementarea?</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Ascunde partiția de recuperare</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Pregătește driverele particularizate</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Copiază fișierul de răspunsuri</value>
   </data>
@@ -1319,6 +1331,12 @@ Continuați cu implementarea?</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>Fișierul de driver selectat „{0}” din Microsoft Update Catalog nu conține fișiere INF.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Driverele particularizate au fost pregătite.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>Driverele particularizate selectate nu sunt disponibile sau nu au trecut verificarea. Reconectați mediul de implementare sau reporniți implementarea și alegeți altă sursă de drivere.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Staging-ul pachetului de drivere pentru prima pornire a fost solicitat fără o comandă acceptată.</value>

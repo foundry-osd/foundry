@@ -112,6 +112,9 @@ public sealed partial class StartPage : Page
             case ConfigurationNavigationTarget.CustomImages:
                 App.Current.NavigationService.NavigateTo(typeof(CustomImagesPage));
                 break;
+            case ConfigurationNavigationTarget.CustomDrivers:
+                App.Current.NavigationService.NavigateTo(typeof(CustomDriversPage));
+                break;
             case ConfigurationNavigationTarget.PostInstallation:
                 App.Current.NavigationService.NavigateTo(typeof(PostInstallationPage));
                 break;

@@ -93,7 +93,8 @@ public sealed class ResourceKeyParityTests
             "WifiPageHeader.Description",
             "StartMedia.PageDescription",
             "CustomImages.PxeWarning",
-            "PostInstallation.PxeWarning"
+            "PostInstallation.PxeWarning",
+            "CustomDrivers.PxeWarning"
         ];
 
         Assert.Empty(expectedKeys.Except(enUsKeys, StringComparer.Ordinal));

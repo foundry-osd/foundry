@@ -30,14 +30,27 @@ public sealed partial class WinPeCustomImageMediaService : IWinPeCustomImageMedi
         this.resolveDisk = resolveDisk;
     }
 
-    /// <summary>Protects all prepared build inputs when their storage has been redirected onto removable media.</summary>
+    /// <summary>
+    /// Protects all prepared build inputs when their storage has been redirected onto removable media. The physical disk is
+    /// resolved once per distinct drive root and reused for every input on it, because each resolution starts a PowerShell
+    /// process and a driver set can hold thousands of files; paths without a usable root are resolved individually.
+    /// </summary>
     public async Task ValidateInputDisksAsync(IEnumerable<string> paths, int targetDisk, CancellationToken cancellationToken)
     {
+        var rootDisks = new Dictionary<string, int?>(StringComparer.OrdinalIgnoreCase);
         foreach (string path in paths.Distinct(StringComparer.OrdinalIgnoreCase))
         {
             cancellationToken.ThrowIfCancellationRequested();
             CustomImagePathPolicy.ValidateNoReparsePoints(path);
-            int? sourceDisk = await resolveDisk(path, cancellationToken).ConfigureAwait(false);
+            string? pathRoot = Path.GetPathRoot(path);
+            int? sourceDisk;
+            if (string.IsNullOrEmpty(pathRoot))
+                sourceDisk = await resolveDisk(path, cancellationToken).ConfigureAwait(false);
+            else if (!rootDisks.TryGetValue(pathRoot, out sourceDisk))
+            {
+                sourceDisk = await resolveDisk(path, cancellationToken).ConfigureAwait(false);
+                rootDisks[pathRoot] = sourceDisk;
+            }
             if (!sourceDisk.HasValue || sourceDisk.Value == targetDisk)
                 throw new InvalidDataException("A media input is on the target disk or its physical disk could not be verified.");
         }
@@ -83,7 +96,7 @@ public sealed partial class WinPeCustomImageMediaService : IWinPeCustomImageMedi
     public async Task ValidateCapacityAsync(WinPeCustomImageMediaLease package, string root, long additionalBytes, CancellationToken cancellationToken)
     {
         long required = checked(await GetRequiredBytesAsync(package, root, cancellationToken).ConfigureAwait(false) + additionalBytes);
-        if (availableBytes(root) < required) throw new IOException("The data volume has insufficient free space for the custom images and runtime payloads.");
+        if (availableBytes(root) < required) throw new WinPeMediaCapacityException("The data volume has insufficient free space for the custom images and runtime payloads.");
     }
 
     /// <summary>Stages new files, verifies them, and publishes the manifest last; cancellation never removes old generations.</summary>
@@ -97,7 +110,7 @@ public sealed partial class WinPeCustomImageMediaService : IWinPeCustomImageMedi
         string lockPath = CustomImagePathPolicy.ResolveRelativePath(customRoot, ".publish.lock");
         using var publicationLease = new FileStream(lockPath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
         long required = await GetRequiredBytesAsync(package, destinationRoot, cancellationToken).ConfigureAwait(false);
-        if (availableBytes(destinationRoot) < required) throw new IOException("The data volume has insufficient free space for the custom images and staging reserve.");
+        if (availableBytes(destinationRoot) < required) throw new WinPeMediaCapacityException("The data volume has insufficient free space for the custom images and staging reserve.");
         string pending = Path.Combine(customRoot, ".pending-" + Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(pending);
         try

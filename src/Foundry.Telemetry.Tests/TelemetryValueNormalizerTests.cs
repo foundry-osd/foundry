@@ -73,6 +73,8 @@ public sealed class TelemetryValueNormalizerTests
     [InlineData(TelemetryEvents.DeploySessionFinished, "deploy_driver_pack_selection_kind", "oemcatalog", "oem_catalog")]
     [InlineData(TelemetryEvents.DeploySessionFinished, "deploy_driver_pack_selection_kind", "microsoftupdatecatalog", "microsoft_update_catalog")]
     [InlineData(TelemetryEvents.DeploySessionFinished, "deploy_driver_pack_selection_kind", "oem_catalog", "oem_catalog")]
+    [InlineData(TelemetryEvents.DeploySessionFinished, "deploy_driver_pack_selection_kind", "customdriverset", "custom_driver_set")]
+    [InlineData(TelemetryEvents.DeploySessionFinished, "deploy_driver_pack_selection_kind", "custom_driver_set", "custom_driver_set")]
     [InlineData(TelemetryEvents.DeploySessionFinished, "deploy_driver_pack_selection_kind", "none", "none")]
     [InlineData(TelemetryEvents.DeploySessionFinished, "deploy_autopilot_hash_upload_state", "notplanned", "not_planned")]
     [InlineData(TelemetryEvents.DeploySessionFinished, "deploy_autopilot_hash_upload_state", "dryrunprepared", "dry_run_prepared")]

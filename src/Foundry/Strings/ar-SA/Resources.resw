@@ -736,6 +736,114 @@
   <data name="Common.Unavailable" xml:space="preserve">
     <value>غير متاح</value>
   </data>
+  <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
+    <value>هذا المجلد موجود بالفعل في ملف التعريف هذا باسم {0}.</value>
+  </data>
+  <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
+    <value>تمت إزالة مجموعة برامج التشغيل، لكن تعذر حذف نسختها المحلية.</value>
+  </data>
+  <data name="CustomDrivers.DefaultLabel" xml:space="preserve">
+    <value>المجموعة الافتراضية</value>
+  </data>
+  <data name="CustomDrivers.DefaultSetName" xml:space="preserve">
+    <value>مجموعة برامج تشغيل</value>
+  </data>
+  <data name="CustomDrivers.DuplicateName" xml:space="preserve">
+    <value>توجد بالفعل مجموعة برامج تشغيل بهذا الاسم في ملف التعريف هذا.</value>
+  </data>
+  <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
+    <value>لا توجد مجموعات برامج تشغيل مخصصة. استورد مجلدًا يحتوي على برامج تشغيل .inf للبدء.</value>
+  </data>
+  <data name="CustomDrivers.EnableLabel" xml:space="preserve">
+    <value>تمكين برامج التشغيل المخصصة</value>
+  </data>
+  <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
+    <value>الملفات</value>
+  </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>استيراد</value>
+  </data>
+  <data name="CustomDrivers.ImportFailed" xml:space="preserve">
+    <value>تعذر استيراد مجموعة برامج التشغيل. تحقق من صلاحية الوصول إلى المجلد، ثم حاول مرة أخرى. تتوفر التفاصيل في السجل.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>مجلد برامج التشغيل</value>
+  </data>
+  <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
+    <value>لا توجد مساحة خالية كافية على القرص لاستيراد مجموعة برامج التشغيل هذه. حرّر مساحة، ثم حاول مرة أخرى.</value>
+  </data>
+  <data name="CustomDrivers.ImportInvalidPath" xml:space="preserve">
+    <value>أحد المسارات في هذا المجلد طويل جدًا أو غير صالح: {0}. اختصره أو أعد تسميته، ثم حاول مرة أخرى.</value>
+  </data>
+  <data name="CustomDrivers.ImportLabel" xml:space="preserve">
+    <value>استيراد مجلد</value>
+  </data>
+  <data name="CustomDrivers.ImportMissingInf" xml:space="preserve">
+    <value>لا يحتوي هذا المجلد على أي ملف .inf. حدد مجلدًا يحتوي على برامج تشغيل INF.</value>
+  </data>
+  <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
+    <value>حدد مجلد برامج تشغيل</value>
+  </data>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>جارٍ نسخ ملفات برامج التشغيل والتحقق منها…</value>
+  </data>
+  <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
+    <value>يحتوي هذا المجلد على ارتباط رمزي أو نقطة توصيل أو عنصر نائب سحابي. انسخ برامج التشغيل إلى مجلد محلي عادي، ثم حاول مرة أخرى.</value>
+  </data>
+  <data name="CustomDrivers.ImportSourceChanged" xml:space="preserve">
+    <value>تغيّر المجلد أثناء نسخه. أغلق البرامج التي تكتب فيه، ثم حاول مرة أخرى.</value>
+  </data>
+  <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
+    <value>يحتوي هذا المجلد على عدد كبير جدًا من الملفات أو المجلدات الفرعية لمجموعة برامج تشغيل.</value>
+  </data>
+  <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
+    <value>ملفات INF</value>
+  </data>
+  <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
+    <value>مجموعات برامج التشغيل</value>
+  </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>تغيّر ملف التعريف النشط أثناء الاستيراد، لذلك لم تتم إضافة مجموعة برامج التشغيل. استورد المجلد مرة أخرى في ملف التعريف هذا.</value>
+  </data>
+  <data name="CustomDrivers.PxeWarning" xml:space="preserve">
+    <value>غير متاح مع إقلاع PXE. تتطلب برامج التشغيل المخصصة وسائط ISO أو USB الكاملة.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
+    <value>مجموعات برامج التشغيل في ملف التعريف هذا غير صالحة. تحقق من المجموعات المضمنة والمجموعة الافتراضية قبل إنشاء الوسائط أو تحديثها.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
+    <value>النسخة المحلية من {0} مفقودة أو تالفة. استورد المجلد مرة أخرى أو استبعد المجموعة قبل إنشاء الوسائط أو تحديثها.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
+    <value>أدرج مجموعة برامج تشغيل واحدة على الأقل في ملف التعريف هذا، أو أوقف تشغيل برامج التشغيل المخصصة، قبل إنشاء الوسائط أو تحديثها.</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
+    <value>إزالة مجموعة برامج التشغيل</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
+    <value>ستتم إزالة {0} ({1}) من ملف التعريف الحالي.</value>
+  </data>
+  <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
+    <value>تعذرت إزالة مجموعة برامج التشغيل. حاول مرة أخرى.</value>
+  </data>
+  <data name="CustomDrivers.RemoveTitle" xml:space="preserve">
+    <value>هل تريد إزالة مجموعة برامج التشغيل؟</value>
+  </data>
+  <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
+    <value>تُحذف نسختها المحلية ما لم يستخدمها ملف تعريف آخر. لن يتغير المجلد الأصلي والوسائط الموجودة.</value>
+  </data>
+  <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
+    <value>تعيين كافتراضي</value>
+  </data>
+  <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
+    <value>وصل ملف التعريف هذا إلى الحد الأقصى لعدد مجموعات برامج التشغيل. أزل مجموعة قبل استيراد أخرى.</value>
+  </data>
+  <data name="CustomDrivers.StageVerifying" xml:space="preserve">
+    <value>جارٍ التحقق من مجموعات برامج التشغيل المخصصة…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>جارٍ التحقق…</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>البنية</value>
   </data>
@@ -2458,6 +2566,12 @@
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
   </data>
+  <data name="Nav_CustomDriversKey.Description" xml:space="preserve">
+    <value>استورد مجلدات برامج التشغيل واعرضها كمصدر لبرامج التشغيل في Foundry Deploy.</value>
+  </data>
+  <data name="Nav_CustomDriversKey.Title" xml:space="preserve">
+    <value>برامج التشغيل المخصصة</value>
+  </data>
   <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
     <value>استورد صور Windows من ملفات ISO أو WIM وأدرجها في وسائط النشر.</value>
   </data>
@@ -3544,10 +3658,10 @@
     <value>إنشاء USB</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>مجلد اختياري يحتوي على برامج تشغيل .inf إضافية.</value>
+    <value>مجلد اختياري يحتوي على برامج تشغيل .inf تُضاف إلى صورة إقلاع WinPE.</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>مجلد برنامج التشغيل المخصص</value>
+    <value>مجلد إضافي لبرامج تشغيل WinPE</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
     <value>حدد مجلد برنامج التشغيل المخصص</value>
@@ -3556,10 +3670,10 @@
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>حدد برامج تشغيل البائع الاختيارية ومجلد برنامج التشغيل المخصص.</value>
+    <value>برامج تشغيل تُضاف إلى صورة إقلاع WinPE فقط، مثل برامج تشغيل الشبكة والتخزين. لإضافة برامج تشغيل إلى Windows الذي يتم نشره، استخدم برامج التشغيل المخصصة.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>خيارات برنامج التشغيل</value>
+    <value>برامج تشغيل WinPE</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3639,6 +3753,9 @@
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>تم إلغاء إنشاء الوسائط.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>جارٍ التحقق من المحتوى المراد نسخه…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>جارٍ التأكد من أن مسح قرص USB آمن…</value>
   </data>
@@ -3650,6 +3767,9 @@
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>جارٍ حفظ صورة التمهيد…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingCustomDrivers" xml:space="preserve">
+    <value>جارٍ نسخ مجموعات برامج التشغيل المخصصة…</value>
   </data>
   <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
     <value>جارٍ نسخ صور Windows المخصصة…</value>
@@ -3666,8 +3786,14 @@
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>جارٍ إنشاء قسم ذاكرة التخزين المؤقت…</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
+    <value>تعذرت إزالة مجموعات برامج التشغيل المخصصة غير المستخدمة من محرك أقراص USB.</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>يبلغ الحجم الإجمالي لبرامج التشغيل المخصصة {0} على الأقل؛ والحد الأقصى هو {1}. حدد فقط برامج تشغيل الشبكة والتخزين التي يحتاجها Windows PE.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversVerified" xml:space="preserve">
+    <value>تم التحقق من مجموعات برامج التشغيل المخصصة.</value>
   </data>
   <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
     <value>{0} ({1})</value>
@@ -3707,6 +3833,9 @@
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>جارٍ استخراج صورة Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>تعذر تجهيز المحتوى المضاف إلى الوسائط (صور Windows المخصصة أو محتوى ما بعد التثبيت أو برامج التشغيل المخصصة). افتح مجلد السجل للاطلاع على التفاصيل، ثم حاول مرة أخرى.</value>
   </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>فشلت العملية أثناء الخطوة {0} من {1}: {2}.</value>
@@ -3896,6 +4025,9 @@
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>حجم أحد ملفات وسائط التمهيد هو {0}؛ ويدعم FAT32 حدًا أقصى قدره {1} لكل ملف. قلل حجم صورة التمهيد أو أنشئ ملف ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>لا يحتوي قسم ذاكرة التخزين المؤقت على USB على مساحة فارغة كافية للمحتوى المحدّث، لأن المحتوى السابق يبقى على محرك الأقراص أثناء التحديث. لم يتم مسح أي شيء أو تهيئته. أنشئ وسائط USB من جديد بدلاً من تحديثها.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>قد لا يتمكن قرص USB بعد الآن من تشغيل جهاز. أنشئه أو حدّثه مرة أخرى قبل استخدامه.</value>

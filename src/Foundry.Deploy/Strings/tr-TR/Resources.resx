@@ -480,6 +480,15 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Medyada depolanan katılma hesabının parolasının süresi doldu veya parolanın değiştirilmesi gerekiyor. Dağıtım başlamadı. Yöneticinin parolayı Foundry OSD'de güncellemesi ve medyayı yeniden oluşturması gerekir.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Bu ortamdaki özel sürücüler bütünlük denetimini geçemedi ve sunulmuyor. Başka bir sürücü kaynağı seçin veya önyükleme ortamını yeniden oluşturun.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Özel sürücüler</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Sürücü kümesi</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>
@@ -993,6 +1002,9 @@ Dağıtıma devam edilsin mi?</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Kurtarma bölümünü gizle</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Özel sürücüleri hazırla</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Yanıt dosyasını kopyala</value>
   </data>
@@ -1319,6 +1331,12 @@ Dağıtıma devam edilsin mi?</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>Seçilen Microsoft Update Catalog sürücü dosyası '{0}' INF dosyası içermiyor.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Özel sürücüler hazırlandı.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>Seçilen özel sürücüler kullanılamıyor veya doğrulamayı geçemedi. Dağıtım medyasını yeniden bağlayın ya da dağıtımı yeniden başlatıp başka bir sürücü kaynağı seçin.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Desteklenen bir komut olmadan ilk önyükleme sürücü paketi hazırlama işlemi istendi.</value>

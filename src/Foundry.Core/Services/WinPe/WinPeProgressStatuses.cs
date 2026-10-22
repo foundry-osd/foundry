@@ -64,10 +64,14 @@ public static class WinPeProgressStatuses
     public const string CustomImagesVerified = "Custom Windows images verified.";
     public const string StagingPostInstallation = "Staging post-installation content.";
     public const string PostInstallationVerified = "Post-installation content verified.";
+    public const string StagingCustomDrivers = "Staging custom driver sets.";
+    public const string CustomDriversVerified = "Custom driver sets verified.";
+    public const string CustomDriversCleanupSkipped = "Unused custom driver sets could not be removed from the USB drive.";
 
     public const string ValidatingUsbTarget = "Validating USB target.";
     public const string CheckingUsbTargetSafety = "Checking USB target safety.";
     public const string InspectingUsbMediaLayout = "Inspecting USB media layout.";
+    public const string CheckingMediaContent = "Checking media content.";
     public const string PartitioningUsbTarget = "Partitioning and formatting USB target.";
     public const string OpeningUsbDisk = "Opening USB disk.";
     public const string PreparingUsbDiskAttributes = "Preparing USB disk attributes.";

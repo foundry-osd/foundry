@@ -480,6 +480,15 @@ ErrorCode=0x80070005
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>媒體上儲存的加入帳戶密碼已過期或必須變更。部署尚未開始。系統管理員必須在 Foundry OSD 中更新密碼並重新建立媒體。</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>此媒體上的自訂驅動程式未通過完整性檢查，因此不提供。請選擇其他驅動程式來源，或重新建立開機媒體。</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>自訂驅動程式</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>驅動程式集</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>
@@ -993,6 +1002,9 @@ ErrorCode=0x80070005
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>隱藏復原分割區</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>暫存自訂驅動程式</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>複製回應檔案</value>
   </data>
@@ -1319,6 +1331,12 @@ ErrorCode=0x80070005
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>選取的 Microsoft Update Catalog 驅動程式檔案「{0}」未包含 INF 檔案。</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>已暫存自訂驅動程式。</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>選取的自訂驅動程式無法使用或未通過驗證。請重新連接部署媒體，或重新啟動部署並選擇其他驅動程式來源。</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>已要求首次開機時暫存驅動程式套件，但未提供支援的命令。</value>

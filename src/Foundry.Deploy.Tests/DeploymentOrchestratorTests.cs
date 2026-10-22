@@ -669,6 +669,49 @@ public sealed class DeploymentOrchestratorTests
     }
 
     [Fact]
+    public async Task TelemetryReportsCustomDriverSetKindWithoutName()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var telemetryService = new RecordingTelemetryService();
+        var orchestrator = new DeploymentOrchestrator(
+            new FakeOperationProgressService(),
+            new FakeDeploymentLogService(),
+            new FakeTargetDiskService(),
+            CreateSteps(Path.Combine(workspace.RootPath, "TargetWindows")),
+            telemetryService,
+            NullLogger<DeploymentOrchestrator>.Instance);
+        var set = new CustomDriverSetOption
+        {
+            Id = "PrivateSetId",
+            DisplayName = "PrivateSetName",
+            ContentHash = new string('a', 64),
+            Length = 10,
+            FileCount = 1,
+            InfCount = 1,
+            MediaRoot = @"D:\",
+            Manifest = new()
+        };
+
+        await orchestrator.RunAsync(new DeploymentContext
+        {
+            Mode = DeploymentMode.Iso,
+            CacheRootPath = workspace.RootPath,
+            TargetDiskNumber = 1,
+            TargetComputerName = "LAB01",
+            OperatingSystem = new OperatingSystemCatalogItem(),
+            DriverPackSelectionKind = DriverPackSelectionKind.CustomDriverSet,
+            CustomDriverSet = set
+        }, TestContext.Current.CancellationToken);
+
+        TelemetryEvent telemetryEvent = Assert.Single(telemetryService.Events);
+        Assert.Equal("customdriverset", telemetryEvent.Properties["deploy_driver_pack_selection_kind"]);
+        Assert.Equal("none", telemetryEvent.Properties["deploy_driver_pack_vendor"]);
+        Assert.Equal("none", telemetryEvent.Properties["deploy_driver_pack_model"]);
+        Assert.DoesNotContain(telemetryEvent.Properties.Values, value => value?.ToString() is { } text &&
+            (text.Contains("Private", StringComparison.Ordinal) || text.Contains(set.ContentHash, StringComparison.OrdinalIgnoreCase)));
+    }
+
+    [Fact]
     public async Task RunAsync_WhenStepFails_PersistsCurrentOperationAndTerminalFailure()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();

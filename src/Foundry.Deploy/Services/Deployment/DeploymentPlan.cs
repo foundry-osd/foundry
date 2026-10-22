@@ -49,7 +49,9 @@ public static class DeploymentPlan
         bool hasDrivers = request.DriverPackSelectionKind != DriverPackSelectionKind.None &&
             !(driverLookupFinished && request.DriverPackSelectionKind == DriverPackSelectionKind.MicrosoftUpdateCatalog &&
               state!.MicrosoftUpdateCatalogDriverPaths.Count == 0);
-        if (request.DriverPackSelectionKind != DriverPackSelectionKind.None) names.Add(DeploymentStepNames.DownloadDriverPack);
+        // A custom driver set is already on the boot media: nothing is downloaded, the extract step stages it.
+        if (request.DriverPackSelectionKind is not (DriverPackSelectionKind.None or DriverPackSelectionKind.CustomDriverSet))
+            names.Add(DeploymentStepNames.DownloadDriverPack);
         if (hasDrivers && driverMode == DriverPackInstallMode.OfflineInf)
         {
             names.Add(DeploymentStepNames.ExtractDriverPack);
@@ -101,7 +103,8 @@ public static class DeploymentPlan
     internal static DriverPackInstallMode ResolveDriverMode(DeploymentContext request)
     {
         if (request.DriverPackSelectionKind == DriverPackSelectionKind.None) return DriverPackInstallMode.None;
-        if (request.DriverPackSelectionKind == DriverPackSelectionKind.MicrosoftUpdateCatalog) return DriverPackInstallMode.OfflineInf;
+        if (request.DriverPackSelectionKind is DriverPackSelectionKind.MicrosoftUpdateCatalog or DriverPackSelectionKind.CustomDriverSet)
+            return DriverPackInstallMode.OfflineInf;
         if (request.DriverPack is null) return DriverPackInstallMode.OfflineInf;
         string fileName = DeploymentStepExecutionContext.ResolveFileName(request.DriverPack.FileName, request.DriverPack.DownloadUrl);
         try
@@ -121,6 +124,9 @@ public static class DeploymentPlan
     private static string ResolveLabel(string name, DeploymentContext request) =>
         name == DeploymentStepNames.DownloadOperatingSystemImage && request.OperatingSystem is CustomImageSelection
             ? "Resolve custom image"
+            :
+        name == DeploymentStepNames.ExtractDriverPack && request.DriverPackSelectionKind == DriverPackSelectionKind.CustomDriverSet
+            ? "Stage custom drivers"
             :
         name == DeploymentStepNames.ProvisionAutopilot
             ? request.AutopilotProvisioningMode switch

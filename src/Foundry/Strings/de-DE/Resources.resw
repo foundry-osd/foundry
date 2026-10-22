@@ -736,6 +736,114 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nicht verfügbar</value>
   </data>
+  <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
+    <value>Dieser Ordner ist in diesem Profil bereits als {0} vorhanden.</value>
+  </data>
+  <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
+    <value>Der Treibersatz wurde entfernt, aber seine lokale Kopie konnte nicht gelöscht werden.</value>
+  </data>
+  <data name="CustomDrivers.DefaultLabel" xml:space="preserve">
+    <value>Standardsatz</value>
+  </data>
+  <data name="CustomDrivers.DefaultSetName" xml:space="preserve">
+    <value>Treibersatz</value>
+  </data>
+  <data name="CustomDrivers.DuplicateName" xml:space="preserve">
+    <value>In diesem Profil ist bereits ein Treibersatz mit diesem Namen vorhanden.</value>
+  </data>
+  <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
+    <value>Keine benutzerdefinierten Treibersätze. Importieren Sie zunächst einen Ordner mit .inf-Treibern.</value>
+  </data>
+  <data name="CustomDrivers.EnableLabel" xml:space="preserve">
+    <value>Benutzerdefinierte Treiber aktivieren</value>
+  </data>
+  <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
+    <value>Dateien</value>
+  </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Importieren</value>
+  </data>
+  <data name="CustomDrivers.ImportFailed" xml:space="preserve">
+    <value>Der Treibersatz konnte nicht importiert werden. Prüfen Sie den Zugriff auf den Ordner, und versuchen Sie es dann erneut. Details stehen im Protokoll.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Treiberordner</value>
+  </data>
+  <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
+    <value>Nicht genügend freier Speicherplatz, um diesen Treibersatz zu importieren. Geben Sie Speicherplatz frei, und versuchen Sie es dann erneut.</value>
+  </data>
+  <data name="CustomDrivers.ImportInvalidPath" xml:space="preserve">
+    <value>Ein Pfad in diesem Ordner ist zu lang oder ungültig: {0}. Kürzen oder benennen Sie ihn um, und versuchen Sie es dann erneut.</value>
+  </data>
+  <data name="CustomDrivers.ImportLabel" xml:space="preserve">
+    <value>Ordner importieren</value>
+  </data>
+  <data name="CustomDrivers.ImportMissingInf" xml:space="preserve">
+    <value>Dieser Ordner enthält keine .inf-Datei. Wählen Sie einen Ordner mit INF-Treibern aus.</value>
+  </data>
+  <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
+    <value>Treiberordner auswählen</value>
+  </data>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Treiberdateien werden kopiert und überprüft…</value>
+  </data>
+  <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
+    <value>Dieser Ordner enthält eine symbolische Verknüpfung, eine Verzeichnisverbindung oder einen Cloud-Platzhalter. Kopieren Sie die Treiber in einen normalen lokalen Ordner, und versuchen Sie es dann erneut.</value>
+  </data>
+  <data name="CustomDrivers.ImportSourceChanged" xml:space="preserve">
+    <value>Der Ordner wurde während des Kopierens geändert. Schließen Sie Programme, die in ihn schreiben, und versuchen Sie es dann erneut.</value>
+  </data>
+  <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
+    <value>Dieser Ordner enthält zu viele Dateien oder Unterordner für einen Treibersatz.</value>
+  </data>
+  <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
+    <value>INF-Dateien</value>
+  </data>
+  <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
+    <value>Treibersätze</value>
+  </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>Das aktive Profil wurde während des Imports gewechselt, daher wurde der Treibersatz nicht hinzugefügt. Importieren Sie den Ordner in diesem Profil erneut.</value>
+  </data>
+  <data name="CustomDrivers.PxeWarning" xml:space="preserve">
+    <value>Nicht verfügbar bei PXE-Start. Benutzerdefinierte Treiber erfordern das vollständige ISO- oder USB-Medium.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
+    <value>Die Treibersätze dieses Profils sind ungültig. Prüfen Sie die enthaltenen Sätze und den Standardsatz, bevor Sie Medien erstellen oder aktualisieren.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
+    <value>Die lokale Kopie von {0} fehlt oder ist beschädigt. Importieren Sie den Ordner erneut oder schließen Sie den Satz aus, bevor Sie Medien erstellen oder aktualisieren.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
+    <value>Nehmen Sie mindestens einen Treibersatz in dieses Profil auf oder deaktivieren Sie benutzerdefinierte Treiber, bevor Sie Medien erstellen oder aktualisieren.</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
+    <value>Treibersatz entfernen</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) wird aus dem aktuellen Profil entfernt.</value>
+  </data>
+  <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
+    <value>Der Treibersatz konnte nicht entfernt werden. Versuchen Sie es erneut.</value>
+  </data>
+  <data name="CustomDrivers.RemoveTitle" xml:space="preserve">
+    <value>Treibersatz entfernen?</value>
+  </data>
+  <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
+    <value>Die lokale Kopie wird gelöscht, sofern kein anderes Profil sie verwendet. Der Originalordner und vorhandene Medien bleiben unverändert.</value>
+  </data>
+  <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
+    <value>Als Standard festlegen</value>
+  </data>
+  <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
+    <value>Dieses Profil hat die maximale Anzahl an Treibersätzen erreicht. Entfernen Sie einen, bevor Sie einen weiteren importieren.</value>
+  </data>
+  <data name="CustomDrivers.StageVerifying" xml:space="preserve">
+    <value>Benutzerdefinierte Treibersätze werden überprüft…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>Wird geprüft…</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architektur</value>
   </data>
@@ -2458,6 +2566,12 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
   </data>
+  <data name="Nav_CustomDriversKey.Description" xml:space="preserve">
+    <value>Importieren Sie Treiberordner und bieten Sie sie in Foundry Deploy als Treiberquelle an.</value>
+  </data>
+  <data name="Nav_CustomDriversKey.Title" xml:space="preserve">
+    <value>Benutzerdefinierte Treiber</value>
+  </data>
   <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
     <value>Importieren Sie Windows-Abbilder aus ISO- oder WIM-Dateien und nehmen Sie sie in Bereitstellungsmedien auf.</value>
   </data>
@@ -3544,10 +3658,10 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>USB erstellen</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>Optionaler Ordner mit zusätzlichen .inf-Treibern.</value>
+    <value>Optionaler Ordner mit .inf-Treibern, die dem WinPE-Startabbild hinzugefügt werden.</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>Benutzerdefinierter Treiberordner</value>
+    <value>Zusätzlicher WinPE-Treiberordner</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
     <value>Benutzerdefinierten Treiberordner auswählen</value>
@@ -3556,10 +3670,10 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>Wählen Sie optionale Herstellertreiber und einen benutzerdefinierten Treiberordner aus.</value>
+    <value>Treiber, die nur dem WinPE-Startabbild hinzugefügt werden, etwa Netzwerk- und Speichertreiber. Verwenden Sie für Treiber im bereitgestellten Windows die Seite „Benutzerdefinierte Treiber“.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Treiberoptionen</value>
+    <value>WinPE-Treiber</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3639,6 +3753,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Die Medienerstellung wurde abgebrochen.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Zu kopierende Inhalte werden überprüft…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Es wird geprüft, ob das USB-Laufwerk sicher gelöscht werden kann…</value>
   </data>
@@ -3650,6 +3767,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>Startabbild wird gespeichert…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingCustomDrivers" xml:space="preserve">
+    <value>Benutzerdefinierte Treibersätze werden kopiert…</value>
   </data>
   <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
     <value>Benutzerdefinierte Windows-Abbilder werden kopiert…</value>
@@ -3666,8 +3786,14 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Cache-Partition wird erstellt…</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
+    <value>Nicht verwendete benutzerdefinierte Treibersätze konnten nicht vom USB-Laufwerk entfernt werden.</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Die benutzerdefinierten Treiber belegen mindestens {0}; maximal zulässig sind {1}. Wählen Sie nur die von Windows PE benötigten Netzwerk- und Speichertreiber aus.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversVerified" xml:space="preserve">
+    <value>Benutzerdefinierte Treibersätze überprüft.</value>
   </data>
   <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
     <value>{0} ({1})</value>
@@ -3707,6 +3833,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Windows-Abbild wird extrahiert…</value>
+  </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Der zum Medium hinzugefügte Inhalt (benutzerdefinierte Windows-Abbilder, Inhalte nach der Installation oder benutzerdefinierte Treiber) konnte nicht vorbereitet werden. Öffnen Sie den Protokollordner für Details und versuchen Sie es dann erneut.</value>
   </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Der Fehler trat in Schritt {0} von {1} auf: {2}.</value>
@@ -3896,6 +4025,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Eine Datei des Startmediums ist {0} groß; FAT32 unterstützt höchstens {1} pro Datei. Verkleinern Sie das Startabbild oder erstellen Sie ein ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>Die USB-Cache-Partition hat nicht genug freien Speicherplatz für den aktualisierten Inhalt, da der bisherige Inhalt während der Aktualisierung auf dem Laufwerk bleibt. Es wurde nichts gelöscht oder formatiert. Erstellen Sie das USB-Medium neu, anstatt es zu aktualisieren.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Möglicherweise kann mit dem USB-Laufwerk kein Gerät mehr gestartet werden. Erstellen oder aktualisieren Sie es erneut, bevor Sie es verwenden.</value>

@@ -153,7 +153,7 @@ public sealed class FoundryConfigurationServiceTests
     public void AConfigurationWithoutDomainJoinLoadsItDisabledAtTheCurrentSchema()
     {
         FoundryConfigurationDocument document = new FoundryConfigurationService().Deserialize("{\"schemaVersion\":17}");
-        Assert.Equal(18, document.SchemaVersion);
+        Assert.Equal(19, document.SchemaVersion);
         Assert.False(document.DomainJoin.IsEnabled);
     }
 
@@ -203,7 +203,7 @@ public sealed class FoundryConfigurationServiceTests
         FoundryConfigurationDocument document = service.Deserialize(json);
         var generated = new DeployConfigurationGenerator().Generate(document);
 
-        Assert.Equal(18, document.SchemaVersion);
+        Assert.Equal(19, document.SchemaVersion);
         Assert.Equal(ConfigurationSchemaVersions.DeployCurrent, generated.SchemaVersion);
         Assert.Equal(expectedDefault is null ? [] : new[] { expectedDefault }, document.OperatingSystemSelection.AllowedReleaseIds);
         Assert.Equal(expectedDefault, document.OperatingSystemSelection.DefaultReleaseId);

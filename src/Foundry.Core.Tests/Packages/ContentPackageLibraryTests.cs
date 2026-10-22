@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Security.Cryptography;
+using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Packages;
 using Foundry.Core.Services.Packages;
 
@@ -195,6 +196,52 @@ public sealed class ContentPackageLibraryTests : IDisposable
     }
 
     [Fact]
+    public async Task ImportProgressIsMonotonicAndEndsAtTheTotals()
+    {
+        string source = await CreateProgressSourceAsync();
+        var progress = new RecordingProgress();
+
+        var reference = await Library().ImportAsync(source, progress, Cancellation);
+
+        Assert.NotEmpty(progress.Reports);
+        Assert.All(progress.Reports, report => Assert.Equal((reference.Length, reference.FileCount), (report.TotalBytes, report.TotalFiles)));
+        for (int index = 1; index < progress.Reports.Count; index++)
+        {
+            Assert.True(progress.Reports[index].CompletedBytes >= progress.Reports[index - 1].CompletedBytes);
+            Assert.True(progress.Reports[index].CompletedFiles >= progress.Reports[index - 1].CompletedFiles);
+        }
+        Assert.Equal(new ContentPackageImportProgress(reference.Length, reference.Length, reference.FileCount, reference.FileCount), progress.Reports[^1]);
+    }
+
+    [Fact]
+    public async Task ProgressReportingDoesNotChangeTheContentIdentityOrManifest()
+    {
+        string source = await CreateProgressSourceAsync();
+        var withoutProgress = new ContentPackageLibraryService(Path.Combine(root, "plain"), ContentPackageKind.PostInstallation);
+
+        var reported = await Library().ImportAsync(source, new RecordingProgress(), Cancellation);
+        var plain = await withoutProgress.ImportAsync(source, Cancellation);
+
+        Assert.Equal(plain.ContentHash, reported.ContentHash);
+        Assert.Equal(
+            await File.ReadAllBytesAsync(Path.Combine(root, "plain", "content", plain.ContentHash, "manifest.json"), Cancellation),
+            await File.ReadAllBytesAsync(Path.Combine(root, "library", "content", reported.ContentHash, "manifest.json"), Cancellation));
+    }
+
+    [Fact]
+    public async Task CancellationDuringTheCopyRemovesPendingContent()
+    {
+        string source = await CreateProgressSourceAsync();
+        using var cancellation = CancellationTokenSource.CreateLinkedTokenSource(Cancellation);
+        var progress = new RecordingProgress(report => { if (report.CompletedBytes > 0) cancellation.Cancel(); });
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => Library().ImportAsync(source, progress, cancellation.Token));
+
+        Assert.Empty(Directory.GetFileSystemEntries(Path.Combine(root, "library", "pending")));
+        Assert.False(Directory.Exists(Path.Combine(root, "library", "content")));
+    }
+
+    [Fact]
     public async Task RedirectedSourceIsRejected()
     {
         string source = CreateSource();
@@ -270,12 +317,87 @@ public sealed class ContentPackageLibraryTests : IDisposable
         Assert.Throws<InvalidDataException>(() => ContentPackagePathPolicy.PostInstallation.Resolve(longRoot, "long-file-name.exe"));
     }
 
+    [Fact]
+    public async Task InvalidPathRejectionCarriesTheOffendingRelativePath()
+    {
+        string source = CreateSource();
+        string relativePath = "drivers/" + new string('a', 139) + ".inf";
+        Assert.Equal(151, relativePath.Length);
+        string sourceFile = Path.Combine(source, relativePath.Replace('/', Path.DirectorySeparatorChar));
+        Directory.CreateDirectory(Path.GetDirectoryName(sourceFile)!);
+        await File.WriteAllTextAsync(sourceFile, "[Version]", Cancellation);
+
+        var exception = await Assert.ThrowsAsync<InvalidDataException>(() => Library(ContentPackageKind.Drivers).ImportAsync(source, Cancellation));
+
+        Assert.Equal("ContentPackage.InvalidPackagePath", exception.Message);
+        Assert.Equal(relativePath, exception.Data[ContentPackagePathPolicy.RelativePathDataKey]);
+    }
+
+    [Fact]
+    public async Task DriversImportSucceedsWhenTheHostPathExceeds260Characters()
+    {
+        string source = CreateSource();
+        string relativePath = "drivers/" + new string('a', 138) + ".inf";
+        Assert.Equal(150, relativePath.Length);
+        string sourceFile = Path.Combine(source, relativePath.Replace('/', Path.DirectorySeparatorChar));
+        Directory.CreateDirectory(Path.GetDirectoryName(sourceFile)!);
+        await File.WriteAllTextAsync(sourceFile, "[Version]", Cancellation);
+        string libraryRoot = Path.Combine(root, new string('n', 100), new string('m', 100), "library");
+        var library = new ContentPackageLibraryService(libraryRoot, ContentPackageKind.Drivers);
+
+        var reference = await library.ImportAsync(source, Cancellation);
+        using var lease = await library.AcquireAsync(reference.ContentHash, Cancellation);
+
+        Assert.True(Path.Combine(libraryRoot, "content", reference.ContentHash, "files", relativePath).Length > 260);
+        Assert.Equal(9, lease.Files.Single().Length);
+        Assert.Equal(9, new FileInfo(lease.Files.Single().SourcePath).Length);
+        Assert.True(library.IsAvailable(reference));
+    }
+
+    [Theory]
+    [InlineData(15_000, true, false)]
+    [InlineData(20_000, true, false)]
+    [InlineData(20_001, false, false)]
+    [InlineData(10_000, true, true)]
+    [InlineData(0, false, false)]
+    public void ReferenceFileCountIsValidatedAgainstTheLibraryKind(int fileCount, bool drivers, bool postInstallation)
+    {
+        var reference = new ContentPackageReference { ContentHash = new string('a', 64), DisplayName = "Set", Length = 1, FileCount = fileCount };
+
+        Assert.Equal(drivers, ContentPackageLibraryService.IsValidReference(reference, ContentPackageKind.Drivers));
+        Assert.Equal(postInstallation, ContentPackageLibraryService.IsValidReference(reference, ContentPackageKind.PostInstallation));
+    }
+
     private string CreateSource()
     {
         string path = Path.Combine(root, "source");
         Directory.CreateDirectory(path);
         return path;
     }
+
+    /// <summary>Creates a folder whose large file spans many copy chunks, next to a small and an empty file.</summary>
+    private async Task<string> CreateProgressSourceAsync()
+    {
+        string source = CreateSource();
+        Directory.CreateDirectory(Path.Combine(source, "support"));
+        await File.WriteAllBytesAsync(Path.Combine(source, "large.bin"), RandomNumberGenerator.GetBytes(4 * 1024 * 1024), Cancellation);
+        await File.WriteAllTextAsync(Path.Combine(source, "support", "small.txt"), "small", Cancellation);
+        await File.WriteAllBytesAsync(Path.Combine(source, "support", "empty.cab"), [], Cancellation);
+        return source;
+    }
+
     private ContentPackageLibraryService Library(ContentPackageKind? kind = null) => new(Path.Combine(root, "library"), kind ?? ContentPackageKind.PostInstallation);
     public void Dispose() { if (Directory.Exists(root)) Directory.Delete(root, recursive: true); }
+
+    /// <summary>Records reports synchronously, unlike <see cref="Progress{T}"/>, so their order is the order of the import.</summary>
+    private sealed class RecordingProgress(Action<ContentPackageImportProgress>? onReport = null) : IProgress<ContentPackageImportProgress>
+    {
+        public List<ContentPackageImportProgress> Reports { get; } = [];
+
+        public void Report(ContentPackageImportProgress value)
+        {
+            Reports.Add(value);
+            onReport?.Invoke(value);
+        }
+    }
 }

@@ -736,6 +736,114 @@ Licenciran prema MIT licenci.</value>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nedostupan</value>
   </data>
+  <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
+    <value>Ova mapa već je u ovom profilu kao {0}.</value>
+  </data>
+  <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
+    <value>Skup upravljačkih programa uklonjen je, ali njegovu lokalnu kopiju nije moguće izbrisati.</value>
+  </data>
+  <data name="CustomDrivers.DefaultLabel" xml:space="preserve">
+    <value>Zadani skup</value>
+  </data>
+  <data name="CustomDrivers.DefaultSetName" xml:space="preserve">
+    <value>Skup upravljačkih programa</value>
+  </data>
+  <data name="CustomDrivers.DuplicateName" xml:space="preserve">
+    <value>U ovom profilu već postoji skup upravljačkih programa s tim nazivom.</value>
+  </data>
+  <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
+    <value>Nema prilagođenih skupova upravljačkih programa. Za početak uvezite mapu koja sadrži .inf upravljačke programe.</value>
+  </data>
+  <data name="CustomDrivers.EnableLabel" xml:space="preserve">
+    <value>Omogući prilagođene upravljačke programe</value>
+  </data>
+  <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
+    <value>Datoteke</value>
+  </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Uvezi</value>
+  </data>
+  <data name="CustomDrivers.ImportFailed" xml:space="preserve">
+    <value>Skup upravljačkih programa nije moguće uvesti. Provjerite pristup mapi, a zatim pokušajte ponovno. Pojedinosti su u zapisniku.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Mapa s upravljačkim programima</value>
+  </data>
+  <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
+    <value>Nema dovoljno slobodnog prostora na disku za uvoz ovog skupa upravljačkih programa. Oslobodite prostor, a zatim pokušajte ponovno.</value>
+  </data>
+  <data name="CustomDrivers.ImportInvalidPath" xml:space="preserve">
+    <value>Putanja u ovoj mapi preduga je ili nije valjana: {0}. Skratite je ili preimenujte, a zatim pokušajte ponovno.</value>
+  </data>
+  <data name="CustomDrivers.ImportLabel" xml:space="preserve">
+    <value>Uvezi mapu</value>
+  </data>
+  <data name="CustomDrivers.ImportMissingInf" xml:space="preserve">
+    <value>Ova mapa ne sadrži nijednu .inf datoteku. Odaberite mapu s INF upravljačkim programima.</value>
+  </data>
+  <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
+    <value>Odaberite mapu s upravljačkim programima</value>
+  </data>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Kopiranje i provjera datoteka upravljačkih programa…</value>
+  </data>
+  <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
+    <value>Ova mapa sadrži simboličku vezu, spoj ili rezervirano mjesto u oblaku. Kopirajte upravljačke programe u običnu lokalnu mapu, a zatim pokušajte ponovno.</value>
+  </data>
+  <data name="CustomDrivers.ImportSourceChanged" xml:space="preserve">
+    <value>Mapa se promijenila tijekom kopiranja. Zatvorite programe koji pišu u nju, a zatim pokušajte ponovno.</value>
+  </data>
+  <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
+    <value>Ova mapa sadrži previše datoteka ili podmapa za skup upravljačkih programa.</value>
+  </data>
+  <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
+    <value>INF datoteke</value>
+  </data>
+  <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
+    <value>Skupovi upravljačkih programa</value>
+  </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>Aktivni profil promijenio se tijekom uvoza pa skup upravljačkih programa nije dodan. Ponovno uvezite mapu u ovaj profil.</value>
+  </data>
+  <data name="CustomDrivers.PxeWarning" xml:space="preserve">
+    <value>Nije dostupno uz PXE pokretanje. Prilagođeni upravljački programi zahtijevaju cijeli ISO ili USB medij.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
+    <value>Skupovi upravljačkih programa ovog profila nisu valjani. Prije stvaranja ili ažuriranja medija provjerite uključene skupove i zadani skup.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
+    <value>Lokalna kopija skupa {0} nedostaje ili je oštećena. Prije stvaranja ili ažuriranja medija ponovno uvezite mapu ili isključite skup.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
+    <value>Prije stvaranja ili ažuriranja medija uključite barem jedan skup upravljačkih programa u ovaj profil ili isključite prilagođene upravljačke programe.</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
+    <value>Ukloni skup upravljačkih programa</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) bit će uklonjen iz trenutačnog profila.</value>
+  </data>
+  <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
+    <value>Skup upravljačkih programa nije moguće ukloniti. Pokušajte ponovno.</value>
+  </data>
+  <data name="CustomDrivers.RemoveTitle" xml:space="preserve">
+    <value>Ukloniti skup upravljačkih programa?</value>
+  </data>
+  <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
+    <value>Njegova lokalna kopija briše se osim ako je koristi drugi profil. Izvorna mapa i postojeći mediji ne mijenjaju se.</value>
+  </data>
+  <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
+    <value>Postavi kao zadano</value>
+  </data>
+  <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
+    <value>Ovaj profil dosegnuo je najveći broj skupova upravljačkih programa. Uklonite jedan prije uvoza drugog.</value>
+  </data>
+  <data name="CustomDrivers.StageVerifying" xml:space="preserve">
+    <value>Provjera prilagođenih skupova upravljačkih programa…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>Provjera…</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arhitektura</value>
   </data>
@@ -2458,6 +2566,12 @@ Licenciran prema MIT licenci.</value>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
   </data>
+  <data name="Nav_CustomDriversKey.Description" xml:space="preserve">
+    <value>Uvezite mape s upravljačkim programima i ponudite ih kao izvor upravljačkih programa u alatu Foundry Deploy.</value>
+  </data>
+  <data name="Nav_CustomDriversKey.Title" xml:space="preserve">
+    <value>Prilagođeni upravljački programi</value>
+  </data>
   <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
     <value>Uvezite slike sustava Windows iz ISO ili WIM datoteka i uključite ih u medije za implementaciju.</value>
   </data>
@@ -3544,10 +3658,10 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Stvori USB</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>Dodatna mapa koja sadrži dodatne .inf upravljačke programe.</value>
+    <value>Dodatna mapa s .inf upravljačkim programima koji se dodaju u WinPE sliku za pokretanje.</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>Prilagođena mapa upravljačkog programa</value>
+    <value>Dodatna mapa upravljačkih programa za WinPE</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
     <value>Odaberite prilagođenu mapu upravljačkog programa</value>
@@ -3556,10 +3670,10 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>Odaberite izborne upravljačke programe dobavljača i prilagođenu mapu upravljačkih programa.</value>
+    <value>Upravljački programi koji se dodaju samo u WinPE sliku za pokretanje, npr. mrežni upravljački programi i upravljački programi za pohranu. Za dodavanje upravljačkih programa u implementirani Windows upotrijebite Prilagođeni upravljački programi.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Mogućnosti upravljačkih programa</value>
+    <value>Upravljački programi za WinPE</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3639,6 +3753,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Stvaranje medija je otkazano.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Provjera sadržaja za kopiranje…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Provjera može li se USB disk sigurno izbrisati…</value>
   </data>
@@ -3650,6 +3767,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>Spremanje slike za pokretanje…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingCustomDrivers" xml:space="preserve">
+    <value>Kopiranje prilagođenih skupova upravljačkih programa…</value>
   </data>
   <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
     <value>Kopiranje prilagođenih slika sustava Windows…</value>
@@ -3666,8 +3786,14 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Stvaranje particije predmemorije…</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
+    <value>Nekorištene prilagođene skupove upravljačkih programa nije moguće ukloniti s USB pogona.</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Prilagođeni upravljački programi zauzimaju najmanje {0}; najveća dopuštena veličina je {1}. Odaberite samo mrežne upravljačke programe i upravljačke programe za pohranu potrebne za Windows PE.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversVerified" xml:space="preserve">
+    <value>Prilagođeni skupovi upravljačkih programa provjereni su.</value>
   </data>
   <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
     <value>{0} ({1})</value>
@@ -3707,6 +3833,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Izdvajanje slike sustava Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Sadržaj dodan na medij (prilagođene slike sustava Windows, sadržaj nakon instalacije ili prilagođeni upravljački programi) nije moguće pripremiti. Otvorite mapu zapisnika za pojedinosti pa pokušajte ponovno.</value>
   </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Pogreška se dogodila u koraku {0} od {1}: {2}.</value>
@@ -3896,6 +4025,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Datoteka na mediju za pokretanje zauzima {0}; FAT32 podržava najviše {1} po datoteci. Smanjite veličinu slike za pokretanje ili izradite ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>Particija predmemorije na USB-u nema dovoljno slobodnog prostora za ažurirani sadržaj jer prethodni sadržaj ostaje na pogonu tijekom ažuriranja. Ništa nije izbrisano ni formatirano. Umjesto ažuriranja ponovno stvorite USB medij.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>S USB diska možda više neće biti moguće pokrenuti uređaj. Prije upotrebe ga ponovno stvorite ili ažurirajte.</value>

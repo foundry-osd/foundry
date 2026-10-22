@@ -480,6 +480,15 @@ Toimi: Tarkista levyn attribuutit ja yritä käyttöönottoa uudelleen.</value>
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Tietovälineelle tallennetun liittymistilin salasana on vanhentunut tai se on vaihdettava. Käyttöönotto ei ole alkanut. Järjestelmänvalvojan on päivitettävä salasana Foundry OSD:ssä ja luotava tietoväline uudelleen.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Tämän tietovälineen mukautetut ohjaimet eivät läpäisseet eheystarkistusta, joten niitä ei tarjota. Valitse toinen ohjainlähde tai luo käynnistystietoväline uudelleen.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Mukautetut ohjaimet</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Ohjainjoukko</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>
@@ -993,6 +1002,9 @@ Jatketaanko käyttöönottoa?</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Piilota palautusosio</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Valmistele mukautetut ohjaimet</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Kopioi vastaustiedosto</value>
   </data>
@@ -1319,6 +1331,12 @@ Jatketaanko käyttöönottoa?</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>Valittu Microsoft Update Catalogin ohjaintiedosto '{0}' ei sisällä INF-tiedostoja.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Mukautetut ohjaimet valmisteltu.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>Valitut mukautetut ohjaimet eivät ole käytettävissä, tai ne eivät läpäisseet tarkistusta. Yhdistä käyttöönottotietoväline uudelleen tai käynnistä käyttöönotto uudelleen ja valitse toinen ohjainlähde.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Ensimmäisen käynnistyksen ohjainpaketin vaiheistusta pyydettiin ilman tuettua komentoa.</value>

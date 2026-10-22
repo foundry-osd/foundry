@@ -736,6 +736,114 @@
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Μη διαθέσιμο</value>
   </data>
+  <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
+    <value>Αυτός ο φάκελος υπάρχει ήδη σε αυτό το προφίλ ως {0}.</value>
+  </data>
+  <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
+    <value>Το σύνολο προγραμμάτων οδήγησης καταργήθηκε, αλλά δεν ήταν δυνατή η διαγραφή του τοπικού του αντιγράφου.</value>
+  </data>
+  <data name="CustomDrivers.DefaultLabel" xml:space="preserve">
+    <value>Προεπιλεγμένο σύνολο</value>
+  </data>
+  <data name="CustomDrivers.DefaultSetName" xml:space="preserve">
+    <value>Σύνολο προγραμμάτων οδήγησης</value>
+  </data>
+  <data name="CustomDrivers.DuplicateName" xml:space="preserve">
+    <value>Υπάρχει ήδη σύνολο προγραμμάτων οδήγησης με αυτό το όνομα σε αυτό το προφίλ.</value>
+  </data>
+  <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
+    <value>Δεν υπάρχουν προσαρμοσμένα σύνολα προγραμμάτων οδήγησης. Εισαγάγετε έναν φάκελο με προγράμματα οδήγησης .inf για να ξεκινήσετε.</value>
+  </data>
+  <data name="CustomDrivers.EnableLabel" xml:space="preserve">
+    <value>Ενεργοποίηση προσαρμοσμένων προγραμμάτων οδήγησης</value>
+  </data>
+  <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
+    <value>Αρχεία</value>
+  </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Εισαγωγή</value>
+  </data>
+  <data name="CustomDrivers.ImportFailed" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η εισαγωγή του συνόλου προγραμμάτων οδήγησης. Ελέγξτε την πρόσβαση στον φάκελο και δοκιμάστε ξανά. Οι λεπτομέρειες βρίσκονται στο αρχείο καταγραφής.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Φάκελος προγραμμάτων οδήγησης</value>
+  </data>
+  <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
+    <value>Δεν υπάρχει αρκετός ελεύθερος χώρος στον δίσκο για την εισαγωγή αυτού του συνόλου προγραμμάτων οδήγησης. Ελευθερώστε χώρο και δοκιμάστε ξανά.</value>
+  </data>
+  <data name="CustomDrivers.ImportInvalidPath" xml:space="preserve">
+    <value>Μια διαδρομή σε αυτόν τον φάκελο είναι πολύ μεγάλη ή μη έγκυρη: {0}. Συντομεύστε ή μετονομάστε την και δοκιμάστε ξανά.</value>
+  </data>
+  <data name="CustomDrivers.ImportLabel" xml:space="preserve">
+    <value>Εισαγωγή φακέλου</value>
+  </data>
+  <data name="CustomDrivers.ImportMissingInf" xml:space="preserve">
+    <value>Αυτός ο φάκελος δεν περιέχει κανένα αρχείο .inf. Επιλέξτε έναν φάκελο με προγράμματα οδήγησης INF.</value>
+  </data>
+  <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
+    <value>Επιλέξτε φάκελο προγραμμάτων οδήγησης</value>
+  </data>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Αντιγραφή και επαλήθευση αρχείων προγραμμάτων οδήγησης…</value>
+  </data>
+  <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
+    <value>Αυτός ο φάκελος περιέχει συμβολική σύνδεση, σημείο σύνδεσης ή σύμβολο κράτησης θέσης cloud. Αντιγράψτε τα προγράμματα οδήγησης σε έναν κανονικό τοπικό φάκελο και δοκιμάστε ξανά.</value>
+  </data>
+  <data name="CustomDrivers.ImportSourceChanged" xml:space="preserve">
+    <value>Ο φάκελος άλλαξε κατά την αντιγραφή. Κλείστε τα προγράμματα που γράφουν σε αυτόν και δοκιμάστε ξανά.</value>
+  </data>
+  <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
+    <value>Αυτός ο φάκελος περιέχει πάρα πολλά αρχεία ή υποφακέλους για ένα σύνολο προγραμμάτων οδήγησης.</value>
+  </data>
+  <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
+    <value>Αρχεία INF</value>
+  </data>
+  <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
+    <value>Σύνολα προγραμμάτων οδήγησης</value>
+  </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>Το ενεργό προφίλ άλλαξε κατά την εισαγωγή, επομένως το σύνολο προγραμμάτων οδήγησης δεν προστέθηκε. Εισαγάγετε ξανά τον φάκελο σε αυτό το προφίλ.</value>
+  </data>
+  <data name="CustomDrivers.PxeWarning" xml:space="preserve">
+    <value>Δεν διατίθεται με εκκίνηση PXE. Τα προσαρμοσμένα προγράμματα οδήγησης απαιτούν το πλήρες μέσο ISO ή USB.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
+    <value>Τα σύνολα προγραμμάτων οδήγησης αυτού του προφίλ δεν είναι έγκυρα. Ελέγξτε τα σύνολα που περιλαμβάνονται και το προεπιλεγμένο σύνολο πριν από τη δημιουργία ή την ενημέρωση μέσων.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
+    <value>Το τοπικό αντίγραφο του {0} λείπει ή είναι κατεστραμμένο. Εισαγάγετε ξανά τον φάκελο ή εξαιρέστε το σύνολο πριν από τη δημιουργία ή την ενημέρωση μέσων.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
+    <value>Συμπεριλάβετε τουλάχιστον ένα σύνολο προγραμμάτων οδήγησης σε αυτό το προφίλ ή απενεργοποιήστε τα προσαρμοσμένα προγράμματα οδήγησης πριν από τη δημιουργία ή την ενημέρωση μέσων.</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
+    <value>Κατάργηση συνόλου προγραμμάτων οδήγησης</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
+    <value>Το {0} ({1}) θα καταργηθεί από το τρέχον προφίλ.</value>
+  </data>
+  <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η κατάργηση του συνόλου προγραμμάτων οδήγησης. Δοκιμάστε ξανά.</value>
+  </data>
+  <data name="CustomDrivers.RemoveTitle" xml:space="preserve">
+    <value>Κατάργηση συνόλου προγραμμάτων οδήγησης;</value>
+  </data>
+  <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
+    <value>Το τοπικό του αντίγραφο διαγράφεται, εκτός αν το χρησιμοποιεί άλλο προφίλ. Ο αρχικός φάκελος και τα υπάρχοντα μέσα δεν αλλάζουν.</value>
+  </data>
+  <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
+    <value>Ορισμός ως προεπιλογής</value>
+  </data>
+  <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
+    <value>Αυτό το προφίλ έχει φτάσει τον μέγιστο αριθμό συνόλων προγραμμάτων οδήγησης. Καταργήστε ένα πριν εισαγάγετε άλλο.</value>
+  </data>
+  <data name="CustomDrivers.StageVerifying" xml:space="preserve">
+    <value>Επαλήθευση προσαρμοσμένων συνόλων προγραμμάτων οδήγησης…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>Έλεγχος…</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Αρχιτεκτονική</value>
   </data>
@@ -2458,6 +2566,12 @@
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
   </data>
+  <data name="Nav_CustomDriversKey.Description" xml:space="preserve">
+    <value>Εισαγάγετε φακέλους προγραμμάτων οδήγησης και προσφέρετέ τους ως προέλευση προγραμμάτων οδήγησης στο Foundry Deploy.</value>
+  </data>
+  <data name="Nav_CustomDriversKey.Title" xml:space="preserve">
+    <value>Προσαρμοσμένα προγράμματα οδήγησης</value>
+  </data>
   <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
     <value>Εισαγάγετε εικόνες Windows από αρχεία ISO ή WIM και συμπεριλάβετέ τις σε μέσα ανάπτυξης.</value>
   </data>
@@ -3544,10 +3658,10 @@
     <value>Δημιουργία USB</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>Προαιρετικός φάκελος που περιέχει επιπλέον προγράμματα οδήγησης .inf.</value>
+    <value>Προαιρετικός φάκελος με προγράμματα οδήγησης .inf που προστίθενται στην εικόνα εκκίνησης WinPE.</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>Προσαρμοσμένο φάκελο προγράμματος οδήγησης</value>
+    <value>Πρόσθετος φάκελος προγραμμάτων οδήγησης WinPE</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
     <value>Επιλέξτε προσαρμοσμένο φάκελο προγράμματος οδήγησης</value>
@@ -3556,10 +3670,10 @@
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>Επιλέξτε προαιρετικά προγράμματα οδήγησης προμηθευτή και έναν προσαρμοσμένο φάκελο προγραμμάτων οδήγησης.</value>
+    <value>Προγράμματα οδήγησης που προστίθενται μόνο στην εικόνα εκκίνησης WinPE, όπως προγράμματα οδήγησης δικτύου και αποθήκευσης. Για να προσθέσετε προγράμματα οδήγησης στα Windows που αναπτύσσονται, χρησιμοποιήστε τα Προσαρμοσμένα προγράμματα οδήγησης.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Επιλογές προγράμματος οδήγησης</value>
+    <value>Προγράμματα οδήγησης WinPE</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3639,6 +3753,9 @@
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Η δημιουργία μέσου ακυρώθηκε.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Έλεγχος του περιεχομένου προς αντιγραφή…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Έλεγχος ότι η μονάδα USB μπορεί να διαγραφεί με ασφάλεια…</value>
   </data>
@@ -3650,6 +3767,9 @@
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>Αποθήκευση της εικόνας εκκίνησης…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingCustomDrivers" xml:space="preserve">
+    <value>Αντιγραφή προσαρμοσμένων συνόλων προγραμμάτων οδήγησης…</value>
   </data>
   <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
     <value>Αντιγραφή προσαρμοσμένων εικόνων Windows…</value>
@@ -3666,8 +3786,14 @@
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Δημιουργία του διαμερίσματος προσωρινής μνήμης…</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η κατάργηση των αχρησιμοποίητων προσαρμοσμένων συνόλων προγραμμάτων οδήγησης από τη μονάδα USB.</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Τα προσαρμοσμένα προγράμματα οδήγησης καταλαμβάνουν τουλάχιστον {0}· το μέγιστο είναι {1}. Επιλέξτε μόνο τα προγράμματα οδήγησης δικτύου και αποθήκευσης που χρειάζεται το Windows PE.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversVerified" xml:space="preserve">
+    <value>Τα προσαρμοσμένα σύνολα προγραμμάτων οδήγησης επαληθεύτηκαν.</value>
   </data>
   <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
     <value>{0} ({1})</value>
@@ -3707,6 +3833,9 @@
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Εξαγωγή της εικόνας των Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η προετοιμασία του περιεχομένου που προστέθηκε στο μέσο (προσαρμοσμένες εικόνες Windows, περιεχόμενο μετά την εγκατάσταση ή προσαρμοσμένα προγράμματα οδήγησης). Ανοίξτε τον φάκελο αρχείων καταγραφής για λεπτομέρειες και δοκιμάστε ξανά.</value>
   </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Η αποτυχία προέκυψε στο βήμα {0} από {1}: {2}.</value>
@@ -3896,6 +4025,9 @@
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Ένα αρχείο του μέσου εκκίνησης έχει μέγεθος {0}· το FAT32 υποστηρίζει έως {1} ανά αρχείο. Μειώστε το μέγεθος του ειδώλου εκκίνησης ή δημιουργήστε ένα ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>Το διαμέρισμα προσωρινής μνήμης του USB δεν έχει αρκετό ελεύθερο χώρο για το ενημερωμένο περιεχόμενο, επειδή το προηγούμενο περιεχόμενο παραμένει στη μονάδα κατά την ενημέρωση. Δεν έχει γίνει διαγραφή ή διαμόρφωση. Δημιουργήστε ξανά το μέσο USB αντί να το ενημερώσετε.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Η μονάδα USB ενδέχεται να μην μπορεί πλέον να εκκινήσει μια συσκευή. Δημιουργήστε ή ενημερώστε την ξανά πριν τη χρησιμοποιήσετε.</value>

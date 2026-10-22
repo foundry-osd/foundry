@@ -44,4 +44,17 @@ public sealed class DriverPackStrategyResolverTests
         Assert.Equal(DriverPackExtractionMethod.None, plan.ExtractionMethod);
         Assert.Equal(DeferredDriverPackageCommandKind.LenovoExecutable, plan.DeferredCommandKind);
     }
+
+    [Fact]
+    public void ResolverReturnsOfflineInfForCustomDriverSet()
+    {
+        DriverPackExecutionPlan plan = new DriverPackStrategyResolver().Resolve(
+            DriverPackSelectionKind.CustomDriverSet,
+            driverPack: null,
+            downloadedPath: string.Empty);
+
+        Assert.Equal(DriverPackInstallMode.OfflineInf, plan.InstallMode);
+        Assert.Equal(DriverPackExtractionMethod.CustomDriverSetCopy, plan.ExtractionMethod);
+        Assert.Equal(DeferredDriverPackageCommandKind.None, plan.DeferredCommandKind);
+    }
 }

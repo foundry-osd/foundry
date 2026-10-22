@@ -736,6 +736,114 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nepasiekiamas</value>
   </data>
+  <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
+    <value>Šis aplankas jau yra šiame profilyje kaip {0}.</value>
+  </data>
+  <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
+    <value>Tvarkyklių rinkinys pašalintas, bet jo vietinės kopijos ištrinti nepavyko.</value>
+  </data>
+  <data name="CustomDrivers.DefaultLabel" xml:space="preserve">
+    <value>Numatytasis rinkinys</value>
+  </data>
+  <data name="CustomDrivers.DefaultSetName" xml:space="preserve">
+    <value>Tvarkyklių rinkinys</value>
+  </data>
+  <data name="CustomDrivers.DuplicateName" xml:space="preserve">
+    <value>Šiame profilyje jau yra tvarkyklių rinkinys tokiu pavadinimu.</value>
+  </data>
+  <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
+    <value>Pasirinktinių tvarkyklių rinkinių nėra. Norėdami pradėti, importuokite aplanką su .inf tvarkyklėmis.</value>
+  </data>
+  <data name="CustomDrivers.EnableLabel" xml:space="preserve">
+    <value>Įjungti pasirinktines tvarkykles</value>
+  </data>
+  <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
+    <value>Failai</value>
+  </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Importuoti</value>
+  </data>
+  <data name="CustomDrivers.ImportFailed" xml:space="preserve">
+    <value>Nepavyko importuoti tvarkyklių rinkinio. Patikrinkite prieigą prie aplanko ir bandykite dar kartą. Išsami informacija yra žurnale.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Tvarkyklių aplankas</value>
+  </data>
+  <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
+    <value>Nepakanka laisvos vietos diske šiam tvarkyklių rinkiniui importuoti. Atlaisvinkite vietos ir bandykite dar kartą.</value>
+  </data>
+  <data name="CustomDrivers.ImportInvalidPath" xml:space="preserve">
+    <value>Šio aplanko kelias per ilgas arba netinkamas: {0}. Sutrumpinkite arba pervardykite jį ir bandykite dar kartą.</value>
+  </data>
+  <data name="CustomDrivers.ImportLabel" xml:space="preserve">
+    <value>Importuoti aplanką</value>
+  </data>
+  <data name="CustomDrivers.ImportMissingInf" xml:space="preserve">
+    <value>Šiame aplanke nėra .inf failo. Pasirinkite aplanką su INF tvarkyklėmis.</value>
+  </data>
+  <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
+    <value>Pasirinkite tvarkyklių aplanką</value>
+  </data>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Kopijuojami ir tikrinami tvarkyklių failai…</value>
+  </data>
+  <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
+    <value>Šiame aplanke yra simbolinė nuoroda, sankirta arba debesies vietos rezervavimo ženklas. Nukopijuokite tvarkykles į įprastą vietinį aplanką ir bandykite dar kartą.</value>
+  </data>
+  <data name="CustomDrivers.ImportSourceChanged" xml:space="preserve">
+    <value>Aplankas pasikeitė, kol buvo kopijuojamas. Uždarykite į jį rašančias programas ir bandykite dar kartą.</value>
+  </data>
+  <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
+    <value>Šiame aplanke yra per daug failų arba poaplankių tvarkyklių rinkiniui.</value>
+  </data>
+  <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
+    <value>INF failai</value>
+  </data>
+  <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
+    <value>Tvarkyklių rinkiniai</value>
+  </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>Importuojant pasikeitė aktyvusis profilis, todėl tvarkyklių rinkinys nebuvo įtrauktas. Importuokite aplanką į šį profilį dar kartą.</value>
+  </data>
+  <data name="CustomDrivers.PxeWarning" xml:space="preserve">
+    <value>Nepasiekiama paleidžiant per PXE. Pasirinktinėms tvarkyklėms reikia visos ISO arba USB laikmenos.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
+    <value>Šio profilio tvarkyklių rinkiniai netinkami. Prieš kurdami arba atnaujindami laikmeną, patikrinkite įtrauktus rinkinius ir numatytąjį rinkinį.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
+    <value>Rinkinio {0} vietinės kopijos nėra arba ji sugadinta. Prieš kurdami arba atnaujindami laikmeną, iš naujo importuokite aplanką arba neįtraukite rinkinio.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
+    <value>Prieš kurdami arba atnaujindami laikmeną, įtraukite į šį profilį bent vieną tvarkyklių rinkinį arba išjunkite pasirinktines tvarkykles.</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
+    <value>Pašalinti tvarkyklių rinkinį</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) bus pašalintas iš dabartinio profilio.</value>
+  </data>
+  <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
+    <value>Nepavyko pašalinti tvarkyklių rinkinio. Bandykite dar kartą.</value>
+  </data>
+  <data name="CustomDrivers.RemoveTitle" xml:space="preserve">
+    <value>Pašalinti tvarkyklių rinkinį?</value>
+  </data>
+  <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
+    <value>Jo vietinė kopija ištrinama, nebent ją naudoja kitas profilis. Pradinis aplankas ir esamos laikmenos nepakeičiami.</value>
+  </data>
+  <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
+    <value>Nustatyti kaip numatytąjį</value>
+  </data>
+  <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
+    <value>Šiame profilyje jau yra didžiausias leistinas tvarkyklių rinkinių skaičius. Prieš importuodami kitą, pašalinkite vieną.</value>
+  </data>
+  <data name="CustomDrivers.StageVerifying" xml:space="preserve">
+    <value>Tikrinami pasirinktinių tvarkyklių rinkiniai…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>Tikrinama…</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Architektūra</value>
   </data>
@@ -2458,6 +2566,12 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
   </data>
+  <data name="Nav_CustomDriversKey.Description" xml:space="preserve">
+    <value>Importuokite tvarkyklių aplankus ir pasiūlykite juos kaip tvarkyklių šaltinį „Foundry Deploy“.</value>
+  </data>
+  <data name="Nav_CustomDriversKey.Title" xml:space="preserve">
+    <value>Pasirinktinės tvarkyklės</value>
+  </data>
   <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
     <value>Importuokite Windows atvaizdus iš ISO arba WIM failų ir įtraukite juos į diegimo laikmenas.</value>
   </data>
@@ -3544,10 +3658,10 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Sukurti USB</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>Pasirenkamas aplankas, kuriame yra papildomų .inf tvarkyklių.</value>
+    <value>Pasirenkamas .inf tvarkyklių aplankas, įtraukiamas į WinPE paleidimo atvaizdą.</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>Pasirinktinis tvarkyklės aplankas</value>
+    <value>Papildomas WinPE tvarkyklių aplankas</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
     <value>Pasirinkite pasirinktinį tvarkyklės aplanką</value>
@@ -3556,10 +3670,10 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>Pasirinkite pasirenkamas tiekėjo tvarkykles ir pasirinktinį tvarkyklės aplanką.</value>
+    <value>Tvarkyklės, įtraukiamos tik į WinPE paleidimo atvaizdą, pvz., tinklo ir saugyklos tvarkyklės. Norėdami įtraukti tvarkykles į įdiegtą Windows, naudokite Pasirinktinės tvarkyklės.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Tvarkyklių parinktys</value>
+    <value>WinPE tvarkyklės</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3639,6 +3753,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Laikmenos kūrimas atšauktas.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Tikrinamas kopijuojamas turinys…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Tikrinama, ar USB diską galima saugiai ištrinti…</value>
   </data>
@@ -3650,6 +3767,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>Įrašomas įkrovos atvaizdas…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingCustomDrivers" xml:space="preserve">
+    <value>Kopijuojami pasirinktinių tvarkyklių rinkiniai…</value>
   </data>
   <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
     <value>Kopijuojami pasirinktiniai Windows atvaizdai…</value>
@@ -3666,8 +3786,14 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Kuriamas talpyklos skaidinys…</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
+    <value>Nepavyko pašalinti nenaudojamų pasirinktinių tvarkyklių rinkinių iš USB atmintinės.</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Pasirinktinės tvarkyklės užima bent {0}; didžiausia leistina apimtis yra {1}. Pasirinkite tik Windows PE reikalingas tinklo ir saugyklos tvarkykles.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversVerified" xml:space="preserve">
+    <value>Pasirinktinių tvarkyklių rinkiniai patikrinti.</value>
   </data>
   <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
     <value>{0} ({1})</value>
@@ -3707,6 +3833,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Išgaunamas Windows atvaizdas…</value>
+  </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Nepavyko paruošti į laikmeną įtraukto turinio (pasirinktinių Windows atvaizdų, turinio po diegimo arba pasirinktinių tvarkyklių). Išsamią informaciją rasite žurnalų aplanke, tada bandykite dar kartą.</value>
   </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Klaida įvyko atliekant {0} veiksmą iš {1}: {2}.</value>
@@ -3896,6 +4025,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Paleidimo laikmenos failo dydis yra {0}; FAT32 palaiko ne daugiau kaip {1} vienam failui. Sumažinkite paleidimo atvaizdo dydį arba sukurkite ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>USB talpyklos skaidinyje nepakanka laisvos vietos atnaujintam turiniui, nes ankstesnis turinys atnaujinimo metu lieka diske. Niekas nebuvo ištrinta ar suformatuota. Užuot atnaujinę, iš naujo sukurkite USB laikmeną.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Iš USB disko gali nebepavykti paleisti įrenginio. Prieš naudodami jį sukurkite arba atnaujinkite iš naujo.</value>

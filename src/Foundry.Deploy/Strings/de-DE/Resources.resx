@@ -480,6 +480,15 @@ Aktion: Überprüfen Sie die Datenträgerattribute, und wiederholen Sie die Bere
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Das Kennwort des auf dem Medium gespeicherten Beitrittskontos ist abgelaufen oder muss geändert werden. Die Bereitstellung wurde nicht gestartet. Der Administrator muss das Kennwort in Foundry OSD aktualisieren und das Medium neu erstellen.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Die benutzerdefinierten Treiber auf diesem Medium haben die Integritätsprüfung nicht bestanden und werden nicht angeboten. Wählen Sie eine andere Treiberquelle oder erstellen Sie das Startmedium neu.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Benutzerdefinierte Treiber</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Treibersatz</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>
@@ -993,6 +1002,9 @@ Mit der Bereitstellung fortfahren?</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Wiederherstellungspartition ausblenden</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Benutzerdefinierte Treiber bereitstellen</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Antwortdatei kopieren</value>
   </data>
@@ -1319,6 +1331,12 @@ Mit der Bereitstellung fortfahren?</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>Die ausgewählte Microsoft Update Catalog-Treiberdatei „{0}“ enthält keine INF-Dateien.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Benutzerdefinierte Treiber bereitgestellt.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>Die ausgewählten benutzerdefinierten Treiber sind nicht verfügbar oder haben die Überprüfung nicht bestanden. Schließen Sie das Bereitstellungsmedium erneut an, oder starten Sie die Bereitstellung neu, und wählen Sie eine andere Treiberquelle aus.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Das Staging des Treiberpakets beim ersten Start wurde ohne unterstützten Befehl angefordert.</value>

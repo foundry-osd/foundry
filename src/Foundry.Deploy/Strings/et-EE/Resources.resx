@@ -480,6 +480,15 @@ Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value>
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Andmekandjale salvestatud liitumiskonto parool on aegunud või tuleb muuta. Juurutamine pole alanud. Administraator peab parooli Foundry OSD-s värskendama ja andmekandja uuesti looma.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Selle andmekandja kohandatud draiverid ei läbinud terviklikkuse kontrolli ja neid ei pakuta. Valige muu draiveriallikas või looge alglaadimisandmekandja uuesti.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Kohandatud draiverid</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Draiverikomplekt</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>
@@ -993,6 +1002,9 @@ Kas jätkata juurutamisega?</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Peida taastesektsioon</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Valmista kohandatud draiverid ette</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Kopeeri vastusefail</value>
   </data>
@@ -1319,6 +1331,12 @@ Kas jätkata juurutamisega?</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>Valitud Microsoft Update Catalogi draiverifail „{0}“ ei sisalda INF-faile.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Kohandatud draiverid on ette valmistatud.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>Valitud kohandatud draiverid pole saadaval või ei läbinud kontrolli. Ühenda juurutusmeedium uuesti või taaskäivita juurutus ja vali muu draiveriallikas.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Esmakäivituse draiveripaketi etapistamist taotleti ilma toetatud käsuta.</value>

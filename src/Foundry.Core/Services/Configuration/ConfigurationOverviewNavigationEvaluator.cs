@@ -44,6 +44,7 @@ public static class ConfigurationOverviewNavigationEvaluator
             ConfigurationNavigationTarget.DomainJoinAutomatic => evaluation[ConfigurationOverviewItem.DomainJoinAutomatic],
             ConfigurationNavigationTarget.OperatingSystemSelection => evaluation[ConfigurationOverviewItem.OperatingSystemSelection],
             ConfigurationNavigationTarget.CustomImages => evaluation[ConfigurationOverviewItem.CustomImages],
+            ConfigurationNavigationTarget.CustomDrivers => evaluation[ConfigurationOverviewItem.CustomDrivers],
             ConfigurationNavigationTarget.PostInstallation => evaluation[ConfigurationOverviewItem.PostInstallation],
             ConfigurationNavigationTarget.Unattend => evaluation[ConfigurationOverviewItem.Unattend],
             ConfigurationNavigationTarget.MachineNaming => evaluation[ConfigurationOverviewItem.MachineNaming],

@@ -480,6 +480,15 @@ Radnja: Proverite atribute diska i pokušajte ponovo da ga primenite.</value>
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Lozinka naloga za pridruživanje sačuvanog na mediju je istekla ili mora da se promeni. Primena nije započeta. Administrator mora da ažurira lozinku u Foundry OSD-u i ponovo napravi medij.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Prilagođeni drajveri na ovom mediju nisu prošli proveru integriteta i nisu ponuđeni. Izaberite drugi izvor drajvera ili ponovo napravite medij za pokretanje.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Prilagođeni drajveri</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Skup drajvera</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>
@@ -993,6 +1002,9 @@ Operativni sistem: {4}
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Sakrij particiju za oporavak</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Pripremi prilagođene drajvere</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Kopiraj datoteku odgovora</value>
   </data>
@@ -1319,6 +1331,12 @@ Operativni sistem: {4}
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>Izabrana datoteka upravljačkog programa „{0}” iz Microsoft Update Catalog-a ne sadrži INF datoteke.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Prilagođeni drajveri su pripremljeni.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>Izabrani prilagođeni drajveri nisu dostupni ili nisu prošli proveru. Ponovo povežite medij za implementaciju ili ponovo pokrenite implementaciju i izaberite drugi izvor drajvera.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Zatraženo je postavljanje paketa drajvera za prvo pokretanje bez podržane komande.</value>

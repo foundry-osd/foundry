@@ -480,6 +480,15 @@
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Срок действия пароля учетной записи для присоединения, сохраненной на носителе, истек, или его необходимо сменить. Развертывание не начато. Администратор должен обновить пароль в Foundry OSD и создать носитель заново.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Пользовательские драйверы на этом носителе не прошли проверку целостности и не предлагаются. Выберите другой источник драйверов или создайте загрузочный носитель заново.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Пользовательские драйверы</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Набор драйверов</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>
@@ -993,6 +1002,9 @@
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Скрыть раздел восстановления</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Подготовить пользовательские драйверы</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Скопировать файл ответов</value>
   </data>
@@ -1319,6 +1331,12 @@
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>Выбранный файл драйвера «{0}» из Microsoft Update Catalog не содержит INF-файлов.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Пользовательские драйверы подготовлены.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>Выбранные пользовательские драйверы недоступны или не прошли проверку. Повторно подключите носитель для развёртывания или перезапустите развёртывание и выберите другой источник драйверов.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Запрошена установка пакета драйверов при первой загрузке без поддерживаемой команды.</value>

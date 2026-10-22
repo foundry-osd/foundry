@@ -480,6 +480,15 @@ Action: Verify disk attributes and retry deployment.</value>
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>The password of the join account stored on the media has expired or must be changed. Deployment has not started. The administrator must update the password in Foundry OSD and create the media again.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>The custom drivers on this media failed the integrity check and are not offered. Choose another driver source or rebuild the boot media.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Custom drivers</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Driver set</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>
@@ -993,6 +1002,9 @@ Continue with deployment?</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Hide recovery partition</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Stage custom drivers</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Copy answer file</value>
   </data>
@@ -1319,6 +1331,12 @@ Continue with deployment?</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>The selected Microsoft Update Catalog driver file '{0}' contains no INF files.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Custom drivers staged.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>The selected custom drivers are unavailable or failed verification. Reconnect the deployment media, or restart deployment and choose another driver source.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>First-boot driver pack staging was requested without a supported command.</value>

@@ -9,5 +9,8 @@ public enum DriverPackExtractionMethod
     None = 0,
     SevenZip = 1,
     DellSelfExtractor = 2,
-    MicrosoftUpdateCatalogExpand = 3
+    MicrosoftUpdateCatalogExpand = 3,
+
+    /// <summary>A custom driver set is copied from the boot media with per-file verification; nothing is extracted.</summary>
+    CustomDriverSetCopy = 4
 }

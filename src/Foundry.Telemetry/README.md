@@ -8,6 +8,12 @@ Custom images extend the existing event taxonomy. `osd:boot_media_finished` incl
 
 No image names, index names, paths, hashes, or image/profile identifiers are added to Product Analytics. Catalog metadata keeps its existing contract. Import lifecycle messages remain diagnostic logs governed by remote diagnostics consent. The telemetry and debug controls are unchanged; no separate import event is introduced.
 
+## Custom driver sets
+
+`osd:boot_media_finished` includes `boot_media_custom_drivers_count`: the number of included driver sets in the operation's captured configuration, zero when the Custom drivers page is disabled. Like the custom image count, it represents the intended selection when media creation fails or is cancelled. The property policy accepts only an integer from zero through 256 (the driver set limit of a profile) on this event and drops it elsewhere.
+
+Set names, identifiers, content hashes, and paths are never sent.
+
 ## Post-installation configuration
 
 `osd:boot_media_finished` includes a snapshot of the media operation's post-installation configuration:
@@ -45,7 +51,7 @@ Since `telemetry_schema_version` 3, `TelemetryValueNormalizer` rewrites values a
 | `boot_media_failure_code`, `deploy_session_failure_code` | Lowercase. |
 | `boot_media_failure_tool` | Lowercase without `.exe`; `7zip`, `adk` and `makewinpemedia` for their display names; `other` for anything outside `[a-z0-9._-]{1,32}`. |
 | `boot_media_creation_failed_step_name` | One of `MediaCreationStepNames`, otherwise `unknown`. |
-| `deploy_driver_pack_selection_kind`, `deploy_autopilot_hash_upload_state`, `boot_media_boot_image_source`, `last_stage` | snake_case, for example `oem_catalog`, `upload_timed_out`, `winre_wifi`, `deployment_preparation`. |
+| `deploy_driver_pack_selection_kind`, `deploy_autopilot_hash_upload_state`, `boot_media_boot_image_source`, `last_stage` | snake_case, for example `oem_catalog`, `upload_timed_out`, `winre_wifi`, `deployment_preparation`. `deploy_driver_pack_selection_kind` is one of `none`, `microsoft_update_catalog`, `oem_catalog` or `custom_driver_set`. |
 | `deploy_os_edition` | Windows edition ID for catalog and custom images (`professional` for `Pro`, `core` for `Home`), otherwise `unknown`. |
 
 ## Exception grouping

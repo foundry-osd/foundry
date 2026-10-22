@@ -535,6 +535,29 @@ public sealed class LocalDeploymentProfileRepositoryTests : IDisposable
     }
 
     [Fact]
+    public void RepositoryReturnsDriverHashesReferencedByAllProfiles()
+    {
+        var repository = CreateRepository();
+        string activeHash = new('c', 64);
+        string excludedHash = new('d', 64);
+        string inactiveHash = new('e', 64);
+        string postInstallationHash = new('f', 64);
+        repository.Save(localId, CreateDriverProfile(true, (activeHash, true), (excludedHash, false)), false, null);
+        repository.SetActive(localId);
+        repository.Save(Guid.NewGuid(), CreateDriverProfile(false, (inactiveHash, true)), false, null);
+        repository.Save(Guid.NewGuid(), CreatePackageProfile(postInstallationHash, true), false, null);
+
+        using LocalProfilePackageReferenceLease references = repository.AcquireCustomDriverSetPackageReferences();
+
+        Assert.Equal(3, references.ContentHashes.Count);
+        Assert.Contains(activeHash, references.ContentHashes);
+        Assert.Contains(excludedHash, references.ContentHashes);
+        Assert.True(references.ContentHashes.Contains(inactiveHash.ToUpperInvariant()));
+        Assert.DoesNotContain(postInstallationHash, references.ContentHashes);
+        Assert.Throws<IOException>(() => CreateRepository().SetActive(localId));
+    }
+
+    [Fact]
     public void PackageReferences_HoldRepositoryLockUntilDisposed()
     {
         var repository = CreateRepository();
@@ -703,6 +726,26 @@ public sealed class LocalDeploymentProfileRepositoryTests : IDisposable
                     Command = "echo test",
                     Package = new() { ContentHash = hash, DisplayName = "Package", FileCount = 1, Length = 1 }
                 }]
+            }
+        }
+    };
+
+    private static DeploymentProfileDocument CreateDriverProfile(bool enabled, params (string Hash, bool IsIncluded)[] sets) => new()
+    {
+        ProfileId = Guid.NewGuid(),
+        DisplayName = "Driver profile",
+        Configuration = new()
+        {
+            CustomDrivers = new()
+            {
+                IsEnabled = enabled,
+                Sets = sets.Select(set => new CustomDriverSetReference
+                {
+                    Id = Guid.NewGuid().ToString("N"),
+                    DisplayName = "Drivers",
+                    Package = new() { ContentHash = set.Hash, DisplayName = "Drivers", FileCount = 1, Length = 1 },
+                    IsIncluded = set.IsIncluded
+                }).ToArray()
             }
         }
     };

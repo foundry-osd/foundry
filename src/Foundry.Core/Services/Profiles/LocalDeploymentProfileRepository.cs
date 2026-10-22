@@ -9,6 +9,7 @@ using System.Runtime.ExceptionServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Profiles;
 using Foundry.Utilities.Security;
 using Serilog;
@@ -95,7 +96,21 @@ public sealed class LocalDeploymentProfileRepository
 
     /// <summary>Reads every committed package reference and prevents profile writes until the returned lease is disposed.</summary>
     /// <remarks>Unreadable profiles, unrecognized profile storage, or incomplete recovery prevent cache cleanup.</remarks>
-    public LocalProfilePackageReferenceLease AcquirePostInstallationPackageReferences()
+    public LocalProfilePackageReferenceLease AcquirePostInstallationPackageReferences() =>
+        AcquirePackageReferences(configuration => configuration.PreOobe.Actions
+            .Select(action => action.Package?.ContentHash)
+            .OfType<string>());
+
+    /// <summary>Reads every committed driver set package reference and prevents profile writes until the returned lease is disposed.</summary>
+    /// <remarks>
+    /// Excluded sets and sets of disabled sections still count as references. Unreadable profiles, unrecognized profile
+    /// storage, or incomplete recovery prevent cache cleanup.
+    /// </remarks>
+    public LocalProfilePackageReferenceLease AcquireCustomDriverSetPackageReferences() =>
+        AcquirePackageReferences(configuration => configuration.CustomDrivers.Sets.Select(set => set.Package.ContentHash));
+
+    private LocalProfilePackageReferenceLease AcquirePackageReferences(
+        Func<FoundryConfigurationDocument, IEnumerable<string>> selectContentHashes)
     {
         FileStream lease = AcquireLock();
         try
@@ -117,10 +132,7 @@ public sealed class LocalDeploymentProfileRepository
                     continue;
                 }
                 using LocalProfileSnapshot snapshot = ReadSnapshot(descriptor);
-                foreach (var action in snapshot.Profile.Configuration.PreOobe.Actions)
-                {
-                    if (action.Package is { } package) hashes.Add(package.ContentHash);
-                }
+                hashes.UnionWith(selectContentHashes(snapshot.Profile.Configuration));
             }
             return new LocalProfilePackageReferenceLease(lease, hashes.ToFrozenSet(StringComparer.OrdinalIgnoreCase));
         }

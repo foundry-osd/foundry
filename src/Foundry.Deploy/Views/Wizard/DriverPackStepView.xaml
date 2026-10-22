@@ -10,13 +10,20 @@
         <controls:WizardPageHeader
             Title="{Binding DataContext.Strings[Drivers.Title], ElementName=ViewRoot}"
             Description="{Binding DataContext.Strings[Drivers.Description], ElementName=ViewRoot}"
-            Glyph="&#xE78C;" />
+            Glyph="&#xE964;" />
         <ScrollViewer
             Grid.Row="1"
             HorizontalScrollBarVisibility="Disabled"
             Style="{StaticResource ScrollViewerContentGutterStyle}"
             VerticalScrollBarVisibility="Auto">
             <StackPanel>
+                <!--  Non-blocking: the other driver sources stay usable when the custom sets fail verification.  -->
+                <controls:InfoBar
+                    Margin="0,0,0,12"
+                    Message="{Binding DataContext.Strings[DriverPack.CustomDriverIntegrityWarning], ElementName=ViewRoot}"
+                    Severity="{x:Static controls:InfoBarSeverity.Warning}"
+                    Visibility="{Binding HasCustomDriverIntegrityWarning, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
                 <ListBox
                     Padding="0,4,0,0"
                     AutomationProperties.Name="{Binding DataContext.Strings[DriverPack.Source], ElementName=ViewRoot}"
@@ -76,6 +83,20 @@
                         IsEnabled="{Binding IsDriverPackVersionSelectionEnabled}"
                         ItemsSource="{Binding DriverPackVersionOptions}"
                         SelectedItem="{Binding SelectedDriverPackVersion}" />
+                </StackPanel>
+
+                <StackPanel
+                    Margin="0,12,0,0"
+                    Visibility="{Binding IsCustomDriverSetSelectionEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBlock
+                        Margin="0,0,0,8"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{Binding DataContext.Strings[DriverPack.CustomDriverSetLabel], ElementName=ViewRoot}" />
+                    <ComboBox
+                        AutomationProperties.Name="{Binding DataContext.Strings[DriverPack.CustomDriverSetLabel], ElementName=ViewRoot}"
+                        DisplayMemberPath="DisplayName"
+                        ItemsSource="{Binding CustomDriverSetOptions}"
+                        SelectedItem="{Binding SelectedCustomDriverSet}" />
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

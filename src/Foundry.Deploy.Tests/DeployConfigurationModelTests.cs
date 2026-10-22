@@ -291,4 +291,32 @@ public sealed class DeployConfigurationModelTests
         Assert.Equal("encrypted", document.Autopilot.HardwareHashUpload.CertificatePfxPasswordSecret?.Kind);
         Assert.Equal("password-ciphertext", document.Autopilot.HardwareHashUpload.CertificatePfxPasswordSecret?.Ciphertext);
     }
+
+    [Fact]
+    public void DeployDocumentReadsCustomDrivers()
+    {
+        const string json = """
+            {
+              "schemaVersion": 17,
+              "customDrivers": {
+                "isEnabled": true,
+                "defaultSetId": "a",
+                "manifestId": "manifest",
+                "manifestHash": "hash",
+                "sets": [{ "id": "a", "displayName": "Dell", "contentHash": "abc", "length": 1234, "fileCount": 42 }]
+              }
+            }
+            """;
+
+        FoundryDeployConfigurationDocument? document = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(
+            json, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase, PropertyNameCaseInsensitive = true });
+
+        Assert.NotNull(document);
+        Assert.True(document.CustomDrivers.IsEnabled);
+        Assert.Equal("a", document.CustomDrivers.DefaultSetId);
+        Assert.Equal("manifest", document.CustomDrivers.ManifestId);
+        Assert.Equal("hash", document.CustomDrivers.ManifestHash);
+        var set = Assert.Single(document.CustomDrivers.Sets);
+        Assert.Equal(("a", "Dell", "abc", 1234L, 42), (set.Id, set.DisplayName, set.ContentHash, set.Length, set.FileCount));
+    }
 }

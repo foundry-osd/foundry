@@ -736,6 +736,114 @@ Licenciado sob a licença MIT.</value>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Indisponível</value>
   </data>
+  <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
+    <value>Esta pasta já está neste perfil como {0}.</value>
+  </data>
+  <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
+    <value>O conjunto de drivers foi removido, mas não foi possível excluir sua cópia local.</value>
+  </data>
+  <data name="CustomDrivers.DefaultLabel" xml:space="preserve">
+    <value>Conjunto padrão</value>
+  </data>
+  <data name="CustomDrivers.DefaultSetName" xml:space="preserve">
+    <value>Conjunto de drivers</value>
+  </data>
+  <data name="CustomDrivers.DuplicateName" xml:space="preserve">
+    <value>Já existe um conjunto de drivers com este nome neste perfil.</value>
+  </data>
+  <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
+    <value>Nenhum conjunto de drivers personalizado. Importe uma pasta que contenha drivers .inf para começar.</value>
+  </data>
+  <data name="CustomDrivers.EnableLabel" xml:space="preserve">
+    <value>Habilitar drivers personalizados</value>
+  </data>
+  <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
+    <value>Arquivos</value>
+  </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Importar</value>
+  </data>
+  <data name="CustomDrivers.ImportFailed" xml:space="preserve">
+    <value>Não foi possível importar o conjunto de drivers. Verifique o acesso à pasta e tente novamente. Os detalhes estão no log.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Pasta de drivers</value>
+  </data>
+  <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
+    <value>Não há espaço livre em disco suficiente para importar este conjunto de drivers. Libere espaço e tente novamente.</value>
+  </data>
+  <data name="CustomDrivers.ImportInvalidPath" xml:space="preserve">
+    <value>Um caminho nesta pasta é longo demais ou inválido: {0}. Encurte-o ou renomeie-o e tente novamente.</value>
+  </data>
+  <data name="CustomDrivers.ImportLabel" xml:space="preserve">
+    <value>Importar pasta</value>
+  </data>
+  <data name="CustomDrivers.ImportMissingInf" xml:space="preserve">
+    <value>Esta pasta não contém nenhum arquivo .inf. Selecione uma pasta com drivers INF.</value>
+  </data>
+  <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
+    <value>Selecione uma pasta de drivers</value>
+  </data>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Copiando e verificando os arquivos de driver…</value>
+  </data>
+  <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
+    <value>Esta pasta contém um link simbólico, uma junção ou um espaço reservado na nuvem. Copie os drivers para uma pasta local comum e tente novamente.</value>
+  </data>
+  <data name="CustomDrivers.ImportSourceChanged" xml:space="preserve">
+    <value>A pasta foi alterada durante a cópia. Feche os programas que gravam nela e tente novamente.</value>
+  </data>
+  <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
+    <value>Esta pasta contém arquivos ou subpastas demais para um conjunto de drivers.</value>
+  </data>
+  <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
+    <value>Arquivos INF</value>
+  </data>
+  <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
+    <value>Conjuntos de drivers</value>
+  </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>O perfil ativo mudou durante a importação, por isso o conjunto de drivers não foi adicionado. Importe a pasta novamente neste perfil.</value>
+  </data>
+  <data name="CustomDrivers.PxeWarning" xml:space="preserve">
+    <value>Não disponível com inicialização PXE. Os drivers personalizados exigem a mídia ISO ou USB completa.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
+    <value>Os conjuntos de drivers deste perfil não são válidos. Verifique os conjuntos incluídos e o conjunto padrão antes de criar ou atualizar a mídia.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
+    <value>A cópia local de {0} está ausente ou danificada. Importe a pasta novamente ou exclua o conjunto antes de criar ou atualizar a mídia.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
+    <value>Inclua pelo menos um conjunto de drivers neste perfil, ou desative os drivers personalizados, antes de criar ou atualizar a mídia.</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
+    <value>Remover conjunto de drivers</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) será removido do perfil atual.</value>
+  </data>
+  <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
+    <value>Não foi possível remover o conjunto de drivers. Tente novamente.</value>
+  </data>
+  <data name="CustomDrivers.RemoveTitle" xml:space="preserve">
+    <value>Remover o conjunto de drivers?</value>
+  </data>
+  <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
+    <value>A cópia local é excluída, a menos que outro perfil a use. A pasta original e as mídias existentes não são alteradas.</value>
+  </data>
+  <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
+    <value>Definir como padrão</value>
+  </data>
+  <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
+    <value>Este perfil atingiu o número máximo de conjuntos de drivers. Remova um antes de importar outro.</value>
+  </data>
+  <data name="CustomDrivers.StageVerifying" xml:space="preserve">
+    <value>Verificando os conjuntos de drivers personalizados…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>Verificando…</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arquitetura</value>
   </data>
@@ -2458,6 +2566,12 @@ Licenciado sob a licença MIT.</value>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
   </data>
+  <data name="Nav_CustomDriversKey.Description" xml:space="preserve">
+    <value>Importe pastas de drivers e ofereça-as como origem de drivers no Foundry Deploy.</value>
+  </data>
+  <data name="Nav_CustomDriversKey.Title" xml:space="preserve">
+    <value>Drivers personalizados</value>
+  </data>
   <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
     <value>Importe imagens do Windows de arquivos ISO ou WIM e inclua-as na mídia de implantação.</value>
   </data>
@@ -3544,10 +3658,10 @@ Senhas e chaves de acesso incluídas: {2}</value>
     <value>Criar USB</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>Pasta opcional contendo drivers .inf adicionais.</value>
+    <value>Pasta opcional de drivers .inf adicionados à imagem de inicialização do WinPE.</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>Pasta de driver personalizada</value>
+    <value>Pasta adicional de drivers do WinPE</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
     <value>Selecione a pasta do driver personalizado</value>
@@ -3556,10 +3670,10 @@ Senhas e chaves de acesso incluídas: {2}</value>
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>Selecione drivers opcionais do fornecedor e uma pasta de driver personalizada.</value>
+    <value>Drivers adicionados somente à imagem de inicialização do WinPE, como drivers de rede e de armazenamento. Para adicionar drivers ao Windows implantado, use Drivers personalizados.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Opções de driver</value>
+    <value>Drivers do WinPE</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3639,6 +3753,9 @@ Senhas e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>A criação da mídia foi cancelada.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Verificando o conteúdo a ser copiado…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Verificando se a unidade USB pode ser apagada com segurança…</value>
   </data>
@@ -3650,6 +3767,9 @@ Senhas e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>Salvando a imagem de inicialização…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingCustomDrivers" xml:space="preserve">
+    <value>Copiando os conjuntos de drivers personalizados…</value>
   </data>
   <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
     <value>Copiando imagens personalizadas do Windows…</value>
@@ -3666,8 +3786,14 @@ Senhas e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Criando a partição de cache…</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
+    <value>Não foi possível remover da unidade USB os conjuntos de drivers personalizados não utilizados.</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Os drivers personalizados ocupam pelo menos {0}; o máximo é {1}. Selecione apenas os drivers de rede e armazenamento necessários para o Windows PE.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversVerified" xml:space="preserve">
+    <value>Conjuntos de drivers personalizados verificados.</value>
   </data>
   <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
     <value>{0} ({1})</value>
@@ -3707,6 +3833,9 @@ Senhas e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Extraindo a imagem do Windows…</value>
+  </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Não foi possível preparar o conteúdo adicionado à mídia (imagens personalizadas do Windows, conteúdo de pós-instalação ou drivers personalizados). Abra a pasta de logs para ver os detalhes e tente novamente.</value>
   </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Falha na etapa {0} de {1}: {2}.</value>
@@ -3896,6 +4025,9 @@ Senhas e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Um arquivo da mídia de inicialização ocupa {0}; o FAT32 aceita no máximo {1} por arquivo. Reduza o tamanho da imagem de inicialização ou crie uma ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>A partição de cache USB não tem espaço livre suficiente para o conteúdo atualizado, porque o conteúdo anterior permanece na unidade durante a atualização. Nada foi apagado ou formatado. Crie a mídia USB novamente em vez de atualizá-la.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>A unidade USB pode não conseguir mais iniciar um dispositivo. Crie ou atualize a unidade novamente antes de usá-la.</value>

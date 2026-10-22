@@ -736,6 +736,114 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>利用不可</value>
   </data>
+  <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
+    <value>このフォルダーは、このプロファイルに {0} として既に存在します。</value>
+  </data>
+  <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
+    <value>ドライバー セットは削除されましたが、ローカル コピーを削除できませんでした。</value>
+  </data>
+  <data name="CustomDrivers.DefaultLabel" xml:space="preserve">
+    <value>既定のセット</value>
+  </data>
+  <data name="CustomDrivers.DefaultSetName" xml:space="preserve">
+    <value>ドライバー セット</value>
+  </data>
+  <data name="CustomDrivers.DuplicateName" xml:space="preserve">
+    <value>このプロファイルには同じ名前のドライバー セットが既に存在します。</value>
+  </data>
+  <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
+    <value>カスタム ドライバー セットがありません。.inf ドライバーを含むフォルダーをインポートして開始してください。</value>
+  </data>
+  <data name="CustomDrivers.EnableLabel" xml:space="preserve">
+    <value>カスタム ドライバーを有効にする</value>
+  </data>
+  <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
+    <value>ファイル</value>
+  </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>インポート</value>
+  </data>
+  <data name="CustomDrivers.ImportFailed" xml:space="preserve">
+    <value>ドライバー セットをインポートできませんでした。フォルダーへのアクセスを確認してから、もう一度お試しください。詳細はログに記録されています。</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>ドライバー フォルダー</value>
+  </data>
+  <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
+    <value>このドライバー セットをインポートするための空きディスク領域が不足しています。領域を空けてから、もう一度お試しください。</value>
+  </data>
+  <data name="CustomDrivers.ImportInvalidPath" xml:space="preserve">
+    <value>このフォルダー内のパスが長すぎるか無効です: {0}。短くするか名前を変更してから、もう一度お試しください。</value>
+  </data>
+  <data name="CustomDrivers.ImportLabel" xml:space="preserve">
+    <value>フォルダーのインポート</value>
+  </data>
+  <data name="CustomDrivers.ImportMissingInf" xml:space="preserve">
+    <value>このフォルダーには .inf ファイルが含まれていません。INF ドライバーを含むフォルダーを選択してください。</value>
+  </data>
+  <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
+    <value>ドライバー フォルダーを選択</value>
+  </data>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>ドライバー ファイルをコピーして検証しています…</value>
+  </data>
+  <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
+    <value>このフォルダーには、シンボリック リンク、ジャンクション、またはクラウド プレースホルダーが含まれています。ドライバーを通常のローカル フォルダーにコピーしてから、もう一度お試しください。</value>
+  </data>
+  <data name="CustomDrivers.ImportSourceChanged" xml:space="preserve">
+    <value>コピー中にフォルダーが変更されました。フォルダーに書き込んでいるプログラムを閉じてから、もう一度お試しください。</value>
+  </data>
+  <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
+    <value>このフォルダーには、ドライバー セットとしては多すぎるファイルまたはサブフォルダーが含まれています。</value>
+  </data>
+  <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
+    <value>INF ファイル</value>
+  </data>
+  <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
+    <value>ドライバー セット</value>
+  </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>インポート中にアクティブなプロファイルが変更されたため、ドライバー セットは追加されませんでした。このプロファイルでフォルダーをもう一度インポートしてください。</value>
+  </data>
+  <data name="CustomDrivers.PxeWarning" xml:space="preserve">
+    <value>PXE ブートでは使用できません。カスタム ドライバーには、完全な ISO または USB メディアが必要です。</value>
+  </data>
+  <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
+    <value>このプロファイルのドライバー セットが無効です。メディアを作成または更新する前に、含まれるセットと既定のセットを確認してください。</value>
+  </data>
+  <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
+    <value>{0} のローカル コピーが見つからないか、破損しています。メディアを作成または更新する前に、フォルダーを再度インポートするか、セットを除外してください。</value>
+  </data>
+  <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
+    <value>メディアを作成または更新する前に、このプロファイルに少なくとも 1 つのドライバー セットを含めるか、カスタム ドライバーをオフにしてください。</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
+    <value>ドライバー セットの削除</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) は現在のプロファイルから削除されます。</value>
+  </data>
+  <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
+    <value>ドライバー セットを削除できませんでした。もう一度お試しください。</value>
+  </data>
+  <data name="CustomDrivers.RemoveTitle" xml:space="preserve">
+    <value>ドライバー セットを削除しますか？</value>
+  </data>
+  <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
+    <value>ほかのプロファイルで使用されていない場合、ローカル コピーは削除されます。元のフォルダーと既存のメディアは変更されません。</value>
+  </data>
+  <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
+    <value>既定に設定</value>
+  </data>
+  <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
+    <value>このプロファイルのドライバー セット数が上限に達しました。別のセットをインポートする前に 1 つ削除してください。</value>
+  </data>
+  <data name="CustomDrivers.StageVerifying" xml:space="preserve">
+    <value>カスタム ドライバー セットを検証しています…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>確認しています…</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>アーキテクチャ</value>
   </data>
@@ -2458,6 +2566,12 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>ゼロタッチ</value>
   </data>
+  <data name="Nav_CustomDriversKey.Description" xml:space="preserve">
+    <value>ドライバー フォルダーをインポートし、Foundry Deploy でドライバー ソースとして提供します。</value>
+  </data>
+  <data name="Nav_CustomDriversKey.Title" xml:space="preserve">
+    <value>カスタム ドライバー</value>
+  </data>
   <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
     <value>ISO または WIM ファイルから Windows イメージをインポートし、展開メディアに含めます。</value>
   </data>
@@ -3544,10 +3658,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>USB を作成</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>追加の .inf ドライバーを含むオプションのフォルダー。</value>
+    <value>WinPE ブート イメージに追加される .inf ドライバーのオプションのフォルダー。</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>カスタムドライバーフォルダー</value>
+    <value>追加の WinPE ドライバー フォルダー</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
     <value>カスタム ドライバー フォルダーを選択します</value>
@@ -3556,10 +3670,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>オプションのベンダー ドライバーとカスタム ドライバー フォルダーを選択します。</value>
+    <value>ネットワーク ドライバーやストレージ ドライバーなど、WinPE ブート イメージにのみ追加されるドライバーです。展開される Windows にドライバーを追加するには、[カスタム ドライバー] を使用してください。</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>ドライバーのオプション</value>
+    <value>WinPE ドライバー</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3639,6 +3753,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>メディアの作成はキャンセルされました。</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>コピーするコンテンツを確認しています…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>USB ドライブを安全に消去できることを確認しています…</value>
   </data>
@@ -3650,6 +3767,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>ブート イメージを保存しています…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingCustomDrivers" xml:space="preserve">
+    <value>カスタム ドライバー セットをコピーしています…</value>
   </data>
   <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
     <value>カスタム Windows イメージをコピーしています…</value>
@@ -3666,8 +3786,14 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>キャッシュ パーティションを作成しています…</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
+    <value>未使用のカスタム ドライバー セットを USB ドライブから削除できませんでした。</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>カスタムドライバーの合計サイズは少なくとも {0} で、上限は {1} です。Windows PE に必要なネットワークおよびストレージドライバーのみを選択してください。</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversVerified" xml:space="preserve">
+    <value>カスタム ドライバー セットを検証しました。</value>
   </data>
   <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
     <value>{0} ({1})</value>
@@ -3707,6 +3833,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Windows イメージを抽出しています…</value>
+  </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>メディアに追加したコンテンツ (カスタム Windows イメージ、インストール後のコンテンツ、またはカスタム ドライバー) を準備できませんでした。ログ フォルダーを開いて詳細を確認してから、もう一度お試しください。</value>
   </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>ステップ {0}/{1} で失敗しました: {2}。</value>
@@ -3896,6 +4025,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>ブートメディア内のファイルのサイズは {0} ですが、FAT32 のファイルサイズの上限は {1} です。ブートイメージのサイズを小さくするか、ISO を作成してください。</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>以前のコンテンツは更新中もドライブに残るため、USB のキャッシュ パーティションに更新後のコンテンツを格納する空き領域が不足しています。消去やフォーマットは行われていません。更新する代わりに USB メディアを作成し直してください。</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>この USB ドライブからデバイスを起動できなくなっている可能性があります。使用する前に、もう一度作成または更新してください。</value>

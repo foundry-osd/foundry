@@ -736,6 +736,114 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Utilgjengelig</value>
   </data>
+  <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
+    <value>Denne mappen finnes allerede i denne profilen som {0}.</value>
+  </data>
+  <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
+    <value>Driversettet ble fjernet, men den lokale kopien kunne ikke slettes.</value>
+  </data>
+  <data name="CustomDrivers.DefaultLabel" xml:space="preserve">
+    <value>Standardsett</value>
+  </data>
+  <data name="CustomDrivers.DefaultSetName" xml:space="preserve">
+    <value>Driversett</value>
+  </data>
+  <data name="CustomDrivers.DuplicateName" xml:space="preserve">
+    <value>Det finnes allerede et driversett med dette navnet i denne profilen.</value>
+  </data>
+  <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
+    <value>Ingen tilpassede driversett. Importer en mappe som inneholder .inf-drivere, for å begynne.</value>
+  </data>
+  <data name="CustomDrivers.EnableLabel" xml:space="preserve">
+    <value>Aktiver tilpassede drivere</value>
+  </data>
+  <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
+    <value>Filer</value>
+  </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Importer</value>
+  </data>
+  <data name="CustomDrivers.ImportFailed" xml:space="preserve">
+    <value>Driversettet kunne ikke importeres. Kontroller tilgangen til mappen, og prøv deretter på nytt. Detaljer finnes i loggen.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Drivermappe</value>
+  </data>
+  <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
+    <value>Ikke nok ledig diskplass til å importere dette driversettet. Frigjør plass, og prøv deretter på nytt.</value>
+  </data>
+  <data name="CustomDrivers.ImportInvalidPath" xml:space="preserve">
+    <value>En bane i denne mappen er for lang eller ugyldig: {0}. Forkort eller gi den nytt navn, og prøv deretter på nytt.</value>
+  </data>
+  <data name="CustomDrivers.ImportLabel" xml:space="preserve">
+    <value>Importer mappe</value>
+  </data>
+  <data name="CustomDrivers.ImportMissingInf" xml:space="preserve">
+    <value>Denne mappen inneholder ingen .inf-fil. Velg en mappe med INF-drivere.</value>
+  </data>
+  <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
+    <value>Velg en drivermappe</value>
+  </data>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Kopierer og kontrollerer driverfiler…</value>
+  </data>
+  <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
+    <value>Denne mappen inneholder en symbolsk kobling, et koblingspunkt eller en skyplassholder. Kopier driverne til en vanlig lokal mappe, og prøv deretter på nytt.</value>
+  </data>
+  <data name="CustomDrivers.ImportSourceChanged" xml:space="preserve">
+    <value>Mappen ble endret mens den ble kopiert. Lukk programmer som skriver til den, og prøv deretter på nytt.</value>
+  </data>
+  <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
+    <value>Denne mappen inneholder for mange filer eller undermapper for et driversett.</value>
+  </data>
+  <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
+    <value>INF-filer</value>
+  </data>
+  <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
+    <value>Driversett</value>
+  </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>Den aktive profilen ble endret under importen, så driversettet ble ikke lagt til. Importer mappen på nytt i denne profilen.</value>
+  </data>
+  <data name="CustomDrivers.PxeWarning" xml:space="preserve">
+    <value>Ikke tilgjengelig ved PXE-oppstart. Tilpassede drivere krever det fullstendige ISO- eller USB-mediet.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
+    <value>Driversettene i denne profilen er ugyldige. Kontroller de inkluderte settene og standardsettet før du oppretter eller oppdaterer medier.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
+    <value>Den lokale kopien av {0} mangler eller er skadet. Importer mappen på nytt eller utelat settet før du oppretter eller oppdaterer medier.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
+    <value>Inkluder minst ett driversett i denne profilen, eller slå av tilpassede drivere, før du oppretter eller oppdaterer medier.</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
+    <value>Fjern driversett</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) fjernes fra gjeldende profil.</value>
+  </data>
+  <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
+    <value>Driversettet kunne ikke fjernes. Prøv på nytt.</value>
+  </data>
+  <data name="CustomDrivers.RemoveTitle" xml:space="preserve">
+    <value>Vil du fjerne driversettet?</value>
+  </data>
+  <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
+    <value>Den lokale kopien slettes med mindre en annen profil bruker den. Den opprinnelige mappen og eksisterende medier endres ikke.</value>
+  </data>
+  <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
+    <value>Angi som standard</value>
+  </data>
+  <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
+    <value>Denne profilen har nådd maksimalt antall driversett. Fjern ett før du importerer et nytt.</value>
+  </data>
+  <data name="CustomDrivers.StageVerifying" xml:space="preserve">
+    <value>Kontrollerer tilpassede driversett…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>Kontrollerer…</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arkitektur</value>
   </data>
@@ -2458,6 +2566,12 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
   </data>
+  <data name="Nav_CustomDriversKey.Description" xml:space="preserve">
+    <value>Importer drivermapper og tilby dem som driverkilde i Foundry Deploy.</value>
+  </data>
+  <data name="Nav_CustomDriversKey.Title" xml:space="preserve">
+    <value>Tilpassede drivere</value>
+  </data>
   <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
     <value>Importer Windows-avbildninger fra ISO- eller WIM-filer og inkluder dem på distribusjonsmedier.</value>
   </data>
@@ -3544,10 +3658,10 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>Opprett USB</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>Valgfri mappe som inneholder flere .inf-drivere.</value>
+    <value>Valgfri mappe med .inf-drivere som legges til i WinPE-oppstartsavbildningen.</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>Tilpasset drivermappe</value>
+    <value>Ekstra WinPE-drivermappe</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
     <value>Velg tilpasset drivermappe</value>
@@ -3556,10 +3670,10 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>Velg valgfrie leverandørdrivere og en tilpasset drivermappe.</value>
+    <value>Drivere som bare legges til i WinPE-oppstartsavbildningen, for eksempel nettverks- og lagringsdrivere. Bruk Tilpassede drivere for å legge til drivere i den distribuerte Windows.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Driveralternativer</value>
+    <value>WinPE-drivere</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3639,6 +3753,9 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Medieopprettingen ble avbrutt.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Kontrollerer innholdet som skal kopieres…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Kontrollerer at USB-stasjonen trygt kan slettes…</value>
   </data>
@@ -3650,6 +3767,9 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>Lagrer oppstartsavbildningen…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingCustomDrivers" xml:space="preserve">
+    <value>Kopierer tilpassede driversett…</value>
   </data>
   <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
     <value>Kopierer tilpassede Windows-avbildninger…</value>
@@ -3666,8 +3786,14 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Oppretter cache-partisjonen…</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
+    <value>Ubrukte tilpassede driversett kunne ikke fjernes fra USB-stasjonen.</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>De egendefinerte driverne bruker minst {0}; maksimum er {1}. Velg bare nettverks- og lagringsdriverne som Windows PE trenger.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversVerified" xml:space="preserve">
+    <value>Tilpassede driversett er kontrollert.</value>
   </data>
   <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
     <value>{0} ({1})</value>
@@ -3707,6 +3833,9 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Trekker ut Windows-avbildningen…</value>
+  </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Innholdet som er lagt til mediet (tilpassede Windows-avbildninger, innhold etter installasjon eller tilpassede drivere), kunne ikke klargjøres. Åpne loggmappen for detaljer, og prøv deretter igjen.</value>
   </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Det mislyktes under trinn {0} av {1}: {2}.</value>
@@ -3896,6 +4025,9 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>En fil på oppstartsmediet er {0}; FAT32 støtter maksimalt {1} per fil. Reduser størrelsen på oppstartsavbildningen eller opprett en ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>USB-cache-partisjonen har ikke nok ledig plass til det oppdaterte innholdet, fordi det tidligere innholdet blir værende på stasjonen under oppdateringen. Ingenting er slettet eller formatert. Opprett USB-mediet på nytt i stedet for å oppdatere det.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>USB-stasjonen kan kanskje ikke lenger starte en enhet. Opprett eller oppdater den på nytt før du bruker den.</value>

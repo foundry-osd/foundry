@@ -176,6 +176,30 @@ public interface IFoundryConfigurationStateService
     /// <summary>Invalidates overview readiness after local image content changes without changing the profile.</summary>
     void RefreshCustomImageReadiness();
 
+    /// <summary>Persists the custom driver set references, inclusion state and default set.</summary>
+    /// <param name="settings">The replacement driver set configuration.</param>
+    /// <param name="requirePersistence">Requires a successful write before publishing the change, for destructive cache cleanup.</param>
+    void UpdateCustomDrivers(CustomDriverSetsSettings settings, bool requirePersistence = false);
+
+    /// <summary>
+    /// Checks that an enabled section includes a set and that no included set is known to be missing from the local library.
+    /// Availability comes from the cache filled by <see cref="RefreshCustomDriversReadinessAsync"/>, so this never touches the
+    /// filesystem; a set not inspected yet is not treated as missing. Full hash verification occurs when media preparation acquires the packages.
+    /// </summary>
+    bool IsCustomDriversReady { get; }
+
+    /// <summary>Gets the cached library availability of a driver set package, or <see langword="null"/> when it was not inspected yet.</summary>
+    bool? GetCustomDriverSetAvailability(string contentHash);
+
+    /// <summary>Checks the library availability of every driver set of the profile off the UI thread, then publishes the updated readiness.</summary>
+    Task RefreshCustomDriversReadinessAsync();
+
+    /// <summary>
+    /// Checks one driver set package off the UI thread, then publishes the updated readiness. Called after an import so a
+    /// set previously recorded as missing becomes available without a full refresh.
+    /// </summary>
+    Task InspectCustomDriverSetAsync(ContentPackageReference package);
+
     /// <summary>
     /// Replaces telemetry settings propagated into generated runtime configuration.
     /// </summary>

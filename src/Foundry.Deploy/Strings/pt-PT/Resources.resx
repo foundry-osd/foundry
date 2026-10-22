@@ -480,6 +480,15 @@ Ação: verifique os atributos do disco e tente novamente a implementação.</va
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>A palavra-passe da conta de associação guardada no suporte expirou ou tem de ser alterada. A implementação não foi iniciada. O administrador tem de atualizar a palavra-passe no Foundry OSD e criar novamente o suporte.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Os controladores personalizados deste suporte não passaram na verificação de integridade e não são disponibilizados. Escolha outra origem de controladores ou volte a criar o suporte de arranque.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Controladores personalizados</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Conjunto de controladores</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>
@@ -993,6 +1002,9 @@ Continuar com a implementação?</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Ocultar partição de recuperação</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Preparar controladores personalizados</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Copiar ficheiro de respostas</value>
   </data>
@@ -1319,6 +1331,12 @@ Continuar com a implementação?</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>O ficheiro de controlador selecionado '{0}' do Microsoft Update Catalog não contém ficheiros INF.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Controladores personalizados preparados.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>Os controladores personalizados selecionados não estão disponíveis ou falharam a verificação. Volte a ligar o suporte de implementação ou reinicie a implementação e escolha outra origem de controladores.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Foi pedida a preparação do pacote de controladores para o primeiro arranque sem um comando suportado.</value>

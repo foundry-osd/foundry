@@ -27,6 +27,7 @@ public enum ConfigurationOverviewItem
     AutopilotInteractive,
     OperatingSystemSelection,
     CustomImages,
+    CustomDrivers,
     Unattend,
     MachineNaming,
     Oobe,
@@ -104,6 +105,9 @@ public sealed record ConfigurationOverviewContext
 
     /// <summary>Gets whether enabled post-installation actions have usable local content and valid settings.</summary>
     public bool IsPostInstallationReady { get; init; } = true;
+
+    /// <summary>Gets whether enabled custom driver sets include a set and every included set has usable library content.</summary>
+    public bool IsCustomDriversReady { get; init; } = true;
 }
 
 /// <summary>
@@ -163,6 +167,11 @@ public static class ConfigurationOverviewEvaluator
                     !MediaPreflightService.HasCustomImageArchitectureMismatch(configuration.CustomImages, general.Architecture)
                     ? ConfigurationOverviewState.Configured
                     : ConfigurationOverviewState.NeedsAttention,
+            [ConfigurationOverviewItem.CustomDrivers] = !configuration.CustomDrivers.IsEnabled
+                ? ConfigurationOverviewState.Disabled
+                : !context.IsCustomDriversReady || !CustomDriverSetsSettingsValidator.IsReady(configuration.CustomDrivers, _ => true)
+                    ? ConfigurationOverviewState.NeedsAttention
+                    : ConfigurationOverviewState.Configured,
             [ConfigurationOverviewItem.Unattend] = !configuration.Unattend.IsEnabled
                 ? ConfigurationOverviewState.Disabled
                 : context.IsUnattendConfigurationReady

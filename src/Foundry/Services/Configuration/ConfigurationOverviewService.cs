@@ -73,6 +73,7 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
                 IsDomainJoinConfigurationReady = configurationStateService.IsDomainJoinConfigurationReady,
                 IsCustomImagesReady = configurationStateService.IsCustomImagesReady,
                 IsPostInstallationReady = configurationStateService.IsPostInstallationReady,
+                IsCustomDriversReady = configurationStateService.IsCustomDriversReady,
                 IsUnattendConfigurationReady = configurationStateService.IsUnattendConfigurationReady
             });
             return cachedEvaluation;

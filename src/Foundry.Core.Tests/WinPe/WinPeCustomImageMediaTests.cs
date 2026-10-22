@@ -65,7 +65,7 @@ public sealed class WinPeCustomImageMediaTests : IDisposable
         IReadOnlyDictionary<string, string> existingFiles = await SeedDestinationAsync(package, destination);
         var service = new WinPeCustomImageMediaService(_ => 0, (_, _) => Task.FromResult<int?>(1));
 
-        await Assert.ThrowsAsync<IOException>(() => service.PublishAsync(package, destination, TestContext.Current.CancellationToken));
+        await Assert.ThrowsAsync<WinPeMediaCapacityException>(() => service.PublishAsync(package, destination, TestContext.Current.CancellationToken));
 
         Assert.False(File.Exists(Path.Combine(destination, package.ManifestRelativePath)));
         foreach ((string path, string content) in existingFiles)
@@ -83,6 +83,36 @@ public sealed class WinPeCustomImageMediaTests : IDisposable
 
         await Assert.ThrowsAsync<InvalidDataException>(() => service.ValidateInputDisksAsync(
             package.Files.Select(file => file.SourcePath), 3, TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
+    public async Task SourceGuard_ResolvesEachDriveRootOnce()
+    {
+        Directory.CreateDirectory(root);
+        string[] paths = Enumerable.Range(0, 50).Select(index => Path.Combine(root, "driver-" + index + ".inf")).ToArray();
+        var resolved = new List<string>();
+        var service = new WinPeCustomImageMediaService(_ => long.MaxValue, (path, _) =>
+        {
+            resolved.Add(path);
+            return Task.FromResult<int?>(1);
+        });
+
+        await service.ValidateInputDisksAsync(paths.Append(@"Z:\foundry\a.wim").Append(@"z:\foundry\b.wim"), 3, TestContext.Current.CancellationToken);
+
+        Assert.Equal(2, resolved.Count);
+        Assert.Equal(1, resolved.Count(path => string.Equals(Path.GetPathRoot(path), Path.GetPathRoot(root), StringComparison.OrdinalIgnoreCase)));
+        Assert.Equal(1, resolved.Count(path => string.Equals(Path.GetPathRoot(path), @"Z:\", StringComparison.OrdinalIgnoreCase)));
+    }
+
+    [Fact]
+    public async Task SourceGuard_RejectsTargetDiskFoundOnALaterRoot()
+    {
+        Directory.CreateDirectory(root);
+        var service = new WinPeCustomImageMediaService(_ => long.MaxValue,
+            (path, _) => Task.FromResult<int?>(path.StartsWith("Z:", StringComparison.OrdinalIgnoreCase) ? 3 : 1));
+
+        await Assert.ThrowsAsync<InvalidDataException>(() => service.ValidateInputDisksAsync(
+            [Path.Combine(root, "a.wim"), Path.Combine(root, "b.wim"), @"Z:\foundry\c.wim"], 3, TestContext.Current.CancellationToken));
     }
 
     [Fact]

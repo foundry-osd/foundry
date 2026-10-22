@@ -480,6 +480,15 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Het wachtwoord van het toetredingsaccount op het medium is verlopen of moet worden gewijzigd. De implementatie is niet gestart. De beheerder moet het wachtwoord in Foundry OSD bijwerken en het medium opnieuw maken.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>De aangepaste stuurprogramma's op dit medium zijn niet door de integriteitscontrole gekomen en worden niet aangeboden. Kies een andere bron voor stuurprogramma's of maak het opstartmedium opnieuw.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Aangepaste stuurprogramma's</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Stuurprogrammaset</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>
@@ -993,6 +1002,9 @@ Doorgaan met de implementatie?</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Herstelpartitie verbergen</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Aangepaste stuurprogramma's klaarzetten</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Antwoordbestand kopiëren</value>
   </data>
@@ -1319,6 +1331,12 @@ Doorgaan met de implementatie?</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>Het geselecteerde Microsoft Update Catalog-stuurprogrammabestand '{0}' bevat geen INF-bestanden.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Aangepaste stuurprogramma's klaargezet.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>De geselecteerde aangepaste stuurprogramma's zijn niet beschikbaar of zijn niet door de controle gekomen. Sluit de implementatiemedia opnieuw aan, of start de implementatie opnieuw en kies een andere bron voor stuurprogramma's.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Er is een fasering van het driverpakket voor het eerst opstarten aangevraagd zonder een ondersteunde opdracht.</value>

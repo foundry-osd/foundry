@@ -480,6 +480,15 @@ Handling: Bekreft diskattributter og prøv distribusjon på nytt.</value>
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Passordet til tilknytningskontoen som er lagret på mediet, er utløpt eller må endres. Distribusjonen har ikke startet. Administratoren må oppdatere passordet i Foundry OSD og opprette mediet på nytt.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>De egendefinerte driverne på dette mediet besto ikke integritetskontrollen og tilbys ikke. Velg en annen driverkilde, eller opprett oppstartsmediet på nytt.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Egendefinerte drivere</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Driversett</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>
@@ -993,6 +1002,9 @@ Vil du fortsette med distribusjonen?</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Skjul gjenopprettingspartisjon</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Klargjør egendefinerte drivere</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Kopier svarfil</value>
   </data>
@@ -1319,6 +1331,12 @@ Vil du fortsette med distribusjonen?</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>Den valgte driverfilen '{0}' fra Microsoft Update Catalog inneholder ingen INF-filer.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Egendefinerte drivere er klargjort.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>De valgte egendefinerte driverne er ikke tilgjengelige eller besto ikke kontrollen. Koble til distribusjonsmediet på nytt, eller start distribusjonen på nytt og velg en annen driverkilde.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Første oppstart av driverpakken ble forespurt uten en støttet kommando.</value>

@@ -480,6 +480,15 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>メディアに保存されている参加アカウントのパスワードは期限切れか、変更が必要です。展開は開始されていません。管理者が Foundry OSD でパスワードを更新し、メディアを作成し直す必要があります。</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>このメディアのカスタム ドライバーは整合性チェックに合格しなかったため、表示されません。別のドライバー ソースを選択するか、ブート メディアを作成し直してください。</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>カスタム ドライバー</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>ドライバー セット</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>
@@ -993,6 +1002,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>回復パーティションを非表示</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>カスタム ドライバーを準備</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>応答ファイルをコピー</value>
   </data>
@@ -1319,6 +1331,12 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>選択した Microsoft Update Catalog ドライバーファイル「{0}」には INF ファイルが含まれていません。</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>カスタム ドライバーを準備しました。</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>選択したカスタム ドライバーは利用できないか、検証に失敗しました。展開メディアを再接続するか、展開を再開して別のドライバー ソースを選択してください。</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>サポートされているコマンドなしで、初回起動ドライバー パックのステージングが要求されました。</value>

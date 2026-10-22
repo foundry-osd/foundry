@@ -15,6 +15,7 @@ using Foundry.Deploy.Services.Deployment.Steps;
 using Foundry.Deploy.Services.Deployment.PreOobe;
 using Foundry.Deploy.Services.Deployment.Unattend;
 using Foundry.Deploy.Services.Download;
+using Foundry.Deploy.Services.Drivers;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Logging;
@@ -616,6 +617,81 @@ public sealed class DeploymentPreflightTests
         }
     }
 
+    [Fact]
+    public async Task PreflightCountsCustomSetBytes()
+    {
+        string mediaRoot = Path.Combine(Path.GetTempPath(), "Fdriverspreflight", Guid.NewGuid().ToString("N"));
+        try
+        {
+            CustomDriverSetMedia media = await CustomDriverSetMedia.PublishAsync(mediaRoot, TestContext.Current.CancellationToken);
+            using var fixture = new PipelineFixture { DriverMedia = media };
+            DeploymentStepExecutionContext context = fixture.CreateContext();
+
+            // The set is always copied onto the target, so external cache headroom never removes it from the budget.
+            Assert.Equal(media.Set.Length, PreflightDeploymentStep.ResolveTargetDriverBytes(context, long.MaxValue));
+            Assert.Equal(media.Set.Length, PreflightDeploymentStep.ResolveTargetDriverBytes(context, null));
+        }
+        finally { Directory.Delete(mediaRoot, recursive: true); }
+    }
+
+    [Theory]
+    [InlineData(-1L, DeploymentStepState.Failed)]
+    [InlineData(0L, DeploymentStepState.Succeeded)]
+    public async Task PreflightBlocksWhenSetExceedsTargetSpace(long offset, DeploymentStepState expected)
+    {
+        string mediaRoot = Path.Combine(Path.GetTempPath(), "Fdriverspreflight", Guid.NewGuid().ToString("N"));
+        try
+        {
+            CustomDriverSetMedia media = await CustomDriverSetMedia.PublishAsync(mediaRoot, TestContext.Current.CancellationToken);
+            // 6736052234 is the exact boundary without drivers (see KnownTargetCapacity_RejectsOneByteShortAndAcceptsExactBoundary).
+            using var fixture = new PipelineFixture { DriverMedia = media, TargetBytes = (ulong)(6736052234L + media.Set.Length + offset) };
+
+            DeploymentStepResult result = await fixture.RunAsync();
+
+            Assert.Equal(expected, result.State);
+            Assert.Equal(expected == DeploymentStepState.Succeeded, fixture.Events.Contains("partition"));
+            if (expected == DeploymentStepState.Failed) Assert.Equal("insufficient_target_capacity", result.Failure?.Code);
+        }
+        finally { Directory.Delete(mediaRoot, recursive: true); }
+    }
+
+    [Fact]
+    public async Task PreflightFailsWhenTheBoundManifestIsGone()
+    {
+        string mediaRoot = Path.Combine(Path.GetTempPath(), "Fdriverspreflight", Guid.NewGuid().ToString("N"));
+        try
+        {
+            CustomDriverSetMedia media = await CustomDriverSetMedia.PublishAsync(mediaRoot, TestContext.Current.CancellationToken);
+            using var fixture = new PipelineFixture { DriverMedia = media, DriverMediaRemoved = true };
+
+            DeploymentStepResult result = await fixture.RunAsync();
+
+            Assert.Equal(DeploymentStepState.Failed, result.State);
+            Assert.Equal(DeploymentOperationNames.PreflightDeployment, result.Failure?.OperationName);
+            Assert.Equal("missing_driver_payload", result.Failure?.Code);
+            Assert.Empty(fixture.Events);
+        }
+        finally { Directory.Delete(mediaRoot, recursive: true); }
+    }
+
+    [Fact]
+    public async Task PreflightRejectsCustomSetOnTheTargetDisk()
+    {
+        string mediaRoot = Path.Combine(Path.GetTempPath(), "Fdriverspreflight", Guid.NewGuid().ToString("N"));
+        try
+        {
+            CustomDriverSetMedia media = await CustomDriverSetMedia.PublishAsync(mediaRoot, TestContext.Current.CancellationToken);
+            using var fixture = new PipelineFixture { DriverMedia = media, Failure = "target_mapping" };
+
+            DeploymentStepResult result = await fixture.RunAsync();
+
+            Assert.Equal(DeploymentStepState.Failed, result.State);
+            Assert.Equal("custom_driver_integrity", result.Failure?.Code);
+            Assert.DoesNotContain("partition", fixture.Events);
+        }
+        finally { Directory.Delete(mediaRoot, recursive: true); }
+    }
+
     [Theory]
     [InlineData("dead_url")]
     [InlineData("hash_mismatch")]
@@ -808,6 +884,8 @@ public sealed class DeploymentPreflightTests
         public ulong? TargetBytes { get; init; }
         public bool DeferredDriver { get; init; }
         public DriverPackCatalogItem? DriverPackOverride { get; init; }
+        public CustomDriverSetMedia? DriverMedia { get; init; }
+        public bool DriverMediaRemoved { get; init; }
         public string? OptionalFeatureId { get; init; }
         public bool OptionalFeatureEnable { get; init; } = true;
         public string Failure { get; set; } = "";
@@ -837,7 +915,7 @@ public sealed class DeploymentPreflightTests
             var windows = new PipelineWindows(this);
             var probe = new ImageSourceProbe(_client);
             Preflight = new PreflightDeploymentStep(Storage, probe, postInstallResolver: new FixturePostInstall(this), nativeService: NativeService,
-                deviceArchitecture: deviceArchitecture);
+                deviceArchitecture: deviceArchitecture, customDriverSetCatalog: new CustomDriverSetCatalogService(new DriverVolumes(this)));
             Prepare = new PrepareTargetDiskLayoutStep(windows, probe);
             Download = new DownloadOperatingSystemImageStep(artifact);
             CheckImage = new CheckWindowsImageStep(windows, Storage, deviceArchitecture);
@@ -870,7 +948,10 @@ public sealed class DeploymentPreflightTests
                 DomainJoinRequest = DomainJoinRequest,
                 DomainJoinIntent = DomainJoinIntent,
                 IsDryRun = IsDryRun,
-                DriverPackSelectionKind = DeferredDriver || DriverPackOverride is not null ? DriverPackSelectionKind.OemCatalog : DriverPackSelectionKind.None,
+                DriverPackSelectionKind = DriverMedia is not null ? DriverPackSelectionKind.CustomDriverSet
+                    : DeferredDriver || DriverPackOverride is not null ? DriverPackSelectionKind.OemCatalog : DriverPackSelectionKind.None,
+                CustomDriverSet = DriverMedia?.Set,
+                CustomDrivers = DriverMedia?.Settings ?? new(),
                 DriverPack = DriverPackOverride ?? (DeferredDriver ? new DriverPackCatalogItem { Manufacturer = "Lenovo", FileName = "drivers.exe", SizeBytes = 100 } : null),
                 WindowsOptionalFeatures = new DeployWindowsOptionalFeatureSettings
                 {
@@ -954,6 +1035,13 @@ public sealed class DeploymentPreflightTests
                 if (fixture.Failure == "runtime_unavailable") throw new PostInstallRuntimeUnavailableException(new HttpRequestException("Release unavailable."));
                 return Task.FromResult<PreOobePreparedContent?>(IsRequired(context.Request) ? NativeRuntimeFixture.Create(fixture.Root) : null);
             }
+        }
+
+        /// <summary>Shows the published driver media to the preflight recheck until the test removes it.</summary>
+        private sealed class DriverVolumes(PipelineFixture fixture) : IVolumeDiscovery
+        {
+            public IReadOnlyList<VolumeInfo> GetVolumes() =>
+                fixture.DriverMedia is null || fixture.DriverMediaRemoved ? [] : fixture.DriverMedia.Volumes.GetVolumes();
         }
 
         private sealed class FixturePrecedence() : PreOobeUnattendPrecedenceService(null!)

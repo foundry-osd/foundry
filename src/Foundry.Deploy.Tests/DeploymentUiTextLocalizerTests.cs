@@ -107,7 +107,8 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
             ("Extract firmware update", "Step.ExtractFirmwareUpdate"),
             ("Register Autopilot device", "Step.RegisterAutopilotDevice"),
             ("Prepare Autopilot assistant", "Step.PrepareAutopilotAssistant"),
-            ("Copy Autopilot profile", "Step.CopyAutopilotProfile")
+            ("Copy Autopilot profile", "Step.CopyAutopilotProfile"),
+            ("Stage custom drivers", "Step.StageCustomDrivers")
         ];
         foreach ((string invariant, string key) in labels)
         {
@@ -132,7 +133,9 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
             ("No firmware update payload is available.", "StepResult.NoFirmwareUpdatePayload"),
             ("The selected firmware payload is unavailable.", "StepResult.SelectedFirmwarePayloadUnavailable"),
             ("The selected driver pack payload is unavailable.", "StepResult.SelectedDriverPayloadUnavailable"),
-            ("The selected firmware payload does not contain any CAB files.", "StepResult.NoFirmwareCabFiles")
+            ("The selected firmware payload does not contain any CAB files.", "StepResult.NoFirmwareCabFiles"),
+            ("Custom drivers staged.", "StepResult.CustomDriversStaged"),
+            ("The selected custom drivers are unavailable or failed verification.", "StepResult.CustomDriversUnavailable")
         ];
         foreach ((string invariant, string key) in results)
         {

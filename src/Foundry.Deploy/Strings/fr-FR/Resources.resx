@@ -480,6 +480,15 @@ Action : vérifiez les attributs du disque puis relancez le déploiement.</value
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Le mot de passe du compte de jonction enregistré sur le média a expiré ou doit être changé. Le déploiement n'a pas commencé. L'administrateur doit mettre à jour le mot de passe dans Foundry OSD et recréer le média.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Les pilotes personnalisés de ce média n'ont pas réussi la vérification d'intégrité et ne sont pas proposés. Choisissez une autre source de pilotes ou recréez le média de démarrage.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Pilotes personnalisés</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Ensemble de pilotes</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>
@@ -993,6 +1002,9 @@ Continuer le déploiement ?</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Masquer la partition de récupération</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Préparer les pilotes personnalisés</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Copier le fichier de réponses</value>
   </data>
@@ -1319,6 +1331,12 @@ Continuer le déploiement ?</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>Le fichier de pilotes « {0} » sélectionné dans Microsoft Update Catalog ne contient aucun fichier INF.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Pilotes personnalisés préparés.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>Les pilotes personnalisés sélectionnés sont indisponibles ou ont échoué à la vérification. Reconnectez le média de déploiement, ou redémarrez le déploiement et choisissez une autre source de pilotes.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>La préparation du pack de pilotes au premier démarrage a été demandée sans commande prise en charge.</value>

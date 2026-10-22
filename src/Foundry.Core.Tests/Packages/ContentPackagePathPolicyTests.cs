@@ -132,4 +132,16 @@ public sealed class ContentPackagePathPolicyTests
             if (Directory.Exists(_root)) Directory.Delete(_root, recursive: true);
         }
     }
+
+    [Fact]
+    public void DriversKindAccepts150AndRejects151CharacterRelativePaths()
+    {
+        var policy = new ContentPackagePathPolicy(ContentPackageKind.Drivers);
+        string accepted = "d/" + new string('a', 144) + ".inf";
+        Assert.Equal(150, accepted.Length);
+
+        policy.ValidateRelativePath(accepted);
+
+        Assert.Throws<InvalidDataException>(() => policy.ValidateRelativePath("d/" + new string('a', 145) + ".inf"));
+    }
 }

@@ -16,6 +16,7 @@ using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Deployment.PreOobe;
 using Foundry.Deploy.Services.Deployment.Steps;
 using Foundry.Deploy.Services.DomainJoin;
+using Foundry.Deploy.Services.Drivers;
 using Foundry.Deploy.Services.Network;
 using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.DriverPacks;
@@ -104,6 +105,8 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDomainCredentialVerifier, DomainCredentialVerifier>();
         services.AddSingleton<IZeroTouchDomainCredentialCheck, ZeroTouchDomainCredentialCheck>();
         services.AddSingleton<IDeploymentExecutionService, DeploymentExecutionService>();
+        services.AddSingleton<CustomDriverSetCatalogService>(sp => new CustomDriverSetCatalogService(sp.GetRequiredService<IVolumeDiscovery>(), sp.GetRequiredService<ILogger<CustomDriverSetCatalogService>>()));
+        services.AddSingleton<ICustomDriverSetStagingService>(sp => new CustomDriverSetStagingService(sp.GetRequiredService<ILogger<CustomDriverSetStagingService>>()));
         services.AddSingleton<UtilityProcessRunner>();
         services.AddSingleton<IProcessRunner, ProcessRunner>();
         services.AddSingleton<IArchiveExtractionService, ArchiveExtractionService>();

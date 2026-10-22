@@ -480,6 +480,15 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>Datu nesējā saglabātā pievienošanās konta parolei ir beidzies derīgums, vai tā ir jāmaina. Izvietošana nav sākta. Administratoram ir jāatjaunina parole programmā Foundry OSD un jāizveido datu nesējs no jauna.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>Šī datu nesēja pielāgotie draiveri neizturēja integritātes pārbaudi un netiek piedāvāti. Izvēlieties citu draiveru avotu vai izveidojiet sāknēšanas datu nesēju no jauna.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Pielāgoti draiveri</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Draiveru kopa</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>
@@ -993,6 +1002,9 @@ Vai turpināt izvietošanu?</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Paslēpt atkopšanas nodalījumu</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Sagatavot pielāgotos draiverus</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Kopēt atbilžu failu</value>
   </data>
@@ -1319,6 +1331,12 @@ Vai turpināt izvietošanu?</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>Atlasītajā Microsoft Update Catalog draivera failā “{0}” nav INF failu.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Pielāgotie draiveri ir sagatavoti.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>Atlasītie pielāgotie draiveri nav pieejami vai neizturēja pārbaudi. Atkārtoti pievienojiet izvietošanas datu nesēju vai restartējiet izvietošanu un atlasiet citu draiveru avotu.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>Pirmās sāknēšanas draivera pakotnes sagatavošana tika pieprasīta bez atbalstītas komandas.</value>

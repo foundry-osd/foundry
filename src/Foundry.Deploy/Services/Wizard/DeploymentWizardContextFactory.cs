@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Deploy.Services.DriverPacks;
+using Foundry.Deploy.Services.Drivers;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.ViewModels;
 using Microsoft.Extensions.Logging;
@@ -15,17 +16,20 @@ public sealed class DeploymentWizardContextFactory : IDeploymentWizardContextFac
     private readonly ILocalizationService _localizationService;
     private readonly ILoggerFactory _loggerFactory;
     private readonly Foundry.Deploy.Services.Deployment.Unattend.UnattendContentService _unattendContentService;
+    private readonly CustomDriverSetCatalogService _customDriverSetCatalogService;
 
     public DeploymentWizardContextFactory(
         IDriverPackSelectionService driverPackSelectionService,
         ILocalizationService localizationService,
         ILoggerFactory loggerFactory,
-        Foundry.Deploy.Services.Deployment.Unattend.UnattendContentService unattendContentService)
+        Foundry.Deploy.Services.Deployment.Unattend.UnattendContentService unattendContentService,
+        CustomDriverSetCatalogService customDriverSetCatalogService)
     {
         _driverPackSelectionService = driverPackSelectionService;
         _localizationService = localizationService;
         _loggerFactory = loggerFactory;
         _unattendContentService = unattendContentService;
+        _customDriverSetCatalogService = customDriverSetCatalogService;
     }
 
     public DeploymentWizardContext Create(bool isDebugSafeMode)
@@ -45,6 +49,8 @@ public sealed class DeploymentWizardContextFactory : IDeploymentWizardContextFac
         return new DeploymentWizardContext(
             preparation,
             operatingSystemCatalog,
-            driverPackSelection);
+            driverPackSelection,
+            _customDriverSetCatalogService,
+            _loggerFactory.CreateLogger<DeploymentWizardContext>());
     }
 }

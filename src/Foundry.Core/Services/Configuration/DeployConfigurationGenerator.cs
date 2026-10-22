@@ -76,6 +76,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             protectionSettings?.IsEnabled == true && deploymentSecretsKey is { Length: MediaSecretEnvelopeProtector.KeySizeBytes }).IsValid)
             throw new InvalidOperationException("Domain joining configuration is not ready for deployment media.");
         CustomImageSettingsValidator.ThrowIfInvalid(document.CustomImages);
+        CustomDriverSetsSettingsValidator.ThrowIfInvalid(document.CustomDrivers);
         PreOobeConfigurationValidator.ThrowIfInvalid(document.PreOobe);
         UnattendFileService.ValidateSettings(document.Unattend, protectionSettings?.IsEnabled == true);
         AutopilotConfigurationValidator.ThrowIfNotReady(document.Autopilot, DateTimeOffset.UtcNow);
@@ -105,6 +106,21 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                     DefaultImageIndex = document.CustomImages.DefaultImageIndex
                 }
                 : new DeployCustomImagesSettings(),
+            CustomDrivers = document.CustomDrivers.IsEnabled
+                ? new DeployCustomDriversSettings
+                {
+                    IsEnabled = true,
+                    Sets = document.CustomDrivers.Sets.Where(set => set.IsIncluded).Select(set => new DeployCustomDriverSet
+                    {
+                        Id = set.Id,
+                        DisplayName = set.DisplayName,
+                        ContentHash = set.Package.ContentHash,
+                        Length = set.Package.Length,
+                        FileCount = set.Package.FileCount
+                    }).ToArray(),
+                    DefaultSetId = document.CustomDrivers.DefaultSetId
+                }
+                : new DeployCustomDriversSettings(),
             Unattend = document.Unattend.IsEnabled
                 ? new DeployUnattendSettings
                 {

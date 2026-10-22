@@ -5,6 +5,7 @@
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Deployment;
+using Foundry.Deploy.Services.DriverPacks;
 
 namespace Foundry.Deploy.Tests;
 
@@ -148,6 +149,21 @@ public sealed class DeploymentPlanTests
         Assert.Equal(label, step.Label);
     }
 
+    [Fact]
+    public void PlanSkipsDownloadAndKeepsApplyAndRecoveryForCustomDriverSet()
+    {
+        DeploymentContext request = Request() with { DriverPackSelectionKind = DriverPackSelectionKind.CustomDriverSet };
+
+        IReadOnlyList<DeploymentPlanEntry> plan = DeploymentPlan.Build(request);
+        string[] names = plan.Select(step => step.Name).ToArray();
+
+        Assert.Equal(DriverPackInstallMode.OfflineInf, DeploymentPlan.ResolveDriverMode(request));
+        Assert.DoesNotContain(DeploymentStepNames.DownloadDriverPack, names);
+        Assert.DoesNotContain(DeploymentStepNames.StageDriverInstaller, names);
+        Assert.Contains(DeploymentStepNames.ApplyDriverPack, names);
+        Assert.Contains(DeploymentStepNames.ApplyRecoveryDrivers, names);
+        Assert.Equal("Stage custom drivers", Assert.Single(plan, step => step.Name == DeploymentStepNames.ExtractDriverPack).Label);
+    }
     private static DeploymentContext Request() => new()
     {
         Mode = DeploymentMode.Usb,

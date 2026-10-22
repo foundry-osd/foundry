@@ -480,6 +480,15 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
   <data name="DomainJoin.ZeroTouchPasswordExpired" xml:space="preserve">
     <value>La password dell'account di aggiunta salvato sul supporto è scaduta o deve essere cambiata. La distribuzione non è iniziata. L'amministratore deve aggiornare la password in Foundry OSD e ricreare il supporto.</value>
   </data>
+  <data name="DriverPack.CustomDriverIntegrityWarning" xml:space="preserve">
+    <value>I driver personalizzati su questo supporto non hanno superato il controllo di integrità e non vengono proposti. Scegliere un'altra origine dei driver o ricreare il supporto di avvio.</value>
+  </data>
+  <data name="DriverPack.CustomDriverSet" xml:space="preserve">
+    <value>Driver personalizzati</value>
+  </data>
+  <data name="DriverPack.CustomDriverSetLabel" xml:space="preserve">
+    <value>Set di driver</value>
+  </data>
   <data name="DriverPack.MicrosoftUpdateCatalog" xml:space="preserve">
     <value>Microsoft Update Catalog</value>
   </data>
@@ -993,6 +1002,9 @@ Continuare con la distribuzione?</value>
   <data name="Step.SealRecoveryPartition" xml:space="preserve">
     <value>Nascondi partizione di ripristino</value>
   </data>
+  <data name="Step.StageCustomDrivers" xml:space="preserve">
+    <value>Prepara driver personalizzati</value>
+  </data>
   <data name="Step.StageCustomUnattend" xml:space="preserve">
     <value>Copia file di risposte</value>
   </data>
@@ -1319,6 +1331,12 @@ Continuare con la distribuzione?</value>
   </data>
   <data name="StepResult.CatalogDriverInfMissingFormat" xml:space="preserve">
     <value>Il file driver selezionato '{0}' di Microsoft Update Catalog non contiene file INF.</value>
+  </data>
+  <data name="StepResult.CustomDriversStaged" xml:space="preserve">
+    <value>Driver personalizzati preparati.</value>
+  </data>
+  <data name="StepResult.CustomDriversUnavailable" xml:space="preserve">
+    <value>I driver personalizzati selezionati non sono disponibili o non hanno superato la verifica. Ricollegare il supporto di distribuzione oppure riavviare la distribuzione e scegliere un'altra origine dei driver.</value>
   </data>
   <data name="StepResult.DeferredDriverPackStagingUnsupportedCommand" xml:space="preserve">
     <value>È stata richiesta la gestione temporanea del pacchetto driver al primo avvio senza un comando supportato.</value>

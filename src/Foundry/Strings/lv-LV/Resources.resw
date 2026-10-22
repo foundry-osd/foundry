@@ -736,6 +736,114 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nav pieejams</value>
   </data>
+  <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
+    <value>Šī mape jau ir šajā profilā ar nosaukumu {0}.</value>
+  </data>
+  <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
+    <value>Draiveru kopa tika noņemta, taču tās lokālo kopiju neizdevās izdzēst.</value>
+  </data>
+  <data name="CustomDrivers.DefaultLabel" xml:space="preserve">
+    <value>Noklusējuma kopa</value>
+  </data>
+  <data name="CustomDrivers.DefaultSetName" xml:space="preserve">
+    <value>Draiveru kopa</value>
+  </data>
+  <data name="CustomDrivers.DuplicateName" xml:space="preserve">
+    <value>Šajā profilā jau ir draiveru kopa ar šādu nosaukumu.</value>
+  </data>
+  <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
+    <value>Nav pielāgotu draiveru kopu. Lai sāktu, importējiet mapi, kurā ir .inf draiveri.</value>
+  </data>
+  <data name="CustomDrivers.EnableLabel" xml:space="preserve">
+    <value>Iespējot pielāgotus draiverus</value>
+  </data>
+  <data name="CustomDrivers.FileCountLabel" xml:space="preserve">
+    <value>Faili</value>
+  </data>
+  <data name="CustomDrivers.ImportButton" xml:space="preserve">
+    <value>Importēt</value>
+  </data>
+  <data name="CustomDrivers.ImportFailed" xml:space="preserve">
+    <value>Draiveru kopu neizdevās importēt. Pārbaudiet piekļuvi mapei un mēģiniet vēlreiz. Detalizēta informācija ir žurnālā.</value>
+  </data>
+  <data name="CustomDrivers.ImportFolderLabel" xml:space="preserve">
+    <value>Draiveru mape</value>
+  </data>
+  <data name="CustomDrivers.ImportInsufficientSpace" xml:space="preserve">
+    <value>Diskā nepietiek brīvas vietas, lai importētu šo draiveru kopu. Atbrīvojiet vietu un mēģiniet vēlreiz.</value>
+  </data>
+  <data name="CustomDrivers.ImportInvalidPath" xml:space="preserve">
+    <value>Ceļš šajā mapē ir pārāk garš vai nederīgs: {0}. Saīsiniet vai pārdēvējiet to un mēģiniet vēlreiz.</value>
+  </data>
+  <data name="CustomDrivers.ImportLabel" xml:space="preserve">
+    <value>Importēt mapi</value>
+  </data>
+  <data name="CustomDrivers.ImportMissingInf" xml:space="preserve">
+    <value>Šajā mapē nav neviena .inf faila. Atlasiet mapi ar INF draiveriem.</value>
+  </data>
+  <data name="CustomDrivers.ImportPickerTitle" xml:space="preserve">
+    <value>Atlasiet draiveru mapi</value>
+  </data>
+  <data name="CustomDrivers.ImportProgressStatus" xml:space="preserve">
+    <value>Notiek draiveru failu kopēšana un pārbaude…</value>
+  </data>
+  <data name="CustomDrivers.ImportRedirected" xml:space="preserve">
+    <value>Šajā mapē ir simboliskā saite, savienojuma punkts vai mākoņa vietturis. Kopējiet draiverus parastā lokālā mapē un mēģiniet vēlreiz.</value>
+  </data>
+  <data name="CustomDrivers.ImportSourceChanged" xml:space="preserve">
+    <value>Mape tika mainīta kopēšanas laikā. Aizveriet programmas, kas tajā raksta, un mēģiniet vēlreiz.</value>
+  </data>
+  <data name="CustomDrivers.ImportTooManyFiles" xml:space="preserve">
+    <value>Šajā mapē ir pārāk daudz failu vai apakšmapju draiveru kopai.</value>
+  </data>
+  <data name="CustomDrivers.InfCountLabel" xml:space="preserve">
+    <value>INF faili</value>
+  </data>
+  <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
+    <value>Draiveru kopas</value>
+  </data>
+  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
+    <value>Importēšanas laikā mainījās aktīvais profils, tāpēc draiveru kopa netika pievienota. Importējiet mapi šajā profilā vēlreiz.</value>
+  </data>
+  <data name="CustomDrivers.PxeWarning" xml:space="preserve">
+    <value>Nav pieejams, sāknējot ar PXE. Pielāgotiem draiveriem nepieciešams pilns ISO vai USB datu nesējs.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
+    <value>Šī profila draiveru kopas nav derīgas. Pirms datu nesēja izveides vai atjaunināšanas pārbaudiet iekļautās kopas un noklusējuma kopu.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
+    <value>Kopas {0} lokālā kopija trūkst vai ir bojāta. Pirms datu nesēja izveides vai atjaunināšanas vēlreiz importējiet mapi vai izslēdziet kopu.</value>
+  </data>
+  <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
+    <value>Pirms datu nesēja izveides vai atjaunināšanas iekļaujiet šajā profilā vismaz vienu draiveru kopu vai izslēdziet pielāgotos draiverus.</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
+    <value>Noņemt draiveru kopu</value>
+  </data>
+  <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
+    <value>{0} ({1}) tiks noņemta no pašreizējā profila.</value>
+  </data>
+  <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
+    <value>Draiveru kopu neizdevās noņemt. Mēģiniet vēlreiz.</value>
+  </data>
+  <data name="CustomDrivers.RemoveTitle" xml:space="preserve">
+    <value>Vai noņemt draiveru kopu?</value>
+  </data>
+  <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
+    <value>Tās lokālā kopija tiek izdzēsta, ja to neizmanto cits profils. Sākotnējā mape un esošie datu nesēji netiek mainīti.</value>
+  </data>
+  <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
+    <value>Iestatīt kā noklusējumu</value>
+  </data>
+  <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
+    <value>Šajā profilā ir sasniegts maksimālais draiveru kopu skaits. Pirms citas importēšanas noņemiet vienu.</value>
+  </data>
+  <data name="CustomDrivers.StageVerifying" xml:space="preserve">
+    <value>Notiek pielāgoto draiveru kopu pārbaude…</value>
+  </data>
+  <data name="CustomDrivers.StatusChecking" xml:space="preserve">
+    <value>Notiek pārbaude…</value>
+  </data>
   <data name="CustomImages.ArchitectureLabel" xml:space="preserve">
     <value>Arhitektūra</value>
   </data>
@@ -2458,6 +2566,12 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Nav_AutopilotZeroTouchKey.Title" xml:space="preserve">
     <value>Zero-Touch</value>
   </data>
+  <data name="Nav_CustomDriversKey.Description" xml:space="preserve">
+    <value>Importējiet draiveru mapes un piedāvājiet tās kā draiveru avotu rīkā Foundry Deploy.</value>
+  </data>
+  <data name="Nav_CustomDriversKey.Title" xml:space="preserve">
+    <value>Pielāgoti draiveri</value>
+  </data>
   <data name="Nav_CustomImagesKey.Description" xml:space="preserve">
     <value>Importējiet Windows attēlus no ISO vai WIM failiem un iekļaujiet tos izvietošanas datu nesējos.</value>
   </data>
@@ -3544,10 +3658,10 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Izveidot USB</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
-    <value>Izvēles mape, kurā ir papildu .inf draiveri.</value>
+    <value>Izvēles mape ar .inf draiveriem, kas tiek pievienoti WinPE sāknēšanas attēlam.</value>
   </data>
   <data name="StartMedia.CustomDrivers.Header" xml:space="preserve">
-    <value>Pielāgota draivera mape</value>
+    <value>Papildu WinPE draiveru mape</value>
   </data>
   <data name="StartMedia.CustomDriversPicker.Title" xml:space="preserve">
     <value>Atlasiet pielāgotu draivera mapi</value>
@@ -3556,10 +3670,10 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Dell</value>
   </data>
   <data name="StartMedia.DriverOptions.Description" xml:space="preserve">
-    <value>Atlasiet papildu piegādātāja draiverus un pielāgotu draiveru mapi.</value>
+    <value>Draiveri, kas tiek pievienoti tikai WinPE sāknēšanas attēlam, piemēram, tīkla un krātuves draiveri. Lai pievienotu draiverus izvietotajai Windows sistēmai, izmantojiet sadaļu Pielāgoti draiveri.</value>
   </data>
   <data name="StartMedia.DriverOptions.Header" xml:space="preserve">
-    <value>Draiveru opcijas</value>
+    <value>WinPE draiveri</value>
   </data>
   <data name="StartMedia.DriverOptions.Hp" xml:space="preserve">
     <value>HP</value>
@@ -3639,6 +3753,9 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="StartMedia.Operation.CancelledMessage" xml:space="preserve">
     <value>Datu nesēja izveide tika atcelta.</value>
   </data>
+  <data name="StartMedia.Operation.CheckingMediaContent" xml:space="preserve">
+    <value>Notiek kopējamā satura pārbaude…</value>
+  </data>
   <data name="StartMedia.Operation.CheckingUsbTargetSafety" xml:space="preserve">
     <value>Notiek pārbaude, vai USB disku var droši dzēst…</value>
   </data>
@@ -3650,6 +3767,9 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   </data>
   <data name="StartMedia.Operation.CommittingImageChanges" xml:space="preserve">
     <value>Notiek sāknēšanas attēla saglabāšana…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingCustomDrivers" xml:space="preserve">
+    <value>Notiek pielāgoto draiveru kopu kopēšana…</value>
   </data>
   <data name="StartMedia.Operation.CopyingCustomImages" xml:space="preserve">
     <value>Notiek pielāgoto Windows attēlu kopēšana…</value>
@@ -3666,8 +3786,14 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Notiek kešatmiņas nodalījuma izveide…</value>
   </data>
+  <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
+    <value>Neizmantotās pielāgotās draiveru kopas neizdevās noņemt no USB diska.</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversTooLarge" xml:space="preserve">
     <value>Pielāgotie draiveri aizņem vismaz {0}; maksimālais apjoms ir {1}. Atlasiet tikai Windows PE nepieciešamos tīkla un krātuves draiverus.</value>
+  </data>
+  <data name="StartMedia.Operation.CustomDriversVerified" xml:space="preserve">
+    <value>Pielāgotās draiveru kopas ir pārbaudītas.</value>
   </data>
   <data name="StartMedia.Operation.DetailWithBytesFormat" xml:space="preserve">
     <value>{0} ({1})</value>
@@ -3707,6 +3833,9 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   </data>
   <data name="StartMedia.Operation.ExportingWindowsSourceImage" xml:space="preserve">
     <value>Notiek Windows attēla izvilkšana…</value>
+  </data>
+  <data name="StartMedia.Operation.ExternalMediaContentFailed" xml:space="preserve">
+    <value>Neizdevās sagatavot datu nesējam pievienoto saturu (pielāgotus Windows attēlus, saturu pēc instalēšanas vai pielāgotus draiverus). Atveriet žurnālu mapi, lai skatītu detalizētu informāciju, un pēc tam mēģiniet vēlreiz.</value>
   </data>
   <data name="StartMedia.Operation.FailedStepFormat" xml:space="preserve">
     <value>Kļūda radās darbībā {0} no {1}: {2}.</value>
@@ -3896,6 +4025,9 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   </data>
   <data name="StartMedia.Operation.UsbBootFileTooLarge" xml:space="preserve">
     <value>Sāknēšanas datu nesēja faila lielums ir {0}; FAT32 atbalsta ne vairāk kā {1} vienam failam. Samaziniet sāknēšanas attēla lielumu vai izveidojiet ISO.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
+    <value>USB kešatmiņas nodalījumā nav pietiekami daudz brīvas vietas atjauninātajam saturam, jo iepriekšējais saturs atjaunināšanas laikā paliek diskā. Nekas nav izdzēsts vai formatēts. Atjaunināšanas vietā izveidojiet USB datu nesēju no jauna.</value>
   </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Iespējams, USB disks vairs nevar startēt ierīci. Pirms tā lietošanas izveidojiet vai atjauniniet to vēlreiz.</value>
