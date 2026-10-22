@@ -189,7 +189,12 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
                 StatusMessage = Text("ProfileChanged");
                 return;
             }
-            AddImportedSet(imported);
+            try { AddImportedSet(imported); }
+            catch (Exception exception)
+            {
+                Logger.Warning(exception, "Adding the imported custom driver set failed");
+                if (!disposed) StatusMessage = Text("ImportFailed");
+            }
         }
         finally { IsBusy = false; }
     }
