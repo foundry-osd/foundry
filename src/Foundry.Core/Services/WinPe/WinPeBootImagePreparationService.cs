@@ -702,7 +702,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
             }, 100);
             return WinPeResult<CachedArtifactLease>.Success(lease);
         }
-        catch (Exception exception) when (exception is HttpRequestException or IOException or UnauthorizedAccessException or TimeoutException or ArgumentException)
+        catch (Exception exception) when (exception is HttpRequestException or IOException or InvalidDataException or UnauthorizedAccessException or TimeoutException or ArgumentException)
         {
             return WinPeResult<CachedArtifactLease>.Failure(new WinPeDiagnostic(
                 exception is InvalidDataException or ArgumentException ? WinPeErrorCodes.HashMismatch : WinPeErrorCodes.DownloadFailed,

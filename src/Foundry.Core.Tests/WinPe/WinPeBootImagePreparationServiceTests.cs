@@ -126,6 +126,20 @@ public sealed class WinPeBootImagePreparationServiceTests
     }
 
     [Fact]
+    public async Task PrepareAsync_WhenDownloadedSourceFailsHashVerification_ReportsHashMismatchAsCause()
+    {
+        using var temp = new TestUtilities.TemporaryDirectory();
+        string expectedHash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes("expected")));
+        using var client = new HttpClient(new StaticCatalogHandler(CreateCatalogXml(expectedHash), Encoding.UTF8.GetBytes("damaged")));
+
+        WinPeResult<WinPeBootImagePreparationResult> result = await PrepareAsync(temp.Path, client, new FakeWinPeProcessRunner());
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal(WinPeBootImageSource.WinPe, result.Value!.BootImageSource);
+        Assert.Equal(WinPeErrorCodes.HashMismatch, result.Value.FallbackCause?.Code);
+    }
+
+    [Fact]
     public async Task PrepareAsync_ForArm64_WhenNoWinReIsAvailable_FailsWithExplicitError()
     {
         using var temp = new TestUtilities.TemporaryDirectory();
