@@ -4050,6 +4050,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows je blokirao pristup datotekama WinPE slike. Možda ih zaključava bezbednosni softver ili neka druga alatka. U bezbednosnom softveru dodajte izuzetak za {0}, zatvorite alatke koje montiraju slike, ponovo pokrenite računar i pokušajte ponovo. Detalji se nalaze u {1} i {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WinReFallbackWarning" xml:space="preserve">
+    <value>Foundry OSD nije mogao da preuzme Windows Recovery Environment, pa ovaj medij koristi standardnu sliku sistema Windows PE. Wi-Fi na njemu nije dostupan. Proverite vezu i ponovo napravite medij da biste dobili potpunu sliku.</value>
+  </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>Upisivanje ISO datoteke…</value>
   </data>

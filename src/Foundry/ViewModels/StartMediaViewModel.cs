@@ -70,6 +70,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private bool isLoadingConfiguration = true;
     private MediaCreationProgressPlan? progressPlan;
     private int lastFinalMediaPercent = -1;
+    private WinPeBootImageSource preparedBootImageSource = WinPeBootImageSource.WinRe;
     private string? lastCustomizationLogStatus;
     private int lastCustomizationLogBucket = -1;
     private string? lastDownloadLogStatus;
@@ -601,6 +602,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         ResetProgressLogSampling();
         progressPlan = MediaCreationProgressPlan.For(ToMediaCreationKind(target));
         lastFinalMediaPercent = -1;
+        preparedBootImageSource = WinPeBootImageSource.WinRe;
         RefreshEvaluation();
         // Final media operations can format disks or overwrite ISO output, so the shell remains locked until completion.
         shellNavigationGuardService.SetState(ShellNavigationState.InteractionPending);
@@ -655,9 +657,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 Path.GetTempPath(),
                 Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "Temp")
             };
-            if (options.BootImageSource == WinPeBootImageSource.WinReWifi || options.Architecture == WinPeArchitecture.Arm64)
-                storagePaths.Add(Constants.WindowsSourceCacheDirectoryPath);
-            if (options.DriverVendors.Count > 0 || options.BootImageSource == WinPeBootImageSource.WinReWifi)
+            storagePaths.Add(Constants.WindowsSourceCacheDirectoryPath);
+            storagePaths.Add(Constants.WinReCacheDirectoryPath);
+            if (options.DriverVendors.Count > 0 || options.IncludeWirelessSupport)
                 storagePaths.Add(Constants.WinPeDriverCacheDirectoryPath);
             if (target == FinalMediaTarget.Iso)
                 storagePaths.Add(options.IsoOutputPath);
@@ -728,6 +730,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     "StartMedia.Operation.UsbVolumesFormat",
                     usbResult.BootDriveLetter,
                     usbResult.CacheDriveLetter);
+            }
+
+            if (preparedBootImageSource == WinPeBootImageSource.WinPe)
+            {
+                successMessage += Environment.NewLine + Environment.NewLine + localizationService.GetString("StartMedia.Operation.WinReFallbackWarning");
             }
 
             cancellationToken.ThrowIfCancellationRequested();
@@ -867,7 +874,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 {
                     await TrackMediaCreatedAsync(
                         target,
-                        options,
+                        options with { BootImageSource = preparedBootImageSource },
                         capturedConfiguration,
                         success,
                         success ? null : telemetryFailedStepName ?? telemetryProgressTracker.CurrentStepName,
@@ -1400,11 +1407,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             TelemetrySettings deployTelemetrySettings = snapshot.Configuration.Telemetry with { RuntimePayloadSource = ResolveRuntimePayloadSource(runtimePayloadProvisioning.Deploy) };
 
             logger.Debug(
-                "Final media workspace preparation started. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, SignatureMode={SignatureMode}, BootImageSource={BootImageSource}, IncludeRuntimePayloadInImage={IncludeRuntimePayloadInImage}, DriverVendorCount={DriverVendorCount}, HasCustomDriverDirectory={HasCustomDriverDirectory}, IsAutopilotEnabled={IsAutopilotEnabled}, IsConnectRuntimeProvisioningEnabled={IsConnectRuntimeProvisioningEnabled}, ConnectRuntimeSource={ConnectRuntimeSource}, IsDeployRuntimeProvisioningEnabled={IsDeployRuntimeProvisioningEnabled}, DeployRuntimeSource={DeployRuntimeSource}",
+                "Final media workspace preparation started. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, SignatureMode={SignatureMode}, IncludeWirelessSupport={IncludeWirelessSupport}, IncludeRuntimePayloadInImage={IncludeRuntimePayloadInImage}, DriverVendorCount={DriverVendorCount}, HasCustomDriverDirectory={HasCustomDriverDirectory}, IsAutopilotEnabled={IsAutopilotEnabled}, IsConnectRuntimeProvisioningEnabled={IsConnectRuntimeProvisioningEnabled}, ConnectRuntimeSource={ConnectRuntimeSource}, IsDeployRuntimeProvisioningEnabled={IsDeployRuntimeProvisioningEnabled}, DeployRuntimeSource={DeployRuntimeSource}",
                 options.Architecture,
                 NormalizeCultureName(options.WinPeLanguage),
                 options.SignatureMode,
-                options.BootImageSource,
+                options.IncludeWirelessSupport,
                 includeRuntimePayloadInImage,
                 options.DriverVendors.Count,
                 !string.IsNullOrWhiteSpace(options.CustomDriverDirectoryPath),
@@ -1508,7 +1515,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                         Artifact = artifact,
                         Tools = tools,
                         SignatureMode = options.SignatureMode,
-                        BootImageSource = options.BootImageSource,
+                        IncludeWirelessSupport = options.IncludeWirelessSupport,
                         DriverCatalogUri = new WinPeDriverCatalogOptions().CatalogUri,
                         DriverVendors = options.DriverVendors,
                         CustomDriverDirectoryPath = options.CustomDriverDirectoryPath,
@@ -1519,8 +1526,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                         {
                             IncludePayloadsInImage = includeRuntimePayloadInImage
                         },
-                        WinReCacheDirectoryPath = Constants.WindowsSourceCacheDirectoryPath,
-                        LegacyWinReCacheDirectoryPath = Constants.WinReTempDirectoryPath,
+                        WindowsSourceCacheDirectoryPath = Constants.WindowsSourceCacheDirectoryPath,
+                        WinReCacheDirectoryPath = Constants.WinReCacheDirectoryPath,
+                        LegacyWindowsSourceDirectoryPath = Constants.WinReTempDirectoryPath,
                         Progress = workspacePreparationProgress,
                         DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(
                             new Progress<WinPeDownloadProgress>(ReportDownloadProgress)),
@@ -1537,6 +1545,15 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 }
             }
             EnsureSuccess(preparationResult);
+            preparedBootImageSource = preparationResult.Value!.BootImageSource;
+            if (preparedBootImageSource == WinPeBootImageSource.WinPe)
+            {
+                WinPeDiagnostic? cause = preparationResult.Value.BootImageFallbackCause;
+                logger.Warning(
+                    "Boot media uses the ADK Windows PE image because no WinRE could be obtained; Wi-Fi is not available on it. FailureCode={FailureCode}, FailureMessage={FailureMessage}",
+                    cause?.Code,
+                    cause?.Message);
+            }
 
             logger.Debug(
                 "WinPE workspace prepared. UseBootEx={UseBootEx}, RuntimePayloadInImage={RuntimePayloadInImage}",
@@ -2240,7 +2257,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             AvailableWinPeLanguages = availableWinPeLanguages,
             WinPeKeyboardLayoutId = foundryConfigurationStateService.Current.General.WinPeKeyboardLayoutId,
             AvailableKeyboardLayoutIds = KeyboardLayoutCatalog.GetInstalled().Select(layout => layout.Id).ToArray(),
-            BootImageSource = ResolveBootImageSource(),
+            IncludeWirelessSupport = IsWirelessSupportRequested(),
             DriverVendors = vendors,
             CustomDriverDirectoryPath = CustomDriverDirectoryPath,
             CustomImages = foundryConfigurationStateService.Current.CustomImages,
@@ -2778,11 +2795,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IReadOnlyList<MediaPreflightBlockingReason> reasons = GetGlobalBlockingReasons(evaluation);
 
         logger.Information(
-            "Media preflight summary refreshed. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, WinPeKeyboardLayout={WinPeKeyboardLayout}, BootImageSource={BootImageSource}, IsoOutputPath={IsoOutputPath}, UsbTargetSelected={UsbTargetSelected}, DiskNumber={DiskNumber}, DiskName={DiskName}, NetworkReady={NetworkReady}, DeployReady={DeployReady}, ConnectReady={ConnectReady}, SecretsReady={SecretsReady}, AutopilotEnabled={AutopilotEnabled}, AutopilotReady={AutopilotReady}, HasAutopilotProfile={HasAutopilotProfile}, HasAutopilotFolder={HasAutopilotFolder}, SummaryReady={SummaryReady}, BlockingReasons={BlockingReasons}",
+            "Media preflight summary refreshed. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, WinPeKeyboardLayout={WinPeKeyboardLayout}, IncludeWirelessSupport={IncludeWirelessSupport}, IsoOutputPath={IsoOutputPath}, UsbTargetSelected={UsbTargetSelected}, DiskNumber={DiskNumber}, DiskName={DiskName}, NetworkReady={NetworkReady}, DeployReady={DeployReady}, ConnectReady={ConnectReady}, SecretsReady={SecretsReady}, AutopilotEnabled={AutopilotEnabled}, AutopilotReady={AutopilotReady}, HasAutopilotProfile={HasAutopilotProfile}, HasAutopilotFolder={HasAutopilotFolder}, SummaryReady={SummaryReady}, BlockingReasons={BlockingReasons}",
             options.Architecture,
             NormalizeCultureName(options.WinPeLanguage),
             options.WinPeKeyboardLayoutId ?? "default",
-            options.BootImageSource,
+            options.IncludeWirelessSupport,
             options.IsoOutputPath,
             options.SelectedUsbDisk is not null,
             options.SelectedUsbDisk?.DiskNumber,
@@ -3051,12 +3068,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         return result.Value!;
     }
 
-    private WinPeBootImageSource ResolveBootImageSource()
+    private bool IsWirelessSupportRequested()
     {
         NetworkSettings network = foundryConfigurationStateService.Current.Network;
-        return network.WifiProvisioned || network.Wifi.IsEnabled
-            ? WinPeBootImageSource.WinReWifi
-            : WinPeBootImageSource.WinPe;
+        return network.WifiProvisioned || network.Wifi.IsEnabled;
     }
 
     private WinPeRuntimePayloadProvisioningOptions CreateRuntimePayloadProvisioningOptions(

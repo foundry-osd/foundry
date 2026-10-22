@@ -4050,6 +4050,9 @@
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>حظر Windows الوصول إلى ملفات صورة WinPE. قد يكون برنامج أمان أو أداة أخرى يقفلها. أضف استثناءً للمسار {0} في برنامج الأمان، وأغلق الأدوات التي تحمّل الصور، وأعد تشغيل الكمبيوتر، ثم حاول مرة أخرى. تتوفر التفاصيل في {1} و{2}.</value>
   </data>
+  <data name="StartMedia.Operation.WinReFallbackWarning" xml:space="preserve">
+    <value>تعذّر على Foundry OSD الحصول على بيئة الاسترداد لـ Windows (Windows RE)، لذا تستخدم هذه الوسائط صورة Windows PE القياسية ولا تتوفر عليها شبكة Wi-Fi. تحقق من الاتصال ثم أنشئ الوسائط مرة أخرى للحصول على الصورة الكاملة.</value>
+  </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>جارٍ كتابة ملف ISO…</value>
   </data>

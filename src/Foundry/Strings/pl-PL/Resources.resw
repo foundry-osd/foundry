@@ -4050,6 +4050,9 @@ Dołączone hasła i klucze dostępu: {2}</value>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>System Windows zablokował dostęp do plików obrazu WinPE. Mogą być one zablokowane przez oprogramowanie zabezpieczające lub inne narzędzie. Dodaj wykluczenie dla {0} w oprogramowaniu zabezpieczającym, zamknij narzędzia, które instalują obrazy, uruchom ponownie komputer i spróbuj ponownie. Szczegóły znajdują się w {1} i {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WinReFallbackWarning" xml:space="preserve">
+    <value>Foundry OSD nie mógł pobrać środowiska odzyskiwania systemu Windows, więc ten nośnik używa standardowego obrazu Windows PE. Wi-Fi nie jest na nim dostępne. Sprawdź połączenie i utwórz nośnik ponownie, aby uzyskać pełny obraz.</value>
+  </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>Generowanie pliku ISO…</value>
   </data>

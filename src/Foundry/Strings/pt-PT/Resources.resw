@@ -4050,6 +4050,9 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>O Windows bloqueou o acesso aos ficheiros da imagem do WinPE. Um software de segurança ou outra ferramenta pode estar a bloqueá-los. Adicione uma exclusão para {0} no software de segurança, feche as ferramentas que montam imagens, reinicie o computador e tente novamente. Os detalhes estão em {1} e {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WinReFallbackWarning" xml:space="preserve">
+    <value>O Foundry OSD não conseguiu obter o Ambiente de Recuperação do Windows, pelo que este suporte utiliza a imagem padrão do Windows PE. O Wi-Fi não está disponível nele. Verifique a ligação e crie novamente o suporte para obter a imagem completa.</value>
+  </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>A escrever o ficheiro ISO…</value>
   </data>

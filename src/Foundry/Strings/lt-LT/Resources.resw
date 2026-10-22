@@ -4050,6 +4050,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>„Windows“ užblokavo prieigą prie WinPE atvaizdo failų. Gali būti, kad juos užrakino saugos programinė įranga arba kitas įrankis. Saugos programinėje įrangoje pridėkite išimtį aplankui {0}, uždarykite atvaizdus prijungiančius įrankius, paleiskite kompiuterį iš naujo ir bandykite dar kartą. Išsami informacija pateikta failuose {1} ir {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WinReFallbackWarning" xml:space="preserve">
+    <value>Foundry OSD nepavyko gauti „Windows“ atkūrimo aplinkos, todėl ši laikmena naudoja standartinį „Windows PE“ atvaizdą. „Wi-Fi“ joje nepasiekiamas. Patikrinkite ryšį ir sukurkite laikmeną iš naujo, kad gautumėte visą atvaizdą.</value>
+  </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>Rašomas ISO failas…</value>
   </data>

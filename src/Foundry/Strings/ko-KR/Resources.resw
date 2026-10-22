@@ -4050,6 +4050,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows에서 WinPE 이미지 파일에 대한 액세스를 차단했습니다. 보안 소프트웨어 또는 다른 도구가 파일을 잠그고 있을 수 있습니다. 보안 소프트웨어에서 {0}에 대한 예외를 추가하고, 이미지를 탑재하는 도구를 닫은 다음, 컴퓨터를 다시 시작하고 다시 시도하세요. 자세한 내용은 {1} 및 {2}에 있습니다.</value>
   </data>
+  <data name="StartMedia.Operation.WinReFallbackWarning" xml:space="preserve">
+    <value>Foundry OSD가 Windows 복구 환경을 가져올 수 없어 이 미디어는 표준 Windows PE 이미지를 사용합니다. 이 미디어에서는 Wi-Fi를 사용할 수 없습니다. 연결을 확인한 후 미디어를 다시 만들어 전체 이미지를 받으세요.</value>
+  </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>ISO 파일을 쓰는 중…</value>
   </data>

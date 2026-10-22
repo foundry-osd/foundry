@@ -4050,6 +4050,9 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows, WinPE görüntü dosyalarına erişimi engelledi. Bir güvenlik yazılımı veya başka bir araç bu dosyaları kilitliyor olabilir. Güvenlik yazılımına {0} için bir dışlama ekleyin, görüntü bağlayan araçları kapatın, bilgisayarı yeniden başlatın ve yeniden deneyin. Ayrıntılar {1} ve {2} dosyalarındadır.</value>
   </data>
+  <data name="StartMedia.Operation.WinReFallbackWarning" xml:space="preserve">
+    <value>Foundry OSD, Windows Kurtarma Ortamı'nı alamadığından bu medya standart Windows PE görüntüsünü kullanıyor. Bu medyada Wi-Fi kullanılamaz. Tam görüntüyü almak için bağlantıyı denetleyin ve medyayı yeniden oluşturun.</value>
+  </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>ISO dosyası yazılıyor…</value>
   </data>

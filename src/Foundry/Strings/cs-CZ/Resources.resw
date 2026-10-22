@@ -4050,6 +4050,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Systém Windows zablokoval přístup k souborům image WinPE. Může je zamykat software zabezpečení nebo jiný nástroj. Přidejte v softwaru zabezpečení výjimku pro {0}, zavřete nástroje, které připojují image, restartujte počítač a zkuste to znovu. Podrobnosti najdete v {1} a {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WinReFallbackWarning" xml:space="preserve">
+    <value>Foundry OSD nemohl získat prostředí Windows Recovery Environment, proto toto médium používá standardní obraz Windows PE. Wi-Fi na něm není k dispozici. Zkontrolujte připojení a vytvořte médium znovu, abyste získali úplný obraz.</value>
+  </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>Zápis souboru ISO…</value>
   </data>
