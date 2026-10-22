@@ -125,6 +125,42 @@ public sealed class WinPeBootImagePreparationServiceTests
         Assert.Equal("original", await File.ReadAllTextAsync(BootWim(temp.Path), TestContext.Current.CancellationToken));
     }
 
+    [Theory]
+    [InlineData(WinPeArchitecture.X64)]
+    [InlineData(WinPeArchitecture.Arm64)]
+    public async Task PrepareAsync_WhenSourceDownloadIsRefusedWithEmptyCache_FallsBackOnX64AndFailsOnArm64(WinPeArchitecture architecture)
+    {
+        using var temp = new TestUtilities.TemporaryDirectory();
+        string catalog = CreateFallbackCatalogXml();
+        if (architecture == WinPeArchitecture.Arm64) catalog = catalog.Replace("<Architecture>x64</Architecture>", "<Architecture>arm64</Architecture>", StringComparison.Ordinal);
+        var handler = new StaticCatalogHandler(catalog, Encoding.UTF8.GetBytes("source")) { FailPayload = true };
+        using var client = new HttpClient(handler);
+        var runner = new FakeWinPeProcessRunner();
+
+        WinPeResult<WinPeBootImagePreparationResult> result = await PrepareAsync(temp.Path, client, runner,
+            options => options with { Artifact = options.Artifact with { Architecture = architecture } });
+
+        Assert.Equal(2, handler.PayloadRequests);
+        Assert.Empty(runner.Executions);
+        Assert.Equal("original", await File.ReadAllTextAsync(BootWim(temp.Path), TestContext.Current.CancellationToken));
+        WinPeDiagnostic? cause;
+        if (architecture == WinPeArchitecture.X64)
+        {
+            Assert.True(result.IsSuccess, result.Error?.Details);
+            Assert.Equal(WinPeBootImageSource.WinPe, result.Value!.BootImageSource);
+            cause = result.Value.FallbackCause;
+        }
+        else
+        {
+            Assert.False(result.IsSuccess);
+            Assert.Contains("ARM64", result.Error?.Message, StringComparison.Ordinal);
+            cause = result.Error;
+        }
+
+        Assert.Equal(WinPeErrorCodes.DownloadFailed, cause?.Code);
+        Assert.Contains("Failed to acquire a verified Windows source package.", cause?.Details, StringComparison.Ordinal);
+    }
+
     [Fact]
     public async Task PrepareAsync_WhenDownloadedSourceFailsHashVerification_ReportsHashMismatchAsCause()
     {
