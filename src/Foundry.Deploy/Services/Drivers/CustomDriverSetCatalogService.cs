@@ -45,17 +45,19 @@ public sealed class CustomDriverSetCatalogService(IVolumeDiscovery? volumes = nu
     {
         ArgumentNullException.ThrowIfNull(settings);
         if (!settings.IsEnabled || string.IsNullOrWhiteSpace(settings.ManifestId) || string.IsNullOrWhiteSpace(settings.ManifestHash))
-            return Finish(UnavailableCatalog);
+            return Unavailable("the section is disabled or not bound to a media manifest");
 
         string[] roots = _volumes.GetVolumes()
             .Where(volume => volume.IsReady && (volume.DriveType == DriveType.CDRom || volume.VolumeLabel == "Foundry Cache"))
             .Select(volume => volume.RootPath)
             .ToArray();
-        ContentPackageMediaReadResult read = await _reader.ReadAsync(roots, settings.ManifestId, settings.ManifestHash, cancellationToken).ConfigureAwait(false);
+        ContentPackageMediaReadResult read;
+        try { read = await _reader.ReadAsync(roots, settings.ManifestId, settings.ManifestHash, cancellationToken).ConfigureAwait(false); }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException) { return Invalid("media manifest could not be read"); }
         switch (read.Status)
         {
             case ContentPackageMediaStatus.NotFound:
-                return Finish(UnavailableCatalog);
+                return Unavailable("no ready volume holds the media manifest");
             case ContentPackageMediaStatus.Found:
                 break;
             default:
@@ -85,6 +87,12 @@ public sealed class CustomDriverSetCatalogService(IVolumeDiscovery? volumes = nu
             });
         }
         return Finish(new(CustomDriverSetCatalogStatus.Available, sets));
+    }
+
+    private CustomDriverSetCatalog Unavailable(string reason)
+    {
+        _logger.LogInformation("Custom driver set discovery finished: status {Status}, 0 sets ({Reason})", CustomDriverSetCatalogStatus.Unavailable, reason);
+        return UnavailableCatalog;
     }
 
     private CustomDriverSetCatalog Invalid(string reason)

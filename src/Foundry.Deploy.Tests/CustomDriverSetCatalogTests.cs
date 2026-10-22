@@ -115,6 +115,60 @@ public sealed class CustomDriverSetCatalogTests : IDisposable
         });
     }
 
+    [Fact]
+    public async Task InvalidWhenTheManifestCannotBeRead()
+    {
+        var (settings, media) = await PublishAsync(1);
+        var service = new CustomDriverSetCatalogService(new Volumes(new VolumeInfo(media, "Foundry Cache", DriveType.Fixed, true, long.MaxValue)));
+        string manifest = Path.Combine(media, "Cache", "DriverPacks", "Custom", "manifests", settings.ManifestId + ".json");
+        using var locked = new FileStream(manifest, FileMode.Open, FileAccess.Read, FileShare.None);
+
+        CustomDriverSetCatalog catalog = await service.DiscoverAsync(settings, Cancellation);
+
+        Assert.Equal(CustomDriverSetCatalogStatus.Invalid, catalog.Status);
+        Assert.Empty(catalog.Sets);
+    }
+
+    [Fact]
+    public async Task SkipsAVolumeWhoseManifestHasTheSameIdButDifferentBytes()
+    {
+        var (settings, media) = await PublishAsync(1);
+        var (_, other) = await PublishAsync(1, "other");
+        string tampered = Path.Combine(other, "Cache", "DriverPacks", "Custom", "manifests", settings.ManifestId + ".json");
+        Directory.CreateDirectory(Path.GetDirectoryName(tampered)!);
+        await File.WriteAllTextAsync(tampered, "{}", Cancellation);
+        var service = new CustomDriverSetCatalogService(new Volumes(
+            new VolumeInfo(other, "Foundry Cache", DriveType.Fixed, true, long.MaxValue),
+            new VolumeInfo(media, "Foundry Cache", DriveType.Fixed, true, long.MaxValue)));
+
+        CustomDriverSetCatalog catalog = await service.DiscoverAsync(settings, Cancellation);
+
+        Assert.Equal(CustomDriverSetCatalogStatus.Available, catalog.Status);
+        Assert.Equal(media, Assert.Single(catalog.Sets).MediaRoot);
+    }
+
+    [Fact]
+    public async Task InvalidWhenTheManifestIdIsNotAGuid()
+    {
+        var (settings, media) = await PublishAsync(1);
+        var service = new CustomDriverSetCatalogService(new Volumes(new VolumeInfo(media, "Foundry Cache", DriveType.Fixed, true, long.MaxValue)));
+
+        CustomDriverSetCatalog catalog = await service.DiscoverAsync(settings with { ManifestId = "not-a-guid" }, Cancellation);
+
+        Assert.Equal(CustomDriverSetCatalogStatus.Invalid, catalog.Status);
+    }
+
+    [Fact]
+    public async Task UnavailableWhenTheOnlyVolumeIsNotReady()
+    {
+        var (settings, media) = await PublishAsync(1);
+        var service = new CustomDriverSetCatalogService(new Volumes(new VolumeInfo(media, "Foundry Cache", DriveType.Fixed, false, long.MaxValue)));
+
+        CustomDriverSetCatalog catalog = await service.DiscoverAsync(settings, Cancellation);
+
+        Assert.Equal(CustomDriverSetCatalogStatus.Unavailable, catalog.Status);
+    }
+
     /// <summary>Imports <paramref name="count"/> sets, publishes them to a media folder and returns the matching Deploy settings.</summary>
     private async Task<(DeployCustomDriversSettings Settings, string Media)> PublishAsync(int count, string name = "main")
     {
