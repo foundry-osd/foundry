@@ -4,8 +4,14 @@
 
 namespace Foundry.Core.Services.WinPe;
 
+/// <summary>
+/// Identifies the image a boot media was actually built from.
+/// </summary>
 public enum WinPeBootImageSource
 {
-    WinPe = 0,
-    WinReWifi = 1
+    /// <summary>The Windows Recovery Environment of the newest supported Windows source; the normal case.</summary>
+    WinRe = 0,
+
+    /// <summary>The ADK Windows PE image, used for x64 only when no WinRE could be obtained; it has no Wi-Fi support.</summary>
+    WinPe = 1
 }

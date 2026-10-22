@@ -32,7 +32,7 @@ public sealed class WinPeDriverResolutionService : IWinPeDriverResolutionService
 
         string normalizedCustomDirectory = request.CustomDriverDirectoryPath?.Trim() ?? string.Empty;
         bool hasCustomDirectory = !string.IsNullOrWhiteSpace(normalizedCustomDirectory);
-        bool includeWifiSupplement = request.BootImageSource == WinPeBootImageSource.WinReWifi;
+        bool includeWifiSupplement = request.IncludeWirelessSupplement;
 
         if (normalizedVendors.Length == 0 && !hasCustomDirectory && !includeWifiSupplement)
         {

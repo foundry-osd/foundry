@@ -22,15 +22,19 @@ public sealed record WinPeBootImagePreparationOptions
     /// </summary>
     public required string WinPeLanguage { get; init; }
     /// <summary>
-    /// Gets the reusable Windows source package cache directory.
+    /// Gets the directory that holds Windows source package downloads until their WinRE is cached; it is emptied after each extraction.
     /// </summary>
     public required string CacheDirectoryPath { get; init; }
-    /// <summary>Gets an optional legacy cache root whose trusted-hash originals can be adopted on demand.</summary>
-    public string? LegacyCacheDirectoryPath { get; init; }
     /// <summary>
-    /// Gets whether source preparation also replaces the boot image with WinRE for Wi-Fi support.
+    /// Gets the directory of extracted WinRE entries, one per architecture and language.
     /// </summary>
-    public WinPeBootImageSource BootImageSource { get; init; } = WinPeBootImageSource.WinReWifi;
+    public required string WinReCacheDirectoryPath { get; init; }
+    /// <summary>Gets an optional obsolete source download directory emptied best-effort after a successful extraction.</summary>
+    public string? LegacySourceDirectoryPath { get; init; }
+    /// <summary>
+    /// Gets whether the wireless dependencies are staged for a media with Wi-Fi support.
+    /// </summary>
+    public bool IncludeWirelessSupport { get; init; }
     /// <summary>
     /// Gets the operating system catalog used to resolve Windows source packages.
     /// </summary>

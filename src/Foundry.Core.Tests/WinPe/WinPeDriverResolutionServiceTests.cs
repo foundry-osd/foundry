@@ -20,7 +20,7 @@ public sealed class WinPeDriverResolutionServiceTests
             {
                 Artifact = new WinPeBuildArtifact(),
                 Architecture = WinPeArchitecture.X64,
-                BootImageSource = WinPeBootImageSource.WinPe,
+                IncludeWirelessSupplement = false,
                 CatalogUri = "catalog.xml",
                 DriverVendors = []
             },
@@ -31,7 +31,7 @@ public sealed class WinPeDriverResolutionServiceTests
     }
 
     [Fact]
-    public async Task ResolveAsync_WhenWinReWifiIsSelected_IncludesIntelWirelessSupplement()
+    public async Task ResolveAsync_WhenWirelessSupplementIsRequested_IncludesIntelWirelessSupplement()
     {
         var catalogEntries = new[]
         {
@@ -67,7 +67,7 @@ public sealed class WinPeDriverResolutionServiceTests
                     DriverWorkspacePath = "drivers"
                 },
                 Architecture = WinPeArchitecture.X64,
-                BootImageSource = WinPeBootImageSource.WinReWifi,
+                IncludeWirelessSupplement = true,
                 CatalogUri = "catalog.xml",
                 DriverVendors = []
             },
@@ -119,7 +119,7 @@ public sealed class WinPeDriverResolutionServiceTests
                         DriverWorkspacePath = "drivers"
                     },
                     Architecture = WinPeArchitecture.X64,
-                    BootImageSource = WinPeBootImageSource.WinPe,
+                    IncludeWirelessSupplement = false,
                     CatalogUri = "catalog.xml",
                     DriverVendors = [WinPeVendorSelection.Dell],
                     CustomDriverDirectoryPath = customDirectory

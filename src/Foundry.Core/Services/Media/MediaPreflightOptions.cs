@@ -125,9 +125,14 @@ public sealed record MediaPreflightOptions
     public IReadOnlyList<string> AvailableKeyboardLayoutIds { get; init; } = [];
 
     /// <summary>
-    /// Gets the selected boot image source.
+    /// Gets whether the media adds Wi-Fi support to its WinRE boot image.
     /// </summary>
-    public WinPeBootImageSource BootImageSource { get; init; } = WinPeBootImageSource.WinPe;
+    public bool IncludeWirelessSupport { get; init; }
+
+    /// <summary>
+    /// Gets the image the boot media was built from, reported by telemetry; it becomes <see cref="WinPeBootImageSource.WinPe"/> only after an x64 fallback.
+    /// </summary>
+    public WinPeBootImageSource BootImageSource { get; init; } = WinPeBootImageSource.WinRe;
 
     /// <summary>
     /// Gets selected vendor driver packs for WinPE media.

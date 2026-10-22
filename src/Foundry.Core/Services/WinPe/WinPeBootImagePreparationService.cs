@@ -14,11 +14,13 @@ using Foundry.Utilities.IO;
 using Foundry.Utilities.Imaging;
 using Foundry.Utilities.Networking;
 using Foundry.Utilities.Progress;
+using Serilog;
 
 namespace Foundry.Core.Services.WinPe;
 
 /// <summary>
-/// Stages boot dependencies from one Windows source mount and optionally replaces the boot image with WinRE.
+/// Replaces the boot image with a verified WinRE taken from the cache or from the newest Windows source package, and
+/// stages the System32 dependencies the media needs; x64 falls back to the ADK Windows PE image when no WinRE is available.
 /// </summary>
 public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparationService
 {
@@ -32,6 +34,8 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
     {
         Status = WinPeProgressStatuses.DownloadingWindowsSourcePackage
     };
+
+    private const string WinReFileName = "winre.wim";
 
     private static readonly int[] SupportedWinReBuildMajors = [26100, 26200, 26300];
 
@@ -83,44 +87,152 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
             return WinPeResult<WinPeBootImagePreparationResult>.Failure(validationError);
         }
 
+        WinPeArchitecture architecture = options.Artifact.Architecture;
+        var cache = new WinReCache(options.WinReCacheDirectoryPath);
+        await using IAsyncDisposable cacheLock = await cache.AcquireLockAsync(architecture, options.WinPeLanguage, cancellationToken).ConfigureAwait(false);
+
         ReportProgress(options.Progress, 2, WinPeProgressStatuses.ResolvingWindowsSourceCatalog);
         WinPeResult<IReadOnlyList<WindowsSourceCandidate>> candidatesResult = await SelectCatalogCandidatesAsync(
             options.CatalogUri,
-            options.Artifact.Architecture,
+            architecture,
             options.WinPeLanguage,
             cancellationToken).ConfigureAwait(false);
 
-        if (!candidatesResult.IsSuccess)
+        WinPeDiagnostic cause;
+        if (candidatesResult.IsSuccess)
         {
-            return WinPeResult<WinPeBootImagePreparationResult>.Failure(candidatesResult.Error!);
-        }
-
-        ReportProgress(options.Progress, 4, WinPeProgressStatuses.SelectedWindowsSourcePackage);
-        var failures = new List<WinPeDiagnostic>();
-        foreach (WindowsSourceCandidate candidate in candidatesResult.Value!)
-        {
-            WinPeResult<WinPeBootImagePreparationResult> result = await TryPrepareFromSourceAsync(
-                options,
-                candidate,
-                cancellationToken).ConfigureAwait(false);
-
-            // Preserve a completed servicing failure when cancellation prevents trying another source.
-            if (result.IsSuccess || cancellationToken.IsCancellationRequested ||
-                result.Error?.MountCleanupStatus is WinPeMountCleanupStatus.Failed or WinPeMountCleanupStatus.ExitUnconfirmed ||
-                result.Error?.Code == WinPeErrorCodes.WimUnmountFailed && result.Error?.MountCleanupStatus != WinPeMountCleanupStatus.Completed)
+            ReportProgress(options.Progress, 4, WinPeProgressStatuses.SelectedWindowsSourcePackage);
+            foreach (WindowsSourceCandidate candidate in candidatesResult.Value!)
             {
-                return result;
+                if (string.IsNullOrWhiteSpace(candidate.Source.Sha256)) continue;
+                WinReCacheEntry? current = await cache.FindValidAsync(architecture, options.WinPeLanguage, candidate.Source.Sha256, cancellationToken).ConfigureAwait(false);
+                if (current is not null)
+                {
+                    return UseCachedWinRe(options, current, cacheHit: true);
+                }
             }
 
-            failures.Add(result.Error!);
+            var failures = new List<WinPeDiagnostic>();
+            foreach (WindowsSourceCandidate candidate in candidatesResult.Value!)
+            {
+                WinPeResult<WinReCacheEntry> result = await TryExtractWinReAsync(options, candidate, cache, cancellationToken).ConfigureAwait(false);
+                if (result.IsSuccess)
+                {
+                    DeleteSourceDownloads(options);
+                    return UseCachedWinRe(options, result.Value!, cacheHit: false);
+                }
+
+                // Preserve a completed servicing failure when cancellation or an unsafe mount state forbids any fallback.
+                if (cancellationToken.IsCancellationRequested ||
+                    result.Error?.MountCleanupStatus is WinPeMountCleanupStatus.Failed or WinPeMountCleanupStatus.ExitUnconfirmed ||
+                    result.Error?.Code == WinPeErrorCodes.WimUnmountFailed && result.Error?.MountCleanupStatus != WinPeMountCleanupStatus.Completed)
+                {
+                    return WinPeResult<WinPeBootImagePreparationResult>.Failure(result.Error!);
+                }
+
+                failures.Add(result.Error!);
+            }
+
+            cause = failures[^1] with
+            {
+                Message = "Failed to extract WinRE from every matching operating system source.",
+                Details = string.Join(Environment.NewLine + Environment.NewLine,
+                    failures.Select(failure => string.Join(Environment.NewLine, failure.Message, failure.Details)))
+            };
+        }
+        else
+        {
+            cause = candidatesResult.Error!;
         }
 
-        return WinPeResult<WinPeBootImagePreparationResult>.Failure(failures[^1] with
+        cancellationToken.ThrowIfCancellationRequested();
+        WinReCacheEntry? previous = await cache.FindValidAsync(architecture, options.WinPeLanguage, null, cancellationToken).ConfigureAwait(false);
+        if (previous is not null)
         {
-            Message = "Failed to prepare boot image dependencies from every matching operating system source.",
-            Details = string.Join(Environment.NewLine + Environment.NewLine,
-                failures.Select(failure => string.Join(Environment.NewLine, failure.Message, failure.Details)))
+            Log.ForContext<WinPeBootImagePreparationService>().Warning(
+                "Using a previously cached WinRE because the newest one could not be obtained. Architecture={Architecture}, Language={Language}, Build={BuildMajor}.{BuildUbr}, FailureCode={FailureCode}, FailureMessage={FailureMessage}",
+                architecture, options.WinPeLanguage, previous.Manifest.BuildMajor, previous.Manifest.BuildUbr, cause.Code, cause.Message);
+            return UseCachedWinRe(options, previous, cacheHit: true);
+        }
+
+        if (architecture == WinPeArchitecture.X64)
+        {
+            Log.ForContext<WinPeBootImagePreparationService>().Warning(
+                "No WinRE could be obtained; the boot image falls back to the ADK Windows PE image without Wi-Fi support. Architecture={Architecture}, Language={Language}, FailureCode={FailureCode}, FailureMessage={FailureMessage}",
+                architecture, options.WinPeLanguage, cause.Code, cause.Message);
+            return WinPeResult<WinPeBootImagePreparationResult>.Success(new WinPeBootImagePreparationResult
+            {
+                BootImageSource = WinPeBootImageSource.WinPe,
+                FallbackCause = cause,
+                DependencyFiles = []
+            });
+        }
+
+        return WinPeResult<WinPeBootImagePreparationResult>.Failure(cause with
+        {
+            Message = "ARM64 boot media requires the Windows Recovery Environment, but no verified WinRE could be obtained from the cache or a Windows source package.",
+            Details = string.Join(Environment.NewLine, cause.Message, cause.Details).Trim()
         });
+    }
+
+    /// <summary>
+    /// Replaces boot.wim with the cached WinRE and stages the dependencies this media needs outside the cache.
+    /// </summary>
+    private static WinPeResult<WinPeBootImagePreparationResult> UseCachedWinRe(
+        WinPeBootImagePreparationOptions options,
+        WinReCacheEntry entry,
+        bool cacheHit)
+    {
+        try
+        {
+            ReportProgress(options.Progress, 29, WinPeProgressStatuses.ReplacingBootImageWithWinRe);
+            Directory.CreateDirectory(Path.GetDirectoryName(options.Artifact.BootWimPath)!);
+            File.Copy(entry.GetFilePath(WinReFileName), options.Artifact.BootWimPath, overwrite: true);
+
+            string dependencyDirectory = Path.Combine(options.Artifact.WorkingDirectoryPath, "boot-dependencies");
+            Directory.CreateDirectory(dependencyDirectory);
+            var dependencyFiles = new List<WinPeDependencyFile>();
+            IEnumerable<string> wirelessFiles = options.IncludeWirelessSupport ? RequiredWirelessDependencyFiles : [];
+            IEnumerable<string> graphicsFiles = options.Artifact.Architecture == WinPeArchitecture.Arm64 ? RequiredArm64GraphicsDependencyFiles : [];
+            foreach ((string fileName, bool overwrite) in wirelessFiles.Select(name => (name, true)).Concat(graphicsFiles.Select(name => (name, false))))
+            {
+                string stagedPath = Path.Combine(dependencyDirectory, fileName);
+                File.Copy(entry.GetFilePath(fileName), stagedPath, overwrite: true);
+                dependencyFiles.Add(new WinPeDependencyFile { FileName = fileName, StagedPath = stagedPath, OverwriteExisting = overwrite });
+            }
+
+            Log.ForContext<WinPeBootImagePreparationService>().Information(
+                "Boot image prepared from WinRE. Architecture={Architecture}, Language={Language}, Build={BuildMajor}.{BuildUbr}, Edition={Edition}, CacheHit={CacheHit}, IncludeWirelessSupport={IncludeWirelessSupport}",
+                entry.Manifest.Architecture, entry.Manifest.Language, entry.Manifest.BuildMajor, entry.Manifest.BuildUbr,
+                entry.Manifest.Edition, cacheHit, options.IncludeWirelessSupport);
+            ReportProgress(options.Progress, 30, WinPeProgressStatuses.BootImageDependenciesReady);
+            return WinPeResult<WinPeBootImagePreparationResult>.Success(new WinPeBootImagePreparationResult
+            {
+                BootImageSource = WinPeBootImageSource.WinRe,
+                DependencyFiles = dependencyFiles
+            });
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            return WinPeResult<WinPeBootImagePreparationResult>.Failure(new WinPeDiagnostic(
+                WinPeErrorCodes.WinReExtractionFailed,
+                "Failed to copy the cached WinRE into the boot media workspace.",
+                ex.Message,
+                exception: ex));
+        }
+    }
+
+    /// <summary>
+    /// Removes Windows source downloads once their WinRE is cached; packages leased by another process stay until a later build.
+    /// </summary>
+    private static void DeleteSourceDownloads(WinPeBootImagePreparationOptions options)
+    {
+        foreach (string path in new[] { options.CacheDirectoryPath, options.LegacySourceDirectoryPath }.OfType<string>())
+        {
+            if (!Directory.Exists(path)) continue;
+            foreach (string directory in Directory.EnumerateDirectories(path)) TryDeleteDirectory(directory);
+            foreach (string file in Directory.EnumerateFiles(path)) TryDeleteFile(file);
+        }
     }
 
     /// <summary>
@@ -207,34 +319,6 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
         }
     }
 
-    internal static async Task<WinPeResult> ValidateHashIfRequestedAsync(
-        string filePath,
-        string? expectedHash,
-        CancellationToken cancellationToken)
-    {
-        if (string.IsNullOrWhiteSpace(expectedHash))
-        {
-            return WinPeResult.Success();
-        }
-
-        string normalizedExpectedHash = expectedHash.Trim().Replace("-", string.Empty, StringComparison.OrdinalIgnoreCase);
-        if (normalizedExpectedHash.Length != 64 || !normalizedExpectedHash.All(Uri.IsHexDigit))
-        {
-            return WinPeResult.Failure(WinPeErrorCodes.HashMismatch, "The source SHA-256 is malformed.");
-        }
-
-        string actualHash = await FileHash.ComputeSha256Async(filePath, cancellationToken).ConfigureAwait(false);
-        if (normalizedExpectedHash.Equals(actualHash, StringComparison.OrdinalIgnoreCase))
-        {
-            return WinPeResult.Success();
-        }
-
-        return WinPeResult.Failure(
-            WinPeErrorCodes.HashMismatch,
-            "The cached Windows source package failed hash validation.",
-            $"Expected SHA256={normalizedExpectedHash}; Actual SHA256={actualHash}.");
-    }
-
     /// <summary>Resolves one exact canonical edition from native metadata, independently of localized image names.</summary>
     internal static WinPeResult<int> ResolveImageIndexFromMetadata(IReadOnlyList<WindowsImageMetadata> images, string requestedEdition)
     {
@@ -262,35 +346,25 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
     }
 
     /// <summary>
-    /// Stages all required dependencies before source discard; graphics binaries must be ARM64 and preserve existing boot files.
+    /// Copies the System32 dependencies cached with WinRE before the source mount is discarded: the wireless files for
+    /// every architecture, so one entry serves media with and without Wi-Fi, and the ARM64 graphics files, which must be ARM64 images.
     /// </summary>
-    internal static WinPeResult<WinPeBootImagePreparationResult> PrepareDependencyFiles(
+    internal static WinPeResult PrepareDependencyFiles(
         string mountedImagePath,
-        string dependencyDirectoryPath,
-        WinPeArchitecture architecture,
-        WinPeBootImageSource bootImageSource)
+        string destinationDirectoryPath,
+        WinPeArchitecture architecture)
     {
         string sourceSystem32Path = Path.Combine(mountedImagePath, "Windows", "System32");
 
         try
         {
-            Directory.CreateDirectory(dependencyDirectoryPath);
-
-            IEnumerable<string> requiredFiles = bootImageSource == WinPeBootImageSource.WinReWifi
-                ? RequiredWirelessDependencyFiles
-                : [];
-            if (architecture == WinPeArchitecture.Arm64)
-            {
-                requiredFiles = requiredFiles.Concat(RequiredArm64GraphicsDependencyFiles);
-            }
-
-            var dependencyFiles = new List<WinPeDependencyFile>();
-            foreach (string fileName in requiredFiles)
+            Directory.CreateDirectory(destinationDirectoryPath);
+            foreach (string fileName in GetDependencyFileNames(architecture))
             {
                 string sourcePath = Path.Combine(sourceSystem32Path, fileName);
                 if (!File.Exists(sourcePath))
                 {
-                    return WinPeResult<WinPeBootImagePreparationResult>.Failure(
+                    return WinPeResult.Failure(
                         WinPeErrorCodes.WinReExtractionFailed,
                         $"The selected operating system image is missing the required boot dependency '{fileName}'.",
                         $"Expected path: '{sourcePath}'.");
@@ -299,36 +373,31 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                 bool isGraphicsDependency = RequiredArm64GraphicsDependencyFiles.Contains(fileName, StringComparer.OrdinalIgnoreCase);
                 if (isGraphicsDependency && !IsArm64Image(sourcePath))
                 {
-                    return WinPeResult<WinPeBootImagePreparationResult>.Failure(
+                    return WinPeResult.Failure(
                         WinPeErrorCodes.WinReExtractionFailed,
                         $"The required graphics dependency '{fileName}' is not a valid ARM64 image.",
                         $"Source path: '{sourcePath}'.");
                 }
 
-                string stagedPath = Path.Combine(dependencyDirectoryPath, fileName);
-                File.Copy(sourcePath, stagedPath, overwrite: true);
-                dependencyFiles.Add(new WinPeDependencyFile
-                {
-                    FileName = fileName,
-                    StagedPath = stagedPath,
-                    OverwriteExisting = !isGraphicsDependency
-                });
+                File.Copy(sourcePath, Path.Combine(destinationDirectoryPath, fileName), overwrite: true);
             }
 
-            return WinPeResult<WinPeBootImagePreparationResult>.Success(new WinPeBootImagePreparationResult
-            {
-                DependencyFiles = dependencyFiles
-            });
+            return WinPeResult.Success();
         }
         catch (Exception ex)
         {
-            return WinPeResult<WinPeBootImagePreparationResult>.Failure(new WinPeDiagnostic(
+            return WinPeResult.Failure(new WinPeDiagnostic(
                 WinPeErrorCodes.WinReExtractionFailed,
                 "Failed to stage required boot dependency files from the mounted operating system image.",
                 ex.Message,
                 exception: ex));
         }
     }
+
+    private static IEnumerable<string> GetDependencyFileNames(WinPeArchitecture architecture) =>
+        architecture == WinPeArchitecture.Arm64
+            ? RequiredWirelessDependencyFiles.Concat(RequiredArm64GraphicsDependencyFiles)
+            : RequiredWirelessDependencyFiles;
 
     private static bool IsArm64Image(string path)
     {
@@ -369,20 +438,25 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
         }
     }
 
-    private async Task<WinPeResult<WinPeBootImagePreparationResult>> TryPrepareFromSourceAsync(
+    /// <summary>
+    /// Downloads one source package, copies its WinRE and the dependencies of this architecture into a pending cache
+    /// folder, discards the source mount and publishes the cache entry.
+    /// </summary>
+    private async Task<WinPeResult<WinReCacheEntry>> TryExtractWinReAsync(
         WinPeBootImagePreparationOptions options,
         WindowsSourceCandidate candidate,
+        WinReCache cache,
         CancellationToken cancellationToken)
     {
         string candidateName = PathSegment.Sanitize(candidate.RequestedEdition);
         string sourceDirectory = Path.Combine(options.Artifact.WorkingDirectoryPath, $"windows-source-{candidateName}");
         string exportDirectory = Path.Combine(sourceDirectory, "export");
         string mountDirectory = Path.Combine(sourceDirectory, "install-mount");
-        string dependencyDirectory = Path.Combine(sourceDirectory, "boot-dependencies");
         string installWimPath = Path.Combine(exportDirectory, "install.wim");
 
         WinPeMountSession? session = null;
-        WinPeResult<WinPeBootImagePreparationResult> result;
+        string? pendingDirectory = null;
+        WinPeResult<WinReCacheEntry> result;
         ExceptionDispatchInfo? cancellationFailure = null;
         try
         {
@@ -391,7 +465,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
         catch (OperationCanceledException exception) when (session is not null)
         {
             cancellationFailure = ExceptionDispatchInfo.Capture(exception);
-            result = WinPeResult<WinPeBootImagePreparationResult>.Failure(new WinPeDiagnostic(
+            result = WinPeResult<WinReCacheEntry>.Failure(new WinPeDiagnostic(
                 WinPeErrorCodes.OperationCancelled,
                 "Boot image preparation was cancelled.",
                 exception.Message,
@@ -402,6 +476,11 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
             if (session is not null)
             {
                 await session.DisposeAsync().ConfigureAwait(false);
+            }
+
+            if (pendingDirectory is not null)
+            {
+                TryDeleteDirectory(pendingDirectory);
             }
         }
 
@@ -429,17 +508,17 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
             };
         }
 
-        return WinPeResult<WinPeBootImagePreparationResult>.Failure(diagnostic with
+        return WinPeResult<WinReCacheEntry>.Failure(diagnostic with
         {
             MountCleanupStatus = session.CleanupStatus
         });
 
-        async Task<WinPeResult<WinPeBootImagePreparationResult>> PrepareCandidateAsync()
+        async Task<WinPeResult<WinReCacheEntry>> PrepareCandidateAsync()
         {
             try
             {
                 WinPeResult cleanup = _workspaceCleanup.Delete(sourceDirectory);
-                if (!cleanup.IsSuccess) return WinPeResult<WinPeBootImagePreparationResult>.Failure(cleanup.Error!);
+                if (!cleanup.IsSuccess) return WinPeResult<WinReCacheEntry>.Failure(cleanup.Error!);
                 Directory.CreateDirectory(sourceDirectory);
                 Directory.CreateDirectory(exportDirectory);
                 ReportProgress(options.Progress, 5, WinPeProgressStatuses.PreparingWindowsSourcePackage);
@@ -448,11 +527,11 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                     options.CacheDirectoryPath,
                     candidate.Source,
                     options.DownloadProgress,
-                    cancellationToken, options.LegacyCacheDirectoryPath).ConfigureAwait(false);
+                    cancellationToken).ConfigureAwait(false);
 
                 if (!sourcePathResult.IsSuccess)
                 {
-                    return WinPeResult<WinPeBootImagePreparationResult>.Failure(sourcePathResult.Error!);
+                    return WinPeResult<WinReCacheEntry>.Failure(sourcePathResult.Error!);
                 }
 
                 await using CachedArtifactLease sourceLease = sourcePathResult.Value!;
@@ -464,7 +543,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
 
                 if (!indexResult.IsSuccess)
                 {
-                    return WinPeResult<WinPeBootImagePreparationResult>.Failure(indexResult.Error!);
+                    return WinPeResult<WinReCacheEntry>.Failure(indexResult.Error!);
                 }
 
                 ReportProgress(options.Progress, 19, WinPeProgressStatuses.ExportingWindowsSourceImage);
@@ -480,7 +559,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
 
                 if (!exportResult.IsSuccess)
                 {
-                    return WinPeResult<WinPeBootImagePreparationResult>.Failure(exportResult.ToFailureDiagnostic(
+                    return WinPeResult<WinReCacheEntry>.Failure(exportResult.ToFailureDiagnostic(
                         WinPeErrorCodes.WinReExtractionFailed,
                         $"Failed to export the {candidate.RequestedEdition} image from the Windows source package.",
                         stage: "Export Windows source image",
@@ -490,7 +569,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
 
                 if (!File.Exists(installWimPath))
                 {
-                    return WinPeResult<WinPeBootImagePreparationResult>.Failure(new WinPeDiagnostic(
+                    return WinPeResult<WinReCacheEntry>.Failure(new WinPeDiagnostic(
                         WinPeErrorCodes.WinReExtractionFailed,
                         "DISM completed without producing the exported Windows image.",
                         exportResult.ToDiagnosticText(),
@@ -514,15 +593,15 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
 
                 if (!mountResult.IsSuccess)
                 {
-                    return WinPeResult<WinPeBootImagePreparationResult>.Failure(mountResult.Error!);
+                    return WinPeResult<WinReCacheEntry>.Failure(mountResult.Error!);
                 }
 
                 session = mountResult.Value!;
                 cancellationToken.ThrowIfCancellationRequested();
-                string winRePath = Path.Combine(mountDirectory, "Windows", "System32", "Recovery", "winre.wim");
-                if (options.BootImageSource == WinPeBootImageSource.WinReWifi && !File.Exists(winRePath))
+                string winRePath = Path.Combine(mountDirectory, "Windows", "System32", "Recovery", WinReFileName);
+                if (!File.Exists(winRePath))
                 {
-                    return await FailWithDiscardAsync(
+                    return await FailWithDiscardAsync<WinReCacheEntry>(
                         new WinPeDiagnostic(
                             WinPeErrorCodes.WinReExtractionFailed,
                             "The selected operating system image does not contain winre.wim.",
@@ -531,52 +610,54 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                 }
 
                 ReportProgress(options.Progress, 27, WinPeProgressStatuses.StagingBootImageDependencies);
-                WinPeResult<WinPeBootImagePreparationResult> dependencyResult = PrepareDependencyFiles(
-                    mountDirectory,
-                    dependencyDirectory,
-                    options.Artifact.Architecture,
-                    options.BootImageSource);
-
+                pendingDirectory = cache.CreatePendingDirectory();
+                WinPeResult dependencyResult = PrepareDependencyFiles(mountDirectory, pendingDirectory, options.Artifact.Architecture);
                 if (!dependencyResult.IsSuccess)
                 {
-                    return await FailWithDiscardAsync(dependencyResult.Error!, session).ConfigureAwait(false);
+                    return await FailWithDiscardAsync<WinReCacheEntry>(dependencyResult.Error!, session).ConfigureAwait(false);
                 }
 
-                if (options.BootImageSource == WinPeBootImageSource.WinReWifi)
-                {
-                    ReportProgress(options.Progress, 29, WinPeProgressStatuses.ReplacingBootImageWithWinRe);
-                    Directory.CreateDirectory(Path.GetDirectoryName(options.Artifact.BootWimPath)!);
-                    File.Copy(winRePath, options.Artifact.BootWimPath, overwrite: true);
-                }
-
+                File.Copy(winRePath, Path.Combine(pendingDirectory, WinReFileName));
                 WinPeResult discardResult = await session.DiscardAsync().ConfigureAwait(false);
                 if (!discardResult.IsSuccess)
                 {
-                    return WinPeResult<WinPeBootImagePreparationResult>.Failure(discardResult.Error!);
+                    return WinPeResult<WinReCacheEntry>.Failure(discardResult.Error!);
                 }
                 cancellationToken.ThrowIfCancellationRequested();
 
-                TryDeleteDirectory(exportDirectory);
-                TryDeleteDirectory(mountDirectory);
-                ReportProgress(options.Progress, 30, WinPeProgressStatuses.BootImageDependenciesReady);
-                return dependencyResult;
+                WinReCacheEntry entry = await cache.PublishAsync(
+                    pendingDirectory,
+                    new WinReCacheSource(
+                        options.Artifact.Architecture,
+                        options.WinPeLanguage,
+                        candidate.Source.BuildMajor,
+                        candidate.Source.BuildUbr,
+                        candidate.RequestedEdition,
+                        candidate.Source.FileName,
+                        candidate.Source.Sha256),
+                    [WinReFileName, .. GetDependencyFileNames(options.Artifact.Architecture)],
+                    cancellationToken).ConfigureAwait(false);
+                pendingDirectory = null;
+
+                TryDeleteDirectory(sourceDirectory);
+                return WinPeResult<WinReCacheEntry>.Success(entry);
             }
             catch (Exception ex) when (ex is not OperationCanceledException)
             {
                 if (session is not null)
                 {
-                    return await FailWithDiscardAsync(
+                    return await FailWithDiscardAsync<WinReCacheEntry>(
                         new WinPeDiagnostic(
                             WinPeErrorCodes.WinReExtractionFailed,
-                            "Failed to prepare boot image dependencies from the Windows source image.",
+                            "Failed to extract WinRE from the Windows source image.",
                             ex.Message,
                             exception: ex),
                         session).ConfigureAwait(false);
                 }
 
-                return WinPeResult<WinPeBootImagePreparationResult>.Failure(new WinPeDiagnostic(
+                return WinPeResult<WinReCacheEntry>.Failure(new WinPeDiagnostic(
                     WinPeErrorCodes.WinReExtractionFailed,
-                    "Failed to prepare boot image dependencies from the Windows source image.",
+                    "Failed to extract WinRE from the Windows source image.",
                     ex.Message,
                     exception: ex));
             }
@@ -587,11 +668,9 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
         string cacheDirectoryPath,
         WindowsSourceCatalogItem source,
         IProgress<WinPeDownloadProgress>? progress,
-        CancellationToken cancellationToken,
-        string? legacyCacheDirectoryPath)
+        CancellationToken cancellationToken)
     {
         string fileName = Path.GetFileName(BuildCachedSourcePath(cacheDirectoryPath, source));
-        string? adoptedPath = null;
         if (!Uri.TryCreate(WindowsUpdateContentUrl.Normalize(source.Url), UriKind.Absolute, out Uri? sourceUri))
             return WinPeResult<CachedArtifactLease>.Failure(WinPeErrorCodes.DownloadFailed,
                 "The Windows source package URL is invalid.", source.Url);
@@ -601,21 +680,6 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                 fileName, source.Sha256, null, AllowCompletedTransferReuse: source.BuildMajor > 0 && !string.IsNullOrWhiteSpace(source.ReleaseId));
             CachedArtifactLease lease = await new AuthoringArtifactCache(cacheDirectoryPath).AcquireAsync(request, async (path, token) =>
             {
-                // Legacy bytes are adopted only against the selected catalog digest. Never bless
-                // an old hashless file merely because it is present or has a plausible size.
-                if (!string.IsNullOrWhiteSpace(source.Sha256))
-                {
-                    foreach (string legacyRoot in new[] { legacyCacheDirectoryPath, cacheDirectoryPath }.OfType<string>().Distinct(StringComparer.OrdinalIgnoreCase))
-                    {
-                        string candidate = BuildCachedSourcePath(legacyRoot, source);
-                        if (File.Exists(candidate) && (await ValidateHashIfRequestedAsync(candidate, source.Sha256, token).ConfigureAwait(false)).IsSuccess)
-                        {
-                            File.Copy(candidate, path, overwrite: false);
-                            adoptedPath = candidate;
-                            return;
-                        }
-                    }
-                }
                 WinPeDownloadReporting.Report(progress, WindowsSourceDownload, 0);
                 await HttpTransfer.RunAsync(async (transferToken, reportProgress) =>
                 {
@@ -629,12 +693,9 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                     return true;
                 }, token).ConfigureAwait(false);
             }, cancellationToken, new CacheVerificationProgress(progress, fileName)).ConfigureAwait(false);
-            // Publication has succeeded and the lease protects the new original. A legacy file
-            // still held by an older process is left in place by best-effort deletion.
-            if (adoptedPath is not null) TryDeleteFile(adoptedPath);
             WinPeDownloadReporting.Report(progress, new WinPeDownloadProgress
             {
-                Status = lease.CacheHit || adoptedPath is not null
+                Status = lease.CacheHit
                     ? WinPeProgressStatuses.ReusingWindowsSourcePackage
                     : WinPeProgressStatuses.WindowsSourcePackageReady
             }, 100);
@@ -706,6 +767,13 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                 "Windows source cache directory path is required.");
         }
 
+        if (string.IsNullOrWhiteSpace(options.WinReCacheDirectoryPath))
+        {
+            return new WinPeDiagnostic(
+                WinPeErrorCodes.ValidationFailed,
+                "WinRE cache directory path is required.");
+        }
+
         return null;
     }
 
@@ -720,14 +788,14 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
             PathSegment.Sanitize(fileName));
     }
 
-    private static async Task<WinPeResult<WinPeBootImagePreparationResult>> FailWithDiscardAsync(
+    private static async Task<WinPeResult<T>> FailWithDiscardAsync<T>(
         WinPeDiagnostic primaryDiagnostic,
         WinPeMountSession session)
     {
         WinPeResult discardResult = await session.DiscardAsync().ConfigureAwait(false);
         if (discardResult.IsSuccess)
         {
-            return WinPeResult<WinPeBootImagePreparationResult>.Failure(primaryDiagnostic);
+            return WinPeResult<T>.Failure(primaryDiagnostic);
         }
 
         string details = string.Join(
@@ -736,7 +804,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
             "Discard diagnostics:",
             discardResult.Error?.Details ?? string.Empty).Trim();
 
-        return WinPeResult<WinPeBootImagePreparationResult>.Failure(primaryDiagnostic with { Details = details });
+        return WinPeResult<T>.Failure(primaryDiagnostic with { Details = details });
     }
 
     private static WindowsSourceCatalogItem ParseCatalogItem(XElement item)

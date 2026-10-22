@@ -344,7 +344,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             WinPeLanguage = "en-US",
             UsbPartitionStyle = UsbPartitionStyle.Gpt,
             UsbFormatMode = UsbFormatMode.Quick,
-            BootImageSource = WinPeBootImageSource.WinReWifi,
+            BootImageSource = WinPeBootImageSource.WinRe,
             SignatureMode = WinPeSignatureMode.Pca2023,
             DriverVendors = [WinPeVendorSelection.Dell],
             CustomDriverDirectoryPath = @"C:\Drivers",
@@ -471,7 +471,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.Equal("Customize boot image", result["boot_media_creation_failed_step_name"]);
         Assert.Equal("arm64", result["boot_media_architecture"]);
         Assert.Equal("en-us", result["boot_media_winpe_language"]);
-        Assert.Equal("winrewifi", result["boot_media_boot_image_source"]);
+        Assert.Equal("winre", result["boot_media_boot_image_source"]);
         Assert.Equal("pca2023", result["boot_media_signature_mode"]);
         Assert.Equal("gpt", result["boot_media_usb_partition_style"]);
         Assert.Equal("quick", result["boot_media_usb_format_mode"]);

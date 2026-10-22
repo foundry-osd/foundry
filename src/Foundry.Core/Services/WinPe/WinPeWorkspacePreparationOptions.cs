@@ -30,9 +30,9 @@ public sealed record WinPeWorkspacePreparationOptions
     public WinPeSignatureMode SignatureMode { get; init; } = WinPeSignatureMode.Pca2011;
 
     /// <summary>
-    /// Gets the boot image source to prepare.
+    /// Gets whether the media adds Wi-Fi support: wireless dependencies and the Intel wireless driver supplement.
     /// </summary>
-    public WinPeBootImageSource BootImageSource { get; init; } = WinPeBootImageSource.WinPe;
+    public bool IncludeWirelessSupport { get; init; }
 
     /// <summary>
     /// Gets the driver catalog URI.
@@ -70,14 +70,20 @@ public sealed record WinPeWorkspacePreparationOptions
     public WinPeRuntimePayloadProvisioningOptions? RuntimePayloadProvisioning { get; init; }
 
     /// <summary>
-    /// Gets the Windows source cache shared by Wi-Fi and ARM64 boot image preparation.
+    /// Gets the directory that holds Windows source package downloads until their WinRE is cached.
     /// </summary>
-    public string WinReCacheDirectoryPath { get; init; } = string.Empty;
-    /// <summary>Gets the legacy Windows source cache used for verified on-demand migration.</summary>
-    public string? LegacyWinReCacheDirectoryPath { get; init; }
+    public string WindowsSourceCacheDirectoryPath { get; init; } = string.Empty;
 
     /// <summary>
-    /// Gets the optional catalog URI used to resolve Windows sources for Wi-Fi and ARM64 dependencies.
+    /// Gets the directory of extracted WinRE entries reused across builds.
+    /// </summary>
+    public string WinReCacheDirectoryPath { get; init; } = string.Empty;
+
+    /// <summary>Gets an obsolete source download directory emptied after a successful WinRE extraction.</summary>
+    public string? LegacyWindowsSourceDirectoryPath { get; init; }
+
+    /// <summary>
+    /// Gets the optional operating system catalog URI used to resolve the WinRE source.
     /// </summary>
     public Uri? WinReCatalogUri { get; init; }
 

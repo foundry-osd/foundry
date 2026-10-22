@@ -22,9 +22,9 @@ public sealed record WinPeMountedImageCustomizationOptions
     public WinPeToolPaths? Tools { get; init; }
 
     /// <summary>
-    /// Gets whether customization targets WinPE boot.wim or a prepared WinRE image.
+    /// Gets the prepared boot image: its source decides the WinRE startup fixes, and its staged files are added to System32.
     /// </summary>
-    public WinPeBootImageSource BootImageSource { get; init; } = WinPeBootImageSource.WinPe;
+    public WinPeBootImagePreparationResult? BootImagePreparation { get; init; }
 
     /// <summary>
     /// Gets the WinPE language pack to apply.
@@ -50,18 +50,6 @@ public sealed record WinPeMountedImageCustomizationOptions
     /// Gets optional runtime payload provisioning settings for Foundry.Connect and Foundry.Deploy.
     /// </summary>
     public WinPeRuntimePayloadProvisioningOptions? RuntimePayloadProvisioning { get; init; }
-
-    /// <summary>
-    /// Gets the Windows source cache shared by Wi-Fi and ARM64 boot image preparation.
-    /// </summary>
-    public string WinReCacheDirectoryPath { get; init; } = string.Empty;
-    /// <summary>Gets the legacy Windows source cache used for verified on-demand migration.</summary>
-    public string? LegacyWinReCacheDirectoryPath { get; init; }
-
-    /// <summary>
-    /// Gets the optional Windows source catalog URI for Wi-Fi and ARM64 dependencies.
-    /// </summary>
-    public Uri? WinReCatalogUri { get; init; }
 
     /// <summary>
     /// Gets download progress callbacks for Windows source and driver artifacts.
