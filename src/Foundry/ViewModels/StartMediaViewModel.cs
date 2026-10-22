@@ -1549,8 +1549,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             if (preparedBootImageSource == WinPeBootImageSource.WinPe)
             {
                 WinPeDiagnostic? cause = preparationResult.Value.BootImageFallbackCause;
-                logger.Warning(
-                    "Boot media uses the ADK Windows PE image because no WinRE could be obtained; Wi-Fi is not available on it. FailureCode={FailureCode}, FailureMessage={FailureMessage}",
+                logger.Debug(
+                    "Boot media continues with the ADK Windows PE fallback. FailureCode={FailureCode}, FailureMessage={FailureMessage}",
                     cause?.Code,
                     cause?.Message);
             }

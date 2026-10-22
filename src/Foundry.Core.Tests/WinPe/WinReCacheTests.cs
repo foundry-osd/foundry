@@ -92,11 +92,56 @@ public sealed class WinReCacheTests
     }
 
     [Fact]
+    public async Task CreatePendingDirectory_RemovesStalePendingFoldersOfSameArchitectureAndLanguageOnly()
+    {
+        using var temp = new TestUtilities.TemporaryDirectory();
+        var cache = new WinReCache(temp.Path);
+        string stale = cache.CreatePendingDirectory(WinPeArchitecture.X64, "en-US");
+        await File.WriteAllTextAsync(Path.Combine(stale, "winre.wim"), "crashed", TestContext.Current.CancellationToken);
+        string otherArchitecture = cache.CreatePendingDirectory(WinPeArchitecture.Arm64, "en-US");
+        string longerLanguage = cache.CreatePendingDirectory(WinPeArchitecture.X64, "en-US-x-test");
+
+        string current = cache.CreatePendingDirectory(WinPeArchitecture.X64, "en-US");
+
+        Assert.False(Directory.Exists(stale));
+        Assert.True(Directory.Exists(current));
+        Assert.True(Directory.Exists(otherArchitecture));
+        Assert.True(Directory.Exists(longerLanguage));
+    }
+
+    [Fact]
+    public async Task PublishAsync_WithoutSourceHash_KeepsEntryAvailableAsPreviousWinRe()
+    {
+        using var temp = new TestUtilities.TemporaryDirectory();
+        var cache = new WinReCache(temp.Path);
+        WinReCacheEntry entry = await PublishAsync(cache, WinPeArchitecture.X64, "en-US", string.Empty, "winre-a");
+
+        WinReCacheEntry? previous = await cache.FindValidAsync(WinPeArchitecture.X64, "en-US", null, TestContext.Current.CancellationToken);
+
+        Assert.Equal(entry.DirectoryPath, previous?.DirectoryPath);
+    }
+
+    [Fact]
+    public async Task FindValidAsync_WhenFileIsLockedByAnotherProcess_KeepsEntry()
+    {
+        using var temp = new TestUtilities.TemporaryDirectory();
+        var cache = new WinReCache(temp.Path);
+        WinReCacheEntry entry = await PublishAsync(cache, WinPeArchitecture.X64, "en-US", "AA11", "winre-a");
+
+        using (new FileStream(entry.GetFilePath("winre.wim"), FileMode.Open, FileAccess.Read, FileShare.None))
+        {
+            Assert.Null(await cache.FindValidAsync(WinPeArchitecture.X64, "en-US", "AA11", TestContext.Current.CancellationToken));
+        }
+
+        Assert.NotNull(await cache.FindValidAsync(WinPeArchitecture.X64, "en-US", "AA11", TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
     public async Task FindValidAsync_IgnoresUnpublishedPendingDirectories()
     {
         using var temp = new TestUtilities.TemporaryDirectory();
         var cache = new WinReCache(temp.Path);
-        string pending = cache.CreatePendingDirectory();
+        string pending = cache.CreatePendingDirectory(WinPeArchitecture.X64, "en-US");
         await File.WriteAllTextAsync(Path.Combine(pending, "winre.wim"), "partial", TestContext.Current.CancellationToken);
 
         Assert.Null(await cache.FindValidAsync(WinPeArchitecture.X64, "en-US", null, TestContext.Current.CancellationToken));
@@ -104,7 +149,7 @@ public sealed class WinReCacheTests
 
     private static async Task<WinReCacheEntry> PublishAsync(WinReCache cache, WinPeArchitecture architecture, string language, string sourceSha256, string winReContent)
     {
-        string pending = cache.CreatePendingDirectory();
+        string pending = cache.CreatePendingDirectory(architecture, language);
         await File.WriteAllTextAsync(Path.Combine(pending, "winre.wim"), winReContent, TestContext.Current.CancellationToken);
         await File.WriteAllTextAsync(Path.Combine(pending, "dmcmnutils.dll"), "dm", TestContext.Current.CancellationToken);
         return await cache.PublishAsync(

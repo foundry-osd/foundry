@@ -51,7 +51,7 @@ Since `telemetry_schema_version` 3, `TelemetryValueNormalizer` rewrites values a
 | `boot_media_failure_code`, `deploy_session_failure_code` | Lowercase. |
 | `boot_media_failure_tool` | Lowercase without `.exe`; `7zip`, `adk` and `makewinpemedia` for their display names; `other` for anything outside `[a-z0-9._-]{1,32}`. |
 | `boot_media_creation_failed_step_name` | One of `MediaCreationStepNames`, otherwise `unknown`. |
-| `deploy_driver_pack_selection_kind`, `deploy_autopilot_hash_upload_state`, `boot_media_boot_image_source`, `last_stage` | snake_case, for example `oem_catalog`, `upload_timed_out`, `deployment_preparation`. `boot_media_boot_image_source` is `winre`, or `winpe` when an x64 media fell back to the ADK Windows PE image. `deploy_driver_pack_selection_kind` is one of `none`, `microsoft_update_catalog`, `oem_catalog` or `custom_driver_set`. |
+| `deploy_driver_pack_selection_kind`, `deploy_autopilot_hash_upload_state`, `boot_media_boot_image_source`, `last_stage` | snake_case, for example `oem_catalog`, `upload_timed_out`, `deployment_preparation`. `boot_media_boot_image_source` is `winre`, or `winpe_fallback` when an x64 media fell back to the ADK Windows PE image. `deploy_driver_pack_selection_kind` is one of `none`, `microsoft_update_catalog`, `oem_catalog` or `custom_driver_set`. |
 | `deploy_os_edition` | Windows edition ID for catalog and custom images (`professional` for `Pro`, `core` for `Home`), otherwise `unknown`. |
 
 ## Exception grouping

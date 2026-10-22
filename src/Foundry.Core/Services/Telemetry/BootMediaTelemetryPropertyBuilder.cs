@@ -78,7 +78,7 @@ public static class BootMediaTelemetryPropertyBuilder
             ["boot_media_winpe_keyboard_layout"] = string.IsNullOrWhiteSpace(document.General.WinPeKeyboardLayoutId)
                 ? "default"
                 : document.General.WinPeKeyboardLayoutId.Trim().ToLowerInvariant(),
-            ["boot_media_boot_image_source"] = options.BootImageSource.ToString().ToLowerInvariant(),
+            ["boot_media_boot_image_source"] = options.BootImageSource == WinPeBootImageSource.WinPe ? "winpe_fallback" : "winre",
             ["boot_media_signature_mode"] = options.SignatureMode.ToString().ToLowerInvariant(),
             ["boot_media_usb_partition_style"] = bootMediaTarget == TelemetryBootMediaTargets.Usb
                 ? options.UsbPartitionStyle.ToString().ToLowerInvariant()

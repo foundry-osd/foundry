@@ -104,6 +104,25 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.Equal(1000, result["customization_post_installation_command_count"]);
     }
 
+    [Theory]
+    [InlineData(WinPeBootImageSource.WinRe, "winre")]
+    [InlineData(WinPeBootImageSource.WinPe, "winpe_fallback")]
+    public void Build_ReportsTheBootImageTheMediaWasBuiltFrom(WinPeBootImageSource bootImageSource, string expected)
+    {
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
+            new MediaPreflightOptions { BootImageSource = bootImageSource },
+            new FoundryConfigurationDocument(),
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.Equal(expected, result["boot_media_boot_image_source"]);
+    }
+
     private static IReadOnlyDictionary<string, object?> BuildPostInstallationProperties(PreOobeSettings? settings, bool success = true) =>
         BootMediaTelemetryPropertyBuilder.Build(
             TelemetryBootMediaTargets.Iso,

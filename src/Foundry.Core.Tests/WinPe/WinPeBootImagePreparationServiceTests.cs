@@ -43,6 +43,27 @@ public sealed class WinPeBootImagePreparationServiceTests
     }
 
     [Fact]
+    public async Task PrepareAsync_AfterExtraction_KeepsSourcePackagesLeasedByAnotherProcess()
+    {
+        using var temp = new TestUtilities.TemporaryDirectory();
+        string leasedEntry = Path.Combine(temp.Path, "sources", "LEASED");
+        string idleEntry = Path.Combine(temp.Path, "sources", "IDLE");
+        Directory.CreateDirectory(Path.Combine(leasedEntry, "generation-1"));
+        Directory.CreateDirectory(Path.Combine(idleEntry, "generation-1"));
+        await File.WriteAllTextAsync(Path.Combine(leasedEntry, "generation-1", "other.esd"), "in use", TestContext.Current.CancellationToken);
+        await File.WriteAllTextAsync(Path.Combine(idleEntry, "generation-1", "old.esd"), "old", TestContext.Current.CancellationToken);
+        using var client = new HttpClient(new StaticCatalogHandler(CreateCatalogXml(string.Empty), Encoding.UTF8.GetBytes("source")));
+
+        using (new FileStream(Path.Combine(leasedEntry, ".lease"), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
+        {
+            Assert.True((await PrepareAsync(temp.Path, client, new FakeWinPeProcessRunner())).IsSuccess);
+        }
+
+        Assert.True(File.Exists(Path.Combine(leasedEntry, "generation-1", "other.esd")));
+        Assert.False(Directory.Exists(idleEntry));
+    }
+
+    [Fact]
     public async Task PrepareAsync_WhenNewerSourceIsPublished_ReplacesPreviousEntry()
     {
         using var temp = new TestUtilities.TemporaryDirectory();
@@ -221,17 +242,18 @@ public sealed class WinPeBootImagePreparationServiceTests
     [Fact]
     public async Task PrepareAsync_WhenCatalogRequestIsCancelled_PropagatesCallerCancellation()
     {
+        using var temp = new TestUtilities.TemporaryDirectory();
         using var cancellation = new CancellationTokenSource();
         using var client = new HttpClient(new CancelledCatalogHandler(cancellation));
         var service = CreateService(new FakeWinPeProcessRunner(), client, new WinPeWorkspaceCleanupService(() => []));
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() => service.PrepareAsync(new WinPeBootImagePreparationOptions
         {
-            Artifact = new WinPeBuildArtifact { Architecture = WinPeArchitecture.X64, BootWimPath = "boot.wim", WorkingDirectoryPath = Path.GetTempPath() },
+            Artifact = new WinPeBuildArtifact { Architecture = WinPeArchitecture.X64, BootWimPath = "boot.wim", WorkingDirectoryPath = temp.Path },
             Tools = new WinPeToolPaths { DismPath = "dism.exe" },
             WinPeLanguage = "en-US",
-            CacheDirectoryPath = Path.GetTempPath(),
-            WinReCacheDirectoryPath = Path.GetTempPath() + "-winre",
+            CacheDirectoryPath = Path.Combine(temp.Path, "sources"),
+            WinReCacheDirectoryPath = Path.Combine(temp.Path, "winre"),
         }, cancellation.Token));
     }
 

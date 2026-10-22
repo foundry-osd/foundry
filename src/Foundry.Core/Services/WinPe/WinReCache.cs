@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.Json;
 using Foundry.Utilities.IO;
 
@@ -37,7 +39,7 @@ internal sealed class WinReCache(string rootPath)
             {
                 return new FileStream(lockPath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
             }
-            catch (IOException exception) when ((exception.HResult & 0xFFFF) is 32 or 33)
+            catch (IOException exception) when (IsSharingViolation(exception))
             {
                 await Task.Delay(50, cancellationToken).ConfigureAwait(false);
             }
@@ -46,7 +48,8 @@ internal sealed class WinReCache(string rootPath)
 
     /// <summary>
     /// Returns the newest verified entry for the architecture and language, restricted to one source hash when given.
-    /// Entries that fail verification are deleted best-effort.
+    /// Only matching entries are hashed; an entry that fails verification is deleted best-effort, while one that cannot
+    /// be read because another process holds it is kept for a later build.
     /// </summary>
     public async Task<WinReCacheEntry?> FindValidAsync(
         WinPeArchitecture architecture,
@@ -59,38 +62,58 @@ internal sealed class WinReCache(string rootPath)
             return null;
         }
 
-        string prefix = GetEntryPrefix(architecture, language);
-        WinReCacheEntry? newest = null;
-        foreach (string directory in EnumerateEntries(prefix))
+        var candidates = new List<WinReCacheEntry>();
+        foreach (string directory in EnumerateEntries(GetEntryPrefix(architecture, language)))
         {
             cancellationToken.ThrowIfCancellationRequested();
-            WinReCacheEntry? entry = await VerifyAsync(directory, architecture, language, cancellationToken).ConfigureAwait(false);
-            if (entry is null)
+            ManifestReadResult read = await ReadManifestAsync(directory, architecture, language, cancellationToken).ConfigureAwait(false);
+            if (read.Manifest is null)
             {
-                TryDeleteDirectory(directory);
+                if (!read.IsLocked) TryDeleteDirectory(directory);
                 continue;
             }
 
-            if (sourceSha256 is not null && !entry.Manifest.SourceSha256.Equals(sourceSha256.Trim(), StringComparison.OrdinalIgnoreCase))
+            if (sourceSha256 is null || read.Manifest.SourceSha256.Equals(sourceSha256.Trim(), StringComparison.OrdinalIgnoreCase))
             {
-                continue;
-            }
-
-            if (newest is null || CompareBuild(entry.Manifest, newest.Manifest) > 0)
-            {
-                newest = entry;
+                candidates.Add(new WinReCacheEntry(directory, read.Manifest));
             }
         }
 
-        return newest;
+        foreach (WinReCacheEntry candidate in candidates.OrderByDescending(entry => entry.Manifest.BuildMajor).ThenByDescending(entry => entry.Manifest.BuildUbr))
+        {
+            FileCheck check = await VerifyFilesAsync(candidate, cancellationToken).ConfigureAwait(false);
+            if (check == FileCheck.Valid)
+            {
+                return candidate;
+            }
+
+            if (check == FileCheck.Corrupted)
+            {
+                TryDeleteDirectory(candidate.DirectoryPath);
+            }
+        }
+
+        return null;
     }
 
     /// <summary>
-    /// Creates an empty folder in which a new entry is assembled before <see cref="PublishAsync"/>.
+    /// Creates an empty folder in which a new entry is assembled before <see cref="PublishAsync"/>. Called under the
+    /// architecture and language lock, it first removes pending folders of the same pair left by an interrupted build.
     /// </summary>
-    public string CreatePendingDirectory()
+    public string CreatePendingDirectory(WinPeArchitecture architecture, string language)
     {
-        string path = Path.Combine(_rootPath, PendingPrefix + Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(_rootPath);
+        string pendingPrefix = $"{PendingPrefix}{GetEntryPrefix(architecture, language)}-";
+        foreach (string stale in Directory.EnumerateDirectories(_rootPath, pendingPrefix + "*"))
+        {
+            string suffix = Path.GetFileName(stale)[pendingPrefix.Length..];
+            if (suffix.Length == 32 && suffix.All(Uri.IsHexDigit))
+            {
+                TryDeleteDirectory(stale);
+            }
+        }
+
+        string path = Path.Combine(_rootPath, pendingPrefix + Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(path);
         return path;
     }
@@ -132,8 +155,12 @@ internal sealed class WinReCache(string rootPath)
             stream.Flush(flushToDisk: true);
         }
 
+        // A source without catalog hash is keyed by its file name so the entry stays addressable.
+        string identity = manifest.SourceSha256.Length > 0
+            ? manifest.SourceSha256
+            : Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(source.SourceFileName)));
         string prefix = GetEntryPrefix(source.Architecture, source.Language);
-        string entryPath = Path.Combine(_rootPath, $"{prefix}-{manifest.SourceSha256[..Math.Min(16, manifest.SourceSha256.Length)]}");
+        string entryPath = Path.Combine(_rootPath, $"{prefix}-{identity[..Math.Min(16, identity.Length)]}");
         TryDeleteDirectory(entryPath);
         Directory.Move(pendingDirectory, entryPath);
 
@@ -148,7 +175,7 @@ internal sealed class WinReCache(string rootPath)
         return new WinReCacheEntry(entryPath, manifest);
     }
 
-    private static async Task<WinReCacheEntry?> VerifyAsync(
+    private static async Task<ManifestReadResult> ReadManifestAsync(
         string directory,
         WinPeArchitecture architecture,
         string language,
@@ -160,36 +187,54 @@ internal sealed class WinReCache(string rootPath)
             await using FileStream stream = File.OpenRead(Path.Combine(directory, ManifestFileName));
             manifest = await JsonSerializer.DeserializeAsync<WinReCacheManifest>(stream, cancellationToken: cancellationToken).ConfigureAwait(false);
         }
+        catch (IOException exception) when (IsSharingViolation(exception))
+        {
+            return new ManifestReadResult(null, IsLocked: true);
+        }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or JsonException)
         {
-            return null;
+            return new ManifestReadResult(null, IsLocked: false);
         }
 
-        if (manifest is null || manifest.Version != 1 || manifest.Files is not { Count: > 0 } ||
-            !manifest.Architecture.Equals(FormatArchitecture(architecture), StringComparison.OrdinalIgnoreCase) ||
-            !manifest.Language.Equals(WinPeLanguageUtility.Normalize(language), StringComparison.OrdinalIgnoreCase))
-        {
-            return null;
-        }
-
-        foreach (WinReCacheFile file in manifest.Files)
-        {
-            string path = Path.Combine(directory, file.Name);
-            if (file.Name != Path.GetFileName(file.Name) || !File.Exists(path) || new FileInfo(path).Length != file.Length)
-            {
-                return null;
-            }
-
-            string actual = await FileHash.ComputeSha256Async(path, cancellationToken).ConfigureAwait(false);
-            if (!actual.Equals(file.Sha256, StringComparison.OrdinalIgnoreCase))
-            {
-                return null;
-            }
-        }
-
-        return new WinReCacheEntry(directory, manifest);
+        bool isValid = manifest is { Version: 1, Files.Count: > 0 } &&
+            manifest.Files.All(file => file.Name == Path.GetFileName(file.Name)) &&
+            manifest.Architecture.Equals(FormatArchitecture(architecture), StringComparison.OrdinalIgnoreCase) &&
+            manifest.Language.Equals(WinPeLanguageUtility.Normalize(language), StringComparison.OrdinalIgnoreCase);
+        return new ManifestReadResult(isValid ? manifest : null, IsLocked: false);
     }
 
+    private static async Task<FileCheck> VerifyFilesAsync(WinReCacheEntry entry, CancellationToken cancellationToken)
+    {
+        foreach (WinReCacheFile file in entry.Manifest.Files)
+        {
+            string path = entry.GetFilePath(file.Name);
+            try
+            {
+                if (!File.Exists(path) || new FileInfo(path).Length != file.Length)
+                {
+                    return FileCheck.Corrupted;
+                }
+
+                string actual = await FileHash.ComputeSha256Async(path, cancellationToken).ConfigureAwait(false);
+                if (!actual.Equals(file.Sha256, StringComparison.OrdinalIgnoreCase))
+                {
+                    return FileCheck.Corrupted;
+                }
+            }
+            catch (IOException exception) when (IsSharingViolation(exception))
+            {
+                return FileCheck.Locked;
+            }
+            catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+            {
+                return FileCheck.Corrupted;
+            }
+        }
+
+        return FileCheck.Valid;
+    }
+
+    private static bool IsSharingViolation(IOException exception) => (exception.HResult & 0xFFFF) is 32 or 33;
     /// <summary>
     /// Lists entry folders of exactly one architecture and language; a bare wildcard would also match longer language
     /// tags such as <c>sr-latn</c> and <c>sr-latn-rs</c>.
@@ -200,12 +245,6 @@ internal sealed class WinReCache(string rootPath)
             string suffix = Path.GetFileName(directory)[(prefix.Length + 1)..];
             return suffix.Length is > 0 and <= 16 && suffix.All(Uri.IsHexDigit);
         });
-
-    private static int CompareBuild(WinReCacheManifest left, WinReCacheManifest right)
-    {
-        int build = left.BuildMajor.CompareTo(right.BuildMajor);
-        return build != 0 ? build : left.BuildUbr.CompareTo(right.BuildUbr);
-    }
 
     private static string GetEntryPrefix(WinPeArchitecture architecture, string language) =>
         $"{FormatArchitecture(architecture)}-{PathSegment.Sanitize(WinPeLanguageUtility.Normalize(language))}";
@@ -233,5 +272,14 @@ internal sealed class WinReCache(string rootPath)
         {
             // Best-effort, as above.
         }
+    }
+
+    private sealed record ManifestReadResult(WinReCacheManifest? Manifest, bool IsLocked);
+
+    private enum FileCheck
+    {
+        Valid,
+        Corrupted,
+        Locked
     }
 }

@@ -150,16 +150,16 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
         if (previous is not null)
         {
             Log.ForContext<WinPeBootImagePreparationService>().Warning(
-                "Using a previously cached WinRE because the newest one could not be obtained. Architecture={Architecture}, Language={Language}, Build={BuildMajor}.{BuildUbr}, FailureCode={FailureCode}, FailureMessage={FailureMessage}",
-                architecture, options.WinPeLanguage, previous.Manifest.BuildMajor, previous.Manifest.BuildUbr, cause.Code, cause.Message);
+                "Using a previously cached WinRE because the newest one could not be obtained. Architecture={Architecture}, Language={Language}, Build={BuildMajor}.{BuildUbr}, FailureCode={FailureCode}, FailureMessage={FailureMessage}, FailureDetails={FailureDetails}",
+                architecture, options.WinPeLanguage, previous.Manifest.BuildMajor, previous.Manifest.BuildUbr, cause.Code, cause.Message, cause.Details);
             return UseCachedWinRe(options, previous, cacheHit: true);
         }
 
         if (architecture == WinPeArchitecture.X64)
         {
             Log.ForContext<WinPeBootImagePreparationService>().Warning(
-                "No WinRE could be obtained; the boot image falls back to the ADK Windows PE image without Wi-Fi support. Architecture={Architecture}, Language={Language}, FailureCode={FailureCode}, FailureMessage={FailureMessage}",
-                architecture, options.WinPeLanguage, cause.Code, cause.Message);
+                "No WinRE could be obtained; the boot image falls back to the ADK Windows PE image without Wi-Fi support. Architecture={Architecture}, Language={Language}, FailureCode={FailureCode}, FailureMessage={FailureMessage}, FailureDetails={FailureDetails}",
+                architecture, options.WinPeLanguage, cause.Code, cause.Message, cause.Details);
             return WinPeResult<WinPeBootImagePreparationResult>.Success(new WinPeBootImagePreparationResult
             {
                 BootImageSource = WinPeBootImageSource.WinPe,
@@ -223,15 +223,16 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
     }
 
     /// <summary>
-    /// Removes Windows source downloads once their WinRE is cached; packages leased by another process stay until a later build.
+    /// Removes Windows source downloads once their WinRE is cached, including packages of older Foundry versions;
+    /// a package leased by another Foundry process stays until a later build.
     /// </summary>
     private static void DeleteSourceDownloads(WinPeBootImagePreparationOptions options)
     {
-        foreach (string path in new[] { options.CacheDirectoryPath, options.LegacySourceDirectoryPath }.OfType<string>())
+        new AuthoringArtifactCache(options.CacheDirectoryPath).PurgeUnleasedEntries();
+        if (options.LegacySourceDirectoryPath is not null && Directory.Exists(options.LegacySourceDirectoryPath))
         {
-            if (!Directory.Exists(path)) continue;
-            foreach (string directory in Directory.EnumerateDirectories(path)) TryDeleteDirectory(directory);
-            foreach (string file in Directory.EnumerateFiles(path)) TryDeleteFile(file);
+            foreach (string directory in Directory.EnumerateDirectories(options.LegacySourceDirectoryPath)) TryDeleteDirectory(directory);
+            foreach (string file in Directory.EnumerateFiles(options.LegacySourceDirectoryPath)) TryDeleteFile(file);
         }
     }
 
@@ -270,10 +271,10 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                     !string.IsNullOrWhiteSpace(item.Url))
                 .GroupBy(item => item.Url, StringComparer.OrdinalIgnoreCase)
                 .Select(group => group
-                    .OrderBy(item => GetLicenseChannelOrder(item.LicenseChannel))
-                    .ThenBy(item => GetClientTypeOrder(item.ClientType))
-                    .ThenByDescending(item => item.BuildMajor)
+                    .OrderByDescending(item => item.BuildMajor)
                     .ThenByDescending(item => item.BuildUbr)
+                    .ThenBy(item => GetLicenseChannelOrder(item.LicenseChannel))
+                    .ThenBy(item => GetClientTypeOrder(item.ClientType))
                     .First())
                 .ToList();
 
@@ -610,7 +611,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                 }
 
                 ReportProgress(options.Progress, 27, WinPeProgressStatuses.StagingBootImageDependencies);
-                pendingDirectory = cache.CreatePendingDirectory();
+                pendingDirectory = cache.CreatePendingDirectory(options.Artifact.Architecture, options.WinPeLanguage);
                 WinPeResult dependencyResult = PrepareDependencyFiles(mountDirectory, pendingDirectory, options.Artifact.Architecture);
                 if (!dependencyResult.IsSuccess)
                 {
@@ -774,7 +775,23 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                 "WinRE cache directory path is required.");
         }
 
+        // Source downloads are purged after each extraction, so they must never contain or sit inside the WinRE cache.
+        if (new[] { options.CacheDirectoryPath, options.LegacySourceDirectoryPath }.OfType<string>()
+            .Any(path => IsSameOrNested(path, options.WinReCacheDirectoryPath)))
+        {
+            return new WinPeDiagnostic(
+                WinPeErrorCodes.ValidationFailed,
+                "The WinRE cache must be separate from the Windows source download directories.");
+        }
+
         return null;
+    }
+
+    private static bool IsSameOrNested(string left, string right)
+    {
+        string a = Path.TrimEndingDirectorySeparator(Path.GetFullPath(left)) + Path.DirectorySeparatorChar;
+        string b = Path.TrimEndingDirectorySeparator(Path.GetFullPath(right)) + Path.DirectorySeparatorChar;
+        return a.StartsWith(b, StringComparison.OrdinalIgnoreCase) || b.StartsWith(a, StringComparison.OrdinalIgnoreCase);
     }
 
     private static string BuildCachedSourcePath(string cacheDirectoryPath, WindowsSourceCatalogItem source)
@@ -916,10 +933,9 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
     {
         return items
             .Where(item => item.ClientType.Equals(clientType, StringComparison.OrdinalIgnoreCase))
-            .OrderBy(item => GetLicenseChannelOrder(item.LicenseChannel))
-            .ThenBy(item => GetClientTypeOrder(item.ClientType))
-            .ThenByDescending(item => item.BuildMajor)
+            .OrderByDescending(item => item.BuildMajor)
             .ThenByDescending(item => item.BuildUbr)
+            .ThenBy(item => GetLicenseChannelOrder(item.LicenseChannel))
             .FirstOrDefault();
     }
 
