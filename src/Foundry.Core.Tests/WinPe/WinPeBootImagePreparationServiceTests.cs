@@ -261,7 +261,8 @@ public sealed class WinPeBootImagePreparationServiceTests
     [Theory]
     [InlineData("x64", "en-us", 26100)]
     [InlineData("arm64", "fr-fr", 26100)]
-    [InlineData("arm64", "en-us", 26200)]
+    [InlineData("arm64", "en-us", 22631)]
+    [InlineData("arm64", "en-us", 27000)]
     public void SelectCatalogCandidates_RejectsIncompatibleArm64Sources(string architecture, string language, int build)
     {
         string catalog = CreateCatalogXml(string.Empty)
@@ -334,7 +335,44 @@ public sealed class WinPeBootImagePreparationServiceTests
     }
 
     [Fact]
-    public void SelectCatalogCandidates_Filters24H2ArchitectureAndLanguage()
+    public void SelectCatalogCandidates_PrefersNewestServicingBranchBuildAndUbr()
+    {
+        string Item(string releaseId, int build, int ubr, string clientType, string channel, string fileName) => $"""
+            <Item>
+              <WindowsRelease>11</WindowsRelease>
+              <ReleaseId>{releaseId}</ReleaseId>
+              <BuildMajor>{build}</BuildMajor>
+              <BuildUbr>{ubr}</BuildUbr>
+              <Architecture>arm64</Architecture>
+              <LanguageCode>en-us</LanguageCode>
+              <ClientType>{clientType}</ClientType>
+              <LicenseChannel>{channel}</LicenseChannel>
+              <FileName>{fileName}</FileName>
+              <Url>https://example.test/{fileName}</Url>
+              <Sha256>abc</Sha256>
+            </Item>
+            """;
+        string catalogXml = "<Catalog>" +
+            Item("24H2", 26100, 4349, "CLIENTCONSUMER", "RET", "24h2.esd") +
+            Item("26H2", 26300, 9457, "CLIENTCONSUMER", "RET", "26h2-old.esd") +
+            Item("26H2", 26300, 9711, "CLIENTCONSUMER", "RET", "26h2.esd") +
+            Item("25H2", 26200, 9457, "CLIENTCONSUMER", "RET", "25h2.esd") +
+            Item("27H2", 27000, 1, "CLIENTCONSUMER", "RET", "unsupported.esd") +
+            Item("25H2", 26200, 9457, "CLIENTBUSINESS", "VOL", "25h2-business.esd") +
+            "</Catalog>";
+
+        WinPeResult<IReadOnlyList<WindowsSourceCandidate>> result =
+            WinPeBootImagePreparationService.SelectCatalogCandidates(catalogXml, WinPeArchitecture.Arm64, "en-US");
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Collection(
+            result.Value!,
+            candidate => Assert.Equal("26h2.esd", candidate.Source.FileName),
+            candidate => Assert.Equal("25h2-business.esd", candidate.Source.FileName));
+    }
+
+    [Fact]
+    public void SelectCatalogCandidates_FiltersArchitectureAndLanguage()
     {
         const string catalogXml = """
                                   <Catalog>
@@ -372,7 +410,7 @@ public sealed class WinPeBootImagePreparationServiceTests
                                       <BuildMajor>26200</BuildMajor>
                                       <BuildUbr>5337</BuildUbr>
                                       <Architecture>x64</Architecture>
-                                      <LanguageCode>fr-fr</LanguageCode>
+                                      <LanguageCode>de-de</LanguageCode>
                                       <Edition>Professional</Edition>
                                       <ClientType>CLIENTCONSUMER</ClientType>
                                       <LicenseChannel>RET</LicenseChannel>

@@ -33,6 +33,8 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
         Status = WinPeProgressStatuses.DownloadingWindowsSourcePackage
     };
 
+    private static readonly int[] SupportedWinReBuildMajors = [26100, 26200, 26300];
+
     private static readonly string[] RequiredWirelessDependencyFiles =
     [
         "dmcmnutils.dll",
@@ -122,8 +124,12 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
     }
 
     /// <summary>
-    /// Selects Pro and Enterprise fallback sources matching the boot language, architecture, and supported 26100 build line.
+    /// Selects Pro and Enterprise fallback sources matching the boot language and architecture, newest build and UBR first.
     /// </summary>
+    /// <remarks>
+    /// 24H2, 25H2 and 26H2 share the 26100 servicing branch, so their WinRE accepts the ADK 26100 packages; the newest
+    /// one carries the newest Safe OS servicing and therefore the newest boot drivers.
+    /// </remarks>
     internal static WinPeResult<IReadOnlyList<WindowsSourceCandidate>> SelectCatalogCandidates(
         string catalogXml,
         WinPeArchitecture architecture,
@@ -146,8 +152,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
                 .Select(ParseCatalogItem)
                 .Where(item =>
                     item.WindowsRelease.Equals("11", StringComparison.OrdinalIgnoreCase) &&
-                    item.ReleaseId.Equals("24H2", StringComparison.OrdinalIgnoreCase) &&
-                    item.BuildMajor == 26100 &&
+                    SupportedWinReBuildMajors.Contains(item.BuildMajor) &&
                     item.Architecture.Equals(normalizedArchitecture, StringComparison.OrdinalIgnoreCase) &&
                     WinPeLanguageUtility.Normalize(item.LanguageCode).Equals(normalizedLanguage, StringComparison.OrdinalIgnoreCase) &&
                     !string.IsNullOrWhiteSpace(item.Url))
@@ -186,7 +191,7 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
             {
                 return WinPeResult<IReadOnlyList<WindowsSourceCandidate>>.Failure(
                     WinPeErrorCodes.WinReSourceSelectionFailed,
-                    "No Windows 11 24H2 Windows source matched the requested architecture and language.",
+                    "No Windows 11 source of the 26100 servicing branch (24H2, 25H2 or 26H2) matched the requested architecture and language.",
                     $"Architecture={normalizedArchitecture}, Language={normalizedLanguage}");
             }
 
