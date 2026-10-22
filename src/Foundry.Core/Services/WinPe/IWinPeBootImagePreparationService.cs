@@ -5,12 +5,13 @@
 namespace Foundry.Core.Services.WinPe;
 
 /// <summary>
-/// Prepares dependencies from a Windows source image for WinPE and WinRE boot media.
+/// Prepares the boot image of a WinPE workspace from WinRE.
 /// </summary>
 public interface IWinPeBootImagePreparationService
 {
     /// <summary>
-    /// Stages dependencies outside the source mount before discarding it, replacing boot.wim only for WinRE Wi-Fi media.
+    /// Replaces boot.wim with the newest available WinRE and stages its dependencies; x64 keeps the ADK image when no
+    /// WinRE can be obtained, and the result then reports <see cref="WinPeBootImageSource.WinPe"/> with the cause.
     /// </summary>
     Task<WinPeResult<WinPeBootImagePreparationResult>> PrepareAsync(
         WinPeBootImagePreparationOptions options,

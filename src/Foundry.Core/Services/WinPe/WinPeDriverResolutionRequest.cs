@@ -11,7 +11,8 @@ public sealed record WinPeDriverResolutionRequest
 
     public required string CatalogUri { get; init; }
     public required WinPeArchitecture Architecture { get; init; }
-    public required WinPeBootImageSource BootImageSource { get; init; }
+    /// <summary>Gets whether the Intel wireless driver supplement of the catalog is added.</summary>
+    public bool IncludeWirelessSupplement { get; init; }
     public required IReadOnlyList<WinPeVendorSelection> DriverVendors { get; init; }
     public string? CustomDriverDirectoryPath { get; init; }
     public required WinPeBuildArtifact Artifact { get; init; }

@@ -54,7 +54,6 @@ internal static class TelemetryValueNormalizer
                 "uploadtimedout" => "upload_timed_out",
                 _ => text
             },
-            "boot_media_boot_image_source" => text == "winrewifi" ? "winre_wifi" : text,
             "last_stage" when eventName == TelemetryEvents.BootstrapFailed =>
                 text == "deploymentpreparation" ? "deployment_preparation" : text,
             "deploy_os_edition" => NormalizeWindowsEdition(text),

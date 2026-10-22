@@ -29,7 +29,7 @@ public static class MediaCreationStepNames
     public const string ResolveWinReImageIndex = "Resolve WinRE image index";
     public const string ExportWinReSourceImage = "Export WinRE source image";
     public const string MountWinReSourceImage = "Mount WinRE source image";
-    public const string StageWinReWifiDependencies = "Stage WinRE Wi-Fi dependencies";
+    public const string StageWinReDependencies = "Stage WinRE dependencies";
     public const string ReplaceBootImageWithWinRe = "Replace boot image with WinRE";
     public const string MountBootImage = "Mount boot image";
     public const string DownloadWinPeDriverPackage = "Download WinPE driver package";

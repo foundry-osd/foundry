@@ -4050,6 +4050,9 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows esti pääsyn WinPE-näköistiedostoihin. Suojausohjelmisto tai jokin muu työkalu saattaa lukita ne. Lisää suojausohjelmistoon poikkeus kohteelle {0}, sulje näköistiedostoja liittävät työkalut, käynnistä tietokone uudelleen ja yritä uudelleen. Lisätietoja on tiedostoissa {1} ja {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WinReFallbackWarning" xml:space="preserve">
+    <value>Foundry OSD ei saanut Windowsin palautusympäristöä, joten tämä tietoväline käyttää Windows PE:n vakiolevykuvaa. Wi-Fi ei ole käytettävissä siinä. Tarkista yhteys ja luo tietoväline uudelleen, jotta saat täyden levykuvan.</value>
+  </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>Kirjoitetaan ISO-tiedostoa…</value>
   </data>

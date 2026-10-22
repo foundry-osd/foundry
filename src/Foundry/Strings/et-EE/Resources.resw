@@ -4050,6 +4050,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows blokeeris juurdepääsu WinPE tõmmisefailidele. Võimalik, et turbetarkvara või mõni muu tööriist lukustab need. Lisage turbetarkvarasse erand asukohale {0}, sulgege tõmmiseid ühendavad tööriistad, taaskäivitage arvuti ja proovige uuesti. Üksikasjad on failides {1} ja {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WinReFallbackWarning" xml:space="preserve">
+    <value>Foundry OSD ei saanud Windowsi taastekeskkonda kätte, seega kasutab see andmekandja Windows PE standardtõmmist. Wi-Fi pole sellel saadaval. Kontrollige ühendust ja looge andmekandja uuesti, et saada täielik tõmmis.</value>
+  </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>ISO-faili kirjutamine…</value>
   </data>

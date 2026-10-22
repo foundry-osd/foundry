@@ -4050,6 +4050,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows hat den Zugriff auf die WinPE-Abbilddateien blockiert. Möglicherweise sperrt eine Sicherheitssoftware oder ein anderes Tool diese Dateien. Fügen Sie in der Sicherheitssoftware eine Ausnahme für {0} hinzu, schließen Sie Tools, die Abbilder bereitstellen, starten Sie den Computer neu und versuchen Sie es erneut. Details finden Sie in {1} und {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WinReFallbackWarning" xml:space="preserve">
+    <value>Foundry OSD konnte die Windows-Wiederherstellungsumgebung nicht abrufen, daher verwendet dieses Medium das Standardabbild von Windows PE. Wi-Fi ist darauf nicht verfügbar. Prüfen Sie die Verbindung und erstellen Sie das Medium erneut, um das vollständige Abbild zu erhalten.</value>
+  </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>ISO-Datei wird geschrieben…</value>
   </data>

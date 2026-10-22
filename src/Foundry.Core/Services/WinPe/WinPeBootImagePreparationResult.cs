@@ -5,10 +5,20 @@
 namespace Foundry.Core.Services.WinPe;
 
 /// <summary>
-/// Contains staged files that remain available after the Windows source image is discarded.
+/// Describes the prepared boot image and the staged files that remain available after the Windows source is discarded.
 /// </summary>
 public sealed record WinPeBootImagePreparationResult
 {
+    /// <summary>
+    /// Gets the image boot.wim now contains.
+    /// </summary>
+    public WinPeBootImageSource BootImageSource { get; init; } = WinPeBootImageSource.WinRe;
+
+    /// <summary>
+    /// Gets why WinRE could not be used when <see cref="BootImageSource"/> is <see cref="WinPeBootImageSource.WinPe"/>.
+    /// </summary>
+    public WinPeDiagnostic? FallbackCause { get; init; }
+
     /// <summary>
     /// Gets the dependencies to copy into the mounted boot image's System32 directory.
     /// </summary>

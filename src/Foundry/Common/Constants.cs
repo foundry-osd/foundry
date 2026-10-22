@@ -37,6 +37,7 @@ namespace Foundry.Common
         public static readonly string CacheDirectoryPath = Path.Combine(RootDirectoryPath, "Cache");
         public static readonly string InstallerCacheDirectoryPath = Path.Combine(CacheDirectoryPath, "Installers");
         public static readonly string WindowsSourceCacheDirectoryPath = Path.Combine(CacheDirectoryPath, "WindowsSources");
+        public static readonly string WinReCacheDirectoryPath = Path.Combine(CacheDirectoryPath, "WinRe");
         public static readonly string WinPeDriverCacheDirectoryPath = Path.Combine(CacheDirectoryPath, "WinPeDrivers");
         public static readonly string WorkspacesDirectoryPath = Path.Combine(RootDirectoryPath, "Workspaces");
         public static readonly string ConfigurationWorkspaceDirectoryPath = Path.Combine(UserRootDirectoryPath, "Configuration");

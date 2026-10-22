@@ -4050,6 +4050,9 @@
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows חסם את הגישה לקובצי תמונת WinPE. ייתכן שתוכנת אבטחה או כלי אחר נועלים אותם. יש להוסיף החרגה עבור {0} בתוכנת האבטחה, לסגור כלים שמעגנים תמונות, להפעיל מחדש את המחשב ולנסות שוב. הפרטים נמצאים ב-{1} וב-{2}.</value>
   </data>
+  <data name="StartMedia.Operation.WinReFallbackWarning" xml:space="preserve">
+    <value>Foundry OSD לא הצליח לקבל את סביבת השחזור של Windows, ולכן מדיה זו משתמשת בתמונת Windows PE הרגילה. Wi-Fi אינו זמין בה. בדוק את החיבור וצור את המדיה שוב כדי לקבל את התמונה המלאה.</value>
+  </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>כותב את קובץ ה-ISO…</value>
   </data>

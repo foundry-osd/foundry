@@ -4050,6 +4050,9 @@
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Τα Windows απέκλεισαν την πρόσβαση στα αρχεία της εικόνας WinPE. Ενδέχεται να τα κλειδώνει λογισμικό ασφαλείας ή άλλο εργαλείο. Προσθέστε μια εξαίρεση για το {0} στο λογισμικό ασφαλείας, κλείστε τα εργαλεία που προσαρτούν εικόνες, επανεκκινήστε τον υπολογιστή και δοκιμάστε ξανά. Λεπτομέρειες υπάρχουν στα {1} και {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WinReFallbackWarning" xml:space="preserve">
+    <value>Το Foundry OSD δεν μπόρεσε να λάβει το Windows Recovery Environment, επομένως αυτό το μέσο χρησιμοποιεί την τυπική εικόνα των Windows PE. Το Wi-Fi δεν είναι διαθέσιμο σε αυτό. Ελέγξτε τη σύνδεση και δημιουργήστε ξανά το μέσο για να λάβετε την πλήρη εικόνα.</value>
+  </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>Εγγραφή του αρχείου ISO…</value>
   </data>

@@ -4050,6 +4050,9 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows a blocat accesul la fișierele imaginii WinPE. Este posibil ca un software de securitate sau alt instrument să le blocheze. Adăugați o excludere pentru {0} în software-ul de securitate, închideți instrumentele care montează imagini, reporniți computerul și încercați din nou. Detaliile se află în {1} și {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WinReFallbackWarning" xml:space="preserve">
+    <value>Foundry OSD nu a putut obține Mediul de recuperare Windows, așa că acest suport folosește imaginea standard Windows PE. Wi-Fi nu este disponibil pe el. Verificați conexiunea și creați din nou suportul pentru a obține imaginea completă.</value>
+  </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>Se scrie fișierul ISO…</value>
   </data>

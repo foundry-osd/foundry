@@ -4050,6 +4050,9 @@
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows บล็อกการเข้าถึงไฟล์อิมเมจ WinPE ซอฟต์แวร์ความปลอดภัยหรือเครื่องมืออื่นอาจกำลังล็อกไฟล์เหล่านั้น เพิ่มข้อยกเว้นสำหรับ {0} ในซอฟต์แวร์ความปลอดภัย ปิดเครื่องมือที่เมานต์อิมเมจ รีสตาร์ทคอมพิวเตอร์ แล้วลองอีกครั้ง ดูรายละเอียดได้ใน {1} และ {2}</value>
   </data>
+  <data name="StartMedia.Operation.WinReFallbackWarning" xml:space="preserve">
+    <value>Foundry OSD ไม่สามารถรับสภาพแวดล้อมการกู้คืนของ Windows ได้ สื่อนี้จึงใช้อิมเมจ Windows PE มาตรฐาน และไม่สามารถใช้ Wi-Fi บนสื่อนี้ได้ ตรวจสอบการเชื่อมต่อแล้วสร้างสื่ออีกครั้งเพื่อรับอิมเมจแบบเต็ม</value>
+  </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>กำลังเขียนไฟล์ ISO…</value>
   </data>

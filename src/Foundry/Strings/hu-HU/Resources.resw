@@ -4050,6 +4050,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>A Windows letiltotta a hozzáférést a WinPE-lemezkép fájljaihoz. Lehet, hogy egy biztonsági szoftver vagy egy másik eszköz zárolja őket. Adjon hozzá kivételt a(z) {0} mappához a biztonsági szoftverben, zárja be a lemezképeket csatlakoztató eszközöket, indítsa újra a számítógépet, és próbálja újra. A részletek a(z) {1} és a(z) {2} fájlban találhatók.</value>
   </data>
+  <data name="StartMedia.Operation.WinReFallbackWarning" xml:space="preserve">
+    <value>A Foundry OSD nem tudta beszerezni a Windows helyreállítási környezetet, ezért ez az adathordozó a szabványos Windows PE-lemezképet használja. A Wi-Fi nem érhető el rajta. Ellenőrizze a kapcsolatot, és hozza létre újra az adathordozót a teljes lemezkép érdekében.</value>
+  </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>Az ISO-fájl írása…</value>
   </data>

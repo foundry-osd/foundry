@@ -104,6 +104,25 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.Equal(1000, result["customization_post_installation_command_count"]);
     }
 
+    [Theory]
+    [InlineData(WinPeBootImageSource.WinRe, "winre")]
+    [InlineData(WinPeBootImageSource.WinPe, "winpe_fallback")]
+    public void Build_ReportsTheBootImageTheMediaWasBuiltFrom(WinPeBootImageSource bootImageSource, string expected)
+    {
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
+            new MediaPreflightOptions { BootImageSource = bootImageSource },
+            new FoundryConfigurationDocument(),
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.Equal(expected, result["boot_media_boot_image_source"]);
+    }
+
     private static IReadOnlyDictionary<string, object?> BuildPostInstallationProperties(PreOobeSettings? settings, bool success = true) =>
         BootMediaTelemetryPropertyBuilder.Build(
             TelemetryBootMediaTargets.Iso,
@@ -344,7 +363,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             WinPeLanguage = "en-US",
             UsbPartitionStyle = UsbPartitionStyle.Gpt,
             UsbFormatMode = UsbFormatMode.Quick,
-            BootImageSource = WinPeBootImageSource.WinReWifi,
+            BootImageSource = WinPeBootImageSource.WinRe,
             SignatureMode = WinPeSignatureMode.Pca2023,
             DriverVendors = [WinPeVendorSelection.Dell],
             CustomDriverDirectoryPath = @"C:\Drivers",
@@ -471,7 +490,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.Equal("Customize boot image", result["boot_media_creation_failed_step_name"]);
         Assert.Equal("arm64", result["boot_media_architecture"]);
         Assert.Equal("en-us", result["boot_media_winpe_language"]);
-        Assert.Equal("winrewifi", result["boot_media_boot_image_source"]);
+        Assert.Equal("winre", result["boot_media_boot_image_source"]);
         Assert.Equal("pca2023", result["boot_media_signature_mode"]);
         Assert.Equal("gpt", result["boot_media_usb_partition_style"]);
         Assert.Equal("quick", result["boot_media_usb_format_mode"]);

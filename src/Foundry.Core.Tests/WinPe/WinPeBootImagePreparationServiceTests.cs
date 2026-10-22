@@ -13,87 +13,235 @@ namespace Foundry.Core.Tests.WinPe;
 
 public sealed class WinPeBootImagePreparationServiceTests
 {
-    [Theory]
-    [InlineData("empty")]
-    [InlineData("hashless")]
-    [InlineData("publication-failure")]
-    public async Task PrepareAsync_LegacySourceRequiresEvidenceAndSurvivesFailedPublication(string scenario)
+    [Fact]
+    public async Task PrepareAsync_WhenCurrentWinReIsCached_DoesNotDownloadOrExtractAgain()
     {
         using var temp = new TestUtilities.TemporaryDirectory();
         byte[] source = Encoding.UTF8.GetBytes("windows-source-original");
-        byte[] legacyBytes = scenario == "empty" ? [] : source;
-        string legacyRoot = Path.Combine(temp.Path, "legacy");
-        Directory.CreateDirectory(legacyRoot);
-        string legacyPath = Path.Combine(legacyRoot, "source.esd");
-        await File.WriteAllBytesAsync(legacyPath, legacyBytes, TestContext.Current.CancellationToken);
-        string digest = scenario == "hashless" ? string.Empty : Convert.ToHexString(SHA256.HashData(source));
-        var handler = new StaticCatalogHandler(CreateCatalogXml(digest), source);
-        using var client = new HttpClient(handler);
-        string work = Path.Combine(temp.Path, "work");
-        Directory.CreateDirectory(work);
-        string bootWim = Path.Combine(work, "boot.wim");
-        await File.WriteAllTextAsync(bootWim, "original", TestContext.Current.CancellationToken);
-        var service = CreateService(new FakeWinPeProcessRunner(), client, new WinPeWorkspaceCleanupService(() => []));
-
-        var result = await service.PrepareAsync(new WinPeBootImagePreparationOptions
-        {
-            Artifact = new() { Architecture = WinPeArchitecture.X64, WorkingDirectoryPath = work, BootWimPath = bootWim },
-            Tools = new() { DismPath = "dism.exe" },
-            WinPeLanguage = "en-US",
-            CacheDirectoryPath = Path.Combine(temp.Path, "cache"),
-            LegacyCacheDirectoryPath = legacyRoot,
-            DownloadProgress = scenario == "publication-failure" ? new RejectVerificationProgress() : null
-        }, TestContext.Current.CancellationToken);
-
-        Assert.Equal(scenario != "publication-failure", result.IsSuccess);
-        Assert.Equal(scenario == "publication-failure" ? 0 : 1, handler.PayloadRequests);
-        Assert.Equal(legacyBytes, await File.ReadAllBytesAsync(legacyPath, TestContext.Current.CancellationToken));
-        Assert.Empty(Directory.GetDirectories(Path.Combine(temp.Path, "cache"), ".pending-*", SearchOption.AllDirectories));
-    }
-
-    private sealed class RejectVerificationProgress : IProgress<WinPeDownloadProgress>
-    {
-        public void Report(WinPeDownloadProgress value)
-        {
-            if (value.Status.StartsWith("Verifying cached source", StringComparison.Ordinal))
-                throw new IOException("Simulated failure before cache publication.");
-        }
-    }
-
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task PrepareAsync_AcrossWorkspaces_ReusesSourceAndAdoptsValidLegacyWithoutDownload(bool legacy)
-    {
-        using var temp = new TestUtilities.TemporaryDirectory();
-        byte[] source = Encoding.UTF8.GetBytes("windows-source-original");
-        string legacyRoot = Path.Combine(temp.Path, "legacy");
-        if (legacy)
-        {
-            Directory.CreateDirectory(legacyRoot);
-            await File.WriteAllBytesAsync(Path.Combine(legacyRoot, "source.esd"), source, TestContext.Current.CancellationToken);
-        }
         var handler = new StaticCatalogHandler(CreateCatalogXml(Convert.ToHexString(SHA256.HashData(source))), source);
         using var client = new HttpClient(handler);
+        string legacy = Path.Combine(temp.Path, "legacy");
+        Directory.CreateDirectory(legacy);
+        await File.WriteAllTextAsync(Path.Combine(legacy, "old-24h2.esd"), "old", TestContext.Current.CancellationToken);
+        var runner = new FakeWinPeProcessRunner();
+
         for (int attempt = 0; attempt < 2; attempt++)
         {
-            string work = Path.Combine(temp.Path, "work-" + attempt);
-            Directory.CreateDirectory(work);
-            string bootWim = Path.Combine(work, "boot.wim");
-            await File.WriteAllTextAsync(bootWim, "original", TestContext.Current.CancellationToken);
-            var service = CreateService(new FakeWinPeProcessRunner(), client, new WinPeWorkspaceCleanupService(() => []));
-            var result = await service.PrepareAsync(new WinPeBootImagePreparationOptions
-            {
-                Artifact = new() { Architecture = WinPeArchitecture.X64, WorkingDirectoryPath = work, BootWimPath = bootWim },
-                Tools = new() { DismPath = "dism.exe" },
-                WinPeLanguage = "en-US",
-                CacheDirectoryPath = Path.Combine(temp.Path, "cache"),
-                LegacyCacheDirectoryPath = legacyRoot
-            }, TestContext.Current.CancellationToken);
+            WinPeResult<WinPeBootImagePreparationResult> result = await PrepareAsync(temp.Path, client, runner,
+                options => options with { LegacySourceDirectoryPath = legacy, IncludeWirelessSupport = true });
+
             Assert.True(result.IsSuccess, result.Error?.Details);
-            Directory.Delete(work, recursive: true);
+            Assert.Equal(WinPeBootImageSource.WinRe, result.Value!.BootImageSource);
+            Assert.Equal("winre", await File.ReadAllTextAsync(BootWim(temp.Path), TestContext.Current.CancellationToken));
+            Assert.Equal(2, result.Value.DependencyFiles.Count(file => file.OverwriteExisting));
         }
-        Assert.Equal(legacy ? 0 : 1, handler.PayloadRequests);
+
+        Assert.Equal(1, handler.PayloadRequests);
+        Assert.Single(runner.Executions, execution => execution.Arguments.Contains("/Mount-Image", StringComparison.Ordinal));
+        Assert.Empty(Directory.EnumerateFileSystemEntries(Path.Combine(temp.Path, "sources")));
+        Assert.Empty(Directory.EnumerateFileSystemEntries(legacy));
+    }
+
+    [Fact]
+    public async Task PrepareAsync_AfterExtraction_KeepsSourcePackagesLeasedByAnotherProcess()
+    {
+        using var temp = new TestUtilities.TemporaryDirectory();
+        string leasedEntry = Path.Combine(temp.Path, "sources", "LEASED");
+        string idleEntry = Path.Combine(temp.Path, "sources", "IDLE");
+        Directory.CreateDirectory(Path.Combine(leasedEntry, "generation-1"));
+        Directory.CreateDirectory(Path.Combine(idleEntry, "generation-1"));
+        await File.WriteAllTextAsync(Path.Combine(leasedEntry, "generation-1", "other.esd"), "in use", TestContext.Current.CancellationToken);
+        await File.WriteAllTextAsync(Path.Combine(idleEntry, "generation-1", "old.esd"), "old", TestContext.Current.CancellationToken);
+        using var client = new HttpClient(new StaticCatalogHandler(CreateCatalogXml(string.Empty), Encoding.UTF8.GetBytes("source")));
+
+        using (new FileStream(Path.Combine(leasedEntry, ".lease"), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
+        {
+            Assert.True((await PrepareAsync(temp.Path, client, new FakeWinPeProcessRunner())).IsSuccess);
+        }
+
+        Assert.True(File.Exists(Path.Combine(leasedEntry, "generation-1", "other.esd")));
+        Assert.False(Directory.Exists(idleEntry));
+    }
+
+    [Fact]
+    public async Task PrepareAsync_WhenNewerSourceIsPublished_ReplacesPreviousEntry()
+    {
+        using var temp = new TestUtilities.TemporaryDirectory();
+        var runner = new FakeWinPeProcessRunner();
+        foreach (string content in new[] { "source-a", "source-b" })
+        {
+            byte[] source = Encoding.UTF8.GetBytes(content);
+            using var client = new HttpClient(new StaticCatalogHandler(CreateCatalogXml(Convert.ToHexString(SHA256.HashData(source))), source));
+            Assert.True((await PrepareAsync(temp.Path, client, runner)).IsSuccess);
+        }
+
+        Assert.Equal(2, runner.Executions.Count(execution => execution.Arguments.Contains("/Mount-Image", StringComparison.Ordinal)));
+        Assert.Single(Directory.GetDirectories(Path.Combine(temp.Path, "winre"), "x64-en-us-*"));
+    }
+
+    [Theory]
+    [InlineData("catalog")]
+    [InlineData("download")]
+    [InlineData("extraction")]
+    public async Task PrepareAsync_WhenNewestWinReCannotBeObtained_UsesPreviousCachedEntry(string failure)
+    {
+        using var temp = new TestUtilities.TemporaryDirectory();
+        byte[] previous = Encoding.UTF8.GetBytes("source-a");
+        using (var client = new HttpClient(new StaticCatalogHandler(CreateCatalogXml(Convert.ToHexString(SHA256.HashData(previous))), previous)))
+        {
+            Assert.True((await PrepareAsync(temp.Path, client, new FakeWinPeProcessRunner())).IsSuccess);
+        }
+
+        byte[] newest = Encoding.UTF8.GetBytes("source-b");
+        var handler = new StaticCatalogHandler(CreateCatalogXml(Convert.ToHexString(SHA256.HashData(newest))), newest)
+        {
+            FailCatalog = failure == "catalog",
+            FailPayload = failure == "download"
+        };
+        using var failingClient = new HttpClient(handler);
+        var runner = new FakeWinPeProcessRunner { FailingOperation = failure == "extraction" ? "/Mount-Image" : null, ExitCode = 2 };
+        await File.WriteAllTextAsync(BootWim(temp.Path), "original", TestContext.Current.CancellationToken);
+
+        WinPeResult<WinPeBootImagePreparationResult> result = await PrepareAsync(temp.Path, failingClient, runner);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal(WinPeBootImageSource.WinRe, result.Value!.BootImageSource);
+        Assert.Equal("winre", await File.ReadAllTextAsync(BootWim(temp.Path), TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
+    public async Task PrepareAsync_ForX64_WhenNoWinReIsAvailable_KeepsAdkImageWithoutWirelessFilesAndReportsCause()
+    {
+        using var temp = new TestUtilities.TemporaryDirectory();
+        using var client = new HttpClient(new StaticCatalogHandler(CreateCatalogXml(string.Empty)) { FailCatalog = true });
+
+        WinPeResult<WinPeBootImagePreparationResult> result = await PrepareAsync(temp.Path, client, new FakeWinPeProcessRunner(),
+            options => options with { IncludeWirelessSupport = true });
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal(WinPeBootImageSource.WinPe, result.Value!.BootImageSource);
+        Assert.Equal(WinPeErrorCodes.OperatingSystemCatalogFetchFailed, result.Value.FallbackCause?.Code);
+        Assert.Empty(result.Value.DependencyFiles);
+        Assert.Equal("original", await File.ReadAllTextAsync(BootWim(temp.Path), TestContext.Current.CancellationToken));
+    }
+
+    [Theory]
+    [InlineData(WinPeArchitecture.X64)]
+    [InlineData(WinPeArchitecture.Arm64)]
+    public async Task PrepareAsync_WhenSourceDownloadIsRefusedWithEmptyCache_FallsBackOnX64AndFailsOnArm64(WinPeArchitecture architecture)
+    {
+        using var temp = new TestUtilities.TemporaryDirectory();
+        string catalog = CreateFallbackCatalogXml();
+        if (architecture == WinPeArchitecture.Arm64) catalog = catalog.Replace("<Architecture>x64</Architecture>", "<Architecture>arm64</Architecture>", StringComparison.Ordinal);
+        var handler = new StaticCatalogHandler(catalog, Encoding.UTF8.GetBytes("source")) { FailPayload = true };
+        using var client = new HttpClient(handler);
+        var runner = new FakeWinPeProcessRunner();
+
+        WinPeResult<WinPeBootImagePreparationResult> result = await PrepareAsync(temp.Path, client, runner,
+            options => options with { Artifact = options.Artifact with { Architecture = architecture } });
+
+        Assert.Equal(2, handler.PayloadRequests);
+        Assert.Empty(runner.Executions);
+        Assert.Equal("original", await File.ReadAllTextAsync(BootWim(temp.Path), TestContext.Current.CancellationToken));
+        WinPeDiagnostic? cause;
+        if (architecture == WinPeArchitecture.X64)
+        {
+            Assert.True(result.IsSuccess, result.Error?.Details);
+            Assert.Equal(WinPeBootImageSource.WinPe, result.Value!.BootImageSource);
+            cause = result.Value.FallbackCause;
+        }
+        else
+        {
+            Assert.False(result.IsSuccess);
+            Assert.Contains("ARM64", result.Error?.Message, StringComparison.Ordinal);
+            cause = result.Error;
+        }
+
+        Assert.Equal(WinPeErrorCodes.DownloadFailed, cause?.Code);
+        Assert.Contains("Failed to acquire a verified Windows source package.", cause?.Details, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task PrepareAsync_WhenDownloadedSourceFailsHashVerification_ReportsHashMismatchAsCause()
+    {
+        using var temp = new TestUtilities.TemporaryDirectory();
+        string expectedHash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes("expected")));
+        using var client = new HttpClient(new StaticCatalogHandler(CreateCatalogXml(expectedHash), Encoding.UTF8.GetBytes("damaged")));
+
+        WinPeResult<WinPeBootImagePreparationResult> result = await PrepareAsync(temp.Path, client, new FakeWinPeProcessRunner());
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal(WinPeBootImageSource.WinPe, result.Value!.BootImageSource);
+        Assert.Equal(WinPeErrorCodes.HashMismatch, result.Value.FallbackCause?.Code);
+    }
+
+    [Fact]
+    public async Task PrepareAsync_ForArm64_WhenNoWinReIsAvailable_FailsWithExplicitError()
+    {
+        using var temp = new TestUtilities.TemporaryDirectory();
+        using var client = new HttpClient(new StaticCatalogHandler(CreateCatalogXml(string.Empty)) { FailCatalog = true });
+
+        WinPeResult<WinPeBootImagePreparationResult> result = await PrepareAsync(temp.Path, client, new FakeWinPeProcessRunner(),
+            options => options with { Artifact = options.Artifact with { Architecture = WinPeArchitecture.Arm64 } });
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.OperatingSystemCatalogFetchFailed, result.Error?.Code);
+        Assert.Contains("ARM64", result.Error?.Message, StringComparison.Ordinal);
+        Assert.Contains("Failed to download the operating system catalog.", result.Error?.Details, StringComparison.Ordinal);
+        Assert.Equal("original", await File.ReadAllTextAsync(BootWim(temp.Path), TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
+    public async Task PrepareAsync_WithoutWirelessSupport_StillReplacesBootImageWithWinRe()
+    {
+        using var temp = new TestUtilities.TemporaryDirectory();
+        using var client = new HttpClient(new StaticCatalogHandler(CreateCatalogXml(string.Empty), Encoding.UTF8.GetBytes("source")));
+
+        WinPeResult<WinPeBootImagePreparationResult> result = await PrepareAsync(temp.Path, client, new FakeWinPeProcessRunner());
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal(WinPeBootImageSource.WinRe, result.Value!.BootImageSource);
+        Assert.Empty(result.Value.DependencyFiles);
+        Assert.Equal("winre", await File.ReadAllTextAsync(BootWim(temp.Path), TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
+    public async Task PrepareAsync_WhenCachedWinReIsCorrupted_RebuildsItFromSource()
+    {
+        using var temp = new TestUtilities.TemporaryDirectory();
+        byte[] source = Encoding.UTF8.GetBytes("source-a");
+        var handler = new StaticCatalogHandler(CreateCatalogXml(Convert.ToHexString(SHA256.HashData(source))), source);
+        using var client = new HttpClient(handler);
+        var runner = new FakeWinPeProcessRunner();
+        Assert.True((await PrepareAsync(temp.Path, client, runner)).IsSuccess);
+        string entry = Assert.Single(Directory.GetDirectories(Path.Combine(temp.Path, "winre"), "x64-en-us-*"));
+        await File.WriteAllTextAsync(Path.Combine(entry, "winre.wim"), "tampered", TestContext.Current.CancellationToken);
+
+        WinPeResult<WinPeBootImagePreparationResult> result = await PrepareAsync(temp.Path, client, runner);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal(2, handler.PayloadRequests);
+        Assert.Equal("winre", await File.ReadAllTextAsync(BootWim(temp.Path), TestContext.Current.CancellationToken));
+    }
+
+    private static string BootWim(string root) => Path.Combine(root, "work", "media", "sources", "boot.wim");
+
+    /// <summary>Runs one preparation with a workspace under <paramref name="root"/>, separate download and WinRE caches, and an ADK boot.wim.</summary>
+    private static async Task<WinPeResult<WinPeBootImagePreparationResult>> PrepareAsync(string root, HttpClient client, FakeWinPeProcessRunner runner,
+        Func<WinPeBootImagePreparationOptions, WinPeBootImagePreparationOptions>? configure = null)
+    {
+        string work = Path.Combine(root, "work");
+        Directory.CreateDirectory(Path.GetDirectoryName(BootWim(root))!);
+        if (!File.Exists(BootWim(root))) await File.WriteAllTextAsync(BootWim(root), "original", TestContext.Current.CancellationToken);
+        var options = new WinPeBootImagePreparationOptions
+        {
+            Artifact = new() { Architecture = WinPeArchitecture.X64, WorkingDirectoryPath = work, BootWimPath = BootWim(root) },
+            Tools = new() { DismPath = "dism.exe" },
+            WinPeLanguage = "en-US",
+            CacheDirectoryPath = Path.Combine(root, "sources"),
+            WinReCacheDirectoryPath = Path.Combine(root, "winre")
+        };
+        return await CreateService(runner, client).PrepareAsync(configure?.Invoke(options) ?? options, TestContext.Current.CancellationToken);
     }
 
     [Theory]
@@ -118,7 +266,7 @@ public sealed class WinPeBootImagePreparationServiceTests
             ExitCode = 2,
             OnRun = (arguments, _) => { if (arguments.Contains(stage, StringComparison.Ordinal)) caller.Cancel(); }
         };
-        using var client = new HttpClient(new StaticCatalogHandler(catalog));
+        using var client = new HttpClient(new StaticCatalogHandler(catalog, source));
         var service = CreateService(runner, client, new WinPeWorkspaceCleanupService(() => []));
         try
         {
@@ -128,7 +276,7 @@ public sealed class WinPeBootImagePreparationServiceTests
                 Tools = new WinPeToolPaths { DismPath = "dism.exe" },
                 WinPeLanguage = "en-US",
                 CacheDirectoryPath = cache,
-                BootImageSource = WinPeBootImageSource.WinReWifi
+                WinReCacheDirectoryPath = cache + "-winre",
             }, caller.Token);
             Assert.False(result.IsSuccess);
             Assert.Equal(2, result.Error?.ExitCode);
@@ -144,17 +292,18 @@ public sealed class WinPeBootImagePreparationServiceTests
     [Fact]
     public async Task PrepareAsync_WhenCatalogRequestIsCancelled_PropagatesCallerCancellation()
     {
+        using var temp = new TestUtilities.TemporaryDirectory();
         using var cancellation = new CancellationTokenSource();
         using var client = new HttpClient(new CancelledCatalogHandler(cancellation));
         var service = CreateService(new FakeWinPeProcessRunner(), client, new WinPeWorkspaceCleanupService(() => []));
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() => service.PrepareAsync(new WinPeBootImagePreparationOptions
         {
-            Artifact = new WinPeBuildArtifact { Architecture = WinPeArchitecture.X64, BootWimPath = "boot.wim", WorkingDirectoryPath = Path.GetTempPath() },
+            Artifact = new WinPeBuildArtifact { Architecture = WinPeArchitecture.X64, BootWimPath = "boot.wim", WorkingDirectoryPath = temp.Path },
             Tools = new WinPeToolPaths { DismPath = "dism.exe" },
             WinPeLanguage = "en-US",
-            CacheDirectoryPath = Path.GetTempPath(),
-            BootImageSource = WinPeBootImageSource.WinReWifi
+            CacheDirectoryPath = Path.Combine(temp.Path, "sources"),
+            WinReCacheDirectoryPath = Path.Combine(temp.Path, "winre"),
         }, cancellation.Token));
     }
 
@@ -194,7 +343,7 @@ public sealed class WinPeBootImagePreparationServiceTests
                 Tools = new WinPeToolPaths { DismPath = "dism.exe" },
                 WinPeLanguage = "en-US",
                 CacheDirectoryPath = cache,
-                BootImageSource = WinPeBootImageSource.WinReWifi
+                WinReCacheDirectoryPath = cache + "-winre",
             }, cancellation.Token));
             Assert.Equal(cancellation.Token, observed.CancellationToken);
             Assert.Equal(expectsDiscard, runner.Executions.Any(execution => execution.Arguments.Contains("/Discard", StringComparison.Ordinal)));
@@ -238,7 +387,8 @@ public sealed class WinPeBootImagePreparationServiceTests
             Artifact = new() { Architecture = WinPeArchitecture.X64, BootWimPath = Path.Combine(directory.Path, "boot.wim"), WorkingDirectoryPath = directory.Path },
             Tools = new() { DismPath = "dism.exe" },
             WinPeLanguage = "en-US",
-            CacheDirectoryPath = Path.Combine(directory.Path, "cache")
+            CacheDirectoryPath = Path.Combine(directory.Path, "cache"),
+            WinReCacheDirectoryPath = Path.Combine(directory.Path, "cache") + "-winre"
         }, cancellation.Token));
 
         Assert.Null(observed);
@@ -261,7 +411,8 @@ public sealed class WinPeBootImagePreparationServiceTests
     [Theory]
     [InlineData("x64", "en-us", 26100)]
     [InlineData("arm64", "fr-fr", 26100)]
-    [InlineData("arm64", "en-us", 26200)]
+    [InlineData("arm64", "en-us", 22631)]
+    [InlineData("arm64", "en-us", 27000)]
     public void SelectCatalogCandidates_RejectsIncompatibleArm64Sources(string architecture, string language, int build)
     {
         string catalog = CreateCatalogXml(string.Empty)
@@ -276,11 +427,11 @@ public sealed class WinPeBootImagePreparationServiceTests
     }
 
     [Theory]
-    [InlineData(WinPeBootImageSource.WinPe, null, false)]
-    [InlineData(WinPeBootImageSource.WinReWifi, null, false)]
-    [InlineData(WinPeBootImageSource.WinReWifi, "dwrite.dll", false)]
-    [InlineData(WinPeBootImageSource.WinReWifi, "dwrite.dll", true)]
-    public async Task PrepareAsync_ForArm64_StagesGraphicsOrFailsBeforeReplacement(WinPeBootImageSource bootImageSource, string? invalidFile, bool wrongArchitecture)
+    [InlineData(false, null, false)]
+    [InlineData(true, null, false)]
+    [InlineData(true, "dwrite.dll", false)]
+    [InlineData(true, "dwrite.dll", true)]
+    public async Task PrepareAsync_ForArm64_StagesGraphicsOrFailsBeforeReplacement(bool includeWirelessSupport, string? invalidFile, bool wrongArchitecture)
     {
         string root = Path.Combine(Path.GetTempPath(), $"foundry-arm64-{Guid.NewGuid():N}");
         string bootWim = Path.Combine(root, "boot.wim");
@@ -292,8 +443,7 @@ public sealed class WinPeBootImagePreparationServiceTests
         var runner = new FakeWinPeProcessRunner
         {
             InvalidGraphicsFile = invalidFile,
-            WrongGraphicsArchitecture = wrongArchitecture,
-            IncludeWirelessSupport = bootImageSource == WinPeBootImageSource.WinReWifi
+            WrongGraphicsArchitecture = wrongArchitecture
         };
         var service = CreateService(runner, new HttpClient(new StaticCatalogHandler(catalog)), new WinPeWorkspaceCleanupService(() => []));
 
@@ -305,7 +455,8 @@ public sealed class WinPeBootImagePreparationServiceTests
                 Tools = new WinPeToolPaths { DismPath = "dism.exe" },
                 WinPeLanguage = "en-US",
                 CacheDirectoryPath = cache,
-                BootImageSource = bootImageSource
+                WinReCacheDirectoryPath = cache + "-winre",
+                IncludeWirelessSupport = includeWirelessSupport
             }, TestContext.Current.CancellationToken);
 
             Assert.Single(runner.Executions, execution => execution.Arguments.Contains("/Export-Image", StringComparison.Ordinal));
@@ -320,10 +471,10 @@ public sealed class WinPeBootImagePreparationServiceTests
             }
 
             Assert.True(result.IsSuccess, result.Error?.Details);
-            Assert.Equal(bootImageSource == WinPeBootImageSource.WinReWifi ? "winre" : "original", File.ReadAllText(bootWim));
+            Assert.Equal("winre", File.ReadAllText(bootWim));
             Assert.Equal(new[] { "d3d9.dll", "d3dcompiler_47.dll", "dwrite.dll", "winmm.dll" },
                 result.Value!.DependencyFiles.Where(file => !file.OverwriteExisting).Select(file => file.FileName).Order(StringComparer.Ordinal));
-            Assert.Equal(bootImageSource == WinPeBootImageSource.WinReWifi ? 2 : 0,
+            Assert.Equal(includeWirelessSupport ? 2 : 0,
                 result.Value.DependencyFiles.Count(file => file.OverwriteExisting));
             Assert.All(result.Value.DependencyFiles, file => Assert.True(File.Exists(file.StagedPath)));
         }
@@ -334,7 +485,44 @@ public sealed class WinPeBootImagePreparationServiceTests
     }
 
     [Fact]
-    public void SelectCatalogCandidates_Filters24H2ArchitectureAndLanguage()
+    public void SelectCatalogCandidates_PrefersNewestServicingBranchBuildAndUbr()
+    {
+        string Item(string releaseId, int build, int ubr, string clientType, string channel, string fileName) => $"""
+            <Item>
+              <WindowsRelease>11</WindowsRelease>
+              <ReleaseId>{releaseId}</ReleaseId>
+              <BuildMajor>{build}</BuildMajor>
+              <BuildUbr>{ubr}</BuildUbr>
+              <Architecture>arm64</Architecture>
+              <LanguageCode>en-us</LanguageCode>
+              <ClientType>{clientType}</ClientType>
+              <LicenseChannel>{channel}</LicenseChannel>
+              <FileName>{fileName}</FileName>
+              <Url>https://example.test/{fileName}</Url>
+              <Sha256>abc</Sha256>
+            </Item>
+            """;
+        string catalogXml = "<Catalog>" +
+            Item("24H2", 26100, 4349, "CLIENTCONSUMER", "RET", "24h2.esd") +
+            Item("26H2", 26300, 9457, "CLIENTCONSUMER", "RET", "26h2-old.esd") +
+            Item("26H2", 26300, 9711, "CLIENTCONSUMER", "RET", "26h2.esd") +
+            Item("25H2", 26200, 9457, "CLIENTCONSUMER", "RET", "25h2.esd") +
+            Item("27H2", 27000, 1, "CLIENTCONSUMER", "RET", "unsupported.esd") +
+            Item("25H2", 26200, 9457, "CLIENTBUSINESS", "VOL", "25h2-business.esd") +
+            "</Catalog>";
+
+        WinPeResult<IReadOnlyList<WindowsSourceCandidate>> result =
+            WinPeBootImagePreparationService.SelectCatalogCandidates(catalogXml, WinPeArchitecture.Arm64, "en-US");
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Collection(
+            result.Value!,
+            candidate => Assert.Equal("26h2.esd", candidate.Source.FileName),
+            candidate => Assert.Equal("25h2-business.esd", candidate.Source.FileName));
+    }
+
+    [Fact]
+    public void SelectCatalogCandidates_FiltersArchitectureAndLanguage()
     {
         const string catalogXml = """
                                   <Catalog>
@@ -372,7 +560,7 @@ public sealed class WinPeBootImagePreparationServiceTests
                                       <BuildMajor>26200</BuildMajor>
                                       <BuildUbr>5337</BuildUbr>
                                       <Architecture>x64</Architecture>
-                                      <LanguageCode>fr-fr</LanguageCode>
+                                      <LanguageCode>de-de</LanguageCode>
                                       <Edition>Professional</Edition>
                                       <ClientType>CLIENTCONSUMER</ClientType>
                                       <LicenseChannel>RET</LicenseChannel>
@@ -474,7 +662,8 @@ public sealed class WinPeBootImagePreparationServiceTests
             Artifact = new() { Architecture = WinPeArchitecture.X64, BootWimPath = Path.Combine(directory.Path, "boot.wim"), WorkingDirectoryPath = directory.Path },
             Tools = new() { DismPath = "dism.exe" },
             WinPeLanguage = "en-US",
-            CacheDirectoryPath = Path.Combine(directory.Path, "cache")
+            CacheDirectoryPath = Path.Combine(directory.Path, "cache"),
+            WinReCacheDirectoryPath = Path.Combine(directory.Path, "cache") + "-winre"
         };
 
         if (cancelled)
@@ -484,11 +673,12 @@ public sealed class WinPeBootImagePreparationServiceTests
         else
         {
             WinPeResult<WinPeBootImagePreparationResult> result = await service.PrepareAsync(options, caller.Token);
-            Assert.False(result.IsSuccess);
-            Assert.Same(failure, result.Error?.Exception);
-            Assert.Equal("Inspect Windows source image", result.Error?.Stage);
-            Assert.Null(result.Error?.ExitCode);
-            Assert.Null(result.Error?.ToolName);
+            Assert.Equal(WinPeBootImageSource.WinPe, result.Value?.BootImageSource);
+            WinPeDiagnostic? cause = result.Value?.FallbackCause;
+            Assert.Same(failure, cause?.Exception);
+            Assert.Equal("Inspect Windows source image", cause?.Stage);
+            Assert.Null(cause?.ExitCode);
+            Assert.Null(cause?.ToolName);
         }
 
         Assert.Empty(runner.Executions);
@@ -524,7 +714,7 @@ public sealed class WinPeBootImagePreparationServiceTests
             Tools = new() { DismPath = "dism.exe" },
             WinPeLanguage = "en-US",
             CacheDirectoryPath = Path.Combine(directory.Path, "cache"),
-            BootImageSource = WinPeBootImageSource.WinReWifi
+            WinReCacheDirectoryPath = Path.Combine(directory.Path, "cache") + "-winre",
         }, TestContext.Current.CancellationToken);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
@@ -537,28 +727,7 @@ public sealed class WinPeBootImagePreparationServiceTests
     }
 
     [Fact]
-    public async Task ValidateHashIfRequestedAsync_WhenHashMatches_ReturnsSuccess()
-    {
-        string filePath = Path.Combine(Path.GetTempPath(), $"foundry-hash-{Guid.NewGuid():N}.txt");
-        await File.WriteAllTextAsync(filePath, "foundry", TestContext.Current.CancellationToken);
-
-        try
-        {
-            WinPeResult result = await WinPeBootImagePreparationService.ValidateHashIfRequestedAsync(
-                filePath,
-                "DFB316701857783DAC69A14D1FE3FD60CFF21D56E830BAF7F0E3871BD73EEE39",
-                CancellationToken.None);
-
-            Assert.True(result.IsSuccess);
-        }
-        finally
-        {
-            File.Delete(filePath);
-        }
-    }
-
-    [Fact]
-    public void PrepareDependencyFiles_ForX64Wifi_StagesWirelessFiles()
+    public void PrepareDependencyFiles_ForX64_CopiesWirelessFiles()
     {
         string root = Path.Combine(Path.GetTempPath(), $"foundry-winre-{Guid.NewGuid():N}");
         string mountedImagePath = Path.Combine(root, "mounted");
@@ -570,13 +739,10 @@ public sealed class WinPeBootImagePreparationServiceTests
 
         try
         {
-            WinPeResult<WinPeBootImagePreparationResult> result =
-                WinPeBootImagePreparationService.PrepareDependencyFiles(mountedImagePath, dependencyPath, WinPeArchitecture.X64, WinPeBootImageSource.WinReWifi);
+            WinPeResult result = WinPeBootImagePreparationService.PrepareDependencyFiles(mountedImagePath, dependencyPath, WinPeArchitecture.X64);
 
             Assert.True(result.IsSuccess);
-            Assert.NotNull(result.Value);
-            Assert.Equal(2, result.Value.DependencyFiles.Count);
-            Assert.All(result.Value.DependencyFiles, dependency => Assert.True(File.Exists(dependency.StagedPath)));
+            Assert.Equal(["dmcmnutils.dll", "mdmregistration.dll"], Directory.GetFiles(dependencyPath).Select(Path.GetFileName).Order(StringComparer.Ordinal));
         }
         finally
         {
@@ -609,7 +775,7 @@ public sealed class WinPeBootImagePreparationServiceTests
         var runner = new FakeWinPeProcessRunner { FailingOperation = failingOperation, ExitCode = exitCode, CreateExport = createExport };
         var service = CreateService(
             runner,
-            new HttpClient(new StaticCatalogHandler(catalogXml)), new WinPeWorkspaceCleanupService(() => []));
+            new HttpClient(new StaticCatalogHandler(catalogXml, Encoding.UTF8.GetBytes("cached source"))), new WinPeWorkspaceCleanupService(() => []));
 
         try
         {
@@ -627,18 +793,22 @@ public sealed class WinPeBootImagePreparationServiceTests
                         DismPath = "dism.exe"
                     },
                     WinPeLanguage = "en-US",
-                    CacheDirectoryPath = cachePath
+                    CacheDirectoryPath = cachePath,
+                    WinReCacheDirectoryPath = cachePath + "-winre",
+                    IncludeWirelessSupport = true
                 },
                 CancellationToken.None);
 
             if (failingOperation is not null || !createExport)
             {
-                Assert.False(result.IsSuccess);
-                Assert.Equal(failingOperation is null ? WinPeFailureReasons.ArtifactMissing : WinPeFailureReasons.NonZeroExit, result.Error?.FailureReason);
-                Assert.Equal(exitCode, result.Error?.ExitCode);
-                Assert.Equal(WinPeFailureKinds.Process, result.Error?.FailureKind);
-                Assert.Equal("dism.exe", result.Error?.ToolName);
-                if (failingOperation == "/Mount-Image") Assert.Equal(WinPeErrorCodes.WimMountFailed, result.Error?.Code);
+                Assert.Equal(WinPeBootImageSource.WinPe, result.Value?.BootImageSource);
+                WinPeDiagnostic? cause = result.Value?.FallbackCause;
+                Assert.Equal(failingOperation is null ? WinPeFailureReasons.ArtifactMissing : WinPeFailureReasons.NonZeroExit, cause?.FailureReason);
+                Assert.Equal(exitCode, cause?.ExitCode);
+                Assert.Equal(WinPeFailureKinds.Process, cause?.FailureKind);
+                Assert.Equal("dism.exe", cause?.ToolName);
+                Assert.Equal("original", await File.ReadAllTextAsync(bootWimPath, TestContext.Current.CancellationToken));
+                if (failingOperation == "/Mount-Image") Assert.Equal(WinPeErrorCodes.WimMountFailed, cause?.Code);
                 return;
             }
             Assert.True(result.IsSuccess, result.Error?.Details);
@@ -671,7 +841,7 @@ public sealed class WinPeBootImagePreparationServiceTests
             Tools = new WinPeToolPaths { DismPath = "dism.exe" },
             WinPeLanguage = "en-US",
             CacheDirectoryPath = cache,
-            BootImageSource = WinPeBootImageSource.WinPe
+            WinReCacheDirectoryPath = cache + "-winre",
         }, TestContext.Current.CancellationToken);
 
         Assert.False(result.IsSuccess);
@@ -693,7 +863,7 @@ public sealed class WinPeBootImagePreparationServiceTests
         {
             FailingOperation = "/Discard",
             ExitCode = 9,
-            IncludeWirelessSupport = !missingWinRe,
+            IncludeWinRe = !missingWinRe,
             OnRun = (arguments, _) =>
             {
                 if (arguments.Contains("/Discard", StringComparison.Ordinal) && ++discards == 2 && exitUnconfirmed)
@@ -709,7 +879,7 @@ public sealed class WinPeBootImagePreparationServiceTests
             Tools = new() { DismPath = "dism.exe" },
             WinPeLanguage = "en-US",
             CacheDirectoryPath = Path.Combine(directory.Path, "cache"),
-            BootImageSource = WinPeBootImageSource.WinReWifi
+            WinReCacheDirectoryPath = Path.Combine(directory.Path, "cache") + "-winre",
         }, TestContext.Current.CancellationToken);
 
         Assert.False(result.IsSuccess);
@@ -753,7 +923,8 @@ public sealed class WinPeBootImagePreparationServiceTests
             Artifact = new() { Architecture = WinPeArchitecture.X64, BootWimPath = Path.Combine(directory.Path, "boot.wim"), WorkingDirectoryPath = directory.Path },
             Tools = new() { DismPath = "dism.exe" },
             WinPeLanguage = "en-US",
-            CacheDirectoryPath = Path.Combine(directory.Path, "cache")
+            CacheDirectoryPath = Path.Combine(directory.Path, "cache"),
+            WinReCacheDirectoryPath = Path.Combine(directory.Path, "cache") + "-winre"
         }, TestContext.Current.CancellationToken);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
@@ -821,7 +992,7 @@ public sealed class WinPeBootImagePreparationServiceTests
             Tools = new WinPeToolPaths { DismPath = "dism.exe" },
             WinPeLanguage = "en-US",
             CacheDirectoryPath = Path.Combine(directory.Path, "cache"),
-            BootImageSource = WinPeBootImageSource.WinPe
+            WinReCacheDirectoryPath = Path.Combine(directory.Path, "cache") + "-winre",
         }, TestContext.Current.CancellationToken);
 
         Assert.False(result.IsSuccess);
@@ -832,10 +1003,13 @@ public sealed class WinPeBootImagePreparationServiceTests
     private sealed class StaticCatalogHandler(string content, byte[]? payload = null) : HttpMessageHandler
     {
         public int PayloadRequests { get; private set; }
+        public bool FailCatalog { get; init; }
+        public bool FailPayload { get; init; }
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             bool source = request.RequestUri!.AbsolutePath.EndsWith(".esd", StringComparison.OrdinalIgnoreCase);
             if (source) PayloadRequests++;
+            if (source ? FailPayload : FailCatalog) throw new HttpRequestException("Simulated network failure.");
             return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
             {
                 Content = source && payload is not null ? new ByteArrayContent(payload) : new StringContent(content, Encoding.UTF8, "application/xml")
@@ -861,7 +1035,7 @@ public sealed class WinPeBootImagePreparationServiceTests
         public bool CreateExport { get; init; } = true;
         public string? InvalidGraphicsFile { get; init; }
         public bool WrongGraphicsArchitecture { get; init; }
-        public bool IncludeWirelessSupport { get; init; } = true;
+        public bool IncludeWinRe { get; init; } = true;
         public bool MissingWinReForFirstMount { get; init; }
         public int? DiscardFailuresBeforeSuccess { get; init; }
 
@@ -928,7 +1102,7 @@ public sealed class WinPeBootImagePreparationServiceTests
                 string system32Path = Path.Combine(mountDirectory, "Windows", "System32");
                 Directory.CreateDirectory(recoveryPath);
                 Directory.CreateDirectory(system32Path);
-                if (IncludeWirelessSupport && (!MissingWinReForFirstMount ||
+                if (IncludeWinRe && (!MissingWinReForFirstMount ||
                     Executions.Count(execution => execution.Arguments.Contains("/Mount-Image", StringComparison.Ordinal)) > 1))
                 {
                     File.WriteAllText(Path.Combine(recoveryPath, "winre.wim"), "winre");

@@ -22,7 +22,7 @@ internal sealed class MediaCreationTelemetryProgressTracker : ILogEventEnricher
         [WinPeProgressStatuses.ResolvingWindowsImageIndex] = MediaCreationStepNames.ResolveWinReImageIndex,
         [WinPeProgressStatuses.ExportingWindowsSourceImage] = MediaCreationStepNames.ExportWinReSourceImage,
         [WinPeProgressStatuses.MountingWindowsSourceImage] = MediaCreationStepNames.MountWinReSourceImage,
-        [WinPeProgressStatuses.StagingBootImageDependencies] = MediaCreationStepNames.StageWinReWifiDependencies,
+        [WinPeProgressStatuses.StagingBootImageDependencies] = MediaCreationStepNames.StageWinReDependencies,
         [WinPeProgressStatuses.ReplacingBootImageWithWinRe] = MediaCreationStepNames.ReplaceBootImageWithWinRe,
         [WinPeProgressStatuses.PreparingBootImageCustomization] = MediaCreationStepNames.CustomizeBootImage,
         [WinPeProgressStatuses.MountingBootImage] = MediaCreationStepNames.MountBootImage,

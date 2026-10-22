@@ -27,6 +27,7 @@ public sealed class WinPeWorkspacePreparationServiceTests
         var service = new WinPeWorkspacePreparationService(
             driverResolution,
             customization,
+            new FakeBootImagePreparationService(),
             new WinPeToolResolver(() => null),
             new FakeBootExRunner("/bootex"));
 
@@ -36,13 +37,13 @@ public sealed class WinPeWorkspacePreparationServiceTests
                 Artifact = temp.Artifact,
                 Tools = temp.Tools,
                 SignatureMode = WinPeSignatureMode.Pca2011,
-                BootImageSource = WinPeBootImageSource.WinPe,
                 DriverCatalogUri = "https://example.test/catalog.xml",
                 DriverVendors = [WinPeVendorSelection.Dell],
                 WinPeLanguage = "en-US",
                 AssetProvisioning = assetProvisioning,
                 RuntimePayloadProvisioning = runtimePayloadProvisioning,
-                WinReCacheDirectoryPath = Path.Combine(temp.RootPath, "cache")
+                WindowsSourceCacheDirectoryPath = Path.Combine(temp.RootPath, "sources"),
+                WinReCacheDirectoryPath = Path.Combine(temp.RootPath, "winre")
             },
             CancellationToken.None);
 
@@ -62,6 +63,7 @@ public sealed class WinPeWorkspacePreparationServiceTests
         var service = new WinPeWorkspacePreparationService(
             new FakeDriverResolutionService([]),
             new FakeMountedImageCustomizationService(),
+            new FakeBootImagePreparationService(),
             new WinPeToolResolver(() => null),
             new FakeBootExRunner("MakeWinPEMedia help without support"));
 
@@ -71,17 +73,76 @@ public sealed class WinPeWorkspacePreparationServiceTests
                 Artifact = temp.Artifact,
                 Tools = temp.Tools,
                 SignatureMode = WinPeSignatureMode.Pca2023,
-                BootImageSource = WinPeBootImageSource.WinPe,
                 DriverCatalogUri = "https://example.test/catalog.xml",
                 DriverVendors = [],
                 WinPeLanguage = "en-US",
-                WinReCacheDirectoryPath = Path.Combine(temp.RootPath, "cache")
+                WindowsSourceCacheDirectoryPath = Path.Combine(temp.RootPath, "sources"),
+                WinReCacheDirectoryPath = Path.Combine(temp.RootPath, "winre")
             },
             CancellationToken.None);
 
         Assert.False(result.IsSuccess);
         Assert.Equal(WinPeErrorCodes.BootExUnsupported, result.Error?.Code);
     }
+
+    [Theory]
+    [InlineData(WinPeBootImageSource.WinRe, true)]
+    [InlineData(WinPeBootImageSource.WinPe, true)]
+    [InlineData(WinPeBootImageSource.WinRe, false)]
+    public async Task PrepareAsync_InjectsWirelessSupplementOnlyIntoWinReWithWifi(WinPeBootImageSource bootImageSource, bool includeWirelessSupport)
+    {
+        using TempWinPeArtifact temp = TempWinPeArtifact.Create();
+        var driverResolution = new FakeDriverResolutionService(["drivers"], ["wireless"]);
+        var customization = new FakeMountedImageCustomizationService();
+        var cause = new WinPeDiagnostic(WinPeErrorCodes.OperatingSystemCatalogFetchFailed, "offline");
+        var preparation = new FakeBootImagePreparationService(new WinPeBootImagePreparationResult
+        {
+            BootImageSource = bootImageSource,
+            FallbackCause = bootImageSource == WinPeBootImageSource.WinPe ? cause : null,
+            DependencyFiles = []
+        });
+        var service = new WinPeWorkspacePreparationService(driverResolution, customization, preparation,
+            new WinPeToolResolver(() => null), new FakeBootExRunner("/bootex"));
+
+        WinPeResult<WinPeWorkspacePreparationResult> result = await service.PrepareAsync(CreateOptions(temp) with
+        {
+            IncludeWirelessSupport = includeWirelessSupport
+        }, TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        string[] expected = bootImageSource == WinPeBootImageSource.WinRe && includeWirelessSupport ? ["drivers", "wireless"] : ["drivers"];
+        Assert.Equal(expected, Assert.Single(customization.Options).DriverPackagePaths);
+        Assert.Equal(includeWirelessSupport, Assert.Single(preparation.Options).IncludeWirelessSupport);
+        Assert.Equal(bootImageSource, result.Value!.BootImageSource);
+        Assert.Equal(bootImageSource == WinPeBootImageSource.WinPe ? cause : null, result.Value.BootImageFallbackCause);
+    }
+
+    [Fact]
+    public async Task PrepareAsync_WhenBootImagePreparationFails_DoesNotCustomize()
+    {
+        using TempWinPeArtifact temp = TempWinPeArtifact.Create();
+        var customization = new FakeMountedImageCustomizationService();
+        var failure = new WinPeDiagnostic(WinPeErrorCodes.WinReExtractionFailed, "ARM64 boot media requires the Windows Recovery Environment.");
+        var service = new WinPeWorkspacePreparationService(new FakeDriverResolutionService([]), customization,
+            new FakeBootImagePreparationService { Failure = failure }, new WinPeToolResolver(() => null), new FakeBootExRunner("/bootex"));
+
+        WinPeResult<WinPeWorkspacePreparationResult> result = await service.PrepareAsync(CreateOptions(temp), TestContext.Current.CancellationToken);
+
+        Assert.Same(failure, result.Error);
+        Assert.Empty(customization.Options);
+    }
+
+    private static WinPeWorkspacePreparationOptions CreateOptions(TempWinPeArtifact temp) => new()
+    {
+        Artifact = temp.Artifact,
+        Tools = temp.Tools,
+        SignatureMode = WinPeSignatureMode.Pca2011,
+        DriverCatalogUri = "https://example.test/catalog.xml",
+        DriverVendors = [],
+        WinPeLanguage = "en-US",
+        WindowsSourceCacheDirectoryPath = Path.Combine(temp.RootPath, "sources"),
+        WinReCacheDirectoryPath = Path.Combine(temp.RootPath, "winre")
+    };
 
     private sealed class TempWinPeArtifact : IDisposable
     {
@@ -135,7 +196,7 @@ public sealed class WinPeWorkspacePreparationServiceTests
         }
     }
 
-    private sealed class FakeDriverResolutionService(IReadOnlyList<string> result) : IWinPeDriverResolutionService
+    private sealed class FakeDriverResolutionService(IReadOnlyList<string> result, IReadOnlyList<string>? wirelessResult = null) : IWinPeDriverResolutionService
     {
         public List<WinPeDriverResolutionRequest> Requests { get; } = [];
 
@@ -144,7 +205,7 @@ public sealed class WinPeWorkspacePreparationServiceTests
             CancellationToken cancellationToken = default)
         {
             Requests.Add(request);
-            return Task.FromResult(WinPeResult<IReadOnlyList<string>>.Success(result));
+            return Task.FromResult(WinPeResult<IReadOnlyList<string>>.Success(request.IncludeWirelessSupplement ? wirelessResult ?? [] : result));
         }
     }
 
@@ -158,6 +219,22 @@ public sealed class WinPeWorkspacePreparationServiceTests
         {
             Options.Add(options);
             return Task.FromResult(WinPeResult.Success());
+        }
+    }
+
+    private sealed class FakeBootImagePreparationService(WinPeBootImagePreparationResult? result = null) : IWinPeBootImagePreparationService
+    {
+        public List<WinPeBootImagePreparationOptions> Options { get; } = [];
+        public WinPeDiagnostic? Failure { get; init; }
+
+        public Task<WinPeResult<WinPeBootImagePreparationResult>> PrepareAsync(
+            WinPeBootImagePreparationOptions options,
+            CancellationToken cancellationToken = default)
+        {
+            Options.Add(options);
+            return Task.FromResult(Failure is not null
+                ? WinPeResult<WinPeBootImagePreparationResult>.Failure(Failure)
+                : WinPeResult<WinPeBootImagePreparationResult>.Success(result ?? new WinPeBootImagePreparationResult { DependencyFiles = [] }));
         }
     }
 

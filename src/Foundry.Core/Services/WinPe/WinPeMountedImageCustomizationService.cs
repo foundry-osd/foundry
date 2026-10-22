@@ -11,7 +11,6 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
     private readonly IWinPeImageInternationalizationService _imageInternationalizationService;
     private readonly IWinPeMountedImageAssetProvisioningService _assetProvisioningService;
     private readonly IWinPeRuntimePayloadProvisioningService _runtimePayloadProvisioningService;
-    private readonly IWinPeBootImagePreparationService _bootImagePreparationService;
 
     public WinPeMountedImageCustomizationService()
         : this(
@@ -19,8 +18,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
             new WinPeDriverInjectionService(),
             new WinPeImageInternationalizationService(),
             new WinPeMountedImageAssetProvisioningService(),
-            new WinPeRuntimePayloadProvisioningService(),
-            new WinPeBootImagePreparationService())
+            new WinPeRuntimePayloadProvisioningService())
     {
     }
 
@@ -29,15 +27,13 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         IWinPeDriverInjectionService driverInjectionService,
         IWinPeImageInternationalizationService imageInternationalizationService,
         IWinPeMountedImageAssetProvisioningService assetProvisioningService,
-        IWinPeRuntimePayloadProvisioningService runtimePayloadProvisioningService,
-        IWinPeBootImagePreparationService bootImagePreparationService)
+        IWinPeRuntimePayloadProvisioningService runtimePayloadProvisioningService)
     {
         _processRunner = processRunner;
         _driverInjectionService = driverInjectionService;
         _imageInternationalizationService = imageInternationalizationService;
         _assetProvisioningService = assetProvisioningService;
         _runtimePayloadProvisioningService = runtimePayloadProvisioningService;
-        _bootImagePreparationService = bootImagePreparationService;
     }
 
     public async Task<WinPeResult> CustomizeAsync(
@@ -56,32 +52,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         WinPeToolPaths tools = options.Tools!;
 
         ReportProgress(options.Progress, 0, WinPeProgressStatuses.PreparingBootImageCustomization);
-        WinPeBootImagePreparationResult? preparationResult = null;
-        if (RequiresSourcePreparation(options))
-        {
-            WinPeResult<WinPeBootImagePreparationResult> sourceResult =
-                await _bootImagePreparationService.PrepareAsync(
-                    new WinPeBootImagePreparationOptions
-                    {
-                        Artifact = artifact,
-                        Tools = tools,
-                        BootImageSource = options.BootImageSource,
-                        WinPeLanguage = options.WinPeLanguage,
-                        CacheDirectoryPath = options.WinReCacheDirectoryPath,
-                        LegacyCacheDirectoryPath = options.LegacyWinReCacheDirectoryPath,
-                        CatalogUri = options.WinReCatalogUri ?? WinPeBootImagePreparationService.DefaultOperatingSystemCatalogUri,
-                        DownloadProgress = options.DownloadProgress,
-                        Progress = options.Progress
-                    },
-                    cancellationToken).ConfigureAwait(false);
-
-            if (!sourceResult.IsSuccess)
-            {
-                return WinPeResult.Failure(sourceResult.Error!);
-            }
-
-            preparationResult = sourceResult.Value!;
-        }
+        WinPeBootImagePreparationResult preparationResult = options.BootImagePreparation!;
 
         ReportProgress(options.Progress, 30, WinPeProgressStatuses.MountingBootImage);
         cancellationToken.ThrowIfCancellationRequested();
@@ -104,19 +75,9 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         await using WinPeMountSession session = mountResult.Value!;
         cancellationToken.ThrowIfCancellationRequested();
 
-        if (options.BootImageSource == WinPeBootImageSource.WinReWifi)
+        if (preparationResult.BootImageSource == WinPeBootImageSource.WinRe)
         {
-            if (preparationResult is null)
-            {
-                return await FailWithDiscardAsync(
-                    new WinPeDiagnostic(
-                        WinPeErrorCodes.InternalError,
-                        "WinRE Wi-Fi preparation did not return dependency metadata.",
-                        null),
-                    session).ConfigureAwait(false);
-            }
-
-            WinPeResult adjustmentsResult = ApplyWinReWifiAdjustments(session.MountDirectoryPath, preparationResult);
+            WinPeResult adjustmentsResult = ApplyWinReAdjustments(session.MountDirectoryPath, preparationResult);
             if (!adjustmentsResult.IsSuccess)
             {
                 return await FailWithDiscardAsync(adjustmentsResult.Error!, session).ConfigureAwait(false);
@@ -159,16 +120,13 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         }
         cancellationToken.ThrowIfCancellationRequested();
 
-        if (preparationResult is not null)
+        // Optional components can provide graphics files; preserve those before adding missing dependencies.
+        WinPeResult dependenciesResult = ApplyDependencyFiles(
+            session.MountDirectoryPath,
+            preparationResult.DependencyFiles.Where(file => !file.OverwriteExisting));
+        if (!dependenciesResult.IsSuccess)
         {
-            // Optional components can provide graphics files; preserve those before adding missing dependencies.
-            WinPeResult dependenciesResult = ApplyDependencyFiles(
-                session.MountDirectoryPath,
-                preparationResult.DependencyFiles.Where(file => !file.OverwriteExisting));
-            if (!dependenciesResult.IsSuccess)
-            {
-                return await FailWithDiscardAsync(dependenciesResult.Error!, session).ConfigureAwait(false);
-            }
+            return await FailWithDiscardAsync(dependenciesResult.Error!, session).ConfigureAwait(false);
         }
 
         if (options.RuntimePayloadProvisioning is not null)
@@ -248,7 +206,11 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
             cancellationToken).ConfigureAwait(false);
     }
 
-    private static WinPeResult ApplyWinReWifiAdjustments(
+    /// <summary>
+    /// Removes the WinRE shell configuration so the Foundry startup runs instead of the recovery UI, then adds the
+    /// staged files that replace WinRE ones (the wireless dependencies of a Wi-Fi media).
+    /// </summary>
+    private static WinPeResult ApplyWinReAdjustments(
         string mountedImagePath,
         WinPeBootImagePreparationResult preparationResult)
     {
@@ -269,7 +231,7 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
         {
             return WinPeResult.Failure(new WinPeDiagnostic(
                 WinPeErrorCodes.BuildFailed,
-                "Failed to apply WinRE Wi-Fi startup fixes to the mounted boot image.",
+                "Failed to apply WinRE startup fixes to the mounted boot image.",
                 ex.Message,
                 exception: ex));
         }
@@ -314,12 +276,6 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
                 exception: ex));
         }
     }
-
-    /// <summary>
-    /// Windows source extraction is shared by Wi-Fi recovery media and ARM64 graphics preparation.
-    /// </summary>
-    private static bool RequiresSourcePreparation(WinPeMountedImageCustomizationOptions options) =>
-        options.BootImageSource == WinPeBootImageSource.WinReWifi || options.Artifact!.Architecture == WinPeArchitecture.Arm64;
 
     private static async Task<WinPeResult> FailWithDiscardAsync(
         WinPeDiagnostic primaryDiagnostic,
@@ -366,12 +322,12 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
                 "Set WinPeMountedImageCustomizationOptions.Tools.");
         }
 
-        if (!Enum.IsDefined(options.BootImageSource))
+        if (options.BootImagePreparation is null || !Enum.IsDefined(options.BootImagePreparation.BootImageSource))
         {
             return new WinPeDiagnostic(
                 WinPeErrorCodes.ValidationFailed,
-                "Boot image source value is invalid.",
-                $"Value: '{options.BootImageSource}'.");
+                "A prepared boot image is required.",
+                "Set WinPeMountedImageCustomizationOptions.BootImagePreparation.");
         }
 
         if (string.IsNullOrWhiteSpace(options.WinPeLanguage))
@@ -396,14 +352,6 @@ public sealed class WinPeMountedImageCustomizationService : IWinPeMountedImageCu
                 WinPeErrorCodes.ValidationFailed,
                 "WinPE boot.wim was not found.",
                 $"Expected path: '{options.Artifact.BootWimPath}'.");
-        }
-
-        if (RequiresSourcePreparation(options) && string.IsNullOrWhiteSpace(options.WinReCacheDirectoryPath))
-        {
-            return new WinPeDiagnostic(
-                WinPeErrorCodes.ValidationFailed,
-                "A Windows source cache directory is required for Wi-Fi or ARM64 boot image preparation.",
-                "Set WinPeMountedImageCustomizationOptions.WinReCacheDirectoryPath.");
         }
 
         return null;

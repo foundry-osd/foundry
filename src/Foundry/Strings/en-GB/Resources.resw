@@ -4050,6 +4050,9 @@ Passwords and access keys included: {2}</value>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows blocked access to the WinPE image files. Security software or another tool may be locking them. Add a security software exclusion for {0}, close tools that mount images, restart the computer, and try again. Details are in {1} and {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WinReFallbackWarning" xml:space="preserve">
+    <value>Foundry OSD could not get the Windows Recovery Environment, so this media uses the standard Windows PE image. Wi-Fi is not available on it. Check the connection and create the media again to get the full image.</value>
+  </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>Writing the ISO file…</value>
   </data>

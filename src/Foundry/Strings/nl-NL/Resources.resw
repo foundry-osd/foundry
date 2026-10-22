@@ -4050,6 +4050,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows heeft de toegang tot de WinPE-installatiekopiebestanden geblokkeerd. Mogelijk worden ze vergrendeld door beveiligingssoftware of een ander hulpprogramma. Voeg in de beveiligingssoftware een uitzondering toe voor {0}, sluit hulpprogramma's die installatiekopieën koppelen, start de computer opnieuw op en probeer het opnieuw. Details staan in {1} en {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WinReFallbackWarning" xml:space="preserve">
+    <value>Foundry OSD kon de Windows Herstelomgeving niet ophalen, dus dit medium gebruikt de standaardinstallatiekopie van Windows PE. Wi-Fi is hierop niet beschikbaar. Controleer de verbinding en maak het medium opnieuw om de volledige installatiekopie te krijgen.</value>
+  </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>ISO-bestand schrijven…</value>
   </data>

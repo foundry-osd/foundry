@@ -87,6 +87,45 @@ public sealed class AuthoringArtifactCache(string cacheRoot)
         }
     }
 
+    /// <summary>
+    /// Deletes every entry no process currently leases, and loose files left by older cache layouts, best-effort.
+    /// An entry leased by another process keeps its bytes for the lifetime of that lease.
+    /// </summary>
+    public void PurgeUnleasedEntries()
+    {
+        if (!Directory.Exists(root)) return;
+        foreach (string entry in Directory.EnumerateDirectories(root))
+        {
+            FileStream lease;
+            try { lease = new FileStream(Path.Combine(entry, ".lease"), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None); }
+            catch (IOException) { continue; }
+            catch (UnauthorizedAccessException) { continue; }
+
+            using (lease)
+            {
+                foreach (string child in Directory.EnumerateFileSystemEntries(entry).Where(path => !path.Equals(lease.Name, StringComparison.OrdinalIgnoreCase)))
+                {
+                    TryDelete(child);
+                }
+            }
+
+            TryDelete(entry);
+        }
+
+        foreach (string file in Directory.EnumerateFiles(root)) TryDelete(file);
+    }
+
+    private static void TryDelete(string path)
+    {
+        try
+        {
+            if (Directory.Exists(path)) Directory.Delete(path, recursive: true);
+            else File.Delete(path);
+        }
+        catch (IOException) { }
+        catch (UnauthorizedAccessException) { }
+    }
+
     private static string? ValidateRequest(CachedArtifactRequest request)
     {
         if (!Enum.IsDefined(request.Kind)) throw new ArgumentOutOfRangeException(nameof(request));

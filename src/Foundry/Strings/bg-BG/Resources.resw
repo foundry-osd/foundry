@@ -4050,6 +4050,9 @@
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows блокира достъпа до файловете на WinPE образа. Възможно е софтуер за защита или друг инструмент да ги заключва. Добавете изключение за {0} в софтуера за защита, затворете инструментите, които монтират образи, рестартирайте компютъра и опитайте отново. Подробности има в {1} и {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WinReFallbackWarning" xml:space="preserve">
+    <value>Foundry OSD не успя да получи Windows Recovery Environment, затова този носител използва стандартния образ на Windows PE. Wi-Fi не е налична на него. Проверете връзката и създайте носителя отново, за да получите пълния образ.</value>
+  </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>Записване на ISO файла…</value>
   </data>

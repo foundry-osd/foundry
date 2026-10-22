@@ -4050,6 +4050,9 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows bloķēja piekļuvi WinPE attēla failiem. Iespējams, tos bloķē drošības programmatūra vai cits rīks. Drošības programmatūrā pievienojiet izņēmumu mapei {0}, aizveriet rīkus, kas pievieno attēlus, restartējiet datoru un mēģiniet vēlreiz. Detalizēta informācija ir failos {1} un {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WinReFallbackWarning" xml:space="preserve">
+    <value>Foundry OSD neizdevās iegūt Windows atkopšanas vidi, tāpēc šis datu nesējs izmanto standarta Windows PE attēlu. Wi-Fi tajā nav pieejams. Pārbaudiet savienojumu un izveidojiet datu nesēju vēlreiz, lai iegūtu pilno attēlu.</value>
+  </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>Notiek ISO faila rakstīšana…</value>
   </data>

@@ -4050,6 +4050,9 @@
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows 已封鎖對 WinPE 映像檔案的存取。安全性軟體或其他工具可能正在鎖定這些檔案。請在安全性軟體中為 {0} 新增排除項目，關閉用於掛接映像的工具，重新啟動電腦，然後再試一次。詳細資料位於 {1} 和 {2} 中。</value>
   </data>
+  <data name="StartMedia.Operation.WinReFallbackWarning" xml:space="preserve">
+    <value>Foundry OSD 無法取得 Windows 修復環境，因此此媒體使用標準 Windows PE 映像，無法在其中使用 Wi-Fi。請檢查連線並重新建立媒體以取得完整映像。</value>
+  </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>正在寫入 ISO 檔案…</value>
   </data>

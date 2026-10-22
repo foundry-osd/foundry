@@ -4050,6 +4050,9 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   <data name="StartMedia.Operation.WinPeImageAccessBlocked" xml:space="preserve">
     <value>Windows blokerede adgangen til WinPE-afbildningsfilerne. Sikkerhedssoftware eller et andet værktøj låser dem muligvis. Tilføj en undtagelse for {0} i sikkerhedssoftwaren, luk værktøjer, der monterer afbildninger, genstart computeren, og prøv igen. Detaljer findes i {1} og {2}.</value>
   </data>
+  <data name="StartMedia.Operation.WinReFallbackWarning" xml:space="preserve">
+    <value>Foundry OSD kunne ikke hente Windows Recovery Environment, så dette medie bruger standardbilledet af Windows PE. Wi-Fi er ikke tilgængelig på det. Kontrollér forbindelsen, og opret mediet igen for at få det fulde billede.</value>
+  </data>
   <data name="StartMedia.Operation.WritingIso" xml:space="preserve">
     <value>Skriver ISO-filen…</value>
   </data>
