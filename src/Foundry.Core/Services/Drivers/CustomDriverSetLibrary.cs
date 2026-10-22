@@ -28,6 +28,11 @@ public sealed class CustomDriverSetLibrary
     public Task<ContentPackageReference> ImportAsync(string sourcePath, CancellationToken cancellationToken = default) =>
         Library.ImportAsync(sourcePath, cancellationToken);
 
+    /// <summary>Freezes a driver folder and reports the copy and verification of its files; the import is rejected when the folder holds no INF file.</summary>
+    public Task<ContentPackageReference> ImportAsync(string sourcePath, IProgress<ContentPackageImportProgress>? progress,
+        CancellationToken cancellationToken = default) =>
+        Library.ImportAsync(sourcePath, progress, cancellationToken);
+
     /// <summary>Performs lightweight readiness checks; media preparation still acquires a fully verified lease.</summary>
     public bool IsAvailable(ContentPackageReference reference) => Library.IsAvailable(reference);
 

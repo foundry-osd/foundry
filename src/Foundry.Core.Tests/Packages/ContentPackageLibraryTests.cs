@@ -196,6 +196,52 @@ public sealed class ContentPackageLibraryTests : IDisposable
     }
 
     [Fact]
+    public async Task ImportProgressIsMonotonicAndEndsAtTheTotals()
+    {
+        string source = await CreateProgressSourceAsync();
+        var progress = new RecordingProgress();
+
+        var reference = await Library().ImportAsync(source, progress, Cancellation);
+
+        Assert.NotEmpty(progress.Reports);
+        Assert.All(progress.Reports, report => Assert.Equal((reference.Length, reference.FileCount), (report.TotalBytes, report.TotalFiles)));
+        for (int index = 1; index < progress.Reports.Count; index++)
+        {
+            Assert.True(progress.Reports[index].CompletedBytes >= progress.Reports[index - 1].CompletedBytes);
+            Assert.True(progress.Reports[index].CompletedFiles >= progress.Reports[index - 1].CompletedFiles);
+        }
+        Assert.Equal(new ContentPackageImportProgress(reference.Length, reference.Length, reference.FileCount, reference.FileCount), progress.Reports[^1]);
+    }
+
+    [Fact]
+    public async Task ProgressReportingDoesNotChangeTheContentIdentityOrManifest()
+    {
+        string source = await CreateProgressSourceAsync();
+        var withoutProgress = new ContentPackageLibraryService(Path.Combine(root, "plain"), ContentPackageKind.PostInstallation);
+
+        var reported = await Library().ImportAsync(source, new RecordingProgress(), Cancellation);
+        var plain = await withoutProgress.ImportAsync(source, Cancellation);
+
+        Assert.Equal(plain.ContentHash, reported.ContentHash);
+        Assert.Equal(
+            await File.ReadAllBytesAsync(Path.Combine(root, "plain", "content", plain.ContentHash, "manifest.json"), Cancellation),
+            await File.ReadAllBytesAsync(Path.Combine(root, "library", "content", reported.ContentHash, "manifest.json"), Cancellation));
+    }
+
+    [Fact]
+    public async Task CancellationDuringTheCopyRemovesPendingContent()
+    {
+        string source = await CreateProgressSourceAsync();
+        using var cancellation = CancellationTokenSource.CreateLinkedTokenSource(Cancellation);
+        var progress = new RecordingProgress(report => { if (report.CompletedBytes > 0) cancellation.Cancel(); });
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => Library().ImportAsync(source, progress, cancellation.Token));
+
+        Assert.Empty(Directory.GetFileSystemEntries(Path.Combine(root, "library", "pending")));
+        Assert.False(Directory.Exists(Path.Combine(root, "library", "content")));
+    }
+
+    [Fact]
     public async Task RedirectedSourceIsRejected()
     {
         string source = CreateSource();
@@ -328,6 +374,30 @@ public sealed class ContentPackageLibraryTests : IDisposable
         Directory.CreateDirectory(path);
         return path;
     }
+
+    /// <summary>Creates a folder whose large file spans many copy chunks, next to a small and an empty file.</summary>
+    private async Task<string> CreateProgressSourceAsync()
+    {
+        string source = CreateSource();
+        Directory.CreateDirectory(Path.Combine(source, "support"));
+        await File.WriteAllBytesAsync(Path.Combine(source, "large.bin"), RandomNumberGenerator.GetBytes(4 * 1024 * 1024), Cancellation);
+        await File.WriteAllTextAsync(Path.Combine(source, "support", "small.txt"), "small", Cancellation);
+        await File.WriteAllBytesAsync(Path.Combine(source, "support", "empty.cab"), [], Cancellation);
+        return source;
+    }
+
     private ContentPackageLibraryService Library(ContentPackageKind? kind = null) => new(Path.Combine(root, "library"), kind ?? ContentPackageKind.PostInstallation);
     public void Dispose() { if (Directory.Exists(root)) Directory.Delete(root, recursive: true); }
+
+    /// <summary>Records reports synchronously, unlike <see cref="Progress{T}"/>, so their order is the order of the import.</summary>
+    private sealed class RecordingProgress(Action<ContentPackageImportProgress>? onReport = null) : IProgress<ContentPackageImportProgress>
+    {
+        public List<ContentPackageImportProgress> Reports { get; } = [];
+
+        public void Report(ContentPackageImportProgress value)
+        {
+            Reports.Add(value);
+            onReport?.Invoke(value);
+        }
+    }
 }

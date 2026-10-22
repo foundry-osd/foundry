@@ -13,6 +13,7 @@ namespace Foundry.Core.Services.Packages;
 /// <summary>Imports owned immutable package snapshots of one <see cref="ContentPackageKind"/> separately from portable deployment profiles.</summary>
 public sealed class ContentPackageLibraryService
 {
+    private const int CopyBufferSize = 128 * 1024;
     private readonly string root;
     private readonly ContentPackagePathPolicy paths;
 
@@ -60,7 +61,18 @@ public sealed class ContentPackageLibraryService
         !string.IsNullOrWhiteSpace(reference.DisplayName) && reference.DisplayName.Length <= 256 && !reference.DisplayName.Any(char.IsControl);
 
     /// <summary>Freezes a file or folder without modifying the source. Identical bytes and relative names reuse one version.</summary>
-    public async Task<ContentPackageReference> ImportAsync(string sourcePath, CancellationToken cancellationToken = default)
+    public Task<ContentPackageReference> ImportAsync(string sourcePath, CancellationToken cancellationToken = default) =>
+        ImportAsync(sourcePath, null, cancellationToken);
+
+    /// <summary>
+    /// Freezes a file or folder without modifying the source and reports the copy and verification of its bytes.
+    /// Identical bytes and relative names reuse one version; reporting never changes the content hash or the manifest.
+    /// </summary>
+    /// <param name="sourcePath">File or folder to import.</param>
+    /// <param name="progress">Receives throttled reports on the import thread, ending with the totals when every file is verified.</param>
+    /// <param name="cancellationToken">Stops the import between copy chunks; pending content is removed before the task completes.</param>
+    public async Task<ContentPackageReference> ImportAsync(string sourcePath, IProgress<ContentPackageImportProgress>? progress,
+        CancellationToken cancellationToken = default)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(sourcePath);
         cancellationToken.ThrowIfCancellationRequested();
@@ -75,6 +87,8 @@ public sealed class ContentPackageLibraryService
         if (inventory.Files.Count == 0) throw new InvalidDataException("ContentPackage.EmptyPackage");
         if (Kind.RequiresInfFile && !inventory.Files.Any(file => file.EndsWith(".inf", StringComparison.OrdinalIgnoreCase)))
             throw new InvalidDataException("ContentPackage.MissingInfFile");
+        // Metadata lengths only size the progress; the manifest keeps the lengths read from the open handles.
+        var reporter = new ImportProgressReporter(progress, inventory.Files.Sum(file => new FileInfo(paths.Resolve(sourceRoot, file)).Length), inventory.Files.Count);
         using FileStream libraryLock = AcquireLibraryLock();
         string pending = Path.Combine(root, "pending", Guid.NewGuid().ToString("N"));
         string filesRoot = Path.Combine(pending, "files");
@@ -84,6 +98,7 @@ public sealed class ContentPackageLibraryService
         {
             foreach (string directory in inventory.Directories) Directory.CreateDirectory(paths.Resolve(filesRoot, directory));
             List<ContentPackageFile> files = [];
+            byte[] buffer = new byte[CopyBufferSize];
             foreach (string relativePath in inventory.Files)
             {
                 cancellationToken.ThrowIfCancellationRequested();
@@ -93,22 +108,24 @@ public sealed class ContentPackageLibraryService
                     throw new IOException("ContentPackage.InsufficientPackageSpace");
                 string target = paths.Resolve(filesRoot, relativePath);
                 Directory.CreateDirectory(Path.GetDirectoryName(target)!);
-                await using (FileStream output = new(target, FileMode.CreateNew, FileAccess.Write, FileShare.None, 128 * 1024,
+                string hash;
+                await using (FileStream output = new(target, FileMode.CreateNew, FileAccess.Write, FileShare.None, CopyBufferSize,
                     FileOptions.Asynchronous | FileOptions.SequentialScan))
                 {
-                    await input.CopyToAsync(output, cancellationToken).ConfigureAwait(false);
+                    // The source handle denies writers, so hashing the bytes while copying them equals hashing the source afterwards.
+                    hash = await HashAsync(input, output, buffer, reporter, cancellationToken).ConfigureAwait(false);
                     await output.FlushAsync(cancellationToken).ConfigureAwait(false);
                     output.Flush(flushToDisk: true);
                 }
-                input.Position = 0;
-                string hash = Convert.ToHexStringLower(await SHA256.HashDataAsync(input, cancellationToken).ConfigureAwait(false));
                 await using (FileStream copied = OpenRead(target))
                 {
-                    if (copied.Length != input.Length || !hash.Equals(Convert.ToHexStringLower(await SHA256.HashDataAsync(copied, cancellationToken).ConfigureAwait(false)), StringComparison.Ordinal))
+                    if (copied.Length != input.Length || !hash.Equals(await HashAsync(copied, null, buffer, reporter, cancellationToken).ConfigureAwait(false), StringComparison.Ordinal))
                         throw new InvalidDataException("ContentPackage.PackageSourceChanged");
                 }
                 files.Add(new() { RelativePath = relativePath, Length = input.Length, Sha256 = hash });
+                reporter.CompleteFile();
             }
+            reporter.Complete();
             if (isDirectory && !SameInventory(inventory, Inventory(sourceRoot))) throw new InvalidDataException("ContentPackage.PackageSourceChanged");
             var manifest = new ContentPackageManifest { Directories = inventory.Directories, Files = files };
             byte[] manifestBytes = ContentPackageManifestCodec.Serialize(manifest);
@@ -316,6 +333,22 @@ public sealed class ContentPackageLibraryService
         return new(path, FileMode.Open, FileAccess.Read, FileShare.Read, 128 * 1024, FileOptions.Asynchronous | FileOptions.SequentialScan);
     }
 
+    /// <summary>Hashes <paramref name="input"/> chunk by chunk, optionally copying each chunk to <paramref name="output"/>, and reports every chunk.</summary>
+    private static async Task<string> HashAsync(FileStream input, FileStream? output, byte[] buffer, ImportProgressReporter reporter,
+        CancellationToken cancellationToken)
+    {
+        using var sha256 = IncrementalHash.CreateHash(HashAlgorithmName.SHA256);
+        int count;
+        while ((count = await input.ReadAsync(buffer, cancellationToken).ConfigureAwait(false)) != 0)
+        {
+            sha256.AppendData(buffer, 0, count);
+            if (output is not null) await output.WriteAsync(buffer.AsMemory(0, count), cancellationToken).ConfigureAwait(false);
+            reporter.Advance(count);
+            cancellationToken.ThrowIfCancellationRequested();
+        }
+        return Convert.ToHexStringLower(sha256.GetHashAndReset());
+    }
+
     private static async Task WriteManifestAsync(string path, byte[] bytes, CancellationToken cancellationToken)
     {
         await using var stream = new FileStream(path, FileMode.CreateNew, FileAccess.Write, FileShare.None, 81920, useAsync: true);
@@ -367,4 +400,47 @@ public sealed class ContentPackageLibraryService
     }
 
     private sealed record SourceInventory(IReadOnlyList<string> Directories, IReadOnlyList<string> Files);
+
+    /// <summary>
+    /// Turns copy and verification chunks into one completion. Reports are throttled to a whole-percent change or
+    /// <see cref="ReportIntervalMilliseconds"/>, whichever comes first, and are clamped so a source that grows after the
+    /// inventory cannot report more than the totals.
+    /// </summary>
+    private sealed class ImportProgressReporter(IProgress<ContentPackageImportProgress>? progress, long totalBytes, int totalFiles)
+    {
+        private const long ReportIntervalMilliseconds = 100;
+        private long processedBytes;
+        private int completedFiles;
+        private long lastPercent = -1;
+        private long lastReportTime;
+
+        /// <summary>Counts bytes of either pass; each file is read once to copy it and once to verify the copy.</summary>
+        public void Advance(int bytes)
+        {
+            processedBytes += bytes;
+            Report();
+        }
+
+        public void CompleteFile()
+        {
+            completedFiles++;
+            Report();
+        }
+
+        /// <summary>Reports the totals once every file is verified, even when the last throttled report was lower.</summary>
+        public void Complete() => progress?.Report(new(totalBytes, totalBytes, totalFiles, totalFiles));
+
+        private void Report()
+        {
+            if (progress is null) return;
+            long completedBytes = Math.Min(processedBytes / 2, totalBytes);
+            int files = Math.Min(completedFiles, totalFiles);
+            long percent = totalBytes > 0 ? completedBytes * 100 / totalBytes : files * 100L / totalFiles;
+            long now = Environment.TickCount64;
+            if (percent == lastPercent && now - lastReportTime < ReportIntervalMilliseconds) return;
+            lastPercent = percent;
+            lastReportTime = now;
+            progress.Report(new(completedBytes, totalBytes, files, totalFiles));
+        }
+    }
 }
