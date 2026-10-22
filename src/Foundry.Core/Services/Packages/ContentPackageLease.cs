@@ -3,18 +3,18 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
-using Foundry.Core.Models.PreOobe;
+using Foundry.Core.Models.Packages;
 
 namespace Foundry.Core.Services.Packages;
 
 /// <summary>Holds verified read handles until media publication or target staging has finished.</summary>
-public sealed class PreOobePackageLease : IDisposable, IAsyncDisposable
+public sealed class ContentPackageLease : IDisposable, IAsyncDisposable
 {
     private readonly IReadOnlyList<FileStream> handles;
     private bool disposed;
 
-    internal PreOobePackageLease(PreOobePackageReference reference, PreOobePackageManifest manifest, string directory,
-        IReadOnlyList<PreOobePackageSourceFile> files, IReadOnlyList<FileStream> handles)
+    internal ContentPackageLease(ContentPackageReference reference, ContentPackageManifest manifest, string directory,
+        IReadOnlyList<ContentPackageSourceFile> files, IReadOnlyList<FileStream> handles)
     {
         Reference = reference;
         Manifest = manifest;
@@ -23,10 +23,10 @@ public sealed class PreOobePackageLease : IDisposable, IAsyncDisposable
         this.handles = handles;
     }
 
-    public PreOobePackageReference Reference { get; }
-    public PreOobePackageManifest Manifest { get; }
+    public ContentPackageReference Reference { get; }
+    public ContentPackageManifest Manifest { get; }
     public string ContentDirectoryPath { get; }
-    public IReadOnlyList<PreOobePackageSourceFile> Files { get; }
+    public IReadOnlyList<ContentPackageSourceFile> Files { get; }
 
     public void Dispose()
     {
@@ -39,4 +39,4 @@ public sealed class PreOobePackageLease : IDisposable, IAsyncDisposable
 }
 
 /// <summary>Maps one held source to the original package-relative destination.</summary>
-public sealed record PreOobePackageSourceFile(string SourcePath, string RelativePath, long Length, string Sha256);
+public sealed record ContentPackageSourceFile(string SourcePath, string RelativePath, long Length, string Sha256);

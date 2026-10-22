@@ -41,7 +41,7 @@ internal static class PostInstallRuntimeSource
             prepared.Files.Add((manifestPath, manifestStream));
             foreach (var file in manifest.Files)
             {
-                string path = PreOobePackagePathPolicy.Resolve(directory, file.RelativePath);
+                string path = ContentPackagePathPolicy.PostInstallation.Resolve(directory, file.RelativePath);
                 prepared.Files.Add((path, await PreOobeContentResolver.OpenVerifiedAsync(path, file.Length, file.Sha256, cancellationToken).ConfigureAwait(false)));
             }
             return prepared;
@@ -65,9 +65,9 @@ internal static class PostInstallRuntimeSource
         foreach (var file in manifest.Files)
         {
             if (file is null) throw new InvalidDataException("PostInstall runtime file metadata is invalid.");
-            PreOobePackagePathPolicy.ValidateRelativePath(file.RelativePath);
+            ContentPackagePathPolicy.PostInstallation.ValidateRelativePath(file.RelativePath);
             if (!paths.Add(file.RelativePath) || file.RelativePath.Equals(PostInstallRuntimeManifest.FileName, StringComparison.OrdinalIgnoreCase) ||
-                file.Length is <= 0 or > 512L * 1024 * 1024 || !PreOobePackagePathPolicy.IsValidHash(file.Sha256))
+                file.Length is <= 0 or > 512L * 1024 * 1024 || !ContentPackagePathPolicy.IsValidHash(file.Sha256))
                 throw new InvalidDataException("PostInstall runtime file metadata is invalid.");
             total += file.Length;
             if (total > 512L * 1024 * 1024) throw new InvalidDataException("PostInstall runtime exceeds its size limit.");

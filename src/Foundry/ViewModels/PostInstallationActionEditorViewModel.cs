@@ -17,12 +17,12 @@ namespace Foundry.ViewModels;
 public sealed partial class PostInstallationActionEditorViewModel : ObservableObject, IDisposable
 {
     private readonly PreOobeActionSettings original;
-    private readonly PreOobePackageLibraryService library;
+    private readonly ContentPackageLibraryService library;
     private readonly IFilePickerService picker;
     private readonly IApplicationLocalizationService localization;
     private readonly CancellationTokenSource cancellation = new();
     private readonly HashSet<string> directories = new(StringComparer.OrdinalIgnoreCase);
-    private PreOobePackageReference? package;
+    private ContentPackageReference? package;
     private string[] FileTypeFilters => original.Kind switch
     {
         PreOobeActionKind.PowerShell => [".ps1"],
@@ -31,7 +31,7 @@ public sealed partial class PostInstallationActionEditorViewModel : ObservableOb
     };
 
     public PostInstallationActionEditorViewModel(PreOobeActionSettings action, PreOobeSettings baseline, bool isNew,
-        PreOobePackageLibraryService library, IFilePickerService picker, IApplicationLocalizationService localization)
+        ContentPackageLibraryService library, IFilePickerService picker, IApplicationLocalizationService localization)
     {
         original = action;
         Baseline = baseline;

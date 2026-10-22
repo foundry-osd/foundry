@@ -6,7 +6,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using Foundry.Core.Models.Images;
-using Foundry.Core.Models.PreOobe;
+using Foundry.Core.Models.Packages;
+using Foundry.Core.Services.Packages;
 using Foundry.Core.Services.WinPe;
 
 namespace Foundry.Core.Tests.WinPe;
@@ -188,7 +189,7 @@ public sealed class WinPeCustomImageIsoTests : IDisposable
         File.WriteAllText(source, "verified script!");
         string hash = Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes("verified script!")));
         string relative = $"Cache/PreOobe/Packages/{hash}/files/setup.ps1";
-        using var post = new WinPePreOobeMediaLease(new PreOobeMediaManifest { Id = "generation" }, Encoding.UTF8.GetBytes("{}"),
+        using var post = new WinPeContentPackageMediaLease(ContentPackageKind.PostInstallation, new ContentPackageMediaManifest { Id = "generation" }, Encoding.UTF8.GetBytes("{}"),
             [new(source, relative, 16, hash)], [], []);
         string config = WinPePreOobeMediaService.BindConfiguration(post, "{}");
         using var cancellation = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);

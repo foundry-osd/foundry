@@ -3,12 +3,12 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Security.Cryptography;
-using Foundry.Core.Models.PreOobe;
+using Foundry.Core.Models.Packages;
 using Foundry.Core.Services.Packages;
 
 namespace Foundry.Core.Tests.Packages;
 
-public sealed class PreOobePackageLibraryTests : IDisposable
+public sealed class ContentPackageLibraryTests : IDisposable
 {
     private readonly string root = Path.Combine(Path.GetTempPath(), "Fpkg", Guid.NewGuid().ToString("N"));
     private CancellationToken Cancellation => TestContext.Current.CancellationToken;
@@ -219,24 +219,55 @@ public sealed class PreOobePackageLibraryTests : IDisposable
     [InlineData("a./script.ps1")]
     [InlineData("a /script.ps1")]
     [InlineData("a\\script.ps1")]
-    public void UnsafePortablePathsAreRejected(string path) => Assert.Throws<InvalidDataException>(() => PreOobePackagePathPolicy.ValidateRelativePath(path));
+    public void UnsafePortablePathsAreRejected(string path) => Assert.Throws<InvalidDataException>(() => ContentPackagePathPolicy.PostInstallation.ValidateRelativePath(path));
 
     [Fact]
     public void CanonicalIdentityIsIndependentOfInputOrderButIncludesDirectories()
     {
-        var a = new PreOobePackageFile { RelativePath = "a", Length = 0, Sha256 = Convert.ToHexStringLower(SHA256.HashData([])) };
+        var a = new ContentPackageFile { RelativePath = "a", Length = 0, Sha256 = Convert.ToHexStringLower(SHA256.HashData([])) };
         var b = a with { RelativePath = "b" };
-        var first = new PreOobePackageManifest { Files = [a, b] };
-        Assert.Equal(PreOobePackageManifestCodec.GetContentHash(first), PreOobePackageManifestCodec.GetContentHash(first with { Files = [b, a] }));
-        Assert.NotEqual(PreOobePackageManifestCodec.GetContentHash(first), PreOobePackageManifestCodec.GetContentHash(first with { Directories = ["empty"] }));
-        Assert.Throws<InvalidDataException>(() => PreOobePackageManifestCodec.Serialize(first with { Files = [a, a with { RelativePath = "A" }] }));
+        var first = new ContentPackageManifest { Files = [a, b] };
+        Assert.Equal(ContentPackageManifestCodec.GetContentHash(first), ContentPackageManifestCodec.GetContentHash(first with { Files = [b, a] }));
+        Assert.NotEqual(ContentPackageManifestCodec.GetContentHash(first), ContentPackageManifestCodec.GetContentHash(first with { Directories = ["empty"] }));
+        Assert.Throws<InvalidDataException>(() => ContentPackageManifestCodec.Serialize(first with { Files = [a, a with { RelativePath = "A" }] }));
+    }
+
+    [Fact]
+    public async Task ImportRejectsFolderWithoutInfWhenKindRequiresIt()
+    {
+        string source = CreateSource();
+        await File.WriteAllTextAsync(Path.Combine(source, "readme.txt"), "text", Cancellation);
+        var library = Library(ContentPackageKind.PostInstallation with { RequiresInfFile = true });
+        var exception = await Assert.ThrowsAsync<InvalidDataException>(() => library.ImportAsync(source, Cancellation));
+        Assert.Equal("ContentPackage.MissingInfFile", exception.Message);
+        Assert.False(Directory.Exists(Path.Combine(root, "library", "content")));
+    }
+
+    [Fact]
+    public async Task ImportAcceptsUppercaseInfExtension()
+    {
+        string source = CreateSource();
+        await File.WriteAllTextAsync(Path.Combine(source, "NET.INF"), "[Version]", Cancellation);
+        var library = Library(ContentPackageKind.PostInstallation with { RequiresInfFile = true });
+        var reference = await library.ImportAsync(source, Cancellation);
+        Assert.Equal(1, reference.FileCount);
+    }
+
+    [Fact]
+    public void ManifestValidationRejectsMoreFilesThanTheKindAllows()
+    {
+        var file = new ContentPackageFile { RelativePath = "a", Length = 0, Sha256 = Convert.ToHexStringLower(SHA256.HashData([])) };
+        var manifest = new ContentPackageManifest { Files = [file, file with { RelativePath = "b" }] };
+        var kind = ContentPackageKind.PostInstallation with { MaximumFiles = 1 };
+        Assert.Throws<InvalidDataException>(() => ContentPackageManifestCodec.Validate(manifest, kind));
+        ContentPackageManifestCodec.Validate(manifest, ContentPackageKind.PostInstallation);
     }
 
     [Fact]
     public void DestinationPrefixIsRevalidated()
     {
         string longRoot = "C:\\" + new string('a', 245);
-        Assert.Throws<InvalidDataException>(() => PreOobePackagePathPolicy.Resolve(longRoot, "long-file-name.exe"));
+        Assert.Throws<InvalidDataException>(() => ContentPackagePathPolicy.PostInstallation.Resolve(longRoot, "long-file-name.exe"));
     }
 
     private string CreateSource()
@@ -245,6 +276,6 @@ public sealed class PreOobePackageLibraryTests : IDisposable
         Directory.CreateDirectory(path);
         return path;
     }
-    private PreOobePackageLibraryService Library() => new(Path.Combine(root, "library"));
+    private ContentPackageLibraryService Library(ContentPackageKind? kind = null) => new(Path.Combine(root, "library"), kind ?? ContentPackageKind.PostInstallation);
     public void Dispose() { if (Directory.Exists(root)) Directory.Delete(root, recursive: true); }
 }

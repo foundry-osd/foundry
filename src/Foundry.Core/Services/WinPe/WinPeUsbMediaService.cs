@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Text.Json;
+using Foundry.Core.Services.Packages;
 using Foundry.Utilities.Processes;
 using Foundry.Utilities.Serialization;
 using Foundry.Utilities.Storage;
@@ -37,7 +38,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
     private readonly IWinPeProcessRunner _processRunner;
     private readonly IWinPeRuntimePayloadProvisioningService _runtimePayloadProvisioningService;
     private readonly IWinPeCustomImageMediaPublisher _customImagePublisher;
-    private readonly IWinPePreOobeMediaPublisher _postInstallationPublisher;
+    private readonly IWinPeContentPackageMediaPublisher _postInstallationPublisher;
 
     public WinPeUsbMediaService()
         : this(new WinPeProcessRunner(), new WinPeRuntimePayloadProvisioningService())
@@ -53,12 +54,12 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
         IWinPeProcessRunner processRunner,
         IWinPeRuntimePayloadProvisioningService runtimePayloadProvisioningService,
         IWinPeCustomImageMediaPublisher? customImagePublisher = null,
-        IWinPePreOobeMediaPublisher? postInstallationPublisher = null)
+        IWinPeContentPackageMediaPublisher? postInstallationPublisher = null)
     {
         _processRunner = processRunner;
         _runtimePayloadProvisioningService = runtimePayloadProvisioningService;
         _customImagePublisher = customImagePublisher ?? new WinPeCustomImageMediaService();
-        _postInstallationPublisher = postInstallationPublisher ?? new WinPePreOobeMediaService();
+        _postInstallationPublisher = postInstallationPublisher ?? new WinPeContentPackageMediaService(ContentPackageKind.PostInstallation);
     }
 
     public async Task<WinPeResult<IReadOnlyList<WinPeUsbDiskCandidate>>> GetUsbCandidatesAsync(

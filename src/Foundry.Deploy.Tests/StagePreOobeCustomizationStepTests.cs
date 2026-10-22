@@ -268,7 +268,7 @@ public sealed class StagePreOobeCustomizationStepTests
         using var temp = new TemporaryDirectory();
         string source = Path.Combine(temp.RootPath, "hello.ps1");
         await File.WriteAllTextAsync(source, "Write-Output 'fixture'", TestContext.Current.CancellationToken);
-        var library = new Foundry.Core.Services.Packages.PreOobePackageLibraryService(Path.Combine(temp.RootPath, "library"));
+        var library = new Foundry.Core.Services.Packages.ContentPackageLibraryService(Path.Combine(temp.RootPath, "library"), Foundry.Core.Services.Packages.ContentPackageKind.PostInstallation);
         var reference = await library.ImportAsync(source, TestContext.Current.CancellationToken);
         var settings = new Foundry.Core.Models.Configuration.PreOobeSettings
         {
@@ -279,8 +279,9 @@ public sealed class StagePreOobeCustomizationStepTests
         };
         using var runtime = NativeRuntimeFixture.Create(temp.RootPath);
         using var recovery = new PostInstallRuntimeRecoveryTests.Fixture();
-        var publisher = new Foundry.Core.Services.WinPe.WinPePreOobeMediaService();
-        using var media = await publisher.PrepareAsync(library, settings, TestContext.Current.CancellationToken);
+        var facade = new Foundry.Core.Services.WinPe.WinPePreOobeMediaService();
+        var publisher = new Foundry.Core.Services.WinPe.WinPeContentPackageMediaService(Foundry.Core.Services.Packages.ContentPackageKind.PostInstallation);
+        using var media = await facade.PrepareAsync(library, settings, TestContext.Current.CancellationToken);
         string mediaRoot = Path.Combine(temp.RootPath, "media");
         Directory.CreateDirectory(mediaRoot);
         await publisher.PublishAsync(media, mediaRoot, TestContext.Current.CancellationToken);

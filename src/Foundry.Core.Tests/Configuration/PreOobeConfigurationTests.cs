@@ -42,7 +42,7 @@ public sealed class PreOobeConfigurationTests
     [Fact]
     public void AuthoringAndDeploymentRoundTripsPreserveArgumentAndLoggingOptions()
     {
-        var package = new PreOobePackageReference { ContentHash = new string('a', 64), DisplayName = "Content", FileCount = 1, Length = 1 };
+        var package = new ContentPackageReference { ContentHash = new string('a', 64), DisplayName = "Content", FileCount = 1, Length = 1 };
         var script = PreOobeActionSettings.Create(PreOobeActionKind.PowerShell, "Script") with
         { Package = package, EntryPoint = "script.ps1", PowerShellArguments = "-NoProfile", Arguments = "-Name Example" };
         var installer = PreOobeActionSettings.Create(PreOobeActionKind.Application, "Software") with

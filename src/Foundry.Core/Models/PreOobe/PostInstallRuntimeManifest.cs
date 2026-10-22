@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Models.Packages;
+
 namespace Foundry.Core.Models.PreOobe;
 
 /// <summary>Describes the execution contract and files of an independently published PostInstall runtime.</summary>
@@ -12,5 +14,5 @@ public sealed record PostInstallRuntimeManifest
     public int SchemaVersion { get; init; } = 1;
     public int ContractVersion { get; init; } = 1;
     public string RuntimeIdentifier { get; init; } = string.Empty;
-    public IReadOnlyList<PreOobePackageFile> Files { get; init; } = [];
+    public IReadOnlyList<ContentPackageFile> Files { get; init; } = [];
 }

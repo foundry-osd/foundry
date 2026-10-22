@@ -559,8 +559,8 @@ public sealed class LocalDeploymentProfileRepositoryTests : IDisposable
         string source = Path.Combine(root, "installer.exe");
         await File.WriteAllTextAsync(source, "synthetic installer", cancellation);
         string libraryRoot = Path.Combine(root, "library");
-        var library = new PreOobePackageLibraryService(libraryRoot);
-        PreOobePackageReference package = await library.ImportAsync(source, cancellation);
+        var library = new ContentPackageLibraryService(libraryRoot, ContentPackageKind.PostInstallation);
+        ContentPackageReference package = await library.ImportAsync(source, cancellation);
         string cachedDirectory = Path.Combine(libraryRoot, "content", package.ContentHash);
         string cachedFile = Path.Combine(cachedDirectory, "files", "installer.exe");
         var repository = CreateRepository();

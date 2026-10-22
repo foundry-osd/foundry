@@ -76,19 +76,19 @@ public static class PreOobeConfigurationValidator
         if (issues.Count > 0) throw new InvalidDataException(issues[0].Code);
     }
 
-    public static bool IsValidReference(PreOobePackageReference reference) =>
-        PreOobePackagePathPolicy.IsValidHash(reference.ContentHash) && reference.Length >= 0 && reference.FileCount is > 0 and <= 10_000 &&
+    public static bool IsValidReference(ContentPackageReference reference) =>
+        ContentPackagePathPolicy.IsValidHash(reference.ContentHash) && reference.Length >= 0 && reference.FileCount is > 0 and <= 10_000 &&
         !string.IsNullOrWhiteSpace(reference.DisplayName) && reference.DisplayName.Length <= 256 && !reference.DisplayName.Any(char.IsControl);
 
     /// <summary>Enabled customization requires at least one enabled action and available content; incomplete drafts remain editable.</summary>
-    public static bool IsReady(PreOobeSettings settings, Func<PreOobePackageReference, bool> isAvailable) =>
+    public static bool IsReady(PreOobeSettings settings, Func<ContentPackageReference, bool> isAvailable) =>
         !settings.IsEnabled || (Validate(settings).Count == 0 && settings.Actions.Any(action => action.IsEnabled) && settings.Actions.Where(action => action.IsEnabled)
             .All(action => action.Package is null || isAvailable(action.Package)));
 
     private static bool IsRelative(string? value)
     {
         if (value is null) return true;
-        try { PreOobePackagePathPolicy.ValidateRelativePath(value); return true; }
+        try { ContentPackagePathPolicy.PostInstallation.ValidateRelativePath(value); return true; }
         catch (InvalidDataException) { return false; }
     }
 

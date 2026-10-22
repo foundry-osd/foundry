@@ -9,15 +9,6 @@ public enum PreOobeApplicationMode { Exe, Msi }
 public enum PreOobeErrorPolicy { Stop, Continue }
 public enum PreOobeRestartTiming { Immediate, Deferred }
 
-/// <summary>References immutable imported content; display metadata never determines its identity.</summary>
-public sealed record PreOobePackageReference
-{
-    public string ContentHash { get; init; } = string.Empty;
-    public string DisplayName { get; init; } = string.Empty;
-    public long Length { get; init; }
-    public int FileCount { get; init; }
-}
-
 /// <summary>Defines child-process policy independently from Windows Setup's restart return codes.</summary>
 public sealed record PreOobeProcessSettings
 {
@@ -37,7 +28,7 @@ public sealed record PreOobeActionSettings
     public PreOobeActionKind Kind { get; init; }
     /// <summary>Delays an explicit Restart action after its checkpoint is saved; zero restarts immediately.</summary>
     public int RestartDelaySeconds { get; init; }
-    public PreOobePackageReference? Package { get; init; }
+    public ContentPackageReference? Package { get; init; }
     public string? EntryPoint { get; init; }
     public string? Arguments { get; init; }
     public string? PowerShellArguments { get; init; }

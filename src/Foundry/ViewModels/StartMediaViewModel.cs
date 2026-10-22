@@ -47,7 +47,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IWinPeIsoMediaService isoMediaService;
     private readonly IWinPeUsbMediaService usbMediaService;
     private readonly CustomImageLibraryService customImageLibrary;
-    private readonly PreOobePackageLibraryService postInstallPackages;
+    private readonly ContentPackageLibraryService postInstallPackages;
     private readonly IFilePickerService filePickerService;
     private readonly IFoundryConfigurationStateService foundryConfigurationStateService;
     private readonly IConfigurationOverviewService configurationOverviewService;
@@ -93,7 +93,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IWinPeIsoMediaService isoMediaService,
         IWinPeUsbMediaService usbMediaService,
         CustomImageLibraryService customImageLibrary,
-        PreOobePackageLibraryService postInstallPackages,
+        ContentPackageLibraryService postInstallPackages,
         IFilePickerService filePickerService,
         IFoundryConfigurationStateService foundryConfigurationStateService,
         IConfigurationOverviewService configurationOverviewService,
@@ -1362,7 +1362,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     {
         WinPeWorkspaceLease? operationLease = null;
         WinPeCustomImageMediaLease? customImages = null;
-        WinPePreOobeMediaLease? postInstallation = null;
+        WinPeContentPackageMediaLease? postInstallation = null;
 
         try
         {
@@ -1560,7 +1560,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         WinPeRuntimePayloadProvisioningOptions runtimePayloadProvisioning,
         TelemetrySettings deployTelemetrySettings,
         WinPeCustomImageMediaLease? customImages,
-        WinPePreOobeMediaLease postInstallation)
+        WinPeContentPackageMediaLease postInstallation)
     {
         bool isHardwareHashMode = options.IsAutopilotEnabled &&
                                   options.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload;
@@ -3106,6 +3106,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         WinPeToolPaths Tools,
         WinPeRuntimePayloadProvisioningOptions RuntimePayloadProvisioning,
         WinPeCustomImageMediaLease? CustomImages,
-        WinPePreOobeMediaLease PostInstallation,
+        WinPeContentPackageMediaLease PostInstallation,
         string DeployConfigurationJson);
 }
