@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Serilog;
+
 namespace Foundry.Core.Services.WinPe;
 
 public sealed partial class WinPeUsbMediaService
@@ -123,6 +125,28 @@ public sealed partial class WinPeUsbMediaService
         catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException or ArgumentException or OverflowException)
         {
             return CustomImageFailure(exception);
+        }
+    }
+
+    /// <summary>
+    /// Removes driver sets that the just-published generation no longer references, once BOOT was rewritten and verified.
+    /// Cleanup is best-effort: the new media is already complete, so any failure is logged and reported without failing the update.
+    /// </summary>
+    private async Task PruneCustomDriversAsync(UsbOutputOptions options, string dataRoot, CancellationToken cancellationToken)
+    {
+        if (options.CustomDrivers is null) return;
+        ILogger logger = Log.ForContext<WinPeUsbMediaService>();
+        try
+        {
+            ContentPackagePruneResult result = await _customDriversPublisher.PruneAsync(options.CustomDrivers, dataRoot, cancellationToken).ConfigureAwait(false);
+            logger.Information(
+                "Unused custom driver sets pruned from USB media. RemovedPackages={RemovedPackages} RemovedManifests={RemovedManifests} RetainedUnknownEntries={RetainedUnknownEntries}",
+                result.RemovedPackages, result.RemovedManifests, result.RetainedUnknownEntries.Count);
+        }
+        catch (Exception exception)
+        {
+            logger.Warning(exception, "Unused custom driver sets could not be pruned from USB media; the update continues.");
+            ReportProgress(options.Progress, 91, WinPeProgressStatuses.CustomDriversCleanupSkipped);
         }
     }
 

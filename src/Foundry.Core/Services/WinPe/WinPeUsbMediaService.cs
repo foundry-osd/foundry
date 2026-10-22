@@ -470,6 +470,8 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
             return WinPeResult<WinPeUsbProvisionResult>.Failure(bootLayoutResult.Error!);
         }
 
+        await PruneCustomDriversAsync(options, $"{layout.CacheDriveLetter}\\", cancellationToken).ConfigureAwait(false);
+
         if (options.RuntimePayloadProvisioning is not null)
         {
             string cacheRootPath = $"{layout.CacheDriveLetter}\\";

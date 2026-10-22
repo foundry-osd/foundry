@@ -66,6 +66,7 @@ public static class WinPeProgressStatuses
     public const string PostInstallationVerified = "Post-installation content verified.";
     public const string StagingCustomDrivers = "Staging custom driver sets.";
     public const string CustomDriversVerified = "Custom driver sets verified.";
+    public const string CustomDriversCleanupSkipped = "Unused custom driver sets could not be removed from the USB drive.";
 
     public const string ValidatingUsbTarget = "Validating USB target.";
     public const string CheckingUsbTargetSafety = "Checking USB target safety.";
