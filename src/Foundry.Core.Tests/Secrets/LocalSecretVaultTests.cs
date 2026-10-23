@@ -110,6 +110,7 @@ public sealed class LocalSecretVaultTests : IDisposable
         Assert.True(SecretIds.IsSharingInternal(SecretIds.MasterKey));
         Assert.False(SecretIds.IsSharingInternal(SecretIds.WifiPassphrase));
         Assert.False(SecretIds.IsSharingInternal("sharingx/other"));
+        Assert.Throws<ArgumentNullException>(() => SecretIds.IsSharingInternal(null!));
     }
 
     public void Dispose() => temp.Dispose();

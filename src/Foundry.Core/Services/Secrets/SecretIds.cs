@@ -52,7 +52,11 @@ public static class SecretIds
     }
 
     /// <summary>Returns whether the id belongs to the sharing machinery and must never be exported or published.</summary>
-    public static bool IsSharingInternal(string id) => id.StartsWith(SharingPrefix, StringComparison.Ordinal);
+    public static bool IsSharingInternal(string id)
+    {
+        ArgumentNullException.ThrowIfNull(id);
+        return id.StartsWith(SharingPrefix, StringComparison.Ordinal);
+    }
 
     private static string ForHash(string prefix, string hash)
     {

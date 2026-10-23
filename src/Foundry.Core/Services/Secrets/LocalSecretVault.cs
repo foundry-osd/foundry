@@ -23,8 +23,10 @@ public enum VaultStatus
 
 /// <summary>Holds secrets by logical id (see <see cref="SecretIds"/>) in one file protected with DPAPI for the current user.</summary>
 /// <remarks>
-/// The file content is <c>{ "version": 1, "entries": { "&lt;id&gt;": "&lt;value&gt;" } }</c>. An unreadable vault is reported,
-/// never thrown, so callers that save configuration keep working; the next <see cref="Save"/> replaces it.
+/// The file content is <c>{ "version": 1, "entries": { "&lt;id&gt;": "&lt;value&gt;" } }</c>. A vault that cannot be decrypted or
+/// parsed is reported as <see cref="VaultStatus.Unreadable"/> instead of thrown, so callers that save configuration keep working;
+/// the next <see cref="Save"/> replaces it. I/O failures such as a locked or access-denied file are not mapped to that status and
+/// propagate, because treating a transient lock as unreadable would let the next save wipe every secret.
 /// </remarks>
 public sealed class LocalSecretVault
 {
@@ -40,6 +42,9 @@ public sealed class LocalSecretVault
     }
 
     /// <summary>Reads every entry, or returns an empty set when the vault is missing or unreadable.</summary>
+    /// <remarks>A vault whose version is newer than 1 reads as <see cref="VaultStatus.Unreadable"/> and is replaced by the next <see cref="Save"/>.</remarks>
+    /// <exception cref="IOException">The vault file cannot be read, for example because it is locked.</exception>
+    /// <exception cref="UnauthorizedAccessException">Access to the vault file is denied.</exception>
     public IReadOnlyDictionary<string, string> Load(out VaultStatus status)
     {
         if (!File.Exists(path))
@@ -67,14 +72,16 @@ public sealed class LocalSecretVault
         }
     }
 
-    /// <summary>Replaces the vault with <paramref name="entries"/> by writing a temporary file and renaming it over the vault.</summary>
+    /// <summary>Replaces the vault with <paramref name="entries"/> by writing a uniquely named temporary file and renaming it over the vault.</summary>
+    /// <exception cref="IOException">The vault directory or file cannot be written, for example because the vault is locked.</exception>
+    /// <exception cref="UnauthorizedAccessException">Access to the vault location is denied.</exception>
     public void Save(IReadOnlyDictionary<string, string> entries)
     {
         ArgumentNullException.ThrowIfNull(entries);
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);
 
         byte[] json = Serialize(entries);
-        string temporary = path + ".tmp";
+        string temporary = $"{path}.{Guid.NewGuid():N}.tmp";
         try
         {
             File.WriteAllBytes(temporary, ProtectedData.Protect(json, Entropy, DataProtectionScope.CurrentUser));
