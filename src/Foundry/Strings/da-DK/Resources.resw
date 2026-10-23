@@ -3621,6 +3621,12 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Opret ISO</value>
   </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>Oprettelse af PXE-filer er blokeret</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>Opret PXE-filer</value>
+  </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>USB oprettelse er blokeret</value>
   </data>
@@ -3700,7 +3706,7 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>WinPE bootsprog</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Opret ISO eller USB medier, efter at alle parathedskontroller er bestået.</value>
+    <value>Opret ISO, USB eller PXE medier, efter at alle parathedskontroller er bestået.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>Opret medier</value>
@@ -3712,7 +3718,7 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>Medieoprettelse er tilgængelig, når alle beredskabskontroller er bestået.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Vælg ISO- eller USB-output nedenfor for at komme i gang.</value>
+    <value>Vælg ISO-, USB- eller PXE-output nedenfor for at komme i gang.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Fuld formatering</value>
@@ -3776,6 +3782,9 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   </data>
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>Kopierer indhold til efterinstallation…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>Kopierer PXE-startfilerne</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Kopierer WinPE-filer til USB-drevet…</value>
@@ -3897,6 +3906,9 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>Opretter ISO-filen</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>Skriver PXE-filerne</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>Tilpasser startafbildningen</value>
   </data>
@@ -3930,6 +3942,9 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>Forbereder indhold til efterinstallation…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>Kontrollerer destinationsmappen</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>Forbereder cachepartitionen…</value>
   </data>
@@ -3947,6 +3962,15 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Føjer Foundry-komponenter til USB-drevet…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>Der er ikke nok ledig plads i destinationsmappen. PXE-startfilerne kræver {0}. Tilgængeligt: {1}. Frigør plads, eller vælg en anden mappe.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>PXE-startfilerne kunne ikke skrives til destinationsmappen. Kontrollér, at mappen kan nås, og at du kan skrive til den.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>PXE-startfilerne blev gemt her:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>Fjerner midlertidige filer…</value>
@@ -3986,6 +4010,18 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO er oprettet</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>Oprettelse af PXE-filer blev annulleret</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>Oprettelse af PXE-filer mislykkedes</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>Opretter PXE-filer</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>PXE-filer er oprettet</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>Oprettelse af USB-medie blev annulleret</value>
@@ -4058,6 +4094,36 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Gennemgå klarheden, vælg ISO- eller USB-output, og start medieoprettelsen.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>Opret</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>Foundry OSD skriver boot.wim, boot.sdi, BCD og bootmgr.efi til denne mappe til en UEFI-netværksstart. Importér dem på din PXE-server.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>Denne mappe indeholder allerede en startafbildning. Dens PXE-startfiler bliver erstattet.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>Destinationsmappe</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>Vælg PXE-destinationsmappen</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>Dette indhold kopieres kun til ISO- og USB-medier. Start udrulninger, der har brug for det, fra en ISO eller et USB-drev.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>Leveres ikke ved PXE-start</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>Brugerdefinerede driversæt: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>Brugerdefinerede Windows-afbildninger: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>Handlinger efter installation, der bruger importerede filer: {0}</value>
   </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>Gennemgå {0}</value>

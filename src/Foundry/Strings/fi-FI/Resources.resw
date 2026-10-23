@@ -3621,6 +3621,12 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Luo ISO</value>
   </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>PXE-tiedostojen luominen on estetty</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>Luo PXE-tiedostot</value>
+  </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>USB luominen on estetty</value>
   </data>
@@ -3700,7 +3706,7 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>WinPE käynnistyskieli</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Luo ISO tai USB media, kun kaikki valmiustarkastukset ovat läpäisseet.</value>
+    <value>Luo ISO, USB tai PXE media, kun kaikki valmiustarkastukset ovat läpäisseet.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>Luo mediaa</value>
@@ -3712,7 +3718,7 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Median luonti on käytettävissä, kun kaikki valmiustarkastukset ovat läpäisseet.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Aloita valitsemalla alta ISO- tai USB-tuloste.</value>
+    <value>Aloita valitsemalla alta ISO-, USB- tai PXE-tuloste.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Täydellinen alustus</value>
@@ -3776,6 +3782,9 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   </data>
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>Kopioidaan asennuksen jälkeistä sisältöä…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>Kopioidaan PXE-käynnistystiedostoja</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Kopioidaan WinPE-tiedostoja USB-asemaan…</value>
@@ -3897,6 +3906,9 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>Luodaan ISO-tiedostoa</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>Kirjoitetaan PXE-tiedostoja</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>Mukautetaan käynnistysnäköistiedostoa</value>
   </data>
@@ -3930,6 +3942,9 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>Valmistellaan asennuksen jälkeistä sisältöä…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>Tarkistetaan kohdekansiota</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>Valmistellaan välimuistiosiota…</value>
   </data>
@@ -3947,6 +3962,15 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Lisätään Foundry-komponentteja USB-asemaan…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>Kohdekansiossa ei ole tarpeeksi vapaata tilaa. PXE-käynnistystiedostot tarvitsevat {0}. Käytettävissä: {1}. Vapauta tilaa tai valitse toinen kansio.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>PXE-käynnistystiedostoja ei voitu kirjoittaa kohdekansioon. Tarkista, että kansio on käytettävissä ja että voit kirjoittaa siihen.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>PXE-käynnistystiedostot tallennettiin sijaintiin:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>Poistetaan väliaikaisia tiedostoja…</value>
@@ -3986,6 +4010,18 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO-tiedosto luotu</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>PXE-tiedostojen luonti peruutettu</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>PXE-tiedostojen luonti epäonnistui</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>Luodaan PXE-tiedostoja</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>PXE-tiedostot luotu</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>USB-median luonti peruutettu</value>
@@ -4058,6 +4094,36 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Tarkista valmius, valitse ISO- tai USB-tuloste ja käynnistä median luonti.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>Luo</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>Foundry OSD kirjoittaa tiedostot boot.wim, boot.sdi, BCD ja bootmgr.efi tähän kansioon UEFI-verkkokäynnistystä varten. Tuo ne PXE-palvelimeesi.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>Tämä kansio sisältää jo käynnistysnäköistiedoston. Sen PXE-käynnistystiedostot korvataan.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>Kohdekansio</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>Valitse PXE-kohdekansio</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>Tämä sisältö kopioidaan vain ISO- ja USB-tietovälineille. Käynnistä sitä tarvitsevat käyttöönotot ISO-tiedostosta tai USB-asemalta.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>Ei toimiteta PXE-käynnistyksessä</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>Mukautetut ohjainjoukot: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>Mukautetut Windows-näköistiedostot: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>Tuotuja tiedostoja käyttävät asennuksen jälkeiset toiminnot: {0}</value>
   </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>Tarkista: {0}</value>

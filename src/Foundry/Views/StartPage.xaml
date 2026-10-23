@@ -240,6 +240,10 @@
                             MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                             Command="{x:Bind ViewModel.CreateIsoCommand}"
                             IsEnabled="{x:Bind ViewModel.CanCreateIso, Mode=OneWay}" />
+                        <Button x:Name="CreatePxeButton"
+                            MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                            Command="{x:Bind ViewModel.CreatePxeCommand}"
+                            IsEnabled="{x:Bind ViewModel.CanCreatePxe, Mode=OneWay}" />
                         <Button x:Name="CreateUsbButton"
                             MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                             Command="{x:Bind ViewModel.CreateUsbCommand}"

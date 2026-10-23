@@ -3621,6 +3621,12 @@
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Δημιουργία ISO</value>
   </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>Η δημιουργία αρχείων PXE έχει αποκλειστεί</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>Δημιουργία αρχείων PXE</value>
+  </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>Η δημιουργία USB έχει αποκλειστεί</value>
   </data>
@@ -3700,7 +3706,7 @@
     <value>WinPE γλώσσα εκκίνησης</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Δημιουργήστε μέσα ISO ή USB αφού περάσουν όλοι οι έλεγχοι ετοιμότητας.</value>
+    <value>Δημιουργήστε μέσα ISO, USB ή PXE αφού περάσουν όλοι οι έλεγχοι ετοιμότητας.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>Δημιουργία πολυμέσων</value>
@@ -3712,7 +3718,7 @@
     <value>Η δημιουργία πολυμέσων είναι διαθέσιμη όταν περάσουν όλοι οι έλεγχοι ετοιμότητας.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Για να ξεκινήσετε, επιλέξτε έξοδο ISO ή USB παρακάτω.</value>
+    <value>Για να ξεκινήσετε, επιλέξτε έξοδο ISO, USB ή PXE παρακάτω.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Πλήρης μορφοποίηση</value>
@@ -3776,6 +3782,9 @@
   </data>
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>Αντιγραφή περιεχομένου μετά την εγκατάσταση…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>Αντιγραφή των αρχείων εκκίνησης PXE</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Αντιγραφή αρχείων WinPE στη μονάδα USB…</value>
@@ -3897,6 +3906,9 @@
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>Δημιουργία του αρχείου ISO</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>Εγγραφή των αρχείων PXE</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>Προσαρμογή της εικόνας εκκίνησης</value>
   </data>
@@ -3930,6 +3942,9 @@
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>Προετοιμασία περιεχομένου μετά την εγκατάσταση…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>Έλεγχος του φακέλου προορισμού</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>Προετοιμασία του διαμερίσματος προσωρινής μνήμης…</value>
   </data>
@@ -3947,6 +3962,15 @@
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Προσθήκη στοιχείων του Foundry στη μονάδα USB…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>Δεν υπάρχει αρκετός ελεύθερος χώρος στον φάκελο προορισμού. Τα αρχεία εκκίνησης PXE χρειάζονται {0}. Διαθέσιμος χώρος: {1}. Ελευθερώστε χώρο ή επιλέξτε άλλον φάκελο.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η εγγραφή των αρχείων εκκίνησης PXE στον φάκελο προορισμού. Ελέγξτε ότι ο φάκελος είναι προσβάσιμος και ότι μπορείτε να γράψετε σε αυτόν.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>Τα αρχεία εκκίνησης PXE αποθηκεύτηκαν στη θέση:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>Κατάργηση προσωρινών αρχείων…</value>
@@ -3986,6 +4010,18 @@
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>Το ISO δημιουργήθηκε</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>Η δημιουργία αρχείων PXE ακυρώθηκε</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>Η δημιουργία αρχείων PXE απέτυχε</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>Δημιουργία αρχείων PXE</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>Τα αρχεία PXE δημιουργήθηκαν</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>Η δημιουργία μέσου USB ακυρώθηκε</value>
@@ -4058,6 +4094,36 @@
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Ελέγξτε την ετοιμότητα, επιλέξτε έξοδο ISO ή USB και ξεκινήστε τη δημιουργία μέσου.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>Δημιουργία</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>Το Foundry OSD εγγράφει τα boot.wim, boot.sdi, BCD και bootmgr.efi σε αυτόν τον φάκελο για εκκίνηση από το δίκτυο με UEFI. Εισαγάγετέ τα στον διακομιστή PXE σας.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>Αυτός ο φάκελος περιέχει ήδη μια εικόνα εκκίνησης. Τα αρχεία εκκίνησης PXE της θα αντικατασταθούν.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>Φάκελος προορισμού</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>Επιλέξτε τον φάκελο προορισμού PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>Αυτό το περιεχόμενο αντιγράφεται μόνο σε μέσα ISO και USB. Ξεκινήστε τις αναπτύξεις που το χρειάζονται από ένα ISO ή μια μονάδα USB.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>Δεν παρέχεται με εκκίνηση PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>Προσαρμοσμένα σύνολα προγραμμάτων οδήγησης: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>Προσαρμοσμένες εικόνες Windows: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>Ενέργειες μετά την εγκατάσταση που χρησιμοποιούν εισαγόμενα αρχεία: {0}</value>
   </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>Έλεγχος: {0}</value>

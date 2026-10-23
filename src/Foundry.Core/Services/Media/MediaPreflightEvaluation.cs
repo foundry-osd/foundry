@@ -32,6 +32,11 @@ public sealed record MediaPreflightEvaluation
     public bool CanCreateUsb { get; init; }
 
     /// <summary>
+    /// Gets a value indicating whether PXE boot files can be created now.
+    /// </summary>
+    public bool CanCreatePxe { get; init; }
+
+    /// <summary>
     /// Gets the USB partition style that should be used after applying preflight rules.
     /// </summary>
     public UsbPartitionStyle EffectiveUsbPartitionStyle { get; init; }
@@ -45,4 +50,9 @@ public sealed record MediaPreflightEvaluation
     /// Gets reasons that currently block USB creation.
     /// </summary>
     public IReadOnlyList<MediaPreflightBlockingReason> UsbBlockingReasons { get; init; } = [];
+
+    /// <summary>
+    /// Gets reasons that currently block PXE boot file creation.
+    /// </summary>
+    public IReadOnlyList<MediaPreflightBlockingReason> PxeBlockingReasons { get; init; } = [];
 }

@@ -3621,6 +3621,12 @@ Senhas e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Criar ISO</value>
   </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>A criação de arquivos PXE está bloqueada</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>Criar arquivos PXE</value>
+  </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>A criação de USB está bloqueada</value>
   </data>
@@ -3700,7 +3706,7 @@ Senhas e chaves de acesso incluídas: {2}</value>
     <value>WinPE idioma de inicialização</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Crie mídia ISO ou USB depois que todas as verificações de prontidão forem aprovadas.</value>
+    <value>Crie mídia ISO, USB ou PXE depois que todas as verificações de prontidão forem aprovadas.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>Criar mídia</value>
@@ -3712,7 +3718,7 @@ Senhas e chaves de acesso incluídas: {2}</value>
     <value>A criação de mídia estará disponível quando todas as verificações de prontidão forem aprovadas.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Escolha uma saída ISO ou USB abaixo para começar.</value>
+    <value>Escolha uma saída ISO, USB ou PXE abaixo para começar.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Formatação completa</value>
@@ -3776,6 +3782,9 @@ Senhas e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>Copiando o conteúdo de pós-instalação…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>Copiando os arquivos de inicialização PXE</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Copiando arquivos do WinPE para a unidade USB…</value>
@@ -3897,6 +3906,9 @@ Senhas e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>Criando o arquivo ISO</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>Gravando os arquivos PXE</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>Personalizando a imagem de inicialização</value>
   </data>
@@ -3930,6 +3942,9 @@ Senhas e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>Preparando o conteúdo de pós-instalação…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>Verificando a pasta de destino</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>Preparando a partição de cache…</value>
   </data>
@@ -3947,6 +3962,15 @@ Senhas e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Adicionando componentes do Foundry à unidade USB…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>Não há espaço livre suficiente na pasta de destino. Os arquivos de inicialização PXE precisam de {0}. Disponível: {1}. Libere espaço ou escolha outra pasta.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>Não foi possível gravar os arquivos de inicialização PXE na pasta de destino. Verifique se a pasta está acessível e se você tem permissão de gravação nela.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>Os arquivos de inicialização PXE foram salvos em:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>Removendo arquivos temporários…</value>
@@ -3986,6 +4010,18 @@ Senhas e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO criada</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>Criação dos arquivos PXE cancelada</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>Falha na criação dos arquivos PXE</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>Criando arquivos PXE</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>Arquivos PXE criados</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>Criação da mídia USB cancelada</value>
@@ -4058,6 +4094,36 @@ Senhas e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Revise a prontidão, escolha uma saída ISO ou USB e inicie a criação da mídia.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>Criar</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>O Foundry OSD grava boot.wim, boot.sdi, BCD e bootmgr.efi nesta pasta para uma inicialização de rede UEFI. Importe-os para o seu servidor PXE.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>Esta pasta já contém uma imagem de inicialização. Os arquivos de inicialização PXE dela serão substituídos.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>Pasta de destino</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>Selecione a pasta de destino do PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>Este conteúdo é copiado somente para mídias ISO e USB. Inicie as implantações que precisam dele a partir de uma ISO ou de uma unidade USB.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>Não incluído com uma inicialização PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>Conjuntos de drivers personalizados: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>Imagens personalizadas do Windows: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>Ações de pós-instalação que usam arquivos importados: {0}</value>
   </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>Revisar {0}</value>

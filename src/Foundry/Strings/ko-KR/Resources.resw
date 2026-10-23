@@ -3621,6 +3621,12 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>ISO 만들기</value>
   </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>PXE 파일 생성이 차단되었습니다</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>PXE 파일 만들기</value>
+  </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>USB 생성이 차단되었습니다.</value>
   </data>
@@ -3700,7 +3706,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>WinPE 부팅 언어</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>모든 준비 확인을 통과한 후 ISO 또는 USB 미디어를 만듭니다.</value>
+    <value>모든 준비 확인을 통과한 후 ISO, USB 또는 PXE 미디어를 만듭니다.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>미디어 만들기</value>
@@ -3712,7 +3718,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>모든 준비 확인을 통과하면 미디어 생성이 가능합니다.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>시작하려면 아래에서 ISO 또는 USB 출력을 선택하세요.</value>
+    <value>시작하려면 아래에서 ISO, USB 또는 PXE 출력을 선택하세요.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>전체 포맷</value>
@@ -3776,6 +3782,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>설치 후 작업 콘텐츠를 복사하는 중…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>PXE 부팅 파일을 복사하는 중</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>WinPE 파일을 USB 드라이브에 복사하는 중…</value>
@@ -3897,6 +3906,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>ISO 파일 만들기</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>PXE 파일 쓰기</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>부팅 이미지 사용자 지정</value>
   </data>
@@ -3930,6 +3942,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>설치 후 작업 콘텐츠를 준비하는 중…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>대상 폴더를 확인하는 중</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>캐시 파티션을 준비하는 중…</value>
   </data>
@@ -3947,6 +3962,15 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>USB 드라이브에 Foundry 구성 요소를 추가하는 중…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>대상 폴더에 사용 가능한 공간이 부족합니다. PXE 부팅 파일에 {0}이(가) 필요합니다. 사용 가능한 공간: {1}. 공간을 확보하거나 다른 폴더를 선택하세요.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>PXE 부팅 파일을 대상 폴더에 쓸 수 없습니다. 폴더에 연결할 수 있고 쓰기 권한이 있는지 확인하세요.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>PXE 부팅 파일 저장 위치:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>임시 파일을 제거하는 중…</value>
@@ -3986,6 +4010,18 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO 만들기 완료</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>PXE 파일 만들기 취소됨</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>PXE 파일 만들기 실패</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>PXE 파일 만드는 중</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>PXE 파일 만들기 완료</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>USB 미디어 만들기 취소됨</value>
@@ -4058,6 +4094,36 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>준비 상태를 검토하고 ISO 또는 USB 출력을 선택한 다음 미디어 만들기를 시작합니다.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>만들기</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>Foundry OSD는 UEFI 네트워크 시작을 위해 boot.wim, boot.sdi, BCD 및 bootmgr.efi를 이 폴더에 씁니다. 이 파일을 PXE 서버로 가져오세요.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>이 폴더에 이미 부팅 이미지가 있습니다. 해당 PXE 부팅 파일이 교체됩니다.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>대상 폴더</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>PXE 대상 폴더 선택</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>이 콘텐츠는 ISO 및 USB 미디어에만 복사됩니다. 이 콘텐츠가 필요한 배포는 ISO 또는 USB 드라이브에서 시작하세요.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>PXE 부팅 시 제공되지 않음</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>사용자 지정 드라이버 세트: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>사용자 지정 Windows 이미지: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>가져온 파일을 사용하는 설치 후 작업: {0}</value>
   </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>{0} 검토</value>

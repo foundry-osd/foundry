@@ -3621,6 +3621,12 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Crear ISO</value>
   </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>La creación de archivos PXE está bloqueada</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>Crear archivos PXE</value>
+  </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>USB la creación está bloqueada</value>
   </data>
@@ -3700,7 +3706,7 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>WinPE idioma de arranque</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Cree medios ISO o USB después de que pasen todas las comprobaciones de preparación.</value>
+    <value>Cree medios ISO, USB o PXE después de que pasen todas las comprobaciones de preparación.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>crear medios</value>
@@ -3712,7 +3718,7 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>La creación de medios está disponible cuando se pasan todas las comprobaciones de preparación.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Elija una salida ISO o USB a continuación para comenzar.</value>
+    <value>Elija una salida ISO, USB o PXE a continuación para comenzar.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Formato completo</value>
@@ -3776,6 +3782,9 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   </data>
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>Copiando el contenido de posinstalación…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>Copiando los archivos de arranque PXE</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Copiando archivos de WinPE a la unidad USB…</value>
@@ -3897,6 +3906,9 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>Creando el archivo ISO</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>Escribiendo los archivos PXE</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>Personalizando la imagen de arranque</value>
   </data>
@@ -3930,6 +3942,9 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>Preparando el contenido de posinstalación…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>Verificando la carpeta de destino</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>Preparando la partición de caché…</value>
   </data>
@@ -3947,6 +3962,15 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Agregando componentes de Foundry a la unidad USB…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>No hay suficiente espacio libre en la carpeta de destino. Los archivos de arranque PXE necesitan {0}. Disponible: {1}. Libere espacio o elija otra carpeta.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>No se pudieron escribir los archivos de arranque PXE en la carpeta de destino. Verifique que se pueda acceder a la carpeta y que pueda escribir en ella.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>Los archivos de arranque PXE se guardaron en:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>Quitando archivos temporales…</value>
@@ -3986,6 +4010,18 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO creada</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>Creación de archivos PXE cancelada</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>Error al crear los archivos PXE</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>Creando archivos PXE</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>Archivos PXE creados</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>Creación de medio USB cancelada</value>
@@ -4058,6 +4094,36 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Revise la preparación, elija una salida ISO o USB e inicie la creación del medio.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>Crear</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>Foundry OSD escribe boot.wim, boot.sdi, BCD y bootmgr.efi en esta carpeta para un arranque por red UEFI. Impórtelos en su servidor PXE.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>Esta carpeta ya contiene una imagen de arranque. Se reemplazarán sus archivos de arranque PXE.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>Carpeta de destino</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>Seleccione la carpeta de destino de PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>Este contenido solo se copia en medios ISO y USB. Inicie las implementaciones que lo necesiten desde una ISO o una unidad USB.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>No se incluye con un arranque PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>Conjuntos de controladores personalizados: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>Imágenes de Windows personalizadas: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>Acciones de posinstalación que usan archivos importados: {0}</value>
   </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>Revisar {0}</value>

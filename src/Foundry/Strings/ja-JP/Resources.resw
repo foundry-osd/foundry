@@ -3621,6 +3621,12 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>ISO を作成</value>
   </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>PXE ファイルの作成はブロックされています</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>PXE ファイルを作成</value>
+  </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>USB の作成はブロックされています</value>
   </data>
@@ -3700,7 +3706,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>WinPE ブート言語</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>すべての準備チェックに合格した後、ISO または USB メディアを作成します。</value>
+    <value>すべての準備チェックに合格した後、ISO、USB、または PXE メディアを作成します。</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>メディアの作成</value>
@@ -3712,7 +3718,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>すべての準備状況チェックに合格すると、メディアの作成が可能になります。</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>開始するには、下で ISO または USB の出力を選択してください。</value>
+    <value>開始するには、下で ISO、USB、または PXE の出力を選択してください。</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>フル フォーマット</value>
@@ -3776,6 +3782,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>インストール後のコンテンツをコピーしています…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>PXE ブート ファイルをコピーしています</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>WinPE ファイルを USB ドライブにコピーしています…</value>
@@ -3897,6 +3906,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>ISO ファイルの作成</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>PXE ファイルの書き込み</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>ブート イメージのカスタマイズ</value>
   </data>
@@ -3930,6 +3942,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>インストール後のコンテンツを準備しています…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>保存先フォルダーを確認しています</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>キャッシュ パーティションを準備しています…</value>
   </data>
@@ -3947,6 +3962,15 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Foundry コンポーネントを USB ドライブに追加しています…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>保存先フォルダーの空き容量が不足しています。PXE ブート ファイルには {0} が必要です。使用可能な容量: {1}。空き容量を増やすか、別のフォルダーを選択してください。</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>PXE ブート ファイルを保存先フォルダーに書き込めませんでした。フォルダーにアクセスでき、書き込み権限があることを確認してください。</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>PXE ブート ファイルの保存先:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>一時ファイルを削除しています…</value>
@@ -3986,6 +4010,18 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO を作成しました</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>PXE ファイルの作成がキャンセルされました</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>PXE ファイルの作成に失敗しました</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>PXE ファイルを作成しています</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>PXE ファイルを作成しました</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>USB メディアの作成がキャンセルされました</value>
@@ -4058,6 +4094,36 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>準備状況を確認し、ISO または USB 出力を選択して、メディアの作成を開始します。</value>
+  </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>作成</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>Foundry OSD は、UEFI ネットワーク起動用に boot.wim、boot.sdi、BCD、bootmgr.efi をこのフォルダーに書き込みます。これらを PXE サーバーにインポートしてください。</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>このフォルダーには既にブート イメージが含まれています。その PXE ブート ファイルは置き換えられます。</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>保存先フォルダー</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>PXE の保存先フォルダーを選択</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>このコンテンツは ISO および USB メディアにのみコピーされます。このコンテンツを必要とする展開は、ISO または USB ドライブから開始してください。</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>PXE ブートでは提供されません</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>カスタム ドライバー セット: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>カスタム Windows イメージ: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>インポートしたファイルを使用するインストール後のアクション: {0}</value>
   </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>{0} を確認</value>
