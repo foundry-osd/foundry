@@ -283,6 +283,12 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>リリースノート</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>選択したファイルを Foundry に追加できませんでした。4 MiB 以下の読み取り可能なファイルを選択してください。</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>ファイルを追加できませんでした</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>既定</value>
   </data>
@@ -3919,7 +3925,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Autopilot 登録を妨げる可能性のある設定が含まれています。互換性のない登録モードは展開時にブロックされます。</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>名前の変更、更新、または削除を行うファイルを選択してください。メディアの作成が完了するまで、ソースファイルにアクセスできる必要があります。ソースが変更された場合は更新が必要です。</value>
+    <value>名前の変更または削除を行うファイルを選択してください。Foundry はインポートした各ファイルの独自のコピーを保持します。更新したファイルを使用するには、エントリを削除してファイルを再度インポートしてください。</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>応答ファイル</value>
@@ -3964,13 +3970,13 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ファイルには、サポートされているアーキテクチャと、そのアーキテクチャに適用されるコンポーネント設定を指定する必要があります。</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>カタログに無効な項目または重複した項目が含まれています。該当するファイルを更新または削除してください。</value>
+    <value>カタログに無効なエントリまたは重複したエントリが含まれています。該当するファイルを削除して、再度インポートしてください。</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>DTD や外部エンティティを含まない、4 MiB 以下の有効な Windows 応答ファイル XML を使用してください。Windows SIM でファイルを検証してください。</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>一部のソースが見つからないか、変更されているか、無効です。メディアを作成する前に、該当する項目を更新または削除してください。</value>
+    <value>一部のファイルが見つからないか、無効です。メディアを作成する前に、これらのエントリを削除してファイルを再度インポートしてください。</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>既定のファイルが見つかりません — 代わりのファイルを選択してください</value>
@@ -3985,16 +3991,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Foundry は元のファイルを保持し、必要なインストール後のコマンドを展開用コピーに追加します。カスタム設定とコマンドの責任は引き続きユーザーにあります。</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>カスタムファイルを使用するには、「全般構成」で展開メディアのパスワード保護を有効にする必要があります。XML には資格情報やスクリプトが含まれている場合があります。Foundry は、「設定のバックアップと同期」で「パスワードを保存」がオンの場合にのみ、この PC 上の構成と共に各ファイルのコピーを保持します。それ以外の場合は、パスのみを保存します。ブートイメージには暗号化されたコピーが含まれます。</value>
+    <value>カスタムファイルを使用するには、「全般構成」で展開メディアのパスワード保護を有効にする必要があります。XML には資格情報やスクリプトが含まれている場合があります。Foundry は、インポートした各ファイルのコピーをこの PC 上のファイルライブラリに保持します。ブートイメージには暗号化されたコピーが含まれます。</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>カスタム応答ファイルを使用するには、「全般構成」で展開メディアのパスワード保護を有効にしてください。</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>このソースは、別のインポート済みファイルと同じ内容になっています。この項目を削除し、既存のファイルを選択してください。</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>ソースの更新</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>削除</value>
@@ -4007,9 +4007,6 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>選択したファイル</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>ソースが変更されました。メディアを作成する前に、「ソースの更新」で更新済みファイルを受け入れてください。</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>2 件のソース確認がファイルへのアクセスを待機しています。利用できないソースの場所へのアクセスを復旧してから、ソースを再確認してください。</value>

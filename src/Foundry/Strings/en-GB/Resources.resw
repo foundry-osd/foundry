@@ -283,6 +283,12 @@ Licensed under the MIT License.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Release notes</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>The selected file could not be added to Foundry. Choose a readable file no larger than 4 MiB.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>File not added</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Default</value>
   </data>
@@ -3919,7 +3925,7 @@ Applying the update restarts Foundry OSD.</value>
     <value>Contains settings that can prevent Autopilot enrolment; incompatible enrolment modes will be blocked during deployment.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Select a file to rename, refresh, or remove it. Source files must remain available until media creation; changed sources require Refresh.</value>
+    <value>Select a file to rename or remove it. Foundry keeps its own copy of each imported file; to use an updated file, remove the entry and import the file again.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Answer files</value>
@@ -3964,13 +3970,13 @@ Applying the update restarts Foundry OSD.</value>
     <value>The file must declare a supported architecture and contain component settings applicable to it.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>The catalogue contains invalid or duplicate entries. Refresh or remove the affected files.</value>
+    <value>The catalogue contains invalid or duplicate entries. Remove the affected files and import them again.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Use valid Windows answer-file XML no larger than 4 MiB, without DTDs or external entities. Validate the file with Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Some sources are missing, changed, or invalid. Refresh or remove these entries before creating media.</value>
+    <value>Some files are missing or invalid. Remove these entries and import the files again before creating media.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Missing default - choose a replacement</value>
@@ -3985,16 +3991,10 @@ Applying the update restarts Foundry OSD.</value>
     <value>Foundry preserves your original file and adds its required post-installation command to the deployment copy. You remain responsible for your custom settings and commands.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Custom files require deployment media password protection in General configuration. XML may contain credentials or scripts. Foundry keeps a copy of each file with your configuration on this PC only when Remember passwords is on in Settings backup and sync; otherwise it saves the path only. The boot image contains encrypted copies.</value>
+    <value>Custom files require deployment media password protection in General configuration. XML may contain credentials or scripts. Foundry keeps a copy of each imported file in its file library on this PC. The boot image contains encrypted copies.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Enable deployment media password protection in General configuration to use custom answer files.</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>This source now duplicates another imported file. Remove this entry and choose the existing file instead.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Refresh source</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Remove</value>
@@ -4007,9 +4007,6 @@ Applying the update restarts Foundry OSD.</value>
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Selected file</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>The source changed. Use Refresh source to accept the updated file before creating media.</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>Two source checks are still waiting for file access. Restore the unavailable source locations, then check sources again.</value>

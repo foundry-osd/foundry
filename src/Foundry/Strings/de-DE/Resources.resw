@@ -283,6 +283,12 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Versionshinweise</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Die ausgewählte Datei konnte Foundry nicht hinzugefügt werden. Wählen Sie eine lesbare Datei mit höchstens 4 MiB aus.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Datei nicht hinzugefügt</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Standard</value>
   </data>
@@ -3919,7 +3925,7 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
     <value>Enthält Einstellungen, die die Autopilot-Registrierung verhindern können. Inkompatible Registrierungsmodi werden bei der Bereitstellung blockiert.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Wählen Sie eine Datei aus, um sie umzubenennen, ihre Quelle zu aktualisieren oder sie zu entfernen. Quelldateien müssen bis zur Medienerstellung verfügbar bleiben; geänderte Quellen müssen aktualisiert werden.</value>
+    <value>Wählen Sie eine Datei aus, um sie umzubenennen oder zu entfernen. Foundry speichert eine eigene Kopie jeder importierten Datei; um eine aktualisierte Datei zu verwenden, entfernen Sie den Eintrag und importieren Sie die Datei erneut.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Antwortdateien</value>
@@ -3964,13 +3970,13 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
     <value>Die Datei muss eine unterstützte Architektur angeben und dafür geeignete Komponenteneinstellungen enthalten.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Der Katalog enthält ungültige oder doppelte Einträge. Aktualisieren oder entfernen Sie die betroffenen Dateien.</value>
+    <value>Der Katalog enthält ungültige oder doppelte Einträge. Entfernen Sie die betroffenen Dateien und importieren Sie sie erneut.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Verwenden Sie gültiges XML für Windows-Antwortdateien mit höchstens 4 MiB, ohne DTDs oder externe Entitäten. Validieren Sie die Datei mit Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Einige Quellen fehlen, wurden geändert oder sind ungültig. Aktualisieren oder entfernen Sie diese Einträge vor der Medienerstellung.</value>
+    <value>Einige Dateien fehlen oder sind ungültig. Entfernen Sie diese Einträge und importieren Sie die Dateien vor der Medienerstellung erneut.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Standarddatei fehlt – Ersatz auswählen</value>
@@ -3985,16 +3991,10 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
     <value>Foundry bewahrt Ihre Originaldatei und fügt der Bereitstellungskopie seinen erforderlichen Befehl für die Nachinstallation hinzu. Sie bleiben für Ihre benutzerdefinierten Einstellungen und Befehle verantwortlich.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Benutzerdefinierte Dateien erfordern den Kennwortschutz für Bereitstellungsmedien in der allgemeinen Konfiguration. XML kann Anmeldeinformationen oder Skripts enthalten. Foundry speichert nur dann eine Kopie jeder Datei mit Ihrer Konfiguration auf diesem PC, wenn die Option „Kennwörter speichern“ im Bereich „Einstellungen sichern und synchronisieren“ aktiviert ist; andernfalls wird nur der Pfad gespeichert. Das Startabbild enthält verschlüsselte Kopien.</value>
+    <value>Benutzerdefinierte Dateien erfordern den Kennwortschutz für Bereitstellungsmedien in der allgemeinen Konfiguration. XML kann Anmeldeinformationen oder Skripts enthalten. Foundry speichert eine Kopie jeder importierten Datei in seiner Dateibibliothek auf diesem PC. Das Startabbild enthält verschlüsselte Kopien.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Aktivieren Sie in der allgemeinen Konfiguration den Kennwortschutz für Bereitstellungsmedien, um benutzerdefinierte Antwortdateien zu verwenden.</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Diese Quelle ist jetzt mit einer anderen importierten Datei identisch. Entfernen Sie diesen Eintrag und wählen Sie die vorhandene Datei.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Quelle aktualisieren</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Entfernen</value>
@@ -4007,9 +4007,6 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Ausgewählte Datei</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>Die Quelle wurde geändert. Verwenden Sie Quelle aktualisieren, um die aktualisierte Datei vor der Medienerstellung zu übernehmen.</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>Zwei Quellenprüfungen warten noch auf Dateizugriff. Stellen Sie den Zugriff auf die nicht verfügbaren Quellspeicherorte wieder her und prüfen Sie die Quellen erneut.</value>

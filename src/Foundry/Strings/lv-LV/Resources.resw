@@ -283,6 +283,12 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Izlaiduma piezīmes</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Atlasīto failu nevarēja pievienot programmai Foundry. Izvēlieties lasāmu failu, kura lielums nepārsniedz 4 MiB.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Fails netika pievienots</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Noklusējums</value>
   </data>
@@ -3919,7 +3925,7 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>Satur iestatījumus, kas var liegt reģistrāciju pakalpojumā Autopilot; nesaderīgi reģistrācijas režīmi izvietošanas laikā tiks bloķēti.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Atlasiet failu, ko vēlaties pārdēvēt, atsvaidzināt vai noņemt. Avota failiem jāpaliek pieejamiem līdz datu nesēja izveidei; mainīti avoti ir jāatsvaidzina.</value>
+    <value>Atlasiet failu, ko vēlaties pārdēvēt vai noņemt. Foundry glabā savu katra importētā faila kopiju; lai izmantotu atjauninātu failu, noņemiet ierakstu un importējiet failu vēlreiz.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Atbilžu faili</value>
@@ -3964,13 +3970,13 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>Failā jābūt norādītai atbalstītai arhitektūrai un uz to attiecināmiem komponentu iestatījumiem.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Katalogā ir nederīgi vai dublēti ieraksti. Atsvaidziniet vai noņemiet attiecīgos failus.</value>
+    <value>Katalogā ir nederīgi vai dublēti ieraksti. Noņemiet attiecīgos failus un importējiet tos vēlreiz.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Izmantojiet derīgu Windows atbilžu faila XML, kura lielums nepārsniedz 4 MiB un kurā nav DTD vai ārējo entītiju. Validējiet failu ar Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Daži avoti trūkst, ir mainīti vai nav derīgi. Pirms datu nesēja izveides atsvaidziniet vai noņemiet šos ierakstus.</value>
+    <value>Daži faili trūkst vai ir nederīgi. Pirms datu nesēja izveides noņemiet šos ierakstus un importējiet failus vēlreiz.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Trūkst noklusējuma faila — izvēlieties aizstājēju</value>
@@ -3985,16 +3991,10 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>Foundry saglabā sākotnējo failu un izvietošanas kopijai pievieno savu obligāto komandu darbībām pēc instalēšanas. Jūs joprojām esat atbildīgs par pielāgotajiem iestatījumiem un komandām.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Pielāgotiem failiem nepieciešama izvietošanas datu nesēja aizsardzība ar paroli vispārīgajā konfigurācijā. XML var saturēt akreditācijas datus vai skriptus. Foundry šajā datorā saglabā katra faila kopiju kopā ar konfigurāciju tikai tad, ja sadaļā „Iestatījumu dublēšana un sinhronizēšana“ ir ieslēgta opcija „Atcerēties paroles“; pretējā gadījumā tiek saglabāts tikai ceļš. Sāknēšanas attēlā ir šifrētas kopijas.</value>
+    <value>Pielāgotiem failiem nepieciešama izvietošanas datu nesēja aizsardzība ar paroli vispārīgajā konfigurācijā. XML var saturēt akreditācijas datus vai skriptus. Foundry šajā datorā glabā katra importētā faila kopiju savā failu bibliotēkā. Sāknēšanas attēlā ir šifrētas kopijas.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Lai izmantotu pielāgotus atbilžu failus, vispārīgajā konfigurācijā iespējojiet izvietošanas datu nesēja aizsardzību ar paroli.</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Šis avots tagad sakrīt ar citu importētu failu. Noņemiet šo ierakstu un izvēlieties esošo failu.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Atsvaidzināt avotu</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Noņemt</value>
@@ -4007,9 +4007,6 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Atlasītais fails</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>Avots ir mainīts. Pirms datu nesēja izveides izmantojiet Atsvaidzināt avotu, lai pieņemtu atjaunināto failu.</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>Divas avotu pārbaudes joprojām gaida piekļuvi failiem. Atjaunojiet piekļuvi nepieejamajām avotu atrašanās vietām un pēc tam vēlreiz pārbaudiet avotus.</value>

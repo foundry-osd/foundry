@@ -283,6 +283,12 @@ Sous licence MIT.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Notes de version</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Le fichier sélectionné n'a pas pu être ajouté à Foundry. Choisissez un fichier lisible de 4 Mio au maximum.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Fichier non ajouté</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Par défaut</value>
   </data>
@@ -3919,7 +3925,7 @@ L'application de la mise à jour redémarre Foundry OSD.</value>
     <value>Contient des paramètres pouvant empêcher l'inscription à Autopilot ; les modes d'inscription incompatibles seront bloqués lors du déploiement.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Sélectionnez un fichier pour le renommer, actualiser sa source ou le supprimer. Les fichiers sources doivent rester disponibles jusqu'à la création du média ; toute source modifiée doit être actualisée.</value>
+    <value>Sélectionnez un fichier pour le renommer ou le supprimer. Foundry conserve sa propre copie de chaque fichier importé ; pour utiliser un fichier mis à jour, supprimez l'entrée et importez de nouveau le fichier.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Fichiers de réponses</value>
@@ -3964,13 +3970,13 @@ L'application de la mise à jour redémarre Foundry OSD.</value>
     <value>Le fichier doit déclarer une architecture prise en charge et contenir des paramètres de composants applicables à celle-ci.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Le catalogue contient des entrées invalides ou en double. Actualisez ou supprimez les fichiers concernés.</value>
+    <value>Le catalogue contient des entrées non valides ou en double. Supprimez les fichiers concernés et importez-les de nouveau.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Utilisez un fichier XML de réponses Windows valide de 4 MiB maximum, sans DTD ni entités externes. Validez le fichier avec Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Certaines sources sont manquantes, modifiées ou invalides. Actualisez ou supprimez ces entrées avant de créer un média.</value>
+    <value>Certains fichiers sont manquants ou non valides. Supprimez ces entrées et importez de nouveau les fichiers avant de créer le média.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Choix par défaut manquant — choisissez un remplacement</value>
@@ -3985,16 +3991,10 @@ L'application de la mise à jour redémarre Foundry OSD.</value>
     <value>Foundry préserve votre fichier d'origine et ajoute sa commande de post-installation requise à la copie de déploiement. Vous demeurez responsable de vos paramètres et commandes personnalisés.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Les fichiers personnalisés nécessitent la protection du média de déploiement par mot de passe dans la configuration générale. Le XML peut contenir des identifiants ou des scripts. Foundry ne conserve une copie de chaque fichier avec votre configuration sur cet ordinateur que lorsque « Mémoriser les mots de passe » est activé dans « Sauvegarde et synchronisation des paramètres » ; sinon, il n'enregistre que le chemin. L'image de démarrage contient des copies chiffrées.</value>
+    <value>Les fichiers personnalisés nécessitent la protection du média de déploiement par mot de passe dans la configuration générale. Le XML peut contenir des identifiants ou des scripts. Foundry conserve une copie de chaque fichier importé dans sa bibliothèque de fichiers sur cet ordinateur. L'image de démarrage contient des copies chiffrées.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Activez la protection du média de déploiement par mot de passe dans la configuration générale pour utiliser des fichiers de réponses personnalisés.</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Cette source est désormais identique à un autre fichier importé. Supprimez cette entrée et choisissez le fichier existant.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Actualiser la source</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Supprimer</value>
@@ -4007,9 +4007,6 @@ L'application de la mise à jour redémarre Foundry OSD.</value>
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Fichier sélectionné</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>La source a changé. Utilisez Actualiser la source pour accepter le fichier mis à jour avant de créer un média.</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>Deux vérifications de sources attendent toujours l'accès aux fichiers. Rétablissez l'accès aux emplacements indisponibles, puis vérifiez à nouveau les sources.</value>

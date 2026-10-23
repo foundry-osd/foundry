@@ -283,6 +283,12 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Julkaisutiedot</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Valittua tiedostoa ei voitu lisätä Foundryyn. Valitse luettava tiedosto, jonka koko on enintään 4 MiB.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Tiedostoa ei lisätty</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Oletus</value>
   </data>
@@ -3919,7 +3925,7 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
     <value>Sisältää asetuksia, jotka voivat estää Autopilot-rekisteröinnin. Yhteensopimattomat rekisteröintitilat estetään käyttöönoton aikana.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Valitse tiedosto, jonka haluat nimetä uudelleen, päivittää tai poistaa. Lähdetiedostojen on oltava käytettävissä tietovälineen luomiseen asti. Muuttuneet lähteet on päivitettävä.</value>
+    <value>Valitse tiedosto, jonka haluat nimetä uudelleen tai poistaa. Foundry säilyttää oman kopion jokaisesta tuodusta tiedostosta. Jos haluat käyttää päivitettyä tiedostoa, poista merkintä ja tuo tiedosto uudelleen.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Vastaustiedostot</value>
@@ -3964,13 +3970,13 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
     <value>Tiedoston on määritettävä tuettu arkkitehtuuri ja sisällettävä siihen soveltuvia komponenttiasetuksia.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Luettelossa on virheellisiä tai päällekkäisiä kohteita. Päivitä tai poista kyseiset tiedostot.</value>
+    <value>Luettelossa on virheellisiä tai päällekkäisiä merkintöjä. Poista kyseiset tiedostot ja tuo ne uudelleen.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Käytä kelvollista Windowsin vastaustiedoston XML:ää, jonka koko on enintään 4 MiB ja joka ei sisällä DTD-määrityksiä tai ulkoisia entiteettejä. Vahvista tiedosto Windows SIM -työkalulla.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Jotkin lähteet puuttuvat, ovat muuttuneet tai virheellisiä. Päivitä tai poista nämä kohteet ennen tietovälineen luomista.</value>
+    <value>Jotkin tiedostot puuttuvat tai ovat virheellisiä. Poista nämä merkinnät ja tuo tiedostot uudelleen ennen tietovälineen luomista.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Oletustiedosto puuttuu – valitse korvaava tiedosto</value>
@@ -3985,16 +3991,10 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
     <value>Foundry säilyttää alkuperäisen tiedostosi ja lisää tarvittavan asennuksen jälkeisen komennon käyttöönottokopioon. Olet edelleen vastuussa mukautetuista asetuksistasi ja komennoistasi.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Mukautetut tiedostot edellyttävät käyttöönottotietovälineen salasanasuojausta yleisissä asetuksissa. XML voi sisältää tunnistetietoja tai komentosarjoja. Foundry säilyttää kopion jokaisesta tiedostosta kokoonpanosi mukana tällä tietokoneella vain, kun ”Muista salasanat” on otettu käyttöön kohdassa ”Asetusten varmuuskopiointi ja synkronointi”; muussa tapauksessa se tallentaa vain polun. Käynnistysnäköistiedosto sisältää salatut kopiot.</value>
+    <value>Mukautetut tiedostot edellyttävät käyttöönottotietovälineen salasanasuojausta yleisissä asetuksissa. XML voi sisältää tunnistetietoja tai komentosarjoja. Foundry säilyttää kopion jokaisesta tuodusta tiedostosta tiedostokirjastossaan tällä tietokoneella. Käynnistysnäköistiedosto sisältää salatut kopiot.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Ota käyttöön käyttöönottotietovälineen salasanasuojaus yleisissä asetuksissa, jotta voit käyttää mukautettuja vastaustiedostoja.</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Tämä lähde on nyt sama kuin toinen tuotu tiedosto. Poista tämä kohde ja valitse olemassa oleva tiedosto.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Päivitä lähde</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Poista</value>
@@ -4007,9 +4007,6 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Valittu tiedosto</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>Lähde on muuttunut. Hyväksy päivitetty tiedosto valitsemalla Päivitä lähde ennen tietovälineen luomista.</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>Kaksi lähdetarkistusta odottaa yhä tiedostojen käyttöä. Palauta pääsy lähdesijainteihin, jotka eivät ole käytettävissä, ja tarkista lähteet uudelleen.</value>

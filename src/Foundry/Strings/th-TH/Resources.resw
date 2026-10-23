@@ -283,6 +283,12 @@
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>บันทึกประจำรุ่น</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>ไม่สามารถเพิ่มไฟล์ที่เลือกลงใน Foundry ได้ โปรดเลือกไฟล์ที่อ่านได้และมีขนาดไม่เกิน 4 MiB</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>ไม่ได้เพิ่มไฟล์</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>ค่าเริ่มต้น</value>
   </data>
@@ -3919,7 +3925,7 @@
     <value>มีการตั้งค่าที่อาจขัดขวางการลงทะเบียนกับ Autopilot ระบบจะบล็อกโหมดการลงทะเบียนที่เข้ากันไม่ได้ระหว่างการปรับใช้</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>เลือกไฟล์เพื่อเปลี่ยนชื่อ รีเฟรช หรือลบ ไฟล์ต้นฉบับต้องพร้อมใช้งานจนกว่าจะสร้างสื่อเสร็จ หากต้นฉบับเปลี่ยนแปลง ต้องรีเฟรชต้นฉบับ</value>
+    <value>เลือกไฟล์เพื่อเปลี่ยนชื่อหรือลบ Foundry จะเก็บสำเนาของตนเองสำหรับแต่ละไฟล์ที่นำเข้า หากต้องการใช้ไฟล์ที่อัปเดต ให้ลบรายการแล้วนำเข้าไฟล์อีกครั้ง</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>ไฟล์คำตอบ</value>
@@ -3964,13 +3970,13 @@
     <value>ไฟล์ต้องระบุสถาปัตยกรรมที่รองรับและมีการตั้งค่าคอมโพเนนต์ที่ใช้ได้กับสถาปัตยกรรมนั้น</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>แค็ตตาล็อกมีรายการที่ไม่ถูกต้องหรือซ้ำกัน โปรดรีเฟรชหรือลบไฟล์ที่เกี่ยวข้อง</value>
+    <value>แค็ตตาล็อกมีรายการที่ไม่ถูกต้องหรือซ้ำกัน โปรดลบไฟล์ที่ได้รับผลกระทบแล้วนำเข้าอีกครั้ง</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>ใช้ XML ของไฟล์คำตอบ Windows ที่ถูกต้อง ขนาดไม่เกิน 4 MiB และไม่มี DTD หรือเอนทิตีภายนอก ตรวจสอบไฟล์ด้วย Windows SIM</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>ต้นฉบับบางรายการหายไป มีการเปลี่ยนแปลง หรือไม่ถูกต้อง โปรดรีเฟรชหรือลบรายการเหล่านี้ก่อนสร้างสื่อ</value>
+    <value>บางไฟล์หายไปหรือไม่ถูกต้อง โปรดลบรายการเหล่านี้และนำเข้าไฟล์อีกครั้งก่อนสร้างสื่อ</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>ไม่พบไฟล์เริ่มต้น — โปรดเลือกไฟล์แทน</value>
@@ -3985,16 +3991,10 @@
     <value>Foundry จะเก็บไฟล์ต้นฉบับไว้และเพิ่มคำสั่งหลังการติดตั้งที่จำเป็นลงในสำเนาสำหรับการปรับใช้ คุณยังคงรับผิดชอบต่อการตั้งค่าและคำสั่งแบบกำหนดเอง</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>ไฟล์ที่กำหนดเองต้องเปิดใช้การป้องกันสื่อการปรับใช้ด้วยรหัสผ่านในการกำหนดค่าทั่วไป XML อาจมีข้อมูลรับรองหรือสคริปต์ Foundry จะเก็บสำเนาของแต่ละไฟล์พร้อมกับการกำหนดค่าของคุณบนพีซีเครื่องนี้เฉพาะเมื่อเปิด “จดจำรหัสผ่าน” ใน “สำรองและซิงค์การตั้งค่า” เท่านั้น มิฉะนั้นจะบันทึกเฉพาะเส้นทาง อิมเมจสำหรับบูตจะมีสำเนาที่เข้ารหัส</value>
+    <value>ไฟล์ที่กำหนดเองต้องเปิดใช้การป้องกันสื่อการปรับใช้ด้วยรหัสผ่านในการกำหนดค่าทั่วไป XML อาจมีข้อมูลรับรองหรือสคริปต์ Foundry จะเก็บสำเนาของแต่ละไฟล์ที่นำเข้าไว้ในไลบรารีไฟล์บนพีซีเครื่องนี้ อิมเมจสำหรับบูตจะมีสำเนาที่เข้ารหัส</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>เปิดใช้การป้องกันสื่อการปรับใช้ด้วยรหัสผ่านในการกำหนดค่าทั่วไปเพื่อใช้ไฟล์คำตอบที่กำหนดเอง</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>ขณะนี้ต้นฉบับนี้ซ้ำกับไฟล์อื่นที่นำเข้าไว้แล้ว โปรดลบรายการนี้และเลือกไฟล์ที่มีอยู่แทน</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>รีเฟรชต้นฉบับ</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>ลบ</value>
@@ -4007,9 +4007,6 @@
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>ไฟล์ที่เลือก</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>ต้นฉบับมีการเปลี่ยนแปลง ใช้รีเฟรชต้นฉบับเพื่อยอมรับไฟล์ที่อัปเดตก่อนสร้างสื่อ</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>การตรวจสอบต้นฉบับสองรายการยังคงรอการเข้าถึงไฟล์ โปรดกู้คืนการเข้าถึงตำแหน่งต้นฉบับที่ไม่พร้อมใช้งาน แล้วตรวจสอบต้นฉบับอีกครั้ง</value>

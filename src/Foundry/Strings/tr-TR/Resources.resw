@@ -283,6 +283,12 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Sürüm notları</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Seçilen dosya Foundry'ye eklenemedi. Okunabilir ve en fazla 4 MiB boyutunda bir dosya seçin.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Dosya eklenmedi</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Varsayılan</value>
   </data>
@@ -3919,7 +3925,7 @@ Güncellemeyi uygulamak Foundry OSD'yi yeniden başlatır.</value>
     <value>Autopilot kaydını engelleyebilecek ayarlar içerir; uyumsuz kayıt modları dağıtım sırasında engellenir.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Yeniden adlandırmak, yenilemek veya kaldırmak için bir dosya seçin. Kaynak dosyalar medya oluşturulana kadar erişilebilir olmalıdır; değiştirilen kaynakların yenilenmesi gerekir.</value>
+    <value>Yeniden adlandırmak veya kaldırmak için bir dosya seçin. Foundry, içeri aktarılan her dosyanın kendi kopyasını saklar; güncellenmiş bir dosyayı kullanmak için girdiyi kaldırıp dosyayı yeniden içeri aktarın.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Yanıt dosyaları</value>
@@ -3964,13 +3970,13 @@ Güncellemeyi uygulamak Foundry OSD'yi yeniden başlatır.</value>
     <value>Dosya, desteklenen bir mimari belirtmeli ve bu mimariye uygulanabilen bileşen ayarları içermelidir.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Katalog geçersiz veya yinelenen girdiler içeriyor. Etkilenen dosyaları yenileyin veya kaldırın.</value>
+    <value>Katalog geçersiz veya yinelenen girdiler içeriyor. İlgili dosyaları kaldırıp yeniden içeri aktarın.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>DTD veya harici varlık içermeyen, en fazla 4 MiB boyutunda geçerli bir Windows yanıt dosyası XML'i kullanın. Dosyayı Windows SIM ile doğrulayın.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Bazı kaynaklar eksik, değiştirilmiş veya geçersiz. Medya oluşturmadan önce bu girdileri yenileyin veya kaldırın.</value>
+    <value>Bazı dosyalar eksik veya geçersiz. Medya oluşturmadan önce bu girdileri kaldırıp dosyaları yeniden içeri aktarın.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Varsayılan dosya eksik — yerine başka bir dosya seçin</value>
@@ -3985,16 +3991,10 @@ Güncellemeyi uygulamak Foundry OSD'yi yeniden başlatır.</value>
     <value>Foundry özgün dosyanızı korur ve gerekli kurulum sonrası komutunu dağıtım kopyasına ekler. Özel ayarlarınız ve komutlarınız sizin sorumluluğunuzda kalır.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Özel dosyalar, Genel yapılandırmada dağıtım medyasının parolayla korunmasını gerektirir. XML, kimlik bilgileri veya betikler içerebilir. Foundry, yapılandırmanızla birlikte bu bilgisayarda her dosyanın bir kopyasını yalnızca “Ayarları yedekleme ve eşitleme” içinde “Parolaları hatırla” açıkken saklar; aksi takdirde yalnızca yolu kaydeder. Önyükleme görüntüsü şifrelenmiş kopyalar içerir.</value>
+    <value>Özel dosyalar, Genel yapılandırmada dağıtım medyasının parolayla korunmasını gerektirir. XML, kimlik bilgileri veya betikler içerebilir. Foundry, içeri aktarılan her dosyanın bir kopyasını bu bilgisayardaki dosya kitaplığında saklar. Önyükleme görüntüsü şifrelenmiş kopyalar içerir.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Özel yanıt dosyalarını kullanmak için Genel yapılandırmada dağıtım medyasının parola korumasını etkinleştirin.</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Bu kaynak artık içe aktarılan başka bir dosyayla aynı. Bu girdiyi kaldırın ve mevcut dosyayı seçin.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Kaynağı yenile</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Kaldır</value>
@@ -4007,9 +4007,6 @@ Güncellemeyi uygulamak Foundry OSD'yi yeniden başlatır.</value>
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Seçili dosya</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>Kaynak değişti. Medya oluşturmadan önce güncellenen dosyayı kabul etmek için Kaynağı yenile'yi kullanın.</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>İki kaynak denetimi hâlâ dosya erişimi bekliyor. Kullanılamayan kaynak konumlarına erişimi yeniden sağlayın, ardından kaynakları tekrar denetleyin.</value>

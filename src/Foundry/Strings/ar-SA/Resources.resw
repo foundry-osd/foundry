@@ -283,6 +283,12 @@
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>ملاحظات الإصدار</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>تعذّرت إضافة الملف المحدد إلى Foundry. اختر ملفًا قابلًا للقراءة لا يتجاوز حجمه 4 ميبيبايت.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>لم تتم إضافة الملف</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>الافتراضي</value>
   </data>
@@ -3919,7 +3925,7 @@
     <value>يحتوي على إعدادات قد تمنع التسجيل في Autopilot؛ سيتم حظر أوضاع التسجيل غير المتوافقة أثناء النشر.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>حدد ملفًا لإعادة تسميته أو تحديثه أو إزالته. يجب أن تظل ملفات المصدر متاحة حتى إنشاء الوسائط؛ وتتطلب المصادر المعدّلة التحديث.</value>
+    <value>حدد ملفًا لإعادة تسميته أو إزالته. يحتفظ Foundry بنسخته الخاصة من كل ملف مستورد؛ لاستخدام ملف محدّث، أزل الإدخال واستورد الملف مرة أخرى.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>ملفات الإجابات</value>
@@ -3964,13 +3970,13 @@
     <value>يجب أن يحدد الملف بنية مدعومة وأن يحتوي على إعدادات مكونات تنطبق عليها.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>يحتوي الكتالوج على إدخالات غير صالحة أو مكررة. حدّث الملفات المعنية أو أزلها.</value>
+    <value>يحتوي الكتالوج على إدخالات غير صالحة أو مكررة. أزل الملفات المعنية واستوردها مرة أخرى.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>استخدم ملف إجابات Windows بصيغة XML صالحة لا يتجاوز حجمه 4 MiB، دون تعريفات DTD أو كيانات خارجية. تحقق من الملف باستخدام Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>بعض المصادر مفقودة أو معدّلة أو غير صالحة. حدّث هذه الإدخالات أو أزلها قبل إنشاء الوسائط.</value>
+    <value>بعض الملفات مفقودة أو غير صالحة. أزل هذه الإدخالات واستورد الملفات مرة أخرى قبل إنشاء الوسائط.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>الاختيار الافتراضي مفقود - اختر بديلًا</value>
@@ -3985,16 +3991,10 @@
     <value>يحافظ Foundry على الملف الأصلي ويضيف أمره المطلوب لمرحلة ما بعد التثبيت إلى نسخة النشر. وتبقى مسؤولاً عن إعداداتك وأوامرك المخصصة.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>تتطلب الملفات المخصصة حماية وسائط النشر بكلمة مرور في الإعدادات العامة. قد يحتوي XML على بيانات اعتماد أو برامج نصية. يحتفظ Foundry بنسخة من كل ملف مع التكوين لديك على هذا الكمبيوتر فقط عندما يكون خيار «تذكّر كلمات المرور» قيد التشغيل في «النسخ الاحتياطي للإعدادات ومزامنتها»؛ وإلا فإنه يحفظ المسار فقط. تحتوي صورة التمهيد على نسخ مشفّرة.</value>
+    <value>تتطلب الملفات المخصصة حماية وسائط النشر بكلمة مرور في الإعدادات العامة. قد يحتوي XML على بيانات اعتماد أو برامج نصية. يحتفظ Foundry بنسخة من كل ملف مستورد في مكتبة الملفات الخاصة به على هذا الكمبيوتر. تحتوي صورة التمهيد على نسخ مشفّرة.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>فعّل حماية وسائط النشر بكلمة مرور في الإعدادات العامة لاستخدام ملفات الإجابات المخصصة.</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>أصبح هذا المصدر مطابقًا لملف مستورد آخر. أزل هذا الإدخال واختر الملف الموجود.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>تحديث المصدر</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>إزالة</value>
@@ -4007,9 +4007,6 @@
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>الملف المحدد</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>تغيّر المصدر. استخدم تحديث المصدر لقبول الملف المحدّث قبل إنشاء الوسائط.</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>ما زالت عمليتا تحقق من المصادر تنتظران الوصول إلى الملفات. أعد إتاحة مواقع المصادر غير المتاحة، ثم تحقق من المصادر مجددًا.</value>

@@ -283,6 +283,12 @@ Licensierad under MIT-licensen.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Versionsinformation</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Den valda filen kunde inte läggas till i Foundry. Välj en läsbar fil på högst 4 MiB.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Filen lades inte till</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Standard</value>
   </data>
@@ -3919,7 +3925,7 @@ Uppdateringen startar om Foundry OSD.</value>
     <value>Innehåller inställningar som kan förhindra registrering i Autopilot; inkompatibla registreringslägen blockeras vid distribution.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Välj en fil för att byta namn på, uppdatera eller ta bort den. Källfilerna måste vara tillgängliga tills mediet skapas; ändrade källor måste uppdateras.</value>
+    <value>Välj en fil för att byta namn på eller ta bort den. Foundry behåller en egen kopia av varje importerad fil. Om du vill använda en uppdaterad fil tar du bort posten och importerar filen igen.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Svarsfiler</value>
@@ -3964,13 +3970,13 @@ Uppdateringen startar om Foundry OSD.</value>
     <value>Filen måste ange en arkitektur som stöds och innehålla komponentinställningar som gäller för den.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Katalogen innehåller ogiltiga eller dubblerade poster. Uppdatera eller ta bort de berörda filerna.</value>
+    <value>Katalogen innehåller ogiltiga eller dubblerade poster. Ta bort de berörda filerna och importera dem igen.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Använd giltig XML för en Windows-svarsfil på högst 4 MiB, utan DTD:er eller externa entiteter. Validera filen med Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Vissa källor saknas, har ändrats eller är ogiltiga. Uppdatera eller ta bort dessa poster innan mediet skapas.</value>
+    <value>Vissa filer saknas eller är ogiltiga. Ta bort dessa poster och importera filerna igen innan du skapar media.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Standardfilen saknas — välj en ersättare</value>
@@ -3985,16 +3991,10 @@ Uppdateringen startar om Foundry OSD.</value>
     <value>Foundry bevarar din originalfil och lägger till sitt obligatoriska kommando för efter installationen i distributionskopian. Du ansvarar fortfarande för dina anpassade inställningar och kommandon.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Egna filer kräver lösenordsskydd för distributionsmediet under Allmänt. XML kan innehålla autentiseringsuppgifter eller skript. Foundry behåller en kopia av varje fil tillsammans med din konfiguration på den här datorn endast när ”Kom ihåg lösenord” är aktiverat i ”Säkerhetskopiering och synkronisering av inställningar”; annars sparas bara sökvägen. Startavbildningen innehåller krypterade kopior.</value>
+    <value>Egna filer kräver lösenordsskydd för distributionsmediet under Allmänt. XML kan innehålla autentiseringsuppgifter eller skript. Foundry behåller en kopia av varje importerad fil i sitt filbibliotek på den här datorn. Startavbildningen innehåller krypterade kopior.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Aktivera lösenordsskydd för distributionsmediet under Allmänt för att använda egna svarsfiler.</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Den här källan är nu en dubblett av en annan importerad fil. Ta bort posten och välj den befintliga filen.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Uppdatera källa</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Ta bort</value>
@@ -4007,9 +4007,6 @@ Uppdateringen startar om Foundry OSD.</value>
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Vald fil</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>Källan har ändrats. Välj Uppdatera källa för att godkänna den uppdaterade filen innan mediet skapas.</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>Två källkontroller väntar fortfarande på filåtkomst. Återställ åtkomsten till de otillgängliga källplatserna och kontrollera sedan källorna igen.</value>

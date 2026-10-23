@@ -866,7 +866,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         logger.Information("Autopilot boot media certificate selection updated. CertificateSelected={CertificateSelected}", true);
     }
 
-    /// <summary>Imports a PFX into the authoring file library; a failure is logged and returns null.</summary>
+    /// <summary>Imports a PFX into the authoring file library; a failure is logged and shown, and returns null.</summary>
     private async Task<AuthoringFileReference?> ImportBootMediaCertificateAsync(string path)
     {
         try
@@ -876,6 +876,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidDataException or ArgumentException or NotSupportedException)
         {
             logger.Warning(ex, "The Autopilot boot media certificate could not be imported into the authoring file library.");
+            await dialogService.ShowMessageAsync(new DialogRequest(
+                localizationService.GetString("AuthoringFiles.ImportFailedTitle"),
+                localizationService.GetString("AuthoringFiles.ImportFailedMessage"),
+                localizationService.GetString("Common.Close")));
             return null;
         }
     }

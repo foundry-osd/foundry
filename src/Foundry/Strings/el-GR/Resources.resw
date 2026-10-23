@@ -283,6 +283,12 @@
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Σημειώσεις έκδοσης</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η προσθήκη του επιλεγμένου αρχείου στο Foundry. Επιλέξτε ένα αναγνώσιμο αρχείο έως 4 MiB.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Το αρχείο δεν προστέθηκε</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Προεπιλογή</value>
   </data>
@@ -3919,7 +3925,7 @@
     <value>Περιέχει ρυθμίσεις που ενδέχεται να εμποδίσουν την εγγραφή στο Autopilot. Οι μη συμβατές μέθοδοι εγγραφής θα αποκλειστούν κατά την ανάπτυξη.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Επιλέξτε ένα αρχείο για μετονομασία, ανανέωση ή κατάργηση. Τα αρχεία προέλευσης πρέπει να παραμένουν διαθέσιμα μέχρι τη δημιουργία του μέσου. Αν αλλάξουν, απαιτείται ανανέωση.</value>
+    <value>Επιλέξτε ένα αρχείο για μετονομασία ή κατάργηση. Το Foundry διατηρεί δικό του αντίγραφο κάθε εισαγόμενου αρχείου· για να χρησιμοποιήσετε ενημερωμένο αρχείο, καταργήστε την καταχώριση και εισαγάγετε ξανά το αρχείο.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Αρχεία απαντήσεων</value>
@@ -3964,13 +3970,13 @@
     <value>Το αρχείο πρέπει να δηλώνει υποστηριζόμενη αρχιτεκτονική και να περιέχει ρυθμίσεις στοιχείων κατάλληλες για αυτήν.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Ο κατάλογος περιέχει μη έγκυρες ή διπλότυπες εγγραφές. Ανανεώστε ή καταργήστε τα αντίστοιχα αρχεία.</value>
+    <value>Ο κατάλογος περιέχει μη έγκυρες ή διπλότυπες καταχωρίσεις. Καταργήστε τα επηρεαζόμενα αρχεία και εισαγάγετέ τα ξανά.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Χρησιμοποιήστε έγκυρο XML αρχείου απαντήσεων των Windows έως 4 MiB, χωρίς DTD ή εξωτερικές οντότητες. Επικυρώστε το αρχείο με το Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Ορισμένα αρχεία προέλευσης λείπουν, έχουν αλλάξει ή δεν είναι έγκυρα. Ανανεώστε ή καταργήστε αυτές τις εγγραφές πριν δημιουργήσετε το μέσο.</value>
+    <value>Ορισμένα αρχεία λείπουν ή δεν είναι έγκυρα. Καταργήστε αυτές τις καταχωρίσεις και εισαγάγετε ξανά τα αρχεία πριν από τη δημιουργία του μέσου.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Η προεπιλογή λείπει — επιλέξτε αντικατάσταση</value>
@@ -3985,16 +3991,10 @@
     <value>Το Foundry διατηρεί το αρχικό αρχείο και προσθέτει την απαιτούμενη εντολή του για μετά την εγκατάσταση στο αντίγραφο ανάπτυξης. Παραμένετε υπεύθυνοι για τις προσαρμοσμένες ρυθμίσεις και εντολές σας.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Τα προσαρμοσμένα αρχεία απαιτούν προστασία του μέσου ανάπτυξης με κωδικό πρόσβασης στις γενικές ρυθμίσεις. Το XML μπορεί να περιέχει διαπιστευτήρια ή σενάρια. Το Foundry διατηρεί αντίγραφο κάθε αρχείου με τη διαμόρφωσή σας σε αυτόν τον υπολογιστή μόνο όταν είναι ενεργοποιημένη η επιλογή «Απομνημόνευση κωδικών» στο «Αντίγραφα ασφαλείας και συγχρονισμός ρυθμίσεων»· διαφορετικά αποθηκεύει μόνο τη διαδρομή. Η εικόνα εκκίνησης περιέχει κρυπτογραφημένα αντίγραφα.</value>
+    <value>Τα προσαρμοσμένα αρχεία απαιτούν προστασία του μέσου ανάπτυξης με κωδικό πρόσβασης στις γενικές ρυθμίσεις. Το XML μπορεί να περιέχει διαπιστευτήρια ή σενάρια. Το Foundry διατηρεί αντίγραφο κάθε εισαγόμενου αρχείου στη βιβλιοθήκη αρχείων του σε αυτόν τον υπολογιστή. Η εικόνα εκκίνησης περιέχει κρυπτογραφημένα αντίγραφα.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Ενεργοποιήστε την προστασία του μέσου ανάπτυξης με κωδικό πρόσβασης στις γενικές ρυθμίσεις για να χρησιμοποιήσετε προσαρμοσμένα αρχεία απαντήσεων.</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Αυτό το αρχείο προέλευσης είναι πλέον ίδιο με άλλο εισηγμένο αρχείο. Καταργήστε την εγγραφή και επιλέξτε το υπάρχον αρχείο.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Ανανέωση προέλευσης</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Κατάργηση</value>
@@ -4007,9 +4007,6 @@
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Επιλεγμένο αρχείο</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>Το αρχείο προέλευσης άλλαξε. Χρησιμοποιήστε την Ανανέωση προέλευσης για αποδοχή του ενημερωμένου αρχείου πριν δημιουργήσετε το μέσο.</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>Δύο έλεγχοι προελεύσεων περιμένουν ακόμη πρόσβαση στα αρχεία. Αποκαταστήστε την πρόσβαση στις μη διαθέσιμες θέσεις και ελέγξτε ξανά τις προελεύσεις.</value>

@@ -283,6 +283,12 @@ Licenseret under MIT-licensen.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Udgivelsesbemærkninger</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Den valgte fil kunne ikke føjes til Foundry. Vælg en læsbar fil på højst 4 MiB.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Filen blev ikke tilføjet</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Standard</value>
   </data>
@@ -3919,7 +3925,7 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
     <value>Indeholder indstillinger, der kan forhindre Autopilot-tilmelding. Inkompatible tilmeldingstilstande blokeres under udrulningen.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Vælg en fil for at omdøbe, opdatere eller fjerne den. Kildefilerne skal være tilgængelige, indtil mediet er oprettet. Ændrede kilder skal opdateres.</value>
+    <value>Vælg en fil for at omdøbe eller fjerne den. Foundry beholder sin egen kopi af hver importeret fil. Hvis du vil bruge en opdateret fil, skal du fjerne posten og importere filen igen.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Svarfiler</value>
@@ -3964,13 +3970,13 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
     <value>Filen skal angive en understøttet arkitektur og indeholde komponentindstillinger, der gælder for den.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Kataloget indeholder ugyldige eller dublerede poster. Opdater eller fjern de berørte filer.</value>
+    <value>Kataloget indeholder ugyldige eller dublerede poster. Fjern de berørte filer, og importér dem igen.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Brug gyldig XML til en Windows-svarfil på højst 4 MiB uden DTD'er eller eksterne entiteter. Validér filen med Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Nogle kilder mangler, er ændret eller er ugyldige. Opdater eller fjern disse poster, før du opretter medier.</value>
+    <value>Nogle filer mangler eller er ugyldige. Fjern disse poster, og importér filerne igen, før du opretter medier.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Standardvalget mangler – vælg et andet</value>
@@ -3985,16 +3991,10 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
     <value>Foundry bevarer din oprindelige fil og føjer sin påkrævede kommando til efter installationen til udrulningskopien. Du er fortsat ansvarlig for dine tilpassede indstillinger og kommandoer.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Brugerdefinerede filer kræver adgangskodebeskyttelse af udrulningsmediet i den generelle konfiguration. XML kan indeholde legitimationsoplysninger eller scripts. Foundry beholder kun en kopi af hver fil sammen med din konfiguration på denne pc, når »Husk adgangskoder« er slået til i »Sikkerhedskopiering og synkronisering af indstillinger«; ellers gemmes kun stien. Startafbildningen indeholder krypterede kopier.</value>
+    <value>Brugerdefinerede filer kræver adgangskodebeskyttelse af udrulningsmediet i den generelle konfiguration. XML kan indeholde legitimationsoplysninger eller scripts. Foundry beholder en kopi af hver importeret fil i sit filbibliotek på denne pc. Startafbildningen indeholder krypterede kopier.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Aktivér adgangskodebeskyttelse af udrulningsmediet i den generelle konfiguration for at bruge brugerdefinerede svarfiler.</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Denne kilde er nu en kopi af en anden importeret fil. Fjern denne post, og vælg den eksisterende fil i stedet.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Opdater kilde</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Fjern</value>
@@ -4007,9 +4007,6 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Valgt fil</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>Kilden er ændret. Brug Opdater kilde for at acceptere den opdaterede fil, før du opretter medier.</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>To kildekontroller venter stadig på filadgang. Gendan adgangen til de utilgængelige kildeplaceringer, og kontrollér derefter kilderne igen.</value>

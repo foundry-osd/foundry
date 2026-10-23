@@ -283,6 +283,12 @@
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Примітки до випуску</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Не вдалося додати вибраний файл до Foundry. Виберіть доступний для читання файл розміром не більше 4 МіБ.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Файл не додано</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>За замовчуванням</value>
   </data>
@@ -3919,7 +3925,7 @@
     <value>Містить параметри, які можуть перешкодити реєстрації в Autopilot; несумісні режими реєстрації буде заблоковано під час розгортання.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Виберіть файл, щоб перейменувати, оновити або видалити його. Вихідні файли мають залишатися доступними до створення носія; змінені джерела потрібно оновити.</value>
+    <value>Виберіть файл, щоб перейменувати або видалити його. Foundry зберігає власну копію кожного імпортованого файлу; щоб використати оновлений файл, видаліть запис і знову імпортуйте файл.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Файли відповідей</value>
@@ -3964,13 +3970,13 @@
     <value>Файл має вказувати підтримувану архітектуру та містити застосовні до неї параметри компонентів.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Каталог містить недійсні або повторювані записи. Оновіть або видаліть відповідні файли.</value>
+    <value>Каталог містить недійсні або повторювані записи. Видаліть ці файли та знову імпортуйте їх.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Використовуйте коректний XML файлу відповідей Windows розміром до 4 MiB, без DTD і зовнішніх сутностей. Перевірте файл у Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Деякі джерела відсутні, змінені або недійсні. Оновіть або видаліть ці записи перед створенням носія.</value>
+    <value>Деякі файли відсутні або недійсні. Перед створенням носія видаліть ці записи та знову імпортуйте файли.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Файл за замовчуванням відсутній — виберіть заміну</value>
@@ -3985,16 +3991,10 @@
     <value>Foundry зберігає оригінальний файл і додає обов'язкову команду етапу після інсталяції до копії для розгортання. Ви й надалі відповідаєте за власні параметри та команди.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Для власних файлів потрібен захист носія розгортання паролем у загальних налаштуваннях. XML може містити облікові дані або сценарії. Foundry зберігає копію кожного файлу разом із конфігурацією на цьому комп'ютері, лише якщо в розділі «Резервне копіювання та синхронізація налаштувань» увімкнено параметр «Запам'ятати паролі»; в іншому разі зберігається тільки шлях. Завантажувальний образ містить зашифровані копії.</value>
+    <value>Для власних файлів потрібен захист носія розгортання паролем у загальних налаштуваннях. XML може містити облікові дані або сценарії. Foundry зберігає копію кожного імпортованого файлу у своїй бібліотеці файлів на цьому комп'ютері. Завантажувальний образ містить зашифровані копії.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Щоб використовувати власні файли відповідей, увімкніть захист носія розгортання паролем у загальних налаштуваннях.</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Тепер це джерело дублює інший імпортований файл. Видаліть цей запис і виберіть наявний файл.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Оновити джерело</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Видалити</value>
@@ -4007,9 +4007,6 @@
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Вибраний файл</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>Джерело змінено. Виберіть «Оновити джерело», щоб прийняти оновлений файл перед створенням носія.</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>Дві перевірки джерел досі очікують доступу до файлів. Відновіть доступ до недоступних розташувань і повторіть перевірку джерел.</value>

@@ -283,6 +283,12 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Note sulla versione</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Impossibile aggiungere il file selezionato a Foundry. Scegli un file leggibile di dimensioni non superiori a 4 MiB.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>File non aggiunto</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Predefinito</value>
   </data>
@@ -3919,7 +3925,7 @@ L'applicazione dell'aggiornamento riavvia Foundry OSD.</value>
     <value>Contiene impostazioni che possono impedire la registrazione in Autopilot; le modalità di registrazione incompatibili verranno bloccate durante la distribuzione.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Seleziona un file per rinominarlo, aggiornarlo o rimuoverlo. I file di origine devono rimanere disponibili fino alla creazione del supporto; le origini modificate devono essere aggiornate.</value>
+    <value>Seleziona un file per rinominarlo o rimuoverlo. Foundry conserva una propria copia di ogni file importato; per usare un file aggiornato, rimuovi la voce e importa di nuovo il file.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>File di risposte</value>
@@ -3964,13 +3970,13 @@ L'applicazione dell'aggiornamento riavvia Foundry OSD.</value>
     <value>Il file deve dichiarare un'architettura supportata e contenere impostazioni dei componenti applicabili a tale architettura.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Il catalogo contiene voci non valide o duplicate. Aggiorna o rimuovi i file interessati.</value>
+    <value>Il catalogo contiene voci non valide o duplicate. Rimuovi i file interessati e importali di nuovo.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Usa un file XML di risposte di Windows valido, non superiore a 4 MiB e privo di DTD o entità esterne. Convalida il file con Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Alcune origini sono mancanti, modificate o non valide. Aggiorna o rimuovi queste voci prima di creare il supporto.</value>
+    <value>Alcuni file sono mancanti o non validi. Rimuovi queste voci e importa di nuovo i file prima di creare il supporto.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Scelta predefinita mancante: scegli un'alternativa</value>
@@ -3985,16 +3991,10 @@ L'applicazione dell'aggiornamento riavvia Foundry OSD.</value>
     <value>Foundry conserva il file originale e aggiunge il proprio comando obbligatorio di post-installazione alla copia di distribuzione. La responsabilità delle impostazioni e dei comandi personalizzati rimane dell'utente.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>I file personalizzati richiedono la protezione del supporto di distribuzione tramite password nella configurazione generale. L'XML può contenere credenziali o script. Foundry conserva una copia di ogni file con la configurazione su questo PC solo quando «Memorizza password» è attivo in «Backup e sincronizzazione delle impostazioni»; in caso contrario salva solo il percorso. L'immagine di avvio contiene copie crittografate.</value>
+    <value>I file personalizzati richiedono la protezione del supporto di distribuzione tramite password nella configurazione generale. L'XML può contenere credenziali o script. Foundry conserva una copia di ogni file importato nella propria libreria di file su questo PC. L'immagine di avvio contiene copie crittografate.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Abilita la protezione del supporto di distribuzione tramite password nella configurazione generale per usare file di risposte personalizzati.</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Questa origine ora è identica a un altro file importato. Rimuovi questa voce e scegli il file esistente.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Aggiorna origine</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Rimuovi</value>
@@ -4007,9 +4007,6 @@ L'applicazione dell'aggiornamento riavvia Foundry OSD.</value>
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>File selezionato</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>L'origine è stata modificata. Usa Aggiorna origine per accettare il file aggiornato prima di creare il supporto.</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>Due verifiche delle origini sono ancora in attesa dell'accesso ai file. Ripristina l'accesso ai percorsi di origine non disponibili, quindi verifica nuovamente le origini.</value>

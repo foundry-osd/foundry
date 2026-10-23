@@ -283,6 +283,12 @@ Licenc az MIT licenc alatt.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Kiadási megjegyzések</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>A kiválasztott fájlt nem sikerült hozzáadni a Foundryhoz. Válasszon egy olvasható, legfeljebb 4 MiB méretű fájlt.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>A fájl nincs hozzáadva</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Alapértelmezett</value>
   </data>
@@ -3919,7 +3925,7 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>Az Autopilot-regisztrációt megakadályozó beállításokat tartalmaz; a nem kompatibilis regisztrációs módokat a rendszer letiltja a telepítés során.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Válasszon ki egy fájlt az átnevezéshez, frissítéshez vagy eltávolításhoz. A forrásfájloknak az adathordozó létrehozásáig elérhetőnek kell maradniuk; a módosult forrásokat frissíteni kell.</value>
+    <value>Válasszon ki egy fájlt az átnevezéshez vagy eltávolításhoz. A Foundry minden importált fájlról saját másolatot tárol; frissített fájl használatához távolítsa el a bejegyzést, és importálja újra a fájlt.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Válaszfájlok</value>
@@ -3964,13 +3970,13 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>A fájlnak támogatott architektúrát és az arra alkalmazható összetevő-beállításokat kell tartalmaznia.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>A katalógus érvénytelen vagy ismétlődő bejegyzéseket tartalmaz. Frissítse vagy távolítsa el az érintett fájlokat.</value>
+    <value>A katalógus érvénytelen vagy ismétlődő bejegyzéseket tartalmaz. Távolítsa el az érintett fájlokat, és importálja újra őket.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Használjon érvényes, legfeljebb 4 MiB méretű Windows-válaszfájl XML-t DTD-k és külső entitások nélkül. Ellenőrizze a fájlt a Windows SIM eszközzel.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Egyes források hiányoznak, módosultak vagy érvénytelenek. Az adathordozó létrehozása előtt frissítse vagy távolítsa el ezeket a bejegyzéseket.</value>
+    <value>Egyes fájlok hiányoznak vagy érvénytelenek. Az adathordozó létrehozása előtt távolítsa el ezeket a bejegyzéseket, és importálja újra a fájlokat.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Hiányzó alapértelmezés – válasszon másikat</value>
@@ -3985,16 +3991,10 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>A Foundry megőrzi az eredeti fájlt, és hozzáadja a szükséges telepítés utáni parancsát a telepítési példányhoz. Az egyéni beállításokért és parancsokért továbbra is Ön felel.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Az egyéni fájlok használatához az Általános konfigurációban engedélyezni kell a telepítési adathordozó jelszavas védelmét. Az XML hitelesítő adatokat vagy szkripteket tartalmazhat. A Foundry csak akkor tárolja az egyes fájlok másolatát a konfigurációval együtt ezen a számítógépen, ha a(z) „Jelszavak megjegyzése” be van kapcsolva a(z) „Beállítások biztonsági mentése és szinkronizálása” területen; ellenkező esetben csak az elérési utat menti. A rendszerindító lemezkép titkosított másolatokat tartalmaz.</value>
+    <value>Az egyéni fájlok használatához az Általános konfigurációban engedélyezni kell a telepítési adathordozó jelszavas védelmét. Az XML hitelesítő adatokat vagy szkripteket tartalmazhat. A Foundry minden importált fájlról másolatot tárol a saját fájltárában ezen a számítógépen. A rendszerindító lemezkép titkosított másolatokat tartalmaz.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Az egyéni válaszfájlok használatához engedélyezze a telepítési adathordozó jelszavas védelmét az Általános konfigurációban.</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Ez a forrás most megegyezik egy másik importált fájllal. Távolítsa el ezt a bejegyzést, és válassza a meglévő fájlt.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Forrás frissítése</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Eltávolítás</value>
@@ -4007,9 +4007,6 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Kiválasztott fájl</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>A forrás módosult. Az adathordozó létrehozása előtt a Forrás frissítése művelettel fogadja el a frissített fájlt.</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>Két forrásellenőrzés még fájlhozzáférésre vár. Állítsa helyre a nem elérhető forráshelyeket, majd ellenőrizze újra a forrásokat.</value>

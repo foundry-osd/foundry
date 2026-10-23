@@ -283,6 +283,12 @@ Licencované podľa licencie MIT.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Poznámky k vydaniu</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Vybratý súbor sa nepodarilo pridať do aplikácie Foundry. Vyberte čitateľný súbor s veľkosťou najviac 4 MiB.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Súbor nebol pridaný</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Predvolená</value>
   </data>
@@ -3919,7 +3925,7 @@ Použitie aktualizácie reštartuje Foundry OSD.</value>
     <value>Obsahuje nastavenia, ktoré môžu zabrániť registrácii v Autopilot; nekompatibilné režimy registrácie budú počas nasadenia zablokované.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Vyberte súbor, ktorý chcete premenovať, obnoviť alebo odstrániť. Zdrojové súbory musia zostať dostupné až do vytvorenia média; zmenené zdroje je potrebné obnoviť.</value>
+    <value>Vyberte súbor, ktorý chcete premenovať alebo odstrániť. Foundry uchováva vlastnú kópiu každého importovaného súboru. Ak chcete použiť aktualizovaný súbor, odstráňte položku a súbor znova importujte.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Súbory odpovedí</value>
@@ -3964,13 +3970,13 @@ Použitie aktualizácie reštartuje Foundry OSD.</value>
     <value>Súbor musí deklarovať podporovanú architektúru a obsahovať nastavenia komponentov, ktoré sa na ňu vzťahujú.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Katalóg obsahuje neplatné alebo duplicitné položky. Obnovte alebo odstráňte dotknuté súbory.</value>
+    <value>Katalóg obsahuje neplatné alebo duplicitné položky. Odstráňte príslušné súbory a znova ich importujte.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Použite platný XML súbor odpovedí systému Windows s veľkosťou najviac 4 MiB, bez DTD a externých entít. Overte súbor pomocou Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Niektoré zdroje chýbajú, zmenili sa alebo sú neplatné. Pred vytvorením média tieto položky obnovte alebo odstráňte.</value>
+    <value>Niektoré súbory chýbajú alebo sú neplatné. Pred vytvorením média tieto položky odstráňte a súbory znova importujte.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Predvolený súbor chýba — vyberte náhradu</value>
@@ -3985,16 +3991,10 @@ Použitie aktualizácie reštartuje Foundry OSD.</value>
     <value>Foundry zachová pôvodný súbor a pridá svoj požadovaný príkaz pre fázu po inštalácii do kópie pre nasadenie. Za vlastné nastavenia a príkazy naďalej zodpovedáte vy.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Vlastné súbory vyžadujú ochranu média nasadenia heslom vo všeobecnej konfigurácii. XML môže obsahovať prihlasovacie údaje alebo skripty. Foundry uchováva kópiu každého súboru spolu s konfiguráciou v tomto počítači iba vtedy, keď je v časti „Zálohovanie a synchronizácia nastavení“ zapnutá možnosť „Zapamätať heslá“; inak ukladá iba cestu. Zavádzací obraz obsahuje šifrované kópie.</value>
+    <value>Vlastné súbory vyžadujú ochranu média nasadenia heslom vo všeobecnej konfigurácii. XML môže obsahovať prihlasovacie údaje alebo skripty. Foundry uchováva kópiu každého importovaného súboru vo svojej knižnici súborov v tomto počítači. Zavádzací obraz obsahuje šifrované kópie.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Ak chcete používať vlastné súbory odpovedí, vo všeobecnej konfigurácii zapnite ochranu média nasadenia heslom.</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Tento zdroj teraz duplikuje iný importovaný súbor. Odstráňte túto položku a vyberte existujúci súbor.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Obnoviť zdroj</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Odstrániť</value>
@@ -4007,9 +4007,6 @@ Použitie aktualizácie reštartuje Foundry OSD.</value>
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Vybraný súbor</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>Zdroj sa zmenil. Pred vytvorením média použite Obnoviť zdroj na prijatie aktualizovaného súboru.</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>Dve kontroly zdrojov stále čakajú na prístup k súborom. Obnovte prístup k nedostupným umiestneniam a potom zdroje skontrolujte znova.</value>

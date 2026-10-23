@@ -283,6 +283,12 @@ Licenciado sob a licença MIT.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Notas de versão</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Não foi possível adicionar o ficheiro selecionado ao Foundry. Escolha um ficheiro legível com 4 MiB no máximo.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Ficheiro não adicionado</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Predefinição</value>
   </data>
@@ -3919,7 +3925,7 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>Contém definições que podem impedir a inscrição no Autopilot; os modos de inscrição incompatíveis serão bloqueados durante a implementação.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Selecione um ficheiro para o renomear, atualizar ou remover. Os ficheiros de origem têm de permanecer disponíveis até à criação do suporte; se forem alterados, é necessário atualizar a origem.</value>
+    <value>Selecione um ficheiro para o renomear ou remover. O Foundry mantém a sua própria cópia de cada ficheiro importado; para utilizar um ficheiro atualizado, remova a entrada e importe novamente o ficheiro.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Ficheiros de resposta</value>
@@ -3964,13 +3970,13 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>O ficheiro tem de declarar uma arquitetura suportada e conter definições de componentes aplicáveis a essa arquitetura.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>O catálogo contém entradas inválidas ou duplicadas. Atualize ou remova os ficheiros afetados.</value>
+    <value>O catálogo contém entradas inválidas ou duplicadas. Remova os ficheiros afetados e importe-os novamente.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Use XML válido de um ficheiro de resposta do Windows, até 4 MiB, sem DTDs nem entidades externas. Valide o ficheiro com o Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Algumas origens estão em falta, foram alteradas ou são inválidas. Atualize ou remova estas entradas antes de criar o suporte.</value>
+    <value>Alguns ficheiros estão em falta ou são inválidos. Remova estas entradas e importe novamente os ficheiros antes de criar o suporte.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Predefinição em falta — escolha uma substituição</value>
@@ -3985,16 +3991,10 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>O Foundry preserva o ficheiro original e adiciona o seu comando obrigatório de pós-instalação à cópia de implementação. Continua a ser responsável pelas suas definições e comandos personalizados.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Os ficheiros personalizados exigem proteção por palavra-passe do suporte de implementação na configuração Geral. O XML pode conter credenciais ou scripts. O Foundry mantém uma cópia de cada ficheiro com a sua configuração neste computador apenas quando «Memorizar palavras-passe» está ativado em «Cópia de segurança e sincronização de definições»; caso contrário, guarda apenas o caminho. A imagem de arranque contém cópias encriptadas.</value>
+    <value>Os ficheiros personalizados exigem proteção por palavra-passe do suporte de implementação na configuração Geral. O XML pode conter credenciais ou scripts. O Foundry mantém uma cópia de cada ficheiro importado na sua biblioteca de ficheiros neste computador. A imagem de arranque contém cópias encriptadas.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Ative a proteção por palavra-passe do suporte de implementação na configuração Geral para usar ficheiros de resposta personalizados.</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Esta origem passou a duplicar outro ficheiro importado. Remova esta entrada e escolha o ficheiro existente.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Atualizar origem</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Remover</value>
@@ -4007,9 +4007,6 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Ficheiro selecionado</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>A origem foi alterada. Use Atualizar origem para aceitar o ficheiro atualizado antes de criar o suporte.</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>Duas verificações de origem continuam à espera de acesso aos ficheiros. Restabeleça o acesso às localizações indisponíveis e volte a verificar as origens.</value>

@@ -283,6 +283,12 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Release-opmerkingen</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Het geselecteerde bestand kan niet aan Foundry worden toegevoegd. Kies een leesbaar bestand van maximaal 4 MiB.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Bestand niet toegevoegd</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Standaard</value>
   </data>
@@ -3919,7 +3925,7 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
     <value>Bevat instellingen die Autopilot-inschrijving kunnen verhinderen. Incompatibele inschrijvingsmodi worden tijdens de implementatie geblokkeerd.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Selecteer een bestand om het te hernoemen, te vernieuwen of te verwijderen. Bronbestanden moeten beschikbaar blijven totdat het medium is gemaakt. Gewijzigde bronnen moeten worden vernieuwd.</value>
+    <value>Selecteer een bestand om het te hernoemen of te verwijderen. Foundry bewaart een eigen kopie van elk geïmporteerd bestand. Als u een bijgewerkt bestand wilt gebruiken, verwijdert u het item en importeert u het bestand opnieuw.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Antwoordbestanden</value>
@@ -3964,13 +3970,13 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
     <value>Het bestand moet een ondersteunde architectuur opgeven en componentinstellingen bevatten die daarop van toepassing zijn.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>De catalogus bevat ongeldige of dubbele vermeldingen. Vernieuw of verwijder de betreffende bestanden.</value>
+    <value>De catalogus bevat ongeldige of dubbele items. Verwijder de betreffende bestanden en importeer ze opnieuw.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Gebruik geldige XML voor Windows-antwoordbestanden van maximaal 4 MiB, zonder DTD's of externe entiteiten. Valideer het bestand met Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Sommige bronnen ontbreken, zijn gewijzigd of zijn ongeldig. Vernieuw of verwijder deze vermeldingen voordat u media maakt.</value>
+    <value>Sommige bestanden ontbreken of zijn ongeldig. Verwijder deze items en importeer de bestanden opnieuw voordat u media maakt.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Standaardkeuze ontbreekt – kies een vervanging</value>
@@ -3985,16 +3991,10 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
     <value>Foundry behoudt uw oorspronkelijke bestand en voegt de vereiste opdracht voor na de installatie toe aan de implementatiekopie. U blijft verantwoordelijk voor uw aangepaste instellingen en opdrachten.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Aangepaste bestanden vereisen wachtwoordbeveiliging voor implementatiemedia in de algemene configuratie. XML kan aanmeldingsgegevens of scripts bevatten. Foundry bewaart alleen een kopie van elk bestand bij uw configuratie op deze pc als “Wachtwoorden onthouden” is ingeschakeld in “Back-up en synchronisatie van instellingen”. Anders wordt alleen het pad opgeslagen. De opstartimage bevat versleutelde kopieën.</value>
+    <value>Aangepaste bestanden vereisen wachtwoordbeveiliging voor implementatiemedia in de algemene configuratie. XML kan aanmeldingsgegevens of scripts bevatten. Foundry bewaart een kopie van elk geïmporteerd bestand in de eigen bestandsbibliotheek op deze pc. De opstartimage bevat versleutelde kopieën.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Schakel wachtwoordbeveiliging voor implementatiemedia in de algemene configuratie in om aangepaste antwoordbestanden te gebruiken.</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Deze bron is nu identiek aan een ander geïmporteerd bestand. Verwijder deze vermelding en kies het bestaande bestand.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Bron vernieuwen</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Verwijderen</value>
@@ -4007,9 +4007,6 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Geselecteerd bestand</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>De bron is gewijzigd. Gebruik Bron vernieuwen om het bijgewerkte bestand te accepteren voordat u media maakt.</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>Twee broncontroles wachten nog op bestandstoegang. Herstel de toegang tot de onbeschikbare bronlocaties en controleer de bronnen opnieuw.</value>

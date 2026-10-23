@@ -9,6 +9,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.Files;
 using Foundry.Core.Services.Media;
 using Foundry.Core.Tests.TestUtilities;
 
@@ -17,6 +18,15 @@ namespace Foundry.Core.Tests.Media;
 public sealed class BuildSnapshotTests : IDisposable
 {
     private readonly string root = Path.Combine(Path.GetTempPath(), "FoundrySnapshotTests", Guid.NewGuid().ToString("N"));
+    private readonly string libraryRoot;
+    private readonly AuthoringFileLibrary library;
+
+    public BuildSnapshotTests()
+    {
+        // The library lives beside the snapshot root, so assertions about private snapshot directories ignore it.
+        libraryRoot = root + "-library";
+        library = new AuthoringFileLibrary(libraryRoot);
+    }
 
     [Fact]
     public async Task SnapshotCopiesThePasswordOfEveryReferencedAccount()
@@ -108,7 +118,7 @@ public sealed class BuildSnapshotTests : IDisposable
         };
         var network = new NetworkSecrets { WifiPassphrase = "OriginalWifiPassword" };
         Task<BuildSnapshot> capture = BuildSnapshot.CaptureAsync(
-            document, Inputs(network), secrets, null, mediaPassword, root, null, TestContext.Current.CancellationToken);
+            document, Sources(network), secrets, null, mediaPassword, root, null, TestContext.Current.CancellationToken);
         secrets.Clear();
         Array.Clear(mediaPassword);
         using BuildSnapshot snapshot = await capture;
@@ -147,7 +157,7 @@ public sealed class BuildSnapshotTests : IDisposable
         BuildSnapshot snapshot = await Capture(document, secrets);
         string capturedAnswer = Assert.Single(snapshot.UnattendSourcePaths).Value;
         string capturedDrivers = snapshot.Configuration.General.CustomDriverDirectoryPath!;
-        File.WriteAllText(answer, "changed");
+        File.WriteAllText(library.GetAvailablePath(document.Unattend.Files[0].File!)!, "changed");
         File.WriteAllText(Path.Combine(drivers, "original.inf"), "driver-after");
         Assert.Equal(content, File.ReadAllBytes(capturedAnswer));
         Assert.Equal("driver-before", File.ReadAllText(Path.Combine(capturedDrivers, "original.inf")));
@@ -205,7 +215,7 @@ public sealed class BuildSnapshotTests : IDisposable
             cancellation.Cancel();
         });
 
-        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => BuildSnapshot.CaptureAsync(document, MediaInputs.None, secrets, null, [], snapshots, null, progress, cancellation.Token));
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => BuildSnapshot.CaptureAsync(document, null, secrets, null, [], snapshots, null, progress, cancellation.Token));
 
         Assert.Equal([1], reports);
         Assert.NotNull(privateDirectory);
@@ -318,7 +328,7 @@ public sealed class BuildSnapshotTests : IDisposable
             }
         };
         using BuildSnapshot snapshot = await Capture(document, secrets, autopilotPfxPassword: "OriginalCertificatePassword");
-        File.WriteAllBytes(source, [9, 9, 9]);
+        File.WriteAllBytes(library.GetAvailablePath(document.Autopilot.HardwareHashUpload.BootMediaCertificate.Pfx!)!, [9, 9, 9, 9, 9]);
         using var protection = snapshot.CreateDeploymentProtectionMaterial();
         string json = snapshot.GenerateDeployConfigurationJson(deploymentSecretsKey: protection.DeploymentKey, protectionSettings: protection.Settings);
         FoundryDeployConfigurationDocument deploy = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
@@ -470,29 +480,86 @@ public sealed class BuildSnapshotTests : IDisposable
         Assert.Equal(".xml", Path.GetExtension(snapshot.ResolveCapturedFile(document.Network.Dot1x.ProfileTemplate!)));
     }
 
-    private const int MaximumSourceBytes = 4 * 1024 * 1024;
+    [Fact]
+    public async Task CaptureAsync_ResolvesFileReferencesToVerifiedCopies()
+    {
+        AuthoringFileReference template = library.Import("<LANProfile />"u8, "wired.xml");
+        AuthoringFileReference certificate = library.Import([1, 2, 3], "wired.pfx");
+        using var secrets = new OobeAccountSecretState();
+        var document = new FoundryConfigurationDocument
+        {
+            Network = new() { Dot1x = new() { IsEnabled = true, ProfileTemplate = template, RequiresCertificate = true, Certificate = certificate } }
+        };
 
-    // Content hash -> source path of every file the test referenced.
-    private readonly Dictionary<string, string> referencedSources = new(StringComparer.OrdinalIgnoreCase);
+        using BuildSnapshot snapshot = await BuildSnapshot.CaptureAsync(
+            document, Sources(new NetworkSecrets { WiredCertificatePfxPassword = "pfx-password" }),
+            secrets, null, [], Path.Combine(root, "snapshots"), null, TestContext.Current.CancellationToken);
+        string capturedTemplate = snapshot.ResolveCapturedFile(template)!;
+        string capturedCertificate = snapshot.ResolveCapturedFile(certificate)!;
+        File.WriteAllBytes(library.GetAvailablePath(template)!, "<changed! />"u8.ToArray());
+        FoundryConnectProvisioningBundle connect = snapshot.CreateConnectProvisioningBundle(Path.Combine(root, "connect"));
+
+        Assert.StartsWith(Path.Combine(root, "snapshots") + Path.DirectorySeparatorChar, capturedTemplate);
+        Assert.Equal("<LANProfile />"u8.ToArray(), File.ReadAllBytes(capturedTemplate));
+        Assert.Equal([1, 2, 3], File.ReadAllBytes(capturedCertificate));
+        Assert.Equal("<LANProfile />"u8.ToArray(), File.ReadAllBytes(connect.AssetFiles.Single(asset => asset.RelativeDestinationPath.Contains(@"\Wired\Profiles\", StringComparison.Ordinal)).SourcePath));
+        Assert.NotNull(connect.Configuration.Dot1x.CertificatePfxPasswordSecret);
+        CryptographicOperations.ZeroMemory(connect.MediaSecretsKey!);
+    }
+
+    [Fact]
+    public async Task CaptureAsync_MissingReferencedFile_FailsWithDependencyUnavailable()
+    {
+        using var secrets = new OobeAccountSecretState();
+        var document = new FoundryConfigurationDocument
+        {
+            Network = new() { Dot1x = new() { IsEnabled = true, ProfileTemplate = TestFileReferences.Detached("wired.xml") } }
+        };
+
+        FileNotFoundException exception = await Assert.ThrowsAsync<FileNotFoundException>(() => BuildSnapshot.CaptureAsync(
+            document, Sources(), secrets, null, [], root, null, TestContext.Current.CancellationToken));
+
+        Assert.Equal(BuildSnapshot.DependencyUnavailableMessage, exception.Message);
+        AssertNoPrivateDirectoryLeft();
+    }
+
+    [Fact]
+    public async Task CaptureAsync_LibraryFileChangedOutsideFoundry_FailsVerification()
+    {
+        AuthoringFileReference template = library.Import("<LANProfile />"u8, "wired.xml");
+        File.WriteAllBytes(library.GetAvailablePath(template)!, "<LANProfil! />"u8.ToArray());
+        using var secrets = new OobeAccountSecretState();
+        var document = new FoundryConfigurationDocument { Network = new() { Dot1x = new() { IsEnabled = true, ProfileTemplate = template } } };
+
+        await Assert.ThrowsAsync<InvalidDataException>(() => BuildSnapshot.CaptureAsync(
+            document, Sources(), secrets, null, [], root, null, TestContext.Current.CancellationToken));
+
+        AssertNoPrivateDirectoryLeft();
+    }
+
+    private const int MaximumSourceBytes = 4 * 1024 * 1024;
 
     private string SourcesDirectory => Path.Combine(root, "sources");
 
+    /// <summary>Imports a source into the authoring file library, as a page does, and returns its reference.</summary>
+    /// <remarks>A source above the library limit is written straight into the library layout, as a file changed outside Foundry would be.</remarks>
     private AuthoringFileReference Reference(string path)
     {
+        byte[] content = File.ReadAllBytes(path);
+        if (content.Length <= AuthoringFileLibrary.MaximumFileBytes) return library.Import(content, Path.GetFileName(path));
+
         AuthoringFileReference reference = TestFileReferences.For(path);
-        referencedSources[reference.ContentHash] = path;
+        string stored = Path.Combine(libraryRoot, "content", reference.ContentHash, reference.FileName);
+        Directory.CreateDirectory(Path.GetDirectoryName(stored)!);
+        File.Copy(path, stored);
         return reference;
     }
 
-    private MediaInputs Inputs(NetworkSecrets? network = null, string? autopilotPfxPassword = null) => new()
-    {
-        ResolveFile = reference => referencedSources.GetValueOrDefault(reference.ContentHash),
-        Network = network ?? new NetworkSecrets(),
-        AutopilotPfxPassword = autopilotPfxPassword
-    };
+    private BuildSnapshotSources Sources(NetworkSecrets? network = null, string? autopilotPfxPassword = null) =>
+        new(library) { Network = network ?? new NetworkSecrets(), AutopilotPfxPassword = autopilotPfxPassword };
 
     private Task<BuildSnapshot> Capture(FoundryConfigurationDocument document, OobeAccountSecretState secrets, string? autopilotPfxPassword = null) =>
-        BuildSnapshot.CaptureAsync(document, Inputs(autopilotPfxPassword: autopilotPfxPassword), secrets, null, [], root, null, TestContext.Current.CancellationToken);
+        BuildSnapshot.CaptureAsync(document, Sources(autopilotPfxPassword: autopilotPfxPassword), secrets, null, [], root, null, TestContext.Current.CancellationToken);
 
     private void AssertNoPrivateDirectoryLeft() =>
         Assert.DoesNotContain(Directory.EnumerateDirectories(root), directory => Guid.TryParseExact(Path.GetFileName(directory), "N", out _));
@@ -510,9 +577,12 @@ public sealed class BuildSnapshotTests : IDisposable
 
     public void Dispose()
     {
-        if (Directory.Exists(root))
+        foreach (string directory in new[] { root, libraryRoot })
         {
-            Directory.Delete(root, true);
+            if (Directory.Exists(directory))
+            {
+                Directory.Delete(directory, true);
+            }
         }
     }
 

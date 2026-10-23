@@ -8,6 +8,7 @@ using System.Text.Json;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.Files;
 using Foundry.Core.Services.WinPe;
 using Foundry.Telemetry;
 using Foundry.Utilities.IO;
@@ -37,23 +38,23 @@ public sealed class BuildSnapshot : IDisposable
     private readonly char[]? autopilotCertificatePassword;
     private readonly string privateRootDirectory;
     private readonly string? authoringVersion;
-    private readonly Func<AuthoringFileReference, string?> resolveSource;
+    private readonly AuthoringFileLibrary? files;
     // Private copies of the captured authoring files, keyed by content hash.
     private readonly Dictionary<string, string> sourceCopies = new(StringComparer.OrdinalIgnoreCase);
     private FoundryConfigurationDocument configuration;
     private bool isDisposed;
     private PrivateDirectoryLease? privateDirectory;
 
-    private BuildSnapshot(FoundryConfigurationDocument source, MediaInputs inputs, ReadOnlySpan<char> password, string root, string? authoringVersion)
+    private BuildSnapshot(FoundryConfigurationDocument source, BuildSnapshotSources? sources, ReadOnlySpan<char> password, string root, string? authoringVersion)
     {
         configuration = CloneConfiguration(source);
         this.authoringVersion = authoringVersion;
-        resolveSource = inputs.ResolveFile;
+        files = sources?.Files;
         deploymentPassword = password.ToArray();
-        wifiPassphrase = inputs.Network.WifiPassphrase?.ToCharArray();
-        wiredCertificatePassword = inputs.Network.WiredCertificatePfxPassword?.ToCharArray();
-        wifiCertificatePassword = inputs.Network.WifiCertificatePfxPassword?.ToCharArray();
-        autopilotCertificatePassword = inputs.AutopilotPfxPassword?.ToCharArray();
+        wifiPassphrase = sources?.Network.WifiPassphrase?.ToCharArray();
+        wiredCertificatePassword = sources?.Network.WiredCertificatePfxPassword?.ToCharArray();
+        wifiCertificatePassword = sources?.Network.WifiCertificatePfxPassword?.ToCharArray();
+        autopilotCertificatePassword = sources?.AutopilotPfxPassword?.ToCharArray();
         privateRootDirectory = Path.GetFullPath(root);
     }
 
@@ -87,7 +88,7 @@ public sealed class BuildSnapshot : IDisposable
         string privateRootDirectory,
         string? authoringVersion,
         CancellationToken cancellationToken = default) =>
-        CaptureAsync(configuration, MediaInputs.None, accountSecrets, null, deploymentPassword, privateRootDirectory, authoringVersion, cancellationToken);
+        CaptureAsync(configuration, null, accountSecrets, null, deploymentPassword, privateRootDirectory, authoringVersion, cancellationToken);
 
     /// <summary>Copies active domain credentials synchronously before source preparation can await or authoring can change.</summary>
     public static Task<BuildSnapshot> CaptureAsync(
@@ -98,26 +99,26 @@ public sealed class BuildSnapshot : IDisposable
         string privateRootDirectory,
         string? authoringVersion,
         CancellationToken cancellationToken = default) =>
-        CaptureAsync(configuration, MediaInputs.None, accountSecrets, domainSecrets, deploymentPassword, privateRootDirectory, authoringVersion, cancellationToken);
+        CaptureAsync(configuration, null, accountSecrets, domainSecrets, deploymentPassword, privateRootDirectory, authoringVersion, cancellationToken);
 
     /// <summary>
-    /// Captures like the other overloads, copying the session passwords and the referenced files that <paramref name="inputs"/> resolves.
+    /// Captures like the other overloads, copying the session passwords and verified copies of the referenced files from <paramref name="sources"/>.
     /// </summary>
     public static Task<BuildSnapshot> CaptureAsync(
         FoundryConfigurationDocument configuration,
-        MediaInputs inputs,
+        BuildSnapshotSources? sources,
         OobeAccountSecretState accountSecrets,
         DomainJoinSecretState? domainSecrets,
         ReadOnlySpan<char> deploymentPassword,
         string privateRootDirectory,
         string? authoringVersion,
         CancellationToken cancellationToken = default) =>
-        CaptureAsync(configuration, inputs, accountSecrets, domainSecrets, deploymentPassword, privateRootDirectory, authoringVersion, driverFilesCopied: null, cancellationToken);
+        CaptureAsync(configuration, sources, accountSecrets, domainSecrets, deploymentPassword, privateRootDirectory, authoringVersion, driverFilesCopied: null, cancellationToken);
 
     /// <summary>Captures like the public overload and reports the running count of copied custom driver files synchronously on the copy thread.</summary>
     internal static Task<BuildSnapshot> CaptureAsync(
         FoundryConfigurationDocument configuration,
-        MediaInputs inputs,
+        BuildSnapshotSources? sources,
         OobeAccountSecretState accountSecrets,
         DomainJoinSecretState? domainSecrets,
         ReadOnlySpan<char> deploymentPassword,
@@ -127,10 +128,9 @@ public sealed class BuildSnapshot : IDisposable
         CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(configuration);
-        ArgumentNullException.ThrowIfNull(inputs);
         ArgumentNullException.ThrowIfNull(accountSecrets);
         ArgumentException.ThrowIfNullOrWhiteSpace(privateRootDirectory);
-        var snapshot = new BuildSnapshot(configuration, inputs, deploymentPassword, privateRootDirectory, authoringVersion);
+        var snapshot = new BuildSnapshot(configuration, sources, deploymentPassword, privateRootDirectory, authoringVersion);
         try
         {
             snapshot.CopyAccountSecrets(accountSecrets);
@@ -289,13 +289,15 @@ public sealed class BuildSnapshot : IDisposable
 
     /// <summary>
     /// Copies every active referenced authoring file (802.1X and Wi-Fi profiles and certificates, the Autopilot boot media
-    /// certificate and answer files) under a generated name in <paramref name="directory"/>; generation reads only these copies.
+    /// certificate and answer files) from the authoring file library under a generated name in <paramref name="directory"/>;
+    /// generation reads only these copies.
     /// </summary>
     /// <remarks>
-    /// Each file is bounded to <see cref="MaximumSourceBytes"/> and all of them to <see cref="MaximumTotalSourceBytes"/>, and must
-    /// match its reference hash; an answer file must also match its recorded digest. A missing required file, an unavailable or
-    /// unreadable file and a size or hash violation fail the capture; the caller removes the private directory. Bytes are cleared
-    /// after each copy; a file referenced twice is copied once.
+    /// Each file is bounded to <see cref="MaximumSourceBytes"/> and all of them to <see cref="MaximumTotalSourceBytes"/>; the
+    /// library verifies every read against the reference hash, and an answer file must also match its recorded digest. A missing
+    /// required file or an unavailable library file fails with <see cref="DependencyUnavailableMessage"/>; a size or hash violation
+    /// fails too, and the caller removes the private directory. Bytes are cleared after each copy; a file referenced twice is
+    /// copied once.
     /// </remarks>
     private void CaptureSources(FoundryConfigurationDocument sources, string directory)
     {
@@ -325,21 +327,22 @@ public sealed class BuildSnapshot : IDisposable
                 return;
             }
             if (sourceCopies.ContainsKey(reference.ContentHash)) return;
-            string path = resolveSource(reference) ?? throw new FileNotFoundException(DependencyUnavailableMessage);
+            if (files is null || !files.IsAvailable(reference)) throw new FileNotFoundException(DependencyUnavailableMessage);
+            if (reference.Length > MaximumSourceBytes || total + reference.Length > MaximumTotalSourceBytes)
+                throw new InvalidDataException("Media source files exceed the supported size.");
 
             byte[]? content = null;
             try
             {
-                using (FileStream input = new(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+                try
                 {
-                    if (input.Length > MaximumSourceBytes || total + input.Length > MaximumTotalSourceBytes)
-                        throw new InvalidDataException("Media source files exceed the supported size.");
-                    content = new byte[checked((int)input.Length)];
-                    input.ReadExactly(content);
+                    content = files.ReadVerified(reference);
+                }
+                catch (Exception exception) when (exception is FileNotFoundException or DirectoryNotFoundException)
+                {
+                    throw new FileNotFoundException(DependencyUnavailableMessage, exception);
                 }
                 total += content.Length;
-                if (!string.Equals(Convert.ToHexString(SHA256.HashData(content)), reference.ContentHash, StringComparison.OrdinalIgnoreCase))
-                    throw new InvalidDataException("A referenced media source file no longer matches its reference.");
 
                 string target = Path.Combine(directory, Guid.NewGuid().ToString("N") + SafeExtension(reference.FileName));
                 using FileStream output = new(target, FileMode.CreateNew, FileAccess.Write, FileShare.None);

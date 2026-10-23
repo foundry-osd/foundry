@@ -283,6 +283,12 @@ Licencjonowany na licencji MIT.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Informacje o wydaniu</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Nie można dodać wybranego pliku do aplikacji Foundry. Wybierz czytelny plik o rozmiarze nie większym niż 4 MiB.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Nie dodano pliku</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Domyślna</value>
   </data>
@@ -3919,7 +3925,7 @@ Zastosowanie aktualizacji uruchomi Foundry OSD ponownie.</value>
     <value>Zawiera ustawienia, które mogą uniemożliwić rejestrację w Autopilot. Niezgodne tryby rejestracji zostaną zablokowane podczas wdrażania.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Wybierz plik, aby zmienić jego nazwę, odświeżyć go lub usunąć. Pliki źródłowe muszą być dostępne do czasu utworzenia nośnika. Zmienione źródła wymagają odświeżenia.</value>
+    <value>Wybierz plik, aby zmienić jego nazwę lub go usunąć. Foundry przechowuje własną kopię każdego zaimportowanego pliku. Aby użyć zaktualizowanego pliku, usuń wpis i zaimportuj plik ponownie.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Pliki odpowiedzi</value>
@@ -3964,13 +3970,13 @@ Zastosowanie aktualizacji uruchomi Foundry OSD ponownie.</value>
     <value>Plik musi określać obsługiwaną architekturę i zawierać ustawienia składników mające do niej zastosowanie.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Katalog zawiera nieprawidłowe lub zduplikowane wpisy. Odśwież lub usuń odpowiednie pliki.</value>
+    <value>Katalog zawiera nieprawidłowe lub zduplikowane wpisy. Usuń te pliki i zaimportuj je ponownie.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Użyj poprawnego pliku odpowiedzi systemu Windows w formacie XML o rozmiarze do 4 MiB, bez deklaracji DTD i encji zewnętrznych. Sprawdź plik w Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Niektóre źródła są niedostępne, zmienione lub nieprawidłowe. Odśwież lub usuń te wpisy przed utworzeniem nośnika.</value>
+    <value>Niektórych plików brakuje lub są nieprawidłowe. Przed utworzeniem nośnika usuń te wpisy i ponownie zaimportuj pliki.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Brak wyboru domyślnego — wybierz inny</value>
@@ -3985,16 +3991,10 @@ Zastosowanie aktualizacji uruchomi Foundry OSD ponownie.</value>
     <value>Foundry zachowuje oryginalny plik i dodaje wymagane polecenie działań po instalacji do kopii wdrożeniowej. Nadal odpowiadasz za własne ustawienia i polecenia.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Pliki niestandardowe wymagają ochrony nośnika wdrożeniowego hasłem w konfiguracji ogólnej. XML może zawierać poświadczenia lub skrypty. Foundry przechowuje kopię każdego pliku razem z konfiguracją na tym komputerze tylko wtedy, gdy opcja „Zapamiętaj hasła” jest włączona w sekcji „Kopie zapasowe i synchronizacja ustawień”. W przeciwnym razie zapisuje tylko ścieżkę. Obraz rozruchowy zawiera zaszyfrowane kopie.</value>
+    <value>Pliki niestandardowe wymagają ochrony nośnika wdrożeniowego hasłem w konfiguracji ogólnej. XML może zawierać poświadczenia lub skrypty. Foundry przechowuje kopię każdego zaimportowanego pliku we własnej bibliotece plików na tym komputerze. Obraz rozruchowy zawiera zaszyfrowane kopie.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Włącz ochronę nośnika wdrożeniowego hasłem w konfiguracji ogólnej, aby używać niestandardowych plików odpowiedzi.</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>To źródło jest teraz kopią innego zaimportowanego pliku. Usuń ten wpis i wybierz istniejący plik.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Odśwież źródło</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Usuń</value>
@@ -4007,9 +4007,6 @@ Zastosowanie aktualizacji uruchomi Foundry OSD ponownie.</value>
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Wybrany plik</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>Źródło uległo zmianie. Użyj Odśwież źródło, aby zaakceptować zaktualizowany plik przed utworzeniem nośnika.</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>Dwie kontrole źródeł nadal oczekują na dostęp do plików. Przywróć dostęp do niedostępnych lokalizacji źródłowych, a następnie ponownie sprawdź źródła.</value>

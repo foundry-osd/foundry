@@ -283,6 +283,12 @@ Licențiat sub licența MIT.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Note de lansare</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Fișierul selectat nu a putut fi adăugat în Foundry. Alegeți un fișier care poate fi citit și are cel mult 4 MiB.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Fișierul nu a fost adăugat</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Implicit</value>
   </data>
@@ -3919,7 +3925,7 @@ Aplicarea actualizării repornește Foundry OSD.</value>
     <value>Conține setări care pot împiedica înscrierea în Autopilot; modurile de înscriere incompatibile vor fi blocate în timpul implementării.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Selectați un fișier pentru a-l redenumi, actualiza sau elimina. Fișierele sursă trebuie să rămână disponibile până la crearea suportului; sursele modificate trebuie actualizate.</value>
+    <value>Selectați un fișier pentru a-l redenumi sau elimina. Foundry păstrează propria copie a fiecărui fișier importat; pentru a utiliza un fișier actualizat, eliminați intrarea și importați din nou fișierul.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Fișiere de răspuns</value>
@@ -3964,13 +3970,13 @@ Aplicarea actualizării repornește Foundry OSD.</value>
     <value>Fișierul trebuie să declare o arhitectură acceptată și să conțină setări de componente aplicabile acesteia.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Catalogul conține intrări nevalide sau duplicate. Actualizați sau eliminați fișierele afectate.</value>
+    <value>Catalogul conține intrări nevalide sau duplicate. Eliminați fișierele afectate și importați-le din nou.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Folosiți XML valid pentru un fișier de răspuns Windows de cel mult 4 MiB, fără DTD-uri sau entități externe. Validați fișierul cu Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Unele surse lipsesc, au fost modificate sau sunt nevalide. Actualizați sau eliminați aceste intrări înainte de a crea suportul.</value>
+    <value>Unele fișiere lipsesc sau sunt nevalide. Eliminați aceste intrări și importați din nou fișierele înainte de a crea suportul.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Opțiunea implicită lipsește — alegeți un înlocuitor</value>
@@ -3985,16 +3991,10 @@ Aplicarea actualizării repornește Foundry OSD.</value>
     <value>Foundry păstrează fișierul original și adaugă comanda sa obligatorie pentru etapa de după instalare în copia pentru implementare. Rămâneți responsabil pentru setările și comenzile personalizate.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Fișierele personalizate necesită protejarea prin parolă a suportului de implementare în configurația generală. XML-ul poate conține acreditări sau scripturi. Foundry păstrează o copie a fiecărui fișier împreună cu configurația dvs. pe acest computer numai când opțiunea „Memorează parolele” este activată în „Copiere de rezervă și sincronizare a setărilor”; în caz contrar, salvează doar calea. Imaginea de pornire conține copii criptate.</value>
+    <value>Fișierele personalizate necesită protejarea prin parolă a suportului de implementare în configurația generală. XML-ul poate conține acreditări sau scripturi. Foundry păstrează o copie a fiecărui fișier importat în biblioteca sa de fișiere pe acest computer. Imaginea de pornire conține copii criptate.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Activați protejarea prin parolă a suportului de implementare în configurația generală pentru a folosi fișiere de răspuns personalizate.</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Această sursă dublează acum un alt fișier importat. Eliminați această intrare și alegeți fișierul existent.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Actualizează sursa</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Elimină</value>
@@ -4007,9 +4007,6 @@ Aplicarea actualizării repornește Foundry OSD.</value>
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Fișier selectat</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>Sursa a fost modificată. Folosiți Actualizează sursa pentru a accepta fișierul actualizat înainte de a crea suportul.</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>Două verificări ale surselor încă așteaptă accesul la fișiere. Restabiliți accesul la locațiile indisponibile, apoi verificați din nou sursele.</value>

@@ -283,6 +283,12 @@
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>發行說明</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>無法將選取的檔案新增至 Foundry。請選擇可讀取且不超過 4 MiB 的檔案。</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>未新增檔案</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>預設</value>
   </data>
@@ -3919,7 +3925,7 @@
     <value>包含可能阻止 Autopilot 註冊的設定；部署時將封鎖不相容的註冊模式。</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>選取檔案以重新命名、重新整理或移除。來源檔案必須在建立媒體前保持可用；來源檔案變更後需要重新整理。</value>
+    <value>選取檔案以重新命名或移除。Foundry 會為每個匯入的檔案保留自己的副本；若要使用更新後的檔案，請移除該項目並重新匯入檔案。</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>回應檔案</value>
@@ -3964,13 +3970,13 @@
     <value>檔案必須宣告支援的架構，並包含適用於該架構的元件設定。</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>目錄包含無效或重複項目。請重新整理或移除受影響的檔案。</value>
+    <value>目錄包含無效或重複的項目。請移除受影響的檔案並重新匯入。</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>請使用有效的 Windows 回應檔案 XML，大小不超過 4 MiB，且不含 DTD 或外部實體。使用 Windows SIM 驗證檔案。</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>部分來源遺失、已變更或無效。請在建立媒體前重新整理或移除這些項目。</value>
+    <value>部分檔案遺失或無效。請在建立媒體前移除這些項目並重新匯入檔案。</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>預設檔案遺失 — 請選擇替代檔案</value>
@@ -3985,16 +3991,10 @@
     <value>Foundry 會保留原始檔案，並將其必要的安裝後命令新增至部署副本。您仍須對自訂設定與命令負責。</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>自訂檔案需要在「一般」設定中啟用部署媒體密碼保護。XML 可能包含認證或指令碼。僅當在「設定備份與同步」中開啟「記住密碼」時，Foundry 才會將每個檔案的副本隨設定一起保留在此電腦上；否則僅儲存路徑。開機映像包含加密副本。</value>
+    <value>自訂檔案需要在「一般」設定中啟用部署媒體密碼保護。XML 可能包含認證或指令碼。Foundry 會將每個匯入檔案的副本保留在此電腦上的檔案庫中。開機映像包含加密副本。</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>請在「一般」設定中啟用部署媒體密碼保護，以使用自訂回應檔案。</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>此來源現在與另一個已匯入檔案重複。請移除此項目並選擇現有檔案。</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>重新整理來源</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>移除</value>
@@ -4007,9 +4007,6 @@
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>所選檔案</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>來源已變更。請在建立媒體前使用「重新整理來源」接受更新後的檔案。</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>兩項來源檢查仍在等待檔案存取。請恢復無法使用的來源位置，然後再次檢查來源。</value>

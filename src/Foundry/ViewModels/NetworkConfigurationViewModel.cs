@@ -27,6 +27,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     private readonly IFoundryConfigurationStateService configurationStateService;
     private readonly INetworkSecretStateService networkSecretStateService;
     private readonly IFilePickerService filePickerService;
+    private readonly IDialogService dialogService;
     private readonly AuthoringFileLibrary authoringFiles;
     private readonly IApplicationLocalizationService localizationService;
     private readonly ILogger logger;
@@ -53,6 +54,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         IFoundryConfigurationStateService configurationStateService,
         INetworkSecretStateService networkSecretStateService,
         IFilePickerService filePickerService,
+        IDialogService dialogService,
         AuthoringFileLibrary authoringFiles,
         IApplicationLocalizationService localizationService,
         ILogger logger)
@@ -60,6 +62,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         this.configurationStateService = configurationStateService;
         this.networkSecretStateService = networkSecretStateService;
         this.filePickerService = filePickerService;
+        this.dialogService = dialogService;
         this.authoringFiles = authoringFiles;
         this.localizationService = localizationService;
         this.logger = logger.ForContext<NetworkConfigurationViewModel>();
@@ -528,7 +531,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         OnPropertyChanged(nameof(HasValidationError));
     }
 
-    /// <summary>Imports a picked file into the authoring file library; a failure is logged and returns null.</summary>
+    /// <summary>Imports a picked file into the authoring file library; a failure is logged and shown, and returns null.</summary>
     private async Task<AuthoringFileReference?> PickAndImportAsync(string titleKey, IReadOnlyList<string> filters, string fileKind)
     {
         string? path = await PickOpenFileAsync(titleKey, filters);
@@ -546,6 +549,10 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or InvalidDataException or ArgumentException or NotSupportedException)
         {
             logger.Warning(exception, "A selected network file could not be imported into the authoring file library. FileKind={FileKind}", fileKind);
+            await dialogService.ShowMessageAsync(new DialogRequest(
+                localizationService.GetString("AuthoringFiles.ImportFailedTitle"),
+                localizationService.GetString("AuthoringFiles.ImportFailedMessage"),
+                localizationService.GetString("Common.Close")));
             return null;
         }
     }

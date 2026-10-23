@@ -283,6 +283,12 @@ Licenciran prema MIT licenci.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Bilješke o izdanju</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Odabranu datoteku nije moguće dodati u Foundry. Odaberite čitljivu datoteku veličine najviše 4 MiB.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Datoteka nije dodana</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Zadano</value>
   </data>
@@ -3919,7 +3925,7 @@ Primjena ažuriranja ponovno pokreće Foundry OSD.</value>
     <value>Sadrži postavke koje mogu spriječiti upis u Autopilot; nekompatibilni načini upisa bit će blokirani tijekom implementacije.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Odaberite datoteku da biste je preimenovali, osvježili ili uklonili. Izvorne datoteke moraju ostati dostupne do stvaranja medija; izmijenjene izvore potrebno je osvježiti.</value>
+    <value>Odaberite datoteku da biste je preimenovali ili uklonili. Foundry čuva vlastitu kopiju svake uvezene datoteke; da biste upotrijebili ažuriranu datoteku, uklonite unos i ponovno uvezite datoteku.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Datoteke odgovora</value>
@@ -3964,13 +3970,13 @@ Primjena ažuriranja ponovno pokreće Foundry OSD.</value>
     <value>Datoteka mora navoditi podržanu arhitekturu i sadržavati postavke komponenti primjenjive na nju.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Katalog sadrži nevaljane ili duplicirane stavke. Osvježite ili uklonite zahvaćene datoteke.</value>
+    <value>Katalog sadrži nevažeće ili duplicirane unose. Uklonite te datoteke i ponovno ih uvezite.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Upotrijebite valjani XML datoteke odgovora za Windows veličine do 4 MiB, bez DTD definicija ili vanjskih entiteta. Provjerite datoteku u alatu Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Neki izvori nedostaju, izmijenjeni su ili nisu valjani. Osvježite ili uklonite te stavke prije stvaranja medija.</value>
+    <value>Neke datoteke nedostaju ili su nevažeće. Prije stvaranja medija uklonite te unose i ponovno uvezite datoteke.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Zadani odabir nedostaje — odaberite zamjenu</value>
@@ -3985,16 +3991,10 @@ Primjena ažuriranja ponovno pokreće Foundry OSD.</value>
     <value>Foundry čuva izvornu datoteku i dodaje svoju obveznu naredbu za fazu nakon instalacije u kopiju za implementaciju. I dalje ste odgovorni za prilagođene postavke i naredbe.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Prilagođene datoteke zahtijevaju zaštitu medija za implementaciju lozinkom u općoj konfiguraciji. XML može sadržavati vjerodajnice ili skripte. Foundry sprema kopiju svake datoteke s vašom konfiguracijom na ovom računalu samo kada je opcija „Zapamti lozinke“ uključena u odjeljku „Sigurnosno kopiranje i sinkronizacija postavki“; u suprotnom sprema samo putanju. Slika za pokretanje sadrži šifrirane kopije.</value>
+    <value>Prilagođene datoteke zahtijevaju zaštitu medija za implementaciju lozinkom u općoj konfiguraciji. XML može sadržavati vjerodajnice ili skripte. Foundry čuva kopiju svake uvezene datoteke u svojoj biblioteci datoteka na ovom računalu. Slika za pokretanje sadrži šifrirane kopije.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Omogućite zaštitu medija za implementaciju lozinkom u općoj konfiguraciji da biste koristili prilagođene datoteke odgovora.</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Ovaj je izvor sada jednak drugoj uvezenoj datoteci. Uklonite ovu stavku i odaberite postojeću datoteku.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Osvježi izvor</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Ukloni</value>
@@ -4007,9 +4007,6 @@ Primjena ažuriranja ponovno pokreće Foundry OSD.</value>
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Odabrana datoteka</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>Izvor je izmijenjen. Upotrijebite Osvježi izvor da biste prihvatili ažuriranu datoteku prije stvaranja medija.</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>Dvije provjere izvora još čekaju pristup datotekama. Ponovno omogućite pristup nedostupnim lokacijama izvora, a zatim ponovno provjerite izvore.</value>

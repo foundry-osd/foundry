@@ -283,6 +283,12 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Išleidimo pastabos</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Pasirinkto failo nepavyko įtraukti į Foundry. Pasirinkite nuskaitomą failą, ne didesnį nei 4 MiB.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Failas nepridėtas</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Numatytasis</value>
   </data>
@@ -3919,7 +3925,7 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
     <value>Yra parametrų, galinčių neleisti užregistruoti įrenginio „Autopilot“; nesuderinami registravimo režimai diegimo metu bus blokuojami.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Pasirinkite failą, kurį norite pervardyti, atnaujinti arba pašalinti. Šaltinio failai turi būti pasiekiami iki laikmenos sukūrimo; pasikeitusius šaltinius reikia atnaujinti.</value>
+    <value>Pasirinkite failą, kurį norite pervardyti arba pašalinti. Foundry saugo savo kiekvieno importuoto failo kopiją; norėdami naudoti atnaujintą failą, pašalinkite įrašą ir importuokite failą iš naujo.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Atsakymų failai</value>
@@ -3964,13 +3970,13 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
     <value>Faile turi būti nurodyta palaikoma architektūra ir jai taikomi komponentų parametrai.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Kataloge yra netinkamų arba pasikartojančių įrašų. Atnaujinkite arba pašalinkite atitinkamus failus.</value>
+    <value>Kataloge yra netinkamų arba pasikartojančių įrašų. Pašalinkite susijusius failus ir importuokite juos iš naujo.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Naudokite tinkamą „Windows“ atsakymų failo XML, ne didesnį nei 4 MiB, be DTD ir išorinių objektų. Patikrinkite failą naudodami „Windows SIM“.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Kai kurių šaltinių nėra, jie pasikeitė arba yra netinkami. Prieš kurdami laikmeną atnaujinkite arba pašalinkite šiuos įrašus.</value>
+    <value>Kai kurių failų trūksta arba jie netinkami. Prieš kurdami laikmeną, pašalinkite šiuos įrašus ir importuokite failus iš naujo.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Nėra numatytojo failo – pasirinkite kitą</value>
@@ -3985,16 +3991,10 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
     <value>„Foundry“ išsaugo originalų failą ir į diegimo kopiją įtraukia savo būtiną komandą, vykdomą po diegimo. Už pasirinktinius parametrus ir komandas ir toliau atsakote jūs.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Pasirinktiniams failams reikia diegimo laikmenos apsaugos slaptažodžiu bendrojoje konfigūracijoje. XML gali būti kredencialų arba scenarijų. Foundry šiame kompiuteryje išsaugo kiekvieno failo kopiją kartu su konfigūracija tik tada, kai skiltyje „Parametrų atsarginės kopijos ir sinchronizavimas“ įjungta parinktis „Įsiminti slaptažodžius“; kitu atveju išsaugomas tik kelias. Įkrovos atvaizde yra užšifruotos kopijos.</value>
+    <value>Pasirinktiniams failams reikia diegimo laikmenos apsaugos slaptažodžiu bendrojoje konfigūracijoje. XML gali būti kredencialų arba scenarijų. Foundry šiame kompiuteryje saugo kiekvieno importuoto failo kopiją savo failų bibliotekoje. Įkrovos atvaizde yra užšifruotos kopijos.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Norėdami naudoti pasirinktinius atsakymų failus, bendrojoje konfigūracijoje įgalinkite diegimo laikmenos apsaugą slaptažodžiu.</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Šis šaltinis dabar sutampa su kitu importuotu failu. Pašalinkite šį įrašą ir pasirinkite esamą failą.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Atnaujinti šaltinį</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Pašalinti</value>
@@ -4007,9 +4007,6 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Pasirinktas failas</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>Šaltinis pasikeitė. Prieš kurdami laikmeną pasirinkite „Atnaujinti šaltinį“, kad priimtumėte atnaujintą failą.</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>Dvi šaltinių patikros vis dar laukia prieigos prie failų. Atkurkite prieigą prie nepasiekiamų šaltinių vietų, tada dar kartą patikrinkite šaltinius.</value>

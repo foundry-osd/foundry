@@ -283,6 +283,12 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Väljalaske märkmed</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Valitud faili ei saanud Foundryle lisada. Valige loetav fail, mille suurus on kuni 4 MiB.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Faili ei lisatud</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Vaikimisi</value>
   </data>
@@ -3919,7 +3925,7 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
     <value>Sisaldab sätteid, mis võivad takistada Autopiloti registreerimist. Ühildumatud registreerimisrežiimid blokeeritakse juurutamise ajal.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Valige fail, et see ümber nimetada, selle allikat värskendada või see eemaldada. Lähtefailid peavad olema saadaval kuni andmekandja loomiseni. Muudetud allikad tuleb värskendada.</value>
+    <value>Valige fail, et see ümber nimetada või eemaldada. Foundry säilitab iga imporditud faili oma koopia. Värskendatud faili kasutamiseks eemaldage kirje ja importige fail uuesti.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Vastusefailid</value>
@@ -3964,13 +3970,13 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
     <value>Fail peab deklareerima toetatud arhitektuuri ja sisaldama sellele sobivaid komponendisätteid.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Kataloog sisaldab kehtetuid või korduvaid kirjeid. Värskendage või eemaldage vastavad failid.</value>
+    <value>Kataloog sisaldab sobimatuid või korduvaid kirjeid. Eemaldage asjaomased failid ja importige need uuesti.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Kasutage kehtivat Windowsi vastusefaili XML-i, mille suurus on kuni 4 MiB ning mis ei sisalda DTD-sid ega väliseid olemeid. Valideerige fail Windows SIM-iga.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Mõned allikad puuduvad, on muutunud või kehtetud. Enne andmekandja loomist värskendage või eemaldage need kirjed.</value>
+    <value>Mõni fail puudub või on sobimatu. Eemaldage need kirjed ja importige failid enne andmekandja loomist uuesti.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Vaikefail puudub – valige asendus</value>
@@ -3985,16 +3991,10 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
     <value>Foundry säilitab algse faili ja lisab juurutuskoopiasse oma nõutava installimisjärgse käsu. Vastutate endiselt oma kohandatud sätete ja käskude eest.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Kohandatud failid nõuavad üldkonfiguratsioonis juurutusandmekandja paroolikaitset. XML võib sisaldada identimisteavet või skripte. Foundry säilitab iga faili koopia koos teie konfiguratsiooniga sellel arvutil ainult siis, kui „Jäta paroolid meelde“ on jaotises „Sätete varundamine ja sünkroonimine“ sisse lülitatud; vastasel juhul salvestab ainult tee. Alglaadimistõmmis sisaldab krüptitud koopiaid.</value>
+    <value>Kohandatud failid nõuavad üldkonfiguratsioonis juurutusandmekandja paroolikaitset. XML võib sisaldada identimisteavet või skripte. Foundry säilitab iga imporditud faili koopia oma failiteegis sellel arvutil. Alglaadimistõmmis sisaldab krüptitud koopiaid.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Kohandatud vastusefailide kasutamiseks lubage üldkonfiguratsioonis juurutusandmekandja paroolikaitse.</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>See allikas on nüüd teise imporditud faili koopia. Eemaldage see kirje ja valige olemasolev fail.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Värskenda allikat</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Eemalda</value>
@@ -4007,9 +4007,6 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Valitud fail</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>Allikas on muutunud. Enne andmekandja loomist valige Värskenda allikat, et uuendatud fail vastu võtta.</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>Kaks allikakontrolli ootavad endiselt failidele juurdepääsu. Taastage juurdepääs kättesaamatutele allika asukohtadele ja kontrollige allikaid uuesti.</value>

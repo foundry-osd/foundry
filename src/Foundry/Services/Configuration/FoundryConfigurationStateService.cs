@@ -539,12 +539,18 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         try
         {
             return BuildSnapshot.CaptureAsync(
-                document, MediaInputs, accountSecrets, domainSecrets, password, privateRootDirectory, authoringVersion, cancellationToken);
+                document, CreateSnapshotSources(), accountSecrets, domainSecrets, password, privateRootDirectory, authoringVersion, cancellationToken);
         }
         finally
         {
             CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
         }
+    }
+
+    private BuildSnapshotSources CreateSnapshotSources()
+    {
+        MediaInputs inputs = MediaInputs;
+        return new BuildSnapshotSources(authoringFiles) { Network = inputs.Network, AutopilotPfxPassword = inputs.AutopilotPfxPassword };
     }
 
     private DomainJoinSecretState CreateDomainJoinSecretState(DomainJoinSettings settings)

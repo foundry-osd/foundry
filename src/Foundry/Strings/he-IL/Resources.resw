@@ -283,6 +283,12 @@
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>הערות שחרור</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>לא ניתן היה להוסיף את הקובץ שנבחר ל-Foundry. בחרו קובץ קריא בגודל של עד 4 MiB.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>הקובץ לא נוסף</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>ברירת מחדל</value>
   </data>
@@ -3919,7 +3925,7 @@
     <value>מכיל הגדרות שעלולות למנוע רישום ל-Autopilot; מצבי רישום שאינם תואמים ייחסמו במהלך הפריסה.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>בחרו קובץ כדי לשנות את שמו, לרענן או להסיר אותו. קובצי המקור חייבים להישאר זמינים עד ליצירת המדיה; מקורות שהשתנו דורשים רענון.</value>
+    <value>בחרו קובץ כדי לשנות את שמו או להסיר אותו. Foundry שומר עותק משלו של כל קובץ מיובא; כדי להשתמש בקובץ מעודכן, הסירו את הרשומה וייבאו את הקובץ מחדש.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>קובצי תשובות</value>
@@ -3964,13 +3970,13 @@
     <value>הקובץ חייב להצהיר על ארכיטקטורה נתמכת ולכלול הגדרות רכיבים החלות עליה.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>הקטלוג מכיל רשומות לא תקינות או כפולות. רעננו או הסירו את הקבצים הרלוונטיים.</value>
+    <value>הקטלוג מכיל רשומות לא חוקיות או כפולות. הסירו את הקבצים הרלוונטיים וייבאו אותם מחדש.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>השתמשו ב-XML תקין של קובץ תשובות של Windows, בגודל של עד 4 MiB, ללא DTD או ישויות חיצוניות. אמתו את הקובץ באמצעות Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>חלק מהמקורות חסרים, השתנו או אינם תקינים. רעננו או הסירו רשומות אלה לפני יצירת המדיה.</value>
+    <value>חלק מהקבצים חסרים או לא חוקיים. הסירו רשומות אלה וייבאו את הקבצים מחדש לפני יצירת המדיה.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>ברירת המחדל חסרה — בחרו חלופה</value>
@@ -3985,16 +3991,10 @@
     <value>Foundry שומר על הקובץ המקורי ומוסיף לעותק הפריסה את הפקודה הנדרשת שלו לשלב שלאחר ההתקנה. האחריות להגדרות ולפקודות המותאמות אישית נשארת שלך.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>קבצים מותאמים אישית מחייבים הגנת סיסמה למדיית הפריסה בתצורה הכללית. XML עשוי להכיל אישורים או סקריפטים. Foundry שומר עותק של כל קובץ עם התצורה שלך במחשב זה רק כאשר האפשרות “שמירת סיסמאות” מופעלת בקטע “גיבוי וסנכרון הגדרות”; אחרת הוא שומר רק את הנתיב. תמונת האתחול מכילה עותקים מוצפנים.</value>
+    <value>קבצים מותאמים אישית מחייבים הגנת סיסמה למדיית הפריסה בתצורה הכללית. XML עשוי להכיל אישורים או סקריפטים. Foundry שומר עותק של כל קובץ מיובא בספריית הקבצים שלו במחשב זה. תמונת האתחול מכילה עותקים מוצפנים.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>הפעילו הגנת סיסמה למדיית הפריסה בתצורה הכללית כדי להשתמש בקובצי תשובות מותאמים אישית.</value>
-  </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>מקור זה זהה כעת לקובץ מיובא אחר. הסירו רשומה זו ובחרו בקובץ הקיים.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>רענון מקור</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>הסרה</value>
@@ -4007,9 +4007,6 @@
   </data>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>הקובץ שנבחר</value>
-  </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>המקור השתנה. השתמשו ברענון מקור כדי לקבל את הקובץ המעודכן לפני יצירת המדיה.</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
     <value>שתי בדיקות מקור עדיין ממתינות לגישה לקבצים. שחזרו את הגישה למיקומי המקור שאינם זמינים ובדקו שוב את המקורות.</value>
