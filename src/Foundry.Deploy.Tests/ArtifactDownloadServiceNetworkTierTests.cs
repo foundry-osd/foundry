@@ -167,10 +167,55 @@ public sealed class ArtifactDownloadServiceNetworkTierTests : IDisposable
         Assert.False(accessor.Current!.IsAvailable);
     }
 
-    private ArtifactDownloadService CreateService(NetworkCacheReader? reader = null) => new(
+    [Fact]
+    public async Task Download_HttpSuccess_EnqueuesPublication()
+    {
+        var publisher = new RecordingPublisher();
+
+        await CreateService(publisher: publisher).DownloadAsync(Url, destination, Sha256(HttpBytes), HttpBytes.Length, "OperatingSystemImage", TestContext.Current.CancellationToken);
+
+        NetworkCachePublication item = Assert.Single(publisher.Items);
+        Assert.Equal(destination, item.LocalPath);
+        Assert.Equal(NetworkCacheLayout.DownloadKey(Url, Sha256(HttpBytes), HttpBytes.Length), item.Key);
+        Assert.Equal("image.esd", item.FileName);
+        Assert.False(item.Hashless);
+    }
+
+    [Fact]
+    public async Task Download_ShareHit_DoesNotEnqueue()
+    {
+        PlaceOnShare(Sha256(ShareBytes), ShareBytes);
+        var publisher = new RecordingPublisher();
+
+        await CreateService(publisher: publisher).DownloadAsync(Url, destination, Sha256(ShareBytes), ShareBytes.Length, "OperatingSystemImage", TestContext.Current.CancellationToken);
+
+        Assert.Empty(publisher.Items);
+    }
+
+    [Fact]
+    public async Task Download_NonCacheableKind_DoesNotEnqueue()
+    {
+        var publisher = new RecordingPublisher();
+
+        await CreateService(publisher: publisher).DownloadAsync(Url, destination, Sha256(HttpBytes), HttpBytes.Length, "PostInstall", TestContext.Current.CancellationToken);
+
+        Assert.Empty(publisher.Items);
+    }
+
+    private ArtifactDownloadService CreateService(NetworkCacheReader? reader = null, INetworkCachePublisher? publisher = null) => new(
         NullLogger<ArtifactDownloadService>.Instance,
         new HttpClient(handler, disposeHandler: false),
-        networkCacheReader: reader ?? new NetworkCacheReader(accessor, NullLogger<NetworkCacheReader>.Instance));
+        networkCacheReader: reader ?? new NetworkCacheReader(accessor, NullLogger<NetworkCacheReader>.Instance),
+        networkCachePublisher: publisher);
+
+    private sealed class RecordingPublisher : INetworkCachePublisher
+    {
+        public List<NetworkCachePublication> Items { get; } = [];
+
+        public void Enqueue(NetworkCachePublication publication) => Items.Add(publication);
+
+        public Task DrainAsync(TimeSpan limit, CancellationToken cancellationToken) => Task.CompletedTask;
+    }
 
     private Task<ArtifactDownloadResult> DownloadAsync(string? hash, string kind = "OperatingSystemImage", long? size = 5)
     {

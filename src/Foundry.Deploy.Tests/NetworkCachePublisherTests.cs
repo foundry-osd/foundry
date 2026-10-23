@@ -1,0 +1,106 @@
+// Copyright (c) Foundry Project contributors.
+// Licensed under the MIT License.
+// See the LICENSE file in the project root for more information.
+
+using System.Security.Cryptography;
+using Foundry.Core.Services.NetworkCache;
+using Foundry.Deploy.Services.Cache;
+using Foundry.Utilities.Networking;
+using Microsoft.Extensions.Logging.Abstractions;
+
+namespace Foundry.Deploy.Tests;
+
+public sealed class NetworkCachePublisherTests : IDisposable
+{
+    private static readonly byte[] Bytes = [4, 3, 2, 1];
+    private readonly string root = Path.Combine(Path.GetTempPath(), "foundry-ncp-" + Guid.NewGuid().ToString("N"));
+    private readonly string share;
+    private readonly string local;
+    private readonly NetworkCacheSessionAccessor accessor = new();
+
+    public NetworkCachePublisherTests()
+    {
+        share = Path.Combine(root, "share");
+        local = Path.Combine(root, "local", "fw.cab");
+        Directory.CreateDirectory(share);
+        Directory.CreateDirectory(Path.GetDirectoryName(local)!);
+        File.WriteAllBytes(local, Bytes);
+        accessor.Current = NetworkCacheSession.Connected(share, canWrite: true, new NoopConnector());
+    }
+
+    public void Dispose() => Directory.Delete(root, recursive: true);
+
+    [Fact]
+    public async Task Publisher_PublishesHashlessFileWithSidecar()
+    {
+        var publisher = new NetworkCachePublisher(accessor, NullLogger<NetworkCachePublisher>.Instance);
+
+        publisher.Enqueue(new(local, "MicrosoftUpdateCatalogFirmware", "u-key-4", "fw.cab", Hashless: true));
+        await publisher.DrainAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);
+
+        string final = Path.Combine(NetworkCacheLayout.DownloadDirectory(share, "MicrosoftUpdateCatalogFirmware", "u-key-4"), "fw.cab");
+        Assert.Equal(Bytes, File.ReadAllBytes(final));
+        Assert.Equal(Convert.ToHexStringLower(SHA256.HashData(Bytes)), File.ReadAllText(final + NetworkCacheLayout.HashSidecarSuffix));
+    }
+
+    [Fact]
+    public async Task Enqueue_ReadOnlySession_IsIgnored()
+    {
+        accessor.Current = NetworkCacheSession.Connected(share, canWrite: false, new NoopConnector());
+        var publisher = new NetworkCachePublisher(accessor, NullLogger<NetworkCachePublisher>.Instance);
+
+        publisher.Enqueue(new(local, "OemDriverPack", "abcd", "fw.cab", Hashless: false));
+        await publisher.DrainAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);
+
+        Assert.False(Directory.Exists(Path.Combine(share, NetworkCacheLayout.RootFolderName, NetworkCacheLayout.DownloadsFolderName)));
+    }
+
+    [Fact]
+    public async Task Publisher_WriteFailure_LogsAndContinues()
+    {
+        var publisher = new NetworkCachePublisher(accessor, NullLogger<NetworkCachePublisher>.Instance);
+
+        publisher.Enqueue(new(Path.Combine(root, "missing.cab"), "OemDriverPack", "a1", "missing.cab", Hashless: false));
+        publisher.Enqueue(new(local, "OemDriverPack", "b2", "fw.cab", Hashless: false));
+        await publisher.DrainAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);
+
+        Assert.True(File.Exists(Path.Combine(NetworkCacheLayout.DownloadDirectory(share, "OemDriverPack", "b2"), "fw.cab")));
+    }
+
+    [Fact]
+    public async Task Drain_TimesOut_CancelsPendingPublication()
+    {
+        var started = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        bool cancelled = false;
+        var publisher = new NetworkCachePublisher(accessor, NullLogger<NetworkCachePublisher>.Instance, async (item, directory, token) =>
+        {
+            started.TrySetResult();
+            try
+            {
+                await Task.Delay(Timeout.InfiniteTimeSpan, token);
+            }
+            catch (OperationCanceledException)
+            {
+                cancelled = true;
+                throw;
+            }
+
+            return NetworkCachePublishOutcome.Published;
+        });
+
+        publisher.Enqueue(new(local, "OemDriverPack", "c3", "fw.cab", Hashless: false));
+        await started.Task.WaitAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);
+        await publisher.DrainAsync(TimeSpan.FromMilliseconds(100), TestContext.Current.CancellationToken);
+
+        Assert.True(cancelled);
+    }
+
+    private sealed class NoopConnector : ISmbConnector
+    {
+        public SmbConnectResult Connect(string uncPath, string? userName, ReadOnlySpan<char> password) => new(SmbConnectStatus.Connected, 0);
+
+        public void Disconnect(string uncPath)
+        {
+        }
+    }
+}

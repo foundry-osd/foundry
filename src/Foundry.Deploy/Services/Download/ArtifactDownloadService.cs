@@ -5,6 +5,7 @@
 using System.IO;
 using System.Net.Http;
 using System.Security.Cryptography;
+using Foundry.Core.Services.NetworkCache;
 using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Http;
 using Foundry.Utilities.Networking;
@@ -23,14 +24,15 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
     private readonly TimeProvider _timeProvider;
     private static readonly TimeSpan NetworkCacheStallTimeout = TimeSpan.FromSeconds(30);
     private readonly INetworkCacheReader? _networkCacheReader;
+    private readonly INetworkCachePublisher? _networkCachePublisher;
 
     public ArtifactDownloadService(ILogger<ArtifactDownloadService> logger)
         : this(logger, DefaultHttpClient)
     {
     }
 
-    public ArtifactDownloadService(ILogger<ArtifactDownloadService> logger, INetworkCacheReader networkCacheReader)
-        : this(logger, DefaultHttpClient, networkCacheReader: networkCacheReader)
+    public ArtifactDownloadService(ILogger<ArtifactDownloadService> logger, INetworkCacheReader networkCacheReader, INetworkCachePublisher networkCachePublisher)
+        : this(logger, DefaultHttpClient, networkCacheReader: networkCacheReader, networkCachePublisher: networkCachePublisher)
     {
     }
 
@@ -38,12 +40,14 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         ILogger<ArtifactDownloadService> logger,
         HttpClient httpClient,
         TimeProvider? timeProvider = null,
-        INetworkCacheReader? networkCacheReader = null)
+        INetworkCacheReader? networkCacheReader = null,
+        INetworkCachePublisher? networkCachePublisher = null)
     {
         _logger = logger;
         _httpClient = httpClient;
         _timeProvider = timeProvider ?? TimeProvider.System;
         _networkCacheReader = networkCacheReader;
+        _networkCachePublisher = networkCachePublisher;
     }
 
     public async Task<ArtifactDownloadResult> DownloadAsync(
@@ -152,6 +156,7 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
                 _timeProvider)
                 .ConfigureAwait(false);
             EnsureDownloadedHash(destinationPath, normalizedExpectedHash, hashAlgorithm, downloadedArtifact);
+            QueueNetworkCachePublication(sourceUrl, destinationPath, normalizedExpectedHash, expectedSizeBytes, artifactKind);
 
             _logger.LogInformation("Artifact downloaded via HttpClient. DestinationPath={DestinationPath}", destinationPath);
             return new ArtifactDownloadResult
@@ -328,6 +333,27 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
 
         DeleteInterruptedDownload(destinationPath);
         return false;
+    }
+
+    /// <summary>
+    /// Queues an HTTP download for the network cache. Artifacts with neither hash nor size are never shared,
+    /// matching the reader, because a reused URL could serve new content under the same key.
+    /// </summary>
+    private void QueueNetworkCachePublication(string sourceUrl, string destinationPath, string? normalizedExpectedHash, long? expectedSizeBytes, string? artifactKind)
+    {
+        bool hashless = normalizedExpectedHash is null;
+        if (_networkCachePublisher is null || artifactKind is null || !NetworkCacheLayout.CacheableKinds.Contains(artifactKind) ||
+            (hashless && expectedSizeBytes is not > 0))
+        {
+            return;
+        }
+
+        _networkCachePublisher.Enqueue(new NetworkCachePublication(
+            destinationPath,
+            artifactKind,
+            NetworkCacheLayout.DownloadKey(sourceUrl, normalizedExpectedHash, expectedSizeBytes),
+            Path.GetFileName(destinationPath),
+            hashless));
     }
 
     /// <summary>Opens a share file off the calling thread, because a hung UNC open blocks for the SMB timeout.</summary>

@@ -61,7 +61,7 @@ public static class NetworkCacheWriter
         {
             Directory.CreateDirectory(targetDirectory);
             DeleteOrphanPartials(targetDirectory, clock);
-            await using (FileStream input = new(sourcePath, FileMode.Open, FileAccess.Read, FileShare.Read, 1 << 20, useAsync: true))
+            await using (FileStream input = new(sourcePath, FileMode.Open, FileAccess.Read, FileShare.Read | FileShare.Delete, 1 << 20, useAsync: true))
             await using (FileStream output = new(partialPath, FileMode.CreateNew, FileAccess.Write, FileShare.None, 1 << 20, useAsync: true))
             {
                 await input.CopyToAsync(output, cancellationToken).ConfigureAwait(false);
