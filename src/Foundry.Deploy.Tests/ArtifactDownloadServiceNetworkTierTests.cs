@@ -121,19 +121,66 @@ public sealed class ArtifactDownloadServiceNetworkTierTests : IDisposable
         Assert.Equal("httpclient", result.Method);
     }
 
-    private Task<ArtifactDownloadResult> DownloadAsync(string? hash, string kind = "OperatingSystemImage")
+    [Fact]
+    public async Task Download_HashlessWithoutSize_SkipsShare()
     {
-        var service = new ArtifactDownloadService(
-            NullLogger<ArtifactDownloadService>.Instance,
-            new HttpClient(handler, disposeHandler: false),
-            networkCacheReader: new NetworkCacheReader(accessor, NullLogger<NetworkCacheReader>.Instance));
-        long size = hash == Sha256(HttpBytes) ? HttpBytes.Length : ShareBytes.Length;
-        return service.DownloadAsync(Url, destination, hash, hash is null ? null : size, kind, TestContext.Current.CancellationToken);
+        string sharedFile = PlaceOnShare(null, ShareBytes, size: null);
+        await File.WriteAllTextAsync(sharedFile + NetworkCacheLayout.HashSidecarSuffix, Sha256(ShareBytes), TestContext.Current.CancellationToken);
+
+        ArtifactDownloadResult result = await DownloadAsync(null, size: null);
+
+        Assert.Equal("httpclient", result.Method);
     }
 
-    private string PlaceOnShare(string? hash, byte[] bytes, string kind = "OperatingSystemImage")
+    [Fact]
+    public async Task Download_CancelledDuringShareCopy_DeletesLocalCopy()
     {
-        string directory = NetworkCacheLayout.DownloadDirectory(share, kind, NetworkCacheLayout.DownloadKey(Url, hash, hash is null ? null : bytes.Length));
+        PlaceOnShare(Sha256(ShareBytes), ShareBytes);
+        using var cancellation = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
+        var progress = new SynchronousProgress(_ => cancellation.Cancel());
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
+            CreateService().DownloadAsync(Url, destination, Sha256(ShareBytes), ShareBytes.Length, "OperatingSystemImage", cancellation.Token, progress));
+
+        Assert.False(File.Exists(destination));
+    }
+
+    [Fact]
+    public async Task Download_WhenShareLookupHangs_FallsBackToHttpAndSkipsShareAfterwards()
+    {
+        PlaceOnShare(Sha256(HttpBytes), HttpBytes);
+        int lookups = 0;
+        var reader = new NetworkCacheReader(accessor, NullLogger<NetworkCacheReader>.Instance, TimeSpan.FromMilliseconds(100), path =>
+        {
+            Interlocked.Increment(ref lookups);
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+            return true;
+        });
+
+        ArtifactDownloadResult first = await CreateService(reader).DownloadAsync(Url, destination, Sha256(HttpBytes), HttpBytes.Length, "OperatingSystemImage", TestContext.Current.CancellationToken);
+        File.Delete(destination);
+        ArtifactDownloadResult second = await CreateService(reader).DownloadAsync(Url, destination, Sha256(HttpBytes), HttpBytes.Length, "OperatingSystemImage", TestContext.Current.CancellationToken);
+
+        Assert.Equal("httpclient", first.Method);
+        Assert.Equal("httpclient", second.Method);
+        Assert.Equal(1, lookups);
+        Assert.False(accessor.Current!.IsAvailable);
+    }
+
+    private ArtifactDownloadService CreateService(NetworkCacheReader? reader = null) => new(
+        NullLogger<ArtifactDownloadService>.Instance,
+        new HttpClient(handler, disposeHandler: false),
+        networkCacheReader: reader ?? new NetworkCacheReader(accessor, NullLogger<NetworkCacheReader>.Instance));
+
+    private Task<ArtifactDownloadResult> DownloadAsync(string? hash, string kind = "OperatingSystemImage", long? size = 5)
+    {
+        long? expectedSize = hash == Sha256(HttpBytes) ? HttpBytes.Length : size;
+        return CreateService().DownloadAsync(Url, destination, hash, expectedSize, kind, TestContext.Current.CancellationToken);
+    }
+
+    private string PlaceOnShare(string? hash, byte[] bytes, string kind = "OperatingSystemImage", long? size = 5)
+    {
+        string directory = NetworkCacheLayout.DownloadDirectory(share, kind, NetworkCacheLayout.DownloadKey(Url, hash, hash is null ? size : bytes.Length));
         Directory.CreateDirectory(directory);
         string path = Path.Combine(directory, "image.esd");
         File.WriteAllBytes(path, bytes);
@@ -151,6 +198,11 @@ public sealed class ArtifactDownloadServiceNetworkTierTests : IDisposable
             Requests++;
             return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK) { Content = new ByteArrayContent(HttpBytes) });
         }
+    }
+
+    private sealed class SynchronousProgress(Action<DownloadProgress> report) : IProgress<DownloadProgress>
+    {
+        public void Report(DownloadProgress value) => report(value);
     }
 
     private sealed class NoopConnector : ISmbConnector

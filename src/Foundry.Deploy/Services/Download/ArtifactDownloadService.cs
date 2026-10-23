@@ -21,6 +21,7 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
     private readonly HttpClient _httpClient;
     private readonly ILogger<ArtifactDownloadService> _logger;
     private readonly TimeProvider _timeProvider;
+    private static readonly TimeSpan NetworkCacheStallTimeout = TimeSpan.FromSeconds(30);
     private readonly INetworkCacheReader? _networkCacheReader;
 
     public ArtifactDownloadService(ILogger<ArtifactDownloadService> logger)
@@ -288,31 +289,63 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         string expectedHash = normalizedExpectedHash ?? NormalizeHash(candidate.SidecarSha256!);
         HashAlgorithmName algorithm = hashAlgorithm ?? HashAlgorithmName.SHA256;
         _logger.LogInformation("Copying artifact from the network cache. SharePath={SharePath}, DestinationPath={DestinationPath}", candidate.Path, destinationPath);
+        // The stall watchdog restarts on every chunk, so a share that stops answering mid-copy falls back to HTTP.
+        using var stall = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+        stall.CancelAfter(NetworkCacheStallTimeout);
         try
         {
-            await using FileStream shareStream = new(candidate.Path, FileMode.Open, FileAccess.Read, FileShare.Read, CopyBufferSize, useAsync: true);
+            await using FileStream shareStream = await OpenShareFileAsync(candidate.Path, stall.Token).ConfigureAwait(false);
             if (expectedSizeBytes is > 0 && shareStream.Length != expectedSizeBytes.Value)
             {
-                _logger.LogWarning("Network cache file size mismatch; downloading instead. SharePath={SharePath}", candidate.Path);
-                return false;
+                throw new InvalidDataException("The network cache file size does not match the catalog.");
             }
 
-            DownloadedArtifact copied = await CopyToFileAsync(shareStream, shareStream.Length, destinationPath, algorithm, progress, static () => { }, cancellationToken).ConfigureAwait(false);
+            // Overlapped reads honor the token, so the copy itself runs on this flow and never outlives the cleanup below.
+            DownloadedArtifact copied = await CopyToFileAsync(shareStream, shareStream.Length, destinationPath, algorithm, progress,
+                () => stall.CancelAfter(NetworkCacheStallTimeout), stall.Token).ConfigureAwait(false);
             if (string.Equals(expectedHash, copied.Hash, StringComparison.OrdinalIgnoreCase))
             {
                 _logger.LogInformation("Artifact copied from the network cache. DestinationPath={DestinationPath}", destinationPath);
                 return true;
             }
 
-            _logger.LogWarning("Network cache file hash mismatch; downloading instead. SharePath={SharePath}", candidate.Path);
+            _logger.LogWarning("Network cache file hash mismatch (network_cache_corrupt); downloading instead. SharePath={SharePath}", candidate.Path);
         }
-        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            DeleteInterruptedDownload(destinationPath);
+            throw;
+        }
+        catch (OperationCanceledException)
+        {
+            _networkCacheReader.MarkUnresponsive();
+            _logger.LogWarning("Network cache copy stalled; downloading instead. SharePath={SharePath}", candidate.Path);
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or InvalidDataException)
         {
             _logger.LogWarning("Network cache copy failed; downloading instead. SharePath={SharePath}, Reason={Reason}", candidate.Path, exception.GetType().Name);
         }
 
         DeleteInterruptedDownload(destinationPath);
         return false;
+    }
+
+    /// <summary>Opens a share file off the calling thread, because a hung UNC open blocks for the SMB timeout.</summary>
+    private static async Task<FileStream> OpenShareFileAsync(string path, CancellationToken cancellationToken)
+    {
+        Task<FileStream> opening = Task.Run(
+            () => new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, CopyBufferSize, useAsync: true),
+            cancellationToken);
+        try
+        {
+            return await opening.WaitAsync(cancellationToken).ConfigureAwait(false);
+        }
+        catch (OperationCanceledException)
+        {
+            // An open that completes after the caller gave up must not keep the share file handle.
+            _ = opening.ContinueWith(task => task.Result.Dispose(), CancellationToken.None, TaskContinuationOptions.OnlyOnRanToCompletion, TaskScheduler.Default);
+            throw;
+        }
     }
 
     private static async Task<DownloadedArtifact> CopyToFileAsync(
