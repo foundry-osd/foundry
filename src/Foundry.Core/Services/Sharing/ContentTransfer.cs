@@ -108,7 +108,10 @@ public static class ContentTransfer
     /// <summary>
     /// Decrypts <paramref name="sourcePath"/> into <paramref name="destination"/> and returns the lowercase SHA-256 of the plaintext.
     /// Each chunk is authenticated before it is written, but a later chunk can still fail: on any exception the caller must discard
-    /// what was written to <paramref name="destination"/>. The caller compares the returned hash with the expected content hash.
+    /// what was written to <paramref name="destination"/>. The returned hash is the content hash only for <see cref="SharedContentKind.File"/>
+    /// content, which the caller compares with it. For <see cref="SharedContentKind.Package"/> and <see cref="SharedContentKind.DriverSet"/>
+    /// the plaintext is a package archive, whose content hash (that of its canonical manifest) is checked by
+    /// <see cref="ContentPackageArchive.ImportAsync"/> against the listed hash.
     /// </summary>
     /// <param name="sourcePath">Content file written by <see cref="EncryptAsync"/>.</param>
     /// <param name="destination">Receives the plaintext.</param>
@@ -211,7 +214,7 @@ public static class ContentTransfer
     }
 
     /// <summary>Returns the content file size for a plaintext of <paramref name="length"/> bytes.</summary>
-    internal static long EncryptedLength(long length) => checked(HeaderSize + (ChunkCount(length) * ChunkOverhead) + length);
+    private static long EncryptedLength(long length) => checked(HeaderSize + (ChunkCount(length) * ChunkOverhead) + length);
 
     private static async Task EncryptChunksAsync(Stream source, FileStream output, byte[] header, long chunkCount, long length,
         ReadOnlyMemory<byte> key, IProgress<long>? progress, CancellationToken cancellationToken)

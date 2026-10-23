@@ -95,6 +95,23 @@ public sealed class ContentTransferTests : IDisposable
     }
 
     [Fact]
+    public async Task IsComplete_RequiresMatchingLengthAndKey()
+    {
+        string path = await EncryptAsync(RandomNumberGenerator.GetBytes(ContentTransfer.ChunkSize + 100));
+        byte[] bytes = await File.ReadAllBytesAsync(path, Cancellation);
+        string truncated = Path.Combine(directory.Path, "truncated.bin");
+        string extended = Path.Combine(directory.Path, "extended.bin");
+        await File.WriteAllBytesAsync(truncated, bytes[..^1], Cancellation);
+        await File.WriteAllBytesAsync(extended, [.. bytes, 0], Cancellation);
+
+        Assert.True(ContentTransfer.IsComplete(path, key));
+        Assert.False(ContentTransfer.IsComplete(path, RandomNumberGenerator.GetBytes(32)));
+        Assert.False(ContentTransfer.IsComplete(truncated, key));
+        Assert.False(ContentTransfer.IsComplete(extended, key));
+        Assert.False(ContentTransfer.IsComplete(Path.Combine(directory.Path, "missing.bin"), key));
+    }
+
+    [Fact]
     public void DeriveContentKey_SameInputs_SameKey()
     {
         byte[] masterKey = RandomNumberGenerator.GetBytes(32);

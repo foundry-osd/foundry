@@ -12,8 +12,9 @@ public interface IContentSource
 {
     /// <summary>
     /// Opens one content item for reading. The stream must be seekable (its length is fixed before encryption starts); for
-    /// post-installation packages and driver sets it is the archive written by <see cref="ContentPackageArchive.WriteAsync"/>.
-    /// The writer disposes it.
+    /// post-installation packages and driver sets it is the archive written by <see cref="ContentPackageArchive.WriteAsync"/>, so
+    /// its bytes do not hash to <see cref="PackageContent.Hash"/> (the hash of the package manifest); for files they do. The writer
+    /// disposes it.
     /// </summary>
     Task<Stream> OpenAsync(PackageContent content, CancellationToken ct);
 }
@@ -32,6 +33,11 @@ public interface IContentSource
 /// Sequence of the last successful publish of this PC, persisted by the caller after each one (0 before the first). The folder
 /// alone is not trusted for the next sequence: a folder writer can move <c>current.json</c> back or delete it.
 /// </param>
+/// <param name="TakeOver">
+/// "Take over" (spec 6.1): when the folder belongs to another key, continue it with <see cref="Signer"/> instead of returning
+/// <see cref="PublishStatus.ForeignPublisher"/>. The foreign manifest that decides must open with <see cref="Password"/> and verify
+/// with its own publisher key; followers then have to accept the new reference once. Ignored when the folder is not foreign.
+/// </param>
 public sealed record PublicationRequest(
     string Folder,
     FoundryConfigurationDocument Configuration,
@@ -42,7 +48,8 @@ public sealed record PublicationRequest(
     string Password,
     Guid PublisherId,
     string PublisherName,
-    long LastPublishedSequence = 0);
+    long LastPublishedSequence = 0,
+    bool TakeOver = false);
 
 /// <summary>Outcome of a publication write.</summary>
 public enum PublishStatus
@@ -91,7 +98,7 @@ public sealed record PublishResult(PublishStatus Status, long Sequence, string? 
 
 /// <summary>Progress of the content copy of a publish.</summary>
 /// <param name="Done">Plaintext bytes handled so far, including content already present in the folder.</param>
-/// <param name="Total">Sum of the listed content lengths; <paramref name="Done"/> never exceeds it.</param>
+/// <param name="Total">Sum of the listed lengths over distinct content hashes; <paramref name="Done"/> never exceeds it.</param>
 /// <param name="CurrentName">Display name of the content being written, empty in the final report.</param>
 public sealed record ContentProgress(long Done, long Total, string CurrentName);
 
@@ -114,24 +121,30 @@ public static class PublicationWriter
     private const int MasterKeySize = 32;
 
     /// <summary>
-    /// Publishes a new version. <see cref="PublishStatus.ForeignPublisher"/> is returned when the manifest <c>current.json</c> names
-    /// is signed by another key, when a manifest of another key sits above the highest manifest of this PC, or when no manifest of
-    /// this PC authenticates and one of another key is present. <see cref="PublishStatus.WrongPassword"/> is returned when the
-    /// highest manifest signed with this PC's key does not decrypt with the request password. Otherwise the publish continues from
-    /// the highest authenticated manifest of this PC (see the class remarks), whatever the pointer says, or starts a new publication
-    /// when the folder holds only publication files. The new sequence is one above the highest of <see cref="PublicationRequest.LastPublishedSequence"/> and that manifest's
-    /// sequence. Content is keyed by hash only: a hash listed several times (for example as a package and a driver set) is written
-    /// once, and a content file already complete under the current master key is not rewritten.
+    /// Publishes a new version. The folder is foreign when the manifest <c>current.json</c> names is signed by another key, when a
+    /// manifest of another key sits above the highest manifest of this PC, or when no manifest of this PC authenticates and one of
+    /// another key is present. A foreign folder returns <see cref="PublishStatus.ForeignPublisher"/>, unless
+    /// <see cref="PublicationRequest.TakeOver"/> is set: the deciding foreign manifest must then open with the request password
+    /// (<see cref="PublishStatus.WrongPassword"/> otherwise) and be an authenticated publication under its own publisher key
+    /// (<see cref="PublishStatus.ForeignPublisher"/> otherwise); the publish continues above it and keeps it as the previous manifest,
+    /// so its content survives one more version. Otherwise <see cref="PublishStatus.WrongPassword"/> is returned when the highest
+    /// manifest signed with this PC's key does not decrypt with the request password, and the publish continues from the highest
+    /// authenticated manifest of this PC (see the class remarks), whatever the pointer says, or starts a new publication when the
+    /// folder holds only publication files. The new sequence is one above the highest of
+    /// <see cref="PublicationRequest.LastPublishedSequence"/>, this PC's manifest and, on a take over, the foreign manifest. Content is
+    /// keyed by hash only: a hash listed several times (for example as a package and a driver set) is written once, and a content file
+    /// already complete under the current master key is not rewritten (after a take over, content under the old master key is).
     /// </summary>
     /// <param name="request">What to publish.</param>
     /// <param name="contents">Opens each content item that is not in the folder yet.</param>
     /// <param name="progress">Receives content copy progress.</param>
     /// <param name="cancellationToken">Stops before activation; the previous pointer stays current.</param>
     /// <exception cref="ArgumentException">
-    /// The password breaks the policy, the master key is not 32 bytes, a content hash is not lowercase hex, or the last published
-    /// sequence is negative.
+    /// The password breaks the policy, the master key is not 32 bytes, a content hash is not lowercase hex, the last published
+    /// sequence is negative, or a content stream returned by <paramref name="contents"/> is not seekable.
     /// </exception>
     /// <exception cref="InvalidDataException">A content stream changed length while it was encrypted.</exception>
+    /// <exception cref="OperationCanceledException">Cancelled before activation; the previous pointer stays current.</exception>
     public static async Task<PublishResult> PublishAsync(PublicationRequest request, IContentSource contents, IProgress<ContentProgress>? progress,
         CancellationToken cancellationToken)
     {
@@ -146,6 +159,11 @@ public static class PublicationWriter
         try
         {
             FolderState state = await InspectAsync(request.Folder, request.Signer, request.Password, cancellationToken).ConfigureAwait(false);
+            if (state.Status == PublishStatus.ForeignPublisher && request.TakeOver)
+            {
+                state = await TakeOverAsync(state, request.Password, cancellationToken).ConfigureAwait(false);
+            }
+
             if (state.Status is { } status)
             {
                 return new(status, status == PublishStatus.ForeignPublisher ? state.Sequence : 0, state.ForeignKeyId);
@@ -195,9 +213,9 @@ public static class PublicationWriter
     /// <param name="cancellationToken">Stops before the manifest is replaced.</param>
     /// <returns>
     /// <see cref="PublishStatus.Published"/>, <see cref="PublishStatus.WrongPassword"/>, <see cref="PublishStatus.ForeignPublisher"/>,
-    /// <see cref="PublishStatus.FolderNotEmpty"/> or <see cref="PublishStatus.FolderUnavailable"/>. <see cref="PublishStatus.ForeignPublisher"/>
-    /// follows the same rules as for a publish; <see cref="PublishStatus.FolderUnavailable"/> means an I/O failure or a folder holding no
-    /// publication.
+    /// <see cref="PublishStatus.FolderNotEmpty"/> or <see cref="PublishStatus.FolderUnavailable"/>.
+    /// <see cref="PublishStatus.ForeignPublisher"/> follows the same rules as for a publish (a rewrap never takes over);
+    /// <see cref="PublishStatus.FolderUnavailable"/> means an I/O failure or a folder holding no publication.
     /// </returns>
     /// <exception cref="ArgumentException">The new password breaks the policy.</exception>
     public static async Task<PublishStatus> RewrapAsync(string folder, string oldPassword, string newPassword, PublicationSigningKey signer,
@@ -295,18 +313,15 @@ public static class PublicationWriter
         string? pointedFileName = pointer.State == PublicationPointerState.Ok ? PublicationFolder.ManifestFileName(pointer.Manifest!) : null;
         IReadOnlyList<ManifestName> manifests = ListManifests(folder, pointedFileName);
         ManifestName? pointed = manifests.FirstOrDefault(manifest => manifest.FileName == pointedFileName);
-        if (pointed is not null)
-        {
-            string? keyId = ConfigurationPackageCodec.ReadSignerKeyId(await ReadManifestAsync(pointed, cancellationToken).ConfigureAwait(false));
-            if (keyId is not null && keyId != signer.KeyId)
-            {
-                return new(PublishStatus.ForeignPublisher, pointed.Sequence, keyId, null);
-            }
-        }
+        string? pointedKeyId = pointed is null
+            ? null
+            : ConfigurationPackageCodec.ReadSignerKeyId(await ReadManifestAsync(pointed, cancellationToken).ConfigureAwait(false));
 
         Dictionary<string, PackageReadResult> reads = new(StringComparer.Ordinal);
         ManifestName? foreign = null;
         string? foreignKeyId = null;
+        ManifestName? deciding = null;
+        FolderState? decision = null;
         foreach (ManifestName manifest in manifests)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -318,34 +333,62 @@ public static class PublicationWriter
                 reads.Add(digest, read);
             }
 
-            switch (read.Status)
+            if (read is { Status: PackageReadStatus.Ok, Payload: { Kind: PackageKind.Publication } payload } && payload.Sequence == manifest.Sequence)
             {
-                case PackageReadStatus.Ok when read.Payload is { Kind: PackageKind.Publication } payload && payload.Sequence == manifest.Sequence:
-                    return ForeignAbove(foreign, foreignKeyId, manifest.Sequence) ?? new(null, manifest.Sequence, null, new AuthenticatedManifest(manifest.FileName, payload));
-                case PackageReadStatus.WrongPassword:
-                    return ForeignAbove(foreign, foreignKeyId, manifest.Sequence) ?? new(PublishStatus.WrongPassword, 0, null, null);
-                case PackageReadStatus.InvalidSignature when foreign is null && read.SignerKeyId is { } keyId && keyId != signer.KeyId:
-                    foreign = manifest;
-                    foreignKeyId = keyId;
-                    break;
+                (deciding, decision) = (manifest, new(null, manifest.Sequence, null, new AuthenticatedManifest(manifest.FileName, payload)));
+                break;
             }
+
+            if (read.Status == PackageReadStatus.WrongPassword)
+            {
+                (deciding, decision) = (manifest, new(PublishStatus.WrongPassword, 0, null, null));
+                break;
+            }
+
+            if (foreign is null && read.Status == PackageReadStatus.InvalidSignature && read.SignerKeyId is { } keyId && keyId != signer.KeyId)
+            {
+                (foreign, foreignKeyId) = (manifest, keyId);
+            }
+        }
+
+        if (pointedKeyId is not null && pointedKeyId != signer.KeyId)
+        {
+            (foreign, foreignKeyId) = (pointed, pointedKeyId);
+        }
+        else if (deciding is not null && foreign is not null && foreign.Sequence <= deciding.Sequence)
+        {
+            foreign = null;
         }
 
         if (foreign is not null)
         {
-            return new(PublishStatus.ForeignPublisher, foreign.Sequence, foreignKeyId, null);
+            return new(PublishStatus.ForeignPublisher, foreign.Sequence, foreignKeyId, decision?.Previous, foreign);
         }
 
-        return PublicationFolder.HoldsOnlyPublicationFiles(folder) ? FolderState.Empty : FolderState.NotEmpty;
+        return decision ?? (PublicationFolder.HoldsOnlyPublicationFiles(folder) ? FolderState.Empty : FolderState.NotEmpty);
     }
 
     /// <summary>
-    /// Returns <see cref="PublishStatus.ForeignPublisher"/> when a manifest of another key sits above the manifest of this PC that
-    /// decided the walk: the folder was taken over, even if <c>current.json</c> was deleted or moved back since.
+    /// "Take over" (spec 6.1): accepts the foreign manifest that made the folder foreign when it opens with the request password and
+    /// verifies with the publisher key it embeds, and continues above it and above this PC's own manifest. The foreign manifest
+    /// becomes the previous manifest, so its content survives one more version.
     /// </summary>
-    private static FolderState? ForeignAbove(ManifestName? foreign, string? foreignKeyId, long sequence)
+    private static async Task<FolderState> TakeOverAsync(FolderState foreign, string password, CancellationToken cancellationToken)
     {
-        return foreign is not null && foreign.Sequence > sequence ? new(PublishStatus.ForeignPublisher, foreign.Sequence, foreignKeyId, null) : null;
+        ManifestName manifest = foreign.Foreign!;
+        PackageReadResult read = ConfigurationPackageCodec.Read(await ReadManifestAsync(manifest, cancellationToken).ConfigureAwait(false), password);
+        if (read.Status == PackageReadStatus.WrongPassword)
+        {
+            return new(PublishStatus.WrongPassword, 0, null, null);
+        }
+
+        if (read is not { Status: PackageReadStatus.Ok, Payload: { Kind: PackageKind.Publication } payload } || payload.Sequence != manifest.Sequence)
+        {
+            return foreign;
+        }
+
+        long sequence = Math.Max(manifest.Sequence, foreign.Previous?.Payload.Sequence ?? 0);
+        return new(null, sequence, null, new AuthenticatedManifest(manifest.FileName, payload));
     }
 
     /// <summary>
@@ -478,12 +521,18 @@ public static class PublicationWriter
     /// <param name="Payload">Decrypted payload.</param>
     private sealed record AuthenticatedManifest(string FileName, ConfigurationPackagePayload Payload);
 
-    /// <summary>What <see cref="InspectAsync"/> found.</summary>
+    /// <summary>What <see cref="InspectAsync"/> (or <see cref="TakeOverAsync"/>) found.</summary>
     /// <param name="Status">Set when the publish or rewrap cannot go on.</param>
-    /// <param name="Sequence">Sequence of <paramref name="Previous"/>, 0 without one, or the pointer sequence for a foreign publisher.</param>
-    /// <param name="ForeignKeyId">Signer of the manifest the pointer names when it is another key.</param>
-    /// <param name="Previous">Highest authenticated manifest of this PC.</param>
-    private sealed record FolderState(PublishStatus? Status, long Sequence, string? ForeignKeyId, AuthenticatedManifest? Previous)
+    /// <param name="Sequence">
+    /// Sequence to continue above: that of <paramref name="Previous"/> (0 without one), on a take over the highest of the foreign and
+    /// this PC's manifest; for <see cref="PublishStatus.ForeignPublisher"/>, the sequence in the name of <paramref name="Foreign"/>.
+    /// </param>
+    /// <param name="ForeignKeyId">Envelope key id of <paramref name="Foreign"/> (not authenticated).</param>
+    /// <param name="Previous">
+    /// Manifest kept by the next cleanup: the highest authenticated manifest of this PC, or after a take over the foreign manifest.
+    /// </param>
+    /// <param name="Foreign">The manifest of another key that made the folder foreign, the one a take over must open.</param>
+    private sealed record FolderState(PublishStatus? Status, long Sequence, string? ForeignKeyId, AuthenticatedManifest? Previous, ManifestName? Foreign = null)
     {
         public static FolderState Empty { get; } = new(null, 0, null, null);
 

@@ -7,7 +7,10 @@ using System.Text.Json.Serialization;
 
 namespace Foundry.Core.Services.Sharing;
 
-/// <summary>JSON settings shared by configuration package envelopes, payloads and publication files.</summary>
+/// <summary>
+/// JSON settings shared by configuration package payloads and publication files. The envelope, whose bytes are signed, uses its
+/// own frozen options in <see cref="ConfigurationPackageCodec"/>.
+/// </summary>
 internal static class ConfigurationPackageJson
 {
     /// <summary>Maximum JSON nesting depth accepted when reading a package.</summary>

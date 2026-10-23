@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -376,16 +377,7 @@ public sealed class PublicationWriterTests : IDisposable
     {
         await PublishAsync([]);
         using PublicationSigningKey other = PublicationSigningKey.Create();
-        ConfigurationPackagePayload takeOver = new()
-        {
-            Kind = PackageKind.Publication,
-            Sequence = 2,
-            Publisher = new PackagePublisher(Guid.NewGuid(), "NEW-REFERENCE", other.KeyId, other.PublicKey),
-            Configuration = new FoundryConfigurationDocument(),
-            MasterKey = RandomNumberGenerator.GetBytes(32)
-        };
-        string takeOverName = $"000002-{Guid.NewGuid():N}.fcfg";
-        await File.WriteAllBytesAsync(Path.Combine(Folder, "manifests", takeOverName), ConfigurationPackageCodec.Write(takeOver, Password, other), Cancellation);
+        await WriteForeignManifestAsync(other, 2);
         File.Delete(Path.Combine(Folder, "current.json"));
         Dictionary<string, byte[]> before = await SnapshotAsync();
 
@@ -393,6 +385,97 @@ public sealed class PublicationWriterTests : IDisposable
 
         Assert.Equal(new PublishResult(PublishStatus.ForeignPublisher, 2, other.KeyId), result);
         Assert.Equal(before, await SnapshotAsync());
+    }
+
+    [Fact]
+    public async Task Publish_ForeignAboveStalePasswordManifest_ReturnsForeignPublisher()
+    {
+        await PublishAsync([]);
+        Assert.Equal(PublishStatus.Published, await PublicationWriter.RewrapAsync(Folder, Password, "another-publication-password", signer, Cancellation));
+        using PublicationSigningKey other = PublicationSigningKey.Create();
+        await WriteForeignManifestAsync(other, 2);
+        Dictionary<string, byte[]> before = await SnapshotAsync();
+
+        PublishResult result = await PublishAsync([]);
+
+        Assert.Equal(new PublishResult(PublishStatus.ForeignPublisher, 2, other.KeyId), result);
+        Assert.Equal(before, await SnapshotAsync());
+    }
+
+    [Fact]
+    public async Task Rewrap_ForeignManifestAboveOwn_ReturnsForeignPublisher()
+    {
+        await PublishAsync([]);
+        using PublicationSigningKey other = PublicationSigningKey.Create();
+        await WriteForeignManifestAsync(other, 2);
+        Dictionary<string, byte[]> before = await SnapshotAsync();
+
+        PublishStatus status = await PublicationWriter.RewrapAsync(Folder, Password, "another-publication-password", signer, Cancellation);
+
+        Assert.Equal(PublishStatus.ForeignPublisher, status);
+        Assert.Equal(before, await SnapshotAsync());
+    }
+
+    [Fact]
+    public async Task Publish_ForeignManifestBelowOwn_DoesNotBlock()
+    {
+        await PublishAsync([]);
+        await PublishAsync([]);
+        using PublicationSigningKey other = PublicationSigningKey.Create();
+        await WriteForeignManifestAsync(other, 1);
+
+        PublishResult result = await PublishAsync([]);
+
+        Assert.Equal(new PublishResult(PublishStatus.Published, 3, null), result);
+    }
+
+    [Fact]
+    public async Task TakeOver_RightPassword_PublishesAboveForeignAndOldReferenceGetsForeignPublisher()
+    {
+        PackageContent content = source.Add("installer", SharedContentKind.Package);
+        await PublishAsync([content]);
+        await PublishAsync([content]);
+        using PublicationSigningKey other = PublicationSigningKey.Create();
+        byte[] newMasterKey = RandomNumberGenerator.GetBytes(32);
+
+        PublishResult result = await PublicationWriter.PublishAsync(
+            Request([content]) with { Signer = other, MasterKey = newMasterKey, TakeOver = true }, source, null, Cancellation);
+
+        Assert.Equal(new PublishResult(PublishStatus.Published, 3, null), result);
+        PublicationReadResult read = await PublicationReader.ReadAsync(Folder, Password, other.PublicKey, 2, Cancellation);
+        Assert.Equal(PublicationReadStatus.Ok, read.Status);
+        Assert.Equal(3, read.Sequence);
+        Assert.Equal(other.KeyId, read.Payload!.Publisher!.KeyId);
+        Assert.Equal("installer", await DecryptContentAsync(content.Hash, newMasterKey));
+        Assert.Equal(new PublishResult(PublishStatus.ForeignPublisher, 3, other.KeyId), await PublishAsync([content]));
+    }
+
+    [Fact]
+    public async Task TakeOver_WrongPassword_ReturnsWrongPasswordAndChangesNothing()
+    {
+        await PublishAsync([]);
+        Dictionary<string, byte[]> before = await SnapshotAsync();
+        using PublicationSigningKey other = PublicationSigningKey.Create();
+
+        PublishResult result = await PublicationWriter.PublishAsync(
+            Request([]) with { Signer = other, Password = "another-publication-password", TakeOver = true }, source, null, Cancellation);
+
+        Assert.Equal(new PublishResult(PublishStatus.WrongPassword, 0, null), result);
+        Assert.Equal(before, await SnapshotAsync());
+    }
+
+    [Fact]
+    public async Task TakeOver_PointerDeleted_ContinuesAboveForeignSequence()
+    {
+        await PublishAsync([]);
+        await PublishAsync([]);
+        File.Delete(Path.Combine(Folder, "current.json"));
+        using PublicationSigningKey other = PublicationSigningKey.Create();
+
+        PublishResult result = await PublicationWriter.PublishAsync(Request([]) with { Signer = other, TakeOver = true }, source, null, Cancellation);
+
+        Assert.Equal(new PublishResult(PublishStatus.Published, 3, null), result);
+        Assert.Equal(3, (await PublicationReader.ReadAsync(Folder, Password, other.PublicKey, 0, Cancellation)).Sequence);
     }
 
     public void Dispose()
@@ -429,6 +512,21 @@ public sealed class PublicationWriterTests : IDisposable
         PackageReadResult result = await ReadCurrentAsync(password);
         Assert.Equal(PackageReadStatus.Ok, result.Status);
         return result.Payload!;
+    }
+
+    /// <summary>Writes a valid publication manifest signed by <paramref name="key"/> at <paramref name="sequence"/>, as another reference PC would.</summary>
+    private async Task WriteForeignManifestAsync(PublicationSigningKey key, long sequence)
+    {
+        ConfigurationPackagePayload payload = new()
+        {
+            Kind = PackageKind.Publication,
+            Sequence = sequence,
+            Publisher = new PackagePublisher(Guid.NewGuid(), "OTHER-REFERENCE", key.KeyId, key.PublicKey),
+            Configuration = new FoundryConfigurationDocument(),
+            MasterKey = RandomNumberGenerator.GetBytes(32)
+        };
+        string name = string.Create(CultureInfo.InvariantCulture, $"{sequence:D6}-{Guid.NewGuid():N}.fcfg");
+        await File.WriteAllBytesAsync(Path.Combine(Folder, "manifests", name), ConfigurationPackageCodec.Write(payload, Password, key), Cancellation);
     }
 
     /// <summary>Maps every file of the folder (relative path) to its bytes.</summary>
