@@ -5,6 +5,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using Foundry.Core.Models.Configuration;
 using Foundry.Utilities.Security;
 
@@ -70,7 +71,11 @@ public static class LegacyProfileReader
         }
     }
 
-    /// <summary>Lists the committed profiles of a legacy store; a missing store is empty and malformed entries are skipped.</summary>
+    /// <summary>
+    /// Lists the committed profiles of a legacy store. A missing store is empty; a profile that cannot be read
+    /// (malformed, inaccessible or redirected) is skipped so the others can still be migrated.
+    /// </summary>
+    /// <exception cref="IOException">The store root or its profiles directory is a redirected (reparse point) directory.</exception>
     public static IReadOnlyList<LegacyLocalProfile> ListLocalProfiles(string profilesRoot)
     {
         string root = NormalizeRoot(profilesRoot);
@@ -78,6 +83,10 @@ public static class LegacyProfileReader
         if (!Directory.Exists(directory))
         {
             return [];
+        }
+        if (IsReparsePoint(root) || IsReparsePoint(directory))
+        {
+            throw new IOException("Legacy profile storage cannot use redirected files or directories.");
         }
         Guid? active = ReadActive(root);
         var profiles = new List<LegacyLocalProfile>();
@@ -94,9 +103,9 @@ public static class LegacyProfileReader
                     profiles.Add(new LegacyLocalProfile(localId, head.Descriptor.DisplayName!, localId == active, head.Descriptor.IsShared));
                 }
             }
-            catch (InvalidDataException)
+            catch (Exception exception) when (exception is InvalidDataException or IOException or UnauthorizedAccessException)
             {
-                // An unreadable descriptor cannot be migrated or imported; it is left untouched.
+                // An unreadable profile cannot be migrated or imported; it is left untouched.
             }
         }
         return profiles.OrderBy(profile => profile.DisplayName, StringComparer.OrdinalIgnoreCase).ThenBy(profile => profile.LocalId).ToArray();
@@ -152,8 +161,9 @@ public static class LegacyProfileReader
             {
                 throw new InvalidDataException($"The legacy profile authoring schema is unsupported. SchemaVersion={schemaVersion}.");
             }
+            JsonNode configurationNode = WithoutNullValues(JsonNode.Parse(payload.Configuration.GetRawText(), documentOptions: new() { MaxDepth = 32 })!);
             configuration = FoundryConfigurationMigration.ApplySchemaMigrations(
-                payload.Configuration.Deserialize<FoundryConfigurationDocument>(PayloadOptions) ?? throw new InvalidDataException("The legacy profile configuration is missing."));
+                configurationNode.Deserialize<FoundryConfigurationDocument>(PayloadOptions) ?? throw new InvalidDataException("The legacy profile configuration is missing."));
         }
         catch (Exception exception) when (exception is JsonException or InvalidOperationException or FormatException or ArgumentException or NotSupportedException)
         {
@@ -176,6 +186,34 @@ public static class LegacyProfileReader
             IsConnectionFile: isConnectionFile);
     }
 
+    /// <summary>
+    /// Removes explicit null members and list items, so a null section reads as absent and takes its default instead of
+    /// reaching migration and secret mapping as a null reference.
+    /// </summary>
+    private static JsonNode WithoutNullValues(JsonNode node)
+    {
+        if (node is JsonObject json)
+        {
+            foreach (string name in json.Where(member => member.Value is null).Select(member => member.Key).ToArray())
+            {
+                json.Remove(name);
+            }
+            foreach (KeyValuePair<string, JsonNode?> member in json)
+            {
+                WithoutNullValues(member.Value!);
+            }
+        }
+        else if (node is JsonArray array)
+        {
+            for (int index = array.Count - 1; index >= 0; index--)
+            {
+                if (array[index] is { } item) WithoutNullValues(item);
+                else array.RemoveAt(index);
+            }
+        }
+        return node;
+    }
+
     /// <summary>Maps each stored secret back to its kind by recomputing the legacy identity of every candidate setting.</summary>
     private static LegacySecret[] ReadSecrets(FoundryConfigurationDocument configuration, PayloadSecret[] secrets, PayloadAsset[] assets)
     {
@@ -185,7 +223,7 @@ public static class LegacyProfileReader
         Add(DeploymentPasswordPurpose, ["media-protection"], LegacySecretKind.DeploymentProtection);
         Add(WifiPassphrasePurpose, [wifi.Ssid ?? string.Empty, wifi.SecurityType ?? string.Empty], LegacySecretKind.WifiPassphrase);
         Add(AdministratorPasswordPurpose, ["builtin-administrator"], LegacySecretKind.OobeAdministrator);
-        foreach (OobeAdditionalAccountSettings account in configuration.Customization.Oobe.AdditionalAccounts.Where(account => account is not null))
+        foreach (OobeAdditionalAccountSettings account in configuration.Customization.Oobe.AdditionalAccounts)
         {
             Add(AdditionalAccountPasswordPurpose, [account.Id, account.UserName ?? string.Empty, account.Type.ToString()], LegacySecretKind.OobeAccount, account.Id);
         }
@@ -194,7 +232,7 @@ public static class LegacyProfileReader
         Add(AutopilotCertificatePasswordPurpose, [tenant.TenantId ?? string.Empty, tenant.ClientId ?? string.Empty, AssetHash(AutopilotCertificateKind)],
             LegacySecretKind.AutopilotCertificatePassword);
         DomainJoinSettings domainJoin = configuration.DomainJoin;
-        foreach (string? account in domainJoin.Domains.Where(domain => domain is not null).Select(domain => domain.AccountName).Prepend(domainJoin.SharedAccountName))
+        foreach (string? account in domainJoin.Domains.Select(domain => domain.AccountName).Prepend(domainJoin.SharedAccountName))
         {
             if (string.IsNullOrWhiteSpace(account)) continue;
             string canonical = account.Trim().ToUpperInvariant();
@@ -322,7 +360,7 @@ public static class LegacyProfileReader
                 ?? throw new InvalidDataException("The legacy active profile pointer is missing.");
             return pointer.Version == 1 ? pointer.LocalId : null;
         }
-        catch (Exception exception) when (exception is JsonException or InvalidDataException)
+        catch (Exception exception) when (exception is JsonException or InvalidDataException or IOException or UnauthorizedAccessException)
         {
             // The active selection only orders migration; an unreadable pointer selects no profile.
             return null;
@@ -345,12 +383,15 @@ public static class LegacyProfileReader
     private static string ProfilePath(string root, Guid localId, params string[] segments) =>
         Path.Combine([root, "profiles", localId.ToString("N"), .. segments]);
 
+    private static bool IsReparsePoint(string path) =>
+        (File.Exists(path) || Directory.Exists(path)) && (File.GetAttributes(path) & FileAttributes.ReparsePoint) != 0;
+
     /// <summary>Reads a bounded file, refusing redirected files or directories between it and the store root.</summary>
     private static byte[] ReadBounded(string root, string path, int maximumLength)
     {
         for (string? current = path; current is not null; current = Path.GetDirectoryName(current))
         {
-            if ((File.Exists(current) || Directory.Exists(current)) && (File.GetAttributes(current) & FileAttributes.ReparsePoint) != 0)
+            if (IsReparsePoint(current))
             {
                 throw new IOException("Legacy profile storage cannot use redirected files or directories.");
             }

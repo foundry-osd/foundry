@@ -2,15 +2,19 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Buffers.Binary;
+using System.Security.Cryptography;
 using System.Text;
+using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration.Legacy;
+using Foundry.Core.Tests.TestUtilities;
 
 namespace Foundry.Core.Tests.Configuration.Legacy;
 
 public sealed class LegacyProfileReaderTests
 {
     private static readonly LegacyFixtureValues Expected = LegacyFixtures.LoadValues();
-    private static string StoreRoot => LegacyFixtures.Path(LegacyFixtures.LocalStore);
+    private static string StoreRoot => LegacyFixtures.FixturePath(LegacyFixtures.LocalStore);
 
     [Fact]
     public void ReadPackage_ExportWithSecrets_ReturnsConfigurationSecretsAndFiles()
@@ -86,6 +90,19 @@ public sealed class LegacyProfileReaderTests
     }
 
     [Fact]
+    public void ListLocalProfiles_InaccessibleProfile_SkipsItAndListsTheOthers()
+    {
+        using var store = new TemporaryDirectory();
+        CopyDirectory(StoreRoot, store.Path);
+        string sharedHead = Path.Combine(store.Path, "profiles", Expected.SharedLocalId.ToString("N"), "head.json");
+        using var exclusive = new FileStream(sharedHead, FileMode.Open, FileAccess.Read, FileShare.None);
+
+        LegacyLocalProfile listed = Assert.Single(LegacyProfileReader.ListLocalProfiles(store.Path));
+
+        Assert.Equal(Expected.ActiveLocalId, listed.LocalId);
+    }
+
+    [Fact]
     public void ListLocalProfiles_MissingStore_ReturnsEmpty()
     {
         Assert.Empty(LegacyProfileReader.ListLocalProfiles(Path.Combine(StoreRoot, "missing")));
@@ -105,12 +122,33 @@ public sealed class LegacyProfileReaderTests
     }
 
     [Fact]
-    public void ReadLocalProfile_Enrolled_ReportsWasShared()
+    public void ReadLocalProfile_Enrolled_ReportsWasSharedAndKeepsLocalValues()
     {
         LegacyConfigurationSnapshot snapshot = LegacyProfileReader.ReadLocalProfile(StoreRoot, Expected.SharedLocalId, LoadCredentials());
 
         Assert.Equal(Expected.SharedDisplayName, snapshot.DisplayName);
         Assert.True(snapshot.WasShared);
+        Assert.False(snapshot.IsConnectionFile);
+        // A local revision is not portable: its per-PC telemetry values survive.
+        Assert.Equal("fake-project-token", snapshot.Configuration.Telemetry.ProjectToken);
+    }
+
+    [Fact]
+    public void ReadPackage_NullConfigurationSections_UsesDefaults()
+    {
+        string payload = $$$"""
+            {"formatVersion":1,"profileId":"88888888-8888-4888-8888-888888888888","displayName":"Null sections",
+             "configuration":{"schemaVersion":{{{FoundryConfigurationDocument.CurrentSchemaVersion}}},"network":null,"autopilot":null,
+               "customization":{"oobe":null},"domainJoin":{"domains":null}},
+             "secrets":{"entries":[{"purpose":1,"identity":"UNMATCHED","state":4,"value":"{{{Convert.ToBase64String(Encoding.UTF8.GetBytes("fake-value"))}}}"}]},
+             "assets":[]}
+            """;
+
+        LegacyConfigurationSnapshot snapshot = LegacyProfileReader.ReadPackage(EncryptPackage(Encoding.UTF8.GetBytes(payload), Expected.ExportPassphrase), Expected.ExportPassphrase);
+
+        Assert.Null(snapshot.Configuration.Network.Wifi.Ssid);
+        Assert.Empty(snapshot.Configuration.Customization.Oobe.AdditionalAccounts);
+        Assert.Empty(snapshot.Configuration.DomainJoin.Domains);
         Assert.Empty(snapshot.Secrets);
     }
 
@@ -142,5 +180,35 @@ public sealed class LegacyProfileReaderTests
     }
 
     private static FakeCredentialStore LoadCredentials() =>
-        FakeCredentialStore.LoadFixture(StoreRoot, LegacyFixtures.Path(LegacyFixtures.LocalStoreCredentials));
+        FakeCredentialStore.LoadFixture(StoreRoot, LegacyFixtures.FixturePath(LegacyFixtures.LocalStoreCredentials));
+
+    private static void CopyDirectory(string source, string destination)
+    {
+        Directory.CreateDirectory(destination);
+        foreach (string file in Directory.GetFiles(source)) File.Copy(file, Path.Combine(destination, Path.GetFileName(file)));
+        foreach (string directory in Directory.GetDirectories(source)) CopyDirectory(directory, Path.Combine(destination, Path.GetFileName(directory)));
+    }
+
+    /// <summary>Writes a FNDRYPRF v1 passphrase package around a hand-written payload, as the retired exporter did.</summary>
+    private static byte[] EncryptPackage(byte[] payload, string passphrase)
+    {
+        byte[] package = new byte[90 + 28 + payload.Length];
+        "FNDRYPRF"u8.CopyTo(package);
+        package[8] = 1;
+        package[9] = 1;
+        BinaryPrimitives.WriteInt32LittleEndian(package.AsSpan(10, 4), 600_000);
+        RandomNumberGenerator.Fill(package.AsSpan(14, 16));
+        byte[] key = Rfc2898DeriveBytes.Pbkdf2(passphrase, package[14..30], 600_000, HashAlgorithmName.SHA256, 32);
+        byte[] dataKey = RandomNumberGenerator.GetBytes(32);
+        Seal(dataKey, key, package.AsSpan(30, 60), package.AsSpan(0, 30));
+        Seal(payload, dataKey, package.AsSpan(90), package.AsSpan(0, 90));
+        return package;
+
+        static void Seal(ReadOnlySpan<byte> plaintext, byte[] key, Span<byte> destination, ReadOnlySpan<byte> associatedData)
+        {
+            RandomNumberGenerator.Fill(destination[..12]);
+            using AesGcm aes = new(key, 16);
+            aes.Encrypt(destination[..12], plaintext, destination[28..], destination.Slice(12, 16), associatedData);
+        }
+    }
 }

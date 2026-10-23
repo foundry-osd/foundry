@@ -42,11 +42,11 @@ internal static class LegacyFixtures
 
     public static readonly JsonSerializerOptions JsonOptions = new(JsonSerializerDefaults.Web) { WriteIndented = true };
 
-    public static string Directory => System.IO.Path.Combine(AppContext.BaseDirectory, "Configuration", "Legacy", "Fixtures");
+    public static string FixtureDirectory => Path.Combine(AppContext.BaseDirectory, "Configuration", "Legacy", "Fixtures");
 
-    public static string Path(string name) => System.IO.Path.Combine(Directory, name);
+    public static string FixturePath(string name) => Path.Combine(FixtureDirectory, name);
 
-    public static byte[] Read(string name) => File.ReadAllBytes(Path(name));
+    public static byte[] Read(string name) => File.ReadAllBytes(FixturePath(name));
 
     public static LegacyFixtureValues LoadValues() =>
         JsonSerializer.Deserialize<LegacyFixtureValues>(Read(Values), JsonOptions) ?? throw new InvalidDataException("The fixture values are missing.");
