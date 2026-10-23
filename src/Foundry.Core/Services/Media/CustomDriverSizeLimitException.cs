@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-namespace Foundry.Core.Services.Profiles;
+namespace Foundry.Core.Services.Media;
 
 /// <summary>Identifies custom driver sources that exceed the aggregate size supported by a media snapshot.</summary>
 public sealed class CustomDriverSizeLimitException(long actualBytes, long limitBytes)

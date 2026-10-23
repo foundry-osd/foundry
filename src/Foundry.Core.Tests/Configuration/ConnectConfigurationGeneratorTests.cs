@@ -315,6 +315,92 @@ public sealed class ConnectConfigurationGeneratorTests
         Assert.Equal(32, bundle.MediaSecretsKey.Length);
     }
 
+    [Theory]
+    [InlineData("connect-schema5-dot1x-wifi.json", false)]
+    [InlineData("connect-schema5-dot1x-wifi-enterprise.json", true)]
+    public void Generate_RuntimeJson_IsUnchangedBySplit(string fixtureName, bool enterpriseWifi)
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        var generator = new ConnectConfigurationGenerator();
+
+        FoundryConnectProvisioningBundle bundle = generator.CreateProvisioningBundle(
+            CreateRuntimeFixtureSource(tempDirectory, enterpriseWifi),
+            tempDirectory.Path,
+            "26.10.18.1");
+
+        string expected = File.ReadAllText(System.IO.Path.Combine(AppContext.BaseDirectory, "Configuration", "Fixtures", fixtureName));
+        Assert.Equal(NormalizeRuntimeJson(expected), NormalizeRuntimeJson(bundle.ConfigurationJson));
+    }
+
+    private static FoundryConfigurationDocument CreateRuntimeFixtureSource(TemporaryDirectory tempDirectory, bool enterpriseWifi)
+    {
+        WifiSettings wifi = enterpriseWifi
+            ? new WifiSettings
+            {
+                IsEnabled = true,
+                Ssid = "Corp WiFi",
+                SecurityType = NetworkConfigurationValidator.WifiSecurityEnterprise,
+                HasEnterpriseProfile = true,
+                EnterpriseProfileTemplatePath = tempDirectory.CreateFile(
+                    "source",
+                    "wifi.xml",
+                    """
+                    <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
+                      <name>Corp WiFi</name>
+                      <MSM>
+                        <security>
+                          <authEncryption>
+                            <authentication>WPA2</authentication>
+                          </authEncryption>
+                        </security>
+                      </MSM>
+                    </WLANProfile>
+                    """),
+                EnterpriseAuthenticationMode = NetworkAuthenticationMode.MachineOrUser,
+                AllowRuntimeCredentials = true,
+                RequiresCertificate = true,
+                CertificatePath = tempDirectory.CreateFile("source", "wifi.pfx", "wifi-pfx"),
+                CertificatePfxPassword = "wifi-password"
+            }
+            : new WifiSettings
+            {
+                IsEnabled = true,
+                Ssid = "Branch WiFi",
+                SecurityType = "WPA2/WPA3-Personal",
+                Passphrase = "personal-passphrase"
+            };
+
+        return new FoundryConfigurationDocument
+        {
+            Network = new NetworkSettings
+            {
+                WifiProvisioned = true,
+                RoamWiredDot1xProfileToWindows = true,
+                RoamWiredDot1xPrivateKeyMaterialToWindows = true,
+                RoamWifiProfileToWindows = true,
+                Dot1x = new Dot1xSettings
+                {
+                    IsEnabled = true,
+                    ProfileTemplatePath = tempDirectory.CreateFile("source", "wired.xml", "<LANProfile />"),
+                    AuthenticationMode = NetworkAuthenticationMode.UserOnly,
+                    AllowRuntimeCredentials = true,
+                    RequiresCertificate = true,
+                    CertificatePath = tempDirectory.CreateFile("source", "wired.pfx", "wired-pfx"),
+                    CertificatePfxPassword = "wired-password"
+                },
+                Wifi = wifi
+            },
+            Telemetry = new TelemetrySettings { IsEnabled = true, InstallId = "fixture-install" }
+        };
+    }
+
+    // Secret envelopes use a fresh media key and nonce per generation; every other byte must match the fixture.
+    private static string NormalizeRuntimeJson(string json) =>
+        System.Text.RegularExpressions.Regex.Replace(
+            json.ReplaceLineEndings("\n"),
+            "\"(nonce|tag|ciphertext)\": \"[^\"]*\"",
+            "\"$1\": \"<random>\"");
+
     private static void AssertAsset(
         FoundryConnectProvisioningBundle bundle,
         string stagingDirectoryPath,
