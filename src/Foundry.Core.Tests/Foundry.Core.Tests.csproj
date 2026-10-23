@@ -26,4 +26,8 @@
     <Content Include="..\Foundry.Core\Assets\7z\readme.txt" Link="Assets\7z\readme.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Configuration\Legacy\Fixtures\**\*" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>
