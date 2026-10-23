@@ -77,6 +77,9 @@ public sealed record FoundryDeployConfigurationDocument
     /// <summary>Gets domain metadata and any protected automatic credentials consumed during deployment.</summary>
     public DeployDomainJoinSettings DomainJoin { get; init; } = new();
 
+    /// <summary>Gets the SMB shares used as a shared download cache and the IP scopes that select them.</summary>
+    public DeployNetworkCacheSettings NetworkCache { get; init; } = new();
+
     /// <summary>
     /// Gets telemetry policy and runtime settings consumed by Foundry.Deploy.
     /// </summary>
