@@ -116,6 +116,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<INetworkCacheSessionResolver, NetworkCacheSessionResolver>();
         services.AddSingleton<INetworkCacheSessionAccessor, NetworkCacheSessionAccessor>();
         services.AddSingleton<INetworkCacheReader, NetworkCacheReader>();
+        services.AddSingleton<INetworkCachePublisher, NetworkCachePublisher>();
         services.AddSingleton<IDeploymentLogService, DeploymentLogService>();
         services.AddSingleton<IHardwareInspector, WindowsHardwareInspector>();
         services.AddSingleton<IHardwareProfileService, HardwareProfileService>();
