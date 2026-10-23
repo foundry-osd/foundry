@@ -103,11 +103,10 @@ public static class ContentPackageArchive
         }
 
         string hash = expectedHash.ToLowerInvariant();
-        string workspace = Path.Combine(Path.GetTempPath(), "Foundry", "ContentImport", Guid.NewGuid().ToString("N"));
 
-        // The library refuses sources inside its own root, so the extraction directory lives in the user's temporary folder; the
-        // directory is named after the hash because the library uses the source folder name as the display name.
-        string extracted = Path.Combine(workspace, hash);
+        // The library refuses sources inside its own root, so the files are extracted under the user's temporary folder. The prefix
+        // stays short because the kind's full-path limit (259 characters for post-installation packages) also applies here.
+        string extracted = Path.Combine(Path.GetTempPath(), "Foundry", Guid.NewGuid().ToString("N"));
         try
         {
             await using (ZipArchive zip = await ZipArchive.CreateAsync(archive, ZipArchiveMode.Read, leaveOpen: true, entryNameEncoding: null, cancellationToken)
@@ -118,13 +117,14 @@ public static class ContentPackageArchive
 
             // The extracted tree holds exactly the manifest's directories and verified files, so the library computes the same
             // canonical manifest and therefore the expected hash; a mismatch was already rejected before anything reached the library.
-            return await library.ImportAsync(extracted, cancellationToken).ConfigureAwait(false);
+            ContentPackageReference reference = await library.ImportAsync(extracted, cancellationToken).ConfigureAwait(false);
+            return reference with { DisplayName = reference.ContentHash };
         }
         finally
         {
-            if (Directory.Exists(workspace))
+            if (Directory.Exists(extracted))
             {
-                Directory.Delete(workspace, recursive: true);
+                Directory.Delete(extracted, recursive: true);
             }
         }
     }

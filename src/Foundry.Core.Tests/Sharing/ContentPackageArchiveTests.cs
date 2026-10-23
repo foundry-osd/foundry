@@ -42,6 +42,7 @@ public sealed class ContentPackageArchiveTests : IDisposable
         ContentPackageReference imported = await ContentPackageArchive.ImportAsync(target, archive, reference.ContentHash, Cancellation);
 
         Assert.Equal(reference.ContentHash, imported.ContentHash);
+        Assert.Equal(reference.ContentHash, imported.DisplayName);
         Assert.Equal(reference.FileCount, imported.FileCount);
         await using ContentPackageLease lease = await target.AcquireAsync(reference.ContentHash, Cancellation);
         Assert.Equal("driver", await File.ReadAllTextAsync(lease.Files.Single(file => file.RelativePath == "net/e1000.sys").SourcePath, Cancellation));
