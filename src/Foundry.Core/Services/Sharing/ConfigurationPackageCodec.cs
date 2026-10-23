@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
 using Foundry.Utilities.Security;
@@ -30,7 +31,10 @@ public enum PackageReadStatus
     /// <summary>A required signature is missing, made with another key, or does not match the publisher in the payload.</summary>
     InvalidSignature,
 
-    /// <summary>The envelope, payload or configuration requires a newer Foundry version.</summary>
+    /// <summary>
+    /// The envelope, payload or configuration requires a newer Foundry version. An envelope version is read before any
+    /// signature check, so on a followed folder this status is not authenticated either.
+    /// </summary>
     Unsupported,
 
     /// <summary>The bytes are not a well-formed configuration package, or its parameters are out of range.</summary>
@@ -40,7 +44,11 @@ public enum PackageReadStatus
 /// <summary>Result of <see cref="ConfigurationPackageCodec.Read"/>.</summary>
 /// <param name="Status">Read outcome.</param>
 /// <param name="Payload">Decrypted payload with a migrated configuration; set only when <paramref name="Status"/> is <see cref="PackageReadStatus.Ok"/>.</param>
-/// <param name="SignerKeyId">Key id found in the envelope signature, when one is present, even when the read fails.</param>
+/// <param name="SignerKeyId">
+/// Key id found in the envelope signature, when one is present, even when the read fails. It is authenticated only on
+/// <see cref="PackageReadStatus.Ok"/>; otherwise it is copied from the unverified envelope, so callers must not present it as a
+/// confirmed publisher change.
+/// </param>
 public sealed record PackageReadResult(PackageReadStatus Status, ConfigurationPackagePayload? Payload, string? SignerKeyId);
 
 /// <summary>
@@ -74,12 +82,24 @@ public static class ConfigurationPackageCodec
     private const int NonceSizeBytes = 12;
     private const int TagSizeBytes = 16;
 
+    /// <summary>Largest total of embedded files an export may carry.</summary>
+    internal const int MaximumEmbeddedFileBytes = 16 * 1024 * 1024;
+
+    /// <summary>
+    /// Frozen envelope options, deliberately separate from <see cref="ConfigurationPackageJson.SerializerOptions"/>: the signed
+    /// bytes depend on them, so payload or publication-file settings must never change them.
+    /// </summary>
+    private static readonly JsonSerializerOptions EnvelopeSerializerOptions = CreateEnvelopeSerializerOptions();
+
     /// <summary>Encrypts a payload under a passphrase and, for a publication, signs the envelope.</summary>
     /// <param name="payload">Payload to write; a publication needs <paramref name="signer"/> and a matching <see cref="ConfigurationPackagePayload.Publisher"/>.</param>
     /// <param name="passphrase">Passphrase that must satisfy <see cref="PassphrasePolicy"/>.</param>
     /// <param name="signer">Reference signing key; required for publications and refused for exports.</param>
     /// <returns>UTF-8 JSON envelope bytes.</returns>
-    /// <exception cref="ArgumentException">The passphrase breaks the policy, or the kind, signer and publisher do not agree.</exception>
+    /// <exception cref="ArgumentException">
+    /// The passphrase breaks the policy, the kind, signer and publisher do not agree, embedded files exceed 16 MiB in total,
+    /// or the package would exceed 64 MiB. The current payload version is always written, whatever the caller set.
+    /// </exception>
     public static byte[] Write(ConfigurationPackagePayload payload, ReadOnlySpan<char> passphrase, PublicationSigningKey? signer = null)
     {
         ArgumentNullException.ThrowIfNull(payload);
@@ -89,10 +109,20 @@ public static class ConfigurationPackageCodec
         }
 
         ValidateSigner(payload, signer);
-        byte[] plaintext = JsonSerializer.SerializeToUtf8Bytes(payload, ConfigurationPackageJson.SerializerOptions);
+        if (payload.Files is not null && payload.Files.Values.Sum(file => (long)(file?.Length ?? 0)) > MaximumEmbeddedFileBytes)
+        {
+            throw new ArgumentException("The embedded files exceed the export size limit.", nameof(payload));
+        }
+
+        byte[] plaintext = JsonSerializer.SerializeToUtf8Bytes(
+            payload with { PayloadVersion = ConfigurationPackagePayload.CurrentPayloadVersion },
+            ConfigurationPackageJson.SerializerOptions);
         try
         {
-            return Seal(plaintext, passphrase, signer);
+            byte[] package = Seal(plaintext, passphrase, signer);
+            return package.Length <= MaximumPackageBytes
+                ? package
+                : throw new ArgumentException("The package exceeds the maximum package size.", nameof(payload));
         }
         finally
         {
@@ -104,10 +134,16 @@ public static class ConfigurationPackageCodec
     /// Reads a package. When <paramref name="expectedPublicKey"/> is set (a follower's pinned reference key), the envelope must
     /// carry a signature with that key's id, verified before decryption. Without it, a signature present is verified after
     /// decryption against the publisher key in the payload. An unsigned publication is never accepted.
+    /// Read does not check <see cref="ConfigurationPackagePayload.Kind"/>: callers must check it (for example, a follower
+    /// requires <see cref="PackageKind.Publication"/>).
     /// </summary>
     /// <param name="package">Envelope bytes.</param>
     /// <param name="passphrase">Passphrase to try; not checked against the policy.</param>
     /// <param name="expectedPublicKey">Pinned SubjectPublicKeyInfo, or empty to accept any consistent signer.</param>
+    /// <returns>
+    /// The status, the payload (only on <see cref="PackageReadStatus.Ok"/>) and the signer key id found in the envelope.
+    /// Never throws for malformed input.
+    /// </returns>
     public static PackageReadResult Read(ReadOnlySpan<byte> package, ReadOnlySpan<char> passphrase, ReadOnlySpan<byte> expectedPublicKey = default)
     {
         PackageReadStatus? headerStatus = TryReadEnvelope(package, out Envelope? envelope);
@@ -185,7 +221,7 @@ public static class ConfigurationPackageCodec
             envelope = envelope with { Signature = new EnvelopeSignature(SignatureAlgorithm, signer.KeyId, signer.Sign(GetSignedBytes(envelope))) };
         }
 
-        return JsonSerializer.SerializeToUtf8Bytes(envelope, ConfigurationPackageJson.SerializerOptions);
+        return JsonSerializer.SerializeToUtf8Bytes(envelope, EnvelopeSerializerOptions);
     }
 
     private static void ValidateSigner(ConfigurationPackagePayload payload, PublicationSigningKey? signer)
@@ -227,7 +263,7 @@ public static class ConfigurationPackageCodec
 
             try
             {
-                envelope = root.Deserialize<Envelope>(ConfigurationPackageJson.SerializerOptions);
+                envelope = root.Deserialize<Envelope>(EnvelopeSerializerOptions);
             }
             catch (JsonException)
             {
@@ -308,7 +344,8 @@ public static class ConfigurationPackageCodec
             if (root.ValueKind != JsonValueKind.Object
                 || !root.TryGetProperty("payloadVersion", out JsonElement payloadVersion) || !payloadVersion.TryGetInt32(out int payloadVersionNumber) || payloadVersionNumber < 1
                 || !root.TryGetProperty("configuration", out JsonElement configuration) || configuration.ValueKind != JsonValueKind.Object
-                || !configuration.TryGetProperty("schemaVersion", out JsonElement schemaVersion) || !schemaVersion.TryGetInt32(out int schemaVersionNumber))
+                || !configuration.TryGetProperty("schemaVersion", out JsonElement schemaVersion) || !schemaVersion.TryGetInt32(out int schemaVersionNumber)
+                || HasNullMember(configuration))
             {
                 return PackageReadStatus.Invalid;
             }
@@ -334,6 +371,23 @@ public static class ConfigurationPackageCodec
                 return PackageReadStatus.Invalid;
             }
         }
+    }
+
+    /// <summary>
+    /// System.Text.Json assigns an explicit <c>null</c> to non-nullable configuration sections, which migration and later
+    /// consumers do not expect. Writers omit null members, so any null top-level section marks a hand-made package.
+    /// </summary>
+    private static bool HasNullMember(JsonElement configuration)
+    {
+        foreach (JsonProperty section in configuration.EnumerateObject())
+        {
+            if (section.Value.ValueKind == JsonValueKind.Null)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private static bool TryParseJson(ReadOnlySpan<byte> bytes, out JsonDocument? document)
@@ -366,20 +420,40 @@ public static class ConfigurationPackageCodec
             && format.ValueEquals(Format);
     }
 
-    /// <summary>The signature covers the envelope serialized without its <c>signature</c> member; serialization is deterministic.</summary>
-    private static byte[] GetSignedBytes(Envelope envelope)
+    /// <summary>
+    /// Returns the bytes a publication signature covers: the envelope serialized with <see cref="EnvelopeSerializerOptions"/>
+    /// without its <c>signature</c> member. Part of the on-disk contract: changing it invalidates every published signature.
+    /// </summary>
+    internal static byte[] GetSignedBytes(Envelope envelope)
     {
-        return JsonSerializer.SerializeToUtf8Bytes(envelope with { Signature = null }, ConfigurationPackageJson.SerializerOptions);
+        return JsonSerializer.SerializeToUtf8Bytes(envelope with { Signature = null }, EnvelopeSerializerOptions);
     }
 
-    private static byte[] CreateAssociatedData(string format, int version, KdfParameters kdf, string cipher)
+    /// <summary>
+    /// Returns the AES-GCM associated data: UTF-8 of <c>format|version|kdf.name|kdf.iterations|kdf.salt(base64)|cipher</c>.
+    /// Part of the on-disk contract: changing it makes every existing package unreadable.
+    /// </summary>
+    internal static byte[] CreateAssociatedData(string format, int version, KdfParameters kdf, string cipher)
     {
         return Encoding.UTF8.GetBytes(string.Create(
             CultureInfo.InvariantCulture,
             $"{format}|{version}|{kdf.Name}|{kdf.Iterations}|{Convert.ToBase64String(kdf.Salt)}|{cipher}"));
     }
 
-    private sealed record Envelope(
+    private static JsonSerializerOptions CreateEnvelopeSerializerOptions()
+    {
+        JsonSerializerOptions options = new()
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            MaxDepth = ConfigurationPackageJson.MaxDepth
+        };
+        options.MakeReadOnly(populateMissingResolver: true);
+        return options;
+    }
+
+    /// <summary>Envelope JSON (spec 5.3); binary members are base64.</summary>
+    internal sealed record Envelope(
         string Format,
         int Version,
         KdfParameters Kdf,
@@ -389,7 +463,9 @@ public static class ConfigurationPackageCodec
         byte[] Ciphertext,
         EnvelopeSignature? Signature);
 
-    private sealed record KdfParameters(string Name, int Iterations, byte[] Salt);
+    /// <summary>Envelope <c>kdf</c> member.</summary>
+    internal sealed record KdfParameters(string Name, int Iterations, byte[] Salt);
 
-    private sealed record EnvelopeSignature(string Algorithm, string KeyId, byte[] Value);
+    /// <summary>Envelope <c>signature</c> member, present on publications only.</summary>
+    internal sealed record EnvelopeSignature(string Algorithm, string KeyId, byte[] Value);
 }

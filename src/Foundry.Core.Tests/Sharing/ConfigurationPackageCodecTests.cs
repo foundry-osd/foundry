@@ -22,6 +22,7 @@ public sealed class ConfigurationPackageCodecTests
         byte[] file = [1, 2, 3, 4];
         ConfigurationPackagePayload payload = CreateExport() with
         {
+            PayloadVersion = 7,
             Configuration = new FoundryConfigurationDocument
             {
                 SchemaVersion = ConfigurationSchemaVersions.FoundryCurrent - 1,
@@ -37,6 +38,7 @@ public sealed class ConfigurationPackageCodecTests
         Assert.Equal(PackageReadStatus.Ok, result.Status);
         Assert.Null(result.SignerKeyId);
         ConfigurationPackagePayload read = Assert.IsType<ConfigurationPackagePayload>(result.Payload);
+        Assert.Equal(1, read.PayloadVersion);
         Assert.Equal(PackageKind.Export, read.Kind);
         Assert.Equal(payload.CreatedUtc, read.CreatedUtc);
         Assert.Equal(payload.Sequence, read.Sequence);
@@ -83,8 +85,22 @@ public sealed class ConfigurationPackageCodecTests
     }
 
     [Fact]
-    public void Read_ChangedIterationsInEnvelope_ReturnsTampered()
+    public void Read_SignedManifestModifiedWithoutPinnedKey_ReturnsWrongPassword()
     {
+        // Unpinned, the publisher key is only known after decryption, so the tag failure comes first.
+        using PublicationSigningKey signer = PublicationSigningKey.Create();
+        byte[] package = Edit(ConfigurationPackageCodec.Write(CreatePublication(signer), Passphrase, signer), FlipCiphertextByte);
+
+        PackageReadResult result = ConfigurationPackageCodec.Read(package, Passphrase);
+
+        Assert.Equal(PackageReadStatus.WrongPassword, result.Status);
+        Assert.Null(result.Payload);
+    }
+
+    [Fact]
+    public void Read_ChangedIterationsInSignedEnvelope_ReturnsTampered()
+    {
+        // The signature covers kdf; binding kdf into the AES-GCM associated data is defence in depth.
         using PublicationSigningKey signer = PublicationSigningKey.Create();
         byte[] package = Edit(
             ConfigurationPackageCodec.Write(CreatePublication(signer), Passphrase, signer),
@@ -114,6 +130,90 @@ public sealed class ConfigurationPackageCodecTests
 
         Assert.Equal(PackageReadStatus.Ok, result.Status);
         Assert.Equal(42, result.Payload!.Sequence);
+    }
+
+    [Fact]
+    public void Read_UnknownEnvelopeMember_IsIgnored()
+    {
+        using PublicationSigningKey signer = PublicationSigningKey.Create();
+        byte[] package = Edit(
+            ConfigurationPackageCodec.Write(CreatePublication(signer), Passphrase, signer),
+            envelope => envelope["addedByNewerFoundry"] = "value");
+
+        Assert.Equal(PackageReadStatus.Ok, ConfigurationPackageCodec.Read(package, Passphrase, signer.PublicKey).Status);
+    }
+
+    [Theory]
+    [InlineData("general", ConfigurationSchemaVersions.FoundryCurrent)]
+    [InlineData("autopilot", ConfigurationSchemaVersions.FoundryCurrent)]
+    [InlineData("customization", 13)]
+    [InlineData("operatingSystemSelection", 16)]
+    public void Read_NullConfigurationSection_ReturnsInvalid(string section, int schemaVersion)
+    {
+        JsonObject payload = JsonSerializer.SerializeToNode(CreateExport(), ConfigurationPackageJson.SerializerOptions)!.AsObject();
+        payload["configuration"]!["schemaVersion"] = schemaVersion;
+        payload["configuration"]![section] = null;
+        byte[] package = ConfigurationPackageCodec.Seal(Encoding.UTF8.GetBytes(payload.ToJsonString()), Passphrase, signer: null);
+
+        Assert.Equal(PackageReadStatus.Invalid, ConfigurationPackageCodec.Read(package, Passphrase).Status);
+    }
+
+    [Fact]
+    public void Read_PublisherNotMatchingSignature_ReturnsInvalidSignature()
+    {
+        using PublicationSigningKey signer = PublicationSigningKey.Create();
+        using PublicationSigningKey other = PublicationSigningKey.Create();
+        JsonNode payload = JsonSerializer.SerializeToNode(CreatePublication(other), ConfigurationPackageJson.SerializerOptions)!;
+        byte[] package = ConfigurationPackageCodec.Seal(Encoding.UTF8.GetBytes(payload.ToJsonString()), Passphrase, signer);
+
+        Assert.Equal(PackageReadStatus.InvalidSignature, ConfigurationPackageCodec.Read(package, Passphrase).Status);
+        Assert.Equal(PackageReadStatus.InvalidSignature, ConfigurationPackageCodec.Read(package, Passphrase, signer.PublicKey).Status);
+    }
+
+    [Fact]
+    public void Read_UnsignedPublication_ReturnsInvalidSignature()
+    {
+        using PublicationSigningKey signer = PublicationSigningKey.Create();
+        JsonNode payload = JsonSerializer.SerializeToNode(CreatePublication(signer), ConfigurationPackageJson.SerializerOptions)!;
+        byte[] package = ConfigurationPackageCodec.Seal(Encoding.UTF8.GetBytes(payload.ToJsonString()), Passphrase, signer: null);
+
+        PackageReadResult result = ConfigurationPackageCodec.Read(package, Passphrase);
+
+        Assert.Equal(PackageReadStatus.InvalidSignature, result.Status);
+        Assert.Null(result.Payload);
+    }
+
+    [Fact]
+    public void SignedBytesAndAssociatedData_MatchKnownAnswer()
+    {
+        ConfigurationPackageCodec.KdfParameters kdf = new("PBKDF2-SHA256", 600_000, Filled(16, 0x01));
+        ConfigurationPackageCodec.Envelope envelope = new(
+            "foundry-configuration",
+            1,
+            kdf,
+            "AES-256-GCM",
+            Filled(12, 0x02),
+            Filled(16, 0x03),
+            [4, 5, 6],
+            new ConfigurationPackageCodec.EnvelopeSignature("ECDSA-P256-SHA256", "00112233445566778899aabbccddeeff", Filled(64, 0x09)));
+
+        Assert.Equal(
+            """{"format":"foundry-configuration","version":1,"kdf":{"name":"PBKDF2-SHA256","iterations":600000,"salt":"AQEBAQEBAQEBAQEBAQEBAQ=="},"cipher":"AES-256-GCM","nonce":"AgICAgICAgICAgIC","tag":"AwMDAwMDAwMDAwMDAwMDAw==","ciphertext":"BAUG"}""",
+            Encoding.UTF8.GetString(ConfigurationPackageCodec.GetSignedBytes(envelope)));
+        Assert.Equal(
+            "foundry-configuration|1|PBKDF2-SHA256|600000|AQEBAQEBAQEBAQEBAQEBAQ==|AES-256-GCM",
+            Encoding.UTF8.GetString(ConfigurationPackageCodec.CreateAssociatedData(envelope.Format, envelope.Version, kdf, envelope.Cipher)));
+    }
+
+    [Fact]
+    public void Write_EmbeddedFilesOverLimit_Throws()
+    {
+        ConfigurationPackagePayload payload = CreateExport() with
+        {
+            Files = new Dictionary<string, byte[]> { [FileHash] = new byte[(16 * 1024 * 1024) + 1] }
+        };
+
+        Assert.Throws<ArgumentException>(() => ConfigurationPackageCodec.Write(payload, Passphrase));
     }
 
     [Fact]
@@ -214,6 +314,8 @@ public sealed class ConfigurationPackageCodecTests
         Kind = PackageKind.Publication,
         Publisher = new PackagePublisher(Guid.NewGuid(), "REFERENCE-PC", signer.KeyId, signer.PublicKey)
     };
+
+    private static byte[] Filled(int length, byte value) => Enumerable.Repeat(value, length).ToArray();
 
     private static void FlipCiphertextByte(JsonObject envelope)
     {

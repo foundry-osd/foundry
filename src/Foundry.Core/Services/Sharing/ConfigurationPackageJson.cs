@@ -15,14 +15,22 @@ internal static class ConfigurationPackageJson
 
     /// <summary>
     /// camelCase members and string enums; unknown members are ignored so newer writers can add optional data;
-    /// null members are omitted. Not indented and deterministic, so a reader can rebuild the signed envelope bytes.
+    /// null members are omitted. Frozen so no caller can change the shared instance. The envelope and its signed bytes use
+    /// their own options in <see cref="ConfigurationPackageCodec"/>.
     /// </summary>
-    public static readonly JsonSerializerOptions SerializerOptions = new()
+    public static readonly JsonSerializerOptions SerializerOptions = CreateSerializerOptions();
+
+    private static JsonSerializerOptions CreateSerializerOptions()
     {
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-        UnmappedMemberHandling = JsonUnmappedMemberHandling.Skip,
-        MaxDepth = MaxDepth,
-        Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }
-    };
+        JsonSerializerOptions options = new()
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            UnmappedMemberHandling = JsonUnmappedMemberHandling.Skip,
+            MaxDepth = MaxDepth,
+            Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }
+        };
+        options.MakeReadOnly(populateMissingResolver: true);
+        return options;
+    }
 }

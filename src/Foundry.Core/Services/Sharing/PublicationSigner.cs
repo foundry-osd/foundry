@@ -108,6 +108,7 @@ public static class PublicationSigner
         return Convert.ToHexStringLower(hash[..KeyIdHashBytes]);
     }
 
+    /// <summary>Returns whether the key is on the NIST P-256 curve; imports accept any curve, so callers check it.</summary>
     internal static bool IsP256(ECDsa key)
     {
         return key.ExportParameters(includePrivateParameters: false).Curve.Oid.Value == ECCurve.NamedCurves.nistP256.Oid.Value;
