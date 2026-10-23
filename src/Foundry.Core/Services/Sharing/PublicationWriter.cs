@@ -50,7 +50,10 @@ public enum PublishStatus
     /// <summary>The manifest was written and activated (or, for a rewrap, rewritten under the new password).</summary>
     Published,
 
-    /// <summary>The manifest named by <c>current.json</c> is signed by another key; nothing was written.</summary>
+    /// <summary>
+    /// The manifest named by <c>current.json</c> is signed by another key, or no manifest of this PC authenticates and a validly named
+    /// manifest is signed by another key (a pointer deleted after a take over); nothing was written.
+    /// </summary>
     ForeignPublisher,
 
     /// <summary>
@@ -66,8 +69,9 @@ public enum PublishStatus
     FolderUnavailable,
 
     /// <summary>
-    /// The password opens none of the manifests signed by this PC's key, although at least one carries a valid signature of it (for a
-    /// rewrap: the current password given is wrong; for a publish: the caller holds an outdated password). Nothing was written.
+    /// The highest-numbered manifest whose signature verifies with this PC's key does not decrypt with the password (for a rewrap:
+    /// the current password given is wrong; for a publish: the caller holds an outdated password). Older manifests are never used
+    /// instead, which would roll the publication back. Nothing was written.
     /// </summary>
     WrongPassword,
 
@@ -99,8 +103,9 @@ public sealed record ContentProgress(long Done, long Total, string CurrentName);
 /// Folder state comes from authenticated manifests only. Manifest names, <c>current.json</c> and envelope key ids are writable by
 /// anyone with write access to the folder, so a manifest counts as this PC's only when its signature verifies with this PC's key,
 /// its payload decrypts with the password, it is a publication, and its payload sequence equals the sequence in its name. Other
-/// files never decide the next sequence or the previous manifest and never block a publish; the pointer is consulted only to detect
-/// a take over (it names a manifest signed by another key).
+/// files never decide the next sequence or the previous manifest, and the pointer is consulted only to detect a take over. A folder
+/// writer can still block publishing (a planted envelope of another key, or a copy of an old-password manifest above the real
+/// ones), which is denial of service only: it can never roll the publication back or make it use an outdated password.
 /// </remarks>
 public static class PublicationWriter
 {
@@ -260,11 +265,18 @@ public static class PublicationWriter
     }
 
     /// <summary>
-    /// Decides whether this PC may continue the folder and from which manifest (see the class remarks). A foreign key is detected
-    /// only on the manifest <c>current.json</c> names: a take over always activates its manifest there, and a single rule keeps a
-    /// planted envelope elsewhere from blocking the publisher. Manifests are tried from the highest name down; the first that
-    /// authenticates is the previous manifest, so the cost is one key derivation unless planted copies of this PC's manifests sit
-    /// above it.
+    /// Decides whether this PC may continue the folder and from which manifest (see the class remarks). Manifests are walked from
+    /// the highest name down (on equal sequences the file <c>current.json</c> names first); the first one whose signature verifies
+    /// with this PC's key decides:
+    /// <list type="bullet">
+    /// <item>it decrypts and its payload sequence equals its name: it is the previous manifest;</item>
+    /// <item>it decrypts but its payload sequence differs (a renamed copy): it is skipped and the walk goes on;</item>
+    /// <item>it does not decrypt with the password: <see cref="PublishStatus.WrongPassword"/>, never a fall back to an older manifest,
+    /// which would roll the publication back under an outdated password.</item>
+    /// </list>
+    /// A foreign key is reported when <c>current.json</c> names a manifest signed by another key, or, when no manifest of this PC
+    /// authenticates, when any validly named manifest is signed by another key (a second reference PC must never overwrite a folder
+    /// whose pointer was deleted). Byte-identical candidates are decrypted once, so planted copies cost one key derivation in total.
     /// </summary>
     private static async Task<FolderState> InspectAsync(string folder, PublicationSigningKey signer, string password, CancellationToken cancellationToken)
     {
@@ -274,40 +286,58 @@ public static class PublicationWriter
             return FolderState.NotEmpty;
         }
 
-        IReadOnlyList<ManifestName> manifests = ListManifests(folder);
-        if (pointer.State == PublicationPointerState.Ok)
+        string? pointedFileName = pointer.State == PublicationPointerState.Ok ? PublicationFolder.ManifestFileName(pointer.Manifest!) : null;
+        IReadOnlyList<ManifestName> manifests = ListManifests(folder, pointedFileName);
+        ManifestName? pointed = manifests.FirstOrDefault(manifest => manifest.FileName == pointedFileName);
+        if (pointed is not null)
         {
-            string fileName = PublicationFolder.ManifestFileName(pointer.Manifest!);
-            ManifestName? pointed = manifests.FirstOrDefault(manifest => manifest.FileName == fileName);
-            string? keyId = pointed is null ? null : ConfigurationPackageCodec.ReadSignerKeyId(await ReadManifestAsync(pointed, cancellationToken).ConfigureAwait(false));
+            string? keyId = ConfigurationPackageCodec.ReadSignerKeyId(await ReadManifestAsync(pointed, cancellationToken).ConfigureAwait(false));
             if (keyId is not null && keyId != signer.KeyId)
             {
-                return new(PublishStatus.ForeignPublisher, pointer.Sequence, keyId, null);
+                return new(PublishStatus.ForeignPublisher, pointed.Sequence, keyId, null);
             }
         }
 
-        bool wrongPassword = false;
+        Dictionary<string, PackageReadResult> reads = new(StringComparer.Ordinal);
+        ManifestName? foreign = null;
+        string? foreignKeyId = null;
         foreach (ManifestName manifest in manifests)
         {
-            PackageReadResult read = ConfigurationPackageCodec.Read(await ReadManifestAsync(manifest, cancellationToken).ConfigureAwait(false), password, signer.PublicKey);
-            if (read is { Status: PackageReadStatus.Ok, Payload: { Kind: PackageKind.Publication } payload } && payload.Sequence == manifest.Sequence)
+            cancellationToken.ThrowIfCancellationRequested();
+            byte[] bytes = await ReadManifestAsync(manifest, cancellationToken).ConfigureAwait(false);
+            string digest = Convert.ToHexString(SHA256.HashData(bytes));
+            if (!reads.TryGetValue(digest, out PackageReadResult? read))
             {
-                return new(null, manifest.Sequence, null, new AuthenticatedManifest(manifest.FileName, payload));
+                read = ConfigurationPackageCodec.Read(bytes, password, signer.PublicKey);
+                reads.Add(digest, read);
             }
 
-            wrongPassword |= read.Status == PackageReadStatus.WrongPassword;
+            switch (read.Status)
+            {
+                case PackageReadStatus.Ok when read.Payload is { Kind: PackageKind.Publication } payload && payload.Sequence == manifest.Sequence:
+                    return new(null, manifest.Sequence, null, new AuthenticatedManifest(manifest.FileName, payload));
+                case PackageReadStatus.WrongPassword:
+                    return new(PublishStatus.WrongPassword, 0, null, null);
+                case PackageReadStatus.InvalidSignature when foreign is null && read.SignerKeyId is { } keyId && keyId != signer.KeyId:
+                    foreign = manifest;
+                    foreignKeyId = keyId;
+                    break;
+            }
         }
 
-        if (wrongPassword)
+        if (foreign is not null)
         {
-            return new(PublishStatus.WrongPassword, 0, null, null);
+            return new(PublishStatus.ForeignPublisher, foreign.Sequence, foreignKeyId, null);
         }
 
         return PublicationFolder.HoldsOnlyPublicationFiles(folder) ? FolderState.Empty : FolderState.NotEmpty;
     }
 
-    /// <summary>Lists the validly named files of <c>manifests/</c>, highest sequence first.</summary>
-    private static IReadOnlyList<ManifestName> ListManifests(string folder)
+    /// <summary>
+    /// Lists the validly named files of <c>manifests/</c>, highest sequence first; on equal sequences <paramref name="pointedFileName"/>
+    /// comes first, so cleanup never deletes the pointed file in favour of a same-sequence copy.
+    /// </summary>
+    private static IReadOnlyList<ManifestName> ListManifests(string folder, string? pointedFileName)
     {
         string directory = PublicationFolder.ManifestsDirectory(folder);
         if (!Directory.Exists(directory))
@@ -325,7 +355,10 @@ public static class PublicationWriter
             }
         }
 
-        return manifests.OrderByDescending(manifest => manifest.Sequence).ThenBy(manifest => manifest.FileName, StringComparer.Ordinal).ToArray();
+        return manifests.OrderByDescending(manifest => manifest.Sequence)
+            .ThenByDescending(manifest => manifest.FileName == pointedFileName)
+            .ThenBy(manifest => manifest.FileName, StringComparer.Ordinal)
+            .ToArray();
     }
 
     /// <summary>Reads a manifest file; one over the package size limit reads as empty, which the codec rejects.</summary>
@@ -381,7 +414,6 @@ public static class PublicationWriter
         Contents = request.Contents,
         MasterKey = request.MasterKey
     };
-
 
     /// <summary>
     /// After activation, keeps the new manifest, the previous authenticated one and any manifest numbered above the new sequence,

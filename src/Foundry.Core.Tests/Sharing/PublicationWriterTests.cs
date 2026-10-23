@@ -311,6 +311,50 @@ public sealed class PublicationWriterTests : IDisposable
         Assert.Equal(3, (await ReadCurrentPayloadAsync(newPassword)).Sequence);
     }
 
+    [Fact]
+    public async Task Rewrap_StaleCurrentPassword_ReturnsWrongPasswordAndChangesNothing()
+    {
+        await PublishAsync([]);
+        await PublishAsync([]);
+        const string newPassword = "another-publication-password";
+        Assert.Equal(PublishStatus.Published, await PublicationWriter.RewrapAsync(Folder, Password, newPassword, signer, Cancellation));
+        Dictionary<string, byte[]> before = await SnapshotAsync();
+
+        PublishStatus status = await PublicationWriter.RewrapAsync(Folder, Password, "third-publication-password", signer, Cancellation);
+
+        Assert.Equal(PublishStatus.WrongPassword, status);
+        Assert.Equal(before, await SnapshotAsync());
+        Assert.Equal(2, (await ReadCurrentPayloadAsync(newPassword)).Sequence);
+    }
+
+    [Fact]
+    public async Task Publish_StalePassword_ReturnsWrongPassword()
+    {
+        await PublishAsync([]);
+        await PublishAsync([]);
+        Assert.Equal(PublishStatus.Published, await PublicationWriter.RewrapAsync(Folder, Password, "another-publication-password", signer, Cancellation));
+        Dictionary<string, byte[]> before = await SnapshotAsync();
+
+        PublishResult result = await PublishAsync([]);
+
+        Assert.Equal(new PublishResult(PublishStatus.WrongPassword, 0, null), result);
+        Assert.Equal(before, await SnapshotAsync());
+    }
+
+    [Fact]
+    public async Task Publish_OtherKeyWithoutPointer_ReturnsForeignPublisher()
+    {
+        await PublishAsync([source.Add("installer", SharedContentKind.Package)]);
+        File.Delete(Path.Combine(Folder, "current.json"));
+        Dictionary<string, byte[]> before = await SnapshotAsync();
+        using PublicationSigningKey other = PublicationSigningKey.Create();
+
+        PublishResult result = await PublicationWriter.PublishAsync(Request([]) with { Signer = other }, source, null, Cancellation);
+
+        Assert.Equal(new PublishResult(PublishStatus.ForeignPublisher, 1, signer.KeyId), result);
+        Assert.Equal(before, await SnapshotAsync());
+    }
+
     public void Dispose()
     {
         signer.Dispose();
@@ -345,6 +389,18 @@ public sealed class PublicationWriterTests : IDisposable
         PackageReadResult result = await ReadCurrentAsync(password);
         Assert.Equal(PackageReadStatus.Ok, result.Status);
         return result.Payload!;
+    }
+
+    /// <summary>Maps every file of the folder (relative path) to its bytes.</summary>
+    private async Task<Dictionary<string, byte[]>> SnapshotAsync()
+    {
+        Dictionary<string, byte[]> files = [];
+        foreach (string path in Directory.EnumerateFiles(Folder, "*", SearchOption.AllDirectories))
+        {
+            files[Path.GetRelativePath(Folder, path)] = await File.ReadAllBytesAsync(path, Cancellation);
+        }
+
+        return files;
     }
 
     private string[] ManifestNames() => Directory.EnumerateFiles(Path.Combine(Folder, "manifests")).Select(path => Path.GetFileName(path)).ToArray();
