@@ -5,6 +5,7 @@
 using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
+using Foundry.Utilities.Diagnostics;
 
 namespace Foundry.Deploy.Services.Deployment.Steps;
 
@@ -12,11 +13,19 @@ public sealed class ResolveCacheStrategyStep : DeploymentStepBase
 {
     private readonly ICacheLocatorService _cacheLocatorService;
     private readonly ITargetDiskService _targetDiskService;
+    private readonly INetworkCacheSessionResolver? _networkCacheResolver;
+    private readonly INetworkCacheSessionAccessor? _networkCacheAccessor;
 
-    public ResolveCacheStrategyStep(ICacheLocatorService cacheLocatorService, ITargetDiskService targetDiskService)
+    public ResolveCacheStrategyStep(
+        ICacheLocatorService cacheLocatorService,
+        ITargetDiskService targetDiskService,
+        INetworkCacheSessionResolver? networkCacheResolver = null,
+        INetworkCacheSessionAccessor? networkCacheAccessor = null)
     {
         _cacheLocatorService = cacheLocatorService;
         _targetDiskService = targetDiskService;
+        _networkCacheResolver = networkCacheResolver;
+        _networkCacheAccessor = networkCacheAccessor;
     }
 
     public override string Name => DeploymentStepNames.ResolveCacheStrategy;
@@ -33,6 +42,7 @@ public sealed class ResolveCacheStrategyStep : DeploymentStepBase
         context.RuntimeState.ResolvedCache = cache;
         await context.AppendLogAsync(DeploymentLogLevel.Info, $"Cache resolved: {cache.RootPath} ({cache.Source})", cancellationToken).ConfigureAwait(false);
         context.EnsureWorkspaceFolders();
+        await ResolveNetworkCacheAsync(context, cancellationToken).ConfigureAwait(false);
 
         return DeploymentStepResult.Succeeded("Cache strategy resolved.");
     }
@@ -52,6 +62,28 @@ public sealed class ResolveCacheStrategyStep : DeploymentStepBase
         await Task.Delay(120, cancellationToken).ConfigureAwait(false);
 
         return DeploymentStepResult.Succeeded("Cache strategy resolved (simulation).");
+    }
+
+    /// <summary>
+    /// Resolves the network cache before the target disk is prepared, so imported content found on the share can be
+    /// checked by preflight. Share problems never fail the step; downloads then behave as without a network cache.
+    /// </summary>
+    private async Task ResolveNetworkCacheAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
+    {
+        if (_networkCacheResolver is null || _networkCacheAccessor is null)
+        {
+            return;
+        }
+
+        context.EmitCurrentStepIndeterminate("Resolving cache strategy...", "Resolving cache location...", DeploymentOperationNames.ResolveCache);
+        NetworkCacheSession session = await _networkCacheResolver
+            .ResolveAsync(context.RuntimeState.WorkspaceRoot, DiagnosticSessionContext.CurrentSessionId, cancellationToken)
+            .ConfigureAwait(false);
+        _networkCacheAccessor.Current = session;
+        string message = session.IsAvailable
+            ? $"Network cache: {session.SharePath} ({(session.CanWrite ? "read and write" : "read only")})"
+            : $"Network cache not used ({session.Outcome})";
+        await context.AppendLogAsync(DeploymentLogLevel.Info, message, cancellationToken).ConfigureAwait(false);
     }
 
     private async Task<CacheResolution> AdjustCacheForTargetDiskConflictAsync(

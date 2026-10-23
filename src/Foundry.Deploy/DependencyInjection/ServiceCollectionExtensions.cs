@@ -111,6 +111,10 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IProcessRunner, ProcessRunner>();
         services.AddSingleton<IArchiveExtractionService, ArchiveExtractionService>();
         services.AddSingleton<ICacheLocatorService, CacheLocatorService>();
+        services.AddSingleton<ISmbConnector, SmbConnector>();
+        services.AddSingleton<INetworkCacheProbe, FileSystemNetworkCacheProbe>();
+        services.AddSingleton<INetworkCacheSessionResolver, NetworkCacheSessionResolver>();
+        services.AddSingleton<INetworkCacheSessionAccessor, NetworkCacheSessionAccessor>();
         services.AddSingleton<IDeploymentLogService, DeploymentLogService>();
         services.AddSingleton<IHardwareInspector, WindowsHardwareInspector>();
         services.AddSingleton<IHardwareProfileService, HardwareProfileService>();
