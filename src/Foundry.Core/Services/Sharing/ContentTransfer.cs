@@ -49,7 +49,11 @@ public static class ContentTransfer
             throw new ArgumentException("The publication master key must be 32 bytes.", nameof(masterKey));
         }
 
-        ValidateHash(hash);
+        if (!IsContentHash(hash))
+        {
+            throw new ArgumentException("The content hash must be 64 lowercase hexadecimal digits.", nameof(hash));
+        }
+
         byte[] key = new byte[KeySize];
         HKDF.DeriveKey(HashAlgorithmName.SHA256, masterKey, key, salt: [], Encoding.UTF8.GetBytes(KeyInfoPrefix + hash));
         return key;
@@ -265,13 +269,8 @@ public static class ContentTransfer
         }
     }
 
-    private static void ValidateHash(string hash)
-    {
-        if (hash is not { Length: 64 } || !hash.All(character => char.IsAsciiDigit(character) || character is >= 'a' and <= 'f'))
-        {
-            throw new ArgumentException("The content hash must be 64 lowercase hexadecimal digits.", nameof(hash));
-        }
-    }
+    /// <summary>Returns whether <paramref name="hash"/> is a content hash as publications list it: 64 lowercase hexadecimal digits.</summary>
+    internal static bool IsContentHash(string? hash) => hash is { Length: 64 } && hash.All(char.IsAsciiHexDigitLower);
 
     private static InvalidDataException InvalidContent() => new("ContentTransfer.InvalidContentFile");
 }

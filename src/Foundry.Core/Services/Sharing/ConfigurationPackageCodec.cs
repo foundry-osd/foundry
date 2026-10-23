@@ -196,6 +196,15 @@ public static class ConfigurationPackageCodec
         }
     }
 
+    /// <summary>
+    /// Returns the signature key id of a well-formed envelope of a supported version without the passphrase, or
+    /// <see langword="null"/> when the bytes are not such an envelope or carry no signature. The value is not authenticated.
+    /// </summary>
+    internal static string? ReadSignerKeyId(ReadOnlySpan<byte> package)
+    {
+        return TryReadEnvelope(package, out Envelope? envelope) is null ? envelope!.Signature?.KeyId : null;
+    }
+
     /// <summary>Encrypts already serialized payload JSON; <see cref="Write"/> validates the payload and passphrase first.</summary>
     internal static byte[] Seal(ReadOnlySpan<byte> payloadJson, ReadOnlySpan<char> passphrase, PublicationSigningKey? signer)
     {
