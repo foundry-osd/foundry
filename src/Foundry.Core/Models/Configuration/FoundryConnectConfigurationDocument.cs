@@ -37,12 +37,12 @@ public sealed record FoundryConnectConfigurationDocument
     /// <summary>
     /// Gets wired 802.1X provisioning settings.
     /// </summary>
-    public Dot1xSettings Dot1x { get; init; } = new();
+    public ConnectDot1xSettings Dot1x { get; init; } = new();
 
     /// <summary>
     /// Gets Wi-Fi provisioning settings.
     /// </summary>
-    public WifiSettings Wifi { get; init; } = new();
+    public ConnectWifiSettings Wifi { get; init; } = new();
 
     /// <summary>
     /// Gets internet connectivity probe settings.
