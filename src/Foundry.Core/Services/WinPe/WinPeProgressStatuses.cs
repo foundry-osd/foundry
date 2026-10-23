@@ -85,6 +85,8 @@ public static class WinPeProgressStatuses
     public const string FormattingUsbBootPartition = "Formatting BOOT partition.";
     public const string CreatingUsbCachePartition = "Creating cache partition.";
     public const string FormattingUsbCachePartition = "Formatting cache partition.";
+    public const string CreatingUsbMediaPartition = "Creating USB media partition.";
+    public const string FormattingUsbMediaPartition = "Formatting USB media partition.";
     public const string UsbPartitionsFormatted = "USB partitions formatted.";
     public const string CopyingWinPeMediaToUsb = "Copying WinPE media to USB.";
     public const string VerifyingUsbBootMedia = "Verifying USB boot media.";
