@@ -14,4 +14,12 @@ public static class FoundryMediaVolumeLabels
 
     /// <summary>The only partition of a USB drive without cache; FAT32 labels are at most 11 uppercase characters.</summary>
     public const string SingleVolume = "FOUNDRY";
+
+    /// <summary>
+    /// Returns whether a volume label belongs to a Foundry USB drive that can hold imported content. Optical media are
+    /// recognized by drive type instead, because an ISO keeps the label chosen by whoever mastered it.
+    /// </summary>
+    public static bool IsUsbContentVolume(string? label) =>
+        string.Equals(label, Cache, StringComparison.OrdinalIgnoreCase) ||
+        string.Equals(label, SingleVolume, StringComparison.OrdinalIgnoreCase);
 }
