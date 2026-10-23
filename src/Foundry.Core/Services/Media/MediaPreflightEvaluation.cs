@@ -37,6 +37,11 @@ public sealed record MediaPreflightEvaluation
     public bool CanCreatePxe { get; init; }
 
     /// <summary>
+    /// Gets a value indicating whether a USB drive without cache can be created now.
+    /// </summary>
+    public bool CanCreateUsbWithoutCache { get; init; }
+
+    /// <summary>
     /// Gets the USB partition style that should be used after applying preflight rules.
     /// </summary>
     public UsbPartitionStyle EffectiveUsbPartitionStyle { get; init; }
@@ -55,4 +60,9 @@ public sealed record MediaPreflightEvaluation
     /// Gets reasons that currently block PXE boot file creation.
     /// </summary>
     public IReadOnlyList<MediaPreflightBlockingReason> PxeBlockingReasons { get; init; } = [];
+
+    /// <summary>
+    /// Gets reasons that currently block creating a USB drive without cache.
+    /// </summary>
+    public IReadOnlyList<MediaPreflightBlockingReason> UsbWithoutCacheBlockingReasons { get; init; } = [];
 }

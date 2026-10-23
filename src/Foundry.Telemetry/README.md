@@ -4,6 +4,8 @@
 
 `osd:boot_media_finished` sends `boot_media_target` as `iso`, `usb` or `pxe`. `pxe` is a PXE boot folder written from the Start page; it sends no output path or server name, and its `boot_media_usb_operation`, `boot_media_usb_partition_style` and `boot_media_usb_format_mode` are `none`. A device started from that folder runs in ISO mode, so `bootstrap:failed` keeps `iso` or `usb`.
 
+For `usb`, `boot_media_usb_operation` is `create`, `update` or `create_without_cache`. A drive without cache has one FAT32 partition and no cache partition, so a device started from it also reports `iso` in `bootstrap:failed`.
+
 ## Custom Windows images
 
 Custom images extend the existing event taxonomy. `osd:boot_media_finished` includes `boot_media_custom_images_enabled`, `boot_media_custom_images_count`, and `boot_media_default_os_source` (`catalog` or `custom`). The count comes from included images in the operation's captured configuration, is zero when disabled, and represents the intended selection when media creation fails or is cancelled.

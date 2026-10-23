@@ -45,6 +45,31 @@ public sealed class MediaPreflightServiceTests
     }
 
     [Fact]
+    public void Evaluate_WhenUsbTargetIsBelowTheCacheMinimum_StillAllowsUsbWithoutCache()
+    {
+        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(
+            CreateReadyOptions() with
+            {
+                IsFinalExecutionEnabled = true,
+                SelectedUsbDisk = CreateReadyOptions().SelectedUsbDisk! with { SizeBytes = 8_000_000_000UL }
+            });
+
+        Assert.False(evaluation.CanCreateUsb);
+        Assert.True(evaluation.CanCreateUsbWithoutCache);
+        Assert.Empty(evaluation.UsbWithoutCacheBlockingReasons);
+    }
+
+    [Fact]
+    public void Evaluate_WhenNoUsbTargetIsSelected_BlocksUsbWithoutCache()
+    {
+        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(
+            CreateReadyOptions() with { IsFinalExecutionEnabled = true, SelectedUsbDisk = null });
+
+        Assert.False(evaluation.CanCreateUsbWithoutCache);
+        Assert.Contains(MediaPreflightBlockingReason.NoUsbTarget, evaluation.UsbWithoutCacheBlockingReasons);
+    }
+
+    [Fact]
     public void Evaluate_WhenCustomDriverDirectoryIsMissing_BlocksPxe()
     {
         MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(
