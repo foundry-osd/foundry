@@ -51,8 +51,9 @@ public enum PublishStatus
     Published,
 
     /// <summary>
-    /// The manifest named by <c>current.json</c> is signed by another key, or no manifest of this PC authenticates and a validly named
-    /// manifest is signed by another key (a pointer deleted after a take over); nothing was written.
+    /// The folder was taken over by another key: the manifest <c>current.json</c> names is signed by another key, a validly named
+    /// manifest of another key sits above the highest manifest of this PC, or no manifest of this PC authenticates and one of another
+    /// key is present. Nothing was written.
     /// </summary>
     ForeignPublisher,
 
@@ -63,7 +64,7 @@ public enum PublishStatus
     FolderNotEmpty,
 
     /// <summary>
-    /// The folder is missing or could not be read or written, or (for a rewrap) holds no manifest of this PC. A content source that
+    /// The folder is missing or could not be read or written, or (for a rewrap) holds no publication at all. A content source that
     /// fails with an <see cref="IOException"/> is reported the same way. The previous publication stays current.
     /// </summary>
     FolderUnavailable,
@@ -84,7 +85,7 @@ public enum PublishStatus
 
 /// <summary>Result of <see cref="PublicationWriter.PublishAsync"/>.</summary>
 /// <param name="Status">Outcome.</param>
-/// <param name="Sequence">The new sequence when published; the pointer sequence for <see cref="PublishStatus.ForeignPublisher"/>; otherwise 0.</param>
+/// <param name="Sequence">The new sequence when published; the sequence in the name of the foreign manifest for <see cref="PublishStatus.ForeignPublisher"/>; otherwise 0.</param>
 /// <param name="ForeignKeyId">Key id of the foreign signer, set for <see cref="PublishStatus.ForeignPublisher"/>; read without the password, so not authenticated.</param>
 public sealed record PublishResult(PublishStatus Status, long Sequence, string? ForeignKeyId);
 
@@ -103,19 +104,22 @@ public sealed record ContentProgress(long Done, long Total, string CurrentName);
 /// Folder state comes from authenticated manifests only. Manifest names, <c>current.json</c> and envelope key ids are writable by
 /// anyone with write access to the folder, so a manifest counts as this PC's only when its signature verifies with this PC's key,
 /// its payload decrypts with the password, it is a publication, and its payload sequence equals the sequence in its name. Other
-/// files never decide the next sequence or the previous manifest, and the pointer is consulted only to detect a take over. A folder
-/// writer can still block publishing (a planted envelope of another key, or a copy of an old-password manifest above the real
-/// ones), which is denial of service only: it can never roll the publication back or make it use an outdated password.
+/// files never decide the next sequence or the previous manifest; envelopes signed by another key are read only to detect a take
+/// over. A folder writer can still block publishing with a forged envelope carrying another key id (named by the pointer, or above
+/// the highest manifest of this PC) or with a copy of an old-password manifest above the real ones. That is denial of service
+/// only: it can never roll the publication back, make it use an outdated password, or let it overwrite a real take over.
 /// </remarks>
 public static class PublicationWriter
 {
     private const int MasterKeySize = 32;
 
     /// <summary>
-    /// Publishes a new version. A folder holding a manifest of another key named by <c>current.json</c> returns
-    /// <see cref="PublishStatus.ForeignPublisher"/>; otherwise the publish continues from the highest authenticated manifest of this
-    /// PC (see the class remarks), whatever the pointer says, or starts a new publication when the folder holds only publication
-    /// files. The new sequence is one above the highest of <see cref="PublicationRequest.LastPublishedSequence"/> and that manifest's
+    /// Publishes a new version. <see cref="PublishStatus.ForeignPublisher"/> is returned when the manifest <c>current.json</c> names
+    /// is signed by another key, when a manifest of another key sits above the highest manifest of this PC, or when no manifest of
+    /// this PC authenticates and one of another key is present. <see cref="PublishStatus.WrongPassword"/> is returned when the
+    /// highest manifest signed with this PC's key does not decrypt with the request password. Otherwise the publish continues from
+    /// the highest authenticated manifest of this PC (see the class remarks), whatever the pointer says, or starts a new publication
+    /// when the folder holds only publication files. The new sequence is one above the highest of <see cref="PublicationRequest.LastPublishedSequence"/> and that manifest's
     /// sequence. Content is keyed by hash only: a hash listed several times (for example as a package and a driver set) is written
     /// once, and a content file already complete under the current master key is not rewritten.
     /// </summary>
@@ -191,8 +195,9 @@ public static class PublicationWriter
     /// <param name="cancellationToken">Stops before the manifest is replaced.</param>
     /// <returns>
     /// <see cref="PublishStatus.Published"/>, <see cref="PublishStatus.WrongPassword"/>, <see cref="PublishStatus.ForeignPublisher"/>,
-    /// <see cref="PublishStatus.FolderNotEmpty"/> or <see cref="PublishStatus.FolderUnavailable"/> (also when the folder holds no
-    /// manifest of this PC).
+    /// <see cref="PublishStatus.FolderNotEmpty"/> or <see cref="PublishStatus.FolderUnavailable"/>. <see cref="PublishStatus.ForeignPublisher"/>
+    /// follows the same rules as for a publish; <see cref="PublishStatus.FolderUnavailable"/> means an I/O failure or a folder holding no
+    /// publication.
     /// </returns>
     /// <exception cref="ArgumentException">The new password breaks the policy.</exception>
     public static async Task<PublishStatus> RewrapAsync(string folder, string oldPassword, string newPassword, PublicationSigningKey signer,
@@ -274,9 +279,10 @@ public static class PublicationWriter
     /// <item>it does not decrypt with the password: <see cref="PublishStatus.WrongPassword"/>, never a fall back to an older manifest,
     /// which would roll the publication back under an outdated password.</item>
     /// </list>
-    /// A foreign key is reported when <c>current.json</c> names a manifest signed by another key, or, when no manifest of this PC
-    /// authenticates, when any validly named manifest is signed by another key (a second reference PC must never overwrite a folder
-    /// whose pointer was deleted). Byte-identical candidates are decrypted once, so planted copies cost one key derivation in total.
+    /// A foreign key is reported when <c>current.json</c> names a manifest signed by another key, when a manifest of another key sits
+    /// above the manifest of this PC that decided the walk, or, when no manifest of this PC authenticates, when any validly named
+    /// manifest is signed by another key: neither PC may overwrite a take over, even after <c>current.json</c> was deleted.
+    /// Byte-identical candidates are decrypted once, so planted copies cost one key derivation in total.
     /// </summary>
     private static async Task<FolderState> InspectAsync(string folder, PublicationSigningKey signer, string password, CancellationToken cancellationToken)
     {
@@ -315,9 +321,9 @@ public static class PublicationWriter
             switch (read.Status)
             {
                 case PackageReadStatus.Ok when read.Payload is { Kind: PackageKind.Publication } payload && payload.Sequence == manifest.Sequence:
-                    return new(null, manifest.Sequence, null, new AuthenticatedManifest(manifest.FileName, payload));
+                    return ForeignAbove(foreign, foreignKeyId, manifest.Sequence) ?? new(null, manifest.Sequence, null, new AuthenticatedManifest(manifest.FileName, payload));
                 case PackageReadStatus.WrongPassword:
-                    return new(PublishStatus.WrongPassword, 0, null, null);
+                    return ForeignAbove(foreign, foreignKeyId, manifest.Sequence) ?? new(PublishStatus.WrongPassword, 0, null, null);
                 case PackageReadStatus.InvalidSignature when foreign is null && read.SignerKeyId is { } keyId && keyId != signer.KeyId:
                     foreign = manifest;
                     foreignKeyId = keyId;
@@ -331,6 +337,15 @@ public static class PublicationWriter
         }
 
         return PublicationFolder.HoldsOnlyPublicationFiles(folder) ? FolderState.Empty : FolderState.NotEmpty;
+    }
+
+    /// <summary>
+    /// Returns <see cref="PublishStatus.ForeignPublisher"/> when a manifest of another key sits above the manifest of this PC that
+    /// decided the walk: the folder was taken over, even if <c>current.json</c> was deleted or moved back since.
+    /// </summary>
+    private static FolderState? ForeignAbove(ManifestName? foreign, string? foreignKeyId, long sequence)
+    {
+        return foreign is not null && foreign.Sequence > sequence ? new(PublishStatus.ForeignPublisher, foreign.Sequence, foreignKeyId, null) : null;
     }
 
     /// <summary>

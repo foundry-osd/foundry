@@ -341,17 +341,57 @@ public sealed class PublicationWriterTests : IDisposable
         Assert.Equal(before, await SnapshotAsync());
     }
 
-    [Fact]
-    public async Task Publish_OtherKeyWithoutPointer_ReturnsForeignPublisher()
+    [Theory]
+    [InlineData("deleted")]
+    [InlineData("malformed")]
+    [InlineData("missing")]
+    public async Task Publish_OtherKeyWithoutUsablePointer_ReturnsForeignPublisher(string pointer)
     {
         await PublishAsync([source.Add("installer", SharedContentKind.Package)]);
-        File.Delete(Path.Combine(Folder, "current.json"));
+        string pointerPath = Path.Combine(Folder, "current.json");
+        switch (pointer)
+        {
+            case "deleted":
+                File.Delete(pointerPath);
+                break;
+            case "malformed":
+                await File.WriteAllTextAsync(pointerPath, "{ not json", Cancellation);
+                break;
+            default:
+                await WritePointerAsync($"000009-{Guid.NewGuid():N}.fcfg");
+                break;
+        }
+
         Dictionary<string, byte[]> before = await SnapshotAsync();
         using PublicationSigningKey other = PublicationSigningKey.Create();
 
         PublishResult result = await PublicationWriter.PublishAsync(Request([]) with { Signer = other }, source, null, Cancellation);
 
         Assert.Equal(new PublishResult(PublishStatus.ForeignPublisher, 1, signer.KeyId), result);
+        Assert.Equal(before, await SnapshotAsync());
+    }
+
+    [Fact]
+    public async Task Publish_TakenOverFolderWithoutPointer_ReturnsForeignPublisherToOldReference()
+    {
+        await PublishAsync([]);
+        using PublicationSigningKey other = PublicationSigningKey.Create();
+        ConfigurationPackagePayload takeOver = new()
+        {
+            Kind = PackageKind.Publication,
+            Sequence = 2,
+            Publisher = new PackagePublisher(Guid.NewGuid(), "NEW-REFERENCE", other.KeyId, other.PublicKey),
+            Configuration = new FoundryConfigurationDocument(),
+            MasterKey = RandomNumberGenerator.GetBytes(32)
+        };
+        string takeOverName = $"000002-{Guid.NewGuid():N}.fcfg";
+        await File.WriteAllBytesAsync(Path.Combine(Folder, "manifests", takeOverName), ConfigurationPackageCodec.Write(takeOver, Password, other), Cancellation);
+        File.Delete(Path.Combine(Folder, "current.json"));
+        Dictionary<string, byte[]> before = await SnapshotAsync();
+
+        PublishResult result = await PublishAsync([]);
+
+        Assert.Equal(new PublishResult(PublishStatus.ForeignPublisher, 2, other.KeyId), result);
         Assert.Equal(before, await SnapshotAsync());
     }
 
