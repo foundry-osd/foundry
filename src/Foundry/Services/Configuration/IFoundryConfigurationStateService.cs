@@ -4,7 +4,7 @@
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
-using Foundry.Core.Services.Profiles;
+using Foundry.Core.Services.Media;
 using Foundry.Telemetry;
 
 namespace Foundry.Services.Configuration;
@@ -32,7 +32,7 @@ public interface IFoundryConfigurationStateService
     void Replace(FoundryConfigurationDocument document, Action restoreSecrets);
 
     /// <summary>Freezes current configuration and session secrets synchronously, then prepares private build dependencies off-thread.</summary>
-    Task<DeploymentBuildSnapshot> CaptureBuildSnapshotAsync(string privateRootDirectory, CancellationToken cancellationToken = default);
+    Task<BuildSnapshot> CaptureBuildSnapshotAsync(string privateRootDirectory, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets the detailed network readiness evaluation used for media creation.

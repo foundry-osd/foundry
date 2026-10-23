@@ -4,6 +4,7 @@
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.Media;
 using Foundry.Core.Services.Profiles;
 using Foundry.Core.Tests.TestUtilities;
 using Serilog;
@@ -77,7 +78,7 @@ public sealed class SharedProfileLoggingTests : IDisposable
         using var secrets = new OobeAccountSecretState();
         var document = new FoundryConfigurationDocument { General = new() { CustomDriverDirectoryPath = drivers } };
 
-        await Assert.ThrowsAsync<CustomDriverSizeLimitException>(() => DeploymentBuildSnapshot.CaptureAsync(document, secrets, [], Path.Combine(workspace.Path, "snapshots"), null, TestContext.Current.CancellationToken));
+        await Assert.ThrowsAsync<CustomDriverSizeLimitException>(() => BuildSnapshot.CaptureAsync(document, secrets, [], Path.Combine(workspace.Path, "snapshots"), null, TestContext.Current.CancellationToken));
 
         LogEvent failure = Assert.Single(sink.Events, entry => entry.Level >= LogEventLevel.Warning);
         Assert.Equal(LogEventLevel.Warning, failure.Level);
@@ -105,11 +106,38 @@ public sealed class SharedProfileLoggingTests : IDisposable
         using var secrets = new OobeAccountSecretState();
         var document = new FoundryConfigurationDocument { General = new() { CustomDriverDirectoryPath = drivers } };
 
-        CustomDriverSizeLimitException exception = await Assert.ThrowsAsync<CustomDriverSizeLimitException>(() => DeploymentBuildSnapshot.CaptureAsync(document, secrets, [], snapshots, null, TestContext.Current.CancellationToken));
+        CustomDriverSizeLimitException exception = await Assert.ThrowsAsync<CustomDriverSizeLimitException>(() => BuildSnapshot.CaptureAsync(document, secrets, [], snapshots, null, TestContext.Current.CancellationToken));
 
         Assert.Equal(2_147_483_649L, exception.ActualBytes);
         Assert.Empty(Directory.EnumerateDirectories(snapshots));
         Assert.True(File.Exists(sourcePath));
+    }
+
+    [Fact]
+    public async Task CleanupAbandoned_LockedSnapshotInputsLogOneWarningWithFailedCount()
+    {
+        using var workspace = new TemporaryDirectory();
+        string snapshots = Path.Combine(workspace.Path, "snapshots");
+        string abandoned = Path.Combine(snapshots, Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(abandoned);
+        using var secrets = new OobeAccountSecretState();
+        using (new FileStream(Path.Combine(abandoned, "confidential.pfx"), FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None))
+        {
+            BuildSnapshot.CleanupAbandoned(snapshots);
+            AssertSingleCleanupWarning();
+
+            sink.Events.Clear();
+            using BuildSnapshot snapshot = await BuildSnapshot.CaptureAsync(new(), secrets, [], snapshots, null, TestContext.Current.CancellationToken);
+            AssertSingleCleanupWarning();
+        }
+
+        void AssertSingleCleanupWarning()
+        {
+            LogEvent warning = Assert.Single(sink.Events, entry => entry.Level >= LogEventLevel.Warning);
+            Assert.Equal(LogEventLevel.Warning, warning.Level);
+            Assert.Equal(1, Assert.IsType<ScalarValue>(warning.Properties["DirectoryCount"]).Value);
+            Assert.DoesNotContain("confidential", warning.ToString(), StringComparison.OrdinalIgnoreCase);
+        }
     }
 
     public void Dispose()

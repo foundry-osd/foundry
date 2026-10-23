@@ -102,32 +102,8 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
                     }
                 }
             },
-            Dot1x = dot1x with
-            {
-                ProfileTemplatePath = wiredProfileRelativePath,
-                CertificatePath = wiredCertificateRelativePath,
-                AuthenticationMode = NetworkAuthenticationMode.MachineOnly,
-                AllowRuntimeCredentials = false,
-                CertificatePfxPassword = null,
-                CertificatePfxPasswordSecret = wiredCertificatePfxPasswordSecret
-            },
-            Wifi = wifi with
-            {
-                IsEnabled = isWifiEnabled,
-                SecurityType = isWifiEnabled
-                    ? NetworkConfigurationValidator.NormalizeWifiSecurityType(wifi)
-                    : null,
-                Passphrase = null,
-                PassphraseSecret = passphraseSecret,
-                EnterpriseProfileTemplatePath = isWifiEnabled && wifi.HasEnterpriseProfile
-                    ? wifiProfileRelativePath
-                    : null,
-                CertificatePath = wifiCertificateRelativePath,
-                EnterpriseAuthenticationMode = NetworkAuthenticationMode.UserOnly,
-                AllowRuntimeCredentials = false,
-                CertificatePfxPassword = null,
-                CertificatePfxPasswordSecret = wifiCertificatePfxPasswordSecret
-            },
+            Dot1x = ToRuntime(dot1x, wiredProfileRelativePath, wiredCertificateRelativePath, wiredCertificatePfxPasswordSecret),
+            Wifi = ToRuntime(wifi, isWifiEnabled, wifiProfileRelativePath, wifiCertificateRelativePath, passphraseSecret, wifiCertificatePfxPasswordSecret),
             Telemetry = document.Telemetry
         };
 
@@ -145,6 +121,71 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
     {
         ArgumentNullException.ThrowIfNull(document);
         return JsonSerializer.Serialize(document, ConfigurationJsonDefaults.SerializerOptions);
+    }
+
+    /// <summary>
+    /// Maps authoring wired 802.1X settings to the Connect runtime record with staged media-relative paths.
+    /// </summary>
+    /// <remarks>The runtime always uses machine-only authentication without runtime credentials; plaintext passwords are never copied.</remarks>
+    /// <param name="authoring">The authoring settings.</param>
+    /// <param name="profileTemplatePath">The media-relative staged profile path, or <see langword="null"/> when none is staged.</param>
+    /// <param name="certificatePath">The media-relative staged certificate path, or <see langword="null"/> when none is staged.</param>
+    /// <param name="certificatePfxPasswordSecret">The encrypted PFX password envelope, when one is required.</param>
+    internal static ConnectDot1xSettings ToRuntime(
+        Dot1xSettings authoring,
+        string? profileTemplatePath,
+        string? certificatePath,
+        SecretEnvelope? certificatePfxPasswordSecret)
+    {
+        ArgumentNullException.ThrowIfNull(authoring);
+        return new ConnectDot1xSettings
+        {
+            IsEnabled = authoring.IsEnabled,
+            ProfileTemplatePath = profileTemplatePath,
+            AuthenticationMode = NetworkAuthenticationMode.MachineOnly,
+            AllowRuntimeCredentials = false,
+            RequiresCertificate = authoring.RequiresCertificate,
+            CertificatePath = certificatePath,
+            CertificatePfxPasswordSecret = certificatePfxPasswordSecret
+        };
+    }
+
+    /// <summary>
+    /// Maps authoring Wi-Fi settings to the Connect runtime record with staged media-relative paths.
+    /// </summary>
+    /// <remarks>
+    /// The security type is normalized only when Wi-Fi is provisioned, the enterprise profile path is kept only for an enterprise profile,
+    /// and the runtime always uses user-only enterprise authentication without runtime credentials. Plaintext secrets are never copied.
+    /// </remarks>
+    /// <param name="authoring">The authoring settings.</param>
+    /// <param name="isEnabled">Whether Wi-Fi is both provisioned on the media and enabled.</param>
+    /// <param name="enterpriseProfileTemplatePath">The media-relative staged enterprise profile path, when one is staged.</param>
+    /// <param name="certificatePath">The media-relative staged certificate path, when one is staged.</param>
+    /// <param name="passphraseSecret">The encrypted personal passphrase envelope, when one is required.</param>
+    /// <param name="certificatePfxPasswordSecret">The encrypted PFX password envelope, when one is required.</param>
+    internal static ConnectWifiSettings ToRuntime(
+        WifiSettings authoring,
+        bool isEnabled,
+        string? enterpriseProfileTemplatePath,
+        string? certificatePath,
+        SecretEnvelope? passphraseSecret,
+        SecretEnvelope? certificatePfxPasswordSecret)
+    {
+        ArgumentNullException.ThrowIfNull(authoring);
+        return new ConnectWifiSettings
+        {
+            IsEnabled = isEnabled,
+            Ssid = authoring.Ssid,
+            SecurityType = isEnabled ? NetworkConfigurationValidator.NormalizeWifiSecurityType(authoring) : null,
+            PassphraseSecret = passphraseSecret,
+            HasEnterpriseProfile = authoring.HasEnterpriseProfile,
+            EnterpriseProfileTemplatePath = isEnabled && authoring.HasEnterpriseProfile ? enterpriseProfileTemplatePath : null,
+            EnterpriseAuthenticationMode = NetworkAuthenticationMode.UserOnly,
+            AllowRuntimeCredentials = false,
+            RequiresCertificate = authoring.RequiresCertificate,
+            CertificatePath = certificatePath,
+            CertificatePfxPasswordSecret = certificatePfxPasswordSecret
+        };
     }
 
     private static string? CopyAsset(

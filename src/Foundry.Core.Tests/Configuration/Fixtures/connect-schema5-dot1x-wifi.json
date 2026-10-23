@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 5,
+  "authoringVersion": "26.10.18.1",
+  "capabilities": {
+    "wifiProvisioned": true
+  },
+  "network": {
+    "profileRoaming": {
+      "wiredDot1x": {
+        "isEnabled": true,
+        "includePrivateKeyMaterial": true
+      },
+      "wifi": {
+        "isEnabled": true,
+        "includePrivateKeyMaterial": false
+      }
+    }
+  },
+  "dot1x": {
+    "isEnabled": true,
+    "profileTemplatePath": "Network\\Wired\\Profiles\\wired.xml",
+    "authenticationMode": 0,
+    "allowRuntimeCredentials": false,
+    "requiresCertificate": true,
+    "certificatePath": "Network\\Certificates\\Wired\\wired.pfx",
+    "certificatePfxPasswordSecret": {
+      "kind": "encrypted",
+      "algorithm": "aes-gcm-v1",
+      "keyId": "media",
+      "nonce": "qtGWu9iUZEevp-NG",
+      "tag": "4cYtoXxS8o_dhat5TNHroA",
+      "ciphertext": "xraSS8cwCet3aQVRqxo"
+    }
+  },
+  "wifi": {
+    "isEnabled": true,
+    "ssid": "Branch WiFi",
+    "securityType": "WPA2/WPA3-Personal",
+    "passphraseSecret": {
+      "kind": "encrypted",
+      "algorithm": "aes-gcm-v1",
+      "keyId": "media",
+      "nonce": "pET4DsLSJEgekwlU",
+      "tag": "8O5RZ8747W86JcwtVJS3dQ",
+      "ciphertext": "5pB4IvmjLughX4HShRkb6ybsCQ"
+    },
+    "hasEnterpriseProfile": false,
+    "enterpriseAuthenticationMode": 1,
+    "allowRuntimeCredentials": false,
+    "requiresCertificate": false
+  },
+  "internetProbe": {
+    "probeUris": [
+      "http://www.msftconnecttest.com/connecttest.txt",
+      "http://www.google.com"
+    ],
+    "timeoutSeconds": 5
+  },
+  "telemetry": {
+    "isEnabled": true,
+    "isRemoteDiagnosticsEnabled": true,
+    "installId": "fixture-install",
+    "hostUrl": "https://eu.i.posthog.com",
+    "projectToken": "",
+    "runtimePayloadSource": "unknown"
+  }
+}

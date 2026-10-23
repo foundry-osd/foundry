@@ -5,7 +5,7 @@
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Configuration;
-using Foundry.Core.Services.Profiles;
+using Foundry.Core.Services.Media;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Autopilot;
 using Foundry.Telemetry;
@@ -512,7 +512,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     }
 
     /// <inheritdoc />
-    public Task<DeploymentBuildSnapshot> CaptureBuildSnapshotAsync(
+    public Task<BuildSnapshot> CaptureBuildSnapshotAsync(
         string privateRootDirectory,
         CancellationToken cancellationToken = default)
     {
@@ -528,7 +528,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
             : [];
         try
         {
-            return DeploymentBuildSnapshot.CaptureAsync(
+            return BuildSnapshot.CaptureAsync(
                 document, accountSecrets, domainSecrets, password, privateRootDirectory, authoringVersion, cancellationToken);
         }
         finally
