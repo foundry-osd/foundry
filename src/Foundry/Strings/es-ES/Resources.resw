@@ -3592,7 +3592,10 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Los secretos de medios requeridos no están listos.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>La unidad USB seleccionada es demasiado pequeña. Use una unidad USB de al menos 16 GB.</value>
+    <value>La unidad USB seleccionada es demasiado pequeña para una caché. Use una unidad USB de al menos 16 GB o seleccione «Crear sin caché» en la flecha de «Crear USB».</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>La unidad USB seleccionada es demasiado pequeña. Use una unidad USB de al menos 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>La distribución de teclado de WinPE seleccionada no está instalada en este equipo.</value>
@@ -4084,10 +4087,10 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Volumen de arranque: {0}. Volumen de caché: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>El medio necesita aproximadamente {0}, pero la unidad USB sin caché puede contener {1}. No se ha borrado ni formateado nada. Use una unidad más grande o use «Crear USB».</value>
+    <value>El medio necesita aproximadamente {0}, pero esta unidad USB sin caché puede contener {1}. No se ha borrado ni formateado nada. Use «Crear USB» en su lugar.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>Volumen USB: {0}. La unidad no tiene caché: cada implementación vuelve a descargar Windows y los controladores.</value>
+    <value>Volumen USB: {0}. La unidad no conserva descargas: cada implementación vuelve a descargar Windows y los controladores desde el catálogo.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Comprobando la unidad USB…</value>

@@ -3592,7 +3592,10 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Nepieciešamie mediju noslēpumi nav gatavi.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Atlasītais USB disks ir pārāk mazs. Izmantojiet USB disku, kura ietilpība ir vismaz 16 GB.</value>
+    <value>Atlasītais USB disks ir pārāk mazs kešatmiņai. Izmantojiet USB disku, kura ietilpība ir vismaz 16 GB, vai ar pogas “Izveidot USB” bultiņu atlasiet “Izveidot bez kešatmiņas”.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Atlasītais USB disks ir pārāk mazs. Izmantojiet USB disku, kura ietilpība ir vismaz 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Atlasītais WinPE tastatūras izkārtojums šajā datorā nav instalēts.</value>
@@ -4084,10 +4087,10 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Sāknēšanas sējums: {0}. Kešatmiņas sējums: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>Datu nesējam nepieciešami aptuveni {0}, bet USB diskā bez kešatmiņas ietilpst {1}. Nekas nav izdzēsts vai formatēts. Izmantojiet lielāku disku vai “Izveidot USB”.</value>
+    <value>Datu nesējam nepieciešami aptuveni {0}, bet šajā USB diskā bez kešatmiņas ietilpst {1}. Nekas nav izdzēsts vai formatēts. Tā vietā izmantojiet “Izveidot USB”.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>USB sējums: {0}. Diskam nav kešatmiņas: katra izvietošana atkārtoti lejupielādē Windows un draiverus.</value>
+    <value>USB sējums: {0}. Disks nesaglabā lejupielādes: katra izvietošana atkārtoti lejupielādē Windows un draiverus no kataloga.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Notiek USB diska pārbaude…</value>

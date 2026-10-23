@@ -3592,7 +3592,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>必要なメディア シークレットの準備ができていません。</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>選択した USB ドライブの容量が不足しています。16 GB 以上の USB ドライブを使用してください。</value>
+    <value>選択した USB ドライブはキャッシュを置くには容量が不足しています。16 GB 以上の USB ドライブを使用するか、「USB を作成」の矢印から「キャッシュなしで作成」を選択してください。</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>選択した USB ドライブの容量が不足しています。1 GB 以上の USB ドライブを使用してください。</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>選択した WinPE キーボード レイアウトはこのコンピューターにインストールされていません。</value>
@@ -4084,10 +4087,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ブート ボリューム: {0}。キャッシュ ボリューム: {1}。</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>メディアには約 {0} が必要ですが、キャッシュなしの USB ドライブの容量は {1} です。消去やフォーマットは行われていません。より大きなドライブを使用するか、「USB を作成」を使用してください。</value>
+    <value>メディアには約 {0} が必要ですが、このキャッシュなしの USB ドライブの容量は {1} です。消去やフォーマットは行われていません。代わりに「USB を作成」を使用してください。</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>USB ボリューム: {0}。このドライブにはキャッシュがありません。展開のたびに Windows とドライバーが再度ダウンロードされます。</value>
+    <value>USB ボリューム: {0}。このドライブにはダウンロードが保持されません。展開のたびに Windows とドライバーがカタログから再度ダウンロードされます。</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>USB ドライブを確認しています…</value>

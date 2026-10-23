@@ -3592,7 +3592,10 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>A szükséges médiatitkok nincsenek készen.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>A kiválasztott USB-meghajtó túl kicsi. Használjon legalább 16 GB-os USB-meghajtót.</value>
+    <value>A kiválasztott USB-meghajtó túl kicsi a gyorsítótárhoz. Használjon legalább 16 GB-os USB-meghajtót, vagy válassza a „Létrehozás gyorsítótár nélkül” lehetőséget az „USB létrehozása” gomb nyilából.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>A kiválasztott USB-meghajtó túl kicsi. Használjon legalább 1 GB-os USB-meghajtót.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>A kiválasztott WinPE billentyűzetkiosztás nincs telepítve ezen a számítógépen.</value>
@@ -4084,10 +4087,10 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>Rendszerindító kötet: {0}. Gyorsítótárkötet: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>Az adathordozóhoz körülbelül {0} szükséges, de a gyorsítótár nélküli USB-meghajtóra {1} fér el. Sem törlés, sem formázás nem történt. Használjon nagyobb meghajtót, vagy az „USB létrehozása” lehetőséget.</value>
+    <value>Az adathordozóhoz körülbelül {0} szükséges, de erre a gyorsítótár nélküli USB-meghajtóra {1} fér el. Sem törlés, sem formázás nem történt. Használja helyette az „USB létrehozása” lehetőséget.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>USB-kötet: {0}. A meghajtón nincs gyorsítótár: minden telepítés újra letölti a Windowst és az illesztőprogramokat.</value>
+    <value>USB-kötet: {0}. A meghajtó nem tárolja a letöltéseket: minden telepítés újra letölti a Windowst és az illesztőprogramokat a katalógusból.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Az USB-meghajtó ellenőrzése…</value>

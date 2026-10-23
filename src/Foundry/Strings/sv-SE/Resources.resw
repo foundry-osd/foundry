@@ -3592,7 +3592,10 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>Nödvändiga mediehemligheter är inte klara.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Den valda USB-enheten är för liten. Använd en USB-enhet på minst 16 GB.</value>
+    <value>Den valda USB-enheten är för liten för en cache. Använd en USB-enhet på minst 16 GB, eller välj ”Skapa utan cache” via pilen på ”Skapa USB”.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Den valda USB-enheten är för liten. Använd en USB-enhet på minst 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Den valda tangentbordslayouten för WinPE är inte installerad på den här datorn.</value>
@@ -4084,10 +4087,10 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>Startvolym: {0}. Cachevolym: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>Mediet behöver cirka {0}, men USB-enheten utan cache rymmer {1}. Inget har raderats eller formaterats. Använd en större enhet, eller använd ”Skapa USB”.</value>
+    <value>Mediet behöver cirka {0}, men den här USB-enheten utan cache rymmer {1}. Inget har raderats eller formaterats. Använd ”Skapa USB” i stället.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>USB-volym: {0}. Enheten har ingen cache: varje distribution laddar ned Windows och drivrutiner igen.</value>
+    <value>USB-volym: {0}. Enheten sparar inga nedladdningar: varje distribution laddar ned Windows och drivrutiner från katalogen igen.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Kontrollerar USB-enheten…</value>

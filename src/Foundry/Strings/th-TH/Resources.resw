@@ -3592,7 +3592,10 @@
     <value>ข้อมูลลับของสื่อที่จำเป็นยังไม่พร้อม</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>ไดรฟ์ USB ที่เลือกมีขนาดเล็กเกินไป ใช้ไดรฟ์ USB ที่มีขนาดอย่างน้อย 16 GB</value>
+    <value>ไดรฟ์ USB ที่เลือกมีขนาดเล็กเกินไปสำหรับแคช ใช้ไดรฟ์ USB ที่มีขนาดอย่างน้อย 16 GB หรือเลือก “สร้างโดยไม่มีแคช” จากลูกศรของ “สร้าง USB”</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>ไดรฟ์ USB ที่เลือกมีขนาดเล็กเกินไป ใช้ไดรฟ์ USB ที่มีขนาดอย่างน้อย 1 GB</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>ไม่ได้ติดตั้งเค้าโครงแป้นพิมพ์ WinPE ที่เลือกไว้ในคอมพิวเตอร์เครื่องนี้</value>
@@ -4084,10 +4087,10 @@
     <value>วอลุ่มบูต: {0} วอลุ่มแคช: {1}</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>สื่อต้องการพื้นที่ประมาณ {0} แต่ไดรฟ์ USB ที่ไม่มีแคชจุได้ {1} ยังไม่มีการลบหรือฟอร์แมตข้อมูล ให้ใช้ไดรฟ์ที่ใหญ่กว่า หรือใช้ “สร้าง USB”</value>
+    <value>สื่อต้องการพื้นที่ประมาณ {0} แต่ไดรฟ์ USB ที่ไม่มีแคชนี้จุได้ {1} ยังไม่มีการลบหรือฟอร์แมตข้อมูล ให้ใช้ “สร้าง USB” แทน</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>วอลุ่ม USB: {0} ไดรฟ์นี้ไม่มีแคช การปรับใช้แต่ละครั้งจะดาวน์โหลด Windows และไดรเวอร์ใหม่</value>
+    <value>วอลุ่ม USB: {0} ไดรฟ์นี้ไม่เก็บไฟล์ที่ดาวน์โหลดไว้ การปรับใช้แต่ละครั้งจะดาวน์โหลด Windows และไดรเวอร์จากแค็ตตาล็อกใหม่</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>กำลังตรวจสอบไดรฟ์ USB…</value>

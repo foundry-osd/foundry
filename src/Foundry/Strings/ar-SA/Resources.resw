@@ -3592,7 +3592,10 @@
     <value>أسرار الوسائط المطلوبة ليست جاهزة.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>محرك أقراص USB المحدد صغير جدًا. استخدم محرك أقراص USB بسعة 16 GB على الأقل.</value>
+    <value>محرك أقراص USB المحدد صغير جدًا لاستيعاب ذاكرة تخزين مؤقت. استخدم محرك أقراص USB بسعة 16 GB على الأقل، أو حدد «إنشاء بدون ذاكرة تخزين مؤقت» من سهم «إنشاء USB».</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>محرك أقراص USB المحدد صغير جدًا. استخدم محرك أقراص USB بسعة 1 GB على الأقل.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>تخطيط لوحة مفاتيح WinPE المحدد غير مثبت على هذا الكمبيوتر.</value>
@@ -4084,10 +4087,10 @@
     <value>وحدة تخزين التمهيد: {0}. وحدة تخزين ذاكرة التخزين المؤقت: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>تحتاج الوسائط إلى نحو {0}، لكن محرك أقراص USB بدون ذاكرة تخزين مؤقت يتسع لـ {1}. لم يتم مسح أي شيء أو تهيئته. استخدم محرك أقراص أكبر، أو استخدم «إنشاء USB».</value>
+    <value>تحتاج الوسائط إلى نحو {0}، لكن محرك أقراص USB هذا بدون ذاكرة تخزين مؤقت يتسع لـ {1}. لم يتم مسح أي شيء أو تهيئته. استخدم «إنشاء USB» بدلاً من ذلك.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>وحدة تخزين USB: {0}. لا يحتوي محرك الأقراص على ذاكرة تخزين مؤقت: يقوم كل نشر بتنزيل Windows وبرامج التشغيل من جديد.</value>
+    <value>وحدة تخزين USB: {0}. لا يحتفظ محرك الأقراص بأي تنزيلات: يقوم كل نشر بتنزيل Windows وبرامج التشغيل من الكتالوج من جديد.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>جارٍ فحص قرص USB…</value>

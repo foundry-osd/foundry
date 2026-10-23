@@ -3592,7 +3592,10 @@
     <value>Τα απαραίτητα μυστικά των μέσων ενημέρωσης δεν είναι έτοιμα.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Η επιλεγμένη μονάδα USB είναι πολύ μικρή. Χρησιμοποιήστε μονάδα USB τουλάχιστον 16 GB.</value>
+    <value>Η επιλεγμένη μονάδα USB είναι πολύ μικρή για προσωρινή μνήμη. Χρησιμοποιήστε μονάδα USB τουλάχιστον 16 GB ή επιλέξτε «Δημιουργία χωρίς προσωρινή μνήμη» από το βέλος του «Δημιουργία USB».</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Η επιλεγμένη μονάδα USB είναι πολύ μικρή. Χρησιμοποιήστε μονάδα USB τουλάχιστον 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Η επιλεγμένη διάταξη πληκτρολογίου WinPE δεν είναι εγκατεστημένη σε αυτόν τον υπολογιστή.</value>
@@ -4084,10 +4087,10 @@
     <value>Τόμος εκκίνησης: {0}. Τόμος προσωρινής μνήμης: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>Το μέσο χρειάζεται περίπου {0}, αλλά η μονάδα USB χωρίς προσωρινή μνήμη χωράει {1}. Δεν έχει γίνει διαγραφή ή διαμόρφωση. Χρησιμοποιήστε μεγαλύτερη μονάδα ή το «Δημιουργία USB».</value>
+    <value>Το μέσο χρειάζεται περίπου {0}, αλλά αυτή η μονάδα USB χωρίς προσωρινή μνήμη χωράει {1}. Δεν έχει γίνει διαγραφή ή διαμόρφωση. Χρησιμοποιήστε αντί αυτού το «Δημιουργία USB».</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>Τόμος USB: {0}. Η μονάδα δεν έχει προσωρινή μνήμη: κάθε ανάπτυξη κατεβάζει ξανά τα Windows και τα προγράμματα οδήγησης.</value>
+    <value>Τόμος USB: {0}. Η μονάδα δεν διατηρεί λήψεις: κάθε ανάπτυξη κατεβάζει ξανά τα Windows και τα προγράμματα οδήγησης από τον κατάλογο.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Έλεγχος της μονάδας USB…</value>

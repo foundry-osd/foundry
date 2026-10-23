@@ -3592,7 +3592,10 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
     <value>Požadované tajomstvá médií nie sú pripravené.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Vybratá jednotka USB je príliš malá. Použite jednotku USB s kapacitou aspoň 16 GB.</value>
+    <value>Vybratá jednotka USB je príliš malá na vyrovnávaciu pamäť. Použite jednotku USB s kapacitou aspoň 16 GB alebo vyberte „Vytvoriť bez vyrovnávacej pamäte“ pomocou šípky tlačidla „Vytvoriť USB“.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Vybratá jednotka USB je príliš malá. Použite jednotku USB s kapacitou aspoň 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Vybraté rozloženie klávesnice WinPE nie je v tomto počítači nainštalované.</value>
@@ -4084,10 +4087,10 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
     <value>Zavádzací zväzok: {0}. Zväzok vyrovnávacej pamäte: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>Médium potrebuje približne {0}, ale na jednotku USB bez vyrovnávacej pamäte sa zmestí {1}. Nič nebolo vymazané ani naformátované. Použite väčšiu jednotku alebo „Vytvoriť USB“.</value>
+    <value>Médium potrebuje približne {0}, ale na túto jednotku USB bez vyrovnávacej pamäte sa zmestí {1}. Nič nebolo vymazané ani naformátované. Namiesto toho použite „Vytvoriť USB“.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>Zväzok USB: {0}. Jednotka nemá vyrovnávaciu pamäť: každé nasadenie znova stiahne Windows a ovládače.</value>
+    <value>Zväzok USB: {0}. Jednotka neuchováva stiahnuté súbory: každé nasadenie znova stiahne Windows a ovládače z katalógu.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Kontroluje sa disk USB…</value>

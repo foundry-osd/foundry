@@ -3592,7 +3592,10 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Potrebne medijske tajne nisu spremne.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Izabrani USB disk je premali. Koristite USB disk od najmanje 16 GB.</value>
+    <value>Izabrani USB disk je premali za keš. Koristite USB disk od najmanje 16 GB ili izaberite „Kreiraj bez keša“ preko strelice dugmeta „Kreiraj USB“.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Izabrani USB disk je premali. Koristite USB disk od najmanje 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Izabrani raspored tastature za WinPE nije instaliran na ovom računaru.</value>
@@ -4084,10 +4087,10 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Volumen za pokretanje: {0}. Volumen keša: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>Medijumu je potrebno približno {0}, ali USB disk bez keša može da primi {1}. Ništa nije obrisano niti formatirano. Koristite veći disk ili „Kreiraj USB“.</value>
+    <value>Medijumu je potrebno približno {0}, ali ovaj USB disk bez keša može da primi {1}. Ništa nije obrisano niti formatirano. Umesto toga koristite „Kreiraj USB“.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>USB volumen: {0}. Disk nema keš: svaka primena ponovo preuzima Windows i drajvere.</value>
+    <value>USB volumen: {0}. Disk ne čuva preuzimanja: svaka primena ponovo preuzima Windows i drajvere iz kataloga.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Provera USB diska…</value>

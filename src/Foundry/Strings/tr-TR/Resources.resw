@@ -3592,7 +3592,10 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>Gerekli medya sırları hazır değil.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Seçilen USB sürücüsü çok küçük. En az 16 GB boyutunda bir USB sürücüsü kullanın.</value>
+    <value>Seçilen USB sürücüsü önbellek için çok küçük. En az 16 GB boyutunda bir USB sürücüsü kullanın veya “USB oluştur” düğmesinin okundan “Önbellek olmadan oluştur” seçeneğini belirleyin.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Seçilen USB sürücüsü çok küçük. En az 1 GB boyutunda bir USB sürücüsü kullanın.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Seçilen WinPE klavye düzeni bu bilgisayarda yüklü değil.</value>
@@ -4084,10 +4087,10 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>Önyükleme birimi: {0}. Önbellek birimi: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>Medya için yaklaşık {0} gerekiyor, ancak önbelleksiz USB sürücüsü {1} alabiliyor. Hiçbir şey silinmedi veya biçimlendirilmedi. Daha büyük bir sürücü kullanın veya “USB oluştur” seçeneğini kullanın.</value>
+    <value>Medya için yaklaşık {0} gerekiyor, ancak bu önbelleksiz USB sürücüsü {1} alabiliyor. Hiçbir şey silinmedi veya biçimlendirilmedi. Bunun yerine “USB oluştur” seçeneğini kullanın.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>USB birimi: {0}. Sürücüde önbellek yok: her dağıtım Windows'u ve sürücüleri yeniden indirir.</value>
+    <value>USB birimi: {0}. Sürücü indirmeleri saklamaz: her dağıtım Windows'u ve sürücüleri katalogdan yeniden indirir.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>USB sürücüsü denetleniyor…</value>

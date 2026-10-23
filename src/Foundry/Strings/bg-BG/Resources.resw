@@ -3592,7 +3592,10 @@
     <value>Необходимите медийни тайни не са готови.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Избраният USB диск е твърде малък. Използвайте USB диск с капацитет поне 16 GB.</value>
+    <value>Избраният USB диск е твърде малък за кеш. Използвайте USB диск с капацитет поне 16 GB или изберете „Създаване без кеш“ от стрелката на „Създаване на USB“.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Избраният USB диск е твърде малък. Използвайте USB диск с капацитет поне 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Избраната клавиатурна подредба за WinPE не е инсталирана на този компютър.</value>
@@ -4084,10 +4087,10 @@
     <value>Том за стартиране: {0}. Кеш том: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>Носителят изисква приблизително {0}, но USB устройството без кеш побира {1}. Нищо не е изтрито или форматирано. Използвайте по-голямо устройство или „Създаване на USB“.</value>
+    <value>Носителят изисква приблизително {0}, но това USB устройство без кеш побира {1}. Нищо не е изтрито или форматирано. Вместо това използвайте „Създаване на USB“.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>USB том: {0}. Устройството няма кеш: всяко внедряване изтегля Windows и драйверите отново.</value>
+    <value>USB том: {0}. Устройството не пази изтеглянията: всяко внедряване изтегля Windows и драйверите от каталога отново.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Проверка на USB диска…</value>

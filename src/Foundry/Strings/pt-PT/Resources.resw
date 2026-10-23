@@ -3592,7 +3592,10 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>Os segredos necessários do suporte não estão prontos.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>A unidade USB selecionada é demasiado pequena. Utilize uma unidade USB com, pelo menos, 16 GB.</value>
+    <value>A unidade USB selecionada é demasiado pequena para uma cache. Utilize uma unidade USB com, pelo menos, 16 GB ou selecione «Criar sem cache» na seta de «Criar USB».</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>A unidade USB selecionada é demasiado pequena. Utilize uma unidade USB com, pelo menos, 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>O esquema de teclado do WinPE selecionado não está instalado neste computador.</value>
@@ -4084,10 +4087,10 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>Volume de arranque: {0}. Volume de cache: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>O suporte necessita de aproximadamente {0}, mas a unidade USB sem cache comporta {1}. Nada foi apagado ou formatado. Utilize uma unidade maior ou utilize «Criar USB».</value>
+    <value>O suporte necessita de aproximadamente {0}, mas esta unidade USB sem cache comporta {1}. Nada foi apagado ou formatado. Em alternativa, utilize «Criar USB».</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>Volume USB: {0}. A unidade não tem cache: cada implementação transfere novamente o Windows e os controladores.</value>
+    <value>Volume USB: {0}. A unidade não guarda transferências: cada implementação transfere novamente o Windows e os controladores a partir do catálogo.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>A verificar a unidade USB…</value>

@@ -3592,7 +3592,10 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Potrebne medijske tajne nisu spremne.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Odabrani USB pogon je premalen. Koristite USB pogon od najmanje 16 GB.</value>
+    <value>Odabrani USB pogon je premalen za predmemoriju. Koristite USB pogon od najmanje 16 GB ili odaberite „Stvori bez predmemorije“ putem strelice gumba „Stvori USB“.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Odabrani USB pogon je premalen. Koristite USB pogon od najmanje 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Odabrani raspored tipkovnice za WinPE nije instaliran na ovom računalu.</value>
@@ -4084,10 +4087,10 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Volumen za pokretanje: {0}. Volumen predmemorije: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>Medij zahtijeva približno {0}, ali USB pogon bez predmemorije može primiti {1}. Ništa nije izbrisano ni formatirano. Upotrijebite veći pogon ili „Stvori USB“.</value>
+    <value>Medij zahtijeva približno {0}, ali ovaj USB pogon bez predmemorije može primiti {1}. Ništa nije izbrisano ni formatirano. Umjesto toga upotrijebite „Stvori USB“.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>USB volumen: {0}. Pogon nema predmemoriju: svaka implementacija ponovno preuzima Windows i upravljačke programe.</value>
+    <value>USB volumen: {0}. Pogon ne čuva preuzimanja: svaka implementacija ponovno preuzima Windows i upravljačke programe iz kataloga.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Provjera USB diska…</value>

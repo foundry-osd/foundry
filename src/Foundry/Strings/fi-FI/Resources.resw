@@ -3592,7 +3592,10 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Vaaditut mediasalaisuudet eivät ole valmiita.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Valittu USB-asema on liian pieni. Käytä vähintään 16 GB:n USB-asemaa.</value>
+    <value>Valittu USB-asema on liian pieni välimuistille. Käytä vähintään 16 GB:n USB-asemaa tai valitse ”Luo ilman välimuistia” ”Luo USB” -painikkeen nuolesta.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Valittu USB-asema on liian pieni. Käytä vähintään 1 GB:n USB-asemaa.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Valittua WinPE-näppäimistöasettelua ei ole asennettu tähän tietokoneeseen.</value>
@@ -4084,10 +4087,10 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Käynnistystaltio: {0}. Välimuistitaltio: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>Tietoväline tarvitsee noin {0}, mutta välimuistittomaan USB-asemaan mahtuu {1}. Mitään ei ole poistettu tai alustettu. Käytä suurempaa asemaa tai toimintoa ”Luo USB”.</value>
+    <value>Tietoväline tarvitsee noin {0}, mutta tähän välimuistittomaan USB-asemaan mahtuu {1}. Mitään ei ole poistettu tai alustettu. Käytä sen sijaan toimintoa ”Luo USB”.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>USB-taltio: {0}. Asemalla ei ole välimuistia: jokainen käyttöönotto lataa Windowsin ja ohjaimet uudelleen.</value>
+    <value>USB-taltio: {0}. Asema ei säilytä latauksia: jokainen käyttöönotto lataa Windowsin ja ohjaimet luettelosta uudelleen.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Tarkistetaan USB-asemaa…</value>

@@ -3592,7 +3592,10 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Die erforderlichen Mediengeheimnisse sind nicht bereit.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Das ausgewählte USB-Laufwerk ist zu klein. Verwenden Sie ein USB-Laufwerk mit mindestens 16 GB.</value>
+    <value>Das ausgewählte USB-Laufwerk ist für einen Cache zu klein. Verwenden Sie ein USB-Laufwerk mit mindestens 16 GB, oder wählen Sie über den Pfeil von „USB erstellen“ die Option „Ohne Cache erstellen“.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Das ausgewählte USB-Laufwerk ist zu klein. Verwenden Sie ein USB-Laufwerk mit mindestens 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Das ausgewählte WinPE-Tastaturlayout ist auf diesem Computer nicht installiert.</value>
@@ -4084,10 +4087,10 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Startvolume: {0}. Cache-Volume: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>Das Medium benötigt etwa {0}, das USB-Laufwerk ohne Cache fasst jedoch {1}. Es wurde nichts gelöscht oder formatiert. Verwenden Sie ein größeres Laufwerk oder „USB erstellen“.</value>
+    <value>Das Medium benötigt etwa {0}, dieses USB-Laufwerk ohne Cache fasst jedoch {1}. Es wurde nichts gelöscht oder formatiert. Verwenden Sie stattdessen „USB erstellen“.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>USB-Volume: {0}. Das Laufwerk hat keinen Cache: Jede Bereitstellung lädt Windows und die Treiber erneut herunter.</value>
+    <value>USB-Volume: {0}. Das Laufwerk speichert keine Downloads: Jede Bereitstellung lädt Windows und die Treiber erneut aus dem Katalog herunter.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>USB-Laufwerk wird überprüft…</value>

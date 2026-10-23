@@ -10,7 +10,8 @@ public sealed partial class WinPeUsbMediaService
 {
     /// <summary>
     /// Writes the content of an ISO to one FAT32 partition: the boot files, <c>sources\boot.wim</c> with the runtimes
-    /// embedded, then the imported content at the paths the ISO uses. Every check that can fail runs before the disk is erased.
+    /// embedded, then the imported content at the paths the ISO uses. Every validation that can be done ahead of time runs before
+    /// the disk is erased.
     /// </summary>
     private async Task<WinPeResult<WinPeUsbProvisionResult>> ProvisionSingleVolumeAsync(UsbOutputOptions options,
         DiskIdentity expectedIdentity, WinPeBuildArtifact artifact, WinPeToolPaths tools, bool useBootEx, CancellationToken cancellationToken)

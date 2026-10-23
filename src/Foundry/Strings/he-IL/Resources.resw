@@ -3592,7 +3592,10 @@
     <value>סודות התקשורת הנדרשים אינם מוכנים.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>כונן ה-USB שנבחר קטן מדי. השתמש בכונן USB בנפח 16 GB לפחות.</value>
+    <value>כונן ה-USB שנבחר קטן מדי עבור מטמון. השתמש בכונן USB בנפח 16 GB לפחות, או בחר “צור ללא מטמון” מהחץ של “צור USB”.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>כונן ה-USB שנבחר קטן מדי. השתמש בכונן USB בנפח 1 GB לפחות.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>פריסת המקלדת של WinPE שנבחרה אינה מותקנת במחשב זה.</value>
@@ -4084,10 +4087,10 @@
     <value>אמצעי אחסון לאתחול: {0}. אמצעי אחסון למטמון: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>המדיה דורשת כ-{0}, אך כונן ה-USB ללא מטמון יכול להכיל {1}. לא בוצעו מחיקה או אתחול. יש להשתמש בכונן גדול יותר או באפשרות “צור USB”.</value>
+    <value>המדיה דורשת כ-{0}, אך כונן USB זה ללא מטמון יכול להכיל {1}. לא בוצעו מחיקה או אתחול. יש להשתמש באפשרות “צור USB” במקום זאת.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>אמצעי אחסון USB: {0}. בכונן אין מטמון: כל פריסה מורידה מחדש את Windows ואת מנהלי ההתקנים.</value>
+    <value>אמצעי אחסון USB: {0}. הכונן אינו שומר הורדות: כל פריסה מורידה מחדש את Windows ואת מנהלי ההתקנים מהקטלוג.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>בודק את כונן ה-USB…</value>

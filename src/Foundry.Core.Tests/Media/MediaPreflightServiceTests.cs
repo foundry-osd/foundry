@@ -60,6 +60,20 @@ public sealed class MediaPreflightServiceTests
     }
 
     [Fact]
+    public void Evaluate_WhenUsbTargetIsBelowOneGibibyte_BlocksUsbWithoutCache()
+    {
+        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(
+            CreateReadyOptions() with
+            {
+                IsFinalExecutionEnabled = true,
+                SelectedUsbDisk = CreateReadyOptions().SelectedUsbDisk! with { SizeBytes = 512UL * 1024 * 1024 }
+            });
+
+        Assert.False(evaluation.CanCreateUsbWithoutCache);
+        Assert.Contains(MediaPreflightBlockingReason.UsbTargetBelowMinimumSizeWithoutCache, evaluation.UsbWithoutCacheBlockingReasons);
+    }
+
+    [Fact]
     public void Evaluate_WhenNoUsbTargetIsSelected_BlocksUsbWithoutCache()
     {
         MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(

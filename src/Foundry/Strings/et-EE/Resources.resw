@@ -3592,7 +3592,10 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Nõutavad meediasaladused pole valmis.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Valitud USB-ketas on liiga väike. Kasutage vähemalt 16 GB mahuga USB-ketast.</value>
+    <value>Valitud USB-ketas on vahemälu jaoks liiga väike. Kasutage vähemalt 16 GB mahuga USB-ketast või valige nupu „Loo USB“ noolest „Loo ilma vahemäluta“.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Valitud USB-ketas on liiga väike. Kasutage vähemalt 1 GB mahuga USB-ketast.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Valitud WinPE klaviatuuripaigutust pole selles arvutis installitud.</value>
@@ -4084,10 +4087,10 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Alglaadimisköide: {0}. Vahemäluköide: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>Meedium vajab ligikaudu {0}, kuid vahemäluta USB-draivile mahub {1}. Midagi pole kustutatud ega vormindatud. Kasutage suuremat draivi või valikut „Loo USB“.</value>
+    <value>Meedium vajab ligikaudu {0}, kuid sellele vahemäluta USB-draivile mahub {1}. Midagi pole kustutatud ega vormindatud. Kasutage selle asemel valikut „Loo USB“.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>USB-köide: {0}. Draivil pole vahemälu: iga juurutus laadib Windowsi ja draiverid uuesti alla.</value>
+    <value>USB-köide: {0}. Draiv ei säilita allalaadimisi: iga juurutus laadib Windowsi ja draiverid kataloogist uuesti alla.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>USB-ketta kontrollimine…</value>

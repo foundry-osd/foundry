@@ -3592,7 +3592,10 @@
     <value>Требуемые медиа-секреты не готовы.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Выбранный USB-накопитель слишком мал. Используйте USB-накопитель объемом не менее 16 GB.</value>
+    <value>Выбранный USB-накопитель слишком мал для кэша. Используйте USB-накопитель объемом не менее 16 GB или выберите «Создать без кэша» с помощью стрелки кнопки «Создать USB».</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Выбранный USB-накопитель слишком мал. Используйте USB-накопитель объемом не менее 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Выбранная раскладка клавиатуры WinPE не установлена на этом компьютере.</value>
@@ -4084,10 +4087,10 @@
     <value>Загрузочный том: {0}. Том кэша: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>Для носителя требуется примерно {0}, но на USB-накопитель без кэша помещается {1}. Удаление и форматирование не выполнялись. Используйте накопитель большего объёма или «Создать USB».</value>
+    <value>Для носителя требуется примерно {0}, но на этот USB-накопитель без кэша помещается {1}. Удаление и форматирование не выполнялись. Вместо этого используйте «Создать USB».</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>Том USB: {0}. На накопителе нет кэша: при каждом развертывании Windows и драйверы скачиваются заново.</value>
+    <value>Том USB: {0}. Накопитель не хранит загрузки: при каждом развертывании Windows и драйверы заново скачиваются из каталога.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Проверка USB-накопителя…</value>

@@ -718,13 +718,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         var telemetryProgressTracker = new MediaCreationTelemetryProgressTracker();
         string operationId = Guid.NewGuid().ToString("N", CultureInfo.InvariantCulture);
         string bootMediaTarget = GetTelemetryBootMediaTarget(target);
-        string usbOperation = target switch
-        {
-            FinalMediaTarget.Usb => TelemetryBootMediaUsbOperations.Create,
-            FinalMediaTarget.UsbUpdate => TelemetryBootMediaUsbOperations.Update,
-            FinalMediaTarget.UsbWithoutCache => TelemetryBootMediaUsbOperations.CreateWithoutCache,
-            _ => TelemetryBootMediaUsbOperations.None
-        };
+        string usbOperation = GetTelemetryUsbOperation(target);
         WinPeDiagnostic? failureDiagnostic = null;
         // Telemetry keeps the tracked step: a diagnostic stage can be a dynamic label, which stays in logs only.
         string? telemetryFailedStepName = null;
@@ -908,6 +902,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     WinPeErrorCodes.UsbBootCapacityInsufficient => FormatMediaCapacityFailure("StartMedia.Operation.UsbBootCapacityInsufficient", failureDiagnostic),
                     WinPeErrorCodes.UsbFileTooLargeForFat32 => FormatMediaCapacityFailure("StartMedia.Operation.UsbFileTooLargeForFat32", failureDiagnostic),
                     WinPeErrorCodes.UsbBootCapacityUnknown => localizationService.GetString("StartMedia.Operation.UsbBootCapacityUnknown"),
+                    WinPeErrorCodes.UsbBootFileTooLarge when target == FinalMediaTarget.UsbWithoutCache =>
+                        FormatMediaCapacityFailure("StartMedia.Operation.UsbFileTooLargeForFat32", failureDiagnostic),
                     WinPeErrorCodes.UsbBootFileTooLarge => FormatMediaCapacityFailure("StartMedia.Operation.UsbBootFileTooLarge", failureDiagnostic),
                     WinPeErrorCodes.UsbCacheCapacityInsufficient => localizationService.GetString("StartMedia.Operation.UsbCacheCapacityInsufficient"),
                     WinPeErrorCodes.ExternalMediaContentFailed => localizationService.GetString("StartMedia.Operation.ExternalMediaContentFailed"),
@@ -1046,6 +1042,14 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         FinalMediaTarget.Iso => TelemetryBootMediaTargets.Iso,
         FinalMediaTarget.Pxe => TelemetryBootMediaTargets.Pxe,
         _ => TelemetryBootMediaTargets.Usb
+    };
+
+    private static string GetTelemetryUsbOperation(FinalMediaTarget target) => target switch
+    {
+        FinalMediaTarget.Usb => TelemetryBootMediaUsbOperations.Create,
+        FinalMediaTarget.UsbUpdate => TelemetryBootMediaUsbOperations.Update,
+        FinalMediaTarget.UsbWithoutCache => TelemetryBootMediaUsbOperations.CreateWithoutCache,
+        _ => TelemetryBootMediaUsbOperations.None
     };
 
     private static string GetBlockedTitleKey(FinalMediaTarget target) => target switch
@@ -2418,7 +2422,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         CanUseUsbActions = CanCreateUsb || CanCreateUsbWithoutCache;
         FinalExecutionStatus = localizationService.GetString(!options.IsFinalExecutionEnabled
             ? "StartMedia.FinalExecution.Deferred"
-            : evaluation.CanCreateIso || evaluation.CanCreateUsb || evaluation.CanCreatePxe
+            : evaluation.CanCreateIso || evaluation.CanCreateUsb || evaluation.CanCreatePxe || evaluation.CanCreateUsbWithoutCache
                 ? "StartMedia.FinalExecution.ReadyNow"
                 : "StartMedia.FinalExecution.Ready");
         ConfigurationOverviewEvaluation overview = configurationOverviewService.Evaluate();
@@ -2530,13 +2534,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             Constants.WorkspacesDirectoryPath));
 
         string bootMediaTarget = GetTelemetryBootMediaTarget(target);
-        string bootMediaUsbOperation = target switch
-        {
-            FinalMediaTarget.Usb => TelemetryBootMediaUsbOperations.Create,
-            FinalMediaTarget.UsbUpdate => TelemetryBootMediaUsbOperations.Update,
-            FinalMediaTarget.UsbWithoutCache => TelemetryBootMediaUsbOperations.CreateWithoutCache,
-            _ => TelemetryBootMediaUsbOperations.None
-        };
+        string bootMediaUsbOperation = GetTelemetryUsbOperation(target);
         IReadOnlyDictionary<string, object?> properties = BootMediaTelemetryPropertyBuilder.Build(
             bootMediaTarget,
             bootMediaUsbOperation,

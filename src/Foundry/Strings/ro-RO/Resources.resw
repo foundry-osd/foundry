@@ -3592,7 +3592,10 @@ Parole și chei de acces incluse: {2}</value>
     <value>Secretele media necesare nu sunt gata.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Unitatea USB selectată este prea mică. Utilizați o unitate USB de cel puțin 16 GB.</value>
+    <value>Unitatea USB selectată este prea mică pentru un cache. Utilizați o unitate USB de cel puțin 16 GB sau selectați „Creați fără cache” din săgeata butonului „Creați USB”.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Unitatea USB selectată este prea mică. Utilizați o unitate USB de cel puțin 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Aspectul de tastatură WinPE selectat nu este instalat pe acest computer.</value>
@@ -4084,10 +4087,10 @@ Parole și chei de acces incluse: {2}</value>
     <value>Volum de pornire: {0}. Volum cache: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>Suportul necesită aproximativ {0}, dar unitatea USB fără cache poate stoca {1}. Nu s-a șters și nu s-a formatat nimic. Folosiți o unitate mai mare sau „Creați USB”.</value>
+    <value>Suportul necesită aproximativ {0}, dar această unitate USB fără cache poate stoca {1}. Nu s-a șters și nu s-a formatat nimic. Folosiți în schimb „Creați USB”.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>Volum USB: {0}. Unitatea nu are cache: fiecare implementare descarcă din nou Windows și driverele.</value>
+    <value>Volum USB: {0}. Unitatea nu păstrează descărcările: fiecare implementare descarcă din nou Windows și driverele din catalog.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Se verifică unitatea USB…</value>

@@ -3592,7 +3592,10 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>Nødvendige mediehemmeligheder er ikke klar.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Det valgte USB-drev er for lille. Brug et USB-drev på mindst 16 GB.</value>
+    <value>Det valgte USB-drev er for lille til en cache. Brug et USB-drev på mindst 16 GB, eller vælg ”Opret uden cache” via pilen ved ”Opret USB”.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Det valgte USB-drev er for lille. Brug et USB-drev på mindst 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Det valgte WinPE-tastaturlayout er ikke installeret på denne computer.</value>
@@ -4084,10 +4087,10 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>Startvolumen: {0}. Cachevolumen: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>Mediet kræver cirka {0}, men USB-drevet uden cache kan rumme {1}. Intet er blevet slettet eller formateret. Brug et større drev, eller brug ”Opret USB”.</value>
+    <value>Mediet kræver cirka {0}, men dette USB-drev uden cache kan rumme {1}. Intet er blevet slettet eller formateret. Brug ”Opret USB” i stedet.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>USB-volumen: {0}. Drevet har ingen cache: hver udrulning downloader Windows og drivere igen.</value>
+    <value>USB-volumen: {0}. Drevet gemmer ingen downloads: hver udrulning downloader Windows og drivere fra kataloget igen.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Kontrollerer USB-drevet…</value>

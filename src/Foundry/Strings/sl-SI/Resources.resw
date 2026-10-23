@@ -3592,7 +3592,10 @@ Vključena gesla in ključi za dostop: {2}</value>
     <value>Zahtevane medijske skrivnosti niso pripravljene.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Izbrani pogon USB je premajhen. Uporabite pogon USB z vsaj 16 GB.</value>
+    <value>Izbrani pogon USB je premajhen za predpomnilnik. Uporabite pogon USB z vsaj 16 GB ali izberite »Ustvari brez predpomnilnika« s puščice gumba »Ustvari USB«.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Izbrani pogon USB je premajhen. Uporabite pogon USB z vsaj 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Izbrana razporeditev tipkovnice za WinPE ni nameščena v tem računalniku.</value>
@@ -4084,10 +4087,10 @@ Vključena gesla in ključi za dostop: {2}</value>
     <value>Zagonski nosilec: {0}. Nosilec predpomnilnika: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>Medij potrebuje približno {0}, pogon USB brez predpomnilnika pa lahko sprejme {1}. Nič ni bilo izbrisano ali formatirano. Uporabite večji pogon ali »Ustvari USB«.</value>
+    <value>Medij potrebuje približno {0}, ta pogon USB brez predpomnilnika pa lahko sprejme {1}. Nič ni bilo izbrisano ali formatirano. Namesto tega uporabite »Ustvari USB«.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>Nosilec USB: {0}. Pogon nima predpomnilnika: vsako uvajanje znova prenese Windows in gonilnike.</value>
+    <value>Nosilec USB: {0}. Pogon ne hrani prenosov: vsako uvajanje znova prenese Windows in gonilnike iz kataloga.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Preverjanje diska USB…</value>

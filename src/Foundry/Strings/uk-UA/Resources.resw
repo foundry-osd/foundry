@@ -3592,7 +3592,10 @@
     <value>Необхідні медіасекрети не готові.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Вибраний USB-накопичувач замалий. Використовуйте USB-накопичувач обсягом щонайменше 16 GB.</value>
+    <value>Вибраний USB-накопичувач замалий для кешу. Використовуйте USB-накопичувач обсягом щонайменше 16 GB або виберіть «Створити без кешу» за допомогою стрілки кнопки «Створити USB».</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Вибраний USB-накопичувач замалий. Використовуйте USB-накопичувач обсягом щонайменше 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Вибрану розкладку клавіатури WinPE не встановлено на цьому комп'ютері.</value>
@@ -4084,10 +4087,10 @@
     <value>Завантажувальний том: {0}. Том кешу: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>Носію потрібно приблизно {0}, але на USB-накопичувач без кешу вміщується {1}. Видалення та форматування не виконувалися. Використайте більший накопичувач або «Створити USB».</value>
+    <value>Носію потрібно приблизно {0}, але на цей USB-накопичувач без кешу вміщується {1}. Видалення та форматування не виконувалися. Натомість використайте «Створити USB».</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>Том USB: {0}. Накопичувач не має кешу: під час кожного розгортання Windows і драйвери завантажуються знову.</value>
+    <value>Том USB: {0}. Накопичувач не зберігає завантаження: під час кожного розгортання Windows і драйвери завантажуються з каталогу знову.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Перевірка USB-накопичувача…</value>

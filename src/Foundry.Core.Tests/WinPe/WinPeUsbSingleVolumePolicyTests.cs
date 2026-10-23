@@ -12,7 +12,7 @@ public sealed class WinPeUsbSingleVolumePolicyTests
     [Fact]
     public void GetPartitionSizeBytes_OnALargeDrive_CapsAtTheFat32FormatLimit()
     {
-        Assert.Equal(32UL * 1024 * 1024 * 1024, WinPeUsbSingleVolumePolicy.GetPartitionSizeBytes(64_000_000_000UL));
+        Assert.Equal(32_000UL * 1024 * 1024, WinPeUsbSingleVolumePolicy.GetPartitionSizeBytes(64_000_000_000UL));
     }
 
     [Fact]

@@ -3592,7 +3592,10 @@
     <value>必要的媒體機密尚未就緒。</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>所選的 USB 隨身碟容量太小。請使用至少 16 GB 的 USB 隨身碟。</value>
+    <value>所選的 USB 隨身碟容量太小，無法用於快取。請使用至少 16 GB 的 USB 隨身碟，或從「建立 USB」的箭號中選取「不使用快取建立」。</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>所選的 USB 隨身碟容量太小。請使用至少 1 GB 的 USB 隨身碟。</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>所選的 WinPE 鍵盤配置未安裝在此電腦上。</value>
@@ -4084,10 +4087,10 @@
     <value>開機磁碟區：{0}。快取磁碟區：{1}。</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>媒體大約需要 {0}，但無快取 USB 磁碟機只能容納 {1}。尚未執行任何清除或格式化作業。請使用更大的磁碟機，或使用「建立 USB」。</value>
+    <value>媒體大約需要 {0}，但此無快取 USB 磁碟機只能容納 {1}。尚未執行任何清除或格式化作業。請改用「建立 USB」。</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>USB 磁碟區：{0}。此磁碟機沒有快取：每次部署都會重新下載 Windows 和驅動程式。</value>
+    <value>USB 磁碟區：{0}。此磁碟機不保留下載內容：每次部署都會從目錄重新下載 Windows 和驅動程式。</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>正在檢查 USB 磁碟機…</value>

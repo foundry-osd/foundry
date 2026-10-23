@@ -3592,7 +3592,10 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Požadovaná tajemství médií nejsou připravena.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Vybraná jednotka USB je příliš malá. Použijte jednotku USB s kapacitou alespoň 16 GB.</value>
+    <value>Vybraná jednotka USB je pro mezipaměť příliš malá. Použijte jednotku USB s kapacitou alespoň 16 GB, nebo vyberte „Vytvořit bez mezipaměti“ pomocí šipky u tlačítka „Vytvořit USB“.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Vybraná jednotka USB je příliš malá. Použijte jednotku USB s kapacitou alespoň 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Vybrané rozložení klávesnice WinPE není v tomto počítači nainstalováno.</value>
@@ -4084,10 +4087,10 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Spouštěcí svazek: {0}. Svazek mezipaměti: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>Médium potřebuje přibližně {0}, ale jednotka USB bez mezipaměti pojme {1}. Nic nebylo smazáno ani naformátováno. Použijte větší jednotku nebo „Vytvořit USB“.</value>
+    <value>Médium potřebuje přibližně {0}, ale tato jednotka USB bez mezipaměti pojme {1}. Nic nebylo smazáno ani naformátováno. Použijte místo toho „Vytvořit USB“.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>Svazek USB: {0}. Jednotka nemá mezipaměť: každé nasazení znovu stáhne Windows a ovladače.</value>
+    <value>Svazek USB: {0}. Jednotka neuchovává stažené soubory: každé nasazení znovu stáhne Windows a ovladače z katalogu.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Kontrola disku USB…</value>

@@ -9,8 +9,11 @@ namespace Foundry.Core.Services.WinPe;
 /// </summary>
 internal static class WinPeUsbSingleVolumePolicy
 {
-    /// <summary>Windows formats FAT32 volumes only up to 32 GiB; the rest of a larger drive stays unallocated.</summary>
-    internal const ulong MaximumPartitionSizeBytes = 32UL * 1024 * 1024 * 1024;
+    /// <summary>
+    /// Windows formats FAT32 volumes only up to 32 GB, and the exact limit is not documented, so the partition stays a little below
+    /// 32 GiB. The rest of a larger drive stays unallocated.
+    /// </summary>
+    internal const ulong MaximumPartitionSizeBytes = 32_000UL * 1024 * 1024;
 
     /// <summary>The largest file a FAT32 volume can hold.</summary>
     internal const ulong MaximumFileSizeBytes = uint.MaxValue;

@@ -3592,7 +3592,10 @@ Passwords and access keys included: {2}</value>
     <value>Required media secrets are not ready.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>The selected USB drive is too small. Use a USB drive of at least 16 GB.</value>
+    <value>The selected USB drive is too small for a cache. Use a USB drive of at least 16 GB, or select Create without cache from the arrow of Create USB.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>The selected USB drive is too small. Use a USB drive of at least 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>The selected WinPE keyboard layout is not installed on this computer.</value>
@@ -4084,10 +4087,10 @@ Passwords and access keys included: {2}</value>
     <value>Boot volume: {0}. Cache volume: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>The media needs approximately {0}, but the USB drive without cache can hold {1}. Nothing has been erased or formatted. Use a larger drive, or use Create USB.</value>
+    <value>The media needs approximately {0}, but this USB drive without cache can hold {1}. Nothing has been erased or formatted. Use Create USB instead.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>USB volume: {0}. The drive has no cache: each deployment downloads Windows and drivers again.</value>
+    <value>USB volume: {0}. The drive keeps no downloads: each deployment downloads Windows and drivers from the catalogue again.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Checking the USB drive…</value>

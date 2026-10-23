@@ -3592,7 +3592,10 @@ Dołączone hasła i klucze dostępu: {2}</value>
     <value>Wymagane tajemnice mediów nie są gotowe.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Wybrany dysk USB jest za mały. Użyj dysku USB o pojemności co najmniej 16 GB.</value>
+    <value>Wybrany dysk USB jest za mały na pamięć podręczną. Użyj dysku USB o pojemności co najmniej 16 GB lub wybierz opcję „Utwórz bez pamięci podręcznej” ze strzałki przycisku „Utwórz USB”.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Wybrany dysk USB jest za mały. Użyj dysku USB o pojemności co najmniej 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Wybrany układ klawiatury WinPE nie jest zainstalowany na tym komputerze.</value>
@@ -4084,10 +4087,10 @@ Dołączone hasła i klucze dostępu: {2}</value>
     <value>Wolumin rozruchowy: {0}. Wolumin pamięci podręcznej: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>Nośnik wymaga około {0}, ale dysk USB bez pamięci podręcznej mieści {1}. Niczego nie usunięto ani nie sformatowano. Użyj większego dysku lub opcji „Utwórz USB”.</value>
+    <value>Nośnik wymaga około {0}, ale ten dysk USB bez pamięci podręcznej mieści {1}. Niczego nie usunięto ani nie sformatowano. Zamiast tego użyj opcji „Utwórz USB”.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>Wolumin USB: {0}. Dysk nie ma pamięci podręcznej: każde wdrożenie ponownie pobiera system Windows i sterowniki.</value>
+    <value>Wolumin USB: {0}. Dysk nie przechowuje pobranych plików: każde wdrożenie ponownie pobiera system Windows i sterowniki z katalogu.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Sprawdzanie dysku USB…</value>

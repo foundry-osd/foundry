@@ -3592,7 +3592,10 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Reikalingos žiniasklaidos paslaptys neparengtos.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Pasirinktas USB diskas per mažas. Naudokite bent 16 GB talpos USB diską.</value>
+    <value>Pasirinktas USB diskas per mažas talpyklai. Naudokite bent 16 GB talpos USB diską arba pasirinkite „Sukurti be talpyklos“ spustelėję „Sukurti USB“ rodyklę.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Pasirinktas USB diskas per mažas. Naudokite bent 1 GB talpos USB diską.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Pasirinktas WinPE klaviatūros išdėstymas šiame kompiuteryje neįdiegtas.</value>
@@ -4084,10 +4087,10 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Įkrovos tomas: {0}. Talpyklos tomas: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>Laikmenai reikia maždaug {0}, tačiau USB diske be talpyklos telpa {1}. Niekas nebuvo ištrinta ar suformatuota. Naudokite didesnį diską arba „Sukurti USB“.</value>
+    <value>Laikmenai reikia maždaug {0}, tačiau šiame USB diske be talpyklos telpa {1}. Niekas nebuvo ištrinta ar suformatuota. Vietoj to naudokite „Sukurti USB“.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>USB tomas: {0}. Diske nėra talpyklos: kiekvieno diegimo metu Windows ir tvarkyklės atsisiunčiamos iš naujo.</value>
+    <value>USB tomas: {0}. Diske nesaugomi atsisiuntimai: kiekvieno diegimo metu Windows ir tvarkyklės vėl atsisiunčiamos iš katalogo.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Tikrinamas USB diskas…</value>

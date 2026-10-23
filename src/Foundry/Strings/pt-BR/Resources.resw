@@ -3592,7 +3592,10 @@ Senhas e chaves de acesso incluídas: {2}</value>
     <value>Os segredos de mídia necessários não estão prontos.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>A unidade USB selecionada é muito pequena. Use uma unidade USB de pelo menos 16 GB.</value>
+    <value>A unidade USB selecionada é muito pequena para um cache. Use uma unidade USB de pelo menos 16 GB ou selecione “Criar sem cache” na seta de “Criar USB”.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>A unidade USB selecionada é muito pequena. Use uma unidade USB de pelo menos 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>O layout de teclado do WinPE selecionado não está instalado neste computador.</value>
@@ -4084,10 +4087,10 @@ Senhas e chaves de acesso incluídas: {2}</value>
     <value>Volume de inicialização: {0}. Volume de cache: {1}.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
-    <value>A mídia precisa de aproximadamente {0}, mas a unidade USB sem cache comporta {1}. Nada foi apagado ou formatado. Use uma unidade maior ou use “Criar USB”.</value>
+    <value>A mídia precisa de aproximadamente {0}, mas esta unidade USB sem cache comporta {1}. Nada foi apagado ou formatado. Use “Criar USB” em vez disso.</value>
   </data>
   <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
-    <value>Volume USB: {0}. A unidade não tem cache: cada implantação baixa o Windows e os drivers novamente.</value>
+    <value>Volume USB: {0}. A unidade não guarda downloads: cada implantação baixa o Windows e os drivers do catálogo novamente.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Verificando a unidade USB…</value>

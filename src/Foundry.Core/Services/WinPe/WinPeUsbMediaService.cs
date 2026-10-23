@@ -576,7 +576,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
             return WinPeResult.Failure(
                 WinPeErrorCodes.UsbUnsafeTarget,
                 "Target USB disk is below the minimum supported size.",
-                $"Disk {disk.Number} size is {disk.Size} bytes. Foundry OSD requires a USB disk of at least 16 GB.");
+                $"Disk {disk.Number} size is {disk.Size} bytes. This layout requires at least {GetMinimumDiskSizeBytes(options.Layout)} bytes.");
         }
 
         return GetExpectedIdentity(options).Matches(ToDiskIdentity(disk))
