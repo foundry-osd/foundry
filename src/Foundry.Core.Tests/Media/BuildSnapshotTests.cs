@@ -9,11 +9,11 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
-using Foundry.Core.Services.Profiles;
+using Foundry.Core.Services.Media;
 
-namespace Foundry.Core.Tests.Profiles;
+namespace Foundry.Core.Tests.Media;
 
-public sealed class DeploymentBuildSnapshotTests : IDisposable
+public sealed class BuildSnapshotTests : IDisposable
 {
     private readonly string root = Path.Combine(Path.GetTempPath(), "FoundrySnapshotTests", Guid.NewGuid().ToString("N"));
 
@@ -38,9 +38,9 @@ public sealed class DeploymentBuildSnapshotTests : IDisposable
                 Domains = [new() { Id = "a", DomainName = context.DomainName }, new() { Id = "b", DomainName = dedicated.DomainName, AccountName = dedicated.AccountName }]
             }
         };
-        Task<DeploymentBuildSnapshot> capturing = DeploymentBuildSnapshot.CaptureAsync(document, accounts, domain, "MediaPassword123!", root, null, TestContext.Current.CancellationToken);
+        Task<BuildSnapshot> capturing = BuildSnapshot.CaptureAsync(document, accounts, domain, "MediaPassword123!", root, null, TestContext.Current.CancellationToken);
         domain.Clear();
-        using DeploymentBuildSnapshot snapshot = await capturing;
+        using BuildSnapshot snapshot = await capturing;
         using var protection = snapshot.CreateDeploymentProtectionMaterial();
         string json = snapshot.GenerateDeployConfigurationJson(deploymentSecretsKey: protection.DeploymentKey, protectionSettings: protection.Settings);
         var deploy = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
@@ -64,7 +64,7 @@ public sealed class DeploymentBuildSnapshotTests : IDisposable
     public async Task CaptureAsync_PreservesOneAuthoringVersionAcrossBothRuntimeOutputs()
     {
         using var secrets = new OobeAccountSecretState();
-        using DeploymentBuildSnapshot snapshot = await DeploymentBuildSnapshot.CaptureAsync(
+        using BuildSnapshot snapshot = await BuildSnapshot.CaptureAsync(
             new(), secrets, [], root, "26.10.3.1", TestContext.Current.CancellationToken);
         FoundryConnectProvisioningBundle connect = snapshot.CreateConnectProvisioningBundle(Path.Combine(root, "connect"));
         using JsonDocument connectJson = JsonDocument.Parse(connect.ConfigurationJson);
@@ -83,9 +83,9 @@ public sealed class DeploymentBuildSnapshotTests : IDisposable
         var packages = new List<string> { "Original.Package" };
         var document = new FoundryConfigurationDocument { Customization = new() { AppxRemoval = new() { IsEnabled = true, PackageNames = packages } } };
         using var secrets = new OobeAccountSecretState();
-        Task<DeploymentBuildSnapshot> capture = DeploymentBuildSnapshot.CaptureAsync(document, secrets, [], root, null, TestContext.Current.CancellationToken);
+        Task<BuildSnapshot> capture = BuildSnapshot.CaptureAsync(document, secrets, [], root, null, TestContext.Current.CancellationToken);
         packages[0] = "Changed.Package";
-        using DeploymentBuildSnapshot snapshot = await capture;
+        using BuildSnapshot snapshot = await capture;
         Assert.Equal("Original.Package", Assert.Single(snapshot.Configuration.Customization.AppxRemoval.PackageNames));
         IList<string> exposed = (IList<string>)snapshot.Configuration.Customization.AppxRemoval.PackageNames;
         exposed[0] = "External.Change";
@@ -105,10 +105,10 @@ public sealed class DeploymentBuildSnapshotTests : IDisposable
             Network = new() { WifiProvisioned = true, Wifi = new() { IsEnabled = true, Ssid = "Office", SecurityType = "WPA2/WPA3-Personal", Passphrase = "OriginalWifiPassword" } },
             Customization = new() { Oobe = new() { IsEnabled = true, EnableAdministratorAccount = true, UseAdministratorPassword = true } }
         };
-        Task<DeploymentBuildSnapshot> capture = DeploymentBuildSnapshot.CaptureAsync(document, secrets, mediaPassword, root, null, TestContext.Current.CancellationToken);
+        Task<BuildSnapshot> capture = BuildSnapshot.CaptureAsync(document, secrets, mediaPassword, root, null, TestContext.Current.CancellationToken);
         secrets.Clear();
         Array.Clear(mediaPassword);
-        using DeploymentBuildSnapshot snapshot = await capture;
+        using BuildSnapshot snapshot = await capture;
         using var protection = snapshot.CreateDeploymentProtectionMaterial();
         FoundryConnectProvisioningBundle connect = snapshot.CreateConnectProvisioningBundle(Path.Combine(root, "connect"));
         try
@@ -141,7 +141,7 @@ public sealed class DeploymentBuildSnapshotTests : IDisposable
             Unattend = new() { IsEnabled = true, Files = [new() { Id = Guid.NewGuid().ToString("N"), DisplayName = "Answer", SourcePath = answer, ContentHash = Convert.ToHexString(SHA256.HashData(content)) }] }
         };
         using var secrets = new OobeAccountSecretState();
-        DeploymentBuildSnapshot snapshot = await DeploymentBuildSnapshot.CaptureAsync(document, secrets, [], root, null, TestContext.Current.CancellationToken);
+        BuildSnapshot snapshot = await BuildSnapshot.CaptureAsync(document, secrets, [], root, null, TestContext.Current.CancellationToken);
         string capturedAnswer = Assert.Single(snapshot.Configuration.Unattend.Files).SourcePath;
         string capturedDrivers = snapshot.Configuration.General.CustomDriverDirectoryPath!;
         File.WriteAllText(answer, "changed");
@@ -164,7 +164,7 @@ public sealed class DeploymentBuildSnapshotTests : IDisposable
             Telemetry = new() { IsEnabled = true, InstallId = "captured-install" },
             General = new() { IsoOutputPath = "C:/local-output.iso" }
         };
-        using DeploymentBuildSnapshot snapshot = await DeploymentBuildSnapshot.CaptureAsync(document, secrets, [], root, null, TestContext.Current.CancellationToken);
+        using BuildSnapshot snapshot = await BuildSnapshot.CaptureAsync(document, secrets, [], root, null, TestContext.Current.CancellationToken);
         Assert.Equal("captured-install", snapshot.Configuration.Telemetry.InstallId);
         Assert.True(snapshot.Configuration.Telemetry.IsEnabled);
         Assert.Equal("C:/local-output.iso", snapshot.Configuration.General.IsoOutputPath);
@@ -178,16 +178,35 @@ public sealed class DeploymentBuildSnapshotTests : IDisposable
         File.WriteAllText(path, "changed");
         using var secrets = new OobeAccountSecretState();
         var document = new FoundryConfigurationDocument { Unattend = new() { IsEnabled = true, Files = [new() { Id = Guid.NewGuid().ToString("N"), SourcePath = path, ContentHash = new string('0', 64) }] } };
-        await Assert.ThrowsAsync<InvalidDataException>(() => DeploymentBuildSnapshot.CaptureAsync(document, secrets, [], root, null, TestContext.Current.CancellationToken));
+        await Assert.ThrowsAsync<InvalidDataException>(() => BuildSnapshot.CaptureAsync(document, secrets, [], root, null, TestContext.Current.CancellationToken));
         Assert.Empty(Directory.EnumerateDirectories(root));
     }
 
     [Fact]
-    public async Task CaptureAsync_CancellationCleansPreparedState()
+    public async Task CaptureAsync_CanceledDuringCopy_RemovesPrivateDirectory()
     {
+        string drivers = Path.Combine(root, "drivers");
+        string snapshots = Path.Combine(root, "snapshots");
+        Directory.CreateDirectory(drivers);
+        foreach (string name in new[] { "first.inf", "second.inf", "third.inf" }) File.WriteAllText(Path.Combine(drivers, name), name);
         using var secrets = new OobeAccountSecretState();
-        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => DeploymentBuildSnapshot.CaptureAsync(new(), secrets, [], root, null, new CancellationToken(true)));
-        Assert.False(Directory.Exists(root) && Directory.EnumerateDirectories(root).Any());
+        using var cancellation = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
+        var document = new FoundryConfigurationDocument { General = new() { CustomDriverDirectoryPath = drivers } };
+        List<int> reports = [];
+        string? privateDirectory = null;
+        var progress = new CallbackProgress(copied =>
+        {
+            reports.Add(copied);
+            privateDirectory = Assert.Single(Directory.EnumerateDirectories(snapshots));
+            cancellation.Cancel();
+        });
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => BuildSnapshot.CaptureAsync(document, secrets, null, [], snapshots, null, progress, cancellation.Token));
+
+        Assert.Equal([1], reports);
+        Assert.NotNull(privateDirectory);
+        Assert.False(Directory.Exists(privateDirectory));
+        Assert.Empty(Directory.EnumerateDirectories(snapshots));
     }
 
     [Fact]
@@ -203,7 +222,7 @@ public sealed class DeploymentBuildSnapshotTests : IDisposable
         using var secrets = new OobeAccountSecretState();
         var document = new FoundryConfigurationDocument { General = new() { CustomDriverDirectoryPath = drivers } };
 
-        CustomDriverSizeLimitException exception = await Assert.ThrowsAsync<CustomDriverSizeLimitException>(() => DeploymentBuildSnapshot.CaptureAsync(document, secrets, [], snapshots, null, TestContext.Current.CancellationToken));
+        CustomDriverSizeLimitException exception = await Assert.ThrowsAsync<CustomDriverSizeLimitException>(() => BuildSnapshot.CaptureAsync(document, secrets, [], snapshots, null, TestContext.Current.CancellationToken));
 
         Assert.Equal(2_147_483_649L, exception.ActualBytes);
         Assert.Equal(2_147_483_648L, exception.LimitBytes);
@@ -224,7 +243,7 @@ public sealed class DeploymentBuildSnapshotTests : IDisposable
         using var secrets = new OobeAccountSecretState();
         var document = new FoundryConfigurationDocument { General = new() { CustomDriverDirectoryPath = drivers } };
 
-        IOException exception = await Assert.ThrowsAsync<IOException>(() => DeploymentBuildSnapshot.CaptureAsync(document, secrets, [], snapshots, null, TestContext.Current.CancellationToken));
+        IOException exception = await Assert.ThrowsAsync<IOException>(() => BuildSnapshot.CaptureAsync(document, secrets, [], snapshots, null, TestContext.Current.CancellationToken));
 
         Assert.Equal(32, exception.HResult & 0xffff);
         Assert.Empty(Directory.EnumerateDirectories(snapshots));
@@ -234,7 +253,7 @@ public sealed class DeploymentBuildSnapshotTests : IDisposable
     public async Task Dispose_WhenSourceIsLocked_ClearsSecretsAndRetriesFileCleanup()
     {
         using var secrets = new OobeAccountSecretState();
-        DeploymentBuildSnapshot snapshot = await DeploymentBuildSnapshot.CaptureAsync(new(), secrets, [], root, null, TestContext.Current.CancellationToken);
+        BuildSnapshot snapshot = await BuildSnapshot.CaptureAsync(new(), secrets, [], root, null, TestContext.Current.CancellationToken);
         string directory = Assert.Single(Directory.EnumerateDirectories(root));
         string path = Path.Combine(directory, "confidential.xml");
         File.WriteAllText(path, "private-source");
@@ -253,7 +272,7 @@ public sealed class DeploymentBuildSnapshotTests : IDisposable
     public async Task CaptureAsync_RemovesAbandonedSourcesAndPreservesLiveSnapshots()
     {
         using var secrets = new OobeAccountSecretState();
-        using DeploymentBuildSnapshot active = await DeploymentBuildSnapshot.CaptureAsync(new(), secrets, [], root, null, TestContext.Current.CancellationToken);
+        using BuildSnapshot active = await BuildSnapshot.CaptureAsync(new(), secrets, [], root, null, TestContext.Current.CancellationToken);
         string activeDirectory = Assert.Single(Directory.EnumerateDirectories(root));
         string activeSource = Path.Combine(activeDirectory, "active.xml");
         File.WriteAllText(activeSource, "active-source");
@@ -264,7 +283,7 @@ public sealed class DeploymentBuildSnapshotTests : IDisposable
         Directory.CreateDirectory(unrelatedDirectory);
         File.WriteAllText(Path.Combine(unrelatedDirectory, "keep.xml"), "keep-source");
 
-        using DeploymentBuildSnapshot next = await DeploymentBuildSnapshot.CaptureAsync(new(), secrets, [], root, null, TestContext.Current.CancellationToken);
+        using BuildSnapshot next = await BuildSnapshot.CaptureAsync(new(), secrets, [], root, null, TestContext.Current.CancellationToken);
 
         Assert.False(Directory.Exists(abandonedDirectory));
         Assert.Equal("active-source", File.ReadAllText(activeSource));
@@ -294,7 +313,7 @@ public sealed class DeploymentBuildSnapshotTests : IDisposable
                 }
             }
         };
-        using DeploymentBuildSnapshot snapshot = await DeploymentBuildSnapshot.CaptureAsync(document, secrets, [], root, null, TestContext.Current.CancellationToken);
+        using BuildSnapshot snapshot = await BuildSnapshot.CaptureAsync(document, secrets, [], root, null, TestContext.Current.CancellationToken);
         File.WriteAllBytes(source, [9, 9, 9]);
         using var protection = snapshot.CreateDeploymentProtectionMaterial();
         string json = snapshot.GenerateDeployConfigurationJson(deploymentSecretsKey: protection.DeploymentKey, protectionSettings: protection.Settings);
@@ -316,9 +335,9 @@ public sealed class DeploymentBuildSnapshotTests : IDisposable
             General = new() { DeploymentProtection = new() { IsEnabled = true } },
             Customization = new() { Oobe = new() { IsEnabled = true, AdditionalAccounts = [new() { Id = "account", UserName = "Technician", UsePassword = true }, new() { Id = "blank", UserName = "BlankAccount", UsePassword = false }] } }
         };
-        Task<DeploymentBuildSnapshot> capture = DeploymentBuildSnapshot.CaptureAsync(document, secrets, "MediaPassword123!", root, null, TestContext.Current.CancellationToken);
+        Task<BuildSnapshot> capture = BuildSnapshot.CaptureAsync(document, secrets, "MediaPassword123!", root, null, TestContext.Current.CancellationToken);
         secrets.Clear();
-        using DeploymentBuildSnapshot snapshot = await capture;
+        using BuildSnapshot snapshot = await capture;
         using var protection = snapshot.CreateDeploymentProtectionMaterial();
         string json = snapshot.GenerateDeployConfigurationJson(deploymentSecretsKey: protection.DeploymentKey, protectionSettings: protection.Settings);
         FoundryDeployConfigurationDocument deploy = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
@@ -334,7 +353,7 @@ public sealed class DeploymentBuildSnapshotTests : IDisposable
         {
             Network = new() { Dot1x = new() { IsEnabled = true, ProfileTemplatePath = Path.Combine(root, "missing.xml") } }
         };
-        await Assert.ThrowsAnyAsync<IOException>(() => DeploymentBuildSnapshot.CaptureAsync(document, secrets, [], root, null, TestContext.Current.CancellationToken));
+        await Assert.ThrowsAnyAsync<IOException>(() => BuildSnapshot.CaptureAsync(document, secrets, [], root, null, TestContext.Current.CancellationToken));
         Assert.Empty(Directory.EnumerateDirectories(root));
     }
     public void Dispose()
@@ -343,5 +362,10 @@ public sealed class DeploymentBuildSnapshotTests : IDisposable
         {
             Directory.Delete(root, true);
         }
+    }
+
+    private sealed class CallbackProgress(Action<int> report) : IProgress<int>
+    {
+        public void Report(int value) => report(value);
     }
 }

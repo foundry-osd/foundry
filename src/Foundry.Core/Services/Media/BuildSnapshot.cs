@@ -3,26 +3,25 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Runtime.InteropServices;
-using System.Security.AccessControl;
 using System.Security.Cryptography;
-using System.Security.Principal;
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Models.Profiles;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.Profiles;
 using Foundry.Core.Services.WinPe;
 using Foundry.Telemetry;
+using Foundry.Utilities.IO;
 using Serilog;
 
-namespace Foundry.Core.Services.Profiles;
+namespace Foundry.Core.Services.Media;
 
 /// <summary>Owns one media build's frozen configuration, session secrets and private source copies.</summary>
-public sealed class DeploymentBuildSnapshot : IDisposable
+public sealed class BuildSnapshot : IDisposable
 {
     private const long MaximumDriverBytes = 2L * 1024 * 1024 * 1024;
     private const int MaximumDriverEntries = 10_000;
-    private const string LeaseFileName = ".lease";
     private readonly OobeAccountSecretState accountSecrets = new();
     private readonly DomainJoinSecretState domainSecrets = new();
     private readonly char[] deploymentPassword;
@@ -31,13 +30,12 @@ public sealed class DeploymentBuildSnapshot : IDisposable
     private readonly char[]? wifiCertificatePassword;
     private readonly char[]? autopilotCertificatePassword;
     private readonly string privateRootDirectory;
-    private readonly string privateDirectory;
     private readonly string? authoringVersion;
     private FoundryConfigurationDocument configuration;
     private bool isDisposed;
-    private FileStream? directoryLease;
+    private PrivateDirectoryLease? privateDirectory;
 
-    private DeploymentBuildSnapshot(FoundryConfigurationDocument source, ReadOnlySpan<char> password, string root, string? authoringVersion)
+    private BuildSnapshot(FoundryConfigurationDocument source, ReadOnlySpan<char> password, string root, string? authoringVersion)
     {
         configuration = CloneConfiguration(source);
         this.authoringVersion = authoringVersion;
@@ -47,7 +45,6 @@ public sealed class DeploymentBuildSnapshot : IDisposable
         wifiCertificatePassword = source.Network.Wifi.CertificatePfxPassword?.ToCharArray();
         autopilotCertificatePassword = source.Autopilot.HardwareHashUpload.BootMediaCertificate.PfxPassword?.ToCharArray();
         privateRootDirectory = Path.GetFullPath(root);
-        privateDirectory = Path.Combine(privateRootDirectory, Guid.NewGuid().ToString("N"));
     }
 
     /// <summary>Returns a detached configuration copy with stable staged paths and no plaintext passwords.</summary>
@@ -61,7 +58,7 @@ public sealed class DeploymentBuildSnapshot : IDisposable
     }
 
     /// <summary>Copies configuration and secrets synchronously, then captures bounded source files off-thread before returning a usable snapshot.</summary>
-    public static Task<DeploymentBuildSnapshot> CaptureAsync(
+    public static Task<BuildSnapshot> CaptureAsync(
         FoundryConfigurationDocument configuration,
         OobeAccountSecretState accountSecrets,
         ReadOnlySpan<char> deploymentPassword,
@@ -71,19 +68,31 @@ public sealed class DeploymentBuildSnapshot : IDisposable
         CaptureAsync(configuration, accountSecrets, null, deploymentPassword, privateRootDirectory, authoringVersion, cancellationToken);
 
     /// <summary>Copies active domain credentials synchronously before source preparation can await or authoring can change.</summary>
-    public static Task<DeploymentBuildSnapshot> CaptureAsync(
+    public static Task<BuildSnapshot> CaptureAsync(
         FoundryConfigurationDocument configuration,
         OobeAccountSecretState accountSecrets,
         DomainJoinSecretState? domainSecrets,
         ReadOnlySpan<char> deploymentPassword,
         string privateRootDirectory,
         string? authoringVersion,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default) =>
+        CaptureAsync(configuration, accountSecrets, domainSecrets, deploymentPassword, privateRootDirectory, authoringVersion, driverFilesCopied: null, cancellationToken);
+
+    /// <summary>Captures like the public overload and reports the running count of copied custom driver files synchronously on the copy thread.</summary>
+    internal static Task<BuildSnapshot> CaptureAsync(
+        FoundryConfigurationDocument configuration,
+        OobeAccountSecretState accountSecrets,
+        DomainJoinSecretState? domainSecrets,
+        ReadOnlySpan<char> deploymentPassword,
+        string privateRootDirectory,
+        string? authoringVersion,
+        IProgress<int>? driverFilesCopied,
+        CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(configuration);
         ArgumentNullException.ThrowIfNull(accountSecrets);
         ArgumentException.ThrowIfNullOrWhiteSpace(privateRootDirectory);
-        var snapshot = new DeploymentBuildSnapshot(configuration, deploymentPassword, privateRootDirectory, authoringVersion);
+        var snapshot = new BuildSnapshot(configuration, deploymentPassword, privateRootDirectory, authoringVersion);
         try
         {
             snapshot.CopyAccountSecrets(accountSecrets);
@@ -95,7 +104,7 @@ public sealed class DeploymentBuildSnapshot : IDisposable
                     if (password is not null) Copy(password, value => snapshot.domainSecrets.SetPassword(account, value));
                 }
             }
-            return snapshot.PrepareAsync(cancellationToken);
+            return snapshot.PrepareAsync(driverFilesCopied, cancellationToken);
         }
         catch
         {
@@ -146,28 +155,18 @@ public sealed class DeploymentBuildSnapshot : IDisposable
             Clear(wifiCertificatePassword);
             Clear(autopilotCertificatePassword);
         }
+        if (privateDirectory is null) return;
         try
         {
-            if (!Directory.Exists(privateDirectory)) return;
-            using FileStream rootLease = AcquireRootLease(privateRootDirectory);
-            ValidateOwnedDirectory(privateDirectory, privateRootDirectory);
-            directoryLease ??= OpenDirectoryLease(privateDirectory);
-            DeleteSnapshotContents(privateDirectory);
-            directoryLease.Dispose();
-            directoryLease = null;
-            File.Delete(Path.Combine(privateDirectory, LeaseFileName));
-            Directory.Delete(privateDirectory, recursive: false);
-            Log.ForContext<DeploymentBuildSnapshot>().Debug("Private media snapshot inputs removed.");
+            // A failed removal keeps the lease object so a later Dispose call retries it.
+            privateDirectory.Dispose();
+            privateDirectory = null;
+            Log.ForContext<BuildSnapshot>().Debug("Private media snapshot inputs removed.");
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
         {
-            Log.ForContext<DeploymentBuildSnapshot>().Warning(exception, "Private media snapshot cleanup failed; the inputs remain eligible for a later cleanup.");
+            Log.ForContext<BuildSnapshot>().Warning(exception, "Private media snapshot cleanup failed; the inputs remain eligible for a later cleanup.");
             throw;
-        }
-        finally
-        {
-            directoryLease?.Dispose();
-            directoryLease = null;
         }
     }
 
@@ -175,42 +174,41 @@ public sealed class DeploymentBuildSnapshot : IDisposable
     public static void CleanupAbandoned(string privateRootDirectory)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(privateRootDirectory);
-        string root = Path.GetFullPath(privateRootDirectory);
-        if (!Directory.Exists(root)) return;
         try
         {
-            using FileStream rootLease = AcquireRootLease(root);
-            CleanupAbandonedCore(root);
+            int removed = PrivateDirectory.CleanupAbandoned(privateRootDirectory);
+            if (removed > 0)
+                Log.ForContext<BuildSnapshot>().Information("Abandoned private media snapshot inputs removed. DirectoryCount={DirectoryCount}", removed);
         }
         catch (IOException exception) when ((exception.HResult & 0xffff) is 32 or 33)
         {
-            Log.ForContext<DeploymentBuildSnapshot>().Debug("Abandoned media input cleanup deferred while another snapshot owns the cleanup lock.");
+            Log.ForContext<BuildSnapshot>().Debug("Abandoned media input cleanup deferred while another snapshot owns the cleanup lock.");
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
         {
-            Log.ForContext<DeploymentBuildSnapshot>().Warning(exception, "Abandoned media input cleanup could not complete.");
+            Log.ForContext<BuildSnapshot>().Warning(exception, "Abandoned media input cleanup could not complete.");
         }
     }
 
-    private async Task<DeploymentBuildSnapshot> PrepareAsync(CancellationToken cancellationToken)
+    private async Task<BuildSnapshot> PrepareAsync(IProgress<int>? driverFilesCopied, CancellationToken cancellationToken)
     {
-        Log.ForContext<DeploymentBuildSnapshot>().Information("Media snapshot preparation started.");
+        Log.ForContext<BuildSnapshot>().Information("Media snapshot preparation started.");
         try
         {
-            await Task.Run(() => PrepareFiles(cancellationToken), cancellationToken).ConfigureAwait(false);
-            Log.ForContext<DeploymentBuildSnapshot>().Information("Media snapshot preparation completed.");
+            await Task.Run(() => PrepareFiles(driverFilesCopied, cancellationToken), cancellationToken).ConfigureAwait(false);
+            Log.ForContext<BuildSnapshot>().Information("Media snapshot preparation completed.");
             return this;
         }
         catch (Exception exception)
         {
             if (exception is OperationCanceledException && cancellationToken.IsCancellationRequested)
-                Log.ForContext<DeploymentBuildSnapshot>().Information("Media snapshot preparation canceled.");
+                Log.ForContext<BuildSnapshot>().Information("Media snapshot preparation canceled.");
             else if (exception is CustomDriverSizeLimitException sizeException)
-                Log.ForContext<DeploymentBuildSnapshot>().Warning(
+                Log.ForContext<BuildSnapshot>().Warning(
                     "Media snapshot preparation rejected custom driver sources. ActualBytes={ActualBytes}, LimitBytes={LimitBytes}",
                     sizeException.ActualBytes, sizeException.LimitBytes);
             else
-                Log.ForContext<DeploymentBuildSnapshot>().Error(exception, "Media snapshot preparation failed.");
+                Log.ForContext<BuildSnapshot>().Error(exception, "Media snapshot preparation failed.");
             try
             {
                 Dispose();
@@ -223,18 +221,18 @@ public sealed class DeploymentBuildSnapshot : IDisposable
         }
     }
 
-    private void PrepareFiles(CancellationToken cancellationToken)
+    private void PrepareFiles(IProgress<int>? driverFilesCopied, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
         FoundryConfigurationDocument sources = SelectActiveSources(configuration);
         if (!string.IsNullOrWhiteSpace(sources.General.CustomDriverDirectoryPath))
             ValidateDriverSources(sources.General.CustomDriverDirectoryPath, cancellationToken);
-        CreatePrivateDirectory();
+        privateDirectory = PrivateDirectory.CreateLeased(privateRootDirectory);
         IReadOnlyList<DeploymentProfileAsset> assets = DeploymentProfileAssetService.Capture(sources, includeContent: true, requireContent: true);
         try
         {
             cancellationToken.ThrowIfCancellationRequested();
-            configuration = DeploymentProfileAssetService.Materialize(new DeploymentProfileDocument { Configuration = sources, Assets = assets }, privateDirectory);
+            configuration = DeploymentProfileAssetService.Materialize(new DeploymentProfileDocument { Configuration = sources, Assets = assets }, privateDirectory.Path);
         }
         finally
         {
@@ -242,114 +240,11 @@ public sealed class DeploymentBuildSnapshot : IDisposable
         }
         if (!string.IsNullOrWhiteSpace(configuration.General.CustomDriverDirectoryPath))
         {
-            string destination = Path.Combine(privateDirectory, "Drivers");
-            CopyDrivers(configuration.General.CustomDriverDirectoryPath, destination, cancellationToken);
+            string destination = Path.Combine(privateDirectory.Path, "Drivers");
+            CopyDrivers(configuration.General.CustomDriverDirectoryPath, destination, driverFilesCopied, cancellationToken);
             configuration = configuration with { General = configuration.General with { CustomDriverDirectoryPath = destination } };
         }
         cancellationToken.ThrowIfCancellationRequested();
-    }
-
-    private void CreatePrivateDirectory()
-    {
-        using FileStream rootLease = AcquireRootLease(privateRootDirectory);
-        CleanupAbandonedCore(privateRootDirectory);
-        using WindowsIdentity identity = WindowsIdentity.GetCurrent();
-        SecurityIdentifier user = identity.User ?? throw new InvalidOperationException("The current Windows user is unavailable.");
-        var security = new DirectorySecurity();
-        security.SetAccessRuleProtection(isProtected: true, preserveInheritance: false);
-        security.AddAccessRule(new FileSystemAccessRule(user, FileSystemRights.FullControl,
-            InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
-        new DirectoryInfo(privateDirectory).Create(security);
-        directoryLease = OpenDirectoryLease(privateDirectory);
-    }
-
-    private static FileStream AcquireRootLease(string root)
-    {
-        ValidateNoReparseAncestors(root);
-        Directory.CreateDirectory(root);
-        string path = Path.Combine(root, ".cleanup-lock");
-        ValidateNoReparseAncestors(path);
-        return new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
-    }
-
-    private static FileStream OpenDirectoryLease(string directory)
-    {
-        string path = Path.Combine(directory, LeaseFileName);
-        ValidateNoReparseAncestors(path);
-        return new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
-    }
-
-    private static void CleanupAbandonedCore(string root)
-    {
-        foreach (string directory in Directory.EnumerateDirectories(root).Take(1024))
-        {
-            if (!Guid.TryParseExact(Path.GetFileName(directory), "N", out _)) continue;
-            try
-            {
-                ValidateOwnedDirectory(directory, root);
-                using FileStream lease = OpenDirectoryLease(directory);
-                DeleteSnapshotContents(directory);
-                lease.Dispose();
-                File.Delete(Path.Combine(directory, LeaseFileName));
-                Directory.Delete(directory, recursive: false);
-                Log.ForContext<DeploymentBuildSnapshot>().Information("Abandoned private media snapshot inputs removed.");
-            }
-            catch (IOException exception) when ((exception.HResult & 0xffff) is 32 or 33)
-            {
-                Log.ForContext<DeploymentBuildSnapshot>().Debug("Private media snapshot remains leased and was skipped during cleanup.");
-            }
-            catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
-            {
-                Log.ForContext<DeploymentBuildSnapshot>().Warning(exception, "Abandoned private media snapshot cleanup failed and will be retried later.");
-            }
-        }
-    }
-
-    private static void DeleteSnapshotContents(string directory)
-    {
-        Stack<string> pending = new();
-        List<string> directories = [];
-        pending.Push(directory);
-        int entries = 0;
-        while (pending.TryPop(out string? current))
-        {
-            ValidateNoReparseAncestors(current);
-            directories.Add(current);
-            foreach (string path in Directory.EnumerateFileSystemEntries(current))
-            {
-                if (current == directory && Path.GetFileName(path) == LeaseFileName) continue;
-                if (++entries > MaximumDriverEntries + 1024)
-                    throw new IOException("The private media inputs exceed the cleanup entry limit.");
-                ValidateNoReparseAncestors(path);
-                if ((File.GetAttributes(path) & FileAttributes.Directory) != 0) pending.Push(path);
-                else File.Delete(path);
-            }
-        }
-        for (int index = directories.Count - 1; index > 0; index--)
-            Directory.Delete(directories[index], recursive: false);
-    }
-
-    private static void ValidateOwnedDirectory(string directory, string root)
-    {
-        string fullPath = Path.GetFullPath(directory);
-        if (!string.Equals(Path.GetDirectoryName(fullPath), root, StringComparison.OrdinalIgnoreCase) ||
-            !Guid.TryParseExact(Path.GetFileName(fullPath), "N", out _))
-            throw new IOException("The private media inputs are outside the owned directory.");
-        ValidateNoReparseAncestors(fullPath);
-    }
-
-    private static void ValidateNoReparseAncestors(string path)
-    {
-        for (string? current = Path.GetFullPath(path); current is not null; current = Path.GetDirectoryName(current))
-        {
-            try
-            {
-                if ((File.GetAttributes(current) & FileAttributes.ReparsePoint) != 0)
-                    throw new IOException("Private media inputs cannot use a redirected path.");
-            }
-            catch (FileNotFoundException) { }
-            catch (DirectoryNotFoundException) { }
-        }
     }
 
     private static void ValidateDriverSources(string source, CancellationToken cancellationToken)
@@ -380,12 +275,13 @@ public sealed class DeploymentBuildSnapshot : IDisposable
         }
     }
 
-    private static void CopyDrivers(string source, string destination, CancellationToken cancellationToken)
+    private static void CopyDrivers(string source, string destination, IProgress<int>? filesCopied, CancellationToken cancellationToken)
     {
         var pending = new Stack<(DirectoryInfo Source, string Destination)>();
         pending.Push((new DirectoryInfo(source), destination));
         long totalBytes = 0;
         int entries = 0;
+        int copiedFiles = 0;
         byte[] buffer = new byte[64 * 1024];
         try
         {
@@ -426,6 +322,7 @@ public sealed class DeploymentBuildSnapshot : IDisposable
                             throw new CustomDriverSizeLimitException(totalBytes, MaximumDriverBytes);
                         output.Write(buffer, 0, count);
                     }
+                    filesCopied?.Report(++copiedFiles);
                 }
             }
         }
