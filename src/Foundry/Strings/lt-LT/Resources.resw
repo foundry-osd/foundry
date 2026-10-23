@@ -3718,7 +3718,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Laikmenos kūrimas pasiekiamas, kai praeina visi parengties patikrinimai.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Norėdami pradėti, toliau pasirinkite ISO arba USB išvestį.</value>
+    <value>Norėdami pradėti, toliau pasirinkite ISO, USB arba PXE išvestį.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Visiškas formatavimas</value>

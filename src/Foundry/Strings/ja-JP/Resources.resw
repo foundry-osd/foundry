@@ -3718,7 +3718,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>すべての準備状況チェックに合格すると、メディアの作成が可能になります。</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>開始するには、下で ISO または USB の出力を選択してください。</value>
+    <value>開始するには、下で ISO、USB、または PXE の出力を選択してください。</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>フル フォーマット</value>

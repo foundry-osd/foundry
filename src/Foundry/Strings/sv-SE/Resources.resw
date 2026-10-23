@@ -3718,7 +3718,7 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>Medieskapande är tillgängligt när alla beredskapskontroller passerar.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Välj ISO- eller USB-utdata nedan för att komma igång.</value>
+    <value>Välj ISO-, USB- eller PXE-utdata nedan för att komma igång.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Fullständig formatering</value>

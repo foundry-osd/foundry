@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Utilities.IO;
 using Foundry.Utilities.Storage;
 
 namespace Foundry.Core.Services.WinPe;
@@ -32,13 +33,15 @@ public sealed class WinPePxeMediaService : IWinPePxeMediaService
     }
 
     /// <inheritdoc />
-    public async Task<WinPeResult> CreateAsync(WinPePxeMediaOptions options, CancellationToken cancellationToken = default)
+    public async Task<WinPeResult<long>> CreateAsync(WinPePxeMediaOptions options, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(options);
+        // The output folder is often a network share that can take seconds to answer, so no file system call runs on the caller's thread.
+        await Task.CompletedTask.ConfigureAwait(ConfigureAwaitOptions.ForceYielding);
         cancellationToken.ThrowIfCancellationRequested();
         if (options.PreparedWorkspace is null || string.IsNullOrWhiteSpace(options.OutputDirectoryPath))
         {
-            return WinPeResult.Failure(WinPeErrorCodes.ValidationFailed,
+            return WinPeResult<long>.Failure(WinPeErrorCodes.ValidationFailed,
                 "A prepared workspace and an output folder are required to write PXE boot files.");
         }
 
@@ -47,7 +50,7 @@ public sealed class WinPePxeMediaService : IWinPePxeMediaService
         string? missing = files.Select(file => file.Source).FirstOrDefault(source => !File.Exists(source));
         if (missing is not null)
         {
-            return WinPeResult.Failure(WinPeErrorCodes.PxeOutputFailed,
+            return WinPeResult<long>.Failure(WinPeErrorCodes.PxeOutputFailed,
                 "A boot file required for PXE output was not found in the prepared workspace.", missing,
                 stage: ValidateStage, failureKind: WinPeFailureKinds.FileSystem, failureReason: WinPeFailureReasons.ArtifactMissing);
         }
@@ -61,7 +64,7 @@ public sealed class WinPePxeMediaService : IWinPePxeMediaService
             long available = availableBytes(outputDirectory);
             if (available < requiredBytes)
             {
-                return WinPeResult.Failure(new WinPeDiagnostic(WinPeErrorCodes.PxeOutputCapacityInsufficient,
+                return WinPeResult<long>.Failure(new WinPeDiagnostic(WinPeErrorCodes.PxeOutputCapacityInsufficient,
                     "There is insufficient free space in the PXE output folder.", outputDirectory, stage: ValidateStage,
                     failureKind: WinPeFailureKinds.Validation, failureReason: WinPeFailureReasons.InvalidInput)
                 {
@@ -71,15 +74,24 @@ public sealed class WinPePxeMediaService : IWinPePxeMediaService
                 });
             }
 
-            // Every file is written under a pending name first so a failure never mixes old and new boot files.
-            long copiedBytes = 0;
+            // Every file is written under a pending name first, so a failed or cancelled copy replaces no existing file.
+            long completedBytes = 0;
+            int lastPercent = -1;
             foreach ((string source, string name) in files)
             {
                 string pendingPath = Path.Combine(outputDirectory, name + PendingSuffix);
                 pendingPaths.Add(pendingPath);
-                await CopyFileAsync(source, pendingPath, cancellationToken).ConfigureAwait(false);
-                copiedBytes += new FileInfo(source).Length;
-                ReportProgress(options.Progress, 5 + (int)(copiedBytes * 90 / Math.Max(1, requiredBytes)), WinPeProgressStatuses.CopyingPxeFiles);
+                long fileStart = completedBytes;
+                await CopyFileAsync(source, pendingPath, bytes =>
+                {
+                    int percent = 5 + (int)((fileStart + bytes) * 90 / Math.Max(1, requiredBytes));
+                    if (percent != lastPercent)
+                    {
+                        lastPercent = percent;
+                        ReportProgress(options.Progress, percent, WinPeProgressStatuses.CopyingPxeFiles);
+                    }
+                }, cancellationToken).ConfigureAwait(false);
+                completedBytes += new FileInfo(source).Length;
             }
 
             cancellationToken.ThrowIfCancellationRequested();
@@ -89,11 +101,11 @@ public sealed class WinPePxeMediaService : IWinPePxeMediaService
             }
 
             ReportProgress(options.Progress, 100, WinPeProgressStatuses.PxeOutputCompleted);
-            return WinPeResult.Success();
+            return WinPeResult<long>.Success(requiredBytes);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            return WinPeResult.Failure(WinPeErrorCodes.PxeOutputFailed,
+            return WinPeResult<long>.Failure(WinPeErrorCodes.PxeOutputFailed,
                 "The PXE boot files could not be written to the output folder.", ex.ToString(), stage: CopyStage,
                 failureKind: WinPeFailureKinds.FileSystem,
                 failureReason: ex is UnauthorizedAccessException ? WinPeFailureReasons.AccessDenied : WinPeFailureReasons.IoError,
@@ -121,11 +133,11 @@ public sealed class WinPePxeMediaService : IWinPePxeMediaService
         ];
     }
 
-    private static async Task CopyFileAsync(string source, string destination, CancellationToken cancellationToken)
+    private static async Task CopyFileAsync(string source, string destination, Action<long> reportBytesCopied, CancellationToken cancellationToken)
     {
         await using var input = new FileStream(source, FileMode.Open, FileAccess.Read, FileShare.Read, 1024 * 1024, useAsync: true);
         await using var output = new FileStream(destination, FileMode.Create, FileAccess.Write, FileShare.None, 1024 * 1024, useAsync: true);
-        await input.CopyToAsync(output, cancellationToken).ConfigureAwait(false);
+        await StreamCopy.CopyAsync(input, output, reportBytesCopied, cancellationToken).ConfigureAwait(false);
         await output.FlushAsync(cancellationToken).ConfigureAwait(false);
     }
 

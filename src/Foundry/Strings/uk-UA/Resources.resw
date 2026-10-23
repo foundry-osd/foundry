@@ -3718,7 +3718,7 @@
     <value>Створення носія доступне, коли всі перевірки готовності пройдено.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Щоб почати, виберіть нижче вихід ISO або USB.</value>
+    <value>Щоб почати, виберіть нижче вихід ISO, USB або PXE.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Повне форматування</value>

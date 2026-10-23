@@ -3718,7 +3718,7 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>A criação de suportes estará disponível quando todas as verificações de preparação forem concluídas com êxito.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Escolha uma saída ISO ou USB abaixo para começar.</value>
+    <value>Escolha uma saída ISO, USB ou PXE abaixo para começar.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Formatação completa</value>

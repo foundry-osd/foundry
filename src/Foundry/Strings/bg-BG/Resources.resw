@@ -3718,7 +3718,7 @@
     <value>Създаването на мултимедия е достъпно, когато всички проверки за готовност преминат.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>За да започнете, изберете ISO или USB изход по-долу.</value>
+    <value>За да започнете, изберете ISO, USB или PXE изход по-долу.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Пълно форматиране</value>

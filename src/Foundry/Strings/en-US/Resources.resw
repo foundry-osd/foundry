@@ -3718,7 +3718,7 @@ Passwords and access keys included: {2}</value>
     <value>Media creation is available when all readiness checks pass.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Choose an ISO or USB output below to start.</value>
+    <value>Choose an ISO, USB or PXE output below to start.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Full format</value>

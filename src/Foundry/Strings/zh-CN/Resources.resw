@@ -3718,7 +3718,7 @@
     <value>当所有准备情况检查通过后，即可进行媒体创建。</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>若要开始，请在下方选择 ISO 或 USB 输出。</value>
+    <value>若要开始，请在下方选择 ISO、USB 或 PXE 输出。</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>完全格式化</value>

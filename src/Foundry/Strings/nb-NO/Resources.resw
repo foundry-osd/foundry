@@ -3718,7 +3718,7 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
     <value>Medieoppretting er tilgjengelig når alle beredskapskontroller passerer.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Velg ISO- eller USB-utdata nedenfor for å komme i gang.</value>
+    <value>Velg ISO-, USB- eller PXE-utdata nedenfor for å komme i gang.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Full formatering</value>

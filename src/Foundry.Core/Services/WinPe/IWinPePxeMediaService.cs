@@ -13,5 +13,6 @@ public interface IWinPePxeMediaService
     /// Copies <c>boot.wim</c>, <c>boot.sdi</c>, <c>BCD</c> and <c>bootmgr.efi</c> to the output folder, replacing
     /// earlier copies only after all four files are written.
     /// </summary>
-    Task<WinPeResult> CreateAsync(WinPePxeMediaOptions options, CancellationToken cancellationToken = default);
+    /// <returns>The number of bytes written when the four files are in place.</returns>
+    Task<WinPeResult<long>> CreateAsync(WinPePxeMediaOptions options, CancellationToken cancellationToken = default);
 }

@@ -3718,7 +3718,7 @@
     <value>Η δημιουργία πολυμέσων είναι διαθέσιμη όταν περάσουν όλοι οι έλεγχοι ετοιμότητας.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Για να ξεκινήσετε, επιλέξτε έξοδο ISO ή USB παρακάτω.</value>
+    <value>Για να ξεκινήσετε, επιλέξτε έξοδο ISO, USB ή PXE παρακάτω.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Πλήρης μορφοποίηση</value>

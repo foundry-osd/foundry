@@ -3718,7 +3718,7 @@
     <value>การสร้างสื่อจะพร้อมใช้งานเมื่อผ่านการตรวจสอบความพร้อมทั้งหมด</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>เลือกเอาต์พุต ISO หรือ USB ด้านล่างเพื่อเริ่มต้น</value>
+    <value>เลือกเอาต์พุต ISO, USB หรือ PXE ด้านล่างเพื่อเริ่มต้น</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>ฟอร์แมตแบบเต็ม</value>

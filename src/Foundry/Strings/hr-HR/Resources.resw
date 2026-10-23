@@ -3718,7 +3718,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Izrada medija dostupna je kada prođu sve provjere spremnosti.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Za početak u nastavku odaberite izlaz ISO ili USB.</value>
+    <value>Za početak u nastavku odaberite izlaz ISO, USB ili PXE.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Potpuno formatiranje</value>

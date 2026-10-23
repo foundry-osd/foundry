@@ -3718,7 +3718,7 @@
     <value>יצירת מדיה זמינה כאשר כל בדיקות המוכנות עוברות.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>בחר פלט ISO או USB למטה כדי להתחיל.</value>
+    <value>בחר פלט ISO, USB או PXE למטה כדי להתחיל.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>פרמוט מלא</value>

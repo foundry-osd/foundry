@@ -3718,7 +3718,7 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Die Medienerstellung ist verfügbar, wenn alle Bereitschaftsprüfungen bestanden wurden.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Wählen Sie unten eine ISO- oder USB-Ausgabe aus, um zu beginnen.</value>
+    <value>Wählen Sie unten eine ISO-, USB- oder PXE-Ausgabe aus, um zu beginnen.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Vollständige Formatierung</value>

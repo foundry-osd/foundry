@@ -3718,7 +3718,7 @@ Parole și chei de acces incluse: {2}</value>
     <value>Crearea media este disponibilă atunci când toate verificările de pregătire trec.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Alegeți mai jos o ieșire ISO sau USB pentru a începe.</value>
+    <value>Alegeți mai jos o ieșire ISO, USB sau PXE pentru a începe.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Formatare completă</value>

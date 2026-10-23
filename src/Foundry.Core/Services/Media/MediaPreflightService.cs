@@ -25,7 +25,7 @@ public static class MediaPreflightService
         List<MediaPreflightBlockingReason> sharedReasons = GetSharedBlockingReasons(options);
         List<MediaPreflightBlockingReason> isoReasons = [.. sharedReasons];
         List<MediaPreflightBlockingReason> usbReasons = [.. sharedReasons];
-        // PXE output is written to a folder chosen at creation time, so only the ISO path rule does not apply.
+        // PXE shares the common rules and the custom driver checks; it has no ISO path or USB target.
         List<MediaPreflightBlockingReason> pxeReasons = [.. sharedReasons];
 
         if (!IsIsoPathValid(options.IsoOutputPath))

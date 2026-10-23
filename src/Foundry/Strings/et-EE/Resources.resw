@@ -3718,7 +3718,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Meediumi loomine on saadaval, kui kõik valmisolekukontrollid on läbinud.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Alustamiseks valige allpool ISO- või USB-väljund.</value>
+    <value>Alustamiseks valige allpool ISO-, USB- või PXE-väljund.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Täielik vormindus</value>

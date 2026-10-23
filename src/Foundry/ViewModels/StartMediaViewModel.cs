@@ -547,7 +547,15 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
 
         appSettingsService.Current.MediaOutput.PxeOutputDirectoryPath = outputDirectoryPath;
-        appSettingsService.Save();
+        try
+        {
+            appSettingsService.Save();
+        }
+        catch (Exception)
+        {
+            // Save already logged the failure. Remembering the folder is a convenience, so the PXE files are still created.
+        }
+
         await RunFinalMediaOperationAsync(FinalMediaTarget.Pxe, options, outputDirectoryPath);
     }
 
@@ -779,8 +787,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             {
                 string outputDirectoryPath = pxeOutputDirectoryPath
                     ?? throw new InvalidOperationException("PXE media creation requires an output folder.");
-                await CreatePxeMediaAsync(options, outputDirectoryPath, snapshot, deploymentProtectionMaterial, telemetryProgressTracker, cancellationToken);
-                successMessage = BuildPxeSuccessMessage(outputDirectoryPath);
+                long writtenBytes = await CreatePxeMediaAsync(options, outputDirectoryPath, snapshot, deploymentProtectionMaterial, telemetryProgressTracker, cancellationToken);
+                successMessage = BuildPxeSuccessMessage(outputDirectoryPath, writtenBytes);
                 successAction = new OperationAction(
                     localizationService.GetString("StartMedia.Operation.OpenFolder"),
                     () => OpenFolder(outputDirectoryPath));
@@ -854,7 +862,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     WinPeErrorCodes.UsbCacheCapacityInsufficient => localizationService.GetString("StartMedia.Operation.UsbCacheCapacityInsufficient"),
                     WinPeErrorCodes.ExternalMediaContentFailed => localizationService.GetString("StartMedia.Operation.ExternalMediaContentFailed"),
                     WinPeErrorCodes.PxeOutputCapacityInsufficient => FormatMediaCapacityFailure("StartMedia.Operation.PxeOutputCapacityInsufficient", failureDiagnostic),
-                    WinPeErrorCodes.PxeOutputFailed => localizationService.GetString("StartMedia.Operation.PxeOutputFailed"),
+                    // A boot file missing from the workspace is a build problem, so its technical detail is shown instead.
+                    WinPeErrorCodes.PxeOutputFailed when failureDiagnostic.FailureReason != WinPeFailureReasons.ArtifactMissing =>
+                        localizationService.GetString("StartMedia.Operation.PxeOutputFailed"),
                     WinPeErrorCodes.IsoCreateFailed when IsIsoOutputLocked(failureDiagnostic) => string.Format(
                         CultureInfo.CurrentCulture,
                         localizationService.GetString("StartMedia.Operation.IsoOutputLocked"),
@@ -1024,21 +1034,12 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         return location + Environment.NewLine + Environment.NewLine + size;
     }
 
-    private string BuildPxeSuccessMessage(string outputDirectoryPath)
+    private string BuildPxeSuccessMessage(string outputDirectoryPath, long writtenBytes)
     {
         string location = localizationService.GetString("StartMedia.Operation.PxeSavedLead") + Environment.NewLine + outputDirectoryPath;
-        long totalBytes = WinPePxeMediaService.OutputFileNames
-            .Select(name => new FileInfo(Path.Combine(outputDirectoryPath, name)))
-            .Where(file => file.Exists)
-            .Sum(file => file.Length);
-        if (totalBytes == 0)
-        {
-            return location;
-        }
-
         string size = localizationService.FormatString(
             "StartMedia.Operation.IsoSizeFormat",
-            ByteSizeFormatter.Format(localizationService, (ulong)totalBytes));
+            ByteSizeFormatter.Format(localizationService, (ulong)writtenBytes));
         return location + Environment.NewLine + Environment.NewLine + size;
     }
 
@@ -1284,7 +1285,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     /// Builds the boot image exactly like the ISO, runtimes included, then writes the network boot files. Imported content
     /// is still prepared so the Deploy configuration in boot.wim carries the same media bindings as the ISO.
     /// </summary>
-    private async Task CreatePxeMediaAsync(
+    private async Task<long> CreatePxeMediaAsync(
         MediaPreflightOptions options,
         string outputDirectoryPath,
         DeploymentBuildSnapshot snapshot,
@@ -1312,7 +1313,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 workspace.PreparedWorkspace.Artifact.MediaDirectoryPath,
                 workspace.PreparedWorkspace.UseBootEx);
 
-            WinPeResult result = await pxeMediaService.CreateAsync(
+            WinPeResult<long> result = await pxeMediaService.CreateAsync(
                 new WinPePxeMediaOptions
                 {
                     PreparedWorkspace = workspace.PreparedWorkspace,
@@ -1324,7 +1325,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
             EnsureSuccess(result);
             ReportPhase(MediaCreationPhase.Finishing, 0, localizationService.GetString("StartMedia.Operation.RemovingTemporaryFiles"));
-            logger.Debug("PXE boot files written. OutputDirectoryPath={OutputDirectoryPath}", outputDirectoryPath);
+            logger.Debug("PXE boot files written. OutputDirectoryPath={OutputDirectoryPath}, WrittenBytes={WrittenBytes}", outputDirectoryPath, result.Value);
+            return result.Value;
         }
         finally
         {
@@ -2351,7 +2353,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         CanCreatePxe = evaluation.CanCreatePxe && !IsMediaOperationRunning && !isUpdateAdvisoryPending && !isRefreshingUnattendSources;
         FinalExecutionStatus = localizationService.GetString(!options.IsFinalExecutionEnabled
             ? "StartMedia.FinalExecution.Deferred"
-            : evaluation.CanCreateIso || evaluation.CanCreateUsb
+            : evaluation.CanCreateIso || evaluation.CanCreateUsb || evaluation.CanCreatePxe
                 ? "StartMedia.FinalExecution.ReadyNow"
                 : "StartMedia.FinalExecution.Ready");
         ConfigurationOverviewEvaluation overview = configurationOverviewService.Evaluate();

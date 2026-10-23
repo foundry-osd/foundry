@@ -14,6 +14,7 @@ namespace Foundry.ViewModels;
 /// </summary>
 public sealed partial class PxeOutputDialogViewModel : ObservableObject
 {
+    private static readonly TimeSpan ExistingImageProbeDelay = TimeSpan.FromMilliseconds(400);
     private readonly IFilePickerService picker;
     private readonly IApplicationLocalizationService localization;
 
@@ -61,11 +62,17 @@ public sealed partial class PxeOutputDialogViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Checks the folder off the UI thread, because a typed network path can take seconds to answer, and keeps only the
-    /// answer for the path still displayed.
+    /// Checks the folder off the UI thread, because a network path can take seconds to answer. Typing waits for a short pause
+    /// so partial paths are not probed, and only the answer for the path still displayed is kept.
     /// </summary>
     private async Task RefreshExistingImageAsync(string folderPath)
     {
+        await Task.Delay(ExistingImageProbeDelay);
+        if (!string.Equals(FolderPath, folderPath, StringComparison.Ordinal))
+        {
+            return;
+        }
+
         bool containsBootImage = await Task.Run(() => ContainsBootImage(folderPath));
         if (string.Equals(FolderPath, folderPath, StringComparison.Ordinal))
         {

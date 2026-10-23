@@ -3718,7 +3718,7 @@ Dołączone hasła i klucze dostępu: {2}</value>
     <value>Tworzenie multimediów jest możliwe po pomyślnym przejściu wszystkich kontroli gotowości.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Aby rozpocząć, wybierz poniżej wyjście ISO lub USB.</value>
+    <value>Aby rozpocząć, wybierz poniżej wyjście ISO, USB lub PXE.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Pełne formatowanie</value>

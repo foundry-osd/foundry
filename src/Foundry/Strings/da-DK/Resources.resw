@@ -3718,7 +3718,7 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
     <value>Medieoprettelse er tilgængelig, når alle beredskabskontroller er bestået.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Vælg ISO- eller USB-output nedenfor for at komme i gang.</value>
+    <value>Vælg ISO-, USB- eller PXE-output nedenfor for at komme i gang.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Fuld formatering</value>

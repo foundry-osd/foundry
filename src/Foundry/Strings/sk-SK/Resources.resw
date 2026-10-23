@@ -3718,7 +3718,7 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
     <value>Vytváranie médií je k dispozícii, keď prejdú všetky kontroly pripravenosti.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Začnite výberom výstupu ISO alebo USB nižšie.</value>
+    <value>Začnite výberom výstupu ISO, USB alebo PXE nižšie.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Úplné formátovanie</value>

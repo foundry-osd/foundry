@@ -3718,7 +3718,7 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
     <value>Multivides izveide ir pieejama, kad visas gatavības pārbaudes ir izietas.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Lai sāktu, tālāk izvēlieties ISO vai USB izvadi.</value>
+    <value>Lai sāktu, tālāk izvēlieties ISO, USB vai PXE izvadi.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Pilnā formatēšana</value>

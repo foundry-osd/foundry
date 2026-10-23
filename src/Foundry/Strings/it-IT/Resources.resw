@@ -3718,7 +3718,7 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>La creazione di contenuti multimediali è disponibile una volta superati tutti i controlli di idoneità.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Scegli un output ISO o USB qui sotto per iniziare.</value>
+    <value>Scegli un output ISO, USB o PXE qui sotto per iniziare.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Formattazione completa</value>
@@ -3964,7 +3964,7 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>Aggiunta dei componenti Foundry all'unità USB…</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
-    <value>Spazio libero insufficiente nella cartella di destinazione. I file di avvio PXE richiedono {0}. Disponibile: {1}. Libera spazio o scegli un&apos;altra cartella.</value>
+    <value>Spazio libero insufficiente nella cartella di destinazione. I file di avvio PXE richiedono {0}. Disponibile: {1}. Libera spazio o scegli un'altra cartella.</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
     <value>Impossibile scrivere i file di avvio PXE nella cartella di destinazione. Verifica che la cartella sia raggiungibile e di avere i permessi di scrittura.</value>
@@ -4102,7 +4102,7 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>Foundry OSD scrive boot.wim, boot.sdi, BCD e bootmgr.efi in questa cartella per un avvio di rete UEFI. Importali nel tuo server PXE.</value>
   </data>
   <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
-    <value>Questa cartella contiene già un&apos;immagine di avvio. I relativi file di avvio PXE verranno sostituiti.</value>
+    <value>Questa cartella contiene già un'immagine di avvio. I relativi file di avvio PXE verranno sostituiti.</value>
   </data>
   <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
     <value>Cartella di destinazione</value>
@@ -4111,10 +4111,10 @@ Password e chiavi di accesso incluse: {2}</value>
     <value>Seleziona la cartella di destinazione PXE</value>
   </data>
   <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
-    <value>Questo contenuto viene copiato solo sui supporti ISO e USB. Avvia le distribuzioni che lo richiedono da una ISO o da un&apos;unità USB.</value>
+    <value>Questo contenuto viene copiato solo sui supporti ISO e USB. Avvia le distribuzioni che lo richiedono da una ISO o da un'unità USB.</value>
   </data>
   <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
-    <value>Non incluso con l&apos;avvio PXE</value>
+    <value>Non incluso con l'avvio PXE</value>
   </data>
   <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
     <value>Set di driver personalizzati: {0}</value>

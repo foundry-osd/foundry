@@ -3718,7 +3718,7 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>La creación de medios está disponible cuando se pasan todas las comprobaciones de preparación.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Elija una salida ISO o USB a continuación para empezar.</value>
+    <value>Elija una salida ISO, USB o PXE a continuación para empezar.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Formato completo</value>

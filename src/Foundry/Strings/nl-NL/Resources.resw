@@ -3718,7 +3718,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Het maken van media is beschikbaar wanneer alle gereedheidscontroles zijn geslaagd.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Kies hieronder een ISO- of USB-uitvoer om te beginnen.</value>
+    <value>Kies hieronder een ISO-, USB- of PXE-uitvoer om te beginnen.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Volledig formatteren</value>

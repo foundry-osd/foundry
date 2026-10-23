@@ -3718,7 +3718,7 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>Medya oluşturma, tüm hazırlık kontrolleri geçtiğinde kullanılabilir.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Başlamak için aşağıdan bir ISO veya USB çıktısı seçin.</value>
+    <value>Başlamak için aşağıdan bir ISO, USB veya PXE çıktısı seçin.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Tam biçimlendirme</value>
@@ -4111,7 +4111,7 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>PXE hedef klasörünü seçin</value>
   </data>
   <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
-    <value>Bu içerik yalnızca ISO ve USB medyasına kopyalanır. Buna ihtiyaç duyan dağıtımları bir ISO&apos;dan veya USB sürücüsünden başlatın.</value>
+    <value>Bu içerik yalnızca ISO ve USB medyasına kopyalanır. Buna ihtiyaç duyan dağıtımları bir ISO'dan veya USB sürücüsünden başlatın.</value>
   </data>
   <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
     <value>PXE önyüklemesiyle sağlanmaz</value>

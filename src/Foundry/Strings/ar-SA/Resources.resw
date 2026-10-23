@@ -3718,7 +3718,7 @@
     <value>يكون إنشاء الوسائط متاحًا عند اجتياز جميع اختبارات الاستعداد.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>اختر إخراج ISO أو USB أدناه للبدء.</value>
+    <value>اختر إخراج ISO أو USB أو PXE أدناه للبدء.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>تنسيق كامل</value>

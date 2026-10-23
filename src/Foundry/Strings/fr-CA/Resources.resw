@@ -3718,7 +3718,7 @@ Mots de passe et clés d'accès inclus : {2}</value>
     <value>La création de médias est disponible lorsque tous les contrôles de préparation réussissent.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Choisissez une sortie ISO ou USB ci-dessous pour commencer.</value>
+    <value>Choisissez une sortie ISO, USB ou PXE ci-dessous pour commencer.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Formatage complet</value>
@@ -3964,10 +3964,10 @@ Mots de passe et clés d'accès inclus : {2}</value>
     <value>Ajout des composants Foundry à la clé USB…</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
-    <value>Espace libre insuffisant dans le dossier de destination. Les fichiers de démarrage PXE nécessitent {0}. Espace disponible : {1}. Libérez de l&apos;espace ou choisissez un autre dossier.</value>
+    <value>Espace libre insuffisant dans le dossier de destination. Les fichiers de démarrage PXE nécessitent {0}. Espace disponible : {1}. Libérez de l'espace ou choisissez un autre dossier.</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
-    <value>Les fichiers de démarrage PXE n&apos;ont pas pu être écrits dans le dossier de destination. Vérifiez que le dossier est accessible et que vous pouvez y écrire.</value>
+    <value>Les fichiers de démarrage PXE n'ont pas pu être écrits dans le dossier de destination. Vérifiez que le dossier est accessible et que vous pouvez y écrire.</value>
   </data>
   <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
     <value>Les fichiers de démarrage PXE ont été enregistrés dans :</value>

@@ -3718,7 +3718,7 @@ Vključena gesla in ključi za dostop: {2}</value>
     <value>Ustvarjanje medijev je na voljo, ko so opravljeni vsi pregledi pripravljenosti.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Za začetek spodaj izberite izhod ISO ali USB.</value>
+    <value>Za začetek spodaj izberite izhod ISO, USB ali PXE.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Popolno formatiranje</value>

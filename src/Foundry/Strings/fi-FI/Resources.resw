@@ -3718,7 +3718,7 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
     <value>Median luonti on käytettävissä, kun kaikki valmiustarkastukset ovat läpäisseet.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Aloita valitsemalla alta ISO- tai USB-tuloste.</value>
+    <value>Aloita valitsemalla alta ISO-, USB- tai PXE-tuloste.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Täydellinen alustus</value>

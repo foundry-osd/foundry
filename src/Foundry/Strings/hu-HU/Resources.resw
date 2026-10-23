@@ -3718,7 +3718,7 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>A média létrehozása akkor érhető el, ha minden készenléti ellenőrzés sikeres.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>A kezdéshez válasszon lent egy ISO- vagy USB-kimenetet.</value>
+    <value>A kezdéshez válasszon lent egy ISO-, USB- vagy PXE-kimenetet.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Teljes formázás</value>
