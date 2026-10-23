@@ -55,6 +55,19 @@ public sealed class ContentPackageLibraryService
         catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException or ArgumentException) { return null; }
     }
 
+    /// <summary>
+    /// Lists the lowercase content hashes that have a directory in the library, without verifying them or taking the library lock.
+    /// Lets a caller tell an entry an import created from one that already existed.
+    /// </summary>
+    internal IReadOnlySet<string> ListContentHashes()
+    {
+        string content = Path.Combine(root, "content");
+        return Directory.Exists(content)
+            ? Directory.EnumerateDirectories(content).Select(Path.GetFileName).OfType<string>().Where(ContentPackagePathPolicy.IsValidHash)
+                .Select(hash => hash.ToLowerInvariant()).ToHashSet(StringComparer.Ordinal)
+            : new HashSet<string>(StringComparer.Ordinal);
+    }
+
     /// <summary>Checks a reference against the limits of <paramref name="kind"/> instead of the post-installation configuration limits.</summary>
     internal static bool IsValidReference(ContentPackageReference reference, ContentPackageKind kind) =>
         ContentPackagePathPolicy.IsValidHash(reference.ContentHash) && reference.Length >= 0 && reference.FileCount > 0 && reference.FileCount <= kind.MaximumFiles &&
