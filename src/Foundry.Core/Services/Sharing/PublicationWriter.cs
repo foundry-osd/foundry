@@ -127,8 +127,11 @@ public static class PublicationWriter
     /// <see cref="PublicationRequest.TakeOver"/> is set: the deciding foreign manifest must then open with the request password
     /// (<see cref="PublishStatus.WrongPassword"/> otherwise) and be an authenticated publication under its own publisher key
     /// (<see cref="PublishStatus.ForeignPublisher"/> otherwise); the publish continues above it and keeps it as the previous manifest,
-    /// so its content survives one more version. Otherwise <see cref="PublishStatus.WrongPassword"/> is returned when the highest
-    /// manifest signed with this PC's key does not decrypt with the request password, and the publish continues from the highest
+    /// so content it does not share with this publish survives one more version. Shared content is re-encrypted in place under the new
+    /// master key, so the foreign manifest can no longer decrypt it: a take over cancelled after the content step leaves the foreign
+    /// publication's followers failing on those hashes until a retry or the foreign PC's next publish.
+    /// Otherwise <see cref="PublishStatus.WrongPassword"/> is returned when the highest manifest signed with this PC's key does not
+    /// decrypt with the request password, and the publish continues from the highest
     /// authenticated manifest of this PC (see the class remarks), whatever the pointer says, or starts a new publication when the
     /// folder holds only publication files. The new sequence is one above the highest of
     /// <see cref="PublicationRequest.LastPublishedSequence"/>, this PC's manifest and, on a take over, the foreign manifest. Content is
@@ -371,7 +374,9 @@ public static class PublicationWriter
     /// <summary>
     /// "Take over" (spec 6.1): accepts the foreign manifest that made the folder foreign when it opens with the request password and
     /// verifies with the publisher key it embeds, and continues above it and above this PC's own manifest. The foreign manifest
-    /// becomes the previous manifest, so its content survives one more version.
+    /// becomes the previous manifest, so content it does not share with this publish survives one more version; shared content is
+    /// re-encrypted in place under the new master key, and a take over cancelled after the content step leaves the foreign
+    /// publication's followers failing on those hashes until a retry or the foreign PC's next publish.
     /// </summary>
     private static async Task<FolderState> TakeOverAsync(FolderState foreign, string password, CancellationToken cancellationToken)
     {
