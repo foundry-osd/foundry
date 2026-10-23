@@ -316,8 +316,8 @@ public sealed class ConnectConfigurationGeneratorTests
     }
 
     [Theory]
-    [InlineData("connect-runtime-schema5.json", true)]
-    [InlineData("connect-runtime-schema5-personal-wifi.json", false)]
+    [InlineData("connect-schema5-dot1x-wifi.json", false)]
+    [InlineData("connect-schema5-dot1x-wifi-enterprise.json", true)]
     public void Generate_RuntimeJson_IsUnchangedBySplit(string fixtureName, bool enterpriseWifi)
     {
         using var tempDirectory = new TemporaryDirectory();
