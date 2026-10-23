@@ -3663,6 +3663,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Vytvořit USB</value>
   </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Vytvořit bez mezipaměti</value>
+  </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Volitelná složka ovladačů .inf přidávaných do spouštěcí bitové kopie WinPE.</value>
   </data>
@@ -3795,6 +3798,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Vytváření oddílu mezipaměti…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Vytváření oddílu USB…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Nepoužívané vlastní sady ovladačů nelze odebrat z jednotky USB.</value>
   </data>
@@ -3857,6 +3863,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Formátování oddílu mezipaměti…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Formátování oddílu USB…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Vytváření tabulky oddílů…</value>
@@ -4065,11 +4074,20 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>Oddíl mezipaměti na USB nemá dost volného místa pro aktualizovaný obsah, protože předchozí obsah zůstává na jednotce po dobu aktualizace. Nic nebylo smazáno ani naformátováno. Místo aktualizace vytvořte médium USB znovu.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Soubor ke zkopírování má velikost {0}; oddíl FAT32 jednotky USB bez mezipaměti podporuje maximálně {1} na soubor. Nic nebylo smazáno ani naformátováno. Použijte místo toho „Vytvořit USB“.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Z disku USB možná už nepůjde spustit zařízení. Před použitím ho znovu vytvořte nebo aktualizujte.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Spouštěcí svazek: {0}. Svazek mezipaměti: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Médium potřebuje přibližně {0}, ale jednotka USB bez mezipaměti pojme {1}. Nic nebylo smazáno ani naformátováno. Použijte větší jednotku nebo „Vytvořit USB“.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>Svazek USB: {0}. Jednotka nemá mezipaměť: každé nasazení znovu stáhne Windows a ovladače.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Kontrola disku USB…</value>
@@ -4145,6 +4163,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Zkontrolujte upozornění na výstup médií</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Znovu vytvořit bez mezipaměti</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

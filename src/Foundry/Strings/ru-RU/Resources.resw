@@ -3663,6 +3663,9 @@
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Создать USB</value>
   </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Создать без кэша</value>
+  </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Необязательная папка с драйверами .inf, добавляемыми в загрузочный образ WinPE.</value>
   </data>
@@ -3795,6 +3798,9 @@
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Создание раздела кэша…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Создание раздела USB…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Не удалось удалить неиспользуемые пользовательские наборы драйверов с USB-накопителя.</value>
   </data>
@@ -3857,6 +3863,9 @@
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Форматирование раздела кэша…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Форматирование раздела USB…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Создание таблицы разделов…</value>
@@ -4065,11 +4074,20 @@
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>В разделе кэша на USB недостаточно свободного места для обновлённого содержимого, так как прежнее содержимое остаётся на накопителе во время обновления. Удаление и форматирование не выполнялись. Создайте USB-носитель заново вместо его обновления.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Размер копируемого файла составляет {0}; раздел FAT32 на USB-накопителе без кэша поддерживает не более {1} на файл. Удаление и форматирование не выполнялись. Вместо этого используйте «Создать USB».</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Возможно, с этого USB-накопителя больше не удастся запустить устройство. Перед использованием создайте или обновите его заново.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Загрузочный том: {0}. Том кэша: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Для носителя требуется примерно {0}, но на USB-накопитель без кэша помещается {1}. Удаление и форматирование не выполнялись. Используйте накопитель большего объёма или «Создать USB».</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>Том USB: {0}. На накопителе нет кэша: при каждом развертывании Windows и драйверы скачиваются заново.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Проверка USB-накопителя…</value>
@@ -4145,6 +4163,9 @@
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Просмотр предупреждений о выводе мультимедиа</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Пересоздать без кэша</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

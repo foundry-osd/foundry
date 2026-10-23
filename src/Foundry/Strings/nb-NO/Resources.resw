@@ -3663,6 +3663,9 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Opprett USB</value>
   </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Opprett uten cache</value>
+  </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Valgfri mappe med .inf-drivere som legges til i WinPE-oppstartsavbildningen.</value>
   </data>
@@ -3795,6 +3798,9 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Oppretter cache-partisjonen…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Oppretter USB-partisjonen…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Ubrukte tilpassede driversett kunne ikke fjernes fra USB-stasjonen.</value>
   </data>
@@ -3857,6 +3863,9 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Formaterer cache-partisjonen…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Formaterer USB-partisjonen…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Oppretter partisjonstabellen…</value>
@@ -4065,11 +4074,20 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>USB-cache-partisjonen har ikke nok ledig plass til det oppdaterte innholdet, fordi det tidligere innholdet blir værende på stasjonen under oppdateringen. Ingenting er slettet eller formatert. Opprett USB-mediet på nytt i stedet for å oppdatere det.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>En fil som skal kopieres, er {0}; FAT32-partisjonen på en USB-stasjon uten cache støtter maksimalt {1} per fil. Ingenting er slettet eller formatert. Bruk «Opprett USB» i stedet.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>USB-stasjonen kan kanskje ikke lenger starte en enhet. Opprett eller oppdater den på nytt før du bruker den.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Oppstartsvolum: {0}. Cache-volum: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Mediet trenger omtrent {0}, men USB-stasjonen uten cache har plass til {1}. Ingenting er slettet eller formatert. Bruk en større stasjon, eller bruk «Opprett USB».</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>USB-volum: {0}. Stasjonen har ingen cache: hver distribusjon laster ned Windows og drivere på nytt.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Kontrollerer USB-stasjonen…</value>
@@ -4145,6 +4163,9 @@ Inkluderte passord og tilgangsnøkler: {2}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Gjennomgå advarsler om utdata</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Opprett på nytt uten cache</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

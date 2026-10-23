@@ -3663,6 +3663,9 @@
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>إنشاء USB</value>
   </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>إنشاء بدون ذاكرة تخزين مؤقت</value>
+  </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>مجلد اختياري يحتوي على برامج تشغيل .inf تُضاف إلى صورة إقلاع WinPE.</value>
   </data>
@@ -3795,6 +3798,9 @@
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>جارٍ إنشاء قسم ذاكرة التخزين المؤقت…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>جارٍ إنشاء قسم USB…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>تعذرت إزالة مجموعات برامج التشغيل المخصصة غير المستخدمة من محرك أقراص USB.</value>
   </data>
@@ -3857,6 +3863,9 @@
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>جارٍ تهيئة قسم ذاكرة التخزين المؤقت…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>جارٍ تهيئة قسم USB…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>جارٍ إنشاء جدول الأقسام…</value>
@@ -4065,11 +4074,20 @@
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>لا يحتوي قسم ذاكرة التخزين المؤقت على USB على مساحة فارغة كافية للمحتوى المحدّث، لأن المحتوى السابق يبقى على محرك الأقراص أثناء التحديث. لم يتم مسح أي شيء أو تهيئته. أنشئ وسائط USB من جديد بدلاً من تحديثها.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>حجم أحد الملفات المراد نسخها هو {0}؛ ويدعم قسم FAT32 في محرك أقراص USB بدون ذاكرة تخزين مؤقت حدًا أقصى قدره {1} لكل ملف. لم يتم مسح أي شيء أو تهيئته. استخدم «إنشاء USB» بدلاً من ذلك.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>قد لا يتمكن قرص USB بعد الآن من تشغيل جهاز. أنشئه أو حدّثه مرة أخرى قبل استخدامه.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>وحدة تخزين التمهيد: {0}. وحدة تخزين ذاكرة التخزين المؤقت: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>تحتاج الوسائط إلى نحو {0}، لكن محرك أقراص USB بدون ذاكرة تخزين مؤقت يتسع لـ {1}. لم يتم مسح أي شيء أو تهيئته. استخدم محرك أقراص أكبر، أو استخدم «إنشاء USB».</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>وحدة تخزين USB: {0}. لا يحتوي محرك الأقراص على ذاكرة تخزين مؤقت: يقوم كل نشر بتنزيل Windows وبرامج التشغيل من جديد.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>جارٍ فحص قرص USB…</value>
@@ -4145,6 +4163,9 @@
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>راجع تحذيرات مخرجات الوسائط</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>إعادة الإنشاء بدون ذاكرة تخزين مؤقت</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

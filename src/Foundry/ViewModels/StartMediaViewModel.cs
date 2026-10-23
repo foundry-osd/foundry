@@ -278,6 +278,12 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     public partial bool CanCreatePxe { get; set; }
 
     [ObservableProperty]
+    public partial bool CanCreateUsbWithoutCache { get; set; }
+
+    [ObservableProperty]
+    public partial bool CanUseUsbActions { get; set; }
+
+    [ObservableProperty]
     public partial bool IsMediaOperationRunning { get; set; }
 
     [ObservableProperty]
@@ -510,6 +516,42 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         await RunFinalMediaOperationAsync(FinalMediaTarget.Usb, options);
     }
 
+    /// <summary>
+    /// Writes the selected drive with one FAT32 partition, like an ISO. On a Foundry drive with cache this recreates the
+    /// drive, so the usual erase confirmation is shown first.
+    /// </summary>
+    [RelayCommand]
+    private async Task CreateUsbWithoutCacheAsync()
+    {
+        if (isDisposed || IsMediaOperationRunning || isUpdateAdvisoryPending || isRefreshingUnattendSources || shellNavigationGuardService.State != ShellNavigationState.Ready)
+        {
+            return;
+        }
+
+        await RefreshUnattendSourcesAsync();
+        if (isDisposed || shellNavigationGuardService.State != ShellNavigationState.Ready)
+        {
+            return;
+        }
+
+        MediaPreflightOptions options = CreatePreflightOptions();
+        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(options);
+        if (!evaluation.CanCreateUsbWithoutCache || options.SelectedUsbDisk is null)
+        {
+            logger.Information(
+                "USB media creation without cache was blocked by preflight validation. HasSelectedUsbTarget={HasSelectedUsbTarget}, BlockingReasons={BlockingReasons}",
+                options.SelectedUsbDisk is not null,
+                string.Join(",", evaluation.UsbWithoutCacheBlockingReasons));
+            await ShowBlockedDialogAsync(
+                "StartMedia.CreateUsb.BlockedTitle",
+                evaluation.UsbWithoutCacheBlockingReasons,
+                options.AutopilotConfigurationValidationCode);
+            return;
+        }
+
+        await RunFinalMediaOperationAsync(FinalMediaTarget.UsbWithoutCache, options);
+    }
+
     [RelayCommand]
     private async Task CreatePxeAsync()
     {
@@ -629,7 +671,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
 
         MediaPreflightOptions currentOptions = CreatePreflightOptions();
-        if (target is FinalMediaTarget.Usb or FinalMediaTarget.UsbUpdate &&
+        if (IsUsbTarget(target) &&
             (options.SelectedUsbDisk is null || currentOptions.SelectedUsbDisk is null ||
              options.SelectedUsbDisk.IsFoundryMedia != currentOptions.SelectedUsbDisk.IsFoundryMedia ||
              !GetUsbDiskIdentity(options.SelectedUsbDisk).Matches(GetUsbDiskIdentity(currentOptions.SelectedUsbDisk))))
@@ -644,6 +686,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         {
             FinalMediaTarget.Iso => (evaluation.CanCreateIso, evaluation.IsoBlockingReasons),
             FinalMediaTarget.Pxe => (evaluation.CanCreatePxe, evaluation.PxeBlockingReasons),
+            FinalMediaTarget.UsbWithoutCache => (evaluation.CanCreateUsbWithoutCache, evaluation.UsbWithoutCacheBlockingReasons),
             _ => (evaluation.CanCreateUsb, evaluation.UsbBlockingReasons)
         };
         if (!canCreate)
@@ -679,6 +722,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         {
             FinalMediaTarget.Usb => TelemetryBootMediaUsbOperations.Create,
             FinalMediaTarget.UsbUpdate => TelemetryBootMediaUsbOperations.Update,
+            FinalMediaTarget.UsbWithoutCache => TelemetryBootMediaUsbOperations.CreateWithoutCache,
             _ => TelemetryBootMediaUsbOperations.None
         };
         WinPeDiagnostic? failureDiagnostic = null;
@@ -744,7 +788,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 await ShowBlockedDialogAsync(GetBlockedTitleKey(target), message);
                 return;
             }
-            if (target == FinalMediaTarget.Usb && !await ConfirmUsbFormattingAsync(options.SelectedUsbDisk!))
+            if (target is FinalMediaTarget.Usb or FinalMediaTarget.UsbWithoutCache && !await ConfirmUsbFormattingAsync(options.SelectedUsbDisk!))
             {
                 shouldTrackMedia = false;
                 return;
@@ -763,8 +807,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 options.WinPeKeyboardLayoutId ?? "default",
                 target == FinalMediaTarget.Iso ? options.IsoOutputPath : null,
                 target == FinalMediaTarget.Pxe ? pxeOutputDirectoryPath : null,
-                target is FinalMediaTarget.Usb or FinalMediaTarget.UsbUpdate ? options.SelectedUsbDisk?.DiskNumber : null,
-                target is FinalMediaTarget.Usb or FinalMediaTarget.UsbUpdate ? options.SelectedUsbDisk?.FriendlyName : null);
+                IsUsbTarget(target) ? options.SelectedUsbDisk?.DiskNumber : null,
+                IsUsbTarget(target) ? options.SelectedUsbDisk?.FriendlyName : null);
 
             snapshot = await foundryConfigurationStateService.CaptureBuildSnapshotAsync(
                 Path.Combine(Constants.UserRootDirectoryPath, "BuildSnapshots"), cancellationToken);
@@ -795,13 +839,16 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             }
             else
             {
+                UsbMediaLayout layout = target == FinalMediaTarget.UsbWithoutCache ? UsbMediaLayout.WithoutCache : UsbMediaLayout.WithCache;
                 WinPeUsbProvisionResult usbResult = target == FinalMediaTarget.UsbUpdate
                     ? await UpdateUsbMediaAsync(options, snapshot, deploymentProtectionMaterial, telemetryProgressTracker, cancellationToken)
-                    : await CreateUsbMediaAsync(options, snapshot, deploymentProtectionMaterial, telemetryProgressTracker, cancellationToken);
-                successMessage = localizationService.FormatString(
-                    "StartMedia.Operation.UsbVolumesFormat",
-                    usbResult.BootDriveLetter,
-                    usbResult.CacheDriveLetter);
+                    : await CreateUsbMediaAsync(options, layout, snapshot, deploymentProtectionMaterial, telemetryProgressTracker, cancellationToken);
+                successMessage = layout == UsbMediaLayout.WithoutCache
+                    ? localizationService.FormatString("StartMedia.Operation.UsbWithoutCacheReadyFormat", usbResult.BootDriveLetter)
+                    : localizationService.FormatString(
+                        "StartMedia.Operation.UsbVolumesFormat",
+                        usbResult.BootDriveLetter,
+                        usbResult.CacheDriveLetter);
             }
 
             if (preparedBootImageSource == WinPeBootImageSource.WinPe)
@@ -856,7 +903,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     WinPeErrorCodes.UsbIdentityMismatch => localizationService.GetString("StartMedia.Operation.DiskIdentityCannotBeConfirmed"),
                     WinPeErrorCodes.UsbUnsafeTarget => localizationService.GetString("StartMedia.Operation.DiskNoLongerSafe"),
                     WinPeErrorCodes.CustomDriversTooLarge => FormatMediaCapacityFailure("StartMedia.Operation.CustomDriversTooLarge", failureDiagnostic),
+                    WinPeErrorCodes.UsbBootCapacityInsufficient when target == FinalMediaTarget.UsbWithoutCache =>
+                        FormatMediaCapacityFailure("StartMedia.Operation.UsbWithoutCacheCapacityInsufficient", failureDiagnostic),
                     WinPeErrorCodes.UsbBootCapacityInsufficient => FormatMediaCapacityFailure("StartMedia.Operation.UsbBootCapacityInsufficient", failureDiagnostic),
+                    WinPeErrorCodes.UsbFileTooLargeForFat32 => FormatMediaCapacityFailure("StartMedia.Operation.UsbFileTooLargeForFat32", failureDiagnostic),
                     WinPeErrorCodes.UsbBootCapacityUnknown => localizationService.GetString("StartMedia.Operation.UsbBootCapacityUnknown"),
                     WinPeErrorCodes.UsbBootFileTooLarge => FormatMediaCapacityFailure("StartMedia.Operation.UsbBootFileTooLarge", failureDiagnostic),
                     WinPeErrorCodes.UsbCacheCapacityInsufficient => localizationService.GetString("StartMedia.Operation.UsbCacheCapacityInsufficient"),
@@ -881,7 +931,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 or WinPeErrorCodes.UsbBootCapacityUnknown
                 or WinPeErrorCodes.UsbBootFileTooLarge
                 or WinPeErrorCodes.UsbCacheCapacityInsufficient
-                or WinPeErrorCodes.PxeOutputCapacityInsufficient)
+                or WinPeErrorCodes.PxeOutputCapacityInsufficient
+                or WinPeErrorCodes.UsbFileTooLargeForFat32)
             {
                 logger.Warning(
                     "Final boot media operation failed validation. FailedStepName={FailedStepName}, DurationMs={DurationMs}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, RequiredBytes={RequiredBytes}, AvailableBytes={AvailableBytes}",
@@ -963,7 +1014,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             }
             finally
             {
-                if (target is FinalMediaTarget.Usb or FinalMediaTarget.UsbUpdate && !isDisposed)
+                if (IsUsbTarget(target) && !isDisposed)
                 {
                     await RefreshUsbCandidatesAfterMediaOperationAsync();
                 }
@@ -986,6 +1037,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         FinalMediaTarget.UsbUpdate => MediaCreationKind.UsbUpdate,
         _ => MediaCreationKind.UsbCreate
     };
+
+    private static bool IsUsbTarget(FinalMediaTarget target) =>
+        target is FinalMediaTarget.Usb or FinalMediaTarget.UsbUpdate or FinalMediaTarget.UsbWithoutCache;
 
     private static string GetTelemetryBootMediaTarget(FinalMediaTarget target) => target switch
     {
@@ -1075,7 +1129,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         // USB creation partitions the disk from 20%; an update writes the cache partition from 22%.
         bool usbWasModified = target switch
         {
-            FinalMediaTarget.Usb => lastFinalMediaPercent >= 20,
+            FinalMediaTarget.Usb or FinalMediaTarget.UsbWithoutCache => lastFinalMediaPercent >= 20,
             FinalMediaTarget.UsbUpdate => lastFinalMediaPercent >= 22,
             _ => false
         };
@@ -1357,11 +1411,12 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     /// </summary>
     private async Task ValidateUsbTargetBeforePreparationAsync(
         WinPeUsbDiskCandidate selectedDisk,
+        UsbMediaLayout layout,
         CancellationToken cancellationToken)
     {
         ReportPhase(MediaCreationPhase.Preparing, 0, localizationService.GetString("StartMedia.Operation.ValidatingUsbTarget"));
         WinPeResult result = await usbMediaService.ValidateUsbTargetAsync(
-            CreateUsbTargetOptions(selectedDisk),
+            CreateUsbTargetOptions(selectedDisk) with { Layout = layout },
             ResolveWinPeToolsOrThrow(),
             Constants.UsbQueryTempDirectoryPath,
             cancellationToken);
@@ -1380,6 +1435,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private async Task<WinPeUsbProvisionResult> CreateUsbMediaAsync(
         MediaPreflightOptions options,
+        UsbMediaLayout layout,
         DeploymentBuildSnapshot snapshot,
         DeploymentMediaProtectionMaterial deploymentProtectionMaterial,
         MediaCreationTelemetryProgressTracker telemetryProgressTracker,
@@ -1396,20 +1452,22 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         try
         {
-            await ValidateUsbTargetBeforePreparationAsync(selectedDisk, cancellationToken);
+            await ValidateUsbTargetBeforePreparationAsync(selectedDisk, layout, cancellationToken);
             workspace = await PrepareMediaWorkspaceAsync(
                 options,
                 snapshot,
-                includeRuntimePayloadInImage: false,
+                // A drive without cache has no partition for the runtimes, so they are embedded like on an ISO.
+                includeRuntimePayloadInImage: layout == UsbMediaLayout.WithoutCache,
                 deploymentProtectionMaterial,
                 telemetryProgressTracker: telemetryProgressTracker,
                 cancellationToken);
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.CreateUsbMedia);
             logger.Debug(
-                "Creating USB media. DiskNumber={DiskNumber}, DiskName={DiskName}, PartitionStyle={PartitionStyle}, FormatMode={FormatMode}, MediaDirectoryPath={MediaDirectoryPath}, UseBootEx={UseBootEx}",
+                "Creating USB media. DiskNumber={DiskNumber}, DiskName={DiskName}, Layout={Layout}, PartitionStyle={PartitionStyle}, FormatMode={FormatMode}, MediaDirectoryPath={MediaDirectoryPath}, UseBootEx={UseBootEx}",
                 selectedDisk.DiskNumber,
                 selectedDisk.FriendlyName,
+                layout,
                 options.UsbPartitionStyle,
                 options.UsbFormatMode,
                 workspace.PreparedWorkspace.Artifact.MediaDirectoryPath,
@@ -1420,7 +1478,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 {
                     PartitionStyle = options.UsbPartitionStyle,
                     FormatMode = options.UsbFormatMode,
-                    RuntimePayloadProvisioning = workspace.RuntimePayloadProvisioning,
+                    Layout = layout,
+                    RuntimePayloadProvisioning = layout == UsbMediaLayout.WithCache ? workspace.RuntimePayloadProvisioning : null,
                     CustomImages = workspace.CustomImages,
                     PostInstallation = workspace.PostInstallation,
                     CustomDrivers = workspace.CustomDrivers,
@@ -1468,7 +1527,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         try
         {
-            await ValidateUsbTargetBeforePreparationAsync(selectedDisk, cancellationToken);
+            await ValidateUsbTargetBeforePreparationAsync(selectedDisk, UsbMediaLayout.WithCache, cancellationToken);
             workspace = await PrepareMediaWorkspaceAsync(
                 options,
                 snapshot,
@@ -2095,6 +2154,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             WinPeProgressStatuses.FormattingUsbBootPartition => "StartMedia.Operation.FormattingUsbBootPartition",
             WinPeProgressStatuses.CreatingUsbCachePartition => "StartMedia.Operation.CreatingUsbCachePartition",
             WinPeProgressStatuses.FormattingUsbCachePartition => "StartMedia.Operation.FormattingUsbCachePartition",
+            WinPeProgressStatuses.CreatingUsbMediaPartition => "StartMedia.Operation.CreatingUsbMediaPartition",
+            WinPeProgressStatuses.FormattingUsbMediaPartition => "StartMedia.Operation.FormattingUsbMediaPartition",
             WinPeProgressStatuses.CopyingWinPeMediaToUsb => "StartMedia.Operation.CopyingUsbMedia",
             WinPeProgressStatuses.VerifyingUsbBootMedia => "StartMedia.Operation.VerifyingUsbMedia",
             WinPeProgressStatuses.PreparingUsbCachePartition => "StartMedia.Operation.PreparingUsbCache",
@@ -2351,6 +2412,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         CanCreateIso = evaluation.CanCreateIso && !IsMediaOperationRunning && !isUpdateAdvisoryPending && !isRefreshingUnattendSources;
         CanCreateUsb = evaluation.CanCreateUsb && !IsMediaOperationRunning && !isUpdateAdvisoryPending && !isRefreshingUnattendSources;
         CanCreatePxe = evaluation.CanCreatePxe && !IsMediaOperationRunning && !isUpdateAdvisoryPending && !isRefreshingUnattendSources;
+        CanCreateUsbWithoutCache = evaluation.CanCreateUsbWithoutCache && !IsMediaOperationRunning && !isUpdateAdvisoryPending && !isRefreshingUnattendSources;
+        // The split button stays usable when only its secondary action can run, so a drive below the cache minimum can
+        // still be written without cache, and its primary action explains why the drive is too small for a cache.
+        CanUseUsbActions = CanCreateUsb || CanCreateUsbWithoutCache;
         FinalExecutionStatus = localizationService.GetString(!options.IsFinalExecutionEnabled
             ? "StartMedia.FinalExecution.Deferred"
             : evaluation.CanCreateIso || evaluation.CanCreateUsb || evaluation.CanCreatePxe
@@ -2469,6 +2534,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         {
             FinalMediaTarget.Usb => TelemetryBootMediaUsbOperations.Create,
             FinalMediaTarget.UsbUpdate => TelemetryBootMediaUsbOperations.Update,
+            FinalMediaTarget.UsbWithoutCache => TelemetryBootMediaUsbOperations.CreateWithoutCache,
             _ => TelemetryBootMediaUsbOperations.None
         };
         IReadOnlyDictionary<string, object?> properties = BootMediaTelemetryPropertyBuilder.Build(
@@ -3328,7 +3394,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         Iso,
         Usb,
         UsbUpdate,
-        Pxe
+        Pxe,
+        UsbWithoutCache
     }
 
     private sealed record PreparedMediaWorkspace(

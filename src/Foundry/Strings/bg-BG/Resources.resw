@@ -3663,6 +3663,9 @@
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Създаване на USB</value>
   </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Създаване без кеш</value>
+  </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Папка по избор с .inf драйвери, които се добавят към образа за стартиране на WinPE.</value>
   </data>
@@ -3795,6 +3798,9 @@
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Създаване на кеш дяла…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Създаване на USB дяла…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Неизползваните персонализирани набори драйвери не можаха да бъдат премахнати от USB устройството.</value>
   </data>
@@ -3857,6 +3863,9 @@
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Форматиране на кеш дяла…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Форматиране на USB дяла…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Създаване на таблицата на дяловете…</value>
@@ -4065,11 +4074,20 @@
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>Кеш дялът на USB няма достатъчно свободно място за обновеното съдържание, защото предишното съдържание остава на устройството по време на обновяването. Нищо не е изтрито или форматирано. Създайте USB носителя отново, вместо да го обновявате.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Файл за копиране е с размер {0}; дялът FAT32 на USB устройство без кеш поддържа най-много {1} на файл. Нищо не е изтрито или форматирано. Вместо това използвайте „Създаване на USB“.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>USB дискът може вече да не стартира устройство. Създайте го или го актуализирайте отново, преди да го използвате.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Том за стартиране: {0}. Кеш том: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Носителят изисква приблизително {0}, но USB устройството без кеш побира {1}. Нищо не е изтрито или форматирано. Използвайте по-голямо устройство или „Създаване на USB“.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>USB том: {0}. Устройството няма кеш: всяко внедряване изтегля Windows и драйверите отново.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Проверка на USB диска…</value>
@@ -4145,6 +4163,9 @@
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Прегледайте предупрежденията за медийно извеждане</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Повторно създаване без кеш</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

@@ -3663,6 +3663,9 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Creați USB</value>
   </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Creați fără cache</value>
+  </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Folder opțional cu drivere .inf adăugate în imaginea de pornire WinPE.</value>
   </data>
@@ -3795,6 +3798,9 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Se creează partiția cache…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Se creează partiția USB…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Seturile de drivere personalizate neutilizate nu au putut fi eliminate de pe unitatea USB.</value>
   </data>
@@ -3857,6 +3863,9 @@ Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Se formatează partiția cache…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Se formatează partiția USB…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Se creează tabelul de partiții…</value>
@@ -4065,11 +4074,20 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>Partiția cache USB nu are suficient spațiu liber pentru conținutul actualizat, deoarece conținutul anterior rămâne pe unitate în timpul actualizării. Nu s-a șters și nu s-a formatat nimic. Creați din nou suportul USB în loc să îl actualizați.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Un fișier de copiat are {0}; partiția FAT32 a unei unități USB fără cache acceptă cel mult {1} per fișier. Nu s-a șters și nu s-a formatat nimic. Folosiți în schimb „Creați USB”.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Este posibil ca unitatea USB să nu mai poată porni un dispozitiv. Creați-o sau actualizați-o din nou înainte de a o folosi.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Volum de pornire: {0}. Volum cache: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Suportul necesită aproximativ {0}, dar unitatea USB fără cache poate stoca {1}. Nu s-a șters și nu s-a formatat nimic. Folosiți o unitate mai mare sau „Creați USB”.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>Volum USB: {0}. Unitatea nu are cache: fiecare implementare descarcă din nou Windows și driverele.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Se verifică unitatea USB…</value>
@@ -4145,6 +4163,9 @@ Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Examinați avertismentele de ieșire media</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Recreați fără cache</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

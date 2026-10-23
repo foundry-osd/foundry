@@ -3663,6 +3663,9 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Luo USB</value>
   </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Luo ilman välimuistia</value>
+  </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Valinnainen kansio, jonka .inf-ohjaimet lisätään WinPE-käynnistysnäköistiedostoon.</value>
   </data>
@@ -3795,6 +3798,9 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Luodaan välimuistiosiota…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Luodaan USB-osiota…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Käyttämättömiä mukautettuja ohjainjoukkoja ei voitu poistaa USB-asemasta.</value>
   </data>
@@ -3857,6 +3863,9 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Alustetaan välimuistiosiota…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Alustetaan USB-osiota…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Luodaan osiotaulukkoa…</value>
@@ -4065,11 +4074,20 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>USB-aseman välimuistiosiolla ei ole tarpeeksi vapaata tilaa päivitetylle sisällölle, koska aiempi sisältö pysyy asemalla päivityksen ajan. Mitään ei ole poistettu tai alustettu. Luo USB-tietoväline uudelleen sen päivittämisen sijaan.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Kopioitavan tiedoston koko on {0}; välimuistittoman USB-aseman FAT32-osio tukee enintään {1} tiedostoa kohden. Mitään ei ole poistettu tai alustettu. Käytä sen sijaan toimintoa ”Luo USB”.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>USB-asemalta ei ehkä voi enää käynnistää laitetta. Luo tai päivitä se uudelleen ennen käyttöä.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Käynnistystaltio: {0}. Välimuistitaltio: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Tietoväline tarvitsee noin {0}, mutta välimuistittomaan USB-asemaan mahtuu {1}. Mitään ei ole poistettu tai alustettu. Käytä suurempaa asemaa tai toimintoa ”Luo USB”.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>USB-taltio: {0}. Asemalla ei ole välimuistia: jokainen käyttöönotto lataa Windowsin ja ohjaimet uudelleen.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Tarkistetaan USB-asemaa…</value>
@@ -4145,6 +4163,9 @@ Mukana olevat salasanat ja käyttöavaimet: {2}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Tarkista mediatulosteen varoitukset</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Luo uudelleen ilman välimuistia</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

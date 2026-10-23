@@ -3663,6 +3663,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>USB maken</value>
   </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Maken zonder cache</value>
+  </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Optionele map met .inf-stuurprogramma's die aan de WinPE-opstartinstallatiekopie worden toegevoegd.</value>
   </data>
@@ -3795,6 +3798,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Cachepartitie maken…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>USB-partitie maken…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Ongebruikte aangepaste stuurprogrammasets kunnen niet van het USB-station worden verwijderd.</value>
   </data>
@@ -3857,6 +3863,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Cachepartitie formatteren…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>USB-partitie formatteren…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Partitietabel maken…</value>
@@ -4065,11 +4074,20 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>De USB-cachepartitie heeft niet genoeg vrije ruimte voor de bijgewerkte inhoud, omdat de vorige inhoud tijdens het bijwerken op het station blijft staan. Er is niets gewist of geformatteerd. Maak het USB-medium opnieuw in plaats van het bij te werken.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Een te kopiëren bestand is {0} groot; de FAT32-partitie van een USB-station zonder cache ondersteunt maximaal {1} per bestand. Er is niets gewist of geformatteerd. Gebruik in plaats daarvan ‘USB maken’.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Een apparaat kan mogelijk niet meer opstarten vanaf de USB-schijf. Maak de schijf opnieuw of werk deze bij voordat u deze gebruikt.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Opstartvolume: {0}. Cachevolume: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Het medium heeft ongeveer {0} nodig, maar op het USB-station zonder cache past {1}. Er is niets gewist of geformatteerd. Gebruik een groter station of gebruik ‘USB maken’.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>USB-volume: {0}. Het station heeft geen cache: bij elke implementatie worden Windows en de stuurprogramma's opnieuw gedownload.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>USB-schijf controleren…</value>
@@ -4145,6 +4163,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Bekijk de waarschuwingen voor media-uitvoer</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Opnieuw maken zonder cache</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

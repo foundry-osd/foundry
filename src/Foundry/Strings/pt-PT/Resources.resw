@@ -3663,6 +3663,9 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Criar USB</value>
   </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Criar sem cache</value>
+  </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Pasta opcional de controladores .inf adicionados à imagem de arranque do WinPE.</value>
   </data>
@@ -3795,6 +3798,9 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>A criar a partição de cache…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>A criar a partição USB…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Não foi possível remover da unidade USB os conjuntos de controladores personalizados não utilizados.</value>
   </data>
@@ -3857,6 +3863,9 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>A formatar a partição de cache…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>A formatar a partição USB…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>A criar a tabela de partições…</value>
@@ -4065,11 +4074,20 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>A partição de cache USB não tem espaço livre suficiente para o conteúdo atualizado, porque o conteúdo anterior permanece na unidade durante a atualização. Nada foi apagado ou formatado. Crie novamente o suporte USB em vez de o atualizar.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Um ficheiro a copiar ocupa {0}; a partição FAT32 de uma unidade USB sem cache suporta no máximo {1} por ficheiro. Nada foi apagado ou formatado. Em alternativa, utilize «Criar USB».</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>A unidade USB poderá já não conseguir iniciar um dispositivo. Volte a criá-la ou a atualizá-la antes de a utilizar.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Volume de arranque: {0}. Volume de cache: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>O suporte necessita de aproximadamente {0}, mas a unidade USB sem cache comporta {1}. Nada foi apagado ou formatado. Utilize uma unidade maior ou utilize «Criar USB».</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>Volume USB: {0}. A unidade não tem cache: cada implementação transfere novamente o Windows e os controladores.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>A verificar a unidade USB…</value>
@@ -4145,6 +4163,9 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Reveja os avisos sobre os suportes a criar</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Recriar sem cache</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

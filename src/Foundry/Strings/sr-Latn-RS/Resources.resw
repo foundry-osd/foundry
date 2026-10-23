@@ -3663,6 +3663,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Kreiraj USB</value>
   </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Kreiraj bez keša</value>
+  </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Opciona fascikla sa .inf drajverima koji se dodaju u WinPE sliku za pokretanje.</value>
   </data>
@@ -3795,6 +3798,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Kreiranje particije keša…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Kreiranje USB particije…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Nekorišćene prilagođene skupove drajvera nije moguće ukloniti sa USB diska.</value>
   </data>
@@ -3857,6 +3863,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Formatiranje particije keša…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Formatiranje USB particije…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Kreiranje tabele particija…</value>
@@ -4065,11 +4074,20 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>Particija keša na USB-u nema dovoljno slobodnog prostora za ažurirani sadržaj jer prethodni sadržaj ostaje na disku tokom ažuriranja. Ništa nije obrisano niti formatirano. Umesto ažuriranja, ponovo napravite USB medijum.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Datoteka za kopiranje zauzima {0}; FAT32 particija USB diska bez keša podržava najviše {1} po datoteci. Ništa nije obrisano niti formatirano. Umesto toga koristite „Kreiraj USB“.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Uređaj se možda više neće pokretati sa ovog USB diska. Ponovo ga kreirajte ili ažurirajte pre upotrebe.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Volumen za pokretanje: {0}. Volumen keša: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Medijumu je potrebno približno {0}, ali USB disk bez keša može da primi {1}. Ništa nije obrisano niti formatirano. Koristite veći disk ili „Kreiraj USB“.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>USB volumen: {0}. Disk nema keš: svaka primena ponovo preuzima Windows i drajvere.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Provera USB diska…</value>
@@ -4145,6 +4163,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Pregledajte upozorenja o medijskom izlazu</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Ponovo kreiraj bez keša</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

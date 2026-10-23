@@ -62,13 +62,10 @@ public sealed partial class StartPage : Page
         CreateUsbButton.Content = localizationService.GetString(ViewModel.IsSelectedUsbFoundryMedia
             ? "StartMedia.UpdateUsbButton"
             : "StartMedia.CreateUsbButton");
-        if (ViewModel.IsSelectedUsbFoundryMedia)
-        {
-            CreateUsbButton.Style = (Style)Microsoft.UI.Xaml.Application.Current.Resources["AccentButtonStyle"];
-            return;
-        }
-
-        CreateUsbButton.ClearValue(Control.StyleProperty);
+        // On a Foundry drive with cache, the secondary action erases the drive and recreates it without cache.
+        CreateUsbWithoutCacheItem.Text = localizationService.GetString(ViewModel.IsSelectedUsbFoundryMedia
+            ? "StartMedia.RecreateUsbWithoutCacheItem"
+            : "StartMedia.CreateUsbWithoutCacheItem");
     }
 
     private void ReadinessActionButton_Click(object sender, RoutedEventArgs e)

@@ -3663,6 +3663,9 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Ustvari USB</value>
   </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Ustvari brez predpomnilnika</value>
+  </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Izbirna mapa z gonilniki .inf, ki se dodajo zagonski sliki WinPE.</value>
   </data>
@@ -3795,6 +3798,9 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Ustvarjanje particije predpomnilnika…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Ustvarjanje particije USB…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Neuporabljenih naborov gonilnikov po meri ni bilo mogoče odstraniti s pogona USB.</value>
   </data>
@@ -3857,6 +3863,9 @@ Vključena gesla in ključi za dostop: {2}</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Formatiranje particije predpomnilnika…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Formatiranje particije USB…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Ustvarjanje particijske tabele…</value>
@@ -4065,11 +4074,20 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>Particija predpomnilnika na USB nima dovolj prostega prostora za posodobljeno vsebino, ker prejšnja vsebina med posodabljanjem ostane na pogonu. Nič ni bilo izbrisano ali formatirano. Namesto posodabljanja znova ustvarite medij USB.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Datoteka za kopiranje je velika {0}; particija FAT32 pogona USB brez predpomnilnika podpira največ {1} na datoteko. Nič ni bilo izbrisano ali formatirano. Namesto tega uporabite »Ustvari USB«.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Z diska USB morda ne bo več mogoče zagnati naprave. Pred uporabo ga znova ustvarite ali posodobite.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Zagonski nosilec: {0}. Nosilec predpomnilnika: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Medij potrebuje približno {0}, pogon USB brez predpomnilnika pa lahko sprejme {1}. Nič ni bilo izbrisano ali formatirano. Uporabite večji pogon ali »Ustvari USB«.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>Nosilec USB: {0}. Pogon nima predpomnilnika: vsako uvajanje znova prenese Windows in gonilnike.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Preverjanje diska USB…</value>
@@ -4145,6 +4163,9 @@ Vključena gesla in ključi za dostop: {2}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Preglejte opozorila o medijskem izpisu</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Znova ustvari brez predpomnilnika</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

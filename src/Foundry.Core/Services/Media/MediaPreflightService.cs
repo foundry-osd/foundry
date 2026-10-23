@@ -70,7 +70,7 @@ public static class MediaPreflightService
         List<MediaPreflightBlockingReason> usbWithoutCacheReasons =
             [.. usbReasons.Where(reason => reason != MediaPreflightBlockingReason.UsbTargetBelowMinimumSize)];
 
-        bool canGenerateIsoSummary =!isoReasons.Except(GetDryRunAllowedBlockingReasons()).Any();
+        bool canGenerateIsoSummary = !isoReasons.Except(GetDryRunAllowedBlockingReasons()).Any();
         bool canGenerateUsbSummary = !usbReasons.Except(
             [.. GetDryRunAllowedBlockingReasons(), MediaPreflightBlockingReason.Arm64RequiresGpt]).Any();
 

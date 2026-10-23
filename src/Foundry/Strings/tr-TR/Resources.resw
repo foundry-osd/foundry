@@ -3663,6 +3663,9 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>USB oluştur</value>
   </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Önbellek olmadan oluştur</value>
+  </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>WinPE önyükleme görüntüsüne eklenen .inf sürücülerinin bulunduğu isteğe bağlı klasör.</value>
   </data>
@@ -3795,6 +3798,9 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Önbellek bölümü oluşturuluyor…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>USB bölümü oluşturuluyor…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Kullanılmayan özel sürücü kümeleri USB sürücüsünden kaldırılamadı.</value>
   </data>
@@ -3857,6 +3863,9 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Önbellek bölümü biçimlendiriliyor…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>USB bölümü biçimlendiriliyor…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Bölüm tablosu oluşturuluyor…</value>
@@ -4065,11 +4074,20 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>Önceki içerik güncelleme sırasında sürücüde kaldığı için USB önbellek bölümünde güncellenen içerik için yeterli boş alan yok. Hiçbir şey silinmedi veya biçimlendirilmedi. USB medyasını güncellemek yerine yeniden oluşturun.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Kopyalanacak bir dosyanın boyutu {0}; önbelleksiz bir USB sürücüsünün FAT32 bölümü dosya başına en fazla {1} destekler. Hiçbir şey silinmedi veya biçimlendirilmedi. Bunun yerine “USB oluştur” seçeneğini kullanın.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>USB sürücüsü artık bir cihazı başlatamayabilir. Kullanmadan önce yeniden oluşturun veya güncelleştirin.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Önyükleme birimi: {0}. Önbellek birimi: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Medya için yaklaşık {0} gerekiyor, ancak önbelleksiz USB sürücüsü {1} alabiliyor. Hiçbir şey silinmedi veya biçimlendirilmedi. Daha büyük bir sürücü kullanın veya “USB oluştur” seçeneğini kullanın.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>USB birimi: {0}. Sürücüde önbellek yok: her dağıtım Windows'u ve sürücüleri yeniden indirir.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>USB sürücüsü denetleniyor…</value>
@@ -4145,6 +4163,9 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Medya çıkışı uyarılarını inceleyin</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Önbellek olmadan yeniden oluştur</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>
