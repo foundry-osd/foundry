@@ -356,6 +356,133 @@ public sealed class BuildSnapshotTests : IDisposable
         await Assert.ThrowsAnyAsync<IOException>(() => BuildSnapshot.CaptureAsync(document, secrets, [], root, null, TestContext.Current.CancellationToken));
         Assert.Empty(Directory.EnumerateDirectories(root));
     }
+
+    [Theory]
+    [InlineData(MaximumSourceBytes, true)]
+    [InlineData(MaximumSourceBytes + 1, false)]
+    public async Task CaptureAsync_BoundsEachSourceFile(long length, bool accepted)
+    {
+        string template = CreateSource("wired.xml", length);
+        using var secrets = new OobeAccountSecretState();
+        var document = new FoundryConfigurationDocument { Network = new() { Dot1x = new() { IsEnabled = true, ProfileTemplatePath = template } } };
+
+        if (accepted)
+        {
+            using BuildSnapshot snapshot = await BuildSnapshot.CaptureAsync(document, secrets, [], root, null, TestContext.Current.CancellationToken);
+            Assert.Equal(length, new FileInfo(snapshot.Configuration.Network.Dot1x.ProfileTemplatePath!).Length);
+            return;
+        }
+
+        InvalidDataException exception = await Assert.ThrowsAsync<InvalidDataException>(() => BuildSnapshot.CaptureAsync(document, secrets, [], root, null, TestContext.Current.CancellationToken));
+        Assert.Equal("Media source files exceed the supported size.", exception.Message);
+        AssertNoPrivateDirectoryLeft();
+    }
+
+    [Fact]
+    public async Task CaptureAsync_RejectsSourcesAboveTheTotalBound()
+    {
+        const long length = 3 * 1024 * 1024;
+        using var secrets = new OobeAccountSecretState();
+        var document = new FoundryConfigurationDocument
+        {
+            Network = new()
+            {
+                Dot1x = new() { IsEnabled = true, ProfileTemplatePath = CreateSource("wired.xml", length), CertificatePath = CreateSource("wired.pfx", length), RequiresCertificate = true },
+                WifiProvisioned = true,
+                Wifi = new() { IsEnabled = true, CertificatePath = CreateSource("wifi.pfx", length), RequiresCertificate = true }
+            }
+        };
+
+        InvalidDataException exception = await Assert.ThrowsAsync<InvalidDataException>(() => BuildSnapshot.CaptureAsync(document, secrets, [], root, null, TestContext.Current.CancellationToken));
+        Assert.Equal("Media source files exceed the supported size.", exception.Message);
+        AssertNoPrivateDirectoryLeft();
+    }
+
+    [Fact]
+    public async Task CaptureAsync_OptionalCertificateIsCopiedWhenSelectedAndNotRequiredOtherwise()
+    {
+        string template = CreateSource("wired.xml", 3);
+        string certificate = CreateSource("wired.pfx", 3);
+        using var secrets = new OobeAccountSecretState();
+        var selected = new FoundryConfigurationDocument
+        {
+            Network = new() { Dot1x = new() { IsEnabled = true, ProfileTemplatePath = template, CertificatePath = certificate, RequiresCertificate = false } }
+        };
+
+        using (BuildSnapshot snapshot = await BuildSnapshot.CaptureAsync(selected, secrets, [], root, null, TestContext.Current.CancellationToken))
+            Assert.Equal(File.ReadAllBytes(certificate), File.ReadAllBytes(snapshot.Configuration.Network.Dot1x.CertificatePath!));
+
+        FoundryConfigurationDocument unselected = selected with { Network = selected.Network with { Dot1x = selected.Network.Dot1x with { CertificatePath = null } } };
+        using BuildSnapshot withoutCertificate = await BuildSnapshot.CaptureAsync(unselected, secrets, [], root, null, TestContext.Current.CancellationToken);
+        Assert.Null(withoutCertificate.Configuration.Network.Dot1x.CertificatePath);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("missing.xml")]
+    public async Task CaptureAsync_ActiveEnterpriseWifiRequiresItsSelectedTemplate(string? templateName)
+    {
+        Directory.CreateDirectory(SourcesDirectory);
+        using var secrets = new OobeAccountSecretState();
+        var document = new FoundryConfigurationDocument
+        {
+            Network = new()
+            {
+                WifiProvisioned = true,
+                Wifi = new()
+                {
+                    IsEnabled = true,
+                    HasEnterpriseProfile = true,
+                    EnterpriseProfileTemplatePath = templateName is null ? null : Path.Combine(SourcesDirectory, templateName)
+                }
+            }
+        };
+
+        await Assert.ThrowsAsync<FileNotFoundException>(() => BuildSnapshot.CaptureAsync(document, secrets, [], root, null, TestContext.Current.CancellationToken));
+    }
+
+    [Theory]
+    [InlineData("certificate.pfx", ".pfx")]
+    [InlineData("certificate.P12", ".p12")]
+    [InlineData("certificate.cer", ".cer")]
+    [InlineData("certificate.crt", ".crt")]
+    [InlineData("certificate.exe", ".bin")]
+    [InlineData("certificate", ".bin")]
+    public async Task CaptureAsync_NamesPrivateCopiesWithGeneratedNamesAndWhitelistedExtensions(string sourceName, string expectedExtension)
+    {
+        string certificate = CreateSource(sourceName, 3);
+        using var secrets = new OobeAccountSecretState();
+        var document = new FoundryConfigurationDocument
+        {
+            Network = new() { Dot1x = new() { IsEnabled = true, ProfileTemplatePath = CreateSource("wired.xml", 3), CertificatePath = certificate, RequiresCertificate = true } }
+        };
+
+        using BuildSnapshot snapshot = await BuildSnapshot.CaptureAsync(document, secrets, [], root, null, TestContext.Current.CancellationToken);
+        string captured = snapshot.Configuration.Network.Dot1x.CertificatePath!;
+        Assert.Equal(expectedExtension, Path.GetExtension(captured));
+        Assert.True(Guid.TryParseExact(Path.GetFileNameWithoutExtension(captured), "N", out _));
+        Assert.NotEqual(SourcesDirectory, Path.GetDirectoryName(captured));
+        Assert.StartsWith(root + Path.DirectorySeparatorChar, captured);
+        Assert.Equal(".xml", Path.GetExtension(snapshot.Configuration.Network.Dot1x.ProfileTemplatePath));
+    }
+
+    private const int MaximumSourceBytes = 4 * 1024 * 1024;
+
+    private string SourcesDirectory => Path.Combine(root, "sources");
+
+    private void AssertNoPrivateDirectoryLeft() =>
+        Assert.DoesNotContain(Directory.EnumerateDirectories(root), directory => Guid.TryParseExact(Path.GetFileName(directory), "N", out _));
+
+    private string CreateSource(string name, long length)
+    {
+        Directory.CreateDirectory(SourcesDirectory);
+        string path = Path.Combine(SourcesDirectory, name);
+        using FileStream stream = File.Create(path);
+        stream.SetLength(length);
+        if (length > 0) stream.WriteByte(1);
+        return path;
+    }
+
     public void Dispose()
     {
         if (Directory.Exists(root))
