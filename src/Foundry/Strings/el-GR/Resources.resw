@@ -3592,7 +3592,10 @@
     <value>Τα απαραίτητα μυστικά των μέσων ενημέρωσης δεν είναι έτοιμα.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Η επιλεγμένη μονάδα USB είναι πολύ μικρή. Χρησιμοποιήστε μονάδα USB τουλάχιστον 16 GB.</value>
+    <value>Η επιλεγμένη μονάδα USB είναι πολύ μικρή για προσωρινή μνήμη. Χρησιμοποιήστε μονάδα USB τουλάχιστον 16 GB ή επιλέξτε «Δημιουργία χωρίς προσωρινή μνήμη» από το βέλος του «Δημιουργία USB».</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Η επιλεγμένη μονάδα USB είναι πολύ μικρή. Χρησιμοποιήστε μονάδα USB τουλάχιστον 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Η επιλεγμένη διάταξη πληκτρολογίου WinPE δεν είναι εγκατεστημένη σε αυτόν τον υπολογιστή.</value>
@@ -3662,6 +3665,9 @@
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Δημιουργία USB</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Δημιουργία χωρίς προσωρινή μνήμη</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Προαιρετικός φάκελος με προγράμματα οδήγησης .inf που προστίθενται στην εικόνα εκκίνησης WinPE.</value>
@@ -3795,6 +3801,9 @@
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Δημιουργία του διαμερίσματος προσωρινής μνήμης…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Δημιουργία του διαμερίσματος USB…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Δεν ήταν δυνατή η κατάργηση των αχρησιμοποίητων προσαρμοσμένων συνόλων προγραμμάτων οδήγησης από τη μονάδα USB.</value>
   </data>
@@ -3857,6 +3866,9 @@
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Διαμόρφωση του διαμερίσματος προσωρινής μνήμης…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Διαμόρφωση του διαμερίσματος USB…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Δημιουργία του πίνακα διαμερισμάτων…</value>
@@ -4065,11 +4077,20 @@
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>Το διαμέρισμα προσωρινής μνήμης του USB δεν έχει αρκετό ελεύθερο χώρο για το ενημερωμένο περιεχόμενο, επειδή το προηγούμενο περιεχόμενο παραμένει στη μονάδα κατά την ενημέρωση. Δεν έχει γίνει διαγραφή ή διαμόρφωση. Δημιουργήστε ξανά το μέσο USB αντί να το ενημερώσετε.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Ένα αρχείο προς αντιγραφή έχει μέγεθος {0}· το διαμέρισμα FAT32 μιας μονάδας USB χωρίς προσωρινή μνήμη υποστηρίζει έως {1} ανά αρχείο. Δεν έχει γίνει διαγραφή ή διαμόρφωση. Χρησιμοποιήστε αντί αυτού το «Δημιουργία USB».</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Η μονάδα USB ενδέχεται να μην μπορεί πλέον να εκκινήσει μια συσκευή. Δημιουργήστε ή ενημερώστε την ξανά πριν τη χρησιμοποιήσετε.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Τόμος εκκίνησης: {0}. Τόμος προσωρινής μνήμης: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Το μέσο χρειάζεται περίπου {0}, αλλά αυτή η μονάδα USB χωρίς προσωρινή μνήμη χωράει {1}. Δεν έχει γίνει διαγραφή ή διαμόρφωση. Χρησιμοποιήστε αντί αυτού το «Δημιουργία USB».</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>Τόμος USB: {0}. Η μονάδα δεν διατηρεί λήψεις: κάθε ανάπτυξη κατεβάζει ξανά τα Windows και τα προγράμματα οδήγησης από τον κατάλογο.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Έλεγχος της μονάδας USB…</value>
@@ -4145,6 +4166,9 @@
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Ελέγξτε τις προειδοποιήσεις εξόδου πολυμέσων</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Αναδημιουργία χωρίς προσωρινή μνήμη</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

@@ -17,9 +17,10 @@ namespace Foundry.Deploy.Tests;
 public sealed class CustomImageCatalogTests
 {
     [Theory]
-    [InlineData(DriveType.Fixed)]
-    [InlineData(DriveType.CDRom)]
-    public async Task DiscoverAsync_ResolvesPreparedImagesWithoutOfferingUnreferencedContent(DriveType driveType)
+    [InlineData(DriveType.Fixed, "Foundry Cache")]
+    [InlineData(DriveType.CDRom, "FOUNDRY_ISO")]
+    [InlineData(DriveType.Removable, "FOUNDRY")]
+    public async Task DiscoverAsync_ResolvesPreparedImagesWithoutOfferingUnreferencedContent(DriveType driveType, string label)
     {
         string root = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(root);
@@ -38,7 +39,7 @@ public sealed class CustomImageCatalogTests
             Directory.CreateDirectory(Path.GetDirectoryName(unreferenced)!);
             await File.WriteAllTextAsync(unreferenced, "older image", TestContext.Current.CancellationToken);
 
-            var service = new CustomImageCatalogService(new Volumes(media, driveType));
+            var service = new CustomImageCatalogService(new Volumes(media, driveType, label));
             var result = await service.DiscoverAsync(new DeployCustomImagesSettings
             {
                 IsEnabled = true,
@@ -89,8 +90,8 @@ public sealed class CustomImageCatalogTests
             Task.FromResult<IReadOnlyList<CustomImageIndex>>([new() { Index = 4, Name = "Image", ExpandedSizeBytes = 1024 }]);
     }
 
-    private sealed class Volumes(string root, DriveType driveType = DriveType.Fixed) : IVolumeDiscovery
+    private sealed class Volumes(string root, DriveType driveType = DriveType.Fixed, string label = "Foundry Cache") : IVolumeDiscovery
     {
-        public IReadOnlyList<VolumeInfo> GetVolumes() => [new(root, "Foundry Cache", driveType, true, long.MaxValue)];
+        public IReadOnlyList<VolumeInfo> GetVolumes() => [new(root, label, driveType, true, long.MaxValue)];
     }
 }

@@ -6,6 +6,7 @@ using System.IO;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Models.Packages;
 using Foundry.Core.Services.Drivers;
+using Foundry.Core.Services.Media;
 using Foundry.Core.Services.Packages;
 using Foundry.Deploy.Models;
 using Foundry.Utilities.Storage;
@@ -32,7 +33,7 @@ public enum CustomDriverSetCatalogStatus
 /// <param name="Sets">Verified sets in configuration order; empty unless <see cref="CustomDriverSetCatalogStatus.Available"/>.</param>
 public sealed record CustomDriverSetCatalog(CustomDriverSetCatalogStatus Status, IReadOnlyList<CustomDriverSetOption> Sets);
 
-/// <summary>Finds and verifies the bound driver-set media manifest on ready optical or Foundry Cache volumes.</summary>
+/// <summary>Finds and verifies the bound driver-set media manifest on ready optical volumes and Foundry USB drives, with or without cache.</summary>
 public sealed class CustomDriverSetCatalogService(IVolumeDiscovery? volumes = null, ILogger<CustomDriverSetCatalogService>? logger = null)
 {
     private static readonly CustomDriverSetCatalog UnavailableCatalog = new(CustomDriverSetCatalogStatus.Unavailable, []);
@@ -48,7 +49,7 @@ public sealed class CustomDriverSetCatalogService(IVolumeDiscovery? volumes = nu
             return Unavailable("the section is disabled or not bound to a media manifest");
 
         string[] roots = _volumes.GetVolumes()
-            .Where(volume => volume.IsReady && (volume.DriveType == DriveType.CDRom || volume.VolumeLabel == "Foundry Cache"))
+            .Where(volume => volume.IsReady && (volume.DriveType == DriveType.CDRom || FoundryMediaVolumeLabels.IsUsbContentVolume(volume.VolumeLabel)))
             .Select(volume => volume.RootPath)
             .ToArray();
         ContentPackageMediaReadResult read;

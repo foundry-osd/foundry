@@ -16,6 +16,7 @@ public static class WinPeErrorCodes
     public const string UsbBootCapacityUnknown = "WINPE_USB_BOOT_CAPACITY_UNKNOWN";
     public const string UsbCacheCapacityInsufficient = "WINPE_USB_CACHE_CAPACITY_INSUFFICIENT";
     public const string UsbBootFileTooLarge = "WINPE_USB_BOOT_FILE_TOO_LARGE";
+    public const string UsbFileTooLargeForFat32 = "WINPE_USB_FILE_TOO_LARGE_FOR_FAT32";
     public const string OperationBusy = "WINPE_OPERATION_BUSY";
     public const string OperationCancelled = "WINPE_OPERATION_CANCELLED";
     public const string ToolNotFound = "WINPE_TOOL_NOT_FOUND";

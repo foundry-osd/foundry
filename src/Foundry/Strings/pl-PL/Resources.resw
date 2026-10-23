@@ -3592,7 +3592,10 @@ Dołączone hasła i klucze dostępu: {2}</value>
     <value>Wymagane tajemnice mediów nie są gotowe.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Wybrany dysk USB jest za mały. Użyj dysku USB o pojemności co najmniej 16 GB.</value>
+    <value>Wybrany dysk USB jest za mały na pamięć podręczną. Użyj dysku USB o pojemności co najmniej 16 GB lub wybierz opcję „Utwórz bez pamięci podręcznej” ze strzałki przycisku „Utwórz USB”.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Wybrany dysk USB jest za mały. Użyj dysku USB o pojemności co najmniej 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Wybrany układ klawiatury WinPE nie jest zainstalowany na tym komputerze.</value>
@@ -3662,6 +3665,9 @@ Dołączone hasła i klucze dostępu: {2}</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Utwórz USB</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Utwórz bez pamięci podręcznej</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Opcjonalny folder sterowników .inf dodawanych do obrazu rozruchowego WinPE.</value>
@@ -3795,6 +3801,9 @@ Dołączone hasła i klucze dostępu: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Tworzenie partycji pamięci podręcznej…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Tworzenie partycji USB…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Nie udało się usunąć nieużywanych niestandardowych zestawów sterowników z dysku USB.</value>
   </data>
@@ -3857,6 +3866,9 @@ Dołączone hasła i klucze dostępu: {2}</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Formatowanie partycji pamięci podręcznej…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Formatowanie partycji USB…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Tworzenie tablicy partycji…</value>
@@ -4065,11 +4077,20 @@ Dołączone hasła i klucze dostępu: {2}</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>Partycja pamięci podręcznej USB nie ma wystarczającej ilości wolnego miejsca na zaktualizowaną zawartość, ponieważ poprzednia zawartość pozostaje na dysku podczas aktualizacji. Niczego nie usunięto ani nie sformatowano. Zamiast aktualizować nośnik USB, utwórz go ponownie.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Plik do skopiowania ma rozmiar {0}; partycja FAT32 dysku USB bez pamięci podręcznej obsługuje maksymalnie {1} na plik. Niczego nie usunięto ani nie sformatowano. Zamiast tego użyj opcji „Utwórz USB”.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Uruchomienie urządzenia z tego dysku USB może już nie być możliwe. Przed użyciem utwórz go lub zaktualizuj ponownie.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Wolumin rozruchowy: {0}. Wolumin pamięci podręcznej: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Nośnik wymaga około {0}, ale ten dysk USB bez pamięci podręcznej mieści {1}. Niczego nie usunięto ani nie sformatowano. Zamiast tego użyj opcji „Utwórz USB”.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>Wolumin USB: {0}. Dysk nie przechowuje pobranych plików: każde wdrożenie ponownie pobiera system Windows i sterowniki z katalogu.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Sprawdzanie dysku USB…</value>
@@ -4145,6 +4166,9 @@ Dołączone hasła i klucze dostępu: {2}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Przejrzyj ostrzeżenia dotyczące wyjścia multimedialnego</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Utwórz ponownie bez pamięci podręcznej</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

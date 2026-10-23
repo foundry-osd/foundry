@@ -3592,7 +3592,10 @@
     <value>所需的媒体机密尚未准备好。</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>所选 USB 驱动器容量太小。请使用至少 16 GB 的 USB 驱动器。</value>
+    <value>所选 USB 驱动器容量太小，无法用于缓存。请使用至少 16 GB 的 USB 驱动器，或从“创建 USB”的箭头中选择“不使用缓存创建”。</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>所选 USB 驱动器容量太小。请使用至少 1 GB 的 USB 驱动器。</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>所选的 WinPE 键盘布局未安装在此计算机上。</value>
@@ -3662,6 +3665,9 @@
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>创建 USB</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>不使用缓存创建</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>包含添加到 WinPE 启动映像的 .inf 驱动程序的可选文件夹。</value>
@@ -3795,6 +3801,9 @@
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>正在创建缓存分区…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>正在创建 USB 分区…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>无法从 USB 驱动器中移除未使用的自定义驱动程序集。</value>
   </data>
@@ -3857,6 +3866,9 @@
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>正在格式化缓存分区…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>正在格式化 USB 分区…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>正在创建分区表…</value>
@@ -4065,11 +4077,20 @@
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>由于更新期间之前的内容仍保留在驱动器上，USB 缓存分区没有足够的可用空间来存放更新后的内容。尚未执行任何擦除或格式化操作。请重新创建 USB 介质，而不是更新它。</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>要复制的某个文件大小为 {0}，而无缓存 USB 驱动器的 FAT32 分区支持的单个文件大小上限为 {1}。尚未执行任何擦除或格式化操作。请改用“创建 USB”。</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>该 USB 驱动器可能无法再启动设备。请在使用前重新创建或更新它。</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>启动卷：{0}。缓存卷：{1}。</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>介质大约需要 {0}，但此无缓存 USB 驱动器只能容纳 {1}。尚未执行任何擦除或格式化操作。请改用“创建 USB”。</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>USB 卷：{0}。该驱动器不保留下载内容：每次部署都会从目录重新下载 Windows 和驱动程序。</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>正在检查 USB 驱动器…</value>
@@ -4145,6 +4166,9 @@
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>查看媒体输出警告</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>不使用缓存重新创建</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

@@ -3592,7 +3592,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>必要なメディア シークレットの準備ができていません。</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>選択した USB ドライブの容量が不足しています。16 GB 以上の USB ドライブを使用してください。</value>
+    <value>選択した USB ドライブはキャッシュを置くには容量が不足しています。16 GB 以上の USB ドライブを使用するか、「USB を作成」の矢印から「キャッシュなしで作成」を選択してください。</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>選択した USB ドライブの容量が不足しています。1 GB 以上の USB ドライブを使用してください。</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>選択した WinPE キーボード レイアウトはこのコンピューターにインストールされていません。</value>
@@ -3662,6 +3665,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>USB を作成</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>キャッシュなしで作成</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>WinPE ブート イメージに追加される .inf ドライバーのオプションのフォルダー。</value>
@@ -3795,6 +3801,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>キャッシュ パーティションを作成しています…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>USB パーティションを作成しています…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>未使用のカスタム ドライバー セットを USB ドライブから削除できませんでした。</value>
   </data>
@@ -3857,6 +3866,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>キャッシュ パーティションをフォーマットしています…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>USB パーティションをフォーマットしています…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>パーティション テーブルを作成しています…</value>
@@ -4065,11 +4077,20 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>以前のコンテンツは更新中もドライブに残るため、USB のキャッシュ パーティションに更新後のコンテンツを格納する空き領域が不足しています。消去やフォーマットは行われていません。更新する代わりに USB メディアを作成し直してください。</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>コピーするファイルのサイズは {0} ですが、キャッシュなしの USB ドライブの FAT32 パーティションのファイルサイズの上限は {1} です。消去やフォーマットは行われていません。代わりに「USB を作成」を使用してください。</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>この USB ドライブからデバイスを起動できなくなっている可能性があります。使用する前に、もう一度作成または更新してください。</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>ブート ボリューム: {0}。キャッシュ ボリューム: {1}。</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>メディアには約 {0} が必要ですが、このキャッシュなしの USB ドライブの容量は {1} です。消去やフォーマットは行われていません。代わりに「USB を作成」を使用してください。</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>USB ボリューム: {0}。このドライブにはダウンロードが保持されません。展開のたびに Windows とドライバーがカタログから再度ダウンロードされます。</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>USB ドライブを確認しています…</value>
@@ -4145,6 +4166,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>メディア出力の警告を確認する</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>キャッシュなしで再作成</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

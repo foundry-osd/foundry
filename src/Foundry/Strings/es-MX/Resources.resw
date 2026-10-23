@@ -3592,7 +3592,10 @@ Contraseñas y claves de acceso incluidas: {2}</value>
     <value>Los secretos de medios requeridos no están listos.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>La unidad USB seleccionada es demasiado pequeña. Use una unidad USB de al menos 16 GB.</value>
+    <value>La unidad USB seleccionada es demasiado pequeña para una caché. Use una unidad USB de al menos 16 GB o seleccione “Crear sin caché” en la flecha de “Crear USB”.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>La unidad USB seleccionada es demasiado pequeña. Use una unidad USB de al menos 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>La distribución de teclado de WinPE seleccionada no está instalada en esta computadora.</value>
@@ -3662,6 +3665,9 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Crear USB</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Crear sin caché</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Carpeta opcional de controladores .inf que se agregan a la imagen de arranque de WinPE.</value>
@@ -3795,6 +3801,9 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Creando la partición de caché…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Creando la partición USB…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>No se pudieron quitar de la unidad USB los conjuntos de controladores personalizados que no se usan.</value>
   </data>
@@ -3857,6 +3866,9 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Formateando la partición de caché…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Formateando la partición USB…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Creando la tabla de particiones…</value>
@@ -4065,11 +4077,20 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>La partición de caché USB no tiene suficiente espacio libre para el contenido actualizado, porque el contenido anterior permanece en la unidad durante la actualización. No se borró ni se formateó nada. Vuelva a crear el medio USB en lugar de actualizarlo.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Un archivo que se va a copiar ocupa {0}; la partición FAT32 de una unidad USB sin caché admite como máximo {1} por archivo. No se borró ni se formateó nada. Use “Crear USB” en su lugar.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Es posible que la unidad USB ya no pueda iniciar un dispositivo. Vuelva a crearla o actualizarla antes de usarla.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Volumen de arranque: {0}. Volumen de caché: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>El medio necesita aproximadamente {0}, pero esta unidad USB sin caché puede contener {1}. No se borró ni se formateó nada. Use “Crear USB” en su lugar.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>Volumen USB: {0}. La unidad no conserva descargas: cada implementación vuelve a descargar Windows y los controladores desde el catálogo.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Verificando la unidad USB…</value>
@@ -4145,6 +4166,9 @@ Contraseñas y claves de acceso incluidas: {2}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Revisar las advertencias de salida de medios</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Volver a crear sin caché</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

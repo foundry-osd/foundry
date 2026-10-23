@@ -3592,7 +3592,10 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>Die erforderlichen Mediengeheimnisse sind nicht bereit.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Das ausgewählte USB-Laufwerk ist zu klein. Verwenden Sie ein USB-Laufwerk mit mindestens 16 GB.</value>
+    <value>Das ausgewählte USB-Laufwerk ist für einen Cache zu klein. Verwenden Sie ein USB-Laufwerk mit mindestens 16 GB, oder wählen Sie über den Pfeil von „USB erstellen“ die Option „Ohne Cache erstellen“.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Das ausgewählte USB-Laufwerk ist zu klein. Verwenden Sie ein USB-Laufwerk mit mindestens 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Das ausgewählte WinPE-Tastaturlayout ist auf diesem Computer nicht installiert.</value>
@@ -3662,6 +3665,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>USB erstellen</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Ohne Cache erstellen</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Optionaler Ordner mit .inf-Treibern, die dem WinPE-Startabbild hinzugefügt werden.</value>
@@ -3795,6 +3801,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Cache-Partition wird erstellt…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>USB-Partition wird erstellt…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Nicht verwendete benutzerdefinierte Treibersätze konnten nicht vom USB-Laufwerk entfernt werden.</value>
   </data>
@@ -3857,6 +3866,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Cache-Partition wird formatiert…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>USB-Partition wird formatiert…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Partitionstabelle wird erstellt…</value>
@@ -4065,11 +4077,20 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>Die USB-Cache-Partition hat nicht genug freien Speicherplatz für den aktualisierten Inhalt, da der bisherige Inhalt während der Aktualisierung auf dem Laufwerk bleibt. Es wurde nichts gelöscht oder formatiert. Erstellen Sie das USB-Medium neu, anstatt es zu aktualisieren.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Eine zu kopierende Datei ist {0} groß; die FAT32-Partition eines USB-Laufwerks ohne Cache unterstützt höchstens {1} pro Datei. Es wurde nichts gelöscht oder formatiert. Verwenden Sie stattdessen „USB erstellen“.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Möglicherweise kann mit dem USB-Laufwerk kein Gerät mehr gestartet werden. Erstellen oder aktualisieren Sie es erneut, bevor Sie es verwenden.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Startvolume: {0}. Cache-Volume: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Das Medium benötigt etwa {0}, dieses USB-Laufwerk ohne Cache fasst jedoch {1}. Es wurde nichts gelöscht oder formatiert. Verwenden Sie stattdessen „USB erstellen“.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>USB-Volume: {0}. Das Laufwerk speichert keine Downloads: Jede Bereitstellung lädt Windows und die Treiber erneut aus dem Katalog herunter.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>USB-Laufwerk wird überprüft…</value>
@@ -4145,6 +4166,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Überprüfen Sie die Warnungen zur Medienausgabe</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Ohne Cache neu erstellen</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

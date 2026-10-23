@@ -3592,7 +3592,10 @@
     <value>必要的媒體機密尚未就緒。</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>所選的 USB 隨身碟容量太小。請使用至少 16 GB 的 USB 隨身碟。</value>
+    <value>所選的 USB 隨身碟容量太小，無法用於快取。請使用至少 16 GB 的 USB 隨身碟，或從「建立 USB」的箭號中選取「不使用快取建立」。</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>所選的 USB 隨身碟容量太小。請使用至少 1 GB 的 USB 隨身碟。</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>所選的 WinPE 鍵盤配置未安裝在此電腦上。</value>
@@ -3662,6 +3665,9 @@
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>建立 USB</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>不使用快取建立</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>包含新增至 WinPE 開機映像之 .inf 驅動程式的選用資料夾。</value>
@@ -3795,6 +3801,9 @@
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>正在建立快取分割區…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>正在建立 USB 分割區…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>無法從 USB 磁碟機移除未使用的自訂驅動程式集。</value>
   </data>
@@ -3857,6 +3866,9 @@
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>正在格式化快取分割區…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>正在格式化 USB 分割區…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>正在建立磁碟分割表…</value>
@@ -4065,11 +4077,20 @@
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>由於更新期間先前的內容仍會保留在磁碟機上，USB 快取分割區沒有足夠的可用空間來存放更新後的內容。尚未執行任何清除或格式化作業。請重新建立 USB 媒體，而不是更新它。</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>要複製的某個檔案大小為 {0}，而無快取 USB 磁碟機的 FAT32 分割區支援的單一檔案大小上限為 {1}。尚未執行任何清除或格式化作業。請改用「建立 USB」。</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>此 USB 磁碟機可能無法再讓裝置開機。使用前請重新建立或更新。</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>開機磁碟區：{0}。快取磁碟區：{1}。</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>媒體大約需要 {0}，但此無快取 USB 磁碟機只能容納 {1}。尚未執行任何清除或格式化作業。請改用「建立 USB」。</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>USB 磁碟區：{0}。此磁碟機不保留下載內容：每次部署都會從目錄重新下載 Windows 和驅動程式。</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>正在檢查 USB 磁碟機…</value>
@@ -4145,6 +4166,9 @@
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>檢閱媒體輸出警告</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>不使用快取重新建立</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

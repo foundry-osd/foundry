@@ -3592,7 +3592,10 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>A szükséges médiatitkok nincsenek készen.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>A kiválasztott USB-meghajtó túl kicsi. Használjon legalább 16 GB-os USB-meghajtót.</value>
+    <value>A kiválasztott USB-meghajtó túl kicsi a gyorsítótárhoz. Használjon legalább 16 GB-os USB-meghajtót, vagy válassza a „Létrehozás gyorsítótár nélkül” lehetőséget az „USB létrehozása” gomb nyilából.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>A kiválasztott USB-meghajtó túl kicsi. Használjon legalább 1 GB-os USB-meghajtót.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>A kiválasztott WinPE billentyűzetkiosztás nincs telepítve ezen a számítógépen.</value>
@@ -3662,6 +3665,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>USB létrehozása</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Létrehozás gyorsítótár nélkül</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Opcionális mappa .inf illesztőprogramokkal, amelyek a WinPE rendszerindító lemezképhez lesznek hozzáadva.</value>
@@ -3795,6 +3801,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>A gyorsítótár-partíció létrehozása…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Az USB-partíció létrehozása…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>A nem használt egyéni illesztőprogram-készleteket nem sikerült eltávolítani az USB-meghajtóról.</value>
   </data>
@@ -3857,6 +3866,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>A gyorsítótár-partíció formázása…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Az USB-partíció formázása…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>A partíciós tábla létrehozása…</value>
@@ -4065,11 +4077,20 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>Az USB gyorsítótár-partícióján nincs elég szabad hely a frissített tartalomhoz, mert a korábbi tartalom a frissítés alatt a meghajtón marad. Sem törlés, sem formázás nem történt. Frissítés helyett hozza létre újra az USB-adathordozót.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Az egyik másolandó fájl {0} méretű; a gyorsítótár nélküli USB-meghajtó FAT32 partíciója fájlonként legfeljebb {1} méretet támogat. Sem törlés, sem formázás nem történt. Használja helyette az „USB létrehozása” lehetőséget.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Előfordulhat, hogy az USB-meghajtóról már nem indítható el eszköz. Használat előtt hozza létre vagy frissítse újra.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Rendszerindító kötet: {0}. Gyorsítótárkötet: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Az adathordozóhoz körülbelül {0} szükséges, de erre a gyorsítótár nélküli USB-meghajtóra {1} fér el. Sem törlés, sem formázás nem történt. Használja helyette az „USB létrehozása” lehetőséget.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>USB-kötet: {0}. A meghajtó nem tárolja a letöltéseket: minden telepítés újra letölti a Windowst és az illesztőprogramokat a katalógusból.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Az USB-meghajtó ellenőrzése…</value>
@@ -4145,6 +4166,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Tekintse át a médiakimenetre vonatkozó figyelmeztetéseket</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Újralétrehozás gyorsítótár nélkül</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

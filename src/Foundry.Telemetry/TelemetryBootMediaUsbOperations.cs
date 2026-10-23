@@ -12,4 +12,5 @@ public static class TelemetryBootMediaUsbOperations
     public const string None = "none";
     public const string Create = "create";
     public const string Update = "update";
+    public const string CreateWithoutCache = "create_without_cache";
 }

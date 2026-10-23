@@ -66,6 +66,14 @@ public static class MediaPreflightService
             }
         }
 
+        // A drive without cache only has to hold the media, which USB creation measures before erasing the drive.
+        List<MediaPreflightBlockingReason> usbWithoutCacheReasons =
+            [.. usbReasons.Where(reason => reason != MediaPreflightBlockingReason.UsbTargetBelowMinimumSize)];
+        if (options.SelectedUsbDisk is { } selectedDisk && selectedDisk.SizeBytes < WinPeUsbSingleVolumePolicy.MinimumDiskSizeBytes)
+        {
+            usbWithoutCacheReasons.Add(MediaPreflightBlockingReason.UsbTargetBelowMinimumSizeWithoutCache);
+        }
+
         bool canGenerateIsoSummary = !isoReasons.Except(GetDryRunAllowedBlockingReasons()).Any();
         bool canGenerateUsbSummary = !usbReasons.Except(
             [.. GetDryRunAllowedBlockingReasons(), MediaPreflightBlockingReason.Arm64RequiresGpt]).Any();
@@ -77,10 +85,12 @@ public static class MediaPreflightService
             CanCreateIso = canGenerateIsoSummary && options.IsFinalExecutionEnabled && !isoReasons.Any(),
             CanCreateUsb = canGenerateUsbSummary && options.IsFinalExecutionEnabled && !usbReasons.Any(),
             CanCreatePxe = options.IsFinalExecutionEnabled && !pxeReasons.Any(),
+            CanCreateUsbWithoutCache = options.IsFinalExecutionEnabled && !usbWithoutCacheReasons.Any(),
             EffectiveUsbPartitionStyle = effectiveUsbPartitionStyle,
             IsoBlockingReasons = isoReasons,
             UsbBlockingReasons = usbReasons,
-            PxeBlockingReasons = pxeReasons
+            PxeBlockingReasons = pxeReasons,
+            UsbWithoutCacheBlockingReasons = usbWithoutCacheReasons
         };
     }
 

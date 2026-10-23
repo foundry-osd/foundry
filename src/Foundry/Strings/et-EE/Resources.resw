@@ -3592,7 +3592,10 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Nõutavad meediasaladused pole valmis.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Valitud USB-ketas on liiga väike. Kasutage vähemalt 16 GB mahuga USB-ketast.</value>
+    <value>Valitud USB-ketas on vahemälu jaoks liiga väike. Kasutage vähemalt 16 GB mahuga USB-ketast või valige nupu „Loo USB“ noolest „Loo ilma vahemäluta“.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Valitud USB-ketas on liiga väike. Kasutage vähemalt 1 GB mahuga USB-ketast.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Valitud WinPE klaviatuuripaigutust pole selles arvutis installitud.</value>
@@ -3662,6 +3665,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Loo USB</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Loo ilma vahemäluta</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Valikuline kaust .inf-draiveritega, mis lisatakse WinPE alglaadimistõmmisele.</value>
@@ -3795,6 +3801,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Vahemälu partitsiooni loomine…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>USB-partitsiooni loomine…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Kasutamata kohandatud draiverikomplekte ei saanud USB-draivilt eemaldada.</value>
   </data>
@@ -3857,6 +3866,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Vahemälu partitsiooni vormindamine…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>USB-partitsiooni vormindamine…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Partitsioonitabeli loomine…</value>
@@ -4065,11 +4077,20 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>USB vahemälu partitsioonil pole uuendatud sisu jaoks piisavalt vaba ruumi, sest eelmine sisu jääb uuendamise ajaks draivile. Midagi pole kustutatud ega vormindatud. Looge USB-meedium uuesti, selle asemel et seda uuendada.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Kopeeritava faili suurus on {0}; vahemäluta USB-draivi FAT32-partitsioon toetab kuni {1} faili kohta. Midagi pole kustutatud ega vormindatud. Kasutage selle asemel valikut „Loo USB“.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>USB-ketas ei pruugi enam seadet käivitada. Enne kasutamist looge või värskendage see uuesti.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Alglaadimisköide: {0}. Vahemäluköide: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Meedium vajab ligikaudu {0}, kuid sellele vahemäluta USB-draivile mahub {1}. Midagi pole kustutatud ega vormindatud. Kasutage selle asemel valikut „Loo USB“.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>USB-köide: {0}. Draiv ei säilita allalaadimisi: iga juurutus laadib Windowsi ja draiverid kataloogist uuesti alla.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>USB-ketta kontrollimine…</value>
@@ -4145,6 +4166,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Vaadake üle meediumiväljundi hoiatused</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Loo uuesti ilma vahemäluta</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

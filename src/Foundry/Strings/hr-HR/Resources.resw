@@ -3592,7 +3592,10 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>Potrebne medijske tajne nisu spremne.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Odabrani USB pogon je premalen. Koristite USB pogon od najmanje 16 GB.</value>
+    <value>Odabrani USB pogon je premalen za predmemoriju. Koristite USB pogon od najmanje 16 GB ili odaberite „Stvori bez predmemorije“ putem strelice gumba „Stvori USB“.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Odabrani USB pogon je premalen. Koristite USB pogon od najmanje 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Odabrani raspored tipkovnice za WinPE nije instaliran na ovom računalu.</value>
@@ -3662,6 +3665,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Stvori USB</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Stvori bez predmemorije</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Dodatna mapa s .inf upravljačkim programima koji se dodaju u WinPE sliku za pokretanje.</value>
@@ -3795,6 +3801,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Stvaranje particije predmemorije…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Stvaranje USB particije…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Nekorištene prilagođene skupove upravljačkih programa nije moguće ukloniti s USB pogona.</value>
   </data>
@@ -3857,6 +3866,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Formatiranje particije predmemorije…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Formatiranje USB particije…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Stvaranje particijske tablice…</value>
@@ -4065,11 +4077,20 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>Particija predmemorije na USB-u nema dovoljno slobodnog prostora za ažurirani sadržaj jer prethodni sadržaj ostaje na pogonu tijekom ažuriranja. Ništa nije izbrisano ni formatirano. Umjesto ažuriranja ponovno stvorite USB medij.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Datoteka za kopiranje zauzima {0}; FAT32 particija USB pogona bez predmemorije podržava najviše {1} po datoteci. Ništa nije izbrisano ni formatirano. Umjesto toga upotrijebite „Stvori USB“.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>S USB diska možda više neće biti moguće pokrenuti uređaj. Prije upotrebe ga ponovno stvorite ili ažurirajte.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Volumen za pokretanje: {0}. Volumen predmemorije: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Medij zahtijeva približno {0}, ali ovaj USB pogon bez predmemorije može primiti {1}. Ništa nije izbrisano ni formatirano. Umjesto toga upotrijebite „Stvori USB“.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>USB volumen: {0}. Pogon ne čuva preuzimanja: svaka implementacija ponovno preuzima Windows i upravljačke programe iz kataloga.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Provjera USB diska…</value>
@@ -4145,6 +4166,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Pregledajte upozorenja za medijski izlaz</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Ponovno stvori bez predmemorije</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

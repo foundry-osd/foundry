@@ -9,6 +9,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Models.Images;
 using Foundry.Core.Services.Images;
+using Foundry.Core.Services.Media;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Configuration;
 using Foundry.Utilities.Storage;
@@ -32,7 +33,7 @@ public sealed class CustomImageCatalogService(IVolumeDiscovery? volumes = null)
         var images = new List<CustomImageAsset>();
         string error = string.Empty;
         foreach (VolumeInfo volume in _volumes.GetVolumes().Where(volume => volume.IsReady &&
-            (volume.DriveType == DriveType.CDRom || volume.VolumeLabel == "Foundry Cache")))
+            (volume.DriveType == DriveType.CDRom || FoundryMediaVolumeLabels.IsUsbContentVolume(volume.VolumeLabel))))
         {
             cancellationToken.ThrowIfCancellationRequested();
             string manifestPath = Path.Combine(volume.RootPath, CustomImageMediaPaths.RelativeRoot, "manifests", settings.ManifestId + ".json");

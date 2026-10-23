@@ -3592,7 +3592,10 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Reikalingos žiniasklaidos paslaptys neparengtos.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Pasirinktas USB diskas per mažas. Naudokite bent 16 GB talpos USB diską.</value>
+    <value>Pasirinktas USB diskas per mažas talpyklai. Naudokite bent 16 GB talpos USB diską arba pasirinkite „Sukurti be talpyklos“ spustelėję „Sukurti USB“ rodyklę.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Pasirinktas USB diskas per mažas. Naudokite bent 1 GB talpos USB diską.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Pasirinktas WinPE klaviatūros išdėstymas šiame kompiuteryje neįdiegtas.</value>
@@ -3662,6 +3665,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Sukurti USB</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Sukurti be talpyklos</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Pasirenkamas .inf tvarkyklių aplankas, įtraukiamas į WinPE paleidimo atvaizdą.</value>
@@ -3795,6 +3801,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Kuriamas talpyklos skaidinys…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Kuriamas USB skaidinys…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Nepavyko pašalinti nenaudojamų pasirinktinių tvarkyklių rinkinių iš USB atmintinės.</value>
   </data>
@@ -3857,6 +3866,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Formatuojamas talpyklos skaidinys…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Formatuojamas USB skaidinys…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Kuriama skaidinių lentelė…</value>
@@ -4065,11 +4077,20 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>USB talpyklos skaidinyje nepakanka laisvos vietos atnaujintam turiniui, nes ankstesnis turinys atnaujinimo metu lieka diske. Niekas nebuvo ištrinta ar suformatuota. Užuot atnaujinę, iš naujo sukurkite USB laikmeną.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Kopijuojamo failo dydis yra {0}; USB disko be talpyklos FAT32 skaidinys palaiko ne daugiau kaip {1} vienam failui. Niekas nebuvo ištrinta ar suformatuota. Vietoj to naudokite „Sukurti USB“.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Iš USB disko gali nebepavykti paleisti įrenginio. Prieš naudodami jį sukurkite arba atnaujinkite iš naujo.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Įkrovos tomas: {0}. Talpyklos tomas: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Laikmenai reikia maždaug {0}, tačiau šiame USB diske be talpyklos telpa {1}. Niekas nebuvo ištrinta ar suformatuota. Vietoj to naudokite „Sukurti USB“.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>USB tomas: {0}. Diske nesaugomi atsisiuntimai: kiekvieno diegimo metu Windows ir tvarkyklės vėl atsisiunčiamos iš katalogo.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Tikrinamas USB diskas…</value>
@@ -4145,6 +4166,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Peržiūrėkite medijos išvesties įspėjimus</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Sukurti iš naujo be talpyklos</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

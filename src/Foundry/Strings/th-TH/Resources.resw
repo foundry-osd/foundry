@@ -3592,7 +3592,10 @@
     <value>ข้อมูลลับของสื่อที่จำเป็นยังไม่พร้อม</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>ไดรฟ์ USB ที่เลือกมีขนาดเล็กเกินไป ใช้ไดรฟ์ USB ที่มีขนาดอย่างน้อย 16 GB</value>
+    <value>ไดรฟ์ USB ที่เลือกมีขนาดเล็กเกินไปสำหรับแคช ใช้ไดรฟ์ USB ที่มีขนาดอย่างน้อย 16 GB หรือเลือก “สร้างโดยไม่มีแคช” จากลูกศรของ “สร้าง USB”</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>ไดรฟ์ USB ที่เลือกมีขนาดเล็กเกินไป ใช้ไดรฟ์ USB ที่มีขนาดอย่างน้อย 1 GB</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>ไม่ได้ติดตั้งเค้าโครงแป้นพิมพ์ WinPE ที่เลือกไว้ในคอมพิวเตอร์เครื่องนี้</value>
@@ -3662,6 +3665,9 @@
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>สร้าง USB</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>สร้างโดยไม่มีแคช</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>โฟลเดอร์เสริมของไดรเวอร์ .inf ที่เพิ่มลงในอิมเมจสำหรับบูต WinPE</value>
@@ -3795,6 +3801,9 @@
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>กำลังสร้างพาร์ติชันแคช…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>กำลังสร้างพาร์ติชัน USB…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>ไม่สามารถนำชุดไดรเวอร์แบบกำหนดเองที่ไม่ได้ใช้ออกจากไดรฟ์ USB ได้</value>
   </data>
@@ -3857,6 +3866,9 @@
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>กำลังฟอร์แมตพาร์ติชันแคช…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>กำลังฟอร์แมตพาร์ติชัน USB…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>กำลังสร้างตารางพาร์ติชัน…</value>
@@ -4065,11 +4077,20 @@
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>พาร์ติชันแคชบน USB มีพื้นที่ว่างไม่เพียงพอสำหรับเนื้อหาที่อัปเดต เนื่องจากเนื้อหาเดิมยังคงอยู่ในไดรฟ์ระหว่างการอัปเดต ยังไม่มีการลบหรือฟอร์แมตข้อมูล ให้สร้างสื่อ USB ใหม่แทนการอัปเดต</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>ไฟล์ที่จะคัดลอกมีขนาด {0} แต่พาร์ติชัน FAT32 ของไดรฟ์ USB ที่ไม่มีแคชรองรับได้สูงสุด {1} ต่อไฟล์ ยังไม่มีการลบหรือฟอร์แมตข้อมูล ให้ใช้ “สร้าง USB” แทน</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>ไดรฟ์ USB นี้อาจใช้เริ่มระบบอุปกรณ์ไม่ได้อีกต่อไป ให้สร้างหรืออัปเดตใหม่อีกครั้งก่อนใช้งาน</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>วอลุ่มบูต: {0} วอลุ่มแคช: {1}</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>สื่อต้องการพื้นที่ประมาณ {0} แต่ไดรฟ์ USB ที่ไม่มีแคชนี้จุได้ {1} ยังไม่มีการลบหรือฟอร์แมตข้อมูล ให้ใช้ “สร้าง USB” แทน</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>วอลุ่ม USB: {0} ไดรฟ์นี้ไม่เก็บไฟล์ที่ดาวน์โหลดไว้ การปรับใช้แต่ละครั้งจะดาวน์โหลด Windows และไดรเวอร์จากแค็ตตาล็อกใหม่</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>กำลังตรวจสอบไดรฟ์ USB…</value>
@@ -4145,6 +4166,9 @@
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>ตรวจสอบคำเตือนเอาต์พุตสื่อ</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>สร้างใหม่โดยไม่มีแคช</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

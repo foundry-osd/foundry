@@ -3592,7 +3592,10 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
     <value>Požadované tajomstvá médií nie sú pripravené.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Vybratá jednotka USB je príliš malá. Použite jednotku USB s kapacitou aspoň 16 GB.</value>
+    <value>Vybratá jednotka USB je príliš malá na vyrovnávaciu pamäť. Použite jednotku USB s kapacitou aspoň 16 GB alebo vyberte „Vytvoriť bez vyrovnávacej pamäte“ pomocou šípky tlačidla „Vytvoriť USB“.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Vybratá jednotka USB je príliš malá. Použite jednotku USB s kapacitou aspoň 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Vybraté rozloženie klávesnice WinPE nie je v tomto počítači nainštalované.</value>
@@ -3662,6 +3665,9 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Vytvoriť USB</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Vytvoriť bez vyrovnávacej pamäte</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Voliteľný priečinok ovládačov .inf pridávaných do zavádzacieho obrazu WinPE.</value>
@@ -3795,6 +3801,9 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Vytvára sa oddiel vyrovnávacej pamäte…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Vytvára sa oddiel USB…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Nepoužívané vlastné sady ovládačov sa nepodarilo odstrániť z jednotky USB.</value>
   </data>
@@ -3857,6 +3866,9 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Formátuje sa oddiel vyrovnávacej pamäte…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Formátuje sa oddiel USB…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Vytvára sa tabuľka oddielov…</value>
@@ -4065,11 +4077,20 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>Oddiel vyrovnávacej pamäte na USB nemá dostatok voľného miesta pre aktualizovaný obsah, pretože predchádzajúci obsah zostáva na jednotke počas aktualizácie. Nič nebolo vymazané ani naformátované. Namiesto aktualizácie vytvorte médium USB znova.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Súbor na skopírovanie má veľkosť {0}; oddiel FAT32 jednotky USB bez vyrovnávacej pamäte podporuje maximálne {1} na súbor. Nič nebolo vymazané ani naformátované. Namiesto toho použite „Vytvoriť USB“.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Z disku USB sa už možno nebude dať spustiť zariadenie. Pred použitím ho znova vytvorte alebo aktualizujte.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Zavádzací zväzok: {0}. Zväzok vyrovnávacej pamäte: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Médium potrebuje približne {0}, ale na túto jednotku USB bez vyrovnávacej pamäte sa zmestí {1}. Nič nebolo vymazané ani naformátované. Namiesto toho použite „Vytvoriť USB“.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>Zväzok USB: {0}. Jednotka neuchováva stiahnuté súbory: každé nasadenie znova stiahne Windows a ovládače z katalógu.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Kontroluje sa disk USB…</value>
@@ -4145,6 +4166,9 @@ Zahrnuté heslá a prístupové kľúče: {2}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Skontrolujte varovania mediálneho výstupu</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Znova vytvoriť bez vyrovnávacej pamäte</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

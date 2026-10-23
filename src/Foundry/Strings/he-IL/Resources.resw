@@ -3592,7 +3592,10 @@
     <value>סודות התקשורת הנדרשים אינם מוכנים.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>כונן ה-USB שנבחר קטן מדי. השתמש בכונן USB בנפח 16 GB לפחות.</value>
+    <value>כונן ה-USB שנבחר קטן מדי עבור מטמון. השתמש בכונן USB בנפח 16 GB לפחות, או בחר “צור ללא מטמון” מהחץ של “צור USB”.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>כונן ה-USB שנבחר קטן מדי. השתמש בכונן USB בנפח 1 GB לפחות.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>פריסת המקלדת של WinPE שנבחרה אינה מותקנת במחשב זה.</value>
@@ -3662,6 +3665,9 @@
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>צור USB</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>צור ללא מטמון</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>תיקיה אופציונלית של מנהלי התקנים ‎.inf שנוספים לתמונת האתחול של WinPE.</value>
@@ -3795,6 +3801,9 @@
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>יוצר את מחיצת המטמון…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>יוצר את מחיצת ה-USB…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>לא ניתן היה להסיר מכונן ה-USB ערכות מנהלי התקנים מותאמות אישית שאינן בשימוש.</value>
   </data>
@@ -3857,6 +3866,9 @@
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>מפרמט את מחיצת המטמון…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>מפרמט את מחיצת ה-USB…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>יוצר את טבלת המחיצות…</value>
@@ -4065,11 +4077,20 @@
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>במחיצת המטמון בכונן ה-USB אין מספיק שטח פנוי לתוכן המעודכן, מכיוון שהתוכן הקודם נשאר בכונן במהלך העדכון. לא בוצעו מחיקה או אתחול. יש ליצור מחדש את מדיית ה-USB במקום לעדכן אותה.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>גודל קובץ להעתקה הוא {0}; מחיצת FAT32 בכונן USB ללא מטמון תומכת לכל היותר ב-{1} לקובץ. לא בוצעו מחיקה או אתחול. יש להשתמש באפשרות “צור USB” במקום זאת.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>ייתכן שכונן ה-USB כבר לא יאתחל מכשיר. צור או עדכן אותו שוב לפני השימוש.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>אמצעי אחסון לאתחול: {0}. אמצעי אחסון למטמון: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>המדיה דורשת כ-{0}, אך כונן USB זה ללא מטמון יכול להכיל {1}. לא בוצעו מחיקה או אתחול. יש להשתמש באפשרות “צור USB” במקום זאת.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>אמצעי אחסון USB: {0}. הכונן אינו שומר הורדות: כל פריסה מורידה מחדש את Windows ואת מנהלי ההתקנים מהקטלוג.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>בודק את כונן ה-USB…</value>
@@ -4145,6 +4166,9 @@
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>סקור אזהרות פלט מדיה</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>צור מחדש ללא מטמון</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

@@ -3592,7 +3592,10 @@ Mots de passe et clés d'accès inclus : {2}</value>
     <value>Les secrets média requis ne sont pas prêts.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>La clé USB sélectionnée est trop petite. Utilisez une clé USB d'au moins 16 Go.</value>
+    <value>La clé USB sélectionnée est trop petite pour un cache. Utilisez une clé USB d'au moins 16 Go, ou sélectionnez « Créer sans cache » dans la flèche de « Créer le média USB ».</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>La clé USB sélectionnée est trop petite. Utilisez une clé USB d'au moins 1 Go.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>La disposition de clavier WinPE sélectionnée n'est pas installée sur cet ordinateur.</value>
@@ -3662,6 +3665,9 @@ Mots de passe et clés d'accès inclus : {2}</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Créer le média USB</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Créer sans cache</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Dossier optionnel de pilotes .inf ajoutés à l'image de démarrage WinPE.</value>
@@ -3795,6 +3801,9 @@ Mots de passe et clés d'accès inclus : {2}</value>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Création de la partition cache…</value>
   </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Création de la partition USB…</value>
+  </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Les ensembles de pilotes personnalisés inutilisés n'ont pas pu être supprimés du lecteur USB.</value>
   </data>
@@ -3857,6 +3866,9 @@ Mots de passe et clés d'accès inclus : {2}</value>
   </data>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Formatage de la partition cache…</value>
+  </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Formatage de la partition USB…</value>
   </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Création de la table de partitions…</value>
@@ -4065,11 +4077,20 @@ Mots de passe et clés d'accès inclus : {2}</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>La partition cache USB ne dispose pas d'assez d'espace libre pour le contenu mis à jour, car l'ancien contenu reste sur le lecteur pendant la mise à jour. Aucune donnée n'a été effacée et aucun formatage n'a été effectué. Recréez le média USB au lieu de le mettre à jour.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Un fichier à copier occupe {0} ; la partition FAT32 d'un lecteur USB sans cache prend en charge au maximum {1} par fichier. Aucune donnée n'a été effacée et aucun formatage n'a été effectué. Utilisez plutôt « Créer le média USB ».</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Il est possible que la clé USB ne permette plus de démarrer un appareil. Recréez-la ou mettez-la à jour avant de l'utiliser.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Volume de démarrage : {0}. Volume de cache : {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Le média nécessite environ {0}, mais ce lecteur USB sans cache peut contenir {1}. Aucune donnée n'a été effacée et aucun formatage n'a été effectué. Utilisez plutôt « Créer le média USB ».</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>Volume USB : {0}. Le lecteur ne conserve aucun téléchargement : chaque déploiement télécharge de nouveau Windows et les pilotes depuis le catalogue.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Vérification de la clé USB…</value>
@@ -4145,6 +4166,9 @@ Mots de passe et clés d'accès inclus : {2}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Vérifier les avertissements de sortie média</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Recréer sans cache</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>
