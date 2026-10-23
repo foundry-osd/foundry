@@ -50,29 +50,37 @@ public enum PublishStatus
     /// <summary>The manifest was written and activated (or, for a rewrap, rewritten under the new password).</summary>
     Published,
 
-    /// <summary>The current or the highest-numbered manifest of the folder is signed by another key; nothing was written.</summary>
+    /// <summary>The manifest named by <c>current.json</c> is signed by another key; nothing was written.</summary>
     ForeignPublisher,
 
     /// <summary>
-    /// The folder holds files that are not a publication this PC can continue: unrelated files, a pointer that is malformed, newer
-    /// or leads to a missing or unsigned manifest, a sequence at the 18-digit name limit, or (for a rewrap) a current manifest that
-    /// does not verify. Nothing was written.
+    /// The folder holds files that are not a publication this PC can continue: unrelated files and no manifest of this PC, or a
+    /// pointer of a newer format. Nothing was written.
     /// </summary>
     FolderNotEmpty,
 
     /// <summary>
-    /// The folder is missing or could not be read or written, or (for a rewrap) holds no publication. A content source that fails
-    /// with an <see cref="IOException"/> is reported the same way. The previous publication stays current.
+    /// The folder is missing or could not be read or written, or (for a rewrap) holds no manifest of this PC. A content source that
+    /// fails with an <see cref="IOException"/> is reported the same way. The previous publication stays current.
     /// </summary>
     FolderUnavailable,
 
-    /// <summary>The current password given to a rewrap does not open the current manifest.</summary>
-    WrongPassword
+    /// <summary>
+    /// The password opens none of the manifests signed by this PC's key, although at least one carries a valid signature of it (for a
+    /// rewrap: the current password given is wrong; for a publish: the caller holds an outdated password). Nothing was written.
+    /// </summary>
+    WrongPassword,
+
+    /// <summary>
+    /// The next sequence would not fit the 18-digit manifest name; the publication cannot continue and needs a new folder. Only
+    /// authenticated sequences count, so files planted in the folder cannot cause it.
+    /// </summary>
+    SequenceExhausted
 }
 
 /// <summary>Result of <see cref="PublicationWriter.PublishAsync"/>.</summary>
 /// <param name="Status">Outcome.</param>
-/// <param name="Sequence">The new sequence when published; the sequence of the foreign manifest for <see cref="PublishStatus.ForeignPublisher"/>; otherwise 0.</param>
+/// <param name="Sequence">The new sequence when published; the pointer sequence for <see cref="PublishStatus.ForeignPublisher"/>; otherwise 0.</param>
 /// <param name="ForeignKeyId">Key id of the foreign signer, set for <see cref="PublishStatus.ForeignPublisher"/>; read without the password, so not authenticated.</param>
 public sealed record PublishResult(PublishStatus Status, long Sequence, string? ForeignKeyId);
 
@@ -87,24 +95,33 @@ public sealed record ContentProgress(long Done, long Total, string CurrentName);
 /// manifest is activated only when everything it lists is in place. Keeps the current and previous manifests and deletes content
 /// files that neither references.
 /// </summary>
+/// <remarks>
+/// Folder state comes from authenticated manifests only. Manifest names, <c>current.json</c> and envelope key ids are writable by
+/// anyone with write access to the folder, so a manifest counts as this PC's only when its signature verifies with this PC's key,
+/// its payload decrypts with the password, it is a publication, and its payload sequence equals the sequence in its name. Other
+/// files never decide the next sequence or the previous manifest and never block a publish; the pointer is consulted only to detect
+/// a take over (it names a manifest signed by another key).
+/// </remarks>
 public static class PublicationWriter
 {
     private const int MasterKeySize = 32;
 
     /// <summary>
-    /// Publishes a new version. The folder must be empty, or its current manifest (named by <c>current.json</c>) and its
-    /// highest-numbered signed manifest must be signed by <see cref="PublicationRequest.Signer"/>; the signer is read from the
-    /// envelope, no password needed. A folder without <c>current.json</c> that still holds manifests is an existing publication, not
-    /// an empty folder. The new sequence is one above the highest of <see cref="PublicationRequest.LastPublishedSequence"/>, the
-    /// pointer sequence and every valid manifest name in <c>manifests/</c>, so a moved or deleted pointer can never make followers
-    /// skip or reject a new version. Content is keyed by hash only: a hash listed several times (for example as a package and a
-    /// driver set) is written once, and a content file already complete under the current master key is not rewritten.
+    /// Publishes a new version. A folder holding a manifest of another key named by <c>current.json</c> returns
+    /// <see cref="PublishStatus.ForeignPublisher"/>; otherwise the publish continues from the highest authenticated manifest of this
+    /// PC (see the class remarks), whatever the pointer says, or starts a new publication when the folder holds only publication
+    /// files. The new sequence is one above the highest of <see cref="PublicationRequest.LastPublishedSequence"/> and that manifest's
+    /// sequence. Content is keyed by hash only: a hash listed several times (for example as a package and a driver set) is written
+    /// once, and a content file already complete under the current master key is not rewritten.
     /// </summary>
     /// <param name="request">What to publish.</param>
     /// <param name="contents">Opens each content item that is not in the folder yet.</param>
     /// <param name="progress">Receives content copy progress.</param>
     /// <param name="cancellationToken">Stops before activation; the previous pointer stays current.</param>
-    /// <exception cref="ArgumentException">The password breaks the policy, the master key is not 32 bytes, or a content hash is not lowercase hex.</exception>
+    /// <exception cref="ArgumentException">
+    /// The password breaks the policy, the master key is not 32 bytes, a content hash is not lowercase hex, or the last published
+    /// sequence is negative.
+    /// </exception>
     /// <exception cref="InvalidDataException">A content stream changed length while it was encrypted.</exception>
     public static async Task<PublishResult> PublishAsync(PublicationRequest request, IContentSource contents, IProgress<ContentProgress>? progress,
         CancellationToken cancellationToken)
@@ -119,7 +136,7 @@ public static class PublicationWriter
 
         try
         {
-            FolderState state = await InspectAsync(request.Folder, request.Signer.KeyId, cancellationToken).ConfigureAwait(false);
+            FolderState state = await InspectAsync(request.Folder, request.Signer, request.Password, cancellationToken).ConfigureAwait(false);
             if (state.Status is { } status)
             {
                 return new(status, status == PublishStatus.ForeignPublisher ? state.Sequence : 0, state.ForeignKeyId);
@@ -128,7 +145,7 @@ public static class PublicationWriter
             long highest = Math.Max(request.LastPublishedSequence, state.Sequence);
             if (highest >= PublicationFolder.MaximumSequence)
             {
-                return new(PublishStatus.FolderNotEmpty, 0, null);
+                return new(PublishStatus.SequenceExhausted, 0, null);
             }
 
             long sequence = highest + 1;
@@ -157,18 +174,20 @@ public static class PublicationWriter
     }
 
     /// <summary>
-    /// "Change password": rewrites the current manifest, unchanged, under <paramref name="newPassword"/> in place (same name and
-    /// sequence, so followers that applied it do not reload it). The pointer and the content files are untouched; the previous
-    /// manifest keeps the old password.
+    /// "Change password": rewrites the highest authenticated manifest of this PC (see the class remarks), unchanged, under
+    /// <paramref name="newPassword"/> in place (same name and sequence, so followers that applied it do not reload it), then points
+    /// <c>current.json</c> at it again, which undoes a pointer moved back by a folder writer. Content files are untouched; older
+    /// manifests keep the old password.
     /// </summary>
     /// <param name="folder">Publication folder.</param>
     /// <param name="oldPassword">Password of the current manifest.</param>
     /// <param name="newPassword">New password; must satisfy <see cref="PassphrasePolicy"/>.</param>
-    /// <param name="signer">Reference signing key; the current manifest must be signed with it.</param>
+    /// <param name="signer">Reference signing key.</param>
     /// <param name="cancellationToken">Stops before the manifest is replaced.</param>
     /// <returns>
     /// <see cref="PublishStatus.Published"/>, <see cref="PublishStatus.WrongPassword"/>, <see cref="PublishStatus.ForeignPublisher"/>,
-    /// <see cref="PublishStatus.FolderNotEmpty"/> or <see cref="PublishStatus.FolderUnavailable"/> (also when <c>current.json</c> is missing).
+    /// <see cref="PublishStatus.FolderNotEmpty"/> or <see cref="PublishStatus.FolderUnavailable"/> (also when the folder holds no
+    /// manifest of this PC).
     /// </returns>
     /// <exception cref="ArgumentException">The new password breaks the policy.</exception>
     public static async Task<PublishStatus> RewrapAsync(string folder, string oldPassword, string newPassword, PublicationSigningKey signer,
@@ -185,32 +204,22 @@ public static class PublicationWriter
 
         try
         {
-            FolderState state = await InspectAsync(folder, signer.KeyId, cancellationToken).ConfigureAwait(false);
+            FolderState state = await InspectAsync(folder, signer, oldPassword, cancellationToken).ConfigureAwait(false);
             if (state.Status is { } status)
             {
                 return status;
             }
 
-            if (state.Current is null)
+            if (state.Previous is null)
             {
                 return PublishStatus.FolderUnavailable;
             }
 
-            PackageReadResult read = ConfigurationPackageCodec.Read(state.Current.Bytes, oldPassword, signer.PublicKey);
-            if (read.Status == PackageReadStatus.WrongPassword)
-            {
-                return PublishStatus.WrongPassword;
-            }
-
-            if (read.Status != PackageReadStatus.Ok || read.Payload!.Kind != PackageKind.Publication)
-            {
-                return PublishStatus.FolderNotEmpty;
-            }
-
-            byte[] rewrapped = ConfigurationPackageCodec.Write(read.Payload, newPassword, signer);
+            byte[] rewrapped = ConfigurationPackageCodec.Write(state.Previous.Payload, newPassword, signer);
             cancellationToken.ThrowIfCancellationRequested();
-            string path = Path.Combine(PublicationFolder.ManifestsDirectory(folder), state.Current.FileName);
-            await PublicationFolder.WriteAtomicAsync(path, rewrapped, cancellationToken).ConfigureAwait(false);
+            string manifest = PublicationFolder.ManifestPointerPath(state.Previous.FileName);
+            await PublicationFolder.WriteAtomicAsync(PublicationFolder.ManifestPath(folder, manifest), rewrapped, cancellationToken).ConfigureAwait(false);
+            await PublicationFolder.WritePointerAsync(folder, manifest, CancellationToken.None).ConfigureAwait(false);
             return PublishStatus.Published;
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
@@ -236,9 +245,9 @@ public static class PublicationWriter
             throw new ArgumentException("Every publication content hash must be 64 lowercase hexadecimal digits.", nameof(request));
         }
 
-        if (request.LastPublishedSequence is < 0 or >= PublicationFolder.MaximumSequence)
+        if (request.LastPublishedSequence < 0)
         {
-            throw new ArgumentException("The last published sequence is out of range.", nameof(request));
+            throw new ArgumentException("The last published sequence cannot be negative.", nameof(request));
         }
     }
 
@@ -251,68 +260,80 @@ public static class PublicationWriter
     }
 
     /// <summary>
-    /// Decides whether this key may continue the folder, from <c>current.json</c> and the envelope signer (no password) of every
-    /// validly named manifest. The pointer can be moved back or deleted by a folder writer, so the highest-numbered signed manifest
-    /// decides ownership too, and every manifest name counts toward the next sequence.
+    /// Decides whether this PC may continue the folder and from which manifest (see the class remarks). A foreign key is detected
+    /// only on the manifest <c>current.json</c> names: a take over always activates its manifest there, and a single rule keeps a
+    /// planted envelope elsewhere from blocking the publisher. Manifests are tried from the highest name down; the first that
+    /// authenticates is the previous manifest, so the cost is one key derivation unless planted copies of this PC's manifests sit
+    /// above it.
     /// </summary>
-    private static async Task<FolderState> InspectAsync(string folder, string keyId, CancellationToken cancellationToken)
+    private static async Task<FolderState> InspectAsync(string folder, PublicationSigningKey signer, string password, CancellationToken cancellationToken)
     {
         PublicationPointerRead pointer = await PublicationFolder.ReadPointerAsync(folder, cancellationToken).ConfigureAwait(false);
-        if (pointer.State is PublicationPointerState.Invalid or PublicationPointerState.Unsupported
-            || (pointer.State == PublicationPointerState.Missing && !PublicationFolder.HoldsOnlyPublicationFiles(folder)))
+        if (pointer.State == PublicationPointerState.Unsupported)
         {
             return FolderState.NotEmpty;
         }
 
-        IReadOnlyList<ManifestFile> manifests = await ReadManifestsAsync(folder, cancellationToken).ConfigureAwait(false);
-        ManifestFile? current = null;
+        IReadOnlyList<ManifestName> manifests = ListManifests(folder);
         if (pointer.State == PublicationPointerState.Ok)
         {
             string fileName = PublicationFolder.ManifestFileName(pointer.Manifest!);
-            current = manifests.FirstOrDefault(manifest => manifest.FileName == fileName);
-            if (current?.KeyId is null)
+            ManifestName? pointed = manifests.FirstOrDefault(manifest => manifest.FileName == fileName);
+            string? keyId = pointed is null ? null : ConfigurationPackageCodec.ReadSignerKeyId(await ReadManifestAsync(pointed, cancellationToken).ConfigureAwait(false));
+            if (keyId is not null && keyId != signer.KeyId)
             {
-                return FolderState.NotEmpty;
+                return new(PublishStatus.ForeignPublisher, pointer.Sequence, keyId, null);
             }
         }
 
-        ManifestFile? latest = manifests.Where(manifest => manifest.KeyId is not null).MaxBy(manifest => manifest.Sequence);
-        ManifestFile? foreign = new[] { current, latest }.FirstOrDefault(manifest => manifest is not null && manifest.KeyId != keyId);
-        if (foreign is not null)
+        bool wrongPassword = false;
+        foreach (ManifestName manifest in manifests)
         {
-            return new(PublishStatus.ForeignPublisher, foreign.Sequence, foreign.KeyId, null, null);
+            PackageReadResult read = ConfigurationPackageCodec.Read(await ReadManifestAsync(manifest, cancellationToken).ConfigureAwait(false), password, signer.PublicKey);
+            if (read is { Status: PackageReadStatus.Ok, Payload: { Kind: PackageKind.Publication } payload } && payload.Sequence == manifest.Sequence)
+            {
+                return new(null, manifest.Sequence, null, new AuthenticatedManifest(manifest.FileName, payload));
+            }
+
+            wrongPassword |= read.Status == PackageReadStatus.WrongPassword;
         }
 
-        long highest = manifests.Select(manifest => manifest.Sequence).Append(pointer.Sequence).Max();
-        ManifestFile? previous = manifests.Where(manifest => manifest.KeyId == keyId).MaxBy(manifest => manifest.Sequence);
-        return new(null, highest, null, current, previous);
+        if (wrongPassword)
+        {
+            return new(PublishStatus.WrongPassword, 0, null, null);
+        }
+
+        return PublicationFolder.HoldsOnlyPublicationFiles(folder) ? FolderState.Empty : FolderState.NotEmpty;
     }
 
-    /// <summary>Reads every validly named file of <c>manifests/</c>; a file over the package size limit gets no bytes and no signer.</summary>
-    private static async Task<IReadOnlyList<ManifestFile>> ReadManifestsAsync(string folder, CancellationToken cancellationToken)
+    /// <summary>Lists the validly named files of <c>manifests/</c>, highest sequence first.</summary>
+    private static IReadOnlyList<ManifestName> ListManifests(string folder)
     {
         string directory = PublicationFolder.ManifestsDirectory(folder);
-        List<ManifestFile> manifests = [];
         if (!Directory.Exists(directory))
         {
-            return manifests;
+            return [];
         }
 
+        List<ManifestName> manifests = [];
         foreach (string path in Directory.EnumerateFiles(directory))
         {
             string fileName = Path.GetFileName(path);
-            if (!PublicationFolder.TryParseManifestFileName(fileName, out long sequence))
+            if (PublicationFolder.TryParseManifestFileName(fileName, out long sequence))
             {
-                continue;
+                manifests.Add(new(fileName, sequence, path));
             }
-
-            byte[] bytes = new FileInfo(path).Length <= ConfigurationPackageCodec.MaximumPackageBytes
-                ? await File.ReadAllBytesAsync(path, cancellationToken).ConfigureAwait(false)
-                : [];
-            manifests.Add(new(fileName, sequence, ConfigurationPackageCodec.ReadSignerKeyId(bytes), bytes));
         }
 
-        return manifests;
+        return manifests.OrderByDescending(manifest => manifest.Sequence).ThenBy(manifest => manifest.FileName, StringComparer.Ordinal).ToArray();
+    }
+
+    /// <summary>Reads a manifest file; one over the package size limit reads as empty, which the codec rejects.</summary>
+    private static async Task<byte[]> ReadManifestAsync(ManifestName manifest, CancellationToken cancellationToken)
+    {
+        return new FileInfo(manifest.Path).Length <= ConfigurationPackageCodec.MaximumPackageBytes
+            ? await File.ReadAllBytesAsync(manifest.Path, cancellationToken).ConfigureAwait(false)
+            : [];
     }
 
     private static async Task WriteContentsAsync(PublicationRequest request, IContentSource source, IProgress<ContentProgress>? progress,
@@ -361,27 +382,22 @@ public static class PublicationWriter
         MasterKey = request.MasterKey
     };
 
+
     /// <summary>
-    /// After activation, keeps the new manifest, the previous one (the highest-numbered manifest of this key before the publish) and
-    /// any manifest numbered above the new sequence, and deletes the other manifests; then deletes content files neither kept manifest
-    /// lists, and the <c>.tmp</c> leftovers of interrupted writes. The previous manifest's list is read with the request password and
-    /// the signer key; when that fails no content file is deleted. A file that cannot be deleted (for example while a follower reads
-    /// it) is left for the next publish.
+    /// After activation, keeps the new manifest, the previous authenticated one and any manifest numbered above the new sequence,
+    /// and deletes the other manifests (the pointer now names the new one, so none of them is referenced); then deletes content files
+    /// neither kept manifest lists, and the <c>.tmp</c> leftovers of interrupted writes. A planted copy is never the previous
+    /// manifest, so it cannot cause the real previous manifest or its content to be deleted. A file that cannot be deleted (for
+    /// example while a follower reads it) is left for the next publish.
     /// </summary>
-    private static void RemoveUnreferenced(PublicationRequest request, string manifest, long sequence, ManifestFile? previous)
+    private static void RemoveUnreferenced(PublicationRequest request, string manifest, long sequence, AuthenticatedManifest? previous)
     {
         HashSet<string> keptManifests = new(StringComparer.Ordinal) { PublicationFolder.ManifestFileName(manifest) };
         HashSet<string> referenced = new(request.Contents.Select(content => content.Hash), StringComparer.Ordinal);
-        bool referencesKnown = true;
         if (previous is not null)
         {
             keptManifests.Add(previous.FileName);
-            PackageReadResult read = ConfigurationPackageCodec.Read(previous.Bytes, request.Password, request.Signer.PublicKey);
-            referencesKnown = read.Status == PackageReadStatus.Ok;
-            if (referencesKnown)
-            {
-                referenced.UnionWith(read.Payload!.Contents.Select(content => content.Hash));
-            }
+            referenced.UnionWith(previous.Payload.Contents.Select(content => content.Hash));
         }
 
         DeleteFiles(PublicationFolder.ManifestsDirectory(request.Folder), name => PublicationFolder.WithoutTemporaryExtension(name) is { } target
@@ -389,7 +405,7 @@ public static class PublicationWriter
             : PublicationFolder.TryParseManifestFileName(name, out long found) && found <= sequence && !keptManifests.Contains(name));
         DeleteFiles(PublicationFolder.ContentDirectory(request.Folder), name => PublicationFolder.WithoutTemporaryExtension(name) is { } target
             ? PublicationFolder.ContentHashOf(target) is not null
-            : referencesKnown && PublicationFolder.ContentHashOf(name) is { } hash && !referenced.Contains(hash));
+            : PublicationFolder.ContentHashOf(name) is { } hash && !referenced.Contains(hash));
         PublicationFolder.DeleteBestEffort(PublicationFolder.PointerTemporaryPath(request.Folder));
     }
 
@@ -404,22 +420,27 @@ public static class PublicationWriter
         }
     }
 
-    /// <summary>A validly named file of <c>manifests/</c>.</summary>
+    /// <summary>A validly named file of <c>manifests/</c>; nothing about it is authenticated.</summary>
     /// <param name="FileName">File name, <c>&lt;sequence&gt;-&lt;id&gt;.fcfg</c>.</param>
-    /// <param name="Sequence">Sequence parsed from the name (not authenticated).</param>
-    /// <param name="KeyId">Envelope signature key id (not authenticated), or null when the file is not a signed envelope.</param>
-    /// <param name="Bytes">File content, empty when over the package size limit.</param>
-    private sealed record ManifestFile(string FileName, long Sequence, string? KeyId, byte[] Bytes);
+    /// <param name="Sequence">Sequence parsed from the name.</param>
+    /// <param name="Path">Local path.</param>
+    private sealed record ManifestName(string FileName, long Sequence, string Path);
+
+    /// <summary>A manifest of this PC: signature verified with its key, decrypted with the password, payload sequence equal to the name.</summary>
+    /// <param name="FileName">File name in <c>manifests/</c>.</param>
+    /// <param name="Payload">Decrypted payload.</param>
+    private sealed record AuthenticatedManifest(string FileName, ConfigurationPackagePayload Payload);
 
     /// <summary>What <see cref="InspectAsync"/> found.</summary>
-    /// <param name="Status">Set when the folder cannot be continued by this key.</param>
-    /// <param name="Sequence">Highest sequence in the folder (pointer and manifest names), or the foreign manifest's sequence.</param>
-    /// <param name="ForeignKeyId">Signer of the deciding manifest when it is another key.</param>
-    /// <param name="Current">Manifest named by <c>current.json</c>, when present.</param>
-    /// <param name="Previous">Highest-numbered manifest signed (by envelope key id) with this key, kept by the next cleanup.</param>
-    private sealed record FolderState(PublishStatus? Status, long Sequence, string? ForeignKeyId, ManifestFile? Current, ManifestFile? Previous)
+    /// <param name="Status">Set when the publish or rewrap cannot go on.</param>
+    /// <param name="Sequence">Sequence of <paramref name="Previous"/>, 0 without one, or the pointer sequence for a foreign publisher.</param>
+    /// <param name="ForeignKeyId">Signer of the manifest the pointer names when it is another key.</param>
+    /// <param name="Previous">Highest authenticated manifest of this PC.</param>
+    private sealed record FolderState(PublishStatus? Status, long Sequence, string? ForeignKeyId, AuthenticatedManifest? Previous)
     {
-        public static FolderState NotEmpty { get; } = new(PublishStatus.FolderNotEmpty, 0, null, null, null);
+        public static FolderState Empty { get; } = new(null, 0, null, null);
+
+        public static FolderState NotEmpty { get; } = new(PublishStatus.FolderNotEmpty, 0, null, null);
     }
 
     /// <summary>Maps the encrypted byte count of one content item onto the progress of the whole publish.</summary>

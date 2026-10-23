@@ -240,6 +240,77 @@ public sealed class PublicationWriterTests : IDisposable
         Assert.All(leftovers, leftover => Assert.False(File.Exists(leftover)));
     }
 
+    [Fact]
+    public async Task Publish_PlantedHugeNameManifest_IsIgnoredAndLaterPublishesContinue()
+    {
+        await PublishAsync([]);
+        await File.WriteAllTextAsync(Path.Combine(Folder, "manifests", $"999999999999999998-{Guid.NewGuid():N}.fcfg"), "garbage", Cancellation);
+
+        PublishResult second = await PublishAsync([]);
+        PublishResult third = await PublishAsync([]);
+
+        Assert.Equal(new PublishResult(PublishStatus.Published, 2, null), second);
+        Assert.Equal(new PublishResult(PublishStatus.Published, 3, null), third);
+        Assert.Equal(3, (await ReadCurrentPayloadAsync(Password)).Sequence);
+    }
+
+    [Fact]
+    public async Task Publish_PlantedRenamedCopyOfOldManifest_IsNotPreviousAndRealPreviousSurvives()
+    {
+        PackageContent first = source.Add("first", SharedContentKind.Package);
+        PackageContent second = source.Add("second", SharedContentKind.Package);
+        PackageContent third = source.Add("third", SharedContentKind.Package);
+        await PublishAsync([first]);
+        string oldManifest = ManifestNames().Single(name => name.StartsWith("000001-", StringComparison.Ordinal));
+        await PublishAsync([second]);
+        string realPrevious = ManifestNames().Single(name => name.StartsWith("000002-", StringComparison.Ordinal));
+        File.Copy(Path.Combine(Folder, "manifests", oldManifest), Path.Combine(Folder, "manifests", $"000005-{Guid.NewGuid():N}.fcfg"));
+
+        PublishResult result = await PublishAsync([third]);
+
+        Assert.Equal(3, result.Sequence);
+        Assert.Contains(realPrevious, ManifestNames());
+        Assert.True(File.Exists(ContentPath(second.Hash)));
+        Assert.False(File.Exists(ContentPath(first.Hash)));
+    }
+
+    [Fact]
+    public async Task Publish_PointerNamesMissingManifest_ContinuesSequence()
+    {
+        await PublishAsync([]);
+        await PublishAsync([]);
+        await WritePointerAsync($"000007-{Guid.NewGuid():N}.fcfg");
+
+        PublishResult result = await PublishAsync([]);
+
+        Assert.Equal(new PublishResult(PublishStatus.Published, 3, null), result);
+    }
+
+    [Fact]
+    public async Task Publish_LastPublishedSequenceAtLimit_ReturnsSequenceExhausted()
+    {
+        PublishResult result = await PublicationWriter.PublishAsync(
+            Request([]) with { LastPublishedSequence = 999_999_999_999_999_999 }, source, null, Cancellation);
+
+        Assert.Equal(new PublishResult(PublishStatus.SequenceExhausted, 0, null), result);
+        Assert.Empty(Directory.EnumerateFileSystemEntries(Folder));
+    }
+
+    [Fact]
+    public async Task Rewrap_AfterPointerMovedBack_ReencryptsNewestManifest()
+    {
+        await PublishAsync([]);
+        await PublishAsync([]);
+        await PublishAsync([]);
+        await WritePointerAsync(ManifestNames().Single(name => name.StartsWith("000002-", StringComparison.Ordinal)));
+        const string newPassword = "another-publication-password";
+
+        PublishStatus status = await PublicationWriter.RewrapAsync(Folder, Password, newPassword, signer, Cancellation);
+
+        Assert.Equal(PublishStatus.Published, status);
+        Assert.Equal(3, (await ReadCurrentPayloadAsync(newPassword)).Sequence);
+    }
+
     public void Dispose()
     {
         signer.Dispose();

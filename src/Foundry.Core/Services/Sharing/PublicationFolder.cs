@@ -85,6 +85,9 @@ internal static class PublicationFolder
     internal static string NewManifest(long sequence) =>
         string.Create(CultureInfo.InvariantCulture, $"{ManifestsDirectoryName}/{sequence:D6}-{Guid.NewGuid():N}{ManifestExtension}");
 
+    /// <summary>Returns the pointer manifest path (<c>manifests/&lt;file&gt;</c>) of a manifest file name.</summary>
+    internal static string ManifestPointerPath(string fileName) => ManifestsDirectoryName + "/" + fileName;
+
     /// <summary>Returns the file name part of a pointer manifest path.</summary>
     internal static string ManifestFileName(string manifest) => manifest[(ManifestsDirectoryName.Length + 1)..];
 
@@ -144,8 +147,8 @@ internal static class PublicationFolder
     }
 
     /// <summary>
-    /// Returns whether a folder without <c>current.json</c> holds nothing but files a publication writes (content, manifests and
-    /// their <c>.tmp</c> leftovers). The writer then continues from the manifests found, or starts a new publication when there are none.
+    /// Returns whether a folder holds nothing but files a publication writes (<c>current.json</c>, content, manifests and their
+    /// <c>.tmp</c> leftovers). The writer starts a new publication in such a folder when none of its manifests authenticates.
     /// </summary>
     internal static bool HoldsOnlyPublicationFiles(string folder)
     {
@@ -159,7 +162,7 @@ internal static class PublicationFolder
                     ManifestsDirectoryName => HoldsOnlyFiles(entry, fileName => TryParseManifestFileName(fileName, out _)),
                     _ => false
                 }
-                : name == PointerFileName + TemporaryExtension;
+                : name is PointerFileName or PointerFileName + TemporaryExtension;
             if (!owned)
             {
                 return false;

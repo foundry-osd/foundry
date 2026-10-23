@@ -106,8 +106,9 @@ public static class ContentPackageArchive
 
         string hash = expectedHash.ToLowerInvariant();
 
-        // The library refuses sources inside its own root, so the files are extracted under the user's temporary folder. The prefix
-        // stays short because the library also checks source paths against the kind's full-path limit while it inventories them.
+        // The library refuses sources inside its own root, so the files are extracted under the user's temporary folder. The library
+        // also checks source paths against the kind's full-path limit while it inventories them; that check never rejects a package
+        // the destination accepts: the destination prefix (library root, then content/<hash>/files/) is longer than this one.
         string extracted = Path.Combine(Path.GetTempPath(), "Foundry", Guid.NewGuid().ToString("N"));
         try
         {
