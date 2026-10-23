@@ -70,6 +70,20 @@ public sealed class NetworkCacheSessionResolver : INetworkCacheSessionResolver
 
     public async Task<NetworkCacheSession> ResolveAsync(string workspaceRootPath, string sessionId, CancellationToken cancellationToken)
     {
+        try
+        {
+            return await ResolveCoreAsync(workspaceRootPath, sessionId, cancellationToken).ConfigureAwait(false);
+        }
+        catch (Exception exception) when (exception is not OperationCanceledException || !cancellationToken.IsCancellationRequested)
+        {
+            // The network cache is an optimization: an unexpected configuration or platform error must never fail a deployment.
+            logger.LogWarning("Network cache resolution failed; deployment continues without it. Reason={Reason}", exception.GetType().Name);
+            return NetworkCacheSession.Unavailable(NetworkCacheOutcome.Unavailable);
+        }
+    }
+
+    private async Task<NetworkCacheSession> ResolveCoreAsync(string workspaceRootPath, string sessionId, CancellationToken cancellationToken)
+    {
         DeployNetworkCacheSettings settings = configuration.LoadOptional().Document?.NetworkCache ?? new();
         if (!settings.IsEnabled)
         {
@@ -102,13 +116,28 @@ public sealed class NetworkCacheSessionResolver : INetworkCacheSessionResolver
     {
         bool hasAccount = !string.IsNullOrWhiteSpace(share.AccountName) && share.EncryptedCredentials is not null;
         SmbConnectResult result;
-        try
+        // The key is read inside the delegate so Connect's finally always clears it, whether or not the wait times out.
+        Task<SmbConnectResult> connecting = Task.Run(async () =>
         {
             byte[]? key = hasAccount ? await keys.ReadAsync(workspaceRootPath, cancellationToken).ConfigureAwait(false) : null;
-            result = await Task.Run(() => Connect(share, key), cancellationToken)
-                .WaitAsync(connectTimeout, cancellationToken).ConfigureAwait(false);
+            return Connect(share, key);
+        }, cancellationToken);
+        try
+        {
+            result = await connecting.WaitAsync(connectTimeout, cancellationToken).ConfigureAwait(false);
         }
-        catch (Exception exception) when (exception is TimeoutException or CryptographicException or InvalidDataException or InvalidOperationException or IOException)
+        catch (TimeoutException)
+        {
+            // A connection that completes after the timeout must not stay open with the share credentials.
+            _ = connecting.ContinueWith(
+                task => connector.Disconnect(share.Path),
+                CancellationToken.None,
+                TaskContinuationOptions.OnlyOnRanToCompletion,
+                TaskScheduler.Default);
+            logger.LogWarning("Network cache share connection timed out. SharePath={SharePath}", share.Path);
+            return null;
+        }
+        catch (Exception exception) when (exception is not OperationCanceledException || !cancellationToken.IsCancellationRequested)
         {
             logger.LogWarning("Network cache share skipped. SharePath={SharePath}, Reason={Reason}", share.Path, exception.GetType().Name);
             return null;

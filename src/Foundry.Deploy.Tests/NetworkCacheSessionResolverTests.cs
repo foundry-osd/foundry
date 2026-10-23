@@ -122,6 +122,28 @@ public sealed class NetworkCacheSessionResolverTests
     }
 
     [Fact]
+    public async Task Resolve_MalformedEnvelope_SkipsShare()
+    {
+        DeployNetworkCacheSettings settings = Settings();
+        DeployNetworkCacheShare broken = settings.Shares[0] with { EncryptedCredentials = settings.Shares[0].EncryptedCredentials! with { Ciphertext = "%%%" } };
+        var harness = new Harness(settings with { Shares = [broken, settings.Shares[1]] });
+
+        using NetworkCacheSession session = await harness.ResolveAsync();
+
+        Assert.Equal(SecondShare, session.SharePath);
+    }
+
+    [Fact]
+    public async Task Resolve_UnexpectedError_ReturnsUnavailable()
+    {
+        var harness = new Harness(Settings() with { Scopes = null! });
+
+        using NetworkCacheSession session = await harness.ResolveAsync();
+
+        Assert.Equal(NetworkCacheOutcome.Unavailable, session.Outcome);
+    }
+
+    [Fact]
     public async Task Dispose_DisconnectsShare()
     {
         var harness = new Harness(Settings());

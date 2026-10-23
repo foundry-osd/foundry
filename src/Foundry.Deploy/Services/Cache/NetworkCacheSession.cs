@@ -23,6 +23,7 @@ public sealed class NetworkCacheSession : IDisposable
 {
     private readonly ISmbConnector? connector;
     private bool disposed;
+    private bool unresponsive;
 
     private NetworkCacheSession(NetworkCacheOutcome outcome, string? sharePath, bool canWrite, ISmbConnector? connector)
     {
@@ -43,7 +44,11 @@ public sealed class NetworkCacheSession : IDisposable
     /// <summary>Gets whether this device may publish downloads; only shares with an account that passed a write probe.</summary>
     public bool CanWrite { get; }
 
-    public bool IsAvailable => SharePath is not null;
+    /// <summary>Gets whether consumers may use the share; false once it stopped answering during the deployment.</summary>
+    public bool IsAvailable => SharePath is not null && !Volatile.Read(ref unresponsive);
+
+    /// <summary>Stops every later lookup and copy from waiting on a share that already timed out once.</summary>
+    public void MarkUnresponsive() => Volatile.Write(ref unresponsive, true);
 
     public static NetworkCacheSession Unavailable(NetworkCacheOutcome outcome) => new(outcome, null, false, null);
 

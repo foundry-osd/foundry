@@ -25,7 +25,8 @@ public static class NetworkCacheWriter
     /// Copies <paramref name="sourcePath"/> to <paramref name="targetDirectory"/> as <paramref name="fileName"/>.
     /// When <paramref name="sha256ForSidecar"/> is set, the hash sidecar is written before the rename so a reader
     /// never finds a hashless final file without its sidecar. IO failures return <see cref="NetworkCachePublishOutcome.Failed"/>;
-    /// cancellation deletes the partial and is rethrown.
+    /// cancellation deletes the partial and is rethrown. Share existence checks and directory creation run
+    /// synchronously before the first await, so callers on a UI or step thread must invoke it through the thread pool.
     /// </summary>
     public static Task<NetworkCachePublishOutcome> PublishFileAsync(
         string sourcePath,
