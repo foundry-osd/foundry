@@ -7,7 +7,7 @@ using Foundry.Core.Models.Configuration;
 namespace Foundry.ViewModels;
 
 /// <summary>
-/// Displays source metadata and inspection results without retaining answer-file content.
+/// Displays library file metadata and inspection results without retaining answer-file content.
 /// </summary>
 public sealed record UnattendFileEntryViewModel(
     UnattendFileSettings Settings,
@@ -17,7 +17,7 @@ public sealed record UnattendFileEntryViewModel(
 {
     public string DisplayName => Settings.DisplayName;
 
-    public string SourcePath => Settings.SourcePath;
+    public string FileName => Settings.File?.FileName ?? string.Empty;
 }
 
 /// <summary>

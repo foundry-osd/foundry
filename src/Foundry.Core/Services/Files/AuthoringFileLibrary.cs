@@ -82,6 +82,20 @@ public sealed class AuthoringFileLibrary
         }
     }
 
+    /// <summary>Returns the stored file path when <see cref="IsAvailable"/> holds, otherwise <see langword="null"/>.</summary>
+    /// <remarks>Reads through this path are not hash-verified: use it for validation, and <see cref="ReadVerified"/> for media.</remarks>
+    public string? GetAvailablePath(AuthoringFileReference reference)
+    {
+        try
+        {
+            return IsAvailable(reference) ? ContentPath(reference) : null;
+        }
+        catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException)
+        {
+            return null;
+        }
+    }
+
     /// <summary>Reads the stored file and verifies its length and SHA-256 against <paramref name="reference"/>.</summary>
     /// <exception cref="InvalidDataException">The reference is invalid or the content does not match it.</exception>
     public byte[] ReadVerified(AuthoringFileReference reference)

@@ -22,7 +22,7 @@ namespace Foundry.Services.Configuration;
 /// </summary>
 /// <remarks>
 /// Secrets that should not be persisted are kept in <see cref="INetworkSecretStateService"/> and
-/// <see cref="IOobeAccountSecretStateService"/> and are only merged when a provisioning bundle is generated.
+/// <see cref="IOobeAccountSecretStateService"/> and are passed beside the document, never merged into it, when media is validated or generated.
 /// </remarks>
 internal sealed class FoundryConfigurationStateService : IFoundryConfigurationStateService
 {
@@ -38,6 +38,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     private readonly Foundry.Core.Services.Images.CustomImageLibraryService customImageLibrary;
     private readonly Foundry.Core.Services.Packages.ContentPackageLibraryService postInstallPackages;
     private readonly Foundry.Core.Services.Drivers.CustomDriverSetLibrary customDriverSetLibrary;
+    private readonly Foundry.Core.Services.Files.AuthoringFileLibrary authoringFiles;
     private readonly Foundry.Core.Services.Drivers.CustomDriverSetAvailabilityCache customDriverAvailability = new();
     private UnattendSettings? validatedUnattendSettings;
     private IReadOnlyList<UnattendSourceValidation> unattendSourceValidations = [];
@@ -56,7 +57,8 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         ILogger logger,
         Foundry.Core.Services.Images.CustomImageLibraryService customImageLibrary,
         Foundry.Core.Services.Packages.ContentPackageLibraryService postInstallPackages,
-        Foundry.Core.Services.Drivers.CustomDriverSetLibrary customDriverSetLibrary)
+        Foundry.Core.Services.Drivers.CustomDriverSetLibrary customDriverSetLibrary,
+        Foundry.Core.Services.Files.AuthoringFileLibrary authoringFiles)
     {
         this.foundryConfigurationService = foundryConfigurationService;
         this.deployConfigurationGenerator = deployConfigurationGenerator;
@@ -70,12 +72,9 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         this.customImageLibrary = customImageLibrary;
         this.postInstallPackages = postInstallPackages;
         this.customDriverSetLibrary = customDriverSetLibrary;
-        FoundryConfigurationDocument loaded = Load(out bool isLegacyMigration);
+        this.authoringFiles = authoringFiles;
+        FoundryConfigurationDocument loaded = Load();
         loaded = FoundryConfigurationMigration.MigrateDefaultIsoOutput(loaded, Constants.LegacyDefaultIsoPath, Constants.DefaultIsoPath);
-        if (isLegacyMigration)
-        {
-            networkSecretStateService.Update(loaded.Network);
-        }
         Current = SanitizeForPersistence(loaded);
         Save();
     }
@@ -257,7 +256,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
                     return;
                 }
 
-                sourceRead = Task.Run(() => InspectUnattendSources(settings));
+                sourceRead = Task.Run(() => InspectUnattendSources(settings, authoringFiles));
                 unattendSourceReads.Add((settings, sourceRead));
             }
 
@@ -283,7 +282,9 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         StateChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    private static IReadOnlyList<UnattendSourceValidation> InspectUnattendSources(UnattendSettings settings)
+    private static IReadOnlyList<UnattendSourceValidation> InspectUnattendSources(
+        UnattendSettings settings,
+        Foundry.Core.Services.Files.AuthoringFileLibrary files)
     {
         List<UnattendSourceValidation> results = [];
         foreach (UnattendFileSettings file in settings.Files ?? [])
@@ -291,7 +292,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
             byte[]? content = null;
             try
             {
-                content = UnattendFileService.ReadValidated(file);
+                content = UnattendFileService.ReadValidated(file, file.File is null ? null : files.GetAvailablePath(file.File));
                 results.Add(new UnattendSourceValidation(file, UnattendFileService.Inspect(content), null));
             }
             catch (Exception ex) when (ex is IOException or InvalidDataException or UnauthorizedAccessException or InvalidOperationException or ArgumentException)
@@ -315,7 +316,15 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
 
     /// <inheritdoc />
     public AutopilotConfigurationValidationResult AutopilotConfigurationValidation =>
-        AutopilotConfigurationValidator.Evaluate(CreateAutopilotSettingsForValidation(Current.Autopilot), DateTimeOffset.UtcNow);
+        AutopilotConfigurationValidator.Evaluate(Current.Autopilot, DateTimeOffset.UtcNow, !string.IsNullOrWhiteSpace(MediaInputs.AutopilotPfxPassword));
+
+    /// <inheritdoc />
+    public MediaInputs MediaInputs => new()
+    {
+        ResolveFile = authoringFiles.GetAvailablePath,
+        Network = networkSecretStateService.GetSecrets(Current.Network),
+        AutopilotPfxPassword = autopilotHardwareHashSessionState.GetBootMediaCertificatePassword(Current.Autopilot.HardwareHashUpload.BootMediaCertificate.Pfx)
+    };
 
     /// <inheritdoc />
     public AutopilotProvisioningMode AutopilotProvisioningMode => Current.Autopilot.ProvisioningMode;
@@ -512,7 +521,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         using DomainJoinSecretState domainSecrets = CreateDomainJoinSecretState(document.DomainJoin);
 
         return deployConfigurationGenerator.Serialize(
-            deployConfigurationGenerator.Generate(document, deploymentSecretsKey, protectionSettings, oobeAccountSecretState, domainSecrets));
+            deployConfigurationGenerator.Generate(document, deploymentSecretsKey, protectionSettings, oobeAccountSecretState, domainSecrets, MediaInputs));
     }
 
     /// <inheritdoc />
@@ -521,10 +530,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         CancellationToken cancellationToken = default)
     {
         string? authoringVersion = typeof(FoundryApplicationInfo).Assembly.GetName().Version?.ToString(4);
-        FoundryConfigurationDocument document = CreateDocumentForDeployGeneration(telemetryOverride: null) with
-        {
-            Network = networkSecretStateService.ApplyRequiredSecrets(Current.Network)
-        };
+        FoundryConfigurationDocument document = CreateDocumentForDeployGeneration(telemetryOverride: null);
         using OobeAccountSecretState accountSecrets = CreateOobeAccountSecretStateForDeployGeneration(document.Customization.Oobe);
         using DomainJoinSecretState domainSecrets = CreateDomainJoinSecretState(document.DomainJoin);
         char[] password = document.General.DeploymentProtection.IsEnabled
@@ -533,7 +539,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         try
         {
             return BuildSnapshot.CaptureAsync(
-                document, accountSecrets, domainSecrets, password, privateRootDirectory, authoringVersion, cancellationToken);
+                document, MediaInputs, accountSecrets, domainSecrets, password, privateRootDirectory, authoringVersion, cancellationToken);
         }
         finally
         {
@@ -563,9 +569,8 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         }
     }
 
-    private FoundryConfigurationDocument Load(out bool isLegacyMigration)
+    private FoundryConfigurationDocument Load()
     {
-        isLegacyMigration = false;
         string sourcePath = File.Exists(Constants.FoundryConfigurationStatePath)
             ? Constants.FoundryConfigurationStatePath : Constants.LegacyFoundryConfigurationStatePath;
         if (!File.Exists(sourcePath))
@@ -592,7 +597,6 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
             }
 
             FoundryConfigurationDocument document = foundryConfigurationService.Deserialize(json);
-            isLegacyMigration = string.Equals(sourcePath, Constants.LegacyFoundryConfigurationStatePath, StringComparison.OrdinalIgnoreCase);
             logger.Information("Foundry configuration state loaded from disk.");
             return document;
         }
@@ -613,11 +617,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
 
     private FoundryConfigurationDocument CreateDocumentForDeployGeneration(TelemetrySettings? telemetryOverride)
     {
-        return Current with
-        {
-            Autopilot = CreateAutopilotSettingsForValidation(Current.Autopilot),
-            Telemetry = telemetryOverride ?? Current.Telemetry
-        };
+        return Current with { Telemetry = telemetryOverride ?? Current.Telemetry };
     }
 
     private OobeAccountSecretState CreateOobeAccountSecretStateForDeployGeneration(OobeSettings settings)
@@ -673,18 +673,6 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         }
 
         return state;
-    }
-
-    private AutopilotSettings CreateAutopilotSettingsForValidation(AutopilotSettings settings)
-    {
-        AutopilotHardwareHashUploadSettings hardwareHashUpload = settings.HardwareHashUpload with
-        {
-            BootMediaCertificate = autopilotHardwareHashSessionState.BootMediaCertificate
-        };
-        return settings with
-        {
-            HardwareHashUpload = hardwareHashUpload
-        };
     }
 
     private static FoundryConfigurationDocument CreateDefaultDocument()
@@ -935,7 +923,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
 
     private NetworkMediaReadinessEvaluation EvaluateNetworkMediaReadiness()
     {
-        return NetworkMediaReadinessEvaluator.Evaluate(Current.Network, networkSecretStateService.PersonalWifiPassphrase);
+        return NetworkMediaReadinessEvaluator.Evaluate(Current.Network, MediaInputs);
     }
 
     private AutopilotProfileSettings? GetSelectedAutopilotProfile()

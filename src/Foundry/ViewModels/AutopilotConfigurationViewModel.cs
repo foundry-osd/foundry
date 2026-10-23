@@ -9,6 +9,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.Files;
 using Foundry.Services.Application;
 using Foundry.Services.Autopilot;
 using Foundry.Services.Configuration;
@@ -34,6 +35,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     private readonly IAutopilotProfileSelectionDialogService profileSelectionDialogService;
     private readonly IAutopilotHardwareHashSessionState hardwareHashSessionState;
     private readonly IFilePickerService filePickerService;
+    private readonly AuthoringFileLibrary authoringFiles;
     private readonly IDialogService dialogService;
     private readonly IApplicationLocalizationService localizationService;
     private readonly ILogger logger;
@@ -57,6 +59,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         IAutopilotProfileSelectionDialogService profileSelectionDialogService,
         IAutopilotHardwareHashSessionState hardwareHashSessionState,
         IFilePickerService filePickerService,
+        AuthoringFileLibrary authoringFiles,
         IDialogService dialogService,
         IApplicationLocalizationService localizationService,
         ILogger logger)
@@ -71,6 +74,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         this.profileSelectionDialogService = profileSelectionDialogService;
         this.hardwareHashSessionState = hardwareHashSessionState;
         this.filePickerService = filePickerService;
+        this.authoringFiles = authoringFiles;
         this.dialogService = dialogService;
         this.localizationService = localizationService;
         this.logger = logger.ForContext<AutopilotConfigurationViewModel>();
@@ -169,13 +173,13 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     public Visibility BootMediaCertificateVisibility => HasBootMediaCertificateRegistration
         ? Visibility.Visible
         : Visibility.Collapsed;
-    public string BootMediaCertificatePfxPath => hardwareHashUploadSettings.BootMediaCertificate.PfxPath ?? string.Empty;
+    public string BootMediaCertificatePfxFileName => hardwareHashUploadSettings.BootMediaCertificate.Pfx?.FileName ?? string.Empty;
     public string BootMediaCertificateStatusText => CreateBootMediaCertificateStatusText();
     public Style BootMediaCertificateStatusStyle => ResolveBootMediaCertificateStatusStyle();
     public bool IsBootMediaCertificateReady => hardwareHashUploadSettings.BootMediaCertificate.ValidatedExpiresOnUtc is DateTimeOffset expiresOnUtc &&
                                                expiresOnUtc > DateTimeOffset.UtcNow &&
-                                               !string.IsNullOrWhiteSpace(hardwareHashUploadSettings.BootMediaCertificate.PfxPath) &&
-                                               !string.IsNullOrWhiteSpace(hardwareHashUploadSettings.BootMediaCertificate.PfxPassword) &&
+                                               hardwareHashUploadSettings.BootMediaCertificate.Pfx is not null &&
+                                               !string.IsNullOrWhiteSpace(GetBootMediaCertificatePassword()) &&
                                                string.Equals(
                                                    NormalizeThumbprint(hardwareHashUploadSettings.ActiveCertificate?.Thumbprint),
                                                    NormalizeThumbprint(hardwareHashUploadSettings.BootMediaCertificate.ValidatedThumbprint),
@@ -721,7 +725,11 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             tenantOnboardingStatus = AutopilotTenantOnboardingStatus.Ready;
             hardwareHashSessionState.TenantOnboardingStatus = tenantOnboardingStatus;
             ReplaceCertificates(result.Certificates);
-            SetBootMediaCertificateInput(outputPath, result.GeneratedPassword);
+            if (await ImportBootMediaCertificateAsync(outputPath) is { } createdPfx)
+            {
+                SetBootMediaCertificateInput(createdPfx, result.GeneratedPassword);
+            }
+
             RefreshHardwareHashUploadState();
             SaveState();
 
@@ -847,15 +855,29 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             new FileOpenPickerRequest(
                 localizationService.GetString("Autopilot.HardwareHashBootMediaCertificatePfxPickerTitle"),
                 (string[])[".pfx"]));
-        if (string.IsNullOrWhiteSpace(filePath))
+        if (string.IsNullOrWhiteSpace(filePath) || await ImportBootMediaCertificateAsync(filePath) is not { } pfx)
         {
             return;
         }
 
-        SetBootMediaCertificateInput(filePath, hardwareHashUploadSettings.BootMediaCertificate.PfxPassword);
+        SetBootMediaCertificateInput(pfx, GetBootMediaCertificatePassword());
         RefreshHardwareHashUploadState();
         SaveState();
         logger.Information("Autopilot boot media certificate selection updated. CertificateSelected={CertificateSelected}", true);
+    }
+
+    /// <summary>Imports a PFX into the authoring file library; a failure is logged and returns null.</summary>
+    private async Task<AuthoringFileReference?> ImportBootMediaCertificateAsync(string path)
+    {
+        try
+        {
+            return await authoringFiles.ImportAsync(path);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidDataException or ArgumentException or NotSupportedException)
+        {
+            logger.Warning(ex, "The Autopilot boot media certificate could not be imported into the authoring file library.");
+            return null;
+        }
     }
 
     /// <summary>
@@ -864,12 +886,12 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     /// <param name="password">PFX password entered by the operator.</param>
     public void SetBootMediaCertificatePassword(string password)
     {
-        if (string.Equals(hardwareHashUploadSettings.BootMediaCertificate.PfxPassword, password, StringComparison.Ordinal))
+        if (string.Equals(GetBootMediaCertificatePassword(), password, StringComparison.Ordinal))
         {
             return;
         }
 
-        SetBootMediaCertificateInput(hardwareHashUploadSettings.BootMediaCertificate.PfxPath, password);
+        SetBootMediaCertificateInput(hardwareHashUploadSettings.BootMediaCertificate.Pfx, password);
         RefreshBootMediaCertificateState();
         SaveState();
     }
@@ -880,7 +902,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     /// <returns>The current session PFX password, or an empty string.</returns>
     public string GetBootMediaCertificatePassword()
     {
-        return hardwareHashUploadSettings.BootMediaCertificate.PfxPassword ?? string.Empty;
+        return hardwareHashSessionState.GetBootMediaCertificatePassword(hardwareHashUploadSettings.BootMediaCertificate.Pfx) ?? string.Empty;
     }
 
     partial void OnSelectedDefaultProfileChanged(AutopilotProfileEntryViewModel? value)
@@ -908,11 +930,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
             provisioningMode = Enum.IsDefined(settings.ProvisioningMode)
                 ? settings.ProvisioningMode
                 : AutopilotProvisioningMode.JsonProfile;
-            hardwareHashUploadSettings = (settings.HardwareHashUpload ?? new AutopilotHardwareHashUploadSettings()) with
-            {
-                BootMediaCertificate = hardwareHashSessionState.BootMediaCertificate
-            };
-            if (!ReferenceEquals(previousCertificate, hardwareHashUploadSettings.BootMediaCertificate))
+            hardwareHashUploadSettings = settings.HardwareHashUpload ?? new AutopilotHardwareHashUploadSettings();
+            if (previousCertificate != hardwareHashUploadSettings.BootMediaCertificate)
             {
                 ResetBootMediaCertificateValidationState();
             }
@@ -1110,7 +1129,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         OnPropertyChanged(nameof(DefaultGroupTagOptions));
         OnPropertyChanged(nameof(ConnectedTenantDetailsVisibility));
         OnPropertyChanged(nameof(BootMediaCertificateVisibility));
-        OnPropertyChanged(nameof(BootMediaCertificatePfxPath));
+        OnPropertyChanged(nameof(BootMediaCertificatePfxFileName));
         OnPropertyChanged(nameof(BootMediaCertificateStatusText));
         OnPropertyChanged(nameof(BootMediaCertificateStatusStyle));
         OnPropertyChanged(nameof(IsBootMediaCertificateReady));
@@ -1120,7 +1139,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     private void RefreshBootMediaCertificateState()
     {
-        OnPropertyChanged(nameof(BootMediaCertificatePfxPath));
+        OnPropertyChanged(nameof(BootMediaCertificatePfxFileName));
         OnPropertyChanged(nameof(BootMediaCertificateStatusText));
         OnPropertyChanged(nameof(BootMediaCertificateStatusStyle));
         OnPropertyChanged(nameof(IsBootMediaCertificateReady));
@@ -1218,7 +1237,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     private string CreateBootMediaCertificateStatusText()
     {
-        if (string.IsNullOrWhiteSpace(hardwareHashUploadSettings.BootMediaCertificate.PfxPath))
+        if (hardwareHashUploadSettings.BootMediaCertificate.Pfx is null)
         {
             return localizationService.GetString("Autopilot.HardwareHashBootMediaCertificatePfxMissing");
         }
@@ -1276,7 +1295,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         if (IsHardwareHashCertificateExpired ||
             isBootMediaCertificateFileMissing ||
             (hardwareHashUploadSettings.ActiveCertificate is null &&
-             !string.IsNullOrWhiteSpace(hardwareHashUploadSettings.BootMediaCertificate.PfxPath) &&
+             hardwareHashUploadSettings.BootMediaCertificate.Pfx is not null &&
              bootMediaCertificateValidationCode != AutopilotPfxValidationCode.PasswordRequired) ||
             bootMediaCertificateValidationCode is AutopilotPfxValidationCode.InvalidPfx
                 or AutopilotPfxValidationCode.PrivateKeyMissing
@@ -1288,25 +1307,24 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         return (Style)Application.Current.Resources["FoundrySecondaryTextBlockStyle"];
     }
 
-    private void SetBootMediaCertificateInput(string? pfxPath, string? password)
+    /// <summary>
+    /// Validates the selected library PFX with its session password and records both: the PFX and its validation result in
+    /// the configuration, the password in the session state only.
+    /// </summary>
+    private void SetBootMediaCertificateInput(AuthoringFileReference? pfx, string? password)
     {
-        string? normalizedPath = string.IsNullOrWhiteSpace(pfxPath) ? null : pfxPath.Trim();
-        AutopilotBootMediaCertificateSettings bootMediaCertificate = new()
-        {
-            PfxPath = normalizedPath,
-            PfxPassword = password
-        };
+        AutopilotBootMediaCertificateSettings bootMediaCertificate = new() { Pfx = pfx };
 
         isBootMediaCertificateFileMissing = false;
         bootMediaCertificateValidationCode = AutopilotPfxValidationCode.PfxRequired;
-        if (!string.IsNullOrWhiteSpace(normalizedPath))
+        if (pfx is not null)
         {
-            if (File.Exists(normalizedPath))
+            if (authoringFiles.IsAvailable(pfx))
             {
                 try
                 {
                     AutopilotPfxValidationResult validation = AutopilotPfxCertificateValidator.Validate(
-                        File.ReadAllBytes(normalizedPath),
+                        authoringFiles.ReadVerified(pfx),
                         password);
                     bootMediaCertificateValidationCode = validation.Code;
                     if (validation.IsValid)
@@ -1349,6 +1367,10 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
                         }
                     }
                 }
+                catch (InvalidDataException)
+                {
+                    isBootMediaCertificateFileMissing = true;
+                }
                 catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
                 {
                     bootMediaCertificateValidationCode = AutopilotPfxValidationCode.InvalidPfx;
@@ -1364,16 +1386,16 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         {
             BootMediaCertificate = bootMediaCertificate
         };
-        hardwareHashSessionState.BootMediaCertificate = bootMediaCertificate;
+        hardwareHashSessionState.SetBootMediaCertificatePassword(pfx, password);
     }
 
     private void ResetBootMediaCertificateValidationState()
     {
         AutopilotBootMediaCertificateSettings certificate = hardwareHashUploadSettings.BootMediaCertificate;
         isBootMediaCertificateFileMissing = false;
-        bootMediaCertificateValidationCode = string.IsNullOrWhiteSpace(certificate.PfxPath)
+        bootMediaCertificateValidationCode = certificate.Pfx is null
             ? AutopilotPfxValidationCode.PfxRequired
-            : string.IsNullOrWhiteSpace(certificate.PfxPassword)
+            : string.IsNullOrWhiteSpace(GetBootMediaCertificatePassword())
                 ? AutopilotPfxValidationCode.PasswordRequired
                 : string.IsNullOrWhiteSpace(certificate.ValidatedThumbprint)
                     ? AutopilotPfxValidationCode.InvalidPfx
@@ -1403,8 +1425,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
         {
             BootMediaCertificate = new AutopilotBootMediaCertificateSettings()
         };
-        hardwareHashSessionState.BootMediaCertificate = hardwareHashUploadSettings.BootMediaCertificate;
-        OnPropertyChanged(nameof(BootMediaCertificatePfxPath));
+        hardwareHashSessionState.SetBootMediaCertificatePassword(null, null);
+        OnPropertyChanged(nameof(BootMediaCertificatePfxFileName));
     }
 
     private string CreateTenantOnboardingStatusText()

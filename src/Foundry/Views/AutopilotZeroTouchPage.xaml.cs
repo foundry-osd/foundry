@@ -69,7 +69,7 @@ public sealed partial class AutopilotZeroTouchPage : Page
 
     private void OnViewModelPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
-        if (string.Equals(e.PropertyName, nameof(AutopilotConfigurationViewModel.BootMediaCertificatePfxPath), StringComparison.Ordinal))
+        if (string.Equals(e.PropertyName, nameof(AutopilotConfigurationViewModel.BootMediaCertificatePfxFileName), StringComparison.Ordinal))
         {
             SyncBootMediaCertificatePasswordBox();
         }

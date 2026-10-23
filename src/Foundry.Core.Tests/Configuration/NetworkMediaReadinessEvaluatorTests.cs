@@ -4,6 +4,7 @@
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Tests.TestUtilities;
 
 namespace Foundry.Core.Tests.Configuration;
 
@@ -12,7 +13,7 @@ public sealed class NetworkMediaReadinessEvaluatorTests
     [Fact]
     public void Evaluate_WhenNetworkFeaturesAreDisabled_ReturnsReady()
     {
-        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(new NetworkSettings());
+        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(new NetworkSettings(), MediaInputs.None);
 
         Assert.True(evaluation.IsNetworkConfigurationReady);
         Assert.True(evaluation.IsConnectProvisioningReady);
@@ -27,11 +28,11 @@ public sealed class NetworkMediaReadinessEvaluatorTests
             Dot1x = new Dot1xSettings
             {
                 IsEnabled = true,
-                ProfileTemplatePath = @"C:\Missing\wired.xml"
+                ProfileTemplate = TestFileReferences.Detached("wired.xml")
             }
         };
 
-        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(settings);
+        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(settings, MediaInputs.None);
 
         Assert.False(evaluation.IsNetworkConfigurationReady);
         Assert.False(evaluation.IsConnectProvisioningReady);
@@ -49,7 +50,7 @@ public sealed class NetworkMediaReadinessEvaluatorTests
             Dot1x = new Dot1xSettings { IsEnabled = true }
         };
 
-        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(settings);
+        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(settings, MediaInputs.None);
 
         Assert.False(evaluation.IsNetworkConfigurationReady);
         Assert.Equal(NetworkConfigurationValidationCode.WifiProvisioningRequired, evaluation.NetworkConfigurationValidationCode);
@@ -60,7 +61,7 @@ public sealed class NetworkMediaReadinessEvaluatorTests
     {
         NetworkSettings settings = CreatePersonalWifiSettings();
 
-        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(settings);
+        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(settings, MediaInputs.None);
 
         Assert.True(evaluation.IsNetworkConfigurationReady);
         Assert.False(evaluation.IsConnectProvisioningReady);
@@ -72,7 +73,7 @@ public sealed class NetworkMediaReadinessEvaluatorTests
     {
         NetworkSettings settings = CreatePersonalWifiSettings();
 
-        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(settings, "ValidPassphrase123");
+        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(settings, WithPassphrase("ValidPassphrase123"));
 
         Assert.True(evaluation.IsNetworkConfigurationReady);
         Assert.True(evaluation.IsConnectProvisioningReady);
@@ -80,44 +81,19 @@ public sealed class NetworkMediaReadinessEvaluatorTests
     }
 
     [Fact]
-    public void Evaluate_WhenPersonalWifiSecretExistsOnlyOnSettings_ReturnsSecretAndConnectNotReady()
-    {
-        NetworkSettings settings = CreatePersonalWifiSettings() with
-        {
-            Wifi = CreatePersonalWifiSettings().Wifi with
-            {
-                Passphrase = "PersistedPassphrase123"
-            }
-        };
-
-        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(settings);
-
-        Assert.True(evaluation.IsNetworkConfigurationReady);
-        Assert.False(evaluation.IsConnectProvisioningReady);
-        Assert.False(evaluation.AreRequiredSecretsReady);
-    }
-
-    [Fact]
-    public void ApplyRequiredSecrets_WhenPersonalWifiSecretIsValid_ReturnsSettingsWithPassphrase()
-    {
-        NetworkSettings settings = CreatePersonalWifiSettings();
-
-        NetworkSettings result = NetworkMediaReadinessEvaluator.ApplyRequiredSecrets(settings, "ValidPassphrase123");
-
-        Assert.Equal("ValidPassphrase123", result.Wifi.Passphrase);
-    }
-
-    [Fact]
     public void Evaluate_WhenPersonalWifiSecretIsInvalid_ReturnsSecretAndConnectNotReady()
     {
         NetworkSettings settings = CreatePersonalWifiSettings();
 
-        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(settings, "short");
+        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(settings, WithPassphrase("short"));
 
         Assert.True(evaluation.IsNetworkConfigurationReady);
         Assert.False(evaluation.IsConnectProvisioningReady);
         Assert.False(evaluation.AreRequiredSecretsReady);
     }
+
+    private static MediaInputs WithPassphrase(string passphrase) =>
+        MediaInputs.None with { Network = new NetworkSecrets { WifiPassphrase = passphrase } };
 
     private static NetworkSettings CreatePersonalWifiSettings()
     {

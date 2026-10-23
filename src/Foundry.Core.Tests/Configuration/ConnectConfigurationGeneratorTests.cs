@@ -5,6 +5,7 @@
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Tests.TestUtilities;
 using Foundry.Telemetry;
 
 namespace Foundry.Core.Tests.Configuration;
@@ -18,7 +19,7 @@ public sealed class ConnectConfigurationGeneratorTests
     {
         using var tempDirectory = new TemporaryDirectory();
         var generator = new ConnectConfigurationGenerator();
-        FoundryConnectProvisioningBundle bundle = generator.CreateProvisioningBundle(new(), tempDirectory.Path, authoringVersion);
+        FoundryConnectProvisioningBundle bundle = generator.CreateProvisioningBundle(new(), MediaInputs.None, tempDirectory.Path, authoringVersion);
         using JsonDocument bundleJson = JsonDocument.Parse(bundle.ConfigurationJson);
 
         Assert.Equal(authoringVersion, bundle.Configuration.AuthoringVersion);
@@ -40,6 +41,7 @@ public sealed class ConnectConfigurationGeneratorTests
 
         FoundryConnectProvisioningBundle bundle = generator.CreateProvisioningBundle(
             new FoundryConfigurationDocument(),
+            MediaInputs.None,
             tempDirectory.Path);
 
         using JsonDocument document = JsonDocument.Parse(bundle.ConfigurationJson);
@@ -77,6 +79,7 @@ public sealed class ConnectConfigurationGeneratorTests
                     RoamWifiProfileToWindows = false
                 }
             },
+            MediaInputs.None,
             tempDirectory.Path);
 
         Assert.True(result.Network.ProfileRoaming.WiredDot1x.IsEnabled);
@@ -102,6 +105,7 @@ public sealed class ConnectConfigurationGeneratorTests
 
         FoundryConnectConfigurationDocument result = generator.Generate(
             new FoundryConfigurationDocument { Telemetry = telemetry },
+            MediaInputs.None,
             tempDirectory.Path);
 
         Assert.Same(telemetry, result.Telemetry);
@@ -143,9 +147,9 @@ public sealed class ConnectConfigurationGeneratorTests
                     Dot1x = new Dot1xSettings
                     {
                         IsEnabled = true,
-                        ProfileTemplatePath = wiredProfilePath,
+                        ProfileTemplate = TestFileReferences.For(wiredProfilePath),
                         RequiresCertificate = true,
-                        CertificatePath = wiredCertificatePath
+                        Certificate = TestFileReferences.For(wiredCertificatePath)
                     },
                     Wifi = new WifiSettings
                     {
@@ -153,12 +157,13 @@ public sealed class ConnectConfigurationGeneratorTests
                         Ssid = "Corp WiFi",
                         SecurityType = NetworkConfigurationValidator.WifiSecurityEnterpriseWpa3,
                         HasEnterpriseProfile = true,
-                        EnterpriseProfileTemplatePath = wifiProfilePath,
+                        EnterpriseProfileTemplate = TestFileReferences.For(wifiProfilePath),
                         RequiresCertificate = true,
-                        CertificatePath = wifiCertificatePath
+                        Certificate = TestFileReferences.For(wifiCertificatePath)
                     }
                 }
             },
+            SourceInputs(tempDirectory),
             tempDirectory.Path);
 
         AssertAsset(bundle, tempDirectory.Path, @"Network\Wired\Profiles\wired.xml", @"Foundry\Config\Network\Wired\Profiles\wired.xml");
@@ -190,11 +195,11 @@ public sealed class ConnectConfigurationGeneratorTests
                     {
                         IsEnabled = true,
                         Ssid = "Corp WiFi",
-                        SecurityType = NetworkConfigurationValidator.WifiSecurityPersonal,
-                        Passphrase = "super-secret-passphrase"
+                        SecurityType = NetworkConfigurationValidator.WifiSecurityPersonal
                     }
                 }
             },
+            SourceInputs(tempDirectory, new NetworkSecrets { WifiPassphrase = "super-secret-passphrase" }),
             tempDirectory.Path);
 
         using JsonDocument document = JsonDocument.Parse(bundle.ConfigurationJson);
@@ -230,21 +235,21 @@ public sealed class ConnectConfigurationGeneratorTests
                     Dot1x = new Dot1xSettings
                     {
                         IsEnabled = true,
-                        ProfileTemplatePath = tempDirectory.CreateFile("source", "wired.xml", "<LANProfile />"),
+                        ProfileTemplate = TestFileReferences.For(tempDirectory.CreateFile("source", "wired.xml", "<LANProfile />")),
                         RequiresCertificate = false,
-                        CertificatePath = wiredCertificatePath
+                        Certificate = TestFileReferences.For(wiredCertificatePath)
                     },
                     Wifi = new WifiSettings
                     {
                         IsEnabled = true,
                         Ssid = "Corp WiFi",
                         SecurityType = NetworkConfigurationValidator.WifiSecurityPersonal,
-                        Passphrase = "super-secret-passphrase",
                         RequiresCertificate = false,
-                        CertificatePath = wifiCertificatePath
+                        Certificate = TestFileReferences.For(wifiCertificatePath)
                     }
                 }
             },
+            SourceInputs(tempDirectory, new NetworkSecrets { WifiPassphrase = "super-secret-passphrase" }),
             tempDirectory.Path);
 
         AssertAsset(bundle, tempDirectory.Path, @"Network\Certificates\Wired\wired.cer", @"Foundry\Config\Network\Certificates\Wired\wired.cer");
@@ -271,10 +276,9 @@ public sealed class ConnectConfigurationGeneratorTests
                     Dot1x = new Dot1xSettings
                     {
                         IsEnabled = true,
-                        ProfileTemplatePath = tempDirectory.CreateFile("source", "wired.xml", "<LANProfile />"),
+                        ProfileTemplate = TestFileReferences.For(tempDirectory.CreateFile("source", "wired.xml", "<LANProfile />")),
                         RequiresCertificate = true,
-                        CertificatePath = wiredPfxPath,
-                        CertificatePfxPassword = "wired-password"
+                        Certificate = TestFileReferences.For(wiredPfxPath)
                     },
                     Wifi = new WifiSettings
                     {
@@ -282,7 +286,7 @@ public sealed class ConnectConfigurationGeneratorTests
                         Ssid = "Corp WiFi",
                         SecurityType = NetworkConfigurationValidator.WifiSecurityEnterprise,
                         HasEnterpriseProfile = true,
-                        EnterpriseProfileTemplatePath = tempDirectory.CreateFile(
+                        EnterpriseProfileTemplate = TestFileReferences.For(tempDirectory.CreateFile(
                             "source",
                             "wifi.xml",
                             """
@@ -295,13 +299,13 @@ public sealed class ConnectConfigurationGeneratorTests
                                 </security>
                               </MSM>
                             </WLANProfile>
-                            """),
+                            """)),
                         RequiresCertificate = true,
-                        CertificatePath = wifiPfxPath,
-                        CertificatePfxPassword = "wifi-password"
+                        Certificate = TestFileReferences.For(wifiPfxPath)
                     }
                 }
             },
+            SourceInputs(tempDirectory, new NetworkSecrets { WiredCertificatePfxPassword = "wired-password", WifiCertificatePfxPassword = "wifi-password" }),
             tempDirectory.Path);
 
         using JsonDocument document = JsonDocument.Parse(bundle.ConfigurationJson);
@@ -325,6 +329,7 @@ public sealed class ConnectConfigurationGeneratorTests
 
         FoundryConnectProvisioningBundle bundle = generator.CreateProvisioningBundle(
             CreateRuntimeFixtureSource(tempDirectory, enterpriseWifi),
+            SourceInputs(tempDirectory, FixtureSecrets(enterpriseWifi)),
             tempDirectory.Path,
             "26.10.18.1");
 
@@ -341,7 +346,7 @@ public sealed class ConnectConfigurationGeneratorTests
                 Ssid = "Corp WiFi",
                 SecurityType = NetworkConfigurationValidator.WifiSecurityEnterprise,
                 HasEnterpriseProfile = true,
-                EnterpriseProfileTemplatePath = tempDirectory.CreateFile(
+                EnterpriseProfileTemplate = TestFileReferences.For(tempDirectory.CreateFile(
                     "source",
                     "wifi.xml",
                     """
@@ -355,19 +360,17 @@ public sealed class ConnectConfigurationGeneratorTests
                         </security>
                       </MSM>
                     </WLANProfile>
-                    """),
+                    """)),
                 EnterpriseAuthenticationMode = NetworkAuthenticationMode.MachineOrUser,
                 AllowRuntimeCredentials = true,
                 RequiresCertificate = true,
-                CertificatePath = tempDirectory.CreateFile("source", "wifi.pfx", "wifi-pfx"),
-                CertificatePfxPassword = "wifi-password"
+                Certificate = TestFileReferences.For(tempDirectory.CreateFile("source", "wifi.pfx", "wifi-pfx"))
             }
             : new WifiSettings
             {
                 IsEnabled = true,
                 Ssid = "Branch WiFi",
-                SecurityType = "WPA2/WPA3-Personal",
-                Passphrase = "personal-passphrase"
+                SecurityType = "WPA2/WPA3-Personal"
             };
 
         return new FoundryConfigurationDocument
@@ -381,18 +384,28 @@ public sealed class ConnectConfigurationGeneratorTests
                 Dot1x = new Dot1xSettings
                 {
                     IsEnabled = true,
-                    ProfileTemplatePath = tempDirectory.CreateFile("source", "wired.xml", "<LANProfile />"),
+                    ProfileTemplate = TestFileReferences.For(tempDirectory.CreateFile("source", "wired.xml", "<LANProfile />")),
                     AuthenticationMode = NetworkAuthenticationMode.UserOnly,
                     AllowRuntimeCredentials = true,
                     RequiresCertificate = true,
-                    CertificatePath = tempDirectory.CreateFile("source", "wired.pfx", "wired-pfx"),
-                    CertificatePfxPassword = "wired-password"
+                    Certificate = TestFileReferences.For(tempDirectory.CreateFile("source", "wired.pfx", "wired-pfx"))
                 },
                 Wifi = wifi
             },
             Telemetry = new TelemetrySettings { IsEnabled = true, InstallId = "fixture-install" }
         };
     }
+
+    private static NetworkSecrets FixtureSecrets(bool enterpriseWifi) => enterpriseWifi
+        ? new NetworkSecrets { WiredCertificatePfxPassword = "wired-password", WifiCertificatePfxPassword = "wifi-password" }
+        : new NetworkSecrets { WiredCertificatePfxPassword = "wired-password", WifiPassphrase = "personal-passphrase" };
+
+    // References name files created in the "source" folder; the generator reads them through the resolver only.
+    private static MediaInputs SourceInputs(TemporaryDirectory tempDirectory, NetworkSecrets? secrets = null) => new()
+    {
+        ResolveFile = reference => System.IO.Path.Combine(tempDirectory.Path, "source", reference.FileName) is var path && File.Exists(path) ? path : null,
+        Network = secrets ?? new NetworkSecrets()
+    };
 
     // Secret envelopes use a fresh media key and nonce per generation; every other byte must match the fixture.
     private static string NormalizeRuntimeJson(string json) =>

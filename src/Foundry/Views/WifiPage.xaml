@@ -121,7 +121,8 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBox
                                     Width="{ThemeResource FoundryWideInputMinWidth}"
-                                    Text="{x:Bind ViewModel.WifiEnterpriseProfileTemplatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    IsReadOnly="True"
+                                    Text="{x:Bind ViewModel.WifiEnterpriseProfileTemplateFileName, Mode=OneWay}" />
                                 <Button
                                     Grid.Column="1"
                                     MinWidth="{StaticResource FoundryCompactActionMinWidth}"
@@ -158,7 +159,8 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBox
                                     Width="{ThemeResource FoundryWideInputMinWidth}"
-                                    Text="{x:Bind ViewModel.WifiCertificatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    IsReadOnly="True"
+                                    Text="{x:Bind ViewModel.WifiCertificateFileName, Mode=OneWay}" />
                                 <Button
                                     Grid.Column="1"
                                     MinWidth="{StaticResource FoundryCompactActionMinWidth}"

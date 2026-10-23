@@ -154,6 +154,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<MainViewModel>();
         services.AddTransient<GeneralConfigurationViewModel>();
         services.AddSingleton(_ => new Foundry.Core.Services.Images.CustomImageLibraryService(Constants.CustomImagesDirectoryPath));
+        services.AddSingleton(_ => new Foundry.Core.Services.Files.AuthoringFileLibrary(Constants.AuthoringFilesDirectoryPath));
         services.AddSingleton<CustomImageImportDialogService>();
         services.AddTransient<CustomImagesViewModel>();
         services.AddSingleton(_ => new Foundry.Core.Services.Packages.ContentPackageLibraryService(Constants.PostInstallPackagesDirectoryPath, Foundry.Core.Services.Packages.ContentPackageKind.PostInstallation));

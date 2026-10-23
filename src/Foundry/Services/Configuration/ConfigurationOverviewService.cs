@@ -63,7 +63,7 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
             cachedEvaluation = ConfigurationOverviewEvaluator.Evaluate(new ConfigurationOverviewContext
             {
                 Configuration = configuration,
-                EffectiveNetwork = networkSecretStateService.ApplyRequiredSecrets(configuration.Network),
+                NetworkInputs = configurationStateService.MediaInputs,
                 IsWinPeLanguageReady = IsWinPeLanguageReady(configuration.General),
                 IsCustomDriverConfigurationReady = IsCustomDriverConfigurationReady(configuration.General),
                 IsDeploymentProtectionSecretReady = !configuration.General.DeploymentProtection.IsEnabled ||

@@ -8,6 +8,7 @@ using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Media;
 using Foundry.Core.Services.Telemetry;
 using Foundry.Core.Services.WinPe;
+using Foundry.Core.Tests.TestUtilities;
 using Foundry.Telemetry;
 
 namespace Foundry.Core.Tests;
@@ -259,7 +260,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
                     {
                         Id = "private-file-id",
                         DisplayName = "private-file-label",
-                        SourcePath = @"C:\private-file-source.xml",
+                        File = TestFileReferences.Detached("private-file-source.xml"),
                         ContentHash = "private-file-hash"
                     }
                 ]
@@ -458,9 +459,9 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
                 Dot1x = new Dot1xSettings
                 {
                     IsEnabled = true,
-                    ProfileTemplatePath = @"C:\Network\wired.xml",
+                    ProfileTemplate = TestFileReferences.Detached("wired.xml"),
                     RequiresCertificate = true,
-                    CertificatePath = @"C:\Network\wired.cer"
+                    Certificate = TestFileReferences.Detached("wired.cer")
                 },
                 WifiProvisioned = true,
                 Wifi = new WifiSettings
@@ -1082,14 +1083,14 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
                 {
                     IsEnabled = true,
                     RequiresCertificate = false,
-                    CertificatePath = @"C:\Network\wired.cer"
+                    Certificate = TestFileReferences.Detached("wired.cer")
                 },
                 Wifi = new WifiSettings
                 {
                     IsEnabled = true,
                     HasEnterpriseProfile = true,
                     RequiresCertificate = false,
-                    CertificatePath = @"C:\Network\wifi.cer"
+                    Certificate = TestFileReferences.Detached("wifi.cer")
                 }
             }
         };

@@ -2,13 +2,15 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Text.Json.Serialization;
-
 namespace Foundry.Core.Models.Configuration;
 
 /// <summary>
-/// Describes a Wi-Fi profile and related secret/certificate inputs for Foundry.Connect.
+/// Describes a Wi-Fi profile and related certificate inputs for Foundry.Connect.
 /// </summary>
+/// <remarks>
+/// The personal passphrase and the PFX password never enter this record; the network secret state keeps them,
+/// bound to the SSID and to the certificate content hash.
+/// </remarks>
 public sealed record WifiSettings
 {
     /// <summary>
@@ -27,11 +29,6 @@ public sealed record WifiSettings
     public string? SecurityType { get; init; }
 
     /// <summary>
-    /// Gets the plaintext passphrase before it is converted to a secret envelope.
-    /// </summary>
-    public string? Passphrase { get; init; }
-
-    /// <summary>
     /// Gets the encrypted passphrase envelope stored on provisioned media.
     /// </summary>
     public SecretEnvelope? PassphraseSecret { get; init; }
@@ -42,9 +39,9 @@ public sealed record WifiSettings
     public bool HasEnterpriseProfile { get; init; }
 
     /// <summary>
-    /// Gets the source enterprise Wi-Fi XML profile template path.
+    /// Gets the enterprise Wi-Fi XML profile template held in the authoring file library.
     /// </summary>
-    public string? EnterpriseProfileTemplatePath { get; init; }
+    public AuthoringFileReference? EnterpriseProfileTemplate { get; init; }
 
     /// <summary>
     /// Gets the source enterprise authentication mode.
@@ -64,15 +61,9 @@ public sealed record WifiSettings
     public bool RequiresCertificate { get; init; }
 
     /// <summary>
-    /// Gets the optional source certificate path.
+    /// Gets the optional certificate held in the authoring file library.
     /// </summary>
-    public string? CertificatePath { get; init; }
-
-    /// <summary>
-    /// Gets the session-only password for a configured PFX certificate.
-    /// </summary>
-    [JsonIgnore]
-    public string? CertificatePfxPassword { get; init; }
+    public AuthoringFileReference? Certificate { get; init; }
 
     /// <summary>
     /// Gets the encrypted PFX password envelope stored on provisioned media.

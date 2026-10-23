@@ -263,10 +263,11 @@ public sealed class ConnectConfigurationServiceTests
                     Dot1x = new CoreConfiguration.Dot1xSettings
                     {
                         IsEnabled = true,
-                        ProfileTemplatePath = wiredProfilePath
+                        ProfileTemplate = Reference(wiredProfilePath)
                     }
                 }
             },
+            Inputs(tempDirectory.Path),
             tempDirectory.Path).ConfigurationJson;
         string configurationPath = CreateJsonFile(tempDirectory.Path, "core-generated.json", configurationJson);
 
@@ -297,6 +298,7 @@ public sealed class ConnectConfigurationServiceTests
                     RoamWifiProfileToWindows = false
                 }
             },
+            MediaInputs.None,
             tempDirectory.Path).ConfigurationJson;
         string configurationPath = CreateJsonFile(tempDirectory.Path, "core-generated.json", configurationJson);
 
@@ -427,11 +429,11 @@ public sealed class ConnectConfigurationServiceTests
                         {
                             IsEnabled = true,
                             Ssid = "Corp WiFi",
-                            SecurityType = "WPA2/WPA3-Personal",
-                            Passphrase = "super-secret-passphrase"
+                            SecurityType = "WPA2/WPA3-Personal"
                         }
                     }
                 },
+                Inputs(tempDirectory.Path, new NetworkSecrets { WifiPassphrase = "super-secret-passphrase" }),
                 tempDirectory.Path, "26.10.3.1");
         Assert.NotNull(bundle.MediaSecretsKey);
         Assert.DoesNotContain("super-secret-passphrase", bundle.ConfigurationJson, StringComparison.Ordinal);
@@ -465,10 +467,9 @@ public sealed class ConnectConfigurationServiceTests
                         Dot1x = new CoreConfiguration.Dot1xSettings
                         {
                             IsEnabled = true,
-                            ProfileTemplatePath = CreateFile(tempDirectory.Path, "wired.xml", "<LANProfile />"),
+                            ProfileTemplate = Reference(CreateFile(tempDirectory.Path, "wired.xml", "<LANProfile />")),
                             RequiresCertificate = true,
-                            CertificatePath = CreateFile(tempDirectory.Path, "wired.pfx", "wired-pfx"),
-                            CertificatePfxPassword = "wired-password"
+                            Certificate = Reference(CreateFile(tempDirectory.Path, "wired.pfx", "wired-pfx"))
                         },
                         Wifi = new CoreConfiguration.WifiSettings
                         {
@@ -476,7 +477,7 @@ public sealed class ConnectConfigurationServiceTests
                             Ssid = "Corp WiFi",
                             SecurityType = NetworkConfigurationValidator.WifiSecurityEnterprise,
                             HasEnterpriseProfile = true,
-                            EnterpriseProfileTemplatePath = CreateFile(
+                            EnterpriseProfileTemplate = Reference(CreateFile(
                                 tempDirectory.Path,
                                 "wifi.xml",
                                 """
@@ -489,13 +490,13 @@ public sealed class ConnectConfigurationServiceTests
                                     </security>
                                   </MSM>
                                 </WLANProfile>
-                                """),
+                                """)),
                             RequiresCertificate = true,
-                            CertificatePath = CreateFile(tempDirectory.Path, "wifi.pfx", "wifi-pfx"),
-                            CertificatePfxPassword = "wifi-password"
+                            Certificate = Reference(CreateFile(tempDirectory.Path, "wifi.pfx", "wifi-pfx"))
                         }
                     }
                 },
+                Inputs(tempDirectory.Path, new NetworkSecrets { WiredCertificatePfxPassword = "wired-password", WifiCertificatePfxPassword = "wifi-password" }),
                 tempDirectory.Path);
         Assert.NotNull(bundle.MediaSecretsKey);
         Assert.DoesNotContain("wired-password", bundle.ConfigurationJson, StringComparison.Ordinal);
@@ -532,11 +533,11 @@ public sealed class ConnectConfigurationServiceTests
                         {
                             IsEnabled = true,
                             Ssid = "Corp WiFi",
-                            SecurityType = "WPA2/WPA3-Personal",
-                            Passphrase = "super-secret-passphrase"
+                            SecurityType = "WPA2/WPA3-Personal"
                         }
                     }
                 },
+                Inputs(tempDirectory.Path, new NetworkSecrets { WifiPassphrase = "super-secret-passphrase" }),
                 tempDirectory.Path);
         string configDirectory = System.IO.Path.Combine(tempDirectory.Path, "Config");
         Directory.CreateDirectory(configDirectory);
@@ -631,6 +632,24 @@ public sealed class ConnectConfigurationServiceTests
         return filePath;
     }
 
+    private static CoreConfiguration.AuthoringFileReference Reference(string path)
+    {
+        byte[] content = File.ReadAllBytes(path);
+        return new CoreConfiguration.AuthoringFileReference
+        {
+            ContentHash = Convert.ToHexStringLower(System.Security.Cryptography.SHA256.HashData(content)),
+            FileName = System.IO.Path.GetFileName(path),
+            Length = content.Length
+        };
+    }
+
+    // Referenced files are created in the staging directory; the generator reads them through this resolver only.
+    private static MediaInputs Inputs(string directory, NetworkSecrets? secrets = null) => new()
+    {
+        ResolveFile = reference => System.IO.Path.Combine(directory, reference.FileName) is var path && File.Exists(path) ? path : null,
+        Network = secrets ?? new NetworkSecrets()
+    };
+
     private static Foundry.Core.Models.Configuration.FoundryConnectProvisioningBundle CreatePersonalWifiProvisioningBundle(string stagingDirectoryPath)
     {
         return new ConnectConfigurationGenerator().CreateProvisioningBundle(
@@ -643,11 +662,11 @@ public sealed class ConnectConfigurationServiceTests
                     {
                         IsEnabled = true,
                         Ssid = "Corp WiFi",
-                        SecurityType = "WPA2/WPA3-Personal",
-                        Passphrase = "super-secret-passphrase"
+                        SecurityType = "WPA2/WPA3-Personal"
                     }
                 }
             },
+            Inputs(stagingDirectoryPath, new NetworkSecrets { WifiPassphrase = "super-secret-passphrase" }),
             stagingDirectoryPath);
     }
 

@@ -220,7 +220,7 @@
                                     Width="{ThemeResource FoundryWideInputMinWidth}"
                                     Header="{x:Bind ViewModel.BootMediaCertificatePfxPathLabel, Mode=OneWay}"
                                     IsReadOnly="True"
-                                    Text="{x:Bind ViewModel.BootMediaCertificatePfxPath, Mode=OneWay}" />
+                                    Text="{x:Bind ViewModel.BootMediaCertificatePfxFileName, Mode=OneWay}" />
                                 <Button
                                     Grid.Column="1"
                                     MinWidth="{StaticResource FoundryCompactActionMinWidth}"

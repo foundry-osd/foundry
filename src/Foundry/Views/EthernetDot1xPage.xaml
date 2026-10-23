@@ -47,7 +47,8 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBox
                                     Width="{ThemeResource FoundryWideInputMinWidth}"
-                                    Text="{x:Bind ViewModel.Dot1xProfileTemplatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    IsReadOnly="True"
+                                    Text="{x:Bind ViewModel.Dot1xProfileTemplateFileName, Mode=OneWay}" />
                                 <Button
                                     Grid.Column="1"
                                     MinWidth="{StaticResource FoundryCompactActionMinWidth}"
@@ -82,7 +83,8 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBox
                                     Width="{ThemeResource FoundryWideInputMinWidth}"
-                                    Text="{x:Bind ViewModel.Dot1xCertificatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    IsReadOnly="True"
+                                    Text="{x:Bind ViewModel.Dot1xCertificateFileName, Mode=OneWay}" />
                                 <Button
                                     Grid.Column="1"
                                     MinWidth="{StaticResource FoundryCompactActionMinWidth}"

@@ -7,6 +7,7 @@ using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.WinPe;
+using Foundry.Core.Tests.TestUtilities;
 using Foundry.Telemetry;
 using System.Text.Json;
 
@@ -176,7 +177,7 @@ public sealed class DeployConfigurationGeneratorTests
             }
         };
 
-        var result = new DeployConfigurationGenerator().Generate(document);
+        var result = new DeployConfigurationGenerator().Generate(document, null, null, null, null, SessionPfxPassword);
         Assert.Equal(expected, result.Customization.MachineNaming.UploadComputerNameToAutopilot);
     }
 
@@ -1250,7 +1251,7 @@ public sealed class DeployConfigurationGeneratorTests
             }
         };
 
-        var result = generator.Generate(document);
+        var result = generator.Generate(document, null, null, null, null, SessionPfxPassword);
 
         Assert.True(result.Autopilot.IsEnabled);
         Assert.Equal(AutopilotProvisioningMode.HardwareHashUpload, result.Autopilot.ProvisioningMode);
@@ -1319,7 +1320,7 @@ public sealed class DeployConfigurationGeneratorTests
             }
         };
 
-        var result = generator.Generate(document);
+        var result = generator.Generate(document, null, null, null, null, SessionPfxPassword);
 
         Assert.Equal("KIOSK", result.Autopilot.HardwareHashUpload.DefaultGroupTag);
     }
@@ -1347,8 +1348,7 @@ public sealed class DeployConfigurationGeneratorTests
                     {
                         BootMediaCertificate = new AutopilotBootMediaCertificateSettings
                         {
-                            PfxPath = pfxPath,
-                            PfxPassword = "PfxPassword-DoNotLeak",
+                            Pfx = TestFileReferences.For(pfxPath),
                             ValidatedThumbprint = "ABCDEF123456",
                             ValidatedExpiresOnUtc = DateTimeOffset.UtcNow.AddMonths(6)
                         }
@@ -1356,7 +1356,8 @@ public sealed class DeployConfigurationGeneratorTests
                 }
             };
 
-            FoundryDeployConfigurationDocument result = generator.Generate(document, mediaKey);
+            FoundryDeployConfigurationDocument result = generator.Generate(
+                document, mediaKey, null, null, null, TestFileReferences.Resolving(pfxPath) with { AutopilotPfxPassword = "PfxPassword-DoNotLeak" });
 
             Assert.NotNull(result.Autopilot.HardwareHashUpload.CertificatePfxSecret);
             Assert.NotNull(result.Autopilot.HardwareHashUpload.CertificatePfxPasswordSecret);
@@ -1404,8 +1405,7 @@ public sealed class DeployConfigurationGeneratorTests
                     {
                         BootMediaCertificate = new AutopilotBootMediaCertificateSettings
                         {
-                            PfxPath = pfxPath,
-                            PfxPassword = "password",
+                            Pfx = TestFileReferences.For(pfxPath),
                             ValidatedThumbprint = "ABCDEF123456",
                             ValidatedExpiresOnUtc = DateTimeOffset.UtcNow.AddMonths(6)
                         }
@@ -1413,7 +1413,8 @@ public sealed class DeployConfigurationGeneratorTests
                 }
             };
 
-            InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => generator.Generate(document, []));
+            InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => generator.Generate(
+                document, [], null, null, null, TestFileReferences.Resolving(pfxPath) with { AutopilotPfxPassword = "password" }));
             Assert.Contains("Deploy secret key", exception.Message, StringComparison.OrdinalIgnoreCase);
         }
         finally
@@ -1490,6 +1491,9 @@ public sealed class DeployConfigurationGeneratorTests
         };
     }
 
+    // The boot media PFX password lives in the session state, never in the configuration.
+    private static readonly MediaInputs SessionPfxPassword = new() { AutopilotPfxPassword = "correct-password" };
+
     private static AutopilotHardwareHashUploadSettings CreateCompleteHardwareHashSettings(DateTimeOffset expiration)
     {
         return new AutopilotHardwareHashUploadSettings
@@ -1510,8 +1514,7 @@ public sealed class DeployConfigurationGeneratorTests
             },
             BootMediaCertificate = new AutopilotBootMediaCertificateSettings
             {
-                PfxPath = @"E:\Secrets\foundry-osd-autopilot-registration.pfx",
-                PfxPassword = "correct-password",
+                Pfx = TestFileReferences.Detached("foundry-osd-autopilot-registration.pfx"),
                 ValidatedThumbprint = "ABCDEF123456",
                 ValidatedExpiresOnUtc = expiration
             },

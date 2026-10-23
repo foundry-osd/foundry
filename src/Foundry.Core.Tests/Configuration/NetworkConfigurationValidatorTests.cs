@@ -4,6 +4,7 @@
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Tests.TestUtilities;
 
 namespace Foundry.Core.Tests.Configuration;
 
@@ -20,10 +21,10 @@ public sealed class NetworkConfigurationValidatorTests
                 {
                     IsEnabled = true,
                     Ssid = "CorpWiFi",
-                    SecurityType = NetworkConfigurationValidator.WifiSecurityPersonal,
-                    Passphrase = "short"
+                    SecurityType = NetworkConfigurationValidator.WifiSecurityPersonal
                 }
-            });
+            },
+            MediaInputs.None with { Network = new NetworkSecrets { WifiPassphrase = "short" } });
 
         Assert.Equal(NetworkConfigurationValidationCode.WifiPersonalPassphraseInvalid, result.Code);
     }
@@ -57,9 +58,10 @@ public sealed class NetworkConfigurationValidatorTests
                     Ssid = "CorpWiFi",
                     SecurityType = NetworkConfigurationValidator.WifiSecurityEnterpriseWpa3192,
                     HasEnterpriseProfile = true,
-                    EnterpriseProfileTemplatePath = profilePath
+                    EnterpriseProfileTemplate = TestFileReferences.For(profilePath)
                 }
-            });
+            },
+            TestFileReferences.Resolving(profilePath));
 
         Assert.Equal(NetworkConfigurationValidationCode.WifiEnterpriseAuthenticationMismatch, result.Code);
         Assert.Equal(NetworkConfigurationValidator.WifiSecurityEnterpriseWpa3, result.FormatArguments.Single());
@@ -78,10 +80,11 @@ public sealed class NetworkConfigurationValidatorTests
                 Dot1x = new Dot1xSettings
                 {
                     IsEnabled = true,
-                    ProfileTemplatePath = profilePath,
+                    ProfileTemplate = TestFileReferences.For(profilePath),
                     RequiresCertificate = true
                 }
-            });
+            },
+            TestFileReferences.Resolving(profilePath));
 
         Assert.Equal(NetworkConfigurationValidationCode.WiredCertificateRequired, result.Code);
     }
@@ -89,17 +92,16 @@ public sealed class NetworkConfigurationValidatorTests
     [Fact]
     public void Validate_WhenWiredProfilePathDoesNotExist_ReturnsWiredProfileTemplateMissing()
     {
-        using var tempDirectory = new TemporaryDirectory();
-
         NetworkConfigurationValidationResult result = NetworkConfigurationValidator.Validate(
             new NetworkSettings
             {
                 Dot1x = new Dot1xSettings
                 {
                     IsEnabled = true,
-                    ProfileTemplatePath = Path.Combine(tempDirectory.Path, "missing.xml")
+                    ProfileTemplate = TestFileReferences.Detached("missing.xml")
                 }
-            });
+            },
+            MediaInputs.None);
 
         Assert.Equal(NetworkConfigurationValidationCode.WiredProfileTemplateMissing, result.Code);
     }
@@ -117,10 +119,11 @@ public sealed class NetworkConfigurationValidatorTests
                 Dot1x = new Dot1xSettings
                 {
                     IsEnabled = true,
-                    ProfileTemplatePath = profilePath,
-                    CertificatePath = Path.Combine(tempDirectory.Path, "missing.cer")
+                    ProfileTemplate = TestFileReferences.For(profilePath),
+                    Certificate = TestFileReferences.Detached("missing.cer")
                 }
-            });
+            },
+            TestFileReferences.Resolving(profilePath));
 
         Assert.Equal(NetworkConfigurationValidationCode.WiredCertificateMissing, result.Code);
     }
@@ -154,32 +157,13 @@ public sealed class NetworkConfigurationValidatorTests
                     Ssid = "CorpWiFi",
                     SecurityType = NetworkConfigurationValidator.WifiSecurityEnterprise,
                     HasEnterpriseProfile = true,
-                    EnterpriseProfileTemplatePath = profilePath,
-                    CertificatePath = Path.Combine(tempDirectory.Path, "missing.cer")
+                    EnterpriseProfileTemplate = TestFileReferences.For(profilePath),
+                    Certificate = TestFileReferences.Detached("missing.cer")
                 }
-            });
+            },
+            TestFileReferences.Resolving(profilePath));
 
         Assert.Equal(NetworkConfigurationValidationCode.WifiEnterpriseCertificateMissing, result.Code);
-    }
-
-    [Fact]
-    public void SanitizeForPersistence_RemovesPlaintextWifiPassphrase()
-    {
-        NetworkSettings settings = new()
-        {
-            WifiProvisioned = true,
-            Wifi = new WifiSettings
-            {
-                IsEnabled = true,
-                Ssid = "CorpWiFi",
-                SecurityType = NetworkConfigurationValidator.WifiSecurityPersonal,
-                Passphrase = "supersecret"
-            }
-        };
-
-        NetworkSettings sanitized = NetworkConfigurationValidator.SanitizeForPersistence(settings);
-
-        Assert.Null(sanitized.Wifi.Passphrase);
     }
 
     [Theory]

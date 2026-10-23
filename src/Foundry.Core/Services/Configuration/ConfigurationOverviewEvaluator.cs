@@ -63,9 +63,9 @@ public sealed record ConfigurationOverviewContext
     public required FoundryConfigurationDocument Configuration { get; init; }
 
     /// <summary>
-    /// Gets the network configuration after applying session-only secrets.
+    /// Gets where referenced network files can be read and the session-only network passwords.
     /// </summary>
-    public required NetworkSettings EffectiveNetwork { get; init; }
+    public required MediaInputs NetworkInputs { get; init; }
 
     /// <summary>
     /// Gets a value indicating whether the selected WinPE language is available.
@@ -200,10 +200,10 @@ public static class ConfigurationOverviewEvaluator
             [ConfigurationOverviewItem.DriverOptions] = EvaluateDrivers(general, context.IsCustomDriverConfigurationReady),
             [ConfigurationOverviewItem.EthernetDot1x] = EvaluateNetworkTransport(
                 configuration.Network.Dot1x.IsEnabled,
-                CreateEthernetOnlyNetwork(context.EffectiveNetwork)),
+                CreateEthernetOnlyNetwork(configuration.Network), context.NetworkInputs),
             [ConfigurationOverviewItem.Wifi] = EvaluateNetworkTransport(
                 configuration.Network.WifiProvisioned,
-                CreateWifiOnlyNetwork(context.EffectiveNetwork)),
+                CreateWifiOnlyNetwork(configuration.Network), context.NetworkInputs),
             [ConfigurationOverviewItem.OperatingSystemSelection] = EvaluateOptionalFeature(
                 configuration.OperatingSystemSelection.IsEnabled),
             [ConfigurationOverviewItem.MachineNaming] = EvaluateMachineNaming(customization.MachineNaming),
@@ -275,10 +275,10 @@ public static class ConfigurationOverviewEvaluator
     private static ConfigurationOverviewState EvaluateOptionalFeature(bool isEnabled) =>
         isEnabled ? ConfigurationOverviewState.Configured : ConfigurationOverviewState.Disabled;
 
-    private static ConfigurationOverviewState EvaluateNetworkTransport(bool isEnabled, NetworkSettings settings) =>
+    private static ConfigurationOverviewState EvaluateNetworkTransport(bool isEnabled, NetworkSettings settings, MediaInputs inputs) =>
         !isEnabled
             ? ConfigurationOverviewState.NotConfigured
-            : NetworkConfigurationValidator.Validate(settings).IsValid
+            : NetworkConfigurationValidator.Validate(settings, inputs).IsValid
                 ? ConfigurationOverviewState.Configured
                 : ConfigurationOverviewState.NeedsAttention;
 

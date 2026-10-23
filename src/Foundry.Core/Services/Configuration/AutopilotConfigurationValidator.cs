@@ -16,10 +16,11 @@ public static class AutopilotConfigurationValidator
     /// </summary>
     /// <param name="settings">Autopilot settings to evaluate.</param>
     /// <param name="currentTimeUtc">Current UTC time used for certificate expiration checks.</param>
+    /// <param name="hasBootMediaPfxPassword">Whether the session holds the password of the boot media PFX.</param>
     /// <returns><see langword="true"/> when the selected Autopilot mode is ready for output.</returns>
-    public static bool IsReady(AutopilotSettings settings, DateTimeOffset currentTimeUtc)
+    public static bool IsReady(AutopilotSettings settings, DateTimeOffset currentTimeUtc, bool hasBootMediaPfxPassword)
     {
-        return Evaluate(settings, currentTimeUtc).IsReady;
+        return Evaluate(settings, currentTimeUtc, hasBootMediaPfxPassword).IsReady;
     }
 
     /// <summary>
@@ -27,8 +28,9 @@ public static class AutopilotConfigurationValidator
     /// </summary>
     /// <param name="settings">Autopilot settings to evaluate.</param>
     /// <param name="currentTimeUtc">Current UTC time used for certificate expiration checks.</param>
+    /// <param name="hasBootMediaPfxPassword">Whether the session holds the password of the boot media PFX; it never enters the settings.</param>
     /// <returns>The Autopilot validation result.</returns>
-    public static AutopilotConfigurationValidationResult Evaluate(AutopilotSettings settings, DateTimeOffset currentTimeUtc)
+    public static AutopilotConfigurationValidationResult Evaluate(AutopilotSettings settings, DateTimeOffset currentTimeUtc, bool hasBootMediaPfxPassword)
     {
         ArgumentNullException.ThrowIfNull(settings);
 
@@ -42,13 +44,13 @@ public static class AutopilotConfigurationValidator
             AutopilotProvisioningMode.JsonProfile => GetSelectedJsonProfile(settings) is not null
                 ? AutopilotConfigurationValidationResult.Ready(AutopilotConfigurationValidationCode.Ready)
                 : AutopilotConfigurationValidationResult.Blocked(AutopilotConfigurationValidationCode.JsonProfileMissing),
-            AutopilotProvisioningMode.HardwareHashUpload => EvaluateHardwareHashUpload(settings.HardwareHashUpload, currentTimeUtc),
+            AutopilotProvisioningMode.HardwareHashUpload => EvaluateHardwareHashUpload(settings.HardwareHashUpload, currentTimeUtc, hasBootMediaPfxPassword),
             AutopilotProvisioningMode.InteractiveHardwareHashUpload => AutopilotConfigurationValidationResult.Ready(AutopilotConfigurationValidationCode.Ready),
             _ => AutopilotConfigurationValidationResult.Blocked(AutopilotConfigurationValidationCode.UnsupportedProvisioningMode)
         };
     }
 
-    internal static void ThrowIfNotReady(AutopilotSettings settings, DateTimeOffset currentTimeUtc)
+    internal static void ThrowIfNotReady(AutopilotSettings settings, DateTimeOffset currentTimeUtc, bool hasBootMediaPfxPassword)
     {
         ArgumentNullException.ThrowIfNull(settings);
 
@@ -63,7 +65,7 @@ public static class AutopilotConfigurationValidator
         }
 
         if (settings.ProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload &&
-            !EvaluateHardwareHashUpload(settings.HardwareHashUpload, currentTimeUtc).IsReady)
+            !EvaluateHardwareHashUpload(settings.HardwareHashUpload, currentTimeUtc, hasBootMediaPfxPassword).IsReady)
         {
             throw new InvalidOperationException("Autopilot hardware hash upload mode requires complete tenant metadata and a validated unexpired PFX matching the active certificate.");
         }
@@ -87,7 +89,8 @@ public static class AutopilotConfigurationValidator
 
     private static AutopilotConfigurationValidationResult EvaluateHardwareHashUpload(
         AutopilotHardwareHashUploadSettings? settings,
-        DateTimeOffset currentTimeUtc)
+        DateTimeOffset currentTimeUtc,
+        bool hasBootMediaPfxPassword)
     {
         if (settings?.Tenant is null)
         {
@@ -114,7 +117,7 @@ public static class AutopilotConfigurationValidator
             return AutopilotConfigurationValidationResult.Blocked(AutopilotConfigurationValidationCode.HardwareHashServicePrincipalMissing);
         }
 
-        AutopilotConfigurationValidationResult bootMediaResult = EvaluateBootMediaCertificate(settings, currentTimeUtc);
+        AutopilotConfigurationValidationResult bootMediaResult = EvaluateBootMediaCertificate(settings, currentTimeUtc, hasBootMediaPfxPassword);
         if (!bootMediaResult.IsReady)
         {
             return bootMediaResult;
@@ -145,16 +148,17 @@ public static class AutopilotConfigurationValidator
 
     private static AutopilotConfigurationValidationResult EvaluateBootMediaCertificate(
         AutopilotHardwareHashUploadSettings settings,
-        DateTimeOffset currentTimeUtc)
+        DateTimeOffset currentTimeUtc,
+        bool hasBootMediaPfxPassword)
     {
         AutopilotBootMediaCertificateSettings bootMediaCertificate = settings.BootMediaCertificate;
 
-        if (string.IsNullOrWhiteSpace(bootMediaCertificate.PfxPath))
+        if (bootMediaCertificate.Pfx is null)
         {
             return AutopilotConfigurationValidationResult.Blocked(AutopilotConfigurationValidationCode.HardwareHashBootMediaPfxMissing);
         }
 
-        if (string.IsNullOrWhiteSpace(bootMediaCertificate.PfxPassword))
+        if (!hasBootMediaPfxPassword)
         {
             return AutopilotConfigurationValidationResult.Blocked(AutopilotConfigurationValidationCode.HardwareHashBootMediaPfxPasswordMissing);
         }

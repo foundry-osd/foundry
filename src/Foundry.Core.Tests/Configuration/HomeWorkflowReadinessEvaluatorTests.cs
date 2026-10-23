@@ -77,7 +77,7 @@ public sealed class HomeWorkflowReadinessEvaluatorTests
     private static ConfigurationOverviewContext CreateContext(FoundryConfigurationDocument configuration) => new()
     {
         Configuration = configuration,
-        EffectiveNetwork = configuration.Network,
+        NetworkInputs = MediaInputs.None,
         IsWinPeLanguageReady = true,
         IsCustomDriverConfigurationReady = true,
         IsDeploymentProtectionSecretReady = true,

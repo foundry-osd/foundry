@@ -529,7 +529,7 @@ public sealed class ConfigurationOverviewEvaluatorTests
         return new ConfigurationOverviewContext
         {
             Configuration = configuration,
-            EffectiveNetwork = configuration.Network,
+            NetworkInputs = MediaInputs.None,
             IsWinPeLanguageReady = true,
             IsCustomDriverConfigurationReady = true,
             IsDeploymentProtectionSecretReady = true,

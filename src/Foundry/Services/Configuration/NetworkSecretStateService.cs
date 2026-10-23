@@ -7,9 +7,6 @@ using Foundry.Core.Services.Configuration;
 
 namespace Foundry.Services.Configuration;
 
-/// <summary>
-/// Holds volatile network secrets that are required during provisioning but should not be saved to disk.
-/// </summary>
 internal sealed class NetworkSecretStateService : INetworkSecretStateService
 {
     private readonly NetworkSecretState state = new();
@@ -20,10 +17,10 @@ internal sealed class NetworkSecretStateService : INetworkSecretStateService
     public string? PersonalWifiPassphrase => state.PersonalWifiPassphrase;
 
     /// <inheritdoc />
-    public void Update(NetworkSettings settings)
+    public void Update(NetworkSettings settings, NetworkSecrets? entered = null)
     {
         string? previousPassphrase = state.PersonalWifiPassphrase;
-        state.Update(settings);
+        state.Update(settings, entered);
         RaiseChangedIfNeeded(previousPassphrase);
     }
 
@@ -36,9 +33,9 @@ internal sealed class NetworkSecretStateService : INetworkSecretStateService
     }
 
     /// <inheritdoc />
-    public NetworkSettings ApplyRequiredSecrets(NetworkSettings settings)
+    public NetworkSecrets GetSecrets(NetworkSettings settings)
     {
-        return state.ApplyRequiredSecrets(settings);
+        return state.GetSecrets(settings);
     }
 
     private void RaiseChangedIfNeeded(string? previousPassphrase)

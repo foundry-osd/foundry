@@ -5,6 +5,7 @@
 using System.Text;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.Files;
 using Foundry.Core.Tests.TestUtilities;
 
 namespace Foundry.Core.Tests.Configuration;
@@ -227,22 +228,27 @@ public sealed class UnattendFileServiceTests
     }
 
     [Fact]
-    public void Import_PreservesExactBytesIncludingExtensionsAndDetectsSourceChange()
+    public void Import_StoresExactBytesInLibraryAndRejectsBytesThatDoNotMatchTheDigest()
     {
         using var directory = new TemporaryDirectory();
         string path = Path.Combine(directory.Path, "answer.xml");
         byte[] content = Encoding.Unicode.GetPreamble().Concat(Encoding.Unicode.GetBytes(
             "<?xml version='1.0' encoding='utf-16'?>" + Encoding.UTF8.GetString(Xml(Settings("<ComputerName>PC</ComputerName>") + "<Extensions xmlns='urn:extensions'><Script><![CDATA[secret < value]]></Script></Extensions>")))).ToArray();
         File.WriteAllBytes(path, content);
+        var library = new AuthoringFileLibrary(Path.Combine(directory.Path, "library"));
 
-        UnattendFileSettings file = UnattendFileService.Import(path);
+        UnattendFileSettings file = UnattendFileService.Import(path, library);
+        File.Delete(path);
 
-        Assert.Equal(content, UnattendFileService.ReadValidated(file));
+        Assert.Equal(content, UnattendFileService.ReadValidated(file, library.GetAvailablePath(file.File!)));
         Assert.Equal("answer.xml", file.DisplayName);
+        Assert.Equal("answer.xml", file.File!.FileName);
+        Assert.Equal(file.ContentHash, file.File.ContentHash);
         Assert.Equal(32, file.Id.Length);
         Assert.Equal(64, file.ContentHash.Length);
-        File.WriteAllBytes(path, Xml(Settings("<ComputerName>CHANGED</ComputerName>")));
-        Assert.Throws<InvalidDataException>(() => UnattendFileService.ReadValidated(file));
+        string changed = Path.Combine(directory.Path, "changed.xml");
+        File.WriteAllBytes(changed, Xml(Settings("<ComputerName>CHANGED</ComputerName>")));
+        Assert.Throws<InvalidDataException>(() => UnattendFileService.ReadValidated(file, changed));
     }
 
     [Fact]
@@ -251,16 +257,27 @@ public sealed class UnattendFileServiceTests
         using var directory = new TemporaryDirectory();
         string path = Path.Combine(directory.Path, "private-answer.xml");
         File.WriteAllBytes(path, Xml(Settings("<ComputerName>PC</ComputerName>")));
-        UnattendFileSettings file = UnattendFileService.Import(path);
+        UnattendFileSettings file = UnattendFileService.Import(path, new AuthoringFileLibrary(Path.Combine(directory.Path, "library")));
         File.Delete(path);
-        InvalidOperationException error = Assert.Throws<InvalidOperationException>(() => UnattendFileService.ReadValidated(file));
+        InvalidOperationException error = Assert.Throws<InvalidOperationException>(() => UnattendFileService.ReadValidated(file, path));
         Assert.DoesNotContain(path, error.ToString());
+        Assert.Throws<InvalidOperationException>(() => UnattendFileService.ReadValidated(file, null));
+        Assert.Throws<InvalidOperationException>(() => UnattendFileService.ReadValidated(file with { File = null }, path));
         using (var stream = File.Create(path))
         {
             stream.SetLength((4 * 1024 * 1024) + 1);
         }
 
-        Assert.Throws<InvalidDataException>(() => UnattendFileService.ReadValidated(file));
+        Assert.Throws<InvalidDataException>(() => UnattendFileService.ReadValidated(file, path));
+    }
+
+    [Fact]
+    public void ValidateSettings_RejectsLibraryFileWhoseHashDiffersFromDigest()
+    {
+        UnattendFileSettings file = Metadata() with { File = TestFileReferences.Detached("answer.xml") };
+
+        Assert.Throws<InvalidOperationException>(() => UnattendFileService.ValidateSettings(Catalog(file), true));
+        UnattendFileService.ValidateSettings(Catalog(file with { ContentHash = file.File!.ContentHash }), true);
     }
 
     [Fact]
@@ -303,7 +320,7 @@ public sealed class UnattendFileServiceTests
     public void ValidateSettings_RejectsLabelsThatRuntimeCannotDisplay(string displayName)
     {
         Assert.Throws<InvalidOperationException>(() => UnattendFileService.ValidateSettings(Catalog(Metadata() with { DisplayName = displayName }), true));
-        Assert.Throws<InvalidDataException>(() => UnattendFileService.ReadValidated(Metadata() with { DisplayName = displayName }));
+        Assert.Throws<InvalidDataException>(() => UnattendFileService.ReadValidated(Metadata() with { DisplayName = displayName }, "answer.xml"));
     }
 
     [Fact]
@@ -320,13 +337,13 @@ public sealed class UnattendFileServiceTests
         string path = Path.Combine(directory.Path, new string('a', 201) + ".xml");
         File.WriteAllBytes(path, Xml(Settings("<ComputerName>PC</ComputerName>")));
 
-        UnattendFileSettings file = UnattendFileService.Import(path);
+        UnattendFileSettings file = UnattendFileService.Import(path, new AuthoringFileLibrary(Path.Combine(directory.Path, "library")));
 
         Assert.Equal(new string('a', 200), file.DisplayName);
         UnattendFileService.ValidateSettings(Catalog(file), true);
     }
 
-    private static UnattendFileSettings Metadata() => new() { Id = new string('a', 32), DisplayName = "Answer", SourcePath = "answer.xml", ContentHash = new string('a', 64) };
+    private static UnattendFileSettings Metadata() => new() { Id = new string('a', 32), DisplayName = "Answer", ContentHash = new string('a', 64) };
 
     private static UnattendSettings Catalog(params UnattendFileSettings[] files) => new() { IsEnabled = true, Files = files };
 

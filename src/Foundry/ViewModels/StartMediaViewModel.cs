@@ -52,7 +52,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IFilePickerService filePickerService;
     private readonly IFoundryConfigurationStateService foundryConfigurationStateService;
     private readonly IConfigurationOverviewService configurationOverviewService;
-    private readonly INetworkSecretStateService networkSecretStateService;
     private readonly ITelemetryService telemetryService;
     private readonly IOperationProgressService operationProgressService;
     private readonly IShellNavigationGuardService shellNavigationGuardService;
@@ -100,7 +99,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IFilePickerService filePickerService,
         IFoundryConfigurationStateService foundryConfigurationStateService,
         IConfigurationOverviewService configurationOverviewService,
-        INetworkSecretStateService networkSecretStateService,
         ITelemetryService telemetryService,
         IOperationProgressService operationProgressService,
         IShellNavigationGuardService shellNavigationGuardService,
@@ -130,7 +128,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.filePickerService = filePickerService;
         this.foundryConfigurationStateService = foundryConfigurationStateService;
         this.configurationOverviewService = configurationOverviewService;
-        this.networkSecretStateService = networkSecretStateService;
         this.telemetryService = telemetryService;
         this.operationProgressService = operationProgressService;
         this.shellNavigationGuardService = shellNavigationGuardService;
@@ -1630,6 +1627,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             DeploymentSecretsKey = deploymentProtectionMaterial.DeploymentKey,
             IsDeploymentProtectionEnabled = deploymentProtectionMaterial.Settings.IsEnabled,
             Unattend = snapshot.Configuration.Unattend,
+            UnattendSourcePaths = snapshot.UnattendSourcePaths,
             FoundryConnectAssetFiles = connectBundle.AssetFiles,
             AutopilotProvisioningMode = options.IsAutopilotEnabled
                 ? options.AutopilotProvisioningMode
@@ -2396,14 +2394,14 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         ConfigurationOverviewEvaluation overview)
     {
         FoundryConfigurationDocument configuration = foundryConfigurationStateService.Current;
-        NetworkSettings effectiveNetwork = networkSecretStateService.ApplyRequiredSecrets(configuration.Network);
+        MediaInputs mediaInputs = foundryConfigurationStateService.MediaInputs;
 
         IsGeneralConfigurationOverviewExpanded = ReplaceOverviewItems(
             GeneralConfigurationOverviewItems,
             BuildGeneralConfigurationOverview(configuration, options, mediaEvaluation, overview));
         IsNetworkOverviewExpanded = ReplaceOverviewItems(
             NetworkOverviewItems,
-            BuildNetworkOverview(configuration, effectiveNetwork, overview));
+            BuildNetworkOverview(configuration, mediaInputs, overview));
         IsAutopilotOverviewExpanded = ReplaceOverviewItems(
             AutopilotOverviewItems,
             BuildAutopilotOverview(options, overview));
@@ -2480,11 +2478,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private IReadOnlyList<StartConfigurationOverviewItemViewModel> BuildNetworkOverview(
         FoundryConfigurationDocument configuration,
-        NetworkSettings effectiveNetwork,
+        MediaInputs mediaInputs,
         ConfigurationOverviewEvaluation overview)
     {
         string ethernetDescription = configuration.Network.Dot1x.IsEnabled
-            ? FormatValue(Path.GetFileName(configuration.Network.Dot1x.ProfileTemplatePath))
+            ? FormatValue(configuration.Network.Dot1x.ProfileTemplate?.FileName)
             : localizationService.GetString("Nav_EthernetDot1xKey.Description");
         string wifiDescription = configuration.Network.Wifi.IsEnabled
             ? string.Join(" · ", new[]
@@ -2493,15 +2491,15 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 configuration.Network.Wifi.SecurityType
             }.Where(value => !string.IsNullOrWhiteSpace(value)))
             : localizationService.GetString("Nav_WifiKey.Description");
-        NetworkConfigurationValidationResult ethernetValidation = NetworkConfigurationValidator.Validate(effectiveNetwork with
+        NetworkConfigurationValidationResult ethernetValidation = NetworkConfigurationValidator.Validate(configuration.Network with
         {
             WifiProvisioned = false,
             Wifi = new WifiSettings()
-        });
-        NetworkConfigurationValidationResult wifiValidation = NetworkConfigurationValidator.Validate(effectiveNetwork with
+        }, mediaInputs);
+        NetworkConfigurationValidationResult wifiValidation = NetworkConfigurationValidator.Validate(configuration.Network with
         {
             Dot1x = new Dot1xSettings()
-        });
+        }, mediaInputs);
 
         return
         (StartConfigurationOverviewItemViewModel[])

@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Xml;
 using System.Xml.Linq;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Files;
 
 namespace Foundry.Core.Services.Configuration;
 
@@ -22,10 +23,11 @@ public static class UnattendFileService
     private static readonly XNamespace UnattendNamespace = "urn:schemas-microsoft-com:unattend";
 
     /// <summary>
-    /// Records a source reference and digest after validating one bounded snapshot.
+    /// Validates one bounded snapshot of a selected file, then stores it in the authoring file library and records its digest.
     /// </summary>
-    public static UnattendFileSettings Import(string sourcePath)
+    public static UnattendFileSettings Import(string sourcePath, AuthoringFileLibrary files)
     {
+        ArgumentNullException.ThrowIfNull(files);
         string fullPath;
         try
         {
@@ -40,12 +42,13 @@ public static class UnattendFileService
         try
         {
             Inspect(content);
+            AuthoringFileReference reference = files.Import(content, Path.GetFileName(fullPath));
             return new UnattendFileSettings
             {
                 Id = Guid.NewGuid().ToString("N"),
                 DisplayName = CreateDisplayName(fullPath),
-                SourcePath = fullPath,
-                ContentHash = Convert.ToHexStringLower(SHA256.HashData(content))
+                ContentHash = reference.ContentHash,
+                File = reference
             };
         }
         finally
@@ -55,23 +58,28 @@ public static class UnattendFileService
     }
 
     /// <summary>
-    /// Returns the exact validated bytes; the caller owns and must clear this sensitive buffer.
-    /// Changed sources require an explicit refresh instead of silently accepting new content.
+    /// Returns the exact validated bytes read from <paramref name="sourcePath"/>, a readable copy of <see cref="UnattendFileSettings.File"/>;
+    /// the caller owns and must clear this sensitive buffer. Bytes that no longer match the recorded digest are rejected.
     /// </summary>
-    public static byte[] ReadValidated(UnattendFileSettings file)
+    public static byte[] ReadValidated(UnattendFileSettings file, string? sourcePath)
     {
         if (file is null || !IsValidMetadata(file))
         {
             throw new InvalidDataException("The answer-file source metadata is invalid.");
         }
 
-        byte[] content = ReadSource(file.SourcePath);
+        if (file.File is null || string.IsNullOrWhiteSpace(sourcePath))
+        {
+            throw new InvalidOperationException("The answer-file content is unavailable. Import the file again before building media.");
+        }
+
+        byte[] content = ReadSource(sourcePath);
         try
         {
             string hash = Convert.ToHexStringLower(SHA256.HashData(content));
             if (!string.Equals(hash, file.ContentHash, StringComparison.OrdinalIgnoreCase))
             {
-                throw new InvalidDataException("The answer-file source changed. Refresh the imported file before building media.");
+                throw new InvalidDataException("The answer-file content no longer matches the imported file. Import the file again before building media.");
             }
 
             Inspect(content);
@@ -268,7 +276,7 @@ public static class UnattendFileService
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or ArgumentException or NotSupportedException)
         {
-            throw new InvalidOperationException("The answer-file source is unavailable. Restore or refresh the imported file before building media.");
+            throw new InvalidOperationException("The answer-file content is unavailable. Import the file again before building media.");
         }
     }
 
@@ -366,7 +374,8 @@ public static class UnattendFileService
     {
         return IsHex(file.Id, 32) && IsHex(file.ContentHash, 64) &&
             !string.IsNullOrWhiteSpace(file.DisplayName) && file.DisplayName.Length <= 200 &&
-            !file.DisplayName.Any(char.IsControl) && !string.IsNullOrWhiteSpace(file.SourcePath);
+            !file.DisplayName.Any(char.IsControl) &&
+            (file.File is null || string.Equals(file.File.ContentHash, file.ContentHash, StringComparison.OrdinalIgnoreCase));
     }
 
     private static string CreateDisplayName(string fullPath)

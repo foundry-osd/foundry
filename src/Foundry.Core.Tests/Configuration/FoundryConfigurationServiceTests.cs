@@ -4,6 +4,7 @@
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Tests.TestUtilities;
 using Foundry.Telemetry;
 
 namespace Foundry.Core.Tests.Configuration;
@@ -251,8 +252,7 @@ public sealed class FoundryConfigurationServiceTests
                 {
                     IsEnabled = true,
                     Ssid = "CorpWiFi",
-                    SecurityType = "WPA2/WPA3-Personal",
-                    Passphrase = "supersecret"
+                    SecurityType = "WPA2/WPA3-Personal"
                 }
             },
             OperatingSystemSelection = new OperatingSystemSelectionSettings
@@ -555,8 +555,7 @@ public sealed class FoundryConfigurationServiceTests
                 {
                     IsEnabled = true,
                     Ssid = "Foundry WiFi",
-                    SecurityType = NetworkConfigurationValidator.WifiSecurityPersonal,
-                    Passphrase = "ValidPassphrase123"
+                    SecurityType = NetworkConfigurationValidator.WifiSecurityPersonal
                 }
             }
         };
@@ -694,8 +693,7 @@ public sealed class FoundryConfigurationServiceTests
                     },
                     BootMediaCertificate = new AutopilotBootMediaCertificateSettings
                     {
-                        PfxPath = @"E:\Secrets\foundry-osd-autopilot-registration.pfx",
-                        PfxPassword = "PfxPassword-DoNotLeak",
+                        Pfx = TestFileReferences.Detached("foundry-osd-autopilot-registration.pfx"),
                         ValidatedThumbprint = "ABCDEF123456",
                         ValidatedExpiresOnUtc = DateTimeOffset.UtcNow.AddMonths(6)
                     }
@@ -706,11 +704,35 @@ public sealed class FoundryConfigurationServiceTests
         string json = service.Serialize(document);
 
         Assert.Contains("\"provisioningMode\": \"hardwareHashUpload\"", json, StringComparison.Ordinal);
-        Assert.DoesNotContain("pfx", json, StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain("\"pfxPassword\"", json, StringComparison.OrdinalIgnoreCase);
+        // The selected PFX is persisted as a library reference; its password and host path never are.
+        Assert.Contains("\"fileName\": \"foundry-osd-autopilot-registration.pfx\"", json, StringComparison.Ordinal);
+        Assert.DoesNotContain("pfxPassword", json, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("pfxPath", json, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("accessToken", json, StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain("PfxPassword-DoNotLeak", json, StringComparison.Ordinal);
-        Assert.DoesNotContain(@"E:\Secrets", json, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void Deserialize_LegacyPathMembers_ImportsExistingFilesIntoLibrary()
+    {
+        using var temp = new TemporaryDirectory();
+        string template = Path.Combine(temp.Path, "wired.xml");
+        File.WriteAllText(template, "<LANProfile />");
+        var library = new Foundry.Core.Services.Files.AuthoringFileLibrary(Path.Combine(temp.Path, "library"));
+        string json = $$"""
+            { "schemaVersion": 18, "network": { "dot1x": { "isEnabled": true, "profileTemplatePath": {{System.Text.Json.JsonSerializer.Serialize(template)}},
+              "certificatePath": {{System.Text.Json.JsonSerializer.Serialize(Path.Combine(temp.Path, "missing.cer"))}} },
+              "wifi": { "passphrase": "LegacyPassphrase-DoNotLeak" } } }
+            """;
+        var service = new FoundryConfigurationService(library);
+
+        FoundryConfigurationDocument loaded = service.Deserialize(json);
+        string saved = service.Serialize(loaded);
+
+        Assert.Equal("wired.xml", loaded.Network.Dot1x.ProfileTemplate?.FileName);
+        Assert.True(library.IsAvailable(loaded.Network.Dot1x.ProfileTemplate!));
+        Assert.Null(loaded.Network.Dot1x.Certificate);
+        Assert.DoesNotContain("profileTemplatePath", saved, StringComparison.Ordinal);
+        Assert.DoesNotContain("LegacyPassphrase-DoNotLeak", saved, StringComparison.Ordinal);
     }
 
     [Fact]

@@ -141,9 +141,9 @@
                                                     Grid.Row="1"
                                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                                     Style="{StaticResource FoundryCaptionTextBlockStyle}"
-                                                    Text="{x:Bind SourcePath}"
+                                                    Text="{x:Bind FileName}"
                                                     TextTrimming="CharacterEllipsis"
-                                                    ToolTipService.ToolTip="{x:Bind SourcePath}" />
+                                                    ToolTipService.ToolTip="{x:Bind FileName}" />
                                                 <TextBlock
                                                     Grid.Row="1"
                                                     Grid.Column="1"
@@ -186,9 +186,6 @@
                                     <Button
                                         Command="{x:Bind ViewModel.RenameFileCommand}"
                                         Content="{x:Bind ViewModel.RenameLabel, Mode=OneWay}" />
-                                    <Button
-                                        Command="{x:Bind ViewModel.RefreshFileCommand}"
-                                        Content="{x:Bind ViewModel.RefreshLabel, Mode=OneWay}" />
                                     <Button
                                         Command="{x:Bind ViewModel.RemoveFileCommand}"
                                         Content="{x:Bind ViewModel.RemoveLabel, Mode=OneWay}" />

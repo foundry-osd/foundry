@@ -13,8 +13,8 @@ namespace Foundry.Services.Configuration;
 /// Owns the mutable Foundry configuration assembled by the Foundry UI.
 /// </summary>
 /// <remarks>
-/// <see cref="Current"/> is always safe to persist. Volatile network secrets are kept outside the document and
-/// merged into a detached document when <see cref="CaptureBuildSnapshotAsync"/> freezes build inputs.
+/// <see cref="Current"/> is always safe to persist. Session passwords and the readable copies of referenced files are kept
+/// outside the document and exposed as <see cref="MediaInputs"/>; <see cref="CaptureBuildSnapshotAsync"/> freezes both.
 /// </remarks>
 public interface IFoundryConfigurationStateService
 {
@@ -37,6 +37,12 @@ public interface IFoundryConfigurationStateService
     /// detect it and avoid applying its result to the configuration that replaced the one it started from.
     /// </summary>
     long ReplacementVersion { get; }
+
+    /// <summary>
+    /// Gets the session inputs that validation and generation need beside <see cref="Current"/>: library paths of referenced
+    /// authoring files and the passwords kept outside the document.
+    /// </summary>
+    MediaInputs MediaInputs { get; }
 
     /// <summary>Freezes current configuration and session secrets synchronously, then prepares private build dependencies off-thread.</summary>
     Task<BuildSnapshot> CaptureBuildSnapshotAsync(string privateRootDirectory, CancellationToken cancellationToken = default);

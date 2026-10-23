@@ -7,9 +7,6 @@ using Foundry.Core.Services.Autopilot;
 
 namespace Foundry.Services.Autopilot;
 
-/// <summary>
-/// Stores Autopilot hardware hash state that is valid only for the current app session.
-/// </summary>
 public interface IAutopilotHardwareHashSessionState
 {
     /// <summary>
@@ -23,17 +20,25 @@ public interface IAutopilotHardwareHashSessionState
     AutopilotTenantOnboardingStatus? TenantOnboardingStatus { get; set; }
 
     /// <summary>
-    /// Gets or sets the session-only PFX selected for boot media generation.
-    /// </summary>
-    AutopilotBootMediaCertificateSettings BootMediaCertificate { get; set; }
-
-    /// <summary>
     /// Gets or sets the certificate credentials discovered from Graph in the current app session.
     /// </summary>
     IReadOnlyList<AutopilotGraphKeyCredential> Certificates { get; set; }
 
     /// <summary>
-    /// Clears tenant, certificate table, and boot media PFX state without touching persisted settings.
+    /// Gets the session-only password of the boot media PFX, or <see langword="null"/> when none was entered for that file.
+    /// </summary>
+    /// <param name="pfx">The PFX selected in the configuration.</param>
+    string? GetBootMediaCertificatePassword(AuthoringFileReference? pfx);
+
+    /// <summary>
+    /// Records the session-only password of the boot media PFX, bound to its content hash so it never unlocks another file.
+    /// </summary>
+    /// <param name="pfx">The PFX the password belongs to; <see langword="null"/> clears the password.</param>
+    /// <param name="password">The password entered by the operator.</param>
+    void SetBootMediaCertificatePassword(AuthoringFileReference? pfx, string? password);
+
+    /// <summary>
+    /// Clears tenant, certificate table, and boot media PFX password state without touching persisted settings.
     /// </summary>
     void ClearTenantConnection();
 }

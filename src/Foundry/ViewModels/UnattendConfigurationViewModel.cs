@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.Files;
 using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
 
@@ -18,6 +19,7 @@ public sealed partial class UnattendConfigurationViewModel : ObservableObject, I
 {
     private readonly IFoundryConfigurationStateService configurationStateService;
     private readonly IFilePickerService filePickerService;
+    private readonly AuthoringFileLibrary authoringFiles;
     private readonly IApplicationLocalizationService localizationService;
     private bool isApplyingState;
     private bool isDisposed;
@@ -25,10 +27,12 @@ public sealed partial class UnattendConfigurationViewModel : ObservableObject, I
     public UnattendConfigurationViewModel(
         IFoundryConfigurationStateService configurationStateService,
         IFilePickerService filePickerService,
+        AuthoringFileLibrary authoringFiles,
         IApplicationLocalizationService localizationService)
     {
         this.configurationStateService = configurationStateService;
         this.filePickerService = filePickerService;
+        this.authoringFiles = authoringFiles;
         this.localizationService = localizationService;
         ApplyState();
         configurationStateService.StateChanged += OnStateChanged;
@@ -44,7 +48,6 @@ public sealed partial class UnattendConfigurationViewModel : ObservableObject, I
     [NotifyPropertyChangedFor(nameof(CanEdit))]
     [NotifyCanExecuteChangedFor(nameof(ImportFilesCommand))]
     [NotifyCanExecuteChangedFor(nameof(RefreshSourcesCommand))]
-    [NotifyCanExecuteChangedFor(nameof(RefreshFileCommand))]
     [NotifyCanExecuteChangedFor(nameof(RemoveFileCommand))]
     [NotifyCanExecuteChangedFor(nameof(RenameFileCommand))]
     public partial bool IsEnabled { get; set; }
@@ -55,14 +58,12 @@ public sealed partial class UnattendConfigurationViewModel : ObservableObject, I
     [NotifyPropertyChangedFor(nameof(CanEdit))]
     [NotifyCanExecuteChangedFor(nameof(ImportFilesCommand))]
     [NotifyCanExecuteChangedFor(nameof(RefreshSourcesCommand))]
-    [NotifyCanExecuteChangedFor(nameof(RefreshFileCommand))]
     [NotifyCanExecuteChangedFor(nameof(RemoveFileCommand))]
     [NotifyCanExecuteChangedFor(nameof(RenameFileCommand))]
     public partial bool IsBusy { get; set; }
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CanEdit))]
-    [NotifyCanExecuteChangedFor(nameof(RefreshFileCommand))]
     [NotifyCanExecuteChangedFor(nameof(RemoveFileCommand))]
     [NotifyCanExecuteChangedFor(nameof(RenameFileCommand))]
     public partial UnattendFileEntryViewModel? SelectedFile { get; set; }
@@ -102,7 +103,6 @@ public sealed partial class UnattendConfigurationViewModel : ObservableObject, I
     public string CatalogLabel => Text("Unattend.CatalogLabel");
     public string CatalogDescription => Text("Unattend.CatalogDescription");
     public string ImportLabel => Text("Unattend.ImportLabel");
-    public string RefreshLabel => Text("Unattend.RefreshLabel");
     public string CheckSourcesLabel => Text("Unattend.CheckSourcesLabel");
     public string RemoveLabel => Text("Unattend.RemoveLabel");
     public string RenameLabel => Text("Unattend.RenameLabel");
@@ -136,7 +136,7 @@ public sealed partial class UnattendConfigurationViewModel : ObservableObject, I
             {
                 try
                 {
-                    UnattendFileSettings file = await Task.Run(() => UnattendFileService.Import(path));
+                    UnattendFileSettings file = await Task.Run(() => UnattendFileService.Import(path, authoringFiles));
                     if (files.Any(existing => existing.ContentHash.Equals(file.ContentHash, StringComparison.OrdinalIgnoreCase)))
                     {
                         duplicates++;
@@ -169,51 +169,6 @@ public sealed partial class UnattendConfigurationViewModel : ObservableObject, I
         catch (Exception ex) when (IsSourceFailure(ex))
         {
             StatusMessage = GetSourceFailureMessage(ex);
-        }
-        finally
-        {
-            IsBusy = false;
-        }
-    }
-
-    [RelayCommand(CanExecute = nameof(CanEdit))]
-    private async Task RefreshFileAsync()
-    {
-        if (SelectedFile is not { } selected)
-        {
-            return;
-        }
-
-        IsBusy = true;
-        StatusMessage = string.Empty;
-        try
-        {
-            UnattendFileSettings imported = await Task.Run(() => UnattendFileService.Import(selected.SourcePath));
-            if (isDisposed)
-            {
-                return;
-            }
-
-            UnattendSettings settings = configurationStateService.Current.Unattend;
-            if (settings.Files.Any(file => file.Id != selected.Settings.Id &&
-                file.ContentHash.Equals(imported.ContentHash, StringComparison.OrdinalIgnoreCase)))
-            {
-                StatusMessage = Text("Unattend.RefreshDuplicateMessage");
-                return;
-            }
-
-            Save(settings with
-            {
-                Files = settings.Files.Select(file => file.Id == selected.Settings.Id
-                    ? imported with { Id = file.Id, DisplayName = file.DisplayName }
-                    : file).ToArray()
-            });
-            await RefreshSourcesAsync();
-        }
-        catch (Exception ex) when (IsSourceFailure(ex))
-        {
-            StatusMessage = GetSourceFailureMessage(ex);
-            ApplyState();
         }
         finally
         {
@@ -412,7 +367,6 @@ public sealed partial class UnattendConfigurationViewModel : ObservableObject, I
         "The answer-file catalog contains invalid or duplicate entries." or
         "The answer-file source metadata is invalid." or
         "The answer-file identifier is invalid." => "Unattend.InvalidCatalogMessage",
-        "The answer-file source changed. Refresh the imported file before building media." => "Unattend.SourceChangedMessage",
         "Source validation timed out. Check the source location and refresh again." => "Unattend.SourceTimeoutMessage",
         "Two source checks are still waiting for file access. Restore the unavailable source locations, then check sources again." => "Unattend.SourceChecksBusyMessage",
         "The answer file or selected image declares an unsupported architecture." or

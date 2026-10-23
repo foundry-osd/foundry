@@ -59,23 +59,25 @@ public static class NetworkConfigurationValidator
     /// Validates the full network configuration and returns the first blocking issue.
     /// </summary>
     /// <param name="settings">The network settings to validate.</param>
+    /// <param name="inputs">Where referenced profiles and certificates can be read, and the personal Wi-Fi passphrase.</param>
     /// <returns>A validation result.</returns>
-    public static NetworkConfigurationValidationResult Validate(NetworkSettings settings)
+    public static NetworkConfigurationValidationResult Validate(NetworkSettings settings, MediaInputs inputs)
     {
         ArgumentNullException.ThrowIfNull(settings);
+        ArgumentNullException.ThrowIfNull(inputs);
 
         if (settings.Wifi.IsEnabled && !settings.WifiProvisioned)
         {
             return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WifiProvisioningRequired);
         }
 
-        NetworkConfigurationValidationResult dot1xResult = ValidateDot1x(settings.Dot1x);
+        NetworkConfigurationValidationResult dot1xResult = ValidateDot1x(settings.Dot1x, inputs);
         if (!dot1xResult.IsValid)
         {
             return dot1xResult;
         }
 
-        return ValidateWifi(settings.WifiProvisioned, settings.Wifi);
+        return ValidateWifi(settings.WifiProvisioned, settings.Wifi, inputs);
     }
 
     /// <summary>
@@ -89,18 +91,8 @@ public static class NetworkConfigurationValidator
 
         return settings with
         {
-            Dot1x = settings.Dot1x with
-            {
-                CertificatePfxPassword = null,
-                CertificatePfxPasswordSecret = null
-            },
-            Wifi = settings.Wifi with
-            {
-                Passphrase = null,
-                PassphraseSecret = null,
-                CertificatePfxPassword = null,
-                CertificatePfxPasswordSecret = null
-            }
+            Dot1x = settings.Dot1x with { CertificatePfxPasswordSecret = null },
+            Wifi = settings.Wifi with { PassphraseSecret = null, CertificatePfxPasswordSecret = null }
         };
     }
 
@@ -108,8 +100,9 @@ public static class NetworkConfigurationValidator
     /// Normalizes a Wi-Fi security type while preserving compatibility with older configuration values.
     /// </summary>
     /// <param name="settings">The Wi-Fi settings to inspect.</param>
+    /// <param name="hasPassphrase">Whether a personal passphrase is known; it selects personal security when no type is recorded.</param>
     /// <returns>The normalized Wi-Fi security type.</returns>
-    public static string NormalizeWifiSecurityType(WifiSettings settings)
+    public static string NormalizeWifiSecurityType(WifiSettings settings, bool hasPassphrase = false)
     {
         ArgumentNullException.ThrowIfNull(settings);
 
@@ -135,7 +128,7 @@ public static class NetworkConfigurationValidator
             return enterpriseSecurityType ?? WifiSecurityEnterprise;
         }
 
-        return !string.IsNullOrWhiteSpace(settings.Passphrase)
+        return hasPassphrase
             ? WifiSecurityPersonal
             : WifiSecurityOpen;
     }
@@ -223,30 +216,29 @@ public static class NetworkConfigurationValidator
             : null;
     }
 
-    private static NetworkConfigurationValidationResult ValidateDot1x(Dot1xSettings settings)
+    private static NetworkConfigurationValidationResult ValidateDot1x(Dot1xSettings settings, MediaInputs inputs)
     {
         if (!settings.IsEnabled)
         {
             return NetworkConfigurationValidationResult.Success;
         }
 
-        if (string.IsNullOrWhiteSpace(settings.ProfileTemplatePath))
+        if (settings.ProfileTemplate is null)
         {
             return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WiredProfileTemplateRequired);
         }
 
-        if (!File.Exists(Path.GetFullPath(settings.ProfileTemplatePath)))
+        if (!IsAvailable(settings.ProfileTemplate, inputs))
         {
             return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WiredProfileTemplateMissing);
         }
 
-        if (settings.RequiresCertificate && string.IsNullOrWhiteSpace(settings.CertificatePath))
+        if (settings.RequiresCertificate && settings.Certificate is null)
         {
             return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WiredCertificateRequired);
         }
 
-        if (!string.IsNullOrWhiteSpace(settings.CertificatePath) &&
-            !File.Exists(Path.GetFullPath(settings.CertificatePath)))
+        if (settings.Certificate is not null && !IsAvailable(settings.Certificate, inputs))
         {
             return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WiredCertificateMissing);
         }
@@ -254,7 +246,10 @@ public static class NetworkConfigurationValidator
         return NetworkConfigurationValidationResult.Success;
     }
 
-    private static NetworkConfigurationValidationResult ValidateWifi(bool wifiProvisioned, WifiSettings settings)
+    private static bool IsAvailable(AuthoringFileReference reference, MediaInputs inputs) =>
+        inputs.ResolveFile(reference) is { } path && File.Exists(path);
+
+    private static NetworkConfigurationValidationResult ValidateWifi(bool wifiProvisioned, WifiSettings settings, MediaInputs inputs)
     {
         if (!settings.IsEnabled)
         {
@@ -286,7 +281,7 @@ public static class NetworkConfigurationValidator
 
         if (isPersonal)
         {
-            int passphraseLength = settings.Passphrase?.Trim().Length ?? 0;
+            int passphraseLength = inputs.Network.WifiPassphrase?.Trim().Length ?? 0;
             if (passphraseLength is < 8 or > 63)
             {
                 return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WifiPersonalPassphraseInvalid);
@@ -294,21 +289,22 @@ public static class NetworkConfigurationValidator
         }
 
         return isEnterprise
-            ? ValidateEnterpriseWifi(settings, enterpriseSecurityType)
+            ? ValidateEnterpriseWifi(settings, enterpriseSecurityType, inputs)
             : NetworkConfigurationValidationResult.Success;
     }
 
     private static NetworkConfigurationValidationResult ValidateEnterpriseWifi(
         WifiSettings settings,
-        string? enterpriseSecurityType)
+        string? enterpriseSecurityType,
+        MediaInputs inputs)
     {
-        if (string.IsNullOrWhiteSpace(settings.EnterpriseProfileTemplatePath))
+        if (settings.EnterpriseProfileTemplate is null)
         {
             return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WifiEnterpriseProfileTemplateRequired);
         }
 
-        string fullTemplatePath = Path.GetFullPath(settings.EnterpriseProfileTemplatePath);
-        if (!File.Exists(fullTemplatePath))
+        string? fullTemplatePath = inputs.ResolveFile(settings.EnterpriseProfileTemplate);
+        if (fullTemplatePath is null || !File.Exists(fullTemplatePath))
         {
             return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WifiEnterpriseProfileTemplateMissing);
         }
@@ -331,13 +327,12 @@ public static class NetworkConfigurationValidator
             }
         }
 
-        if (settings.RequiresCertificate && string.IsNullOrWhiteSpace(settings.CertificatePath))
+        if (settings.RequiresCertificate && settings.Certificate is null)
         {
             return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WifiEnterpriseCertificateRequired);
         }
 
-        if (!string.IsNullOrWhiteSpace(settings.CertificatePath) &&
-            !File.Exists(Path.GetFullPath(settings.CertificatePath)))
+        if (settings.Certificate is not null && !IsAvailable(settings.Certificate, inputs))
         {
             return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WifiEnterpriseCertificateMissing);
         }

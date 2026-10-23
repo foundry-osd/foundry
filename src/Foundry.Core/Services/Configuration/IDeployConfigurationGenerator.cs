@@ -65,6 +65,19 @@ public interface IDeployConfigurationGenerator
         string? authoringVersion = null);
 
     /// <summary>
+    /// Generates the deployment runtime configuration with session inputs kept outside the document: the readable copy of the
+    /// Autopilot boot media PFX and its password.
+    /// </summary>
+    FoundryDeployConfigurationDocument Generate(
+        FoundryConfigurationDocument document,
+        byte[]? deploymentSecretsKey,
+        DeployProtectionSettings? protectionSettings,
+        OobeAccountSecretState? oobeAccountSecretState,
+        DomainJoinSecretState? domainJoinSecretState,
+        MediaInputs inputs,
+        string? authoringVersion = null);
+
+    /// <summary>
     /// Serializes a deployment runtime configuration document to JSON.
     /// </summary>
     /// <param name="document">The deployment runtime document.</param>

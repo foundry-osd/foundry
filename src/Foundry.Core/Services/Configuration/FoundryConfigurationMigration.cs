@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Text.Json.Nodes;
 using Foundry.Core.Models.Configuration;
 
 namespace Foundry.Core.Services.Configuration;
@@ -74,6 +75,111 @@ public static class FoundryConfigurationMigration
         return migrated.SchemaVersion < FoundryConfigurationDocument.CurrentSchemaVersion
             ? migrated with { SchemaVersion = FoundryConfigurationDocument.CurrentSchemaVersion }
             : migrated;
+    }
+
+    /// <summary>
+    /// Reads and removes the legacy host-path members of an authoring document, whatever its schema number.
+    /// </summary>
+    /// <remarks>
+    /// The conversion is shape-based: documents written by intermediate builds under the current schema number are handled
+    /// too. A member that is not a string is removed and reads as absent. Every other member is left untouched.
+    /// </remarks>
+    /// <param name="root">The parsed document, modified in place.</param>
+    /// <returns>The paths found; empty for a document already in the current shape.</returns>
+    public static LegacyFilePaths ExtractLegacyFilePaths(JsonNode root)
+    {
+        ArgumentNullException.ThrowIfNull(root);
+        JsonObject? network = root["network"] as JsonObject;
+        JsonObject? dot1x = network?["dot1x"] as JsonObject;
+        JsonObject? wifi = network?["wifi"] as JsonObject;
+        JsonObject? bootMediaCertificate = root["autopilot"]?["hardwareHashUpload"]?["bootMediaCertificate"] as JsonObject;
+        var unattendSourcePaths = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        if (root["unattend"]?["files"] is JsonArray files)
+        {
+            foreach (JsonObject file in files.OfType<JsonObject>())
+            {
+                string? sourcePath = Take(file, "sourcePath");
+                if (sourcePath is not null && ReadString(file["id"]) is { Length: > 0 } id)
+                {
+                    unattendSourcePaths.TryAdd(id, sourcePath);
+                }
+            }
+        }
+
+        return new LegacyFilePaths(
+            Take(dot1x, "profileTemplatePath"),
+            Take(dot1x, "certificatePath"),
+            Take(wifi, "enterpriseProfileTemplatePath"),
+            Take(wifi, "certificatePath"),
+            Take(bootMediaCertificate, "pfxPath"),
+            unattendSourcePaths);
+
+        static string? Take(JsonObject? owner, string name)
+        {
+            if (owner is null || !owner.Remove(name, out JsonNode? value)) return null;
+            return ReadString(value) is { } path && !string.IsNullOrWhiteSpace(path) ? path : null;
+        }
+
+        static string? ReadString(JsonNode? node) =>
+            node is JsonValue value && value.TryGetValue(out string? text) ? text : null;
+    }
+
+    /// <summary>
+    /// Replaces legacy host paths with library references after typed deserialization.
+    /// </summary>
+    /// <remarks>
+    /// <paramref name="importIfPresent"/> imports an existing file into the authoring file library and returns null when the
+    /// file is missing or cannot be imported; the reference then stays null and the page asks for the file again. A reference
+    /// already present is kept. An answer file is matched by id and accepted only when the imported bytes still match its
+    /// validated <see cref="UnattendFileSettings.ContentHash"/>; otherwise the entry is kept without a file and reported unavailable.
+    /// </remarks>
+    public static FoundryConfigurationDocument ApplyLegacyFilePaths(
+        FoundryConfigurationDocument document,
+        LegacyFilePaths paths,
+        Func<string, AuthoringFileReference?> importIfPresent)
+    {
+        ArgumentNullException.ThrowIfNull(document);
+        ArgumentNullException.ThrowIfNull(paths);
+        ArgumentNullException.ThrowIfNull(importIfPresent);
+
+        NetworkSettings network = document.Network;
+        AutopilotHardwareHashUploadSettings hardwareHash = document.Autopilot.HardwareHashUpload;
+        return document with
+        {
+            Network = network with
+            {
+                Dot1x = network.Dot1x with
+                {
+                    ProfileTemplate = network.Dot1x.ProfileTemplate ?? Import(paths.Dot1xProfileTemplate),
+                    Certificate = network.Dot1x.Certificate ?? Import(paths.Dot1xCertificate)
+                },
+                Wifi = network.Wifi with
+                {
+                    EnterpriseProfileTemplate = network.Wifi.EnterpriseProfileTemplate ?? Import(paths.WifiEnterpriseProfileTemplate),
+                    Certificate = network.Wifi.Certificate ?? Import(paths.WifiCertificate)
+                }
+            },
+            Autopilot = document.Autopilot with
+            {
+                HardwareHashUpload = hardwareHash with
+                {
+                    BootMediaCertificate = hardwareHash.BootMediaCertificate with
+                    {
+                        Pfx = hardwareHash.BootMediaCertificate.Pfx ?? Import(paths.AutopilotPfx)
+                    }
+                }
+            },
+            Unattend = document.Unattend with
+            {
+                Files = (document.Unattend.Files ?? []).Select(file => file is null || file.File is not null ||
+                        !paths.UnattendSourcePaths.TryGetValue(file.Id, out string? sourcePath)
+                    ? file!
+                    : file with { File = Import(sourcePath) is { } imported && string.Equals(imported.ContentHash, file.ContentHash, StringComparison.OrdinalIgnoreCase) ? imported : null })
+                    .ToArray()
+            }
+        };
+
+        AuthoringFileReference? Import(string? path) => path is null ? null : importIfPresent(path);
     }
 
     public static FoundryConfigurationDocument ApplyLegacyGeneralSettings(
