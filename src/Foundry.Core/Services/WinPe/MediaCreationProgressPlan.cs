@@ -16,7 +16,10 @@ public enum MediaCreationKind
     UsbCreate,
 
     /// <summary>The boot partition of an existing Foundry USB drive is updated.</summary>
-    UsbUpdate
+    UsbUpdate,
+
+    /// <summary>The network boot files are written to a folder.</summary>
+    Pxe
 }
 
 /// <summary>
@@ -44,6 +47,9 @@ public enum MediaCreationPhase
 
     /// <summary>Boot partition update of an existing USB drive.</summary>
     UpdatingUsbDrive,
+
+    /// <summary>Network boot file copy to the output folder.</summary>
+    CreatingPxeFiles,
 
     /// <summary>Workspace cleanup after the output is written.</summary>
     Finishing
@@ -119,6 +125,14 @@ public sealed class MediaCreationProgressPlan
                 (MediaCreationPhase.UpdatingUsbDrive, 30),
                 (MediaCreationPhase.Finishing, 5)
             ],
+            MediaCreationKind.Pxe =>
+            [
+                (MediaCreationPhase.Preparing, 8),
+                (MediaCreationPhase.DownloadingDrivers, 10),
+                (MediaCreationPhase.CustomizingBootImage, 67),
+                (MediaCreationPhase.CreatingPxeFiles, 10),
+                (MediaCreationPhase.Finishing, 5)
+            ],
             _ => throw new ArgumentOutOfRangeException(nameof(kind), kind, "Unsupported media creation kind.")
         };
 
@@ -156,7 +170,7 @@ public sealed class MediaCreationProgressPlan
     /// <summary>
     /// Reports the percentage of the final output stage, mapping it to the phase or phases that represent it.
     /// </summary>
-    /// <param name="finalMediaPercent">Percentage reported by the ISO or USB output service.</param>
+    /// <param name="finalMediaPercent">Percentage reported by the ISO, USB or PXE output service.</param>
     /// <returns>The resulting overall progress.</returns>
     public MediaCreationProgress ReportFinalMedia(int finalMediaPercent)
     {
@@ -165,6 +179,7 @@ public sealed class MediaCreationProgressPlan
         {
             MediaCreationKind.Iso => Report(MediaCreationPhase.CreatingIso, percent),
             MediaCreationKind.UsbUpdate => Report(MediaCreationPhase.UpdatingUsbDrive, percent),
+            MediaCreationKind.Pxe => Report(MediaCreationPhase.CreatingPxeFiles, percent),
             _ when percent < UsbFormattingCompletePercent =>
                 Report(MediaCreationPhase.FormattingUsbDrive, percent * 100 / UsbFormattingCompletePercent),
             _ => Report(

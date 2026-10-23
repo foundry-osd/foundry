@@ -53,6 +53,7 @@ public static class MediaCreationStepNames
     public const string ProvisionUsbRuntimePayloads = "Provision USB runtime payloads";
     public const string CreateFinalMedia = "Create final media";
     public const string CreateIsoMedia = "Create ISO media";
+    public const string CreatePxeMedia = "Create PXE media";
     public const string CreateUsbMedia = "Create USB media";
     public const string UpdateUsbMedia = "Update USB media";
 

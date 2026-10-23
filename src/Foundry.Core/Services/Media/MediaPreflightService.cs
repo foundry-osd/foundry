@@ -14,7 +14,7 @@ namespace Foundry.Core.Services.Media;
 public static class MediaPreflightService
 {
     /// <summary>
-    /// Evaluates media creation readiness for ISO and USB targets.
+    /// Evaluates media creation readiness for ISO, USB and PXE targets.
     /// </summary>
     /// <param name="options">The preflight options collected from app state.</param>
     /// <returns>The preflight evaluation including blocking reasons for each target.</returns>
@@ -25,6 +25,8 @@ public static class MediaPreflightService
         List<MediaPreflightBlockingReason> sharedReasons = GetSharedBlockingReasons(options);
         List<MediaPreflightBlockingReason> isoReasons = [.. sharedReasons];
         List<MediaPreflightBlockingReason> usbReasons = [.. sharedReasons];
+        // PXE output is written to a folder chosen at creation time, so only the ISO path rule does not apply.
+        List<MediaPreflightBlockingReason> pxeReasons = [.. sharedReasons];
 
         if (!IsIsoPathValid(options.IsoOutputPath))
         {
@@ -54,11 +56,13 @@ public static class MediaPreflightService
             {
                 isoReasons.Add(MediaPreflightBlockingReason.CustomDriverDirectoryNotFound);
                 usbReasons.Add(MediaPreflightBlockingReason.CustomDriverDirectoryNotFound);
+                pxeReasons.Add(MediaPreflightBlockingReason.CustomDriverDirectoryNotFound);
             }
             else if (!FileSearch.ContainsRecursive(options.CustomDriverDirectoryPath, "*.inf"))
             {
                 isoReasons.Add(MediaPreflightBlockingReason.CustomDriverDirectoryHasNoInfFiles);
                 usbReasons.Add(MediaPreflightBlockingReason.CustomDriverDirectoryHasNoInfFiles);
+                pxeReasons.Add(MediaPreflightBlockingReason.CustomDriverDirectoryHasNoInfFiles);
             }
         }
 
@@ -72,9 +76,11 @@ public static class MediaPreflightService
             CanGenerateUsbSummary = canGenerateUsbSummary,
             CanCreateIso = canGenerateIsoSummary && options.IsFinalExecutionEnabled && !isoReasons.Any(),
             CanCreateUsb = canGenerateUsbSummary && options.IsFinalExecutionEnabled && !usbReasons.Any(),
+            CanCreatePxe = options.IsFinalExecutionEnabled && !pxeReasons.Any(),
             EffectiveUsbPartitionStyle = effectiveUsbPartitionStyle,
             IsoBlockingReasons = isoReasons,
-            UsbBlockingReasons = usbReasons
+            UsbBlockingReasons = usbReasons,
+            PxeBlockingReasons = pxeReasons
         };
     }
 
