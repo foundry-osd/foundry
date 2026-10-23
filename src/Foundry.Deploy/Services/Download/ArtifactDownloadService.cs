@@ -353,7 +353,8 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
             artifactKind,
             NetworkCacheLayout.DownloadKey(sourceUrl, normalizedExpectedHash, expectedSizeBytes),
             Path.GetFileName(destinationPath),
-            hashless));
+            normalizedExpectedHash,
+            expectedSizeBytes));
     }
 
     /// <summary>Opens a share file off the calling thread, because a hung UNC open blocks for the SMB timeout.</summary>

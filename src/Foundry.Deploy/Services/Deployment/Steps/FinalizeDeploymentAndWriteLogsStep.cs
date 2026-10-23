@@ -19,7 +19,7 @@ public sealed class FinalizeDeploymentAndWriteLogsStep(
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
-        await CompleteNetworkCacheAsync(cancellationToken).ConfigureAwait(false);
+        await CompleteNetworkCacheAsync(context, cancellationToken).ConfigureAwait(false);
         return await ExecuteFinalizeAsync(
             context,
             "Finalizing deployment artifacts.",
@@ -31,10 +31,11 @@ public sealed class FinalizeDeploymentAndWriteLogsStep(
     /// Gives queued network cache uploads a bounded time before the target workspace, which holds the files being
     /// published, is cleaned; then closes the share session.
     /// </summary>
-    private async Task CompleteNetworkCacheAsync(CancellationToken cancellationToken)
+    private async Task CompleteNetworkCacheAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
         if (networkCachePublisher is not null)
         {
+            context.EmitCurrentStepIndeterminate("Finalizing deployment...", "Writing completion logs...", DeploymentOperationNames.WriteLogs);
             await networkCachePublisher.DrainAsync(NetworkCacheDrainLimit, cancellationToken).ConfigureAwait(false);
         }
 
