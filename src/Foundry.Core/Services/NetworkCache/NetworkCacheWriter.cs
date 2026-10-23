@@ -2,6 +2,9 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Security.Cryptography;
+using System.Text;
+
 namespace Foundry.Core.Services.NetworkCache;
 
 /// <summary>Result of one publication attempt.</summary>
@@ -22,28 +25,32 @@ public static class NetworkCacheWriter
     private static readonly TimeSpan OrphanAge = TimeSpan.FromHours(24);
 
     /// <summary>
-    /// Copies <paramref name="sourcePath"/> to <paramref name="targetDirectory"/> as <paramref name="fileName"/>.
-    /// When <paramref name="sha256ForSidecar"/> is set, the hash sidecar is written before the rename so a reader
-    /// never finds a hashless final file without its sidecar. IO failures return <see cref="NetworkCachePublishOutcome.Failed"/>;
-    /// cancellation deletes the partial and is rethrown. Share existence checks and directory creation run
-    /// synchronously before the first await, so callers on a UI or step thread must invoke it through the thread pool.
+    /// Copies <paramref name="sourcePath"/> to <paramref name="targetDirectory"/> as <paramref name="fileName"/>, hashing
+    /// the bytes as they are copied. With <paramref name="expectedHash"/> (SHA-1 or SHA-256 hex), the copy is published
+    /// only when it matches; without it, the copy must match <paramref name="expectedSize"/> and its SHA-256 is written
+    /// as a sidecar before the rename, so a reader never finds a hashless final file without its sidecar. A mismatch or
+    /// IO failure returns <see cref="NetworkCachePublishOutcome.Failed"/>; cancellation deletes the partial and is rethrown.
+    /// Share existence checks and directory creation run synchronously before the first await, so callers on a UI or
+    /// step thread must invoke it through the thread pool.
     /// </summary>
     public static Task<NetworkCachePublishOutcome> PublishFileAsync(
         string sourcePath,
         string targetDirectory,
         string fileName,
         string sessionId,
-        string? sha256ForSidecar,
+        string? expectedHash,
+        long? expectedSize,
         TimeProvider clock,
         CancellationToken cancellationToken) =>
-        PublishFileAsync(sourcePath, targetDirectory, fileName, sessionId, sha256ForSidecar, clock, cancellationToken, beforeRename: null);
+        PublishFileAsync(sourcePath, targetDirectory, fileName, sessionId, expectedHash, expectedSize, clock, cancellationToken, beforeRename: null);
 
     internal static async Task<NetworkCachePublishOutcome> PublishFileAsync(
         string sourcePath,
         string targetDirectory,
         string fileName,
         string sessionId,
-        string? sha256ForSidecar,
+        string? expectedHash,
+        long? expectedSize,
         TimeProvider clock,
         CancellationToken cancellationToken,
         Action? beforeRename)
@@ -56,24 +63,37 @@ public static class NetworkCacheWriter
         string finalPath = Path.Combine(targetDirectory, fileName);
         if (File.Exists(finalPath)) return NetworkCachePublishOutcome.AlreadyPresent;
 
+        string? normalizedHash = string.IsNullOrWhiteSpace(expectedHash) ? null : expectedHash.Trim().Replace("-", string.Empty, StringComparison.Ordinal);
+        HashAlgorithmName algorithm = normalizedHash?.Length == 40 ? HashAlgorithmName.SHA1 : HashAlgorithmName.SHA256;
         string partialPath = Path.Combine(targetDirectory, NetworkCacheLayout.PartialName(fileName, sessionId));
         try
         {
             Directory.CreateDirectory(targetDirectory);
             DeleteOrphanPartials(targetDirectory, clock);
-            await using (FileStream input = new(sourcePath, FileMode.Open, FileAccess.Read, FileShare.Read | FileShare.Delete, 1 << 20, useAsync: true))
+            string actualHash;
+            long length;
+            // Readers and writers of the local file are tolerated: the hash computed here is what gets checked and published.
+            await using (FileStream input = new(sourcePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete, 1 << 20, useAsync: true))
             await using (FileStream output = new(partialPath, FileMode.CreateNew, FileAccess.Write, FileShare.None, 1 << 20, useAsync: true))
             {
-                await input.CopyToAsync(output, cancellationToken).ConfigureAwait(false);
+                (actualHash, length) = await CopyAndHashAsync(input, output, algorithm, cancellationToken).ConfigureAwait(false);
                 await output.FlushAsync(cancellationToken).ConfigureAwait(false);
-                if (output.Length != input.Length) throw new IOException("The network cache copy is truncated.");
             }
 
-            if (sha256ForSidecar is not null && !File.Exists(finalPath + NetworkCacheLayout.HashSidecarSuffix))
+            bool matches = normalizedHash is not null
+                ? string.Equals(normalizedHash, actualHash, StringComparison.OrdinalIgnoreCase)
+                : expectedSize is > 0 && length == expectedSize.Value;
+            if (!matches)
+            {
+                TryDelete(partialPath);
+                return NetworkCachePublishOutcome.Failed;
+            }
+
+            if (normalizedHash is null && !File.Exists(finalPath + NetworkCacheLayout.HashSidecarSuffix))
             {
                 // Never replace another writer's sidecar: its final file may already be published under it.
                 await using FileStream sidecar = new(finalPath + NetworkCacheLayout.HashSidecarSuffix, FileMode.CreateNew, FileAccess.Write, FileShare.None);
-                await sidecar.WriteAsync(System.Text.Encoding.ASCII.GetBytes(sha256ForSidecar), cancellationToken).ConfigureAwait(false);
+                await sidecar.WriteAsync(Encoding.ASCII.GetBytes(actualHash.ToLowerInvariant()), cancellationToken).ConfigureAwait(false);
             }
 
             beforeRename?.Invoke();
@@ -101,6 +121,22 @@ public static class NetworkCacheWriter
             TryDelete(partialPath);
             return NetworkCachePublishOutcome.Failed;
         }
+    }
+
+    private static async Task<(string Hash, long Length)> CopyAndHashAsync(Stream input, Stream output, HashAlgorithmName algorithm, CancellationToken cancellationToken)
+    {
+        using IncrementalHash hash = IncrementalHash.CreateHash(algorithm);
+        byte[] buffer = new byte[1 << 20];
+        long length = 0;
+        int read;
+        while ((read = await input.ReadAsync(buffer, cancellationToken).ConfigureAwait(false)) > 0)
+        {
+            hash.AppendData(buffer, 0, read);
+            await output.WriteAsync(buffer.AsMemory(0, read), cancellationToken).ConfigureAwait(false);
+            length += read;
+        }
+
+        return (Convert.ToHexString(hash.GetHashAndReset()), length);
     }
 
     /// <summary>Deletes partial files older than 24 hours left by writers that stopped mid-copy.</summary>

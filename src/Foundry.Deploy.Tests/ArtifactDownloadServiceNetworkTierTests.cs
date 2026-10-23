@@ -178,7 +178,8 @@ public sealed class ArtifactDownloadServiceNetworkTierTests : IDisposable
         Assert.Equal(destination, item.LocalPath);
         Assert.Equal(NetworkCacheLayout.DownloadKey(Url, Sha256(HttpBytes), HttpBytes.Length), item.Key);
         Assert.Equal("image.esd", item.FileName);
-        Assert.False(item.Hashless);
+        Assert.Equal(Sha256(HttpBytes), item.ExpectedHash);
+        Assert.Equal(HttpBytes.Length, item.ExpectedSize);
     }
 
     [Fact]

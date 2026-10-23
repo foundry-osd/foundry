@@ -8,6 +8,7 @@ namespace Foundry.Core.Tests.NetworkCache;
 
 public sealed class NetworkCacheWriterTests : IDisposable
 {
+    private static readonly string SourceHash = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData([1, 2, 3, 4]));
     private readonly string root = Path.Combine(Path.GetTempPath(), "foundry-ncw-" + Guid.NewGuid().ToString("N"));
     private readonly string source;
     private readonly string target;
@@ -25,7 +26,7 @@ public sealed class NetworkCacheWriterTests : IDisposable
     [Fact]
     public async Task Publish_WritesPartialThenRenames()
     {
-        NetworkCachePublishOutcome outcome = await NetworkCacheWriter.PublishFileAsync(source, target, "image.esd", "s1", null, TimeProvider.System, TestContext.Current.CancellationToken);
+        NetworkCachePublishOutcome outcome = await NetworkCacheWriter.PublishFileAsync(source, target, "image.esd", "s1", SourceHash, 4, TimeProvider.System, TestContext.Current.CancellationToken);
 
         Assert.Equal(NetworkCachePublishOutcome.Published, outcome);
         Assert.Equal([1, 2, 3, 4], File.ReadAllBytes(Path.Combine(target, "image.esd")));
@@ -38,7 +39,7 @@ public sealed class NetworkCacheWriterTests : IDisposable
         Directory.CreateDirectory(target);
         File.WriteAllBytes(Path.Combine(target, "image.esd"), [9]);
 
-        NetworkCachePublishOutcome outcome = await NetworkCacheWriter.PublishFileAsync(source, target, "image.esd", "s1", null, TimeProvider.System, TestContext.Current.CancellationToken);
+        NetworkCachePublishOutcome outcome = await NetworkCacheWriter.PublishFileAsync(source, target, "image.esd", "s1", SourceHash, 4, TimeProvider.System, TestContext.Current.CancellationToken);
 
         Assert.Equal(NetworkCachePublishOutcome.AlreadyPresent, outcome);
         Assert.Equal([9], File.ReadAllBytes(Path.Combine(target, "image.esd")));
@@ -49,7 +50,7 @@ public sealed class NetworkCacheWriterTests : IDisposable
     public async Task Publish_WhenFinalAppearsDuringCopy_KeepsExistingAndDeletesPartial()
     {
         NetworkCachePublishOutcome outcome = await NetworkCacheWriter.PublishFileAsync(
-            source, target, "image.esd", "s1", null, TimeProvider.System, TestContext.Current.CancellationToken,
+            source, target, "image.esd", "s1", SourceHash, 4, TimeProvider.System, TestContext.Current.CancellationToken,
             beforeRename: () => File.WriteAllBytes(Path.Combine(target, "image.esd"), [7]));
 
         Assert.Equal(NetworkCachePublishOutcome.AlreadyPresent, outcome);
@@ -58,13 +59,31 @@ public sealed class NetworkCacheWriterTests : IDisposable
     }
 
     [Fact]
-    public async Task Publish_Hashless_WritesSidecarBeforeRename()
+    public async Task Publish_Hashless_WritesComputedSidecarBeforeRename()
     {
-        NetworkCachePublishOutcome outcome = await NetworkCacheWriter.PublishFileAsync(source, target, "fw.cab", "s1", "ab12", TimeProvider.System, TestContext.Current.CancellationToken);
+        NetworkCachePublishOutcome outcome = await NetworkCacheWriter.PublishFileAsync(source, target, "fw.cab", "s1", null, 4, TimeProvider.System, TestContext.Current.CancellationToken);
 
         Assert.Equal(NetworkCachePublishOutcome.Published, outcome);
-        Assert.Equal("ab12", File.ReadAllText(Path.Combine(target, "fw.cab.sha256")));
+        Assert.Equal(SourceHash.ToLowerInvariant(), File.ReadAllText(Path.Combine(target, "fw.cab.sha256")));
         Assert.True(File.Exists(Path.Combine(target, "fw.cab")));
+    }
+
+    [Fact]
+    public async Task Publish_HashMismatch_ReturnsFailedAndPublishesNothing()
+    {
+        NetworkCachePublishOutcome outcome = await NetworkCacheWriter.PublishFileAsync(source, target, "image.esd", "s1", new string('A', 64), 4, TimeProvider.System, TestContext.Current.CancellationToken);
+
+        Assert.Equal(NetworkCachePublishOutcome.Failed, outcome);
+        Assert.Empty(Directory.GetFiles(target));
+    }
+
+    [Fact]
+    public async Task Publish_HashlessSizeMismatch_ReturnsFailedAndPublishesNothing()
+    {
+        NetworkCachePublishOutcome outcome = await NetworkCacheWriter.PublishFileAsync(source, target, "fw.cab", "s1", null, 5, TimeProvider.System, TestContext.Current.CancellationToken);
+
+        Assert.Equal(NetworkCachePublishOutcome.Failed, outcome);
+        Assert.Empty(Directory.GetFiles(target));
     }
 
     [Fact]
@@ -74,7 +93,7 @@ public sealed class NetworkCacheWriterTests : IDisposable
         await cancellation.CancelAsync();
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
-            NetworkCacheWriter.PublishFileAsync(source, target, "image.esd", "s1", null, TimeProvider.System, cancellation.Token));
+            NetworkCacheWriter.PublishFileAsync(source, target, "image.esd", "s1", SourceHash, 4, TimeProvider.System, cancellation.Token));
 
         Assert.False(Directory.Exists(target) && Directory.EnumerateFiles(target).Any());
     }

@@ -35,7 +35,7 @@ public sealed class NetworkCachePublisherTests : IDisposable
     {
         var publisher = new NetworkCachePublisher(accessor, NullLogger<NetworkCachePublisher>.Instance);
 
-        publisher.Enqueue(new(local, "MicrosoftUpdateCatalogFirmware", "u-key-4", "fw.cab", Hashless: true));
+        publisher.Enqueue(new(local, "MicrosoftUpdateCatalogFirmware", "u-key-4", "fw.cab", null, 4));
         await publisher.DrainAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);
 
         string final = Path.Combine(NetworkCacheLayout.DownloadDirectory(share, "MicrosoftUpdateCatalogFirmware", "u-key-4"), "fw.cab");
@@ -49,7 +49,7 @@ public sealed class NetworkCachePublisherTests : IDisposable
         accessor.Current = NetworkCacheSession.Connected(share, canWrite: false, new NoopConnector());
         var publisher = new NetworkCachePublisher(accessor, NullLogger<NetworkCachePublisher>.Instance);
 
-        publisher.Enqueue(new(local, "OemDriverPack", "abcd", "fw.cab", Hashless: false));
+        publisher.Enqueue(new(local, "OemDriverPack", "abcd", "fw.cab", null, 4));
         await publisher.DrainAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);
 
         Assert.False(Directory.Exists(Path.Combine(share, NetworkCacheLayout.RootFolderName, NetworkCacheLayout.DownloadsFolderName)));
@@ -60,8 +60,8 @@ public sealed class NetworkCachePublisherTests : IDisposable
     {
         var publisher = new NetworkCachePublisher(accessor, NullLogger<NetworkCachePublisher>.Instance);
 
-        publisher.Enqueue(new(Path.Combine(root, "missing.cab"), "OemDriverPack", "a1", "missing.cab", Hashless: false));
-        publisher.Enqueue(new(local, "OemDriverPack", "b2", "fw.cab", Hashless: false));
+        publisher.Enqueue(new(Path.Combine(root, "missing.cab"), "OemDriverPack", "a1", "missing.cab", null, 4));
+        publisher.Enqueue(new(local, "OemDriverPack", "b2", "fw.cab", null, 4));
         await publisher.DrainAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);
 
         Assert.True(File.Exists(Path.Combine(NetworkCacheLayout.DownloadDirectory(share, "OemDriverPack", "b2"), "fw.cab")));
@@ -88,11 +88,54 @@ public sealed class NetworkCachePublisherTests : IDisposable
             return NetworkCachePublishOutcome.Published;
         });
 
-        publisher.Enqueue(new(local, "OemDriverPack", "c3", "fw.cab", Hashless: false));
+        publisher.Enqueue(new(local, "OemDriverPack", "c3", "fw.cab", null, 4));
         await started.Task.WaitAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);
         await publisher.DrainAsync(TimeSpan.FromMilliseconds(100), TestContext.Current.CancellationToken);
 
         Assert.True(cancelled);
+    }
+
+    [Fact]
+    public async Task Drain_WhenPublicationIgnoresCancellation_DoesNotThrow()
+    {
+        var started = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var publisher = new NetworkCachePublisher(accessor, NullLogger<NetworkCachePublisher>.Instance, async (item, directory, token) =>
+        {
+            started.TrySetResult();
+            await Task.Delay(300, CancellationToken.None);
+            return NetworkCachePublishOutcome.Published;
+        }, abandonTimeout: TimeSpan.FromSeconds(10));
+
+        publisher.Enqueue(new(local, "OemDriverPack", "d4", "fw.cab", null, 4));
+        await started.Task.WaitAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);
+
+        await publisher.DrainAsync(TimeSpan.FromMilliseconds(50), TestContext.Current.CancellationToken);
+    }
+
+    [Fact]
+    public async Task Drain_UnexpectedPublicationError_DoesNotThrow()
+    {
+        var publisher = new NetworkCachePublisher(accessor, NullLogger<NetworkCachePublisher>.Instance,
+            (item, directory, token) => throw new InvalidOperationException("unexpected"));
+
+        publisher.Enqueue(new(local, "OemDriverPack", "e5", "fw.cab", null, 4));
+
+        await publisher.DrainAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);
+    }
+
+    [Fact]
+    public async Task Drain_WhenShareHangs_ReturnsAfterAbandonTimeout()
+    {
+        var publisher = new NetworkCachePublisher(accessor, NullLogger<NetworkCachePublisher>.Instance, async (item, directory, token) =>
+        {
+            await Task.Delay(Timeout.InfiniteTimeSpan, CancellationToken.None);
+            return NetworkCachePublishOutcome.Published;
+        }, abandonTimeout: TimeSpan.FromMilliseconds(100));
+
+        publisher.Enqueue(new(local, "OemDriverPack", "f6", "fw.cab", null, 4));
+
+        await publisher.DrainAsync(TimeSpan.FromMilliseconds(100), TestContext.Current.CancellationToken)
+            .WaitAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);
     }
 
     private sealed class NoopConnector : ISmbConnector
