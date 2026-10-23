@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <PackageReference Include="System.DirectoryServices.Protocols" Version="10.0.13" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="10.0.13" />
   </ItemGroup>
 
   <ItemGroup>

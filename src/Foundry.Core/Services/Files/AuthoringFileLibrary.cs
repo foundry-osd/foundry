@@ -1,0 +1,160 @@
+// Copyright (c) Foundry Project contributors.
+// Licensed under the MIT License.
+// See the LICENSE file in the project root for more information.
+
+using System.Security.Cryptography;
+using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Packages;
+
+namespace Foundry.Core.Services.Files;
+
+/// <summary>Stores small authoring files by content hash under <c>content/&lt;sha256&gt;/&lt;file name&gt;</c>.</summary>
+/// <remarks>
+/// Content is immutable and identified by its lowercase hexadecimal SHA-256, so importing the same bytes twice yields one entry.
+/// Reads re-verify the hash, because files in the library can be changed outside the application.
+/// </remarks>
+public sealed class AuthoringFileLibrary
+{
+    /// <summary>Largest file the library accepts.</summary>
+    public const int MaximumFileBytes = 4 * 1024 * 1024;
+
+    private const int MaximumFileNameLength = 100;
+    private readonly string rootDirectory;
+
+    /// <summary>Creates a library rooted at <paramref name="rootDirectory"/>, which is created on first import.</summary>
+    public AuthoringFileLibrary(string rootDirectory)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(rootDirectory);
+        this.rootDirectory = Path.GetFullPath(rootDirectory);
+    }
+
+    /// <summary>Copies a local file into the library, keeping only its sanitized name.</summary>
+    /// <exception cref="InvalidDataException">The file is larger than <see cref="MaximumFileBytes"/>.</exception>
+    public async Task<AuthoringFileReference> ImportAsync(string sourcePath, CancellationToken ct = default)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(sourcePath);
+        await using var input = new FileStream(sourcePath, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.Asynchronous);
+        if (input.Length > MaximumFileBytes) throw new InvalidDataException("AuthoringFile.TooLarge");
+        byte[] content = new byte[(int)input.Length];
+        await input.ReadExactlyAsync(content, ct).ConfigureAwait(false);
+        return Import(content, Path.GetFileName(sourcePath));
+    }
+
+    /// <summary>Stores <paramref name="content"/> under its hash and a sanitized <paramref name="fileName"/>.</summary>
+    /// <exception cref="InvalidDataException">The content is larger than <see cref="MaximumFileBytes"/>.</exception>
+    public AuthoringFileReference Import(ReadOnlySpan<byte> content, string fileName)
+    {
+        if (content.Length > MaximumFileBytes) throw new InvalidDataException("AuthoringFile.TooLarge");
+        var reference = new AuthoringFileReference
+        {
+            ContentHash = Convert.ToHexStringLower(SHA256.HashData(content)),
+            FileName = SanitizeFileName(fileName),
+            Length = content.Length,
+        };
+        string path = ContentPath(reference);
+        if (File.Exists(path) && HasVerifiedContent(path, reference)) return reference;
+
+        Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+        string temporary = Path.Combine(Path.GetDirectoryName(path)!, $".{Guid.NewGuid():N}.tmp");
+        try
+        {
+            File.WriteAllBytes(temporary, content);
+            File.Move(temporary, path, overwrite: true);
+        }
+        finally
+        {
+            if (File.Exists(temporary)) File.Delete(temporary);
+        }
+        return reference;
+    }
+
+    /// <summary>Checks that the stored file exists with the referenced length; <see cref="ReadVerified"/> still verifies the hash.</summary>
+    public bool IsAvailable(AuthoringFileReference reference)
+    {
+        try
+        {
+            string path = ContentPath(reference);
+            return File.Exists(path) && new FileInfo(path).Length == reference.Length;
+        }
+        catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException)
+        {
+            return false;
+        }
+    }
+
+    /// <summary>Reads the stored file and verifies its length and SHA-256 against <paramref name="reference"/>.</summary>
+    /// <exception cref="InvalidDataException">The reference is invalid or the content does not match it.</exception>
+    public byte[] ReadVerified(AuthoringFileReference reference)
+    {
+        string path = ContentPath(reference);
+        using var input = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+        if (input.Length != reference.Length || input.Length > MaximumFileBytes) throw new InvalidDataException("AuthoringFile.ContentMismatch");
+        byte[] content = new byte[(int)input.Length];
+        input.ReadExactly(content);
+        if (!string.Equals(Convert.ToHexStringLower(SHA256.HashData(content)), reference.ContentHash, StringComparison.Ordinal))
+            throw new InvalidDataException("AuthoringFile.ContentMismatch");
+        return content;
+    }
+
+    private static bool HasVerifiedContent(string path, AuthoringFileReference reference)
+    {
+        try
+        {
+            using var input = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+            return input.Length == reference.Length &&
+                string.Equals(Convert.ToHexStringLower(SHA256.HashData(input)), reference.ContentHash, StringComparison.Ordinal);
+        }
+        catch (IOException)
+        {
+            return false;
+        }
+    }
+
+    private string ContentPath(AuthoringFileReference reference)
+    {
+        ArgumentNullException.ThrowIfNull(reference);
+        if (reference.ContentHash is not { Length: 64 } || !reference.ContentHash.All(character => character is >= '0' and <= '9' or >= 'a' and <= 'f'))
+            throw InvalidReference();
+        ValidateFileName(reference.FileName);
+
+        string root = Path.TrimEndingDirectorySeparator(rootDirectory);
+        string path = Path.GetFullPath(Path.Combine(root, "content", reference.ContentHash, reference.FileName));
+        if (!path.StartsWith(root + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)) throw InvalidReference();
+        ContentPackagePathPolicy.ValidateNoReparsePoints(path);
+        return path;
+    }
+
+    private static void ValidateFileName(string fileName)
+    {
+        if (fileName is null || fileName.Contains('/')) throw InvalidReference();
+        try
+        {
+            ContentPackagePathPolicy.ValidatePathSyntax(fileName);
+        }
+        catch (InvalidDataException)
+        {
+            throw InvalidReference();
+        }
+    }
+
+    /// <summary>Keeps the last path segment, replaces characters Windows rejects and avoids reserved device names.</summary>
+    private static string SanitizeFileName(string? fileName)
+    {
+        string name = (fileName ?? string.Empty).Split('/', '\\')[^1];
+        char[] invalid = Path.GetInvalidFileNameChars();
+        name = string.Concat(name.Select(character => Array.IndexOf(invalid, character) >= 0 ? '_' : character)).TrimEnd('.', ' ');
+        if (name.Length > MaximumFileNameLength) name = name[..MaximumFileNameLength].TrimEnd('.', ' ');
+        if (name.Length == 0) name = "file";
+        try
+        {
+            ContentPackagePathPolicy.ValidatePathSyntax(name);
+        }
+        catch (InvalidDataException)
+        {
+            name = "_" + name;
+        }
+        return name;
+    }
+
+    private static InvalidDataException InvalidReference() => new("AuthoringFile.InvalidReference");
+}
