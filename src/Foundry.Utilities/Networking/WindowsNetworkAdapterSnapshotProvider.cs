@@ -81,7 +81,10 @@ public sealed class WindowsNetworkAdapterSnapshotProvider : INetworkAdapterSnaps
                 ipFacts.Ipv4Addresses,
                 ipFacts.Gateways,
                 ipFacts.DnsServers,
-                ipFacts.IsDhcpEnabled));
+                ipFacts.IsDhcpEnabled)
+            {
+                UnicastAddresses = ipFacts.UnicastAddresses
+            });
         }
 
         return snapshots;
@@ -131,6 +134,8 @@ internal sealed record NetworkAdapterIpFacts(
     bool IsDhcpEnabled)
 {
     public static NetworkAdapterIpFacts Empty { get; } = new([], [], [], false);
+
+    public IReadOnlyList<string> UnicastAddresses { get; init; } = [];
 }
 
 internal sealed class WindowsNetworkAdapterInfo(NetworkInterface adapter) : IWindowsNetworkAdapterInfo
@@ -193,11 +198,27 @@ internal sealed class WindowsNetworkAdapterInfo(NetworkInterface adapter) : IWin
             .Select(static address => address.ToString())
             .ToArray();
 
+        string[] unicastAddresses = addresses
+            .Select(static address => address.Address)
+            .Where(static address => IsRoutable(address))
+            .Select(static address => address.ToString())
+            .ToArray();
+
         return new NetworkAdapterIpFacts(
             ipv4Addresses,
             ipv4Gateways,
             mappedDnsServers,
-            isDhcpEnabled);
+            isDhcpEnabled)
+        {
+            UnicastAddresses = unicastAddresses
+        };
+    }
+
+    private static bool IsRoutable(IPAddress address)
+    {
+        if (IPAddress.IsLoopback(address) || address.IsIPv6LinkLocal) return false;
+        byte[] bytes = address.GetAddressBytes();
+        return address.AddressFamily != AddressFamily.InterNetwork || bytes[0] != 169 || bytes[1] != 254;
     }
 }
 
