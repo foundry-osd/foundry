@@ -74,8 +74,10 @@ public static class ContentPackageArchive
     /// Imports an archive written by <see cref="WriteAsync"/> into <paramref name="library"/>. Every entry name is checked against
     /// the library kind's <see cref="ContentPackagePathPolicy"/> before anything is extracted; the manifest must hash to
     /// <paramref name="expectedHash"/> (the library content hash is the SHA-256 of that canonical manifest) and every file must match
-    /// it. The files are extracted into a temporary directory of the current user and imported through <see cref="ContentPackageLibraryService.ImportAsync(string, CancellationToken)"/>, so the kind rules apply
-    /// (for drivers: 150-character relative paths, 20,000 files, at least one INF file). Nothing is added to the library on failure.
+    /// it. The files are extracted into a temporary directory of the current user and imported through
+    /// <see cref="ContentPackageLibraryService.ImportAsync(string, CancellationToken)"/>, so the kind rules apply (for drivers:
+    /// 150-character relative paths, 20,000 files, at least one INF file, and full-path limits on the library destination); the
+    /// resulting hash is compared with <paramref name="expectedHash"/> again. Nothing is added to the library on failure.
     /// </summary>
     /// <param name="library">Target library.</param>
     /// <param name="archive">Seekable archive stream (a non-seekable one would be buffered whole by the ZIP reader); left open.</param>
@@ -105,7 +107,7 @@ public static class ContentPackageArchive
         string hash = expectedHash.ToLowerInvariant();
 
         // The library refuses sources inside its own root, so the files are extracted under the user's temporary folder. The prefix
-        // stays short because the kind's full-path limit (259 characters for post-installation packages) also applies here.
+        // stays short because the library also checks source paths against the kind's full-path limit while it inventories them.
         string extracted = Path.Combine(Path.GetTempPath(), "Foundry", Guid.NewGuid().ToString("N"));
         try
         {
@@ -115,17 +117,63 @@ public static class ContentPackageArchive
                 await ExtractAsync(zip, library.Kind, hash, extracted, cancellationToken).ConfigureAwait(false);
             }
 
-            // The extracted tree holds exactly the manifest's directories and verified files, so the library computes the same
-            // canonical manifest and therefore the expected hash; a mismatch was already rejected before anything reached the library.
-            ContentPackageReference reference = await library.ImportAsync(extracted, cancellationToken).ConfigureAwait(false);
-            return reference with { DisplayName = reference.ContentHash };
+            return await ImportExtractedAsync(library, extracted, hash, cancellationToken).ConfigureAwait(false);
         }
         finally
         {
-            if (Directory.Exists(extracted))
+            DeleteDirectoryBestEffort(extracted);
+        }
+    }
+
+    /// <summary>
+    /// Imports an extracted package directory and checks that the library computed <paramref name="expectedHash"/>. The extraction
+    /// already verified the manifest hash and every file, so a mismatch means the directory changed during the import; the entry the
+    /// import created is then removed, while an entry that existed before the import is never touched.
+    /// </summary>
+    internal static async Task<ContentPackageReference> ImportExtractedAsync(ContentPackageLibraryService library, string directory, string expectedHash,
+        CancellationToken cancellationToken)
+    {
+        IReadOnlySet<string> existing = library.ListContentHashes();
+        ContentPackageReference reference = await library.ImportAsync(directory, cancellationToken).ConfigureAwait(false);
+        if (reference.ContentHash.Equals(expectedHash, StringComparison.Ordinal))
+        {
+            return reference with { DisplayName = reference.ContentHash };
+        }
+
+        if (!existing.Contains(reference.ContentHash))
+        {
+            try
             {
-                Directory.Delete(extracted, recursive: true);
+                await library.DeleteAsync(reference.ContentHash, [], CancellationToken.None).ConfigureAwait(false);
             }
+            catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or InvalidDataException)
+            {
+                // The mismatch below is the error to report; a leftover entry is unreferenced and can be deleted later.
+            }
+        }
+
+        throw new InvalidDataException("ContentPackage.InvalidPackageArchive");
+    }
+
+    /// <summary>
+    /// Returns where a manifest path is extracted. The path syntax was validated by the kind policy (no rooted names, no <c>..</c>,
+    /// forward slashes only), so it stays inside <paramref name="root"/>; full-path limits are left to the library, which checks them on
+    /// its own destination.
+    /// </summary>
+    private static string ExtractionPath(string root, string relativePath) => Path.Combine(root, relativePath.Replace('/', Path.DirectorySeparatorChar));
+
+    private static void DeleteDirectoryBestEffort(string directory)
+    {
+        try
+        {
+            if (Directory.Exists(directory))
+            {
+                Directory.Delete(directory, recursive: true);
+            }
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        {
+            // A leftover in the user's temporary folder must not replace the import's own outcome.
         }
     }
 
@@ -161,7 +209,7 @@ public static class ContentPackageArchive
             }
 
             string relativePath = entry.FullName[FilesPrefix.Length..];
-            _ = policy.ResolveLexically(root, relativePath);
+            policy.ValidateRelativePath(relativePath);
             if (!files.TryAdd(relativePath, entry))
             {
                 throw new InvalidDataException("ContentPackage.DuplicatePackagePath");
@@ -177,13 +225,13 @@ public static class ContentPackageArchive
         Directory.CreateDirectory(root);
         foreach (string directory in manifest.Directories)
         {
-            Directory.CreateDirectory(policy.Resolve(root, directory));
+            Directory.CreateDirectory(ExtractionPath(root, directory));
         }
 
         byte[] buffer = new byte[CopyBufferSize];
         foreach (ContentPackageFile file in manifest.Files)
         {
-            await ExtractFileAsync(files[file.RelativePath], file, policy.Resolve(root, file.RelativePath), buffer, cancellationToken).ConfigureAwait(false);
+            await ExtractFileAsync(files[file.RelativePath], file, ExtractionPath(root, file.RelativePath), buffer, cancellationToken).ConfigureAwait(false);
         }
     }
 

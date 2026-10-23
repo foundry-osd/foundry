@@ -78,7 +78,9 @@ public sealed class ContentPackageArchiveTests : IDisposable
         archive.Position = 0;
         ContentPackageLibraryService target = Library("target", ContentPackageKind.PostInstallation);
 
-        await Assert.ThrowsAsync<InvalidDataException>(() => ContentPackageArchive.ImportAsync(target, archive, reference.ContentHash, Cancellation));
+        InvalidDataException exception = await Assert.ThrowsAsync<InvalidDataException>(() => ContentPackageArchive.ImportAsync(target, archive, reference.ContentHash, Cancellation));
+        Assert.Equal("ContentPackage.InvalidPackagePath", exception.Message);
+        Assert.Equal("../evil.txt", exception.Data[ContentPackagePathPolicy.RelativePathDataKey]);
         Assert.Empty(LibraryEntries("target"));
     }
 
@@ -95,6 +97,33 @@ public sealed class ContentPackageArchiveTests : IDisposable
 
         Assert.False(target.IsAvailable(reference));
         Assert.Empty(LibraryEntries("target"));
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task ImportExtracted_LibraryHashDiffersFromExpected_ThrowsAndRemovesOnlyTheNewEntry(bool existedBefore)
+    {
+        ContentPackageLibraryService target = Library("target", ContentPackageKind.PostInstallation);
+        string extracted = Path.Combine(directory.Path, "extracted");
+        Directory.CreateDirectory(extracted);
+        await File.WriteAllTextAsync(Path.Combine(extracted, "tool.exe"), "tool", Cancellation);
+        ContentPackageReference? before = existedBefore ? await target.ImportAsync(extracted, Cancellation) : null;
+        const string expectedHash = "0000000000000000000000000000000000000000000000000000000000000000";
+
+        InvalidDataException exception = await Assert.ThrowsAsync<InvalidDataException>(() =>
+            ContentPackageArchive.ImportExtractedAsync(target, extracted, expectedHash, Cancellation));
+
+        Assert.Equal("ContentPackage.InvalidPackageArchive", exception.Message);
+        if (before is null)
+        {
+            Assert.Empty(target.ListContentHashes());
+        }
+        else
+        {
+            Assert.Equal([before.ContentHash], target.ListContentHashes());
+            Assert.True(target.IsAvailable(before));
+        }
     }
 
     public void Dispose()

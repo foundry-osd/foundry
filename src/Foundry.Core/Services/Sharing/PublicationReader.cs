@@ -64,7 +64,11 @@ public static class PublicationReader
     /// Checks the folder for a publication newer than <paramref name="appliedSequence"/>. The sequence comes from the manifest file
     /// name in the pointer: equal returns <see cref="PublicationReadStatus.UpToDate"/> and lower
     /// <see cref="PublicationReadStatus.RollbackRejected"/>, both without opening the manifest. A higher one is read and must be a
-    /// signed publication whose payload sequence matches the name.
+    /// signed publication. File names are not signed, so the authenticated sequence decides: after the signature is verified and the
+    /// payload decrypted, <see cref="ConfigurationPackagePayload.Sequence"/> must equal the sequence in the name (an older signed
+    /// manifest copied or renamed to a higher name returns <see cref="PublicationReadStatus.Tampered"/>) and must be higher than
+    /// <paramref name="appliedSequence"/> (otherwise <see cref="PublicationReadStatus.RollbackRejected"/>, or
+    /// <see cref="PublicationReadStatus.UpToDate"/> when equal). A payload is returned only when both hold.
     /// </summary>
     /// <param name="folder">Publication folder.</param>
     /// <param name="password">Publication password.</param>
@@ -123,7 +127,7 @@ public static class PublicationReader
                 return Result(PublicationReadStatus.NotYetAvailable, pointer.Sequence);
             }
 
-            return Map(ConfigurationPackageCodec.Read(manifest, password, pinnedPublicKey), pinnedPublicKey, pointer.Sequence);
+            return Map(ConfigurationPackageCodec.Read(manifest, password, pinnedPublicKey), pinnedPublicKey, pointer.Sequence, appliedSequence);
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
         {
@@ -153,11 +157,11 @@ public static class PublicationReader
         }
     }
 
-    private static PublicationReadResult Map(PackageReadResult read, byte[]? pinnedPublicKey, long sequence)
+    private static PublicationReadResult Map(PackageReadResult read, byte[]? pinnedPublicKey, long sequence, long? appliedSequence)
     {
         return read.Status switch
         {
-            PackageReadStatus.Ok when IsPublication(read, sequence) => new(PublicationReadStatus.Ok, read.Payload, sequence, read.SignerKeyId),
+            PackageReadStatus.Ok when IsPublication(read, sequence) => CheckAppliedSequence(read, sequence, appliedSequence),
             PackageReadStatus.WrongPassword => Result(PublicationReadStatus.WrongPassword, sequence),
             PackageReadStatus.InvalidSignature when IsOtherSigner(read.SignerKeyId, pinnedPublicKey) =>
                 new(PublicationReadStatus.UnknownPublisher, null, sequence, read.SignerKeyId),
@@ -167,6 +171,21 @@ public static class PublicationReader
             // malformed package: the pointer was written by Foundry after a complete manifest, so the folder was modified.
             _ => Result(PublicationReadStatus.Tampered, sequence)
         };
+    }
+
+    /// <summary>
+    /// Applies the sequence rule to the authenticated payload sequence as well as to the pointer name, so the decision never rests on
+    /// an unsigned value.
+    /// </summary>
+    private static PublicationReadResult CheckAppliedSequence(PackageReadResult read, long sequence, long? appliedSequence)
+    {
+        long authenticated = read.Payload!.Sequence;
+        if (appliedSequence is { } applied && authenticated <= applied)
+        {
+            return Result(authenticated < applied ? PublicationReadStatus.RollbackRejected : PublicationReadStatus.UpToDate, sequence);
+        }
+
+        return new(PublicationReadStatus.Ok, read.Payload, sequence, read.SignerKeyId);
     }
 
     /// <summary>

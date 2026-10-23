@@ -72,6 +72,29 @@ public sealed class ContentTransferTests : IDisposable
     }
 
     [Fact]
+    public async Task Decrypt_AppendedChunk_Throws()
+    {
+        string path = await EncryptAsync(RandomNumberGenerator.GetBytes(ContentTransfer.ChunkSize * 2));
+        byte[] bytes = await File.ReadAllBytesAsync(path, Cancellation);
+        byte[] firstChunk = bytes[HeaderBytes..(HeaderBytes + ChunkOverheadBytes + ContentTransfer.ChunkSize)];
+        await File.WriteAllBytesAsync(path, [.. bytes, .. firstChunk], Cancellation);
+
+        await Assert.ThrowsAsync<InvalidDataException>(() => ContentTransfer.DecryptAsync(path, Stream.Null, key, null, Cancellation));
+    }
+
+    [Fact]
+    public async Task Decrypt_DroppedLastChunk_Throws()
+    {
+        string path = await EncryptAsync(RandomNumberGenerator.GetBytes(ContentTransfer.ChunkSize + 100));
+        using (FileStream file = new(path, FileMode.Open, FileAccess.Write))
+        {
+            file.SetLength(file.Length - (ChunkOverheadBytes + 100));
+        }
+
+        await Assert.ThrowsAsync<InvalidDataException>(() => ContentTransfer.DecryptAsync(path, Stream.Null, key, null, Cancellation));
+    }
+
+    [Fact]
     public void DeriveContentKey_SameInputs_SameKey()
     {
         byte[] masterKey = RandomNumberGenerator.GetBytes(32);

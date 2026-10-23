@@ -165,6 +165,81 @@ public sealed class PublicationWriterTests : IDisposable
         Assert.Equal(1, source.Opened(package.Hash));
     }
 
+    [Fact]
+    public async Task Publish_PointerMovedBack_UsesSequenceAboveEveryManifestAndKeepsTheHigherOne()
+    {
+        await PublishAsync([]);
+        await PublishAsync([]);
+        await PublishAsync([]);
+        string higher = ManifestNames().Single(name => name.StartsWith("000003-", StringComparison.Ordinal));
+        await WritePointerAsync(ManifestNames().Single(name => name.StartsWith("000002-", StringComparison.Ordinal)));
+
+        PublishResult result = await PublishAsync([]);
+
+        Assert.Equal(new PublishResult(PublishStatus.Published, 4, null), result);
+        Assert.Equal(4, (await ReadCurrentPayloadAsync(Password)).Sequence);
+        Assert.Contains(higher, ManifestNames());
+        Assert.Equal(["000003", "000004"], ManifestNames().Select(name => name[..6]).Order());
+    }
+
+    [Fact]
+    public async Task Publish_PointerDeleted_ContinuesSequence()
+    {
+        await PublishAsync([]);
+        await PublishAsync([]);
+        File.Delete(Path.Combine(Folder, "current.json"));
+
+        PublishResult result = await PublishAsync([]);
+
+        Assert.Equal(new PublishResult(PublishStatus.Published, 3, null), result);
+        Assert.Equal(3, (await ReadCurrentPayloadAsync(Password)).Sequence);
+    }
+
+    [Fact]
+    public async Task Publish_LastPublishedSequenceHigherThanFolder_Wins()
+    {
+        await PublishAsync([]);
+
+        PublishResult result = await PublicationWriter.PublishAsync(Request([]) with { LastPublishedSequence = 10 }, source, null, Cancellation);
+
+        Assert.Equal(new PublishResult(PublishStatus.Published, 11, null), result);
+        Assert.Equal(11, (await ReadCurrentPayloadAsync(Password)).Sequence);
+    }
+
+    [Fact]
+    public async Task Publish_ContentUnderOtherMasterKey_IsRewritten()
+    {
+        PackageContent content = source.Add("installer", SharedContentKind.Package);
+        await PublishAsync([content]);
+        byte[] newMasterKey = RandomNumberGenerator.GetBytes(32);
+
+        await PublicationWriter.PublishAsync(Request([content]) with { MasterKey = newMasterKey }, source, null, Cancellation);
+
+        Assert.Equal(2, source.Opened(content.Hash));
+        Assert.Equal("installer", await DecryptContentAsync(content.Hash, newMasterKey));
+    }
+
+    [Fact]
+    public async Task Publish_RemovesTemporaryLeftovers()
+    {
+        PackageContent content = source.Add("installer", SharedContentKind.Package);
+        await PublishAsync([content]);
+        string[] leftovers =
+        [
+            ContentPath(content.Hash) + ".tmp",
+            Path.Combine(Folder, "current.json.tmp"),
+            Path.Combine(Folder, "manifests", $"000001-{Guid.NewGuid():N}.fcfg.tmp")
+        ];
+        foreach (string leftover in leftovers)
+        {
+            await File.WriteAllTextAsync(leftover, "partial", Cancellation);
+        }
+
+        await PublishAsync([content]);
+
+        Assert.All(leftovers, leftover => Assert.False(File.Exists(leftover)));
+    }
+
     public void Dispose()
     {
         signer.Dispose();
@@ -201,10 +276,17 @@ public sealed class PublicationWriterTests : IDisposable
         return result.Payload!;
     }
 
-    private async Task<string> DecryptContentAsync(string hash)
+    private string[] ManifestNames() => Directory.EnumerateFiles(Path.Combine(Folder, "manifests")).Select(path => Path.GetFileName(path)).ToArray();
+
+    private Task WritePointerAsync(string manifestName) => File.WriteAllTextAsync(
+        Path.Combine(Folder, "current.json"),
+        $$"""{"format":"foundry-publication","version":1,"manifest":"manifests/{{manifestName}}"}""",
+        Cancellation);
+
+    private async Task<string> DecryptContentAsync(string hash, byte[]? key = null)
     {
         using MemoryStream plaintext = new();
-        await ContentTransfer.DecryptAsync(ContentPath(hash), plaintext, ContentTransfer.DeriveContentKey(masterKey, hash), null, Cancellation);
+        await ContentTransfer.DecryptAsync(ContentPath(hash), plaintext, ContentTransfer.DeriveContentKey(key ?? masterKey, hash), null, Cancellation);
         return Encoding.UTF8.GetString(plaintext.ToArray());
     }
 

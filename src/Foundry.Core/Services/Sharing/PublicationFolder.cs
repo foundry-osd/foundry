@@ -60,8 +60,14 @@ internal static class PublicationFolder
     private const int MaximumSequenceDigits = 18;
     private const int ManifestIdLength = 32;
 
+    /// <summary>Highest sequence a manifest name can carry (18 digits).</summary>
+    internal const long MaximumSequence = 999_999_999_999_999_999;
+
     /// <summary>Returns the path of <c>current.json</c>.</summary>
     internal static string PointerPath(string folder) => Path.Combine(folder, PointerFileName);
+
+    /// <summary>Returns the temporary file <see cref="WritePointerAsync"/> renames over <c>current.json</c>.</summary>
+    internal static string PointerTemporaryPath(string folder) => PointerPath(folder) + TemporaryExtension;
 
     /// <summary>Returns the <c>content</c> directory.</summary>
     internal static string ContentDirectory(string folder) => Path.Combine(folder, ContentDirectoryName);
@@ -132,14 +138,14 @@ internal static class PublicationFolder
         }
         catch
         {
-            File.Delete(temporaryPath);
+            DeleteBestEffort(temporaryPath);
             throw;
         }
     }
 
     /// <summary>
-    /// Returns whether a folder without <c>current.json</c> holds nothing but files a publication writes (for example what an
-    /// interrupted first publish left), so it can be treated as empty.
+    /// Returns whether a folder without <c>current.json</c> holds nothing but files a publication writes (content, manifests and
+    /// their <c>.tmp</c> leftovers). The writer then continues from the manifests found, or starts a new publication when there are none.
     /// </summary>
     internal static bool HoldsOnlyPublicationFiles(string folder)
     {
@@ -161,6 +167,23 @@ internal static class PublicationFolder
         }
 
         return true;
+    }
+
+    /// <summary>Returns <paramref name="fileName"/> without its <c>.tmp</c> extension, or <see langword="null"/> when it has none.</summary>
+    internal static string? WithoutTemporaryExtension(string fileName) =>
+        fileName.EndsWith(TemporaryExtension, StringComparison.Ordinal) ? fileName[..^TemporaryExtension.Length] : null;
+
+    /// <summary>Deletes a file without throwing, for cleanup that must not replace a propagating exception or fail a finished write.</summary>
+    internal static void DeleteBestEffort(string path)
+    {
+        try
+        {
+            File.Delete(path);
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        {
+            // Left for the next publish, whose cleanup removes leftovers.
+        }
     }
 
     /// <summary>Returns the lowercase content hash of a content file name, or <see langword="null"/> when it is not one.</summary>
@@ -202,8 +225,8 @@ internal static class PublicationFolder
         }
     }
 
-    /// <summary>Parses <c>&lt;digits&gt;-&lt;32 lowercase hex&gt;.fcfg</c>; the sequence must be at least 1.</summary>
-    private static bool TryParseManifestFileName(string fileName, out long sequence)
+    /// <summary>Parses a manifest file name, <c>&lt;digits&gt;-&lt;32 lowercase hex&gt;.fcfg</c>; the sequence must be at least 1.</summary>
+    internal static bool TryParseManifestFileName(string fileName, out long sequence)
     {
         sequence = 0;
         int dash = fileName.IndexOf('-', StringComparison.Ordinal);
@@ -229,7 +252,7 @@ internal static class PublicationFolder
             && Directory.EnumerateFiles(directory).All(path =>
             {
                 string name = Path.GetFileName(path);
-                return isOwnedFileName(name.EndsWith(TemporaryExtension, StringComparison.Ordinal) ? name[..^TemporaryExtension.Length] : name);
+                return isOwnedFileName(WithoutTemporaryExtension(name) ?? name);
             });
     }
 }

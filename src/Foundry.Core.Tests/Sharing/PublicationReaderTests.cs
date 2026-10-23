@@ -113,6 +113,24 @@ public sealed class PublicationReaderTests : IDisposable
     }
 
     [Fact]
+    public async Task Read_OldManifestRenamedToHigherSequence_ReturnsTampered()
+    {
+        await PublishAsync();
+        string oldManifest = await CurrentManifestPathAsync();
+        await PublishAsync();
+        string replayed = $"000003-{Guid.NewGuid():N}.fcfg";
+        File.Copy(oldManifest, Path.Combine(Folder, "manifests", replayed));
+        await File.WriteAllTextAsync(
+            Path.Combine(Folder, "current.json"),
+            $$"""{"format":"foundry-publication","version":1,"manifest":"manifests/{{replayed}}"}""",
+            Cancellation);
+
+        PublicationReadResult result = await PublicationReader.ReadAsync(Folder, Password, signer.PublicKey, 2, Cancellation);
+
+        Assert.Equal(new PublicationReadResult(PublicationReadStatus.Tampered, null, 3, null), result);
+    }
+
+    [Fact]
     public async Task Preview_ReturnsPublisherKey()
     {
         await PublishAsync();

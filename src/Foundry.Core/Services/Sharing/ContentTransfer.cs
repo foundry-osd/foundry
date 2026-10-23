@@ -100,7 +100,7 @@ public static class ContentTransfer
         }
         catch
         {
-            File.Delete(temporaryPath);
+            PublicationFolder.DeleteBestEffort(temporaryPath);
             throw;
         }
     }
@@ -166,15 +166,22 @@ public static class ContentTransfer
     }
 
     /// <summary>
-    /// Returns whether <paramref name="path"/> is a complete content file: a well-formed header whose plaintext length matches the
-    /// file size. It does not authenticate the chunks; readers do that when they decrypt.
+    /// Returns whether <paramref name="path"/> is a complete content file written under <paramref name="key"/>: a well-formed header
+    /// whose plaintext length matches the file size, and a final chunk that authenticates with the key, the header, its index and the
+    /// final flag. This binds a reused file to the current master key (a file left by another master key, after a reset or a take
+    /// over, or a planted file of the right size, is rewritten). Earlier chunks are not authenticated here; readers check them.
     /// </summary>
-    internal static bool IsComplete(string path)
+    internal static bool IsComplete(string path, ReadOnlySpan<byte> key)
     {
+        if (key.Length != KeySize)
+        {
+            throw new ArgumentException("The content key must be 32 bytes.", nameof(key));
+        }
+
         try
         {
             using FileStream input = new(path, FileMode.Open, FileAccess.Read, FileShare.Read);
-            Span<byte> header = stackalloc byte[HeaderSize];
+            byte[] header = new byte[HeaderSize];
             if (input.Length < HeaderSize)
             {
                 return false;
@@ -182,13 +189,22 @@ public static class ContentTransfer
 
             input.ReadExactly(header);
             long length = ReadHeaderLength(header);
-            return length >= 0 && length <= input.Length && input.Length == EncryptedLength(length);
+            if (length < 0 || length > input.Length || input.Length != EncryptedLength(length))
+            {
+                return false;
+            }
+
+            long last = ChunkCount(length) - 1;
+            int size = ChunkLength(length, last);
+            byte[] record = new byte[ChunkOverhead + size];
+            input.Position = input.Length - record.Length;
+            input.ReadExactly(record);
+            using AesGcm aes = new(key, TagSize);
+            aes.Decrypt(record.AsSpan(0, NonceSize), record.AsSpan(ChunkOverhead, size), record.AsSpan(NonceSize, TagSize),
+                new byte[size], CreateAssociatedData(header, last, final: true));
+            return true;
         }
-        catch (FileNotFoundException)
-        {
-            return false;
-        }
-        catch (InvalidDataException)
+        catch (Exception exception) when (exception is FileNotFoundException or InvalidDataException or AuthenticationTagMismatchException)
         {
             return false;
         }

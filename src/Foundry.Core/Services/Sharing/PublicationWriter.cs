@@ -28,6 +28,10 @@ public interface IContentSource
 /// <param name="Password">Publication password; must satisfy <see cref="PassphrasePolicy"/>.</param>
 /// <param name="PublisherId">Stable publisher id.</param>
 /// <param name="PublisherName">Display name of the reference PC.</param>
+/// <param name="LastPublishedSequence">
+/// Sequence of the last successful publish of this PC, persisted by the caller after each one (0 before the first). The folder
+/// alone is not trusted for the next sequence: a folder writer can move <c>current.json</c> back or delete it.
+/// </param>
 public sealed record PublicationRequest(
     string Folder,
     FoundryConfigurationDocument Configuration,
@@ -37,7 +41,8 @@ public sealed record PublicationRequest(
     byte[] MasterKey,
     string Password,
     Guid PublisherId,
-    string PublisherName);
+    string PublisherName,
+    long LastPublishedSequence = 0);
 
 /// <summary>Outcome of a publication write.</summary>
 public enum PublishStatus
@@ -45,12 +50,13 @@ public enum PublishStatus
     /// <summary>The manifest was written and activated (or, for a rewrap, rewritten under the new password).</summary>
     Published,
 
-    /// <summary>The folder holds a publication signed by another key; nothing was written.</summary>
+    /// <summary>The current or the highest-numbered manifest of the folder is signed by another key; nothing was written.</summary>
     ForeignPublisher,
 
     /// <summary>
     /// The folder holds files that are not a publication this PC can continue: unrelated files, a pointer that is malformed, newer
-    /// or leads to a missing or unsigned manifest, or (for a rewrap) a current manifest that does not verify. Nothing was written.
+    /// or leads to a missing or unsigned manifest, a sequence at the 18-digit name limit, or (for a rewrap) a current manifest that
+    /// does not verify. Nothing was written.
     /// </summary>
     FolderNotEmpty,
 
@@ -66,8 +72,8 @@ public enum PublishStatus
 
 /// <summary>Result of <see cref="PublicationWriter.PublishAsync"/>.</summary>
 /// <param name="Status">Outcome.</param>
-/// <param name="Sequence">The new sequence when published; the current folder sequence for <see cref="PublishStatus.ForeignPublisher"/>; otherwise 0.</param>
-/// <param name="ForeignKeyId">Key id of the current folder signer, set for <see cref="PublishStatus.ForeignPublisher"/>; read without the password, so not authenticated.</param>
+/// <param name="Sequence">The new sequence when published; the sequence of the foreign manifest for <see cref="PublishStatus.ForeignPublisher"/>; otherwise 0.</param>
+/// <param name="ForeignKeyId">Key id of the foreign signer, set for <see cref="PublishStatus.ForeignPublisher"/>; read without the password, so not authenticated.</param>
 public sealed record PublishResult(PublishStatus Status, long Sequence, string? ForeignKeyId);
 
 /// <summary>Progress of the content copy of a publish.</summary>
@@ -86,10 +92,13 @@ public static class PublicationWriter
     private const int MasterKeySize = 32;
 
     /// <summary>
-    /// Publishes a new version. An empty folder starts at sequence 1; a folder whose current manifest is signed by
-    /// <see cref="PublicationRequest.Signer"/> continues at its sequence + 1 (the signer is read from the envelope, no password
-    /// needed). Content is keyed by hash only: a hash listed several times (for example as a package and a driver set) is written
-    /// once, and a content file already complete in the folder is not rewritten.
+    /// Publishes a new version. The folder must be empty, or its current manifest (named by <c>current.json</c>) and its
+    /// highest-numbered signed manifest must be signed by <see cref="PublicationRequest.Signer"/>; the signer is read from the
+    /// envelope, no password needed. A folder without <c>current.json</c> that still holds manifests is an existing publication, not
+    /// an empty folder. The new sequence is one above the highest of <see cref="PublicationRequest.LastPublishedSequence"/>, the
+    /// pointer sequence and every valid manifest name in <c>manifests/</c>, so a moved or deleted pointer can never make followers
+    /// skip or reject a new version. Content is keyed by hash only: a hash listed several times (for example as a package and a
+    /// driver set) is written once, and a content file already complete under the current master key is not rewritten.
     /// </summary>
     /// <param name="request">What to publish.</param>
     /// <param name="contents">Opens each content item that is not in the folder yet.</param>
@@ -116,7 +125,13 @@ public static class PublicationWriter
                 return new(status, status == PublishStatus.ForeignPublisher ? state.Sequence : 0, state.ForeignKeyId);
             }
 
-            long sequence = state.Sequence + 1;
+            long highest = Math.Max(request.LastPublishedSequence, state.Sequence);
+            if (highest >= PublicationFolder.MaximumSequence)
+            {
+                return new(PublishStatus.FolderNotEmpty, 0, null);
+            }
+
+            long sequence = highest + 1;
             await WriteContentsAsync(request, contents, progress, cancellationToken).ConfigureAwait(false);
             string manifest = PublicationFolder.NewManifest(sequence);
             byte[] manifestBytes = ConfigurationPackageCodec.Write(CreatePayload(request, sequence), request.Password, request.Signer);
@@ -126,7 +141,7 @@ public static class PublicationWriter
             await PublicationFolder.WritePointerAsync(request.Folder, manifest, CancellationToken.None).ConfigureAwait(false);
             try
             {
-                RemoveUnreferenced(request, manifest, state);
+                RemoveUnreferenced(request, manifest, sequence, state.Previous);
             }
             catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
             {
@@ -153,7 +168,7 @@ public static class PublicationWriter
     /// <param name="cancellationToken">Stops before the manifest is replaced.</param>
     /// <returns>
     /// <see cref="PublishStatus.Published"/>, <see cref="PublishStatus.WrongPassword"/>, <see cref="PublishStatus.ForeignPublisher"/>,
-    /// <see cref="PublishStatus.FolderNotEmpty"/> or <see cref="PublishStatus.FolderUnavailable"/>.
+    /// <see cref="PublishStatus.FolderNotEmpty"/> or <see cref="PublishStatus.FolderUnavailable"/> (also when <c>current.json</c> is missing).
     /// </returns>
     /// <exception cref="ArgumentException">The new password breaks the policy.</exception>
     public static async Task<PublishStatus> RewrapAsync(string folder, string oldPassword, string newPassword, PublicationSigningKey signer,
@@ -176,12 +191,12 @@ public static class PublicationWriter
                 return status;
             }
 
-            if (state.Manifest is null)
+            if (state.Current is null)
             {
                 return PublishStatus.FolderUnavailable;
             }
 
-            PackageReadResult read = ConfigurationPackageCodec.Read(state.ManifestBytes, oldPassword, signer.PublicKey);
+            PackageReadResult read = ConfigurationPackageCodec.Read(state.Current.Bytes, oldPassword, signer.PublicKey);
             if (read.Status == PackageReadStatus.WrongPassword)
             {
                 return PublishStatus.WrongPassword;
@@ -194,7 +209,8 @@ public static class PublicationWriter
 
             byte[] rewrapped = ConfigurationPackageCodec.Write(read.Payload, newPassword, signer);
             cancellationToken.ThrowIfCancellationRequested();
-            await PublicationFolder.WriteAtomicAsync(PublicationFolder.ManifestPath(folder, state.Manifest), rewrapped, cancellationToken).ConfigureAwait(false);
+            string path = Path.Combine(PublicationFolder.ManifestsDirectory(folder), state.Current.FileName);
+            await PublicationFolder.WriteAtomicAsync(path, rewrapped, cancellationToken).ConfigureAwait(false);
             return PublishStatus.Published;
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
@@ -219,6 +235,11 @@ public static class PublicationWriter
         {
             throw new ArgumentException("Every publication content hash must be 64 lowercase hexadecimal digits.", nameof(request));
         }
+
+        if (request.LastPublishedSequence is < 0 or >= PublicationFolder.MaximumSequence)
+        {
+            throw new ArgumentException("The last published sequence is out of range.", nameof(request));
+        }
     }
 
     private static void ValidatePassword(string password)
@@ -229,31 +250,69 @@ public static class PublicationWriter
         }
     }
 
-    /// <summary>Decides from <c>current.json</c> and the signer of its manifest whether this key may continue the folder.</summary>
+    /// <summary>
+    /// Decides whether this key may continue the folder, from <c>current.json</c> and the envelope signer (no password) of every
+    /// validly named manifest. The pointer can be moved back or deleted by a folder writer, so the highest-numbered signed manifest
+    /// decides ownership too, and every manifest name counts toward the next sequence.
+    /// </summary>
     private static async Task<FolderState> InspectAsync(string folder, string keyId, CancellationToken cancellationToken)
     {
         PublicationPointerRead pointer = await PublicationFolder.ReadPointerAsync(folder, cancellationToken).ConfigureAwait(false);
-        if (pointer.State == PublicationPointerState.Missing)
-        {
-            return PublicationFolder.HoldsOnlyPublicationFiles(folder) ? FolderState.Empty : FolderState.NotEmpty;
-        }
-
-        string manifestPath = pointer.State == PublicationPointerState.Ok ? PublicationFolder.ManifestPath(folder, pointer.Manifest!) : string.Empty;
-        if (pointer.State != PublicationPointerState.Ok || !File.Exists(manifestPath) || new FileInfo(manifestPath).Length > ConfigurationPackageCodec.MaximumPackageBytes)
+        if (pointer.State is PublicationPointerState.Invalid or PublicationPointerState.Unsupported
+            || (pointer.State == PublicationPointerState.Missing && !PublicationFolder.HoldsOnlyPublicationFiles(folder)))
         {
             return FolderState.NotEmpty;
         }
 
-        byte[] manifestBytes = await File.ReadAllBytesAsync(manifestPath, cancellationToken).ConfigureAwait(false);
-        string? signerKeyId = ConfigurationPackageCodec.ReadSignerKeyId(manifestBytes);
-        if (signerKeyId is null)
+        IReadOnlyList<ManifestFile> manifests = await ReadManifestsAsync(folder, cancellationToken).ConfigureAwait(false);
+        ManifestFile? current = null;
+        if (pointer.State == PublicationPointerState.Ok)
         {
-            return FolderState.NotEmpty;
+            string fileName = PublicationFolder.ManifestFileName(pointer.Manifest!);
+            current = manifests.FirstOrDefault(manifest => manifest.FileName == fileName);
+            if (current?.KeyId is null)
+            {
+                return FolderState.NotEmpty;
+            }
         }
 
-        return signerKeyId == keyId
-            ? new FolderState(null, pointer.Sequence, null, pointer.Manifest, manifestBytes)
-            : new FolderState(PublishStatus.ForeignPublisher, pointer.Sequence, signerKeyId, null, []);
+        ManifestFile? latest = manifests.Where(manifest => manifest.KeyId is not null).MaxBy(manifest => manifest.Sequence);
+        ManifestFile? foreign = new[] { current, latest }.FirstOrDefault(manifest => manifest is not null && manifest.KeyId != keyId);
+        if (foreign is not null)
+        {
+            return new(PublishStatus.ForeignPublisher, foreign.Sequence, foreign.KeyId, null, null);
+        }
+
+        long highest = manifests.Select(manifest => manifest.Sequence).Append(pointer.Sequence).Max();
+        ManifestFile? previous = manifests.Where(manifest => manifest.KeyId == keyId).MaxBy(manifest => manifest.Sequence);
+        return new(null, highest, null, current, previous);
+    }
+
+    /// <summary>Reads every validly named file of <c>manifests/</c>; a file over the package size limit gets no bytes and no signer.</summary>
+    private static async Task<IReadOnlyList<ManifestFile>> ReadManifestsAsync(string folder, CancellationToken cancellationToken)
+    {
+        string directory = PublicationFolder.ManifestsDirectory(folder);
+        List<ManifestFile> manifests = [];
+        if (!Directory.Exists(directory))
+        {
+            return manifests;
+        }
+
+        foreach (string path in Directory.EnumerateFiles(directory))
+        {
+            string fileName = Path.GetFileName(path);
+            if (!PublicationFolder.TryParseManifestFileName(fileName, out long sequence))
+            {
+                continue;
+            }
+
+            byte[] bytes = new FileInfo(path).Length <= ConfigurationPackageCodec.MaximumPackageBytes
+                ? await File.ReadAllBytesAsync(path, cancellationToken).ConfigureAwait(false)
+                : [];
+            manifests.Add(new(fileName, sequence, ConfigurationPackageCodec.ReadSignerKeyId(bytes), bytes));
+        }
+
+        return manifests;
     }
 
     private static async Task WriteContentsAsync(PublicationRequest request, IContentSource source, IProgress<ContentProgress>? progress,
@@ -269,19 +328,19 @@ public static class PublicationWriter
             cancellationToken.ThrowIfCancellationRequested();
             progress?.Report(new(done, total, content.Name));
             string path = PublicationFolder.ContentPath(request.Folder, content.Hash);
-            if (!ContentTransfer.IsComplete(path))
+            byte[] key = ContentTransfer.DeriveContentKey(request.MasterKey, content.Hash);
+            try
             {
-                byte[] key = ContentTransfer.DeriveContentKey(request.MasterKey, content.Hash);
-                try
+                if (!ContentTransfer.IsComplete(path, key))
                 {
                     await using Stream stream = await source.OpenAsync(content, cancellationToken).ConfigureAwait(false);
                     IProgress<long>? bytes = progress is null ? null : new ByteProgress(progress, done, total, content.Name);
                     await ContentTransfer.EncryptAsync(stream, path, key, bytes, cancellationToken).ConfigureAwait(false);
                 }
-                finally
-                {
-                    CryptographicOperations.ZeroMemory(key);
-                }
+            }
+            finally
+            {
+                CryptographicOperations.ZeroMemory(key);
             }
 
             done = Math.Min(total, done + Math.Max(content.Length, 0));
@@ -303,19 +362,21 @@ public static class PublicationWriter
     };
 
     /// <summary>
-    /// After activation, keeps the new and the previous manifest and deletes every other manifest, then deletes content files neither
-    /// kept manifest lists. The previous manifest's list is read with the request password; when that fails no content is deleted.
-    /// A file that cannot be deleted (for example while a follower reads it) is left for the next publish.
+    /// After activation, keeps the new manifest, the previous one (the highest-numbered manifest of this key before the publish) and
+    /// any manifest numbered above the new sequence, and deletes the other manifests; then deletes content files neither kept manifest
+    /// lists, and the <c>.tmp</c> leftovers of interrupted writes. The previous manifest's list is read with the request password and
+    /// the signer key; when that fails no content file is deleted. A file that cannot be deleted (for example while a follower reads
+    /// it) is left for the next publish.
     /// </summary>
-    private static void RemoveUnreferenced(PublicationRequest request, string manifest, FolderState previous)
+    private static void RemoveUnreferenced(PublicationRequest request, string manifest, long sequence, ManifestFile? previous)
     {
-        HashSet<string> keptManifests = new(StringComparer.OrdinalIgnoreCase) { PublicationFolder.ManifestFileName(manifest) };
+        HashSet<string> keptManifests = new(StringComparer.Ordinal) { PublicationFolder.ManifestFileName(manifest) };
         HashSet<string> referenced = new(request.Contents.Select(content => content.Hash), StringComparer.Ordinal);
         bool referencesKnown = true;
-        if (previous.Manifest is not null)
+        if (previous is not null)
         {
-            keptManifests.Add(PublicationFolder.ManifestFileName(previous.Manifest));
-            PackageReadResult read = ConfigurationPackageCodec.Read(previous.ManifestBytes, request.Password, request.Signer.PublicKey);
+            keptManifests.Add(previous.FileName);
+            PackageReadResult read = ConfigurationPackageCodec.Read(previous.Bytes, request.Password, request.Signer.PublicKey);
             referencesKnown = read.Status == PackageReadStatus.Ok;
             if (referencesKnown)
             {
@@ -323,44 +384,42 @@ public static class PublicationWriter
             }
         }
 
-        DeleteFiles(PublicationFolder.ManifestsDirectory(request.Folder), name => !keptManifests.Contains(name));
-        if (referencesKnown)
-        {
-            DeleteFiles(PublicationFolder.ContentDirectory(request.Folder), name => PublicationFolder.ContentHashOf(name) is { } hash && !referenced.Contains(hash));
-        }
+        DeleteFiles(PublicationFolder.ManifestsDirectory(request.Folder), name => PublicationFolder.WithoutTemporaryExtension(name) is { } target
+            ? PublicationFolder.TryParseManifestFileName(target, out _)
+            : PublicationFolder.TryParseManifestFileName(name, out long found) && found <= sequence && !keptManifests.Contains(name));
+        DeleteFiles(PublicationFolder.ContentDirectory(request.Folder), name => PublicationFolder.WithoutTemporaryExtension(name) is { } target
+            ? PublicationFolder.ContentHashOf(target) is not null
+            : referencesKnown && PublicationFolder.ContentHashOf(name) is { } hash && !referenced.Contains(hash));
+        PublicationFolder.DeleteBestEffort(PublicationFolder.PointerTemporaryPath(request.Folder));
     }
 
     private static void DeleteFiles(string directory, Func<string, bool> shouldDelete)
     {
         foreach (string path in Directory.EnumerateFiles(directory))
         {
-            if (!shouldDelete(Path.GetFileName(path)))
+            if (shouldDelete(Path.GetFileName(path)))
             {
-                continue;
-            }
-
-            try
-            {
-                File.Delete(path);
-            }
-            catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
-            {
-                // A follower may be reading the file; the next publish deletes it.
+                PublicationFolder.DeleteBestEffort(path);
             }
         }
     }
 
+    /// <summary>A validly named file of <c>manifests/</c>.</summary>
+    /// <param name="FileName">File name, <c>&lt;sequence&gt;-&lt;id&gt;.fcfg</c>.</param>
+    /// <param name="Sequence">Sequence parsed from the name (not authenticated).</param>
+    /// <param name="KeyId">Envelope signature key id (not authenticated), or null when the file is not a signed envelope.</param>
+    /// <param name="Bytes">File content, empty when over the package size limit.</param>
+    private sealed record ManifestFile(string FileName, long Sequence, string? KeyId, byte[] Bytes);
+
     /// <summary>What <see cref="InspectAsync"/> found.</summary>
     /// <param name="Status">Set when the folder cannot be continued by this key.</param>
-    /// <param name="Sequence">Sequence of the current manifest, 0 for an empty folder.</param>
-    /// <param name="ForeignKeyId">Signer of the current manifest when it is another key.</param>
-    /// <param name="Manifest">Pointer path of the current manifest of this key.</param>
-    /// <param name="ManifestBytes">Envelope bytes of <paramref name="Manifest"/>.</param>
-    private sealed record FolderState(PublishStatus? Status, long Sequence, string? ForeignKeyId, string? Manifest, byte[] ManifestBytes)
+    /// <param name="Sequence">Highest sequence in the folder (pointer and manifest names), or the foreign manifest's sequence.</param>
+    /// <param name="ForeignKeyId">Signer of the deciding manifest when it is another key.</param>
+    /// <param name="Current">Manifest named by <c>current.json</c>, when present.</param>
+    /// <param name="Previous">Highest-numbered manifest signed (by envelope key id) with this key, kept by the next cleanup.</param>
+    private sealed record FolderState(PublishStatus? Status, long Sequence, string? ForeignKeyId, ManifestFile? Current, ManifestFile? Previous)
     {
-        public static FolderState Empty { get; } = new(null, 0, null, null, []);
-
-        public static FolderState NotEmpty { get; } = new(PublishStatus.FolderNotEmpty, 0, null, null, []);
+        public static FolderState NotEmpty { get; } = new(PublishStatus.FolderNotEmpty, 0, null, null, null);
     }
 
     /// <summary>Maps the encrypted byte count of one content item onto the progress of the whole publish.</summary>
