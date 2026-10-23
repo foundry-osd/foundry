@@ -3621,6 +3621,12 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Criar ISO</value>
   </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>A criação de ficheiros PXE está bloqueada</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>Criar ficheiros PXE</value>
+  </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>A criação de USB está bloqueada</value>
   </data>
@@ -3700,7 +3706,7 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
     <value>Idioma de arranque do WinPE</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Crie suportes ISO ou USB depois de todas as verificações de preparação serem concluídas com êxito.</value>
+    <value>Crie suportes ISO, USB ou PXE depois de todas as verificações de preparação serem concluídas com êxito.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>Criar suporte</value>
@@ -3776,6 +3782,9 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>A copiar o conteúdo de pós-instalação…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>A copiar os ficheiros de arranque PXE</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>A copiar ficheiros do WinPE para a unidade USB…</value>
@@ -3897,6 +3906,9 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>A criar o ficheiro ISO</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>A escrever os ficheiros PXE</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>A personalizar a imagem de arranque</value>
   </data>
@@ -3930,6 +3942,9 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>A preparar o conteúdo de pós-instalação…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>A verificar a pasta de destino</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>A preparar a partição de cache…</value>
   </data>
@@ -3947,6 +3962,15 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>A adicionar componentes do Foundry à unidade USB…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>Não há espaço livre suficiente na pasta de destino. Os ficheiros de arranque PXE precisam de {0}. Disponível: {1}. Liberte espaço ou escolha outra pasta.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>Não foi possível escrever os ficheiros de arranque PXE na pasta de destino. Verifique se a pasta está acessível e se tem permissão de escrita na mesma.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>Os ficheiros de arranque PXE foram guardados em:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>A remover ficheiros temporários…</value>
@@ -3986,6 +4010,18 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO criada</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>Criação dos ficheiros PXE cancelada</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>Falha na criação dos ficheiros PXE</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>A criar ficheiros PXE</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>Ficheiros PXE criados</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>Criação do suporte USB cancelada</value>
@@ -4058,6 +4094,36 @@ Palavras-passe e chaves de acesso incluídas: {2}</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Reveja a preparação, escolha uma saída ISO ou USB e inicie a criação do suporte.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>Criar</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>O Foundry OSD escreve boot.wim, boot.sdi, BCD e bootmgr.efi nesta pasta para um arranque de rede UEFI. Importe-os para o seu servidor PXE.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>Esta pasta já contém uma imagem de arranque. Os respetivos ficheiros de arranque PXE serão substituídos.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>Pasta de destino</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>Selecione a pasta de destino PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>Este conteúdo é copiado apenas para suportes ISO e USB. Inicie as implementações que precisam dele a partir de uma ISO ou de uma unidade USB.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>Não incluído num arranque PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>Conjuntos de controladores personalizados: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>Imagens personalizadas do Windows: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>Ações de pós-instalação que utilizam ficheiros importados: {0}</value>
   </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>Rever {0}</value>

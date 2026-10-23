@@ -13,6 +13,7 @@ using Foundry.Services.Autopilot;
 using Foundry.Services.Configuration;
 using Foundry.Services.GitHub;
 using Foundry.Services.Localization;
+using Foundry.Services.Media;
 using Foundry.Services.Networking;
 using Foundry.Services.Operations;
 using Foundry.Services.Settings;
@@ -138,6 +139,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<WinPeWorkspaceCleanupService>();
         services.AddSingleton<IWinPeWorkspacePreparationService, WinPeWorkspacePreparationService>();
         services.AddSingleton<IWinPeIsoMediaService, WinPeIsoMediaService>();
+        services.AddSingleton<IWinPePxeMediaService, WinPePxeMediaService>();
         services.AddSingleton<IWinPeUsbMediaService, WinPeUsbMediaService>();
         services.AddSingleton<IOperationProgressService, OperationProgressService>();
         services.AddSingleton<IAdkService, AdkService>();
@@ -146,6 +148,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IApplicationUpdateStateService, ApplicationUpdateStateService>();
         services.AddSingleton<IApplicationUpdateService, ApplicationUpdateService>();
         services.AddSingleton<IMediaUpdateAdvisoryDialogService, MediaUpdateAdvisoryDialogService>();
+        services.AddSingleton<IPxeOutputDialogService, PxeOutputDialogService>();
         services.AddSingleton<IStartupReadinessService, StartupReadinessService>();
         services.AddSingleton<IGitHubRepositoryContributorService, GitHubRepositoryContributorService>();
 

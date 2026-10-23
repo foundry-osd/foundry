@@ -42,6 +42,23 @@ public sealed class FoundryAppSettings
     /// Gets or sets network proxy preferences used only by the Foundry OSD desktop application.
     /// </summary>
     public ProxyAppSettings Proxy { get; set; } = new();
+
+    /// <summary>
+    /// Gets or sets media output preferences that belong to this computer rather than to a configuration.
+    /// </summary>
+    /// <remarks>The name avoids the legacy <c>media</c> section, which the startup migration still reads.</remarks>
+    public MediaOutputAppSettings MediaOutput { get; set; } = new();
+}
+
+/// <summary>
+/// Stores media output preferences of this computer; they are never shared with a configuration.
+/// </summary>
+public sealed class MediaOutputAppSettings
+{
+    /// <summary>
+    /// Gets or sets the folder that last received PXE boot files, or an empty string before the first PXE output.
+    /// </summary>
+    public string PxeOutputDirectoryPath { get; set; } = string.Empty;
 }
 
 public enum ProxyMethod

@@ -3621,6 +3621,12 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Skapa ISO</value>
   </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>Skapandet av PXE-filer är blockerat</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>Skapa PXE-filer</value>
+  </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>Skapandet av USB är blockerat</value>
   </data>
@@ -3700,7 +3706,7 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
     <value>WinPE startspråk</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Skapa ISO eller USB media efter att alla beredskapskontroller har passerat.</value>
+    <value>Skapa ISO, USB eller PXE media efter att alla beredskapskontroller har passerat.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>Skapa media</value>
@@ -3776,6 +3782,9 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   </data>
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>Kopierar innehåll för efterinstallation…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>Kopierar PXE-startfilerna</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Kopierar WinPE-filer till USB-enheten…</value>
@@ -3897,6 +3906,9 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>Skapar ISO-filen</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>Skriver PXE-filerna</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>Anpassar startavbildningen</value>
   </data>
@@ -3930,6 +3942,9 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>Förbereder innehåll för efterinstallation…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>Kontrollerar målmappen</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>Förbereder cachepartitionen…</value>
   </data>
@@ -3947,6 +3962,15 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Lägger till Foundry-komponenter på USB-enheten…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>Det finns inte tillräckligt med ledigt utrymme i målmappen. PXE-startfilerna kräver {0}. Tillgängligt: {1}. Frigör utrymme eller välj en annan mapp.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>PXE-startfilerna kunde inte skrivas till målmappen. Kontrollera att mappen kan nås och att du kan skriva till den.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>PXE-startfilerna sparades i:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>Tar bort tillfälliga filer…</value>
@@ -3986,6 +4010,18 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO har skapats</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>Skapandet av PXE-filer avbröts</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>Det gick inte att skapa PXE-filer</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>Skapar PXE-filer</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>PXE-filer har skapats</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>Skapandet av USB-mediet avbröts</value>
@@ -4058,6 +4094,36 @@ Inkluderade lösenord och åtkomstnycklar: {2}</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Granska beredskapen, välj ISO- eller USB-utdata och starta medieskapandet.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>Skapa</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>Foundry OSD skriver boot.wim, boot.sdi, BCD och bootmgr.efi till den här mappen för en UEFI-nätverksstart. Importera dem till din PXE-server.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>Den här mappen innehåller redan en startavbildning. Dess PXE-startfiler kommer att ersättas.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>Målmapp</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>Välj målmappen för PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>Det här innehållet kopieras endast till ISO- och USB-medier. Starta distributioner som behöver det från en ISO eller en USB-enhet.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>Levereras inte vid PXE-start</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>Anpassade drivrutinsuppsättningar: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>Anpassade Windows-avbildningar: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>Åtgärder efter installation som använder importerade filer: {0}</value>
   </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>Granska {0}</value>

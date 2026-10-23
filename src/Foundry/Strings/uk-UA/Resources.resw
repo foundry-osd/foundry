@@ -3621,6 +3621,12 @@
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Створити ISO</value>
   </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>Створення файлів PXE заблоковано</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>Створити файли PXE</value>
+  </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>Створення USB заблоковано</value>
   </data>
@@ -3700,7 +3706,7 @@
     <value>WinPE мова завантаження</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Створіть носії ISO або USB після проходження всіх перевірок готовності.</value>
+    <value>Створіть носії ISO, USB або PXE після проходження всіх перевірок готовності.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>Створення медіа</value>
@@ -3776,6 +3782,9 @@
   </data>
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>Копіювання вмісту для етапу після інсталяції…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>Копіювання файлів завантаження PXE</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Копіювання файлів WinPE на USB-накопичувач…</value>
@@ -3897,6 +3906,9 @@
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>Створення ISO-файлу</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>Запис файлів PXE</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>Налаштування завантажувального образу</value>
   </data>
@@ -3930,6 +3942,9 @@
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>Підготовка вмісту для етапу після інсталяції…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>Перевірка папки призначення</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>Підготовка розділу кешу…</value>
   </data>
@@ -3947,6 +3962,15 @@
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Додавання компонентів Foundry на USB-накопичувач…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>Недостатньо вільного місця в папці призначення. Файлам завантаження PXE потрібно {0}. Доступно: {1}. Звільніть місце або виберіть іншу папку.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>Не вдалося записати файли завантаження PXE до папки призначення. Переконайтеся, що папка доступна і ви маєте право запису до неї.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>Файли завантаження PXE збережено тут:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>Видалення тимчасових файлів…</value>
@@ -3986,6 +4010,18 @@
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO створено</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>Створення файлів PXE скасовано</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>Не вдалося створити файли PXE</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>Створення файлів PXE</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>Файли PXE створено</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>Створення USB-носія скасовано</value>
@@ -4058,6 +4094,36 @@
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Перевірте готовність, виберіть вихід ISO або USB і запустіть створення носія.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>Створити</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>Foundry OSD записує boot.wim, boot.sdi, BCD і bootmgr.efi до цієї папки для мережевого завантаження UEFI. Імпортуйте їх на свій сервер PXE.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>Ця папка вже містить завантажувальний образ. Його файли завантаження PXE буде замінено.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>Папка призначення</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>Виберіть папку призначення для PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>Цей вміст копіюється лише на носії ISO та USB. Запускайте розгортання, яким він потрібен, з ISO або USB-накопичувача.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>Не передається під час завантаження через PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>Користувацькі набори драйверів: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>Користувацькі образи Windows: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>Дії після інсталяції, що використовують імпортовані файли: {0}</value>
   </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>Переглянути: {0}</value>

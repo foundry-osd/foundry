@@ -3621,6 +3621,12 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>ISO oluştur</value>
   </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>PXE dosyası oluşturma engellendi</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>PXE dosyaları oluştur</value>
+  </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>USB oluşturma engellendi</value>
   </data>
@@ -3700,7 +3706,7 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
     <value>WinPE önyükleme dili</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Tüm hazırlık kontrolleri geçtikten sonra ISO veya USB ortamını oluşturun.</value>
+    <value>Tüm hazırlık kontrolleri geçtikten sonra ISO, USB veya PXE ortamını oluşturun.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>Medya oluştur</value>
@@ -3776,6 +3782,9 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   </data>
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>Kurulum sonrası içeriği kopyalanıyor…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>PXE önyükleme dosyaları kopyalanıyor</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>WinPE dosyaları USB sürücüsüne kopyalanıyor…</value>
@@ -3897,6 +3906,9 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>ISO dosyasını oluşturma</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>PXE dosyalarını yazma</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>Önyükleme görüntüsünü özelleştirme</value>
   </data>
@@ -3930,6 +3942,9 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>Kurulum sonrası içeriği hazırlanıyor…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>Hedef klasör denetleniyor</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>Önbellek bölümü hazırlanıyor…</value>
   </data>
@@ -3947,6 +3962,15 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Foundry bileşenleri USB sürücüsüne ekleniyor…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>Hedef klasörde yeterli boş alan yok. PXE önyükleme dosyaları için {0} gerekiyor. Kullanılabilir: {1}. Yer açın veya başka bir klasör seçin.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>PXE önyükleme dosyaları hedef klasöre yazılamadı. Klasöre ulaşılabildiğini ve klasöre yazma izniniz olduğunu denetleyin.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>PXE önyükleme dosyaları şuraya kaydedildi:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>Geçici dosyalar kaldırılıyor…</value>
@@ -3986,6 +4010,18 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO oluşturuldu</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>PXE dosyası oluşturma iptal edildi</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>PXE dosyası oluşturma başarısız oldu</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>PXE dosyaları oluşturuluyor</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>PXE dosyaları oluşturuldu</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>USB medyası oluşturma iptal edildi</value>
@@ -4058,6 +4094,36 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Hazırlığı gözden geçirin, ISO veya USB çıktısını seçin ve medya oluşturmayı başlatın.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>Oluştur</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>Foundry OSD, UEFI ağ önyüklemesi için boot.wim, boot.sdi, BCD ve bootmgr.efi dosyalarını bu klasöre yazar. Bunları PXE sunucunuza içeri aktarın.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>Bu klasör zaten bir önyükleme görüntüsü içeriyor. Bu görüntünün PXE önyükleme dosyaları değiştirilecek.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>Hedef klasör</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>PXE hedef klasörünü seçin</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>Bu içerik yalnızca ISO ve USB medyasına kopyalanır. Buna ihtiyaç duyan dağıtımları bir ISO&apos;dan veya USB sürücüsünden başlatın.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>PXE önyüklemesiyle sağlanmaz</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>Özel sürücü kümeleri: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>Özel Windows görüntüleri: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>İçeri aktarılan dosyaları kullanan kurulum sonrası eylemler: {0}</value>
   </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>Gözden geçir: {0}</value>

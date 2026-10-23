@@ -3621,6 +3621,12 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Stvori ISO</value>
   </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>Stvaranje PXE datoteka je blokirano</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>Stvori PXE datoteke</value>
+  </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>USB stvaranje je blokirano</value>
   </data>
@@ -3700,7 +3706,7 @@ Uključene lozinke i pristupni ključevi: {2}</value>
     <value>WinPE jezik pokretanja</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Stvorite ISO ili USB medij nakon što prođu sve provjere spremnosti.</value>
+    <value>Stvorite ISO, USB ili PXE medij nakon što prođu sve provjere spremnosti.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>Stvorite medije</value>
@@ -3776,6 +3782,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>Kopiranje sadržaja nakon instalacije…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>Kopiranje PXE datoteka za pokretanje</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Kopiranje WinPE datoteka na USB disk…</value>
@@ -3897,6 +3906,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>Stvaranje ISO datoteke</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>Zapisivanje PXE datoteka</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>Prilagodba slike za pokretanje</value>
   </data>
@@ -3930,6 +3942,9 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>Priprema sadržaja nakon instalacije…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>Provjera odredišne mape</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>Priprema particije predmemorije…</value>
   </data>
@@ -3947,6 +3962,15 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Dodavanje Foundry komponenti na USB disk…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>Nema dovoljno slobodnog prostora u odredišnoj mapi. PXE datoteke za pokretanje trebaju {0}. Dostupno: {1}. Oslobodite prostor ili odaberite drugu mapu.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>PXE datoteke za pokretanje nije moguće zapisati u odredišnu mapu. Provjerite je li mapa dostupna i možete li u nju pisati.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>PXE datoteke za pokretanje spremljene su u:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>Uklanjanje privremenih datoteka…</value>
@@ -3986,6 +4010,18 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO datoteka je stvorena</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>Stvaranje PXE datoteka je otkazano</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>Stvaranje PXE datoteka nije uspjelo</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>Stvaranje PXE datoteka</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>PXE datoteke su stvorene</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>Stvaranje USB medija je otkazano</value>
@@ -4058,6 +4094,36 @@ Uključene lozinke i pristupni ključevi: {2}</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Pregledajte spremnost, odaberite ISO ili USB izlaz i pokrenite stvaranje medija.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>Stvori</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>Foundry OSD zapisuje boot.wim, boot.sdi, BCD i bootmgr.efi u ovu mapu za UEFI mrežno pokretanje. Uvezite ih na svoj PXE poslužitelj.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>Ova mapa već sadrži sliku za pokretanje. Njezine PXE datoteke za pokretanje bit će zamijenjene.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>Odredišna mapa</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>Odaberite odredišnu mapu za PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>Ovaj se sadržaj kopira samo na ISO i USB medije. Implementacije kojima je potreban pokrenite s ISO datoteke ili USB pogona.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>Ne isporučuje se uz PXE pokretanje</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>Prilagođeni skupovi upravljačkih programa: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>Prilagođene slike sustava Windows: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>Radnje nakon instalacije koje koriste uvezene datoteke: {0}</value>
   </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>Pregledaj: {0}</value>

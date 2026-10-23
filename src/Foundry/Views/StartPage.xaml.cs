@@ -53,6 +53,7 @@ public sealed partial class StartPage : Page
         FinalCommandsCard.Header = localizationService.GetString("StartMedia.FinalCommands.Header");
         FinalCommandsCard.Description = localizationService.GetString("StartMedia.FinalCommands.Description");
         CreateIsoButton.Content = localizationService.GetString("StartMedia.CreateIsoButton");
+        CreatePxeButton.Content = localizationService.GetString("StartMedia.CreatePxeButton");
         ApplyUsbActionButtonState();
     }
 

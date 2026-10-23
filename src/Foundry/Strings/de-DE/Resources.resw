@@ -3621,6 +3621,12 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>ISO erstellen</value>
   </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>Die PXE-Dateierstellung ist blockiert</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>PXE-Dateien erstellen</value>
+  </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>Die USB-Erstellung ist blockiert</value>
   </data>
@@ -3700,7 +3706,7 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
     <value>WinPE-Startsprache</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Erstellen Sie ISO- oder USB-Medien, nachdem alle Bereitschaftsprüfungen bestanden wurden.</value>
+    <value>Erstellen Sie ISO-, USB- oder PXE-Medien, nachdem alle Bereitschaftsprüfungen bestanden wurden.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>Medien erstellen</value>
@@ -3776,6 +3782,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   </data>
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>Inhalte für die Nachinstallation werden kopiert…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>PXE-Startdateien werden kopiert</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>WinPE-Dateien werden auf das USB-Laufwerk kopiert…</value>
@@ -3897,6 +3906,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>Erstellen der ISO-Datei</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>Schreiben der PXE-Dateien</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>Anpassen des Startabbilds</value>
   </data>
@@ -3930,6 +3942,9 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>Inhalte für die Nachinstallation werden vorbereitet…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>Zielordner wird überprüft</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>Cache-Partition wird vorbereitet…</value>
   </data>
@@ -3947,6 +3962,15 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Foundry-Komponenten werden dem USB-Laufwerk hinzugefügt…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>Nicht genügend freier Speicherplatz im Zielordner. Die PXE-Startdateien benötigen {0}. Verfügbar: {1}. Geben Sie Speicherplatz frei oder wählen Sie einen anderen Ordner.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>Die PXE-Startdateien konnten nicht in den Zielordner geschrieben werden. Prüfen Sie, ob der Ordner erreichbar ist und Sie darin schreiben können.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>Die PXE-Startdateien wurden hier gespeichert:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>Temporäre Dateien werden entfernt…</value>
@@ -3986,6 +4010,18 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO erstellt</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>PXE-Dateierstellung abgebrochen</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>PXE-Dateierstellung fehlgeschlagen</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>PXE-Dateien werden erstellt</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>PXE-Dateien erstellt</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>Erstellung des USB-Mediums abgebrochen</value>
@@ -4058,6 +4094,36 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Prüfen Sie die Bereitschaft, wählen Sie eine ISO- oder USB-Ausgabe aus, und starten Sie die Medienerstellung.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>Erstellen</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>Foundry OSD schreibt boot.wim, boot.sdi, BCD und bootmgr.efi für einen UEFI-Netzwerkstart in diesen Ordner. Importieren Sie sie in Ihren PXE-Server.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>Dieser Ordner enthält bereits ein Startabbild. Dessen PXE-Startdateien werden ersetzt.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>Zielordner</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>PXE-Zielordner auswählen</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>Diese Inhalte werden nur auf ISO- und USB-Medien kopiert. Starten Sie Bereitstellungen, die sie benötigen, von einer ISO oder einem USB-Laufwerk.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>Bei PXE-Start nicht enthalten</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>Benutzerdefinierte Treibersätze: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>Benutzerdefinierte Windows-Abbilder: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>Aktionen nach der Installation, die importierte Dateien verwenden: {0}</value>
   </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>{0} überprüfen</value>

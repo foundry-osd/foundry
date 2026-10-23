@@ -3621,6 +3621,12 @@
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>สร้าง ISO</value>
   </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>การสร้างไฟล์ PXE ถูกบล็อก</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>สร้างไฟล์ PXE</value>
+  </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>การสร้าง USB ถูกบล็อก</value>
   </data>
@@ -3700,7 +3706,7 @@
     <value>WinPE ภาษาสำหรับบูต</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>สร้างสื่อ ISO หรือ USB หลังจากผ่านการตรวจสอบความพร้อมทั้งหมดแล้ว</value>
+    <value>สร้างสื่อ ISO, USB หรือ PXE หลังจากผ่านการตรวจสอบความพร้อมทั้งหมดแล้ว</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>สร้างสื่อ</value>
@@ -3776,6 +3782,9 @@
   </data>
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>กำลังคัดลอกเนื้อหาหลังการติดตั้ง…</value>
+  </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>กำลังคัดลอกไฟล์บูต PXE</value>
   </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>กำลังคัดลอกไฟล์ WinPE ไปยังไดรฟ์ USB…</value>
@@ -3897,6 +3906,9 @@
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>การสร้างไฟล์ ISO</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>การเขียนไฟล์ PXE</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>การปรับแต่งอิมเมจสำหรับบูต</value>
   </data>
@@ -3930,6 +3942,9 @@
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>กำลังเตรียมเนื้อหาหลังการติดตั้ง…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>กำลังตรวจสอบโฟลเดอร์ปลายทาง</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>กำลังเตรียมพาร์ติชันแคช…</value>
   </data>
@@ -3947,6 +3962,15 @@
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>กำลังเพิ่มส่วนประกอบ Foundry ลงในไดรฟ์ USB…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>พื้นที่ว่างในโฟลเดอร์ปลายทางไม่เพียงพอ ไฟล์บูต PXE ต้องใช้ {0} พื้นที่ว่างที่มี: {1} โปรดเพิ่มพื้นที่ว่างหรือเลือกโฟลเดอร์อื่น</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>ไม่สามารถเขียนไฟล์บูต PXE ลงในโฟลเดอร์ปลายทางได้ ตรวจสอบว่าสามารถเข้าถึงโฟลเดอร์ได้และคุณมีสิทธิ์เขียนลงในโฟลเดอร์นั้น</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>บันทึกไฟล์บูต PXE ไว้ที่:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>กำลังลบไฟล์ชั่วคราว…</value>
@@ -3986,6 +4010,18 @@
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>สร้าง ISO แล้ว</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>ยกเลิกการสร้างไฟล์ PXE แล้ว</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>การสร้างไฟล์ PXE ล้มเหลว</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>กำลังสร้างไฟล์ PXE</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>สร้างไฟล์ PXE แล้ว</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>ยกเลิกการสร้างสื่อ USB แล้ว</value>
@@ -4058,6 +4094,36 @@
   </data>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>ตรวจสอบความพร้อม เลือกเอาต์พุต ISO หรือ USB แล้วเริ่มสร้างสื่อ</value>
+  </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>สร้าง</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>Foundry OSD จะเขียน boot.wim, boot.sdi, BCD และ bootmgr.efi ลงในโฟลเดอร์นี้สำหรับการเริ่มระบบผ่านเครือข่ายแบบ UEFI นำเข้าไฟล์เหล่านี้ไปยังเซิร์ฟเวอร์ PXE ของคุณ</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>โฟลเดอร์นี้มีอิมเมจสำหรับบูตอยู่แล้ว ไฟล์บูต PXE ของอิมเมจนี้จะถูกแทนที่</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>โฟลเดอร์ปลายทาง</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>เลือกโฟลเดอร์ปลายทางสำหรับ PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>เนื้อหานี้จะถูกคัดลอกไปยังสื่อ ISO และ USB เท่านั้น เริ่มการปรับใช้ที่ต้องใช้เนื้อหานี้จาก ISO หรือไดรฟ์ USB</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>ไม่มีให้เมื่อบูตด้วย PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>ชุดไดรเวอร์แบบกำหนดเอง: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>อิมเมจ Windows แบบกำหนดเอง: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>การดำเนินการหลังการติดตั้งที่ใช้ไฟล์ที่นำเข้า: {0}</value>
   </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>ตรวจสอบ {0}</value>
