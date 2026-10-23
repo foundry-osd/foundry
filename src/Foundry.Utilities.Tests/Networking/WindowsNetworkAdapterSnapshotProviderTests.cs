@@ -36,6 +36,56 @@ public sealed class WindowsNetworkAdapterSnapshotProviderTests
     }
 
     [Fact]
+    public void CreateIpFacts_IncludesGlobalIPv6InUnicastAddresses()
+    {
+        NetworkAdapterIpFacts facts = WindowsNetworkAdapterInfo.CreateIpFacts(
+            [
+                new NetworkAddressFacts(IPAddress.Parse("192.0.2.10"), IPAddress.Parse("255.255.255.0")),
+                new NetworkAddressFacts(IPAddress.Parse("2001:db8::10"), null)
+            ],
+            [],
+            [],
+            isDhcpEnabled: false);
+
+        Assert.Equal(["192.0.2.10", "2001:db8::10"], facts.UnicastAddresses);
+    }
+
+    [Fact]
+    public void CreateIpFacts_ExcludesLinkLocalAndLoopbackFromUnicastAddresses()
+    {
+        NetworkAdapterIpFacts facts = WindowsNetworkAdapterInfo.CreateIpFacts(
+            [
+                new NetworkAddressFacts(IPAddress.Parse("fe80::1"), null),
+                new NetworkAddressFacts(IPAddress.Parse("169.254.10.10"), null),
+                new NetworkAddressFacts(IPAddress.Loopback, null),
+                new NetworkAddressFacts(IPAddress.IPv6Loopback, null),
+                new NetworkAddressFacts(IPAddress.Parse("fd00:10::5"), null)
+            ],
+            [],
+            [],
+            isDhcpEnabled: false);
+
+        Assert.Equal(["fd00:10::5"], facts.UnicastAddresses);
+    }
+
+    [Fact]
+    public void GetAdapters_CarriesUnicastAddresses()
+    {
+        var adapter = new StubNetworkAdapterInfo
+        {
+            Id = "ethernet-id",
+            Name = "Ethernet",
+            InterfaceType = NetworkInterfaceType.Ethernet,
+            OperationalStatus = OperationalStatus.Up,
+            IpFacts = NetworkAdapterIpFacts.Empty with { UnicastAddresses = ["fd00:10::5"] }
+        };
+
+        NetworkAdapterSnapshot snapshot = Assert.Single(new WindowsNetworkAdapterSnapshotProvider(() => [adapter]).GetAdapters());
+
+        Assert.Equal(["fd00:10::5"], snapshot.UnicastAddresses);
+    }
+
+    [Fact]
     public void GetAdapters_MapsFactsAndPreservesSourceOrder()
     {
         var ethernet = new StubNetworkAdapterInfo
