@@ -15,25 +15,31 @@ namespace Foundry.Utilities.IO;
 public sealed class PrivateDirectoryLease : IDisposable
 {
     private readonly string root;
+    private readonly int maximumEntries;
     private FileStream? lease;
 
-    internal PrivateDirectoryLease(string root, string path, FileStream lease)
+    internal PrivateDirectoryLease(string root, string path, FileStream lease, int maximumEntries, PrivateDirectoryCleanupResult abandonedCleanup)
     {
         this.root = root;
         Path = path;
         this.lease = lease;
+        this.maximumEntries = maximumEntries;
+        AbandonedCleanup = abandonedCleanup;
     }
 
     /// <summary>Gets the full path of the leased directory.</summary>
     public string Path { get; }
 
+    /// <summary>Gets the result of the abandoned cleanup that ran under the root lock before this directory was created.</summary>
+    public PrivateDirectoryCleanupResult AbandonedCleanup { get; }
+
     /// <summary>Deletes every file and nested directory while keeping the directory and its lease.</summary>
     /// <exception cref="ObjectDisposedException">The lease was released.</exception>
-    /// <exception cref="IOException">An entry is redirected or cannot be deleted.</exception>
+    /// <exception cref="IOException">An entry is redirected, the entry bound given at creation is exceeded, or an entry cannot be deleted.</exception>
     public void DeleteContents()
     {
         ObjectDisposedException.ThrowIf(lease is null, this);
-        PrivateDirectory.DeleteContents(Path);
+        PrivateDirectory.DeleteContents(Path, maximumEntries);
     }
 
     /// <summary>Removes the directory and its contents, then releases the lease.</summary>
@@ -46,7 +52,7 @@ public sealed class PrivateDirectoryLease : IDisposable
             if (!Directory.Exists(Path)) return;
             using FileStream cleanupLock = PrivateDirectory.AcquireCleanupLock(root);
             lease ??= PrivateDirectory.OpenLease(Path, root);
-            PrivateDirectory.DeleteContents(Path);
+            PrivateDirectory.DeleteContents(Path, maximumEntries);
             lease.Dispose();
             lease = null;
             PrivateDirectory.RemoveEmpty(Path);

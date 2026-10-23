@@ -17,7 +17,9 @@ namespace Foundry.Utilities.IO;
 /// </remarks>
 public static class PrivateDirectory
 {
-    internal const string LeaseFileName = ".lease";
+    /// <summary>The default bound on entries one directory may hold before cleanup refuses to delete it.</summary>
+    public const int DefaultMaximumEntries = 10_000;
+    private const string LeaseFileName = ".lease";
     private const string CleanupLockFileName = ".cleanup-lock";
     private const int MaximumCleanupCandidates = 1024;
 
@@ -72,38 +74,56 @@ public static class PrivateDirectory
     /// <summary>
     /// Removes abandoned directories below <paramref name="root"/>, then creates a new owner-only directory and holds its lease.
     /// </summary>
+    /// <remarks>The result of the abandoned cleanup is exposed by <see cref="PrivateDirectoryLease.AbandonedCleanup"/>.</remarks>
     /// <param name="root">The dedicated root of the leased directories; it is created when missing.</param>
+    /// <param name="maximumEntries">The most entries one directory may hold before cleanup refuses to delete it, for this call and for the lease.</param>
     /// <returns>The lease of the new directory. Disposing it removes the directory.</returns>
     /// <exception cref="IOException">The root is redirected, or another process holds its cleanup lock.</exception>
-    public static PrivateDirectoryLease CreateLeased(string root)
+    public static PrivateDirectoryLease CreateLeased(string root, int maximumEntries = DefaultMaximumEntries)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(root);
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(maximumEntries);
         string fullRoot = NormalizeRoot(root);
         using FileStream cleanupLock = AcquireCleanupLock(fullRoot);
-        CleanupAbandonedCore(fullRoot);
+        PrivateDirectoryCleanupResult cleanup = CleanupAbandonedCore(fullRoot, maximumEntries);
         string path = Path.Combine(fullRoot, Guid.NewGuid().ToString("N"));
         CreateOwnerOnly(path);
-        return new PrivateDirectoryLease(fullRoot, path, OpenLease(path, fullRoot));
+        FileStream lease;
+        try
+        {
+            lease = OpenLease(path, fullRoot);
+        }
+        catch
+        {
+            TryDeleteEmpty(path);
+            throw;
+        }
+        return new PrivateDirectoryLease(fullRoot, path, lease, maximumEntries, cleanup);
     }
 
     /// <summary>
     /// Removes every unleased directory below <paramref name="root"/> whose name is a leased directory name; other entries are kept.
     /// </summary>
     /// <remarks>
-    /// Leased, redirected or locked directories are skipped and remain eligible for a later cleanup. At most 1,024 root entries are examined per call.
+    /// Leased directories are skipped without being counted. Redirected, oversized or undeletable directories are counted as failed
+    /// and remain eligible for a later cleanup. At most 1,024 root entries are examined per call.
     /// </remarks>
     /// <param name="root">The dedicated root of the leased directories.</param>
-    /// <returns>The number of directories removed.</returns>
+    /// <param name="maximumEntries">The most entries one directory may hold before cleanup refuses to delete it.</param>
+    /// <returns>The number of directories removed and the number that could not be removed.</returns>
     /// <exception cref="IOException">The root is redirected, or another process holds its cleanup lock.</exception>
-    public static int CleanupAbandoned(string root)
+    public static PrivateDirectoryCleanupResult CleanupAbandoned(string root, int maximumEntries = DefaultMaximumEntries)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(root);
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(maximumEntries);
         string fullRoot = NormalizeRoot(root);
-        if (!Directory.Exists(fullRoot)) return 0;
+        if (!Directory.Exists(fullRoot)) return new(0, 0);
         using FileStream cleanupLock = AcquireCleanupLock(fullRoot);
-        return CleanupAbandonedCore(fullRoot);
+        return CleanupAbandonedCore(fullRoot, maximumEntries);
     }
 
+    /// <summary>Validates the root, creates it when missing, and opens its exclusive <c>.cleanup-lock</c> file.</summary>
+    /// <exception cref="IOException">The root is redirected, or another process holds the lock.</exception>
     internal static FileStream AcquireCleanupLock(string root)
     {
         ThrowIfRedirected(root, root);
@@ -113,20 +133,26 @@ public static class PrivateDirectory
         return new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
     }
 
+    /// <summary>
+    /// Validates a leased directory directly below <paramref name="root"/> and opens its exclusive <c>.lease</c> file, creating it when missing.
+    /// </summary>
+    /// <exception cref="IOException">The directory is not an owned leased directory, is redirected, or its lease is held.</exception>
     internal static FileStream OpenLease(string directory, string root)
     {
         ValidateLeasedDirectory(directory, root);
-        string path = Path.Combine(directory, LeaseFileName);
-        ThrowIfRedirected(path, directory);
-        return new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+        return OpenLeaseFile(directory);
     }
 
     /// <summary>Deletes every file and subdirectory of a leased directory except its lease file, refusing redirected entries.</summary>
-    internal static void DeleteContents(string directory)
+    /// <exception cref="IOException">
+    /// An entry is redirected, the directory holds more than <paramref name="maximumEntries"/> entries, or an entry cannot be deleted.
+    /// </exception>
+    internal static void DeleteContents(string directory, int maximumEntries)
     {
         Stack<string> pending = new();
         List<string> directories = [];
         pending.Push(directory);
+        int entries = 0;
         while (pending.TryPop(out string? current))
         {
             ThrowIfRedirected(current, directory);
@@ -134,6 +160,8 @@ public static class PrivateDirectory
             foreach (string path in Directory.EnumerateFileSystemEntries(current))
             {
                 if (current == directory && Path.GetFileName(path) == LeaseFileName) continue;
+                if (++entries > maximumEntries)
+                    throw new IOException("The private directory exceeds the cleanup entry limit.");
                 ThrowIfRedirected(path, directory);
                 if ((File.GetAttributes(path) & FileAttributes.Directory) != 0) pending.Push(path);
                 else File.Delete(path);
@@ -150,28 +178,62 @@ public static class PrivateDirectory
         Directory.Delete(directory, recursive: false);
     }
 
-    private static int CleanupAbandonedCore(string root)
+    private static PrivateDirectoryCleanupResult CleanupAbandonedCore(string root, int maximumEntries)
     {
         int removed = 0;
+        int failed = 0;
         foreach (string directory in Directory.EnumerateDirectories(root).Take(MaximumCleanupCandidates))
         {
             if (!Guid.TryParseExact(Path.GetFileName(directory), "N", out _)) continue;
             try
             {
-                using (FileStream lease = OpenLease(directory, root))
+                ValidateLeasedDirectory(directory, root);
+                FileStream lease;
+                try
                 {
-                    DeleteContents(directory);
+                    lease = OpenLeaseFile(directory);
+                }
+                catch (IOException exception) when (IsSharingViolation(exception))
+                {
+                    // A live owner holds the lease; this is expected contention, not a failure.
+                    continue;
+                }
+                using (lease)
+                {
+                    DeleteContents(directory, maximumEntries);
                 }
                 RemoveEmpty(directory);
                 removed++;
             }
             catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
             {
-                // A live owner holds the lease, or the directory cannot be removed now; a later cleanup retries it.
+                // The directory stays eligible for a later cleanup; callers report the failed count.
+                failed++;
             }
         }
-        return removed;
+        return new(removed, failed);
     }
+
+    private static FileStream OpenLeaseFile(string directory)
+    {
+        string path = Path.Combine(directory, LeaseFileName);
+        ThrowIfRedirected(path, directory);
+        return new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+    }
+
+    private static void TryDeleteEmpty(string directory)
+    {
+        try
+        {
+            Directory.Delete(directory, recursive: false);
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        {
+            // An empty unleased directory is removed by the next abandoned cleanup.
+        }
+    }
+
+    private static bool IsSharingViolation(IOException exception) => (exception.HResult & 0xffff) is 32 or 33;
 
     private static void ValidateLeasedDirectory(string directory, string root)
     {

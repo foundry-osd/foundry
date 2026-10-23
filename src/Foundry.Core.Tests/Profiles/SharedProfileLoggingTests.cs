@@ -113,6 +113,33 @@ public sealed class SharedProfileLoggingTests : IDisposable
         Assert.True(File.Exists(sourcePath));
     }
 
+    [Fact]
+    public async Task CleanupAbandoned_LockedSnapshotInputsLogOneWarningWithFailedCount()
+    {
+        using var workspace = new TemporaryDirectory();
+        string snapshots = Path.Combine(workspace.Path, "snapshots");
+        string abandoned = Path.Combine(snapshots, Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(abandoned);
+        using var secrets = new OobeAccountSecretState();
+        using (new FileStream(Path.Combine(abandoned, "confidential.pfx"), FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None))
+        {
+            BuildSnapshot.CleanupAbandoned(snapshots);
+            AssertSingleCleanupWarning();
+
+            sink.Events.Clear();
+            using BuildSnapshot snapshot = await BuildSnapshot.CaptureAsync(new(), secrets, [], snapshots, null, TestContext.Current.CancellationToken);
+            AssertSingleCleanupWarning();
+        }
+
+        void AssertSingleCleanupWarning()
+        {
+            LogEvent warning = Assert.Single(sink.Events, entry => entry.Level >= LogEventLevel.Warning);
+            Assert.Equal(LogEventLevel.Warning, warning.Level);
+            Assert.Equal(1, Assert.IsType<ScalarValue>(warning.Properties["DirectoryCount"]).Value);
+            Assert.DoesNotContain("confidential", warning.ToString(), StringComparison.OrdinalIgnoreCase);
+        }
+    }
+
     public void Dispose()
     {
         Log.Logger = previousLogger;

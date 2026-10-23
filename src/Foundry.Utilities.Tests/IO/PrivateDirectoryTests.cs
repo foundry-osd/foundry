@@ -47,9 +47,9 @@ public sealed class PrivateDirectoryTests
             Directory.CreateDirectory(Path.GetDirectoryName(nested)!);
             File.WriteAllText(nested, "leased");
 
-            int removed = PrivateDirectory.CleanupAbandoned(root);
+            PrivateDirectoryCleanupResult result = PrivateDirectory.CleanupAbandoned(root);
 
-            Assert.Equal(0, removed);
+            Assert.Equal(new PrivateDirectoryCleanupResult(0, 0), result);
             Assert.Equal("leased", File.ReadAllText(nested));
             AssertOwnerOnly(lease.Path);
         }
@@ -69,11 +69,49 @@ public sealed class PrivateDirectoryTests
         string unrelated = Path.Combine(root, "unrelated");
         Directory.CreateDirectory(unrelated);
 
-        int removed = PrivateDirectory.CleanupAbandoned(root);
+        PrivateDirectoryCleanupResult result = PrivateDirectory.CleanupAbandoned(root);
 
-        Assert.Equal(1, removed);
+        Assert.Equal(new PrivateDirectoryCleanupResult(1, 0), result);
         Assert.False(Directory.Exists(abandoned));
         Assert.True(Directory.Exists(unrelated));
+    }
+
+    [Fact]
+    public void CleanupAbandoned_LockedFileInside_CountsFailureAndKeepsDirectory()
+    {
+        using var temporaryDirectory = new TemporaryDirectory();
+        string root = temporaryDirectory.Path;
+        using PrivateDirectoryLease live = PrivateDirectory.CreateLeased(root);
+        string abandoned = Path.Combine(root, Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(abandoned);
+        string locked = Path.Combine(abandoned, "input.pfx");
+        using (new FileStream(locked, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None))
+        {
+            PrivateDirectoryCleanupResult result = PrivateDirectory.CleanupAbandoned(root);
+            using PrivateDirectoryLease next = PrivateDirectory.CreateLeased(root);
+
+            Assert.Equal(new PrivateDirectoryCleanupResult(0, 1), result);
+            Assert.Equal(new PrivateDirectoryCleanupResult(0, 1), next.AbandonedCleanup);
+            Assert.True(File.Exists(locked));
+        }
+
+        Assert.Equal(new PrivateDirectoryCleanupResult(1, 0), PrivateDirectory.CleanupAbandoned(root));
+        Assert.True(Directory.Exists(live.Path));
+    }
+
+    [Fact]
+    public void CleanupAbandoned_TooManyEntries_CountsFailureAndKeepsDirectory()
+    {
+        using var temporaryDirectory = new TemporaryDirectory();
+        string root = temporaryDirectory.Path;
+        string abandoned = Path.Combine(root, Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(abandoned);
+        foreach (string name in new[] { "a.txt", "b.txt", "c.txt" }) File.WriteAllText(Path.Combine(abandoned, name), name);
+
+        PrivateDirectoryCleanupResult result = PrivateDirectory.CleanupAbandoned(root, maximumEntries: 2);
+
+        Assert.Equal(new PrivateDirectoryCleanupResult(0, 1), result);
+        Assert.True(Directory.Exists(abandoned));
     }
 
     [Fact]
@@ -111,7 +149,7 @@ public sealed class PrivateDirectoryTests
         lease.DeleteContents();
 
         Assert.Equal([Path.Combine(lease.Path, ".lease")], Directory.EnumerateFileSystemEntries(lease.Path));
-        Assert.Equal(0, PrivateDirectory.CleanupAbandoned(root));
+        Assert.Equal(new PrivateDirectoryCleanupResult(0, 0), PrivateDirectory.CleanupAbandoned(root));
     }
 
     private static void AssertOwnerOnly(string path)

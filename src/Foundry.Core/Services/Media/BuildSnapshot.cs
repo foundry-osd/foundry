@@ -22,6 +22,8 @@ public sealed class BuildSnapshot : IDisposable
 {
     private const long MaximumDriverBytes = 2L * 1024 * 1024 * 1024;
     private const int MaximumDriverEntries = 10_000;
+    // Copied drivers plus materialized dependencies; a private folder above this bound is refused instead of deleted.
+    private const int MaximumPrivateEntries = MaximumDriverEntries + 1024;
     private readonly OobeAccountSecretState accountSecrets = new();
     private readonly DomainJoinSecretState domainSecrets = new();
     private readonly char[] deploymentPassword;
@@ -176,9 +178,7 @@ public sealed class BuildSnapshot : IDisposable
         ArgumentException.ThrowIfNullOrWhiteSpace(privateRootDirectory);
         try
         {
-            int removed = PrivateDirectory.CleanupAbandoned(privateRootDirectory);
-            if (removed > 0)
-                Log.ForContext<BuildSnapshot>().Information("Abandoned private media snapshot inputs removed. DirectoryCount={DirectoryCount}", removed);
+            LogAbandonedCleanup(PrivateDirectory.CleanupAbandoned(privateRootDirectory, MaximumPrivateEntries));
         }
         catch (IOException exception) when ((exception.HResult & 0xffff) is 32 or 33)
         {
@@ -188,6 +188,14 @@ public sealed class BuildSnapshot : IDisposable
         {
             Log.ForContext<BuildSnapshot>().Warning(exception, "Abandoned media input cleanup could not complete.");
         }
+    }
+
+    private static void LogAbandonedCleanup(PrivateDirectoryCleanupResult result)
+    {
+        if (result.Removed > 0)
+            Log.ForContext<BuildSnapshot>().Information("Abandoned private media snapshot inputs removed. DirectoryCount={DirectoryCount}", result.Removed);
+        if (result.Failed > 0)
+            Log.ForContext<BuildSnapshot>().Warning("Abandoned private media snapshot inputs could not be removed and will be retried later. DirectoryCount={DirectoryCount}", result.Failed);
     }
 
     private async Task<BuildSnapshot> PrepareAsync(IProgress<int>? driverFilesCopied, CancellationToken cancellationToken)
@@ -227,7 +235,8 @@ public sealed class BuildSnapshot : IDisposable
         FoundryConfigurationDocument sources = SelectActiveSources(configuration);
         if (!string.IsNullOrWhiteSpace(sources.General.CustomDriverDirectoryPath))
             ValidateDriverSources(sources.General.CustomDriverDirectoryPath, cancellationToken);
-        privateDirectory = PrivateDirectory.CreateLeased(privateRootDirectory);
+        privateDirectory = PrivateDirectory.CreateLeased(privateRootDirectory, MaximumPrivateEntries);
+        LogAbandonedCleanup(privateDirectory.AbandonedCleanup);
         IReadOnlyList<DeploymentProfileAsset> assets = DeploymentProfileAssetService.Capture(sources, includeContent: true, requireContent: true);
         try
         {
