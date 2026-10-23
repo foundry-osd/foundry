@@ -22,7 +22,7 @@ public static class PrivateDirectory
     private const int MaximumCleanupCandidates = 1024;
 
     /// <summary>
-    /// Creates a directory, or replaces the access rules of an existing one, so only the current user, SYSTEM and Administrators can access it.
+    /// Creates a directory, or replaces the access rules of an existing one, so only the current user has access.
     /// </summary>
     /// <remarks>Inheritance from the parent is removed and the rules are inherited by new children. Missing parents are created.</remarks>
     /// <param name="path">The directory to create or protect.</param>
@@ -187,16 +187,9 @@ public static class PrivateDirectory
         using WindowsIdentity identity = WindowsIdentity.GetCurrent();
         var security = new DirectorySecurity();
         security.SetAccessRuleProtection(isProtected: true, preserveInheritance: false);
-        foreach (SecurityIdentifier principal in new[]
-        {
-            identity.User ?? throw new InvalidOperationException("The current Windows user is unavailable."),
-            new SecurityIdentifier(WellKnownSidType.LocalSystemSid, null),
-            new SecurityIdentifier(WellKnownSidType.BuiltinAdministratorsSid, null)
-        })
-        {
-            security.AddAccessRule(new FileSystemAccessRule(principal, FileSystemRights.FullControl,
-                InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
-        }
+        SecurityIdentifier user = identity.User ?? throw new InvalidOperationException("The current Windows user is unavailable.");
+        security.AddAccessRule(new FileSystemAccessRule(user, FileSystemRights.FullControl,
+            InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Allow));
         return security;
     }
 

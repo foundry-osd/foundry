@@ -12,7 +12,7 @@ namespace Foundry.Utilities.Tests.IO;
 public sealed class PrivateDirectoryTests
 {
     [Fact]
-    public void CreateOwnerOnly_GrantsOnlyUserSystemAndAdministrators()
+    public void CreateOwnerOnly_GrantsOnlyCurrentUser()
     {
         using var temporaryDirectory = new TemporaryDirectory();
         string path = Path.Combine(temporaryDirectory.Path, "private", "nested");
@@ -118,27 +118,17 @@ public sealed class PrivateDirectoryTests
     {
         DirectorySecurity security = new DirectoryInfo(path).GetAccessControl();
         using WindowsIdentity identity = WindowsIdentity.GetCurrent();
-        SecurityIdentifier[] expected =
-        [
-            identity.User!,
-            new SecurityIdentifier(WellKnownSidType.LocalSystemSid, null),
-            new SecurityIdentifier(WellKnownSidType.BuiltinAdministratorsSid, null)
-        ];
         FileSystemAccessRule[] rules = security.GetAccessRules(includeExplicit: true, includeInherited: true, typeof(SecurityIdentifier))
             .Cast<FileSystemAccessRule>()
             .ToArray();
 
         Assert.True(security.AreAccessRulesProtected);
-        Assert.Equal(
-            expected.Select(sid => sid.Value).Order(StringComparer.Ordinal),
-            rules.Select(rule => rule.IdentityReference.Value).Order(StringComparer.Ordinal));
-        Assert.All(rules, rule =>
-        {
-            Assert.Equal(AccessControlType.Allow, rule.AccessControlType);
-            Assert.Equal(FileSystemRights.FullControl, rule.FileSystemRights & FileSystemRights.FullControl);
-            Assert.False(rule.IsInherited);
-            Assert.Equal(InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, rule.InheritanceFlags);
-        });
+        FileSystemAccessRule rule = Assert.Single(rules);
+        Assert.Equal(identity.User!.Value, rule.IdentityReference.Value);
+        Assert.Equal(AccessControlType.Allow, rule.AccessControlType);
+        Assert.Equal(FileSystemRights.FullControl, rule.FileSystemRights & FileSystemRights.FullControl);
+        Assert.False(rule.IsInherited);
+        Assert.Equal(InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, rule.InheritanceFlags);
     }
 
     private static bool TryCreateRedirection(string link, string target, out string failure)
