@@ -5,6 +5,7 @@
 using System.IO;
 using System.Net.Http;
 using System.Security.Cryptography;
+using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Http;
 using Foundry.Utilities.Networking;
 using Microsoft.Extensions.Logging;
@@ -20,17 +21,28 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
     private readonly HttpClient _httpClient;
     private readonly ILogger<ArtifactDownloadService> _logger;
     private readonly TimeProvider _timeProvider;
+    private readonly INetworkCacheReader? _networkCacheReader;
 
     public ArtifactDownloadService(ILogger<ArtifactDownloadService> logger)
         : this(logger, DefaultHttpClient)
     {
     }
 
-    internal ArtifactDownloadService(ILogger<ArtifactDownloadService> logger, HttpClient httpClient, TimeProvider? timeProvider = null)
+    public ArtifactDownloadService(ILogger<ArtifactDownloadService> logger, INetworkCacheReader networkCacheReader)
+        : this(logger, DefaultHttpClient, networkCacheReader: networkCacheReader)
+    {
+    }
+
+    internal ArtifactDownloadService(
+        ILogger<ArtifactDownloadService> logger,
+        HttpClient httpClient,
+        TimeProvider? timeProvider = null,
+        INetworkCacheReader? networkCacheReader = null)
     {
         _logger = logger;
         _httpClient = httpClient;
         _timeProvider = timeProvider ?? TimeProvider.System;
+        _networkCacheReader = networkCacheReader;
     }
 
     public async Task<ArtifactDownloadResult> DownloadAsync(
@@ -100,6 +112,25 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
                     Downloaded = false,
                     Method = "cache-hit",
                     SizeBytes = cachedSize
+                };
+            }
+
+            if (await TryCopyFromNetworkCacheAsync(
+                    sourceUrl,
+                    destinationPath,
+                    normalizedExpectedHash,
+                    hashAlgorithm,
+                    expectedSizeBytes,
+                    artifactKind,
+                    progress,
+                    cancellationToken).ConfigureAwait(false))
+            {
+                return new ArtifactDownloadResult
+                {
+                    DestinationPath = destinationPath,
+                    Downloaded = false,
+                    Method = "network-cache",
+                    SizeBytes = new FileInfo(destinationPath).Length
                 };
             }
 
@@ -230,6 +261,69 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
         long? totalBytes = response.Content.Headers.ContentLength;
 
         await using Stream sourceStream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
+        return await CopyToFileAsync(sourceStream, totalBytes, destinationPath, hashAlgorithm, progress, reportProgress, cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Copies a published share file to the local destination, verifying the catalog hash or, for hashless artifacts,
+    /// the SHA-256 sidecar. Any mismatch or share IO failure deletes the local copy and returns <see langword="false"/>
+    /// so the caller downloads over HTTP; the share file is never modified.
+    /// </summary>
+    private async Task<bool> TryCopyFromNetworkCacheAsync(
+        string sourceUrl,
+        string destinationPath,
+        string? normalizedExpectedHash,
+        HashAlgorithmName? hashAlgorithm,
+        long? expectedSizeBytes,
+        string? artifactKind,
+        IProgress<DownloadProgress>? progress,
+        CancellationToken cancellationToken)
+    {
+        if (_networkCacheReader is null) return false;
+        NetworkCacheCandidate? candidate = await _networkCacheReader
+            .FindAsync(sourceUrl, Path.GetFileName(destinationPath), normalizedExpectedHash, expectedSizeBytes, artifactKind, cancellationToken)
+            .ConfigureAwait(false);
+        if (candidate is null) return false;
+
+        string expectedHash = normalizedExpectedHash ?? NormalizeHash(candidate.SidecarSha256!);
+        HashAlgorithmName algorithm = hashAlgorithm ?? HashAlgorithmName.SHA256;
+        _logger.LogInformation("Copying artifact from the network cache. SharePath={SharePath}, DestinationPath={DestinationPath}", candidate.Path, destinationPath);
+        try
+        {
+            await using FileStream shareStream = new(candidate.Path, FileMode.Open, FileAccess.Read, FileShare.Read, CopyBufferSize, useAsync: true);
+            if (expectedSizeBytes is > 0 && shareStream.Length != expectedSizeBytes.Value)
+            {
+                _logger.LogWarning("Network cache file size mismatch; downloading instead. SharePath={SharePath}", candidate.Path);
+                return false;
+            }
+
+            DownloadedArtifact copied = await CopyToFileAsync(shareStream, shareStream.Length, destinationPath, algorithm, progress, static () => { }, cancellationToken).ConfigureAwait(false);
+            if (string.Equals(expectedHash, copied.Hash, StringComparison.OrdinalIgnoreCase))
+            {
+                _logger.LogInformation("Artifact copied from the network cache. DestinationPath={DestinationPath}", destinationPath);
+                return true;
+            }
+
+            _logger.LogWarning("Network cache file hash mismatch; downloading instead. SharePath={SharePath}", candidate.Path);
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        {
+            _logger.LogWarning("Network cache copy failed; downloading instead. SharePath={SharePath}, Reason={Reason}", candidate.Path, exception.GetType().Name);
+        }
+
+        DeleteInterruptedDownload(destinationPath);
+        return false;
+    }
+
+    private static async Task<DownloadedArtifact> CopyToFileAsync(
+        Stream sourceStream,
+        long? totalBytes,
+        string destinationPath,
+        HashAlgorithmName? hashAlgorithm,
+        IProgress<DownloadProgress>? progress,
+        Action reportProgress,
+        CancellationToken cancellationToken)
+    {
         await using FileStream destinationStream = new(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None, CopyBufferSize, useAsync: true);
         using IncrementalHash? incrementalHash = hashAlgorithm is null
             ? null
