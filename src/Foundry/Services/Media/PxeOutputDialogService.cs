@@ -16,7 +16,7 @@ internal sealed class PxeOutputDialogService(IFilePickerService picker, IApplica
     public async Task<string?> ShowAsync(string initialFolderPath, PxeMissingContent missingContent)
     {
         var viewModel = new PxeOutputDialogViewModel(picker, localization, initialFolderPath, missingContent);
-        var dialog = new PxeOutputDialog(viewModel) { XamlRoot = App.MainWindow.Content.XamlRoot };
+        var dialog = new PxeOutputDialog(viewModel, App.MainWindow.Content.XamlRoot);
         ContentDialogResult result = await dialog.ShowAsync();
         return result == ContentDialogResult.Primary && viewModel.CanCreate ? viewModel.FolderPath.Trim() : null;
     }
