@@ -1,0 +1,21 @@
+{
+  "exportPassphrase": "fixture-export-passphrase-not-a-secret",
+  "connectionPassphrase": "fixture-connection-passphrase-not-a-secret",
+  "wifiSsid": "FoundryFixtureWifi",
+  "wifiPassphrase": "fake-wifi-passphrase",
+  "deploymentPassword": "fake-deployment-password",
+  "administratorPassword": "fake-administrator-password",
+  "oobeAccountId": "fixture-account-1",
+  "oobeAccountPassword": "fake-account-password",
+  "wiredCertificatePassword": "fake-wired-certificate-password",
+  "wiredCertificateBase64": "Rk9VTkRSWS1GSVhUVVJFLUZBS0UtUEZYLU5PVC1BLUNFUlRJRklDQVRF",
+  "domainAccount": "JOIN-SVC@CORP.FIXTURE.TEST",
+  "domainPassword": "fake-domain-join-password",
+  "unattendId": "0f1e2d3c4b5a69788796a5b4c3d2e1f0",
+  "driverSetId": "a1b2c3d4e5f60718293a4b5c6d7e8f90",
+  "connectionKeyBase64": "WlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWlo=",
+  "activeLocalId": "11111111-1111-4111-8111-111111111111",
+  "activeDisplayName": "Fixture active profile",
+  "sharedLocalId": "22222222-2222-4222-8222-222222222222",
+  "sharedDisplayName": "Fixture shared profile"
+}
