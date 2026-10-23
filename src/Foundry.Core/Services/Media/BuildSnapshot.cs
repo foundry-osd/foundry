@@ -7,9 +7,7 @@ using System.Security.Cryptography;
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
-using Foundry.Core.Models.Profiles;
 using Foundry.Core.Services.Configuration;
-using Foundry.Core.Services.Profiles;
 using Foundry.Core.Services.WinPe;
 using Foundry.Telemetry;
 using Foundry.Utilities.IO;
@@ -24,6 +22,8 @@ public sealed class BuildSnapshot : IDisposable
     private const int MaximumDriverEntries = 10_000;
     // Copied drivers plus materialized dependencies; a private folder above this bound is refused instead of deleted.
     private const int MaximumPrivateEntries = MaximumDriverEntries + 1024;
+    private const int MaximumSourceBytes = 4 * 1024 * 1024;
+    private const int MaximumTotalSourceBytes = 8 * 1024 * 1024;
     private readonly OobeAccountSecretState accountSecrets = new();
     private readonly DomainJoinSecretState domainSecrets = new();
     private readonly char[] deploymentPassword;
@@ -237,16 +237,8 @@ public sealed class BuildSnapshot : IDisposable
             ValidateDriverSources(sources.General.CustomDriverDirectoryPath, cancellationToken);
         privateDirectory = PrivateDirectory.CreateLeased(privateRootDirectory, MaximumPrivateEntries);
         LogAbandonedCleanup(privateDirectory.AbandonedCleanup);
-        IReadOnlyList<DeploymentProfileAsset> assets = DeploymentProfileAssetService.Capture(sources, includeContent: true, requireContent: true);
-        try
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-            configuration = DeploymentProfileAssetService.Materialize(new DeploymentProfileDocument { Configuration = sources, Assets = assets }, privateDirectory.Path);
-        }
-        finally
-        {
-            DeploymentProfileAssetService.Clear(assets);
-        }
+        configuration = CaptureSources(sources, privateDirectory.Path);
+        cancellationToken.ThrowIfCancellationRequested();
         if (!string.IsNullOrWhiteSpace(configuration.General.CustomDriverDirectoryPath))
         {
             string destination = Path.Combine(privateDirectory.Path, "Drivers");
@@ -255,6 +247,99 @@ public sealed class BuildSnapshot : IDisposable
         }
         cancellationToken.ThrowIfCancellationRequested();
     }
+
+    /// <summary>
+    /// Copies every active authoring source file (802.1X and Wi-Fi profiles and certificates, the Autopilot boot media
+    /// certificate and answer files) under a generated name in <paramref name="directory"/>, and returns the configuration
+    /// rebound to the copies. Inactive sources are dropped.
+    /// </summary>
+    /// <remarks>
+    /// Each source is bounded to <see cref="MaximumSourceBytes"/> and all of them to <see cref="MaximumTotalSourceBytes"/>;
+    /// an answer file must still match its recorded hash. A missing required source, an unreadable source and a size or hash
+    /// violation fail the capture; the caller removes the private directory. Source bytes are cleared after each copy.
+    /// </remarks>
+    private static FoundryConfigurationDocument CaptureSources(FoundryConfigurationDocument sources, string directory)
+    {
+        long total = 0;
+        NetworkSettings network = sources.Network;
+        bool wiredEnabled = network.Dot1x.IsEnabled;
+        bool wifiEnabled = network.WifiProvisioned && network.Wifi.IsEnabled;
+        bool wifiProfileEnabled = wifiEnabled && network.Wifi.HasEnterpriseProfile;
+        bool hardwareHashEnabled = sources.Autopilot.IsEnabled && sources.Autopilot.ProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload;
+        AutopilotBootMediaCertificateSettings bootCertificate = sources.Autopilot.HardwareHashUpload.BootMediaCertificate;
+        return sources with
+        {
+            Network = network with
+            {
+                Dot1x = network.Dot1x with
+                {
+                    ProfileTemplatePath = Copy(network.Dot1x.ProfileTemplatePath, required: wiredEnabled, active: wiredEnabled),
+                    CertificatePath = Copy(network.Dot1x.CertificatePath, required: wiredEnabled && network.Dot1x.RequiresCertificate, active: wiredEnabled)
+                },
+                Wifi = network.Wifi with
+                {
+                    EnterpriseProfileTemplatePath = Copy(network.Wifi.EnterpriseProfileTemplatePath, required: wifiProfileEnabled, active: wifiProfileEnabled),
+                    CertificatePath = Copy(network.Wifi.CertificatePath, required: wifiEnabled && network.Wifi.RequiresCertificate, active: wifiEnabled)
+                }
+            },
+            Autopilot = sources.Autopilot with
+            {
+                HardwareHashUpload = sources.Autopilot.HardwareHashUpload with
+                {
+                    BootMediaCertificate = bootCertificate with { PfxPath = Copy(bootCertificate.PfxPath, required: hardwareHashEnabled, active: hardwareHashEnabled) }
+                }
+            },
+            Unattend = sources.Unattend with
+            {
+                Files = sources.Unattend.Files
+                    .Select(file => file with { SourcePath = Copy(file.SourcePath, sources.Unattend.IsEnabled, sources.Unattend.IsEnabled, file) ?? string.Empty })
+                    .ToArray()
+            }
+        };
+
+        string? Copy(string? path, bool required, bool active, UnattendFileSettings? answerFile = null)
+        {
+            if (!active) return null;
+            if (string.IsNullOrWhiteSpace(path))
+                return required ? throw new FileNotFoundException("A required media source file is missing.") : null;
+
+            byte[]? content = null;
+            try
+            {
+                using (FileStream input = new(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+                {
+                    if (input.Length > MaximumSourceBytes || total + input.Length > MaximumTotalSourceBytes)
+                        throw new InvalidDataException("Media source files exceed the supported size.");
+                    content = new byte[checked((int)input.Length)];
+                    input.ReadExactly(content);
+                }
+                total += content.Length;
+                if (answerFile is not null &&
+                    !string.Equals(Convert.ToHexString(SHA256.HashData(content)), answerFile.ContentHash, StringComparison.OrdinalIgnoreCase))
+                    throw new InvalidDataException("The answer-file source changed. Refresh the imported file before building media.");
+
+                string target = Path.Combine(directory, Guid.NewGuid().ToString("N") + SafeExtension(path));
+                using FileStream output = new(target, FileMode.CreateNew, FileAccess.Write, FileShare.None);
+                output.Write(content);
+                return target;
+            }
+            finally
+            {
+                if (content is not null) CryptographicOperations.ZeroMemory(content);
+            }
+        }
+    }
+
+    private static string SafeExtension(string path) => Path.GetExtension(path).ToLowerInvariant() switch
+    {
+        ".xml" => ".xml",
+        ".pfx" => ".pfx",
+        ".p12" => ".p12",
+        ".cer" => ".cer",
+        ".crt" => ".crt",
+        ".json" => ".json",
+        _ => ".bin"
+    };
 
     private static void ValidateDriverSources(string source, CancellationToken cancellationToken)
     {

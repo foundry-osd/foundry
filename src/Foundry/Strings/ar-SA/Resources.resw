@@ -737,7 +737,7 @@
     <value>غير متاح</value>
   </data>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
-    <value>هذا المجلد موجود بالفعل في ملف التعريف هذا باسم {0}.</value>
+    <value>هذا المجلد موجود بالفعل في هذا التكوين باسم {0}.</value>
   </data>
   <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
     <value>تم استبدال التكوين أثناء الاستيراد، لذلك لم تتم إضافة مجموعة برامج التشغيل. استورد المجلد مرة أخرى.</value>
@@ -752,7 +752,7 @@
     <value>مجموعة برامج تشغيل</value>
   </data>
   <data name="CustomDrivers.DuplicateName" xml:space="preserve">
-    <value>توجد بالفعل مجموعة برامج تشغيل بهذا الاسم في ملف التعريف هذا.</value>
+    <value>توجد بالفعل مجموعة برامج تشغيل بهذا الاسم في هذا التكوين.</value>
   </data>
   <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
     <value>لا توجد مجموعات برامج تشغيل مخصصة. استورد مجلدًا يحتوي على برامج تشغيل .inf للبدء.</value>
@@ -809,19 +809,19 @@
     <value>غير متاح مع إقلاع PXE. تتطلب برامج التشغيل المخصصة وسائط ISO أو USB الكاملة.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
-    <value>مجموعات برامج التشغيل في ملف التعريف هذا غير صالحة. تحقق من المجموعات المضمنة والمجموعة الافتراضية قبل إنشاء الوسائط أو تحديثها.</value>
+    <value>مجموعات برامج التشغيل في هذا التكوين غير صالحة. تحقق من المجموعات المضمنة والمجموعة الافتراضية قبل إنشاء الوسائط أو تحديثها.</value>
   </data>
   <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
     <value>النسخة المحلية من {0} مفقودة أو تالفة. استورد المجلد مرة أخرى أو استبعد المجموعة قبل إنشاء الوسائط أو تحديثها.</value>
   </data>
   <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
-    <value>أدرج مجموعة برامج تشغيل واحدة على الأقل في ملف التعريف هذا، أو أوقف تشغيل برامج التشغيل المخصصة، قبل إنشاء الوسائط أو تحديثها.</value>
+    <value>أدرج مجموعة برامج تشغيل واحدة على الأقل في هذا التكوين، أو أوقف تشغيل برامج التشغيل المخصصة، قبل إنشاء الوسائط أو تحديثها.</value>
   </data>
   <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
     <value>إزالة مجموعة برامج التشغيل</value>
   </data>
   <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
-    <value>ستتم إزالة {0} ({1}) من ملف التعريف الحالي.</value>
+    <value>ستتم إزالة {0} ({1}) من التكوين الحالي.</value>
   </data>
   <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
     <value>تعذرت إزالة مجموعة برامج التشغيل. حاول مرة أخرى.</value>
@@ -830,13 +830,13 @@
     <value>هل تريد إزالة مجموعة برامج التشغيل؟</value>
   </data>
   <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
-    <value>تُحذف نسختها المحلية ما لم يستخدمها ملف تعريف آخر. لن يتغير المجلد الأصلي والوسائط الموجودة.</value>
+    <value>تُحذف نسختها المحلية. لن يتغير المجلد الأصلي والوسائط الموجودة.</value>
   </data>
   <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
     <value>تعيين كافتراضي</value>
   </data>
   <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
-    <value>وصل ملف التعريف هذا إلى الحد الأقصى لعدد مجموعات برامج التشغيل. أزل مجموعة قبل استيراد أخرى.</value>
+    <value>وصل هذا التكوين إلى الحد الأقصى لعدد مجموعات برامج التشغيل. أزل مجموعة قبل استيراد أخرى.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>جارٍ التحقق من مجموعات برامج التشغيل المخصصة…</value>
@@ -878,7 +878,7 @@
     <value>الصورة المحددة</value>
   </data>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
-    <value>توجد بالفعل صورة بهذا الاسم في ملف التعريف هذا.</value>
+    <value>توجد بالفعل صورة بهذا الاسم في هذا التكوين.</value>
   </data>
   <data name="CustomImages.EditionLabel" xml:space="preserve">
     <value>الإصدار</value>
@@ -935,7 +935,7 @@
     <value>غير متاح مع إقلاع PXE. تتطلب الصور المخصصة وسائط ISO أو USB الكاملة.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>ضمّن صورة Windows واحدة متاحة على الأقل في ملف التعريف هذا. استعد الصور المضمّنة المفقودة وصحّح اختيار الصورة أو الفهرس المفضل أو ألغِه قبل إنشاء الوسائط أو تحديثها.</value>
+    <value>ضمّن صورة Windows واحدة متاحة على الأقل في هذا التكوين. استعد الصور المضمّنة المفقودة وصحّح اختيار الصورة أو الفهرس المفضل أو ألغِه قبل إنشاء الوسائط أو تحديثها.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>تحديث</value>
@@ -944,7 +944,7 @@
     <value>إزالة الصورة</value>
   </data>
   <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
-    <value>ستتم إزالة {0} ({1}) من ملف التعريف الحالي، وسيتم حذف نسختها المحلية.</value>
+    <value>ستتم إزالة {0} ({1}) من التكوين الحالي، وسيتم حذف نسختها المحلية.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>إزالة</value>
@@ -953,7 +953,7 @@
     <value>هل تريد إزالة الصورة المخصصة؟</value>
   </data>
   <data name="CustomImages.RemoveWarning" xml:space="preserve">
-    <value>ستظهر هذه الصورة كمفقودة في ملفات التعريف الأخرى التي تستخدمها. لن يتغير الملف الأصلي والوسائط الموجودة.</value>
+    <value>لن يتغير الملف الأصلي والوسائط الموجودة.</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>تحرير</value>
@@ -3001,299 +3001,6 @@
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>دليل العمل (نسبي؛ يُستخدم جذر المحتوى إذا تُرك فارغاً)</value>
   </data>
-  <data name="Profiles.Active" xml:space="preserve">
-    <value>الإعدادات الحالية</value>
-  </data>
-  <data name="Profiles.AutoSync" xml:space="preserve">
-    <value>المزامنة التلقائية</value>
-  </data>
-  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
-    <value>اختر اسمًا آخر</value>
-  </data>
-  <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>تعذرت إزالة بعض كلمات المرور أو مفاتيح الوصول القديمة المحفوظة. حاول مرة أخرى عندما يكون مدير بيانات اعتماد Windows متاحًا.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
-    <value>إغلاق دون حفظ</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
-    <value>تعذر حفظ آخر التغييرات التي أجريتها، وستُفقد.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
-    <value>هل تريد الإغلاق دون حفظ الإعدادات؟</value>
-  </data>
-  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
-    <value>تأكيد كلمة المرور</value>
-  </data>
-  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>تأكيد كلمة مرور الملف</value>
-  </data>
-  <data name="Profiles.Conflict" xml:space="preserve">
-    <value>تم تغيير هذه الإعدادات على هذا الكمبيوتر ومن قِبل شخص آخر. اختر النسخة التي تريد الاحتفاظ بها.</value>
-  </data>
-  <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>ستحل النسخة التي تختارها محل الأخرى. اختر إنشاء نسخة أولًا إذا أردت الاحتفاظ بنسخة منفصلة.</value>
-  </data>
-  <data name="Profiles.ConnectAction" xml:space="preserve">
-    <value>اتصال</value>
-  </data>
-  <data name="Profiles.ConnectDescription" xml:space="preserve">
-    <value>اختر ملف الاتصال الذي قدمه لك أحد أعضاء فريقك.</value>
-  </data>
-  <data name="Profiles.ConnectionPassword" xml:space="preserve">
-    <value>كلمة مرور الاتصال</value>
-  </data>
-  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
-    <value>ستحتاج أجهزة الكمبيوتر الأخرى إلى كلمة المرور هذه للاتصال.</value>
-  </data>
-  <data name="Profiles.Continue" xml:space="preserve">
-    <value>متابعة</value>
-  </data>
-  <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>مشاركة هذا التكوين</value>
-  </data>
-  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
-    <value>اختر مجلد شبكة مشتركًا لهذا التكوين.</value>
-  </data>
-  <data name="Profiles.Delete" xml:space="preserve">
-    <value>حذف من هذا الكمبيوتر</value>
-  </data>
-  <data name="Profiles.DeleteAction" xml:space="preserve">
-    <value>حذف</value>
-  </data>
-  <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>الحذف للجميع أيضًا</value>
-  </data>
-  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
-    <value>الحذف للجميع</value>
-  </data>
-  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
-    <value>هل تريد الحذف للجميع؟</value>
-  </data>
-  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>هل تريد حذف هذه الإعدادات المشتركة للجميع؟ يجب على أي شخص لديه تغييرات لم تتم مزامنتها إنشاء نسخة من إعداداته للاحتفاظ بها.</value>
-  </data>
-  <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>هل تريد حذف هذه الإعدادات من هذا الكمبيوتر؟ صدّرها أولًا إذا أردت نسخة احتياطية.</value>
-  </data>
-  <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>تم حذف هذه الإعدادات المشتركة. اختر إنشاء نسخة للاحتفاظ بتغييراتك على هذا الكمبيوتر.</value>
-  </data>
-  <data name="Profiles.Disconnect" xml:space="preserve">
-    <value>قطع الاتصال</value>
-  </data>
-  <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>هل تريد إيقاف مزامنة هذا التكوين على هذا الكمبيوتر؟ سيتم الاحتفاظ بإعداداتك الحالية. لن يتغير التكوين المشترك أو أجهزة الكمبيوتر الأخرى.</value>
-  </data>
-  <data name="Profiles.Export" xml:space="preserve">
-    <value>تصدير</value>
-  </data>
-  <data name="Profiles.ExportDescription" xml:space="preserve">
-    <value>حفظ هذا التكوين في ملف للنسخ الاحتياطي أو لاستخدامه على كمبيوتر آخر.</value>
-  </data>
-  <data name="Profiles.ExportProtection" xml:space="preserve">
-    <value>اختر كلمة مرور لحماية الملف المُصدَّر. ستحتاج إليها لاستيراد التكوين.</value>
-  </data>
-  <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>حفظ ملف الاتصال</value>
-  </data>
-  <data name="Profiles.Failed" xml:space="preserve">
-    <value>تعذر إكمال هذا الإجراء. تحقق من الملف وكلمة مروره وأذونات الوصول واتصال الشبكة.</value>
-  </data>
-  <data name="Profiles.FolderExists" xml:space="preserve">
-    <value>اسم المجلد هذا مستخدم بالفعل. اتصل باستخدام ملف اتصال، أو ارجع واختر اسمًا آخر.</value>
-  </data>
-  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
-    <value>اختر مجلدًا فرعيًا جديدًا وفارغًا داخل المجلد المشترك. ستبقى الملفات الموجودة دون تغيير.</value>
-  </data>
-  <data name="Profiles.Forget" xml:space="preserve">
-    <value>مسح كلمات المرور وبيانات الوصول المحفوظة</value>
-  </data>
-  <data name="Profiles.ForgetAction" xml:space="preserve">
-    <value>مسح</value>
-  </data>
-  <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>هل تريد إزالة كلمات المرور المحفوظة والملفات السرية التي حفظها Foundry وإمكانية المزامنة لهذه الإعدادات على هذا الكمبيوتر؟ ستحتاج إلى إضافة البيانات الناقصة وإعادة الاتصال للمزامنة. لن تتغير الوسائط التي أنشأتها سابقًا.</value>
-  </data>
-  <data name="Profiles.Heading" xml:space="preserve">
-    <value>إعدادات Foundry</value>
-  </data>
-  <data name="Profiles.Import" xml:space="preserve">
-    <value>استيراد</value>
-  </data>
-  <data name="Profiles.ImportDescription" xml:space="preserve">
-    <value>إضافة تكوين من ملف.</value>
-  </data>
-  <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>تضمين كلمات المرور والملفات السرية</value>
-  </data>
-  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
-    <value>يمكن للأشخاص الذين يستخدمون هذا التكوين قراءة كلمات المرور والملفات السرية المضمنة.</value>
-  </data>
-  <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>بعض كلمات المرور أو الملفات المصدر مفقودة. أضفها قبل حفظ كلمات المرور أو مشاركتها.</value>
-  </data>
-  <data name="Profiles.InvalidFolderName" xml:space="preserve">
-    <value>استخدم اسمًا لا يحتوي على رموز خاصة ولا ينتهي بنقطة أو مسافة.</value>
-  </data>
-  <data name="Profiles.JoinChanged" xml:space="preserve">
-    <value>تغير التكوين المشترك. راجع أحدث إصدار قبل الاتصال.</value>
-  </data>
-  <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>الاتصال بتكوين مشترك</value>
-  </data>
-  <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>استخدام نسخة هذا الكمبيوتر</value>
-  </data>
-  <data name="Profiles.LearnMore" xml:space="preserve">
-    <value>معرفة المزيد</value>
-  </data>
-  <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>الاحتفاظ بكلمات المرور لحساب Windows الخاص بك على هذا الكمبيوتر.</value>
-  </data>
-  <data name="Profiles.Locked" xml:space="preserve">
-    <value>يتعذر على Windows إلغاء قفل هذه الإعدادات المحفوظة أو إمكانية مزامنتها لحسابك على هذا الكمبيوتر.</value>
-  </data>
-  <data name="Profiles.Manage" xml:space="preserve">
-    <value>المزيد من الخيارات</value>
-  </data>
-  <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>الملفات المفقودة أو غير المضمنة: {0}. حدد مواقعها قبل إنشاء الوسائط.</value>
-  </data>
-  <data name="Profiles.Name" xml:space="preserve">
-    <value>اسم التكوين</value>
-  </data>
-  <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>كلمة مرور الملف</value>
-  </data>
-  <data name="Profiles.PasswordMismatch" xml:space="preserve">
-    <value>كلمتا المرور غير متطابقتين.</value>
-  </data>
-  <data name="Profiles.Preview" xml:space="preserve">
-    <value>{0}
-الملفات المضمنة: {1}
-كلمات المرور ومفاتيح الوصول المضمنة: {2}</value>
-  </data>
-  <data name="Profiles.Ready" xml:space="preserve">
-    <value>جاهز</value>
-  </data>
-  <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>اختر كلمة مرور لحماية ملف الاتصال. شارك كلمة المرور بشكل منفصل. احفظ الملف خارج مجلد التكوين المشترك.</value>
-  </data>
-  <data name="Profiles.Remember" xml:space="preserve">
-    <value>تذكّر كلمات المرور</value>
-  </data>
-  <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>تذكر هذا الاتصال على هذا الكمبيوتر</value>
-  </data>
-  <data name="Profiles.Rename" xml:space="preserve">
-    <value>إعادة تسمية</value>
-  </data>
-  <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>سيؤدي هذا إلى استبدال الإعدادات التي تستخدمها. للاحتفاظ بنسخة أولًا، ألغِ الإجراء واختر إنشاء نسخة.</value>
-  </data>
-  <data name="Profiles.RestoreAccess" xml:space="preserve">
-    <value>استعادة الوصول</value>
-  </data>
-  <data name="Profiles.Rollback" xml:space="preserve">
-    <value>تغيرت النسخ المحفوظة في المجلد المشترك بشكل غير متوقع. استعدها من نسخة احتياطية تثق بها.</value>
-  </data>
-  <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>إنشاء نسخة</value>
-  </data>
-  <data name="Profiles.Select" xml:space="preserve">
-    <value>اختر تكوينًا</value>
-  </data>
-  <data name="Profiles.Setup" xml:space="preserve">
-    <value>إعداد</value>
-  </data>
-  <data name="Profiles.SetupAction" xml:space="preserve">
-    <value>إعداد المزامنة…</value>
-  </data>
-  <data name="Profiles.SetupDescription" xml:space="preserve">
-    <value>شارك هذا التكوين أو اتصل بتكوين يستخدمه فريقك بالفعل.</value>
-  </data>
-  <data name="Profiles.ShareAction" xml:space="preserve">
-    <value>مشاركة</value>
-  </data>
-  <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>يمكن لأي شخص يستطيع استيراد هذه الإعدادات أو مزامنتها قراءة كلمات المرور والمفاتيح الخاصة للشهادات المضمنة.</value>
-  </data>
-  <data name="Profiles.SharedBusy" xml:space="preserve">
-    <value>تستخدم عملية أخرى هذا المجلد المشترك. حاول مرة أخرى بعد قليل. يتم الاحتفاظ بتغييراتك على هذا الكمبيوتر.</value>
-  </data>
-  <data name="Profiles.SharedFolder" xml:space="preserve">
-    <value>المجلد المشترك</value>
-  </data>
-  <data name="Profiles.SharedUnavailable" xml:space="preserve">
-    <value>يتعذر الوصول إلى المجلد المشترك. تحقق من عنوانه ومن إمكانية وصولك إلى الشبكة. يتم الاحتفاظ بتغييراتك على هذا الكمبيوتر.</value>
-  </data>
-  <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>استخدم مجلد الشبكة نفسه على كل كمبيوتر. يجب أن يستخدم SMB 3 مع اشتراط التشفير. المجلدات التي تتم مزامنتها مع السحابة غير مدعومة.</value>
-  </data>
-  <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>سيتوقف Foundry عن حفظ كلمات المرور لهذا التكوين على هذا الكمبيوتر.</value>
-  </data>
-  <data name="Profiles.StopRememberingAction" xml:space="preserve">
-    <value>التوقف عن التذكر</value>
-  </data>
-  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
-    <value>هل تريد التوقف عن تذكر كلمات المرور؟</value>
-  </data>
-  <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>مزامنة</value>
-  </data>
-  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
-    <value>جارٍ المزامنة…</value>
-  </data>
-  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
-    <value>اختر نسخة</value>
-  </data>
-  <data name="Profiles.SyncStatusError" xml:space="preserve">
-    <value>تعذرت المزامنة</value>
-  </data>
-  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
-    <value>لم يتم الإعداد</value>
-  </data>
-  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
-    <value>المجلد غير متاح</value>
-  </data>
-  <data name="Profiles.SyncStatusPending" xml:space="preserve">
-    <value>تغييرات بانتظار المزامنة</value>
-  </data>
-  <data name="Profiles.SyncStatusReady" xml:space="preserve">
-    <value>جاهز للمزامنة</value>
-  </data>
-  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
-    <value>محدّث</value>
-  </data>
-  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
-    <value>تغييرات متاحة</value>
-  </data>
-  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
-    <value>يحتاج إلى انتباهك</value>
-  </data>
-  <data name="Profiles.Synchronize" xml:space="preserve">
-    <value>مزامنة</value>
-  </data>
-  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
-    <value>إبقاء هذا التكوين محدثًا على أجهزة الكمبيوتر الخاصة بفريقك.</value>
-  </data>
-  <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>الإعدادات محدّثة</value>
-  </data>
-  <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>لا يستطيع Foundry فتح تنسيق الإعدادات هذا. حدّث Foundry وحاول مرة أخرى.</value>
-  </data>
-  <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>تتوفر تغييرات من كمبيوتر آخر. اختر مزامنة لتطبيقها.</value>
-  </data>
-  <data name="Profiles.UseRemote" xml:space="preserve">
-    <value>استخدام النسخة المشتركة</value>
-  </data>
-  <data name="Profiles.Validation" xml:space="preserve">
-    <value>تحقق من الحقول المطلوبة. إذا طُلب مجلد شبكة، فاستخدم مسارًا مثل \\server\share\folder. إذا أدخلت كلمة مرور الملف مرتين، فتأكد من تطابقهما.</value>
-  </data>
   <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
     <value>تعذر على Foundry OSD حفظ إعدادات الخادم الوكيل. حاول مرة أخرى. تتوفر التفاصيل في السجل.</value>
   </data>
@@ -3428,12 +3135,6 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>عام</value>
-  </data>
-  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>انسخ إعداداتك احتياطيًا، أو انقلها إلى كمبيوتر آخر، أو حافظ على مزامنتها.</value>
-  </data>
-  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>النسخ الاحتياطي للإعدادات ومزامنتها</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>قم بتكوين كيفية اتصال Foundry OSD بالخدمات عبر الإنترنت.</value>

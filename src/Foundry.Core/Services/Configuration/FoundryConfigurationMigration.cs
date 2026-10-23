@@ -8,7 +8,7 @@ namespace Foundry.Core.Services.Configuration;
 
 public static class FoundryConfigurationMigration
 {
-    /// <summary>Migrates only the known machine-local ISO default, preserving custom and portable-profile paths.</summary>
+    /// <summary>Migrates only the known machine-local ISO default, preserving custom paths.</summary>
     public static FoundryConfigurationDocument MigrateDefaultIsoOutput(FoundryConfigurationDocument document, string oldDefaultPath, string newDefaultPath)
     {
         ArgumentNullException.ThrowIfNull(document);

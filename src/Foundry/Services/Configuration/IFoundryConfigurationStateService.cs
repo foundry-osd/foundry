@@ -174,13 +174,13 @@ public interface IFoundryConfigurationStateService
     /// <summary>Checks authoring validity and local availability before media generation.</summary>
     bool IsPostInstallationReady { get; }
 
-    /// <summary>Invalidates overview readiness after local package content changes without changing the profile.</summary>
+    /// <summary>Invalidates overview readiness after local package content changes without changing the configuration.</summary>
     void RefreshPostInstallationReadiness();
 
     /// <summary>Gets basic custom image availability; full hash verification occurs under build leases.</summary>
     bool IsCustomImagesReady { get; }
 
-    /// <summary>Invalidates overview readiness after local image content changes without changing the profile.</summary>
+    /// <summary>Invalidates overview readiness after local image content changes without changing the configuration.</summary>
     void RefreshCustomImageReadiness();
 
     /// <summary>Persists the custom driver set references, inclusion state and default set.</summary>
@@ -198,7 +198,7 @@ public interface IFoundryConfigurationStateService
     /// <summary>Gets the cached library availability of a driver set package, or <see langword="null"/> when it was not inspected yet.</summary>
     bool? GetCustomDriverSetAvailability(string contentHash);
 
-    /// <summary>Checks the library availability of every driver set of the profile off the UI thread, then publishes the updated readiness.</summary>
+    /// <summary>Checks the library availability of every driver set of the configuration off the UI thread, then publishes the updated readiness.</summary>
     Task RefreshCustomDriversReadinessAsync();
 
     /// <summary>

@@ -44,7 +44,8 @@ namespace Foundry.Common
         public static readonly string CustomImagesDirectoryPath = Path.Combine(UserRootDirectoryPath, "Images", "Custom");
         public static readonly string PostInstallPackagesDirectoryPath = Path.Combine(UserRootDirectoryPath, "Packages", "PreOobe");
         public static readonly string CustomDriverPackagesDirectoryPath = Path.Combine(UserRootDirectoryPath, "Packages", "Drivers");
-        public static readonly string DeploymentProfilesDirectoryPath = Path.Combine(UserRootDirectoryPath, "Profiles");
+        /// <summary>Gets the store of the removed deployment profiles feature, read only by the legacy configuration migration.</summary>
+        public static readonly string LegacyProfilesDirectoryPath = Path.Combine(UserRootDirectoryPath, "Profiles");
         public static readonly string LegacyFoundryConfigurationStatePath = Path.Combine(WorkspacesDirectoryPath, "Configuration", "foundry.config.json");
         public static readonly string LegacyDefaultIsoPath = Path.Combine(WorkspacesDirectoryPath, "Iso", "Foundry.iso");
         public static readonly string IsoArtifactDirectoryPath = Path.Combine(RootDirectoryPath, "Artifacts", "Iso");

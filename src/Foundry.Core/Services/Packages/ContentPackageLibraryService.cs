@@ -10,7 +10,7 @@ using Foundry.Core.Models.Packages;
 
 namespace Foundry.Core.Services.Packages;
 
-/// <summary>Imports owned immutable package snapshots of one <see cref="ContentPackageKind"/> separately from portable deployment profiles.</summary>
+/// <summary>Imports owned immutable package snapshots of one <see cref="ContentPackageKind"/> separately from the configuration that references them.</summary>
 public sealed class ContentPackageLibraryService
 {
     private const int CopyBufferSize = 128 * 1024;

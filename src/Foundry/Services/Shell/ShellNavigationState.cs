@@ -25,7 +25,7 @@ public enum ShellNavigationState
     OperationRunning,
 
     /// <summary>
-    /// Navigation is restricted while a profile action owns its own dialog.
+    /// Navigation is restricted while an action owns its own dialog.
     /// </summary>
     InteractionPending
 }

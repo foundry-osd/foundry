@@ -12,9 +12,9 @@ namespace Foundry.Services.Configuration;
 public sealed class CustomDriverSetImportDialogService(CustomDriverSetLibrary library, IFilePickerService picker,
     IFoundryConfigurationStateService state, IApplicationLocalizationService localization)
 {
-    /// <summary>Shows the import dialog for the active profile.</summary>
+    /// <summary>Shows the driver set import dialog.</summary>
     /// <returns>
-    /// The new set to add, or <see langword="null"/> when nothing was imported; <c>ExistingSetId</c> names the profile set that already
+    /// The new set to add, or <see langword="null"/> when nothing was imported; <c>ExistingSetId</c> names the configuration set that already
     /// holds the content of the last attempt, if any.
     /// </returns>
     public async Task<(CustomDriverSetImportResult? Imported, string? ExistingSetId)> ShowAsync()

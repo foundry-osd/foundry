@@ -12,7 +12,7 @@ using Foundry.Services.Localization;
 
 namespace Foundry.ViewModels;
 
-/// <summary>Manages the local image library and the active profile's independent inclusion and defaults.</summary>
+/// <summary>Manages the local image library and the configuration's independent inclusion and defaults.</summary>
 public sealed partial class CustomImagesViewModel : ObservableObject, IDisposable
 {
     private readonly IFoundryConfigurationStateService state;
@@ -403,7 +403,7 @@ public sealed record CustomImageRow(CustomImageReference Reference, string Archi
     public Style StatusStyle => (Style)Application.Current.Resources[IsAvailable ? "FoundrySuccessTextBlockStyle" : "FoundryCriticalTextBlockStyle"];
 }
 
-/// <summary>Displays index metadata and the profile preference without changing the WIM.</summary>
+/// <summary>Displays index metadata and the configuration preference without changing the WIM.</summary>
 public sealed record CustomImageIndexRow(CustomImageIndex Index, string Preferred, bool IsPreferred)
 {
     public string Languages => string.Join(", ", Index.Languages);

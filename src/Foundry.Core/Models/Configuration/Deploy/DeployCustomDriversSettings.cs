@@ -26,7 +26,7 @@ public sealed record DeployCustomDriversSettings
 /// <summary>Describes one driver set offered at deployment; the content hash is the identity used to find its files on the media.</summary>
 public sealed record DeployCustomDriverSet
 {
-    /// <summary>Gets the stable identifier of the profile entry.</summary>
+    /// <summary>Gets the stable identifier of the configuration entry.</summary>
     public string Id { get; init; } = string.Empty;
 
     /// <summary>Gets the label shown in the deployment wizard.</summary>

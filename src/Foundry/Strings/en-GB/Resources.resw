@@ -737,7 +737,7 @@ Licensed under the MIT License.</value>
     <value>Unavailable</value>
   </data>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
-    <value>This folder is already in this profile as {0}.</value>
+    <value>This folder is already in this configuration as {0}.</value>
   </data>
   <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
     <value>The configuration was replaced during the import, so the driver set was not added. Import the folder again.</value>
@@ -752,7 +752,7 @@ Licensed under the MIT License.</value>
     <value>Driver set</value>
   </data>
   <data name="CustomDrivers.DuplicateName" xml:space="preserve">
-    <value>A driver set with this name already exists in this profile.</value>
+    <value>A driver set with this name already exists in this configuration.</value>
   </data>
   <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
     <value>No custom driver sets. Import a folder that contains .inf drivers to begin.</value>
@@ -809,19 +809,19 @@ Licensed under the MIT License.</value>
     <value>Not available with PXE boot. Custom drivers require the full ISO or USB media.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
-    <value>The driver sets of this profile are not valid. Check the included sets and the default set before creating or updating media.</value>
+    <value>The driver sets of this configuration are not valid. Check the included sets and the default set before creating or updating media.</value>
   </data>
   <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
     <value>The local copy of {0} is missing or damaged. Import the folder again or exclude the set before creating or updating media.</value>
   </data>
   <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
-    <value>Include at least one driver set in this profile, or turn off custom drivers, before creating or updating media.</value>
+    <value>Include at least one driver set in this configuration, or turn off custom drivers, before creating or updating media.</value>
   </data>
   <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
     <value>Remove driver set</value>
   </data>
   <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) will be removed from the current profile.</value>
+    <value>{0} ({1}) will be removed from the current configuration.</value>
   </data>
   <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
     <value>The driver set could not be removed. Try again.</value>
@@ -830,13 +830,13 @@ Licensed under the MIT License.</value>
     <value>Remove driver set?</value>
   </data>
   <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
-    <value>Its local copy is deleted unless another profile uses it. The original folder and existing media are not changed.</value>
+    <value>Its local copy is deleted. The original folder and existing media are not changed.</value>
   </data>
   <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
     <value>Set as default</value>
   </data>
   <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
-    <value>This profile has reached the maximum number of driver sets. Remove one before importing another.</value>
+    <value>This configuration has reached the maximum number of driver sets. Remove one before importing another.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Verifying custom driver sets…</value>
@@ -878,7 +878,7 @@ Licensed under the MIT License.</value>
     <value>Selected image</value>
   </data>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
-    <value>An image with this name already exists in this profile.</value>
+    <value>An image with this name already exists in this configuration.</value>
   </data>
   <data name="CustomImages.EditionLabel" xml:space="preserve">
     <value>Edition</value>
@@ -935,7 +935,7 @@ Licensed under the MIT License.</value>
     <value>Not available with PXE boot. Custom images require the full ISO or USB media.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Include at least one available Windows image in this profile. Restore missing included images and fix or clear the preferred image or index before creating or updating media.</value>
+    <value>Include at least one available Windows image in this configuration. Restore missing included images and fix or clear the preferred image or index before creating or updating media.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Refresh</value>
@@ -944,7 +944,7 @@ Licensed under the MIT License.</value>
     <value>Remove image</value>
   </data>
   <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) will be removed from the current profile, and its local copy will be deleted.</value>
+    <value>{0} ({1}) will be removed from the current configuration, and its local copy will be deleted.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Remove</value>
@@ -953,7 +953,7 @@ Licensed under the MIT License.</value>
     <value>Remove custom image?</value>
   </data>
   <data name="CustomImages.RemoveWarning" xml:space="preserve">
-    <value>Other profiles that use this image will show it as missing. The original file and existing media are not changed.</value>
+    <value>The original file and existing media are not changed.</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Edit</value>
@@ -3001,299 +3001,6 @@ Licensed under the MIT License.</value>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Working directory (relative; empty uses content root)</value>
   </data>
-  <data name="Profiles.Active" xml:space="preserve">
-    <value>Current settings</value>
-  </data>
-  <data name="Profiles.AutoSync" xml:space="preserve">
-    <value>Automatic sync</value>
-  </data>
-  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
-    <value>Choose another name</value>
-  </data>
-  <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>Some old saved passwords or access keys could not be removed. Try again when Windows Credential Manager is available.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
-    <value>Close without saving</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
-    <value>Your latest changes could not be saved and will be lost.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
-    <value>Close without saving settings?</value>
-  </data>
-  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
-    <value>Confirm password</value>
-  </data>
-  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>Confirm file password</value>
-  </data>
-  <data name="Profiles.Conflict" xml:space="preserve">
-    <value>These settings were changed on this PC and by someone else. Choose which version to keep.</value>
-  </data>
-  <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>The version you choose will replace the other one. Choose Duplicate first if you want to keep a separate copy.</value>
-  </data>
-  <data name="Profiles.ConnectAction" xml:space="preserve">
-    <value>Connect</value>
-  </data>
-  <data name="Profiles.ConnectDescription" xml:space="preserve">
-    <value>Choose the connection file provided by someone on your team.</value>
-  </data>
-  <data name="Profiles.ConnectionPassword" xml:space="preserve">
-    <value>Connection password</value>
-  </data>
-  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
-    <value>Other PCs will need this password to connect.</value>
-  </data>
-  <data name="Profiles.Continue" xml:space="preserve">
-    <value>Continue</value>
-  </data>
-  <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Share this configuration</value>
-  </data>
-  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
-    <value>Choose a shared network folder for this configuration.</value>
-  </data>
-  <data name="Profiles.Delete" xml:space="preserve">
-    <value>Delete from this PC</value>
-  </data>
-  <data name="Profiles.DeleteAction" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>Also delete for everyone</value>
-  </data>
-  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
-    <value>Delete for everyone</value>
-  </data>
-  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
-    <value>Delete for everyone?</value>
-  </data>
-  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>Delete these shared settings for everyone? Anyone with unsynced changes must duplicate their settings to keep them.</value>
-  </data>
-  <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>Delete these settings from this PC? Export them first if you want a backup.</value>
-  </data>
-  <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>These shared settings were deleted. Choose Duplicate to keep your changes on this PC.</value>
-  </data>
-  <data name="Profiles.Disconnect" xml:space="preserve">
-    <value>Disconnect</value>
-  </data>
-  <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>Stop synchronising this configuration on this PC? Your current settings will be kept. The shared configuration and other PCs will not be changed.</value>
-  </data>
-  <data name="Profiles.Export" xml:space="preserve">
-    <value>Export</value>
-  </data>
-  <data name="Profiles.ExportDescription" xml:space="preserve">
-    <value>Save this configuration to a file for backup or another PC.</value>
-  </data>
-  <data name="Profiles.ExportProtection" xml:space="preserve">
-    <value>Choose a password to protect the exported file. You will need it to import the configuration.</value>
-  </data>
-  <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Save connection file</value>
-  </data>
-  <data name="Profiles.Failed" xml:space="preserve">
-    <value>Couldn't complete this action. Check the file, its password, your access permissions, and your network connection.</value>
-  </data>
-  <data name="Profiles.FolderExists" xml:space="preserve">
-    <value>This folder name is already in use. Connect using a connection file, or go back and choose another name.</value>
-  </data>
-  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
-    <value>Choose a new, empty subfolder in the shared folder. Existing files will stay unchanged.</value>
-  </data>
-  <data name="Profiles.Forget" xml:space="preserve">
-    <value>Clear saved passwords and access</value>
-  </data>
-  <data name="Profiles.ForgetAction" xml:space="preserve">
-    <value>Clear</value>
-  </data>
-  <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>Remove saved passwords, confidential files saved by Foundry, and synchronisation access for these settings on this PC? You'll need to add the missing details and reconnect to synchronise. Media you already created will not change.</value>
-  </data>
-  <data name="Profiles.Heading" xml:space="preserve">
-    <value>Foundry settings</value>
-  </data>
-  <data name="Profiles.Import" xml:space="preserve">
-    <value>Import</value>
-  </data>
-  <data name="Profiles.ImportDescription" xml:space="preserve">
-    <value>Add a configuration from a file.</value>
-  </data>
-  <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>Include passwords and confidential files</value>
-  </data>
-  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
-    <value>People using this configuration can read the included passwords and confidential files.</value>
-  </data>
-  <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>Some passwords or source files are missing. Add them before saving or sharing passwords.</value>
-  </data>
-  <data name="Profiles.InvalidFolderName" xml:space="preserve">
-    <value>Use a name without special characters or a trailing dot or space.</value>
-  </data>
-  <data name="Profiles.JoinChanged" xml:space="preserve">
-    <value>The shared configuration changed. Review the latest version before connecting.</value>
-  </data>
-  <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Connect to a shared configuration</value>
-  </data>
-  <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>Use this PC's version</value>
-  </data>
-  <data name="Profiles.LearnMore" xml:space="preserve">
-    <value>Learn more</value>
-  </data>
-  <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Keep passwords for your Windows account on this PC.</value>
-  </data>
-  <data name="Profiles.Locked" xml:space="preserve">
-    <value>Windows cannot unlock these saved settings or their synchronisation access for your account on this PC.</value>
-  </data>
-  <data name="Profiles.Manage" xml:space="preserve">
-    <value>More options</value>
-  </data>
-  <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Missing or excluded files: {0}. Select their locations before creating media.</value>
-  </data>
-  <data name="Profiles.Name" xml:space="preserve">
-    <value>Configuration name</value>
-  </data>
-  <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>File password</value>
-  </data>
-  <data name="Profiles.PasswordMismatch" xml:space="preserve">
-    <value>The passwords do not match.</value>
-  </data>
-  <data name="Profiles.Preview" xml:space="preserve">
-    <value>{0}
-Files included: {1}
-Passwords and access keys included: {2}</value>
-  </data>
-  <data name="Profiles.Ready" xml:space="preserve">
-    <value>Ready</value>
-  </data>
-  <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Choose a password to protect the connection file. Share the password separately. Save the file outside the shared configuration folder.</value>
-  </data>
-  <data name="Profiles.Remember" xml:space="preserve">
-    <value>Remember passwords</value>
-  </data>
-  <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>Remember this connection on this PC</value>
-  </data>
-  <data name="Profiles.Rename" xml:space="preserve">
-    <value>Rename</value>
-  </data>
-  <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>This will replace the settings you are using. To keep a copy first, cancel and choose Duplicate.</value>
-  </data>
-  <data name="Profiles.RestoreAccess" xml:space="preserve">
-    <value>Restore access</value>
-  </data>
-  <data name="Profiles.Rollback" xml:space="preserve">
-    <value>The saved versions in the shared folder have changed unexpectedly. Restore from a backup you trust.</value>
-  </data>
-  <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Duplicate</value>
-  </data>
-  <data name="Profiles.Select" xml:space="preserve">
-    <value>Choose a configuration</value>
-  </data>
-  <data name="Profiles.Setup" xml:space="preserve">
-    <value>Set up</value>
-  </data>
-  <data name="Profiles.SetupAction" xml:space="preserve">
-    <value>Set up synchronisation…</value>
-  </data>
-  <data name="Profiles.SetupDescription" xml:space="preserve">
-    <value>Share this configuration or connect to one your team already uses.</value>
-  </data>
-  <data name="Profiles.ShareAction" xml:space="preserve">
-    <value>Share</value>
-  </data>
-  <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>Anyone who can import or synchronise these settings can read the included passwords and certificate private keys.</value>
-  </data>
-  <data name="Profiles.SharedBusy" xml:space="preserve">
-    <value>Another operation is using this shared folder. Try again shortly. Your changes are kept on this PC.</value>
-  </data>
-  <data name="Profiles.SharedFolder" xml:space="preserve">
-    <value>Shared folder</value>
-  </data>
-  <data name="Profiles.SharedUnavailable" xml:space="preserve">
-    <value>The shared folder cannot be reached. Check its address and your network access. Your changes are kept on this PC.</value>
-  </data>
-  <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>Use the same network folder on every PC. It must use SMB 3 with encryption required. Cloud-synced folders are not supported.</value>
-  </data>
-  <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Foundry will stop saving the passwords for this configuration on this PC.</value>
-  </data>
-  <data name="Profiles.StopRememberingAction" xml:space="preserve">
-    <value>Stop remembering</value>
-  </data>
-  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
-    <value>Stop remembering passwords?</value>
-  </data>
-  <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Synchronise</value>
-  </data>
-  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
-    <value>Synchronising…</value>
-  </data>
-  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
-    <value>Choose a version</value>
-  </data>
-  <data name="Profiles.SyncStatusError" xml:space="preserve">
-    <value>Unable to synchronise</value>
-  </data>
-  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
-    <value>Not configured</value>
-  </data>
-  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
-    <value>Folder unavailable</value>
-  </data>
-  <data name="Profiles.SyncStatusPending" xml:space="preserve">
-    <value>Changes to synchronise</value>
-  </data>
-  <data name="Profiles.SyncStatusReady" xml:space="preserve">
-    <value>Ready to synchronise</value>
-  </data>
-  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
-    <value>Up to date</value>
-  </data>
-  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
-    <value>Changes available</value>
-  </data>
-  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
-    <value>Needs attention</value>
-  </data>
-  <data name="Profiles.Synchronize" xml:space="preserve">
-    <value>Synchronise</value>
-  </data>
-  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
-    <value>Keep this configuration up to date across your team's PCs.</value>
-  </data>
-  <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>Settings are up to date</value>
-  </data>
-  <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>Foundry can't open this settings format. Update Foundry and try again.</value>
-  </data>
-  <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>Changes from another PC are available. Select Synchronise to apply them.</value>
-  </data>
-  <data name="Profiles.UseRemote" xml:space="preserve">
-    <value>Use the shared version</value>
-  </data>
-  <data name="Profiles.Validation" xml:space="preserve">
-    <value>Check the required fields. If a network folder is requested, use a path such as \\server\share\folder. If you enter a file password twice, make sure both entries match.</value>
-  </data>
   <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
     <value>Foundry OSD could not save the proxy settings. Try again. Details are in the log.</value>
   </data>
@@ -3428,12 +3135,6 @@ Passwords and access keys included: {2}</value>
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>General</value>
-  </data>
-  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Back up your settings, transfer them to another PC, or keep them in sync.</value>
-  </data>
-  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Settings backup and sync</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>

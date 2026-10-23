@@ -136,7 +136,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     [ObservableProperty]
     public partial bool IsDiscovering { get; set; }
 
-    /// <summary>Invalidates PasswordBox content when volatile secret ownership or profile state changes.</summary>
+    /// <summary>Invalidates PasswordBox content when volatile secret ownership or configuration state changes.</summary>
     [ObservableProperty]
     public partial int SecretStateVersion { get; set; }
 
@@ -370,7 +370,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
 
         IReadOnlyList<DomainJoinOrganizationalUnitSettings>? selected =
             await domainDialogs.PickAsync(candidates, result.Status == DomainOuDiscoveryStatus.Incomplete);
-        // The settings can change while the dialog is open, for example through profile synchronization.
+        // The settings can change while the dialog is open, for example when the configuration is replaced.
         if (selected is null || selected.Count == 0 || disposed || !ReferenceEquals(baseline, configuration.Current.DomainJoin)) return;
         try { Save(DomainJoinOrganizationalUnitCatalog.Merge(baseline, domainId, selected)); }
         catch (ArgumentException) { SetStatus(GetMergeFailureKey(row.Settings, selected, "ImportDomainMismatch")); }
@@ -673,7 +673,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         ClearDefaultOrganizationalUnitCommand.NotifyCanExecuteChanged();
     }
 
-    /// <summary>Discards search work and subscriptions without clearing credentials owned by the active profile session.</summary>
+    /// <summary>Discards search work and subscriptions without clearing credentials owned by the configuration session.</summary>
     public void Dispose()
     {
         disposed = true;

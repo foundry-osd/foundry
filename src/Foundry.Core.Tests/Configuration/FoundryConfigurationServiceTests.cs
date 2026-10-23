@@ -107,17 +107,16 @@ public sealed class FoundryConfigurationServiceTests
     }
 
     [Fact]
-    public void DisabledDomainJoin_RemainsSavableAndPortable()
+    public void DisabledDomainJoin_RemainsSavable()
     {
         var service = new FoundryConfigurationService();
         FoundryConfigurationDocument draft = TwoDomainDraft();
         draft = draft with { DomainJoin = draft.DomainJoin with { IsEnabled = false } };
 
         FoundryConfigurationDocument loaded = service.Deserialize(service.Serialize(draft));
-        FoundryConfigurationDocument portable = Foundry.Core.Services.Profiles.DeploymentProfileProjection.CreatePortable(loaded);
 
-        Assert.False(portable.DomainJoin.IsEnabled);
-        Assert.Equal(["devices", "servers"], portable.DomainJoin.Domains[0].OrganizationalUnits.Select(unit => unit.Id));
+        Assert.False(loaded.DomainJoin.IsEnabled);
+        Assert.Equal(["devices", "servers"], loaded.DomainJoin.Domains[0].OrganizationalUnits.Select(unit => unit.Id));
     }
 
     private static FoundryConfigurationDocument TwoDomainDraft() => new()

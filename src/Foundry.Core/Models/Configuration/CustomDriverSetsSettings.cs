@@ -10,17 +10,17 @@ public sealed record CustomDriverSetsSettings
     /// <summary>Gets a value indicating whether custom driver sets are offered for deployment.</summary>
     public bool IsEnabled { get; init; }
 
-    /// <summary>Gets the driver sets of the profile, included or not.</summary>
+    /// <summary>Gets the driver sets of the configuration, included or not.</summary>
     public IReadOnlyList<CustomDriverSetReference> Sets { get; init; } = [];
 
     /// <summary>Gets the identifier of the preselected set, which must be an included set, or <see langword="null"/>.</summary>
     public string? DefaultSetId { get; init; }
 }
 
-/// <summary>Identifies an immutable driver package while keeping its profile-specific label and inclusion mutable.</summary>
+/// <summary>Identifies an immutable driver package while keeping its configuration-specific label and inclusion mutable.</summary>
 public sealed record CustomDriverSetReference
 {
-    /// <summary>Gets the stable identifier of this profile entry (OSD generates a GUID in "N" format).</summary>
+    /// <summary>Gets the stable identifier of this configuration entry (OSD generates a GUID in "N" format).</summary>
     public string Id { get; init; } = string.Empty;
 
     /// <summary>Gets the label shown to the user, 1 to 200 characters.</summary>

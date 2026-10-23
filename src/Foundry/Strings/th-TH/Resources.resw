@@ -737,7 +737,7 @@
     <value>ไม่พร้อมใช้งาน</value>
   </data>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
-    <value>โฟลเดอร์นี้อยู่ในโปรไฟล์นี้แล้วในชื่อ {0}</value>
+    <value>โฟลเดอร์นี้อยู่ในการกำหนดค่านี้แล้วในชื่อ {0}</value>
   </data>
   <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
     <value>การกำหนดค่าถูกแทนที่ระหว่างการนำเข้า จึงไม่ได้เพิ่มชุดไดรเวอร์ นำเข้าโฟลเดอร์อีกครั้ง</value>
@@ -752,7 +752,7 @@
     <value>ชุดไดรเวอร์</value>
   </data>
   <data name="CustomDrivers.DuplicateName" xml:space="preserve">
-    <value>มีชุดไดรเวอร์ชื่อนี้อยู่ในโปรไฟล์นี้แล้ว</value>
+    <value>มีชุดไดรเวอร์ชื่อนี้อยู่ในการกำหนดค่านี้แล้ว</value>
   </data>
   <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
     <value>ยังไม่มีชุดไดรเวอร์แบบกำหนดเอง นำเข้าโฟลเดอร์ที่มีไดรเวอร์ .inf เพื่อเริ่มต้น</value>
@@ -809,19 +809,19 @@
     <value>ไม่พร้อมใช้งานเมื่อบูตด้วย PXE ไดรเวอร์แบบกำหนดเองต้องใช้สื่อ ISO หรือ USB ฉบับเต็ม</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
-    <value>ชุดไดรเวอร์ของโปรไฟล์นี้ไม่ถูกต้อง ตรวจสอบชุดที่รวมไว้และชุดเริ่มต้นก่อนสร้างหรืออัปเดตสื่อ</value>
+    <value>ชุดไดรเวอร์ของการกำหนดค่านี้ไม่ถูกต้อง ตรวจสอบชุดที่รวมไว้และชุดเริ่มต้นก่อนสร้างหรืออัปเดตสื่อ</value>
   </data>
   <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
     <value>สำเนาในเครื่องของ {0} หายไปหรือเสียหาย นำเข้าโฟลเดอร์อีกครั้งหรือแยกชุดนี้ออกก่อนสร้างหรืออัปเดตสื่อ</value>
   </data>
   <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
-    <value>รวมชุดไดรเวอร์อย่างน้อยหนึ่งชุดไว้ในโปรไฟล์นี้ หรือปิดไดรเวอร์แบบกำหนดเอง ก่อนสร้างหรืออัปเดตสื่อ</value>
+    <value>รวมชุดไดรเวอร์อย่างน้อยหนึ่งชุดไว้ในการกำหนดค่านี้ หรือปิดไดรเวอร์แบบกำหนดเอง ก่อนสร้างหรืออัปเดตสื่อ</value>
   </data>
   <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
     <value>นำชุดไดรเวอร์ออก</value>
   </data>
   <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) จะถูกนำออกจากโปรไฟล์ปัจจุบัน</value>
+    <value>{0} ({1}) จะถูกนำออกจากการกำหนดค่าปัจจุบัน</value>
   </data>
   <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
     <value>ไม่สามารถนำชุดไดรเวอร์ออกได้ ลองอีกครั้ง</value>
@@ -830,13 +830,13 @@
     <value>นำชุดไดรเวอร์ออกไหม</value>
   </data>
   <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
-    <value>สำเนาในเครื่องจะถูกลบ เว้นแต่มีโปรไฟล์อื่นใช้งานอยู่ โฟลเดอร์ต้นฉบับและสื่อที่มีอยู่จะไม่เปลี่ยนแปลง</value>
+    <value>สำเนาในเครื่องจะถูกลบ โฟลเดอร์ต้นฉบับและสื่อที่มีอยู่จะไม่เปลี่ยนแปลง</value>
   </data>
   <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
     <value>ตั้งเป็นค่าเริ่มต้น</value>
   </data>
   <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
-    <value>โปรไฟล์นี้มีชุดไดรเวอร์ครบจำนวนสูงสุดแล้ว นำชุดหนึ่งออกก่อนนำเข้าชุดอื่น</value>
+    <value>การกำหนดค่านี้มีชุดไดรเวอร์ครบจำนวนสูงสุดแล้ว นำชุดหนึ่งออกก่อนนำเข้าชุดอื่น</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>กำลังตรวจสอบชุดไดรเวอร์แบบกำหนดเอง…</value>
@@ -878,7 +878,7 @@
     <value>อิมเมจที่เลือก</value>
   </data>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
-    <value>มีอิมเมจชื่อนี้อยู่ในโปรไฟล์นี้แล้ว</value>
+    <value>มีอิมเมจชื่อนี้อยู่ในการกำหนดค่านี้แล้ว</value>
   </data>
   <data name="CustomImages.EditionLabel" xml:space="preserve">
     <value>รุ่น</value>
@@ -935,7 +935,7 @@
     <value>ไม่พร้อมใช้งานเมื่อบูตด้วย PXE อิมเมจแบบกำหนดเองต้องใช้สื่อ ISO หรือ USB ฉบับเต็ม</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>รวมอิมเมจ Windows ที่พร้อมใช้งานอย่างน้อยหนึ่งรายการไว้ในโปรไฟล์นี้ กู้คืนอิมเมจที่รวมไว้แต่หายไป และแก้ไขหรือล้างการเลือกอิมเมจหรือดัชนีที่ต้องการก่อนสร้างหรืออัปเดตสื่อ</value>
+    <value>รวมอิมเมจ Windows ที่พร้อมใช้งานอย่างน้อยหนึ่งรายการไว้ในการกำหนดค่านี้ กู้คืนอิมเมจที่รวมไว้แต่หายไป และแก้ไขหรือล้างการเลือกอิมเมจหรือดัชนีที่ต้องการก่อนสร้างหรืออัปเดตสื่อ</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>รีเฟรช</value>
@@ -944,7 +944,7 @@
     <value>นำอิมเมจออก</value>
   </data>
   <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) จะถูกนำออกจากโปรไฟล์ปัจจุบัน และสำเนาในเครื่องจะถูกลบ</value>
+    <value>{0} ({1}) จะถูกนำออกจากการกำหนดค่าปัจจุบัน และสำเนาในเครื่องจะถูกลบ</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>นำออก</value>
@@ -953,7 +953,7 @@
     <value>นำอิมเมจแบบกำหนดเองออกไหม</value>
   </data>
   <data name="CustomImages.RemoveWarning" xml:space="preserve">
-    <value>โปรไฟล์อื่นที่ใช้อิมเมจนี้จะแสดงว่าอิมเมจหายไป ไฟล์ต้นฉบับและสื่อที่มีอยู่จะไม่เปลี่ยนแปลง</value>
+    <value>ไฟล์ต้นฉบับและสื่อที่มีอยู่จะไม่เปลี่ยนแปลง</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>แก้ไข</value>
@@ -3001,299 +3001,6 @@
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>ไดเรกทอรีทำงาน (เส้นทางสัมพัทธ์ หากว่างจะใช้รากของเนื้อหา)</value>
   </data>
-  <data name="Profiles.Active" xml:space="preserve">
-    <value>การตั้งค่าปัจจุบัน</value>
-  </data>
-  <data name="Profiles.AutoSync" xml:space="preserve">
-    <value>ซิงค์อัตโนมัติ</value>
-  </data>
-  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
-    <value>เลือกชื่ออื่น</value>
-  </data>
-  <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>ไม่สามารถลบรหัสผ่านหรือคีย์การเข้าถึงเก่าบางรายการที่บันทึกไว้ได้ ลองอีกครั้งเมื่อ Windows Credential Manager พร้อมใช้งาน</value>
-  </data>
-  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
-    <value>ปิดโดยไม่บันทึก</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
-    <value>ไม่สามารถบันทึกการเปลี่ยนแปลงล่าสุดของคุณได้ และการเปลี่ยนแปลงเหล่านั้นจะสูญหาย</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
-    <value>ปิดโดยไม่บันทึกการตั้งค่าใช่ไหม</value>
-  </data>
-  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
-    <value>ยืนยันรหัสผ่าน</value>
-  </data>
-  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>ยืนยันรหัสผ่านของไฟล์</value>
-  </data>
-  <data name="Profiles.Conflict" xml:space="preserve">
-    <value>การตั้งค่าเหล่านี้มีการเปลี่ยนแปลงทั้งบนพีซีเครื่องนี้และโดยผู้อื่น เลือกเวอร์ชันที่ต้องการเก็บไว้</value>
-  </data>
-  <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>เวอร์ชันที่คุณเลือกจะแทนที่อีกเวอร์ชัน หากต้องการเก็บสำเนาแยกไว้ ให้เลือก “ทำสำเนา” ก่อน</value>
-  </data>
-  <data name="Profiles.ConnectAction" xml:space="preserve">
-    <value>เชื่อมต่อ</value>
-  </data>
-  <data name="Profiles.ConnectDescription" xml:space="preserve">
-    <value>เลือกไฟล์การเชื่อมต่อที่ได้รับจากสมาชิกในทีมของคุณ</value>
-  </data>
-  <data name="Profiles.ConnectionPassword" xml:space="preserve">
-    <value>รหัสผ่านการเชื่อมต่อ</value>
-  </data>
-  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
-    <value>พีซีเครื่องอื่นจะต้องใช้รหัสผ่านนี้เพื่อเชื่อมต่อ</value>
-  </data>
-  <data name="Profiles.Continue" xml:space="preserve">
-    <value>ดำเนินการต่อ</value>
-  </data>
-  <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>แชร์การกำหนดค่านี้</value>
-  </data>
-  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
-    <value>เลือกโฟลเดอร์เครือข่ายที่แชร์สำหรับการกำหนดค่านี้</value>
-  </data>
-  <data name="Profiles.Delete" xml:space="preserve">
-    <value>ลบออกจากพีซีเครื่องนี้</value>
-  </data>
-  <data name="Profiles.DeleteAction" xml:space="preserve">
-    <value>ลบ</value>
-  </data>
-  <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>ลบสำหรับทุกคนด้วย</value>
-  </data>
-  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
-    <value>ลบสำหรับทุกคน</value>
-  </data>
-  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
-    <value>ลบสำหรับทุกคนใช่ไหม</value>
-  </data>
-  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>ต้องการลบการตั้งค่าที่แชร์เหล่านี้สำหรับทุกคนหรือไม่ ผู้ที่มีการเปลี่ยนแปลงที่ยังไม่ได้ซิงค์ต้องทำสำเนาการตั้งค่าของตนเพื่อเก็บไว้</value>
-  </data>
-  <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>ต้องการลบการตั้งค่าเหล่านี้ออกจากพีซีเครื่องนี้หรือไม่ หากต้องการสำรองข้อมูล ให้ส่งออกก่อน</value>
-  </data>
-  <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>การตั้งค่าที่แชร์เหล่านี้ถูกลบแล้ว เลือก “ทำสำเนา” เพื่อเก็บการเปลี่ยนแปลงของคุณไว้บนพีซีเครื่องนี้</value>
-  </data>
-  <data name="Profiles.Disconnect" xml:space="preserve">
-    <value>ยกเลิกการเชื่อมต่อ</value>
-  </data>
-  <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>หยุดซิงโครไนซ์การกำหนดค่านี้บนพีซีเครื่องนี้หรือไม่? การตั้งค่าปัจจุบันของคุณจะยังคงอยู่ การกำหนดค่าที่แชร์และพีซีเครื่องอื่นจะไม่ถูกเปลี่ยนแปลง</value>
-  </data>
-  <data name="Profiles.Export" xml:space="preserve">
-    <value>ส่งออก</value>
-  </data>
-  <data name="Profiles.ExportDescription" xml:space="preserve">
-    <value>บันทึกการกำหนดค่านี้เป็นไฟล์เพื่อสำรองข้อมูลหรือใช้บนพีซีเครื่องอื่น</value>
-  </data>
-  <data name="Profiles.ExportProtection" xml:space="preserve">
-    <value>เลือกรหัสผ่านเพื่อป้องกันไฟล์ที่ส่งออก คุณจะต้องใช้รหัสผ่านนี้เพื่อนำเข้าการกำหนดค่า</value>
-  </data>
-  <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>บันทึกไฟล์การเชื่อมต่อ</value>
-  </data>
-  <data name="Profiles.Failed" xml:space="preserve">
-    <value>ไม่สามารถดำเนินการนี้ให้เสร็จสิ้นได้ ตรวจสอบไฟล์ รหัสผ่านของไฟล์ สิทธิ์การเข้าถึง และการเชื่อมต่อเครือข่ายของคุณ</value>
-  </data>
-  <data name="Profiles.FolderExists" xml:space="preserve">
-    <value>ชื่อโฟลเดอร์นี้มีการใช้งานอยู่แล้ว ให้เชื่อมต่อโดยใช้ไฟล์การเชื่อมต่อ หรือกลับไปเลือกชื่ออื่น</value>
-  </data>
-  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
-    <value>เลือกโฟลเดอร์ย่อยใหม่ที่ว่างเปล่าในโฟลเดอร์ที่แชร์ ไฟล์ที่มีอยู่จะไม่ถูกเปลี่ยนแปลง</value>
-  </data>
-  <data name="Profiles.Forget" xml:space="preserve">
-    <value>ล้างรหัสผ่านและข้อมูลการเข้าถึงที่บันทึกไว้</value>
-  </data>
-  <data name="Profiles.ForgetAction" xml:space="preserve">
-    <value>ล้าง</value>
-  </data>
-  <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>ต้องการลบรหัสผ่านที่บันทึกไว้ ไฟล์ลับที่ Foundry บันทึกไว้ และสิทธิ์เข้าถึงการซิงค์ของการตั้งค่าเหล่านี้บนพีซีเครื่องนี้หรือไม่ คุณจะต้องเพิ่มข้อมูลที่ขาดหายไปและเชื่อมต่อใหม่เพื่อซิงค์ สื่อที่สร้างไว้แล้วจะไม่เปลี่ยนแปลง</value>
-  </data>
-  <data name="Profiles.Heading" xml:space="preserve">
-    <value>การตั้งค่า Foundry</value>
-  </data>
-  <data name="Profiles.Import" xml:space="preserve">
-    <value>นำเข้า</value>
-  </data>
-  <data name="Profiles.ImportDescription" xml:space="preserve">
-    <value>เพิ่มการกำหนดค่าจากไฟล์</value>
-  </data>
-  <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>รวมรหัสผ่านและไฟล์ลับ</value>
-  </data>
-  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
-    <value>ผู้ที่ใช้การกำหนดค่านี้สามารถอ่านรหัสผ่านและไฟล์ลับที่รวมไว้ได้</value>
-  </data>
-  <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>รหัสผ่านหรือไฟล์ต้นทางบางรายการขาดหายไป เพิ่มรายการเหล่านั้นก่อนบันทึกหรือแชร์รหัสผ่าน</value>
-  </data>
-  <data name="Profiles.InvalidFolderName" xml:space="preserve">
-    <value>ใช้ชื่อที่ไม่มีอักขระพิเศษและไม่ลงท้ายด้วยจุดหรือช่องว่าง</value>
-  </data>
-  <data name="Profiles.JoinChanged" xml:space="preserve">
-    <value>การกำหนดค่าที่แชร์มีการเปลี่ยนแปลง ตรวจสอบเวอร์ชันล่าสุดก่อนเชื่อมต่อ</value>
-  </data>
-  <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>เชื่อมต่อกับการกำหนดค่าที่แชร์</value>
-  </data>
-  <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>ใช้เวอร์ชันของพีซีเครื่องนี้</value>
-  </data>
-  <data name="Profiles.LearnMore" xml:space="preserve">
-    <value>เรียนรู้เพิ่มเติม</value>
-  </data>
-  <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>เก็บรหัสผ่านสำหรับบัญชี Windows ของคุณบนพีซีเครื่องนี้</value>
-  </data>
-  <data name="Profiles.Locked" xml:space="preserve">
-    <value>Windows ไม่สามารถปลดล็อกการตั้งค่าที่บันทึกไว้เหล่านี้หรือสิทธิ์เข้าถึงการซิงค์ของการตั้งค่าสำหรับบัญชีของคุณบนพีซีเครื่องนี้ได้</value>
-  </data>
-  <data name="Profiles.Manage" xml:space="preserve">
-    <value>ตัวเลือกเพิ่มเติม</value>
-  </data>
-  <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>ไฟล์ที่ขาดหายไปหรือไม่ได้รวมไว้: {0} เลือกตำแหน่งของไฟล์ก่อนสร้างสื่อ</value>
-  </data>
-  <data name="Profiles.Name" xml:space="preserve">
-    <value>ชื่อชุดการตั้งค่า</value>
-  </data>
-  <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>รหัสผ่านของไฟล์</value>
-  </data>
-  <data name="Profiles.PasswordMismatch" xml:space="preserve">
-    <value>รหัสผ่านไม่ตรงกัน</value>
-  </data>
-  <data name="Profiles.Preview" xml:space="preserve">
-    <value>{0}
-ไฟล์ที่รวมไว้: {1}
-รหัสผ่านและคีย์การเข้าถึงที่รวมไว้: {2}</value>
-  </data>
-  <data name="Profiles.Ready" xml:space="preserve">
-    <value>พร้อม</value>
-  </data>
-  <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>เลือกรหัสผ่านเพื่อป้องกันไฟล์การเชื่อมต่อ แชร์รหัสผ่านแยกต่างหาก บันทึกไฟล์ไว้นอกโฟลเดอร์การกำหนดค่าที่แชร์</value>
-  </data>
-  <data name="Profiles.Remember" xml:space="preserve">
-    <value>จดจำรหัสผ่าน</value>
-  </data>
-  <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>จดจำการเชื่อมต่อนี้บนพีซีเครื่องนี้</value>
-  </data>
-  <data name="Profiles.Rename" xml:space="preserve">
-    <value>เปลี่ยนชื่อ</value>
-  </data>
-  <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>การดำเนินการนี้จะแทนที่การตั้งค่าที่คุณกำลังใช้ หากต้องการเก็บสำเนาไว้ก่อน ให้ยกเลิกแล้วเลือก “ทำสำเนา”</value>
-  </data>
-  <data name="Profiles.RestoreAccess" xml:space="preserve">
-    <value>กู้คืนการเข้าถึง</value>
-  </data>
-  <data name="Profiles.Rollback" xml:space="preserve">
-    <value>เวอร์ชันที่บันทึกไว้ในโฟลเดอร์ที่แชร์มีการเปลี่ยนแปลงโดยไม่คาดคิด กู้คืนจากข้อมูลสำรองที่คุณเชื่อถือ</value>
-  </data>
-  <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>ทำสำเนา</value>
-  </data>
-  <data name="Profiles.Select" xml:space="preserve">
-    <value>เลือกการกำหนดค่า</value>
-  </data>
-  <data name="Profiles.Setup" xml:space="preserve">
-    <value>ตั้งค่า</value>
-  </data>
-  <data name="Profiles.SetupAction" xml:space="preserve">
-    <value>ตั้งค่าการซิงโครไนซ์…</value>
-  </data>
-  <data name="Profiles.SetupDescription" xml:space="preserve">
-    <value>แชร์การกำหนดค่านี้หรือเชื่อมต่อกับการกำหนดค่าที่ทีมของคุณใช้อยู่แล้ว</value>
-  </data>
-  <data name="Profiles.ShareAction" xml:space="preserve">
-    <value>แชร์</value>
-  </data>
-  <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>ทุกคนที่นำเข้าหรือซิงค์การตั้งค่าเหล่านี้ได้จะสามารถอ่านรหัสผ่านและคีย์ส่วนตัวของใบรับรองที่รวมไว้ได้</value>
-  </data>
-  <data name="Profiles.SharedBusy" xml:space="preserve">
-    <value>มีการดำเนินการอื่นกำลังใช้โฟลเดอร์ที่แชร์นี้ ลองอีกครั้งในอีกสักครู่ การเปลี่ยนแปลงของคุณจะยังคงอยู่บนพีซีเครื่องนี้</value>
-  </data>
-  <data name="Profiles.SharedFolder" xml:space="preserve">
-    <value>โฟลเดอร์ที่แชร์</value>
-  </data>
-  <data name="Profiles.SharedUnavailable" xml:space="preserve">
-    <value>ไม่สามารถเข้าถึงโฟลเดอร์ที่แชร์ได้ ตรวจสอบที่อยู่ของโฟลเดอร์และการเข้าถึงเครือข่ายของคุณ การเปลี่ยนแปลงของคุณจะยังคงอยู่บนพีซีเครื่องนี้</value>
-  </data>
-  <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>ใช้โฟลเดอร์เครือข่ายเดียวกันบนพีซีทุกเครื่อง โฟลเดอร์ต้องใช้ SMB 3 โดยกำหนดให้ต้องเข้ารหัส ไม่รองรับโฟลเดอร์ที่ซิงค์กับคลาวด์</value>
-  </data>
-  <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Foundry จะหยุดบันทึกรหัสผ่านสำหรับการกำหนดค่านี้บนพีซีเครื่องนี้</value>
-  </data>
-  <data name="Profiles.StopRememberingAction" xml:space="preserve">
-    <value>หยุดจดจำ</value>
-  </data>
-  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
-    <value>หยุดจดจำรหัสผ่านใช่ไหม</value>
-  </data>
-  <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>ซิงโครไนซ์</value>
-  </data>
-  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
-    <value>กำลังซิงค์…</value>
-  </data>
-  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
-    <value>เลือกเวอร์ชัน</value>
-  </data>
-  <data name="Profiles.SyncStatusError" xml:space="preserve">
-    <value>ไม่สามารถซิงค์ได้</value>
-  </data>
-  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
-    <value>ยังไม่ได้ตั้งค่า</value>
-  </data>
-  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
-    <value>โฟลเดอร์ไม่พร้อมใช้งาน</value>
-  </data>
-  <data name="Profiles.SyncStatusPending" xml:space="preserve">
-    <value>มีการเปลี่ยนแปลงที่รอซิงค์</value>
-  </data>
-  <data name="Profiles.SyncStatusReady" xml:space="preserve">
-    <value>พร้อมซิงค์</value>
-  </data>
-  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
-    <value>เป็นข้อมูลล่าสุด</value>
-  </data>
-  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
-    <value>มีการเปลี่ยนแปลงพร้อมใช้งาน</value>
-  </data>
-  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
-    <value>ต้องตรวจสอบ</value>
-  </data>
-  <data name="Profiles.Synchronize" xml:space="preserve">
-    <value>ซิงโครไนซ์</value>
-  </data>
-  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
-    <value>ทำให้การกำหนดค่านี้เป็นปัจจุบันบนพีซีของทีมคุณ</value>
-  </data>
-  <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>การตั้งค่าเป็นปัจจุบันแล้ว</value>
-  </data>
-  <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>Foundry ไม่สามารถเปิดการตั้งค่าในรูปแบบนี้ได้ อัปเดต Foundry แล้วลองอีกครั้ง</value>
-  </data>
-  <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>มีการเปลี่ยนแปลงจากพีซีเครื่องอื่น เลือก “ซิงโครไนซ์” เพื่อนำมาใช้</value>
-  </data>
-  <data name="Profiles.UseRemote" xml:space="preserve">
-    <value>ใช้เวอร์ชันที่แชร์</value>
-  </data>
-  <data name="Profiles.Validation" xml:space="preserve">
-    <value>ตรวจสอบช่องที่ต้องกรอก หากต้องระบุโฟลเดอร์เครือข่าย ให้ใช้เส้นทาง เช่น \\server\share\folder หากป้อนรหัสผ่านของไฟล์สองครั้ง ตรวจสอบให้แน่ใจว่าทั้งสองครั้งตรงกัน</value>
-  </data>
   <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
     <value>Foundry OSD ไม่สามารถบันทึกการตั้งค่าพร็อกซีได้ ลองอีกครั้ง ดูรายละเอียดได้ในบันทึก</value>
   </data>
@@ -3428,12 +3135,6 @@
   </data>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>ทั่วไป</value>
-  </data>
-  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>สำรองการตั้งค่าของคุณ โอนไปยังพีซีเครื่องอื่น หรือซิงค์ให้ตรงกันอยู่เสมอ</value>
-  </data>
-  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>สำรองและซิงค์การตั้งค่า</value>
   </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>กำหนดค่าวิธีที่ Foundry OSD เชื่อมต่อกับบริการออนไลน์</value>

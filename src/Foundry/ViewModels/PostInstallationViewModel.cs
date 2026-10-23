@@ -105,7 +105,7 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
         return new(action, state.Current.PreOobe, kind.HasValue, library, picker, localization);
     }
 
-    /// <summary>Rejects an edit if a profile switch or concurrent configuration change replaced its baseline.</summary>
+    /// <summary>Rejects an edit if a configuration replacement or concurrent change replaced its baseline.</summary>
     public bool SaveEditor(PostInstallationActionEditorViewModel editor)
     {
         if (IsBusy || !ReferenceEquals(editor.Baseline, state.Current.PreOobe) || !editor.TryBuild(out var action))

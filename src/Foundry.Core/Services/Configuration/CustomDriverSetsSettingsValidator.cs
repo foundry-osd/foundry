@@ -10,15 +10,15 @@ namespace Foundry.Core.Services.Configuration;
 /// <summary>Validates driver set identity and selection only; the content of each package is checked when it is imported.</summary>
 public static class CustomDriverSetsSettingsValidator
 {
-    /// <summary>Maximum number of driver sets in one profile, included or not.</summary>
+    /// <summary>Maximum number of driver sets in one configuration, included or not.</summary>
     public const int MaximumSets = 256;
 
     /// <summary>Maximum length of a driver set display name, in characters.</summary>
     public const int MaximumDisplayNameLength = 200;
 
-    /// <summary>Validates profile settings, optionally requiring an included set for media creation.</summary>
+    /// <summary>Validates the settings, optionally requiring an included set for media creation.</summary>
     /// <param name="settings">The custom driver set settings to validate.</param>
-    /// <param name="requireIncludedSet">Requires an included set when enabled; defaults to false so incomplete profiles can be saved.</param>
+    /// <param name="requireIncludedSet">Requires an included set when enabled; defaults to false so incomplete configurations can be saved.</param>
     public static IReadOnlyList<string> Validate(CustomDriverSetsSettings settings, bool requireIncludedSet = false)
     {
         ArgumentNullException.ThrowIfNull(settings);
@@ -40,9 +40,9 @@ public static class CustomDriverSetsSettingsValidator
         return errors;
     }
 
-    /// <summary>Rejects invalid profile settings, optionally requiring an included set for media creation.</summary>
+    /// <summary>Rejects invalid settings, optionally requiring an included set for media creation.</summary>
     /// <param name="settings">The custom driver set settings to validate.</param>
-    /// <param name="requireIncludedSet">Requires an included set when enabled; defaults to false so incomplete profiles can be saved.</param>
+    /// <param name="requireIncludedSet">Requires an included set when enabled; defaults to false so incomplete configurations can be saved.</param>
     public static void ThrowIfInvalid(CustomDriverSetsSettings settings, bool requireIncludedSet = false)
     {
         IReadOnlyList<string> errors = Validate(settings, requireIncludedSet);
