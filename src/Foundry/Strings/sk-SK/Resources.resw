@@ -739,6 +739,9 @@ Licencované podľa licencie MIT.</value>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
     <value>Tento priečinok už v tomto profile je ako {0}.</value>
   </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>Počas importu bola konfigurácia nahradená, preto sada ovládačov nebola pridaná. Importujte priečinok znova.</value>
+  </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>Sada ovládačov bola odstránená, ale jej lokálnu kópiu sa nepodarilo odstrániť.</value>
   </data>
@@ -801,9 +804,6 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Sady ovládačov</value>
-  </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Počas importu sa zmenil aktívny profil, preto sada ovládačov nebola pridaná. Importujte priečinok znova v tomto profile.</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Nie je k dispozícii pri spustení cez PXE. Vlastné ovládače vyžadujú úplné médium ISO alebo USB.</value>

@@ -739,6 +739,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
     <value>Šī mape jau ir šajā profilā ar nosaukumu {0}.</value>
   </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>Importēšanas laikā konfigurācija tika aizstāta, tāpēc draiveru kopa netika pievienota. Importējiet mapi vēlreiz.</value>
+  </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>Draiveru kopa tika noņemta, taču tās lokālo kopiju neizdevās izdzēst.</value>
   </data>
@@ -801,9 +804,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Draiveru kopas</value>
-  </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Importēšanas laikā mainījās aktīvais profils, tāpēc draiveru kopa netika pievienota. Importējiet mapi šajā profilā vēlreiz.</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Nav pieejams, sāknējot ar PXE. Pielāgotiem draiveriem nepieciešams pilns ISO vai USB datu nesējs.</value>

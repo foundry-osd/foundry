@@ -739,6 +739,9 @@ Licenseret under MIT-licensen.</value>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
     <value>Denne mappe findes allerede i denne profil som {0}.</value>
   </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>Konfigurationen blev erstattet under importen, så driversættet blev ikke tilføjet. Importér mappen igen.</value>
+  </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>Driversættet blev fjernet, men den lokale kopi kunne ikke slettes.</value>
   </data>
@@ -801,9 +804,6 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Driversæt</value>
-  </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Den aktive profil blev skiftet under importen, så driversættet blev ikke tilføjet. Importér mappen igen i denne profil.</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Ikke tilgængelig ved PXE-start. Brugerdefinerede drivere kræver det komplette ISO- eller USB-medie.</value>

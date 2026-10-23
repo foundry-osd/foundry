@@ -739,6 +739,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
     <value>Deze map staat al in dit profiel als {0}.</value>
   </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>De configuratie is tijdens het importeren vervangen, dus de stuurprogrammaset is niet toegevoegd. Importeer de map opnieuw.</value>
+  </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>De stuurprogrammaset is verwijderd, maar de lokale kopie kan niet worden verwijderd.</value>
   </data>
@@ -801,9 +804,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Stuurprogrammasets</value>
-  </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Het actieve profiel is tijdens het importeren gewijzigd, dus de stuurprogrammaset is niet toegevoegd. Importeer de map opnieuw in dit profiel.</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Niet beschikbaar bij opstarten via PXE. Aangepaste stuurprogramma's vereisen de volledige ISO- of USB-media.</value>

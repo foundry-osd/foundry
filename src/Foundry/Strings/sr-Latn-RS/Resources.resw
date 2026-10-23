@@ -739,6 +739,9 @@ Licencirano pod MIT licencom.</value>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
     <value>Ova fascikla je već u ovom profilu kao {0}.</value>
   </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>Konfiguracija je zamenjena tokom uvoza, pa skup drajvera nije dodat. Ponovo uvezite fasciklu.</value>
+  </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>Skup drajvera je uklonjen, ali njegovu lokalnu kopiju nije moguće izbrisati.</value>
   </data>
@@ -801,9 +804,6 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Skupovi drajvera</value>
-  </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Aktivni profil se promenio tokom uvoza, pa skup drajvera nije dodat. Ponovo uvezite fasciklu u ovaj profil.</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Nije dostupno uz PXE pokretanje. Prilagođeni drajveri zahtevaju ceo ISO ili USB medij.</value>

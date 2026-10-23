@@ -14,7 +14,7 @@ using Foundry.Services.Localization;
 namespace Foundry.ViewModels;
 
 /// <summary>
-/// Manages the active profile's custom driver sets: folder imports into the local driver library, labels, inclusion and the default set.
+/// Manages the custom driver sets of the configuration: folder imports into the local driver library, labels, inclusion and the default set.
 /// Setting a default includes the set, and excluding or removing the default set clears the default.
 /// </summary>
 public sealed partial class CustomDriversViewModel : ObservableObject, IDisposable
@@ -24,7 +24,7 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
     private readonly CustomDriverSetImportDialogService importDialog;
     private readonly IDialogService dialogs;
     private readonly IApplicationLocalizationService localization;
-    private readonly DeploymentProfileCoordinator profiles;
+    private readonly ContentPackageCleanupService cleanup;
     private readonly Dictionary<string, int?> infCounts = new(StringComparer.OrdinalIgnoreCase);
     private readonly HashSet<string> requestedInspections = new(StringComparer.OrdinalIgnoreCase);
     private bool applying;
@@ -33,14 +33,14 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
     private bool inspectingUnknown;
 
     public CustomDriversViewModel(IFoundryConfigurationStateService state, CustomDriverSetLibrary library, CustomDriverSetImportDialogService importDialog,
-        IDialogService dialogs, IApplicationLocalizationService localization, DeploymentProfileCoordinator profiles)
+        IDialogService dialogs, IApplicationLocalizationService localization, ContentPackageCleanupService cleanup)
     {
         this.state = state;
         this.library = library;
         this.importDialog = importDialog;
         this.dialogs = dialogs;
         this.localization = localization;
-        this.profiles = profiles;
+        this.cleanup = cleanup;
         state.StateChanged += OnStateChanged;
         localization.LanguageChanged += OnLanguageChanged;
         ApplyState();
@@ -148,8 +148,8 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
     }
 
     /// <summary>
-    /// Opens the import dialog, which owns the copy, its progress and import failures. The new set is added only while the profile
-    /// that was active when the dialog opened is still active.
+    /// Opens the import dialog, which owns the copy, its progress and import failures. The new set is added only when the
+    /// configuration was not replaced while the dialog was open.
     /// </summary>
     [RelayCommand]
     private async Task ImportAsync()
@@ -163,7 +163,7 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
         }
 
         IsBusy = true;
-        Guid? profileId = profiles.Active?.LocalId;
+        long replacementVersion = state.ReplacementVersion;
         try
         {
             CustomDriverSetImportResult? imported;
@@ -178,15 +178,15 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
             if (disposed) return;
             if (imported is null)
             {
-                if (existingSetId is not null && profiles.Active?.LocalId == profileId)
+                if (existingSetId is not null && state.ReplacementVersion == replacementVersion)
                     SelectedSet = Sets.FirstOrDefault(row => row.Reference.Id == existingSetId);
                 return;
             }
             infCounts[imported.Package.ContentHash] = imported.InfCount;
-            if (profiles.Active?.LocalId != profileId)
+            if (state.ReplacementVersion != replacementVersion)
             {
-                Logger.Information("Custom driver set import not added because the active profile changed. ContentHash={ContentHash}", imported.Package.ContentHash);
-                StatusMessage = Text("ProfileChanged");
+                Logger.Information("Custom driver set import not added because the configuration was replaced. ContentHash={ContentHash}", imported.Package.ContentHash);
+                StatusMessage = Text("ConfigurationReplaced");
                 return;
             }
             try { AddImportedSet(imported); }
@@ -291,7 +291,7 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
                 CancelLabel,
                 PreferCancel: true)) ||
                 disposed || !ReferenceEquals(settings, state.Current.CustomDrivers)) return;
-            bool cleaned = await profiles.RemoveCustomDriverSetAsync(settings, row.Reference.Id, library);
+            bool cleaned = await cleanup.RemoveCustomDriverSetAsync(settings, row.Reference.Id);
             if (!disposed && !cleaned) StatusMessage = Text("ContentCleanupFailed");
         }
         catch (Exception exception)
@@ -317,7 +317,7 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
     }
 
     /// <summary>
-    /// Fills the availability cache and INF counts for sets that appeared after the initial load (profile switch, import).
+    /// Fills the availability cache and INF counts for sets that appeared after the initial load (configuration replacement, import).
     /// Each package is requested once per page so a failing check cannot loop.
     /// </summary>
     private async Task InspectUnknownPackagesAsync()
@@ -396,7 +396,7 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
     }
 }
 
-/// <summary>Displays one driver set of the active profile with its library state.</summary>
+/// <summary>Displays one driver set of the configuration with its library state.</summary>
 public sealed record CustomDriverSetRow(CustomDriverSetReference Reference, int? InfCount, string Size, string Included, string Default,
     string Status, bool IsDefault, bool? IsAvailable)
 {

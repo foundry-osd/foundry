@@ -739,6 +739,9 @@
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
     <value>此文件夹已以 {0} 的名称存在于此配置文件中。</value>
   </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>导入期间配置已被替换，因此未添加驱动程序集。请重新导入该文件夹。</value>
+  </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>已移除驱动程序集，但无法删除其本地副本。</value>
   </data>
@@ -801,9 +804,6 @@
   </data>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>驱动程序集</value>
-  </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>导入期间活动配置文件已更改，因此未添加驱动程序集。请在此配置文件中重新导入该文件夹。</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>PXE 启动时不可用。自定义驱动程序需要完整的 ISO 或 USB 介质。</value>

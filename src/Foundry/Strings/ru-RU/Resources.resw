@@ -739,6 +739,9 @@
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
     <value>Эта папка уже есть в этом профиле под именем {0}.</value>
   </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>Конфигурация была заменена во время импорта, поэтому набор драйверов не был добавлен. Импортируйте папку ещё раз.</value>
+  </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>Набор драйверов удалён, но его локальную копию удалить не удалось.</value>
   </data>
@@ -801,9 +804,6 @@
   </data>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Наборы драйверов</value>
-  </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Активный профиль изменился во время импорта, поэтому набор драйверов не был добавлен. Импортируйте папку в этот профиль ещё раз.</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Недоступно при загрузке по PXE. Пользовательским драйверам требуется полный носитель ISO или USB.</value>

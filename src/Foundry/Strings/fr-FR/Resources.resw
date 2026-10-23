@@ -739,6 +739,9 @@ Sous licence MIT.</value>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
     <value>Ce dossier figure déjà dans ce profil sous le nom {0}.</value>
   </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>La configuration a été remplacée pendant l'importation : l'ensemble de pilotes n'a pas été ajouté. Importez de nouveau le dossier.</value>
+  </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>L'ensemble de pilotes a été supprimé, mais sa copie locale n'a pas pu être effacée.</value>
   </data>
@@ -801,9 +804,6 @@ Sous licence MIT.</value>
   </data>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Ensembles de pilotes</value>
-  </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Le profil actif a changé pendant l'importation : l'ensemble de pilotes n'a pas été ajouté. Importez de nouveau le dossier dans ce profil.</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Non disponible avec un démarrage PXE. Les pilotes personnalisés nécessitent le média ISO ou USB complet.</value>

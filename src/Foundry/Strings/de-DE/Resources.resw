@@ -739,6 +739,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
     <value>Dieser Ordner ist in diesem Profil bereits als {0} vorhanden.</value>
   </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>Die Konfiguration wurde während des Imports ersetzt, daher wurde der Treibersatz nicht hinzugefügt. Importieren Sie den Ordner erneut.</value>
+  </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>Der Treibersatz wurde entfernt, aber seine lokale Kopie konnte nicht gelöscht werden.</value>
   </data>
@@ -801,9 +804,6 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Treibersätze</value>
-  </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Das aktive Profil wurde während des Imports gewechselt, daher wurde der Treibersatz nicht hinzugefügt. Importieren Sie den Ordner in diesem Profil erneut.</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Nicht verfügbar bei PXE-Start. Benutzerdefinierte Treiber erfordern das vollständige ISO- oder USB-Medium.</value>

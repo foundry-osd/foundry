@@ -739,6 +739,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
     <value>See kaust on selles profiilis juba nimega {0}.</value>
   </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>Konfiguratsioon asendati importimise ajal, seega draiverikomplekti ei lisatud. Importige kaust uuesti.</value>
+  </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>Draiverikomplekt eemaldati, kuid selle kohalikku koopiat ei saanud kustutada.</value>
   </data>
@@ -801,9 +804,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Draiverikomplektid</value>
-  </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Aktiivne profiil muutus importimise ajal, seega draiverikomplekti ei lisatud. Importige kaust selles profiilis uuesti.</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Pole PXE-käivitusega saadaval. Kohandatud draiverid nõuavad täielikku ISO- või USB-meediumit.</value>

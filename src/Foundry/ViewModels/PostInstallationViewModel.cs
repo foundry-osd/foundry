@@ -19,18 +19,18 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
     private readonly ContentPackageLibraryService library;
     private readonly IFilePickerService picker;
     private readonly IApplicationLocalizationService localization;
-    private readonly DeploymentProfileCoordinator profiles;
+    private readonly ContentPackageCleanupService cleanup;
     private bool applying;
     private bool disposed;
 
     public PostInstallationViewModel(IFoundryConfigurationStateService state, ContentPackageLibraryService library,
-        IFilePickerService picker, IApplicationLocalizationService localization, DeploymentProfileCoordinator profiles)
+        IFilePickerService picker, IApplicationLocalizationService localization, ContentPackageCleanupService cleanup)
     {
         this.state = state;
         this.library = library;
         this.picker = picker;
         this.localization = localization;
-        this.profiles = profiles;
+        this.cleanup = cleanup;
         state.StateChanged += OnStateChanged;
         localization.LanguageChanged += OnLanguageChanged;
         ApplyState();
@@ -131,7 +131,7 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
         StatusMessage = string.Empty;
         try
         {
-            bool cleaned = await profiles.RemovePostInstallationActionAsync(state.Current.PreOobe, id, library);
+            bool cleaned = await cleanup.RemovePostInstallationActionAsync(state.Current.PreOobe, id);
             if (disposed) return;
             SelectedAction = Actions.ElementAtOrDefault(Math.Min(position, Actions.Count - 1));
             if (!cleaned) StatusMessage = Text("ContentCleanupFailed");

@@ -739,6 +739,9 @@ Licensed under the MIT License.</value>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
     <value>This folder is already in this profile as {0}.</value>
   </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>The configuration was replaced during the import, so the driver set was not added. Import the folder again.</value>
+  </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>The driver set was removed, but its local copy could not be deleted.</value>
   </data>
@@ -801,9 +804,6 @@ Licensed under the MIT License.</value>
   </data>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Driver sets</value>
-  </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>The active profile changed during the import, so the driver set was not added. Import the folder again in this profile.</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Not available with PXE boot. Custom drivers require the full ISO or USB media.</value>

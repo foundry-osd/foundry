@@ -739,6 +739,9 @@ Licenciado sob a licença MIT.</value>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
     <value>Esta pasta já está neste perfil como {0}.</value>
   </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>A configuração foi substituída durante a importação, pelo que o conjunto de controladores não foi adicionado. Importe novamente a pasta.</value>
+  </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>O conjunto de controladores foi removido, mas não foi possível eliminar a sua cópia local.</value>
   </data>
@@ -801,9 +804,6 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Conjuntos de controladores</value>
-  </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>O perfil ativo mudou durante a importação, pelo que o conjunto de controladores não foi adicionado. Importe novamente a pasta neste perfil.</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Não disponível com arranque PXE. Os controladores personalizados requerem o suporte ISO ou USB completo.</value>

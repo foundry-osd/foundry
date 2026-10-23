@@ -739,6 +739,9 @@ Licențiat sub licența MIT.</value>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
     <value>Acest folder există deja în acest profil ca {0}.</value>
   </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>Configurația a fost înlocuită în timpul importului, așa că setul de drivere nu a fost adăugat. Importați din nou folderul.</value>
+  </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>Setul de drivere a fost eliminat, dar copia sa locală nu a putut fi ștearsă.</value>
   </data>
@@ -801,9 +804,6 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Seturi de drivere</value>
-  </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Profilul activ s-a schimbat în timpul importului, așa că setul de drivere nu a fost adăugat. Importați din nou folderul în acest profil.</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Indisponibil la pornirea prin PXE. Driverele personalizate necesită mediul ISO sau USB complet.</value>

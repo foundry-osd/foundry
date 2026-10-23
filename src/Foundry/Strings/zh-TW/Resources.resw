@@ -739,6 +739,9 @@
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
     <value>此資料夾已以 {0} 的名稱存在於此設定檔中。</value>
   </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>匯入期間組態已被取代，因此未新增驅動程式集。請重新匯入資料夾。</value>
+  </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>已移除驅動程式集，但無法刪除其本機複本。</value>
   </data>
@@ -801,9 +804,6 @@
   </data>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>驅動程式集</value>
-  </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>匯入期間作用中的設定檔已變更，因此未新增驅動程式集。請在此設定檔中重新匯入資料夾。</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>使用 PXE 開機時無法使用。自訂驅動程式需要完整的 ISO 或 USB 媒體。</value>

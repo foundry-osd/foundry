@@ -739,6 +739,9 @@
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
     <value>هذا المجلد موجود بالفعل في ملف التعريف هذا باسم {0}.</value>
   </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>تم استبدال التكوين أثناء الاستيراد، لذلك لم تتم إضافة مجموعة برامج التشغيل. استورد المجلد مرة أخرى.</value>
+  </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>تمت إزالة مجموعة برامج التشغيل، لكن تعذر حذف نسختها المحلية.</value>
   </data>
@@ -801,9 +804,6 @@
   </data>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>مجموعات برامج التشغيل</value>
-  </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>تغيّر ملف التعريف النشط أثناء الاستيراد، لذلك لم تتم إضافة مجموعة برامج التشغيل. استورد المجلد مرة أخرى في ملف التعريف هذا.</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>غير متاح مع إقلاع PXE. تتطلب برامج التشغيل المخصصة وسائط ISO أو USB الكاملة.</value>

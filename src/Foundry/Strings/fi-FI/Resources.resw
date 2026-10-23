@@ -739,6 +739,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
     <value>Tämä kansio on jo tässä profiilissa nimellä {0}.</value>
   </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>Määritykset korvattiin tuonnin aikana, joten ohjainjoukkoa ei lisätty. Tuo kansio uudelleen.</value>
+  </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>Ohjainjoukko poistettiin, mutta sen paikallista kopiota ei voitu poistaa.</value>
   </data>
@@ -801,9 +804,6 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Ohjainjoukot</value>
-  </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Aktiivinen profiili vaihtui tuonnin aikana, joten ohjainjoukkoa ei lisätty. Tuo kansio uudelleen tähän profiiliin.</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Ei käytettävissä PXE-käynnistyksessä. Mukautetut ohjaimet edellyttävät täydellistä ISO- tai USB-tietovälinettä.</value>

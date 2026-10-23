@@ -739,6 +739,9 @@
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
     <value>Αυτός ο φάκελος υπάρχει ήδη σε αυτό το προφίλ ως {0}.</value>
   </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>Η ρύθμιση παραμέτρων αντικαταστάθηκε κατά την εισαγωγή, επομένως το σύνολο προγραμμάτων οδήγησης δεν προστέθηκε. Εισαγάγετε ξανά τον φάκελο.</value>
+  </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>Το σύνολο προγραμμάτων οδήγησης καταργήθηκε, αλλά δεν ήταν δυνατή η διαγραφή του τοπικού του αντιγράφου.</value>
   </data>
@@ -801,9 +804,6 @@
   </data>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Σύνολα προγραμμάτων οδήγησης</value>
-  </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Το ενεργό προφίλ άλλαξε κατά την εισαγωγή, επομένως το σύνολο προγραμμάτων οδήγησης δεν προστέθηκε. Εισαγάγετε ξανά τον φάκελο σε αυτό το προφίλ.</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Δεν διατίθεται με εκκίνηση PXE. Τα προσαρμοσμένα προγράμματα οδήγησης απαιτούν το πλήρες μέσο ISO ή USB.</value>

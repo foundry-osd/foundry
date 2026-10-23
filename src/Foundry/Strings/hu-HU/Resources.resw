@@ -739,6 +739,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
     <value>Ez a mappa már szerepel ebben a profilban {0} néven.</value>
   </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>A konfiguráció az importálás közben lecserélődött, ezért az illesztőprogram-készlet nem lett hozzáadva. Importálja újra a mappát.</value>
+  </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>Az illesztőprogram-készlet el lett távolítva, de a helyi másolatát nem sikerült törölni.</value>
   </data>
@@ -801,9 +804,6 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Illesztőprogram-készletek</value>
-  </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Az aktív profil megváltozott az importálás közben, ezért az illesztőprogram-készlet nem lett hozzáadva. Importálja újra a mappát ebben a profilban.</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>PXE-rendszerindítással nem érhető el. Az egyéni illesztőprogramokhoz a teljes ISO- vagy USB-adathordozó szükséges.</value>

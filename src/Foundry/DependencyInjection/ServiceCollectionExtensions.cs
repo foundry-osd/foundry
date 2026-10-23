@@ -167,6 +167,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<PostInstallationViewModel>();
         services.AddSingleton(_ => new Foundry.Core.Services.Drivers.CustomDriverSetLibrary(Constants.CustomDriverPackagesDirectoryPath));
         services.AddSingleton<CustomDriverSetImportDialogService>();
+        services.AddSingleton<ContentPackageCleanupService>();
         services.AddTransient<CustomDriversViewModel>();
         services.AddTransient<UnattendConfigurationViewModel>();
         services.AddTransient<NetworkConfigurationViewModel>();

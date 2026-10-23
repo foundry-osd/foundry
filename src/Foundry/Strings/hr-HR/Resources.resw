@@ -739,6 +739,9 @@ Licenciran prema MIT licenci.</value>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
     <value>Ova mapa već je u ovom profilu kao {0}.</value>
   </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>Konfiguracija je zamijenjena tijekom uvoza pa skup upravljačkih programa nije dodan. Ponovno uvezite mapu.</value>
+  </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>Skup upravljačkih programa uklonjen je, ali njegovu lokalnu kopiju nije moguće izbrisati.</value>
   </data>
@@ -801,9 +804,6 @@ Licenciran prema MIT licenci.</value>
   </data>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Skupovi upravljačkih programa</value>
-  </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Aktivni profil promijenio se tijekom uvoza pa skup upravljačkih programa nije dodan. Ponovno uvezite mapu u ovaj profil.</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Nije dostupno uz PXE pokretanje. Prilagođeni upravljački programi zahtijevaju cijeli ISO ili USB medij.</value>

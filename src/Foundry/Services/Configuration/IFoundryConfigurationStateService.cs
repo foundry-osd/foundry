@@ -28,8 +28,15 @@ public interface IFoundryConfigurationStateService
     /// </summary>
     FoundryConfigurationDocument Current { get; }
 
-    /// <summary>Persists a validated profile before restoring its local secrets and publishing the active configuration.</summary>
+    /// <summary>Persists a whole replacement configuration before restoring its local secrets and publishing it.</summary>
+    /// <remarks>Increments <see cref="ReplacementVersion"/> before raising <see cref="StateChanged"/>.</remarks>
     void Replace(FoundryConfigurationDocument document, Action restoreSecrets);
+
+    /// <summary>
+    /// Gets a counter incremented by every <see cref="Replace"/>, so a long-running edit started before a replacement can
+    /// detect it and avoid applying its result to the configuration that replaced the one it started from.
+    /// </summary>
+    long ReplacementVersion { get; }
 
     /// <summary>Freezes current configuration and session secrets synchronously, then prepares private build dependencies off-thread.</summary>
     Task<BuildSnapshot> CaptureBuildSnapshotAsync(string privateRootDirectory, CancellationToken cancellationToken = default);

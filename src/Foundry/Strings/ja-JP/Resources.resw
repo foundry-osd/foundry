@@ -739,6 +739,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
     <value>このフォルダーは、このプロファイルに {0} として既に存在します。</value>
   </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>インポート中に構成が置き換えられたため、ドライバー セットは追加されませんでした。フォルダーをもう一度インポートしてください。</value>
+  </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>ドライバー セットは削除されましたが、ローカル コピーを削除できませんでした。</value>
   </data>
@@ -801,9 +804,6 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>ドライバー セット</value>
-  </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>インポート中にアクティブなプロファイルが変更されたため、ドライバー セットは追加されませんでした。このプロファイルでフォルダーをもう一度インポートしてください。</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>PXE ブートでは使用できません。カスタム ドライバーには、完全な ISO または USB メディアが必要です。</value>

@@ -87,6 +87,9 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     public FoundryConfigurationDocument Current { get; private set; }
 
     /// <inheritdoc />
+    public long ReplacementVersion { get; private set; }
+
+    /// <inheritdoc />
     public void Replace(FoundryConfigurationDocument document, Action restoreSecrets)
     {
         ArgumentNullException.ThrowIfNull(document);
@@ -101,6 +104,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         validatedUnattendSettings = null;
         unattendSourceValidations = [];
         unattendRefreshRevision++;
+        ReplacementVersion++;
         StateChanged?.Invoke(this, EventArgs.Empty);
     }
 

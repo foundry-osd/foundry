@@ -739,6 +739,9 @@ Licensierad under MIT-licensen.</value>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
     <value>Den här mappen finns redan i profilen som {0}.</value>
   </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>Konfigurationen ersattes under importen, så drivrutinsuppsättningen lades inte till. Importera mappen igen.</value>
+  </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>Drivrutinsuppsättningen togs bort, men den lokala kopian kunde inte tas bort.</value>
   </data>
@@ -801,9 +804,6 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Drivrutinsuppsättningar</value>
-  </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Den aktiva profilen ändrades under importen, så drivrutinsuppsättningen lades inte till. Importera mappen igen i den här profilen.</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Inte tillgängligt vid PXE-start. Anpassade drivrutiner kräver det fullständiga ISO- eller USB-mediet.</value>

@@ -739,6 +739,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
     <value>Šis aplankas jau yra šiame profilyje kaip {0}.</value>
   </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>Importuojant konfigūracija buvo pakeista, todėl tvarkyklių rinkinys nebuvo įtrauktas. Importuokite aplanką dar kartą.</value>
+  </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>Tvarkyklių rinkinys pašalintas, bet jo vietinės kopijos ištrinti nepavyko.</value>
   </data>
@@ -801,9 +804,6 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Tvarkyklių rinkiniai</value>
-  </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Importuojant pasikeitė aktyvusis profilis, todėl tvarkyklių rinkinys nebuvo įtrauktas. Importuokite aplanką į šį profilį dar kartą.</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Nepasiekiama paleidžiant per PXE. Pasirinktinėms tvarkyklėms reikia visos ISO arba USB laikmenos.</value>
