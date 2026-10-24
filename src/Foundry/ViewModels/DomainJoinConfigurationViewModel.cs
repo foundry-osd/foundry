@@ -127,6 +127,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     private bool CanEditDomain => SelectedDomain is { } domain
         && (IsEditable || (IsZeroTouch && managed.ArePasswordsEditable && PasswordOwner(domain.Settings) is not null));
     private bool CanRemoveDomain => IsEditable && CanEditDomain;
+    private bool CanAddOrganizationalUnit => IsEditable && SelectedDomain is not null;
     private bool CanSetDefaultDomain => IsEditable && SelectedDomain is { } domain &&
         !string.Equals(configuration.Current.DomainJoin.DefaultDomainId, domain.Id, StringComparison.OrdinalIgnoreCase);
     private bool CanEditOrganizationalUnit => SelectedDomain is not null && selectedOuRows.Count == 1;
@@ -301,7 +302,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         if (SelectedDomain is { } row) Save(DomainJoinDomainCatalog.SetDefault(configuration.Current.DomainJoin, row.Id));
     }
 
-    [RelayCommand(CanExecute = nameof(CanEditDomain))]
+    [RelayCommand(CanExecute = nameof(CanAddOrganizationalUnit))]
     private Task AddOrganizationalUnitAsync() => domainDialogs.ShowAddAsync(TryAddOrganizationalUnit);
 
     /// <summary>Adds one typed OU to the selected domain; returns the reason shown in the dialog when it is refused.</summary>
