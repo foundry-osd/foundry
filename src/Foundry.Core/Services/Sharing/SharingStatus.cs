@@ -51,9 +51,9 @@ public enum SharingStatus
     Updated,
 
     /// <summary>
-    /// Follower: the configuration is applied and its content is still being fetched, or could not all be fetched yet (the
-    /// engine lists failed content and flags content that stays unavailable).
-    /// Media readiness stays false until the content is in the libraries.
+    /// Follower: the configuration is applied and its content is still being fetched, or could not all be fetched yet (see
+    /// <see cref="ConfigurationSharingEngine.FailedContent"/> and <see cref="ConfigurationSharingEngine.IsContentStalled"/>). Media
+    /// readiness stays false until the content is in the libraries.
     /// </summary>
     ContentDownloading,
 
@@ -74,7 +74,7 @@ public enum SharingStatus
 
     /// <summary>
     /// The folder is signed by another key. Reference: another PC publishes there ("Take over"). Follower: the reference changed
-    /// ("Accept new reference").
+    /// (<see cref="ConfigurationSharingEngine.Candidate"/>, "Accept new reference").
     /// </summary>
     UnknownPublisher,
 

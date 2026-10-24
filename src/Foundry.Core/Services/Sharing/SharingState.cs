@@ -45,6 +45,16 @@ public sealed record SharingState
     public long LastPublishedSequence { get; init; }
 }
 
+/// <summary>
+/// A new reference a follower found: the current manifest is signed by another key than the pinned one, and it opens with the
+/// publication password and verifies under the publisher key it embeds. Shown with the pinned key id for "Accept new reference".
+/// </summary>
+/// <param name="KeyId">Fingerprint of <paramref name="PublicKey"/>.</param>
+/// <param name="PublicKey">The new reference public key (DER SubjectPublicKeyInfo), pinned on acceptance.</param>
+/// <param name="Name">Display name of the new reference PC.</param>
+/// <param name="Sequence">Sequence of the manifest it signed.</param>
+public sealed record SharingPublisherCandidate(string KeyId, byte[] PublicKey, string Name, long Sequence);
+
 /// <summary>Reads and writes <see cref="SharingState"/> as JSON, replacing the file atomically.</summary>
 internal static class SharingStateStore
 {

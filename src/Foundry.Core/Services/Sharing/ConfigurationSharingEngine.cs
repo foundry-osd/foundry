@@ -27,10 +27,24 @@ namespace Foundry.Core.Services.Sharing;
 /// queues exactly one follow-up publish, which reads the configuration again when it starts; each publish activates the configuration
 /// it read when it started, with that configuration's content.
 /// </para>
+/// <para>
+/// Follower: the reference key is pinned when the user follows, and every check verifies the current manifest against it. An applied
+/// publication replaces the configuration through the host (per-PC values kept, the <c>CustomDrivers</c> section and default set
+/// from the publication), its passwords overwrite the matching vault entries (sharing ids never), and its missing content is fetched
+/// in the background. A key change is never trusted from the folder alone: the candidate key is the one the current manifest
+/// authenticates under with the publication password, and it applies only after <see cref="AcceptNewPublisherAsync"/>.
+/// </para>
 /// <para>Nothing here logs a secret, password or key; only sequences, counts and typed statuses.</para>
 /// </remarks>
 public sealed class ConfigurationSharingEngine
 {
+    /// <summary>
+    /// Consecutive fetches that find the same content still not available before <see cref="IsContentStalled"/> is set: ten checks,
+    /// about ten minutes at the 60-second check interval, longer than a cloud folder needs to deliver a file or a reset needs to
+    /// encrypt content again, so content that stays unavailable is most likely damaged in the folder.
+    /// </summary>
+    internal const int StalledContentFetchCount = 10;
+
     private const int MasterKeySize = 32;
 
     private readonly ISharingHost host;
@@ -47,8 +61,27 @@ public sealed class ConfigurationSharingEngine
     private TaskCompletionSource<SharingStatus>? activePublish;
     private bool publishPending;
 
-    /// <summary>Gets the publication password entered this session when the vault could not store it; it wins over the vault.</summary>
+    /// <summary>The publication password entered this session when the vault could not store it; it wins over the vault.</summary>
     private string? sessionPassword;
+
+    /// <summary>Follower: the payload applied last, known once a check opened it during this session.</summary>
+    private ConfigurationPackagePayload? appliedPayload;
+
+    private Task fetchTask = Task.CompletedTask;
+    private CancellationTokenSource? fetchCancellation;
+
+    /// <summary>Whether the next check fetches again: content was not available yet, as opposed to failing the same way every time.</summary>
+    private bool retryFetch;
+
+    private IReadOnlyList<PackageContent> failedContent = [];
+    private HashSet<(SharedContentKind Kind, string Hash)>? unavailableContent;
+    private int unchangedFetchCount;
+    private bool contentStalled;
+
+    /// <summary>Sequence of the manifest the previous check read as modified; a second read of it is reported.</summary>
+    private long? tamperedSequence;
+
+    private SharingPublisherCandidate? candidate;
 
     /// <summary>Creates the engine and reads the persisted role.</summary>
     /// <param name="host">The application side.</param>
@@ -114,6 +147,55 @@ public sealed class ConfigurationSharingEngine
             lock (gate)
             {
                 return lastSuccessUtc;
+            }
+        }
+    }
+
+    /// <summary>Gets the key id of the pinned reference key of a follower, for "Accept new reference"; null otherwise.</summary>
+    public string? PinnedKeyId => PinnedKeyIdOf(State);
+
+    /// <summary>
+    /// Gets the new reference a follower found (<see cref="SharingStatus.UnknownPublisher"/>), authenticated by the current manifest
+    /// with the publication password; null when there is none.
+    /// </summary>
+    public SharingPublisherCandidate? Candidate
+    {
+        get
+        {
+            lock (gate)
+            {
+                return candidate;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Gets the content of the applied publication that decrypted but could not be imported (it breaks its library's rules or does
+    /// not match its hash); it is fetched again only when the reference publishes a new version.
+    /// </summary>
+    public IReadOnlyList<PackageContent> FailedContent
+    {
+        get
+        {
+            lock (gate)
+            {
+                return failedContent;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Gets whether the same content stayed not available for <see cref="StalledContentFetchCount"/> consecutive checks: it is
+    /// probably damaged in the folder rather than still arriving. Status stays <see cref="SharingStatus.ContentDownloading"/> and
+    /// the checks keep retrying.
+    /// </summary>
+    public bool IsContentStalled
+    {
+        get
+        {
+            lock (gate)
+            {
+                return contentStalled;
             }
         }
     }
@@ -286,6 +368,600 @@ public sealed class ConfigurationSharingEngine
             operation.Release();
         }
     }
+
+    /// <summary>
+    /// "Follow a folder" preview (spec 6.2): opens the current publication with <paramref name="password"/>, verified against the
+    /// publisher key it embeds, for the reference name, date, sequence, passwords and download size. Nothing is stored.
+    /// </summary>
+    public async Task<PublicationReadResult> PreviewFollowAsync(string folder, string password, CancellationToken ct)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(folder);
+        ArgumentNullException.ThrowIfNull(password);
+        PublicationReadResult result = await PublicationReader.PreviewAsync(folder, password, ct);
+        Logger.Information("Publication opened for a follow preview. Status={Status}, Sequence={Sequence}", result.Status, result.Sequence);
+        return result;
+    }
+
+    /// <summary>
+    /// Confirms "Follow a folder": stores the publication password, pins the reference key of <paramref name="preview"/> and applies
+    /// its publication, which replaces the configuration (per-PC values kept). Missing content is then fetched in the background.
+    /// </summary>
+    /// <param name="folder">The folder <paramref name="preview"/> was read from.</param>
+    /// <param name="password">The publication password the preview opened with.</param>
+    /// <param name="preview">An <see cref="PublicationReadStatus.Ok"/> result of <see cref="PreviewFollowAsync"/>.</param>
+    /// <param name="ct">Cancels the apply.</param>
+    /// <returns>
+    /// <see cref="SharingStatus.Updated"/>, <see cref="SharingStatus.ContentDownloading"/>, or <see cref="SharingStatus.PasswordsNeeded"/>
+    /// when the configuration needs passwords the publication does not include.
+    /// </returns>
+    /// <exception cref="ArgumentException">The preview is not an opened, signed publication.</exception>
+    /// <exception cref="InvalidOperationException">This PC already publishes or follows.</exception>
+    public async Task<SharingStatus> FollowAsync(string folder, string password, PublicationReadResult preview, CancellationToken ct)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(folder);
+        ArgumentNullException.ThrowIfNull(password);
+        ArgumentNullException.ThrowIfNull(preview);
+        if (preview is not { Status: PublicationReadStatus.Ok, Payload: { Publisher: { } publisher } payload }
+            || preview.SignerKeyId != PublicationSigner.KeyId(publisher.PublicKey))
+        {
+            throw new ArgumentException("The follow preview is not an opened publication.", nameof(preview));
+        }
+
+        await operation.WaitAsync(ct);
+        try
+        {
+            SharingState current = State;
+            if (current.Role != SharingRole.None)
+            {
+                throw new InvalidOperationException("ConfigurationSharing.RoleActive");
+            }
+
+            StorePublicationPassword(password);
+            SharingState target = new()
+            {
+                Role = SharingRole.Follower,
+                Folder = folder,
+                PinnedPublicKey = publisher.PublicKey,
+                LastPublishedSequence = current.LastPublishedSequence
+            };
+            return await ApplyAsync(payload, target, updated: true, ct);
+        }
+        finally
+        {
+            operation.Release();
+        }
+    }
+
+    /// <summary>
+    /// Follower check, at startup and every 60 seconds (spec 6.2): reads <c>current.json</c> and applies a newer publication signed by
+    /// the pinned key. A manifest that has not arrived reports <see cref="SharingStatus.Checking"/>; one read as modified is retried
+    /// once (a partly synced manifest reads the same) before <see cref="SharingStatus.Tampered"/> is reported; a manifest signed by
+    /// another key reports <see cref="SharingStatus.UnknownPublisher"/> and applies nothing. Content still missing is fetched again in
+    /// the background. Does nothing without the follower role.
+    /// </summary>
+    /// <returns>
+    /// The current status without the follower role; otherwise <see cref="SharingStatus.UpToDate"/>, <see cref="SharingStatus.Updated"/>,
+    /// <see cref="SharingStatus.ContentDownloading"/>, <see cref="SharingStatus.PasswordsNeeded"/>, <see cref="SharingStatus.Checking"/>,
+    /// <see cref="SharingStatus.Tampered"/>, <see cref="SharingStatus.UnknownPublisher"/>, <see cref="SharingStatus.RollbackRejected"/>,
+    /// <see cref="SharingStatus.WrongPassword"/>, <see cref="SharingStatus.FolderUnavailable"/> or <see cref="SharingStatus.Unsupported"/>.
+    /// </returns>
+    /// <exception cref="IOException">The host cannot save the configuration; the applied sequence is kept and the next check retries.</exception>
+    public async Task<SharingStatus> CheckAsync(CancellationToken ct)
+    {
+        await operation.WaitAsync(ct);
+        try
+        {
+            if (State.Role != SharingRole.Follower)
+            {
+                return Status;
+            }
+
+            if (PublicationPassword(host.ReadVault()) is not { } password)
+            {
+                return SetStatus(SharingStatus.PasswordsNeeded);
+            }
+
+            // After a restart the applied payload is unknown; when content is missing its manifest is opened again to fetch it.
+            bool reopen = AppliedPayload is null && !host.AllContentAvailable(host.CurrentConfiguration);
+            return await CheckCoreAsync(password, reopen, reapply: false, ct);
+        }
+        finally
+        {
+            operation.Release();
+        }
+    }
+
+    /// <summary>
+    /// Follower: the publication password entered again (after <see cref="SharingStatus.PasswordsNeeded"/> or
+    /// <see cref="SharingStatus.WrongPassword"/>). The current publication is read with it and applied again, which also restores the
+    /// passwords it includes; the password is stored only when it opens the publication.
+    /// </summary>
+    /// <returns>The status of the check made with the password; <see cref="SharingStatus.WrongPassword"/> leaves nothing stored.</returns>
+    /// <exception cref="InvalidOperationException">This PC does not follow a folder.</exception>
+    public async Task<SharingStatus> SetPublicationPasswordAsync(string password, CancellationToken ct)
+    {
+        ArgumentNullException.ThrowIfNull(password);
+        await operation.WaitAsync(ct);
+        try
+        {
+            if (State.Role != SharingRole.Follower)
+            {
+                throw new InvalidOperationException("ConfigurationSharing.NotFollower");
+            }
+
+            string? previous = sessionPassword;
+            sessionPassword = password;
+            SharingStatus result;
+            try
+            {
+                result = await CheckCoreAsync(password, reopen: true, reapply: true, ct);
+            }
+            catch
+            {
+                sessionPassword = previous;
+                throw;
+            }
+
+            bool opened = result is SharingStatus.Updated or SharingStatus.UpToDate or SharingStatus.ContentDownloading or SharingStatus.PasswordsNeeded
+                || (result == SharingStatus.UnknownPublisher && Candidate is not null);
+            if (opened)
+            {
+                StorePublicationPassword(password);
+            }
+            else
+            {
+                sessionPassword = previous;
+            }
+
+            return result;
+        }
+        finally
+        {
+            operation.Release();
+        }
+    }
+
+    /// <summary>
+    /// "Accept new reference" (spec 6.2): pins the key of <see cref="Candidate"/> and applies the current publication. The folder is
+    /// read again; when its manifest is no longer the one authenticated under the candidate key, nothing is pinned and the result of a
+    /// new check is returned (a different candidate must be confirmed again).
+    /// </summary>
+    /// <returns>The apply status, <see cref="SharingStatus.RollbackRejected"/> when the new reference did not continue the sequence, or the check result.</returns>
+    /// <exception cref="InvalidOperationException">This PC does not follow a folder or no new reference was found.</exception>
+    public async Task<SharingStatus> AcceptNewPublisherAsync(CancellationToken ct)
+    {
+        await operation.WaitAsync(ct);
+        try
+        {
+            SharingState current = State;
+            SharingPublisherCandidate? accepted = Candidate;
+            if (current.Role != SharingRole.Follower || accepted is null)
+            {
+                throw new InvalidOperationException("ConfigurationSharing.NoCandidate");
+            }
+
+            if (PublicationPassword(host.ReadVault()) is not { } password)
+            {
+                return SetStatus(SharingStatus.PasswordsNeeded);
+            }
+
+            PublicationReadResult preview = await PublicationReader.PreviewAsync(current.Folder!, password, ct);
+            if (preview is not { Status: PublicationReadStatus.Ok, Payload: { Publisher: { } publisher } payload } || preview.SignerKeyId != accepted.KeyId)
+            {
+                return await CheckCoreAsync(password, reopen: false, reapply: false, ct);
+            }
+
+            if (payload.Sequence <= current.AppliedSequence)
+            {
+                return SetStatus(SharingStatus.RollbackRejected);
+            }
+
+            Logger.Information("New reference accepted. Sequence={Sequence}", payload.Sequence);
+            return await ApplyAsync(payload, current with { PinnedPublicKey = publisher.PublicKey }, updated: true, ct);
+        }
+        finally
+        {
+            operation.Release();
+        }
+    }
+
+    /// <summary>
+    /// "Stop following" (spec 6.2): stops the content fetch, keeps the configuration and makes it editable again; with
+    /// <paramref name="forgetPassword"/> the publication password is removed from the vault.
+    /// </summary>
+    public async Task StopFollowingAsync(bool forgetPassword)
+    {
+        await operation.WaitAsync();
+        try
+        {
+            SharingState current = State;
+            if (current.Role != SharingRole.Follower)
+            {
+                return;
+            }
+
+            await CancelFetchAsync();
+            host.ClearManaged();
+            if (forgetPassword)
+            {
+                TryWriteVault(new Dictionary<string, string>(StringComparer.Ordinal), [SecretIds.PublicationPassword]);
+            }
+
+            sessionPassword = null;
+            lock (gate)
+            {
+                appliedPayload = null;
+                candidate = null;
+                tamperedSequence = null;
+                ResetContentTracking();
+            }
+
+            Persist(new SharingState { LastPublishedSequence = current.LastPublishedSequence });
+            SetStatus(SharingStatus.Idle);
+        }
+        finally
+        {
+            operation.Release();
+        }
+    }
+
+    /// <summary>Completes when the running content fetch completes (at once when none runs); content still missing stays reported.</summary>
+    public async Task WaitForContentAsync(CancellationToken ct)
+    {
+        Task running;
+        lock (gate)
+        {
+            running = fetchTask;
+        }
+
+        await running.WaitAsync(ct);
+    }
+
+    private ConfigurationPackagePayload? AppliedPayload
+    {
+        get
+        {
+            lock (gate)
+            {
+                return appliedPayload;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Reads the folder and acts on it. <paramref name="reopen"/> opens the applied manifest again (its sequence is accepted, a lower
+    /// one is still a rollback); <paramref name="reapply"/> applies it again when it is the applied one.
+    /// </summary>
+    private async Task<SharingStatus> CheckCoreAsync(string password, bool reopen, bool reapply, CancellationToken cancellationToken)
+    {
+        SharingState current = State;
+        long applied = current.AppliedSequence;
+        long floor = reopen ? Math.Max(0, applied - 1) : applied;
+        PublicationReadResult read = await PublicationReader.ReadAsync(current.Folder!, password, current.PinnedPublicKey, floor, cancellationToken);
+        if (read.Status != PublicationReadStatus.Tampered)
+        {
+            lock (gate)
+            {
+                tamperedSequence = null;
+            }
+        }
+
+        switch (read.Status)
+        {
+            case PublicationReadStatus.Ok:
+                ConfigurationPackagePayload payload = read.Payload!;
+                if (payload.Sequence > applied || reapply)
+                {
+                    return await ApplyAsync(payload, current, updated: payload.Sequence > applied, cancellationToken);
+                }
+
+                lock (gate)
+                {
+                    appliedPayload = payload;
+                    retryFetch = true;
+                }
+
+                return Settle(updated: false);
+            case PublicationReadStatus.UpToDate or PublicationReadStatus.RollbackRejected:
+                return read.Status == PublicationReadStatus.RollbackRejected || read.Sequence < applied
+                    ? SetStatus(SharingStatus.RollbackRejected)
+                    : Settle(updated: false);
+            case PublicationReadStatus.Tampered:
+                return ReportTampered(read.Sequence);
+            case PublicationReadStatus.UnknownPublisher:
+                return await FindCandidateAsync(current, password, cancellationToken);
+            default:
+                return SetStatus(MapRead(read.Status));
+        }
+    }
+
+    /// <summary>
+    /// The current manifest is signed by another key. The key id the reader reports is not authenticated, so the manifest is opened
+    /// with the publication password and verified against the publisher key it embeds: only a key that authenticates its payload
+    /// becomes the candidate, stored until <see cref="AcceptNewPublisherAsync"/>.
+    /// </summary>
+    private async Task<SharingStatus> FindCandidateAsync(SharingState current, string password, CancellationToken cancellationToken)
+    {
+        PublicationReadResult preview = await PublicationReader.PreviewAsync(current.Folder!, password, cancellationToken);
+        if (preview is { Status: PublicationReadStatus.Ok, Payload.Publisher: { } publisher, SignerKeyId: { } keyId } && keyId != PinnedKeyIdOf(current))
+        {
+            lock (gate)
+            {
+                candidate = new SharingPublisherCandidate(keyId, publisher.PublicKey, publisher.Name, preview.Sequence);
+            }
+
+            return SetStatus(SharingStatus.UnknownPublisher);
+        }
+
+        lock (gate)
+        {
+            candidate = null;
+        }
+
+        return preview.Status switch
+        {
+            // The pointer moved back to a manifest of the pinned key between the two reads: the next check reads it.
+            PublicationReadStatus.Ok => SetStatus(SharingStatus.Checking),
+            PublicationReadStatus.Tampered => ReportTampered(preview.Sequence),
+            _ => SetStatus(MapRead(preview.Status))
+        };
+    }
+
+    /// <summary>Reports a manifest read as modified only when the previous check read the same manifest as modified.</summary>
+    private SharingStatus ReportTampered(long sequence)
+    {
+        bool repeated;
+        lock (gate)
+        {
+            repeated = tamperedSequence == sequence;
+            tamperedSequence = sequence;
+        }
+
+        if (!repeated)
+        {
+            Logger.Debug("Publication manifest read as modified; it is read again at the next check before it is reported. Sequence={Sequence}", sequence);
+            return SetStatus(SharingStatus.Checking);
+        }
+
+        return SetStatus(SharingStatus.Tampered);
+    }
+
+    /// <summary>
+    /// Applies a verified publication through the host and persists <paramref name="target"/> with its sequence. Publication
+    /// passwords overwrite the matching vault entries; sharing ids are never taken from a publication.
+    /// </summary>
+    private async Task<SharingStatus> ApplyAsync(ConfigurationPackagePayload payload, SharingState target, bool updated, CancellationToken cancellationToken)
+    {
+        await CancelFetchAsync();
+        PackagePublisher publisher = payload.Publisher!;
+        FoundryConfigurationDocument configuration = PortableConfiguration.ApplyLocal(payload.Configuration, host.CurrentConfiguration);
+        Dictionary<string, string> secrets = (payload.Secrets ?? new Dictionary<string, string>())
+            .Where(entry => !SecretIds.IsSharingInternal(entry.Key))
+            .ToDictionary(entry => entry.Key, entry => entry.Value, StringComparer.Ordinal);
+        await host.ApplyConfigurationAsync(configuration, secrets, publisher.Name, cancellationToken);
+        Persist(target with
+        {
+            AppliedSequence = payload.Sequence,
+            PublisherId = publisher.Id,
+            PublisherName = publisher.Name,
+            IncludePasswords = payload.Secrets is not null
+        });
+        lock (gate)
+        {
+            appliedPayload = payload;
+            candidate = null;
+            tamperedSequence = null;
+            ResetContentTracking();
+            retryFetch = true;
+        }
+
+        Logger.Information("Publication applied. Sequence={Sequence}, ContentCount={ContentCount}, SecretCount={SecretCount}",
+            payload.Sequence, payload.Contents.Count, secrets.Count);
+        return Settle(updated);
+    }
+
+    /// <summary>Reports the follower outcome of a successful read: missing passwords first, then missing content, then up to date.</summary>
+    private SharingStatus Settle(bool updated)
+    {
+        MarkSuccess();
+        lock (gate)
+        {
+            candidate = null;
+        }
+
+        bool passwordsMissing = ArePasswordsMissing();
+        bool contentPending = EnsureContentFetch();
+        return SetStatus(passwordsMissing ? SharingStatus.PasswordsNeeded
+            : contentPending ? SharingStatus.ContentDownloading
+            : updated ? SharingStatus.Updated
+            : SharingStatus.UpToDate);
+    }
+
+    /// <summary>Whether the publication password, or a password the configuration needs to build media, is missing from the vault.</summary>
+    private bool ArePasswordsMissing()
+    {
+        IReadOnlyDictionary<string, string> vault = host.ReadVault();
+        return PublicationPassword(vault) is null || SecretMap.RequiredIds(host.CurrentConfiguration).Any(id => !vault.ContainsKey(id));
+    }
+
+    /// <summary>
+    /// Returns whether content of the applied publication is missing locally, and starts a background fetch when one is due: not
+    /// while one runs, and not when only content that failed its import remains (it fails the same way until a new version).
+    /// </summary>
+    private bool EnsureContentFetch()
+    {
+        ConfigurationPackagePayload? payload = AppliedPayload;
+        if (payload is null)
+        {
+            return false;
+        }
+
+        lock (gate)
+        {
+            if (!fetchTask.IsCompleted)
+            {
+                return true;
+            }
+        }
+
+        bool missing = sync.Missing(payload).Count > 0;
+        lock (gate)
+        {
+            if (!missing)
+            {
+                ResetContentTracking();
+                return false;
+            }
+
+            if (retryFetch)
+            {
+                CancellationTokenSource cancellation = new();
+                string folder = state.Folder!;
+                fetchCancellation = cancellation;
+                fetchTask = Task.Run(() => FetchAsync(folder, payload, cancellation.Token), CancellationToken.None);
+            }
+
+            return true;
+        }
+    }
+
+    /// <summary>Fetches the missing content of <paramref name="payload"/> on a background thread; never touches the host.</summary>
+    private async Task FetchAsync(string folder, ConfigurationPackagePayload payload, CancellationToken cancellationToken)
+    {
+        ContentSyncResult result;
+        try
+        {
+            result = await sync.FetchAsync(folder, payload, new ProgressReporter(this), cancellationToken).ConfigureAwait(false);
+        }
+        catch (OperationCanceledException)
+        {
+            return;
+        }
+        catch (Exception exception)
+        {
+            Logger.Warning("Publication content fetch failed unexpectedly; it is retried at the next check. ExceptionType={ExceptionType}",
+                exception.GetType().Name);
+            result = new ContentSyncResult(0, [], payload.Contents);
+        }
+
+        CompleteFetch(payload, result);
+    }
+
+    private void CompleteFetch(ConfigurationPackagePayload payload, ContentSyncResult result)
+    {
+        bool complete;
+        bool stalled;
+        lock (gate)
+        {
+            if (!ReferenceEquals(payload, appliedPayload))
+            {
+                return;
+            }
+
+            failedContent = result.Failed;
+            retryFetch = result.NotYetAvailable.Count > 0;
+            stalled = TrackUnavailableContent(result.NotYetAvailable);
+            complete = result.Failed.Count == 0 && result.NotYetAvailable.Count == 0;
+        }
+
+        if (stalled)
+        {
+            Logger.Warning("Publication content is still not available after repeated checks; it may be damaged in the folder. NotYetAvailableCount={NotYetAvailableCount}, CheckCount={CheckCount}",
+                result.NotYetAvailable.Count, StalledContentFetchCount);
+        }
+
+        if (complete && Status == SharingStatus.ContentDownloading)
+        {
+            SetStatus(SharingStatus.UpToDate);
+        }
+        else if (!complete)
+        {
+            // Failed or stalled content changed what the status line shows.
+            StatusChanged?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    /// <summary>Counts consecutive fetches with the same unavailable content; returns true when that makes the content stalled.</summary>
+    private bool TrackUnavailableContent(IReadOnlyList<PackageContent> notYetAvailable)
+    {
+        if (notYetAvailable.Count == 0)
+        {
+            unavailableContent = null;
+            unchangedFetchCount = 0;
+            contentStalled = false;
+            return false;
+        }
+
+        HashSet<(SharedContentKind Kind, string Hash)> current = notYetAvailable.Select(content => (content.Kind, content.Hash)).ToHashSet();
+        if (unavailableContent is not null && unavailableContent.SetEquals(current))
+        {
+            unchangedFetchCount++;
+        }
+        else
+        {
+            unavailableContent = current;
+            unchangedFetchCount = 1;
+            contentStalled = false;
+        }
+
+        if (contentStalled || unchangedFetchCount < StalledContentFetchCount)
+        {
+            return false;
+        }
+
+        contentStalled = true;
+        return true;
+    }
+
+    /// <summary>Clears what is known about the content of the applied publication; call under <see cref="gate"/>.</summary>
+    private void ResetContentTracking()
+    {
+        failedContent = [];
+        retryFetch = false;
+        unavailableContent = null;
+        unchangedFetchCount = 0;
+        contentStalled = false;
+    }
+
+    private async Task CancelFetchAsync()
+    {
+        Task running;
+        lock (gate)
+        {
+            fetchCancellation?.Cancel();
+            running = fetchTask;
+        }
+
+        await running;
+        lock (gate)
+        {
+            fetchCancellation?.Dispose();
+            fetchCancellation = null;
+        }
+    }
+
+    private void StorePublicationPassword(string password)
+    {
+        Dictionary<string, string> entries = new(StringComparer.Ordinal) { [SecretIds.PublicationPassword] = password };
+        sessionPassword = TryWriteVault(entries, [SecretIds.PreviousPublicationPassword]) ? null : password;
+    }
+
+    private string? PublicationPassword(IReadOnlyDictionary<string, string> vault) =>
+        sessionPassword ?? vault.GetValueOrDefault(SecretIds.PublicationPassword);
+
+    private static string? PinnedKeyIdOf(SharingState current) =>
+        current.PinnedPublicKey is { Length: > 0 } key ? PublicationSigner.KeyId(key) : null;
+
+    private static SharingStatus MapRead(PublicationReadStatus status) => status switch
+    {
+        PublicationReadStatus.WrongPassword => SharingStatus.WrongPassword,
+        PublicationReadStatus.Unsupported => SharingStatus.Unsupported,
+        PublicationReadStatus.RollbackRejected => SharingStatus.RollbackRejected,
+        PublicationReadStatus.FolderUnavailable or PublicationReadStatus.NotAPublication => SharingStatus.FolderUnavailable,
+
+        // NotYetAvailable: a cloud folder delivered the pointer before the manifest.
+        _ => SharingStatus.Checking
+    };
 
     private async Task RunPublishesAsync(TaskCompletionSource<SharingStatus> run, CancellationToken cancellationToken)
     {
@@ -604,7 +1280,7 @@ public sealed class ConfigurationSharingEngine
         }
 
         IReadOnlyDictionary<string, string> vault = host.ReadVault();
-        string? password = sessionPassword ?? vault.GetValueOrDefault(SecretIds.PublicationPassword);
+        string? password = PublicationPassword(vault);
         byte[]? masterKey = ReadMasterKey(vault);
         if (password is null || masterKey is null || ImportSigner(vault) is not { } signer)
         {
