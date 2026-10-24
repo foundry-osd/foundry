@@ -395,7 +395,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Kennwort kopieren</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Speichern Sie diese PFX-Datei und das Kennwort jetzt an einem sicheren Ort. Foundry speichert das Kennwort nur dann mit Ihrer Konfiguration auf diesem PC, wenn die Option „Kennwörter speichern“ im Bereich „Einstellungen sichern und synchronisieren“ aktiviert ist. Sie benötigen beide Werte, um Startmedien für den Hardware-Hash-Upload zu erstellen.</value>
+    <value>Speichern Sie diese PFX-Datei und das Kennwort jetzt an einem sicheren Ort. Foundry speichert das Kennwort auf diesem PC in seinem lokalen verschlüsselten Tresor. Es verlässt diesen PC nur in einem Export oder einer Veröffentlichung, wenn „Kennwörter einschließen“ gewählt ist. Sie benötigen beide Werte, um Startmedien für den Hardware-Hash-Upload zu erstellen.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Kennwort kopiert.</value>
@@ -2774,7 +2774,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Stellen Sie eine Unternehmensprofilvorlage Wi-Fi bereit</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Die Passphrase wird nur dann mit Ihrer Konfiguration auf diesem PC gespeichert, wenn die Option „Kennwörter speichern“ im Bereich „Einstellungen sichern und synchronisieren“ aktiviert ist. Andernfalls wird sie nicht gespeichert und muss erneut eingegeben werden, zum Beispiel nach einem Neustart von Foundry OSD.</value>
+    <value>Foundry OSD speichert die Passphrase auf diesem PC in seinem lokalen verschlüsselten Tresor. Sie verlässt diesen PC nur in einem Export oder einer Veröffentlichung, wenn „Kennwörter einschließen“ gewählt ist.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importiert das von Foundry verwaltete Wi-Fi-Profil vor OOBE in Windows, um die Bereitstellungskonnektivität nach WinPE aufrechtzuerhalten.</value>
@@ -3323,7 +3323,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Konfiguration importiert. Auf diesem PC fehlen Inhalte: Importieren Sie sie auf der jeweiligen Seite erneut.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Ersetzt diese Konfiguration durch eine exportierte Datei oder ein früheres Bereitstellungsprofil.</value>
+    <value>Ersetzt diese Konfiguration durch eine exportierte Datei oder eine frühere Konfiguration auf diesem PC.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>Die Konfiguration konnte nicht importiert werden. Die aktuelle Konfiguration bleibt unverändert.</value>
@@ -3368,7 +3368,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Einige von der Konfiguration verwendete Dateien konnten nicht wiederhergestellt werden. Wählen Sie sie auf den Konfigurationsseiten erneut aus.</value>
   </data>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
-    <value>Die Synchronisierung von Bereitstellungsprofilen wird nicht mehr unterstützt. Verwenden Sie zum Freigeben dieser Konfiguration „In einem Ordner veröffentlichen“ auf dem Referenz-PC.</value>
+    <value>Die Konfigurationssynchronisierung früherer Versionen wird nicht mehr unterstützt. Verwenden Sie zum Freigeben dieser Konfiguration „In einem Ordner veröffentlichen“ auf dem Referenz-PC.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Gespeicherte Kennwörter konnten nicht wiederhergestellt werden. Geben Sie sie auf den Konfigurationsseiten erneut ein.</value>
@@ -3516,6 +3516,12 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="Sharing.StatusContentDownloading" xml:space="preserve">
     <value>Die Konfiguration ist angewendet. Freigegebene Inhalte werden heruntergeladen.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>Die Konfiguration ist angewendet, aber einige freigegebene Inhalte konnten nicht importiert werden.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>Die Konfiguration ist angewendet, aber einige freigegebene Inhalte sind nach wiederholten Prüfungen noch immer nicht verfügbar.</value>
   </data>
   <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
     <value>Dieser Ordner enthält Dateien, die keine Veröffentlichung dieses PCs sind. Wählen Sie einen leeren Ordner.</value>

@@ -395,7 +395,7 @@
     <value>העתק סיסמה</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>שמור את קובץ ה-PFX והסיסמה הזו כעת במיקום מאובטח. Foundry שומר את הסיסמה עם התצורה שלך במחשב זה רק כאשר האפשרות “שמירת סיסמאות” מופעלת בקטע “גיבוי וסנכרון הגדרות”. תזדקק לשני הערכים כדי ליצור מדיית אתחול להעלאת גיבוב חומרה.</value>
+    <value>שמור את קובץ ה-PFX והסיסמה הזו כעת במיקום מאובטח. Foundry זוכר את הסיסמה במחשב זה בכספת המקומית המוצפנת שלו. היא יוצאת ממחשב זה רק בייצוא או בפרסום כאשר נבחרה האפשרות “כלול סיסמאות”. תזדקק לשני הערכים כדי ליצור מדיית אתחול להעלאת גיבוב חומרה.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>הסיסמה הועתקה.</value>
@@ -2774,7 +2774,7 @@
     <value>ספק תבנית פרופיל Wi-Fi לארגון</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>ביטוי הסיסמה נשמר עם התצורה שלך במחשב זה רק כאשר האפשרות “שמירת סיסמאות” מופעלת בקטע “גיבוי וסנכרון הגדרות”. אחרת הוא אינו נשמר ויש להזין אותו שוב, למשל לאחר הפעלה מחדש של Foundry OSD.</value>
+    <value>Foundry OSD זוכר את משפט הסיסמה במחשב זה בכספת המקומית המוצפנת שלו. הוא יוצא ממחשב זה רק בייצוא או בפרסום כאשר נבחרה האפשרות “כלול סיסמאות”.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>מייבא את פרופיל ה-Wi-Fi המנוהל על ידי Foundry אל Windows לפני OOBE, כדי לשמור על קישוריות הפריסה אחרי WinPE.</value>
@@ -3323,7 +3323,7 @@
     <value>התצורה יובאה. חסר תוכן במחשב זה: ייבא אותו שוב בדף שלו.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>מחליף תצורה זו בקובץ שיוצא או בפרופיל פריסה קודם.</value>
+    <value>החלף תצורה זו בקובץ מיוצא או בתצורה קודמת במחשב זה.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>לא ניתן היה לייבא את התצורה. התצורה הנוכחית לא השתנתה.</value>
@@ -3368,7 +3368,7 @@
     <value>לא ניתן היה לשחזר חלק מהקבצים שבהם התצורה משתמשת. בחר אותם שוב בדפי התצורה.</value>
   </data>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
-    <value>סנכרון פרופילי פריסה אינו נתמך עוד. כדי לשתף תצורה זו, השתמש בפרסום לתיקייה במחשב ההפניה.</value>
+    <value>סנכרון התצורה של גרסאות קודמות אינו נתמך עוד. כדי לשתף תצורה זו, השתמש בפרסום לתיקייה במחשב ההפניה.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>לא ניתן היה לשחזר את הסיסמאות השמורות. הזן אותן שוב בדפי התצורה.</value>
@@ -3516,6 +3516,12 @@
   </data>
   <data name="Sharing.StatusContentDownloading" xml:space="preserve">
     <value>התצורה הוחלה. התוכן המשותף מורד כעת.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>התצורה הוחלה, אך לא ניתן היה לייבא חלק מהתוכן המשותף.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>התצורה הוחלה, אך חלק מהתוכן המשותף עדיין אינו זמין לאחר בדיקות חוזרות.</value>
   </data>
   <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
     <value>תיקייה זו מכילה קבצים שאינם פרסום של מחשב זה. בחר תיקייה ריקה.</value>

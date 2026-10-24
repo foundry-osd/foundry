@@ -246,13 +246,13 @@ public sealed class ConfigurationSharingEngineFollowerTests : IDisposable
         ConfigurationSharingEngine engine = CreateEngine();
         Assert.Equal(SharingStatus.ContentDownloading, await engine.FollowAsync(Folder, Password, await engine.PreviewFollowAsync(Folder, Password, Cancellation),
             Cancellation));
-        await engine.WaitForContentAsync(Cancellation);
+        await engine.WaitForFetchAttemptAsync(Cancellation);
 
         for (int fetch = 2; fetch <= ConfigurationSharingEngine.StalledContentFetchCount; fetch++)
         {
             Assert.False(engine.IsContentStalled);
             Assert.Equal(SharingStatus.ContentDownloading, await engine.CheckAsync(Cancellation));
-            await engine.WaitForContentAsync(Cancellation);
+            await engine.WaitForFetchAttemptAsync(Cancellation);
         }
 
         Assert.True(engine.IsContentStalled);
@@ -263,6 +263,61 @@ public sealed class ConfigurationSharingEngineFollowerTests : IDisposable
         await engine.WaitForContentAsync(Cancellation);
         Assert.False(engine.IsContentStalled);
         Assert.Equal(SharingStatus.UpToDate, engine.Status);
+    }
+
+    [Fact]
+    public async Task WaitForContent_ContentArrivesAfterSeveralChecks_CompletesOnlyOnceItArrived()
+    {
+        AuthoringFileReference file = referenceContent.Add("<profile />", "profile.xml");
+        await PublishAsync(WithFile(file));
+        // The pointer and the manifest arrived, but the cloud folder did not deliver the content yet.
+        string content = Path.Combine(Folder, "content", file.ContentHash + ".bin");
+        string held = Path.Combine(directory.Path, "held.bin");
+        File.Move(content, held);
+        ConfigurationSharingEngine engine = CreateEngine();
+        Assert.Equal(SharingStatus.ContentDownloading, await engine.FollowAsync(Folder, Password, await engine.PreviewFollowAsync(Folder, Password, Cancellation),
+            Cancellation));
+
+        Task wait = engine.WaitForContentAsync(Cancellation);
+        await engine.WaitForFetchAttemptAsync(Cancellation);
+        Assert.False(wait.IsCompleted);
+        Assert.True(engine.IsContentArriving);
+        Assert.Equal(SharingStatus.ContentDownloading, await engine.CheckAsync(Cancellation));
+        await engine.WaitForFetchAttemptAsync(Cancellation);
+        Assert.False(wait.IsCompleted);
+
+        File.Move(held, content);
+        Assert.Equal(SharingStatus.ContentDownloading, await engine.CheckAsync(Cancellation));
+        await wait.WaitAsync(TimeSpan.FromSeconds(30), Cancellation);
+
+        Assert.True(followerLibraries.Files.IsAvailable(file));
+        Assert.Equal(SharingStatus.UpToDate, engine.Status);
+        Assert.False(engine.IsContentArriving);
+    }
+
+    [Fact]
+    public async Task WaitForContent_ContentBecomesStalled_Completes()
+    {
+        AuthoringFileReference file = referenceContent.Add("<profile />", "profile.xml");
+        await PublishAsync(WithFile(file));
+        File.Delete(Path.Combine(Folder, "content", file.ContentHash + ".bin"));
+        ConfigurationSharingEngine engine = CreateEngine();
+        Assert.Equal(SharingStatus.ContentDownloading, await engine.FollowAsync(Folder, Password, await engine.PreviewFollowAsync(Folder, Password, Cancellation),
+            Cancellation));
+
+        Task wait = engine.WaitForContentAsync(Cancellation);
+        await engine.WaitForFetchAttemptAsync(Cancellation);
+        for (int fetch = 2; fetch <= ConfigurationSharingEngine.StalledContentFetchCount; fetch++)
+        {
+            Assert.False(wait.IsCompleted);
+            Assert.Equal(SharingStatus.ContentDownloading, await engine.CheckAsync(Cancellation));
+            await engine.WaitForFetchAttemptAsync(Cancellation);
+        }
+
+        await wait.WaitAsync(TimeSpan.FromSeconds(30), Cancellation);
+        Assert.True(engine.IsContentStalled);
+        Assert.False(engine.IsContentArriving);
+        Assert.Equal(SharingStatus.ContentDownloading, engine.Status);
     }
 
     [Fact]

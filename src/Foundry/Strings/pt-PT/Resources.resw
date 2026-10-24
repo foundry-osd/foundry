@@ -395,7 +395,7 @@ Licenciado sob a licença MIT.</value>
     <value>Copiar palavra-passe</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Guarde agora este ficheiro PFX e a palavra-passe num local seguro. O Foundry guarda a palavra-passe com a sua configuração neste computador apenas quando «Memorizar palavras-passe» está ativado em «Cópia de segurança e sincronização de definições». Vai precisar de ambos os valores para gerar suportes de arranque para o carregamento do hash de hardware.</value>
+    <value>Guarde agora este ficheiro PFX e a palavra-passe num local seguro. O Foundry memoriza a palavra-passe neste PC no seu cofre local encriptado. Só sai deste PC numa exportação ou publicação quando «Incluir palavras-passe» é escolhido. Vai precisar de ambos os valores para gerar suportes de arranque para o carregamento do hash de hardware.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Palavra-passe copiada.</value>
@@ -2774,7 +2774,7 @@ Licenciado sob a licença MIT.</value>
     <value>Aprovisionar um modelo de perfil Wi-Fi empresarial</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>A frase de acesso é guardada com a sua configuração neste computador apenas quando «Memorizar palavras-passe» está ativado em «Cópia de segurança e sincronização de definições». Caso contrário, não é guardada e tem de ser introduzida novamente, por exemplo, depois de reiniciar o Foundry OSD.</value>
+    <value>O Foundry OSD memoriza a frase de acesso neste PC no seu cofre local encriptado. Só sai deste PC numa exportação ou publicação quando «Incluir palavras-passe» é escolhido.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importa para o Windows o perfil Wi-Fi gerido pelo Foundry antes da OOBE para manter a conectividade de implementação após o WinPE.</value>
@@ -3323,7 +3323,7 @@ Licenciado sob a licença MIT.</value>
     <value>Configuração importada. Falta conteúdo neste PC: importe-o novamente na respetiva página.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Substitui esta configuração por um ficheiro exportado ou por um perfil de implementação anterior.</value>
+    <value>Substitua esta configuração por um ficheiro exportado ou por uma configuração anterior deste PC.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>Não foi possível importar a configuração. A configuração atual não foi alterada.</value>
@@ -3368,7 +3368,7 @@ Licenciado sob a licença MIT.</value>
     <value>Não foi possível recuperar alguns ficheiros utilizados pela configuração. Selecione-os novamente nas páginas de configuração.</value>
   </data>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
-    <value>A sincronização de perfis de implementação já não é suportada. Para partilhar esta configuração, utilize Publicar numa pasta no PC de referência.</value>
+    <value>A sincronização de configurações de versões anteriores já não é suportada. Para partilhar esta configuração, utilize Publicar numa pasta no PC de referência.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Não foi possível restaurar as palavras-passe guardadas. Introduza-as novamente nas páginas de configuração.</value>
@@ -3516,6 +3516,12 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="Sharing.StatusContentDownloading" xml:space="preserve">
     <value>A configuração foi aplicada. O conteúdo partilhado está a ser transferido.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>A configuração foi aplicada, mas não foi possível importar parte do conteúdo partilhado.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>A configuração foi aplicada, mas parte do conteúdo partilhado continua indisponível após verificações repetidas.</value>
   </data>
   <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
     <value>Esta pasta contém ficheiros que não são uma publicação deste PC. Escolha uma pasta vazia.</value>

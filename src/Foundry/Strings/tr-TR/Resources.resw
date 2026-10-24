@@ -395,7 +395,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Şifreyi kopyala</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Bu PFX dosyasını ve parolasını şimdi güvenli bir konuma kaydedin. Foundry, parolayı yapılandırmanızla birlikte bu bilgisayarda yalnızca “Ayarları yedekleme ve eşitleme” içinde “Parolaları hatırla” açıkken kaydeder. Donanım karmasını karşıya yüklemek üzere önyükleme ortamı oluşturmak için her iki değere de ihtiyacınız olacak.</value>
+    <value>Bu PFX dosyasını ve parolasını şimdi güvenli bir konuma kaydedin. Foundry parolayı bu bilgisayarda yerel şifreli kasasında hatırlar. Bu bilgisayardan yalnızca “Parolaları dahil et” seçildiğinde bir dışarı aktarma veya yayında çıkar. Donanım karmasını karşıya yüklemek üzere önyükleme ortamı oluşturmak için her iki değere de ihtiyacınız olacak.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Şifre kopyalandı.</value>
@@ -2774,7 +2774,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Kurumsal bir Wi-Fi profil şablonu sağlayın</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Parola, yapılandırmanızla birlikte bu bilgisayarda yalnızca “Ayarları yedekleme ve eşitleme” içinde “Parolaları hatırla” açıkken kaydedilir. Aksi takdirde kaydedilmez ve örneğin Foundry OSD'yi yeniden başlattıktan sonra tekrar girilmesi gerekir.</value>
+    <value>Foundry OSD parola ifadesini bu bilgisayarda yerel şifreli kasasında hatırlar. Bu bilgisayardan yalnızca “Parolaları dahil et” seçildiğinde bir dışarı aktarma veya yayında çıkar.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Foundry tarafından yönetilen Wi-Fi profilini OOBE öncesinde Windows'a içe aktararak dağıtım bağlantısının WinPE sonrasında korunmasını sağlar.</value>
@@ -3323,7 +3323,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Yapılandırma içeri aktarıldı. Bu bilgisayarda eksik içerik var: ilgili sayfasında yeniden içeri aktarın.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Bu yapılandırmayı dışarı aktarılmış bir dosyayla veya önceki bir dağıtım profiliyle değiştirir.</value>
+    <value>Bu yapılandırmayı dışarı aktarılmış bir dosyayla veya bu bilgisayardaki önceki bir yapılandırmayla değiştirin.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>Yapılandırma içeri aktarılamadı. Geçerli yapılandırma değiştirilmedi.</value>
@@ -3368,7 +3368,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Yapılandırmanın kullandığı bazı dosyalar kurtarılamadı. Bunları yapılandırma sayfalarında yeniden seçin.</value>
   </data>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
-    <value>Dağıtım profili eşitlemesi artık desteklenmiyor. Bu yapılandırmayı paylaşmak için başvuru bilgisayarında Klasöre yayımla seçeneğini kullanın.</value>
+    <value>Önceki sürümlerin yapılandırma eşitlemesi artık desteklenmiyor. Bu yapılandırmayı paylaşmak için başvuru bilgisayarında Klasöre yayımla seçeneğini kullanın.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Kaydedilen parolalar geri yüklenemedi. Bunları yapılandırma sayfalarında yeniden girin.</value>
@@ -3516,6 +3516,12 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Sharing.StatusContentDownloading" xml:space="preserve">
     <value>Yapılandırma uygulandı. Paylaşılan içerik indiriliyor.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>Yapılandırma uygulandı, ancak paylaşılan içeriğin bir kısmı içeri aktarılamadı.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>Yapılandırma uygulandı, ancak paylaşılan içeriğin bir kısmı tekrarlanan denetimlerden sonra hâlâ kullanılamıyor.</value>
   </data>
   <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
     <value>Bu klasör, bu bilgisayarın yayını olmayan dosyalar içeriyor. Boş bir klasör seçin.</value>

@@ -395,7 +395,7 @@ Sous licence MIT.</value>
     <value>Copier le mot de passe</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Enregistrez ce fichier PFX et ce mot de passe maintenant dans un emplacement sécurisé. Foundry enregistre le mot de passe avec votre configuration sur cet ordinateur seulement lorsque « Mémoriser les mots de passe » est activé dans « Sauvegarde et synchronisation des paramètres ». Vous aurez besoin des deux valeurs pour générer un support de démarrage pour le téléversement du hachage matériel.</value>
+    <value>Enregistrez ce fichier PFX et ce mot de passe maintenant dans un emplacement sécurisé. Foundry mémorise le mot de passe sur ce PC dans son coffre local chiffré. Il ne quitte ce PC que dans une exportation ou une publication lorsque « Inclure les mots de passe » est choisi. Vous aurez besoin des deux valeurs pour générer un support de démarrage pour le téléversement du hachage matériel.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Mot de passe copié.</value>
@@ -2774,7 +2774,7 @@ Sous licence MIT.</value>
     <value>Provisionner un modèle de profil d'entreprise Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>La phrase secrète est enregistrée avec votre configuration sur cet ordinateur seulement lorsque « Mémoriser les mots de passe » est activé dans « Sauvegarde et synchronisation des paramètres ». Sinon, elle n'est pas enregistrée et doit être saisie de nouveau, par exemple après avoir redémarré Foundry OSD.</value>
+    <value>Foundry OSD mémorise la phrase secrète sur ce PC dans son coffre local chiffré. Elle ne quitte ce PC que dans une exportation ou une publication lorsque « Inclure les mots de passe » est choisi.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importe le profil Wi-Fi géré par Foundry dans Windows avant l'OOBE afin de conserver la connectivité de déploiement après WinPE.</value>
@@ -3323,7 +3323,7 @@ Sous licence MIT.</value>
     <value>Configuration importée. Du contenu manque sur ce PC : importez-le de nouveau depuis sa page.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Remplacez cette configuration par un fichier exporté ou par un ancien profil de déploiement.</value>
+    <value>Remplacez cette configuration par un fichier exporté ou par une configuration précédente de ce PC.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>La configuration n'a pas pu être importée. La configuration actuelle n'a pas été modifiée.</value>
@@ -3368,7 +3368,7 @@ Sous licence MIT.</value>
     <value>Certains fichiers utilisés par la configuration n'ont pas pu être récupérés. Sélectionnez-les de nouveau dans les pages de configuration.</value>
   </data>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
-    <value>La synchronisation des profils de déploiement n'est plus prise en charge. Pour partager cette configuration, utilisez Publier dans un dossier sur le PC de référence.</value>
+    <value>La synchronisation de configuration des versions antérieures n'est plus prise en charge. Pour partager cette configuration, utilisez Publier dans un dossier sur le PC de référence.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Les mots de passe enregistrés n'ont pas pu être restaurés. Saisissez-les de nouveau dans les pages de configuration.</value>
@@ -3516,6 +3516,12 @@ Sous licence MIT.</value>
   </data>
   <data name="Sharing.StatusContentDownloading" xml:space="preserve">
     <value>La configuration est appliquée. Le contenu partagé est en cours de téléchargement.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>La configuration est appliquée, mais une partie du contenu partagé n'a pas pu être importée.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>La configuration est appliquée, mais une partie du contenu partagé n'est toujours pas disponible après plusieurs vérifications.</value>
   </data>
   <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
     <value>Ce dossier contient des fichiers qui ne sont pas une publication de ce PC. Choisissez un dossier vide.</value>

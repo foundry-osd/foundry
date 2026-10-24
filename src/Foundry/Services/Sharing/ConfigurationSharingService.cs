@@ -127,10 +127,11 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
         && (current.IsContentFetching || current.Status == SharingStatus.ContentDownloading);
 
     /// <summary>
-    /// Gets whether a follower is downloading the content of the applied publication right now. Readiness then reports the missing
-    /// content as downloading, and a media build may start: it waits for the download before it freezes the configuration.
+    /// Gets whether the content of the applied publication is still arriving on a follower: a fetch runs, or the next checks keep
+    /// fetching it and none of it failed or stalled. Readiness then reports the missing content as downloading, and a media build may
+    /// start: it waits until the content arrived before it freezes the configuration.
     /// </summary>
-    public bool IsContentDownloading => engine is { Role: SharingRole.Follower, IsContentFetching: true };
+    public bool IsContentDownloading => engine?.IsContentArriving == true;
 
     /// <inheritdoc />
     public FoundryConfigurationDocument CurrentConfiguration => configuration.Current;

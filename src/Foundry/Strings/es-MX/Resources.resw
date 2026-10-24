@@ -395,7 +395,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Copiar contraseña</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Guarde este archivo PFX y su contraseña ahora en una ubicación segura. Foundry guarda la contraseña con su configuración en esta computadora solo cuando “Recordar contraseñas” está activado en “Respaldo y sincronización de ajustes”. Necesitará ambos valores para generar medios de arranque para la carga de hash de hardware.</value>
+    <value>Guarde este archivo PFX y su contraseña ahora en una ubicación segura. Foundry recuerda la contraseña en esta PC en su almacén local cifrado. Solo sale de esta PC en una exportación o una publicación cuando se elige “Incluir contraseñas”. Necesitará ambos valores para generar medios de arranque para la carga de hash de hardware.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Contraseña copiada.</value>
@@ -2774,7 +2774,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Aprovisionar una plantilla de perfil empresarial Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>La frase de contraseña se guarda con su configuración en esta computadora solo cuando “Recordar contraseñas” está activado en “Respaldo y sincronización de ajustes”. De lo contrario, no se guarda y debe ingresarse de nuevo, por ejemplo, después de reiniciar Foundry OSD.</value>
+    <value>Foundry OSD recuerda la frase de contraseña en esta PC en su almacén local cifrado. Solo sale de esta PC en una exportación o una publicación cuando se elige “Incluir contraseñas”.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importa en Windows el perfil Wi-Fi administrado por Foundry antes de OOBE para conservar la conectividad de implementación después de WinPE.</value>
@@ -3323,7 +3323,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Configuración importada. Falta contenido en esta PC: vuelve a importarlo desde su página.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Reemplaza esta configuración por un archivo exportado o por un perfil de implementación anterior.</value>
+    <value>Reemplace esta configuración por un archivo exportado o por una configuración anterior de esta PC.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>No se pudo importar la configuración. La configuración actual no cambió.</value>
@@ -3368,7 +3368,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>No se pudieron recuperar algunos archivos que usa la configuración. Vuelva a seleccionarlos en las páginas de configuración.</value>
   </data>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
-    <value>La sincronización de perfiles de implementación ya no es compatible. Para compartir esta configuración, use Publicar en una carpeta en la PC de referencia.</value>
+    <value>La sincronización de configuraciones de versiones anteriores ya no es compatible. Para compartir esta configuración, use Publicar en una carpeta en la PC de referencia.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>No se pudieron restaurar las contraseñas guardadas. Vuelva a escribirlas en las páginas de configuración.</value>
@@ -3516,6 +3516,12 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="Sharing.StatusContentDownloading" xml:space="preserve">
     <value>La configuración se ha aplicado. Se está descargando el contenido compartido.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>La configuración se ha aplicado, pero parte del contenido compartido no se pudo importar.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>La configuración se ha aplicado, pero parte del contenido compartido sigue sin estar disponible después de varias comprobaciones.</value>
   </data>
   <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
     <value>Esta carpeta contiene archivos que no son una publicación de este equipo. Elija una carpeta vacía.</value>

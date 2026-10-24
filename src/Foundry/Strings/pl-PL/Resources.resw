@@ -395,7 +395,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Skopiuj hasło</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Zapisz teraz ten plik PFX i hasło w bezpiecznym miejscu. Foundry zapisuje hasło razem z konfiguracją na tym komputerze tylko wtedy, gdy opcja „Zapamiętaj hasła” jest włączona w sekcji „Kopie zapasowe i synchronizacja ustawień”. Obie wartości będą potrzebne do wygenerowania nośnika startowego do przesłania skrótu sprzętowego.</value>
+    <value>Zapisz teraz ten plik PFX i hasło w bezpiecznym miejscu. Foundry zapamiętuje hasło na tym komputerze w swoim lokalnym zaszyfrowanym magazynie. Opuszcza ono ten komputer tylko w eksporcie lub publikacji, gdy wybrano opcję „Uwzględnij hasła”. Obie wartości będą potrzebne do wygenerowania nośnika startowego do przesłania skrótu sprzętowego.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Hasło skopiowane.</value>
@@ -2774,7 +2774,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Udostępnij szablon profilu korporacyjnego Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Hasło jest zapisywane razem z konfiguracją na tym komputerze tylko wtedy, gdy opcja „Zapamiętaj hasła” jest włączona w sekcji „Kopie zapasowe i synchronizacja ustawień”. W przeciwnym razie nie jest zapisywane i trzeba je wprowadzić ponownie, na przykład po ponownym uruchomieniu programu Foundry OSD.</value>
+    <value>Foundry OSD zapamiętuje hasło na tym komputerze w swoim lokalnym zaszyfrowanym magazynie. Opuszcza ono ten komputer tylko w eksporcie lub publikacji, gdy wybrano opcję „Uwzględnij hasła”.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importuje profil Wi-Fi zarządzany przez Foundry do Windows przed OOBE, aby zachować łączność wdrożeniową po WinPE.</value>
@@ -3323,7 +3323,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Konfiguracja została zaimportowana. Na tym komputerze brakuje zawartości: zaimportuj ją ponownie na odpowiedniej stronie.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Zastępuje tę konfigurację wyeksportowanym plikiem lub wcześniejszym profilem wdrażania.</value>
+    <value>Zastąp tę konfigurację wyeksportowanym plikiem lub wcześniejszą konfiguracją z tego komputera.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>Nie można zaimportować konfiguracji. Bieżąca konfiguracja nie została zmieniona.</value>
@@ -3368,7 +3368,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Nie można odzyskać niektórych plików używanych przez konfigurację. Wybierz je ponownie na stronach konfiguracji.</value>
   </data>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
-    <value>Synchronizacja profili wdrażania nie jest już obsługiwana. Aby udostępnić tę konfigurację, użyj opcji Opublikuj w folderze na komputerze referencyjnym.</value>
+    <value>Synchronizacja konfiguracji z wcześniejszych wersji nie jest już obsługiwana. Aby udostępnić tę konfigurację, użyj opcji Opublikuj w folderze na komputerze referencyjnym.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Nie można przywrócić zapisanych haseł. Wprowadź je ponownie na stronach konfiguracji.</value>
@@ -3516,6 +3516,12 @@ Licencjonowany na licencji MIT.</value>
   </data>
   <data name="Sharing.StatusContentDownloading" xml:space="preserve">
     <value>Konfiguracja została zastosowana. Trwa pobieranie udostępnionej zawartości.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>Konfiguracja została zastosowana, ale nie udało się zaimportować części udostępnionej zawartości.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>Konfiguracja została zastosowana, ale część udostępnionej zawartości nadal jest niedostępna po wielokrotnych sprawdzeniach.</value>
   </data>
   <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
     <value>Ten folder zawiera pliki, które nie są publikacją tego komputera. Wybierz pusty folder.</value>

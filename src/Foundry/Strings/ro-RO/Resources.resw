@@ -395,7 +395,7 @@ Licențiat sub licența MIT.</value>
     <value>Copiați parola</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Salvați acest fișier PFX și parola acum într-o locație sigură. Foundry salvează parola împreună cu configurația dvs. pe acest computer numai când opțiunea „Memorează parolele” este activată în „Copiere de rezervă și sincronizare a setărilor”. Veți avea nevoie de ambele valori pentru a genera medii de pornire pentru încărcarea hash hardware.</value>
+    <value>Salvați acest fișier PFX și parola acum într-o locație sigură. Foundry reține parola pe acest PC în seiful său local criptat. Aceasta părăsește acest PC doar într-un export sau o publicare, când este aleasă opțiunea „Include parolele”. Veți avea nevoie de ambele valori pentru a genera medii de pornire pentru încărcarea hash hardware.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Parola a fost copiată.</value>
@@ -2774,7 +2774,7 @@ Licențiat sub licența MIT.</value>
     <value>Furnizați un șablon de profil Wi-Fi de întreprindere</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Fraza de acces este salvată împreună cu configurația dvs. pe acest computer numai când opțiunea „Memorează parolele” este activată în „Copiere de rezervă și sincronizare a setărilor”. În caz contrar, nu este salvată și trebuie introdusă din nou, de exemplu după repornirea Foundry OSD.</value>
+    <value>Foundry OSD reține fraza de acces pe acest PC în seiful său local criptat. Aceasta părăsește acest PC doar într-un export sau o publicare, când este aleasă opțiunea „Include parolele”.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importă profilul Wi-Fi gestionat de Foundry în Windows înainte de OOBE, pentru a păstra conectivitatea de implementare după WinPE.</value>
@@ -3323,7 +3323,7 @@ Licențiat sub licența MIT.</value>
     <value>Configurația a fost importată. Pe acest PC lipsește conținut: importați-l din nou pe pagina sa.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Înlocuiește această configurație cu un fișier exportat sau cu un profil de implementare anterior.</value>
+    <value>Înlocuiți această configurație cu un fișier exportat sau cu o configurație anterioară de pe acest PC.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>Configurația nu a putut fi importată. Configurația curentă nu a fost modificată.</value>
@@ -3368,7 +3368,7 @@ Licențiat sub licența MIT.</value>
     <value>Unele fișiere utilizate de configurație nu au putut fi recuperate. Selectați-le din nou în paginile de configurare.</value>
   </data>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
-    <value>Sincronizarea profilurilor de implementare nu mai este acceptată. Pentru a partaja această configurație, utilizați Publicare într-un folder pe PC-ul de referință.</value>
+    <value>Sincronizarea configurației din versiunile anterioare nu mai este acceptată. Pentru a partaja această configurație, utilizați Publicare într-un folder pe PC-ul de referință.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Parolele salvate nu au putut fi restaurate. Introduceți-le din nou în paginile de configurare.</value>
@@ -3516,6 +3516,12 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Sharing.StatusContentDownloading" xml:space="preserve">
     <value>Configurația este aplicată. Conținutul partajat se descarcă.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>Configurația este aplicată, dar o parte din conținutul partajat nu a putut fi importată.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>Configurația este aplicată, dar o parte din conținutul partajat tot nu este disponibilă după verificări repetate.</value>
   </data>
   <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
     <value>Acest folder conține fișiere care nu sunt o publicare a acestui PC. Alegeți un folder gol.</value>

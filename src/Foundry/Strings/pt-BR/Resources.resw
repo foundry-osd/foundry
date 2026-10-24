@@ -395,7 +395,7 @@ Licenciado sob a licença MIT.</value>
     <value>Copiar senha</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Salve este arquivo PFX e senha agora em um local seguro. O Foundry salva a senha com sua configuração neste computador somente quando “Lembrar senhas” está ativado em “Backup e sincronização de configurações”. Você precisará de ambos os valores para gerar mídia de inicialização para upload de hash de hardware.</value>
+    <value>Salve este arquivo PFX e senha agora em um local seguro. O Foundry lembra a senha neste PC em seu cofre local criptografado. Ela só sai deste PC em uma exportação ou publicação quando “Incluir senhas” é escolhido. Você precisará de ambos os valores para gerar mídia de inicialização para upload de hash de hardware.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Senha copiada.</value>
@@ -2774,7 +2774,7 @@ Licenciado sob a licença MIT.</value>
     <value>Provisionar um modelo de perfil empresarial Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>A senha é salva com sua configuração neste computador somente quando “Lembrar senhas” está ativado em “Backup e sincronização de configurações”. Caso contrário, ela não é salva e precisa ser inserida novamente, por exemplo, após reiniciar o Foundry OSD.</value>
+    <value>O Foundry OSD lembra a frase secreta neste PC em seu cofre local criptografado. Ela só sai deste PC em uma exportação ou publicação quando “Incluir senhas” é escolhido.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importa para o Windows o perfil Wi-Fi gerenciado pelo Foundry antes do OOBE para preservar a conectividade de implantação após o WinPE.</value>
@@ -3323,7 +3323,7 @@ Licenciado sob a licença MIT.</value>
     <value>Configuração importada. Há conteúdo ausente neste PC: importe-o novamente na respectiva página.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Substitui esta configuração por um arquivo exportado ou por um perfil de implantação anterior.</value>
+    <value>Substitua esta configuração por um arquivo exportado ou por uma configuração anterior deste PC.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>Não foi possível importar a configuração. A configuração atual não foi alterada.</value>
@@ -3368,7 +3368,7 @@ Licenciado sob a licença MIT.</value>
     <value>Não foi possível recuperar alguns arquivos usados pela configuração. Selecione-os novamente nas páginas de configuração.</value>
   </data>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
-    <value>A sincronização de perfis de implantação não é mais compatível. Para compartilhar esta configuração, use Publicar em uma pasta no PC de referência.</value>
+    <value>A sincronização de configurações de versões anteriores não é mais compatível. Para compartilhar esta configuração, use Publicar em uma pasta no PC de referência.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Não foi possível restaurar as senhas salvas. Insira-as novamente nas páginas de configuração.</value>
@@ -3516,6 +3516,12 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="Sharing.StatusContentDownloading" xml:space="preserve">
     <value>A configuração foi aplicada. O conteúdo compartilhado está sendo baixado.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>A configuração foi aplicada, mas parte do conteúdo compartilhado não pôde ser importada.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>A configuração foi aplicada, mas parte do conteúdo compartilhado ainda não está disponível após verificações repetidas.</value>
   </data>
   <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
     <value>Esta pasta contém arquivos que não são uma publicação deste PC. Escolha uma pasta vazia.</value>

@@ -395,7 +395,7 @@ Licensed under the MIT License.</value>
     <value>Copy password</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Save this PFX file and password now in a secure location. Foundry saves the password with your configuration on this PC only when Remember passwords is on in Settings backup and sync. You will need both values to generate boot media for hardware hash upload.</value>
+    <value>Save this PFX file and password now in a secure location. Foundry remembers the password on this PC in its local encrypted vault. It leaves this PC only in an export or a publication when Include passwords is chosen. You will need both values to generate boot media for hardware hash upload.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Password copied.</value>
@@ -2774,7 +2774,7 @@ Licensed under the MIT License.</value>
     <value>Provision an enterprise Wi-Fi profile template</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>The passphrase is saved with your configuration on this PC only when Remember passwords is on in Settings backup and sync. Otherwise it is not saved and must be entered again, for example after restarting Foundry OSD.</value>
+    <value>Foundry OSD remembers the passphrase on this PC in its local encrypted vault. It leaves this PC only in an export or a publication when Include passwords is chosen.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Import the Wi-Fi profile managed by Foundry into Windows before OOBE to preserve deployment connectivity after WinPE.</value>
@@ -3323,7 +3323,7 @@ Licensed under the MIT License.</value>
     <value>Configuration imported. Some content is missing on this PC: import it again on its page.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Replace this configuration with an exported file or a previous deployment profile.</value>
+    <value>Replace this configuration with an exported file or a previous configuration on this PC.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>The configuration could not be imported. The current configuration is unchanged.</value>
@@ -3368,7 +3368,7 @@ Licensed under the MIT License.</value>
     <value>Some files used by the configuration could not be recovered. Select them again on the configuration pages.</value>
   </data>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
-    <value>Deployment profile synchronisation is no longer supported. To share this configuration, use Publish to a folder on the reference PC.</value>
+    <value>The configuration synchronisation of earlier versions is no longer supported. To share this configuration, use Publish to a folder on the reference PC.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Saved passwords could not be restored. Enter them again on the configuration pages.</value>
@@ -3516,6 +3516,12 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Sharing.StatusContentDownloading" xml:space="preserve">
     <value>The configuration is applied. Shared content is being downloaded.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>The configuration is applied, but some shared content could not be imported.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>The configuration is applied, but some shared content is still not available after repeated checks.</value>
   </data>
   <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
     <value>This folder holds files that are not a publication of this PC. Choose an empty folder.</value>

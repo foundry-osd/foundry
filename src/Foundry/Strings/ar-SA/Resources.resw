@@ -395,7 +395,7 @@
     <value>انسخ كلمة المرور</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>احفظ ملف PFX وكلمة المرور الآن في مكان آمن. يحفظ Foundry كلمة المرور مع التكوين لديك على هذا الكمبيوتر فقط عندما يكون خيار «تذكّر كلمات المرور» قيد التشغيل في «النسخ الاحتياطي للإعدادات ومزامنتها». ستحتاج إلى كلا القيمتين لإنشاء وسائط التمهيد لتحميل تجزئة الأجهزة.</value>
+    <value>احفظ ملف PFX وكلمة المرور الآن في مكان آمن. يتذكر Foundry كلمة المرور على هذا الكمبيوتر في مخزنه المحلي المشفّر. ولا تغادر هذا الكمبيوتر إلا ضمن تصدير أو نشر عند اختيار «تضمين كلمات المرور». ستحتاج إلى كلا القيمتين لإنشاء وسائط التمهيد لتحميل تجزئة الأجهزة.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>تم نسخ كلمة المرور.</value>
@@ -2774,7 +2774,7 @@
     <value>قم بتوفير قالب ملف تعريف المؤسسة Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>تُحفظ عبارة المرور مع التكوين لديك على هذا الكمبيوتر فقط عندما يكون خيار «تذكّر كلمات المرور» قيد التشغيل في «النسخ الاحتياطي للإعدادات ومزامنتها». وإلا فلا تُحفظ ويجب إدخالها مرة أخرى، مثلًا بعد إعادة تشغيل Foundry OSD.</value>
+    <value>يتذكر Foundry OSD عبارة المرور على هذا الكمبيوتر في مخزنه المحلي المشفّر. ولا تغادر هذا الكمبيوتر إلا ضمن تصدير أو نشر عند اختيار «تضمين كلمات المرور».</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>يستورد ملف تعريف Wi-Fi الذي تديره Foundry إلى Windows قبل OOBE للحفاظ على اتصالية النشر بعد WinPE.</value>
@@ -3323,7 +3323,7 @@
     <value>تم استيراد التكوين. يوجد محتوى مفقود على هذا الكمبيوتر: استورده مرة أخرى من صفحته.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>يستبدل هذا التكوين بملف تم تصديره أو بملف تعريف توزيع سابق.</value>
+    <value>استبدل هذا التكوين بملف مُصدَّر أو بتكوين سابق على هذا الكمبيوتر.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>تعذر استيراد التكوين. لم يتغير التكوين الحالي.</value>
@@ -3368,7 +3368,7 @@
     <value>تعذّر استرداد بعض الملفات التي يستخدمها التكوين. حددها مرة أخرى في صفحات التكوين.</value>
   </data>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
-    <value>لم تعد مزامنة ملفات تعريف النشر مدعومة. لمشاركة هذا التكوين، استخدم النشر إلى مجلد على الكمبيوتر المرجعي.</value>
+    <value>لم تعد مزامنة التكوين في الإصدارات السابقة مدعومة. لمشاركة هذا التكوين، استخدم النشر إلى مجلد على الكمبيوتر المرجعي.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>تعذّرت استعادة كلمات المرور المحفوظة. أدخلها مرة أخرى في صفحات التكوين.</value>
@@ -3516,6 +3516,12 @@
   </data>
   <data name="Sharing.StatusContentDownloading" xml:space="preserve">
     <value>تم تطبيق التكوين. جارٍ تنزيل المحتوى المشترك.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>تم تطبيق التكوين، لكن تعذّر استيراد بعض المحتوى المشترك.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>تم تطبيق التكوين، لكن بعض المحتوى المشترك لا يزال غير متوفر بعد عمليات تحقق متكررة.</value>
   </data>
   <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
     <value>يحتوي هذا المجلد على ملفات ليست نشرًا لهذا الكمبيوتر. اختر مجلدًا فارغًا.</value>

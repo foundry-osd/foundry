@@ -395,7 +395,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Kopēt paroli</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Saglabājiet šo PFX failu un paroli tagad drošā vietā. Foundry šajā datorā saglabā paroli kopā ar konfigurāciju tikai tad, ja sadaļā „Iestatījumu dublēšana un sinhronizēšana“ ir ieslēgta opcija „Atcerēties paroles“. Jums būs nepieciešamas abas vērtības, lai ģenerētu sāknēšanas datu nesēju aparatūras jaucējkoda augšupielādei.</value>
+    <value>Saglabājiet šo PFX failu un paroli tagad drošā vietā. Foundry atceras paroli šajā datorā savā lokālajā šifrētajā glabātavā. Tā atstāj šo datoru tikai eksportā vai publikācijā, ja ir izvēlēts “Iekļaut paroles”. Jums būs nepieciešamas abas vērtības, lai ģenerētu sāknēšanas datu nesēju aparatūras jaucējkoda augšupielādei.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Parole nokopēta.</value>
@@ -2774,7 +2774,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Nodrošiniet uzņēmuma Wi-Fi profila veidni</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Ieejas frāze šajā datorā tiek saglabāta kopā ar konfigurāciju tikai tad, ja sadaļā „Iestatījumu dublēšana un sinhronizēšana“ ir ieslēgta opcija „Atcerēties paroles“. Pretējā gadījumā tā netiek saglabāta un tā jāievada vēlreiz, piemēram, pēc Foundry OSD restartēšanas.</value>
+    <value>Foundry OSD atceras ieejas frāzi šajā datorā savā lokālajā šifrētajā glabātavā. Tā atstāj šo datoru tikai eksportā vai publikācijā, ja ir izvēlēts “Iekļaut paroles”.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importē Foundry pārvaldīto Wi-Fi profilu sistēmā Windows pirms OOBE, lai pēc WinPE saglabātu izvietošanas savienojamību.</value>
@@ -3323,7 +3323,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Konfigurācija importēta. Šajā datorā trūkst satura: importējiet to vēlreiz attiecīgajā lapā.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Aizstāj šo konfigurāciju ar eksportētu failu vai iepriekšēju izvietošanas profilu.</value>
+    <value>Aizstājiet šo konfigurāciju ar eksportētu failu vai iepriekšēju šī datora konfigurāciju.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>Konfigurāciju nevarēja importēt. Pašreizējā konfigurācija nav mainīta.</value>
@@ -3368,7 +3368,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Dažus konfigurācijas izmantotos failus nevarēja atgūt. Atlasiet tos vēlreiz konfigurācijas lapās.</value>
   </data>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
-    <value>Izvietošanas profilu sinhronizācija vairs netiek atbalstīta. Lai koplietotu šo konfigurāciju, atsauces datorā izmantojiet opciju Publicēt mapē.</value>
+    <value>Iepriekšējo versiju konfigurācijas sinhronizācija vairs netiek atbalstīta. Lai koplietotu šo konfigurāciju, atsauces datorā izmantojiet opciju Publicēt mapē.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Saglabātās paroles nevarēja atjaunot. Ievadiet tās vēlreiz konfigurācijas lapās.</value>
@@ -3516,6 +3516,12 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Sharing.StatusContentDownloading" xml:space="preserve">
     <value>Konfigurācija ir lietota. Notiek koplietotā satura lejupielāde.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>Konfigurācija ir lietota, taču daļu koplietotā satura neizdevās importēt.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>Konfigurācija ir lietota, taču daļa koplietotā satura pēc atkārtotām pārbaudēm joprojām nav pieejama.</value>
   </data>
   <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
     <value>Šajā mapē ir faili, kas nav šī datora publikācija. Izvēlieties tukšu mapi.</value>

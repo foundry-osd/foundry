@@ -395,7 +395,7 @@ Licencováno pod licencí MIT.</value>
     <value>Zkopírujte heslo</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Uložte tento soubor PFX a heslo na bezpečné místo. Foundry ukládá heslo s vaší konfigurací na tomto počítači pouze v případě, že je v části „Zálohování a synchronizace nastavení“ zapnuta možnost „Zapamatovat hesla“. K vygenerování spouštěcího média pro nahrání hardwarového hash budete potřebovat obě hodnoty.</value>
+    <value>Uložte tento soubor PFX a heslo na bezpečné místo. Foundry si pamatuje heslo na tomto počítači ve svém místním šifrovaném trezoru. Tento počítač opouští jen v exportu nebo publikaci, když je zvolena možnost „Zahrnout hesla“. K vygenerování spouštěcího média pro nahrání hardwarového hash budete potřebovat obě hodnoty.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Heslo zkopírováno.</value>
@@ -2774,7 +2774,7 @@ Licencováno pod licencí MIT.</value>
     <value>Poskytněte podnikovou šablonu profilu Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Přístupová fráze se uloží s vaší konfigurací na tomto počítači pouze v případě, že je v části „Zálohování a synchronizace nastavení“ zapnuta možnost „Zapamatovat hesla“. Jinak se neukládá a je nutné ji zadat znovu, například po restartu Foundry OSD.</value>
+    <value>Foundry OSD si pamatuje heslo na tomto počítači ve svém místním šifrovaném trezoru. Tento počítač opouští jen v exportu nebo publikaci, když je zvolena možnost „Zahrnout hesla“.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importuje profil Wi-Fi spravovaný Foundry do Windows před OOBE, aby se po WinPE zachovalo připojení potřebné k nasazení.</value>
@@ -3323,7 +3323,7 @@ Licencováno pod licencí MIT.</value>
     <value>Konfigurace byla importována. Na tomto počítači chybí obsah: importujte ho znovu na příslušné stránce.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Nahradí tuto konfiguraci exportovaným souborem nebo předchozím profilem nasazení.</value>
+    <value>Nahraďte tuto konfiguraci exportovaným souborem nebo předchozí konfigurací na tomto počítači.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>Konfiguraci nebylo možné importovat. Aktuální konfigurace zůstala beze změny.</value>
@@ -3368,7 +3368,7 @@ Licencováno pod licencí MIT.</value>
     <value>Některé soubory používané konfigurací se nepodařilo obnovit. Vyberte je znovu na stránkách konfigurace.</value>
   </data>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
-    <value>Synchronizace profilů nasazení již není podporována. Chcete-li tuto konfiguraci sdílet, použijte na referenčním počítači možnost Publikovat do složky.</value>
+    <value>Synchronizace konfigurace z dřívějších verzí již není podporována. Chcete-li tuto konfiguraci sdílet, použijte na referenčním počítači možnost Publikovat do složky.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Uložená hesla se nepodařilo obnovit. Zadejte je znovu na stránkách konfigurace.</value>
@@ -3516,6 +3516,12 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Sharing.StatusContentDownloading" xml:space="preserve">
     <value>Konfigurace je použita. Stahuje se sdílený obsah.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>Konfigurace je použita, ale část sdíleného obsahu se nepodařilo importovat.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>Konfigurace je použita, ale část sdíleného obsahu není ani po opakovaných kontrolách dostupná.</value>
   </data>
   <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
     <value>Tato složka obsahuje soubory, které nejsou publikací tohoto počítače. Zvolte prázdnou složku.</value>

@@ -395,7 +395,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Nukopijuokite slaptažodį</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Išsaugokite šį PFX failą ir slaptažodį dabar saugioje vietoje. Foundry šiame kompiuteryje išsaugo slaptažodį kartu su konfigūracija tik tada, kai skiltyje „Parametrų atsarginės kopijos ir sinchronizavimas“ įjungta parinktis „Įsiminti slaptažodžius“. Jums reikės abiejų reikšmių, kad sugeneruotumėte įkrovos laikmeną aparatinės įrangos maišos įkėlimui.</value>
+    <value>Išsaugokite šį PFX failą ir slaptažodį dabar saugioje vietoje. Foundry įsimena slaptažodį šiame kompiuteryje savo vietinėje šifruotoje saugykloje. Jis palieka šį kompiuterį tik eksportuojant arba publikuojant, kai pasirinkta „Įtraukti slaptažodžius“. Jums reikės abiejų reikšmių, kad sugeneruotumėte įkrovos laikmeną aparatinės įrangos maišos įkėlimui.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Slaptažodis nukopijuotas.</value>
@@ -2774,7 +2774,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pateikite įmonės Wi-Fi profilio šabloną</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Slaptafrazė kartu su konfigūracija šiame kompiuteryje išsaugoma tik tada, kai skiltyje „Parametrų atsarginės kopijos ir sinchronizavimas“ įjungta parinktis „Įsiminti slaptažodžius“. Kitu atveju ji neišsaugoma ir ją reikia įvesti iš naujo, pavyzdžiui, iš naujo paleidus Foundry OSD.</value>
+    <value>Foundry OSD įsimena slaptafrazę šiame kompiuteryje savo vietinėje šifruotoje saugykloje. Ji palieka šį kompiuterį tik eksportuojant arba publikuojant, kai pasirinkta „Įtraukti slaptažodžius“.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importuoja Foundry valdomą Wi-Fi profilį į Windows prieš OOBE, kad diegimo ryšys išliktų po WinPE.</value>
@@ -3323,7 +3323,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Konfigūracija importuota. Šiame kompiuteryje trūksta turinio: importuokite jį dar kartą atitinkamame puslapyje.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Pakeičia šią konfigūraciją eksportuotu failu arba ankstesniu diegimo profiliu.</value>
+    <value>Pakeiskite šią konfigūraciją eksportuotu failu arba ankstesne šio kompiuterio konfigūracija.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>Konfigūracijos nepavyko importuoti. Dabartinė konfigūracija nepakeista.</value>
@@ -3368,7 +3368,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Kai kurių konfigūracijos naudojamų failų atkurti nepavyko. Pasirinkite juos iš naujo konfigūracijos puslapiuose.</value>
   </data>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
-    <value>Diegimo profilių sinchronizavimas nebepalaikomas. Norėdami bendrinti šią konfigūraciją, etaloniniame kompiuteryje naudokite parinktį „Publikuoti aplanke“.</value>
+    <value>Ankstesnių versijų konfigūracijos sinchronizavimas nebepalaikomas. Norėdami bendrinti šią konfigūraciją, etaloniniame kompiuteryje naudokite parinktį „Publikuoti aplanke“.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Įrašytų slaptažodžių atkurti nepavyko. Įveskite juos iš naujo konfigūracijos puslapiuose.</value>
@@ -3516,6 +3516,12 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="Sharing.StatusContentDownloading" xml:space="preserve">
     <value>Konfigūracija pritaikyta. Atsisiunčiamas bendrinamas turinys.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>Konfigūracija pritaikyta, bet dalies bendrinamo turinio nepavyko importuoti.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>Konfigūracija pritaikyta, bet dalis bendrinamo turinio po pakartotinių patikrų vis dar nepasiekiama.</value>
   </data>
   <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
     <value>Šiame aplanke yra failų, kurie nėra šio kompiuterio publikavimas. Pasirinkite tuščią aplanką.</value>

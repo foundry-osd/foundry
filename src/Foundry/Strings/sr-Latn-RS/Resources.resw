@@ -395,7 +395,7 @@ Licencirano pod MIT licencom.</value>
     <value>Kopiraj lozinku</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Sačuvajte ovu PFX datoteku i lozinku sada na bezbednoj lokaciji. Foundry čuva lozinku sa vašom konfiguracijom na ovom računaru samo kada je opcija „Zapamti lozinke“ uključena u odeljku „Rezervne kopije i sinhronizacija podešavanja“. Biće vam potrebne obe vrednosti da biste generisali medijum za pokretanje za otpremanje hardverskog heša.</value>
+    <value>Sačuvajte ovu PFX datoteku i lozinku sada na bezbednoj lokaciji. Foundry pamti lozinku na ovom računaru u svom lokalnom šifrovanom trezoru. Ovaj računar napušta samo u izvozu ili objavi kada je izabrano „Uključi lozinke“. Biće vam potrebne obe vrednosti da biste generisali medijum za pokretanje za otpremanje hardverskog heša.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Lozinka je kopirana.</value>
@@ -2774,7 +2774,7 @@ Licencirano pod MIT licencom.</value>
     <value>Obezbedite šablon profila preduzeća Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Passphrase se čuva sa vašom konfiguracijom na ovom računaru samo kada je opcija „Zapamti lozinke“ uključena u odeljku „Rezervne kopije i sinhronizacija podešavanja“. U suprotnom se ne čuva i mora ponovo da se unese, na primer nakon ponovnog pokretanja programa Foundry OSD.</value>
+    <value>Foundry OSD pamti lozinku na ovom računaru u svom lokalnom šifrovanom trezoru. Ovaj računar napušta samo u izvozu ili objavi kada je izabrano „Uključi lozinke“.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Uvozi Wi-Fi profil kojim upravlja Foundry u Windows pre OOBE-a kako bi se povezivanje za implementaciju očuvalo posle WinPE-a.</value>
@@ -3323,7 +3323,7 @@ Licencirano pod MIT licencom.</value>
     <value>Konfiguracija je uvezena. Na ovom računaru nedostaje sadržaj: ponovo ga uvezite na odgovarajućoj stranici.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Zamenjuje ovu konfiguraciju izvezenom datotekom ili prethodnim profilom primene.</value>
+    <value>Zamenite ovu konfiguraciju izvezenom datotekom ili prethodnom konfiguracijom na ovom računaru.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>Konfiguraciju nije bilo moguće uvesti. Trenutna konfiguracija nije promenjena.</value>
@@ -3368,7 +3368,7 @@ Licencirano pod MIT licencom.</value>
     <value>Neke datoteke koje konfiguracija koristi nije moguće povratiti. Ponovo ih izaberite na stranicama konfiguracije.</value>
   </data>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
-    <value>Sinhronizacija profila za primenu više nije podržana. Da biste delili ovu konfiguraciju, koristite Objavi u fasciklu na referentnom računaru.</value>
+    <value>Sinhronizacija konfiguracije iz ranijih verzija više nije podržana. Da biste delili ovu konfiguraciju, koristite Objavi u fasciklu na referentnom računaru.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Sačuvane lozinke nije moguće vratiti. Ponovo ih unesite na stranicama konfiguracije.</value>
@@ -3516,6 +3516,12 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="Sharing.StatusContentDownloading" xml:space="preserve">
     <value>Konfiguracija je primenjena. Deljeni sadržaj se preuzima.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>Konfiguracija je primenjena, ali deo deljenog sadržaja nije bilo moguće uvesti.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>Konfiguracija je primenjena, ali deo deljenog sadržaja ni posle ponovljenih provera još nije dostupan.</value>
   </data>
   <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
     <value>Ova fascikla sadrži datoteke koje nisu objava ovog računara. Izaberite praznu fasciklu.</value>

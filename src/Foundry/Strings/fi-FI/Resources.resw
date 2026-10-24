@@ -395,7 +395,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Kopioi salasana</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Tallenna tämä PFX-tiedosto ja salasana nyt turvalliseen paikkaan. Foundry tallentaa salasanan kokoonpanosi mukana tällä tietokoneella vain, kun ”Muista salasanat” on otettu käyttöön kohdassa ”Asetusten varmuuskopiointi ja synkronointi”. Tarvitset molemmat arvot käynnistysmedian luomiseen laitteiston hajautusarvon palvelimeen lataamista varten.</value>
+    <value>Tallenna tämä PFX-tiedosto ja salasana nyt turvalliseen paikkaan. Foundry muistaa salasanan tässä tietokoneessa paikallisessa salatussa holvissaan. Se lähtee tästä tietokoneesta vain viennissä tai julkaisussa, kun ”Sisällytä salasanat” on valittu. Tarvitset molemmat arvot käynnistysmedian luomiseen laitteiston hajautusarvon palvelimeen lataamista varten.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Salasana kopioitu.</value>
@@ -2774,7 +2774,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Luo yrityksen Wi-Fi profiilimalli</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Tunnuslause tallennetaan kokoonpanosi mukana tällä tietokoneella vain, kun ”Muista salasanat” on otettu käyttöön kohdassa ”Asetusten varmuuskopiointi ja synkronointi”. Muuten sitä ei tallenneta, ja se on annettava uudelleen, esimerkiksi Foundry OSD:n uudelleenkäynnistyksen jälkeen.</value>
+    <value>Foundry OSD muistaa salauslauseen tässä tietokoneessa paikallisessa salatussa holvissaan. Se lähtee tästä tietokoneesta vain viennissä tai julkaisussa, kun ”Sisällytä salasanat” on valittu.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Tuo Foundryn hallitseman Wi-Fi-profiilin Windowsiin ennen OOBE-vaihetta, jotta käyttöönoton yhteys säilyy WinPE:n jälkeen.</value>
@@ -3323,7 +3323,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Määritys tuotiin. Tästä tietokoneesta puuttuu sisältöä: tuo se uudelleen sen omalla sivulla.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Korvaa tämän määrityksen viedyllä tiedostolla tai aiemmalla käyttöönottoprofiililla.</value>
+    <value>Korvaa tämä määritys viedyllä tiedostolla tai tämän tietokoneen aiemmalla määrityksellä.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>Määritystä ei voitu tuoda. Nykyinen määritys on ennallaan.</value>
@@ -3368,7 +3368,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Joitakin määrityksen käyttämiä tiedostoja ei voitu palauttaa. Valitse ne uudelleen määrityssivuilla.</value>
   </data>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
-    <value>Käyttöönottoprofiilien synkronointia ei enää tueta. Jaa tämä määritys käyttämällä viitetietokoneessa toimintoa Julkaise kansioon.</value>
+    <value>Aiempien versioiden määritysten synkronointia ei enää tueta. Jaa tämä määritys käyttämällä viitetietokoneessa toimintoa Julkaise kansioon.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Tallennettuja salasanoja ei voitu palauttaa. Anna ne uudelleen määrityssivuilla.</value>
@@ -3516,6 +3516,12 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Sharing.StatusContentDownloading" xml:space="preserve">
     <value>Määritys on otettu käyttöön. Jaettua sisältöä ladataan.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>Määritys on otettu käyttöön, mutta osaa jaetusta sisällöstä ei voitu tuoda.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>Määritys on otettu käyttöön, mutta osa jaetusta sisällöstä ei ole vieläkään saatavilla toistuvien tarkistusten jälkeen.</value>
   </data>
   <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
     <value>Tässä kansiossa on tiedostoja, jotka eivät ole tämän tietokoneen julkaisu. Valitse tyhjä kansio.</value>

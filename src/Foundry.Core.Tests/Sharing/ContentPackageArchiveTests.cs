@@ -49,6 +49,31 @@ public sealed class ContentPackageArchiveTests : IDisposable
     }
 
     [Fact]
+    public async Task Import_SuccessAndFailure_LeaveNoExtractionDirectory()
+    {
+        ContentPackageLibraryService source = Library("source", ContentPackageKind.PostInstallation);
+        ContentPackageReference reference = await ImportSourceAsync(source, ("tool.exe", "tool"));
+        string temporaryRoot = Path.Combine(directory.Path, "import-temp");
+        byte[] bytes = await WriteAsync(source, reference.ContentHash);
+
+        using (MemoryStream archive = new(bytes))
+        {
+            await ContentPackageArchive.ImportAsync(Library("target", ContentPackageKind.PostInstallation), archive, reference.ContentHash, temporaryRoot,
+                Cancellation);
+        }
+
+        Assert.Empty(Directory.EnumerateDirectories(temporaryRoot));
+        using (MemoryStream archive = new(bytes))
+        {
+            // A post-installation package without an INF file breaks the drivers kind rules after extraction.
+            await Assert.ThrowsAsync<InvalidDataException>(() => ContentPackageArchive.ImportAsync(Library("drivers", ContentPackageKind.Drivers), archive,
+                reference.ContentHash, temporaryRoot, Cancellation));
+        }
+
+        Assert.Empty(Directory.EnumerateDirectories(temporaryRoot));
+    }
+
+    [Fact]
     public async Task Import_DriverSetWithoutInf_ThrowsAndLeavesLibraryUnchanged()
     {
         ContentPackageLibraryService source = Library("source", ContentPackageKind.PostInstallation);

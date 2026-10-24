@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Packages;
 using Foundry.Core.Services.Packages;
+using Foundry.Utilities.IO;
 
 namespace Foundry.Core.Services.Sharing;
 
@@ -24,6 +25,12 @@ public static class ContentPackageArchive
     private const string ManifestEntryName = "manifest.json";
     private const string FilesPrefix = "files/";
     private const int CopyBufferSize = 128 * 1024;
+
+    /// <summary>
+    /// Most entries an extraction directory may hold when its lease removes it: above every kind's file limit (20,000 driver files)
+    /// plus their directories.
+    /// </summary>
+    private const int ExtractionMaximumEntries = 100_000;
 
     /// <summary>
     /// Fixed entry timestamp. The DOS time stored is the clock time of this offset, so a UTC offset keeps the bytes identical in every
@@ -89,8 +96,23 @@ public static class ContentPackageArchive
     /// An entry name is unsafe, duplicated or outside <c>manifest.json</c> and <c>files/</c>, the archive does not match its manifest,
     /// the manifest does not hash to <paramref name="expectedHash"/>, or the package breaks the library kind rules.
     /// </exception>
+    public static Task<ContentPackageReference> ImportAsync(ContentPackageLibraryService library, Stream archive, string expectedHash,
+        CancellationToken cancellationToken) =>
+        ImportAsync(library, archive, expectedHash, temporaryRoot: null, cancellationToken);
+
+    /// <inheritdoc cref="ImportAsync(ContentPackageLibraryService, Stream, string, CancellationToken)"/>
+    /// <param name="library">Target library.</param>
+    /// <param name="archive">Seekable archive stream; left open.</param>
+    /// <param name="expectedHash">Content hash listed in the publication.</param>
+    /// <param name="temporaryRoot">
+    /// Dedicated root of the owner-only extraction directories (<see cref="PrivateDirectory"/>); defaults to
+    /// <c>%TEMP%\Foundry\PackageImport</c>. The extraction directory is removed on every path, and abandoned ones under the root are
+    /// removed by the next import.
+    /// </param>
+    /// <param name="cancellationToken">Stops between copy chunks; the extraction directory is removed.</param>
+    /// <exception cref="IOException">The extraction root is redirected or its cleanup lock is held by another process.</exception>
     public static async Task<ContentPackageReference> ImportAsync(ContentPackageLibraryService library, Stream archive, string expectedHash,
-        CancellationToken cancellationToken)
+        string? temporaryRoot, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(library);
         ArgumentNullException.ThrowIfNull(archive);
@@ -106,11 +128,16 @@ public static class ContentPackageArchive
 
         string hash = expectedHash.ToLowerInvariant();
 
-        // The library refuses sources inside its own root, so the files are extracted under the user's temporary folder. The library
-        // also checks source paths against the kind's full-path limit while it inventories them. That check never rejects a package
-        // the destination accepts, because the library root lives under the user profile or ProgramData, so its destination prefix
-        // (root, then content\<64 hex>\files\) is longer than %TEMP%\Foundry\<32 hex>\.
-        string extracted = Path.Combine(Path.GetTempPath(), "Foundry", Guid.NewGuid().ToString("N"));
+        // The library refuses sources inside its own root, so the files are extracted into an owner-only leased directory under the
+        // temporary root (ContentSync passes its own, on the volume of the libraries). The library also checks source paths against
+        // the kind's full-path limit while it inventories them (ruling R10). That check never rejects a package the destination
+        // accepts, as long as the extraction prefix (root, then <32 hex>\package\) is shorter than the destination prefix (library
+        // root, then content\<64 hex>\files\), which holds for the default %TEMP% root and for the per-user sharing root.
+        PrivateDirectoryLease lease = PrivateDirectory.CreateLeased(
+            temporaryRoot ?? Path.Combine(Path.GetTempPath(), "Foundry", "PackageImport"), ExtractionMaximumEntries);
+
+        // A subdirectory: the leased directory also holds its lease file, which must not become package content.
+        string extracted = Path.Combine(lease.Path, "package");
         try
         {
             await using (ZipArchive zip = await ZipArchive.CreateAsync(archive, ZipArchiveMode.Read, leaveOpen: true, entryNameEncoding: null, cancellationToken)
@@ -123,7 +150,7 @@ public static class ContentPackageArchive
         }
         finally
         {
-            DeleteDirectoryBestEffort(extracted);
+            ReleaseBestEffort(lease);
         }
     }
 
@@ -164,18 +191,16 @@ public static class ContentPackageArchive
     /// </summary>
     private static string ExtractionPath(string root, string relativePath) => Path.Combine(root, relativePath.Replace('/', Path.DirectorySeparatorChar));
 
-    private static void DeleteDirectoryBestEffort(string directory)
+    /// <summary>Removes the extraction directory; a leftover is removed by the next import's abandoned cleanup.</summary>
+    private static void ReleaseBestEffort(PrivateDirectoryLease lease)
     {
         try
         {
-            if (Directory.Exists(directory))
-            {
-                Directory.Delete(directory, recursive: true);
-            }
+            lease.Dispose();
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
         {
-            // A leftover in the user's temporary folder must not replace the import's own outcome.
+            // The leftover must not replace the import's own outcome.
         }
     }
 

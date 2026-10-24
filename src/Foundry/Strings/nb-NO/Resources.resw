@@ -395,7 +395,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Kopier passord</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Lagre denne PFX-filen og passordet nå på et sikkert sted. Foundry lagrer bare passordet sammen med konfigurasjonen din på denne PC-en når «Husk passord» er slått på i «Sikkerhetskopiering og synkronisering av innstillinger». Du trenger begge verdiene for å generere oppstartsmedier for maskinvarehash-opplasting.</value>
+    <value>Lagre denne PFX-filen og passordet nå på et sikkert sted. Foundry husker passordet på denne PC-en i sitt lokale krypterte hvelv. Det forlater bare denne PC-en i en eksport eller en publisering når «Ta med passord» er valgt. Du trenger begge verdiene for å generere oppstartsmedier for maskinvarehash-opplasting.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Passord kopiert.</value>
@@ -2774,7 +2774,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Gi en bedrifts Wi-Fi profilmal</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Passordfrasen lagres med konfigurasjonen din på denne PC-en bare når «Husk passord» er slått på i «Sikkerhetskopiering og synkronisering av innstillinger». Ellers lagres den ikke og må skrives inn på nytt, for eksempel etter at du har startet Foundry OSD på nytt.</value>
+    <value>Foundry OSD husker passordfrasen på denne PC-en i sitt lokale krypterte hvelv. Den forlater bare denne PC-en i en eksport eller en publisering når «Ta med passord» er valgt.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importerer Wi-Fi-profilen som administreres av Foundry, til Windows før OOBE for å bevare utrullingstilkoblingen etter WinPE.</value>
@@ -3323,7 +3323,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Konfigurasjonen er importert. Innhold mangler på denne PC-en: Importer det på nytt på den aktuelle siden.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Erstatter denne konfigurasjonen med en eksportert fil eller en tidligere distribusjonsprofil.</value>
+    <value>Erstatt denne konfigurasjonen med en eksportert fil eller en tidligere konfigurasjon på denne PC-en.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>Konfigurasjonen kunne ikke importeres. Gjeldende konfigurasjon er uendret.</value>
@@ -3368,7 +3368,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Noen filer som konfigurasjonen bruker, kunne ikke gjenopprettes. Velg dem på nytt på konfigurasjonssidene.</value>
   </data>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
-    <value>Synkronisering av distribusjonsprofiler støttes ikke lenger. Bruk Publiser til en mappe på referanse-PC-en for å dele denne konfigurasjonen.</value>
+    <value>Konfigurasjonssynkroniseringen i tidligere versjoner støttes ikke lenger. Bruk Publiser til en mappe på referanse-PC-en for å dele denne konfigurasjonen.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Lagrede passord kunne ikke gjenopprettes. Skriv dem inn på nytt på konfigurasjonssidene.</value>
@@ -3516,6 +3516,12 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Sharing.StatusContentDownloading" xml:space="preserve">
     <value>Konfigurasjonen er brukt. Delt innhold lastes ned.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>Konfigurasjonen er brukt, men noe delt innhold kunne ikke importeres.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>Konfigurasjonen er brukt, men noe delt innhold er fortsatt ikke tilgjengelig etter gjentatte kontroller.</value>
   </data>
   <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
     <value>Denne mappen inneholder filer som ikke er en publisering fra denne PC-en. Velg en tom mappe.</value>

@@ -17,7 +17,10 @@ public sealed record SharingState
     /// <summary>Gets the role of this PC.</summary>
     public SharingRole Role { get; init; }
 
-    /// <summary>Gets the publication folder this PC publishes to or follows; null without a role.</summary>
+    /// <summary>
+    /// Gets the publication folder this PC publishes to or follows. After "Stop publishing" the last folder is kept without a role,
+    /// so a later publish to the same folder carries <see cref="RevocationPending"/> over; null after "Stop following" or before any role.
+    /// </summary>
     public string? Folder { get; init; }
 
     /// <summary>

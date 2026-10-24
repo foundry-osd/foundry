@@ -60,8 +60,15 @@ public sealed partial class ConfigurationSharingViewModel(
         _ => string.Empty
     };
 
-    public string RoleStatusText => localization.GetString(SharingStatusText.Key(Role, Status));
-    public InfoBarSeverity RoleStatusSeverity => IsContentFailed ? InfoBarSeverity.Error : SharingStatusText.Severity(Status);
+    /// <summary>Gets the role status; content that failed or stalled reads as a problem, not as a download still in progress.</summary>
+    public string RoleStatusText => localization.GetString(IsContentFailed ? "Sharing.StatusContentFailed"
+        : IsContentStalled ? "Sharing.StatusContentStalled"
+        : SharingStatusText.Key(Role, Status));
+
+    public InfoBarSeverity RoleStatusSeverity => IsContentFailed ? InfoBarSeverity.Error
+        : IsContentStalled ? InfoBarSeverity.Warning
+        : SharingStatusText.Severity(Status);
+
     public string FolderText => Engine?.State.Folder ?? string.Empty;
 
     public string VersionText => Engine?.State is { } state && (IsReference ? state.LastPublishedSequence : state.AppliedSequence) is > 0 and var sequence

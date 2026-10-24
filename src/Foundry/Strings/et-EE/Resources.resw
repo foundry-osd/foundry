@@ -395,7 +395,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Kopeeri parool</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Salvestage see PFX-fail ja parool nüüd turvalisse kohta. Foundry salvestab parooli koos teie konfiguratsiooniga sellel arvutil ainult siis, kui „Jäta paroolid meelde“ on jaotises „Sätete varundamine ja sünkroonimine“ sisse lülitatud. Riistvara räsi üleslaadimiseks alglaadimismeediumi loomiseks vajate mõlemat väärtust.</value>
+    <value>Salvestage see PFX-fail ja parool nüüd turvalisse kohta. Foundry jätab parooli selles arvutis meelde oma kohalikku krüptitud hoidlasse. See lahkub sellest arvutist ainult ekspordis või avaldamises, kui on valitud „Kaasa paroolid“. Riistvara räsi üleslaadimiseks alglaadimismeediumi loomiseks vajate mõlemat väärtust.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Parool kopeeritud.</value>
@@ -2774,7 +2774,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Looge ettevõtte Wi-Fi profiili mall</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Parool salvestatakse koos teie konfiguratsiooniga sellel arvutil ainult siis, kui „Jäta paroolid meelde“ on jaotises „Sätete varundamine ja sünkroonimine“ sisse lülitatud. Vastasel juhul seda ei salvestata ja see tuleb uuesti sisestada, näiteks pärast Foundry OSD taaskäivitamist.</value>
+    <value>Foundry OSD jätab paroolifraasi selles arvutis meelde oma kohalikku krüptitud hoidlasse. See lahkub sellest arvutist ainult ekspordis või avaldamises, kui on valitud „Kaasa paroolid“.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Impordib Foundry hallatava Wi-Fi profiili Windowsisse enne OOBE-d, et juurutuse ühenduvus säiliks pärast WinPE-d.</value>
@@ -3323,7 +3323,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Konfiguratsioon on imporditud. Selles arvutis puudub sisu: importige see uuesti vastaval lehel.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Asendab selle konfiguratsiooni eksporditud faili või varasema juurutusprofiiliga.</value>
+    <value>Asendage see konfiguratsioon eksporditud faili või selle arvuti varasema konfiguratsiooniga.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>Konfiguratsiooni ei saanud importida. Praegune konfiguratsioon on muutmata.</value>
@@ -3368,7 +3368,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Mõnda konfiguratsiooni kasutatavat faili ei õnnestunud taastada. Valige need konfiguratsioonilehtedel uuesti.</value>
   </data>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
-    <value>Juurutusprofiilide sünkroonimist enam ei toetata. Selle konfiguratsiooni jagamiseks kasutage võrdlusarvutis valikut Avalda kausta.</value>
+    <value>Varasemate versioonide konfiguratsiooni sünkroonimist enam ei toetata. Selle konfiguratsiooni jagamiseks kasutage võrdlusarvutis valikut Avalda kausta.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Salvestatud paroole ei õnnestunud taastada. Sisestage need konfiguratsioonilehtedel uuesti.</value>
@@ -3516,6 +3516,12 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Sharing.StatusContentDownloading" xml:space="preserve">
     <value>Konfiguratsioon on rakendatud. Ühiskasutuses sisu laaditakse alla.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>Konfiguratsioon on rakendatud, kuid osa ühiskasutuses sisust ei õnnestunud importida.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>Konfiguratsioon on rakendatud, kuid osa ühiskasutuses sisust pole korduvate kontrollide järel endiselt saadaval.</value>
   </data>
   <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
     <value>See kaust sisaldab faile, mis pole selle arvuti avaldis. Valige tühi kaust.</value>

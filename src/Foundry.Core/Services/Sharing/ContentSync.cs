@@ -324,10 +324,10 @@ public sealed class ContentSync
 
                 break;
             case SharedContentKind.Package:
-                await ContentPackageArchive.ImportAsync(packages, plaintext, content.Hash, cancellationToken).ConfigureAwait(false);
+                await ContentPackageArchive.ImportAsync(packages, plaintext, content.Hash, temporaryRoot, cancellationToken).ConfigureAwait(false);
                 break;
             case SharedContentKind.DriverSet:
-                await ContentPackageArchive.ImportAsync(driverSets.Library, plaintext, content.Hash, cancellationToken).ConfigureAwait(false);
+                await ContentPackageArchive.ImportAsync(driverSets.Library, plaintext, content.Hash, temporaryRoot, cancellationToken).ConfigureAwait(false);
                 break;
             case SharedContentKind.Image:
                 await ImportImageAsync(content, configuration, plaintext, cancellationToken).ConfigureAwait(false);

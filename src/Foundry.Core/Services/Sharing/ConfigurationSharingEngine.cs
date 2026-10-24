@@ -45,6 +45,9 @@ public sealed class ConfigurationSharingEngine
     /// </summary>
     internal const int StalledContentFetchCount = 10;
 
+    /// <summary>How often <see cref="WaitForContentAsync"/> looks again between fetch attempts.</summary>
+    internal static readonly TimeSpan ContentWaitInterval = TimeSpan.FromMilliseconds(500);
+
     private const int MasterKeySize = 32;
 
     private readonly ISharingHost host;
@@ -391,8 +394,9 @@ public sealed class ConfigurationSharingEngine
 
     /// <summary>
     /// "Stop publishing" (spec 6.1): cancels a running publish, which leaves the previous version current, and makes this PC a
-    /// normal PC. The folder and the vault keys stay as they are; <see cref="SharingState.LastPublishedSequence"/> is kept. A pending
-    /// password change is dropped with its previous password.
+    /// normal PC. The folder and the vault keys stay as they are; <see cref="SharingState.LastPublishedSequence"/>, the folder name
+    /// and <see cref="SharingState.RevocationPending"/> are kept, so publishing to the same folder again still owes a pending reset.
+    /// A pending password change is dropped with its previous password.
     /// </summary>
     public async Task StopAsync()
     {
@@ -416,7 +420,8 @@ public sealed class ConfigurationSharingEngine
             if (current.Role == SharingRole.Reference)
             {
                 TryWriteVault(new Dictionary<string, string>(StringComparer.Ordinal), [SecretIds.PreviousPublicationPassword]);
-                Persist(current with { Role = SharingRole.None, Folder = null });
+                // The folder is kept: publishing there again carries a pending revocation over (see NewReferenceState).
+                Persist(current with { Role = SharingRole.None });
             }
 
             lock (gate)
@@ -684,8 +689,48 @@ public sealed class ConfigurationSharingEngine
         }
     }
 
-    /// <summary>Completes when the running content fetch completes (at once when none runs); content still missing stays reported.</summary>
+    /// <summary>
+    /// Gets whether the content of the applied publication is still on its way to this follower: a fetch runs, or the last one found
+    /// content not available yet (a cloud folder still syncing it) and the next check fetches again. False once the content is in the
+    /// libraries, when some of it failed its import (<see cref="FailedContent"/>), or when it stalled (<see cref="IsContentStalled"/>).
+    /// </summary>
+    public bool IsContentArriving
+    {
+        get
+        {
+            lock (gate)
+            {
+                return state.Role == SharingRole.Follower
+                    && (isFetching || (status == SharingStatus.ContentDownloading && failedContent.Count == 0 && !contentStalled));
+            }
+        }
+    }
+
+    /// <summary>
+    /// Completes when the content of the applied publication has arrived, or stopped arriving: it waits over successive fetch attempts
+    /// (one per check) while <see cref="IsContentArriving"/> holds, and returns at once otherwise. It also returns when the role or the
+    /// applied sequence changes, since the content then belongs to another publication. Content still missing stays reported.
+    /// </summary>
+    /// <param name="ct">Cancels the wait; the fetches go on.</param>
     public async Task WaitForContentAsync(CancellationToken ct)
+    {
+        long applied = State.AppliedSequence;
+        while (true)
+        {
+            await WaitForFetchAttemptAsync(ct);
+            SharingState current = State;
+            if (current.Role != SharingRole.Follower || current.AppliedSequence != applied || !IsContentArriving)
+            {
+                return;
+            }
+
+            // Between attempts: the next check starts the next fetch.
+            await Task.Delay(ContentWaitInterval, time, ct);
+        }
+    }
+
+    /// <summary>Completes when the running fetch attempt completes, at once when none runs.</summary>
+    internal async Task WaitForFetchAttemptAsync(CancellationToken ct)
     {
         Task running;
         lock (gate)
@@ -1409,9 +1454,16 @@ public sealed class ConfigurationSharingEngine
             PublisherId = current.PublisherId == Guid.Empty ? Guid.NewGuid() : current.PublisherId,
             PublisherName = Environment.MachineName,
             IncludePasswords = includePasswords,
-            LastPublishedSequence = current.LastPublishedSequence
+            LastPublishedSequence = current.LastPublishedSequence,
+
+            // A reset that stopped before its publish still owes the re-encryption of that folder's content; another folder does not.
+            RevocationPending = current.RevocationPending && IsSameFolder(current.Folder, folder)
         };
     }
+
+    private static bool IsSameFolder(string? left, string right) =>
+        left is not null && string.Equals(Path.TrimEndingDirectorySeparator(Path.GetFullPath(left)), Path.TrimEndingDirectorySeparator(Path.GetFullPath(right)),
+            StringComparison.OrdinalIgnoreCase);
 
     /// <summary>
     /// Reads the reference keys and password, or returns <see langword="null"/> when the vault is unavailable or one of them is

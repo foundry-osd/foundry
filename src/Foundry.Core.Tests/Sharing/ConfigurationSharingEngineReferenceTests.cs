@@ -370,6 +370,24 @@ public sealed class ConfigurationSharingEngineReferenceTests : IDisposable
             (await PublicationReader.PreviewAsync(Folder, NewPassword, Cancellation)).Payload!.MasterKey);
     }
 
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task Reset_StoppedThenPublishedAgain_KeepsRevocationPendingOnlyForTheSameFolder(bool sameFolder)
+    {
+        ConfigurationSharingEngine engine = await StartAsync();
+        host.IsReadyToBuild = false;
+        Assert.Equal(SharingStatus.NotPublishedIncomplete, await engine.ResetPublicationAsync(NewPassword, Cancellation));
+        await engine.StopAsync();
+
+        string folder = sameFolder ? Folder : Path.Combine(directory.Path, "other-publication");
+        Assert.Equal(SharingStatus.NotPublishedIncomplete, await engine.StartPublishingAsync(folder, NewPassword, includePasswords: false, Cancellation));
+
+        Assert.Equal(SharingRole.Reference, engine.Role);
+        Assert.Equal(sameFolder, engine.RevocationPending);
+        Assert.Equal(sameFolder, CreateEngine().RevocationPending);
+    }
+
     [Fact]
     public async Task TakeOver_VaultUnavailable_CreatesKeysAndPublishes()
     {

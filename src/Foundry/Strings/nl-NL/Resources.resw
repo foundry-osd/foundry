@@ -395,7 +395,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Kopieer wachtwoord</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Bewaar dit PFX-bestand en wachtwoord nu op een veilige locatie. Foundry slaat het wachtwoord alleen met uw configuratie op deze pc op als “Wachtwoorden onthouden” is ingeschakeld in “Back-up en synchronisatie van instellingen”. U hebt beide waarden nodig om opstartmedia te genereren voor het uploaden van hardware-hash.</value>
+    <value>Bewaar dit PFX-bestand en wachtwoord nu op een veilige locatie. Foundry onthoudt het wachtwoord op deze pc in de lokale versleutelde kluis. Het verlaat deze pc alleen in een export of publicatie wanneer “Wachtwoorden opnemen” is gekozen. U hebt beide waarden nodig om opstartmedia te genereren voor het uploaden van hardware-hash.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Wachtwoord gekopieerd.</value>
@@ -2774,7 +2774,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Richt een ondernemingsprofielsjabloon Wi-Fi in</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>De wachtwoordzin wordt alleen met uw configuratie op deze pc opgeslagen als “Wachtwoorden onthouden” is ingeschakeld in “Back-up en synchronisatie van instellingen”. Anders wordt deze niet opgeslagen en moet u deze opnieuw invoeren, bijvoorbeeld na het opnieuw starten van Foundry OSD.</value>
+    <value>Foundry OSD onthoudt de wachtwoordzin op deze pc in de lokale versleutelde kluis. Deze verlaat deze pc alleen in een export of publicatie wanneer “Wachtwoorden opnemen” is gekozen.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importeert het door Foundry beheerde Wi-Fi-profiel vóór OOBE in Windows om de implementatieconnectiviteit na WinPE te behouden.</value>
@@ -3323,7 +3323,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Configuratie geïmporteerd. Er ontbreekt inhoud op deze pc: importeer deze opnieuw op de bijbehorende pagina.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Vervangt deze configuratie door een geëxporteerd bestand of een eerder implementatieprofiel.</value>
+    <value>Vervang deze configuratie door een geëxporteerd bestand of een eerdere configuratie op deze pc.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>De configuratie kan niet worden geïmporteerd. De huidige configuratie is ongewijzigd.</value>
@@ -3368,7 +3368,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Sommige bestanden die de configuratie gebruikt, kunnen niet worden hersteld. Selecteer ze opnieuw op de configuratiepagina's.</value>
   </data>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
-    <value>Synchronisatie van implementatieprofielen wordt niet meer ondersteund. Gebruik Publiceren naar een map op de referentie-pc om deze configuratie te delen.</value>
+    <value>De configuratiesynchronisatie van eerdere versies wordt niet meer ondersteund. Gebruik Publiceren naar een map op de referentie-pc om deze configuratie te delen.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Opgeslagen wachtwoorden kunnen niet worden hersteld. Voer ze opnieuw in op de configuratiepagina's.</value>
@@ -3516,6 +3516,12 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Sharing.StatusContentDownloading" xml:space="preserve">
     <value>De configuratie is toegepast. Gedeelde inhoud wordt gedownload.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>De configuratie is toegepast, maar sommige gedeelde inhoud kon niet worden geïmporteerd.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>De configuratie is toegepast, maar sommige gedeelde inhoud is na herhaalde controles nog steeds niet beschikbaar.</value>
   </data>
   <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
     <value>Deze map bevat bestanden die geen publicatie van deze pc zijn. Kies een lege map.</value>

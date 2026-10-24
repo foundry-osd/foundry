@@ -121,10 +121,11 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     public Visibility DiscoveringVisibility => ToVisibility(IsDiscovering);
 
     // A managed configuration keeps its published domains; editing a domain then only enters the password of its account, and
-    // only when the publication does not include passwords.
+    // only when the publication does not include passwords and the domain names an account (its own or the shared one).
     private bool IsEditable => !configuration.IsManaged;
     private bool CanAddDomain => IsEditable;
-    private bool CanEditDomain => SelectedDomain is not null && (IsEditable || (IsZeroTouch && managed.ArePasswordsEditable));
+    private bool CanEditDomain => SelectedDomain is { } domain
+        && (IsEditable || (IsZeroTouch && managed.ArePasswordsEditable && PasswordOwner(domain.Settings) is not null));
     private bool CanRemoveDomain => IsEditable && CanEditDomain;
     private bool CanSetDefaultDomain => IsEditable && SelectedDomain is { } domain &&
         !string.Equals(configuration.Current.DomainJoin.DefaultDomainId, domain.Id, StringComparison.OrdinalIgnoreCase);

@@ -395,7 +395,7 @@ Licensierad under MIT-licensen.</value>
     <value>Kopiera lösenord</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Spara denna PFX-fil och lösenord nu på en säker plats. Foundry sparar lösenordet tillsammans med din konfiguration på den här datorn endast när ”Kom ihåg lösenord” är aktiverat i ”Säkerhetskopiering och synkronisering av inställningar”. Du behöver båda värdena för att generera startmedia för hårdvaruhashuppladdning.</value>
+    <value>Spara denna PFX-fil och lösenord nu på en säker plats. Foundry kommer ihåg lösenordet på den här datorn i sitt lokala krypterade valv. Det lämnar bara den här datorn i en export eller en publicering när ”Inkludera lösenord” har valts. Du behöver båda värdena för att generera startmedia för hårdvaruhashuppladdning.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Lösenordet har kopierats.</value>
@@ -2774,7 +2774,7 @@ Licensierad under MIT-licensen.</value>
     <value>Tillhandahåll en företagsprofilmall Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Lösenfrasen sparas tillsammans med din konfiguration på den här datorn endast när ”Kom ihåg lösenord” är aktiverat i ”Säkerhetskopiering och synkronisering av inställningar”. Annars sparas den inte och måste anges igen, till exempel efter att du har startat om Foundry OSD.</value>
+    <value>Foundry OSD kommer ihåg lösenfrasen på den här datorn i sitt lokala krypterade valv. Den lämnar bara den här datorn i en export eller en publicering när ”Inkludera lösenord” har valts.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importerar Wi-Fi-profilen som hanteras av Foundry till Windows före OOBE för att bevara distributionsanslutningen efter WinPE.</value>
@@ -3323,7 +3323,7 @@ Licensierad under MIT-licensen.</value>
     <value>Konfigurationen har importerats. Innehåll saknas på den här datorn: importera det igen på respektive sida.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Ersätter den här konfigurationen med en exporterad fil eller en tidigare distributionsprofil.</value>
+    <value>Ersätt den här konfigurationen med en exporterad fil eller en tidigare konfiguration på den här datorn.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>Konfigurationen kunde inte importeras. Den aktuella konfigurationen är oförändrad.</value>
@@ -3368,7 +3368,7 @@ Licensierad under MIT-licensen.</value>
     <value>Vissa filer som konfigurationen använder kunde inte återställas. Välj dem igen på konfigurationssidorna.</value>
   </data>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
-    <value>Synkronisering av distributionsprofiler stöds inte längre. Använd Publicera till en mapp på referensdatorn för att dela den här konfigurationen.</value>
+    <value>Konfigurationssynkroniseringen i tidigare versioner stöds inte längre. Använd Publicera till en mapp på referensdatorn för att dela den här konfigurationen.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Sparade lösenord kunde inte återställas. Ange dem igen på konfigurationssidorna.</value>
@@ -3516,6 +3516,12 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Sharing.StatusContentDownloading" xml:space="preserve">
     <value>Konfigurationen har tillämpats. Delat innehåll laddas ned.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>Konfigurationen har tillämpats, men en del delat innehåll kunde inte importeras.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>Konfigurationen har tillämpats, men en del delat innehåll är fortfarande inte tillgängligt efter upprepade kontroller.</value>
   </data>
   <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
     <value>Den här mappen innehåller filer som inte är en publicering från den här datorn. Välj en tom mapp.</value>
