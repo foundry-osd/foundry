@@ -37,11 +37,15 @@ public sealed partial class TakeOverDialogViewModel : ObservableObject, IDisposa
         this.isRecovery = isRecovery;
         Folder = folder;
         IncludePasswords = includePasswords;
+        Progress = new PublishProgressIndicator(sharing);
         localization.LanguageChanged += OnLanguageChanged;
     }
 
     /// <summary>Gets the folder to take over.</summary>
     public string Folder { get; }
+
+    /// <summary>Gets the progress of the take over publish while it runs.</summary>
+    public PublishProgressIndicator Progress { get; }
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CanTakeOver))]
@@ -87,6 +91,7 @@ public sealed partial class TakeOverDialogViewModel : ObservableObject, IDisposa
         if (!CanTakeOver) return false;
         ErrorMessage = string.Empty;
         IsBusy = true;
+        Progress.Start();
         try
         {
             SharingStatus status = await sharing.TakeOverAsync(Folder, Password, IncludePasswords);
@@ -111,6 +116,7 @@ public sealed partial class TakeOverDialogViewModel : ObservableObject, IDisposa
         finally
         {
             IsBusy = false;
+            Progress.Stop();
         }
     }
 
@@ -123,6 +129,7 @@ public sealed partial class TakeOverDialogViewModel : ObservableObject, IDisposa
         if (disposed) return;
         disposed = true;
         Password = string.Empty;
+        Progress.Dispose();
         localization.LanguageChanged -= OnLanguageChanged;
     }
 }

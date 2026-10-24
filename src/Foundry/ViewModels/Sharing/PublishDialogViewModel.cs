@@ -26,12 +26,16 @@ public sealed partial class PublishDialogViewModel : ObservableObject, IDisposab
         this.picker = picker;
         this.localization = localization;
         Fields = new PublicationPasswordFields(localization, "PublicationPasswordLabel");
+        Progress = new PublishProgressIndicator(sharing);
         Fields.PropertyChanged += (_, _) => OnPropertyChanged(nameof(CanPublish));
         localization.LanguageChanged += OnLanguageChanged;
     }
 
     /// <summary>Gets the publication password fields.</summary>
     public PublicationPasswordFields Fields { get; }
+
+    /// <summary>Gets the progress of the publish while it runs.</summary>
+    public PublishProgressIndicator Progress { get; }
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CanPublish))]
@@ -89,6 +93,7 @@ public sealed partial class PublishDialogViewModel : ObservableObject, IDisposab
         if (!CanPublish) return false;
         ErrorMessage = string.Empty;
         IsBusy = true;
+        Progress.Start();
         try
         {
             SharingStatus status = await sharing.StartPublishingAsync(Folder.Trim(), Fields.Password, IncludePasswords);
@@ -115,6 +120,7 @@ public sealed partial class PublishDialogViewModel : ObservableObject, IDisposab
         finally
         {
             IsBusy = false;
+            Progress.Stop();
         }
     }
 
@@ -131,6 +137,7 @@ public sealed partial class PublishDialogViewModel : ObservableObject, IDisposab
         if (disposed) return;
         disposed = true;
         Fields.Clear();
+        Progress.Dispose();
         localization.LanguageChanged -= OnLanguageChanged;
     }
 }
