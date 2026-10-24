@@ -3208,9 +3208,6 @@ Licenc az MIT licenc alatt.</value>
   <data name="Sharing.CheckNowButton" xml:space="preserve">
     <value>Ellenőrzés most</value>
   </data>
-  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
-    <value>A konfiguráció frissült innen: {0}.</value>
-  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>Jelmondat megerősítése</value>
   </data>

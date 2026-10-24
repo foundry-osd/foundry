@@ -3208,9 +3208,6 @@ Licensierad under MIT-licensen.</value>
   <data name="Sharing.CheckNowButton" xml:space="preserve">
     <value>Kontrollera nu</value>
   </data>
-  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
-    <value>Konfigurationen har uppdaterats från {0}.</value>
-  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>Bekräfta lösenfras</value>
   </data>

@@ -3208,9 +3208,6 @@
   <data name="Sharing.CheckNowButton" xml:space="preserve">
     <value>التحقق الآن</value>
   </data>
-  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
-    <value>تم تحديث التكوين من {0}.</value>
-  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>تأكيد عبارة المرور</value>
   </data>

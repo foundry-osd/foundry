@@ -3208,9 +3208,6 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Sharing.CheckNowButton" xml:space="preserve">
     <value>Tarkista nyt</value>
   </data>
-  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
-    <value>Määritys päivitettiin lähteestä {0}.</value>
-  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>Vahvista tunnuslause</value>
   </data>

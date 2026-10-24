@@ -3208,9 +3208,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Sharing.CheckNowButton" xml:space="preserve">
     <value>Kontrolli kohe</value>
   </data>
-  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
-    <value>Konfiguratsioon värskendati arvutist {0}.</value>
-  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>Kinnita paroolifraas</value>
   </data>

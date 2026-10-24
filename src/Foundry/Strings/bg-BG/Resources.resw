@@ -3208,9 +3208,6 @@
   <data name="Sharing.CheckNowButton" xml:space="preserve">
     <value>Проверка сега</value>
   </data>
-  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
-    <value>Конфигурацията е актуализирана от {0}.</value>
-  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>Потвърждаване на паролата фраза</value>
   </data>

@@ -3208,9 +3208,6 @@ Sous licence MIT.</value>
   <data name="Sharing.CheckNowButton" xml:space="preserve">
     <value>Vérifier maintenant</value>
   </data>
-  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
-    <value>Configuration mise à jour depuis {0}.</value>
-  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>Confirmer la phrase secrète</value>
   </data>

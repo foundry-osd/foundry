@@ -3208,9 +3208,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Sharing.CheckNowButton" xml:space="preserve">
     <value>Pārbaudīt tūlīt</value>
   </data>
-  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
-    <value>Konfigurācija atjaunināta no datora {0}.</value>
-  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>Apstiprināt ieejas frāzi</value>
   </data>

@@ -19,15 +19,10 @@ using Serilog;
 
 namespace Foundry.Services.Sharing;
 
-/// <summary>Raised when a follower applied a newer publication of its reference ("Configuration updated").</summary>
-/// <param name="ReferenceName">Display name of the reference PC.</param>
-/// <param name="Sequence">Sequence of the applied publication.</param>
-public sealed record ConfigurationUpdatedEventArgs(string ReferenceName, long Sequence);
-
 /// <summary>
 /// The WinUI host of <see cref="ConfigurationSharingEngine"/> (spec 4.2): it implements <see cref="ISharingHost"/> over the
 /// configuration state service and the single vault writer, publishes a reference 5 seconds after the last configuration or password
-/// change, checks a followed folder at startup and every 60 seconds, and raises the "Configuration updated" notification.
+/// change, and checks a followed folder at startup and every 60 seconds; the sharing card shows the outcome.
 /// </summary>
 /// <remarks>
 /// Every member runs on the UI thread, which owns the configuration and the secret state services; the engine calls the host back on
@@ -103,9 +98,6 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
 
     /// <summary>Occurs on the UI thread when the role, the status, the content state or the content progress changes.</summary>
     public event EventHandler? Changed;
-
-    /// <summary>Occurs on the UI thread when a follower applied a newer publication of its reference.</summary>
-    public event EventHandler<ConfigurationUpdatedEventArgs>? ConfigurationUpdated;
 
     /// <summary>Gets whether sharing could start: false when the sharing state file could not be read during this session.</summary>
     public bool IsAvailable => engine is not null;
@@ -549,11 +541,10 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
         }
     }
 
-    /// <summary>Runs one follower check and notifies when it applied a newer publication; a failed check is retried at the next interval.</summary>
+    /// <summary>Runs one follower check and raises <see cref="Changed"/>; a failed check is retried at the next interval.</summary>
     private async Task<SharingStatus> CheckAndNotifyAsync(CancellationToken cancellationToken)
     {
         if (engine is not { } follower) return SharingStatus.Idle;
-        long before = follower.State.AppliedSequence;
         SharingStatus status;
         try
         {
@@ -567,12 +558,6 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
         {
             logger.Warning(exception, "Configuration check of the followed folder failed; it is retried at the next interval.");
             return follower.Status;
-        }
-
-        SharingState after = follower.State;
-        if (after.Role == SharingRole.Follower && after.AppliedSequence > before && before > 0)
-        {
-            ConfigurationUpdated?.Invoke(this, new ConfigurationUpdatedEventArgs(after.PublisherName ?? string.Empty, after.AppliedSequence));
         }
 
         // A fetch can end without a status change; the check notices it.

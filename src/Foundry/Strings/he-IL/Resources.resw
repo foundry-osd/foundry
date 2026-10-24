@@ -3208,9 +3208,6 @@
   <data name="Sharing.CheckNowButton" xml:space="preserve">
     <value>בדוק כעת</value>
   </data>
-  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
-    <value>התצורה עודכנה מ-{0}.</value>
-  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>אשר את ביטוי הסיסמה</value>
   </data>

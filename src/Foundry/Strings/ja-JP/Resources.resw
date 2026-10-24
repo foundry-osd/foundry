@@ -3208,9 +3208,6 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Sharing.CheckNowButton" xml:space="preserve">
     <value>今すぐ確認</value>
   </data>
-  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
-    <value>{0} から構成が更新されました。</value>
-  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>パスフレーズの確認</value>
   </data>

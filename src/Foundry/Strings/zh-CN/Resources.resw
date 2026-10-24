@@ -3208,9 +3208,6 @@
   <data name="Sharing.CheckNowButton" xml:space="preserve">
     <value>立即检查</value>
   </data>
-  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
-    <value>已从 {0} 更新配置。</value>
-  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>确认密码短语</value>
   </data>

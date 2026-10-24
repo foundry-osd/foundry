@@ -3208,9 +3208,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Sharing.CheckNowButton" xml:space="preserve">
     <value>Şimdi denetle</value>
   </data>
-  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
-    <value>Yapılandırma {0} kaynağından güncelleştirildi.</value>
-  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>Parola ifadesini onayla</value>
   </data>

@@ -3208,9 +3208,6 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Sharing.CheckNowButton" xml:space="preserve">
     <value>Tikrinti dabar</value>
   </data>
-  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
-    <value>Konfigūracija atnaujinta iš kompiuterio {0}.</value>
-  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>Patvirtinti slaptafrazę</value>
   </data>

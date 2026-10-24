@@ -3208,9 +3208,6 @@ Licencováno pod licencí MIT.</value>
   <data name="Sharing.CheckNowButton" xml:space="preserve">
     <value>Zkontrolovat nyní</value>
   </data>
-  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
-    <value>Konfigurace byla aktualizována z {0}.</value>
-  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>Potvrdit heslovou frázi</value>
   </data>

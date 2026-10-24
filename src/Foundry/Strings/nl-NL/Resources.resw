@@ -3208,9 +3208,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Sharing.CheckNowButton" xml:space="preserve">
     <value>Nu controleren</value>
   </data>
-  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
-    <value>Configuratie bijgewerkt vanaf {0}.</value>
-  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>Wachtwoordzin bevestigen</value>
   </data>

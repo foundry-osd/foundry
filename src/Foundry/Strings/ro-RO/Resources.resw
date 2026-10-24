@@ -3208,9 +3208,6 @@ Licențiat sub licența MIT.</value>
   <data name="Sharing.CheckNowButton" xml:space="preserve">
     <value>Verificați acum</value>
   </data>
-  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
-    <value>Configurație actualizată din {0}.</value>
-  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>Confirmați fraza de acces</value>
   </data>

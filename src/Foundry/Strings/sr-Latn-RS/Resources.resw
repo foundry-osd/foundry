@@ -3208,9 +3208,6 @@ Licencirano pod MIT licencom.</value>
   <data name="Sharing.CheckNowButton" xml:space="preserve">
     <value>Proveri sada</value>
   </data>
-  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
-    <value>Konfiguracija je ažurirana iz {0}.</value>
-  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>Potvrdi pristupnu frazu</value>
   </data>

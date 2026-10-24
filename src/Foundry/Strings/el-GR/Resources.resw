@@ -3208,9 +3208,6 @@
   <data name="Sharing.CheckNowButton" xml:space="preserve">
     <value>Έλεγχος τώρα</value>
   </data>
-  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
-    <value>Η ρύθμιση παραμέτρων ενημερώθηκε από τον υπολογιστή {0}.</value>
-  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>Επιβεβαίωση φράσης πρόσβασης</value>
   </data>

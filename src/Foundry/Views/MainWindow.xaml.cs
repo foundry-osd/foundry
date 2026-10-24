@@ -25,7 +25,6 @@ namespace Foundry.Views
         private readonly IOperationProgressService operationProgressService;
         private readonly IShellNavigationGuardService shellNavigationGuardService;
         private readonly IExternalProcessLauncher externalProcessLauncher;
-        private readonly Foundry.Services.Sharing.ConfigurationSharingService sharingService;
         private readonly ILogger logger = Log.ForContext<MainWindow>();
         private const string DocumentationNavigationTag = "Foundry.External.Documentation";
         private const string BugReportNavigationTag = "Foundry.External.BugReport";
@@ -40,7 +39,6 @@ namespace Foundry.Views
         private bool hasAnnouncedUpdateStatus;
         private bool isClosed;
         private OperationProgressDialog? operationDialog;
-        private Foundry.Services.Sharing.ConfigurationUpdatedEventArgs? sharingNotification;
 
         /// <summary>
         /// Gets the shell view model.
@@ -60,7 +58,6 @@ namespace Foundry.Views
             operationProgressService = App.GetService<IOperationProgressService>();
             shellNavigationGuardService = App.GetService<IShellNavigationGuardService>();
             externalProcessLauncher = App.GetService<IExternalProcessLauncher>();
-            sharingService = App.GetService<Foundry.Services.Sharing.ConfigurationSharingService>();
             NavigationService = App.GetService<IAppNavigationService>();
             ViewModel = App.GetService<MainViewModel>();
             this.InitializeComponent();
@@ -87,7 +84,6 @@ namespace Foundry.Views
             paneOpenCallbackToken = NavView.RegisterPropertyChangedCallback(NavigationView.IsPaneOpenProperty, OnNavigationLayoutChanged);
             paneDisplayModeCallbackToken = NavView.RegisterPropertyChangedCallback(NavigationView.PaneDisplayModeProperty, OnNavigationLayoutChanged);
             AppTitleBar.PaneToggleRequested += OnTitleBarPaneToggleRequested;
-            sharingService.ConfigurationUpdated += OnSharedConfigurationUpdated;
             Closed += OnClosed;
         }
 
@@ -119,27 +115,10 @@ namespace Foundry.Views
 
         private void RefreshLocalizedShell()
         {
-            ApplySharingNotificationText();
             NavigationService.RefreshLocalizedState();
             ApplyLocalizedShellText();
             ApplyShellNavigationState();
             NavigationService.RefreshCurrentPage();
-        }
-
-        /// <summary>Shows the "Configuration updated" notification of a follower; raised on the UI thread.</summary>
-        private void OnSharedConfigurationUpdated(object? sender, Foundry.Services.Sharing.ConfigurationUpdatedEventArgs e)
-        {
-            sharingNotification = e;
-            ApplySharingNotificationText();
-            SharingNotification.IsOpen = true;
-        }
-
-        private void ApplySharingNotificationText()
-        {
-            if (sharingNotification is not null)
-            {
-                SharingNotification.Message = localizationService.FormatString("Sharing.ConfigurationUpdatedNotice", sharingNotification.ReferenceName);
-            }
         }
 
         private void OnClosed(object sender, WindowEventArgs args)
@@ -155,7 +134,6 @@ namespace Foundry.Views
             NavView.UnregisterPropertyChangedCallback(NavigationView.PaneDisplayModeProperty, paneDisplayModeCallbackToken);
             NavigationService.StateChanged -= OnNavigationStateChanged;
             AppTitleBar.PaneToggleRequested -= OnTitleBarPaneToggleRequested;
-            sharingService.ConfigurationUpdated -= OnSharedConfigurationUpdated;
             Closed -= OnClosed;
             ViewModel.Dispose();
         }
