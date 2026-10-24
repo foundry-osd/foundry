@@ -3172,6 +3172,15 @@ Licencjonowany na licencji MIT.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Zaktualizuj aplikację</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Nie można odzyskać niektórych plików używanych przez konfigurację. Wybierz je ponownie na stronach konfiguracji.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Synchronizacja profili wdrażania nie jest już obsługiwana. Aby udostępnić tę konfigurację, użyj opcji Opublikuj w folderze na komputerze referencyjnym.</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Nie można przywrócić zapisanych haseł. Wprowadź je ponownie na stronach konfiguracji.</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Zatrzymaj operację</value>
   </data>

@@ -3172,6 +3172,15 @@ Licencirano pod licenco MIT.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Posodobi aplikacijo</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Nekaterih datotek, ki jih uporablja konfiguracija, ni bilo mogoče obnoviti. Znova jih izberite na straneh za konfiguracijo.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Sinhronizacija profilov za uvajanje ni več podprta. Če želite deliti to konfiguracijo, v referenčnem računalniku uporabite možnost Objavi v mapo.</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Shranjenih gesel ni bilo mogoče obnoviti. Znova jih vnesite na straneh za konfiguracijo.</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Ustavi postopek</value>
   </data>

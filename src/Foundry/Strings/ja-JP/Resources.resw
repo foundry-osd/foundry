@@ -3172,6 +3172,15 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>アプリを更新する</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>構成で使用される一部のファイルを回復できませんでした。構成ページでもう一度選択してください。</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>展開プロファイルの同期はサポートされなくなりました。この構成を共有するには、参照 PC で [フォルダーに発行] を使用してください。</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>保存されたパスワードを復元できませんでした。構成ページでもう一度入力してください。</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>操作を停止</value>
   </data>

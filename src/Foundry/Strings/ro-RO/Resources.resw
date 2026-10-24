@@ -3172,6 +3172,15 @@ Licențiat sub licența MIT.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Actualizați aplicația</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Unele fișiere utilizate de configurație nu au putut fi recuperate. Selectați-le din nou în paginile de configurare.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Sincronizarea profilurilor de implementare nu mai este acceptată. Pentru a partaja această configurație, utilizați Publicare într-un folder pe PC-ul de referință.</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Parolele salvate nu au putut fi restaurate. Introduceți-le din nou în paginile de configurare.</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Oprește operația</value>
   </data>

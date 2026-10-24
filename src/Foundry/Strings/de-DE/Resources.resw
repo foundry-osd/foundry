@@ -3172,6 +3172,15 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>App aktualisieren</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Einige von der Konfiguration verwendete Dateien konnten nicht wiederhergestellt werden. Wählen Sie sie auf den Konfigurationsseiten erneut aus.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Die Synchronisierung von Bereitstellungsprofilen wird nicht mehr unterstützt. Verwenden Sie zum Freigeben dieser Konfiguration „In einem Ordner veröffentlichen“ auf dem Referenz-PC.</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Gespeicherte Kennwörter konnten nicht wiederhergestellt werden. Geben Sie sie auf den Konfigurationsseiten erneut ein.</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Vorgang beenden</value>
   </data>

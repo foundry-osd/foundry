@@ -3172,6 +3172,15 @@ Sous licence MIT.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Mettre à jour l'application</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Certains fichiers utilisés par la configuration n'ont pas pu être récupérés. Sélectionnez-les à nouveau dans les pages de configuration.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>La synchronisation des profils de déploiement n'est plus prise en charge. Pour partager cette configuration, utilisez Publier dans un dossier sur le PC de référence.</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Les mots de passe enregistrés n'ont pas pu être restaurés. Saisissez-les à nouveau dans les pages de configuration.</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Arrêter l'opération</value>
   </data>

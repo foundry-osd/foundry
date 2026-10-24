@@ -3172,6 +3172,15 @@ Licensierad under MIT-licensen.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Uppdatera appen</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Vissa filer som konfigurationen använder kunde inte återställas. Välj dem igen på konfigurationssidorna.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Synkronisering av distributionsprofiler stöds inte längre. Använd Publicera till en mapp på referensdatorn för att dela den här konfigurationen.</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Sparade lösenord kunde inte återställas. Ange dem igen på konfigurationssidorna.</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Stoppa åtgärden</value>
   </data>

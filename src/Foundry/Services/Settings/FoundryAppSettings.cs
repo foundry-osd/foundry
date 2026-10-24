@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Configuration.Legacy;
 using Foundry.Core.Services.WinPe;
 using Foundry.Localization;
 
@@ -42,6 +43,27 @@ public sealed class FoundryAppSettings
     /// Gets or sets network proxy preferences used only by the Foundry OSD desktop application.
     /// </summary>
     public ProxyAppSettings Proxy { get; set; } = new();
+
+    /// <summary>
+    /// Gets or sets one-time migration markers and the notices they left to show.
+    /// </summary>
+    public MigrationSettings Migrations { get; set; } = new();
+}
+
+/// <summary>
+/// Records the one-time migrations that already ran and their pending notices.
+/// </summary>
+public sealed class MigrationSettings
+{
+    /// <summary>
+    /// Gets or sets whether the first-launch migration from the removed deployment profiles completed; it never runs again.
+    /// </summary>
+    public bool ConfigurationSharingCompleted { get; set; }
+
+    /// <summary>
+    /// Gets or sets the migration notices the Home page still shows, until each is dismissed.
+    /// </summary>
+    public List<MigrationNotice> PendingNotices { get; set; } = [];
 }
 
 public enum ProxyMethod

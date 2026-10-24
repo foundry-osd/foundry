@@ -3172,6 +3172,15 @@ Licencováno pod licencí MIT.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Aktualizovat aplikaci</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Některé soubory používané konfigurací se nepodařilo obnovit. Vyberte je znovu na stránkách konfigurace.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Synchronizace profilů nasazení již není podporována. Chcete-li tuto konfiguraci sdílet, použijte na referenčním počítači možnost Publikovat do složky.</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Uložená hesla se nepodařilo obnovit. Zadejte je znovu na stránkách konfigurace.</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Zastavit operaci</value>
   </data>

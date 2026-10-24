@@ -3172,6 +3172,15 @@ Licenc az MIT licenc alatt.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Frissítse az alkalmazást</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>A konfiguráció által használt egyes fájlokat nem sikerült helyreállítani. Válassza ki őket újra a konfigurációs oldalakon.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>A telepítési profilok szinkronizálása már nem támogatott. A konfiguráció megosztásához használja a referenciaszámítógépen a Közzététel mappába funkciót.</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>A mentett jelszavakat nem sikerült visszaállítani. Adja meg őket újra a konfigurációs oldalakon.</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Művelet leállítása</value>
   </data>

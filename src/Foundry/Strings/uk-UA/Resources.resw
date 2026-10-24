@@ -3172,6 +3172,15 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Оновити додаток</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Не вдалося відновити деякі файли, які використовує конфігурація. Виберіть їх знову на сторінках конфігурації.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Синхронізація профілів розгортання більше не підтримується. Щоб поділитися цією конфігурацією, скористайтеся функцією «Опублікувати в папку» на еталонному комп’ютері.</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Не вдалося відновити збережені паролі. Введіть їх знову на сторінках конфігурації.</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Зупинити операцію</value>
   </data>

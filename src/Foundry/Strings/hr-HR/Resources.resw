@@ -3172,6 +3172,15 @@ Licenciran prema MIT licenci.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Ažurirajte aplikaciju</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Neke datoteke koje konfiguracija koristi nije moguće vratiti. Ponovno ih odaberite na stranicama konfiguracije.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Sinkronizacija profila implementacije više nije podržana. Da biste dijelili ovu konfiguraciju, upotrijebite Objavi u mapu na referentnom računalu.</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Spremljene lozinke nije moguće vratiti. Ponovno ih unesite na stranicama konfiguracije.</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Zaustavi operaciju</value>
   </data>

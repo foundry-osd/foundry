@@ -3172,6 +3172,15 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Päivitä sovellus</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Joitakin määrityksen käyttämiä tiedostoja ei voitu palauttaa. Valitse ne uudelleen määrityssivuilla.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Käyttöönottoprofiilien synkronointia ei enää tueta. Jaa tämä määritys käyttämällä viitetietokoneessa toimintoa Julkaise kansioon.</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Tallennettuja salasanoja ei voitu palauttaa. Anna ne uudelleen määrityssivuilla.</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Pysäytä toiminto</value>
   </data>

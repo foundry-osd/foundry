@@ -87,6 +87,7 @@ namespace Foundry
             _ = Host.Services.GetRequiredService<IApplicationProxyService>();
             InitializeRemoteDiagnostics(Host.Services.GetRequiredService<TelemetrySettings>());
             _ = Host.Services.GetRequiredService<IFoundryConfigurationStateService>();
+            Host.Services.GetRequiredService<LegacyMigrationRunner>().Run();
             Host.Services.GetRequiredService<SecretVaultBridge>().Initialize();
             Host.Services.GetRequiredService<IApplicationLocalizationService>().InitializeAsync().GetAwaiter().GetResult();
             RegisterWinUiExceptionHandler();

@@ -3172,6 +3172,15 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Atnaujinti programą</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Kai kurių konfigūracijos naudojamų failų atkurti nepavyko. Pasirinkite juos iš naujo konfigūracijos puslapiuose.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Diegimo profilių sinchronizavimas nebepalaikomas. Norėdami bendrinti šią konfigūraciją, etaloniniame kompiuteryje naudokite parinktį „Publikuoti aplanke“.</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Įrašytų slaptažodžių atkurti nepavyko. Įveskite juos iš naujo konfigūracijos puslapiuose.</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Stabdyti operaciją</value>
   </data>

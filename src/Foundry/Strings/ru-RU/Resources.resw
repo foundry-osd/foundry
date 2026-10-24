@@ -3172,6 +3172,15 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Обновить приложение</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Не удалось восстановить некоторые файлы, используемые конфигурацией. Выберите их снова на страницах конфигурации.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Синхронизация профилей развертывания больше не поддерживается. Чтобы поделиться этой конфигурацией, используйте «Опубликовать в папку» на эталонном компьютере.</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Не удалось восстановить сохраненные пароли. Введите их снова на страницах конфигурации.</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Остановить операцию</value>
   </data>

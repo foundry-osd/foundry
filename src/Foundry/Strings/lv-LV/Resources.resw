@@ -3172,6 +3172,15 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Atjaunināt lietotni</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Dažus konfigurācijas izmantotos failus nevarēja atgūt. Atlasiet tos vēlreiz konfigurācijas lapās.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Izvietošanas profilu sinhronizācija vairs netiek atbalstīta. Lai koplietotu šo konfigurāciju, atsauces datorā izmantojiet opciju Publicēt mapē.</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Saglabātās paroles nevarēja atjaunot. Ievadiet tās vēlreiz konfigurācijas lapās.</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Apturēt operāciju</value>
   </data>

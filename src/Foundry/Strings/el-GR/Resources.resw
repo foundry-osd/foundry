@@ -3172,6 +3172,15 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Ενημέρωση εφαρμογής</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η ανάκτηση ορισμένων αρχείων που χρησιμοποιεί η ρύθμιση παραμέτρων. Επιλέξτε τα ξανά στις σελίδες ρύθμισης παραμέτρων.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Ο συγχρονισμός προφίλ ανάπτυξης δεν υποστηρίζεται πλέον. Για να μοιραστείτε αυτήν τη ρύθμιση παραμέτρων, χρησιμοποιήστε τη Δημοσίευση σε φάκελο στον υπολογιστή αναφοράς.</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η επαναφορά των αποθηκευμένων κωδικών πρόσβασης. Εισαγάγετέ τους ξανά στις σελίδες ρύθμισης παραμέτρων.</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Διακοπή λειτουργίας</value>
   </data>

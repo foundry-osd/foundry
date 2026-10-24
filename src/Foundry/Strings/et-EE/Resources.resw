@@ -3172,6 +3172,15 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Värskendage rakendust</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Mõnda konfiguratsiooni kasutatavat faili ei õnnestunud taastada. Valige need konfiguratsioonilehtedel uuesti.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Juurutusprofiilide sünkroonimist enam ei toetata. Selle konfiguratsiooni jagamiseks kasutage võrdlusarvutis valikut Avalda kausta.</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Salvestatud paroole ei õnnestunud taastada. Sisestage need konfiguratsioonilehtedel uuesti.</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Peata toiming</value>
   </data>

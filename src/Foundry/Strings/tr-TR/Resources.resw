@@ -3172,6 +3172,15 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Uygulamayı güncelle</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Yapılandırmanın kullandığı bazı dosyalar kurtarılamadı. Bunları yapılandırma sayfalarında yeniden seçin.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Dağıtım profili eşitlemesi artık desteklenmiyor. Bu yapılandırmayı paylaşmak için başvuru bilgisayarında Klasöre yayımla seçeneğini kullanın.</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Kaydedilen parolalar geri yüklenemedi. Bunları yapılandırma sayfalarında yeniden girin.</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>İşlemi durdur</value>
   </data>

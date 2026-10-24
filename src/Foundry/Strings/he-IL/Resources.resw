@@ -3172,6 +3172,15 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>עדכן את האפליקציה</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>לא ניתן היה לשחזר חלק מהקבצים שבהם התצורה משתמשת. בחר אותם שוב בדפי התצורה.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>סנכרון פרופילי פריסה אינו נתמך עוד. כדי לשתף תצורה זו, השתמש בפרסום לתיקייה במחשב ההפניה.</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>לא ניתן היה לשחזר את הסיסמאות השמורות. הזן אותן שוב בדפי התצורה.</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>עצור פעולה</value>
   </data>

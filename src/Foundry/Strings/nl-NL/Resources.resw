@@ -3172,6 +3172,15 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>App bijwerken</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Sommige bestanden die de configuratie gebruikt, kunnen niet worden hersteld. Selecteer ze opnieuw op de configuratiepagina's.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Synchronisatie van implementatieprofielen wordt niet meer ondersteund. Gebruik Publiceren naar een map op de referentie-pc om deze configuratie te delen.</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Opgeslagen wachtwoorden kunnen niet worden hersteld. Voer ze opnieuw in op de configuratiepagina's.</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Bewerking stoppen</value>
   </data>

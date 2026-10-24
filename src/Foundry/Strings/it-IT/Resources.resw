@@ -3172,6 +3172,15 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Aggiorna l'app</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Impossibile recuperare alcuni file usati dalla configurazione. Selezionali di nuovo nelle pagine di configurazione.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>La sincronizzazione dei profili di distribuzione non è più supportata. Per condividere questa configurazione, usa Pubblica in una cartella nel PC di riferimento.</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Impossibile ripristinare le password salvate. Immettile di nuovo nelle pagine di configurazione.</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Arresta operazione</value>
   </data>

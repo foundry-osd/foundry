@@ -3172,6 +3172,15 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Actualizar aplicación</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>No se pudieron recuperar algunos archivos que usa la configuración. Vuelva a seleccionarlos en las páginas de configuración.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>La sincronización de perfiles de implementación ya no se admite. Para compartir esta configuración, use Publicar en una carpeta en el equipo de referencia.</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>No se pudieron restaurar las contraseñas guardadas. Vuelva a escribirlas en las páginas de configuración.</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Detener operación</value>
   </data>

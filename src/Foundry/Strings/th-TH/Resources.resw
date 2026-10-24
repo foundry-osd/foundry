@@ -3172,6 +3172,15 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>อัปเดตแอป</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>ไม่สามารถกู้คืนไฟล์บางไฟล์ที่การกำหนดค่าใช้อยู่ได้ โปรดเลือกไฟล์เหล่านั้นอีกครั้งในหน้าการกำหนดค่า</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>ไม่รองรับการซิงค์โปรไฟล์การปรับใช้อีกต่อไป หากต้องการแชร์การกำหนดค่านี้ โปรดใช้ เผยแพร่ไปยังโฟลเดอร์ บนพีซีอ้างอิง</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>ไม่สามารถคืนค่ารหัสผ่านที่บันทึกไว้ได้ โปรดป้อนรหัสผ่านอีกครั้งในหน้าการกำหนดค่า</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>หยุดการดำเนินการ</value>
   </data>

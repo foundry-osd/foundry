@@ -3172,6 +3172,15 @@ Licensed under the MIT License.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Update app</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Some files used by the configuration could not be recovered. Select them again on the configuration pages.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Deployment profile synchronization is no longer supported. To share this configuration, use Publish to a folder on the reference PC.</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Saved passwords could not be restored. Enter them again on the configuration pages.</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Stop operation</value>
   </data>

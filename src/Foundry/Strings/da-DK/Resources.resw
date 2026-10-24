@@ -3172,6 +3172,15 @@ Licenseret under MIT-licensen.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Opdater app</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Nogle filer, som konfigurationen bruger, kunne ikke gendannes. Vælg dem igen på konfigurationssiderne.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Synkronisering af udrulningsprofiler understøttes ikke længere. Brug Publicer til en mappe på reference-pc'en for at dele denne konfiguration.</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Gemte adgangskoder kunne ikke gendannes. Angiv dem igen på konfigurationssiderne.</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Stop handling</value>
   </data>

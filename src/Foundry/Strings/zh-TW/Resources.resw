@@ -3172,6 +3172,15 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>更新應用程式</value>
   </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>無法復原設定使用的部分檔案。請在設定頁面上重新選取這些檔案。</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>不再支援部署設定檔同步處理。若要共用此設定，請在參考電腦上使用「發佈到資料夾」。</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>無法還原已儲存的密碼。請在設定頁面上重新輸入。</value>
+  </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>停止作業</value>
   </data>

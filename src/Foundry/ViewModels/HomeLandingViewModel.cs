@@ -6,6 +6,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Adk;
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.Configuration.Legacy;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Adk;
 using Foundry.Services.Configuration;
@@ -28,6 +29,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
     private readonly IApplicationLocalizationService localizationService;
     private readonly IAppDispatcher appDispatcher;
     private readonly IShellNavigationGuardService shellNavigationGuardService;
+    private readonly IMigrationNoticeService migrationNoticeService;
     private readonly ILogger logger;
 
     [ObservableProperty]
@@ -153,6 +155,24 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
     [ObservableProperty]
     public partial string ConfigDriversValue { get; set; }
 
+    [ObservableProperty]
+    public partial bool IsPasswordsNeededNoticeOpen { get; set; }
+
+    [ObservableProperty]
+    public partial bool IsLegacySyncRetiredNoticeOpen { get; set; }
+
+    [ObservableProperty]
+    public partial bool IsFilesToReselectNoticeOpen { get; set; }
+
+    [ObservableProperty]
+    public partial string PasswordsNeededNoticeText { get; set; }
+
+    [ObservableProperty]
+    public partial string LegacySyncRetiredNoticeText { get; set; }
+
+    [ObservableProperty]
+    public partial string FilesToReselectNoticeText { get; set; }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="HomeLandingViewModel"/> class.
     /// </summary>
@@ -163,6 +183,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
         IApplicationLocalizationService localizationService,
         IAppDispatcher appDispatcher,
         IShellNavigationGuardService shellNavigationGuardService,
+        IMigrationNoticeService migrationNoticeService,
         ILogger logger)
     {
         this.adkService = adkService;
@@ -171,6 +192,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
         this.localizationService = localizationService;
         this.appDispatcher = appDispatcher;
         this.shellNavigationGuardService = shellNavigationGuardService;
+        this.migrationNoticeService = migrationNoticeService;
         this.logger = logger.ForContext<HomeLandingViewModel>();
 
         HeaderTitle = string.Empty;
@@ -214,11 +236,15 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
         ConfigSecureBootValue = string.Empty;
         ConfigDriversLabel = string.Empty;
         ConfigDriversValue = string.Empty;
+        PasswordsNeededNoticeText = string.Empty;
+        LegacySyncRetiredNoticeText = string.Empty;
+        FilesToReselectNoticeText = string.Empty;
 
         adkService.StatusChanged += OnAdkStatusChanged;
         localizationService.LanguageChanged += OnLanguageChanged;
         configurationOverviewService.Changed += OnConfigurationOverviewChanged;
         shellNavigationGuardService.StateChanged += OnShellNavigationStateChanged;
+        migrationNoticeService.Changed += OnMigrationNoticesChanged;
 
         ApplyLocalizedText();
     }
@@ -230,6 +256,31 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
         localizationService.LanguageChanged -= OnLanguageChanged;
         configurationOverviewService.Changed -= OnConfigurationOverviewChanged;
         shellNavigationGuardService.StateChanged -= OnShellNavigationStateChanged;
+        migrationNoticeService.Changed -= OnMigrationNoticesChanged;
+    }
+
+    [RelayCommand]
+    private void DismissPasswordsNeededNotice() => migrationNoticeService.Dismiss(MigrationNotice.PasswordsNeeded);
+
+    [RelayCommand]
+    private void DismissLegacySyncRetiredNotice() => migrationNoticeService.Dismiss(MigrationNotice.LegacySyncRetired);
+
+    [RelayCommand]
+    private void DismissFilesToReselectNotice() => migrationNoticeService.Dismiss(MigrationNotice.FilesToReselect);
+
+    private void OnMigrationNoticesChanged(object? sender, EventArgs e)
+    {
+        if (!appDispatcher.TryEnqueue(ApplyMigrationNotices))
+        {
+            logger.Warning("Failed to enqueue Home migration notice refresh.");
+        }
+    }
+
+    private void ApplyMigrationNotices()
+    {
+        IsPasswordsNeededNoticeOpen = migrationNoticeService.IsShown(MigrationNotice.PasswordsNeeded);
+        IsLegacySyncRetiredNoticeOpen = migrationNoticeService.IsShown(MigrationNotice.LegacySyncRetired);
+        IsFilesToReselectNoticeOpen = migrationNoticeService.IsShown(MigrationNotice.FilesToReselect);
     }
 
     private void OnAdkStatusChanged(object? sender, AdkStatusChangedEventArgs e)
@@ -305,6 +356,10 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
         ConfigWinPeLanguageLabel = localizationService.GetString("StartMedia.Field.WinPeLanguage");
         ConfigSecureBootLabel = localizationService.GetString("Home.Status.ConfigCard.SecureBootLabel");
         ConfigDriversLabel = localizationService.GetString("StartMedia.Field.Drivers");
+        PasswordsNeededNoticeText = localizationService.GetString("Sharing.MigrationPasswordsNeeded");
+        LegacySyncRetiredNoticeText = localizationService.GetString("Sharing.MigrationLegacySyncRetired");
+        FilesToReselectNoticeText = localizationService.GetString("Sharing.MigrationFilesToReselect");
+        ApplyMigrationNotices();
 
         ApplyAdkStatus(adkService.CurrentStatus);
         ApplyConfigurationSummary();
