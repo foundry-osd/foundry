@@ -10,7 +10,7 @@ namespace Foundry.Services.Shell;
 internal static class NavigationInfoBadgeFactory
 {
     /// <summary>The Segoe Fluent Icons "Download" glyph of the <see cref="NavigationInfoBadgeSeverity.Downloading"/> badge.</summary>
-    private const string DownloadGlyph = "";
+    private const string DownloadGlyph = "\uE896";
 
     /// <summary>
     /// Creates an information badge using the built-in icon style for the specified severity.
