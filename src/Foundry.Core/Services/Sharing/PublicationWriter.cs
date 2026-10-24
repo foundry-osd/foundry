@@ -12,9 +12,9 @@ public interface IContentSource
 {
     /// <summary>
     /// Opens one content item for reading. The stream must be seekable (its length is fixed before encryption starts); for
-    /// post-installation packages and driver sets it is the archive written by <see cref="ContentPackageArchive.WriteAsync"/>, so
-    /// its bytes do not hash to <see cref="PackageContent.Hash"/> (the hash of the package manifest); for files they do. The writer
-    /// disposes it.
+    /// post-installation packages and driver sets it is the archive written by <see cref="ContentPackageArchive.WriteAsync"/>, and for
+    /// images the header, metadata record and WIM described by <see cref="LocalContentSource"/>, so their bytes do not hash to
+    /// <see cref="PackageContent.Hash"/> (the hash of the package manifest or of the WIM); for files they do. The writer disposes it.
     /// </summary>
     Task<Stream> OpenAsync(PackageContent content, CancellationToken ct);
 }
@@ -96,7 +96,7 @@ public enum PublishStatus
 /// <param name="ForeignKeyId">Key id of the foreign signer, set for <see cref="PublishStatus.ForeignPublisher"/>; read without the password, so not authenticated.</param>
 public sealed record PublishResult(PublishStatus Status, long Sequence, string? ForeignKeyId);
 
-/// <summary>Progress of the content copy of a publish.</summary>
+/// <summary>Progress of the content copy of a publish (<see cref="PublicationWriter"/>) or a fetch (<see cref="ContentSync"/>).</summary>
 /// <param name="Done">Plaintext bytes handled so far, including content already present in the folder.</param>
 /// <param name="Total">Sum of the listed lengths over distinct content hashes; <paramref name="Done"/> never exceeds it.</param>
 /// <param name="CurrentName">Display name of the content being written, empty in the final report.</param>
