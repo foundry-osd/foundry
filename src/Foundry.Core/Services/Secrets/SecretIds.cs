@@ -28,6 +28,12 @@ public static class SecretIds
     /// <summary>Master key encrypting published content; never shared.</summary>
     public const string MasterKey = "sharing/master-key";
 
+    /// <summary>
+    /// Publication password the current manifest may still be encrypted with while a password change or reset is in flight; removed
+    /// once the manifest is rewritten under <see cref="PublicationPassword"/>. Never shared.
+    /// </summary>
+    public const string PreviousPublicationPassword = "sharing/previous-publication-password";
+
     /// <summary>Prefix of the Wi-Fi certificate password ids.</summary>
     public const string WifiCertificatePrefix = "wifi/certificate/";
 
