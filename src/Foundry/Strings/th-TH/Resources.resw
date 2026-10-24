@@ -3172,14 +3172,50 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>อัปเดตแอป</value>
   </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>ยอมรับ</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>ยอมรับพีซีอ้างอิงใหม่</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>ขณะนี้พีซีเครื่องอื่นเผยแพร่โฟลเดอร์นี้: {0} ยอมรับเฉพาะเมื่อคุณคาดว่าจะมีการเปลี่ยนแปลงนี้ เช่น หลังจากการเข้าควบคุม มิฉะนั้นให้หยุดติดตามโฟลเดอร์</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>ยอมรับพีซีอ้างอิงใหม่หรือไม่</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
-    <value>ย้ายการกำหนดค่านี้ไปยังพีซีเครื่องอื่นด้วยไฟล์ที่เข้ารหัส</value>
+    <value>ย้ายการกำหนดค่านี้ด้วยไฟล์ที่เข้ารหัส หรือทำให้พีซีหลายเครื่องสอดคล้องกันผ่านโฟลเดอร์ที่แชร์</value>
   </data>
   <data name="Sharing.CardHeader" xml:space="preserve">
     <value>การแชร์การกำหนดค่า</value>
   </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>เปลี่ยน</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>เปลี่ยนรหัสผ่าน</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>การเผยแพร่ปัจจุบันจะถูกเขียนใหม่ด้วยรหัสผ่านใหม่ ไฟล์เนื้อหาจะไม่ถูกเข้ารหัสใหม่ ดังนั้นผู้ที่รู้รหัสผ่านเดิมยังคงอ่านไฟล์เหล่านั้นได้ ใช้ รีเซ็ตการเผยแพร่ เพื่อเพิกถอนผู้อ่านเดิมทั้งหมด พีซีที่ติดตามโฟลเดอร์จะป้อนรหัสผ่านใหม่หนึ่งครั้ง</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>เปลี่ยนรหัสผ่านการเผยแพร่</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>ตรวจสอบตอนนี้</value>
+  </data>
+  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
+    <value>อัปเดตการกำหนดค่าจาก {0} แล้ว</value>
+  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>ยืนยันวลีรหัสผ่าน</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>ยืนยันรหัสผ่าน</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>จำนวนรายการที่แชร์ซึ่งไม่สามารถนำเข้าบนพีซีเครื่องนี้ได้: {0} ระบบจะดึงข้อมูลเหล่านี้อีกครั้งเมื่อพีซีอ้างอิงเผยแพร่เวอร์ชันใหม่</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>ชุดไดรเวอร์</value>
@@ -3193,8 +3229,23 @@
   <data name="Sharing.ContentKindPackage" xml:space="preserve">
     <value>แพ็คเกจหลังการติดตั้ง</value>
   </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>เนื้อหาที่แชร์บางส่วนยังไม่พร้อมใช้งานหลังจากตรวจสอบหลายครั้ง เนื้อหาอาจเสียหายในโฟลเดอร์ โปรดเผยแพร่อีกครั้งจากพีซีอ้างอิง</value>
+  </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>คัดลอก</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>รหัสผ่านการเผยแพร่ปัจจุบัน</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>ป้อนรหัสผ่าน</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>จำเป็นต้องใช้รหัสผ่านการเผยแพร่อีกครั้ง เช่น หลังจากรีเซ็ตรหัสผ่าน Windows หรือหลังจากพีซีอ้างอิงเปลี่ยนรหัสผ่าน</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>ป้อนรหัสผ่านการเผยแพร่</value>
   </data>
   <data name="Sharing.ExportButton" xml:space="preserve">
     <value>ส่งออก</value>
@@ -3223,6 +3274,36 @@
   <data name="Sharing.FileTypeName" xml:space="preserve">
     <value>การกำหนดค่า Foundry</value>
   </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>โฟลเดอร์</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>เลือกโฟลเดอร์การเผยแพร่</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>ติดตาม</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>ใช้การกำหนดค่าที่พีซีอ้างอิงเผยแพร่ไปยังโฟลเดอร์ การตั้งค่าที่เผยแพร่จะเป็นแบบอ่านอย่างเดียวบนพีซีเครื่องนี้</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>ป้อนโฟลเดอร์ที่พีซีอ้างอิงเผยแพร่และรหัสผ่านการเผยแพร่ แล้วเปิดเพื่อดูตัวอย่างการเผยแพร่</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>การติดตามจะแทนที่การกำหนดค่าปัจจุบันและทำให้การตั้งค่าที่เผยแพร่เป็นแบบอ่านอย่างเดียว ระบบจะเก็บเส้นทางเอาต์พุต ISO โฟลเดอร์ไดรเวอร์ WinPE และการตั้งค่าการวัดและส่งข้อมูลทางไกลของพีซีเครื่องนี้ไว้</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>ติดตามโฟลเดอร์</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>คีย์ที่พบ</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>เวอร์ชันที่พบ</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>ลืมรหัสผ่านการเผยแพร่</value>
+  </data>
   <data name="Sharing.GeneratePassphrase" xml:space="preserve">
     <value>สร้าง</value>
   </data>
@@ -3244,11 +3325,17 @@
   <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
     <value>นำเข้าการกำหนดค่าแล้ว แต่ไม่สามารถบันทึกรหัสผ่านได้ โปรดป้อนรหัสผ่านอีกครั้งในหน้าการกำหนดค่า</value>
   </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>ไม่สามารถนำเข้าได้ขณะที่พีซีเครื่องนี้ติดตามโฟลเดอร์ โปรดหยุดติดตามก่อน</value>
+  </data>
   <data name="Sharing.ImportTitle" xml:space="preserve">
     <value>นำเข้าการกำหนดค่า</value>
   </data>
   <data name="Sharing.IncludePasswords" xml:space="preserve">
     <value>รวมรหัสผ่าน</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>ทุกคนที่อ่านโฟลเดอร์ได้และรู้รหัสผ่านการเผยแพร่จะอ่านรหัสผ่านเหล่านี้ได้</value>
   </data>
   <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
     <value>ทุกคนที่มีไฟล์นี้และวลีรหัสผ่านของไฟล์จะสามารถอ่านรหัสผ่านเหล่านี้ได้</value>
@@ -3256,8 +3343,20 @@
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>ไฟล์นี้ไม่ใช่การกำหนดค่า Foundry หรือไฟล์เสียหาย</value>
   </data>
+  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
+    <value>สำเร็จล่าสุด</value>
+  </data>
   <data name="Sharing.LockedProfile" xml:space="preserve">
     <value>ผู้ใช้ Windows รายนี้ไม่สามารถเปิดการกำหนดค่านี้ได้</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>การกำหนดค่านี้เผยแพร่โดย {0} และเป็นแบบอ่านอย่างเดียวบนพีซีเครื่องนี้ เปลี่ยนได้เฉพาะเส้นทางเอาต์พุต ISO โฟลเดอร์ไดรเวอร์ WinPE และการตั้งค่าการวัดและส่งข้อมูลทางไกล</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>การกำหนดค่านี้เผยแพร่โดย {0} และเป็นแบบอ่านอย่างเดียวบนพีซีเครื่องนี้ การเผยแพร่ไม่มีรหัสผ่าน โปรดป้อนรหัสผ่านที่นี่ นอกจากนี้ยังเปลี่ยนเส้นทางเอาต์พุต ISO โฟลเดอร์ไดรเวอร์ WinPE และการตั้งค่าการวัดและส่งข้อมูลทางไกลได้</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>จัดการโดยพีซีอ้างอิง</value>
   </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>ไม่สามารถกู้คืนไฟล์บางไฟล์ที่การกำหนดค่าใช้อยู่ได้ โปรดเลือกไฟล์เหล่านั้นอีกครั้งในหน้าการกำหนดค่า</value>
@@ -3274,8 +3373,23 @@
   <data name="Sharing.MissingContentHeader" xml:space="preserve">
     <value>ไม่มีบนพีซีเครื่องนี้</value>
   </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>คีย์ใหม่</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>รหัสผ่านการเผยแพร่ใหม่</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>โฟลเดอร์นี้ไม่มีการกำหนดค่าที่เผยแพร่</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>ยังไม่ได้ตรวจสอบ: ค่าเหล่านี้มาจากโฟลเดอร์และจะได้รับการยืนยันเมื่อรหัสผ่านการเผยแพร่ปัจจุบันเปิดการเผยแพร่ได้เท่านั้น</value>
+  </data>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>เปิด</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>ไม่สามารถดำเนินการให้เสร็จสมบูรณ์ได้ ดูรายละเอียดในบันทึก</value>
   </data>
   <data name="Sharing.PassphraseCopied" xml:space="preserve">
     <value>คัดลอกวลีรหัสผ่านไปยังคลิปบอร์ดแล้ว</value>
@@ -3289,8 +3403,23 @@
   <data name="Sharing.PassphraseRule" xml:space="preserve">
     <value>อย่างน้อย 12 อักขระ และไม่ใช่อักขระเดียวกันซ้ำๆ (เช่น aaaaaaaaaaaa)</value>
   </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>บันทึกรหัสผ่านใหม่แล้ว การเปลี่ยนแปลงจะเสร็จสมบูรณ์ในการเผยแพร่ครั้งถัดไปที่สำเร็จ</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>เปลี่ยนรหัสผ่านการเผยแพร่แล้ว พีซีที่ติดตามโฟลเดอร์จะป้อนรหัสผ่านใหม่หนึ่งครั้ง</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>คัดลอกรหัสผ่านไปยังคลิปบอร์ดแล้ว</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>รหัสผ่านไม่ตรงกัน</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>รวมอยู่</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>ไม่สามารถอ่านคีย์การเผยแพร่ของพีซีเครื่องนี้ได้ เช่น หลังจากรีเซ็ตรหัสผ่าน Windows เข้าควบคุมโฟลเดอร์ด้วยรหัสผ่านการเผยแพร่ปัจจุบันเพื่อเผยแพร่ต่อไป จากนั้นพีซีที่ติดตามโฟลเดอร์จะยอมรับพีซีเครื่องนี้เป็นพีซีอ้างอิงใหม่หนึ่งครั้ง</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>ไม่ได้รวม</value>
@@ -3298,17 +3427,173 @@
   <data name="Sharing.PreviewCreated" xml:space="preserve">
     <value>ส่งออกเมื่อ</value>
   </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>ที่ต้องดาวน์โหลด</value>
+  </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>ชื่อ</value>
   </data>
   <data name="Sharing.PreviewPasswords" xml:space="preserve">
     <value>รหัสผ่าน</value>
   </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>เผยแพร่เมื่อ</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>พีซีอ้างอิง</value>
+  </data>
   <data name="Sharing.PreviousConfigurations" xml:space="preserve">
     <value>การกำหนดค่าก่อนหน้าบนพีซีเครื่องนี้</value>
   </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>คีย์ก่อนหน้า</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>การเผยแพร่ยังมาถึงโฟลเดอร์นี้ไม่ครบ โปรดลองอีกครั้งในอีกสักครู่</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>รหัสผ่านการเผยแพร่</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>รีเซ็ตการเผยแพร่แล้ว พีซีที่ติดตามโฟลเดอร์จะป้อนรหัสผ่านใหม่หนึ่งครั้ง</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>เผยแพร่</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>ตั้งพีซีเครื่องนี้เป็นพีซีอ้างอิง: การกำหนดค่าจะถูกเผยแพร่ไปยังโฟลเดอร์ที่พีซีเครื่องอื่นติดตาม</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>เลือกโฟลเดอร์ว่าง หรือโฟลเดอร์ที่พีซีเครื่องนี้เผยแพร่อยู่แล้ว ได้แก่ การแชร์ในเครือข่าย โฟลเดอร์ OneDrive หรือ SharePoint หรือโฟลเดอร์ภายในเครื่อง พีซีที่ติดตามโฟลเดอร์ต้องใช้รหัสผ่านการเผยแพร่เพื่ออ่านโฟลเดอร์</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>เผยแพร่ไปยังโฟลเดอร์</value>
+  </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
     <value>การนำเข้าจะแทนที่การกำหนดค่าปัจจุบัน เส้นทางเอาต์พุต ISO โฟลเดอร์ไดรเวอร์ WinPE และการตั้งค่าการวัดและส่งข้อมูลทางไกลของพีซีเครื่องนี้จะยังคงอยู่</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>รีเซ็ต</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>รีเซ็ตการเผยแพร่</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>รหัสผ่านใหม่และคีย์เนื้อหาใหม่: ไฟล์เนื้อหาทุกไฟล์จะถูกเข้ารหัสใหม่ ซึ่งเป็นการเพิกถอนผู้อ่านเดิมทั้งหมด พีซีที่ติดตามโฟลเดอร์จะป้อนรหัสผ่านใหม่หนึ่งครั้ง</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>รีเซ็ตการเผยแพร่</value>
+  </data>
+  <data name="Sharing.RetryButton" xml:space="preserve">
+    <value>ลองอีกครั้ง</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>ผู้อ่านเดิมยังคงเปิดเนื้อหาได้จนกว่าจะมีการเผยแพร่ครั้งถัดไปที่สำเร็จ</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>พีซีเครื่องนี้ติดตาม {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>พีซีเครื่องนี้เผยแพร่การกำหนดค่าของตนเอง</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>การเผยแพร่และการติดตามไม่พร้อมใช้งานในเซสชันนี้ เนื่องจากไม่สามารถอ่านสถานะการแชร์ได้ ดูรายละเอียดในบันทึก</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>กำลังตรวจสอบโฟลเดอร์: การเผยแพร่ยังมาไม่ครบและจะถูกอ่านอีกครั้งในการตรวจสอบครั้งถัดไป</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>นำการกำหนดค่าไปใช้แล้ว กำลังดาวน์โหลดเนื้อหาที่แชร์</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>โฟลเดอร์นี้มีไฟล์ที่ไม่ใช่การเผยแพร่ของพีซีเครื่องนี้ โปรดเลือกโฟลเดอร์ว่าง</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>โฟลเดอร์ไม่พร้อมใช้งาน ตรวจสอบว่าโฟลเดอร์มีอยู่และพีซีเครื่องนี้เข้าถึงได้</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>พีซีเครื่องนี้ไม่ได้เผยแพร่หรือติดตามการกำหนดค่าใด</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>กำลังรอการตรวจสอบโฟลเดอร์ครั้งแรก</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>ระบบจะเผยแพร่การเปลี่ยนแปลงโดยอัตโนมัติ</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>ไม่ได้เผยแพร่: การกำหนดค่ายังไม่พร้อมสำหรับการสร้างสื่อ หรืออ้างอิงเนื้อหาที่ไม่มีอยู่บนพีซีเครื่องนี้ เวอร์ชันก่อนหน้ายังคงเป็นเวอร์ชันปัจจุบัน</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>ต้องใช้รหัสผ่าน: ป้อนรหัสผ่านการเผยแพร่ หรือป้อนรหัสผ่านที่การเผยแพร่ไม่มีในหน้าการกำหนดค่า</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>ไม่สามารถอ่านรหัสผ่านการเผยแพร่หรือคีย์ของพีซีเครื่องนี้ได้</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>เผยแพร่แล้ว พีซีที่ติดตามโฟลเดอร์จะได้รับเวอร์ชันนี้ในการตรวจสอบครั้งถัดไป</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>กำลังเผยแพร่การกำหนดค่า</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>โฟลเดอร์ชี้ไปยังเวอร์ชันที่เก่ากว่าเวอร์ชันที่นำไปใช้ ระบบจะละเว้น</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>การเผยแพร่ถูกแก้ไข ระบบจะไม่นำไปใช้</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>ขณะนี้พีซีเครื่องอื่นเผยแพร่โฟลเดอร์นี้ โปรดยอมรับพีซีอ้างอิงใหม่หรือหยุดติดตาม</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>พีซีเครื่องอื่นเผยแพร่ไปยังโฟลเดอร์นี้ เข้าควบคุมโฟลเดอร์เพื่อเผยแพร่จากพีซีเครื่องนี้</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>การเผยแพร่นี้ต้องใช้ Foundry OSD เวอร์ชันใหม่กว่า</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>เป็นปัจจุบัน</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>อัปเดตการกำหนดค่าแล้ว</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>รหัสผ่านการเผยแพร่เปิดการเผยแพร่ปัจจุบันไม่ได้ โปรดป้อนรหัสผ่านใหม่</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>รหัสผ่านการเผยแพร่เปิดการเผยแพร่ของพีซีเครื่องนี้ในโฟลเดอร์นี้ไม่ได้</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>หยุดติดตาม</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>การกำหนดค่าจะยังคงเหมือนเดิมและกลับมาแก้ไขได้บนพีซีเครื่องนี้</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>หยุดติดตามหรือไม่</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>หยุดเผยแพร่</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>โฟลเดอร์จะยังคงเหมือนเดิม และพีซีที่ติดตามจะเก็บเวอร์ชันที่เผยแพร่ล่าสุดไว้ พีซีเครื่องนี้จะกลับเป็นพีซีปกติ</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>หยุดเผยแพร่หรือไม่</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>เข้าควบคุม</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>พีซีเครื่องอื่นเผยแพร่ไปยังโฟลเดอร์นี้ การเข้าควบคุมจะเผยแพร่ต่อด้วยคีย์ของพีซีเครื่องนี้ พีซีที่ติดตามโฟลเดอร์ต้องยอมรับพีซีเครื่องนี้เป็นพีซีอ้างอิงใหม่หนึ่งครั้ง</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>ไม่สามารถอ่านคีย์การเผยแพร่ของพีซีเครื่องนี้ได้ การเข้าควบคุมด้วยรหัสผ่านการเผยแพร่ปัจจุบันจะเผยแพร่ต่อด้วยคีย์ใหม่ พีซีที่ติดตามโฟลเดอร์ต้องยอมรับพีซีเครื่องนี้เป็นพีซีอ้างอิงใหม่หนึ่งครั้ง</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>เข้าควบคุมโฟลเดอร์</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>รหัสผ่านนี้เปิดการเผยแพร่ปัจจุบันไม่ได้</value>
   </data>
   <data name="Sharing.UnreadableFile" xml:space="preserve">
     <value>ไม่สามารถอ่านไฟล์ได้</value>
@@ -3316,8 +3601,17 @@
   <data name="Sharing.UnsupportedFile" xml:space="preserve">
     <value>ไฟล์นี้ต้องใช้ Foundry OSD เวอร์ชันที่ใหม่กว่า</value>
   </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>เวอร์ชัน</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>กำลังรอให้ดาวน์โหลดเนื้อหาที่แชร์เสร็จสิ้น</value>
+  </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>วลีรหัสผ่านไม่ถูกต้องหรือไฟล์เสียหาย</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>รหัสผ่านการเผยแพร่ไม่ถูกต้อง หรือการเผยแพร่ถูกแก้ไข</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>หยุดการดำเนินการ</value>

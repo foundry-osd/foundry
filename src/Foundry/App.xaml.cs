@@ -90,6 +90,7 @@ namespace Foundry
             _ = Host.Services.GetRequiredService<AuthoringFileCleanupService>();
             Host.Services.GetRequiredService<LegacyMigrationRunner>().Run();
             Host.Services.GetRequiredService<SecretVaultBridge>().Initialize();
+            Host.Services.GetRequiredService<Foundry.Services.Sharing.ConfigurationSharingService>().Initialize();
             Host.Services.GetRequiredService<IApplicationLocalizationService>().InitializeAsync().GetAwaiter().GetResult();
             RegisterWinUiExceptionHandler();
 
@@ -146,6 +147,7 @@ namespace Foundry
         {
             await Task.Run(() => BuildSnapshot.CleanupAbandoned(Path.Combine(Constants.UserRootDirectoryPath, "BuildSnapshots")));
             await Task.Run(LegacyRunAtStartupCleanup.TryRemove);
+            GetService<Foundry.Services.Sharing.ConfigurationSharingService>().Start();
             await GetService<IStartupReadinessService>().InitializeAsync();
             await TrackDailyActiveAsync();
             AppLogger.Information("Foundry WinUI startup completed.");

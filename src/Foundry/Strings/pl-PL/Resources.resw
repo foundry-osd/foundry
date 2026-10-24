@@ -3172,14 +3172,50 @@ Licencjonowany na licencji MIT.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Zaktualizuj aplikację</value>
   </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>Akceptuj</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>Zaakceptuj nowe odniesienie</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>Folder jest teraz publikowany przez inny komputer: {0}. Zaakceptuj go tylko wtedy, gdy spodziewasz się tej zmiany, na przykład po przejęciu; w przeciwnym razie przestań go obserwować.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>Zaakceptować nowe odniesienie?</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
-    <value>Przenieś tę konfigurację na inny komputer za pomocą zaszyfrowanego pliku.</value>
+    <value>Przenieś tę konfigurację za pomocą zaszyfrowanego pliku lub utrzymuj zgodność wielu komputerów za pomocą folderu udostępnionego.</value>
   </data>
   <data name="Sharing.CardHeader" xml:space="preserve">
     <value>Udostępnianie konfiguracji</value>
   </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>Zmień</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>Zmień hasło</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>Bieżąca publikacja zostaje ponownie zapisana z nowym hasłem. Pliki zawartości nie są ponownie szyfrowane, więc osoba znająca stare hasło nadal może je odczytać: użyj opcji Resetuj publikację, aby całkowicie odwołać dostęp wcześniejszym czytelnikom. Komputery obserwujące folder wprowadzają nowe hasło jeden raz.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>Zmień hasło publikacji</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>Sprawdź teraz</value>
+  </data>
+  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
+    <value>Konfiguracja została zaktualizowana z {0}.</value>
+  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>Potwierdź hasło wielowyrazowe</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>Potwierdź hasło</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>Nie można zaimportować na tym komputerze następującej liczby udostępnionych elementów: {0}. Zostaną pobrane ponownie, gdy komputer odniesienia opublikuje nową wersję.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Zestaw sterowników</value>
@@ -3193,8 +3229,23 @@ Licencjonowany na licencji MIT.</value>
   <data name="Sharing.ContentKindPackage" xml:space="preserve">
     <value>Pakiet poinstalacyjny</value>
   </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>Część udostępnionej zawartości nadal jest niedostępna po wielokrotnych sprawdzeniach. Może być uszkodzona w folderze: opublikuj ponownie z komputera odniesienia.</value>
+  </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Kopiuj</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>Bieżące hasło publikacji</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>Wprowadź hasło</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>Hasło publikacji jest ponownie potrzebne, na przykład po zresetowaniu hasła systemu Windows lub po jego zmianie na komputerze odniesienia.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>Wprowadź hasło publikacji</value>
   </data>
   <data name="Sharing.ExportButton" xml:space="preserve">
     <value>Eksportuj</value>
@@ -3223,6 +3274,36 @@ Licencjonowany na licencji MIT.</value>
   <data name="Sharing.FileTypeName" xml:space="preserve">
     <value>Konfiguracja Foundry</value>
   </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>Folder</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>Wybierz folder publikacji</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>Obserwuj</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>Używaj konfiguracji publikowanej w folderze przez komputer odniesienia. Opublikowane ustawienia stają się na tym komputerze tylko do odczytu.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>Wprowadź folder, w którym publikuje komputer odniesienia, oraz jego hasło publikacji, a następnie otwórz go, aby wyświetlić podgląd publikacji.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>Obserwowanie zastępuje bieżącą konfigurację i ustawia opublikowane ustawienia jako tylko do odczytu. Ścieżka wyjściowa ISO, folder sterowników WinPE i ustawienia telemetrii tego komputera zostają zachowane.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>Obserwuj folder</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>Znaleziony klucz</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>Znaleziona wersja</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>Zapomnij hasło publikacji</value>
+  </data>
   <data name="Sharing.GeneratePassphrase" xml:space="preserve">
     <value>Generuj</value>
   </data>
@@ -3244,11 +3325,17 @@ Licencjonowany na licencji MIT.</value>
   <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
     <value>Konfiguracja została zaimportowana, ale nie można było zapisać jej haseł. Wprowadź je ponownie na stronach konfiguracji.</value>
   </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>Importowanie jest niedostępne, gdy ten komputer obserwuje folder. Najpierw przestań obserwować.</value>
+  </data>
   <data name="Sharing.ImportTitle" xml:space="preserve">
     <value>Importuj konfigurację</value>
   </data>
   <data name="Sharing.IncludePasswords" xml:space="preserve">
     <value>Uwzględnij hasła</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>Każdy, kto może odczytać folder i zna hasło publikacji, może odczytać te hasła.</value>
   </data>
   <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
     <value>Każdy, kto ma ten plik i jego hasło wielowyrazowe, może odczytać te hasła.</value>
@@ -3256,8 +3343,20 @@ Licencjonowany na licencji MIT.</value>
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>Ten plik nie jest konfiguracją Foundry lub jest uszkodzony.</value>
   </data>
+  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
+    <value>Ostatnie powodzenie</value>
+  </data>
   <data name="Sharing.LockedProfile" xml:space="preserve">
     <value>Ten użytkownik systemu Windows nie może otworzyć tej konfiguracji.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>Ta konfiguracja jest publikowana przez {0} i jest tylko do odczytu na tym komputerze. Można zmienić tylko ścieżkę wyjściową ISO, folder sterowników WinPE i ustawienia telemetrii.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>Ta konfiguracja jest publikowana przez {0} i jest tylko do odczytu na tym komputerze. Publikacja nie zawiera haseł: wprowadź je tutaj. Można też zmienić ścieżkę wyjściową ISO, folder sterowników WinPE i ustawienia telemetrii.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>Zarządzana przez komputer odniesienia</value>
   </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>Nie można odzyskać niektórych plików używanych przez konfigurację. Wybierz je ponownie na stronach konfiguracji.</value>
@@ -3274,8 +3373,23 @@ Licencjonowany na licencji MIT.</value>
   <data name="Sharing.MissingContentHeader" xml:space="preserve">
     <value>Brak na tym komputerze</value>
   </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>Nowy klucz</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>Nowe hasło publikacji</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>Ten folder nie zawiera opublikowanej konfiguracji.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>Jeszcze niezweryfikowane: te wartości pochodzą z folderu i są potwierdzane dopiero wtedy, gdy bieżące hasło publikacji otworzy publikację.</value>
+  </data>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Otwórz</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>Nie można ukończyć operacji. Szczegóły można znaleźć w dzienniku.</value>
   </data>
   <data name="Sharing.PassphraseCopied" xml:space="preserve">
     <value>Hasło wielowyrazowe skopiowano do Schowka.</value>
@@ -3289,8 +3403,23 @@ Licencjonowany na licencji MIT.</value>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
     <value>Co najmniej 12 znaków i nie ten sam znak powtórzony (na przykład aaaaaaaaaaaa).</value>
   </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>Nowe hasło zostało zapisane. Zmiana zostanie ukończona przy następnej udanej publikacji.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>Hasło publikacji zostało zmienione. Komputery obserwujące folder wprowadzają nowe hasło jeden raz.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>Hasło skopiowano do schowka.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>Hasła nie są zgodne.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Uwzględnione</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>Nie można odczytać kluczy publikacji tego komputera, na przykład po zresetowaniu hasła systemu Windows. Przejmij folder, używając bieżącego hasła publikacji, aby dalej publikować; komputery obserwujące folder jeden raz zaakceptują wtedy ten komputer jako nowe odniesienie.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Nieuwzględnione</value>
@@ -3298,17 +3427,173 @@ Licencjonowany na licencji MIT.</value>
   <data name="Sharing.PreviewCreated" xml:space="preserve">
     <value>Wyeksportowano</value>
   </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>Do pobrania</value>
+  </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>Nazwa</value>
   </data>
   <data name="Sharing.PreviewPasswords" xml:space="preserve">
     <value>Hasła</value>
   </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>Opublikowano</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>Komputer odniesienia</value>
+  </data>
   <data name="Sharing.PreviousConfigurations" xml:space="preserve">
     <value>Wcześniejsze konfiguracje na tym komputerze</value>
   </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>Poprzedni klucz</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>Publikacja nie dotarła jeszcze w całości do tego folderu. Spróbuj ponownie za chwilę.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>Hasło publikacji</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>Publikacja została zresetowana. Komputery obserwujące folder wprowadzają nowe hasło jeden raz.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>Opublikuj</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>Ustaw ten komputer jako odniesienie: jego konfiguracja jest publikowana w folderze obserwowanym przez inne komputery.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>Wybierz pusty folder lub folder, w którym ten komputer już publikuje: udział sieciowy, folder OneDrive lub SharePoint albo folder lokalny. Komputery obserwujące folder potrzebują hasła publikacji, aby go odczytać.</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>Opublikuj w folderze</value>
+  </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
     <value>Importowanie zastępuje bieżącą konfigurację. Ścieżka wyjściowa ISO, folder sterowników WinPE i ustawienia telemetrii tego komputera zostają zachowane.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>Resetuj</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>Resetuj publikację</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>Nowe hasło i nowy klucz zawartości: każdy plik zawartości jest ponownie szyfrowany, co całkowicie odwołuje dostęp wcześniejszym czytelnikom. Komputery obserwujące folder wprowadzają nowe hasło jeden raz.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>Resetuj publikację</value>
+  </data>
+  <data name="Sharing.RetryButton" xml:space="preserve">
+    <value>Ponów próbę</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>Wcześniejsi czytelnicy nadal mogą otwierać zawartość do następnej udanej publikacji.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>Ten komputer obserwuje {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>Ten komputer publikuje swoją konfigurację</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>Publikowanie i obserwowanie są niedostępne w tej sesji, ponieważ nie można odczytać stanu udostępniania. Szczegóły można znaleźć w dzienniku.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>Sprawdzanie folderu: publikacja nie dotarła jeszcze w całości i zostanie odczytana ponownie podczas następnego sprawdzenia.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>Konfiguracja została zastosowana. Trwa pobieranie udostępnionej zawartości.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>Ten folder zawiera pliki, które nie są publikacją tego komputera. Wybierz pusty folder.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>Folder jest niedostępny. Sprawdź, czy istnieje i czy ten komputer ma do niego dostęp.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>Ten komputer nie publikuje ani nie obserwuje żadnej konfiguracji.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>Oczekiwanie na pierwsze sprawdzenie folderu.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>Zmiany są publikowane automatycznie.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>Nie opublikowano: konfiguracja nie jest gotowa do tworzenia nośników lub odwołuje się do zawartości, której brakuje na tym komputerze. Poprzednia wersja pozostaje aktualna.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>Wymagane są hasła: wprowadź hasło publikacji albo, na stronach konfiguracji, hasła, których publikacja nie zawiera.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>Nie można odczytać hasła publikacji lub kluczy tego komputera.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>Opublikowano. Komputery obserwujące folder otrzymają tę wersję podczas następnego sprawdzenia.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>Publikowanie konfiguracji.</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>Folder wskazuje starszą wersję niż zastosowana. Zostaje ona zignorowana.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>Publikacja została zmodyfikowana. Nie zostanie zastosowana.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>Folder jest teraz publikowany przez inny komputer. Zaakceptuj nowe odniesienie lub przestań obserwować.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>Inny komputer publikuje w tym folderze. Przejmij go, aby publikować z tego komputera.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>Ta publikacja wymaga nowszej wersji programu Foundry OSD.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>Aktualna.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>Konfiguracja została zaktualizowana.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>Hasło publikacji nie otwiera bieżącej publikacji. Wprowadź nowe hasło.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>Hasło publikacji nie otwiera publikacji tego komputera w tym folderze.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>Przestań obserwować</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>Konfiguracja pozostaje bez zmian i na tym komputerze ponownie można ją edytować.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>Przestać obserwować?</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>Zatrzymaj publikowanie</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>Folder pozostaje bez zmian, a komputery obserwujące folder zachowują ostatnią opublikowaną wersję. Ten komputer ponownie staje się zwykłym komputerem.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>Zatrzymać publikowanie?</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>Przejmij</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>Inny komputer publikuje w tym folderze. Przejęcie kontynuuje jego publikację z kluczem tego komputera; komputery obserwujące folder muszą jeden raz zaakceptować ten komputer jako nowe odniesienie.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>Nie można odczytać kluczy publikacji tego komputera. Przejęcie przy użyciu bieżącego hasła publikacji kontynuuje publikację z nowymi kluczami; komputery obserwujące folder muszą jeden raz zaakceptować ten komputer jako nowe odniesienie.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>Przejmij folder</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>To hasło nie otwiera bieżącej publikacji.</value>
   </data>
   <data name="Sharing.UnreadableFile" xml:space="preserve">
     <value>Nie można odczytać pliku.</value>
@@ -3316,8 +3601,17 @@ Licencjonowany na licencji MIT.</value>
   <data name="Sharing.UnsupportedFile" xml:space="preserve">
     <value>Ten plik wymaga nowszej wersji Foundry OSD.</value>
   </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>Wersja</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>Oczekiwanie na zakończenie pobierania udostępnionej zawartości</value>
+  </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Nieprawidłowe hasło wielowyrazowe lub uszkodzony plik.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>Nieprawidłowe hasło publikacji lub publikacja została zmodyfikowana.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Zatrzymaj operację</value>

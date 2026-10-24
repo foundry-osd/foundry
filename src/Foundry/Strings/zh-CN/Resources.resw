@@ -3172,14 +3172,50 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>更新应用程序</value>
   </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>接受</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>接受新的参考电脑</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>此文件夹现在由另一台电脑发布：{0}。仅当你预期此更改（例如在接管之后）时才接受；否则，请停止关注此文件夹。</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>是否接受新的参考电脑？</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
-    <value>使用加密文件将此配置移动到另一台电脑。</value>
+    <value>使用加密文件迁移此配置，或通过共享文件夹使多台电脑保持一致。</value>
   </data>
   <data name="Sharing.CardHeader" xml:space="preserve">
     <value>配置共享</value>
   </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>更改</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>更改密码</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>当前发布内容将使用新密码重写。内容文件不会重新加密，因此知道旧密码的人仍可读取它们：若要完全撤销以前的读取者，请使用“重置发布”。关注此文件夹的电脑需输入一次新密码。</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>更改发布密码</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>立即检查</value>
+  </data>
+  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
+    <value>已从 {0} 更新配置。</value>
+  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>确认密码短语</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>确认密码</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>无法导入到此电脑的共享项数：{0}。参考电脑发布新版本时将再次获取这些项。</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>驱动程序集</value>
@@ -3193,8 +3229,23 @@
   <data name="Sharing.ContentKindPackage" xml:space="preserve">
     <value>安装后包</value>
   </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>多次检查后，部分共享内容仍不可用。它可能已在文件夹中损坏：请从参考电脑重新发布。</value>
+  </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>复制</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>当前发布密码</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>输入密码</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>需要再次输入发布密码，例如在重置 Windows 密码之后，或参考电脑更改了该密码之后。</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>输入发布密码</value>
   </data>
   <data name="Sharing.ExportButton" xml:space="preserve">
     <value>导出</value>
@@ -3223,6 +3274,36 @@
   <data name="Sharing.FileTypeName" xml:space="preserve">
     <value>Foundry 配置</value>
   </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>文件夹</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>选择发布文件夹</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>关注</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>使用参考电脑发布到文件夹的配置。已发布的设置在此电脑上将变为只读。</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>输入参考电脑发布到的文件夹及其发布密码，然后打开该文件夹以预览发布内容。</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>关注会替换当前配置，并使已发布的设置变为只读。此电脑的 ISO 输出路径、WinPE 驱动程序文件夹和遥测设置将保留。</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>关注文件夹</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>找到的密钥</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>找到的版本</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>忘记发布密码</value>
+  </data>
   <data name="Sharing.GeneratePassphrase" xml:space="preserve">
     <value>生成</value>
   </data>
@@ -3244,11 +3325,17 @@
   <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
     <value>已导入配置，但无法保存其密码。请在配置页面上重新输入。</value>
   </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>此电脑关注文件夹期间无法导入。请先停止关注。</value>
+  </data>
   <data name="Sharing.ImportTitle" xml:space="preserve">
     <value>导入配置</value>
   </data>
   <data name="Sharing.IncludePasswords" xml:space="preserve">
     <value>包括密码</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>任何能够读取此文件夹并知道发布密码的人都可以读取这些密码。</value>
   </data>
   <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
     <value>拥有此文件及其密码短语的任何人都可以读取这些密码。</value>
@@ -3256,8 +3343,20 @@
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>此文件不是 Foundry 配置，或者已损坏。</value>
   </data>
+  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
+    <value>上次成功</value>
+  </data>
   <data name="Sharing.LockedProfile" xml:space="preserve">
     <value>此 Windows 用户无法打开此配置。</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>此配置由 {0} 发布，在此电脑上为只读。只能更改 ISO 输出路径、WinPE 驱动程序文件夹和遥测设置。</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>此配置由 {0} 发布，在此电脑上为只读。发布内容不包含密码：请在此处输入。也可以更改 ISO 输出路径、WinPE 驱动程序文件夹和遥测设置。</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>由参考电脑管理</value>
   </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>无法恢复配置使用的部分文件。请在配置页面上重新选择这些文件。</value>
@@ -3274,8 +3373,23 @@
   <data name="Sharing.MissingContentHeader" xml:space="preserve">
     <value>此电脑上缺少</value>
   </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>新密钥</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>新的发布密码</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>此文件夹不包含已发布的配置。</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>尚未验证：这些值来自文件夹，仅当当前发布密码打开发布内容时才会得到确认。</value>
+  </data>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>打开</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>无法完成此操作。有关详细信息，请参阅日志。</value>
   </data>
   <data name="Sharing.PassphraseCopied" xml:space="preserve">
     <value>已将密码短语复制到剪贴板。</value>
@@ -3289,8 +3403,23 @@
   <data name="Sharing.PassphraseRule" xml:space="preserve">
     <value>至少 12 个字符，且不能是同一个字符重复 (例如 aaaaaaaaaaaa)。</value>
   </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>新密码已保存。更改将在下次成功发布时完成。</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>发布密码已更改。关注此文件夹的电脑需输入一次新密码。</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>密码已复制到剪贴板。</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>密码不匹配。</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>已包括</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>无法读取此电脑的发布密钥，例如在重置 Windows 密码之后。若要继续发布，请使用当前发布密码接管此文件夹；之后，关注此文件夹的电脑将接受一次此电脑作为新的参考电脑。</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>未包括</value>
@@ -3298,17 +3427,173 @@
   <data name="Sharing.PreviewCreated" xml:space="preserve">
     <value>导出时间</value>
   </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>需下载</value>
+  </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>名称</value>
   </data>
   <data name="Sharing.PreviewPasswords" xml:space="preserve">
     <value>密码</value>
   </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>发布时间</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>参考电脑</value>
+  </data>
   <data name="Sharing.PreviousConfigurations" xml:space="preserve">
     <value>此电脑上以前的配置</value>
   </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>以前的密钥</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>发布内容尚未完全到达此文件夹。请稍后重试。</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>发布密码</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>发布已重置。关注此文件夹的电脑需输入一次新密码。</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>发布</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>将此电脑设为参考电脑：其配置将发布到其他电脑关注的文件夹。</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>选择一个空文件夹，或此电脑已在发布的文件夹：网络共享、OneDrive 或 SharePoint 文件夹，或本地文件夹。关注此文件夹的电脑需要发布密码才能读取它。</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>发布到文件夹</value>
+  </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
     <value>导入将替换当前配置。将保留此电脑的 ISO 输出路径、WinPE 驱动程序文件夹和遥测设置。</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>重置</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>重置发布</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>新的密码和新的内容密钥：每个内容文件都会重新加密，从而完全撤销以前的读取者。关注此文件夹的电脑需输入一次新密码。</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>重置发布</value>
+  </data>
+  <data name="Sharing.RetryButton" xml:space="preserve">
+    <value>重试</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>在下次成功发布之前，以前的读取者仍可打开内容。</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>此电脑正在关注 {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>此电脑正在发布其配置</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>由于无法读取共享状态，此会话期间无法发布和关注。有关详细信息，请参阅日志。</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>正在检查文件夹：发布内容尚未完全到达，将在下次检查时再次读取。</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>已应用配置。正在下载共享内容。</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>此文件夹包含的文件不是此电脑的发布内容。请选择一个空文件夹。</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>文件夹不可用。请检查它是否存在以及此电脑能否访问它。</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>此电脑既未发布也未关注任何配置。</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>正在等待对文件夹的首次检查。</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>更改会自动发布。</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>未发布：配置尚未准备好创建介质，或引用了此电脑上缺少的内容。以前的版本仍为当前版本。</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>需要密码：请输入发布密码，或在配置页面中输入发布内容未包含的密码。</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>无法读取此电脑的发布密码或密钥。</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>已发布。关注此文件夹的电脑将在下次检查时收到此版本。</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>正在发布配置。</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>文件夹指向的版本早于已应用的版本。已忽略该版本。</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>发布内容已被修改。不会应用它。</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>此文件夹现在由另一台电脑发布。请接受新的参考电脑或停止关注。</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>另一台电脑正在发布到此文件夹。若要从此电脑发布，请接管该文件夹。</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>此发布需要更新版本的 Foundry OSD。</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>已是最新。</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>配置已更新。</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>发布密码无法打开当前发布内容。请输入新密码。</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>发布密码无法打开此电脑在此文件夹中的发布内容。</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>停止关注</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>配置将保持不变，并在此电脑上重新变为可编辑。</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>是否停止关注？</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>停止发布</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>文件夹将保持不变，关注它的电脑将保留上次发布的版本。此电脑将重新成为普通电脑。</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>是否停止发布？</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>接管</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>另一台电脑正在发布到此文件夹。接管后将使用此电脑的密钥继续其发布；关注此文件夹的电脑必须接受一次此电脑作为新的参考电脑。</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>无法读取此电脑的发布密钥。使用当前发布密码接管后，将使用新密钥继续发布；关注此文件夹的电脑必须接受一次此电脑作为新的参考电脑。</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>接管文件夹</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>此密码无法打开当前发布内容。</value>
   </data>
   <data name="Sharing.UnreadableFile" xml:space="preserve">
     <value>无法读取该文件。</value>
@@ -3316,8 +3601,17 @@
   <data name="Sharing.UnsupportedFile" xml:space="preserve">
     <value>此文件需要更高版本的 Foundry OSD。</value>
   </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>正在等待共享内容下载完成</value>
+  </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>密码短语错误或文件已损坏。</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>发布密码错误，或发布内容已被修改。</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>停止操作</value>

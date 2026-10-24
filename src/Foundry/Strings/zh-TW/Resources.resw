@@ -3172,14 +3172,50 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>更新應用程式</value>
   </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>接受</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>接受新的參考電腦</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>此資料夾現在由另一部電腦發佈：{0}。僅在你預期此變更（例如在接管之後）時才接受；否則，請停止追蹤此資料夾。</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>要接受新的參考電腦嗎？</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
-    <value>使用加密檔案將此設定移至另一部電腦。</value>
+    <value>使用加密檔案移動此設定，或透過共用資料夾讓多部電腦保持一致。</value>
   </data>
   <data name="Sharing.CardHeader" xml:space="preserve">
     <value>設定共用</value>
   </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>變更</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>變更密碼</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>目前的發佈內容會以新密碼重新寫入。內容檔案不會重新加密，因此知道舊密碼的人仍可讀取：若要完全撤銷先前的讀取者，請使用「重設發佈」。追蹤此資料夾的電腦需輸入一次新密碼。</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>變更發佈密碼</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>立即檢查</value>
+  </data>
+  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
+    <value>已從 {0} 更新設定。</value>
+  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>確認複雜密碼</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>確認密碼</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>無法匯入到此電腦的共用項目數：{0}。參考電腦發佈新版本時會再次擷取這些項目。</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>驅動程式集</value>
@@ -3193,8 +3229,23 @@
   <data name="Sharing.ContentKindPackage" xml:space="preserve">
     <value>安裝後套件</value>
   </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>多次檢查後，部分共用內容仍無法使用。它可能已在資料夾中損毀：請從參考電腦重新發佈。</value>
+  </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>複製</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>目前的發佈密碼</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>輸入密碼</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>需要再次輸入發佈密碼，例如在重設 Windows 密碼之後，或參考電腦變更該密碼之後。</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>輸入發佈密碼</value>
   </data>
   <data name="Sharing.ExportButton" xml:space="preserve">
     <value>匯出</value>
@@ -3223,6 +3274,36 @@
   <data name="Sharing.FileTypeName" xml:space="preserve">
     <value>Foundry 設定</value>
   </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>資料夾</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>選擇發佈資料夾</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>追蹤</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>使用參考電腦發佈到資料夾的設定。已發佈的設定在此電腦上會變成唯讀。</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>輸入參考電腦發佈到的資料夾及其發佈密碼，然後開啟資料夾以預覽發佈內容。</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>追蹤會取代目前的設定，並將已發佈的設定變成唯讀。此電腦的 ISO 輸出路徑、WinPE 驅動程式資料夾和遙測設定會保留。</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>追蹤資料夾</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>找到的金鑰</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>找到的版本</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>忘記發佈密碼</value>
+  </data>
   <data name="Sharing.GeneratePassphrase" xml:space="preserve">
     <value>產生</value>
   </data>
@@ -3244,11 +3325,17 @@
   <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
     <value>已匯入設定，但無法儲存其密碼。請在設定頁面上重新輸入。</value>
   </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>此電腦追蹤資料夾期間無法匯入。請先停止追蹤。</value>
+  </data>
   <data name="Sharing.ImportTitle" xml:space="preserve">
     <value>匯入設定</value>
   </data>
   <data name="Sharing.IncludePasswords" xml:space="preserve">
     <value>包含密碼</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>任何能讀取此資料夾並知道發佈密碼的人都可以讀取這些密碼。</value>
   </data>
   <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
     <value>擁有此檔案及其複雜密碼的任何人都可以讀取這些密碼。</value>
@@ -3256,8 +3343,20 @@
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>此檔案不是 Foundry 設定，或已損毀。</value>
   </data>
+  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
+    <value>上次成功</value>
+  </data>
   <data name="Sharing.LockedProfile" xml:space="preserve">
     <value>此 Windows 使用者無法開啟此設定。</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>此設定由 {0} 發佈，在此電腦上為唯讀。只能變更 ISO 輸出路徑、WinPE 驅動程式資料夾和遙測設定。</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>此設定由 {0} 發佈，在此電腦上為唯讀。發佈內容不包含密碼：請在這裡輸入。也可以變更 ISO 輸出路徑、WinPE 驅動程式資料夾和遙測設定。</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>由參考電腦管理</value>
   </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>無法復原設定使用的部分檔案。請在設定頁面上重新選取這些檔案。</value>
@@ -3274,8 +3373,23 @@
   <data name="Sharing.MissingContentHeader" xml:space="preserve">
     <value>此電腦上缺少</value>
   </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>新金鑰</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>新的發佈密碼</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>此資料夾不包含已發佈的設定。</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>尚未驗證：這些值來自資料夾，只有在目前的發佈密碼開啟發佈內容時才會確認。</value>
+  </data>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>開啟</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>無法完成此作業。如需詳細資料，請參閱記錄。</value>
   </data>
   <data name="Sharing.PassphraseCopied" xml:space="preserve">
     <value>已將複雜密碼複製到剪貼簿。</value>
@@ -3289,8 +3403,23 @@
   <data name="Sharing.PassphraseRule" xml:space="preserve">
     <value>至少 12 個字元，且不能是同一個字元重複 (例如 aaaaaaaaaaaa)。</value>
   </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>已儲存新密碼。變更會在下次成功發佈時完成。</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>已變更發佈密碼。追蹤此資料夾的電腦需輸入一次新密碼。</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>已將密碼複製到剪貼簿。</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>密碼不相符。</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>已包含</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>無法讀取此電腦的發佈金鑰，例如在重設 Windows 密碼之後。若要繼續發佈，請使用目前的發佈密碼接管此資料夾；之後，追蹤此資料夾的電腦會接受一次此電腦作為新的參考電腦。</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>未包含</value>
@@ -3298,17 +3427,173 @@
   <data name="Sharing.PreviewCreated" xml:space="preserve">
     <value>匯出時間</value>
   </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>需下載</value>
+  </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>名稱</value>
   </data>
   <data name="Sharing.PreviewPasswords" xml:space="preserve">
     <value>密碼</value>
   </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>發佈時間</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>參考電腦</value>
+  </data>
   <data name="Sharing.PreviousConfigurations" xml:space="preserve">
     <value>此電腦上先前的設定</value>
   </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>先前的金鑰</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>發佈內容尚未完整抵達此資料夾。請稍後再試一次。</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>發佈密碼</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>已重設發佈。追蹤此資料夾的電腦需輸入一次新密碼。</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>發佈</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>將此電腦設為參考電腦：其設定會發佈到其他電腦追蹤的資料夾。</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>選擇空白資料夾，或此電腦已在發佈的資料夾：網路共用、OneDrive 或 SharePoint 資料夾，或本機資料夾。追蹤此資料夾的電腦需要發佈密碼才能讀取。</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>發佈到資料夾</value>
+  </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
     <value>匯入會取代目前的設定。此電腦的 ISO 輸出路徑、WinPE 驅動程式資料夾和遙測設定會保留。</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>重設</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>重設發佈</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>新的密碼和新的內容金鑰：每個內容檔案都會重新加密，藉此完全撤銷先前的讀取者。追蹤此資料夾的電腦需輸入一次新密碼。</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>重設發佈</value>
+  </data>
+  <data name="Sharing.RetryButton" xml:space="preserve">
+    <value>重試</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>在下次成功發佈之前，先前的讀取者仍可開啟內容。</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>此電腦正在追蹤 {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>此電腦正在發佈其設定</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>由於無法讀取共用狀態，此工作階段無法發佈和追蹤。如需詳細資料，請參閱記錄。</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>正在檢查資料夾：發佈內容尚未完整抵達，會在下次檢查時再次讀取。</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>已套用設定。正在下載共用內容。</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>此資料夾包含的檔案不是此電腦的發佈內容。請選擇空白資料夾。</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>資料夾無法使用。請確認資料夾存在，且此電腦可以存取。</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>此電腦未發佈也未追蹤任何設定。</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>正在等待資料夾的第一次檢查。</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>變更會自動發佈。</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>未發佈：設定尚未準備好建立媒體，或參照此電腦上缺少的內容。先前的版本仍為目前版本。</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>需要密碼：請輸入發佈密碼，或在設定頁面中輸入發佈內容未包含的密碼。</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>無法讀取此電腦的發佈密碼或金鑰。</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>已發佈。追蹤此資料夾的電腦會在下次檢查時收到此版本。</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>正在發佈設定。</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>資料夾指向的版本比已套用的版本舊。已忽略該版本。</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>發佈內容已遭修改。不會套用。</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>此資料夾現在由另一部電腦發佈。請接受新的參考電腦或停止追蹤。</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>另一部電腦正在發佈到此資料夾。若要從此電腦發佈，請接管該資料夾。</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>此發佈需要較新版本的 Foundry OSD。</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>已是最新狀態。</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>已更新設定。</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>發佈密碼無法開啟目前的發佈內容。請輸入新密碼。</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>發佈密碼無法開啟此電腦在此資料夾中的發佈內容。</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>停止追蹤</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>設定會保持不變，並在此電腦上重新變成可編輯。</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>要停止追蹤嗎？</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>停止發佈</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>資料夾會保持不變，追蹤它的電腦會保留上次發佈的版本。此電腦會重新成為一般電腦。</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>要停止發佈嗎？</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>接管</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>另一部電腦正在發佈到此資料夾。接管後會使用此電腦的金鑰繼續其發佈；追蹤此資料夾的電腦必須接受一次此電腦作為新的參考電腦。</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>無法讀取此電腦的發佈金鑰。使用目前的發佈密碼接管後，會使用新金鑰繼續發佈；追蹤此資料夾的電腦必須接受一次此電腦作為新的參考電腦。</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>接管資料夾</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>此密碼無法開啟目前的發佈內容。</value>
   </data>
   <data name="Sharing.UnreadableFile" xml:space="preserve">
     <value>無法讀取檔案。</value>
@@ -3316,8 +3601,17 @@
   <data name="Sharing.UnsupportedFile" xml:space="preserve">
     <value>此檔案需要較新版本的 Foundry OSD。</value>
   </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>正在等待共用內容下載完成</value>
+  </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>複雜密碼錯誤或檔案已損毀。</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>發佈密碼錯誤，或發佈內容已遭修改。</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>停止作業</value>

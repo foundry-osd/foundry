@@ -3172,14 +3172,50 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Actualizar aplicación</value>
   </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>Aceptar</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>Aceptar la nueva referencia</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>Ahora otro equipo publica la carpeta: {0}. Acéptelo solo si espera este cambio, por ejemplo después de una toma de control; de lo contrario, deje de seguirla.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>¿Aceptar la nueva referencia?</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
-    <value>Traslade esta configuración a otro PC con un archivo cifrado.</value>
+    <value>Traslade esta configuración con un archivo cifrado o mantenga varios equipos alineados mediante una carpeta compartida.</value>
   </data>
   <data name="Sharing.CardHeader" xml:space="preserve">
     <value>Uso compartido de la configuración</value>
   </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>Cambiar</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>Cambiar la contraseña</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>La publicación actual se reescribe con la nueva contraseña. Los archivos de contenido no se vuelven a cifrar, por lo que quien conocía la contraseña anterior aún puede leerlos: use Restablecer la publicación para revocar por completo a los lectores anteriores. Los equipos que la siguen escriben la nueva contraseña una vez.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>Cambiar la contraseña de publicación</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>Comprobar ahora</value>
+  </data>
+  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
+    <value>Configuración actualizada desde {0}.</value>
+  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>Confirmar frase de contraseña</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>Confirmar la contraseña</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>No se pudieron importar {0} elementos compartidos en este equipo. Se vuelven a obtener cuando el equipo de referencia publica una nueva versión.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Conjunto de controladores</value>
@@ -3193,8 +3229,23 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Sharing.ContentKindPackage" xml:space="preserve">
     <value>Paquete de posinstalación</value>
   </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>Parte del contenido compartido sigue sin estar disponible después de varias comprobaciones. Puede estar dañado en la carpeta: vuelva a publicar desde el equipo de referencia.</value>
+  </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Copiar</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>Contraseña de publicación actual</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>Escribir la contraseña</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>Se necesita de nuevo la contraseña de publicación, por ejemplo después de restablecer la contraseña de Windows o después de que el equipo de referencia la cambiara.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>Escribir la contraseña de publicación</value>
   </data>
   <data name="Sharing.ExportButton" xml:space="preserve">
     <value>Exportar</value>
@@ -3223,6 +3274,36 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Sharing.FileTypeName" xml:space="preserve">
     <value>Configuración de Foundry</value>
   </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>Carpeta</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>Elegir la carpeta de publicación</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>Seguir</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>Use la configuración que un equipo de referencia publica en una carpeta. La configuración publicada pasa a ser de solo lectura en este equipo.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>Escriba la carpeta en la que publica el equipo de referencia y su contraseña de publicación, y ábrala para obtener una vista previa de la publicación.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>Seguir una carpeta reemplaza la configuración actual y hace que la configuración publicada sea de solo lectura. Se conservan la ruta de salida ISO, la carpeta de controladores de WinPE y la configuración de telemetría de este equipo.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>Seguir una carpeta</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>Clave encontrada</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>Versión encontrada</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>Olvidar la contraseña de publicación</value>
+  </data>
   <data name="Sharing.GeneratePassphrase" xml:space="preserve">
     <value>Generar</value>
   </data>
@@ -3244,11 +3325,17 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
     <value>Configuración importada, pero no se pudieron guardar sus contraseñas. Vuelva a escribirlas en las páginas de configuración.</value>
   </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>La importación no está disponible mientras este equipo sigue una carpeta. Deje de seguirla primero.</value>
+  </data>
   <data name="Sharing.ImportTitle" xml:space="preserve">
     <value>Importar configuración</value>
   </data>
   <data name="Sharing.IncludePasswords" xml:space="preserve">
     <value>Incluir contraseñas</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>Cualquier persona que pueda leer la carpeta y conozca la contraseña de publicación puede leer estas contraseñas.</value>
   </data>
   <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
     <value>Cualquier persona que tenga este archivo y su frase de contraseña puede leer estas contraseñas.</value>
@@ -3256,8 +3343,20 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>Este archivo no es una configuración de Foundry o está dañado.</value>
   </data>
+  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
+    <value>Último éxito</value>
+  </data>
   <data name="Sharing.LockedProfile" xml:space="preserve">
     <value>Este usuario de Windows no puede abrir esta configuración.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>{0} publica esta configuración y es de solo lectura en este equipo. Solo se pueden cambiar la ruta de salida ISO, la carpeta de controladores de WinPE y la configuración de telemetría.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>{0} publica esta configuración y es de solo lectura en este equipo. La publicación no incluye contraseñas: escríbalas aquí. También se pueden cambiar la ruta de salida ISO, la carpeta de controladores de WinPE y la configuración de telemetría.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>Administrada por un equipo de referencia</value>
   </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>No se pudieron recuperar algunos archivos que usa la configuración. Vuelva a seleccionarlos en las páginas de configuración.</value>
@@ -3274,8 +3373,23 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Sharing.MissingContentHeader" xml:space="preserve">
     <value>Falta en este PC</value>
   </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>Clave nueva</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>Nueva contraseña de publicación</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>Esta carpeta no contiene ninguna configuración publicada.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>Aún no verificado: estos valores proceden de la carpeta y solo se confirman cuando la contraseña de publicación actual abre la publicación.</value>
+  </data>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Abrir</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>No se pudo completar la operación. Consulte el registro para obtener más detalles.</value>
   </data>
   <data name="Sharing.PassphraseCopied" xml:space="preserve">
     <value>Frase de contraseña copiada en el Portapapeles.</value>
@@ -3289,8 +3403,23 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
     <value>Al menos 12 caracteres, y no el mismo carácter repetido (por ejemplo, aaaaaaaaaaaa).</value>
   </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>La nueva contraseña se ha guardado. El cambio se completa en la siguiente publicación correcta.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>Se cambió la contraseña de publicación. Los equipos que la siguen escriben la nueva contraseña una vez.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>Contraseña copiada en el Portapapeles.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>Las contraseñas no coinciden.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Incluidas</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>No se pudieron leer las claves de publicación de este equipo, por ejemplo después de restablecer la contraseña de Windows. Tome el control de la carpeta con la contraseña de publicación actual para seguir publicando; los equipos que la siguen aceptan entonces una vez este equipo como nueva referencia.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>No incluidas</value>
@@ -3298,17 +3427,173 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Sharing.PreviewCreated" xml:space="preserve">
     <value>Exportada el</value>
   </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>Para descargar</value>
+  </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>Nombre</value>
   </data>
   <data name="Sharing.PreviewPasswords" xml:space="preserve">
     <value>Contraseñas</value>
   </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>Publicada el</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>Equipo de referencia</value>
+  </data>
   <data name="Sharing.PreviousConfigurations" xml:space="preserve">
     <value>Configuraciones anteriores en este PC</value>
   </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>Clave anterior</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>La publicación aún no ha llegado por completo a esta carpeta. Vuelva a intentarlo en un momento.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>Contraseña de publicación</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>Se restableció la publicación. Los equipos que la siguen escriben la nueva contraseña una vez.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>Publicar</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>Convierta este equipo en la referencia: su configuración se publica en una carpeta que siguen otros equipos.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>Elija una carpeta vacía o una en la que este equipo ya publica: un recurso compartido de red, una carpeta de OneDrive o SharePoint, o una carpeta local. Los equipos que la siguen necesitan la contraseña de publicación para leerla.</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>Publicar en una carpeta</value>
+  </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
     <value>La importación reemplaza la configuración actual. Se conservan la ruta de salida ISO, la carpeta de controladores de WinPE y la configuración de telemetría de este PC.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>Restablecer</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>Restablecer la publicación</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>Una nueva contraseña y una nueva clave de contenido: todos los archivos de contenido se vuelven a cifrar, lo que revoca por completo a los lectores anteriores. Los equipos que la siguen escriben la nueva contraseña una vez.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>Restablecer la publicación</value>
+  </data>
+  <data name="Sharing.RetryButton" xml:space="preserve">
+    <value>Reintentar</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>Los lectores anteriores aún pueden abrir el contenido hasta la siguiente publicación correcta.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>Este equipo sigue a {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>Este equipo publica su configuración</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>La publicación y el seguimiento no están disponibles durante esta sesión porque no se pudo leer el estado del uso compartido. Consulte el registro para obtener más detalles.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>Comprobando la carpeta: la publicación aún no ha llegado por completo y se vuelve a leer en la siguiente comprobación.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>La configuración se ha aplicado. Se está descargando el contenido compartido.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>Esta carpeta contiene archivos que no son una publicación de este equipo. Elija una carpeta vacía.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>La carpeta no está disponible. Compruebe que existe y que este equipo puede acceder a ella.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>Este equipo no publica ni sigue ninguna configuración.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>Esperando la primera comprobación de la carpeta.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>Los cambios se publican automáticamente.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>No publicada: la configuración no está lista para crear medios o hace referencia a contenido que falta en este equipo. La versión anterior sigue vigente.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>Se necesitan contraseñas: escriba la contraseña de publicación o, en las páginas de configuración, las contraseñas que la publicación no incluye.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>No se pudieron leer la contraseña de publicación o las claves de este equipo.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>Publicada. Los equipos que la siguen reciben esta versión en su siguiente comprobación.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>Publicando la configuración.</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>La carpeta apunta a una versión anterior a la aplicada. Se omite.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>La publicación se ha modificado. No se aplica.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>Ahora otro equipo publica la carpeta. Acepte la nueva referencia o deje de seguirla.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>Otro equipo publica en esta carpeta. Tome el control para publicar desde este equipo.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>Esta publicación requiere una versión más reciente de Foundry OSD.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>Actualizada.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>Configuración actualizada.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>La contraseña de publicación no abre la publicación actual. Escriba la nueva contraseña.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>La contraseña de publicación no abre la publicación de este equipo en esta carpeta.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>Dejar de seguir</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>La configuración se mantiene tal como está y vuelve a ser editable en este equipo.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>¿Dejar de seguir?</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>Dejar de publicar</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>La carpeta se mantiene tal como está y los equipos que la siguen conservan la última versión publicada. Este equipo vuelve a ser un equipo normal.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>¿Dejar de publicar?</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>Tomar el control</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>Otro equipo publica en esta carpeta. Al tomar el control, su publicación continúa con la clave de este equipo; los equipos que la siguen deben aceptar una vez este equipo como nueva referencia.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>No se pudieron leer las claves de publicación de este equipo. Al tomar el control con la contraseña de publicación actual, la publicación continúa con claves nuevas; los equipos que la siguen deben aceptar una vez este equipo como nueva referencia.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>Tomar el control de la carpeta</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>Esta contraseña no abre la publicación actual.</value>
   </data>
   <data name="Sharing.UnreadableFile" xml:space="preserve">
     <value>No se pudo leer el archivo.</value>
@@ -3316,8 +3601,17 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Sharing.UnsupportedFile" xml:space="preserve">
     <value>Este archivo requiere una versión más reciente de Foundry OSD.</value>
   </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>Versión</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>Esperando a que termine la descarga del contenido compartido</value>
+  </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Frase de contraseña incorrecta o archivo dañado.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>Contraseña de publicación incorrecta, o la publicación se ha modificado.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Detener operación</value>

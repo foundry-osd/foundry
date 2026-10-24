@@ -3172,14 +3172,50 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>تحديث التطبيق</value>
   </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>قبول</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>قبول الكمبيوتر المرجعي الجديد</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>أصبح المجلد يُنشر الآن بواسطة كمبيوتر آخر: {0}. اقبله فقط إذا كنت تتوقع هذا التغيير، على سبيل المثال بعد عملية تولٍّ؛ وإلا فأوقف متابعة المجلد.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>هل تريد قبول الكمبيوتر المرجعي الجديد؟</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
-    <value>انقل هذا التكوين إلى كمبيوتر آخر باستخدام ملف مشفر.</value>
+    <value>انقل هذا التكوين باستخدام ملف مشفّر، أو حافظ على توافق عدة أجهزة كمبيوتر من خلال مجلد مشترك.</value>
   </data>
   <data name="Sharing.CardHeader" xml:space="preserve">
     <value>مشاركة التكوين</value>
   </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>تغيير</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>تغيير كلمة المرور</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>تتم إعادة كتابة النشر الحالي بكلمة المرور الجديدة. لا تتم إعادة تشفير ملفات المحتوى، لذا يظل بإمكان من عرف كلمة المرور القديمة قراءتها: استخدم إعادة تعيين النشر لإلغاء وصول القراء السابقين بالكامل. تُدخل أجهزة الكمبيوتر التي تتابع المجلد كلمة المرور الجديدة مرة واحدة.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>تغيير كلمة مرور النشر</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>التحقق الآن</value>
+  </data>
+  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
+    <value>تم تحديث التكوين من {0}.</value>
+  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>تأكيد عبارة المرور</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>تأكيد كلمة المرور</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>عدد العناصر المشتركة التي تعذر استيرادها على هذا الكمبيوتر: {0}. ستتم إعادة جلبها عندما ينشر الكمبيوتر المرجعي إصدارًا جديدًا.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>مجموعة برامج تشغيل</value>
@@ -3193,8 +3229,23 @@
   <data name="Sharing.ContentKindPackage" xml:space="preserve">
     <value>حزمة ما بعد التثبيت</value>
   </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>لا يزال جزء من المحتوى المشترك غير متوفر بعد عمليات تحقق متكررة. قد يكون تالفًا في المجلد: انشر مرة أخرى من الكمبيوتر المرجعي.</value>
+  </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>نسخ</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>كلمة مرور النشر الحالية</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>إدخال كلمة المرور</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>كلمة مرور النشر مطلوبة مرة أخرى، على سبيل المثال بعد إعادة تعيين كلمة مرور Windows أو بعد أن غيّرها الكمبيوتر المرجعي.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>إدخال كلمة مرور النشر</value>
   </data>
   <data name="Sharing.ExportButton" xml:space="preserve">
     <value>تصدير</value>
@@ -3223,6 +3274,36 @@
   <data name="Sharing.FileTypeName" xml:space="preserve">
     <value>تكوين Foundry</value>
   </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>المجلد</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>اختر مجلد النشر</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>متابعة</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>استخدم التكوين الذي ينشره كمبيوتر مرجعي في مجلد. تصبح الإعدادات المنشورة للقراءة فقط على هذا الكمبيوتر.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>أدخل المجلد الذي ينشر فيه الكمبيوتر المرجعي وكلمة مرور النشر الخاصة به، ثم افتحه لمعاينة النشر.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>تستبدل المتابعة التكوين الحالي وتجعل الإعدادات المنشورة للقراءة فقط. يتم الاحتفاظ بمسار إخراج ISO ومجلد برامج تشغيل WinPE وإعدادات القياس عن بُعد لهذا الكمبيوتر.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>متابعة مجلد</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>المفتاح الذي تم العثور عليه</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>الإصدار الذي تم العثور عليه</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>نسيان كلمة مرور النشر</value>
+  </data>
   <data name="Sharing.GeneratePassphrase" xml:space="preserve">
     <value>إنشاء</value>
   </data>
@@ -3244,11 +3325,17 @@
   <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
     <value>تم استيراد التكوين، ولكن تعذر حفظ كلمات المرور الخاصة به. أدخلها مرة أخرى في صفحات التكوين.</value>
   </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>الاستيراد غير متاح بينما يتابع هذا الكمبيوتر مجلدًا. أوقف المتابعة أولاً.</value>
+  </data>
   <data name="Sharing.ImportTitle" xml:space="preserve">
     <value>استيراد تكوين</value>
   </data>
   <data name="Sharing.IncludePasswords" xml:space="preserve">
     <value>تضمين كلمات المرور</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>يمكن لأي شخص يستطيع قراءة المجلد ويعرف كلمة مرور النشر قراءة كلمات المرور هذه.</value>
   </data>
   <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
     <value>يمكن لأي شخص لديه هذا الملف وعبارة المرور الخاصة به قراءة كلمات المرور هذه.</value>
@@ -3256,8 +3343,20 @@
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>هذا الملف ليس تكوين Foundry، أو أنه تالف.</value>
   </data>
+  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
+    <value>آخر نجاح</value>
+  </data>
   <data name="Sharing.LockedProfile" xml:space="preserve">
     <value>لا يمكن لمستخدم Windows هذا فتح هذا التكوين.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>يتم نشر هذا التكوين بواسطة {0} وهو للقراءة فقط على هذا الكمبيوتر. يمكن تغيير مسار إخراج ISO ومجلد برامج تشغيل WinPE وإعدادات القياس عن بُعد فقط.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>يتم نشر هذا التكوين بواسطة {0} وهو للقراءة فقط على هذا الكمبيوتر. لا يتضمن النشر كلمات المرور: أدخلها هنا. يمكن أيضًا تغيير مسار إخراج ISO ومجلد برامج تشغيل WinPE وإعدادات القياس عن بُعد.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>مُدار بواسطة كمبيوتر مرجعي</value>
   </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>تعذّر استرداد بعض الملفات التي يستخدمها التكوين. حددها مرة أخرى في صفحات التكوين.</value>
@@ -3274,8 +3373,23 @@
   <data name="Sharing.MissingContentHeader" xml:space="preserve">
     <value>مفقود على هذا الكمبيوتر</value>
   </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>المفتاح الجديد</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>كلمة مرور النشر الجديدة</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>لا يحتوي هذا المجلد على تكوين منشور.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>لم يتم التحقق بعد: تأتي هذه القيم من المجلد ولا يتم تأكيدها إلا عندما تفتح كلمة مرور النشر الحالية النشر.</value>
+  </data>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>فتح</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>تعذر إكمال العملية. راجع السجل للحصول على التفاصيل.</value>
   </data>
   <data name="Sharing.PassphraseCopied" xml:space="preserve">
     <value>تم نسخ عبارة المرور إلى الحافظة.</value>
@@ -3289,8 +3403,23 @@
   <data name="Sharing.PassphraseRule" xml:space="preserve">
     <value>12 حرفًا على الأقل، وألا تكون الحرف نفسه مكررًا (مثل aaaaaaaaaaaa).</value>
   </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>تم حفظ كلمة المرور الجديدة. يكتمل التغيير عند النشر الناجح التالي.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>تم تغيير كلمة مرور النشر. تُدخل أجهزة الكمبيوتر التي تتابع المجلد كلمة المرور الجديدة مرة واحدة.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>تم نسخ كلمة المرور إلى الحافظة.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>كلمتا المرور غير متطابقتين.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>مضمنة</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>تعذرت قراءة مفاتيح النشر الخاصة بهذا الكمبيوتر، على سبيل المثال بعد إعادة تعيين كلمة مرور Windows. تولَّ المجلد باستخدام كلمة مرور النشر الحالية لمواصلة النشر؛ ستقبل بعد ذلك أجهزة الكمبيوتر التي تتابع المجلد هذا الكمبيوتر مرة واحدة ككمبيوتر مرجعي جديد.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>غير مضمنة</value>
@@ -3298,17 +3427,173 @@
   <data name="Sharing.PreviewCreated" xml:space="preserve">
     <value>تاريخ التصدير</value>
   </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>للتنزيل</value>
+  </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>الاسم</value>
   </data>
   <data name="Sharing.PreviewPasswords" xml:space="preserve">
     <value>كلمات المرور</value>
   </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>تاريخ النشر</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>الكمبيوتر المرجعي</value>
+  </data>
   <data name="Sharing.PreviousConfigurations" xml:space="preserve">
     <value>التكوينات السابقة على هذا الكمبيوتر</value>
   </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>المفتاح السابق</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>لم يصل النشر بالكامل إلى هذا المجلد بعد. أعد المحاولة بعد لحظات.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>كلمة مرور النشر</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>تمت إعادة تعيين النشر. تُدخل أجهزة الكمبيوتر التي تتابع المجلد كلمة المرور الجديدة مرة واحدة.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>نشر</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>اجعل هذا الكمبيوتر هو المرجع: يتم نشر تكوينه في مجلد تتابعه أجهزة كمبيوتر أخرى.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>اختر مجلدًا فارغًا، أو مجلدًا ينشر فيه هذا الكمبيوتر بالفعل: مشاركة شبكة، أو مجلد OneDrive أو SharePoint، أو مجلدًا محليًا. تحتاج أجهزة الكمبيوتر التي تتابع المجلد إلى كلمة مرور النشر لقراءته.</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>النشر إلى مجلد</value>
+  </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
     <value>يستبدل الاستيراد التكوين الحالي. يتم الاحتفاظ بمسار إخراج ISO ومجلد برامج تشغيل WinPE وإعدادات بيانات القياس عن بُعد لهذا الكمبيوتر.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>إعادة تعيين</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>إعادة تعيين النشر</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>كلمة مرور جديدة ومفتاح محتوى جديد: تتم إعادة تشفير كل ملف محتوى، مما يلغي وصول القراء السابقين بالكامل. تُدخل أجهزة الكمبيوتر التي تتابع المجلد كلمة المرور الجديدة مرة واحدة.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>إعادة تعيين النشر</value>
+  </data>
+  <data name="Sharing.RetryButton" xml:space="preserve">
+    <value>إعادة المحاولة</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>لا يزال بإمكان القراء السابقين فتح المحتوى حتى النشر الناجح التالي.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>يتابع هذا الكمبيوتر {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>ينشر هذا الكمبيوتر تكوينه</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>النشر والمتابعة غير متاحين خلال هذه الجلسة لأنه تعذرت قراءة حالة المشاركة. راجع السجل للحصول على التفاصيل.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>جارٍ التحقق من المجلد: لم يصل النشر بالكامل بعد وستتم قراءته مرة أخرى في التحقق التالي.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>تم تطبيق التكوين. جارٍ تنزيل المحتوى المشترك.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>يحتوي هذا المجلد على ملفات ليست نشرًا لهذا الكمبيوتر. اختر مجلدًا فارغًا.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>المجلد غير متوفر. تحقق من وجوده ومن أن هذا الكمبيوتر يمكنه الوصول إليه.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>لا ينشر هذا الكمبيوتر أي تكوين ولا يتابعه.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>في انتظار التحقق الأول من المجلد.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>يتم نشر التغييرات تلقائيًا.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>لم يتم النشر: التكوين غير جاهز لإنشاء الوسائط أو يشير إلى محتوى مفقود على هذا الكمبيوتر. يظل الإصدار السابق هو الحالي.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>كلمات المرور مطلوبة: أدخل كلمة مرور النشر، أو في صفحات التكوين كلمات المرور التي لا يتضمنها النشر.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>تعذرت قراءة كلمة مرور النشر أو مفاتيح هذا الكمبيوتر.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>تم النشر. ستتلقى أجهزة الكمبيوتر التي تتابع المجلد هذا الإصدار في التحقق التالي.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>جارٍ نشر التكوين.</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>يشير المجلد إلى إصدار أقدم من الإصدار المطبّق. يتم تجاهله.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>تم تعديل النشر. لن يتم تطبيقه.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>أصبح المجلد يُنشر الآن بواسطة كمبيوتر آخر. اقبل الكمبيوتر المرجعي الجديد أو أوقف المتابعة.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>ينشر كمبيوتر آخر في هذا المجلد. تولَّ المجلد للنشر من هذا الكمبيوتر.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>يتطلب هذا النشر إصدارًا أحدث من Foundry OSD.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>محدّث.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>تم تحديث التكوين.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>لا تفتح كلمة مرور النشر النشر الحالي. أدخل كلمة المرور الجديدة.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>لا تفتح كلمة مرور النشر نشر هذا الكمبيوتر في هذا المجلد.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>إيقاف المتابعة</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>يبقى التكوين كما هو ويصبح قابلاً للتحرير مرة أخرى على هذا الكمبيوتر.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>هل تريد إيقاف المتابعة؟</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>إيقاف النشر</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>يبقى المجلد كما هو وتحتفظ أجهزة الكمبيوتر التي تتابعه بآخر إصدار منشور. يصبح هذا الكمبيوتر كمبيوترًا عاديًا مرة أخرى.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>هل تريد إيقاف النشر؟</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>تولٍّ</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>ينشر كمبيوتر آخر في هذا المجلد. يؤدي التولي إلى مواصلة نشره باستخدام مفتاح هذا الكمبيوتر؛ ويجب على أجهزة الكمبيوتر التي تتابع المجلد قبول هذا الكمبيوتر مرة واحدة ككمبيوتر مرجعي جديد.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>تعذرت قراءة مفاتيح النشر الخاصة بهذا الكمبيوتر. يؤدي التولي باستخدام كلمة مرور النشر الحالية إلى مواصلة النشر بمفاتيح جديدة؛ ويجب على أجهزة الكمبيوتر التي تتابع المجلد قبول هذا الكمبيوتر مرة واحدة ككمبيوتر مرجعي جديد.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>تولي المجلد</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>لا تفتح كلمة المرور هذه النشر الحالي.</value>
   </data>
   <data name="Sharing.UnreadableFile" xml:space="preserve">
     <value>تعذرت قراءة الملف.</value>
@@ -3316,8 +3601,17 @@
   <data name="Sharing.UnsupportedFile" xml:space="preserve">
     <value>يتطلب هذا الملف إصدارًا أحدث من Foundry OSD.</value>
   </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>الإصدار</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>في انتظار انتهاء تنزيل المحتوى المشترك</value>
+  </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>عبارة مرور خاطئة أو ملف تالف.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>كلمة مرور النشر غير صحيحة، أو تم تعديل النشر.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>إيقاف العملية</value>

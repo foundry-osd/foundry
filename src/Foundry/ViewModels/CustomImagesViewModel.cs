@@ -204,7 +204,8 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
             changed |= imageChanged;
             return imageChanged ? image with { Indexes = indexes } : image;
         }).ToArray();
-        if (changed) state.UpdateCustomImages(settings with { Images = images });
+        // A managed configuration keeps the published metadata; the reference refreshes it.
+        if (changed && !state.IsManaged) state.UpdateCustomImages(settings with { Images = images });
         else state.RefreshCustomImageReadiness();
     }
 

@@ -18,11 +18,14 @@
                 DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
                 IconGlyph="&#xF003;">
                 <controls:PageHeader.ActionContent>
-                    <Button
-                        Command="{x:Bind ViewModel.ToggleModeCommand}"
-                        Content="{x:Bind ViewModel.ActionText, Mode=OneWay}" />
+                    <ContentControl IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}">
+                        <Button
+                            Command="{x:Bind ViewModel.ToggleModeCommand}"
+                            Content="{x:Bind ViewModel.ActionText, Mode=OneWay}" />
+                    </ContentControl>
                 </controls:PageHeader.ActionContent>
             </controls:PageHeader>
+            <controls:ManagedConfigurationBanner />
 
             <ContentControl
                 HorizontalContentAlignment="Stretch"
@@ -41,11 +44,13 @@
                             <TextBox
                                 x:Uid="DomainJoinAccount"
                                 Width="{ThemeResource FoundryWideInputMinWidth}"
+                                IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}"
                                 MaxLength="512"
                                 Text="{x:Bind ViewModel.SharedAccountName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <PasswordBox x:Name="DomainPasswordBox"
                                 x:Uid="DomainJoinPassword"
                                 Width="{ThemeResource FoundryWideInputMinWidth}"
+                                IsEnabled="{x:Bind Managed.ArePasswordsEditable, Mode=OneWay}"
                                 Loaded="OnPasswordLoaded"
                                 MaxLength="2560"
                                 PasswordChanged="OnPasswordChanged" />
@@ -168,7 +173,8 @@
                         x:Uid="DomainJoinOuCard"
                         HorizontalContentAlignment="Stretch"
                         ContentAlignment="Vertical"
-                        Header="{x:Bind ViewModel.OrganizationalUnitsHeader, Mode=OneWay}">
+                        Header="{x:Bind ViewModel.OrganizationalUnitsHeader, Mode=OneWay}"
+                        IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xE8B7;" />
                         </wct:SettingsCard.HeaderIcon>

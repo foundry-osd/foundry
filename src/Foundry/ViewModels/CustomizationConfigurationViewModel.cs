@@ -48,6 +48,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
 
         localizationService.LanguageChanged += OnLanguageChanged;
         configurationStateService.StateChanged += OnConfigurationStateChanged;
+        configurationStateService.ManagedChanged += OnManagedChanged;
         oobeAccountSecretStateService.Changed += OnOobeAccountSecretStateChanged;
         isApplyingState = false;
     }
@@ -115,6 +116,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
     {
         localizationService.LanguageChanged -= OnLanguageChanged;
         configurationStateService.StateChanged -= OnConfigurationStateChanged;
+        configurationStateService.ManagedChanged -= OnManagedChanged;
         oobeAccountSecretStateService.Changed -= OnOobeAccountSecretStateChanged;
         foreach (AppxRemovalItemViewModel item in AppxRemovalCategories.SelectMany(category => category.Items))
         {
@@ -150,7 +152,8 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
 
     private void SaveState()
     {
-        if (isApplyingState || isRefreshingOperatingSystemSelectionOptions)
+        // A managed configuration is read-only and these sections hold no per-PC value: nothing is saved, not even a normalization.
+        if (isApplyingState || isRefreshingOperatingSystemSelectionOptions || configurationStateService.IsManaged)
         {
             return;
         }
@@ -176,7 +179,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
 
     private void SaveWindowsOptionalFeatureState()
     {
-        if (isApplyingState)
+        if (isApplyingState || configurationStateService.IsManaged)
         {
             return;
         }
@@ -213,6 +216,12 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
     private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)
     {
         RefreshLocalizedText();
+    }
+
+    /// <summary>A managed configuration keeps its published accounts: their removal follows the managed state.</summary>
+    private void OnManagedChanged(object? sender, EventArgs e)
+    {
+        foreach (OobeAdditionalAccountEntryViewModel entry in OobeAdditionalAccounts) entry.RemoveCommand.NotifyCanExecuteChanged();
     }
 
     private void OnConfigurationStateChanged(object? sender, EventArgs e)

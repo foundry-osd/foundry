@@ -3172,14 +3172,50 @@ Lisensiert under MIT-lisensen.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Oppdater appen</value>
   </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>Godta</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>Godta ny referanse</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>Mappen publiseres nå av en annen PC: {0}. Godta den bare hvis du forventer denne endringen, for eksempel etter en overtakelse. Hvis ikke, slutter du å følge mappen.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>Godta den nye referansen?</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
-    <value>Flytt denne konfigurasjonen til en annen PC med en kryptert fil.</value>
+    <value>Flytt denne konfigurasjonen med en kryptert fil, eller hold flere PC-er samkjørt via en delt mappe.</value>
   </data>
   <data name="Sharing.CardHeader" xml:space="preserve">
     <value>Deling av konfigurasjon</value>
   </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>Endre</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>Endre passord</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>Den gjeldende publiseringen skrives på nytt med det nye passordet. Innholdsfiler krypteres ikke på nytt, så den som kjente det gamle passordet, kan fortsatt lese dem: Bruk Tilbakestill publisering for å tilbakekalle tidligere lesere helt. PC-er som følger mappen, angir det nye passordet én gang.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>Endre publiseringspassordet</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>Kontroller nå</value>
+  </data>
+  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
+    <value>Konfigurasjonen er oppdatert fra {0}.</value>
+  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>Bekreft passordfrase</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>Bekreft passordet</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>{0} delte elementer kunne ikke importeres på denne PC-en. De hentes på nytt når referanse-PC-en publiserer en ny versjon.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Driversett</value>
@@ -3193,8 +3229,23 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Sharing.ContentKindPackage" xml:space="preserve">
     <value>Pakke etter installasjon</value>
   </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>Noe delt innhold er fortsatt ikke tilgjengelig etter gjentatte kontroller. Det kan være skadet i mappen: Publiser på nytt fra referanse-PC-en.</value>
+  </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Kopier</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>Gjeldende publiseringspassord</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>Angi passord</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>Publiseringspassordet trengs igjen, for eksempel etter en tilbakestilling av Windows-passordet eller etter at referanse-PC-en har endret det.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>Angi publiseringspassordet</value>
   </data>
   <data name="Sharing.ExportButton" xml:space="preserve">
     <value>Eksporter</value>
@@ -3223,6 +3274,36 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Sharing.FileTypeName" xml:space="preserve">
     <value>Foundry-konfigurasjon</value>
   </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>Mappe</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>Velg publiseringsmappen</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>Følg</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>Bruk konfigurasjonen som en referanse-PC publiserer i en mappe. Publiserte innstillinger blir skrivebeskyttet på denne PC-en.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>Angi mappen referanse-PC-en publiserer til og publiseringspassordet, og åpne den deretter for å forhåndsvise publiseringen.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>Å følge erstatter den gjeldende konfigurasjonen og gjør de publiserte innstillingene skrivebeskyttet. ISO-utdatabanen, WinPE-drivermappen og telemetriinnstillingene på denne PC-en beholdes.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>Følg en mappe</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>Funnet nøkkel</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>Funnet versjon</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>Glem publiseringspassordet</value>
+  </data>
   <data name="Sharing.GeneratePassphrase" xml:space="preserve">
     <value>Generer</value>
   </data>
@@ -3244,11 +3325,17 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
     <value>Konfigurasjonen er importert, men passordene kunne ikke lagres. Skriv dem inn på nytt på konfigurasjonssidene.</value>
   </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>Import er ikke tilgjengelig mens denne PC-en følger en mappe. Slutt å følge først.</value>
+  </data>
   <data name="Sharing.ImportTitle" xml:space="preserve">
     <value>Importer konfigurasjon</value>
   </data>
   <data name="Sharing.IncludePasswords" xml:space="preserve">
     <value>Ta med passord</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>Alle som kan lese mappen og kjenner publiseringspassordet, kan lese disse passordene.</value>
   </data>
   <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
     <value>Alle som har denne filen og passordfrasen, kan lese disse passordene.</value>
@@ -3256,8 +3343,20 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>Denne filen er ikke en Foundry-konfigurasjon, eller den er skadet.</value>
   </data>
+  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
+    <value>Siste vellykkede</value>
+  </data>
   <data name="Sharing.LockedProfile" xml:space="preserve">
     <value>Denne konfigurasjonen kan ikke åpnes av denne Windows-brukeren.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>Denne konfigurasjonen publiseres av {0} og er skrivebeskyttet på denne PC-en. Bare ISO-utdatabanen, WinPE-drivermappen og telemetriinnstillingene kan endres.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>Denne konfigurasjonen publiseres av {0} og er skrivebeskyttet på denne PC-en. Publiseringen inneholder ikke passord: Angi dem her. ISO-utdatabanen, WinPE-drivermappen og telemetriinnstillingene kan også endres.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>Administrert av en referanse-PC</value>
   </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>Noen filer som konfigurasjonen bruker, kunne ikke gjenopprettes. Velg dem på nytt på konfigurasjonssidene.</value>
@@ -3274,8 +3373,23 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Sharing.MissingContentHeader" xml:space="preserve">
     <value>Mangler på denne PC-en</value>
   </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>Ny nøkkel</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>Nytt publiseringspassord</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>Denne mappen inneholder ingen publisert konfigurasjon.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>Ikke bekreftet ennå: Disse verdiene kommer fra mappen og bekreftes først når det gjeldende publiseringspassordet åpner publiseringen.</value>
+  </data>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Åpne</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>Operasjonen kunne ikke fullføres. Se loggen for mer informasjon.</value>
   </data>
   <data name="Sharing.PassphraseCopied" xml:space="preserve">
     <value>Passordfrasen er kopiert til utklippstavlen.</value>
@@ -3289,8 +3403,23 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
     <value>Minst 12 tegn, og ikke det samme tegnet gjentatt (for eksempel aaaaaaaaaaaa).</value>
   </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>Det nye passordet er lagret. Endringen fullføres ved neste vellykkede publisering.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>Publiseringspassordet er endret. PC-er som følger mappen, angir det nye passordet én gang.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>Passordet er kopiert til utklippstavlen.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>Passordene samsvarer ikke.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Inkludert</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>Publiseringsnøklene på denne PC-en kunne ikke leses, for eksempel etter en tilbakestilling av Windows-passordet. Overta mappen med det gjeldende publiseringspassordet for å fortsette å publisere. PC-er som følger mappen, godtar deretter denne PC-en som ny referanse én gang.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Ikke inkludert</value>
@@ -3298,17 +3427,173 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Sharing.PreviewCreated" xml:space="preserve">
     <value>Eksportert</value>
   </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>Skal lastes ned</value>
+  </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>Navn</value>
   </data>
   <data name="Sharing.PreviewPasswords" xml:space="preserve">
     <value>Passord</value>
   </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>Publisert</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>Referanse-PC</value>
+  </data>
   <data name="Sharing.PreviousConfigurations" xml:space="preserve">
     <value>Tidligere konfigurasjoner på denne PC-en</value>
   </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>Forrige nøkkel</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>Publiseringen har ikke kommet helt frem til denne mappen ennå. Prøv igjen om et øyeblikk.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>Publiseringspassord</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>Publiseringen er tilbakestilt. PC-er som følger mappen, angir det nye passordet én gang.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>Publiser</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>Gjør denne PC-en til referanse: Konfigurasjonen publiseres i en mappe som andre PC-er følger.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>Velg en tom mappe eller en som denne PC-en allerede publiserer til: en nettverksressurs, en OneDrive- eller SharePoint-mappe eller en lokal mappe. PC-er som følger mappen, trenger publiseringspassordet for å lese den.</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>Publiser til en mappe</value>
+  </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
     <value>Import erstatter gjeldende konfigurasjon. ISO-utdatabanen, WinPE-drivermappen og telemetriinnstillingene på denne PC-en beholdes.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>Tilbakestill</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>Tilbakestill publisering</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>Et nytt passord og en ny innholdsnøkkel: Alle innholdsfiler krypteres på nytt, noe som tilbakekaller tidligere lesere helt. PC-er som følger mappen, angir det nye passordet én gang.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>Tilbakestill publiseringen</value>
+  </data>
+  <data name="Sharing.RetryButton" xml:space="preserve">
+    <value>Prøv igjen</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>Tidligere lesere kan fortsatt åpne innhold frem til neste vellykkede publisering.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>Denne PC-en følger {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>Denne PC-en publiserer konfigurasjonen sin</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>Publisering og følging er ikke tilgjengelig i denne økten fordi delingsstatusen ikke kunne leses. Se loggen for mer informasjon.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>Mappen kontrolleres: Publiseringen har ikke kommet helt frem ennå og leses på nytt ved neste kontroll.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>Konfigurasjonen er brukt. Delt innhold lastes ned.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>Denne mappen inneholder filer som ikke er en publisering fra denne PC-en. Velg en tom mappe.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>Mappen er ikke tilgjengelig. Kontroller at den finnes, og at denne PC-en har tilgang til den.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>Denne PC-en verken publiserer eller følger en konfigurasjon.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>Venter på den første kontrollen av mappen.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>Endringer publiseres automatisk.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>Ikke publisert: Konfigurasjonen er ikke klar til å opprette medier eller refererer til innhold som mangler på denne PC-en. Den forrige versjonen gjelder fortsatt.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>Passord kreves: Angi publiseringspassordet, eller angi på konfigurasjonssidene passordene som publiseringen ikke inneholder.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>Publiseringspassordet eller nøklene på denne PC-en kunne ikke leses.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>Publisert. PC-er som følger mappen, mottar denne versjonen ved neste kontroll.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>Konfigurasjonen publiseres.</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>Mappen peker til en eldre versjon enn den som er brukt. Den ignoreres.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>Publiseringen er endret. Den brukes ikke.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>Mappen publiseres nå av en annen PC. Godta den nye referansen, eller slutt å følge.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>En annen PC publiserer til denne mappen. Overta den for å publisere fra denne PC-en.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>Denne publiseringen krever en nyere versjon av Foundry OSD.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>Oppdatert.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>Konfigurasjonen er oppdatert.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>Publiseringspassordet åpner ikke den gjeldende publiseringen. Angi det nye passordet.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>Publiseringspassordet åpner ikke publiseringen fra denne PC-en i denne mappen.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>Slutt å følge</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>Konfigurasjonen forblir som den er og kan redigeres igjen på denne PC-en.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>Slutte å følge?</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>Stopp publisering</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>Mappen forblir som den er, og PC-er som følger mappen, beholder den sist publiserte versjonen. Denne PC-en blir igjen en vanlig PC.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>Stoppe publisering?</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>Overta</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>En annen PC publiserer til denne mappen. En overtakelse fortsetter publiseringen med nøkkelen til denne PC-en. PC-er som følger mappen, må godta denne PC-en som ny referanse én gang.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>Publiseringsnøklene på denne PC-en kunne ikke leses. En overtakelse med det gjeldende publiseringspassordet fortsetter publiseringen med nye nøkler. PC-er som følger mappen, må godta denne PC-en som ny referanse én gang.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>Overta mappen</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>Dette passordet åpner ikke den gjeldende publiseringen.</value>
   </data>
   <data name="Sharing.UnreadableFile" xml:space="preserve">
     <value>Filen kunne ikke leses.</value>
@@ -3316,8 +3601,17 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Sharing.UnsupportedFile" xml:space="preserve">
     <value>Denne filen krever en nyere versjon av Foundry OSD.</value>
   </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>Versjon</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>Venter på at nedlastingen av delt innhold skal fullføres</value>
+  </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Feil passordfrase eller skadet fil.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>Feil publiseringspassord, eller publiseringen er endret.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Stopp operasjonen</value>

@@ -1001,7 +1001,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     private void SaveState()
     {
-        if (isApplyingState)
+        // A managed configuration is read-only: only the PFX password, already kept by the session state, can change here.
+        if (isApplyingState || configurationStateService.IsManaged)
         {
             return;
         }

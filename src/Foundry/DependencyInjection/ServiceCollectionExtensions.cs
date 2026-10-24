@@ -173,6 +173,8 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ConfigurationReplacementGate>();
         services.AddSingleton<ContentPackageCleanupService>();
         services.AddSingleton<Foundry.Services.Sharing.ConfigurationTransferService>();
+        services.AddSingleton<Foundry.Services.Sharing.ConfigurationSharingService>();
+        services.AddSingleton<ManagedConfigurationViewModel>();
         services.AddTransient<CustomDriversViewModel>();
         services.AddTransient<UnattendConfigurationViewModel>();
         services.AddTransient<NetworkConfigurationViewModel>();

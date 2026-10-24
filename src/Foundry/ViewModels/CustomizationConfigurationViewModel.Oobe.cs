@@ -369,6 +369,14 @@ public sealed partial class CustomizationConfigurationViewModel
                 return;
             }
 
+            if (configurationStateService.IsManaged)
+            {
+                // A managed configuration keeps the published account; only its password, not published, is entered here.
+                ApplyAdditionalAccountSecrets(result);
+                RefreshOobeAccountValidation();
+                return;
+            }
+
             entry.Account = result.Account;
             entry.RefreshPresentation(
                 GetOobeAccountTypeDisplayName(result.Account.Type),
@@ -568,7 +576,8 @@ public sealed partial class CustomizationConfigurationViewModel
             OobeAdditionalAccountsEditButton,
             OobeAdditionalAccountsRemoveButton,
             EditOobeAdditionalAccountAsync,
-            RemoveOobeAdditionalAccount);
+            RemoveOobeAdditionalAccount,
+            () => !configurationStateService.IsManaged);
     }
 
     private string GetOobeAccountTypeDisplayName(OobeAccountType type)

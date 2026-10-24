@@ -75,6 +75,9 @@ public sealed class ConfigurationTransferService(
     /// <summary>Largest file import reads; larger files are not configuration exports.</summary>
     private const long MaximumImportFileBytes = 64 * 1024 * 1024;
 
+    /// <summary>Message of the <see cref="InvalidOperationException"/> <see cref="ImportAsync"/> throws while this PC follows a folder.</summary>
+    public const string FollowingRefusal = "ConfigurationSharing.Following";
+
     private readonly ILogger logger = logger.ForContext<ConfigurationTransferService>();
 
     /// <summary>Writes the current configuration, without its per-PC values, to <paramref name="path"/>.</summary>
@@ -198,9 +201,16 @@ public sealed class ConfigurationTransferService(
     /// </summary>
     /// <exception cref="IOException">A file or the configuration cannot be saved; the current configuration is then unchanged.</exception>
     /// <exception cref="UnauthorizedAccessException">Access to the library or the configuration is denied.</exception>
+    /// <exception cref="InvalidOperationException">This PC follows a folder (spec 6.3): stop following before importing.</exception>
     public async Task<ConfigurationImportResult> ImportAsync(ImportPreview preview)
     {
         ArgumentNullException.ThrowIfNull(preview);
+        if (configuration.IsManaged)
+        {
+            logger.Warning("Configuration import refused because this PC follows a published configuration.");
+            throw new InvalidOperationException(FollowingRefusal);
+        }
+
         logger.Information(
             "Configuration import started. IsLegacy={IsLegacy}, IsLegacyConnectionFile={IsLegacyConnectionFile}, IncludesPasswords={IncludesPasswords}, FileCount={FileCount}",
             preview.IsLegacy, preview.IsLegacyConnectionFile, preview.IncludesPasswords, preview.Payload.Files?.Count ?? 0);

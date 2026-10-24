@@ -62,6 +62,13 @@ namespace Foundry.Common
         public static readonly string SecretVaultPath = Path.Combine(ConfigurationWorkspaceDirectoryPath, "secrets.dat");
         /// <summary>Gets the per-user state of the first-launch migration from the removed deployment profiles.</summary>
         public static readonly string LegacyMigrationStatePath = Path.Combine(ConfigurationWorkspaceDirectoryPath, "migration.json");
+        /// <summary>Gets the per-user configuration sharing role (reference, follower or none); it holds no secret.</summary>
+        public static readonly string SharingStatePath = Path.Combine(ConfigurationWorkspaceDirectoryPath, "sharing.json");
+        /// <summary>
+        /// Gets the per-user root of the owner-only directories configuration sharing decrypts or packs content in, on the volume of
+        /// the libraries that import it rather than under <c>%TEMP%</c>.
+        /// </summary>
+        public static readonly string SharingTemporaryDirectoryPath = Path.Combine(UserRootDirectoryPath, "Temp", "Sharing");
 
         public const string RepositoryUrl = "https://github.com/foundry-osd/foundry";
         public const string LatestReleaseUrl = RepositoryUrl + "/releases/latest";

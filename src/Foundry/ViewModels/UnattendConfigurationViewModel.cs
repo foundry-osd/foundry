@@ -257,6 +257,8 @@ public sealed partial class UnattendConfigurationViewModel : ObservableObject, I
 
     private void Save(UnattendSettings settings)
     {
+        // A managed configuration is read-only and this section holds no per-PC value.
+        if (configurationStateService.IsManaged) return;
         try
         {
             isApplyingState = true;

@@ -25,10 +25,12 @@
                     <ToggleSwitch
                         x:Uid="OobePageEnableToggle"
                         behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                        IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}"
                         IsOn="{x:Bind ViewModel.IsOobeEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Style="{StaticResource FoundryPageHeaderToggleSwitchStyle}" />
                 </controls:PageHeader.ActionContent>
             </controls:PageHeader>
+            <controls:ManagedConfigurationBanner />
 
             <ContentControl
                 HorizontalContentAlignment="Stretch"
@@ -103,6 +105,7 @@
                                                     VerticalAlignment="Center"
                                                     behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
                                                     AutomationProperties.Name="{x:Bind ViewModel.OobeAdministratorAccountLabel, Mode=OneWay}"
+                                                    IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}"
                                                     IsOn="{x:Bind ViewModel.EnableAdministratorAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     Toggled="AdministratorAccountToggle_Toggled" />
                                             </Grid>
@@ -129,6 +132,7 @@
                                                     VerticalAlignment="Center"
                                                     behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
                                                     AutomationProperties.Name="{x:Bind ViewModel.OobeAccountPasswordLabel, Mode=OneWay}"
+                                                    IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}"
                                                     IsOn="{x:Bind ViewModel.UseAdministratorPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     Toggled="AdministratorPasswordToggle_Toggled" />
                                             </Grid>
@@ -140,13 +144,13 @@
                                                 Visibility="{x:Bind ViewModel.EnableAdministratorAccount, Mode=OneWay}">
                                                 <PasswordBox x:Name="AdministratorPasswordBox"
                                                     AutomationProperties.Name="{x:Bind ViewModel.OobePasswordPlaceholder, Mode=OneWay}"
-                                                    IsEnabled="{x:Bind ViewModel.UseAdministratorPassword, Mode=OneWay}"
+                                                    IsEnabled="{x:Bind controls:BindingFunctions.And(ViewModel.UseAdministratorPassword, Managed.ArePasswordsEditable), Mode=OneWay}"
                                                     Loaded="AdministratorPasswordBox_Loaded"
                                                     PasswordChanged="AdministratorPasswordBox_PasswordChanged"
                                                     PlaceholderText="{x:Bind ViewModel.OobePasswordPlaceholder, Mode=OneWay}" />
                                                 <PasswordBox x:Name="AdministratorConfirmationBox"
                                                     AutomationProperties.Name="{x:Bind ViewModel.OobeConfirmationPlaceholder, Mode=OneWay}"
-                                                    IsEnabled="{x:Bind ViewModel.UseAdministratorPassword, Mode=OneWay}"
+                                                    IsEnabled="{x:Bind controls:BindingFunctions.And(ViewModel.UseAdministratorPassword, Managed.ArePasswordsEditable), Mode=OneWay}"
                                                     Loaded="AdministratorConfirmationBox_Loaded"
                                                     PasswordChanged="AdministratorConfirmationBox_PasswordChanged"
                                                     PlaceholderText="{x:Bind ViewModel.OobeConfirmationPlaceholder, Mode=OneWay}" />
@@ -184,7 +188,7 @@
                                                     VerticalAlignment="Center"
                                                     Command="{x:Bind ViewModel.AddOobeAdditionalAccountCommand}"
                                                     Content="{x:Bind ViewModel.OobeAdditionalAccountsAddButton, Mode=OneWay}"
-                                                    IsEnabled="{x:Bind ViewModel.AreOobeAdditionalAccountControlsAvailable, Mode=OneWay}" />
+                                                    IsEnabled="{x:Bind controls:BindingFunctions.And(ViewModel.AreOobeAdditionalAccountControlsAvailable, Managed.IsEditable), Mode=OneWay}" />
                                             </Grid>
 
                                             <InfoBar
@@ -326,7 +330,7 @@
                     <wct:SettingsCard
                         Description="{x:Bind ViewModel.OobeSkipLicenseTermsDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.OobeSkipLicenseTermsLabel, Mode=OneWay}"
-                        IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
+                        IsEnabled="{x:Bind controls:BindingFunctions.And(ViewModel.IsOobeOptionsEnabled, Managed.IsEditable), Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xEB95;" />
                         </wct:SettingsCard.HeaderIcon>
@@ -337,7 +341,7 @@
                     <wct:SettingsCard
                         Description="{x:Bind ViewModel.OobeDiagnosticDataDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.OobeDiagnosticDataLabel, Mode=OneWay}"
-                        IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
+                        IsEnabled="{x:Bind controls:BindingFunctions.And(ViewModel.IsOobeOptionsEnabled, Managed.IsEditable), Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xE9D9;" />
                         </wct:SettingsCard.HeaderIcon>
@@ -350,7 +354,7 @@
                     <wct:SettingsCard
                         Description="{x:Bind ViewModel.OobeHidePrivacySetupDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.OobeHidePrivacySetupLabel, Mode=OneWay}"
-                        IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
+                        IsEnabled="{x:Bind controls:BindingFunctions.And(ViewModel.IsOobeOptionsEnabled, Managed.IsEditable), Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xE705;" />
                         </wct:SettingsCard.HeaderIcon>
@@ -361,7 +365,7 @@
                     <wct:SettingsCard
                         Description="{x:Bind ViewModel.OobeTailoredExperiencesDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.OobeTailoredExperiencesLabel, Mode=OneWay}"
-                        IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
+                        IsEnabled="{x:Bind controls:BindingFunctions.And(ViewModel.IsOobeOptionsEnabled, Managed.IsEditable), Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xE728;" />
                         </wct:SettingsCard.HeaderIcon>
@@ -372,7 +376,7 @@
                     <wct:SettingsCard
                         Description="{x:Bind ViewModel.OobeAdvertisingIdDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.OobeAdvertisingIdLabel, Mode=OneWay}"
-                        IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
+                        IsEnabled="{x:Bind controls:BindingFunctions.And(ViewModel.IsOobeOptionsEnabled, Managed.IsEditable), Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xE789;" />
                         </wct:SettingsCard.HeaderIcon>
@@ -383,7 +387,7 @@
                     <wct:SettingsCard
                         Description="{x:Bind ViewModel.OobeOnlineSpeechRecognitionDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.OobeOnlineSpeechRecognitionLabel, Mode=OneWay}"
-                        IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
+                        IsEnabled="{x:Bind controls:BindingFunctions.And(ViewModel.IsOobeOptionsEnabled, Managed.IsEditable), Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xE720;" />
                         </wct:SettingsCard.HeaderIcon>
@@ -394,7 +398,7 @@
                     <wct:SettingsCard
                         Description="{x:Bind ViewModel.OobeInkingAndTypingDiagnosticsDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.OobeInkingAndTypingDiagnosticsLabel, Mode=OneWay}"
-                        IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
+                        IsEnabled="{x:Bind controls:BindingFunctions.And(ViewModel.IsOobeOptionsEnabled, Managed.IsEditable), Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xED5F;" />
                         </wct:SettingsCard.HeaderIcon>
@@ -405,7 +409,7 @@
                     <wct:SettingsCard
                         Description="{x:Bind ViewModel.OobeLocationAccessDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.OobeLocationAccessLabel, Mode=OneWay}"
-                        IsEnabled="{x:Bind ViewModel.IsOobeOptionsEnabled, Mode=OneWay}">
+                        IsEnabled="{x:Bind controls:BindingFunctions.And(ViewModel.IsOobeOptionsEnabled, Managed.IsEditable), Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xE707;" />
                         </wct:SettingsCard.HeaderIcon>

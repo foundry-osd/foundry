@@ -8,6 +8,9 @@ public sealed partial class CustomDriversPage : Page
 {
     public CustomDriversViewModel ViewModel { get; }
 
+    /// <summary>Gets the read-only state of a managed configuration.</summary>
+    public ManagedConfigurationViewModel Managed { get; } = App.GetService<ManagedConfigurationViewModel>();
+
     public CustomDriversPage()
     {
         ViewModel = App.GetService<CustomDriversViewModel>();

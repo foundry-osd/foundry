@@ -5,33 +5,202 @@
     xmlns:wct="using:CommunityToolkit.WinUI.Controls">
     <StackPanel Spacing="{ThemeResource FoundryCompactStackSpacing}">
         <wct:SettingsExpander
-            Description="{x:Bind ViewModel.Text('Sharing.CardDescription')}"
-            Header="{x:Bind ViewModel.Text('Sharing.CardHeader')}">
+            Description="{x:Bind ViewModel.Text('CardDescription'), Mode=OneWay}"
+            Header="{x:Bind ViewModel.Text('CardHeader'), Mode=OneWay}">
             <wct:SettingsExpander.HeaderIcon>
                 <FontIcon Glyph="&#xE72D;" />
             </wct:SettingsExpander.HeaderIcon>
             <wct:SettingsExpander.Items>
                 <wct:SettingsCard
-                    Description="{x:Bind ViewModel.Text('Sharing.ExportDescription')}"
-                    Header="{x:Bind ViewModel.Text('Sharing.ExportTitle')}">
+                    HorizontalContentAlignment="Stretch"
+                    ContentAlignment="Vertical"
+                    Visibility="{x:Bind ViewModel.IsSharingUnavailable, Mode=OneWay}">
+                    <InfoBar
+                        IsClosable="False"
+                        IsOpen="True"
+                        Message="{x:Bind ViewModel.Text('SharingUnavailable'), Mode=OneWay}"
+                        Severity="Error" />
+                </wct:SettingsCard>
+                <wct:SettingsCard
+                    HorizontalContentAlignment="Stretch"
+                    ContentAlignment="Vertical"
+                    Header="{x:Bind ViewModel.RoleText, Mode=OneWay}"
+                    Visibility="{x:Bind ViewModel.HasRole, Mode=OneWay}">
+                    <wct:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE8F7;" />
+                    </wct:SettingsCard.HeaderIcon>
+                    <StackPanel Spacing="{ThemeResource FoundryTextGroupSpacing}">
+                        <InfoBar
+                            IsClosable="False"
+                            IsOpen="True"
+                            Message="{x:Bind ViewModel.RoleStatusText, Mode=OneWay}"
+                            Severity="{x:Bind ViewModel.RoleStatusSeverity, Mode=OneWay}" />
+                        <Grid
+                            ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}"
+                            RowSpacing="{ThemeResource FoundryTextGroupSpacing}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Text="{x:Bind ViewModel.Text('FolderLabel'), Mode=OneWay}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                FlowDirection="LeftToRight"
+                                IsTextSelectionEnabled="True"
+                                Text="{x:Bind ViewModel.FolderText, Mode=OneWay}"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Text="{x:Bind ViewModel.Text('VersionLabel'), Mode=OneWay}"
+                                Visibility="{x:Bind ViewModel.HasVersion, Mode=OneWay}" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Text="{x:Bind ViewModel.VersionText, Mode=OneWay}"
+                                Visibility="{x:Bind ViewModel.HasVersion, Mode=OneWay}" />
+                            <TextBlock
+                                Grid.Row="2"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Text="{x:Bind ViewModel.Text('LastSuccessLabel'), Mode=OneWay}"
+                                Visibility="{x:Bind ViewModel.HasLastSuccess, Mode=OneWay}" />
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Text="{x:Bind ViewModel.LastSuccessText, Mode=OneWay}"
+                                Visibility="{x:Bind ViewModel.HasLastSuccess, Mode=OneWay}" />
+                        </Grid>
+                        <StackPanel
+                            Spacing="{ThemeResource FoundrySpace4}"
+                            Visibility="{x:Bind ViewModel.IsProgressVisible, Mode=OneWay}">
+                            <ProgressBar Value="{x:Bind ViewModel.ProgressValue, Mode=OneWay}" />
+                            <TextBlock
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                Text="{x:Bind ViewModel.ProgressText, Mode=OneWay}"
+                                TextTrimming="CharacterEllipsis" />
+                        </StackPanel>
+                        <InfoBar
+                            IsClosable="False"
+                            IsOpen="{x:Bind ViewModel.IsRevocationPending, Mode=OneWay}"
+                            Message="{x:Bind ViewModel.Text('RevocationPending'), Mode=OneWay}"
+                            Severity="Warning"
+                            Visibility="{x:Bind ViewModel.IsRevocationPending, Mode=OneWay}" />
+                        <InfoBar
+                            IsClosable="False"
+                            IsOpen="{x:Bind ViewModel.IsKeyRecoveryNeeded, Mode=OneWay}"
+                            Message="{x:Bind ViewModel.Text('PasswordsNeededRecovery'), Mode=OneWay}"
+                            Severity="Warning"
+                            Visibility="{x:Bind ViewModel.IsKeyRecoveryNeeded, Mode=OneWay}" />
+                        <InfoBar
+                            IsClosable="False"
+                            IsOpen="{x:Bind ViewModel.IsContentFailed, Mode=OneWay}"
+                            Message="{x:Bind ViewModel.ContentFailedText, Mode=OneWay}"
+                            Severity="Error"
+                            Visibility="{x:Bind ViewModel.IsContentFailed, Mode=OneWay}" />
+                        <InfoBar
+                            IsClosable="False"
+                            IsOpen="{x:Bind ViewModel.IsContentStalled, Mode=OneWay}"
+                            Message="{x:Bind ViewModel.Text('ContentStalled'), Mode=OneWay}"
+                            Severity="Warning"
+                            Visibility="{x:Bind ViewModel.IsContentStalled, Mode=OneWay}" />
+                        <StackPanel
+                            Orientation="Horizontal"
+                            Spacing="{ThemeResource FoundryInlineControlSpacing}"
+                            Visibility="{x:Bind ViewModel.IsReference, Mode=OneWay}">
+                            <Button
+                                Command="{x:Bind ViewModel.RetryCommand}"
+                                Content="{x:Bind ViewModel.Text('RetryButton'), Mode=OneWay}" />
+                            <Button
+                                Command="{x:Bind ViewModel.TakeOverCommand}"
+                                Content="{x:Bind ViewModel.Text('TakeOverButton'), Mode=OneWay}"
+                                Style="{ThemeResource AccentButtonStyle}"
+                                Visibility="{x:Bind ViewModel.CanTakeOver, Mode=OneWay}" />
+                            <Button
+                                Command="{x:Bind ViewModel.ChangePasswordCommand}"
+                                Content="{x:Bind ViewModel.Text('ChangePasswordButton'), Mode=OneWay}" />
+                            <Button
+                                Command="{x:Bind ViewModel.ResetPublicationCommand}"
+                                Content="{x:Bind ViewModel.Text('ResetPublicationButton'), Mode=OneWay}" />
+                            <Button
+                                Command="{x:Bind ViewModel.StopPublishingCommand}"
+                                Content="{x:Bind ViewModel.Text('StopPublishingButton'), Mode=OneWay}" />
+                        </StackPanel>
+                        <StackPanel
+                            Orientation="Horizontal"
+                            Spacing="{ThemeResource FoundryInlineControlSpacing}"
+                            Visibility="{x:Bind ViewModel.IsFollower, Mode=OneWay}">
+                            <Button
+                                Command="{x:Bind ViewModel.CheckNowCommand}"
+                                Content="{x:Bind ViewModel.Text('CheckNowButton'), Mode=OneWay}" />
+                            <Button
+                                Command="{x:Bind ViewModel.EnterPasswordCommand}"
+                                Content="{x:Bind ViewModel.Text('EnterPasswordButton'), Mode=OneWay}"
+                                Style="{ThemeResource AccentButtonStyle}"
+                                Visibility="{x:Bind ViewModel.CanEnterPassword, Mode=OneWay}" />
+                            <Button
+                                Command="{x:Bind ViewModel.AcceptReferenceCommand}"
+                                Content="{x:Bind ViewModel.Text('AcceptReferenceButton'), Mode=OneWay}"
+                                Style="{ThemeResource AccentButtonStyle}"
+                                Visibility="{x:Bind ViewModel.CanAcceptReference, Mode=OneWay}" />
+                            <Button
+                                Command="{x:Bind ViewModel.StopFollowingCommand}"
+                                Content="{x:Bind ViewModel.Text('StopFollowingButton'), Mode=OneWay}" />
+                        </StackPanel>
+                    </StackPanel>
+                </wct:SettingsCard>
+                <wct:SettingsCard
+                    Description="{x:Bind ViewModel.Text('PublishDescription'), Mode=OneWay}"
+                    Header="{x:Bind ViewModel.Text('PublishTitle'), Mode=OneWay}"
+                    Visibility="{x:Bind ViewModel.IsNone, Mode=OneWay}">
+                    <wct:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE898;" />
+                    </wct:SettingsCard.HeaderIcon>
+                    <Button
+                        MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                        Command="{x:Bind ViewModel.PublishCommand}"
+                        Content="{x:Bind ViewModel.Text('PublishButton'), Mode=OneWay}" />
+                </wct:SettingsCard>
+                <wct:SettingsCard
+                    Description="{x:Bind ViewModel.Text('FollowDescription'), Mode=OneWay}"
+                    Header="{x:Bind ViewModel.Text('FollowTitle'), Mode=OneWay}"
+                    Visibility="{x:Bind ViewModel.IsNone, Mode=OneWay}">
+                    <wct:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE896;" />
+                    </wct:SettingsCard.HeaderIcon>
+                    <Button
+                        MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
+                        Command="{x:Bind ViewModel.FollowCommand}"
+                        Content="{x:Bind ViewModel.Text('FollowButton'), Mode=OneWay}" />
+                </wct:SettingsCard>
+                <wct:SettingsCard
+                    Description="{x:Bind ViewModel.Text('ExportDescription'), Mode=OneWay}"
+                    Header="{x:Bind ViewModel.Text('ExportTitle'), Mode=OneWay}">
                     <wct:SettingsCard.HeaderIcon>
                         <FontIcon Glyph="&#xE74E;" />
                     </wct:SettingsCard.HeaderIcon>
                     <Button
                         MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
                         Command="{x:Bind ViewModel.ExportCommand}"
-                        Content="{x:Bind ViewModel.Text('Sharing.ExportButton')}" />
+                        Content="{x:Bind ViewModel.Text('ExportButton'), Mode=OneWay}" />
                 </wct:SettingsCard>
                 <wct:SettingsCard
-                    Description="{x:Bind ViewModel.Text('Sharing.ImportDescription')}"
-                    Header="{x:Bind ViewModel.Text('Sharing.ImportTitle')}">
+                    Description="{x:Bind ViewModel.Text('ImportDescription'), Mode=OneWay}"
+                    Header="{x:Bind ViewModel.Text('ImportTitle'), Mode=OneWay}">
                     <wct:SettingsCard.HeaderIcon>
                         <FontIcon Glyph="&#xE8B5;" />
                     </wct:SettingsCard.HeaderIcon>
                     <Button
                         MinWidth="{ThemeResource FoundryCompactActionMinWidth}"
                         Command="{x:Bind ViewModel.ImportCommand}"
-                        Content="{x:Bind ViewModel.Text('Sharing.ImportButton')}" />
+                        Content="{x:Bind ViewModel.Text('ImportButton'), Mode=OneWay}" />
                 </wct:SettingsCard>
             </wct:SettingsExpander.Items>
         </wct:SettingsExpander>

@@ -3172,14 +3172,50 @@ Licencované podľa licencie MIT.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Aktualizovať aplikáciu</value>
   </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>Prijať</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>Prijať novú referenciu</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>Priečinok teraz publikuje iný počítač: {0}. Prijmite ho iba vtedy, ak túto zmenu očakávate, napríklad po prevzatí; inak priečinok prestaňte sledovať.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>Prijať novú referenciu?</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
-    <value>Preneste túto konfiguráciu do iného počítača pomocou zašifrovaného súboru.</value>
+    <value>Preneste túto konfiguráciu pomocou šifrovaného súboru alebo udržujte viac počítačov v zhode pomocou zdieľaného priečinka.</value>
   </data>
   <data name="Sharing.CardHeader" xml:space="preserve">
     <value>Zdieľanie konfigurácie</value>
   </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>Zmeniť</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>Zmeniť heslo</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>Aktuálna publikácia sa prepíše novým heslom. Súbory obsahu sa znova nešifrujú, takže kto poznal staré heslo, môže ich stále čítať: na úplné odvolanie bývalých čitateľov použite Resetovať publikáciu. Počítače, ktoré priečinok sledujú, zadajú nové heslo raz.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>Zmeniť heslo publikácie</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>Skontrolovať teraz</value>
+  </data>
+  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
+    <value>Konfigurácia bola aktualizovaná z {0}.</value>
+  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>Potvrdiť heslovú frázu</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>Potvrdiť heslo</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>Počet zdieľaných položiek, ktoré sa nepodarilo importovať do tohto počítača: {0}. Načítajú sa znova, keď referenčný počítač publikuje novú verziu.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Sada ovládačov</value>
@@ -3193,8 +3229,23 @@ Licencované podľa licencie MIT.</value>
   <data name="Sharing.ContentKindPackage" xml:space="preserve">
     <value>Balík po inštalácii</value>
   </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>Časť zdieľaného obsahu nie je dostupná ani po opakovaných kontrolách. V priečinku môže byť poškodená: publikujte znova z referenčného počítača.</value>
+  </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Kopírovať</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>Aktuálne heslo publikácie</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>Zadať heslo</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>Heslo publikácie je znova potrebné, napríklad po resetovaní hesla systému Windows alebo po tom, ako ho referenčný počítač zmenil.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>Zadať heslo publikácie</value>
   </data>
   <data name="Sharing.ExportButton" xml:space="preserve">
     <value>Exportovať</value>
@@ -3223,6 +3274,36 @@ Licencované podľa licencie MIT.</value>
   <data name="Sharing.FileTypeName" xml:space="preserve">
     <value>Konfigurácia Foundry</value>
   </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>Priečinok</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>Vyberte priečinok publikácie</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>Sledovať</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>Použite konfiguráciu, ktorú referenčný počítač publikuje do priečinka. Publikované nastavenia budú v tomto počítači iba na čítanie.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>Zadajte priečinok, do ktorého referenčný počítač publikuje, a jeho heslo publikácie, potom ho otvorte a zobrazte ukážku publikácie.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>Sledovanie nahradí aktuálnu konfiguráciu a publikované nastavenia budú iba na čítanie. Výstupná cesta ISO, priečinok ovládačov WinPE a nastavenia telemetrie tohto počítača zostanú zachované.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>Sledovať priečinok</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>Nájdený kľúč</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>Nájdená verzia</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>Zabudnúť heslo publikácie</value>
+  </data>
   <data name="Sharing.GeneratePassphrase" xml:space="preserve">
     <value>Vygenerovať</value>
   </data>
@@ -3244,11 +3325,17 @@ Licencované podľa licencie MIT.</value>
   <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
     <value>Konfigurácia bola importovaná, ale jej heslá sa nepodarilo uložiť. Zadajte ich znova na stránkach konfigurácie.</value>
   </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>Import nie je dostupný, kým tento počítač sleduje priečinok. Najprv sledovanie ukončite.</value>
+  </data>
   <data name="Sharing.ImportTitle" xml:space="preserve">
     <value>Importovať konfiguráciu</value>
   </data>
   <data name="Sharing.IncludePasswords" xml:space="preserve">
     <value>Zahrnúť heslá</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>Ktokoľvek, kto môže čítať priečinok a pozná heslo publikácie, môže tieto heslá prečítať.</value>
   </data>
   <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
     <value>Ktokoľvek, kto má tento súbor a jeho heslovú frázu, môže tieto heslá prečítať.</value>
@@ -3256,8 +3343,20 @@ Licencované podľa licencie MIT.</value>
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>Tento súbor nie je konfigurácia Foundry alebo je poškodený.</value>
   </data>
+  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
+    <value>Posledný úspech</value>
+  </data>
   <data name="Sharing.LockedProfile" xml:space="preserve">
     <value>Tento používateľ systému Windows nemôže otvoriť túto konfiguráciu.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>Túto konfiguráciu publikuje {0} a v tomto počítači je iba na čítanie. Zmeniť možno iba výstupnú cestu ISO, priečinok ovládačov WinPE a nastavenia telemetrie.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>Túto konfiguráciu publikuje {0} a v tomto počítači je iba na čítanie. Publikácia neobsahuje heslá: zadajte ich tu. Zmeniť možno aj výstupnú cestu ISO, priečinok ovládačov WinPE a nastavenia telemetrie.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>Spravované referenčným počítačom</value>
   </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>Niektoré súbory používané konfiguráciou sa nepodarilo obnoviť. Vyberte ich znova na stránkach konfigurácie.</value>
@@ -3274,8 +3373,23 @@ Licencované podľa licencie MIT.</value>
   <data name="Sharing.MissingContentHeader" xml:space="preserve">
     <value>Chýba v tomto počítači</value>
   </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>Nový kľúč</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>Nové heslo publikácie</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>Tento priečinok neobsahuje publikovanú konfiguráciu.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>Zatiaľ neoverené: tieto hodnoty pochádzajú z priečinka a potvrdia sa až vtedy, keď aktuálne heslo publikácie publikáciu otvorí.</value>
+  </data>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Otvoriť</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>Operáciu sa nepodarilo dokončiť. Podrobnosti nájdete v denníku.</value>
   </data>
   <data name="Sharing.PassphraseCopied" xml:space="preserve">
     <value>Heslová fráza bola skopírovaná do schránky.</value>
@@ -3289,8 +3403,23 @@ Licencované podľa licencie MIT.</value>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
     <value>Aspoň 12 znakov a nie stále ten istý opakovaný znak (napríklad aaaaaaaaaaaa).</value>
   </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>Nové heslo je uložené. Zmena sa dokončí pri najbližšej úspešnej publikácii.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>Heslo publikácie bolo zmenené. Počítače, ktoré priečinok sledujú, zadajú nové heslo raz.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>Heslo bolo skopírované do schránky.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>Heslá sa nezhodujú.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Zahrnuté</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>Kľúče publikácie tohto počítača sa nepodarilo prečítať, napríklad po resetovaní hesla systému Windows. Ak chcete ďalej publikovať, prevezmite priečinok pomocou aktuálneho hesla publikácie; počítače, ktoré priečinok sledujú, potom raz prijmú tento počítač ako novú referenciu.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Nezahrnuté</value>
@@ -3298,17 +3427,173 @@ Licencované podľa licencie MIT.</value>
   <data name="Sharing.PreviewCreated" xml:space="preserve">
     <value>Exportované</value>
   </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>Na stiahnutie</value>
+  </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>Názov</value>
   </data>
   <data name="Sharing.PreviewPasswords" xml:space="preserve">
     <value>Heslá</value>
   </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>Publikované</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>Referenčný počítač</value>
+  </data>
   <data name="Sharing.PreviousConfigurations" xml:space="preserve">
     <value>Predchádzajúce konfigurácie v tomto počítači</value>
   </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>Predchádzajúci kľúč</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>Publikácia ešte celá nedorazila do tohto priečinka. Skúste to znova o chvíľu.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>Heslo publikácie</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>Publikácia bola resetovaná. Počítače, ktoré priečinok sledujú, zadajú nové heslo raz.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>Publikovať</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>Nastavte tento počítač ako referenciu: jeho konfigurácia sa publikuje do priečinka, ktorý sledujú iné počítače.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>Vyberte prázdny priečinok alebo priečinok, do ktorého tento počítač už publikuje: sieťový zdieľaný priečinok, priečinok OneDrive alebo SharePoint, alebo lokálny priečinok. Počítače, ktoré priečinok sledujú, potrebujú na jeho čítanie heslo publikácie.</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>Publikovať do priečinka</value>
+  </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
     <value>Import nahradí aktuálnu konfiguráciu. Výstupná cesta ISO, priečinok ovládačov WinPE a nastavenia telemetrie tohto počítača zostanú zachované.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>Resetovať</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>Resetovať publikáciu</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>Nové heslo a nový kľúč obsahu: všetky súbory obsahu sa znova zašifrujú, čím sa bývalým čitateľom úplne odvolá prístup. Počítače, ktoré priečinok sledujú, zadajú nové heslo raz.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>Resetovať publikáciu</value>
+  </data>
+  <data name="Sharing.RetryButton" xml:space="preserve">
+    <value>Skúsiť znova</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>Bývalí čitatelia môžu obsah otvárať až do najbližšej úspešnej publikácie.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>Tento počítač sleduje {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>Tento počítač publikuje svoju konfiguráciu</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>Publikovanie a sledovanie nie sú počas tejto relácie dostupné, pretože stav zdieľania sa nepodarilo prečítať. Podrobnosti nájdete v denníku.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>Kontroluje sa priečinok: publikácia ešte celá nedorazila a pri najbližšej kontrole sa načíta znova.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>Konfigurácia je použitá. Sťahuje sa zdieľaný obsah.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>Tento priečinok obsahuje súbory, ktoré nie sú publikáciou tohto počítača. Vyberte prázdny priečinok.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>Priečinok nie je dostupný. Skontrolujte, či existuje a či k nemu má tento počítač prístup.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>Tento počítač nepublikuje ani nesleduje žiadnu konfiguráciu.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>Čaká sa na prvú kontrolu priečinka.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>Zmeny sa publikujú automaticky.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>Nepublikované: konfigurácia nie je pripravená na vytvorenie médií alebo odkazuje na obsah, ktorý v tomto počítači chýba. Predchádzajúca verzia zostáva aktuálna.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>Sú potrebné heslá: zadajte heslo publikácie alebo na stránkach konfigurácie heslá, ktoré publikácia neobsahuje.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>Heslo publikácie alebo kľúče tohto počítača sa nepodarilo prečítať.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>Publikované. Počítače, ktoré priečinok sledujú, dostanú túto verziu pri najbližšej kontrole.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>Publikuje sa konfigurácia.</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>Priečinok odkazuje na staršiu verziu, než je použitá. Ignoruje sa.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>Publikácia bola zmenená. Nepoužije sa.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>Priečinok teraz publikuje iný počítač. Prijmite novú referenciu alebo sledovanie ukončite.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>Do tohto priečinka publikuje iný počítač. Prevezmite ho, ak chcete publikovať z tohto počítača.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>Táto publikácia vyžaduje novšiu verziu Foundry OSD.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>Aktuálne.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>Konfigurácia bola aktualizovaná.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>Heslo publikácie neotvorí aktuálnu publikáciu. Zadajte nové heslo.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>Heslo publikácie neotvorí publikáciu tohto počítača v tomto priečinku.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>Ukončiť sledovanie</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>Konfigurácia zostane bez zmeny a v tomto počítači ju bude opäť možné upravovať.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>Ukončiť sledovanie?</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>Ukončiť publikovanie</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>Priečinok zostane bez zmeny a počítače, ktoré ho sledujú, si ponechajú poslednú publikovanú verziu. Tento počítač sa opäť stane bežným počítačom.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>Ukončiť publikovanie?</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>Prevziať</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>Do tohto priečinka publikuje iný počítač. Prevzatie pokračuje v jeho publikácii s kľúčom tohto počítača; počítače, ktoré priečinok sledujú, musia raz prijať tento počítač ako novú referenciu.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>Kľúče publikácie tohto počítača sa nepodarilo prečítať. Prevzatie s aktuálnym heslom publikácie pokračuje v publikácii s novými kľúčmi; počítače, ktoré priečinok sledujú, musia raz prijať tento počítač ako novú referenciu.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>Prevziať priečinok</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>Toto heslo neotvorí aktuálnu publikáciu.</value>
   </data>
   <data name="Sharing.UnreadableFile" xml:space="preserve">
     <value>Súbor sa nepodarilo prečítať.</value>
@@ -3316,8 +3601,17 @@ Licencované podľa licencie MIT.</value>
   <data name="Sharing.UnsupportedFile" xml:space="preserve">
     <value>Tento súbor vyžaduje novšiu verziu Foundry OSD.</value>
   </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>Verzia</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>Čaká sa na dokončenie sťahovania zdieľaného obsahu</value>
+  </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Nesprávna heslová fráza alebo poškodený súbor.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>Nesprávne heslo publikácie alebo bola publikácia zmenená.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Zastaviť operáciu</value>

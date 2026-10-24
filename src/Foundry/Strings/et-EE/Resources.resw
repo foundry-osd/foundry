@@ -3172,14 +3172,50 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Värskendage rakendust</value>
   </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>Nõustu</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>Nõustu uue võrdlusarvutiga</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>Kausta avaldab nüüd teine arvuti: {0}. Nõustuge sellega ainult siis, kui ootate seda muudatust, näiteks pärast ülevõtmist; vastasel juhul lõpetage kausta jälgimine.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>Kas nõustuda uue võrdlusarvutiga?</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
-    <value>Teisaldage see konfiguratsioon krüptitud failiga teise arvutisse.</value>
+    <value>Teisaldage see konfiguratsioon krüptitud failiga või hoidke mitu arvutit ühise kausta kaudu kooskõlas.</value>
   </data>
   <data name="Sharing.CardHeader" xml:space="preserve">
     <value>Konfiguratsiooni ühiskasutus</value>
   </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>Muuda</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>Muuda parooli</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>Praegune avaldis kirjutatakse uue parooliga ümber. Sisufaile uuesti ei krüptita, nii et vana parooli teadja saab neid endiselt lugeda: endiste lugejate täielikuks tühistamiseks kasutage valikut Lähtesta avaldis. Kausta jälgivad arvutid sisestavad uue parooli ühe korra.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>Avaldise parooli muutmine</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>Kontrolli kohe</value>
+  </data>
+  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
+    <value>Konfiguratsioon värskendati arvutist {0}.</value>
+  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>Kinnita paroolifraas</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>Kinnitage parool</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>Ühiskasutuses üksusi, mida ei saanud sellesse arvutisse importida: {0}. Need tuuakse uuesti, kui võrdlusarvuti avaldab uue versiooni.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Draiverikomplekt</value>
@@ -3193,8 +3229,23 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Sharing.ContentKindPackage" xml:space="preserve">
     <value>Installijärgne pakett</value>
   </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>Osa ühiskasutuses sisust pole pärast korduvaid kontrolle endiselt saadaval. See võib kaustas olla kahjustatud: avaldage uuesti võrdlusarvutist.</value>
+  </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Kopeeri</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>Avaldise praegune parool</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>Sisesta parool</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>Avaldise parooli on uuesti vaja, näiteks pärast Windowsi parooli lähtestamist või pärast seda, kui võrdlusarvuti selle muutis.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>Avaldise parooli sisestamine</value>
   </data>
   <data name="Sharing.ExportButton" xml:space="preserve">
     <value>Ekspordi</value>
@@ -3223,6 +3274,36 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Sharing.FileTypeName" xml:space="preserve">
     <value>Foundry konfiguratsioon</value>
   </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>Kaust</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>Valige avaldamiskaust</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>Jälgi</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>Kasutage konfiguratsiooni, mille võrdlusarvuti kausta avaldab. Avaldatud sätted muutuvad selles arvutis kirjutuskaitstuks.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>Sisestage kaust, kuhu võrdlusarvuti avaldab, ja selle avaldise parool ning avage see avaldise eelvaate kuvamiseks.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>Jälgimine asendab praeguse konfiguratsiooni ja muudab avaldatud sätted kirjutuskaitstuks. Selle arvuti ISO väljundtee, WinPE draiverikaust ja telemeetriasätted säilitatakse.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>Jälgi kausta</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>Leitud võti</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>Leitud versioon</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>Unusta avaldise parool</value>
+  </data>
   <data name="Sharing.GeneratePassphrase" xml:space="preserve">
     <value>Genereeri</value>
   </data>
@@ -3244,11 +3325,17 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
     <value>Konfiguratsioon on imporditud, kuid selle paroole ei saanud salvestada. Sisestage need konfiguratsioonilehtedel uuesti.</value>
   </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>Importimine pole saadaval, kui see arvuti jälgib kausta. Lõpetage esmalt jälgimine.</value>
+  </data>
   <data name="Sharing.ImportTitle" xml:space="preserve">
     <value>Impordi konfiguratsioon</value>
   </data>
   <data name="Sharing.IncludePasswords" xml:space="preserve">
     <value>Kaasa paroolid</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>Igaüks, kes saab kausta lugeda ja teab avaldise parooli, saab neid paroole lugeda.</value>
   </data>
   <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
     <value>Igaüks, kellel on see fail ja selle paroolifraas, saab neid paroole lugeda.</value>
@@ -3256,8 +3343,20 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>See fail pole Foundry konfiguratsioon või on kahjustatud.</value>
   </data>
+  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
+    <value>Viimane õnnestumine</value>
+  </data>
   <data name="Sharing.LockedProfile" xml:space="preserve">
     <value>Seda konfiguratsiooni ei saa see Windowsi kasutaja avada.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>Selle konfiguratsiooni avaldab {0} ja see on selles arvutis kirjutuskaitstud. Muuta saab ainult ISO väljundteed, WinPE draiverikausta ja telemeetriasätteid.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>Selle konfiguratsiooni avaldab {0} ja see on selles arvutis kirjutuskaitstud. Avaldis ei sisalda paroole: sisestage need siin. Muuta saab ka ISO väljundteed, WinPE draiverikausta ja telemeetriasätteid.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>Haldab võrdlusarvuti</value>
   </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>Mõnda konfiguratsiooni kasutatavat faili ei õnnestunud taastada. Valige need konfiguratsioonilehtedel uuesti.</value>
@@ -3274,8 +3373,23 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Sharing.MissingContentHeader" xml:space="preserve">
     <value>Puudub selles arvutis</value>
   </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>Uus võti</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>Avaldise uus parool</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>See kaust ei sisalda avaldatud konfiguratsiooni.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>Pole veel kinnitatud: need väärtused pärinevad kaustast ja kinnitatakse alles siis, kui avaldise praegune parool avaldise avab.</value>
+  </data>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Ava</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>Toimingut ei saanud lõpule viia. Üksikasjad leiate logist.</value>
   </data>
   <data name="Sharing.PassphraseCopied" xml:space="preserve">
     <value>Paroolifraas kopeeriti lõikelauale.</value>
@@ -3289,8 +3403,23 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
     <value>Vähemalt 12 märki ja mitte sama märk korduvalt (näiteks aaaaaaaaaaaa).</value>
   </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>Uus parool on salvestatud. Muudatus viiakse lõpule järgmisel õnnestunud avaldamisel.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>Avaldise parool muudeti. Kausta jälgivad arvutid sisestavad uue parooli ühe korra.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>Parool kopeeriti lõikelauale.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>Paroolid ei ühti.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Kaasatud</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>Selle arvuti avaldamisvõtmeid ei saanud lugeda, näiteks pärast Windowsi parooli lähtestamist. Avaldamise jätkamiseks võtke kaust üle avaldise praeguse parooliga; kausta jälgivad arvutid nõustuvad seejärel ühe korra selle arvutiga kui uue võrdlusarvutiga.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Pole kaasatud</value>
@@ -3298,17 +3427,173 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Sharing.PreviewCreated" xml:space="preserve">
     <value>Eksporditud</value>
   </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>Allalaaditav</value>
+  </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>Nimi</value>
   </data>
   <data name="Sharing.PreviewPasswords" xml:space="preserve">
     <value>Paroolid</value>
   </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>Avaldatud</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>Võrdlusarvuti</value>
+  </data>
   <data name="Sharing.PreviousConfigurations" xml:space="preserve">
     <value>Varasemad konfiguratsioonid selles arvutis</value>
   </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>Eelmine võti</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>Avaldis pole veel täielikult sellesse kausta jõudnud. Proovige mõne hetke pärast uuesti.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>Avaldise parool</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>Avaldis lähtestati. Kausta jälgivad arvutid sisestavad uue parooli ühe korra.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>Avalda</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>Muutke see arvuti võrdlusarvutiks: selle konfiguratsioon avaldatakse kausta, mida teised arvutid jälgivad.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>Valige tühi kaust või kaust, kuhu see arvuti juba avaldab: võrgu ühiskaust, OneDrive'i või SharePointi kaust või kohalik kaust. Kausta jälgivad arvutid vajavad selle lugemiseks avaldise parooli.</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>Avalda kausta</value>
+  </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
     <value>Importimine asendab praeguse konfiguratsiooni. Selle arvuti ISO väljundtee, WinPE draiverikaust ja telemeetriasätted säilitatakse.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>Lähtesta</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>Lähtesta avaldis</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>Uus parool ja uus sisuvõti: iga sisufail krüptitakse uuesti, mis tühistab endised lugejad täielikult. Kausta jälgivad arvutid sisestavad uue parooli ühe korra.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>Avaldise lähtestamine</value>
+  </data>
+  <data name="Sharing.RetryButton" xml:space="preserve">
+    <value>Proovi uuesti</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>Endised lugejad saavad sisu avada kuni järgmise õnnestunud avaldamiseni.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>See arvuti jälgib arvutit {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>See arvuti avaldab oma konfiguratsiooni</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>Avaldamine ja jälgimine pole selles seansis saadaval, sest ühiskasutuse olekut ei saanud lugeda. Üksikasjad leiate logist.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>Kausta kontrollimine: avaldis pole veel täielikult kohale jõudnud ja loetakse järgmisel kontrollil uuesti.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>Konfiguratsioon on rakendatud. Ühiskasutuses sisu laaditakse alla.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>See kaust sisaldab faile, mis pole selle arvuti avaldis. Valige tühi kaust.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>Kaust pole saadaval. Kontrollige, kas see on olemas ja kas sellel arvutil on sellele juurdepääs.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>See arvuti ei avalda ega jälgi ühtegi konfiguratsiooni.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>Kausta esimese kontrolli ootamine.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>Muudatused avaldatakse automaatselt.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>Pole avaldatud: konfiguratsioon pole andmekandja loomiseks valmis või viitab sisule, mis selles arvutis puudub. Eelmine versioon jääb kehtima.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>Paroolid on vajalikud: sisestage avaldise parool või konfiguratsioonilehtedel paroolid, mida avaldis ei sisalda.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>Selle arvuti avaldise parooli või võtmeid ei saanud lugeda.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>Avaldatud. Kausta jälgivad arvutid saavad selle versiooni järgmisel kontrollil.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>Konfiguratsiooni avaldamine.</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>Kaust osutab rakendatust vanemale versioonile. Seda eiratakse.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>Avaldist on muudetud. Seda ei rakendata.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>Kausta avaldab nüüd teine arvuti. Nõustuge uue võrdlusarvutiga või lõpetage jälgimine.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>Sellesse kausta avaldab teine arvuti. Võtke see üle, et avaldada sellest arvutist.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>See avaldis nõuab Foundry OSD uuemat versiooni.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>Ajakohane.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>Konfiguratsioon värskendati.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>Avaldise parool ei ava praegust avaldist. Sisestage uus parool.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>Avaldise parool ei ava selle arvuti avaldist selles kaustas.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>Lõpeta jälgimine</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>Konfiguratsioon jääb samaks ja muutub selles arvutis taas muudetavaks.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>Kas lõpetada jälgimine?</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>Lõpeta avaldamine</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>Kaust jääb samaks ja seda jälgivad arvutid säilitavad viimati avaldatud versiooni. Sellest arvutist saab taas tavaline arvuti.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>Kas lõpetada avaldamine?</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>Võta üle</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>Sellesse kausta avaldab teine arvuti. Ülevõtmine jätkab selle avaldamist selle arvuti võtmega; kausta jälgivad arvutid peavad selle arvutiga ühe korra uue võrdlusarvutina nõustuma.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>Selle arvuti avaldamisvõtmeid ei saanud lugeda. Ülevõtmine avaldise praeguse parooliga jätkab avaldamist uute võtmetega; kausta jälgivad arvutid peavad selle arvutiga ühe korra uue võrdlusarvutina nõustuma.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>Kausta ülevõtmine</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>See parool ei ava praegust avaldist.</value>
   </data>
   <data name="Sharing.UnreadableFile" xml:space="preserve">
     <value>Faili ei saanud lugeda.</value>
@@ -3316,8 +3601,17 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Sharing.UnsupportedFile" xml:space="preserve">
     <value>See fail nõuab Foundry OSD uuemat versiooni.</value>
   </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>Versioon</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>Ühiskasutuses sisu allalaadimise lõpuleviimise ootamine</value>
+  </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Vale paroolifraas või kahjustatud fail.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>Vale avaldise parool või avaldist on muudetud.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Peata toiming</value>

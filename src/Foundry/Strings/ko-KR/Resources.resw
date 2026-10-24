@@ -3172,14 +3172,50 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>앱 업데이트</value>
   </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>수락</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>새 참조 PC 수락</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>이제 다른 PC에서 이 폴더를 게시합니다: {0}. 인계 후처럼 이 변경을 예상한 경우에만 수락하세요. 그렇지 않으면 폴더 팔로우를 중지하세요.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>새 참조 PC를 수락하시겠습니까?</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
-    <value>암호화된 파일을 사용하여 이 구성을 다른 PC로 옮깁니다.</value>
+    <value>암호화된 파일로 이 구성을 옮기거나 공유 폴더를 통해 여러 PC의 구성을 일치시킵니다.</value>
   </data>
   <data name="Sharing.CardHeader" xml:space="preserve">
     <value>구성 공유</value>
   </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>변경</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>암호 변경</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>현재 게시가 새 암호로 다시 작성됩니다. 콘텐츠 파일은 다시 암호화되지 않으므로 이전 암호를 알던 사람은 계속 읽을 수 있습니다. 이전 독자를 완전히 해지하려면 [게시 다시 설정]을 사용하세요. 폴더를 팔로우하는 PC는 새 암호를 한 번 입력합니다.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>게시 암호 변경</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>지금 확인</value>
+  </data>
+  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
+    <value>{0}에서 구성이 업데이트되었습니다.</value>
+  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>암호 문구 확인</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>암호 확인</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>이 PC로 가져올 수 없는 공유 항목 수: {0}. 참조 PC가 새 버전을 게시하면 다시 가져옵니다.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>드라이버 세트</value>
@@ -3193,8 +3229,23 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Sharing.ContentKindPackage" xml:space="preserve">
     <value>설치 후 패키지</value>
   </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>일부 공유 콘텐츠를 반복 확인한 후에도 아직 사용할 수 없습니다. 폴더에서 손상되었을 수 있습니다. 참조 PC에서 다시 게시하세요.</value>
+  </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>복사</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>현재 게시 암호</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>암호 입력</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>Windows 암호를 다시 설정한 후나 참조 PC에서 암호를 변경한 후 등에는 게시 암호가 다시 필요합니다.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>게시 암호 입력</value>
   </data>
   <data name="Sharing.ExportButton" xml:space="preserve">
     <value>내보내기</value>
@@ -3223,6 +3274,36 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Sharing.FileTypeName" xml:space="preserve">
     <value>Foundry 구성</value>
   </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>폴더</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>게시 폴더 선택</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>팔로우</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>참조 PC가 폴더에 게시하는 구성을 사용합니다. 게시된 설정은 이 PC에서 읽기 전용이 됩니다.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>참조 PC가 게시하는 폴더와 게시 암호를 입력한 다음 폴더를 열어 게시를 미리 봅니다.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>팔로우하면 현재 구성이 바뀌고 게시된 설정이 읽기 전용이 됩니다. 이 PC의 ISO 출력 경로, WinPE 드라이버 폴더 및 원격 분석 설정은 유지됩니다.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>폴더 팔로우</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>찾은 키</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>찾은 버전</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>게시 암호 지우기</value>
+  </data>
   <data name="Sharing.GeneratePassphrase" xml:space="preserve">
     <value>생성</value>
   </data>
@@ -3244,11 +3325,17 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
     <value>구성을 가져왔지만 암호를 저장할 수 없습니다. 구성 페이지에서 다시 입력하세요.</value>
   </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>이 PC가 폴더를 팔로우하는 동안에는 가져오기를 사용할 수 없습니다. 먼저 팔로우를 중지하세요.</value>
+  </data>
   <data name="Sharing.ImportTitle" xml:space="preserve">
     <value>구성 가져오기</value>
   </data>
   <data name="Sharing.IncludePasswords" xml:space="preserve">
     <value>암호 포함</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>폴더를 읽을 수 있고 게시 암호를 아는 사람은 누구나 이 암호를 읽을 수 있습니다.</value>
   </data>
   <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
     <value>이 파일과 해당 암호 문구를 가진 사람은 누구나 이 암호를 읽을 수 있습니다.</value>
@@ -3256,8 +3343,20 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>이 파일은 Foundry 구성이 아니거나 손상되었습니다.</value>
   </data>
+  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
+    <value>마지막 성공</value>
+  </data>
   <data name="Sharing.LockedProfile" xml:space="preserve">
     <value>이 Windows 사용자는 이 구성을 열 수 없습니다.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>이 구성은 {0}에서 게시하며 이 PC에서는 읽기 전용입니다. ISO 출력 경로, WinPE 드라이버 폴더 및 원격 분석 설정만 변경할 수 있습니다.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>이 구성은 {0}에서 게시하며 이 PC에서는 읽기 전용입니다. 게시에 암호가 포함되어 있지 않으므로 여기에 입력하세요. ISO 출력 경로, WinPE 드라이버 폴더 및 원격 분석 설정도 변경할 수 있습니다.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>참조 PC에서 관리</value>
   </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>구성에서 사용하는 일부 파일을 복구할 수 없습니다. 구성 페이지에서 다시 선택하세요.</value>
@@ -3274,8 +3373,23 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Sharing.MissingContentHeader" xml:space="preserve">
     <value>이 PC에 없음</value>
   </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>새 키</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>새 게시 암호</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>이 폴더에는 게시된 구성이 없습니다.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>아직 확인되지 않음: 이 값은 폴더에서 읽은 것이며 현재 게시 암호로 게시를 열 때만 확인됩니다.</value>
+  </data>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>열기</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>작업을 완료할 수 없습니다. 자세한 내용은 로그를 참조하세요.</value>
   </data>
   <data name="Sharing.PassphraseCopied" xml:space="preserve">
     <value>암호 문구를 클립보드에 복사했습니다.</value>
@@ -3289,8 +3403,23 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
     <value>12자 이상이어야 하며 같은 문자만 반복(예: aaaaaaaaaaaa)할 수 없습니다.</value>
   </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>새 암호가 저장되었습니다. 다음 게시가 성공하면 변경이 완료됩니다.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>게시 암호가 변경되었습니다. 폴더를 팔로우하는 PC는 새 암호를 한 번 입력합니다.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>암호를 클립보드에 복사했습니다.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>암호가 일치하지 않습니다.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>포함됨</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>Windows 암호를 다시 설정한 후 등에 이 PC의 게시 키를 읽을 수 없었습니다. 게시를 계속하려면 현재 게시 암호로 폴더를 인계하세요. 그러면 폴더를 팔로우하는 PC가 이 PC를 새 참조 PC로 한 번 수락합니다.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>포함되지 않음</value>
@@ -3298,17 +3427,173 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Sharing.PreviewCreated" xml:space="preserve">
     <value>내보낸 날짜</value>
   </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>다운로드할 크기</value>
+  </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>이름</value>
   </data>
   <data name="Sharing.PreviewPasswords" xml:space="preserve">
     <value>암호</value>
   </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>게시 날짜</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>참조 PC</value>
+  </data>
   <data name="Sharing.PreviousConfigurations" xml:space="preserve">
     <value>이 PC의 이전 구성</value>
   </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>이전 키</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>게시가 아직 이 폴더에 완전히 도착하지 않았습니다. 잠시 후 다시 시도하세요.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>게시 암호</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>게시를 다시 설정했습니다. 폴더를 팔로우하는 PC는 새 암호를 한 번 입력합니다.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>게시</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>이 PC를 참조 PC로 만듭니다. 이 PC의 구성이 다른 PC가 팔로우하는 폴더에 게시됩니다.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>빈 폴더 또는 이 PC가 이미 게시하고 있는 폴더를 선택하세요. 네트워크 공유, OneDrive 또는 SharePoint 폴더, 로컬 폴더를 사용할 수 있습니다. 폴더를 팔로우하는 PC가 폴더를 읽으려면 게시 암호가 필요합니다.</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>폴더에 게시</value>
+  </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
     <value>가져오면 현재 구성이 바뀝니다. 이 PC의 ISO 출력 경로, WinPE 드라이버 폴더 및 원격 분석 설정은 유지됩니다.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>다시 설정</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>게시 다시 설정</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>새 암호와 새 콘텐츠 키를 사용합니다. 모든 콘텐츠 파일이 다시 암호화되어 이전 독자가 완전히 해지됩니다. 폴더를 팔로우하는 PC는 새 암호를 한 번 입력합니다.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>게시 다시 설정</value>
+  </data>
+  <data name="Sharing.RetryButton" xml:space="preserve">
+    <value>다시 시도</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>다음 게시가 성공할 때까지 이전 독자는 계속 콘텐츠를 열 수 있습니다.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>이 PC는 {0}을(를) 팔로우합니다</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>이 PC는 구성을 게시합니다</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>공유 상태를 읽을 수 없어 이 세션에서는 게시와 팔로우를 사용할 수 없습니다. 자세한 내용은 로그를 참조하세요.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>폴더를 확인하는 중: 게시가 아직 완전히 도착하지 않아 다음 확인 때 다시 읽습니다.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>구성이 적용되었습니다. 공유 콘텐츠를 다운로드하는 중입니다.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>이 폴더에는 이 PC의 게시가 아닌 파일이 있습니다. 빈 폴더를 선택하세요.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>폴더를 사용할 수 없습니다. 폴더가 있고 이 PC에서 액세스할 수 있는지 확인하세요.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>이 PC는 구성을 게시하거나 팔로우하지 않습니다.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>폴더의 첫 번째 확인을 기다리는 중입니다.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>변경 내용이 자동으로 게시됩니다.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>게시되지 않음: 구성이 미디어를 만들 준비가 되지 않았거나 이 PC에 없는 콘텐츠를 참조합니다. 이전 버전이 계속 유지됩니다.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>암호가 필요합니다. 게시 암호를 입력하거나 구성 페이지에서 게시에 포함되지 않은 암호를 입력하세요.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>이 PC의 게시 암호 또는 키를 읽을 수 없습니다.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>게시되었습니다. 폴더를 팔로우하는 PC는 다음 확인 때 이 버전을 받습니다.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>구성을 게시하는 중입니다.</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>폴더가 적용된 버전보다 오래된 버전을 가리킵니다. 무시됩니다.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>게시가 수정되었습니다. 적용되지 않습니다.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>이제 다른 PC에서 이 폴더를 게시합니다. 새 참조 PC를 수락하거나 팔로우를 중지하세요.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>다른 PC가 이 폴더에 게시하고 있습니다. 이 PC에서 게시하려면 폴더를 인계하세요.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>이 게시에는 최신 버전의 Foundry OSD가 필요합니다.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>최신 상태입니다.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>구성이 업데이트되었습니다.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>게시 암호로 현재 게시를 열 수 없습니다. 새 암호를 입력하세요.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>게시 암호로 이 폴더에 있는 이 PC의 게시를 열 수 없습니다.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>팔로우 중지</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>구성은 그대로 유지되며 이 PC에서 다시 편집할 수 있게 됩니다.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>팔로우를 중지하시겠습니까?</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>게시 중지</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>폴더는 그대로 유지되며 팔로우하는 PC는 마지막으로 게시된 버전을 유지합니다. 이 PC는 다시 일반 PC가 됩니다.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>게시를 중지하시겠습니까?</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>인계</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>다른 PC가 이 폴더에 게시하고 있습니다. 인계하면 이 PC의 키로 게시가 계속됩니다. 폴더를 팔로우하는 PC는 이 PC를 새 참조 PC로 한 번 수락해야 합니다.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>이 PC의 게시 키를 읽을 수 없습니다. 현재 게시 암호로 인계하면 새 키로 게시가 계속됩니다. 폴더를 팔로우하는 PC는 이 PC를 새 참조 PC로 한 번 수락해야 합니다.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>폴더 인계</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>이 암호로는 현재 게시를 열 수 없습니다.</value>
   </data>
   <data name="Sharing.UnreadableFile" xml:space="preserve">
     <value>파일을 읽을 수 없습니다.</value>
@@ -3316,8 +3601,17 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Sharing.UnsupportedFile" xml:space="preserve">
     <value>이 파일에는 최신 버전의 Foundry OSD가 필요합니다.</value>
   </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>버전</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>공유 콘텐츠 다운로드가 완료되기를 기다리는 중</value>
+  </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>암호 문구가 잘못되었거나 파일이 손상되었습니다.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>게시 암호가 잘못되었거나 게시가 수정되었습니다.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>작업 중지</value>

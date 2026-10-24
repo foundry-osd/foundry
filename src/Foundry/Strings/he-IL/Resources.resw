@@ -3172,14 +3172,50 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>עדכן את האפליקציה</value>
   </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>קבל</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>קבל מחשב הפניה חדש</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>התיקייה מפורסמת כעת על ידי מחשב אחר: {0}. קבל אותו רק אם אתה מצפה לשינוי זה, לדוגמה לאחר השתלטות; אחרת, הפסק לעקוב אחר התיקייה.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>לקבל את מחשב ההפניה החדש?</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
-    <value>העבר תצורה זו למחשב אחר באמצעות קובץ מוצפן.</value>
+    <value>העבר תצורה זו באמצעות קובץ מוצפן, או שמור על כמה מחשבים מתואמים באמצעות תיקייה משותפת.</value>
   </data>
   <data name="Sharing.CardHeader" xml:space="preserve">
     <value>שיתוף תצורה</value>
   </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>שנה</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>שנה סיסמה</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>הפרסום הנוכחי נכתב מחדש עם הסיסמה החדשה. קובצי התוכן אינם מוצפנים מחדש, ולכן מי שהכיר את הסיסמה הישנה עדיין יכול לקרוא אותם: השתמש באיפוס הפרסום כדי לבטל לחלוטין את הגישה של קוראים קודמים. המחשבים העוקבים אחר התיקייה מזינים את הסיסמה החדשה פעם אחת.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>שינוי סיסמת הפרסום</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>בדוק כעת</value>
+  </data>
+  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
+    <value>התצורה עודכנה מ-{0}.</value>
+  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>אשר את ביטוי הסיסמה</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>אשר את הסיסמה</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>מספר הפריטים המשותפים שלא ניתן היה לייבא למחשב זה: {0}. הם יאוחזרו שוב כאשר מחשב ההפניה יפרסם גרסה חדשה.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>ערכת מנהלי התקנים</value>
@@ -3193,8 +3229,23 @@
   <data name="Sharing.ContentKindPackage" xml:space="preserve">
     <value>חבילה לאחר התקנה</value>
   </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>חלק מהתוכן המשותף עדיין אינו זמין לאחר בדיקות חוזרות. ייתכן שהוא פגום בתיקייה: פרסם שוב ממחשב ההפניה.</value>
+  </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>העתק</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>סיסמת הפרסום הנוכחית</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>הזן סיסמה</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>נדרשת שוב סיסמת הפרסום, לדוגמה לאחר איפוס סיסמת Windows או לאחר שמחשב ההפניה שינה אותה.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>הזנת סיסמת הפרסום</value>
   </data>
   <data name="Sharing.ExportButton" xml:space="preserve">
     <value>ייצא</value>
@@ -3223,6 +3274,36 @@
   <data name="Sharing.FileTypeName" xml:space="preserve">
     <value>תצורת Foundry</value>
   </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>תיקייה</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>בחר את תיקיית הפרסום</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>עקוב</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>השתמש בתצורה שמחשב הפניה מפרסם לתיקייה. ההגדרות שפורסמו הופכות לקריאה בלבד במחשב זה.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>הזן את התיקייה שאליה מחשב ההפניה מפרסם ואת סיסמת הפרסום שלו, ולאחר מכן פתח אותה כדי להציג תצוגה מקדימה של הפרסום.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>המעקב מחליף את התצורה הנוכחית והופך את ההגדרות שפורסמו לקריאה בלבד. נתיב הפלט של ISO, תיקיית מנהלי ההתקנים של WinPE והגדרות הטלמטריה של מחשב זה נשמרים.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>מעקב אחר תיקייה</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>מפתח שנמצא</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>גרסה שנמצאה</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>שכח את סיסמת הפרסום</value>
+  </data>
   <data name="Sharing.GeneratePassphrase" xml:space="preserve">
     <value>צור</value>
   </data>
@@ -3244,11 +3325,17 @@
   <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
     <value>התצורה יובאה, אך לא ניתן היה לשמור את הסיסמאות שלה. הזן אותן שוב בדפי התצורה.</value>
   </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>הייבוא אינו זמין כל עוד מחשב זה עוקב אחר תיקייה. הפסק לעקוב תחילה.</value>
+  </data>
   <data name="Sharing.ImportTitle" xml:space="preserve">
     <value>ייבוא תצורה</value>
   </data>
   <data name="Sharing.IncludePasswords" xml:space="preserve">
     <value>כלול סיסמאות</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>כל מי שיכול לקרוא את התיקייה ומכיר את סיסמת הפרסום יכול לקרוא סיסמאות אלה.</value>
   </data>
   <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
     <value>כל מי שיש ברשותו קובץ זה וביטוי הסיסמה שלו יכול לקרוא סיסמאות אלה.</value>
@@ -3256,8 +3343,20 @@
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>קובץ זה אינו תצורת Foundry, או שהוא פגום.</value>
   </data>
+  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
+    <value>הצלחה אחרונה</value>
+  </data>
   <data name="Sharing.LockedProfile" xml:space="preserve">
     <value>משתמש Windows זה אינו יכול לפתוח תצורה זו.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>תצורה זו מפורסמת על ידי {0} והיא לקריאה בלבד במחשב זה. ניתן לשנות רק את נתיב הפלט של ISO, את תיקיית מנהלי ההתקנים של WinPE ואת הגדרות הטלמטריה.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>תצורה זו מפורסמת על ידי {0} והיא לקריאה בלבד במחשב זה. הפרסום אינו כולל סיסמאות: הזן אותן כאן. ניתן גם לשנות את נתיב הפלט של ISO, את תיקיית מנהלי ההתקנים של WinPE ואת הגדרות הטלמטריה.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>מנוהל על ידי מחשב הפניה</value>
   </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>לא ניתן היה לשחזר חלק מהקבצים שבהם התצורה משתמשת. בחר אותם שוב בדפי התצורה.</value>
@@ -3274,8 +3373,23 @@
   <data name="Sharing.MissingContentHeader" xml:space="preserve">
     <value>חסר במחשב זה</value>
   </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>מפתח חדש</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>סיסמת פרסום חדשה</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>תיקייה זו אינה מכילה תצורה שפורסמה.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>עדיין לא אומת: ערכים אלה מגיעים מהתיקייה ומאושרים רק כאשר סיסמת הפרסום הנוכחית פותחת את הפרסום.</value>
+  </data>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>פתח</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>לא ניתן היה להשלים את הפעולה. לפרטים, עיין ביומן.</value>
   </data>
   <data name="Sharing.PassphraseCopied" xml:space="preserve">
     <value>ביטוי הסיסמה הועתק ללוח.</value>
@@ -3289,8 +3403,23 @@
   <data name="Sharing.PassphraseRule" xml:space="preserve">
     <value>לפחות 12 תווים, ולא אותו תו שחוזר על עצמו (לדוגמה aaaaaaaaaaaa).</value>
   </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>הסיסמה החדשה נשמרה. השינוי יושלם בפרסום המוצלח הבא.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>סיסמת הפרסום שונתה. המחשבים העוקבים אחר התיקייה מזינים את הסיסמה החדשה פעם אחת.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>הסיסמה הועתקה ללוח.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>הסיסמאות אינן תואמות.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>כלולות</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>לא ניתן היה לקרוא את מפתחות הפרסום של מחשב זה, לדוגמה לאחר איפוס סיסמת Windows. השתלט על התיקייה באמצעות סיסמת הפרסום הנוכחית כדי להמשיך לפרסם; לאחר מכן המחשבים העוקבים אחר התיקייה יקבלו פעם אחת את מחשב זה כמחשב ההפניה החדש.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>לא כלולות</value>
@@ -3298,17 +3427,173 @@
   <data name="Sharing.PreviewCreated" xml:space="preserve">
     <value>יוצא בתאריך</value>
   </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>להורדה</value>
+  </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>שם</value>
   </data>
   <data name="Sharing.PreviewPasswords" xml:space="preserve">
     <value>סיסמאות</value>
   </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>פורסם בתאריך</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>מחשב הפניה</value>
+  </data>
   <data name="Sharing.PreviousConfigurations" xml:space="preserve">
     <value>תצורות קודמות במחשב זה</value>
   </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>מפתח קודם</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>הפרסום עדיין לא הגיע במלואו לתיקייה זו. נסה שוב בעוד רגע.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>סיסמת פרסום</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>הפרסום אופס. המחשבים העוקבים אחר התיקייה מזינים את הסיסמה החדשה פעם אחת.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>פרסם</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>הפוך מחשב זה למחשב ההפניה: התצורה שלו מפורסמת לתיקייה שמחשבים אחרים עוקבים אחריה.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>בחר תיקייה ריקה או תיקייה שמחשב זה כבר מפרסם אליה: שיתוף רשת, תיקיית OneDrive או SharePoint, או תיקייה מקומית. המחשבים העוקבים אחר התיקייה זקוקים לסיסמת הפרסום כדי לקרוא אותה.</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>פרסום לתיקייה</value>
+  </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
     <value>הייבוא מחליף את התצורה הנוכחית. נתיב הפלט של ISO, תיקיית מנהלי ההתקנים של WinPE והגדרות הטלמטריה של מחשב זה נשמרים.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>אפס</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>אפס פרסום</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>סיסמה חדשה ומפתח תוכן חדש: כל קובץ תוכן מוצפן מחדש, מה שמבטל לחלוטין את הגישה של קוראים קודמים. המחשבים העוקבים אחר התיקייה מזינים את הסיסמה החדשה פעם אחת.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>איפוס הפרסום</value>
+  </data>
+  <data name="Sharing.RetryButton" xml:space="preserve">
+    <value>נסה שוב</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>קוראים קודמים עדיין יכולים לפתוח תוכן עד לפרסום המוצלח הבא.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>מחשב זה עוקב אחר {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>מחשב זה מפרסם את התצורה שלו</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>הפרסום והמעקב אינם זמינים במהלך הפעלה זו, מפני שלא ניתן היה לקרוא את מצב השיתוף. לפרטים, עיין ביומן.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>בודק את התיקייה: הפרסום עדיין לא הגיע במלואו וייקרא שוב בבדיקה הבאה.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>התצורה הוחלה. התוכן המשותף מורד כעת.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>תיקייה זו מכילה קבצים שאינם פרסום של מחשב זה. בחר תיקייה ריקה.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>התיקייה אינה זמינה. ודא שהיא קיימת ושלמחשב זה יש גישה אליה.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>מחשב זה אינו מפרסם ואינו עוקב אחר תצורה כלשהי.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>ממתין לבדיקה הראשונה של התיקייה.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>השינויים מפורסמים באופן אוטומטי.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>לא פורסם: התצורה אינה מוכנה ליצירת מדיה או מפנה לתוכן שחסר במחשב זה. הגרסה הקודמת נשארת בתוקף.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>נדרשות סיסמאות: הזן את סיסמת הפרסום, או בדפי התצורה את הסיסמאות שהפרסום אינו כולל.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>לא ניתן היה לקרוא את סיסמת הפרסום או את המפתחות של מחשב זה.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>פורסם. המחשבים העוקבים אחר התיקייה יקבלו גרסה זו בבדיקה הבאה שלהם.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>מפרסם את התצורה.</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>התיקייה מצביעה על גרסה ישנה יותר מזו שהוחלה. המערכת מתעלמת ממנה.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>הפרסום שונה. הוא אינו מוחל.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>התיקייה מפורסמת כעת על ידי מחשב אחר. קבל את מחשב ההפניה החדש או הפסק לעקוב.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>מחשב אחר מפרסם לתיקייה זו. השתלט עליה כדי לפרסם ממחשב זה.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>פרסום זה דורש גרסה חדשה יותר של Foundry OSD.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>מעודכן.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>התצורה עודכנה.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>סיסמת הפרסום אינה פותחת את הפרסום הנוכחי. הזן את הסיסמה החדשה.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>סיסמת הפרסום אינה פותחת את הפרסום של מחשב זה בתיקייה זו.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>הפסק לעקוב</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>התצורה נשארת כפי שהיא והופכת שוב לניתנת לעריכה במחשב זה.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>להפסיק לעקוב?</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>הפסק לפרסם</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>התיקייה נשארת כפי שהיא, והמחשבים העוקבים אחריה שומרים את הגרסה האחרונה שפורסמה. מחשב זה הופך שוב למחשב רגיל.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>להפסיק לפרסם?</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>השתלט</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>מחשב אחר מפרסם לתיקייה זו. ההשתלטות ממשיכה את הפרסום שלו עם המפתח של מחשב זה; המחשבים העוקבים אחר התיקייה חייבים לקבל פעם אחת את מחשב זה כמחשב ההפניה החדש.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>לא ניתן היה לקרוא את מפתחות הפרסום של מחשב זה. השתלטות עם סיסמת הפרסום הנוכחית ממשיכה את הפרסום עם מפתחות חדשים; המחשבים העוקבים אחר התיקייה חייבים לקבל פעם אחת את מחשב זה כמחשב ההפניה החדש.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>השתלטות על התיקייה</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>סיסמה זו אינה פותחת את הפרסום הנוכחי.</value>
   </data>
   <data name="Sharing.UnreadableFile" xml:space="preserve">
     <value>לא ניתן היה לקרוא את הקובץ.</value>
@@ -3316,8 +3601,17 @@
   <data name="Sharing.UnsupportedFile" xml:space="preserve">
     <value>קובץ זה דורש גרסה חדשה יותר של Foundry OSD.</value>
   </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>גרסה</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>ממתין לסיום ההורדה של התוכן המשותף</value>
+  </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>ביטוי סיסמה שגוי או קובץ פגום.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>סיסמת פרסום שגויה, או שהפרסום שונה.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>עצור פעולה</value>

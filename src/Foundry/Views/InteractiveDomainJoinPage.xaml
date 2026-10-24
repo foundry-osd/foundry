@@ -18,15 +18,18 @@
                 DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
                 IconGlyph="&#xE928;">
                 <controls:PageHeader.ActionContent>
-                    <Button
-                        Command="{x:Bind ViewModel.ToggleModeCommand}"
-                        Content="{x:Bind ViewModel.ActionText, Mode=OneWay}" />
+                    <ContentControl IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}">
+                        <Button
+                            Command="{x:Bind ViewModel.ToggleModeCommand}"
+                            Content="{x:Bind ViewModel.ActionText, Mode=OneWay}" />
+                    </ContentControl>
                 </controls:PageHeader.ActionContent>
             </controls:PageHeader>
+            <controls:ManagedConfigurationBanner />
 
             <ContentControl
                 HorizontalContentAlignment="Stretch"
-                IsEnabled="{x:Bind ViewModel.IsActive, Mode=OneWay}">
+                IsEnabled="{x:Bind controls:BindingFunctions.And(ViewModel.IsActive, Managed.IsEditable), Mode=OneWay}">
                 <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
                     <wct:SettingsCard
                         x:Uid="DomainJoinDomains"

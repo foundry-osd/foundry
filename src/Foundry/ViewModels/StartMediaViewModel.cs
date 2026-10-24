@@ -63,6 +63,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IApplicationLocalizationService localizationService;
     private readonly IExternalProcessLauncher externalProcessLauncher;
     private readonly IAppDispatcher appDispatcher;
+    private readonly Foundry.Services.Sharing.ConfigurationSharingService sharingService;
     private readonly ILogger logger;
     private IReadOnlyList<string> availableWinPeLanguages = [];
     private bool isLoadingConfiguration = true;
@@ -110,6 +111,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IApplicationLocalizationService localizationService,
         IExternalProcessLauncher externalProcessLauncher,
         IAppDispatcher appDispatcher,
+        Foundry.Services.Sharing.ConfigurationSharingService sharingService,
         ILogger logger)
     {
         this.appSettingsService = appSettingsService;
@@ -139,6 +141,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.localizationService = localizationService;
         this.externalProcessLauncher = externalProcessLauncher;
         this.appDispatcher = appDispatcher;
+        this.sharingService = sharingService;
         this.logger = logger.ForContext<StartMediaViewModel>();
 
         Architectures =
@@ -700,6 +703,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 target is FinalMediaTarget.Usb or FinalMediaTarget.UsbUpdate ? options.SelectedUsbDisk?.DiskNumber : null,
                 target is FinalMediaTarget.Usb or FinalMediaTarget.UsbUpdate ? options.SelectedUsbDisk?.FriendlyName : null);
 
+            await WaitForSharedContentAsync(cancellationToken);
             snapshot = await foundryConfigurationStateService.CaptureBuildSnapshotAsync(
                 Path.Combine(Constants.UserRootDirectoryPath, "BuildSnapshots"), cancellationToken);
             cancellationToken.ThrowIfCancellationRequested();
@@ -1763,6 +1767,36 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     }
 
     /// <summary>
+    /// A follower may still be fetching the content of the publication it applied (spec 6.2): the build waits for the fetch before
+    /// it freezes the configuration, showing the fetch progress on the detail line. Content still missing afterwards fails the
+    /// capture as it would without sharing.
+    /// </summary>
+    private async Task WaitForSharedContentAsync(CancellationToken cancellationToken)
+    {
+        if (!sharingService.IsContentPending) return;
+        logger.Information("Media creation waits for shared content to finish downloading.");
+        void OnSharingChanged(object? sender, EventArgs e) => ReportSharedContentProgress();
+        sharingService.Changed += OnSharingChanged;
+        try
+        {
+            ReportSharedContentProgress();
+            await sharingService.WaitForContentAsync(cancellationToken);
+        }
+        finally
+        {
+            sharingService.Changed -= OnSharingChanged;
+        }
+
+        logger.Information("Shared content wait completed. ContentPending={ContentPending}", sharingService.IsContentPending);
+    }
+
+    private void ReportSharedContentProgress()
+    {
+        int? percent = sharingService.Progress is { Total: > 0 } progress ? (int)(100 * progress.Done / progress.Total) : null;
+        ReportDetail(localizationService.GetString("Sharing.WaitingForContent"), percent);
+    }
+
+    /// <summary>
     /// Updates only the detail line, keeping the current phase and percentage.
     /// </summary>
     private void ReportDetail(string detail, int? detailProgress)
@@ -2264,6 +2298,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private void UpdateGeneral(GeneralSettings settings)
     {
+        // A managed configuration keeps its published media defaults: the choice then applies to this build only.
+        if (!foundryConfigurationStateService.IsChangeAllowed(foundryConfigurationStateService.Current with { General = settings })) return;
         foundryConfigurationStateService.UpdateGeneral(settings);
     }
 

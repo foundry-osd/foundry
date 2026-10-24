@@ -60,7 +60,19 @@
                     </BreadcrumbBar.ItemTemplate>
                 </BreadcrumbBar>
             </NavigationView.Header>
-            <Frame x:Name="NavFrame" />
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <InfoBar x:Name="SharingNotification"
+                    Margin="36,0,36,8"
+                    IsClosable="True"
+                    IsOpen="False"
+                    Severity="Success" />
+                <Frame x:Name="NavFrame"
+                    Grid.Row="1" />
+            </Grid>
         </NavigationView>
     </Grid>
 </Window>

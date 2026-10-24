@@ -34,6 +34,12 @@ public static class SecretIds
     /// </summary>
     public const string PreviousPublicationPassword = "sharing/previous-publication-password";
 
+    /// <summary>
+    /// SHA-256 of what the reference published last (folder, portable configuration and included passwords), so an unchanged
+    /// configuration is not published again after a restart. Kept in the vault because it is derived from passwords. Never shared.
+    /// </summary>
+    public const string PublishedFingerprint = "sharing/published-fingerprint";
+
     /// <summary>Prefix of the Wi-Fi certificate password ids.</summary>
     public const string WifiCertificatePrefix = "wifi/certificate/";
 

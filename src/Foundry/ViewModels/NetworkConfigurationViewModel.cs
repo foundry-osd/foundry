@@ -647,6 +647,13 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         isSavingState = true;
         try
         {
+            // A managed configuration is read-only: only the passwords the publication does not include are entered here.
+            if (configurationStateService.IsManaged)
+            {
+                networkSecretStateService.Update(configurationStateService.Current.Network, BuildEnteredSecrets());
+                return;
+            }
+
             // Store only the network model; passwords stay in the secret state service.
             NetworkSettings settings = BuildSettingsForValidation();
             networkSecretStateService.Update(settings, BuildEnteredSecrets());

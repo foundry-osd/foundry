@@ -3172,14 +3172,50 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Päivitä sovellus</value>
   </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>Hyväksy</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>Hyväksy uusi viite</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>Kansion julkaisee nyt toinen tietokone: {0}. Hyväksy se vain, jos odotat tätä muutosta esimerkiksi haltuunoton jälkeen. Muussa tapauksessa lopeta kansion seuraaminen.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>Hyväksytäänkö uusi viite?</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
-    <value>Siirrä tämä määritys toiseen tietokoneeseen salatulla tiedostolla.</value>
+    <value>Siirrä tämä määritys salatulla tiedostolla tai pidä useat tietokoneet yhdenmukaisina jaetun kansion avulla.</value>
   </data>
   <data name="Sharing.CardHeader" xml:space="preserve">
     <value>Määrityksen jakaminen</value>
   </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>Vaihda</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>Vaihda salasana</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>Nykyinen julkaisu kirjoitetaan uudelleen uudella salasanalla. Sisältötiedostoja ei salata uudelleen, joten vanhan salasanan tuntenut voi yhä lukea ne: käytä toimintoa Palauta julkaisu, jos haluat peruuttaa aiempien lukijoiden käyttöoikeuden kokonaan. Kansiota kansiota seuraavat tietokoneet antavat uuden salasanan kerran.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>Vaihda julkaisun salasana</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>Tarkista nyt</value>
+  </data>
+  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
+    <value>Määritys päivitettiin lähteestä {0}.</value>
+  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>Vahvista tunnuslause</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>Vahvista salasana</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>{0} jaettua kohdetta ei voitu tuoda tähän tietokoneeseen. Ne noudetaan uudelleen, kun viitetietokone julkaisee uuden version.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Ohjainjoukko</value>
@@ -3193,8 +3229,23 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Sharing.ContentKindPackage" xml:space="preserve">
     <value>Asennuksen jälkeinen paketti</value>
   </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>Osa jaetusta sisällöstä ei ole vieläkään käytettävissä toistuvien tarkistusten jälkeen. Se voi olla vahingoittunut kansiossa: julkaise uudelleen viitetietokoneesta.</value>
+  </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Kopioi</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>Julkaisun nykyinen salasana</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>Anna salasana</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>Julkaisun salasana tarvitaan uudelleen esimerkiksi Windows-salasanan palauttamisen jälkeen tai sen jälkeen, kun viitetietokone on vaihtanut sen.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>Anna julkaisun salasana</value>
   </data>
   <data name="Sharing.ExportButton" xml:space="preserve">
     <value>Vie</value>
@@ -3223,6 +3274,36 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Sharing.FileTypeName" xml:space="preserve">
     <value>Foundry-määritys</value>
   </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>Kansio</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>Valitse julkaisukansio</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>Seuraa</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>Käytä määritystä, jonka viitetietokone julkaisee kansioon. Julkaistut asetukset muuttuvat tässä tietokoneessa vain luku -muotoisiksi.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>Anna kansio, johon viitetietokone julkaisee, ja julkaisun salasana. Avaa kansio sitten julkaisun esikatselua varten.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>Seuraaminen korvaa nykyisen määrityksen ja muuttaa julkaistut asetukset vain luku -muotoisiksi. Tämän tietokoneen ISO-tulostepolku, WinPE-ohjainkansio ja telemetria-asetukset säilytetään.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>Seuraa kansiota</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>Löydetty avain</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>Löydetty versio</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>Unohda julkaisun salasana</value>
+  </data>
   <data name="Sharing.GeneratePassphrase" xml:space="preserve">
     <value>Luo</value>
   </data>
@@ -3244,11 +3325,17 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
     <value>Määritys tuotiin, mutta sen salasanoja ei voitu tallentaa. Anna ne uudelleen määrityssivuilla.</value>
   </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>Tuonti ei ole käytettävissä, kun tämä tietokone seuraa kansiota. Lopeta seuraaminen ensin.</value>
+  </data>
   <data name="Sharing.ImportTitle" xml:space="preserve">
     <value>Tuo määritys</value>
   </data>
   <data name="Sharing.IncludePasswords" xml:space="preserve">
     <value>Sisällytä salasanat</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>Kuka tahansa, joka voi lukea kansion ja tietää julkaisun salasanan, voi lukea nämä salasanat.</value>
   </data>
   <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
     <value>Kuka tahansa, jolla on tämä tiedosto ja sen tunnuslause, voi lukea nämä salasanat.</value>
@@ -3256,8 +3343,20 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>Tämä tiedosto ei ole Foundry-määritys, tai se on vahingoittunut.</value>
   </data>
+  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
+    <value>Viimeisin onnistuminen</value>
+  </data>
   <data name="Sharing.LockedProfile" xml:space="preserve">
     <value>Tämä Windows-käyttäjä ei voi avata tätä määritystä.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>Tämän määrityksen julkaisee {0}, ja se on tässä tietokoneessa vain luku -muotoinen. Vain ISO-tulostepolkua, WinPE-ohjainkansiota ja telemetria-asetuksia voi muuttaa.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>Tämän määrityksen julkaisee {0}, ja se on tässä tietokoneessa vain luku -muotoinen. Julkaisu ei sisällä salasanoja: anna ne tässä. Myös ISO-tulostepolkua, WinPE-ohjainkansiota ja telemetria-asetuksia voi muuttaa.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>Viitetietokoneen hallitsema</value>
   </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>Joitakin määrityksen käyttämiä tiedostoja ei voitu palauttaa. Valitse ne uudelleen määrityssivuilla.</value>
@@ -3274,8 +3373,23 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Sharing.MissingContentHeader" xml:space="preserve">
     <value>Puuttuu tästä tietokoneesta</value>
   </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>Uusi avain</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>Julkaisun uusi salasana</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>Tässä kansiossa ei ole julkaistua määritystä.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>Ei vielä vahvistettu: nämä arvot ovat peräisin kansiosta, ja ne vahvistetaan vasta, kun julkaisun nykyinen salasana avaa julkaisun.</value>
+  </data>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Avaa</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>Toimintoa ei voitu suorittaa loppuun. Katso lisätietoja lokista.</value>
   </data>
   <data name="Sharing.PassphraseCopied" xml:space="preserve">
     <value>Tunnuslause kopioitiin leikepöydälle.</value>
@@ -3289,8 +3403,23 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
     <value>Vähintään 12 merkkiä, eikä sama merkki toistettuna (esimerkiksi aaaaaaaaaaaa).</value>
   </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>Uusi salasana on tallennettu. Muutos viimeistellään seuraavan onnistuneen julkaisun yhteydessä.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>Julkaisun salasana vaihdettiin. Kansiota kansiota seuraavat tietokoneet antavat uuden salasanan kerran.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>Salasana kopioitiin leikepöydälle.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>Salasanat eivät täsmää.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Sisällytetty</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>Tämän tietokoneen julkaisuavaimia ei voitu lukea esimerkiksi Windows-salasanan palauttamisen jälkeen. Ota kansio haltuun julkaisun nykyisellä salasanalla, jotta voit jatkaa julkaisemista. Kansiota kansiota seuraavat tietokoneet hyväksyvät sitten tämän tietokoneen kerran uudeksi viitteeksi.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Ei sisällytetty</value>
@@ -3298,17 +3427,173 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Sharing.PreviewCreated" xml:space="preserve">
     <value>Viety</value>
   </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>Ladattavaa</value>
+  </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>Nimi</value>
   </data>
   <data name="Sharing.PreviewPasswords" xml:space="preserve">
     <value>Salasanat</value>
   </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>Julkaistu</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>Viitetietokone</value>
+  </data>
   <data name="Sharing.PreviousConfigurations" xml:space="preserve">
     <value>Aiemmat määritykset tässä tietokoneessa</value>
   </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>Edellinen avain</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>Julkaisu ei ole vielä kokonaan saapunut tähän kansioon. Yritä hetken kuluttua uudelleen.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>Julkaisun salasana</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>Julkaisu palautettiin. Kansiota kansiota seuraavat tietokoneet antavat uuden salasanan kerran.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>Julkaise</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>Tee tästä tietokoneesta viite: sen määritys julkaistaan kansioon, jota muut tietokoneet seuraavat.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>Valitse tyhjä kansio tai kansio, johon tämä tietokone jo julkaisee: verkkojako, OneDrive- tai SharePoint-kansio tai paikallinen kansio. Kansiota kansiota seuraavat tietokoneet tarvitsevat julkaisun salasanan lukeakseen sen.</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>Julkaise kansioon</value>
+  </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
     <value>Tuonti korvaa nykyisen määrityksen. Tämän tietokoneen ISO-tulostepolku, WinPE-ohjainkansio ja telemetria-asetukset säilytetään.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>Palauta</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>Palauta julkaisu</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>Uusi salasana ja uusi sisältöavain: jokainen sisältötiedosto salataan uudelleen, mikä peruuttaa aiempien lukijoiden käyttöoikeuden kokonaan. Kansiota kansiota seuraavat tietokoneet antavat uuden salasanan kerran.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>Palauta julkaisu</value>
+  </data>
+  <data name="Sharing.RetryButton" xml:space="preserve">
+    <value>Yritä uudelleen</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>Aiemmat lukijat voivat yhä avata sisältöä seuraavaan onnistuneeseen julkaisuun asti.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>Tämä tietokone seuraa kohdetta {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>Tämä tietokone julkaisee määrityksensä</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>Julkaiseminen ja seuraaminen eivät ole käytettävissä tämän istunnon aikana, koska jakamisen tilaa ei voitu lukea. Katso lisätietoja lokista.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>Kansiota tarkistetaan: julkaisu ei ole vielä kokonaan saapunut, ja se luetaan uudelleen seuraavassa tarkistuksessa.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>Määritys on otettu käyttöön. Jaettua sisältöä ladataan.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>Tässä kansiossa on tiedostoja, jotka eivät ole tämän tietokoneen julkaisu. Valitse tyhjä kansio.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>Kansio ei ole käytettävissä. Tarkista, että se on olemassa ja että tällä tietokoneella on käyttöoikeus siihen.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>Tämä tietokone ei julkaise eikä seuraa mitään määritystä.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>Odotetaan kansion ensimmäistä tarkistusta.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>Muutokset julkaistaan automaattisesti.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>Ei julkaistu: määritys ei ole valmis tietovälineiden luomiseen, tai se viittaa sisältöön, joka puuttuu tästä tietokoneesta. Edellinen versio pysyy voimassa.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>Salasanoja tarvitaan: anna julkaisun salasana tai määrityssivuilla salasanat, joita julkaisu ei sisällä.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>Tämän tietokoneen julkaisun salasanaa tai avaimia ei voitu lukea.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>Julkaistu. Kansiota kansiota seuraavat tietokoneet saavat tämän version seuraavassa tarkistuksessaan.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>Määritystä julkaistaan.</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>Kansio osoittaa vanhempaan versioon kuin käytössä oleva. Se ohitetaan.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>Julkaisua on muokattu. Sitä ei oteta käyttöön.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>Kansion julkaisee nyt toinen tietokone. Hyväksy uusi viite tai lopeta seuraaminen.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>Toinen tietokone julkaisee tähän kansioon. Ota se haltuun, jos haluat julkaista tästä tietokoneesta.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>Tämä julkaisu edellyttää Foundry OSD:n uudempaa versiota.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>Ajan tasalla.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>Määritys päivitettiin.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>Julkaisun salasana ei avaa nykyistä julkaisua. Anna uusi salasana.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>Julkaisun salasana ei avaa tämän tietokoneen julkaisua tässä kansiossa.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>Lopeta seuraaminen</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>Määritys säilyy ennallaan, ja sitä voi taas muokata tässä tietokoneessa.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>Lopetetaanko seuraaminen?</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>Lopeta julkaiseminen</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>Kansio säilyy ennallaan, ja kansiota seuraavat tietokoneet säilyttävät viimeksi julkaistun version. Tästä tietokoneesta tulee taas tavallinen tietokone.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>Lopetetaanko julkaiseminen?</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>Ota haltuun</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>Toinen tietokone julkaisee tähän kansioon. Haltuunotto jatkaa sen julkaisua tämän tietokoneen avaimella. Kansiota seuraavien tietokoneiden on hyväksyttävä tämä tietokone kerran uudeksi viitteeksi.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>Tämän tietokoneen julkaisuavaimia ei voitu lukea. Haltuunotto julkaisun nykyisellä salasanalla jatkaa julkaisua uusilla avaimilla. Kansiota seuraavien tietokoneiden on hyväksyttävä tämä tietokone kerran uudeksi viitteeksi.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>Ota kansio haltuun</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>Tämä salasana ei avaa nykyistä julkaisua.</value>
   </data>
   <data name="Sharing.UnreadableFile" xml:space="preserve">
     <value>Tiedostoa ei voitu lukea.</value>
@@ -3316,8 +3601,17 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Sharing.UnsupportedFile" xml:space="preserve">
     <value>Tämä tiedosto edellyttää Foundry OSD:n uudempaa versiota.</value>
   </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>Versio</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>Odotetaan jaetun sisällön latauksen valmistumista</value>
+  </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Väärä tunnuslause tai vahingoittunut tiedosto.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>Virheellinen julkaisun salasana, tai julkaisua on muokattu.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Pysäytä toiminto</value>

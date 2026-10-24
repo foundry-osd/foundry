@@ -8,6 +8,9 @@ public sealed partial class WifiPage : Page
 {
     public NetworkConfigurationViewModel ViewModel { get; }
 
+    /// <summary>Gets the read-only state of a managed configuration.</summary>
+    public ManagedConfigurationViewModel Managed { get; } = App.GetService<ManagedConfigurationViewModel>();
+
     public WifiPage()
     {
         ViewModel = App.GetService<NetworkConfigurationViewModel>();

@@ -3172,14 +3172,50 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Ενημέρωση εφαρμογής</value>
   </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>Αποδοχή</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>Αποδοχή νέας αναφοράς</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>Ο φάκελος δημοσιεύεται πλέον από άλλον υπολογιστή: {0}. Αποδεχτείτε τον μόνο αν περιμένετε αυτήν την αλλαγή, για παράδειγμα μετά από ανάληψη· διαφορετικά, σταματήστε να παρακολουθείτε τον φάκελο.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>Αποδοχή της νέας αναφοράς;</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
-    <value>Μεταφέρετε αυτή τη διαμόρφωση σε άλλον υπολογιστή με ένα κρυπτογραφημένο αρχείο.</value>
+    <value>Μεταφέρετε αυτήν τη ρύθμιση παραμέτρων με ένα κρυπτογραφημένο αρχείο ή διατηρήστε πολλούς υπολογιστές ευθυγραμμισμένους μέσω ενός κοινόχρηστου φακέλου.</value>
   </data>
   <data name="Sharing.CardHeader" xml:space="preserve">
     <value>Κοινή χρήση διαμόρφωσης</value>
   </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>Αλλαγή</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>Αλλαγή κωδικού πρόσβασης</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>Η τρέχουσα δημοσίευση εγγράφεται ξανά με τον νέο κωδικό πρόσβασης. Τα αρχεία περιεχομένου δεν κρυπτογραφούνται ξανά, οπότε όποιος γνώριζε τον παλιό κωδικό μπορεί ακόμη να τα διαβάσει: χρησιμοποιήστε την Επαναφορά δημοσίευσης για πλήρη ανάκληση των προηγούμενων αναγνωστών. Οι υπολογιστές που παρακολουθούν τον φάκελο εισάγουν τον νέο κωδικό μία φορά.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>Αλλαγή του κωδικού πρόσβασης δημοσίευσης</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>Έλεγχος τώρα</value>
+  </data>
+  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
+    <value>Η ρύθμιση παραμέτρων ενημερώθηκε από τον υπολογιστή {0}.</value>
+  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>Επιβεβαίωση φράσης πρόσβασης</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>Επιβεβαίωση κωδικού πρόσβασης</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>Αριθμός κοινόχρηστων στοιχείων που δεν ήταν δυνατό να εισαχθούν σε αυτόν τον υπολογιστή: {0}. Θα ανακτηθούν ξανά όταν ο υπολογιστής αναφοράς δημοσιεύσει νέα έκδοση.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Σύνολο προγραμμάτων οδήγησης</value>
@@ -3193,8 +3229,23 @@
   <data name="Sharing.ContentKindPackage" xml:space="preserve">
     <value>Πακέτο μετά την εγκατάσταση</value>
   </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>Μέρος του κοινόχρηστου περιεχομένου εξακολουθεί να μην είναι διαθέσιμο μετά από επανειλημμένους ελέγχους. Μπορεί να έχει καταστραφεί στον φάκελο: δημοσιεύστε ξανά από τον υπολογιστή αναφοράς.</value>
+  </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Αντιγραφή</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>Τρέχων κωδικός πρόσβασης δημοσίευσης</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>Εισαγωγή κωδικού πρόσβασης</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>Ο κωδικός πρόσβασης δημοσίευσης απαιτείται ξανά, για παράδειγμα μετά από επαναφορά του κωδικού πρόσβασης των Windows ή αφού τον άλλαξε ο υπολογιστής αναφοράς.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>Εισαγωγή του κωδικού πρόσβασης δημοσίευσης</value>
   </data>
   <data name="Sharing.ExportButton" xml:space="preserve">
     <value>Εξαγωγή</value>
@@ -3223,6 +3274,36 @@
   <data name="Sharing.FileTypeName" xml:space="preserve">
     <value>Διαμόρφωση Foundry</value>
   </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>Φάκελος</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>Επιλογή του φακέλου δημοσίευσης</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>Παρακολούθηση</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>Χρησιμοποιήστε τη ρύθμιση παραμέτρων που δημοσιεύει ένας υπολογιστής αναφοράς σε έναν φάκελο. Οι δημοσιευμένες ρυθμίσεις γίνονται μόνο για ανάγνωση σε αυτόν τον υπολογιστή.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>Εισαγάγετε τον φάκελο στον οποίο δημοσιεύει ο υπολογιστής αναφοράς και τον κωδικό πρόσβασης δημοσίευσής του και, στη συνέχεια, ανοίξτε τον για προεπισκόπηση της δημοσίευσης.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>Η παρακολούθηση αντικαθιστά την τρέχουσα ρύθμιση παραμέτρων και κάνει τις δημοσιευμένες ρυθμίσεις μόνο για ανάγνωση. Η διαδρομή εξόδου ISO, ο φάκελος προγραμμάτων οδήγησης WinPE και οι ρυθμίσεις τηλεμετρίας αυτού του υπολογιστή διατηρούνται.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>Παρακολούθηση φακέλου</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>Κλειδί που βρέθηκε</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>Έκδοση που βρέθηκε</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>Διαγραφή του κωδικού πρόσβασης δημοσίευσης</value>
+  </data>
   <data name="Sharing.GeneratePassphrase" xml:space="preserve">
     <value>Δημιουργία</value>
   </data>
@@ -3244,11 +3325,17 @@
   <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
     <value>Η διαμόρφωση εισήχθη, αλλά δεν ήταν δυνατή η αποθήκευση των κωδικών πρόσβασής της. Εισαγάγετέ τους ξανά στις σελίδες διαμόρφωσης.</value>
   </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>Η εισαγωγή δεν είναι διαθέσιμη ενώ αυτός ο υπολογιστής παρακολουθεί έναν φάκελο. Σταματήστε πρώτα την παρακολούθηση.</value>
+  </data>
   <data name="Sharing.ImportTitle" xml:space="preserve">
     <value>Εισαγωγή διαμόρφωσης</value>
   </data>
   <data name="Sharing.IncludePasswords" xml:space="preserve">
     <value>Συμπερίληψη κωδικών πρόσβασης</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>Οποιοσδήποτε μπορεί να διαβάσει τον φάκελο και γνωρίζει τον κωδικό πρόσβασης δημοσίευσης μπορεί να διαβάσει αυτούς τους κωδικούς πρόσβασης.</value>
   </data>
   <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
     <value>Οποιοσδήποτε έχει αυτό το αρχείο και τη φράση πρόσβασής του μπορεί να διαβάσει αυτούς τους κωδικούς πρόσβασης.</value>
@@ -3256,8 +3343,20 @@
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>Αυτό το αρχείο δεν είναι διαμόρφωση Foundry ή είναι κατεστραμμένο.</value>
   </data>
+  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
+    <value>Τελευταία επιτυχία</value>
+  </data>
   <data name="Sharing.LockedProfile" xml:space="preserve">
     <value>Αυτή η διαμόρφωση δεν μπορεί να ανοιχτεί από αυτόν τον χρήστη των Windows.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>Αυτή η ρύθμιση παραμέτρων δημοσιεύεται από τον υπολογιστή {0} και είναι μόνο για ανάγνωση σε αυτόν τον υπολογιστή. Μόνο η διαδρομή εξόδου ISO, ο φάκελος προγραμμάτων οδήγησης WinPE και οι ρυθμίσεις τηλεμετρίας μπορούν να αλλάξουν.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>Αυτή η ρύθμιση παραμέτρων δημοσιεύεται από τον υπολογιστή {0} και είναι μόνο για ανάγνωση σε αυτόν τον υπολογιστή. Η δημοσίευση δεν περιλαμβάνει κωδικούς πρόσβασης: εισαγάγετέ τους εδώ. Η διαδρομή εξόδου ISO, ο φάκελος προγραμμάτων οδήγησης WinPE και οι ρυθμίσεις τηλεμετρίας μπορούν επίσης να αλλάξουν.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>Διαχειρίζεται από υπολογιστή αναφοράς</value>
   </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>Δεν ήταν δυνατή η ανάκτηση ορισμένων αρχείων που χρησιμοποιεί η ρύθμιση παραμέτρων. Επιλέξτε τα ξανά στις σελίδες ρύθμισης παραμέτρων.</value>
@@ -3274,8 +3373,23 @@
   <data name="Sharing.MissingContentHeader" xml:space="preserve">
     <value>Λείπει σε αυτόν τον υπολογιστή</value>
   </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>Νέο κλειδί</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>Νέος κωδικός πρόσβασης δημοσίευσης</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>Αυτός ο φάκελος δεν περιέχει δημοσιευμένη ρύθμιση παραμέτρων.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>Δεν έχει επαληθευτεί ακόμη: αυτές οι τιμές προέρχονται από τον φάκελο και επιβεβαιώνονται μόνο όταν ο τρέχων κωδικός πρόσβασης δημοσίευσης ανοίξει τη δημοσίευση.</value>
+  </data>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Άνοιγμα</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η ολοκλήρωση της λειτουργίας. Ανατρέξτε στο αρχείο καταγραφής για λεπτομέρειες.</value>
   </data>
   <data name="Sharing.PassphraseCopied" xml:space="preserve">
     <value>Η φράση πρόσβασης αντιγράφηκε στο Πρόχειρο.</value>
@@ -3289,8 +3403,23 @@
   <data name="Sharing.PassphraseRule" xml:space="preserve">
     <value>Τουλάχιστον 12 χαρακτήρες, και όχι ο ίδιος χαρακτήρας επαναλαμβανόμενος (για παράδειγμα aaaaaaaaaaaa).</value>
   </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>Ο νέος κωδικός πρόσβασης αποθηκεύτηκε. Η αλλαγή ολοκληρώνεται στην επόμενη επιτυχημένη δημοσίευση.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>Ο κωδικός πρόσβασης δημοσίευσης άλλαξε. Οι υπολογιστές που παρακολουθούν τον φάκελο εισάγουν τον νέο κωδικό μία φορά.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>Ο κωδικός πρόσβασης αντιγράφηκε στο Πρόχειρο.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>Οι κωδικοί πρόσβασης δεν ταιριάζουν.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Περιλαμβάνονται</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η ανάγνωση των κλειδιών δημοσίευσης αυτού του υπολογιστή, για παράδειγμα μετά από επαναφορά του κωδικού πρόσβασης των Windows. Αναλάβετε τον φάκελο με τον τρέχοντα κωδικό πρόσβασης δημοσίευσης για να συνεχίσετε τη δημοσίευση· οι υπολογιστές που παρακολουθούν τον φάκελο θα αποδεχτούν τότε μία φορά αυτόν τον υπολογιστή ως νέα αναφορά.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Δεν περιλαμβάνονται</value>
@@ -3298,17 +3427,173 @@
   <data name="Sharing.PreviewCreated" xml:space="preserve">
     <value>Εξήχθη στις</value>
   </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>Για λήψη</value>
+  </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>Όνομα</value>
   </data>
   <data name="Sharing.PreviewPasswords" xml:space="preserve">
     <value>Κωδικοί πρόσβασης</value>
   </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>Δημοσιεύτηκε στις</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>Υπολογιστής αναφοράς</value>
+  </data>
   <data name="Sharing.PreviousConfigurations" xml:space="preserve">
     <value>Προηγούμενες διαμορφώσεις σε αυτόν τον υπολογιστή</value>
   </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>Προηγούμενο κλειδί</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>Η δημοσίευση δεν έχει φτάσει ακόμη πλήρως σε αυτόν τον φάκελο. Δοκιμάστε ξανά σε λίγο.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>Κωδικός πρόσβασης δημοσίευσης</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>Η δημοσίευση επαναφέρθηκε. Οι υπολογιστές που παρακολουθούν τον φάκελο εισάγουν τον νέο κωδικό μία φορά.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>Δημοσίευση</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>Ορίστε αυτόν τον υπολογιστή ως αναφορά: η ρύθμιση παραμέτρων του δημοσιεύεται σε έναν φάκελο που παρακολουθούν άλλοι υπολογιστές.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>Επιλέξτε έναν κενό φάκελο ή έναν φάκελο στον οποίο δημοσιεύει ήδη αυτός ο υπολογιστής: ένα κοινόχρηστο στοιχείο δικτύου, έναν φάκελο OneDrive ή SharePoint ή έναν τοπικό φάκελο. Οι υπολογιστές που παρακολουθούν τον φάκελο χρειάζονται τον κωδικό πρόσβασης δημοσίευσης για να τον διαβάσουν.</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>Δημοσίευση σε φάκελο</value>
+  </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
     <value>Η εισαγωγή αντικαθιστά την τρέχουσα διαμόρφωση. Η διαδρομή εξόδου ISO, ο φάκελος προγραμμάτων οδήγησης WinPE και οι ρυθμίσεις τηλεμετρίας αυτού του υπολογιστή διατηρούνται.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>Επαναφορά</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>Επαναφορά δημοσίευσης</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>Νέος κωδικός πρόσβασης και νέο κλειδί περιεχομένου: κάθε αρχείο περιεχομένου κρυπτογραφείται ξανά, γεγονός που ανακαλεί πλήρως τους προηγούμενους αναγνώστες. Οι υπολογιστές που παρακολουθούν τον φάκελο εισάγουν τον νέο κωδικό μία φορά.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>Επαναφορά της δημοσίευσης</value>
+  </data>
+  <data name="Sharing.RetryButton" xml:space="preserve">
+    <value>Επανάληψη</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>Οι προηγούμενοι αναγνώστες μπορούν ακόμη να ανοίγουν περιεχόμενο μέχρι την επόμενη επιτυχημένη δημοσίευση.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>Αυτός ο υπολογιστής παρακολουθεί τον υπολογιστή {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>Αυτός ο υπολογιστής δημοσιεύει τη ρύθμιση παραμέτρων του</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>Η δημοσίευση και η παρακολούθηση δεν είναι διαθέσιμες σε αυτήν την περίοδο λειτουργίας, επειδή δεν ήταν δυνατή η ανάγνωση της κατάστασης κοινής χρήσης. Ανατρέξτε στο αρχείο καταγραφής για λεπτομέρειες.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>Έλεγχος του φακέλου: η δημοσίευση δεν έχει φτάσει ακόμη πλήρως και θα διαβαστεί ξανά στον επόμενο έλεγχο.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>Η ρύθμιση παραμέτρων εφαρμόστηκε. Γίνεται λήψη του κοινόχρηστου περιεχομένου.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>Αυτός ο φάκελος περιέχει αρχεία που δεν είναι δημοσίευση αυτού του υπολογιστή. Επιλέξτε έναν κενό φάκελο.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>Ο φάκελος δεν είναι διαθέσιμος. Βεβαιωθείτε ότι υπάρχει και ότι αυτός ο υπολογιστής έχει πρόσβαση σε αυτόν.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>Αυτός ο υπολογιστής ούτε δημοσιεύει ούτε παρακολουθεί κάποια ρύθμιση παραμέτρων.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>Αναμονή για τον πρώτο έλεγχο του φακέλου.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>Οι αλλαγές δημοσιεύονται αυτόματα.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>Δεν δημοσιεύτηκε: η ρύθμιση παραμέτρων δεν είναι έτοιμη για τη δημιουργία μέσων ή αναφέρεται σε περιεχόμενο που λείπει από αυτόν τον υπολογιστή. Η προηγούμενη έκδοση παραμένει η τρέχουσα.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>Απαιτούνται κωδικοί πρόσβασης: εισαγάγετε τον κωδικό πρόσβασης δημοσίευσης ή, στις σελίδες ρύθμισης παραμέτρων, τους κωδικούς που δεν περιλαμβάνει η δημοσίευση.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η ανάγνωση του κωδικού πρόσβασης δημοσίευσης ή των κλειδιών αυτού του υπολογιστή.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>Δημοσιεύτηκε. Οι υπολογιστές που παρακολουθούν τον φάκελο λαμβάνουν αυτήν την έκδοση στον επόμενο έλεγχό τους.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>Δημοσίευση της ρύθμισης παραμέτρων.</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>Ο φάκελος παραπέμπει σε παλαιότερη έκδοση από αυτήν που εφαρμόστηκε. Παραβλέπεται.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>Η δημοσίευση τροποποιήθηκε. Δεν εφαρμόζεται.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>Ο φάκελος δημοσιεύεται πλέον από άλλον υπολογιστή. Αποδεχτείτε τη νέα αναφορά ή σταματήστε την παρακολούθηση.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>Άλλος υπολογιστής δημοσιεύει σε αυτόν τον φάκελο. Αναλάβετέ τον για να δημοσιεύετε από αυτόν τον υπολογιστή.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>Αυτή η δημοσίευση απαιτεί νεότερη έκδοση του Foundry OSD.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>Ενημερωμένο.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>Η ρύθμιση παραμέτρων ενημερώθηκε.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>Ο κωδικός πρόσβασης δημοσίευσης δεν ανοίγει την τρέχουσα δημοσίευση. Εισαγάγετε τον νέο κωδικό πρόσβασης.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>Ο κωδικός πρόσβασης δημοσίευσης δεν ανοίγει τη δημοσίευση αυτού του υπολογιστή σε αυτόν τον φάκελο.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>Διακοπή παρακολούθησης</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>Η ρύθμιση παραμέτρων παραμένει ως έχει και γίνεται ξανά επεξεργάσιμη σε αυτόν τον υπολογιστή.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>Διακοπή παρακολούθησης;</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>Διακοπή δημοσίευσης</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>Ο φάκελος παραμένει ως έχει και οι υπολογιστές που τον παρακολουθούν διατηρούν την τελευταία δημοσιευμένη έκδοση. Αυτός ο υπολογιστής γίνεται ξανά κανονικός υπολογιστής.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>Διακοπή δημοσίευσης;</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>Ανάληψη</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>Άλλος υπολογιστής δημοσιεύει σε αυτόν τον φάκελο. Η ανάληψη συνεχίζει τη δημοσίευσή του με το κλειδί αυτού του υπολογιστή· οι υπολογιστές που παρακολουθούν τον φάκελο πρέπει να αποδεχτούν μία φορά αυτόν τον υπολογιστή ως νέα αναφορά.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η ανάγνωση των κλειδιών δημοσίευσης αυτού του υπολογιστή. Η ανάληψη με τον τρέχοντα κωδικό πρόσβασης δημοσίευσης συνεχίζει τη δημοσίευση με νέα κλειδιά· οι υπολογιστές που παρακολουθούν τον φάκελο πρέπει να αποδεχτούν μία φορά αυτόν τον υπολογιστή ως νέα αναφορά.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>Ανάληψη του φακέλου</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>Αυτός ο κωδικός πρόσβασης δεν ανοίγει την τρέχουσα δημοσίευση.</value>
   </data>
   <data name="Sharing.UnreadableFile" xml:space="preserve">
     <value>Δεν ήταν δυνατή η ανάγνωση του αρχείου.</value>
@@ -3316,8 +3601,17 @@
   <data name="Sharing.UnsupportedFile" xml:space="preserve">
     <value>Αυτό το αρχείο απαιτεί νεότερη έκδοση του Foundry OSD.</value>
   </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>Έκδοση</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>Αναμονή για την ολοκλήρωση της λήψης του κοινόχρηστου περιεχομένου</value>
+  </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Λανθασμένη φράση πρόσβασης ή κατεστραμμένο αρχείο.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>Λάθος κωδικός πρόσβασης δημοσίευσης ή η δημοσίευση τροποποιήθηκε.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Διακοπή λειτουργίας</value>

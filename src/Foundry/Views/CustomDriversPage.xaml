@@ -21,14 +21,15 @@
                     <ToggleSwitch
                         behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
                         AutomationProperties.Name="{x:Bind ViewModel.EnableLabel, Mode=OneWay}"
-                        IsEnabled="{x:Bind ViewModel.CanToggle, Mode=OneWay}"
+                        IsEnabled="{x:Bind controls:BindingFunctions.And(ViewModel.CanToggle, Managed.IsEditable), Mode=OneWay}"
                         IsOn="{x:Bind ViewModel.IsEnabled, Mode=TwoWay}"
                         Style="{StaticResource FoundryPageHeaderToggleSwitchStyle}" />
                 </controls:PageHeader.ActionContent>
             </controls:PageHeader>
+            <controls:ManagedConfigurationBanner />
             <ContentControl
                 HorizontalContentAlignment="Stretch"
-                IsEnabled="{x:Bind ViewModel.IsEnabled, Mode=OneWay}">
+                IsEnabled="{x:Bind controls:BindingFunctions.And(ViewModel.IsEnabled, Managed.IsEditable), Mode=OneWay}">
                 <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
                     <InfoBar
                         IsClosable="False"

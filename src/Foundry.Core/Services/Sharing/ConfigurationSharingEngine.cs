@@ -88,6 +88,7 @@ public sealed class ConfigurationSharingEngine
     private bool tamperedThisCheck;
 
     private SharingPublisherCandidate? candidate;
+    private SharingForeignPublication? foreignPublication;
 
     /// <summary>Creates the engine and reads the persisted role.</summary>
     /// <param name="host">The application side.</param>
@@ -171,6 +172,22 @@ public sealed class ConfigurationSharingEngine
             lock (gate)
             {
                 return candidate;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Gets the publication of another key that made the last publish of this PC report <see cref="SharingStatus.UnknownPublisher"/>,
+    /// for the "Take over" confirmation; null after a successful publish or when publishing stops. Its key id is read without the
+    /// password and is not authenticated.
+    /// </summary>
+    public SharingForeignPublication? ForeignPublication
+    {
+        get
+        {
+            lock (gate)
+            {
+                return foreignPublication;
             }
         }
     }
@@ -406,6 +423,7 @@ public sealed class ConfigurationSharingEngine
             {
                 // The cancelled source is replaced, never disposed: an overlapping stop may still cancel it.
                 roleCancellation = new CancellationTokenSource();
+                foreignPublication = null;
             }
 
             SetStatus(SharingStatus.Idle);
@@ -1330,6 +1348,11 @@ public sealed class ConfigurationSharingEngine
             // The writer or the content source failed in an unexpected way: the previous version stays current, Retry publishes again.
             Logger.Warning("Publication failed unexpectedly; the previous version stays current. ExceptionType={ExceptionType}", exception.GetType().Name);
             return SetStatus(SharingStatus.FolderUnavailable);
+        }
+
+        lock (gate)
+        {
+            foreignPublication = result.Status == PublishStatus.ForeignPublisher ? new SharingForeignPublication(result.Sequence, result.ForeignKeyId) : null;
         }
 
         if (result.Status != PublishStatus.Published)

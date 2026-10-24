@@ -61,6 +61,15 @@ public sealed record SharingState
 /// <param name="Sequence">Sequence of the manifest it signed.</param>
 public sealed record SharingPublisherCandidate(string KeyId, byte[] PublicKey, string Name, long Sequence);
 
+/// <summary>
+/// The publication of another key that keeps a reference from publishing (<see cref="SharingStatus.UnknownPublisher"/>), shown before
+/// "Take over". Neither value is authenticated until the current publication password opens the manifest: the sequence comes from a
+/// file name and the key id from the envelope, both writable by anyone with access to the folder.
+/// </summary>
+/// <param name="Sequence">Sequence of the foreign manifest; a take over continues above it.</param>
+/// <param name="KeyId">Key id found in the foreign envelope; null when none was read.</param>
+public sealed record SharingForeignPublication(long Sequence, string? KeyId);
+
 /// <summary>Reads and writes <see cref="SharingState"/> as JSON, replacing the file atomically.</summary>
 internal static class SharingStateStore
 {

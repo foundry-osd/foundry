@@ -18,24 +18,28 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <controls:PageHeader
-            x:Uid="OptionalFeaturesPageHeader"
-            DocumentationUrl="{x:Bind ViewModel.OptionalFeaturesDocumentationUrl, Mode=OneWay}"
-            IconGlyph="&#xE74C;">
-            <controls:PageHeader.ActionContent>
-                <ToggleSwitch
-                    x:Uid="OptionalFeaturesPageEnableToggle"
-                    behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
-                    IsOn="{x:Bind ViewModel.IsWindowsOptionalFeaturesEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Style="{StaticResource FoundryPageHeaderToggleSwitchStyle}" />
-            </controls:PageHeader.ActionContent>
-        </controls:PageHeader>
+        <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+            <controls:PageHeader
+                x:Uid="OptionalFeaturesPageHeader"
+                DocumentationUrl="{x:Bind ViewModel.OptionalFeaturesDocumentationUrl, Mode=OneWay}"
+                IconGlyph="&#xE74C;">
+                <controls:PageHeader.ActionContent>
+                    <ToggleSwitch
+                        x:Uid="OptionalFeaturesPageEnableToggle"
+                        behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                        IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}"
+                        IsOn="{x:Bind ViewModel.IsWindowsOptionalFeaturesEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource FoundryPageHeaderToggleSwitchStyle}" />
+                </controls:PageHeader.ActionContent>
+            </controls:PageHeader>
+            <controls:ManagedConfigurationBanner />
+        </StackPanel>
 
         <ContentControl
             Grid.Row="1"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
-            IsEnabled="{x:Bind ViewModel.IsWindowsOptionalFeatureOptionsEnabled, Mode=OneWay}">
+            IsEnabled="{x:Bind controls:BindingFunctions.And(ViewModel.IsWindowsOptionalFeatureOptionsEnabled, Managed.IsEditable), Mode=OneWay}">
             <Grid RowSpacing="{ThemeResource FoundrySpace24}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

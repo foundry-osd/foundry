@@ -3172,14 +3172,50 @@ Sous licence MIT.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Mettre à jour l'application</value>
   </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>Accepter</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>Accepter la nouvelle référence</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>Le dossier est désormais publié par un autre PC : {0}. Acceptez-le uniquement si vous attendez ce changement, par exemple après une reprise ; sinon, arrêtez le suivi.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>Accepter la nouvelle référence ?</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
-    <value>Transférez cette configuration vers un autre PC avec un fichier chiffré.</value>
+    <value>Transférez cette configuration avec un fichier chiffré, ou maintenez plusieurs PC alignés grâce à un dossier partagé.</value>
   </data>
   <data name="Sharing.CardHeader" xml:space="preserve">
     <value>Partage de la configuration</value>
   </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>Modifier le mot de passe</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>La publication actuelle est réécrite avec le nouveau mot de passe. Les fichiers de contenu ne sont pas chiffrés à nouveau : une personne qui connaissait l'ancien mot de passe peut encore les lire. Utilisez Réinitialiser la publication pour révoquer complètement les anciens lecteurs. Les PC qui suivent saisissent le nouveau mot de passe une fois.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>Modifier le mot de passe de publication</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>Vérifier maintenant</value>
+  </data>
+  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
+    <value>Configuration mise à jour depuis {0}.</value>
+  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>Confirmer la phrase secrète</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>Confirmer le mot de passe</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>{0} éléments partagés n'ont pas pu être importés sur ce PC. Ils sont récupérés à nouveau lorsque le PC de référence publie une nouvelle version.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Jeu de pilotes</value>
@@ -3193,8 +3229,23 @@ Sous licence MIT.</value>
   <data name="Sharing.ContentKindPackage" xml:space="preserve">
     <value>Package de post-installation</value>
   </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>Une partie du contenu partagé n'est toujours pas disponible après plusieurs vérifications. Il est peut-être endommagé dans le dossier : publiez à nouveau depuis le PC de référence.</value>
+  </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Copier</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>Mot de passe de publication actuel</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>Saisir le mot de passe</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>Le mot de passe de publication doit être saisi à nouveau, par exemple après une réinitialisation du mot de passe Windows ou après sa modification sur le PC de référence.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>Saisir le mot de passe de publication</value>
   </data>
   <data name="Sharing.ExportButton" xml:space="preserve">
     <value>Exporter</value>
@@ -3223,6 +3274,36 @@ Sous licence MIT.</value>
   <data name="Sharing.FileTypeName" xml:space="preserve">
     <value>Configuration Foundry</value>
   </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>Dossier</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>Choisir le dossier de publication</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>Suivre</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>Utilisez la configuration qu'un PC de référence publie dans un dossier. Les paramètres publiés passent en lecture seule sur ce PC.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>Saisissez le dossier dans lequel publie le PC de référence et son mot de passe de publication, puis ouvrez-le pour prévisualiser la publication.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>Le suivi remplace la configuration actuelle et passe les paramètres publiés en lecture seule. Le chemin de sortie ISO, le dossier de pilotes WinPE et les paramètres de télémétrie de ce PC sont conservés.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>Suivre un dossier</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>Clé trouvée</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>Version trouvée</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>Oublier le mot de passe de publication</value>
+  </data>
   <data name="Sharing.GeneratePassphrase" xml:space="preserve">
     <value>Générer</value>
   </data>
@@ -3244,11 +3325,17 @@ Sous licence MIT.</value>
   <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
     <value>Configuration importée, mais ses mots de passe n'ont pas pu être enregistrés. Saisissez-les de nouveau dans les pages de configuration.</value>
   </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>L'importation n'est pas disponible tant que ce PC suit un dossier. Arrêtez d'abord le suivi.</value>
+  </data>
   <data name="Sharing.ImportTitle" xml:space="preserve">
     <value>Importer une configuration</value>
   </data>
   <data name="Sharing.IncludePasswords" xml:space="preserve">
     <value>Inclure les mots de passe</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>Toute personne qui peut lire le dossier et connaît le mot de passe de publication peut lire ces mots de passe.</value>
   </data>
   <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
     <value>Toute personne disposant de ce fichier et de sa phrase secrète peut lire ces mots de passe.</value>
@@ -3256,8 +3343,20 @@ Sous licence MIT.</value>
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>Ce fichier n'est pas une configuration Foundry, ou il est endommagé.</value>
   </data>
+  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
+    <value>Dernière réussite</value>
+  </data>
   <data name="Sharing.LockedProfile" xml:space="preserve">
     <value>Cette configuration ne peut pas être ouverte par cet utilisateur Windows.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>Cette configuration est publiée par {0} et est en lecture seule sur ce PC. Seuls le chemin de sortie ISO, le dossier de pilotes WinPE et les paramètres de télémétrie peuvent être modifiés.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>Cette configuration est publiée par {0} et est en lecture seule sur ce PC. La publication n'inclut pas les mots de passe : saisissez-les ici. Le chemin de sortie ISO, le dossier de pilotes WinPE et les paramètres de télémétrie peuvent aussi être modifiés.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>Gérée par un PC de référence</value>
   </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>Certains fichiers utilisés par la configuration n'ont pas pu être récupérés. Sélectionnez-les à nouveau dans les pages de configuration.</value>
@@ -3274,8 +3373,23 @@ Sous licence MIT.</value>
   <data name="Sharing.MissingContentHeader" xml:space="preserve">
     <value>Manquant sur ce PC</value>
   </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>Nouvelle clé</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>Nouveau mot de passe de publication</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>Ce dossier ne contient pas de configuration publiée.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>Pas encore vérifié : ces valeurs proviennent du dossier et ne sont confirmées que lorsque le mot de passe de publication actuel ouvre la publication.</value>
+  </data>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Ouvrir</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>L'opération n'a pas pu être effectuée. Consultez le journal pour plus de détails.</value>
   </data>
   <data name="Sharing.PassphraseCopied" xml:space="preserve">
     <value>Phrase secrète copiée dans le Presse-papiers.</value>
@@ -3289,8 +3403,23 @@ Sous licence MIT.</value>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
     <value>Au moins 12 caractères, et pas le même caractère répété (par exemple aaaaaaaaaaaa).</value>
   </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>Le nouveau mot de passe est enregistré. La modification s'achève à la prochaine publication réussie.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>Le mot de passe de publication a été modifié. Les PC qui suivent saisissent le nouveau mot de passe une fois.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>Mot de passe copié dans le Presse-papiers.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>Les mots de passe ne correspondent pas.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Inclus</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>Les clés de publication de ce PC n'ont pas pu être lues, par exemple après une réinitialisation du mot de passe Windows. Reprenez le dossier avec le mot de passe de publication actuel pour continuer à publier ; les PC qui suivent acceptent alors une fois ce PC comme nouvelle référence.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Non inclus</value>
@@ -3298,17 +3427,173 @@ Sous licence MIT.</value>
   <data name="Sharing.PreviewCreated" xml:space="preserve">
     <value>Exportée le</value>
   </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>À télécharger</value>
+  </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>Nom</value>
   </data>
   <data name="Sharing.PreviewPasswords" xml:space="preserve">
     <value>Mots de passe</value>
   </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>Publiée le</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>PC de référence</value>
+  </data>
   <data name="Sharing.PreviousConfigurations" xml:space="preserve">
     <value>Configurations précédentes sur ce PC</value>
   </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>Clé précédente</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>La publication n'est pas encore entièrement arrivée dans ce dossier. Réessayez dans un instant.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>Mot de passe de publication</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>La publication a été réinitialisée. Les PC qui suivent saisissent le nouveau mot de passe une fois.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>Publier</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>Faites de ce PC la référence : sa configuration est publiée dans un dossier que d'autres PC suivent.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>Choisissez un dossier vide, ou un dossier dans lequel ce PC publie déjà : un partage réseau, un dossier OneDrive ou SharePoint, ou un dossier local. Les PC qui suivent ont besoin du mot de passe de publication pour le lire.</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>Publier dans un dossier</value>
+  </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
     <value>L'importation remplace la configuration actuelle. Le chemin de sortie ISO, le dossier de pilotes WinPE et les paramètres de télémétrie de ce PC sont conservés.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>Réinitialiser</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>Réinitialiser la publication</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>Un nouveau mot de passe et une nouvelle clé de contenu : chaque fichier de contenu est chiffré à nouveau, ce qui révoque complètement les anciens lecteurs. Les PC qui suivent saisissent le nouveau mot de passe une fois.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>Réinitialiser la publication</value>
+  </data>
+  <data name="Sharing.RetryButton" xml:space="preserve">
+    <value>Réessayer</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>Les anciens lecteurs peuvent encore ouvrir le contenu jusqu'à la prochaine publication réussie.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>Ce PC suit {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>Ce PC publie sa configuration</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>La publication et le suivi ne sont pas disponibles pendant cette session, car l'état du partage n'a pas pu être lu. Consultez le journal pour plus de détails.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>Vérification du dossier : la publication n'est pas encore entièrement arrivée et sera relue à la prochaine vérification.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>La configuration est appliquée. Le contenu partagé est en cours de téléchargement.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>Ce dossier contient des fichiers qui ne sont pas une publication de ce PC. Choisissez un dossier vide.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>Le dossier n'est pas disponible. Vérifiez qu'il existe et que ce PC peut y accéder.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>Ce PC ne publie ni ne suit aucune configuration.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>En attente de la première vérification du dossier.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>Les modifications sont publiées automatiquement.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>Non publiée : la configuration n'est pas prête pour créer un média ou fait référence à du contenu absent de ce PC. La version précédente reste en vigueur.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>Des mots de passe sont requis : saisissez le mot de passe de publication, ou, dans les pages de configuration, les mots de passe que la publication n'inclut pas.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>Le mot de passe ou les clés de publication de ce PC n'ont pas pu être lus.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>Publiée. Les PC qui suivent reçoivent cette version à leur prochaine vérification.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>Publication de la configuration en cours.</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>Le dossier pointe vers une version plus ancienne que celle appliquée. Elle est ignorée.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>La publication a été modifiée. Elle n'est pas appliquée.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>Le dossier est désormais publié par un autre PC. Acceptez la nouvelle référence ou arrêtez le suivi.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>Un autre PC publie dans ce dossier. Reprenez-le pour publier depuis ce PC.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>Cette publication nécessite une version plus récente de Foundry OSD.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>À jour.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>Configuration mise à jour.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>Le mot de passe de publication n'ouvre pas la publication actuelle. Saisissez le nouveau mot de passe.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>Le mot de passe de publication n'ouvre pas la publication de ce PC dans ce dossier.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>Arrêter le suivi</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>La configuration reste telle quelle et redevient modifiable sur ce PC.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>Arrêter le suivi ?</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>Arrêter la publication</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>Le dossier reste tel quel et les PC qui suivent conservent la dernière version publiée. Ce PC redevient un PC normal.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>Arrêter la publication ?</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>Reprendre</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>Un autre PC publie dans ce dossier. La reprise poursuit sa publication avec la clé de ce PC ; les PC qui suivent doivent accepter une fois ce PC comme nouvelle référence.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>Les clés de publication de ce PC n'ont pas pu être lues. La reprise avec le mot de passe de publication actuel poursuit la publication avec de nouvelles clés ; les PC qui suivent doivent accepter une fois ce PC comme nouvelle référence.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>Reprendre le dossier</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>Ce mot de passe n'ouvre pas la publication actuelle.</value>
   </data>
   <data name="Sharing.UnreadableFile" xml:space="preserve">
     <value>Le fichier n'a pas pu être lu.</value>
@@ -3316,8 +3601,17 @@ Sous licence MIT.</value>
   <data name="Sharing.UnsupportedFile" xml:space="preserve">
     <value>Ce fichier nécessite une version plus récente de Foundry OSD.</value>
   </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>En attente de la fin du téléchargement du contenu partagé</value>
+  </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Phrase secrète incorrecte ou fichier endommagé.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>Mot de passe de publication incorrect, ou la publication a été modifiée.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Arrêter l'opération</value>

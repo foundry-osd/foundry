@@ -24,8 +24,10 @@
                         Description="{x:Bind ViewModel.PageDescription, Mode=OneWay}"
                         DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
                         IconGlyph="&#xE713;" />
+                    <controls:ManagedConfigurationBanner />
 
-                    <wct:SettingsCard x:Name="ArchitectureCard">
+                    <wct:SettingsCard x:Name="ArchitectureCard"
+                        IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xE770;" />
                         </wct:SettingsCard.HeaderIcon>
@@ -36,7 +38,8 @@
                             SelectedItem="{x:Bind ViewModel.SelectedArchitecture, Mode=TwoWay}" />
                     </wct:SettingsCard>
 
-                    <wct:SettingsCard x:Name="SecureBootCard">
+                    <wct:SettingsCard x:Name="SecureBootCard"
+                        IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xE72E;" />
                         </wct:SettingsCard.HeaderIcon>
@@ -44,7 +47,8 @@
                             IsOn="{x:Bind ViewModel.UseCa2023Signature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </wct:SettingsCard>
 
-                    <wct:SettingsCard x:Name="WinPeLanguageCard">
+                    <wct:SettingsCard x:Name="WinPeLanguageCard"
+                        IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xF2B7;" />
                         </wct:SettingsCard.HeaderIcon>
@@ -65,7 +69,8 @@
                         </StackPanel>
                     </wct:SettingsCard>
 
-                    <wct:SettingsCard x:Name="WinPeKeyboardCard">
+                    <wct:SettingsCard x:Name="WinPeKeyboardCard"
+                        IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xE765;" />
                         </wct:SettingsCard.HeaderIcon>
@@ -94,7 +99,8 @@
                         </StackPanel>
                     </wct:SettingsCard>
 
-                    <wct:SettingsCard x:Name="TimeZoneCard">
+                    <wct:SettingsCard x:Name="TimeZoneCard"
+                        IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xE823;" />
                         </wct:SettingsCard.HeaderIcon>
@@ -113,7 +119,8 @@
                         </ComboBox>
                     </wct:SettingsCard>
 
-                    <wct:SettingsExpander x:Name="DeploymentCompletionCard">
+                    <wct:SettingsExpander x:Name="DeploymentCompletionCard"
+                        IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}">
                         <wct:SettingsExpander.HeaderIcon>
                             <FontIcon Glyph="&#xE777;" />
                         </wct:SettingsExpander.HeaderIcon>
@@ -142,10 +149,12 @@
                         </wct:SettingsExpander.HeaderIcon>
                         <ToggleSwitch x:Name="DeploymentProtectionToggle"
                             behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                            IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}"
                             IsOn="{x:Bind ViewModel.IsDeploymentProtectionEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             Toggled="DeploymentProtectionToggle_Toggled" />
                         <wct:SettingsExpander.Items>
                             <wct:SettingsCard x:Name="DeploymentProtectionPasswordCard"
+                                IsEnabled="{x:Bind Managed.ArePasswordsEditable, Mode=OneWay}"
                                 Visibility="{x:Bind ViewModel.DeploymentProtectionFieldsVisibility, Mode=OneWay}">
                                 <StackPanel
                                     Width="{ThemeResource FoundryWideInputMinWidth}"
@@ -177,8 +186,10 @@
                             Orientation="Horizontal"
                             Spacing="{ThemeResource FoundryInlineControlSpacing}">
                             <ToggleSwitch x:Name="DellDriversToggle"
+                                IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}"
                                 IsOn="{x:Bind ViewModel.IncludeDellDrivers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <ToggleSwitch x:Name="HpDriversToggle"
+                                IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}"
                                 IsOn="{x:Bind ViewModel.IncludeHpDrivers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
                         <wct:SettingsExpander.Items>

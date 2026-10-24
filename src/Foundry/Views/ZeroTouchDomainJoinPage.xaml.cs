@@ -16,6 +16,9 @@ public sealed partial class ZeroTouchDomainJoinPage : Page
 
     public DomainJoinConfigurationViewModel ViewModel { get; }
 
+    /// <summary>Gets the read-only state of a managed configuration.</summary>
+    public ManagedConfigurationViewModel Managed { get; } = App.GetService<ManagedConfigurationViewModel>();
+
     public ZeroTouchDomainJoinPage()
     {
         ViewModel = App.GetService<DomainJoinConfigurationViewModel>();

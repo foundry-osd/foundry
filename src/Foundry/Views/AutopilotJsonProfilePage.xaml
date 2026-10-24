@@ -22,13 +22,15 @@
                 <controls:PageHeader.ActionContent>
                     <Button
                         Click="OnModeActionClick"
-                        Content="{x:Bind ViewModel.JsonProfileActionText, Mode=OneWay}" />
+                        Content="{x:Bind ViewModel.JsonProfileActionText, Mode=OneWay}"
+                        IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}" />
                 </controls:PageHeader.ActionContent>
             </controls:PageHeader>
+            <controls:ManagedConfigurationBanner />
 
             <ContentControl
                 HorizontalContentAlignment="Stretch"
-                IsEnabled="{x:Bind ViewModel.IsJsonProfileActive, Mode=OneWay}">
+                IsEnabled="{x:Bind controls:BindingFunctions.And(ViewModel.IsJsonProfileActive, Managed.IsEditable), Mode=OneWay}">
                 <StackPanel Spacing="{ThemeResource FoundryContentGroupSpacing}">
                     <Grid ColumnSpacing="{ThemeResource FoundryContentGroupSpacing}">
                         <Grid.ColumnDefinitions>

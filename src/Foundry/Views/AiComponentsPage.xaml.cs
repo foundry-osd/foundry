@@ -8,6 +8,9 @@ public sealed partial class AiComponentsPage : Page
 {
     public CustomizationConfigurationViewModel ViewModel { get; }
 
+    /// <summary>Gets the read-only state of a managed configuration.</summary>
+    public ManagedConfigurationViewModel Managed { get; } = App.GetService<ManagedConfigurationViewModel>();
+
     public AiComponentsPage()
     {
         ViewModel = App.GetService<CustomizationConfigurationViewModel>();

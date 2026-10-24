@@ -29,6 +29,32 @@ public interface IFoundryConfigurationStateService
     FoundryConfigurationDocument Current { get; }
 
     /// <summary>
+    /// Gets whether a followed publication manages the configuration (spec 6.2): published sections are read-only, and every
+    /// <c>Update*</c> method throws <see cref="InvalidOperationException"/> for a change outside the per-PC values
+    /// (<see cref="Foundry.Core.Services.Sharing.ManagedConfigurationGuard"/>). <see cref="Replace"/> stays available to the follower.
+    /// </summary>
+    bool IsManaged { get; }
+
+    /// <summary>Gets the display name of the reference PC that manages the configuration; null when not managed.</summary>
+    string? ManagedBy { get; }
+
+    /// <summary>Occurs when <see cref="IsManaged"/> or <see cref="ManagedBy"/> changes.</summary>
+    event EventHandler? ManagedChanged;
+
+    /// <summary>Marks the configuration managed by the reference named <paramref name="managedBy"/>.</summary>
+    void SetManaged(string managedBy);
+
+    /// <summary>Makes the configuration editable again; it stays as it is.</summary>
+    void ClearManaged();
+
+    /// <summary>
+    /// Returns whether <paramref name="candidate"/> may replace <see cref="Current"/> through an <c>Update*</c> method: always when the
+    /// configuration is not managed, otherwise only when it changes per-PC values alone. A view model that saves on its own (a
+    /// normalization, a discovered default) checks it instead of having the update refused.
+    /// </summary>
+    bool IsChangeAllowed(FoundryConfigurationDocument candidate);
+
+    /// <summary>
     /// Gets the configuration last written to disk, or loaded from it when no write succeeded yet; it differs from
     /// <see cref="Current"/> only after a failed save, and content cleanup keeps what either of them references.
     /// </summary>

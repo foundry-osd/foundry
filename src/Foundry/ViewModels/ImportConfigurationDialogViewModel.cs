@@ -146,6 +146,12 @@ public sealed partial class ImportConfigurationDialogViewModel : ObservableObjec
             Result = await transfer.ImportAsync(Preview!);
             return true;
         }
+        catch (InvalidOperationException exception) when (exception.Message == ConfigurationTransferService.FollowingRefusal)
+        {
+            // This PC started following a folder while the dialog was open.
+            ErrorMessage = Text("ImportRefusedFollowing");
+            return false;
+        }
         catch (Exception exception)
         {
             // Any failure stays inline: this runs from the dialog button handler, which must never throw.

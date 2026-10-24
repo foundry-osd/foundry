@@ -137,6 +137,7 @@ public sealed class ConfigurationSharingEngineReferenceTests : IDisposable
 
         Assert.Equal(SharingStatus.UnknownPublisher, status);
         Assert.Equal(SharingRole.None, engine.Role);
+        Assert.Equal(new SharingForeignPublication(2, other.KeyId), engine.ForeignPublication);
         Assert.False(File.Exists(StatePath));
         PublicationReadResult read = await PublicationReader.PreviewAsync(Folder, Password, Cancellation);
         Assert.Equal(other.KeyId, read.SignerKeyId);
@@ -158,6 +159,7 @@ public sealed class ConfigurationSharingEngineReferenceTests : IDisposable
         PublicationReadResult read = await PublicationReader.PreviewAsync(Folder, Password, Cancellation);
         Assert.Equal(3, read.Payload!.Sequence);
         Assert.NotEqual(other.KeyId, read.SignerKeyId);
+        Assert.Null(engine.ForeignPublication);
         using PublicationSigningKey own = PublicationSigningKey.Import(Convert.FromBase64String(host.Vault[SecretIds.SigningKey]));
         Assert.Equal(own.KeyId, read.SignerKeyId);
         Assert.Equal(3, CreateEngine().State.LastPublishedSequence);

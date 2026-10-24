@@ -94,6 +94,39 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     public long ReplacementVersion { get; private set; }
 
     /// <inheritdoc />
+    public bool IsManaged => ManagedBy is not null;
+
+    /// <inheritdoc />
+    public string? ManagedBy { get; private set; }
+
+    /// <inheritdoc />
+    public event EventHandler? ManagedChanged;
+
+    /// <inheritdoc />
+    public void SetManaged(string managedBy)
+    {
+        ArgumentNullException.ThrowIfNull(managedBy);
+        if (string.Equals(ManagedBy, managedBy, StringComparison.Ordinal)) return;
+        ManagedBy = managedBy;
+        ManagedChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    /// <inheritdoc />
+    public void ClearManaged()
+    {
+        if (ManagedBy is null) return;
+        ManagedBy = null;
+        ManagedChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    /// <inheritdoc />
+    public bool IsChangeAllowed(FoundryConfigurationDocument candidate)
+    {
+        ArgumentNullException.ThrowIfNull(candidate);
+        return !IsManaged || Foundry.Core.Services.Sharing.ManagedConfigurationGuard.IsAllowed(SanitizeForPersistence(Current), SanitizeForPersistence(candidate));
+    }
+
+    /// <inheritdoc />
     public void Replace(FoundryConfigurationDocument document, Action restoreSecrets)
     {
         ArgumentNullException.ThrowIfNull(document);
@@ -350,7 +383,9 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     public void UpdateGeneral(GeneralSettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
-        Current = Current with { General = SanitizeGeneralForPersistence(settings) };
+        FoundryConfigurationDocument candidate = Current with { General = SanitizeGeneralForPersistence(settings) };
+        ThrowIfManagedChange(candidate);
+        Current = candidate;
         Save();
         StateChanged?.Invoke(this, EventArgs.Empty);
     }
@@ -359,6 +394,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     public void UpdateLocalization(LocalizationSettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
+        ThrowIfManagedChange(Current with { Localization = settings });
         Current = Current with { Localization = settings };
         Save();
         StateChanged?.Invoke(this, EventArgs.Empty);
@@ -368,7 +404,9 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     public void UpdateOperatingSystemSelection(OperatingSystemSelectionSettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
-        Current = Current with { OperatingSystemSelection = OperatingSystemSelectionSettingsNormalizer.Normalize(settings) };
+        FoundryConfigurationDocument candidate = Current with { OperatingSystemSelection = OperatingSystemSelectionSettingsNormalizer.Normalize(settings) };
+        ThrowIfManagedChange(candidate);
+        Current = candidate;
         Save();
         StateChanged?.Invoke(this, EventArgs.Empty);
     }
@@ -377,6 +415,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     public void UpdateNetwork(NetworkSettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
+        ThrowIfManagedChange(Current with { Network = settings });
         networkSecretStateService.Update(settings);
         Current = Current with { Network = settings };
         Save();
@@ -387,6 +426,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     public void UpdateCustomization(CustomizationSettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
+        ThrowIfManagedChange(Current with { Customization = SanitizeCustomizationForPersistence(settings) });
         oobeAccountSecretStateService.Update(settings.Oobe);
         Current = Current with { Customization = SanitizeCustomizationForPersistence(settings) };
         Save();
@@ -407,6 +447,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     {
         DomainJoinConfigurationValidator.ThrowIfProvisioningModesConflict(autopilot, domainJoin);
         FoundryConfigurationDocument candidate = Current with { Autopilot = SanitizeAutopilotForPersistence(autopilot), DomainJoin = domainJoin };
+        ThrowIfManagedChange(candidate);
         Save(candidate);
         Current = candidate;
         domainJoinSecretStateService.Update(domainJoin);
@@ -417,6 +458,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     public void UpdateUnattend(UnattendSettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
+        ThrowIfManagedChange(Current with { Unattend = settings });
         Current = Current with { Unattend = settings };
         Save();
         StateChanged?.Invoke(this, EventArgs.Empty);
@@ -426,6 +468,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     public void UpdateCustomImages(CustomImagesSettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
+        ThrowIfManagedChange(Current with { CustomImages = settings });
         Current = Current with { CustomImages = settings };
         Save();
         StateChanged?.Invoke(this, EventArgs.Empty);
@@ -439,6 +482,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     {
         ArgumentNullException.ThrowIfNull(settings);
         FoundryConfigurationDocument candidate = Current with { PreOobe = settings };
+        ThrowIfManagedChange(candidate);
         Save(SanitizeForPersistence(candidate), throwOnFailure: requirePersistence);
         Current = candidate;
         StateChanged?.Invoke(this, EventArgs.Empty);
@@ -460,6 +504,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     {
         ArgumentNullException.ThrowIfNull(settings);
         FoundryConfigurationDocument candidate = Current with { CustomDrivers = settings };
+        ThrowIfManagedChange(candidate);
         Save(SanitizeForPersistence(candidate), throwOnFailure: requirePersistence);
         Current = candidate;
         StateChanged?.Invoke(this, EventArgs.Empty);
@@ -505,6 +550,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     public void UpdateTelemetry(TelemetrySettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
+        ThrowIfManagedChange(Current with { Telemetry = settings });
         Current = Current with { Telemetry = settings };
         Save();
         StateChanged?.Invoke(this, EventArgs.Empty);
@@ -695,6 +741,19 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
                 IsoOutputPath = Constants.DefaultIsoPath
             }
         };
+    }
+
+    /// <summary>Refuses a change of a published section while a followed publication manages the configuration.</summary>
+    /// <exception cref="InvalidOperationException">The change touches a value outside the per-PC values.</exception>
+    private void ThrowIfManagedChange(FoundryConfigurationDocument candidate)
+    {
+        if (IsChangeAllowed(candidate))
+        {
+            return;
+        }
+
+        logger.Warning("A change to a published configuration section was refused because a followed publication manages the configuration.");
+        throw new InvalidOperationException("Configuration.Managed");
     }
 
     private void Save(FoundryConfigurationDocument? candidate = null, bool throwOnFailure = false)

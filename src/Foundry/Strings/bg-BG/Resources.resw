@@ -3172,14 +3172,50 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Актуализирайте приложението</value>
   </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>Приемане</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>Приемане на новия референтен компютър</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>Папката вече се публикува от друг компютър: {0}. Приемете го само ако очаквате тази промяна, например след поемане; в противен случай спрете проследяването.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>Да се приеме ли новият референтен компютър?</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
-    <value>Прехвърлете тази конфигурация на друг компютър с шифрован файл.</value>
+    <value>Прехвърлете тази конфигурация с шифрован файл или поддържайте няколко компютъра синхронизирани чрез споделена папка.</value>
   </data>
   <data name="Sharing.CardHeader" xml:space="preserve">
     <value>Споделяне на конфигурацията</value>
   </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>Промяна</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>Промяна на паролата</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>Текущата публикация се презаписва с новата парола. Файловете със съдържание не се шифроват отново, така че който е знаел старата парола, все още може да ги чете: използвайте „Нулиране на публикацията“, за да отнемете напълно достъпа на предишните читатели. Компютрите, които проследяват папката, въвеждат новата парола веднъж.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>Промяна на паролата за публикуване</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>Проверка сега</value>
+  </data>
+  <data name="Sharing.ConfigurationUpdatedNotice" xml:space="preserve">
+    <value>Конфигурацията е актуализирана от {0}.</value>
+  </data>
   <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
     <value>Потвърждаване на паролата фраза</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>Потвърдете паролата</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>Брой споделени елементи, които не можаха да бъдат импортирани на този компютър: {0}. Те се извличат отново, когато референтният компютър публикува нова версия.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Набор драйвери</value>
@@ -3193,8 +3229,23 @@
   <data name="Sharing.ContentKindPackage" xml:space="preserve">
     <value>Пакет след инсталиране</value>
   </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>Част от споделеното съдържание все още не е налична след многократни проверки. Възможно е да е повредена в папката: публикувайте отново от референтния компютър.</value>
+  </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Копиране</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>Текуща парола за публикуване</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>Въвеждане на парола</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>Паролата за публикуване е необходима отново, например след нулиране на паролата за Windows или след като референтният компютър я е променил.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>Въвеждане на паролата за публикуване</value>
   </data>
   <data name="Sharing.ExportButton" xml:space="preserve">
     <value>Експортиране</value>
@@ -3223,6 +3274,36 @@
   <data name="Sharing.FileTypeName" xml:space="preserve">
     <value>Конфигурация на Foundry</value>
   </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>Папка</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>Изберете папката за публикуване</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>Проследяване</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>Използвайте конфигурацията, която референтен компютър публикува в папка. Публикуваните настройки стават само за четене на този компютър.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>Въведете папката, в която публикува референтният компютър, и неговата парола за публикуване, след което я отворете, за да прегледате публикацията.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>Проследяването заменя текущата конфигурация и прави публикуваните настройки само за четене. Изходният път за ISO, папката с драйвери за WinPE и настройките за телеметрия на този компютър се запазват.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>Проследяване на папка</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>Намерен ключ</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>Намерена версия</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>Забравяне на паролата за публикуване</value>
+  </data>
   <data name="Sharing.GeneratePassphrase" xml:space="preserve">
     <value>Генериране</value>
   </data>
@@ -3244,11 +3325,17 @@
   <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
     <value>Конфигурацията е импортирана, но паролите ѝ не можаха да бъдат записани. Въведете ги отново в страниците за конфигуриране.</value>
   </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>Импортирането не е налично, докато този компютър проследява папка. Първо спрете проследяването.</value>
+  </data>
   <data name="Sharing.ImportTitle" xml:space="preserve">
     <value>Импортиране на конфигурация</value>
   </data>
   <data name="Sharing.IncludePasswords" xml:space="preserve">
     <value>Включване на паролите</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>Всеки, който може да чете папката и знае паролата за публикуване, може да прочете тези пароли.</value>
   </data>
   <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
     <value>Всеки, който има този файл и неговата парола фраза, може да прочете тези пароли.</value>
@@ -3256,8 +3343,20 @@
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>Този файл не е конфигурация на Foundry или е повреден.</value>
   </data>
+  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
+    <value>Последен успех</value>
+  </data>
   <data name="Sharing.LockedProfile" xml:space="preserve">
     <value>Тази конфигурация не може да бъде отворена от този потребител на Windows.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>Тази конфигурация се публикува от {0} и е само за четене на този компютър. Могат да се променят само изходният път за ISO, папката с драйвери за WinPE и настройките за телеметрия.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>Тази конфигурация се публикува от {0} и е само за четене на този компютър. Публикацията не включва пароли: въведете ги тук. Могат да се променят също изходният път за ISO, папката с драйвери за WinPE и настройките за телеметрия.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>Управлява се от референтен компютър</value>
   </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>Някои файлове, използвани от конфигурацията, не можаха да бъдат възстановени. Изберете ги отново в страниците за конфигурация.</value>
@@ -3274,8 +3373,23 @@
   <data name="Sharing.MissingContentHeader" xml:space="preserve">
     <value>Липсва на този компютър</value>
   </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>Нов ключ</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>Нова парола за публикуване</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>Тази папка не съдържа публикувана конфигурация.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>Все още не е проверено: тези стойности идват от папката и се потвърждават само когато текущата парола за публикуване отвори публикацията.</value>
+  </data>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Отваряне</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>Операцията не можа да бъде завършена. Вижте журнала за подробности.</value>
   </data>
   <data name="Sharing.PassphraseCopied" xml:space="preserve">
     <value>Паролата фраза е копирана в клипборда.</value>
@@ -3289,8 +3403,23 @@
   <data name="Sharing.PassphraseRule" xml:space="preserve">
     <value>Поне 12 знака, и не един и същ знак, повторен (например aaaaaaaaaaaa).</value>
   </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>Новата парола е записана. Промяната се завършва при следващото успешно публикуване.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>Паролата за публикуване е променена. Компютрите, които проследяват папката, въвеждат новата парола веднъж.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>Паролата е копирана в клипборда.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>Паролите не съвпадат.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Включени</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>Ключовете за публикуване на този компютър не можаха да бъдат прочетени, например след нулиране на паролата за Windows. Поемете папката с текущата парола за публикуване, за да продължите да публикувате; след това компютрите, които проследяват папката, приемат веднъж този компютър като нов референтен компютър.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Не са включени</value>
@@ -3298,17 +3427,173 @@
   <data name="Sharing.PreviewCreated" xml:space="preserve">
     <value>Експортирано на</value>
   </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>За изтегляне</value>
+  </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>Име</value>
   </data>
   <data name="Sharing.PreviewPasswords" xml:space="preserve">
     <value>Пароли</value>
   </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>Публикувано на</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>Референтен компютър</value>
+  </data>
   <data name="Sharing.PreviousConfigurations" xml:space="preserve">
     <value>Предишни конфигурации на този компютър</value>
   </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>Предишен ключ</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>Публикацията все още не е пристигнала изцяло в тази папка. Опитайте отново след малко.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>Парола за публикуване</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>Публикацията е нулирана. Компютрите, които проследяват папката, въвеждат новата парола веднъж.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>Публикуване</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>Направете този компютър референтен: конфигурацията му се публикува в папка, която други компютри проследяват.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>Изберете празна папка или такава, в която този компютър вече публикува: мрежов споделен ресурс, папка в OneDrive или SharePoint, или локална папка. Компютрите, които проследяват папката, се нуждаят от паролата за публикуване, за да я четат.</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>Публикуване в папка</value>
+  </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
     <value>Импортирането заменя текущата конфигурация. Изходният път за ISO, папката с драйвери за WinPE и настройките за телеметрия на този компютър се запазват.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>Нулиране</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>Нулиране на публикацията</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>Нова парола и нов ключ за съдържание: всеки файл със съдържание се шифрова отново, което напълно отнема достъпа на предишните читатели. Компютрите, които проследяват папката, въвеждат новата парола веднъж.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>Нулиране на публикацията</value>
+  </data>
+  <data name="Sharing.RetryButton" xml:space="preserve">
+    <value>Повторен опит</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>Предишните читатели все още могат да отварят съдържание до следващото успешно публикуване.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>Този компютър проследява {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>Този компютър публикува своята конфигурация</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>Публикуването и проследяването не са налични по време на тази сесия, защото състоянието на споделянето не можа да бъде прочетено. Вижте журнала за подробности.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>Проверка на папката: публикацията все още не е пристигнала изцяло и ще бъде прочетена отново при следващата проверка.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>Конфигурацията е приложена. Споделеното съдържание се изтегля.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>Тази папка съдържа файлове, които не са публикация на този компютър. Изберете празна папка.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>Папката не е налична. Проверете дали съществува и дали този компютър има достъп до нея.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>Този компютър нито публикува, нито проследява конфигурация.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>Изчакване на първата проверка на папката.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>Промените се публикуват автоматично.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>Не е публикувано: конфигурацията не е готова за създаване на носители или препраща към съдържание, което липсва на този компютър. Предишната версия остава текуща.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>Необходими са пароли: въведете паролата за публикуване или в страниците за конфигурация паролите, които публикацията не включва.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>Паролата за публикуване или ключовете на този компютър не можаха да бъдат прочетени.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>Публикувано. Компютрите, които проследяват папката, получават тази версия при следващата си проверка.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>Публикуване на конфигурацията.</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>Папката сочи към по-стара версия от приложената. Тя се пренебрегва.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>Публикацията е променена. Тя не се прилага.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>Папката вече се публикува от друг компютър. Приемете новия референтен компютър или спрете проследяването.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>Друг компютър публикува в тази папка. Поемете я, за да публикувате от този компютър.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>Тази публикация изисква по-нова версия на Foundry OSD.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>Актуално.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>Конфигурацията е актуализирана.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>Паролата за публикуване не отваря текущата публикация. Въведете новата парола.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>Паролата за публикуване не отваря публикацията на този компютър в тази папка.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>Спиране на проследяването</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>Конфигурацията остава непроменена и отново може да се редактира на този компютър.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>Да се спре ли проследяването?</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>Спиране на публикуването</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>Папката остава непроменена, а компютрите, които я проследяват, запазват последната публикувана версия. Този компютър отново става обикновен компютър.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>Да се спре ли публикуването?</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>Поемане</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>Друг компютър публикува в тази папка. Поемането продължава публикацията му с ключа на този компютър; компютрите, които проследяват папката, трябва веднъж да приемат този компютър като нов референтен компютър.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>Ключовете за публикуване на този компютър не можаха да бъдат прочетени. Поемането с текущата парола за публикуване продължава публикацията с нови ключове; компютрите, които проследяват папката, трябва веднъж да приемат този компютър като нов референтен компютър.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>Поемане на папката</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>Тази парола не отваря текущата публикация.</value>
   </data>
   <data name="Sharing.UnreadableFile" xml:space="preserve">
     <value>Файлът не можа да бъде прочетен.</value>
@@ -3316,8 +3601,17 @@
   <data name="Sharing.UnsupportedFile" xml:space="preserve">
     <value>Този файл изисква по-нова версия на Foundry OSD.</value>
   </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>Версия</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>Изчакване на завършването на изтеглянето на споделеното съдържание</value>
+  </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Грешна парола фраза или повреден файл.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>Грешна парола за публикуване или публикацията е променена.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Спиране на операцията</value>

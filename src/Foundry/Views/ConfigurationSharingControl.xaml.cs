@@ -6,7 +6,7 @@ using Foundry.Services.Localization;
 
 namespace Foundry.Views;
 
-/// <summary>Settings card for configuration sharing; shows the export and import dialogs the view model requests.</summary>
+/// <summary>Settings card for configuration sharing; shows the dialogs the view model requests.</summary>
 public sealed partial class ConfigurationSharingControl : UserControl
 {
     private readonly IApplicationLocalizationService localization = App.GetService<IApplicationLocalizationService>();
@@ -22,35 +22,74 @@ public sealed partial class ConfigurationSharingControl : UserControl
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        ViewModel.ShowExportDialogAsync = ShowExportDialogAsync;
-        ViewModel.ShowImportDialogAsync = ShowImportDialogAsync;
+        ViewModel.ShowDialogAsync = ShowDialogAsync;
+        ViewModel.ConfirmStopFollowingAsync = ConfirmStopFollowingAsync;
+        ViewModel.Attach();
         localization.LanguageChanged += OnLanguageChanged;
     }
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
     {
         localization.LanguageChanged -= OnLanguageChanged;
-        ViewModel.ShowExportDialogAsync = null;
-        ViewModel.ShowImportDialogAsync = null;
+        ViewModel.Detach();
+        ViewModel.ShowDialogAsync = null;
+        ViewModel.ConfirmStopFollowingAsync = null;
     }
 
     private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e)
     {
-        if (DispatcherQueue.HasThreadAccess) Bindings.Update();
-        else DispatcherQueue.TryEnqueue(Bindings.Update);
+        if (DispatcherQueue.HasThreadAccess) Refresh();
+        else DispatcherQueue.TryEnqueue(Refresh);
     }
 
-    private async Task ShowExportDialogAsync(ExportConfigurationDialogViewModel dialogViewModel)
+    private void Refresh()
     {
-        var dialog = new ExportConfigurationDialog(dialogViewModel) { XamlRoot = XamlRoot };
-        await dialog.ShowAsync();
+        ViewModel.RefreshTexts();
+        Bindings.Update();
     }
 
-    private async Task ShowImportDialogAsync(ImportConfigurationDialogViewModel dialogViewModel)
+    private async Task ShowDialogAsync(ObservableObject dialogViewModel)
     {
-        var dialog = new ImportConfigurationDialog(dialogViewModel) { XamlRoot = XamlRoot };
-        Task initialization = dialogViewModel.InitializeAsync();
+        ContentDialog dialog = dialogViewModel switch
+        {
+            ExportConfigurationDialogViewModel export => new ExportConfigurationDialog(export),
+            ImportConfigurationDialogViewModel import => new ImportConfigurationDialog(import),
+            PublishDialogViewModel publish => new PublishDialog(publish),
+            FollowDialogViewModel follow => new FollowDialog(follow),
+            TakeOverDialogViewModel takeOver => new TakeOverDialog(takeOver),
+            AcceptPublisherDialogViewModel accept => new AcceptPublisherDialog(accept),
+            ChangePublicationPasswordDialogViewModel change => new ChangePublicationPasswordDialog(change),
+            EnterPublicationPasswordDialogViewModel enter => new EnterPublicationPasswordDialog(enter),
+            _ => throw new ArgumentOutOfRangeException(nameof(dialogViewModel), dialogViewModel.GetType().Name, "No dialog shows this view model.")
+        };
+        dialog.XamlRoot = XamlRoot;
+        Task initialization = dialogViewModel is ImportConfigurationDialogViewModel importing ? importing.InitializeAsync() : Task.CompletedTask;
         await dialog.ShowAsync();
         await initialization;
+    }
+
+    /// <summary>Asks to confirm "Stop following"; null when cancelled, otherwise whether the publication password is forgotten.</summary>
+    private async Task<bool?> ConfirmStopFollowingAsync()
+    {
+        var forget = new CheckBox { Content = ViewModel.Text("ForgetPublicationPassword") };
+        var dialog = new ContentDialog
+        {
+            XamlRoot = XamlRoot,
+            Title = ViewModel.Text("StopFollowingTitle"),
+            Content = new StackPanel
+            {
+                Spacing = 12,
+                Children =
+                {
+                    new TextBlock { Text = ViewModel.Text("StopFollowingMessage"), TextWrapping = TextWrapping.Wrap },
+                    forget
+                }
+            },
+            PrimaryButtonText = ViewModel.Text("StopFollowingButton"),
+            CloseButtonText = localization.GetString("Common.Cancel"),
+            DefaultButton = ContentDialogButton.Close,
+            Style = (Style)Application.Current.Resources["DefaultContentDialogStyle"]
+        };
+        return await dialog.ShowAsync() == ContentDialogResult.Primary ? forget.IsChecked == true : null;
     }
 }
