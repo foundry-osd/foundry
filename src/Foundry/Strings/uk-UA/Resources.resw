@@ -3454,11 +3454,14 @@
   <data name="Sharing.PreviewReference" xml:space="preserve">
     <value>Еталонний комп’ютер</value>
   </data>
-  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
-    <value>Попередні конфігурації на цьому комп’ютері</value>
-  </data>
   <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
     <value>Попередній ключ</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Профілі з попередньої версії</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Ці профілі було збережено на цьому комп’ютері до оновлення.</value>
   </data>
   <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
     <value>Публікація ще не повністю надійшла в цю папку. Повторіть спробу трохи згодом.</value>

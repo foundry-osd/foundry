@@ -3454,11 +3454,14 @@
   <data name="Sharing.PreviewReference" xml:space="preserve">
     <value>Референтен компютър</value>
   </data>
-  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
-    <value>Предишни конфигурации на този компютър</value>
-  </data>
   <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
     <value>Предишен ключ</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Профили от предишната версия</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Тези профили са запазени на този компютър преди актуализацията.</value>
   </data>
   <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
     <value>Публикацията все още не е пристигнала изцяло в тази папка. Опитайте отново след малко.</value>

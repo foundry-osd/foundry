@@ -3454,11 +3454,14 @@ Licențiat sub licența MIT.</value>
   <data name="Sharing.PreviewReference" xml:space="preserve">
     <value>PC de referință</value>
   </data>
-  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
-    <value>Configurații anterioare pe acest PC</value>
-  </data>
   <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
     <value>Cheia anterioară</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Profiluri din versiunea anterioară</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Aceste profiluri au fost salvate pe acest PC înainte de actualizare.</value>
   </data>
   <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
     <value>Publicarea nu a ajuns încă în întregime în acest folder. Încercați din nou peste câteva momente.</value>

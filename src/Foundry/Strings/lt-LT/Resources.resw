@@ -3454,11 +3454,14 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Sharing.PreviewReference" xml:space="preserve">
     <value>Etaloninis kompiuteris</value>
   </data>
-  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
-    <value>Ankstesnės konfigūracijos šiame kompiuteryje</value>
-  </data>
   <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
     <value>Ankstesnis raktas</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Ankstesnės versijos profiliai</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Šie profiliai buvo išsaugoti šiame kompiuteryje prieš naujinimą.</value>
   </data>
   <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
     <value>Publikavimas dar ne visas pasiekė šį aplanką. Bandykite dar kartą po akimirkos.</value>

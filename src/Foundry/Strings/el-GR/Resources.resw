@@ -3454,11 +3454,14 @@
   <data name="Sharing.PreviewReference" xml:space="preserve">
     <value>Υπολογιστής αναφοράς</value>
   </data>
-  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
-    <value>Προηγούμενες διαμορφώσεις σε αυτόν τον υπολογιστή</value>
-  </data>
   <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
     <value>Προηγούμενο κλειδί</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Προφίλ από την προηγούμενη έκδοση</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Αυτά τα προφίλ αποθηκεύτηκαν σε αυτόν τον υπολογιστή πριν από την ενημέρωση.</value>
   </data>
   <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
     <value>Η δημοσίευση δεν έχει φτάσει ακόμη πλήρως σε αυτόν τον φάκελο. Δοκιμάστε ξανά σε λίγο.</value>

@@ -3454,11 +3454,14 @@
   <data name="Sharing.PreviewReference" xml:space="preserve">
     <value>พีซีอ้างอิง</value>
   </data>
-  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
-    <value>การกำหนดค่าก่อนหน้าบนพีซีเครื่องนี้</value>
-  </data>
   <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
     <value>คีย์ก่อนหน้า</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>โปรไฟล์จากเวอร์ชันก่อนหน้า</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>โปรไฟล์เหล่านี้ถูกบันทึกไว้บนพีซีเครื่องนี้ก่อนการอัปเดต</value>
   </data>
   <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
     <value>การเผยแพร่ยังมาถึงโฟลเดอร์นี้ไม่ครบ โปรดลองอีกครั้งในอีกสักครู่</value>

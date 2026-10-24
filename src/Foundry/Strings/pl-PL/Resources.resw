@@ -3454,11 +3454,14 @@ Licencjonowany na licencji MIT.</value>
   <data name="Sharing.PreviewReference" xml:space="preserve">
     <value>Komputer odniesienia</value>
   </data>
-  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
-    <value>Wcześniejsze konfiguracje na tym komputerze</value>
-  </data>
   <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
     <value>Poprzedni klucz</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Profile z poprzedniej wersji</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Te profile zostały zapisane na tym komputerze przed aktualizacją.</value>
   </data>
   <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
     <value>Publikacja nie dotarła jeszcze w całości do tego folderu. Spróbuj ponownie za chwilę.</value>

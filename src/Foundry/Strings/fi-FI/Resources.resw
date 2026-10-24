@@ -3454,11 +3454,14 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Sharing.PreviewReference" xml:space="preserve">
     <value>Viitetietokone</value>
   </data>
-  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
-    <value>Aiemmat määritykset tässä tietokoneessa</value>
-  </data>
   <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
     <value>Edellinen avain</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Edellisen version profiilit</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Nämä profiilit tallennettiin tähän tietokoneeseen ennen päivitystä.</value>
   </data>
   <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
     <value>Julkaisu ei ole vielä kokonaan saapunut tähän kansioon. Yritä hetken kuluttua uudelleen.</value>

@@ -3454,11 +3454,14 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Sharing.PreviewReference" xml:space="preserve">
     <value>Võrdlusarvuti</value>
   </data>
-  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
-    <value>Varasemad konfiguratsioonid selles arvutis</value>
-  </data>
   <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
     <value>Eelmine võti</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Eelmise versiooni profiilid</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Need profiilid salvestati selles arvutis enne värskendust.</value>
   </data>
   <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
     <value>Avaldis pole veel täielikult sellesse kausta jõudnud. Proovige mõne hetke pärast uuesti.</value>

@@ -3454,11 +3454,14 @@ Licenseret under MIT-licensen.</value>
   <data name="Sharing.PreviewReference" xml:space="preserve">
     <value>Reference-pc</value>
   </data>
-  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
-    <value>Tidligere konfigurationer på denne pc</value>
-  </data>
   <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
     <value>Forrige nøgle</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Profiler fra den tidligere version</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Disse profiler blev gemt på denne pc før opdateringen.</value>
   </data>
   <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
     <value>Publiceringen er endnu ikke kommet helt frem til denne mappe. Prøv igen om et øjeblik.</value>

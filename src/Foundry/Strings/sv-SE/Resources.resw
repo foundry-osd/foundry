@@ -3454,11 +3454,14 @@ Licensierad under MIT-licensen.</value>
   <data name="Sharing.PreviewReference" xml:space="preserve">
     <value>Referensdator</value>
   </data>
-  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
-    <value>Tidigare konfigurationer på den här datorn</value>
-  </data>
   <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
     <value>Föregående nyckel</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Profiler från den tidigare versionen</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Profilerna sparades på den här datorn före uppdateringen.</value>
   </data>
   <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
     <value>Publiceringen har inte kommit fram helt till den här mappen än. Försök igen om en stund.</value>

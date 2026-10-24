@@ -3454,11 +3454,14 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Sharing.PreviewReference" xml:space="preserve">
     <value>Referentie-pc</value>
   </data>
-  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
-    <value>Eerdere configuraties op deze pc</value>
-  </data>
   <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
     <value>Vorige sleutel</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Profielen uit de vorige versie</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Deze profielen zijn vóór de update op deze pc opgeslagen.</value>
   </data>
   <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
     <value>De publicatie is nog niet volledig in deze map aangekomen. Probeer het zo meteen opnieuw.</value>

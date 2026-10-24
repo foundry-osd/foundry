@@ -6,6 +6,8 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.Configuration.Legacy;
 using Foundry.Core.Services.Files;
 using Foundry.Core.Services.Secrets;
 using Foundry.Core.Services.Sharing;
@@ -251,7 +253,81 @@ public sealed class ConfigurationTransferTests : IDisposable
         Assert.Equal(ImageHash, Assert.Single(outcome.Configuration.CustomImages.Images).ContentHash);
     }
 
+    [Fact]
+    public void Apply_LegacyExportFixtureOverDifferentLocal_TakesSharedSettingsAndKeepsPerPcValues()
+    {
+        Assert.Equal(PackageReadStatus.Ok, ConfigurationTransfer.TryPreview(
+            LegacyFixtures.Read(LegacyFixtures.ExportWithSecrets), Legacy.ExportPassphrase, out ImportPreview? preview));
+        FoundryConfigurationDocument local = DifferentLocalConfiguration();
+
+        ImportOutcome outcome = ConfigurationTransfer.Apply(preview!, local, new Dictionary<string, string>(),
+            new AuthoringFileLibrary(Path.Combine(temp.Path, "target")), _ => true, _ => true, _ => true);
+
+        Assert.Equal(Legacy.WifiSsid, outcome.Configuration.Network.Wifi.Ssid);
+        Assert.Contains(outcome.Configuration.Customization.Oobe.AdditionalAccounts, account => account.Id == Legacy.OobeAccountId);
+        Assert.Equal(local.General.IsoOutputPath, outcome.Configuration.General.IsoOutputPath);
+        Assert.Equal(local.Telemetry, outcome.Configuration.Telemetry);
+        Assert.Equal(["general", "telemetry"], ConfigurationSections.Changed(preview!.Payload.Configuration, outcome.Configuration));
+        Assert.Contains("customization", ConfigurationSections.Changed(local, outcome.Configuration));
+    }
+
+    [Fact]
+    public void Apply_ExportOverDifferentLocal_TakesSharedSettingsAndKeepsPerPcValues()
+    {
+        var reference = new FoundryConfigurationDocument
+        {
+            General = new GeneralSettings { IsoOutputPath = "C:\\Reference\\foundry.iso" },
+            Network = new NetworkSettings { Wifi = new WifiSettings { IsEnabled = true, Ssid = "ReferenceWifi" } },
+            Customization = new CustomizationSettings
+            {
+                Oobe = new OobeSettings { IsEnabled = true, SkipLicenseTerms = false, LocationAccess = OobeLocationAccessMode.ForceOff }
+            }
+        };
+        byte[] file = ConfigurationTransfer.Export(reference, new Dictionary<string, string>(),
+            new AuthoringFileLibrary(Path.Combine(temp.Path, "source")), Passphrase, includePasswords: false, "REFERENCE-PC").Package;
+        Assert.Equal(PackageReadStatus.Ok, ConfigurationTransfer.TryPreview(file, Passphrase, out ImportPreview? preview));
+        FoundryConfigurationDocument local = DifferentLocalConfiguration();
+
+        ImportOutcome outcome = ConfigurationTransfer.Apply(preview!, local, new Dictionary<string, string>(),
+            new AuthoringFileLibrary(Path.Combine(temp.Path, "target")), _ => true, _ => true, _ => true);
+
+        Assert.Equal("ReferenceWifi", outcome.Configuration.Network.Wifi.Ssid);
+        Assert.Equal(reference.Customization.Oobe with { AdditionalAccounts = [] }, outcome.Configuration.Customization.Oobe with { AdditionalAccounts = [] });
+        Assert.Equal(local.General.IsoOutputPath, outcome.Configuration.General.IsoOutputPath);
+        Assert.Equal(local.Telemetry, outcome.Configuration.Telemetry);
+        Assert.Equal(["general", "telemetry"], ConfigurationSections.Changed(reference, outcome.Configuration));
+    }
+
+    [Fact]
+    public void Preview_NewFormatExport_NeverReadsAsLegacy()
+    {
+        byte[] file = ConfigurationTransfer.Export(new FoundryConfigurationDocument(), new Dictionary<string, string>(),
+            new AuthoringFileLibrary(Path.Combine(temp.Path, "source")), Passphrase, includePasswords: false, "PC-1").Package;
+
+        Assert.False(LegacyProfileReader.IsLegacyPackage(file));
+        Assert.Equal(PackageReadStatus.Ok, ConfigurationTransfer.TryPreview(file, Passphrase, out ImportPreview? preview));
+        Assert.False(preview!.IsLegacy);
+        Assert.False(preview.IsLegacyConnectionFile);
+    }
+
     public void Dispose() => temp.Dispose();
+
+    /// <summary>A configuration whose shared and per-PC values all differ from the imported ones.</summary>
+    private static FoundryConfigurationDocument DifferentLocalConfiguration() => new()
+    {
+        General = new GeneralSettings { IsoOutputPath = "E:\\Local\\foundry.iso" },
+        Network = new NetworkSettings { Wifi = new WifiSettings { IsEnabled = true, Ssid = "LocalWifi" } },
+        Customization = new CustomizationSettings
+        {
+            Oobe = new OobeSettings
+            {
+                IsEnabled = true,
+                AllowAdvertisingId = true,
+                AdditionalAccounts = [new OobeAdditionalAccountSettings { Id = "local-account", UserName = "LocalUser" }]
+            }
+        },
+        Telemetry = new Foundry.Telemetry.TelemetrySettings { IsEnabled = false, InstallId = "local-install" }
+    };
 
     private ConfigurationPackagePayload ExportAndRead(
         FoundryConfigurationDocument configuration,

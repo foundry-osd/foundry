@@ -4,6 +4,7 @@
 
 using System.Security.Cryptography;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Configuration.Legacy;
 using Foundry.Core.Services.Drivers;
 using Foundry.Core.Services.Files;
@@ -78,6 +79,9 @@ public sealed class ConfigurationTransferService(
     /// <summary>Message of the <see cref="InvalidOperationException"/> <see cref="ImportAsync"/> throws while this PC follows a folder.</summary>
     public const string FollowingRefusal = "ConfigurationSharing.Following";
 
+    private const string FileSource = "File";
+    private const string LegacyStoreSource = "LegacyStore";
+
     private readonly ILogger logger = logger.ForContext<ConfigurationTransferService>();
 
     /// <summary>Writes the current configuration, without its per-PC values, to <paramref name="path"/>.</summary>
@@ -149,16 +153,24 @@ public sealed class ConfigurationTransferService(
             PackageReadStatus status = ConfigurationTransfer.TryPreview(bytes, passphrase, out ImportPreview? preview);
             return preview is null ? Failed(Map(status)) : Opened(preview);
         });
-        LogPreview(result);
+        LogPreview(result, FileSource, Path.GetExtension(path).ToLowerInvariant());
         return result;
     }
 
-    /// <summary>Lists the profiles of the legacy profile store of this Windows user; an unreadable store lists none.</summary>
+    /// <summary>
+    /// Lists the profiles of the legacy profile store of this Windows user that can still be imported; an unreadable store lists
+    /// none.
+    /// </summary>
+    /// <remarks>
+    /// The active profile is left out: the first-launch migration already made it the current configuration, so importing it
+    /// again would change nothing.
+    /// </remarks>
     public async Task<IReadOnlyList<LegacyLocalProfile>> ListLegacyProfilesAsync()
     {
         try
         {
-            return await Task.Run(() => LegacyProfileReader.ListLocalProfiles(Constants.LegacyProfilesDirectoryPath));
+            return await Task.Run(() => LegacyProfileReader.ListLocalProfiles(Constants.LegacyProfilesDirectoryPath)
+                .Where(profile => !profile.IsActive).ToArray());
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
         {
@@ -191,7 +203,7 @@ public sealed class ConfigurationTransferService(
                 return Failed(ImportPreviewStatus.Unreadable);
             }
         });
-        LogPreview(result);
+        LogPreview(result, LegacyStoreSource, extension: string.Empty);
         return result;
     }
 
@@ -214,16 +226,17 @@ public sealed class ConfigurationTransferService(
         logger.Information(
             "Configuration import started. IsLegacy={IsLegacy}, IsLegacyConnectionFile={IsLegacyConnectionFile}, IncludesPasswords={IncludesPasswords}, FileCount={FileCount}",
             preview.IsLegacy, preview.IsLegacyConnectionFile, preview.IncludesPasswords, preview.Payload.Files?.Count ?? 0);
+        FoundryConfigurationDocument previous;
         ImportOutcome outcome;
         try
         {
             // Files imported for the new configuration stay leased until it is current, so the authoring file cleanup keeps them.
             using IDisposable lease = files.Lease(preview.Payload.Files?.Keys ?? []);
             using IDisposable gate = await replacementGate.EnterAsync();
-            FoundryConfigurationDocument local = configuration.Current;
+            previous = configuration.Current;
             IReadOnlyDictionary<string, string> localVault = vault.ReadEntries();
             outcome = await Task.Run(() => ConfigurationTransfer.Apply(
-                preview, local, localVault, files, postInstallationLibrary.IsAvailable, driverSetLibrary.IsAvailable, imageLibrary.IsAvailable));
+                preview, previous, localVault, files, postInstallationLibrary.IsAvailable, driverSetLibrary.IsAvailable, imageLibrary.IsAvailable));
             configuration.Replace(outcome.Configuration, static () => { });
         }
         catch (Exception exception)
@@ -232,11 +245,13 @@ public sealed class ConfigurationTransferService(
             throw;
         }
 
+        // Section names only, so a support log shows whether the import changed anything without any configuration value.
+        IReadOnlyList<string> changedSections = ConfigurationSections.Changed(previous, configuration.Current);
         bool passwordsSaved = SavePasswords(outcome.VaultEntries);
         await configuration.RefreshCustomDriversReadinessAsync();
         logger.Information(
-            "Configuration import completed. SecretCount={SecretCount}, PasswordsSaved={PasswordsSaved}, MissingContentCount={MissingContentCount}",
-            outcome.VaultEntries.Count, passwordsSaved, outcome.MissingContent.Count);
+            "Configuration import completed. ChangedSections={ChangedSections}, SecretCount={SecretCount}, PasswordsSaved={PasswordsSaved}, MissingContentCount={MissingContentCount}",
+            changedSections, outcome.VaultEntries.Count, passwordsSaved, outcome.MissingContent.Count);
         return new ConfigurationImportResult(outcome.MissingContent, passwordsSaved);
     }
 
@@ -268,17 +283,20 @@ public sealed class ConfigurationTransferService(
         _ => ImportPreviewStatus.Invalid
     };
 
-    private void LogPreview(ConfigurationImportPreview result)
+    /// <summary>Logs the outcome of opening a configuration with its source: a picked file (with its extension) or the legacy profile store.</summary>
+    private void LogPreview(ConfigurationImportPreview result, string source, string extension)
     {
         if (result.Preview is { } preview)
         {
             logger.Information(
-                "Configuration opened for import. IsLegacy={IsLegacy}, IncludesPasswords={IncludesPasswords}, MissingContentCount={MissingContentCount}",
-                preview.IsLegacy, preview.IncludesPasswords, result.MissingContent.Count);
+                "Configuration opened for import. Source={Source}, Extension={Extension}, IsLegacy={IsLegacy}, IncludesPasswords={IncludesPasswords}, MissingContentCount={MissingContentCount}",
+                source, extension, preview.IsLegacy, preview.IncludesPasswords, result.MissingContent.Count);
         }
         else
         {
-            logger.Information("Configuration could not be opened for import. Status={Status}", result.Status);
+            logger.Information(
+                "Configuration could not be opened for import. Source={Source}, Extension={Extension}, Status={Status}",
+                source, extension, result.Status);
         }
     }
 

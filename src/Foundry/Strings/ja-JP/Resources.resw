@@ -3454,11 +3454,14 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Sharing.PreviewReference" xml:space="preserve">
     <value>参照 PC</value>
   </data>
-  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
-    <value>この PC 上の以前の構成</value>
-  </data>
   <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
     <value>以前のキー</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>以前のバージョンのプロファイル</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>これらのプロファイルは、更新前にこの PC に保存されたものです。</value>
   </data>
   <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
     <value>発行がまだこのフォルダーに完全に届いていません。しばらくしてからもう一度お試しください。</value>

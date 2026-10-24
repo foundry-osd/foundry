@@ -2,8 +2,6 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Core.Services.Configuration.Legacy;
-
 namespace Foundry.Views;
 
 /// <summary>Hosts the import dialog; the view model opens the configuration, shows the preview and imports it.</summary>
@@ -30,7 +28,4 @@ public sealed partial class ImportConfigurationDialog : ContentDialog
     {
         if (ViewModel.IsBusy) args.Cancel = true;
     }
-
-    private void OnLegacyProfileSelectionChanged(object sender, SelectionChangedEventArgs e) =>
-        ViewModel.SelectedLegacyProfile = (sender as ListView)?.SelectedItem as LegacyLocalProfile;
 }

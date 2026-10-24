@@ -3454,11 +3454,14 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Sharing.PreviewReference" xml:space="preserve">
     <value>PC di riferimento</value>
   </data>
-  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
-    <value>Configurazioni precedenti su questo PC</value>
-  </data>
   <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
     <value>Chiave precedente</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Profili della versione precedente</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Questi profili sono stati salvati su questo PC prima dell'aggiornamento.</value>
   </data>
   <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
     <value>La pubblicazione non è ancora arrivata completamente in questa cartella. Riprova tra poco.</value>

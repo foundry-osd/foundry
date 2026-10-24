@@ -18,8 +18,8 @@ namespace Foundry.ViewModels;
 public sealed record MissingContentItem(string KindText, string Name);
 
 /// <summary>
-/// Drives the import dialog: open a file with its passphrase or a previous configuration of this PC, show the preview with the
-/// content this PC lacks, then replace the configuration. Failures stay inline.
+/// Drives the import dialog: open a file with its passphrase or a profile of the previous version saved on this PC, one source at
+/// a time, show the preview with the content this PC lacks, then replace the configuration. Failures stay inline.
 /// </summary>
 public sealed partial class ImportConfigurationDialogViewModel : ObservableObject, IDisposable
 {
@@ -62,7 +62,7 @@ public sealed partial class ImportConfigurationDialogViewModel : ObservableObjec
         nameof(PreviewPasswords), nameof(IsLegacyConnectionFile), nameof(HasMissingContent))]
     public partial ImportPreview? Preview { get; set; }
 
-    /// <summary>Gets the previous configurations of the legacy profile store of this Windows user.</summary>
+    /// <summary>Gets the profiles of the previous version saved on this PC, except the one the first-launch migration applied.</summary>
     public ObservableCollection<LegacyLocalProfile> LegacyProfiles { get; } = [];
 
     /// <summary>Gets the content the previewed configuration needs that this PC lacks.</summary>
@@ -89,7 +89,8 @@ public sealed partial class ImportConfigurationDialogViewModel : ObservableObjec
     public string FileLabel => Text("FileLabel");
     public string PassphraseLabel => Text("PassphraseLabel");
     public string OpenLabel => Text("OpenButton");
-    public string PreviousConfigurationsLabel => Text("PreviousConfigurations");
+    public string PreviousVersionProfilesLabel => Text("PreviousVersionProfiles");
+    public string PreviousVersionProfilesHint => Text("PreviousVersionProfilesHint");
     public string NameLabel => Text("PreviewName");
     public string CreatedLabel => Text("PreviewCreated");
     public string PasswordsLabel => Text("PreviewPasswords");
@@ -101,7 +102,7 @@ public sealed partial class ImportConfigurationDialogViewModel : ObservableObjec
     /// <summary>Gets the result of the completed import, or <see langword="null"/> when nothing was imported.</summary>
     public ConfigurationImportResult? Result { get; private set; }
 
-    /// <summary>Loads the previous configurations of this PC; call once when the dialog opens.</summary>
+    /// <summary>Loads the profiles of the previous version saved on this PC; call once when the dialog opens.</summary>
     public async Task InitializeAsync()
     {
         IReadOnlyList<LegacyLocalProfile> profiles = await transfer.ListLegacyProfilesAsync();
@@ -128,12 +129,29 @@ public sealed partial class ImportConfigurationDialogViewModel : ObservableObjec
         }
     }
 
+    /// <summary>Opens the selected file; the profile selection is cleared so the preview has a single source.</summary>
     [RelayCommand]
-    private Task OpenFileAsync() => CanOpenFile ? OpenAsync(() => transfer.PreviewFileAsync(FilePath, Passphrase)) : Task.CompletedTask;
+    private Task OpenFileAsync()
+    {
+        if (!CanOpenFile) return Task.CompletedTask;
+        string path = FilePath;
+        string passphrase = Passphrase;
+        SelectedLegacyProfile = null;
+        return OpenAsync(() => transfer.PreviewFileAsync(path, passphrase));
+    }
 
+    /// <summary>Opens the selected profile; the file and its passphrase are cleared so the preview has a single source.</summary>
     [RelayCommand]
-    private Task OpenLegacyProfileAsync() =>
-        SelectedLegacyProfile is { } profile && CanEdit ? OpenAsync(() => transfer.PreviewLegacyProfileAsync(profile.LocalId)) : Task.CompletedTask;
+    private Task OpenLegacyProfileAsync()
+    {
+        if (SelectedLegacyProfile is not { } profile || !CanEdit) return Task.CompletedTask;
+        FilePath = string.Empty;
+        Passphrase = string.Empty;
+        return OpenAsync(() => transfer.PreviewLegacyProfileAsync(profile.LocalId));
+    }
+
+    // Choosing another profile invalidates the preview of the previous source.
+    partial void OnSelectedLegacyProfileChanged(LegacyLocalProfile? value) => ClearPreview();
 
     /// <summary>Replaces the configuration with the preview; returns true when it was imported.</summary>
     public async Task<bool> ImportAsync()

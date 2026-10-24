@@ -3454,11 +3454,14 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Sharing.PreviewReference" xml:space="preserve">
     <value>Referenz-PC</value>
   </data>
-  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
-    <value>Frühere Konfigurationen auf diesem PC</value>
-  </data>
   <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
     <value>Vorheriger Schlüssel</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Profile aus der vorherigen Version</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Diese Profile wurden vor dem Update auf diesem PC gespeichert.</value>
   </data>
   <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
     <value>Die Veröffentlichung ist noch nicht vollständig in diesem Ordner angekommen. Versuchen Sie es gleich noch einmal.</value>

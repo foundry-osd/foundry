@@ -3454,11 +3454,14 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Sharing.PreviewReference" xml:space="preserve">
     <value>Başvuru bilgisayarı</value>
   </data>
-  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
-    <value>Bu bilgisayardaki önceki yapılandırmalar</value>
-  </data>
   <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
     <value>Önceki anahtar</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Önceki sürümün profilleri</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Bu profiller güncellemeden önce bu bilgisayara kaydedildi.</value>
   </data>
   <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
     <value>Yayın bu klasöre henüz tamamen ulaşmadı. Birazdan yeniden deneyin.</value>

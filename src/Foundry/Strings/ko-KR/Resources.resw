@@ -3454,11 +3454,14 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Sharing.PreviewReference" xml:space="preserve">
     <value>참조 PC</value>
   </data>
-  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
-    <value>이 PC의 이전 구성</value>
-  </data>
   <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
     <value>이전 키</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>이전 버전의 프로필</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>이 프로필은 업데이트 전에 이 PC에 저장되었습니다.</value>
   </data>
   <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
     <value>게시가 아직 이 폴더에 완전히 도착하지 않았습니다. 잠시 후 다시 시도하세요.</value>

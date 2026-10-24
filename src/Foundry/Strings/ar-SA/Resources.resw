@@ -3454,11 +3454,14 @@
   <data name="Sharing.PreviewReference" xml:space="preserve">
     <value>الكمبيوتر المرجعي</value>
   </data>
-  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
-    <value>التكوينات السابقة على هذا الكمبيوتر</value>
-  </data>
   <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
     <value>المفتاح السابق</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>ملفات التعريف من الإصدار السابق</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>تم حفظ ملفات التعريف هذه على هذا الكمبيوتر قبل التحديث.</value>
   </data>
   <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
     <value>لم يصل النشر بالكامل إلى هذا المجلد بعد. أعد المحاولة بعد لحظات.</value>

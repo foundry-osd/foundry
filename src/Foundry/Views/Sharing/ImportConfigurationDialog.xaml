@@ -62,7 +62,12 @@
             Visibility="{x:Bind ViewModel.HasLegacyProfiles, Mode=OneWay}">
             <TextBlock
                 Style="{ThemeResource BodyStrongTextBlockStyle}"
-                Text="{x:Bind ViewModel.PreviousConfigurationsLabel, Mode=OneWay}" />
+                Text="{x:Bind ViewModel.PreviousVersionProfilesLabel, Mode=OneWay}" />
+            <TextBlock
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                Text="{x:Bind ViewModel.PreviousVersionProfilesHint, Mode=OneWay}"
+                TextWrapping="WrapWholeWords" />
             <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -70,10 +75,10 @@
                 </Grid.ColumnDefinitions>
                 <ListView
                     MaxHeight="160"
-                    AutomationProperties.Name="{x:Bind ViewModel.PreviousConfigurationsLabel, Mode=OneWay}"
+                    AutomationProperties.Name="{x:Bind ViewModel.PreviousVersionProfilesLabel, Mode=OneWay}"
                     IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
                     ItemsSource="{x:Bind ViewModel.LegacyProfiles}"
-                    SelectionChanged="OnLegacyProfileSelectionChanged"
+                    SelectedItem="{x:Bind ViewModel.SelectedLegacyProfile, Mode=TwoWay}"
                     SelectionMode="Single">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="legacy:LegacyLocalProfile">

@@ -3454,11 +3454,14 @@ Licenciran prema MIT licenci.</value>
   <data name="Sharing.PreviewReference" xml:space="preserve">
     <value>Referentno računalo</value>
   </data>
-  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
-    <value>Prethodne konfiguracije na ovom računalu</value>
-  </data>
   <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
     <value>Prethodni ključ</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Profili iz prethodne verzije</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Ovi su profili spremljeni na ovom računalu prije ažuriranja.</value>
   </data>
   <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
     <value>Objava još nije u potpunosti stigla u ovu mapu. Pokušajte ponovno za trenutak.</value>
