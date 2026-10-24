@@ -3996,6 +3996,9 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Lai izmantotu pielāgotus atbilžu failus, vispārīgajā konfigurācijā iespējojiet izvietošanas datu nesēja aizsardzību ar paroli.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Programmai Foundry vairs nav derīgas šī faila kopijas. Noņemiet ierakstu un importējiet failu vēlreiz.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Noņemt</value>
   </data>
@@ -4009,16 +4012,16 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>Atlasītais fails</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Divas avotu pārbaudes joprojām gaida piekļuvi failiem. Atjaunojiet piekļuvi nepieejamajām avotu atrašanās vietām un pēc tam vēlreiz pārbaudiet avotus.</value>
+    <value>Joprojām notiek divas failu pārbaudes. Uzgaidiet, līdz tās beidzas, un pēc tam mēģiniet vēlreiz.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>Avota pārbaude vēl nav veikta. Izvēlieties Pārbaudīt avotus, lai validētu pašreizējo failu, nepieņemot satura izmaiņas.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Avotu neizdevās nolasīt. Pārbaudiet, vai fails joprojām pastāv un ir pieejams.</value>
+    <value>Failu nevarēja nolasīt. Pārbaudiet, vai tas pastāv un vai varat to atvērt, un pēc tam mēģiniet vēlreiz.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Avota validācijas taimauts. Pārbaudiet piekļuvi avota atrašanās vietai un mēģiniet vēlreiz.</value>
+    <value>Saglabāto failu pārbaude ilga pārāk ilgi. Mēģiniet vēlreiz.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Tiek atbalstīti tikai specialize un oobeSystem iestatījumi. Noņemiet citus netukšus konfigurācijas posmus, bezsaistes apkopes norādījumus vai atkārtotu sagatavošanu audita režīmam.</value>

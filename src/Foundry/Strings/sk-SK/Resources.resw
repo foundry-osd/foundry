@@ -3996,6 +3996,9 @@ Použitie aktualizácie reštartuje Foundry OSD.</value>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Ak chcete používať vlastné súbory odpovedí, vo všeobecnej konfigurácii zapnite ochranu média nasadenia heslom.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry už nemá platnú kópiu tohto súboru. Odstráňte položku a súbor znova importujte.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Odstrániť</value>
   </data>
@@ -4009,16 +4012,16 @@ Použitie aktualizácie reštartuje Foundry OSD.</value>
     <value>Vybraný súbor</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Dve kontroly zdrojov stále čakajú na prístup k súborom. Obnovte prístup k nedostupným umiestneniam a potom zdroje skontrolujte znova.</value>
+    <value>Stále prebiehajú dve kontroly súborov. Počkajte, kým sa dokončia, a potom to skúste znova.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>Čaká sa na kontrolu zdroja. Vyberte Skontrolovať zdroje, aby ste overili aktuálny súbor bez prijatia zmien obsahu.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Zdroj sa nepodarilo prečítať. Skontrolujte, či súbor stále existuje a je dostupný.</value>
+    <value>Súbor sa nepodarilo prečítať. Overte, či existuje a či ho môžete otvoriť, a potom to skúste znova.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Časový limit overovania zdroja uplynul. Skontrolujte prístup k umiestneniu zdroja a skúste to znova.</value>
+    <value>Kontrola uložených súborov trvala príliš dlho. Skúste to znova.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Podporované sú iba nastavenia specialize a oobeSystem. Odstráňte ostatné neprázdne fázy, pokyny na offline údržbu alebo prípravu na reštart do režimu auditu.</value>

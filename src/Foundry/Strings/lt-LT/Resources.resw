@@ -3996,6 +3996,9 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Norėdami naudoti pasirinktinius atsakymų failus, bendrojoje konfigūracijoje įgalinkite diegimo laikmenos apsaugą slaptažodžiu.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry nebeturi tinkamos šio failo kopijos. Pašalinkite įrašą ir importuokite failą iš naujo.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Pašalinti</value>
   </data>
@@ -4009,16 +4012,16 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
     <value>Pasirinktas failas</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Dvi šaltinių patikros vis dar laukia prieigos prie failų. Atkurkite prieigą prie nepasiekiamų šaltinių vietų, tada dar kartą patikrinkite šaltinius.</value>
+    <value>Vis dar vykdomi du failų tikrinimai. Palaukite, kol jie baigsis, tada bandykite dar kartą.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>Šaltinis dar nepatikrintas. Pasirinkite „Tikrinti šaltinius“, kad patikrintumėte dabartinį failą nepriimdami turinio pakeitimų.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Nepavyko perskaityti šaltinio. Patikrinkite, ar failas vis dar yra ir ar jis pasiekiamas.</value>
+    <value>Failo nepavyko perskaityti. Patikrinkite, ar jis yra ir ar galite jį atidaryti, tada bandykite dar kartą.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Baigėsi šaltinio tikrinimo laikas. Patikrinkite prieigą prie šaltinio vietos ir bandykite dar kartą.</value>
+    <value>Saugomų failų tikrinimas užtruko per ilgai. Bandykite dar kartą.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Palaikomi tik specialize ir oobeSystem parametrai. Pašalinkite kitus netuščius konfigūracijos etapus, autonominės priežiūros nurodymus arba pakartotinį parengimą audito režimui.</value>

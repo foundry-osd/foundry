@@ -3996,6 +3996,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>カスタム応答ファイルを使用するには、「全般構成」で展開メディアのパスワード保護を有効にしてください。</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry にはこのファイルの有効なコピーがありません。エントリを削除して、ファイルを再度インポートしてください。</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>削除</value>
   </data>
@@ -4009,16 +4012,16 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>選択したファイル</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>2 件のソース確認がファイルへのアクセスを待機しています。利用できないソースの場所へのアクセスを復旧してから、ソースを再確認してください。</value>
+    <value>2 つのファイル確認がまだ実行中です。完了するまで待ってから、もう一度お試しください。</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>ソースの確認が必要です。「ソースの確認」を選択すると、内容の変更を受け入れずに現在のファイルを検証できます。</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>ソースを読み取れませんでした。ファイルが存在し、アクセス可能であることを確認してください。</value>
+    <value>ファイルを読み取れませんでした。ファイルが存在し、開けることを確認してから、もう一度お試しください。</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>ソースの検証がタイムアウトしました。ソースの場所へのアクセスを確認して、もう一度お試しください。</value>
+    <value>保存されているファイルの確認に時間がかかりすぎました。もう一度お試しください。</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>specialize と oobeSystem の設定のみサポートされています。空ではない他の構成パス、オフラインサービス処理の指示、監査モードへの再シール設定を削除してください。</value>

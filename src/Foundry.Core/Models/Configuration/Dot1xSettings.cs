@@ -41,9 +41,4 @@ public sealed record Dot1xSettings
     /// Gets the optional certificate held in the authoring file library.
     /// </summary>
     public AuthoringFileReference? Certificate { get; init; }
-
-    /// <summary>
-    /// Gets the encrypted PFX password envelope stored on provisioned media.
-    /// </summary>
-    public SecretEnvelope? CertificatePfxPasswordSecret { get; init; }
 }

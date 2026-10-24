@@ -3996,6 +3996,9 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Habilite la protección mediante contraseña del medio de implementación en la configuración general para usar archivos de respuesta personalizados.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry ya no tiene una copia válida de este archivo. Quite la entrada e importe el archivo de nuevo.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Quitar</value>
   </data>
@@ -4009,16 +4012,16 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>Archivo seleccionado</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Dos comprobaciones de origen siguen esperando acceso a los archivos. Restablezca el acceso a las ubicaciones no disponibles y vuelva a comprobar los orígenes.</value>
+    <value>Todavía hay dos comprobaciones de archivos en curso. Espere a que terminen y vuelva a intentarlo.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>La comprobación del origen está pendiente. Elija Comprobar orígenes para validar el archivo actual sin aceptar cambios en su contenido.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>No se ha podido leer el origen. Compruebe que el archivo sigue existiendo y es accesible.</value>
+    <value>No se pudo leer el archivo. Compruebe que existe y que puede abrirlo y vuelva a intentarlo.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Se ha agotado el tiempo de validación del origen. Compruebe el acceso a su ubicación e inténtelo de nuevo.</value>
+    <value>La comprobación de los archivos almacenados tardó demasiado. Vuelva a intentarlo.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Solo se admiten las opciones de specialize y oobeSystem. Quite las demás fases que no estén vacías, las instrucciones de mantenimiento sin conexión y el resellado en modo auditoría.</value>

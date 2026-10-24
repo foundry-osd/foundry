@@ -7,6 +7,9 @@ using Foundry.Core.Services.Autopilot;
 
 namespace Foundry.Services.Autopilot;
 
+/// <summary>
+/// Stores Autopilot hardware hash state that is valid only for the current app session.
+/// </summary>
 public interface IAutopilotHardwareHashSessionState
 {
     /// <summary>

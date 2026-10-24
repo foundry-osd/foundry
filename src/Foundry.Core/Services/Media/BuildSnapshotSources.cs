@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Text;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Files;
 
@@ -19,4 +20,11 @@ public sealed record BuildSnapshotSources(AuthoringFileLibrary Files)
 
     /// <summary>Gets the password of the Autopilot boot media PFX.</summary>
     public string? AutopilotPfxPassword { get; init; }
+
+    // Records print their members; a password is reported as present or absent, never printed.
+    private bool PrintMembers(StringBuilder builder)
+    {
+        builder.Append("Network = ").Append(Network).Append(", HasAutopilotPfxPassword = ").Append(AutopilotPfxPassword is not null);
+        return true;
+    }
 }

@@ -3996,6 +3996,9 @@ Güncellemeyi uygulamak Foundry OSD'yi yeniden başlatır.</value>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Özel yanıt dosyalarını kullanmak için Genel yapılandırmada dağıtım medyasının parola korumasını etkinleştirin.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry artık bu dosyanın geçerli bir kopyasına sahip değil. Girdiyi kaldırıp dosyayı yeniden içeri aktarın.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Kaldır</value>
   </data>
@@ -4009,16 +4012,16 @@ Güncellemeyi uygulamak Foundry OSD'yi yeniden başlatır.</value>
     <value>Seçili dosya</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>İki kaynak denetimi hâlâ dosya erişimi bekliyor. Kullanılamayan kaynak konumlarına erişimi yeniden sağlayın, ardından kaynakları tekrar denetleyin.</value>
+    <value>İki dosya denetimi hâlâ çalışıyor. Bitmelerini bekleyip yeniden deneyin.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>Kaynak denetimi bekleniyor. İçerik değişikliklerini kabul etmeden geçerli dosyayı doğrulamak için Kaynakları denetle'yi seçin.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Kaynak okunamadı. Dosyanın hâlâ mevcut ve erişilebilir olduğunu denetleyin.</value>
+    <value>Dosya okunamadı. Dosyanın var olduğunu ve açılabildiğini denetleyip yeniden deneyin.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Kaynak doğrulaması zaman aşımına uğradı. Kaynak konumuna erişimi denetleyip yeniden deneyin.</value>
+    <value>Depolanan dosyaların denetlenmesi çok uzun sürdü. Yeniden deneyin.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Yalnızca specialize ve oobeSystem ayarları desteklenir. Diğer boş olmayan yapılandırma aşamalarını, çevrimdışı bakım yönergelerini veya denetim modunda yeniden başlatma hazırlığını kaldırın.</value>

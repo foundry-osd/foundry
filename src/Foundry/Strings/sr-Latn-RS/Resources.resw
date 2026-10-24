@@ -3996,6 +3996,9 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Da biste koristili prilagođene datoteke odgovora, omogućite zaštitu medija za primenu lozinkom u opštoj konfiguraciji.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry više nema važeću kopiju ove datoteke. Uklonite unos i ponovo uvezite datoteku.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Ukloni</value>
   </data>
@@ -4009,16 +4012,16 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
     <value>Izabrana datoteka</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Dve provere izvora još čekaju na pristup datotekama. Ponovo omogućite pristup nedostupnim lokacijama izvora, a zatim ponovite proveru.</value>
+    <value>Još su u toku dve provere datoteka. Sačekajte da se završe, a zatim pokušajte ponovo.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>Provera izvora je na čekanju. Izaberite Proveri izvore da biste proverili trenutnu datoteku bez prihvatanja promena sadržaja.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Izvor nije mogao da se pročita. Proverite da li datoteka i dalje postoji i da li je dostupna.</value>
+    <value>Datoteku nije moguće pročitati. Proverite da li postoji i da li možete da je otvorite, a zatim pokušajte ponovo.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Vreme za proveru izvora je isteklo. Proverite pristup lokaciji izvora i pokušajte ponovo.</value>
+    <value>Provera sačuvanih datoteka je trajala predugo. Pokušajte ponovo.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Podržane su samo postavke specialize i oobeSystem. Uklonite ostale faze koje nisu prazne, uputstva za održavanje van mreže ili pripremu za ponovno pokretanje u režimu nadzora.</value>

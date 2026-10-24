@@ -3996,6 +3996,9 @@ Uporaba posodobitve znova zažene Foundry OSD.</value>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Za uporabo datotek odgovorov po meri v nastavitvah Splošno omogočite zaščito medija za uvajanje z geslom.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry nima več veljavne kopije te datoteke. Odstranite vnos in znova uvozite datoteko.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Odstrani</value>
   </data>
@@ -4009,16 +4012,16 @@ Uporaba posodobitve znova zažene Foundry OSD.</value>
     <value>Izbrana datoteka</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Dve preverjanji virov še vedno čakata na dostop do datotek. Obnovite dostop do nedostopnih mest virov, nato vire preverite znova.</value>
+    <value>Še vedno potekata dve preverjanji datotek. Počakajte, da se končata, nato poskusite znova.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>Preverjanje vira je na čakanju. Izberite Preveri vire, da preverite trenutno datoteko, ne da bi sprejeli spremembe vsebine.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Vira ni bilo mogoče prebrati. Preverite, ali datoteka še obstaja in je dostopna.</value>
+    <value>Datoteke ni bilo mogoče prebrati. Preverite, ali obstaja in ali jo lahko odprete, nato poskusite znova.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Čas za preverjanje vira je potekel. Preverite dostop do mesta vira in poskusite znova.</value>
+    <value>Preverjanje shranjenih datotek je trajalo predolgo. Poskusite znova.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Podprte so samo nastavitve specialize in oobeSystem. Odstranite druge neprazne faze, navodila za servisiranje brez povezave ali pripravo na ponovni zagon v načinu nadzora.</value>

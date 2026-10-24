@@ -3996,6 +3996,9 @@
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>请在“常规”配置中启用部署介质密码保护，以使用自定义应答文件。</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry 不再拥有此文件的有效副本。请移除该条目并重新导入文件。</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>移除</value>
   </data>
@@ -4009,16 +4012,16 @@
     <value>所选文件</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>两个源文件检查仍在等待文件访问。请恢复对不可用源文件位置的访问，然后重新检查。</value>
+    <value>仍有两项文件检查正在进行。请等待其完成后重试。</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>源文件检查待处理。选择“检查源文件”可验证当前文件，而不接受内容更改。</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>无法读取源文件。请确认文件仍然存在且可以访问。</value>
+    <value>无法读取该文件。请确认文件存在且可以打开，然后重试。</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>源文件验证超时。请检查对源文件位置的访问权限，然后重试。</value>
+    <value>检查已存储的文件耗时过长。请重试。</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>仅支持 specialize 和 oobeSystem 设置。请移除其他非空配置阶段、脱机维护指令或重新封装为审核模式的设置。</value>

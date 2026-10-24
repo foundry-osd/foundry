@@ -3996,6 +3996,9 @@ Oppdateringen starter Foundry OSD på nytt.</value>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Aktiver passordbeskyttelse av distribusjonsmediet i den generelle konfigurasjonen for å bruke egendefinerte svarfiler.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry har ikke lenger en gyldig kopi av denne filen. Fjern oppføringen, og importer filen på nytt.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Fjern</value>
   </data>
@@ -4009,16 +4012,16 @@ Oppdateringen starter Foundry OSD på nytt.</value>
     <value>Valgt fil</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>To kildekontroller venter fortsatt på filtilgang. Gjenopprett tilgangen til de utilgjengelige kildeplasseringene, og kontroller kildene på nytt.</value>
+    <value>To filkontroller pågår fortsatt. Vent til de er ferdige, og prøv deretter på nytt.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>Kilden venter på kontroll. Velg Kontroller kilder for å validere den gjeldende filen uten å godta innholdsendringer.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Kilden kunne ikke leses. Kontroller at filen fortsatt finnes og er tilgjengelig.</value>
+    <value>Filen kunne ikke leses. Kontroller at den finnes og at du kan åpne den, og prøv deretter på nytt.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Valideringen av kilden ble tidsavbrutt. Kontroller tilgangen til kildeplasseringen, og prøv igjen.</value>
+    <value>Kontrollen av de lagrede filene tok for lang tid. Prøv på nytt.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Bare innstillinger for specialize og oobeSystem støttes. Fjern andre faser med innhold, instruksjoner for frakoblet vedlikehold eller resealing til revisjonsmodus.</value>

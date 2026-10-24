@@ -3996,6 +3996,9 @@
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>เปิดใช้การป้องกันสื่อการปรับใช้ด้วยรหัสผ่านในการกำหนดค่าทั่วไปเพื่อใช้ไฟล์คำตอบที่กำหนดเอง</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry ไม่มีสำเนาที่ถูกต้องของไฟล์นี้อีกต่อไป โปรดลบรายการแล้วนำเข้าไฟล์อีกครั้ง</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>ลบ</value>
   </data>
@@ -4009,16 +4012,16 @@
     <value>ไฟล์ที่เลือก</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>การตรวจสอบต้นฉบับสองรายการยังคงรอการเข้าถึงไฟล์ โปรดกู้คืนการเข้าถึงตำแหน่งต้นฉบับที่ไม่พร้อมใช้งาน แล้วตรวจสอบต้นฉบับอีกครั้ง</value>
+    <value>การตรวจสอบไฟล์สองรายการยังคงทำงานอยู่ โปรดรอจนกว่าจะเสร็จสิ้น แล้วลองอีกครั้ง</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>กำลังรอตรวจสอบต้นฉบับ เลือกตรวจสอบต้นฉบับเพื่อตรวจสอบไฟล์ปัจจุบันโดยไม่ยอมรับการเปลี่ยนแปลงเนื้อหา</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>ไม่สามารถอ่านต้นฉบับได้ โปรดตรวจสอบว่าไฟล์ยังคงอยู่และเข้าถึงได้</value>
+    <value>ไม่สามารถอ่านไฟล์ได้ โปรดตรวจสอบว่าไฟล์มีอยู่และคุณเปิดได้ แล้วลองอีกครั้ง</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>การตรวจสอบต้นฉบับหมดเวลา โปรดตรวจสอบการเข้าถึงตำแหน่งต้นฉบับแล้วลองอีกครั้ง</value>
+    <value>การตรวจสอบไฟล์ที่จัดเก็บไว้ใช้เวลานานเกินไป โปรดลองอีกครั้ง</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>รองรับเฉพาะการตั้งค่าใน specialize และ oobeSystem เท่านั้น โปรดลบขั้นตอนอื่นที่มีเนื้อหา คำสั่งการให้บริการออฟไลน์ หรือการเตรียมให้เริ่มระบบใหม่ในโหมดตรวจสอบ</value>

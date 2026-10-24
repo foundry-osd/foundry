@@ -3996,6 +3996,9 @@ Uppdateringen startar om Foundry OSD.</value>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Aktivera lösenordsskydd för distributionsmediet under Allmänt för att använda egna svarsfiler.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry har inte längre någon giltig kopia av den här filen. Ta bort posten och importera filen igen.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Ta bort</value>
   </data>
@@ -4009,16 +4012,16 @@ Uppdateringen startar om Foundry OSD.</value>
     <value>Vald fil</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Två källkontroller väntar fortfarande på filåtkomst. Återställ åtkomsten till de otillgängliga källplatserna och kontrollera sedan källorna igen.</value>
+    <value>Två filkontroller pågår fortfarande. Vänta tills de är klara och försök sedan igen.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>Källkontroll väntar. Välj Kontrollera källor för att validera den aktuella filen utan att godkänna innehållsändringar.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Källan kunde inte läsas. Kontrollera att filen fortfarande finns och är åtkomlig.</value>
+    <value>Det gick inte att läsa filen. Kontrollera att den finns och att du kan öppna den och försök sedan igen.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Tidsgränsen för källvalideringen överskreds. Kontrollera åtkomsten till källans plats och försök igen.</value>
+    <value>Kontrollen av de lagrade filerna tog för lång tid. Försök igen.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Endast inställningar i specialize och oobeSystem stöds. Ta bort andra konfigurationspass som inte är tomma, instruktioner för offlineunderhåll eller förberedelser för omstart i granskningsläge.</value>

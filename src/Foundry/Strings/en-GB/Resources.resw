@@ -3996,6 +3996,9 @@ Applying the update restarts Foundry OSD.</value>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Enable deployment media password protection in General configuration to use custom answer files.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry no longer has a valid copy of this file. Remove the entry and import the file again.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Remove</value>
   </data>
@@ -4009,16 +4012,16 @@ Applying the update restarts Foundry OSD.</value>
     <value>Selected file</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Two source checks are still waiting for file access. Restore the unavailable source locations, then check sources again.</value>
+    <value>Two file checks are still running. Wait for them to finish, then try again.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>Source check pending. Choose Check sources to validate the current file without accepting content changes.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>The source could not be read. Check that the file still exists and is accessible.</value>
+    <value>The file could not be read. Check that it exists and that you can open it, then try again.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Source validation timed out. Check access to the source location and try again.</value>
+    <value>Checking the stored files took too long. Try again.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Only specialize and oobeSystem settings are supported. Remove other nonempty passes, offline servicing instructions, or audit-mode resealing.</value>

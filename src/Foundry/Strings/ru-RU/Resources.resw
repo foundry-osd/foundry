@@ -3996,6 +3996,9 @@
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Чтобы использовать пользовательские файлы ответов, включите защиту носителя развёртывания паролем в общих настройках.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>У Foundry больше нет действительной копии этого файла. Удалите запись и импортируйте файл снова.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Удалить</value>
   </data>
@@ -4009,16 +4012,16 @@
     <value>Выбранный файл</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Две проверки источников всё ещё ожидают доступа к файлам. Восстановите доступ к недоступным расположениям и повторите проверку источников.</value>
+    <value>Ещё выполняются две проверки файлов. Дождитесь их завершения, затем повторите попытку.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>Проверка источника ожидается. Нажмите «Проверить источники», чтобы проверить текущий файл, не принимая изменения содержимого.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Не удалось прочитать источник. Убедитесь, что файл существует и доступен.</value>
+    <value>Не удалось прочитать файл. Убедитесь, что он существует и его можно открыть, затем повторите попытку.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Время проверки источника истекло. Проверьте доступ к расположению источника и повторите попытку.</value>
+    <value>Проверка сохранённых файлов заняла слишком много времени. Повторите попытку.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Поддерживаются только параметры specialize и oobeSystem. Удалите другие непустые проходы настройки, инструкции автономного обслуживания или указания на повторную загрузку в режиме аудита.</value>

@@ -3996,6 +3996,9 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Aktivér adgangskodebeskyttelse af udrulningsmediet i den generelle konfiguration for at bruge brugerdefinerede svarfiler.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry har ikke længere en gyldig kopi af denne fil. Fjern posten, og importér filen igen.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Fjern</value>
   </data>
@@ -4009,16 +4012,16 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
     <value>Valgt fil</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>To kildekontroller venter stadig på filadgang. Gendan adgangen til de utilgængelige kildeplaceringer, og kontrollér derefter kilderne igen.</value>
+    <value>To filkontroller kører stadig. Vent, til de er færdige, og prøv derefter igen.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>Kilden afventer kontrol. Vælg Kontrollér kilder for at validere den aktuelle fil uden at acceptere ændringer i indholdet.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Kilden kunne ikke læses. Kontrollér, at filen stadig findes og er tilgængelig.</value>
+    <value>Filen kunne ikke læses. Kontrollér, at den findes, og at du kan åbne den, og prøv derefter igen.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Valideringen af kilden overskred tidsgrænsen. Kontrollér adgangen til kildeplaceringen, og prøv igen.</value>
+    <value>Kontrollen af de gemte filer tog for lang tid. Prøv igen.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Kun indstillinger for specialize og oobeSystem understøttes. Fjern andre ikke-tomme konfigurationsfaser, instruktioner til offlinevedligeholdelse eller genforsegling til overvågningstilstand.</value>

@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Text;
 using Foundry.Core.Models.Configuration;
 
 namespace Foundry.Core.Services.Configuration;
@@ -32,6 +33,13 @@ public sealed record MediaInputs
     internal string? ResolveRequired(AuthoringFileReference? reference) => reference is null
         ? null
         : ResolveFile(reference) ?? throw new FileNotFoundException("A referenced authoring file is unavailable. Select the file again.");
+
+    // Records print their members; a password is reported as present or absent, never printed.
+    private bool PrintMembers(StringBuilder builder)
+    {
+        builder.Append("Network = ").Append(Network).Append(", HasAutopilotPfxPassword = ").Append(AutopilotPfxPassword is not null);
+        return true;
+    }
 }
 
 /// <summary>
@@ -47,4 +55,13 @@ public sealed record NetworkSecrets
 
     /// <summary>Gets the PFX password of the Wi-Fi enterprise certificate.</summary>
     public string? WifiCertificatePfxPassword { get; init; }
+
+    // Records print their members; a password is reported as present or absent, never printed.
+    private bool PrintMembers(StringBuilder builder)
+    {
+        builder.Append("HasWifiPassphrase = ").Append(WifiPassphrase is not null)
+            .Append(", HasWiredCertificatePfxPassword = ").Append(WiredCertificatePfxPassword is not null)
+            .Append(", HasWifiCertificatePfxPassword = ").Append(WifiCertificatePfxPassword is not null);
+        return true;
+    }
 }

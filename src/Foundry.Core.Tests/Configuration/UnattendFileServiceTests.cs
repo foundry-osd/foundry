@@ -248,7 +248,8 @@ public sealed class UnattendFileServiceTests
         Assert.Equal(64, file.ContentHash.Length);
         string changed = Path.Combine(directory.Path, "changed.xml");
         File.WriteAllBytes(changed, Xml(Settings("<ComputerName>CHANGED</ComputerName>")));
-        Assert.Throws<InvalidDataException>(() => UnattendFileService.ReadValidated(file, changed));
+        InvalidDataException mismatch = Assert.Throws<InvalidDataException>(() => UnattendFileService.ReadValidated(file, changed));
+        Assert.Equal(UnattendFileService.ContentMismatchMessage, mismatch.Message);
     }
 
     [Fact]
@@ -262,7 +263,9 @@ public sealed class UnattendFileServiceTests
         InvalidOperationException error = Assert.Throws<InvalidOperationException>(() => UnattendFileService.ReadValidated(file, path));
         Assert.DoesNotContain(path, error.ToString());
         Assert.Throws<InvalidOperationException>(() => UnattendFileService.ReadValidated(file, null));
-        Assert.Throws<InvalidOperationException>(() => UnattendFileService.ReadValidated(file with { File = null }, path));
+        InvalidOperationException notImported = Assert.Throws<InvalidOperationException>(() => UnattendFileService.ReadValidated(file with { File = null }, path));
+        Assert.Equal(UnattendFileService.ContentUnavailableMessage, notImported.Message);
+        Assert.Equal(UnattendFileService.ContentUnavailableMessage, error.Message);
         using (var stream = File.Create(path))
         {
             stream.SetLength((4 * 1024 * 1024) + 1);

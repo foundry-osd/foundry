@@ -3996,6 +3996,9 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Aktivieren Sie in der allgemeinen Konfiguration den Kennwortschutz für Bereitstellungsmedien, um benutzerdefinierte Antwortdateien zu verwenden.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry hat keine gültige Kopie dieser Datei mehr. Entfernen Sie den Eintrag und importieren Sie die Datei erneut.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Entfernen</value>
   </data>
@@ -4009,16 +4012,16 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
     <value>Ausgewählte Datei</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Zwei Quellenprüfungen warten noch auf Dateizugriff. Stellen Sie den Zugriff auf die nicht verfügbaren Quellspeicherorte wieder her und prüfen Sie die Quellen erneut.</value>
+    <value>Zwei Dateiprüfungen laufen noch. Warten Sie, bis sie abgeschlossen sind, und versuchen Sie es dann erneut.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>Quellenprüfung steht aus. Wählen Sie Quellen prüfen, um die aktuelle Datei zu validieren, ohne Inhaltsänderungen zu übernehmen.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Die Quelle konnte nicht gelesen werden. Prüfen Sie, ob die Datei noch vorhanden und zugänglich ist.</value>
+    <value>Die Datei konnte nicht gelesen werden. Prüfen Sie, ob sie vorhanden ist und geöffnet werden kann, und versuchen Sie es dann erneut.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Zeitüberschreitung bei der Quellenvalidierung. Prüfen Sie den Zugriff auf den Quellspeicherort und versuchen Sie es erneut.</value>
+    <value>Die Prüfung der gespeicherten Dateien hat zu lange gedauert. Versuchen Sie es erneut.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Nur Einstellungen für specialize und oobeSystem werden unterstützt. Entfernen Sie andere nicht leere Konfigurationsdurchläufe, Offlinewartungsanweisungen und das erneute Versiegeln im Überwachungsmodus.</value>

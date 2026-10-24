@@ -3996,6 +3996,9 @@
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>請在「一般」設定中啟用部署媒體密碼保護，以使用自訂回應檔案。</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry 已不再擁有此檔案的有效副本。請移除該項目並重新匯入檔案。</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>移除</value>
   </data>
@@ -4009,16 +4012,16 @@
     <value>所選檔案</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>兩項來源檢查仍在等待檔案存取。請恢復無法使用的來源位置，然後再次檢查來源。</value>
+    <value>仍有兩項檔案檢查正在進行。請等候其完成後再試一次。</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>來源檢查待處理。選擇「檢查來源」可驗證目前的檔案，而不接受內容變更。</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>無法讀取來源。請確認檔案仍存在且可存取。</value>
+    <value>無法讀取該檔案。請確認檔案存在且可以開啟，然後再試一次。</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>來源驗證逾時。請檢查來源位置的存取權限，然後再試一次。</value>
+    <value>檢查已儲存的檔案耗時過長。請再試一次。</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>僅支援 specialize 和 oobeSystem 設定。請移除其他非空白設定階段、離線維護指令，或重新封裝為稽核模式的設定。</value>

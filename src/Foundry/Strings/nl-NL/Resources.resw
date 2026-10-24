@@ -3996,6 +3996,9 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Schakel wachtwoordbeveiliging voor implementatiemedia in de algemene configuratie in om aangepaste antwoordbestanden te gebruiken.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry heeft geen geldige kopie van dit bestand meer. Verwijder het item en importeer het bestand opnieuw.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Verwijderen</value>
   </data>
@@ -4009,16 +4012,16 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
     <value>Geselecteerd bestand</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Twee broncontroles wachten nog op bestandstoegang. Herstel de toegang tot de onbeschikbare bronlocaties en controleer de bronnen opnieuw.</value>
+    <value>Er worden nog twee bestandscontroles uitgevoerd. Wacht tot ze klaar zijn en probeer het opnieuw.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>De bron is nog niet gecontroleerd. Kies Bronnen controleren om het huidige bestand te valideren zonder inhoudswijzigingen te accepteren.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>De bron kon niet worden gelezen. Controleer of het bestand nog bestaat en toegankelijk is.</value>
+    <value>Het bestand kan niet worden gelezen. Controleer of het bestaat en of u het kunt openen en probeer het opnieuw.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Er is een time-out opgetreden bij het valideren van de bron. Controleer de toegang tot de bronlocatie en probeer het opnieuw.</value>
+    <value>Het controleren van de opgeslagen bestanden duurde te lang. Probeer het opnieuw.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Alleen instellingen voor specialize en oobeSystem worden ondersteund. Verwijder andere niet-lege configuratiefasen, instructies voor offlineonderhoud of resealing naar de controlemodus.</value>

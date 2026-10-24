@@ -367,8 +367,11 @@ public sealed partial class UnattendConfigurationViewModel : ObservableObject, I
         "The answer-file catalog contains invalid or duplicate entries." or
         "The answer-file source metadata is invalid." or
         "The answer-file identifier is invalid." => "Unattend.InvalidCatalogMessage",
-        "Source validation timed out. Check the source location and refresh again." => "Unattend.SourceTimeoutMessage",
-        "Two source checks are still waiting for file access. Restore the unavailable source locations, then check sources again." => "Unattend.SourceChecksBusyMessage",
+        "Answer-file checks timed out." => "Unattend.SourceTimeoutMessage",
+        "Two answer-file checks are still running." => "Unattend.SourceChecksBusyMessage",
+        UnattendFileService.ContentUnavailableMessage or
+        UnattendFileService.ContentMismatchMessage => "Unattend.ReimportRequiredMessage",
+        UnattendFileService.SourceUnreadableMessage => "Unattend.SourceReadFailedMessage",
         "The answer file or selected image declares an unsupported architecture." or
         "The answer file has no supported component settings applicable to the selected architecture." => "Unattend.InvalidArchitectureMessage",
         "Audit-mode resealing is not supported for normal Windows deployment." => "Unattend.UnsupportedSettingsMessage",

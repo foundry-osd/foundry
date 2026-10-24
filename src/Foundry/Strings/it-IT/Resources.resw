@@ -3996,6 +3996,9 @@ L'applicazione dell'aggiornamento riavvia Foundry OSD.</value>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Abilita la protezione del supporto di distribuzione tramite password nella configurazione generale per usare file di risposte personalizzati.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry non dispone più di una copia valida di questo file. Rimuovi la voce e importa di nuovo il file.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Rimuovi</value>
   </data>
@@ -4009,16 +4012,16 @@ L'applicazione dell'aggiornamento riavvia Foundry OSD.</value>
     <value>File selezionato</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Due verifiche delle origini sono ancora in attesa dell'accesso ai file. Ripristina l'accesso ai percorsi di origine non disponibili, quindi verifica nuovamente le origini.</value>
+    <value>Due verifiche dei file sono ancora in corso. Attendi che terminino, quindi riprova.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>Verifica dell'origine in sospeso. Scegli Verifica origini per convalidare il file corrente senza accettare modifiche al contenuto.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Impossibile leggere l'origine. Verifica che il file esista ancora e sia accessibile.</value>
+    <value>Impossibile leggere il file. Verifica che esista e che sia possibile aprirlo, quindi riprova.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>La convalida dell'origine ha superato il tempo limite. Verifica l'accesso al percorso di origine e riprova.</value>
+    <value>La verifica dei file archiviati ha richiesto troppo tempo. Riprova.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Sono supportate solo le impostazioni specialize e oobeSystem. Rimuovi gli altri passaggi di configurazione non vuoti, le istruzioni di manutenzione offline o la risigillatura in modalità di controllo.</value>

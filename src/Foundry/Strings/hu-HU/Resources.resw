@@ -3996,6 +3996,9 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Az egyéni válaszfájlok használatához engedélyezze a telepítési adathordozó jelszavas védelmét az Általános konfigurációban.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>A Foundry már nem rendelkezik érvényes másolattal erről a fájlról. Távolítsa el a bejegyzést, és importálja újra a fájlt.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Eltávolítás</value>
   </data>
@@ -4009,16 +4012,16 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>Kiválasztott fájl</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Két forrásellenőrzés még fájlhozzáférésre vár. Állítsa helyre a nem elérhető forráshelyeket, majd ellenőrizze újra a forrásokat.</value>
+    <value>Még két fájlellenőrzés fut. Várja meg, amíg befejeződnek, majd próbálja újra.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>A forrás ellenőrzésre vár. Válassza a Források ellenőrzése lehetőséget az aktuális fájl ellenőrzéséhez a tartalom változásainak elfogadása nélkül.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>A forrás nem olvasható. Ellenőrizze, hogy a fájl még létezik és elérhető-e.</value>
+    <value>A fájlt nem sikerült beolvasni. Ellenőrizze, hogy létezik-e, és meg tudja-e nyitni, majd próbálja újra.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>A forrás ellenőrzése túllépte az időkorlátot. Ellenőrizze a forrás helyének elérhetőségét, majd próbálja újra.</value>
+    <value>A tárolt fájlok ellenőrzése túl sokáig tartott. Próbálja újra.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Csak a specialize és az oobeSystem beállítások támogatottak. Távolítsa el a többi nem üres konfigurációs fázist, az offline karbantartási utasításokat és az audit módba való visszaállítást.</value>

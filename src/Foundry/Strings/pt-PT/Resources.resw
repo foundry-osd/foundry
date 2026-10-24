@@ -3996,6 +3996,9 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Ative a proteção por palavra-passe do suporte de implementação na configuração Geral para usar ficheiros de resposta personalizados.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>O Foundry já não tem uma cópia válida deste ficheiro. Remova a entrada e importe novamente o ficheiro.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Remover</value>
   </data>
@@ -4009,16 +4012,16 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>Ficheiro selecionado</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Duas verificações de origem continuam à espera de acesso aos ficheiros. Restabeleça o acesso às localizações indisponíveis e volte a verificar as origens.</value>
+    <value>Ainda estão em curso duas verificações de ficheiros. Aguarde que terminem e tente novamente.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>Verificação da origem pendente. Escolha Verificar origens para validar o ficheiro atual sem aceitar alterações ao conteúdo.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Não foi possível ler a origem. Verifique se o ficheiro ainda existe e está acessível.</value>
+    <value>Não foi possível ler o ficheiro. Verifique se existe e se o consegue abrir e tente novamente.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>A validação da origem excedeu o tempo limite. Verifique o acesso à localização da origem e tente novamente.</value>
+    <value>A verificação dos ficheiros armazenados demorou demasiado tempo. Tente novamente.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Apenas são suportadas definições de specialize e oobeSystem. Remova outras fases não vazias, instruções de manutenção offline ou a preparação para reiniciar em modo de auditoria.</value>

@@ -3996,6 +3996,9 @@
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Ενεργοποιήστε την προστασία του μέσου ανάπτυξης με κωδικό πρόσβασης στις γενικές ρυθμίσεις για να χρησιμοποιήσετε προσαρμοσμένα αρχεία απαντήσεων.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Το Foundry δεν διαθέτει πλέον έγκυρο αντίγραφο αυτού του αρχείου. Καταργήστε την καταχώριση και εισαγάγετε ξανά το αρχείο.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Κατάργηση</value>
   </data>
@@ -4009,16 +4012,16 @@
     <value>Επιλεγμένο αρχείο</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Δύο έλεγχοι προελεύσεων περιμένουν ακόμη πρόσβαση στα αρχεία. Αποκαταστήστε την πρόσβαση στις μη διαθέσιμες θέσεις και ελέγξτε ξανά τις προελεύσεις.</value>
+    <value>Δύο έλεγχοι αρχείων βρίσκονται ακόμη σε εξέλιξη. Περιμένετε να ολοκληρωθούν και, στη συνέχεια, δοκιμάστε ξανά.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>Εκκρεμεί έλεγχος προέλευσης. Επιλέξτε Έλεγχος προελεύσεων για επικύρωση του τρέχοντος αρχείου χωρίς αποδοχή αλλαγών στο περιεχόμενο.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Δεν ήταν δυνατή η ανάγνωση του αρχείου προέλευσης. Ελέγξτε ότι το αρχείο εξακολουθεί να υπάρχει και είναι προσβάσιμο.</value>
+    <value>Δεν ήταν δυνατή η ανάγνωση του αρχείου. Βεβαιωθείτε ότι υπάρχει και ότι μπορείτε να το ανοίξετε και, στη συνέχεια, δοκιμάστε ξανά.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Έληξε το χρονικό όριο επικύρωσης της προέλευσης. Ελέγξτε την πρόσβαση στη θέση του αρχείου και δοκιμάστε ξανά.</value>
+    <value>Ο έλεγχος των αποθηκευμένων αρχείων διήρκεσε πολύ. Δοκιμάστε ξανά.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Υποστηρίζονται μόνο οι ρυθμίσεις specialize και oobeSystem. Καταργήστε άλλες μη κενές φάσεις, οδηγίες συντήρησης χωρίς σύνδεση ή επανασφράγιση σε λειτουργία ελέγχου.</value>

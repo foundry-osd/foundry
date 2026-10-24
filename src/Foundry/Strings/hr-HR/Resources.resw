@@ -3996,6 +3996,9 @@ Primjena ažuriranja ponovno pokreće Foundry OSD.</value>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Omogućite zaštitu medija za implementaciju lozinkom u općoj konfiguraciji da biste koristili prilagođene datoteke odgovora.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry više nema valjanu kopiju ove datoteke. Uklonite unos i ponovno uvezite datoteku.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Ukloni</value>
   </data>
@@ -4009,16 +4012,16 @@ Primjena ažuriranja ponovno pokreće Foundry OSD.</value>
     <value>Odabrana datoteka</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Dvije provjere izvora još čekaju pristup datotekama. Ponovno omogućite pristup nedostupnim lokacijama izvora, a zatim ponovno provjerite izvore.</value>
+    <value>Još su u tijeku dvije provjere datoteka. Pričekajte da završe, a zatim pokušajte ponovno.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>Provjera izvora je na čekanju. Odaberite Provjeri izvore da biste provjerili trenutačnu datoteku bez prihvaćanja promjena sadržaja.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Izvor nije moguće pročitati. Provjerite postoji li datoteka još uvijek i je li dostupna.</value>
+    <value>Datoteku nije moguće pročitati. Provjerite postoji li i možete li je otvoriti, a zatim pokušajte ponovno.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Isteklo je vrijeme za provjeru izvora. Provjerite pristup lokaciji izvora i pokušajte ponovno.</value>
+    <value>Provjera spremljenih datoteka trajala je predugo. Pokušajte ponovno.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Podržane su samo postavke specialize i oobeSystem. Uklonite ostale faze konfiguracije koje nisu prazne, upute za izvanmrežno servisiranje ili ponovno pripremanje za način revizije.</value>

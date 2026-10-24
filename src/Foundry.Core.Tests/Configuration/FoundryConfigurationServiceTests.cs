@@ -736,6 +736,46 @@ public sealed class FoundryConfigurationServiceTests
     }
 
     [Fact]
+    public void Deserialize_MigratedDocumentLoadedTwice_IsIdempotent()
+    {
+        using var temp = new TemporaryDirectory();
+        string template = Path.Combine(temp.Path, "wired.xml");
+        File.WriteAllText(template, "<LANProfile />");
+        var library = new Foundry.Core.Services.Files.AuthoringFileLibrary(Path.Combine(temp.Path, "library"));
+        var service = new FoundryConfigurationService(library);
+        string legacy = $$"""
+            { "schemaVersion": 18, "network": { "dot1x": { "isEnabled": true, "profileTemplatePath": {{System.Text.Json.JsonSerializer.Serialize(template)}} } } }
+            """;
+        string firstSave = service.Serialize(service.Deserialize(legacy));
+        File.Delete(template);
+
+        FoundryConfigurationDocument reloaded = service.Deserialize(firstSave);
+
+        // The second load finds no legacy member, so it needs neither the source path nor a second import.
+        Assert.Equal("wired.xml", reloaded.Network.Dot1x.ProfileTemplate?.FileName);
+        Assert.Equal(firstSave, service.Serialize(reloaded));
+        Assert.DoesNotContain("profileTemplatePath", firstSave, StringComparison.Ordinal);
+        Assert.Single(Directory.GetDirectories(Path.Combine(temp.Path, "library", "content")));
+    }
+
+    [Fact]
+    public void Deserialize_LegacySecretEnvelopes_AreNotSavedAgain()
+    {
+        var service = new FoundryConfigurationService();
+        const string envelope = """{ "kind": "encrypted", "algorithm": "aes-gcm-v1", "keyId": "media", "nonce": "bm9uY2U", "tag": "dGFn", "ciphertext": "Y2lwaGVy" }""";
+        string json = $$"""
+            { "schemaVersion": 18, "network": {
+              "dot1x": { "isEnabled": false, "certificatePfxPasswordSecret": {{envelope}} },
+              "wifi": { "isEnabled": false, "passphraseSecret": {{envelope}}, "certificatePfxPasswordSecret": {{envelope}} } } }
+            """;
+
+        string saved = service.Serialize(service.Deserialize(json));
+
+        Assert.DoesNotContain("Secret", saved, StringComparison.Ordinal);
+        Assert.DoesNotContain("Y2lwaGVy", saved, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void ApplyLegacyGeneralSettings_WhenAuthoringConfigHasNoGeneralSection_CopiesMediaDefaults()
     {
         var document = new FoundryConfigurationDocument();

@@ -315,7 +315,7 @@ public sealed class BuildSnapshot : IDisposable
         foreach (UnattendFileSettings file in sources.Unattend.Files)
         {
             if (file.File is not null && !string.Equals(file.File.ContentHash, file.ContentHash, StringComparison.OrdinalIgnoreCase))
-                throw new InvalidDataException("The answer-file content no longer matches the imported file. Import the file again before building media.");
+                throw new InvalidDataException(UnattendFileService.ContentMismatchMessage);
             Copy(file.File, required: true);
         }
 
@@ -498,15 +498,7 @@ public sealed class BuildSnapshot : IDisposable
 
     private static FoundryConfigurationDocument CloneConfiguration(FoundryConfigurationDocument source)
     {
-        FoundryConfigurationDocument sanitized = source with
-        {
-            Network = source.Network with
-            {
-                Wifi = source.Network.Wifi with { PassphraseSecret = null, CertificatePfxPasswordSecret = null },
-                Dot1x = source.Network.Dot1x with { CertificatePfxPasswordSecret = null }
-            }
-        };
-        byte[] bytes = JsonSerializer.SerializeToUtf8Bytes(sanitized, ConfigurationJsonDefaults.SerializerOptions);
+        byte[] bytes = JsonSerializer.SerializeToUtf8Bytes(source, ConfigurationJsonDefaults.SerializerOptions);
         try
         {
             return JsonSerializer.Deserialize<FoundryConfigurationDocument>(bytes, ConfigurationJsonDefaults.SerializerOptions)!;

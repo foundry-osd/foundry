@@ -6,6 +6,9 @@ using Foundry.Core.Models.Configuration;
 
 namespace Foundry.Core.Services.Configuration;
 
+/// <summary>
+/// Converts Foundry network settings into the runtime configuration and asset bundle consumed by Foundry.Connect.
+/// </summary>
 public interface IConnectConfigurationGenerator
 {
     /// <summary>

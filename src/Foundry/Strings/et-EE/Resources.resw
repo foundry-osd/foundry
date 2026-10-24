@@ -3996,6 +3996,9 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Kohandatud vastusefailide kasutamiseks lubage üldkonfiguratsioonis juurutusandmekandja paroolikaitse.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundryl pole enam selle faili kehtivat koopiat. Eemaldage kirje ja importige fail uuesti.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Eemalda</value>
   </data>
@@ -4009,16 +4012,16 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
     <value>Valitud fail</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Kaks allikakontrolli ootavad endiselt failidele juurdepääsu. Taastage juurdepääs kättesaamatutele allika asukohtadele ja kontrollige allikaid uuesti.</value>
+    <value>Kaks failikontrolli on veel pooleli. Oodake, kuni need lõpevad, ja proovige siis uuesti.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>Allika kontroll on ootel. Valige Kontrolli allikaid, et valideerida praegune fail sisumuudatusi vastu võtmata.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Allikat ei saanud lugeda. Kontrollige, kas fail on endiselt olemas ja juurdepääsetav.</value>
+    <value>Faili ei saanud lugeda. Veenduge, et see on olemas ja et saate selle avada, ning proovige siis uuesti.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Allika valideerimine aegus. Kontrollige juurdepääsu allika asukohale ja proovige uuesti.</value>
+    <value>Salvestatud failide kontrollimine võttis liiga kaua aega. Proovige uuesti.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Toetatud on ainult specialize- ja oobeSystem-sätted. Eemaldage muud mittetühjad konfiguratsioonietapid, ühenduseta hoolduse juhised ja auditirežiimi uuesti sulgemine.</value>

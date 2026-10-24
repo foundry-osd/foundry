@@ -3996,6 +3996,9 @@
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Включете защитата с парола на носителя за разполагане в общите настройки, за да използвате потребителски файлове с отговори.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry вече няма валидно копие на този файл. Премахнете записа и импортирайте файла отново.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Премахване</value>
   </data>
@@ -4009,16 +4012,16 @@
     <value>Избран файл</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Две проверки на източници все още чакат достъп до файловете. Възстановете достъпа до недостъпните местоположения на източници, след което проверете отново.</value>
+    <value>Две проверки на файлове все още се изпълняват. Изчакайте да приключат, след което опитайте отново.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>Предстои проверка на източника. Изберете „Проверка на източниците“, за да проверите текущия файл, без да приемате промени в съдържанието.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Източникът не можа да бъде прочетен. Проверете дали файлът все още съществува и е достъпен.</value>
+    <value>Файлът не можа да бъде прочетен. Проверете дали съществува и дали можете да го отворите, след което опитайте отново.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Времето за проверка на източника изтече. Проверете достъпа до местоположението на източника и опитайте отново.</value>
+    <value>Проверката на съхранените файлове отне твърде много време. Опитайте отново.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Поддържат се само настройки за specialize и oobeSystem. Премахнете другите непразни етапи, инструкциите за офлайн обслужване или повторното запечатване в режим на проверка.</value>

@@ -252,7 +252,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
                 if (unattendSourceReads.Count >= 2)
                 {
                     PublishUnattendSourceResults(settings, revision, (settings.Files ?? []).Select(file => new UnattendSourceValidation(
-                        file, null, "Two source checks are still waiting for file access. Restore the unavailable source locations, then check sources again.")).ToArray());
+                        file, null, "Two answer-file checks are still running.")).ToArray());
                     return;
                 }
 
@@ -266,7 +266,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         catch (TimeoutException)
         {
             PublishUnattendSourceResults(settings, revision, (settings.Files ?? []).Select(file => new UnattendSourceValidation(
-                file, null, "Source validation timed out. Check the source location and refresh again.")).ToArray());
+                file, null, "Answer-file checks timed out.")).ToArray());
         }
     }
 
@@ -299,7 +299,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
             {
                 string message = ex is InvalidDataException or InvalidOperationException
                     ? ex.Message
-                    : "The answer-file source could not be read. Check its location and access permissions.";
+                    : UnattendFileService.ContentUnavailableMessage;
                 results.Add(new UnattendSourceValidation(file, null, message));
             }
             finally
@@ -373,7 +373,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     {
         ArgumentNullException.ThrowIfNull(settings);
         networkSecretStateService.Update(settings);
-        Current = Current with { Network = NetworkConfigurationValidator.SanitizeForPersistence(settings) };
+        Current = Current with { Network = settings };
         Save();
         StateChanged?.Invoke(this, EventArgs.Empty);
     }
@@ -726,7 +726,6 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         return document with
         {
             General = SanitizeGeneralForPersistence(document.General),
-            Network = NetworkConfigurationValidator.SanitizeForPersistence(document.Network),
             OperatingSystemSelection = OperatingSystemSelectionSettingsNormalizer.Normalize(document.OperatingSystemSelection),
             Customization = SanitizeCustomizationForPersistence(document.Customization),
             Autopilot = SanitizeAutopilotForPersistence(document.Autopilot)

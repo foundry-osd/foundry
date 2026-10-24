@@ -3996,6 +3996,9 @@ L'application de la mise à jour redémarre Foundry OSD.</value>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Activez la protection du média de déploiement par mot de passe dans la configuration générale pour utiliser des fichiers de réponses personnalisés.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry ne dispose plus d'une copie valide de ce fichier. Supprimez l'entrée et importez de nouveau le fichier.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Supprimer</value>
   </data>
@@ -4009,16 +4012,16 @@ L'application de la mise à jour redémarre Foundry OSD.</value>
     <value>Fichier sélectionné</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Deux vérifications de sources attendent toujours l'accès aux fichiers. Rétablissez l'accès aux emplacements indisponibles, puis vérifiez à nouveau les sources.</value>
+    <value>Deux vérifications de fichiers sont toujours en cours. Attendez qu'elles se terminent, puis réessayez.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>Vérification de la source en attente. Choisissez Vérifier les sources pour valider le fichier actuel sans accepter les modifications de son contenu.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Impossible de lire la source. Vérifiez que le fichier existe toujours et qu'il est accessible.</value>
+    <value>Le fichier n'a pas pu être lu. Vérifiez qu'il existe et que vous pouvez l'ouvrir, puis réessayez.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>La validation de la source a expiré. Vérifiez l'accès à son emplacement et réessayez.</value>
+    <value>La vérification des fichiers stockés a pris trop de temps. Réessayez.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Seuls les paramètres specialize et oobeSystem sont pris en charge. Supprimez les autres passes non vides, les instructions de maintenance hors connexion et le scellement en mode audit.</value>

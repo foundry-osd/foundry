@@ -3996,6 +3996,9 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Ota käyttöön käyttöönottotietovälineen salasanasuojaus yleisissä asetuksissa, jotta voit käyttää mukautettuja vastaustiedostoja.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundrylla ei ole enää kelvollista kopiota tästä tiedostosta. Poista merkintä ja tuo tiedosto uudelleen.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Poista</value>
   </data>
@@ -4009,16 +4012,16 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
     <value>Valittu tiedosto</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Kaksi lähdetarkistusta odottaa yhä tiedostojen käyttöä. Palauta pääsy lähdesijainteihin, jotka eivät ole käytettävissä, ja tarkista lähteet uudelleen.</value>
+    <value>Kaksi tiedostotarkistusta on vielä käynnissä. Odota, että ne valmistuvat, ja yritä sitten uudelleen.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>Lähteen tarkistus odottaa. Valitse Tarkista lähteet, jos haluat vahvistaa nykyisen tiedoston hyväksymättä sisältömuutoksia.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Lähdettä ei voitu lukea. Tarkista, että tiedosto on edelleen olemassa ja käytettävissä.</value>
+    <value>Tiedostoa ei voitu lukea. Varmista, että se on olemassa ja että voit avata sen, ja yritä sitten uudelleen.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Lähteen vahvistus aikakatkaistiin. Tarkista lähdesijainnin käyttöoikeudet ja yritä uudelleen.</value>
+    <value>Tallennettujen tiedostojen tarkistus kesti liian kauan. Yritä uudelleen.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Vain specialize- ja oobeSystem-asetuksia tuetaan. Poista muut vaiheosiot, jotka eivät ole tyhjiä, offline-ylläpito-ohjeet sekä uudelleensinetöinti valvontatilaan.</value>

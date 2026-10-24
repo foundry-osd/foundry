@@ -3996,6 +3996,9 @@ Aplicarea actualizării repornește Foundry OSD.</value>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Activați protejarea prin parolă a suportului de implementare în configurația generală pentru a folosi fișiere de răspuns personalizate.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry nu mai are o copie validă a acestui fișier. Eliminați intrarea și importați din nou fișierul.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Elimină</value>
   </data>
@@ -4009,16 +4012,16 @@ Aplicarea actualizării repornește Foundry OSD.</value>
     <value>Fișier selectat</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Două verificări ale surselor încă așteaptă accesul la fișiere. Restabiliți accesul la locațiile indisponibile, apoi verificați din nou sursele.</value>
+    <value>Două verificări de fișiere sunt încă în desfășurare. Așteptați să se termine, apoi încercați din nou.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>Verificarea sursei este în așteptare. Alegeți Verifică sursele pentru a valida fișierul curent fără a accepta modificări ale conținutului.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Sursa nu a putut fi citită. Verificați dacă fișierul mai există și este accesibil.</value>
+    <value>Fișierul nu a putut fi citit. Verificați dacă există și dacă îl puteți deschide, apoi încercați din nou.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Validarea sursei a expirat. Verificați accesul la locația sursei și încercați din nou.</value>
+    <value>Verificarea fișierelor stocate a durat prea mult. Încercați din nou.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Sunt acceptate numai setările din specialize și oobeSystem. Eliminați celelalte etape nevide, instrucțiunile de întreținere offline sau pregătirea pentru repornire în modul audit.</value>

@@ -81,22 +81,6 @@ public static class NetworkConfigurationValidator
     }
 
     /// <summary>
-    /// Removes volatile network values that should not be persisted in application settings.
-    /// </summary>
-    /// <param name="settings">The network settings to sanitize.</param>
-    /// <returns>A sanitized copy of the network settings.</returns>
-    public static NetworkSettings SanitizeForPersistence(NetworkSettings settings)
-    {
-        ArgumentNullException.ThrowIfNull(settings);
-
-        return settings with
-        {
-            Dot1x = settings.Dot1x with { CertificatePfxPasswordSecret = null },
-            Wifi = settings.Wifi with { PassphraseSecret = null, CertificatePfxPasswordSecret = null }
-        };
-    }
-
-    /// <summary>
     /// Normalizes a Wi-Fi security type while preserving compatibility with older configuration values.
     /// </summary>
     /// <param name="settings">The Wi-Fi settings to inspect.</param>

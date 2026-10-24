@@ -3996,6 +3996,9 @@
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>فعّل حماية وسائط النشر بكلمة مرور في الإعدادات العامة لاستخدام ملفات الإجابات المخصصة.</value>
   </data>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>لم يعد لدى Foundry نسخة صالحة من هذا الملف. أزل الإدخال واستورد الملف مرة أخرى.</value>
+  </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>إزالة</value>
   </data>
@@ -4009,16 +4012,16 @@
     <value>الملف المحدد</value>
   </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>ما زالت عمليتا تحقق من المصادر تنتظران الوصول إلى الملفات. أعد إتاحة مواقع المصادر غير المتاحة، ثم تحقق من المصادر مجددًا.</value>
+    <value>لا يزال فحصان للملفات قيد التشغيل. انتظر حتى ينتهيا، ثم أعد المحاولة.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
     <value>التحقق من المصدر معلّق. اختر التحقق من المصادر للتحقق من الملف الحالي دون قبول تغييرات المحتوى.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>تعذرت قراءة المصدر. تحقق من أن الملف ما زال موجودًا ويمكن الوصول إليه.</value>
+    <value>تعذّرت قراءة الملف. تحقق من وجوده ومن إمكانية فتحه، ثم أعد المحاولة.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>انتهت مهلة التحقق من المصدر. تحقق من إمكانية الوصول إلى موقع المصدر وحاول مرة أخرى.</value>
+    <value>استغرق التحقق من الملفات المخزّنة وقتًا طويلاً. أعد المحاولة.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>تُدعم إعدادات specialize وoobeSystem فقط. أزل مراحل الإعداد الأخرى غير الفارغة أو تعليمات الصيانة دون اتصال أو إعادة التهيئة لوضع التدقيق.</value>

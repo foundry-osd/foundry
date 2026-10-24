@@ -20,6 +20,15 @@ public static class UnattendFileService
     /// </summary>
     public const int MaximumFileSizeBytes = 4 * 1024 * 1024;
 
+    /// <summary>Message of the failure raised when the library copy of an answer file is missing or unreadable; the file must be imported again.</summary>
+    public const string ContentUnavailableMessage = "The answer-file content is unavailable. Import the file again before building media.";
+
+    /// <summary>Message of the failure raised when stored answer-file bytes no longer match the recorded digest; the file must be imported again.</summary>
+    public const string ContentMismatchMessage = "The answer-file content no longer matches the imported file. Import the file again before building media.";
+
+    /// <summary>Message of the failure raised when a selected answer file cannot be read while importing it.</summary>
+    public const string SourceUnreadableMessage = "The selected answer file could not be read.";
+
     private static readonly XNamespace UnattendNamespace = "urn:schemas-microsoft-com:unattend";
 
     /// <summary>
@@ -38,7 +47,7 @@ public static class UnattendFileService
             throw new InvalidOperationException("The answer-file source path is invalid.");
         }
 
-        byte[] content = ReadSource(fullPath);
+        byte[] content = ReadSource(fullPath, SourceUnreadableMessage);
         try
         {
             Inspect(content);
@@ -70,16 +79,16 @@ public static class UnattendFileService
 
         if (file.File is null || string.IsNullOrWhiteSpace(sourcePath))
         {
-            throw new InvalidOperationException("The answer-file content is unavailable. Import the file again before building media.");
+            throw new InvalidOperationException(ContentUnavailableMessage);
         }
 
-        byte[] content = ReadSource(sourcePath);
+        byte[] content = ReadSource(sourcePath, ContentUnavailableMessage);
         try
         {
             string hash = Convert.ToHexStringLower(SHA256.HashData(content));
             if (!string.Equals(hash, file.ContentHash, StringComparison.OrdinalIgnoreCase))
             {
-                throw new InvalidDataException("The answer-file content no longer matches the imported file. Import the file again before building media.");
+                throw new InvalidDataException(ContentMismatchMessage);
             }
 
             Inspect(content);
@@ -242,7 +251,7 @@ public static class UnattendFileService
         return id.ToLowerInvariant() + ".xml.encrypted";
     }
 
-    private static byte[] ReadSource(string sourcePath)
+    private static byte[] ReadSource(string sourcePath, string unavailableMessage)
     {
         try
         {
@@ -276,7 +285,7 @@ public static class UnattendFileService
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or ArgumentException or NotSupportedException)
         {
-            throw new InvalidOperationException("The answer-file content is unavailable. Import the file again before building media.");
+            throw new InvalidOperationException(unavailableMessage);
         }
     }
 

@@ -7,6 +7,9 @@ using Foundry.Core.Services.Configuration;
 
 namespace Foundry.Services.Configuration;
 
+/// <summary>
+/// Holds volatile network secrets that are required during provisioning but should not be saved to disk.
+/// </summary>
 internal sealed class NetworkSecretStateService : INetworkSecretStateService
 {
     private readonly NetworkSecretState state = new();
