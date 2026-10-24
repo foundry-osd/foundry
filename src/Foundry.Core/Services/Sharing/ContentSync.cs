@@ -18,11 +18,13 @@ namespace Foundry.Core.Services.Sharing;
 /// <param name="Fetched">Content items this fetch imported; a hash listed under two kinds counts once per kind.</param>
 /// <param name="Failed">
 /// Content that decrypted but breaks the target library's rules or does not match its hash (for example a driver set without an INF
-/// file). Nothing of it was imported; it fails the same way until the reference publishes it again.
+/// file), whose import failed unexpectedly, or that its library still lacks after the import (an inconsistent configuration reference).
+/// It is never counted as fetched; it fails the same way until the reference publishes it again.
 /// </param>
 /// <param name="NotYetAvailable">
 /// Content whose file is missing, incomplete or fails authentication (a cloud folder that has not delivered it yet, or a "Reset
-/// publication" rewriting it in place), or that a local I/O failure kept out of its library. Retry at the next check.
+/// publication" rewriting it in place), that the temporary volume has no room to decrypt, or that a local I/O failure kept out of its
+/// library. Retry at the next check.
 /// </param>
 public sealed record ContentSyncResult(int Fetched, IReadOnlyList<PackageContent> Failed, IReadOnlyList<PackageContent> NotYetAvailable);
 
@@ -45,6 +47,9 @@ public sealed class ContentSync
     private const int MasterKeySize = 32;
     private const int BufferSize = 128 * 1024;
     private const int ProgressLogSteps = 4;
+
+    /// <summary>Free space kept on the temporary volume beyond the decrypted content.</summary>
+    private const long TemporarySpaceMargin = 64L * 1024 * 1024;
 
     private readonly AuthoringFileLibrary files;
     private readonly ContentPackageLibraryService packages;
@@ -203,6 +208,15 @@ public sealed class ContentSync
             return;
         }
 
+        string source = PublicationFolder.ContentPath(folder, hash);
+        if (RequiredTemporaryBytes(source, temporaryDirectory) is { } required)
+        {
+            Log.ForContext<ContentSync>().Warning("Not enough free space to decrypt publication content. Kind={Kind}, ContentHash={ContentHash}, RequiredBytes={RequiredBytes}",
+                group[0].Kind, hash, required);
+            tally.NotYetAvailable.AddRange(group);
+            return;
+        }
+
         FileStream plaintext;
         string plaintextHash;
         try
@@ -223,7 +237,7 @@ public sealed class ContentSync
             byte[] key = ContentTransfer.DeriveContentKey(manifest.MasterKey!, hash);
             try
             {
-                plaintextHash = await ContentTransfer.DecryptAsync(PublicationFolder.ContentPath(folder, hash), plaintext, key, progress, cancellationToken)
+                plaintextHash = await ContentTransfer.DecryptAsync(source, plaintext, key, progress, cancellationToken)
                     .ConfigureAwait(false);
             }
             catch (Exception exception) when (exception is InvalidDataException or IOException or UnauthorizedAccessException)
@@ -241,24 +255,50 @@ public sealed class ContentSync
             foreach (PackageContent content in group)
             {
                 plaintext.Position = 0;
-                try
-                {
-                    await ImportAsync(content, manifest.Configuration, plaintext, plaintextHash, cancellationToken).ConfigureAwait(false);
-                    tally.Fetched++;
-                }
-                catch (InvalidDataException exception)
-                {
-                    Log.ForContext<ContentSync>().Warning(exception, "Publication content was rejected by its library. Kind={Kind}, ContentHash={ContentHash}",
-                        content.Kind, hash);
-                    tally.Failed.Add(content);
-                }
-                catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
-                {
-                    Log.ForContext<ContentSync>().Warning(exception, "Publication content could not be imported. Kind={Kind}, ContentHash={ContentHash}",
-                        content.Kind, hash);
-                    tally.NotYetAvailable.Add(content);
-                }
+                await ImportItemAsync(content, manifest.Configuration, plaintext, plaintextHash, tally, cancellationToken).ConfigureAwait(false);
             }
+        }
+    }
+
+    /// <summary>
+    /// Imports one item and files it in exactly one bucket. An item the presence test of <see cref="Missing"/> still reports after
+    /// its import (for example a file name its library stores under another name) is failed, so it is never counted as fetched and
+    /// downloaded again at every check. Only cancellation escapes.
+    /// </summary>
+    private async Task ImportItemAsync(PackageContent content, FoundryConfigurationDocument configuration, FileStream plaintext, string plaintextHash,
+        Tally tally, CancellationToken cancellationToken)
+    {
+        try
+        {
+            await ImportAsync(content, configuration, plaintext, plaintextHash, cancellationToken).ConfigureAwait(false);
+            if (IsPresent(content, configuration))
+            {
+                tally.Fetched++;
+                return;
+            }
+
+            Log.ForContext<ContentSync>().Warning("Publication content is still missing after its import. Kind={Kind}, ContentHash={ContentHash}",
+                content.Kind, content.Hash);
+            tally.Failed.Add(content);
+        }
+        catch (InvalidDataException exception)
+        {
+            Log.ForContext<ContentSync>().Warning(exception, "Publication content was rejected by its library. Kind={Kind}, ContentHash={ContentHash}",
+                content.Kind, content.Hash);
+            tally.Failed.Add(content);
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        {
+            Log.ForContext<ContentSync>().Warning(exception, "Publication content could not be imported. Kind={Kind}, ContentHash={ContentHash}",
+                content.Kind, content.Hash);
+            tally.NotYetAvailable.Add(content);
+        }
+        catch (Exception exception) when (exception is not OperationCanceledException)
+        {
+            // Unexpected library or reader failures (for example from the image metadata reader): the item fails, the fetch goes on.
+            Log.ForContext<ContentSync>().Warning("Publication content import failed unexpectedly. Kind={Kind}, ContentHash={ContentHash}, ExceptionType={ExceptionType}",
+                content.Kind, content.Hash, exception.GetType().FullName);
+            tally.Failed.Add(content);
         }
     }
 
@@ -314,6 +354,26 @@ public sealed class ContentSync
         }
 
         await images.ImportFromPublicationAsync(plaintext, reference, cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Returns the free space the decryption of <paramref name="source"/> needs on the temporary volume when that volume has less, or
+    /// <see langword="null"/> when it has enough. The content file size bounds the plaintext from above (it adds a header and 28 bytes
+    /// per chunk); <see cref="TemporarySpaceMargin"/> keeps room for the rest of the system. A content file or volume that cannot be
+    /// measured is left to the decryption, which reports it.
+    /// </summary>
+    private static long? RequiredTemporaryBytes(string source, string temporaryDirectory)
+    {
+        try
+        {
+            long required = new FileInfo(source).Length + TemporarySpaceMargin;
+            long available = new DriveInfo(Path.GetPathRoot(Path.GetFullPath(temporaryDirectory))!).AvailableFreeSpace;
+            return available < required ? required : null;
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or ArgumentException)
+        {
+            return null;
+        }
     }
 
     private bool IsPresent(PackageContent content, FoundryConfigurationDocument configuration) => content.Kind switch

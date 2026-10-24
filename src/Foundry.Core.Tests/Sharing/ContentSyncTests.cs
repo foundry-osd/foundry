@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO.Compression;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using Foundry.Core.Models.Configuration;
@@ -173,13 +174,8 @@ public sealed class ContentSyncTests : IDisposable
     [Fact]
     public async Task Fetch_Image_ImportsWimAndMetadataIntoImageLibrary()
     {
-        string wim = Path.Combine(directory.Path, "source.wim");
-        await File.WriteAllTextAsync(wim, "test image data", Cancellation);
-        CustomImageReference image = await reference.Images.ImportAsync(new(wim, "Corporate image"), cancellationToken: Cancellation);
-        ConfigurationPackagePayload manifest = await PublishAsync(new FoundryConfigurationDocument
-        {
-            CustomImages = new CustomImagesSettings { IsEnabled = true, Images = [image] }
-        });
+        CustomImageReference image = await ImportImageAsync();
+        ConfigurationPackagePayload manifest = await PublishAsync(WithImage(image));
         Assert.Equal(new PackageContent(image.ContentHash, SharedContentKind.Image, image.Length, image.DisplayName), Assert.Single(manifest.Contents));
         ContentSync sync = follower.Sync(SyncTemporaryRoot);
 
@@ -194,6 +190,117 @@ public sealed class ContentSyncTests : IDisposable
         Assert.Equal(image.Indexes.Select(index => index.Index), imported.Indexes.Select(index => index.Index));
         await using CustomImageSourceLease lease = await follower.Images.AcquireAsync(image, Cancellation);
         Assert.Equal("test image data", await File.ReadAllTextAsync(lease.ImagePath, Cancellation));
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task Fetch_ImageNotMatchingItsReference_ReportsFailedAndImportsNothing(bool recordMatches)
+    {
+        CustomImageReference image = await ImportImageAsync();
+        // Either the record names the image but the WIM bytes differ (same length), or the WIM is right and the record names another hash.
+        byte[] header = LocalContentSource.CreateImageHeader(recordMatches ? image : image with { ContentHash = new string('a', 64) });
+        byte[] wim = Encoding.UTF8.GetBytes(recordMatches ? "Test image data" : "test image data");
+        ReplacingContentSource source = new(_ => [.. header, .. wim]);
+        ConfigurationPackagePayload manifest = await PublishAsync(WithImage(image), source);
+        ContentSync sync = follower.Sync(SyncTemporaryRoot);
+
+        ContentSyncResult result = await sync.FetchAsync(Folder, manifest, null, Cancellation);
+
+        Assert.Equal(0, result.Fetched);
+        Assert.Equal(manifest.Contents, result.Failed);
+        Assert.Empty(result.NotYetAvailable);
+        Assert.Empty(await follower.Images.ListAsync(Cancellation));
+        Assert.False(follower.Images.IsAvailable(image));
+        AssertNoLeftovers(Path.Combine(follower.Root, "images", "pending"));
+    }
+
+    [Fact]
+    public async Task Fetch_CancelledDuringImport_LeavesNoTemporaryOrPendingContent()
+    {
+        CustomImageReference image = await ImportImageAsync();
+        ConfigurationPackagePayload manifest = await PublishAsync(WithImage(image));
+        using CancellationTokenSource cancellation = CancellationTokenSource.CreateLinkedTokenSource(Cancellation);
+        // Cancels once the WIM is staged in the library's pending directory, while the import inspects it.
+        Libraries cancelling = new(Path.Combine(directory.Path, "cancelling"), new CallbackMetadataReader(cancellation.Cancel));
+        ContentSync sync = cancelling.Sync(SyncTemporaryRoot);
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => sync.FetchAsync(Folder, manifest, null, cancellation.Token));
+
+        Assert.True(cancellation.IsCancellationRequested);
+        Assert.All(Directory.EnumerateFiles(SyncTemporaryRoot, "*", SearchOption.AllDirectories), path => Assert.Equal(".cleanup-lock", Path.GetFileName(path)));
+        AssertNoLeftovers(Path.Combine(cancelling.Root, "images", "pending"));
+        Assert.Empty(await cancelling.Images.ListAsync(Cancellation));
+    }
+
+    [Fact]
+    public async Task Fetch_HashListedAsPackageAndDriverSet_DecryptsOnceAndImportsBoth()
+    {
+        ContentPackageReference package = await ImportPackageAsync(reference.Packages, ("net/e1000.inf", "[Version]"));
+        ContentPackageReference set = await ImportPackageAsync(reference.DriverSets.Library, ("net/e1000.inf", "[Version]"));
+        Assert.Equal(package.ContentHash, set.ContentHash);
+        FoundryConfigurationDocument configuration = WithDriverSet(set) with
+        {
+            PreOobe = new PreOobeSettings { IsEnabled = true, Actions = [new PreOobeActionSettings { Name = "Install", Package = package }] }
+        };
+        ConfigurationPackagePayload manifest = await PublishAsync(configuration);
+        Assert.Equal([SharedContentKind.Package, SharedContentKind.DriverSet], manifest.Contents.Select(content => content.Kind).Order());
+        Assert.Single(Directory.EnumerateFiles(Path.Combine(Folder, "content")));
+        ContentSync sync = follower.Sync(SyncTemporaryRoot);
+        List<ContentProgress> reports = [];
+
+        ContentSyncResult result = await sync.FetchAsync(Folder, manifest, new SynchronousProgress(reports.Add), Cancellation);
+
+        Assert.Equal(2, result.Fetched);
+        Assert.Empty(result.Failed);
+        Assert.Empty(result.NotYetAvailable);
+        Assert.True(follower.Packages.IsAvailable(package));
+        Assert.True(follower.DriverSets.IsAvailable(set));
+        // One content item was handled: the total counts the shared hash once, and one item started.
+        Assert.All(reports, report => Assert.Equal(set.Length, report.Total));
+        Assert.Single(reports, report => report.Done == 0 && report.CurrentName.Length > 0);
+    }
+
+    [Fact]
+    public async Task Fetch_UnexpectedImporterException_ReportsFailedAndFetchesTheRest()
+    {
+        AuthoringFileReference file = reference.Files.Import("<profile />"u8, "profile.xml");
+        CustomImageReference image = await ImportImageAsync();
+        ConfigurationPackagePayload manifest = await PublishAsync(WithImage(image) with
+        {
+            Network = new NetworkSettings { Dot1x = new Dot1xSettings { IsEnabled = true, ProfileTemplate = file } }
+        });
+        Libraries failing = new(Path.Combine(directory.Path, "failing"),
+            new CallbackMetadataReader(() => throw new COMException("The image metadata cannot be read.")));
+        ContentSync sync = failing.Sync(SyncTemporaryRoot);
+
+        ContentSyncResult result = await sync.FetchAsync(Folder, manifest, null, Cancellation);
+
+        Assert.Equal(1, result.Fetched);
+        Assert.Equal(SharedContentKind.Image, Assert.Single(result.Failed).Kind);
+        Assert.Empty(result.NotYetAvailable);
+        Assert.True(failing.Files.IsAvailable(file));
+        Assert.Empty(await failing.Images.ListAsync(Cancellation));
+        AssertNoLeftovers(Path.Combine(failing.Root, "images", "pending"));
+    }
+
+    [Fact]
+    public async Task Fetch_ItemStillMissingAfterImport_ReportsFailed()
+    {
+        // A signed configuration whose file name the library stores under another (sanitized) name: importing never makes it present.
+        byte[] bytes = "<profile />"u8.ToArray();
+        AuthoringFileReference file = new() { ContentHash = Convert.ToHexStringLower(SHA256.HashData(bytes)), FileName = "bad<name>.xml", Length = bytes.Length };
+        ConfigurationPackagePayload manifest = await PublishAsync(new FoundryConfigurationDocument
+        {
+            Network = new NetworkSettings { Dot1x = new Dot1xSettings { IsEnabled = true, ProfileTemplate = file } }
+        }, new ReplacingContentSource(_ => bytes));
+        ContentSync sync = follower.Sync(SyncTemporaryRoot);
+
+        ContentSyncResult result = await sync.FetchAsync(Folder, manifest, null, Cancellation);
+
+        Assert.Equal(0, result.Fetched);
+        Assert.Equal(manifest.Contents, result.Failed);
+        Assert.Empty(result.NotYetAvailable);
     }
 
     [Fact]
@@ -234,6 +341,27 @@ public sealed class ContentSyncTests : IDisposable
         PreOobe = new PreOobeSettings { IsEnabled = true, Actions = [new PreOobeActionSettings { Name = "Install", Package = package }] }
     };
 
+    private static FoundryConfigurationDocument WithImage(CustomImageReference image) => new()
+    {
+        CustomImages = new CustomImagesSettings { IsEnabled = true, Images = [image] }
+    };
+
+    /// <summary>Asserts that a library pending directory, when it exists, holds nothing.</summary>
+    private static void AssertNoLeftovers(string pending)
+    {
+        if (Directory.Exists(pending))
+        {
+            Assert.Empty(Directory.EnumerateFileSystemEntries(pending));
+        }
+    }
+
+    private async Task<CustomImageReference> ImportImageAsync()
+    {
+        string wim = Path.Combine(directory.Path, "source.wim");
+        await File.WriteAllTextAsync(wim, "test image data", Cancellation);
+        return await reference.Images.ImportAsync(new(wim, "Corporate image"), cancellationToken: Cancellation);
+    }
+
     private static FoundryConfigurationDocument WithDriverSet(ContentPackageReference package) => new()
     {
         CustomDrivers = new CustomDriverSetsSettings
@@ -272,7 +400,7 @@ public sealed class ContentSyncTests : IDisposable
     private string ContentPath(string hash) => Path.Combine(Folder, "content", hash + ".bin");
 
     /// <summary>The four libraries of one PC.</summary>
-    private sealed class Libraries(string root)
+    private sealed class Libraries(string root, ICustomImageMetadataReader? imageReader = null)
     {
         public string Root { get; } = root;
 
@@ -282,7 +410,7 @@ public sealed class ContentSyncTests : IDisposable
 
         public CustomDriverSetLibrary DriverSets { get; } = new(Path.Combine(root, "drivers"));
 
-        public CustomImageLibraryService Images { get; } = new(Path.Combine(root, "images"), new MetadataReader());
+        public CustomImageLibraryService Images { get; } = new(Path.Combine(root, "images"), imageReader ?? new MetadataReader());
 
         public ContentSync Sync(string temporaryRoot) => new(Files, Packages, DriverSets, Images, temporaryRoot);
 
@@ -304,6 +432,16 @@ public sealed class ContentSyncTests : IDisposable
             await ContentPackageArchive.WriteAsync(library, content.Hash, archive, ct);
             archive.Position = 0;
             return archive;
+        }
+    }
+
+    /// <summary>Runs <paramref name="onRead"/>, which may throw, then returns the indexes of <see cref="MetadataReader"/>.</summary>
+    private sealed class CallbackMetadataReader(Action onRead) : ICustomImageMetadataReader
+    {
+        public Task<IReadOnlyList<CustomImageIndex>> ReadAsync(string imagePath, CancellationToken cancellationToken = default)
+        {
+            onRead();
+            return new MetadataReader().ReadAsync(imagePath, cancellationToken);
         }
     }
 

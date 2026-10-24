@@ -139,6 +139,12 @@ public sealed partial class CustomImageLibraryService
             Log.ForContext<CustomImageLibraryService>().Information("Custom image publication import canceled.");
             throw;
         }
+        catch (InvalidDataException exception)
+        {
+            // A published image that does not match its reference is an expected rejection; the caller reports it as failed content.
+            Log.ForContext<CustomImageLibraryService>().Warning(exception, "Custom image publication import rejected.");
+            throw;
+        }
         catch (Exception exception)
         {
             Log.ForContext<CustomImageLibraryService>().Error(exception, "Custom image publication import failed.");

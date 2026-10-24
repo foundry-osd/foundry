@@ -47,6 +47,21 @@ public sealed class PublicationWriterTests : IDisposable
     }
 
     [Fact]
+    public async Task Publish_PlaintextLongerThanListedLength_ReportsMonotonicProgress()
+    {
+        // A package archive is longer than its listed length (the sum of its file lengths).
+        PackageContent first = source.Add(new string('a', (2 * ContentTransfer.ChunkSize) + 1), SharedContentKind.Package) with { Length = 10 };
+        PackageContent second = source.Add("second", SharedContentKind.Package);
+        List<ContentProgress> reports = [];
+
+        await PublicationWriter.PublishAsync(Request([first, second]), source, new SynchronousProgress(reports.Add), Cancellation);
+
+        Assert.Equal(reports.Select(report => report.Done).Order(), reports.Select(report => report.Done));
+        Assert.All(reports, report => Assert.InRange(report.Done, 0, first.Length + second.Length));
+        Assert.Equal(new ContentProgress(first.Length + second.Length, first.Length + second.Length, string.Empty), reports[^1]);
+    }
+
+    [Fact]
     public async Task Publish_SecondTime_IncrementsSequenceAndReusesContent()
     {
         PackageContent content = source.Add("installer", SharedContentKind.Package);
@@ -556,6 +571,11 @@ public sealed class PublicationWriterTests : IDisposable
     }
 
     /// <summary>In-memory content keyed by hash; counts opens and can run a callback when one is opened.</summary>
+    private sealed class SynchronousProgress(Action<ContentProgress> report) : IProgress<ContentProgress>
+    {
+        public void Report(ContentProgress value) => report(value);
+    }
+
     private sealed class FakeContentSource : IContentSource
     {
         private readonly Dictionary<string, (byte[] Bytes, Action? OnOpen)> contents = [];

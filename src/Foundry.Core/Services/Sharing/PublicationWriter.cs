@@ -451,7 +451,7 @@ public static class PublicationWriter
                 if (!ContentTransfer.IsComplete(path, key))
                 {
                     await using Stream stream = await source.OpenAsync(content, cancellationToken).ConfigureAwait(false);
-                    IProgress<long>? bytes = progress is null ? null : new ByteProgress(progress, done, total, content.Name);
+                    IProgress<long>? bytes = progress is null ? null : new ByteProgress(progress, done, Math.Max(content.Length, 0), total, content.Name);
                     await ContentTransfer.EncryptAsync(stream, path, key, bytes, cancellationToken).ConfigureAwait(false);
                 }
             }
@@ -544,9 +544,13 @@ public static class PublicationWriter
         public static FolderState NotEmpty { get; } = new(PublishStatus.FolderNotEmpty, 0, null, null);
     }
 
-    /// <summary>Maps the encrypted byte count of one content item onto the progress of the whole publish.</summary>
-    private sealed class ByteProgress(IProgress<ContentProgress> target, long offset, long total, string name) : IProgress<long>
+    /// <summary>
+    /// Maps the encrypted byte count of one content item, capped at its listed length, onto the progress of the whole publish. A
+    /// package archive or image plaintext is longer than the listed length, so without the cap progress would run ahead of the next
+    /// item's offset and go backwards.
+    /// </summary>
+    private sealed class ByteProgress(IProgress<ContentProgress> target, long offset, long length, long total, string name) : IProgress<long>
     {
-        public void Report(long value) => target.Report(new(Math.Min(total, offset + value), total, name));
+        public void Report(long value) => target.Report(new(Math.Min(total, offset + Math.Min(value, length)), total, name));
     }
 }
