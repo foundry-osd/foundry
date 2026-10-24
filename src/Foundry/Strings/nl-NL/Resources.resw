@@ -3209,7 +3209,10 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>De configuratie kan niet worden geëxporteerd. Controleer de bestemming en probeer het opnieuw.</value>
   </data>
   <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
-    <value>De bestanden van deze configuratie zijn samen groter dan 16 MB en kunnen niet worden geëxporteerd.</value>
+    <value>De bestanden van deze configuratie zijn samen groter dan 16 MiB en kunnen niet worden geëxporteerd.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>De configuratie is geëxporteerd, maar sommige bestanden ontbreken of zijn beschadigd op deze pc en zijn niet opgenomen (aantal: {0}). Selecteer ze opnieuw op de configuratiepagina's en exporteer opnieuw.</value>
   </data>
   <data name="Sharing.ExportTitle" xml:space="preserve">
     <value>Configuratie exporteren</value>
@@ -3284,7 +3287,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>De wachtwoordzinnen komen niet overeen.</value>
   </data>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Minimaal 12 tekens, niet één herhaald teken.</value>
+    <value>Minimaal 12 tekens, en niet hetzelfde teken herhaald (bijvoorbeeld aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Opgenomen</value>

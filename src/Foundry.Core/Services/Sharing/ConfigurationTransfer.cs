@@ -4,6 +4,7 @@
 
 using System.Security.Cryptography;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Configuration.Legacy;
 using Foundry.Core.Services.Files;
 using Foundry.Core.Services.Secrets;
@@ -24,6 +25,11 @@ public sealed record ImportPreview(string Name, DateTimeOffset CreatedUtc, bool 
 /// <param name="VaultEntries">The passwords of <paramref name="Configuration"/>: imported ones over local ones. Sharing ids are never included.</param>
 /// <param name="MissingContent">Content the configuration needs that is not available on this PC (packages, driver sets and images are never exported).</param>
 public sealed record ImportOutcome(FoundryConfigurationDocument Configuration, IReadOnlyDictionary<string, string> VaultEntries, IReadOnlyList<PackageContent> MissingContent);
+
+/// <summary>The result of <see cref="ConfigurationTransfer.Export"/>.</summary>
+/// <param name="Package">The encrypted export file bytes.</param>
+/// <param name="SkippedFileCount">Referenced authoring files that were missing or damaged in the library and are not in the file; the import lists them as missing.</param>
+public sealed record ConfigurationExport(byte[] Package, int SkippedFileCount);
 
 /// <summary>Encrypted export and import of the current configuration (spec 5.4 and 6.3).</summary>
 /// <remarks>
@@ -46,15 +52,16 @@ public static class ConfigurationTransfer
     /// <summary>
     /// Writes an export of <paramref name="current"/> without its per-PC values: the referenced authoring files are embedded and
     /// the packages, driver sets and images are listed only. Passwords are included only when <paramref name="includePasswords"/>
-    /// is set, and sharing ids never are.
+    /// is set, and then only those <see cref="SecretMap"/> owns for the exported configuration: a password whose owner left the
+    /// configuration, an id of a section without a binding and the sharing ids are never exported.
     /// </summary>
     /// <remarks>
     /// The embedded files are leased while they are read. A file missing from the library or failing its hash check is not
-    /// embedded; the import then lists it as missing content.
+    /// embedded and is counted in <see cref="ConfigurationExport.SkippedFileCount"/>; the import then lists it as missing content.
     /// </remarks>
     /// <exception cref="InvalidDataException">The embedded files exceed 16 MiB in total.</exception>
     /// <exception cref="ArgumentException">The passphrase does not satisfy <see cref="PassphrasePolicy"/>.</exception>
-    public static byte[] Export(
+    public static ConfigurationExport Export(
         FoundryConfigurationDocument current,
         IReadOnlyDictionary<string, string> vault,
         AuthoringFileLibrary files,
@@ -68,19 +75,18 @@ public static class ConfigurationTransfer
         ArgumentNullException.ThrowIfNull(name);
 
         FoundryConfigurationDocument portable = PortableConfiguration.Strip(current);
+        (Dictionary<string, byte[]> embedded, int skipped) = ReadEmbeddedFiles(portable, files);
         var payload = new ConfigurationPackagePayload
         {
             Kind = PackageKind.Export,
             CreatedUtc = DateTimeOffset.UtcNow,
             Name = name,
             Configuration = portable,
-            Secrets = includePasswords
-                ? vault.Where(entry => !SecretIds.IsSharingInternal(entry.Key)).ToDictionary(StringComparer.Ordinal)
-                : null,
+            Secrets = includePasswords ? SecretMap.ToEntries(portable, SecretMap.FromEntries(portable, vault)) : null,
             Contents = PortableConfiguration.ListContents(portable),
-            Files = ReadEmbeddedFiles(portable, files)
+            Files = embedded
         };
-        return ConfigurationPackageCodec.Write(payload, passphrase);
+        return new ConfigurationExport(ConfigurationPackageCodec.Write(payload, passphrase), skipped);
     }
 
     /// <summary>
@@ -90,7 +96,8 @@ public static class ConfigurationTransfer
     /// <returns>
     /// <see cref="PackageReadStatus.Ok"/> with a preview; <see cref="PackageReadStatus.WrongPassword"/> for a wrong passphrase or a
     /// damaged file; <see cref="PackageReadStatus.Unsupported"/> when a newer Foundry wrote it; otherwise
-    /// <see cref="PackageReadStatus.Invalid"/>, including a publication manifest and a configuration carrying explicit nulls.
+    /// <see cref="PackageReadStatus.Invalid"/>, including a publication manifest, a configuration carrying explicit nulls and
+    /// embedded files over the 16 MiB export limit.
     /// </returns>
     public static PackageReadStatus TryPreview(ReadOnlySpan<byte> file, ReadOnlySpan<char> passphrase, out ImportPreview? preview)
     {
@@ -120,6 +127,7 @@ public static class ConfigurationTransfer
     /// Converts a configuration read from a legacy profile (an exported package, a connection file or the local profile store)
     /// into an import preview: its files are embedded, its passwords mapped to vault ids, and its content listed.
     /// </summary>
+    /// <exception cref="InvalidDataException">The files exceed 16 MiB in total, the limit of an export; a single file over 4 MiB is skipped.</exception>
     public static ImportPreview PreviewLegacy(LegacyConfigurationSnapshot snapshot)
     {
         ArgumentNullException.ThrowIfNull(snapshot);
@@ -133,7 +141,7 @@ public static class ConfigurationTransfer
         });
 
         FoundryConfigurationDocument configuration = migrated.Configuration;
-        var referenced = PortableConfiguration.FileReferences(configuration).Select(reference => reference.ContentHash).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var referenced = ConfigurationContentReferences.AuthoringFiles(configuration).Select(reference => reference.ContentHash).ToHashSet(StringComparer.OrdinalIgnoreCase);
         var payload = new ConfigurationPackagePayload
         {
             Kind = PackageKind.Export,
@@ -143,6 +151,7 @@ public static class ConfigurationTransfer
             Contents = PortableConfiguration.ListContents(configuration),
             Files = files.Where(file => referenced.Contains(file.Key)).ToDictionary(StringComparer.Ordinal)
         };
+        if (!HasEmbeddedFilesWithinLimit(payload.Files)) throw new InvalidDataException("ConfigurationTransfer.FilesTooLarge");
         return new ImportPreview(snapshot.DisplayName, default, payload.Secrets is not null, IsLegacy: true, snapshot.IsConnectionFile, payload);
     }
 
@@ -174,6 +183,7 @@ public static class ConfigurationTransfer
     /// as their owner is in the imported configuration. Imported entries of sections without a <see cref="SecretMap"/> binding
     /// are kept as they are; sharing ids are dropped.
     /// </remarks>
+    /// <exception cref="InvalidDataException">The embedded files exceed 16 MiB in total.</exception>
     /// <exception cref="IOException">An embedded file cannot be written to the library.</exception>
     public static ImportOutcome Apply(
         ImportPreview preview,
@@ -191,8 +201,9 @@ public static class ConfigurationTransfer
 
         ConfigurationPackagePayload payload = preview.Payload;
         IReadOnlyDictionary<string, byte[]> embedded = payload.Files ?? NoFiles;
+        if (!HasEmbeddedFilesWithinLimit(embedded)) throw new InvalidDataException("ConfigurationTransfer.FilesTooLarge");
         var imported = new Dictionary<string, AuthoringFileReference>(StringComparer.Ordinal);
-        FoundryConfigurationDocument configuration = PortableConfiguration.MapFileReferences(payload.Configuration, reference =>
+        FoundryConfigurationDocument configuration = ConfigurationContentReferences.MapAuthoringFiles(payload.Configuration, reference =>
         {
             string hash = reference.ContentHash.ToLowerInvariant();
             if (!imported.TryGetValue(hash, out AuthoringFileReference? stored))
@@ -229,18 +240,26 @@ public static class ConfigurationTransfer
         }
     }
 
-    /// <summary>Checks what the codec does not: every embedded file matches its hash and size, and no secret value is null.</summary>
+    /// <summary>
+    /// Checks what the codec does not: every embedded file matches its hash and size, the files stay within the 16 MiB total the
+    /// writer enforces, and no secret value is null.
+    /// </summary>
     private static bool IsWellFormedExport(ConfigurationPackagePayload payload) =>
+        HasEmbeddedFilesWithinLimit(payload.Files ?? NoFiles) &&
         (payload.Files ?? NoFiles).All(file => file.Value is { Length: <= AuthoringFileLibrary.MaximumFileBytes } content &&
             string.Equals(Convert.ToHexStringLower(SHA256.HashData(content)), file.Key, StringComparison.Ordinal)) &&
         (payload.Secrets ?? NoSecrets).All(secret => secret.Value is not null);
 
-    private static Dictionary<string, byte[]> ReadEmbeddedFiles(FoundryConfigurationDocument configuration, AuthoringFileLibrary files)
+    private static bool HasEmbeddedFilesWithinLimit(IReadOnlyDictionary<string, byte[]> files) =>
+        files.Values.Sum(content => (long)(content?.Length ?? 0)) <= ConfigurationPackageCodec.MaximumEmbeddedFileBytes;
+
+    private static (Dictionary<string, byte[]> Files, int SkippedCount) ReadEmbeddedFiles(FoundryConfigurationDocument configuration, AuthoringFileLibrary files)
     {
-        AuthoringFileReference[] references = PortableConfiguration.FileReferences(configuration)
+        AuthoringFileReference[] references = ConfigurationContentReferences.AuthoringFiles(configuration)
             .DistinctBy(reference => reference.ContentHash, StringComparer.OrdinalIgnoreCase).ToArray();
         var embedded = new Dictionary<string, byte[]>(StringComparer.Ordinal);
         long total = 0;
+        int skipped = 0;
         // The cleanup of unreferenced library files must not delete a file while it is read.
         using IDisposable lease = files.Lease(references.Select(reference => reference.ContentHash));
         foreach (AuthoringFileReference reference in references)
@@ -252,6 +271,7 @@ public static class ConfigurationTransfer
             }
             catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or InvalidDataException)
             {
+                skipped++;
                 continue;
             }
 
@@ -260,7 +280,7 @@ public static class ConfigurationTransfer
             embedded[reference.ContentHash.ToLowerInvariant()] = content;
         }
 
-        return embedded;
+        return (embedded, skipped);
     }
 
     private static Dictionary<string, string> MergeSecrets(
@@ -287,7 +307,7 @@ public static class ConfigurationTransfer
         ArgumentNullException.ThrowIfNull(packageAvailable);
         ArgumentNullException.ThrowIfNull(driverSetAvailable);
         ArgumentNullException.ThrowIfNull(imageAvailable);
-        return PortableConfiguration.FileReferences(configuration).Where(reference => !fileAvailable(reference)).Select(PortableConfiguration.ToContent)
+        return ConfigurationContentReferences.AuthoringFiles(configuration).Where(reference => !fileAvailable(reference)).Select(PortableConfiguration.ToContent)
             .Concat(PortableConfiguration.UsedPackages(configuration).Where(package => !packageAvailable(package))
                 .Select(package => PortableConfiguration.ToContent(package, SharedContentKind.Package)))
             .Concat(PortableConfiguration.UsedDriverSets(configuration).Where(package => !driverSetAvailable(package))

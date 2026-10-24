@@ -3209,7 +3209,10 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Konfigurāciju nevarēja eksportēt. Pārbaudiet galamērķi un mēģiniet vēlreiz.</value>
   </data>
   <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
-    <value>Šīs konfigurācijas faili kopā pārsniedz 16 MB, un tos nevar eksportēt.</value>
+    <value>Šīs konfigurācijas faili kopā pārsniedz 16 MiB, un tos nevar eksportēt.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>Konfigurācija tika eksportēta, taču daži faili šajā datorā trūkst vai ir bojāti un netika iekļauti (skaits: {0}). Atlasiet tos vēlreiz konfigurācijas lapās un pēc tam eksportējiet vēlreiz.</value>
   </data>
   <data name="Sharing.ExportTitle" xml:space="preserve">
     <value>Eksportēt konfigurāciju</value>
@@ -3284,7 +3287,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Ieejas frāzes nesakrīt.</value>
   </data>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Vismaz 12 rakstzīmes, ne viena atkārtota rakstzīme.</value>
+    <value>Vismaz 12 rakstzīmes, un ne viena un tā pati rakstzīme atkārtoti (piemēram, aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Iekļautas</value>

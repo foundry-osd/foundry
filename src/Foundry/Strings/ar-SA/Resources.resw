@@ -3209,7 +3209,10 @@
     <value>تعذر تصدير التكوين. تحقق من الوجهة وحاول مرة أخرى.</value>
   </data>
   <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
-    <value>تتجاوز ملفات هذا التكوين 16 MB في المجموع ولا يمكن تصديرها.</value>
+    <value>تتجاوز ملفات هذا التكوين 16 MiB في المجموع ولا يمكن تصديرها.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>تم تصدير التكوين، ولكن بعض الملفات مفقودة أو تالفة على هذا الكمبيوتر ولم يتم تضمينها (العدد: {0}). حددها مرة أخرى في صفحات التكوين، ثم صدّر مرة أخرى.</value>
   </data>
   <data name="Sharing.ExportTitle" xml:space="preserve">
     <value>تصدير التكوين</value>
@@ -3284,7 +3287,7 @@
     <value>عبارتا المرور غير متطابقتين.</value>
   </data>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>12 حرفًا على الأقل، وليس حرفًا واحدًا مكررًا.</value>
+    <value>12 حرفًا على الأقل، وألا تكون الحرف نفسه مكررًا (مثل aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>مضمنة</value>

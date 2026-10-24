@@ -3209,7 +3209,10 @@
     <value>Не вдалося експортувати конфігурацію. Перевірте місце призначення й повторіть спробу.</value>
   </data>
   <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
-    <value>Файли цієї конфігурації загалом перевищують 16 MB і не можуть бути експортовані.</value>
+    <value>Файли цієї конфігурації загалом перевищують 16 MiB і не можуть бути експортовані.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>Конфігурацію експортовано, але деякі файли відсутні або пошкоджені на цьому комп’ютері й не були включені (кількість: {0}). Виберіть їх ще раз на сторінках конфігурації, а потім знову виконайте експорт.</value>
   </data>
   <data name="Sharing.ExportTitle" xml:space="preserve">
     <value>Експорт конфігурації</value>
@@ -3284,7 +3287,7 @@
     <value>Парольні фрази не збігаються.</value>
   </data>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Щонайменше 12 символів, не один повторюваний символ.</value>
+    <value>Щонайменше 12 символів, і не той самий символ, що повторюється (наприклад, aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Включено</value>

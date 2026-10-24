@@ -3209,7 +3209,10 @@ Licencirano pod licenco MIT.</value>
     <value>Konfiguracije ni bilo mogoče izvoziti. Preverite cilj in poskusite znova.</value>
   </data>
   <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
-    <value>Datoteke te konfiguracije skupaj presegajo 16 MB in jih ni mogoče izvoziti.</value>
+    <value>Datoteke te konfiguracije skupaj presegajo 16 MiB in jih ni mogoče izvoziti.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>Konfiguracija je bila izvožena, vendar nekatere datoteke v tem računalniku manjkajo ali so poškodovane in niso bile vključene (število: {0}). Znova jih izberite na straneh konfiguracije in nato znova izvozite.</value>
   </data>
   <data name="Sharing.ExportTitle" xml:space="preserve">
     <value>Izvozi konfiguracijo</value>
@@ -3284,7 +3287,7 @@ Licencirano pod licenco MIT.</value>
     <value>Gesli s frazo se ne ujemata.</value>
   </data>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Vsaj 12 znakov, ne en sam ponovljen znak.</value>
+    <value>Vsaj 12 znakov in ne isti znak, ki se ponavlja (na primer aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Vključena</value>

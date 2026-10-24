@@ -3209,7 +3209,10 @@
     <value>ไม่สามารถส่งออกการกำหนดค่าได้ โปรดตรวจสอบปลายทางแล้วลองอีกครั้ง</value>
   </data>
   <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
-    <value>ไฟล์ของการกำหนดค่านี้มีขนาดรวมเกิน 16 MB และไม่สามารถส่งออกได้</value>
+    <value>ไฟล์ของการกำหนดค่านี้มีขนาดรวมเกิน 16 MiB และไม่สามารถส่งออกได้</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>ส่งออกการกำหนดค่าแล้ว แต่ไฟล์บางไฟล์หายไปหรือเสียหายบนพีซีเครื่องนี้และไม่ได้รวมไว้ (จำนวน: {0}) โปรดเลือกไฟล์เหล่านั้นอีกครั้งในหน้าการกำหนดค่า แล้วส่งออกอีกครั้ง</value>
   </data>
   <data name="Sharing.ExportTitle" xml:space="preserve">
     <value>ส่งออกการกำหนดค่า</value>
@@ -3284,7 +3287,7 @@
     <value>วลีรหัสผ่านไม่ตรงกัน</value>
   </data>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>อย่างน้อย 12 อักขระ และไม่ใช่อักขระเดียวซ้ำกัน</value>
+    <value>อย่างน้อย 12 อักขระ และไม่ใช่อักขระเดียวกันซ้ำๆ (เช่น aaaaaaaaaaaa)</value>
   </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>รวมอยู่</value>

@@ -3209,7 +3209,10 @@ Licencováno pod licencí MIT.</value>
     <value>Konfiguraci nebylo možné exportovat. Zkontrolujte cíl a zkuste to znovu.</value>
   </data>
   <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
-    <value>Soubory této konfigurace celkem přesahují 16 MB a nelze je exportovat.</value>
+    <value>Soubory této konfigurace celkem přesahují 16 MiB a nelze je exportovat.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>Konfigurace byla exportována, ale některé soubory na tomto počítači chybí nebo jsou poškozené a nebyly zahrnuty (počet: {0}). Vyberte je znovu na stránkách konfigurace a pak exportujte znovu.</value>
   </data>
   <data name="Sharing.ExportTitle" xml:space="preserve">
     <value>Exportovat konfiguraci</value>
@@ -3284,7 +3287,7 @@ Licencováno pod licencí MIT.</value>
     <value>Heslové fráze se neshodují.</value>
   </data>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Alespoň 12 znaků, ne jeden opakovaný znak.</value>
+    <value>Alespoň 12 znaků a ne stále stejný opakovaný znak (například aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Zahrnuta</value>

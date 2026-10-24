@@ -97,5 +97,11 @@
             Message="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
             Severity="Error"
             Visibility="{x:Bind ViewModel.HasError, Mode=OneWay}" />
+        <InfoBar
+            IsClosable="False"
+            IsOpen="{x:Bind ViewModel.HasWarning, Mode=OneWay}"
+            Message="{x:Bind ViewModel.WarningMessage, Mode=OneWay}"
+            Severity="Warning"
+            Visibility="{x:Bind ViewModel.HasWarning, Mode=OneWay}" />
     </StackPanel>
 </ContentDialog>

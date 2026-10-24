@@ -3209,7 +3209,10 @@
     <value>無法匯出設定。請檢查目的地，然後再試一次。</value>
   </data>
   <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
-    <value>此設定的檔案總計超過 16 MB，無法匯出。</value>
+    <value>此設定的檔案總計超過 16 MiB，無法匯出。</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>已匯出設定，但此電腦上有些檔案遺失或已損毀，未包含在內 (數量: {0})。請在設定頁面上重新選取這些檔案，然後再次匯出。</value>
   </data>
   <data name="Sharing.ExportTitle" xml:space="preserve">
     <value>匯出設定</value>
@@ -3284,7 +3287,7 @@
     <value>複雜密碼不相符。</value>
   </data>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>至少 12 個字元，且不能只重複同一個字元。</value>
+    <value>至少 12 個字元，且不能是同一個字元重複 (例如 aaaaaaaaaaaa)。</value>
   </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>已包含</value>

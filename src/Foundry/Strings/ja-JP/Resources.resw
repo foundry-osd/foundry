@@ -3209,7 +3209,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>構成をエクスポートできませんでした。保存先を確認して、もう一度お試しください。</value>
   </data>
   <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
-    <value>この構成のファイルは合計で 16 MB を超えているため、エクスポートできません。</value>
+    <value>この構成のファイルは合計で 16 MiB を超えているため、エクスポートできません。</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>構成はエクスポートされましたが、この PC で見つからないか破損しているファイルがあり、含まれませんでした (件数: {0})。構成ページでファイルを選択し直してから、もう一度エクスポートしてください。</value>
   </data>
   <data name="Sharing.ExportTitle" xml:space="preserve">
     <value>構成のエクスポート</value>
@@ -3284,7 +3287,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>パスフレーズが一致しません。</value>
   </data>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>12 文字以上で、同じ文字の繰り返しのみは不可です。</value>
+    <value>12 文字以上で、同じ文字の繰り返し (例: aaaaaaaaaaaa) は使用できません。</value>
   </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>含まれています</value>

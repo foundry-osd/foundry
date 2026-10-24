@@ -81,10 +81,11 @@ public sealed class ConfigurationTransferService(
     /// <param name="path">Destination file; replaced atomically.</param>
     /// <param name="passphrase">Passphrase satisfying <see cref="PassphrasePolicy"/>.</param>
     /// <param name="includePasswords">Includes the remembered passwords.</param>
+    /// <returns>The number of referenced files that were missing or damaged in the library and could not be included.</returns>
     /// <exception cref="InvalidDataException">The embedded files exceed the export limit.</exception>
     /// <exception cref="IOException">The file cannot be written.</exception>
     /// <exception cref="UnauthorizedAccessException">Access to the destination is denied.</exception>
-    public async Task ExportAsync(string path, string passphrase, bool includePasswords)
+    public async Task<int> ExportAsync(string path, string passphrase, bool includePasswords)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(path);
         ArgumentNullException.ThrowIfNull(passphrase);
@@ -98,13 +99,23 @@ public sealed class ConfigurationTransferService(
         logger.Information("Configuration export started. IncludePasswords={IncludePasswords}", includePasswords);
         try
         {
-            byte[] package = await Task.Run(() =>
+            ConfigurationExport export = await Task.Run(() =>
             {
-                byte[] written = ConfigurationTransfer.Export(current, entries, files, passphrase, includePasswords, Environment.MachineName);
-                WriteAtomically(path, written);
+                ConfigurationExport written = ConfigurationTransfer.Export(current, entries, files, passphrase, includePasswords, Environment.MachineName);
+                WriteAtomically(path, written.Package);
                 return written;
             });
-            logger.Information("Configuration export completed. IncludePasswords={IncludePasswords}, Length={Length}", includePasswords, package.Length);
+            if (export.SkippedFileCount > 0)
+            {
+                logger.Warning(
+                    "Configuration exported without the referenced files that are missing or damaged in the library. SkippedFileCount={SkippedFileCount}",
+                    export.SkippedFileCount);
+            }
+
+            logger.Information(
+                "Configuration export completed. IncludePasswords={IncludePasswords}, Length={Length}, SkippedFileCount={SkippedFileCount}",
+                includePasswords, export.Package.Length, export.SkippedFileCount);
+            return export.SkippedFileCount;
         }
         catch (Exception exception)
         {

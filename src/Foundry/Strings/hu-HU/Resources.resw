@@ -3209,7 +3209,10 @@ Licenc az MIT licenc alatt.</value>
     <value>A konfigurációt nem sikerült exportálni. Ellenőrizze a célhelyet, és próbálkozzon újra.</value>
   </data>
   <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
-    <value>A konfiguráció fájljai összesen meghaladják a 16 MB-ot, ezért nem exportálhatók.</value>
+    <value>A konfiguráció fájljai összesen meghaladják a 16 MiB ezért nem exportálhatók.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>A konfiguráció exportálva, de néhány fájl hiányzik vagy sérült ezen a számítógépen, ezért nem került bele (darabszám: {0}). Válassza ki őket újra a konfigurációs oldalakon, majd exportáljon újra.</value>
   </data>
   <data name="Sharing.ExportTitle" xml:space="preserve">
     <value>Konfiguráció exportálása</value>
@@ -3284,7 +3287,7 @@ Licenc az MIT licenc alatt.</value>
     <value>A jelmondatok nem egyeznek.</value>
   </data>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Legalább 12 karakter, nem egyetlen ismétlődő karakter.</value>
+    <value>Legalább 12 karakter, és ne ugyanaz a karakter ismétlődjön (például aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Belefoglalva</value>

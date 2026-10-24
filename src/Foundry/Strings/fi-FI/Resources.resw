@@ -3209,7 +3209,10 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Määritystä ei voitu viedä. Tarkista kohde ja yritä uudelleen.</value>
   </data>
   <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
-    <value>Tämän määrityksen tiedostot ylittävät yhteensä 16 MB, eikä niitä voi viedä.</value>
+    <value>Tämän määrityksen tiedostot ylittävät yhteensä 16 MiB eikä niitä voi viedä.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>Määritys vietiin, mutta osa tiedostoista puuttuu tästä tietokoneesta tai on vahingoittunut, eikä niitä sisällytetty (määrä: {0}). Valitse ne uudelleen määrityssivuilla ja vie sitten uudelleen.</value>
   </data>
   <data name="Sharing.ExportTitle" xml:space="preserve">
     <value>Vie määritys</value>
@@ -3284,7 +3287,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Tunnuslauseet eivät täsmää.</value>
   </data>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Vähintään 12 merkkiä, ei yhtä toistettua merkkiä.</value>
+    <value>Vähintään 12 merkkiä, eikä sama merkki toistettuna (esimerkiksi aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Sisällytetty</value>

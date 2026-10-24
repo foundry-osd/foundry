@@ -3209,7 +3209,10 @@ Sous licence MIT.</value>
     <value>La configuration n'a pas pu être exportée. Vérifiez la destination et réessayez.</value>
   </data>
   <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
-    <value>Les fichiers de cette configuration dépassent 16 Mo au total et ne peuvent pas être exportés.</value>
+    <value>Les fichiers de cette configuration dépassent 16 Mio au total et ne peuvent pas être exportés.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>La configuration a été exportée, mais certains fichiers sont manquants ou endommagés sur ce PC et n'ont pas été inclus (nombre : {0}). Sélectionnez-les de nouveau dans les pages de configuration, puis exportez de nouveau.</value>
   </data>
   <data name="Sharing.ExportTitle" xml:space="preserve">
     <value>Exporter la configuration</value>
@@ -3284,7 +3287,7 @@ Sous licence MIT.</value>
     <value>Les phrases secrètes ne correspondent pas.</value>
   </data>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Au moins 12 caractères, pas un seul caractère répété.</value>
+    <value>Au moins 12 caractères, et pas le même caractère répété (par exemple aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Inclus</value>

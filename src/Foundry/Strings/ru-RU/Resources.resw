@@ -3209,7 +3209,10 @@
     <value>Не удалось экспортировать конфигурацию. Проверьте место назначения и повторите попытку.</value>
   </data>
   <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
-    <value>Файлы этой конфигурации в сумме превышают 16 MB и не могут быть экспортированы.</value>
+    <value>Файлы этой конфигурации в сумме превышают 16 MiB и не могут быть экспортированы.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>Конфигурация экспортирована, но некоторые файлы отсутствуют или повреждены на этом компьютере и не были включены (количество: {0}). Выберите их повторно на страницах конфигурации, а затем снова выполните экспорт.</value>
   </data>
   <data name="Sharing.ExportTitle" xml:space="preserve">
     <value>Экспорт конфигурации</value>
@@ -3284,7 +3287,7 @@
     <value>Парольные фразы не совпадают.</value>
   </data>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Не менее 12 символов, не один повторяющийся символ.</value>
+    <value>Не менее 12 символов, и не один и тот же повторяющийся символ (например, aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Включены</value>

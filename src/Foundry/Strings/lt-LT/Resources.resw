@@ -3209,7 +3209,10 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Konfigūracijos nepavyko eksportuoti. Patikrinkite paskirties vietą ir bandykite dar kartą.</value>
   </data>
   <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
-    <value>Šios konfigūracijos failai iš viso viršija 16 MB ir negali būti eksportuoti.</value>
+    <value>Šios konfigūracijos failai iš viso viršija 16 MiB ir negali būti eksportuoti.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>Konfigūracija eksportuota, bet kai kurių failų šiame kompiuteryje nėra arba jie sugadinti, todėl jie neįtraukti (skaičius: {0}). Pasirinkite juos dar kartą konfigūracijos puslapiuose ir eksportuokite iš naujo.</value>
   </data>
   <data name="Sharing.ExportTitle" xml:space="preserve">
     <value>Eksportuoti konfigūraciją</value>
@@ -3284,7 +3287,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Slaptafrazės nesutampa.</value>
   </data>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Bent 12 simbolių, ne vienas pasikartojantis simbolis.</value>
+    <value>Bent 12 simbolių, ir ne tas pats pakartotas simbolis (pavyzdžiui, aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Įtraukti</value>

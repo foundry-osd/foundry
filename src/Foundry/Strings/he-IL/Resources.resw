@@ -3209,7 +3209,10 @@
     <value>לא ניתן היה לייצא את התצורה. בדוק את היעד ונסה שוב.</value>
   </data>
   <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
-    <value>הקבצים של תצורה זו חורגים מ-16 MB בסך הכול ולא ניתן לייצא אותם.</value>
+    <value>הקבצים של תצורה זו חורגים מ-16 MiB בסך הכול ולא ניתן לייצא אותם.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>התצורה יוצאה, אך קבצים מסוימים חסרים או פגומים במחשב זה ולא נכללו (מספר: {0}). בחר אותם שוב בדפי התצורה ולאחר מכן ייצא שוב.</value>
   </data>
   <data name="Sharing.ExportTitle" xml:space="preserve">
     <value>ייצוא תצורה</value>
@@ -3284,7 +3287,7 @@
     <value>ביטויי הסיסמה אינם תואמים.</value>
   </data>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>לפחות 12 תווים, לא תו יחיד שחוזר על עצמו.</value>
+    <value>לפחות 12 תווים, ולא אותו תו שחוזר על עצמו (לדוגמה aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>כלולות</value>

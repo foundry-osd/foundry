@@ -3209,7 +3209,10 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Yapılandırma dışarı aktarılamadı. Hedefi denetleyip yeniden deneyin.</value>
   </data>
   <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
-    <value>Bu yapılandırmanın dosyaları toplamda 16 MB'ı aşıyor ve dışarı aktarılamıyor.</value>
+    <value>Bu yapılandırmanın dosyaları toplamda 16 MiB'ı aşıyor ve dışarı aktarılamıyor.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>Yapılandırma dışarı aktarıldı ancak bazı dosyalar bu bilgisayarda eksik veya hasarlı olduğundan dahil edilmedi (sayı: {0}). Bunları yapılandırma sayfalarında yeniden seçin ve ardından yeniden dışarı aktarın.</value>
   </data>
   <data name="Sharing.ExportTitle" xml:space="preserve">
     <value>Yapılandırmayı dışarı aktar</value>
@@ -3284,7 +3287,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Parola ifadeleri eşleşmiyor.</value>
   </data>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>En az 12 karakter, tek bir yinelenen karakter değil.</value>
+    <value>En az 12 karakter ve aynı karakterin tekrarı değil (örneğin aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Dahil</value>

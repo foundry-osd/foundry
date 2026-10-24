@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Configuration;
 
 namespace Foundry.Core.Services.Sharing;
 
@@ -51,55 +52,12 @@ public static class PortableConfiguration
     public static IReadOnlyList<PackageContent> ListContents(FoundryConfigurationDocument configuration)
     {
         ArgumentNullException.ThrowIfNull(configuration);
-        return FileReferences(configuration).Select(ToContent)
+        return ConfigurationContentReferences.AuthoringFiles(configuration).Select(ToContent)
             .Concat(UsedPackages(configuration).Select(package => ToContent(package, SharedContentKind.Package)))
             .Concat(UsedDriverSets(configuration).Select(package => ToContent(package, SharedContentKind.DriverSet)))
             .Concat(UsedImages(configuration).Select(ToContent))
             .DistinctBy(content => (content.Kind, content.Hash.ToLowerInvariant()))
             .ToArray();
-    }
-
-    /// <summary>Gets every authoring file reference of the configuration, in the order of <see cref="MapFileReferences"/>.</summary>
-    internal static IEnumerable<AuthoringFileReference> FileReferences(FoundryConfigurationDocument configuration)
-    {
-        var references = new List<AuthoringFileReference>();
-        MapFileReferences(configuration, reference =>
-        {
-            references.Add(reference);
-            return reference;
-        });
-        return references;
-    }
-
-    /// <summary>Returns the configuration with every authoring file reference replaced by <paramref name="map"/>.</summary>
-    internal static FoundryConfigurationDocument MapFileReferences(
-        FoundryConfigurationDocument configuration,
-        Func<AuthoringFileReference, AuthoringFileReference> map)
-    {
-        NetworkSettings network = configuration.Network;
-        AutopilotHardwareHashUploadSettings hardwareHash = configuration.Autopilot.HardwareHashUpload;
-        return configuration with
-        {
-            Network = network with
-            {
-                Dot1x = network.Dot1x with { ProfileTemplate = Map(network.Dot1x.ProfileTemplate), Certificate = Map(network.Dot1x.Certificate) },
-                Wifi = network.Wifi with { EnterpriseProfileTemplate = Map(network.Wifi.EnterpriseProfileTemplate), Certificate = Map(network.Wifi.Certificate) }
-            },
-            Autopilot = configuration.Autopilot with
-            {
-                HardwareHashUpload = hardwareHash with
-                {
-                    BootMediaCertificate = hardwareHash.BootMediaCertificate with { Pfx = Map(hardwareHash.BootMediaCertificate.Pfx) }
-                }
-            },
-            Unattend = configuration.Unattend with
-            {
-                Files = configuration.Unattend.Files.Select(file => file with { File = Map(file.File) }).ToArray()
-            }
-        };
-
-        AuthoringFileReference? Map(AuthoringFileReference? reference) =>
-            reference is { ContentHash.Length: > 0 } ? map(reference) : reference;
     }
 
     /// <summary>Gets the packages of the enabled actions of an enabled post-installation section.</summary>

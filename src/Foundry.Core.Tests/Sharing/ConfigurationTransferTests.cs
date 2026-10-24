@@ -78,6 +78,58 @@ public sealed class ConfigurationTransferTests : IDisposable
     }
 
     [Fact]
+    public void Export_WithPasswords_ExcludesOrphanedAndUnownedIds()
+    {
+        AuthoringFileReference certificate = TestFileReferences.Detached("current.pfx");
+        AuthoringFileReference replaced = TestFileReferences.Detached("replaced.pfx");
+        var configuration = new FoundryConfigurationDocument
+        {
+            Network = new NetworkSettings { Dot1x = new Dot1xSettings { IsEnabled = true, RequiresCertificate = true, Certificate = certificate } }
+        };
+        var vault = new Dictionary<string, string>
+        {
+            [SecretIds.Dot1xCertificate(certificate.ContentHash)] = "current-pfx",
+            [SecretIds.Dot1xCertificate(replaced.ContentHash)] = "orphaned-pfx",
+            ["networkcache/account/share"] = "unowned-secret"
+        };
+
+        ConfigurationPackagePayload payload = ExportAndRead(configuration, vault, includePasswords: true);
+
+        Assert.Equal(new Dictionary<string, string> { [SecretIds.Dot1xCertificate(certificate.ContentHash)] = "current-pfx" }, payload.Secrets);
+    }
+
+    [Fact]
+    public void Export_MissingLibraryFile_IsSkippedAndCounted()
+    {
+        var library = new AuthoringFileLibrary(Path.Combine(temp.Path, "files"));
+        AuthoringFileReference stored = library.Import("<profile />"u8, "profile.xml");
+        var configuration = new FoundryConfigurationDocument
+        {
+            Network = new NetworkSettings { Dot1x = new Dot1xSettings { ProfileTemplate = stored, Certificate = TestFileReferences.Detached("missing.pfx") } }
+        };
+
+        ConfigurationExport export = ConfigurationTransfer.Export(configuration, new Dictionary<string, string>(), library, Passphrase, includePasswords: false, "PC-1");
+
+        Assert.Equal(1, export.SkippedFileCount);
+        Assert.Equal([stored.ContentHash], ConfigurationPackageCodec.Read(export.Package, Passphrase).Payload!.Files!.Keys);
+    }
+
+    [Fact]
+    public void Preview_EmbeddedFilesOver16MiB_ReturnsInvalid()
+    {
+        Dictionary<string, byte[]> files = Enumerable.Range(1, 5)
+            .Select(index => Enumerable.Repeat((byte)index, AuthoringFileLibrary.MaximumFileBytes).ToArray())
+            .ToDictionary(content => Convert.ToHexStringLower(System.Security.Cryptography.SHA256.HashData(content)), StringComparer.Ordinal);
+        var payload = new ConfigurationPackagePayload { Kind = PackageKind.Export, Configuration = new FoundryConfigurationDocument(), Files = files };
+        byte[] package = ConfigurationPackageCodec.Seal(JsonSerializer.SerializeToUtf8Bytes(payload, ConfigurationPackageJson.SerializerOptions), Passphrase, signer: null);
+
+        PackageReadStatus status = ConfigurationTransfer.TryPreview(package, Passphrase, out ImportPreview? preview);
+
+        Assert.Equal(PackageReadStatus.Invalid, status);
+        Assert.Null(preview);
+    }
+
+    [Fact]
     public void Export_DriverSets_AreListedButNeverEmbedded()
     {
         var library = new AuthoringFileLibrary(Path.Combine(temp.Path, "files"));
@@ -158,7 +210,7 @@ public sealed class ConfigurationTransferTests : IDisposable
             [SecretIds.Dot1xCertificate(certificate.ContentHash)] = "pfx-secret",
             [SecretIds.WifiPassphrase] = "reference-wifi"
         };
-        byte[] file = ConfigurationTransfer.Export(reference, referenceVault, source, Passphrase, includePasswords: true, "REFERENCE-PC");
+        byte[] file = ConfigurationTransfer.Export(reference, referenceVault, source, Passphrase, includePasswords: true, "REFERENCE-PC").Package;
         Assert.Equal(PackageReadStatus.Ok, ConfigurationTransfer.TryPreview(file, Passphrase, out ImportPreview? preview));
         var target = new AuthoringFileLibrary(Path.Combine(temp.Path, "target"));
         var local = new FoundryConfigurationDocument { General = new GeneralSettings { IsoOutputPath = "E:\\Local\\foundry.iso" } };
@@ -185,7 +237,7 @@ public sealed class ConfigurationTransferTests : IDisposable
     {
         var source = new AuthoringFileLibrary(Path.Combine(temp.Path, "source"));
         FoundryConfigurationDocument configuration = WithMissingContent(new FoundryConfigurationDocument());
-        byte[] file = ConfigurationTransfer.Export(configuration, new Dictionary<string, string>(), source, Passphrase, includePasswords: false, "PC-1");
+        byte[] file = ConfigurationTransfer.Export(configuration, new Dictionary<string, string>(), source, Passphrase, includePasswords: false, "PC-1").Package;
         Assert.Equal(PackageReadStatus.Ok, ConfigurationTransfer.TryPreview(file, Passphrase, out ImportPreview? preview));
 
         ImportOutcome outcome = ConfigurationTransfer.Apply(preview!, new FoundryConfigurationDocument(), new Dictionary<string, string>(),
@@ -208,7 +260,7 @@ public sealed class ConfigurationTransferTests : IDisposable
         AuthoringFileLibrary? library = null)
     {
         library ??= new AuthoringFileLibrary(Path.Combine(temp.Path, "files"));
-        byte[] file = ConfigurationTransfer.Export(configuration, vault, library, Passphrase, includePasswords, "PC-1");
+        byte[] file = ConfigurationTransfer.Export(configuration, vault, library, Passphrase, includePasswords, "PC-1").Package;
         PackageReadResult result = ConfigurationPackageCodec.Read(file, Passphrase);
         Assert.Equal(PackageReadStatus.Ok, result.Status);
         return result.Payload!;

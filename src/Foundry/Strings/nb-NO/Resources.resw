@@ -3209,7 +3209,10 @@ Lisensiert under MIT-lisensen.</value>
     <value>Konfigurasjonen kunne ikke eksporteres. Kontroller målet, og prøv på nytt.</value>
   </data>
   <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
-    <value>Filene i denne konfigurasjonen er til sammen større enn 16 MB og kan ikke eksporteres.</value>
+    <value>Filene i denne konfigurasjonen er til sammen større enn 16 MiB og kan ikke eksporteres.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>Konfigurasjonen er eksportert, men noen filer mangler eller er skadet på denne PC-en og ble ikke tatt med (antall: {0}). Velg dem på nytt på konfigurasjonssidene, og eksporter deretter på nytt.</value>
   </data>
   <data name="Sharing.ExportTitle" xml:space="preserve">
     <value>Eksporter konfigurasjon</value>
@@ -3284,7 +3287,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Passordfrasene samsvarer ikke.</value>
   </data>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Minst 12 tegn, ikke ett gjentatt tegn.</value>
+    <value>Minst 12 tegn, og ikke det samme tegnet gjentatt (for eksempel aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Inkludert</value>

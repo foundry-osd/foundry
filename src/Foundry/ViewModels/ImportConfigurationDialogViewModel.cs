@@ -146,8 +146,10 @@ public sealed partial class ImportConfigurationDialogViewModel : ObservableObjec
             Result = await transfer.ImportAsync(Preview!);
             return true;
         }
-        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or InvalidDataException)
+        catch (Exception exception)
         {
+            // Any failure stays inline: this runs from the dialog button handler, which must never throw.
+            Logger.Warning(exception, "Configuration import could not be completed from the dialog.");
             ErrorMessage = Text("ImportFailed");
             return false;
         }
@@ -175,6 +177,11 @@ public sealed partial class ImportConfigurationDialogViewModel : ObservableObjec
             opened = result;
             ShowMissingContent();
             Preview = result.Preview;
+        }
+        catch (Exception exception)
+        {
+            Logger.Warning(exception, "Configuration could not be opened for import.");
+            if (!disposed) ErrorMessage = Text("InvalidFile");
         }
         finally
         {

@@ -3209,7 +3209,10 @@
     <value>Δεν ήταν δυνατή η εξαγωγή της διαμόρφωσης. Ελέγξτε τον προορισμό και δοκιμάστε ξανά.</value>
   </data>
   <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
-    <value>Τα αρχεία αυτής της διαμόρφωσης υπερβαίνουν συνολικά τα 16 MB και δεν μπορούν να εξαχθούν.</value>
+    <value>Τα αρχεία αυτής της διαμόρφωσης υπερβαίνουν συνολικά τα 16 MiB και δεν μπορούν να εξαχθούν.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>Η διαμόρφωση εξήχθη, αλλά ορισμένα αρχεία λείπουν ή είναι κατεστραμμένα σε αυτόν τον υπολογιστή και δεν συμπεριλήφθηκαν (πλήθος: {0}). Επιλέξτε τα ξανά στις σελίδες διαμόρφωσης και, στη συνέχεια, κάντε ξανά εξαγωγή.</value>
   </data>
   <data name="Sharing.ExportTitle" xml:space="preserve">
     <value>Εξαγωγή διαμόρφωσης</value>
@@ -3284,7 +3287,7 @@
     <value>Οι φράσεις πρόσβασης δεν ταιριάζουν.</value>
   </data>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Τουλάχιστον 12 χαρακτήρες, όχι ένας επαναλαμβανόμενος χαρακτήρας.</value>
+    <value>Τουλάχιστον 12 χαρακτήρες, και όχι ο ίδιος χαρακτήρας επαναλαμβανόμενος (για παράδειγμα aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Περιλαμβάνονται</value>

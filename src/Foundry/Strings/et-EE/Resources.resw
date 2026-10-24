@@ -3209,7 +3209,10 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Konfiguratsiooni ei saanud eksportida. Kontrollige sihtkohta ja proovige uuesti.</value>
   </data>
   <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
-    <value>Selle konfiguratsiooni failid ületavad kokku 16 MB ja neid ei saa eksportida.</value>
+    <value>Selle konfiguratsiooni failid ületavad kokku 16 MiB ja neid ei saa eksportida.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>Konfiguratsioon eksporditi, kuid mõned failid puuduvad selles arvutis või on kahjustatud ega kaasatud (arv: {0}). Valige need konfiguratsioonilehtedel uuesti ja eksportige seejärel uuesti.</value>
   </data>
   <data name="Sharing.ExportTitle" xml:space="preserve">
     <value>Ekspordi konfiguratsioon</value>
@@ -3284,7 +3287,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Paroolifraasid ei ühti.</value>
   </data>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Vähemalt 12 märki, mitte üks korduv märk.</value>
+    <value>Vähemalt 12 märki ja mitte sama märk korduvalt (näiteks aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Kaasatud</value>

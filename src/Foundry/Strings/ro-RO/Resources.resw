@@ -3209,7 +3209,10 @@ Licențiat sub licența MIT.</value>
     <value>Configurația nu a putut fi exportată. Verificați destinația și încercați din nou.</value>
   </data>
   <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
-    <value>Fișierele acestei configurații depășesc în total 16 MB și nu pot fi exportate.</value>
+    <value>Fișierele acestei configurații depășesc în total 16 MiB și nu pot fi exportate.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>Configurația a fost exportată, dar unele fișiere lipsesc sau sunt deteriorate pe acest PC și nu au fost incluse (număr: {0}). Selectați-le din nou pe paginile de configurare, apoi exportați din nou.</value>
   </data>
   <data name="Sharing.ExportTitle" xml:space="preserve">
     <value>Exportă configurația</value>
@@ -3284,7 +3287,7 @@ Licențiat sub licența MIT.</value>
     <value>Frazele de acces nu se potrivesc.</value>
   </data>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Cel puțin 12 caractere, nu un singur caracter repetat.</value>
+    <value>Cel puțin 12 caractere, și nu același caracter repetat (de exemplu aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Incluse</value>

@@ -53,11 +53,12 @@ public sealed partial class ExportConfigurationDialogViewModel : ObservableObjec
     [NotifyPropertyChangedFor(nameof(HasError))]
     public partial string ErrorMessage { get; set; } = string.Empty;
 
-    public bool CanEdit => !IsBusy && !disposed;
+    public bool CanEdit => !IsBusy && !IsCompleted && !disposed;
     public bool IsPassphraseValid => PassphrasePolicy.Validate(Passphrase) == PassphraseValidation.Valid;
     public bool CanCopy => CanEdit && IsPassphraseValid;
     public bool CanExport => CanEdit && IsPassphraseValid && string.Equals(Passphrase, Confirmation, StringComparison.Ordinal);
     public bool HasError => !string.IsNullOrEmpty(ErrorMessage);
+    public bool HasWarning => !string.IsNullOrEmpty(WarningMessage);
     public bool HasValidationMessage => !string.IsNullOrEmpty(ValidationMessage);
 
     /// <summary>Gets the rule the passphrase still breaks, or the mismatch once a confirmation is typed; empty while typing starts.</summary>
@@ -68,7 +69,7 @@ public sealed partial class ExportConfigurationDialogViewModel : ObservableObjec
 
     public string Title => Text("ExportTitle");
     public string ExportLabel => Text("ExportButton");
-    public string CancelLabel => localization.GetString("Common.Cancel");
+    public string CancelLabel => localization.GetString(IsCompleted ? "Common.Close" : "Common.Cancel");
     public string PassphraseLabel => Text("PassphraseLabel");
     public string ConfirmationLabel => Text("ConfirmPassphraseLabel");
     public string RuleText => Text("PassphraseRule");
@@ -79,8 +80,14 @@ public sealed partial class ExportConfigurationDialogViewModel : ObservableObjec
     public string IncludePasswordsWarning => Text("IncludePasswordsWarning");
     public string DescriptionText => Text("ExportDescription");
 
-    /// <summary>Gets whether the export completed.</summary>
-    public bool IsCompleted { get; private set; }
+    /// <summary>Gets whether the export file was written; the form is then read-only and only Close remains.</summary>
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(CanEdit), nameof(CanExport), nameof(CanCopy), nameof(CancelLabel))]
+    public partial bool IsCompleted { get; private set; }
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(HasWarning))]
+    public partial string WarningMessage { get; set; } = string.Empty;
 
     /// <summary>Fills both passphrase fields with a generated passphrase and shows it so it can be noted or copied.</summary>
     [RelayCommand]
@@ -95,7 +102,10 @@ public sealed partial class ExportConfigurationDialogViewModel : ObservableObjec
 
     partial void OnPassphraseChanged(string value) => IsCopied = false;
 
-    /// <summary>Asks for the destination, then writes the export; returns true when the file was written.</summary>
+    /// <summary>
+    /// Asks for the destination, then writes the export. Returns true when the file was written with every referenced file; when
+    /// some files were missing it returns false with <see cref="IsCompleted"/> set and a warning, so the dialog stays open.
+    /// </summary>
     public async Task<bool> ExportAsync()
     {
         if (!CanExport) return false;
@@ -120,16 +130,20 @@ public sealed partial class ExportConfigurationDialogViewModel : ObservableObjec
         IsBusy = true;
         try
         {
-            await transfer.ExportAsync(path, Passphrase, IncludePasswords);
+            int skippedFileCount = await transfer.ExportAsync(path, Passphrase, IncludePasswords);
             IsCompleted = true;
-            return true;
+            if (skippedFileCount == 0) return true;
+            // Keep the dialog open so the user reads which part of the configuration the file lacks.
+            WarningMessage = localization.FormatString("Sharing.ExportSkippedFiles", skippedFileCount);
+            return false;
         }
         catch (InvalidDataException)
         {
             ErrorMessage = Text("ExportFilesTooLarge");
         }
-        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or ArgumentException or System.Security.Cryptography.CryptographicException)
+        catch (Exception)
         {
+            // The transfer service has logged the failure; nothing escapes to the dialog event handler.
             ErrorMessage = Text("ExportFailed");
         }
         finally

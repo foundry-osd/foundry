@@ -3209,7 +3209,10 @@
     <value>无法导出配置。请检查目标位置，然后重试。</value>
   </data>
   <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
-    <value>此配置的文件总计超过 16 MB，无法导出。</value>
+    <value>此配置的文件总计超过 16 MiB，无法导出。</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>已导出配置，但此电脑上有些文件缺失或已损坏，未包含在内 (数量: {0})。请在配置页面上重新选择这些文件，然后再次导出。</value>
   </data>
   <data name="Sharing.ExportTitle" xml:space="preserve">
     <value>导出配置</value>
@@ -3284,7 +3287,7 @@
     <value>密码短语不匹配。</value>
   </data>
   <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>至少 12 个字符，不能只重复同一个字符。</value>
+    <value>至少 12 个字符，且不能是同一个字符重复 (例如 aaaaaaaaaaaa)。</value>
   </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>已包括</value>
