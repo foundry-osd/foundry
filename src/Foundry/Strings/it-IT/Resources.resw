@@ -3172,6 +3172,90 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Aggiorna l'app</value>
   </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Trasferisci questa configurazione su un altro PC con un file crittografato.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Condivisione della configurazione</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Conferma passphrase</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Set di driver</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Immagine</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Pacchetto post-installazione</value>
+  </data>
+  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+    <value>Copia</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Esporta</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>Configurazione esportata.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Salva le impostazioni e i file di piccole dimensioni in un file crittografato. I pacchetti post-installazione, i set di driver e le immagini non sono inclusi.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>Impossibile esportare la configurazione. Controlla la destinazione e riprova.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>I file di questa configurazione superano complessivamente 16 MB e non possono essere esportati.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Esporta configurazione</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Configurazione di Foundry</value>
+  </data>
+  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+    <value>Genera</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>Importa</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>Configurazione importata.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>Configurazione importata. Su questo PC manca del contenuto: importalo di nuovo dalla relativa pagina.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Sostituisci questa configurazione con un file esportato o con un profilo di distribuzione precedente.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>Impossibile importare la configurazione. La configurazione corrente non è stata modificata.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>Configurazione importata, ma non è stato possibile salvare le password. Immettile di nuovo nelle pagine di configurazione.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Importa configurazione</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Includi password</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Chiunque abbia questo file e la relativa passphrase può leggere queste password.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>Questo file non è una configurazione di Foundry oppure è danneggiato.</value>
+  </data>
+  <data name="Sharing.LockedProfile" xml:space="preserve">
+    <value>Questa configurazione non può essere aperta da questo utente di Windows.</value>
+  </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>Impossibile recuperare alcuni file usati dalla configurazione. Selezionali di nuovo nelle pagine di configurazione.</value>
   </data>
@@ -3180,6 +3264,57 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Impossibile ripristinare le password salvate. Immettile di nuovo nelle pagine di configurazione.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Importa di nuovo questi elementi dalle relative pagine. Fino ad allora, gli elementi di configurazione corrispondenti non sono pronti.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Mancante su questo PC</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Apri</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>Passphrase copiata negli Appunti.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Passphrase</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>Le passphrase non corrispondono.</value>
+  </data>
+  <data name="Sharing.PassphraseRule" xml:space="preserve">
+    <value>Almeno 12 caratteri, non un solo carattere ripetuto.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Incluse</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Non incluse</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Esportata il</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
+    <value>Configurazioni precedenti su questo PC</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>L'importazione sostituisce la configurazione corrente. Il percorso di output ISO, la cartella dei driver WinPE e le impostazioni di telemetria di questo PC vengono mantenuti.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>Impossibile leggere il file.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>Questo file richiede una versione più recente di Foundry OSD.</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Passphrase errata o file danneggiato.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Arresta operazione</value>

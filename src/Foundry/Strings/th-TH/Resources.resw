@@ -3172,6 +3172,90 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>อัปเดตแอป</value>
   </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>ย้ายการกำหนดค่านี้ไปยังพีซีเครื่องอื่นด้วยไฟล์ที่เข้ารหัส</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>การแชร์การกำหนดค่า</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>ยืนยันวลีรหัสผ่าน</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>ชุดไดรเวอร์</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>ไฟล์</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>อิมเมจ</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>แพ็คเกจหลังการติดตั้ง</value>
+  </data>
+  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+    <value>คัดลอก</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>ส่งออก</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>ส่งออกการกำหนดค่าแล้ว</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>บันทึกการตั้งค่าและไฟล์ขนาดเล็กลงในไฟล์ที่เข้ารหัส ไม่รวมแพ็คเกจหลังการติดตั้ง ชุดไดรเวอร์ และอิมเมจ</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>ไม่สามารถส่งออกการกำหนดค่าได้ โปรดตรวจสอบปลายทางแล้วลองอีกครั้ง</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>ไฟล์ของการกำหนดค่านี้มีขนาดรวมเกิน 16 MB และไม่สามารถส่งออกได้</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>ส่งออกการกำหนดค่า</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>ไฟล์</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>การกำหนดค่า Foundry</value>
+  </data>
+  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+    <value>สร้าง</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>นำเข้า</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>นำเข้าการกำหนดค่าแล้ว</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>นำเข้าการกำหนดค่าแล้ว พีซีเครื่องนี้ขาดเนื้อหาบางส่วน: โปรดนำเข้าอีกครั้งในหน้าของเนื้อหานั้น</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>แทนที่การกำหนดค่านี้ด้วยไฟล์ที่ส่งออกหรือโปรไฟล์การปรับใช้ก่อนหน้า</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>ไม่สามารถนำเข้าการกำหนดค่าได้ การกำหนดค่าปัจจุบันไม่มีการเปลี่ยนแปลง</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>นำเข้าการกำหนดค่าแล้ว แต่ไม่สามารถบันทึกรหัสผ่านได้ โปรดป้อนรหัสผ่านอีกครั้งในหน้าการกำหนดค่า</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>นำเข้าการกำหนดค่า</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>รวมรหัสผ่าน</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>ทุกคนที่มีไฟล์นี้และวลีรหัสผ่านของไฟล์จะสามารถอ่านรหัสผ่านเหล่านี้ได้</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>ไฟล์นี้ไม่ใช่การกำหนดค่า Foundry หรือไฟล์เสียหาย</value>
+  </data>
+  <data name="Sharing.LockedProfile" xml:space="preserve">
+    <value>ผู้ใช้ Windows รายนี้ไม่สามารถเปิดการกำหนดค่านี้ได้</value>
+  </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>ไม่สามารถกู้คืนไฟล์บางไฟล์ที่การกำหนดค่าใช้อยู่ได้ โปรดเลือกไฟล์เหล่านั้นอีกครั้งในหน้าการกำหนดค่า</value>
   </data>
@@ -3180,6 +3264,57 @@
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>ไม่สามารถคืนค่ารหัสผ่านที่บันทึกไว้ได้ โปรดป้อนรหัสผ่านอีกครั้งในหน้าการกำหนดค่า</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>โปรดนำเข้ารายการเหล่านี้อีกครั้งในหน้าของรายการนั้น จนกว่าจะนำเข้า รายการการกำหนดค่าที่เกี่ยวข้องจะยังไม่พร้อม</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>ไม่มีบนพีซีเครื่องนี้</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>เปิด</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>คัดลอกวลีรหัสผ่านไปยังคลิปบอร์ดแล้ว</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>วลีรหัสผ่าน</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>วลีรหัสผ่านไม่ตรงกัน</value>
+  </data>
+  <data name="Sharing.PassphraseRule" xml:space="preserve">
+    <value>อย่างน้อย 12 อักขระ และไม่ใช่อักขระเดียวซ้ำกัน</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>รวมอยู่</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>ไม่ได้รวม</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>ส่งออกเมื่อ</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>ชื่อ</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>รหัสผ่าน</value>
+  </data>
+  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
+    <value>การกำหนดค่าก่อนหน้าบนพีซีเครื่องนี้</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>การนำเข้าจะแทนที่การกำหนดค่าปัจจุบัน เส้นทางเอาต์พุต ISO โฟลเดอร์ไดรเวอร์ WinPE และการตั้งค่าการวัดและส่งข้อมูลทางไกลของพีซีเครื่องนี้จะยังคงอยู่</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>ไม่สามารถอ่านไฟล์ได้</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>ไฟล์นี้ต้องใช้ Foundry OSD เวอร์ชันที่ใหม่กว่า</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>วลีรหัสผ่านไม่ถูกต้องหรือไฟล์เสียหาย</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>หยุดการดำเนินการ</value>

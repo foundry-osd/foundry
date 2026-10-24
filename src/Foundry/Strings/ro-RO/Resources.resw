@@ -3172,6 +3172,90 @@ Licențiat sub licența MIT.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Actualizați aplicația</value>
   </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Mutați această configurație pe alt PC cu un fișier criptat.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Partajarea configurației</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Confirmați fraza de acces</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Set de drivere</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>Fișier</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Imagine</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Pachet de post-instalare</value>
+  </data>
+  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+    <value>Copiază</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Exportă</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>Configurația a fost exportată.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Salvează setările și fișierele mici într-un fișier criptat. Pachetele de post-instalare, seturile de drivere și imaginile nu sunt incluse.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>Configurația nu a putut fi exportată. Verificați destinația și încercați din nou.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>Fișierele acestei configurații depășesc în total 16 MB și nu pot fi exportate.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Exportă configurația</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>Fișier</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Configurație Foundry</value>
+  </data>
+  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+    <value>Generează</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>Importă</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>Configurația a fost importată.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>Configurația a fost importată. Pe acest PC lipsește conținut: importați-l din nou pe pagina sa.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Înlocuiește această configurație cu un fișier exportat sau cu un profil de implementare anterior.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>Configurația nu a putut fi importată. Configurația curentă nu a fost modificată.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>Configurația a fost importată, dar parolele sale nu au putut fi salvate. Introduceți-le din nou pe paginile de configurare.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Importă configurația</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Include parolele</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Oricine are acest fișier și fraza sa de acces poate citi aceste parole.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>Acest fișier nu este o configurație Foundry sau este deteriorat.</value>
+  </data>
+  <data name="Sharing.LockedProfile" xml:space="preserve">
+    <value>Această configurație nu poate fi deschisă de acest utilizator Windows.</value>
+  </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>Unele fișiere utilizate de configurație nu au putut fi recuperate. Selectați-le din nou în paginile de configurare.</value>
   </data>
@@ -3180,6 +3264,57 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Parolele salvate nu au putut fi restaurate. Introduceți-le din nou în paginile de configurare.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Importați din nou aceste elemente pe paginile lor. Până atunci, elementele de configurare corespunzătoare nu sunt pregătite.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Lipsește pe acest PC</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Deschide</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>Fraza de acces a fost copiată în clipboard.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Frază de acces</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>Frazele de acces nu se potrivesc.</value>
+  </data>
+  <data name="Sharing.PassphraseRule" xml:space="preserve">
+    <value>Cel puțin 12 caractere, nu un singur caracter repetat.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Incluse</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Neincluse</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Exportată la</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Nume</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Parole</value>
+  </data>
+  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
+    <value>Configurații anterioare pe acest PC</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>Importul înlocuiește configurația curentă. Calea de ieșire ISO, folderul de drivere WinPE și setările de telemetrie ale acestui PC sunt păstrate.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>Fișierul nu a putut fi citit.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>Acest fișier necesită o versiune mai nouă de Foundry OSD.</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Frază de acces greșită sau fișier deteriorat.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Oprește operația</value>

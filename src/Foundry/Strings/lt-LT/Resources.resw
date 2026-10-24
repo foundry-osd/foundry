@@ -3172,6 +3172,90 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Atnaujinti programą</value>
   </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Perkelkite šią konfigūraciją į kitą kompiuterį naudodami užšifruotą failą.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Konfigūracijos bendrinimas</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Patvirtinti slaptafrazę</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Tvarkyklių rinkinys</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>Failas</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Atvaizdas</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Paketas po diegimo</value>
+  </data>
+  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+    <value>Kopijuoti</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Eksportuoti</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>Konfigūracija eksportuota.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Įrašo parametrus ir mažus failus į užšifruotą failą. Paketai po diegimo, tvarkyklių rinkiniai ir atvaizdai neįtraukiami.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>Konfigūracijos nepavyko eksportuoti. Patikrinkite paskirties vietą ir bandykite dar kartą.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>Šios konfigūracijos failai iš viso viršija 16 MB ir negali būti eksportuoti.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Eksportuoti konfigūraciją</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>Failas</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Foundry konfigūracija</value>
+  </data>
+  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+    <value>Generuoti</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>Importuoti</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>Konfigūracija importuota.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>Konfigūracija importuota. Šiame kompiuteryje trūksta turinio: importuokite jį dar kartą atitinkamame puslapyje.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Pakeičia šią konfigūraciją eksportuotu failu arba ankstesniu diegimo profiliu.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>Konfigūracijos nepavyko importuoti. Dabartinė konfigūracija nepakeista.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>Konfigūracija importuota, bet jos slaptažodžių nepavyko įrašyti. Įveskite juos dar kartą konfigūracijos puslapiuose.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Importuoti konfigūraciją</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Įtraukti slaptažodžius</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Bet kas, turintis šį failą ir jo slaptafrazę, gali perskaityti šiuos slaptažodžius.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>Šis failas nėra Foundry konfigūracija arba yra sugadintas.</value>
+  </data>
+  <data name="Sharing.LockedProfile" xml:space="preserve">
+    <value>Šis Windows vartotojas negali atidaryti šios konfigūracijos.</value>
+  </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>Kai kurių konfigūracijos naudojamų failų atkurti nepavyko. Pasirinkite juos iš naujo konfigūracijos puslapiuose.</value>
   </data>
@@ -3180,6 +3264,57 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Įrašytų slaptažodžių atkurti nepavyko. Įveskite juos iš naujo konfigūracijos puslapiuose.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Importuokite šiuos elementus dar kartą jų puslapiuose. Iki tol atitinkami konfigūracijos elementai nėra parengti.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Trūksta šiame kompiuteryje</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Atidaryti</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>Slaptafrazė nukopijuota į mainų sritį.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Slaptafrazė</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>Slaptafrazės nesutampa.</value>
+  </data>
+  <data name="Sharing.PassphraseRule" xml:space="preserve">
+    <value>Bent 12 simbolių, ne vienas pasikartojantis simbolis.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Įtraukti</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Neįtraukti</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Eksportuota</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Pavadinimas</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Slaptažodžiai</value>
+  </data>
+  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
+    <value>Ankstesnės konfigūracijos šiame kompiuteryje</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>Importavimas pakeičia dabartinę konfigūraciją. Šio kompiuterio ISO išvesties kelias, WinPE tvarkyklių aplankas ir telemetrijos parametrai išsaugomi.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>Nepavyko perskaityti failo.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>Šiam failui reikalinga naujesnė Foundry OSD versija.</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Neteisinga slaptafrazė arba sugadintas failas.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Stabdyti operaciją</value>

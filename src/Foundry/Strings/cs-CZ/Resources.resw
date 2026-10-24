@@ -3172,6 +3172,90 @@ Licencováno pod licencí MIT.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Aktualizovat aplikaci</value>
   </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Přeneste tuto konfiguraci na jiný počítač pomocí zašifrovaného souboru.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Sdílení konfigurace</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Potvrdit heslovou frázi</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Sada ovladačů</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>Soubor</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Balíček po instalaci</value>
+  </data>
+  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+    <value>Kopírovat</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Exportovat</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>Konfigurace byla exportována.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Uloží nastavení a malé soubory do zašifrovaného souboru. Balíčky po instalaci, sady ovladačů a image nejsou zahrnuty.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>Konfiguraci nebylo možné exportovat. Zkontrolujte cíl a zkuste to znovu.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>Soubory této konfigurace celkem přesahují 16 MB a nelze je exportovat.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Exportovat konfiguraci</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>Soubor</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Konfigurace Foundry</value>
+  </data>
+  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+    <value>Vygenerovat</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>Importovat</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>Konfigurace byla importována.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>Konfigurace byla importována. Na tomto počítači chybí obsah: importujte ho znovu na příslušné stránce.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Nahradí tuto konfiguraci exportovaným souborem nebo předchozím profilem nasazení.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>Konfiguraci nebylo možné importovat. Aktuální konfigurace zůstala beze změny.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>Konfigurace byla importována, ale její hesla nebylo možné uložit. Zadejte je znovu na stránkách konfigurace.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Importovat konfiguraci</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Zahrnout hesla</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Kdokoli, kdo má tento soubor a jeho heslovou frázi, může tato hesla přečíst.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>Tento soubor není konfigurace Foundry nebo je poškozený.</value>
+  </data>
+  <data name="Sharing.LockedProfile" xml:space="preserve">
+    <value>Tento uživatel systému Windows nemůže tuto konfiguraci otevřít.</value>
+  </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>Některé soubory používané konfigurací se nepodařilo obnovit. Vyberte je znovu na stránkách konfigurace.</value>
   </data>
@@ -3180,6 +3264,57 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Uložená hesla se nepodařilo obnovit. Zadejte je znovu na stránkách konfigurace.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Importujte tyto položky znovu na jejich stránkách. Do té doby nejsou odpovídající položky konfigurace připravené.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Chybí na tomto počítači</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Otevřít</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>Heslová fráze byla zkopírována do schránky.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Heslová fráze</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>Heslové fráze se neshodují.</value>
+  </data>
+  <data name="Sharing.PassphraseRule" xml:space="preserve">
+    <value>Alespoň 12 znaků, ne jeden opakovaný znak.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Zahrnuta</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Nezahrnuta</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Exportováno</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Název</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Hesla</value>
+  </data>
+  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
+    <value>Předchozí konfigurace na tomto počítači</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>Import nahradí aktuální konfiguraci. Výstupní cesta ISO, složka ovladačů WinPE a nastavení telemetrie tohoto počítače zůstanou zachovány.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>Soubor nebylo možné přečíst.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>Tento soubor vyžaduje novější verzi Foundry OSD.</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Nesprávná heslová fráze nebo poškozený soubor.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Zastavit operaci</value>

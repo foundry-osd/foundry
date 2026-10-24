@@ -3172,6 +3172,90 @@ Licensierad under MIT-licensen.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Uppdatera appen</value>
   </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Flytta den här konfigurationen till en annan dator med en krypterad fil.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Delning av konfiguration</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Bekräfta lösenfras</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Drivrutinsuppsättning</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>Fil</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Avbildning</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Paket efter installation</value>
+  </data>
+  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+    <value>Kopiera</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Exportera</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>Konfigurationen har exporterats.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Sparar inställningarna och de små filerna i en krypterad fil. Paket efter installation, drivrutinsuppsättningar och avbildningar ingår inte.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>Konfigurationen kunde inte exporteras. Kontrollera målet och försök igen.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>Filerna i den här konfigurationen överskrider 16 MB totalt och kan inte exporteras.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Exportera konfiguration</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>Fil</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Foundry-konfiguration</value>
+  </data>
+  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+    <value>Generera</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>Importera</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>Konfigurationen har importerats.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>Konfigurationen har importerats. Innehåll saknas på den här datorn: importera det igen på respektive sida.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Ersätter den här konfigurationen med en exporterad fil eller en tidigare distributionsprofil.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>Konfigurationen kunde inte importeras. Den aktuella konfigurationen är oförändrad.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>Konfigurationen har importerats, men lösenorden kunde inte sparas. Ange dem igen på konfigurationssidorna.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Importera konfiguration</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Inkludera lösenord</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Alla som har den här filen och dess lösenfras kan läsa dessa lösenord.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>Den här filen är inte en Foundry-konfiguration, eller så är den skadad.</value>
+  </data>
+  <data name="Sharing.LockedProfile" xml:space="preserve">
+    <value>Den här konfigurationen kan inte öppnas av den här Windows-användaren.</value>
+  </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>Vissa filer som konfigurationen använder kunde inte återställas. Välj dem igen på konfigurationssidorna.</value>
   </data>
@@ -3180,6 +3264,57 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Sparade lösenord kunde inte återställas. Ange dem igen på konfigurationssidorna.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Importera dessa objekt igen på deras sidor. Fram till dess är motsvarande konfigurationsobjekt inte klara.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Saknas på den här datorn</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Öppna</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>Lösenfrasen har kopierats till Urklipp.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Lösenfras</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>Lösenfraserna matchar inte.</value>
+  </data>
+  <data name="Sharing.PassphraseRule" xml:space="preserve">
+    <value>Minst 12 tecken, inte ett enda upprepat tecken.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Ingår</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Ingår inte</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Exporterad</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Namn</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Lösenord</value>
+  </data>
+  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
+    <value>Tidigare konfigurationer på den här datorn</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>Importen ersätter den aktuella konfigurationen. ISO-utdatasökvägen, WinPE-drivrutinsmappen och telemetriinställningarna på den här datorn behålls.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>Filen kunde inte läsas.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>Den här filen kräver en nyare version av Foundry OSD.</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Fel lösenfras eller skadad fil.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Stoppa åtgärden</value>

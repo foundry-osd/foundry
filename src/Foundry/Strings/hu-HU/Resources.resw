@@ -3172,6 +3172,90 @@ Licenc az MIT licenc alatt.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Frissítse az alkalmazást</value>
   </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Vigye át ezt a konfigurációt egy másik számítógépre titkosított fájllal.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Konfiguráció megosztása</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Jelmondat megerősítése</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Illesztőprogram-készlet</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>Fájl</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Lemezkép</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Telepítés utáni csomag</value>
+  </data>
+  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+    <value>Másolás</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Exportálás</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>A konfiguráció exportálva.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>A beállításokat és a kis fájlokat titkosított fájlba menti. A telepítés utáni csomagok, az illesztőprogram-készletek és a lemezképek nem kerülnek bele.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>A konfigurációt nem sikerült exportálni. Ellenőrizze a célhelyet, és próbálkozzon újra.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>A konfiguráció fájljai összesen meghaladják a 16 MB-ot, ezért nem exportálhatók.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Konfiguráció exportálása</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>Fájl</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Foundry-konfiguráció</value>
+  </data>
+  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+    <value>Generálás</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>Importálás</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>A konfiguráció importálva.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>A konfiguráció importálva. Ezen a számítógépen tartalom hiányzik: importálja újra a hozzá tartozó oldalon.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Ezt a konfigurációt egy exportált fájlra vagy egy korábbi üzembehelyezési profilra cseréli.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>A konfigurációt nem sikerült importálni. Az aktuális konfiguráció nem változott.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>A konfiguráció importálva, de a jelszavait nem sikerült menteni. Adja meg őket újra a konfigurációs oldalakon.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Konfiguráció importálása</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Jelszavak belefoglalása</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Bárki, akinél megvan ez a fájl és a jelmondata, elolvashatja ezeket a jelszavakat.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>Ez a fájl nem Foundry-konfiguráció, vagy sérült.</value>
+  </data>
+  <data name="Sharing.LockedProfile" xml:space="preserve">
+    <value>Ez a Windows-felhasználó nem tudja megnyitni ezt a konfigurációt.</value>
+  </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>A konfiguráció által használt egyes fájlokat nem sikerült helyreállítani. Válassza ki őket újra a konfigurációs oldalakon.</value>
   </data>
@@ -3180,6 +3264,57 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>A mentett jelszavakat nem sikerült visszaállítani. Adja meg őket újra a konfigurációs oldalakon.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Importálja újra ezeket az elemeket a saját oldalukon. Addig a megfelelő konfigurációs elemek nem állnak készen.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Hiányzik ezen a számítógépen</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Megnyitás</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>A jelmondat a vágólapra másolva.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Jelmondat</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>A jelmondatok nem egyeznek.</value>
+  </data>
+  <data name="Sharing.PassphraseRule" xml:space="preserve">
+    <value>Legalább 12 karakter, nem egyetlen ismétlődő karakter.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Belefoglalva</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Nincs belefoglalva</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Exportálva</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Név</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Jelszavak</value>
+  </data>
+  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
+    <value>Korábbi konfigurációk ezen a számítógépen</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>Az importálás lecseréli az aktuális konfigurációt. A számítógép ISO-kimeneti útvonala, WinPE-illesztőprogram-mappája és telemetriai beállításai megmaradnak.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>A fájlt nem sikerült beolvasni.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>Ehhez a fájlhoz a Foundry OSD újabb verziója szükséges.</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Helytelen jelmondat vagy sérült fájl.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Művelet leállítása</value>

@@ -2,11 +2,16 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Security.Cryptography;
 using Foundry.Core.Services.Secrets;
 
 namespace Foundry.Services.Secrets;
 
-/// <summary>Reports whether the passwords remembered in the local secret vault could be restored.</summary>
+/// <summary>
+/// The single writer of the local secret vault: reports whether the remembered passwords could be restored, and serves the vault
+/// entries to export, import and sharing.
+/// </summary>
+/// <remarks>Members run on the UI thread, which owns the secret state services the bridge restores into.</remarks>
 public interface ISecretVaultBridge
 {
     /// <summary>
@@ -17,4 +22,22 @@ public interface ISecretVaultBridge
 
     /// <summary>Occurs when <see cref="Status"/> changes.</summary>
     event EventHandler? StatusChanged;
+
+    /// <summary>Returns every vault entry, including the ids the bridge does not own, after saving pending password changes.</summary>
+    /// <remarks>An unreadable vault, or one that could not be read at startup, returns no entries: check <see cref="Status"/>.</remarks>
+    IReadOnlyDictionary<string, string> ReadEntries();
+
+    /// <summary>
+    /// Writes <paramref name="entries"/> into the vault and removes <paramref name="removeIds"/>, keeping every other entry; the
+    /// owned passwords among <paramref name="entries"/> are also pushed into the secret state services.
+    /// </summary>
+    /// <remarks>
+    /// Call after the configuration that owns the passwords is current: an owned password whose owner is not in the configuration
+    /// is dropped at the next save. <paramref name="removeIds"/> accepts only ids <see cref="SecretMap"/> does not own.
+    /// </remarks>
+    /// <exception cref="ArgumentException"><paramref name="removeIds"/> contains an id owned by <see cref="SecretMap"/>.</exception>
+    /// <exception cref="IOException">The vault could not be read at startup or cannot be written.</exception>
+    /// <exception cref="UnauthorizedAccessException">Access to the vault is denied.</exception>
+    /// <exception cref="CryptographicException">The vault content cannot be protected.</exception>
+    void WriteEntries(IReadOnlyDictionary<string, string> entries, IEnumerable<string>? removeIds = null);
 }

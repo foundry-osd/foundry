@@ -3172,6 +3172,90 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>更新应用程序</value>
   </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>使用加密文件将此配置移动到另一台电脑。</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>配置共享</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>确认密码短语</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>驱动程序集</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>映像</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>安装后包</value>
+  </data>
+  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>导出</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>已导出配置。</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>将设置和小文件保存到加密文件中。不包括安装后包、驱动程序集和映像。</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>无法导出配置。请检查目标位置，然后重试。</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>此配置的文件总计超过 16 MB，无法导出。</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>导出配置</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Foundry 配置</value>
+  </data>
+  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+    <value>生成</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>已导入配置。</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>已导入配置。此电脑上缺少某些内容：请在其页面上重新导入。</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>将此配置替换为导出的文件或以前的部署配置文件。</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>无法导入配置。当前配置未更改。</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>已导入配置，但无法保存其密码。请在配置页面上重新输入。</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>导入配置</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>包括密码</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>拥有此文件及其密码短语的任何人都可以读取这些密码。</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>此文件不是 Foundry 配置，或者已损坏。</value>
+  </data>
+  <data name="Sharing.LockedProfile" xml:space="preserve">
+    <value>此 Windows 用户无法打开此配置。</value>
+  </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>无法恢复配置使用的部分文件。请在配置页面上重新选择这些文件。</value>
   </data>
@@ -3180,6 +3264,57 @@
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>无法还原已保存的密码。请在配置页面上重新输入。</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>请在相应页面上重新导入这些项目。在此之前，对应的配置项目尚未就绪。</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>此电脑上缺少</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>打开</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>已将密码短语复制到剪贴板。</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>密码短语</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>密码短语不匹配。</value>
+  </data>
+  <data name="Sharing.PassphraseRule" xml:space="preserve">
+    <value>至少 12 个字符，不能只重复同一个字符。</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>已包括</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>未包括</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>导出时间</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
+    <value>此电脑上以前的配置</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>导入将替换当前配置。将保留此电脑的 ISO 输出路径、WinPE 驱动程序文件夹和遥测设置。</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>无法读取该文件。</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>此文件需要更高版本的 Foundry OSD。</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>密码短语错误或文件已损坏。</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>停止操作</value>

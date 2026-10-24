@@ -170,7 +170,9 @@ public static class ServiceCollectionExtensions
         services.AddTransient<PostInstallationViewModel>();
         services.AddSingleton(_ => new Foundry.Core.Services.Drivers.CustomDriverSetLibrary(Constants.CustomDriverPackagesDirectoryPath));
         services.AddSingleton<CustomDriverSetImportDialogService>();
+        services.AddSingleton<ConfigurationReplacementGate>();
         services.AddSingleton<ContentPackageCleanupService>();
+        services.AddSingleton<Foundry.Services.Sharing.ConfigurationTransferService>();
         services.AddTransient<CustomDriversViewModel>();
         services.AddTransient<UnattendConfigurationViewModel>();
         services.AddTransient<NetworkConfigurationViewModel>();
@@ -182,6 +184,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<StartMediaViewModel>();
         services.AddTransient<HomeLandingViewModel>();
         services.AddTransient<SettingsPageViewModel>();
+        services.AddTransient<ConfigurationSharingViewModel>();
         services.AddTransient<GeneralSettingViewModel>();
         services.AddTransient<AdkPageViewModel>();
         services.AddTransient<AppUpdateSettingViewModel>();

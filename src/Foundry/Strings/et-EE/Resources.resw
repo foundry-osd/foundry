@@ -3172,6 +3172,90 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Värskendage rakendust</value>
   </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Teisaldage see konfiguratsioon krüptitud failiga teise arvutisse.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Konfiguratsiooni ühiskasutus</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Kinnita paroolifraas</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Draiverikomplekt</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>Fail</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Tõmmis</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Installijärgne pakett</value>
+  </data>
+  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+    <value>Kopeeri</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Ekspordi</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>Konfiguratsioon on eksporditud.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Salvestab sätted ja väikesed failid krüptitud faili. Installijärgseid pakette, draiverikomplekte ja tõmmiseid ei kaasata.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>Konfiguratsiooni ei saanud eksportida. Kontrollige sihtkohta ja proovige uuesti.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>Selle konfiguratsiooni failid ületavad kokku 16 MB ja neid ei saa eksportida.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Ekspordi konfiguratsioon</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>Fail</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Foundry konfiguratsioon</value>
+  </data>
+  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+    <value>Genereeri</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>Impordi</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>Konfiguratsioon on imporditud.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>Konfiguratsioon on imporditud. Selles arvutis puudub sisu: importige see uuesti vastaval lehel.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Asendab selle konfiguratsiooni eksporditud faili või varasema juurutusprofiiliga.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>Konfiguratsiooni ei saanud importida. Praegune konfiguratsioon on muutmata.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>Konfiguratsioon on imporditud, kuid selle paroole ei saanud salvestada. Sisestage need konfiguratsioonilehtedel uuesti.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Impordi konfiguratsioon</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Kaasa paroolid</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Igaüks, kellel on see fail ja selle paroolifraas, saab neid paroole lugeda.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>See fail pole Foundry konfiguratsioon või on kahjustatud.</value>
+  </data>
+  <data name="Sharing.LockedProfile" xml:space="preserve">
+    <value>Seda konfiguratsiooni ei saa see Windowsi kasutaja avada.</value>
+  </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>Mõnda konfiguratsiooni kasutatavat faili ei õnnestunud taastada. Valige need konfiguratsioonilehtedel uuesti.</value>
   </data>
@@ -3180,6 +3264,57 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Salvestatud paroole ei õnnestunud taastada. Sisestage need konfiguratsioonilehtedel uuesti.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Importige need üksused nende lehtedel uuesti. Seni pole vastavad konfiguratsiooniüksused valmis.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Puudub selles arvutis</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Ava</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>Paroolifraas kopeeriti lõikelauale.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Paroolifraas</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>Paroolifraasid ei ühti.</value>
+  </data>
+  <data name="Sharing.PassphraseRule" xml:space="preserve">
+    <value>Vähemalt 12 märki, mitte üks korduv märk.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Kaasatud</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Pole kaasatud</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Eksporditud</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Nimi</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Paroolid</value>
+  </data>
+  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
+    <value>Varasemad konfiguratsioonid selles arvutis</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>Importimine asendab praeguse konfiguratsiooni. Selle arvuti ISO väljundtee, WinPE draiverikaust ja telemeetriasätted säilitatakse.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>Faili ei saanud lugeda.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>See fail nõuab Foundry OSD uuemat versiooni.</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Vale paroolifraas või kahjustatud fail.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Peata toiming</value>

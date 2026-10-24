@@ -3172,6 +3172,90 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Оновити додаток</value>
   </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Перенесіть цю конфігурацію на інший комп’ютер за допомогою зашифрованого файлу.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Спільний доступ до конфігурації</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Підтвердження парольної фрази</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Набір драйверів</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>Файл</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Образ</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Пакет після інсталяції</value>
+  </data>
+  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+    <value>Копіювати</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Експортувати</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>Конфігурацію експортовано.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Зберігає параметри й невеликі файли в зашифрований файл. Пакети після інсталяції, набори драйверів і образи не включаються.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>Не вдалося експортувати конфігурацію. Перевірте місце призначення й повторіть спробу.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>Файли цієї конфігурації загалом перевищують 16 MB і не можуть бути експортовані.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Експорт конфігурації</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>Файл</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Конфігурація Foundry</value>
+  </data>
+  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+    <value>Створити</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>Імпортувати</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>Конфігурацію імпортовано.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>Конфігурацію імпортовано. На цьому комп’ютері бракує вмісту: імпортуйте його ще раз на відповідній сторінці.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Замінює цю конфігурацію експортованим файлом або попереднім профілем розгортання.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>Не вдалося імпортувати конфігурацію. Поточну конфігурацію не змінено.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>Конфігурацію імпортовано, але її паролі не вдалося зберегти. Введіть їх ще раз на сторінках конфігурації.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Імпорт конфігурації</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Включити паролі</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Будь-хто, хто має цей файл і його парольну фразу, може прочитати ці паролі.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>Цей файл не є конфігурацією Foundry або пошкоджений.</value>
+  </data>
+  <data name="Sharing.LockedProfile" xml:space="preserve">
+    <value>Цей користувач Windows не може відкрити цю конфігурацію.</value>
+  </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>Не вдалося відновити деякі файли, які використовує конфігурація. Виберіть їх знову на сторінках конфігурації.</value>
   </data>
@@ -3180,6 +3264,57 @@
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Не вдалося відновити збережені паролі. Введіть їх знову на сторінках конфігурації.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Імпортуйте ці елементи ще раз на їхніх сторінках. Доти відповідні елементи конфігурації не готові.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Відсутнє на цьому комп’ютері</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Відкрити</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>Парольну фразу скопійовано в буфер обміну.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Парольна фраза</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>Парольні фрази не збігаються.</value>
+  </data>
+  <data name="Sharing.PassphraseRule" xml:space="preserve">
+    <value>Щонайменше 12 символів, не один повторюваний символ.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Включено</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Не включено</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Дата експорту</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Ім’я</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Паролі</value>
+  </data>
+  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
+    <value>Попередні конфігурації на цьому комп’ютері</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>Імпорт замінює поточну конфігурацію. Шлях виводу ISO, папка драйверів WinPE і параметри телеметрії цього комп’ютера зберігаються.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>Не вдалося прочитати файл.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>Для цього файлу потрібна новіша версія Foundry OSD.</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Неправильна парольна фраза або пошкоджений файл.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Зупинити операцію</value>

@@ -3172,6 +3172,90 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Päivitä sovellus</value>
   </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Siirrä tämä määritys toiseen tietokoneeseen salatulla tiedostolla.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Määrityksen jakaminen</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Vahvista tunnuslause</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Ohjainjoukko</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>Tiedosto</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Levykuva</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Asennuksen jälkeinen paketti</value>
+  </data>
+  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+    <value>Kopioi</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Vie</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>Määritys vietiin.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Tallentaa asetukset ja pienet tiedostot salattuun tiedostoon. Asennuksen jälkeisiä paketteja, ohjainjoukkoja ja levykuvia ei sisällytetä.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>Määritystä ei voitu viedä. Tarkista kohde ja yritä uudelleen.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>Tämän määrityksen tiedostot ylittävät yhteensä 16 MB, eikä niitä voi viedä.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Vie määritys</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>Tiedosto</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Foundry-määritys</value>
+  </data>
+  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+    <value>Luo</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>Tuo</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>Määritys tuotiin.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>Määritys tuotiin. Tästä tietokoneesta puuttuu sisältöä: tuo se uudelleen sen omalla sivulla.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Korvaa tämän määrityksen viedyllä tiedostolla tai aiemmalla käyttöönottoprofiililla.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>Määritystä ei voitu tuoda. Nykyinen määritys on ennallaan.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>Määritys tuotiin, mutta sen salasanoja ei voitu tallentaa. Anna ne uudelleen määrityssivuilla.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Tuo määritys</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Sisällytä salasanat</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Kuka tahansa, jolla on tämä tiedosto ja sen tunnuslause, voi lukea nämä salasanat.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>Tämä tiedosto ei ole Foundry-määritys, tai se on vahingoittunut.</value>
+  </data>
+  <data name="Sharing.LockedProfile" xml:space="preserve">
+    <value>Tämä Windows-käyttäjä ei voi avata tätä määritystä.</value>
+  </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>Joitakin määrityksen käyttämiä tiedostoja ei voitu palauttaa. Valitse ne uudelleen määrityssivuilla.</value>
   </data>
@@ -3180,6 +3264,57 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Tallennettuja salasanoja ei voitu palauttaa. Anna ne uudelleen määrityssivuilla.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Tuo nämä kohteet uudelleen niiden sivuilla. Siihen asti vastaavat määrityskohteet eivät ole valmiita.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Puuttuu tästä tietokoneesta</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Avaa</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>Tunnuslause kopioitiin leikepöydälle.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Tunnuslause</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>Tunnuslauseet eivät täsmää.</value>
+  </data>
+  <data name="Sharing.PassphraseRule" xml:space="preserve">
+    <value>Vähintään 12 merkkiä, ei yhtä toistettua merkkiä.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Sisällytetty</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Ei sisällytetty</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Viety</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Nimi</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Salasanat</value>
+  </data>
+  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
+    <value>Aiemmat määritykset tässä tietokoneessa</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>Tuonti korvaa nykyisen määrityksen. Tämän tietokoneen ISO-tulostepolku, WinPE-ohjainkansio ja telemetria-asetukset säilytetään.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>Tiedostoa ei voitu lukea.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>Tämä tiedosto edellyttää Foundry OSD:n uudempaa versiota.</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Väärä tunnuslause tai vahingoittunut tiedosto.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Pysäytä toiminto</value>

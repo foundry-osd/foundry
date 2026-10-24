@@ -3172,6 +3172,90 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Atjaunināt lietotni</value>
   </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Pārvietojiet šo konfigurāciju uz citu datoru, izmantojot šifrētu failu.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Konfigurācijas koplietošana</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Apstiprināt ieejas frāzi</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Draiveru kopa</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>Fails</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Attēls</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Pēcinstalēšanas pakotne</value>
+  </data>
+  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+    <value>Kopēt</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Eksportēt</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>Konfigurācija eksportēta.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Saglabā iestatījumus un mazos failus šifrētā failā. Pēcinstalēšanas pakotnes, draiveru kopas un attēli netiek iekļauti.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>Konfigurāciju nevarēja eksportēt. Pārbaudiet galamērķi un mēģiniet vēlreiz.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>Šīs konfigurācijas faili kopā pārsniedz 16 MB, un tos nevar eksportēt.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Eksportēt konfigurāciju</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>Fails</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Foundry konfigurācija</value>
+  </data>
+  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+    <value>Ģenerēt</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>Importēt</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>Konfigurācija importēta.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>Konfigurācija importēta. Šajā datorā trūkst satura: importējiet to vēlreiz attiecīgajā lapā.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Aizstāj šo konfigurāciju ar eksportētu failu vai iepriekšēju izvietošanas profilu.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>Konfigurāciju nevarēja importēt. Pašreizējā konfigurācija nav mainīta.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>Konfigurācija importēta, taču tās paroles nevarēja saglabāt. Ievadiet tās vēlreiz konfigurācijas lapās.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Importēt konfigurāciju</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Iekļaut paroles</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Ikviens, kuram ir šis fails un tā ieejas frāze, var izlasīt šīs paroles.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>Šis fails nav Foundry konfigurācija vai ir bojāts.</value>
+  </data>
+  <data name="Sharing.LockedProfile" xml:space="preserve">
+    <value>Šis Windows lietotājs nevar atvērt šo konfigurāciju.</value>
+  </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>Dažus konfigurācijas izmantotos failus nevarēja atgūt. Atlasiet tos vēlreiz konfigurācijas lapās.</value>
   </data>
@@ -3180,6 +3264,57 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Saglabātās paroles nevarēja atjaunot. Ievadiet tās vēlreiz konfigurācijas lapās.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Importējiet šos vienumus vēlreiz to lapās. Līdz tam atbilstošie konfigurācijas vienumi nav gatavi.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Trūkst šajā datorā</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Atvērt</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>Ieejas frāze nokopēta starpliktuvē.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Ieejas frāze</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>Ieejas frāzes nesakrīt.</value>
+  </data>
+  <data name="Sharing.PassphraseRule" xml:space="preserve">
+    <value>Vismaz 12 rakstzīmes, ne viena atkārtota rakstzīme.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Iekļautas</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Nav iekļautas</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Eksportēts</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Nosaukums</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Paroles</value>
+  </data>
+  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
+    <value>Iepriekšējās konfigurācijas šajā datorā</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>Importēšana aizstāj pašreizējo konfigurāciju. Šī datora ISO izvades ceļš, WinPE draiveru mape un telemetrijas iestatījumi tiek saglabāti.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>Failu nevarēja nolasīt.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>Šim failam ir nepieciešama jaunāka Foundry OSD versija.</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Nepareiza ieejas frāze vai bojāts fails.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Apturēt operāciju</value>

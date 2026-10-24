@@ -3172,6 +3172,90 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>עדכן את האפליקציה</value>
   </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>העבר תצורה זו למחשב אחר באמצעות קובץ מוצפן.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>שיתוף תצורה</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>אשר את ביטוי הסיסמה</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>ערכת מנהלי התקנים</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>קובץ</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>תמונה</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>חבילה לאחר התקנה</value>
+  </data>
+  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+    <value>העתק</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>ייצא</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>התצורה יוצאה.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>שומר את ההגדרות ואת הקבצים הקטנים בקובץ מוצפן. חבילות לאחר התקנה, ערכות מנהלי התקנים ותמונות אינן כלולות.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>לא ניתן היה לייצא את התצורה. בדוק את היעד ונסה שוב.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>הקבצים של תצורה זו חורגים מ-16 MB בסך הכול ולא ניתן לייצא אותם.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>ייצוא תצורה</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>קובץ</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>תצורת Foundry</value>
+  </data>
+  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+    <value>צור</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>ייבא</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>התצורה יובאה.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>התצורה יובאה. חסר תוכן במחשב זה: ייבא אותו שוב בדף שלו.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>מחליף תצורה זו בקובץ שיוצא או בפרופיל פריסה קודם.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>לא ניתן היה לייבא את התצורה. התצורה הנוכחית לא השתנתה.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>התצורה יובאה, אך לא ניתן היה לשמור את הסיסמאות שלה. הזן אותן שוב בדפי התצורה.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>ייבוא תצורה</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>כלול סיסמאות</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>כל מי שיש ברשותו קובץ זה וביטוי הסיסמה שלו יכול לקרוא סיסמאות אלה.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>קובץ זה אינו תצורת Foundry, או שהוא פגום.</value>
+  </data>
+  <data name="Sharing.LockedProfile" xml:space="preserve">
+    <value>משתמש Windows זה אינו יכול לפתוח תצורה זו.</value>
+  </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>לא ניתן היה לשחזר חלק מהקבצים שבהם התצורה משתמשת. בחר אותם שוב בדפי התצורה.</value>
   </data>
@@ -3180,6 +3264,57 @@
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>לא ניתן היה לשחזר את הסיסמאות השמורות. הזן אותן שוב בדפי התצורה.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>ייבא שוב פריטים אלה בדפים שלהם. עד אז, פריטי התצורה התואמים אינם מוכנים.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>חסר במחשב זה</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>פתח</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>ביטוי הסיסמה הועתק ללוח.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>ביטוי סיסמה</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>ביטויי הסיסמה אינם תואמים.</value>
+  </data>
+  <data name="Sharing.PassphraseRule" xml:space="preserve">
+    <value>לפחות 12 תווים, לא תו יחיד שחוזר על עצמו.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>כלולות</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>לא כלולות</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>יוצא בתאריך</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>שם</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>סיסמאות</value>
+  </data>
+  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
+    <value>תצורות קודמות במחשב זה</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>הייבוא מחליף את התצורה הנוכחית. נתיב הפלט של ISO, תיקיית מנהלי ההתקנים של WinPE והגדרות הטלמטריה של מחשב זה נשמרים.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>לא ניתן היה לקרוא את הקובץ.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>קובץ זה דורש גרסה חדשה יותר של Foundry OSD.</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>ביטוי סיסמה שגוי או קובץ פגום.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>עצור פעולה</value>

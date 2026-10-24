@@ -3172,6 +3172,90 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Uygulamayı güncelle</value>
   </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Bu yapılandırmayı şifreli bir dosyayla başka bir bilgisayara taşıyın.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Yapılandırma paylaşımı</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Parola ifadesini onayla</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Sürücü kümesi</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>Dosya</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Görüntü</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Yükleme sonrası paket</value>
+  </data>
+  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+    <value>Kopyala</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Dışarı aktar</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>Yapılandırma dışarı aktarıldı.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Ayarları ve küçük dosyaları şifreli bir dosyaya kaydeder. Yükleme sonrası paketler, sürücü kümeleri ve görüntüler dahil edilmez.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>Yapılandırma dışarı aktarılamadı. Hedefi denetleyip yeniden deneyin.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>Bu yapılandırmanın dosyaları toplamda 16 MB'ı aşıyor ve dışarı aktarılamıyor.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Yapılandırmayı dışarı aktar</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>Dosya</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Foundry yapılandırması</value>
+  </data>
+  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+    <value>Oluştur</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>İçeri aktar</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>Yapılandırma içeri aktarıldı.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>Yapılandırma içeri aktarıldı. Bu bilgisayarda eksik içerik var: ilgili sayfasında yeniden içeri aktarın.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Bu yapılandırmayı dışarı aktarılmış bir dosyayla veya önceki bir dağıtım profiliyle değiştirir.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>Yapılandırma içeri aktarılamadı. Geçerli yapılandırma değiştirilmedi.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>Yapılandırma içeri aktarıldı ancak parolaları kaydedilemedi. Bunları yapılandırma sayfalarında yeniden girin.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Yapılandırmayı içeri aktar</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Parolaları dahil et</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Bu dosyaya ve parola ifadesine sahip olan herkes bu parolaları okuyabilir.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>Bu dosya bir Foundry yapılandırması değil veya hasarlı.</value>
+  </data>
+  <data name="Sharing.LockedProfile" xml:space="preserve">
+    <value>Bu yapılandırma bu Windows kullanıcısı tarafından açılamaz.</value>
+  </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>Yapılandırmanın kullandığı bazı dosyalar kurtarılamadı. Bunları yapılandırma sayfalarında yeniden seçin.</value>
   </data>
@@ -3180,6 +3264,57 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Kaydedilen parolalar geri yüklenemedi. Bunları yapılandırma sayfalarında yeniden girin.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Bu öğeleri kendi sayfalarında yeniden içeri aktarın. O zamana kadar ilgili yapılandırma öğeleri hazır değildir.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Bu bilgisayarda eksik</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Aç</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>Parola ifadesi panoya kopyalandı.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Parola ifadesi</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>Parola ifadeleri eşleşmiyor.</value>
+  </data>
+  <data name="Sharing.PassphraseRule" xml:space="preserve">
+    <value>En az 12 karakter, tek bir yinelenen karakter değil.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Dahil</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Dahil değil</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Dışarı aktarma tarihi</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Parolalar</value>
+  </data>
+  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
+    <value>Bu bilgisayardaki önceki yapılandırmalar</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>İçeri aktarma geçerli yapılandırmayı değiştirir. Bu bilgisayarın ISO çıkış yolu, WinPE sürücü klasörü ve telemetri ayarları korunur.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>Dosya okunamadı.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>Bu dosya, Foundry OSD'nin daha yeni bir sürümünü gerektirir.</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Yanlış parola ifadesi veya hasarlı dosya.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>İşlemi durdur</value>

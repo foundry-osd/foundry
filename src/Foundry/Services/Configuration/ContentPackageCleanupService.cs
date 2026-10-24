@@ -16,12 +16,14 @@ namespace Foundry.Services.Configuration;
 /// <remarks>
 /// The entry is always removed and persisted before any content is touched, so a failed cleanup never leaves a
 /// configuration pointing at deleted content. The libraries refuse to delete leased content or content holding unknown
-/// files, so a running media build or publication keeps what it reads.
+/// files, so a running media build or publication keeps what it reads. References are re-read and content deleted
+/// under <see cref="ConfigurationReplacementGate"/>, so a configuration replaced meanwhile (an import) keeps what it references.
 /// </remarks>
 public sealed class ContentPackageCleanupService(
     IFoundryConfigurationStateService configuration,
     ContentPackageLibraryService postInstallationLibrary,
-    CustomDriverSetLibrary driverSetLibrary)
+    CustomDriverSetLibrary driverSetLibrary,
+    ConfigurationReplacementGate replacementGate)
 {
     private static readonly Serilog.ILogger Logger = Serilog.Log.ForContext<ContentPackageCleanupService>();
 
@@ -41,6 +43,7 @@ public sealed class ContentPackageCleanupService(
         Logger.Information("Post-installation package cleanup started. ActionId={ActionId}, ContentHash={ContentHash}", actionId, package.ContentHash);
         try
         {
+            using IDisposable gate = await replacementGate.EnterAsync();
             IReadOnlySet<string> references = ConfigurationContentReferences.PostInstallationPackageHashes(configuration.Current);
             if (references.Contains(package.ContentHash))
             {
@@ -81,6 +84,7 @@ public sealed class ContentPackageCleanupService(
         Logger.Information("Custom driver set package cleanup started. SetId={SetId}, ContentHash={ContentHash}", setId, contentHash);
         try
         {
+            using IDisposable gate = await replacementGate.EnterAsync();
             IReadOnlySet<string> references = ConfigurationContentReferences.DriverSetHashes(configuration.Current);
             if (references.Contains(contentHash))
             {

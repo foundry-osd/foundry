@@ -3172,6 +3172,90 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>App bijwerken</value>
   </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Zet deze configuratie over naar een andere pc met een versleuteld bestand.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Configuratie delen</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Wachtwoordzin bevestigen</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Stuurprogrammaset</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>Bestand</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Installatiekopie</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Pakket na installatie</value>
+  </data>
+  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+    <value>Kopiëren</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Exporteren</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>Configuratie geëxporteerd.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Slaat de instellingen en kleine bestanden op in een versleuteld bestand. Pakketten na installatie, stuurprogrammasets en installatiekopieën worden niet meegenomen.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>De configuratie kan niet worden geëxporteerd. Controleer de bestemming en probeer het opnieuw.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>De bestanden van deze configuratie zijn samen groter dan 16 MB en kunnen niet worden geëxporteerd.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Configuratie exporteren</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>Bestand</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Foundry-configuratie</value>
+  </data>
+  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+    <value>Genereren</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>Importeren</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>Configuratie geïmporteerd.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>Configuratie geïmporteerd. Er ontbreekt inhoud op deze pc: importeer deze opnieuw op de bijbehorende pagina.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Vervangt deze configuratie door een geëxporteerd bestand of een eerder implementatieprofiel.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>De configuratie kan niet worden geïmporteerd. De huidige configuratie is ongewijzigd.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>Configuratie geïmporteerd, maar de wachtwoorden konden niet worden opgeslagen. Voer ze opnieuw in op de configuratiepagina's.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Configuratie importeren</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Wachtwoorden opnemen</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Iedereen met dit bestand en de wachtwoordzin kan deze wachtwoorden lezen.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>Dit bestand is geen Foundry-configuratie of is beschadigd.</value>
+  </data>
+  <data name="Sharing.LockedProfile" xml:space="preserve">
+    <value>Deze configuratie kan niet worden geopend door deze Windows-gebruiker.</value>
+  </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>Sommige bestanden die de configuratie gebruikt, kunnen niet worden hersteld. Selecteer ze opnieuw op de configuratiepagina's.</value>
   </data>
@@ -3180,6 +3264,57 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Opgeslagen wachtwoorden kunnen niet worden hersteld. Voer ze opnieuw in op de configuratiepagina's.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Importeer deze items opnieuw op hun pagina's. Tot die tijd zijn de bijbehorende configuratie-items niet gereed.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Ontbreekt op deze pc</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Openen</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>Wachtwoordzin gekopieerd naar het klembord.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Wachtwoordzin</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>De wachtwoordzinnen komen niet overeen.</value>
+  </data>
+  <data name="Sharing.PassphraseRule" xml:space="preserve">
+    <value>Minimaal 12 tekens, niet één herhaald teken.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Opgenomen</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Niet opgenomen</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Geëxporteerd op</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Wachtwoorden</value>
+  </data>
+  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
+    <value>Eerdere configuraties op deze pc</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>Importeren vervangt de huidige configuratie. Het ISO-uitvoerpad, de WinPE-stuurprogrammamap en de telemetrie-instellingen van deze pc blijven behouden.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>Het bestand kan niet worden gelezen.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>Voor dit bestand is een nieuwere versie van Foundry OSD vereist.</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Onjuiste wachtwoordzin of beschadigd bestand.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Bewerking stoppen</value>

@@ -3172,6 +3172,90 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>تحديث التطبيق</value>
   </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>انقل هذا التكوين إلى كمبيوتر آخر باستخدام ملف مشفر.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>مشاركة التكوين</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>تأكيد عبارة المرور</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>مجموعة برامج تشغيل</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>ملف</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>صورة</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>حزمة ما بعد التثبيت</value>
+  </data>
+  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+    <value>نسخ</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>تصدير</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>تم تصدير التكوين.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>يحفظ الإعدادات والملفات الصغيرة في ملف مشفر. لا يتم تضمين حزم ما بعد التثبيت ومجموعات برامج التشغيل والصور.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>تعذر تصدير التكوين. تحقق من الوجهة وحاول مرة أخرى.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>تتجاوز ملفات هذا التكوين 16 MB في المجموع ولا يمكن تصديرها.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>تصدير التكوين</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>الملف</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>تكوين Foundry</value>
+  </data>
+  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+    <value>إنشاء</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>استيراد</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>تم استيراد التكوين.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>تم استيراد التكوين. يوجد محتوى مفقود على هذا الكمبيوتر: استورده مرة أخرى من صفحته.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>يستبدل هذا التكوين بملف تم تصديره أو بملف تعريف توزيع سابق.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>تعذر استيراد التكوين. لم يتغير التكوين الحالي.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>تم استيراد التكوين، ولكن تعذر حفظ كلمات المرور الخاصة به. أدخلها مرة أخرى في صفحات التكوين.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>استيراد تكوين</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>تضمين كلمات المرور</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>يمكن لأي شخص لديه هذا الملف وعبارة المرور الخاصة به قراءة كلمات المرور هذه.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>هذا الملف ليس تكوين Foundry، أو أنه تالف.</value>
+  </data>
+  <data name="Sharing.LockedProfile" xml:space="preserve">
+    <value>لا يمكن لمستخدم Windows هذا فتح هذا التكوين.</value>
+  </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>تعذّر استرداد بعض الملفات التي يستخدمها التكوين. حددها مرة أخرى في صفحات التكوين.</value>
   </data>
@@ -3180,6 +3264,57 @@
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>تعذّرت استعادة كلمات المرور المحفوظة. أدخلها مرة أخرى في صفحات التكوين.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>استورد هذه العناصر مرة أخرى من صفحاتها. وحتى ذلك الحين، لن تكون عناصر التكوين المطابقة جاهزة.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>مفقود على هذا الكمبيوتر</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>فتح</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>تم نسخ عبارة المرور إلى الحافظة.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>عبارة المرور</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>عبارتا المرور غير متطابقتين.</value>
+  </data>
+  <data name="Sharing.PassphraseRule" xml:space="preserve">
+    <value>12 حرفًا على الأقل، وليس حرفًا واحدًا مكررًا.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>مضمنة</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>غير مضمنة</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>تاريخ التصدير</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>كلمات المرور</value>
+  </data>
+  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
+    <value>التكوينات السابقة على هذا الكمبيوتر</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>يستبدل الاستيراد التكوين الحالي. يتم الاحتفاظ بمسار إخراج ISO ومجلد برامج تشغيل WinPE وإعدادات بيانات القياس عن بُعد لهذا الكمبيوتر.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>تعذرت قراءة الملف.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>يتطلب هذا الملف إصدارًا أحدث من Foundry OSD.</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>عبارة مرور خاطئة أو ملف تالف.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>إيقاف العملية</value>

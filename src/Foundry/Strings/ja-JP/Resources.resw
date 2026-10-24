@@ -3172,6 +3172,90 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>アプリを更新する</value>
   </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>暗号化されたファイルを使用して、この構成を別の PC に移動します。</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>構成の共有</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>パスフレーズの確認</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>ドライバー セット</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>ファイル</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>イメージ</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>インストール後のパッケージ</value>
+  </data>
+  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+    <value>コピー</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>エクスポート</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>構成をエクスポートしました。</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>設定と小さなファイルを暗号化されたファイルに保存します。インストール後のパッケージ、ドライバー セット、イメージは含まれません。</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>構成をエクスポートできませんでした。保存先を確認して、もう一度お試しください。</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>この構成のファイルは合計で 16 MB を超えているため、エクスポートできません。</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>構成のエクスポート</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>ファイル</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Foundry 構成</value>
+  </data>
+  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+    <value>生成</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>インポート</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>構成をインポートしました。</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>構成をインポートしました。この PC には不足しているコンテンツがあります。該当するページで再度インポートしてください。</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>この構成を、エクスポートされたファイルまたは以前の展開プロファイルに置き換えます。</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>構成をインポートできませんでした。現在の構成は変更されていません。</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>構成をインポートしましたが、パスワードを保存できませんでした。構成ページで再度入力してください。</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>構成のインポート</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>パスワードを含める</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>このファイルとそのパスフレーズを持っている人は誰でも、これらのパスワードを読み取ることができます。</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>このファイルは Foundry 構成ではないか、破損しています。</value>
+  </data>
+  <data name="Sharing.LockedProfile" xml:space="preserve">
+    <value>この構成は、この Windows ユーザーでは開けません。</value>
+  </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>構成で使用される一部のファイルを回復できませんでした。構成ページでもう一度選択してください。</value>
   </data>
@@ -3180,6 +3264,57 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>保存されたパスワードを復元できませんでした。構成ページでもう一度入力してください。</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>これらの項目を各ページで再度インポートしてください。それまでは、対応する構成項目は準備ができていません。</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>この PC にありません</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>開く</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>パスフレーズをクリップボードにコピーしました。</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>パスフレーズ</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>パスフレーズが一致しません。</value>
+  </data>
+  <data name="Sharing.PassphraseRule" xml:space="preserve">
+    <value>12 文字以上で、同じ文字の繰り返しのみは不可です。</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>含まれています</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>含まれていません</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>エクスポート日時</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>パスワード</value>
+  </data>
+  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
+    <value>この PC 上の以前の構成</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>インポートすると現在の構成が置き換えられます。この PC の ISO 出力パス、WinPE ドライバー フォルダー、テレメトリ設定は保持されます。</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>ファイルを読み取れませんでした。</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>このファイルには、より新しいバージョンの Foundry OSD が必要です。</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>パスフレーズが正しくないか、ファイルが破損しています。</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>操作を停止</value>

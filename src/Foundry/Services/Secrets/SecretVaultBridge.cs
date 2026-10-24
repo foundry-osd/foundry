@@ -114,8 +114,7 @@ internal sealed class SecretVaultBridge : ISecretVaultBridge, IDisposable
         logger.Information("Secret vault loaded. Status={Status}, EntryCount={EntryCount}", Status, vaultEntries.Count);
     }
 
-    /// <summary>Returns every vault entry, including the ids the bridge does not own, after saving pending password changes.</summary>
-    /// <remarks>Call on the UI thread.</remarks>
+    /// <inheritdoc />
     public IReadOnlyDictionary<string, string> ReadEntries()
     {
         ObjectDisposedException.ThrowIf(isDisposed, this);
@@ -123,19 +122,7 @@ internal sealed class SecretVaultBridge : ISecretVaultBridge, IDisposable
         return new Dictionary<string, string>(vaultEntries, StringComparer.Ordinal);
     }
 
-    /// <summary>
-    /// Writes <paramref name="entries"/> into the vault and removes <paramref name="removeIds"/>, keeping every other entry; the
-    /// owned passwords among <paramref name="entries"/> are also pushed into the secret state services.
-    /// </summary>
-    /// <remarks>
-    /// Call on the UI thread, after the configuration that owns the passwords is current: an owned password whose owner is not in
-    /// the configuration is dropped at the next save. Owned passwords are removed through their secret state service, so
-    /// <paramref name="removeIds"/> accepts only ids <see cref="SecretMap"/> does not own.
-    /// </remarks>
-    /// <exception cref="ArgumentException"><paramref name="removeIds"/> contains an id owned by <see cref="SecretMap"/>.</exception>
-    /// <exception cref="IOException">The vault could not be read at startup or cannot be written.</exception>
-    /// <exception cref="UnauthorizedAccessException">Access to the vault is denied.</exception>
-    /// <exception cref="CryptographicException">The vault content cannot be protected.</exception>
+    /// <inheritdoc />
     public void WriteEntries(IReadOnlyDictionary<string, string> entries, IEnumerable<string>? removeIds = null)
     {
         ObjectDisposedException.ThrowIf(isDisposed, this);

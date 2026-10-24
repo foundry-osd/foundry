@@ -3172,6 +3172,90 @@ Licenseret under MIT-licensen.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Opdater app</value>
   </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Flyt denne konfiguration til en anden pc med en krypteret fil.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Deling af konfiguration</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Bekræft adgangssætning</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Driversæt</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>Fil</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Billede</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Pakke efter installation</value>
+  </data>
+  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+    <value>Kopiér</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Eksportér</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>Konfigurationen er eksporteret.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Gemmer indstillingerne og de små filer i en krypteret fil. Pakker efter installation, driversæt og billeder er ikke inkluderet.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>Konfigurationen kunne ikke eksporteres. Kontrollér destinationen, og prøv igen.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>Filerne i denne konfiguration fylder i alt mere end 16 MB og kan ikke eksporteres.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Eksportér konfiguration</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>Fil</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Foundry-konfiguration</value>
+  </data>
+  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+    <value>Generér</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>Importér</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>Konfigurationen er importeret.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>Konfigurationen er importeret. Der mangler indhold på denne pc: Importér det igen på den tilhørende side.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Erstatter denne konfiguration med en eksporteret fil eller en tidligere udrulningsprofil.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>Konfigurationen kunne ikke importeres. Den aktuelle konfiguration er uændret.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>Konfigurationen er importeret, men adgangskoderne kunne ikke gemmes. Angiv dem igen på konfigurationssiderne.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Importér konfiguration</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Medtag adgangskoder</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Alle, der har denne fil og dens adgangssætning, kan læse disse adgangskoder.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>Denne fil er ikke en Foundry-konfiguration, eller den er beskadiget.</value>
+  </data>
+  <data name="Sharing.LockedProfile" xml:space="preserve">
+    <value>Denne konfiguration kan ikke åbnes af denne Windows-bruger.</value>
+  </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>Nogle filer, som konfigurationen bruger, kunne ikke gendannes. Vælg dem igen på konfigurationssiderne.</value>
   </data>
@@ -3180,6 +3264,57 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Gemte adgangskoder kunne ikke gendannes. Angiv dem igen på konfigurationssiderne.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Importér disse elementer igen på deres sider. Indtil da er de tilsvarende konfigurationselementer ikke klar.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Mangler på denne pc</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Åbn</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>Adgangssætningen er kopieret til Udklipsholder.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Adgangssætning</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>Adgangssætningerne stemmer ikke overens.</value>
+  </data>
+  <data name="Sharing.PassphraseRule" xml:space="preserve">
+    <value>Mindst 12 tegn, ikke ét gentaget tegn.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Medtaget</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Ikke medtaget</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Eksporteret den</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Navn</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Adgangskoder</value>
+  </data>
+  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
+    <value>Tidligere konfigurationer på denne pc</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>Import erstatter den aktuelle konfiguration. ISO-outputstien, WinPE-driverfolderen og telemetriindstillingerne på denne pc bevares.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>Filen kunne ikke læses.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>Denne fil kræver en nyere version af Foundry OSD.</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Forkert adgangssætning eller beskadiget fil.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Stop handling</value>

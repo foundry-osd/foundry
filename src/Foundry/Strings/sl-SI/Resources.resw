@@ -3172,6 +3172,90 @@ Licencirano pod licenco MIT.</value>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Posodobi aplikacijo</value>
   </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Prenesite to konfiguracijo v drug računalnik s šifrirano datoteko.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Skupna raba konfiguracije</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Potrdite geslo s frazo</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Nabor gonilnikov</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>Datoteka</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Slika</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Paket po namestitvi</value>
+  </data>
+  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+    <value>Kopiraj</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Izvozi</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>Konfiguracija je izvožena.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Shrani nastavitve in majhne datoteke v šifrirano datoteko. Paketi po namestitvi, nabori gonilnikov in slike niso vključeni.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>Konfiguracije ni bilo mogoče izvoziti. Preverite cilj in poskusite znova.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>Datoteke te konfiguracije skupaj presegajo 16 MB in jih ni mogoče izvoziti.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Izvozi konfiguracijo</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>Datoteka</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Konfiguracija Foundry</value>
+  </data>
+  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+    <value>Ustvari</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>Uvozi</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>Konfiguracija je uvožena.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>Konfiguracija je uvožena. V tem računalniku manjka vsebina: znova jo uvozite na ustrezni strani.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Zamenja to konfiguracijo z izvoženo datoteko ali s prejšnjim profilom uvajanja.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>Konfiguracije ni bilo mogoče uvoziti. Trenutna konfiguracija ni spremenjena.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>Konfiguracija je uvožena, vendar njenih gesel ni bilo mogoče shraniti. Znova jih vnesite na straneh konfiguracije.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Uvozi konfiguracijo</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Vključi gesla</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Vsak, ki ima to datoteko in njeno geslo s frazo, lahko prebere ta gesla.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>Ta datoteka ni konfiguracija Foundry ali pa je poškodovana.</value>
+  </data>
+  <data name="Sharing.LockedProfile" xml:space="preserve">
+    <value>Ta uporabnik sistema Windows ne more odpreti te konfiguracije.</value>
+  </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>Nekaterih datotek, ki jih uporablja konfiguracija, ni bilo mogoče obnoviti. Znova jih izberite na straneh za konfiguracijo.</value>
   </data>
@@ -3180,6 +3264,57 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Shranjenih gesel ni bilo mogoče obnoviti. Znova jih vnesite na straneh za konfiguracijo.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Znova uvozite te elemente na njihovih straneh. Do takrat ustrezni elementi konfiguracije niso pripravljeni.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Manjka v tem računalniku</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Odpri</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>Geslo s frazo je kopirano v odložišče.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Geslo s frazo</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>Gesli s frazo se ne ujemata.</value>
+  </data>
+  <data name="Sharing.PassphraseRule" xml:space="preserve">
+    <value>Vsaj 12 znakov, ne en sam ponovljen znak.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Vključena</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Niso vključena</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Izvoženo</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Ime</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Gesla</value>
+  </data>
+  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
+    <value>Prejšnje konfiguracije v tem računalniku</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>Uvoz zamenja trenutno konfiguracijo. Izhodna pot ISO, mapa gonilnikov WinPE in nastavitve telemetrije tega računalnika se ohranijo.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>Datoteke ni bilo mogoče prebrati.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>Ta datoteka zahteva novejšo različico programa Foundry OSD.</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Napačno geslo s frazo ali poškodovana datoteka.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Ustavi postopek</value>

@@ -3172,6 +3172,90 @@
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Актуализирайте приложението</value>
   </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Прехвърлете тази конфигурация на друг компютър с шифрован файл.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Споделяне на конфигурацията</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Потвърждаване на паролата фраза</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Набор драйвери</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>Файл</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Образ</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Пакет след инсталиране</value>
+  </data>
+  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+    <value>Копиране</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Експортиране</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>Конфигурацията е експортирана.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Записва настройките и малките файлове в шифрован файл. Пакетите след инсталиране, наборите драйвери и образите не са включени.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>Конфигурацията не можа да бъде експортирана. Проверете местоназначението и опитайте отново.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>Файловете на тази конфигурация надхвърлят общо 16 MB и не могат да бъдат експортирани.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Експортиране на конфигурацията</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>Файл</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Конфигурация на Foundry</value>
+  </data>
+  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+    <value>Генериране</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>Импортиране</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>Конфигурацията е импортирана.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>Конфигурацията е импортирана. На този компютър липсва съдържание: импортирайте го отново от съответната страница.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Заменя тази конфигурация с експортиран файл или с предишен профил за разполагане.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>Конфигурацията не можа да бъде импортирана. Текущата конфигурация не е променена.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>Конфигурацията е импортирана, но паролите ѝ не можаха да бъдат записани. Въведете ги отново в страниците за конфигуриране.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Импортиране на конфигурация</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Включване на паролите</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Всеки, който има този файл и неговата парола фраза, може да прочете тези пароли.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>Този файл не е конфигурация на Foundry или е повреден.</value>
+  </data>
+  <data name="Sharing.LockedProfile" xml:space="preserve">
+    <value>Тази конфигурация не може да бъде отворена от този потребител на Windows.</value>
+  </data>
   <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
     <value>Някои файлове, използвани от конфигурацията, не можаха да бъдат възстановени. Изберете ги отново в страниците за конфигурация.</value>
   </data>
@@ -3180,6 +3264,57 @@
   </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Запазените пароли не можаха да бъдат възстановени. Въведете ги отново в страниците за конфигурация.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Импортирайте отново тези елементи от техните страници. Дотогава съответните елементи на конфигурацията не са готови.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Липсва на този компютър</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Отваряне</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>Паролата фраза е копирана в клипборда.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Парола фраза</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>Паролите фрази не съвпадат.</value>
+  </data>
+  <data name="Sharing.PassphraseRule" xml:space="preserve">
+    <value>Поне 12 знака, не един повтарящ се знак.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Включени</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Не са включени</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Експортирано на</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Име</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Пароли</value>
+  </data>
+  <data name="Sharing.PreviousConfigurations" xml:space="preserve">
+    <value>Предишни конфигурации на този компютър</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>Импортирането заменя текущата конфигурация. Изходният път за ISO, папката с драйвери за WinPE и настройките за телеметрия на този компютър се запазват.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>Файлът не можа да бъде прочетен.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>Този файл изисква по-нова версия на Foundry OSD.</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Грешна парола фраза или повреден файл.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Спиране на операцията</value>
