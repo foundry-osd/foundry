@@ -508,6 +508,19 @@ public sealed class BuildSnapshotTests : IDisposable
     }
 
     [Fact]
+    public async Task CaptureAsync_ReleasesSourceFileLeaseOnceFilesAreCopied()
+    {
+        AuthoringFileReference template = library.Import("<LANProfile />"u8, "wired.xml");
+        using var secrets = new OobeAccountSecretState();
+        var document = new FoundryConfigurationDocument { Network = new() { Dot1x = new() { IsEnabled = true, ProfileTemplate = template } } };
+
+        using BuildSnapshot snapshot = await Capture(document, secrets);
+
+        Assert.Equal(1, library.DeleteUnreferenced(new HashSet<string>(), library.ImportSequence).Removed);
+        Assert.Equal("<LANProfile />"u8.ToArray(), File.ReadAllBytes(snapshot.ResolveCapturedFile(template)!));
+    }
+
+    [Fact]
     public async Task CaptureAsync_MissingReferencedFile_FailsWithDependencyUnavailable()
     {
         using var secrets = new OobeAccountSecretState();

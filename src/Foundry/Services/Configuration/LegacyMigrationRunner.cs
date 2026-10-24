@@ -29,6 +29,7 @@ internal sealed class LegacyMigrationRunner(
     AuthoringFileLibrary files,
     LocalSecretVault vault,
     IWindowsCredentialStore credentials,
+    AuthoringFileCleanupService fileCleanup,
     ILogger logger)
 {
     private readonly ILogger logger = logger.ForContext<LegacyMigrationRunner>();
@@ -94,6 +95,8 @@ internal sealed class LegacyMigrationRunner(
         logger.Information(
             "Legacy configuration migration completed. ProfileFound={ProfileFound}, ProfileLocked={ProfileLocked}, ImportedFileCount={ImportedFileCount}, SecretCount={SecretCount}, Notices={Notices}",
             profile is not null, locked, importedFiles, result.VaultEntries.Count, string.Join(",", migrations.PendingNotices));
+        // Library files the migration replaced, such as copies imported from legacy host paths, are no longer referenced.
+        fileCleanup.RequestCleanup();
     }
 
     private (LegacyConfigurationSnapshot? Profile, bool Locked, bool Shared) ReadActiveProfile()

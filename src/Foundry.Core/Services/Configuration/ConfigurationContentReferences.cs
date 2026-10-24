@@ -34,6 +34,21 @@ public static class ConfigurationContentReferences
         return ToSet(configuration.CustomImages.Images.Select(image => image.ContentHash));
     }
 
+    /// <summary>
+    /// Gets the content hashes of every authoring file reference: the 802.1X and Wi-Fi profile templates and certificates, the
+    /// Autopilot boot media certificate and every answer file.
+    /// </summary>
+    public static IReadOnlySet<string> AuthoringFileHashes(FoundryConfigurationDocument configuration)
+    {
+        ArgumentNullException.ThrowIfNull(configuration);
+        NetworkSettings network = configuration.Network;
+        return ToSet(new[]
+        {
+            network.Dot1x.ProfileTemplate, network.Dot1x.Certificate, network.Wifi.EnterpriseProfileTemplate, network.Wifi.Certificate,
+            configuration.Autopilot.HardwareHashUpload.BootMediaCertificate.Pfx
+        }.Concat(configuration.Unattend.Files.Select(file => file.File)).Select(reference => reference?.ContentHash));
+    }
+
     private static HashSet<string> ToSet(IEnumerable<string?> hashes) =>
         new(hashes.Where(hash => !string.IsNullOrWhiteSpace(hash))!, StringComparer.OrdinalIgnoreCase);
 }

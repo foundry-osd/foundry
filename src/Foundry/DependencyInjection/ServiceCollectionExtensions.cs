@@ -128,6 +128,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton(_ => new LocalSecretVault(Constants.SecretVaultPath));
         services.AddSingleton<SecretVaultBridge>();
         services.AddSingleton<ISecretVaultBridge>(sp => sp.GetRequiredService<SecretVaultBridge>());
+        services.AddSingleton<AuthoringFileCleanupService>();
         services.AddSingleton<LegacyMigrationRunner>();
         services.AddSingleton<IMigrationNoticeService, MigrationNoticeService>();
         services.AddSingleton<IWinPeLanguageDiscoveryService, WinPeLanguageDiscoveryService>();

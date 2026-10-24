@@ -44,12 +44,15 @@ public sealed class BuildSnapshot : IDisposable
     private FoundryConfigurationDocument configuration;
     private bool isDisposed;
     private PrivateDirectoryLease? privateDirectory;
+    // Keeps the referenced library files from cleanup from the moment the configuration is captured until they are copied.
+    private IDisposable? sourceFilesLease;
 
     private BuildSnapshot(FoundryConfigurationDocument source, BuildSnapshotSources? sources, ReadOnlySpan<char> password, string root, string? authoringVersion)
     {
         configuration = CloneConfiguration(source);
         this.authoringVersion = authoringVersion;
         files = sources?.Files;
+        sourceFilesLease = files?.Lease(ConfigurationContentReferences.AuthoringFileHashes(source));
         deploymentPassword = password.ToArray();
         wifiPassphrase = sources?.Network.WifiPassphrase?.ToCharArray();
         wiredCertificatePassword = sources?.Network.WiredCertificatePfxPassword?.ToCharArray();
@@ -187,6 +190,7 @@ public sealed class BuildSnapshot : IDisposable
         if (!isDisposed)
         {
             isDisposed = true;
+            ReleaseSourceFiles();
             accountSecrets.Dispose();
             domainSecrets.Dispose();
             Clear(deploymentPassword);
@@ -276,7 +280,14 @@ public sealed class BuildSnapshot : IDisposable
         privateDirectory = PrivateDirectory.CreateLeased(privateRootDirectory, MaximumPrivateEntries);
         LogAbandonedCleanup(privateDirectory.AbandonedCleanup);
         configuration = sources;
-        CaptureSources(sources, privateDirectory.Path);
+        try
+        {
+            CaptureSources(sources, privateDirectory.Path);
+        }
+        finally
+        {
+            ReleaseSourceFiles();
+        }
         cancellationToken.ThrowIfCancellationRequested();
         if (!string.IsNullOrWhiteSpace(configuration.General.CustomDriverDirectoryPath))
         {
@@ -354,6 +365,12 @@ public sealed class BuildSnapshot : IDisposable
                 if (content is not null) CryptographicOperations.ZeroMemory(content);
             }
         }
+    }
+
+    private void ReleaseSourceFiles()
+    {
+        sourceFilesLease?.Dispose();
+        sourceFilesLease = null;
     }
 
     private static string SafeExtension(string path) => Path.GetExtension(path).ToLowerInvariant() switch

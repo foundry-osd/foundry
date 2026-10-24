@@ -28,6 +28,12 @@ public interface IFoundryConfigurationStateService
     /// </summary>
     FoundryConfigurationDocument Current { get; }
 
+    /// <summary>
+    /// Gets the configuration last written to disk, or loaded from it when no write succeeded yet; it differs from
+    /// <see cref="Current"/> only after a failed save, and content cleanup keeps what either of them references.
+    /// </summary>
+    FoundryConfigurationDocument SavedConfiguration { get; }
+
     /// <summary>Persists a whole replacement configuration before restoring its local secrets and publishing it.</summary>
     /// <remarks>Increments <see cref="ReplacementVersion"/> before raising <see cref="StateChanged"/>.</remarks>
     void Replace(FoundryConfigurationDocument document, Action restoreSecrets);

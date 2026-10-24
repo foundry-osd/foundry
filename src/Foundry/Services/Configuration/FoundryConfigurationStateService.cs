@@ -77,6 +77,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         FoundryConfigurationDocument loaded = Load();
         loaded = FoundryConfigurationMigration.MigrateDefaultIsoOutput(loaded, Constants.LegacyDefaultIsoPath, Constants.DefaultIsoPath);
         Current = SanitizeForPersistence(loaded);
+        SavedConfiguration = Current;
         Save();
     }
 
@@ -85,6 +86,9 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
 
     /// <inheritdoc />
     public FoundryConfigurationDocument Current { get; private set; }
+
+    /// <inheritdoc />
+    public FoundryConfigurationDocument SavedConfiguration { get; private set; }
 
     /// <inheritdoc />
     public long ReplacementVersion { get; private set; }
@@ -705,6 +709,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
             {
                 File.WriteAllText(temporaryPath, json);
                 File.Move(temporaryPath, Constants.FoundryConfigurationStatePath, true);
+                SavedConfiguration = document;
             }
             finally
             {
