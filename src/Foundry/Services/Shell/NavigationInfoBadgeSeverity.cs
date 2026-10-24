@@ -13,5 +13,8 @@ internal enum NavigationInfoBadgeSeverity
     Informational,
     Success,
     Caution,
-    Critical
+    Critical,
+
+    /// <summary>Shared content is still downloading: the attention style with the download glyph.</summary>
+    Downloading
 }

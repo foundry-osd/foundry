@@ -9,6 +9,9 @@ namespace Foundry.Services.Shell;
 /// </summary>
 internal static class NavigationInfoBadgeFactory
 {
+    /// <summary>The Segoe Fluent Icons "Download" glyph of the <see cref="NavigationInfoBadgeSeverity.Downloading"/> badge.</summary>
+    private const string DownloadGlyph = "";
+
     /// <summary>
     /// Creates an information badge using the built-in icon style for the specified severity.
     /// </summary>
@@ -18,7 +21,7 @@ internal static class NavigationInfoBadgeFactory
     {
         string styleKey = severity switch
         {
-            NavigationInfoBadgeSeverity.Attention => "AttentionIconInfoBadgeStyle",
+            NavigationInfoBadgeSeverity.Attention or NavigationInfoBadgeSeverity.Downloading => "AttentionIconInfoBadgeStyle",
             NavigationInfoBadgeSeverity.Informational => "InformationalIconInfoBadgeStyle",
             NavigationInfoBadgeSeverity.Success => "SuccessIconInfoBadgeStyle",
             NavigationInfoBadgeSeverity.Caution => "CautionIconInfoBadgeStyle",
@@ -29,7 +32,14 @@ internal static class NavigationInfoBadgeFactory
         if (App.Current.Resources.TryGetValue(styleKey, out object styleResource)
             && styleResource is Style style)
         {
-            return new InfoBadge { Style = style };
+            var badge = new InfoBadge { Style = style };
+            if (severity == NavigationInfoBadgeSeverity.Downloading)
+            {
+                // The badge template scales the glyph to the badge size and draws it with the theme's badge foreground.
+                badge.IconSource = new FontIconSource { Glyph = DownloadGlyph };
+            }
+
+            return badge;
         }
 
         throw new InvalidOperationException($"The navigation InfoBadge style '{styleKey}' is unavailable.");
