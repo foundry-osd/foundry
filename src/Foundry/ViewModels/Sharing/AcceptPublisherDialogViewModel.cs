@@ -17,7 +17,7 @@ public sealed partial class AcceptPublisherDialogViewModel : ObservableObject, I
 {
     private readonly ConfigurationSharingService sharing;
     private readonly IApplicationLocalizationService localization;
-    private readonly SharingPublisherCandidate candidate;
+    private SharingPublisherCandidate candidate;
     private readonly string? previousKeyId;
     private bool disposed;
 
@@ -39,8 +39,13 @@ public sealed partial class AcceptPublisherDialogViewModel : ObservableObject, I
     [NotifyPropertyChangedFor(nameof(HasError))]
     public partial string ErrorMessage { get; set; } = string.Empty;
 
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(HasWarning))]
+    public partial string WarningMessage { get; set; } = string.Empty;
+
     public bool CanAccept => !IsBusy && !disposed;
     public bool HasError => ErrorMessage.Length > 0;
+    public bool HasWarning => WarningMessage.Length > 0;
 
     public string PreviousKey => previousKeyId ?? string.Empty;
     public string NewKey => candidate.KeyId;
@@ -59,11 +64,23 @@ public sealed partial class AcceptPublisherDialogViewModel : ObservableObject, I
     {
         if (!CanAccept) return false;
         ErrorMessage = string.Empty;
+        WarningMessage = string.Empty;
         IsBusy = true;
         try
         {
-            SharingStatus status = await sharing.AcceptNewPublisherAsync();
+            SharingStatus status = await sharing.AcceptNewPublisherAsync(candidate.KeyId);
             if (status is SharingStatus.Updated or SharingStatus.UpToDate or SharingStatus.ContentDownloading or SharingStatus.PasswordsNeeded) return true;
+            if (status == SharingStatus.UnknownPublisher && sharing.Engine.Candidate is { } newer && newer.KeyId != candidate.KeyId)
+            {
+                // A check replaced the candidate while this dialog was open: nothing was pinned; show the new key for review.
+                candidate = newer;
+                OnPropertyChanged(nameof(NewKey));
+                OnPropertyChanged(nameof(NewVersion));
+                OnPropertyChanged(nameof(DescriptionText));
+                WarningMessage = Text("CandidateChanged");
+                return false;
+            }
+
             ErrorMessage = localization.GetString(SharingStatusText.Key(SharingRole.Follower, status));
             return false;
         }

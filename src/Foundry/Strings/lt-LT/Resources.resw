@@ -3184,6 +3184,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>Priimti naują etaloninį kompiuterį?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Etaloninis kompiuteris pasikeitė, kol šis dialogo langas buvo atidarytas. Prieš priimdami peržiūrėkite naują raktą.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Perkelkite šią konfigūraciją šifruotu failu arba palaikykite kelių kompiuterių suderinamumą per bendrinamą aplanką.</value>
   </data>
@@ -3213,6 +3216,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Patvirtinkite slaptažodį</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Atsisiunčiama</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>Bendrinamų elementų, kurių nepavyko importuoti į šį kompiuterį, skaičius: {0}. Jie gaunami iš naujo, kai etaloninis kompiuteris publikuoja naują versiją.</value>
@@ -3415,6 +3421,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>Slaptažodžiai nesutampa.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Šią konfigūraciją valdo etaloninis kompiuteris: čia galima įvesti tik slaptažodį.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Įtraukti</value>
   </data>
@@ -3495,6 +3504,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Šis kompiuteris publikuoja savo konfigūraciją</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Nepavyko atsisiųsti viso sekamo publikavimo bendrinamo turinio. Patikrinkite konfigūracijos bendrinimo kortelę parametruose.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Publikavimas ir sekimas šio seanso metu nepasiekiami, nes nepavyko nuskaityti bendrinimo būsenos. Išsamią informaciją rasite žurnale.</value>

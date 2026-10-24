@@ -19,8 +19,10 @@ public sealed partial class OobeAdditionalAccountDialogViewModel : ObservableObj
     public OobeAdditionalAccountDialogViewModel(
         IApplicationLocalizationService localizationService,
         OobeAdditionalAccountSettings? account,
-        IReadOnlyList<OobeAdditionalAccountSettings> existingAccounts)
+        IReadOnlyList<OobeAdditionalAccountSettings> existingAccounts,
+        bool isPasswordOnly = false)
     {
+        IsPasswordOnly = isPasswordOnly;
         this.localizationService = localizationService;
         this.existingAccounts = existingAccounts ?? throw new ArgumentNullException(nameof(existingAccounts));
         accountId = string.IsNullOrWhiteSpace(account?.Id)
@@ -76,6 +78,17 @@ public sealed partial class OobeAdditionalAccountDialogViewModel : ObservableObj
     [ObservableProperty]
     public partial SelectionOption<OobeAccountType>? SelectedAccountType { get; set; }
 
+    /// <summary>Gets whether only the password can be entered: a followed publication manages the account itself.</summary>
+    public bool IsPasswordOnly { get; }
+
+    /// <summary>Gets whether the user name, type and password switch can be edited.</summary>
+    public bool IsAccountEditable => !IsPasswordOnly;
+
+    public Visibility PasswordOnlyHintVisibility => IsPasswordOnly ? Visibility.Visible : Visibility.Collapsed;
+
+    [ObservableProperty]
+    public partial string PasswordOnlyHint { get; set; }
+
     public bool IsEditing => existingAccounts.Any(account => string.Equals(account.Id, accountId, StringComparison.Ordinal));
 
     public OobeAdditionalAccountDialogResult? TryCreateResult(string password, string confirmation, out string validationMessage)
@@ -130,6 +143,7 @@ public sealed partial class OobeAdditionalAccountDialogViewModel : ObservableObj
                 ? "Customization.OobeAdditionalAccountDialog.EditTitle"
                 : "Customization.OobeAdditionalAccountDialog.AddTitle");
         Description = localizationService.GetString("Customization.OobeAdditionalAccountDialog.Description");
+        PasswordOnlyHint = localizationService.GetString("Sharing.PasswordOnlyHint");
         UserNameLabel = localizationService.GetString("Customization.OobeAdditionalAccountDialog.UserNameLabel");
         AccountTypeLabel = localizationService.GetString("Customization.OobeAdditionalAccountDialog.AccountTypeLabel");
         PasswordLabel = localizationService.GetString("Customization.OobeAccountPasswordLabel");

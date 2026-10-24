@@ -3184,6 +3184,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>Yeni başvuru kabul edilsin mi?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Bu iletişim kutusu açıkken başvuru değişti. Kabul etmeden önce yeni anahtarı gözden geçirin.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Bu yapılandırmayı şifrelenmiş bir dosyayla taşıyın veya paylaşılan bir klasör aracılığıyla birden çok bilgisayarı uyumlu tutun.</value>
   </data>
@@ -3213,6 +3216,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Parolayı onaylayın</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>İndiriliyor</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>Bu bilgisayara içeri aktarılamayan paylaşılan öğe sayısı: {0}. Başvuru bilgisayarı yeni bir sürüm yayımladığında yeniden alınırlar.</value>
@@ -3415,6 +3421,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>Parolalar eşleşmiyor.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Bu yapılandırma bir başvuru bilgisayarı tarafından yönetiliyor: burada yalnızca parola girilebilir.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Dahil</value>
   </data>
@@ -3495,6 +3504,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Bu bilgisayar kendi yapılandırmasını yayımlıyor</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>İzlenen yayının paylaşılan içeriğinin tamamı indirilemedi. Ayarlar'daki yapılandırma paylaşımı kartını denetleyin.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Paylaşım durumu okunamadığından yayımlama ve izleme bu oturum boyunca kullanılamıyor. Ayrıntılar için günlüğe bakın.</value>

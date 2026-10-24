@@ -68,6 +68,44 @@ public sealed class ConfigurationOverviewEvaluatorTests
     }
 
     [Theory]
+    [InlineData(true, ConfigurationOverviewState.Downloading)]
+    [InlineData(false, ConfigurationOverviewState.NeedsAttention)]
+    public void Evaluate_MissingPublishedContent_IsDownloadingOnlyWhileTheFetchRuns(bool isDownloading, ConfigurationOverviewState expected)
+    {
+        var action = PreOobeActionSettings.Create(PreOobeActionKind.Command, "Command") with { IsEnabled = true, Command = "echo ready" };
+        var configuration = new FoundryConfigurationDocument
+        {
+            PreOobe = new() { IsEnabled = true, Actions = [action] },
+            CustomDrivers = new CustomDriverSetsSettings { IsEnabled = true, Sets = [CreateDriverSet(isIncluded: true)] }
+        };
+
+        ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(CreateContext(configuration) with
+        {
+            IsPostInstallationReady = false,
+            IsCustomDriversReady = false,
+            IsSharedContentDownloading = isDownloading
+        });
+
+        Assert.Equal(expected, evaluation[ConfigurationOverviewItem.PostInstallation]);
+        Assert.Equal(expected, evaluation[ConfigurationOverviewItem.CustomDrivers]);
+        Assert.Equal(expected, ConfigurationOverviewNavigationEvaluator.EvaluateTarget(evaluation, ConfigurationNavigationTarget.PostInstallation));
+    }
+
+    [Fact]
+    public void Evaluate_InvalidSettingsWhileDownloading_NeedsAttention()
+    {
+        var configuration = new FoundryConfigurationDocument
+        {
+            CustomDrivers = new CustomDriverSetsSettings { IsEnabled = true, Sets = [CreateDriverSet(isIncluded: false)] }
+        };
+
+        ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(
+            CreateContext(configuration) with { IsCustomDriversReady = false, IsSharedContentDownloading = true });
+
+        Assert.Equal(ConfigurationOverviewState.NeedsAttention, evaluation[ConfigurationOverviewItem.CustomDrivers]);
+    }
+
+    [Theory]
     [InlineData(false, false, ConfigurationOverviewState.Disabled)]
     [InlineData(true, true, ConfigurationOverviewState.Configured)]
     [InlineData(true, false, ConfigurationOverviewState.NeedsAttention)]

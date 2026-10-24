@@ -3184,6 +3184,9 @@ Licencováno pod licencí MIT.</value>
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>Přijmout novou referenci?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Reference se změnila, zatímco bylo toto dialogové okno otevřené. Před přijetím zkontrolujte nový klíč.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Přeneste tuto konfiguraci pomocí šifrovaného souboru nebo udržujte více počítačů ve shodě pomocí sdílené složky.</value>
   </data>
@@ -3213,6 +3216,9 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Potvrdit heslo</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Stahuje se</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>Počet sdílených položek, které nebylo možné na tento počítač importovat: {0}. Načtou se znovu, až referenční počítač publikuje novou verzi.</value>
@@ -3415,6 +3421,9 @@ Licencováno pod licencí MIT.</value>
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>Hesla se neshodují.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Tuto konfiguraci spravuje referenční počítač: zde lze zadat pouze heslo.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Zahrnuta</value>
   </data>
@@ -3495,6 +3504,9 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Tento počítač publikuje svou konfiguraci</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Sdílený obsah sledované publikace se nepodařilo stáhnout celý. Zkontrolujte kartu sdílení konfigurace v Nastavení.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Publikování a sledování nejsou během této relace k dispozici, protože stav sdílení nebylo možné přečíst. Podrobnosti najdete v protokolu.</value>

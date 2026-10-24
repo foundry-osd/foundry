@@ -95,6 +95,13 @@ public interface IFoundryConfigurationStateService
     bool IsDeployConfigurationReady { get; }
 
     /// <summary>
+    /// Gets whether Deploy configuration could be emitted once the library content it references is present: the same checks as
+    /// <see cref="IsDeployConfigurationReady"/>, with post-installation packages, driver sets and images judged by their settings
+    /// only. A follower uses it while its publication content is downloading, so a media build can start and wait for the content.
+    /// </summary>
+    bool IsDeployConfigurationReadyExceptLibraryContent { get; }
+
+    /// <summary>
     /// Gets a value indicating whether Connect provisioning files can be generated.
     /// </summary>
     bool IsConnectProvisioningReady { get; }

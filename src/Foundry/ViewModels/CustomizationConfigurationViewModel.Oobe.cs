@@ -363,7 +363,8 @@ public sealed partial class CustomizationConfigurationViewModel
                 entry.Account,
                 OobeAdditionalAccounts.Select(account => account.Account).ToArray(),
                 password,
-                confirmation);
+                confirmation,
+                isPasswordOnly: configurationStateService.IsManaged);
             if (result is null)
             {
                 return;
@@ -577,6 +578,7 @@ public sealed partial class CustomizationConfigurationViewModel
             OobeAdditionalAccountsRemoveButton,
             EditOobeAdditionalAccountAsync,
             RemoveOobeAdditionalAccount,
+            () => managed.ArePasswordsEditable,
             () => !configurationStateService.IsManaged);
     }
 

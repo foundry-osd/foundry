@@ -3184,6 +3184,9 @@
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>Принять новый эталон?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Эталон изменился, пока это диалоговое окно было открыто. Проверьте новый ключ перед тем, как принять его.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Переносите эту конфигурацию с помощью зашифрованного файла или поддерживайте согласованность нескольких компьютеров через общую папку.</value>
   </data>
@@ -3213,6 +3216,9 @@
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Подтвердите пароль</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Загрузка</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>Не удалось импортировать на этот компьютер общих элементов: {0}. Они будут получены повторно, когда эталонный компьютер опубликует новую версию.</value>
@@ -3415,6 +3421,9 @@
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>Пароли не совпадают.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Этой конфигурацией управляет эталонный компьютер: здесь можно ввести только пароль.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Включены</value>
   </data>
@@ -3495,6 +3504,9 @@
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Этот компьютер публикует свою конфигурацию</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Не удалось полностью загрузить общее содержимое отслеживаемой публикации. Проверьте карточку общего доступа к конфигурации в разделе «Параметры».</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Публикация и отслеживание недоступны в этом сеансе, так как не удалось прочитать состояние общего доступа. Подробности см. в журнале.</value>

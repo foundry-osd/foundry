@@ -3184,6 +3184,9 @@ Licencirano pod MIT licencom.</value>
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>Prihvatiti novu referencu?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Referenca se promenila dok je ovaj dijalog bio otvoren. Pregledajte novi ključ pre nego što ga prihvatite.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Prenesite ovu konfiguraciju šifrovanom datotekom ili uskladite više računara pomoću deljene fascikle.</value>
   </data>
@@ -3213,6 +3216,9 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Potvrdite lozinku</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Preuzimanje</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>Broj deljenih stavki koje nije bilo moguće uvesti na ovaj računar: {0}. Ponovo se preuzimaju kada referentni računar objavi novu verziju.</value>
@@ -3415,6 +3421,9 @@ Licencirano pod MIT licencom.</value>
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>Lozinke se ne podudaraju.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Ovom konfiguracijom upravlja referentni računar: ovde se može uneti samo lozinka.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Uključene</value>
   </data>
@@ -3495,6 +3504,9 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Ovaj računar objavljuje svoju konfiguraciju</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Deljeni sadržaj praćene objave nije bilo moguće u potpunosti preuzeti. Proverite karticu deljenja konfiguracije u podešavanjima.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Objavljivanje i praćenje nisu dostupni tokom ove sesije jer stanje deljenja nije bilo moguće pročitati. Detalje potražite u evidenciji.</value>

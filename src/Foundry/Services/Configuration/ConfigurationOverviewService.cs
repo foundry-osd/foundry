@@ -21,6 +21,8 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
     private readonly IOobeAccountSecretStateService oobeAccountSecretStateService;
     private readonly IDomainJoinSecretStateService domainJoinSecretStateService;
     private readonly IWinPeLanguageDiscoveryService languageDiscoveryService;
+    private readonly Foundry.Services.Sharing.ConfigurationSharingService sharing;
+    private bool wasSharedContentDownloading;
     private ConfigurationOverviewEvaluation? cachedEvaluation;
 
     public ConfigurationOverviewService(
@@ -30,8 +32,10 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
         INetworkSecretStateService networkSecretStateService,
         IOobeAccountSecretStateService oobeAccountSecretStateService,
         IDomainJoinSecretStateService domainJoinSecretStateService,
-        IWinPeLanguageDiscoveryService languageDiscoveryService)
+        IWinPeLanguageDiscoveryService languageDiscoveryService,
+        Foundry.Services.Sharing.ConfigurationSharingService sharing)
     {
+        this.sharing = sharing;
         this.adkService = adkService;
         this.configurationStateService = configurationStateService;
         this.deploymentProtectionSecretStateService = deploymentProtectionSecretStateService;
@@ -46,6 +50,7 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
         networkSecretStateService.Changed += OnUnderlyingStateChanged;
         oobeAccountSecretStateService.Changed += OnUnderlyingStateChanged;
         domainJoinSecretStateService.Changed += OnUnderlyingStateChanged;
+        sharing.Changed += OnSharingChanged;
     }
 
     public event EventHandler? Changed;
@@ -74,7 +79,8 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
                 IsCustomImagesReady = configurationStateService.IsCustomImagesReady,
                 IsPostInstallationReady = configurationStateService.IsPostInstallationReady,
                 IsCustomDriversReady = configurationStateService.IsCustomDriversReady,
-                IsUnattendConfigurationReady = configurationStateService.IsUnattendConfigurationReady
+                IsUnattendConfigurationReady = configurationStateService.IsUnattendConfigurationReady,
+                IsSharedContentDownloading = sharing.IsContentDownloading
             });
             return cachedEvaluation;
         }
@@ -83,6 +89,15 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
     private void OnAdkStatusChanged(object? sender, AdkStatusChangedEventArgs e) => Invalidate();
 
     private void OnUnderlyingStateChanged(object? sender, EventArgs e) => Invalidate();
+
+    /// <summary>Re-evaluates when a follower's download starts or ends; progress and other sharing changes do not affect readiness.</summary>
+    private void OnSharingChanged(object? sender, EventArgs e)
+    {
+        bool isDownloading = sharing.IsContentDownloading;
+        if (isDownloading == wasSharedContentDownloading) return;
+        wasSharedContentDownloading = isDownloading;
+        Invalidate();
+    }
 
     private void Invalidate()
     {

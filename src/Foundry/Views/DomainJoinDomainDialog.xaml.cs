@@ -36,7 +36,21 @@ public sealed partial class DomainJoinDomainDialog : ContentDialog
         PasswordHintTextBlock.Visibility = request.IsNew || request.AccountName is null ? Visibility.Collapsed : Visibility.Visible;
         AccountChoice.SelectedIndex = request.AccountName is null ? SharedAccountIndex : DedicatedAccountIndex;
         DedicatedPanel.Visibility = request.AccountName is null ? Visibility.Collapsed : Visibility.Visible;
+        if (request.PasswordOnly) ApplyPasswordOnly(localization);
         Closed += OnClosed;
+    }
+
+    /// <summary>A followed publication manages the domain: only the password of its account, dedicated or shared, can be entered.</summary>
+    private void ApplyPasswordOnly(IApplicationLocalizationService localization)
+    {
+        DomainNameBox.IsEnabled = false;
+        RenameHintTextBlock.Visibility = Visibility.Collapsed;
+        AccountChoice.Visibility = Visibility.Collapsed;
+        DedicatedPanel.Visibility = Visibility.Visible;
+        AccountBox.IsEnabled = false;
+        PasswordHintTextBlock.Visibility = Visibility.Visible;
+        PasswordOnlyHintTextBlock.Text = localization.GetString("Sharing.PasswordOnlyHint");
+        PasswordOnlyHintTextBlock.Visibility = Visibility.Visible;
     }
 
     private void OnAccountChoiceChanged(object sender, SelectionChangedEventArgs e) =>
@@ -46,7 +60,7 @@ public sealed partial class DomainJoinDomainDialog : ContentDialog
     {
         bool usesSharedAccount = !request.AsksForAccount || AccountChoice.SelectedIndex != DedicatedAccountIndex;
         string? refusal = trySave(new(DomainNameBox.Text, usesSharedAccount, AccountBox.Text,
-            usesSharedAccount ? ReadOnlyMemory<char>.Empty : PasswordBox.Password.AsMemory()));
+            usesSharedAccount && !request.PasswordOnly ? ReadOnlyMemory<char>.Empty : PasswordBox.Password.AsMemory()));
         ValidationTextBlock.Text = refusal ?? string.Empty;
         ValidationTextBlock.Visibility = refusal is null ? Visibility.Collapsed : Visibility.Visible;
         args.Cancel = refusal is not null;

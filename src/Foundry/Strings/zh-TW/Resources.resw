@@ -3184,6 +3184,9 @@
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>要接受新的參考電腦嗎？</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>此對話方塊開啟期間參考電腦已變更。請在接受之前檢閱新的金鑰。</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>使用加密檔案移動此設定，或透過共用資料夾讓多部電腦保持一致。</value>
   </data>
@@ -3213,6 +3216,9 @@
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>確認密碼</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>正在下載</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>無法匯入到此電腦的共用項目數：{0}。參考電腦發佈新版本時會再次擷取這些項目。</value>
@@ -3415,6 +3421,9 @@
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>密碼不相符。</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>此設定由參考電腦管理：這裡只能輸入密碼。</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>已包含</value>
   </data>
@@ -3495,6 +3504,9 @@
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>此電腦正在發佈其設定</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>無法完整下載所追蹤發佈內容的共用內容。請檢查「設定」中的設定共用卡片。</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>由於無法讀取共用狀態，此工作階段無法發佈和追蹤。如需詳細資料，請參閱記錄。</value>

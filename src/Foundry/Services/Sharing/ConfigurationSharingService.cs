@@ -62,6 +62,9 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
     private volatile ContentProgress? progress;
     private int isProgressUpdateQueued;
     private bool isRefreshingReadiness;
+    private bool isSourceChangedDuringRefresh;
+    private bool isNextRoundFollowUp;
+    private bool wasContentDownloading;
     private bool isStarted;
     private bool isDisposed;
 
@@ -123,6 +126,12 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
     public bool IsContentPending => engine is { Role: SharingRole.Follower } current
         && (current.IsContentFetching || current.Status == SharingStatus.ContentDownloading);
 
+    /// <summary>
+    /// Gets whether a follower is downloading the content of the applied publication right now. Readiness then reports the missing
+    /// content as downloading, and a media build may start: it waits for the download before it freezes the configuration.
+    /// </summary>
+    public bool IsContentDownloading => engine is { Role: SharingRole.Follower, IsContentFetching: true };
+
     /// <inheritdoc />
     public FoundryConfigurationDocument CurrentConfiguration => configuration.Current;
 
@@ -157,7 +166,19 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
     {
         using (await replacementGate.EnterAsync(cancellationToken))
         {
-            configuration.Replace(document, static () => { });
+            // Managed first: the pages reload on the replacement, and none may save a normalization over the applied publication.
+            bool wasManaged = configuration.IsManaged;
+            configuration.SetManaged(managedBy);
+            try
+            {
+                configuration.Replace(document, static () => { });
+            }
+            catch
+            {
+                if (!wasManaged) configuration.ClearManaged();
+                throw;
+            }
+
             if (vaultEntries.Count > 0)
             {
                 try
@@ -172,7 +193,6 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
             }
         }
 
-        configuration.SetManaged(managedBy);
         await configuration.RefreshCustomDriversReadinessAsync();
     }
 
@@ -241,59 +261,44 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
     }
 
     /// <summary>"Publish to a folder": makes this PC the reference of <paramref name="folder"/> and publishes now.</summary>
-    public async Task<SharingStatus> StartPublishingAsync(string folder, string password, bool includePasswords)
-    {
-        await RefreshReadinessAsync();
-        SharingStatus status = await Engine.StartPublishingAsync(folder, password, includePasswords, CancellationToken.None);
-        RecordPublish(status);
-        RaiseChanged();
-        return status;
-    }
+    public Task<SharingStatus> StartPublishingAsync(string folder, string password, bool includePasswords) =>
+        RunPublishActionAsync(() => Fingerprint(folder, includePasswords),
+            () => Engine.StartPublishingAsync(folder, password, includePasswords, CancellationToken.None));
 
     /// <summary>"Take over": continues <paramref name="folder"/> with this PC's key after the current password opened it.</summary>
-    public async Task<SharingStatus> TakeOverAsync(string folder, string currentPassword, bool includePasswords)
-    {
-        await RefreshReadinessAsync();
-        SharingStatus status = await Engine.TakeOverAsync(folder, currentPassword, includePasswords, CancellationToken.None);
-        RecordPublish(status);
-        RaiseChanged();
-        return status;
-    }
+    public Task<SharingStatus> TakeOverAsync(string folder, string currentPassword, bool includePasswords) =>
+        RunPublishActionAsync(() => Fingerprint(folder, includePasswords),
+            () => Engine.TakeOverAsync(folder, currentPassword, includePasswords, CancellationToken.None));
 
     /// <summary>"Retry": publishes the current configuration now, even when it did not change.</summary>
-    public async Task<SharingStatus> RetryPublishAsync()
-    {
-        await RefreshReadinessAsync();
-        SharingStatus status = await Engine.OnConfigurationChangedAsync(CancellationToken.None);
-        RecordPublish(status);
-        return status;
-    }
+    public Task<SharingStatus> RetryPublishAsync() =>
+        RunPublishActionAsync(() => Fingerprint(Engine.State), () => Engine.OnConfigurationChangedAsync(CancellationToken.None));
 
     /// <summary>"Change password": rewrites the current manifest under <paramref name="newPassword"/>.</summary>
-    public async Task<SharingStatus> ChangePasswordAsync(string newPassword)
-    {
-        await RefreshReadinessAsync();
-        SharingStatus status = await Engine.ChangePasswordAsync(newPassword, CancellationToken.None);
-        RecordPublish(status);
-        RaiseChanged();
-        return status;
-    }
+    public Task<SharingStatus> ChangePasswordAsync(string newPassword) =>
+        RunPublishActionAsync(() => Fingerprint(Engine.State), () => Engine.ChangePasswordAsync(newPassword, CancellationToken.None));
 
     /// <summary>"Reset publication": new password and master key, content encrypted again.</summary>
-    public async Task<SharingStatus> ResetPublicationAsync(string newPassword)
-    {
-        await RefreshReadinessAsync();
-        SharingStatus status = await Engine.ResetPublicationAsync(newPassword, CancellationToken.None);
-        RecordPublish(status);
-        RaiseChanged();
-        return status;
-    }
+    public Task<SharingStatus> ResetPublicationAsync(string newPassword) =>
+        RunPublishActionAsync(() => Fingerprint(Engine.State), () => Engine.ResetPublicationAsync(newPassword, CancellationToken.None));
 
-    /// <summary>"Stop publishing": the folder stays as it is and this PC becomes a normal PC.</summary>
+    /// <summary>
+    /// "Stop publishing": the folder stays as it is and this PC becomes a normal PC. The fingerprint of the last publish is removed,
+    /// so publishing again later decides from what the folder holds then.
+    /// </summary>
     public async Task StopPublishingAsync()
     {
         publishTimer.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
         await Engine.StopAsync();
+        try
+        {
+            vault.WriteEntries(new Dictionary<string, string>(StringComparer.Ordinal), new[] { SecretIds.PublishedFingerprint });
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or CryptographicException)
+        {
+            logger.Warning("The fingerprint of the last publish could not be removed. ExceptionType={ExceptionType}", exception.GetType().Name);
+        }
+
         RaiseChanged();
     }
 
@@ -325,10 +330,10 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
         return status;
     }
 
-    /// <summary>Follower: "Accept new reference".</summary>
-    public async Task<SharingStatus> AcceptNewPublisherAsync()
+    /// <summary>Follower: "Accept new reference" for the candidate key the user reviewed.</summary>
+    public async Task<SharingStatus> AcceptNewPublisherAsync(string expectedKeyId)
     {
-        SharingStatus status = await Engine.AcceptNewPublisherAsync(CancellationToken.None);
+        SharingStatus status = await Engine.AcceptNewPublisherAsync(expectedKeyId, CancellationToken.None);
         RaiseChanged();
         return status;
     }
@@ -370,11 +375,24 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
 
     private void OnPublishedSourceChanged(object? sender, EventArgs e)
     {
-        if (isDisposed || isRefreshingReadiness || engine?.Role != SharingRole.Reference) return;
+        if (isDisposed || engine?.Role != SharingRole.Reference) return;
+
+        // The readiness refresh raises the same events; whatever arrives meanwhile gets one follow-up round once the round ends.
+        if (isRefreshingReadiness)
+        {
+            isSourceChangedDuringRefresh = true;
+            return;
+        }
+
         SchedulePublish();
     }
 
-    private void SchedulePublish() => publishTimer.Change(PublishDelay, Timeout.InfiniteTimeSpan);
+    /// <summary>Starts the 5-second delay before the next publish round; a follow-up round never schedules another follow-up.</summary>
+    private void SchedulePublish(bool isFollowUp = false)
+    {
+        isNextRoundFollowUp = isFollowUp;
+        publishTimer.Change(PublishDelay, Timeout.InfiniteTimeSpan);
+    }
 
     private void OnPublishTimerElapsed(object? state)
     {
@@ -382,7 +400,10 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
         {
             dispatcher.TryEnqueue(() =>
             {
-                if (!isDisposed) _ = PublishIfChangedAsync();
+                if (isDisposed) return;
+                bool isFollowUp = isNextRoundFollowUp;
+                isNextRoundFollowUp = false;
+                _ = PublishIfChangedAsync(isFollowUp);
             });
         }
         catch (Exception exception)
@@ -392,23 +413,24 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
     }
 
     /// <summary>Publishes after a change, unless what would be published is what the last publish carried.</summary>
-    private async Task PublishIfChangedAsync()
+    private async Task PublishIfChangedAsync(bool isFollowUp)
     {
         try
         {
             if (engine is not { Role: SharingRole.Reference } reference) return;
-            string? fingerprint = Fingerprint(reference.State);
-            if (fingerprint is not null && !IsPublishOwed(reference) && string.Equals(fingerprint, StoredFingerprint(), StringComparison.Ordinal))
+            string? before = Fingerprint(reference.State);
+            if (before is not null && !IsPublishOwed(reference) && string.Equals(before, StoredFingerprint(), StringComparison.Ordinal))
             {
                 return;
             }
 
-            await RefreshReadinessAsync();
-            SharingStatus status = await reference.OnConfigurationChangedAsync(CancellationToken.None);
-            RecordPublish(status, fingerprint);
+            bool isChangedDuringRefresh = await RefreshReadinessAsync();
 
-            // A change that arrived while the publish read its configuration is published by the next round.
-            if (status == SharingStatus.Published && !string.Equals(Fingerprint(reference.State), fingerprint, StringComparison.Ordinal)) SchedulePublish();
+            // Taken after the refresh, just before the publish reads the configuration, so it describes what the publish carries.
+            string? fingerprint = Fingerprint(reference.State);
+            SharingStatus status = await reference.OnConfigurationChangedAsync(CancellationToken.None);
+            CompletePublishRound(status, fingerprint);
+            if (isChangedDuringRefresh && !isFollowUp) SchedulePublish(isFollowUp: true);
         }
         catch (Exception exception)
         {
@@ -418,16 +440,45 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
     }
 
     /// <summary>
-    /// Refreshes the readiness the configuration state computes from library checks (driver sets, answer files), with its change
-    /// events ignored, so the publish decision does not depend on whether a page refreshed it this session.
+    /// Runs a publish the user asked for: readiness first, then the fingerprint of what the action publishes, taken just before it
+    /// runs, so an edit made during the publish is never recorded as published.
     /// </summary>
-    private async Task RefreshReadinessAsync()
+    private async Task<SharingStatus> RunPublishActionAsync(Func<string?> fingerprintOf, Func<Task<SharingStatus>> action)
+    {
+        bool isChangedDuringRefresh = await RefreshReadinessAsync();
+        string? fingerprint = fingerprintOf();
+        SharingStatus status = await action();
+        CompletePublishRound(status, fingerprint);
+        if (isChangedDuringRefresh && engine?.Role == SharingRole.Reference) SchedulePublish(isFollowUp: true);
+        RaiseChanged();
+        return status;
+    }
+
+    /// <summary>
+    /// Records a successful publish under the fingerprint taken before it, and schedules a new round when the configuration or its
+    /// passwords changed while the publish ran.
+    /// </summary>
+    private void CompletePublishRound(SharingStatus status, string? fingerprint)
+    {
+        if (fingerprint is null || engine is not { Role: SharingRole.Reference } reference) return;
+        if (status == SharingStatus.Published) RecordPublish(fingerprint);
+        if (!string.Equals(Fingerprint(reference.State), fingerprint, StringComparison.Ordinal)) SchedulePublish();
+    }
+
+    /// <summary>
+    /// Refreshes the readiness the configuration state computes from library checks (driver sets, answer files), so the publish
+    /// decision does not depend on whether a page refreshed it this session. Returns whether a configuration or password change
+    /// event arrived meanwhile (the refresh raises them too, so they cannot be told apart).
+    /// </summary>
+    private async Task<bool> RefreshReadinessAsync()
     {
         isRefreshingReadiness = true;
+        isSourceChangedDuringRefresh = false;
         try
         {
             await configuration.RefreshCustomDriversReadinessAsync();
             if (configuration.Current.Unattend.IsEnabled) await configuration.RefreshUnattendSourcesAsync();
+            return isSourceChangedDuringRefresh;
         }
         finally
         {
@@ -436,11 +487,8 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
     }
 
     /// <summary>Keeps the fingerprint of a successful publish in the vault, so an unchanged configuration is not published again.</summary>
-    private void RecordPublish(SharingStatus status, string? fingerprint = null)
+    private void RecordPublish(string fingerprint)
     {
-        if (status != SharingStatus.Published || engine is not { Role: SharingRole.Reference } reference) return;
-        fingerprint ??= Fingerprint(reference.State);
-        if (fingerprint is null) return;
         try
         {
             vault.WriteEntries(new Dictionary<string, string>(StringComparer.Ordinal) { [SecretIds.PublishedFingerprint] = fingerprint });
@@ -452,9 +500,10 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
         }
     }
 
-    private string? Fingerprint(SharingState state) => state.Folder is { Length: > 0 } folder
-        ? PublicationFingerprint.Compute(folder, state.IncludePasswords, configuration.Current, vault.ReadEntries())
-        : null;
+    private string? Fingerprint(SharingState state) => state.Folder is { Length: > 0 } folder ? Fingerprint(folder, state.IncludePasswords) : null;
+
+    private string Fingerprint(string folder, bool includePasswords) =>
+        PublicationFingerprint.Compute(folder, includePasswords, configuration.Current, vault.ReadEntries());
 
     private string? StoredFingerprint() => vault.ReadEntries().GetValueOrDefault(SecretIds.PublishedFingerprint);
 
@@ -525,6 +574,9 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
             ConfigurationUpdated?.Invoke(this, new ConfigurationUpdatedEventArgs(after.PublisherName ?? string.Empty, after.AppliedSequence));
         }
 
+        // A fetch can end without a status change; the check notices it.
+        NotifyChanged();
+
         return status;
     }
 
@@ -538,13 +590,40 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
         dispatcher.TryEnqueue(() =>
         {
             Volatile.Write(ref isProgressUpdateQueued, 0);
-            Changed?.Invoke(this, EventArgs.Empty);
+            NotifyChanged();
         });
     }
 
     private void RaiseChanged()
     {
         if (isDisposed) return;
-        dispatcher.TryEnqueue(() => Changed?.Invoke(this, EventArgs.Empty));
+        dispatcher.TryEnqueue(NotifyChanged);
+    }
+
+    /// <summary>
+    /// Raises <see cref="Changed"/> on the UI thread. When a follower's download ends, the library readiness the configuration state
+    /// caches is refreshed, so pages and media creation see the fetched content, or the content that failed, at once.
+    /// </summary>
+    private void NotifyChanged()
+    {
+        if (isDisposed) return;
+        bool isDownloading = IsContentDownloading;
+        if (wasContentDownloading && !isDownloading) _ = RefreshLibraryReadinessAsync();
+        wasContentDownloading = isDownloading;
+        Changed?.Invoke(this, EventArgs.Empty);
+    }
+
+    private async Task RefreshLibraryReadinessAsync()
+    {
+        try
+        {
+            configuration.RefreshPostInstallationReadiness();
+            configuration.RefreshCustomImageReadiness();
+            await configuration.RefreshCustomDriversReadinessAsync();
+        }
+        catch (Exception exception)
+        {
+            logger.Warning(exception, "Library readiness could not be refreshed after the shared content download.");
+        }
     }
 }

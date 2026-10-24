@@ -3184,6 +3184,9 @@ Licenciran prema MIT licenci.</value>
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>Prihvatiti novu referencu?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Referenca se promijenila dok je ovaj dijaloški okvir bio otvoren. Pregledajte novi ključ prije nego što ga prihvatite.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Prenesite ovu konfiguraciju šifriranom datotekom ili uskladite više računala putem zajedničke mape.</value>
   </data>
@@ -3213,6 +3216,9 @@ Licenciran prema MIT licenci.</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Potvrdite lozinku</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Preuzimanje</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>Broj zajedničkih stavki koje nije bilo moguće uvesti na ovo računalo: {0}. Ponovno se dohvaćaju kada referentno računalo objavi novu verziju.</value>
@@ -3415,6 +3421,9 @@ Licenciran prema MIT licenci.</value>
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>Lozinke se ne podudaraju.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Ovom konfiguracijom upravlja referentno računalo: ovdje se može unijeti samo lozinka.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Uključene</value>
   </data>
@@ -3495,6 +3504,9 @@ Licenciran prema MIT licenci.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Ovo računalo objavljuje svoju konfiguraciju</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Zajednički sadržaj praćene objave nije bilo moguće u potpunosti preuzeti. Provjerite karticu zajedničkog korištenja konfiguracije u postavkama.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Objavljivanje i praćenje nisu dostupni tijekom ove sesije jer stanje zajedničkog korištenja nije bilo moguće pročitati. Pojedinosti potražite u zapisniku.</value>

@@ -3184,6 +3184,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>Nieuwe referentie accepteren?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>De referentie is gewijzigd terwijl dit dialoogvenster open was. Controleer de nieuwe sleutel voordat u deze accepteert.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Verplaats deze configuratie met een versleuteld bestand, of houd meerdere pc's gelijk via een gedeelde map.</value>
   </data>
@@ -3213,6 +3216,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Wachtwoord bevestigen</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Bezig met downloaden</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>{0} gedeelde items konden niet op deze pc worden geïmporteerd. Ze worden opnieuw opgehaald wanneer de referentie-pc een nieuwe versie publiceert.</value>
@@ -3415,6 +3421,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>De wachtwoorden komen niet overeen.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Deze configuratie wordt beheerd door een referentie-pc: hier kan alleen het wachtwoord worden ingevoerd.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Opgenomen</value>
   </data>
@@ -3495,6 +3504,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Deze pc publiceert zijn configuratie</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>De gedeelde inhoud van de gevolgde publicatie kon niet volledig worden gedownload. Controleer de kaart Configuratie delen in Instellingen.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Publiceren en volgen zijn tijdens deze sessie niet beschikbaar omdat de status van het delen niet kon worden gelezen. Raadpleeg het logboek voor meer informatie.</value>

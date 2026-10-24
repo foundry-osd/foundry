@@ -3184,6 +3184,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>Godta den nye referansen?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Referansen ble endret mens denne dialogboksen var åpen. Se gjennom den nye nøkkelen før du godtar den.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Flytt denne konfigurasjonen med en kryptert fil, eller hold flere PC-er samkjørt via en delt mappe.</value>
   </data>
@@ -3213,6 +3216,9 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Bekreft passordet</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Laster ned</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>{0} delte elementer kunne ikke importeres på denne PC-en. De hentes på nytt når referanse-PC-en publiserer en ny versjon.</value>
@@ -3415,6 +3421,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>Passordene samsvarer ikke.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Denne konfigurasjonen administreres av en referanse-PC: Bare passordet kan angis her.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Inkludert</value>
   </data>
@@ -3495,6 +3504,9 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Denne PC-en publiserer konfigurasjonen sin</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Det delte innholdet i den fulgte publiseringen kunne ikke lastes ned helt. Kontroller kortet for konfigurasjonsdeling i Innstillinger.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Publisering og følging er ikke tilgjengelig i denne økten fordi delingsstatusen ikke kunne leses. Se loggen for mer informasjon.</value>

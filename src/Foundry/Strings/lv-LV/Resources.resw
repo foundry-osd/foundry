@@ -3184,6 +3184,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>Vai pieņemt jauno atsauces datoru?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Atsauces dators mainījās, kamēr šis dialoglodziņš bija atvērts. Pirms pieņemšanas pārskatiet jauno atslēgu.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Pārvietojiet šo konfigurāciju ar šifrētu failu vai uzturiet vairākus datorus saskaņotus, izmantojot koplietotu mapi.</value>
   </data>
@@ -3213,6 +3216,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Apstipriniet paroli</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Notiek lejupielāde</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>Koplietoto vienumu skaits, kurus nevarēja importēt šajā datorā: {0}. Tie tiek iegūti vēlreiz, kad atsauces dators publicē jaunu versiju.</value>
@@ -3415,6 +3421,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>Paroles nesakrīt.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Šo konfigurāciju pārvalda atsauces dators: šeit var ievadīt tikai paroli.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Iekļautas</value>
   </data>
@@ -3495,6 +3504,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Šis dators publicē savu konfigurāciju</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Sekotās publikācijas koplietoto saturu nevarēja pilnībā lejupielādēt. Pārbaudiet konfigurācijas koplietošanas karti iestatījumos.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Publicēšana un sekošana šajā sesijā nav pieejama, jo koplietošanas stāvokli nevarēja nolasīt. Detalizētu informāciju skatiet žurnālā.</value>

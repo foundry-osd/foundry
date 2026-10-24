@@ -3184,6 +3184,9 @@
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>ยอมรับพีซีอ้างอิงใหม่หรือไม่</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>พีซีอ้างอิงเปลี่ยนไปขณะที่กล่องโต้ตอบนี้เปิดอยู่ โปรดตรวจสอบคีย์ใหม่ก่อนยอมรับ</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>ย้ายการกำหนดค่านี้ด้วยไฟล์ที่เข้ารหัส หรือทำให้พีซีหลายเครื่องสอดคล้องกันผ่านโฟลเดอร์ที่แชร์</value>
   </data>
@@ -3213,6 +3216,9 @@
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>ยืนยันรหัสผ่าน</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>กำลังดาวน์โหลด</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>จำนวนรายการที่แชร์ซึ่งไม่สามารถนำเข้าบนพีซีเครื่องนี้ได้: {0} ระบบจะดึงข้อมูลเหล่านี้อีกครั้งเมื่อพีซีอ้างอิงเผยแพร่เวอร์ชันใหม่</value>
@@ -3415,6 +3421,9 @@
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>รหัสผ่านไม่ตรงกัน</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>การกำหนดค่านี้จัดการโดยพีซีอ้างอิง: ป้อนได้เฉพาะรหัสผ่านที่นี่</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>รวมอยู่</value>
   </data>
@@ -3495,6 +3504,9 @@
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>พีซีเครื่องนี้เผยแพร่การกำหนดค่าของตนเอง</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>ไม่สามารถดาวน์โหลดเนื้อหาที่แชร์ของการเผยแพร่ที่ติดตามได้ครบ โปรดตรวจสอบการ์ดการแชร์การกำหนดค่าในการตั้งค่า</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>การเผยแพร่และการติดตามไม่พร้อมใช้งานในเซสชันนี้ เนื่องจากไม่สามารถอ่านสถานะการแชร์ได้ ดูรายละเอียดในบันทึก</value>

@@ -152,77 +152,89 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     public bool IsNetworkConfigurationReady => NetworkMediaReadiness.IsNetworkConfigurationReady;
 
     /// <inheritdoc />
-    public bool IsDeployConfigurationReady
+    public bool IsDeployConfigurationReady => EvaluateDeployReadiness(requireLibraryContent: true);
+
+    /// <inheritdoc />
+    public bool IsDeployConfigurationReadyExceptLibraryContent => EvaluateDeployReadiness(requireLibraryContent: false);
+
+    private bool EvaluateDeployReadiness(bool requireLibraryContent)
     {
-        get
+        bool areContentSectionsReady = requireLibraryContent
+            ? IsCustomImagesReady && IsPostInstallationReady && IsCustomDriversReady
+            : AreContentSectionSettingsReady();
+        if (!IsUnattendConfigurationReady || !areContentSectionsReady)
         {
-            if (!IsUnattendConfigurationReady || !IsCustomImagesReady || !IsPostInstallationReady || !IsCustomDriversReady)
-            {
-                return false;
-            }
+            return false;
+        }
 
-            if (Current.General.DeploymentProtection.IsEnabled &&
-                !deploymentProtectionSecretStateService.IsValid)
-            {
-                return false;
-            }
+        if (Current.General.DeploymentProtection.IsEnabled &&
+            !deploymentProtectionSecretStateService.IsValid)
+        {
+            return false;
+        }
 
-            if (!oobeAccountSecretStateService.Validate(Current.Customization.Oobe).IsValid)
-            {
-                return false;
-            }
+        if (!oobeAccountSecretStateService.Validate(Current.Customization.Oobe).IsValid)
+        {
+            return false;
+        }
+
+        try
+        {
+            byte[]? deploymentSecretsKey = Current.General.DeploymentProtection.IsEnabled ||
+                                           Current.Autopilot.IsEnabled &&
+                                           Current.Autopilot.ProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload
+                ? AesGcmEncryption.GenerateKey()
+                : null;
+            DeployProtectionSettings? protectionSettings = Current.General.DeploymentProtection.IsEnabled
+                ? new DeployProtectionSettings
+                {
+                    IsEnabled = true
+                }
+                : null;
 
             try
             {
-                byte[]? deploymentSecretsKey = Current.General.DeploymentProtection.IsEnabled ||
-                                               Current.Autopilot.IsEnabled &&
-                                               Current.Autopilot.ProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload
-                    ? AesGcmEncryption.GenerateKey()
-                    : null;
-                DeployProtectionSettings? protectionSettings = Current.General.DeploymentProtection.IsEnabled
-                    ? new DeployProtectionSettings
-                    {
-                        IsEnabled = true
-                    }
-                    : null;
-
-                try
+                _ = GenerateDeployConfigurationJson(
+                    deploymentSecretsKey: deploymentSecretsKey,
+                    protectionSettings: protectionSettings);
+                return true;
+            }
+            finally
+            {
+                if (deploymentSecretsKey is not null)
                 {
-                    _ = GenerateDeployConfigurationJson(
-                        deploymentSecretsKey: deploymentSecretsKey,
-                        protectionSettings: protectionSettings);
-                    return true;
+                    System.Security.Cryptography.CryptographicOperations.ZeroMemory(deploymentSecretsKey);
                 }
-                finally
-                {
-                    if (deploymentSecretsKey is not null)
-                    {
-                        System.Security.Cryptography.CryptographicOperations.ZeroMemory(deploymentSecretsKey);
-                    }
-                }
-            }
-            catch (ArgumentException)
-            {
-                return false;
-            }
-            catch (InvalidOperationException)
-            {
-                return false;
-            }
-            catch (IOException)
-            {
-                return false;
-            }
-            catch (InvalidDataException)
-            {
-                return false;
-            }
-            catch (UnauthorizedAccessException)
-            {
-                return false;
             }
         }
+        catch (ArgumentException)
+        {
+            return false;
+        }
+        catch (InvalidOperationException)
+        {
+            return false;
+        }
+        catch (IOException)
+        {
+            return false;
+        }
+        catch (InvalidDataException)
+        {
+            return false;
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return false;
+        }
     }
+
+    /// <summary>Checks the settings of the sections that need library content, as if the content were in the libraries.</summary>
+    private bool AreContentSectionSettingsReady() =>
+        (!Current.CustomImages.IsEnabled ||
+         Foundry.Core.Services.Images.CustomImageSettingsValidator.Validate(Current.CustomImages, requireIncludedImage: true).Count == 0) &&
+        PreOobeConfigurationValidator.IsReady(Current.PreOobe, _ => true) &&
+        CustomDriverSetsSettingsValidator.IsReady(Current.CustomDrivers, _ => true);
 
     /// <inheritdoc />
     public bool IsConnectProvisioningReady => NetworkMediaReadiness.IsConnectProvisioningReady;

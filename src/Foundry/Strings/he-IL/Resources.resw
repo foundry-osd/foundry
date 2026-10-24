@@ -3184,6 +3184,9 @@
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>לקבל את מחשב ההפניה החדש?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>מחשב ההפניה השתנה בזמן שתיבת דו-שיח זו הייתה פתוחה. סקור את המפתח החדש לפני שתקבל אותו.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>העבר תצורה זו באמצעות קובץ מוצפן, או שמור על כמה מחשבים מתואמים באמצעות תיקייה משותפת.</value>
   </data>
@@ -3213,6 +3216,9 @@
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>אשר את הסיסמה</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>מוריד</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>מספר הפריטים המשותפים שלא ניתן היה לייבא למחשב זה: {0}. הם יאוחזרו שוב כאשר מחשב ההפניה יפרסם גרסה חדשה.</value>
@@ -3415,6 +3421,9 @@
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>הסיסמאות אינן תואמות.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>תצורה זו מנוהלת על ידי מחשב הפניה: ניתן להזין כאן רק את הסיסמה.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>כלולות</value>
   </data>
@@ -3495,6 +3504,9 @@
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>מחשב זה מפרסם את התצורה שלו</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>לא ניתן היה להוריד את כל התוכן המשותף של הפרסום שבמעקב. בדוק את כרטיס שיתוף התצורה בהגדרות.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>הפרסום והמעקב אינם זמינים במהלך הפעלה זו, מפני שלא ניתן היה לקרוא את מצב השיתוף. לפרטים, עיין ביומן.</value>

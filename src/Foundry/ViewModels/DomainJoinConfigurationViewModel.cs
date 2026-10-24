@@ -19,6 +19,7 @@ namespace Foundry.ViewModels;
 public sealed partial class DomainJoinConfigurationViewModel : ObservableObject, IDisposable
 {
     private readonly IFoundryConfigurationStateService configuration;
+    private readonly ManagedConfigurationViewModel managed;
     private readonly IDomainJoinSecretStateService secrets;
     private readonly IDeploymentProtectionSecretStateService protectionSecrets;
     private readonly IAuthoringDomainOuDiscoveryService discovery;
@@ -38,9 +39,11 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
 
     public DomainJoinConfigurationViewModel(IFoundryConfigurationStateService configuration,
         IDomainJoinSecretStateService secrets, IDeploymentProtectionSecretStateService protectionSecrets, IAuthoringDomainOuDiscoveryService discovery,
-        IDomainJoinDialogService domainDialogs, IDialogService dialogs, IApplicationLocalizationService localization)
+        IDomainJoinDialogService domainDialogs, IDialogService dialogs, IApplicationLocalizationService localization,
+        ManagedConfigurationViewModel managed)
     {
         this.configuration = configuration;
+        this.managed = managed;
         this.secrets = secrets;
         this.protectionSecrets = protectionSecrets;
         this.discovery = discovery;
@@ -48,7 +51,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         this.dialogs = dialogs;
         this.localization = localization;
         configuration.StateChanged += OnStateChanged;
-        configuration.ManagedChanged += OnManagedChanged;
+        managed.PropertyChanged += OnManagedChanged;
         secrets.Changed += OnSecretsChanged;
         protectionSecrets.Changed += OnProtectionSecretsChanged;
         localization.LanguageChanged += OnLanguageChanged;
@@ -117,10 +120,11 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     public Visibility StatusVisibility => ToVisibility(statusKey is not null);
     public Visibility DiscoveringVisibility => ToVisibility(IsDiscovering);
 
-    // A managed configuration keeps its published domains; editing a domain then only enters the password of its account.
+    // A managed configuration keeps its published domains; editing a domain then only enters the password of its account, and
+    // only when the publication does not include passwords.
     private bool IsEditable => !configuration.IsManaged;
     private bool CanAddDomain => IsEditable;
-    private bool CanEditDomain => SelectedDomain is not null;
+    private bool CanEditDomain => SelectedDomain is not null && (IsEditable || (IsZeroTouch && managed.ArePasswordsEditable));
     private bool CanRemoveDomain => IsEditable && CanEditDomain;
     private bool CanSetDefaultDomain => IsEditable && SelectedDomain is { } domain &&
         !string.Equals(configuration.Current.DomainJoin.DefaultDomainId, domain.Id, StringComparison.OrdinalIgnoreCase);
@@ -206,6 +210,16 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     {
         if (SelectedDomain is not { } row) return Task.CompletedTask;
         DomainJoinDomainSettings domain = row.Settings;
+        if (configuration.IsManaged)
+        {
+            // Password-only: the published domain and its account stay as they are; a domain on the shared account edits that password.
+            string? owner = PasswordOwner(domain);
+            if (owner is null) return Task.CompletedTask;
+            return domainDialogs.ShowDomainAsync(
+                new(IsNew: false, AsksForAccount: true, CanRename: false, domain.DomainName, owner, PasswordOnly: true),
+                input => TrySavePassword(owner, input));
+        }
+
         return domainDialogs.ShowDomainAsync(
             new(IsNew: false, AsksForAccount: IsZeroTouch, CanRename: domain.OrganizationalUnits.Count == 0, domain.DomainName, domain.AccountName),
             input => TrySaveDomain(domain.Id, input));
@@ -225,20 +239,6 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
             catch (InvalidDataException) { return Text("CredentialInputInvalid"); }
         }
 
-        if (configuration.IsManaged)
-        {
-            // Only the password of the account the published domain names is entered; the domain itself stays as published.
-            string? owner = domainId is null ? null : current.FindDomain(domainId)?.AccountName;
-            if (owner is not null && !input.Password.IsEmpty)
-            {
-                try { DomainJoinCredentialPayloadCodec.ValidatePassword(input.Password.Span); }
-                catch (InvalidDataException) { return Text("CredentialInputInvalid"); }
-                secrets.SetPassword(owner, input.Password.Span);
-            }
-
-            return null;
-        }
-
         try
         {
             // Interactive hides the account inputs, so an edit there keeps the account Zero-touch stored on the domain.
@@ -252,6 +252,26 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         if (account is not null && !input.Password.IsEmpty) secrets.SetPassword(account, input.Password.Span);
         if (domainId is null) SelectedDomain = Domains.LastOrDefault();
         return null;
+    }
+
+    /// <summary>Gets the account whose password a managed domain uses: its own account, or the shared account.</summary>
+    private string? PasswordOwner(DomainJoinDomainSettings domain) =>
+        domain.AccountName ?? (configuration.Current.DomainJoin.SharedAccountName?.Trim() is { Length: > 0 } shared ? shared : null);
+
+    /// <summary>Stores the password typed in the password-only domain dialog; an empty box keeps the stored password.</summary>
+    private string? TrySavePassword(string owner, DomainJoinDomainDialogInput input)
+    {
+        if (disposed || input.Password.IsEmpty) return null;
+        try
+        {
+            DomainJoinCredentialPayloadCodec.ValidatePassword(input.Password.Span);
+            secrets.SetPassword(owner, input.Password.Span);
+            return null;
+        }
+        catch (Exception exception) when (exception is ArgumentException or InvalidDataException)
+        {
+            return Text("CredentialInputInvalid");
+        }
     }
 
     private static string GetDomainFailureKey(DomainJoinSettings current, string? domainId, string domainName)
@@ -519,7 +539,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     /// Rebuilds the page only when the Domain Join settings themselves changed. Unrelated configuration changes
     /// reuse the same settings instance and must not discard a running search or the table selections.
     /// </summary>
-    private void OnManagedChanged(object? sender, EventArgs args) => RefreshPresentation();
+    private void OnManagedChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs args) => RefreshPresentation();
 
     private void OnStateChanged(object? sender, EventArgs args)
     {
@@ -706,7 +726,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         disposed = true;
         StopDiscovery();
         configuration.StateChanged -= OnStateChanged;
-        configuration.ManagedChanged -= OnManagedChanged;
+        managed.PropertyChanged -= OnManagedChanged;
         secrets.Changed -= OnSecretsChanged;
         protectionSecrets.Changed -= OnProtectionSecretsChanged;
         localization.LanguageChanged -= OnLanguageChanged;

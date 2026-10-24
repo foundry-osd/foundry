@@ -3184,6 +3184,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>新しい参照 PC を承認しますか?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>このダイアログが開いている間に参照 PC が変わりました。承認する前に新しいキーを確認してください。</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>暗号化されたファイルでこの構成を移動するか、共有フォルダーを使用して複数の PC の構成をそろえます。</value>
   </data>
@@ -3213,6 +3216,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>パスワードの確認</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>ダウンロード中</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>この PC にインポートできなかった共有項目の数: {0}。参照 PC が新しいバージョンを発行すると、再度取得されます。</value>
@@ -3415,6 +3421,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>パスワードが一致しません。</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>この構成は参照 PC によって管理されています。ここで入力できるのはパスワードのみです。</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>含まれています</value>
   </data>
@@ -3495,6 +3504,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>この PC は構成を発行しています</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>フォローしている発行の共有コンテンツをすべてダウンロードできませんでした。[設定] の構成の共有カードを確認してください。</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>共有の状態を読み取れなかったため、このセッションでは発行とフォローを使用できません。詳細はログを参照してください。</value>

@@ -53,7 +53,7 @@
                 FlowDirection="LeftToRight"
                 FontFamily="Consolas"
                 IsTextSelectionEnabled="True"
-                Text="{x:Bind ViewModel.NewKey}"
+                Text="{x:Bind ViewModel.NewKey, Mode=OneWay}"
                 TextWrapping="Wrap" />
             <TextBlock
                 Grid.Row="2"
@@ -62,11 +62,17 @@
             <TextBlock
                 Grid.Row="2"
                 Grid.Column="1"
-                Text="{x:Bind ViewModel.NewVersion}" />
+                Text="{x:Bind ViewModel.NewVersion, Mode=OneWay}" />
         </Grid>
         <ProgressBar
             IsIndeterminate="True"
             Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}" />
+        <InfoBar
+            IsClosable="False"
+            IsOpen="{x:Bind ViewModel.HasWarning, Mode=OneWay}"
+            Message="{x:Bind ViewModel.WarningMessage, Mode=OneWay}"
+            Severity="Warning"
+            Visibility="{x:Bind ViewModel.HasWarning, Mode=OneWay}" />
         <InfoBar
             IsClosable="False"
             IsOpen="{x:Bind ViewModel.HasError, Mode=OneWay}"

@@ -3184,6 +3184,9 @@ Sous licence MIT.</value>
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>Accepter la nouvelle référence ?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>La référence a changé pendant que cette boîte de dialogue était ouverte. Vérifiez la nouvelle clé avant de l'accepter.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Transférez cette configuration avec un fichier chiffré, ou maintenez plusieurs PC alignés grâce à un dossier partagé.</value>
   </data>
@@ -3213,6 +3216,9 @@ Sous licence MIT.</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Confirmer le mot de passe</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Téléchargement</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>{0} éléments partagés n'ont pas pu être importés sur ce PC. Ils sont récupérés à nouveau lorsque le PC de référence publie une nouvelle version.</value>
@@ -3415,6 +3421,9 @@ Sous licence MIT.</value>
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>Les mots de passe ne correspondent pas.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Cette configuration est gérée par un PC de référence : seul le mot de passe peut être saisi ici.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Inclus</value>
   </data>
@@ -3495,6 +3504,9 @@ Sous licence MIT.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Ce PC publie sa configuration</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Le contenu partagé de la publication suivie n'a pas pu être entièrement téléchargé. Consultez la carte Partage de la configuration dans les Paramètres.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>La publication et le suivi ne sont pas disponibles pendant cette session, car l'état du partage n'a pas pu être lu. Consultez le journal pour plus de détails.</value>

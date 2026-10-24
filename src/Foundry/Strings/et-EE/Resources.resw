@@ -3184,6 +3184,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>Kas nõustuda uue võrdlusarvutiga?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Võrdlusarvuti muutus, kui see dialoogiboks oli avatud. Vaadake uus võti üle, enne kui sellega nõustute.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Teisaldage see konfiguratsioon krüptitud failiga või hoidke mitu arvutit ühise kausta kaudu kooskõlas.</value>
   </data>
@@ -3213,6 +3216,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Kinnitage parool</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Allalaadimine</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>Ühiskasutuses üksusi, mida ei saanud sellesse arvutisse importida: {0}. Need tuuakse uuesti, kui võrdlusarvuti avaldab uue versiooni.</value>
@@ -3415,6 +3421,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>Paroolid ei ühti.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Seda konfiguratsiooni haldab võrdlusarvuti: siin saab sisestada ainult parooli.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Kaasatud</value>
   </data>
@@ -3495,6 +3504,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>See arvuti avaldab oma konfiguratsiooni</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Jälgitava avaldise ühiskasutuses sisu ei saanud täielikult alla laadida. Kontrollige sätetes konfiguratsiooni ühiskasutuse kaarti.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Avaldamine ja jälgimine pole selles seansis saadaval, sest ühiskasutuse olekut ei saanud lugeda. Üksikasjad leiate logist.</value>

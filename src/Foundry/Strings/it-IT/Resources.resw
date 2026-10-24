@@ -3184,6 +3184,9 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>Accettare il nuovo riferimento?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Il riferimento è cambiato mentre questa finestra di dialogo era aperta. Verifica la nuova chiave prima di accettarla.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Sposta questa configurazione con un file crittografato oppure mantieni allineati più PC tramite una cartella condivisa.</value>
   </data>
@@ -3213,6 +3216,9 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Conferma la password</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Download in corso</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>Non è stato possibile importare {0} elementi condivisi in questo PC. Vengono recuperati di nuovo quando il PC di riferimento pubblica una nuova versione.</value>
@@ -3415,6 +3421,9 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>Le password non corrispondono.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Questa configurazione è gestita da un PC di riferimento: qui è possibile immettere solo la password.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Incluse</value>
   </data>
@@ -3495,6 +3504,9 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Questo PC pubblica la propria configurazione</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Non è stato possibile scaricare tutto il contenuto condiviso della pubblicazione seguita. Controlla la scheda di condivisione della configurazione nelle Impostazioni.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Pubblicare e seguire una cartella non sono operazioni disponibili durante questa sessione perché non è stato possibile leggere lo stato della condivisione. Per i dettagli, vedi il log.</value>

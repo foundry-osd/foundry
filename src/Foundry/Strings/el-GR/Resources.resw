@@ -3184,6 +3184,9 @@
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>Αποδοχή της νέας αναφοράς;</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Η αναφορά άλλαξε ενώ αυτό το παράθυρο διαλόγου ήταν ανοιχτό. Ελέγξτε το νέο κλειδί πριν το αποδεχτείτε.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Μεταφέρετε αυτήν τη ρύθμιση παραμέτρων με ένα κρυπτογραφημένο αρχείο ή διατηρήστε πολλούς υπολογιστές ευθυγραμμισμένους μέσω ενός κοινόχρηστου φακέλου.</value>
   </data>
@@ -3213,6 +3216,9 @@
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Επιβεβαίωση κωδικού πρόσβασης</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Λήψη</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>Αριθμός κοινόχρηστων στοιχείων που δεν ήταν δυνατό να εισαχθούν σε αυτόν τον υπολογιστή: {0}. Θα ανακτηθούν ξανά όταν ο υπολογιστής αναφοράς δημοσιεύσει νέα έκδοση.</value>
@@ -3415,6 +3421,9 @@
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>Οι κωδικοί πρόσβασης δεν ταιριάζουν.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Αυτή τη ρύθμιση παραμέτρων τη διαχειρίζεται ένας υπολογιστής αναφοράς: εδώ μπορεί να εισαχθεί μόνο ο κωδικός πρόσβασης.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Περιλαμβάνονται</value>
   </data>
@@ -3495,6 +3504,9 @@
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Αυτός ο υπολογιστής δημοσιεύει τη ρύθμιση παραμέτρων του</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η πλήρης λήψη του κοινόχρηστου περιεχομένου της δημοσίευσης που παρακολουθείται. Ελέγξτε την κάρτα κοινής χρήσης ρύθμισης παραμέτρων στις Ρυθμίσεις.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Η δημοσίευση και η παρακολούθηση δεν είναι διαθέσιμες σε αυτήν την περίοδο λειτουργίας, επειδή δεν ήταν δυνατή η ανάγνωση της κατάστασης κοινής χρήσης. Ανατρέξτε στο αρχείο καταγραφής για λεπτομέρειες.</value>

@@ -3184,6 +3184,9 @@ Licencjonowany na licencji MIT.</value>
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>Zaakceptować nowe odniesienie?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Odniesienie zmieniło się, gdy to okno dialogowe było otwarte. Przejrzyj nowy klucz przed jego zaakceptowaniem.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Przenieś tę konfigurację za pomocą zaszyfrowanego pliku lub utrzymuj zgodność wielu komputerów za pomocą folderu udostępnionego.</value>
   </data>
@@ -3213,6 +3216,9 @@ Licencjonowany na licencji MIT.</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Potwierdź hasło</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Pobieranie</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>Nie można zaimportować na tym komputerze następującej liczby udostępnionych elementów: {0}. Zostaną pobrane ponownie, gdy komputer odniesienia opublikuje nową wersję.</value>
@@ -3415,6 +3421,9 @@ Licencjonowany na licencji MIT.</value>
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>Hasła nie są zgodne.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Tą konfiguracją zarządza komputer odniesienia: tutaj można wprowadzić tylko hasło.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Uwzględnione</value>
   </data>
@@ -3495,6 +3504,9 @@ Licencjonowany na licencji MIT.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Ten komputer publikuje swoją konfigurację</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Nie można pobrać całej udostępnionej zawartości obserwowanej publikacji. Sprawdź kartę udostępniania konfiguracji w Ustawieniach.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Publikowanie i obserwowanie są niedostępne w tej sesji, ponieważ nie można odczytać stanu udostępniania. Szczegóły można znaleźć w dzienniku.</value>

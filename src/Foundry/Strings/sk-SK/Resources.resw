@@ -3184,6 +3184,9 @@ Licencované podľa licencie MIT.</value>
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>Prijať novú referenciu?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Referencia sa zmenila, kým bolo toto dialógové okno otvorené. Pred prijatím skontrolujte nový kľúč.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Preneste túto konfiguráciu pomocou šifrovaného súboru alebo udržujte viac počítačov v zhode pomocou zdieľaného priečinka.</value>
   </data>
@@ -3213,6 +3216,9 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Potvrdiť heslo</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Sťahuje sa</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>Počet zdieľaných položiek, ktoré sa nepodarilo importovať do tohto počítača: {0}. Načítajú sa znova, keď referenčný počítač publikuje novú verziu.</value>
@@ -3415,6 +3421,9 @@ Licencované podľa licencie MIT.</value>
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>Heslá sa nezhodujú.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Túto konfiguráciu spravuje referenčný počítač: tu možno zadať iba heslo.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Zahrnuté</value>
   </data>
@@ -3495,6 +3504,9 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Tento počítač publikuje svoju konfiguráciu</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Zdieľaný obsah sledovanej publikácie sa nepodarilo stiahnuť celý. Skontrolujte kartu zdieľania konfigurácie v Nastaveniach.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Publikovanie a sledovanie nie sú počas tejto relácie dostupné, pretože stav zdieľania sa nepodarilo prečítať. Podrobnosti nájdete v denníku.</value>

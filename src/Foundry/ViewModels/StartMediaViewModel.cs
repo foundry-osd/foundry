@@ -1768,8 +1768,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     /// <summary>
     /// A follower may still be fetching the content of the publication it applied (spec 6.2): the build waits for the fetch before
-    /// it freezes the configuration, showing the fetch progress on the detail line. Content still missing afterwards fails the
-    /// capture as it would without sharing.
+    /// it freezes the configuration, showing the fetch progress on the detail line. When the download ends without all the content,
+    /// the build fails with that reason instead of building from an incomplete configuration.
     /// </summary>
     private async Task WaitForSharedContentAsync(CancellationToken cancellationToken)
     {
@@ -1787,7 +1787,14 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             sharingService.Changed -= OnSharingChanged;
         }
 
-        logger.Information("Shared content wait completed. ContentPending={ContentPending}", sharingService.IsContentPending);
+        await foundryConfigurationStateService.RefreshCustomDriversReadinessAsync();
+        bool isReady = foundryConfigurationStateService.IsDeployConfigurationReady;
+        logger.Information("Shared content wait completed. IsDeployConfigurationReady={IsDeployConfigurationReady}", isReady);
+        if (!isReady)
+        {
+            // The download ended without all the content (failed or not yet available): the build stops before it freezes anything.
+            throw new InvalidOperationException(localizationService.GetString("Sharing.SharedContentUnavailable"));
+        }
     }
 
     private void ReportSharedContentProgress()
@@ -2269,7 +2276,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             IsAdkReady = adkService.CurrentStatus.CanCreateMediaFor(SelectedArchitecture?.Value ?? WinPeArchitecture.X64),
             IsNetworkConfigurationReady = networkReadiness.IsNetworkConfigurationReady,
             NetworkConfigurationValidationCode = networkReadiness.NetworkConfigurationValidationCode,
-            IsDeployConfigurationReady = foundryConfigurationStateService.IsDeployConfigurationReady,
+            // While a follower downloads its publication content, a build may start: it waits for the content before the capture.
+            IsDeployConfigurationReady = foundryConfigurationStateService.IsDeployConfigurationReady ||
+                (sharingService.IsContentDownloading && foundryConfigurationStateService.IsDeployConfigurationReadyExceptLibraryContent),
             IsConnectProvisioningReady = networkReadiness.IsConnectProvisioningReady,
             AreRequiredSecretsReady = networkReadiness.AreRequiredSecretsReady,
             IsAutopilotEnabled = foundryConfigurationStateService.IsAutopilotEnabled,
@@ -2719,6 +2728,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         ConfigurationOverviewState.NotConfigured => localizationService.GetString("NavigationStatus.NotConfigured"),
         ConfigurationOverviewState.Default => localizationService.GetString("StartOverview.State.Default"),
         ConfigurationOverviewState.NotSelected => localizationService.GetString("StartOverview.State.NotSelected"),
+        ConfigurationOverviewState.Downloading => localizationService.GetString("Sharing.ContentDownloadingState"),
         _ => localizationService.GetString("Common.NeedsAttention")
     };
 

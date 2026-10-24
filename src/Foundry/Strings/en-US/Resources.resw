@@ -3184,6 +3184,9 @@ Licensed under the MIT License.</value>
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>Accept the new reference?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>The reference changed while this dialog was open. Review the new key before you accept it.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Move this configuration with an encrypted file, or keep several PCs aligned through a shared folder.</value>
   </data>
@@ -3213,6 +3216,9 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Confirm the password</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Downloading</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>{0} shared items could not be imported on this PC. They are fetched again when the reference PC publishes a new version.</value>
@@ -3415,6 +3421,9 @@ Licensed under the MIT License.</value>
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>The passwords do not match.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>This configuration is managed by a reference PC: only the password can be entered here.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Included</value>
   </data>
@@ -3495,6 +3504,9 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>This PC publishes its configuration</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>The shared content of the followed publication could not all be downloaded. Check the configuration sharing card in Settings.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Publishing and following are unavailable during this session because the sharing state could not be read. See the log for details.</value>

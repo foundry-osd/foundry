@@ -3184,6 +3184,9 @@
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>是否接受新的参考电脑？</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>此对话框打开期间参考电脑已更改。请在接受之前查看新的密钥。</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>使用加密文件迁移此配置，或通过共享文件夹使多台电脑保持一致。</value>
   </data>
@@ -3213,6 +3216,9 @@
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>确认密码</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>正在下载</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>无法导入到此电脑的共享项数：{0}。参考电脑发布新版本时将再次获取这些项。</value>
@@ -3415,6 +3421,9 @@
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>密码不匹配。</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>此配置由参考电脑管理：此处只能输入密码。</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>已包括</value>
   </data>
@@ -3495,6 +3504,9 @@
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>此电脑正在发布其配置</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>无法完整下载所关注发布内容的共享内容。请检查“设置”中的配置共享卡片。</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>由于无法读取共享状态，此会话期间无法发布和关注。有关详细信息，请参阅日志。</value>

@@ -3184,6 +3184,9 @@ Licențiat sub licența MIT.</value>
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>Acceptați noua referință?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Referința s-a modificat cât timp această casetă de dialog era deschisă. Examinați noua cheie înainte de a o accepta.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Mutați această configurație cu un fișier criptat sau mențineți mai multe PC-uri aliniate printr-un folder partajat.</value>
   </data>
@@ -3213,6 +3216,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Confirmați parola</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Se descarcă</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>Numărul de elemente partajate care nu au putut fi importate pe acest PC: {0}. Sunt preluate din nou când PC-ul de referință publică o versiune nouă.</value>
@@ -3415,6 +3421,9 @@ Licențiat sub licența MIT.</value>
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>Parolele nu se potrivesc.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Această configurație este gestionată de un PC de referință: aici se poate introduce doar parola.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Incluse</value>
   </data>
@@ -3495,6 +3504,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Acest PC își publică configurația</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Conținutul partajat al publicării urmărite nu a putut fi descărcat complet. Verificați cardul de partajare a configurației din Setări.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Publicarea și urmărirea nu sunt disponibile în această sesiune, deoarece starea partajării nu a putut fi citită. Consultați jurnalul pentru detalii.</value>

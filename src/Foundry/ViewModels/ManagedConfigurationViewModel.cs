@@ -19,6 +19,7 @@ public sealed partial class ManagedConfigurationViewModel : ObservableObject
     private readonly IFoundryConfigurationStateService configuration;
     private readonly ConfigurationSharingService sharing;
     private readonly IApplicationLocalizationService localization;
+    private (bool IsManaged, bool ArePasswordsEditable, string? ManagedBy) shown;
 
     public ManagedConfigurationViewModel(
         IFoundryConfigurationStateService configuration,
@@ -31,6 +32,7 @@ public sealed partial class ManagedConfigurationViewModel : ObservableObject
         configuration.ManagedChanged += OnChanged;
         sharing.Changed += OnChanged;
         localization.LanguageChanged += OnLanguageChanged;
+        shown = Snapshot();
     }
 
     /// <summary>Gets whether a followed publication manages the configuration.</summary>
@@ -49,7 +51,16 @@ public sealed partial class ManagedConfigurationViewModel : ObservableObject
     /// <summary>Gets the banner title.</summary>
     public string BannerTitle => localization.GetString("Sharing.ManagedBannerTitle");
 
-    private void OnChanged(object? sender, EventArgs e) => OnPropertyChanged(string.Empty);
+    /// <summary>Notifies only when what the pages bind to changed: the sharing service also reports progress and statuses.</summary>
+    private void OnChanged(object? sender, EventArgs e)
+    {
+        var current = Snapshot();
+        if (current == shown) return;
+        shown = current;
+        OnPropertyChanged(string.Empty);
+    }
+
+    private (bool IsManaged, bool ArePasswordsEditable, string? ManagedBy) Snapshot() => (IsManaged, ArePasswordsEditable, configuration.ManagedBy);
 
     private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e) => OnPropertyChanged(string.Empty);
 }

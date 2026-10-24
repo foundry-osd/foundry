@@ -3184,6 +3184,9 @@
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>Да се приеме ли новият референтен компютър?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Референтният компютър се промени, докато този диалогов прозорец беше отворен. Прегледайте новия ключ, преди да го приемете.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Прехвърлете тази конфигурация с шифрован файл или поддържайте няколко компютъра синхронизирани чрез споделена папка.</value>
   </data>
@@ -3213,6 +3216,9 @@
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Потвърдете паролата</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Изтегляне</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>Брой споделени елементи, които не можаха да бъдат импортирани на този компютър: {0}. Те се извличат отново, когато референтният компютър публикува нова версия.</value>
@@ -3415,6 +3421,9 @@
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>Паролите не съвпадат.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Тази конфигурация се управлява от референтен компютър: тук може да се въведе само паролата.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Включени</value>
   </data>
@@ -3495,6 +3504,9 @@
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Този компютър публикува своята конфигурация</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Споделеното съдържание на проследяваната публикация не можа да бъде изтеглено изцяло. Проверете картата за споделяне на конфигурацията в „Настройки“.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Публикуването и проследяването не са налични по време на тази сесия, защото състоянието на споделянето не можа да бъде прочетено. Вижте журнала за подробности.</value>

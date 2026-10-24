@@ -49,7 +49,13 @@ public enum ConfigurationOverviewState
     Disabled,
     NotConfigured,
     NotSelected,
-    NeedsAttention
+    NeedsAttention,
+
+    /// <summary>
+    /// A followed publication is still being downloaded and this area only lacks its library content: not an action for the user,
+    /// and a media build started now waits for the download.
+    /// </summary>
+    Downloading
 }
 
 /// <summary>
@@ -108,6 +114,13 @@ public sealed record ConfigurationOverviewContext
 
     /// <summary>Gets whether enabled custom driver sets include a set and every included set has usable library content.</summary>
     public bool IsCustomDriversReady { get; init; } = true;
+
+    /// <summary>
+    /// Gets whether a followed publication is downloading its content now. Post-installation packages, driver sets and images that
+    /// are only missing from the libraries then report <see cref="ConfigurationOverviewState.Downloading"/>; once the download ends,
+    /// content still missing needs attention again.
+    /// </summary>
+    public bool IsSharedContentDownloading { get; init; }
 }
 
 /// <summary>
@@ -156,22 +169,22 @@ public static class ConfigurationOverviewEvaluator
 
         var states = new Dictionary<ConfigurationOverviewItem, ConfigurationOverviewState>
         {
-            [ConfigurationOverviewItem.PostInstallation] = !configuration.PreOobe.IsEnabled
-                ? ConfigurationOverviewState.Disabled
-                : !context.IsPostInstallationReady || !PreOobeConfigurationValidator.IsReady(configuration.PreOobe, _ => true)
-                    ? ConfigurationOverviewState.NeedsAttention
-                    : ConfigurationOverviewState.Configured,
-            [ConfigurationOverviewItem.CustomImages] = !configuration.CustomImages.IsEnabled
-                ? ConfigurationOverviewState.Disabled
-                : context.IsCustomImagesReady &&
-                    !MediaPreflightService.HasCustomImageArchitectureMismatch(configuration.CustomImages, general.Architecture)
-                    ? ConfigurationOverviewState.Configured
-                    : ConfigurationOverviewState.NeedsAttention,
-            [ConfigurationOverviewItem.CustomDrivers] = !configuration.CustomDrivers.IsEnabled
-                ? ConfigurationOverviewState.Disabled
-                : !context.IsCustomDriversReady || !CustomDriverSetsSettingsValidator.IsReady(configuration.CustomDrivers, _ => true)
-                    ? ConfigurationOverviewState.NeedsAttention
-                    : ConfigurationOverviewState.Configured,
+            [ConfigurationOverviewItem.PostInstallation] = EvaluateLibraryContent(
+                configuration.PreOobe.IsEnabled,
+                PreOobeConfigurationValidator.IsReady(configuration.PreOobe, _ => true),
+                context.IsPostInstallationReady,
+                context.IsSharedContentDownloading),
+            [ConfigurationOverviewItem.CustomImages] = EvaluateLibraryContent(
+                configuration.CustomImages.IsEnabled,
+                !MediaPreflightService.HasCustomImageArchitectureMismatch(configuration.CustomImages, general.Architecture) &&
+                    (context.IsCustomImagesReady || Images.CustomImageSettingsValidator.Validate(configuration.CustomImages, requireIncludedImage: true).Count == 0),
+                context.IsCustomImagesReady,
+                context.IsSharedContentDownloading),
+            [ConfigurationOverviewItem.CustomDrivers] = EvaluateLibraryContent(
+                configuration.CustomDrivers.IsEnabled,
+                CustomDriverSetsSettingsValidator.IsReady(configuration.CustomDrivers, _ => true),
+                context.IsCustomDriversReady,
+                context.IsSharedContentDownloading),
             [ConfigurationOverviewItem.Unattend] = !configuration.Unattend.IsEnabled
                 ? ConfigurationOverviewState.Disabled
                 : context.IsUnattendConfigurationReady
@@ -245,6 +258,16 @@ public static class ConfigurationOverviewEvaluator
     private static bool IsDefaultCompletion(GeneralSettings settings) =>
         settings.AutomaticRebootEnabled &&
         DeploymentRebootDelay.NormalizeRuntime(settings.AutomaticRebootDelaySeconds) == DeploymentRebootDelay.DefaultSeconds;
+
+    /// <summary>
+    /// Evaluates a section whose readiness depends on library content: valid settings with content are configured; valid settings
+    /// whose content a followed publication is still downloading are downloading; anything else needs attention.
+    /// </summary>
+    private static ConfigurationOverviewState EvaluateLibraryContent(bool isEnabled, bool areSettingsReady, bool isContentReady, bool isContentDownloading) =>
+        !isEnabled ? ConfigurationOverviewState.Disabled
+        : areSettingsReady && isContentReady ? ConfigurationOverviewState.Configured
+        : areSettingsReady && isContentDownloading ? ConfigurationOverviewState.Downloading
+        : ConfigurationOverviewState.NeedsAttention;
 
     private static ConfigurationOverviewState EvaluateDrivers(
         GeneralSettings settings,

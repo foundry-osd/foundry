@@ -3184,6 +3184,9 @@
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>هل تريد قبول الكمبيوتر المرجعي الجديد؟</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>تغيّر الكمبيوتر المرجعي أثناء فتح مربع الحوار هذا. راجع المفتاح الجديد قبل قبوله.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>انقل هذا التكوين باستخدام ملف مشفّر، أو حافظ على توافق عدة أجهزة كمبيوتر من خلال مجلد مشترك.</value>
   </data>
@@ -3213,6 +3216,9 @@
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>تأكيد كلمة المرور</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>جارٍ التنزيل</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>عدد العناصر المشتركة التي تعذر استيرادها على هذا الكمبيوتر: {0}. ستتم إعادة جلبها عندما ينشر الكمبيوتر المرجعي إصدارًا جديدًا.</value>
@@ -3415,6 +3421,9 @@
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>كلمتا المرور غير متطابقتين.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>يدير هذا التكوين كمبيوتر مرجعي: يمكن إدخال كلمة المرور فقط هنا.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>مضمنة</value>
   </data>
@@ -3495,6 +3504,9 @@
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>ينشر هذا الكمبيوتر تكوينه</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>تعذر تنزيل كل المحتوى المشترك للنشر المتابَع. تحقق من بطاقة مشاركة التكوين في الإعدادات.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>النشر والمتابعة غير متاحين خلال هذه الجلسة لأنه تعذرت قراءة حالة المشاركة. راجع السجل للحصول على التفاصيل.</value>

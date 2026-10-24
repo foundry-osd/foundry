@@ -587,14 +587,22 @@ public sealed class ConfigurationSharingEngine
     }
 
     /// <summary>
-    /// "Accept new reference" (spec 6.2): pins the key of <see cref="Candidate"/> and applies the current publication. The folder is
-    /// read again; when its manifest is no longer the one authenticated under the candidate key, nothing is pinned and the result of a
-    /// new check is returned (a different candidate must be confirmed again).
+    /// "Accept new reference" (spec 6.2): pins the key of <see cref="Candidate"/> and applies the current publication, only while the
+    /// candidate is still the key the user reviewed: a check can replace the candidate while the confirmation is shown, and then
+    /// nothing is pinned. The folder is read again; when its manifest is no longer the one authenticated under the candidate key,
+    /// nothing is pinned and the result of a new check is returned (a different candidate must be confirmed again).
     /// </summary>
-    /// <returns>The apply status, <see cref="SharingStatus.RollbackRejected"/> when the new reference did not continue the sequence, or the check result.</returns>
+    /// <param name="expectedKeyId">Key id of the candidate the user confirmed.</param>
+    /// <param name="ct">Cancels the wait and the apply.</param>
+    /// <returns>
+    /// The apply status; <see cref="SharingStatus.UnknownPublisher"/> when the candidate changed since it was shown (review
+    /// <see cref="Candidate"/> again); <see cref="SharingStatus.RollbackRejected"/> when the new reference did not continue the
+    /// sequence; or the check result.
+    /// </returns>
     /// <exception cref="InvalidOperationException">This PC does not follow a folder or no new reference was found.</exception>
-    public async Task<SharingStatus> AcceptNewPublisherAsync(CancellationToken ct)
+    public async Task<SharingStatus> AcceptNewPublisherAsync(string expectedKeyId, CancellationToken ct)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(expectedKeyId);
         await operation.WaitAsync(ct);
         try
         {
@@ -603,6 +611,12 @@ public sealed class ConfigurationSharingEngine
             if (current.Role != SharingRole.Follower || accepted is null)
             {
                 throw new InvalidOperationException("ConfigurationSharing.NoCandidate");
+            }
+
+            if (!string.Equals(accepted.KeyId, expectedKeyId, StringComparison.Ordinal))
+            {
+                Logger.Information("New reference not accepted: the candidate changed after it was shown.");
+                return SharingStatus.UnknownPublisher;
             }
 
             if (PublicationPassword(host.ReadVault()) is not { } password)

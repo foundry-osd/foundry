@@ -3184,6 +3184,9 @@
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>Прийняти новий еталон?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Еталон змінився, поки це діалогове вікно було відкрите. Перегляньте новий ключ, перш ніж прийняти його.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Переносьте цю конфігурацію за допомогою зашифрованого файлу або підтримуйте узгодженість кількох комп’ютерів через спільну папку.</value>
   </data>
@@ -3213,6 +3216,9 @@
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Підтвердьте пароль</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Завантаження</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>Не вдалося імпортувати на цей комп’ютер спільних елементів: {0}. Їх буде отримано повторно, коли еталонний комп’ютер опублікує нову версію.</value>
@@ -3415,6 +3421,9 @@
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>Паролі не збігаються.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Цією конфігурацією керує еталонний комп’ютер: тут можна ввести лише пароль.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Включено</value>
   </data>
@@ -3495,6 +3504,9 @@
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Цей комп’ютер публікує свою конфігурацію</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Не вдалося повністю завантажити спільний вміст відстежуваної публікації. Перевірте картку спільного доступу до конфігурації в розділі «Параметри».</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Публікація та відстеження недоступні в цьому сеансі, оскільки не вдалося прочитати стан спільного доступу. Докладні відомості див. у журналі.</value>

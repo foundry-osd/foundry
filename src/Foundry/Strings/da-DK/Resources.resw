@@ -3184,6 +3184,9 @@ Licenseret under MIT-licensen.</value>
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>Godkend den nye reference?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Referencen blev ændret, mens denne dialogboks var åben. Gennemse den nye nøgle, før du godkender den.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Flyt denne konfiguration med en krypteret fil, eller hold flere pc'er afstemt via en delt mappe.</value>
   </data>
@@ -3213,6 +3216,9 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Bekræft adgangskoden</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Downloader</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>{0} delte elementer kunne ikke importeres på denne pc. De hentes igen, når reference-pc'en publicerer en ny version.</value>
@@ -3415,6 +3421,9 @@ Licenseret under MIT-licensen.</value>
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>Adgangskoderne stemmer ikke overens.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Denne konfiguration administreres af en reference-pc: Kun adgangskoden kan angives her.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Medtaget</value>
   </data>
@@ -3495,6 +3504,9 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Denne pc publicerer sin konfiguration</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Det delte indhold i den fulgte publicering kunne ikke downloades helt. Kontrollér kortet til konfigurationsdeling under Indstillinger.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Publicering og følgning er ikke tilgængelige i denne session, fordi delingsstatussen ikke kunne læses. Se loggen for at få flere oplysninger.</value>

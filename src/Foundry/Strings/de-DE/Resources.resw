@@ -3184,6 +3184,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>Neue Referenz akzeptieren?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Die Referenz hat sich geändert, während dieses Dialogfeld geöffnet war. Prüfen Sie den neuen Schlüssel, bevor Sie ihn akzeptieren.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Übertragen Sie diese Konfiguration mit einer verschlüsselten Datei, oder halten Sie mehrere PCs über einen freigegebenen Ordner auf demselben Stand.</value>
   </data>
@@ -3213,6 +3216,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Kennwort bestätigen</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Wird heruntergeladen</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>{0} freigegebene Elemente konnten auf diesem PC nicht importiert werden. Sie werden erneut abgerufen, wenn der Referenz-PC eine neue Version veröffentlicht.</value>
@@ -3415,6 +3421,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>Die Kennwörter stimmen nicht überein.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Diese Konfiguration wird von einem Referenz-PC verwaltet: Hier kann nur das Kennwort eingegeben werden.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Enthalten</value>
   </data>
@@ -3495,6 +3504,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Dieser PC veröffentlicht seine Konfiguration</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Die freigegebenen Inhalte der gefolgten Veröffentlichung konnten nicht vollständig heruntergeladen werden. Prüfen Sie die Karte „Konfigurationsfreigabe“ in den Einstellungen.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Veröffentlichen und Folgen sind in dieser Sitzung nicht verfügbar, da der Freigabestatus nicht gelesen werden konnte. Einzelheiten finden Sie im Protokoll.</value>

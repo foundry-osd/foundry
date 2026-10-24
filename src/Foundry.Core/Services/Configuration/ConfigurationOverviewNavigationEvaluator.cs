@@ -66,6 +66,11 @@ public static class ConfigurationOverviewNavigationEvaluator
             return ConfigurationOverviewState.NeedsAttention;
         }
 
+        if (states.Contains(ConfigurationOverviewState.Downloading))
+        {
+            return ConfigurationOverviewState.Downloading;
+        }
+
         if (states.Contains(ConfigurationOverviewState.Configured))
         {
             return ConfigurationOverviewState.Configured;

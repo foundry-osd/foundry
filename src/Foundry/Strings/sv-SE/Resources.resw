@@ -3184,6 +3184,9 @@ Licensierad under MIT-licensen.</value>
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>Godkänna den nya referensen?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Referensen ändrades medan den här dialogrutan var öppen. Granska den nya nyckeln innan du godkänner den.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Flytta den här konfigurationen med en krypterad fil, eller håll flera datorer samordnade via en delad mapp.</value>
   </data>
@@ -3213,6 +3216,9 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Bekräfta lösenordet</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Laddar ned</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>{0} delade objekt kunde inte importeras på den här datorn. De hämtas igen när referensdatorn publicerar en ny version.</value>
@@ -3415,6 +3421,9 @@ Licensierad under MIT-licensen.</value>
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>Lösenorden matchar inte.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Den här konfigurationen hanteras av en referensdator: endast lösenordet kan anges här.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Ingår</value>
   </data>
@@ -3495,6 +3504,9 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Den här datorn publicerar sin konfiguration</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Det delade innehållet i den följda publiceringen kunde inte laddas ned helt. Kontrollera kortet för konfigurationsdelning i Inställningar.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Publicering och följande är inte tillgängliga under den här sessionen eftersom delningsstatusen inte kunde läsas. Mer information finns i loggen.</value>

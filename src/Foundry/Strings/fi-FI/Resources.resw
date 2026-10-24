@@ -3184,6 +3184,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>Hyväksytäänkö uusi viite?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Viite muuttui, kun tämä valintaikkuna oli auki. Tarkista uusi avain ennen kuin hyväksyt sen.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Siirrä tämä määritys salatulla tiedostolla tai pidä useat tietokoneet yhdenmukaisina jaetun kansion avulla.</value>
   </data>
@@ -3213,6 +3216,9 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Vahvista salasana</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Ladataan</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>{0} jaettua kohdetta ei voitu tuoda tähän tietokoneeseen. Ne noudetaan uudelleen, kun viitetietokone julkaisee uuden version.</value>
@@ -3415,6 +3421,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>Salasanat eivät täsmää.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Tätä määritystä hallitsee viitetietokone: tässä voi antaa vain salasanan.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Sisällytetty</value>
   </data>
@@ -3495,6 +3504,9 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Tämä tietokone julkaisee määrityksensä</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Seuratun julkaisun jaettua sisältöä ei voitu ladata kokonaan. Tarkista määrityksen jakamisen kortti asetuksista.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Julkaiseminen ja seuraaminen eivät ole käytettävissä tämän istunnon aikana, koska jakamisen tilaa ei voitu lukea. Katso lisätietoja lokista.</value>

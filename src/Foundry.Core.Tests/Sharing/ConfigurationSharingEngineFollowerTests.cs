@@ -206,7 +206,7 @@ public sealed class ConfigurationSharingEngineFollowerTests : IDisposable
         await PublishAsync(WithArchitecture(WinPeArchitecture.Arm64), signer: other, takeOver: true);
         Assert.Equal(SharingStatus.UnknownPublisher, await engine.CheckAsync(Cancellation));
 
-        SharingStatus status = await engine.AcceptNewPublisherAsync(Cancellation);
+        SharingStatus status = await engine.AcceptNewPublisherAsync(other.KeyId, Cancellation);
 
         Assert.Equal(SharingStatus.Updated, status);
         Assert.Equal(WinPeArchitecture.Arm64, host.CurrentConfiguration.General.Architecture);
@@ -331,7 +331,27 @@ public sealed class ConfigurationSharingEngineFollowerTests : IDisposable
         Assert.Null(engine.Candidate);
         Assert.Single(host.Applied);
         Assert.Equal(referenceKey.PublicKey, engine.State.PinnedPublicKey);
-        await Assert.ThrowsAsync<InvalidOperationException>(() => engine.AcceptNewPublisherAsync(Cancellation));
+        await Assert.ThrowsAsync<InvalidOperationException>(() => engine.AcceptNewPublisherAsync(other.KeyId, Cancellation));
+    }
+
+    [Fact]
+    public async Task AcceptNewPublisher_CandidateReplacedAfterReview_PinsNothing()
+    {
+        ConfigurationSharingEngine engine = await FollowAsync(WithArchitecture(WinPeArchitecture.X64));
+        using PublicationSigningKey reviewed = PublicationSigningKey.Create();
+        await PublishAsync(WithArchitecture(WinPeArchitecture.Arm64), signer: reviewed, takeOver: true);
+        Assert.Equal(SharingStatus.UnknownPublisher, await engine.CheckAsync(Cancellation));
+        // While the confirmation is shown, a third key takes the folder over and the next check replaces the candidate.
+        using PublicationSigningKey other = PublicationSigningKey.Create();
+        await PublishAsync(WithArchitecture(WinPeArchitecture.X64), signer: other, takeOver: true);
+        Assert.Equal(SharingStatus.UnknownPublisher, await engine.CheckAsync(Cancellation));
+
+        SharingStatus status = await engine.AcceptNewPublisherAsync(reviewed.KeyId, Cancellation);
+
+        Assert.Equal(SharingStatus.UnknownPublisher, status);
+        Assert.Equal(other.KeyId, engine.Candidate?.KeyId);
+        Assert.Equal(referenceKey.PublicKey, CreateEngine().State.PinnedPublicKey);
+        Assert.Single(host.Applied);
     }
 
     [Fact]
@@ -346,7 +366,7 @@ public sealed class ConfigurationSharingEngineFollowerTests : IDisposable
         // Before the user accepts, the folder points at an older manifest of the same new key.
         await PlaceManifestAsync(ConfigurationPackageCodec.Write(ForeignPayload(1, other), Password, other), 1);
 
-        SharingStatus status = await engine.AcceptNewPublisherAsync(Cancellation);
+        SharingStatus status = await engine.AcceptNewPublisherAsync(other.KeyId, Cancellation);
 
         Assert.Equal(SharingStatus.RollbackRejected, status);
         Assert.Equal(referenceKey.PublicKey, engine.State.PinnedPublicKey);

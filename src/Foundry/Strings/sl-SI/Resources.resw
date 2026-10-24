@@ -3184,6 +3184,9 @@ Licencirano pod licenco MIT.</value>
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>Želite sprejeti novo referenco?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Referenca se je spremenila, medtem ko je bilo to pogovorno okno odprto. Preden ga sprejmete, preglejte novi ključ.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Prenesite to konfiguracijo s šifrirano datoteko ali ohranite več računalnikov usklajenih prek skupne mape.</value>
   </data>
@@ -3213,6 +3216,9 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Potrdite geslo</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Prenašanje</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>Število skupnih elementov, ki jih ni bilo mogoče uvoziti v ta računalnik: {0}. Znova se pridobijo, ko referenčni računalnik objavi novo različico.</value>
@@ -3415,6 +3421,9 @@ Licencirano pod licenco MIT.</value>
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>Gesli se ne ujemata.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>To konfiguracijo upravlja referenčni računalnik: tukaj lahko vnesete le geslo.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Vključena</value>
   </data>
@@ -3495,6 +3504,9 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Ta računalnik objavlja svojo konfiguracijo</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Skupne vsebine spremljane objave ni bilo mogoče v celoti prenesti. Preverite kartico skupne rabe konfiguracije v nastavitvah.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Objavljanje in spremljanje v tej seji nista na voljo, ker stanja skupne rabe ni bilo mogoče prebrati. Podrobnosti najdete v dnevniku.</value>

@@ -3184,6 +3184,9 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
     <value>¿Aceptar la nueva referencia?</value>
   </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>La referencia cambió mientras este cuadro de diálogo estaba abierto. Revise la nueva clave antes de aceptarla.</value>
+  </data>
   <data name="Sharing.CardDescription" xml:space="preserve">
     <value>Traslade esta configuración con un archivo cifrado o mantenga varios equipos alineados mediante una carpeta compartida.</value>
   </data>
@@ -3213,6 +3216,9 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
     <value>Confirmar la contraseña</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Descargando</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
     <value>No se pudieron importar {0} elementos compartidos en este equipo. Se vuelven a obtener cuando el equipo de referencia publica una nueva versión.</value>
@@ -3415,6 +3421,9 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Sharing.PasswordMismatch" xml:space="preserve">
     <value>Las contraseñas no coinciden.</value>
   </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Un equipo de referencia administra esta configuración: aquí solo se puede escribir la contraseña.</value>
+  </data>
   <data name="Sharing.PasswordsIncluded" xml:space="preserve">
     <value>Incluidas</value>
   </data>
@@ -3495,6 +3504,9 @@ Licenciado bajo la Licencia MIT.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Este equipo publica su configuración</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>No se pudo descargar todo el contenido compartido de la publicación seguida. Compruebe la tarjeta de uso compartido de la configuración en Configuración.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>La publicación y el seguimiento no están disponibles durante esta sesión porque no se pudo leer el estado del uso compartido. Consulte el registro para obtener más detalles.</value>

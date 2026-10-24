@@ -38,6 +38,10 @@
                     TextWrapping="WrapWholeWords" />
             </StackPanel>
         </StackPanel>
+        <TextBlock x:Name="PasswordOnlyHintTextBlock"
+            Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
+            TextWrapping="WrapWholeWords"
+            Visibility="Collapsed" />
         <TextBlock x:Name="ValidationTextBlock"
             Foreground="{ThemeResource SystemFillColorCriticalBrush}"
             TextWrapping="WrapWholeWords"

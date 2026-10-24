@@ -40,6 +40,7 @@ namespace Foundry.Views
         private bool hasAnnouncedUpdateStatus;
         private bool isClosed;
         private OperationProgressDialog? operationDialog;
+        private Foundry.Services.Sharing.ConfigurationUpdatedEventArgs? sharingNotification;
 
         /// <summary>
         /// Gets the shell view model.
@@ -118,6 +119,7 @@ namespace Foundry.Views
 
         private void RefreshLocalizedShell()
         {
+            ApplySharingNotificationText();
             NavigationService.RefreshLocalizedState();
             ApplyLocalizedShellText();
             ApplyShellNavigationState();
@@ -127,8 +129,17 @@ namespace Foundry.Views
         /// <summary>Shows the "Configuration updated" notification of a follower; raised on the UI thread.</summary>
         private void OnSharedConfigurationUpdated(object? sender, Foundry.Services.Sharing.ConfigurationUpdatedEventArgs e)
         {
-            SharingNotification.Message = localizationService.FormatString("Sharing.ConfigurationUpdatedNotice", e.ReferenceName);
+            sharingNotification = e;
+            ApplySharingNotificationText();
             SharingNotification.IsOpen = true;
+        }
+
+        private void ApplySharingNotificationText()
+        {
+            if (sharingNotification is not null)
+            {
+                SharingNotification.Message = localizationService.FormatString("Sharing.ConfigurationUpdatedNotice", sharingNotification.ReferenceName);
+            }
         }
 
         private void OnClosed(object sender, WindowEventArgs args)

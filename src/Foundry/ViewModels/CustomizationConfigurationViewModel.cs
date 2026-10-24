@@ -22,6 +22,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
     private readonly ILanguageRegistryService languageRegistryService;
     private readonly IOobeAccountSecretStateService oobeAccountSecretStateService;
     private readonly IOobeAdditionalAccountDialogService oobeAdditionalAccountDialogService;
+    private readonly ManagedConfigurationViewModel managed;
     private readonly HashSet<CustomizationCatalog> initializedCatalogs = [];
     private bool isApplyingState = true;
     private bool isSavingState;
@@ -32,8 +33,10 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
         IApplicationLocalizationService localizationService,
         IDialogService dialogService,
         IOobeAccountSecretStateService oobeAccountSecretStateService,
-        IOobeAdditionalAccountDialogService oobeAdditionalAccountDialogService)
+        IOobeAdditionalAccountDialogService oobeAdditionalAccountDialogService,
+        ManagedConfigurationViewModel managed)
     {
+        this.managed = managed;
         this.configurationStateService = configurationStateService;
         this.languageRegistryService = languageRegistryService;
         this.localizationService = localizationService;
@@ -48,7 +51,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
 
         localizationService.LanguageChanged += OnLanguageChanged;
         configurationStateService.StateChanged += OnConfigurationStateChanged;
-        configurationStateService.ManagedChanged += OnManagedChanged;
+        managed.PropertyChanged += OnManagedChanged;
         oobeAccountSecretStateService.Changed += OnOobeAccountSecretStateChanged;
         isApplyingState = false;
     }
@@ -116,7 +119,7 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
     {
         localizationService.LanguageChanged -= OnLanguageChanged;
         configurationStateService.StateChanged -= OnConfigurationStateChanged;
-        configurationStateService.ManagedChanged -= OnManagedChanged;
+        managed.PropertyChanged -= OnManagedChanged;
         oobeAccountSecretStateService.Changed -= OnOobeAccountSecretStateChanged;
         foreach (AppxRemovalItemViewModel item in AppxRemovalCategories.SelectMany(category => category.Items))
         {
@@ -218,10 +221,17 @@ public sealed partial class CustomizationConfigurationViewModel : ObservableObje
         RefreshLocalizedText();
     }
 
-    /// <summary>A managed configuration keeps its published accounts: their removal follows the managed state.</summary>
-    private void OnManagedChanged(object? sender, EventArgs e)
+    /// <summary>
+    /// A managed configuration keeps its published accounts: they cannot be removed, and only their passwords can be edited, when
+    /// the publication does not include them.
+    /// </summary>
+    private void OnManagedChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
-        foreach (OobeAdditionalAccountEntryViewModel entry in OobeAdditionalAccounts) entry.RemoveCommand.NotifyCanExecuteChanged();
+        foreach (OobeAdditionalAccountEntryViewModel entry in OobeAdditionalAccounts)
+        {
+            entry.EditCommand.NotifyCanExecuteChanged();
+            entry.RemoveCommand.NotifyCanExecuteChanged();
+        }
     }
 
     private void OnConfigurationStateChanged(object? sender, EventArgs e)

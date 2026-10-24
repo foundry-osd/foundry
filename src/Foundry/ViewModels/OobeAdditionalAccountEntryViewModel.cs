@@ -18,6 +18,7 @@ public sealed partial class OobeAdditionalAccountEntryViewModel : ObservableObje
         string removeText,
         Func<OobeAdditionalAccountEntryViewModel, Task> editAsync,
         Action<OobeAdditionalAccountEntryViewModel> remove,
+        Func<bool> canEdit,
         Func<bool> canRemove)
     {
         Account = account ?? throw new ArgumentNullException(nameof(account));
@@ -26,8 +27,9 @@ public sealed partial class OobeAdditionalAccountEntryViewModel : ObservableObje
         RemoveText = removeText;
         this.editAsync = editAsync ?? throw new ArgumentNullException(nameof(editAsync));
         this.remove = remove ?? throw new ArgumentNullException(nameof(remove));
-        EditCommand = new AsyncRelayCommand(() => this.editAsync(this));
+        ArgumentNullException.ThrowIfNull(canEdit);
         ArgumentNullException.ThrowIfNull(canRemove);
+        EditCommand = new AsyncRelayCommand(() => this.editAsync(this), canEdit);
         RemoveCommand = new RelayCommand(() => this.remove(this), canRemove);
     }
 
