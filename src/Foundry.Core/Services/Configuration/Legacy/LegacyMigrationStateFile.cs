@@ -13,7 +13,7 @@ public sealed record LegacyMigrationState
     /// <summary>Gets whether the migration from the removed deployment profiles completed; it never runs again.</summary>
     public bool ConfigurationSharingCompleted { get; init; }
 
-    /// <summary>Gets the notices the Home page still shows, until each is dismissed.</summary>
+    /// <summary>Gets the notices the startup dialog still shows, until each is dismissed.</summary>
     public IReadOnlyList<MigrationNotice> PendingNotices { get; init; } = [];
 }
 
