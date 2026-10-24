@@ -23,7 +23,7 @@ public interface INetworkSecretStateService
     string? PersonalWifiPassphrase { get; }
 
     /// <summary>
-    /// Drops passwords that no longer match <paramref name="settings"/> and records the non-null values the operator entered.
+    /// Drops passwords whose SSID or certificate changed in <paramref name="settings"/> and records the non-null values the operator entered.
     /// </summary>
     /// <param name="settings">Network settings the passwords belong to.</param>
     /// <param name="entered">Passwords entered on the network pages, or <see langword="null"/> to only drop stale ones.</param>
@@ -40,4 +40,11 @@ public interface INetworkSecretStateService
     /// <param name="settings">Network settings that may need passwords.</param>
     /// <returns>The passwords bound to the same SSID and certificates.</returns>
     NetworkSecrets GetSecrets(NetworkSettings settings);
+
+    /// <summary>
+    /// Gets every password still bound to <paramref name="settings"/> (same SSID, same certificate), even for a disabled feature;
+    /// the secret vault bridge persists these.
+    /// </summary>
+    /// <param name="settings">Network settings whose SSID and certificates own the passwords.</param>
+    NetworkSecrets GetRetainedSecrets(NetworkSettings settings);
 }

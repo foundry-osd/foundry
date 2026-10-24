@@ -105,6 +105,52 @@ public sealed class SecretMapTests
         Assert.Empty(SecretMap.RequiredIds(disabled));
     }
 
+    [Fact]
+    public void Merge_KeepsEntriesTheMapDoesNotOwnAndReplacesOwnedOnes()
+    {
+        var existing = new Dictionary<string, string>
+        {
+            [SecretIds.SigningKey] = "signing-key",
+            [SecretIds.MasterKey] = "master-key",
+            [SecretIds.PublicationPassword] = "publication-password",
+            ["networkcache/account/a1"] = "share-password",
+            [SecretIds.WifiPassphrase] = "old-passphrase",
+            [SecretIds.Dot1xCertificate(OldHash)] = "old-certificate-password",
+        };
+        var owned = new Dictionary<string, string>
+        {
+            [SecretIds.WifiPassphrase] = "new-passphrase",
+            [SecretIds.Dot1xCertificate(NewHash)] = "new-certificate-password",
+            [SecretIds.SigningKey] = "must-not-overwrite",
+        };
+
+        IReadOnlyDictionary<string, string> merged = SecretMap.Merge(existing, owned);
+
+        Assert.Equal(new Dictionary<string, string>
+        {
+            [SecretIds.SigningKey] = "signing-key",
+            [SecretIds.MasterKey] = "master-key",
+            [SecretIds.PublicationPassword] = "publication-password",
+            ["networkcache/account/a1"] = "share-password",
+            [SecretIds.WifiPassphrase] = "new-passphrase",
+            [SecretIds.Dot1xCertificate(NewHash)] = "new-certificate-password",
+        }, merged);
+    }
+
+    [Fact]
+    public void ToEntries_DisabledFeature_KeepsPasswordWhileItsOwnerExists()
+    {
+        FoundryConfigurationDocument disabled = WithDot1xCertificate(OldHash) with
+        {
+            Network = WithDot1xCertificate(OldHash).Network with { Dot1x = WithDot1xCertificate(OldHash).Network.Dot1x with { IsEnabled = false } }
+        };
+
+        IReadOnlyDictionary<string, string> entries = SecretMap.ToEntries(disabled, new SecretSnapshot { Dot1xCertificatePassword = "pfx-password" });
+
+        Assert.Equal("pfx-password", entries[SecretIds.Dot1xCertificate(OldHash)]);
+        Assert.Empty(SecretMap.RequiredIds(disabled));
+    }
+
     private static FoundryConfigurationDocument WithDot1xCertificate(string hash) => new()
     {
         Network = new NetworkSettings

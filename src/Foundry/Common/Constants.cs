@@ -60,6 +60,8 @@ namespace Foundry.Common
         public static readonly string FoundryConfigurationStatePath = Path.Combine(ConfigurationWorkspaceDirectoryPath, "foundry.config.json");
         /// <summary>Gets the DPAPI-protected vault holding the configuration passwords of the current user.</summary>
         public static readonly string SecretVaultPath = Path.Combine(ConfigurationWorkspaceDirectoryPath, "secrets.dat");
+        /// <summary>Gets the per-user state of the first-launch migration from the removed deployment profiles.</summary>
+        public static readonly string LegacyMigrationStatePath = Path.Combine(ConfigurationWorkspaceDirectoryPath, "migration.json");
 
         public const string RepositoryUrl = "https://github.com/foundry-osd/foundry";
         public const string LatestReleaseUrl = RepositoryUrl + "/releases/latest";

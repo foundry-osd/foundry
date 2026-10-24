@@ -11,7 +11,9 @@ namespace Foundry.Core.Services.Configuration;
 /// </summary>
 /// <remarks>
 /// The personal passphrase is bound to the SSID and each PFX password to its certificate content hash, so a password
-/// never follows a different network or certificate.
+/// never follows a different network or certificate. A password is kept while its owner (the same SSID or the same certificate)
+/// is still in the settings, even when its feature is disabled; <see cref="GetSecrets"/> returns only the passwords the enabled
+/// features use, and <see cref="GetRetainedSecrets"/> every password still bound to the settings.
 /// </remarks>
 public sealed class NetworkSecretState
 {
@@ -25,28 +27,20 @@ public sealed class NetworkSecretState
     public string? PersonalWifiPassphrase { get; private set; }
 
     /// <summary>
-    /// Drops passwords that no longer match <paramref name="settings"/>, then records the non-null values of <paramref name="entered"/>.
+    /// Drops passwords whose SSID or certificate changed in <paramref name="settings"/>, then records the non-null values of <paramref name="entered"/>.
     /// </summary>
     /// <remarks>A blank passphrase leaves the recorded one; a blank PFX password is kept, as a PFX may have an empty password.</remarks>
     public void Update(NetworkSettings settings, NetworkSecrets? entered = null)
     {
         ArgumentNullException.ThrowIfNull(settings);
 
-        UpdateCertificate(settings.Dot1x.IsEnabled && settings.Dot1x.RequiresCertificate ? settings.Dot1x.Certificate : null,
-            entered?.WiredCertificatePfxPassword, ref wiredCertificateHash, ref wiredCertificatePassword);
-        UpdateCertificate(settings.Wifi.IsEnabled && settings.Wifi.RequiresCertificate ? settings.Wifi.Certificate : null,
-            entered?.WifiCertificatePfxPassword, ref wifiCertificateHash, ref wifiCertificatePassword);
+        UpdateCertificate(settings.Dot1x.Certificate, entered?.WiredCertificatePfxPassword, ref wiredCertificateHash, ref wiredCertificatePassword);
+        UpdateCertificate(settings.Wifi.Certificate, entered?.WifiCertificatePfxPassword, ref wifiCertificateHash, ref wifiCertificatePassword);
         string identity = settings.Wifi.Ssid ?? string.Empty;
         if (!string.Equals(wifiIdentity, identity, StringComparison.Ordinal))
         {
             PersonalWifiPassphrase = null;
             wifiIdentity = identity;
-        }
-
-        if (!NetworkMediaReadinessEvaluator.RequiresPersonalWifiPassphrase(settings))
-        {
-            PersonalWifiPassphrase = null;
-            return;
         }
 
         if (!string.IsNullOrWhiteSpace(entered?.WifiPassphrase))
@@ -63,7 +57,8 @@ public sealed class NetworkSecretState
 
     /// <summary>
     /// Returns the passwords that apply to <paramref name="settings"/>: the passphrase when personal Wi-Fi needs a valid one
-    /// for the same SSID, and each PFX password whose certificate is still the one it was entered for.
+    /// for the same SSID, and each PFX password whose feature requires its certificate and whose certificate is still the one
+    /// it was entered for.
     /// </summary>
     public NetworkSecrets GetSecrets(NetworkSettings settings)
     {
@@ -71,9 +66,25 @@ public sealed class NetworkSecretState
         bool passphraseApplies = NetworkMediaReadinessEvaluator.RequiresPersonalWifiPassphrase(settings) &&
             string.Equals(wifiIdentity, settings.Wifi.Ssid ?? string.Empty, StringComparison.Ordinal) &&
             NetworkMediaReadinessEvaluator.IsPersonalWifiPassphraseValid(PersonalWifiPassphrase);
+        NetworkSecrets retained = GetRetainedSecrets(settings);
         return new NetworkSecrets
         {
             WifiPassphrase = passphraseApplies ? PersonalWifiPassphrase!.Trim() : null,
+            WiredCertificatePfxPassword = settings.Dot1x is { IsEnabled: true, RequiresCertificate: true } ? retained.WiredCertificatePfxPassword : null,
+            WifiCertificatePfxPassword = settings.Wifi is { IsEnabled: true, RequiresCertificate: true } ? retained.WifiCertificatePfxPassword : null
+        };
+    }
+
+    /// <summary>
+    /// Returns every password still bound to <paramref name="settings"/> (same SSID, same certificate content hash), whether or
+    /// not its feature is enabled; the secret vault keeps these.
+    /// </summary>
+    public NetworkSecrets GetRetainedSecrets(NetworkSettings settings)
+    {
+        ArgumentNullException.ThrowIfNull(settings);
+        return new NetworkSecrets
+        {
+            WifiPassphrase = string.Equals(wifiIdentity, settings.Wifi.Ssid ?? string.Empty, StringComparison.Ordinal) ? PersonalWifiPassphrase : null,
             WiredCertificatePfxPassword = Matches(wiredCertificateHash, settings.Dot1x.Certificate) ? wiredCertificatePassword : null,
             WifiCertificatePfxPassword = Matches(wifiCertificateHash, settings.Wifi.Certificate) ? wifiCertificatePassword : null
         };

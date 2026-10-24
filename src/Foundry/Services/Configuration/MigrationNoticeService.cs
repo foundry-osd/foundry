@@ -5,24 +5,26 @@
 using Foundry.Core.Services.Configuration.Legacy;
 using Foundry.Core.Services.Secrets;
 using Foundry.Services.Secrets;
-using Foundry.Services.Settings;
 using Serilog;
 
 namespace Foundry.Services.Configuration;
 
 /// <summary>
-/// Shows each migration notice until it is dismissed; an unreadable secret vault also shows the passwords notice for the session.
+/// Shows each migration notice of the current Windows user until it is dismissed; an unreadable secret vault also shows the
+/// passwords notice for the session.
 /// </summary>
+/// <remarks>The pending notices are read once from the per-user <see cref="LegacyMigrationStateFile"/>, after the migration ran.</remarks>
 internal sealed class MigrationNoticeService : IMigrationNoticeService, IDisposable
 {
-    private readonly IAppSettingsService settings;
+    private readonly LegacyMigrationStateFile stateFile;
     private readonly ISecretVaultBridge vault;
     private readonly ILogger logger;
+    private LegacyMigrationState? state;
     private bool isVaultNoticeDismissed;
 
-    public MigrationNoticeService(IAppSettingsService settings, ISecretVaultBridge vault, ILogger logger)
+    public MigrationNoticeService(LegacyMigrationStateFile stateFile, ISecretVaultBridge vault, ILogger logger)
     {
-        this.settings = settings;
+        this.stateFile = stateFile;
         this.vault = vault;
         this.logger = logger.ForContext<MigrationNoticeService>();
         vault.StatusChanged += OnVaultStatusChanged;
@@ -33,18 +35,20 @@ internal sealed class MigrationNoticeService : IMigrationNoticeService, IDisposa
 
     /// <inheritdoc />
     public bool IsShown(MigrationNotice notice) =>
-        settings.Current.Migrations.PendingNotices.Contains(notice) ||
+        State.PendingNotices.Contains(notice) ||
         (notice == MigrationNotice.PasswordsNeeded && vault.Status == VaultStatus.Unreadable && !isVaultNoticeDismissed);
 
     /// <inheritdoc />
     public void Dismiss(MigrationNotice notice)
     {
         if (notice == MigrationNotice.PasswordsNeeded) isVaultNoticeDismissed = true;
-        if (settings.Current.Migrations.PendingNotices.Remove(notice))
+        LegacyMigrationState current = State;
+        if (current.PendingNotices.Contains(notice))
         {
+            state = current with { PendingNotices = current.PendingNotices.Where(pending => pending != notice).ToArray() };
             try
             {
-                settings.Save();
+                stateFile.Save(state);
             }
             catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
             {
@@ -56,6 +60,21 @@ internal sealed class MigrationNoticeService : IMigrationNoticeService, IDisposa
     }
 
     public void Dispose() => vault.StatusChanged -= OnVaultStatusChanged;
+
+    private LegacyMigrationState State => state ??= LoadState();
+
+    private LegacyMigrationState LoadState()
+    {
+        try
+        {
+            return stateFile.Load();
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        {
+            logger.Warning(exception, "Migration notices could not be read and are not shown during this session.");
+            return new LegacyMigrationState();
+        }
+    }
 
     private void OnVaultStatusChanged(object? sender, EventArgs e) => Changed?.Invoke(this, EventArgs.Empty);
 }

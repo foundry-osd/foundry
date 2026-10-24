@@ -8,10 +8,10 @@ using Foundry.Core.Services.Secrets;
 namespace Foundry.Core.Services.Configuration.Legacy;
 
 /// <summary>One-time notices the first launch after the legacy migration shows.</summary>
-/// <remarks>The values are persisted in the application settings until the notice is dismissed; never renumber them.</remarks>
+/// <remarks>Pending notices are persisted by name in the per-user <see cref="LegacyMigrationStateFile"/> until dismissed; never rename them.</remarks>
 public enum MigrationNotice
 {
-    /// <summary>The active profile was locked or unreadable: its passwords must be entered again.</summary>
+    /// <summary>The active profile was locked or unreadable, or some of its passwords no longer match: they must be entered again.</summary>
     PasswordsNeeded = 0,
 
     /// <summary>The active profile was enrolled in the retired folder synchronization, which is no longer supported.</summary>
@@ -36,7 +36,8 @@ public sealed record LegacyMigrationResult(
 /// the reference of its role, because profile bytes take precedence over a file re-imported from a legacy host path; an answer
 /// file is accepted only when its bytes match the validated digest of the entry with the same id. Passwords are matched by
 /// context against the result: the Wi-Fi passphrase only while the SSID is unchanged, a certificate password only for the
-/// certificate the profile carried (keyed by its new hash), and account passwords only for accounts the configuration still lists.
+/// certificate the profile carried (keyed by its new hash), and account passwords only for accounts the configuration still lists;
+/// a password dropped because its context changed raises <see cref="MigrationNotice.PasswordsNeeded"/>.
 /// The legacy store itself is never modified.
 /// </remarks>
 public static class LegacyProfileMigration
@@ -67,6 +68,8 @@ public static class LegacyProfileMigration
             Dictionary<string, AuthoringFileReference> imported = ImportFiles(activeProfile.Files, importFile);
             configuration = imported.Count == 0 ? current : ApplyFiles(current, imported);
             entries = SecretMap.ToEntries(configuration, MapSecrets(activeProfile, configuration, imported));
+            // A password that no longer matches its context (another SSID, certificate or account) must be entered again.
+            if (entries.Count < CountUsablePasswords(activeProfile.Secrets)) notices.Add(MigrationNotice.PasswordsNeeded);
             if (activeProfile.WasShared) notices.Add(MigrationNotice.LegacySyncRetired);
         }
 
@@ -208,6 +211,17 @@ public static class LegacyProfileMigration
             .DistinctBy(secret => secret.Key, StringComparer.Ordinal)
             .ToDictionary(secret => secret.Key!, secret => secret.Value, StringComparer.Ordinal);
     }
+
+    /// <summary>Counts the recovered passwords that would each map to one vault id when their context still matches.</summary>
+    private static int CountUsablePasswords(IReadOnlyList<LegacySecret> secrets) => secrets
+        .Where(secret => secret.Kind switch
+        {
+            LegacySecretKind.OobeAccount or LegacySecretKind.DomainJoin => !string.IsNullOrWhiteSpace(secret.Key) && secret.Value.Length > 0,
+            LegacySecretKind.WiredCertificatePassword or LegacySecretKind.WifiCertificatePassword or LegacySecretKind.AutopilotCertificatePassword => true,
+            _ => secret.Value.Length > 0
+        })
+        .DistinctBy(secret => (secret.Kind, secret.Key))
+        .Count();
 
     /// <summary>Applies the media build rules: a reference an enabled feature needs is still null.</summary>
     private static bool HasMissingRequiredFile(FoundryConfigurationDocument configuration)

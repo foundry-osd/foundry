@@ -28,27 +28,42 @@ public static class SecretIds
     /// <summary>Master key encrypting published content; never shared.</summary>
     public const string MasterKey = "sharing/master-key";
 
+    /// <summary>Prefix of the Wi-Fi certificate password ids.</summary>
+    public const string WifiCertificatePrefix = "wifi/certificate/";
+
+    /// <summary>Prefix of the 802.1X certificate password ids.</summary>
+    public const string Dot1xCertificatePrefix = "dot1x/certificate/";
+
+    /// <summary>Prefix of the Autopilot certificate password ids.</summary>
+    public const string AutopilotCertificatePrefix = "autopilot/certificate/";
+
+    /// <summary>Prefix of the additional OOBE account password ids.</summary>
+    public const string OobeAccountPrefix = "oobe/account/";
+
+    /// <summary>Prefix of the domain join account password ids.</summary>
+    public const string DomainAccountPrefix = "domain/";
+
     /// <summary>Gets the id of the password of a Wi-Fi certificate, keyed by the certificate content hash so it follows its file.</summary>
-    public static string WifiCertificate(string hash) => ForHash("wifi/certificate/", hash);
+    public static string WifiCertificate(string hash) => ForHash(WifiCertificatePrefix, hash);
 
     /// <summary>Gets the id of the password of an 802.1X certificate, keyed by the certificate content hash.</summary>
-    public static string Dot1xCertificate(string hash) => ForHash("dot1x/certificate/", hash);
+    public static string Dot1xCertificate(string hash) => ForHash(Dot1xCertificatePrefix, hash);
 
     /// <summary>Gets the id of the password of an Autopilot certificate, keyed by the certificate content hash.</summary>
-    public static string AutopilotCertificate(string hash) => ForHash("autopilot/certificate/", hash);
+    public static string AutopilotCertificate(string hash) => ForHash(AutopilotCertificatePrefix, hash);
 
     /// <summary>Gets the id of the password of an additional OOBE account.</summary>
     public static string OobeAccount(string accountId)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(accountId);
-        return "oobe/account/" + accountId;
+        return OobeAccountPrefix + accountId;
     }
 
     /// <summary>Gets the id of the password of a domain join account, keyed by its canonical account name.</summary>
     public static string DomainAccount(string canonicalAccount)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(canonicalAccount);
-        return "domain/" + canonicalAccount;
+        return DomainAccountPrefix + canonicalAccount;
     }
 
     /// <summary>Returns whether the id belongs to the sharing machinery and must never be exported or published.</summary>

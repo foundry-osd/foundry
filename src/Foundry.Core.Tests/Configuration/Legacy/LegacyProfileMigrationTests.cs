@@ -65,6 +65,7 @@ public sealed class LegacyProfileMigrationTests : IDisposable
         Assert.Equal(json.Customization.Oobe.SkipLicenseTerms, result.Configuration.Customization.Oobe.SkipLicenseTerms);
         // The passphrase belonged to the network the profile named, not to the one the newer settings name.
         Assert.False(result.VaultEntries.ContainsKey(SecretIds.WifiPassphrase));
+        Assert.Contains(MigrationNotice.PasswordsNeeded, result.Notices);
     }
 
     [Fact]

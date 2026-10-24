@@ -24,9 +24,9 @@ internal sealed class NetworkSecretStateService : INetworkSecretStateService
     public void Update(NetworkSettings settings, NetworkSecrets? entered = null)
     {
         string? previousPassphrase = state.PersonalWifiPassphrase;
-        NetworkSecrets previousSecrets = state.GetSecrets(settings);
+        NetworkSecrets previousSecrets = state.GetRetainedSecrets(settings);
         state.Update(settings, entered);
-        if (previousSecrets != state.GetSecrets(settings))
+        if (previousSecrets != state.GetRetainedSecrets(settings))
         {
             Changed?.Invoke(this, EventArgs.Empty);
             return;
@@ -47,6 +47,12 @@ internal sealed class NetworkSecretStateService : INetworkSecretStateService
     public NetworkSecrets GetSecrets(NetworkSettings settings)
     {
         return state.GetSecrets(settings);
+    }
+
+    /// <inheritdoc />
+    public NetworkSecrets GetRetainedSecrets(NetworkSettings settings)
+    {
+        return state.GetRetainedSecrets(settings);
     }
 
     private void RaiseChangedIfNeeded(string? previousPassphrase)

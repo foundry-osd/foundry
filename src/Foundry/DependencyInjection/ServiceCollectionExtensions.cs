@@ -129,6 +129,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<SecretVaultBridge>();
         services.AddSingleton<ISecretVaultBridge>(sp => sp.GetRequiredService<SecretVaultBridge>());
         services.AddSingleton<AuthoringFileCleanupService>();
+        services.AddSingleton(_ => new Foundry.Core.Services.Configuration.Legacy.LegacyMigrationStateFile(Constants.LegacyMigrationStatePath));
         services.AddSingleton<LegacyMigrationRunner>();
         services.AddSingleton<IMigrationNoticeService, MigrationNoticeService>();
         services.AddSingleton<IWinPeLanguageDiscoveryService, WinPeLanguageDiscoveryService>();

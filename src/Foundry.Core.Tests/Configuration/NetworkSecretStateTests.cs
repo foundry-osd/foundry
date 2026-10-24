@@ -88,14 +88,44 @@ public sealed class NetworkSecretStateTests
     }
 
     [Fact]
-    public void Update_WhenPersonalWifiIsDisabled_ClearsTransientSecret()
+    public void Update_WhenFeaturesAreDisabled_KeepsPasswordsOfTheSameOwnersWithoutApplyingThem()
     {
         NetworkSecretState state = new();
+        AuthoringFileReference certificate = TestFileReferences.Detached("wired.pfx");
+        NetworkSettings enabled = CreatePersonalWifiSettings() with
+        {
+            Dot1x = new Dot1xSettings { IsEnabled = true, RequiresCertificate = true, Certificate = certificate }
+        };
+        state.Update(enabled, new NetworkSecrets { WifiPassphrase = "ValidPassphrase123", WiredCertificatePfxPassword = "pfx-password" });
+        NetworkSettings disabled = enabled with
+        {
+            Dot1x = enabled.Dot1x with { IsEnabled = false },
+            Wifi = enabled.Wifi with { IsEnabled = false }
+        };
 
-        state.Update(CreatePersonalWifiSettings(), new NetworkSecrets { WifiPassphrase = "ValidPassphrase123" });
+        state.Update(disabled);
+
+        Assert.Equal(new NetworkSecrets(), state.GetSecrets(disabled));
+        Assert.Equal(new NetworkSecrets { WifiPassphrase = "ValidPassphrase123", WiredCertificatePfxPassword = "pfx-password" }, state.GetRetainedSecrets(disabled));
+        state.Update(enabled);
+        Assert.Equal("pfx-password", state.GetSecrets(enabled).WiredCertificatePfxPassword);
+        Assert.Equal("ValidPassphrase123", state.GetSecrets(enabled).WifiPassphrase);
+    }
+
+    [Fact]
+    public void Update_WhenOwnersLeaveTheSettings_DropsTheirPasswords()
+    {
+        NetworkSecretState state = new();
+        NetworkSettings settings = CreatePersonalWifiSettings() with
+        {
+            Dot1x = new Dot1xSettings { IsEnabled = true, RequiresCertificate = true, Certificate = TestFileReferences.Detached("wired.pfx") }
+        };
+        state.Update(settings, new NetworkSecrets { WifiPassphrase = "ValidPassphrase123", WiredCertificatePfxPassword = "pfx-password" });
+
         state.Update(new NetworkSettings());
 
         Assert.Null(state.PersonalWifiPassphrase);
+        Assert.Equal(new NetworkSecrets(), state.GetRetainedSecrets(settings));
     }
 
     private static NetworkSettings CreatePersonalWifiSettings()

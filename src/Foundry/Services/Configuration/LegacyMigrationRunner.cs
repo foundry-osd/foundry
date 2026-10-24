@@ -7,24 +7,24 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration.Legacy;
 using Foundry.Core.Services.Files;
 using Foundry.Core.Services.Secrets;
-using Foundry.Services.Settings;
 using Foundry.Utilities.Security;
 using Serilog;
 
 namespace Foundry.Services.Configuration;
 
 /// <summary>
-/// Runs the first-launch migration from the removed deployment profiles once: the active legacy profile gives its passwords
-/// and file bytes, the current configuration keeps its settings.
+/// Runs the first-launch migration from the removed deployment profiles once per Windows user: the active legacy profile gives
+/// its passwords and file bytes, the current configuration keeps its settings.
 /// </summary>
 /// <remarks>
-/// Runs at startup after the configuration state loads and before the secret vault bridge restores passwords. The legacy profile
-/// store and its Credential Manager entries are never modified; only the decrypted working copies in its <c>Staging</c> folder are
-/// deleted. Completion and the notices to show are recorded in the application settings. A configuration that cannot be saved
-/// leaves the migration incomplete so the next launch retries it. Secret values and file contents are never logged.
+/// Runs at startup after the configuration state loads and before the secret vault bridge restores passwords, so it is the only
+/// vault writer at that point. The legacy profile store and its Credential Manager entries are never modified; only the
+/// decrypted working copies in its <c>Staging</c> folder are deleted. Completion and the notices to show are recorded in the
+/// per-user <see cref="LegacyMigrationStateFile"/>. A configuration that cannot be saved leaves the migration incomplete so the
+/// next launch retries it. Secret values and file contents are never logged.
 /// </remarks>
 internal sealed class LegacyMigrationRunner(
-    IAppSettingsService settings,
+    LegacyMigrationStateFile state,
     IFoundryConfigurationStateService configuration,
     AuthoringFileLibrary files,
     LocalSecretVault vault,
@@ -34,16 +34,23 @@ internal sealed class LegacyMigrationRunner(
 {
     private readonly ILogger logger = logger.ForContext<LegacyMigrationRunner>();
 
-    /// <summary>Migrates once; does nothing when the migration already completed. A failure never blocks startup.</summary>
+    /// <summary>Migrates once; does nothing when the migration already completed for this user. A failure never blocks startup.</summary>
     public void Run()
     {
-        MigrationSettings migrations = settings.Current.Migrations;
-        if (migrations.ConfigurationSharingCompleted) return;
+        try
+        {
+            if (state.Load().ConfigurationSharingCompleted) return;
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        {
+            logger.Warning(exception, "Legacy migration state could not be read; the migration is retried at the next launch.");
+            return;
+        }
 
         logger.Information("Legacy configuration migration started.");
         try
         {
-            Migrate(migrations);
+            Migrate();
         }
         catch (Exception exception)
         {
@@ -51,7 +58,7 @@ internal sealed class LegacyMigrationRunner(
         }
     }
 
-    private void Migrate(MigrationSettings migrations)
+    private void Migrate()
     {
         (LegacyConfigurationSnapshot? profile, bool locked, bool shared) = ReadActiveProfile();
         int importedFiles = 0;
@@ -80,24 +87,23 @@ internal sealed class LegacyMigrationRunner(
         if (!SaveVaultEntries(result.VaultEntries)) notices.Add(MigrationNotice.PasswordsNeeded);
         DeleteStaging();
 
-        migrations.ConfigurationSharingCompleted = true;
-        migrations.PendingNotices = notices.Order().ToList();
+        MigrationNotice[] pending = notices.Order().ToArray();
         try
         {
-            settings.Save();
+            state.Save(new LegacyMigrationState { ConfigurationSharingCompleted = true, PendingNotices = pending });
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
         {
-            // The settings service logged the failure; the migration result is already in the configuration and the vault.
-            logger.Warning(exception, "Legacy configuration migration completed but its completion could not be recorded.");
+            logger.Warning(exception, "Legacy configuration migration completed but its completion could not be recorded; it runs again at the next launch.");
         }
 
         logger.Information(
             "Legacy configuration migration completed. ProfileFound={ProfileFound}, ProfileLocked={ProfileLocked}, ImportedFileCount={ImportedFileCount}, SecretCount={SecretCount}, Notices={Notices}",
-            profile is not null, locked, importedFiles, result.VaultEntries.Count, string.Join(",", migrations.PendingNotices));
+            profile is not null, locked, importedFiles, result.VaultEntries.Count, string.Join(",", pending));
         // Library files the migration replaced, such as copies imported from legacy host paths, are no longer referenced.
         fileCleanup.RequestCleanup();
     }
+
 
     private (LegacyConfigurationSnapshot? Profile, bool Locked, bool Shared) ReadActiveProfile()
     {
