@@ -13,6 +13,8 @@ namespace Foundry.ViewModels;
 /// </summary>
 public sealed partial class PublicationPasswordFields(IApplicationLocalizationService localization, string passwordLabelKey) : ObservableObject
 {
+    private bool isGenerating;
+
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsComplete), nameof(CanCopy), nameof(ValidationMessage), nameof(HasValidationMessage))]
     public partial string Password { get; set; } = string.Empty;
@@ -54,12 +56,26 @@ public sealed partial class PublicationPasswordFields(IApplicationLocalizationSe
     private void Generate()
     {
         string generated = PassphrasePolicy.Generate();
+        isGenerating = true;
         Password = generated;
         Confirmation = generated;
+        isGenerating = false;
         IsRevealed = true;
     }
 
-    partial void OnPasswordChanged(string value) => IsCopied = false;
+    partial void OnPasswordChanged(string value)
+    {
+        IsCopied = false;
+        HideTypedPassword();
+    }
+
+    partial void OnConfirmationChanged(string value) => HideTypedPassword();
+
+    // A generated password is shown once; typing hides the fields again behind the reveal button.
+    private void HideTypedPassword()
+    {
+        if (!isGenerating) IsRevealed = false;
+    }
 
     /// <summary>Records that the password was copied; the view owns the clipboard.</summary>
     public void MarkCopied() => IsCopied = true;

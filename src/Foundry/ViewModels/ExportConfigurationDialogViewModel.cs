@@ -19,6 +19,7 @@ public sealed partial class ExportConfigurationDialogViewModel : ObservableObjec
     private readonly IFilePickerService picker;
     private readonly IApplicationLocalizationService localization;
     private bool disposed;
+    private bool isGenerating;
 
     public ExportConfigurationDialogViewModel(ConfigurationTransferService transfer, IFilePickerService picker, IApplicationLocalizationService localization)
     {
@@ -95,12 +96,26 @@ public sealed partial class ExportConfigurationDialogViewModel : ObservableObjec
     {
         if (!CanEdit) return;
         string generated = PassphrasePolicy.Generate();
+        isGenerating = true;
         Passphrase = generated;
         Confirmation = generated;
+        isGenerating = false;
         IsPassphraseRevealed = true;
     }
 
-    partial void OnPassphraseChanged(string value) => IsCopied = false;
+    partial void OnPassphraseChanged(string value)
+    {
+        IsCopied = false;
+        HideTypedPassphrase();
+    }
+
+    partial void OnConfirmationChanged(string value) => HideTypedPassphrase();
+
+    // A generated passphrase is shown once; typing hides the fields again behind the reveal button.
+    private void HideTypedPassphrase()
+    {
+        if (!isGenerating) IsPassphraseRevealed = false;
+    }
 
     /// <summary>
     /// Asks for the destination, then writes the export. Returns true when the file was written with every referenced file; when
