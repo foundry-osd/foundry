@@ -15,7 +15,7 @@
     PrimaryButtonText="{x:Bind ViewModel.FollowLabel, Mode=OneWay}"
     Style="{ThemeResource DefaultContentDialogStyle}">
     <StackPanel
-        Width="520"
+        Width="{StaticResource FoundryDialogContentWidth}"
         Padding="0,4,0,8"
         Spacing="{ThemeResource FoundryContentGroupSpacing}">
         <TextBlock
@@ -97,7 +97,8 @@
                 <TextBlock
                     Grid.Row="1"
                     Grid.Column="1"
-                    Text="{x:Bind ViewModel.PreviewPublished, Mode=OneWay}" />
+                    Text="{x:Bind ViewModel.PreviewPublished, Mode=OneWay}"
+                    TextWrapping="Wrap" />
                 <TextBlock
                     Grid.Row="2"
                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -105,7 +106,8 @@
                 <TextBlock
                     Grid.Row="2"
                     Grid.Column="1"
-                    Text="{x:Bind ViewModel.PreviewVersion, Mode=OneWay}" />
+                    Text="{x:Bind ViewModel.PreviewVersion, Mode=OneWay}"
+                    TextWrapping="Wrap" />
                 <TextBlock
                     Grid.Row="3"
                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -113,7 +115,8 @@
                 <TextBlock
                     Grid.Row="3"
                     Grid.Column="1"
-                    Text="{x:Bind ViewModel.PreviewPasswords, Mode=OneWay}" />
+                    Text="{x:Bind ViewModel.PreviewPasswords, Mode=OneWay}"
+                    TextWrapping="Wrap" />
                 <TextBlock
                     Grid.Row="4"
                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -121,7 +124,8 @@
                 <TextBlock
                     Grid.Row="4"
                     Grid.Column="1"
-                    Text="{x:Bind ViewModel.PreviewDownload, Mode=OneWay}" />
+                    Text="{x:Bind ViewModel.PreviewDownload, Mode=OneWay}"
+                    TextWrapping="Wrap" />
             </Grid>
             <InfoBar
                 IsClosable="False"

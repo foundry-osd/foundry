@@ -15,7 +15,7 @@
     PrimaryButtonText="{x:Bind ViewModel.AcceptLabel, Mode=OneWay}"
     Style="{ThemeResource DefaultContentDialogStyle}">
     <StackPanel
-        Width="520"
+        Width="{StaticResource FoundryDialogContentWidth}"
         Padding="0,4,0,8"
         Spacing="{ThemeResource FoundryContentGroupSpacing}">
         <TextBlock
@@ -62,7 +62,8 @@
             <TextBlock
                 Grid.Row="2"
                 Grid.Column="1"
-                Text="{x:Bind ViewModel.NewVersion, Mode=OneWay}" />
+                Text="{x:Bind ViewModel.NewVersion, Mode=OneWay}"
+                TextWrapping="Wrap" />
         </Grid>
         <ProgressBar
             IsIndeterminate="True"

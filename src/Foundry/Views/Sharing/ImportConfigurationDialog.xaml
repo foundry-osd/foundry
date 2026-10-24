@@ -17,7 +17,7 @@
     PrimaryButtonText="{x:Bind ViewModel.ImportLabel, Mode=OneWay}"
     Style="{ThemeResource DefaultContentDialogStyle}">
     <StackPanel
-        Width="520"
+        Width="{StaticResource FoundryDialogContentWidth}"
         Padding="0,4,0,8"
         Spacing="{ThemeResource FoundryContentGroupSpacing}">
         <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
@@ -138,6 +138,7 @@
                     Grid.Row="1"
                     Grid.Column="1"
                     Text="{x:Bind ViewModel.PreviewCreated, Mode=OneWay}"
+                    TextWrapping="Wrap"
                     Visibility="{x:Bind ViewModel.HasPreviewCreated, Mode=OneWay}" />
                 <TextBlock
                     Grid.Row="2"
@@ -146,7 +147,8 @@
                 <TextBlock
                     Grid.Row="2"
                     Grid.Column="1"
-                    Text="{x:Bind ViewModel.PreviewPasswords, Mode=OneWay}" />
+                    Text="{x:Bind ViewModel.PreviewPasswords, Mode=OneWay}"
+                    TextWrapping="Wrap" />
             </Grid>
             <InfoBar
                 IsClosable="False"

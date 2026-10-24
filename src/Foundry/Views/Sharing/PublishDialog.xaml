@@ -16,7 +16,7 @@
     PrimaryButtonText="{x:Bind ViewModel.PublishLabel, Mode=OneWay}"
     Style="{ThemeResource DefaultContentDialogStyle}">
     <StackPanel
-        Width="520"
+        Width="{StaticResource FoundryDialogContentWidth}"
         Padding="0,4,0,8"
         Spacing="{ThemeResource FoundryContentGroupSpacing}">
         <TextBlock

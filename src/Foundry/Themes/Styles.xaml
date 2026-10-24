@@ -41,6 +41,9 @@
     <x:Double x:Key="FoundryInlineControlSpacing">8</x:Double>
     <x:Double x:Key="FoundryPageHeaderColumnSpacing">16</x:Double>
 
+    <!--  Content width of the application dialogs (ISO/USB creation, sharing): fits the default ContentDialog frame, whose  -->
+    <!--  548 px maximum leaves 498 px for content inside its 24 px padding and borders.  -->
+    <x:Double x:Key="FoundryDialogContentWidth">480</x:Double>
     <x:Double x:Key="FoundryContentMaxWidth">960</x:Double>
     <x:Double x:Key="FoundrySettingsControlMaxWidth">720</x:Double>
     <x:Double x:Key="FoundryWideInputMinWidth">420</x:Double>

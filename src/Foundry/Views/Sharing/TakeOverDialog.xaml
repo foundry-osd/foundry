@@ -15,7 +15,7 @@
     PrimaryButtonText="{x:Bind ViewModel.TakeOverLabel, Mode=OneWay}"
     Style="{ThemeResource DefaultContentDialogStyle}">
     <StackPanel
-        Width="520"
+        Width="{StaticResource FoundryDialogContentWidth}"
         Padding="0,4,0,8"
         Spacing="{ThemeResource FoundryContentGroupSpacing}">
         <TextBlock
@@ -51,6 +51,7 @@
                 Grid.Row="1"
                 Grid.Column="1"
                 Text="{x:Bind ViewModel.ForeignVersion}"
+                TextWrapping="Wrap"
                 Visibility="{x:Bind ViewModel.HasForeign}" />
             <TextBlock
                 Grid.Row="2"
