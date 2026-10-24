@@ -3370,6 +3370,9 @@
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
     <value>Ο συγχρονισμός διαμορφώσεων από παλαιότερες εκδόσεις δεν υποστηρίζεται πλέον. Για να μοιραστείτε αυτήν τη ρύθμιση παραμέτρων, χρησιμοποιήστε τη Δημοσίευση σε φάκελο στον υπολογιστή αναφοράς.</value>
   </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Ελέγξτε τη διαμόρφωση</value>
+  </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Δεν ήταν δυνατή η επαναφορά των αποθηκευμένων κωδικών πρόσβασης. Εισαγάγετέ τους ξανά στις σελίδες ρύθμισης παραμέτρων.</value>
   </data>

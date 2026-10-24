@@ -75,9 +75,6 @@ internal sealed class SecretVaultBridge : ISecretVaultBridge, IDisposable
     /// <inheritdoc />
     public VaultStatus Status { get; private set; } = VaultStatus.Empty;
 
-    /// <inheritdoc />
-    public event EventHandler? StatusChanged;
-
     /// <summary>
     /// Loads the vault, restores its passwords into the secret state services and starts following their changes.
     /// </summary>
@@ -282,11 +279,7 @@ internal sealed class SecretVaultBridge : ISecretVaultBridge, IDisposable
     {
         vault.Save(entries);
         vaultEntries = entries;
-        if (Status != VaultStatus.Ok)
-        {
-            Status = VaultStatus.Ok;
-            StatusChanged?.Invoke(this, EventArgs.Empty);
-        }
+        Status = VaultStatus.Ok;
     }
 
     private static bool SameEntries(IReadOnlyDictionary<string, string> left, IReadOnlyDictionary<string, string> right) =>

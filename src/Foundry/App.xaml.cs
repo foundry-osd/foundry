@@ -134,6 +134,8 @@ namespace Foundry
                     return;
                 }
 
+                // Runs beside the startup checks: the dialog waits for the window and for any other open dialog.
+                _ = GetService<MigrationNoticeDialogService>().ShowPendingAsync(mainWindow.RootElement);
                 await InitializeAppAsync();
             }
             catch (Exception ex)

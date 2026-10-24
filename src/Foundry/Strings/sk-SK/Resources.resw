@@ -3370,6 +3370,9 @@ Licencované podľa licencie MIT.</value>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
     <value>Synchronizácia konfigurácie zo starších verzií sa už nepodporuje. Ak chcete túto konfiguráciu zdieľať, použite na referenčnom počítači možnosť Publikovať do priečinka.</value>
   </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Skontrolujte konfiguráciu</value>
+  </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Uložené heslá sa nepodarilo obnoviť. Zadajte ich znova na stránkach konfigurácie.</value>
   </data>

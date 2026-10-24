@@ -3370,6 +3370,9 @@
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
     <value>لم تعد مزامنة التكوين في الإصدارات السابقة مدعومة. لمشاركة هذا التكوين، استخدم النشر إلى مجلد على الكمبيوتر المرجعي.</value>
   </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>تحقق من التكوين</value>
+  </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>تعذّرت استعادة كلمات المرور المحفوظة. أدخلها مرة أخرى في صفحات التكوين.</value>
   </data>

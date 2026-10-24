@@ -3370,6 +3370,9 @@ Licensed under the MIT License.</value>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
     <value>The configuration synchronization of earlier versions is no longer supported. To share this configuration, use Publish to a folder on the reference PC.</value>
   </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Check your configuration</value>
+  </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Saved passwords could not be restored. Enter them again on the configuration pages.</value>
   </data>

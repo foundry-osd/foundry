@@ -3370,6 +3370,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
     <value>Önceki sürümlerin yapılandırma eşitlemesi artık desteklenmiyor. Bu yapılandırmayı paylaşmak için başvuru bilgisayarında Klasöre yayımla seçeneğini kullanın.</value>
   </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Yapılandırmanızı denetleyin</value>
+  </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Kaydedilen parolalar geri yüklenemedi. Bunları yapılandırma sayfalarında yeniden girin.</value>
   </data>

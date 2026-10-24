@@ -132,6 +132,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton(_ => new Foundry.Core.Services.Configuration.Legacy.LegacyMigrationStateFile(Constants.LegacyMigrationStatePath));
         services.AddSingleton<LegacyMigrationRunner>();
         services.AddSingleton<IMigrationNoticeService, MigrationNoticeService>();
+        services.AddSingleton<MigrationNoticeDialogService>();
         services.AddSingleton<IWinPeLanguageDiscoveryService, WinPeLanguageDiscoveryService>();
         services.AddSingleton<IConfigurationOverviewService, ConfigurationOverviewService>();
         services.AddSingleton<IWinPeEmbeddedAssetService, WinPeEmbeddedAssetService>();

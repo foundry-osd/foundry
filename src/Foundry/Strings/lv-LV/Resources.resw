@@ -3370,6 +3370,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
     <value>Iepriekšējo versiju konfigurācijas sinhronizācija vairs netiek atbalstīta. Lai koplietotu šo konfigurāciju, atsauces datorā izmantojiet opciju Publicēt mapē.</value>
   </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Pārbaudiet konfigurāciju</value>
+  </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Saglabātās paroles nevarēja atjaunot. Ievadiet tās vēlreiz konfigurācijas lapās.</value>
   </data>

@@ -3370,6 +3370,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
     <value>De configuratiesynchronisatie van eerdere versies wordt niet meer ondersteund. Gebruik Publiceren naar een map op de referentie-pc om deze configuratie te delen.</value>
   </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Controleer uw configuratie</value>
+  </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Opgeslagen wachtwoorden kunnen niet worden hersteld. Voer ze opnieuw in op de configuratiepagina's.</value>
   </data>

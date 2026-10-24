@@ -3370,6 +3370,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
     <value>Ankstesnių versijų konfigūracijos sinchronizavimas nebepalaikomas. Norėdami bendrinti šią konfigūraciją, etaloniniame kompiuteryje naudokite parinktį „Publikuoti aplanke“.</value>
   </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Patikrinkite konfigūraciją</value>
+  </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Įrašytų slaptažodžių atkurti nepavyko. Įveskite juos iš naujo konfigūracijos puslapiuose.</value>
   </data>

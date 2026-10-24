@@ -28,28 +28,6 @@
                 HorizontalAlignment="Stretch"
                 Spacing="20">
 
-                <InfoBar
-                    CloseButtonCommand="{x:Bind ViewModel.DismissPasswordsNeededNoticeCommand}"
-                    IsClosable="True"
-                    IsOpen="{x:Bind ViewModel.IsPasswordsNeededNoticeOpen, Mode=OneWay}"
-                    Message="{x:Bind ViewModel.PasswordsNeededNoticeText, Mode=OneWay}"
-                    Severity="Warning"
-                    Visibility="{x:Bind ViewModel.IsPasswordsNeededNoticeOpen, Mode=OneWay}" />
-                <InfoBar
-                    CloseButtonCommand="{x:Bind ViewModel.DismissLegacySyncRetiredNoticeCommand}"
-                    IsClosable="True"
-                    IsOpen="{x:Bind ViewModel.IsLegacySyncRetiredNoticeOpen, Mode=OneWay}"
-                    Message="{x:Bind ViewModel.LegacySyncRetiredNoticeText, Mode=OneWay}"
-                    Severity="Informational"
-                    Visibility="{x:Bind ViewModel.IsLegacySyncRetiredNoticeOpen, Mode=OneWay}" />
-                <InfoBar
-                    CloseButtonCommand="{x:Bind ViewModel.DismissFilesToReselectNoticeCommand}"
-                    IsClosable="True"
-                    IsOpen="{x:Bind ViewModel.IsFilesToReselectNoticeOpen, Mode=OneWay}"
-                    Message="{x:Bind ViewModel.FilesToReselectNoticeText, Mode=OneWay}"
-                    Severity="Warning"
-                    Visibility="{x:Bind ViewModel.IsFilesToReselectNoticeOpen, Mode=OneWay}" />
-
                 <TextBlock
                     Style="{StaticResource BodyStrongTextBlockStyle}"
                     Text="{x:Bind ViewModel.StepperSectionTitle, Mode=OneWay}" />

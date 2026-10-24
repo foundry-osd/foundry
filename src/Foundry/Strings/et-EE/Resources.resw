@@ -3370,6 +3370,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
     <value>Varasemate versioonide konfiguratsiooni sünkroonimist enam ei toetata. Selle konfiguratsiooni jagamiseks kasutage võrdlusarvutis valikut Avalda kausta.</value>
   </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Kontrollige konfiguratsiooni</value>
+  </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Salvestatud paroole ei õnnestunud taastada. Sisestage need konfiguratsioonilehtedel uuesti.</value>
   </data>

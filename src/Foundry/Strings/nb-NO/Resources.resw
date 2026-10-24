@@ -3370,6 +3370,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
     <value>Konfigurasjonssynkroniseringen i tidligere versjoner støttes ikke lenger. Bruk Publiser til en mappe på referanse-PC-en for å dele denne konfigurasjonen.</value>
   </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Kontroller konfigurasjonen</value>
+  </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Lagrede passord kunne ikke gjenopprettes. Skriv dem inn på nytt på konfigurasjonssidene.</value>
   </data>

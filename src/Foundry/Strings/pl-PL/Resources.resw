@@ -3370,6 +3370,9 @@ Licencjonowany na licencji MIT.</value>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
     <value>Synchronizacja konfiguracji z wcześniejszych wersji nie jest już obsługiwana. Aby udostępnić tę konfigurację, użyj opcji Opublikuj w folderze na komputerze referencyjnym.</value>
   </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Sprawdź konfigurację</value>
+  </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Nie można przywrócić zapisanych haseł. Wprowadź je ponownie na stronach konfiguracji.</value>
   </data>

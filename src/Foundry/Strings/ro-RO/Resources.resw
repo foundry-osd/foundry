@@ -3370,6 +3370,9 @@ Licențiat sub licența MIT.</value>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
     <value>Sincronizarea configurației din versiunile anterioare nu mai este acceptată. Pentru a partaja această configurație, utilizați Publicare într-un folder pe PC-ul de referință.</value>
   </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Verificați configurația</value>
+  </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Parolele salvate nu au putut fi restaurate. Introduceți-le din nou în paginile de configurare.</value>
   </data>

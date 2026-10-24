@@ -3370,6 +3370,9 @@ Licenciado sob a licença MIT.</value>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
     <value>A sincronização de configurações de versões anteriores não é mais compatível. Para compartilhar esta configuração, use Publicar em uma pasta no PC de referência.</value>
   </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Verifique sua configuração</value>
+  </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Não foi possível restaurar as senhas salvas. Insira-as novamente nas páginas de configuração.</value>
   </data>

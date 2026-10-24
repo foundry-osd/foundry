@@ -3370,6 +3370,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
     <value>以前のバージョンの構成の同期はサポートされなくなりました。この構成を共有するには、参照 PC で [フォルダーに発行] を使用してください。</value>
   </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>構成を確認してください</value>
+  </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>保存されたパスワードを復元できませんでした。構成ページでもう一度入力してください。</value>
   </data>

@@ -14,7 +14,7 @@ namespace Foundry.Services.Configuration;
 /// passwords notice for the session.
 /// </summary>
 /// <remarks>The pending notices are read once from the per-user <see cref="LegacyMigrationStateFile"/>, after the migration ran.</remarks>
-internal sealed class MigrationNoticeService : IMigrationNoticeService, IDisposable
+internal sealed class MigrationNoticeService : IMigrationNoticeService
 {
     private readonly LegacyMigrationStateFile stateFile;
     private readonly ISecretVaultBridge vault;
@@ -27,11 +27,7 @@ internal sealed class MigrationNoticeService : IMigrationNoticeService, IDisposa
         this.stateFile = stateFile;
         this.vault = vault;
         this.logger = logger.ForContext<MigrationNoticeService>();
-        vault.StatusChanged += OnVaultStatusChanged;
     }
-
-    /// <inheritdoc />
-    public event EventHandler? Changed;
 
     /// <inheritdoc />
     public bool IsShown(MigrationNotice notice) =>
@@ -55,11 +51,7 @@ internal sealed class MigrationNoticeService : IMigrationNoticeService, IDisposa
                 logger.Warning(exception, "Dismissed migration notice could not be recorded; it is shown again at the next launch. Notice={Notice}", notice);
             }
         }
-
-        Changed?.Invoke(this, EventArgs.Empty);
     }
-
-    public void Dispose() => vault.StatusChanged -= OnVaultStatusChanged;
 
     private LegacyMigrationState State => state ??= LoadState();
 
@@ -75,6 +67,4 @@ internal sealed class MigrationNoticeService : IMigrationNoticeService, IDisposa
             return new LegacyMigrationState();
         }
     }
-
-    private void OnVaultStatusChanged(object? sender, EventArgs e) => Changed?.Invoke(this, EventArgs.Empty);
 }

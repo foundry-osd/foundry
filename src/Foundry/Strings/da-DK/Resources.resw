@@ -3370,6 +3370,9 @@ Licenseret under MIT-licensen.</value>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
     <value>Konfigurationssynkronisering fra tidligere versioner understøttes ikke længere. Brug Publicer til en mappe på reference-pc'en for at dele denne konfiguration.</value>
   </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Kontrollér konfigurationen</value>
+  </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Gemte adgangskoder kunne ikke gendannes. Angiv dem igen på konfigurationssiderne.</value>
   </data>

@@ -3370,6 +3370,9 @@ Licenciran prema MIT licenci.</value>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
     <value>Sinkronizacija konfiguracije iz ranijih verzija više nije podržana. Da biste dijelili ovu konfiguraciju, upotrijebite Objavi u mapu na referentnom računalu.</value>
   </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Provjerite konfiguraciju</value>
+  </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Spremljene lozinke nije moguće vratiti. Ponovno ih unesite na stranicama konfiguracije.</value>
   </data>

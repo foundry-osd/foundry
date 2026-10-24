@@ -3370,6 +3370,9 @@
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
     <value>Синхронізація конфігурацій із попередніх версій більше не підтримується. Щоб поділитися цією конфігурацією, скористайтеся функцією «Опублікувати в папку» на еталонному комп’ютері.</value>
   </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Перевірте конфігурацію</value>
+  </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Не вдалося відновити збережені паролі. Введіть їх знову на сторінках конфігурації.</value>
   </data>

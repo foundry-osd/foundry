@@ -3370,6 +3370,9 @@
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
     <value>סנכרון התצורה של גרסאות קודמות אינו נתמך עוד. כדי לשתף תצורה זו, השתמש בפרסום לתיקייה במחשב ההפניה.</value>
   </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>בדוק את התצורה</value>
+  </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>לא ניתן היה לשחזר את הסיסמאות השמורות. הזן אותן שוב בדפי התצורה.</value>
   </data>

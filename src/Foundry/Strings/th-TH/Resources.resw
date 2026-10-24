@@ -3370,6 +3370,9 @@
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
     <value>ไม่รองรับการซิงค์การกำหนดค่าของเวอร์ชันก่อนหน้าอีกต่อไป หากต้องการแชร์การกำหนดค่านี้ โปรดใช้ เผยแพร่ไปยังโฟลเดอร์ บนพีซีอ้างอิง</value>
   </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>ตรวจสอบการกำหนดค่า</value>
+  </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>ไม่สามารถคืนค่ารหัสผ่านที่บันทึกไว้ได้ โปรดป้อนรหัสผ่านอีกครั้งในหน้าการกำหนดค่า</value>
   </data>

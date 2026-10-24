@@ -3370,6 +3370,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
     <value>Aiempien versioiden määritysten synkronointia ei enää tueta. Jaa tämä määritys käyttämällä viitetietokoneessa toimintoa Julkaise kansioon.</value>
   </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Tarkista määritys</value>
+  </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Tallennettuja salasanoja ei voitu palauttaa. Anna ne uudelleen määrityssivuilla.</value>
   </data>

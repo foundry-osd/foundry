@@ -3370,6 +3370,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
     <value>A korábbi verziók konfigurációszinkronizálása már nem támogatott. A konfiguráció megosztásához használja a referenciaszámítógépen a Közzététel mappába funkciót.</value>
   </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Ellenőrizze a konfigurációt</value>
+  </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>A mentett jelszavakat nem sikerült visszaállítani. Adja meg őket újra a konfigurációs oldalakon.</value>
   </data>

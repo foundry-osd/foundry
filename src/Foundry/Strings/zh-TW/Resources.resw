@@ -3370,6 +3370,9 @@
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
     <value>不再支援舊版的設定同步處理。若要共用此設定，請在參考電腦上使用「發佈到資料夾」。</value>
   </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>檢查設定</value>
+  </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>無法還原已儲存的密碼。請在設定頁面上重新輸入。</value>
   </data>

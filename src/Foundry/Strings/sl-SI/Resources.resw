@@ -3370,6 +3370,9 @@ Licencirano pod licenco MIT.</value>
   <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
     <value>Sinhronizacija konfiguracije iz starejših različic ni več podprta. Če želite deliti to konfiguracijo, v referenčnem računalniku uporabite možnost Objavi v mapo.</value>
   </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Preverite konfiguracijo</value>
+  </data>
   <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
     <value>Shranjenih gesel ni bilo mogoče obnoviti. Znova jih vnesite na straneh za konfiguracijo.</value>
   </data>

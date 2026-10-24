@@ -65,11 +65,13 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
+                <!--  A closed InfoBar still reserves its margin: collapse it so it takes no space above the page.  -->
                 <InfoBar x:Name="SharingNotification"
                     Margin="36,0,36,8"
                     IsClosable="True"
                     IsOpen="False"
-                    Severity="Success" />
+                    Severity="Success"
+                    Visibility="{x:Bind SharingNotification.IsOpen, Mode=OneWay}" />
                 <Frame x:Name="NavFrame"
                     Grid.Row="1" />
             </Grid>

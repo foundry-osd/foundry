@@ -20,9 +20,6 @@ public interface ISecretVaultBridge
     /// </summary>
     VaultStatus Status { get; }
 
-    /// <summary>Occurs when <see cref="Status"/> changes.</summary>
-    event EventHandler? StatusChanged;
-
     /// <summary>Returns every vault entry, including the ids the bridge does not own, after saving pending password changes.</summary>
     /// <remarks>An unreadable vault, or one that could not be read at startup, returns no entries: check <see cref="Status"/>.</remarks>
     IReadOnlyDictionary<string, string> ReadEntries();
