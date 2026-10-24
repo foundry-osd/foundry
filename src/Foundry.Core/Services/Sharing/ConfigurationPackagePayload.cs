@@ -67,6 +67,9 @@ public sealed record ConfigurationPackagePayload
     /// <summary>Gets the publication sequence; followers apply only a higher sequence.</summary>
     public long Sequence { get; init; }
 
+    /// <summary>Gets the name shown when the package is imported; set on exports (publications name their <see cref="Publisher"/>).</summary>
+    public string? Name { get; init; }
+
     /// <summary>Gets the signing reference PC; required on publications.</summary>
     public PackagePublisher? Publisher { get; init; }
 
