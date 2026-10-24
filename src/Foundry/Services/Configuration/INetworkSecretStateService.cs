@@ -8,7 +8,7 @@ using Foundry.Core.Services.Configuration;
 namespace Foundry.Services.Configuration;
 
 /// <summary>
-/// Keeps the network passwords that never enter the authoring document for the current app session.
+/// Keeps the network passwords that never enter the authoring document; the secret vault bridge remembers them in the local vault.
 /// </summary>
 public interface INetworkSecretStateService
 {

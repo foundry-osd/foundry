@@ -5,7 +5,7 @@
 namespace Foundry.Services.Configuration;
 
 /// <summary>
-/// Keeps deployment media password values in volatile process memory.
+/// Keeps deployment media password values in process memory; the secret vault bridge remembers the confirmed password in the local vault.
 /// </summary>
 public interface IDeploymentProtectionSecretStateService
 {

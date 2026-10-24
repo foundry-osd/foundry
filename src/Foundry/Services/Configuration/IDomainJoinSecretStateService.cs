@@ -6,7 +6,7 @@ using Foundry.Core.Models.Configuration;
 
 namespace Foundry.Services.Configuration;
 
-/// <summary>Provides the volatile passwords of the join accounts, one per account, without persisting them in authoring configuration.</summary>
+/// <summary>Provides the passwords of the join accounts, one per account, outside the authoring configuration; the secret vault bridge remembers them in the local vault.</summary>
 public interface IDomainJoinSecretStateService
 {
     event EventHandler? Changed;

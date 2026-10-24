@@ -21,8 +21,9 @@ namespace Foundry.Services.Configuration;
 /// Maintains authoring configuration, readiness checks and immutable build capture.
 /// </summary>
 /// <remarks>
-/// Secrets that should not be persisted are kept in <see cref="INetworkSecretStateService"/> and
-/// <see cref="IOobeAccountSecretStateService"/> and are passed beside the document, never merged into it, when media is validated or generated.
+/// Passwords never enter the persisted document: they are kept in the secret state services, remembered in the local vault by
+/// <see cref="Foundry.Services.Secrets.SecretVaultBridge"/>, and passed beside the document, never merged into it, when media is
+/// validated or generated.
 /// </remarks>
 internal sealed class FoundryConfigurationStateService : IFoundryConfigurationStateService
 {

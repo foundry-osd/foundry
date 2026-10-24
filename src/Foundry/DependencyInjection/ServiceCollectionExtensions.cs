@@ -5,6 +5,7 @@
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Adk;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.Secrets;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Application;
 using Foundry.Services.Appearance;
@@ -15,6 +16,7 @@ using Foundry.Services.GitHub;
 using Foundry.Services.Localization;
 using Foundry.Services.Networking;
 using Foundry.Services.Operations;
+using Foundry.Services.Secrets;
 using Foundry.Services.Settings;
 using Foundry.Services.Shell;
 using Foundry.Services.Startup;
@@ -123,6 +125,9 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDomainJoinSecretStateService, DomainJoinSecretStateService>();
         services.AddSingleton<IOobeAdditionalAccountDialogService, OobeAdditionalAccountDialogService>();
         services.AddSingleton<IFoundryConfigurationStateService, FoundryConfigurationStateService>();
+        services.AddSingleton(_ => new LocalSecretVault(Constants.SecretVaultPath));
+        services.AddSingleton<SecretVaultBridge>();
+        services.AddSingleton<ISecretVaultBridge>(sp => sp.GetRequiredService<SecretVaultBridge>());
         services.AddSingleton<IWinPeLanguageDiscoveryService, WinPeLanguageDiscoveryService>();
         services.AddSingleton<IConfigurationOverviewService, ConfigurationOverviewService>();
         services.AddSingleton<IWinPeEmbeddedAssetService, WinPeEmbeddedAssetService>();

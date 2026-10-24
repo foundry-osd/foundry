@@ -10,6 +10,7 @@ using Foundry.Services.Application;
 using Foundry.Services.Appearance;
 using Foundry.Services.Localization;
 using Foundry.Services.Networking;
+using Foundry.Services.Secrets;
 using Foundry.Services.Settings;
 using Foundry.Services.Shell;
 using Foundry.Services.Startup;
@@ -86,6 +87,7 @@ namespace Foundry
             _ = Host.Services.GetRequiredService<IApplicationProxyService>();
             InitializeRemoteDiagnostics(Host.Services.GetRequiredService<TelemetrySettings>());
             _ = Host.Services.GetRequiredService<IFoundryConfigurationStateService>();
+            Host.Services.GetRequiredService<SecretVaultBridge>().Initialize();
             Host.Services.GetRequiredService<IApplicationLocalizationService>().InitializeAsync().GetAwaiter().GetResult();
             RegisterWinUiExceptionHandler();
 

@@ -8,7 +8,7 @@ using Foundry.Core.Services.Configuration;
 namespace Foundry.Services.Configuration;
 
 /// <summary>
-/// Provides session-only OOBE secrets and notifies authoring views when they change.
+/// Provides OOBE secrets, kept outside the authoring document, and notifies authoring views and the secret vault bridge when they change.
 /// </summary>
 public interface IOobeAccountSecretStateService
 {

@@ -18,6 +18,8 @@ internal sealed class AutopilotHardwareHashSessionState : IAutopilotHardwareHash
 
     public IReadOnlyList<AutopilotGraphKeyCredential> Certificates { get; set; } = [];
 
+    public event EventHandler? BootMediaCertificatePasswordChanged;
+
     public string? GetBootMediaCertificatePassword(AuthoringFileReference? pfx) =>
         pfx is not null && string.Equals(bootMediaCertificateHash, pfx.ContentHash, StringComparison.OrdinalIgnoreCase)
             ? bootMediaCertificatePassword
@@ -25,8 +27,17 @@ internal sealed class AutopilotHardwareHashSessionState : IAutopilotHardwareHash
 
     public void SetBootMediaCertificatePassword(AuthoringFileReference? pfx, string? password)
     {
-        bootMediaCertificateHash = pfx?.ContentHash;
-        bootMediaCertificatePassword = pfx is null ? null : password;
+        string? hash = pfx?.ContentHash;
+        string? value = pfx is null ? null : password;
+        if (string.Equals(bootMediaCertificateHash, hash, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(bootMediaCertificatePassword, value, StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        bootMediaCertificateHash = hash;
+        bootMediaCertificatePassword = value;
+        BootMediaCertificatePasswordChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public void ClearTenantConnection()

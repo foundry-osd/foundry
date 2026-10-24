@@ -28,13 +28,19 @@ public interface IAutopilotHardwareHashSessionState
     IReadOnlyList<AutopilotGraphKeyCredential> Certificates { get; set; }
 
     /// <summary>
-    /// Gets the session-only password of the boot media PFX, or <see langword="null"/> when none was entered for that file.
+    /// Occurs when the boot media PFX password or the file it is bound to changes; the secret vault bridge persists it.
+    /// </summary>
+    event EventHandler? BootMediaCertificatePasswordChanged;
+
+    /// <summary>
+    /// Gets the password of the boot media PFX, or <see langword="null"/> when none was entered for that file.
     /// </summary>
     /// <param name="pfx">The PFX selected in the configuration.</param>
     string? GetBootMediaCertificatePassword(AuthoringFileReference? pfx);
 
     /// <summary>
-    /// Records the session-only password of the boot media PFX, bound to its content hash so it never unlocks another file.
+    /// Records the password of the boot media PFX, bound to its content hash so it never unlocks another file. It never enters
+    /// the configuration; the secret vault bridge remembers it in the local vault.
     /// </summary>
     /// <param name="pfx">The PFX the password belongs to; <see langword="null"/> clears the password.</param>
     /// <param name="password">The password entered by the operator.</param>
