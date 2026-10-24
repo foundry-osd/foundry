@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Security.Cryptography;
+using System.Text.Json;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Secrets;
 using Foundry.Core.Services.Sharing;
@@ -42,9 +43,17 @@ public sealed class ConfigurationSharingEngineFollowerTests : IDisposable
     {
         host.CurrentConfiguration = new FoundryConfigurationDocument
         {
-            General = new GeneralSettings { IsoOutputPath = @"D:\Media\local.iso", CustomDriverDirectoryPath = @"D:\WinPE\Drivers" }
+            General = new GeneralSettings { IsoOutputPath = @"D:\Media\local.iso", CustomDriverDirectoryPath = @"D:\WinPE\Drivers" },
+            CustomDrivers = new CustomDriverSetsSettings { IsEnabled = false, Sets = [new CustomDriverSetReference { Id = "local", DisplayName = "Local" }], DefaultSetId = "local" }
         };
-        await PublishAsync(WithArchitecture(WinPeArchitecture.Arm64));
+        // Excluded, so the set needs no content: the section itself is what the follower takes from the publication.
+        CustomDriverSetsSettings publishedDrivers = new()
+        {
+            IsEnabled = true,
+            Sets = [new CustomDriverSetReference { Id = "network", DisplayName = "Network drivers", IsIncluded = false }],
+            DefaultSetId = "network"
+        };
+        await PublishAsync(WithArchitecture(WinPeArchitecture.Arm64) with { CustomDrivers = publishedDrivers });
         ConfigurationSharingEngine engine = CreateEngine();
 
         PublicationReadResult preview = await engine.PreviewFollowAsync(Folder, Password, Cancellation);
@@ -56,6 +65,10 @@ public sealed class ConfigurationSharingEngineFollowerTests : IDisposable
         Assert.Equal(WinPeArchitecture.Arm64, general.Architecture);
         Assert.Equal(@"D:\Media\local.iso", general.IsoOutputPath);
         Assert.Equal(@"D:\WinPE\Drivers", general.CustomDriverDirectoryPath);
+        CustomDriverSetsSettings drivers = host.CurrentConfiguration.CustomDrivers;
+        Assert.True(drivers.IsEnabled);
+        Assert.Equal("network", drivers.DefaultSetId);
+        Assert.Equal(["network"], drivers.Sets.Select(set => set.Id));
         Assert.Equal(ReferenceName, host.ManagedBy);
         Assert.Equal(Password, host.Vault[SecretIds.PublicationPassword]);
         SharingState persisted = CreateEngine().State;
@@ -217,6 +230,7 @@ public sealed class ConfigurationSharingEngineFollowerTests : IDisposable
         await engine.WaitForContentAsync(Cancellation);
         Assert.True(followerLibraries.Files.IsAvailable(file));
         Assert.Equal(SharingStatus.UpToDate, engine.Status);
+        Assert.False(engine.IsContentFetching);
         Assert.Equal(SharingStatus.UpToDate, await engine.CheckAsync(Cancellation));
         Assert.Empty(engine.FailedContent);
         Assert.False(engine.IsContentStalled);
@@ -288,10 +302,99 @@ public sealed class ConfigurationSharingEngineFollowerTests : IDisposable
         Assert.Equal(SharingStatus.Idle, await engine.CheckAsync(Cancellation));
     }
 
+    [Fact]
+    public async Task Check_CandidatePreviewTampered_RetriedOnceBeforeReported()
+    {
+        ConfigurationSharingEngine engine = await FollowAsync(WithArchitecture(WinPeArchitecture.X64));
+        using PublicationSigningKey other = PublicationSigningKey.Create();
+        using PublicationSigningKey claimed = PublicationSigningKey.Create();
+        // Signed by another key, but the payload names a third one: the preview cannot authenticate it.
+        byte[] payload = JsonSerializer.SerializeToUtf8Bytes(ForeignPayload(2, claimed), ConfigurationPackageJson.SerializerOptions);
+        await PlaceManifestAsync(ConfigurationPackageCodec.Seal(payload, Password, other), 2);
+
+        Assert.Equal(SharingStatus.Checking, await engine.CheckAsync(Cancellation));
+        Assert.Equal(SharingStatus.Tampered, await engine.CheckAsync(Cancellation));
+        Assert.Null(engine.Candidate);
+        Assert.Single(host.Applied);
+    }
+
+    [Fact]
+    public async Task Check_ForeignEnvelopeWrongPassword_CreatesNoCandidate()
+    {
+        ConfigurationSharingEngine engine = await FollowAsync(WithArchitecture(WinPeArchitecture.X64));
+        using PublicationSigningKey other = PublicationSigningKey.Create();
+        await PlaceManifestAsync(ConfigurationPackageCodec.Write(ForeignPayload(2, other), "another-publication-password", other), 2);
+
+        SharingStatus status = await engine.CheckAsync(Cancellation);
+
+        Assert.Equal(SharingStatus.WrongPassword, status);
+        Assert.Null(engine.Candidate);
+        Assert.Single(host.Applied);
+        Assert.Equal(referenceKey.PublicKey, engine.State.PinnedPublicKey);
+        await Assert.ThrowsAsync<InvalidOperationException>(() => engine.AcceptNewPublisherAsync(Cancellation));
+    }
+
+    [Fact]
+    public async Task AcceptNewPublisher_LowerSequence_ReturnsRollbackRejected()
+    {
+        ConfigurationSharingEngine engine = await FollowAsync(WithArchitecture(WinPeArchitecture.X64));
+        await PublishAsync(WithArchitecture(WinPeArchitecture.Arm64));
+        Assert.Equal(SharingStatus.Updated, await engine.CheckAsync(Cancellation));
+        using PublicationSigningKey other = PublicationSigningKey.Create();
+        await PlaceManifestAsync(ConfigurationPackageCodec.Write(ForeignPayload(3, other), Password, other), 3);
+        Assert.Equal(SharingStatus.UnknownPublisher, await engine.CheckAsync(Cancellation));
+        // Before the user accepts, the folder points at an older manifest of the same new key.
+        await PlaceManifestAsync(ConfigurationPackageCodec.Write(ForeignPayload(1, other), Password, other), 1);
+
+        SharingStatus status = await engine.AcceptNewPublisherAsync(Cancellation);
+
+        Assert.Equal(SharingStatus.RollbackRejected, status);
+        Assert.Equal(referenceKey.PublicKey, engine.State.PinnedPublicKey);
+        Assert.Equal(2, engine.State.AppliedSequence);
+        Assert.Equal(2, host.Applied.Count);
+    }
+
+    [Fact]
+    public async Task Check_ContentFailsImport_ReportsFailedWithoutActiveFetch()
+    {
+        ConfigurationSharingEngine engine = await FollowAsync(WithArchitecture(WinPeArchitecture.X64));
+        AuthoringFileReference file = referenceContent.AddCorrupted("<profile />", "profile.xml");
+        await PublishAsync(WithFile(file));
+
+        Assert.Equal(SharingStatus.ContentDownloading, await engine.CheckAsync(Cancellation));
+        await engine.WaitForContentAsync(Cancellation);
+
+        Assert.Equal(file.ContentHash, Assert.Single(engine.FailedContent).Hash);
+        Assert.False(engine.IsContentFetching);
+        Assert.Equal(SharingStatus.ContentDownloading, engine.Status);
+
+        // It fails the same way until the reference publishes again, so the next check does not download it again.
+        Assert.Equal(SharingStatus.ContentDownloading, await engine.CheckAsync(Cancellation));
+        Assert.False(engine.IsContentFetching);
+        Assert.False(followerLibraries.Files.IsAvailable(file));
+    }
+
     public void Dispose()
     {
         referenceKey.Dispose();
         directory.Dispose();
+    }
+
+    private ConfigurationPackagePayload ForeignPayload(long sequence, PublicationSigningKey publisher) => new()
+    {
+        Kind = PackageKind.Publication,
+        Sequence = sequence,
+        Publisher = new PackagePublisher(Guid.NewGuid(), "OTHER-PC", publisher.KeyId, publisher.PublicKey),
+        Configuration = WithArchitecture(WinPeArchitecture.Arm64),
+        MasterKey = masterKey
+    };
+
+    /// <summary>Writes a manifest as a folder writer would and points <c>current.json</c> at it.</summary>
+    private async Task PlaceManifestAsync(byte[] envelope, long sequence)
+    {
+        string manifest = PublicationFolder.NewManifest(sequence);
+        await File.WriteAllBytesAsync(PublicationFolder.ManifestPath(Folder, manifest), envelope, Cancellation);
+        await PublicationFolder.WritePointerAsync(Folder, manifest, Cancellation);
     }
 
     private static FoundryConfigurationDocument WithArchitecture(WinPeArchitecture architecture) =>

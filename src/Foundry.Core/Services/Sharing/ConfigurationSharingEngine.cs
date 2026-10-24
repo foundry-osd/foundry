@@ -70,6 +70,9 @@ public sealed class ConfigurationSharingEngine
     private Task fetchTask = Task.CompletedTask;
     private CancellationTokenSource? fetchCancellation;
 
+    /// <summary>Whether a fetch is downloading; cleared before its outcome is reported, unlike the completion of <see cref="fetchTask"/>.</summary>
+    private bool isFetching;
+
     /// <summary>Whether the next check fetches again: content was not available yet, as opposed to failing the same way every time.</summary>
     private bool retryFetch;
 
@@ -80,6 +83,9 @@ public sealed class ConfigurationSharingEngine
 
     /// <summary>Sequence of the manifest the previous check read as modified; a second read of it is reported.</summary>
     private long? tamperedSequence;
+
+    /// <summary>Whether the running check read a modified manifest; otherwise it clears <see cref="tamperedSequence"/> when it ends.</summary>
+    private bool tamperedThisCheck;
 
     private SharingPublisherCandidate? candidate;
 
@@ -200,6 +206,29 @@ public sealed class ConfigurationSharingEngine
         }
     }
 
+    /// <summary>
+    /// Gets whether a background content fetch is running. <see cref="SharingStatus.ContentDownloading"/> without a running fetch
+    /// means the content is waiting for the next check (<see cref="IsContentStalled"/> when it stays unavailable) or, with
+    /// <see cref="FailedContent"/> not empty, could not be imported: no download is active.
+    /// </summary>
+    public bool IsContentFetching
+    {
+        get
+        {
+            lock (gate)
+            {
+                return isFetching;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Gets whether a "Reset publication" is not complete: the new master key is stored but no publish has encrypted the content
+    /// with it yet, so former password holders can still decrypt the content files. Persisted, so it survives a restart; cleared
+    /// by the next successful publish.
+    /// </summary>
+    public bool RevocationPending => State.RevocationPending;
+
     private static ILogger Logger => Log.ForContext<ConfigurationSharingEngine>();
 
     /// <summary>
@@ -291,6 +320,7 @@ public sealed class ConfigurationSharingEngine
     /// reference role. A change while a publish runs queues exactly one follow-up publish; every caller waiting on the same run gets
     /// the status of its last publish. A password change or reset that was interrupted is completed first.
     /// </summary>
+    /// <param name="ct">Cancels this caller's wait only; the run itself goes on, and only <see cref="StopAsync"/> cancels it.</param>
     /// <returns>
     /// The current status without the reference role; otherwise <see cref="SharingStatus.Published"/>,
     /// <see cref="SharingStatus.NotPublishedIncomplete"/>, <see cref="SharingStatus.PasswordsNeeded"/> (keys or password missing from
@@ -306,14 +336,14 @@ public sealed class ConfigurationSharingEngine
             if (activePublish is not null)
             {
                 publishPending = true;
-                return activePublish.Task;
+                return activePublish.Task.WaitAsync(ct);
             }
 
             run = activePublish = new TaskCompletionSource<SharingStatus>(TaskCreationOptions.RunContinuationsAsynchronously);
         }
 
-        _ = RunPublishesAsync(run, ct);
-        return run.Task;
+        _ = RunPublishesAsync(run);
+        return run.Task.WaitAsync(ct);
     }
 
     /// <summary>
@@ -334,31 +364,48 @@ public sealed class ConfigurationSharingEngine
     /// folder changes, so an interrupted reset is completed by the next change or Retry. While content is encrypted again, followers
     /// read it as not yet available.
     /// </summary>
-    /// <returns>The status of the publish, or of the rewrite when it fails.</returns>
+    /// <returns>
+    /// The status of the publish, or of the rewrite when it fails. Any result other than <see cref="SharingStatus.Published"/> means
+    /// the revocation is not complete yet: <see cref="RevocationPending"/> stays set, also across restarts, until a publish succeeds.
+    /// </returns>
     /// <exception cref="ArgumentException">The new password breaks <see cref="PassphrasePolicy"/>.</exception>
     /// <exception cref="InvalidOperationException">This PC is not a reference.</exception>
     public Task<SharingStatus> ResetPublicationAsync(string newPassword, CancellationToken ct) => ReplacePasswordAsync(newPassword, reset: true, ct);
 
     /// <summary>
     /// "Stop publishing" (spec 6.1): cancels a running publish, which leaves the previous version current, and makes this PC a
-    /// normal PC. The folder and the vault keys stay as they are; <see cref="SharingState.LastPublishedSequence"/> is kept.
+    /// normal PC. The folder and the vault keys stay as they are; <see cref="SharingState.LastPublishedSequence"/> is kept. A pending
+    /// password change is dropped with its previous password.
     /// </summary>
     public async Task StopAsync()
     {
-        if (State.Role != SharingRole.Reference)
+        CancellationTokenSource stopping;
+        lock (gate)
         {
-            return;
+            if (state.Role != SharingRole.Reference)
+            {
+                return;
+            }
+
+            stopping = roleCancellation;
         }
 
-        await roleCancellation.CancelAsync();
+        // Cancelled before waiting: a running publish holds the semaphore until it sees the cancellation.
+        await stopping.CancelAsync();
         await operation.WaitAsync();
         try
         {
-            ResetRoleCancellation();
             SharingState current = State;
             if (current.Role == SharingRole.Reference)
             {
+                TryWriteVault(new Dictionary<string, string>(StringComparer.Ordinal), [SecretIds.PreviousPublicationPassword]);
                 Persist(current with { Role = SharingRole.None, Folder = null });
+            }
+
+            lock (gate)
+            {
+                // The cancelled source is replaced, never disposed: an overlapping stop may still cancel it.
+                roleCancellation = new CancellationTokenSource();
             }
 
             SetStatus(SharingStatus.Idle);
@@ -634,18 +681,31 @@ public sealed class ConfigurationSharingEngine
     /// </summary>
     private async Task<SharingStatus> CheckCoreAsync(string password, bool reopen, bool reapply, CancellationToken cancellationToken)
     {
-        SharingState current = State;
-        long applied = current.AppliedSequence;
-        long floor = reopen ? Math.Max(0, applied - 1) : applied;
-        PublicationReadResult read = await PublicationReader.ReadAsync(current.Folder!, password, current.PinnedPublicKey, floor, cancellationToken);
-        if (read.Status != PublicationReadStatus.Tampered)
+        lock (gate)
         {
-            lock (gate)
+            tamperedThisCheck = false;
+        }
+
+        SharingStatus result = await ReadAndActAsync(password, reopen, reapply, cancellationToken);
+
+        // Cleared only when the whole check found no modified manifest, wherever it was found (the pinned read or the candidate preview).
+        lock (gate)
+        {
+            if (!tamperedThisCheck)
             {
                 tamperedSequence = null;
             }
         }
 
+        return result;
+    }
+
+    private async Task<SharingStatus> ReadAndActAsync(string password, bool reopen, bool reapply, CancellationToken cancellationToken)
+    {
+        SharingState current = State;
+        long applied = current.AppliedSequence;
+        long floor = reopen ? Math.Max(0, applied - 1) : applied;
+        PublicationReadResult read = await PublicationReader.ReadAsync(current.Folder!, password, current.PinnedPublicKey, floor, cancellationToken);
         switch (read.Status)
         {
             case PublicationReadStatus.Ok:
@@ -715,6 +775,7 @@ public sealed class ConfigurationSharingEngine
         {
             repeated = tamperedSequence == sequence;
             tamperedSequence = sequence;
+            tamperedThisCheck = true;
         }
 
         if (!repeated)
@@ -818,6 +879,7 @@ public sealed class ConfigurationSharingEngine
                 CancellationTokenSource cancellation = new();
                 string folder = state.Folder!;
                 fetchCancellation = cancellation;
+                isFetching = true;
                 fetchTask = Task.Run(() => FetchAsync(folder, payload, cancellation.Token), CancellationToken.None);
             }
 
@@ -835,6 +897,11 @@ public sealed class ConfigurationSharingEngine
         }
         catch (OperationCanceledException)
         {
+            lock (gate)
+            {
+                isFetching = false;
+            }
+
             return;
         }
         catch (Exception exception)
@@ -853,6 +920,7 @@ public sealed class ConfigurationSharingEngine
         bool stalled;
         lock (gate)
         {
+            isFetching = false;
             if (!ReferenceEquals(payload, appliedPayload))
             {
                 return;
@@ -952,18 +1020,31 @@ public sealed class ConfigurationSharingEngine
     private static string? PinnedKeyIdOf(SharingState current) =>
         current.PinnedPublicKey is { Length: > 0 } key ? PublicationSigner.KeyId(key) : null;
 
+    /// <summary>
+    /// Maps a read outcome that needs no further handling. <see cref="CheckCoreAsync"/> handles Ok, UpToDate, Tampered and
+    /// UnknownPublisher itself; their arms are only the plain meaning of each value.
+    /// </summary>
     private static SharingStatus MapRead(PublicationReadStatus status) => status switch
     {
-        PublicationReadStatus.WrongPassword => SharingStatus.WrongPassword,
-        PublicationReadStatus.Unsupported => SharingStatus.Unsupported,
-        PublicationReadStatus.RollbackRejected => SharingStatus.RollbackRejected,
-        PublicationReadStatus.FolderUnavailable or PublicationReadStatus.NotAPublication => SharingStatus.FolderUnavailable,
+        PublicationReadStatus.Ok => SharingStatus.Checking,
+        PublicationReadStatus.UpToDate => SharingStatus.UpToDate,
 
-        // NotYetAvailable: a cloud folder delivered the pointer before the manifest.
-        _ => SharingStatus.Checking
+        // A cloud folder delivered the pointer before the manifest.
+        PublicationReadStatus.NotYetAvailable => SharingStatus.Checking,
+        PublicationReadStatus.FolderUnavailable or PublicationReadStatus.NotAPublication => SharingStatus.FolderUnavailable,
+        PublicationReadStatus.WrongPassword => SharingStatus.WrongPassword,
+        PublicationReadStatus.Tampered => SharingStatus.Tampered,
+        PublicationReadStatus.UnknownPublisher => SharingStatus.UnknownPublisher,
+        PublicationReadStatus.RollbackRejected => SharingStatus.RollbackRejected,
+        PublicationReadStatus.Unsupported => SharingStatus.Unsupported,
+        _ => throw new ArgumentOutOfRangeException(nameof(status), status, "Unknown publication read status.")
     };
 
-    private async Task RunPublishesAsync(TaskCompletionSource<SharingStatus> run, CancellationToken cancellationToken)
+    /// <summary>
+    /// Runs publishes until no change is pending. The run belongs to the engine, not to a caller: it is cancelled only by
+    /// <see cref="StopAsync"/>, so a caller that stops waiting never drops the follow-up publish another caller queued.
+    /// </summary>
+    private async Task RunPublishesAsync(TaskCompletionSource<SharingStatus> run)
     {
         try
         {
@@ -975,7 +1056,7 @@ public sealed class ConfigurationSharingEngine
                     publishPending = false;
                 }
 
-                result = await PublishAfterChangeAsync(cancellationToken);
+                result = await PublishAfterChangeAsync();
                 lock (gate)
                 {
                     if (!publishPending)
@@ -995,20 +1076,13 @@ public sealed class ConfigurationSharingEngine
                 activePublish = null;
             }
 
-            if (exception is OperationCanceledException)
-            {
-                run.TrySetCanceled(cancellationToken);
-            }
-            else
-            {
-                run.TrySetException(exception);
-            }
+            run.TrySetException(exception);
         }
     }
 
-    private async Task<SharingStatus> PublishAfterChangeAsync(CancellationToken cancellationToken)
+    private async Task<SharingStatus> PublishAfterChangeAsync()
     {
-        await operation.WaitAsync(cancellationToken);
+        await operation.WaitAsync();
         try
         {
             SharingState current = State;
@@ -1026,14 +1100,14 @@ public sealed class ConfigurationSharingEngine
             {
                 if (secrets.PreviousPassword is { } previous)
                 {
-                    PublishStatus rewrapped = await CompletePasswordChangeAsync(current.Folder!, secrets.Signer, previous, secrets.Password, cancellationToken);
-                    if (rewrapped != PublishStatus.Published)
+                    PublishStatus rewrapped = await CompletePasswordChangeAsync(current.Folder!, secrets.Signer, previous, secrets.Password, CancellationToken.None);
+                    if (!IsRewrapComplete(rewrapped))
                     {
                         return SetStatus(Map(rewrapped));
                     }
                 }
 
-                return await PublishAsync(current, secrets.Signer, secrets.MasterKey, secrets.Password, takeOver: false, cancellationToken);
+                return await PublishAsync(current, secrets.Signer, secrets.MasterKey, secrets.Password, takeOver: false, CancellationToken.None);
             }
         }
         finally
@@ -1065,7 +1139,7 @@ public sealed class ConfigurationSharingEngine
                 if (secrets.PreviousPassword is { } pending)
                 {
                     PublishStatus completed = await CompletePasswordChangeAsync(folder, secrets.Signer, pending, secrets.Password, cancellationToken);
-                    if (completed != PublishStatus.Published)
+                    if (!IsRewrapComplete(completed))
                     {
                         return SetStatus(Map(completed));
                     }
@@ -1089,15 +1163,25 @@ public sealed class ConfigurationSharingEngine
                 }
 
                 sessionPassword = null;
+                if (reset)
+                {
+                    // Cleared by the next successful publish, which is the one that encrypts the content again.
+                    Persist(current with { RevocationPending = true });
+                    current = State;
+                }
+
                 PublishStatus rewrapped = await CompletePasswordChangeAsync(folder, secrets.Signer, secrets.Password, newPassword, cancellationToken);
-                if (rewrapped != PublishStatus.Published)
+                if (!IsRewrapComplete(rewrapped))
                 {
                     Logger.Warning("Publication password change interrupted; it is completed at the next publish. Reset={Reset}, Status={Status}", reset, rewrapped);
                     return SetStatus(Map(rewrapped));
                 }
 
-                Logger.Information("Publication password changed. Reset={Reset}", reset);
-                return reset
+                Logger.Information("Publication password changed. Reset={Reset}, ManifestRewritten={ManifestRewritten}", reset,
+                    rewrapped == PublishStatus.Published);
+
+                // Nothing published yet: the next version is the first one under the new password, so publish it now.
+                return reset || rewrapped == PublishStatus.NothingToRewrap
                     ? await PublishAsync(current, secrets.Signer, masterKey, newPassword, takeOver: false, cancellationToken)
                     : SetStatus(SharingStatus.Published);
             }
@@ -1111,24 +1195,36 @@ public sealed class ConfigurationSharingEngine
     /// <summary>
     /// Rewrites the current manifest from <paramref name="previous"/> to <paramref name="password"/>. When the previous password no
     /// longer opens it, an interrupted attempt already rewrote it, which a rewrite under <paramref name="password"/> itself confirms.
-    /// On success the previous password is removed from the vault.
+    /// A folder without a manifest of this PC has nothing to rewrite, which completes the change as well. Once complete, the previous
+    /// password is removed from the vault. An unexpected writer failure reads as <see cref="PublishStatus.FolderUnavailable"/>.
     /// </summary>
     private async Task<PublishStatus> CompletePasswordChangeAsync(string folder, PublicationSigningKey signer, string previous, string password,
         CancellationToken cancellationToken)
     {
-        PublishStatus result = await PublicationWriter.RewrapAsync(folder, previous, password, signer, cancellationToken);
-        if (result == PublishStatus.WrongPassword)
+        PublishStatus result;
+        try
         {
-            result = await PublicationWriter.RewrapAsync(folder, password, password, signer, cancellationToken);
+            result = await PublicationWriter.RewrapAsync(folder, previous, password, signer, cancellationToken);
+            if (result == PublishStatus.WrongPassword)
+            {
+                result = await PublicationWriter.RewrapAsync(folder, password, password, signer, cancellationToken);
+            }
+        }
+        catch (Exception exception) when (exception is not OperationCanceledException)
+        {
+            Logger.Warning("Publication manifest rewrite failed unexpectedly. ExceptionType={ExceptionType}", exception.GetType().Name);
+            return PublishStatus.FolderUnavailable;
         }
 
-        if (result == PublishStatus.Published)
+        if (IsRewrapComplete(result))
         {
             TryWriteVault(new Dictionary<string, string>(StringComparer.Ordinal), [SecretIds.PreviousPublicationPassword]);
         }
 
         return result;
     }
+
+    private static bool IsRewrapComplete(PublishStatus status) => status is PublishStatus.Published or PublishStatus.NothingToRewrap;
 
     /// <summary>
     /// Publishes for <see cref="StartPublishingAsync"/> and <see cref="TakeOverAsync"/>: reads the reference keys from the vault and
@@ -1201,10 +1297,16 @@ public sealed class ConfigurationSharingEngine
         SetStatus(SharingStatus.Publishing);
         Logger.Information("Publication started. ContentCount={ContentCount}, SecretCount={SecretCount}, TakeOver={TakeOver}",
             listed.Count, secrets?.Count ?? 0, takeOver);
+        CancellationToken stopping;
+        lock (gate)
+        {
+            stopping = roleCancellation.Token;
+        }
+
         PublishResult result;
         try
         {
-            using CancellationTokenSource linked = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, roleCancellation.Token);
+            using CancellationTokenSource linked = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, stopping);
             result = await PublicationWriter.PublishAsync(request, contents, new ProgressReporter(this), linked.Token);
         }
         catch (InvalidDataException)
@@ -1223,13 +1325,19 @@ public sealed class ConfigurationSharingEngine
             SetStatus(before);
             throw;
         }
+        catch (Exception exception)
+        {
+            // The writer or the content source failed in an unexpected way: the previous version stays current, Retry publishes again.
+            Logger.Warning("Publication failed unexpectedly; the previous version stays current. ExceptionType={ExceptionType}", exception.GetType().Name);
+            return SetStatus(SharingStatus.FolderUnavailable);
+        }
 
         if (result.Status != PublishStatus.Published)
         {
             return SetStatus(Map(result.Status));
         }
 
-        Persist(target with { LastPublishedSequence = result.Sequence });
+        Persist(target with { LastPublishedSequence = result.Sequence, RevocationPending = false });
         MarkSuccess();
         Logger.Information("Publication completed. Sequence={Sequence}, ContentCount={ContentCount}, SecretCount={SecretCount}",
             result.Sequence, listed.Count, secrets?.Count ?? 0);
@@ -1360,9 +1468,15 @@ public sealed class ConfigurationSharingEngine
         PublishStatus.ForeignPublisher => SharingStatus.UnknownPublisher,
         PublishStatus.WrongPassword => SharingStatus.WrongPassword,
         PublishStatus.FolderUnavailable => SharingStatus.FolderUnavailable,
+        PublishStatus.FolderNotEmpty => SharingStatus.FolderNotEmpty,
 
-        // FolderNotEmpty and SequenceExhausted: this folder cannot hold the publication; another folder is needed.
-        _ => SharingStatus.FolderNotEmpty
+        // Ruling R23: unreachable in practice, since only authenticated manifests count toward the sequence; the folder cannot take
+        // another version, so the recovery is the same as for a folder that is not empty: a new folder (or a reset).
+        PublishStatus.SequenceExhausted => SharingStatus.FolderNotEmpty,
+
+        // Callers treat it as a completed password change before mapping; nothing is wrong with the folder.
+        PublishStatus.NothingToRewrap => SharingStatus.Published,
+        _ => throw new ArgumentOutOfRangeException(nameof(status), status, "Unknown publish status.")
     };
 
     /// <summary>Persists the state; a failed write is logged and retried by the next persist, the state in memory stays current.</summary>
@@ -1388,12 +1502,6 @@ public sealed class ConfigurationSharingEngine
         {
             Logger.Information("Configuration sharing role changed. Role={Role}, PreviousRole={PreviousRole}", next.Role, previousRole);
         }
-    }
-
-    private void ResetRoleCancellation()
-    {
-        roleCancellation.Dispose();
-        roleCancellation = new CancellationTokenSource();
     }
 
     private void MarkSuccess()

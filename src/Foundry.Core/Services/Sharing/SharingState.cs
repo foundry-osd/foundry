@@ -43,6 +43,12 @@ public sealed record SharingState
     /// an older sequence. Kept when publishing stops.
     /// </summary>
     public long LastPublishedSequence { get; init; }
+
+    /// <summary>
+    /// Gets whether a reference reset is not complete: set when "Reset publication" stores the new master key, cleared by the next
+    /// successful publish, which encrypts the content with it.
+    /// </summary>
+    public bool RevocationPending { get; init; }
 }
 
 /// <summary>

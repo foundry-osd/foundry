@@ -78,12 +78,23 @@ internal sealed class InMemoryContentSource : IContentSource
 
     public int OpenCount => openCount;
 
+    /// <summary>Thrown by every open while set, as an unexpected content source failure.</summary>
+    public Exception? Failure { get; set; }
+
     public AuthoringFileReference Add(string text, string fileName)
     {
         byte[] bytes = Encoding.UTF8.GetBytes(text);
         string hash = Convert.ToHexStringLower(SHA256.HashData(bytes));
         contents[hash] = bytes;
         return new AuthoringFileReference { ContentHash = hash, FileName = fileName, Length = bytes.Length };
+    }
+
+    /// <summary>Lists <paramref name="text"/> but serves other bytes, so the content decrypts and then fails its hash check.</summary>
+    public AuthoringFileReference AddCorrupted(string text, string fileName)
+    {
+        AuthoringFileReference reference = Add(text, fileName);
+        contents[reference.ContentHash] = Encoding.UTF8.GetBytes(text + " corrupted");
+        return reference;
     }
 
     public async Task<Stream> OpenAsync(PackageContent content, CancellationToken ct)
@@ -93,6 +104,11 @@ internal sealed class InMemoryContentSource : IContentSource
         if (Gate is { } gate)
         {
             await gate.Task.WaitAsync(ct);
+        }
+
+        if (Failure is { } failure)
+        {
+            throw failure;
         }
 
         return new MemoryStream(contents[content.Hash], writable: false);

@@ -52,8 +52,9 @@ public enum SharingStatus
 
     /// <summary>
     /// Follower: the configuration is applied and its content is still being fetched, or could not all be fetched yet (see
-    /// <see cref="ConfigurationSharingEngine.FailedContent"/> and <see cref="ConfigurationSharingEngine.IsContentStalled"/>). Media
-    /// readiness stays false until the content is in the libraries.
+    /// <see cref="ConfigurationSharingEngine.FailedContent"/> and <see cref="ConfigurationSharingEngine.IsContentStalled"/>);
+    /// <see cref="ConfigurationSharingEngine.IsContentFetching"/> tells an active download apart. Media readiness stays false until
+    /// the content is in the libraries.
     /// </summary>
     ContentDownloading,
 

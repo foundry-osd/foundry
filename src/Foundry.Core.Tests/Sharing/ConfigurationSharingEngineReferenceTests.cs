@@ -285,6 +285,139 @@ public sealed class ConfigurationSharingEngineReferenceTests : IDisposable
         Assert.NotEqual(oldKeyId, read.SignerKeyId);
     }
 
+    [Fact]
+    public async Task ChangePassword_BeforeFirstPublish_PublishesUnderNewPassword()
+    {
+        host.IsReadyToBuild = false;
+        ConfigurationSharingEngine engine = CreateEngine();
+        Assert.Equal(SharingStatus.NotPublishedIncomplete, await engine.StartPublishingAsync(Folder, Password, includePasswords: false, Cancellation));
+
+        // Nothing to rewrite yet: the change completes and is not left pending.
+        Assert.Equal(SharingStatus.NotPublishedIncomplete, await engine.ChangePasswordAsync(NewPassword, Cancellation));
+        Assert.False(host.Vault.ContainsKey(SecretIds.PreviousPublicationPassword));
+
+        host.IsReadyToBuild = true;
+        Assert.Equal(SharingStatus.Published, await engine.OnConfigurationChangedAsync(Cancellation));
+        PublicationReadResult read = await PublicationReader.PreviewAsync(Folder, NewPassword, Cancellation);
+        Assert.Equal(PublicationReadStatus.Ok, read.Status);
+        Assert.Equal(1, read.Payload!.Sequence);
+    }
+
+    [Fact]
+    public async Task OnChanged_FirstCallerCancelled_FollowUpStillPublishesLatest()
+    {
+        ConfigurationSharingEngine engine = await StartAsync();
+        AuthoringFileReference file = source.Add("<large image />", "image.xml");
+        host.CurrentConfiguration = WithFile(file);
+        source.Gate = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        using CancellationTokenSource firstCaller = CancellationTokenSource.CreateLinkedTokenSource(Cancellation);
+
+        Task<SharingStatus> first = engine.OnConfigurationChangedAsync(firstCaller.Token);
+        await source.Opened.Task.WaitAsync(Cancellation);
+        host.CurrentConfiguration = WithFile(file) with { General = new GeneralSettings { Architecture = WinPeArchitecture.Arm64 } };
+        Task<SharingStatus> second = engine.OnConfigurationChangedAsync(Cancellation);
+        await firstCaller.CancelAsync();
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => first);
+        source.Gate.SetResult();
+        Assert.Equal(SharingStatus.Published, await second);
+
+        Assert.Equal(3, engine.State.LastPublishedSequence);
+        PublicationReadResult current = await PublicationReader.PreviewAsync(Folder, Password, Cancellation);
+        Assert.Equal(WinPeArchitecture.Arm64, current.Payload!.Configuration.General.Architecture);
+    }
+
+    [Fact]
+    public async Task Reset_ConfigurationReady_PublishesWithNewMasterKeyAndCompletesRevocation()
+    {
+        AuthoringFileReference file = source.Add("<profile />", "profile.xml");
+        ConfigurationSharingEngine engine = await StartAsync(WithFile(file));
+        byte[] oldMasterKey = Convert.FromBase64String(host.Vault[SecretIds.MasterKey]);
+
+        SharingStatus status = await engine.ResetPublicationAsync(NewPassword, Cancellation);
+
+        Assert.Equal(SharingStatus.Published, status);
+        Assert.False(engine.RevocationPending);
+        byte[] newMasterKey = Convert.FromBase64String(host.Vault[SecretIds.MasterKey]);
+        Assert.NotEqual(oldMasterKey, newMasterKey);
+        PublicationReadResult read = await PublicationReader.PreviewAsync(Folder, NewPassword, Cancellation);
+        Assert.Equal(2, read.Payload!.Sequence);
+        Assert.Equal(newMasterKey, read.Payload.MasterKey);
+        Assert.Equal(PublicationReadStatus.WrongPassword, (await PublicationReader.PreviewAsync(Folder, Password, Cancellation)).Status);
+        Assert.True(ContentTransfer.IsComplete(Path.Combine(Folder, "content", file.ContentHash + ".bin"),
+            ContentTransfer.DeriveContentKey(newMasterKey, file.ContentHash)));
+        Assert.False(host.Vault.ContainsKey(SecretIds.PreviousPublicationPassword));
+    }
+
+    [Fact]
+    public async Task Reset_NotReady_KeepsRevocationPendingAcrossRestartUntilPublished()
+    {
+        ConfigurationSharingEngine engine = await StartAsync();
+        host.IsReadyToBuild = false;
+
+        Assert.Equal(SharingStatus.NotPublishedIncomplete, await engine.ResetPublicationAsync(NewPassword, Cancellation));
+
+        Assert.True(engine.RevocationPending);
+        ConfigurationSharingEngine restarted = CreateEngine();
+        Assert.True(restarted.RevocationPending);
+        host.IsReadyToBuild = true;
+        Assert.Equal(SharingStatus.Published, await restarted.OnConfigurationChangedAsync(Cancellation));
+        Assert.False(restarted.RevocationPending);
+        Assert.False(CreateEngine().RevocationPending);
+        Assert.Equal(Convert.FromBase64String(host.Vault[SecretIds.MasterKey]),
+            (await PublicationReader.PreviewAsync(Folder, NewPassword, Cancellation)).Payload!.MasterKey);
+    }
+
+    [Fact]
+    public async Task TakeOver_VaultUnavailable_CreatesKeysAndPublishes()
+    {
+        ConfigurationSharingEngine engine = await StartAsync();
+        string oldKeyId = (await PublicationReader.PreviewAsync(Folder, Password, Cancellation)).SignerKeyId!;
+        host.Vault.Clear();
+        host.IsVaultAvailable = false;
+
+        // Ruling R22: the explicit take over with the current password is allowed to create the new identity.
+        SharingStatus status = await engine.TakeOverAsync(Folder, Password, includePasswords: false, Cancellation);
+
+        Assert.Equal(SharingStatus.Published, status);
+        Assert.True(host.Vault.ContainsKey(SecretIds.SigningKey));
+        Assert.True(host.Vault.ContainsKey(SecretIds.MasterKey));
+        PublicationReadResult read = await PublicationReader.PreviewAsync(Folder, Password, Cancellation);
+        Assert.Equal(2, read.Payload!.Sequence);
+        Assert.NotEqual(oldKeyId, read.SignerKeyId);
+    }
+
+    [Fact]
+    public async Task OnChanged_ContentSourceThrows_ReturnsFolderUnavailableAndStaysUsable()
+    {
+        ConfigurationSharingEngine engine = await StartAsync();
+        host.CurrentConfiguration = WithFile(source.Add("<profile />", "profile.xml"));
+        source.Failure = new NotSupportedException();
+
+        Assert.Equal(SharingStatus.FolderUnavailable, await engine.OnConfigurationChangedAsync(Cancellation));
+        Assert.Equal(SharingStatus.FolderUnavailable, engine.Status);
+
+        source.Failure = null;
+        Assert.Equal(SharingStatus.Published, await engine.OnConfigurationChangedAsync(Cancellation));
+        Assert.Equal(2, engine.State.LastPublishedSequence);
+    }
+
+    [Fact]
+    public async Task Stop_PendingPasswordChange_DropsPreviousPassword()
+    {
+        ConfigurationSharingEngine engine = await StartAsync();
+        string moved = Folder + ".offline";
+        Directory.Move(Folder, moved);
+        Assert.Equal(SharingStatus.FolderUnavailable, await engine.ChangePasswordAsync(NewPassword, Cancellation));
+        Assert.True(host.Vault.ContainsKey(SecretIds.PreviousPublicationPassword));
+
+        await engine.StopAsync();
+
+        Assert.Equal(SharingRole.None, engine.Role);
+        Assert.False(host.Vault.ContainsKey(SecretIds.PreviousPublicationPassword));
+        Directory.Move(moved, Folder);
+    }
+
     public void Dispose()
     {
         directory.Dispose();

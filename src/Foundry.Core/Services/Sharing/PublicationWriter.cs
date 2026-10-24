@@ -71,8 +71,8 @@ public enum PublishStatus
     FolderNotEmpty,
 
     /// <summary>
-    /// The folder is missing or could not be read or written, or (for a rewrap) holds no publication at all. A content source that
-    /// fails with an <see cref="IOException"/> is reported the same way. The previous publication stays current.
+    /// The folder is missing or could not be read or written. A content source that fails with an <see cref="IOException"/> is
+    /// reported the same way. The previous publication stays current.
     /// </summary>
     FolderUnavailable,
 
@@ -87,7 +87,13 @@ public enum PublishStatus
     /// The next sequence would not fit the 18-digit manifest name; the publication cannot continue and needs a new folder. Only
     /// authenticated sequences count, so files planted in the folder cannot cause it.
     /// </summary>
-    SequenceExhausted
+    SequenceExhausted,
+
+    /// <summary>
+    /// Rewrap only: the folder holds only publication files and no manifest of this PC (for example nothing was published yet), so
+    /// there is nothing to rewrite; the next publish uses the new password. Nothing was written.
+    /// </summary>
+    NothingToRewrap
 }
 
 /// <summary>Result of <see cref="PublicationWriter.PublishAsync"/>.</summary>
@@ -216,9 +222,9 @@ public static class PublicationWriter
     /// <param name="cancellationToken">Stops before the manifest is replaced.</param>
     /// <returns>
     /// <see cref="PublishStatus.Published"/>, <see cref="PublishStatus.WrongPassword"/>, <see cref="PublishStatus.ForeignPublisher"/>,
-    /// <see cref="PublishStatus.FolderNotEmpty"/> or <see cref="PublishStatus.FolderUnavailable"/>.
-    /// <see cref="PublishStatus.ForeignPublisher"/> follows the same rules as for a publish (a rewrap never takes over);
-    /// <see cref="PublishStatus.FolderUnavailable"/> means an I/O failure or a folder holding no publication.
+    /// <see cref="PublishStatus.FolderNotEmpty"/>, <see cref="PublishStatus.FolderUnavailable"/> (a missing folder or an I/O failure)
+    /// or <see cref="PublishStatus.NothingToRewrap"/> (a publication folder without a manifest of this PC).
+    /// <see cref="PublishStatus.ForeignPublisher"/> follows the same rules as for a publish (a rewrap never takes over).
     /// </returns>
     /// <exception cref="ArgumentException">The new password breaks the policy.</exception>
     public static async Task<PublishStatus> RewrapAsync(string folder, string oldPassword, string newPassword, PublicationSigningKey signer,
@@ -243,7 +249,7 @@ public static class PublicationWriter
 
             if (state.Previous is null)
             {
-                return PublishStatus.FolderUnavailable;
+                return PublishStatus.NothingToRewrap;
             }
 
             byte[] rewrapped = ConfigurationPackageCodec.Write(state.Previous.Payload, newPassword, signer);

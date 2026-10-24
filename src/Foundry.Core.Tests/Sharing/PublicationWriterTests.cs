@@ -344,6 +344,17 @@ public sealed class PublicationWriterTests : IDisposable
     }
 
     [Fact]
+    public async Task Rewrap_NoManifestOfThisPc_ReturnsNothingToRewrap()
+    {
+        Directory.CreateDirectory(Path.Combine(Folder, "manifests"));
+
+        PublishStatus status = await PublicationWriter.RewrapAsync(Folder, Password, "another-publication-password", signer, Cancellation);
+
+        Assert.Equal(PublishStatus.NothingToRewrap, status);
+        Assert.Empty(Directory.EnumerateFiles(Folder, "*", SearchOption.AllDirectories));
+    }
+
+    [Fact]
     public async Task Publish_StalePassword_ReturnsWrongPassword()
     {
         await PublishAsync([]);
