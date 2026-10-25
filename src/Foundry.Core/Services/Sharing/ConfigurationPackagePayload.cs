@@ -47,7 +47,7 @@ public sealed record PackagePublisher(Guid Id, string Name, string KeyId, byte[]
 public sealed record PackageContent(string Hash, SharedContentKind Kind, long Length, string Name);
 
 /// <summary>
-/// Decrypted content of a configuration package (spec 5.3). The caller owns the secret values, files and master key
+/// Decrypted content of a configuration package. The caller owns the secret values, files and master key
 /// it holds; nothing here is ever logged.
 /// </summary>
 public sealed record ConfigurationPackagePayload

@@ -34,7 +34,7 @@ public interface IContentSource
 /// alone is not trusted for the next sequence: a folder writer can move <c>current.json</c> back or delete it.
 /// </param>
 /// <param name="TakeOver">
-/// "Take over" (spec 6.1): when the folder belongs to another key, continue it with <see cref="Signer"/> instead of returning
+/// "Take over": when the folder belongs to another key, continue it with <see cref="Signer"/> instead of returning
 /// <see cref="PublishStatus.ForeignPublisher"/>. The foreign manifest that decides must open with <see cref="Password"/> and verify
 /// with its own publisher key; followers then have to accept the new reference once. Ignored when the folder is not foreign.
 /// </param>
@@ -103,7 +103,7 @@ public sealed record PublishResult(PublishStatus Status, long Sequence, string? 
 public sealed record ContentProgress(long Done, long Total, string CurrentName);
 
 /// <summary>
-/// Writes publications to a folder (spec 5.5 and 6.1): encrypted content, then the signed manifest, then <c>current.json</c>, so a
+/// Writes publications to a folder: encrypted content, then the signed manifest, then <c>current.json</c>, so a
 /// manifest is activated only when everything it lists is in place. Keeps the current and previous manifests and deletes content
 /// files that neither references.
 /// </summary>
@@ -372,7 +372,7 @@ public static class PublicationWriter
     }
 
     /// <summary>
-    /// "Take over" (spec 6.1): accepts the foreign manifest that made the folder foreign when it opens with the request password and
+    /// "Take over": accepts the foreign manifest that made the folder foreign when it opens with the request password and
     /// verifies with the publisher key it embeds, and continues above it and above this PC's own manifest. The foreign manifest
     /// becomes the previous manifest, so content it does not share with this publish survives one more version; shared content is
     /// re-encrypted in place under the new master key, and a take over cancelled after the content step leaves the foreign

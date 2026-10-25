@@ -36,7 +36,7 @@ internal enum PublicationPointerState
 internal sealed record PublicationPointerRead(PublicationPointerState State, string? Manifest, long Sequence);
 
 /// <summary>
-/// Layout of a publication folder (spec 5.5): <c>current.json</c>, <c>manifests/&lt;sequence&gt;-&lt;id&gt;.fcfg</c> and
+/// Layout of a publication folder: <c>current.json</c>, <c>manifests/&lt;sequence&gt;-&lt;id&gt;.fcfg</c> and
 /// <c>content/&lt;sha256&gt;.bin</c>. Manifest names are the sequence zero-padded to at least 6 digits, a dash, a new
 /// <see cref="Guid"/> in "N" format (32 lowercase hex digits) and <c>.fcfg</c>; readers take the sequence from the name so they can
 /// skip an unchanged publication without opening its manifest. Every file is written to <c>&lt;name&gt;.tmp</c> and renamed.

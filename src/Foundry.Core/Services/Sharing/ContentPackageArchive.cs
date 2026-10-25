@@ -12,7 +12,7 @@ namespace Foundry.Core.Services.Sharing;
 
 /// <summary>
 /// Turns one library package (post-installation package or driver set) into a deterministic ZIP archive for publication and imports
-/// such an archive back into a library (spec 5.5). One code path serves every <see cref="ContentPackageKind"/>.
+/// such an archive back into a library. One code path serves every <see cref="ContentPackageKind"/>.
 /// </summary>
 /// <remarks>
 /// Archive layout: <c>manifest.json</c> (the canonical library manifest, whose SHA-256 is the content hash) followed by one
