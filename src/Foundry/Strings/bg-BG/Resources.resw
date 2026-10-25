@@ -4528,7 +4528,7 @@
     <value>Файлове с отговори</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Проверка на източниците</value>
+    <value>Проверка на файловете</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Съдържа команди; проверете за припокриване с персонализациите и процедурите за настройка на Foundry.</value>
@@ -4612,7 +4612,7 @@
     <value>Две проверки на файлове все още се изпълняват. Изчакайте да приключат, след което опитайте отново.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Предстои проверка на източника. Изберете „Проверка на източниците“, за да проверите текущия файл, без да приемате промени в съдържанието.</value>
+    <value>Предстои проверка на файла. Изберете „Проверка на файловете“, за да проверите съхраненото копие.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>Файлът не можа да бъде прочетен. Проверете дали съществува и дали можете да го отворите, след което опитайте отново.</value>
@@ -4624,7 +4624,7 @@
     <value>Поддържат се само настройки за specialize и oobeSystem. Премахнете другите непразни етапи, инструкциите за офлайн обслужване или повторното запечатване в режим на проверка.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Източникът е проверен.</value>
+    <value>Файлът е проверен.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Прилагане на актуализация</value>

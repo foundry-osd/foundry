@@ -4528,7 +4528,7 @@ Applying the update restarts Foundry OSD.</value>
     <value>Answer files</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Check sources</value>
+    <value>Check files</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Contains commands; review overlap with Foundry customisation and setup hooks.</value>
@@ -4612,7 +4612,7 @@ Applying the update restarts Foundry OSD.</value>
     <value>Two file checks are still running. Wait for them to finish, then try again.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Source check pending. Choose Check sources to validate the current file without accepting content changes.</value>
+    <value>File check pending. Choose Check files to validate the stored copy.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>The file could not be read. Check that it exists and that you can open it, then try again.</value>
@@ -4624,7 +4624,7 @@ Applying the update restarts Foundry OSD.</value>
     <value>Only specialize and oobeSystem settings are supported. Remove other nonempty passes, offline servicing instructions, or audit-mode resealing.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Source validated.</value>
+    <value>File validated.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Apply update</value>

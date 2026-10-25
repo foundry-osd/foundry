@@ -4528,7 +4528,7 @@ Aplicarea actualizării repornește Foundry OSD.</value>
     <value>Fișiere de răspuns</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Verifică sursele</value>
+    <value>Verifică fișierele</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Conține comenzi; verificați posibilele conflicte cu personalizările Foundry și punctele de execuție ale instalării.</value>
@@ -4612,7 +4612,7 @@ Aplicarea actualizării repornește Foundry OSD.</value>
     <value>Două verificări de fișiere sunt încă în desfășurare. Așteptați să se termine, apoi încercați din nou.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Verificarea sursei este în așteptare. Alegeți Verifică sursele pentru a valida fișierul curent fără a accepta modificări ale conținutului.</value>
+    <value>Verificarea fișierului este în așteptare. Alegeți Verifică fișierele pentru a valida copia stocată.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>Fișierul nu a putut fi citit. Verificați dacă există și dacă îl puteți deschide, apoi încercați din nou.</value>
@@ -4624,7 +4624,7 @@ Aplicarea actualizării repornește Foundry OSD.</value>
     <value>Sunt acceptate numai setările din specialize și oobeSystem. Eliminați celelalte etape nevide, instrucțiunile de întreținere offline sau pregătirea pentru repornire în modul audit.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Sursă validată.</value>
+    <value>Fișier validat.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Aplică actualizarea</value>

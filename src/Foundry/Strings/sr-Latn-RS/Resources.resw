@@ -4528,7 +4528,7 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
     <value>Datoteke odgovora</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Proveri izvore</value>
+    <value>Proveri datoteke</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Sadrži komande; proverite moguće sukobe sa prilagođavanjima programa Foundry i tačkama izvršavanja instalacije.</value>
@@ -4612,7 +4612,7 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
     <value>Još su u toku dve provere datoteka. Sačekajte da se završe, a zatim pokušajte ponovo.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Provera izvora je na čekanju. Izaberite Proveri izvore da biste proverili trenutnu datoteku bez prihvatanja promena sadržaja.</value>
+    <value>Provera datoteke je na čekanju. Izaberite Proveri datoteke da biste proverili sačuvanu kopiju.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>Datoteku nije moguće pročitati. Proverite da li postoji i da li možete da je otvorite, a zatim pokušajte ponovo.</value>
@@ -4624,7 +4624,7 @@ Primena ažuriranja ponovo pokreće Foundry OSD.</value>
     <value>Podržane su samo postavke specialize i oobeSystem. Uklonite ostale faze koje nisu prazne, uputstva za održavanje van mreže ili pripremu za ponovno pokretanje u režimu nadzora.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Izvor je proveren.</value>
+    <value>Datoteka je proverena.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Primeni ažuriranje</value>

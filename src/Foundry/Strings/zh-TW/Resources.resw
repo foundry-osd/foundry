@@ -4528,7 +4528,7 @@
     <value>回應檔案</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>檢查來源</value>
+    <value>檢查檔案</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>包含命令；請檢閱是否與 Foundry 自訂設定及安裝掛鉤重疊。</value>
@@ -4612,7 +4612,7 @@
     <value>仍有兩項檔案檢查正在進行。請等候其完成後再試一次。</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>來源檢查待處理。選擇「檢查來源」可驗證目前的檔案，而不接受內容變更。</value>
+    <value>檔案檢查待處理。選擇「檢查檔案」可驗證已儲存的複本。</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>無法讀取該檔案。請確認檔案存在且可以開啟，然後再試一次。</value>
@@ -4624,7 +4624,7 @@
     <value>僅支援 specialize 和 oobeSystem 設定。請移除其他非空白設定階段、離線維護指令，或重新封裝為稽核模式的設定。</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>來源已驗證。</value>
+    <value>檔案已驗證。</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>套用更新</value>

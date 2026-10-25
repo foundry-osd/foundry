@@ -4528,7 +4528,7 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
     <value>Antwoordbestanden</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Bronnen controleren</value>
+    <value>Bestanden controleren</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Bevat opdrachten. Controleer op overlap met Foundry-aanpassingen en installatiehooks.</value>
@@ -4612,7 +4612,7 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
     <value>Er worden nog twee bestandscontroles uitgevoerd. Wacht tot ze klaar zijn en probeer het opnieuw.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>De bron is nog niet gecontroleerd. Kies Bronnen controleren om het huidige bestand te valideren zonder inhoudswijzigingen te accepteren.</value>
+    <value>Het bestand is nog niet gecontroleerd. Kies Bestanden controleren om de opgeslagen kopie te valideren.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>Het bestand kan niet worden gelezen. Controleer of het bestaat en of u het kunt openen en probeer het opnieuw.</value>
@@ -4624,7 +4624,7 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
     <value>Alleen instellingen voor specialize en oobeSystem worden ondersteund. Verwijder andere niet-lege configuratiefasen, instructies voor offlineonderhoud of resealing naar de controlemodus.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Bron gevalideerd.</value>
+    <value>Bestand gevalideerd.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Update toepassen</value>

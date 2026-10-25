@@ -4528,7 +4528,7 @@ Zastosowanie aktualizacji uruchomi Foundry OSD ponownie.</value>
     <value>Pliki odpowiedzi</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Sprawdź źródła</value>
+    <value>Sprawdź pliki</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Zawiera polecenia. Sprawdź, czy nie powielają dostosowań i procedur instalacyjnych Foundry.</value>
@@ -4612,7 +4612,7 @@ Zastosowanie aktualizacji uruchomi Foundry OSD ponownie.</value>
     <value>Nadal trwają dwa sprawdzania plików. Poczekaj na ich zakończenie, a następnie spróbuj ponownie.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Źródło oczekuje na sprawdzenie. Wybierz Sprawdź źródła, aby zweryfikować bieżący plik bez akceptowania zmian zawartości.</value>
+    <value>Plik oczekuje na sprawdzenie. Wybierz Sprawdź pliki, aby zweryfikować przechowywaną kopię.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>Nie można odczytać pliku. Sprawdź, czy istnieje i czy można go otworzyć, a następnie spróbuj ponownie.</value>
@@ -4624,7 +4624,7 @@ Zastosowanie aktualizacji uruchomi Foundry OSD ponownie.</value>
     <value>Obsługiwane są tylko ustawienia specialize i oobeSystem. Usuń inne niepuste przebiegi konfiguracji, instrukcje obsługi w trybie offline lub ponowne zamykanie systemu w trybie inspekcji.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Źródło zostało zweryfikowane.</value>
+    <value>Plik został zweryfikowany.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Zastosuj aktualizację</value>

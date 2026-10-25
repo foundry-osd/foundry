@@ -4528,7 +4528,7 @@
     <value>应答文件</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>检查源文件</value>
+    <value>检查文件</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>包含命令；请检查是否与 Foundry 自定义设置及安装挂钩发生冲突。</value>
@@ -4612,7 +4612,7 @@
     <value>仍有两项文件检查正在进行。请等待其完成后重试。</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>源文件检查待处理。选择“检查源文件”可验证当前文件，而不接受内容更改。</value>
+    <value>文件检查待处理。选择“检查文件”可验证已存储的副本。</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>无法读取该文件。请确认文件存在且可以打开，然后重试。</value>
@@ -4624,7 +4624,7 @@
     <value>仅支持 specialize 和 oobeSystem 设置。请移除其他非空配置阶段、脱机维护指令或重新封装为审核模式的设置。</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>源文件已验证。</value>
+    <value>文件已验证。</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>应用更新</value>

@@ -4528,7 +4528,7 @@ Güncellemeyi uygulamak Foundry OSD'yi yeniden başlatır.</value>
     <value>Yanıt dosyaları</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Kaynakları denetle</value>
+    <value>Dosyaları denetle</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Komutlar içerir; Foundry özelleştirmeleri ve kurulum tetikleyicileriyle olası çakışmaları inceleyin.</value>
@@ -4612,7 +4612,7 @@ Güncellemeyi uygulamak Foundry OSD'yi yeniden başlatır.</value>
     <value>İki dosya denetimi hâlâ çalışıyor. Bitmelerini bekleyip yeniden deneyin.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Kaynak denetimi bekleniyor. İçerik değişikliklerini kabul etmeden geçerli dosyayı doğrulamak için Kaynakları denetle'yi seçin.</value>
+    <value>Dosya denetimi bekleniyor. Depolanan kopyayı doğrulamak için Dosyaları denetle'yi seçin.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>Dosya okunamadı. Dosyanın var olduğunu ve açılabildiğini denetleyip yeniden deneyin.</value>
@@ -4624,7 +4624,7 @@ Güncellemeyi uygulamak Foundry OSD'yi yeniden başlatır.</value>
     <value>Yalnızca specialize ve oobeSystem ayarları desteklenir. Diğer boş olmayan yapılandırma aşamalarını, çevrimdışı bakım yönergelerini veya denetim modunda yeniden başlatma hazırlığını kaldırın.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Kaynak doğrulandı.</value>
+    <value>Dosya doğrulandı.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Güncellemeyi uygula</value>

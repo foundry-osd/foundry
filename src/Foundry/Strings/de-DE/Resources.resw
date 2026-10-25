@@ -4528,7 +4528,7 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
     <value>Antwortdateien</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Quellen prüfen</value>
+    <value>Dateien prüfen</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Enthält Befehle. Prüfen Sie Wechselwirkungen mit Foundry-Anpassungen und Setup-Skripts.</value>
@@ -4612,7 +4612,7 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
     <value>Zwei Dateiprüfungen laufen noch. Warten Sie, bis sie abgeschlossen sind, und versuchen Sie es dann erneut.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Quellenprüfung steht aus. Wählen Sie Quellen prüfen, um die aktuelle Datei zu validieren, ohne Inhaltsänderungen zu übernehmen.</value>
+    <value>Dateiprüfung steht aus. Wählen Sie Dateien prüfen, um die gespeicherte Kopie zu validieren.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>Die Datei konnte nicht gelesen werden. Prüfen Sie, ob sie vorhanden ist und geöffnet werden kann, und versuchen Sie es dann erneut.</value>
@@ -4624,7 +4624,7 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
     <value>Nur Einstellungen für specialize und oobeSystem werden unterstützt. Entfernen Sie andere nicht leere Konfigurationsdurchläufe, Offlinewartungsanweisungen und das erneute Versiegeln im Überwachungsmodus.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Quelle validiert.</value>
+    <value>Datei validiert.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Update anwenden</value>

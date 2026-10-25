@@ -4528,7 +4528,7 @@ Uppdateringen startar om Foundry OSD.</value>
     <value>Svarsfiler</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Kontrollera källor</value>
+    <value>Kontrollera filer</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Innehåller kommandon; kontrollera möjliga konflikter med Foundry-anpassningar och installationens körningspunkter.</value>
@@ -4612,7 +4612,7 @@ Uppdateringen startar om Foundry OSD.</value>
     <value>Två filkontroller pågår fortfarande. Vänta tills de är klara och försök sedan igen.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Källkontroll väntar. Välj Kontrollera källor för att validera den aktuella filen utan att godkänna innehållsändringar.</value>
+    <value>Filkontroll väntar. Välj Kontrollera filer för att validera den lagrade kopian.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>Det gick inte att läsa filen. Kontrollera att den finns och att du kan öppna den och försök sedan igen.</value>
@@ -4624,7 +4624,7 @@ Uppdateringen startar om Foundry OSD.</value>
     <value>Endast inställningar i specialize och oobeSystem stöds. Ta bort andra konfigurationspass som inte är tomma, instruktioner för offlineunderhåll eller förberedelser för omstart i granskningsläge.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Källan har validerats.</value>
+    <value>Filen har validerats.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Installera uppdatering</value>

@@ -4528,7 +4528,7 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>Válaszfájlok</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Források ellenőrzése</value>
+    <value>Fájlok ellenőrzése</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Parancsokat tartalmaz; ellenőrizze, hogy nem ütköznek-e a Foundry testreszabásaival és telepítési műveleteivel.</value>
@@ -4612,7 +4612,7 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>Még két fájlellenőrzés fut. Várja meg, amíg befejeződnek, majd próbálja újra.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>A forrás ellenőrzésre vár. Válassza a Források ellenőrzése lehetőséget az aktuális fájl ellenőrzéséhez a tartalom változásainak elfogadása nélkül.</value>
+    <value>A fájl ellenőrzésre vár. Válassza a Fájlok ellenőrzése lehetőséget a tárolt másolat ellenőrzéséhez.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>A fájlt nem sikerült beolvasni. Ellenőrizze, hogy létezik-e, és meg tudja-e nyitni, majd próbálja újra.</value>
@@ -4624,7 +4624,7 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>Csak a specialize és az oobeSystem beállítások támogatottak. Távolítsa el a többi nem üres konfigurációs fázist, az offline karbantartási utasításokat és az audit módba való visszaállítást.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>A forrás ellenőrizve.</value>
+    <value>A fájl ellenőrizve.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Frissítés alkalmazása</value>

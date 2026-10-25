@@ -4528,7 +4528,7 @@ Použití aktualizace restartuje Foundry OSD.</value>
     <value>Soubory odpovědí</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Zkontrolovat zdroje</value>
+    <value>Zkontrolovat soubory</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Obsahuje příkazy. Zkontrolujte, zda se nepřekrývají s přizpůsobením a instalačními skripty Foundry.</value>
@@ -4612,7 +4612,7 @@ Použití aktualizace restartuje Foundry OSD.</value>
     <value>Stále probíhají dvě kontroly souborů. Počkejte na jejich dokončení a pak to zkuste znovu.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Zdroj čeká na kontrolu. Volbou Zkontrolovat zdroje ověříte aktuální soubor bez přijetí změn obsahu.</value>
+    <value>Soubor čeká na kontrolu. Volbou Zkontrolovat soubory ověříte uloženou kopii.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>Soubor se nepodařilo přečíst. Ověřte, že existuje a že ho můžete otevřít, a pak to zkuste znovu.</value>
@@ -4624,7 +4624,7 @@ Použití aktualizace restartuje Foundry OSD.</value>
     <value>Podporována jsou pouze nastavení specialize a oobeSystem. Odeberte ostatní neprázdné fáze konfigurace, pokyny pro offline údržbu nebo opětovné zapečetění do režimu auditu.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Zdroj byl ověřen.</value>
+    <value>Soubor byl ověřen.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Použít aktualizaci</value>

@@ -4528,7 +4528,7 @@ Oppdateringen starter Foundry OSD på nytt.</value>
     <value>Svarfiler</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Kontroller kilder</value>
+    <value>Kontroller filer</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Inneholder kommandoer. Kontroller om de overlapper med Foundry-tilpasninger og installasjonshooks.</value>
@@ -4612,7 +4612,7 @@ Oppdateringen starter Foundry OSD på nytt.</value>
     <value>To filkontroller pågår fortsatt. Vent til de er ferdige, og prøv deretter på nytt.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Kilden venter på kontroll. Velg Kontroller kilder for å validere den gjeldende filen uten å godta innholdsendringer.</value>
+    <value>Filen venter på kontroll. Velg Kontroller filer for å validere den lagrede kopien.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>Filen kunne ikke leses. Kontroller at den finnes og at du kan åpne den, og prøv deretter på nytt.</value>
@@ -4624,7 +4624,7 @@ Oppdateringen starter Foundry OSD på nytt.</value>
     <value>Bare innstillinger for specialize og oobeSystem støttes. Fjern andre faser med innhold, instruksjoner for frakoblet vedlikehold eller resealing til revisjonsmodus.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Kilden er validert.</value>
+    <value>Filen er validert.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Bruk oppdatering</value>

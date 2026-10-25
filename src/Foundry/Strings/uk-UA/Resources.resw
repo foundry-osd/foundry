@@ -4528,7 +4528,7 @@
     <value>Файли відповідей</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Перевірити джерела</value>
+    <value>Перевірити файли</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Містить команди; перевірте можливі конфлікти з налаштуваннями Foundry та обробниками інсталяції.</value>
@@ -4612,7 +4612,7 @@
     <value>Ще виконуються дві перевірки файлів. Дочекайтеся їх завершення, а потім повторіть спробу.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Перевірка джерела очікується. Виберіть «Перевірити джерела», щоб перевірити поточний файл, не приймаючи зміни вмісту.</value>
+    <value>Перевірка файлу очікується. Виберіть «Перевірити файли», щоб перевірити збережену копію.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>Не вдалося прочитати файл. Переконайтеся, що він існує і його можна відкрити, а потім повторіть спробу.</value>
@@ -4624,7 +4624,7 @@
     <value>Підтримуються лише параметри specialize та oobeSystem. Видаліть інші непорожні етапи налаштування, інструкції автономного обслуговування або вказівки на перезавантаження в режимі аудиту.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Джерело перевірено.</value>
+    <value>Файл перевірено.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Застосувати оновлення</value>

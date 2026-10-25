@@ -4528,7 +4528,7 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
     <value>Svarfiler</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Kontrollér kilder</value>
+    <value>Kontrollér filer</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Indeholder kommandoer. Kontrollér, om de overlapper med Foundry-tilpasninger og installationshooks.</value>
@@ -4612,7 +4612,7 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
     <value>To filkontroller kører stadig. Vent, til de er færdige, og prøv derefter igen.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Kilden afventer kontrol. Vælg Kontrollér kilder for at validere den aktuelle fil uden at acceptere ændringer i indholdet.</value>
+    <value>Filen afventer kontrol. Vælg Kontrollér filer for at validere den gemte kopi.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>Filen kunne ikke læses. Kontrollér, at den findes, og at du kan åbne den, og prøv derefter igen.</value>
@@ -4624,7 +4624,7 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
     <value>Kun indstillinger for specialize og oobeSystem understøttes. Fjern andre ikke-tomme konfigurationsfaser, instruktioner til offlinevedligeholdelse eller genforsegling til overvågningstilstand.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Kilden er valideret.</value>
+    <value>Filen er valideret.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Anvend opdatering</value>

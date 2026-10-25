@@ -4528,7 +4528,7 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
     <value>Vastaustiedostot</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Tarkista lähteet</value>
+    <value>Tarkista tiedostot</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Sisältää komentoja. Tarkista niiden yhteisvaikutukset Foundryn mukautusten ja asennuskomentosarjojen kanssa.</value>
@@ -4612,7 +4612,7 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
     <value>Kaksi tiedostotarkistusta on vielä käynnissä. Odota, että ne valmistuvat, ja yritä sitten uudelleen.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Lähteen tarkistus odottaa. Valitse Tarkista lähteet, jos haluat vahvistaa nykyisen tiedoston hyväksymättä sisältömuutoksia.</value>
+    <value>Tiedoston tarkistus odottaa. Valitse Tarkista tiedostot, jos haluat vahvistaa tallennetun kopion.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>Tiedostoa ei voitu lukea. Varmista, että se on olemassa ja että voit avata sen, ja yritä sitten uudelleen.</value>
@@ -4624,7 +4624,7 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
     <value>Vain specialize- ja oobeSystem-asetuksia tuetaan. Poista muut vaiheosiot, jotka eivät ole tyhjiä, offline-ylläpito-ohjeet sekä uudelleensinetöinti valvontatilaan.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Lähde vahvistettu.</value>
+    <value>Tiedosto vahvistettu.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Asenna päivitys</value>

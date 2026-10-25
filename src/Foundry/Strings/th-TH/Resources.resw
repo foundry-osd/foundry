@@ -4528,7 +4528,7 @@
     <value>ไฟล์คำตอบ</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>ตรวจสอบต้นฉบับ</value>
+    <value>ตรวจสอบไฟล์</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>มีคำสั่งอยู่ โปรดตรวจสอบความขัดแย้งกับการปรับแต่งของ Foundry และจุดเรียกทำงานระหว่างการติดตั้ง</value>
@@ -4612,7 +4612,7 @@
     <value>การตรวจสอบไฟล์สองรายการยังคงทำงานอยู่ โปรดรอจนกว่าจะเสร็จสิ้น แล้วลองอีกครั้ง</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>กำลังรอตรวจสอบต้นฉบับ เลือกตรวจสอบต้นฉบับเพื่อตรวจสอบไฟล์ปัจจุบันโดยไม่ยอมรับการเปลี่ยนแปลงเนื้อหา</value>
+    <value>กำลังรอตรวจสอบไฟล์ เลือกตรวจสอบไฟล์เพื่อตรวจสอบสำเนาที่จัดเก็บไว้</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>ไม่สามารถอ่านไฟล์ได้ โปรดตรวจสอบว่าไฟล์มีอยู่และคุณเปิดได้ แล้วลองอีกครั้ง</value>
@@ -4624,7 +4624,7 @@
     <value>รองรับเฉพาะการตั้งค่าใน specialize และ oobeSystem เท่านั้น โปรดลบขั้นตอนอื่นที่มีเนื้อหา คำสั่งการให้บริการออฟไลน์ หรือการเตรียมให้เริ่มระบบใหม่ในโหมดตรวจสอบ</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>ตรวจสอบต้นฉบับแล้ว</value>
+    <value>ตรวจสอบไฟล์แล้ว</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>ใช้การอัปเดต</value>

@@ -4528,7 +4528,7 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>Archivos de respuesta</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Comprobar orígenes</value>
+    <value>Comprobar archivos</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Contiene comandos; revise las interacciones con la personalización y los scripts de instalación de Foundry.</value>
@@ -4612,7 +4612,7 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>Todavía hay dos comprobaciones de archivos en curso. Espere a que terminen y vuelva a intentarlo.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>La comprobación del origen está pendiente. Elija Comprobar orígenes para validar el archivo actual sin aceptar cambios en su contenido.</value>
+    <value>La comprobación del archivo está pendiente. Elija Comprobar archivos para validar la copia almacenada.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>No se pudo leer el archivo. Compruebe que existe y que puede abrirlo y vuelva a intentarlo.</value>
@@ -4624,7 +4624,7 @@ Al aplicar la actualización, Foundry OSD se reiniciará.</value>
     <value>Solo se admiten las opciones de specialize y oobeSystem. Quite las demás fases que no estén vacías, las instrucciones de mantenimiento sin conexión y el resellado en modo auditoría.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Origen validado.</value>
+    <value>Archivo validado.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Aplicar actualización</value>

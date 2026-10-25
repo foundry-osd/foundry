@@ -4528,7 +4528,7 @@
     <value>ملفات الإجابات</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>التحقق من المصادر</value>
+    <value>التحقق من الملفات</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>يحتوي على أوامر؛ راجع تداخلها مع تخصيصات Foundry وإجراءات الإعداد.</value>
@@ -4612,7 +4612,7 @@
     <value>لا يزال فحصان للملفات قيد التشغيل. انتظر حتى ينتهيا، ثم أعد المحاولة.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>التحقق من المصدر معلّق. اختر التحقق من المصادر للتحقق من الملف الحالي دون قبول تغييرات المحتوى.</value>
+    <value>التحقق من الملف معلّق. اختر التحقق من الملفات للتحقق من النسخة المخزّنة.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>تعذّرت قراءة الملف. تحقق من وجوده ومن إمكانية فتحه، ثم أعد المحاولة.</value>
@@ -4624,7 +4624,7 @@
     <value>تُدعم إعدادات specialize وoobeSystem فقط. أزل مراحل الإعداد الأخرى غير الفارغة أو تعليمات الصيانة دون اتصال أو إعادة التهيئة لوضع التدقيق.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>تم التحقق من المصدر.</value>
+    <value>تم التحقق من الملف.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>تطبيق التحديث</value>

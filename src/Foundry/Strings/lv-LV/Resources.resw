@@ -4528,7 +4528,7 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>Atbilžu faili</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Pārbaudīt avotus</value>
+    <value>Pārbaudīt failus</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Satur komandas; pārbaudiet, vai tās nepārklājas ar Foundry pielāgojumiem un uzstādīšanas darbībām.</value>
@@ -4612,7 +4612,7 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>Joprojām notiek divas failu pārbaudes. Uzgaidiet, līdz tās beidzas, un pēc tam mēģiniet vēlreiz.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Avota pārbaude vēl nav veikta. Izvēlieties Pārbaudīt avotus, lai validētu pašreizējo failu, nepieņemot satura izmaiņas.</value>
+    <value>Faila pārbaude vēl nav veikta. Izvēlieties Pārbaudīt failus, lai validētu saglabāto kopiju.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>Failu nevarēja nolasīt. Pārbaudiet, vai tas pastāv un vai varat to atvērt, un pēc tam mēģiniet vēlreiz.</value>
@@ -4624,7 +4624,7 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>Tiek atbalstīti tikai specialize un oobeSystem iestatījumi. Noņemiet citus netukšus konfigurācijas posmus, bezsaistes apkopes norādījumus vai atkārtotu sagatavošanu audita režīmam.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Avots validēts.</value>
+    <value>Fails validēts.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Lietot atjauninājumu</value>

@@ -4528,7 +4528,7 @@ L'application de la mise à jour redémarre Foundry OSD.</value>
     <value>Fichiers de réponses</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Vérifier les sources</value>
+    <value>Vérifier les fichiers</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Contient des commandes ; vérifiez les interactions avec la personnalisation de Foundry et les scripts d'installation.</value>
@@ -4612,7 +4612,7 @@ L'application de la mise à jour redémarre Foundry OSD.</value>
     <value>Deux vérifications de fichiers sont toujours en cours. Attendez qu'elles se terminent, puis réessayez.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Vérification de la source en attente. Choisissez Vérifier les sources pour valider le fichier actuel sans accepter les modifications de son contenu.</value>
+    <value>Vérification du fichier en attente. Choisissez Vérifier les fichiers pour valider la copie stockée.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>Le fichier n'a pas pu être lu. Vérifiez qu'il existe et que vous pouvez l'ouvrir, puis réessayez.</value>
@@ -4624,7 +4624,7 @@ L'application de la mise à jour redémarre Foundry OSD.</value>
     <value>Seuls les paramètres specialize et oobeSystem sont pris en charge. Supprimez les autres passes non vides, les instructions de maintenance hors connexion et le scellement en mode audit.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Source validée.</value>
+    <value>Fichier validé.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Appliquer la mise à jour</value>

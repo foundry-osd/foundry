@@ -4528,7 +4528,7 @@
     <value>קובצי תשובות</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>בדיקת מקורות</value>
+    <value>בדיקת קבצים</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>מכיל פקודות; בדקו אם הן חופפות להתאמות של Foundry ולפעולות ההתקנה שלו.</value>
@@ -4612,7 +4612,7 @@
     <value>שתי בדיקות קבצים עדיין פועלות. המתינו לסיומן ולאחר מכן נסו שוב.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>בדיקת המקור ממתינה. בחרו בדיקת מקורות כדי לאמת את הקובץ הנוכחי בלי לקבל שינויים בתוכן.</value>
+    <value>בדיקת הקובץ ממתינה. בחרו בדיקת קבצים כדי לאמת את העותק המאוחסן.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>לא ניתן היה לקרוא את הקובץ. ודאו שהוא קיים ושניתן לפתוח אותו, ולאחר מכן נסו שוב.</value>
@@ -4624,7 +4624,7 @@
     <value>נתמכות רק הגדרות specialize ו-oobeSystem. הסירו שלבי תצורה אחרים שאינם ריקים, הוראות שירות לא מקוון או הוראות לאתחול מחדש במצב ביקורת.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>המקור אומת.</value>
+    <value>הקובץ אומת.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>החל עדכון</value>

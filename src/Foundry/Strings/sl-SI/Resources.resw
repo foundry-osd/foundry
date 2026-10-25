@@ -4528,7 +4528,7 @@ Uporaba posodobitve znova zažene Foundry OSD.</value>
     <value>Datoteke odgovorov</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Preveri vire</value>
+    <value>Preveri datoteke</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Vsebuje ukaze; preverite morebitna navzkrižja s prilagoditvami Foundry in sprožilci namestitve.</value>
@@ -4612,7 +4612,7 @@ Uporaba posodobitve znova zažene Foundry OSD.</value>
     <value>Še vedno potekata dve preverjanji datotek. Počakajte, da se končata, nato poskusite znova.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Preverjanje vira je na čakanju. Izberite Preveri vire, da preverite trenutno datoteko, ne da bi sprejeli spremembe vsebine.</value>
+    <value>Preverjanje datoteke je na čakanju. Izberite Preveri datoteke, da preverite shranjeno kopijo.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>Datoteke ni bilo mogoče prebrati. Preverite, ali obstaja in ali jo lahko odprete, nato poskusite znova.</value>
@@ -4624,7 +4624,7 @@ Uporaba posodobitve znova zažene Foundry OSD.</value>
     <value>Podprte so samo nastavitve specialize in oobeSystem. Odstranite druge neprazne faze, navodila za servisiranje brez povezave ali pripravo na ponovni zagon v načinu nadzora.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Vir je preverjen.</value>
+    <value>Datoteka je preverjena.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Uporabi posodobitev</value>

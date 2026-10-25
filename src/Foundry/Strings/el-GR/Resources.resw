@@ -4528,7 +4528,7 @@
     <value>Αρχεία απαντήσεων</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Έλεγχος προελεύσεων</value>
+    <value>Έλεγχος αρχείων</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Περιέχει εντολές. Ελέγξτε πιθανές επικαλύψεις με την προσαρμογή και τα σενάρια εγκατάστασης του Foundry.</value>
@@ -4612,7 +4612,7 @@
     <value>Δύο έλεγχοι αρχείων βρίσκονται ακόμη σε εξέλιξη. Περιμένετε να ολοκληρωθούν και, στη συνέχεια, δοκιμάστε ξανά.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Εκκρεμεί έλεγχος προέλευσης. Επιλέξτε Έλεγχος προελεύσεων για επικύρωση του τρέχοντος αρχείου χωρίς αποδοχή αλλαγών στο περιεχόμενο.</value>
+    <value>Εκκρεμεί έλεγχος αρχείου. Επιλέξτε Έλεγχος αρχείων για επικύρωση του αποθηκευμένου αντιγράφου.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>Δεν ήταν δυνατή η ανάγνωση του αρχείου. Βεβαιωθείτε ότι υπάρχει και ότι μπορείτε να το ανοίξετε και, στη συνέχεια, δοκιμάστε ξανά.</value>
@@ -4624,7 +4624,7 @@
     <value>Υποστηρίζονται μόνο οι ρυθμίσεις specialize και oobeSystem. Καταργήστε άλλες μη κενές φάσεις, οδηγίες συντήρησης χωρίς σύνδεση ή επανασφράγιση σε λειτουργία ελέγχου.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Το αρχείο προέλευσης επικυρώθηκε.</value>
+    <value>Το αρχείο επικυρώθηκε.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Εφαρμογή ενημέρωσης</value>

@@ -4528,7 +4528,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>応答ファイル</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>ソースの確認</value>
+    <value>ファイルの確認</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>コマンドが含まれています。Foundry のカスタマイズやセットアップ処理との競合を確認してください。</value>
@@ -4612,7 +4612,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>2 つのファイル確認がまだ実行中です。完了するまで待ってから、もう一度お試しください。</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>ソースの確認が必要です。「ソースの確認」を選択すると、内容の変更を受け入れずに現在のファイルを検証できます。</value>
+    <value>ファイルの確認が必要です。「ファイルの確認」を選択すると、保存されているコピーを検証できます。</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>ファイルを読み取れませんでした。ファイルが存在し、開けることを確認してから、もう一度お試しください。</value>
@@ -4624,7 +4624,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>specialize と oobeSystem の設定のみサポートされています。空ではない他の構成パス、オフラインサービス処理の指示、監査モードへの再シール設定を削除してください。</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>ソースを検証しました。</value>
+    <value>ファイルを検証しました。</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>更新を適用</value>

@@ -4528,7 +4528,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>응답 파일</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>원본 확인</value>
+    <value>파일 확인</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>명령이 포함되어 있습니다. Foundry 사용자 지정 및 설치 작업과의 중복이나 충돌을 확인하세요.</value>
@@ -4612,7 +4612,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>파일 확인 두 개가 아직 실행 중입니다. 완료될 때까지 기다린 후 다시 시도하세요.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>원본 확인이 필요합니다. 원본 확인을 선택하면 내용 변경을 수락하지 않고 현재 파일의 유효성을 검사할 수 있습니다.</value>
+    <value>파일 확인이 필요합니다. 파일 확인을 선택하면 저장된 사본의 유효성을 검사할 수 있습니다.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>파일을 읽을 수 없습니다. 파일이 있고 열 수 있는지 확인한 후 다시 시도하세요.</value>
@@ -4624,7 +4624,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>specialize 및 oobeSystem 설정만 지원됩니다. 비어 있지 않은 다른 구성 단계, 오프라인 서비스 지침 또는 감사 모드로 다시 봉인하는 설정을 제거하세요.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>원본 유효성이 확인되었습니다.</value>
+    <value>파일 유효성이 확인되었습니다.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>업데이트 적용</value>

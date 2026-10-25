@@ -4528,7 +4528,7 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>Arquivos de resposta</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Verificar origens</value>
+    <value>Verificar arquivos</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Contém comandos. Verifique se há sobreposição com as personalizações e os hooks de instalação do Foundry.</value>
@@ -4612,7 +4612,7 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>Duas verificações de arquivos ainda estão em andamento. Aguarde a conclusão e tente novamente.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>A verificação da origem está pendente. Escolha Verificar origens para validar o arquivo atual sem aceitar alterações no conteúdo.</value>
+    <value>A verificação do arquivo está pendente. Escolha Verificar arquivos para validar a cópia armazenada.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
     <value>Não foi possível ler o arquivo. Verifique se ele existe e se você consegue abri-lo e tente novamente.</value>
@@ -4624,7 +4624,7 @@ A aplicação da atualização reinicia o Foundry OSD.</value>
     <value>Somente as configurações de specialize e oobeSystem são compatíveis. Remova outras etapas não vazias, instruções de manutenção offline ou a opção de selar novamente no modo de auditoria.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Origem validada.</value>
+    <value>Arquivo validado.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Aplicar atualização</value>
