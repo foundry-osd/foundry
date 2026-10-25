@@ -32,6 +32,21 @@ public sealed class ContentPackageArchiveTests : IDisposable
     }
 
     [Fact]
+    public async Task Write_WithProgress_ReportsVerificationThenCopyUpToTwiceTheLength()
+    {
+        ContentPackageLibraryService library = Library("source", ContentPackageKind.Drivers);
+        ContentPackageReference reference = await ImportSourceAsync(library, ("net/e1000.inf", "[Version]"), ("net/e1000.sys", "driver"));
+        List<long> reports = [];
+        using MemoryStream archive = new();
+
+        await ContentPackageArchive.WriteAsync(library, reference.ContentHash, archive, Cancellation, new InlineProgress(reports.Add));
+
+        Assert.Equal(reports.Order(), reports);
+        Assert.Contains(reference.Length, reports);
+        Assert.Equal(2 * reference.Length, reports[^1]);
+    }
+
+    [Fact]
     public async Task WriteImport_DriverSet_RoundTripsHashIntoDriversLibrary()
     {
         ContentPackageLibraryService source = Library("source", ContentPackageKind.Drivers);
@@ -187,5 +202,10 @@ public sealed class ContentPackageArchiveTests : IDisposable
         using MemoryStream archive = new();
         await ContentPackageArchive.WriteAsync(library, hash, archive, Cancellation);
         return archive.ToArray();
+    }
+
+    private sealed class InlineProgress(Action<long> report) : IProgress<long>
+    {
+        public void Report(long value) => report(value);
     }
 }

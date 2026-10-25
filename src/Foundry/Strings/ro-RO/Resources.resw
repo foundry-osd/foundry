@@ -3478,6 +3478,21 @@ Licențiat sub licența MIT.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Alegeți un folder gol sau unul în care acest PC publică deja: o partajare de rețea, un folder OneDrive sau SharePoint ori un folder local. PC-urile care urmăresc folderul au nevoie de parola de publicare pentru a-l citi.</value>
   </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Se verifică folderul…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Se finalizează publicarea…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>Se pregătește {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>Se trimite {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>Se verifică {0}…</value>
+  </data>
   <data name="Sharing.PublishTitle" xml:space="preserve">
     <value>Publicare într-un folder</value>
   </data>

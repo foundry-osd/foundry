@@ -37,7 +37,7 @@ public sealed partial class TakeOverDialogViewModel : ObservableObject, IDisposa
         this.isRecovery = isRecovery;
         Folder = folder;
         IncludePasswords = includePasswords;
-        Progress = new PublishProgressIndicator(sharing);
+        Progress = new PublishProgressIndicator(sharing, localization);
         localization.LanguageChanged += OnLanguageChanged;
     }
 

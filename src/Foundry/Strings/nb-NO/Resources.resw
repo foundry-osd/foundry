@@ -3478,6 +3478,21 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Velg en tom mappe eller en som denne PC-en allerede publiserer til: en nettverksressurs, en OneDrive- eller SharePoint-mappe eller en lokal mappe. PC-er som følger mappen, trenger publiseringspassordet for å lese den.</value>
   </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Kontrollerer mappen…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Fullfører publiseringen…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>Forbereder {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>Sender {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>Verifiserer {0}…</value>
+  </data>
   <data name="Sharing.PublishTitle" xml:space="preserve">
     <value>Publiser til en mappe</value>
   </data>

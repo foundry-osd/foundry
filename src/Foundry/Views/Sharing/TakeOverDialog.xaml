@@ -91,26 +91,32 @@
                 TextWrapping="WrapWholeWords"
                 Visibility="{x:Bind ViewModel.IncludePasswords, Mode=OneWay}" />
         </StackPanel>
-        <Grid
-            ColumnSpacing="{ThemeResource FoundryContentGroupSpacing}"
+        <StackPanel
+            Spacing="{ThemeResource FoundryTextGroupSpacing}"
             Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+            <Grid ColumnSpacing="{ThemeResource FoundryContentGroupSpacing}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    AutomationProperties.LiveSetting="Polite"
+                    Text="{x:Bind ViewModel.Progress.StageText, Mode=OneWay}"
+                    TextTrimming="CharacterEllipsis"
+                    ToolTipService.ToolTip="{x:Bind ViewModel.Progress.StageText, Mode=OneWay}" />
+                <TextBlock
+                    Grid.Column="1"
+                    MinWidth="40"
+                    AutomationProperties.AccessibilityView="Raw"
+                    Text="{x:Bind ViewModel.Progress.PercentText, Mode=OneWay}"
+                    TextAlignment="Right" />
+            </Grid>
             <ProgressBar
-                VerticalAlignment="Center"
+                IsIndeterminate="{x:Bind ViewModel.Progress.IsIndeterminate, Mode=OneWay}"
                 Maximum="100"
                 Minimum="0"
                 Value="{x:Bind ViewModel.Progress.Percent, Mode=OneWay}" />
-            <TextBlock
-                Grid.Column="1"
-                MinWidth="40"
-                VerticalAlignment="Center"
-                AutomationProperties.AccessibilityView="Raw"
-                Text="{x:Bind ViewModel.Progress.PercentText, Mode=OneWay}"
-                TextAlignment="Right" />
-        </Grid>
+        </StackPanel>
         <InfoBar
             IsClosable="False"
             IsOpen="{x:Bind ViewModel.HasError, Mode=OneWay}"

@@ -3478,6 +3478,21 @@
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>בחר תיקייה ריקה או תיקייה שמחשב זה כבר מפרסם אליה: שיתוף רשת, תיקיית OneDrive או SharePoint, או תיקייה מקומית. המחשבים העוקבים אחר התיקייה זקוקים לסיסמת הפרסום כדי לקרוא אותה.</value>
   </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>בודק את התיקייה…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>מסיים את הפרסום…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>מכין את {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>שולח את {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>מאמת את {0}…</value>
+  </data>
   <data name="Sharing.PublishTitle" xml:space="preserve">
     <value>פרסום לתיקייה</value>
   </data>

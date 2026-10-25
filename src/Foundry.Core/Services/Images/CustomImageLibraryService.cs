@@ -2,10 +2,10 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Security.Cryptography;
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
+using Foundry.Utilities.IO;
 
 namespace Foundry.Core.Services.Images;
 
@@ -55,7 +55,11 @@ public sealed partial class CustomImageLibraryService
     }
 
     /// <summary>Locks the image before verification and retains its handle until disposal.</summary>
-    public async Task<CustomImageSourceLease> AcquireAsync(CustomImageReference reference, CancellationToken cancellationToken = default)
+    /// <param name="reference">Library entry of the image.</param>
+    /// <param name="cancellationToken">Stops the verification between reads.</param>
+    /// <param name="verificationProgress">Receives the cumulative bytes of the WIM hashed so far, up to its length.</param>
+    public async Task<CustomImageSourceLease> AcquireAsync(CustomImageReference reference, CancellationToken cancellationToken = default,
+        IProgress<long>? verificationProgress = null)
     {
         ArgumentNullException.ThrowIfNull(reference);
         if (!CustomImageSettingsValidator.IsValidReference(reference)) throw new InvalidDataException("The custom image reference is invalid.");
@@ -63,7 +67,7 @@ public sealed partial class CustomImageLibraryService
         FileStream image = OpenRead(imagePath);
         try
         {
-            await VerifyAsync(image, reference.Length, reference.ContentHash, cancellationToken).ConfigureAwait(false);
+            await VerifyAsync(image, reference.Length, reference.ContentHash, verificationProgress, cancellationToken).ConfigureAwait(false);
             IReadOnlyList<CustomImageIndex> indexes = await metadataReader.ReadAsync(imagePath, cancellationToken).ConfigureAwait(false);
             if (!reference.Indexes.Select(index => index.Index).SequenceEqual(indexes.Select(index => index.Index)))
                 throw new InvalidDataException("The image indexes do not match their imported metadata.");
@@ -138,11 +142,12 @@ public sealed partial class CustomImageLibraryService
         }
     }
 
-    private static async Task VerifyAsync(FileStream file, long length, string expectedHash, CancellationToken cancellationToken)
+    private static async Task VerifyAsync(FileStream file, long length, string expectedHash, IProgress<long>? progress, CancellationToken cancellationToken)
     {
         if (file.Length != length) throw new InvalidDataException("The custom image source size has changed.");
         file.Position = 0;
-        string hash = Convert.ToHexStringLower(await SHA256.HashDataAsync(file, cancellationToken).ConfigureAwait(false));
+        string hash = Convert.ToHexStringLower(await FileHash.ComputeSha256Async(file, progress is null ? null : progress.Report, cancellationToken)
+            .ConfigureAwait(false));
         if (!string.Equals(hash, expectedHash, StringComparison.OrdinalIgnoreCase))
             throw new InvalidDataException("The custom image source content has changed.");
         file.Position = 0;

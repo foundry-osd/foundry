@@ -33,6 +33,19 @@ public sealed class FileHashTests
     }
 
     [Fact]
+    public async Task ComputeSha256Async_Stream_HashesFromThePositionAndReportsCumulativeBytes()
+    {
+        using var stream = new MemoryStream([0xAA, .. "abc"u8.ToArray()]);
+        stream.Position = 1;
+        List<long> reports = [];
+
+        byte[] hash = await FileHash.ComputeSha256Async(stream, reports.Add, TestContext.Current.CancellationToken);
+
+        Assert.Equal("BA7816BF8F01CFEA414140DE5DAE2223B00361A396177A9CB410FF61F20015AD", Convert.ToHexString(hash));
+        Assert.Equal([3L], reports);
+    }
+
+    [Fact]
     public async Task ComputeSha256Async_WhenCancellationIsRequested_ThrowsOperationCanceledException()
     {
         using var temporaryDirectory = new TemporaryDirectory();

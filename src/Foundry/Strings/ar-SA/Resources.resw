@@ -3478,6 +3478,21 @@
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>اختر مجلدًا فارغًا، أو مجلدًا ينشر فيه هذا الكمبيوتر بالفعل: مشاركة شبكة، أو مجلد OneDrive أو SharePoint، أو مجلدًا محليًا. تحتاج أجهزة الكمبيوتر التي تتابع المجلد إلى كلمة مرور النشر لقراءته.</value>
   </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>جارٍ التحقق من المجلد…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>جارٍ إنهاء النشر…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>جارٍ تحضير {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>جارٍ إرسال {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>جارٍ التحقق من {0}…</value>
+  </data>
   <data name="Sharing.PublishTitle" xml:space="preserve">
     <value>النشر إلى مجلد</value>
   </data>

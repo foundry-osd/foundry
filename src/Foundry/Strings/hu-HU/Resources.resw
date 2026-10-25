@@ -3478,6 +3478,21 @@ Licenc az MIT licenc alatt.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Válasszon egy üres mappát vagy egy olyat, amelybe ez a számítógép már közzétesz: hálózati megosztást, OneDrive- vagy SharePoint-mappát, vagy helyi mappát. A mappát követő számítógépeknek a közzétételi jelszó kell az olvasásához.</value>
   </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>A mappa ellenőrzése…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>A közzététel befejezése…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>{0} előkészítése…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>{0} küldése…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>{0} ellenőrzése…</value>
+  </data>
   <data name="Sharing.PublishTitle" xml:space="preserve">
     <value>Közzététel mappába</value>
   </data>

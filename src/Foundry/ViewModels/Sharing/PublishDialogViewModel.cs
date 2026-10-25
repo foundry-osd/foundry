@@ -26,7 +26,7 @@ public sealed partial class PublishDialogViewModel : ObservableObject, IDisposab
         this.picker = picker;
         this.localization = localization;
         Fields = new PublicationPasswordFields(localization, "PublicationPasswordLabel");
-        Progress = new PublishProgressIndicator(sharing);
+        Progress = new PublishProgressIndicator(sharing, localization);
         Fields.PropertyChanged += (_, _) => OnPropertyChanged(nameof(CanPublish));
         localization.LanguageChanged += OnLanguageChanged;
     }

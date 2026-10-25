@@ -3478,6 +3478,21 @@ Licensierad under MIT-licensen.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Välj en tom mapp eller en som den här datorn redan publicerar till: en nätverksresurs, en OneDrive- eller SharePoint-mapp eller en lokal mapp. Datorer som följer mappen behöver publiceringslösenordet för att läsa den.</value>
   </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Kontrollerar mappen…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Slutför publiceringen…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>Förbereder {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>Skickar {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>Verifierar {0}…</value>
+  </data>
   <data name="Sharing.PublishTitle" xml:space="preserve">
     <value>Publicera till en mapp</value>
   </data>

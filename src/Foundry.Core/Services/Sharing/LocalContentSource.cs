@@ -81,16 +81,37 @@ public sealed class LocalContentSource : IContentSource
     /// <inheritdoc />
     /// <exception cref="InvalidDataException">The content is missing or damaged in its library.</exception>
     /// <exception cref="IOException">The library or the temporary directory cannot be read or written.</exception>
-    public async Task<Stream> OpenAsync(PackageContent content, CancellationToken ct)
+    public Task<Stream> OpenAsync(PackageContent content, CancellationToken ct) => OpenAsync(content, null, ct);
+
+    /// <summary>
+    /// Returns the bytes read before the stream is ready: the WIM hash verification of an image (its length), the verification and
+    /// archive copy of a package or driver set (twice its length), nothing for a file, which is small and read in memory.
+    /// </summary>
+    public long PreparationLength(PackageContent content)
+    {
+        ArgumentNullException.ThrowIfNull(content);
+        long length = Math.Max(content.Length, 0);
+        return content.Kind switch
+        {
+            SharedContentKind.Image => length,
+            SharedContentKind.Package or SharedContentKind.DriverSet => 2 * length,
+            _ => 0
+        };
+    }
+
+    /// <inheritdoc cref="IContentSource.OpenAsync(PackageContent, IProgress{long}?, CancellationToken)" />
+    /// <exception cref="InvalidDataException">The content is missing or damaged in its library.</exception>
+    /// <exception cref="IOException">The library or the temporary directory cannot be read or written.</exception>
+    public async Task<Stream> OpenAsync(PackageContent content, IProgress<long>? preparation, CancellationToken ct)
     {
         ArgumentNullException.ThrowIfNull(content);
         ct.ThrowIfCancellationRequested();
         return content.Kind switch
         {
             SharedContentKind.File => OpenFile(content),
-            SharedContentKind.Package => await OpenArchiveAsync(packages, content.Hash, ct).ConfigureAwait(false),
-            SharedContentKind.DriverSet => await OpenArchiveAsync(driverSets.Library, content.Hash, ct).ConfigureAwait(false),
-            SharedContentKind.Image => await OpenImageAsync(content.Hash, ct).ConfigureAwait(false),
+            SharedContentKind.Package => await OpenArchiveAsync(packages, content.Hash, preparation, ct).ConfigureAwait(false),
+            SharedContentKind.DriverSet => await OpenArchiveAsync(driverSets.Library, content.Hash, preparation, ct).ConfigureAwait(false),
+            SharedContentKind.Image => await OpenImageAsync(content.Hash, preparation, ct).ConfigureAwait(false),
             _ => throw new ArgumentException("The content kind is not supported.", nameof(content))
         };
     }
@@ -152,7 +173,8 @@ public sealed class LocalContentSource : IContentSource
         return new MemoryStream(bytes, writable: false);
     }
 
-    private async Task<Stream> OpenArchiveAsync(ContentPackageLibraryService library, string hash, CancellationToken cancellationToken)
+    private async Task<Stream> OpenArchiveAsync(ContentPackageLibraryService library, string hash, IProgress<long>? preparation,
+        CancellationToken cancellationToken)
     {
         PrivateDirectoryLease directory = PrivateDirectory.CreateLeased(temporaryRoot);
         FileStream? archive = null;
@@ -160,7 +182,7 @@ public sealed class LocalContentSource : IContentSource
         {
             archive = new FileStream(Path.Combine(directory.Path, "archive.tmp"), FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None, BufferSize,
                 FileOptions.Asynchronous | FileOptions.DeleteOnClose);
-            await ContentPackageArchive.WriteAsync(library, hash, archive, cancellationToken).ConfigureAwait(false);
+            await ContentPackageArchive.WriteAsync(library, hash, archive, cancellationToken, preparation).ConfigureAwait(false);
             archive.Position = 0;
             return new ConcatenatedStream([archive], directory);
         }
@@ -176,12 +198,12 @@ public sealed class LocalContentSource : IContentSource
         }
     }
 
-    private async Task<Stream> OpenImageAsync(string hash, CancellationToken cancellationToken)
+    private async Task<Stream> OpenImageAsync(string hash, IProgress<long>? preparation, CancellationToken cancellationToken)
     {
         IReadOnlyList<CustomImageReference> entries = await images.ListAsync(cancellationToken).ConfigureAwait(false);
         CustomImageReference entry = entries.FirstOrDefault(image => image.ContentHash.Equals(hash, StringComparison.OrdinalIgnoreCase))
             ?? throw new InvalidDataException("LocalContentSource.ImageMissing");
-        CustomImageSourceLease lease = await images.AcquireAsync(entry, cancellationToken).ConfigureAwait(false);
+        CustomImageSourceLease lease = await images.AcquireAsync(entry, cancellationToken, preparation).ConfigureAwait(false);
         FileStream? image = null;
         try
         {

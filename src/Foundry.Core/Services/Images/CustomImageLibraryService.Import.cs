@@ -194,7 +194,7 @@ public sealed partial class CustomImageLibraryService
                 try
                 {
                     await using FileStream existingImage = OpenRead(destination);
-                    await VerifyAsync(existingImage, reference.Length, imageHash, cancellationToken).ConfigureAwait(false);
+                    await VerifyAsync(existingImage, reference.Length, imageHash, progress: null, cancellationToken).ConfigureAwait(false);
                 }
                 catch (InvalidDataException)
                 {

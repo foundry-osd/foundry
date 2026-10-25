@@ -3478,6 +3478,21 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>空のフォルダー、またはこの PC が既に発行しているフォルダーを選択してください: ネットワーク共有、OneDrive または SharePoint のフォルダー、ローカル フォルダーを使用できます。フォルダーをフォローしている PC がこれを読み取るには、発行パスワードが必要です。</value>
   </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>フォルダーを確認しています…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>公開を完了しています…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>{0} を準備しています…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>{0} を送信しています…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>{0} を検証しています…</value>
+  </data>
   <data name="Sharing.PublishTitle" xml:space="preserve">
     <value>フォルダーに発行</value>
   </data>

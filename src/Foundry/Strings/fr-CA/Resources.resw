@@ -3478,6 +3478,21 @@ Sous licence MIT.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Choisissez un dossier vide, ou un dossier dans lequel ce PC publie déjà : un partage réseau, un dossier OneDrive ou SharePoint, ou un dossier local. Les PC qui suivent ont besoin du mot de passe de publication pour le lire.</value>
   </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Vérification du dossier…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Finalisation de la publication…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>Préparation de {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>Envoi de {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>Vérification de {0}…</value>
+  </data>
   <data name="Sharing.PublishTitle" xml:space="preserve">
     <value>Publier dans un dossier</value>
   </data>

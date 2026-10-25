@@ -3478,6 +3478,21 @@
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>เลือกโฟลเดอร์ว่าง หรือโฟลเดอร์ที่พีซีเครื่องนี้เผยแพร่อยู่แล้ว ได้แก่ การแชร์ในเครือข่าย โฟลเดอร์ OneDrive หรือ SharePoint หรือโฟลเดอร์ภายในเครื่อง พีซีที่ติดตามโฟลเดอร์ต้องใช้รหัสผ่านการเผยแพร่เพื่ออ่านโฟลเดอร์</value>
   </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>กำลังตรวจสอบโฟลเดอร์…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>กำลังทำการเผยแพร่ให้เสร็จสิ้น…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>กำลังเตรียม {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>กำลังส่ง {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>กำลังตรวจสอบ {0}…</value>
+  </data>
   <data name="Sharing.PublishTitle" xml:space="preserve">
     <value>เผยแพร่ไปยังโฟลเดอร์</value>
   </data>

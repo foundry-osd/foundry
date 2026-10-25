@@ -3478,6 +3478,21 @@ Licencjonowany na licencji MIT.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Wybierz pusty folder lub folder, w którym ten komputer już publikuje: udział sieciowy, folder OneDrive lub SharePoint albo folder lokalny. Komputery obserwujące folder potrzebują hasła publikacji, aby go odczytać.</value>
   </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Sprawdzanie folderu…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Kończenie publikacji…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>Przygotowywanie elementu {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>Wysyłanie elementu {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>Weryfikowanie elementu {0}…</value>
+  </data>
   <data name="Sharing.PublishTitle" xml:space="preserve">
     <value>Opublikuj w folderze</value>
   </data>

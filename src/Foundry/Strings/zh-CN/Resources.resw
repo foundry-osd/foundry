@@ -3478,6 +3478,21 @@
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>选择一个空文件夹，或此电脑已在发布的文件夹：网络共享、OneDrive 或 SharePoint 文件夹，或本地文件夹。关注此文件夹的电脑需要发布密码才能读取它。</value>
   </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>正在检查文件夹…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>正在完成发布…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>正在准备 {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>正在发送 {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>正在验证 {0}…</value>
+  </data>
   <data name="Sharing.PublishTitle" xml:space="preserve">
     <value>发布到文件夹</value>
   </data>

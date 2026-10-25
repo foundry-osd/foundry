@@ -3478,6 +3478,21 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Kies een lege map of een map waarin deze pc al publiceert: een netwerkshare, een OneDrive- of SharePoint-map, of een lokale map. Pc's die de map volgen hebben het publicatiewachtwoord nodig om deze te lezen.</value>
   </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Map controleren…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Publicatie voltooien…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>{0} voorbereiden…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>{0} verzenden…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>{0} verifiëren…</value>
+  </data>
   <data name="Sharing.PublishTitle" xml:space="preserve">
     <value>Publiceren naar een map</value>
   </data>

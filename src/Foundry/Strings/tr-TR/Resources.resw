@@ -3478,6 +3478,21 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Boş bir klasör veya bu bilgisayarın zaten yayımladığı bir klasör seçin: bir ağ paylaşımı, bir OneDrive ya da SharePoint klasörü veya yerel bir klasör. Klasörü izleyen bilgisayarların klasörü okumak için yayın parolasına ihtiyacı vardır.</value>
   </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Klasör denetleniyor…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Yayımlama tamamlanıyor…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>{0} hazırlanıyor…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>{0} gönderiliyor…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>{0} doğrulanıyor…</value>
+  </data>
   <data name="Sharing.PublishTitle" xml:space="preserve">
     <value>Klasöre yayımla</value>
   </data>

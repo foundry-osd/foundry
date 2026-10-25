@@ -49,9 +49,14 @@ public static class ContentPackageArchive
     /// descriptors and change the bytes). It is left open.
     /// </param>
     /// <param name="cancellationToken">Stops between copy chunks.</param>
+    /// <param name="progress">
+    /// Receives the cumulative bytes handled: the verification of the package files by the lease, then their copy into the archive,
+    /// so it ends at twice the package length.
+    /// </param>
     /// <exception cref="ArgumentException">The destination is not seekable.</exception>
     /// <exception cref="InvalidDataException">The package is missing or damaged in the library.</exception>
-    public static async Task WriteAsync(ContentPackageLibraryService library, string contentHash, Stream destination, CancellationToken cancellationToken)
+    public static async Task WriteAsync(ContentPackageLibraryService library, string contentHash, Stream destination, CancellationToken cancellationToken,
+        IProgress<long>? progress = null)
     {
         ArgumentNullException.ThrowIfNull(library);
         ArgumentNullException.ThrowIfNull(destination);
@@ -60,7 +65,8 @@ public static class ContentPackageArchive
             throw new ArgumentException("The archive destination must be seekable.", nameof(destination));
         }
 
-        await using ContentPackageLease lease = await library.AcquireAsync(contentHash, cancellationToken).ConfigureAwait(false);
+        await using ContentPackageLease lease = await library.AcquireAsync(contentHash, cancellationToken, progress).ConfigureAwait(false);
+        long copied = lease.Files.Sum(file => file.Length);
         byte[] manifest = ContentPackageManifestCodec.Serialize(lease.Manifest);
         await using ZipArchive archive = await ZipArchive.CreateAsync(destination, ZipArchiveMode.Create, leaveOpen: true, entryNameEncoding: null, cancellationToken)
             .ConfigureAwait(false);
@@ -73,7 +79,9 @@ public static class ContentPackageArchive
         {
             await using FileStream input = new(file.SourcePath, FileMode.Open, FileAccess.Read, FileShare.Read, CopyBufferSize, FileOptions.Asynchronous | FileOptions.SequentialScan);
             await using Stream entry = await CreateEntryAsync(archive, FilesPrefix + file.RelativePath, cancellationToken).ConfigureAwait(false);
-            await input.CopyToAsync(entry, CopyBufferSize, cancellationToken).ConfigureAwait(false);
+            long offset = copied;
+            copied += await StreamCopy.CopyAsync(input, entry, progress is null ? null : bytes => progress.Report(offset + bytes), cancellationToken)
+                .ConfigureAwait(false);
         }
     }
 

@@ -3478,6 +3478,21 @@ Licencované podľa licencie MIT.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Vyberte prázdny priečinok alebo priečinok, do ktorého tento počítač už publikuje: sieťový zdieľaný priečinok, priečinok OneDrive alebo SharePoint, alebo lokálny priečinok. Počítače, ktoré priečinok sledujú, potrebujú na jeho čítanie heslo publikácie.</value>
   </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Kontroluje sa priečinok…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Dokončuje sa publikovanie…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>Pripravuje sa {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>Odosiela sa {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>Overuje sa {0}…</value>
+  </data>
   <data name="Sharing.PublishTitle" xml:space="preserve">
     <value>Publikovať do priečinka</value>
   </data>

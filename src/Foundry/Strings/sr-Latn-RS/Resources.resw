@@ -3478,6 +3478,21 @@ Licencirano pod MIT licencom.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Izaberite praznu fasciklu ili fasciklu u koju ovaj računar već objavljuje: mrežni deljeni resurs, OneDrive ili SharePoint fasciklu ili lokalnu fasciklu. Računarima koji prate fasciklu potrebna je lozinka objave za čitanje.</value>
   </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Provera fascikle…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Dovršavanje objave…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>Priprema stavke {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>Slanje stavke {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>Provera stavke {0}…</value>
+  </data>
   <data name="Sharing.PublishTitle" xml:space="preserve">
     <value>Objavi u fasciklu</value>
   </data>

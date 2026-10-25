@@ -3478,6 +3478,21 @@ Licencováno pod licencí MIT.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Zvolte prázdnou složku nebo složku, do které tento počítač už publikuje: síťovou sdílenou složku, složku OneDrive nebo SharePoint nebo místní složku. Počítače, které složku sledují, potřebují ke čtení heslo publikace.</value>
   </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Kontrola složky…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Dokončování publikace…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>Příprava {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>Odesílání {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>Ověřování {0}…</value>
+  </data>
   <data name="Sharing.PublishTitle" xml:space="preserve">
     <value>Publikovat do složky</value>
   </data>

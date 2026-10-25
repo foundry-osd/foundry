@@ -3478,6 +3478,21 @@
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Виберіть порожню папку або папку, у яку цей комп’ютер уже публікує: мережеву спільну папку, папку OneDrive чи SharePoint або локальну папку. Комп’ютерам, що відстежують папку, для її читання потрібен пароль публікації.</value>
   </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Перевірка папки…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Завершення публікації…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>Підготовка {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>Надсилання {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>Перевірка {0}…</value>
+  </data>
   <data name="Sharing.PublishTitle" xml:space="preserve">
     <value>Опублікувати в папку</value>
   </data>

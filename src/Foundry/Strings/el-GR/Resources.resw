@@ -3478,6 +3478,21 @@
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Επιλέξτε έναν κενό φάκελο ή έναν φάκελο στον οποίο δημοσιεύει ήδη αυτός ο υπολογιστής: ένα κοινόχρηστο στοιχείο δικτύου, έναν φάκελο OneDrive ή SharePoint ή έναν τοπικό φάκελο. Οι υπολογιστές που παρακολουθούν τον φάκελο χρειάζονται τον κωδικό πρόσβασης δημοσίευσης για να τον διαβάσουν.</value>
   </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Έλεγχος του φακέλου…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Ολοκλήρωση της δημοσίευσης…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>Προετοιμασία του {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>Αποστολή του {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>Επαλήθευση του {0}…</value>
+  </data>
   <data name="Sharing.PublishTitle" xml:space="preserve">
     <value>Δημοσίευση σε φάκελο</value>
   </data>

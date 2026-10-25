@@ -3478,6 +3478,21 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Valige tühi kaust või kaust, kuhu see arvuti juba avaldab: võrgu ühiskaust, OneDrive'i või SharePointi kaust või kohalik kaust. Kausta jälgivad arvutid vajavad selle lugemiseks avaldise parooli.</value>
   </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Kausta kontrollimine…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Avaldamise lõpetamine…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>Üksuse {0} ettevalmistamine…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>Üksuse {0} saatmine…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>Üksuse {0} kontrollimine…</value>
+  </data>
   <data name="Sharing.PublishTitle" xml:space="preserve">
     <value>Avalda kausta</value>
   </data>

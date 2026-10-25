@@ -3478,6 +3478,21 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Scegli una cartella vuota o una in cui questo PC pubblica già: una condivisione di rete, una cartella di OneDrive o SharePoint o una cartella locale. I PC che seguono la cartella hanno bisogno della password di pubblicazione per leggerla.</value>
   </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Verifica della cartella…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Completamento della pubblicazione…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>Preparazione di {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>Invio di {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>Verifica di {0}…</value>
+  </data>
   <data name="Sharing.PublishTitle" xml:space="preserve">
     <value>Pubblica in una cartella</value>
   </data>

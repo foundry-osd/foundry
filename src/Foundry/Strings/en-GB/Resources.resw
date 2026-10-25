@@ -3478,6 +3478,21 @@ Licensed under the MIT License.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Choose an empty folder, or one this PC already publishes to: a network share, a OneDrive or SharePoint folder, or a local folder. Followers need the publication password to read it.</value>
   </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Checking the folder…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Finishing the publication…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>Preparing {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>Sending {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>Verifying {0}…</value>
+  </data>
   <data name="Sharing.PublishTitle" xml:space="preserve">
     <value>Publish to a folder</value>
   </data>

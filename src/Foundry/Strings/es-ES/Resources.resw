@@ -3478,6 +3478,21 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Elija una carpeta vacía o una en la que este equipo ya publica: un recurso compartido de red, una carpeta de OneDrive o SharePoint, o una carpeta local. Los equipos que la siguen necesitan la contraseña de publicación para leerla.</value>
   </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Comprobando la carpeta…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Finalizando la publicación…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>Preparando {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>Enviando {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>Verificando {0}…</value>
+  </data>
   <data name="Sharing.PublishTitle" xml:space="preserve">
     <value>Publicar en una carpeta</value>
   </data>

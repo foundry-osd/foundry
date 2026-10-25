@@ -3478,6 +3478,21 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Valitse tyhjä kansio tai kansio, johon tämä tietokone jo julkaisee: verkkojako, OneDrive- tai SharePoint-kansio tai paikallinen kansio. Kansiota kansiota seuraavat tietokoneet tarvitsevat julkaisun salasanan lukeakseen sen.</value>
   </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Tarkistetaan kansiota…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Viimeistellään julkaisua…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>Valmistellaan kohdetta {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>Lähetetään kohdetta {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>Tarkistetaan kohdetta {0}…</value>
+  </data>
   <data name="Sharing.PublishTitle" xml:space="preserve">
     <value>Julkaise kansioon</value>
   </data>

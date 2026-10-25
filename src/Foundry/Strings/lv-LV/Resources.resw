@@ -3478,6 +3478,21 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Izvēlieties tukšu mapi vai mapi, kurā šis dators jau publicē: tīkla koplietojumu, OneDrive vai SharePoint mapi vai lokālu mapi. Mapei sekojošajiem datoriem tās lasīšanai ir nepieciešama publikācijas parole.</value>
   </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Notiek mapes pārbaude…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Notiek publicēšanas pabeigšana…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>Notiek vienuma {0} sagatavošana…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>Notiek vienuma {0} sūtīšana…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>Notiek vienuma {0} pārbaude…</value>
+  </data>
   <data name="Sharing.PublishTitle" xml:space="preserve">
     <value>Publicēt mapē</value>
   </data>
