@@ -3781,6 +3781,15 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Nõutavad meediasaladused pole valmis.</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Osa jagatud sisu ei õnnestunud installida. Andmekandja loomine on saadaval, kui sünkroonimine on lõpule viidud; kontrollige ühiskasutuse olekut sätetes.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Osa jagatud sisu pole ka korduvate kontrollide järel saadaval. Andmekandja loomine on saadaval, kui sünkroonimine on lõpule viidud; kontrollige ühiskasutuse olekut sätetes.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Jagatud sisu sünkroonitakse veel. Andmekandja loomine on saadaval, kui sünkroonimine on lõpule viidud.</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Valitud USB-ketas on vahemälu jaoks liiga väike. Kasutage vähemalt 16 GB mahuga USB-ketast või valige nupu „Loo USB“ noolest „Loo ilma vahemäluta“.</value>
   </data>

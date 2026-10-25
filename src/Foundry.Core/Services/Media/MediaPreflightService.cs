@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Sharing;
 using Foundry.Core.Services.WinPe;
 using Foundry.Utilities.IO;
 
@@ -111,6 +112,19 @@ public static class MediaPreflightService
         if (!options.IsDeployConfigurationReady)
         {
             reasons.Add(MediaPreflightBlockingReason.DeployConfigurationNotReady);
+        }
+
+        // Media built while a follower is still syncing would miss content, or carry the content that failed.
+        MediaPreflightBlockingReason? sharedContentReason = options.SharedContentState switch
+        {
+            SharedContentSyncState.Syncing => MediaPreflightBlockingReason.SharedContentSyncing,
+            SharedContentSyncState.Failed => MediaPreflightBlockingReason.SharedContentFailed,
+            SharedContentSyncState.Stalled => MediaPreflightBlockingReason.SharedContentStalled,
+            _ => null
+        };
+        if (sharedContentReason is { } blocked)
+        {
+            reasons.Add(blocked);
         }
 
         if (!options.IsConnectProvisioningReady)

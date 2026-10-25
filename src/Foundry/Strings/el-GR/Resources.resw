@@ -3781,6 +3781,15 @@
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Τα απαραίτητα μυστικά των μέσων ενημέρωσης δεν είναι έτοιμα.</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η εγκατάσταση μέρους του κοινόχρηστου περιεχομένου. Η δημιουργία μέσων θα είναι διαθέσιμη μόλις ολοκληρωθεί ο συγχρονισμός· ελέγξτε την κατάσταση κοινής χρήσης στις Ρυθμίσεις.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Μέρος του κοινόχρηστου περιεχομένου εξακολουθεί να μην είναι διαθέσιμο μετά από επανειλημμένους ελέγχους. Η δημιουργία μέσων θα είναι διαθέσιμη μόλις ολοκληρωθεί ο συγχρονισμός· ελέγξτε την κατάσταση κοινής χρήσης στις Ρυθμίσεις.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Το κοινόχρηστο περιεχόμενο συγχρονίζεται ακόμα. Η δημιουργία μέσων θα είναι διαθέσιμη μόλις ολοκληρωθεί ο συγχρονισμός.</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Η επιλεγμένη μονάδα USB είναι πολύ μικρή για προσωρινή μνήμη. Χρησιμοποιήστε μονάδα USB τουλάχιστον 16 GB ή επιλέξτε «Δημιουργία χωρίς προσωρινή μνήμη» από το βέλος του «Δημιουργία USB».</value>
   </data>

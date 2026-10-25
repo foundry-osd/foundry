@@ -3781,6 +3781,15 @@
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>أسرار الوسائط المطلوبة ليست جاهزة.</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>تعذر تثبيت بعض المحتوى المشترك. يتوفر إنشاء الوسائط بعد اكتمال المزامنة؛ تحقق من حالة المشاركة في الإعدادات.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>لا يزال بعض المحتوى المشترك غير متوفر بعد عمليات تحقق متكررة. يتوفر إنشاء الوسائط بعد اكتمال المزامنة؛ تحقق من حالة المشاركة في الإعدادات.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>لا تزال مزامنة المحتوى المشترك جارية. يتوفر إنشاء الوسائط بعد اكتمالها.</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>محرك أقراص USB المحدد صغير جدًا لاستيعاب ذاكرة تخزين مؤقت. استخدم محرك أقراص USB بسعة 16 GB على الأقل، أو حدد «إنشاء بدون ذاكرة تخزين مؤقت» من سهم «إنشاء USB».</value>
   </data>

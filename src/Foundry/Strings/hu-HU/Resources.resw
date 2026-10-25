@@ -3781,6 +3781,15 @@ Licenc az MIT licenc alatt.</value>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>A szükséges médiatitkok nincsenek készen.</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>A megosztott tartalom egy részét nem sikerült telepíteni. Az adathordozó létrehozása a szinkronizálás befejezése után érhető el; ellenőrizze a megosztás állapotát a Beállításokban.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>A megosztott tartalom egy része ismételt ellenőrzések után sem érhető el. Az adathordozó létrehozása a szinkronizálás befejezése után érhető el; ellenőrizze a megosztás állapotát a Beállításokban.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>A megosztott tartalom szinkronizálása még folyamatban van. Az adathordozó létrehozása a szinkronizálás befejezése után érhető el.</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>A kiválasztott USB-meghajtó túl kicsi a gyorsítótárhoz. Használjon legalább 16 GB-os USB-meghajtót, vagy válassza a „Létrehozás gyorsítótár nélkül” lehetőséget az „USB létrehozása” gomb nyilából.</value>
   </data>

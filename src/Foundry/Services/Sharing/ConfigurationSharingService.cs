@@ -125,6 +125,13 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
     /// </summary>
     public bool IsContentDownloading => engine?.IsContentArriving == true;
 
+    /// <summary>
+    /// Gets whether the shared content of the applied publication is complete on this PC. This is the single media creation gate:
+    /// every media action (ISO, USB, USB without cache, PXE) is blocked until it is <see cref="SharedContentSyncState.Synced"/>, and
+    /// <see cref="Changed"/> is raised when it changes, so callers re-evaluate without a restart.
+    /// </summary>
+    public SharedContentSyncState ContentSyncState => engine?.ContentSyncState ?? SharedContentSyncState.Synced;
+
     /// <inheritdoc />
     public FoundryConfigurationDocument CurrentConfiguration => configuration.Current;
 

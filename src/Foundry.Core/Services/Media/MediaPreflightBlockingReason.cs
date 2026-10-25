@@ -32,5 +32,14 @@ public enum MediaPreflightBlockingReason
     /// <summary>
     /// The selected drive is too small even for a USB drive without cache, which only needs room for the media.
     /// </summary>
-    UsbTargetBelowMinimumSizeWithoutCache
+    UsbTargetBelowMinimumSizeWithoutCache,
+
+    /// <summary>A follower is still downloading or installing the shared content of the applied publication.</summary>
+    SharedContentSyncing,
+
+    /// <summary>Some shared content of the applied publication could not be imported.</summary>
+    SharedContentFailed,
+
+    /// <summary>Shared content of the applied publication stayed unavailable for many checks.</summary>
+    SharedContentStalled
 }

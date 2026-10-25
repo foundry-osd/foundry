@@ -4,6 +4,7 @@
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.Sharing;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Adk;
 using Foundry.Utilities.Globalization;
@@ -22,7 +23,7 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
     private readonly IDomainJoinSecretStateService domainJoinSecretStateService;
     private readonly IWinPeLanguageDiscoveryService languageDiscoveryService;
     private readonly Foundry.Services.Sharing.ConfigurationSharingService sharing;
-    private bool wasSharedContentDownloading;
+    private SharedContentSyncState lastSharedContentState;
     private ConfigurationOverviewEvaluation? cachedEvaluation;
 
     public ConfigurationOverviewService(
@@ -90,12 +91,15 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
 
     private void OnUnderlyingStateChanged(object? sender, EventArgs e) => Invalidate();
 
-    /// <summary>Re-evaluates when a follower's download starts or ends; progress and other sharing changes do not affect readiness.</summary>
+    /// <summary>
+    /// Re-evaluates when the shared content sync state of a follower changes (it starts or stops arriving, fails or stalls), which
+    /// changes the readiness and the media creation gate; progress and other sharing changes do not.
+    /// </summary>
     private void OnSharingChanged(object? sender, EventArgs e)
     {
-        bool isDownloading = sharing.IsContentDownloading;
-        if (isDownloading == wasSharedContentDownloading) return;
-        wasSharedContentDownloading = isDownloading;
+        SharedContentSyncState current = sharing.ContentSyncState;
+        if (current == lastSharedContentState) return;
+        lastSharedContentState = current;
         Invalidate();
     }
 

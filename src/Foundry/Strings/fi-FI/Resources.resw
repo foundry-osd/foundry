@@ -3781,6 +3781,15 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Vaaditut mediasalaisuudet eivät ole valmiita.</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Osaa jaetusta sisällöstä ei voitu asentaa. Tietovälineen luonti on käytettävissä, kun synkronointi on valmis. Tarkista jakamisen tila asetuksista.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Osa jaetusta sisällöstä ei ole vieläkään saatavilla toistuvien tarkistusten jälkeen. Tietovälineen luonti on käytettävissä, kun synkronointi on valmis. Tarkista jakamisen tila asetuksista.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Jaettua sisältöä synkronoidaan vielä. Tietovälineen luonti on käytettävissä, kun synkronointi on valmis.</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Valittu USB-asema on liian pieni välimuistille. Käytä vähintään 16 GB:n USB-asemaa tai valitse ”Luo ilman välimuistia” ”Luo USB” -painikkeen nuolesta.</value>
   </data>

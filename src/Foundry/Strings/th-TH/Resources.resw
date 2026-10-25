@@ -3781,6 +3781,15 @@
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>ข้อมูลลับของสื่อที่จำเป็นยังไม่พร้อม</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>ไม่สามารถติดตั้งเนื้อหาที่แชร์บางส่วนได้ การสร้างสื่อจะพร้อมใช้งานเมื่อการซิงโครไนซ์เสร็จสมบูรณ์ ตรวจสอบสถานะการแชร์ในการตั้งค่า</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>เนื้อหาที่แชร์บางส่วนยังไม่พร้อมใช้งานหลังจากตรวจสอบซ้ำหลายครั้ง การสร้างสื่อจะพร้อมใช้งานเมื่อการซิงโครไนซ์เสร็จสมบูรณ์ ตรวจสอบสถานะการแชร์ในการตั้งค่า</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>เนื้อหาที่แชร์ยังซิงโครไนซ์อยู่ การสร้างสื่อจะพร้อมใช้งานเมื่อการซิงโครไนซ์เสร็จสมบูรณ์</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>ไดรฟ์ USB ที่เลือกมีขนาดเล็กเกินไปสำหรับแคช ใช้ไดรฟ์ USB ที่มีขนาดอย่างน้อย 16 GB หรือเลือก “สร้างโดยไม่มีแคช” จากลูกศรของ “สร้าง USB”</value>
   </data>

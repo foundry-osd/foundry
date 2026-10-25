@@ -700,11 +700,26 @@ public sealed class ConfigurationSharingEngine
         {
             lock (gate)
             {
-                return state.Role == SharingRole.Follower
-                    && (isFetching || (status == SharingStatus.ContentDownloading && failedContent.Count == 0 && !contentStalled));
+                return IsContentArrivingLocked;
             }
         }
     }
+
+    /// <summary>Gets whether the content of the applied publication is complete on this PC; media creation waits for <see cref="SharedContentSyncState.Synced"/>.</summary>
+    public SharedContentSyncState ContentSyncState
+    {
+        get
+        {
+            lock (gate)
+            {
+                return SharedContentSync.Evaluate(state.Role, IsContentArrivingLocked, failedContent.Count, contentStalled);
+            }
+        }
+    }
+
+    /// <summary>Implements <see cref="IsContentArriving"/>; the caller holds <c>gate</c>.</summary>
+    private bool IsContentArrivingLocked => state.Role == SharingRole.Follower
+        && (isFetching || (status == SharingStatus.ContentDownloading && failedContent.Count == 0 && !contentStalled));
 
     /// <summary>
     /// Completes when the content of the applied publication has arrived, or stopped arriving: it waits over successive fetch attempts

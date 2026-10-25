@@ -3781,6 +3781,15 @@
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>必要的媒體機密尚未就緒。</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>部分共用內容無法安裝。同步處理完成後即可建立媒體；請在 [設定] 中檢查共用狀態。</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>經過多次檢查後，部分共用內容仍無法使用。同步處理完成後即可建立媒體；請在 [設定] 中檢查共用狀態。</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>共用內容仍在同步處理中。同步處理完成後即可建立媒體。</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>所選的 USB 隨身碟容量太小，無法用於快取。請使用至少 16 GB 的 USB 隨身碟，或從「建立 USB」的箭號中選取「不使用快取建立」。</value>
   </data>

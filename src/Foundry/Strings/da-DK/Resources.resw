@@ -3781,6 +3781,15 @@ Licenseret under MIT-licensen.</value>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Nødvendige mediehemmeligheder er ikke klar.</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Noget delt indhold kunne ikke installeres. Oprettelse af medier er tilgængelig, når synkroniseringen er fuldført. Kontrollér delingsstatus under Indstillinger.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Noget delt indhold er stadig ikke tilgængeligt efter gentagne kontroller. Oprettelse af medier er tilgængelig, når synkroniseringen er fuldført. Kontrollér delingsstatus under Indstillinger.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Delt indhold synkroniseres stadig. Oprettelse af medier er tilgængelig, når synkroniseringen er fuldført.</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Det valgte USB-drev er for lille til en cache. Brug et USB-drev på mindst 16 GB, eller vælg ”Opret uden cache” via pilen ved ”Opret USB”.</value>
   </data>

@@ -3781,6 +3781,15 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>必要なメディア シークレットの準備ができていません。</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>一部の共有コンテンツをインストールできませんでした。同期が完了するとメディアを作成できます。[設定] で共有の状態を確認してください。</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>一部の共有コンテンツは、繰り返し確認しても利用できません。同期が完了するとメディアを作成できます。[設定] で共有の状態を確認してください。</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>共有コンテンツはまだ同期中です。同期が完了するとメディアを作成できます。</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>選択した USB ドライブはキャッシュを置くには容量が不足しています。16 GB 以上の USB ドライブを使用するか、「USB を作成」の矢印から「キャッシュなしで作成」を選択してください。</value>
   </data>

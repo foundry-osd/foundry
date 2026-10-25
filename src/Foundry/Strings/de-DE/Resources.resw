@@ -3781,6 +3781,15 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Die erforderlichen Mediengeheimnisse sind nicht bereit.</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Einige freigegebene Inhalte konnten nicht installiert werden. Die Medienerstellung ist verfügbar, sobald die Synchronisierung abgeschlossen ist. Prüfen Sie den Freigabestatus in den Einstellungen.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Einige freigegebene Inhalte sind auch nach wiederholten Prüfungen nicht verfügbar. Die Medienerstellung ist verfügbar, sobald die Synchronisierung abgeschlossen ist. Prüfen Sie den Freigabestatus in den Einstellungen.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Freigegebene Inhalte werden noch synchronisiert. Die Medienerstellung ist verfügbar, sobald die Synchronisierung abgeschlossen ist.</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Das ausgewählte USB-Laufwerk ist für einen Cache zu klein. Verwenden Sie ein USB-Laufwerk mit mindestens 16 GB, oder wählen Sie über den Pfeil von „USB erstellen“ die Option „Ohne Cache erstellen“.</value>
   </data>

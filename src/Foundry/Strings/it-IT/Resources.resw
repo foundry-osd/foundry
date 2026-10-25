@@ -3781,6 +3781,15 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>I segreti multimediali richiesti non sono pronti.</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Non è stato possibile installare una parte del contenuto condiviso. La creazione dei supporti sarà disponibile al termine della sincronizzazione; controlla lo stato della condivisione in Impostazioni.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Una parte del contenuto condiviso non è ancora disponibile dopo ripetuti controlli. La creazione dei supporti sarà disponibile al termine della sincronizzazione; controlla lo stato della condivisione in Impostazioni.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>La sincronizzazione del contenuto condiviso è ancora in corso. La creazione dei supporti sarà disponibile al termine.</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>L'unità USB selezionata è troppo piccola per una cache. Usa un'unità USB di almeno 16 GB oppure seleziona «Crea senza cache» dalla freccia di «Crea USB».</value>
   </data>

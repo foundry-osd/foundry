@@ -3781,6 +3781,15 @@ Licencirano pod MIT licencom.</value>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Potrebne medijske tajne nisu spremne.</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Deo deljenog sadržaja nije moguće instalirati. Kreiranje medija biće dostupno kada se sinhronizacija završi; proverite status deljenja u Postavkama.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Deo deljenog sadržaja i dalje nije dostupan nakon ponovljenih provera. Kreiranje medija biće dostupno kada se sinhronizacija završi; proverite status deljenja u Postavkama.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Deljeni sadržaj se još sinhronizuje. Kreiranje medija biće dostupno kada se sinhronizacija završi.</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Izabrani USB disk je premali za keš. Koristite USB disk od najmanje 16 GB ili izaberite „Kreiraj bez keša“ preko strelice dugmeta „Kreiraj USB“.</value>
   </data>

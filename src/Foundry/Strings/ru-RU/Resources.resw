@@ -3781,6 +3781,15 @@
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Требуемые медиа-секреты не готовы.</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Не удалось установить часть общего содержимого. Создание носителей станет доступно после завершения синхронизации; проверьте состояние общего доступа в параметрах.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Часть общего содержимого по-прежнему недоступна после повторных проверок. Создание носителей станет доступно после завершения синхронизации; проверьте состояние общего доступа в параметрах.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Общее содержимое еще синхронизируется. Создание носителей станет доступно после завершения синхронизации.</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Выбранный USB-накопитель слишком мал для кэша. Используйте USB-накопитель объемом не менее 16 GB или выберите «Создать без кэша» с помощью стрелки кнопки «Создать USB».</value>
   </data>

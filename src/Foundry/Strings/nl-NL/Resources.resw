@@ -3781,6 +3781,15 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Vereiste mediageheimen zijn niet gereed.</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Een deel van de gedeelde inhoud kan niet worden geïnstalleerd. Media maken is beschikbaar zodra de synchronisatie is voltooid; controleer de deelstatus in Instellingen.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Een deel van de gedeelde inhoud is na herhaalde controles nog steeds niet beschikbaar. Media maken is beschikbaar zodra de synchronisatie is voltooid; controleer de deelstatus in Instellingen.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Gedeelde inhoud wordt nog gesynchroniseerd. Media maken is beschikbaar zodra de synchronisatie is voltooid.</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Het geselecteerde USB-station is te klein voor een cache. Gebruik een USB-station van minimaal 16 GB of selecteer ‘Maken zonder cache’ via de pijl van ‘USB maken’.</value>
   </data>

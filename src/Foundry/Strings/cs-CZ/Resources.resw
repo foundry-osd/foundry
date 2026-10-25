@@ -3781,6 +3781,15 @@ Licencováno pod licencí MIT.</value>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Požadovaná tajemství médií nejsou připravena.</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Část sdíleného obsahu se nepodařilo nainstalovat. Vytváření médií bude k dispozici po dokončení synchronizace; zkontrolujte stav sdílení v Nastavení.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Část sdíleného obsahu není ani po opakovaných kontrolách k dispozici. Vytváření médií bude k dispozici po dokončení synchronizace; zkontrolujte stav sdílení v Nastavení.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Sdílený obsah se stále synchronizuje. Vytváření médií bude k dispozici po jejím dokončení.</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Vybraná jednotka USB je pro mezipaměť příliš malá. Použijte jednotku USB s kapacitou alespoň 16 GB, nebo vyberte „Vytvořit bez mezipaměti“ pomocí šipky u tlačítka „Vytvořit USB“.</value>
   </data>

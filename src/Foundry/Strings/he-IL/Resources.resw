@@ -3781,6 +3781,15 @@
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>סודות התקשורת הנדרשים אינם מוכנים.</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>לא ניתן היה להתקין חלק מהתוכן המשותף. יצירת מדיה תהיה זמינה לאחר השלמת הסנכרון; בדוק את מצב השיתוף בהגדרות.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>חלק מהתוכן המשותף עדיין אינו זמין לאחר בדיקות חוזרות. יצירת מדיה תהיה זמינה לאחר השלמת הסנכרון; בדוק את מצב השיתוף בהגדרות.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>התוכן המשותף עדיין מסונכרן. יצירת מדיה תהיה זמינה לאחר השלמת הסנכרון.</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>כונן ה-USB שנבחר קטן מדי עבור מטמון. השתמש בכונן USB בנפח 16 GB לפחות, או בחר “צור ללא מטמון” מהחץ של “צור USB”.</value>
   </data>

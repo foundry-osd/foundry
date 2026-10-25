@@ -3781,6 +3781,15 @@ Licencované podľa licencie MIT.</value>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Požadované tajomstvá médií nie sú pripravené.</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Časť zdieľaného obsahu sa nepodarilo nainštalovať. Vytváranie médií bude k dispozícii po dokončení synchronizácie; skontrolujte stav zdieľania v Nastaveniach.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Časť zdieľaného obsahu nie je dostupná ani po opakovaných kontrolách. Vytváranie médií bude k dispozícii po dokončení synchronizácie; skontrolujte stav zdieľania v Nastaveniach.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Zdieľaný obsah sa stále synchronizuje. Vytváranie médií bude k dispozícii po dokončení synchronizácie.</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Vybratá jednotka USB je príliš malá na vyrovnávaciu pamäť. Použite jednotku USB s kapacitou aspoň 16 GB alebo vyberte „Vytvoriť bez vyrovnávacej pamäte“ pomocou šípky tlačidla „Vytvoriť USB“.</value>
   </data>

@@ -3781,6 +3781,15 @@ Licencirano pod licenco MIT.</value>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Zahtevane medijske skrivnosti niso pripravljene.</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Dela skupne vsebine ni bilo mogoče namestiti. Ustvarjanje nosilcev bo na voljo, ko bo sinhronizacija končana; preverite stanje skupne rabe v nastavitvah.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Del skupne vsebine po ponovljenih preverjanjih še vedno ni na voljo. Ustvarjanje nosilcev bo na voljo, ko bo sinhronizacija končana; preverite stanje skupne rabe v nastavitvah.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Skupna vsebina se še sinhronizira. Ustvarjanje nosilcev bo na voljo, ko bo sinhronizacija končana.</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Izbrani pogon USB je premajhen za predpomnilnik. Uporabite pogon USB z vsaj 16 GB ali izberite »Ustvari brez predpomnilnika« s puščice gumba »Ustvari USB«.</value>
   </data>

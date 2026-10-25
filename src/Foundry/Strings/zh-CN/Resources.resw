@@ -3781,6 +3781,15 @@
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>所需的媒体机密尚未准备好。</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>部分共享内容无法安装。同步完成后即可创建介质；请在“设置”中检查共享状态。</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>多次检查后，部分共享内容仍不可用。同步完成后即可创建介质；请在“设置”中检查共享状态。</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>共享内容仍在同步。同步完成后即可创建介质。</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>所选 USB 驱动器容量太小，无法用于缓存。请使用至少 16 GB 的 USB 驱动器，或从“创建 USB”的箭头中选择“不使用缓存创建”。</value>
   </data>

@@ -3781,6 +3781,15 @@
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Необхідні медіасекрети не готові.</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Не вдалося інсталювати частину спільного вмісту. Створення носіїв стане доступним після завершення синхронізації; перевірте стан спільного доступу в настройках.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Частина спільного вмісту досі недоступна після повторних перевірок. Створення носіїв стане доступним після завершення синхронізації; перевірте стан спільного доступу в настройках.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Спільний вміст іще синхронізується. Створення носіїв стане доступним після завершення синхронізації.</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Вибраний USB-накопичувач замалий для кешу. Використовуйте USB-накопичувач обсягом щонайменше 16 GB або виберіть «Створити без кешу» за допомогою стрілки кнопки «Створити USB».</value>
   </data>

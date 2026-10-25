@@ -1986,9 +1986,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     }
 
     /// <summary>
-    /// A follower may still be fetching the content of the publication it applied (spec 6.2): the build waits for the fetch before
-    /// it freezes the configuration, showing the fetch progress on the detail line. When the download ends without all the content,
-    /// the build fails with that reason instead of building from an incomplete configuration.
+    /// Safety net behind the shared content gate (<see cref="Foundry.Services.Sharing.ConfigurationSharingService.ContentSyncState"/>):
+    /// a newer publication can be applied after the click passed the gate, so the build still waits for that fetch before it freezes
+    /// the configuration, showing the fetch progress on the detail line. When the download ends without all the content, the build
+    /// fails with that reason instead of building from an incomplete configuration.
     /// </summary>
     private async Task WaitForSharedContentAsync(CancellationToken cancellationToken)
     {
@@ -2508,9 +2509,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             IsAdkReady = adkService.CurrentStatus.CanCreateMediaFor(SelectedArchitecture?.Value ?? WinPeArchitecture.X64),
             IsNetworkConfigurationReady = networkReadiness.IsNetworkConfigurationReady,
             NetworkConfigurationValidationCode = networkReadiness.NetworkConfigurationValidationCode,
-            // While a follower downloads its publication content, a build may start: it waits for the content before the capture.
+            // While a follower downloads its publication content, the shared content gate below is the reason shown, not this one.
             IsDeployConfigurationReady = foundryConfigurationStateService.IsDeployConfigurationReady ||
                 (sharingService.IsContentDownloading && foundryConfigurationStateService.IsDeployConfigurationReadyExceptLibraryContent),
+            // Every media action waits until a follower has all the shared content of the publication it applied.
+            SharedContentState = sharingService.ContentSyncState,
             IsConnectProvisioningReady = networkReadiness.IsConnectProvisioningReady,
             AreRequiredSecretsReady = networkReadiness.AreRequiredSecretsReady,
             IsAutopilotEnabled = foundryConfigurationStateService.IsAutopilotEnabled,
@@ -2616,6 +2619,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         MediaPreflightEvaluation evaluation,
         ConfigurationOverviewEvaluation overview)
     {
+        if (GetSharedContentReason(evaluation) is { } sharedContentReason)
+        {
+            return GetBlockingReasonText(sharedContentReason);
+        }
+
         if (evaluation.CanCreateIso && evaluation.CanCreateUsb)
         {
             return localizationService.GetString("StartMedia.Readiness.Status.ReadyIsoAndUsb");
@@ -2640,6 +2648,17 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private InfoBarSeverity GetReadinessSeverity(MediaPreflightEvaluation evaluation)
     {
+        // A sync in progress resolves by itself; failed or stalled content needs the sharing card.
+        switch (GetSharedContentReason(evaluation))
+        {
+            case MediaPreflightBlockingReason.SharedContentSyncing:
+                return InfoBarSeverity.Informational;
+            case MediaPreflightBlockingReason.SharedContentStalled:
+                return InfoBarSeverity.Warning;
+            case MediaPreflightBlockingReason.SharedContentFailed:
+                return InfoBarSeverity.Error;
+        }
+
         if (evaluation.CanCreateIso && evaluation.CanCreateUsb)
         {
             return InfoBarSeverity.Success;
@@ -2656,6 +2675,22 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
 
         return InfoBarSeverity.Error;
+    }
+
+    /// <summary>Returns the shared content reason that blocks every media action on a follower, or null when the content is synced.</summary>
+    private static MediaPreflightBlockingReason? GetSharedContentReason(MediaPreflightEvaluation evaluation)
+    {
+        // The reason is shared by every target, so the ISO list holds it whenever it applies.
+        foreach (MediaPreflightBlockingReason reason in evaluation.IsoBlockingReasons)
+        {
+            if (reason is MediaPreflightBlockingReason.SharedContentSyncing or MediaPreflightBlockingReason.SharedContentFailed
+                or MediaPreflightBlockingReason.SharedContentStalled)
+            {
+                return reason;
+            }
+        }
+
+        return null;
     }
 
     private void RebuildConfigurationOverview(

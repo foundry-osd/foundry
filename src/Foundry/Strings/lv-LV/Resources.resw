@@ -3781,6 +3781,15 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Nepieciešamie mediju noslēpumi nav gatavi.</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Daļu koplietotā satura neizdevās instalēt. Datu nesēju izveide būs pieejama, kad sinhronizācija būs pabeigta; pārbaudiet koplietošanas statusu iestatījumos.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Daļa koplietotā satura joprojām nav pieejama pēc atkārtotām pārbaudēm. Datu nesēju izveide būs pieejama, kad sinhronizācija būs pabeigta; pārbaudiet koplietošanas statusu iestatījumos.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Koplietotais saturs joprojām tiek sinhronizēts. Datu nesēju izveide būs pieejama, kad sinhronizācija būs pabeigta.</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Atlasītais USB disks ir pārāk mazs kešatmiņai. Izmantojiet USB disku, kura ietilpība ir vismaz 16 GB, vai ar pogas “Izveidot USB” bultiņu atlasiet “Izveidot bez kešatmiņas”.</value>
   </data>

@@ -3781,6 +3781,15 @@ Licencjonowany na licencji MIT.</value>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Wymagane tajemnice mediów nie są gotowe.</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Nie można zainstalować części udostępnionej zawartości. Tworzenie nośników będzie dostępne po zakończeniu synchronizacji; sprawdź stan udostępniania w Ustawieniach.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Część udostępnionej zawartości jest nadal niedostępna po wielokrotnych sprawdzeniach. Tworzenie nośników będzie dostępne po zakończeniu synchronizacji; sprawdź stan udostępniania w Ustawieniach.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Udostępniona zawartość jest nadal synchronizowana. Tworzenie nośników będzie dostępne po zakończeniu synchronizacji.</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Wybrany dysk USB jest za mały na pamięć podręczną. Użyj dysku USB o pojemności co najmniej 16 GB lub wybierz opcję „Utwórz bez pamięci podręcznej” ze strzałki przycisku „Utwórz USB”.</value>
   </data>

@@ -3781,6 +3781,15 @@ Licențiat sub licența MIT.</value>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Secretele media necesare nu sunt gata.</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>O parte din conținutul partajat nu a putut fi instalată. Crearea suporturilor va fi disponibilă după finalizarea sincronizării; verificați starea partajării în Setări.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>O parte din conținutul partajat nu este încă disponibilă după verificări repetate. Crearea suporturilor va fi disponibilă după finalizarea sincronizării; verificați starea partajării în Setări.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Conținutul partajat se sincronizează încă. Crearea suporturilor va fi disponibilă după finalizarea sincronizării.</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Unitatea USB selectată este prea mică pentru un cache. Utilizați o unitate USB de cel puțin 16 GB sau selectați „Creați fără cache” din săgeata butonului „Creați USB”.</value>
   </data>

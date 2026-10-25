@@ -3781,6 +3781,15 @@ Lisensiert under MIT-lisensen.</value>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Nødvendige mediehemmeligheter er ikke klare.</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Noe delt innhold kunne ikke installeres. Oppretting av medier er tilgjengelig når synkroniseringen er fullført. Kontroller delingsstatusen i Innstillinger.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Noe delt innhold er fortsatt ikke tilgjengelig etter gjentatte kontroller. Oppretting av medier er tilgjengelig når synkroniseringen er fullført. Kontroller delingsstatusen i Innstillinger.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Delt innhold synkroniseres fortsatt. Oppretting av medier er tilgjengelig når synkroniseringen er fullført.</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Den valgte USB-stasjonen er for liten for en cache. Bruk en USB-stasjon på minst 16 GB, eller velg «Opprett uten cache» fra pilen på «Opprett USB».</value>
   </data>

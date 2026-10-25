@@ -3781,6 +3781,15 @@ Licensed under the MIT License.</value>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Required media secrets are not ready.</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Some shared content could not be installed. Media creation is available once the synchronization is complete; check the sharing status in Settings.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Some shared content is still not available after repeated checks. Media creation is available once the synchronization is complete; check the sharing status in Settings.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Shared content is still being synchronized. Media creation is available once it is complete.</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>The selected USB drive is too small for a cache. Use a USB drive of at least 16 GB, or select Create without cache from the arrow of Create USB.</value>
   </data>

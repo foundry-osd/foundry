@@ -3781,6 +3781,15 @@
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Необходимите медийни тайни не са готови.</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Част от споделеното съдържание не можа да бъде инсталирана. Създаването на носители ще е налично, когато синхронизирането завърши; проверете състоянието на споделянето в „Настройки“.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Част от споделеното съдържание все още не е налично след многократни проверки. Създаването на носители ще е налично, когато синхронизирането завърши; проверете състоянието на споделянето в „Настройки“.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Споделеното съдържание все още се синхронизира. Създаването на носители ще е налично, когато синхронизирането завърши.</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Избраният USB диск е твърде малък за кеш. Използвайте USB диск с капацитет поне 16 GB или изберете „Създаване без кеш“ от стрелката на „Създаване на USB“.</value>
   </data>

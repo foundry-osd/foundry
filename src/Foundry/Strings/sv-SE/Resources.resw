@@ -3781,6 +3781,15 @@ Licensierad under MIT-licensen.</value>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Nödvändiga mediehemligheter är inte klara.</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>En del delat innehåll kunde inte installeras. Skapande av media är tillgängligt när synkroniseringen är klar. Kontrollera delningsstatusen i Inställningar.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>En del delat innehåll är fortfarande inte tillgängligt efter upprepade kontroller. Skapande av media är tillgängligt när synkroniseringen är klar. Kontrollera delningsstatusen i Inställningar.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Delat innehåll synkroniseras fortfarande. Skapande av media är tillgängligt när synkroniseringen är klar.</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Den valda USB-enheten är för liten för en cache. Använd en USB-enhet på minst 16 GB, eller välj ”Skapa utan cache” via pilen på ”Skapa USB”.</value>
   </data>

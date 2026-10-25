@@ -3781,6 +3781,15 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Reikalingos žiniasklaidos paslaptys neparengtos.</value>
   </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Dalies bendrinamo turinio nepavyko įdiegti. Laikmenų kūrimas bus galimas, kai sinchronizavimas bus baigtas; patikrinkite bendrinimo būseną parametruose.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Dalis bendrinamo turinio vis dar nepasiekiama po pakartotinių patikrų. Laikmenų kūrimas bus galimas, kai sinchronizavimas bus baigtas; patikrinkite bendrinimo būseną parametruose.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Bendrinamas turinys vis dar sinchronizuojamas. Laikmenų kūrimas bus galimas, kai sinchronizavimas bus baigtas.</value>
+  </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Pasirinktas USB diskas per mažas talpyklai. Naudokite bent 16 GB talpos USB diską arba pasirinkite „Sukurti be talpyklos“ spustelėję „Sukurti USB“ rodyklę.</value>
   </data>
