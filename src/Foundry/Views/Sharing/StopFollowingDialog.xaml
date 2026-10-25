@@ -14,7 +14,7 @@
         Spacing="{ThemeResource FoundryContentGroupSpacing}">
         <TextBlock
             Text="{x:Bind ViewModel.Text('StopFollowingMessage')}"
-            TextWrapping="Wrap" />
+            TextWrapping="WrapWholeWords" />
         <CheckBox x:Name="ForgetPasswordCheckBox"
             Content="{x:Bind ViewModel.Text('ForgetPublicationPassword')}" />
     </StackPanel>

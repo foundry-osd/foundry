@@ -21,7 +21,7 @@
         Spacing="{ThemeResource FoundryContentGroupSpacing}">
         <TextBlock
             Text="{x:Bind ViewModel.DescriptionText, Mode=OneWay}"
-            TextWrapping="Wrap" />
+            TextWrapping="WrapWholeWords" />
         <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
