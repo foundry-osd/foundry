@@ -3530,7 +3530,7 @@
     <value>Этот компьютер публикует свою конфигурацию</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>Не удалось полностью загрузить общее содержимое отслеживаемой публикации. Проверьте карточку общего доступа к конфигурации в разделе «Параметры».</value>
+    <value>Не удалось загрузить часть общего содержимого отслеживаемой публикации. Проверьте «Общий доступ к конфигурации» на странице параметров.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Публикация и отслеживание недоступны в этом сеансе, так как не удалось прочитать состояние общего доступа. Подробности см. в журнале.</value>
@@ -3653,7 +3653,7 @@
     <value>Версия</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>Ожидание завершения загрузки общего содержимого</value>
+    <value>Ожидание завершения загрузки общего содержимого…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Неверная парольная фраза или поврежденный файл.</value>
@@ -3788,13 +3788,13 @@
     <value>Требуемые медиа-секреты не готовы.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>Не удалось установить часть общего содержимого. Создание носителей станет доступно после завершения синхронизации; проверьте состояние общего доступа в параметрах.</value>
+    <value>Не удалось установить часть общего содержимого на этот компьютер. Оно будет получено повторно, когда эталонный компьютер опубликует новую версию. Проверьте «Общий доступ к конфигурации» на странице параметров.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>Часть общего содержимого по-прежнему недоступна после повторных проверок. Создание носителей станет доступно после завершения синхронизации; проверьте состояние общего доступа в параметрах.</value>
+    <value>Часть общего содержимого по-прежнему недоступна после нескольких проверок. Опубликуйте его повторно с эталонного компьютера, а затем проверьте «Общий доступ к конфигурации» на странице параметров.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>Общее содержимое еще синхронизируется. Создание носителей станет доступно после завершения синхронизации.</value>
+    <value>Общее содержимое еще загружается. Создание носителей станет доступно после завершения загрузки.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Выбранный USB-накопитель слишком мал для кэша. Используйте USB-накопитель объемом не менее 16 GB или выберите «Создать без кэша» с помощью стрелки кнопки «Создать USB».</value>
@@ -4368,6 +4368,15 @@
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Готовы создать USB медиа</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Не удалось установить общее содержимое</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Общее содержимое недоступно</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Ожидание общего содержимого</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Просмотр предупреждений о выводе мультимедиа</value>

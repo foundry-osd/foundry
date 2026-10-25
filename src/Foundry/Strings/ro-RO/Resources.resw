@@ -3530,7 +3530,7 @@ Licențiat sub licența MIT.</value>
     <value>Acest PC își publică configurația</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>Conținutul partajat al publicării urmărite nu a putut fi descărcat complet. Verificați cardul de partajare a configurației din Setări.</value>
+    <value>O parte din conținutul partajat al publicației urmărite nu a putut fi descărcată. Verificați Partajarea configurației pe pagina Setări.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Publicarea și urmărirea nu sunt disponibile în această sesiune, deoarece starea partajării nu a putut fi citită. Consultați jurnalul pentru detalii.</value>
@@ -3653,7 +3653,7 @@ Licențiat sub licența MIT.</value>
     <value>Versiune</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>Se așteaptă finalizarea descărcării conținutului partajat</value>
+    <value>Se așteaptă finalizarea descărcării conținutului partajat…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Frază de acces greșită sau fișier deteriorat.</value>
@@ -3788,13 +3788,13 @@ Licențiat sub licența MIT.</value>
     <value>Secretele media necesare nu sunt gata.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>O parte din conținutul partajat nu a putut fi instalată. Crearea suporturilor va fi disponibilă după finalizarea sincronizării; verificați starea partajării în Setări.</value>
+    <value>O parte din conținutul partajat nu a putut fi instalată pe acest PC. Este preluată din nou când PC-ul de referință publică o versiune nouă. Verificați Partajarea configurației pe pagina Setări.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>O parte din conținutul partajat nu este încă disponibilă după verificări repetate. Crearea suporturilor va fi disponibilă după finalizarea sincronizării; verificați starea partajării în Setări.</value>
+    <value>O parte din conținutul partajat nu este disponibilă nici după verificări repetate. Publicați din nou de pe PC-ul de referință, apoi verificați Partajarea configurației pe pagina Setări.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>Conținutul partajat se sincronizează încă. Crearea suporturilor va fi disponibilă după finalizarea sincronizării.</value>
+    <value>Conținutul partajat se descarcă încă. Crearea suporturilor va fi disponibilă după finalizarea descărcării.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Unitatea USB selectată este prea mică pentru un cache. Utilizați o unitate USB de cel puțin 16 GB sau selectați „Creați fără cache” din săgeata butonului „Creați USB”.</value>
@@ -4368,6 +4368,15 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Gata pentru a crea USB media</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Conținutul partajat nu a putut fi instalat</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Conținutul partajat nu este disponibil</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Se așteaptă conținutul partajat</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Examinați avertismentele de ieșire media</value>

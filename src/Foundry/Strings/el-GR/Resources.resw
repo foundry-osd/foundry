@@ -3530,7 +3530,7 @@
     <value>Αυτός ο υπολογιστής δημοσιεύει τη ρύθμιση παραμέτρων του</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>Δεν ήταν δυνατή η πλήρης λήψη του κοινόχρηστου περιεχομένου της δημοσίευσης που παρακολουθείται. Ελέγξτε την κάρτα κοινής χρήσης ρύθμισης παραμέτρων στις Ρυθμίσεις.</value>
+    <value>Δεν ήταν δυνατή η λήψη μέρους του κοινόχρηστου περιεχομένου της δημοσίευσης που παρακολουθείτε. Ελέγξτε την Κοινή χρήση διαμόρφωσης στη σελίδα Ρυθμίσεις.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Η δημοσίευση και η παρακολούθηση δεν είναι διαθέσιμες σε αυτήν την περίοδο λειτουργίας, επειδή δεν ήταν δυνατή η ανάγνωση της κατάστασης κοινής χρήσης. Ανατρέξτε στο αρχείο καταγραφής για λεπτομέρειες.</value>
@@ -3653,7 +3653,7 @@
     <value>Έκδοση</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>Αναμονή για την ολοκλήρωση της λήψης του κοινόχρηστου περιεχομένου</value>
+    <value>Αναμονή για την ολοκλήρωση της λήψης του κοινόχρηστου περιεχομένου…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Λανθασμένη φράση πρόσβασης ή κατεστραμμένο αρχείο.</value>
@@ -3788,13 +3788,13 @@
     <value>Τα απαραίτητα μυστικά των μέσων ενημέρωσης δεν είναι έτοιμα.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>Δεν ήταν δυνατή η εγκατάσταση μέρους του κοινόχρηστου περιεχομένου. Η δημιουργία μέσων θα είναι διαθέσιμη μόλις ολοκληρωθεί ο συγχρονισμός· ελέγξτε την κατάσταση κοινής χρήσης στις Ρυθμίσεις.</value>
+    <value>Δεν ήταν δυνατή η εγκατάσταση μέρους του κοινόχρηστου περιεχομένου σε αυτόν τον υπολογιστή. Θα ανακτηθεί ξανά όταν ο υπολογιστής αναφοράς δημοσιεύσει νέα έκδοση. Ελέγξτε την Κοινή χρήση διαμόρφωσης στη σελίδα Ρυθμίσεις.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>Μέρος του κοινόχρηστου περιεχομένου εξακολουθεί να μην είναι διαθέσιμο μετά από επανειλημμένους ελέγχους. Η δημιουργία μέσων θα είναι διαθέσιμη μόλις ολοκληρωθεί ο συγχρονισμός· ελέγξτε την κατάσταση κοινής χρήσης στις Ρυθμίσεις.</value>
+    <value>Μέρος του κοινόχρηστου περιεχομένου εξακολουθεί να μην είναι διαθέσιμο μετά από επανειλημμένους ελέγχους. Δημοσιεύστε ξανά από τον υπολογιστή αναφοράς και, στη συνέχεια, ελέγξτε την Κοινή χρήση διαμόρφωσης στη σελίδα Ρυθμίσεις.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>Το κοινόχρηστο περιεχόμενο συγχρονίζεται ακόμα. Η δημιουργία μέσων θα είναι διαθέσιμη μόλις ολοκληρωθεί ο συγχρονισμός.</value>
+    <value>Γίνεται ακόμα λήψη του κοινόχρηστου περιεχομένου. Η δημιουργία μέσων θα είναι διαθέσιμη μόλις ολοκληρωθεί η λήψη.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Η επιλεγμένη μονάδα USB είναι πολύ μικρή για προσωρινή μνήμη. Χρησιμοποιήστε μονάδα USB τουλάχιστον 16 GB ή επιλέξτε «Δημιουργία χωρίς προσωρινή μνήμη» από το βέλος του «Δημιουργία USB».</value>
@@ -4368,6 +4368,15 @@
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Έτοιμοι να δημιουργήσετε μέσα USB</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η εγκατάσταση του κοινόχρηστου περιεχομένου</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Το κοινόχρηστο περιεχόμενο δεν είναι διαθέσιμο</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Αναμονή για το κοινόχρηστο περιεχόμενο</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Ελέγξτε τις προειδοποιήσεις εξόδου πολυμέσων</value>

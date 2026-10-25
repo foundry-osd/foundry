@@ -3530,7 +3530,7 @@
     <value>此电脑正在发布其配置</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>无法完整下载所关注发布内容的共享内容。请检查“设置”中的配置共享卡片。</value>
+    <value>无法下载所关注发布的部分共享内容。请在“设置”页面中检查“配置共享”。</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>由于无法读取共享状态，此会话期间无法发布和关注。有关详细信息，请参阅日志。</value>
@@ -3653,7 +3653,7 @@
     <value>版本</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>正在等待共享内容下载完成</value>
+    <value>正在等待共享内容下载完成…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>密码短语错误或文件已损坏。</value>
@@ -3788,13 +3788,13 @@
     <value>所需的媒体机密尚未准备好。</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>部分共享内容无法安装。同步完成后即可创建介质；请在“设置”中检查共享状态。</value>
+    <value>部分共享内容无法安装到此电脑。参考电脑发布新版本时将再次获取这些内容。请在“设置”页面中检查“配置共享”。</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>多次检查后，部分共享内容仍不可用。同步完成后即可创建介质；请在“设置”中检查共享状态。</value>
+    <value>多次检查后，部分共享内容仍不可用。请从参考电脑重新发布，然后在“设置”页面中检查“配置共享”。</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>共享内容仍在同步。同步完成后即可创建介质。</value>
+    <value>共享内容仍在下载。下载完成后即可创建介质。</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>所选 USB 驱动器容量太小，无法用于缓存。请使用至少 16 GB 的 USB 驱动器，或从“创建 USB”的箭头中选择“不使用缓存创建”。</value>
@@ -4368,6 +4368,15 @@
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>准备创建USB媒体</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>无法安装共享内容</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>共享内容不可用</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>正在等待共享内容</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>查看媒体输出警告</value>

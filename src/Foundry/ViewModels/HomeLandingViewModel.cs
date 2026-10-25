@@ -379,6 +379,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
             configurationOverviewService.Evaluate(),
             sharingService.ContentSyncState);
         string readyText = localizationService.GetString("StartMedia.Readiness.State.Ready");
+        // "Downloading" names the whole fetch, which downloads then installs each item, as on the navigation badge.
         string syncingText = localizationService.GetString("Sharing.ContentDownloadingState");
         string needsAttentionText = localizationService.GetString("Common.NeedsAttention");
         string requiresAdkText = localizationService.GetString("Home.Status.ConfigCard.BlockedStatus");

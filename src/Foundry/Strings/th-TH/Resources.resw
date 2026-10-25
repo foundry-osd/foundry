@@ -3530,7 +3530,7 @@
     <value>พีซีเครื่องนี้เผยแพร่การกำหนดค่าของตนเอง</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>ไม่สามารถดาวน์โหลดเนื้อหาที่แชร์ของการเผยแพร่ที่ติดตามได้ครบ โปรดตรวจสอบการ์ดการแชร์การกำหนดค่าในการตั้งค่า</value>
+    <value>ไม่สามารถดาวน์โหลดเนื้อหาที่แชร์บางส่วนของการเผยแพร่ที่ติดตามได้ ตรวจสอบ การแชร์การกำหนดค่า ในหน้าการตั้งค่า</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>การเผยแพร่และการติดตามไม่พร้อมใช้งานในเซสชันนี้ เนื่องจากไม่สามารถอ่านสถานะการแชร์ได้ ดูรายละเอียดในบันทึก</value>
@@ -3653,7 +3653,7 @@
     <value>เวอร์ชัน</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>กำลังรอให้ดาวน์โหลดเนื้อหาที่แชร์เสร็จสิ้น</value>
+    <value>กำลังรอให้ดาวน์โหลดเนื้อหาที่แชร์เสร็จสิ้น…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>วลีรหัสผ่านไม่ถูกต้องหรือไฟล์เสียหาย</value>
@@ -3788,13 +3788,13 @@
     <value>ข้อมูลลับของสื่อที่จำเป็นยังไม่พร้อม</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>ไม่สามารถติดตั้งเนื้อหาที่แชร์บางส่วนได้ การสร้างสื่อจะพร้อมใช้งานเมื่อการซิงโครไนซ์เสร็จสมบูรณ์ ตรวจสอบสถานะการแชร์ในการตั้งค่า</value>
+    <value>ไม่สามารถติดตั้งเนื้อหาที่แชร์บางส่วนบนพีซีเครื่องนี้ได้ ระบบจะดึงข้อมูลอีกครั้งเมื่อพีซีอ้างอิงเผยแพร่เวอร์ชันใหม่ ตรวจสอบ การแชร์การกำหนดค่า ในหน้าการตั้งค่า</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>เนื้อหาที่แชร์บางส่วนยังไม่พร้อมใช้งานหลังจากตรวจสอบซ้ำหลายครั้ง การสร้างสื่อจะพร้อมใช้งานเมื่อการซิงโครไนซ์เสร็จสมบูรณ์ ตรวจสอบสถานะการแชร์ในการตั้งค่า</value>
+    <value>เนื้อหาที่แชร์บางส่วนยังไม่พร้อมใช้งานหลังจากตรวจสอบหลายครั้ง โปรดเผยแพร่อีกครั้งจากพีซีอ้างอิง แล้วตรวจสอบ การแชร์การกำหนดค่า ในหน้าการตั้งค่า</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>เนื้อหาที่แชร์ยังซิงโครไนซ์อยู่ การสร้างสื่อจะพร้อมใช้งานเมื่อการซิงโครไนซ์เสร็จสมบูรณ์</value>
+    <value>เนื้อหาที่แชร์ยังดาวน์โหลดอยู่ การสร้างสื่อจะพร้อมใช้งานเมื่อการดาวน์โหลดเสร็จสมบูรณ์</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>ไดรฟ์ USB ที่เลือกมีขนาดเล็กเกินไปสำหรับแคช ใช้ไดรฟ์ USB ที่มีขนาดอย่างน้อย 16 GB หรือเลือก “สร้างโดยไม่มีแคช” จากลูกศรของ “สร้าง USB”</value>
@@ -4368,6 +4368,15 @@
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>พร้อมสร้างสื่อ USB</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>ไม่สามารถติดตั้งเนื้อหาที่แชร์ได้</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>เนื้อหาที่แชร์ไม่พร้อมใช้งาน</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>กำลังรอเนื้อหาที่แชร์</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>ตรวจสอบคำเตือนเอาต์พุตสื่อ</value>

@@ -3530,7 +3530,7 @@
     <value>Цей комп’ютер публікує свою конфігурацію</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>Не вдалося повністю завантажити спільний вміст відстежуваної публікації. Перевірте картку спільного доступу до конфігурації в розділі «Параметри».</value>
+    <value>Не вдалося завантажити частину спільного вмісту відстежуваної публікації. Перевірте «Спільний доступ до конфігурації» на сторінці настройок.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Публікація та відстеження недоступні в цьому сеансі, оскільки не вдалося прочитати стан спільного доступу. Докладні відомості див. у журналі.</value>
@@ -3653,7 +3653,7 @@
     <value>Версія</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>Очікування завершення завантаження спільного вмісту</value>
+    <value>Очікування завершення завантаження спільного вмісту…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Неправильна парольна фраза або пошкоджений файл.</value>
@@ -3788,13 +3788,13 @@
     <value>Необхідні медіасекрети не готові.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>Не вдалося інсталювати частину спільного вмісту. Створення носіїв стане доступним після завершення синхронізації; перевірте стан спільного доступу в настройках.</value>
+    <value>Не вдалося інсталювати частину спільного вмісту на цей комп’ютер. Його буде отримано повторно, коли еталонний комп’ютер опублікує нову версію. Перевірте «Спільний доступ до конфігурації» на сторінці настройок.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>Частина спільного вмісту досі недоступна після повторних перевірок. Створення носіїв стане доступним після завершення синхронізації; перевірте стан спільного доступу в настройках.</value>
+    <value>Частина спільного вмісту досі недоступна після кількох перевірок. Опублікуйте повторно з еталонного комп’ютера, а потім перевірте «Спільний доступ до конфігурації» на сторінці настройок.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>Спільний вміст іще синхронізується. Створення носіїв стане доступним після завершення синхронізації.</value>
+    <value>Спільний вміст іще завантажується. Створення носіїв стане доступним після завершення завантаження.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Вибраний USB-накопичувач замалий для кешу. Використовуйте USB-накопичувач обсягом щонайменше 16 GB або виберіть «Створити без кешу» за допомогою стрілки кнопки «Створити USB».</value>
@@ -4368,6 +4368,15 @@
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Готовий створювати медіа USB</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Не вдалося інсталювати спільний вміст</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Спільний вміст недоступний</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Очікування спільного вмісту</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Перегляньте попередження про вихід медіа</value>

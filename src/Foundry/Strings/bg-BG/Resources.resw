@@ -3530,7 +3530,7 @@
     <value>Този компютър публикува своята конфигурация</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>Споделеното съдържание на проследяваната публикация не можа да бъде изтеглено изцяло. Проверете картата за споделяне на конфигурацията в „Настройки“.</value>
+    <value>Част от споделеното съдържание на проследяваната публикация не можа да бъде изтеглена. Проверете „Споделяне на конфигурацията“ на страницата „Настройки“.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Публикуването и проследяването не са налични по време на тази сесия, защото състоянието на споделянето не можа да бъде прочетено. Вижте журнала за подробности.</value>
@@ -3653,7 +3653,7 @@
     <value>Версия</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>Изчакване на завършването на изтеглянето на споделеното съдържание</value>
+    <value>Изчакване на завършването на изтеглянето на споделеното съдържание…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Грешна парола фраза или повреден файл.</value>
@@ -3788,13 +3788,13 @@
     <value>Необходимите медийни тайни не са готови.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>Част от споделеното съдържание не можа да бъде инсталирана. Създаването на носители ще е налично, когато синхронизирането завърши; проверете състоянието на споделянето в „Настройки“.</value>
+    <value>Част от споделеното съдържание не можа да бъде инсталирана на този компютър. То се извлича отново, когато референтният компютър публикува нова версия. Проверете „Споделяне на конфигурацията“ на страницата „Настройки“.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>Част от споделеното съдържание все още не е налично след многократни проверки. Създаването на носители ще е налично, когато синхронизирането завърши; проверете състоянието на споделянето в „Настройки“.</value>
+    <value>Част от споделеното съдържание все още не е налична след многократни проверки. Публикувайте отново от референтния компютър, след което проверете „Споделяне на конфигурацията“ на страницата „Настройки“.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>Споделеното съдържание все още се синхронизира. Създаването на носители ще е налично, когато синхронизирането завърши.</value>
+    <value>Споделеното съдържание все още се изтегля. Създаването на носители ще е налично, когато изтеглянето завърши.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Избраният USB диск е твърде малък за кеш. Използвайте USB диск с капацитет поне 16 GB или изберете „Създаване без кеш“ от стрелката на „Създаване на USB“.</value>
@@ -4368,6 +4368,15 @@
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Готови за създаване на USB медии</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Споделеното съдържание не можа да бъде инсталирано</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Споделеното съдържание не е налично</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Изчакване на споделеното съдържание</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Прегледайте предупрежденията за медийно извеждане</value>

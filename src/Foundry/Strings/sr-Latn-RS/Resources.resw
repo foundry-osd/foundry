@@ -3530,7 +3530,7 @@ Licencirano pod MIT licencom.</value>
     <value>Ovaj računar objavljuje svoju konfiguraciju</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>Deljeni sadržaj praćene objave nije bilo moguće u potpunosti preuzeti. Proverite karticu deljenja konfiguracije u podešavanjima.</value>
+    <value>Deo deljenog sadržaja praćene objave nije moguće preuzeti. Proverite Deljenje konfiguracije na stranici Postavke.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Objavljivanje i praćenje nisu dostupni tokom ove sesije jer stanje deljenja nije bilo moguće pročitati. Detalje potražite u evidenciji.</value>
@@ -3653,7 +3653,7 @@ Licencirano pod MIT licencom.</value>
     <value>Verzija</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>Čeka se dovršetak preuzimanja deljenog sadržaja</value>
+    <value>Čeka se dovršetak preuzimanja deljenog sadržaja…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Pogrešna pristupna fraza ili oštećena datoteka.</value>
@@ -3788,13 +3788,13 @@ Licencirano pod MIT licencom.</value>
     <value>Potrebne medijske tajne nisu spremne.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>Deo deljenog sadržaja nije moguće instalirati. Kreiranje medija biće dostupno kada se sinhronizacija završi; proverite status deljenja u Postavkama.</value>
+    <value>Deo deljenog sadržaja nije moguće instalirati na ovaj računar. Ponovo se preuzima kada referentni računar objavi novu verziju. Proverite Deljenje konfiguracije na stranici Postavke.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>Deo deljenog sadržaja i dalje nije dostupan nakon ponovljenih provera. Kreiranje medija biće dostupno kada se sinhronizacija završi; proverite status deljenja u Postavkama.</value>
+    <value>Deo deljenog sadržaja i dalje nije dostupan nakon ponovljenih provera. Ponovo objavite sa referentnog računara, a zatim proverite Deljenje konfiguracije na stranici Postavke.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>Deljeni sadržaj se još sinhronizuje. Kreiranje medija biće dostupno kada se sinhronizacija završi.</value>
+    <value>Deljeni sadržaj se još preuzima. Kreiranje medija biće dostupno kada se preuzimanje završi.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Izabrani USB disk je premali za keš. Koristite USB disk od najmanje 16 GB ili izaberite „Kreiraj bez keša“ preko strelice dugmeta „Kreiraj USB“.</value>
@@ -4368,6 +4368,15 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Spremni za kreiranje medija USB</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Deljeni sadržaj nije moguće instalirati</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Deljeni sadržaj nije dostupan</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Čeka se deljeni sadržaj</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Pregledajte upozorenja o medijskom izlazu</value>

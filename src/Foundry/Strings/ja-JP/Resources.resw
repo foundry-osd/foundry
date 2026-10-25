@@ -3530,7 +3530,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>この PC は構成を発行しています</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>フォローしている発行の共有コンテンツをすべてダウンロードできませんでした。[設定] の構成の共有カードを確認してください。</value>
+    <value>フォロー中の発行の共有コンテンツの一部をダウンロードできませんでした。[設定] ページの [構成の共有] を確認してください。</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>共有の状態を読み取れなかったため、このセッションでは発行とフォローを使用できません。詳細はログを参照してください。</value>
@@ -3653,7 +3653,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>バージョン</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>共有コンテンツのダウンロードが完了するのを待っています</value>
+    <value>共有コンテンツのダウンロードが完了するのを待っています…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>パスフレーズが正しくないか、ファイルが破損しています。</value>
@@ -3788,13 +3788,13 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>必要なメディア シークレットの準備ができていません。</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>一部の共有コンテンツをインストールできませんでした。同期が完了するとメディアを作成できます。[設定] で共有の状態を確認してください。</value>
+    <value>一部の共有コンテンツをこの PC にインストールできませんでした。参照 PC が新しいバージョンを発行すると、再度取得されます。[設定] ページの [構成の共有] を確認してください。</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>一部の共有コンテンツは、繰り返し確認しても利用できません。同期が完了するとメディアを作成できます。[設定] で共有の状態を確認してください。</value>
+    <value>共有コンテンツの一部が、繰り返し確認しても利用できません。参照 PC から再度発行してから、[設定] ページの [構成の共有] を確認してください。</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>共有コンテンツはまだ同期中です。同期が完了するとメディアを作成できます。</value>
+    <value>共有コンテンツはまだダウンロード中です。ダウンロードが完了するとメディアを作成できます。</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>選択した USB ドライブはキャッシュを置くには容量が不足しています。16 GB 以上の USB ドライブを使用するか、「USB を作成」の矢印から「キャッシュなしで作成」を選択してください。</value>
@@ -4368,6 +4368,15 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>USB メディアを作成する準備ができました</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>共有コンテンツをインストールできませんでした</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>共有コンテンツを利用できません</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>共有コンテンツを待っています</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>メディア出力の警告を確認する</value>

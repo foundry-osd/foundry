@@ -3530,7 +3530,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Tämä tietokone julkaisee määrityksensä</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>Seuratun julkaisun jaettua sisältöä ei voitu ladata kokonaan. Tarkista määrityksen jakamisen kortti asetuksista.</value>
+    <value>Osaa seuratun julkaisun jaetusta sisällöstä ei voitu ladata. Tarkista Määrityksen jakaminen Asetukset-sivulta.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Julkaiseminen ja seuraaminen eivät ole käytettävissä tämän istunnon aikana, koska jakamisen tilaa ei voitu lukea. Katso lisätietoja lokista.</value>
@@ -3653,7 +3653,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Versio</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>Odotetaan jaetun sisällön latauksen valmistumista</value>
+    <value>Odotetaan jaetun sisällön latauksen valmistumista…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Väärä tunnuslause tai vahingoittunut tiedosto.</value>
@@ -3788,13 +3788,13 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Vaaditut mediasalaisuudet eivät ole valmiita.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>Osaa jaetusta sisällöstä ei voitu asentaa. Tietovälineen luonti on käytettävissä, kun synkronointi on valmis. Tarkista jakamisen tila asetuksista.</value>
+    <value>Osaa jaetusta sisällöstä ei voitu asentaa tähän tietokoneeseen. Se noudetaan uudelleen, kun viitetietokone julkaisee uuden version. Tarkista Määrityksen jakaminen Asetukset-sivulta.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>Osa jaetusta sisällöstä ei ole vieläkään saatavilla toistuvien tarkistusten jälkeen. Tietovälineen luonti on käytettävissä, kun synkronointi on valmis. Tarkista jakamisen tila asetuksista.</value>
+    <value>Osa jaetusta sisällöstä ei ole vieläkään käytettävissä toistuvien tarkistusten jälkeen. Julkaise uudelleen viitetietokoneesta ja tarkista sitten Määrityksen jakaminen Asetukset-sivulta.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>Jaettua sisältöä synkronoidaan vielä. Tietovälineen luonti on käytettävissä, kun synkronointi on valmis.</value>
+    <value>Jaettua sisältöä ladataan vielä. Tietovälineen luonti on käytettävissä, kun lataus on valmis.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Valittu USB-asema on liian pieni välimuistille. Käytä vähintään 16 GB:n USB-asemaa tai valitse ”Luo ilman välimuistia” ”Luo USB” -painikkeen nuolesta.</value>
@@ -4368,6 +4368,15 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Valmis luomaan USB mediaa</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Jaettua sisältöä ei voitu asentaa</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Jaettu sisältö ei ole käytettävissä</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Odotetaan jaettua sisältöä</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Tarkista mediatulosteen varoitukset</value>

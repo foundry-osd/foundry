@@ -3530,7 +3530,7 @@ Licenciran prema MIT licenci.</value>
     <value>Ovo računalo objavljuje svoju konfiguraciju</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>Zajednički sadržaj praćene objave nije bilo moguće u potpunosti preuzeti. Provjerite karticu zajedničkog korištenja konfiguracije u postavkama.</value>
+    <value>Dio zajedničkog sadržaja praćene objave nije bilo moguće preuzeti. Provjerite Zajedničko korištenje konfiguracije na stranici Postavke.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Objavljivanje i praćenje nisu dostupni tijekom ove sesije jer stanje zajedničkog korištenja nije bilo moguće pročitati. Pojedinosti potražite u zapisniku.</value>
@@ -3653,7 +3653,7 @@ Licenciran prema MIT licenci.</value>
     <value>Verzija</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>Čekanje na dovršetak preuzimanja zajedničkog sadržaja</value>
+    <value>Čekanje na dovršetak preuzimanja zajedničkog sadržaja…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Pogrešna pristupna fraza ili oštećena datoteka.</value>
@@ -3788,13 +3788,13 @@ Licenciran prema MIT licenci.</value>
     <value>Potrebne medijske tajne nisu spremne.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>Dio zajedničkog sadržaja nije moguće instalirati. Stvaranje medija bit će dostupno kada sinkronizacija završi; provjerite stanje zajedničkog korištenja u Postavkama.</value>
+    <value>Dio zajedničkog sadržaja nije bilo moguće instalirati na ovo računalo. Ponovno se dohvaća kada referentno računalo objavi novu verziju. Provjerite Zajedničko korištenje konfiguracije na stranici Postavke.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>Dio zajedničkog sadržaja i dalje nije dostupan nakon ponovljenih provjera. Stvaranje medija bit će dostupno kada sinkronizacija završi; provjerite stanje zajedničkog korištenja u Postavkama.</value>
+    <value>Dio zajedničkog sadržaja i dalje nije dostupan nakon ponovljenih provjera. Ponovno objavite s referentnog računala, a zatim provjerite Zajedničko korištenje konfiguracije na stranici Postavke.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>Zajednički sadržaj još se sinkronizira. Stvaranje medija bit će dostupno kada sinkronizacija završi.</value>
+    <value>Zajednički sadržaj još se preuzima. Stvaranje medija bit će dostupno kada preuzimanje završi.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Odabrani USB pogon je premalen za predmemoriju. Koristite USB pogon od najmanje 16 GB ili odaberite „Stvori bez predmemorije“ putem strelice gumba „Stvori USB“.</value>
@@ -4368,6 +4368,15 @@ Licenciran prema MIT licenci.</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Spremni za stvaranje USB medija</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Zajednički sadržaj nije moguće instalirati</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Zajednički sadržaj nije dostupan</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Čekanje na zajednički sadržaj</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Pregledajte upozorenja za medijski izlaz</value>

@@ -3530,7 +3530,7 @@
     <value>此電腦正在發佈其設定</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>無法完整下載所追蹤發佈內容的共用內容。請檢查「設定」中的設定共用卡片。</value>
+    <value>無法下載所追蹤發佈的部分共用內容。請在 [設定] 頁面中檢查「設定共用」。</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>由於無法讀取共用狀態，此工作階段無法發佈和追蹤。如需詳細資料，請參閱記錄。</value>
@@ -3653,7 +3653,7 @@
     <value>版本</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>正在等待共用內容下載完成</value>
+    <value>正在等待共用內容下載完成…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>複雜密碼錯誤或檔案已損毀。</value>
@@ -3788,13 +3788,13 @@
     <value>必要的媒體機密尚未就緒。</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>部分共用內容無法安裝。同步處理完成後即可建立媒體；請在 [設定] 中檢查共用狀態。</value>
+    <value>部分共用內容無法安裝到此電腦。參考電腦發佈新版本時會再次擷取這些內容。請在 [設定] 頁面中檢查「設定共用」。</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>經過多次檢查後，部分共用內容仍無法使用。同步處理完成後即可建立媒體；請在 [設定] 中檢查共用狀態。</value>
+    <value>多次檢查後，部分共用內容仍無法使用。請從參考電腦重新發佈，然後在 [設定] 頁面中檢查「設定共用」。</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>共用內容仍在同步處理中。同步處理完成後即可建立媒體。</value>
+    <value>共用內容仍在下載中。下載完成後即可建立媒體。</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>所選的 USB 隨身碟容量太小，無法用於快取。請使用至少 16 GB 的 USB 隨身碟，或從「建立 USB」的箭號中選取「不使用快取建立」。</value>
@@ -4368,6 +4368,15 @@
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>可以建立 USB 媒體</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>無法安裝共用內容</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>共用內容無法使用</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>正在等待共用內容</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>檢閱媒體輸出警告</value>

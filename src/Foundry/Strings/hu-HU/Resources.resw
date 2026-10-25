@@ -3530,7 +3530,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Ez a számítógép közzéteszi a konfigurációját</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>A követett közzététel megosztott tartalmát nem sikerült teljesen letölteni. Ellenőrizze a konfiguráció megosztása kártyát a Beállításokban.</value>
+    <value>A követett közzététel megosztott tartalmának egy részét nem sikerült letölteni. Ellenőrizze a Konfiguráció megosztása részt a Beállítások lapon.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>A közzététel és a követés ebben a munkamenetben nem érhető el, mert a megosztás állapotát nem sikerült beolvasni. A részleteket a naplóban találja.</value>
@@ -3653,7 +3653,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Verzió</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>Várakozás a megosztott tartalom letöltésének befejezésére</value>
+    <value>Várakozás a megosztott tartalom letöltésének befejezésére…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Helytelen jelmondat vagy sérült fájl.</value>
@@ -3788,13 +3788,13 @@ Licenc az MIT licenc alatt.</value>
     <value>A szükséges médiatitkok nincsenek készen.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>A megosztott tartalom egy részét nem sikerült telepíteni. Az adathordozó létrehozása a szinkronizálás befejezése után érhető el; ellenőrizze a megosztás állapotát a Beállításokban.</value>
+    <value>A megosztott tartalom egy részét nem sikerült telepíteni erre a számítógépre. Újra le lesz kérve, amikor a referenciaszámítógép új verziót tesz közzé. Ellenőrizze a Konfiguráció megosztása részt a Beállítások lapon.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>A megosztott tartalom egy része ismételt ellenőrzések után sem érhető el. Az adathordozó létrehozása a szinkronizálás befejezése után érhető el; ellenőrizze a megosztás állapotát a Beállításokban.</value>
+    <value>A megosztott tartalom egy része ismételt ellenőrzések után sem érhető el. Tegye közzé újra a referenciaszámítógépről, majd ellenőrizze a Konfiguráció megosztása részt a Beállítások lapon.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>A megosztott tartalom szinkronizálása még folyamatban van. Az adathordozó létrehozása a szinkronizálás befejezése után érhető el.</value>
+    <value>A megosztott tartalom letöltése még folyamatban van. Az adathordozó létrehozása a letöltés befejezése után érhető el.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>A kiválasztott USB-meghajtó túl kicsi a gyorsítótárhoz. Használjon legalább 16 GB-os USB-meghajtót, vagy válassza a „Létrehozás gyorsítótár nélkül” lehetőséget az „USB létrehozása” gomb nyilából.</value>
@@ -4368,6 +4368,15 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Készen áll a USB média létrehozására</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>A megosztott tartalmat nem sikerült telepíteni</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>A megosztott tartalom nem érhető el</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Várakozás a megosztott tartalomra</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Tekintse át a médiakimenetre vonatkozó figyelmeztetéseket</value>

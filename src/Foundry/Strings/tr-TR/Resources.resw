@@ -3530,7 +3530,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Bu bilgisayar kendi yapılandırmasını yayımlıyor</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>İzlenen yayının paylaşılan içeriğinin tamamı indirilemedi. Ayarlar'daki yapılandırma paylaşımı kartını denetleyin.</value>
+    <value>İzlenen yayının paylaşılan içeriğinin bir kısmı indirilemedi. Ayarlar sayfasında Yapılandırma paylaşımı bölümünü denetleyin.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Paylaşım durumu okunamadığından yayımlama ve izleme bu oturum boyunca kullanılamıyor. Ayrıntılar için günlüğe bakın.</value>
@@ -3653,7 +3653,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Sürüm</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>Paylaşılan içeriğin indirilmesinin tamamlanması bekleniyor</value>
+    <value>Paylaşılan içeriğin indirilmesinin tamamlanması bekleniyor…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Yanlış parola ifadesi veya hasarlı dosya.</value>
@@ -3788,13 +3788,13 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Gerekli medya sırları hazır değil.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>Paylaşılan içeriğin bir kısmı yüklenemedi. Ortam oluşturma, eşitleme tamamlandığında kullanılabilir; Ayarlar'da paylaşım durumunu denetleyin.</value>
+    <value>Paylaşılan içeriğin bir kısmı bu bilgisayara yüklenemedi. Başvuru bilgisayarı yeni bir sürüm yayımladığında yeniden alınır. Ayarlar sayfasında Yapılandırma paylaşımı bölümünü denetleyin.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>Paylaşılan içeriğin bir kısmı yinelenen denetimlerden sonra hâlâ kullanılamıyor. Ortam oluşturma, eşitleme tamamlandığında kullanılabilir; Ayarlar'da paylaşım durumunu denetleyin.</value>
+    <value>Paylaşılan içeriğin bir kısmı tekrarlanan denetimlerden sonra hâlâ kullanılamıyor. Başvuru bilgisayarından yeniden yayımlayın, ardından Ayarlar sayfasında Yapılandırma paylaşımı bölümünü denetleyin.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>Paylaşılan içerik hâlâ eşitleniyor. Ortam oluşturma, eşitleme tamamlandığında kullanılabilir.</value>
+    <value>Paylaşılan içerik hâlâ indiriliyor. Ortam oluşturma, indirme tamamlandığında kullanılabilir.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Seçilen USB sürücüsü önbellek için çok küçük. En az 16 GB boyutunda bir USB sürücüsü kullanın veya “USB oluştur” düğmesinin okundan “Önbellek olmadan oluştur” seçeneğini belirleyin.</value>
@@ -4368,6 +4368,15 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>USB ortamı oluşturmaya hazır</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Paylaşılan içerik yüklenemedi</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Paylaşılan içerik kullanılamıyor</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Paylaşılan içerik bekleniyor</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Medya çıkışı uyarılarını inceleyin</value>

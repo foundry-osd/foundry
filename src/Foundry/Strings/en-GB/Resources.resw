@@ -3530,7 +3530,7 @@ Licensed under the MIT License.</value>
     <value>This PC publishes its configuration</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>The shared content of the followed publication could not all be downloaded. Check the configuration sharing card in Settings.</value>
+    <value>Some shared content of the followed publication could not be downloaded. Check Configuration sharing on the Settings page.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Publishing and following are unavailable during this session because the sharing state could not be read. See the log for details.</value>
@@ -3653,7 +3653,7 @@ Licensed under the MIT License.</value>
     <value>Version</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>Waiting for shared content to finish downloading</value>
+    <value>Waiting for shared content to finish downloading…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Wrong passphrase or damaged file.</value>
@@ -3788,13 +3788,13 @@ Licensed under the MIT License.</value>
     <value>Required media secrets are not ready.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>Some shared content could not be installed. Media creation is available once the synchronisation is complete; check the sharing status in Settings.</value>
+    <value>Some shared content could not be installed on this PC. It is fetched again when the reference PC publishes a new version. Check Configuration sharing on the Settings page.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>Some shared content is still not available after repeated checks. Media creation is available once the synchronisation is complete; check the sharing status in Settings.</value>
+    <value>Some shared content is still not available after repeated checks. Publish again from the reference PC, then check Configuration sharing on the Settings page.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>Shared content is still being synchronised. Media creation is available once it is complete.</value>
+    <value>Shared content is still being downloaded. Media creation is available once the download is complete.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>The selected USB drive is too small for a cache. Use a USB drive of at least 16 GB, or select Create without cache from the arrow of Create USB.</value>
@@ -4368,6 +4368,15 @@ Licensed under the MIT License.</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Ready to create USB media</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Shared content could not be installed</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Shared content is not available</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Waiting for shared content</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Review media output warnings</value>

@@ -3530,7 +3530,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Deze pc publiceert zijn configuratie</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>De gedeelde inhoud van de gevolgde publicatie kon niet volledig worden gedownload. Controleer de kaart Configuratie delen in Instellingen.</value>
+    <value>Een deel van de gedeelde inhoud van de gevolgde publicatie kan niet worden gedownload. Controleer Configuratie delen op de pagina Instellingen.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Publiceren en volgen zijn tijdens deze sessie niet beschikbaar omdat de status van het delen niet kon worden gelezen. Raadpleeg het logboek voor meer informatie.</value>
@@ -3653,7 +3653,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Versie</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>Wachten tot het downloaden van de gedeelde inhoud is voltooid</value>
+    <value>Wachten tot het downloaden van de gedeelde inhoud is voltooid…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Onjuiste wachtwoordzin of beschadigd bestand.</value>
@@ -3788,13 +3788,13 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Vereiste mediageheimen zijn niet gereed.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>Een deel van de gedeelde inhoud kan niet worden geïnstalleerd. Media maken is beschikbaar zodra de synchronisatie is voltooid; controleer de deelstatus in Instellingen.</value>
+    <value>Een deel van de gedeelde inhoud kan niet op deze pc worden geïnstalleerd. Het wordt opnieuw opgehaald wanneer de referentie-pc een nieuwe versie publiceert. Controleer Configuratie delen op de pagina Instellingen.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>Een deel van de gedeelde inhoud is na herhaalde controles nog steeds niet beschikbaar. Media maken is beschikbaar zodra de synchronisatie is voltooid; controleer de deelstatus in Instellingen.</value>
+    <value>Sommige gedeelde inhoud is na herhaalde controles nog steeds niet beschikbaar. Publiceer opnieuw vanaf de referentie-pc en controleer daarna Configuratie delen op de pagina Instellingen.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>Gedeelde inhoud wordt nog gesynchroniseerd. Media maken is beschikbaar zodra de synchronisatie is voltooid.</value>
+    <value>Gedeelde inhoud wordt nog gedownload. Media maken is beschikbaar zodra het downloaden is voltooid.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Het geselecteerde USB-station is te klein voor een cache. Gebruik een USB-station van minimaal 16 GB of selecteer ‘Maken zonder cache’ via de pijl van ‘USB maken’.</value>
@@ -4368,6 +4368,15 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Klaar om USB-media te maken</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Gedeelde inhoud kan niet worden geïnstalleerd</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Gedeelde inhoud is niet beschikbaar</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Wachten op gedeelde inhoud</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Bekijk de waarschuwingen voor media-uitvoer</value>

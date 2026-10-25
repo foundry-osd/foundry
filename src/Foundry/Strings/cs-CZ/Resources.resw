@@ -3530,7 +3530,7 @@ Licencováno pod licencí MIT.</value>
     <value>Tento počítač publikuje svou konfiguraci</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>Sdílený obsah sledované publikace se nepodařilo stáhnout celý. Zkontrolujte kartu sdílení konfigurace v Nastavení.</value>
+    <value>Část sdíleného obsahu sledované publikace se nepodařilo stáhnout. Zkontrolujte Sdílení konfigurace na stránce Nastavení.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Publikování a sledování nejsou během této relace k dispozici, protože stav sdílení nebylo možné přečíst. Podrobnosti najdete v protokolu.</value>
@@ -3653,7 +3653,7 @@ Licencováno pod licencí MIT.</value>
     <value>Verze</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>Čeká se na dokončení stahování sdíleného obsahu</value>
+    <value>Čeká se na dokončení stahování sdíleného obsahu…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Nesprávná heslová fráze nebo poškozený soubor.</value>
@@ -3788,13 +3788,13 @@ Licencováno pod licencí MIT.</value>
     <value>Požadovaná tajemství médií nejsou připravena.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>Část sdíleného obsahu se nepodařilo nainstalovat. Vytváření médií bude k dispozici po dokončení synchronizace; zkontrolujte stav sdílení v Nastavení.</value>
+    <value>Část sdíleného obsahu se na tento počítač nepodařilo nainstalovat. Načte se znovu, až referenční počítač publikuje novou verzi. Zkontrolujte Sdílení konfigurace na stránce Nastavení.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>Část sdíleného obsahu není ani po opakovaných kontrolách k dispozici. Vytváření médií bude k dispozici po dokončení synchronizace; zkontrolujte stav sdílení v Nastavení.</value>
+    <value>Část sdíleného obsahu není ani po opakovaných kontrolách k dispozici. Publikujte znovu z referenčního počítače a pak zkontrolujte Sdílení konfigurace na stránce Nastavení.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>Sdílený obsah se stále synchronizuje. Vytváření médií bude k dispozici po jejím dokončení.</value>
+    <value>Sdílený obsah se stále stahuje. Vytváření médií bude k dispozici po dokončení stahování.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Vybraná jednotka USB je pro mezipaměť příliš malá. Použijte jednotku USB s kapacitou alespoň 16 GB, nebo vyberte „Vytvořit bez mezipaměti“ pomocí šipky u tlačítka „Vytvořit USB“.</value>
@@ -4368,6 +4368,15 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Připraveno k vytvoření média USB</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Sdílený obsah se nepodařilo nainstalovat</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Sdílený obsah není k dispozici</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Čeká se na sdílený obsah</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Zkontrolujte upozornění na výstup médií</value>

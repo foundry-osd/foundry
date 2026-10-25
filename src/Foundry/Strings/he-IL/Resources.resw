@@ -3530,7 +3530,7 @@
     <value>מחשב זה מפרסם את התצורה שלו</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>לא ניתן היה להוריד את כל התוכן המשותף של הפרסום שבמעקב. בדוק את כרטיס שיתוף התצורה בהגדרות.</value>
+    <value>לא ניתן היה להוריד חלק מהתוכן המשותף של הפרסום שבמעקב. בדוק את שיתוף התצורה בדף ההגדרות.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>הפרסום והמעקב אינם זמינים במהלך הפעלה זו, מפני שלא ניתן היה לקרוא את מצב השיתוף. לפרטים, עיין ביומן.</value>
@@ -3653,7 +3653,7 @@
     <value>גרסה</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>ממתין לסיום ההורדה של התוכן המשותף</value>
+    <value>ממתין לסיום ההורדה של התוכן המשותף…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>ביטוי סיסמה שגוי או קובץ פגום.</value>
@@ -3788,13 +3788,13 @@
     <value>סודות התקשורת הנדרשים אינם מוכנים.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>לא ניתן היה להתקין חלק מהתוכן המשותף. יצירת מדיה תהיה זמינה לאחר השלמת הסנכרון; בדוק את מצב השיתוף בהגדרות.</value>
+    <value>לא ניתן היה להתקין חלק מהתוכן המשותף במחשב זה. הוא יאוחזר שוב כאשר מחשב ההפניה יפרסם גרסה חדשה. בדוק את שיתוף התצורה בדף ההגדרות.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>חלק מהתוכן המשותף עדיין אינו זמין לאחר בדיקות חוזרות. יצירת מדיה תהיה זמינה לאחר השלמת הסנכרון; בדוק את מצב השיתוף בהגדרות.</value>
+    <value>חלק מהתוכן המשותף עדיין אינו זמין לאחר בדיקות חוזרות. פרסם שוב ממחשב ההפניה, ולאחר מכן בדוק את שיתוף התצורה בדף ההגדרות.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>התוכן המשותף עדיין מסונכרן. יצירת מדיה תהיה זמינה לאחר השלמת הסנכרון.</value>
+    <value>התוכן המשותף עדיין בהורדה. יצירת מדיה תהיה זמינה לאחר השלמת ההורדה.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>כונן ה-USB שנבחר קטן מדי עבור מטמון. השתמש בכונן USB בנפח 16 GB לפחות, או בחר “צור ללא מטמון” מהחץ של “צור USB”.</value>
@@ -4368,6 +4368,15 @@
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>מוכן ליצור מדיה USB</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>לא ניתן היה להתקין את התוכן המשותף</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>התוכן המשותף אינו זמין</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>ממתין לתוכן המשותף</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>סקור אזהרות פלט מדיה</value>

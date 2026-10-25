@@ -2463,11 +2463,14 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         // The split button stays usable when only its secondary action can run, so a drive below the cache minimum can
         // still be written without cache, and its primary action explains why the drive is too small for a cache.
         CanUseUsbActions = CanCreateUsb || CanCreateUsbWithoutCache;
-        FinalExecutionStatus = localizationService.GetString(!options.IsFinalExecutionEnabled
-            ? "StartMedia.FinalExecution.Deferred"
-            : evaluation.CanCreateIso || evaluation.CanCreateUsb || evaluation.CanCreatePxe || evaluation.CanCreateUsbWithoutCache
-                ? "StartMedia.FinalExecution.ReadyNow"
-                : "StartMedia.FinalExecution.Ready");
+        // While shared content blocks every action, the readiness bar names it in its title and explains it in its message.
+        FinalExecutionStatus = options.IsFinalExecutionEnabled && GetSharedContentReason(evaluation) is { } sharedContentReason
+            ? GetBlockingReasonText(sharedContentReason)
+            : localizationService.GetString(!options.IsFinalExecutionEnabled
+                ? "StartMedia.FinalExecution.Deferred"
+                : evaluation.CanCreateIso || evaluation.CanCreateUsb || evaluation.CanCreatePxe || evaluation.CanCreateUsbWithoutCache
+                    ? "StartMedia.FinalExecution.ReadyNow"
+                    : "StartMedia.FinalExecution.Ready");
         ConfigurationOverviewEvaluation overview = configurationOverviewService.Evaluate();
         ReadinessSeverity = GetReadinessSeverity(evaluation);
         StatusSummary = BuildStatusText(evaluation, overview);
@@ -2621,7 +2624,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     {
         if (GetSharedContentReason(evaluation) is { } sharedContentReason)
         {
-            return GetBlockingReasonText(sharedContentReason);
+            return localizationService.GetString($"StartMedia.Readiness.Status.{sharedContentReason}");
         }
 
         if (evaluation.CanCreateIso && evaluation.CanCreateUsb)

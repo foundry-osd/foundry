@@ -3530,7 +3530,7 @@ Licensierad under MIT-licensen.</value>
     <value>Den här datorn publicerar sin konfiguration</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>Det delade innehållet i den följda publiceringen kunde inte laddas ned helt. Kontrollera kortet för konfigurationsdelning i Inställningar.</value>
+    <value>En del delat innehåll i den följda publiceringen kunde inte laddas ned. Kontrollera Delning av konfiguration på sidan Inställningar.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Publicering och följande är inte tillgängliga under den här sessionen eftersom delningsstatusen inte kunde läsas. Mer information finns i loggen.</value>
@@ -3653,7 +3653,7 @@ Licensierad under MIT-licensen.</value>
     <value>Version</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>Väntar på att nedladdningen av delat innehåll ska slutföras</value>
+    <value>Väntar på att nedladdningen av delat innehåll ska slutföras…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Fel lösenfras eller skadad fil.</value>
@@ -3788,13 +3788,13 @@ Licensierad under MIT-licensen.</value>
     <value>Nödvändiga mediehemligheter är inte klara.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>En del delat innehåll kunde inte installeras. Skapande av media är tillgängligt när synkroniseringen är klar. Kontrollera delningsstatusen i Inställningar.</value>
+    <value>En del delat innehåll kunde inte installeras på den här datorn. Det hämtas igen när referensdatorn publicerar en ny version. Kontrollera Delning av konfiguration på sidan Inställningar.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>En del delat innehåll är fortfarande inte tillgängligt efter upprepade kontroller. Skapande av media är tillgängligt när synkroniseringen är klar. Kontrollera delningsstatusen i Inställningar.</value>
+    <value>En del delat innehåll är fortfarande inte tillgängligt efter upprepade kontroller. Publicera igen från referensdatorn och kontrollera sedan Delning av konfiguration på sidan Inställningar.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>Delat innehåll synkroniseras fortfarande. Skapande av media är tillgängligt när synkroniseringen är klar.</value>
+    <value>Delat innehåll laddas fortfarande ned. Skapande av media är tillgängligt när nedladdningen är klar.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Den valda USB-enheten är för liten för en cache. Använd en USB-enhet på minst 16 GB, eller välj ”Skapa utan cache” via pilen på ”Skapa USB”.</value>
@@ -4368,6 +4368,15 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Redo att skapa USB media</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Delat innehåll kunde inte installeras</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Delat innehåll är inte tillgängligt</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Väntar på delat innehåll</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Granska medieutdatavarningar</value>

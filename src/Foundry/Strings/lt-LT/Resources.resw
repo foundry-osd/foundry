@@ -3530,7 +3530,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Šis kompiuteris publikuoja savo konfigūraciją</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>Nepavyko atsisiųsti viso sekamo publikavimo bendrinamo turinio. Patikrinkite konfigūracijos bendrinimo kortelę parametruose.</value>
+    <value>Nepavyko atsisiųsti dalies stebimos publikacijos bendrinamo turinio. Patikrinkite „Konfigūracijos bendrinimas“ puslapyje „Parametrai“.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Publikavimas ir sekimas šio seanso metu nepasiekiami, nes nepavyko nuskaityti bendrinimo būsenos. Išsamią informaciją rasite žurnale.</value>
@@ -3653,7 +3653,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Versija</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>Laukiama, kol bus baigtas bendrinamo turinio atsisiuntimas</value>
+    <value>Laukiama, kol bus baigtas bendrinamo turinio atsisiuntimas…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Neteisinga slaptafrazė arba sugadintas failas.</value>
@@ -3788,13 +3788,13 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Reikalingos žiniasklaidos paslaptys neparengtos.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>Dalies bendrinamo turinio nepavyko įdiegti. Laikmenų kūrimas bus galimas, kai sinchronizavimas bus baigtas; patikrinkite bendrinimo būseną parametruose.</value>
+    <value>Dalies bendrinamo turinio nepavyko įdiegti šiame kompiuteryje. Jis gaunamas iš naujo, kai etaloninis kompiuteris publikuoja naują versiją. Patikrinkite „Konfigūracijos bendrinimas“ puslapyje „Parametrai“.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>Dalis bendrinamo turinio vis dar nepasiekiama po pakartotinių patikrų. Laikmenų kūrimas bus galimas, kai sinchronizavimas bus baigtas; patikrinkite bendrinimo būseną parametruose.</value>
+    <value>Dalis bendrinamo turinio po pakartotinių patikrų vis dar nepasiekiama. Publikuokite dar kartą iš etaloninio kompiuterio, tada patikrinkite „Konfigūracijos bendrinimas“ puslapyje „Parametrai“.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>Bendrinamas turinys vis dar sinchronizuojamas. Laikmenų kūrimas bus galimas, kai sinchronizavimas bus baigtas.</value>
+    <value>Bendrinamas turinys vis dar atsisiunčiamas. Laikmenų kūrimas bus galimas, kai atsisiuntimas bus baigtas.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Pasirinktas USB diskas per mažas talpyklai. Naudokite bent 16 GB talpos USB diską arba pasirinkite „Sukurti be talpyklos“ spustelėję „Sukurti USB“ rodyklę.</value>
@@ -4368,6 +4368,15 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Paruošta kurti USB mediją</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Nepavyko įdiegti bendrinamo turinio</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Bendrinamas turinys nepasiekiamas</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Laukiama bendrinamo turinio</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Peržiūrėkite medijos išvesties įspėjimus</value>

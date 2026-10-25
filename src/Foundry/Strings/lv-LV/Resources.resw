@@ -3530,7 +3530,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Šis dators publicē savu konfigurāciju</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>Sekotās publikācijas koplietoto saturu nevarēja pilnībā lejupielādēt. Pārbaudiet konfigurācijas koplietošanas karti iestatījumos.</value>
+    <value>Daļu no sekotās publikācijas koplietotā satura neizdevās lejupielādēt. Pārbaudiet Konfigurācijas koplietošana lapā Iestatījumi.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Publicēšana un sekošana šajā sesijā nav pieejama, jo koplietošanas stāvokli nevarēja nolasīt. Detalizētu informāciju skatiet žurnālā.</value>
@@ -3653,7 +3653,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Versija</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>Tiek gaidīta koplietotā satura lejupielādes pabeigšana</value>
+    <value>Tiek gaidīta koplietotā satura lejupielādes pabeigšana…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Nepareiza ieejas frāze vai bojāts fails.</value>
@@ -3788,13 +3788,13 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Nepieciešamie mediju noslēpumi nav gatavi.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>Daļu koplietotā satura neizdevās instalēt. Datu nesēju izveide būs pieejama, kad sinhronizācija būs pabeigta; pārbaudiet koplietošanas statusu iestatījumos.</value>
+    <value>Daļu koplietotā satura neizdevās instalēt šajā datorā. Tas tiek iegūts vēlreiz, kad atsauces dators publicē jaunu versiju. Pārbaudiet Konfigurācijas koplietošana lapā Iestatījumi.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>Daļa koplietotā satura joprojām nav pieejama pēc atkārtotām pārbaudēm. Datu nesēju izveide būs pieejama, kad sinhronizācija būs pabeigta; pārbaudiet koplietošanas statusu iestatījumos.</value>
+    <value>Daļa koplietotā satura joprojām nav pieejama pēc atkārtotām pārbaudēm. Publicējiet vēlreiz no atsauces datora un pēc tam pārbaudiet Konfigurācijas koplietošana lapā Iestatījumi.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>Koplietotais saturs joprojām tiek sinhronizēts. Datu nesēju izveide būs pieejama, kad sinhronizācija būs pabeigta.</value>
+    <value>Koplietotais saturs joprojām tiek lejupielādēts. Datu nesēju izveide būs pieejama, kad lejupielāde būs pabeigta.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Atlasītais USB disks ir pārāk mazs kešatmiņai. Izmantojiet USB disku, kura ietilpība ir vismaz 16 GB, vai ar pogas “Izveidot USB” bultiņu atlasiet “Izveidot bez kešatmiņas”.</value>
@@ -4368,6 +4368,15 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Gatavs USB multivides izveidei</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Koplietoto saturu neizdevās instalēt</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Koplietotais saturs nav pieejams</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Tiek gaidīts koplietotais saturs</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Pārskatiet multivides izvades brīdinājumus</value>

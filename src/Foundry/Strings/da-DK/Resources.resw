@@ -3530,7 +3530,7 @@ Licenseret under MIT-licensen.</value>
     <value>Denne pc publicerer sin konfiguration</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>Det delte indhold i den fulgte publicering kunne ikke downloades helt. Kontrollér kortet til konfigurationsdeling under Indstillinger.</value>
+    <value>Noget delt indhold i den fulgte publicering kunne ikke downloades. Kontrollér Deling af konfiguration på siden Indstillinger.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Publicering og følgning er ikke tilgængelige i denne session, fordi delingsstatussen ikke kunne læses. Se loggen for at få flere oplysninger.</value>
@@ -3653,7 +3653,7 @@ Licenseret under MIT-licensen.</value>
     <value>Version</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>Venter på, at download af delt indhold fuldføres</value>
+    <value>Venter på, at download af delt indhold fuldføres…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Forkert adgangssætning eller beskadiget fil.</value>
@@ -3788,13 +3788,13 @@ Licenseret under MIT-licensen.</value>
     <value>Nødvendige mediehemmeligheder er ikke klar.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>Noget delt indhold kunne ikke installeres. Oprettelse af medier er tilgængelig, når synkroniseringen er fuldført. Kontrollér delingsstatus under Indstillinger.</value>
+    <value>Noget delt indhold kunne ikke installeres på denne pc. Det hentes igen, når reference-pc'en publicerer en ny version. Kontrollér Deling af konfiguration på siden Indstillinger.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>Noget delt indhold er stadig ikke tilgængeligt efter gentagne kontroller. Oprettelse af medier er tilgængelig, når synkroniseringen er fuldført. Kontrollér delingsstatus under Indstillinger.</value>
+    <value>Noget delt indhold er stadig ikke tilgængeligt efter gentagne kontroller. Publicer igen fra reference-pc'en, og kontrollér derefter Deling af konfiguration på siden Indstillinger.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>Delt indhold synkroniseres stadig. Oprettelse af medier er tilgængelig, når synkroniseringen er fuldført.</value>
+    <value>Delt indhold downloades stadig. Oprettelse af medier er tilgængelig, når downloaden er fuldført.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Det valgte USB-drev er for lille til en cache. Brug et USB-drev på mindst 16 GB, eller vælg ”Opret uden cache” via pilen ved ”Opret USB”.</value>
@@ -4368,6 +4368,15 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Klar til at oprette USB medier</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Delt indhold kunne ikke installeres</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Delt indhold er ikke tilgængeligt</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Venter på delt indhold</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Gennemgå advarsler om medieoutput</value>

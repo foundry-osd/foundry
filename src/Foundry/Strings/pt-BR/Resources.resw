@@ -3530,7 +3530,7 @@ Licenciado sob a licença MIT.</value>
     <value>Este PC publica a configuração dele</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>Não foi possível baixar todo o conteúdo compartilhado da publicação seguida. Verifique o cartão de compartilhamento da configuração em Configurações.</value>
+    <value>Não foi possível baixar parte do conteúdo compartilhado da publicação seguida. Verifique Compartilhamento da configuração na página Configurações.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Publicar e seguir não estão disponíveis durante esta sessão porque não foi possível ler o estado do compartilhamento. Consulte o log para obter detalhes.</value>
@@ -3653,7 +3653,7 @@ Licenciado sob a licença MIT.</value>
     <value>Versão</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>Aguardando a conclusão do download do conteúdo compartilhado</value>
+    <value>Aguardando a conclusão do download do conteúdo compartilhado…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Frase secreta incorreta ou arquivo danificado.</value>
@@ -3788,13 +3788,13 @@ Licenciado sob a licença MIT.</value>
     <value>Os segredos de mídia necessários não estão prontos.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>Não foi possível instalar parte do conteúdo compartilhado. A criação de mídia estará disponível quando a sincronização for concluída; verifique o status do compartilhamento em Configurações.</value>
+    <value>Não foi possível instalar parte do conteúdo compartilhado neste PC. Ele é obtido novamente quando o PC de referência publica uma nova versão. Verifique Compartilhamento da configuração na página Configurações.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>Parte do conteúdo compartilhado ainda não está disponível após verificações repetidas. A criação de mídia estará disponível quando a sincronização for concluída; verifique o status do compartilhamento em Configurações.</value>
+    <value>Parte do conteúdo compartilhado ainda não está disponível após verificações repetidas. Publique novamente a partir do PC de referência e verifique Compartilhamento da configuração na página Configurações.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>O conteúdo compartilhado ainda está sendo sincronizado. A criação de mídia estará disponível quando a sincronização for concluída.</value>
+    <value>O conteúdo compartilhado ainda está sendo baixado. A criação de mídia estará disponível quando o download for concluído.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>A unidade USB selecionada é muito pequena para um cache. Use uma unidade USB de pelo menos 16 GB ou selecione “Criar sem cache” na seta de “Criar USB”.</value>
@@ -4368,6 +4368,15 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Pronto para criar mídia USB</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Não foi possível instalar o conteúdo compartilhado</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>O conteúdo compartilhado não está disponível</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Aguardando o conteúdo compartilhado</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Revise os avisos de saída de mídia</value>

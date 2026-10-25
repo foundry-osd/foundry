@@ -3530,7 +3530,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>See arvuti avaldab oma konfiguratsiooni</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>Jälgitava avaldise ühiskasutuses sisu ei saanud täielikult alla laadida. Kontrollige sätetes konfiguratsiooni ühiskasutuse kaarti.</value>
+    <value>Osa jälgitava avaldise ühiskasutuses sisust ei õnnestunud alla laadida. Kontrollige lehel Sätted jaotist Konfiguratsiooni ühiskasutus.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>Avaldamine ja jälgimine pole selles seansis saadaval, sest ühiskasutuse olekut ei saanud lugeda. Üksikasjad leiate logist.</value>
@@ -3653,7 +3653,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Versioon</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>Ühiskasutuses sisu allalaadimise lõpuleviimise ootamine</value>
+    <value>Ühiskasutuses sisu allalaadimise lõpuleviimise ootamine…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>Vale paroolifraas või kahjustatud fail.</value>
@@ -3788,13 +3788,13 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Nõutavad meediasaladused pole valmis.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>Osa jagatud sisu ei õnnestunud installida. Andmekandja loomine on saadaval, kui sünkroonimine on lõpule viidud; kontrollige ühiskasutuse olekut sätetes.</value>
+    <value>Osa ühiskasutuses sisust ei õnnestunud sellesse arvutisse installida. See tuuakse uuesti, kui võrdlusarvuti avaldab uue versiooni. Kontrollige lehel Sätted jaotist Konfiguratsiooni ühiskasutus.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>Osa jagatud sisu pole ka korduvate kontrollide järel saadaval. Andmekandja loomine on saadaval, kui sünkroonimine on lõpule viidud; kontrollige ühiskasutuse olekut sätetes.</value>
+    <value>Osa ühiskasutuses sisust pole pärast korduvaid kontrolle endiselt saadaval. Avaldage uuesti võrdlusarvutist ja kontrollige seejärel lehel Sätted jaotist Konfiguratsiooni ühiskasutus.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>Jagatud sisu sünkroonitakse veel. Andmekandja loomine on saadaval, kui sünkroonimine on lõpule viidud.</value>
+    <value>Ühiskasutuses sisu laaditakse veel alla. Andmekandja loomine on saadaval, kui allalaadimine on lõpule viidud.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Valitud USB-ketas on vahemälu jaoks liiga väike. Kasutage vähemalt 16 GB mahuga USB-ketast või valige nupu „Loo USB“ noolest „Loo ilma vahemäluta“.</value>
@@ -4368,6 +4368,15 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Valmis USB meedia loomiseks</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Ühiskasutuses sisu ei õnnestunud installida</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Ühiskasutuses sisu pole saadaval</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Ühiskasutuses sisu ootamine</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Vaadake üle meediumiväljundi hoiatused</value>

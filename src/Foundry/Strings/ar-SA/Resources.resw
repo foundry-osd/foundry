@@ -3530,7 +3530,7 @@
     <value>ينشر هذا الكمبيوتر تكوينه</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
-    <value>تعذر تنزيل كل المحتوى المشترك للنشر المتابَع. تحقق من بطاقة مشاركة التكوين في الإعدادات.</value>
+    <value>تعذر تنزيل بعض المحتوى المشترك للنشر المتابَع. تحقق من مشاركة التكوين في صفحة الإعدادات.</value>
   </data>
   <data name="Sharing.SharingUnavailable" xml:space="preserve">
     <value>النشر والمتابعة غير متاحين خلال هذه الجلسة لأنه تعذرت قراءة حالة المشاركة. راجع السجل للحصول على التفاصيل.</value>
@@ -3653,7 +3653,7 @@
     <value>الإصدار</value>
   </data>
   <data name="Sharing.WaitingForContent" xml:space="preserve">
-    <value>في انتظار انتهاء تنزيل المحتوى المشترك</value>
+    <value>في انتظار انتهاء تنزيل المحتوى المشترك…</value>
   </data>
   <data name="Sharing.WrongPassphrase" xml:space="preserve">
     <value>عبارة مرور خاطئة أو ملف تالف.</value>
@@ -3788,13 +3788,13 @@
     <value>أسرار الوسائط المطلوبة ليست جاهزة.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
-    <value>تعذر تثبيت بعض المحتوى المشترك. يتوفر إنشاء الوسائط بعد اكتمال المزامنة؛ تحقق من حالة المشاركة في الإعدادات.</value>
+    <value>تعذر تثبيت بعض المحتوى المشترك على هذا الكمبيوتر. ستتم إعادة جلبه عندما ينشر الكمبيوتر المرجعي إصدارًا جديدًا. تحقق من مشاركة التكوين في صفحة الإعدادات.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
-    <value>لا يزال بعض المحتوى المشترك غير متوفر بعد عمليات تحقق متكررة. يتوفر إنشاء الوسائط بعد اكتمال المزامنة؛ تحقق من حالة المشاركة في الإعدادات.</value>
+    <value>لا يزال جزء من المحتوى المشترك غير متوفر بعد عمليات تحقق متكررة. انشر مرة أخرى من الكمبيوتر المرجعي، ثم تحقق من مشاركة التكوين في صفحة الإعدادات.</value>
   </data>
   <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
-    <value>لا تزال مزامنة المحتوى المشترك جارية. يتوفر إنشاء الوسائط بعد اكتمالها.</value>
+    <value>لا يزال تنزيل المحتوى المشترك جاريًا. يتوفر إنشاء الوسائط بعد اكتمال التنزيل.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>محرك أقراص USB المحدد صغير جدًا لاستيعاب ذاكرة تخزين مؤقت. استخدم محرك أقراص USB بسعة 16 GB على الأقل، أو حدد «إنشاء بدون ذاكرة تخزين مؤقت» من سهم «إنشاء USB».</value>
@@ -4368,6 +4368,15 @@
   </data>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>جاهز لإنشاء وسائط USB</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>تعذر تثبيت المحتوى المشترك</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>المحتوى المشترك غير متوفر</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>في انتظار المحتوى المشترك</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>راجع تحذيرات مخرجات الوسائط</value>
