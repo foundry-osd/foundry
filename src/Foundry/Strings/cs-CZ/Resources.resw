@@ -3616,6 +3616,12 @@ Licencováno pod licencí MIT.</value>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Ukončit publikování?</value>
   </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>Stahování {0}…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>Instalace {0}…</value>
+  </data>
   <data name="Sharing.TakeOverButton" xml:space="preserve">
     <value>Převzít</value>
   </data>

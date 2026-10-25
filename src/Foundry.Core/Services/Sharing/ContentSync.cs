@@ -98,7 +98,10 @@ public sealed class ContentSync
     /// </summary>
     /// <param name="folder">Publication folder.</param>
     /// <param name="manifest">Verified publication payload; its master key decrypts the content.</param>
-    /// <param name="progress">Receives the plaintext bytes handled, against the sum of the listed lengths of the missing content.</param>
+    /// <param name="progress">
+    /// Receives the download (read and decrypt) of each missing item, then its install into each library it is listed for, in bytes
+    /// against the sum of those weights (<see cref="InstallLength"/>), then a final report with an empty name.
+    /// </param>
     /// <param name="ct">Stops between content items and decryption chunks; imported items stay imported.</param>
     /// <exception cref="ArgumentException">The manifest carries no 32-byte master key.</exception>
     /// <exception cref="OperationCanceledException">The fetch was cancelled; the next fetch resumes with the content still missing.</exception>
@@ -113,7 +116,7 @@ public sealed class ContentSync
         }
 
         PackageContent[][] items = Missing(manifest).GroupBy(content => content.Hash, StringComparer.Ordinal).Select(group => group.ToArray()).ToArray();
-        long total = items.Sum(group => Math.Max(group[0].Length, 0));
+        long total = items.Sum(Weight);
         Log.ForContext<ContentSync>().Information("Publication content fetch started. MissingCount={MissingCount}, TotalBytes={TotalBytes}",
             items.Sum(group => group.Length), total);
         Tally tally = new();
@@ -168,11 +171,10 @@ public sealed class ContentSync
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 PackageContent first = group[0];
-                long length = Math.Max(first.Length, 0);
                 progress?.Report(new(done, total, first.Name));
-                IProgress<long>? bytes = progress is null ? null : new ByteProgress(progress, done, length, total, first.Name);
-                await FetchItemAsync(folder, manifest, group, temporary.Path, bytes, tally, cancellationToken).ConfigureAwait(false);
-                done = Math.Min(total, done + length);
+                await FetchItemAsync(folder, manifest, group, temporary.Path, progress, done, total, tally, cancellationToken).ConfigureAwait(false);
+                // A failed or unavailable item still counts as handled, so progress never goes back.
+                done = Math.Min(total, done + Weight(group));
                 int step = total == 0 ? ProgressLogSteps : (int)(done * ProgressLogSteps / total);
                 if (step > loggedStep)
                 {
@@ -197,9 +199,12 @@ public sealed class ContentSync
         }
     }
 
-    /// <summary>Decrypts one content file and imports it into the library of every kind it is listed under.</summary>
+    /// <summary>
+    /// Decrypts one content file and imports it into the library of every kind it is listed under, reporting both steps from
+    /// <paramref name="offset"/>.
+    /// </summary>
     private async Task FetchItemAsync(string folder, ConfigurationPackagePayload manifest, PackageContent[] group, string temporaryDirectory,
-        IProgress<long>? progress, Tally tally, CancellationToken cancellationToken)
+        IProgress<ContentProgress>? progress, long offset, long total, Tally tally, CancellationToken cancellationToken)
     {
         string hash = group[0].Hash;
         if (!ContentTransfer.IsContentHash(hash))
@@ -237,7 +242,10 @@ public sealed class ContentSync
             byte[] key = ContentTransfer.DeriveContentKey(manifest.MasterKey!, hash);
             try
             {
-                plaintextHash = await ContentTransfer.DecryptAsync(source, plaintext, key, progress, cancellationToken)
+                IProgress<long>? downloaded = progress is null
+                    ? null
+                    : new ByteProgress(progress, offset, Math.Max(group[0].Length, 0), total, group[0].Name, ContentProgressStep.Transferring);
+                plaintextHash = await ContentTransfer.DecryptAsync(source, plaintext, key, downloaded, cancellationToken)
                     .ConfigureAwait(false);
             }
             catch (Exception exception) when (exception is InvalidDataException or IOException or UnauthorizedAccessException)
@@ -252,10 +260,20 @@ public sealed class ContentSync
                 CryptographicOperations.ZeroMemory(key);
             }
 
+            long installed = offset + Math.Max(group[0].Length, 0);
             foreach (PackageContent content in group)
             {
                 plaintext.Position = 0;
-                await ImportItemAsync(content, manifest.Configuration, plaintext, plaintextHash, tally, cancellationToken).ConfigureAwait(false);
+                long length = InstallLength(content);
+                IProgress<long>? installing = null;
+                if (progress is not null && length > 0)
+                {
+                    progress.Report(new(installed, total, content.Name, ContentProgressStep.Installing));
+                    installing = new ByteProgress(progress, installed, length, total, content.Name, ContentProgressStep.Installing);
+                }
+
+                await ImportItemAsync(content, manifest.Configuration, plaintext, plaintextHash, installing, tally, cancellationToken).ConfigureAwait(false);
+                installed += length;
             }
         }
     }
@@ -266,11 +284,11 @@ public sealed class ContentSync
     /// downloaded again at every check. Only cancellation escapes.
     /// </summary>
     private async Task ImportItemAsync(PackageContent content, FoundryConfigurationDocument configuration, FileStream plaintext, string plaintextHash,
-        Tally tally, CancellationToken cancellationToken)
+        IProgress<long>? progress, Tally tally, CancellationToken cancellationToken)
     {
         try
         {
-            await ImportAsync(content, configuration, plaintext, plaintextHash, cancellationToken).ConfigureAwait(false);
+            await ImportAsync(content, configuration, plaintext, plaintextHash, progress, cancellationToken).ConfigureAwait(false);
             if (IsPresent(content, configuration))
             {
                 tally.Fetched++;
@@ -305,7 +323,7 @@ public sealed class ContentSync
     /// <summary>Imports one decrypted item; every check that can reject it runs before the library is changed.</summary>
     /// <exception cref="InvalidDataException">The plaintext does not match the listed hash or breaks the library rules.</exception>
     private async Task ImportAsync(PackageContent content, FoundryConfigurationDocument configuration, FileStream plaintext, string plaintextHash,
-        CancellationToken cancellationToken)
+        IProgress<long>? progress, CancellationToken cancellationToken)
     {
         switch (content.Kind)
         {
@@ -324,13 +342,13 @@ public sealed class ContentSync
 
                 break;
             case SharedContentKind.Package:
-                await ContentPackageArchive.ImportAsync(packages, plaintext, content.Hash, temporaryRoot, cancellationToken).ConfigureAwait(false);
+                await ContentPackageArchive.ImportAsync(packages, plaintext, content.Hash, temporaryRoot, cancellationToken, progress).ConfigureAwait(false);
                 break;
             case SharedContentKind.DriverSet:
-                await ContentPackageArchive.ImportAsync(driverSets.Library, plaintext, content.Hash, temporaryRoot, cancellationToken).ConfigureAwait(false);
+                await ContentPackageArchive.ImportAsync(driverSets.Library, plaintext, content.Hash, temporaryRoot, cancellationToken, progress).ConfigureAwait(false);
                 break;
             case SharedContentKind.Image:
-                await ImportImageAsync(content, configuration, plaintext, cancellationToken).ConfigureAwait(false);
+                await ImportImageAsync(content, configuration, plaintext, progress, cancellationToken).ConfigureAwait(false);
                 break;
             default:
                 throw new InvalidDataException("ContentSync.UnsupportedContentKind");
@@ -342,7 +360,7 @@ public sealed class ContentSync
     /// reference (whose id and display name become the library entry's) must have the same length; the library then checks the WIM.
     /// </summary>
     private async Task ImportImageAsync(PackageContent content, FoundryConfigurationDocument configuration, FileStream plaintext,
-        CancellationToken cancellationToken)
+        IProgress<long>? progress, CancellationToken cancellationToken)
     {
         CustomImageReference record = await LocalContentSource.ReadImageRecordAsync(plaintext, cancellationToken).ConfigureAwait(false);
         long wimLength = plaintext.Length - plaintext.Position;
@@ -353,7 +371,7 @@ public sealed class ContentSync
             throw new InvalidDataException("ContentSync.ContentMismatch");
         }
 
-        await images.ImportFromPublicationAsync(plaintext, reference, cancellationToken).ConfigureAwait(false);
+        await images.ImportFromPublicationAsync(plaintext, reference, cancellationToken, progress).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -403,9 +421,24 @@ public sealed class ContentSync
         public List<PackageContent> NotYetAvailable { get; } = [];
     }
 
-    /// <summary>Maps the decrypted byte count of one item, capped at its listed length, onto the progress of the whole fetch.</summary>
-    private sealed class ByteProgress(IProgress<ContentProgress> target, long offset, long length, long total, string name) : IProgress<long>
+    /// <summary>
+    /// Returns the bytes the install of <paramref name="content"/> handles: the checked extraction and the library import of a package
+    /// or driver set (twice its length), the copy and hash of an image (its length), nothing for a file, which is small and read in memory.
+    /// </summary>
+    internal static long InstallLength(PackageContent content) => content.Kind switch
     {
-        public void Report(long value) => target.Report(new(Math.Min(total, offset + Math.Min(value, length)), total, name));
+        SharedContentKind.Package or SharedContentKind.DriverSet => 2 * Math.Max(content.Length, 0),
+        SharedContentKind.Image => Math.Max(content.Length, 0),
+        _ => 0
+    };
+
+    /// <summary>Returns the progress weight of one content file: its download plus its install into every library it is listed for.</summary>
+    private static long Weight(PackageContent[] group) => Math.Max(group[0].Length, 0) + group.Sum(InstallLength);
+
+    /// <summary>Maps the byte count of one step of one item, capped at the weight of that step, onto the progress of the whole fetch.</summary>
+    private sealed class ByteProgress(IProgress<ContentProgress> target, long offset, long length, long total, string name, ContentProgressStep step)
+        : IProgress<long>
+    {
+        public void Report(long value) => target.Report(new(Math.Min(total, offset + Math.Clamp(value, 0, length)), total, name, step));
     }
 }

@@ -128,13 +128,17 @@ public enum ContentProgressStep
 
     /// <summary>A publish verifies a package or driver set and writes its archive before sending it.</summary>
     Preparing = 3,
+
+    /// <summary>A fetch imports a downloaded item into its library (archive extraction and checks, image copy and hash).</summary>
+    Installing = 4,
 }
 
 /// <summary>Progress of the content copy of a publish (<see cref="PublicationWriter"/>) or a fetch (<see cref="ContentSync"/>).</summary>
 /// <param name="Done">Bytes handled so far, including content already present in the folder; it never decreases during one run.</param>
 /// <param name="Total">
 /// Sum over distinct content hashes of the listed length, plus, for a publish, the preparation length
-/// (<see cref="IContentSource.PreparationLength"/>) of each item that is not in the folder yet; <paramref name="Done"/> never exceeds it.
+/// (<see cref="IContentSource.PreparationLength"/>) of each item that is not in the folder yet, and for a fetch the install length of
+/// each library the item goes to; <paramref name="Done"/> never exceeds it.
 /// </param>
 /// <param name="CurrentName">Display name of the content being handled, empty while the folder is checked and in the final report.</param>
 /// <param name="Step">The step being reported.</param>

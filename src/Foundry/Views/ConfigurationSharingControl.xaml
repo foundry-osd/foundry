@@ -80,12 +80,28 @@
                         <StackPanel
                             Spacing="{ThemeResource FoundrySpace4}"
                             Visibility="{x:Bind ViewModel.IsProgressVisible, Mode=OneWay}">
-                            <ProgressBar Value="{x:Bind ViewModel.ProgressValue, Mode=OneWay}" />
-                            <TextBlock
-                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                Style="{ThemeResource FoundryCaptionTextBlockStyle}"
-                                Text="{x:Bind ViewModel.ProgressText, Mode=OneWay}"
-                                TextTrimming="CharacterEllipsis" />
+                            <Grid ColumnSpacing="{ThemeResource FoundryContentGroupSpacing}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                    Text="{x:Bind ViewModel.ProgressText, Mode=OneWay}"
+                                    TextTrimming="CharacterEllipsis"
+                                    ToolTipService.ToolTip="{x:Bind ViewModel.ProgressText, Mode=OneWay}" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    AutomationProperties.AccessibilityView="Raw"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                                    Text="{x:Bind ViewModel.ProgressPercentText, Mode=OneWay}" />
+                            </Grid>
+                            <ProgressBar
+                                Maximum="100"
+                                Minimum="0"
+                                Value="{x:Bind ViewModel.ProgressValue, Mode=OneWay}" />
                         </StackPanel>
                         <InfoBar
                             IsClosable="False"

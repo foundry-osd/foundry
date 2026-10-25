@@ -3616,6 +3616,12 @@ Licencirano pod licenco MIT.</value>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Želite ustaviti objavljanje?</value>
   </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>Prenašanje elementa {0}…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>Nameščanje elementa {0}…</value>
+  </data>
   <data name="Sharing.TakeOverButton" xml:space="preserve">
     <value>Prevzemi</value>
   </data>

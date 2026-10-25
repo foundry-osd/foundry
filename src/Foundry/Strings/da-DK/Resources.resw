@@ -3616,6 +3616,12 @@ Licenseret under MIT-licensen.</value>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Stop publicering?</value>
   </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>Henter {0}…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>Installerer {0}…</value>
+  </data>
   <data name="Sharing.TakeOverButton" xml:space="preserve">
     <value>Overtag</value>
   </data>

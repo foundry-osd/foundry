@@ -58,9 +58,39 @@ public sealed class ContentSyncTests : IDisposable
         Assert.Equal("<profile />"u8.ToArray(), follower.Files.ReadVerified(file));
         Assert.True(follower.Packages.IsAvailable(package));
         Assert.Empty(sync.Missing(manifest));
-        Assert.Equal(new ContentProgress(file.Length + package.Length, file.Length + package.Length, string.Empty), reports[^1]);
+        // A package weighs its download plus its install (archive extraction, then the library import).
+        long total = file.Length + (3 * package.Length);
+        Assert.Equal(new ContentProgress(total, total, string.Empty), reports[^1]);
         Assert.All(reports, report => Assert.InRange(report.Done, 0, report.Total));
         Assert.All(Directory.EnumerateFiles(SyncTemporaryRoot, "*", SearchOption.AllDirectories), path => Assert.Equal(".cleanup-lock", Path.GetFileName(path)));
+    }
+
+    [Fact]
+    public async Task Fetch_ImageAndDriverSet_ReportsDownloadThenInstallInOrderAndCompletesOnlyAtTheEnd()
+    {
+        CustomImageReference image = await ImportImageAsync();
+        ContentPackageReference set = await ImportPackageAsync(reference.DriverSets.Library, ("net/e1000.inf", "[Version]"), ("net/e1000.sys", "driver"));
+        ConfigurationPackagePayload manifest = await PublishAsync(WithImage(image) with { CustomDrivers = WithDriverSet(set).CustomDrivers });
+        ContentSync sync = follower.Sync(SyncTemporaryRoot);
+        List<ContentProgress> reports = [];
+
+        ContentSyncResult result = await sync.FetchAsync(Folder, manifest, new SynchronousProgress(reports.Add), Cancellation);
+
+        Assert.Equal(2, result.Fetched);
+        long total = (2 * image.Length) + (3 * set.Length);
+        Assert.All(reports, report => Assert.Equal(total, report.Total));
+        Assert.Equal(reports.Select(report => report.Done).Order(), reports.Select(report => report.Done));
+        double[] percents = reports.Select(SyncProgress.Percent).ToArray();
+        Assert.Equal(percents.Order(), percents);
+        Assert.All(percents[..^1], percent => Assert.True(percent < 100));
+        Assert.Equal(100, percents[^1]);
+        Assert.Equal(new ContentProgress(total, total, string.Empty), reports[^1]);
+        foreach (string name in new[] { image.DisplayName, manifest.Contents.Single(content => content.Kind == SharedContentKind.DriverSet).Name })
+        {
+            Assert.Equal(
+                [ContentProgressStep.Transferring, ContentProgressStep.Installing],
+                reports.Where(report => report.CurrentName == name).Select(report => report.Step).Distinct());
+        }
     }
 
     [Fact]
@@ -256,8 +286,8 @@ public sealed class ContentSyncTests : IDisposable
         Assert.Empty(result.NotYetAvailable);
         Assert.True(follower.Packages.IsAvailable(package));
         Assert.True(follower.DriverSets.IsAvailable(set));
-        // One content item was handled: the total counts the shared hash once, and one item started.
-        Assert.All(reports, report => Assert.Equal(set.Length, report.Total));
+        // One content item was downloaded once and installed into both libraries: the total counts one download and two installs.
+        Assert.All(reports, report => Assert.Equal(5 * set.Length, report.Total));
         Assert.Single(reports, report => report.Done == 0 && report.CurrentName.Length > 0);
     }
 

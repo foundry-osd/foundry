@@ -3616,6 +3616,12 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Vai pārtraukt publicēšanu?</value>
   </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>Notiek vienuma {0} lejupielāde…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>Notiek vienuma {0} instalēšana…</value>
+  </data>
   <data name="Sharing.TakeOverButton" xml:space="preserve">
     <value>Pārņemt</value>
   </data>

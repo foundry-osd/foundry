@@ -3616,6 +3616,12 @@ Licenc az MIT licenc alatt.</value>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Leállítja a közzétételt?</value>
   </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>{0} letöltése…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>{0} telepítése…</value>
+  </data>
   <data name="Sharing.TakeOverButton" xml:space="preserve">
     <value>Átvétel</value>
   </data>

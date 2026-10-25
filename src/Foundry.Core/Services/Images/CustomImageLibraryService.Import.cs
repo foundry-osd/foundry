@@ -103,9 +103,10 @@ public sealed partial class CustomImageLibraryService
     /// <param name="wim">Image bytes; read to the end, left open.</param>
     /// <param name="reference">Published reference of the image (its id and display name become the library entry's).</param>
     /// <param name="ct">Stops between copy chunks; pending content is removed.</param>
+    /// <param name="progress">Receives the cumulative bytes of the WIM copied and hashed into the library, up to its length.</param>
     /// <exception cref="InvalidDataException">The reference is invalid, or the image does not match its length, hash or indexes.</exception>
     /// <exception cref="IOException">The library volume has not enough free space, or the library cannot be written.</exception>
-    public async Task ImportFromPublicationAsync(Stream wim, CustomImageReference reference, CancellationToken ct)
+    public async Task ImportFromPublicationAsync(Stream wim, CustomImageReference reference, CancellationToken ct, IProgress<long>? progress = null)
     {
         ArgumentNullException.ThrowIfNull(wim);
         ArgumentNullException.ThrowIfNull(reference);
@@ -117,7 +118,7 @@ public sealed partial class CustomImageLibraryService
         try
         {
             string stagedWim = Path.Combine(pending, "image.wim");
-            string imageHash = await CopyExactAsync(wim, stagedWim, reference.Length, ct).ConfigureAwait(false);
+            string imageHash = await CopyExactAsync(wim, stagedWim, reference.Length, progress, ct).ConfigureAwait(false);
             if (!imageHash.Equals(reference.ContentHash, StringComparison.OrdinalIgnoreCase))
                 throw new InvalidDataException("The published image does not match its reference.");
             IReadOnlyList<CustomImageIndex> indexes;
@@ -257,7 +258,8 @@ public sealed partial class CustomImageLibraryService
 
     /// <summary>Copies exactly <paramref name="length"/> bytes from the rest of <paramref name="input"/> and returns their lowercase SHA-256.</summary>
     /// <exception cref="InvalidDataException">The input holds fewer or more bytes than <paramref name="length"/>.</exception>
-    private static async Task<string> CopyExactAsync(Stream input, string destination, long length, CancellationToken cancellationToken)
+    private static async Task<string> CopyExactAsync(Stream input, string destination, long length, IProgress<long>? progress,
+        CancellationToken cancellationToken)
     {
         long available = new DriveInfo(Path.GetPathRoot(Path.GetFullPath(destination))!).AvailableFreeSpace;
         if (length > available) throw new IOException("There is insufficient space to import the image source.");
@@ -273,6 +275,7 @@ public sealed partial class CustomImageLibraryService
             if (copied > length) throw new InvalidDataException("The published image does not match its reference.");
             sha256.AppendData(buffer, 0, count);
             await output.WriteAsync(buffer.AsMemory(0, count), cancellationToken).ConfigureAwait(false);
+            progress?.Report(copied);
         }
         if (copied != length) throw new InvalidDataException("The published image does not match its reference.");
         await output.FlushAsync(cancellationToken).ConfigureAwait(false);

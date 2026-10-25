@@ -3616,6 +3616,12 @@ Licențiat sub licența MIT.</value>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Opriți publicarea?</value>
   </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>Se descarcă {0}…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>Se instalează {0}…</value>
+  </data>
   <data name="Sharing.TakeOverButton" xml:space="preserve">
     <value>Preluare</value>
   </data>

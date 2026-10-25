@@ -3616,6 +3616,12 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>発行を停止しますか?</value>
   </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>{0} をダウンロードしています…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>{0} をインストールしています…</value>
+  </data>
   <data name="Sharing.TakeOverButton" xml:space="preserve">
     <value>引き継ぐ</value>
   </data>

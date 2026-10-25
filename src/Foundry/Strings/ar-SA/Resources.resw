@@ -3616,6 +3616,12 @@
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>هل تريد إيقاف النشر؟</value>
   </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>جارٍ تنزيل {0}…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>جارٍ تثبيت {0}…</value>
+  </data>
   <data name="Sharing.TakeOverButton" xml:space="preserve">
     <value>تولٍّ</value>
   </data>

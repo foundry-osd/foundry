@@ -3616,6 +3616,12 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>게시를 중지하시겠습니까?</value>
   </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>{0} 다운로드 중…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>{0} 설치 중…</value>
+  </data>
   <data name="Sharing.TakeOverButton" xml:space="preserve">
     <value>인계</value>
   </data>

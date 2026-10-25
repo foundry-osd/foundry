@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Globalization;
 using Foundry.Core.Services.Sharing;
 using Foundry.Services.Localization;
 using Foundry.Services.Sharing;
@@ -23,28 +22,13 @@ public sealed partial class PublishProgressIndicator(ConfigurationSharingService
     public double Percent => isRunning ? PublishProgress.Percent(Current) : 0;
 
     /// <summary>Gets <see cref="Percent"/> formatted for the current UI culture; empty while <see cref="IsIndeterminate"/>.</summary>
-    public string PercentText => IsIndeterminate ? string.Empty : (Percent / 100).ToString("P0", CultureInfo.CurrentUICulture);
+    public string PercentText => IsIndeterminate ? string.Empty : SharingProgressText.Percent(Percent);
 
     /// <summary>Gets whether the bar has no percentage yet: the folder is still being checked.</summary>
     public bool IsIndeterminate => isRunning && PublishProgress.Stage(Current) == PublishStage.CheckingFolder;
 
     /// <summary>Gets the localized stage of the running publish, with the item it handles.</summary>
-    public string StageText
-    {
-        get
-        {
-            if (!isRunning) return string.Empty;
-            ContentProgress? current = Current;
-            return PublishProgress.Stage(current) switch
-            {
-                PublishStage.Verifying => localization.FormatString("Sharing.PublishStepVerifying", current!.CurrentName),
-                PublishStage.Preparing => localization.FormatString("Sharing.PublishStepPreparing", current!.CurrentName),
-                PublishStage.Sending => localization.FormatString("Sharing.PublishStepSending", current!.CurrentName),
-                PublishStage.Finishing => localization.GetString("Sharing.PublishStepFinishing"),
-                _ => localization.GetString("Sharing.PublishStepCheckingFolder")
-            };
-        }
-    }
+    public string StageText => isRunning ? SharingProgressText.Publish(Current, localization) : string.Empty;
 
     /// <summary>Gets the last report of the running publish; the last report of an earlier publish or fetch counts as none.</summary>
     private ContentProgress? Current => ReferenceEquals(sharing.Progress, previousRun) ? null : sharing.Progress;

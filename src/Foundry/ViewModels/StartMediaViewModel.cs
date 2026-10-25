@@ -13,6 +13,7 @@ using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Drivers;
 using Foundry.Core.Services.Images;
 using Foundry.Core.Services.Packages;
+using Foundry.Core.Services.Sharing;
 using Foundry.Core.Services.Media;
 using Foundry.Core.Services.Telemetry;
 using Foundry.Core.Services.WinPe;
@@ -1799,8 +1800,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private void ReportSharedContentProgress()
     {
-        int? percent = sharingService.Progress is { Total: > 0 } progress ? (int)(100 * progress.Done / progress.Total) : null;
-        ReportDetail(localizationService.GetString("Sharing.WaitingForContent"), percent);
+        // The step names the item being downloaded or installed; before the first report the build only says it waits.
+        ContentProgress? progress = sharingService.Progress is { Total: > 0 } current && SyncProgress.Stage(current) != SyncStage.Complete ? current : null;
+        string step = SharingProgressText.Sync(progress, localizationService);
+        ReportDetail(step.Length > 0 ? step : localizationService.GetString("Sharing.WaitingForContent"),
+            progress is null ? null : (int)SyncProgress.Percent(progress));
     }
 
     /// <summary>

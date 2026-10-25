@@ -3616,6 +3616,12 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Stabdyti publikavimą?</value>
   </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>Atsisiunčiamas elementas {0}…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>Diegiamas elementas {0}…</value>
+  </data>
   <data name="Sharing.TakeOverButton" xml:space="preserve">
     <value>Perimti</value>
   </data>

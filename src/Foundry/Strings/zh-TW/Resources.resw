@@ -3616,6 +3616,12 @@
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>要停止發佈嗎？</value>
   </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>正在下載 {0}…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>正在安裝 {0}…</value>
+  </data>
   <data name="Sharing.TakeOverButton" xml:space="preserve">
     <value>接管</value>
   </data>

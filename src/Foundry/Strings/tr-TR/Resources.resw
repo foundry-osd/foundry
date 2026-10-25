@@ -3616,6 +3616,12 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Yayımlama durdurulsun mu?</value>
   </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>{0} indiriliyor…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>{0} yükleniyor…</value>
+  </data>
   <data name="Sharing.TakeOverButton" xml:space="preserve">
     <value>Devral</value>
   </data>

@@ -89,8 +89,16 @@ public sealed partial class ConfigurationSharingViewModel(
     /// <summary>Gets whether content is copied right now (a publish or a fetch).</summary>
     public bool IsProgressVisible => (Status == SharingStatus.Publishing || Engine?.IsContentFetching == true) && sharing.Progress is { Total: > 0 };
 
-    public double ProgressValue => sharing.Progress is { Total: > 0 } progress ? 100.0 * progress.Done / progress.Total : 0;
-    public string ProgressText => sharing.Progress?.CurrentName ?? string.Empty;
+    /// <summary>Gets the percentage of the publish or fetch; a fetch never reads full while an item is still installed.</summary>
+    public double ProgressValue => IsPublishing ? PublishProgress.Percent(sharing.Progress) : SyncProgress.Percent(sharing.Progress);
+
+    /// <summary>Gets the step with the item it handles, for example "Installing Drivers2…".</summary>
+    public string ProgressText => IsPublishing ? SharingProgressText.Publish(sharing.Progress, localization) : SharingProgressText.Sync(sharing.Progress, localization);
+
+    /// <summary>Gets <see cref="ProgressValue"/> formatted for the current UI culture.</summary>
+    public string ProgressPercentText => SharingProgressText.Percent(ProgressValue);
+
+    private bool IsPublishing => Status == SharingStatus.Publishing;
 
     /// <summary>Gets whether a reset is not complete; shown only while this PC is the reference.</summary>
     public bool IsRevocationPending => IsReference && Engine?.RevocationPending == true;

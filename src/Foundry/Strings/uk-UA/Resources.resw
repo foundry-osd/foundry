@@ -3616,6 +3616,12 @@
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Зупинити публікацію?</value>
   </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>Завантаження {0}…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>Інсталяція {0}…</value>
+  </data>
   <data name="Sharing.TakeOverButton" xml:space="preserve">
     <value>Перехопити</value>
   </data>

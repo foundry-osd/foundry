@@ -118,9 +118,13 @@ public static class ContentPackageArchive
     /// removed by the next import.
     /// </param>
     /// <param name="cancellationToken">Stops between copy chunks; the extraction directory is removed.</param>
+    /// <param name="progress">
+    /// Receives the cumulative bytes handled: the checked extraction of the package files, then their import into the library, so it
+    /// ends at twice the package length.
+    /// </param>
     /// <exception cref="IOException">The extraction root is redirected or its cleanup lock is held by another process.</exception>
     public static async Task<ContentPackageReference> ImportAsync(ContentPackageLibraryService library, Stream archive, string expectedHash,
-        string? temporaryRoot, CancellationToken cancellationToken)
+        string? temporaryRoot, CancellationToken cancellationToken, IProgress<long>? progress = null)
     {
         ArgumentNullException.ThrowIfNull(library);
         ArgumentNullException.ThrowIfNull(archive);
@@ -146,15 +150,18 @@ public static class ContentPackageArchive
 
         // A subdirectory: the leased directory also holds its lease file, which must not become package content.
         string extracted = Path.Combine(lease.Path, "package");
+        long extractedBytes;
         try
         {
             await using (ZipArchive zip = await ZipArchive.CreateAsync(archive, ZipArchiveMode.Read, leaveOpen: true, entryNameEncoding: null, cancellationToken)
                 .ConfigureAwait(false))
             {
-                await ExtractAsync(zip, library.Kind, hash, extracted, cancellationToken).ConfigureAwait(false);
+                extractedBytes = await ExtractAsync(zip, library.Kind, hash, extracted, progress, cancellationToken).ConfigureAwait(false);
             }
 
-            return await ImportExtractedAsync(library, extracted, hash, cancellationToken).ConfigureAwait(false);
+            long offset = extractedBytes;
+            IProgress<ContentPackageImportProgress>? imported = progress is null ? null : new LibraryImportProgress(progress, offset);
+            return await ImportExtractedAsync(library, extracted, hash, cancellationToken, imported).ConfigureAwait(false);
         }
         finally
         {
@@ -168,10 +175,10 @@ public static class ContentPackageArchive
     /// import created is then removed, while an entry that existed before the import is never touched.
     /// </summary>
     internal static async Task<ContentPackageReference> ImportExtractedAsync(ContentPackageLibraryService library, string directory, string expectedHash,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken, IProgress<ContentPackageImportProgress>? progress = null)
     {
         IReadOnlySet<string> existing = library.ListContentHashes();
-        ContentPackageReference reference = await library.ImportAsync(directory, cancellationToken).ConfigureAwait(false);
+        ContentPackageReference reference = await library.ImportAsync(directory, progress, cancellationToken).ConfigureAwait(false);
         if (reference.ContentHash.Equals(expectedHash, StringComparison.Ordinal))
         {
             return reference with { DisplayName = reference.ContentHash };
@@ -219,8 +226,12 @@ public static class ContentPackageArchive
         return await entry.OpenAsync(cancellationToken).ConfigureAwait(false);
     }
 
-    /// <summary>Validates every entry name, then the manifest, then extracts the manifest's directories and files into <paramref name="root"/>.</summary>
-    private static async Task ExtractAsync(ZipArchive zip, ContentPackageKind kind, string hash, string root, CancellationToken cancellationToken)
+    /// <summary>
+    /// Validates every entry name, then the manifest, then extracts the manifest's directories and files into <paramref name="root"/>,
+    /// reporting the cumulative bytes extracted; returns the package length.
+    /// </summary>
+    private static async Task<long> ExtractAsync(ZipArchive zip, ContentPackageKind kind, string hash, string root, IProgress<long>? progress,
+        CancellationToken cancellationToken)
     {
         ContentPackagePathPolicy policy = new(kind);
         if (zip.Entries.Count > kind.MaximumFiles + 1)
@@ -264,10 +275,16 @@ public static class ContentPackageArchive
         }
 
         byte[] buffer = new byte[CopyBufferSize];
+        long extracted = 0;
         foreach (ContentPackageFile file in manifest.Files)
         {
-            await ExtractFileAsync(files[file.RelativePath], file, ExtractionPath(root, file.RelativePath), buffer, cancellationToken).ConfigureAwait(false);
+            long offset = extracted;
+            await ExtractFileAsync(files[file.RelativePath], file, ExtractionPath(root, file.RelativePath), buffer,
+                progress is null ? null : bytes => progress.Report(offset + bytes), cancellationToken).ConfigureAwait(false);
+            extracted += file.Length;
         }
+
+        return extracted;
     }
 
     private static async Task<ContentPackageManifest> ReadManifestAsync(ZipArchiveEntry? entry, string hash, ContentPackageKind kind, CancellationToken cancellationToken)
@@ -287,7 +304,8 @@ public static class ContentPackageArchive
     }
 
     /// <summary>Copies one entry, rejecting it unless its length and SHA-256 match the manifest.</summary>
-    private static async Task ExtractFileAsync(ZipArchiveEntry entry, ContentPackageFile file, string target, byte[] buffer, CancellationToken cancellationToken)
+    private static async Task ExtractFileAsync(ZipArchiveEntry entry, ContentPackageFile file, string target, byte[] buffer, Action<long>? reportBytes,
+        CancellationToken cancellationToken)
     {
         if (entry.Length != file.Length)
         {
@@ -310,6 +328,7 @@ public static class ContentPackageArchive
 
                 sha256.AppendData(buffer, 0, count);
                 await output.WriteAsync(buffer.AsMemory(0, count), cancellationToken).ConfigureAwait(false);
+                reportBytes?.Invoke(copied);
             }
         }
 
@@ -317,5 +336,11 @@ public static class ContentPackageArchive
         {
             throw new InvalidDataException("ContentPackage.InvalidPackageArchive");
         }
+    }
+
+    /// <summary>Maps the copy-and-verify progress of the library import onto the bytes after the extraction.</summary>
+    private sealed class LibraryImportProgress(IProgress<long> target, long offset) : IProgress<ContentPackageImportProgress>
+    {
+        public void Report(ContentPackageImportProgress value) => target.Report(offset + value.CompletedBytes);
     }
 }

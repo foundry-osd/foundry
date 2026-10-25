@@ -3616,6 +3616,12 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Kas lõpetada avaldamine?</value>
   </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>Üksuse {0} allalaadimine…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>Üksuse {0} installimine…</value>
+  </data>
   <data name="Sharing.TakeOverButton" xml:space="preserve">
     <value>Võta üle</value>
   </data>

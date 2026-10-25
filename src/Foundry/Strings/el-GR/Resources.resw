@@ -3616,6 +3616,12 @@
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Διακοπή δημοσίευσης;</value>
   </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>Λήψη του {0}…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>Εγκατάσταση του {0}…</value>
+  </data>
   <data name="Sharing.TakeOverButton" xml:space="preserve">
     <value>Ανάληψη</value>
   </data>

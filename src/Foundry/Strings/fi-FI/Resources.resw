@@ -3616,6 +3616,12 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Lopetetaanko julkaiseminen?</value>
   </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>Ladataan kohdetta {0}…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>Asennetaan kohdetta {0}…</value>
+  </data>
   <data name="Sharing.TakeOverButton" xml:space="preserve">
     <value>Ota haltuun</value>
   </data>
