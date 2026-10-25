@@ -59,28 +59,32 @@
         <StackPanel
             Spacing="{ThemeResource FoundryTextGroupSpacing}"
             Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}">
+            <TextBlock
+                AutomationProperties.LiveSetting="Polite"
+                MaxLines="2"
+                Text="{x:Bind ViewModel.Progress.StageText, Mode=OneWay}"
+                TextTrimming="CharacterEllipsis"
+                TextWrapping="Wrap"
+                ToolTipService.ToolTip="{x:Bind ViewModel.Progress.StageText, Mode=OneWay}" />
             <Grid ColumnSpacing="{ThemeResource FoundryContentGroupSpacing}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock
-                    AutomationProperties.LiveSetting="Polite"
-                    Text="{x:Bind ViewModel.Progress.StageText, Mode=OneWay}"
-                    TextTrimming="CharacterEllipsis"
-                    ToolTipService.ToolTip="{x:Bind ViewModel.Progress.StageText, Mode=OneWay}" />
+                <ProgressBar
+                    VerticalAlignment="Center"
+                    IsIndeterminate="{x:Bind ViewModel.Progress.IsIndeterminate, Mode=OneWay}"
+                    Maximum="100"
+                    Minimum="0"
+                    Value="{x:Bind ViewModel.Progress.Percent, Mode=OneWay}" />
                 <TextBlock
                     Grid.Column="1"
                     MinWidth="40"
+                    VerticalAlignment="Center"
                     AutomationProperties.AccessibilityView="Raw"
                     Text="{x:Bind ViewModel.Progress.PercentText, Mode=OneWay}"
                     TextAlignment="Right" />
             </Grid>
-            <ProgressBar
-                IsIndeterminate="{x:Bind ViewModel.Progress.IsIndeterminate, Mode=OneWay}"
-                Maximum="100"
-                Minimum="0"
-                Value="{x:Bind ViewModel.Progress.Percent, Mode=OneWay}" />
         </StackPanel>
         <InfoBar
             IsClosable="False"
