@@ -3782,7 +3782,10 @@
     <value>必要的媒體機密尚未就緒。</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>所選的 USB 隨身碟容量太小。請使用至少 16 GB 的 USB 隨身碟。</value>
+    <value>所選的 USB 隨身碟容量太小，無法用於快取。請使用至少 16 GB 的 USB 隨身碟，或從「建立 USB」的箭號中選取「不使用快取建立」。</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>所選的 USB 隨身碟容量太小。請使用至少 1 GB 的 USB 隨身碟。</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>所選的 WinPE 鍵盤配置未安裝在此電腦上。</value>
@@ -3810,6 +3813,12 @@
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>建立 ISO</value>
+  </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>無法建立 PXE 檔案</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>建立 PXE 檔案</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>無法建立 USB</value>
@@ -3846,6 +3855,9 @@
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>建立 USB</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>不使用快取建立</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>包含新增至 WinPE 開機映像之 .inf 驅動程式的選用資料夾。</value>
@@ -3890,7 +3902,7 @@
     <value>WinPE 開機語言</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>所有就緒檢查通過後，建立 ISO 或 USB 媒體。</value>
+    <value>所有就緒檢查通過後，建立 ISO、USB 或 PXE 媒體。</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>建立媒體</value>
@@ -3902,7 +3914,7 @@
     <value>所有就緒檢查通過後，即可建立媒體。</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>若要開始，請在下方選擇 ISO 或 USB 輸出。</value>
+    <value>若要開始，請在下方選擇 ISO、USB 或 PXE 輸出。</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>完整格式化</value>
@@ -3967,6 +3979,9 @@
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>正在複製安裝後作業內容…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>正在複製 PXE 開機檔案</value>
+  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>正在將 WinPE 檔案複製到 USB 磁碟機…</value>
   </data>
@@ -3975,6 +3990,9 @@
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>正在建立快取分割區…</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>正在建立 USB 分割區…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>無法從 USB 磁碟機移除未使用的自訂驅動程式集。</value>
@@ -4039,6 +4057,9 @@
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>正在格式化快取分割區…</value>
   </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>正在格式化 USB 分割區…</value>
+  </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>正在建立磁碟分割表…</value>
   </data>
@@ -4087,6 +4108,9 @@
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>建立 ISO 檔案</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>寫入 PXE 檔案</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>自訂開機映像</value>
   </data>
@@ -4120,6 +4144,9 @@
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>正在準備安裝後作業內容…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>正在檢查目的地資料夾</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>正在準備快取分割區…</value>
   </data>
@@ -4137,6 +4164,15 @@
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>正在將 Foundry 元件新增至 USB 磁碟機…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>目的地資料夾的可用空間不足。PXE 開機檔案需要 {0}。目前可用：{1}。請釋放空間或選擇其他資料夾。</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>無法將 PXE 開機檔案寫入目的地資料夾。請檢查資料夾是否可存取，以及您是否具有寫入權限。</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>PXE 開機檔案已儲存至：</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>正在移除暫存檔案…</value>
@@ -4176,6 +4212,18 @@
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>已建立 ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>已取消建立 PXE 檔案</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>PXE 檔案建立失敗</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>正在建立 PXE 檔案</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>已建立 PXE 檔案</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>已取消建立 USB 媒體</value>
@@ -4219,11 +4267,20 @@
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>由於更新期間先前的內容仍會保留在磁碟機上，USB 快取分割區沒有足夠的可用空間來存放更新後的內容。尚未執行任何清除或格式化作業。請重新建立 USB 媒體，而不是更新它。</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>要複製的某個檔案大小為 {0}，而無快取 USB 磁碟機的 FAT32 分割區支援的單一檔案大小上限為 {1}。尚未執行任何清除或格式化作業。請改用「建立 USB」。</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>此 USB 磁碟機可能無法再讓裝置開機。使用前請重新建立或更新。</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>開機磁碟區：{0}。快取磁碟區：{1}。</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>媒體大約需要 {0}，但此無快取 USB 磁碟機只能容納 {1}。尚未執行任何清除或格式化作業。請改用「建立 USB」。</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>USB 磁碟區：{0}。此磁碟機不保留下載內容：每次部署都會從目錄重新下載 Windows 和驅動程式。</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>正在檢查 USB 磁碟機…</value>
@@ -4249,6 +4306,36 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>檢閱就緒狀態，選擇 ISO 或 USB 輸出，然後開始建立媒體。</value>
   </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>建立</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>Foundry OSD 會將 boot.wim、boot.sdi、BCD 和 bootmgr.efi 寫入此資料夾，以進行 UEFI 網路開機。請將它們匯入您的 PXE 伺服器。</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>此資料夾已包含開機映像。其 PXE 開機檔案將被取代。</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>目的地資料夾</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>選取 PXE 目的地資料夾</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>此內容只會複製到 ISO 和 USB 媒體。需要此內容的部署請從 ISO 或 USB 磁碟機啟動。</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>PXE 開機時不提供</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>自訂驅動程式集：{0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>自訂 Windows 映像：{0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>使用匯入檔案的安裝後作業：{0}</value>
+  </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>檢閱{0}</value>
   </data>
@@ -4269,6 +4356,9 @@
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>檢閱媒體輸出警告</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>不使用快取重新建立</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

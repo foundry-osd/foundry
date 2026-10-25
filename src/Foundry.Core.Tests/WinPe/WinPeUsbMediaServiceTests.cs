@@ -253,6 +253,48 @@ public sealed class WinPeUsbMediaServiceTests
     }
 
     [Fact]
+    public async Task ProvisionAndPopulateAsync_WithoutCache_WhenMediaDoesNotFit_FailsBeforeModifyingDisk()
+    {
+        const ulong diskSize = 1_200_000_000UL;
+        string diskIdentity = $$"""
+                              {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsSystem":false,"IsBoot":false,"Size":{{diskSize}}}
+                              """;
+        var runner = new FakeSequenceRunner(diskIdentity, string.Empty);
+        using TempWorkspace workspace = TempWorkspace.Create();
+        // Larger than the partition a 1.2 GB drive can hold once the partition table reserve is taken.
+        using (var payload = new FileStream(Path.Combine(workspace.RootPath, "media", "sources", "payload.bin"), FileMode.CreateNew))
+        {
+            payload.SetLength(1_100_000_000);
+        }
+
+        WinPeResult<WinPeUsbProvisionResult> result = await new WinPeUsbMediaService(runner).ProvisionAndPopulateAsync(
+            new UsbOutputOptions
+            {
+                TargetDiskNumber = 9,
+                ExpectedDiskFriendlyName = "Safe USB",
+                ExpectedDiskSerialNumber = "SERIAL",
+                ExpectedDiskUniqueId = "UNIQUE",
+                ExpectedDiskBusType = "USB",
+                ExpectedDiskSizeBytes = diskSize,
+                Layout = UsbMediaLayout.WithoutCache
+            },
+            new WinPeBuildArtifact
+            {
+                WorkingDirectoryPath = workspace.RootPath,
+                MediaDirectoryPath = Path.Combine(workspace.RootPath, "media"),
+                Architecture = WinPeArchitecture.X64
+            },
+            new WinPeToolPaths { PowerShellPath = "pwsh.exe" },
+            useBootEx: false,
+            CancellationToken.None);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.UsbBootCapacityInsufficient, result.Error?.Code);
+        // Only the read-only identity query ran: no partitioning or copy was started.
+        Assert.Single(runner.Executions);
+    }
+
+    [Fact]
     public void VerifyBootArtifacts_WhenBootWimIsMissing_ReturnsVerificationFailed()
     {
         using TempWorkspace workspace = TempWorkspace.Create();
@@ -311,6 +353,67 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Contains("NewFileSystemLabel = 'Foundry Cache'", script, StringComparison.Ordinal);
         Assert.DoesNotContain("-IsActive $true", script, StringComparison.Ordinal);
         Assert.Contains("$fullFormat = $false", script, StringComparison.Ordinal);
+    }
+
+    [Theory]
+    [InlineData(UsbPartitionStyle.Gpt)]
+    [InlineData(UsbPartitionStyle.Mbr)]
+    public void BuildPowerShellProvisioningScript_WithoutCache_CreatesOneLabelledFat32PartitionBelow32Gib(UsbPartitionStyle partitionStyle)
+    {
+        string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(
+            expectedIdentity: ConfirmedIdentity(7),
+            partitionStyle: partitionStyle,
+            formatMode: UsbFormatMode.Quick,
+            layout: UsbMediaLayout.WithoutCache);
+
+        Assert.Contains("$withoutCache = $true", script, StringComparison.Ordinal);
+        Assert.Contains("Size = 33554432000", script, StringComparison.Ordinal);
+        Assert.Contains("AllocationUnitSize = 16384", script, StringComparison.Ordinal);
+        Assert.Contains("NewFileSystemLabel = 'FOUNDRY'", script, StringComparison.Ordinal);
+        Assert.Contains("$mediaPartitionArguments['GptType'] = '{ebd0a0a2-b9e5-4433-87c0-68b6b72699c7}'", script, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("$mediaPartitionArguments['IsActive'] = $true", script, StringComparison.Ordinal);
+        Assert.Contains("-lt 1073741824", script, StringComparison.Ordinal);
+        Assert.DoesNotContain("{{", script, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void BuildPowerShellProvisioningScript_WithCache_KeepsTheTwoPartitionLayoutAndItsMinimumSize()
+    {
+        string script = WinPeUsbMediaService.BuildPowerShellProvisioningScript(
+            expectedIdentity: ConfirmedIdentity(7),
+            partitionStyle: UsbPartitionStyle.Gpt,
+            formatMode: UsbFormatMode.Quick);
+
+        Assert.Contains("$withoutCache = $false", script, StringComparison.Ordinal);
+        Assert.Contains("-lt 14000000000", script, StringComparison.Ordinal);
+        Assert.DoesNotContain("{{", script, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void ValidateDiskSafety_WithoutCache_AcceptsADriveBelowTheCacheMinimum()
+    {
+        WinPeResult result = WinPeUsbMediaService.ValidateDiskSafety(
+            new UsbOutputOptions
+            {
+                TargetDiskNumber = 3,
+                ExpectedDiskUniqueId = "USB-ID",
+                ExpectedDiskSerialNumber = "USB123",
+                ExpectedDiskFriendlyName = "Small USB",
+                ExpectedDiskBusType = "USB",
+                ExpectedDiskSizeBytes = 8_000_000_000UL,
+                Layout = UsbMediaLayout.WithoutCache
+            },
+            new WinPeUsbDiskIdentity
+            {
+                Number = 3,
+                UniqueId = "USB-ID",
+                SerialNumber = "USB123",
+                FriendlyName = "Small USB",
+                BusType = "USB",
+                Size = 8_000_000_000UL
+            });
+
+        Assert.True(result.IsSuccess, result.Error?.Message);
     }
 
     [Fact]

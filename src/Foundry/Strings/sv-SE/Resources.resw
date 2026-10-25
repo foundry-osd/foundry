@@ -3782,7 +3782,10 @@ Licensierad under MIT-licensen.</value>
     <value>Nödvändiga mediehemligheter är inte klara.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Den valda USB-enheten är för liten. Använd en USB-enhet på minst 16 GB.</value>
+    <value>Den valda USB-enheten är för liten för en cache. Använd en USB-enhet på minst 16 GB, eller välj ”Skapa utan cache” via pilen på ”Skapa USB”.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Den valda USB-enheten är för liten. Använd en USB-enhet på minst 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Den valda tangentbordslayouten för WinPE är inte installerad på den här datorn.</value>
@@ -3810,6 +3813,12 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Skapa ISO</value>
+  </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>Skapandet av PXE-filer är blockerat</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>Skapa PXE-filer</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>Skapandet av USB är blockerat</value>
@@ -3846,6 +3855,9 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Skapa USB</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Skapa utan cache</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Valfri mapp med .inf-drivrutiner som läggs till i WinPE-startavbildningen.</value>
@@ -3890,7 +3902,7 @@ Licensierad under MIT-licensen.</value>
     <value>WinPE startspråk</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Skapa ISO eller USB media efter att alla beredskapskontroller har passerat.</value>
+    <value>Skapa ISO, USB eller PXE media efter att alla beredskapskontroller har passerat.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>Skapa media</value>
@@ -3902,7 +3914,7 @@ Licensierad under MIT-licensen.</value>
     <value>Medieskapande är tillgängligt när alla beredskapskontroller passerar.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Välj ISO- eller USB-utdata nedan för att komma igång.</value>
+    <value>Välj ISO-, USB- eller PXE-utdata nedan för att komma igång.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Fullständig formatering</value>
@@ -3967,6 +3979,9 @@ Licensierad under MIT-licensen.</value>
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>Kopierar innehåll för efterinstallation…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>Kopierar PXE-startfilerna</value>
+  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Kopierar WinPE-filer till USB-enheten…</value>
   </data>
@@ -3975,6 +3990,9 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Skapar cachepartitionen…</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Skapar USB-partitionen…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Oanvända anpassade drivrutinsuppsättningar kunde inte tas bort från USB-enheten.</value>
@@ -4039,6 +4057,9 @@ Licensierad under MIT-licensen.</value>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Formaterar cachepartitionen…</value>
   </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Formaterar USB-partitionen…</value>
+  </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Skapar partitionstabellen…</value>
   </data>
@@ -4087,6 +4108,9 @@ Licensierad under MIT-licensen.</value>
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>Skapar ISO-filen</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>Skriver PXE-filerna</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>Anpassar startavbildningen</value>
   </data>
@@ -4120,6 +4144,9 @@ Licensierad under MIT-licensen.</value>
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>Förbereder innehåll för efterinstallation…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>Kontrollerar målmappen</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>Förbereder cachepartitionen…</value>
   </data>
@@ -4137,6 +4164,15 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Lägger till Foundry-komponenter på USB-enheten…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>Det finns inte tillräckligt med ledigt utrymme i målmappen. PXE-startfilerna kräver {0}. Tillgängligt: {1}. Frigör utrymme eller välj en annan mapp.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>PXE-startfilerna kunde inte skrivas till målmappen. Kontrollera att mappen kan nås och att du kan skriva till den.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>PXE-startfilerna sparades i:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>Tar bort tillfälliga filer…</value>
@@ -4176,6 +4212,18 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO har skapats</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>Skapandet av PXE-filer avbröts</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>Det gick inte att skapa PXE-filer</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>Skapar PXE-filer</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>PXE-filer har skapats</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>Skapandet av USB-mediet avbröts</value>
@@ -4219,11 +4267,20 @@ Licensierad under MIT-licensen.</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>USB-cachepartitionen har inte tillräckligt med ledigt utrymme för det uppdaterade innehållet, eftersom det tidigare innehållet finns kvar på enheten under uppdateringen. Inget har raderats eller formaterats. Skapa USB-mediet igen i stället för att uppdatera det.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>En fil som ska kopieras är {0}; FAT32-partitionen på en USB-enhet utan cache stöder högst {1} per fil. Inget har raderats eller formaterats. Använd ”Skapa USB” i stället.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>USB-enheten kanske inte längre kan starta en dator. Skapa eller uppdatera den igen innan du använder den.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Startvolym: {0}. Cachevolym: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Mediet behöver cirka {0}, men den här USB-enheten utan cache rymmer {1}. Inget har raderats eller formaterats. Använd ”Skapa USB” i stället.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>USB-volym: {0}. Enheten sparar inga nedladdningar: varje distribution laddar ned Windows och drivrutiner från katalogen igen.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Kontrollerar USB-enheten…</value>
@@ -4249,6 +4306,36 @@ Licensierad under MIT-licensen.</value>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Granska beredskapen, välj ISO- eller USB-utdata och starta medieskapandet.</value>
   </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>Skapa</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>Foundry OSD skriver boot.wim, boot.sdi, BCD och bootmgr.efi till den här mappen för en UEFI-nätverksstart. Importera dem till din PXE-server.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>Den här mappen innehåller redan en startavbildning. Dess PXE-startfiler kommer att ersättas.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>Målmapp</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>Välj målmappen för PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>Det här innehållet kopieras endast till ISO- och USB-medier. Starta distributioner som behöver det från en ISO eller en USB-enhet.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>Levereras inte vid PXE-start</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>Anpassade drivrutinsuppsättningar: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>Anpassade Windows-avbildningar: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>Åtgärder efter installation som använder importerade filer: {0}</value>
+  </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>Granska {0}</value>
   </data>
@@ -4269,6 +4356,9 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Granska medieutdatavarningar</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Återskapa utan cache</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

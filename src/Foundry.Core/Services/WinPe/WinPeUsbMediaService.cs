@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Text.Json;
+using Foundry.Core.Services.Media;
 using Foundry.Core.Services.Packages;
 using Foundry.Utilities.Processes;
 using Foundry.Utilities.Serialization;
@@ -288,6 +289,11 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
             return WinPeResult<WinPeUsbProvisionResult>.Failure(targetValidation.Error!);
         }
 
+        if (options.Layout == UsbMediaLayout.WithoutCache)
+        {
+            return await ProvisionSingleVolumeAsync(options, expectedIdentity, artifact, tools, useBootEx, cancellationToken).ConfigureAwait(false);
+        }
+
         WinPeResult mediaValidation = ValidatePreparedMedia(artifact, useBootEx,
             WinPeUsbCapacityPolicy.NewBootPartitionSizeBytes,
             WinPeUsbCapacityPolicy.NewBootAllocationUnitSizeBytes, cancellationToken);
@@ -306,6 +312,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
             expectedIdentity,
             options.PartitionStyle,
             options.FormatMode,
+            UsbMediaLayout.WithCache,
             tools,
             artifact.WorkingDirectoryPath,
             options.Progress,
@@ -564,12 +571,12 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                 $"Disk {disk.Number}: IsSystem={disk.IsSystem}, IsBoot={disk.IsBoot}.");
         }
 
-        if (disk.Size < MinimumUsbDiskSizeBytes)
+        if (disk.Size < GetMinimumDiskSizeBytes(options.Layout))
         {
             return WinPeResult.Failure(
                 WinPeErrorCodes.UsbUnsafeTarget,
                 "Target USB disk is below the minimum supported size.",
-                $"Disk {disk.Number} size is {disk.Size} bytes. Foundry OSD requires a USB disk of at least 16 GB.");
+                $"Disk {disk.Number} size is {disk.Size} bytes. This layout requires at least {GetMinimumDiskSizeBytes(options.Layout)} bytes.");
         }
 
         return GetExpectedIdentity(options).Matches(ToDiskIdentity(disk))
@@ -589,13 +596,21 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
         "The disk identity is missing, ambiguous or has changed.",
         "Refresh the disk list and select the disk again.");
 
+    /// <summary>
+    /// Returns the smallest drive a layout accepts: a drive with cache needs room for its downloads, while a drive without
+    /// cache only needs room for the media, which the capacity check measures.
+    /// </summary>
+    internal static ulong GetMinimumDiskSizeBytes(UsbMediaLayout layout) => layout == UsbMediaLayout.WithoutCache
+        ? WinPeUsbSingleVolumePolicy.MinimumDiskSizeBytes
+        : MinimumUsbDiskSizeBytes;
+
     /// <summary>Rechecks identity and USB eligibility in the process that will mutate storage.</summary>
-    private static string CreateUsbDiskGuard(DiskIdentity expectedIdentity) =>
+    private static string CreateUsbDiskGuard(DiskIdentity expectedIdentity, UsbMediaLayout layout = UsbMediaLayout.WithCache) =>
         WindowsDiskIdentityGuard.CreateScript(expectedIdentity) + Environment.NewLine + $$"""
         if (([string]$foundryConfirmedDisk.BusType).Trim() -ine 'USB' -or
             $foundryConfirmedDisk.IsSystem -isnot [bool] -or $foundryConfirmedDisk.IsSystem -or
             $foundryConfirmedDisk.IsBoot -isnot [bool] -or $foundryConfirmedDisk.IsBoot -or
-            [uint64]$foundryConfirmedDisk.Size -lt {{MinimumUsbDiskSizeBytes}}) {
+            [uint64]$foundryConfirmedDisk.Size -lt {{GetMinimumDiskSizeBytes(layout)}}) {
             throw '{{UsbUnsafeTargetMarker}}'
         }
         """;
@@ -627,17 +642,24 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
     internal static string BuildPowerShellProvisioningScript(
         DiskIdentity expectedIdentity,
         UsbPartitionStyle partitionStyle,
-        UsbFormatMode formatMode)
+        UsbFormatMode formatMode,
+        UsbMediaLayout layout = UsbMediaLayout.WithCache)
     {
         string template = WinPeEmbeddedAssetService.ReadEmbeddedText(WinPeEmbeddedAssetService.UsbProvisioningScriptResourceName);
         string partitionStyleText = partitionStyle == UsbPartitionStyle.Gpt ? "GPT" : "MBR";
         string fullFormatValue = formatMode == UsbFormatMode.Complete ? "$true" : "$false";
+        // The identity guard has already proved the captured size, so the media partition is sized from it.
+        ulong mediaSizeBytes = WinPeUsbSingleVolumePolicy.GetPartitionSizeBytes(expectedIdentity.SizeBytes);
 
         return template
             .Replace("{{DISK_NUMBER}}", expectedIdentity.Number.ToString())
-            .Replace("{{DISK_GUARD}}", CreateUsbDiskGuard(expectedIdentity))
+            .Replace("{{DISK_GUARD}}", CreateUsbDiskGuard(expectedIdentity, layout))
             .Replace("{{PARTITION_STYLE}}", partitionStyleText)
             .Replace("{{FULL_FORMAT}}", fullFormatValue)
+            .Replace("{{WITHOUT_CACHE}}", layout == UsbMediaLayout.WithoutCache ? "$true" : "$false")
+            .Replace("{{MEDIA_SIZE_BYTES}}", mediaSizeBytes.ToString(System.Globalization.CultureInfo.InvariantCulture))
+            .Replace("{{MEDIA_ALLOCATION_BYTES}}", WinPeUsbSingleVolumePolicy.GetAllocationUnitSizeBytes(mediaSizeBytes).ToString(System.Globalization.CultureInfo.InvariantCulture))
+            .Replace("{{MEDIA_LABEL}}", FoundryMediaVolumeLabels.SingleVolume)
             .Replace("{{BOOT_SIZE_BYTES}}", WinPeUsbCapacityPolicy.NewBootPartitionSizeBytes.ToString(System.Globalization.CultureInfo.InvariantCulture))
             .Replace("{{BOOT_ALLOCATION_BYTES}}", WinPeUsbCapacityPolicy.NewBootAllocationUnitSizeBytes.ToString(System.Globalization.CultureInfo.InvariantCulture))
             .ReplaceLineEndings(Environment.NewLine);
@@ -866,6 +888,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
         DiskIdentity expectedIdentity,
         UsbPartitionStyle partitionStyle,
         UsbFormatMode formatMode,
+        UsbMediaLayout layout,
         WinPeToolPaths tools,
         string workingDirectoryPath,
         IProgress<WinPeMediaProgress>? progress,
@@ -874,7 +897,8 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
         string script = BuildPowerShellProvisioningScript(
             expectedIdentity,
             partitionStyle,
-            formatMode);
+            formatMode,
+            layout);
 
         WinPeProcessExecution execution = await RunIdentityPowerShellAsync(
             script, tools, workingDirectoryPath, cancellationToken, progress).ConfigureAwait(false);
@@ -886,7 +910,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
 
         if (execution.IsSuccess)
         {
-            return ParseUsbProvisionResult(execution);
+            return ParseUsbProvisionResult(execution, requireCacheDriveLetter: layout == UsbMediaLayout.WithCache);
         }
 
         return WinPeResult<WinPeUsbProvisionResult>.Failure(execution.ToFailureDiagnostic(
@@ -1068,7 +1092,8 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
             toolName: "PowerShell"));
     }
 
-    private static WinPeResult<WinPeUsbProvisionResult> ParseUsbProvisionResult(WinPeProcessExecution execution)
+    private static WinPeResult<WinPeUsbProvisionResult> ParseUsbProvisionResult(WinPeProcessExecution execution,
+        bool requireCacheDriveLetter = true)
     {
         string[] lines = execution.StandardOutput.Split(
             [Environment.NewLine, "\n"],
@@ -1093,7 +1118,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
 
                 string bootDriveLetter = NormalizeDriveLetter(result.BootDriveLetter);
                 string cacheDriveLetter = NormalizeDriveLetter(result.CacheDriveLetter);
-                if (string.IsNullOrWhiteSpace(bootDriveLetter) || string.IsNullOrWhiteSpace(cacheDriveLetter))
+                if (string.IsNullOrWhiteSpace(bootDriveLetter) || (requireCacheDriveLetter && string.IsNullOrWhiteSpace(cacheDriveLetter)))
                 {
                     break;
                 }

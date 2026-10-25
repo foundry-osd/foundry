@@ -3782,7 +3782,10 @@
     <value>סודות התקשורת הנדרשים אינם מוכנים.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>כונן ה-USB שנבחר קטן מדי. השתמש בכונן USB בנפח 16 GB לפחות.</value>
+    <value>כונן ה-USB שנבחר קטן מדי עבור מטמון. השתמש בכונן USB בנפח 16 GB לפחות, או בחר “צור ללא מטמון” מהחץ של “צור USB”.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>כונן ה-USB שנבחר קטן מדי. השתמש בכונן USB בנפח 1 GB לפחות.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>פריסת המקלדת של WinPE שנבחרה אינה מותקנת במחשב זה.</value>
@@ -3810,6 +3813,12 @@
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>צור ISO</value>
+  </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>יצירת קובצי PXE חסומה</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>צור קובצי PXE</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>יצירת USB חסומה</value>
@@ -3846,6 +3855,9 @@
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>צור USB</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>צור ללא מטמון</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>תיקיה אופציונלית של מנהלי התקנים ‎.inf שנוספים לתמונת האתחול של WinPE.</value>
@@ -3890,7 +3902,7 @@
     <value>WinPE שפת האתחול</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>צור מדיה ISO או USB לאחר שכל בדיקות המוכנות עוברות.</value>
+    <value>צור מדיה ISO, USB או PXE לאחר שכל בדיקות המוכנות עוברות.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>צור מדיה</value>
@@ -3902,7 +3914,7 @@
     <value>יצירת מדיה זמינה כאשר כל בדיקות המוכנות עוברות.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>בחר פלט ISO או USB למטה כדי להתחיל.</value>
+    <value>בחר פלט ISO, USB או PXE למטה כדי להתחיל.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>פרמוט מלא</value>
@@ -3967,6 +3979,9 @@
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>מעתיק את התוכן שלאחר ההתקנה…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>העתקת קובצי אתחול ה-PXE</value>
+  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>מעתיק קובצי WinPE לכונן ה-USB…</value>
   </data>
@@ -3975,6 +3990,9 @@
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>יוצר את מחיצת המטמון…</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>יוצר את מחיצת ה-USB…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>לא ניתן היה להסיר מכונן ה-USB ערכות מנהלי התקנים מותאמות אישית שאינן בשימוש.</value>
@@ -4039,6 +4057,9 @@
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>מפרמט את מחיצת המטמון…</value>
   </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>מפרמט את מחיצת ה-USB…</value>
+  </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>יוצר את טבלת המחיצות…</value>
   </data>
@@ -4087,6 +4108,9 @@
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>יצירת קובץ ה-ISO</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>כתיבת קובצי ה-PXE</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>התאמה אישית של תמונת האתחול</value>
   </data>
@@ -4120,6 +4144,9 @@
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>מכין את התוכן שלאחר ההתקנה…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>בדיקת תיקיית היעד</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>מכין את מחיצת המטמון…</value>
   </data>
@@ -4137,6 +4164,15 @@
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>מוסיף רכיבי Foundry לכונן ה-USB…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>אין מספיק שטח פנוי בתיקיית היעד. קובצי אתחול ה-PXE דורשים {0}. זמין: {1}. יש לפנות מקום או לבחור תיקייה אחרת.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>לא ניתן היה לכתוב את קובצי אתחול ה-PXE לתיקיית היעד. יש לוודא שהתיקייה נגישה ושיש לך הרשאת כתיבה אליה.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>קובצי אתחול ה-PXE נשמרו במיקום:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>מסיר קבצים זמניים…</value>
@@ -4176,6 +4212,18 @@
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ה-ISO נוצר</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>יצירת קובצי ה-PXE בוטלה</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>יצירת קובצי ה-PXE נכשלה</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>יוצר קובצי PXE</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>קובצי ה-PXE נוצרו</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>יצירת מדיית ה-USB בוטלה</value>
@@ -4219,11 +4267,20 @@
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>במחיצת המטמון בכונן ה-USB אין מספיק שטח פנוי לתוכן המעודכן, מכיוון שהתוכן הקודם נשאר בכונן במהלך העדכון. לא בוצעו מחיקה או אתחול. יש ליצור מחדש את מדיית ה-USB במקום לעדכן אותה.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>גודל קובץ להעתקה הוא {0}; מחיצת FAT32 בכונן USB ללא מטמון תומכת לכל היותר ב-{1} לקובץ. לא בוצעו מחיקה או אתחול. יש להשתמש באפשרות “צור USB” במקום זאת.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>ייתכן שכונן ה-USB כבר לא יאתחל מכשיר. צור או עדכן אותו שוב לפני השימוש.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>אמצעי אחסון לאתחול: {0}. אמצעי אחסון למטמון: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>המדיה דורשת כ-{0}, אך כונן USB זה ללא מטמון יכול להכיל {1}. לא בוצעו מחיקה או אתחול. יש להשתמש באפשרות “צור USB” במקום זאת.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>אמצעי אחסון USB: {0}. הכונן אינו שומר הורדות: כל פריסה מורידה מחדש את Windows ואת מנהלי ההתקנים מהקטלוג.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>בודק את כונן ה-USB…</value>
@@ -4249,6 +4306,36 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>בדוק מוכנות, בחר פלט ISO או USB והתחל ביצירת המדיה.</value>
   </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>צור</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>Foundry OSD כותב את boot.wim, boot.sdi, BCD ו-bootmgr.efi לתיקייה זו לצורך אתחול רשת ב-UEFI. יש לייבא אותם לשרת ה-PXE שלך.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>תיקייה זו כבר מכילה תמונת אתחול. קובצי אתחול ה-PXE שלה יוחלפו.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>תיקיית יעד</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>בחר את תיקיית היעד של PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>תוכן זה מועתק רק למדיית ISO ו-USB. יש להפעיל פריסות שזקוקות לו מ-ISO או מכונן USB.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>לא נכלל באתחול PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>ערכות מנהלי התקנים מותאמות אישית: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>תמונות Windows מותאמות אישית: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>פעולות לאחר ההתקנה שמשתמשות בקבצים מיובאים: {0}</value>
+  </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>בדוק את {0}</value>
   </data>
@@ -4269,6 +4356,9 @@
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>סקור אזהרות פלט מדיה</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>צור מחדש ללא מטמון</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

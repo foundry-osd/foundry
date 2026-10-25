@@ -3782,7 +3782,10 @@ Licenciado sob a licença MIT.</value>
     <value>Os segredos de mídia necessários não estão prontos.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>A unidade USB selecionada é muito pequena. Use uma unidade USB de pelo menos 16 GB.</value>
+    <value>A unidade USB selecionada é muito pequena para um cache. Use uma unidade USB de pelo menos 16 GB ou selecione “Criar sem cache” na seta de “Criar USB”.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>A unidade USB selecionada é muito pequena. Use uma unidade USB de pelo menos 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>O layout de teclado do WinPE selecionado não está instalado neste computador.</value>
@@ -3810,6 +3813,12 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Criar ISO</value>
+  </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>A criação de arquivos PXE está bloqueada</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>Criar arquivos PXE</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>A criação de USB está bloqueada</value>
@@ -3846,6 +3855,9 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Criar USB</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Criar sem cache</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Pasta opcional de drivers .inf adicionados à imagem de inicialização do WinPE.</value>
@@ -3890,7 +3902,7 @@ Licenciado sob a licença MIT.</value>
     <value>WinPE idioma de inicialização</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Crie mídia ISO ou USB depois que todas as verificações de prontidão forem aprovadas.</value>
+    <value>Crie mídia ISO, USB ou PXE depois que todas as verificações de prontidão forem aprovadas.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>Criar mídia</value>
@@ -3902,7 +3914,7 @@ Licenciado sob a licença MIT.</value>
     <value>A criação de mídia estará disponível quando todas as verificações de prontidão forem aprovadas.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Escolha uma saída ISO ou USB abaixo para começar.</value>
+    <value>Escolha uma saída ISO, USB ou PXE abaixo para começar.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Formatação completa</value>
@@ -3967,6 +3979,9 @@ Licenciado sob a licença MIT.</value>
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>Copiando o conteúdo de pós-instalação…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>Copiando os arquivos de inicialização PXE</value>
+  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Copiando arquivos do WinPE para a unidade USB…</value>
   </data>
@@ -3975,6 +3990,9 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Criando a partição de cache…</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Criando a partição USB…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Não foi possível remover da unidade USB os conjuntos de drivers personalizados não utilizados.</value>
@@ -4039,6 +4057,9 @@ Licenciado sob a licença MIT.</value>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Formatando a partição de cache…</value>
   </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Formatando a partição USB…</value>
+  </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Criando a tabela de partições…</value>
   </data>
@@ -4087,6 +4108,9 @@ Licenciado sob a licença MIT.</value>
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>Criando o arquivo ISO</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>Gravando os arquivos PXE</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>Personalizando a imagem de inicialização</value>
   </data>
@@ -4120,6 +4144,9 @@ Licenciado sob a licença MIT.</value>
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>Preparando o conteúdo de pós-instalação…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>Verificando a pasta de destino</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>Preparando a partição de cache…</value>
   </data>
@@ -4137,6 +4164,15 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Adicionando componentes do Foundry à unidade USB…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>Não há espaço livre suficiente na pasta de destino. Os arquivos de inicialização PXE precisam de {0}. Disponível: {1}. Libere espaço ou escolha outra pasta.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>Não foi possível gravar os arquivos de inicialização PXE na pasta de destino. Verifique se a pasta está acessível e se você tem permissão de gravação nela.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>Os arquivos de inicialização PXE foram salvos em:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>Removendo arquivos temporários…</value>
@@ -4176,6 +4212,18 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO criada</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>Criação dos arquivos PXE cancelada</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>Falha na criação dos arquivos PXE</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>Criando arquivos PXE</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>Arquivos PXE criados</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>Criação da mídia USB cancelada</value>
@@ -4219,11 +4267,20 @@ Licenciado sob a licença MIT.</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>A partição de cache USB não tem espaço livre suficiente para o conteúdo atualizado, porque o conteúdo anterior permanece na unidade durante a atualização. Nada foi apagado ou formatado. Crie a mídia USB novamente em vez de atualizá-la.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Um arquivo a ser copiado ocupa {0}; a partição FAT32 de uma unidade USB sem cache aceita no máximo {1} por arquivo. Nada foi apagado ou formatado. Use “Criar USB” em vez disso.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>A unidade USB pode não conseguir mais iniciar um dispositivo. Crie ou atualize a unidade novamente antes de usá-la.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Volume de inicialização: {0}. Volume de cache: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>A mídia precisa de aproximadamente {0}, mas esta unidade USB sem cache comporta {1}. Nada foi apagado ou formatado. Use “Criar USB” em vez disso.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>Volume USB: {0}. A unidade não guarda downloads: cada implantação baixa o Windows e os drivers do catálogo novamente.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Verificando a unidade USB…</value>
@@ -4249,6 +4306,36 @@ Licenciado sob a licença MIT.</value>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Revise a prontidão, escolha uma saída ISO ou USB e inicie a criação da mídia.</value>
   </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>Criar</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>O Foundry OSD grava boot.wim, boot.sdi, BCD e bootmgr.efi nesta pasta para uma inicialização de rede UEFI. Importe-os para o seu servidor PXE.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>Esta pasta já contém uma imagem de inicialização. Os arquivos de inicialização PXE dela serão substituídos.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>Pasta de destino</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>Selecione a pasta de destino do PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>Este conteúdo é copiado somente para mídias ISO e USB. Inicie as implantações que precisam dele a partir de uma ISO ou de uma unidade USB.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>Não incluído com uma inicialização PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>Conjuntos de drivers personalizados: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>Imagens personalizadas do Windows: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>Ações de pós-instalação que usam arquivos importados: {0}</value>
+  </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>Revisar {0}</value>
   </data>
@@ -4269,6 +4356,9 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Revise os avisos de saída de mídia</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Recriar sem cache</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

@@ -22,6 +22,19 @@ public sealed class MediaCreationProgressPlanTests
     }
 
     [Fact]
+    public void ReportFinalMedia_ForPxe_MapsToCreatingPxeFiles()
+    {
+        MediaCreationProgressPlan plan = MediaCreationProgressPlan.For(MediaCreationKind.Pxe);
+
+        MediaCreationProgress progress = plan.ReportFinalMedia(50);
+
+        Assert.Equal(MediaCreationPhase.CreatingPxeFiles, progress.Phase);
+        Assert.Equal(4, progress.StepNumber);
+        Assert.Equal(5, progress.StepCount);
+        Assert.Equal(90, progress.Percent);
+    }
+
+    [Fact]
     public void Report_NeverDecreases()
     {
         MediaCreationProgressPlan plan = MediaCreationProgressPlan.For(MediaCreationKind.UsbCreate);
