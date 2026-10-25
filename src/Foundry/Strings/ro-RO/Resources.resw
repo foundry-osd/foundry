@@ -3592,7 +3592,10 @@ Parole și chei de acces incluse: {2}</value>
     <value>Secretele media necesare nu sunt gata.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Unitatea USB selectată este prea mică. Utilizați o unitate USB de cel puțin 16 GB.</value>
+    <value>Unitatea USB selectată este prea mică pentru un cache. Utilizați o unitate USB de cel puțin 16 GB sau selectați „Creați fără cache” din săgeata butonului „Creați USB”.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Unitatea USB selectată este prea mică. Utilizați o unitate USB de cel puțin 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Aspectul de tastatură WinPE selectat nu este instalat pe acest computer.</value>
@@ -3620,6 +3623,12 @@ Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Creați ISO</value>
+  </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>Crearea fișierelor PXE este blocată</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>Creați fișiere PXE</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>Crearea USB este blocată</value>
@@ -3656,6 +3665,9 @@ Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Creați USB</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Creați fără cache</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Folder opțional cu drivere .inf adăugate în imaginea de pornire WinPE.</value>
@@ -3700,7 +3712,7 @@ Parole și chei de acces incluse: {2}</value>
     <value>WinPE limba de pornire</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Creați medii ISO sau USB după ce toate verificările de pregătire au trecut.</value>
+    <value>Creați medii ISO, USB sau PXE după ce toate verificările de pregătire au trecut.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>Creați media</value>
@@ -3712,7 +3724,7 @@ Parole și chei de acces incluse: {2}</value>
     <value>Crearea media este disponibilă atunci când toate verificările de pregătire trec.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Alegeți mai jos o ieșire ISO sau USB pentru a începe.</value>
+    <value>Alegeți mai jos o ieșire ISO, USB sau PXE pentru a începe.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Formatare completă</value>
@@ -3777,6 +3789,9 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>Se copiază conținutul de post-instalare…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>Se copiază fișierele de pornire PXE</value>
+  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Se copiază fișierele WinPE pe unitatea USB…</value>
   </data>
@@ -3785,6 +3800,9 @@ Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Se creează partiția cache…</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Se creează partiția USB…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Seturile de drivere personalizate neutilizate nu au putut fi eliminate de pe unitatea USB.</value>
@@ -3849,6 +3867,9 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Se formatează partiția cache…</value>
   </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Se formatează partiția USB…</value>
+  </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Se creează tabelul de partiții…</value>
   </data>
@@ -3897,6 +3918,9 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>Crearea fișierului ISO</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>Scrierea fișierelor PXE</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>Personalizarea imaginii de pornire</value>
   </data>
@@ -3930,6 +3954,9 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>Se pregătește conținutul de post-instalare…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>Se verifică folderul de destinație</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>Se pregătește partiția cache…</value>
   </data>
@@ -3947,6 +3974,15 @@ Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Se adaugă componentele Foundry pe unitatea USB…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>Spațiu liber insuficient în folderul de destinație. Fișierele de pornire PXE necesită {0}. Disponibil: {1}. Eliberați spațiu sau alegeți alt folder.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>Fișierele de pornire PXE nu au putut fi scrise în folderul de destinație. Verificați dacă folderul poate fi accesat și dacă puteți scrie în el.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>Fișierele de pornire PXE au fost salvate în:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>Se elimină fișierele temporare…</value>
@@ -3986,6 +4022,18 @@ Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO creat</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>Crearea fișierelor PXE a fost anulată</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>Crearea fișierelor PXE a eșuat</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>Se creează fișierele PXE</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>Fișiere PXE create</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>Crearea suportului USB a fost anulată</value>
@@ -4029,11 +4077,20 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>Partiția cache USB nu are suficient spațiu liber pentru conținutul actualizat, deoarece conținutul anterior rămâne pe unitate în timpul actualizării. Nu s-a șters și nu s-a formatat nimic. Creați din nou suportul USB în loc să îl actualizați.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Un fișier de copiat are {0}; partiția FAT32 a unei unități USB fără cache acceptă cel mult {1} per fișier. Nu s-a șters și nu s-a formatat nimic. Folosiți în schimb „Creați USB”.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Este posibil ca unitatea USB să nu mai poată porni un dispozitiv. Creați-o sau actualizați-o din nou înainte de a o folosi.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Volum de pornire: {0}. Volum cache: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Suportul necesită aproximativ {0}, dar această unitate USB fără cache poate stoca {1}. Nu s-a șters și nu s-a formatat nimic. Folosiți în schimb „Creați USB”.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>Volum USB: {0}. Unitatea nu păstrează descărcările: fiecare implementare descarcă din nou Windows și driverele din catalog.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Se verifică unitatea USB…</value>
@@ -4059,6 +4116,36 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Revizuiți starea, alegeți ieșirea ISO sau USB și porniți crearea suportului.</value>
   </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>Creați</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>Foundry OSD scrie boot.wim, boot.sdi, BCD și bootmgr.efi în acest folder pentru o pornire prin rețea UEFI. Importați-le în serverul PXE.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>Acest folder conține deja o imagine de pornire. Fișierele sale de pornire PXE vor fi înlocuite.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>Folder de destinație</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>Selectați folderul de destinație PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>Acest conținut este copiat doar pe mediile ISO și USB. Porniți implementările care au nevoie de el de pe un ISO sau de pe o unitate USB.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>Nu este livrat la pornirea prin PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>Seturi de drivere personalizate: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>Imagini Windows personalizate: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>Acțiuni după instalare care folosesc fișiere importate: {0}</value>
+  </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>Verifică {0}</value>
   </data>
@@ -4079,6 +4166,9 @@ Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Examinați avertismentele de ieșire media</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Recreați fără cache</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

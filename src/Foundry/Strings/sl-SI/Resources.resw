@@ -3592,7 +3592,10 @@ Vključena gesla in ključi za dostop: {2}</value>
     <value>Zahtevane medijske skrivnosti niso pripravljene.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Izbrani pogon USB je premajhen. Uporabite pogon USB z vsaj 16 GB.</value>
+    <value>Izbrani pogon USB je premajhen za predpomnilnik. Uporabite pogon USB z vsaj 16 GB ali izberite »Ustvari brez predpomnilnika« s puščice gumba »Ustvari USB«.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Izbrani pogon USB je premajhen. Uporabite pogon USB z vsaj 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Izbrana razporeditev tipkovnice za WinPE ni nameščena v tem računalniku.</value>
@@ -3620,6 +3623,12 @@ Vključena gesla in ključi za dostop: {2}</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Ustvari ISO</value>
+  </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>Ustvarjanje datotek PXE je blokirano</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>Ustvari datoteke PXE</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>Ustvarjanje USB je blokirano</value>
@@ -3656,6 +3665,9 @@ Vključena gesla in ključi za dostop: {2}</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Ustvari USB</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Ustvari brez predpomnilnika</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Izbirna mapa z gonilniki .inf, ki se dodajo zagonski sliki WinPE.</value>
@@ -3700,7 +3712,7 @@ Vključena gesla in ključi za dostop: {2}</value>
     <value>WinPE zagonski jezik</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Ustvarite medije ISO ali USB, potem ko so uspešno opravljeni vsi pregledi pripravljenosti.</value>
+    <value>Ustvarite medije ISO, USB ali PXE, potem ko so uspešno opravljeni vsi pregledi pripravljenosti.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>Ustvari medije</value>
@@ -3712,7 +3724,7 @@ Vključena gesla in ključi za dostop: {2}</value>
     <value>Ustvarjanje medijev je na voljo, ko so opravljeni vsi pregledi pripravljenosti.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Za začetek spodaj izberite izhod ISO ali USB.</value>
+    <value>Za začetek spodaj izberite izhod ISO, USB ali PXE.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Popolno formatiranje</value>
@@ -3777,6 +3789,9 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>Kopiranje vsebine po namestitvi…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>Kopiranje zagonskih datotek PXE</value>
+  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Kopiranje datotek WinPE na disk USB…</value>
   </data>
@@ -3785,6 +3800,9 @@ Vključena gesla in ključi za dostop: {2}</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Ustvarjanje particije predpomnilnika…</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Ustvarjanje particije USB…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Neuporabljenih naborov gonilnikov po meri ni bilo mogoče odstraniti s pogona USB.</value>
@@ -3849,6 +3867,9 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Formatiranje particije predpomnilnika…</value>
   </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Formatiranje particije USB…</value>
+  </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Ustvarjanje particijske tabele…</value>
   </data>
@@ -3897,6 +3918,9 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>Ustvarjanje datoteke ISO</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>Zapisovanje datotek PXE</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>Prilagajanje zagonske slike</value>
   </data>
@@ -3930,6 +3954,9 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>Priprava vsebine po namestitvi…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>Preverjanje ciljne mape</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>Priprava particije predpomnilnika…</value>
   </data>
@@ -3947,6 +3974,15 @@ Vključena gesla in ključi za dostop: {2}</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Dodajanje komponent Foundry na disk USB…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>V ciljni mapi ni dovolj prostega prostora. Zagonske datoteke PXE potrebujejo {0}. Na voljo: {1}. Sprostite prostor ali izberite drugo mapo.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>Zagonskih datotek PXE ni bilo mogoče zapisati v ciljno mapo. Preverite, ali je mapa dosegljiva in ali lahko vanjo pišete.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>Zagonske datoteke PXE so bile shranjene v:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>Odstranjevanje začasnih datotek…</value>
@@ -3986,6 +4022,18 @@ Vključena gesla in ključi za dostop: {2}</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>Datoteka ISO je ustvarjena</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>Ustvarjanje datotek PXE je preklicano</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>Ustvarjanje datotek PXE ni uspelo</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>Ustvarjanje datotek PXE</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>Datoteke PXE so ustvarjene</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>Ustvarjanje medija USB je preklicano</value>
@@ -4029,11 +4077,20 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>Particija predpomnilnika na USB nima dovolj prostega prostora za posodobljeno vsebino, ker prejšnja vsebina med posodabljanjem ostane na pogonu. Nič ni bilo izbrisano ali formatirano. Namesto posodabljanja znova ustvarite medij USB.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Datoteka za kopiranje je velika {0}; particija FAT32 pogona USB brez predpomnilnika podpira največ {1} na datoteko. Nič ni bilo izbrisano ali formatirano. Namesto tega uporabite »Ustvari USB«.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Z diska USB morda ne bo več mogoče zagnati naprave. Pred uporabo ga znova ustvarite ali posodobite.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Zagonski nosilec: {0}. Nosilec predpomnilnika: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Medij potrebuje približno {0}, ta pogon USB brez predpomnilnika pa lahko sprejme {1}. Nič ni bilo izbrisano ali formatirano. Namesto tega uporabite »Ustvari USB«.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>Nosilec USB: {0}. Pogon ne hrani prenosov: vsako uvajanje znova prenese Windows in gonilnike iz kataloga.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Preverjanje diska USB…</value>
@@ -4059,6 +4116,36 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Preverite pripravljenost, izberite izhod ISO ali USB in začnite ustvarjanje medija.</value>
   </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>Ustvari</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>Foundry OSD zapiše datoteke boot.wim, boot.sdi, BCD in bootmgr.efi v to mapo za omrežni zagon UEFI. Uvozite jih v svoj strežnik PXE.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>Ta mapa že vsebuje zagonsko sliko. Njene zagonske datoteke PXE bodo zamenjane.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>Ciljna mapa</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>Izberite ciljno mapo za PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>Ta vsebina se kopira samo na medije ISO in USB. Uvajanja, ki jo potrebujejo, zaženite z ISO ali pogona USB.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>Ni dostavljeno pri zagonu PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>Nabori gonilnikov po meri: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>Prilagojene slike sistema Windows: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>Dejanja po namestitvi, ki uporabljajo uvožene datoteke: {0}</value>
+  </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>Preglej: {0}</value>
   </data>
@@ -4079,6 +4166,9 @@ Vključena gesla in ključi za dostop: {2}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Preglejte opozorila o medijskem izpisu</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Znova ustvari brez predpomnilnika</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

@@ -19,6 +19,8 @@ public sealed record UsbOutputOptions
     public ulong ExpectedDiskSizeBytes { get; init; }
     public UsbPartitionStyle PartitionStyle { get; init; } = UsbPartitionStyle.Gpt;
     public UsbFormatMode FormatMode { get; init; } = UsbFormatMode.Quick;
+    /// <summary>Selects the partitions of a new drive; an update always keeps the existing cache layout.</summary>
+    public UsbMediaLayout Layout { get; init; } = UsbMediaLayout.WithCache;
     public string? WorkingDirectoryPath { get; init; }
     public string? AdkRootPath { get; init; }
     public WinPeArchitecture Architecture { get; init; } = WinPeArchitecture.X64;

@@ -123,6 +123,44 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.Equal(expected, result["boot_media_boot_image_source"]);
     }
 
+    [Fact]
+    public void Build_ForPxeTarget_ReportsPxeWithoutUsbLayout()
+    {
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Pxe,
+            TelemetryBootMediaUsbOperations.Create,
+            new MediaPreflightOptions(),
+            new FoundryConfigurationDocument(),
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.Equal("pxe", result["boot_media_target"]);
+        Assert.Equal(TelemetryBootMediaUsbOperations.None, result["boot_media_usb_operation"]);
+        Assert.Equal("none", result["boot_media_usb_partition_style"]);
+        Assert.Equal("none", result["boot_media_usb_format_mode"]);
+    }
+
+    [Fact]
+    public void Build_ForUsbWithoutCache_ReportsTheOperation()
+    {
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Usb,
+            TelemetryBootMediaUsbOperations.CreateWithoutCache,
+            new MediaPreflightOptions(),
+            new FoundryConfigurationDocument(),
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.Equal("usb", result["boot_media_target"]);
+        Assert.Equal("create_without_cache", result["boot_media_usb_operation"]);
+    }
+
     private static IReadOnlyDictionary<string, object?> BuildPostInstallationProperties(PreOobeSettings? settings, bool success = true) =>
         BootMediaTelemetryPropertyBuilder.Build(
             TelemetryBootMediaTargets.Iso,

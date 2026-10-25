@@ -3592,7 +3592,10 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>A szükséges médiatitkok nincsenek készen.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>A kiválasztott USB-meghajtó túl kicsi. Használjon legalább 16 GB-os USB-meghajtót.</value>
+    <value>A kiválasztott USB-meghajtó túl kicsi a gyorsítótárhoz. Használjon legalább 16 GB-os USB-meghajtót, vagy válassza a „Létrehozás gyorsítótár nélkül” lehetőséget az „USB létrehozása” gomb nyilából.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>A kiválasztott USB-meghajtó túl kicsi. Használjon legalább 1 GB-os USB-meghajtót.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>A kiválasztott WinPE billentyűzetkiosztás nincs telepítve ezen a számítógépen.</value>
@@ -3620,6 +3623,12 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>ISO létrehozása</value>
+  </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>A PXE-fájlok létrehozása le van tiltva</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>PXE-fájlok létrehozása</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>A USB létrehozása le van tiltva</value>
@@ -3656,6 +3665,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>USB létrehozása</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Létrehozás gyorsítótár nélkül</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Opcionális mappa .inf illesztőprogramokkal, amelyek a WinPE rendszerindító lemezképhez lesznek hozzáadva.</value>
@@ -3700,7 +3712,7 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>WinPE rendszerindítási nyelv</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Hozzon létre ISO vagy USB adathordozót, miután minden készenléti ellenőrzés sikeres volt.</value>
+    <value>Hozzon létre ISO, USB vagy PXE adathordozót, miután minden készenléti ellenőrzés sikeres volt.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>Média létrehozása</value>
@@ -3712,7 +3724,7 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
     <value>A média létrehozása akkor érhető el, ha minden készenléti ellenőrzés sikeres.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>A kezdéshez válasszon lent egy ISO- vagy USB-kimenetet.</value>
+    <value>A kezdéshez válasszon lent egy ISO-, USB- vagy PXE-kimenetet.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Teljes formázás</value>
@@ -3777,6 +3789,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>A telepítés utáni tartalom másolása…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>A PXE rendszerindító fájlok másolása</value>
+  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>WinPE-fájlok másolása az USB-meghajtóra…</value>
   </data>
@@ -3785,6 +3800,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>A gyorsítótár-partíció létrehozása…</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Az USB-partíció létrehozása…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>A nem használt egyéni illesztőprogram-készleteket nem sikerült eltávolítani az USB-meghajtóról.</value>
@@ -3849,6 +3867,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>A gyorsítótár-partíció formázása…</value>
   </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Az USB-partíció formázása…</value>
+  </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>A partíciós tábla létrehozása…</value>
   </data>
@@ -3897,6 +3918,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>Az ISO-fájl létrehozása</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>A PXE-fájlok írása</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>A rendszerindító lemezkép testreszabása</value>
   </data>
@@ -3930,6 +3954,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>A telepítés utáni tartalom előkészítése…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>A célmappa ellenőrzése</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>A gyorsítótár-partíció előkészítése…</value>
   </data>
@@ -3947,6 +3974,15 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Foundry-összetevők hozzáadása az USB-meghajtóhoz…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>Nincs elég szabad hely a célmappában. A PXE rendszerindító fájlokhoz {0} szükséges. Elérhető: {1}. Szabadítson fel helyet, vagy válasszon másik mappát.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>A PXE rendszerindító fájlokat nem sikerült a célmappába írni. Ellenőrizze, hogy a mappa elérhető-e, és hogy van-e írási jogosultsága.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>A PXE rendszerindító fájlok mentési helye:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>Az ideiglenes fájlok eltávolítása…</value>
@@ -3986,6 +4022,18 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>Az ISO létrejött</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>A PXE-fájlok létrehozása megszakítva</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>A PXE-fájlok létrehozása sikertelen</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>PXE-fájlok létrehozása</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>A PXE-fájlok létrejöttek</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>Az USB-adathordozó létrehozása megszakítva</value>
@@ -4029,11 +4077,20 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>Az USB gyorsítótár-partícióján nincs elég szabad hely a frissített tartalomhoz, mert a korábbi tartalom a frissítés alatt a meghajtón marad. Sem törlés, sem formázás nem történt. Frissítés helyett hozza létre újra az USB-adathordozót.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Az egyik másolandó fájl {0} méretű; a gyorsítótár nélküli USB-meghajtó FAT32 partíciója fájlonként legfeljebb {1} méretet támogat. Sem törlés, sem formázás nem történt. Használja helyette az „USB létrehozása” lehetőséget.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Előfordulhat, hogy az USB-meghajtóról már nem indítható el eszköz. Használat előtt hozza létre vagy frissítse újra.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Rendszerindító kötet: {0}. Gyorsítótárkötet: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Az adathordozóhoz körülbelül {0} szükséges, de erre a gyorsítótár nélküli USB-meghajtóra {1} fér el. Sem törlés, sem formázás nem történt. Használja helyette az „USB létrehozása” lehetőséget.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>USB-kötet: {0}. A meghajtó nem tárolja a letöltéseket: minden telepítés újra letölti a Windowst és az illesztőprogramokat a katalógusból.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Az USB-meghajtó ellenőrzése…</value>
@@ -4059,6 +4116,36 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Tekintse át a készenlétet, válasszon ISO vagy USB kimenetet, majd indítsa el az adathordozó létrehozását.</value>
   </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>Létrehozás</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>A Foundry OSD ebbe a mappába írja a boot.wim, boot.sdi, BCD és bootmgr.efi fájlokat UEFI hálózati rendszerindításhoz. Importálja őket a PXE-kiszolgálóba.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>Ez a mappa már tartalmaz rendszerindító lemezképet. Annak PXE rendszerindító fájljai le lesznek cserélve.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>Célmappa</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>Válassza ki a PXE célmappáját</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>Ez a tartalom csak ISO- és USB-adathordozóra kerül. Az ezt igénylő telepítéseket ISO-ról vagy USB-meghajtóról indítsa.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>PXE-rendszerindításnál nem érhető el</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>Egyéni illesztőprogram-készletek: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>Egyéni Windows-lemezképek: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>Importált fájlokat használó telepítés utáni műveletek: {0}</value>
+  </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>Áttekintés: {0}</value>
   </data>
@@ -4079,6 +4166,9 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Tekintse át a médiakimenetre vonatkozó figyelmeztetéseket</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Újralétrehozás gyorsítótár nélkül</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

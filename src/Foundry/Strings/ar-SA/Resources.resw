@@ -3592,7 +3592,10 @@
     <value>أسرار الوسائط المطلوبة ليست جاهزة.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>محرك أقراص USB المحدد صغير جدًا. استخدم محرك أقراص USB بسعة 16 GB على الأقل.</value>
+    <value>محرك أقراص USB المحدد صغير جدًا لاستيعاب ذاكرة تخزين مؤقت. استخدم محرك أقراص USB بسعة 16 GB على الأقل، أو حدد «إنشاء بدون ذاكرة تخزين مؤقت» من سهم «إنشاء USB».</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>محرك أقراص USB المحدد صغير جدًا. استخدم محرك أقراص USB بسعة 1 GB على الأقل.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>تخطيط لوحة مفاتيح WinPE المحدد غير مثبت على هذا الكمبيوتر.</value>
@@ -3620,6 +3623,12 @@
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>إنشاء ISO</value>
+  </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>تم حظر إنشاء ملفات PXE</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>إنشاء ملفات PXE</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>تم حظر الإنشاء USB</value>
@@ -3656,6 +3665,9 @@
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>إنشاء USB</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>إنشاء بدون ذاكرة تخزين مؤقت</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>مجلد اختياري يحتوي على برامج تشغيل .inf تُضاف إلى صورة إقلاع WinPE.</value>
@@ -3700,7 +3712,7 @@
     <value>WinPE لغة التمهيد</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>قم بإنشاء وسائط ISO أو USB بعد اجتياز كافة اختبارات الاستعداد.</value>
+    <value>قم بإنشاء وسائط ISO أو USB أو PXE بعد اجتياز كافة اختبارات الاستعداد.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>إنشاء وسائل الإعلام</value>
@@ -3712,7 +3724,7 @@
     <value>يكون إنشاء الوسائط متاحًا عند اجتياز جميع اختبارات الاستعداد.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>اختر إخراج ISO أو USB أدناه للبدء.</value>
+    <value>اختر إخراج ISO أو USB أو PXE أدناه للبدء.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>تنسيق كامل</value>
@@ -3777,6 +3789,9 @@
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>جارٍ نسخ محتوى ما بعد التثبيت…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>نسخ ملفات إقلاع PXE</value>
+  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>جارٍ نسخ ملفات WinPE إلى قرص USB…</value>
   </data>
@@ -3785,6 +3800,9 @@
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>جارٍ إنشاء قسم ذاكرة التخزين المؤقت…</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>جارٍ إنشاء قسم USB…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>تعذرت إزالة مجموعات برامج التشغيل المخصصة غير المستخدمة من محرك أقراص USB.</value>
@@ -3849,6 +3867,9 @@
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>جارٍ تهيئة قسم ذاكرة التخزين المؤقت…</value>
   </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>جارٍ تهيئة قسم USB…</value>
+  </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>جارٍ إنشاء جدول الأقسام…</value>
   </data>
@@ -3897,6 +3918,9 @@
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>إنشاء ملف ISO</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>كتابة ملفات PXE</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>تخصيص صورة التمهيد</value>
   </data>
@@ -3930,6 +3954,9 @@
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>جارٍ تحضير محتوى ما بعد التثبيت…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>التحقق من المجلد الوجهة</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>جارٍ تحضير قسم ذاكرة التخزين المؤقت…</value>
   </data>
@@ -3947,6 +3974,15 @@
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>جارٍ إضافة مكونات Foundry إلى قرص USB…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>لا توجد مساحة حرة كافية في المجلد الوجهة. تحتاج ملفات إقلاع PXE إلى {0}. المساحة المتاحة: {1}. حرّر مساحة أو اختر مجلدًا آخر.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>تعذرت كتابة ملفات إقلاع PXE في المجلد الوجهة. تحقق من إمكانية الوصول إلى المجلد ومن أن لديك صلاحية الكتابة فيه.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>تم حفظ ملفات إقلاع PXE في:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>جارٍ إزالة الملفات المؤقتة…</value>
@@ -3986,6 +4022,18 @@
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>تم إنشاء ملف ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>تم إلغاء إنشاء ملفات PXE</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>فشل إنشاء ملفات PXE</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>جارٍ إنشاء ملفات PXE</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>تم إنشاء ملفات PXE</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>تم إلغاء إنشاء وسائط USB</value>
@@ -4029,11 +4077,20 @@
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>لا يحتوي قسم ذاكرة التخزين المؤقت على USB على مساحة فارغة كافية للمحتوى المحدّث، لأن المحتوى السابق يبقى على محرك الأقراص أثناء التحديث. لم يتم مسح أي شيء أو تهيئته. أنشئ وسائط USB من جديد بدلاً من تحديثها.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>حجم أحد الملفات المراد نسخها هو {0}؛ ويدعم قسم FAT32 في محرك أقراص USB بدون ذاكرة تخزين مؤقت حدًا أقصى قدره {1} لكل ملف. لم يتم مسح أي شيء أو تهيئته. استخدم «إنشاء USB» بدلاً من ذلك.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>قد لا يتمكن قرص USB بعد الآن من تشغيل جهاز. أنشئه أو حدّثه مرة أخرى قبل استخدامه.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>وحدة تخزين التمهيد: {0}. وحدة تخزين ذاكرة التخزين المؤقت: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>تحتاج الوسائط إلى نحو {0}، لكن محرك أقراص USB هذا بدون ذاكرة تخزين مؤقت يتسع لـ {1}. لم يتم مسح أي شيء أو تهيئته. استخدم «إنشاء USB» بدلاً من ذلك.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>وحدة تخزين USB: {0}. لا يحتفظ محرك الأقراص بأي تنزيلات: يقوم كل نشر بتنزيل Windows وبرامج التشغيل من الكتالوج من جديد.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>جارٍ فحص قرص USB…</value>
@@ -4059,6 +4116,36 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>راجع الجاهزية واختر إخراج ISO أو USB ثم ابدأ إنشاء الوسائط.</value>
   </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>إنشاء</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>يكتب Foundry OSD الملفات boot.wim وboot.sdi وBCD وbootmgr.efi في هذا المجلد للإقلاع عبر الشبكة باستخدام UEFI. استوردها إلى خادم PXE لديك.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>يحتوي هذا المجلد بالفعل على صورة تمهيد. سيتم استبدال ملفات إقلاع PXE الخاصة بها.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>المجلد الوجهة</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>حدد المجلد الوجهة لملفات PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>يُنسخ هذا المحتوى إلى وسائط ISO وUSB فقط. ابدأ عمليات النشر التي تحتاج إليه من ملف ISO أو من محرك أقراص USB.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>لا يتم تضمينه مع إقلاع PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>مجموعات برامج التشغيل المخصصة: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>صور Windows المخصصة: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>إجراءات ما بعد التثبيت التي تستخدم ملفات مستوردة: {0}</value>
+  </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>مراجعة {0}</value>
   </data>
@@ -4079,6 +4166,9 @@
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>راجع تحذيرات مخرجات الوسائط</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>إعادة الإنشاء بدون ذاكرة تخزين مؤقت</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

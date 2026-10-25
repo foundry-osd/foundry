@@ -19,6 +19,7 @@ using Foundry.Core.Services.WinPe;
 using Foundry.Services.Adk;
 using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
+using Foundry.Services.Media;
 using Foundry.Services.Operations;
 using Foundry.Services.Settings;
 using Foundry.Services.Shell;
@@ -32,7 +33,7 @@ using Serilog.Context;
 namespace Foundry.ViewModels;
 
 /// <summary>
-/// Coordinates media creation options, readiness evaluation, and final ISO or USB creation commands.
+/// Coordinates media creation options, readiness evaluation, and final ISO, USB or PXE creation commands.
 /// </summary>
 public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 {
@@ -45,6 +46,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly WinPeWorkspaceCleanupService workspaceCleanupService;
     private readonly IWinPeRuntimePayloadProvisioningService runtimePayloadProvisioningService;
     private readonly IWinPeIsoMediaService isoMediaService;
+    private readonly IWinPePxeMediaService pxeMediaService;
     private readonly IWinPeUsbMediaService usbMediaService;
     private readonly CustomImageLibraryService customImageLibrary;
     private readonly ContentPackageLibraryService postInstallPackages;
@@ -58,6 +60,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IShellNavigationGuardService shellNavigationGuardService;
     private readonly IApplicationUpdateStateService applicationUpdateStateService;
     private readonly IMediaUpdateAdvisoryDialogService mediaUpdateAdvisoryDialogService;
+    private readonly IPxeOutputDialogService pxeOutputDialogService;
     private readonly IApplicationUpdateRestartService applicationUpdateRestartService;
     private readonly IAppNavigationService appNavigationService;
     private readonly IDialogService dialogService;
@@ -93,6 +96,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         WinPeWorkspaceCleanupService workspaceCleanupService,
         IWinPeRuntimePayloadProvisioningService runtimePayloadProvisioningService,
         IWinPeIsoMediaService isoMediaService,
+        IWinPePxeMediaService pxeMediaService,
         IWinPeUsbMediaService usbMediaService,
         CustomImageLibraryService customImageLibrary,
         ContentPackageLibraryService postInstallPackages,
@@ -106,6 +110,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IShellNavigationGuardService shellNavigationGuardService,
         IApplicationUpdateStateService applicationUpdateStateService,
         IMediaUpdateAdvisoryDialogService mediaUpdateAdvisoryDialogService,
+        IPxeOutputDialogService pxeOutputDialogService,
         IApplicationUpdateRestartService applicationUpdateRestartService,
         IAppNavigationService appNavigationService,
         IDialogService dialogService,
@@ -123,6 +128,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.workspaceCleanupService = workspaceCleanupService;
         this.runtimePayloadProvisioningService = runtimePayloadProvisioningService;
         this.isoMediaService = isoMediaService;
+        this.pxeMediaService = pxeMediaService;
         this.usbMediaService = usbMediaService;
         this.customImageLibrary = customImageLibrary;
         this.postInstallPackages = postInstallPackages;
@@ -136,6 +142,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.shellNavigationGuardService = shellNavigationGuardService;
         this.applicationUpdateStateService = applicationUpdateStateService;
         this.mediaUpdateAdvisoryDialogService = mediaUpdateAdvisoryDialogService;
+        this.pxeOutputDialogService = pxeOutputDialogService;
         this.applicationUpdateRestartService = applicationUpdateRestartService;
         this.appNavigationService = appNavigationService;
         this.dialogService = dialogService;
@@ -265,6 +272,15 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     [ObservableProperty]
     public partial bool CanCreateUsb { get; set; }
+
+    [ObservableProperty]
+    public partial bool CanCreatePxe { get; set; }
+
+    [ObservableProperty]
+    public partial bool CanCreateUsbWithoutCache { get; set; }
+
+    [ObservableProperty]
+    public partial bool CanUseUsbActions { get; set; }
 
     [ObservableProperty]
     public partial bool IsMediaOperationRunning { get; set; }
@@ -499,6 +515,91 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         await RunFinalMediaOperationAsync(FinalMediaTarget.Usb, options);
     }
 
+    /// <summary>
+    /// Writes the selected drive with one FAT32 partition, like an ISO. On a Foundry drive with cache this recreates the
+    /// drive, so the usual erase confirmation is shown first.
+    /// </summary>
+    [RelayCommand]
+    private async Task CreateUsbWithoutCacheAsync()
+    {
+        if (isDisposed || IsMediaOperationRunning || isUpdateAdvisoryPending || isRefreshingUnattendSources || shellNavigationGuardService.State != ShellNavigationState.Ready)
+        {
+            return;
+        }
+
+        await RefreshUnattendSourcesAsync();
+        if (isDisposed || shellNavigationGuardService.State != ShellNavigationState.Ready)
+        {
+            return;
+        }
+
+        MediaPreflightOptions options = CreatePreflightOptions();
+        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(options);
+        if (!evaluation.CanCreateUsbWithoutCache || options.SelectedUsbDisk is null)
+        {
+            logger.Information(
+                "USB media creation without cache was blocked by preflight validation. HasSelectedUsbTarget={HasSelectedUsbTarget}, BlockingReasons={BlockingReasons}",
+                options.SelectedUsbDisk is not null,
+                string.Join(",", evaluation.UsbWithoutCacheBlockingReasons));
+            await ShowBlockedDialogAsync(
+                "StartMedia.CreateUsb.BlockedTitle",
+                evaluation.UsbWithoutCacheBlockingReasons,
+                options.AutopilotConfigurationValidationCode);
+            return;
+        }
+
+        await RunFinalMediaOperationAsync(FinalMediaTarget.UsbWithoutCache, options);
+    }
+
+    [RelayCommand]
+    private async Task CreatePxeAsync()
+    {
+        if (isDisposed || IsMediaOperationRunning || isUpdateAdvisoryPending || isRefreshingUnattendSources || shellNavigationGuardService.State != ShellNavigationState.Ready)
+        {
+            return;
+        }
+
+        await RefreshUnattendSourcesAsync();
+        if (isDisposed || shellNavigationGuardService.State != ShellNavigationState.Ready)
+        {
+            return;
+        }
+
+        MediaPreflightOptions options = CreatePreflightOptions();
+        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(options);
+        if (!evaluation.CanCreatePxe)
+        {
+            logger.Information(
+                "PXE media creation was blocked by preflight validation. BlockingReasons={BlockingReasons}",
+                string.Join(",", evaluation.PxeBlockingReasons));
+            await ShowBlockedDialogAsync(
+                "StartMedia.CreatePxe.BlockedTitle",
+                evaluation.PxeBlockingReasons,
+                options.AutopilotConfigurationValidationCode);
+            return;
+        }
+
+        string? outputDirectoryPath = await pxeOutputDialogService.ShowAsync(
+            appSettingsService.Current.MediaOutput.PxeOutputDirectoryPath,
+            PxeMissingContent.Evaluate(foundryConfigurationStateService.Current));
+        if (outputDirectoryPath is null || isDisposed || shellNavigationGuardService.State != ShellNavigationState.Ready)
+        {
+            return;
+        }
+
+        appSettingsService.Current.MediaOutput.PxeOutputDirectoryPath = outputDirectoryPath;
+        try
+        {
+            appSettingsService.Save();
+        }
+        catch (Exception)
+        {
+            // Save already logged the failure. Remembering the folder is a convenience, so the PXE files are still created.
+        }
+
+        await RunFinalMediaOperationAsync(FinalMediaTarget.Pxe, options, outputDirectoryPath);
+    }
+
     private async Task<bool> ConfirmUpdateBeforeMediaAsync()
     {
         ApplicationUpdateCheckResult? update = applicationUpdateStateService.CurrentResult;
@@ -556,7 +657,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private static DiskIdentity GetUsbDiskIdentity(WinPeUsbDiskCandidate disk) =>
         new(disk.DiskNumber, disk.UniqueId, disk.SerialNumber, disk.FriendlyName, disk.BusType, disk.SizeBytes);
 
-    private async Task RunFinalMediaOperationAsync(FinalMediaTarget target, MediaPreflightOptions options)
+    private async Task RunFinalMediaOperationAsync(FinalMediaTarget target, MediaPreflightOptions options, string? pxeOutputDirectoryPath = null)
     {
         if (isDisposed || IsMediaOperationRunning || isUpdateAdvisoryPending || shellNavigationGuardService.State != ShellNavigationState.Ready)
         {
@@ -569,7 +670,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
 
         MediaPreflightOptions currentOptions = CreatePreflightOptions();
-        if (target != FinalMediaTarget.Iso &&
+        if (IsUsbTarget(target) &&
             (options.SelectedUsbDisk is null || currentOptions.SelectedUsbDisk is null ||
              options.SelectedUsbDisk.IsFoundryMedia != currentOptions.SelectedUsbDisk.IsFoundryMedia ||
              !GetUsbDiskIdentity(options.SelectedUsbDisk).Matches(GetUsbDiskIdentity(currentOptions.SelectedUsbDisk))))
@@ -580,10 +681,16 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
 
         MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(currentOptions);
-        if (target == FinalMediaTarget.Iso ? !evaluation.CanCreateIso : !evaluation.CanCreateUsb)
+        (bool canCreate, IReadOnlyList<MediaPreflightBlockingReason> blockingReasons) = target switch
         {
-            await ShowBlockedDialogAsync(target == FinalMediaTarget.Iso ? "StartMedia.CreateIso.BlockedTitle" : "StartMedia.CreateUsb.BlockedTitle",
-                target == FinalMediaTarget.Iso ? evaluation.IsoBlockingReasons : evaluation.UsbBlockingReasons,
+            FinalMediaTarget.Iso => (evaluation.CanCreateIso, evaluation.IsoBlockingReasons),
+            FinalMediaTarget.Pxe => (evaluation.CanCreatePxe, evaluation.PxeBlockingReasons),
+            FinalMediaTarget.UsbWithoutCache => (evaluation.CanCreateUsbWithoutCache, evaluation.UsbWithoutCacheBlockingReasons),
+            _ => (evaluation.CanCreateUsb, evaluation.UsbBlockingReasons)
+        };
+        if (!canCreate)
+        {
+            await ShowBlockedDialogAsync(GetBlockedTitleKey(target), blockingReasons,
                 currentOptions.AutopilotConfigurationValidationCode);
             return;
         }
@@ -609,15 +716,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         bool success = false;
         var telemetryProgressTracker = new MediaCreationTelemetryProgressTracker();
         string operationId = Guid.NewGuid().ToString("N", CultureInfo.InvariantCulture);
-        string bootMediaTarget = target == FinalMediaTarget.Iso
-            ? TelemetryBootMediaTargets.Iso
-            : TelemetryBootMediaTargets.Usb;
-        string usbOperation = target switch
-        {
-            FinalMediaTarget.Usb => TelemetryBootMediaUsbOperations.Create,
-            FinalMediaTarget.UsbUpdate => TelemetryBootMediaUsbOperations.Update,
-            _ => TelemetryBootMediaUsbOperations.None
-        };
+        string bootMediaTarget = GetTelemetryBootMediaTarget(target);
+        string usbOperation = GetTelemetryUsbOperation(target);
         WinPeDiagnostic? failureDiagnostic = null;
         // Telemetry keeps the tracked step: a diagnostic stage can be a dynamic label, which stays in logs only.
         string? telemetryFailedStepName = null;
@@ -638,7 +738,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             if (!currentAdkStatus.CanCreateMediaFor(options.Architecture))
             {
                 shouldTrackMedia = false;
-                await ShowBlockedDialogAsync(target == FinalMediaTarget.Iso ? "StartMedia.CreateIso.BlockedTitle" : "StartMedia.CreateUsb.BlockedTitle",
+                await ShowBlockedDialogAsync(GetBlockedTitleKey(target),
                     new[] { MediaPreflightBlockingReason.AdkNotReady },
                     options.AutopilotConfigurationValidationCode);
                 return;
@@ -678,11 +778,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     ? FormatMediaCapacityFailure("StartMedia.Operation.LocalSpaceInsufficient", diagnostic, storageVolume)
                     : string.Format(CultureInfo.CurrentCulture,
                         localizationService.GetString("StartMedia.Operation.LocalSpaceUnknown"), storageVolume);
-                await ShowBlockedDialogAsync(target == FinalMediaTarget.Iso
-                    ? "StartMedia.CreateIso.BlockedTitle" : "StartMedia.CreateUsb.BlockedTitle", message);
+                await ShowBlockedDialogAsync(GetBlockedTitleKey(target), message);
                 return;
             }
-            if (target == FinalMediaTarget.Usb && !await ConfirmUsbFormattingAsync(options.SelectedUsbDisk!))
+            if (target is FinalMediaTarget.Usb or FinalMediaTarget.UsbWithoutCache && !await ConfirmUsbFormattingAsync(options.SelectedUsbDisk!))
             {
                 shouldTrackMedia = false;
                 return;
@@ -694,14 +793,15 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 operationCancellation.Cancel);
             shellNavigationGuardService.SetState(ShellNavigationState.OperationRunning);
             logger.Information(
-                "Final media creation started. Target={Target}, Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, WinPeKeyboardLayout={WinPeKeyboardLayout}, IsoOutputPath={IsoOutputPath}, UsbDiskNumber={UsbDiskNumber}, UsbDiskName={UsbDiskName}",
+                "Final media creation started. Target={Target}, Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, WinPeKeyboardLayout={WinPeKeyboardLayout}, IsoOutputPath={IsoOutputPath}, PxeOutputDirectoryPath={PxeOutputDirectoryPath}, UsbDiskNumber={UsbDiskNumber}, UsbDiskName={UsbDiskName}",
                 target,
                 options.Architecture,
                 NormalizeCultureName(options.WinPeLanguage),
                 options.WinPeKeyboardLayoutId ?? "default",
                 target == FinalMediaTarget.Iso ? options.IsoOutputPath : null,
-                target is FinalMediaTarget.Usb or FinalMediaTarget.UsbUpdate ? options.SelectedUsbDisk?.DiskNumber : null,
-                target is FinalMediaTarget.Usb or FinalMediaTarget.UsbUpdate ? options.SelectedUsbDisk?.FriendlyName : null);
+                target == FinalMediaTarget.Pxe ? pxeOutputDirectoryPath : null,
+                IsUsbTarget(target) ? options.SelectedUsbDisk?.DiskNumber : null,
+                IsUsbTarget(target) ? options.SelectedUsbDisk?.FriendlyName : null);
 
             snapshot = await foundryConfigurationStateService.CaptureBuildSnapshotAsync(
                 Path.Combine(Constants.UserRootDirectoryPath, "BuildSnapshots"), cancellationToken);
@@ -720,15 +820,28 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     localizationService.GetString("StartMedia.Operation.OpenFolder"),
                     () => OpenFolder(Path.GetDirectoryName(isoPath)));
             }
+            else if (target == FinalMediaTarget.Pxe)
+            {
+                string outputDirectoryPath = pxeOutputDirectoryPath
+                    ?? throw new InvalidOperationException("PXE media creation requires an output folder.");
+                long writtenBytes = await CreatePxeMediaAsync(options, outputDirectoryPath, snapshot, deploymentProtectionMaterial, telemetryProgressTracker, cancellationToken);
+                successMessage = BuildPxeSuccessMessage(outputDirectoryPath, writtenBytes);
+                successAction = new OperationAction(
+                    localizationService.GetString("StartMedia.Operation.OpenFolder"),
+                    () => OpenFolder(outputDirectoryPath));
+            }
             else
             {
+                UsbMediaLayout layout = target == FinalMediaTarget.UsbWithoutCache ? UsbMediaLayout.WithoutCache : UsbMediaLayout.WithCache;
                 WinPeUsbProvisionResult usbResult = target == FinalMediaTarget.UsbUpdate
                     ? await UpdateUsbMediaAsync(options, snapshot, deploymentProtectionMaterial, telemetryProgressTracker, cancellationToken)
-                    : await CreateUsbMediaAsync(options, snapshot, deploymentProtectionMaterial, telemetryProgressTracker, cancellationToken);
-                successMessage = localizationService.FormatString(
-                    "StartMedia.Operation.UsbVolumesFormat",
-                    usbResult.BootDriveLetter,
-                    usbResult.CacheDriveLetter);
+                    : await CreateUsbMediaAsync(options, layout, snapshot, deploymentProtectionMaterial, telemetryProgressTracker, cancellationToken);
+                successMessage = layout == UsbMediaLayout.WithoutCache
+                    ? localizationService.FormatString("StartMedia.Operation.UsbWithoutCacheReadyFormat", usbResult.BootDriveLetter)
+                    : localizationService.FormatString(
+                        "StartMedia.Operation.UsbVolumesFormat",
+                        usbResult.BootDriveLetter,
+                        usbResult.CacheDriveLetter);
             }
 
             if (preparedBootImageSource == WinPeBootImageSource.WinPe)
@@ -783,11 +896,20 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     WinPeErrorCodes.UsbIdentityMismatch => localizationService.GetString("StartMedia.Operation.DiskIdentityCannotBeConfirmed"),
                     WinPeErrorCodes.UsbUnsafeTarget => localizationService.GetString("StartMedia.Operation.DiskNoLongerSafe"),
                     WinPeErrorCodes.CustomDriversTooLarge => FormatMediaCapacityFailure("StartMedia.Operation.CustomDriversTooLarge", failureDiagnostic),
+                    WinPeErrorCodes.UsbBootCapacityInsufficient when target == FinalMediaTarget.UsbWithoutCache =>
+                        FormatMediaCapacityFailure("StartMedia.Operation.UsbWithoutCacheCapacityInsufficient", failureDiagnostic),
                     WinPeErrorCodes.UsbBootCapacityInsufficient => FormatMediaCapacityFailure("StartMedia.Operation.UsbBootCapacityInsufficient", failureDiagnostic),
+                    WinPeErrorCodes.UsbFileTooLargeForFat32 => FormatMediaCapacityFailure("StartMedia.Operation.UsbFileTooLargeForFat32", failureDiagnostic),
                     WinPeErrorCodes.UsbBootCapacityUnknown => localizationService.GetString("StartMedia.Operation.UsbBootCapacityUnknown"),
+                    WinPeErrorCodes.UsbBootFileTooLarge when target == FinalMediaTarget.UsbWithoutCache =>
+                        FormatMediaCapacityFailure("StartMedia.Operation.UsbFileTooLargeForFat32", failureDiagnostic),
                     WinPeErrorCodes.UsbBootFileTooLarge => FormatMediaCapacityFailure("StartMedia.Operation.UsbBootFileTooLarge", failureDiagnostic),
                     WinPeErrorCodes.UsbCacheCapacityInsufficient => localizationService.GetString("StartMedia.Operation.UsbCacheCapacityInsufficient"),
                     WinPeErrorCodes.ExternalMediaContentFailed => localizationService.GetString("StartMedia.Operation.ExternalMediaContentFailed"),
+                    WinPeErrorCodes.PxeOutputCapacityInsufficient => FormatMediaCapacityFailure("StartMedia.Operation.PxeOutputCapacityInsufficient", failureDiagnostic),
+                    // A boot file missing from the workspace is a build problem, so its technical detail is shown instead.
+                    WinPeErrorCodes.PxeOutputFailed when failureDiagnostic.FailureReason != WinPeFailureReasons.ArtifactMissing =>
+                        localizationService.GetString("StartMedia.Operation.PxeOutputFailed"),
                     WinPeErrorCodes.IsoCreateFailed when IsIsoOutputLocked(failureDiagnostic) => string.Format(
                         CultureInfo.CurrentCulture,
                         localizationService.GetString("StartMedia.Operation.IsoOutputLocked"),
@@ -803,7 +925,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 or WinPeErrorCodes.UsbBootCapacityInsufficient
                 or WinPeErrorCodes.UsbBootCapacityUnknown
                 or WinPeErrorCodes.UsbBootFileTooLarge
-                or WinPeErrorCodes.UsbCacheCapacityInsufficient)
+                or WinPeErrorCodes.UsbCacheCapacityInsufficient
+                or WinPeErrorCodes.PxeOutputCapacityInsufficient
+                or WinPeErrorCodes.UsbFileTooLargeForFat32)
             {
                 logger.Warning(
                     "Final boot media operation failed validation. FailedStepName={FailedStepName}, DurationMs={DurationMs}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, RequiredBytes={RequiredBytes}, AvailableBytes={AvailableBytes}",
@@ -885,7 +1009,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             }
             finally
             {
-                if (target != FinalMediaTarget.Iso && !isDisposed)
+                if (IsUsbTarget(target) && !isDisposed)
                 {
                     await RefreshUsbCandidatesAfterMediaOperationAsync();
                 }
@@ -904,8 +1028,34 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private static MediaCreationKind ToMediaCreationKind(FinalMediaTarget target) => target switch
     {
         FinalMediaTarget.Iso => MediaCreationKind.Iso,
+        FinalMediaTarget.Pxe => MediaCreationKind.Pxe,
         FinalMediaTarget.UsbUpdate => MediaCreationKind.UsbUpdate,
         _ => MediaCreationKind.UsbCreate
+    };
+
+    private static bool IsUsbTarget(FinalMediaTarget target) =>
+        target is FinalMediaTarget.Usb or FinalMediaTarget.UsbUpdate or FinalMediaTarget.UsbWithoutCache;
+
+    private static string GetTelemetryBootMediaTarget(FinalMediaTarget target) => target switch
+    {
+        FinalMediaTarget.Iso => TelemetryBootMediaTargets.Iso,
+        FinalMediaTarget.Pxe => TelemetryBootMediaTargets.Pxe,
+        _ => TelemetryBootMediaTargets.Usb
+    };
+
+    private static string GetTelemetryUsbOperation(FinalMediaTarget target) => target switch
+    {
+        FinalMediaTarget.Usb => TelemetryBootMediaUsbOperations.Create,
+        FinalMediaTarget.UsbUpdate => TelemetryBootMediaUsbOperations.Update,
+        FinalMediaTarget.UsbWithoutCache => TelemetryBootMediaUsbOperations.CreateWithoutCache,
+        _ => TelemetryBootMediaUsbOperations.None
+    };
+
+    private static string GetBlockedTitleKey(FinalMediaTarget target) => target switch
+    {
+        FinalMediaTarget.Iso => "StartMedia.CreateIso.BlockedTitle",
+        FinalMediaTarget.Pxe => "StartMedia.CreatePxe.BlockedTitle",
+        _ => "StartMedia.CreateUsb.BlockedTitle"
     };
 
     private string GetOperationTitle(FinalMediaTarget target, OperationOutcome outcome)
@@ -913,6 +1063,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         string targetName = target switch
         {
             FinalMediaTarget.Iso => "Iso",
+            FinalMediaTarget.Pxe => "Pxe",
             FinalMediaTarget.UsbUpdate => "UsbUpdate",
             _ => "Usb"
         };
@@ -937,6 +1088,15 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         string size = localizationService.FormatString(
             "StartMedia.Operation.IsoSizeFormat",
             ByteSizeFormatter.Format(localizationService, (ulong)new FileInfo(isoPath).Length));
+        return location + Environment.NewLine + Environment.NewLine + size;
+    }
+
+    private string BuildPxeSuccessMessage(string outputDirectoryPath, long writtenBytes)
+    {
+        string location = localizationService.GetString("StartMedia.Operation.PxeSavedLead") + Environment.NewLine + outputDirectoryPath;
+        string size = localizationService.FormatString(
+            "StartMedia.Operation.IsoSizeFormat",
+            ByteSizeFormatter.Format(localizationService, (ulong)writtenBytes));
         return location + Environment.NewLine + Environment.NewLine + size;
     }
 
@@ -972,7 +1132,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         // USB creation partitions the disk from 20%; an update writes the cache partition from 22%.
         bool usbWasModified = target switch
         {
-            FinalMediaTarget.Usb => lastFinalMediaPercent >= 20,
+            FinalMediaTarget.Usb or FinalMediaTarget.UsbWithoutCache => lastFinalMediaPercent >= 20,
             FinalMediaTarget.UsbUpdate => lastFinalMediaPercent >= 22,
             _ => false
         };
@@ -1179,6 +1339,59 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     }
 
     /// <summary>
+    /// Builds the boot image exactly like the ISO, runtimes included, then writes the network boot files. Imported content
+    /// is still prepared so the Deploy configuration in boot.wim carries the same media bindings as the ISO.
+    /// </summary>
+    private async Task<long> CreatePxeMediaAsync(
+        MediaPreflightOptions options,
+        string outputDirectoryPath,
+        BuildSnapshot snapshot,
+        DeploymentMediaProtectionMaterial deploymentProtectionMaterial,
+        MediaCreationTelemetryProgressTracker telemetryProgressTracker,
+        CancellationToken cancellationToken)
+    {
+        PreparedMediaWorkspace? workspace = null;
+
+        try
+        {
+            workspace = await PrepareMediaWorkspaceAsync(
+                options,
+                snapshot,
+                includeRuntimePayloadInImage: true,
+                deploymentProtectionMaterial,
+                telemetryProgressTracker: telemetryProgressTracker,
+                cancellationToken);
+
+            telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.CreatePxeMedia);
+            cancellationToken.ThrowIfCancellationRequested();
+            logger.Debug(
+                "Creating PXE boot files. OutputDirectoryPath={OutputDirectoryPath}, MediaDirectoryPath={MediaDirectoryPath}, UseBootEx={UseBootEx}",
+                outputDirectoryPath,
+                workspace.PreparedWorkspace.Artifact.MediaDirectoryPath,
+                workspace.PreparedWorkspace.UseBootEx);
+
+            WinPeResult<long> result = await pxeMediaService.CreateAsync(
+                new WinPePxeMediaOptions
+                {
+                    PreparedWorkspace = workspace.PreparedWorkspace,
+                    OutputDirectoryPath = outputDirectoryPath,
+                    Progress = telemetryProgressTracker.CreateFinalMediaProgress(
+                        new Progress<WinPeMediaProgress>(ReportFinalMediaProgress))
+                },
+                cancellationToken);
+
+            EnsureSuccess(result);
+            ReportPhase(MediaCreationPhase.Finishing, 0, localizationService.GetString("StartMedia.Operation.RemovingTemporaryFiles"));
+            logger.Debug("PXE boot files written. OutputDirectoryPath={OutputDirectoryPath}, WrittenBytes={WrittenBytes}", outputDirectoryPath, result.Value);
+            return result.Value;
+        }
+        finally
+        {
+            ReleasePreparedWorkspace(workspace?.CustomImages, workspace?.PostInstallation, workspace?.CustomDrivers, workspace?.Lease);
+        }
+    }
+
+    /// <summary>
     /// Re-reads disk identity and Foundry media state after a USB operation, because formatting or
     /// re-enumeration can change them and the next operation must not reuse the stale selection.
     /// </summary>
@@ -1201,11 +1414,12 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     /// </summary>
     private async Task ValidateUsbTargetBeforePreparationAsync(
         WinPeUsbDiskCandidate selectedDisk,
+        UsbMediaLayout layout,
         CancellationToken cancellationToken)
     {
         ReportPhase(MediaCreationPhase.Preparing, 0, localizationService.GetString("StartMedia.Operation.ValidatingUsbTarget"));
         WinPeResult result = await usbMediaService.ValidateUsbTargetAsync(
-            CreateUsbTargetOptions(selectedDisk),
+            CreateUsbTargetOptions(selectedDisk) with { Layout = layout },
             ResolveWinPeToolsOrThrow(),
             Constants.UsbQueryTempDirectoryPath,
             cancellationToken);
@@ -1224,6 +1438,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private async Task<WinPeUsbProvisionResult> CreateUsbMediaAsync(
         MediaPreflightOptions options,
+        UsbMediaLayout layout,
         BuildSnapshot snapshot,
         DeploymentMediaProtectionMaterial deploymentProtectionMaterial,
         MediaCreationTelemetryProgressTracker telemetryProgressTracker,
@@ -1240,20 +1455,22 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         try
         {
-            await ValidateUsbTargetBeforePreparationAsync(selectedDisk, cancellationToken);
+            await ValidateUsbTargetBeforePreparationAsync(selectedDisk, layout, cancellationToken);
             workspace = await PrepareMediaWorkspaceAsync(
                 options,
                 snapshot,
-                includeRuntimePayloadInImage: false,
+                // A drive without cache has no partition for the runtimes, so they are embedded like on an ISO.
+                includeRuntimePayloadInImage: layout == UsbMediaLayout.WithoutCache,
                 deploymentProtectionMaterial,
                 telemetryProgressTracker: telemetryProgressTracker,
                 cancellationToken);
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.CreateUsbMedia);
             logger.Debug(
-                "Creating USB media. DiskNumber={DiskNumber}, DiskName={DiskName}, PartitionStyle={PartitionStyle}, FormatMode={FormatMode}, MediaDirectoryPath={MediaDirectoryPath}, UseBootEx={UseBootEx}",
+                "Creating USB media. DiskNumber={DiskNumber}, DiskName={DiskName}, Layout={Layout}, PartitionStyle={PartitionStyle}, FormatMode={FormatMode}, MediaDirectoryPath={MediaDirectoryPath}, UseBootEx={UseBootEx}",
                 selectedDisk.DiskNumber,
                 selectedDisk.FriendlyName,
+                layout,
                 options.UsbPartitionStyle,
                 options.UsbFormatMode,
                 workspace.PreparedWorkspace.Artifact.MediaDirectoryPath,
@@ -1264,7 +1481,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 {
                     PartitionStyle = options.UsbPartitionStyle,
                     FormatMode = options.UsbFormatMode,
-                    RuntimePayloadProvisioning = workspace.RuntimePayloadProvisioning,
+                    Layout = layout,
+                    RuntimePayloadProvisioning = layout == UsbMediaLayout.WithCache ? workspace.RuntimePayloadProvisioning : null,
                     CustomImages = workspace.CustomImages,
                     PostInstallation = workspace.PostInstallation,
                     CustomDrivers = workspace.CustomDrivers,
@@ -1312,7 +1530,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         try
         {
-            await ValidateUsbTargetBeforePreparationAsync(selectedDisk, cancellationToken);
+            await ValidateUsbTargetBeforePreparationAsync(selectedDisk, UsbMediaLayout.WithCache, cancellationToken);
             workspace = await PrepareMediaWorkspaceAsync(
                 options,
                 snapshot,
@@ -1800,6 +2018,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             MediaCreationPhase.FormattingUsbDrive => "StartMedia.Operation.Phase.FormattingUsbDrive",
             MediaCreationPhase.CopyingToUsbDrive => "StartMedia.Operation.Phase.CopyingToUsbDrive",
             MediaCreationPhase.UpdatingUsbDrive => "StartMedia.Operation.Phase.UpdatingUsbDrive",
+            MediaCreationPhase.CreatingPxeFiles => "StartMedia.Operation.Phase.CreatingPxeFiles",
             _ => "StartMedia.Operation.Phase.Finishing"
         });
     }
@@ -1918,6 +2137,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             WinPeProgressStatuses.PreparingIsoWorkspace => "StartMedia.Operation.PreparingIsoWorkspace",
             WinPeProgressStatuses.CreatingIsoMedia or WinPeProgressStatuses.RunningMakeWinPeMediaIso => "StartMedia.Operation.WritingIso",
             WinPeProgressStatuses.FinalizingIsoOutput => "StartMedia.Operation.FinalizingIsoOutput",
+            WinPeProgressStatuses.PreparingPxeOutput => "StartMedia.Operation.PreparingPxeOutput",
+            WinPeProgressStatuses.CopyingPxeFiles => "StartMedia.Operation.CopyingPxeFiles",
             WinPeProgressStatuses.StagingCustomImages => "StartMedia.Operation.CopyingCustomImages",
             WinPeProgressStatuses.StagingPostInstallation => "StartMedia.Operation.CopyingPostInstallation",
             WinPeProgressStatuses.StagingCustomDrivers => "StartMedia.Operation.CopyingCustomDrivers",
@@ -1936,6 +2157,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             WinPeProgressStatuses.FormattingUsbBootPartition => "StartMedia.Operation.FormattingUsbBootPartition",
             WinPeProgressStatuses.CreatingUsbCachePartition => "StartMedia.Operation.CreatingUsbCachePartition",
             WinPeProgressStatuses.FormattingUsbCachePartition => "StartMedia.Operation.FormattingUsbCachePartition",
+            WinPeProgressStatuses.CreatingUsbMediaPartition => "StartMedia.Operation.CreatingUsbMediaPartition",
+            WinPeProgressStatuses.FormattingUsbMediaPartition => "StartMedia.Operation.FormattingUsbMediaPartition",
             WinPeProgressStatuses.CopyingWinPeMediaToUsb => "StartMedia.Operation.CopyingUsbMedia",
             WinPeProgressStatuses.VerifyingUsbBootMedia => "StartMedia.Operation.VerifyingUsbMedia",
             WinPeProgressStatuses.PreparingUsbCachePartition => "StartMedia.Operation.PreparingUsbCache",
@@ -2191,9 +2414,14 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         CanSelectUsbDisk = UsbCandidates.Count > 0 && !IsRefreshingUsbCandidates;
         CanCreateIso = evaluation.CanCreateIso && !IsMediaOperationRunning && !isUpdateAdvisoryPending && !isRefreshingUnattendSources;
         CanCreateUsb = evaluation.CanCreateUsb && !IsMediaOperationRunning && !isUpdateAdvisoryPending && !isRefreshingUnattendSources;
+        CanCreatePxe = evaluation.CanCreatePxe && !IsMediaOperationRunning && !isUpdateAdvisoryPending && !isRefreshingUnattendSources;
+        CanCreateUsbWithoutCache = evaluation.CanCreateUsbWithoutCache && !IsMediaOperationRunning && !isUpdateAdvisoryPending && !isRefreshingUnattendSources;
+        // The split button stays usable when only its secondary action can run, so a drive below the cache minimum can
+        // still be written without cache, and its primary action explains why the drive is too small for a cache.
+        CanUseUsbActions = CanCreateUsb || CanCreateUsbWithoutCache;
         FinalExecutionStatus = localizationService.GetString(!options.IsFinalExecutionEnabled
             ? "StartMedia.FinalExecution.Deferred"
-            : evaluation.CanCreateIso || evaluation.CanCreateUsb
+            : evaluation.CanCreateIso || evaluation.CanCreateUsb || evaluation.CanCreatePxe || evaluation.CanCreateUsbWithoutCache
                 ? "StartMedia.FinalExecution.ReadyNow"
                 : "StartMedia.FinalExecution.Ready");
         ConfigurationOverviewEvaluation overview = configurationOverviewService.Evaluate();
@@ -2304,15 +2532,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             Constants.WorkspacesDirectoryPath,
             Constants.WorkspacesDirectoryPath));
 
-        string bootMediaTarget = target == FinalMediaTarget.Iso
-            ? TelemetryBootMediaTargets.Iso
-            : TelemetryBootMediaTargets.Usb;
-        string bootMediaUsbOperation = target switch
-        {
-            FinalMediaTarget.Usb => TelemetryBootMediaUsbOperations.Create,
-            FinalMediaTarget.UsbUpdate => TelemetryBootMediaUsbOperations.Update,
-            _ => TelemetryBootMediaUsbOperations.None
-        };
+        string bootMediaTarget = GetTelemetryBootMediaTarget(target);
+        string bootMediaUsbOperation = GetTelemetryUsbOperation(target);
         IReadOnlyDictionary<string, object?> properties = BootMediaTelemetryPropertyBuilder.Build(
             bootMediaTarget,
             bootMediaUsbOperation,
@@ -3169,7 +3390,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     {
         Iso,
         Usb,
-        UsbUpdate
+        UsbUpdate,
+        Pxe,
+        UsbWithoutCache
     }
 
     private sealed record PreparedMediaWorkspace(

@@ -3592,7 +3592,10 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Reikalingos žiniasklaidos paslaptys neparengtos.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Pasirinktas USB diskas per mažas. Naudokite bent 16 GB talpos USB diską.</value>
+    <value>Pasirinktas USB diskas per mažas talpyklai. Naudokite bent 16 GB talpos USB diską arba pasirinkite „Sukurti be talpyklos“ spustelėję „Sukurti USB“ rodyklę.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Pasirinktas USB diskas per mažas. Naudokite bent 1 GB talpos USB diską.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Pasirinktas WinPE klaviatūros išdėstymas šiame kompiuteryje neįdiegtas.</value>
@@ -3620,6 +3623,12 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Sukurti ISO</value>
+  </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>PXE failų kūrimas užblokuotas</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>Sukurti PXE failus</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>USB kūrimas užblokuotas</value>
@@ -3656,6 +3665,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Sukurti USB</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Sukurti be talpyklos</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Pasirenkamas .inf tvarkyklių aplankas, įtraukiamas į WinPE paleidimo atvaizdą.</value>
@@ -3700,7 +3712,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>WinPE įkrovos kalba</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Sukurkite ISO arba USB laikmeną po to, kai bus atlikti visi parengties patikrinimai.</value>
+    <value>Sukurkite ISO, USB arba PXE laikmeną po to, kai bus atlikti visi parengties patikrinimai.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>Sukurti mediją</value>
@@ -3712,7 +3724,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Laikmenos kūrimas pasiekiamas, kai praeina visi parengties patikrinimai.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Norėdami pradėti, toliau pasirinkite ISO arba USB išvestį.</value>
+    <value>Norėdami pradėti, toliau pasirinkite ISO, USB arba PXE išvestį.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Visiškas formatavimas</value>
@@ -3777,6 +3789,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>Kopijuojamas turinys po diegimo…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>Kopijuojami PXE įkrovos failai</value>
+  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>WinPE failai kopijuojami į USB diską…</value>
   </data>
@@ -3785,6 +3800,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Kuriamas talpyklos skaidinys…</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Kuriamas USB skaidinys…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Nepavyko pašalinti nenaudojamų pasirinktinių tvarkyklių rinkinių iš USB atmintinės.</value>
@@ -3849,6 +3867,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Formatuojamas talpyklos skaidinys…</value>
   </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Formatuojamas USB skaidinys…</value>
+  </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Kuriama skaidinių lentelė…</value>
   </data>
@@ -3897,6 +3918,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>Kuriamas ISO failas</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>Įrašomi PXE failai</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>Tinkinamas įkrovos atvaizdas</value>
   </data>
@@ -3930,6 +3954,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>Ruošiamas turinys po diegimo…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>Tikrinamas paskirties aplankas</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>Ruošiamas talpyklos skaidinys…</value>
   </data>
@@ -3947,6 +3974,15 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Į USB diską pridedami Foundry komponentai…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>Paskirties aplanke nepakanka laisvos vietos. PXE įkrovos failams reikia {0}. Laisva vieta: {1}. Atlaisvinkite vietos arba pasirinkite kitą aplanką.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>Nepavyko įrašyti PXE įkrovos failų į paskirties aplanką. Patikrinkite, ar aplankas pasiekiamas ir ar galite į jį rašyti.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>PXE įkrovos failai įrašyti į:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>Šalinami laikinieji failai…</value>
@@ -3986,6 +4022,18 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO sukurtas</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>PXE failų kūrimas atšauktas</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>Nepavyko sukurti PXE failų</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>Kuriami PXE failai</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>PXE failai sukurti</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>USB laikmenos kūrimas atšauktas</value>
@@ -4029,11 +4077,20 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>USB talpyklos skaidinyje nepakanka laisvos vietos atnaujintam turiniui, nes ankstesnis turinys atnaujinimo metu lieka diske. Niekas nebuvo ištrinta ar suformatuota. Užuot atnaujinę, iš naujo sukurkite USB laikmeną.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Kopijuojamo failo dydis yra {0}; USB disko be talpyklos FAT32 skaidinys palaiko ne daugiau kaip {1} vienam failui. Niekas nebuvo ištrinta ar suformatuota. Vietoj to naudokite „Sukurti USB“.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Iš USB disko gali nebepavykti paleisti įrenginio. Prieš naudodami jį sukurkite arba atnaujinkite iš naujo.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Įkrovos tomas: {0}. Talpyklos tomas: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Laikmenai reikia maždaug {0}, tačiau šiame USB diske be talpyklos telpa {1}. Niekas nebuvo ištrinta ar suformatuota. Vietoj to naudokite „Sukurti USB“.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>USB tomas: {0}. Diske nesaugomi atsisiuntimai: kiekvieno diegimo metu Windows ir tvarkyklės vėl atsisiunčiamos iš katalogo.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Tikrinamas USB diskas…</value>
@@ -4059,6 +4116,36 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Peržiūrėkite parengtį, pasirinkite ISO arba USB išvestį ir pradėkite laikmenos kūrimą.</value>
   </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>Sukurti</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>Foundry OSD įrašo boot.wim, boot.sdi, BCD ir bootmgr.efi į šį aplanką, kad būtų galima paleisti per tinklą naudojant UEFI. Importuokite juos į savo PXE serverį.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>Šiame aplanke jau yra įkrovos atvaizdas. Jo PXE įkrovos failai bus pakeisti.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>Paskirties aplankas</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>Pasirinkite PXE paskirties aplanką</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>Šis turinys kopijuojamas tik į ISO ir USB laikmenas. Diegimus, kuriems jo reikia, paleiskite iš ISO arba USB disko.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>Nepateikiama paleidžiant per PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>Pasirinktinių tvarkyklių rinkiniai: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>Pasirinktiniai Windows atvaizdai: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>Po diegimo atliekami veiksmai, naudojantys importuotus failus: {0}</value>
+  </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>Peržiūrėti: {0}</value>
   </data>
@@ -4079,6 +4166,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Peržiūrėkite medijos išvesties įspėjimus</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Sukurti iš naujo be talpyklos</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

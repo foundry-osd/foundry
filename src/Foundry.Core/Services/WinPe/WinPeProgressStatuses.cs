@@ -60,6 +60,10 @@ public static class WinPeProgressStatuses
     public const string FinalizingIsoOutput = "Finalizing ISO output.";
     public const string IsoMediaCompleted = "ISO media completed.";
 
+    public const string PreparingPxeOutput = "Preparing PXE output folder.";
+    public const string CopyingPxeFiles = "Copying PXE boot files.";
+    public const string PxeOutputCompleted = "PXE boot files completed.";
+
     public const string StagingCustomImages = "Staging custom Windows images.";
     public const string CustomImagesVerified = "Custom Windows images verified.";
     public const string StagingPostInstallation = "Staging post-installation content.";
@@ -81,6 +85,8 @@ public static class WinPeProgressStatuses
     public const string FormattingUsbBootPartition = "Formatting BOOT partition.";
     public const string CreatingUsbCachePartition = "Creating cache partition.";
     public const string FormattingUsbCachePartition = "Formatting cache partition.";
+    public const string CreatingUsbMediaPartition = "Creating USB media partition.";
+    public const string FormattingUsbMediaPartition = "Formatting USB media partition.";
     public const string UsbPartitionsFormatted = "USB partitions formatted.";
     public const string CopyingWinPeMediaToUsb = "Copying WinPE media to USB.";
     public const string VerifyingUsbBootMedia = "Verifying USB boot media.";

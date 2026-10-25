@@ -97,6 +97,32 @@ public sealed class CustomDriverSetCatalogTests : IDisposable
     }
 
     [Fact]
+    public async Task FindsSetsOnAUsbDriveWithoutCache()
+    {
+        var (settings, media) = await PublishAsync(1);
+        var service = new CustomDriverSetCatalogService(new Volumes(new VolumeInfo(media, "FOUNDRY", DriveType.Removable, true, long.MaxValue)));
+
+        CustomDriverSetCatalog catalog = await service.DiscoverAsync(settings, Cancellation);
+
+        Assert.Equal(CustomDriverSetCatalogStatus.Available, catalog.Status);
+        Assert.Equal(media, Assert.Single(catalog.Sets).MediaRoot);
+    }
+
+    [Fact]
+    public async Task IgnoresAFoundryLabelledVolumeWithoutTheManifest()
+    {
+        var (settings, media) = await PublishAsync(1);
+        string empty = Path.Combine(Path.GetDirectoryName(media)!, "empty-" + Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(empty);
+        var service = new CustomDriverSetCatalogService(new Volumes(new VolumeInfo(empty, "FOUNDRY", DriveType.Removable, true, long.MaxValue)));
+
+        CustomDriverSetCatalog catalog = await service.DiscoverAsync(settings, Cancellation);
+
+        Assert.NotEqual(CustomDriverSetCatalogStatus.Available, catalog.Status);
+        Assert.Empty(catalog.Sets);
+    }
+
+    [Fact]
     public async Task AvailableListsSetsWithInfCount()
     {
         var (settings, media) = await PublishAsync(2);

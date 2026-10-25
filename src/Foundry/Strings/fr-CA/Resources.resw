@@ -3592,7 +3592,10 @@ Mots de passe et clés d'accès inclus : {2}</value>
     <value>Les secrets requis du média ne sont pas prêts.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>La clé USB sélectionnée est trop petite. Utilisez une clé USB d'au moins 16 Go.</value>
+    <value>La clé USB sélectionnée est trop petite pour un cache. Utilisez une clé USB d'au moins 16 Go, ou sélectionnez « Créer sans cache » dans la flèche de « Créer le média USB ».</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>La clé USB sélectionnée est trop petite. Utilisez une clé USB d'au moins 1 Go.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>La disposition de clavier WinPE sélectionnée n'est pas installée sur cet ordinateur.</value>
@@ -3620,6 +3623,12 @@ Mots de passe et clés d'accès inclus : {2}</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Créer l'ISO</value>
+  </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>La création des fichiers PXE est bloquée</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>Créer les fichiers PXE</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>La création du média USB est bloquée</value>
@@ -3656,6 +3665,9 @@ Mots de passe et clés d'accès inclus : {2}</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Créer le média USB</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Créer sans cache</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Dossier facultatif de pilotes .inf ajoutés à l'image de démarrage WinPE.</value>
@@ -3700,7 +3712,7 @@ Mots de passe et clés d'accès inclus : {2}</value>
     <value>WinPE langue de démarrage</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Créez un média ISO ou USB une fois tous les contrôles de préparation réussis.</value>
+    <value>Créez un média ISO, USB ou PXE une fois tous les contrôles de préparation réussis.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>Créer un média</value>
@@ -3712,7 +3724,7 @@ Mots de passe et clés d'accès inclus : {2}</value>
     <value>La création de médias est disponible lorsque tous les contrôles de préparation réussissent.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Choisissez une sortie ISO ou USB ci-dessous pour commencer.</value>
+    <value>Choisissez une sortie ISO, USB ou PXE ci-dessous pour commencer.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Formatage complet</value>
@@ -3777,6 +3789,9 @@ Mots de passe et clés d'accès inclus : {2}</value>
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>Copie du contenu de post-installation…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>Copie des fichiers de démarrage PXE</value>
+  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Copie des fichiers WinPE sur la clé USB…</value>
   </data>
@@ -3785,6 +3800,9 @@ Mots de passe et clés d'accès inclus : {2}</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Création de la partition de cache…</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Création de la partition USB…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Les ensembles de pilotes personnalisés inutilisés n'ont pas pu être supprimés de la clé USB.</value>
@@ -3849,6 +3867,9 @@ Mots de passe et clés d'accès inclus : {2}</value>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Formatage de la partition de cache…</value>
   </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Formatage de la partition USB…</value>
+  </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Création de la table de partitions…</value>
   </data>
@@ -3897,6 +3918,9 @@ Mots de passe et clés d'accès inclus : {2}</value>
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>Création du fichier ISO</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>Écriture des fichiers PXE</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>Personnalisation de l'image de démarrage</value>
   </data>
@@ -3930,6 +3954,9 @@ Mots de passe et clés d'accès inclus : {2}</value>
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>Préparation du contenu de post-installation…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>Vérification du dossier de destination</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>Préparation de la partition de cache…</value>
   </data>
@@ -3947,6 +3974,15 @@ Mots de passe et clés d'accès inclus : {2}</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Ajout des composants Foundry à la clé USB…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>Espace libre insuffisant dans le dossier de destination. Les fichiers de démarrage PXE nécessitent {0}. Espace disponible : {1}. Libérez de l'espace ou choisissez un autre dossier.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>Les fichiers de démarrage PXE n'ont pas pu être écrits dans le dossier de destination. Vérifiez que le dossier est accessible et que vous pouvez y écrire.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>Les fichiers de démarrage PXE ont été enregistrés dans :</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>Suppression des fichiers temporaires…</value>
@@ -3986,6 +4022,18 @@ Mots de passe et clés d'accès inclus : {2}</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>Image ISO créée</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>Création des fichiers PXE annulée</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>Échec de la création des fichiers PXE</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>Création des fichiers PXE</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>Fichiers PXE créés</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>Création du support USB annulée</value>
@@ -4029,11 +4077,20 @@ Mots de passe et clés d'accès inclus : {2}</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>La partition de cache USB n'a pas assez d'espace libre pour le contenu mis à jour, car l'ancien contenu reste sur le lecteur pendant la mise à jour. Aucune donnée n'a été effacée et aucun formatage n'a été effectué. Recréez le média USB au lieu de le mettre à jour.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Un fichier à copier occupe {0} ; la partition FAT32 d'un lecteur USB sans cache prend en charge au maximum {1} par fichier. Aucune donnée n'a été effacée et aucun formatage n'a été effectué. Utilisez plutôt « Créer le média USB ».</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Il est possible que la clé USB ne permette plus de démarrer un appareil. Recréez-la ou mettez-la à jour avant de l'utiliser.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Volume de démarrage : {0}. Volume de cache : {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Le média nécessite environ {0}, mais ce lecteur USB sans cache peut contenir {1}. Aucune donnée n'a été effacée et aucun formatage n'a été effectué. Utilisez plutôt « Créer le média USB ».</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>Volume USB : {0}. Le lecteur ne conserve aucun téléchargement : chaque déploiement télécharge de nouveau Windows et les pilotes depuis le catalogue.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Vérification de la clé USB…</value>
@@ -4059,6 +4116,36 @@ Mots de passe et clés d'accès inclus : {2}</value>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Vérifiez l'état, choisissez une sortie ISO ou USB, puis lancez la création du support.</value>
   </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>Créer</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>Foundry OSD écrit boot.wim, boot.sdi, BCD et bootmgr.efi dans ce dossier pour un démarrage réseau UEFI. Importez-les dans votre serveur PXE.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>Ce dossier contient déjà une image de démarrage. Ses fichiers de démarrage PXE seront remplacés.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>Dossier de destination</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>Sélectionnez le dossier de destination PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>Ce contenu est copié uniquement sur les médias ISO et USB. Lancez les déploiements qui en ont besoin depuis un ISO ou une clé USB.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>Non fourni avec un démarrage PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>Ensembles de pilotes personnalisés : {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>Images Windows personnalisées : {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>Actions de post-installation qui utilisent des fichiers importés : {0}</value>
+  </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>Vérifier {0}</value>
   </data>
@@ -4079,6 +4166,9 @@ Mots de passe et clés d'accès inclus : {2}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Vérifier les avertissements de sortie du média</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Recréer sans cache</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

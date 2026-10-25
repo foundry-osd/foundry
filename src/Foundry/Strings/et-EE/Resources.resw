@@ -3592,7 +3592,10 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Nõutavad meediasaladused pole valmis.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Valitud USB-ketas on liiga väike. Kasutage vähemalt 16 GB mahuga USB-ketast.</value>
+    <value>Valitud USB-ketas on vahemälu jaoks liiga väike. Kasutage vähemalt 16 GB mahuga USB-ketast või valige nupu „Loo USB“ noolest „Loo ilma vahemäluta“.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Valitud USB-ketas on liiga väike. Kasutage vähemalt 1 GB mahuga USB-ketast.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Valitud WinPE klaviatuuripaigutust pole selles arvutis installitud.</value>
@@ -3620,6 +3623,12 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Loo ISO</value>
+  </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>PXE-failide loomine on blokeeritud</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>Loo PXE-failid</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>USB loomine on blokeeritud</value>
@@ -3656,6 +3665,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Loo USB</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Loo ilma vahemäluta</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Valikuline kaust .inf-draiveritega, mis lisatakse WinPE alglaadimistõmmisele.</value>
@@ -3700,7 +3712,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>WinPE alglaadimiskeel</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Looge ISO või USB meedium pärast kõigi valmisolekukontrollide läbimist.</value>
+    <value>Looge ISO, USB või PXE meedium pärast kõigi valmisolekukontrollide läbimist.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>Loo meediat</value>
@@ -3712,7 +3724,7 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
     <value>Meediumi loomine on saadaval, kui kõik valmisolekukontrollid on läbinud.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Alustamiseks valige allpool ISO- või USB-väljund.</value>
+    <value>Alustamiseks valige allpool ISO-, USB- või PXE-väljund.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Täielik vormindus</value>
@@ -3777,6 +3789,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>Installijärgse sisu kopeerimine…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>PXE-alglaadimisfailide kopeerimine</value>
+  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>WinPE failide kopeerimine USB-kettale…</value>
   </data>
@@ -3785,6 +3800,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Vahemälu partitsiooni loomine…</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>USB-partitsiooni loomine…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Kasutamata kohandatud draiverikomplekte ei saanud USB-draivilt eemaldada.</value>
@@ -3849,6 +3867,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Vahemälu partitsiooni vormindamine…</value>
   </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>USB-partitsiooni vormindamine…</value>
+  </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Partitsioonitabeli loomine…</value>
   </data>
@@ -3897,6 +3918,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>ISO-faili loomine</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>PXE-failide kirjutamine</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>Alglaadimistõmmise kohandamine</value>
   </data>
@@ -3930,6 +3954,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>Installijärgse sisu ettevalmistamine…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>Sihtkausta kontrollimine</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>Vahemälu partitsiooni ettevalmistamine…</value>
   </data>
@@ -3947,6 +3974,15 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Foundry komponentide lisamine USB-kettale…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>Sihtkaustas pole piisavalt vaba ruumi. PXE-alglaadimisfailid vajavad {0}. Saadaval: {1}. Vabastage ruumi või valige mõni muu kaust.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>PXE-alglaadimisfaile ei saanud sihtkausta kirjutada. Kontrollige, kas kaust on kättesaadav ja kas saate sinna kirjutada.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>PXE-alglaadimisfailid salvestati asukohta:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>Ajutiste failide eemaldamine…</value>
@@ -3986,6 +4022,18 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO on loodud</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>PXE-failide loomine tühistati</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>PXE-failide loomine nurjus</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>PXE-failide loomine</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>PXE-failid on loodud</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>USB-meediumi loomine tühistati</value>
@@ -4029,11 +4077,20 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>USB vahemälu partitsioonil pole uuendatud sisu jaoks piisavalt vaba ruumi, sest eelmine sisu jääb uuendamise ajaks draivile. Midagi pole kustutatud ega vormindatud. Looge USB-meedium uuesti, selle asemel et seda uuendada.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Kopeeritava faili suurus on {0}; vahemäluta USB-draivi FAT32-partitsioon toetab kuni {1} faili kohta. Midagi pole kustutatud ega vormindatud. Kasutage selle asemel valikut „Loo USB“.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>USB-ketas ei pruugi enam seadet käivitada. Enne kasutamist looge või värskendage see uuesti.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Alglaadimisköide: {0}. Vahemäluköide: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Meedium vajab ligikaudu {0}, kuid sellele vahemäluta USB-draivile mahub {1}. Midagi pole kustutatud ega vormindatud. Kasutage selle asemel valikut „Loo USB“.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>USB-köide: {0}. Draiv ei säilita allalaadimisi: iga juurutus laadib Windowsi ja draiverid kataloogist uuesti alla.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>USB-ketta kontrollimine…</value>
@@ -4059,6 +4116,36 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Kontrollige valmisolekut, valige ISO või USB väljund ja alustage meediumi loomist.</value>
   </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>Loo</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>Foundry OSD kirjutab UEFI-võrgukäivituse jaoks sellesse kausta failid boot.wim, boot.sdi, BCD ja bootmgr.efi. Importige need oma PXE-serverisse.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>See kaust sisaldab juba alglaadimistõmmist. Selle PXE-alglaadimisfailid asendatakse.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>Sihtkaust</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>Valige PXE sihtkaust</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>Seda sisu kopeeritakse ainult ISO- ja USB-meediumile. Käivitage seda vajavad juurutused ISO-st või USB-draivilt.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>PXE-käivitusega ei edastata</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>Kohandatud draiverikomplektid: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>Kohandatud Windowsi tõmmised: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>Installijärgsed toimingud, mis kasutavad imporditud faile: {0}</value>
+  </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>Vaata üle: {0}</value>
   </data>
@@ -4079,6 +4166,9 @@ Kaasatud paroolid ja juurdepääsuvõtmed: {2}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Vaadake üle meediumiväljundi hoiatused</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Loo uuesti ilma vahemäluta</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

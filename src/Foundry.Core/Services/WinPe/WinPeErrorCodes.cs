@@ -16,6 +16,7 @@ public static class WinPeErrorCodes
     public const string UsbBootCapacityUnknown = "WINPE_USB_BOOT_CAPACITY_UNKNOWN";
     public const string UsbCacheCapacityInsufficient = "WINPE_USB_CACHE_CAPACITY_INSUFFICIENT";
     public const string UsbBootFileTooLarge = "WINPE_USB_BOOT_FILE_TOO_LARGE";
+    public const string UsbFileTooLargeForFat32 = "WINPE_USB_FILE_TOO_LARGE_FOR_FAT32";
     public const string OperationBusy = "WINPE_OPERATION_BUSY";
     public const string OperationCancelled = "WINPE_OPERATION_CANCELLED";
     public const string ToolNotFound = "WINPE_TOOL_NOT_FOUND";
@@ -34,6 +35,8 @@ public static class WinPeErrorCodes
     public const string WinReIndexResolutionFailed = "WINPE_WINRE_INDEX_RESOLUTION_FAILED";
     public const string WinReExtractionFailed = "WINPE_WINRE_EXTRACTION_FAILED";
     public const string IsoCreateFailed = "WINPE_ISO_CREATE_FAILED";
+    public const string PxeOutputFailed = "WINPE_PXE_OUTPUT_FAILED";
+    public const string PxeOutputCapacityInsufficient = "WINPE_PXE_OUTPUT_CAPACITY_INSUFFICIENT";
     public const string BootExUnsupported = "WINPE_BOOTEX_UNSUPPORTED";
     public const string UsbQueryFailed = "WINPE_USB_QUERY_FAILED";
     public const string UsbUnsafeTarget = "WINPE_USB_UNSAFE_TARGET";

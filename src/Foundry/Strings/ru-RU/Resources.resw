@@ -3592,7 +3592,10 @@
     <value>Требуемые медиа-секреты не готовы.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Выбранный USB-накопитель слишком мал. Используйте USB-накопитель объемом не менее 16 GB.</value>
+    <value>Выбранный USB-накопитель слишком мал для кэша. Используйте USB-накопитель объемом не менее 16 GB или выберите «Создать без кэша» с помощью стрелки кнопки «Создать USB».</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Выбранный USB-накопитель слишком мал. Используйте USB-накопитель объемом не менее 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Выбранная раскладка клавиатуры WinPE не установлена на этом компьютере.</value>
@@ -3620,6 +3623,12 @@
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Создать ISO</value>
+  </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>Создание файлов PXE заблокировано</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>Создать файлы PXE</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>Создание USB заблокировано</value>
@@ -3656,6 +3665,9 @@
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Создать USB</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Создать без кэша</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Необязательная папка с драйверами .inf, добавляемыми в загрузочный образ WinPE.</value>
@@ -3700,7 +3712,7 @@
     <value>WinPE язык загрузки</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Создайте носитель ISO или USB после прохождения всех проверок готовности.</value>
+    <value>Создайте носитель ISO, USB или PXE после прохождения всех проверок готовности.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>Создать медиа</value>
@@ -3712,7 +3724,7 @@
     <value>Создание носителя доступно после прохождения всех проверок готовности.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Чтобы начать, выберите ниже вывод ISO или USB.</value>
+    <value>Чтобы начать, выберите ниже вывод ISO, USB или PXE.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Полное форматирование</value>
@@ -3777,6 +3789,9 @@
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>Копирование содержимого для этапа после установки…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>Копирование файлов загрузки PXE</value>
+  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Копирование файлов WinPE на USB-накопитель…</value>
   </data>
@@ -3785,6 +3800,9 @@
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Создание раздела кэша…</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Создание раздела USB…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Не удалось удалить неиспользуемые пользовательские наборы драйверов с USB-накопителя.</value>
@@ -3849,6 +3867,9 @@
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Форматирование раздела кэша…</value>
   </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Форматирование раздела USB…</value>
+  </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Создание таблицы разделов…</value>
   </data>
@@ -3897,6 +3918,9 @@
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>Создание ISO-файла</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>Запись файлов PXE</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>Настройка загрузочного образа</value>
   </data>
@@ -3930,6 +3954,9 @@
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>Подготовка содержимого для этапа после установки…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>Проверка папки назначения</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>Подготовка раздела кэша…</value>
   </data>
@@ -3947,6 +3974,15 @@
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Добавление компонентов Foundry на USB-накопитель…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>Недостаточно свободного места в папке назначения. Для файлов загрузки PXE требуется {0}. Доступно: {1}. Освободите место или выберите другую папку.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>Не удалось записать файлы загрузки PXE в папку назначения. Убедитесь, что папка доступна и у вас есть права на запись в нее.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>Файлы загрузки PXE сохранены здесь:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>Удаление временных файлов…</value>
@@ -3986,6 +4022,18 @@
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO создан</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>Создание файлов PXE отменено</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>Не удалось создать файлы PXE</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>Создание файлов PXE</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>Файлы PXE созданы</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>Создание USB-носителя отменено</value>
@@ -4029,11 +4077,20 @@
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>В разделе кэша на USB недостаточно свободного места для обновлённого содержимого, так как прежнее содержимое остаётся на накопителе во время обновления. Удаление и форматирование не выполнялись. Создайте USB-носитель заново вместо его обновления.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Размер копируемого файла составляет {0}; раздел FAT32 на USB-накопителе без кэша поддерживает не более {1} на файл. Удаление и форматирование не выполнялись. Вместо этого используйте «Создать USB».</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Возможно, с этого USB-накопителя больше не удастся запустить устройство. Перед использованием создайте или обновите его заново.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Загрузочный том: {0}. Том кэша: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Для носителя требуется примерно {0}, но на этот USB-накопитель без кэша помещается {1}. Удаление и форматирование не выполнялись. Вместо этого используйте «Создать USB».</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>Том USB: {0}. Накопитель не хранит загрузки: при каждом развертывании Windows и драйверы заново скачиваются из каталога.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Проверка USB-накопителя…</value>
@@ -4059,6 +4116,36 @@
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Проверьте готовность, выберите вывод ISO или USB и запустите создание носителя.</value>
   </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>Foundry OSD записывает boot.wim, boot.sdi, BCD и bootmgr.efi в эту папку для сетевой загрузки UEFI. Импортируйте их на свой сервер PXE.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>Эта папка уже содержит загрузочный образ. Его файлы загрузки PXE будут заменены.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>Папка назначения</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>Выберите папку назначения для PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>Это содержимое копируется только на носители ISO и USB. Запускайте развертывания, которым оно нужно, с ISO или USB-накопителя.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>Не передается при загрузке по PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>Пользовательские наборы драйверов: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>Пользовательские образы Windows: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>Действия после установки, использующие импортированные файлы: {0}</value>
+  </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>Проверить: {0}</value>
   </data>
@@ -4079,6 +4166,9 @@
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Просмотр предупреждений о выводе мультимедиа</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Пересоздать без кэша</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

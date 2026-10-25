@@ -3592,7 +3592,10 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Vereiste mediageheimen zijn niet gereed.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Het geselecteerde USB-station is te klein. Gebruik een USB-station van minimaal 16 GB.</value>
+    <value>Het geselecteerde USB-station is te klein voor een cache. Gebruik een USB-station van minimaal 16 GB of selecteer ‘Maken zonder cache’ via de pijl van ‘USB maken’.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Het geselecteerde USB-station is te klein. Gebruik een USB-station van minimaal 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>De geselecteerde WinPE-toetsenbordindeling is niet geïnstalleerd op deze computer.</value>
@@ -3620,6 +3623,12 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>ISO maken</value>
+  </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>Het maken van PXE-bestanden is geblokkeerd</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>PXE-bestanden maken</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>Het maken van USB is geblokkeerd</value>
@@ -3656,6 +3665,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>USB maken</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Maken zonder cache</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Optionele map met .inf-stuurprogramma's die aan de WinPE-opstartinstallatiekopie worden toegevoegd.</value>
@@ -3700,7 +3712,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>WinPE opstarttaal</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Maak ISO- of USB-media nadat alle gereedheidscontroles zijn geslaagd.</value>
+    <value>Maak ISO-, USB- of PXE-media nadat alle gereedheidscontroles zijn geslaagd.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>Creëer media</value>
@@ -3712,7 +3724,7 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
     <value>Het maken van media is beschikbaar wanneer alle gereedheidscontroles zijn geslaagd.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Kies hieronder een ISO- of USB-uitvoer om te beginnen.</value>
+    <value>Kies hieronder een ISO-, USB- of PXE-uitvoer om te beginnen.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Volledig formatteren</value>
@@ -3777,6 +3789,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>Inhoud voor na-installatie kopiëren…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>PXE-opstartbestanden kopiëren</value>
+  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>WinPE-bestanden kopiëren naar de USB-schijf…</value>
   </data>
@@ -3785,6 +3800,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Cachepartitie maken…</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>USB-partitie maken…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Ongebruikte aangepaste stuurprogrammasets kunnen niet van het USB-station worden verwijderd.</value>
@@ -3849,6 +3867,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Cachepartitie formatteren…</value>
   </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>USB-partitie formatteren…</value>
+  </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Partitietabel maken…</value>
   </data>
@@ -3897,6 +3918,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>ISO-bestand maken</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>PXE-bestanden schrijven</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>Opstartimage aanpassen</value>
   </data>
@@ -3930,6 +3954,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>Inhoud voor na-installatie voorbereiden…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>Doelmap controleren</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>Cachepartitie voorbereiden…</value>
   </data>
@@ -3947,6 +3974,15 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Foundry-componenten toevoegen aan de USB-schijf…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>Onvoldoende vrije ruimte in de doelmap. De PXE-opstartbestanden hebben {0} nodig. Beschikbaar: {1}. Maak ruimte vrij of kies een andere map.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>De PXE-opstartbestanden kunnen niet naar de doelmap worden geschreven. Controleer of de map bereikbaar is en of er naar de map kan worden geschreven.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>De PXE-opstartbestanden zijn opgeslagen in:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>Tijdelijke bestanden verwijderen…</value>
@@ -3986,6 +4022,18 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO gemaakt</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>Maken van PXE-bestanden geannuleerd</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>Maken van PXE-bestanden mislukt</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>PXE-bestanden maken</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>PXE-bestanden gemaakt</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>Maken van USB-media geannuleerd</value>
@@ -4029,11 +4077,20 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>De USB-cachepartitie heeft niet genoeg vrije ruimte voor de bijgewerkte inhoud, omdat de vorige inhoud tijdens het bijwerken op het station blijft staan. Er is niets gewist of geformatteerd. Maak het USB-medium opnieuw in plaats van het bij te werken.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Een te kopiëren bestand is {0} groot; de FAT32-partitie van een USB-station zonder cache ondersteunt maximaal {1} per bestand. Er is niets gewist of geformatteerd. Gebruik in plaats daarvan ‘USB maken’.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Een apparaat kan mogelijk niet meer opstarten vanaf de USB-schijf. Maak de schijf opnieuw of werk deze bij voordat u deze gebruikt.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Opstartvolume: {0}. Cachevolume: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Het medium heeft ongeveer {0} nodig, maar op dit USB-station zonder cache past {1}. Er is niets gewist of geformatteerd. Gebruik in plaats daarvan ‘USB maken’.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>USB-volume: {0}. Het station bewaart geen downloads: bij elke implementatie worden Windows en de stuurprogramma's opnieuw uit de catalogus gedownload.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>USB-schijf controleren…</value>
@@ -4059,6 +4116,36 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Controleer de gereedheid, kies ISO- of USB-uitvoer en start het maken van media.</value>
   </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>Maken</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>Foundry OSD schrijft boot.wim, boot.sdi, BCD en bootmgr.efi naar deze map voor een UEFI-netwerkstart. Importeer ze in de PXE-server.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>Deze map bevat al een opstartimage. De bijbehorende PXE-opstartbestanden worden vervangen.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>Doelmap</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>Selecteer de PXE-doelmap</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>Deze inhoud wordt alleen naar ISO- en USB-media gekopieerd. Start implementaties die deze inhoud nodig hebben vanaf een ISO of een USB-station.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>Niet meegeleverd bij een PXE-start</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>Aangepaste stuurprogrammasets: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>Aangepaste Windows-installatiekopieën: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>Acties na de installatie die geïmporteerde bestanden gebruiken: {0}</value>
+  </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>{0} controleren</value>
   </data>
@@ -4079,6 +4166,9 @@ Opgenomen wachtwoorden en toegangssleutels: {2}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Bekijk de waarschuwingen voor media-uitvoer</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Opnieuw maken zonder cache</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>

@@ -27,5 +27,10 @@ public enum MediaPreflightBlockingReason
     /// </summary>
     CustomImageArchitectureMismatch,
 
-    FinalExecutionDeferred
+    FinalExecutionDeferred,
+
+    /// <summary>
+    /// The selected drive is too small even for a USB drive without cache, which only needs room for the media.
+    /// </summary>
+    UsbTargetBelowMinimumSizeWithoutCache
 }

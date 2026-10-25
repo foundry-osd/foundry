@@ -45,8 +45,9 @@ function Clear-FoundryUsbTargetAccessPaths {
 $diskNumber = {{DISK_NUMBER}}
 $partitionStyle = '{{PARTITION_STYLE}}'
 $fullFormat = {{FULL_FORMAT}}
+$withoutCache = {{WITHOUT_CACHE}}
 
-Write-FoundryUsbVerbose "Provisioning disk $diskNumber. PartitionStyle=$partitionStyle, FullFormat=$fullFormat."
+Write-FoundryUsbVerbose "Provisioning disk $diskNumber. PartitionStyle=$partitionStyle, FullFormat=$fullFormat, WithoutCache=$withoutCache."
 
 Write-FoundryUsbProgress 21 'Opening USB disk.'
 {{DISK_GUARD}}
@@ -95,6 +96,51 @@ if ([string]$disk.PartitionStyle -ne $partitionStyle) {
     throw "Disk $diskNumber still reports partition style $($disk.PartitionStyle) after requesting $partitionStyle."
 }
 Write-FoundryUsbVerbose "USB partition table initialized. CurrentPartitionStyle=$($disk.PartitionStyle)."
+
+if ($withoutCache) {
+    # One FAT32 volume holds the whole media, like an ISO written to the drive. A basic data partition on GPT keeps a
+    # drive letter in Windows and Windows PE, and firmware still starts the EFI boot file from removable media.
+    Write-FoundryUsbProgress 38 'Creating USB media partition.'
+    $mediaPartitionArguments = @{
+        DiskNumber = $diskNumber
+        Size = {{MEDIA_SIZE_BYTES}}
+        AssignDriveLetter = $true
+        ErrorAction = 'Stop'
+    }
+    if ($partitionStyle -eq 'GPT') {
+        $mediaPartitionArguments['GptType'] = '{ebd0a0a2-b9e5-4433-87c0-68b6b72699c7}'
+    } else {
+        $mediaPartitionArguments['MbrType'] = 'FAT32'
+        $mediaPartitionArguments['IsActive'] = $true
+    }
+    $mediaPartition = New-Partition @mediaPartitionArguments
+    $mediaDriveLetter = $mediaPartition.DriveLetter
+    if ($null -eq $mediaDriveLetter) { throw 'Media partition was created without a drive letter.' }
+    Write-FoundryUsbVerbose "Media partition created. PartitionNumber=$($mediaPartition.PartitionNumber), DriveLetter=$mediaDriveLetter, Size=$($mediaPartition.Size)."
+    Wait-FoundryUsbVolume -DriveLetter $mediaDriveLetter -VolumeName 'media'
+
+    Write-FoundryUsbProgress 46 'Formatting USB media partition.'
+    $mediaFormatArguments = @{
+        DriveLetter = $mediaDriveLetter
+        FileSystem = 'FAT32'
+        AllocationUnitSize = {{MEDIA_ALLOCATION_BYTES}}
+        NewFileSystemLabel = '{{MEDIA_LABEL}}'
+        Confirm = $false
+        Force = $true
+        ErrorAction = 'Stop'
+    }
+    if ($fullFormat) { $mediaFormatArguments['Full'] = $true }
+    Format-Volume @mediaFormatArguments | Out-Null
+    Write-FoundryUsbVerbose "Media partition formatted. DriveLetter=$mediaDriveLetter, FileSystem=FAT32, Label={{MEDIA_LABEL}}."
+
+    Write-FoundryUsbProgress 55 'USB partitions formatted.'
+    [pscustomobject]@{
+        DiskNumber = $diskNumber
+        BootDriveLetter = "$mediaDriveLetter`:"
+        CacheDriveLetter = ''
+    } | ConvertTo-Json -Compress
+    return
+}
 
 Write-FoundryUsbProgress 38 'Creating BOOT partition.'
 $bootPartitionArguments = @{

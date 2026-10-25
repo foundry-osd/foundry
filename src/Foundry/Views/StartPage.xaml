@@ -240,10 +240,22 @@
                             MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                             Command="{x:Bind ViewModel.CreateIsoCommand}"
                             IsEnabled="{x:Bind ViewModel.CanCreateIso, Mode=OneWay}" />
-                        <Button x:Name="CreateUsbButton"
+                        <Button x:Name="CreatePxeButton"
+                            MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
+                            Command="{x:Bind ViewModel.CreatePxeCommand}"
+                            IsEnabled="{x:Bind ViewModel.CanCreatePxe, Mode=OneWay}" />
+                        <SplitButton x:Name="CreateUsbButton"
                             MinWidth="{StaticResource FoundrySettingsActionMinWidth}"
                             Command="{x:Bind ViewModel.CreateUsbCommand}"
-                            IsEnabled="{x:Bind ViewModel.CanCreateUsb, Mode=OneWay}" />
+                            IsEnabled="{x:Bind ViewModel.CanUseUsbActions, Mode=OneWay}">
+                            <SplitButton.Flyout>
+                                <MenuFlyout Placement="BottomEdgeAlignedRight">
+                                    <MenuFlyoutItem x:Name="CreateUsbWithoutCacheItem"
+                                        Command="{x:Bind ViewModel.CreateUsbWithoutCacheCommand}"
+                                        IsEnabled="{x:Bind ViewModel.CanCreateUsbWithoutCache, Mode=OneWay}" />
+                                </MenuFlyout>
+                            </SplitButton.Flyout>
+                        </SplitButton>
                     </StackPanel>
                 </wct:SettingsCard>
             </StackPanel>

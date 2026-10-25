@@ -3592,7 +3592,10 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Požadovaná tajemství médií nejsou připravena.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
-    <value>Vybraná jednotka USB je příliš malá. Použijte jednotku USB s kapacitou alespoň 16 GB.</value>
+    <value>Vybraná jednotka USB je pro mezipaměť příliš malá. Použijte jednotku USB s kapacitou alespoň 16 GB, nebo vyberte „Vytvořit bez mezipaměti“ pomocí šipky u tlačítka „Vytvořit USB“.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSizeWithoutCache" xml:space="preserve">
+    <value>Vybraná jednotka USB je příliš malá. Použijte jednotku USB s kapacitou alespoň 1 GB.</value>
   </data>
   <data name="StartMedia.BlockingReason.WinPeKeyboardLayoutUnavailable" xml:space="preserve">
     <value>Vybrané rozložení klávesnice WinPE není v tomto počítači nainstalováno.</value>
@@ -3620,6 +3623,12 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   </data>
   <data name="StartMedia.CreateIsoButton" xml:space="preserve">
     <value>Vytvořit ISO</value>
+  </data>
+  <data name="StartMedia.CreatePxe.BlockedTitle" xml:space="preserve">
+    <value>Vytváření souborů PXE je blokováno</value>
+  </data>
+  <data name="StartMedia.CreatePxeButton" xml:space="preserve">
+    <value>Vytvořit soubory PXE</value>
   </data>
   <data name="StartMedia.CreateUsb.BlockedTitle" xml:space="preserve">
     <value>Vytváření USB je blokováno</value>
@@ -3656,6 +3665,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   </data>
   <data name="StartMedia.CreateUsbButton" xml:space="preserve">
     <value>Vytvořit USB</value>
+  </data>
+  <data name="StartMedia.CreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Vytvořit bez mezipaměti</value>
   </data>
   <data name="StartMedia.CustomDrivers.Description" xml:space="preserve">
     <value>Volitelná složka ovladačů .inf přidávaných do spouštěcí bitové kopie WinPE.</value>
@@ -3700,7 +3712,7 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>WinPE spouštěcí jazyk</value>
   </data>
   <data name="StartMedia.FinalCommands.Description" xml:space="preserve">
-    <value>Po úspěšném dokončení všech kontrol připravenosti vytvořte média ISO nebo USB.</value>
+    <value>Po úspěšném dokončení všech kontrol připravenosti vytvořte média ISO, USB nebo PXE.</value>
   </data>
   <data name="StartMedia.FinalCommands.Header" xml:space="preserve">
     <value>Vytvořte média</value>
@@ -3712,7 +3724,7 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
     <value>Vytvoření médií je k dispozici, když projdou všechny kontroly připravenosti.</value>
   </data>
   <data name="StartMedia.FinalExecution.ReadyNow" xml:space="preserve">
-    <value>Začněte výběrem výstupu ISO nebo USB níže.</value>
+    <value>Začněte výběrem výstupu ISO, USB nebo PXE níže.</value>
   </data>
   <data name="StartMedia.FormatMode.Complete" xml:space="preserve">
     <value>Úplné formátování</value>
@@ -3777,6 +3789,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.Operation.CopyingPostInstallation" xml:space="preserve">
     <value>Kopírování poinstalačního obsahu…</value>
   </data>
+  <data name="StartMedia.Operation.CopyingPxeFiles" xml:space="preserve">
+    <value>Kopírování spouštěcích souborů PXE</value>
+  </data>
   <data name="StartMedia.Operation.CopyingUsbMedia" xml:space="preserve">
     <value>Kopírování souborů WinPE na disk USB…</value>
   </data>
@@ -3785,6 +3800,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   </data>
   <data name="StartMedia.Operation.CreatingUsbCachePartition" xml:space="preserve">
     <value>Vytváření oddílu mezipaměti…</value>
+  </data>
+  <data name="StartMedia.Operation.CreatingUsbMediaPartition" xml:space="preserve">
+    <value>Vytváření oddílu USB…</value>
   </data>
   <data name="StartMedia.Operation.CustomDriversCleanupSkipped" xml:space="preserve">
     <value>Nepoužívané vlastní sady ovladačů nelze odebrat z jednotky USB.</value>
@@ -3849,6 +3867,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.Operation.FormattingUsbCachePartition" xml:space="preserve">
     <value>Formátování oddílu mezipaměti…</value>
   </data>
+  <data name="StartMedia.Operation.FormattingUsbMediaPartition" xml:space="preserve">
+    <value>Formátování oddílu USB…</value>
+  </data>
   <data name="StartMedia.Operation.InitializingUsbPartitionTable" xml:space="preserve">
     <value>Vytváření tabulky oddílů…</value>
   </data>
@@ -3897,6 +3918,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.Operation.Phase.CreatingIso" xml:space="preserve">
     <value>Vytváření souboru ISO</value>
   </data>
+  <data name="StartMedia.Operation.Phase.CreatingPxeFiles" xml:space="preserve">
+    <value>Zápis souborů PXE</value>
+  </data>
   <data name="StartMedia.Operation.Phase.CustomizingBootImage" xml:space="preserve">
     <value>Přizpůsobení spouštěcího obrazu</value>
   </data>
@@ -3930,6 +3954,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.Operation.PreparingPostInstallation" xml:space="preserve">
     <value>Příprava poinstalačního obsahu…</value>
   </data>
+  <data name="StartMedia.Operation.PreparingPxeOutput" xml:space="preserve">
+    <value>Kontrola cílové složky</value>
+  </data>
   <data name="StartMedia.Operation.PreparingUsbCache" xml:space="preserve">
     <value>Příprava oddílu mezipaměti…</value>
   </data>
@@ -3947,6 +3974,15 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Přidávání komponent Foundry na disk USB…</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
+    <value>V cílové složce není dostatek volného místa. Spouštěcí soubory PXE potřebují {0}. K dispozici: {1}. Uvolněte místo nebo zvolte jinou složku.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeOutputFailed" xml:space="preserve">
+    <value>Spouštěcí soubory PXE nelze zapsat do cílové složky. Zkontrolujte, zda je složka dostupná a zda do ní můžete zapisovat.</value>
+  </data>
+  <data name="StartMedia.Operation.PxeSavedLead" xml:space="preserve">
+    <value>Spouštěcí soubory PXE byly uloženy do:</value>
   </data>
   <data name="StartMedia.Operation.RemovingTemporaryFiles" xml:space="preserve">
     <value>Odebírání dočasných souborů…</value>
@@ -3986,6 +4022,18 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO bylo vytvořeno</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
+    <value>Vytváření souborů PXE bylo zrušeno</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeFailed" xml:space="preserve">
+    <value>Vytvoření souborů PXE se nezdařilo</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeRunning" xml:space="preserve">
+    <value>Vytváření souborů PXE</value>
+  </data>
+  <data name="StartMedia.Operation.Title.PxeSucceeded" xml:space="preserve">
+    <value>Soubory PXE byly vytvořeny</value>
   </data>
   <data name="StartMedia.Operation.Title.UsbCancelled" xml:space="preserve">
     <value>Vytváření média USB bylo zrušeno</value>
@@ -4029,11 +4077,20 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.Operation.UsbCacheCapacityInsufficient" xml:space="preserve">
     <value>Oddíl mezipaměti na USB nemá dost volného místa pro aktualizovaný obsah, protože předchozí obsah zůstává na jednotce po dobu aktualizace. Nic nebylo smazáno ani naformátováno. Místo aktualizace vytvořte médium USB znovu.</value>
   </data>
+  <data name="StartMedia.Operation.UsbFileTooLargeForFat32" xml:space="preserve">
+    <value>Soubor ke zkopírování má velikost {0}; oddíl FAT32 jednotky USB bez mezipaměti podporuje maximálně {1} na soubor. Nic nebylo smazáno ani naformátováno. Použijte místo toho „Vytvořit USB“.</value>
+  </data>
   <data name="StartMedia.Operation.UsbMayBeIncomplete" xml:space="preserve">
     <value>Z disku USB možná už nepůjde spustit zařízení. Před použitím ho znovu vytvořte nebo aktualizujte.</value>
   </data>
   <data name="StartMedia.Operation.UsbVolumesFormat" xml:space="preserve">
     <value>Spouštěcí svazek: {0}. Svazek mezipaměti: {1}.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheCapacityInsufficient" xml:space="preserve">
+    <value>Médium potřebuje přibližně {0}, ale tato jednotka USB bez mezipaměti pojme {1}. Nic nebylo smazáno ani naformátováno. Použijte místo toho „Vytvořit USB“.</value>
+  </data>
+  <data name="StartMedia.Operation.UsbWithoutCacheReadyFormat" xml:space="preserve">
+    <value>Svazek USB: {0}. Jednotka neuchovává stažené soubory: každé nasazení znovu stáhne Windows a ovladače z katalogu.</value>
   </data>
   <data name="StartMedia.Operation.ValidatingUsbTarget" xml:space="preserve">
     <value>Kontrola disku USB…</value>
@@ -4059,6 +4116,36 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.PageDescription" xml:space="preserve">
     <value>Zkontrolujte připravenost, vyberte výstup ISO nebo USB a spusťte vytvoření média.</value>
   </data>
+  <data name="StartMedia.PxeDialog.CreateButton" xml:space="preserve">
+    <value>Vytvořit</value>
+  </data>
+  <data name="StartMedia.PxeDialog.Description" xml:space="preserve">
+    <value>Foundry OSD zapíše do této složky soubory boot.wim, boot.sdi, BCD a bootmgr.efi pro síťové spuštění UEFI. Importujte je do svého serveru PXE.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.ExistingImageWarning" xml:space="preserve">
+    <value>Tato složka již obsahuje spouštěcí obraz. Jeho spouštěcí soubory PXE budou nahrazeny.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderLabel" xml:space="preserve">
+    <value>Cílová složka</value>
+  </data>
+  <data name="StartMedia.PxeDialog.FolderPickerTitle" xml:space="preserve">
+    <value>Vyberte cílovou složku PXE</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentMessage" xml:space="preserve">
+    <value>Tento obsah se kopíruje pouze na média ISO a USB. Nasazení, která ho potřebují, spouštějte z ISO nebo z jednotky USB.</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingContentTitle" xml:space="preserve">
+    <value>Při spuštění přes PXE se nedodává</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomDriversFormat" xml:space="preserve">
+    <value>Vlastní sady ovladačů: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingCustomImagesFormat" xml:space="preserve">
+    <value>Vlastní bitové kopie Windows: {0}</value>
+  </data>
+  <data name="StartMedia.PxeDialog.MissingPostInstallationFormat" xml:space="preserve">
+    <value>Akce po instalaci, které používají importované soubory: {0}</value>
+  </data>
   <data name="StartMedia.Readiness.Action.ReviewFormat" xml:space="preserve">
     <value>Zkontrolovat: {0}</value>
   </data>
@@ -4079,6 +4166,9 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Zkontrolujte upozornění na výstup médií</value>
+  </data>
+  <data name="StartMedia.RecreateUsbWithoutCacheItem" xml:space="preserve">
+    <value>Znovu vytvořit bez mezipaměti</value>
   </data>
   <data name="StartMedia.Signature.Ca2011" xml:space="preserve">
     <value>PCA 2011</value>
