@@ -116,7 +116,7 @@
                             <TextBlock
                                 Grid.Row="2"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                Text="{x:Bind ViewModel.Text('LastSuccessLabel'), Mode=OneWay}"
+                                Text="{x:Bind ViewModel.LastSuccessLabel, Mode=OneWay}"
                                 Visibility="{x:Bind ViewModel.HasLastSuccess, Mode=OneWay}" />
                             <TextBlock
                                 Grid.Row="2"
@@ -167,9 +167,9 @@
                             Spacing="{ThemeResource FoundryInlineControlSpacing}"
                             Visibility="{x:Bind ViewModel.IsReference, Mode=OneWay}">
                             <Button
-                                Command="{x:Bind ViewModel.RetryCommand}"
-                                Content="{x:Bind ViewModel.Text('RetryButton'), Mode=OneWay}"
-                                Visibility="{x:Bind ViewModel.CanRetry, Mode=OneWay}" />
+                                Command="{x:Bind ViewModel.PublishNowCommand}"
+                                Content="{x:Bind ViewModel.Text('PublishNowButton'), Mode=OneWay}"
+                                Visibility="{x:Bind ViewModel.CanPublishNow, Mode=OneWay}" />
                             <Button
                                 Command="{x:Bind ViewModel.TakeOverCommand}"
                                 Content="{x:Bind ViewModel.Text('TakeOverButton'), Mode=OneWay}"

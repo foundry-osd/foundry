@@ -2774,7 +2774,7 @@ Licencováno pod licencí MIT.</value>
     <value>Poskytněte podnikovou šablonu profilu Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Foundry OSD si pamatuje heslo na tomto počítači ve svém místním šifrovaném trezoru. Tento počítač opouští jen v exportu nebo publikaci, když je zvolena možnost „Zahrnout hesla“.</value>
+    <value>Foundry si pamatuje heslo na tomto počítači ve svém místním šifrovaném trezoru. Tento počítač opouští jen v exportu nebo publikaci, když je zvolena možnost „Zahrnout hesla“.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importuje profil Wi-Fi spravovaný Foundry do Windows před OOBE, aby se po WinPE zachovalo připojení potřebné k nasazení.</value>
@@ -3212,7 +3212,7 @@ Licencováno pod licencí MIT.</value>
     <value>Potvrdit heslovou frázi</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
-    <value>Potvrdit heslo</value>
+    <value>Potvrďte heslo</value>
   </data>
   <data name="Sharing.ContentDownloadingState" xml:space="preserve">
     <value>Stahuje se</value>
@@ -3235,7 +3235,7 @@ Licencováno pod licencí MIT.</value>
   <data name="Sharing.ContentStalled" xml:space="preserve">
     <value>Obsah může být ve složce poškozený. Publikujte znovu z referenčního počítače.</value>
   </data>
-  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+  <data name="Sharing.CopyButton" xml:space="preserve">
     <value>Kopírovat</value>
   </data>
   <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
@@ -3257,7 +3257,7 @@ Licencováno pod licencí MIT.</value>
     <value>Konfigurace byla exportována.</value>
   </data>
   <data name="Sharing.ExportDescription" xml:space="preserve">
-    <value>Uloží nastavení a malé soubory do zašifrovaného souboru. Balíčky po instalaci, sady ovladačů a image nejsou zahrnuty.</value>
+    <value>Uložte nastavení a malé soubory do zašifrovaného souboru. Balíčky po instalaci, sady ovladačů a image nejsou zahrnuty.</value>
   </data>
   <data name="Sharing.ExportFailed" xml:space="preserve">
     <value>Konfiguraci nebylo možné exportovat. Zkontrolujte cíl a zkuste to znovu.</value>
@@ -3293,7 +3293,7 @@ Licencováno pod licencí MIT.</value>
     <value>Zadejte složku, do které referenční počítač publikuje, a jeho heslo publikace a pak ji otevřete a zobrazte náhled publikace.</value>
   </data>
   <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
-    <value>Sledování nahradí aktuální konfiguraci a publikovaná nastavení budou jen pro čtení. Výstupní cesta ISO, složka ovladačů WinPE a nastavení telemetrie tohoto počítače zůstanou zachovány.</value>
+    <value>Sledování nahradí aktuální konfiguraci a publikovaná nastavení budou jen pro čtení. Výstupní cesta ISO, další složka ovladačů WinPE a nastavení telemetrie tohoto počítače zůstanou zachovány.</value>
   </data>
   <data name="Sharing.FollowTitle" xml:space="preserve">
     <value>Sledovat složku</value>
@@ -3307,7 +3307,7 @@ Licencováno pod licencí MIT.</value>
   <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
     <value>Zapomenout heslo publikace</value>
   </data>
-  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+  <data name="Sharing.GenerateButton" xml:space="preserve">
     <value>Vygenerovat</value>
   </data>
   <data name="Sharing.ImportButton" xml:space="preserve">
@@ -3320,7 +3320,7 @@ Licencováno pod licencí MIT.</value>
     <value>Konfigurace byla importována. Na tomto počítači chybí obsah: importujte ho znovu na příslušné stránce.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Nahraďte tuto konfiguraci exportovaným souborem nebo předchozí konfigurací na tomto počítači.</value>
+    <value>Nahraďte tuto konfiguraci exportovaným souborem nebo profilem z předchozí verze.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>Konfiguraci nebylo možné importovat. Aktuální konfigurace zůstala beze změny.</value>
@@ -3346,17 +3346,20 @@ Licencováno pod licencí MIT.</value>
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>Tento soubor není konfigurace Foundry nebo je poškozený.</value>
   </data>
-  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
-    <value>Poslední úspěch</value>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>Poslední úspěšná kontrola</value>
   </data>
-  <data name="Sharing.LockedProfile" xml:space="preserve">
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>Poslední publikování</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
     <value>Tento uživatel systému Windows nemůže tuto konfiguraci otevřít.</value>
   </data>
   <data name="Sharing.ManagedBanner" xml:space="preserve">
-    <value>Tuto konfiguraci publikuje {0} a na tomto počítači je jen pro čtení. Lze změnit pouze výstupní cestu ISO, složku ovladačů WinPE a nastavení telemetrie.</value>
+    <value>Tuto konfiguraci publikuje {0} a na tomto počítači je jen pro čtení. Lze změnit pouze výstupní cestu ISO, další složku ovladačů WinPE a nastavení telemetrie.</value>
   </data>
   <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
-    <value>Tuto konfiguraci publikuje {0} a na tomto počítači je jen pro čtení. Publikace neobsahuje hesla: zadejte je zde. Lze také změnit výstupní cestu ISO, složku ovladačů WinPE a nastavení telemetrie.</value>
+    <value>Tuto konfiguraci publikuje {0} a na tomto počítači je jen pro čtení. Publikace neobsahuje hesla: zadejte je zde. Lze také změnit výstupní cestu ISO, další složku ovladačů WinPE a nastavení telemetrie.</value>
   </data>
   <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
     <value>Spravováno referenčním počítačem</value>
@@ -3412,9 +3415,6 @@ Licencováno pod licencí MIT.</value>
   <data name="Sharing.PassphraseMismatch" xml:space="preserve">
     <value>Heslové fráze se neshodují.</value>
   </data>
-  <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Alespoň 12 znaků a ne stále stejný opakovaný znak (například aaaaaaaaaaaa).</value>
-  </data>
   <data name="Sharing.PasswordChangePending" xml:space="preserve">
     <value>Nové heslo je uložené. Změna se dokončí při příští úspěšné publikaci.</value>
   </data>
@@ -3443,7 +3443,7 @@ Licencováno pod licencí MIT.</value>
     <value>Exportováno</value>
   </data>
   <data name="Sharing.PreviewDownload" xml:space="preserve">
-    <value>Ke stažení</value>
+    <value>Velikost stahování</value>
   </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>Název</value>
@@ -3484,6 +3484,9 @@ Licencováno pod licencí MIT.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Zvolte prázdnou složku nebo složku, do které tento počítač už publikuje: síťovou sdílenou složku, složku OneDrive nebo SharePoint nebo místní složku. Počítače, které složku sledují, potřebují ke čtení heslo publikace.</value>
   </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>Publikovat nyní</value>
+  </data>
   <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
     <value>Kontrola složky…</value>
   </data>
@@ -3503,7 +3506,7 @@ Licencováno pod licencí MIT.</value>
     <value>Publikovat do složky</value>
   </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
-    <value>Import nahradí aktuální konfiguraci. Výstupní cesta ISO, složka ovladačů WinPE a nastavení telemetrie tohoto počítače zůstanou zachovány.</value>
+    <value>Import nahradí aktuální konfiguraci. Výstupní cesta ISO, další složka ovladačů WinPE a nastavení telemetrie tohoto počítače zůstanou zachovány.</value>
   </data>
   <data name="Sharing.ResetButton" xml:space="preserve">
     <value>Resetovat</value>
@@ -3517,9 +3520,6 @@ Licencováno pod licencí MIT.</value>
   <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
     <value>Resetovat publikaci</value>
   </data>
-  <data name="Sharing.RetryButton" xml:space="preserve">
-    <value>Zkusit znovu</value>
-  </data>
   <data name="Sharing.RevocationPending" xml:space="preserve">
     <value>Dřívější čtenáři mohou obsah otevírat až do příští úspěšné publikace.</value>
   </data>
@@ -3528,6 +3528,9 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Tento počítač publikuje svou konfiguraci</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>Alespoň 12 znaků a ne stále stejný opakovaný znak (například aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
     <value>Část sdíleného obsahu sledované publikace se nepodařilo stáhnout. Zkontrolujte Sdílení konfigurace na stránce Nastavení.</value>
@@ -3542,7 +3545,7 @@ Licencováno pod licencí MIT.</value>
     <value>Konfigurace je použita. Stahuje se sdílený obsah.</value>
   </data>
   <data name="Sharing.StatusContentFailed" xml:space="preserve">
-    <value>Konfigurace je použita, ale část sdíleného obsahu se nepodařilo importovat.</value>
+    <value>Konfigurace je použita, ale část sdíleného obsahu se nepodařilo nainstalovat.</value>
   </data>
   <data name="Sharing.StatusContentStalled" xml:space="preserve">
     <value>Konfigurace je použita, ale část sdíleného obsahu není ani po opakovaných kontrolách dostupná.</value>
@@ -3566,7 +3569,7 @@ Licencováno pod licencí MIT.</value>
     <value>Nepublikováno: konfigurace není připravená k vytvoření médií nebo odkazuje na obsah, který na tomto počítači chybí. Předchozí verze zůstává aktuální.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
-    <value>Jsou potřeba hesla: zadejte heslo publikace nebo na stránkách konfigurace hesla, která publikace neobsahuje.</value>
+    <value>Jsou potřeba hesla: zadejte heslo publikace nebo zadejte chybějící hesla na stránkách konfigurace.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
     <value>Heslo publikace nebo klíče tohoto počítače nebylo možné přečíst.</value>
@@ -3575,7 +3578,7 @@ Licencováno pod licencí MIT.</value>
     <value>Publikováno. Počítače, které složku sledují, dostanou tuto verzi při příští kontrole.</value>
   </data>
   <data name="Sharing.StatusPublishing" xml:space="preserve">
-    <value>Publikuje se konfigurace.</value>
+    <value>Publikuje se konfigurace…</value>
   </data>
   <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
     <value>Složka odkazuje na starší verzi, než je použitá. Ignoruje se.</value>
@@ -3617,7 +3620,7 @@ Licencováno pod licencí MIT.</value>
     <value>Ukončit publikování</value>
   </data>
   <data name="Sharing.StopPublishingMessage" xml:space="preserve">
-    <value>Složka zůstane beze změny a počítače, které ji sledují, si ponechají poslední publikovanou verzi. Tento počítač se opět stane běžným počítačem.</value>
+    <value>Složka zůstane beze změny a počítače, které ji sledují, si ponechají poslední publikovanou verzi. Tento počítač už nepublikuje svou konfiguraci.</value>
   </data>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Ukončit publikování?</value>
@@ -3638,7 +3641,7 @@ Licencováno pod licencí MIT.</value>
     <value>Klíče publikace tohoto počítače nebylo možné přečíst. Převzetí s aktuálním heslem publikace pokračuje v publikaci s novými klíči; počítače, které složku sledují, musí jednou přijmout tento počítač jako novou referenci.</value>
   </data>
   <data name="Sharing.TakeOverTitle" xml:space="preserve">
-    <value>Převzít složku</value>
+    <value>Převzít tuto složku</value>
   </data>
   <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
     <value>Toto heslo neotevře aktuální publikaci.</value>
@@ -3659,7 +3662,7 @@ Licencováno pod licencí MIT.</value>
     <value>Nesprávná heslová fráze nebo poškozený soubor.</value>
   </data>
   <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
-    <value>Nesprávné heslo publikace nebo byla publikace změněna.</value>
+    <value>Toto heslo neotevře publikaci, nebo byla publikace změněna.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Zastavit operaci</value>

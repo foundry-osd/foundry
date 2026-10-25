@@ -2774,7 +2774,7 @@
     <value>Предоставьте шаблон корпоративного профиля Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Foundry OSD запоминает парольную фразу на этом компьютере в своем локальном зашифрованном хранилище. Она покидает этот компьютер только в экспорте или публикации, если выбран параметр «Включить пароли».</value>
+    <value>Foundry запоминает парольную фразу на этом компьютере в своем локальном зашифрованном хранилище. Она покидает этот компьютер только в экспорте или публикации, если выбран параметр «Включить пароли».</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Импортирует управляемый Foundry профиль Wi-Fi в Windows до OOBE, чтобы сохранить подключение для развертывания после WinPE.</value>
@@ -3235,7 +3235,7 @@
   <data name="Sharing.ContentStalled" xml:space="preserve">
     <value>Возможно, содержимое повреждено в папке. Опубликуйте его повторно с эталонного компьютера.</value>
   </data>
-  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+  <data name="Sharing.CopyButton" xml:space="preserve">
     <value>Копировать</value>
   </data>
   <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
@@ -3257,7 +3257,7 @@
     <value>Конфигурация экспортирована.</value>
   </data>
   <data name="Sharing.ExportDescription" xml:space="preserve">
-    <value>Сохраняет параметры и небольшие файлы в зашифрованный файл. Пакеты после установки, наборы драйверов и образы не включаются.</value>
+    <value>Сохраните параметры и небольшие файлы в зашифрованный файл. Пакеты после установки, наборы драйверов и образы не включаются.</value>
   </data>
   <data name="Sharing.ExportFailed" xml:space="preserve">
     <value>Не удалось экспортировать конфигурацию. Проверьте место назначения и повторите попытку.</value>
@@ -3293,7 +3293,7 @@
     <value>Укажите папку, в которую публикует эталонный компьютер, и его пароль публикации, затем откройте ее для предварительного просмотра публикации.</value>
   </data>
   <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
-    <value>Отслеживание заменяет текущую конфигурацию и делает опубликованные параметры доступными только для чтения. Путь вывода ISO, папка драйверов WinPE и параметры телеметрии этого компьютера сохраняются.</value>
+    <value>Отслеживание заменяет текущую конфигурацию и делает опубликованные параметры доступными только для чтения. Путь вывода ISO, дополнительная папка драйверов WinPE и параметры телеметрии этого компьютера сохраняются.</value>
   </data>
   <data name="Sharing.FollowTitle" xml:space="preserve">
     <value>Отслеживать папку</value>
@@ -3307,7 +3307,7 @@
   <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
     <value>Забыть пароль публикации</value>
   </data>
-  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+  <data name="Sharing.GenerateButton" xml:space="preserve">
     <value>Создать</value>
   </data>
   <data name="Sharing.ImportButton" xml:space="preserve">
@@ -3320,7 +3320,7 @@
     <value>Конфигурация импортирована. На этом компьютере отсутствует содержимое: импортируйте его повторно на соответствующей странице.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Замените эту конфигурацию экспортированным файлом или предыдущей конфигурацией на этом компьютере.</value>
+    <value>Замените эту конфигурацию экспортированным файлом или профилем из предыдущей версии.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>Не удалось импортировать конфигурацию. Текущая конфигурация не изменена.</value>
@@ -3346,17 +3346,20 @@
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>Этот файл не является конфигурацией Foundry или поврежден.</value>
   </data>
-  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
-    <value>Последний успех</value>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>Последняя успешная проверка</value>
   </data>
-  <data name="Sharing.LockedProfile" xml:space="preserve">
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>Последняя публикация</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
     <value>Этот пользователь Windows не может открыть эту конфигурацию.</value>
   </data>
   <data name="Sharing.ManagedBanner" xml:space="preserve">
-    <value>Эту конфигурацию публикует {0}, и на этом компьютере она доступна только для чтения. Можно изменить только путь вывода ISO, папку драйверов WinPE и параметры телеметрии.</value>
+    <value>Эту конфигурацию публикует {0}, и на этом компьютере она доступна только для чтения. Можно изменить только путь вывода ISO, дополнительную папку драйверов WinPE и параметры телеметрии.</value>
   </data>
   <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
-    <value>Эту конфигурацию публикует {0}, и на этом компьютере она доступна только для чтения. Публикация не содержит паролей: введите их здесь. Также можно изменить путь вывода ISO, папку драйверов WinPE и параметры телеметрии.</value>
+    <value>Эту конфигурацию публикует {0}, и на этом компьютере она доступна только для чтения. Публикация не содержит паролей: введите их здесь. Также можно изменить путь вывода ISO, дополнительную папку драйверов WinPE и параметры телеметрии.</value>
   </data>
   <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
     <value>Управляется эталонным компьютером</value>
@@ -3412,9 +3415,6 @@
   <data name="Sharing.PassphraseMismatch" xml:space="preserve">
     <value>Парольные фразы не совпадают.</value>
   </data>
-  <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Не менее 12 символов, и не один и тот же повторяющийся символ (например, aaaaaaaaaaaa).</value>
-  </data>
   <data name="Sharing.PasswordChangePending" xml:space="preserve">
     <value>Новый пароль сохранен. Изменение будет завершено при следующей успешной публикации.</value>
   </data>
@@ -3443,7 +3443,7 @@
     <value>Дата экспорта</value>
   </data>
   <data name="Sharing.PreviewDownload" xml:space="preserve">
-    <value>Для загрузки</value>
+    <value>Размер загрузки</value>
   </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>Имя</value>
@@ -3484,6 +3484,9 @@
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Выберите пустую папку или папку, в которую этот компьютер уже публикует: сетевую общую папку, папку OneDrive или SharePoint либо локальную папку. Отслеживающим компьютерам для ее чтения нужен пароль публикации.</value>
   </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>Опубликовать сейчас</value>
+  </data>
   <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
     <value>Проверка папки…</value>
   </data>
@@ -3503,7 +3506,7 @@
     <value>Опубликовать в папку</value>
   </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
-    <value>Импорт заменяет текущую конфигурацию. Путь вывода ISO, папка драйверов WinPE и параметры телеметрии этого компьютера сохраняются.</value>
+    <value>Импорт заменяет текущую конфигурацию. Путь вывода ISO, дополнительная папка драйверов WinPE и параметры телеметрии этого компьютера сохраняются.</value>
   </data>
   <data name="Sharing.ResetButton" xml:space="preserve">
     <value>Сбросить</value>
@@ -3517,9 +3520,6 @@
   <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
     <value>Сброс публикации</value>
   </data>
-  <data name="Sharing.RetryButton" xml:space="preserve">
-    <value>Повторить</value>
-  </data>
   <data name="Sharing.RevocationPending" xml:space="preserve">
     <value>Прежние читатели могут открывать содержимое до следующей успешной публикации.</value>
   </data>
@@ -3528,6 +3528,9 @@
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Этот компьютер публикует свою конфигурацию</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>Не менее 12 символов, и не один и тот же повторяющийся символ (например, aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
     <value>Не удалось загрузить часть общего содержимого отслеживаемой публикации. Проверьте «Общий доступ к конфигурации» на странице параметров.</value>
@@ -3542,7 +3545,7 @@
     <value>Конфигурация применена. Выполняется загрузка общего содержимого.</value>
   </data>
   <data name="Sharing.StatusContentFailed" xml:space="preserve">
-    <value>Конфигурация применена, но часть общего содержимого не удалось импортировать.</value>
+    <value>Конфигурация применена, но часть общего содержимого не удалось установить.</value>
   </data>
   <data name="Sharing.StatusContentStalled" xml:space="preserve">
     <value>Конфигурация применена, но часть общего содержимого по-прежнему недоступна после повторных проверок.</value>
@@ -3566,7 +3569,7 @@
     <value>Не опубликовано: конфигурация не готова к созданию носителя или ссылается на содержимое, отсутствующее на этом компьютере. Предыдущая версия остается текущей.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
-    <value>Требуются пароли: введите пароль публикации или на страницах конфигурации пароли, которые не включены в публикацию.</value>
+    <value>Требуются пароли: введите пароль публикации или введите недостающие пароли на страницах конфигурации.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
     <value>Не удалось прочитать пароль публикации или ключи этого компьютера.</value>
@@ -3575,7 +3578,7 @@
     <value>Опубликовано. Отслеживающие компьютеры получат эту версию при следующей проверке.</value>
   </data>
   <data name="Sharing.StatusPublishing" xml:space="preserve">
-    <value>Публикация конфигурации.</value>
+    <value>Публикация конфигурации…</value>
   </data>
   <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
     <value>Папка указывает на более старую версию, чем примененная. Она игнорируется.</value>
@@ -3617,7 +3620,7 @@
     <value>Остановить публикацию</value>
   </data>
   <data name="Sharing.StopPublishingMessage" xml:space="preserve">
-    <value>Папка остается без изменений, а отслеживающие компьютеры сохраняют последнюю опубликованную версию. Этот компьютер снова становится обычным компьютером.</value>
+    <value>Папка остается без изменений, а отслеживающие компьютеры сохраняют последнюю опубликованную версию. Этот компьютер больше не публикует свою конфигурацию.</value>
   </data>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Остановить публикацию?</value>
@@ -3638,7 +3641,7 @@
     <value>Не удалось прочитать ключи публикации этого компьютера. Перехват с текущим паролем публикации продолжает публикацию с новыми ключами; отслеживающие компьютеры должны один раз принять этот компьютер как новый эталон.</value>
   </data>
   <data name="Sharing.TakeOverTitle" xml:space="preserve">
-    <value>Перехват папки</value>
+    <value>Перехват этой папки</value>
   </data>
   <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
     <value>Этот пароль не открывает текущую публикацию.</value>
@@ -3659,7 +3662,7 @@
     <value>Неверная парольная фраза или поврежденный файл.</value>
   </data>
   <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
-    <value>Неверный пароль публикации, или публикация была изменена.</value>
+    <value>Этот пароль не открывает публикацию, или публикация была изменена.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Остановить операцию</value>

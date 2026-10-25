@@ -2774,7 +2774,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Luo yrityksen Wi-Fi profiilimalli</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Foundry OSD muistaa salauslauseen tässä tietokoneessa paikallisessa salatussa holvissaan. Se lähtee tästä tietokoneesta vain viennissä tai julkaisussa, kun ”Sisällytä salasanat” on valittu.</value>
+    <value>Foundry muistaa salauslauseen tässä tietokoneessa paikallisessa salatussa holvissaan. Se lähtee tästä tietokoneesta vain viennissä tai julkaisussa, kun ”Sisällytä salasanat” on valittu.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Tuo Foundryn hallitseman Wi-Fi-profiilin Windowsiin ennen OOBE-vaihetta, jotta käyttöönoton yhteys säilyy WinPE:n jälkeen.</value>
@@ -3235,7 +3235,7 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Sharing.ContentStalled" xml:space="preserve">
     <value>Sisältö voi olla vahingoittunut kansiossa. Julkaise uudelleen viitetietokoneesta.</value>
   </data>
-  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+  <data name="Sharing.CopyButton" xml:space="preserve">
     <value>Kopioi</value>
   </data>
   <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
@@ -3257,7 +3257,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Määritys vietiin.</value>
   </data>
   <data name="Sharing.ExportDescription" xml:space="preserve">
-    <value>Tallentaa asetukset ja pienet tiedostot salattuun tiedostoon. Asennuksen jälkeisiä paketteja, ohjainjoukkoja ja levykuvia ei sisällytetä.</value>
+    <value>Tallenna asetukset ja pienet tiedostot salattuun tiedostoon. Asennuksen jälkeisiä paketteja, ohjainjoukkoja ja levykuvia ei sisällytetä.</value>
   </data>
   <data name="Sharing.ExportFailed" xml:space="preserve">
     <value>Määritystä ei voitu viedä. Tarkista kohde ja yritä uudelleen.</value>
@@ -3293,7 +3293,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Anna kansio, johon viitetietokone julkaisee, ja julkaisun salasana. Avaa kansio sitten julkaisun esikatselua varten.</value>
   </data>
   <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
-    <value>Seuraaminen korvaa nykyisen määrityksen ja muuttaa julkaistut asetukset vain luku -muotoisiksi. Tämän tietokoneen ISO-tulostepolku, WinPE-ohjainkansio ja telemetria-asetukset säilytetään.</value>
+    <value>Seuraaminen korvaa nykyisen määrityksen ja muuttaa julkaistut asetukset vain luku -muotoisiksi. Tämän tietokoneen ISO-tulostepolku, WinPE:n lisäohjainkansio ja telemetria-asetukset säilytetään.</value>
   </data>
   <data name="Sharing.FollowTitle" xml:space="preserve">
     <value>Seuraa kansiota</value>
@@ -3307,7 +3307,7 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
     <value>Unohda julkaisun salasana</value>
   </data>
-  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+  <data name="Sharing.GenerateButton" xml:space="preserve">
     <value>Luo</value>
   </data>
   <data name="Sharing.ImportButton" xml:space="preserve">
@@ -3320,7 +3320,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Määritys tuotiin. Tästä tietokoneesta puuttuu sisältöä: tuo se uudelleen sen omalla sivulla.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Korvaa tämä määritys viedyllä tiedostolla tai tämän tietokoneen aiemmalla määrityksellä.</value>
+    <value>Korvaa tämä määritys viedyllä tiedostolla tai edellisen version profiililla.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>Määritystä ei voitu tuoda. Nykyinen määritys on ennallaan.</value>
@@ -3346,17 +3346,20 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>Tämä tiedosto ei ole Foundry-määritys, tai se on vahingoittunut.</value>
   </data>
-  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
-    <value>Viimeisin onnistuminen</value>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>Viimeisin onnistunut tarkistus</value>
   </data>
-  <data name="Sharing.LockedProfile" xml:space="preserve">
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>Viimeksi julkaistu</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
     <value>Tämä Windows-käyttäjä ei voi avata tätä määritystä.</value>
   </data>
   <data name="Sharing.ManagedBanner" xml:space="preserve">
-    <value>Tämän määrityksen julkaisee {0}, ja se on tässä tietokoneessa vain luku -muotoinen. Vain ISO-tulostepolkua, WinPE-ohjainkansiota ja telemetria-asetuksia voi muuttaa.</value>
+    <value>Tämän määrityksen julkaisee {0}, ja se on tässä tietokoneessa vain luku -muotoinen. Vain ISO-tulostepolkua, WinPE:n lisäohjainkansiota ja telemetria-asetuksia voi muuttaa.</value>
   </data>
   <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
-    <value>Tämän määrityksen julkaisee {0}, ja se on tässä tietokoneessa vain luku -muotoinen. Julkaisu ei sisällä salasanoja: anna ne tässä. Myös ISO-tulostepolkua, WinPE-ohjainkansiota ja telemetria-asetuksia voi muuttaa.</value>
+    <value>Tämän määrityksen julkaisee {0}, ja se on tässä tietokoneessa vain luku -muotoinen. Julkaisu ei sisällä salasanoja: anna ne tässä. Myös ISO-tulostepolkua, WinPE:n lisäohjainkansiota ja telemetria-asetuksia voi muuttaa.</value>
   </data>
   <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
     <value>Viitetietokoneen hallitsema</value>
@@ -3412,9 +3415,6 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Sharing.PassphraseMismatch" xml:space="preserve">
     <value>Tunnuslauseet eivät täsmää.</value>
   </data>
-  <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Vähintään 12 merkkiä, eikä sama merkki toistettuna (esimerkiksi aaaaaaaaaaaa).</value>
-  </data>
   <data name="Sharing.PasswordChangePending" xml:space="preserve">
     <value>Uusi salasana on tallennettu. Muutos viimeistellään seuraavan onnistuneen julkaisun yhteydessä.</value>
   </data>
@@ -3443,7 +3443,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Viety</value>
   </data>
   <data name="Sharing.PreviewDownload" xml:space="preserve">
-    <value>Ladattavaa</value>
+    <value>Latauksen koko</value>
   </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>Nimi</value>
@@ -3484,6 +3484,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Valitse tyhjä kansio tai kansio, johon tämä tietokone jo julkaisee: verkkojako, OneDrive- tai SharePoint-kansio tai paikallinen kansio. Kansiota kansiota seuraavat tietokoneet tarvitsevat julkaisun salasanan lukeakseen sen.</value>
   </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>Julkaise nyt</value>
+  </data>
   <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
     <value>Tarkistetaan kansiota…</value>
   </data>
@@ -3503,7 +3506,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Julkaise kansioon</value>
   </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
-    <value>Tuonti korvaa nykyisen määrityksen. Tämän tietokoneen ISO-tulostepolku, WinPE-ohjainkansio ja telemetria-asetukset säilytetään.</value>
+    <value>Tuonti korvaa nykyisen määrityksen. Tämän tietokoneen ISO-tulostepolku, WinPE:n lisäohjainkansio ja telemetria-asetukset säilytetään.</value>
   </data>
   <data name="Sharing.ResetButton" xml:space="preserve">
     <value>Palauta</value>
@@ -3517,9 +3520,6 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
     <value>Palauta julkaisu</value>
   </data>
-  <data name="Sharing.RetryButton" xml:space="preserve">
-    <value>Yritä uudelleen</value>
-  </data>
   <data name="Sharing.RevocationPending" xml:space="preserve">
     <value>Aiemmat lukijat voivat yhä avata sisältöä seuraavaan onnistuneeseen julkaisuun asti.</value>
   </data>
@@ -3528,6 +3528,9 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Tämä tietokone julkaisee määrityksensä</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>Vähintään 12 merkkiä, eikä sama merkki toistettuna (esimerkiksi aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
     <value>Osaa seuratun julkaisun jaetusta sisällöstä ei voitu ladata. Tarkista Määrityksen jakaminen Asetukset-sivulta.</value>
@@ -3542,7 +3545,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Määritys on otettu käyttöön. Jaettua sisältöä ladataan.</value>
   </data>
   <data name="Sharing.StatusContentFailed" xml:space="preserve">
-    <value>Määritys on otettu käyttöön, mutta osaa jaetusta sisällöstä ei voitu tuoda.</value>
+    <value>Määritys on otettu käyttöön, mutta osaa jaetusta sisällöstä ei voitu asentaa.</value>
   </data>
   <data name="Sharing.StatusContentStalled" xml:space="preserve">
     <value>Määritys on otettu käyttöön, mutta osa jaetusta sisällöstä ei ole vieläkään saatavilla toistuvien tarkistusten jälkeen.</value>
@@ -3566,7 +3569,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Ei julkaistu: määritys ei ole valmis tietovälineiden luomiseen, tai se viittaa sisältöön, joka puuttuu tästä tietokoneesta. Edellinen versio pysyy voimassa.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
-    <value>Salasanoja tarvitaan: anna julkaisun salasana tai määrityssivuilla salasanat, joita julkaisu ei sisällä.</value>
+    <value>Salasanoja tarvitaan: anna julkaisun salasana tai anna puuttuvat salasanat määrityssivuilla.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
     <value>Tämän tietokoneen julkaisun salasanaa tai avaimia ei voitu lukea.</value>
@@ -3575,7 +3578,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Julkaistu. Kansiota kansiota seuraavat tietokoneet saavat tämän version seuraavassa tarkistuksessaan.</value>
   </data>
   <data name="Sharing.StatusPublishing" xml:space="preserve">
-    <value>Määritystä julkaistaan.</value>
+    <value>Määritystä julkaistaan…</value>
   </data>
   <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
     <value>Kansio osoittaa vanhempaan versioon kuin käytössä oleva. Se ohitetaan.</value>
@@ -3617,7 +3620,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Lopeta julkaiseminen</value>
   </data>
   <data name="Sharing.StopPublishingMessage" xml:space="preserve">
-    <value>Kansio säilyy ennallaan, ja kansiota seuraavat tietokoneet säilyttävät viimeksi julkaistun version. Tästä tietokoneesta tulee taas tavallinen tietokone.</value>
+    <value>Kansio säilyy ennallaan, ja kansiota seuraavat tietokoneet säilyttävät viimeksi julkaistun version. Tämä tietokone ei enää julkaise määritystään.</value>
   </data>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Lopetetaanko julkaiseminen?</value>
@@ -3638,7 +3641,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Tämän tietokoneen julkaisuavaimia ei voitu lukea. Haltuunotto julkaisun nykyisellä salasanalla jatkaa julkaisua uusilla avaimilla. Kansiota seuraavien tietokoneiden on hyväksyttävä tämä tietokone kerran uudeksi viitteeksi.</value>
   </data>
   <data name="Sharing.TakeOverTitle" xml:space="preserve">
-    <value>Ota kansio haltuun</value>
+    <value>Ota tämä kansio haltuun</value>
   </data>
   <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
     <value>Tämä salasana ei avaa nykyistä julkaisua.</value>
@@ -3659,7 +3662,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Väärä tunnuslause tai vahingoittunut tiedosto.</value>
   </data>
   <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
-    <value>Virheellinen julkaisun salasana, tai julkaisua on muokattu.</value>
+    <value>Tämä salasana ei avaa julkaisua, tai julkaisua on muokattu.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Pysäytä toiminto</value>

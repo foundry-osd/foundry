@@ -2774,7 +2774,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Richt een ondernemingsprofielsjabloon Wi-Fi in</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Foundry OSD onthoudt de wachtwoordzin op deze pc in de lokale versleutelde kluis. Deze verlaat deze pc alleen in een export of publicatie wanneer “Wachtwoorden opnemen” is gekozen.</value>
+    <value>Foundry onthoudt de wachtwoordzin op deze pc in de lokale versleutelde kluis. Deze verlaat deze pc alleen in een export of publicatie wanneer “Wachtwoorden opnemen” is gekozen.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importeert het door Foundry beheerde Wi-Fi-profiel vóór OOBE in Windows om de implementatieconnectiviteit na WinPE te behouden.</value>
@@ -3235,7 +3235,7 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Sharing.ContentStalled" xml:space="preserve">
     <value>De inhoud is mogelijk beschadigd in de map. Publiceer opnieuw vanaf de referentie-pc.</value>
   </data>
-  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+  <data name="Sharing.CopyButton" xml:space="preserve">
     <value>Kopiëren</value>
   </data>
   <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
@@ -3257,7 +3257,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Configuratie geëxporteerd.</value>
   </data>
   <data name="Sharing.ExportDescription" xml:space="preserve">
-    <value>Slaat de instellingen en kleine bestanden op in een versleuteld bestand. Pakketten na installatie, stuurprogrammasets en installatiekopieën worden niet meegenomen.</value>
+    <value>Sla de instellingen en kleine bestanden op in een versleuteld bestand. Pakketten na installatie, stuurprogrammasets en installatiekopieën worden niet meegenomen.</value>
   </data>
   <data name="Sharing.ExportFailed" xml:space="preserve">
     <value>De configuratie kan niet worden geëxporteerd. Controleer de bestemming en probeer het opnieuw.</value>
@@ -3293,7 +3293,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Voer de map in waarin de referentie-pc publiceert en het publicatiewachtwoord, en open deze om een voorbeeld van de publicatie te bekijken.</value>
   </data>
   <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
-    <value>Volgen vervangt de huidige configuratie en maakt de gepubliceerde instellingen alleen-lezen. Het ISO-uitvoerpad, de WinPE-stuurprogrammamap en de telemetrie-instellingen van deze pc blijven behouden.</value>
+    <value>Volgen vervangt de huidige configuratie en maakt de gepubliceerde instellingen alleen-lezen. Het ISO-uitvoerpad, de extra WinPE-stuurprogrammamap en de telemetrie-instellingen van deze pc blijven behouden.</value>
   </data>
   <data name="Sharing.FollowTitle" xml:space="preserve">
     <value>Een map volgen</value>
@@ -3307,7 +3307,7 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
     <value>Publicatiewachtwoord vergeten</value>
   </data>
-  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+  <data name="Sharing.GenerateButton" xml:space="preserve">
     <value>Genereren</value>
   </data>
   <data name="Sharing.ImportButton" xml:space="preserve">
@@ -3320,7 +3320,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Configuratie geïmporteerd. Er ontbreekt inhoud op deze pc: importeer deze opnieuw op de bijbehorende pagina.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Vervang deze configuratie door een geëxporteerd bestand of een eerdere configuratie op deze pc.</value>
+    <value>Vervang deze configuratie door een geëxporteerd bestand of een profiel uit de vorige versie.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>De configuratie kan niet worden geïmporteerd. De huidige configuratie is ongewijzigd.</value>
@@ -3346,17 +3346,20 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>Dit bestand is geen Foundry-configuratie of is beschadigd.</value>
   </data>
-  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
-    <value>Laatste geslaagde bewerking</value>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>Laatste geslaagde controle</value>
   </data>
-  <data name="Sharing.LockedProfile" xml:space="preserve">
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>Laatst gepubliceerd</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
     <value>Deze configuratie kan niet worden geopend door deze Windows-gebruiker.</value>
   </data>
   <data name="Sharing.ManagedBanner" xml:space="preserve">
-    <value>Deze configuratie wordt gepubliceerd door {0} en is op deze pc alleen-lezen. Alleen het ISO-uitvoerpad, de WinPE-stuurprogrammamap en de telemetrie-instellingen kunnen worden gewijzigd.</value>
+    <value>Deze configuratie wordt gepubliceerd door {0} en is op deze pc alleen-lezen. Alleen het ISO-uitvoerpad, de extra WinPE-stuurprogrammamap en de telemetrie-instellingen kunnen worden gewijzigd.</value>
   </data>
   <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
-    <value>Deze configuratie wordt gepubliceerd door {0} en is op deze pc alleen-lezen. De publicatie bevat geen wachtwoorden: voer ze hier in. Het ISO-uitvoerpad, de WinPE-stuurprogrammamap en de telemetrie-instellingen kunnen ook worden gewijzigd.</value>
+    <value>Deze configuratie wordt gepubliceerd door {0} en is op deze pc alleen-lezen. De publicatie bevat geen wachtwoorden: voer ze hier in. Het ISO-uitvoerpad, de extra WinPE-stuurprogrammamap en de telemetrie-instellingen kunnen ook worden gewijzigd.</value>
   </data>
   <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
     <value>Beheerd door een referentie-pc</value>
@@ -3412,9 +3415,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Sharing.PassphraseMismatch" xml:space="preserve">
     <value>De wachtwoordzinnen komen niet overeen.</value>
   </data>
-  <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Minimaal 12 tekens, en niet hetzelfde teken herhaald (bijvoorbeeld aaaaaaaaaaaa).</value>
-  </data>
   <data name="Sharing.PasswordChangePending" xml:space="preserve">
     <value>Het nieuwe wachtwoord is opgeslagen. De wijziging wordt voltooid bij de volgende geslaagde publicatie.</value>
   </data>
@@ -3443,7 +3443,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Geëxporteerd op</value>
   </data>
   <data name="Sharing.PreviewDownload" xml:space="preserve">
-    <value>Te downloaden</value>
+    <value>Downloadgrootte</value>
   </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>Naam</value>
@@ -3484,6 +3484,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Kies een lege map of een map waarin deze pc al publiceert: een netwerkshare, een OneDrive- of SharePoint-map, of een lokale map. Pc's die de map volgen hebben het publicatiewachtwoord nodig om deze te lezen.</value>
   </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>Nu publiceren</value>
+  </data>
   <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
     <value>Map controleren…</value>
   </data>
@@ -3503,7 +3506,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Publiceren naar een map</value>
   </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
-    <value>Importeren vervangt de huidige configuratie. Het ISO-uitvoerpad, de WinPE-stuurprogrammamap en de telemetrie-instellingen van deze pc blijven behouden.</value>
+    <value>Importeren vervangt de huidige configuratie. Het ISO-uitvoerpad, de extra WinPE-stuurprogrammamap en de telemetrie-instellingen van deze pc blijven behouden.</value>
   </data>
   <data name="Sharing.ResetButton" xml:space="preserve">
     <value>Opnieuw instellen</value>
@@ -3515,10 +3518,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Een nieuw wachtwoord en een nieuwe inhoudssleutel: elk inhoudsbestand wordt opnieuw versleuteld, waardoor eerdere lezers volledig worden ingetrokken. Pc's die de map volgen voeren het nieuwe wachtwoord eenmaal in.</value>
   </data>
   <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
-    <value>De publicatie opnieuw instellen</value>
-  </data>
-  <data name="Sharing.RetryButton" xml:space="preserve">
-    <value>Opnieuw proberen</value>
+    <value>Publicatie opnieuw instellen</value>
   </data>
   <data name="Sharing.RevocationPending" xml:space="preserve">
     <value>Eerdere lezers kunnen de inhoud nog openen tot de volgende geslaagde publicatie.</value>
@@ -3528,6 +3528,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Deze pc publiceert zijn configuratie</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>Minimaal 12 tekens, en niet hetzelfde teken herhaald (bijvoorbeeld aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
     <value>Een deel van de gedeelde inhoud van de gevolgde publicatie kan niet worden gedownload. Controleer Configuratie delen op de pagina Instellingen.</value>
@@ -3542,7 +3545,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>De configuratie is toegepast. Gedeelde inhoud wordt gedownload.</value>
   </data>
   <data name="Sharing.StatusContentFailed" xml:space="preserve">
-    <value>De configuratie is toegepast, maar sommige gedeelde inhoud kon niet worden geïmporteerd.</value>
+    <value>De configuratie is toegepast, maar sommige gedeelde inhoud kon niet worden geïnstalleerd.</value>
   </data>
   <data name="Sharing.StatusContentStalled" xml:space="preserve">
     <value>De configuratie is toegepast, maar sommige gedeelde inhoud is na herhaalde controles nog steeds niet beschikbaar.</value>
@@ -3566,7 +3569,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Niet gepubliceerd: de configuratie is niet klaar om media te maken of verwijst naar inhoud die op deze pc ontbreekt. De vorige versie blijft actueel.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
-    <value>Wachtwoorden zijn nodig: voer het publicatiewachtwoord in, of op de configuratiepagina's de wachtwoorden die de publicatie niet bevat.</value>
+    <value>Wachtwoorden zijn nodig: voer het publicatiewachtwoord in, of voer de ontbrekende wachtwoorden in op de configuratiepagina's.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
     <value>Het publicatiewachtwoord of de sleutels van deze pc konden niet worden gelezen.</value>
@@ -3575,7 +3578,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Gepubliceerd. Pc's die de map volgen ontvangen deze versie bij hun volgende controle.</value>
   </data>
   <data name="Sharing.StatusPublishing" xml:space="preserve">
-    <value>De configuratie wordt gepubliceerd.</value>
+    <value>De configuratie wordt gepubliceerd…</value>
   </data>
   <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
     <value>De map verwijst naar een oudere versie dan de toegepaste. Deze wordt genegeerd.</value>
@@ -3617,7 +3620,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Stoppen met publiceren</value>
   </data>
   <data name="Sharing.StopPublishingMessage" xml:space="preserve">
-    <value>De map blijft zoals ze is en pc's die de map volgen behouden de laatst gepubliceerde versie. Deze pc wordt weer een normale pc.</value>
+    <value>De map blijft zoals ze is en pc's die de map volgen behouden de laatst gepubliceerde versie. Deze pc publiceert zijn configuratie niet meer.</value>
   </data>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Stoppen met publiceren?</value>
@@ -3638,7 +3641,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>De publicatiesleutels van deze pc konden niet worden gelezen. Overnemen met het huidige publicatiewachtwoord zet de publicatie voort met nieuwe sleutels; pc's die de map volgen moeten deze pc eenmaal als nieuwe referentie accepteren.</value>
   </data>
   <data name="Sharing.TakeOverTitle" xml:space="preserve">
-    <value>De map overnemen</value>
+    <value>Deze map overnemen</value>
   </data>
   <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
     <value>Dit wachtwoord opent de huidige publicatie niet.</value>
@@ -3659,7 +3662,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Onjuiste wachtwoordzin of beschadigd bestand.</value>
   </data>
   <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
-    <value>Onjuist publicatiewachtwoord, of de publicatie is gewijzigd.</value>
+    <value>Dit wachtwoord opent de publicatie niet, of de publicatie is gewijzigd.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Bewerking stoppen</value>

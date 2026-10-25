@@ -2774,7 +2774,7 @@ Licencirano pod MIT licencom.</value>
     <value>Obezbedite šablon profila preduzeća Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Foundry OSD pamti lozinku na ovom računaru u svom lokalnom šifrovanom trezoru. Ovaj računar napušta samo u izvozu ili objavi kada je izabrano „Uključi lozinke“.</value>
+    <value>Foundry pamti lozinku na ovom računaru u svom lokalnom šifrovanom trezoru. Ovaj računar napušta samo u izvozu ili objavi kada je izabrano „Uključi lozinke“.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Uvozi Wi-Fi profil kojim upravlja Foundry u Windows pre OOBE-a kako bi se povezivanje za implementaciju očuvalo posle WinPE-a.</value>
@@ -3235,7 +3235,7 @@ Licencirano pod MIT licencom.</value>
   <data name="Sharing.ContentStalled" xml:space="preserve">
     <value>Sadržaj je možda oštećen u fascikli. Ponovo objavite sa referentnog računara.</value>
   </data>
-  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+  <data name="Sharing.CopyButton" xml:space="preserve">
     <value>Kopiraj</value>
   </data>
   <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
@@ -3257,7 +3257,7 @@ Licencirano pod MIT licencom.</value>
     <value>Konfiguracija je izvezena.</value>
   </data>
   <data name="Sharing.ExportDescription" xml:space="preserve">
-    <value>Čuva postavke i male datoteke u šifrovanoj datoteci. Paketi nakon instalacije, skupovi upravljačkih programa i slike nisu uključeni.</value>
+    <value>Sačuvajte postavke i male datoteke u šifrovanoj datoteci. Paketi nakon instalacije, skupovi upravljačkih programa i slike nisu uključeni.</value>
   </data>
   <data name="Sharing.ExportFailed" xml:space="preserve">
     <value>Konfiguraciju nije bilo moguće izvesti. Proverite odredište i pokušajte ponovo.</value>
@@ -3293,7 +3293,7 @@ Licencirano pod MIT licencom.</value>
     <value>Unesite fasciklu u koju referentni računar objavljuje i njegovu lozinku objave, a zatim je otvorite za pregled objave.</value>
   </data>
   <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
-    <value>Praćenje zamenjuje trenutnu konfiguraciju, a objavljena podešavanja postaju samo za čitanje. Izlazna putanja ISO, fascikla upravljačkih programa WinPE i podešavanja telemetrije ovog računara se zadržavaju.</value>
+    <value>Praćenje zamenjuje trenutnu konfiguraciju, a objavljena podešavanja postaju samo za čitanje. Izlazna putanja ISO, dodatna fascikla upravljačkih programa WinPE i podešavanja telemetrije ovog računara se zadržavaju.</value>
   </data>
   <data name="Sharing.FollowTitle" xml:space="preserve">
     <value>Prati fasciklu</value>
@@ -3307,7 +3307,7 @@ Licencirano pod MIT licencom.</value>
   <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
     <value>Zaboravi lozinku objave</value>
   </data>
-  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+  <data name="Sharing.GenerateButton" xml:space="preserve">
     <value>Generiši</value>
   </data>
   <data name="Sharing.ImportButton" xml:space="preserve">
@@ -3320,7 +3320,7 @@ Licencirano pod MIT licencom.</value>
     <value>Konfiguracija je uvezena. Na ovom računaru nedostaje sadržaj: ponovo ga uvezite na odgovarajućoj stranici.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Zamenite ovu konfiguraciju izvezenom datotekom ili prethodnom konfiguracijom na ovom računaru.</value>
+    <value>Zamenite ovu konfiguraciju izvezenom datotekom ili profilom iz prethodne verzije.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>Konfiguraciju nije bilo moguće uvesti. Trenutna konfiguracija nije promenjena.</value>
@@ -3346,17 +3346,20 @@ Licencirano pod MIT licencom.</value>
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>Ova datoteka nije Foundry konfiguracija ili je oštećena.</value>
   </data>
-  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
-    <value>Poslednji uspeh</value>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>Poslednja uspešna provera</value>
   </data>
-  <data name="Sharing.LockedProfile" xml:space="preserve">
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>Poslednja objava</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
     <value>Ovaj korisnik sistema Windows ne može da otvori ovu konfiguraciju.</value>
   </data>
   <data name="Sharing.ManagedBanner" xml:space="preserve">
-    <value>Ovu konfiguraciju objavljuje {0} i na ovom računaru je samo za čitanje. Mogu se promeniti samo izlazna putanja ISO, fascikla upravljačkih programa WinPE i podešavanja telemetrije.</value>
+    <value>Ovu konfiguraciju objavljuje {0} i na ovom računaru je samo za čitanje. Mogu se promeniti samo izlazna putanja ISO, dodatna fascikla upravljačkih programa WinPE i podešavanja telemetrije.</value>
   </data>
   <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
-    <value>Ovu konfiguraciju objavljuje {0} i na ovom računaru je samo za čitanje. Objava ne uključuje lozinke: unesite ih ovde. Mogu se promeniti i izlazna putanja ISO, fascikla upravljačkih programa WinPE i podešavanja telemetrije.</value>
+    <value>Ovu konfiguraciju objavljuje {0} i na ovom računaru je samo za čitanje. Objava ne uključuje lozinke: unesite ih ovde. Mogu se promeniti i izlazna putanja ISO, dodatna fascikla upravljačkih programa WinPE i podešavanja telemetrije.</value>
   </data>
   <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
     <value>Upravlja referentni računar</value>
@@ -3412,9 +3415,6 @@ Licencirano pod MIT licencom.</value>
   <data name="Sharing.PassphraseMismatch" xml:space="preserve">
     <value>Pristupne fraze se ne podudaraju.</value>
   </data>
-  <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Najmanje 12 znakova, i ne isti znak ponovljen (na primer aaaaaaaaaaaa).</value>
-  </data>
   <data name="Sharing.PasswordChangePending" xml:space="preserve">
     <value>Nova lozinka je sačuvana. Promena se dovršava pri sledećoj uspešnoj objavi.</value>
   </data>
@@ -3443,7 +3443,7 @@ Licencirano pod MIT licencom.</value>
     <value>Izvezeno</value>
   </data>
   <data name="Sharing.PreviewDownload" xml:space="preserve">
-    <value>Za preuzimanje</value>
+    <value>Veličina preuzimanja</value>
   </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>Naziv</value>
@@ -3484,6 +3484,9 @@ Licencirano pod MIT licencom.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Izaberite praznu fasciklu ili fasciklu u koju ovaj računar već objavljuje: mrežni deljeni resurs, OneDrive ili SharePoint fasciklu ili lokalnu fasciklu. Računarima koji prate fasciklu potrebna je lozinka objave za čitanje.</value>
   </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>Objavi sada</value>
+  </data>
   <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
     <value>Provera fascikle…</value>
   </data>
@@ -3503,7 +3506,7 @@ Licencirano pod MIT licencom.</value>
     <value>Objavi u fasciklu</value>
   </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
-    <value>Uvoz zamenjuje trenutnu konfiguraciju. Izlazna putanja ISO datoteke, fascikla upravljačkih programa za WinPE i postavke telemetrije ovog računara se zadržavaju.</value>
+    <value>Uvoz zamenjuje trenutnu konfiguraciju. Izlazna putanja ISO datoteke, dodatna fascikla upravljačkih programa za WinPE i postavke telemetrije ovog računara se zadržavaju.</value>
   </data>
   <data name="Sharing.ResetButton" xml:space="preserve">
     <value>Ponovo postavi</value>
@@ -3517,9 +3520,6 @@ Licencirano pod MIT licencom.</value>
   <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
     <value>Ponovo postavi objavu</value>
   </data>
-  <data name="Sharing.RetryButton" xml:space="preserve">
-    <value>Pokušaj ponovo</value>
-  </data>
   <data name="Sharing.RevocationPending" xml:space="preserve">
     <value>Raniji čitaoci i dalje mogu da otvaraju sadržaj do sledeće uspešne objave.</value>
   </data>
@@ -3528,6 +3528,9 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Ovaj računar objavljuje svoju konfiguraciju</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>Najmanje 12 znakova, i ne isti znak ponovljen (na primer aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
     <value>Deo deljenog sadržaja praćene objave nije moguće preuzeti. Proverite Deljenje konfiguracije na stranici Postavke.</value>
@@ -3542,7 +3545,7 @@ Licencirano pod MIT licencom.</value>
     <value>Konfiguracija je primenjena. Deljeni sadržaj se preuzima.</value>
   </data>
   <data name="Sharing.StatusContentFailed" xml:space="preserve">
-    <value>Konfiguracija je primenjena, ali deo deljenog sadržaja nije bilo moguće uvesti.</value>
+    <value>Konfiguracija je primenjena, ali deo deljenog sadržaja nije bilo moguće instalirati.</value>
   </data>
   <data name="Sharing.StatusContentStalled" xml:space="preserve">
     <value>Konfiguracija je primenjena, ali deo deljenog sadržaja ni posle ponovljenih provera još nije dostupan.</value>
@@ -3566,7 +3569,7 @@ Licencirano pod MIT licencom.</value>
     <value>Nije objavljeno: konfiguracija nije spremna za kreiranje medija ili upućuje na sadržaj koji nedostaje na ovom računaru. Prethodna verzija ostaje važeća.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
-    <value>Potrebne su lozinke: unesite lozinku objave ili, na stranicama konfiguracije, lozinke koje objava ne uključuje.</value>
+    <value>Potrebne su lozinke: unesite lozinku objave ili unesite lozinke koje nedostaju na stranicama konfiguracije.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
     <value>Lozinku objave ili ključeve ovog računara nije bilo moguće pročitati.</value>
@@ -3575,7 +3578,7 @@ Licencirano pod MIT licencom.</value>
     <value>Objavljeno. Računari koji prate fasciklu dobijaju ovu verziju pri sledećoj proveri.</value>
   </data>
   <data name="Sharing.StatusPublishing" xml:space="preserve">
-    <value>Objavljivanje konfiguracije.</value>
+    <value>Objavljivanje konfiguracije…</value>
   </data>
   <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
     <value>Fascikla upućuje na stariju verziju od primenjene. Zanemaruje se.</value>
@@ -3617,7 +3620,7 @@ Licencirano pod MIT licencom.</value>
     <value>Zaustavi objavljivanje</value>
   </data>
   <data name="Sharing.StopPublishingMessage" xml:space="preserve">
-    <value>Fascikla ostaje nepromenjena, a računari koji je prate zadržavaju poslednju objavljenu verziju. Ovaj računar ponovo postaje običan računar.</value>
+    <value>Fascikla ostaje nepromenjena, a računari koji je prate zadržavaju poslednju objavljenu verziju. Ovaj računar više ne objavljuje svoju konfiguraciju.</value>
   </data>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Zaustaviti objavljivanje?</value>
@@ -3638,7 +3641,7 @@ Licencirano pod MIT licencom.</value>
     <value>Ključeve objave ovog računara nije bilo moguće pročitati. Preuzimanje sa trenutnom lozinkom objave nastavlja objavu sa novim ključevima; računari koji prate fasciklu moraju jednom da prihvate ovaj računar kao novu referencu.</value>
   </data>
   <data name="Sharing.TakeOverTitle" xml:space="preserve">
-    <value>Preuzmi fasciklu</value>
+    <value>Preuzmi ovu fasciklu</value>
   </data>
   <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
     <value>Ova lozinka ne otvara trenutnu objavu.</value>
@@ -3659,7 +3662,7 @@ Licencirano pod MIT licencom.</value>
     <value>Pogrešna pristupna fraza ili oštećena datoteka.</value>
   </data>
   <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
-    <value>Pogrešna lozinka objave ili je objava izmenjena.</value>
+    <value>Ova lozinka ne otvara objavu ili je objava izmenjena.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Zaustavi operaciju</value>

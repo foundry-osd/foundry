@@ -2774,7 +2774,7 @@
     <value>จัดเตรียมเทมเพลตโปรไฟล์องค์กร Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Foundry OSD จะจดจำวลีรหัสผ่านบนพีซีเครื่องนี้ไว้ในห้องนิรภัยที่เข้ารหัสภายในเครื่อง และจะออกจากพีซีเครื่องนี้เฉพาะในการส่งออกหรือการเผยแพร่เมื่อเลือก “รวมรหัสผ่าน” เท่านั้น</value>
+    <value>Foundry จะจดจำวลีรหัสผ่านบนพีซีเครื่องนี้ไว้ในห้องนิรภัยที่เข้ารหัสภายในเครื่อง และจะออกจากพีซีเครื่องนี้เฉพาะในการส่งออกหรือการเผยแพร่เมื่อเลือก “รวมรหัสผ่าน” เท่านั้น</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>นำเข้าโปรไฟล์ Wi-Fi ที่ Foundry จัดการลงใน Windows ก่อน OOBE เพื่อรักษาการเชื่อมต่อสำหรับการปรับใช้หลัง WinPE</value>
@@ -3235,7 +3235,7 @@
   <data name="Sharing.ContentStalled" xml:space="preserve">
     <value>เนื้อหาอาจเสียหายในโฟลเดอร์ โปรดเผยแพร่อีกครั้งจากพีซีอ้างอิง</value>
   </data>
-  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+  <data name="Sharing.CopyButton" xml:space="preserve">
     <value>คัดลอก</value>
   </data>
   <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
@@ -3293,7 +3293,7 @@
     <value>ป้อนโฟลเดอร์ที่พีซีอ้างอิงเผยแพร่และรหัสผ่านการเผยแพร่ แล้วเปิดเพื่อดูตัวอย่างการเผยแพร่</value>
   </data>
   <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
-    <value>การติดตามจะแทนที่การกำหนดค่าปัจจุบันและทำให้การตั้งค่าที่เผยแพร่เป็นแบบอ่านอย่างเดียว ระบบจะเก็บเส้นทางเอาต์พุต ISO โฟลเดอร์ไดรเวอร์ WinPE และการตั้งค่าการวัดและส่งข้อมูลทางไกลของพีซีเครื่องนี้ไว้</value>
+    <value>การติดตามจะแทนที่การกำหนดค่าปัจจุบันและทำให้การตั้งค่าที่เผยแพร่เป็นแบบอ่านอย่างเดียว ระบบจะเก็บเส้นทางเอาต์พุต ISO โฟลเดอร์ไดรเวอร์ WinPE เพิ่มเติม และการตั้งค่าการวัดและส่งข้อมูลทางไกลของพีซีเครื่องนี้ไว้</value>
   </data>
   <data name="Sharing.FollowTitle" xml:space="preserve">
     <value>ติดตามโฟลเดอร์</value>
@@ -3307,7 +3307,7 @@
   <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
     <value>ลืมรหัสผ่านการเผยแพร่</value>
   </data>
-  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+  <data name="Sharing.GenerateButton" xml:space="preserve">
     <value>สร้าง</value>
   </data>
   <data name="Sharing.ImportButton" xml:space="preserve">
@@ -3320,7 +3320,7 @@
     <value>นำเข้าการกำหนดค่าแล้ว พีซีเครื่องนี้ขาดเนื้อหาบางส่วน: โปรดนำเข้าอีกครั้งในหน้าของเนื้อหานั้น</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>แทนที่การกำหนดค่านี้ด้วยไฟล์ที่ส่งออกหรือการกำหนดค่าก่อนหน้าบนพีซีเครื่องนี้</value>
+    <value>แทนที่การกำหนดค่านี้ด้วยไฟล์ที่ส่งออกหรือโปรไฟล์จากเวอร์ชันก่อนหน้า</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>ไม่สามารถนำเข้าการกำหนดค่าได้ การกำหนดค่าปัจจุบันไม่มีการเปลี่ยนแปลง</value>
@@ -3346,17 +3346,20 @@
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>ไฟล์นี้ไม่ใช่การกำหนดค่า Foundry หรือไฟล์เสียหาย</value>
   </data>
-  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
-    <value>สำเร็จล่าสุด</value>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>ตรวจสอบสำเร็จล่าสุด</value>
   </data>
-  <data name="Sharing.LockedProfile" xml:space="preserve">
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>เผยแพร่ล่าสุด</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
     <value>ผู้ใช้ Windows รายนี้ไม่สามารถเปิดการกำหนดค่านี้ได้</value>
   </data>
   <data name="Sharing.ManagedBanner" xml:space="preserve">
-    <value>การกำหนดค่านี้เผยแพร่โดย {0} และเป็นแบบอ่านอย่างเดียวบนพีซีเครื่องนี้ เปลี่ยนได้เฉพาะเส้นทางเอาต์พุต ISO โฟลเดอร์ไดรเวอร์ WinPE และการตั้งค่าการวัดและส่งข้อมูลทางไกล</value>
+    <value>การกำหนดค่านี้เผยแพร่โดย {0} และเป็นแบบอ่านอย่างเดียวบนพีซีเครื่องนี้ เปลี่ยนได้เฉพาะเส้นทางเอาต์พุต ISO โฟลเดอร์ไดรเวอร์ WinPE เพิ่มเติม และการตั้งค่าการวัดและส่งข้อมูลทางไกล</value>
   </data>
   <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
-    <value>การกำหนดค่านี้เผยแพร่โดย {0} และเป็นแบบอ่านอย่างเดียวบนพีซีเครื่องนี้ การเผยแพร่ไม่มีรหัสผ่าน โปรดป้อนรหัสผ่านที่นี่ นอกจากนี้ยังเปลี่ยนเส้นทางเอาต์พุต ISO โฟลเดอร์ไดรเวอร์ WinPE และการตั้งค่าการวัดและส่งข้อมูลทางไกลได้</value>
+    <value>การกำหนดค่านี้เผยแพร่โดย {0} และเป็นแบบอ่านอย่างเดียวบนพีซีเครื่องนี้ การเผยแพร่ไม่มีรหัสผ่าน โปรดป้อนรหัสผ่านที่นี่ นอกจากนี้ยังเปลี่ยนเส้นทางเอาต์พุต ISO โฟลเดอร์ไดรเวอร์ WinPE เพิ่มเติม และการตั้งค่าการวัดและส่งข้อมูลทางไกลได้</value>
   </data>
   <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
     <value>จัดการโดยพีซีอ้างอิง</value>
@@ -3412,9 +3415,6 @@
   <data name="Sharing.PassphraseMismatch" xml:space="preserve">
     <value>วลีรหัสผ่านไม่ตรงกัน</value>
   </data>
-  <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>อย่างน้อย 12 อักขระ และไม่ใช่อักขระเดียวกันซ้ำๆ (เช่น aaaaaaaaaaaa)</value>
-  </data>
   <data name="Sharing.PasswordChangePending" xml:space="preserve">
     <value>บันทึกรหัสผ่านใหม่แล้ว การเปลี่ยนแปลงจะเสร็จสมบูรณ์ในการเผยแพร่ครั้งถัดไปที่สำเร็จ</value>
   </data>
@@ -3443,7 +3443,7 @@
     <value>ส่งออกเมื่อ</value>
   </data>
   <data name="Sharing.PreviewDownload" xml:space="preserve">
-    <value>ที่ต้องดาวน์โหลด</value>
+    <value>ขนาดการดาวน์โหลด</value>
   </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>ชื่อ</value>
@@ -3484,6 +3484,9 @@
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>เลือกโฟลเดอร์ว่าง หรือโฟลเดอร์ที่พีซีเครื่องนี้เผยแพร่อยู่แล้ว ได้แก่ การแชร์ในเครือข่าย โฟลเดอร์ OneDrive หรือ SharePoint หรือโฟลเดอร์ภายในเครื่อง พีซีที่ติดตามโฟลเดอร์ต้องใช้รหัสผ่านการเผยแพร่เพื่ออ่านโฟลเดอร์</value>
   </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>เผยแพร่ตอนนี้</value>
+  </data>
   <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
     <value>กำลังตรวจสอบโฟลเดอร์…</value>
   </data>
@@ -3503,7 +3506,7 @@
     <value>เผยแพร่ไปยังโฟลเดอร์</value>
   </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
-    <value>การนำเข้าจะแทนที่การกำหนดค่าปัจจุบัน เส้นทางเอาต์พุต ISO โฟลเดอร์ไดรเวอร์ WinPE และการตั้งค่าการวัดและส่งข้อมูลทางไกลของพีซีเครื่องนี้จะยังคงอยู่</value>
+    <value>การนำเข้าจะแทนที่การกำหนดค่าปัจจุบัน เส้นทางเอาต์พุต ISO โฟลเดอร์ไดรเวอร์ WinPE เพิ่มเติม และการตั้งค่าการวัดและส่งข้อมูลทางไกลของพีซีเครื่องนี้จะยังคงอยู่</value>
   </data>
   <data name="Sharing.ResetButton" xml:space="preserve">
     <value>รีเซ็ต</value>
@@ -3517,9 +3520,6 @@
   <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
     <value>รีเซ็ตการเผยแพร่</value>
   </data>
-  <data name="Sharing.RetryButton" xml:space="preserve">
-    <value>ลองอีกครั้ง</value>
-  </data>
   <data name="Sharing.RevocationPending" xml:space="preserve">
     <value>ผู้อ่านเดิมยังคงเปิดเนื้อหาได้จนกว่าจะมีการเผยแพร่ครั้งถัดไปที่สำเร็จ</value>
   </data>
@@ -3528,6 +3528,9 @@
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>พีซีเครื่องนี้เผยแพร่การกำหนดค่าของตนเอง</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>อย่างน้อย 12 อักขระ และไม่ใช่อักขระเดียวกันซ้ำๆ (เช่น aaaaaaaaaaaa)</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
     <value>ไม่สามารถดาวน์โหลดเนื้อหาที่แชร์บางส่วนของการเผยแพร่ที่ติดตามได้ ตรวจสอบ การแชร์การกำหนดค่า ในหน้าการตั้งค่า</value>
@@ -3542,7 +3545,7 @@
     <value>นำการกำหนดค่าไปใช้แล้ว กำลังดาวน์โหลดเนื้อหาที่แชร์</value>
   </data>
   <data name="Sharing.StatusContentFailed" xml:space="preserve">
-    <value>นำการกำหนดค่าไปใช้แล้ว แต่ไม่สามารถนำเข้าเนื้อหาที่แชร์บางส่วนได้</value>
+    <value>นำการกำหนดค่าไปใช้แล้ว แต่ไม่สามารถติดตั้งเนื้อหาที่แชร์บางส่วนได้</value>
   </data>
   <data name="Sharing.StatusContentStalled" xml:space="preserve">
     <value>นำการกำหนดค่าไปใช้แล้ว แต่เนื้อหาที่แชร์บางส่วนยังไม่พร้อมใช้งานหลังจากตรวจสอบซ้ำหลายครั้ง</value>
@@ -3566,7 +3569,7 @@
     <value>ไม่ได้เผยแพร่: การกำหนดค่ายังไม่พร้อมสำหรับการสร้างสื่อ หรืออ้างอิงเนื้อหาที่ไม่มีอยู่บนพีซีเครื่องนี้ เวอร์ชันก่อนหน้ายังคงเป็นเวอร์ชันปัจจุบัน</value>
   </data>
   <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
-    <value>ต้องใช้รหัสผ่าน: ป้อนรหัสผ่านการเผยแพร่ หรือป้อนรหัสผ่านที่การเผยแพร่ไม่มีในหน้าการกำหนดค่า</value>
+    <value>ต้องใช้รหัสผ่าน: ป้อนรหัสผ่านการเผยแพร่ หรือป้อนรหัสผ่านที่ขาดหายไปในหน้าการกำหนดค่า</value>
   </data>
   <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
     <value>ไม่สามารถอ่านรหัสผ่านการเผยแพร่หรือคีย์ของพีซีเครื่องนี้ได้</value>
@@ -3575,7 +3578,7 @@
     <value>เผยแพร่แล้ว พีซีที่ติดตามโฟลเดอร์จะได้รับเวอร์ชันนี้ในการตรวจสอบครั้งถัดไป</value>
   </data>
   <data name="Sharing.StatusPublishing" xml:space="preserve">
-    <value>กำลังเผยแพร่การกำหนดค่า</value>
+    <value>กำลังเผยแพร่การกำหนดค่า…</value>
   </data>
   <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
     <value>โฟลเดอร์ชี้ไปยังเวอร์ชันที่เก่ากว่าเวอร์ชันที่นำไปใช้ ระบบจะละเว้น</value>
@@ -3617,7 +3620,7 @@
     <value>หยุดเผยแพร่</value>
   </data>
   <data name="Sharing.StopPublishingMessage" xml:space="preserve">
-    <value>โฟลเดอร์จะยังคงเหมือนเดิม และพีซีที่ติดตามจะเก็บเวอร์ชันที่เผยแพร่ล่าสุดไว้ พีซีเครื่องนี้จะกลับเป็นพีซีปกติ</value>
+    <value>โฟลเดอร์จะยังคงเหมือนเดิม และพีซีที่ติดตามจะเก็บเวอร์ชันที่เผยแพร่ล่าสุดไว้ พีซีเครื่องนี้จะไม่เผยแพร่การกำหนดค่าอีกต่อไป</value>
   </data>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>หยุดเผยแพร่หรือไม่</value>
@@ -3638,7 +3641,7 @@
     <value>ไม่สามารถอ่านคีย์การเผยแพร่ของพีซีเครื่องนี้ได้ การเข้าควบคุมด้วยรหัสผ่านการเผยแพร่ปัจจุบันจะเผยแพร่ต่อด้วยคีย์ใหม่ พีซีที่ติดตามโฟลเดอร์ต้องยอมรับพีซีเครื่องนี้เป็นพีซีอ้างอิงใหม่หนึ่งครั้ง</value>
   </data>
   <data name="Sharing.TakeOverTitle" xml:space="preserve">
-    <value>เข้าควบคุมโฟลเดอร์</value>
+    <value>เข้าควบคุมโฟลเดอร์นี้</value>
   </data>
   <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
     <value>รหัสผ่านนี้เปิดการเผยแพร่ปัจจุบันไม่ได้</value>
@@ -3659,7 +3662,7 @@
     <value>วลีรหัสผ่านไม่ถูกต้องหรือไฟล์เสียหาย</value>
   </data>
   <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
-    <value>รหัสผ่านการเผยแพร่ไม่ถูกต้อง หรือการเผยแพร่ถูกแก้ไข</value>
+    <value>รหัสผ่านนี้เปิดการเผยแพร่ไม่ได้ หรือการเผยแพร่ถูกแก้ไข</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>หยุดการดำเนินการ</value>

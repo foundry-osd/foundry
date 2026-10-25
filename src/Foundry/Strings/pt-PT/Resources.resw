@@ -2774,7 +2774,7 @@ Licenciado sob a licença MIT.</value>
     <value>Aprovisionar um modelo de perfil Wi-Fi empresarial</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>O Foundry OSD memoriza a frase de acesso neste PC no seu cofre local encriptado. Só sai deste PC numa exportação ou publicação quando «Incluir palavras-passe» é escolhido.</value>
+    <value>O Foundry memoriza a frase de acesso neste PC no seu cofre local encriptado. Só sai deste PC numa exportação ou publicação quando «Incluir palavras-passe» é escolhido.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importa para o Windows o perfil Wi-Fi gerido pelo Foundry antes da OOBE para manter a conectividade de implementação após o WinPE.</value>
@@ -3212,7 +3212,7 @@ Licenciado sob a licença MIT.</value>
     <value>Confirmar frase de acesso</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
-    <value>Confirmar a palavra-passe</value>
+    <value>Confirmar palavra-passe</value>
   </data>
   <data name="Sharing.ContentDownloadingState" xml:space="preserve">
     <value>A transferir</value>
@@ -3235,7 +3235,7 @@ Licenciado sob a licença MIT.</value>
   <data name="Sharing.ContentStalled" xml:space="preserve">
     <value>O conteúdo pode estar danificado na pasta. Publique novamente a partir do PC de referência.</value>
   </data>
-  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+  <data name="Sharing.CopyButton" xml:space="preserve">
     <value>Copiar</value>
   </data>
   <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
@@ -3257,7 +3257,7 @@ Licenciado sob a licença MIT.</value>
     <value>Configuração exportada.</value>
   </data>
   <data name="Sharing.ExportDescription" xml:space="preserve">
-    <value>Guarda as definições e os ficheiros pequenos num ficheiro encriptado. Os pacotes de pós-instalação, os conjuntos de controladores e as imagens não são incluídos.</value>
+    <value>Guarde as definições e os ficheiros pequenos num ficheiro encriptado. Os pacotes de pós-instalação, os conjuntos de controladores e as imagens não são incluídos.</value>
   </data>
   <data name="Sharing.ExportFailed" xml:space="preserve">
     <value>Não foi possível exportar a configuração. Verifique o destino e tente novamente.</value>
@@ -3293,7 +3293,7 @@ Licenciado sob a licença MIT.</value>
     <value>Introduza a pasta em que o PC de referência publica e a sua palavra-passe de publicação e, em seguida, abra-a para pré-visualizar a publicação.</value>
   </data>
   <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
-    <value>Seguir uma pasta substitui a configuração atual e torna as configurações publicadas só de leitura. O caminho de saída do ISO, a pasta de drivers do WinPE e as configurações de telemetria deste PC são mantidos.</value>
+    <value>Seguir uma pasta substitui a configuração atual e torna as configurações publicadas só de leitura. O caminho de saída do ISO, a pasta adicional de drivers do WinPE e as configurações de telemetria deste PC são mantidos.</value>
   </data>
   <data name="Sharing.FollowTitle" xml:space="preserve">
     <value>Seguir uma pasta</value>
@@ -3307,7 +3307,7 @@ Licenciado sob a licença MIT.</value>
   <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
     <value>Esquecer a palavra-passe de publicação</value>
   </data>
-  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+  <data name="Sharing.GenerateButton" xml:space="preserve">
     <value>Gerar</value>
   </data>
   <data name="Sharing.ImportButton" xml:space="preserve">
@@ -3320,7 +3320,7 @@ Licenciado sob a licença MIT.</value>
     <value>Configuração importada. Falta conteúdo neste PC: importe-o novamente na respetiva página.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Substitua esta configuração por um ficheiro exportado ou por uma configuração anterior deste PC.</value>
+    <value>Substitua esta configuração por um ficheiro exportado ou por um perfil da versão anterior.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>Não foi possível importar a configuração. A configuração atual não foi alterada.</value>
@@ -3346,17 +3346,20 @@ Licenciado sob a licença MIT.</value>
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>Este ficheiro não é uma configuração do Foundry ou está danificado.</value>
   </data>
-  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
-    <value>Último êxito</value>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>Última verificação bem-sucedida</value>
   </data>
-  <data name="Sharing.LockedProfile" xml:space="preserve">
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>Última publicação</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
     <value>Esta configuração não pode ser aberta por este utilizador do Windows.</value>
   </data>
   <data name="Sharing.ManagedBanner" xml:space="preserve">
-    <value>Esta configuração é publicada por {0} e é só de leitura neste PC. Apenas o caminho de saída do ISO, a pasta de drivers do WinPE e as configurações de telemetria podem ser alterados.</value>
+    <value>Esta configuração é publicada por {0} e é só de leitura neste PC. Apenas o caminho de saída do ISO, a pasta adicional de drivers do WinPE e as configurações de telemetria podem ser alterados.</value>
   </data>
   <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
-    <value>Esta configuração é publicada por {0} e é só de leitura neste PC. A publicação não inclui palavras-passe: introduza-as aqui. O caminho de saída do ISO, a pasta de drivers do WinPE e as configurações de telemetria também podem ser alterados.</value>
+    <value>Esta configuração é publicada por {0} e é só de leitura neste PC. A publicação não inclui palavras-passe: introduza-as aqui. O caminho de saída do ISO, a pasta adicional de drivers do WinPE e as configurações de telemetria também podem ser alterados.</value>
   </data>
   <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
     <value>Gerida por um PC de referência</value>
@@ -3412,9 +3415,6 @@ Licenciado sob a licença MIT.</value>
   <data name="Sharing.PassphraseMismatch" xml:space="preserve">
     <value>As frases de acesso não coincidem.</value>
   </data>
-  <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Pelo menos 12 carateres, e não o mesmo caráter repetido (por exemplo, aaaaaaaaaaaa).</value>
-  </data>
   <data name="Sharing.PasswordChangePending" xml:space="preserve">
     <value>A nova palavra-passe foi guardada. A alteração é concluída na próxima publicação bem-sucedida.</value>
   </data>
@@ -3443,7 +3443,7 @@ Licenciado sob a licença MIT.</value>
     <value>Exportada em</value>
   </data>
   <data name="Sharing.PreviewDownload" xml:space="preserve">
-    <value>A transferir</value>
+    <value>Tamanho da transferência</value>
   </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>Nome</value>
@@ -3484,6 +3484,9 @@ Licenciado sob a licença MIT.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Escolha uma pasta vazia ou uma em que este PC já publica: uma partilha de rede, uma pasta do OneDrive ou do SharePoint, ou uma pasta local. Os PCs que seguem a pasta precisam da palavra-passe de publicação para lê-la.</value>
   </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>Publicar agora</value>
+  </data>
   <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
     <value>A verificar a pasta…</value>
   </data>
@@ -3503,7 +3506,7 @@ Licenciado sob a licença MIT.</value>
     <value>Publicar numa pasta</value>
   </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
-    <value>A importação substitui a configuração atual. O caminho de saída ISO, a pasta de controladores do WinPE e as definições de telemetria deste PC são mantidos.</value>
+    <value>A importação substitui a configuração atual. O caminho de saída ISO, a pasta adicional de controladores do WinPE e as definições de telemetria deste PC são mantidos.</value>
   </data>
   <data name="Sharing.ResetButton" xml:space="preserve">
     <value>Redefinir</value>
@@ -3515,10 +3518,7 @@ Licenciado sob a licença MIT.</value>
     <value>Uma nova palavra-passe e uma nova chave de conteúdo: todos os ficheiros de conteúdo são encriptados novamente, o que revoga completamente os leitores anteriores. Os PCs que seguem a pasta introduzem a nova palavra-passe uma vez.</value>
   </data>
   <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
-    <value>Redefinir a publicação</value>
-  </data>
-  <data name="Sharing.RetryButton" xml:space="preserve">
-    <value>Tentar novamente</value>
+    <value>Redefinir publicação</value>
   </data>
   <data name="Sharing.RevocationPending" xml:space="preserve">
     <value>Os leitores anteriores ainda podem abrir o conteúdo até à próxima publicação bem-sucedida.</value>
@@ -3528,6 +3528,9 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Este PC publica a sua configuração</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>Pelo menos 12 carateres, e não o mesmo caráter repetido (por exemplo, aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
     <value>Não foi possível transferir parte do conteúdo partilhado da publicação seguida. Verifique Partilha da configuração na página Definições.</value>
@@ -3542,7 +3545,7 @@ Licenciado sob a licença MIT.</value>
     <value>A configuração foi aplicada. O conteúdo partilhado está a ser transferido.</value>
   </data>
   <data name="Sharing.StatusContentFailed" xml:space="preserve">
-    <value>A configuração foi aplicada, mas não foi possível importar parte do conteúdo partilhado.</value>
+    <value>A configuração foi aplicada, mas não foi possível instalar parte do conteúdo partilhado.</value>
   </data>
   <data name="Sharing.StatusContentStalled" xml:space="preserve">
     <value>A configuração foi aplicada, mas parte do conteúdo partilhado continua indisponível após verificações repetidas.</value>
@@ -3566,7 +3569,7 @@ Licenciado sob a licença MIT.</value>
     <value>Não publicada: a configuração não está pronta para criar suportes de dados ou faz referência a conteúdo ausente neste PC. A versão anterior continua atual.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
-    <value>Palavras-passe necessárias: introduza a palavra-passe de publicação ou, nas páginas de configuração, as palavras-passe que a publicação não inclui.</value>
+    <value>Palavras-passe necessárias: introduza a palavra-passe de publicação ou introduza as palavras-passe em falta nas páginas de configuração.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
     <value>Não foi possível ler a palavra-passe de publicação ou as chaves deste PC.</value>
@@ -3575,7 +3578,7 @@ Licenciado sob a licença MIT.</value>
     <value>Publicada. Os PCs que seguem a pasta recebem esta versão na próxima verificação.</value>
   </data>
   <data name="Sharing.StatusPublishing" xml:space="preserve">
-    <value>A publicar a configuração.</value>
+    <value>A publicar a configuração…</value>
   </data>
   <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
     <value>A pasta aponta para uma versão mais antiga do que a aplicada. Ela é ignorada.</value>
@@ -3617,7 +3620,7 @@ Licenciado sob a licença MIT.</value>
     <value>Parar de publicar</value>
   </data>
   <data name="Sharing.StopPublishingMessage" xml:space="preserve">
-    <value>A pasta permanece como está e os PCs que a seguem mantêm a última versão publicada. Este PC volta a ser um PC normal.</value>
+    <value>A pasta permanece como está e os PCs que a seguem mantêm a última versão publicada. Este PC deixa de publicar a sua configuração.</value>
   </data>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Parar de publicar?</value>
@@ -3638,7 +3641,7 @@ Licenciado sob a licença MIT.</value>
     <value>Não foi possível ler as chaves de publicação deste PC. Ao assumir com a palavra-passe de publicação atual, a publicação continua com novas chaves; os PCs que seguem a pasta precisam de aceitar este PC uma vez como a nova referência.</value>
   </data>
   <data name="Sharing.TakeOverTitle" xml:space="preserve">
-    <value>Assumir a pasta</value>
+    <value>Assumir esta pasta</value>
   </data>
   <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
     <value>Esta palavra-passe não abre a publicação atual.</value>
@@ -3659,7 +3662,7 @@ Licenciado sob a licença MIT.</value>
     <value>Frase de acesso incorreta ou ficheiro danificado.</value>
   </data>
   <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
-    <value>Palavra-passe de publicação incorreta, ou a publicação foi modificada.</value>
+    <value>Esta palavra-passe não abre a publicação, ou a publicação foi modificada.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Parar operação</value>

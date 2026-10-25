@@ -2774,7 +2774,7 @@ Licensierad under MIT-licensen.</value>
     <value>Tillhandahåll en företagsprofilmall Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Foundry OSD kommer ihåg lösenfrasen på den här datorn i sitt lokala krypterade valv. Den lämnar bara den här datorn i en export eller en publicering när ”Inkludera lösenord” har valts.</value>
+    <value>Foundry kommer ihåg lösenfrasen på den här datorn i sitt lokala krypterade valv. Den lämnar bara den här datorn i en export eller en publicering när ”Inkludera lösenord” har valts.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importerar Wi-Fi-profilen som hanteras av Foundry till Windows före OOBE för att bevara distributionsanslutningen efter WinPE.</value>
@@ -3182,7 +3182,7 @@ Licensierad under MIT-licensen.</value>
     <value>Mappen publiceras nu av en annan dator: {0}. Godkänn den bara om du förväntar dig den här ändringen, till exempel efter ett övertagande. Sluta annars att följa mappen.</value>
   </data>
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
-    <value>Godkänna den nya referensen?</value>
+    <value>Godkänna ny referens?</value>
   </data>
   <data name="Sharing.CandidateChanged" xml:space="preserve">
     <value>Referensen ändrades medan den här dialogrutan var öppen. Granska den nya nyckeln innan du godkänner den.</value>
@@ -3203,7 +3203,7 @@ Licensierad under MIT-licensen.</value>
     <value>Den aktuella publiceringen skrivs om med det nya lösenordet. Innehållsfiler krypteras inte om, så den som kände till det gamla lösenordet kan fortfarande läsa dem: använd Återställ publicering för att helt återkalla tidigare läsare. Datorer som följer mappen anger det nya lösenordet en gång.</value>
   </data>
   <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
-    <value>Ändra publiceringslösenordet</value>
+    <value>Ändra publiceringslösenord</value>
   </data>
   <data name="Sharing.CheckNowButton" xml:space="preserve">
     <value>Kontrollera nu</value>
@@ -3212,7 +3212,7 @@ Licensierad under MIT-licensen.</value>
     <value>Bekräfta lösenfras</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
-    <value>Bekräfta lösenordet</value>
+    <value>Bekräfta lösenord</value>
   </data>
   <data name="Sharing.ContentDownloadingState" xml:space="preserve">
     <value>Laddar ned</value>
@@ -3235,7 +3235,7 @@ Licensierad under MIT-licensen.</value>
   <data name="Sharing.ContentStalled" xml:space="preserve">
     <value>Innehållet kan vara skadat i mappen. Publicera igen från referensdatorn.</value>
   </data>
-  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+  <data name="Sharing.CopyButton" xml:space="preserve">
     <value>Kopiera</value>
   </data>
   <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
@@ -3248,7 +3248,7 @@ Licensierad under MIT-licensen.</value>
     <value>Publiceringslösenordet behövs igen, till exempel efter en återställning av Windows-lösenordet eller efter att referensdatorn har ändrat det.</value>
   </data>
   <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
-    <value>Ange publiceringslösenordet</value>
+    <value>Ange publiceringslösenord</value>
   </data>
   <data name="Sharing.ExportButton" xml:space="preserve">
     <value>Exportera</value>
@@ -3257,7 +3257,7 @@ Licensierad under MIT-licensen.</value>
     <value>Konfigurationen har exporterats.</value>
   </data>
   <data name="Sharing.ExportDescription" xml:space="preserve">
-    <value>Sparar inställningarna och de små filerna i en krypterad fil. Paket efter installation, drivrutinsuppsättningar och avbildningar ingår inte.</value>
+    <value>Spara inställningarna och de små filerna i en krypterad fil. Paket efter installation, drivrutinsuppsättningar och avbildningar ingår inte.</value>
   </data>
   <data name="Sharing.ExportFailed" xml:space="preserve">
     <value>Konfigurationen kunde inte exporteras. Kontrollera målet och försök igen.</value>
@@ -3293,7 +3293,7 @@ Licensierad under MIT-licensen.</value>
     <value>Ange mappen som referensdatorn publicerar till och dess publiceringslösenord, och öppna den sedan för att förhandsgranska publiceringen.</value>
   </data>
   <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
-    <value>Att följa ersätter den aktuella konfigurationen och gör de publicerade inställningarna skrivskyddade. Utdatasökvägen för ISO, WinPE-drivrutinsmappen och telemetriinställningarna för den här datorn behålls.</value>
+    <value>Att följa ersätter den aktuella konfigurationen och gör de publicerade inställningarna skrivskyddade. Utdatasökvägen för ISO, den extra WinPE-drivrutinsmappen och telemetriinställningarna för den här datorn behålls.</value>
   </data>
   <data name="Sharing.FollowTitle" xml:space="preserve">
     <value>Följ en mapp</value>
@@ -3305,9 +3305,9 @@ Licensierad under MIT-licensen.</value>
     <value>Hittad version</value>
   </data>
   <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
-    <value>Glöm publiceringslösenordet</value>
+    <value>Glöm publiceringslösenord</value>
   </data>
-  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+  <data name="Sharing.GenerateButton" xml:space="preserve">
     <value>Generera</value>
   </data>
   <data name="Sharing.ImportButton" xml:space="preserve">
@@ -3320,7 +3320,7 @@ Licensierad under MIT-licensen.</value>
     <value>Konfigurationen har importerats. Innehåll saknas på den här datorn: importera det igen på respektive sida.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Ersätt den här konfigurationen med en exporterad fil eller en tidigare konfiguration på den här datorn.</value>
+    <value>Ersätt den här konfigurationen med en exporterad fil eller en profil från den tidigare versionen.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>Konfigurationen kunde inte importeras. Den aktuella konfigurationen är oförändrad.</value>
@@ -3346,17 +3346,20 @@ Licensierad under MIT-licensen.</value>
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>Den här filen är inte en Foundry-konfiguration, eller så är den skadad.</value>
   </data>
-  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
-    <value>Senast lyckad</value>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>Senaste lyckade kontroll</value>
   </data>
-  <data name="Sharing.LockedProfile" xml:space="preserve">
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>Senast publicerad</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
     <value>Den här konfigurationen kan inte öppnas av den här Windows-användaren.</value>
   </data>
   <data name="Sharing.ManagedBanner" xml:space="preserve">
-    <value>Den här konfigurationen publiceras av {0} och är skrivskyddad på den här datorn. Endast utdatasökvägen för ISO, WinPE-drivrutinsmappen och telemetriinställningarna kan ändras.</value>
+    <value>Den här konfigurationen publiceras av {0} och är skrivskyddad på den här datorn. Endast utdatasökvägen för ISO, den extra WinPE-drivrutinsmappen och telemetriinställningarna kan ändras.</value>
   </data>
   <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
-    <value>Den här konfigurationen publiceras av {0} och är skrivskyddad på den här datorn. Publiceringen innehåller inte lösenord: ange dem här. Utdatasökvägen för ISO, WinPE-drivrutinsmappen och telemetriinställningarna kan också ändras.</value>
+    <value>Den här konfigurationen publiceras av {0} och är skrivskyddad på den här datorn. Publiceringen innehåller inte lösenord: ange dem här. Utdatasökvägen för ISO, den extra WinPE-drivrutinsmappen och telemetriinställningarna kan också ändras.</value>
   </data>
   <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
     <value>Hanteras av en referensdator</value>
@@ -3412,9 +3415,6 @@ Licensierad under MIT-licensen.</value>
   <data name="Sharing.PassphraseMismatch" xml:space="preserve">
     <value>Lösenfraserna matchar inte.</value>
   </data>
-  <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Minst 12 tecken, och inte samma tecken upprepat (till exempel aaaaaaaaaaaa).</value>
-  </data>
   <data name="Sharing.PasswordChangePending" xml:space="preserve">
     <value>Det nya lösenordet har sparats. Ändringen slutförs vid nästa lyckade publicering.</value>
   </data>
@@ -3443,7 +3443,7 @@ Licensierad under MIT-licensen.</value>
     <value>Exporterad</value>
   </data>
   <data name="Sharing.PreviewDownload" xml:space="preserve">
-    <value>Att ladda ned</value>
+    <value>Nedladdningsstorlek</value>
   </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>Namn</value>
@@ -3484,6 +3484,9 @@ Licensierad under MIT-licensen.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Välj en tom mapp eller en som den här datorn redan publicerar till: en nätverksresurs, en OneDrive- eller SharePoint-mapp eller en lokal mapp. Datorer som följer mappen behöver publiceringslösenordet för att läsa den.</value>
   </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>Publicera nu</value>
+  </data>
   <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
     <value>Kontrollerar mappen…</value>
   </data>
@@ -3503,7 +3506,7 @@ Licensierad under MIT-licensen.</value>
     <value>Publicera till en mapp</value>
   </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
-    <value>Importen ersätter den aktuella konfigurationen. ISO-utdatasökvägen, WinPE-drivrutinsmappen och telemetriinställningarna på den här datorn behålls.</value>
+    <value>Importen ersätter den aktuella konfigurationen. ISO-utdatasökvägen, den extra WinPE-drivrutinsmappen och telemetriinställningarna på den här datorn behålls.</value>
   </data>
   <data name="Sharing.ResetButton" xml:space="preserve">
     <value>Återställ</value>
@@ -3515,10 +3518,7 @@ Licensierad under MIT-licensen.</value>
     <value>Ett nytt lösenord och en ny innehållsnyckel: alla innehållsfiler krypteras om, vilket helt återkallar tidigare läsare. Datorer som följer mappen anger det nya lösenordet en gång.</value>
   </data>
   <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
-    <value>Återställ publiceringen</value>
-  </data>
-  <data name="Sharing.RetryButton" xml:space="preserve">
-    <value>Försök igen</value>
+    <value>Återställ publicering</value>
   </data>
   <data name="Sharing.RevocationPending" xml:space="preserve">
     <value>Tidigare läsare kan fortfarande öppna innehåll fram till nästa lyckade publicering.</value>
@@ -3528,6 +3528,9 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Den här datorn publicerar sin konfiguration</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>Minst 12 tecken, och inte samma tecken upprepat (till exempel aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
     <value>En del delat innehåll i den följda publiceringen kunde inte laddas ned. Kontrollera Delning av konfiguration på sidan Inställningar.</value>
@@ -3542,7 +3545,7 @@ Licensierad under MIT-licensen.</value>
     <value>Konfigurationen har tillämpats. Delat innehåll laddas ned.</value>
   </data>
   <data name="Sharing.StatusContentFailed" xml:space="preserve">
-    <value>Konfigurationen har tillämpats, men en del delat innehåll kunde inte importeras.</value>
+    <value>Konfigurationen har tillämpats, men en del delat innehåll kunde inte installeras.</value>
   </data>
   <data name="Sharing.StatusContentStalled" xml:space="preserve">
     <value>Konfigurationen har tillämpats, men en del delat innehåll är fortfarande inte tillgängligt efter upprepade kontroller.</value>
@@ -3566,7 +3569,7 @@ Licensierad under MIT-licensen.</value>
     <value>Inte publicerad: konfigurationen är inte redo för att skapa media eller refererar till innehåll som saknas på den här datorn. Den tidigare versionen gäller fortfarande.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
-    <value>Lösenord behövs: ange publiceringslösenordet, eller på konfigurationssidorna de lösenord som publiceringen inte innehåller.</value>
+    <value>Lösenord behövs: ange publiceringslösenordet, eller ange de lösenord som saknas på konfigurationssidorna.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
     <value>Publiceringslösenordet eller nycklarna för den här datorn kunde inte läsas.</value>
@@ -3575,7 +3578,7 @@ Licensierad under MIT-licensen.</value>
     <value>Publicerad. Datorer som följer mappen får den här versionen vid sin nästa kontroll.</value>
   </data>
   <data name="Sharing.StatusPublishing" xml:space="preserve">
-    <value>Konfigurationen publiceras.</value>
+    <value>Konfigurationen publiceras…</value>
   </data>
   <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
     <value>Mappen pekar på en äldre version än den som har tillämpats. Den ignoreras.</value>
@@ -3617,7 +3620,7 @@ Licensierad under MIT-licensen.</value>
     <value>Sluta publicera</value>
   </data>
   <data name="Sharing.StopPublishingMessage" xml:space="preserve">
-    <value>Mappen förblir som den är och datorer som följer mappen behåller den senast publicerade versionen. Den här datorn blir en vanlig dator igen.</value>
+    <value>Mappen förblir som den är och datorer som följer mappen behåller den senast publicerade versionen. Den här datorn publicerar inte längre sin konfiguration.</value>
   </data>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Sluta publicera?</value>
@@ -3638,7 +3641,7 @@ Licensierad under MIT-licensen.</value>
     <value>Publiceringsnycklarna för den här datorn kunde inte läsas. Ett övertagande med det aktuella publiceringslösenordet fortsätter publiceringen med nya nycklar. Datorer som följer mappen måste godkänna den här datorn som ny referens en gång.</value>
   </data>
   <data name="Sharing.TakeOverTitle" xml:space="preserve">
-    <value>Ta över mappen</value>
+    <value>Ta över den här mappen</value>
   </data>
   <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
     <value>Det här lösenordet öppnar inte den aktuella publiceringen.</value>
@@ -3659,7 +3662,7 @@ Licensierad under MIT-licensen.</value>
     <value>Fel lösenfras eller skadad fil.</value>
   </data>
   <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
-    <value>Fel publiceringslösenord, eller så har publiceringen ändrats.</value>
+    <value>Det här lösenordet öppnar inte publiceringen, eller så har publiceringen ändrats.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Stoppa åtgärden</value>

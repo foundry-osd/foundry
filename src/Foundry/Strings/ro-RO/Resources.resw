@@ -2774,7 +2774,7 @@ Licențiat sub licența MIT.</value>
     <value>Furnizați un șablon de profil Wi-Fi de întreprindere</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Foundry OSD reține fraza de acces pe acest PC în seiful său local criptat. Aceasta părăsește acest PC doar într-un export sau o publicare, când este aleasă opțiunea „Include parolele”.</value>
+    <value>Foundry reține fraza de acces pe acest PC în seiful său local criptat. Aceasta părăsește acest PC doar într-un export sau o publicare, când este aleasă opțiunea „Include parolele”.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importă profilul Wi-Fi gestionat de Foundry în Windows înainte de OOBE, pentru a păstra conectivitatea de implementare după WinPE.</value>
@@ -3235,7 +3235,7 @@ Licențiat sub licența MIT.</value>
   <data name="Sharing.ContentStalled" xml:space="preserve">
     <value>Este posibil ca acest conținut să fie deteriorat în folder. Publicați din nou de pe PC-ul de referință.</value>
   </data>
-  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+  <data name="Sharing.CopyButton" xml:space="preserve">
     <value>Copiază</value>
   </data>
   <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
@@ -3257,7 +3257,7 @@ Licențiat sub licența MIT.</value>
     <value>Configurația a fost exportată.</value>
   </data>
   <data name="Sharing.ExportDescription" xml:space="preserve">
-    <value>Salvează setările și fișierele mici într-un fișier criptat. Pachetele de post-instalare, seturile de drivere și imaginile nu sunt incluse.</value>
+    <value>Salvați setările și fișierele mici într-un fișier criptat. Pachetele de post-instalare, seturile de drivere și imaginile nu sunt incluse.</value>
   </data>
   <data name="Sharing.ExportFailed" xml:space="preserve">
     <value>Configurația nu a putut fi exportată. Verificați destinația și încercați din nou.</value>
@@ -3293,7 +3293,7 @@ Licențiat sub licența MIT.</value>
     <value>Introduceți folderul în care publică PC-ul de referință și parola sa de publicare, apoi deschideți-l pentru a previzualiza publicarea.</value>
   </data>
   <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
-    <value>Urmărirea înlocuiește configurația curentă și face setările publicate doar în citire. Calea de ieșire ISO, folderul de drivere WinPE și setările de telemetrie ale acestui PC sunt păstrate.</value>
+    <value>Urmărirea înlocuiește configurația curentă și face setările publicate doar în citire. Calea de ieșire ISO, folderul suplimentar de drivere WinPE și setările de telemetrie ale acestui PC sunt păstrate.</value>
   </data>
   <data name="Sharing.FollowTitle" xml:space="preserve">
     <value>Urmăriți un folder</value>
@@ -3307,7 +3307,7 @@ Licențiat sub licența MIT.</value>
   <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
     <value>Uitați parola de publicare</value>
   </data>
-  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+  <data name="Sharing.GenerateButton" xml:space="preserve">
     <value>Generează</value>
   </data>
   <data name="Sharing.ImportButton" xml:space="preserve">
@@ -3320,7 +3320,7 @@ Licențiat sub licența MIT.</value>
     <value>Configurația a fost importată. Pe acest PC lipsește conținut: importați-l din nou pe pagina sa.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Înlocuiți această configurație cu un fișier exportat sau cu o configurație anterioară de pe acest PC.</value>
+    <value>Înlocuiți această configurație cu un fișier exportat sau cu un profil din versiunea anterioară.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>Configurația nu a putut fi importată. Configurația curentă nu a fost modificată.</value>
@@ -3346,17 +3346,20 @@ Licențiat sub licența MIT.</value>
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>Acest fișier nu este o configurație Foundry sau este deteriorat.</value>
   </data>
-  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
-    <value>Ultima reușită</value>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>Ultima verificare reușită</value>
   </data>
-  <data name="Sharing.LockedProfile" xml:space="preserve">
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>Ultima publicare</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
     <value>Această configurație nu poate fi deschisă de acest utilizator Windows.</value>
   </data>
   <data name="Sharing.ManagedBanner" xml:space="preserve">
-    <value>Această configurație este publicată de {0} și este doar în citire pe acest PC. Se pot modifica doar calea de ieșire ISO, folderul de drivere WinPE și setările de telemetrie.</value>
+    <value>Această configurație este publicată de {0} și este doar în citire pe acest PC. Se pot modifica doar calea de ieșire ISO, folderul suplimentar de drivere WinPE și setările de telemetrie.</value>
   </data>
   <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
-    <value>Această configurație este publicată de {0} și este doar în citire pe acest PC. Publicarea nu include parole: introduceți-le aici. Se pot modifica și calea de ieșire ISO, folderul de drivere WinPE și setările de telemetrie.</value>
+    <value>Această configurație este publicată de {0} și este doar în citire pe acest PC. Publicarea nu include parole: introduceți-le aici. Se pot modifica și calea de ieșire ISO, folderul suplimentar de drivere WinPE și setările de telemetrie.</value>
   </data>
   <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
     <value>Gestionată de un PC de referință</value>
@@ -3412,9 +3415,6 @@ Licențiat sub licența MIT.</value>
   <data name="Sharing.PassphraseMismatch" xml:space="preserve">
     <value>Frazele de acces nu se potrivesc.</value>
   </data>
-  <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Cel puțin 12 caractere, și nu același caracter repetat (de exemplu aaaaaaaaaaaa).</value>
-  </data>
   <data name="Sharing.PasswordChangePending" xml:space="preserve">
     <value>Noua parolă este salvată. Modificarea se finalizează la următoarea publicare reușită.</value>
   </data>
@@ -3443,7 +3443,7 @@ Licențiat sub licența MIT.</value>
     <value>Exportată la</value>
   </data>
   <data name="Sharing.PreviewDownload" xml:space="preserve">
-    <value>De descărcat</value>
+    <value>Dimensiunea descărcării</value>
   </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>Nume</value>
@@ -3484,6 +3484,9 @@ Licențiat sub licența MIT.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Alegeți un folder gol sau unul în care acest PC publică deja: o partajare de rețea, un folder OneDrive sau SharePoint ori un folder local. PC-urile care urmăresc folderul au nevoie de parola de publicare pentru a-l citi.</value>
   </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>Publicați acum</value>
+  </data>
   <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
     <value>Se verifică folderul…</value>
   </data>
@@ -3503,7 +3506,7 @@ Licențiat sub licența MIT.</value>
     <value>Publicare într-un folder</value>
   </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
-    <value>Importul înlocuiește configurația curentă. Calea de ieșire ISO, folderul de drivere WinPE și setările de telemetrie ale acestui PC sunt păstrate.</value>
+    <value>Importul înlocuiește configurația curentă. Calea de ieșire ISO, folderul suplimentar de drivere WinPE și setările de telemetrie ale acestui PC sunt păstrate.</value>
   </data>
   <data name="Sharing.ResetButton" xml:space="preserve">
     <value>Resetare</value>
@@ -3517,9 +3520,6 @@ Licențiat sub licența MIT.</value>
   <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
     <value>Resetați publicarea</value>
   </data>
-  <data name="Sharing.RetryButton" xml:space="preserve">
-    <value>Reîncercare</value>
-  </data>
   <data name="Sharing.RevocationPending" xml:space="preserve">
     <value>Cititorii anteriori pot încă deschide conținutul până la următoarea publicare reușită.</value>
   </data>
@@ -3528,6 +3528,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Acest PC își publică configurația</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>Cel puțin 12 caractere, și nu același caracter repetat (de exemplu aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
     <value>O parte din conținutul partajat al publicației urmărite nu a putut fi descărcată. Verificați Partajarea configurației pe pagina Setări.</value>
@@ -3542,7 +3545,7 @@ Licențiat sub licența MIT.</value>
     <value>Configurația este aplicată. Conținutul partajat se descarcă.</value>
   </data>
   <data name="Sharing.StatusContentFailed" xml:space="preserve">
-    <value>Configurația este aplicată, dar o parte din conținutul partajat nu a putut fi importată.</value>
+    <value>Configurația este aplicată, dar o parte din conținutul partajat nu a putut fi instalată.</value>
   </data>
   <data name="Sharing.StatusContentStalled" xml:space="preserve">
     <value>Configurația este aplicată, dar o parte din conținutul partajat tot nu este disponibilă după verificări repetate.</value>
@@ -3566,7 +3569,7 @@ Licențiat sub licența MIT.</value>
     <value>Nepublicată: configurația nu este pregătită pentru a crea suporturi media sau face referire la conținut care lipsește de pe acest PC. Versiunea anterioară rămâne cea curentă.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
-    <value>Sunt necesare parole: introduceți parola de publicare sau, în paginile de configurare, parolele pe care publicarea nu le include.</value>
+    <value>Sunt necesare parole: introduceți parola de publicare sau introduceți parolele lipsă în paginile de configurare.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
     <value>Parola de publicare sau cheile acestui PC nu au putut fi citite.</value>
@@ -3575,7 +3578,7 @@ Licențiat sub licența MIT.</value>
     <value>Publicată. PC-urile care urmăresc folderul primesc această versiune la următoarea verificare.</value>
   </data>
   <data name="Sharing.StatusPublishing" xml:space="preserve">
-    <value>Se publică configurația.</value>
+    <value>Se publică configurația…</value>
   </data>
   <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
     <value>Folderul indică o versiune mai veche decât cea aplicată. Este ignorată.</value>
@@ -3617,7 +3620,7 @@ Licențiat sub licența MIT.</value>
     <value>Opriți publicarea</value>
   </data>
   <data name="Sharing.StopPublishingMessage" xml:space="preserve">
-    <value>Folderul rămâne așa cum este, iar PC-urile care îl urmăresc păstrează ultima versiune publicată. Acest PC redevine un PC obișnuit.</value>
+    <value>Folderul rămâne așa cum este, iar PC-urile care îl urmăresc păstrează ultima versiune publicată. Acest PC nu își mai publică configurația.</value>
   </data>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Opriți publicarea?</value>
@@ -3638,7 +3641,7 @@ Licențiat sub licența MIT.</value>
     <value>Cheile de publicare ale acestui PC nu au putut fi citite. Preluarea cu parola de publicare curentă continuă publicarea cu chei noi; PC-urile care urmăresc folderul trebuie să accepte o singură dată acest PC ca nouă referință.</value>
   </data>
   <data name="Sharing.TakeOverTitle" xml:space="preserve">
-    <value>Preluați folderul</value>
+    <value>Preluați acest folder</value>
   </data>
   <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
     <value>Această parolă nu deschide publicarea curentă.</value>
@@ -3659,7 +3662,7 @@ Licențiat sub licența MIT.</value>
     <value>Frază de acces greșită sau fișier deteriorat.</value>
   </data>
   <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
-    <value>Parolă de publicare incorectă sau publicarea a fost modificată.</value>
+    <value>Această parolă nu deschide publicarea sau publicarea a fost modificată.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Oprește operația</value>

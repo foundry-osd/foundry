@@ -2774,7 +2774,7 @@
     <value>قم بتوفير قالب ملف تعريف المؤسسة Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>يتذكر Foundry OSD عبارة المرور على هذا الكمبيوتر في مخزنه المحلي المشفّر. ولا تغادر هذا الكمبيوتر إلا ضمن تصدير أو نشر عند اختيار «تضمين كلمات المرور».</value>
+    <value>يتذكر Foundry عبارة المرور على هذا الكمبيوتر في مخزنه المحلي المشفّر. ولا تغادر هذا الكمبيوتر إلا ضمن تصدير أو نشر عند اختيار «تضمين كلمات المرور».</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>يستورد ملف تعريف Wi-Fi الذي تديره Foundry إلى Windows قبل OOBE للحفاظ على اتصالية النشر بعد WinPE.</value>
@@ -3235,7 +3235,7 @@
   <data name="Sharing.ContentStalled" xml:space="preserve">
     <value>قد يكون المحتوى تالفًا في المجلد. انشر مرة أخرى من الكمبيوتر المرجعي.</value>
   </data>
-  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+  <data name="Sharing.CopyButton" xml:space="preserve">
     <value>نسخ</value>
   </data>
   <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
@@ -3257,7 +3257,7 @@
     <value>تم تصدير التكوين.</value>
   </data>
   <data name="Sharing.ExportDescription" xml:space="preserve">
-    <value>يحفظ الإعدادات والملفات الصغيرة في ملف مشفر. لا يتم تضمين حزم ما بعد التثبيت ومجموعات برامج التشغيل والصور.</value>
+    <value>احفظ الإعدادات والملفات الصغيرة في ملف مشفر. لا يتم تضمين حزم ما بعد التثبيت ومجموعات برامج التشغيل والصور.</value>
   </data>
   <data name="Sharing.ExportFailed" xml:space="preserve">
     <value>تعذر تصدير التكوين. تحقق من الوجهة وحاول مرة أخرى.</value>
@@ -3293,7 +3293,7 @@
     <value>أدخل المجلد الذي ينشر فيه الكمبيوتر المرجعي وكلمة مرور النشر الخاصة به، ثم افتحه لمعاينة النشر.</value>
   </data>
   <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
-    <value>تستبدل المتابعة التكوين الحالي وتجعل الإعدادات المنشورة للقراءة فقط. يتم الاحتفاظ بمسار إخراج ISO ومجلد برامج تشغيل WinPE وإعدادات القياس عن بُعد لهذا الكمبيوتر.</value>
+    <value>تستبدل المتابعة التكوين الحالي وتجعل الإعدادات المنشورة للقراءة فقط. يتم الاحتفاظ بمسار إخراج ISO والمجلد الإضافي لبرامج تشغيل WinPE وإعدادات القياس عن بُعد لهذا الكمبيوتر.</value>
   </data>
   <data name="Sharing.FollowTitle" xml:space="preserve">
     <value>متابعة مجلد</value>
@@ -3307,7 +3307,7 @@
   <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
     <value>نسيان كلمة مرور النشر</value>
   </data>
-  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+  <data name="Sharing.GenerateButton" xml:space="preserve">
     <value>إنشاء</value>
   </data>
   <data name="Sharing.ImportButton" xml:space="preserve">
@@ -3320,7 +3320,7 @@
     <value>تم استيراد التكوين. يوجد محتوى مفقود على هذا الكمبيوتر: استورده مرة أخرى من صفحته.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>استبدل هذا التكوين بملف مُصدَّر أو بتكوين سابق على هذا الكمبيوتر.</value>
+    <value>استبدل هذا التكوين بملف مُصدَّر أو بملف تعريف من الإصدار السابق.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>تعذر استيراد التكوين. لم يتغير التكوين الحالي.</value>
@@ -3346,17 +3346,20 @@
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>هذا الملف ليس تكوين Foundry، أو أنه تالف.</value>
   </data>
-  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
-    <value>آخر نجاح</value>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>آخر تحقق ناجح</value>
   </data>
-  <data name="Sharing.LockedProfile" xml:space="preserve">
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>آخر نشر</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
     <value>لا يمكن لمستخدم Windows هذا فتح هذا التكوين.</value>
   </data>
   <data name="Sharing.ManagedBanner" xml:space="preserve">
-    <value>يتم نشر هذا التكوين بواسطة {0} وهو للقراءة فقط على هذا الكمبيوتر. يمكن تغيير مسار إخراج ISO ومجلد برامج تشغيل WinPE وإعدادات القياس عن بُعد فقط.</value>
+    <value>يتم نشر هذا التكوين بواسطة {0} وهو للقراءة فقط على هذا الكمبيوتر. يمكن تغيير مسار إخراج ISO والمجلد الإضافي لبرامج تشغيل WinPE وإعدادات القياس عن بُعد فقط.</value>
   </data>
   <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
-    <value>يتم نشر هذا التكوين بواسطة {0} وهو للقراءة فقط على هذا الكمبيوتر. لا يتضمن النشر كلمات المرور: أدخلها هنا. يمكن أيضًا تغيير مسار إخراج ISO ومجلد برامج تشغيل WinPE وإعدادات القياس عن بُعد.</value>
+    <value>يتم نشر هذا التكوين بواسطة {0} وهو للقراءة فقط على هذا الكمبيوتر. لا يتضمن النشر كلمات المرور: أدخلها هنا. يمكن أيضًا تغيير مسار إخراج ISO والمجلد الإضافي لبرامج تشغيل WinPE وإعدادات القياس عن بُعد.</value>
   </data>
   <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
     <value>مُدار بواسطة كمبيوتر مرجعي</value>
@@ -3412,9 +3415,6 @@
   <data name="Sharing.PassphraseMismatch" xml:space="preserve">
     <value>عبارتا المرور غير متطابقتين.</value>
   </data>
-  <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>12 حرفًا على الأقل، وألا تكون الحرف نفسه مكررًا (مثل aaaaaaaaaaaa).</value>
-  </data>
   <data name="Sharing.PasswordChangePending" xml:space="preserve">
     <value>تم حفظ كلمة المرور الجديدة. يكتمل التغيير عند النشر الناجح التالي.</value>
   </data>
@@ -3443,7 +3443,7 @@
     <value>تاريخ التصدير</value>
   </data>
   <data name="Sharing.PreviewDownload" xml:space="preserve">
-    <value>للتنزيل</value>
+    <value>حجم التنزيل</value>
   </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>الاسم</value>
@@ -3484,6 +3484,9 @@
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>اختر مجلدًا فارغًا، أو مجلدًا ينشر فيه هذا الكمبيوتر بالفعل: مشاركة شبكة، أو مجلد OneDrive أو SharePoint، أو مجلدًا محليًا. تحتاج أجهزة الكمبيوتر التي تتابع المجلد إلى كلمة مرور النشر لقراءته.</value>
   </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>النشر الآن</value>
+  </data>
   <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
     <value>جارٍ التحقق من المجلد…</value>
   </data>
@@ -3503,7 +3506,7 @@
     <value>النشر إلى مجلد</value>
   </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
-    <value>يستبدل الاستيراد التكوين الحالي. يتم الاحتفاظ بمسار إخراج ISO ومجلد برامج تشغيل WinPE وإعدادات بيانات القياس عن بُعد لهذا الكمبيوتر.</value>
+    <value>يستبدل الاستيراد التكوين الحالي. يتم الاحتفاظ بمسار إخراج ISO والمجلد الإضافي لبرامج تشغيل WinPE وإعدادات بيانات القياس عن بُعد لهذا الكمبيوتر.</value>
   </data>
   <data name="Sharing.ResetButton" xml:space="preserve">
     <value>إعادة تعيين</value>
@@ -3517,9 +3520,6 @@
   <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
     <value>إعادة تعيين النشر</value>
   </data>
-  <data name="Sharing.RetryButton" xml:space="preserve">
-    <value>إعادة المحاولة</value>
-  </data>
   <data name="Sharing.RevocationPending" xml:space="preserve">
     <value>لا يزال بإمكان القراء السابقين فتح المحتوى حتى النشر الناجح التالي.</value>
   </data>
@@ -3528,6 +3528,9 @@
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>ينشر هذا الكمبيوتر تكوينه</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>12 حرفًا على الأقل، وألا تكون الحرف نفسه مكررًا (مثل aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
     <value>تعذر تنزيل بعض المحتوى المشترك للنشر المتابَع. تحقق من مشاركة التكوين في صفحة الإعدادات.</value>
@@ -3542,7 +3545,7 @@
     <value>تم تطبيق التكوين. جارٍ تنزيل المحتوى المشترك.</value>
   </data>
   <data name="Sharing.StatusContentFailed" xml:space="preserve">
-    <value>تم تطبيق التكوين، لكن تعذّر استيراد بعض المحتوى المشترك.</value>
+    <value>تم تطبيق التكوين، لكن تعذّر تثبيت بعض المحتوى المشترك.</value>
   </data>
   <data name="Sharing.StatusContentStalled" xml:space="preserve">
     <value>تم تطبيق التكوين، لكن بعض المحتوى المشترك لا يزال غير متوفر بعد عمليات تحقق متكررة.</value>
@@ -3566,7 +3569,7 @@
     <value>لم يتم النشر: التكوين غير جاهز لإنشاء الوسائط أو يشير إلى محتوى مفقود على هذا الكمبيوتر. يظل الإصدار السابق هو الحالي.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
-    <value>كلمات المرور مطلوبة: أدخل كلمة مرور النشر، أو في صفحات التكوين كلمات المرور التي لا يتضمنها النشر.</value>
+    <value>كلمات المرور مطلوبة: أدخل كلمة مرور النشر، أو أدخل كلمات المرور المفقودة في صفحات التكوين.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
     <value>تعذرت قراءة كلمة مرور النشر أو مفاتيح هذا الكمبيوتر.</value>
@@ -3575,7 +3578,7 @@
     <value>تم النشر. ستتلقى أجهزة الكمبيوتر التي تتابع المجلد هذا الإصدار في التحقق التالي.</value>
   </data>
   <data name="Sharing.StatusPublishing" xml:space="preserve">
-    <value>جارٍ نشر التكوين.</value>
+    <value>جارٍ نشر التكوين…</value>
   </data>
   <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
     <value>يشير المجلد إلى إصدار أقدم من الإصدار المطبّق. يتم تجاهله.</value>
@@ -3617,7 +3620,7 @@
     <value>إيقاف النشر</value>
   </data>
   <data name="Sharing.StopPublishingMessage" xml:space="preserve">
-    <value>يبقى المجلد كما هو وتحتفظ أجهزة الكمبيوتر التي تتابعه بآخر إصدار منشور. يصبح هذا الكمبيوتر كمبيوترًا عاديًا مرة أخرى.</value>
+    <value>يبقى المجلد كما هو وتحتفظ أجهزة الكمبيوتر التي تتابعه بآخر إصدار منشور. لم يعد هذا الكمبيوتر ينشر تكوينه.</value>
   </data>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>هل تريد إيقاف النشر؟</value>
@@ -3638,7 +3641,7 @@
     <value>تعذرت قراءة مفاتيح النشر الخاصة بهذا الكمبيوتر. يؤدي التولي باستخدام كلمة مرور النشر الحالية إلى مواصلة النشر بمفاتيح جديدة؛ ويجب على أجهزة الكمبيوتر التي تتابع المجلد قبول هذا الكمبيوتر مرة واحدة ككمبيوتر مرجعي جديد.</value>
   </data>
   <data name="Sharing.TakeOverTitle" xml:space="preserve">
-    <value>تولي المجلد</value>
+    <value>تولي هذا المجلد</value>
   </data>
   <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
     <value>لا تفتح كلمة المرور هذه النشر الحالي.</value>
@@ -3659,7 +3662,7 @@
     <value>عبارة مرور خاطئة أو ملف تالف.</value>
   </data>
   <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
-    <value>كلمة مرور النشر غير صحيحة، أو تم تعديل النشر.</value>
+    <value>لا تفتح كلمة المرور هذه النشر، أو تم تعديل النشر.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>إيقاف العملية</value>

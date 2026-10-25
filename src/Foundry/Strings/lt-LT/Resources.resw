@@ -2774,7 +2774,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pateikite įmonės Wi-Fi profilio šabloną</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Foundry OSD įsimena slaptafrazę šiame kompiuteryje savo vietinėje šifruotoje saugykloje. Ji palieka šį kompiuterį tik eksportuojant arba publikuojant, kai pasirinkta „Įtraukti slaptažodžius“.</value>
+    <value>Foundry įsimena slaptafrazę šiame kompiuteryje savo vietinėje šifruotoje saugykloje. Ji palieka šį kompiuterį tik eksportuojant arba publikuojant, kai pasirinkta „Įtraukti slaptažodžius“.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importuoja Foundry valdomą Wi-Fi profilį į Windows prieš OOBE, kad diegimo ryšys išliktų po WinPE.</value>
@@ -3235,7 +3235,7 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Sharing.ContentStalled" xml:space="preserve">
     <value>Aplanke turinys gali būti sugadintas. Publikuokite dar kartą iš etaloninio kompiuterio.</value>
   </data>
-  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+  <data name="Sharing.CopyButton" xml:space="preserve">
     <value>Kopijuoti</value>
   </data>
   <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
@@ -3257,7 +3257,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Konfigūracija eksportuota.</value>
   </data>
   <data name="Sharing.ExportDescription" xml:space="preserve">
-    <value>Įrašo parametrus ir mažus failus į užšifruotą failą. Paketai po diegimo, tvarkyklių rinkiniai ir atvaizdai neįtraukiami.</value>
+    <value>Įrašykite parametrus ir mažus failus į užšifruotą failą. Paketai po diegimo, tvarkyklių rinkiniai ir atvaizdai neįtraukiami.</value>
   </data>
   <data name="Sharing.ExportFailed" xml:space="preserve">
     <value>Konfigūracijos nepavyko eksportuoti. Patikrinkite paskirties vietą ir bandykite dar kartą.</value>
@@ -3293,7 +3293,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Įveskite aplanką, kuriame publikuoja etaloninis kompiuteris, ir jo publikavimo slaptažodį, tada atidarykite jį, kad peržiūrėtumėte publikavimą.</value>
   </data>
   <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
-    <value>Sekimas pakeičia dabartinę konfigūraciją ir publikuotus parametrus padaro tik skaitomus. Šio kompiuterio ISO išvesties kelias, WinPE tvarkyklių aplankas ir telemetrijos parametrai išsaugomi.</value>
+    <value>Sekimas pakeičia dabartinę konfigūraciją ir publikuotus parametrus padaro tik skaitomus. Šio kompiuterio ISO išvesties kelias, papildomas WinPE tvarkyklių aplankas ir telemetrijos parametrai išsaugomi.</value>
   </data>
   <data name="Sharing.FollowTitle" xml:space="preserve">
     <value>Sekti aplanką</value>
@@ -3307,7 +3307,7 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
     <value>Pamiršti publikavimo slaptažodį</value>
   </data>
-  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+  <data name="Sharing.GenerateButton" xml:space="preserve">
     <value>Generuoti</value>
   </data>
   <data name="Sharing.ImportButton" xml:space="preserve">
@@ -3320,7 +3320,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Konfigūracija importuota. Šiame kompiuteryje trūksta turinio: importuokite jį dar kartą atitinkamame puslapyje.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Pakeiskite šią konfigūraciją eksportuotu failu arba ankstesne šio kompiuterio konfigūracija.</value>
+    <value>Pakeiskite šią konfigūraciją eksportuotu failu arba ankstesnės versijos profiliu.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>Konfigūracijos nepavyko importuoti. Dabartinė konfigūracija nepakeista.</value>
@@ -3346,17 +3346,20 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>Šis failas nėra Foundry konfigūracija arba yra sugadintas.</value>
   </data>
-  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
-    <value>Paskutinė sėkminga operacija</value>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>Paskutinė sėkminga patikra</value>
   </data>
-  <data name="Sharing.LockedProfile" xml:space="preserve">
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>Paskutinį kartą publikuota</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
     <value>Šis Windows vartotojas negali atidaryti šios konfigūracijos.</value>
   </data>
   <data name="Sharing.ManagedBanner" xml:space="preserve">
-    <value>Šią konfigūraciją publikuoja {0}, o šiame kompiuteryje ji yra tik skaitoma. Galima keisti tik ISO išvesties kelią, WinPE tvarkyklių aplanką ir telemetrijos parametrus.</value>
+    <value>Šią konfigūraciją publikuoja {0}, o šiame kompiuteryje ji yra tik skaitoma. Galima keisti tik ISO išvesties kelią, papildomą WinPE tvarkyklių aplanką ir telemetrijos parametrus.</value>
   </data>
   <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
-    <value>Šią konfigūraciją publikuoja {0}, o šiame kompiuteryje ji yra tik skaitoma. Publikavime nėra slaptažodžių: įveskite juos čia. Taip pat galima keisti ISO išvesties kelią, WinPE tvarkyklių aplanką ir telemetrijos parametrus.</value>
+    <value>Šią konfigūraciją publikuoja {0}, o šiame kompiuteryje ji yra tik skaitoma. Publikavime nėra slaptažodžių: įveskite juos čia. Taip pat galima keisti ISO išvesties kelią, papildomą WinPE tvarkyklių aplanką ir telemetrijos parametrus.</value>
   </data>
   <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
     <value>Valdo etaloninis kompiuteris</value>
@@ -3412,9 +3415,6 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Sharing.PassphraseMismatch" xml:space="preserve">
     <value>Slaptafrazės nesutampa.</value>
   </data>
-  <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Bent 12 simbolių, ir ne tas pats pakartotas simbolis (pavyzdžiui, aaaaaaaaaaaa).</value>
-  </data>
   <data name="Sharing.PasswordChangePending" xml:space="preserve">
     <value>Naujas slaptažodis įrašytas. Pakeitimas bus užbaigtas kito sėkmingo publikavimo metu.</value>
   </data>
@@ -3443,7 +3443,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Eksportuota</value>
   </data>
   <data name="Sharing.PreviewDownload" xml:space="preserve">
-    <value>Atsisiųsti reikia</value>
+    <value>Atsisiuntimo dydis</value>
   </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>Pavadinimas</value>
@@ -3484,6 +3484,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Pasirinkite tuščią aplanką arba aplanką, kuriame šis kompiuteris jau publikuoja: tinklo bendrinamą aplanką, „OneDrive“ ar „SharePoint“ aplanką arba vietinį aplanką. Aplanką sekantiems kompiuteriams jam skaityti reikia publikavimo slaptažodžio.</value>
   </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>Publikuoti dabar</value>
+  </data>
   <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
     <value>Tikrinamas aplankas…</value>
   </data>
@@ -3503,7 +3506,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Publikuoti aplanke</value>
   </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
-    <value>Importavimas pakeičia dabartinę konfigūraciją. Šio kompiuterio ISO išvesties kelias, WinPE tvarkyklių aplankas ir telemetrijos parametrai išsaugomi.</value>
+    <value>Importavimas pakeičia dabartinę konfigūraciją. Šio kompiuterio ISO išvesties kelias, papildomas WinPE tvarkyklių aplankas ir telemetrijos parametrai išsaugomi.</value>
   </data>
   <data name="Sharing.ResetButton" xml:space="preserve">
     <value>Nustatyti iš naujo</value>
@@ -3517,9 +3520,6 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
     <value>Iš naujo nustatyti publikavimą</value>
   </data>
-  <data name="Sharing.RetryButton" xml:space="preserve">
-    <value>Bandyti dar kartą</value>
-  </data>
   <data name="Sharing.RevocationPending" xml:space="preserve">
     <value>Ankstesni skaitytojai vis dar gali atidaryti turinį iki kito sėkmingo publikavimo.</value>
   </data>
@@ -3528,6 +3528,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Šis kompiuteris publikuoja savo konfigūraciją</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>Bent 12 simbolių, ir ne tas pats pakartotas simbolis (pavyzdžiui, aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
     <value>Nepavyko atsisiųsti dalies stebimos publikacijos bendrinamo turinio. Patikrinkite „Konfigūracijos bendrinimas“ puslapyje „Parametrai“.</value>
@@ -3542,7 +3545,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Konfigūracija pritaikyta. Atsisiunčiamas bendrinamas turinys.</value>
   </data>
   <data name="Sharing.StatusContentFailed" xml:space="preserve">
-    <value>Konfigūracija pritaikyta, bet dalies bendrinamo turinio nepavyko importuoti.</value>
+    <value>Konfigūracija pritaikyta, bet dalies bendrinamo turinio nepavyko įdiegti.</value>
   </data>
   <data name="Sharing.StatusContentStalled" xml:space="preserve">
     <value>Konfigūracija pritaikyta, bet dalis bendrinamo turinio po pakartotinių patikrų vis dar nepasiekiama.</value>
@@ -3566,7 +3569,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Nepublikuota: konfigūracija neparengta laikmenoms kurti arba nurodo turinį, kurio šiame kompiuteryje trūksta. Ankstesnė versija lieka galioti.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
-    <value>Reikia slaptažodžių: įveskite publikavimo slaptažodį arba konfigūracijos puslapiuose slaptažodžius, kurių publikavime nėra.</value>
+    <value>Reikia slaptažodžių: įveskite publikavimo slaptažodį arba konfigūracijos puslapiuose įveskite trūkstamus slaptažodžius.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
     <value>Nepavyko nuskaityti šio kompiuterio publikavimo slaptažodžio arba raktų.</value>
@@ -3575,7 +3578,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Publikuota. Aplanką sekantys kompiuteriai gaus šią versiją kito tikrinimo metu.</value>
   </data>
   <data name="Sharing.StatusPublishing" xml:space="preserve">
-    <value>Publikuojama konfigūracija.</value>
+    <value>Publikuojama konfigūracija…</value>
   </data>
   <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
     <value>Aplankas nurodo senesnę versiją nei pritaikytoji. Ji nepaisoma.</value>
@@ -3617,7 +3620,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Stabdyti publikavimą</value>
   </data>
   <data name="Sharing.StopPublishingMessage" xml:space="preserve">
-    <value>Aplankas lieka nepakitęs, o jį sekantys kompiuteriai išlaiko paskutinę publikuotą versiją. Šis kompiuteris vėl tampa įprastu kompiuteriu.</value>
+    <value>Aplankas lieka nepakitęs, o jį sekantys kompiuteriai išlaiko paskutinę publikuotą versiją. Šis kompiuteris nebepublikuoja savo konfigūracijos.</value>
   </data>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Stabdyti publikavimą?</value>
@@ -3638,7 +3641,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Nepavyko nuskaityti šio kompiuterio publikavimo raktų. Perėmimas naudojant dabartinį publikavimo slaptažodį tęsia publikavimą su naujais raktais; aplanką sekantys kompiuteriai turi vieną kartą priimti šį kompiuterį kaip naują etaloninį.</value>
   </data>
   <data name="Sharing.TakeOverTitle" xml:space="preserve">
-    <value>Perimti aplanką</value>
+    <value>Perimti šį aplanką</value>
   </data>
   <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
     <value>Šis slaptažodis neatidaro dabartinio publikavimo.</value>
@@ -3659,7 +3662,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Neteisinga slaptafrazė arba sugadintas failas.</value>
   </data>
   <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
-    <value>Neteisingas publikavimo slaptažodis arba publikavimas buvo pakeistas.</value>
+    <value>Šis slaptažodis neatidaro publikavimo arba publikavimas buvo pakeistas.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Stabdyti operaciją</value>

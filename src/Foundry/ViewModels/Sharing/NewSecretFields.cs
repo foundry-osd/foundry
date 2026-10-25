@@ -47,16 +47,16 @@ public sealed partial class NewSecretFields(IApplicationLocalizationService loca
 
     /// <summary>Gets the rule the secret still breaks, or the mismatch once a confirmation is typed; empty while typing starts.</summary>
     public string ValidationMessage =>
-        Password.Length > 0 && !IsValid ? Text("PassphraseRule")
+        Password.Length > 0 && !IsValid ? Text("SecretRule")
         : Confirmation.Length > 0 && !string.Equals(Password, Confirmation, StringComparison.Ordinal) ? Text(texts.MismatchKey)
         : string.Empty;
 
     public bool HasValidationMessage => ValidationMessage.Length > 0;
     public string PasswordLabel => Text(texts.LabelKey);
     public string ConfirmationLabel => Text(texts.ConfirmationLabelKey);
-    public string RuleText => Text("PassphraseRule");
-    public string GenerateLabel => Text("GeneratePassphrase");
-    public string CopyLabel => Text("CopyPassphrase");
+    public string RuleText => Text("SecretRule");
+    public string GenerateLabel => Text("GenerateButton");
+    public string CopyLabel => Text("CopyButton");
     public string CopiedText => Text(texts.CopiedKey);
 
     private bool IsValid => PassphrasePolicy.Validate(Password) == PassphraseValidation.Valid;

@@ -2774,7 +2774,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>エンタープライズ Wi-Fi プロファイル テンプレートをプロビジョニングする</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Foundry OSD は、パスフレーズをこの PC のローカル暗号化保管庫に記憶します。パスフレーズがこの PC の外に出るのは、[パスワードを含める] を選択したエクスポートまたは発行の場合だけです。</value>
+    <value>Foundry は、パスフレーズをこの PC のローカル暗号化保管庫に記憶します。パスフレーズがこの PC の外に出るのは、[パスワードを含める] を選択したエクスポートまたは発行の場合だけです。</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Foundry で管理されている Wi-Fi プロファイルを OOBE 前に Windows へインポートし、WinPE 後も展開時の接続を維持します。</value>
@@ -3235,7 +3235,7 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Sharing.ContentStalled" xml:space="preserve">
     <value>コンテンツがフォルダー内で破損している可能性があります。参照 PC から再度発行してください。</value>
   </data>
-  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+  <data name="Sharing.CopyButton" xml:space="preserve">
     <value>コピー</value>
   </data>
   <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
@@ -3293,7 +3293,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>参照 PC が発行するフォルダーと発行パスワードを入力し、フォルダーを開いて発行内容をプレビューします。</value>
   </data>
   <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
-    <value>フォローすると現在の構成が置き換えられ、発行された設定は読み取り専用になります。この PC の ISO 出力パス、WinPE ドライバー フォルダー、テレメトリ設定は保持されます。</value>
+    <value>フォローすると現在の構成が置き換えられ、発行された設定は読み取り専用になります。この PC の ISO 出力パス、追加の WinPE ドライバー フォルダー、テレメトリ設定は保持されます。</value>
   </data>
   <data name="Sharing.FollowTitle" xml:space="preserve">
     <value>フォルダーのフォロー</value>
@@ -3307,7 +3307,7 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
     <value>発行パスワードを削除する</value>
   </data>
-  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+  <data name="Sharing.GenerateButton" xml:space="preserve">
     <value>生成</value>
   </data>
   <data name="Sharing.ImportButton" xml:space="preserve">
@@ -3320,7 +3320,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>構成をインポートしました。この PC には不足しているコンテンツがあります。該当するページで再度インポートしてください。</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>この構成を、エクスポートされたファイルまたはこの PC 上の以前の構成に置き換えます。</value>
+    <value>この構成を、エクスポートされたファイルまたは以前のバージョンのプロファイルに置き換えます。</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>構成をインポートできませんでした。現在の構成は変更されていません。</value>
@@ -3346,17 +3346,20 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>このファイルは Foundry 構成ではないか、破損しています。</value>
   </data>
-  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
-    <value>最後の成功</value>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>最後に成功した確認</value>
   </data>
-  <data name="Sharing.LockedProfile" xml:space="preserve">
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>最終発行</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
     <value>この構成は、この Windows ユーザーでは開けません。</value>
   </data>
   <data name="Sharing.ManagedBanner" xml:space="preserve">
-    <value>この構成は {0} によって発行されており、この PC では読み取り専用です。変更できるのは、ISO 出力パス、WinPE ドライバー フォルダー、テレメトリ設定のみです。</value>
+    <value>この構成は {0} によって発行されており、この PC では読み取り専用です。変更できるのは、ISO 出力パス、追加の WinPE ドライバー フォルダー、テレメトリ設定のみです。</value>
   </data>
   <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
-    <value>この構成は {0} によって発行されており、この PC では読み取り専用です。発行にはパスワードが含まれていないため、ここで入力してください。ISO 出力パス、WinPE ドライバー フォルダー、テレメトリ設定も変更できます。</value>
+    <value>この構成は {0} によって発行されており、この PC では読み取り専用です。発行にはパスワードが含まれていないため、ここで入力してください。ISO 出力パス、追加の WinPE ドライバー フォルダー、テレメトリ設定も変更できます。</value>
   </data>
   <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
     <value>参照 PC による管理</value>
@@ -3411,9 +3414,6 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Sharing.PassphraseMismatch" xml:space="preserve">
     <value>パスフレーズが一致しません。</value>
-  </data>
-  <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>12 文字以上で、同じ文字の繰り返し (例: aaaaaaaaaaaa) は使用できません。</value>
   </data>
   <data name="Sharing.PasswordChangePending" xml:space="preserve">
     <value>新しいパスワードを保存しました。変更は次回の発行が成功したときに完了します。</value>
@@ -3484,6 +3484,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>空のフォルダー、またはこの PC が既に発行しているフォルダーを選択してください: ネットワーク共有、OneDrive または SharePoint のフォルダー、ローカル フォルダーを使用できます。フォルダーをフォローしている PC がこれを読み取るには、発行パスワードが必要です。</value>
   </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>今すぐ発行</value>
+  </data>
   <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
     <value>フォルダーを確認しています…</value>
   </data>
@@ -3503,7 +3506,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>フォルダーに発行</value>
   </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
-    <value>インポートすると現在の構成が置き換えられます。この PC の ISO 出力パス、WinPE ドライバー フォルダー、テレメトリ設定は保持されます。</value>
+    <value>インポートすると現在の構成が置き換えられます。この PC の ISO 出力パス、追加の WinPE ドライバー フォルダー、テレメトリ設定は保持されます。</value>
   </data>
   <data name="Sharing.ResetButton" xml:space="preserve">
     <value>リセット</value>
@@ -3517,9 +3520,6 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
     <value>発行のリセット</value>
   </data>
-  <data name="Sharing.RetryButton" xml:space="preserve">
-    <value>再試行</value>
-  </data>
   <data name="Sharing.RevocationPending" xml:space="preserve">
     <value>次回の発行が成功するまで、以前の閲覧者は引き続きコンテンツを開くことができます。</value>
   </data>
@@ -3528,6 +3528,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>この PC は構成を発行しています</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>12 文字以上で、同じ文字の繰り返し (例: aaaaaaaaaaaa) は使用できません。</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
     <value>フォロー中の発行の共有コンテンツの一部をダウンロードできませんでした。[設定] ページの [構成の共有] を確認してください。</value>
@@ -3542,7 +3545,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>構成が適用されました。共有コンテンツをダウンロードしています。</value>
   </data>
   <data name="Sharing.StatusContentFailed" xml:space="preserve">
-    <value>構成は適用されましたが、一部の共有コンテンツをインポートできませんでした。</value>
+    <value>構成は適用されましたが、一部の共有コンテンツをインストールできませんでした。</value>
   </data>
   <data name="Sharing.StatusContentStalled" xml:space="preserve">
     <value>構成は適用されましたが、一部の共有コンテンツは繰り返し確認しても利用できません。</value>
@@ -3566,7 +3569,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>未発行: 構成がメディアを作成できる状態ではないか、この PC にないコンテンツを参照しています。以前のバージョンが引き続き有効です。</value>
   </data>
   <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
-    <value>パスワードが必要です: 発行パスワードを入力するか、構成ページで発行に含まれていないパスワードを入力してください。</value>
+    <value>パスワードが必要です: 発行パスワードを入力するか、構成ページで不足しているパスワードを入力してください。</value>
   </data>
   <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
     <value>この PC の発行パスワードまたはキーを読み取れませんでした。</value>
@@ -3575,7 +3578,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>発行しました。フォルダーをフォローしている PC は、次回の確認でこのバージョンを受け取ります。</value>
   </data>
   <data name="Sharing.StatusPublishing" xml:space="preserve">
-    <value>構成を発行しています。</value>
+    <value>構成を発行しています…</value>
   </data>
   <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
     <value>フォルダーは、適用済みのバージョンより古いバージョンを指しています。無視されます。</value>
@@ -3617,7 +3620,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>発行の停止</value>
   </data>
   <data name="Sharing.StopPublishingMessage" xml:space="preserve">
-    <value>フォルダーはそのまま残り、フォローしている PC は最後に発行されたバージョンを保持します。この PC は通常の PC に戻ります。</value>
+    <value>フォルダーはそのまま残り、フォローしている PC は最後に発行されたバージョンを保持します。この PC は構成を発行しなくなります。</value>
   </data>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>発行を停止しますか?</value>
@@ -3638,7 +3641,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>この PC の発行キーを読み取れませんでした。現在の発行パスワードで引き継ぐと、新しいキーで発行が継続されます。フォルダーをフォローしている PC は、この PC を新しい参照 PC として 1 回承認する必要があります。</value>
   </data>
   <data name="Sharing.TakeOverTitle" xml:space="preserve">
-    <value>フォルダーの引き継ぎ</value>
+    <value>このフォルダーの引き継ぎ</value>
   </data>
   <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
     <value>このパスワードでは現在の発行を開けません。</value>
@@ -3659,7 +3662,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>パスフレーズが正しくないか、ファイルが破損しています。</value>
   </data>
   <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
-    <value>発行パスワードが正しくないか、発行が変更されています。</value>
+    <value>このパスワードでは発行を開けないか、発行が変更されています。</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>操作を停止</value>

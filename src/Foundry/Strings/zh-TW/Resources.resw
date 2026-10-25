@@ -2774,7 +2774,7 @@
     <value>佈建企業 Wi-Fi 設定檔範本</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Foundry OSD 會將複雜密碼記在這部電腦上的本機加密保存庫中。只有在選擇「包含密碼」的匯出或發佈中，它才會離開這部電腦。</value>
+    <value>Foundry 會將複雜密碼記在這部電腦上的本機加密保存庫中。只有在選擇「包含密碼」的匯出或發佈中，它才會離開這部電腦。</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>在 OOBE 前將 Foundry 管理的 Wi-Fi 設定檔匯入 Windows，以在 WinPE 後維持部署連線。</value>
@@ -3235,7 +3235,7 @@
   <data name="Sharing.ContentStalled" xml:space="preserve">
     <value>內容可能已在資料夾中損毀。請從參考電腦重新發佈。</value>
   </data>
-  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+  <data name="Sharing.CopyButton" xml:space="preserve">
     <value>複製</value>
   </data>
   <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
@@ -3293,7 +3293,7 @@
     <value>輸入參考電腦發佈到的資料夾及其發佈密碼，然後開啟資料夾以預覽發佈內容。</value>
   </data>
   <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
-    <value>追蹤會取代目前的設定，並將已發佈的設定變成唯讀。此電腦的 ISO 輸出路徑、WinPE 驅動程式資料夾和遙測設定會保留。</value>
+    <value>追蹤會取代目前的設定，並將已發佈的設定變成唯讀。此電腦的 ISO 輸出路徑、其他 WinPE 驅動程式資料夾和遙測設定會保留。</value>
   </data>
   <data name="Sharing.FollowTitle" xml:space="preserve">
     <value>追蹤資料夾</value>
@@ -3307,7 +3307,7 @@
   <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
     <value>忘記發佈密碼</value>
   </data>
-  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+  <data name="Sharing.GenerateButton" xml:space="preserve">
     <value>產生</value>
   </data>
   <data name="Sharing.ImportButton" xml:space="preserve">
@@ -3320,7 +3320,7 @@
     <value>已匯入設定。此電腦缺少部分內容：請在其頁面上重新匯入。</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>以匯出的檔案或此電腦上先前的設定取代此設定。</value>
+    <value>以匯出的檔案或舊版的設定檔取代此設定。</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>無法匯入設定。目前的設定未變更。</value>
@@ -3346,17 +3346,20 @@
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>此檔案不是 Foundry 設定，或已損毀。</value>
   </data>
-  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
-    <value>上次成功</value>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>上次成功檢查</value>
   </data>
-  <data name="Sharing.LockedProfile" xml:space="preserve">
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>上次發佈</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
     <value>此 Windows 使用者無法開啟此設定。</value>
   </data>
   <data name="Sharing.ManagedBanner" xml:space="preserve">
-    <value>此設定由 {0} 發佈，在此電腦上為唯讀。只能變更 ISO 輸出路徑、WinPE 驅動程式資料夾和遙測設定。</value>
+    <value>此設定由 {0} 發佈，在此電腦上為唯讀。只能變更 ISO 輸出路徑、其他 WinPE 驅動程式資料夾和遙測設定。</value>
   </data>
   <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
-    <value>此設定由 {0} 發佈，在此電腦上為唯讀。發佈內容不包含密碼：請在這裡輸入。也可以變更 ISO 輸出路徑、WinPE 驅動程式資料夾和遙測設定。</value>
+    <value>此設定由 {0} 發佈，在此電腦上為唯讀。發佈內容不包含密碼：請在這裡輸入。也可以變更 ISO 輸出路徑、其他 WinPE 驅動程式資料夾和遙測設定。</value>
   </data>
   <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
     <value>由參考電腦管理</value>
@@ -3412,9 +3415,6 @@
   <data name="Sharing.PassphraseMismatch" xml:space="preserve">
     <value>複雜密碼不相符。</value>
   </data>
-  <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>至少 12 個字元，且不能是同一個字元重複 (例如 aaaaaaaaaaaa)。</value>
-  </data>
   <data name="Sharing.PasswordChangePending" xml:space="preserve">
     <value>已儲存新密碼。變更會在下次成功發佈時完成。</value>
   </data>
@@ -3443,7 +3443,7 @@
     <value>匯出時間</value>
   </data>
   <data name="Sharing.PreviewDownload" xml:space="preserve">
-    <value>需下載</value>
+    <value>下載大小</value>
   </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>名稱</value>
@@ -3484,6 +3484,9 @@
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>選擇空白資料夾，或此電腦已在發佈的資料夾：網路共用、OneDrive 或 SharePoint 資料夾，或本機資料夾。追蹤此資料夾的電腦需要發佈密碼才能讀取。</value>
   </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>立即發佈</value>
+  </data>
   <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
     <value>正在檢查資料夾…</value>
   </data>
@@ -3503,7 +3506,7 @@
     <value>發佈到資料夾</value>
   </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
-    <value>匯入會取代目前的設定。此電腦的 ISO 輸出路徑、WinPE 驅動程式資料夾和遙測設定會保留。</value>
+    <value>匯入會取代目前的設定。此電腦的 ISO 輸出路徑、其他 WinPE 驅動程式資料夾和遙測設定會保留。</value>
   </data>
   <data name="Sharing.ResetButton" xml:space="preserve">
     <value>重設</value>
@@ -3517,9 +3520,6 @@
   <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
     <value>重設發佈</value>
   </data>
-  <data name="Sharing.RetryButton" xml:space="preserve">
-    <value>重試</value>
-  </data>
   <data name="Sharing.RevocationPending" xml:space="preserve">
     <value>在下次成功發佈之前，先前的讀取者仍可開啟內容。</value>
   </data>
@@ -3528,6 +3528,9 @@
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>此電腦正在發佈其設定</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>至少 12 個字元，且不能是同一個字元重複 (例如 aaaaaaaaaaaa)。</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
     <value>無法下載所追蹤發佈的部分共用內容。請在 [設定] 頁面中檢查「設定共用」。</value>
@@ -3542,7 +3545,7 @@
     <value>已套用設定。正在下載共用內容。</value>
   </data>
   <data name="Sharing.StatusContentFailed" xml:space="preserve">
-    <value>已套用設定，但部分共用內容無法匯入。</value>
+    <value>已套用設定，但部分共用內容無法安裝。</value>
   </data>
   <data name="Sharing.StatusContentStalled" xml:space="preserve">
     <value>已套用設定，但經過多次檢查後，部分共用內容仍無法使用。</value>
@@ -3566,7 +3569,7 @@
     <value>未發佈：設定尚未準備好建立媒體，或參照此電腦上缺少的內容。先前的版本仍為目前版本。</value>
   </data>
   <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
-    <value>需要密碼：請輸入發佈密碼，或在設定頁面中輸入發佈內容未包含的密碼。</value>
+    <value>需要密碼：請輸入發佈密碼，或在設定頁面中輸入缺少的密碼。</value>
   </data>
   <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
     <value>無法讀取此電腦的發佈密碼或金鑰。</value>
@@ -3575,7 +3578,7 @@
     <value>已發佈。追蹤此資料夾的電腦會在下次檢查時收到此版本。</value>
   </data>
   <data name="Sharing.StatusPublishing" xml:space="preserve">
-    <value>正在發佈設定。</value>
+    <value>正在發佈設定…</value>
   </data>
   <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
     <value>資料夾指向的版本比已套用的版本舊。已忽略該版本。</value>
@@ -3617,7 +3620,7 @@
     <value>停止發佈</value>
   </data>
   <data name="Sharing.StopPublishingMessage" xml:space="preserve">
-    <value>資料夾會保持不變，追蹤它的電腦會保留上次發佈的版本。此電腦會重新成為一般電腦。</value>
+    <value>資料夾會保持不變，追蹤它的電腦會保留上次發佈的版本。此電腦將不再發佈其設定。</value>
   </data>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>要停止發佈嗎？</value>
@@ -3638,7 +3641,7 @@
     <value>無法讀取此電腦的發佈金鑰。使用目前的發佈密碼接管後，會使用新金鑰繼續發佈；追蹤此資料夾的電腦必須接受一次此電腦作為新的參考電腦。</value>
   </data>
   <data name="Sharing.TakeOverTitle" xml:space="preserve">
-    <value>接管資料夾</value>
+    <value>接管此資料夾</value>
   </data>
   <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
     <value>此密碼無法開啟目前的發佈內容。</value>
@@ -3659,7 +3662,7 @@
     <value>複雜密碼錯誤或檔案已損毀。</value>
   </data>
   <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
-    <value>發佈密碼錯誤，或發佈內容已遭修改。</value>
+    <value>此密碼無法開啟發佈內容，或發佈內容已遭修改。</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>停止作業</value>

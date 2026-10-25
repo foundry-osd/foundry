@@ -99,6 +99,9 @@ public sealed partial class ConfigurationSharingViewModel(
 
     public bool HasVersion => VersionText.Length > 0;
 
+    /// <summary>Gets the label of <see cref="LastSuccessText"/>: the last publish of a reference, the last check of a follower.</summary>
+    public string LastSuccessLabel => Text(IsReference ? "LastPublishedLabel" : "LastCheckLabel");
+
     public string LastSuccessText => Engine?.LastSuccessUtc is { } success ? success.ToLocalTime().ToString("g", CultureInfo.CurrentUICulture) : string.Empty;
     public bool HasLastSuccess => LastSuccessText.Length > 0;
 
@@ -128,7 +131,7 @@ public sealed partial class ConfigurationSharingViewModel(
     /// Gets whether publishing again can help: the last publish of the reference stopped on the configuration or the folder. Another
     /// publisher or unreadable keys are solved by "Take over" instead.
     /// </summary>
-    public bool CanRetry => IsReference && Status is SharingStatus.NotPublishedIncomplete or SharingStatus.FolderUnavailable
+    public bool CanPublishNow => IsReference && Status is SharingStatus.NotPublishedIncomplete or SharingStatus.FolderUnavailable
         or SharingStatus.FolderNotEmpty or SharingStatus.WrongPassword;
 
     /// <summary>Gets whether another PC publishes to the folder, or the keys of this PC could not be read: "Take over" recovers both.</summary>
@@ -144,7 +147,7 @@ public sealed partial class ConfigurationSharingViewModel(
     {
         ImportPreviewStatus.WrongPassphrase => "Sharing.WrongPassphrase",
         ImportPreviewStatus.Unsupported => "Sharing.UnsupportedFile",
-        ImportPreviewStatus.Locked => "Sharing.LockedProfile",
+        ImportPreviewStatus.Locked => "Sharing.LockedConfiguration",
         ImportPreviewStatus.Unreadable => "Sharing.UnreadableFile",
         _ => "Sharing.InvalidFile"
     };
@@ -220,7 +223,7 @@ public sealed partial class ConfigurationSharingViewModel(
     }
 
     [RelayCommand]
-    private Task RetryAsync() => RunAsync(sharing.RetryPublishAsync);
+    private Task PublishNowAsync() => RunAsync(sharing.RetryPublishAsync);
 
     [RelayCommand]
     private Task CheckNowAsync() => RunAsync(sharing.CheckNowAsync);

@@ -2774,7 +2774,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Udostępnij szablon profilu korporacyjnego Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Foundry OSD zapamiętuje hasło na tym komputerze w swoim lokalnym zaszyfrowanym magazynie. Opuszcza ono ten komputer tylko w eksporcie lub publikacji, gdy wybrano opcję „Uwzględnij hasła”.</value>
+    <value>Foundry zapamiętuje hasło na tym komputerze w swoim lokalnym zaszyfrowanym magazynie. Opuszcza ono ten komputer tylko w eksporcie lub publikacji, gdy wybrano opcję „Uwzględnij hasła”.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importuje profil Wi-Fi zarządzany przez Foundry do Windows przed OOBE, aby zachować łączność wdrożeniową po WinPE.</value>
@@ -3235,7 +3235,7 @@ Licencjonowany na licencji MIT.</value>
   <data name="Sharing.ContentStalled" xml:space="preserve">
     <value>Zawartość w folderze może być uszkodzona. Opublikuj ponownie z komputera odniesienia.</value>
   </data>
-  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+  <data name="Sharing.CopyButton" xml:space="preserve">
     <value>Kopiuj</value>
   </data>
   <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
@@ -3257,7 +3257,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Konfiguracja została wyeksportowana.</value>
   </data>
   <data name="Sharing.ExportDescription" xml:space="preserve">
-    <value>Zapisuje ustawienia i małe pliki w zaszyfrowanym pliku. Pakiety poinstalacyjne, zestawy sterowników i obrazy nie są uwzględniane.</value>
+    <value>Zapisz ustawienia i małe pliki w zaszyfrowanym pliku. Pakiety poinstalacyjne, zestawy sterowników i obrazy nie są uwzględniane.</value>
   </data>
   <data name="Sharing.ExportFailed" xml:space="preserve">
     <value>Nie można wyeksportować konfiguracji. Sprawdź miejsce docelowe i spróbuj ponownie.</value>
@@ -3293,7 +3293,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Wprowadź folder, w którym publikuje komputer odniesienia, oraz jego hasło publikacji, a następnie otwórz go, aby wyświetlić podgląd publikacji.</value>
   </data>
   <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
-    <value>Obserwowanie zastępuje bieżącą konfigurację i ustawia opublikowane ustawienia jako tylko do odczytu. Ścieżka wyjściowa ISO, folder sterowników WinPE i ustawienia telemetrii tego komputera zostają zachowane.</value>
+    <value>Obserwowanie zastępuje bieżącą konfigurację i ustawia opublikowane ustawienia jako tylko do odczytu. Ścieżka wyjściowa ISO, dodatkowy folder sterowników WinPE i ustawienia telemetrii tego komputera zostają zachowane.</value>
   </data>
   <data name="Sharing.FollowTitle" xml:space="preserve">
     <value>Obserwuj folder</value>
@@ -3307,7 +3307,7 @@ Licencjonowany na licencji MIT.</value>
   <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
     <value>Zapomnij hasło publikacji</value>
   </data>
-  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+  <data name="Sharing.GenerateButton" xml:space="preserve">
     <value>Generuj</value>
   </data>
   <data name="Sharing.ImportButton" xml:space="preserve">
@@ -3320,7 +3320,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Konfiguracja została zaimportowana. Na tym komputerze brakuje zawartości: zaimportuj ją ponownie na odpowiedniej stronie.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Zastąp tę konfigurację wyeksportowanym plikiem lub wcześniejszą konfiguracją z tego komputera.</value>
+    <value>Zastąp tę konfigurację wyeksportowanym plikiem lub profilem z poprzedniej wersji.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>Nie można zaimportować konfiguracji. Bieżąca konfiguracja nie została zmieniona.</value>
@@ -3346,17 +3346,20 @@ Licencjonowany na licencji MIT.</value>
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>Ten plik nie jest konfiguracją Foundry lub jest uszkodzony.</value>
   </data>
-  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
-    <value>Ostatnie powodzenie</value>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>Ostatnie udane sprawdzenie</value>
   </data>
-  <data name="Sharing.LockedProfile" xml:space="preserve">
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>Ostatnia publikacja</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
     <value>Ten użytkownik systemu Windows nie może otworzyć tej konfiguracji.</value>
   </data>
   <data name="Sharing.ManagedBanner" xml:space="preserve">
-    <value>Ta konfiguracja jest publikowana przez {0} i jest tylko do odczytu na tym komputerze. Można zmienić tylko ścieżkę wyjściową ISO, folder sterowników WinPE i ustawienia telemetrii.</value>
+    <value>Ta konfiguracja jest publikowana przez {0} i jest tylko do odczytu na tym komputerze. Można zmienić tylko ścieżkę wyjściową ISO, dodatkowy folder sterowników WinPE i ustawienia telemetrii.</value>
   </data>
   <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
-    <value>Ta konfiguracja jest publikowana przez {0} i jest tylko do odczytu na tym komputerze. Publikacja nie zawiera haseł: wprowadź je tutaj. Można też zmienić ścieżkę wyjściową ISO, folder sterowników WinPE i ustawienia telemetrii.</value>
+    <value>Ta konfiguracja jest publikowana przez {0} i jest tylko do odczytu na tym komputerze. Publikacja nie zawiera haseł: wprowadź je tutaj. Można też zmienić ścieżkę wyjściową ISO, dodatkowy folder sterowników WinPE i ustawienia telemetrii.</value>
   </data>
   <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
     <value>Zarządzana przez komputer odniesienia</value>
@@ -3412,9 +3415,6 @@ Licencjonowany na licencji MIT.</value>
   <data name="Sharing.PassphraseMismatch" xml:space="preserve">
     <value>Hasła wielowyrazowe nie są zgodne.</value>
   </data>
-  <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Co najmniej 12 znaków i nie ten sam znak powtórzony (na przykład aaaaaaaaaaaa).</value>
-  </data>
   <data name="Sharing.PasswordChangePending" xml:space="preserve">
     <value>Nowe hasło zostało zapisane. Zmiana zostanie ukończona przy następnej udanej publikacji.</value>
   </data>
@@ -3443,7 +3443,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Wyeksportowano</value>
   </data>
   <data name="Sharing.PreviewDownload" xml:space="preserve">
-    <value>Do pobrania</value>
+    <value>Rozmiar pobierania</value>
   </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>Nazwa</value>
@@ -3484,6 +3484,9 @@ Licencjonowany na licencji MIT.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Wybierz pusty folder lub folder, w którym ten komputer już publikuje: udział sieciowy, folder OneDrive lub SharePoint albo folder lokalny. Komputery obserwujące folder potrzebują hasła publikacji, aby go odczytać.</value>
   </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>Opublikuj teraz</value>
+  </data>
   <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
     <value>Sprawdzanie folderu…</value>
   </data>
@@ -3503,7 +3506,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Opublikuj w folderze</value>
   </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
-    <value>Importowanie zastępuje bieżącą konfigurację. Ścieżka wyjściowa ISO, folder sterowników WinPE i ustawienia telemetrii tego komputera zostają zachowane.</value>
+    <value>Importowanie zastępuje bieżącą konfigurację. Ścieżka wyjściowa ISO, dodatkowy folder sterowników WinPE i ustawienia telemetrii tego komputera zostają zachowane.</value>
   </data>
   <data name="Sharing.ResetButton" xml:space="preserve">
     <value>Resetuj</value>
@@ -3517,9 +3520,6 @@ Licencjonowany na licencji MIT.</value>
   <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
     <value>Resetuj publikację</value>
   </data>
-  <data name="Sharing.RetryButton" xml:space="preserve">
-    <value>Ponów próbę</value>
-  </data>
   <data name="Sharing.RevocationPending" xml:space="preserve">
     <value>Wcześniejsi czytelnicy nadal mogą otwierać zawartość do następnej udanej publikacji.</value>
   </data>
@@ -3528,6 +3528,9 @@ Licencjonowany na licencji MIT.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Ten komputer publikuje swoją konfigurację</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>Co najmniej 12 znaków i nie ten sam znak powtórzony (na przykład aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
     <value>Nie można pobrać części udostępnionej zawartości obserwowanej publikacji. Sprawdź Udostępnianie konfiguracji na stronie Ustawienia.</value>
@@ -3542,7 +3545,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Konfiguracja została zastosowana. Trwa pobieranie udostępnionej zawartości.</value>
   </data>
   <data name="Sharing.StatusContentFailed" xml:space="preserve">
-    <value>Konfiguracja została zastosowana, ale nie udało się zaimportować części udostępnionej zawartości.</value>
+    <value>Konfiguracja została zastosowana, ale nie udało się zainstalować części udostępnionej zawartości.</value>
   </data>
   <data name="Sharing.StatusContentStalled" xml:space="preserve">
     <value>Konfiguracja została zastosowana, ale część udostępnionej zawartości nadal jest niedostępna po wielokrotnych sprawdzeniach.</value>
@@ -3566,7 +3569,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Nie opublikowano: konfiguracja nie jest gotowa do tworzenia nośników lub odwołuje się do zawartości, której brakuje na tym komputerze. Poprzednia wersja pozostaje aktualna.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
-    <value>Wymagane są hasła: wprowadź hasło publikacji albo, na stronach konfiguracji, hasła, których publikacja nie zawiera.</value>
+    <value>Wymagane są hasła: wprowadź hasło publikacji albo wprowadź brakujące hasła na stronach konfiguracji.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
     <value>Nie można odczytać hasła publikacji lub kluczy tego komputera.</value>
@@ -3575,7 +3578,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Opublikowano. Komputery obserwujące folder otrzymają tę wersję podczas następnego sprawdzenia.</value>
   </data>
   <data name="Sharing.StatusPublishing" xml:space="preserve">
-    <value>Publikowanie konfiguracji.</value>
+    <value>Publikowanie konfiguracji…</value>
   </data>
   <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
     <value>Folder wskazuje starszą wersję niż zastosowana. Zostaje ona zignorowana.</value>
@@ -3617,7 +3620,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Zatrzymaj publikowanie</value>
   </data>
   <data name="Sharing.StopPublishingMessage" xml:space="preserve">
-    <value>Folder pozostaje bez zmian, a komputery obserwujące folder zachowują ostatnią opublikowaną wersję. Ten komputer ponownie staje się zwykłym komputerem.</value>
+    <value>Folder pozostaje bez zmian, a komputery obserwujące folder zachowują ostatnią opublikowaną wersję. Ten komputer przestaje publikować swoją konfigurację.</value>
   </data>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Zatrzymać publikowanie?</value>
@@ -3638,7 +3641,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Nie można odczytać kluczy publikacji tego komputera. Przejęcie przy użyciu bieżącego hasła publikacji kontynuuje publikację z nowymi kluczami; komputery obserwujące folder muszą jeden raz zaakceptować ten komputer jako nowe odniesienie.</value>
   </data>
   <data name="Sharing.TakeOverTitle" xml:space="preserve">
-    <value>Przejmij folder</value>
+    <value>Przejmij ten folder</value>
   </data>
   <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
     <value>To hasło nie otwiera bieżącej publikacji.</value>
@@ -3659,7 +3662,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Nieprawidłowe hasło wielowyrazowe lub uszkodzony plik.</value>
   </data>
   <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
-    <value>Nieprawidłowe hasło publikacji lub publikacja została zmodyfikowana.</value>
+    <value>To hasło nie otwiera publikacji lub publikacja została zmodyfikowana.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Zatrzymaj operację</value>

@@ -2774,7 +2774,7 @@ Licensed under the MIT License.</value>
     <value>Provision an enterprise Wi-Fi profile template</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Foundry OSD remembers the passphrase on this PC in its local encrypted vault. It leaves this PC only in an export or a publication when Include passwords is chosen.</value>
+    <value>Foundry remembers the passphrase on this PC in its local encrypted vault. It leaves this PC only in an export or a publication when Include passwords is chosen.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Import the Wi-Fi profile managed by Foundry into Windows before OOBE to preserve deployment connectivity after WinPE.</value>
@@ -3179,10 +3179,10 @@ Licensed under the MIT License.</value>
     <value>Accept new reference</value>
   </data>
   <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
-    <value>The folder is now published by another PC: {0}. Accept it only if you expect this change, for example after a take over; otherwise stop following.</value>
+    <value>The folder is now published by another PC: {0}. Accept it only if you expect this change, for example after a takeover; otherwise stop following.</value>
   </data>
   <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
-    <value>Accept the new reference?</value>
+    <value>Accept new reference?</value>
   </data>
   <data name="Sharing.CandidateChanged" xml:space="preserve">
     <value>The reference changed while this dialog was open. Review the new key before you accept it.</value>
@@ -3203,7 +3203,7 @@ Licensed under the MIT License.</value>
     <value>The current publication is rewritten under the new password. Content files are not encrypted again, so someone who knew the old password can still read them: use Reset publication to revoke former readers completely. Followers enter the new password once.</value>
   </data>
   <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
-    <value>Change the publication password</value>
+    <value>Change publication password</value>
   </data>
   <data name="Sharing.CheckNowButton" xml:space="preserve">
     <value>Check now</value>
@@ -3212,7 +3212,7 @@ Licensed under the MIT License.</value>
     <value>Confirm passphrase</value>
   </data>
   <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
-    <value>Confirm the password</value>
+    <value>Confirm password</value>
   </data>
   <data name="Sharing.ContentDownloadingState" xml:space="preserve">
     <value>Downloading</value>
@@ -3235,7 +3235,7 @@ Licensed under the MIT License.</value>
   <data name="Sharing.ContentStalled" xml:space="preserve">
     <value>The content may be damaged in the folder. Publish again from the reference PC.</value>
   </data>
-  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+  <data name="Sharing.CopyButton" xml:space="preserve">
     <value>Copy</value>
   </data>
   <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
@@ -3248,7 +3248,7 @@ Licensed under the MIT License.</value>
     <value>The publication password is needed again, for example after a Windows password reset or after the reference PC changed it.</value>
   </data>
   <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
-    <value>Enter the publication password</value>
+    <value>Enter publication password</value>
   </data>
   <data name="Sharing.ExportButton" xml:space="preserve">
     <value>Export</value>
@@ -3293,7 +3293,7 @@ Licensed under the MIT License.</value>
     <value>Enter the folder the reference PC publishes to and its publication password, then open it to preview the publication.</value>
   </data>
   <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
-    <value>Following replaces the current configuration and makes the published settings read-only. The ISO output path, the WinPE driver folder and the telemetry settings of this PC are kept.</value>
+    <value>Following replaces the current configuration and makes the published settings read-only. The ISO output path, the additional WinPE driver folder and the telemetry settings of this PC are kept.</value>
   </data>
   <data name="Sharing.FollowTitle" xml:space="preserve">
     <value>Follow a folder</value>
@@ -3305,9 +3305,9 @@ Licensed under the MIT License.</value>
     <value>Version found</value>
   </data>
   <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
-    <value>Forget the publication password</value>
+    <value>Forget publication password</value>
   </data>
-  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+  <data name="Sharing.GenerateButton" xml:space="preserve">
     <value>Generate</value>
   </data>
   <data name="Sharing.ImportButton" xml:space="preserve">
@@ -3320,7 +3320,7 @@ Licensed under the MIT License.</value>
     <value>Configuration imported. Some content is missing on this PC: import it again on its page.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Replace this configuration with an exported file or a previous configuration on this PC.</value>
+    <value>Replace this configuration with an exported file or a profile from the previous version.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>The configuration could not be imported. The current configuration is unchanged.</value>
@@ -3346,17 +3346,20 @@ Licensed under the MIT License.</value>
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>This file is not a Foundry configuration, or it is damaged.</value>
   </data>
-  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
-    <value>Last success</value>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>Last successful check</value>
   </data>
-  <data name="Sharing.LockedProfile" xml:space="preserve">
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>Last published</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
     <value>This configuration cannot be opened by this Windows user.</value>
   </data>
   <data name="Sharing.ManagedBanner" xml:space="preserve">
-    <value>This configuration is published by {0} and is read-only on this PC. Only the ISO output path, the WinPE driver folder and the telemetry settings can be changed.</value>
+    <value>This configuration is published by {0} and is read-only on this PC. Only the ISO output path, the additional WinPE driver folder and the telemetry settings can be changed.</value>
   </data>
   <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
-    <value>This configuration is published by {0} and is read-only on this PC. The publication does not include passwords: enter them here. The ISO output path, the WinPE driver folder and the telemetry settings can also be changed.</value>
+    <value>This configuration is published by {0} and is read-only on this PC. The publication does not include passwords: enter them here. The ISO output path, the additional WinPE driver folder and the telemetry settings can also be changed.</value>
   </data>
   <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
     <value>Managed by a reference PC</value>
@@ -3412,9 +3415,6 @@ Licensed under the MIT License.</value>
   <data name="Sharing.PassphraseMismatch" xml:space="preserve">
     <value>The passphrases do not match.</value>
   </data>
-  <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>At least 12 characters, and not the same character repeated (for example aaaaaaaaaaaa).</value>
-  </data>
   <data name="Sharing.PasswordChangePending" xml:space="preserve">
     <value>The new password is saved. The change completes at the next successful publish.</value>
   </data>
@@ -3443,7 +3443,7 @@ Licensed under the MIT License.</value>
     <value>Exported on</value>
   </data>
   <data name="Sharing.PreviewDownload" xml:space="preserve">
-    <value>To download</value>
+    <value>Download size</value>
   </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>Name</value>
@@ -3484,6 +3484,9 @@ Licensed under the MIT License.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Choose an empty folder, or one this PC already publishes to: a network share, a OneDrive or SharePoint folder, or a local folder. Followers need the publication password to read it.</value>
   </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>Publish now</value>
+  </data>
   <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
     <value>Checking the folder…</value>
   </data>
@@ -3503,7 +3506,7 @@ Licensed under the MIT License.</value>
     <value>Publish to a folder</value>
   </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
-    <value>Importing replaces the current configuration. The ISO output path, the WinPE driver folder and the telemetry settings of this PC are kept.</value>
+    <value>Importing replaces the current configuration. The ISO output path, the additional WinPE driver folder and the telemetry settings of this PC are kept.</value>
   </data>
   <data name="Sharing.ResetButton" xml:space="preserve">
     <value>Reset</value>
@@ -3515,19 +3518,19 @@ Licensed under the MIT License.</value>
     <value>A new password and a new content key: every content file is encrypted again, which completely revokes former readers. Followers enter the new password once.</value>
   </data>
   <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
-    <value>Reset the publication</value>
-  </data>
-  <data name="Sharing.RetryButton" xml:space="preserve">
-    <value>Retry</value>
+    <value>Reset publication</value>
   </data>
   <data name="Sharing.RevocationPending" xml:space="preserve">
-    <value>Old readers can still open content until the next successful publish.</value>
+    <value>Former readers can still open the content until the next successful publish.</value>
   </data>
   <data name="Sharing.RoleFollower" xml:space="preserve">
     <value>This PC follows {0}</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>This PC publishes its configuration</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>At least 12 characters, and not the same character repeated (for example aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
     <value>Some shared content of the followed publication could not be downloaded. Check Configuration sharing on the Settings page.</value>
@@ -3542,7 +3545,7 @@ Licensed under the MIT License.</value>
     <value>The configuration is applied. Shared content is being downloaded.</value>
   </data>
   <data name="Sharing.StatusContentFailed" xml:space="preserve">
-    <value>The configuration is applied, but some shared content could not be imported.</value>
+    <value>The configuration is applied, but some shared content could not be installed.</value>
   </data>
   <data name="Sharing.StatusContentStalled" xml:space="preserve">
     <value>The configuration is applied, but some shared content is still not available after repeated checks.</value>
@@ -3563,10 +3566,10 @@ Licensed under the MIT License.</value>
     <value>Changes are published automatically.</value>
   </data>
   <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
-    <value>Not published: the configuration is not ready to build media or references content missing on this PC. The previous version stays current.</value>
+    <value>Not published: the configuration is not ready to create media, or it references content missing on this PC. The previous version stays current.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
-    <value>Passwords are needed: enter the publication password, or the passwords the publication does not include on the configuration pages.</value>
+    <value>Passwords are needed: enter the publication password, or enter the missing passwords on the configuration pages.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
     <value>The publication password or keys of this PC could not be read.</value>
@@ -3575,7 +3578,7 @@ Licensed under the MIT License.</value>
     <value>Published. Followers receive this version at their next check.</value>
   </data>
   <data name="Sharing.StatusPublishing" xml:space="preserve">
-    <value>Publishing the configuration.</value>
+    <value>Publishing the configuration…</value>
   </data>
   <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
     <value>The folder points to an older version than the one applied. It is ignored.</value>
@@ -3617,7 +3620,7 @@ Licensed under the MIT License.</value>
     <value>Stop publishing</value>
   </data>
   <data name="Sharing.StopPublishingMessage" xml:space="preserve">
-    <value>The folder stays as it is and followers keep the last published version. This PC becomes a normal PC.</value>
+    <value>The folder stays as it is and followers keep the last published version. This PC no longer publishes its configuration.</value>
   </data>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Stop publishing?</value>
@@ -3638,7 +3641,7 @@ Licensed under the MIT License.</value>
     <value>The publication keys of this PC could not be read. Taking over with the current publication password continues the publication with new keys; followers must accept this PC as the new reference once.</value>
   </data>
   <data name="Sharing.TakeOverTitle" xml:space="preserve">
-    <value>Take over the folder</value>
+    <value>Take over this folder</value>
   </data>
   <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
     <value>This password does not open the current publication.</value>
@@ -3659,7 +3662,7 @@ Licensed under the MIT License.</value>
     <value>Wrong passphrase or damaged file.</value>
   </data>
   <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
-    <value>Wrong publication password, or the publication was modified.</value>
+    <value>This password does not open the publication, or the publication was modified.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Stop operation</value>

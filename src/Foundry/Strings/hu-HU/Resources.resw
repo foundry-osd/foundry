@@ -2774,7 +2774,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Hozzon létre egy vállalati Wi-Fi profilsablont</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>A Foundry OSD ezen a számítógépen a helyi titkosított tárolójában jegyzi meg a jelmondatot. Csak exportálásban vagy közzétételben hagyja el ezt a számítógépet, ha a „Jelszavak belefoglalása” lehetőség van kiválasztva.</value>
+    <value>A Foundry ezen a számítógépen a helyi titkosított tárolójában jegyzi meg a jelmondatot. Csak exportálásban vagy közzétételben hagyja el ezt a számítógépet, ha a „Jelszavak belefoglalása” lehetőség van kiválasztva.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importálja a Foundry által kezelt Wi-Fi-profilt a Windowsba az OOBE előtt, hogy a telepítési kapcsolat a WinPE után is megmaradjon.</value>
@@ -3203,7 +3203,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Az aktuális közzététel újraíródik az új jelszóval. A tartalomfájlok nem lesznek újra titkosítva, így aki ismerte a régi jelszót, továbbra is olvashatja őket: a korábbi olvasók teljes visszavonásához használja a Közzététel alaphelyzetbe állítása lehetőséget. A mappát követő számítógépeken egyszer kell megadni az új jelszót.</value>
   </data>
   <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
-    <value>A közzétételi jelszó módosítása</value>
+    <value>Közzétételi jelszó módosítása</value>
   </data>
   <data name="Sharing.CheckNowButton" xml:space="preserve">
     <value>Ellenőrzés most</value>
@@ -3235,7 +3235,7 @@ Licenc az MIT licenc alatt.</value>
   <data name="Sharing.ContentStalled" xml:space="preserve">
     <value>Lehet, hogy a tartalom sérült a mappában. Tegye közzé újra a referenciaszámítógépről.</value>
   </data>
-  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+  <data name="Sharing.CopyButton" xml:space="preserve">
     <value>Másolás</value>
   </data>
   <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
@@ -3248,7 +3248,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Ismét szükség van a közzétételi jelszóra, például a Windows-jelszó alaphelyzetbe állítása után, vagy miután a referenciaszámítógép módosította.</value>
   </data>
   <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
-    <value>A közzétételi jelszó megadása</value>
+    <value>Közzétételi jelszó megadása</value>
   </data>
   <data name="Sharing.ExportButton" xml:space="preserve">
     <value>Exportálás</value>
@@ -3257,7 +3257,7 @@ Licenc az MIT licenc alatt.</value>
     <value>A konfiguráció exportálva.</value>
   </data>
   <data name="Sharing.ExportDescription" xml:space="preserve">
-    <value>A beállításokat és a kis fájlokat titkosított fájlba menti. A telepítés utáni csomagok, az illesztőprogram-készletek és a lemezképek nem kerülnek bele.</value>
+    <value>Mentse a beállításokat és a kis fájlokat egy titkosított fájlba. A telepítés utáni csomagok, az illesztőprogram-készletek és a lemezképek nem kerülnek bele.</value>
   </data>
   <data name="Sharing.ExportFailed" xml:space="preserve">
     <value>A konfigurációt nem sikerült exportálni. Ellenőrizze a célhelyet, és próbálkozzon újra.</value>
@@ -3293,7 +3293,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Adja meg a mappát, amelybe a referenciaszámítógép közzétesz, és a közzétételi jelszavát, majd nyissa meg a közzététel előnézetéhez.</value>
   </data>
   <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
-    <value>A követés lecseréli az aktuális konfigurációt, és a közzétett beállításokat csak olvashatóvá teszi. A számítógép ISO-kimeneti elérési útja, WinPE-illesztőprogram-mappája és telemetriai beállításai megmaradnak.</value>
+    <value>A követés lecseréli az aktuális konfigurációt, és a közzétett beállításokat csak olvashatóvá teszi. A számítógép ISO-kimeneti elérési útja, további WinPE-illesztőprogram-mappája és telemetriai beállításai megmaradnak.</value>
   </data>
   <data name="Sharing.FollowTitle" xml:space="preserve">
     <value>Mappa követése</value>
@@ -3305,9 +3305,9 @@ Licenc az MIT licenc alatt.</value>
     <value>Talált verzió</value>
   </data>
   <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
-    <value>A közzétételi jelszó elfelejtése</value>
+    <value>Közzétételi jelszó elfelejtése</value>
   </data>
-  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+  <data name="Sharing.GenerateButton" xml:space="preserve">
     <value>Generálás</value>
   </data>
   <data name="Sharing.ImportButton" xml:space="preserve">
@@ -3320,7 +3320,7 @@ Licenc az MIT licenc alatt.</value>
     <value>A konfiguráció importálva. Ezen a számítógépen tartalom hiányzik: importálja újra a hozzá tartozó oldalon.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Cserélje le ezt a konfigurációt egy exportált fájlra vagy a számítógép egy korábbi konfigurációjára.</value>
+    <value>Cserélje le ezt a konfigurációt egy exportált fájlra vagy az előző verzió egy profiljára.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>A konfigurációt nem sikerült importálni. Az aktuális konfiguráció nem változott.</value>
@@ -3346,17 +3346,20 @@ Licenc az MIT licenc alatt.</value>
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>Ez a fájl nem Foundry-konfiguráció, vagy sérült.</value>
   </data>
-  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
-    <value>Utolsó sikeres művelet</value>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>Utolsó sikeres ellenőrzés</value>
   </data>
-  <data name="Sharing.LockedProfile" xml:space="preserve">
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>Utolsó közzététel</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
     <value>Ez a Windows-felhasználó nem tudja megnyitni ezt a konfigurációt.</value>
   </data>
   <data name="Sharing.ManagedBanner" xml:space="preserve">
-    <value>Ezt a konfigurációt {0} teszi közzé, és ezen a számítógépen csak olvasható. Csak az ISO-kimeneti elérési út, a WinPE-illesztőprogram-mappa és a telemetriai beállítások módosíthatók.</value>
+    <value>Ezt a konfigurációt {0} teszi közzé, és ezen a számítógépen csak olvasható. Csak az ISO-kimeneti elérési út, a további WinPE-illesztőprogram-mappa és a telemetriai beállítások módosíthatók.</value>
   </data>
   <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
-    <value>Ezt a konfigurációt {0} teszi közzé, és ezen a számítógépen csak olvasható. A közzététel nem tartalmaz jelszavakat: itt adja meg őket. Az ISO-kimeneti elérési út, a WinPE-illesztőprogram-mappa és a telemetriai beállítások is módosíthatók.</value>
+    <value>Ezt a konfigurációt {0} teszi közzé, és ezen a számítógépen csak olvasható. A közzététel nem tartalmaz jelszavakat: itt adja meg őket. Az ISO-kimeneti elérési út, a további WinPE-illesztőprogram-mappa és a telemetriai beállítások is módosíthatók.</value>
   </data>
   <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
     <value>Referenciaszámítógép által felügyelt</value>
@@ -3412,9 +3415,6 @@ Licenc az MIT licenc alatt.</value>
   <data name="Sharing.PassphraseMismatch" xml:space="preserve">
     <value>A jelmondatok nem egyeznek.</value>
   </data>
-  <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Legalább 12 karakter, és ne ugyanaz a karakter ismétlődjön (például aaaaaaaaaaaa).</value>
-  </data>
   <data name="Sharing.PasswordChangePending" xml:space="preserve">
     <value>Az új jelszó mentve. A módosítás a következő sikeres közzétételkor fejeződik be.</value>
   </data>
@@ -3443,7 +3443,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Exportálva</value>
   </data>
   <data name="Sharing.PreviewDownload" xml:space="preserve">
-    <value>Letöltendő</value>
+    <value>Letöltési méret</value>
   </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>Név</value>
@@ -3484,6 +3484,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Válasszon egy üres mappát vagy egy olyat, amelybe ez a számítógép már közzétesz: hálózati megosztást, OneDrive- vagy SharePoint-mappát, vagy helyi mappát. A mappát követő számítógépeknek a közzétételi jelszó kell az olvasásához.</value>
   </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>Közzététel most</value>
+  </data>
   <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
     <value>A mappa ellenőrzése…</value>
   </data>
@@ -3503,7 +3506,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Közzététel mappába</value>
   </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
-    <value>Az importálás lecseréli az aktuális konfigurációt. A számítógép ISO-kimeneti útvonala, WinPE-illesztőprogram-mappája és telemetriai beállításai megmaradnak.</value>
+    <value>Az importálás lecseréli az aktuális konfigurációt. A számítógép ISO-kimeneti útvonala, további WinPE-illesztőprogram-mappája és telemetriai beállításai megmaradnak.</value>
   </data>
   <data name="Sharing.ResetButton" xml:space="preserve">
     <value>Alaphelyzetbe állítás</value>
@@ -3515,10 +3518,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Új jelszó és új tartalomkulcs: minden tartalomfájl újra titkosítva lesz, ami teljesen visszavonja a korábbi olvasókat. A mappát követő számítógépeken egyszer kell megadni az új jelszót.</value>
   </data>
   <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
-    <value>A közzététel alaphelyzetbe állítása</value>
-  </data>
-  <data name="Sharing.RetryButton" xml:space="preserve">
-    <value>Újra</value>
+    <value>Közzététel alaphelyzetbe állítása</value>
   </data>
   <data name="Sharing.RevocationPending" xml:space="preserve">
     <value>A korábbi olvasók a következő sikeres közzétételig még megnyithatják a tartalmat.</value>
@@ -3528,6 +3528,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Ez a számítógép közzéteszi a konfigurációját</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>Legalább 12 karakter, és ne ugyanaz a karakter ismétlődjön (például aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
     <value>A követett közzététel megosztott tartalmának egy részét nem sikerült letölteni. Ellenőrizze a Konfiguráció megosztása részt a Beállítások lapon.</value>
@@ -3542,7 +3545,7 @@ Licenc az MIT licenc alatt.</value>
     <value>A konfiguráció alkalmazva. A megosztott tartalom letöltése folyamatban van.</value>
   </data>
   <data name="Sharing.StatusContentFailed" xml:space="preserve">
-    <value>A konfiguráció alkalmazva, de a megosztott tartalom egy részét nem sikerült importálni.</value>
+    <value>A konfiguráció alkalmazva, de a megosztott tartalom egy részét nem sikerült telepíteni.</value>
   </data>
   <data name="Sharing.StatusContentStalled" xml:space="preserve">
     <value>A konfiguráció alkalmazva, de a megosztott tartalom egy része ismételt ellenőrzések után sem érhető el.</value>
@@ -3566,7 +3569,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Nincs közzétéve: a konfiguráció nem áll készen adathordozó létrehozására, vagy olyan tartalomra hivatkozik, amely hiányzik erről a számítógépről. Az előző verzió marad érvényben.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
-    <value>Jelszavak szükségesek: adja meg a közzétételi jelszót, vagy a konfigurációs lapokon azokat a jelszavakat, amelyeket a közzététel nem tartalmaz.</value>
+    <value>Jelszavak szükségesek: adja meg a közzétételi jelszót, vagy adja meg a hiányzó jelszavakat a konfigurációs lapokon.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
     <value>A számítógép közzétételi jelszavát vagy kulcsait nem sikerült beolvasni.</value>
@@ -3575,7 +3578,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Közzétéve. A mappát követő számítógépek a következő ellenőrzéskor kapják meg ezt a verziót.</value>
   </data>
   <data name="Sharing.StatusPublishing" xml:space="preserve">
-    <value>A konfiguráció közzététele folyamatban.</value>
+    <value>A konfiguráció közzététele folyamatban…</value>
   </data>
   <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
     <value>A mappa régebbi verzióra mutat, mint az alkalmazott. A rendszer figyelmen kívül hagyja.</value>
@@ -3617,7 +3620,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Közzététel leállítása</value>
   </data>
   <data name="Sharing.StopPublishingMessage" xml:space="preserve">
-    <value>A mappa változatlan marad, és a követő számítógépek megtartják a legutóbb közzétett verziót. Ez a számítógép ismét normál számítógép lesz.</value>
+    <value>A mappa változatlan marad, és a követő számítógépek megtartják a legutóbb közzétett verziót. Ez a számítógép többé nem teszi közzé a konfigurációját.</value>
   </data>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Leállítja a közzétételt?</value>
@@ -3638,7 +3641,7 @@ Licenc az MIT licenc alatt.</value>
     <value>A számítógép közzétételi kulcsait nem sikerült beolvasni. Az aktuális közzétételi jelszóval végzett átvétel új kulcsokkal folytatja a közzétételt; a mappát követő számítógépeknek egyszer el kell fogadniuk ezt a számítógépet új referenciaként.</value>
   </data>
   <data name="Sharing.TakeOverTitle" xml:space="preserve">
-    <value>A mappa átvétele</value>
+    <value>Ennek a mappának az átvétele</value>
   </data>
   <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
     <value>Ez a jelszó nem nyitja meg az aktuális közzétételt.</value>
@@ -3659,7 +3662,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Helytelen jelmondat vagy sérült fájl.</value>
   </data>
   <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
-    <value>Helytelen közzétételi jelszó, vagy a közzétételt módosították.</value>
+    <value>Ez a jelszó nem nyitja meg a közzétételt, vagy a közzétételt módosították.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Művelet leállítása</value>

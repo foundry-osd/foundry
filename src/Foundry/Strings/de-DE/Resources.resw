@@ -2774,7 +2774,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Stellen Sie eine Unternehmensprofilvorlage Wi-Fi bereit</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Foundry OSD speichert die Passphrase auf diesem PC in seinem lokalen verschlüsselten Tresor. Sie verlässt diesen PC nur in einem Export oder einer Veröffentlichung, wenn „Kennwörter einschließen“ gewählt ist.</value>
+    <value>Foundry speichert die Passphrase auf diesem PC in seinem lokalen verschlüsselten Tresor. Sie verlässt diesen PC nur in einem Export oder einer Veröffentlichung, wenn „Kennwörter einschließen“ gewählt ist.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importiert das von Foundry verwaltete Wi-Fi-Profil vor OOBE in Windows, um die Bereitstellungskonnektivität nach WinPE aufrechtzuerhalten.</value>
@@ -3227,7 +3227,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Datei</value>
   </data>
   <data name="Sharing.ContentKindImage" xml:space="preserve">
-    <value>Image</value>
+    <value>Abbild</value>
   </data>
   <data name="Sharing.ContentKindPackage" xml:space="preserve">
     <value>Paket nach der Installation</value>
@@ -3235,7 +3235,7 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Sharing.ContentStalled" xml:space="preserve">
     <value>Die Inhalte sind im Ordner möglicherweise beschädigt. Veröffentlichen Sie erneut vom Referenz-PC.</value>
   </data>
-  <data name="Sharing.CopyPassphrase" xml:space="preserve">
+  <data name="Sharing.CopyButton" xml:space="preserve">
     <value>Kopieren</value>
   </data>
   <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
@@ -3257,7 +3257,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Konfiguration exportiert.</value>
   </data>
   <data name="Sharing.ExportDescription" xml:space="preserve">
-    <value>Speichert die Einstellungen und kleinen Dateien in einer verschlüsselten Datei. Pakete nach der Installation, Treibersätze und Images sind nicht enthalten.</value>
+    <value>Speichern Sie die Einstellungen und kleinen Dateien in einer verschlüsselten Datei. Pakete nach der Installation, Treibersätze und Abbilder sind nicht enthalten.</value>
   </data>
   <data name="Sharing.ExportFailed" xml:space="preserve">
     <value>Die Konfiguration konnte nicht exportiert werden. Überprüfen Sie das Ziel, und versuchen Sie es erneut.</value>
@@ -3293,7 +3293,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Geben Sie den Ordner, in dem der Referenz-PC veröffentlicht, und sein Veröffentlichungskennwort ein, und öffnen Sie ihn dann, um eine Vorschau der Veröffentlichung anzuzeigen.</value>
   </data>
   <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
-    <value>Das Folgen ersetzt die aktuelle Konfiguration und macht die veröffentlichten Einstellungen schreibgeschützt. Der ISO-Ausgabepfad, der WinPE-Treiberordner und die Telemetrieeinstellungen dieses PCs bleiben erhalten.</value>
+    <value>Das Folgen ersetzt die aktuelle Konfiguration und macht die veröffentlichten Einstellungen schreibgeschützt. Der ISO-Ausgabepfad, der zusätzliche WinPE-Treiberordner und die Telemetrieeinstellungen dieses PCs bleiben erhalten.</value>
   </data>
   <data name="Sharing.FollowTitle" xml:space="preserve">
     <value>Einem Ordner folgen</value>
@@ -3307,7 +3307,7 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
     <value>Veröffentlichungskennwort vergessen</value>
   </data>
-  <data name="Sharing.GeneratePassphrase" xml:space="preserve">
+  <data name="Sharing.GenerateButton" xml:space="preserve">
     <value>Generieren</value>
   </data>
   <data name="Sharing.ImportButton" xml:space="preserve">
@@ -3320,7 +3320,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Konfiguration importiert. Auf diesem PC fehlen Inhalte: Importieren Sie sie auf der jeweiligen Seite erneut.</value>
   </data>
   <data name="Sharing.ImportDescription" xml:space="preserve">
-    <value>Ersetzt diese Konfiguration durch eine exportierte Datei oder eine frühere Konfiguration auf diesem PC.</value>
+    <value>Ersetzen Sie diese Konfiguration durch eine exportierte Datei oder ein Profil aus der vorherigen Version.</value>
   </data>
   <data name="Sharing.ImportFailed" xml:space="preserve">
     <value>Die Konfiguration konnte nicht importiert werden. Die aktuelle Konfiguration bleibt unverändert.</value>
@@ -3346,17 +3346,20 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Sharing.InvalidFile" xml:space="preserve">
     <value>Diese Datei ist keine Foundry-Konfiguration oder sie ist beschädigt.</value>
   </data>
-  <data name="Sharing.LastSuccessLabel" xml:space="preserve">
-    <value>Letzter Erfolg</value>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>Letzte erfolgreiche Prüfung</value>
   </data>
-  <data name="Sharing.LockedProfile" xml:space="preserve">
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>Zuletzt veröffentlicht</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
     <value>Diese Konfiguration kann von diesem Windows-Benutzer nicht geöffnet werden.</value>
   </data>
   <data name="Sharing.ManagedBanner" xml:space="preserve">
-    <value>Diese Konfiguration wird von {0} veröffentlicht und ist auf diesem PC schreibgeschützt. Nur der ISO-Ausgabepfad, der WinPE-Treiberordner und die Telemetrieeinstellungen können geändert werden.</value>
+    <value>Diese Konfiguration wird von {0} veröffentlicht und ist auf diesem PC schreibgeschützt. Nur der ISO-Ausgabepfad, der zusätzliche WinPE-Treiberordner und die Telemetrieeinstellungen können geändert werden.</value>
   </data>
   <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
-    <value>Diese Konfiguration wird von {0} veröffentlicht und ist auf diesem PC schreibgeschützt. Die Veröffentlichung enthält keine Kennwörter: Geben Sie sie hier ein. Der ISO-Ausgabepfad, der WinPE-Treiberordner und die Telemetrieeinstellungen können ebenfalls geändert werden.</value>
+    <value>Diese Konfiguration wird von {0} veröffentlicht und ist auf diesem PC schreibgeschützt. Die Veröffentlichung enthält keine Kennwörter: Geben Sie sie hier ein. Der ISO-Ausgabepfad, der zusätzliche WinPE-Treiberordner und die Telemetrieeinstellungen können ebenfalls geändert werden.</value>
   </data>
   <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
     <value>Von einem Referenz-PC verwaltet</value>
@@ -3412,9 +3415,6 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Sharing.PassphraseMismatch" xml:space="preserve">
     <value>Die Passphrasen stimmen nicht überein.</value>
   </data>
-  <data name="Sharing.PassphraseRule" xml:space="preserve">
-    <value>Mindestens 12 Zeichen und nicht dasselbe Zeichen wiederholt (zum Beispiel aaaaaaaaaaaa).</value>
-  </data>
   <data name="Sharing.PasswordChangePending" xml:space="preserve">
     <value>Das neue Kennwort ist gespeichert. Die Änderung wird bei der nächsten erfolgreichen Veröffentlichung abgeschlossen.</value>
   </data>
@@ -3443,7 +3443,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Exportiert am</value>
   </data>
   <data name="Sharing.PreviewDownload" xml:space="preserve">
-    <value>Herunterzuladen</value>
+    <value>Downloadgröße</value>
   </data>
   <data name="Sharing.PreviewName" xml:space="preserve">
     <value>Name</value>
@@ -3484,6 +3484,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Sharing.PublishDialogDescription" xml:space="preserve">
     <value>Wählen Sie einen leeren Ordner oder einen, in dem dieser PC bereits veröffentlicht: eine Netzwerkfreigabe, einen OneDrive- oder SharePoint-Ordner oder einen lokalen Ordner. PCs, die dem Ordner folgen, benötigen das Veröffentlichungskennwort, um ihn zu lesen.</value>
   </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>Jetzt veröffentlichen</value>
+  </data>
   <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
     <value>Ordner wird geprüft…</value>
   </data>
@@ -3503,7 +3506,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>In einem Ordner veröffentlichen</value>
   </data>
   <data name="Sharing.ReplaceWarning" xml:space="preserve">
-    <value>Der Import ersetzt die aktuelle Konfiguration. Der ISO-Ausgabepfad, der WinPE-Treiberordner und die Telemetrieeinstellungen dieses PCs bleiben erhalten.</value>
+    <value>Der Import ersetzt die aktuelle Konfiguration. Der ISO-Ausgabepfad, der zusätzliche WinPE-Treiberordner und die Telemetrieeinstellungen dieses PCs bleiben erhalten.</value>
   </data>
   <data name="Sharing.ResetButton" xml:space="preserve">
     <value>Zurücksetzen</value>
@@ -3517,9 +3520,6 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
     <value>Veröffentlichung zurücksetzen</value>
   </data>
-  <data name="Sharing.RetryButton" xml:space="preserve">
-    <value>Wiederholen</value>
-  </data>
   <data name="Sharing.RevocationPending" xml:space="preserve">
     <value>Frühere Leser können Inhalte bis zur nächsten erfolgreichen Veröffentlichung weiterhin öffnen.</value>
   </data>
@@ -3528,6 +3528,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="Sharing.RoleReference" xml:space="preserve">
     <value>Dieser PC veröffentlicht seine Konfiguration</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>Mindestens 12 Zeichen und nicht dasselbe Zeichen wiederholt (zum Beispiel aaaaaaaaaaaa).</value>
   </data>
   <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
     <value>Einige freigegebene Inhalte der verfolgten Veröffentlichung konnten nicht heruntergeladen werden. Prüfen Sie „Konfigurationsfreigabe“ auf der Seite „Einstellungen“.</value>
@@ -3542,7 +3545,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Die Konfiguration ist angewendet. Freigegebene Inhalte werden heruntergeladen.</value>
   </data>
   <data name="Sharing.StatusContentFailed" xml:space="preserve">
-    <value>Die Konfiguration ist angewendet, aber einige freigegebene Inhalte konnten nicht importiert werden.</value>
+    <value>Die Konfiguration ist angewendet, aber einige freigegebene Inhalte konnten nicht installiert werden.</value>
   </data>
   <data name="Sharing.StatusContentStalled" xml:space="preserve">
     <value>Die Konfiguration ist angewendet, aber einige freigegebene Inhalte sind nach wiederholten Prüfungen noch immer nicht verfügbar.</value>
@@ -3566,7 +3569,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Nicht veröffentlicht: Die Konfiguration ist nicht bereit zum Erstellen von Medien oder verweist auf Inhalte, die auf diesem PC fehlen. Die vorherige Version bleibt aktuell.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
-    <value>Kennwörter werden benötigt: Geben Sie das Veröffentlichungskennwort oder auf den Konfigurationsseiten die Kennwörter ein, die die Veröffentlichung nicht enthält.</value>
+    <value>Kennwörter werden benötigt: Geben Sie das Veröffentlichungskennwort ein, oder geben Sie die fehlenden Kennwörter auf den Konfigurationsseiten ein.</value>
   </data>
   <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
     <value>Das Veröffentlichungskennwort oder die Schlüssel dieses PCs konnten nicht gelesen werden.</value>
@@ -3575,7 +3578,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Veröffentlicht. PCs, die dem Ordner folgen, erhalten diese Version bei ihrer nächsten Prüfung.</value>
   </data>
   <data name="Sharing.StatusPublishing" xml:space="preserve">
-    <value>Die Konfiguration wird veröffentlicht.</value>
+    <value>Die Konfiguration wird veröffentlicht…</value>
   </data>
   <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
     <value>Der Ordner verweist auf eine ältere Version als die angewendete. Sie wird ignoriert.</value>
@@ -3617,7 +3620,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Veröffentlichen beenden</value>
   </data>
   <data name="Sharing.StopPublishingMessage" xml:space="preserve">
-    <value>Der Ordner bleibt unverändert, und PCs, die dem Ordner folgen, behalten die zuletzt veröffentlichte Version. Dieser PC wird wieder ein normaler PC.</value>
+    <value>Der Ordner bleibt unverändert, und PCs, die dem Ordner folgen, behalten die zuletzt veröffentlichte Version. Dieser PC veröffentlicht seine Konfiguration nicht mehr.</value>
   </data>
   <data name="Sharing.StopPublishingTitle" xml:space="preserve">
     <value>Veröffentlichen beenden?</value>
@@ -3638,7 +3641,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Die Veröffentlichungsschlüssel dieses PCs konnten nicht gelesen werden. Die Übernahme mit dem aktuellen Veröffentlichungskennwort setzt die Veröffentlichung mit neuen Schlüsseln fort; PCs, die dem Ordner folgen, müssen diesen PC einmal als neue Referenz akzeptieren.</value>
   </data>
   <data name="Sharing.TakeOverTitle" xml:space="preserve">
-    <value>Ordner übernehmen</value>
+    <value>Diesen Ordner übernehmen</value>
   </data>
   <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
     <value>Dieses Kennwort öffnet die aktuelle Veröffentlichung nicht.</value>
@@ -3659,7 +3662,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Falsche Passphrase oder beschädigte Datei.</value>
   </data>
   <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
-    <value>Falsches Veröffentlichungskennwort, oder die Veröffentlichung wurde verändert.</value>
+    <value>Dieses Kennwort öffnet die Veröffentlichung nicht, oder die Veröffentlichung wurde verändert.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Vorgang beenden</value>

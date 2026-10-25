@@ -71,7 +71,7 @@ Foundry Proxy_PortNumberBox.PlaceholderText cs-CZ da-DK de-DE el-GR et-EE fi-FI 
 Foundry SettingsPage_GeneralCard.Header es-ES es-MX ro-RO
 Foundry SettingsPage_ProxyCard.Header cs-CZ da-DK de-DE el-GR es-ES es-MX et-EE fi-FI fr-CA fr-FR he-IL hr-HR hu-HU it-IT lt-LT lv-LV nb-NO nl-NL pl-PL pt-BR pt-PT ro-RO sk-SK sl-SI sv-SE tr-TR zh-TW
 Foundry Sharing.ContentKindFile it-IT
-Foundry Sharing.ContentKindImage cs-CZ de-DE fr-CA fr-FR
+Foundry Sharing.ContentKindImage cs-CZ fr-CA fr-FR
 Foundry Sharing.FileLabel it-IT
 Foundry Sharing.FolderLabel pl-PL ro-RO
 Foundry Sharing.PassphraseLabel de-DE it-IT
