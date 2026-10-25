@@ -3218,7 +3218,7 @@ Licenseret under MIT-licensen.</value>
     <value>Downloader</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
-    <value>{0} delte elementer kunne ikke importeres på denne pc. De hentes igen, når reference-pc'en publicerer en ny version.</value>
+    <value>Elementer, der ikke kunne installeres: {0}. De hentes igen, når reference-pc'en publicerer en ny version.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Driversæt</value>
@@ -3233,7 +3233,7 @@ Licenseret under MIT-licensen.</value>
     <value>Pakke efter installation</value>
   </data>
   <data name="Sharing.ContentStalled" xml:space="preserve">
-    <value>Noget delt indhold er stadig ikke tilgængeligt efter gentagne kontroller. Det kan være beskadiget i mappen: Publicer igen fra reference-pc'en.</value>
+    <value>Indholdet kan være beskadiget i mappen. Publicer igen fra reference-pc'en.</value>
   </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Kopiér</value>
@@ -3394,6 +3394,12 @@ Licenseret under MIT-licensen.</value>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Åbn</value>
   </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Åbn filen</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Åbn den valgte profil</value>
+  </data>
   <data name="Sharing.OperationFailed" xml:space="preserve">
     <value>Handlingen kunne ikke fuldføres. Se loggen for at få flere oplysninger.</value>
   </data>
@@ -3428,7 +3434,7 @@ Licenseret under MIT-licensen.</value>
     <value>Medtaget</value>
   </data>
   <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
-    <value>Publiceringsnøglerne på denne pc kunne ikke læses, for eksempel efter en nulstilling af Windows-adgangskoden. Overtag mappen med den aktuelle publiceringsadgangskode for at fortsætte med at publicere. Pc'er, der følger mappen, godkender derefter denne pc som ny reference én gang.</value>
+    <value>Det kan ske efter en nulstilling af Windows-adgangskoden. Overtag mappen med den aktuelle publiceringsadgangskode for at fortsætte med at publicere. Pc'er, der følger mappen, godkender derefter denne pc som ny reference én gang.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Ikke medtaget</value>

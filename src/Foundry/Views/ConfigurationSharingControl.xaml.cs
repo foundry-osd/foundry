@@ -71,25 +71,7 @@ public sealed partial class ConfigurationSharingControl : UserControl
     /// <summary>Asks to confirm "Stop following"; null when cancelled, otherwise whether the publication password is forgotten.</summary>
     private async Task<bool?> ConfirmStopFollowingAsync()
     {
-        var forget = new CheckBox { Content = ViewModel.Text("ForgetPublicationPassword") };
-        var dialog = new ContentDialog
-        {
-            XamlRoot = XamlRoot,
-            Title = ViewModel.Text("StopFollowingTitle"),
-            Content = new StackPanel
-            {
-                Spacing = 12,
-                Children =
-                {
-                    new TextBlock { Text = ViewModel.Text("StopFollowingMessage"), TextWrapping = TextWrapping.Wrap },
-                    forget
-                }
-            },
-            PrimaryButtonText = ViewModel.Text("StopFollowingButton"),
-            CloseButtonText = localization.GetString("Common.Cancel"),
-            DefaultButton = ContentDialogButton.Close,
-            Style = (Style)Application.Current.Resources["DefaultContentDialogStyle"]
-        };
-        return await dialog.ShowAsync() == ContentDialogResult.Primary ? forget.IsChecked == true : null;
+        var dialog = new StopFollowingDialog(ViewModel, localization.GetString("Common.Cancel")) { XamlRoot = XamlRoot };
+        return await dialog.ShowAsync() == ContentDialogResult.Primary ? dialog.ForgetPassword : null;
     }
 }

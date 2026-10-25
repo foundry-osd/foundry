@@ -6,24 +6,24 @@ using Windows.ApplicationModel.DataTransfer;
 
 namespace Foundry.Views;
 
-/// <summary>New publication password, confirmation, generate and copy; the view owns the clipboard.</summary>
-public sealed partial class PublicationPasswordFieldsView : UserControl
+/// <summary>Shows <see cref="NewSecretFields"/>: the secret, its confirmation, generate and copy; the view owns the clipboard.</summary>
+public sealed partial class NewSecretFieldsView : UserControl
 {
     public static readonly DependencyProperty FieldsProperty = DependencyProperty.Register(
-        nameof(Fields), typeof(PublicationPasswordFields), typeof(PublicationPasswordFieldsView), new PropertyMetadata(null, OnFieldsChanged));
+        nameof(Fields), typeof(NewSecretFields), typeof(NewSecretFieldsView), new PropertyMetadata(null, OnFieldsChanged));
 
     public static readonly DependencyProperty IsEditableProperty = DependencyProperty.Register(
-        nameof(IsEditable), typeof(bool), typeof(PublicationPasswordFieldsView), new PropertyMetadata(true));
+        nameof(IsEditable), typeof(bool), typeof(NewSecretFieldsView), new PropertyMetadata(true));
 
-    public PublicationPasswordFieldsView()
+    public NewSecretFieldsView()
     {
         InitializeComponent();
     }
 
     /// <summary>Gets or sets the password fields shown.</summary>
-    public PublicationPasswordFields Fields
+    public NewSecretFields Fields
     {
-        get => (PublicationPasswordFields)GetValue(FieldsProperty);
+        get => (NewSecretFields)GetValue(FieldsProperty);
         set => SetValue(FieldsProperty, value);
     }
 
@@ -39,7 +39,7 @@ public sealed partial class PublicationPasswordFieldsView : UserControl
     private bool CanCopy(bool isEditable, bool canCopy) => isEditable && canCopy;
 
     private static void OnFieldsChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e) =>
-        ((PublicationPasswordFieldsView)sender).Bindings.Update();
+        ((NewSecretFieldsView)sender).Bindings.Update();
 
     private void OnCopyClick(object sender, RoutedEventArgs e)
     {

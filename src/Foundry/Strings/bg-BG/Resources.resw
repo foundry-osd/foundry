@@ -3218,7 +3218,7 @@
     <value>Изтегляне</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
-    <value>Брой споделени елементи, които не можаха да бъдат импортирани на този компютър: {0}. Те се извличат отново, когато референтният компютър публикува нова версия.</value>
+    <value>Брой елементи, които не можаха да бъдат инсталирани: {0}. Те се извличат отново, когато референтният компютър публикува нова версия.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Набор драйвери</value>
@@ -3233,7 +3233,7 @@
     <value>Пакет след инсталиране</value>
   </data>
   <data name="Sharing.ContentStalled" xml:space="preserve">
-    <value>Част от споделеното съдържание все още не е налична след многократни проверки. Възможно е да е повредена в папката: публикувайте отново от референтния компютър.</value>
+    <value>Съдържанието може да е повредено в папката. Публикувайте отново от референтния компютър.</value>
   </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Копиране</value>
@@ -3394,6 +3394,12 @@
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Отваряне</value>
   </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Отваряне на файла</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Отваряне на избрания профил</value>
+  </data>
   <data name="Sharing.OperationFailed" xml:space="preserve">
     <value>Операцията не можа да бъде завършена. Вижте журнала за подробности.</value>
   </data>
@@ -3428,7 +3434,7 @@
     <value>Включени</value>
   </data>
   <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
-    <value>Ключовете за публикуване на този компютър не можаха да бъдат прочетени, например след нулиране на паролата за Windows. Поемете папката с текущата парола за публикуване, за да продължите да публикувате; след това компютрите, които проследяват папката, приемат веднъж този компютър като нов референтен компютър.</value>
+    <value>Това може да се случи след нулиране на паролата за Windows. Поемете папката с текущата парола за публикуване, за да продължите да публикувате; след това компютрите, които проследяват папката, приемат веднъж този компютър като нов референтен компютър.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Не са включени</value>

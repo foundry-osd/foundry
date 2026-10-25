@@ -3218,7 +3218,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Notiek lejupielāde</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
-    <value>Koplietoto vienumu skaits, kurus nevarēja importēt šajā datorā: {0}. Tie tiek iegūti vēlreiz, kad atsauces dators publicē jaunu versiju.</value>
+    <value>Vienumu skaits, kurus neizdevās instalēt: {0}. Tie tiek iegūti vēlreiz, kad atsauces dators publicē jaunu versiju.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Draiveru kopa</value>
@@ -3233,7 +3233,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Pēcinstalēšanas pakotne</value>
   </data>
   <data name="Sharing.ContentStalled" xml:space="preserve">
-    <value>Daļa koplietotā satura joprojām nav pieejama pēc atkārtotām pārbaudēm. Tas mapē var būt bojāts: publicējiet vēlreiz no atsauces datora.</value>
+    <value>Saturs mapē var būt bojāts. Publicējiet vēlreiz no atsauces datora.</value>
   </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Kopēt</value>
@@ -3394,6 +3394,12 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Atvērt</value>
   </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Atvērt failu</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Atvērt atlasīto profilu</value>
+  </data>
   <data name="Sharing.OperationFailed" xml:space="preserve">
     <value>Darbību nevarēja pabeigt. Detalizētu informāciju skatiet žurnālā.</value>
   </data>
@@ -3428,7 +3434,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Iekļautas</value>
   </data>
   <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
-    <value>Šī datora publikācijas atslēgas nevarēja nolasīt, piemēram, pēc Windows paroles atiestatīšanas. Lai turpinātu publicēt, pārņemiet mapi ar pašreizējo publikācijas paroli; pēc tam mapei sekojošie datori vienreiz pieņem šo datoru kā jauno atsauces datoru.</value>
+    <value>Tā var notikt pēc Windows paroles atiestatīšanas. Lai turpinātu publicēt, pārņemiet mapi ar pašreizējo publikācijas paroli; pēc tam mapei sekojošie datori vienreiz pieņem šo datoru kā jauno atsauces datoru.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Nav iekļautas</value>

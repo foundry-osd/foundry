@@ -40,7 +40,7 @@
                 IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
                 Style="{ThemeResource DefaultButtonStyle}" />
         </Grid>
-        <views:PublicationPasswordFieldsView
+        <views:NewSecretFieldsView
             Fields="{x:Bind ViewModel.Fields}"
             IsEditable="{x:Bind ViewModel.CanEdit, Mode=OneWay}" />
         <StackPanel Spacing="{ThemeResource FoundryTextGroupSpacing}">
@@ -50,6 +50,7 @@
                 IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}" />
             <TextBlock
                 AutomationProperties.LiveSetting="Polite"
+                Foreground="{ThemeResource SystemFillColorCautionBrush}"
                 Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                 Text="{x:Bind ViewModel.IncludePasswordsWarning, Mode=OneWay}"
                 TextWrapping="WrapWholeWords"

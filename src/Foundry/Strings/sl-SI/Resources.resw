@@ -3218,7 +3218,7 @@ Licencirano pod licenco MIT.</value>
     <value>Prenašanje</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
-    <value>Število skupnih elementov, ki jih ni bilo mogoče uvoziti v ta računalnik: {0}. Znova se pridobijo, ko referenčni računalnik objavi novo različico.</value>
+    <value>Število elementov, ki jih ni bilo mogoče namestiti: {0}. Znova se pridobijo, ko referenčni računalnik objavi novo različico.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Nabor gonilnikov</value>
@@ -3233,7 +3233,7 @@ Licencirano pod licenco MIT.</value>
     <value>Paket po namestitvi</value>
   </data>
   <data name="Sharing.ContentStalled" xml:space="preserve">
-    <value>Del skupne vsebine po večkratnih preverjanjih še vedno ni na voljo. V mapi je morda poškodovan: znova objavite iz referenčnega računalnika.</value>
+    <value>Vsebina je v mapi morda poškodovana. Znova objavite iz referenčnega računalnika.</value>
   </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Kopiraj</value>
@@ -3394,6 +3394,12 @@ Licencirano pod licenco MIT.</value>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Odpri</value>
   </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Odpri datoteko</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Odpri izbrani profil</value>
+  </data>
   <data name="Sharing.OperationFailed" xml:space="preserve">
     <value>Operacije ni bilo mogoče dokončati. Podrobnosti najdete v dnevniku.</value>
   </data>
@@ -3428,7 +3434,7 @@ Licencirano pod licenco MIT.</value>
     <value>Vključena</value>
   </data>
   <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
-    <value>Ključev objave tega računalnika ni bilo mogoče prebrati, na primer po ponastavitvi gesla za Windows. Če želite še naprej objavljati, prevzemite mapo s trenutnim geslom objave; računalniki, ki spremljajo mapo, nato enkrat sprejmejo ta računalnik kot novo referenco.</value>
+    <value>To se lahko zgodi po ponastavitvi gesla za Windows. Če želite še naprej objavljati, prevzemite mapo s trenutnim geslom objave; računalniki, ki spremljajo mapo, nato enkrat sprejmejo ta računalnik kot novo referenco.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Niso vključena</value>

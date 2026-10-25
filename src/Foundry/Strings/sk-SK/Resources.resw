@@ -3218,7 +3218,7 @@ Licencované podľa licencie MIT.</value>
     <value>Sťahuje sa</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
-    <value>Počet zdieľaných položiek, ktoré sa nepodarilo importovať do tohto počítača: {0}. Načítajú sa znova, keď referenčný počítač publikuje novú verziu.</value>
+    <value>Počet položiek, ktoré sa nepodarilo nainštalovať: {0}. Načítajú sa znova, keď referenčný počítač publikuje novú verziu.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Sada ovládačov</value>
@@ -3233,7 +3233,7 @@ Licencované podľa licencie MIT.</value>
     <value>Balík po inštalácii</value>
   </data>
   <data name="Sharing.ContentStalled" xml:space="preserve">
-    <value>Časť zdieľaného obsahu nie je dostupná ani po opakovaných kontrolách. V priečinku môže byť poškodená: publikujte znova z referenčného počítača.</value>
+    <value>Obsah môže byť v priečinku poškodený. Publikujte znova z referenčného počítača.</value>
   </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Kopírovať</value>
@@ -3394,6 +3394,12 @@ Licencované podľa licencie MIT.</value>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Otvoriť</value>
   </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Otvoriť súbor</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Otvoriť vybratý profil</value>
+  </data>
   <data name="Sharing.OperationFailed" xml:space="preserve">
     <value>Operáciu sa nepodarilo dokončiť. Podrobnosti nájdete v denníku.</value>
   </data>
@@ -3428,7 +3434,7 @@ Licencované podľa licencie MIT.</value>
     <value>Zahrnuté</value>
   </data>
   <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
-    <value>Kľúče publikácie tohto počítača sa nepodarilo prečítať, napríklad po resetovaní hesla systému Windows. Ak chcete ďalej publikovať, prevezmite priečinok pomocou aktuálneho hesla publikácie; počítače, ktoré priečinok sledujú, potom raz prijmú tento počítač ako novú referenciu.</value>
+    <value>Môže sa to stať po resetovaní hesla systému Windows. Ak chcete ďalej publikovať, prevezmite priečinok pomocou aktuálneho hesla publikácie; počítače, ktoré priečinok sledujú, potom raz prijmú tento počítač ako novú referenciu.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Nezahrnuté</value>

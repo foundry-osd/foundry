@@ -3218,7 +3218,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Bezig met downloaden</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
-    <value>{0} gedeelde items konden niet op deze pc worden geïmporteerd. Ze worden opnieuw opgehaald wanneer de referentie-pc een nieuwe versie publiceert.</value>
+    <value>Items die niet konden worden geïnstalleerd: {0}. Ze worden opnieuw opgehaald wanneer de referentie-pc een nieuwe versie publiceert.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Stuurprogrammaset</value>
@@ -3233,7 +3233,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Pakket na installatie</value>
   </data>
   <data name="Sharing.ContentStalled" xml:space="preserve">
-    <value>Sommige gedeelde inhoud is na herhaalde controles nog steeds niet beschikbaar. Deze is mogelijk beschadigd in de map: publiceer opnieuw vanaf de referentie-pc.</value>
+    <value>De inhoud is mogelijk beschadigd in de map. Publiceer opnieuw vanaf de referentie-pc.</value>
   </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Kopiëren</value>
@@ -3394,6 +3394,12 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Openen</value>
   </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Het bestand openen</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Het geselecteerde profiel openen</value>
+  </data>
   <data name="Sharing.OperationFailed" xml:space="preserve">
     <value>De bewerking kan niet worden voltooid. Raadpleeg het logboek voor meer informatie.</value>
   </data>
@@ -3428,7 +3434,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Opgenomen</value>
   </data>
   <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
-    <value>De publicatiesleutels van deze pc konden niet worden gelezen, bijvoorbeeld na het opnieuw instellen van het Windows-wachtwoord. Neem de map over met het huidige publicatiewachtwoord om te blijven publiceren; pc's die de map volgen accepteren deze pc dan eenmaal als nieuwe referentie.</value>
+    <value>Dit kan gebeuren na het opnieuw instellen van het Windows-wachtwoord. Neem de map over met het huidige publicatiewachtwoord om te blijven publiceren; pc's die de map volgen accepteren deze pc dan eenmaal als nieuwe referentie.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Niet opgenomen</value>

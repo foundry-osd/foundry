@@ -3218,7 +3218,7 @@
     <value>מוריד</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
-    <value>מספר הפריטים המשותפים שלא ניתן היה לייבא למחשב זה: {0}. הם יאוחזרו שוב כאשר מחשב ההפניה יפרסם גרסה חדשה.</value>
+    <value>מספר הפריטים שלא ניתן היה להתקין: {0}. הם יאוחזרו שוב כאשר מחשב ההפניה יפרסם גרסה חדשה.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>ערכת מנהלי התקנים</value>
@@ -3233,7 +3233,7 @@
     <value>חבילה לאחר התקנה</value>
   </data>
   <data name="Sharing.ContentStalled" xml:space="preserve">
-    <value>חלק מהתוכן המשותף עדיין אינו זמין לאחר בדיקות חוזרות. ייתכן שהוא פגום בתיקייה: פרסם שוב ממחשב ההפניה.</value>
+    <value>ייתכן שהתוכן פגום בתיקייה. פרסם שוב ממחשב ההפניה.</value>
   </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>העתק</value>
@@ -3394,6 +3394,12 @@
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>פתח</value>
   </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>פתח את הקובץ</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>פתח את הפרופיל שנבחר</value>
+  </data>
   <data name="Sharing.OperationFailed" xml:space="preserve">
     <value>לא ניתן היה להשלים את הפעולה. לפרטים, עיין ביומן.</value>
   </data>
@@ -3428,7 +3434,7 @@
     <value>כלולות</value>
   </data>
   <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
-    <value>לא ניתן היה לקרוא את מפתחות הפרסום של מחשב זה, לדוגמה לאחר איפוס סיסמת Windows. השתלט על התיקייה באמצעות סיסמת הפרסום הנוכחית כדי להמשיך לפרסם; לאחר מכן המחשבים העוקבים אחר התיקייה יקבלו פעם אחת את מחשב זה כמחשב ההפניה החדש.</value>
+    <value>זה יכול לקרות לאחר איפוס סיסמת Windows. השתלט על התיקייה באמצעות סיסמת הפרסום הנוכחית כדי להמשיך לפרסם; לאחר מכן המחשבים העוקבים אחר התיקייה יקבלו פעם אחת את מחשב זה כמחשב ההפניה החדש.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>לא כלולות</value>

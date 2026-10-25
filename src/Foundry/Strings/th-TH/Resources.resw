@@ -3218,7 +3218,7 @@
     <value>กำลังดาวน์โหลด</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
-    <value>จำนวนรายการที่แชร์ซึ่งไม่สามารถนำเข้าบนพีซีเครื่องนี้ได้: {0} ระบบจะดึงข้อมูลเหล่านี้อีกครั้งเมื่อพีซีอ้างอิงเผยแพร่เวอร์ชันใหม่</value>
+    <value>จำนวนรายการที่ไม่สามารถติดตั้งได้: {0} ระบบจะดึงข้อมูลเหล่านี้อีกครั้งเมื่อพีซีอ้างอิงเผยแพร่เวอร์ชันใหม่</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>ชุดไดรเวอร์</value>
@@ -3233,7 +3233,7 @@
     <value>แพ็คเกจหลังการติดตั้ง</value>
   </data>
   <data name="Sharing.ContentStalled" xml:space="preserve">
-    <value>เนื้อหาที่แชร์บางส่วนยังไม่พร้อมใช้งานหลังจากตรวจสอบหลายครั้ง เนื้อหาอาจเสียหายในโฟลเดอร์ โปรดเผยแพร่อีกครั้งจากพีซีอ้างอิง</value>
+    <value>เนื้อหาอาจเสียหายในโฟลเดอร์ โปรดเผยแพร่อีกครั้งจากพีซีอ้างอิง</value>
   </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>คัดลอก</value>
@@ -3394,6 +3394,12 @@
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>เปิด</value>
   </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>เปิดไฟล์</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>เปิดโปรไฟล์ที่เลือก</value>
+  </data>
   <data name="Sharing.OperationFailed" xml:space="preserve">
     <value>ไม่สามารถดำเนินการให้เสร็จสมบูรณ์ได้ ดูรายละเอียดในบันทึก</value>
   </data>
@@ -3428,7 +3434,7 @@
     <value>รวมอยู่</value>
   </data>
   <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
-    <value>ไม่สามารถอ่านคีย์การเผยแพร่ของพีซีเครื่องนี้ได้ เช่น หลังจากรีเซ็ตรหัสผ่าน Windows เข้าควบคุมโฟลเดอร์ด้วยรหัสผ่านการเผยแพร่ปัจจุบันเพื่อเผยแพร่ต่อไป จากนั้นพีซีที่ติดตามโฟลเดอร์จะยอมรับพีซีเครื่องนี้เป็นพีซีอ้างอิงใหม่หนึ่งครั้ง</value>
+    <value>กรณีนี้อาจเกิดขึ้นหลังจากรีเซ็ตรหัสผ่าน Windows เข้าควบคุมโฟลเดอร์ด้วยรหัสผ่านการเผยแพร่ปัจจุบันเพื่อเผยแพร่ต่อไป จากนั้นพีซีที่ติดตามโฟลเดอร์จะยอมรับพีซีเครื่องนี้เป็นพีซีอ้างอิงใหม่หนึ่งครั้ง</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>ไม่ได้รวม</value>

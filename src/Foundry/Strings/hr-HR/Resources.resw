@@ -3218,7 +3218,7 @@ Licenciran prema MIT licenci.</value>
     <value>Preuzimanje</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
-    <value>Broj zajedničkih stavki koje nije bilo moguće uvesti na ovo računalo: {0}. Ponovno se dohvaćaju kada referentno računalo objavi novu verziju.</value>
+    <value>Broj stavki koje nije bilo moguće instalirati: {0}. Ponovno se dohvaćaju kada referentno računalo objavi novu verziju.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Skup upravljačkih programa</value>
@@ -3233,7 +3233,7 @@ Licenciran prema MIT licenci.</value>
     <value>Paket nakon instalacije</value>
   </data>
   <data name="Sharing.ContentStalled" xml:space="preserve">
-    <value>Dio zajedničkog sadržaja i dalje nije dostupan nakon ponovljenih provjera. Možda je oštećen u mapi: ponovno objavite s referentnog računala.</value>
+    <value>Sadržaj je možda oštećen u mapi. Ponovno objavite s referentnog računala.</value>
   </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Kopiraj</value>
@@ -3394,6 +3394,12 @@ Licenciran prema MIT licenci.</value>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Otvori</value>
   </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Otvori datoteku</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Otvori odabrani profil</value>
+  </data>
   <data name="Sharing.OperationFailed" xml:space="preserve">
     <value>Operaciju nije moguće dovršiti. Pojedinosti potražite u zapisniku.</value>
   </data>
@@ -3428,7 +3434,7 @@ Licenciran prema MIT licenci.</value>
     <value>Uključene</value>
   </data>
   <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
-    <value>Ključeve objave ovog računala nije bilo moguće pročitati, na primjer nakon ponovnog postavljanja lozinke za Windows. Preuzmite mapu s trenutačnom lozinkom objave kako biste nastavili objavljivati; računala koja prate mapu zatim jednom prihvaćaju ovo računalo kao novu referencu.</value>
+    <value>To se može dogoditi nakon ponovnog postavljanja lozinke za Windows. Preuzmite mapu s trenutačnom lozinkom objave kako biste nastavili objavljivati; računala koja prate mapu zatim jednom prihvaćaju ovo računalo kao novu referencu.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Nisu uključene</value>

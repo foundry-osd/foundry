@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog x:Class="Foundry.Views.StopFollowingDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="{x:Bind ViewModel.Text('StopFollowingTitle')}"
+    CloseButtonText="{x:Bind CancelLabel}"
+    CornerRadius="{ThemeResource OverlayCornerRadius}"
+    DefaultButton="Close"
+    PrimaryButtonText="{x:Bind ViewModel.Text('StopFollowingButton')}"
+    Style="{ThemeResource DefaultContentDialogStyle}">
+    <StackPanel
+        Width="{StaticResource FoundryDialogContentWidth}"
+        Padding="0,4,0,8"
+        Spacing="{ThemeResource FoundryContentGroupSpacing}">
+        <TextBlock
+            Text="{x:Bind ViewModel.Text('StopFollowingMessage')}"
+            TextWrapping="Wrap" />
+        <CheckBox x:Name="ForgetPasswordCheckBox"
+            Content="{x:Bind ViewModel.Text('ForgetPublicationPassword')}" />
+    </StackPanel>
+</ContentDialog>

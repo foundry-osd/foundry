@@ -4,14 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="{x:Bind ViewModel.Title, Mode=OneWay}"
     CloseButtonClick="OnCloseButtonClick"
-    CloseButtonStyle="{ThemeResource DefaultButtonStyle}"
     CloseButtonText="{x:Bind ViewModel.CancelLabel, Mode=OneWay}"
     Closing="OnClosing"
     CornerRadius="{ThemeResource OverlayCornerRadius}"
     DefaultButton="Close"
     IsPrimaryButtonEnabled="{x:Bind ViewModel.CanTakeOver, Mode=OneWay}"
     PrimaryButtonClick="OnPrimaryButtonClick"
-    PrimaryButtonStyle="{ThemeResource AccentButtonStyle}"
     PrimaryButtonText="{x:Bind ViewModel.TakeOverLabel, Mode=OneWay}"
     Style="{ThemeResource DefaultContentDialogStyle}">
     <StackPanel
@@ -62,8 +60,8 @@
                 Grid.Row="2"
                 Grid.Column="1"
                 FlowDirection="LeftToRight"
-                FontFamily="Consolas"
                 IsTextSelectionEnabled="True"
+                Style="{ThemeResource FoundryMonospaceBodyTextBlockStyle}"
                 Text="{x:Bind ViewModel.ForeignKey}"
                 TextWrapping="Wrap"
                 Visibility="{x:Bind ViewModel.HasForeign}" />
@@ -86,6 +84,7 @@
                 IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}" />
             <TextBlock
                 AutomationProperties.LiveSetting="Polite"
+                Foreground="{ThemeResource SystemFillColorCautionBrush}"
                 Style="{ThemeResource FoundryCaptionTextBlockStyle}"
                 Text="{x:Bind ViewModel.IncludePasswordsWarning, Mode=OneWay}"
                 TextWrapping="WrapWholeWords"

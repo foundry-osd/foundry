@@ -3218,7 +3218,7 @@
     <value>Завантаження</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
-    <value>Не вдалося імпортувати на цей комп’ютер спільних елементів: {0}. Їх буде отримано повторно, коли еталонний комп’ютер опублікує нову версію.</value>
+    <value>Не вдалося інсталювати елементів: {0}. Їх буде отримано повторно, коли еталонний комп’ютер опублікує нову версію.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Набір драйверів</value>
@@ -3233,7 +3233,7 @@
     <value>Пакет після інсталяції</value>
   </data>
   <data name="Sharing.ContentStalled" xml:space="preserve">
-    <value>Частина спільного вмісту досі недоступна після кількох перевірок. Можливо, її пошкоджено в папці: опублікуйте повторно з еталонного комп’ютера.</value>
+    <value>Можливо, вміст пошкоджено в папці. Опублікуйте повторно з еталонного комп’ютера.</value>
   </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Копіювати</value>
@@ -3394,6 +3394,12 @@
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Відкрити</value>
   </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Відкрити файл</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Відкрити вибраний профіль</value>
+  </data>
   <data name="Sharing.OperationFailed" xml:space="preserve">
     <value>Не вдалося виконати операцію. Докладні відомості див. у журналі.</value>
   </data>
@@ -3428,7 +3434,7 @@
     <value>Включено</value>
   </data>
   <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
-    <value>Не вдалося прочитати ключі публікації цього комп’ютера, наприклад після скидання пароля Windows. Щоб і далі публікувати, перехопіть папку з поточним паролем публікації; після цього комп’ютери, що відстежують папку, один раз приймуть цей комп’ютер як новий еталон.</value>
+    <value>Це може статися після скидання пароля Windows. Щоб і далі публікувати, перехопіть папку з поточним паролем публікації; після цього комп’ютери, що відстежують папку, один раз приймуть цей комп’ютер як новий еталон.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Не включено</value>

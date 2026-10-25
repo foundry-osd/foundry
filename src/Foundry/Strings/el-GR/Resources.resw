@@ -3218,7 +3218,7 @@
     <value>Λήψη</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
-    <value>Αριθμός κοινόχρηστων στοιχείων που δεν ήταν δυνατό να εισαχθούν σε αυτόν τον υπολογιστή: {0}. Θα ανακτηθούν ξανά όταν ο υπολογιστής αναφοράς δημοσιεύσει νέα έκδοση.</value>
+    <value>Αριθμός στοιχείων που δεν ήταν δυνατό να εγκατασταθούν: {0}. Θα ανακτηθούν ξανά όταν ο υπολογιστής αναφοράς δημοσιεύσει νέα έκδοση.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Σύνολο προγραμμάτων οδήγησης</value>
@@ -3233,7 +3233,7 @@
     <value>Πακέτο μετά την εγκατάσταση</value>
   </data>
   <data name="Sharing.ContentStalled" xml:space="preserve">
-    <value>Μέρος του κοινόχρηστου περιεχομένου εξακολουθεί να μην είναι διαθέσιμο μετά από επανειλημμένους ελέγχους. Μπορεί να έχει καταστραφεί στον φάκελο: δημοσιεύστε ξανά από τον υπολογιστή αναφοράς.</value>
+    <value>Το περιεχόμενο μπορεί να έχει καταστραφεί στον φάκελο. Δημοσιεύστε ξανά από τον υπολογιστή αναφοράς.</value>
   </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Αντιγραφή</value>
@@ -3394,6 +3394,12 @@
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Άνοιγμα</value>
   </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Άνοιγμα του αρχείου</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Άνοιγμα του επιλεγμένου προφίλ</value>
+  </data>
   <data name="Sharing.OperationFailed" xml:space="preserve">
     <value>Δεν ήταν δυνατή η ολοκλήρωση της λειτουργίας. Ανατρέξτε στο αρχείο καταγραφής για λεπτομέρειες.</value>
   </data>
@@ -3428,7 +3434,7 @@
     <value>Περιλαμβάνονται</value>
   </data>
   <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
-    <value>Δεν ήταν δυνατή η ανάγνωση των κλειδιών δημοσίευσης αυτού του υπολογιστή, για παράδειγμα μετά από επαναφορά του κωδικού πρόσβασης των Windows. Αναλάβετε τον φάκελο με τον τρέχοντα κωδικό πρόσβασης δημοσίευσης για να συνεχίσετε τη δημοσίευση· οι υπολογιστές που παρακολουθούν τον φάκελο θα αποδεχτούν τότε μία φορά αυτόν τον υπολογιστή ως νέα αναφορά.</value>
+    <value>Αυτό μπορεί να συμβεί μετά από επαναφορά του κωδικού πρόσβασης των Windows. Αναλάβετε τον φάκελο με τον τρέχοντα κωδικό πρόσβασης δημοσίευσης για να συνεχίσετε τη δημοσίευση· οι υπολογιστές που παρακολουθούν τον φάκελο θα αποδεχτούν τότε μία φορά αυτόν τον υπολογιστή ως νέα αναφορά.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Δεν περιλαμβάνονται</value>

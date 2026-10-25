@@ -7,11 +7,21 @@ using Foundry.Services.Localization;
 
 namespace Foundry.ViewModels;
 
+/// <summary>Resource keys, under <c>Sharing.</c>, of the texts that name the secret entered in <see cref="NewSecretFields"/>.</summary>
+public sealed record NewSecretTexts(string LabelKey, string ConfirmationLabelKey, string MismatchKey, string CopiedKey)
+{
+    /// <summary>Gets the texts of the export passphrase.</summary>
+    public static NewSecretTexts ExportPassphrase { get; } = new("PassphraseLabel", "ConfirmPassphraseLabel", "PassphraseMismatch", "PassphraseCopied");
+
+    /// <summary>Returns the texts of a publication password whose field is labelled by <paramref name="labelKey"/>.</summary>
+    public static NewSecretTexts PublicationPassword(string labelKey) => new(labelKey, "ConfirmPublicationPasswordLabel", "PasswordMismatch", "PasswordCopied");
+}
+
 /// <summary>
-/// A new publication password with its confirmation, the <see cref="PassphrasePolicy"/> rule, generation and copy, shared by the
-/// publish and change password dialogs. The owner clears it when its dialog closes.
+/// A new secret with its confirmation, the <see cref="PassphrasePolicy"/> rule, generation and copy: the export passphrase or a
+/// new publication password. The owner clears it when its dialog closes.
 /// </summary>
-public sealed partial class PublicationPasswordFields(IApplicationLocalizationService localization, string passwordLabelKey) : ObservableObject
+public sealed partial class NewSecretFields(IApplicationLocalizationService localization, NewSecretTexts texts) : ObservableObject
 {
     private bool isGenerating;
 
@@ -29,29 +39,29 @@ public sealed partial class PublicationPasswordFields(IApplicationLocalizationSe
     [ObservableProperty]
     public partial bool IsCopied { get; set; }
 
-    /// <summary>Gets whether the password satisfies the policy and its confirmation matches.</summary>
+    /// <summary>Gets whether the secret satisfies the policy and its confirmation matches.</summary>
     public bool IsComplete => IsValid && string.Equals(Password, Confirmation, StringComparison.Ordinal);
 
-    /// <summary>Gets whether the password can be copied: it satisfies the policy.</summary>
+    /// <summary>Gets whether the secret can be copied: it satisfies the policy.</summary>
     public bool CanCopy => IsValid;
 
-    /// <summary>Gets the rule the password still breaks, or the mismatch once a confirmation is typed; empty while typing starts.</summary>
+    /// <summary>Gets the rule the secret still breaks, or the mismatch once a confirmation is typed; empty while typing starts.</summary>
     public string ValidationMessage =>
         Password.Length > 0 && !IsValid ? Text("PassphraseRule")
-        : Confirmation.Length > 0 && !string.Equals(Password, Confirmation, StringComparison.Ordinal) ? Text("PasswordMismatch")
+        : Confirmation.Length > 0 && !string.Equals(Password, Confirmation, StringComparison.Ordinal) ? Text(texts.MismatchKey)
         : string.Empty;
 
     public bool HasValidationMessage => ValidationMessage.Length > 0;
-    public string PasswordLabel => Text(passwordLabelKey);
-    public string ConfirmationLabel => Text("ConfirmPublicationPasswordLabel");
+    public string PasswordLabel => Text(texts.LabelKey);
+    public string ConfirmationLabel => Text(texts.ConfirmationLabelKey);
     public string RuleText => Text("PassphraseRule");
     public string GenerateLabel => Text("GeneratePassphrase");
     public string CopyLabel => Text("CopyPassphrase");
-    public string CopiedText => Text("PasswordCopied");
+    public string CopiedText => Text(texts.CopiedKey);
 
     private bool IsValid => PassphrasePolicy.Validate(Password) == PassphraseValidation.Valid;
 
-    /// <summary>Fills both fields with a generated password and shows it so it can be noted or copied.</summary>
+    /// <summary>Fills both fields with a generated secret and shows it so it can be noted or copied.</summary>
     [RelayCommand]
     private void Generate()
     {
@@ -71,13 +81,13 @@ public sealed partial class PublicationPasswordFields(IApplicationLocalizationSe
 
     partial void OnConfirmationChanged(string value) => HideTypedPassword();
 
-    // A generated password is shown once; typing hides the fields again behind the reveal button.
+    // A generated secret is shown once; typing hides the fields again behind the reveal button.
     private void HideTypedPassword()
     {
         if (!isGenerating) IsRevealed = false;
     }
 
-    /// <summary>Records that the password was copied; the view owns the clipboard.</summary>
+    /// <summary>Records that the secret was copied; the view owns the clipboard.</summary>
     public void MarkCopied() => IsCopied = true;
 
     /// <summary>Clears both fields.</summary>

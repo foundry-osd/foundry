@@ -25,14 +25,14 @@ public sealed partial class PublishDialogViewModel : ObservableObject, IDisposab
         this.sharing = sharing;
         this.picker = picker;
         this.localization = localization;
-        Fields = new PublicationPasswordFields(localization, "PublicationPasswordLabel");
+        Fields = new NewSecretFields(localization, NewSecretTexts.PublicationPassword("PublicationPasswordLabel"));
         Progress = new PublishProgressIndicator(sharing, localization);
         Fields.PropertyChanged += (_, _) => OnPropertyChanged(nameof(CanPublish));
         localization.LanguageChanged += OnLanguageChanged;
     }
 
     /// <summary>Gets the publication password fields.</summary>
-    public PublicationPasswordFields Fields { get; }
+    public NewSecretFields Fields { get; }
 
     /// <summary>Gets the progress of the publish while it runs.</summary>
     public PublishProgressIndicator Progress { get; }

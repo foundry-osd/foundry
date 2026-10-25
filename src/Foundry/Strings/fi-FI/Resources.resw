@@ -3218,7 +3218,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Ladataan</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
-    <value>{0} jaettua kohdetta ei voitu tuoda tähän tietokoneeseen. Ne noudetaan uudelleen, kun viitetietokone julkaisee uuden version.</value>
+    <value>Kohteet, joita ei voitu asentaa: {0}. Ne noudetaan uudelleen, kun viitetietokone julkaisee uuden version.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Ohjainjoukko</value>
@@ -3233,7 +3233,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Asennuksen jälkeinen paketti</value>
   </data>
   <data name="Sharing.ContentStalled" xml:space="preserve">
-    <value>Osa jaetusta sisällöstä ei ole vieläkään käytettävissä toistuvien tarkistusten jälkeen. Se voi olla vahingoittunut kansiossa: julkaise uudelleen viitetietokoneesta.</value>
+    <value>Sisältö voi olla vahingoittunut kansiossa. Julkaise uudelleen viitetietokoneesta.</value>
   </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Kopioi</value>
@@ -3394,6 +3394,12 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Avaa</value>
   </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Avaa tiedosto</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Avaa valittu profiili</value>
+  </data>
   <data name="Sharing.OperationFailed" xml:space="preserve">
     <value>Toimintoa ei voitu suorittaa loppuun. Katso lisätietoja lokista.</value>
   </data>
@@ -3428,7 +3434,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Sisällytetty</value>
   </data>
   <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
-    <value>Tämän tietokoneen julkaisuavaimia ei voitu lukea esimerkiksi Windows-salasanan palauttamisen jälkeen. Ota kansio haltuun julkaisun nykyisellä salasanalla, jotta voit jatkaa julkaisemista. Kansiota kansiota seuraavat tietokoneet hyväksyvät sitten tämän tietokoneen kerran uudeksi viitteeksi.</value>
+    <value>Näin voi käydä Windows-salasanan palauttamisen jälkeen. Ota kansio haltuun julkaisun nykyisellä salasanalla, jotta voit jatkaa julkaisemista. Kansiota seuraavat tietokoneet hyväksyvät sitten tämän tietokoneen kerran uudeksi viitteeksi.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Ei sisällytetty</value>

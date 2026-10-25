@@ -3218,7 +3218,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Atsisiunčiama</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
-    <value>Bendrinamų elementų, kurių nepavyko importuoti į šį kompiuterį, skaičius: {0}. Jie gaunami iš naujo, kai etaloninis kompiuteris publikuoja naują versiją.</value>
+    <value>Elementų, kurių nepavyko įdiegti, skaičius: {0}. Jie gaunami iš naujo, kai etaloninis kompiuteris publikuoja naują versiją.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Tvarkyklių rinkinys</value>
@@ -3233,7 +3233,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Paketas po diegimo</value>
   </data>
   <data name="Sharing.ContentStalled" xml:space="preserve">
-    <value>Dalis bendrinamo turinio po pakartotinių patikrų vis dar nepasiekiama. Aplanke jis gali būti sugadintas: publikuokite dar kartą iš etaloninio kompiuterio.</value>
+    <value>Aplanke turinys gali būti sugadintas. Publikuokite dar kartą iš etaloninio kompiuterio.</value>
   </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Kopijuoti</value>
@@ -3394,6 +3394,12 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Atidaryti</value>
   </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Atidaryti failą</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Atidaryti pasirinktą profilį</value>
+  </data>
   <data name="Sharing.OperationFailed" xml:space="preserve">
     <value>Nepavyko užbaigti operacijos. Išsamią informaciją rasite žurnale.</value>
   </data>
@@ -3428,7 +3434,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Įtraukti</value>
   </data>
   <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
-    <value>Nepavyko nuskaityti šio kompiuterio publikavimo raktų, pavyzdžiui, iš naujo nustačius „Windows“ slaptažodį. Norėdami toliau publikuoti, perimkite aplanką naudodami dabartinį publikavimo slaptažodį; tada aplanką sekantys kompiuteriai vieną kartą priims šį kompiuterį kaip naują etaloninį.</value>
+    <value>Taip gali nutikti iš naujo nustačius „Windows“ slaptažodį. Norėdami toliau publikuoti, perimkite aplanką naudodami dabartinį publikavimo slaptažodį; tada aplanką sekantys kompiuteriai vieną kartą priims šį kompiuterį kaip naują etaloninį.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Neįtraukti</value>

@@ -3218,7 +3218,7 @@
     <value>正在下载</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
-    <value>无法导入到此电脑的共享项数：{0}。参考电脑发布新版本时将再次获取这些项。</value>
+    <value>无法安装的项数：{0}。参考电脑发布新版本时将再次获取这些项。</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>驱动程序集</value>
@@ -3233,7 +3233,7 @@
     <value>安装后包</value>
   </data>
   <data name="Sharing.ContentStalled" xml:space="preserve">
-    <value>多次检查后，部分共享内容仍不可用。它可能已在文件夹中损坏：请从参考电脑重新发布。</value>
+    <value>内容可能已在文件夹中损坏。请从参考电脑重新发布。</value>
   </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>复制</value>
@@ -3394,6 +3394,12 @@
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>打开</value>
   </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>打开文件</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>打开所选配置文件</value>
+  </data>
   <data name="Sharing.OperationFailed" xml:space="preserve">
     <value>无法完成此操作。有关详细信息，请参阅日志。</value>
   </data>
@@ -3428,7 +3434,7 @@
     <value>已包括</value>
   </data>
   <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
-    <value>无法读取此电脑的发布密钥，例如在重置 Windows 密码之后。若要继续发布，请使用当前发布密码接管此文件夹；之后，关注此文件夹的电脑将接受一次此电脑作为新的参考电脑。</value>
+    <value>重置 Windows 密码后可能会出现这种情况。若要继续发布，请使用当前发布密码接管此文件夹；之后，关注此文件夹的电脑将接受一次此电脑作为新的参考电脑。</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>未包括</value>

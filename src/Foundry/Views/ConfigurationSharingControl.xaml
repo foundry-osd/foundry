@@ -4,6 +4,52 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:wct="using:CommunityToolkit.WinUI.Controls">
     <StackPanel Spacing="{ThemeResource FoundryCompactStackSpacing}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="ReferenceActionWidthStates">
+                <VisualState x:Name="CompactReferenceActions">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter
+                            Target="ReferenceActionsPanel.Orientation"
+                            Value="Vertical" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="WideReferenceActions">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1500" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter
+                            Target="ReferenceActionsPanel.Orientation"
+                            Value="Horizontal" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup x:Name="FollowerActionWidthStates">
+                <VisualState x:Name="CompactFollowerActions">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter
+                            Target="FollowerActionsPanel.Orientation"
+                            Value="Vertical" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="WideFollowerActions">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1000" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter
+                            Target="FollowerActionsPanel.Orientation"
+                            Value="Horizontal" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <wct:SettingsExpander
             Description="{x:Bind ViewModel.Text('CardDescription'), Mode=OneWay}"
             Header="{x:Bind ViewModel.Text('CardHeader'), Mode=OneWay}">
@@ -31,9 +77,10 @@
                     </wct:SettingsCard.HeaderIcon>
                     <StackPanel Spacing="{ThemeResource FoundryTextGroupSpacing}">
                         <InfoBar
+                            Title="{x:Bind ViewModel.RoleStatusTitle, Mode=OneWay}"
                             IsClosable="False"
                             IsOpen="True"
-                            Message="{x:Bind ViewModel.RoleStatusText, Mode=OneWay}"
+                            Message="{x:Bind ViewModel.RoleStatusMessage, Mode=OneWay}"
                             Severity="{x:Bind ViewModel.RoleStatusSeverity, Mode=OneWay}" />
                         <Grid
                             ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}"
@@ -109,31 +156,14 @@
                             Message="{x:Bind ViewModel.Text('RevocationPending'), Mode=OneWay}"
                             Severity="Warning"
                             Visibility="{x:Bind ViewModel.IsRevocationPending, Mode=OneWay}" />
-                        <InfoBar
-                            IsClosable="False"
-                            IsOpen="{x:Bind ViewModel.IsKeyRecoveryNeeded, Mode=OneWay}"
-                            Message="{x:Bind ViewModel.Text('PasswordsNeededRecovery'), Mode=OneWay}"
-                            Severity="Warning"
-                            Visibility="{x:Bind ViewModel.IsKeyRecoveryNeeded, Mode=OneWay}" />
-                        <InfoBar
-                            IsClosable="False"
-                            IsOpen="{x:Bind ViewModel.IsContentFailed, Mode=OneWay}"
-                            Message="{x:Bind ViewModel.ContentFailedText, Mode=OneWay}"
-                            Severity="Error"
-                            Visibility="{x:Bind ViewModel.IsContentFailed, Mode=OneWay}" />
-                        <InfoBar
-                            IsClosable="False"
-                            IsOpen="{x:Bind ViewModel.IsContentStalled, Mode=OneWay}"
-                            Message="{x:Bind ViewModel.Text('ContentStalled'), Mode=OneWay}"
-                            Severity="Warning"
-                            Visibility="{x:Bind ViewModel.IsContentStalled, Mode=OneWay}" />
-                        <StackPanel
+                        <StackPanel x:Name="ReferenceActionsPanel"
                             Orientation="Horizontal"
                             Spacing="{ThemeResource FoundryInlineControlSpacing}"
                             Visibility="{x:Bind ViewModel.IsReference, Mode=OneWay}">
                             <Button
                                 Command="{x:Bind ViewModel.RetryCommand}"
-                                Content="{x:Bind ViewModel.Text('RetryButton'), Mode=OneWay}" />
+                                Content="{x:Bind ViewModel.Text('RetryButton'), Mode=OneWay}"
+                                Visibility="{x:Bind ViewModel.CanRetry, Mode=OneWay}" />
                             <Button
                                 Command="{x:Bind ViewModel.TakeOverCommand}"
                                 Content="{x:Bind ViewModel.Text('TakeOverButton'), Mode=OneWay}"
@@ -149,7 +179,7 @@
                                 Command="{x:Bind ViewModel.StopPublishingCommand}"
                                 Content="{x:Bind ViewModel.Text('StopPublishingButton'), Mode=OneWay}" />
                         </StackPanel>
-                        <StackPanel
+                        <StackPanel x:Name="FollowerActionsPanel"
                             Orientation="Horizontal"
                             Spacing="{ThemeResource FoundryInlineControlSpacing}"
                             Visibility="{x:Bind ViewModel.IsFollower, Mode=OneWay}">

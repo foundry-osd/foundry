@@ -3218,7 +3218,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Letöltés folyamatban</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
-    <value>Ennyi megosztott elemet nem sikerült importálni erre a számítógépre: {0}. Újra le lesznek kérve, amikor a referenciaszámítógép új verziót tesz közzé.</value>
+    <value>Ennyi elemet nem sikerült telepíteni: {0}. Újra le lesznek kérve, amikor a referenciaszámítógép új verziót tesz közzé.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Illesztőprogram-készlet</value>
@@ -3233,7 +3233,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Telepítés utáni csomag</value>
   </data>
   <data name="Sharing.ContentStalled" xml:space="preserve">
-    <value>A megosztott tartalom egy része ismételt ellenőrzések után sem érhető el. Lehet, hogy sérült a mappában: tegye közzé újra a referenciaszámítógépről.</value>
+    <value>Lehet, hogy a tartalom sérült a mappában. Tegye közzé újra a referenciaszámítógépről.</value>
   </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Másolás</value>
@@ -3394,6 +3394,12 @@ Licenc az MIT licenc alatt.</value>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Megnyitás</value>
   </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>A fájl megnyitása</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>A kijelölt profil megnyitása</value>
+  </data>
   <data name="Sharing.OperationFailed" xml:space="preserve">
     <value>A művelet nem hajtható végre. A részleteket a naplóban találja.</value>
   </data>
@@ -3428,7 +3434,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Belefoglalva</value>
   </data>
   <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
-    <value>A számítógép közzétételi kulcsait nem sikerült beolvasni, például a Windows-jelszó alaphelyzetbe állítása után. A közzététel folytatásához vegye át a mappát az aktuális közzétételi jelszóval; a mappát követő számítógépek ezután egyszer elfogadják ezt a számítógépet új referenciaként.</value>
+    <value>Ez a Windows-jelszó alaphelyzetbe állítása után fordulhat elő. A közzététel folytatásához vegye át a mappát az aktuális közzétételi jelszóval; a mappát követő számítógépek ezután egyszer elfogadják ezt a számítógépet új referenciaként.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Nincs belefoglalva</value>

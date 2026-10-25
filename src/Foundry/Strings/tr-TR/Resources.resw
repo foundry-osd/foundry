@@ -3218,7 +3218,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>İndiriliyor</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
-    <value>Bu bilgisayara içeri aktarılamayan paylaşılan öğe sayısı: {0}. Başvuru bilgisayarı yeni bir sürüm yayımladığında yeniden alınırlar.</value>
+    <value>Yüklenemeyen öğe sayısı: {0}. Başvuru bilgisayarı yeni bir sürüm yayımladığında yeniden alınırlar.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Sürücü kümesi</value>
@@ -3233,7 +3233,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Yükleme sonrası paket</value>
   </data>
   <data name="Sharing.ContentStalled" xml:space="preserve">
-    <value>Paylaşılan içeriğin bir kısmı tekrarlanan denetimlerden sonra hâlâ kullanılamıyor. Klasörde hasar görmüş olabilir: başvuru bilgisayarından yeniden yayımlayın.</value>
+    <value>İçerik klasörde hasar görmüş olabilir. Başvuru bilgisayarından yeniden yayımlayın.</value>
   </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Kopyala</value>
@@ -3394,6 +3394,12 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Aç</value>
   </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Dosyayı aç</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Seçili profili aç</value>
+  </data>
   <data name="Sharing.OperationFailed" xml:space="preserve">
     <value>İşlem tamamlanamadı. Ayrıntılar için günlüğe bakın.</value>
   </data>
@@ -3428,7 +3434,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Dahil</value>
   </data>
   <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
-    <value>Bu bilgisayarın yayın anahtarları okunamadı; örneğin Windows parolası sıfırlandıktan sonra. Yayımlamaya devam etmek için klasörü geçerli yayın parolasıyla devralın; ardından klasörü izleyen bilgisayarlar bu bilgisayarı bir kez yeni başvuru olarak kabul eder.</value>
+    <value>Bu durum Windows parolası sıfırlandıktan sonra oluşabilir. Yayımlamaya devam etmek için klasörü geçerli yayın parolasıyla devralın; ardından klasörü izleyen bilgisayarlar bu bilgisayarı bir kez yeni başvuru olarak kabul eder.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Dahil değil</value>

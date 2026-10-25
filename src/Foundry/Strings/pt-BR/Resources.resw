@@ -3218,7 +3218,7 @@ Licenciado sob a licença MIT.</value>
     <value>Baixando</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
-    <value>Não foi possível importar {0} itens compartilhados neste PC. Eles são obtidos novamente quando o PC de referência publica uma nova versão.</value>
+    <value>Itens que não puderam ser instalados: {0}. Eles são obtidos novamente quando o PC de referência publica uma nova versão.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Conjunto de drivers</value>
@@ -3233,7 +3233,7 @@ Licenciado sob a licença MIT.</value>
     <value>Pacote de pós-instalação</value>
   </data>
   <data name="Sharing.ContentStalled" xml:space="preserve">
-    <value>Parte do conteúdo compartilhado ainda não está disponível após verificações repetidas. Ele pode estar danificado na pasta: publique novamente a partir do PC de referência.</value>
+    <value>O conteúdo pode estar danificado na pasta. Publique novamente a partir do PC de referência.</value>
   </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Copiar</value>
@@ -3394,6 +3394,12 @@ Licenciado sob a licença MIT.</value>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Abrir</value>
   </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Abrir o arquivo</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Abrir o perfil selecionado</value>
+  </data>
   <data name="Sharing.OperationFailed" xml:space="preserve">
     <value>Não foi possível concluir a operação. Consulte o log para obter detalhes.</value>
   </data>
@@ -3428,7 +3434,7 @@ Licenciado sob a licença MIT.</value>
     <value>Incluídas</value>
   </data>
   <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
-    <value>Não foi possível ler as chaves de publicação deste PC, por exemplo após uma redefinição da senha do Windows. Assuma a pasta com a senha de publicação atual para continuar publicando; os PCs que seguem a pasta aceitam então este PC uma vez como a nova referência.</value>
+    <value>Isso pode acontecer após uma redefinição da senha do Windows. Assuma a pasta com a senha de publicação atual para continuar publicando; os PCs que seguem a pasta aceitam então este PC uma vez como a nova referência.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Não incluídas</value>

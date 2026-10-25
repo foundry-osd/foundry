@@ -89,6 +89,8 @@ public sealed partial class ImportConfigurationDialogViewModel : ObservableObjec
     public string FileLabel => Text("FileLabel");
     public string PassphraseLabel => Text("PassphraseLabel");
     public string OpenLabel => Text("OpenButton");
+    public string OpenFileAutomationName => Text("OpenFileAutomationName");
+    public string OpenProfileAutomationName => Text("OpenProfileAutomationName");
     public string PreviousVersionProfilesLabel => Text("PreviousVersionProfiles");
     public string PreviousVersionProfilesHint => Text("PreviousVersionProfilesHint");
     public string NameLabel => Text("PreviewName");

@@ -3218,7 +3218,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Allalaadimine</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
-    <value>Ühiskasutuses üksusi, mida ei saanud sellesse arvutisse importida: {0}. Need tuuakse uuesti, kui võrdlusarvuti avaldab uue versiooni.</value>
+    <value>Üksused, mida ei õnnestunud installida: {0}. Need tuuakse uuesti, kui võrdlusarvuti avaldab uue versiooni.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Draiverikomplekt</value>
@@ -3233,7 +3233,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Installijärgne pakett</value>
   </data>
   <data name="Sharing.ContentStalled" xml:space="preserve">
-    <value>Osa ühiskasutuses sisust pole pärast korduvaid kontrolle endiselt saadaval. See võib kaustas olla kahjustatud: avaldage uuesti võrdlusarvutist.</value>
+    <value>Sisu võib kaustas olla kahjustatud. Avaldage uuesti võrdlusarvutist.</value>
   </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Kopeeri</value>
@@ -3394,6 +3394,12 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Ava</value>
   </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Ava fail</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Ava valitud profiil</value>
+  </data>
   <data name="Sharing.OperationFailed" xml:space="preserve">
     <value>Toimingut ei saanud lõpule viia. Üksikasjad leiate logist.</value>
   </data>
@@ -3428,7 +3434,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Kaasatud</value>
   </data>
   <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
-    <value>Selle arvuti avaldamisvõtmeid ei saanud lugeda, näiteks pärast Windowsi parooli lähtestamist. Avaldamise jätkamiseks võtke kaust üle avaldise praeguse parooliga; kausta jälgivad arvutid nõustuvad seejärel ühe korra selle arvutiga kui uue võrdlusarvutiga.</value>
+    <value>See võib juhtuda pärast Windowsi parooli lähtestamist. Avaldamise jätkamiseks võtke kaust üle avaldise praeguse parooliga; kausta jälgivad arvutid nõustuvad seejärel ühe korra selle arvutiga kui uue võrdlusarvutiga.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Pole kaasatud</value>

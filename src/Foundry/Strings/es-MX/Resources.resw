@@ -3218,7 +3218,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Descargando</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
-    <value>No se pudieron importar {0} elementos compartidos en este equipo. Se vuelven a obtener cuando el equipo de referencia publica una nueva versión.</value>
+    <value>Elementos que no se pudieron instalar: {0}. Se vuelven a obtener cuando el equipo de referencia publica una nueva versión.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Conjunto de controladores</value>
@@ -3233,7 +3233,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Paquete de posinstalación</value>
   </data>
   <data name="Sharing.ContentStalled" xml:space="preserve">
-    <value>Parte del contenido compartido sigue sin estar disponible después de varias comprobaciones. Puede estar dañado en la carpeta: vuelva a publicar desde el equipo de referencia.</value>
+    <value>Es posible que el contenido esté dañado en la carpeta. Vuelva a publicar desde el equipo de referencia.</value>
   </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Copiar</value>
@@ -3394,6 +3394,12 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Abrir</value>
   </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Abrir el archivo</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Abrir el perfil seleccionado</value>
+  </data>
   <data name="Sharing.OperationFailed" xml:space="preserve">
     <value>No se pudo completar la operación. Consulte el registro para obtener más detalles.</value>
   </data>
@@ -3428,7 +3434,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Incluidas</value>
   </data>
   <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
-    <value>No se pudieron leer las claves de publicación de este equipo, por ejemplo después de restablecer la contraseña de Windows. Tome el control de la carpeta con la contraseña de publicación actual para seguir publicando; los equipos que la siguen aceptan entonces una vez este equipo como nueva referencia.</value>
+    <value>Esto puede ocurrir después de restablecer la contraseña de Windows. Tome el control de la carpeta con la contraseña de publicación actual para seguir publicando; los equipos que la siguen aceptan entonces una vez este equipo como nueva referencia.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>No incluidas</value>

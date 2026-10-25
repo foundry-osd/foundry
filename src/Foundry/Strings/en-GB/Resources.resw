@@ -3218,7 +3218,7 @@ Licensed under the MIT License.</value>
     <value>Downloading</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
-    <value>{0} shared items could not be imported on this PC. They are fetched again when the reference PC publishes a new version.</value>
+    <value>Items that could not be installed: {0}. They are fetched again when the reference PC publishes a new version.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Driver set</value>
@@ -3233,7 +3233,7 @@ Licensed under the MIT License.</value>
     <value>Post-installation package</value>
   </data>
   <data name="Sharing.ContentStalled" xml:space="preserve">
-    <value>Some shared content is still not available after repeated checks. It may be damaged in the folder: publish again from the reference PC.</value>
+    <value>The content may be damaged in the folder. Publish again from the reference PC.</value>
   </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Copy</value>
@@ -3394,6 +3394,12 @@ Licensed under the MIT License.</value>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Open</value>
   </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Open the file</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Open the selected profile</value>
+  </data>
   <data name="Sharing.OperationFailed" xml:space="preserve">
     <value>The operation could not be completed. See the log for details.</value>
   </data>
@@ -3428,7 +3434,7 @@ Licensed under the MIT License.</value>
     <value>Included</value>
   </data>
   <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
-    <value>The publication keys of this PC could not be read, for example after a Windows password reset. Take over the folder with the current publication password to keep publishing; followers then accept this PC as the new reference once.</value>
+    <value>This can happen after a Windows password reset. Take over the folder with the current publication password to keep publishing; followers then accept this PC as the new reference once.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Not included</value>

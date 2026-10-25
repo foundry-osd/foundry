@@ -52,6 +52,7 @@
             <Button
                 Grid.Column="1"
                 VerticalAlignment="Bottom"
+                AutomationProperties.Name="{x:Bind ViewModel.OpenFileAutomationName, Mode=OneWay}"
                 Command="{x:Bind ViewModel.OpenFileCommand}"
                 Content="{x:Bind ViewModel.OpenLabel, Mode=OneWay}"
                 IsEnabled="{x:Bind ViewModel.CanOpenFile, Mode=OneWay}"
@@ -92,6 +93,7 @@
                 <Button
                     Grid.Column="1"
                     VerticalAlignment="Top"
+                    AutomationProperties.Name="{x:Bind ViewModel.OpenProfileAutomationName, Mode=OneWay}"
                     Command="{x:Bind ViewModel.OpenLegacyProfileCommand}"
                     Content="{x:Bind ViewModel.OpenLabel, Mode=OneWay}"
                     IsEnabled="{x:Bind ViewModel.CanOpenLegacyProfile, Mode=OneWay}"

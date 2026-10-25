@@ -26,7 +26,7 @@
                 Text="{Binding Description}"
                 TextWrapping="WrapWholeWords" />
             <TextBlock
-                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
                 Text="{Binding PasswordOnlyHint}"
                 TextWrapping="WrapWholeWords"
                 Visibility="{Binding PasswordOnlyHintVisibility}" />

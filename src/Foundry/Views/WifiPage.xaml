@@ -129,6 +129,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBox
                                     Width="{ThemeResource FoundryWideInputMinWidth}"
+                                    AutomationProperties.Name="{x:Bind ViewModel.WifiEnterpriseHeader, Mode=OneWay}"
                                     IsReadOnly="True"
                                     Text="{x:Bind ViewModel.WifiEnterpriseProfileTemplateFileName, Mode=OneWay}" />
                                 <Button
@@ -169,6 +170,7 @@
                                     </Grid.ColumnDefinitions>
                                     <TextBox
                                         Width="{ThemeResource FoundryWideInputMinWidth}"
+                                        AutomationProperties.Name="{x:Bind ViewModel.WifiCertificateLabel, Mode=OneWay}"
                                         IsReadOnly="True"
                                         Text="{x:Bind ViewModel.WifiCertificateFileName, Mode=OneWay}" />
                                     <Button

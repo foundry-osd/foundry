@@ -3218,7 +3218,7 @@ Licențiat sub licența MIT.</value>
     <value>Se descarcă</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
-    <value>Numărul de elemente partajate care nu au putut fi importate pe acest PC: {0}. Sunt preluate din nou când PC-ul de referință publică o versiune nouă.</value>
+    <value>Numărul de elemente care nu au putut fi instalate: {0}. Sunt preluate din nou când PC-ul de referință publică o versiune nouă.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Set de drivere</value>
@@ -3233,7 +3233,7 @@ Licențiat sub licența MIT.</value>
     <value>Pachet de post-instalare</value>
   </data>
   <data name="Sharing.ContentStalled" xml:space="preserve">
-    <value>O parte din conținutul partajat nu este disponibilă nici după verificări repetate. Este posibil să fie deteriorată în folder: publicați din nou de pe PC-ul de referință.</value>
+    <value>Este posibil ca acest conținut să fie deteriorat în folder. Publicați din nou de pe PC-ul de referință.</value>
   </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Copiază</value>
@@ -3394,6 +3394,12 @@ Licențiat sub licența MIT.</value>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Deschide</value>
   </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Deschide fișierul</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Deschide profilul selectat</value>
+  </data>
   <data name="Sharing.OperationFailed" xml:space="preserve">
     <value>Operațiunea nu a putut fi finalizată. Consultați jurnalul pentru detalii.</value>
   </data>
@@ -3428,7 +3434,7 @@ Licențiat sub licența MIT.</value>
     <value>Incluse</value>
   </data>
   <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
-    <value>Cheile de publicare ale acestui PC nu au putut fi citite, de exemplu după o resetare a parolei Windows. Preluați folderul cu parola de publicare curentă pentru a continua publicarea; PC-urile care urmăresc folderul acceptă apoi o singură dată acest PC ca nouă referință.</value>
+    <value>Acest lucru se poate întâmpla după o resetare a parolei Windows. Preluați folderul cu parola de publicare curentă pentru a continua publicarea; PC-urile care urmăresc folderul acceptă apoi o singură dată acest PC ca nouă referință.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Neincluse</value>

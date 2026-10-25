@@ -3218,7 +3218,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>다운로드 중</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
-    <value>이 PC로 가져올 수 없는 공유 항목 수: {0}. 참조 PC가 새 버전을 게시하면 다시 가져옵니다.</value>
+    <value>설치할 수 없는 항목 수: {0}. 참조 PC가 새 버전을 게시하면 다시 가져옵니다.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>드라이버 세트</value>
@@ -3233,7 +3233,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>설치 후 패키지</value>
   </data>
   <data name="Sharing.ContentStalled" xml:space="preserve">
-    <value>일부 공유 콘텐츠를 반복 확인한 후에도 아직 사용할 수 없습니다. 폴더에서 손상되었을 수 있습니다. 참조 PC에서 다시 게시하세요.</value>
+    <value>콘텐츠가 폴더에서 손상되었을 수 있습니다. 참조 PC에서 다시 게시하세요.</value>
   </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>복사</value>
@@ -3394,6 +3394,12 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>열기</value>
   </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>파일 열기</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>선택한 프로필 열기</value>
+  </data>
   <data name="Sharing.OperationFailed" xml:space="preserve">
     <value>작업을 완료할 수 없습니다. 자세한 내용은 로그를 참조하세요.</value>
   </data>
@@ -3428,7 +3434,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>포함됨</value>
   </data>
   <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
-    <value>Windows 암호를 다시 설정한 후 등에 이 PC의 게시 키를 읽을 수 없었습니다. 게시를 계속하려면 현재 게시 암호로 폴더를 인계하세요. 그러면 폴더를 팔로우하는 PC가 이 PC를 새 참조 PC로 한 번 수락합니다.</value>
+    <value>Windows 암호를 다시 설정한 후 이런 문제가 발생할 수 있습니다. 게시를 계속하려면 현재 게시 암호로 폴더를 인계하세요. 그러면 폴더를 팔로우하는 PC가 이 PC를 새 참조 PC로 한 번 수락합니다.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>포함되지 않음</value>

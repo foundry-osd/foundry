@@ -23,7 +23,7 @@ public sealed partial class ChangePublicationPasswordDialogViewModel : Observabl
         this.sharing = sharing;
         this.localization = localization;
         IsReset = isReset;
-        Fields = new PublicationPasswordFields(localization, "NewPublicationPasswordLabel");
+        Fields = new NewSecretFields(localization, NewSecretTexts.PublicationPassword("NewPublicationPasswordLabel"));
         Fields.PropertyChanged += (_, _) => OnPropertyChanged(nameof(CanApply));
         localization.LanguageChanged += OnLanguageChanged;
     }
@@ -32,7 +32,7 @@ public sealed partial class ChangePublicationPasswordDialogViewModel : Observabl
     public bool IsReset { get; }
 
     /// <summary>Gets the new password fields.</summary>
-    public PublicationPasswordFields Fields { get; }
+    public NewSecretFields Fields { get; }
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(CanEdit), nameof(CanApply))]

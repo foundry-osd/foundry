@@ -3218,7 +3218,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Download in corso</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
-    <value>Non è stato possibile importare {0} elementi condivisi in questo PC. Vengono recuperati di nuovo quando il PC di riferimento pubblica una nuova versione.</value>
+    <value>Elementi che non è stato possibile installare: {0}. Vengono recuperati di nuovo quando il PC di riferimento pubblica una nuova versione.</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>Set di driver</value>
@@ -3233,7 +3233,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Pacchetto post-installazione</value>
   </data>
   <data name="Sharing.ContentStalled" xml:space="preserve">
-    <value>Parte del contenuto condiviso non è ancora disponibile dopo controlli ripetuti. Potrebbe essere danneggiato nella cartella: pubblica di nuovo dal PC di riferimento.</value>
+    <value>Il contenuto potrebbe essere danneggiato nella cartella. Pubblica di nuovo dal PC di riferimento.</value>
   </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>Copia</value>
@@ -3394,6 +3394,12 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>Apri</value>
   </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Apri il file</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Apri il profilo selezionato</value>
+  </data>
   <data name="Sharing.OperationFailed" xml:space="preserve">
     <value>Impossibile completare l'operazione. Per i dettagli, vedi il log.</value>
   </data>
@@ -3428,7 +3434,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Incluse</value>
   </data>
   <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
-    <value>Non è stato possibile leggere le chiavi di pubblicazione di questo PC, ad esempio dopo la reimpostazione della password di Windows. Acquisisci la cartella con la password di pubblicazione corrente per continuare a pubblicare; i PC che seguono la cartella accettano quindi una volta questo PC come nuovo riferimento.</value>
+    <value>Può succedere dopo la reimpostazione della password di Windows. Acquisisci la cartella con la password di pubblicazione corrente per continuare a pubblicare; i PC che seguono la cartella accettano quindi una volta questo PC come nuovo riferimento.</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>Non incluse</value>

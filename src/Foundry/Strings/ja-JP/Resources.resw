@@ -3218,7 +3218,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ダウンロード中</value>
   </data>
   <data name="Sharing.ContentFailed" xml:space="preserve">
-    <value>この PC にインポートできなかった共有項目の数: {0}。参照 PC が新しいバージョンを発行すると、再度取得されます。</value>
+    <value>インストールできなかった項目の数: {0}。参照 PC が新しいバージョンを発行すると、再度取得されます。</value>
   </data>
   <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
     <value>ドライバー セット</value>
@@ -3233,7 +3233,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>インストール後のパッケージ</value>
   </data>
   <data name="Sharing.ContentStalled" xml:space="preserve">
-    <value>共有コンテンツの一部が、繰り返し確認しても利用できません。フォルダー内で破損している可能性があります。参照 PC から再度発行してください。</value>
+    <value>コンテンツがフォルダー内で破損している可能性があります。参照 PC から再度発行してください。</value>
   </data>
   <data name="Sharing.CopyPassphrase" xml:space="preserve">
     <value>コピー</value>
@@ -3394,6 +3394,12 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Sharing.OpenButton" xml:space="preserve">
     <value>開く</value>
   </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>ファイルを開く</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>選択したプロファイルを開く</value>
+  </data>
   <data name="Sharing.OperationFailed" xml:space="preserve">
     <value>操作を完了できませんでした。詳細はログを参照してください。</value>
   </data>
@@ -3428,7 +3434,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>含まれています</value>
   </data>
   <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
-    <value>Windows パスワードのリセット後などに、この PC の発行キーを読み取れませんでした。発行を続けるには、現在の発行パスワードでフォルダーを引き継いでください。その後、フォルダーをフォローしている PC は、この PC を新しい参照 PC として 1 回承認します。</value>
+    <value>これは Windows パスワードのリセット後などに発生することがあります。発行を続けるには、現在の発行パスワードでフォルダーを引き継いでください。その後、フォルダーをフォローしている PC は、この PC を新しい参照 PC として 1 回承認します。</value>
   </data>
   <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
     <value>含まれていません</value>

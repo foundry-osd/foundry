@@ -64,10 +64,26 @@ public sealed partial class ConfigurationSharingViewModel(
     /// Gets the role status; while the content status holds, content that failed or stalled reads as a problem, not as a download
     /// still in progress. Any other status (a wrong password, an unknown publisher, an unavailable folder) is shown as it is.
     /// </summary>
-    public string RoleStatusText => localization.GetString(!IsContentStatus ? SharingStatusText.Key(Role, Status)
+    private string RoleStatusText => localization.GetString(!IsContentStatus ? SharingStatusText.Key(Role, Status)
         : IsContentFailed ? "Sharing.StatusContentFailed"
         : IsContentStalled ? "Sharing.StatusContentStalled"
         : SharingStatusText.Key(Role, Status));
+
+    /// <summary>
+    /// Gets what the status needs from the user, or an empty string: the key recovery of a reference, or the content of a follower
+    /// that failed or stalled.
+    /// </summary>
+    private string RoleStatusDetail =>
+        IsReference && Status == SharingStatus.PasswordsNeeded ? Text("PasswordsNeededRecovery")
+        : IsContentFailed ? localization.FormatString("Sharing.ContentFailed", Engine?.FailedContent.Count ?? 0)
+        : IsContentStalled ? Text("ContentStalled")
+        : string.Empty;
+
+    /// <summary>Gets the title of the role status bar: the status when a detail follows it, otherwise empty.</summary>
+    public string RoleStatusTitle => RoleStatusDetail.Length > 0 ? RoleStatusText : string.Empty;
+
+    /// <summary>Gets the message of the role status bar: the detail when there is one, otherwise the status.</summary>
+    public string RoleStatusMessage => RoleStatusDetail is { Length: > 0 } detail ? detail : RoleStatusText;
 
     public InfoBarSeverity RoleStatusSeverity => !IsContentStatus ? SharingStatusText.Severity(Status)
         : IsContentFailed ? InfoBarSeverity.Error
@@ -103,16 +119,19 @@ public sealed partial class ConfigurationSharingViewModel(
     /// <summary>Gets whether a reset is not complete; shown only while this PC is the reference.</summary>
     public bool IsRevocationPending => IsReference && Engine?.RevocationPending == true;
 
-    /// <summary>Gets whether the reference keys could not be read: "Take over" is the recovery (ruling R22).</summary>
-    public bool IsKeyRecoveryNeeded => IsReference && Status == SharingStatus.PasswordsNeeded;
+    /// <summary>Gets whether content could not be installed and no fetch runs: a problem, not an active download.</summary>
+    private bool IsContentFailed => IsFollower && Engine is { FailedContent.Count: > 0, IsContentFetching: false };
 
-    /// <summary>Gets whether content could not be imported and no fetch runs: a problem, not an active download.</summary>
-    public bool IsContentFailed => IsFollower && Engine is { FailedContent.Count: > 0, IsContentFetching: false };
+    private bool IsContentStalled => IsFollower && Engine?.IsContentStalled == true;
 
-    public bool IsContentStalled => IsFollower && Engine?.IsContentStalled == true;
+    /// <summary>
+    /// Gets whether publishing again can help: the last publish of the reference stopped on the configuration or the folder. Another
+    /// publisher or unreadable keys are solved by "Take over" instead.
+    /// </summary>
+    public bool CanRetry => IsReference && Status is SharingStatus.NotPublishedIncomplete or SharingStatus.FolderUnavailable
+        or SharingStatus.FolderNotEmpty or SharingStatus.WrongPassword;
 
-    public string ContentFailedText => localization.FormatString("Sharing.ContentFailed", Engine?.FailedContent.Count ?? 0);
-
+    /// <summary>Gets whether another PC publishes to the folder, or the keys of this PC could not be read: "Take over" recovers both.</summary>
     public bool CanTakeOver => IsReference && Status is SharingStatus.UnknownPublisher or SharingStatus.PasswordsNeeded;
     public bool CanEnterPassword => IsFollower && Status is SharingStatus.PasswordsNeeded or SharingStatus.WrongPassword;
     public bool CanAcceptReference => IsFollower && Status == SharingStatus.UnknownPublisher && Engine?.Candidate is not null;

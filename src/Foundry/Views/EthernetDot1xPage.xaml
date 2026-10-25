@@ -50,6 +50,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBox
                                     Width="{ThemeResource FoundryWideInputMinWidth}"
+                                    AutomationProperties.Name="{x:Bind ViewModel.ProfileTemplateLabel, Mode=OneWay}"
                                     IsReadOnly="True"
                                     Text="{x:Bind ViewModel.Dot1xProfileTemplateFileName, Mode=OneWay}" />
                                 <Button
@@ -89,6 +90,7 @@
                                     </Grid.ColumnDefinitions>
                                     <TextBox
                                         Width="{ThemeResource FoundryWideInputMinWidth}"
+                                        AutomationProperties.Name="{x:Bind ViewModel.Dot1xCertificateLabel, Mode=OneWay}"
                                         IsReadOnly="True"
                                         Text="{x:Bind ViewModel.Dot1xCertificateFileName, Mode=OneWay}" />
                                     <Button
