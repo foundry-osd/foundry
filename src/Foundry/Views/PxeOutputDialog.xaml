@@ -11,7 +11,8 @@
     PrimaryButtonStyle="{ThemeResource AccentButtonStyle}"
     PrimaryButtonText="{x:Bind ViewModel.CreateLabel}"
     Style="{ThemeResource DefaultContentDialogStyle}">
-    <StackPanel x:Name="ContentPanel"
+    <StackPanel
+        Width="{StaticResource FoundryDialogContentWidth}"
         Padding="0,4,0,8"
         Spacing="{ThemeResource FoundryContentGroupSpacing}">
         <TextBlock
