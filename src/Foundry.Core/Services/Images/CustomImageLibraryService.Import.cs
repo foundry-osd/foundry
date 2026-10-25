@@ -94,7 +94,7 @@ public sealed partial class CustomImageLibraryService
     }
 
     /// <summary>
-    /// Imports an image fetched from a publication (spec 5.5). <paramref name="wim"/> is streamed from its current position into a
+    /// Imports an image fetched from a publication. <paramref name="wim"/> is streamed from its current position into a
     /// private pending directory and must hold exactly <see cref="CustomImageReference.Length"/> bytes hashing to
     /// <see cref="CustomImageReference.ContentHash"/>; the metadata reader must then find the reference's index numbers, as
     /// <see cref="AcquireAsync"/> requires, and the entry keeps the indexes it read. The content is published like

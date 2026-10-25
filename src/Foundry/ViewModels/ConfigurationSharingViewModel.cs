@@ -12,7 +12,7 @@ using Foundry.Services.Sharing;
 namespace Foundry.ViewModels;
 
 /// <summary>
-/// Drives the configuration sharing card of the Settings page (spec 4.2): export and import, and the publish and follow role with
+/// Drives the configuration sharing card of the Settings page: export and import, and the publish and follow role with
 /// its status and actions. The view shows the dialogs the view model creates through <see cref="ShowDialogAsync"/>; statuses are
 /// typed and mapped to resource keys by <see cref="SharingStatusText"/>.
 /// </summary>
@@ -46,7 +46,6 @@ public sealed partial class ConfigurationSharingViewModel(
     private ConfigurationSharingEngine? Engine => sharing.IsAvailable ? sharing.Engine : null;
     private SharingStatus Status => Engine?.Status ?? SharingStatus.Idle;
 
-    public bool IsSharingAvailable => sharing.IsAvailable;
     public bool IsSharingUnavailable => !sharing.IsAvailable;
     public bool IsNone => sharing.IsAvailable && Role == SharingRole.None;
     public bool IsReference => Role == SharingRole.Reference;

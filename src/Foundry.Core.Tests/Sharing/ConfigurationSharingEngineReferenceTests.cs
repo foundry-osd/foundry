@@ -396,7 +396,7 @@ public sealed class ConfigurationSharingEngineReferenceTests : IDisposable
         host.Vault.Clear();
         host.IsVaultAvailable = false;
 
-        // Ruling R22: the explicit take over with the current password is allowed to create the new identity.
+        // The explicit take over with the current password is allowed to create the new identity.
         SharingStatus status = await engine.TakeOverAsync(Folder, Password, includePasswords: false, Cancellation);
 
         Assert.Equal(SharingStatus.Published, status);

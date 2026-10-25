@@ -9,7 +9,7 @@ using Foundry.Services.Sharing;
 namespace Foundry.ViewModels;
 
 /// <summary>
-/// Drives the follower's "Enter password" (spec 6.2 and 7): the publication password entered again after it could not be read from
+/// Drives the follower's "Enter password": the publication password entered again after it could not be read from
 /// the vault or after the reference changed it. It is stored only when it opens the publication.
 /// </summary>
 public sealed partial class EnterPublicationPasswordDialogViewModel : ObservableObject, IDisposable

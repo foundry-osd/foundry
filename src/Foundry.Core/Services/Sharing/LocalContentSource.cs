@@ -16,7 +16,7 @@ using Foundry.Utilities.IO;
 namespace Foundry.Core.Services.Sharing;
 
 /// <summary>
-/// Opens the plaintext of publication content from the local libraries of the reference PC (spec 5.5 and 6.1), for
+/// Opens the plaintext of publication content from the local libraries of the reference PC, for
 /// <see cref="PublicationWriter"/>. Every stream it returns is seekable and read-only.
 /// </summary>
 /// <remarks>

@@ -9,7 +9,7 @@ using Foundry.Services.Sharing;
 namespace Foundry.ViewModels;
 
 /// <summary>
-/// Drives "Change password" and "Reset publication" (spec 6.1 and 7) with a new publication password. Change rewrites the current
+/// Drives "Change password" and "Reset publication" with a new publication password. Change rewrites the current
 /// manifest only; Reset also encrypts every content file again with a new key, the complete revocation. The dialog says which.
 /// </summary>
 public sealed partial class ChangePublicationPasswordDialogViewModel : ObservableObject, IDisposable

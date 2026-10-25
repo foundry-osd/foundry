@@ -9,7 +9,7 @@ using Foundry.Services.Sharing;
 namespace Foundry.ViewModels;
 
 /// <summary>
-/// The read-only state every configuration page binds to (spec 6.2): while a followed publication manages the configuration,
+/// The read-only state every configuration page binds to: while a followed publication manages the configuration,
 /// editing controls of published sections are disabled and a banner names the reference. Per-PC values stay editable, and so do
 /// passwords when the publication does not include them (they live in the local vault only).
 /// </summary>

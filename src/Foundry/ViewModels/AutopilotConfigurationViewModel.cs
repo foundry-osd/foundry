@@ -885,7 +885,8 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     }
 
     /// <summary>
-    /// Updates the session-only boot media PFX password after the password box changes.
+    /// Updates the boot media PFX password after the password box changes; the session state holds it and the local vault
+    /// remembers it.
     /// </summary>
     /// <param name="password">PFX password entered by the operator.</param>
     public void SetBootMediaCertificatePassword(string password)
@@ -901,7 +902,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     }
 
     /// <summary>
-    /// Gets the session-only boot media PFX password for synchronizing the password box.
+    /// Gets the boot media PFX password held in the session state, for synchronizing the password box.
     /// </summary>
     /// <returns>The current session PFX password, or an empty string.</returns>
     public string GetBootMediaCertificatePassword()
@@ -1314,7 +1315,7 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
 
     /// <summary>
     /// Validates the selected library PFX with its session password and records both: the PFX and its validation result in
-    /// the configuration, the password in the session state only.
+    /// the configuration, the password in the session state, which the vault bridge remembers.
     /// </summary>
     private void SetBootMediaCertificateInput(AuthoringFileReference? pfx, string? password)
     {

@@ -13,7 +13,7 @@ namespace Foundry.Core.Services.Sharing;
 
 /// <summary>
 /// Turns one library package (post-installation package or driver set) into a deterministic ZIP archive for publication and imports
-/// such an archive back into a library (spec 5.5). One code path serves every <see cref="ContentPackageKind"/>.
+/// such an archive back into a library. One code path serves every <see cref="ContentPackageKind"/>.
 /// </summary>
 /// <remarks>
 /// Archive layout: <c>manifest.json</c> (the canonical library manifest, whose SHA-256 is the content hash) followed by one
@@ -142,7 +142,7 @@ public static class ContentPackageArchive
 
         // The library refuses sources inside its own root, so the files are extracted into an owner-only leased directory under the
         // temporary root (ContentSync passes its own, on the volume of the libraries). The library also checks source paths against
-        // the kind's full-path limit while it inventories them (ruling R10). That check never rejects a package the destination
+        // the kind's full-path limit while it inventories them. That check never rejects a package the destination
         // accepts, as long as the extraction prefix (root, then <32 hex>\package\) is shorter than the destination prefix (library
         // root, then content\<64 hex>\files\), which holds for the default %TEMP% root and for the per-user sharing root.
         PrivateDirectoryLease lease = PrivateDirectory.CreateLeased(

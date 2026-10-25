@@ -10,9 +10,9 @@ using Foundry.Services.Sharing;
 namespace Foundry.ViewModels;
 
 /// <summary>
-/// Drives "Take over" (spec 6.1): the current publication password continues a folder with this PC's key. The foreign version and
+/// Drives "Take over": the current publication password continues a folder with this PC's key. The foreign version and
 /// key id are shown as found in the folder, explicitly not verified: neither is authenticated until the password opens the manifest.
-/// Also the recovery of a reference whose keys could not be read (ruling R22).
+/// Also the recovery of a reference whose keys could not be read.
 /// </summary>
 public sealed partial class TakeOverDialogViewModel : ObservableObject, IDisposable
 {

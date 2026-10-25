@@ -9,7 +9,7 @@ using Foundry.Core.Services.Configuration;
 namespace Foundry.Core.Services.Sharing;
 
 /// <summary>
-/// The read-only rule of a follower (spec 6.2): while a published configuration manages this PC, only its per-PC values may change.
+/// The read-only rule of a follower: while a published configuration manages this PC, only its per-PC values may change.
 /// </summary>
 /// <remarks>
 /// The rule is the per-PC field list of <see cref="PortableConfiguration"/>, the single source: every other value, including the

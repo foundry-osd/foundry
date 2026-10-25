@@ -20,7 +20,7 @@ using Serilog;
 namespace Foundry.Services.Sharing;
 
 /// <summary>
-/// The WinUI host of <see cref="ConfigurationSharingEngine"/> (spec 4.2): it implements <see cref="ISharingHost"/> over the
+/// The WinUI host of <see cref="ConfigurationSharingEngine"/>: it implements <see cref="ISharingHost"/> over the
 /// configuration state service and the single vault writer, publishes a reference 5 seconds after the last configuration or password
 /// change, and checks a followed folder at startup and every 60 seconds; the sharing card shows the outcome.
 /// </summary>
@@ -270,7 +270,7 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
         RunPublishActionAsync(() => Fingerprint(folder, includePasswords),
             () => Engine.TakeOverAsync(folder, currentPassword, includePasswords, CancellationToken.None));
 
-    /// <summary>"Retry": publishes the current configuration now, even when it did not change.</summary>
+    /// <summary>"Publish now": publishes the current configuration now, even when it did not change.</summary>
     public Task<SharingStatus> RetryPublishAsync() =>
         RunPublishActionAsync(() => Fingerprint(Engine.State), () => Engine.OnConfigurationChangedAsync(CancellationToken.None));
 

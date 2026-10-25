@@ -10,7 +10,7 @@ using Serilog;
 namespace Foundry.Core.Services.Sharing;
 
 /// <summary>
-/// The configuration sharing state machine (spec 6.1, 6.2 and 9): the role of this PC and every decision about publishing,
+/// The configuration sharing state machine: the role of this PC and every decision about publishing,
 /// following and what to report. The host (<see cref="ISharingHost"/>) owns timers, debounce, dispatching and notifications.
 /// </summary>
 /// <remarks>
@@ -252,7 +252,7 @@ public sealed class ConfigurationSharingEngine
     private static ILogger Logger => Log.ForContext<ConfigurationSharingEngine>();
 
     /// <summary>
-    /// "Publish to a folder" (spec 6.1): makes this PC the reference of <paramref name="folder"/> and publishes the current
+    /// "Publish to a folder": makes this PC the reference of <paramref name="folder"/> and publishes the current
     /// configuration. Missing reference keys are created and stored in the vault first. The folder is accepted, and the role
     /// persisted, when the publish succeeds or when the configuration is not ready yet (<see cref="SharingStatus.NotPublishedIncomplete"/>,
     /// published at the next change); otherwise nothing is persisted and the role stays <see cref="SharingRole.None"/>.
@@ -298,7 +298,7 @@ public sealed class ConfigurationSharingEngine
     }
 
     /// <summary>
-    /// "Take over" (spec 6.1): continues a folder another key publishes to, with this PC's key, after the user entered the current
+    /// "Take over": continues a folder another key publishes to, with this PC's key, after the user entered the current
     /// publication password; followers must accept the new reference once. Also the recovery of a reference whose keys were lost
     /// with the vault: it is the only operation that creates replacement keys while the vault is unreadable, because the user asked
     /// for a new identity (a vault that cannot be written fails it with <see cref="SharingStatus.PasswordsNeeded"/>). The role is
@@ -336,7 +336,7 @@ public sealed class ConfigurationSharingEngine
     }
 
     /// <summary>
-    /// Publishes the current configuration after a change (the host debounces changes) or a "Retry". Does nothing without the
+    /// Publishes the current configuration after a change (the host debounces changes) or a "Publish now". Does nothing without the
     /// reference role. A change while a publish runs queues exactly one follow-up publish; every caller waiting on the same run gets
     /// the status of its last publish. A password change or reset that was interrupted is completed first.
     /// </summary>
@@ -367,7 +367,7 @@ public sealed class ConfigurationSharingEngine
     }
 
     /// <summary>
-    /// "Change password" (spec 6.1 and 7): rewrites the current manifest under <paramref name="newPassword"/> in place; content is
+    /// "Change password": rewrites the current manifest under <paramref name="newPassword"/> in place; content is
     /// untouched, so a former password holder who kept the master key can still decrypt content files. The new password is stored
     /// first, with the old one kept as <see cref="SecretIds.PreviousPublicationPassword"/> until the manifest is rewritten, so an
     /// interrupted change is completed by the next publish.
@@ -378,7 +378,7 @@ public sealed class ConfigurationSharingEngine
     public Task<SharingStatus> ChangePasswordAsync(string newPassword, CancellationToken ct) => ReplacePasswordAsync(newPassword, reset: false, ct);
 
     /// <summary>
-    /// "Reset publication" (spec 6.1 and 7), the complete revocation: rewrites the current manifest under
+    /// "Reset publication", the complete revocation: rewrites the current manifest under
     /// <paramref name="newPassword"/> (<see cref="PublicationWriter.RewrapAsync"/>), then publishes with a new master key, which
     /// encrypts every content file again; followers enter the new password. The new password and master key are stored before the
     /// folder changes, so an interrupted reset is completed by the next change or Retry. While content is encrypted again, followers
@@ -393,7 +393,7 @@ public sealed class ConfigurationSharingEngine
     public Task<SharingStatus> ResetPublicationAsync(string newPassword, CancellationToken ct) => ReplacePasswordAsync(newPassword, reset: true, ct);
 
     /// <summary>
-    /// "Stop publishing" (spec 6.1): cancels a running publish, which leaves the previous version current, and makes this PC a
+    /// "Stop publishing": cancels a running publish, which leaves the previous version current, and makes this PC a
     /// normal PC. The folder and the vault keys stay as they are; <see cref="SharingState.LastPublishedSequence"/>, the folder name
     /// and <see cref="SharingState.RevocationPending"/> are kept, so publishing to the same folder again still owes a pending reset.
     /// A pending password change is dropped with its previous password.
@@ -440,7 +440,7 @@ public sealed class ConfigurationSharingEngine
     }
 
     /// <summary>
-    /// "Follow a folder" preview (spec 6.2): opens the current publication with <paramref name="password"/>, verified against the
+    /// "Follow a folder" preview: opens the current publication with <paramref name="password"/>, verified against the
     /// publisher key it embeds, for the reference name, date, sequence, passwords and download size. Nothing is stored.
     /// </summary>
     public async Task<PublicationReadResult> PreviewFollowAsync(string folder, string password, CancellationToken ct)
@@ -503,7 +503,7 @@ public sealed class ConfigurationSharingEngine
     }
 
     /// <summary>
-    /// Follower check, at startup and every 60 seconds (spec 6.2): reads <c>current.json</c> and applies a newer publication signed by
+    /// Follower check, at startup and every 60 seconds: reads <c>current.json</c> and applies a newer publication signed by
     /// the pinned key. A manifest that has not arrived reports <see cref="SharingStatus.Checking"/>; one read as modified is retried
     /// once (a partly synced manifest reads the same) before <see cref="SharingStatus.Tampered"/> is reported; a manifest signed by
     /// another key reports <see cref="SharingStatus.UnknownPublisher"/> and applies nothing. Content still missing is fetched again in
@@ -592,7 +592,7 @@ public sealed class ConfigurationSharingEngine
     }
 
     /// <summary>
-    /// "Accept new reference" (spec 6.2): pins the key of <see cref="Candidate"/> and applies the current publication, only while the
+    /// "Accept new reference": pins the key of <see cref="Candidate"/> and applies the current publication, only while the
     /// candidate is still the key the user reviewed: a check can replace the candidate while the confirmation is shown, and then
     /// nothing is pinned. The folder is read again; when its manifest is no longer the one authenticated under the candidate key,
     /// nothing is pinned and the result of a new check is returned (a different candidate must be confirmed again).
@@ -650,7 +650,7 @@ public sealed class ConfigurationSharingEngine
     }
 
     /// <summary>
-    /// "Stop following" (spec 6.2): stops the content fetch, keeps the configuration and makes it editable again; with
+    /// "Stop following": stops the content fetch, keeps the configuration and makes it editable again; with
     /// <paramref name="forgetPassword"/> the publication password is removed from the vault.
     /// </summary>
     public async Task StopFollowingAsync(bool forgetPassword)
@@ -1427,7 +1427,7 @@ public sealed class ConfigurationSharingEngine
         }
         catch (Exception exception)
         {
-            // The writer or the content source failed in an unexpected way: the previous version stays current, Retry publishes again.
+            // The writer or the content source failed in an unexpected way: the previous version stays current, Publish now publishes again.
             Logger.Warning("Publication failed unexpectedly; the previous version stays current. ExceptionType={ExceptionType}", exception.GetType().Name);
             return SetStatus(SharingStatus.FolderUnavailable);
         }
@@ -1582,7 +1582,7 @@ public sealed class ConfigurationSharingEngine
         PublishStatus.FolderUnavailable => SharingStatus.FolderUnavailable,
         PublishStatus.FolderNotEmpty => SharingStatus.FolderNotEmpty,
 
-        // Ruling R23: unreachable in practice, since only authenticated manifests count toward the sequence; the folder cannot take
+        // Unreachable in practice, since only authenticated manifests count toward the sequence; the folder cannot take
         // another version, so the recovery is the same as for a folder that is not empty: a new folder (or a reset).
         PublishStatus.SequenceExhausted => SharingStatus.FolderNotEmpty,
 

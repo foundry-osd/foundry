@@ -29,7 +29,7 @@ public interface IFoundryConfigurationStateService
     FoundryConfigurationDocument Current { get; }
 
     /// <summary>
-    /// Gets whether a followed publication manages the configuration (spec 6.2): published sections are read-only, and every
+    /// Gets whether a followed publication manages the configuration: published sections are read-only, and every
     /// <c>Update*</c> method throws <see cref="InvalidOperationException"/> for a change outside the per-PC values
     /// (<see cref="Foundry.Core.Services.Sharing.ManagedConfigurationGuard"/>). <see cref="Replace"/> stays available to the follower.
     /// </summary>

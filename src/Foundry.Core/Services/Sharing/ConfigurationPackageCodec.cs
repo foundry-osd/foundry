@@ -52,7 +52,7 @@ public enum PackageReadStatus
 public sealed record PackageReadResult(PackageReadStatus Status, ConfigurationPackagePayload? Payload, string? SignerKeyId);
 
 /// <summary>
-/// Writes and reads the encrypted configuration package used by export files and publication manifests (spec 5.3):
+/// Writes and reads the encrypted configuration package used by export files and publication manifests:
 /// a JSON envelope carrying a PBKDF2-SHA256 / AES-256-GCM encrypted JSON payload, signed with ECDSA P-256 on publications.
 /// </summary>
 public static class ConfigurationPackageCodec
@@ -480,7 +480,7 @@ public static class ConfigurationPackageCodec
         return options;
     }
 
-    /// <summary>Envelope JSON (spec 5.3); binary members are base64.</summary>
+    /// <summary>Envelope JSON; binary members are base64.</summary>
     internal sealed record Envelope(
         string Format,
         int Version,

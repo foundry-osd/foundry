@@ -4,7 +4,7 @@
 
 namespace Foundry.Core.Services.Sharing;
 
-/// <summary>What a PC does with configuration sharing (spec 9).</summary>
+/// <summary>What a PC does with configuration sharing.</summary>
 public enum SharingRole
 {
     /// <summary>A normal PC: it neither publishes nor follows.</summary>
@@ -18,7 +18,7 @@ public enum SharingRole
 }
 
 /// <summary>
-/// State reported by <see cref="ConfigurationSharingEngine"/> (spec 9). The user interface maps each value to a resource key; no
+/// State reported by <see cref="ConfigurationSharingEngine"/>. The user interface maps each value to a resource key; no
 /// status is a string.
 /// </summary>
 public enum SharingStatus
@@ -34,7 +34,7 @@ public enum SharingStatus
 
     /// <summary>
     /// Reference: the configuration is not ready to build or references content missing locally; the previous version stays
-    /// current and the next change or Retry publishes again.
+    /// current and the next change or Publish now publishes again.
     /// </summary>
     NotPublishedIncomplete,
 

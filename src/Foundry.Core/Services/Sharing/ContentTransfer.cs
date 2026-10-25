@@ -9,7 +9,7 @@ using System.Text;
 namespace Foundry.Core.Services.Sharing;
 
 /// <summary>
-/// Encrypts and decrypts publication content files (<c>content/&lt;sha256&gt;.bin</c>, spec 5.5) with chunked AES-256-GCM.
+/// Encrypts and decrypts publication content files (<c>content/&lt;sha256&gt;.bin</c>) with chunked AES-256-GCM.
 /// </summary>
 /// <remarks>
 /// File layout: a 16-byte header (ASCII magic <c>FCNT</c>, int32 little-endian version 1, int64 little-endian plaintext length),

@@ -11,7 +11,7 @@ using Foundry.Services.Sharing;
 namespace Foundry.ViewModels;
 
 /// <summary>
-/// Drives "Follow a folder" (spec 6.2): folder and publication password, a preview of the publication (reference, date, version,
+/// Drives "Follow a folder": folder and publication password, a preview of the publication (reference, date, version,
 /// passwords, download size), then the follow itself, which replaces the configuration.
 /// </summary>
 public sealed partial class FollowDialogViewModel : ObservableObject, IDisposable

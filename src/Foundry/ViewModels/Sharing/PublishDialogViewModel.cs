@@ -10,7 +10,7 @@ using Foundry.Services.Sharing;
 namespace Foundry.ViewModels;
 
 /// <summary>
-/// Drives "Publish to a folder" (spec 6.1): folder, publication password with its rule, "Include passwords", then the first
+/// Drives "Publish to a folder": folder, publication password with its rule, "Include passwords", then the first
 /// publish. A folder another PC publishes to closes the dialog with <see cref="NeedsTakeOver"/> so the card offers "Take over".
 /// </summary>
 public sealed partial class PublishDialogViewModel : ObservableObject, IDisposable

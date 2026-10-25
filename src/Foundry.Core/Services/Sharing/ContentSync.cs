@@ -29,7 +29,7 @@ namespace Foundry.Core.Services.Sharing;
 public sealed record ContentSyncResult(int Fetched, IReadOnlyList<PackageContent> Failed, IReadOnlyList<PackageContent> NotYetAvailable);
 
 /// <summary>
-/// Fetches the content a publication lists into the local libraries of a follower (spec 5.5 and 6.2). Each content file is decrypted
+/// Fetches the content a publication lists into the local libraries of a follower. Each content file is decrypted
 /// into an owner-only temporary file (<see cref="PrivateDirectory"/>), deleted on every path, and checked before anything reaches a
 /// library: files by their SHA-256, packages and driver sets by <see cref="ContentPackageArchive.ImportAsync"/> (manifest hash, every
 /// file, the library kind rules), images by <see cref="CustomImageLibraryService.ImportFromPublicationAsync"/> (WIM length, hash and

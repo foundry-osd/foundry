@@ -55,7 +55,7 @@ public enum PublicationReadStatus
 public sealed record PublicationReadResult(PublicationReadStatus Status, ConfigurationPackagePayload? Payload, long Sequence, string? SignerKeyId);
 
 /// <summary>
-/// Reads a publication folder as a follower (spec 6.2): <c>current.json</c> first, so an unchanged publication costs one small read,
+/// Reads a publication folder as a follower: <c>current.json</c> first, so an unchanged publication costs one small read,
 /// then the current manifest, verified against the pinned reference key before any key derivation.
 /// </summary>
 public static class PublicationReader

@@ -6,7 +6,7 @@ using Foundry.Core.Services.Sharing;
 
 namespace Foundry.ViewModels;
 
-/// <summary>Maps the typed sharing statuses to their resource keys and severities (spec 9); no status is a string.</summary>
+/// <summary>Maps the typed sharing statuses to their resource keys and severities; no status is a string.</summary>
 public static class SharingStatusText
 {
     /// <summary>Returns the resource key of <paramref name="status"/> as <paramref name="role"/> reports it.</summary>

@@ -31,7 +31,7 @@ public sealed record ImportOutcome(FoundryConfigurationDocument Configuration, I
 /// <param name="SkippedFileCount">Referenced authoring files that were missing or damaged in the library and are not in the file; the import lists them as missing.</param>
 public sealed record ConfigurationExport(byte[] Package, int SkippedFileCount);
 
-/// <summary>Encrypted export and import of the current configuration (spec 5.4 and 6.3).</summary>
+/// <summary>Encrypted export and import of the current configuration.</summary>
 /// <remarks>
 /// Exports are unsigned: a wrong passphrase and a modified file both read as <see cref="PackageReadStatus.WrongPassword"/>.
 /// Only <see cref="PackageKind.Export"/> payloads are imported; a publication manifest given as an export file is

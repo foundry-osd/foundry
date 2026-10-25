@@ -213,7 +213,7 @@ public sealed class ConfigurationTransferService(
     /// </summary>
     /// <exception cref="IOException">A file or the configuration cannot be saved; the current configuration is then unchanged.</exception>
     /// <exception cref="UnauthorizedAccessException">Access to the library or the configuration is denied.</exception>
-    /// <exception cref="InvalidOperationException">This PC follows a folder (spec 6.3): stop following before importing.</exception>
+    /// <exception cref="InvalidOperationException">This PC follows a folder: stop following before importing.</exception>
     public async Task<ConfigurationImportResult> ImportAsync(ImportPreview preview)
     {
         ArgumentNullException.ThrowIfNull(preview);

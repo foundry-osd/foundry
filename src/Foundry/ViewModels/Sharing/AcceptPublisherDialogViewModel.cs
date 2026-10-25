@@ -10,7 +10,7 @@ using Foundry.Services.Sharing;
 namespace Foundry.ViewModels;
 
 /// <summary>
-/// Drives "Accept new reference" (spec 6.2): shows the pinned key id and the new one, which the current manifest authenticated with
+/// Drives "Accept new reference": shows the pinned key id and the new one, which the current manifest authenticated with
 /// the publication password, then pins the new key.
 /// </summary>
 public sealed partial class AcceptPublisherDialogViewModel : ObservableObject, IDisposable
