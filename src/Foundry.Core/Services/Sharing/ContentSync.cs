@@ -118,7 +118,7 @@ public sealed class ContentSync
         PackageContent[][] items = Missing(manifest).GroupBy(content => content.Hash, StringComparer.Ordinal).Select(group => group.ToArray()).ToArray();
         long total = items.Sum(Weight);
         Log.ForContext<ContentSync>().Information("Publication content fetch started. MissingCount={MissingCount}, TotalBytes={TotalBytes}",
-            items.Sum(group => group.Length), total);
+            items.Sum(group => group.Length), items.Sum(group => Math.Max(group[0].Length, 0)));
         Tally tally = new();
         try
         {
@@ -179,7 +179,8 @@ public sealed class ContentSync
                 if (step > loggedStep)
                 {
                     loggedStep = step;
-                    Log.ForContext<ContentSync>().Debug("Publication content fetch progress. DoneBytes={DoneBytes}, TotalBytes={TotalBytes}", done, total);
+                    Log.ForContext<ContentSync>().Debug(
+                        "Publication content fetch progress. DoneWeight={DoneWeight}, ProgressWeight={ProgressWeight}", done, total);
                 }
             }
 

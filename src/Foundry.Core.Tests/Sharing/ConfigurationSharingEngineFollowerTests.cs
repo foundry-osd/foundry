@@ -180,6 +180,32 @@ public sealed class ConfigurationSharingEngineFollowerTests : IDisposable
     }
 
     [Fact]
+    public async Task Fetch_EndingWhilePasswordsNeeded_RaisesStatusChangedAndLeavesSyncing()
+    {
+        // A required password is missing, so the status stays PasswordsNeeded while the content fetch runs and completes.
+        AuthoringFileReference file = referenceContent.Add(new string('x', 2 * 1024 * 1024), "large.xml");
+        FoundryConfigurationDocument configuration = WithFile(file) with
+        {
+            General = new GeneralSettings { DeploymentProtection = new DeploymentProtectionSettings { IsEnabled = true } }
+        };
+        ConfigurationSharingEngine engine = await FollowAsync(configuration, SharingStatus.PasswordsNeeded);
+        TaskCompletionSource fetchEnded = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        engine.StatusChanged += (_, _) =>
+        {
+            if (!engine.IsContentFetching) fetchEnded.TrySetResult();
+        };
+
+        if (engine.IsContentFetching)
+        {
+            await fetchEnded.Task.WaitAsync(TimeSpan.FromSeconds(10), Cancellation);
+        }
+
+        Assert.Equal(SharingStatus.PasswordsNeeded, engine.Status);
+        Assert.True(followerLibraries.Files.IsAvailable(file));
+        Assert.Equal(SharedContentSyncState.Synced, engine.ContentSyncState);
+    }
+
+    [Fact]
     public async Task Check_ForeignSigner_ReturnsUnknownPublisherWithoutApplying()
     {
         ConfigurationSharingEngine engine = await FollowAsync(WithArchitecture(WinPeArchitecture.X64));

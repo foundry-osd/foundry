@@ -1006,6 +1006,11 @@ public sealed class ConfigurationSharingEngine
         CompleteFetch(payload, result);
     }
 
+    /// <summary>
+    /// Records the outcome of a fetch and always raises <see cref="StatusChanged"/>: the fetch ending changes
+    /// <see cref="IsContentFetching"/> and <see cref="ContentSyncState"/> even when the status stays the same (for example
+    /// <see cref="SharingStatus.PasswordsNeeded"/>), and the media creation gate follows that event.
+    /// </summary>
     private void CompleteFetch(ConfigurationPackagePayload payload, ContentSyncResult result)
     {
         bool complete;
@@ -1015,13 +1020,16 @@ public sealed class ConfigurationSharingEngine
             isFetching = false;
             if (!ReferenceEquals(payload, appliedPayload))
             {
-                return;
+                complete = false;
+                stalled = false;
             }
-
-            failedContent = result.Failed;
-            retryFetch = result.NotYetAvailable.Count > 0;
-            stalled = TrackUnavailableContent(result.NotYetAvailable);
-            complete = result.Failed.Count == 0 && result.NotYetAvailable.Count == 0;
+            else
+            {
+                failedContent = result.Failed;
+                retryFetch = result.NotYetAvailable.Count > 0;
+                stalled = TrackUnavailableContent(result.NotYetAvailable);
+                complete = result.Failed.Count == 0 && result.NotYetAvailable.Count == 0;
+            }
         }
 
         if (stalled)
@@ -1032,11 +1040,11 @@ public sealed class ConfigurationSharingEngine
 
         if (complete && Status == SharingStatus.ContentDownloading)
         {
+            // The status changes, so SetStatus raises the event.
             SetStatus(SharingStatus.UpToDate);
         }
-        else if (!complete)
+        else
         {
-            // Failed or stalled content changed what the status line shows.
             StatusChanged?.Invoke(this, EventArgs.Empty);
         }
     }
