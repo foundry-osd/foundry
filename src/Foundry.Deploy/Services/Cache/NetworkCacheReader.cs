@@ -23,6 +23,9 @@ public interface INetworkCacheReader
 
     /// <summary>Stops later lookups for this deployment after the share stalled during a copy.</summary>
     void MarkUnresponsive();
+
+    /// <summary>Counts one download copied from the share, for deployment telemetry.</summary>
+    void RecordReuse();
 }
 
 public sealed class NetworkCacheReader : INetworkCacheReader
@@ -74,6 +77,8 @@ public sealed class NetworkCacheReader : INetworkCacheReader
     }
 
     public void MarkUnresponsive() => accessor.Current?.MarkUnresponsive();
+
+    public void RecordReuse() => accessor.Current?.RecordReuse();
 
     private NetworkCacheCandidate? Find(string path, bool hashless)
     {

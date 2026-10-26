@@ -311,6 +311,7 @@ public sealed class ArtifactDownloadService : IArtifactDownloadService
             if (string.Equals(expectedHash, copied.Hash, StringComparison.OrdinalIgnoreCase))
             {
                 _logger.LogInformation("Artifact copied from the network cache. DestinationPath={DestinationPath}", destinationPath);
+                _networkCacheReader.RecordReuse();
                 return true;
             }
 

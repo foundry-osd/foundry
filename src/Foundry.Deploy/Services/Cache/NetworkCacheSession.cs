@@ -24,6 +24,7 @@ public sealed class NetworkCacheSession : IDisposable
     private readonly ISmbConnector? connector;
     private bool disposed;
     private bool unresponsive;
+    private int downloadsReused;
 
     private NetworkCacheSession(NetworkCacheOutcome outcome, string? sharePath, bool canWrite, ISmbConnector? connector)
     {
@@ -49,6 +50,12 @@ public sealed class NetworkCacheSession : IDisposable
 
     /// <summary>Stops every later lookup and copy from waiting on a share that already timed out once.</summary>
     public void MarkUnresponsive() => Volatile.Write(ref unresponsive, true);
+
+    /// <summary>Gets how many downloads this deployment copied from the share instead of the Internet.</summary>
+    public int DownloadsReused => Volatile.Read(ref downloadsReused);
+
+    /// <summary>Counts one download served by the share.</summary>
+    public void RecordReuse() => Interlocked.Increment(ref downloadsReused);
 
     public static NetworkCacheSession Unavailable(NetworkCacheOutcome outcome) => new(outcome, null, false, null);
 

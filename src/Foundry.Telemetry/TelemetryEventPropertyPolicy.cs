@@ -106,6 +106,10 @@ public static class TelemetryEventPropertyPolicy
                 "domain_join_shared_account_used",
                 "domain_join_ou_count",
                 "domain_join_default_ou_set",
+                "network_cache_enabled",
+                "network_cache_share_count",
+                "network_cache_scope_count",
+                "network_cache_account_count",
                 "deployment_protection_enabled",
                 "unattend_enabled",
                 "unattend_default_mode",
@@ -248,7 +252,10 @@ public static class TelemetryEventPropertyPolicy
                 "deploy_oobe_additional_account_count",
                 "deploy_oobe_account_creation_skipped",
                 "deploy_completion_reboot_mode",
-                "deploy_completion_reboot_delay_seconds"
+                "deploy_completion_reboot_delay_seconds",
+                "deploy_network_cache_outcome",
+                "deploy_network_cache_writable",
+                "deploy_network_cache_downloads_reused"
             }
         };
 
@@ -358,6 +365,10 @@ public static class TelemetryEventPropertyPolicy
         "deployment_time_zone_id" => value is string timeZoneId && KnownWindowsTimeZoneIds.Value.Contains(timeZoneId),
         // Bounded by the custom driver set limit of an authoring profile.
         "boot_media_custom_drivers_count" => value is int and >= 0 and <= 256,
+        "network_cache_enabled" or "deploy_network_cache_writable" => value is bool,
+        "network_cache_share_count" or "network_cache_scope_count" or "network_cache_account_count" => value is int and >= 0 and <= 1000,
+        "deploy_network_cache_outcome" => value is "disabled" or "no_matching_scope" or "connected" or "unavailable",
+        "deploy_network_cache_downloads_reused" => value is int and >= 0 and <= 1000,
         _ => true
     };
 
