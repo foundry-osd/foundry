@@ -128,13 +128,21 @@ public sealed partial class ConfigurationSharingViewModel(
 
     /// <summary>
     /// Gets whether publishing again can help: the last publish of the reference stopped on the configuration or the folder. Another
-    /// publisher or unreadable keys are solved by "Take over" instead.
+    /// publisher or unreadable keys are solved by "Take over" instead; a wrong password is not, since a retry uses the same stored
+    /// password, so "Stop publishing" is the way out.
     /// </summary>
     public bool CanPublishNow => IsReference && Status is SharingStatus.NotPublishedIncomplete or SharingStatus.FolderUnavailable
-        or SharingStatus.FolderNotEmpty or SharingStatus.WrongPassword;
+        or SharingStatus.FolderNotEmpty;
 
     /// <summary>Gets whether another PC publishes to the folder, or the keys of this PC could not be read: "Take over" recovers both.</summary>
     public bool CanTakeOver => IsReference && Status is SharingStatus.UnknownPublisher or SharingStatus.PasswordsNeeded;
+
+    /// <summary>
+    /// Gets whether the reference can change the password or reset the publication. Hidden while "Take over" is offered: the change
+    /// cannot rewrite a folder another PC publishes to, or run without the keys of this PC, and a take over replaces it anyway.
+    /// </summary>
+    public bool CanManagePassword => IsReference && !CanTakeOver;
+
     public bool CanEnterPassword => IsFollower && Status is SharingStatus.PasswordsNeeded or SharingStatus.WrongPassword;
     public bool CanAcceptReference => IsFollower && Status == SharingStatus.UnknownPublisher && Engine?.Candidate is not null;
 

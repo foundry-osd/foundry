@@ -177,10 +177,12 @@
                                 Visibility="{x:Bind ViewModel.CanTakeOver, Mode=OneWay}" />
                             <Button
                                 Command="{x:Bind ViewModel.ChangePasswordCommand}"
-                                Content="{x:Bind ViewModel.Text('ChangePasswordButton'), Mode=OneWay}" />
+                                Content="{x:Bind ViewModel.Text('ChangePasswordButton'), Mode=OneWay}"
+                                Visibility="{x:Bind ViewModel.CanManagePassword, Mode=OneWay}" />
                             <Button
                                 Command="{x:Bind ViewModel.ResetPublicationCommand}"
-                                Content="{x:Bind ViewModel.Text('ResetPublicationButton'), Mode=OneWay}" />
+                                Content="{x:Bind ViewModel.Text('ResetPublicationButton'), Mode=OneWay}"
+                                Visibility="{x:Bind ViewModel.CanManagePassword, Mode=OneWay}" />
                             <Button
                                 Command="{x:Bind ViewModel.StopPublishingCommand}"
                                 Content="{x:Bind ViewModel.Text('StopPublishingButton'), Mode=OneWay}" />
