@@ -67,67 +67,7 @@ public sealed partial class CustomImageLibraryService
             if (!CustomImageSettingsValidator.IsValidReference(reference))
                 throw new InvalidDataException("The source does not contain valid readable image metadata.");
             cancellationToken.ThrowIfCancellationRequested();
-            using (FileStream libraryLock = AcquireLibraryLock())
-            {
-                IReadOnlyList<CustomImageReference> current = await ListAsync(cancellationToken).ConfigureAwait(false);
-                CustomImageReference? existing = current.FirstOrDefault(image =>
-                    image.ContentHash == imageHash);
-                if (existing is not null)
-                {
-                    reference = reference with { Id = existing.Id };
-                }
-                if (existing is null && current.Count >= CustomImageSettingsValidator.MaximumImages)
-                    throw new InvalidDataException("The custom image library has reached its image limit.");
-                byte[] indexBytes = SerializeIndex(current.Where(image => image.Id != reference.Id).Append(reference).ToArray());
-                cancellationToken.ThrowIfCancellationRequested();
-                string contentDirectory = OwnedPath($"content/{imageHash}");
-                bool createdContentDirectory = !Directory.Exists(contentDirectory);
-                Directory.CreateDirectory(contentDirectory);
-                string destination = Path.Combine(contentDirectory, "image.wim");
-                bool publishedUnreferencedContent = false;
-                try
-                {
-                    if (File.Exists(destination))
-                    {
-                        try
-                        {
-                            await using FileStream existingImage = OpenRead(destination);
-                            await VerifyAsync(existingImage, length, imageHash, cancellationToken).ConfigureAwait(false);
-                        }
-                        catch (InvalidDataException)
-                        {
-                            File.Move(stagedWim, destination, overwrite: true);
-                            publishedUnreferencedContent = existing is null;
-                        }
-                    }
-                    else
-                    {
-                        File.Move(stagedWim, destination);
-                        publishedUnreferencedContent = existing is null;
-                    }
-
-                    await WriteIndexAsync(indexBytes, cancellationToken).ConfigureAwait(false);
-                }
-                catch
-                {
-                    // Roll back only this import's unreferenced content while still holding the library lock.
-                    if (publishedUnreferencedContent)
-                    {
-                        try
-                        {
-                            CustomImagePathPolicy.ValidateNoReparsePoints(destination);
-                            CustomImagePathPolicy.ValidateNoReparsePoints(stagedWim);
-                            File.Move(destination, stagedWim);
-                            if (createdContentDirectory) Directory.Delete(contentDirectory, recursive: false);
-                        }
-                        catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException)
-                        {
-                            Log.ForContext<CustomImageLibraryService>().Warning(exception, "Custom image publication rollback failed.");
-                        }
-                    }
-                    throw;
-                }
-            }
+            reference = await PublishStagedAsync(stagedWim, reference, cancellationToken).ConfigureAwait(false);
             progress?.Report(new("Completed", length, length));
             Log.ForContext<CustomImageLibraryService>().Information("Custom image import completed. IndexCount={IndexCount}, ImageBytes={ImageBytes}", indexes.Count, length);
             return reference;
@@ -153,6 +93,146 @@ public sealed partial class CustomImageLibraryService
         }
     }
 
+    /// <summary>
+    /// Imports an image fetched from a publication. <paramref name="wim"/> is streamed from its current position into a
+    /// private pending directory and must hold exactly <see cref="CustomImageReference.Length"/> bytes hashing to
+    /// <see cref="CustomImageReference.ContentHash"/>; the metadata reader must then find the reference's index numbers, as
+    /// <see cref="AcquireAsync"/> requires, and the entry keeps the indexes it read. The content is published like
+    /// <see cref="ImportAsync"/>: an entry with the same hash keeps its id, and nothing is added to the library on failure.
+    /// </summary>
+    /// <param name="wim">Image bytes; read to the end, left open.</param>
+    /// <param name="reference">Published reference of the image (its id and display name become the library entry's).</param>
+    /// <param name="ct">Stops between copy chunks; pending content is removed.</param>
+    /// <param name="progress">Receives the cumulative bytes of the WIM copied and hashed into the library, up to its length.</param>
+    /// <exception cref="InvalidDataException">The reference is invalid, or the image does not match its length, hash or indexes.</exception>
+    /// <exception cref="IOException">The library volume has not enough free space, or the library cannot be written.</exception>
+    public async Task ImportFromPublicationAsync(Stream wim, CustomImageReference reference, CancellationToken ct, IProgress<long>? progress = null)
+    {
+        ArgumentNullException.ThrowIfNull(wim);
+        ArgumentNullException.ThrowIfNull(reference);
+        if (!CustomImageSettingsValidator.IsValidReference(reference)) throw new InvalidDataException("The custom image reference is invalid.");
+        ct.ThrowIfCancellationRequested();
+        string pending = OwnedPath($"pending/{Guid.NewGuid():N}");
+        using FileStream operationLease = PreparePendingImport(pending);
+        Log.ForContext<CustomImageLibraryService>().Information("Custom image publication import started. ImageBytes={ImageBytes}", reference.Length);
+        try
+        {
+            string stagedWim = Path.Combine(pending, "image.wim");
+            string imageHash = await CopyExactAsync(wim, stagedWim, reference.Length, progress, ct).ConfigureAwait(false);
+            if (!imageHash.Equals(reference.ContentHash, StringComparison.OrdinalIgnoreCase))
+                throw new InvalidDataException("The published image does not match its reference.");
+            IReadOnlyList<CustomImageIndex> indexes;
+            await using (FileStream stagedLease = OpenRead(stagedWim))
+            {
+                indexes = await metadataReader.ReadAsync(stagedWim, ct).ConfigureAwait(false);
+            }
+            CustomImageReference imported = reference with { ContentHash = imageHash, Indexes = indexes };
+            if (!CustomImageSettingsValidator.IsValidReference(imported) ||
+                !reference.Indexes.Select(index => index.Index).SequenceEqual(indexes.Select(index => index.Index)))
+                throw new InvalidDataException("The image indexes do not match their imported metadata.");
+            ct.ThrowIfCancellationRequested();
+            await PublishStagedAsync(stagedWim, imported, ct).ConfigureAwait(false);
+            Log.ForContext<CustomImageLibraryService>().Information("Custom image publication import completed. IndexCount={IndexCount}, ImageBytes={ImageBytes}",
+                indexes.Count, reference.Length);
+        }
+        catch (OperationCanceledException)
+        {
+            Log.ForContext<CustomImageLibraryService>().Information("Custom image publication import canceled.");
+            throw;
+        }
+        catch (InvalidDataException exception)
+        {
+            // A published image that does not match its reference is an expected rejection; the caller reports it as failed content.
+            Log.ForContext<CustomImageLibraryService>().Warning(exception, "Custom image publication import rejected.");
+            throw;
+        }
+        catch (Exception exception)
+        {
+            Log.ForContext<CustomImageLibraryService>().Error(exception, "Custom image publication import failed.");
+            throw;
+        }
+        finally
+        {
+            operationLease.Dispose();
+            try { DeleteOwnedDirectory(pending, rootDirectory); }
+            catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+            {
+                Log.ForContext<CustomImageLibraryService>().Warning(exception, "Custom image pending content cleanup failed.");
+            }
+        }
+    }
+
+    /// <summary>
+    /// Moves a fully inspected staged image into <c>content/&lt;hash&gt;/image.wim</c> and records it in the index under the library
+    /// lock. An entry with the same hash keeps its id; an existing image that no longer verifies is replaced; on failure only content
+    /// this call published is rolled back.
+    /// </summary>
+    /// <returns><paramref name="reference"/>, with the id of the existing entry when there is one.</returns>
+    private async Task<CustomImageReference> PublishStagedAsync(string stagedWim, CustomImageReference reference, CancellationToken cancellationToken)
+    {
+        string imageHash = reference.ContentHash;
+        using FileStream libraryLock = AcquireLibraryLock();
+        IReadOnlyList<CustomImageReference> current = await ListAsync(cancellationToken).ConfigureAwait(false);
+        CustomImageReference? existing = current.FirstOrDefault(image =>
+            image.ContentHash == imageHash);
+        if (existing is not null)
+        {
+            reference = reference with { Id = existing.Id };
+        }
+        if (existing is null && current.Count >= CustomImageSettingsValidator.MaximumImages)
+            throw new InvalidDataException("The custom image library has reached its image limit.");
+        byte[] indexBytes = SerializeIndex(current.Where(image => image.Id != reference.Id).Append(reference).ToArray());
+        cancellationToken.ThrowIfCancellationRequested();
+        string contentDirectory = OwnedPath($"content/{imageHash}");
+        bool createdContentDirectory = !Directory.Exists(contentDirectory);
+        Directory.CreateDirectory(contentDirectory);
+        string destination = Path.Combine(contentDirectory, "image.wim");
+        bool publishedUnreferencedContent = false;
+        try
+        {
+            if (File.Exists(destination))
+            {
+                try
+                {
+                    await using FileStream existingImage = OpenRead(destination);
+                    await VerifyAsync(existingImage, reference.Length, imageHash, progress: null, cancellationToken).ConfigureAwait(false);
+                }
+                catch (InvalidDataException)
+                {
+                    File.Move(stagedWim, destination, overwrite: true);
+                    publishedUnreferencedContent = existing is null;
+                }
+            }
+            else
+            {
+                File.Move(stagedWim, destination);
+                publishedUnreferencedContent = existing is null;
+            }
+
+            await WriteIndexAsync(indexBytes, cancellationToken).ConfigureAwait(false);
+        }
+        catch
+        {
+            // Roll back only this import's unreferenced content while still holding the library lock.
+            if (publishedUnreferencedContent)
+            {
+                try
+                {
+                    CustomImagePathPolicy.ValidateNoReparsePoints(destination);
+                    CustomImagePathPolicy.ValidateNoReparsePoints(stagedWim);
+                    File.Move(destination, stagedWim);
+                    if (createdContentDirectory) Directory.Delete(contentDirectory, recursive: false);
+                }
+                catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException)
+                {
+                    Log.ForContext<CustomImageLibraryService>().Warning(exception, "Custom image publication rollback failed.");
+                }
+            }
+            throw;
+        }
+        return reference;
+    }
+
     private FileStream PreparePendingImport(string pending)
     {
         using FileStream libraryLock = AcquireLibraryLock();
@@ -174,6 +254,33 @@ public sealed partial class CustomImageLibraryService
         }
         Directory.CreateDirectory(pending);
         return new FileStream(Path.Combine(pending, ".lease"), FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None);
+    }
+
+    /// <summary>Copies exactly <paramref name="length"/> bytes from the rest of <paramref name="input"/> and returns their lowercase SHA-256.</summary>
+    /// <exception cref="InvalidDataException">The input holds fewer or more bytes than <paramref name="length"/>.</exception>
+    private static async Task<string> CopyExactAsync(Stream input, string destination, long length, IProgress<long>? progress,
+        CancellationToken cancellationToken)
+    {
+        long available = new DriveInfo(Path.GetPathRoot(Path.GetFullPath(destination))!).AvailableFreeSpace;
+        if (length > available) throw new IOException("There is insufficient space to import the image source.");
+        using IncrementalHash sha256 = IncrementalHash.CreateHash(HashAlgorithmName.SHA256);
+        await using FileStream output = new(destination, FileMode.CreateNew, FileAccess.Write, FileShare.None,
+            1024 * 1024, FileOptions.Asynchronous | FileOptions.SequentialScan);
+        byte[] buffer = new byte[1024 * 1024];
+        long copied = 0;
+        int count;
+        while ((count = await input.ReadAsync(buffer, cancellationToken).ConfigureAwait(false)) != 0)
+        {
+            copied += count;
+            if (copied > length) throw new InvalidDataException("The published image does not match its reference.");
+            sha256.AppendData(buffer, 0, count);
+            await output.WriteAsync(buffer.AsMemory(0, count), cancellationToken).ConfigureAwait(false);
+            progress?.Report(copied);
+        }
+        if (copied != length) throw new InvalidDataException("The published image does not match its reference.");
+        await output.FlushAsync(cancellationToken).ConfigureAwait(false);
+        output.Flush(flushToDisk: true);
+        return Convert.ToHexStringLower(sha256.GetHashAndReset());
     }
 
     private static async Task CopyAsync(FileStream input, string destination, IProgress<CustomImageImportProgress>? progress,

@@ -283,6 +283,12 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Versionshinweise</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Die ausgewählte Datei konnte Foundry nicht hinzugefügt werden. Wählen Sie eine lesbare Datei mit höchstens 4 MiB aus.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Datei nicht hinzugefügt</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Standard</value>
   </data>
@@ -389,7 +395,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Kennwort kopieren</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Speichern Sie diese PFX-Datei und das Kennwort jetzt an einem sicheren Ort. Foundry speichert das Kennwort nur dann mit Ihrer Konfiguration auf diesem PC, wenn die Option „Kennwörter speichern“ im Bereich „Einstellungen sichern und synchronisieren“ aktiviert ist. Sie benötigen beide Werte, um Startmedien für den Hardware-Hash-Upload zu erstellen.</value>
+    <value>Speichern Sie diese PFX-Datei und das Kennwort jetzt an einem sicheren Ort. Foundry speichert das Kennwort auf diesem PC in seinem lokalen verschlüsselten Tresor. Es verlässt diesen PC nur in einem Export oder einer Veröffentlichung, wenn „Kennwörter einschließen“ gewählt ist. Sie benötigen beide Werte, um Startmedien für den Hardware-Hash-Upload zu erstellen.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Kennwort kopiert.</value>
@@ -737,7 +743,10 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Nicht verfügbar</value>
   </data>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
-    <value>Dieser Ordner ist in diesem Profil bereits als {0} vorhanden.</value>
+    <value>Dieser Ordner ist in dieser Konfiguration bereits als {0} vorhanden.</value>
+  </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>Die Konfiguration wurde während des Imports ersetzt, daher wurde der Treibersatz nicht hinzugefügt. Importieren Sie den Ordner erneut.</value>
   </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>Der Treibersatz wurde entfernt, aber seine lokale Kopie konnte nicht gelöscht werden.</value>
@@ -749,7 +758,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Treibersatz</value>
   </data>
   <data name="CustomDrivers.DuplicateName" xml:space="preserve">
-    <value>In diesem Profil ist bereits ein Treibersatz mit diesem Namen vorhanden.</value>
+    <value>In dieser Konfiguration ist bereits ein Treibersatz mit diesem Namen vorhanden.</value>
   </data>
   <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
     <value>Keine benutzerdefinierten Treibersätze. Importieren Sie zunächst einen Ordner mit .inf-Treibern.</value>
@@ -802,26 +811,23 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Treibersätze</value>
   </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Das aktive Profil wurde während des Imports gewechselt, daher wurde der Treibersatz nicht hinzugefügt. Importieren Sie den Ordner in diesem Profil erneut.</value>
-  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Nicht verfügbar bei PXE-Start. Benutzerdefinierte Treiber erfordern das vollständige ISO- oder USB-Medium.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
-    <value>Die Treibersätze dieses Profils sind ungültig. Prüfen Sie die enthaltenen Sätze und den Standardsatz, bevor Sie Medien erstellen oder aktualisieren.</value>
+    <value>Die Treibersätze dieser Konfiguration sind ungültig. Prüfen Sie die enthaltenen Sätze und den Standardsatz, bevor Sie Medien erstellen oder aktualisieren.</value>
   </data>
   <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
     <value>Die lokale Kopie von {0} fehlt oder ist beschädigt. Importieren Sie den Ordner erneut oder schließen Sie den Satz aus, bevor Sie Medien erstellen oder aktualisieren.</value>
   </data>
   <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
-    <value>Nehmen Sie mindestens einen Treibersatz in dieses Profil auf oder deaktivieren Sie benutzerdefinierte Treiber, bevor Sie Medien erstellen oder aktualisieren.</value>
+    <value>Nehmen Sie mindestens einen Treibersatz in diese Konfiguration auf oder deaktivieren Sie benutzerdefinierte Treiber, bevor Sie Medien erstellen oder aktualisieren.</value>
   </data>
   <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
     <value>Treibersatz entfernen</value>
   </data>
   <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) wird aus dem aktuellen Profil entfernt.</value>
+    <value>{0} ({1}) wird aus der aktuellen Konfiguration entfernt.</value>
   </data>
   <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
     <value>Der Treibersatz konnte nicht entfernt werden. Versuchen Sie es erneut.</value>
@@ -830,13 +836,13 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Treibersatz entfernen?</value>
   </data>
   <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
-    <value>Die lokale Kopie wird gelöscht, sofern kein anderes Profil sie verwendet. Der Originalordner und vorhandene Medien bleiben unverändert.</value>
+    <value>Die lokale Kopie wird gelöscht. Der Originalordner und vorhandene Medien bleiben unverändert.</value>
   </data>
   <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
     <value>Als Standard festlegen</value>
   </data>
   <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
-    <value>Dieses Profil hat die maximale Anzahl an Treibersätzen erreicht. Entfernen Sie einen, bevor Sie einen weiteren importieren.</value>
+    <value>Diese Konfiguration hat die maximale Anzahl an Treibersätzen erreicht. Entfernen Sie einen, bevor Sie einen weiteren importieren.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Benutzerdefinierte Treibersätze werden überprüft…</value>
@@ -878,7 +884,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Ausgewähltes Abbild</value>
   </data>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
-    <value>In diesem Profil ist bereits ein Abbild mit diesem Namen vorhanden.</value>
+    <value>In dieser Konfiguration ist bereits ein Abbild mit diesem Namen vorhanden.</value>
   </data>
   <data name="CustomImages.EditionLabel" xml:space="preserve">
     <value>Edition</value>
@@ -935,7 +941,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Nicht verfügbar bei PXE-Start. Benutzerdefinierte Abbilder erfordern das vollständige ISO- oder USB-Medium.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Nehmen Sie mindestens ein verfügbares Windows-Abbild in dieses Profil auf. Stellen Sie fehlende enthaltene Abbilder wieder her und korrigieren oder löschen Sie die Auswahl des bevorzugten Abbilds oder Index, bevor Sie Medien erstellen oder aktualisieren.</value>
+    <value>Nehmen Sie mindestens ein verfügbares Windows-Abbild in diese Konfiguration auf. Stellen Sie fehlende enthaltene Abbilder wieder her und korrigieren oder löschen Sie die Auswahl des bevorzugten Abbilds oder Index, bevor Sie Medien erstellen oder aktualisieren.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Aktualisieren</value>
@@ -944,7 +950,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Image entfernen</value>
   </data>
   <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) wird aus dem aktuellen Profil entfernt, und die lokale Kopie wird gelöscht.</value>
+    <value>{0} ({1}) wird aus der aktuellen Konfiguration entfernt, und die lokale Kopie wird gelöscht.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Entfernen</value>
@@ -953,7 +959,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Benutzerdefiniertes Image entfernen?</value>
   </data>
   <data name="CustomImages.RemoveWarning" xml:space="preserve">
-    <value>In anderen Profilen, die dieses Image verwenden, wird es als fehlend angezeigt. Die Originaldatei und vorhandene Medien bleiben unverändert.</value>
+    <value>Die Originaldatei und vorhandene Medien bleiben unverändert.</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Bearbeiten</value>
@@ -2768,7 +2774,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Stellen Sie eine Unternehmensprofilvorlage Wi-Fi bereit</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Die Passphrase wird nur dann mit Ihrer Konfiguration auf diesem PC gespeichert, wenn die Option „Kennwörter speichern“ im Bereich „Einstellungen sichern und synchronisieren“ aktiviert ist. Andernfalls wird sie nicht gespeichert und muss erneut eingegeben werden, zum Beispiel nach einem Neustart von Foundry OSD.</value>
+    <value>Foundry speichert die Passphrase auf diesem PC in seinem lokalen verschlüsselten Tresor. Sie verlässt diesen PC nur in einem Export oder einer Veröffentlichung, wenn „Kennwörter einschließen“ gewählt ist.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importiert das von Foundry verwaltete Wi-Fi-Profil vor OOBE in Windows, um die Bereitstellungskonnektivität nach WinPE aufrechtzuerhalten.</value>
@@ -3001,299 +3007,6 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Arbeitsverzeichnis (relativ; leer für das Inhaltsstammverzeichnis)</value>
   </data>
-  <data name="Profiles.Active" xml:space="preserve">
-    <value>Aktuelle Einstellungen</value>
-  </data>
-  <data name="Profiles.AutoSync" xml:space="preserve">
-    <value>Automatisch synchronisieren</value>
-  </data>
-  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
-    <value>Anderen Namen wählen</value>
-  </data>
-  <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>Einige alte gespeicherte Kennwörter oder Zugriffsschlüssel konnten nicht entfernt werden. Versuchen Sie es erneut, wenn die Windows-Anmeldeinformationsverwaltung verfügbar ist.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
-    <value>Ohne Speichern schließen</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
-    <value>Ihre letzten Änderungen konnten nicht gespeichert werden und gehen verloren.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
-    <value>Ohne Speichern der Einstellungen schließen?</value>
-  </data>
-  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
-    <value>Kennwort bestätigen</value>
-  </data>
-  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>Dateikennwort bestätigen</value>
-  </data>
-  <data name="Profiles.Conflict" xml:space="preserve">
-    <value>Diese Einstellungen wurden auf diesem PC und von einer anderen Person geändert. Wählen Sie die Version aus, die Sie behalten möchten.</value>
-  </data>
-  <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>Die gewählte Version ersetzt die andere. Wählen Sie zuerst Duplizieren, wenn Sie eine separate Kopie behalten möchten.</value>
-  </data>
-  <data name="Profiles.ConnectAction" xml:space="preserve">
-    <value>Verbinden</value>
-  </data>
-  <data name="Profiles.ConnectDescription" xml:space="preserve">
-    <value>Wählen Sie die Verbindungsdatei aus, die Sie von einem Teammitglied erhalten haben.</value>
-  </data>
-  <data name="Profiles.ConnectionPassword" xml:space="preserve">
-    <value>Verbindungskennwort</value>
-  </data>
-  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
-    <value>Andere PCs benötigen dieses Kennwort, um eine Verbindung herzustellen.</value>
-  </data>
-  <data name="Profiles.Continue" xml:space="preserve">
-    <value>Weiter</value>
-  </data>
-  <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Diese Konfiguration teilen</value>
-  </data>
-  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
-    <value>Wählen Sie einen geteilten Netzwerkordner für diese Konfiguration aus.</value>
-  </data>
-  <data name="Profiles.Delete" xml:space="preserve">
-    <value>Von diesem PC löschen</value>
-  </data>
-  <data name="Profiles.DeleteAction" xml:space="preserve">
-    <value>Löschen</value>
-  </data>
-  <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>Auch für alle anderen löschen</value>
-  </data>
-  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
-    <value>Für alle löschen</value>
-  </data>
-  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
-    <value>Für alle löschen?</value>
-  </data>
-  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>Diese gemeinsamen Einstellungen für alle löschen? Wer noch nicht synchronisierte Änderungen hat, muss seine Einstellungen duplizieren, um sie zu behalten.</value>
-  </data>
-  <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>Diese Einstellungen von diesem PC löschen? Exportieren Sie sie zuerst, wenn Sie eine Sicherung behalten möchten.</value>
-  </data>
-  <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>Diese gemeinsamen Einstellungen wurden gelöscht. Wählen Sie Duplizieren, um Ihre Änderungen auf diesem PC zu behalten.</value>
-  </data>
-  <data name="Profiles.Disconnect" xml:space="preserve">
-    <value>Trennen</value>
-  </data>
-  <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>Die Synchronisierung dieser Konfiguration auf diesem PC beenden? Ihre aktuellen Einstellungen bleiben erhalten. Die freigegebene Konfiguration und andere PCs werden nicht geändert.</value>
-  </data>
-  <data name="Profiles.Export" xml:space="preserve">
-    <value>Exportieren</value>
-  </data>
-  <data name="Profiles.ExportDescription" xml:space="preserve">
-    <value>Diese Konfiguration zur Sicherung oder für einen anderen PC in einer Datei speichern.</value>
-  </data>
-  <data name="Profiles.ExportProtection" xml:space="preserve">
-    <value>Wählen Sie ein Kennwort zum Schutz der exportierten Datei. Sie benötigen es, um die Konfiguration zu importieren.</value>
-  </data>
-  <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Verbindungsdatei speichern</value>
-  </data>
-  <data name="Profiles.Failed" xml:space="preserve">
-    <value>Diese Aktion konnte nicht abgeschlossen werden. Prüfen Sie die Datei, ihr Kennwort, Ihre Zugriffsrechte und Ihre Netzwerkverbindung.</value>
-  </data>
-  <data name="Profiles.FolderExists" xml:space="preserve">
-    <value>Dieser Ordnername wird bereits verwendet. Stellen Sie die Verbindung über eine Verbindungsdatei her, oder gehen Sie zurück und wählen Sie einen anderen Namen.</value>
-  </data>
-  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
-    <value>Wählen Sie einen neuen, leeren Unterordner im freigegebenen Ordner. Vorhandene Dateien bleiben unverändert.</value>
-  </data>
-  <data name="Profiles.Forget" xml:space="preserve">
-    <value>Gespeicherte Kennwörter und Zugänge löschen</value>
-  </data>
-  <data name="Profiles.ForgetAction" xml:space="preserve">
-    <value>Löschen</value>
-  </data>
-  <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>Gespeicherte Kennwörter, von Foundry gespeicherte vertrauliche Dateien und den Synchronisierungszugriff für diese Einstellungen auf diesem PC entfernen? Sie müssen fehlende Angaben ergänzen und die Verbindung zur Synchronisierung erneut einrichten. Bereits erstellte Medien bleiben unverändert.</value>
-  </data>
-  <data name="Profiles.Heading" xml:space="preserve">
-    <value>Foundry-Einstellungen</value>
-  </data>
-  <data name="Profiles.Import" xml:space="preserve">
-    <value>Importieren</value>
-  </data>
-  <data name="Profiles.ImportDescription" xml:space="preserve">
-    <value>Eine Konfiguration aus einer Datei hinzufügen.</value>
-  </data>
-  <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>Kennwörter und vertrauliche Dateien einschließen</value>
-  </data>
-  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
-    <value>Personen, die diese Konfiguration verwenden, können die enthaltenen Kennwörter und vertraulichen Dateien lesen.</value>
-  </data>
-  <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>Einige Kennwörter oder Quelldateien fehlen. Fügen Sie diese hinzu, bevor Sie Kennwörter speichern oder teilen.</value>
-  </data>
-  <data name="Profiles.InvalidFolderName" xml:space="preserve">
-    <value>Verwenden Sie einen Namen ohne Sonderzeichen und ohne Punkt oder Leerzeichen am Ende.</value>
-  </data>
-  <data name="Profiles.JoinChanged" xml:space="preserve">
-    <value>Die freigegebene Konfiguration wurde geändert. Prüfen Sie vor dem Verbinden die neueste Version.</value>
-  </data>
-  <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Mit einer geteilten Konfiguration verbinden</value>
-  </data>
-  <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>Version dieses PCs verwenden</value>
-  </data>
-  <data name="Profiles.LearnMore" xml:space="preserve">
-    <value>Weitere Informationen</value>
-  </data>
-  <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Kennwörter für Ihr Windows-Konto auf diesem PC speichern.</value>
-  </data>
-  <data name="Profiles.Locked" xml:space="preserve">
-    <value>Windows kann diese gespeicherten Einstellungen oder ihren Synchronisierungszugriff für Ihr Konto auf diesem PC nicht entsperren.</value>
-  </data>
-  <data name="Profiles.Manage" xml:space="preserve">
-    <value>Weitere Optionen</value>
-  </data>
-  <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Fehlende oder nicht eingeschlossene Dateien: {0}. Geben Sie ihre Speicherorte an, bevor Sie Medien erstellen.</value>
-  </data>
-  <data name="Profiles.Name" xml:space="preserve">
-    <value>Name der Konfiguration</value>
-  </data>
-  <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>Dateikennwort</value>
-  </data>
-  <data name="Profiles.PasswordMismatch" xml:space="preserve">
-    <value>Die Kennwörter stimmen nicht überein.</value>
-  </data>
-  <data name="Profiles.Preview" xml:space="preserve">
-    <value>{0}
-Enthaltene Dateien: {1}
-Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
-  </data>
-  <data name="Profiles.Ready" xml:space="preserve">
-    <value>Bereit</value>
-  </data>
-  <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Wählen Sie ein Kennwort zum Schutz der Verbindungsdatei. Geben Sie das Kennwort separat weiter. Speichern Sie die Datei außerhalb des Ordners der freigegebenen Konfiguration.</value>
-  </data>
-  <data name="Profiles.Remember" xml:space="preserve">
-    <value>Kennwörter speichern</value>
-  </data>
-  <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>Diese Verbindung auf diesem PC speichern</value>
-  </data>
-  <data name="Profiles.Rename" xml:space="preserve">
-    <value>Umbenennen</value>
-  </data>
-  <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>Dadurch werden die derzeit verwendeten Einstellungen ersetzt. Um zuerst eine Kopie zu behalten, brechen Sie ab und wählen Sie Duplizieren.</value>
-  </data>
-  <data name="Profiles.RestoreAccess" xml:space="preserve">
-    <value>Zugriff wiederherstellen</value>
-  </data>
-  <data name="Profiles.Rollback" xml:space="preserve">
-    <value>Die gespeicherten Versionen im freigegebenen Ordner haben sich unerwartet geändert. Stellen Sie sie aus einer vertrauenswürdigen Sicherung wieder her.</value>
-  </data>
-  <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Duplizieren</value>
-  </data>
-  <data name="Profiles.Select" xml:space="preserve">
-    <value>Konfiguration auswählen</value>
-  </data>
-  <data name="Profiles.Setup" xml:space="preserve">
-    <value>Einrichten</value>
-  </data>
-  <data name="Profiles.SetupAction" xml:space="preserve">
-    <value>Synchronisierung einrichten…</value>
-  </data>
-  <data name="Profiles.SetupDescription" xml:space="preserve">
-    <value>Diese Konfiguration teilen oder mit einer Konfiguration verbinden, die Ihr Team bereits verwendet.</value>
-  </data>
-  <data name="Profiles.ShareAction" xml:space="preserve">
-    <value>Freigeben</value>
-  </data>
-  <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>Alle Personen, die diese Einstellungen importieren oder synchronisieren können, können die enthaltenen Kennwörter und privaten Zertifikatschlüssel lesen.</value>
-  </data>
-  <data name="Profiles.SharedBusy" xml:space="preserve">
-    <value>Ein anderer Vorgang verwendet diesen freigegebenen Ordner. Versuchen Sie es in Kürze erneut. Ihre Änderungen bleiben auf diesem PC gespeichert.</value>
-  </data>
-  <data name="Profiles.SharedFolder" xml:space="preserve">
-    <value>Freigegebener Ordner</value>
-  </data>
-  <data name="Profiles.SharedUnavailable" xml:space="preserve">
-    <value>Der freigegebene Ordner ist nicht erreichbar. Prüfen Sie seine Adresse und Ihren Netzwerkzugriff. Ihre Änderungen bleiben auf diesem PC gespeichert.</value>
-  </data>
-  <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>Verwenden Sie auf jedem PC denselben Netzwerkordner. Er muss SMB 3 mit verpflichtender Verschlüsselung verwenden. Mit der Cloud synchronisierte Ordner werden nicht unterstützt.</value>
-  </data>
-  <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Foundry speichert die Kennwörter für diese Konfiguration auf diesem PC nicht mehr.</value>
-  </data>
-  <data name="Profiles.StopRememberingAction" xml:space="preserve">
-    <value>Nicht mehr speichern</value>
-  </data>
-  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
-    <value>Kennwörter nicht mehr speichern?</value>
-  </data>
-  <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Synchronisieren</value>
-  </data>
-  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
-    <value>Wird synchronisiert…</value>
-  </data>
-  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
-    <value>Version auswählen</value>
-  </data>
-  <data name="Profiles.SyncStatusError" xml:space="preserve">
-    <value>Synchronisieren nicht möglich</value>
-  </data>
-  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
-    <value>Nicht eingerichtet</value>
-  </data>
-  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
-    <value>Ordner nicht verfügbar</value>
-  </data>
-  <data name="Profiles.SyncStatusPending" xml:space="preserve">
-    <value>Änderungen zum Synchronisieren</value>
-  </data>
-  <data name="Profiles.SyncStatusReady" xml:space="preserve">
-    <value>Bereit zum Synchronisieren</value>
-  </data>
-  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
-    <value>Auf dem neuesten Stand</value>
-  </data>
-  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
-    <value>Änderungen verfügbar</value>
-  </data>
-  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
-    <value>Aktion erforderlich</value>
-  </data>
-  <data name="Profiles.Synchronize" xml:space="preserve">
-    <value>Synchronisieren</value>
-  </data>
-  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
-    <value>Diese Konfiguration auf den PCs Ihres Teams aktuell halten.</value>
-  </data>
-  <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>Einstellungen sind auf dem neuesten Stand</value>
-  </data>
-  <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>Foundry kann dieses Einstellungsformat nicht öffnen. Aktualisieren Sie Foundry und versuchen Sie es erneut.</value>
-  </data>
-  <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>Änderungen von einem anderen PC sind verfügbar. Wählen Sie Synchronisieren, um sie zu übernehmen.</value>
-  </data>
-  <data name="Profiles.UseRemote" xml:space="preserve">
-    <value>Gemeinsame Version verwenden</value>
-  </data>
-  <data name="Profiles.Validation" xml:space="preserve">
-    <value>Prüfen Sie die Pflichtfelder. Wenn ein Netzwerkordner benötigt wird, verwenden Sie einen Pfad wie \\server\share\folder. Wenn Sie ein Dateikennwort zweimal eingeben, müssen beide Eingaben übereinstimmen.</value>
-  </data>
   <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
     <value>Foundry OSD konnte die Proxyeinstellungen nicht speichern. Versuchen Sie es erneut. Details finden Sie im Protokoll.</value>
   </data>
@@ -3429,12 +3142,6 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Allgemein</value>
   </data>
-  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Sichern Sie Ihre Einstellungen, übertragen Sie sie auf einen anderen PC oder halten Sie sie synchron.</value>
-  </data>
-  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Einstellungen sichern und synchronisieren</value>
-  </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Konfigurieren Sie, wie Foundry OSD eine Verbindung mit Onlinediensten herstellt.</value>
   </data>
@@ -3464,6 +3171,498 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>App aktualisieren</value>
+  </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>Akzeptieren</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>Neue Referenz akzeptieren</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>Der Ordner wird jetzt von einem anderen PC veröffentlicht: {0}. Akzeptieren Sie ihn nur, wenn Sie diese Änderung erwarten, zum Beispiel nach einer Übernahme; andernfalls beenden Sie das Folgen.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>Neue Referenz akzeptieren?</value>
+  </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Die Referenz hat sich geändert, während dieses Dialogfeld geöffnet war. Prüfen Sie den neuen Schlüssel, bevor Sie ihn akzeptieren.</value>
+  </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Übertragen Sie diese Konfiguration mit einer verschlüsselten Datei, oder halten Sie mehrere PCs über einen freigegebenen Ordner auf demselben Stand.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Konfigurationsfreigabe</value>
+  </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>Ändern</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>Kennwort ändern</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>Die aktuelle Veröffentlichung wird mit dem neuen Kennwort neu geschrieben. Inhaltsdateien werden nicht erneut verschlüsselt, daher kann sie lesen, wer das alte Kennwort kannte: Verwenden Sie „Veröffentlichung zurücksetzen“, um frühere Leser vollständig auszuschließen. PCs, die dem Ordner folgen, geben das neue Kennwort einmal ein.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>Veröffentlichungskennwort ändern</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>Jetzt prüfen</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Passphrase bestätigen</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>Kennwort bestätigen</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Wird heruntergeladen</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>Elemente, die nicht installiert werden konnten: {0}. Sie werden erneut abgerufen, wenn der Referenz-PC eine neue Version veröffentlicht.</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Treibersatz</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>Datei</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Abbild</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Paket nach der Installation</value>
+  </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>Die Inhalte sind im Ordner möglicherweise beschädigt. Veröffentlichen Sie erneut vom Referenz-PC.</value>
+  </data>
+  <data name="Sharing.CopyButton" xml:space="preserve">
+    <value>Kopieren</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>Aktuelles Veröffentlichungskennwort</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>Kennwort eingeben</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>Das Veröffentlichungskennwort wird erneut benötigt, zum Beispiel nach dem Zurücksetzen des Windows-Kennworts oder nachdem der Referenz-PC es geändert hat.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>Veröffentlichungskennwort eingeben</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Exportieren</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>Konfiguration exportiert.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Speichern Sie die Einstellungen und kleinen Dateien in einer verschlüsselten Datei. Pakete nach der Installation, Treibersätze und Abbilder sind nicht enthalten.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>Die Konfiguration konnte nicht exportiert werden. Überprüfen Sie das Ziel, und versuchen Sie es erneut.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>Die Dateien dieser Konfiguration überschreiten insgesamt 16 MiB und können nicht exportiert werden.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>Die Konfiguration wurde exportiert, aber einige Dateien fehlen auf diesem PC oder sind beschädigt und wurden nicht aufgenommen (Anzahl: {0}). Wählen Sie sie auf den Konfigurationsseiten erneut aus, und exportieren Sie dann erneut.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Konfiguration exportieren</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>Datei</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Foundry-Konfiguration</value>
+  </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>Ordner</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>Veröffentlichungsordner auswählen</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>Folgen</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>Verwenden Sie die Konfiguration, die ein Referenz-PC in einem Ordner veröffentlicht. Veröffentlichte Einstellungen sind auf diesem PC schreibgeschützt.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>Geben Sie den Ordner, in dem der Referenz-PC veröffentlicht, und sein Veröffentlichungskennwort ein, und öffnen Sie ihn dann, um eine Vorschau der Veröffentlichung anzuzeigen.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>Das Folgen ersetzt die aktuelle Konfiguration und macht die veröffentlichten Einstellungen schreibgeschützt. Der ISO-Ausgabepfad, der zusätzliche WinPE-Treiberordner und die Telemetrieeinstellungen dieses PCs bleiben erhalten.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>Einem Ordner folgen</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>Gefundener Schlüssel</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>Gefundene Version</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>Veröffentlichungskennwort vergessen</value>
+  </data>
+  <data name="Sharing.GenerateButton" xml:space="preserve">
+    <value>Generieren</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>Importieren</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>Konfiguration importiert.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>Konfiguration importiert. Auf diesem PC fehlen Inhalte: Importieren Sie sie auf der jeweiligen Seite erneut.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Ersetzen Sie diese Konfiguration durch eine exportierte Datei oder ein Profil aus der vorherigen Version.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>Die Konfiguration konnte nicht importiert werden. Die aktuelle Konfiguration bleibt unverändert.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>Konfiguration importiert, aber die Kennwörter konnten nicht gespeichert werden. Geben Sie sie auf den Konfigurationsseiten erneut ein.</value>
+  </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>Der Import ist nicht verfügbar, solange dieser PC einem Ordner folgt. Beenden Sie zuerst das Folgen.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Konfiguration importieren</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Kennwörter einschließen</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>Wer den Ordner lesen kann und das Veröffentlichungskennwort kennt, kann diese Kennwörter lesen.</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Jeder, der diese Datei und ihre Passphrase besitzt, kann diese Kennwörter lesen.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>Diese Datei ist keine Foundry-Konfiguration oder sie ist beschädigt.</value>
+  </data>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>Letzte erfolgreiche Prüfung</value>
+  </data>
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>Zuletzt veröffentlicht</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
+    <value>Diese Konfiguration kann von diesem Windows-Benutzer nicht geöffnet werden.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>Diese Konfiguration wird von {0} veröffentlicht und ist auf diesem PC schreibgeschützt. Nur der ISO-Ausgabepfad, der zusätzliche WinPE-Treiberordner und die Telemetrieeinstellungen können geändert werden.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>Diese Konfiguration wird von {0} veröffentlicht und ist auf diesem PC schreibgeschützt. Die Veröffentlichung enthält keine Kennwörter: Geben Sie sie hier ein. Der ISO-Ausgabepfad, der zusätzliche WinPE-Treiberordner und die Telemetrieeinstellungen können ebenfalls geändert werden.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>Von einem Referenz-PC verwaltet</value>
+  </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Einige von der Konfiguration verwendete Dateien konnten nicht wiederhergestellt werden. Wählen Sie sie auf den Konfigurationsseiten erneut aus.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Die Konfigurationssynchronisierung früherer Versionen wird nicht mehr unterstützt. Verwenden Sie zum Freigeben dieser Konfiguration „In einem Ordner veröffentlichen“ auf dem Referenz-PC.</value>
+  </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Konfiguration überprüfen</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Gespeicherte Kennwörter konnten nicht wiederhergestellt werden. Geben Sie sie auf den Konfigurationsseiten erneut ein.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Importieren Sie diese Elemente auf ihren Seiten erneut. Bis dahin sind die zugehörigen Konfigurationselemente nicht bereit.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Fehlt auf diesem PC</value>
+  </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>Neuer Schlüssel</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>Neues Veröffentlichungskennwort</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>Dieser Ordner enthält keine veröffentlichte Konfiguration.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>Noch nicht überprüft: Diese Werte stammen aus dem Ordner und werden erst bestätigt, wenn das aktuelle Veröffentlichungskennwort die Veröffentlichung öffnet.</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Öffnen</value>
+  </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Datei öffnen</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Ausgewähltes Profil öffnen</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>Der Vorgang konnte nicht abgeschlossen werden. Einzelheiten finden Sie im Protokoll.</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>Passphrase in die Zwischenablage kopiert.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Passphrase</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>Die Passphrasen stimmen nicht überein.</value>
+  </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>Das neue Kennwort ist gespeichert. Die Änderung wird bei der nächsten erfolgreichen Veröffentlichung abgeschlossen.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>Das Veröffentlichungskennwort wurde geändert. PCs, die dem Ordner folgen, geben das neue Kennwort einmal ein.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>Kennwort in die Zwischenablage kopiert.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>Die Kennwörter stimmen nicht überein.</value>
+  </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Diese Konfiguration wird von einem Referenz-PC verwaltet: Hier kann nur das Kennwort eingegeben werden.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Enthalten</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>Das kann nach dem Zurücksetzen des Windows-Kennworts passieren. Übernehmen Sie den Ordner mit dem aktuellen Veröffentlichungskennwort, um weiter zu veröffentlichen; PCs, die dem Ordner folgen, akzeptieren diesen PC dann einmal als neue Referenz.</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Nicht enthalten</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Exportiert am</value>
+  </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>Downloadgröße</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Kennwörter</value>
+  </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>Veröffentlicht am</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>Referenz-PC</value>
+  </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>Vorheriger Schlüssel</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Profile aus der vorherigen Version</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Diese Profile wurden vor dem Update auf diesem PC gespeichert.</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>Die Veröffentlichung ist noch nicht vollständig in diesem Ordner angekommen. Versuchen Sie es gleich noch einmal.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>Veröffentlichungskennwort</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>Die Veröffentlichung wurde zurückgesetzt. PCs, die dem Ordner folgen, geben das neue Kennwort einmal ein.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>Veröffentlichen</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>Machen Sie diesen PC zur Referenz: Seine Konfiguration wird in einem Ordner veröffentlicht, dem andere PCs folgen.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>Wählen Sie einen leeren Ordner oder einen, in dem dieser PC bereits veröffentlicht: eine Netzwerkfreigabe, einen OneDrive- oder SharePoint-Ordner oder einen lokalen Ordner. PCs, die dem Ordner folgen, benötigen das Veröffentlichungskennwort, um ihn zu lesen.</value>
+  </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>Jetzt veröffentlichen</value>
+  </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Ordner wird geprüft…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Veröffentlichung wird abgeschlossen…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>{0} wird vorbereitet…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>{0} wird gesendet…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>{0} wird überprüft…</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>In einem Ordner veröffentlichen</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>Der Import ersetzt die aktuelle Konfiguration. Der ISO-Ausgabepfad, der zusätzliche WinPE-Treiberordner und die Telemetrieeinstellungen dieses PCs bleiben erhalten.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>Zurücksetzen</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>Veröffentlichung zurücksetzen</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>Ein neues Kennwort und ein neuer Inhaltsschlüssel: Jede Inhaltsdatei wird erneut verschlüsselt, wodurch frühere Leser vollständig ausgeschlossen werden. PCs, die dem Ordner folgen, geben das neue Kennwort einmal ein.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>Veröffentlichung zurücksetzen</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>Frühere Leser können Inhalte bis zur nächsten erfolgreichen Veröffentlichung weiterhin öffnen.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>Dieser PC folgt {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>Dieser PC veröffentlicht seine Konfiguration</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>Mindestens 12 Zeichen und nicht dasselbe Zeichen wiederholt (zum Beispiel aaaaaaaaaaaa).</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Einige freigegebene Inhalte der verfolgten Veröffentlichung konnten nicht heruntergeladen werden. Prüfen Sie „Konfigurationsfreigabe“ auf der Seite „Einstellungen“.</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>Veröffentlichen und Folgen sind in dieser Sitzung nicht verfügbar, da der Freigabestatus nicht gelesen werden konnte. Einzelheiten finden Sie im Protokoll.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>Der Ordner wird geprüft: Die Veröffentlichung ist noch nicht vollständig angekommen und wird bei der nächsten Prüfung erneut gelesen.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>Die Konfiguration ist angewendet. Freigegebene Inhalte werden heruntergeladen.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>Die Konfiguration ist angewendet, aber einige freigegebene Inhalte konnten nicht installiert werden.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>Die Konfiguration ist angewendet, aber einige freigegebene Inhalte sind nach wiederholten Prüfungen noch immer nicht verfügbar.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>Dieser Ordner enthält Dateien, die keine Veröffentlichung dieses PCs sind. Wählen Sie einen leeren Ordner.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>Der Ordner ist nicht verfügbar. Prüfen Sie, ob er vorhanden ist und dieser PC darauf zugreifen kann.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>Dieser PC veröffentlicht keine Konfiguration und folgt keiner.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>Warten auf die erste Prüfung des Ordners.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>Änderungen werden automatisch veröffentlicht.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>Nicht veröffentlicht: Die Konfiguration ist nicht bereit zum Erstellen von Medien oder verweist auf Inhalte, die auf diesem PC fehlen. Die vorherige Version bleibt aktuell.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>Kennwörter werden benötigt: Geben Sie das Veröffentlichungskennwort ein, oder geben Sie die fehlenden Kennwörter auf den Konfigurationsseiten ein.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>Das Veröffentlichungskennwort oder die Schlüssel dieses PCs konnten nicht gelesen werden.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>Veröffentlicht. PCs, die dem Ordner folgen, erhalten diese Version bei ihrer nächsten Prüfung.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>Die Konfiguration wird veröffentlicht…</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>Der Ordner verweist auf eine ältere Version als die angewendete. Sie wird ignoriert.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>Die Veröffentlichung wurde verändert. Sie wird nicht angewendet.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>Der Ordner wird jetzt von einem anderen PC veröffentlicht. Akzeptieren Sie die neue Referenz, oder beenden Sie das Folgen.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>Ein anderer PC veröffentlicht in diesem Ordner. Übernehmen Sie ihn, um von diesem PC aus zu veröffentlichen.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>Diese Veröffentlichung erfordert eine neuere Version von Foundry OSD.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>Auf dem neuesten Stand.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>Konfiguration aktualisiert.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>Das Veröffentlichungskennwort öffnet die aktuelle Veröffentlichung nicht. Geben Sie das neue Kennwort ein.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>Das Veröffentlichungskennwort öffnet die Veröffentlichung dieses PCs in diesem Ordner nicht.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>Folgen beenden</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>Die Konfiguration bleibt unverändert und kann auf diesem PC wieder bearbeitet werden.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>Folgen beenden?</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>Veröffentlichen beenden</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>Der Ordner bleibt unverändert, und PCs, die dem Ordner folgen, behalten die zuletzt veröffentlichte Version. Dieser PC veröffentlicht seine Konfiguration nicht mehr.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>Veröffentlichen beenden?</value>
+  </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>{0} wird heruntergeladen…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>{0} wird installiert…</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>Übernehmen</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>Ein anderer PC veröffentlicht in diesem Ordner. Durch die Übernahme wird seine Veröffentlichung mit dem Schlüssel dieses PCs fortgesetzt; PCs, die dem Ordner folgen, müssen diesen PC einmal als neue Referenz akzeptieren.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>Die Veröffentlichungsschlüssel dieses PCs konnten nicht gelesen werden. Die Übernahme mit dem aktuellen Veröffentlichungskennwort setzt die Veröffentlichung mit neuen Schlüsseln fort; PCs, die dem Ordner folgen, müssen diesen PC einmal als neue Referenz akzeptieren.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>Diesen Ordner übernehmen</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>Dieses Kennwort öffnet die aktuelle Veröffentlichung nicht.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>Die Datei konnte nicht gelesen werden.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>Für diese Datei ist eine neuere Version von Foundry OSD erforderlich.</value>
+  </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>Warten auf den Abschluss des Downloads der freigegebenen Inhalte…</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Falsche Passphrase oder beschädigte Datei.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>Dieses Kennwort öffnet die Veröffentlichung nicht, oder die Veröffentlichung wurde verändert.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Vorgang beenden</value>
@@ -3590,6 +3789,15 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Die erforderlichen Mediengeheimnisse sind nicht bereit.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Einige freigegebene Inhalte konnten auf diesem PC nicht installiert werden. Sie werden erneut abgerufen, wenn der Referenz-PC eine neue Version veröffentlicht. Prüfen Sie „Konfigurationsfreigabe“ auf der Seite „Einstellungen“.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Einige freigegebene Inhalte sind nach wiederholten Prüfungen weiterhin nicht verfügbar. Veröffentlichen Sie erneut vom Referenz-PC, und prüfen Sie dann „Konfigurationsfreigabe“ auf der Seite „Einstellungen“.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Freigegebene Inhalte werden noch heruntergeladen. Die Medienerstellung ist verfügbar, sobald der Download abgeschlossen ist.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Das ausgewählte USB-Laufwerk ist für einen Cache zu klein. Verwenden Sie ein USB-Laufwerk mit mindestens 16 GB, oder wählen Sie über den Pfeil von „USB erstellen“ die Option „Ohne Cache erstellen“.</value>
@@ -4164,6 +4372,15 @@ Enthaltene Kennwörter und Zugriffsschlüssel: {2}</value>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Bereit zum Erstellen von USB-Medien</value>
   </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Freigegebene Inhalte konnten nicht installiert werden</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Freigegebene Inhalte sind nicht verfügbar</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Warten auf freigegebene Inhalte</value>
+  </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Überprüfen Sie die Warnungen zur Medienausgabe</value>
   </data>
@@ -4308,13 +4525,13 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
     <value>Enthält Einstellungen, die die Autopilot-Registrierung verhindern können. Inkompatible Registrierungsmodi werden bei der Bereitstellung blockiert.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Wählen Sie eine Datei aus, um sie umzubenennen, ihre Quelle zu aktualisieren oder sie zu entfernen. Quelldateien müssen bis zur Medienerstellung verfügbar bleiben; geänderte Quellen müssen aktualisiert werden.</value>
+    <value>Wählen Sie eine Datei aus, um sie umzubenennen oder zu entfernen. Foundry speichert eine eigene Kopie jeder importierten Datei; um eine aktualisierte Datei zu verwenden, entfernen Sie den Eintrag und importieren Sie die Datei erneut.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Antwortdateien</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Quellen prüfen</value>
+    <value>Dateien prüfen</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Enthält Befehle. Prüfen Sie Wechselwirkungen mit Foundry-Anpassungen und Setup-Skripts.</value>
@@ -4353,13 +4570,13 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
     <value>Die Datei muss eine unterstützte Architektur angeben und dafür geeignete Komponenteneinstellungen enthalten.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Der Katalog enthält ungültige oder doppelte Einträge. Aktualisieren oder entfernen Sie die betroffenen Dateien.</value>
+    <value>Der Katalog enthält ungültige oder doppelte Einträge. Entfernen Sie die betroffenen Dateien und importieren Sie sie erneut.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Verwenden Sie gültiges XML für Windows-Antwortdateien mit höchstens 4 MiB, ohne DTDs oder externe Entitäten. Validieren Sie die Datei mit Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Einige Quellen fehlen, wurden geändert oder sind ungültig. Aktualisieren oder entfernen Sie diese Einträge vor der Medienerstellung.</value>
+    <value>Einige Dateien fehlen oder sind ungültig. Entfernen Sie diese Einträge und importieren Sie die Dateien vor der Medienerstellung erneut.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Standarddatei fehlt – Ersatz auswählen</value>
@@ -4374,16 +4591,13 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
     <value>Foundry bewahrt Ihre Originaldatei und fügt der Bereitstellungskopie seinen erforderlichen Befehl für die Nachinstallation hinzu. Sie bleiben für Ihre benutzerdefinierten Einstellungen und Befehle verantwortlich.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Benutzerdefinierte Dateien erfordern den Kennwortschutz für Bereitstellungsmedien in der allgemeinen Konfiguration. XML kann Anmeldeinformationen oder Skripts enthalten. Foundry speichert nur dann eine Kopie jeder Datei mit Ihrer Konfiguration auf diesem PC, wenn die Option „Kennwörter speichern“ im Bereich „Einstellungen sichern und synchronisieren“ aktiviert ist; andernfalls wird nur der Pfad gespeichert. Das Startabbild enthält verschlüsselte Kopien.</value>
+    <value>Benutzerdefinierte Dateien erfordern den Kennwortschutz für Bereitstellungsmedien in der allgemeinen Konfiguration. XML kann Anmeldeinformationen oder Skripts enthalten. Foundry speichert eine Kopie jeder importierten Datei in seiner Dateibibliothek auf diesem PC. Das Startabbild enthält verschlüsselte Kopien.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Aktivieren Sie in der allgemeinen Konfiguration den Kennwortschutz für Bereitstellungsmedien, um benutzerdefinierte Antwortdateien zu verwenden.</value>
   </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Diese Quelle ist jetzt mit einer anderen importierten Datei identisch. Entfernen Sie diesen Eintrag und wählen Sie die vorhandene Datei.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Quelle aktualisieren</value>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry hat keine gültige Kopie dieser Datei mehr. Entfernen Sie den Eintrag und importieren Sie die Datei erneut.</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Entfernen</value>
@@ -4397,26 +4611,23 @@ Das Anwenden des Updates startet Foundry OSD neu.</value>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Ausgewählte Datei</value>
   </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>Die Quelle wurde geändert. Verwenden Sie Quelle aktualisieren, um die aktualisierte Datei vor der Medienerstellung zu übernehmen.</value>
-  </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Zwei Quellenprüfungen warten noch auf Dateizugriff. Stellen Sie den Zugriff auf die nicht verfügbaren Quellspeicherorte wieder her und prüfen Sie die Quellen erneut.</value>
+    <value>Zwei Dateiprüfungen laufen noch. Warten Sie, bis sie abgeschlossen sind, und versuchen Sie es dann erneut.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Quellenprüfung steht aus. Wählen Sie Quellen prüfen, um die aktuelle Datei zu validieren, ohne Inhaltsänderungen zu übernehmen.</value>
+    <value>Dateiprüfung steht aus. Wählen Sie Dateien prüfen, um die gespeicherte Kopie zu validieren.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Die Quelle konnte nicht gelesen werden. Prüfen Sie, ob die Datei noch vorhanden und zugänglich ist.</value>
+    <value>Die Datei konnte nicht gelesen werden. Prüfen Sie, ob sie vorhanden ist und geöffnet werden kann, und versuchen Sie es dann erneut.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Zeitüberschreitung bei der Quellenvalidierung. Prüfen Sie den Zugriff auf den Quellspeicherort und versuchen Sie es erneut.</value>
+    <value>Die Prüfung der gespeicherten Dateien hat zu lange gedauert. Versuchen Sie es erneut.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Nur Einstellungen für specialize und oobeSystem werden unterstützt. Entfernen Sie andere nicht leere Konfigurationsdurchläufe, Offlinewartungsanweisungen und das erneute Versiegeln im Überwachungsmodus.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Quelle validiert.</value>
+    <value>Datei validiert.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Update anwenden</value>

@@ -12,11 +12,23 @@ public interface IContentSource
 {
     /// <summary>
     /// Opens one content item for reading. The stream must be seekable (its length is fixed before encryption starts); for
-    /// post-installation packages and driver sets it is the archive written by <see cref="ContentPackageArchive.WriteAsync"/>, so
-    /// its bytes do not hash to <see cref="PackageContent.Hash"/> (the hash of the package manifest); for files they do. The writer
-    /// disposes it.
+    /// post-installation packages and driver sets it is the archive written by <see cref="ContentPackageArchive.WriteAsync"/>, and for
+    /// images the header, metadata record and WIM described by <see cref="LocalContentSource"/>, so their bytes do not hash to
+    /// <see cref="PackageContent.Hash"/> (the hash of the package manifest or of the WIM); for files they do. The writer disposes it.
     /// </summary>
     Task<Stream> OpenAsync(PackageContent content, CancellationToken ct);
+
+    /// <summary>
+    /// Returns the bytes <see cref="OpenAsync(PackageContent, IProgress{long}?, CancellationToken)"/> reads before the stream is
+    /// ready (for example a hash verification or an archive written to a temporary file); 0 when opening is immediate.
+    /// </summary>
+    long PreparationLength(PackageContent content) => 0;
+
+    /// <summary>
+    /// Opens one content item like <see cref="OpenAsync(PackageContent, CancellationToken)"/>, reporting the cumulative
+    /// preparation bytes, up to <see cref="PreparationLength"/>, to <paramref name="preparation"/>.
+    /// </summary>
+    Task<Stream> OpenAsync(PackageContent content, IProgress<long>? preparation, CancellationToken ct) => OpenAsync(content, ct);
 }
 
 /// <summary>Everything one publish writes.</summary>
@@ -71,8 +83,8 @@ public enum PublishStatus
     FolderNotEmpty,
 
     /// <summary>
-    /// The folder is missing or could not be read or written, or (for a rewrap) holds no publication at all. A content source that
-    /// fails with an <see cref="IOException"/> is reported the same way. The previous publication stays current.
+    /// The folder is missing or could not be read or written. A content source that fails with an <see cref="IOException"/> is
+    /// reported the same way. The previous publication stays current.
     /// </summary>
     FolderUnavailable,
 
@@ -87,7 +99,13 @@ public enum PublishStatus
     /// The next sequence would not fit the 18-digit manifest name; the publication cannot continue and needs a new folder. Only
     /// authenticated sequences count, so files planted in the folder cannot cause it.
     /// </summary>
-    SequenceExhausted
+    SequenceExhausted,
+
+    /// <summary>
+    /// Rewrap only: the folder holds only publication files and no manifest of this PC (for example nothing was published yet), so
+    /// there is nothing to rewrite; the next publish uses the new password. Nothing was written.
+    /// </summary>
+    NothingToRewrap
 }
 
 /// <summary>Result of <see cref="PublicationWriter.PublishAsync"/>.</summary>
@@ -96,11 +114,35 @@ public enum PublishStatus
 /// <param name="ForeignKeyId">Key id of the foreign signer, set for <see cref="PublishStatus.ForeignPublisher"/>; read without the password, so not authenticated.</param>
 public sealed record PublishResult(PublishStatus Status, long Sequence, string? ForeignKeyId);
 
-/// <summary>Progress of the content copy of a publish.</summary>
-/// <param name="Done">Plaintext bytes handled so far, including content already present in the folder.</param>
-/// <param name="Total">Sum of the listed lengths over distinct content hashes; <paramref name="Done"/> never exceeds it.</param>
-/// <param name="CurrentName">Display name of the content being written, empty in the final report.</param>
-public sealed record ContentProgress(long Done, long Total, string CurrentName);
+/// <summary>The step a <see cref="ContentProgress"/> report belongs to.</summary>
+public enum ContentProgressStep
+{
+    /// <summary>Content bytes are encrypted into the folder (publish) or read from it (fetch); also the final report.</summary>
+    Transferring = 0,
+
+    /// <summary>A publish inspects the folder and derives the password keys; no content is handled yet.</summary>
+    CheckingFolder = 1,
+
+    /// <summary>A publish verifies the hash of an image before sending it.</summary>
+    Verifying = 2,
+
+    /// <summary>A publish verifies a package or driver set and writes its archive before sending it.</summary>
+    Preparing = 3,
+
+    /// <summary>A fetch imports a downloaded item into its library (archive extraction and checks, image copy and hash).</summary>
+    Installing = 4,
+}
+
+/// <summary>Progress of the content copy of a publish (<see cref="PublicationWriter"/>) or a fetch (<see cref="ContentSync"/>).</summary>
+/// <param name="Done">Bytes handled so far, including content already present in the folder; it never decreases during one run.</param>
+/// <param name="Total">
+/// Sum over distinct content hashes of the listed length, plus, for a publish, the preparation length
+/// (<see cref="IContentSource.PreparationLength"/>) of each item that is not in the folder yet, and for a fetch the install length of
+/// each library the item goes to; <paramref name="Done"/> never exceeds it.
+/// </param>
+/// <param name="CurrentName">Display name of the content being handled, empty while the folder is checked and in the final report.</param>
+/// <param name="Step">The step being reported.</param>
+public sealed record ContentProgress(long Done, long Total, string CurrentName, ContentProgressStep Step = ContentProgressStep.Transferring);
 
 /// <summary>
 /// Writes publications to a folder: encrypted content, then the signed manifest, then <c>current.json</c>, so a
@@ -140,7 +182,10 @@ public static class PublicationWriter
     /// </summary>
     /// <param name="request">What to publish.</param>
     /// <param name="contents">Opens each content item that is not in the folder yet.</param>
-    /// <param name="progress">Receives content copy progress.</param>
+    /// <param name="progress">
+    /// Receives the folder check, then the preparation and encryption of each content item that is not in the folder yet, then a final
+    /// report with <see cref="ContentProgress.Done"/> equal to <see cref="ContentProgress.Total"/> before the manifest is written.
+    /// </param>
     /// <param name="cancellationToken">Stops before activation; the previous pointer stays current.</param>
     /// <exception cref="ArgumentException">
     /// The password breaks the policy, the master key is not 32 bytes, a content hash is not lowercase hex, the last published
@@ -161,6 +206,7 @@ public static class PublicationWriter
 
         try
         {
+            progress?.Report(new(0, 0, string.Empty, ContentProgressStep.CheckingFolder));
             FolderState state = await InspectAsync(request.Folder, request.Signer, request.Password, cancellationToken).ConfigureAwait(false);
             if (state.Status == PublishStatus.ForeignPublisher && request.TakeOver)
             {
@@ -216,9 +262,9 @@ public static class PublicationWriter
     /// <param name="cancellationToken">Stops before the manifest is replaced.</param>
     /// <returns>
     /// <see cref="PublishStatus.Published"/>, <see cref="PublishStatus.WrongPassword"/>, <see cref="PublishStatus.ForeignPublisher"/>,
-    /// <see cref="PublishStatus.FolderNotEmpty"/> or <see cref="PublishStatus.FolderUnavailable"/>.
-    /// <see cref="PublishStatus.ForeignPublisher"/> follows the same rules as for a publish (a rewrap never takes over);
-    /// <see cref="PublishStatus.FolderUnavailable"/> means an I/O failure or a folder holding no publication.
+    /// <see cref="PublishStatus.FolderNotEmpty"/>, <see cref="PublishStatus.FolderUnavailable"/> (a missing folder or an I/O failure)
+    /// or <see cref="PublishStatus.NothingToRewrap"/> (a publication folder without a manifest of this PC).
+    /// <see cref="PublishStatus.ForeignPublisher"/> follows the same rules as for a publish (a rewrap never takes over).
     /// </returns>
     /// <exception cref="ArgumentException">The new password breaks the policy.</exception>
     public static async Task<PublishStatus> RewrapAsync(string folder, string oldPassword, string newPassword, PublicationSigningKey signer,
@@ -243,7 +289,7 @@ public static class PublicationWriter
 
             if (state.Previous is null)
             {
-                return PublishStatus.FolderUnavailable;
+                return PublishStatus.NothingToRewrap;
             }
 
             byte[] rewrapped = ConfigurationPackageCodec.Write(state.Previous.Payload, newPassword, signer);
@@ -436,34 +482,72 @@ public static class PublicationWriter
         CancellationToken cancellationToken)
     {
         PackageContent[] distinct = request.Contents.DistinctBy(content => content.Hash, StringComparer.Ordinal).ToArray();
-        long total = distinct.Sum(content => Math.Max(content.Length, 0));
-        long done = 0;
         Directory.CreateDirectory(PublicationFolder.ContentDirectory(request.Folder));
         Directory.CreateDirectory(PublicationFolder.ManifestsDirectory(request.Folder));
+
+        // Content already complete under the current master key counts as done at once and is neither prepared nor sent; every
+        // other item weighs its preparation bytes plus its listed length, so the total is fixed before the first report.
+        List<(PackageContent Content, long Preparation)> pending = [];
+        long total = 0;
+        long done = 0;
         foreach (PackageContent content in distinct)
         {
+            long length = Math.Max(content.Length, 0);
+            total += length;
+            if (IsComplete(request, content))
+            {
+                done += length;
+            }
+            else
+            {
+                long preparation = Math.Max(source.PreparationLength(content), 0);
+                total += preparation;
+                pending.Add((content, preparation));
+            }
+        }
+
+        foreach ((PackageContent content, long preparation) in pending)
+        {
             cancellationToken.ThrowIfCancellationRequested();
-            progress?.Report(new(done, total, content.Name));
-            string path = PublicationFolder.ContentPath(request.Folder, content.Hash);
+            long length = Math.Max(content.Length, 0);
+            ContentProgressStep preparationStep = content.Kind == SharedContentKind.Image ? ContentProgressStep.Verifying : ContentProgressStep.Preparing;
+            progress?.Report(new(done, total, content.Name, preparation > 0 ? preparationStep : ContentProgressStep.Transferring));
+            IProgress<long>? prepared = progress is null || preparation == 0
+                ? null
+                : new ByteProgress(progress, done, preparation, total, content.Name, preparationStep);
+            await using Stream stream = await source.OpenAsync(content, prepared, cancellationToken).ConfigureAwait(false);
+            done += preparation;
+            if (preparation > 0) progress?.Report(new(done, total, content.Name));
             byte[] key = ContentTransfer.DeriveContentKey(request.MasterKey, content.Hash);
             try
             {
-                if (!ContentTransfer.IsComplete(path, key))
-                {
-                    await using Stream stream = await source.OpenAsync(content, cancellationToken).ConfigureAwait(false);
-                    IProgress<long>? bytes = progress is null ? null : new ByteProgress(progress, done, total, content.Name);
-                    await ContentTransfer.EncryptAsync(stream, path, key, bytes, cancellationToken).ConfigureAwait(false);
-                }
+                IProgress<long>? sent = progress is null ? null : new ByteProgress(progress, done, length, total, content.Name, ContentProgressStep.Transferring);
+                await ContentTransfer.EncryptAsync(stream, PublicationFolder.ContentPath(request.Folder, content.Hash), key, sent, cancellationToken)
+                    .ConfigureAwait(false);
             }
             finally
             {
                 CryptographicOperations.ZeroMemory(key);
             }
 
-            done = Math.Min(total, done + Math.Max(content.Length, 0));
+            done = Math.Min(total, done + length);
         }
 
         progress?.Report(new(total, total, string.Empty));
+    }
+
+    /// <summary>Returns whether the folder already holds the complete content file of <paramref name="content"/> under the request master key.</summary>
+    private static bool IsComplete(PublicationRequest request, PackageContent content)
+    {
+        byte[] key = ContentTransfer.DeriveContentKey(request.MasterKey, content.Hash);
+        try
+        {
+            return ContentTransfer.IsComplete(PublicationFolder.ContentPath(request.Folder, content.Hash), key);
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(key);
+        }
     }
 
     private static ConfigurationPackagePayload CreatePayload(PublicationRequest request, long sequence) => new()
@@ -544,9 +628,14 @@ public static class PublicationWriter
         public static FolderState NotEmpty { get; } = new(PublishStatus.FolderNotEmpty, 0, null, null);
     }
 
-    /// <summary>Maps the encrypted byte count of one content item onto the progress of the whole publish.</summary>
-    private sealed class ByteProgress(IProgress<ContentProgress> target, long offset, long total, string name) : IProgress<long>
+    /// <summary>
+    /// Maps the byte count of one step of one content item (its preparation or its encryption), capped at the weight of that step,
+    /// onto the progress of the whole publish. A package archive or image plaintext is longer than the listed length, so without the
+    /// cap progress would run ahead of the next step's offset and go backwards.
+    /// </summary>
+    private sealed class ByteProgress(IProgress<ContentProgress> target, long offset, long length, long total, string name, ContentProgressStep step)
+        : IProgress<long>
     {
-        public void Report(long value) => target.Report(new(Math.Min(total, offset + value), total, name));
+        public void Report(long value) => target.Report(new(Math.Min(total, offset + Math.Clamp(value, 0, length)), total, name, step));
     }
 }

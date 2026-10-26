@@ -13,6 +13,7 @@ using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Drivers;
 using Foundry.Core.Services.Images;
 using Foundry.Core.Services.Packages;
+using Foundry.Core.Services.Sharing;
 using Foundry.Core.Services.Media;
 using Foundry.Core.Services.Telemetry;
 using Foundry.Core.Services.WinPe;
@@ -54,7 +55,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IFilePickerService filePickerService;
     private readonly IFoundryConfigurationStateService foundryConfigurationStateService;
     private readonly IConfigurationOverviewService configurationOverviewService;
-    private readonly INetworkSecretStateService networkSecretStateService;
     private readonly ITelemetryService telemetryService;
     private readonly IOperationProgressService operationProgressService;
     private readonly IShellNavigationGuardService shellNavigationGuardService;
@@ -67,6 +67,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private readonly IApplicationLocalizationService localizationService;
     private readonly IExternalProcessLauncher externalProcessLauncher;
     private readonly IAppDispatcher appDispatcher;
+    private readonly Foundry.Services.Sharing.ConfigurationSharingService sharingService;
     private readonly ILogger logger;
     private IReadOnlyList<string> availableWinPeLanguages = [];
     private bool isLoadingConfiguration = true;
@@ -104,7 +105,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IFilePickerService filePickerService,
         IFoundryConfigurationStateService foundryConfigurationStateService,
         IConfigurationOverviewService configurationOverviewService,
-        INetworkSecretStateService networkSecretStateService,
         ITelemetryService telemetryService,
         IOperationProgressService operationProgressService,
         IShellNavigationGuardService shellNavigationGuardService,
@@ -117,6 +117,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IApplicationLocalizationService localizationService,
         IExternalProcessLauncher externalProcessLauncher,
         IAppDispatcher appDispatcher,
+        Foundry.Services.Sharing.ConfigurationSharingService sharingService,
         ILogger logger)
     {
         this.appSettingsService = appSettingsService;
@@ -136,7 +137,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.filePickerService = filePickerService;
         this.foundryConfigurationStateService = foundryConfigurationStateService;
         this.configurationOverviewService = configurationOverviewService;
-        this.networkSecretStateService = networkSecretStateService;
         this.telemetryService = telemetryService;
         this.operationProgressService = operationProgressService;
         this.shellNavigationGuardService = shellNavigationGuardService;
@@ -149,6 +149,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.localizationService = localizationService;
         this.externalProcessLauncher = externalProcessLauncher;
         this.appDispatcher = appDispatcher;
+        this.sharingService = sharingService;
         this.logger = logger.ForContext<StartMediaViewModel>();
 
         Architectures =
@@ -803,6 +804,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 IsUsbTarget(target) ? options.SelectedUsbDisk?.DiskNumber : null,
                 IsUsbTarget(target) ? options.SelectedUsbDisk?.FriendlyName : null);
 
+            await WaitForSharedContentAsync(cancellationToken);
             snapshot = await foundryConfigurationStateService.CaptureBuildSnapshotAsync(
                 Path.Combine(Constants.UserRootDirectoryPath, "BuildSnapshots"), cancellationToken);
             cancellationToken.ThrowIfCancellationRequested();
@@ -1848,6 +1850,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             DeploymentSecretsKey = deploymentProtectionMaterial.DeploymentKey,
             IsDeploymentProtectionEnabled = deploymentProtectionMaterial.Settings.IsEnabled,
             Unattend = snapshot.Configuration.Unattend,
+            UnattendSourcePaths = snapshot.UnattendSourcePaths,
             FoundryConnectAssetFiles = connectBundle.AssetFiles,
             AutopilotProvisioningMode = options.IsAutopilotEnabled
                 ? options.AutopilotProvisioningMode
@@ -1980,6 +1983,47 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         MediaCreationProgress overall = progressPlan.Report(phase, phasePercent);
         ReportProgress(overall, detail, detailProgress);
         return overall;
+    }
+
+    /// <summary>
+    /// Safety net behind the shared content gate (<see cref="Foundry.Services.Sharing.ConfigurationSharingService.ContentSyncState"/>):
+    /// a newer publication can be applied after the click passed the gate, so the build still waits for that fetch before it freezes
+    /// the configuration, showing the fetch progress on the detail line. When the download ends without all the content, the build
+    /// fails with that reason instead of building from an incomplete configuration.
+    /// </summary>
+    private async Task WaitForSharedContentAsync(CancellationToken cancellationToken)
+    {
+        if (!sharingService.IsContentPending) return;
+        logger.Information("Media creation waits for shared content to finish downloading.");
+        void OnSharingChanged(object? sender, EventArgs e) => ReportSharedContentProgress();
+        sharingService.Changed += OnSharingChanged;
+        try
+        {
+            ReportSharedContentProgress();
+            await sharingService.WaitForContentAsync(cancellationToken);
+        }
+        finally
+        {
+            sharingService.Changed -= OnSharingChanged;
+        }
+
+        await foundryConfigurationStateService.RefreshCustomDriversReadinessAsync();
+        bool isReady = foundryConfigurationStateService.IsDeployConfigurationReady;
+        logger.Information("Shared content wait completed. IsDeployConfigurationReady={IsDeployConfigurationReady}", isReady);
+        if (!isReady)
+        {
+            // The download ended without all the content (failed or not yet available): the build stops before it freezes anything.
+            throw new InvalidOperationException(localizationService.GetString("Sharing.SharedContentUnavailable"));
+        }
+    }
+
+    private void ReportSharedContentProgress()
+    {
+        // The step names the item being downloaded or installed; before the first report the build only says it waits.
+        ContentProgress? progress = sharingService.Progress is { Total: > 0 } current && SyncProgress.Stage(current) != SyncStage.Complete ? current : null;
+        string step = SharingProgressText.Sync(progress, localizationService);
+        ReportDetail(step.Length > 0 ? step : localizationService.GetString("Sharing.WaitingForContent"),
+            progress is null ? null : (int)SyncProgress.Percent(progress));
     }
 
     /// <summary>
@@ -2419,11 +2463,14 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         // The split button stays usable when only its secondary action can run, so a drive below the cache minimum can
         // still be written without cache, and its primary action explains why the drive is too small for a cache.
         CanUseUsbActions = CanCreateUsb || CanCreateUsbWithoutCache;
-        FinalExecutionStatus = localizationService.GetString(!options.IsFinalExecutionEnabled
-            ? "StartMedia.FinalExecution.Deferred"
-            : evaluation.CanCreateIso || evaluation.CanCreateUsb || evaluation.CanCreatePxe || evaluation.CanCreateUsbWithoutCache
-                ? "StartMedia.FinalExecution.ReadyNow"
-                : "StartMedia.FinalExecution.Ready");
+        // While shared content blocks every action, the readiness bar names it in its title and explains it in its message.
+        FinalExecutionStatus = options.IsFinalExecutionEnabled && GetSharedContentReason(evaluation) is { } sharedContentReason
+            ? GetBlockingReasonText(sharedContentReason)
+            : localizationService.GetString(!options.IsFinalExecutionEnabled
+                ? "StartMedia.FinalExecution.Deferred"
+                : evaluation.CanCreateIso || evaluation.CanCreateUsb || evaluation.CanCreatePxe || evaluation.CanCreateUsbWithoutCache
+                    ? "StartMedia.FinalExecution.ReadyNow"
+                    : "StartMedia.FinalExecution.Ready");
         ConfigurationOverviewEvaluation overview = configurationOverviewService.Evaluate();
         ReadinessSeverity = GetReadinessSeverity(evaluation);
         StatusSummary = BuildStatusText(evaluation, overview);
@@ -2465,7 +2512,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             IsAdkReady = adkService.CurrentStatus.CanCreateMediaFor(SelectedArchitecture?.Value ?? WinPeArchitecture.X64),
             IsNetworkConfigurationReady = networkReadiness.IsNetworkConfigurationReady,
             NetworkConfigurationValidationCode = networkReadiness.NetworkConfigurationValidationCode,
-            IsDeployConfigurationReady = foundryConfigurationStateService.IsDeployConfigurationReady,
+            // While a follower downloads its publication content, the shared content gate below is the reason shown, not this one.
+            IsDeployConfigurationReady = foundryConfigurationStateService.IsDeployConfigurationReady ||
+                (sharingService.IsContentDownloading && foundryConfigurationStateService.IsDeployConfigurationReadyExceptLibraryContent),
+            // Every media action waits until a follower has all the shared content of the publication it applied.
+            SharedContentState = sharingService.ContentSyncState,
             IsConnectProvisioningReady = networkReadiness.IsConnectProvisioningReady,
             AreRequiredSecretsReady = networkReadiness.AreRequiredSecretsReady,
             IsAutopilotEnabled = foundryConfigurationStateService.IsAutopilotEnabled,
@@ -2494,6 +2545,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private void UpdateGeneral(GeneralSettings settings)
     {
+        // A managed configuration keeps its published media defaults: the choice then applies to this build only.
+        if (!foundryConfigurationStateService.IsChangeAllowed(foundryConfigurationStateService.Current with { General = settings })) return;
         foundryConfigurationStateService.UpdateGeneral(settings);
     }
 
@@ -2569,6 +2622,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         MediaPreflightEvaluation evaluation,
         ConfigurationOverviewEvaluation overview)
     {
+        if (GetSharedContentReason(evaluation) is { } sharedContentReason)
+        {
+            return localizationService.GetString($"StartMedia.Readiness.Status.{sharedContentReason}");
+        }
+
         if (evaluation.CanCreateIso && evaluation.CanCreateUsb)
         {
             return localizationService.GetString("StartMedia.Readiness.Status.ReadyIsoAndUsb");
@@ -2593,6 +2651,17 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private InfoBarSeverity GetReadinessSeverity(MediaPreflightEvaluation evaluation)
     {
+        // A sync in progress resolves by itself; failed or stalled content needs the sharing card.
+        switch (GetSharedContentReason(evaluation))
+        {
+            case MediaPreflightBlockingReason.SharedContentSyncing:
+                return InfoBarSeverity.Informational;
+            case MediaPreflightBlockingReason.SharedContentStalled:
+                return InfoBarSeverity.Warning;
+            case MediaPreflightBlockingReason.SharedContentFailed:
+                return InfoBarSeverity.Error;
+        }
+
         if (evaluation.CanCreateIso && evaluation.CanCreateUsb)
         {
             return InfoBarSeverity.Success;
@@ -2611,20 +2680,36 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         return InfoBarSeverity.Error;
     }
 
+    /// <summary>Returns the shared content reason that blocks every media action on a follower, or null when the content is synced.</summary>
+    private static MediaPreflightBlockingReason? GetSharedContentReason(MediaPreflightEvaluation evaluation)
+    {
+        // The reason is shared by every target, so the ISO list holds it whenever it applies.
+        foreach (MediaPreflightBlockingReason reason in evaluation.IsoBlockingReasons)
+        {
+            if (reason is MediaPreflightBlockingReason.SharedContentSyncing or MediaPreflightBlockingReason.SharedContentFailed
+                or MediaPreflightBlockingReason.SharedContentStalled)
+            {
+                return reason;
+            }
+        }
+
+        return null;
+    }
+
     private void RebuildConfigurationOverview(
         MediaPreflightOptions options,
         MediaPreflightEvaluation mediaEvaluation,
         ConfigurationOverviewEvaluation overview)
     {
         FoundryConfigurationDocument configuration = foundryConfigurationStateService.Current;
-        NetworkSettings effectiveNetwork = networkSecretStateService.ApplyRequiredSecrets(configuration.Network);
+        MediaInputs mediaInputs = foundryConfigurationStateService.MediaInputs;
 
         IsGeneralConfigurationOverviewExpanded = ReplaceOverviewItems(
             GeneralConfigurationOverviewItems,
             BuildGeneralConfigurationOverview(configuration, options, mediaEvaluation, overview));
         IsNetworkOverviewExpanded = ReplaceOverviewItems(
             NetworkOverviewItems,
-            BuildNetworkOverview(configuration, effectiveNetwork, overview));
+            BuildNetworkOverview(configuration, mediaInputs, overview));
         IsAutopilotOverviewExpanded = ReplaceOverviewItems(
             AutopilotOverviewItems,
             BuildAutopilotOverview(options, overview));
@@ -2701,11 +2786,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private IReadOnlyList<StartConfigurationOverviewItemViewModel> BuildNetworkOverview(
         FoundryConfigurationDocument configuration,
-        NetworkSettings effectiveNetwork,
+        MediaInputs mediaInputs,
         ConfigurationOverviewEvaluation overview)
     {
         string ethernetDescription = configuration.Network.Dot1x.IsEnabled
-            ? FormatValue(Path.GetFileName(configuration.Network.Dot1x.ProfileTemplatePath))
+            ? FormatValue(configuration.Network.Dot1x.ProfileTemplate?.FileName)
             : localizationService.GetString("Nav_EthernetDot1xKey.Description");
         string wifiDescription = configuration.Network.Wifi.IsEnabled
             ? string.Join(" · ", new[]
@@ -2714,15 +2799,15 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 configuration.Network.Wifi.SecurityType
             }.Where(value => !string.IsNullOrWhiteSpace(value)))
             : localizationService.GetString("Nav_WifiKey.Description");
-        NetworkConfigurationValidationResult ethernetValidation = NetworkConfigurationValidator.Validate(effectiveNetwork with
+        NetworkConfigurationValidationResult ethernetValidation = NetworkConfigurationValidator.Validate(configuration.Network with
         {
             WifiProvisioned = false,
             Wifi = new WifiSettings()
-        });
-        NetworkConfigurationValidationResult wifiValidation = NetworkConfigurationValidator.Validate(effectiveNetwork with
+        }, mediaInputs);
+        NetworkConfigurationValidationResult wifiValidation = NetworkConfigurationValidator.Validate(configuration.Network with
         {
             Dot1x = new Dot1xSettings()
-        });
+        }, mediaInputs);
 
         return
         (StartConfigurationOverviewItemViewModel[])
@@ -2906,6 +2991,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         ConfigurationOverviewState.NotConfigured => localizationService.GetString("NavigationStatus.NotConfigured"),
         ConfigurationOverviewState.Default => localizationService.GetString("StartOverview.State.Default"),
         ConfigurationOverviewState.NotSelected => localizationService.GetString("StartOverview.State.NotSelected"),
+        ConfigurationOverviewState.Downloading => localizationService.GetString("Sharing.ContentDownloadingState"),
         _ => localizationService.GetString("Common.NeedsAttention")
     };
 

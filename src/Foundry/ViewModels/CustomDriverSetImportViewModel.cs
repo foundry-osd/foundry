@@ -15,7 +15,7 @@ namespace Foundry.ViewModels;
 
 /// <summary>
 /// Drives the custom driver set import dialog: folder and name selection, the copy with progress, and inline failures.
-/// Import failures and content already in the profile keep the dialog open; only a new set produces a <see cref="Result"/>.
+/// Import failures and content already in the configuration keep the dialog open; only a new set produces a <see cref="Result"/>.
 /// </summary>
 public sealed partial class CustomDriverSetImportViewModel : ObservableObject, IDisposable
 {
@@ -72,10 +72,10 @@ public sealed partial class CustomDriverSetImportViewModel : ObservableObject, I
     public string NameLabel => localization.GetString("CustomImages.NameLabel");
     public string CancelLabel => localization.GetString("Common.Cancel");
 
-    /// <summary>Gets the imported set to add to the profile, or <see langword="null"/> when nothing was imported.</summary>
+    /// <summary>Gets the imported set to add to the configuration, or <see langword="null"/> when nothing was imported.</summary>
     public CustomDriverSetImportResult? Result { get; private set; }
 
-    /// <summary>Gets the id of the profile set that already holds the last imported content, so the page can select it.</summary>
+    /// <summary>Gets the id of the configuration set that already holds the last imported content, so the page can select it.</summary>
     public string? ExistingSetId { get; private set; }
 
     private string Text(string key) => localization.GetString("CustomDrivers." + key);
@@ -144,7 +144,7 @@ public sealed partial class CustomDriverSetImportViewModel : ObservableObject, I
                 set.Package.ContentHash.Equals(package.ContentHash, StringComparison.OrdinalIgnoreCase));
             if (existing is not null)
             {
-                Logger.Information("Custom driver set import not added because the profile already contains its content. ContentHash={ContentHash}", package.ContentHash);
+                Logger.Information("Custom driver set import not added because the configuration already contains its content. ContentHash={ContentHash}", package.ContentHash);
                 ExistingSetId = existing.Id;
                 ShowMessage(localization.FormatString("CustomDrivers.AlreadyInProfile", existing.DisplayName), InfoBarSeverity.Informational);
                 return false;
@@ -186,7 +186,7 @@ public sealed partial class CustomDriverSetImportViewModel : ObservableObject, I
         Message = message;
     }
 
-    /// <summary>Defaults the label to the folder name and appends a counter when the profile already uses it.</summary>
+    /// <summary>Defaults the label to the folder name and appends a counter when the configuration already uses it.</summary>
     private string CreateUniqueName(string folderName)
     {
         string baseName = string.IsNullOrWhiteSpace(folderName) ? Text("DefaultSetName") : folderName.Trim();

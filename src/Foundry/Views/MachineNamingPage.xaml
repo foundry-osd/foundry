@@ -25,14 +25,16 @@
                     <ToggleSwitch
                         x:Uid="MachineNamingPageEnableToggle"
                         behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                        IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}"
                         IsOn="{x:Bind ViewModel.IsMachineNamingEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Style="{StaticResource FoundryPageHeaderToggleSwitchStyle}" />
                 </controls:PageHeader.ActionContent>
             </controls:PageHeader>
+            <controls:ManagedConfigurationBanner />
 
             <ContentControl
                 HorizontalContentAlignment="Stretch"
-                IsEnabled="{x:Bind ViewModel.IsMachineNamingEnabled, Mode=OneWay}">
+                IsEnabled="{x:Bind controls:BindingFunctions.And(ViewModel.IsMachineNamingEnabled, Managed.IsEditable), Mode=OneWay}">
                 <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
                     <wct:SettingsCard
                         HorizontalContentAlignment="Stretch"
@@ -390,7 +392,7 @@
                 <ToggleSwitch
                     x:Uid="MachineNamingAutopilotToggle"
                     behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
-                    IsEnabled="{x:Bind ViewModel.CanUploadComputerNameToAutopilot, Mode=OneWay}"
+                    IsEnabled="{x:Bind controls:BindingFunctions.And(ViewModel.CanUploadComputerNameToAutopilot, Managed.IsEditable), Mode=OneWay}"
                     IsOn="{x:Bind ViewModel.UploadComputerNameToAutopilot, Mode=TwoWay}" />
             </wct:SettingsCard>
         </StackPanel>

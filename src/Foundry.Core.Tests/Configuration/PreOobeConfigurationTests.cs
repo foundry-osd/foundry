@@ -6,7 +6,6 @@ using System.Text.Json;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Configuration;
-using Foundry.Core.Services.Profiles;
 
 namespace Foundry.Core.Tests.Configuration;
 
@@ -85,7 +84,7 @@ public sealed class PreOobeConfigurationTests
     }
 
     [Fact]
-    public void OlderProfilesDefaultToNoActionsAndPreservePortableReferences()
+    public void OlderConfigurationsDefaultToNoActionsAndMissingPackagesAreNotReady()
     {
         var old = JsonSerializer.Deserialize<FoundryConfigurationDocument>("{\"SchemaVersion\":15}")!;
         Assert.False(FoundryConfigurationMigration.ApplySchemaMigrations(old).PreOobe.IsEnabled);
@@ -94,9 +93,7 @@ public sealed class PreOobeConfigurationTests
             Package = new() { ContentHash = new string('a', 64), DisplayName = "Script", FileCount = 1, Length = 50 },
             EntryPoint = "script.ps1"
         };
-        var portable = DeploymentProfileProjection.CreatePortable(new() { PreOobe = new() { IsEnabled = true, Actions = [script] } });
-        Assert.Equal(script.Package, Assert.Single(portable.PreOobe.Actions).Package);
-        Assert.False(PreOobeConfigurationValidator.IsReady(portable.PreOobe, _ => false));
+        Assert.False(PreOobeConfigurationValidator.IsReady(new() { IsEnabled = true, Actions = [script] }, _ => false));
     }
 
     [Fact]

@@ -283,6 +283,12 @@
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Примечания к выпуску</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Не удалось добавить выбранный файл в Foundry. Выберите доступный для чтения файл размером не более 4 МиБ.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Файл не добавлен</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>По умолчанию</value>
   </data>
@@ -389,7 +395,7 @@
     <value>Скопировать пароль</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Сохраните этот PFX-файл и пароль в безопасном месте. Foundry сохраняет пароль вместе с конфигурацией на этом компьютере только в том случае, если в разделе «Резервное копирование и синхронизация настроек» включён параметр «Запомнить пароли». Оба значения потребуются вам для создания загрузочного носителя для отправки аппаратного хэша.</value>
+    <value>Сохраните этот PFX-файл и пароль в безопасном месте. Foundry запоминает пароль на этом компьютере в своем локальном зашифрованном хранилище. Он покидает этот компьютер только в экспорте или публикации, если выбран параметр «Включить пароли». Оба значения потребуются вам для создания загрузочного носителя для отправки аппаратного хэша.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Пароль скопирован.</value>
@@ -737,7 +743,10 @@
     <value>Недоступно</value>
   </data>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
-    <value>Эта папка уже есть в этом профиле под именем {0}.</value>
+    <value>Эта папка уже есть в этой конфигурации под именем {0}.</value>
+  </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>Конфигурация была заменена во время импорта, поэтому набор драйверов не был добавлен. Импортируйте папку ещё раз.</value>
   </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>Набор драйверов удалён, но его локальную копию удалить не удалось.</value>
@@ -749,7 +758,7 @@
     <value>Набор драйверов</value>
   </data>
   <data name="CustomDrivers.DuplicateName" xml:space="preserve">
-    <value>В этом профиле уже есть набор драйверов с таким именем.</value>
+    <value>В этой конфигурации уже есть набор драйверов с таким именем.</value>
   </data>
   <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
     <value>Нет пользовательских наборов драйверов. Для начала импортируйте папку с драйверами .inf.</value>
@@ -802,26 +811,23 @@
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Наборы драйверов</value>
   </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Активный профиль изменился во время импорта, поэтому набор драйверов не был добавлен. Импортируйте папку в этот профиль ещё раз.</value>
-  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Недоступно при загрузке по PXE. Пользовательским драйверам требуется полный носитель ISO или USB.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
-    <value>Наборы драйверов этого профиля недействительны. Перед созданием или обновлением носителя проверьте включённые наборы и набор по умолчанию.</value>
+    <value>Наборы драйверов этой конфигурации недействительны. Перед созданием или обновлением носителя проверьте включённые наборы и набор по умолчанию.</value>
   </data>
   <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
     <value>Локальная копия набора {0} отсутствует или повреждена. Перед созданием или обновлением носителя импортируйте папку повторно или исключите набор.</value>
   </data>
   <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
-    <value>Перед созданием или обновлением носителя включите в этот профиль хотя бы один набор драйверов или отключите пользовательские драйверы.</value>
+    <value>Перед созданием или обновлением носителя включите в эту конфигурацию хотя бы один набор драйверов или отключите пользовательские драйверы.</value>
   </data>
   <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
     <value>Удалить набор драйверов</value>
   </data>
   <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) будет удалён из текущего профиля.</value>
+    <value>{0} ({1}) будет удалён из текущей конфигурации.</value>
   </data>
   <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
     <value>Не удалось удалить набор драйверов. Повторите попытку.</value>
@@ -830,13 +836,13 @@
     <value>Удалить набор драйверов?</value>
   </data>
   <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
-    <value>Его локальная копия удаляется, если она не используется другим профилем. Исходная папка и уже созданные носители не изменятся.</value>
+    <value>Его локальная копия удаляется. Исходная папка и уже созданные носители не изменятся.</value>
   </data>
   <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
     <value>Сделать набором по умолчанию</value>
   </data>
   <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
-    <value>В этом профиле достигнуто максимальное число наборов драйверов. Удалите один, прежде чем импортировать другой.</value>
+    <value>В этой конфигурации достигнуто максимальное число наборов драйверов. Удалите один, прежде чем импортировать другой.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Проверка пользовательских наборов драйверов…</value>
@@ -878,7 +884,7 @@
     <value>Выбранный образ</value>
   </data>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
-    <value>В этом профиле уже есть образ с таким именем.</value>
+    <value>В этой конфигурации уже есть образ с таким именем.</value>
   </data>
   <data name="CustomImages.EditionLabel" xml:space="preserve">
     <value>Редакция</value>
@@ -935,7 +941,7 @@
     <value>Недоступно при загрузке по PXE. Пользовательским образам требуется полный носитель ISO или USB.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Включите в этот профиль хотя бы один доступный образ Windows. Восстановите отсутствующие включённые образы и исправьте или сбросьте выбор предпочтительного образа или индекса перед созданием или обновлением носителя.</value>
+    <value>Включите в эту конфигурацию хотя бы один доступный образ Windows. Восстановите отсутствующие включённые образы и исправьте или сбросьте выбор предпочтительного образа или индекса перед созданием или обновлением носителя.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Обновить</value>
@@ -944,7 +950,7 @@
     <value>Удалить образ</value>
   </data>
   <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
-    <value>Образ {0} ({1}) будет удалён из текущего профиля, а его локальная копия будет стёрта.</value>
+    <value>Образ {0} ({1}) будет удалён из текущей конфигурации, а его локальная копия будет стёрта.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Удалить</value>
@@ -953,7 +959,7 @@
     <value>Удалить пользовательский образ?</value>
   </data>
   <data name="CustomImages.RemoveWarning" xml:space="preserve">
-    <value>В других профилях, использующих этот образ, он будет отображаться как отсутствующий. Исходный файл и уже созданные носители не изменятся.</value>
+    <value>Исходный файл и уже созданные носители не изменятся.</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Изменить</value>
@@ -2768,7 +2774,7 @@
     <value>Предоставьте шаблон корпоративного профиля Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Парольная фраза сохраняется вместе с конфигурацией на этом компьютере только в том случае, если в разделе «Резервное копирование и синхронизация настроек» включён параметр «Запомнить пароли». В противном случае она не сохраняется, и её нужно ввести снова, например после перезапуска Foundry OSD.</value>
+    <value>Foundry запоминает парольную фразу на этом компьютере в своем локальном зашифрованном хранилище. Она покидает этот компьютер только в экспорте или публикации, если выбран параметр «Включить пароли».</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Импортирует управляемый Foundry профиль Wi-Fi в Windows до OOBE, чтобы сохранить подключение для развертывания после WinPE.</value>
@@ -3001,299 +3007,6 @@
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Рабочий каталог (относительный; пустое поле означает корень содержимого)</value>
   </data>
-  <data name="Profiles.Active" xml:space="preserve">
-    <value>Текущие настройки</value>
-  </data>
-  <data name="Profiles.AutoSync" xml:space="preserve">
-    <value>Автоматическая синхронизация</value>
-  </data>
-  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
-    <value>Выбрать другое имя</value>
-  </data>
-  <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>Не удалось удалить некоторые старые сохранённые пароли или ключи доступа. Повторите попытку, когда Диспетчер учётных данных Windows станет доступен.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
-    <value>Закрыть без сохранения</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
-    <value>Не удалось сохранить последние изменения, и они будут потеряны.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
-    <value>Закрыть без сохранения настроек?</value>
-  </data>
-  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
-    <value>Подтвердите пароль</value>
-  </data>
-  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>Подтвердите пароль файла</value>
-  </data>
-  <data name="Profiles.Conflict" xml:space="preserve">
-    <value>Эти настройки изменены на этом компьютере и другим пользователем. Выберите, какую версию сохранить.</value>
-  </data>
-  <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>Выбранная версия заменит другую. Сначала выберите «Создать копию», если хотите сохранить отдельную копию.</value>
-  </data>
-  <data name="Profiles.ConnectAction" xml:space="preserve">
-    <value>Подключиться</value>
-  </data>
-  <data name="Profiles.ConnectDescription" xml:space="preserve">
-    <value>Выберите файл подключения, полученный от участника вашей команды.</value>
-  </data>
-  <data name="Profiles.ConnectionPassword" xml:space="preserve">
-    <value>Пароль подключения</value>
-  </data>
-  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
-    <value>Другим ПК потребуется этот пароль для подключения.</value>
-  </data>
-  <data name="Profiles.Continue" xml:space="preserve">
-    <value>Продолжить</value>
-  </data>
-  <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Поделиться этой конфигурацией</value>
-  </data>
-  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
-    <value>Выберите общую сетевую папку для этой конфигурации.</value>
-  </data>
-  <data name="Profiles.Delete" xml:space="preserve">
-    <value>Удалить с этого компьютера</value>
-  </data>
-  <data name="Profiles.DeleteAction" xml:space="preserve">
-    <value>Удалить</value>
-  </data>
-  <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>Также удалить для всех</value>
-  </data>
-  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
-    <value>Удалить для всех</value>
-  </data>
-  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
-    <value>Удалить для всех?</value>
-  </data>
-  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>Удалить эти общие настройки для всех? Пользователям с несинхронизированными изменениями нужно создать копию своих настроек, чтобы сохранить их.</value>
-  </data>
-  <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>Удалить эти настройки с этого компьютера? Сначала экспортируйте их, если хотите сохранить резервную копию.</value>
-  </data>
-  <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>Эти общие настройки удалены. Выберите «Создать копию», чтобы сохранить свои изменения на этом компьютере.</value>
-  </data>
-  <data name="Profiles.Disconnect" xml:space="preserve">
-    <value>Отключиться</value>
-  </data>
-  <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>Остановить синхронизацию этой конфигурации на этом ПК? Текущие настройки будут сохранены. Общая конфигурация и другие ПК не изменятся.</value>
-  </data>
-  <data name="Profiles.Export" xml:space="preserve">
-    <value>Экспортировать</value>
-  </data>
-  <data name="Profiles.ExportDescription" xml:space="preserve">
-    <value>Сохранить эту конфигурацию в файл для резервного копирования или другого компьютера.</value>
-  </data>
-  <data name="Profiles.ExportProtection" xml:space="preserve">
-    <value>Выберите пароль для защиты экспортируемого файла. Он понадобится для импорта конфигурации.</value>
-  </data>
-  <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Сохранить файл подключения</value>
-  </data>
-  <data name="Profiles.Failed" xml:space="preserve">
-    <value>Не удалось выполнить действие. Проверьте файл, его пароль, свои права доступа и подключение к сети.</value>
-  </data>
-  <data name="Profiles.FolderExists" xml:space="preserve">
-    <value>Это имя папки уже используется. Подключитесь с помощью файла подключения или вернитесь и выберите другое имя.</value>
-  </data>
-  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
-    <value>Выберите новую пустую вложенную папку в общей папке. Существующие файлы останутся без изменений.</value>
-  </data>
-  <data name="Profiles.Forget" xml:space="preserve">
-    <value>Удалить сохранённые пароли и данные доступа</value>
-  </data>
-  <data name="Profiles.ForgetAction" xml:space="preserve">
-    <value>Очистить</value>
-  </data>
-  <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>Удалить сохранённые пароли, конфиденциальные файлы, сохранённые Foundry, и доступ к синхронизации этих настроек на этом компьютере? Для синхронизации потребуется добавить недостающие данные и подключиться заново. Уже созданные носители не изменятся.</value>
-  </data>
-  <data name="Profiles.Heading" xml:space="preserve">
-    <value>Настройки Foundry</value>
-  </data>
-  <data name="Profiles.Import" xml:space="preserve">
-    <value>Импортировать</value>
-  </data>
-  <data name="Profiles.ImportDescription" xml:space="preserve">
-    <value>Добавить конфигурацию из файла.</value>
-  </data>
-  <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>Включить пароли и конфиденциальные файлы</value>
-  </data>
-  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
-    <value>Люди, использующие эту конфигурацию, могут читать включённые в неё пароли и конфиденциальные файлы.</value>
-  </data>
-  <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>Не хватает некоторых паролей или исходных файлов. Добавьте их перед сохранением или передачей паролей.</value>
-  </data>
-  <data name="Profiles.InvalidFolderName" xml:space="preserve">
-    <value>Используйте имя без специальных символов и без точки или пробела в конце.</value>
-  </data>
-  <data name="Profiles.JoinChanged" xml:space="preserve">
-    <value>Общая конфигурация изменилась. Перед подключением проверьте последнюю версию.</value>
-  </data>
-  <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Подключиться к общей конфигурации</value>
-  </data>
-  <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>Использовать версию с этого компьютера</value>
-  </data>
-  <data name="Profiles.LearnMore" xml:space="preserve">
-    <value>Подробнее</value>
-  </data>
-  <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Хранить пароли для вашей учётной записи Windows на этом компьютере.</value>
-  </data>
-  <data name="Profiles.Locked" xml:space="preserve">
-    <value>Windows не может разблокировать эти сохранённые настройки или доступ к их синхронизации для вашей учётной записи на этом компьютере.</value>
-  </data>
-  <data name="Profiles.Manage" xml:space="preserve">
-    <value>Другие действия</value>
-  </data>
-  <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Отсутствующие или не включенные файлы: {0}. Укажите их расположение перед созданием носителей.</value>
-  </data>
-  <data name="Profiles.Name" xml:space="preserve">
-    <value>Название конфигурации</value>
-  </data>
-  <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>Пароль файла</value>
-  </data>
-  <data name="Profiles.PasswordMismatch" xml:space="preserve">
-    <value>Пароли не совпадают.</value>
-  </data>
-  <data name="Profiles.Preview" xml:space="preserve">
-    <value>{0}
-Включено файлов: {1}
-Включено паролей и ключей доступа: {2}</value>
-  </data>
-  <data name="Profiles.Ready" xml:space="preserve">
-    <value>Готово</value>
-  </data>
-  <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Выберите пароль для защиты файла подключения. Передайте пароль отдельно. Сохраните файл вне папки общей конфигурации.</value>
-  </data>
-  <data name="Profiles.Remember" xml:space="preserve">
-    <value>Запомнить пароли</value>
-  </data>
-  <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>Запомнить это подключение на этом компьютере</value>
-  </data>
-  <data name="Profiles.Rename" xml:space="preserve">
-    <value>Переименовать</value>
-  </data>
-  <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>Это действие заменит используемые настройки. Чтобы сначала сохранить копию, отмените действие и выберите «Создать копию».</value>
-  </data>
-  <data name="Profiles.RestoreAccess" xml:space="preserve">
-    <value>Восстановить доступ</value>
-  </data>
-  <data name="Profiles.Rollback" xml:space="preserve">
-    <value>Сохранённые версии в общей папке неожиданно изменились. Восстановите их из резервной копии, которой доверяете.</value>
-  </data>
-  <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Создать копию</value>
-  </data>
-  <data name="Profiles.Select" xml:space="preserve">
-    <value>Выберите конфигурацию</value>
-  </data>
-  <data name="Profiles.Setup" xml:space="preserve">
-    <value>Настроить</value>
-  </data>
-  <data name="Profiles.SetupAction" xml:space="preserve">
-    <value>Настроить синхронизацию…</value>
-  </data>
-  <data name="Profiles.SetupDescription" xml:space="preserve">
-    <value>Поделитесь этой конфигурацией или подключитесь к той, которую уже использует ваша команда.</value>
-  </data>
-  <data name="Profiles.ShareAction" xml:space="preserve">
-    <value>Поделиться</value>
-  </data>
-  <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>Любой, кто может импортировать или синхронизировать эти настройки, может прочитать включённые пароли и закрытые ключи сертификатов.</value>
-  </data>
-  <data name="Profiles.SharedBusy" xml:space="preserve">
-    <value>Другая операция использует эту общую папку. Повторите попытку чуть позже. Ваши изменения сохраняются на этом ПК.</value>
-  </data>
-  <data name="Profiles.SharedFolder" xml:space="preserve">
-    <value>Общая папка</value>
-  </data>
-  <data name="Profiles.SharedUnavailable" xml:space="preserve">
-    <value>Общая папка недоступна. Проверьте её адрес и доступ к сети. Ваши изменения сохраняются на этом ПК.</value>
-  </data>
-  <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>Используйте одну и ту же сетевую папку на всех компьютерах. Она должна использовать SMB 3 с обязательным шифрованием. Папки, синхронизируемые с облаком, не поддерживаются.</value>
-  </data>
-  <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Foundry больше не будет сохранять пароли этой конфигурации на этом компьютере.</value>
-  </data>
-  <data name="Profiles.StopRememberingAction" xml:space="preserve">
-    <value>Больше не запоминать</value>
-  </data>
-  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
-    <value>Больше не запоминать пароли?</value>
-  </data>
-  <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Синхронизировать</value>
-  </data>
-  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
-    <value>Синхронизация…</value>
-  </data>
-  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
-    <value>Выберите версию</value>
-  </data>
-  <data name="Profiles.SyncStatusError" xml:space="preserve">
-    <value>Не удалось синхронизировать</value>
-  </data>
-  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
-    <value>Не настроено</value>
-  </data>
-  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
-    <value>Папка недоступна</value>
-  </data>
-  <data name="Profiles.SyncStatusPending" xml:space="preserve">
-    <value>Изменения для синхронизации</value>
-  </data>
-  <data name="Profiles.SyncStatusReady" xml:space="preserve">
-    <value>Готово к синхронизации</value>
-  </data>
-  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
-    <value>Обновлено</value>
-  </data>
-  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
-    <value>Доступны изменения</value>
-  </data>
-  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
-    <value>Требует внимания</value>
-  </data>
-  <data name="Profiles.Synchronize" xml:space="preserve">
-    <value>Синхронизировать</value>
-  </data>
-  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
-    <value>Поддерживать эту конфигурацию в актуальном состоянии на компьютерах вашей команды.</value>
-  </data>
-  <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>Настройки обновлены</value>
-  </data>
-  <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>Foundry не может открыть настройки в этом формате. Обновите Foundry и повторите попытку.</value>
-  </data>
-  <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>Доступны изменения с другого компьютера. Выберите «Синхронизировать», чтобы применить их.</value>
-  </data>
-  <data name="Profiles.UseRemote" xml:space="preserve">
-    <value>Использовать общую версию</value>
-  </data>
-  <data name="Profiles.Validation" xml:space="preserve">
-    <value>Проверьте обязательные поля. Если запрашивается сетевая папка, укажите путь вида \\server\share\folder. Если вы вводите пароль файла дважды, убедитесь, что оба значения совпадают.</value>
-  </data>
   <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
     <value>Foundry OSD не удалось сохранить параметры прокси-сервера. Повторите попытку. Подробности см. в журнале.</value>
   </data>
@@ -3429,12 +3142,6 @@
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Общие</value>
   </data>
-  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Создавайте резервные копии настроек, переносите их на другой компьютер или поддерживайте их синхронизацию.</value>
-  </data>
-  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Резервное копирование и синхронизация настроек</value>
-  </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Настройте способ подключения Foundry OSD к веб-службам.</value>
   </data>
@@ -3464,6 +3171,498 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Обновить приложение</value>
+  </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>Принять</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>Принять новый эталон</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>Теперь папку публикует другой компьютер: {0}. Принимайте его, только если вы ожидаете это изменение, например после перехвата публикации; в противном случае прекратите отслеживание.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>Принять новый эталон?</value>
+  </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Эталон изменился, пока это диалоговое окно было открыто. Проверьте новый ключ перед тем, как принять его.</value>
+  </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Переносите эту конфигурацию с помощью зашифрованного файла или поддерживайте согласованность нескольких компьютеров через общую папку.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Общий доступ к конфигурации</value>
+  </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>Изменить</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>Изменить пароль</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>Текущая публикация перезаписывается с новым паролем. Файлы содержимого повторно не шифруются, поэтому тот, кто знал старый пароль, может по-прежнему их прочитать: чтобы полностью отозвать доступ прежних читателей, используйте «Сбросить публикацию». Отслеживающие компьютеры один раз вводят новый пароль.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>Изменение пароля публикации</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>Проверить сейчас</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Подтверждение парольной фразы</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>Подтвердите пароль</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Загрузка</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>Не удалось установить элементов: {0}. Они будут получены повторно, когда эталонный компьютер опубликует новую версию.</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Набор драйверов</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>Файл</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Образ</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Пакет после установки</value>
+  </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>Возможно, содержимое повреждено в папке. Опубликуйте его повторно с эталонного компьютера.</value>
+  </data>
+  <data name="Sharing.CopyButton" xml:space="preserve">
+    <value>Копировать</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>Текущий пароль публикации</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>Ввести пароль</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>Снова требуется пароль публикации, например после сброса пароля Windows или после его изменения на эталонном компьютере.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>Ввод пароля публикации</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Экспортировать</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>Конфигурация экспортирована.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Сохраните параметры и небольшие файлы в зашифрованный файл. Пакеты после установки, наборы драйверов и образы не включаются.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>Не удалось экспортировать конфигурацию. Проверьте место назначения и повторите попытку.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>Файлы этой конфигурации в сумме превышают 16 MiB и не могут быть экспортированы.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>Конфигурация экспортирована, но некоторые файлы отсутствуют или повреждены на этом компьютере и не были включены (количество: {0}). Выберите их повторно на страницах конфигурации, а затем снова выполните экспорт.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Экспорт конфигурации</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>Файл</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Конфигурация Foundry</value>
+  </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>Папка</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>Выберите папку публикации</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>Отслеживать</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>Используйте конфигурацию, которую эталонный компьютер публикует в папку. Опубликованные параметры на этом компьютере становятся доступными только для чтения.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>Укажите папку, в которую публикует эталонный компьютер, и его пароль публикации, затем откройте ее для предварительного просмотра публикации.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>Отслеживание заменяет текущую конфигурацию и делает опубликованные параметры доступными только для чтения. Путь вывода ISO, дополнительная папка драйверов WinPE и параметры телеметрии этого компьютера сохраняются.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>Отслеживать папку</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>Найденный ключ</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>Найденная версия</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>Забыть пароль публикации</value>
+  </data>
+  <data name="Sharing.GenerateButton" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>Импортировать</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>Конфигурация импортирована.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>Конфигурация импортирована. На этом компьютере отсутствует содержимое: импортируйте его повторно на соответствующей странице.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Замените эту конфигурацию экспортированным файлом или профилем из предыдущей версии.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>Не удалось импортировать конфигурацию. Текущая конфигурация не изменена.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>Конфигурация импортирована, но ее пароли не удалось сохранить. Введите их повторно на страницах конфигурации.</value>
+  </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>Импорт недоступен, пока этот компьютер отслеживает папку. Сначала прекратите отслеживание.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Импорт конфигурации</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Включить пароли</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>Любой, кто может прочитать папку и знает пароль публикации, может прочитать эти пароли.</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Любой, у кого есть этот файл и его парольная фраза, может прочитать эти пароли.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>Этот файл не является конфигурацией Foundry или поврежден.</value>
+  </data>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>Последняя успешная проверка</value>
+  </data>
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>Последняя публикация</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
+    <value>Этот пользователь Windows не может открыть эту конфигурацию.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>Эту конфигурацию публикует {0}, и на этом компьютере она доступна только для чтения. Можно изменить только путь вывода ISO, дополнительную папку драйверов WinPE и параметры телеметрии.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>Эту конфигурацию публикует {0}, и на этом компьютере она доступна только для чтения. Публикация не содержит паролей: введите их здесь. Также можно изменить путь вывода ISO, дополнительную папку драйверов WinPE и параметры телеметрии.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>Управляется эталонным компьютером</value>
+  </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Не удалось восстановить некоторые файлы, используемые конфигурацией. Выберите их снова на страницах конфигурации.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Синхронизация конфигураций из предыдущих версий больше не поддерживается. Чтобы поделиться этой конфигурацией, используйте «Опубликовать в папку» на эталонном компьютере.</value>
+  </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Проверьте конфигурацию</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Не удалось восстановить сохраненные пароли. Введите их снова на страницах конфигурации.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Импортируйте эти элементы повторно на их страницах. До этого соответствующие элементы конфигурации не готовы.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Отсутствует на этом компьютере</value>
+  </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>Новый ключ</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>Новый пароль публикации</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>Эта папка не содержит опубликованной конфигурации.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>Еще не проверено: эти значения получены из папки и подтверждаются только тогда, когда текущий пароль публикации открывает публикацию.</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Открыть</value>
+  </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Открыть файл</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Открыть выбранный профиль</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>Не удалось выполнить операцию. Подробности см. в журнале.</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>Парольная фраза скопирована в буфер обмена.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Парольная фраза</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>Парольные фразы не совпадают.</value>
+  </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>Новый пароль сохранен. Изменение будет завершено при следующей успешной публикации.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>Пароль публикации изменен. Отслеживающие компьютеры один раз вводят новый пароль.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>Пароль скопирован в буфер обмена.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>Пароли не совпадают.</value>
+  </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Этой конфигурацией управляет эталонный компьютер: здесь можно ввести только пароль.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Включены</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>Это может произойти после сброса пароля Windows. Чтобы продолжить публикацию, перехватите папку с текущим паролем публикации; после этого отслеживающие компьютеры один раз примут этот компьютер как новый эталон.</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Не включены</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Дата экспорта</value>
+  </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>Размер загрузки</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Пароли</value>
+  </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>Опубликовано</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>Эталонный компьютер</value>
+  </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>Предыдущий ключ</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Профили из предыдущей версии</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Эти профили были сохранены на этом компьютере до обновления.</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>Публикация еще не полностью поступила в эту папку. Повторите попытку чуть позже.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>Пароль публикации</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>Публикация сброшена. Отслеживающие компьютеры один раз вводят новый пароль.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>Опубликовать</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>Сделайте этот компьютер эталоном: его конфигурация публикуется в папку, которую отслеживают другие компьютеры.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>Выберите пустую папку или папку, в которую этот компьютер уже публикует: сетевую общую папку, папку OneDrive или SharePoint либо локальную папку. Отслеживающим компьютерам для ее чтения нужен пароль публикации.</value>
+  </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>Опубликовать сейчас</value>
+  </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Проверка папки…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Завершение публикации…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>Подготовка {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>Отправка {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>Проверка {0}…</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>Опубликовать в папку</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>Импорт заменяет текущую конфигурацию. Путь вывода ISO, дополнительная папка драйверов WinPE и параметры телеметрии этого компьютера сохраняются.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>Сбросить</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>Сбросить публикацию</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>Новый пароль и новый ключ содержимого: все файлы содержимого шифруются повторно, что полностью отзывает доступ прежних читателей. Отслеживающие компьютеры один раз вводят новый пароль.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>Сброс публикации</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>Прежние читатели могут открывать содержимое до следующей успешной публикации.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>Этот компьютер отслеживает {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>Этот компьютер публикует свою конфигурацию</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>Не менее 12 символов, и не один и тот же повторяющийся символ (например, aaaaaaaaaaaa).</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Не удалось загрузить часть общего содержимого отслеживаемой публикации. Проверьте «Общий доступ к конфигурации» на странице параметров.</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>Публикация и отслеживание недоступны в этом сеансе, так как не удалось прочитать состояние общего доступа. Подробности см. в журнале.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>Проверка папки: публикация еще не поступила полностью и будет прочитана снова при следующей проверке.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>Конфигурация применена. Выполняется загрузка общего содержимого.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>Конфигурация применена, но часть общего содержимого не удалось установить.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>Конфигурация применена, но часть общего содержимого по-прежнему недоступна после повторных проверок.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>Эта папка содержит файлы, которые не являются публикацией этого компьютера. Выберите пустую папку.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>Папка недоступна. Убедитесь, что она существует и этот компьютер имеет к ней доступ.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>Этот компьютер не публикует и не отслеживает конфигурацию.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>Ожидание первой проверки папки.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>Изменения публикуются автоматически.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>Не опубликовано: конфигурация не готова к созданию носителя или ссылается на содержимое, отсутствующее на этом компьютере. Предыдущая версия остается текущей.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>Требуются пароли: введите пароль публикации или введите недостающие пароли на страницах конфигурации.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>Не удалось прочитать пароль публикации или ключи этого компьютера.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>Опубликовано. Отслеживающие компьютеры получат эту версию при следующей проверке.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>Публикация конфигурации…</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>Папка указывает на более старую версию, чем примененная. Она игнорируется.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>Публикация была изменена. Она не применяется.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>Теперь папку публикует другой компьютер. Примите новый эталон или прекратите отслеживание.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>В эту папку публикует другой компьютер. Перехватите ее, чтобы публиковать с этого компьютера.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>Для этой публикации требуется более новая версия Foundry OSD.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>Актуально.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>Конфигурация обновлена.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>Пароль публикации не открывает текущую публикацию. Введите новый пароль.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>Пароль публикации не открывает публикацию этого компьютера в этой папке.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>Прекратить отслеживание</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>Конфигурация остается без изменений и снова становится доступной для редактирования на этом компьютере.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>Прекратить отслеживание?</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>Остановить публикацию</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>Папка остается без изменений, а отслеживающие компьютеры сохраняют последнюю опубликованную версию. Этот компьютер больше не публикует свою конфигурацию.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>Остановить публикацию?</value>
+  </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>Загрузка {0}…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>Установка {0}…</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>Перехватить</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>В эту папку публикует другой компьютер. Перехват продолжает его публикацию с ключом этого компьютера; отслеживающие компьютеры должны один раз принять этот компьютер как новый эталон.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>Не удалось прочитать ключи публикации этого компьютера. Перехват с текущим паролем публикации продолжает публикацию с новыми ключами; отслеживающие компьютеры должны один раз принять этот компьютер как новый эталон.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>Перехват этой папки</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>Этот пароль не открывает текущую публикацию.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>Не удалось прочитать файл.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>Для этого файла требуется более новая версия Foundry OSD.</value>
+  </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>Версия</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>Ожидание завершения загрузки общего содержимого…</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Неверная парольная фраза или поврежденный файл.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>Этот пароль не открывает публикацию, или публикация была изменена.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Остановить операцию</value>
@@ -3590,6 +3789,15 @@
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Требуемые медиа-секреты не готовы.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Не удалось установить часть общего содержимого на этот компьютер. Оно будет получено повторно, когда эталонный компьютер опубликует новую версию. Проверьте «Общий доступ к конфигурации» на странице параметров.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Часть общего содержимого по-прежнему недоступна после нескольких проверок. Опубликуйте его повторно с эталонного компьютера, а затем проверьте «Общий доступ к конфигурации» на странице параметров.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Общее содержимое еще загружается. Создание носителей станет доступно после завершения загрузки.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Выбранный USB-накопитель слишком мал для кэша. Используйте USB-накопитель объемом не менее 16 GB или выберите «Создать без кэша» с помощью стрелки кнопки «Создать USB».</value>
@@ -4164,6 +4372,15 @@
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Готовы создать USB медиа</value>
   </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Не удалось установить общее содержимое</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Общее содержимое недоступно</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Ожидание общего содержимого</value>
+  </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Просмотр предупреждений о выводе мультимедиа</value>
   </data>
@@ -4308,13 +4525,13 @@
     <value>Содержит параметры, которые могут помешать регистрации в Autopilot; несовместимые режимы регистрации будут заблокированы при развёртывании.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Выберите файл, чтобы переименовать, обновить или удалить его. Исходные файлы должны оставаться доступными до создания носителя; изменённые источники необходимо обновить.</value>
+    <value>Выберите файл, чтобы переименовать или удалить его. Foundry хранит собственную копию каждого импортированного файла; чтобы использовать обновлённый файл, удалите запись и импортируйте файл снова.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Файлы ответов</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Проверить источники</value>
+    <value>Проверить файлы</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Содержит команды; проверьте возможные конфликты с настройками Foundry и обработчиками установки.</value>
@@ -4353,13 +4570,13 @@
     <value>Файл должен указывать поддерживаемую архитектуру и содержать применимые к ней параметры компонентов.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Каталог содержит недопустимые или повторяющиеся записи. Обновите или удалите соответствующие файлы.</value>
+    <value>Каталог содержит недопустимые или повторяющиеся записи. Удалите эти файлы и импортируйте их снова.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Используйте корректный XML-файл ответов Windows размером не более 4 MiB, без DTD и внешних сущностей. Проверьте файл в Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Некоторые источники отсутствуют, изменены или недопустимы. Обновите или удалите эти записи перед созданием носителя.</value>
+    <value>Некоторые файлы отсутствуют или недопустимы. Перед созданием носителя удалите эти записи и импортируйте файлы снова.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Файл по умолчанию отсутствует — выберите замену</value>
@@ -4374,16 +4591,13 @@
     <value>Foundry сохраняет исходный файл и добавляет обязательную команду этапа после установки в копию для развёртывания. Вы по-прежнему отвечаете за свои пользовательские параметры и команды.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Для пользовательских файлов требуется защита носителя развёртывания паролем в общих настройках. XML может содержать учётные данные или сценарии. Foundry хранит копию каждого файла вместе с конфигурацией на этом компьютере только в том случае, если в разделе «Резервное копирование и синхронизация настроек» включён параметр «Запомнить пароли»; в противном случае сохраняется только путь. Загрузочный образ содержит зашифрованные копии.</value>
+    <value>Для пользовательских файлов требуется защита носителя развёртывания паролем в общих настройках. XML может содержать учётные данные или сценарии. Foundry хранит копию каждого импортированного файла в своей библиотеке файлов на этом компьютере. Загрузочный образ содержит зашифрованные копии.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Чтобы использовать пользовательские файлы ответов, включите защиту носителя развёртывания паролем в общих настройках.</value>
   </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Теперь этот источник дублирует другой импортированный файл. Удалите эту запись и выберите существующий файл.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Обновить источник</value>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>У Foundry больше нет действительной копии этого файла. Удалите запись и импортируйте файл снова.</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Удалить</value>
@@ -4397,26 +4611,23 @@
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Выбранный файл</value>
   </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>Источник изменён. Нажмите «Обновить источник», чтобы принять обновлённый файл перед созданием носителя.</value>
-  </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Две проверки источников всё ещё ожидают доступа к файлам. Восстановите доступ к недоступным расположениям и повторите проверку источников.</value>
+    <value>Ещё выполняются две проверки файлов. Дождитесь их завершения, затем повторите попытку.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Проверка источника ожидается. Нажмите «Проверить источники», чтобы проверить текущий файл, не принимая изменения содержимого.</value>
+    <value>Проверка файла ожидается. Нажмите «Проверить файлы», чтобы проверить сохранённую копию.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Не удалось прочитать источник. Убедитесь, что файл существует и доступен.</value>
+    <value>Не удалось прочитать файл. Убедитесь, что он существует и его можно открыть, затем повторите попытку.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Время проверки источника истекло. Проверьте доступ к расположению источника и повторите попытку.</value>
+    <value>Проверка сохранённых файлов заняла слишком много времени. Повторите попытку.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Поддерживаются только параметры specialize и oobeSystem. Удалите другие непустые проходы настройки, инструкции автономного обслуживания или указания на повторную загрузку в режиме аудита.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Источник проверен.</value>
+    <value>Файл проверен.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Применить обновление</value>

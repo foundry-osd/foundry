@@ -283,6 +283,12 @@
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>发行说明</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>无法将所选文件添加到 Foundry。请选择一个可读取且不超过 4 MiB 的文件。</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>未添加文件</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>默认</value>
   </data>
@@ -389,7 +395,7 @@
     <value>复制密码</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>现在将此 PFX 文件和密码保存在安全位置。 仅当在“设置备份与同步”中开启“记住密码”时，Foundry 才会将密码随配置一起保存在此电脑上。您将需要这两个值来生成用于硬件哈希上传的启动媒体。</value>
+    <value>现在将此 PFX 文件和密码保存在安全位置。 Foundry 会将密码记在此电脑上的本地加密保管库中。只有在选择“包括密码”的导出或发布中，它才会离开此电脑。您将需要这两个值来生成用于硬件哈希上传的启动媒体。</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>密码已复制。</value>
@@ -737,7 +743,10 @@
     <value>不可用</value>
   </data>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
-    <value>此文件夹已以 {0} 的名称存在于此配置文件中。</value>
+    <value>此文件夹已以 {0} 的名称存在于此配置中。</value>
+  </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>导入期间配置已被替换，因此未添加驱动程序集。请重新导入该文件夹。</value>
   </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>已移除驱动程序集，但无法删除其本地副本。</value>
@@ -749,7 +758,7 @@
     <value>驱动程序集</value>
   </data>
   <data name="CustomDrivers.DuplicateName" xml:space="preserve">
-    <value>此配置文件中已存在同名驱动程序集。</value>
+    <value>此配置中已存在同名驱动程序集。</value>
   </data>
   <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
     <value>没有自定义驱动程序集。请导入包含 .inf 驱动程序的文件夹以开始。</value>
@@ -802,26 +811,23 @@
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>驱动程序集</value>
   </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>导入期间活动配置文件已更改，因此未添加驱动程序集。请在此配置文件中重新导入该文件夹。</value>
-  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>PXE 启动时不可用。自定义驱动程序需要完整的 ISO 或 USB 介质。</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
-    <value>此配置文件的驱动程序集无效。在创建或更新介质之前，请检查包含的集和默认集。</value>
+    <value>此配置的驱动程序集无效。在创建或更新介质之前，请检查包含的集和默认集。</value>
   </data>
   <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
     <value>{0} 的本地副本缺失或已损坏。在创建或更新介质之前，请重新导入该文件夹或排除该集。</value>
   </data>
   <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
-    <value>在创建或更新介质之前，请在此配置文件中至少包含一个驱动程序集，或关闭自定义驱动程序。</value>
+    <value>在创建或更新介质之前，请在此配置中至少包含一个驱动程序集，或关闭自定义驱动程序。</value>
   </data>
   <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
     <value>移除驱动程序集</value>
   </data>
   <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) 将从当前配置文件中移除。</value>
+    <value>{0} ({1}) 将从当前配置中移除。</value>
   </data>
   <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
     <value>无法移除驱动程序集。请重试。</value>
@@ -830,13 +836,13 @@
     <value>要移除驱动程序集吗？</value>
   </data>
   <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
-    <value>除非其他配置文件正在使用，否则其本地副本将被删除。原始文件夹和现有介质不会更改。</value>
+    <value>其本地副本将被删除。原始文件夹和现有介质不会更改。</value>
   </data>
   <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
     <value>设为默认</value>
   </data>
   <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
-    <value>此配置文件的驱动程序集数量已达上限。请先移除一个，再导入其他驱动程序集。</value>
+    <value>此配置的驱动程序集数量已达上限。请先移除一个，再导入其他驱动程序集。</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>正在验证自定义驱动程序集…</value>
@@ -878,7 +884,7 @@
     <value>所选映像</value>
   </data>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
-    <value>此配置文件中已存在同名映像。</value>
+    <value>此配置中已存在同名映像。</value>
   </data>
   <data name="CustomImages.EditionLabel" xml:space="preserve">
     <value>版本类型</value>
@@ -935,7 +941,7 @@
     <value>PXE 启动时不可用。自定义映像需要完整的 ISO 或 USB 介质。</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>请在此配置文件中包含至少一个可用的 Windows 映像。在创建或更新介质之前，请恢复已包含但缺失的映像，并修正或清除首选映像或索引的选择。</value>
+    <value>请在此配置中包含至少一个可用的 Windows 映像。在创建或更新介质之前，请恢复已包含但缺失的映像，并修正或清除首选映像或索引的选择。</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>刷新</value>
@@ -944,7 +950,7 @@
     <value>移除映像</value>
   </data>
   <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) 将从当前配置文件中移除，其本地副本将被删除。</value>
+    <value>{0} ({1}) 将从当前配置中移除，其本地副本将被删除。</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>移除</value>
@@ -953,7 +959,7 @@
     <value>要移除自定义映像吗？</value>
   </data>
   <data name="CustomImages.RemoveWarning" xml:space="preserve">
-    <value>使用此映像的其他配置文件会将其显示为缺失。原始文件和现有介质不会更改。</value>
+    <value>原始文件和现有介质不会更改。</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>编辑</value>
@@ -2768,7 +2774,7 @@
     <value>配置企业Wi-Fi配置文件模板</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>仅当在“设置备份与同步”中开启“记住密码”时，Wi-Fi 密码才会随配置一起保存在此电脑上。否则不会保存，需要重新输入，例如在重启 Foundry OSD 之后。</value>
+    <value>Foundry 会将密码短语记在此电脑上的本地加密保管库中。只有在选择“包括密码”的导出或发布中，它才会离开此电脑。</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>在 OOBE 前将 Foundry 管理的 Wi-Fi 配置文件导入 Windows，以便在 WinPE 后保持部署连接。</value>
@@ -3001,299 +3007,6 @@
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>工作目录（相对路径；留空则使用内容根目录）</value>
   </data>
-  <data name="Profiles.Active" xml:space="preserve">
-    <value>当前设置</value>
-  </data>
-  <data name="Profiles.AutoSync" xml:space="preserve">
-    <value>自动同步</value>
-  </data>
-  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
-    <value>选择其他名称</value>
-  </data>
-  <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>部分旧的已保存密码或访问密钥未能删除。请在 Windows 凭据管理器可用时重试。</value>
-  </data>
-  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
-    <value>不保存并关闭</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
-    <value>无法保存您最近的更改，这些更改将丢失。</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
-    <value>要关闭而不保存设置吗？</value>
-  </data>
-  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
-    <value>确认密码</value>
-  </data>
-  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>确认文件密码</value>
-  </data>
-  <data name="Profiles.Conflict" xml:space="preserve">
-    <value>这些设置在此电脑上被修改过，其他人也进行了修改。请选择要保留的版本。</value>
-  </data>
-  <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>您选择的版本将替换另一个版本。如果想保留单独的副本，请先选择“创建副本”。</value>
-  </data>
-  <data name="Profiles.ConnectAction" xml:space="preserve">
-    <value>连接</value>
-  </data>
-  <data name="Profiles.ConnectDescription" xml:space="preserve">
-    <value>选择团队成员提供的连接文件。</value>
-  </data>
-  <data name="Profiles.ConnectionPassword" xml:space="preserve">
-    <value>连接密码</value>
-  </data>
-  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
-    <value>其他电脑需要此密码才能连接。</value>
-  </data>
-  <data name="Profiles.Continue" xml:space="preserve">
-    <value>继续</value>
-  </data>
-  <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>共享此配置</value>
-  </data>
-  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
-    <value>为此配置选择一个共享网络文件夹。</value>
-  </data>
-  <data name="Profiles.Delete" xml:space="preserve">
-    <value>从此电脑删除</value>
-  </data>
-  <data name="Profiles.DeleteAction" xml:space="preserve">
-    <value>删除</value>
-  </data>
-  <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>同时为所有人删除</value>
-  </data>
-  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
-    <value>为所有人删除</value>
-  </data>
-  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
-    <value>要为所有人删除吗？</value>
-  </data>
-  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>要为所有人删除这些共享设置吗？有未同步更改的用户必须创建设置副本才能保留更改。</value>
-  </data>
-  <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>要从此电脑删除这些设置吗？如果需要备份，请先导出。</value>
-  </data>
-  <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>这些共享设置已被删除。请选择“创建副本”以在此电脑上保留您的更改。</value>
-  </data>
-  <data name="Profiles.Disconnect" xml:space="preserve">
-    <value>断开连接</value>
-  </data>
-  <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>停止在此电脑上同步此配置？当前设置将保留。共享配置和其他电脑不会受到影响。</value>
-  </data>
-  <data name="Profiles.Export" xml:space="preserve">
-    <value>导出</value>
-  </data>
-  <data name="Profiles.ExportDescription" xml:space="preserve">
-    <value>将此配置保存到文件，以便备份或在其他电脑上使用。</value>
-  </data>
-  <data name="Profiles.ExportProtection" xml:space="preserve">
-    <value>选择用于保护导出文件的密码。导入配置时需要使用此密码。</value>
-  </data>
-  <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>保存连接文件</value>
-  </data>
-  <data name="Profiles.Failed" xml:space="preserve">
-    <value>无法完成此操作。请检查文件、文件密码、您的访问权限以及网络连接。</value>
-  </data>
-  <data name="Profiles.FolderExists" xml:space="preserve">
-    <value>此文件夹名称已被使用。请使用连接文件进行连接，或返回并选择其他名称。</value>
-  </data>
-  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
-    <value>请选择共享文件夹中一个新的空子文件夹。现有文件将保持不变。</value>
-  </data>
-  <data name="Profiles.Forget" xml:space="preserve">
-    <value>清除已保存的密码和访问凭据</value>
-  </data>
-  <data name="Profiles.ForgetAction" xml:space="preserve">
-    <value>清除</value>
-  </data>
-  <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>要从此电脑删除这些设置的已保存密码、Foundry 保存的机密文件以及同步访问权限吗？您需要补充缺失的信息并重新连接才能同步。已创建的介质不会改变。</value>
-  </data>
-  <data name="Profiles.Heading" xml:space="preserve">
-    <value>Foundry 设置</value>
-  </data>
-  <data name="Profiles.Import" xml:space="preserve">
-    <value>导入</value>
-  </data>
-  <data name="Profiles.ImportDescription" xml:space="preserve">
-    <value>从文件添加配置。</value>
-  </data>
-  <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>包含密码和机密文件</value>
-  </data>
-  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
-    <value>使用此配置的人可以读取其中包含的密码和机密文件。</value>
-  </data>
-  <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>缺少部分密码或源文件。请先补充，再保存或共享密码。</value>
-  </data>
-  <data name="Profiles.InvalidFolderName" xml:space="preserve">
-    <value>请使用不含特殊字符且不以句点或空格结尾的名称。</value>
-  </data>
-  <data name="Profiles.JoinChanged" xml:space="preserve">
-    <value>共享配置已更改。连接前请检查最新版本。</value>
-  </data>
-  <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>连接到共享配置</value>
-  </data>
-  <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>使用此电脑上的版本</value>
-  </data>
-  <data name="Profiles.LearnMore" xml:space="preserve">
-    <value>了解更多</value>
-  </data>
-  <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>为此电脑上的 Windows 帐户保存密码。</value>
-  </data>
-  <data name="Profiles.Locked" xml:space="preserve">
-    <value>Windows 无法为您在此电脑上的账户解锁这些已保存设置或其同步访问权限。</value>
-  </data>
-  <data name="Profiles.Manage" xml:space="preserve">
-    <value>更多选项</value>
-  </data>
-  <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>缺失或未包含的文件：{0}。请在创建介质前选择这些文件的位置。</value>
-  </data>
-  <data name="Profiles.Name" xml:space="preserve">
-    <value>配置名称</value>
-  </data>
-  <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>文件密码</value>
-  </data>
-  <data name="Profiles.PasswordMismatch" xml:space="preserve">
-    <value>密码不匹配。</value>
-  </data>
-  <data name="Profiles.Preview" xml:space="preserve">
-    <value>{0}
-包含的文件：{1}
-包含的密码和访问密钥：{2}</value>
-  </data>
-  <data name="Profiles.Ready" xml:space="preserve">
-    <value>就绪</value>
-  </data>
-  <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>请选择用于保护连接文件的密码。请单独分享密码。 请将文件保存在共享配置文件夹之外。</value>
-  </data>
-  <data name="Profiles.Remember" xml:space="preserve">
-    <value>记住密码</value>
-  </data>
-  <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>在此电脑上记住此连接</value>
-  </data>
-  <data name="Profiles.Rename" xml:space="preserve">
-    <value>重命名</value>
-  </data>
-  <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>此操作将替换您正在使用的设置。如果想先保留副本，请取消并选择“创建副本”。</value>
-  </data>
-  <data name="Profiles.RestoreAccess" xml:space="preserve">
-    <value>恢复访问</value>
-  </data>
-  <data name="Profiles.Rollback" xml:space="preserve">
-    <value>共享文件夹中保存的版本发生了意外变化。请从您信任的备份恢复。</value>
-  </data>
-  <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>创建副本</value>
-  </data>
-  <data name="Profiles.Select" xml:space="preserve">
-    <value>选择配置</value>
-  </data>
-  <data name="Profiles.Setup" xml:space="preserve">
-    <value>设置</value>
-  </data>
-  <data name="Profiles.SetupAction" xml:space="preserve">
-    <value>设置同步…</value>
-  </data>
-  <data name="Profiles.SetupDescription" xml:space="preserve">
-    <value>共享此配置，或连接到团队已在使用的配置。</value>
-  </data>
-  <data name="Profiles.ShareAction" xml:space="preserve">
-    <value>共享</value>
-  </data>
-  <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>任何能够导入或同步这些设置的人，都可以读取其中包含的密码和证书私钥。</value>
-  </data>
-  <data name="Profiles.SharedBusy" xml:space="preserve">
-    <value>其他操作正在使用此共享文件夹。请稍后重试。您的更改将保留在此电脑上。</value>
-  </data>
-  <data name="Profiles.SharedFolder" xml:space="preserve">
-    <value>共享文件夹</value>
-  </data>
-  <data name="Profiles.SharedUnavailable" xml:space="preserve">
-    <value>无法访问共享文件夹。请检查其地址和您的网络访问权限。您的更改将保留在此电脑上。</value>
-  </data>
-  <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>所有电脑都应使用同一个网络文件夹。该文件夹必须使用 SMB 3 并强制加密。不支持与云端同步的文件夹。</value>
-  </data>
-  <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Foundry 将停止在此电脑上保存此配置的密码。</value>
-  </data>
-  <data name="Profiles.StopRememberingAction" xml:space="preserve">
-    <value>停止记住</value>
-  </data>
-  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
-    <value>要停止记住密码吗？</value>
-  </data>
-  <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>同步</value>
-  </data>
-  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
-    <value>正在同步…</value>
-  </data>
-  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
-    <value>选择版本</value>
-  </data>
-  <data name="Profiles.SyncStatusError" xml:space="preserve">
-    <value>无法同步</value>
-  </data>
-  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
-    <value>未设置</value>
-  </data>
-  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
-    <value>文件夹不可用</value>
-  </data>
-  <data name="Profiles.SyncStatusPending" xml:space="preserve">
-    <value>有更改待同步</value>
-  </data>
-  <data name="Profiles.SyncStatusReady" xml:space="preserve">
-    <value>准备好同步</value>
-  </data>
-  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
-    <value>已是最新</value>
-  </data>
-  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
-    <value>有可用更改</value>
-  </data>
-  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
-    <value>需要处理</value>
-  </data>
-  <data name="Profiles.Synchronize" xml:space="preserve">
-    <value>同步</value>
-  </data>
-  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
-    <value>在团队的各台电脑上保持此配置为最新状态。</value>
-  </data>
-  <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>设置已是最新</value>
-  </data>
-  <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>Foundry 无法打开这种设置格式。请更新 Foundry 后重试。</value>
-  </data>
-  <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>有来自另一台电脑的更改。请选择“同步”来应用这些更改。</value>
-  </data>
-  <data name="Profiles.UseRemote" xml:space="preserve">
-    <value>使用共享版本</value>
-  </data>
-  <data name="Profiles.Validation" xml:space="preserve">
-    <value>请检查必填字段。如果需要网络文件夹，请使用 \\server\share\folder 这样的路径。如果两次输入文件密码，请确保两次输入一致。</value>
-  </data>
   <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
     <value>Foundry OSD 无法保存代理设置。请重试。有关详细信息，请参阅日志。</value>
   </data>
@@ -3429,12 +3142,6 @@
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>常规</value>
   </data>
-  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>备份设置、将其传输到另一台电脑，或让设置保持同步。</value>
-  </data>
-  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>设置备份与同步</value>
-  </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>配置 Foundry OSD 连接到联机服务的方式。</value>
   </data>
@@ -3464,6 +3171,498 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>更新应用程序</value>
+  </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>接受</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>接受新的参考电脑</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>此文件夹现在由另一台电脑发布：{0}。仅当你预期此更改（例如在接管之后）时才接受；否则，请停止关注此文件夹。</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>是否接受新的参考电脑？</value>
+  </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>此对话框打开期间参考电脑已更改。请在接受之前查看新的密钥。</value>
+  </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>使用加密文件迁移此配置，或通过共享文件夹使多台电脑保持一致。</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>配置共享</value>
+  </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>更改</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>更改密码</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>当前发布内容将使用新密码重写。内容文件不会重新加密，因此知道旧密码的人仍可读取它们：若要完全撤销以前的读取者，请使用“重置发布”。关注此文件夹的电脑需输入一次新密码。</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>更改发布密码</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>立即检查</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>确认密码短语</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>确认密码</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>正在下载</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>无法安装的项数：{0}。参考电脑发布新版本时将再次获取这些项。</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>驱动程序集</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>映像</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>安装后包</value>
+  </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>内容可能已在文件夹中损坏。请从参考电脑重新发布。</value>
+  </data>
+  <data name="Sharing.CopyButton" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>当前发布密码</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>输入密码</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>需要再次输入发布密码，例如在重置 Windows 密码之后，或参考电脑更改了该密码之后。</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>输入发布密码</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>导出</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>已导出配置。</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>将设置和小文件保存到加密文件中。不包括安装后包、驱动程序集和映像。</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>无法导出配置。请检查目标位置，然后重试。</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>此配置的文件总计超过 16 MiB，无法导出。</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>已导出配置，但此电脑上有些文件缺失或已损坏，未包含在内 (数量: {0})。请在配置页面上重新选择这些文件，然后再次导出。</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>导出配置</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Foundry 配置</value>
+  </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>文件夹</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>选择发布文件夹</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>关注</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>使用参考电脑发布到文件夹的配置。已发布的设置在此电脑上将变为只读。</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>输入参考电脑发布到的文件夹及其发布密码，然后打开该文件夹以预览发布内容。</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>关注会替换当前配置，并使已发布的设置变为只读。此电脑的 ISO 输出路径、附加 WinPE 驱动程序文件夹和遥测设置将保留。</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>关注文件夹</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>找到的密钥</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>找到的版本</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>忘记发布密码</value>
+  </data>
+  <data name="Sharing.GenerateButton" xml:space="preserve">
+    <value>生成</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>已导入配置。</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>已导入配置。此电脑上缺少某些内容：请在其页面上重新导入。</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>将此配置替换为导出的文件或旧版本中的配置文件。</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>无法导入配置。当前配置未更改。</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>已导入配置，但无法保存其密码。请在配置页面上重新输入。</value>
+  </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>此电脑关注文件夹期间无法导入。请先停止关注。</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>导入配置</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>包括密码</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>任何能够读取此文件夹并知道发布密码的人都可以读取这些密码。</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>拥有此文件及其密码短语的任何人都可以读取这些密码。</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>此文件不是 Foundry 配置，或者已损坏。</value>
+  </data>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>上次成功检查</value>
+  </data>
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>上次发布</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
+    <value>此 Windows 用户无法打开此配置。</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>此配置由 {0} 发布，在此电脑上为只读。只能更改 ISO 输出路径、附加 WinPE 驱动程序文件夹和遥测设置。</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>此配置由 {0} 发布，在此电脑上为只读。发布内容不包含密码：请在此处输入。也可以更改 ISO 输出路径、附加 WinPE 驱动程序文件夹和遥测设置。</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>由参考电脑管理</value>
+  </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>无法恢复配置使用的部分文件。请在配置页面上重新选择这些文件。</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>不再支持早期版本的配置同步。若要共享此配置，请在参考电脑上使用“发布到文件夹”。</value>
+  </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>检查配置</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>无法还原已保存的密码。请在配置页面上重新输入。</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>请在相应页面上重新导入这些项目。在此之前，对应的配置项目尚未就绪。</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>此电脑上缺少</value>
+  </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>新密钥</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>新的发布密码</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>此文件夹不包含已发布的配置。</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>尚未验证：这些值来自文件夹，仅当当前发布密码打开发布内容时才会得到确认。</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>打开</value>
+  </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>打开文件</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>打开所选配置文件</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>无法完成此操作。有关详细信息，请参阅日志。</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>已将密码短语复制到剪贴板。</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>密码短语</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>密码短语不匹配。</value>
+  </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>新密码已保存。更改将在下次成功发布时完成。</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>发布密码已更改。关注此文件夹的电脑需输入一次新密码。</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>密码已复制到剪贴板。</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>密码不匹配。</value>
+  </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>此配置由参考电脑管理：此处只能输入密码。</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>已包括</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>重置 Windows 密码后可能会出现这种情况。若要继续发布，请使用当前发布密码接管此文件夹；之后，关注此文件夹的电脑将接受一次此电脑作为新的参考电脑。</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>未包括</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>导出时间</value>
+  </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>下载大小</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>发布时间</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>参考电脑</value>
+  </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>以前的密钥</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>旧版本中的配置文件</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>这些配置文件是在更新之前保存在此电脑上的。</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>发布内容尚未完全到达此文件夹。请稍后重试。</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>发布密码</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>发布已重置。关注此文件夹的电脑需输入一次新密码。</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>发布</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>将此电脑设为参考电脑：其配置将发布到其他电脑关注的文件夹。</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>选择一个空文件夹，或此电脑已在发布的文件夹：网络共享、OneDrive 或 SharePoint 文件夹，或本地文件夹。关注此文件夹的电脑需要发布密码才能读取它。</value>
+  </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>立即发布</value>
+  </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>正在检查文件夹…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>正在完成发布…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>正在准备 {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>正在发送 {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>正在验证 {0}…</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>发布到文件夹</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>导入将替换当前配置。将保留此电脑的 ISO 输出路径、附加 WinPE 驱动程序文件夹和遥测设置。</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>重置</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>重置发布</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>新的密码和新的内容密钥：每个内容文件都会重新加密，从而完全撤销以前的读取者。关注此文件夹的电脑需输入一次新密码。</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>重置发布</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>在下次成功发布之前，以前的读取者仍可打开内容。</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>此电脑正在关注 {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>此电脑正在发布其配置</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>至少 12 个字符，且不能是同一个字符重复 (例如 aaaaaaaaaaaa)。</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>无法下载所关注发布的部分共享内容。请在“设置”页面中检查“配置共享”。</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>由于无法读取共享状态，此会话期间无法发布和关注。有关详细信息，请参阅日志。</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>正在检查文件夹：发布内容尚未完全到达，将在下次检查时再次读取。</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>已应用配置。正在下载共享内容。</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>已应用配置，但部分共享内容无法安装。</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>已应用配置，但经过多次检查后，部分共享内容仍不可用。</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>此文件夹包含的文件不是此电脑的发布内容。请选择一个空文件夹。</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>文件夹不可用。请检查它是否存在以及此电脑能否访问它。</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>此电脑既未发布也未关注任何配置。</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>正在等待对文件夹的首次检查。</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>更改会自动发布。</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>未发布：配置尚未准备好创建介质，或引用了此电脑上缺少的内容。以前的版本仍为当前版本。</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>需要密码：请输入发布密码，或在配置页面中输入缺少的密码。</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>无法读取此电脑的发布密码或密钥。</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>已发布。关注此文件夹的电脑将在下次检查时收到此版本。</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>正在发布配置…</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>文件夹指向的版本早于已应用的版本。已忽略该版本。</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>发布内容已被修改。不会应用它。</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>此文件夹现在由另一台电脑发布。请接受新的参考电脑或停止关注。</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>另一台电脑正在发布到此文件夹。若要从此电脑发布，请接管该文件夹。</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>此发布需要更新版本的 Foundry OSD。</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>已是最新。</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>配置已更新。</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>发布密码无法打开当前发布内容。请输入新密码。</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>发布密码无法打开此电脑在此文件夹中的发布内容。</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>停止关注</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>配置将保持不变，并在此电脑上重新变为可编辑。</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>是否停止关注？</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>停止发布</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>文件夹将保持不变，关注它的电脑将保留上次发布的版本。此电脑将不再发布其配置。</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>是否停止发布？</value>
+  </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>正在下载 {0}…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>正在安装 {0}…</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>接管</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>另一台电脑正在发布到此文件夹。接管后将使用此电脑的密钥继续其发布；关注此文件夹的电脑必须接受一次此电脑作为新的参考电脑。</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>无法读取此电脑的发布密钥。使用当前发布密码接管后，将使用新密钥继续发布；关注此文件夹的电脑必须接受一次此电脑作为新的参考电脑。</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>接管此文件夹</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>此密码无法打开当前发布内容。</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>无法读取该文件。</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>此文件需要更高版本的 Foundry OSD。</value>
+  </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>正在等待共享内容下载完成…</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>密码短语错误或文件已损坏。</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>此密码无法打开发布内容，或发布内容已被修改。</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>停止操作</value>
@@ -3590,6 +3789,15 @@
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>所需的媒体机密尚未准备好。</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>部分共享内容无法安装到此电脑。参考电脑发布新版本时将再次获取这些内容。请在“设置”页面中检查“配置共享”。</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>多次检查后，部分共享内容仍不可用。请从参考电脑重新发布，然后在“设置”页面中检查“配置共享”。</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>共享内容仍在下载。下载完成后即可创建介质。</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>所选 USB 驱动器容量太小，无法用于缓存。请使用至少 16 GB 的 USB 驱动器，或从“创建 USB”的箭头中选择“不使用缓存创建”。</value>
@@ -4164,6 +4372,15 @@
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>准备创建USB媒体</value>
   </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>无法安装共享内容</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>共享内容不可用</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>正在等待共享内容</value>
+  </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>查看媒体输出警告</value>
   </data>
@@ -4308,13 +4525,13 @@
     <value>包含可能阻止 Autopilot 注册的设置；部署时将阻止不兼容的注册模式。</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>选择文件以重命名、刷新或移除。源文件必须在创建介质前保持可用；源文件发生更改后需要刷新。</value>
+    <value>选择文件以重命名或移除。Foundry 会为每个导入的文件保留自己的副本；若要使用更新后的文件，请移除该条目并重新导入文件。</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>应答文件</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>检查源文件</value>
+    <value>检查文件</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>包含命令；请检查是否与 Foundry 自定义设置及安装挂钩发生冲突。</value>
@@ -4353,13 +4570,13 @@
     <value>文件必须声明受支持的体系结构，并包含适用于该体系结构的组件设置。</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>目录包含无效或重复条目。请刷新或移除受影响的文件。</value>
+    <value>目录包含无效或重复的条目。请移除受影响的文件并重新导入。</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>请使用有效的 Windows 应答文件 XML，大小不超过 4 MiB，且不含 DTD 或外部实体。使用 Windows SIM 验证文件。</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>部分源文件缺失、已更改或无效。请在创建介质前刷新或移除这些条目。</value>
+    <value>部分文件缺失或无效。请在创建介质前移除这些条目并重新导入文件。</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>默认文件缺失 — 请选择替代文件</value>
@@ -4374,16 +4591,13 @@
     <value>Foundry 会保留原始文件，并将其必需的安装后命令添加到部署副本中。您仍需对自定义设置和命令负责。</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>自定义文件要求在“常规”配置中启用部署介质密码保护。XML 可能包含凭据或脚本。仅当在“设置备份与同步”中开启“记住密码”时，Foundry 才会将每个文件的副本随配置一起保留在此电脑上；否则仅保存路径。启动映像中包含加密副本。</value>
+    <value>自定义文件要求在“常规”配置中启用部署介质密码保护。XML 可能包含凭据或脚本。Foundry 会将每个导入文件的副本保留在此电脑上的文件库中。启动映像中包含加密副本。</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>请在“常规”配置中启用部署介质密码保护，以使用自定义应答文件。</value>
   </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>此源文件现在与另一个已导入文件重复。请移除此条目并选择已有文件。</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>刷新源文件</value>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry 不再拥有此文件的有效副本。请移除该条目并重新导入文件。</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>移除</value>
@@ -4397,26 +4611,23 @@
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>所选文件</value>
   </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>源文件已更改。请在创建介质前使用“刷新源文件”接受更新后的文件。</value>
-  </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>两个源文件检查仍在等待文件访问。请恢复对不可用源文件位置的访问，然后重新检查。</value>
+    <value>仍有两项文件检查正在进行。请等待其完成后重试。</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>源文件检查待处理。选择“检查源文件”可验证当前文件，而不接受内容更改。</value>
+    <value>文件检查待处理。选择“检查文件”可验证已存储的副本。</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>无法读取源文件。请确认文件仍然存在且可以访问。</value>
+    <value>无法读取该文件。请确认文件存在且可以打开，然后重试。</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>源文件验证超时。请检查对源文件位置的访问权限，然后重试。</value>
+    <value>检查已存储的文件耗时过长。请重试。</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>仅支持 specialize 和 oobeSystem 设置。请移除其他非空配置阶段、脱机维护指令或重新封装为审核模式的设置。</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>源文件已验证。</value>
+    <value>文件已验证。</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>应用更新</value>

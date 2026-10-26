@@ -11,6 +11,9 @@ public sealed partial class PostInstallationPage : Page
     private bool editorOpen;
     public PostInstallationViewModel ViewModel { get; }
 
+    /// <summary>Gets the read-only state of a managed configuration.</summary>
+    public ManagedConfigurationViewModel Managed { get; } = App.GetService<ManagedConfigurationViewModel>();
+
     public PostInstallationPage()
     {
         ViewModel = App.GetService<PostInstallationViewModel>();

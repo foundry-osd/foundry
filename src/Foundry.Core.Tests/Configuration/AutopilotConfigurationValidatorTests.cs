@@ -4,6 +4,7 @@
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Tests.TestUtilities;
 
 namespace Foundry.Core.Tests.Configuration;
 
@@ -20,7 +21,7 @@ public sealed class AutopilotConfigurationValidatorTests
             ProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload
         };
 
-        Assert.True(AutopilotConfigurationValidator.IsReady(settings, EvaluationTimeUtc));
+        Assert.True(AutopilotConfigurationValidator.IsReady(settings, EvaluationTimeUtc, hasBootMediaPfxPassword: true));
     }
 
     [Fact]
@@ -34,7 +35,7 @@ public sealed class AutopilotConfigurationValidatorTests
             Profiles = [CreateProfile("profile-a")]
         };
 
-        Assert.True(AutopilotConfigurationValidator.IsReady(settings, EvaluationTimeUtc));
+        Assert.True(AutopilotConfigurationValidator.IsReady(settings, EvaluationTimeUtc, hasBootMediaPfxPassword: true));
     }
 
     [Fact]
@@ -46,7 +47,7 @@ public sealed class AutopilotConfigurationValidatorTests
             ProvisioningMode = AutopilotProvisioningMode.JsonProfile
         };
 
-        Assert.False(AutopilotConfigurationValidator.IsReady(settings, EvaluationTimeUtc));
+        Assert.False(AutopilotConfigurationValidator.IsReady(settings, EvaluationTimeUtc, hasBootMediaPfxPassword: true));
     }
 
     [Fact]
@@ -59,7 +60,7 @@ public sealed class AutopilotConfigurationValidatorTests
             HardwareHashUpload = CreateCompleteHardwareHashSettings(EvaluationTimeUtc.AddMonths(6))
         };
 
-        Assert.True(AutopilotConfigurationValidator.IsReady(settings, EvaluationTimeUtc));
+        Assert.True(AutopilotConfigurationValidator.IsReady(settings, EvaluationTimeUtc, hasBootMediaPfxPassword: true));
     }
 
     [Fact]
@@ -72,7 +73,7 @@ public sealed class AutopilotConfigurationValidatorTests
             HardwareHashUpload = new AutopilotHardwareHashUploadSettings()
         };
 
-        AutopilotConfigurationValidationResult result = AutopilotConfigurationValidator.Evaluate(settings, EvaluationTimeUtc);
+        AutopilotConfigurationValidationResult result = AutopilotConfigurationValidator.Evaluate(settings, EvaluationTimeUtc, hasBootMediaPfxPassword: true);
 
         Assert.True(result.IsReady);
         Assert.Equal(AutopilotConfigurationValidationCode.Ready, result.Code);
@@ -107,7 +108,7 @@ public sealed class AutopilotConfigurationValidatorTests
                 thumbprint)
         };
 
-        Assert.False(AutopilotConfigurationValidator.IsReady(settings, EvaluationTimeUtc));
+        Assert.False(AutopilotConfigurationValidator.IsReady(settings, EvaluationTimeUtc, hasBootMediaPfxPassword: true));
     }
 
     [Fact]
@@ -120,7 +121,7 @@ public sealed class AutopilotConfigurationValidatorTests
             HardwareHashUpload = CreateCompleteHardwareHashSettings(EvaluationTimeUtc.AddTicks(-1))
         };
 
-        Assert.False(AutopilotConfigurationValidator.IsReady(settings, EvaluationTimeUtc));
+        Assert.False(AutopilotConfigurationValidator.IsReady(settings, EvaluationTimeUtc, hasBootMediaPfxPassword: true));
     }
 
     [Fact]
@@ -134,15 +135,14 @@ public sealed class AutopilotConfigurationValidatorTests
             {
                 BootMediaCertificate = new AutopilotBootMediaCertificateSettings
                 {
-                    PfxPath = @"E:\Secrets\foundry-osd-autopilot-registration.pfx",
-                    PfxPassword = "correct-password",
+                    Pfx = TestFileReferences.Detached("foundry-osd-autopilot-registration.pfx"),
                     ValidatedThumbprint = "ABCDEF123456",
                     ValidatedExpiresOnUtc = EvaluationTimeUtc.AddMonths(6)
                 }
             }
         };
 
-        AutopilotConfigurationValidationResult result = AutopilotConfigurationValidator.Evaluate(settings, EvaluationTimeUtc);
+        AutopilotConfigurationValidationResult result = AutopilotConfigurationValidator.Evaluate(settings, EvaluationTimeUtc, hasBootMediaPfxPassword: true);
 
         Assert.False(result.IsReady);
         Assert.Equal(AutopilotConfigurationValidationCode.HardwareHashActiveCertificateExpired, result.Code);
@@ -159,15 +159,14 @@ public sealed class AutopilotConfigurationValidatorTests
             {
                 BootMediaCertificate = new AutopilotBootMediaCertificateSettings
                 {
-                    PfxPath = @"E:\Secrets\foundry-osd-autopilot-registration.pfx",
-                    PfxPassword = "correct-password",
+                    Pfx = TestFileReferences.Detached("foundry-osd-autopilot-registration.pfx"),
                     ValidatedThumbprint = "ABCDEF123456",
                     ValidatedExpiresOnUtc = EvaluationTimeUtc.AddTicks(-1)
                 }
             }
         };
 
-        AutopilotConfigurationValidationResult result = AutopilotConfigurationValidator.Evaluate(settings, EvaluationTimeUtc);
+        AutopilotConfigurationValidationResult result = AutopilotConfigurationValidator.Evaluate(settings, EvaluationTimeUtc, hasBootMediaPfxPassword: true);
 
         Assert.False(result.IsReady);
         Assert.Equal(AutopilotConfigurationValidationCode.HardwareHashBootMediaCertificateExpired, result.Code);
@@ -186,7 +185,7 @@ public sealed class AutopilotConfigurationValidatorTests
             }
         };
 
-        Assert.False(AutopilotConfigurationValidator.IsReady(settings, EvaluationTimeUtc));
+        Assert.False(AutopilotConfigurationValidator.IsReady(settings, EvaluationTimeUtc, hasBootMediaPfxPassword: true));
     }
 
     [Fact]
@@ -202,10 +201,26 @@ public sealed class AutopilotConfigurationValidatorTests
             }
         };
 
-        AutopilotConfigurationValidationResult result = AutopilotConfigurationValidator.Evaluate(settings, EvaluationTimeUtc);
+        AutopilotConfigurationValidationResult result = AutopilotConfigurationValidator.Evaluate(settings, EvaluationTimeUtc, hasBootMediaPfxPassword: true);
 
         Assert.False(result.IsReady);
         Assert.Equal(AutopilotConfigurationValidationCode.HardwareHashBootMediaPfxMissing, result.Code);
+    }
+
+    [Fact]
+    public void Evaluate_WhenSessionHasNoBootMediaPfxPassword_ReturnsPfxPasswordMissing()
+    {
+        var settings = new AutopilotSettings
+        {
+            IsEnabled = true,
+            ProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
+            HardwareHashUpload = CreateCompleteHardwareHashSettings(EvaluationTimeUtc.AddMonths(6))
+        };
+
+        AutopilotConfigurationValidationResult result = AutopilotConfigurationValidator.Evaluate(settings, EvaluationTimeUtc, hasBootMediaPfxPassword: false);
+
+        Assert.False(result.IsReady);
+        Assert.Equal(AutopilotConfigurationValidationCode.HardwareHashBootMediaPfxPasswordMissing, result.Code);
     }
 
     [Fact]
@@ -222,7 +237,7 @@ public sealed class AutopilotConfigurationValidatorTests
             }
         };
 
-        AutopilotConfigurationValidationResult result = AutopilotConfigurationValidator.Evaluate(settings, EvaluationTimeUtc);
+        AutopilotConfigurationValidationResult result = AutopilotConfigurationValidator.Evaluate(settings, EvaluationTimeUtc, hasBootMediaPfxPassword: true);
 
         Assert.False(result.IsReady);
         Assert.Equal(AutopilotConfigurationValidationCode.HardwareHashBootMediaPfxMissing, result.Code);
@@ -239,15 +254,14 @@ public sealed class AutopilotConfigurationValidatorTests
             {
                 BootMediaCertificate = new AutopilotBootMediaCertificateSettings
                 {
-                    PfxPath = @"E:\Secrets\foundry-osd-autopilot-registration.pfx",
-                    PfxPassword = "correct-password",
+                    Pfx = TestFileReferences.Detached("foundry-osd-autopilot-registration.pfx"),
                     ValidatedThumbprint = "9876543210",
                     ValidatedExpiresOnUtc = EvaluationTimeUtc.AddMonths(6)
                 }
             }
         };
 
-        AutopilotConfigurationValidationResult result = AutopilotConfigurationValidator.Evaluate(settings, EvaluationTimeUtc);
+        AutopilotConfigurationValidationResult result = AutopilotConfigurationValidator.Evaluate(settings, EvaluationTimeUtc, hasBootMediaPfxPassword: true);
 
         Assert.False(result.IsReady);
         Assert.Equal(AutopilotConfigurationValidationCode.HardwareHashBootMediaCertificateThumbprintMismatch, result.Code);
@@ -262,7 +276,7 @@ public sealed class AutopilotConfigurationValidatorTests
             ProvisioningMode = (AutopilotProvisioningMode)999
         };
 
-        Assert.False(AutopilotConfigurationValidator.IsReady(settings, EvaluationTimeUtc));
+        Assert.False(AutopilotConfigurationValidator.IsReady(settings, EvaluationTimeUtc, hasBootMediaPfxPassword: true));
     }
 
     [Fact]
@@ -275,7 +289,7 @@ public sealed class AutopilotConfigurationValidatorTests
             HardwareHashUpload = null!
         };
 
-        Assert.False(AutopilotConfigurationValidator.IsReady(settings, EvaluationTimeUtc));
+        Assert.False(AutopilotConfigurationValidator.IsReady(settings, EvaluationTimeUtc, hasBootMediaPfxPassword: true));
     }
 
     [Fact]
@@ -291,7 +305,7 @@ public sealed class AutopilotConfigurationValidatorTests
             }
         };
 
-        Assert.False(AutopilotConfigurationValidator.IsReady(settings, EvaluationTimeUtc));
+        Assert.False(AutopilotConfigurationValidator.IsReady(settings, EvaluationTimeUtc, hasBootMediaPfxPassword: true));
     }
 
     [Fact]
@@ -304,7 +318,7 @@ public sealed class AutopilotConfigurationValidatorTests
         };
 
         InvalidOperationException exception = Assert.Throws<InvalidOperationException>(
-            () => AutopilotConfigurationValidator.ThrowIfNotReady(settings, EvaluationTimeUtc));
+            () => AutopilotConfigurationValidator.ThrowIfNotReady(settings, EvaluationTimeUtc, hasBootMediaPfxPassword: true));
         Assert.Contains("unsupported", exception.Message, StringComparison.OrdinalIgnoreCase);
     }
 
@@ -348,8 +362,7 @@ public sealed class AutopilotConfigurationValidatorTests
             },
             BootMediaCertificate = new AutopilotBootMediaCertificateSettings
             {
-                PfxPath = @"E:\Secrets\foundry-osd-autopilot-registration.pfx",
-                PfxPassword = "correct-password",
+                Pfx = TestFileReferences.Detached("foundry-osd-autopilot-registration.pfx"),
                 ValidatedThumbprint = thumbprint,
                 ValidatedExpiresOnUtc = expiration
             }

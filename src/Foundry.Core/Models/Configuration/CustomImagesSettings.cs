@@ -17,7 +17,7 @@ public sealed record CustomImagesSettings
     public int? DefaultImageIndex { get; init; }
 }
 
-/// <summary>Identifies immutable imported content while keeping its profile-specific label and inclusion mutable.</summary>
+/// <summary>Identifies immutable imported content while keeping its configuration-specific label and inclusion mutable.</summary>
 public sealed record CustomImageReference
 {
     public string Id { get; init; } = string.Empty;

@@ -4,6 +4,7 @@
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.Sharing;
 
 namespace Foundry.Core.Tests.Configuration;
 
@@ -19,6 +20,21 @@ public sealed class HomeWorkflowReadinessEvaluatorTests
         Assert.Equal(HomeWorkflowState.NeedsAttention, evaluation.Adk);
         Assert.Equal(HomeWorkflowState.Pending, evaluation.General);
         Assert.Equal(HomeWorkflowState.Pending, evaluation.Start);
+    }
+
+    [Theory]
+    [InlineData(SharedContentSyncState.Syncing, HomeWorkflowState.Syncing)]
+    [InlineData(SharedContentSyncState.Failed, HomeWorkflowState.NeedsAttention)]
+    [InlineData(SharedContentSyncState.Stalled, HomeWorkflowState.NeedsAttention)]
+    [InlineData(SharedContentSyncState.Synced, HomeWorkflowState.Ready)]
+    public void Evaluate_SharedContentNotSynced_GatesTheStartStep(SharedContentSyncState sharedContent, HomeWorkflowState expected)
+    {
+        ConfigurationOverviewEvaluation overview = EvaluateOverview(new FoundryConfigurationDocument());
+
+        HomeWorkflowReadinessEvaluation evaluation = HomeWorkflowReadinessEvaluator.Evaluate(true, overview, sharedContent);
+
+        Assert.Equal(HomeWorkflowState.Ready, evaluation.General);
+        Assert.Equal(expected, evaluation.Start);
     }
 
     [Fact]
@@ -77,7 +93,7 @@ public sealed class HomeWorkflowReadinessEvaluatorTests
     private static ConfigurationOverviewContext CreateContext(FoundryConfigurationDocument configuration) => new()
     {
         Configuration = configuration,
-        EffectiveNetwork = configuration.Network,
+        NetworkInputs = MediaInputs.None,
         IsWinPeLanguageReady = true,
         IsCustomDriverConfigurationReady = true,
         IsDeploymentProtectionSecretReady = true,

@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog x:Class="Foundry.Views.TakeOverDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="{x:Bind ViewModel.Title, Mode=OneWay}"
+    CloseButtonClick="OnCloseButtonClick"
+    CloseButtonText="{x:Bind ViewModel.CancelLabel, Mode=OneWay}"
+    Closing="OnClosing"
+    CornerRadius="{ThemeResource OverlayCornerRadius}"
+    DefaultButton="Close"
+    IsPrimaryButtonEnabled="{x:Bind ViewModel.CanTakeOver, Mode=OneWay}"
+    PrimaryButtonClick="OnPrimaryButtonClick"
+    PrimaryButtonText="{x:Bind ViewModel.TakeOverLabel, Mode=OneWay}"
+    Style="{ThemeResource DefaultContentDialogStyle}">
+    <StackPanel
+        Width="{StaticResource FoundryDialogContentWidth}"
+        Padding="0,4,0,8"
+        Spacing="{ThemeResource FoundryContentGroupSpacing}">
+        <TextBlock
+            Text="{x:Bind ViewModel.DescriptionText, Mode=OneWay}"
+            TextWrapping="WrapWholeWords" />
+        <Grid
+            ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}"
+            RowSpacing="{ThemeResource FoundryTextGroupSpacing}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                Text="{x:Bind ViewModel.FolderLabel, Mode=OneWay}" />
+            <TextBlock
+                Grid.Column="1"
+                FlowDirection="LeftToRight"
+                IsTextSelectionEnabled="True"
+                Text="{x:Bind ViewModel.Folder}"
+                TextWrapping="Wrap" />
+            <TextBlock
+                Grid.Row="1"
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                Text="{x:Bind ViewModel.ForeignVersionLabel, Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.HasForeign}" />
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="1"
+                Text="{x:Bind ViewModel.ForeignVersion}"
+                TextWrapping="Wrap"
+                Visibility="{x:Bind ViewModel.HasForeign}" />
+            <TextBlock
+                Grid.Row="2"
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                Text="{x:Bind ViewModel.ForeignKeyLabel, Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.HasForeign}" />
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="1"
+                FlowDirection="LeftToRight"
+                IsTextSelectionEnabled="True"
+                Style="{ThemeResource FoundryMonospaceBodyTextBlockStyle}"
+                Text="{x:Bind ViewModel.ForeignKey}"
+                TextWrapping="Wrap"
+                Visibility="{x:Bind ViewModel.HasForeign}" />
+        </Grid>
+        <InfoBar
+            IsClosable="False"
+            IsOpen="{x:Bind ViewModel.HasForeign}"
+            Message="{x:Bind ViewModel.NotVerifiedText, Mode=OneWay}"
+            Severity="Warning"
+            Visibility="{x:Bind ViewModel.HasForeign}" />
+        <PasswordBox
+            Header="{x:Bind ViewModel.PasswordLabel, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
+            MaxLength="1024"
+            Password="{x:Bind ViewModel.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <StackPanel Spacing="{ThemeResource FoundryTextGroupSpacing}">
+            <CheckBox
+                Content="{x:Bind ViewModel.IncludePasswordsLabel, Mode=OneWay}"
+                IsChecked="{x:Bind ViewModel.IncludePasswords, Mode=TwoWay}"
+                IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}" />
+            <TextBlock
+                AutomationProperties.LiveSetting="Polite"
+                Foreground="{ThemeResource SystemFillColorCautionBrush}"
+                Style="{ThemeResource FoundryCaptionTextBlockStyle}"
+                Text="{x:Bind ViewModel.IncludePasswordsWarning, Mode=OneWay}"
+                TextWrapping="WrapWholeWords"
+                Visibility="{x:Bind ViewModel.IncludePasswords, Mode=OneWay}" />
+        </StackPanel>
+        <StackPanel
+            Spacing="{ThemeResource FoundryTextGroupSpacing}"
+            Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}">
+            <TextBlock
+                AutomationProperties.LiveSetting="Polite"
+                MaxLines="2"
+                Text="{x:Bind ViewModel.Progress.StageText, Mode=OneWay}"
+                TextTrimming="CharacterEllipsis"
+                TextWrapping="Wrap"
+                ToolTipService.ToolTip="{x:Bind ViewModel.Progress.StageText, Mode=OneWay}" />
+            <Grid ColumnSpacing="{ThemeResource FoundryContentGroupSpacing}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ProgressBar
+                    VerticalAlignment="Center"
+                    IsIndeterminate="{x:Bind ViewModel.Progress.IsIndeterminate, Mode=OneWay}"
+                    Maximum="100"
+                    Minimum="0"
+                    Value="{x:Bind ViewModel.Progress.Percent, Mode=OneWay}" />
+                <TextBlock
+                    Grid.Column="1"
+                    MinWidth="40"
+                    VerticalAlignment="Center"
+                    AutomationProperties.AccessibilityView="Raw"
+                    Text="{x:Bind ViewModel.Progress.PercentText, Mode=OneWay}"
+                    TextAlignment="Right" />
+            </Grid>
+        </StackPanel>
+        <InfoBar
+            IsClosable="False"
+            IsOpen="{x:Bind ViewModel.HasError, Mode=OneWay}"
+            Message="{x:Bind ViewModel.ErrorMessage, Mode=OneWay}"
+            Severity="Error"
+            Visibility="{x:Bind ViewModel.HasError, Mode=OneWay}" />
+    </StackPanel>
+</ContentDialog>

@@ -47,6 +47,52 @@ public sealed class PublicationWriterTests : IDisposable
     }
 
     [Fact]
+    public async Task Publish_PlaintextLongerThanListedLength_ReportsMonotonicProgress()
+    {
+        // A package archive is longer than its listed length (the sum of its file lengths).
+        PackageContent first = source.Add(new string('a', (2 * ContentTransfer.ChunkSize) + 1), SharedContentKind.Package) with { Length = 10 };
+        PackageContent second = source.Add("second", SharedContentKind.Package);
+        List<ContentProgress> reports = [];
+
+        await PublicationWriter.PublishAsync(Request([first, second]), source, new SynchronousProgress(reports.Add), Cancellation);
+
+        Assert.Equal(reports.Select(report => report.Done).Order(), reports.Select(report => report.Done));
+        Assert.All(reports, report => Assert.InRange(report.Done, 0, first.Length + second.Length));
+        Assert.Equal(new ContentProgress(first.Length + second.Length, first.Length + second.Length, string.Empty), reports[^1]);
+    }
+
+    [Fact]
+    public async Task Publish_WithPreparation_ReportsEveryStepInOrderAndCompletesOnlyAtTheEnd()
+    {
+        source.ReportsPreparation = true;
+        PackageContent present = source.Add("already published", SharedContentKind.Package);
+        await PublishAsync([present]);
+        PackageContent image = source.Add("image bytes", SharedContentKind.Image);
+        PackageContent package = source.Add("package bytes", SharedContentKind.DriverSet);
+        List<ContentProgress> reports = [];
+
+        await PublicationWriter.PublishAsync(Request([present, image, package]), source, new SynchronousProgress(reports.Add), Cancellation);
+
+        long total = present.Length + (2 * image.Length) + (2 * package.Length);
+        Assert.Equal(ContentProgressStep.CheckingFolder, reports[0].Step);
+        Assert.Equal(reports.Select(report => report.Done).Order(), reports.Select(report => report.Done));
+        double[] percents = reports.Select(PublishProgress.Percent).ToArray();
+        Assert.Equal(percents.Order(), percents);
+        Assert.All(percents, percent => Assert.True(percent < 100));
+        Assert.Equal(new ContentProgress(total, total, string.Empty), reports[^1]);
+        // Content already complete in the folder counts as done at once and is neither prepared nor sent again.
+        Assert.Equal(present.Length, reports[1].Done);
+        Assert.DoesNotContain(reports, report => report.CurrentName == present.Name);
+        Assert.Equal(1, source.Opened(present.Hash));
+        Assert.Equal(
+            [ContentProgressStep.Verifying, ContentProgressStep.Transferring],
+            reports.Where(report => report.CurrentName == image.Name).Select(report => report.Step).Distinct());
+        Assert.Equal(
+            [ContentProgressStep.Preparing, ContentProgressStep.Transferring],
+            reports.Where(report => report.CurrentName == package.Name).Select(report => report.Step).Distinct());
+    }
+
+    [Fact]
     public async Task Publish_SecondTime_IncrementsSequenceAndReusesContent()
     {
         PackageContent content = source.Add("installer", SharedContentKind.Package);
@@ -329,6 +375,17 @@ public sealed class PublicationWriterTests : IDisposable
     }
 
     [Fact]
+    public async Task Rewrap_NoManifestOfThisPc_ReturnsNothingToRewrap()
+    {
+        Directory.CreateDirectory(Path.Combine(Folder, "manifests"));
+
+        PublishStatus status = await PublicationWriter.RewrapAsync(Folder, Password, "another-publication-password", signer, Cancellation);
+
+        Assert.Equal(PublishStatus.NothingToRewrap, status);
+        Assert.Empty(Directory.EnumerateFiles(Folder, "*", SearchOption.AllDirectories));
+    }
+
+    [Fact]
     public async Task Publish_StalePassword_ReturnsWrongPassword()
     {
         await PublishAsync([]);
@@ -556,6 +613,11 @@ public sealed class PublicationWriterTests : IDisposable
     }
 
     /// <summary>In-memory content keyed by hash; counts opens and can run a callback when one is opened.</summary>
+    private sealed class SynchronousProgress(Action<ContentProgress> report) : IProgress<ContentProgress>
+    {
+        public void Report(ContentProgress value) => report(value);
+    }
+
     private sealed class FakeContentSource : IContentSource
     {
         private readonly Dictionary<string, (byte[] Bytes, Action? OnOpen)> contents = [];
@@ -569,7 +631,21 @@ public sealed class PublicationWriterTests : IDisposable
             return new PackageContent(hash, kind, bytes.Length, text);
         }
 
+        /// <summary>Gets or sets whether non-file content has a preparation step as long as its length, reported in two halves.</summary>
+        public bool ReportsPreparation { get; set; }
+
         public int Opened(string hash) => opened.GetValueOrDefault(hash);
+
+        public long PreparationLength(PackageContent content) =>
+            ReportsPreparation && content.Kind != SharedContentKind.File ? content.Length : 0;
+
+        public Task<Stream> OpenAsync(PackageContent content, IProgress<long>? preparation, CancellationToken ct)
+        {
+            long length = PreparationLength(content);
+            preparation?.Report(length / 2);
+            preparation?.Report(length);
+            return OpenAsync(content, ct);
+        }
 
         public Task<Stream> OpenAsync(PackageContent content, CancellationToken ct)
         {

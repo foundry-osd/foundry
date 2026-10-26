@@ -7,7 +7,7 @@ using Foundry.Core.Services.Configuration;
 
 namespace Foundry.Services.Configuration;
 
-/// <summary>Owns the desktop session's join account passwords and publishes changes to profile persistence.</summary>
+/// <summary>Owns the desktop session's join account passwords and publishes changes to configuration persistence.</summary>
 internal sealed class DomainJoinSecretStateService : IDomainJoinSecretStateService, IDisposable
 {
     private readonly DomainJoinSecretState state = new();

@@ -13,9 +13,9 @@ public static class CustomImageSettingsValidator
     public const int MaximumIndexes = 1024;
     public const int MaximumDisplayNameLength = 200;
 
-    /// <summary>Validates profile settings, optionally requiring included content for media creation.</summary>
+    /// <summary>Validates the settings, optionally requiring included content for media creation.</summary>
     /// <param name="settings">The custom image settings to validate.</param>
-    /// <param name="requireIncludedImage">Requires an included image when enabled; defaults to false so incomplete profiles can be saved.</param>
+    /// <param name="requireIncludedImage">Requires an included image when enabled; defaults to false so incomplete configurations can be saved.</param>
     public static IReadOnlyList<string> Validate(CustomImagesSettings settings, bool requireIncludedImage = false)
     {
         ArgumentNullException.ThrowIfNull(settings);
@@ -41,9 +41,9 @@ public static class CustomImageSettingsValidator
         return errors;
     }
 
-    /// <summary>Rejects invalid profile settings, optionally requiring included content for media creation.</summary>
+    /// <summary>Rejects invalid settings, optionally requiring included content for media creation.</summary>
     /// <param name="settings">The custom image settings to validate.</param>
-    /// <param name="requireIncludedImage">Requires an included image when enabled; defaults to false so incomplete profiles can be saved.</param>
+    /// <param name="requireIncludedImage">Requires an included image when enabled; defaults to false so incomplete configurations can be saved.</param>
     public static void ThrowIfInvalid(CustomImagesSettings settings, bool requireIncludedImage = false)
     {
         IReadOnlyList<string> errors = Validate(settings, requireIncludedImage);

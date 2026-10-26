@@ -5,6 +5,7 @@
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.Adk;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.Secrets;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Application;
 using Foundry.Services.Appearance;
@@ -16,6 +17,7 @@ using Foundry.Services.Localization;
 using Foundry.Services.Media;
 using Foundry.Services.Networking;
 using Foundry.Services.Operations;
+using Foundry.Services.Secrets;
 using Foundry.Services.Settings;
 using Foundry.Services.Shell;
 using Foundry.Services.Startup;
@@ -124,13 +126,14 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDomainJoinSecretStateService, DomainJoinSecretStateService>();
         services.AddSingleton<IOobeAdditionalAccountDialogService, OobeAdditionalAccountDialogService>();
         services.AddSingleton<IFoundryConfigurationStateService, FoundryConfigurationStateService>();
-        services.AddSingleton<Foundry.Core.Services.Profiles.IDeploymentProfilePackageService, Foundry.Core.Services.Profiles.DeploymentProfilePackageService>();
-        services.AddSingleton(sp => new Foundry.Core.Services.Profiles.LocalDeploymentProfileRepository(
-            Constants.DeploymentProfilesDirectoryPath,
-            sp.GetRequiredService<Foundry.Utilities.Security.IWindowsCredentialStore>(),
-            sp.GetRequiredService<Foundry.Core.Services.Profiles.IDeploymentProfilePackageService>()));
-        services.AddSingleton<DeploymentProfileSessionService>();
-        services.AddSingleton<DeploymentProfileCoordinator>();
+        services.AddSingleton(_ => new LocalSecretVault(Constants.SecretVaultPath));
+        services.AddSingleton<SecretVaultBridge>();
+        services.AddSingleton<ISecretVaultBridge>(sp => sp.GetRequiredService<SecretVaultBridge>());
+        services.AddSingleton<AuthoringFileCleanupService>();
+        services.AddSingleton(_ => new Foundry.Core.Services.Configuration.Legacy.LegacyMigrationStateFile(Constants.LegacyMigrationStatePath));
+        services.AddSingleton<LegacyMigrationRunner>();
+        services.AddSingleton<IMigrationNoticeService, MigrationNoticeService>();
+        services.AddSingleton<MigrationNoticeDialogService>();
         services.AddSingleton<IWinPeLanguageDiscoveryService, WinPeLanguageDiscoveryService>();
         services.AddSingleton<IConfigurationOverviewService, ConfigurationOverviewService>();
         services.AddSingleton<IWinPeEmbeddedAssetService, WinPeEmbeddedAssetService>();
@@ -164,12 +167,18 @@ public static class ServiceCollectionExtensions
         services.AddTransient<MainViewModel>();
         services.AddTransient<GeneralConfigurationViewModel>();
         services.AddSingleton(_ => new Foundry.Core.Services.Images.CustomImageLibraryService(Constants.CustomImagesDirectoryPath));
+        services.AddSingleton(_ => new Foundry.Core.Services.Files.AuthoringFileLibrary(Constants.AuthoringFilesDirectoryPath));
         services.AddSingleton<CustomImageImportDialogService>();
         services.AddTransient<CustomImagesViewModel>();
         services.AddSingleton(_ => new Foundry.Core.Services.Packages.ContentPackageLibraryService(Constants.PostInstallPackagesDirectoryPath, Foundry.Core.Services.Packages.ContentPackageKind.PostInstallation));
         services.AddTransient<PostInstallationViewModel>();
         services.AddSingleton(_ => new Foundry.Core.Services.Drivers.CustomDriverSetLibrary(Constants.CustomDriverPackagesDirectoryPath));
         services.AddSingleton<CustomDriverSetImportDialogService>();
+        services.AddSingleton<ConfigurationReplacementGate>();
+        services.AddSingleton<ContentPackageCleanupService>();
+        services.AddSingleton<Foundry.Services.Sharing.ConfigurationTransferService>();
+        services.AddSingleton<Foundry.Services.Sharing.ConfigurationSharingService>();
+        services.AddSingleton<ManagedConfigurationViewModel>();
         services.AddTransient<CustomDriversViewModel>();
         services.AddTransient<UnattendConfigurationViewModel>();
         services.AddTransient<NetworkConfigurationViewModel>();
@@ -181,10 +190,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<StartMediaViewModel>();
         services.AddTransient<HomeLandingViewModel>();
         services.AddTransient<SettingsPageViewModel>();
-        services.AddTransient(provider => new DeploymentProfilesViewModel(
-            provider.GetRequiredService<DeploymentProfileCoordinator>(),
-            provider.GetRequiredService<IApplicationLocalizationService>(),
-            provider.GetRequiredService<IFilePickerService>()));
+        services.AddTransient<ConfigurationSharingViewModel>();
         services.AddTransient<GeneralSettingViewModel>();
         services.AddTransient<AdkPageViewModel>();
         services.AddTransient<AppUpdateSettingViewModel>();

@@ -13,8 +13,8 @@ namespace Foundry.Services.Configuration;
 /// Owns the mutable Foundry configuration assembled by the Foundry UI.
 /// </summary>
 /// <remarks>
-/// <see cref="Current"/> is always safe to persist. Volatile network secrets are kept outside the document and
-/// merged into a detached document when <see cref="CaptureBuildSnapshotAsync"/> freezes build inputs.
+/// <see cref="Current"/> is always safe to persist. Session passwords and the readable copies of referenced files are kept
+/// outside the document and exposed as <see cref="MediaInputs"/>; <see cref="CaptureBuildSnapshotAsync"/> freezes both.
 /// </remarks>
 public interface IFoundryConfigurationStateService
 {
@@ -28,8 +28,53 @@ public interface IFoundryConfigurationStateService
     /// </summary>
     FoundryConfigurationDocument Current { get; }
 
-    /// <summary>Persists a validated profile before restoring its local secrets and publishing the active configuration.</summary>
+    /// <summary>
+    /// Gets whether a followed publication manages the configuration: published sections are read-only, and every
+    /// <c>Update*</c> method throws <see cref="InvalidOperationException"/> for a change outside the per-PC values
+    /// (<see cref="Foundry.Core.Services.Sharing.ManagedConfigurationGuard"/>). <see cref="Replace"/> stays available to the follower.
+    /// </summary>
+    bool IsManaged { get; }
+
+    /// <summary>Gets the display name of the reference PC that manages the configuration; null when not managed.</summary>
+    string? ManagedBy { get; }
+
+    /// <summary>Occurs when <see cref="IsManaged"/> or <see cref="ManagedBy"/> changes.</summary>
+    event EventHandler? ManagedChanged;
+
+    /// <summary>Marks the configuration managed by the reference named <paramref name="managedBy"/>.</summary>
+    void SetManaged(string managedBy);
+
+    /// <summary>Makes the configuration editable again; it stays as it is.</summary>
+    void ClearManaged();
+
+    /// <summary>
+    /// Returns whether <paramref name="candidate"/> may replace <see cref="Current"/> through an <c>Update*</c> method: always when the
+    /// configuration is not managed, otherwise only when it changes per-PC values alone. A view model that saves on its own (a
+    /// normalization, a discovered default) checks it instead of having the update refused.
+    /// </summary>
+    bool IsChangeAllowed(FoundryConfigurationDocument candidate);
+
+    /// <summary>
+    /// Gets the configuration last written to disk, or loaded from it when no write succeeded yet; it differs from
+    /// <see cref="Current"/> only after a failed save, and content cleanup keeps what either of them references.
+    /// </summary>
+    FoundryConfigurationDocument SavedConfiguration { get; }
+
+    /// <summary>Persists a whole replacement configuration before restoring its local secrets and publishing it.</summary>
+    /// <remarks>Increments <see cref="ReplacementVersion"/> before raising <see cref="StateChanged"/>.</remarks>
     void Replace(FoundryConfigurationDocument document, Action restoreSecrets);
+
+    /// <summary>
+    /// Gets a counter incremented by every <see cref="Replace"/>, so a long-running edit started before a replacement can
+    /// detect it and avoid applying its result to the configuration that replaced the one it started from.
+    /// </summary>
+    long ReplacementVersion { get; }
+
+    /// <summary>
+    /// Gets the session inputs that validation and generation need beside <see cref="Current"/>: library paths of referenced
+    /// authoring files and the passwords kept outside the document.
+    /// </summary>
+    MediaInputs MediaInputs { get; }
 
     /// <summary>Freezes current configuration and session secrets synchronously, then prepares private build dependencies off-thread.</summary>
     Task<BuildSnapshot> CaptureBuildSnapshotAsync(string privateRootDirectory, CancellationToken cancellationToken = default);
@@ -48,6 +93,13 @@ public interface IFoundryConfigurationStateService
     /// Gets a value indicating whether Deploy configuration can be emitted.
     /// </summary>
     bool IsDeployConfigurationReady { get; }
+
+    /// <summary>
+    /// Gets whether Deploy configuration could be emitted once the library content it references is present: the same checks as
+    /// <see cref="IsDeployConfigurationReady"/>, with post-installation packages, driver sets and images judged by their settings
+    /// only. A follower uses it while its publication content is downloading, so a media build can start and wait for the content.
+    /// </summary>
+    bool IsDeployConfigurationReadyExceptLibraryContent { get; }
 
     /// <summary>
     /// Gets a value indicating whether Connect provisioning files can be generated.
@@ -167,13 +219,13 @@ public interface IFoundryConfigurationStateService
     /// <summary>Checks authoring validity and local availability before media generation.</summary>
     bool IsPostInstallationReady { get; }
 
-    /// <summary>Invalidates overview readiness after local package content changes without changing the profile.</summary>
+    /// <summary>Invalidates overview readiness after local package content changes without changing the configuration.</summary>
     void RefreshPostInstallationReadiness();
 
     /// <summary>Gets basic custom image availability; full hash verification occurs under build leases.</summary>
     bool IsCustomImagesReady { get; }
 
-    /// <summary>Invalidates overview readiness after local image content changes without changing the profile.</summary>
+    /// <summary>Invalidates overview readiness after local image content changes without changing the configuration.</summary>
     void RefreshCustomImageReadiness();
 
     /// <summary>Persists the custom driver set references, inclusion state and default set.</summary>
@@ -191,7 +243,7 @@ public interface IFoundryConfigurationStateService
     /// <summary>Gets the cached library availability of a driver set package, or <see langword="null"/> when it was not inspected yet.</summary>
     bool? GetCustomDriverSetAvailability(string contentHash);
 
-    /// <summary>Checks the library availability of every driver set of the profile off the UI thread, then publishes the updated readiness.</summary>
+    /// <summary>Checks the library availability of every driver set of the configuration off the UI thread, then publishes the updated readiness.</summary>
     Task RefreshCustomDriversReadinessAsync();
 
     /// <summary>

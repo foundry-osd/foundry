@@ -21,9 +21,14 @@ public sealed record WinPeMountedImageAssetProvisioningOptions
     public bool IsDeploymentProtectionEnabled { get; init; }
 
     /// <summary>
-    /// Gets source references validated and encrypted when custom answer files are embedded in media.
+    /// Gets the answer-file catalog validated and encrypted when custom answer files are embedded in media.
     /// </summary>
     public UnattendSettings Unattend { get; init; } = new();
+
+    /// <summary>
+    /// Gets the readable copy of each answer file, keyed by answer-file id; the build snapshot supplies its private verified copies.
+    /// </summary>
+    public IReadOnlyDictionary<string, string> UnattendSourcePaths { get; init; } = new Dictionary<string, string>();
     public IReadOnlyList<FoundryConnectProvisionedAssetFile> FoundryConnectAssetFiles { get; init; } = [];
 
     /// <summary>

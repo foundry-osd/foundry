@@ -283,6 +283,12 @@ Licensed under the MIT License.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Release notes</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>The selected file could not be added to Foundry. Choose a readable file no larger than 4 MiB.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>File not added</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Default</value>
   </data>
@@ -389,7 +395,7 @@ Licensed under the MIT License.</value>
     <value>Copy password</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Save this PFX file and password now in a secure location. Foundry saves the password with your configuration on this PC only when Remember passwords is on in Settings backup and sync. You will need both values to generate boot media for hardware hash upload.</value>
+    <value>Save this PFX file and password now in a secure location. Foundry remembers the password on this PC in its local encrypted vault. It leaves this PC only in an export or a publication when Include passwords is chosen. You will need both values to generate boot media for hardware hash upload.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Password copied.</value>
@@ -737,7 +743,10 @@ Licensed under the MIT License.</value>
     <value>Unavailable</value>
   </data>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
-    <value>This folder is already in this profile as {0}.</value>
+    <value>This folder is already in this configuration as {0}.</value>
+  </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>The configuration was replaced during the import, so the driver set was not added. Import the folder again.</value>
   </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>The driver set was removed, but its local copy could not be deleted.</value>
@@ -749,7 +758,7 @@ Licensed under the MIT License.</value>
     <value>Driver set</value>
   </data>
   <data name="CustomDrivers.DuplicateName" xml:space="preserve">
-    <value>A driver set with this name already exists in this profile.</value>
+    <value>A driver set with this name already exists in this configuration.</value>
   </data>
   <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
     <value>No custom driver sets. Import a folder that contains .inf drivers to begin.</value>
@@ -802,26 +811,23 @@ Licensed under the MIT License.</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Driver sets</value>
   </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>The active profile changed during the import, so the driver set was not added. Import the folder again in this profile.</value>
-  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Not available with PXE boot. Custom drivers require the full ISO or USB media.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
-    <value>The driver sets of this profile are not valid. Check the included sets and the default set before creating or updating media.</value>
+    <value>The driver sets of this configuration are not valid. Check the included sets and the default set before creating or updating media.</value>
   </data>
   <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
     <value>The local copy of {0} is missing or damaged. Import the folder again or exclude the set before creating or updating media.</value>
   </data>
   <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
-    <value>Include at least one driver set in this profile, or turn off custom drivers, before creating or updating media.</value>
+    <value>Include at least one driver set in this configuration, or turn off custom drivers, before creating or updating media.</value>
   </data>
   <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
     <value>Remove driver set</value>
   </data>
   <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) will be removed from the current profile.</value>
+    <value>{0} ({1}) will be removed from the current configuration.</value>
   </data>
   <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
     <value>The driver set could not be removed. Try again.</value>
@@ -830,13 +836,13 @@ Licensed under the MIT License.</value>
     <value>Remove driver set?</value>
   </data>
   <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
-    <value>Its local copy is deleted unless another profile uses it. The original folder and existing media are not changed.</value>
+    <value>Its local copy is deleted. The original folder and existing media are not changed.</value>
   </data>
   <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
     <value>Set as default</value>
   </data>
   <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
-    <value>This profile has reached the maximum number of driver sets. Remove one before importing another.</value>
+    <value>This configuration has reached the maximum number of driver sets. Remove one before importing another.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Verifying custom driver sets…</value>
@@ -878,7 +884,7 @@ Licensed under the MIT License.</value>
     <value>Selected image</value>
   </data>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
-    <value>An image with this name already exists in this profile.</value>
+    <value>An image with this name already exists in this configuration.</value>
   </data>
   <data name="CustomImages.EditionLabel" xml:space="preserve">
     <value>Edition</value>
@@ -935,7 +941,7 @@ Licensed under the MIT License.</value>
     <value>Not available with PXE boot. Custom images require the full ISO or USB media.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Include at least one available Windows image in this profile. Restore missing included images and fix or clear the preferred image or index before creating or updating media.</value>
+    <value>Include at least one available Windows image in this configuration. Restore missing included images and fix or clear the preferred image or index before creating or updating media.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Refresh</value>
@@ -944,7 +950,7 @@ Licensed under the MIT License.</value>
     <value>Remove image</value>
   </data>
   <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) will be removed from the current profile, and its local copy will be deleted.</value>
+    <value>{0} ({1}) will be removed from the current configuration, and its local copy will be deleted.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Remove</value>
@@ -953,7 +959,7 @@ Licensed under the MIT License.</value>
     <value>Remove custom image?</value>
   </data>
   <data name="CustomImages.RemoveWarning" xml:space="preserve">
-    <value>Other profiles that use this image will show it as missing. The original file and existing media are not changed.</value>
+    <value>The original file and existing media are not changed.</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Edit</value>
@@ -2768,7 +2774,7 @@ Licensed under the MIT License.</value>
     <value>Provision an enterprise Wi-Fi profile template</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>The passphrase is saved with your configuration on this PC only when Remember passwords is on in Settings backup and sync. Otherwise it is not saved and must be entered again, for example after restarting Foundry OSD.</value>
+    <value>Foundry remembers the passphrase on this PC in its local encrypted vault. It leaves this PC only in an export or a publication when Include passwords is chosen.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Import the Wi-Fi profile managed by Foundry into Windows before OOBE to preserve deployment connectivity after WinPE.</value>
@@ -3001,299 +3007,6 @@ Licensed under the MIT License.</value>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Working directory (relative; empty uses content root)</value>
   </data>
-  <data name="Profiles.Active" xml:space="preserve">
-    <value>Current settings</value>
-  </data>
-  <data name="Profiles.AutoSync" xml:space="preserve">
-    <value>Automatic sync</value>
-  </data>
-  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
-    <value>Choose another name</value>
-  </data>
-  <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>Some old saved passwords or access keys could not be removed. Try again when Windows Credential Manager is available.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
-    <value>Close without saving</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
-    <value>Your latest changes could not be saved and will be lost.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
-    <value>Close without saving settings?</value>
-  </data>
-  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
-    <value>Confirm password</value>
-  </data>
-  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>Confirm file password</value>
-  </data>
-  <data name="Profiles.Conflict" xml:space="preserve">
-    <value>These settings were changed on this PC and by someone else. Choose which version to keep.</value>
-  </data>
-  <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>The version you choose will replace the other one. Choose Duplicate first if you want to keep a separate copy.</value>
-  </data>
-  <data name="Profiles.ConnectAction" xml:space="preserve">
-    <value>Connect</value>
-  </data>
-  <data name="Profiles.ConnectDescription" xml:space="preserve">
-    <value>Choose the connection file provided by someone on your team.</value>
-  </data>
-  <data name="Profiles.ConnectionPassword" xml:space="preserve">
-    <value>Connection password</value>
-  </data>
-  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
-    <value>Other PCs will need this password to connect.</value>
-  </data>
-  <data name="Profiles.Continue" xml:space="preserve">
-    <value>Continue</value>
-  </data>
-  <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Share this configuration</value>
-  </data>
-  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
-    <value>Choose a shared network folder for this configuration.</value>
-  </data>
-  <data name="Profiles.Delete" xml:space="preserve">
-    <value>Delete from this PC</value>
-  </data>
-  <data name="Profiles.DeleteAction" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>Also delete for everyone</value>
-  </data>
-  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
-    <value>Delete for everyone</value>
-  </data>
-  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
-    <value>Delete for everyone?</value>
-  </data>
-  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>Delete these shared settings for everyone? Anyone with unsynced changes must duplicate their settings to keep them.</value>
-  </data>
-  <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>Delete these settings from this PC? Export them first if you want a backup.</value>
-  </data>
-  <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>These shared settings were deleted. Choose Duplicate to keep your changes on this PC.</value>
-  </data>
-  <data name="Profiles.Disconnect" xml:space="preserve">
-    <value>Disconnect</value>
-  </data>
-  <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>Stop synchronising this configuration on this PC? Your current settings will be kept. The shared configuration and other PCs will not be changed.</value>
-  </data>
-  <data name="Profiles.Export" xml:space="preserve">
-    <value>Export</value>
-  </data>
-  <data name="Profiles.ExportDescription" xml:space="preserve">
-    <value>Save this configuration to a file for backup or another PC.</value>
-  </data>
-  <data name="Profiles.ExportProtection" xml:space="preserve">
-    <value>Choose a password to protect the exported file. You will need it to import the configuration.</value>
-  </data>
-  <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Save connection file</value>
-  </data>
-  <data name="Profiles.Failed" xml:space="preserve">
-    <value>Couldn't complete this action. Check the file, its password, your access permissions, and your network connection.</value>
-  </data>
-  <data name="Profiles.FolderExists" xml:space="preserve">
-    <value>This folder name is already in use. Connect using a connection file, or go back and choose another name.</value>
-  </data>
-  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
-    <value>Choose a new, empty subfolder in the shared folder. Existing files will stay unchanged.</value>
-  </data>
-  <data name="Profiles.Forget" xml:space="preserve">
-    <value>Clear saved passwords and access</value>
-  </data>
-  <data name="Profiles.ForgetAction" xml:space="preserve">
-    <value>Clear</value>
-  </data>
-  <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>Remove saved passwords, confidential files saved by Foundry, and synchronisation access for these settings on this PC? You'll need to add the missing details and reconnect to synchronise. Media you already created will not change.</value>
-  </data>
-  <data name="Profiles.Heading" xml:space="preserve">
-    <value>Foundry settings</value>
-  </data>
-  <data name="Profiles.Import" xml:space="preserve">
-    <value>Import</value>
-  </data>
-  <data name="Profiles.ImportDescription" xml:space="preserve">
-    <value>Add a configuration from a file.</value>
-  </data>
-  <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>Include passwords and confidential files</value>
-  </data>
-  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
-    <value>People using this configuration can read the included passwords and confidential files.</value>
-  </data>
-  <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>Some passwords or source files are missing. Add them before saving or sharing passwords.</value>
-  </data>
-  <data name="Profiles.InvalidFolderName" xml:space="preserve">
-    <value>Use a name without special characters or a trailing dot or space.</value>
-  </data>
-  <data name="Profiles.JoinChanged" xml:space="preserve">
-    <value>The shared configuration changed. Review the latest version before connecting.</value>
-  </data>
-  <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Connect to a shared configuration</value>
-  </data>
-  <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>Use this PC's version</value>
-  </data>
-  <data name="Profiles.LearnMore" xml:space="preserve">
-    <value>Learn more</value>
-  </data>
-  <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Keep passwords for your Windows account on this PC.</value>
-  </data>
-  <data name="Profiles.Locked" xml:space="preserve">
-    <value>Windows cannot unlock these saved settings or their synchronisation access for your account on this PC.</value>
-  </data>
-  <data name="Profiles.Manage" xml:space="preserve">
-    <value>More options</value>
-  </data>
-  <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Missing or excluded files: {0}. Select their locations before creating media.</value>
-  </data>
-  <data name="Profiles.Name" xml:space="preserve">
-    <value>Configuration name</value>
-  </data>
-  <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>File password</value>
-  </data>
-  <data name="Profiles.PasswordMismatch" xml:space="preserve">
-    <value>The passwords do not match.</value>
-  </data>
-  <data name="Profiles.Preview" xml:space="preserve">
-    <value>{0}
-Files included: {1}
-Passwords and access keys included: {2}</value>
-  </data>
-  <data name="Profiles.Ready" xml:space="preserve">
-    <value>Ready</value>
-  </data>
-  <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Choose a password to protect the connection file. Share the password separately. Save the file outside the shared configuration folder.</value>
-  </data>
-  <data name="Profiles.Remember" xml:space="preserve">
-    <value>Remember passwords</value>
-  </data>
-  <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>Remember this connection on this PC</value>
-  </data>
-  <data name="Profiles.Rename" xml:space="preserve">
-    <value>Rename</value>
-  </data>
-  <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>This will replace the settings you are using. To keep a copy first, cancel and choose Duplicate.</value>
-  </data>
-  <data name="Profiles.RestoreAccess" xml:space="preserve">
-    <value>Restore access</value>
-  </data>
-  <data name="Profiles.Rollback" xml:space="preserve">
-    <value>The saved versions in the shared folder have changed unexpectedly. Restore from a backup you trust.</value>
-  </data>
-  <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Duplicate</value>
-  </data>
-  <data name="Profiles.Select" xml:space="preserve">
-    <value>Choose a configuration</value>
-  </data>
-  <data name="Profiles.Setup" xml:space="preserve">
-    <value>Set up</value>
-  </data>
-  <data name="Profiles.SetupAction" xml:space="preserve">
-    <value>Set up synchronisation…</value>
-  </data>
-  <data name="Profiles.SetupDescription" xml:space="preserve">
-    <value>Share this configuration or connect to one your team already uses.</value>
-  </data>
-  <data name="Profiles.ShareAction" xml:space="preserve">
-    <value>Share</value>
-  </data>
-  <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>Anyone who can import or synchronise these settings can read the included passwords and certificate private keys.</value>
-  </data>
-  <data name="Profiles.SharedBusy" xml:space="preserve">
-    <value>Another operation is using this shared folder. Try again shortly. Your changes are kept on this PC.</value>
-  </data>
-  <data name="Profiles.SharedFolder" xml:space="preserve">
-    <value>Shared folder</value>
-  </data>
-  <data name="Profiles.SharedUnavailable" xml:space="preserve">
-    <value>The shared folder cannot be reached. Check its address and your network access. Your changes are kept on this PC.</value>
-  </data>
-  <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>Use the same network folder on every PC. It must use SMB 3 with encryption required. Cloud-synced folders are not supported.</value>
-  </data>
-  <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Foundry will stop saving the passwords for this configuration on this PC.</value>
-  </data>
-  <data name="Profiles.StopRememberingAction" xml:space="preserve">
-    <value>Stop remembering</value>
-  </data>
-  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
-    <value>Stop remembering passwords?</value>
-  </data>
-  <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Synchronise</value>
-  </data>
-  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
-    <value>Synchronising…</value>
-  </data>
-  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
-    <value>Choose a version</value>
-  </data>
-  <data name="Profiles.SyncStatusError" xml:space="preserve">
-    <value>Unable to synchronise</value>
-  </data>
-  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
-    <value>Not configured</value>
-  </data>
-  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
-    <value>Folder unavailable</value>
-  </data>
-  <data name="Profiles.SyncStatusPending" xml:space="preserve">
-    <value>Changes to synchronise</value>
-  </data>
-  <data name="Profiles.SyncStatusReady" xml:space="preserve">
-    <value>Ready to synchronise</value>
-  </data>
-  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
-    <value>Up to date</value>
-  </data>
-  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
-    <value>Changes available</value>
-  </data>
-  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
-    <value>Needs attention</value>
-  </data>
-  <data name="Profiles.Synchronize" xml:space="preserve">
-    <value>Synchronise</value>
-  </data>
-  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
-    <value>Keep this configuration up to date across your team's PCs.</value>
-  </data>
-  <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>Settings are up to date</value>
-  </data>
-  <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>Foundry can't open this settings format. Update Foundry and try again.</value>
-  </data>
-  <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>Changes from another PC are available. Select Synchronise to apply them.</value>
-  </data>
-  <data name="Profiles.UseRemote" xml:space="preserve">
-    <value>Use the shared version</value>
-  </data>
-  <data name="Profiles.Validation" xml:space="preserve">
-    <value>Check the required fields. If a network folder is requested, use a path such as \\server\share\folder. If you enter a file password twice, make sure both entries match.</value>
-  </data>
   <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
     <value>Foundry OSD could not save the proxy settings. Try again. Details are in the log.</value>
   </data>
@@ -3429,12 +3142,6 @@ Passwords and access keys included: {2}</value>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>General</value>
   </data>
-  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Back up your settings, transfer them to another PC, or keep them in sync.</value>
-  </data>
-  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Settings backup and sync</value>
-  </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configure how Foundry OSD connects to online services.</value>
   </data>
@@ -3464,6 +3171,498 @@ Passwords and access keys included: {2}</value>
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Update app</value>
+  </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>Accept new reference</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>The folder is now published by another PC: {0}. Accept it only if you expect this change, for example after a takeover; otherwise stop following.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>Accept new reference?</value>
+  </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>The reference changed while this dialog was open. Review the new key before you accept it.</value>
+  </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Move this configuration with an encrypted file, or keep several PCs aligned through a shared folder.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Configuration sharing</value>
+  </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>The current publication is rewritten under the new password. Content files are not encrypted again, so someone who knew the old password can still read them: use Reset publication to revoke former readers completely. Followers enter the new password once.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>Change publication password</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>Check now</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Confirm passphrase</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Downloading</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>Items that could not be installed: {0}. They are fetched again when the reference PC publishes a new version.</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Driver set</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Post-installation package</value>
+  </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>The content may be damaged in the folder. Publish again from the reference PC.</value>
+  </data>
+  <data name="Sharing.CopyButton" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>Current publication password</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>Enter password</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>The publication password is needed again, for example after a Windows password reset or after the reference PC changed it.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>Enter publication password</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>Configuration exported.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Save the settings and small files to an encrypted file. Post-installation packages, driver sets and images are not included.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>The configuration could not be exported. Check the destination and try again.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>The files of this configuration exceed 16 MiB in total and cannot be exported.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>The configuration was exported, but some files are missing or damaged on this PC and were not included (count: {0}). Select them again on the configuration pages, then export again.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Export configuration</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Foundry configuration</value>
+  </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>Folder</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>Choose the publication folder</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>Follow</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>Use the configuration a reference PC publishes to a folder. Published settings become read-only on this PC.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>Enter the folder the reference PC publishes to and its publication password, then open it to preview the publication.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>Following replaces the current configuration and makes the published settings read-only. The ISO output path, the additional WinPE driver folder and the telemetry settings of this PC are kept.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>Follow a folder</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>Key found</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>Version found</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>Forget publication password</value>
+  </data>
+  <data name="Sharing.GenerateButton" xml:space="preserve">
+    <value>Generate</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>Configuration imported.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>Configuration imported. Some content is missing on this PC: import it again on its page.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Replace this configuration with an exported file or a profile from the previous version.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>The configuration could not be imported. The current configuration is unchanged.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>Configuration imported, but its passwords could not be saved. Enter them again on the configuration pages.</value>
+  </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>Import is not available while this PC follows a folder. Stop following first.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Import configuration</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Include passwords</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>Anyone who can read the folder and knows the publication password can read these passwords.</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Anyone who has this file and its passphrase can read these passwords.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>This file is not a Foundry configuration, or it is damaged.</value>
+  </data>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>Last successful check</value>
+  </data>
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>Last published</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
+    <value>This configuration cannot be opened by this Windows user.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>This configuration is published by {0} and is read-only on this PC. Only the ISO output path, the additional WinPE driver folder and the telemetry settings can be changed.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>This configuration is published by {0} and is read-only on this PC. The publication does not include passwords: enter them here. The ISO output path, the additional WinPE driver folder and the telemetry settings can also be changed.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>Managed by a reference PC</value>
+  </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Some files used by the configuration could not be recovered. Select them again on the configuration pages.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>The configuration synchronisation of earlier versions is no longer supported. To share this configuration, use Publish to a folder on the reference PC.</value>
+  </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Check your configuration</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Saved passwords could not be restored. Enter them again on the configuration pages.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Import these items again on their pages. Until then, the matching configuration items are not ready.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Missing on this PC</value>
+  </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>New key</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>New publication password</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>This folder does not hold a published configuration.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>Not verified yet: these values come from the folder and are confirmed only when the current publication password opens the publication.</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Open the file</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Open the selected profile</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>The operation could not be completed. See the log for details.</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>Passphrase copied to the clipboard.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Passphrase</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>The passphrases do not match.</value>
+  </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>The new password is saved. The change completes at the next successful publish.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>The publication password was changed. Followers enter the new password once.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>Password copied to the clipboard.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>The passwords do not match.</value>
+  </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>This configuration is managed by a reference PC: only the password can be entered here.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Included</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>This can happen after a Windows password reset. Take over the folder with the current publication password to keep publishing; followers then accept this PC as the new reference once.</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Not included</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Exported on</value>
+  </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>Download size</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Passwords</value>
+  </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>Published on</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>Reference PC</value>
+  </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>Previous key</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Profiles from the previous version</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>These profiles were saved on this PC before the update.</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>The publication has not fully arrived in this folder yet. Try again in a moment.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>Publication password</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>The publication was reset. Followers enter the new password once.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>Publish</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>Make this PC the reference: its configuration is published to a folder that other PCs follow.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>Choose an empty folder, or one this PC already publishes to: a network share, a OneDrive or SharePoint folder, or a local folder. Followers need the publication password to read it.</value>
+  </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>Publish now</value>
+  </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Checking the folder…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Finishing the publication…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>Preparing {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>Sending {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>Verifying {0}…</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>Publish to a folder</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>Importing replaces the current configuration. The ISO output path, the additional WinPE driver folder and the telemetry settings of this PC are kept.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>Reset publication</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>A new password and a new content key: every content file is encrypted again, which completely revokes former readers. Followers enter the new password once.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>Reset publication</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>Former readers can still open the content until the next successful publish.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>This PC follows {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>This PC publishes its configuration</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>At least 12 characters, and not the same character repeated (for example aaaaaaaaaaaa).</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Some shared content of the followed publication could not be downloaded. Check Configuration sharing on the Settings page.</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>Publishing and following are unavailable during this session because the sharing state could not be read. See the log for details.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>Checking the folder: the publication has not fully arrived yet and is read again at the next check.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>The configuration is applied. Shared content is being downloaded.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>The configuration is applied, but some shared content could not be installed.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>The configuration is applied, but some shared content is still not available after repeated checks.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>This folder holds files that are not a publication of this PC. Choose an empty folder.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>The folder is unavailable. Check that it exists and that this PC can access it.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>This PC neither publishes nor follows a configuration.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>Waiting for the first check of the folder.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>Changes are published automatically.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>Not published: the configuration is not ready to create media, or it references content missing on this PC. The previous version stays current.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>Passwords are needed: enter the publication password, or enter the missing passwords on the configuration pages.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>The publication password or keys of this PC could not be read.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>Published. Followers receive this version at their next check.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>Publishing the configuration…</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>The folder points to an older version than the one applied. It is ignored.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>The publication was modified. It is not applied.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>The folder is now published by another PC. Accept the new reference or stop following.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>Another PC publishes to this folder. Take it over to publish from this PC.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>This publication requires a newer version of Foundry OSD.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>Up to date.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>Configuration updated.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>The publication password does not open the current publication. Enter the new password.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>The publication password does not open the publication of this PC in this folder.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>Stop following</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>The configuration stays as it is and becomes editable on this PC.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>Stop following?</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>Stop publishing</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>The folder stays as it is and followers keep the last published version. This PC no longer publishes its configuration.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>Stop publishing?</value>
+  </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>Downloading {0}…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>Installing {0}…</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>Take over</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>Another PC publishes to this folder. Taking over continues its publication with the key of this PC; followers must accept this PC as the new reference once.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>The publication keys of this PC could not be read. Taking over with the current publication password continues the publication with new keys; followers must accept this PC as the new reference once.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>Take over this folder</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>This password does not open the current publication.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>The file could not be read.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>This file requires a newer version of Foundry OSD.</value>
+  </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>Waiting for shared content to finish downloading…</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Wrong passphrase or damaged file.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>This password does not open the publication, or the publication was modified.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Stop operation</value>
@@ -3590,6 +3789,15 @@ Passwords and access keys included: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Required media secrets are not ready.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Some shared content could not be installed on this PC. It is fetched again when the reference PC publishes a new version. Check Configuration sharing on the Settings page.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Some shared content is still not available after repeated checks. Publish again from the reference PC, then check Configuration sharing on the Settings page.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Shared content is still being downloaded. Media creation is available once the download is complete.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>The selected USB drive is too small for a cache. Use a USB drive of at least 16 GB, or select Create without cache from the arrow of Create USB.</value>
@@ -4164,6 +4372,15 @@ Passwords and access keys included: {2}</value>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Ready to create USB media</value>
   </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Shared content could not be installed</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Shared content is not available</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Waiting for shared content</value>
+  </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Review media output warnings</value>
   </data>
@@ -4308,13 +4525,13 @@ Applying the update restarts Foundry OSD.</value>
     <value>Contains settings that can prevent Autopilot enrolment; incompatible enrolment modes will be blocked during deployment.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Select a file to rename, refresh, or remove it. Source files must remain available until media creation; changed sources require Refresh.</value>
+    <value>Select a file to rename or remove it. Foundry keeps its own copy of each imported file; to use an updated file, remove the entry and import the file again.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Answer files</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Check sources</value>
+    <value>Check files</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Contains commands; review overlap with Foundry customisation and setup hooks.</value>
@@ -4353,13 +4570,13 @@ Applying the update restarts Foundry OSD.</value>
     <value>The file must declare a supported architecture and contain component settings applicable to it.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>The catalogue contains invalid or duplicate entries. Refresh or remove the affected files.</value>
+    <value>The catalogue contains invalid or duplicate entries. Remove the affected files and import them again.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Use valid Windows answer-file XML no larger than 4 MiB, without DTDs or external entities. Validate the file with Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Some sources are missing, changed, or invalid. Refresh or remove these entries before creating media.</value>
+    <value>Some files are missing or invalid. Remove these entries and import the files again before creating media.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Missing default - choose a replacement</value>
@@ -4374,16 +4591,13 @@ Applying the update restarts Foundry OSD.</value>
     <value>Foundry preserves your original file and adds its required post-installation command to the deployment copy. You remain responsible for your custom settings and commands.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Custom files require deployment media password protection in General configuration. XML may contain credentials or scripts. Foundry keeps a copy of each file with your configuration on this PC only when Remember passwords is on in Settings backup and sync; otherwise it saves the path only. The boot image contains encrypted copies.</value>
+    <value>Custom files require deployment media password protection in General configuration. XML may contain credentials or scripts. Foundry keeps a copy of each imported file in its file library on this PC. The boot image contains encrypted copies.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Enable deployment media password protection in General configuration to use custom answer files.</value>
   </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>This source now duplicates another imported file. Remove this entry and choose the existing file instead.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Refresh source</value>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry no longer has a valid copy of this file. Remove the entry and import the file again.</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Remove</value>
@@ -4397,26 +4611,23 @@ Applying the update restarts Foundry OSD.</value>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Selected file</value>
   </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>The source changed. Use Refresh source to accept the updated file before creating media.</value>
-  </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Two source checks are still waiting for file access. Restore the unavailable source locations, then check sources again.</value>
+    <value>Two file checks are still running. Wait for them to finish, then try again.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Source check pending. Choose Check sources to validate the current file without accepting content changes.</value>
+    <value>File check pending. Choose Check files to validate the stored copy.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>The source could not be read. Check that the file still exists and is accessible.</value>
+    <value>The file could not be read. Check that it exists and that you can open it, then try again.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Source validation timed out. Check access to the source location and try again.</value>
+    <value>Checking the stored files took too long. Try again.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Only specialize and oobeSystem settings are supported. Remove other nonempty passes, offline servicing instructions, or audit-mode resealing.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Source validated.</value>
+    <value>File validated.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Apply update</value>

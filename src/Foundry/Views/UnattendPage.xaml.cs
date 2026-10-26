@@ -8,6 +8,9 @@ public sealed partial class UnattendPage : Page
 {
     public UnattendConfigurationViewModel ViewModel { get; }
 
+    /// <summary>Gets the read-only state of a managed configuration.</summary>
+    public ManagedConfigurationViewModel Managed { get; } = App.GetService<ManagedConfigurationViewModel>();
+
     public UnattendPage()
     {
         ViewModel = App.GetService<UnattendConfigurationViewModel>();

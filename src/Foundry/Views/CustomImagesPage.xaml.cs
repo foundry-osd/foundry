@@ -8,6 +8,9 @@ public sealed partial class CustomImagesPage : Page
 {
     public CustomImagesViewModel ViewModel { get; }
 
+    /// <summary>Gets the read-only state of a managed configuration.</summary>
+    public ManagedConfigurationViewModel Managed { get; } = App.GetService<ManagedConfigurationViewModel>();
+
     public CustomImagesPage()
     {
         ViewModel = App.GetService<CustomImagesViewModel>();

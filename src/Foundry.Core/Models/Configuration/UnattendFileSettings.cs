@@ -5,7 +5,7 @@
 namespace Foundry.Core.Models.Configuration;
 
 /// <summary>
-/// Identifies a validated answer-file source without persisting its potentially sensitive XML.
+/// Identifies a validated answer file whose bytes live in the authoring file library, never in the configuration.
 /// </summary>
 public sealed record UnattendFileSettings
 {
@@ -20,12 +20,13 @@ public sealed record UnattendFileSettings
     public string DisplayName { get; init; } = string.Empty;
 
     /// <summary>
-    /// Gets the authoring-only source reference required until media is built.
-    /// </summary>
-    public string SourcePath { get; init; } = string.Empty;
-
-    /// <summary>
-    /// Gets the SHA-256 digest used to detect changes requiring explicit refresh.
+    /// Gets the SHA-256 digest of the validated answer file, also published in the Deploy manifest.
     /// </summary>
     public string ContentHash { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Gets the library copy of the answer file, whose hash equals <see cref="ContentHash"/>;
+    /// <see langword="null"/> when the file could not be imported and must be imported again.
+    /// </summary>
+    public AuthoringFileReference? File { get; init; }
 }

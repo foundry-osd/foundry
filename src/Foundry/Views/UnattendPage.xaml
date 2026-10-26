@@ -52,16 +52,17 @@
                         <ToggleSwitch
                             behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
                             AutomationProperties.Name="{x:Bind ViewModel.EnableLabel, Mode=OneWay}"
-                            IsEnabled="{x:Bind ViewModel.CanToggle, Mode=OneWay}"
+                            IsEnabled="{x:Bind controls:BindingFunctions.And(ViewModel.CanToggle, Managed.IsEditable), Mode=OneWay}"
                             IsOn="{x:Bind ViewModel.IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             Style="{StaticResource FoundryPageHeaderToggleSwitchStyle}"
                             ToolTipService.ToolTip="{x:Bind ViewModel.EnableDescription, Mode=OneWay}" />
                     </controls:PageHeader.ActionContent>
                 </controls:PageHeader>
+                <controls:ManagedConfigurationBanner />
 
                 <ContentControl
                     HorizontalContentAlignment="Stretch"
-                    IsEnabled="{x:Bind ViewModel.IsEnabled, Mode=OneWay}">
+                    IsEnabled="{x:Bind controls:BindingFunctions.And(ViewModel.IsEnabled, Managed.IsEditable), Mode=OneWay}">
                     <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
 
                         <InfoBar
@@ -141,9 +142,9 @@
                                                     Grid.Row="1"
                                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                                     Style="{StaticResource FoundryCaptionTextBlockStyle}"
-                                                    Text="{x:Bind SourcePath}"
+                                                    Text="{x:Bind FileName}"
                                                     TextTrimming="CharacterEllipsis"
-                                                    ToolTipService.ToolTip="{x:Bind SourcePath}" />
+                                                    ToolTipService.ToolTip="{x:Bind FileName}" />
                                                 <TextBlock
                                                     Grid.Row="1"
                                                     Grid.Column="1"
@@ -186,9 +187,6 @@
                                     <Button
                                         Command="{x:Bind ViewModel.RenameFileCommand}"
                                         Content="{x:Bind ViewModel.RenameLabel, Mode=OneWay}" />
-                                    <Button
-                                        Command="{x:Bind ViewModel.RefreshFileCommand}"
-                                        Content="{x:Bind ViewModel.RefreshLabel, Mode=OneWay}" />
                                     <Button
                                         Command="{x:Bind ViewModel.RemoveFileCommand}"
                                         Content="{x:Bind ViewModel.RemoveLabel, Mode=OneWay}" />

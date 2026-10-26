@@ -283,6 +283,12 @@
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>הערות שחרור</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>לא ניתן היה להוסיף את הקובץ שנבחר ל-Foundry. בחרו קובץ קריא בגודל של עד 4 MiB.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>הקובץ לא נוסף</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>ברירת מחדל</value>
   </data>
@@ -389,7 +395,7 @@
     <value>העתק סיסמה</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>שמור את קובץ ה-PFX והסיסמה הזו כעת במיקום מאובטח. Foundry שומר את הסיסמה עם התצורה שלך במחשב זה רק כאשר האפשרות “שמירת סיסמאות” מופעלת בקטע “גיבוי וסנכרון הגדרות”. תזדקק לשני הערכים כדי ליצור מדיית אתחול להעלאת גיבוב חומרה.</value>
+    <value>שמור את קובץ ה-PFX והסיסמה הזו כעת במיקום מאובטח. Foundry זוכר את הסיסמה במחשב זה בכספת המקומית המוצפנת שלו. היא יוצאת ממחשב זה רק בייצוא או בפרסום כאשר נבחרה האפשרות “כלול סיסמאות”. תזדקק לשני הערכים כדי ליצור מדיית אתחול להעלאת גיבוב חומרה.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>הסיסמה הועתקה.</value>
@@ -737,7 +743,10 @@
     <value>לא זמין</value>
   </data>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
-    <value>תיקיה זו כבר קיימת בפרופיל זה בשם {0}.</value>
+    <value>תיקיה זו כבר קיימת בתצורה זו בשם {0}.</value>
+  </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>התצורה הוחלפה במהלך הייבוא, ולכן ערכת מנהלי ההתקנים לא נוספה. יש לייבא שוב את התיקיה.</value>
   </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>ערכת מנהלי ההתקנים הוסרה, אך לא ניתן היה למחוק את העותק המקומי שלה.</value>
@@ -749,7 +758,7 @@
     <value>ערכת מנהלי התקנים</value>
   </data>
   <data name="CustomDrivers.DuplicateName" xml:space="preserve">
-    <value>כבר קיימת ערכת מנהלי התקנים בשם זה בפרופיל זה.</value>
+    <value>כבר קיימת ערכת מנהלי התקנים בשם זה בתצורה זו.</value>
   </data>
   <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
     <value>אין ערכות מנהלי התקנים מותאמות אישית. יש לייבא תיקיה שמכילה מנהלי התקנים ‎.inf כדי להתחיל.</value>
@@ -802,26 +811,23 @@
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>ערכות מנהלי התקנים</value>
   </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>הפרופיל הפעיל השתנה במהלך הייבוא, ולכן ערכת מנהלי ההתקנים לא נוספה. יש לייבא שוב את התיקיה בפרופיל זה.</value>
-  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>לא זמין באתחול PXE. מנהלי התקנים מותאמים אישית דורשים את מדיית ה-ISO או ה-USB המלאה.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
-    <value>ערכות מנהלי ההתקנים של פרופיל זה אינן חוקיות. יש לבדוק את הערכות הכלולות ואת ערכת ברירת המחדל לפני יצירה או עדכון של מדיה.</value>
+    <value>ערכות מנהלי ההתקנים של תצורה זו אינן חוקיות. יש לבדוק את הערכות הכלולות ואת ערכת ברירת המחדל לפני יצירה או עדכון של מדיה.</value>
   </data>
   <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
     <value>העותק המקומי של {0} חסר או פגום. יש לייבא שוב את התיקיה או להחריג את הערכה לפני יצירה או עדכון של מדיה.</value>
   </data>
   <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
-    <value>יש לכלול לפחות ערכת מנהלי התקנים אחת בפרופיל זה, או לכבות את מנהלי ההתקנים המותאמים אישית, לפני יצירה או עדכון של מדיה.</value>
+    <value>יש לכלול לפחות ערכת מנהלי התקנים אחת בתצורה זו, או לכבות את מנהלי ההתקנים המותאמים אישית, לפני יצירה או עדכון של מדיה.</value>
   </data>
   <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
     <value>הסרת ערכת מנהלי התקנים</value>
   </data>
   <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) תוסר מהפרופיל הנוכחי.</value>
+    <value>{0} ({1}) תוסר מהתצורה הנוכחית.</value>
   </data>
   <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
     <value>לא ניתן היה להסיר את ערכת מנהלי ההתקנים. נסה שוב.</value>
@@ -830,13 +836,13 @@
     <value>להסיר את ערכת מנהלי ההתקנים?</value>
   </data>
   <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
-    <value>העותק המקומי שלה יימחק, אלא אם פרופיל אחר משתמש בו. תיקיית המקור ואמצעי המדיה הקיימים לא ישתנו.</value>
+    <value>העותק המקומי שלה יימחק. תיקיית המקור ואמצעי המדיה הקיימים לא ישתנו.</value>
   </data>
   <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
     <value>הגדרה כברירת מחדל</value>
   </data>
   <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
-    <value>פרופיל זה הגיע למספר המרבי של ערכות מנהלי התקנים. יש להסיר ערכה אחת לפני ייבוא ערכה נוספת.</value>
+    <value>תצורה זו הגיעה למספר המרבי של ערכות מנהלי התקנים. יש להסיר ערכה אחת לפני ייבוא ערכה נוספת.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>מאמת ערכות מנהלי התקנים מותאמות אישית…</value>
@@ -878,7 +884,7 @@
     <value>התמונה שנבחרה</value>
   </data>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
-    <value>כבר קיימת תמונה בשם זה בפרופיל זה.</value>
+    <value>כבר קיימת תמונה בשם זה בתצורה זו.</value>
   </data>
   <data name="CustomImages.EditionLabel" xml:space="preserve">
     <value>מהדורה</value>
@@ -935,7 +941,7 @@
     <value>לא זמין באתחול PXE. תמונות מותאמות אישית דורשות את מדיית ה-ISO או ה-USB המלאה.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>יש לכלול לפחות תמונת Windows זמינה אחת בפרופיל זה. יש לשחזר תמונות כלולות שחסרות ולתקן או לנקות את בחירת התמונה או האינדקס המועדפים לפני יצירה או עדכון של המדיה.</value>
+    <value>יש לכלול לפחות תמונת Windows זמינה אחת בתצורה זו. יש לשחזר תמונות כלולות שחסרות ולתקן או לנקות את בחירת התמונה או האינדקס המועדפים לפני יצירה או עדכון של המדיה.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>רענון</value>
@@ -944,7 +950,7 @@
     <value>הסר תמונה</value>
   </data>
   <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) תוסר מהפרופיל הנוכחי, והעותק המקומי שלה יימחק.</value>
+    <value>{0} ({1}) תוסר מהתצורה הנוכחית, והעותק המקומי שלה יימחק.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>הסרה</value>
@@ -953,7 +959,7 @@
     <value>להסיר את התמונה המותאמת אישית?</value>
   </data>
   <data name="CustomImages.RemoveWarning" xml:space="preserve">
-    <value>פרופילים אחרים שמשתמשים בתמונה זו יציגו אותה כחסרה. קובץ המקור ואמצעי המדיה הקיימים לא ישתנו.</value>
+    <value>קובץ המקור ואמצעי המדיה הקיימים לא ישתנו.</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>עריכה</value>
@@ -2768,7 +2774,7 @@
     <value>ספק תבנית פרופיל Wi-Fi לארגון</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>ביטוי הסיסמה נשמר עם התצורה שלך במחשב זה רק כאשר האפשרות “שמירת סיסמאות” מופעלת בקטע “גיבוי וסנכרון הגדרות”. אחרת הוא אינו נשמר ויש להזין אותו שוב, למשל לאחר הפעלה מחדש של Foundry OSD.</value>
+    <value>Foundry זוכר את משפט הסיסמה במחשב זה בכספת המקומית המוצפנת שלו. הוא יוצא ממחשב זה רק בייצוא או בפרסום כאשר נבחרה האפשרות “כלול סיסמאות”.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>מייבא את פרופיל ה-Wi-Fi המנוהל על ידי Foundry אל Windows לפני OOBE, כדי לשמור על קישוריות הפריסה אחרי WinPE.</value>
@@ -3001,299 +3007,6 @@
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>ספריית עבודה (יחסית; שדה ריק משתמש בשורש התוכן)</value>
   </data>
-  <data name="Profiles.Active" xml:space="preserve">
-    <value>ההגדרות הנוכחיות</value>
-  </data>
-  <data name="Profiles.AutoSync" xml:space="preserve">
-    <value>סנכרון אוטומטי</value>
-  </data>
-  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
-    <value>בחירת שם אחר</value>
-  </data>
-  <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>לא ניתן היה להסיר חלק מהסיסמאות או ממפתחות הגישה הישנים שנשמרו. יש לנסות שוב כאשר מנהל האישורים של Windows זמין.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
-    <value>סגור בלי לשמור</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
-    <value>לא ניתן היה לשמור את השינויים האחרונים שלך, והם יאבדו.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
-    <value>לסגור בלי לשמור את ההגדרות?</value>
-  </data>
-  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
-    <value>אישור סיסמה</value>
-  </data>
-  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>אישור סיסמת הקובץ</value>
-  </data>
-  <data name="Profiles.Conflict" xml:space="preserve">
-    <value>ההגדרות האלה שונו במחשב זה וגם על ידי מישהו אחר. יש לבחור איזו גרסה לשמור.</value>
-  </data>
-  <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>הגרסה שתיבחר תחליף את הגרסה האחרת. כדי לשמור עותק נפרד, יש לבחור קודם באפשרות שכפול.</value>
-  </data>
-  <data name="Profiles.ConnectAction" xml:space="preserve">
-    <value>התחברות</value>
-  </data>
-  <data name="Profiles.ConnectDescription" xml:space="preserve">
-    <value>יש לבחור את קובץ החיבור שקיבלת ממישהו בצוות שלך.</value>
-  </data>
-  <data name="Profiles.ConnectionPassword" xml:space="preserve">
-    <value>סיסמת חיבור</value>
-  </data>
-  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
-    <value>מחשבים אחרים יצטרכו סיסמה זו כדי להתחבר.</value>
-  </data>
-  <data name="Profiles.Continue" xml:space="preserve">
-    <value>המשך</value>
-  </data>
-  <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>שיתוף תצורה זו</value>
-  </data>
-  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
-    <value>יש לבחור תיקיית רשת משותפת עבור תצורה זו.</value>
-  </data>
-  <data name="Profiles.Delete" xml:space="preserve">
-    <value>מחיקה ממחשב זה</value>
-  </data>
-  <data name="Profiles.DeleteAction" xml:space="preserve">
-    <value>מחק</value>
-  </data>
-  <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>מחיקה גם עבור כולם</value>
-  </data>
-  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
-    <value>מחק עבור כולם</value>
-  </data>
-  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
-    <value>למחוק עבור כולם?</value>
-  </data>
-  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>למחוק את ההגדרות המשותפות האלה עבור כולם? מי שיש לו שינויים שלא סונכרנו צריך לשכפל את ההגדרות שלו כדי לשמור אותם.</value>
-  </data>
-  <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>למחוק את ההגדרות האלה ממחשב זה? כדי לשמור גיבוי, יש לייצא אותן תחילה.</value>
-  </data>
-  <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>ההגדרות המשותפות האלה נמחקו. כדי לשמור את השינויים במחשב זה, יש לבחור באפשרות שכפול.</value>
-  </data>
-  <data name="Profiles.Disconnect" xml:space="preserve">
-    <value>ניתוק</value>
-  </data>
-  <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>להפסיק לסנכרן תצורה זו במחשב זה? ההגדרות הנוכחיות שלך יישמרו. התצורה המשותפת והמחשבים האחרים לא ישתנו.</value>
-  </data>
-  <data name="Profiles.Export" xml:space="preserve">
-    <value>ייצוא</value>
-  </data>
-  <data name="Profiles.ExportDescription" xml:space="preserve">
-    <value>שמירת תצורה זו בקובץ לצורך גיבוי או שימוש במחשב אחר.</value>
-  </data>
-  <data name="Profiles.ExportProtection" xml:space="preserve">
-    <value>יש לבחור סיסמה להגנה על הקובץ המיוצא. היא תידרש כדי לייבא את התצורה.</value>
-  </data>
-  <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>שמירת קובץ חיבור</value>
-  </data>
-  <data name="Profiles.Failed" xml:space="preserve">
-    <value>לא ניתן היה להשלים את הפעולה. יש לבדוק את הקובץ, את הסיסמה שלו, את הרשאות הגישה ואת החיבור לרשת.</value>
-  </data>
-  <data name="Profiles.FolderExists" xml:space="preserve">
-    <value>שם תיקייה זה כבר נמצא בשימוש. יש להתחבר באמצעות קובץ חיבור, או לחזור ולבחור שם אחר.</value>
-  </data>
-  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
-    <value>יש לבחור תיקיית משנה חדשה וריקה בתיקייה המשותפת. הקבצים הקיימים יישארו ללא שינוי.</value>
-  </data>
-  <data name="Profiles.Forget" xml:space="preserve">
-    <value>ניקוי סיסמאות ופרטי גישה שמורים</value>
-  </data>
-  <data name="Profiles.ForgetAction" xml:space="preserve">
-    <value>נקה</value>
-  </data>
-  <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>להסיר ממחשב זה את הסיסמאות השמורות, את הקבצים הסודיים שנשמרו על ידי Foundry ואת גישת הסנכרון של ההגדרות האלה? יהיה צורך להוסיף את הפרטים החסרים ולהתחבר מחדש כדי לסנכרן. מדיה שכבר נוצרה לא תשתנה.</value>
-  </data>
-  <data name="Profiles.Heading" xml:space="preserve">
-    <value>הגדרות Foundry</value>
-  </data>
-  <data name="Profiles.Import" xml:space="preserve">
-    <value>ייבוא</value>
-  </data>
-  <data name="Profiles.ImportDescription" xml:space="preserve">
-    <value>הוספת תצורה מקובץ.</value>
-  </data>
-  <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>לכלול סיסמאות וקבצים סודיים</value>
-  </data>
-  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
-    <value>אנשים המשתמשים בתצורה זו יכולים לקרוא את הסיסמאות והקבצים החסויים הכלולים בה.</value>
-  </data>
-  <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>חסרות סיסמאות או חסרים קובצי מקור. יש להוסיף אותם לפני שמירה או שיתוף של סיסמאות.</value>
-  </data>
-  <data name="Profiles.InvalidFolderName" xml:space="preserve">
-    <value>יש להשתמש בשם ללא תווים מיוחדים וללא נקודה או רווח בסוף.</value>
-  </data>
-  <data name="Profiles.JoinChanged" xml:space="preserve">
-    <value>התצורה המשותפת השתנתה. יש לבדוק את הגרסה העדכנית לפני ההתחברות.</value>
-  </data>
-  <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>התחברות לתצורה משותפת</value>
-  </data>
-  <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>שימוש בגרסה שבמחשב זה</value>
-  </data>
-  <data name="Profiles.LearnMore" xml:space="preserve">
-    <value>מידע נוסף</value>
-  </data>
-  <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>שמירת סיסמאות עבור חשבון Windows שלך במחשב זה.</value>
-  </data>
-  <data name="Profiles.Locked" xml:space="preserve">
-    <value>ל-Windows אין אפשרות לפתוח את ההגדרות השמורות האלה או את גישת הסנכרון שלהן עבור החשבון שלך במחשב זה.</value>
-  </data>
-  <data name="Profiles.Manage" xml:space="preserve">
-    <value>אפשרויות נוספות</value>
-  </data>
-  <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>קבצים חסרים או שלא נכללו: {0}. יש לבחור את המיקומים שלהם לפני יצירת מדיה.</value>
-  </data>
-  <data name="Profiles.Name" xml:space="preserve">
-    <value>שם התצורה</value>
-  </data>
-  <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>סיסמת הקובץ</value>
-  </data>
-  <data name="Profiles.PasswordMismatch" xml:space="preserve">
-    <value>הסיסמאות אינן תואמות.</value>
-  </data>
-  <data name="Profiles.Preview" xml:space="preserve">
-    <value>{0}
-קבצים שנכללו: {1}
-סיסמאות ומפתחות גישה שנכללו: {2}</value>
-  </data>
-  <data name="Profiles.Ready" xml:space="preserve">
-    <value>מוכן</value>
-  </data>
-  <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>יש לבחור סיסמה להגנה על קובץ החיבור. יש לשתף את הסיסמה בנפרד. יש לשמור את הקובץ מחוץ לתיקיית התצורה המשותפת.</value>
-  </data>
-  <data name="Profiles.Remember" xml:space="preserve">
-    <value>שמירת סיסמאות</value>
-  </data>
-  <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>לזכור את החיבור הזה במחשב זה</value>
-  </data>
-  <data name="Profiles.Rename" xml:space="preserve">
-    <value>שינוי שם</value>
-  </data>
-  <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>פעולה זו תחליף את ההגדרות שבשימוש. כדי לשמור עותק קודם, יש לבטל ולבחור באפשרות שכפול.</value>
-  </data>
-  <data name="Profiles.RestoreAccess" xml:space="preserve">
-    <value>שחזור גישה</value>
-  </data>
-  <data name="Profiles.Rollback" xml:space="preserve">
-    <value>הגרסאות שנשמרו בתיקייה המשותפת השתנו באופן בלתי צפוי. יש לשחזר מגיבוי מהימן.</value>
-  </data>
-  <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>שכפול</value>
-  </data>
-  <data name="Profiles.Select" xml:space="preserve">
-    <value>בחירת תצורה</value>
-  </data>
-  <data name="Profiles.Setup" xml:space="preserve">
-    <value>הגדרה</value>
-  </data>
-  <data name="Profiles.SetupAction" xml:space="preserve">
-    <value>הגדרת סנכרון…</value>
-  </data>
-  <data name="Profiles.SetupDescription" xml:space="preserve">
-    <value>ניתן לשתף תצורה זו או להתחבר לתצורה שהצוות שלך כבר משתמש בה.</value>
-  </data>
-  <data name="Profiles.ShareAction" xml:space="preserve">
-    <value>שיתוף</value>
-  </data>
-  <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>כל מי שיכול לייבא או לסנכרן את ההגדרות האלה יכול לקרוא את הסיסמאות ואת המפתחות הפרטיים של האישורים שנכללו בהן.</value>
-  </data>
-  <data name="Profiles.SharedBusy" xml:space="preserve">
-    <value>פעולה אחרת משתמשת בתיקייה המשותפת הזו. יש לנסות שוב בעוד זמן קצר. השינויים שלך נשמרים במחשב זה.</value>
-  </data>
-  <data name="Profiles.SharedFolder" xml:space="preserve">
-    <value>תיקייה משותפת</value>
-  </data>
-  <data name="Profiles.SharedUnavailable" xml:space="preserve">
-    <value>לא ניתן לגשת לתיקייה המשותפת. יש לבדוק את הכתובת שלה ואת הגישה שלך לרשת. השינויים שלך נשמרים במחשב זה.</value>
-  </data>
-  <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>יש להשתמש באותה תיקיית רשת בכל מחשב. התיקייה חייבת להשתמש ב-SMB 3 עם הצפנה נדרשת. תיקיות המסונכרנות עם הענן אינן נתמכות.</value>
-  </data>
-  <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Foundry יפסיק לשמור את הסיסמאות של תצורה זו במחשב זה.</value>
-  </data>
-  <data name="Profiles.StopRememberingAction" xml:space="preserve">
-    <value>הפסק לזכור</value>
-  </data>
-  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
-    <value>להפסיק לזכור סיסמאות?</value>
-  </data>
-  <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>סנכרון</value>
-  </data>
-  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
-    <value>מתבצע סנכרון…</value>
-  </data>
-  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
-    <value>בחירת גרסה</value>
-  </data>
-  <data name="Profiles.SyncStatusError" xml:space="preserve">
-    <value>לא ניתן לסנכרן</value>
-  </data>
-  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
-    <value>לא הוגדר</value>
-  </data>
-  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
-    <value>התיקייה אינה זמינה</value>
-  </data>
-  <data name="Profiles.SyncStatusPending" xml:space="preserve">
-    <value>שינויים שממתינים לסנכרון</value>
-  </data>
-  <data name="Profiles.SyncStatusReady" xml:space="preserve">
-    <value>מוכן לסנכרון</value>
-  </data>
-  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
-    <value>מעודכן</value>
-  </data>
-  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
-    <value>יש שינויים זמינים</value>
-  </data>
-  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
-    <value>נדרשת תשומת לב</value>
-  </data>
-  <data name="Profiles.Synchronize" xml:space="preserve">
-    <value>סנכרון</value>
-  </data>
-  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
-    <value>שמירה על תצורה זו מעודכנת במחשבי הצוות שלך.</value>
-  </data>
-  <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>ההגדרות מעודכנות</value>
-  </data>
-  <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>Foundry לא יכול לפתוח את פורמט ההגדרות הזה. יש לעדכן את Foundry ולנסות שוב.</value>
-  </data>
-  <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>זמינים שינויים ממחשב אחר. כדי להחיל אותם, יש לבחור באפשרות סנכרון.</value>
-  </data>
-  <data name="Profiles.UseRemote" xml:space="preserve">
-    <value>שימוש בגרסה המשותפת</value>
-  </data>
-  <data name="Profiles.Validation" xml:space="preserve">
-    <value>יש לבדוק את שדות החובה. אם נדרשת תיקיית רשת, יש להשתמש בנתיב כגון \\server\share\folder. אם מזינים סיסמת קובץ פעמיים, יש לוודא ששתי ההזנות זהות.</value>
-  </data>
   <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
     <value>Foundry OSD לא הצליח לשמור את הגדרות ה-Proxy. נסה שוב. הפרטים מופיעים ביומן.</value>
   </data>
@@ -3429,12 +3142,6 @@
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>כללי</value>
   </data>
-  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>גבו את ההגדרות שלכם, העבירו אותן למחשב אחר או שמרו עליהן מסונכרנות.</value>
-  </data>
-  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>גיבוי וסנכרון הגדרות</value>
-  </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>הגדר כיצד Foundry OSD מתחברת לשירותים מקוונים.</value>
   </data>
@@ -3464,6 +3171,498 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>עדכן את האפליקציה</value>
+  </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>קבל</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>קבל מחשב הפניה חדש</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>התיקייה מפורסמת כעת על ידי מחשב אחר: {0}. קבל אותו רק אם אתה מצפה לשינוי זה, לדוגמה לאחר השתלטות; אחרת, הפסק לעקוב אחר התיקייה.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>לקבל את מחשב ההפניה החדש?</value>
+  </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>מחשב ההפניה השתנה בזמן שתיבת דו-שיח זו הייתה פתוחה. סקור את המפתח החדש לפני שתקבל אותו.</value>
+  </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>העבר תצורה זו באמצעות קובץ מוצפן, או שמור על כמה מחשבים מתואמים באמצעות תיקייה משותפת.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>שיתוף תצורה</value>
+  </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>שנה</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>שנה סיסמה</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>הפרסום הנוכחי נכתב מחדש עם הסיסמה החדשה. קובצי התוכן אינם מוצפנים מחדש, ולכן מי שהכיר את הסיסמה הישנה עדיין יכול לקרוא אותם: השתמש באיפוס הפרסום כדי לבטל לחלוטין את הגישה של קוראים קודמים. המחשבים העוקבים אחר התיקייה מזינים את הסיסמה החדשה פעם אחת.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>שינוי סיסמת הפרסום</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>בדוק כעת</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>אשר את ביטוי הסיסמה</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>אישור הסיסמה</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>מוריד</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>מספר הפריטים שלא ניתן היה להתקין: {0}. הם יאוחזרו שוב כאשר מחשב ההפניה יפרסם גרסה חדשה.</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>ערכת מנהלי התקנים</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>קובץ</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>תמונה</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>חבילה לאחר התקנה</value>
+  </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>ייתכן שהתוכן פגום בתיקייה. פרסם שוב ממחשב ההפניה.</value>
+  </data>
+  <data name="Sharing.CopyButton" xml:space="preserve">
+    <value>העתק</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>סיסמת הפרסום הנוכחית</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>הזן סיסמה</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>נדרשת שוב סיסמת הפרסום, לדוגמה לאחר איפוס סיסמת Windows או לאחר שמחשב ההפניה שינה אותה.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>הזנת סיסמת הפרסום</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>ייצא</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>התצורה יוצאה.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>שמור את ההגדרות ואת הקבצים הקטנים בקובץ מוצפן. חבילות לאחר התקנה, ערכות מנהלי התקנים ותמונות אינן כלולות.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>לא ניתן היה לייצא את התצורה. בדוק את היעד ונסה שוב.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>הקבצים של תצורה זו חורגים מ-16 MiB בסך הכול ולא ניתן לייצא אותם.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>התצורה יוצאה, אך קבצים מסוימים חסרים או פגומים במחשב זה ולא נכללו (מספר: {0}). בחר אותם שוב בדפי התצורה ולאחר מכן ייצא שוב.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>ייצוא תצורה</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>קובץ</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>תצורת Foundry</value>
+  </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>תיקייה</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>בחר את תיקיית הפרסום</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>עקוב</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>השתמש בתצורה שמחשב הפניה מפרסם לתיקייה. ההגדרות שפורסמו הופכות לקריאה בלבד במחשב זה.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>הזן את התיקייה שאליה מחשב ההפניה מפרסם ואת סיסמת הפרסום שלו, ולאחר מכן פתח אותה כדי להציג תצוגה מקדימה של הפרסום.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>המעקב מחליף את התצורה הנוכחית והופך את ההגדרות שפורסמו לקריאה בלבד. נתיב הפלט של ISO, התיקייה הנוספת של מנהלי ההתקנים עבור WinPE והגדרות הטלמטריה של מחשב זה נשמרים.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>מעקב אחר תיקייה</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>מפתח שנמצא</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>גרסה שנמצאה</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>שכח את סיסמת הפרסום</value>
+  </data>
+  <data name="Sharing.GenerateButton" xml:space="preserve">
+    <value>צור</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>ייבא</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>התצורה יובאה.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>התצורה יובאה. חסר תוכן במחשב זה: ייבא אותו שוב בדף שלו.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>החלף תצורה זו בקובץ מיוצא או בפרופיל מהגרסה הקודמת.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>לא ניתן היה לייבא את התצורה. התצורה הנוכחית לא השתנתה.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>התצורה יובאה, אך לא ניתן היה לשמור את הסיסמאות שלה. הזן אותן שוב בדפי התצורה.</value>
+  </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>הייבוא אינו זמין כל עוד מחשב זה עוקב אחר תיקייה. הפסק לעקוב תחילה.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>ייבוא תצורה</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>כלול סיסמאות</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>כל מי שיכול לקרוא את התיקייה ומכיר את סיסמת הפרסום יכול לקרוא סיסמאות אלה.</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>כל מי שיש ברשותו קובץ זה וביטוי הסיסמה שלו יכול לקרוא סיסמאות אלה.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>קובץ זה אינו תצורת Foundry, או שהוא פגום.</value>
+  </data>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>בדיקה מוצלחת אחרונה</value>
+  </data>
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>פרסום אחרון</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
+    <value>משתמש Windows זה אינו יכול לפתוח תצורה זו.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>תצורה זו מפורסמת על ידי {0} והיא לקריאה בלבד במחשב זה. ניתן לשנות רק את נתיב הפלט של ISO, את התיקייה הנוספת של מנהלי ההתקנים עבור WinPE ואת הגדרות הטלמטריה.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>תצורה זו מפורסמת על ידי {0} והיא לקריאה בלבד במחשב זה. הפרסום אינו כולל סיסמאות: הזן אותן כאן. ניתן גם לשנות את נתיב הפלט של ISO, את התיקייה הנוספת של מנהלי ההתקנים עבור WinPE ואת הגדרות הטלמטריה.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>מנוהל על ידי מחשב הפניה</value>
+  </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>לא ניתן היה לשחזר חלק מהקבצים שבהם התצורה משתמשת. בחר אותם שוב בדפי התצורה.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>סנכרון התצורה של גרסאות קודמות אינו נתמך עוד. כדי לשתף תצורה זו, השתמש בפרסום לתיקייה במחשב ההפניה.</value>
+  </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>בדוק את התצורה</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>לא ניתן היה לשחזר את הסיסמאות השמורות. הזן אותן שוב בדפי התצורה.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>ייבא שוב פריטים אלה בדפים שלהם. עד אז, פריטי התצורה התואמים אינם מוכנים.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>חסר במחשב זה</value>
+  </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>מפתח חדש</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>סיסמת פרסום חדשה</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>תיקייה זו אינה מכילה תצורה שפורסמה.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>עדיין לא אומת: ערכים אלה מגיעים מהתיקייה ומאושרים רק כאשר סיסמת הפרסום הנוכחית פותחת את הפרסום.</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>פתח</value>
+  </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>פתח את הקובץ</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>פתח את הפרופיל שנבחר</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>לא ניתן היה להשלים את הפעולה. לפרטים, עיין ביומן.</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>ביטוי הסיסמה הועתק ללוח.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>ביטוי סיסמה</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>ביטויי הסיסמה אינם תואמים.</value>
+  </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>הסיסמה החדשה נשמרה. השינוי יושלם בפרסום המוצלח הבא.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>סיסמת הפרסום שונתה. המחשבים העוקבים אחר התיקייה מזינים את הסיסמה החדשה פעם אחת.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>הסיסמה הועתקה ללוח.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>הסיסמאות אינן תואמות.</value>
+  </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>תצורה זו מנוהלת על ידי מחשב הפניה: ניתן להזין כאן רק את הסיסמה.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>כלולות</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>זה יכול לקרות לאחר איפוס סיסמת Windows. השתלט על התיקייה באמצעות סיסמת הפרסום הנוכחית כדי להמשיך לפרסם; לאחר מכן המחשבים העוקבים אחר התיקייה יקבלו פעם אחת את מחשב זה כמחשב ההפניה החדש.</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>לא כלולות</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>יוצא בתאריך</value>
+  </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>גודל ההורדה</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>שם</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>סיסמאות</value>
+  </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>פורסם בתאריך</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>מחשב הפניה</value>
+  </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>מפתח קודם</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>פרופילים מהגרסה הקודמת</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>פרופילים אלה נשמרו במחשב זה לפני העדכון.</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>הפרסום עדיין לא הגיע במלואו לתיקייה זו. נסה שוב בעוד רגע.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>סיסמת פרסום</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>הפרסום אופס. המחשבים העוקבים אחר התיקייה מזינים את הסיסמה החדשה פעם אחת.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>פרסם</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>הפוך מחשב זה למחשב ההפניה: התצורה שלו מפורסמת לתיקייה שמחשבים אחרים עוקבים אחריה.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>בחר תיקייה ריקה או תיקייה שמחשב זה כבר מפרסם אליה: שיתוף רשת, תיקיית OneDrive או SharePoint, או תיקייה מקומית. המחשבים העוקבים אחר התיקייה זקוקים לסיסמת הפרסום כדי לקרוא אותה.</value>
+  </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>פרסם כעת</value>
+  </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>בודק את התיקייה…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>מסיים את הפרסום…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>מכין את {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>שולח את {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>מאמת את {0}…</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>פרסום לתיקייה</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>הייבוא מחליף את התצורה הנוכחית. נתיב הפלט של ISO, התיקייה הנוספת של מנהלי ההתקנים עבור WinPE והגדרות הטלמטריה של מחשב זה נשמרים.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>אפס</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>אפס פרסום</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>סיסמה חדשה ומפתח תוכן חדש: כל קובץ תוכן מוצפן מחדש, מה שמבטל לחלוטין את הגישה של קוראים קודמים. המחשבים העוקבים אחר התיקייה מזינים את הסיסמה החדשה פעם אחת.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>איפוס הפרסום</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>קוראים קודמים עדיין יכולים לפתוח תוכן עד לפרסום המוצלח הבא.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>מחשב זה עוקב אחר {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>מחשב זה מפרסם את התצורה שלו</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>לפחות 12 תווים, ולא אותו תו שחוזר על עצמו (לדוגמה aaaaaaaaaaaa).</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>לא ניתן היה להוריד חלק מהתוכן המשותף של הפרסום שבמעקב. בדוק את שיתוף התצורה בדף ההגדרות.</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>הפרסום והמעקב אינם זמינים במהלך הפעלה זו, מפני שלא ניתן היה לקרוא את מצב השיתוף. לפרטים, עיין ביומן.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>בודק את התיקייה: הפרסום עדיין לא הגיע במלואו וייקרא שוב בבדיקה הבאה.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>התצורה הוחלה. התוכן המשותף מורד כעת.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>התצורה הוחלה, אך לא ניתן היה להתקין חלק מהתוכן המשותף.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>התצורה הוחלה, אך חלק מהתוכן המשותף עדיין אינו זמין לאחר בדיקות חוזרות.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>תיקייה זו מכילה קבצים שאינם פרסום של מחשב זה. בחר תיקייה ריקה.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>התיקייה אינה זמינה. ודא שהיא קיימת ושלמחשב זה יש גישה אליה.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>מחשב זה אינו מפרסם ואינו עוקב אחר תצורה כלשהי.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>ממתין לבדיקה הראשונה של התיקייה.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>השינויים מפורסמים באופן אוטומטי.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>לא פורסם: התצורה אינה מוכנה ליצירת מדיה או מפנה לתוכן שחסר במחשב זה. הגרסה הקודמת נשארת בתוקף.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>נדרשות סיסמאות: הזן את סיסמת הפרסום, או הזן את הסיסמאות החסרות בדפי התצורה.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>לא ניתן היה לקרוא את סיסמת הפרסום או את המפתחות של מחשב זה.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>פורסם. המחשבים העוקבים אחר התיקייה יקבלו גרסה זו בבדיקה הבאה שלהם.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>מפרסם את התצורה…</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>התיקייה מצביעה על גרסה ישנה יותר מזו שהוחלה. המערכת מתעלמת ממנה.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>הפרסום שונה. הוא אינו מוחל.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>התיקייה מפורסמת כעת על ידי מחשב אחר. קבל את מחשב ההפניה החדש או הפסק לעקוב.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>מחשב אחר מפרסם לתיקייה זו. השתלט עליה כדי לפרסם ממחשב זה.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>פרסום זה דורש גרסה חדשה יותר של Foundry OSD.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>מעודכן.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>התצורה עודכנה.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>סיסמת הפרסום אינה פותחת את הפרסום הנוכחי. הזן את הסיסמה החדשה.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>סיסמת הפרסום אינה פותחת את הפרסום של מחשב זה בתיקייה זו.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>הפסק לעקוב</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>התצורה נשארת כפי שהיא והופכת שוב לניתנת לעריכה במחשב זה.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>להפסיק לעקוב?</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>הפסק לפרסם</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>התיקייה נשארת כפי שהיא, והמחשבים העוקבים אחריה שומרים את הגרסה האחרונה שפורסמה. מחשב זה כבר לא מפרסם את התצורה שלו.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>להפסיק לפרסם?</value>
+  </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>מוריד את {0}…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>מתקין את {0}…</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>השתלט</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>מחשב אחר מפרסם לתיקייה זו. ההשתלטות ממשיכה את הפרסום שלו עם המפתח של מחשב זה; המחשבים העוקבים אחר התיקייה חייבים לקבל פעם אחת את מחשב זה כמחשב ההפניה החדש.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>לא ניתן היה לקרוא את מפתחות הפרסום של מחשב זה. השתלטות עם סיסמת הפרסום הנוכחית ממשיכה את הפרסום עם מפתחות חדשים; המחשבים העוקבים אחר התיקייה חייבים לקבל פעם אחת את מחשב זה כמחשב ההפניה החדש.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>השתלטות על תיקייה זו</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>סיסמה זו אינה פותחת את הפרסום הנוכחי.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>לא ניתן היה לקרוא את הקובץ.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>קובץ זה דורש גרסה חדשה יותר של Foundry OSD.</value>
+  </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>גרסה</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>ממתין לסיום ההורדה של התוכן המשותף…</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>ביטוי סיסמה שגוי או קובץ פגום.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>סיסמה זו אינה פותחת את הפרסום, או שהפרסום שונה.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>עצור פעולה</value>
@@ -3590,6 +3789,15 @@
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>סודות התקשורת הנדרשים אינם מוכנים.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>לא ניתן היה להתקין חלק מהתוכן המשותף במחשב זה. הוא יאוחזר שוב כאשר מחשב ההפניה יפרסם גרסה חדשה. בדוק את שיתוף התצורה בדף ההגדרות.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>חלק מהתוכן המשותף עדיין אינו זמין לאחר בדיקות חוזרות. פרסם שוב ממחשב ההפניה, ולאחר מכן בדוק את שיתוף התצורה בדף ההגדרות.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>התוכן המשותף עדיין בהורדה. יצירת מדיה תהיה זמינה לאחר השלמת ההורדה.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>כונן ה-USB שנבחר קטן מדי עבור מטמון. השתמש בכונן USB בנפח 16 GB לפחות, או בחר “צור ללא מטמון” מהחץ של “צור USB”.</value>
@@ -4164,6 +4372,15 @@
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>מוכן ליצור מדיה USB</value>
   </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>לא ניתן היה להתקין את התוכן המשותף</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>התוכן המשותף אינו זמין</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>ממתין לתוכן המשותף</value>
+  </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>סקור אזהרות פלט מדיה</value>
   </data>
@@ -4308,13 +4525,13 @@
     <value>מכיל הגדרות שעלולות למנוע רישום ל-Autopilot; מצבי רישום שאינם תואמים ייחסמו במהלך הפריסה.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>בחרו קובץ כדי לשנות את שמו, לרענן או להסיר אותו. קובצי המקור חייבים להישאר זמינים עד ליצירת המדיה; מקורות שהשתנו דורשים רענון.</value>
+    <value>בחרו קובץ כדי לשנות את שמו או להסיר אותו. Foundry שומר עותק משלו של כל קובץ מיובא; כדי להשתמש בקובץ מעודכן, הסירו את הרשומה וייבאו את הקובץ מחדש.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>קובצי תשובות</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>בדיקת מקורות</value>
+    <value>בדיקת קבצים</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>מכיל פקודות; בדקו אם הן חופפות להתאמות של Foundry ולפעולות ההתקנה שלו.</value>
@@ -4353,13 +4570,13 @@
     <value>הקובץ חייב להצהיר על ארכיטקטורה נתמכת ולכלול הגדרות רכיבים החלות עליה.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>הקטלוג מכיל רשומות לא תקינות או כפולות. רעננו או הסירו את הקבצים הרלוונטיים.</value>
+    <value>הקטלוג מכיל רשומות לא חוקיות או כפולות. הסירו את הקבצים הרלוונטיים וייבאו אותם מחדש.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>השתמשו ב-XML תקין של קובץ תשובות של Windows, בגודל של עד 4 MiB, ללא DTD או ישויות חיצוניות. אמתו את הקובץ באמצעות Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>חלק מהמקורות חסרים, השתנו או אינם תקינים. רעננו או הסירו רשומות אלה לפני יצירת המדיה.</value>
+    <value>חלק מהקבצים חסרים או לא חוקיים. הסירו רשומות אלה וייבאו את הקבצים מחדש לפני יצירת המדיה.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>ברירת המחדל חסרה — בחרו חלופה</value>
@@ -4374,16 +4591,13 @@
     <value>Foundry שומר על הקובץ המקורי ומוסיף לעותק הפריסה את הפקודה הנדרשת שלו לשלב שלאחר ההתקנה. האחריות להגדרות ולפקודות המותאמות אישית נשארת שלך.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>קבצים מותאמים אישית מחייבים הגנת סיסמה למדיית הפריסה בתצורה הכללית. XML עשוי להכיל אישורים או סקריפטים. Foundry שומר עותק של כל קובץ עם התצורה שלך במחשב זה רק כאשר האפשרות “שמירת סיסמאות” מופעלת בקטע “גיבוי וסנכרון הגדרות”; אחרת הוא שומר רק את הנתיב. תמונת האתחול מכילה עותקים מוצפנים.</value>
+    <value>קבצים מותאמים אישית מחייבים הגנת סיסמה למדיית הפריסה בתצורה הכללית. XML עשוי להכיל אישורים או סקריפטים. Foundry שומר עותק של כל קובץ מיובא בספריית הקבצים שלו במחשב זה. תמונת האתחול מכילה עותקים מוצפנים.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>הפעילו הגנת סיסמה למדיית הפריסה בתצורה הכללית כדי להשתמש בקובצי תשובות מותאמים אישית.</value>
   </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>מקור זה זהה כעת לקובץ מיובא אחר. הסירו רשומה זו ובחרו בקובץ הקיים.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>רענון מקור</value>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>ל-Foundry כבר אין עותק חוקי של קובץ זה. הסירו את הרשומה וייבאו את הקובץ מחדש.</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>הסרה</value>
@@ -4397,26 +4611,23 @@
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>הקובץ שנבחר</value>
   </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>המקור השתנה. השתמשו ברענון מקור כדי לקבל את הקובץ המעודכן לפני יצירת המדיה.</value>
-  </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>שתי בדיקות מקור עדיין ממתינות לגישה לקבצים. שחזרו את הגישה למיקומי המקור שאינם זמינים ובדקו שוב את המקורות.</value>
+    <value>שתי בדיקות קבצים עדיין פועלות. המתינו לסיומן ולאחר מכן נסו שוב.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>בדיקת המקור ממתינה. בחרו בדיקת מקורות כדי לאמת את הקובץ הנוכחי בלי לקבל שינויים בתוכן.</value>
+    <value>בדיקת הקובץ ממתינה. בחרו בדיקת קבצים כדי לאמת את העותק המאוחסן.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>לא ניתן לקרוא את המקור. ודאו שהקובץ עדיין קיים ונגיש.</value>
+    <value>לא ניתן היה לקרוא את הקובץ. ודאו שהוא קיים ושניתן לפתוח אותו, ולאחר מכן נסו שוב.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>תם הזמן הקצוב לאימות המקור. בדקו את הגישה למיקום המקור ונסו שוב.</value>
+    <value>בדיקת הקבצים המאוחסנים נמשכה זמן רב מדי. נסו שוב.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>נתמכות רק הגדרות specialize ו-oobeSystem. הסירו שלבי תצורה אחרים שאינם ריקים, הוראות שירות לא מקוון או הוראות לאתחול מחדש במצב ביקורת.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>המקור אומת.</value>
+    <value>הקובץ אומת.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>החל עדכון</value>

@@ -525,6 +525,9 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
 
     private void Save(GeneralSettings settings)
     {
+        // A managed configuration keeps its published values: a default this page picks on its own (an unavailable WinPE
+        // language, for example) is not saved over them. Per-PC values, such as the WinPE driver folder, are saved.
+        if (!configurationStateService.IsChangeAllowed(configurationStateService.Current with { General = settings })) return;
         configurationStateService.UpdateGeneral(settings);
     }
 
@@ -614,7 +617,7 @@ public sealed partial class GeneralConfigurationViewModel : ObservableObject, ID
 
     private void SaveLocalizationState()
     {
-        if (isApplyingTimeZoneState || isRefreshingTimeZoneOptions)
+        if (isApplyingTimeZoneState || isRefreshingTimeZoneOptions || configurationStateService.IsManaged)
         {
             return;
         }

@@ -283,6 +283,12 @@ Licenseret under MIT-licensen.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Udgivelsesbemærkninger</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Den valgte fil kunne ikke føjes til Foundry. Vælg en læsbar fil på højst 4 MiB.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Filen blev ikke tilføjet</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Standard</value>
   </data>
@@ -389,7 +395,7 @@ Licenseret under MIT-licensen.</value>
     <value>Kopiér adgangskoden</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Gem denne PFX-fil og adgangskode nu på et sikkert sted. Foundry gemmer kun adgangskoden sammen med din konfiguration på denne pc, når »Husk adgangskoder« er slået til i »Sikkerhedskopiering og synkronisering af indstillinger«. Du skal bruge begge værdier for at generere boot-medier til hardware-hash-upload.</value>
+    <value>Gem denne PFX-fil og adgangskode nu på et sikkert sted. Foundry husker adgangskoden på denne pc i sin lokale krypterede boks. Den forlader kun denne pc i en eksport eller en publicering, når »Medtag adgangskoder« er valgt. Du skal bruge begge værdier for at generere boot-medier til hardware-hash-upload.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Adgangskode kopieret.</value>
@@ -737,7 +743,10 @@ Licenseret under MIT-licensen.</value>
     <value>Ikke tilgængelig</value>
   </data>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
-    <value>Denne mappe findes allerede i denne profil som {0}.</value>
+    <value>Denne mappe findes allerede i denne konfiguration som {0}.</value>
+  </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>Konfigurationen blev erstattet under importen, så driversættet blev ikke tilføjet. Importér mappen igen.</value>
   </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>Driversættet blev fjernet, men den lokale kopi kunne ikke slettes.</value>
@@ -749,7 +758,7 @@ Licenseret under MIT-licensen.</value>
     <value>Driversæt</value>
   </data>
   <data name="CustomDrivers.DuplicateName" xml:space="preserve">
-    <value>Der findes allerede et driversæt med dette navn i denne profil.</value>
+    <value>Der findes allerede et driversæt med dette navn i denne konfiguration.</value>
   </data>
   <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
     <value>Ingen brugerdefinerede driversæt. Importér en mappe med .inf-drivere for at begynde.</value>
@@ -802,26 +811,23 @@ Licenseret under MIT-licensen.</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Driversæt</value>
   </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Den aktive profil blev skiftet under importen, så driversættet blev ikke tilføjet. Importér mappen igen i denne profil.</value>
-  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Ikke tilgængelig ved PXE-start. Brugerdefinerede drivere kræver det komplette ISO- eller USB-medie.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
-    <value>Driversættene i denne profil er ugyldige. Kontrollér de medtagne sæt og standardsættet, før du opretter eller opdaterer medier.</value>
+    <value>Driversættene i denne konfiguration er ugyldige. Kontrollér de medtagne sæt og standardsættet, før du opretter eller opdaterer medier.</value>
   </data>
   <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
     <value>Den lokale kopi af {0} mangler eller er beskadiget. Importér mappen igen, eller udelad sættet, før du opretter eller opdaterer medier.</value>
   </data>
   <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
-    <value>Medtag mindst ét driversæt i denne profil, eller slå brugerdefinerede drivere fra, før du opretter eller opdaterer medier.</value>
+    <value>Medtag mindst ét driversæt i denne konfiguration, eller slå brugerdefinerede drivere fra, før du opretter eller opdaterer medier.</value>
   </data>
   <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
     <value>Fjern driversæt</value>
   </data>
   <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) fjernes fra den aktuelle profil.</value>
+    <value>{0} ({1}) fjernes fra den aktuelle konfiguration.</value>
   </data>
   <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
     <value>Driversættet kunne ikke fjernes. Prøv igen.</value>
@@ -830,13 +836,13 @@ Licenseret under MIT-licensen.</value>
     <value>Vil du fjerne driversættet?</value>
   </data>
   <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
-    <value>Den lokale kopi slettes, medmindre en anden profil bruger den. Den oprindelige mappe og eksisterende medier ændres ikke.</value>
+    <value>Den lokale kopi slettes. Den oprindelige mappe og eksisterende medier ændres ikke.</value>
   </data>
   <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
     <value>Angiv som standard</value>
   </data>
   <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
-    <value>Denne profil har nået det maksimale antal driversæt. Fjern ét, før du importerer et andet.</value>
+    <value>Denne konfiguration har nået det maksimale antal driversæt. Fjern ét, før du importerer et andet.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Kontrollerer brugerdefinerede driversæt…</value>
@@ -878,7 +884,7 @@ Licenseret under MIT-licensen.</value>
     <value>Valgt afbildning</value>
   </data>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
-    <value>Der findes allerede en afbildning med dette navn i denne profil.</value>
+    <value>Der findes allerede en afbildning med dette navn i denne konfiguration.</value>
   </data>
   <data name="CustomImages.EditionLabel" xml:space="preserve">
     <value>Udgave</value>
@@ -935,7 +941,7 @@ Licenseret under MIT-licensen.</value>
     <value>Ikke tilgængelig ved PXE-start. Brugerdefinerede afbildninger kræver det komplette ISO- eller USB-medie.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Medtag mindst én tilgængelig Windows-afbildning i denne profil. Gendan manglende medtagne afbildninger, og ret eller ryd valget af foretrukken afbildning eller indeks, før du opretter eller opdaterer medier.</value>
+    <value>Medtag mindst én tilgængelig Windows-afbildning i denne konfiguration. Gendan manglende medtagne afbildninger, og ret eller ryd valget af foretrukken afbildning eller indeks, før du opretter eller opdaterer medier.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Opdater</value>
@@ -944,7 +950,7 @@ Licenseret under MIT-licensen.</value>
     <value>Fjern afbildning</value>
   </data>
   <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) fjernes fra den aktuelle profil, og dens lokale kopi slettes.</value>
+    <value>{0} ({1}) fjernes fra den aktuelle konfiguration, og dens lokale kopi slettes.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Fjern</value>
@@ -953,7 +959,7 @@ Licenseret under MIT-licensen.</value>
     <value>Vil du fjerne den brugerdefinerede afbildning?</value>
   </data>
   <data name="CustomImages.RemoveWarning" xml:space="preserve">
-    <value>Andre profiler, der bruger denne afbildning, viser den som manglende. Den oprindelige fil og eksisterende medier ændres ikke.</value>
+    <value>Den oprindelige fil og eksisterende medier ændres ikke.</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Rediger</value>
@@ -2768,7 +2774,7 @@ Licenseret under MIT-licensen.</value>
     <value>Giv en virksomheds Wi-Fi profilskabelon</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Adgangssætningen gemmes sammen med din konfiguration på denne pc, kun når »Husk adgangskoder« er slået til i »Sikkerhedskopiering og synkronisering af indstillinger«. Ellers gemmes den ikke og skal indtastes igen, for eksempel efter genstart af Foundry OSD.</value>
+    <value>Foundry husker adgangssætningen på denne pc i sin lokale krypterede boks. Den forlader kun denne pc i en eksport eller en publicering, når »Medtag adgangskoder« er valgt.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importerer Wi-Fi-profilen, der administreres af Foundry, til Windows før OOBE for at bevare udrulningsforbindelsen efter WinPE.</value>
@@ -3001,299 +3007,6 @@ Licenseret under MIT-licensen.</value>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Arbejdsmappe (relativ; tom bruger indholdets rodmappe)</value>
   </data>
-  <data name="Profiles.Active" xml:space="preserve">
-    <value>Aktuelle indstillinger</value>
-  </data>
-  <data name="Profiles.AutoSync" xml:space="preserve">
-    <value>Automatisk synkronisering</value>
-  </data>
-  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
-    <value>Vælg et andet navn</value>
-  </data>
-  <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>Nogle gamle gemte adgangskoder eller adgangsnøgler kunne ikke fjernes. Prøv igen, når Windows Legitimationsstyring er tilgængelig.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
-    <value>Luk uden at gemme</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
-    <value>Dine seneste ændringer kunne ikke gemmes og går tabt.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
-    <value>Vil du lukke uden at gemme indstillingerne?</value>
-  </data>
-  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
-    <value>Bekræft adgangskode</value>
-  </data>
-  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>Bekræft filens adgangskode</value>
-  </data>
-  <data name="Profiles.Conflict" xml:space="preserve">
-    <value>Disse indstillinger er ændret på denne pc og af en anden person. Vælg den version, du vil beholde.</value>
-  </data>
-  <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>Den valgte version erstatter den anden. Vælg først Duplikér, hvis du vil beholde en separat kopi.</value>
-  </data>
-  <data name="Profiles.ConnectAction" xml:space="preserve">
-    <value>Opret forbindelse</value>
-  </data>
-  <data name="Profiles.ConnectDescription" xml:space="preserve">
-    <value>Vælg den forbindelsesfil, du har modtaget fra en på dit team.</value>
-  </data>
-  <data name="Profiles.ConnectionPassword" xml:space="preserve">
-    <value>Adgangskode til forbindelse</value>
-  </data>
-  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
-    <value>Andre pc'er skal bruge denne adgangskode for at oprette forbindelse.</value>
-  </data>
-  <data name="Profiles.Continue" xml:space="preserve">
-    <value>Fortsæt</value>
-  </data>
-  <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Del denne konfiguration</value>
-  </data>
-  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
-    <value>Vælg en delt netværksmappe til denne konfiguration.</value>
-  </data>
-  <data name="Profiles.Delete" xml:space="preserve">
-    <value>Slet fra denne pc</value>
-  </data>
-  <data name="Profiles.DeleteAction" xml:space="preserve">
-    <value>Slet</value>
-  </data>
-  <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>Slet også for alle andre</value>
-  </data>
-  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
-    <value>Slet for alle</value>
-  </data>
-  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
-    <value>Vil du slette for alle?</value>
-  </data>
-  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>Vil du slette disse delte indstillinger for alle? Alle med ændringer, der ikke er synkroniseret, skal duplikere deres indstillinger for at beholde dem.</value>
-  </data>
-  <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>Vil du slette disse indstillinger fra denne pc? Eksportér dem først, hvis du vil have en sikkerhedskopi.</value>
-  </data>
-  <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>Disse delte indstillinger er slettet. Vælg Duplikér for at beholde dine ændringer på denne pc.</value>
-  </data>
-  <data name="Profiles.Disconnect" xml:space="preserve">
-    <value>Afbryd forbindelsen</value>
-  </data>
-  <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>Vil du stoppe synkroniseringen af denne konfiguration på denne pc? Dine aktuelle indstillinger bevares. Den delte konfiguration og andre pc'er ændres ikke.</value>
-  </data>
-  <data name="Profiles.Export" xml:space="preserve">
-    <value>Eksportér</value>
-  </data>
-  <data name="Profiles.ExportDescription" xml:space="preserve">
-    <value>Gem denne konfiguration i en fil som sikkerhedskopi eller til en anden pc.</value>
-  </data>
-  <data name="Profiles.ExportProtection" xml:space="preserve">
-    <value>Vælg en adgangskode til at beskytte den eksporterede fil. Du skal bruge den til at importere konfigurationen.</value>
-  </data>
-  <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Gem forbindelsesfil</value>
-  </data>
-  <data name="Profiles.Failed" xml:space="preserve">
-    <value>Handlingen kunne ikke fuldføres. Kontrollér filen, dens adgangskode, dine adgangstilladelser og din netværksforbindelse.</value>
-  </data>
-  <data name="Profiles.FolderExists" xml:space="preserve">
-    <value>Dette mappenavn er allerede i brug. Opret forbindelse med en forbindelsesfil, eller gå tilbage og vælg et andet navn.</value>
-  </data>
-  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
-    <value>Vælg en ny, tom undermappe i den delte mappe. Eksisterende filer forbliver uændrede.</value>
-  </data>
-  <data name="Profiles.Forget" xml:space="preserve">
-    <value>Ryd gemte adgangskoder og adgange</value>
-  </data>
-  <data name="Profiles.ForgetAction" xml:space="preserve">
-    <value>Ryd</value>
-  </data>
-  <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>Vil du fjerne gemte adgangskoder, fortrolige filer gemt af Foundry og synkroniseringsadgang for disse indstillinger på denne pc? Du skal tilføje de manglende oplysninger og oprette forbindelse igen for at synkronisere. Medier, du allerede har oprettet, ændres ikke.</value>
-  </data>
-  <data name="Profiles.Heading" xml:space="preserve">
-    <value>Foundry-indstillinger</value>
-  </data>
-  <data name="Profiles.Import" xml:space="preserve">
-    <value>Importér</value>
-  </data>
-  <data name="Profiles.ImportDescription" xml:space="preserve">
-    <value>Tilføj en konfiguration fra en fil.</value>
-  </data>
-  <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>Medtag adgangskoder og fortrolige filer</value>
-  </data>
-  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
-    <value>Personer, der bruger denne konfiguration, kan læse de inkluderede adgangskoder og fortrolige filer.</value>
-  </data>
-  <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>Nogle adgangskoder eller kildefiler mangler. Tilføj dem, før du gemmer eller deler adgangskoder.</value>
-  </data>
-  <data name="Profiles.InvalidFolderName" xml:space="preserve">
-    <value>Brug et navn uden specialtegn og uden punktum eller mellemrum til sidst.</value>
-  </data>
-  <data name="Profiles.JoinChanged" xml:space="preserve">
-    <value>Den delte konfiguration er ændret. Gennemgå den nyeste version, før du opretter forbindelse.</value>
-  </data>
-  <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Opret forbindelse til en delt konfiguration</value>
-  </data>
-  <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>Brug denne pc's version</value>
-  </data>
-  <data name="Profiles.LearnMore" xml:space="preserve">
-    <value>Læs mere</value>
-  </data>
-  <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Gem adgangskoder til din Windows-konto på denne pc.</value>
-  </data>
-  <data name="Profiles.Locked" xml:space="preserve">
-    <value>Windows kan ikke låse disse gemte indstillinger eller deres synkroniseringsadgang op for din konto på denne pc.</value>
-  </data>
-  <data name="Profiles.Manage" xml:space="preserve">
-    <value>Flere indstillinger</value>
-  </data>
-  <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Manglende eller udeladte filer: {0}. Vælg deres placeringer, før du opretter medier.</value>
-  </data>
-  <data name="Profiles.Name" xml:space="preserve">
-    <value>Konfigurationens navn</value>
-  </data>
-  <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>Filens adgangskode</value>
-  </data>
-  <data name="Profiles.PasswordMismatch" xml:space="preserve">
-    <value>Adgangskoderne stemmer ikke overens.</value>
-  </data>
-  <data name="Profiles.Preview" xml:space="preserve">
-    <value>{0}
-Medtagne filer: {1}
-Medtagne adgangskoder og adgangsnøgler: {2}</value>
-  </data>
-  <data name="Profiles.Ready" xml:space="preserve">
-    <value>Klar</value>
-  </data>
-  <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Vælg en adgangskode til at beskytte forbindelsesfilen. Del adgangskoden separat. Gem filen uden for den delte konfigurations mappe.</value>
-  </data>
-  <data name="Profiles.Remember" xml:space="preserve">
-    <value>Husk adgangskoder</value>
-  </data>
-  <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>Husk denne forbindelse på denne pc</value>
-  </data>
-  <data name="Profiles.Rename" xml:space="preserve">
-    <value>Omdøb</value>
-  </data>
-  <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>Dette erstatter de indstillinger, du bruger. Hvis du vil beholde en kopi først, skal du annullere og vælge Duplikér.</value>
-  </data>
-  <data name="Profiles.RestoreAccess" xml:space="preserve">
-    <value>Gendan adgang</value>
-  </data>
-  <data name="Profiles.Rollback" xml:space="preserve">
-    <value>De gemte versioner i den delte mappe er ændret uventet. Gendan fra en sikkerhedskopi, du har tillid til.</value>
-  </data>
-  <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Duplikér</value>
-  </data>
-  <data name="Profiles.Select" xml:space="preserve">
-    <value>Vælg en konfiguration</value>
-  </data>
-  <data name="Profiles.Setup" xml:space="preserve">
-    <value>Konfigurer</value>
-  </data>
-  <data name="Profiles.SetupAction" xml:space="preserve">
-    <value>Konfigurer synkronisering…</value>
-  </data>
-  <data name="Profiles.SetupDescription" xml:space="preserve">
-    <value>Del denne konfiguration, eller opret forbindelse til en, dit team allerede bruger.</value>
-  </data>
-  <data name="Profiles.ShareAction" xml:space="preserve">
-    <value>Del</value>
-  </data>
-  <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>Alle, der kan importere eller synkronisere disse indstillinger, kan læse de medtagne adgangskoder og private certifikatnøgler.</value>
-  </data>
-  <data name="Profiles.SharedBusy" xml:space="preserve">
-    <value>En anden handling bruger denne delte mappe. Prøv igen om lidt. Dine ændringer gemmes på denne pc.</value>
-  </data>
-  <data name="Profiles.SharedFolder" xml:space="preserve">
-    <value>Delt mappe</value>
-  </data>
-  <data name="Profiles.SharedUnavailable" xml:space="preserve">
-    <value>Den delte mappe kan ikke nås. Kontrollér dens adresse og din netværksadgang. Dine ændringer gemmes på denne pc.</value>
-  </data>
-  <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>Brug den samme netværksmappe på alle pc'er. Den skal bruge SMB 3 med obligatorisk kryptering. Mapper, der synkroniseres med skyen, understøttes ikke.</value>
-  </data>
-  <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Foundry stopper med at gemme adgangskoderne til denne konfiguration på denne pc.</value>
-  </data>
-  <data name="Profiles.StopRememberingAction" xml:space="preserve">
-    <value>Stop med at huske</value>
-  </data>
-  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
-    <value>Vil du stoppe med at huske adgangskoder?</value>
-  </data>
-  <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Synkroniser</value>
-  </data>
-  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
-    <value>Synkroniserer…</value>
-  </data>
-  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
-    <value>Vælg en version</value>
-  </data>
-  <data name="Profiles.SyncStatusError" xml:space="preserve">
-    <value>Kan ikke synkronisere</value>
-  </data>
-  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
-    <value>Ikke konfigureret</value>
-  </data>
-  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
-    <value>Mappen er ikke tilgængelig</value>
-  </data>
-  <data name="Profiles.SyncStatusPending" xml:space="preserve">
-    <value>Ændringer til synkronisering</value>
-  </data>
-  <data name="Profiles.SyncStatusReady" xml:space="preserve">
-    <value>Klar til synkronisering</value>
-  </data>
-  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
-    <value>Opdateret</value>
-  </data>
-  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
-    <value>Ændringer tilgængelige</value>
-  </data>
-  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
-    <value>Kræver opmærksomhed</value>
-  </data>
-  <data name="Profiles.Synchronize" xml:space="preserve">
-    <value>Synkroniser</value>
-  </data>
-  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
-    <value>Hold denne konfiguration opdateret på dit teams pc'er.</value>
-  </data>
-  <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>Indstillingerne er opdaterede</value>
-  </data>
-  <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>Foundry kan ikke åbne dette indstillingsformat. Opdatér Foundry, og prøv igen.</value>
-  </data>
-  <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>Der er ændringer fra en anden pc. Vælg Synkroniser for at anvende dem.</value>
-  </data>
-  <data name="Profiles.UseRemote" xml:space="preserve">
-    <value>Brug den delte version</value>
-  </data>
-  <data name="Profiles.Validation" xml:space="preserve">
-    <value>Kontrollér de obligatoriske felter. Hvis der skal angives en netværksmappe, skal du bruge en sti som \\server\share\folder. Hvis du indtaster en filadgangskode to gange, skal begge indtastninger være ens.</value>
-  </data>
   <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
     <value>Foundry OSD kunne ikke gemme proxyindstillingerne. Prøv igen. Du kan finde flere oplysninger i logfilen.</value>
   </data>
@@ -3429,12 +3142,6 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Generelt</value>
   </data>
-  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Sikkerhedskopiér dine indstillinger, overfør dem til en anden pc, eller hold dem synkroniseret.</value>
-  </data>
-  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Sikkerhedskopiering og synkronisering af indstillinger</value>
-  </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Konfigurer, hvordan Foundry OSD opretter forbindelse til onlinetjenester.</value>
   </data>
@@ -3464,6 +3171,498 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Opdater app</value>
+  </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>Godkend</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>Godkend ny reference</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>Mappen publiceres nu af en anden pc: {0}. Godkend den kun, hvis du forventer denne ændring, for eksempel efter en overtagelse. Ellers skal du stoppe med at følge mappen.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>Godkend ny reference?</value>
+  </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Referencen blev ændret, mens denne dialogboks var åben. Gennemse den nye nøgle, før du godkender den.</value>
+  </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Flyt denne konfiguration med en krypteret fil, eller hold flere pc'er afstemt via en delt mappe.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Deling af konfiguration</value>
+  </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>Skift</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>Skift adgangskode</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>Den aktuelle publicering omskrives med den nye adgangskode. Indholdsfiler krypteres ikke igen, så den, der kendte den gamle adgangskode, kan stadig læse dem: Brug Nulstil publicering for at tilbagekalde tidligere læsere helt. Pc'er, der følger mappen, angiver den nye adgangskode én gang.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>Skift publiceringsadgangskode</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>Kontrollér nu</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Bekræft adgangssætning</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>Bekræft adgangskode</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Downloader</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>Elementer, der ikke kunne installeres: {0}. De hentes igen, når reference-pc'en publicerer en ny version.</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Driversæt</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>Fil</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Billede</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Pakke efter installation</value>
+  </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>Indholdet kan være beskadiget i mappen. Publicer igen fra reference-pc'en.</value>
+  </data>
+  <data name="Sharing.CopyButton" xml:space="preserve">
+    <value>Kopiér</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>Aktuel publiceringsadgangskode</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>Angiv adgangskode</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>Publiceringsadgangskoden er nødvendig igen, for eksempel efter en nulstilling af Windows-adgangskoden, eller efter at reference-pc'en har ændret den.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>Angiv publiceringsadgangskode</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Eksportér</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>Konfigurationen er eksporteret.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Gem indstillingerne og de små filer i en krypteret fil. Pakker efter installation, driversæt og billeder er ikke inkluderet.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>Konfigurationen kunne ikke eksporteres. Kontrollér destinationen, og prøv igen.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>Filerne i denne konfiguration fylder i alt mere end 16 MiB og kan ikke eksporteres.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>Konfigurationen er eksporteret, men nogle filer mangler eller er beskadigede på denne pc og blev ikke medtaget (antal: {0}). Vælg dem igen på konfigurationssiderne, og eksportér derefter igen.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Eksportér konfiguration</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>Fil</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Foundry-konfiguration</value>
+  </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>Mappe</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>Vælg publiceringsmappen</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>Følg</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>Brug den konfiguration, som en reference-pc publicerer i en mappe. Publicerede indstillinger bliver skrivebeskyttede på denne pc.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>Angiv den mappe, reference-pc'en publicerer til, og dens publiceringsadgangskode, og åbn den derefter for at se et eksempel på publiceringen.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>At følge erstatter den aktuelle konfiguration og gør de publicerede indstillinger skrivebeskyttede. ISO-outputstien, den ekstra WinPE-drivermappe og telemetriindstillingerne på denne pc bevares.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>Følg en mappe</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>Fundet nøgle</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>Fundet version</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>Glem publiceringsadgangskode</value>
+  </data>
+  <data name="Sharing.GenerateButton" xml:space="preserve">
+    <value>Generér</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>Importér</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>Konfigurationen er importeret.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>Konfigurationen er importeret. Der mangler indhold på denne pc: Importér det igen på den tilhørende side.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Erstat denne konfiguration med en eksporteret fil eller en profil fra den tidligere version.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>Konfigurationen kunne ikke importeres. Den aktuelle konfiguration er uændret.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>Konfigurationen er importeret, men adgangskoderne kunne ikke gemmes. Angiv dem igen på konfigurationssiderne.</value>
+  </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>Import er ikke tilgængelig, mens denne pc følger en mappe. Stop med at følge først.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Importér konfiguration</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Medtag adgangskoder</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>Alle, der kan læse mappen og kender publiceringsadgangskoden, kan læse disse adgangskoder.</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Alle, der har denne fil og dens adgangssætning, kan læse disse adgangskoder.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>Denne fil er ikke en Foundry-konfiguration, eller den er beskadiget.</value>
+  </data>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>Seneste vellykkede kontrol</value>
+  </data>
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>Senest publiceret</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
+    <value>Denne konfiguration kan ikke åbnes af denne Windows-bruger.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>Denne konfiguration publiceres af {0} og er skrivebeskyttet på denne pc. Kun ISO-outputstien, den ekstra WinPE-drivermappe og telemetriindstillingerne kan ændres.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>Denne konfiguration publiceres af {0} og er skrivebeskyttet på denne pc. Publiceringen indeholder ikke adgangskoder: Angiv dem her. ISO-outputstien, den ekstra WinPE-drivermappe og telemetriindstillingerne kan også ændres.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>Administreret af en reference-pc</value>
+  </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Nogle filer, som konfigurationen bruger, kunne ikke gendannes. Vælg dem igen på konfigurationssiderne.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Konfigurationssynkronisering fra tidligere versioner understøttes ikke længere. Brug Publicer til en mappe på reference-pc'en for at dele denne konfiguration.</value>
+  </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Kontrollér konfigurationen</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Gemte adgangskoder kunne ikke gendannes. Angiv dem igen på konfigurationssiderne.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Importér disse elementer igen på deres sider. Indtil da er de tilsvarende konfigurationselementer ikke klar.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Mangler på denne pc</value>
+  </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>Ny nøgle</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>Ny publiceringsadgangskode</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>Denne mappe indeholder ikke en publiceret konfiguration.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>Ikke bekræftet endnu: Disse værdier kommer fra mappen og bekræftes først, når den aktuelle publiceringsadgangskode åbner publiceringen.</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Åbn</value>
+  </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Åbn filen</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Åbn den valgte profil</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>Handlingen kunne ikke fuldføres. Se loggen for at få flere oplysninger.</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>Adgangssætningen er kopieret til Udklipsholder.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Adgangssætning</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>Adgangssætningerne stemmer ikke overens.</value>
+  </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>Den nye adgangskode er gemt. Ændringen fuldføres ved næste vellykkede publicering.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>Publiceringsadgangskoden er ændret. Pc'er, der følger mappen, angiver den nye adgangskode én gang.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>Adgangskoden er kopieret til Udklipsholder.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>Adgangskoderne stemmer ikke overens.</value>
+  </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Denne konfiguration administreres af en reference-pc: Kun adgangskoden kan angives her.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Medtaget</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>Det kan ske efter en nulstilling af Windows-adgangskoden. Overtag mappen med den aktuelle publiceringsadgangskode for at fortsætte med at publicere. Pc'er, der følger mappen, godkender derefter denne pc som ny reference én gang.</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Ikke medtaget</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Eksporteret den</value>
+  </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>Downloadstørrelse</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Navn</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Adgangskoder</value>
+  </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>Publiceret den</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>Reference-pc</value>
+  </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>Forrige nøgle</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Profiler fra den tidligere version</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Disse profiler blev gemt på denne pc før opdateringen.</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>Publiceringen er endnu ikke kommet helt frem til denne mappe. Prøv igen om et øjeblik.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>Publiceringsadgangskode</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>Publiceringen er nulstillet. Pc'er, der følger mappen, angiver den nye adgangskode én gang.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>Publicer</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>Gør denne pc til reference: Dens konfiguration publiceres i en mappe, som andre pc'er følger.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>Vælg en tom mappe eller en, som denne pc allerede publicerer til: en netværksdeling, en OneDrive- eller SharePoint-mappe eller en lokal mappe. Pc'er, der følger mappen, skal bruge publiceringsadgangskoden for at læse den.</value>
+  </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>Publicer nu</value>
+  </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Kontrollerer mappen…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Afslutter publiceringen…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>Forbereder {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>Sender {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>Verificerer {0}…</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>Publicer til en mappe</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>Import erstatter den aktuelle konfiguration. ISO-outputstien, den ekstra WinPE-drivermappe og telemetriindstillingerne på denne pc bevares.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>Nulstil</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>Nulstil publicering</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>En ny adgangskode og en ny indholdsnøgle: Alle indholdsfiler krypteres igen, hvilket tilbagekalder tidligere læsere helt. Pc'er, der følger mappen, angiver den nye adgangskode én gang.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>Nulstil publicering</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>Tidligere læsere kan stadig åbne indhold indtil næste vellykkede publicering.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>Denne pc følger {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>Denne pc publicerer sin konfiguration</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>Mindst 12 tegn og ikke det samme tegn gentaget (f.eks. aaaaaaaaaaaa).</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Noget delt indhold i den fulgte publicering kunne ikke downloades. Kontrollér Deling af konfiguration på siden Indstillinger.</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>Publicering og følgning er ikke tilgængelige i denne session, fordi delingsstatussen ikke kunne læses. Se loggen for at få flere oplysninger.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>Mappen kontrolleres: Publiceringen er endnu ikke kommet helt frem og læses igen ved næste kontrol.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>Konfigurationen er anvendt. Delt indhold downloades.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>Konfigurationen er anvendt, men noget delt indhold kunne ikke installeres.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>Konfigurationen er anvendt, men noget delt indhold er stadig ikke tilgængeligt efter gentagne kontroller.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>Denne mappe indeholder filer, der ikke er en publicering fra denne pc. Vælg en tom mappe.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>Mappen er ikke tilgængelig. Kontrollér, at den findes, og at denne pc har adgang til den.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>Denne pc hverken publicerer eller følger en konfiguration.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>Venter på den første kontrol af mappen.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>Ændringer publiceres automatisk.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>Ikke publiceret: Konfigurationen er ikke klar til at oprette medier eller henviser til indhold, der mangler på denne pc. Den tidligere version er stadig gældende.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>Der kræves adgangskoder: Angiv publiceringsadgangskoden, eller angiv de manglende adgangskoder på konfigurationssiderne.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>Publiceringsadgangskoden eller nøglerne på denne pc kunne ikke læses.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>Publiceret. Pc'er, der følger mappen, modtager denne version ved deres næste kontrol.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>Konfigurationen publiceres…</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>Mappen peger på en ældre version end den anvendte. Den ignoreres.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>Publiceringen er ændret. Den anvendes ikke.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>Mappen publiceres nu af en anden pc. Godkend den nye reference, eller stop med at følge.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>En anden pc publicerer til denne mappe. Overtag den for at publicere fra denne pc.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>Denne publicering kræver en nyere version af Foundry OSD.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>Opdateret.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>Konfigurationen er opdateret.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>Publiceringsadgangskoden åbner ikke den aktuelle publicering. Angiv den nye adgangskode.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>Publiceringsadgangskoden åbner ikke denne pc's publicering i denne mappe.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>Stop med at følge</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>Konfigurationen forbliver, som den er, og kan redigeres igen på denne pc.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>Stop med at følge?</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>Stop publicering</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>Mappen forbliver, som den er, og pc'er, der følger mappen, beholder den senest publicerede version. Denne pc publicerer ikke længere sin konfiguration.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>Stop publicering?</value>
+  </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>Henter {0}…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>Installerer {0}…</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>Overtag</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>En anden pc publicerer til denne mappe. En overtagelse fortsætter dens publicering med denne pc's nøgle. Pc'er, der følger mappen, skal godkende denne pc som ny reference én gang.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>Publiceringsnøglerne på denne pc kunne ikke læses. En overtagelse med den aktuelle publiceringsadgangskode fortsætter publiceringen med nye nøgler. Pc'er, der følger mappen, skal godkende denne pc som ny reference én gang.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>Overtag denne mappe</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>Denne adgangskode åbner ikke den aktuelle publicering.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>Filen kunne ikke læses.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>Denne fil kræver en nyere version af Foundry OSD.</value>
+  </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>Venter på, at download af delt indhold fuldføres…</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Forkert adgangssætning eller beskadiget fil.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>Denne adgangskode åbner ikke publiceringen, eller publiceringen er ændret.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Stop handling</value>
@@ -3590,6 +3789,15 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Nødvendige mediehemmeligheder er ikke klar.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Noget delt indhold kunne ikke installeres på denne pc. Det hentes igen, når reference-pc'en publicerer en ny version. Kontrollér Deling af konfiguration på siden Indstillinger.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Noget delt indhold er stadig ikke tilgængeligt efter gentagne kontroller. Publicer igen fra reference-pc'en, og kontrollér derefter Deling af konfiguration på siden Indstillinger.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Delt indhold downloades stadig. Oprettelse af medier er tilgængelig, når downloaden er fuldført.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Det valgte USB-drev er for lille til en cache. Brug et USB-drev på mindst 16 GB, eller vælg ”Opret uden cache” via pilen ved ”Opret USB”.</value>
@@ -4164,6 +4372,15 @@ Medtagne adgangskoder og adgangsnøgler: {2}</value>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Klar til at oprette USB medier</value>
   </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Delt indhold kunne ikke installeres</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Delt indhold er ikke tilgængeligt</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Venter på delt indhold</value>
+  </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Gennemgå advarsler om medieoutput</value>
   </data>
@@ -4308,13 +4525,13 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
     <value>Indeholder indstillinger, der kan forhindre Autopilot-tilmelding. Inkompatible tilmeldingstilstande blokeres under udrulningen.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Vælg en fil for at omdøbe, opdatere eller fjerne den. Kildefilerne skal være tilgængelige, indtil mediet er oprettet. Ændrede kilder skal opdateres.</value>
+    <value>Vælg en fil for at omdøbe eller fjerne den. Foundry beholder sin egen kopi af hver importeret fil. Hvis du vil bruge en opdateret fil, skal du fjerne posten og importere filen igen.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Svarfiler</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Kontrollér kilder</value>
+    <value>Kontrollér filer</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Indeholder kommandoer. Kontrollér, om de overlapper med Foundry-tilpasninger og installationshooks.</value>
@@ -4353,13 +4570,13 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
     <value>Filen skal angive en understøttet arkitektur og indeholde komponentindstillinger, der gælder for den.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Kataloget indeholder ugyldige eller dublerede poster. Opdater eller fjern de berørte filer.</value>
+    <value>Kataloget indeholder ugyldige eller dublerede poster. Fjern de berørte filer, og importér dem igen.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Brug gyldig XML til en Windows-svarfil på højst 4 MiB uden DTD'er eller eksterne entiteter. Validér filen med Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Nogle kilder mangler, er ændret eller er ugyldige. Opdater eller fjern disse poster, før du opretter medier.</value>
+    <value>Nogle filer mangler eller er ugyldige. Fjern disse poster, og importér filerne igen, før du opretter medier.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Standardvalget mangler – vælg et andet</value>
@@ -4374,16 +4591,13 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
     <value>Foundry bevarer din oprindelige fil og føjer sin påkrævede kommando til efter installationen til udrulningskopien. Du er fortsat ansvarlig for dine tilpassede indstillinger og kommandoer.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Brugerdefinerede filer kræver adgangskodebeskyttelse af udrulningsmediet i den generelle konfiguration. XML kan indeholde legitimationsoplysninger eller scripts. Foundry beholder kun en kopi af hver fil sammen med din konfiguration på denne pc, når »Husk adgangskoder« er slået til i »Sikkerhedskopiering og synkronisering af indstillinger«; ellers gemmes kun stien. Startafbildningen indeholder krypterede kopier.</value>
+    <value>Brugerdefinerede filer kræver adgangskodebeskyttelse af udrulningsmediet i den generelle konfiguration. XML kan indeholde legitimationsoplysninger eller scripts. Foundry beholder en kopi af hver importeret fil i sit filbibliotek på denne pc. Startafbildningen indeholder krypterede kopier.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Aktivér adgangskodebeskyttelse af udrulningsmediet i den generelle konfiguration for at bruge brugerdefinerede svarfiler.</value>
   </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Denne kilde er nu en kopi af en anden importeret fil. Fjern denne post, og vælg den eksisterende fil i stedet.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Opdater kilde</value>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry har ikke længere en gyldig kopi af denne fil. Fjern posten, og importér filen igen.</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Fjern</value>
@@ -4397,26 +4611,23 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Valgt fil</value>
   </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>Kilden er ændret. Brug Opdater kilde for at acceptere den opdaterede fil, før du opretter medier.</value>
-  </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>To kildekontroller venter stadig på filadgang. Gendan adgangen til de utilgængelige kildeplaceringer, og kontrollér derefter kilderne igen.</value>
+    <value>To filkontroller kører stadig. Vent, til de er færdige, og prøv derefter igen.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Kilden afventer kontrol. Vælg Kontrollér kilder for at validere den aktuelle fil uden at acceptere ændringer i indholdet.</value>
+    <value>Filen afventer kontrol. Vælg Kontrollér filer for at validere den gemte kopi.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Kilden kunne ikke læses. Kontrollér, at filen stadig findes og er tilgængelig.</value>
+    <value>Filen kunne ikke læses. Kontrollér, at den findes, og at du kan åbne den, og prøv derefter igen.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Valideringen af kilden overskred tidsgrænsen. Kontrollér adgangen til kildeplaceringen, og prøv igen.</value>
+    <value>Kontrollen af de gemte filer tog for lang tid. Prøv igen.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Kun indstillinger for specialize og oobeSystem understøttes. Fjern andre ikke-tomme konfigurationsfaser, instruktioner til offlinevedligeholdelse eller genforsegling til overvågningstilstand.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Kilden er valideret.</value>
+    <value>Filen er valideret.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Anvend opdatering</value>

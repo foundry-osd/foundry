@@ -21,13 +21,21 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock
-            Text="{Binding Description}"
-            TextWrapping="WrapWholeWords" />
+        <StackPanel Spacing="{ThemeResource FoundryTextGroupSpacing}">
+            <TextBlock
+                Text="{Binding Description}"
+                TextWrapping="WrapWholeWords" />
+            <TextBlock
+                Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
+                Text="{Binding PasswordOnlyHint}"
+                TextWrapping="WrapWholeWords"
+                Visibility="{Binding PasswordOnlyHintVisibility}" />
+        </StackPanel>
 
         <TextBox
             Grid.Row="1"
             Header="{Binding UserNameLabel}"
+            IsEnabled="{Binding IsAccountEditable}"
             PlaceholderText="{Binding UserNameLabel}"
             Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
@@ -36,6 +44,7 @@
             HorizontalAlignment="Stretch"
             DisplayMemberPath="DisplayName"
             Header="{Binding AccountTypeLabel}"
+            IsEnabled="{Binding IsAccountEditable}"
             ItemsSource="{Binding AccountTypeOptions}"
             SelectedItem="{Binding SelectedAccountType, Mode=TwoWay}" />
 
@@ -61,6 +70,7 @@
                 VerticalAlignment="Center"
                 behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
                 AutomationProperties.Name="{Binding PasswordLabel}"
+                IsEnabled="{Binding IsAccountEditable}"
                 IsOn="{Binding UsePassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
 

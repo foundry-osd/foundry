@@ -43,7 +43,7 @@ internal static class WinPeUnattendAssetProvisioner
                 cancellationToken.ThrowIfCancellationRequested();
                 string fileName = UnattendFileService.GetAssetFileName(file.Id);
                 string destination = Path.Combine(assetRoot, fileName);
-                byte[] content = UnattendFileService.ReadValidated(file);
+                byte[] content = UnattendFileService.ReadValidated(file, options.UnattendSourcePaths.GetValueOrDefault(file.Id));
                 try
                 {
                     SecretEnvelope envelope = MediaSecretEnvelopeProtector.EncryptBytes(

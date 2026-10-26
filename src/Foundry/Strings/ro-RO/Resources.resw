@@ -283,6 +283,12 @@ Licențiat sub licența MIT.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Note de lansare</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Fișierul selectat nu a putut fi adăugat în Foundry. Alegeți un fișier care poate fi citit și are cel mult 4 MiB.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Fișierul nu a fost adăugat</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Implicit</value>
   </data>
@@ -389,7 +395,7 @@ Licențiat sub licența MIT.</value>
     <value>Copiați parola</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Salvați acest fișier PFX și parola acum într-o locație sigură. Foundry salvează parola împreună cu configurația dvs. pe acest computer numai când opțiunea „Memorează parolele” este activată în „Copiere de rezervă și sincronizare a setărilor”. Veți avea nevoie de ambele valori pentru a genera medii de pornire pentru încărcarea hash hardware.</value>
+    <value>Salvați acest fișier PFX și parola acum într-o locație sigură. Foundry reține parola pe acest PC în seiful său local criptat. Aceasta părăsește acest PC doar într-un export sau o publicare, când este aleasă opțiunea „Include parolele”. Veți avea nevoie de ambele valori pentru a genera medii de pornire pentru încărcarea hash hardware.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Parola a fost copiată.</value>
@@ -737,7 +743,10 @@ Licențiat sub licența MIT.</value>
     <value>Indisponibil</value>
   </data>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
-    <value>Acest folder există deja în acest profil ca {0}.</value>
+    <value>Acest folder există deja în această configurație ca {0}.</value>
+  </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>Configurația a fost înlocuită în timpul importului, așa că setul de drivere nu a fost adăugat. Importați din nou folderul.</value>
   </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>Setul de drivere a fost eliminat, dar copia sa locală nu a putut fi ștearsă.</value>
@@ -749,7 +758,7 @@ Licențiat sub licența MIT.</value>
     <value>Set de drivere</value>
   </data>
   <data name="CustomDrivers.DuplicateName" xml:space="preserve">
-    <value>În acest profil există deja un set de drivere cu acest nume.</value>
+    <value>În această configurație există deja un set de drivere cu acest nume.</value>
   </data>
   <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
     <value>Nu există seturi de drivere personalizate. Importați un folder care conține drivere .inf pentru a începe.</value>
@@ -802,26 +811,23 @@ Licențiat sub licența MIT.</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Seturi de drivere</value>
   </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Profilul activ s-a schimbat în timpul importului, așa că setul de drivere nu a fost adăugat. Importați din nou folderul în acest profil.</value>
-  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Indisponibil la pornirea prin PXE. Driverele personalizate necesită mediul ISO sau USB complet.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
-    <value>Seturile de drivere ale acestui profil nu sunt valide. Verificați seturile incluse și setul implicit înainte de a crea sau actualiza mediul.</value>
+    <value>Seturile de drivere ale acestei configurații nu sunt valide. Verificați seturile incluse și setul implicit înainte de a crea sau actualiza mediul.</value>
   </data>
   <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
     <value>Copia locală a {0} lipsește sau este deteriorată. Importați din nou folderul sau excludeți setul înainte de a crea sau actualiza mediul.</value>
   </data>
   <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
-    <value>Includeți cel puțin un set de drivere în acest profil sau dezactivați driverele personalizate înainte de a crea sau actualiza mediul.</value>
+    <value>Includeți cel puțin un set de drivere în această configurație sau dezactivați driverele personalizate înainte de a crea sau actualiza mediul.</value>
   </data>
   <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
     <value>Eliminați setul de drivere</value>
   </data>
   <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) va fi eliminat din profilul curent.</value>
+    <value>{0} ({1}) va fi eliminat din configurația curentă.</value>
   </data>
   <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
     <value>Setul de drivere nu a putut fi eliminat. Încercați din nou.</value>
@@ -830,13 +836,13 @@ Licențiat sub licența MIT.</value>
     <value>Eliminați setul de drivere?</value>
   </data>
   <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
-    <value>Copia sa locală este ștearsă, cu excepția cazului în care o utilizează alt profil. Folderul original și suporturile existente nu sunt modificate.</value>
+    <value>Copia sa locală este ștearsă. Folderul original și suporturile existente nu sunt modificate.</value>
   </data>
   <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
     <value>Setați ca implicit</value>
   </data>
   <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
-    <value>Acest profil a atins numărul maxim de seturi de drivere. Eliminați unul înainte de a importa altul.</value>
+    <value>Această configurație a atins numărul maxim de seturi de drivere. Eliminați unul înainte de a importa altul.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Se verifică seturile de drivere personalizate…</value>
@@ -878,7 +884,7 @@ Licențiat sub licența MIT.</value>
     <value>Imagine selectată</value>
   </data>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
-    <value>În acest profil există deja o imagine cu acest nume.</value>
+    <value>În această configurație există deja o imagine cu acest nume.</value>
   </data>
   <data name="CustomImages.EditionLabel" xml:space="preserve">
     <value>Ediție</value>
@@ -935,7 +941,7 @@ Licențiat sub licența MIT.</value>
     <value>Indisponibil la pornirea prin PXE. Imaginile personalizate necesită mediul ISO sau USB complet.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Includeți cel puțin o imagine Windows disponibilă în acest profil. Restabiliți imaginile incluse care lipsesc și corectați sau ștergeți selecția imaginii sau a indexului preferat înainte de a crea sau de a actualiza mediul.</value>
+    <value>Includeți cel puțin o imagine Windows disponibilă în această configurație. Restabiliți imaginile incluse care lipsesc și corectați sau ștergeți selecția imaginii sau a indexului preferat înainte de a crea sau de a actualiza mediul.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Reîmprospătați</value>
@@ -944,7 +950,7 @@ Licențiat sub licența MIT.</value>
     <value>Elimină imaginea</value>
   </data>
   <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) va fi eliminată din profilul curent, iar copia sa locală va fi ștearsă.</value>
+    <value>{0} ({1}) va fi eliminată din configurația curentă, iar copia sa locală va fi ștearsă.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Elimină</value>
@@ -953,7 +959,7 @@ Licențiat sub licența MIT.</value>
     <value>Eliminați imaginea personalizată?</value>
   </data>
   <data name="CustomImages.RemoveWarning" xml:space="preserve">
-    <value>Celelalte profiluri care utilizează această imagine o vor afișa ca lipsă. Fișierul original și suporturile existente nu sunt modificate.</value>
+    <value>Fișierul original și suporturile existente nu sunt modificate.</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Editează</value>
@@ -2768,7 +2774,7 @@ Licențiat sub licența MIT.</value>
     <value>Furnizați un șablon de profil Wi-Fi de întreprindere</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Fraza de acces este salvată împreună cu configurația dvs. pe acest computer numai când opțiunea „Memorează parolele” este activată în „Copiere de rezervă și sincronizare a setărilor”. În caz contrar, nu este salvată și trebuie introdusă din nou, de exemplu după repornirea Foundry OSD.</value>
+    <value>Foundry reține fraza de acces pe acest PC în seiful său local criptat. Aceasta părăsește acest PC doar într-un export sau o publicare, când este aleasă opțiunea „Include parolele”.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importă profilul Wi-Fi gestionat de Foundry în Windows înainte de OOBE, pentru a păstra conectivitatea de implementare după WinPE.</value>
@@ -3001,299 +3007,6 @@ Licențiat sub licența MIT.</value>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Director de lucru (relativ; dacă este gol se utilizează rădăcina conținutului)</value>
   </data>
-  <data name="Profiles.Active" xml:space="preserve">
-    <value>Setările curente</value>
-  </data>
-  <data name="Profiles.AutoSync" xml:space="preserve">
-    <value>Sincronizare automată</value>
-  </data>
-  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
-    <value>Alegeți alt nume</value>
-  </data>
-  <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>Unele parole sau chei de acces vechi nu au putut fi eliminate. Încercați din nou când Managerul de acreditări Windows este disponibil.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
-    <value>Închide fără a salva</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
-    <value>Cele mai recente modificări nu au putut fi salvate și se vor pierde.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
-    <value>Închideți fără a salva setările?</value>
-  </data>
-  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
-    <value>Confirmați parola</value>
-  </data>
-  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>Confirmați parola fișierului</value>
-  </data>
-  <data name="Profiles.Conflict" xml:space="preserve">
-    <value>Aceste setări au fost modificate pe acest PC și de altcineva. Alegeți versiunea pe care doriți să o păstrați.</value>
-  </data>
-  <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>Versiunea aleasă o va înlocui pe cealaltă. Alegeți mai întâi „Duplică” dacă doriți să păstrați o copie separată.</value>
-  </data>
-  <data name="Profiles.ConnectAction" xml:space="preserve">
-    <value>Conectare</value>
-  </data>
-  <data name="Profiles.ConnectDescription" xml:space="preserve">
-    <value>Alege fișierul de conectare oferit de cineva din echipa ta.</value>
-  </data>
-  <data name="Profiles.ConnectionPassword" xml:space="preserve">
-    <value>Parolă de conectare</value>
-  </data>
-  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
-    <value>Celelalte PC-uri vor avea nevoie de această parolă pentru a se conecta.</value>
-  </data>
-  <data name="Profiles.Continue" xml:space="preserve">
-    <value>Continuă</value>
-  </data>
-  <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Partajează această configurație</value>
-  </data>
-  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
-    <value>Alege un folder de rețea partajat pentru această configurație.</value>
-  </data>
-  <data name="Profiles.Delete" xml:space="preserve">
-    <value>Șterge de pe acest PC</value>
-  </data>
-  <data name="Profiles.DeleteAction" xml:space="preserve">
-    <value>Șterge</value>
-  </data>
-  <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>Șterge și pentru toată lumea</value>
-  </data>
-  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
-    <value>Șterge pentru toată lumea</value>
-  </data>
-  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
-    <value>Ștergi pentru toată lumea?</value>
-  </data>
-  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>Ștergeți aceste setări partajate pentru toată lumea? Cei care au modificări nesincronizate trebuie să își duplice setările pentru a le păstra.</value>
-  </data>
-  <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>Ștergeți aceste setări de pe acest PC? Exportați-le mai întâi dacă doriți o copie de rezervă.</value>
-  </data>
-  <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>Aceste setări partajate au fost șterse. Alegeți „Duplică” pentru a păstra modificările pe acest PC.</value>
-  </data>
-  <data name="Profiles.Disconnect" xml:space="preserve">
-    <value>Deconectare</value>
-  </data>
-  <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>Opriți sincronizarea acestei configurații pe acest PC? Setările actuale vor fi păstrate. Configurația partajată și celelalte PC-uri nu vor fi modificate.</value>
-  </data>
-  <data name="Profiles.Export" xml:space="preserve">
-    <value>Exportă</value>
-  </data>
-  <data name="Profiles.ExportDescription" xml:space="preserve">
-    <value>Salvează această configurație într-un fișier pentru backup sau pentru alt PC.</value>
-  </data>
-  <data name="Profiles.ExportProtection" xml:space="preserve">
-    <value>Alege o parolă pentru a proteja fișierul exportat. Vei avea nevoie de ea pentru a importa configurația.</value>
-  </data>
-  <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Salvează fișierul de conectare</value>
-  </data>
-  <data name="Profiles.Failed" xml:space="preserve">
-    <value>Acțiunea nu a putut fi finalizată. Verificați fișierul, parola acestuia, permisiunile de acces și conexiunea la rețea.</value>
-  </data>
-  <data name="Profiles.FolderExists" xml:space="preserve">
-    <value>Acest nume de folder este deja utilizat. Conectați-vă folosind un fișier de conexiune sau reveniți și alegeți alt nume.</value>
-  </data>
-  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
-    <value>Alegeți un subfolder nou și gol în folderul partajat. Fișierele existente vor rămâne neschimbate.</value>
-  </data>
-  <data name="Profiles.Forget" xml:space="preserve">
-    <value>Șterge parolele și accesul salvate</value>
-  </data>
-  <data name="Profiles.ForgetAction" xml:space="preserve">
-    <value>Șterge</value>
-  </data>
-  <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>Eliminați parolele salvate, fișierele confidențiale salvate de Foundry și accesul la sincronizare pentru aceste setări de pe acest PC? Va trebui să adăugați datele lipsă și să vă reconectați pentru sincronizare. Suporturile create deja nu se vor modifica.</value>
-  </data>
-  <data name="Profiles.Heading" xml:space="preserve">
-    <value>Setările Foundry</value>
-  </data>
-  <data name="Profiles.Import" xml:space="preserve">
-    <value>Importă</value>
-  </data>
-  <data name="Profiles.ImportDescription" xml:space="preserve">
-    <value>Adaugă o configurație dintr-un fișier.</value>
-  </data>
-  <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>Include parole și fișiere confidențiale</value>
-  </data>
-  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
-    <value>Persoanele care folosesc această configurație pot citi parolele și fișierele confidențiale incluse.</value>
-  </data>
-  <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>Lipsesc unele parole sau fișiere sursă. Adăugați-le înainte de a salva sau partaja parole.</value>
-  </data>
-  <data name="Profiles.InvalidFolderName" xml:space="preserve">
-    <value>Folosiți un nume fără caractere speciale și fără punct sau spațiu la final.</value>
-  </data>
-  <data name="Profiles.JoinChanged" xml:space="preserve">
-    <value>Configurația partajată s-a schimbat. Verificați cea mai recentă versiune înainte de conectare.</value>
-  </data>
-  <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Conectează-te la o configurație partajată</value>
-  </data>
-  <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>Folosește versiunea de pe acest PC</value>
-  </data>
-  <data name="Profiles.LearnMore" xml:space="preserve">
-    <value>Aflați mai multe</value>
-  </data>
-  <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Păstrează parolele pentru contul tău Windows pe acest PC.</value>
-  </data>
-  <data name="Profiles.Locked" xml:space="preserve">
-    <value>Windows nu poate debloca aceste setări salvate sau accesul lor la sincronizare pentru contul dvs. de pe acest PC.</value>
-  </data>
-  <data name="Profiles.Manage" xml:space="preserve">
-    <value>Mai multe opțiuni</value>
-  </data>
-  <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Fișiere lipsă sau neincluse: {0}. Selectați locațiile lor înainte de a crea suporturile.</value>
-  </data>
-  <data name="Profiles.Name" xml:space="preserve">
-    <value>Numele configurației</value>
-  </data>
-  <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>Parola fișierului</value>
-  </data>
-  <data name="Profiles.PasswordMismatch" xml:space="preserve">
-    <value>Parolele nu coincid.</value>
-  </data>
-  <data name="Profiles.Preview" xml:space="preserve">
-    <value>{0}
-Fișiere incluse: {1}
-Parole și chei de acces incluse: {2}</value>
-  </data>
-  <data name="Profiles.Ready" xml:space="preserve">
-    <value>Pregătit</value>
-  </data>
-  <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Alegeți o parolă pentru a proteja fișierul de conexiune. Comunicați parola separat. Salvați fișierul în afara folderului configurației partajate.</value>
-  </data>
-  <data name="Profiles.Remember" xml:space="preserve">
-    <value>Memorează parolele</value>
-  </data>
-  <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>Reține această conexiune pe acest PC</value>
-  </data>
-  <data name="Profiles.Rename" xml:space="preserve">
-    <value>Redenumește</value>
-  </data>
-  <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>Această acțiune va înlocui setările pe care le utilizați. Pentru a păstra mai întâi o copie, anulați și alegeți „Duplică”.</value>
-  </data>
-  <data name="Profiles.RestoreAccess" xml:space="preserve">
-    <value>Restabilire acces</value>
-  </data>
-  <data name="Profiles.Rollback" xml:space="preserve">
-    <value>Versiunile salvate în folderul partajat s-au modificat în mod neașteptat. Restaurați dintr-o copie de rezervă de încredere.</value>
-  </data>
-  <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Duplică</value>
-  </data>
-  <data name="Profiles.Select" xml:space="preserve">
-    <value>Alegeți o configurație</value>
-  </data>
-  <data name="Profiles.Setup" xml:space="preserve">
-    <value>Configurează</value>
-  </data>
-  <data name="Profiles.SetupAction" xml:space="preserve">
-    <value>Configurează sincronizarea…</value>
-  </data>
-  <data name="Profiles.SetupDescription" xml:space="preserve">
-    <value>Partajează această configurație sau conectează-te la una pe care echipa ta o folosește deja.</value>
-  </data>
-  <data name="Profiles.ShareAction" xml:space="preserve">
-    <value>Partajare</value>
-  </data>
-  <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>Oricine poate importa sau sincroniza aceste setări poate citi parolele și cheile private ale certificatelor incluse.</value>
-  </data>
-  <data name="Profiles.SharedBusy" xml:space="preserve">
-    <value>O altă operațiune folosește acest folder partajat. Încercați din nou în scurt timp. Modificările sunt păstrate pe acest PC.</value>
-  </data>
-  <data name="Profiles.SharedFolder" xml:space="preserve">
-    <value>Folder partajat</value>
-  </data>
-  <data name="Profiles.SharedUnavailable" xml:space="preserve">
-    <value>Folderul partajat nu poate fi accesat. Verificați adresa acestuia și accesul la rețea. Modificările sunt păstrate pe acest PC.</value>
-  </data>
-  <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>Folosiți același folder din rețea pe toate PC-urile. Acesta trebuie să folosească SMB 3 cu criptare obligatorie. Folderele sincronizate în cloud nu sunt acceptate.</value>
-  </data>
-  <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Foundry nu va mai salva parolele acestei configurații pe acest PC.</value>
-  </data>
-  <data name="Profiles.StopRememberingAction" xml:space="preserve">
-    <value>Oprește memorarea</value>
-  </data>
-  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
-    <value>Oprești memorarea parolelor?</value>
-  </data>
-  <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Sincronizează</value>
-  </data>
-  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
-    <value>Se sincronizează…</value>
-  </data>
-  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
-    <value>Alegeți o versiune</value>
-  </data>
-  <data name="Profiles.SyncStatusError" xml:space="preserve">
-    <value>Sincronizarea nu este posibilă</value>
-  </data>
-  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
-    <value>Neconfigurat</value>
-  </data>
-  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
-    <value>Folder indisponibil</value>
-  </data>
-  <data name="Profiles.SyncStatusPending" xml:space="preserve">
-    <value>Modificări de sincronizat</value>
-  </data>
-  <data name="Profiles.SyncStatusReady" xml:space="preserve">
-    <value>Pregătit pentru sincronizare</value>
-  </data>
-  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
-    <value>La zi</value>
-  </data>
-  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
-    <value>Modificări disponibile</value>
-  </data>
-  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
-    <value>Necesită atenție</value>
-  </data>
-  <data name="Profiles.Synchronize" xml:space="preserve">
-    <value>Sincronizează</value>
-  </data>
-  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
-    <value>Menține această configurație actualizată pe PC-urile echipei tale.</value>
-  </data>
-  <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>Setările sunt la zi</value>
-  </data>
-  <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>Foundry nu poate deschide acest format de setări. Actualizați Foundry și încercați din nou.</value>
-  </data>
-  <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>Sunt disponibile modificări de pe alt PC. Selectați „Sincronizează” pentru a le aplica.</value>
-  </data>
-  <data name="Profiles.UseRemote" xml:space="preserve">
-    <value>Folosește versiunea partajată</value>
-  </data>
-  <data name="Profiles.Validation" xml:space="preserve">
-    <value>Verificați câmpurile obligatorii. Dacă vi se cere un folder din rețea, folosiți o cale precum \\server\share\folder. Dacă introduceți parola fișierului de două ori, asigurați-vă că ambele valori sunt identice.</value>
-  </data>
   <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
     <value>Foundry OSD nu a putut salva setările proxy. Încercați din nou. Detaliile se găsesc în jurnal.</value>
   </data>
@@ -3429,12 +3142,6 @@ Parole și chei de acces incluse: {2}</value>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>General</value>
   </data>
-  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Creați copii de rezervă ale setărilor, transferați-le pe alt PC sau mențineți-le sincronizate.</value>
-  </data>
-  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Copiere de rezervă și sincronizare a setărilor</value>
-  </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Configurați modul în care Foundry OSD se conectează la serviciile online.</value>
   </data>
@@ -3464,6 +3171,498 @@ Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Actualizați aplicația</value>
+  </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>Acceptare</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>Acceptați noua referință</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>Folderul este acum publicat de un alt PC: {0}. Acceptați-l numai dacă vă așteptați la această modificare, de exemplu după o preluare; altfel, nu mai urmăriți folderul.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>Acceptați noua referință?</value>
+  </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Referința s-a modificat cât timp această casetă de dialog era deschisă. Examinați noua cheie înainte de a o accepta.</value>
+  </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Mutați această configurație cu un fișier criptat sau mențineți mai multe PC-uri aliniate printr-un folder partajat.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Partajarea configurației</value>
+  </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>Modificare</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>Modificați parola</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>Publicarea curentă este rescrisă cu noua parolă. Fișierele de conținut nu sunt criptate din nou, deci cine cunoștea parola veche le poate citi în continuare: utilizați Resetarea publicării pentru a revoca complet cititorii anteriori. PC-urile care urmăresc folderul introduc noua parolă o singură dată.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>Modificați parola de publicare</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>Verificați acum</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Confirmați fraza de acces</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>Confirmați parola</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Se descarcă</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>Numărul de elemente care nu au putut fi instalate: {0}. Sunt preluate din nou când PC-ul de referință publică o versiune nouă.</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Set de drivere</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>Fișier</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Imagine</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Pachet de post-instalare</value>
+  </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>Este posibil ca acest conținut să fie deteriorat în folder. Publicați din nou de pe PC-ul de referință.</value>
+  </data>
+  <data name="Sharing.CopyButton" xml:space="preserve">
+    <value>Copiază</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>Parola de publicare curentă</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>Introduceți parola</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>Parola de publicare este necesară din nou, de exemplu după o resetare a parolei Windows sau după ce PC-ul de referință a modificat-o.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>Introduceți parola de publicare</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Exportă</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>Configurația a fost exportată.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Salvați setările și fișierele mici într-un fișier criptat. Pachetele de post-instalare, seturile de drivere și imaginile nu sunt incluse.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>Configurația nu a putut fi exportată. Verificați destinația și încercați din nou.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>Fișierele acestei configurații depășesc în total 16 MiB și nu pot fi exportate.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>Configurația a fost exportată, dar unele fișiere lipsesc sau sunt deteriorate pe acest PC și nu au fost incluse (număr: {0}). Selectați-le din nou pe paginile de configurare, apoi exportați din nou.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Exportă configurația</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>Fișier</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Configurație Foundry</value>
+  </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>Folder</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>Alegeți folderul de publicare</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>Urmărire</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>Utilizați configurația pe care un PC de referință o publică într-un folder. Setările publicate devin doar în citire pe acest PC.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>Introduceți folderul în care publică PC-ul de referință și parola sa de publicare, apoi deschideți-l pentru a previzualiza publicarea.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>Urmărirea înlocuiește configurația curentă și face setările publicate doar în citire. Calea de ieșire ISO, folderul suplimentar de drivere WinPE și setările de telemetrie ale acestui PC sunt păstrate.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>Urmăriți un folder</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>Cheie găsită</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>Versiune găsită</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>Uitați parola de publicare</value>
+  </data>
+  <data name="Sharing.GenerateButton" xml:space="preserve">
+    <value>Generează</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>Importă</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>Configurația a fost importată.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>Configurația a fost importată. Pe acest PC lipsește conținut: importați-l din nou pe pagina sa.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Înlocuiți această configurație cu un fișier exportat sau cu un profil din versiunea anterioară.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>Configurația nu a putut fi importată. Configurația curentă nu a fost modificată.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>Configurația a fost importată, dar parolele sale nu au putut fi salvate. Introduceți-le din nou pe paginile de configurare.</value>
+  </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>Importul nu este disponibil cât timp acest PC urmărește un folder. Opriți mai întâi urmărirea.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Importă configurația</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Include parolele</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>Oricine poate citi folderul și cunoaște parola de publicare poate citi aceste parole.</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Oricine are acest fișier și fraza sa de acces poate citi aceste parole.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>Acest fișier nu este o configurație Foundry sau este deteriorat.</value>
+  </data>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>Ultima verificare reușită</value>
+  </data>
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>Ultima publicare</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
+    <value>Această configurație nu poate fi deschisă de acest utilizator Windows.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>Această configurație este publicată de {0} și este doar în citire pe acest PC. Se pot modifica doar calea de ieșire ISO, folderul suplimentar de drivere WinPE și setările de telemetrie.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>Această configurație este publicată de {0} și este doar în citire pe acest PC. Publicarea nu include parole: introduceți-le aici. Se pot modifica și calea de ieșire ISO, folderul suplimentar de drivere WinPE și setările de telemetrie.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>Gestionată de un PC de referință</value>
+  </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Unele fișiere utilizate de configurație nu au putut fi recuperate. Selectați-le din nou în paginile de configurare.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Sincronizarea configurației din versiunile anterioare nu mai este acceptată. Pentru a partaja această configurație, utilizați Publicare într-un folder pe PC-ul de referință.</value>
+  </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Verificați configurația</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Parolele salvate nu au putut fi restaurate. Introduceți-le din nou în paginile de configurare.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Importați din nou aceste elemente pe paginile lor. Până atunci, elementele de configurare corespunzătoare nu sunt pregătite.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Lipsește pe acest PC</value>
+  </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>Cheie nouă</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>Parolă de publicare nouă</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>Acest folder nu conține o configurație publicată.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>Neverificat încă: aceste valori provin din folder și sunt confirmate numai când parola de publicare curentă deschide publicarea.</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Deschide</value>
+  </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Deschide fișierul</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Deschide profilul selectat</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>Operațiunea nu a putut fi finalizată. Consultați jurnalul pentru detalii.</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>Fraza de acces a fost copiată în clipboard.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Frază de acces</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>Frazele de acces nu se potrivesc.</value>
+  </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>Noua parolă este salvată. Modificarea se finalizează la următoarea publicare reușită.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>Parola de publicare a fost modificată. PC-urile care urmăresc folderul introduc noua parolă o singură dată.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>Parola a fost copiată în clipboard.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>Parolele nu se potrivesc.</value>
+  </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Această configurație este gestionată de un PC de referință: aici se poate introduce doar parola.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Incluse</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>Acest lucru se poate întâmpla după o resetare a parolei Windows. Preluați folderul cu parola de publicare curentă pentru a continua publicarea; PC-urile care urmăresc folderul acceptă apoi o singură dată acest PC ca nouă referință.</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Neincluse</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Exportată la</value>
+  </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>Dimensiunea descărcării</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Nume</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Parole</value>
+  </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>Publicată la</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>PC de referință</value>
+  </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>Cheia anterioară</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Profiluri din versiunea anterioară</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Aceste profiluri au fost salvate pe acest PC înainte de actualizare.</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>Publicarea nu a ajuns încă în întregime în acest folder. Încercați din nou peste câteva momente.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>Parolă de publicare</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>Publicarea a fost resetată. PC-urile care urmăresc folderul introduc noua parolă o singură dată.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>Publicare</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>Faceți din acest PC referința: configurația sa este publicată într-un folder pe care îl urmăresc alte PC-uri.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>Alegeți un folder gol sau unul în care acest PC publică deja: o partajare de rețea, un folder OneDrive sau SharePoint ori un folder local. PC-urile care urmăresc folderul au nevoie de parola de publicare pentru a-l citi.</value>
+  </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>Publicați acum</value>
+  </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Se verifică folderul…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Se finalizează publicarea…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>Se pregătește {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>Se trimite {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>Se verifică {0}…</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>Publicare într-un folder</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>Importul înlocuiește configurația curentă. Calea de ieșire ISO, folderul suplimentar de drivere WinPE și setările de telemetrie ale acestui PC sunt păstrate.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>Resetare</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>Resetarea publicării</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>O parolă nouă și o cheie de conținut nouă: fiecare fișier de conținut este criptat din nou, ceea ce revocă complet cititorii anteriori. PC-urile care urmăresc folderul introduc noua parolă o singură dată.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>Resetați publicarea</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>Cititorii anteriori pot încă deschide conținutul până la următoarea publicare reușită.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>Acest PC urmărește {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>Acest PC își publică configurația</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>Cel puțin 12 caractere, și nu același caracter repetat (de exemplu aaaaaaaaaaaa).</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>O parte din conținutul partajat al publicației urmărite nu a putut fi descărcată. Verificați Partajarea configurației pe pagina Setări.</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>Publicarea și urmărirea nu sunt disponibile în această sesiune, deoarece starea partajării nu a putut fi citită. Consultați jurnalul pentru detalii.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>Se verifică folderul: publicarea nu a ajuns încă în întregime și este citită din nou la următoarea verificare.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>Configurația este aplicată. Conținutul partajat se descarcă.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>Configurația este aplicată, dar o parte din conținutul partajat nu a putut fi instalată.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>Configurația este aplicată, dar o parte din conținutul partajat tot nu este disponibilă după verificări repetate.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>Acest folder conține fișiere care nu sunt o publicare a acestui PC. Alegeți un folder gol.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>Folderul nu este disponibil. Verificați dacă există și dacă acest PC îl poate accesa.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>Acest PC nu publică și nu urmărește nicio configurație.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>Se așteaptă prima verificare a folderului.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>Modificările sunt publicate automat.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>Nepublicată: configurația nu este pregătită pentru a crea suporturi media sau face referire la conținut care lipsește de pe acest PC. Versiunea anterioară rămâne cea curentă.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>Sunt necesare parole: introduceți parola de publicare sau introduceți parolele lipsă în paginile de configurare.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>Parola de publicare sau cheile acestui PC nu au putut fi citite.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>Publicată. PC-urile care urmăresc folderul primesc această versiune la următoarea verificare.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>Se publică configurația…</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>Folderul indică o versiune mai veche decât cea aplicată. Este ignorată.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>Publicarea a fost modificată. Nu este aplicată.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>Folderul este acum publicat de un alt PC. Acceptați noua referință sau opriți urmărirea.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>Un alt PC publică în acest folder. Preluați-l pentru a publica de pe acest PC.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>Această publicare necesită o versiune mai nouă de Foundry OSD.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>La zi.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>Configurație actualizată.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>Parola de publicare nu deschide publicarea curentă. Introduceți noua parolă.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>Parola de publicare nu deschide publicarea acestui PC din acest folder.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>Opriți urmărirea</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>Configurația rămâne așa cum este și devine din nou editabilă pe acest PC.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>Opriți urmărirea?</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>Opriți publicarea</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>Folderul rămâne așa cum este, iar PC-urile care îl urmăresc păstrează ultima versiune publicată. Acest PC nu își mai publică configurația.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>Opriți publicarea?</value>
+  </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>Se descarcă {0}…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>Se instalează {0}…</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>Preluare</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>Un alt PC publică în acest folder. Preluarea continuă publicarea sa cu cheia acestui PC; PC-urile care urmăresc folderul trebuie să accepte o singură dată acest PC ca nouă referință.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>Cheile de publicare ale acestui PC nu au putut fi citite. Preluarea cu parola de publicare curentă continuă publicarea cu chei noi; PC-urile care urmăresc folderul trebuie să accepte o singură dată acest PC ca nouă referință.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>Preluați acest folder</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>Această parolă nu deschide publicarea curentă.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>Fișierul nu a putut fi citit.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>Acest fișier necesită o versiune mai nouă de Foundry OSD.</value>
+  </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>Versiune</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>Se așteaptă finalizarea descărcării conținutului partajat…</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Frază de acces greșită sau fișier deteriorat.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>Această parolă nu deschide publicarea sau publicarea a fost modificată.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Oprește operația</value>
@@ -3590,6 +3789,15 @@ Parole și chei de acces incluse: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Secretele media necesare nu sunt gata.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>O parte din conținutul partajat nu a putut fi instalată pe acest PC. Este preluată din nou când PC-ul de referință publică o versiune nouă. Verificați Partajarea configurației pe pagina Setări.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>O parte din conținutul partajat nu este disponibilă nici după verificări repetate. Publicați din nou de pe PC-ul de referință, apoi verificați Partajarea configurației pe pagina Setări.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Conținutul partajat se descarcă încă. Crearea suporturilor va fi disponibilă după finalizarea descărcării.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Unitatea USB selectată este prea mică pentru un cache. Utilizați o unitate USB de cel puțin 16 GB sau selectați „Creați fără cache” din săgeata butonului „Creați USB”.</value>
@@ -4164,6 +4372,15 @@ Parole și chei de acces incluse: {2}</value>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Gata pentru a crea USB media</value>
   </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Conținutul partajat nu a putut fi instalat</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Conținutul partajat nu este disponibil</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Se așteaptă conținutul partajat</value>
+  </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Examinați avertismentele de ieșire media</value>
   </data>
@@ -4308,13 +4525,13 @@ Aplicarea actualizării repornește Foundry OSD.</value>
     <value>Conține setări care pot împiedica înscrierea în Autopilot; modurile de înscriere incompatibile vor fi blocate în timpul implementării.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Selectați un fișier pentru a-l redenumi, actualiza sau elimina. Fișierele sursă trebuie să rămână disponibile până la crearea suportului; sursele modificate trebuie actualizate.</value>
+    <value>Selectați un fișier pentru a-l redenumi sau elimina. Foundry păstrează propria copie a fiecărui fișier importat; pentru a utiliza un fișier actualizat, eliminați intrarea și importați din nou fișierul.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Fișiere de răspuns</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Verifică sursele</value>
+    <value>Verifică fișierele</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Conține comenzi; verificați posibilele conflicte cu personalizările Foundry și punctele de execuție ale instalării.</value>
@@ -4353,13 +4570,13 @@ Aplicarea actualizării repornește Foundry OSD.</value>
     <value>Fișierul trebuie să declare o arhitectură acceptată și să conțină setări de componente aplicabile acesteia.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Catalogul conține intrări nevalide sau duplicate. Actualizați sau eliminați fișierele afectate.</value>
+    <value>Catalogul conține intrări nevalide sau duplicate. Eliminați fișierele afectate și importați-le din nou.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Folosiți XML valid pentru un fișier de răspuns Windows de cel mult 4 MiB, fără DTD-uri sau entități externe. Validați fișierul cu Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Unele surse lipsesc, au fost modificate sau sunt nevalide. Actualizați sau eliminați aceste intrări înainte de a crea suportul.</value>
+    <value>Unele fișiere lipsesc sau sunt nevalide. Eliminați aceste intrări și importați din nou fișierele înainte de a crea suportul.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Opțiunea implicită lipsește — alegeți un înlocuitor</value>
@@ -4374,16 +4591,13 @@ Aplicarea actualizării repornește Foundry OSD.</value>
     <value>Foundry păstrează fișierul original și adaugă comanda sa obligatorie pentru etapa de după instalare în copia pentru implementare. Rămâneți responsabil pentru setările și comenzile personalizate.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Fișierele personalizate necesită protejarea prin parolă a suportului de implementare în configurația generală. XML-ul poate conține acreditări sau scripturi. Foundry păstrează o copie a fiecărui fișier împreună cu configurația dvs. pe acest computer numai când opțiunea „Memorează parolele” este activată în „Copiere de rezervă și sincronizare a setărilor”; în caz contrar, salvează doar calea. Imaginea de pornire conține copii criptate.</value>
+    <value>Fișierele personalizate necesită protejarea prin parolă a suportului de implementare în configurația generală. XML-ul poate conține acreditări sau scripturi. Foundry păstrează o copie a fiecărui fișier importat în biblioteca sa de fișiere pe acest computer. Imaginea de pornire conține copii criptate.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Activați protejarea prin parolă a suportului de implementare în configurația generală pentru a folosi fișiere de răspuns personalizate.</value>
   </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Această sursă dublează acum un alt fișier importat. Eliminați această intrare și alegeți fișierul existent.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Actualizează sursa</value>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry nu mai are o copie validă a acestui fișier. Eliminați intrarea și importați din nou fișierul.</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Elimină</value>
@@ -4397,26 +4611,23 @@ Aplicarea actualizării repornește Foundry OSD.</value>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Fișier selectat</value>
   </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>Sursa a fost modificată. Folosiți Actualizează sursa pentru a accepta fișierul actualizat înainte de a crea suportul.</value>
-  </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Două verificări ale surselor încă așteaptă accesul la fișiere. Restabiliți accesul la locațiile indisponibile, apoi verificați din nou sursele.</value>
+    <value>Două verificări de fișiere sunt încă în desfășurare. Așteptați să se termine, apoi încercați din nou.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Verificarea sursei este în așteptare. Alegeți Verifică sursele pentru a valida fișierul curent fără a accepta modificări ale conținutului.</value>
+    <value>Verificarea fișierului este în așteptare. Alegeți Verifică fișierele pentru a valida copia stocată.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Sursa nu a putut fi citită. Verificați dacă fișierul mai există și este accesibil.</value>
+    <value>Fișierul nu a putut fi citit. Verificați dacă există și dacă îl puteți deschide, apoi încercați din nou.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Validarea sursei a expirat. Verificați accesul la locația sursei și încercați din nou.</value>
+    <value>Verificarea fișierelor stocate a durat prea mult. Încercați din nou.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Sunt acceptate numai setările din specialize și oobeSystem. Eliminați celelalte etape nevide, instrucțiunile de întreținere offline sau pregătirea pentru repornire în modul audit.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Sursă validată.</value>
+    <value>Fișier validat.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Aplică actualizarea</value>

@@ -30,7 +30,7 @@
                     <FontIcon Glyph="&#xE790;" />
                 </wct:SettingsCard.HeaderIcon>
             </wct:SettingsCard>
-            <views:DeploymentProfilesControl />
+            <views:ConfigurationSharingControl />
             <wct:SettingsCard x:Name="ProxySettingsCard"
                 x:Uid="SettingsPage_ProxyCard"
                 Click="ProxySettingsCard_Click"

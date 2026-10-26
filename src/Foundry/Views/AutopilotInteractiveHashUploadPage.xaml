@@ -15,16 +15,20 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <controls:PageHeader
-            x:Uid="AutopilotInteractiveHashUploadPageHeader"
-            DocumentationUrl="{x:Bind ViewModel.InteractiveDocumentationUrl, Mode=OneWay}"
-            IconGlyph="&#xE928;">
-            <controls:PageHeader.ActionContent>
-                <Button
-                    Click="OnModeActionClick"
-                    Content="{x:Bind ViewModel.InteractiveHardwareHashUploadActionText, Mode=OneWay}" />
-            </controls:PageHeader.ActionContent>
-        </controls:PageHeader>
+        <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+            <controls:PageHeader
+                x:Uid="AutopilotInteractiveHashUploadPageHeader"
+                DocumentationUrl="{x:Bind ViewModel.InteractiveDocumentationUrl, Mode=OneWay}"
+                IconGlyph="&#xE928;">
+                <controls:PageHeader.ActionContent>
+                    <Button
+                        Click="OnModeActionClick"
+                        Content="{x:Bind ViewModel.InteractiveHardwareHashUploadActionText, Mode=OneWay}"
+                        IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}" />
+                </controls:PageHeader.ActionContent>
+            </controls:PageHeader>
+            <controls:ManagedConfigurationBanner />
+        </StackPanel>
 
         <ScrollView x:Name="InteractiveContentScrollView"
             Grid.Row="1"

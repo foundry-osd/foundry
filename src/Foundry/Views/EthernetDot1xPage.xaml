@@ -25,10 +25,12 @@
                     <ToggleSwitch
                         x:Uid="EthernetDot1xPageEnableToggle"
                         behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                        IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}"
                         IsOn="{x:Bind ViewModel.IsDot1xEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Style="{StaticResource FoundryPageHeaderToggleSwitchStyle}" />
                 </controls:PageHeader.ActionContent>
             </controls:PageHeader>
+            <controls:ManagedConfigurationBanner />
 
             <ContentControl
                 HorizontalContentAlignment="Stretch"
@@ -36,7 +38,8 @@
                 <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
                     <wct:SettingsCard
                         HorizontalContentAlignment="Stretch"
-                        Header="{x:Bind ViewModel.ProfileTemplateLabel, Mode=OneWay}">
+                        Header="{x:Bind ViewModel.ProfileTemplateLabel, Mode=OneWay}"
+                        IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}">
                         <StackPanel
                             HorizontalAlignment="Right"
                             Spacing="{ThemeResource FoundrySpace4}">
@@ -47,7 +50,9 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBox
                                     Width="{ThemeResource FoundryWideInputMinWidth}"
-                                    Text="{x:Bind ViewModel.Dot1xProfileTemplatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    AutomationProperties.Name="{x:Bind ViewModel.ProfileTemplateLabel, Mode=OneWay}"
+                                    IsReadOnly="True"
+                                    Text="{x:Bind ViewModel.Dot1xProfileTemplateFileName, Mode=OneWay}" />
                                 <Button
                                     Grid.Column="1"
                                     MinWidth="{StaticResource FoundryCompactActionMinWidth}"
@@ -63,7 +68,9 @@
                                 Visibility="{x:Bind ViewModel.Dot1xProfileTemplateValidationVisibility, Mode=OneWay}" />
                         </StackPanel>
                     </wct:SettingsCard>
-                    <wct:SettingsCard Header="{x:Bind ViewModel.RequiresCertificateText, Mode=OneWay}">
+                    <wct:SettingsCard
+                        Header="{x:Bind ViewModel.RequiresCertificateText, Mode=OneWay}"
+                        IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}">
                         <ToggleSwitch
                             behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
                             IsOn="{x:Bind ViewModel.IsDot1xCertificateRequired, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -75,24 +82,29 @@
                         <StackPanel
                             HorizontalAlignment="Right"
                             Spacing="{ThemeResource FoundrySpace4}">
-                            <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBox
-                                    Width="{ThemeResource FoundryWideInputMinWidth}"
-                                    Text="{x:Bind ViewModel.Dot1xCertificatePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <Button
-                                    Grid.Column="1"
-                                    MinWidth="{StaticResource FoundryCompactActionMinWidth}"
-                                    Command="{x:Bind ViewModel.BrowseDot1xCertificateCommand}"
-                                    Content="{x:Bind ViewModel.BrowseButtonText, Mode=OneWay}" />
-                            </Grid>
+                            <ContentControl IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}">
+                                <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox
+                                        Width="{ThemeResource FoundryWideInputMinWidth}"
+                                        AutomationProperties.Name="{x:Bind ViewModel.Dot1xCertificateLabel, Mode=OneWay}"
+                                        IsReadOnly="True"
+                                        Text="{x:Bind ViewModel.Dot1xCertificateFileName, Mode=OneWay}" />
+                                    <Button
+                                        Grid.Column="1"
+                                        MinWidth="{StaticResource FoundryCompactActionMinWidth}"
+                                        Command="{x:Bind ViewModel.BrowseDot1xCertificateCommand}"
+                                        Content="{x:Bind ViewModel.BrowseButtonText, Mode=OneWay}" />
+                                </Grid>
+                            </ContentControl>
                             <PasswordBox
                                 Width="{ThemeResource FoundryWideInputMinWidth}"
                                 HorizontalAlignment="Left"
                                 Header="{x:Bind ViewModel.CertificatePasswordLabel, Mode=OneWay}"
+                                IsEnabled="{x:Bind Managed.ArePasswordsEditable, Mode=OneWay}"
                                 Password="{x:Bind ViewModel.Dot1xCertificatePassword, Mode=TwoWay}" />
                             <TextBlock
                                 MaxWidth="{ThemeResource FoundryWideInputMinWidth}"
@@ -107,7 +119,7 @@
                     <wct:SettingsExpander
                         Description="{x:Bind ViewModel.WiredDot1xWindowsRoamingDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.WiredDot1xWindowsRoamingHeader, Mode=OneWay}"
-                        IsEnabled="{x:Bind ViewModel.IsWiredDot1xProfileRoamingAvailable, Mode=OneWay}"
+                        IsEnabled="{x:Bind controls:BindingFunctions.And(ViewModel.IsWiredDot1xProfileRoamingAvailable, Managed.IsEditable), Mode=OneWay}"
                         IsExpanded="{x:Bind ViewModel.IsWiredDot1xWindowsRoamingExpanded, Mode=TwoWay}">
                         <wct:SettingsExpander.HeaderIcon>
                             <FontIcon Glyph="&#xE8AB;" />

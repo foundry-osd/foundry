@@ -11,6 +11,13 @@
     <Style x:Key="FoundryBodyTextBlockStyle"
         BasedOn="{StaticResource BodyTextBlockStyle}"
         TargetType="TextBlock" />
+    <Style x:Key="FoundryMonospaceBodyTextBlockStyle"
+        BasedOn="{StaticResource FoundryBodyTextBlockStyle}"
+        TargetType="TextBlock">
+        <Setter
+            Property="FontFamily"
+            Value="Cascadia Mono, Consolas" />
+    </Style>
     <Style x:Key="FoundryCaptionTextBlockStyle"
         BasedOn="{StaticResource CaptionTextBlockStyle}"
         TargetType="TextBlock" />

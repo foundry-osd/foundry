@@ -4,6 +4,7 @@
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Media;
+using Foundry.Core.Services.Sharing;
 using Foundry.Core.Services.WinPe;
 
 namespace Foundry.Core.Tests.Media;
@@ -21,6 +22,37 @@ public sealed class MediaPreflightServiceTests
         Assert.False(evaluation.CanCreateUsb);
         Assert.Contains(MediaPreflightBlockingReason.FinalExecutionDeferred, evaluation.IsoBlockingReasons);
         Assert.Contains(MediaPreflightBlockingReason.FinalExecutionDeferred, evaluation.UsbBlockingReasons);
+    }
+
+    [Theory]
+    [InlineData(SharedContentSyncState.Syncing, MediaPreflightBlockingReason.SharedContentSyncing)]
+    [InlineData(SharedContentSyncState.Failed, MediaPreflightBlockingReason.SharedContentFailed)]
+    [InlineData(SharedContentSyncState.Stalled, MediaPreflightBlockingReason.SharedContentStalled)]
+    public void Evaluate_WhenSharedContentIsNotSynced_BlocksEveryMediaTarget(SharedContentSyncState state, MediaPreflightBlockingReason reason)
+    {
+        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(
+            CreateReadyOptions() with { IsFinalExecutionEnabled = true, SharedContentState = state });
+
+        Assert.False(evaluation.CanCreateIso);
+        Assert.False(evaluation.CanCreateUsb);
+        Assert.False(evaluation.CanCreateUsbWithoutCache);
+        Assert.False(evaluation.CanCreatePxe);
+        Assert.Contains(reason, evaluation.IsoBlockingReasons);
+        Assert.Contains(reason, evaluation.UsbBlockingReasons);
+        Assert.Contains(reason, evaluation.UsbWithoutCacheBlockingReasons);
+        Assert.Contains(reason, evaluation.PxeBlockingReasons);
+    }
+
+    [Fact]
+    public void Evaluate_WhenSharedContentIsSynced_AllowsEveryMediaTarget()
+    {
+        MediaPreflightEvaluation evaluation = MediaPreflightService.Evaluate(
+            CreateReadyOptions() with { IsFinalExecutionEnabled = true, SharedContentState = SharedContentSyncState.Synced });
+
+        Assert.True(evaluation.CanCreateIso);
+        Assert.True(evaluation.CanCreateUsb);
+        Assert.True(evaluation.CanCreateUsbWithoutCache);
+        Assert.True(evaluation.CanCreatePxe);
     }
 
     [Fact]

@@ -283,6 +283,12 @@ Licencirano pod licenco MIT.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Opombe ob izdaji</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Izbrane datoteke ni bilo mogoče dodati v Foundry. Izberite berljivo datoteko, ki ni večja od 4 MiB.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Datoteka ni bila dodana</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Privzeta</value>
   </data>
@@ -389,7 +395,7 @@ Licencirano pod licenco MIT.</value>
     <value>Kopiraj geslo</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Shranite to datoteko PFX in geslo zdaj na varno mesto. Foundry shrani geslo skupaj s konfiguracijo v tem računalniku samo, če je možnost „Zapomni si gesla“ vklopljena v razdelku „Varnostno kopiranje in sinhronizacija nastavitev“. Za ustvarjanje zagonskega medija za nalaganje zgoščene vrednosti strojne opreme boste potrebovali obe vrednosti.</value>
+    <value>Shranite to datoteko PFX in geslo zdaj na varno mesto. Foundry si zapomni geslo v tem računalniku v svojem lokalnem šifriranem trezorju. Ta računalnik zapusti samo v izvozu ali objavi, ko je izbrana možnost »Vključi gesla«. Za ustvarjanje zagonskega medija za nalaganje zgoščene vrednosti strojne opreme boste potrebovali obe vrednosti.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Geslo kopirano.</value>
@@ -737,7 +743,10 @@ Licencirano pod licenco MIT.</value>
     <value>Ni na voljo</value>
   </data>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
-    <value>Ta mapa je v tem profilu že kot {0}.</value>
+    <value>Ta mapa je v tej konfiguraciji že kot {0}.</value>
+  </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>Med uvozom je bila konfiguracija zamenjana, zato nabor gonilnikov ni bil dodan. Znova uvozite mapo.</value>
   </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>Nabor gonilnikov je bil odstranjen, vendar njegove lokalne kopije ni bilo mogoče izbrisati.</value>
@@ -749,7 +758,7 @@ Licencirano pod licenco MIT.</value>
     <value>Nabor gonilnikov</value>
   </data>
   <data name="CustomDrivers.DuplicateName" xml:space="preserve">
-    <value>V tem profilu že obstaja nabor gonilnikov s tem imenom.</value>
+    <value>V tej konfiguraciji že obstaja nabor gonilnikov s tem imenom.</value>
   </data>
   <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
     <value>Ni naborov gonilnikov po meri. Za začetek uvozite mapo z gonilniki .inf.</value>
@@ -802,26 +811,23 @@ Licencirano pod licenco MIT.</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Nabori gonilnikov</value>
   </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Med uvozom se je aktivni profil spremenil, zato nabor gonilnikov ni bil dodan. Znova uvozite mapo v ta profil.</value>
-  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Ni na voljo pri zagonu PXE. Gonilniki po meri zahtevajo celoten medij ISO ali USB.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
-    <value>Nabori gonilnikov tega profila niso veljavni. Pred ustvarjanjem ali posodabljanjem medija preverite vključene nabore in privzeti nabor.</value>
+    <value>Nabori gonilnikov te konfiguracije niso veljavni. Pred ustvarjanjem ali posodabljanjem medija preverite vključene nabore in privzeti nabor.</value>
   </data>
   <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
     <value>Lokalna kopija nabora {0} manjka ali je poškodovana. Pred ustvarjanjem ali posodabljanjem medija znova uvozite mapo ali izključite nabor.</value>
   </data>
   <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
-    <value>Pred ustvarjanjem ali posodabljanjem medija vključite v ta profil vsaj en nabor gonilnikov ali izklopite gonilnike po meri.</value>
+    <value>Pred ustvarjanjem ali posodabljanjem medija vključite v to konfiguracijo vsaj en nabor gonilnikov ali izklopite gonilnike po meri.</value>
   </data>
   <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
     <value>Odstrani nabor gonilnikov</value>
   </data>
   <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) bo odstranjen iz trenutnega profila.</value>
+    <value>{0} ({1}) bo odstranjen iz trenutne konfiguracije.</value>
   </data>
   <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
     <value>Nabora gonilnikov ni bilo mogoče odstraniti. Poskusite znova.</value>
@@ -830,13 +836,13 @@ Licencirano pod licenco MIT.</value>
     <value>Odstraniti nabor gonilnikov?</value>
   </data>
   <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
-    <value>Njegova lokalna kopija se izbriše, razen če jo uporablja drug profil. Izvirna mapa in obstoječi nosilci se ne spremenijo.</value>
+    <value>Njegova lokalna kopija se izbriše. Izvirna mapa in obstoječi nosilci se ne spremenijo.</value>
   </data>
   <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
     <value>Nastavi kot privzeto</value>
   </data>
   <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
-    <value>Ta profil je dosegel največje število naborov gonilnikov. Preden uvozite novega, odstranite enega.</value>
+    <value>Ta konfiguracija je dosegla največje število naborov gonilnikov. Preden uvozite novega, odstranite enega.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Preverjanje naborov gonilnikov po meri…</value>
@@ -878,7 +884,7 @@ Licencirano pod licenco MIT.</value>
     <value>Izbrana slika</value>
   </data>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
-    <value>V tem profilu že obstaja slika s tem imenom.</value>
+    <value>V tej konfiguraciji že obstaja slika s tem imenom.</value>
   </data>
   <data name="CustomImages.EditionLabel" xml:space="preserve">
     <value>Izdaja</value>
@@ -935,7 +941,7 @@ Licencirano pod licenco MIT.</value>
     <value>Ni na voljo pri zagonu PXE. Prilagojene slike zahtevajo celoten medij ISO ali USB.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>V ta profil vključite vsaj eno razpoložljivo sliko sistema Windows. Pred ustvarjanjem ali posodabljanjem medija obnovite manjkajoče vključene slike in popravite ali počistite izbiro prednostne slike ali indeksa.</value>
+    <value>V to konfiguracijo vključite vsaj eno razpoložljivo sliko sistema Windows. Pred ustvarjanjem ali posodabljanjem medija obnovite manjkajoče vključene slike in popravite ali počistite izbiro prednostne slike ali indeksa.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Osveži</value>
@@ -944,7 +950,7 @@ Licencirano pod licenco MIT.</value>
     <value>Odstrani sliko</value>
   </data>
   <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
-    <value>Slika {0} ({1}) bo odstranjena iz trenutnega profila, njena lokalna kopija pa bo izbrisana.</value>
+    <value>Slika {0} ({1}) bo odstranjena iz trenutne konfiguracije, njena lokalna kopija pa bo izbrisana.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Odstrani</value>
@@ -953,7 +959,7 @@ Licencirano pod licenco MIT.</value>
     <value>Odstraniti prilagojeno sliko?</value>
   </data>
   <data name="CustomImages.RemoveWarning" xml:space="preserve">
-    <value>V drugih profilih, ki uporabljajo to sliko, bo prikazana kot manjkajoča. Izvirna datoteka in obstoječi nosilci se ne spremenijo.</value>
+    <value>Izvirna datoteka in obstoječi nosilci se ne spremenijo.</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Uredi</value>
@@ -2768,7 +2774,7 @@ Licencirano pod licenco MIT.</value>
     <value>Zagotavljanje predloge profila podjetja Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Geslo se shrani skupaj s konfiguracijo v tem računalniku samo, če je možnost „Zapomni si gesla“ vklopljena v razdelku „Varnostno kopiranje in sinhronizacija nastavitev“. Sicer se ne shrani in ga je treba znova vnesti, na primer po vnovičnem zagonu aplikacije Foundry OSD.</value>
+    <value>Foundry si zapomni geslo v tem računalniku v svojem lokalnem šifriranem trezorju. Ta računalnik zapusti samo v izvozu ali objavi, ko je izbrana možnost »Vključi gesla«.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Uvozi profil Wi-Fi, ki ga upravlja Foundry, v Windows pred OOBE, da se po WinPE ohrani povezljivost uvedbe.</value>
@@ -3001,299 +3007,6 @@ Licencirano pod licenco MIT.</value>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Delovna mapa (relativna; prazno uporabi koren vsebine)</value>
   </data>
-  <data name="Profiles.Active" xml:space="preserve">
-    <value>Trenutne nastavitve</value>
-  </data>
-  <data name="Profiles.AutoSync" xml:space="preserve">
-    <value>Samodejna sinhronizacija</value>
-  </data>
-  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
-    <value>Izberite drugo ime</value>
-  </data>
-  <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>Nekaterih starih shranjenih gesel ali ključev za dostop ni bilo mogoče odstraniti. Poskusite znova, ko bo na voljo Upravitelj poverilnic sistema Windows.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
-    <value>Zapri brez shranjevanja</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
-    <value>Zadnjih sprememb ni bilo mogoče shraniti, zato bodo izgubljene.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
-    <value>Želite zapreti brez shranjevanja nastavitev?</value>
-  </data>
-  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
-    <value>Potrdite geslo</value>
-  </data>
-  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>Potrdite geslo datoteke</value>
-  </data>
-  <data name="Profiles.Conflict" xml:space="preserve">
-    <value>Te nastavitve so bile spremenjene v tem računalniku in jih je spremenil tudi nekdo drug. Izberite, katero različico želite obdržati.</value>
-  </data>
-  <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>Izbrana različica bo zamenjala drugo. Če želite obdržati ločeno kopijo, najprej izberite »Podvoji«.</value>
-  </data>
-  <data name="Profiles.ConnectAction" xml:space="preserve">
-    <value>Poveži</value>
-  </data>
-  <data name="Profiles.ConnectDescription" xml:space="preserve">
-    <value>Izberite datoteko za povezavo, ki vam jo je poslal član vaše ekipe.</value>
-  </data>
-  <data name="Profiles.ConnectionPassword" xml:space="preserve">
-    <value>Geslo za povezavo</value>
-  </data>
-  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
-    <value>Drugi računalniki bodo za povezavo potrebovali to geslo.</value>
-  </data>
-  <data name="Profiles.Continue" xml:space="preserve">
-    <value>Nadaljuj</value>
-  </data>
-  <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Deli to konfiguracijo</value>
-  </data>
-  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
-    <value>Izberite omrežno mapo v skupni rabi za to konfiguracijo.</value>
-  </data>
-  <data name="Profiles.Delete" xml:space="preserve">
-    <value>Izbriši iz tega računalnika</value>
-  </data>
-  <data name="Profiles.DeleteAction" xml:space="preserve">
-    <value>Izbriši</value>
-  </data>
-  <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>Izbriši tudi za vse druge</value>
-  </data>
-  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
-    <value>Izbriši za vse</value>
-  </data>
-  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
-    <value>Želite izbrisati za vse?</value>
-  </data>
-  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>Želite te nastavitve v skupni rabi izbrisati za vse? Kdor ima nesinhronizirane spremembe, mora podvojiti svoje nastavitve, da jih obdrži.</value>
-  </data>
-  <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>Želite te nastavitve izbrisati iz tega računalnika? Če želite varnostno kopijo, jih najprej izvozite.</value>
-  </data>
-  <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>Te nastavitve v skupni rabi so bile izbrisane. Izberite »Podvoji«, da obdržite spremembe v tem računalniku.</value>
-  </data>
-  <data name="Profiles.Disconnect" xml:space="preserve">
-    <value>Prekini povezavo</value>
-  </data>
-  <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>Želite ustaviti sinhronizacijo te konfiguracije v tem računalniku? Trenutne nastavitve bodo ohranjene. Konfiguracija v skupni rabi in drugi računalniki ne bodo spremenjeni.</value>
-  </data>
-  <data name="Profiles.Export" xml:space="preserve">
-    <value>Izvozi</value>
-  </data>
-  <data name="Profiles.ExportDescription" xml:space="preserve">
-    <value>Shrani to konfiguracijo v datoteko kot varnostno kopijo ali za drug računalnik.</value>
-  </data>
-  <data name="Profiles.ExportProtection" xml:space="preserve">
-    <value>Izberite geslo za zaščito izvožene datoteke. Potrebovali ga boste za uvoz konfiguracije.</value>
-  </data>
-  <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Shrani datoteko za povezavo</value>
-  </data>
-  <data name="Profiles.Failed" xml:space="preserve">
-    <value>Dejanja ni bilo mogoče dokončati. Preverite datoteko, njeno geslo, dovoljenja za dostop in omrežno povezavo.</value>
-  </data>
-  <data name="Profiles.FolderExists" xml:space="preserve">
-    <value>To ime mape je že v uporabi. Povežite se s povezovalno datoteko ali se vrnite in izberite drugo ime.</value>
-  </data>
-  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
-    <value>Izberite novo, prazno podmapo v mapi v skupni rabi. Obstoječe datoteke bodo ostale nespremenjene.</value>
-  </data>
-  <data name="Profiles.Forget" xml:space="preserve">
-    <value>Počisti shranjena gesla in dostope</value>
-  </data>
-  <data name="Profiles.ForgetAction" xml:space="preserve">
-    <value>Počisti</value>
-  </data>
-  <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>Želite odstraniti shranjena gesla, zaupne datoteke, ki jih je shranil Foundry, in dostop do sinhronizacije teh nastavitev v tem računalniku? Za sinhronizacijo boste morali dodati manjkajoče podatke in znova vzpostaviti povezavo. Že ustvarjeni mediji se ne bodo spremenili.</value>
-  </data>
-  <data name="Profiles.Heading" xml:space="preserve">
-    <value>Nastavitve za Foundry</value>
-  </data>
-  <data name="Profiles.Import" xml:space="preserve">
-    <value>Uvozi</value>
-  </data>
-  <data name="Profiles.ImportDescription" xml:space="preserve">
-    <value>Dodaj konfiguracijo iz datoteke.</value>
-  </data>
-  <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>Vključi gesla in zaupne datoteke</value>
-  </data>
-  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
-    <value>Osebe, ki uporabljajo to konfiguracijo, lahko berejo vključena gesla in zaupne datoteke.</value>
-  </data>
-  <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>Manjkajo nekatera gesla ali izvorne datoteke. Dodajte jih pred shranjevanjem ali deljenjem gesel.</value>
-  </data>
-  <data name="Profiles.InvalidFolderName" xml:space="preserve">
-    <value>Uporabite ime brez posebnih znakov in brez pike ali presledka na koncu.</value>
-  </data>
-  <data name="Profiles.JoinChanged" xml:space="preserve">
-    <value>Konfiguracija v skupni rabi se je spremenila. Pred povezovanjem preglejte najnovejšo različico.</value>
-  </data>
-  <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Poveži se s konfiguracijo v skupni rabi</value>
-  </data>
-  <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>Uporabi različico iz tega računalnika</value>
-  </data>
-  <data name="Profiles.LearnMore" xml:space="preserve">
-    <value>Več informacij</value>
-  </data>
-  <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Hrani gesla za svoj račun Windows v tem računalniku.</value>
-  </data>
-  <data name="Profiles.Locked" xml:space="preserve">
-    <value>Windows za vaš račun v tem računalniku ne more odkleniti teh shranjenih nastavitev ali dostopa do njihove sinhronizacije.</value>
-  </data>
-  <data name="Profiles.Manage" xml:space="preserve">
-    <value>Več možnosti</value>
-  </data>
-  <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Manjkajoče ali nevključene datoteke: {0}. Pred ustvarjanjem medijev izberite njihova mesta.</value>
-  </data>
-  <data name="Profiles.Name" xml:space="preserve">
-    <value>Ime konfiguracije</value>
-  </data>
-  <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>Geslo datoteke</value>
-  </data>
-  <data name="Profiles.PasswordMismatch" xml:space="preserve">
-    <value>Gesli se ne ujemata.</value>
-  </data>
-  <data name="Profiles.Preview" xml:space="preserve">
-    <value>{0}
-Vključene datoteke: {1}
-Vključena gesla in ključi za dostop: {2}</value>
-  </data>
-  <data name="Profiles.Ready" xml:space="preserve">
-    <value>Pripravljeno</value>
-  </data>
-  <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Izberite geslo za zaščito povezovalne datoteke. Geslo posredujte ločeno. Datoteko shranite zunaj mape konfiguracije v skupni rabi.</value>
-  </data>
-  <data name="Profiles.Remember" xml:space="preserve">
-    <value>Zapomni si gesla</value>
-  </data>
-  <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>Zapomni si to povezavo v tem računalniku</value>
-  </data>
-  <data name="Profiles.Rename" xml:space="preserve">
-    <value>Preimenuj</value>
-  </data>
-  <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>To bo zamenjalo nastavitve, ki jih uporabljate. Če želite najprej obdržati kopijo, prekličite in izberite »Podvoji«.</value>
-  </data>
-  <data name="Profiles.RestoreAccess" xml:space="preserve">
-    <value>Obnovi dostop</value>
-  </data>
-  <data name="Profiles.Rollback" xml:space="preserve">
-    <value>Shranjene različice v mapi v skupni rabi so se nepričakovano spremenile. Obnovite jih iz varnostne kopije, ki ji zaupate.</value>
-  </data>
-  <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Podvoji</value>
-  </data>
-  <data name="Profiles.Select" xml:space="preserve">
-    <value>Izberite konfiguracijo</value>
-  </data>
-  <data name="Profiles.Setup" xml:space="preserve">
-    <value>Nastavi</value>
-  </data>
-  <data name="Profiles.SetupAction" xml:space="preserve">
-    <value>Nastavi sinhronizacijo…</value>
-  </data>
-  <data name="Profiles.SetupDescription" xml:space="preserve">
-    <value>Deli to konfiguracijo ali se poveži s konfiguracijo, ki jo tvoja ekipa že uporablja.</value>
-  </data>
-  <data name="Profiles.ShareAction" xml:space="preserve">
-    <value>Daj v skupno rabo</value>
-  </data>
-  <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>Vsakdo, ki lahko uvozi ali sinhronizira te nastavitve, lahko prebere vključena gesla in zasebne ključe potrdil.</value>
-  </data>
-  <data name="Profiles.SharedBusy" xml:space="preserve">
-    <value>To mapo v skupni rabi uporablja drug postopek. Poskusite znova čez nekaj trenutkov. Vaše spremembe se ohranijo v tem računalniku.</value>
-  </data>
-  <data name="Profiles.SharedFolder" xml:space="preserve">
-    <value>Mapa v skupni rabi</value>
-  </data>
-  <data name="Profiles.SharedUnavailable" xml:space="preserve">
-    <value>Mapa v skupni rabi ni dosegljiva. Preverite njen naslov in svoj dostop do omrežja. Vaše spremembe se ohranijo v tem računalniku.</value>
-  </data>
-  <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>V vseh računalnikih uporabljajte isto omrežno mapo. Uporabljati mora SMB 3 z obveznim šifriranjem. Mape, sinhronizirane z oblakom, niso podprte.</value>
-  </data>
-  <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Foundry ne bo več shranjeval gesel za to konfiguracijo v tem računalniku.</value>
-  </data>
-  <data name="Profiles.StopRememberingAction" xml:space="preserve">
-    <value>Prenehaj pomniti</value>
-  </data>
-  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
-    <value>Želite prenehati pomniti gesla?</value>
-  </data>
-  <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Sinhroniziraj</value>
-  </data>
-  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
-    <value>Sinhroniziranje…</value>
-  </data>
-  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
-    <value>Izberite različico</value>
-  </data>
-  <data name="Profiles.SyncStatusError" xml:space="preserve">
-    <value>Sinhronizacija ni mogoča</value>
-  </data>
-  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
-    <value>Ni nastavljeno</value>
-  </data>
-  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
-    <value>Mapa ni na voljo</value>
-  </data>
-  <data name="Profiles.SyncStatusPending" xml:space="preserve">
-    <value>Spremembe za sinhronizacijo</value>
-  </data>
-  <data name="Profiles.SyncStatusReady" xml:space="preserve">
-    <value>Pripravljeno na sinhronizacijo</value>
-  </data>
-  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
-    <value>Posodobljeno</value>
-  </data>
-  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
-    <value>Spremembe so na voljo</value>
-  </data>
-  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
-    <value>Zahteva pozornost</value>
-  </data>
-  <data name="Profiles.Synchronize" xml:space="preserve">
-    <value>Sinhroniziraj</value>
-  </data>
-  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
-    <value>Ohranjaj to konfiguracijo posodobljeno v računalnikih svoje ekipe.</value>
-  </data>
-  <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>Nastavitve so posodobljene</value>
-  </data>
-  <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>Foundry ne more odpreti te oblike nastavitev. Posodobite Foundry in poskusite znova.</value>
-  </data>
-  <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>Na voljo so spremembe iz drugega računalnika. Izberite »Sinhroniziraj«, da jih uporabite.</value>
-  </data>
-  <data name="Profiles.UseRemote" xml:space="preserve">
-    <value>Uporabi skupno različico</value>
-  </data>
-  <data name="Profiles.Validation" xml:space="preserve">
-    <value>Preverite obvezna polja. Če je zahtevana omrežna mapa, uporabite pot, kot je \\server\share\folder. Če geslo datoteke vnesete dvakrat, preverite, ali se vnosa ujemata.</value>
-  </data>
   <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
     <value>Foundry OSD ni mogel shraniti nastavitev strežnika proxy. Poskusite znova. Podrobnosti so v dnevniku.</value>
   </data>
@@ -3429,12 +3142,6 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Splošno</value>
   </data>
-  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Varnostno kopirajte svoje nastavitve, prenesite jih v drug računalnik ali jih ohranjajte sinhronizirane.</value>
-  </data>
-  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Varnostno kopiranje in sinhronizacija nastavitev</value>
-  </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Konfigurirajte, kako se Foundry OSD povezuje s spletnimi storitvami.</value>
   </data>
@@ -3464,6 +3171,498 @@ Vključena gesla in ključi za dostop: {2}</value>
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Posodobi aplikacijo</value>
+  </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>Sprejmi</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>Sprejmi novo referenco</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>Mapo zdaj objavlja drug računalnik: {0}. Sprejmite ga le, če to spremembo pričakujete, na primer po prevzemu; sicer prenehajte spremljati mapo.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>Želite sprejeti novo referenco?</value>
+  </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Referenca se je spremenila, medtem ko je bilo to pogovorno okno odprto. Preden ga sprejmete, preglejte novi ključ.</value>
+  </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Prenesite to konfiguracijo s šifrirano datoteko ali ohranite več računalnikov usklajenih prek skupne mape.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Skupna raba konfiguracije</value>
+  </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>Spremeni</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>Spremeni geslo</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>Trenutna objava se prepiše z novim geslom. Datoteke vsebine se ne šifrirajo znova, zato jih lahko še vedno bere, kdor je poznal staro geslo: za popoln preklic prejšnjih bralcev uporabite Ponastavi objavo. Računalniki, ki spremljajo mapo, novo geslo vnesejo enkrat.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>Spremeni geslo objave</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>Preveri zdaj</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Potrdite geslo s frazo</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>Potrdite geslo</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Prenašanje</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>Število elementov, ki jih ni bilo mogoče namestiti: {0}. Znova se pridobijo, ko referenčni računalnik objavi novo različico.</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Nabor gonilnikov</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>Datoteka</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Slika</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Paket po namestitvi</value>
+  </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>Vsebina je v mapi morda poškodovana. Znova objavite iz referenčnega računalnika.</value>
+  </data>
+  <data name="Sharing.CopyButton" xml:space="preserve">
+    <value>Kopiraj</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>Trenutno geslo objave</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>Vnesi geslo</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>Geslo objave je znova potrebno, na primer po ponastavitvi gesla za Windows ali potem, ko ga je referenčni računalnik spremenil.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>Vnesite geslo objave</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Izvozi</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>Konfiguracija je izvožena.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Shranite nastavitve in majhne datoteke v šifrirano datoteko. Paketi po namestitvi, nabori gonilnikov in slike niso vključeni.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>Konfiguracije ni bilo mogoče izvoziti. Preverite cilj in poskusite znova.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>Datoteke te konfiguracije skupaj presegajo 16 MiB in jih ni mogoče izvoziti.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>Konfiguracija je bila izvožena, vendar nekatere datoteke v tem računalniku manjkajo ali so poškodovane in niso bile vključene (število: {0}). Znova jih izberite na straneh konfiguracije in nato znova izvozite.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Izvozi konfiguracijo</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>Datoteka</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Konfiguracija Foundry</value>
+  </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>Mapa</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>Izberite mapo za objavo</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>Spremljaj</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>Uporabite konfiguracijo, ki jo referenčni računalnik objavlja v mapo. Objavljene nastavitve so v tem računalniku samo za branje.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>Vnesite mapo, v katero objavlja referenčni računalnik, in njegovo geslo objave, nato jo odprite za predogled objave.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>Spremljanje zamenja trenutno konfiguracijo, objavljene nastavitve pa postanejo samo za branje. Izhodna pot ISO, dodatna mapa gonilnikov WinPE in nastavitve telemetrije tega računalnika se ohranijo.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>Spremljaj mapo</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>Najdeni ključ</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>Najdena različica</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>Pozabi geslo objave</value>
+  </data>
+  <data name="Sharing.GenerateButton" xml:space="preserve">
+    <value>Ustvari</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>Uvozi</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>Konfiguracija je uvožena.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>Konfiguracija je uvožena. V tem računalniku manjka vsebina: znova jo uvozite na ustrezni strani.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Zamenjajte to konfiguracijo z izvoženo datoteko ali s profilom iz prejšnje različice.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>Konfiguracije ni bilo mogoče uvoziti. Trenutna konfiguracija ni spremenjena.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>Konfiguracija je uvožena, vendar njenih gesel ni bilo mogoče shraniti. Znova jih vnesite na straneh konfiguracije.</value>
+  </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>Uvoz ni na voljo, dokler ta računalnik spremlja mapo. Najprej prenehajte spremljati.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Uvozi konfiguracijo</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Vključi gesla</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>Vsak, ki lahko bere mapo in pozna geslo objave, lahko prebere ta gesla.</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Vsak, ki ima to datoteko in njeno geslo s frazo, lahko prebere ta gesla.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>Ta datoteka ni konfiguracija Foundry ali pa je poškodovana.</value>
+  </data>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>Zadnje uspešno preverjanje</value>
+  </data>
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>Zadnja objava</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
+    <value>Ta uporabnik sistema Windows ne more odpreti te konfiguracije.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>To konfiguracijo objavlja {0} in je v tem računalniku samo za branje. Spremenite lahko le izhodno pot ISO, dodatno mapo gonilnikov WinPE in nastavitve telemetrije.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>To konfiguracijo objavlja {0} in je v tem računalniku samo za branje. Objava ne vključuje gesel: vnesite jih tukaj. Spremenite lahko tudi izhodno pot ISO, dodatno mapo gonilnikov WinPE in nastavitve telemetrije.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>Upravlja referenčni računalnik</value>
+  </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Nekaterih datotek, ki jih uporablja konfiguracija, ni bilo mogoče obnoviti. Znova jih izberite na straneh za konfiguracijo.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Sinhronizacija konfiguracije iz starejših različic ni več podprta. Če želite deliti to konfiguracijo, v referenčnem računalniku uporabite možnost Objavi v mapo.</value>
+  </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Preverite konfiguracijo</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Shranjenih gesel ni bilo mogoče obnoviti. Znova jih vnesite na straneh za konfiguracijo.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Znova uvozite te elemente na njihovih straneh. Do takrat ustrezni elementi konfiguracije niso pripravljeni.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Manjka v tem računalniku</value>
+  </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>Novi ključ</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>Novo geslo objave</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>Ta mapa ne vsebuje objavljene konfiguracije.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>Še ni preverjeno: te vrednosti izvirajo iz mape in so potrjene šele, ko trenutno geslo objave odpre objavo.</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Odpri</value>
+  </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Odpri datoteko</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Odpri izbrani profil</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>Operacije ni bilo mogoče dokončati. Podrobnosti najdete v dnevniku.</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>Geslo s frazo je kopirano v odložišče.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Geslo s frazo</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>Gesli s frazo se ne ujemata.</value>
+  </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>Novo geslo je shranjeno. Sprememba se dokonča ob naslednji uspešni objavi.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>Geslo objave je spremenjeno. Računalniki, ki spremljajo mapo, novo geslo vnesejo enkrat.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>Geslo je kopirano v odložišče.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>Gesli se ne ujemata.</value>
+  </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>To konfiguracijo upravlja referenčni računalnik: tukaj lahko vnesete le geslo.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Vključena</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>To se lahko zgodi po ponastavitvi gesla za Windows. Če želite še naprej objavljati, prevzemite mapo s trenutnim geslom objave; računalniki, ki spremljajo mapo, nato enkrat sprejmejo ta računalnik kot novo referenco.</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Niso vključena</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Izvoženo</value>
+  </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>Velikost prenosa</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Ime</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Gesla</value>
+  </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>Objavljeno</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>Referenčni računalnik</value>
+  </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>Prejšnji ključ</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Profili iz prejšnje različice</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Ti profili so bili shranjeni v tem računalniku pred posodobitvijo.</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>Objava še ni v celoti prispela v to mapo. Poskusite znova čez trenutek.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>Geslo objave</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>Objava je ponastavljena. Računalniki, ki spremljajo mapo, novo geslo vnesejo enkrat.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>Objavi</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>Nastavite ta računalnik kot referenco: njegova konfiguracija se objavi v mapo, ki jo spremljajo drugi računalniki.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>Izberite prazno mapo ali mapo, v katero ta računalnik že objavlja: omrežno skupno rabo, mapo OneDrive ali SharePoint ali lokalno mapo. Računalniki, ki spremljajo mapo, za branje potrebujejo geslo objave.</value>
+  </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>Objavi zdaj</value>
+  </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Preverjanje mape…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Dokončevanje objave…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>Pripravljanje elementa {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>Pošiljanje elementa {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>Preverjanje elementa {0}…</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>Objavi v mapo</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>Uvoz zamenja trenutno konfiguracijo. Izhodna pot ISO, dodatna mapa gonilnikov WinPE in nastavitve telemetrije tega računalnika se ohranijo.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>Ponastavi</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>Ponastavi objavo</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>Novo geslo in nov ključ vsebine: vse datoteke vsebine se znova šifrirajo, kar popolnoma prekliče prejšnje bralce. Računalniki, ki spremljajo mapo, novo geslo vnesejo enkrat.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>Ponastavi objavo</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>Prejšnji bralci lahko vsebino še vedno odprejo do naslednje uspešne objave.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>Ta računalnik spremlja {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>Ta računalnik objavlja svojo konfiguracijo</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>Vsaj 12 znakov in ne isti znak, ki se ponavlja (na primer aaaaaaaaaaaa).</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Dela skupne vsebine spremljane objave ni bilo mogoče prenesti. Preverite Skupno rabo konfiguracije na strani Nastavitve.</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>Objavljanje in spremljanje v tej seji nista na voljo, ker stanja skupne rabe ni bilo mogoče prebrati. Podrobnosti najdete v dnevniku.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>Preverjanje mape: objava še ni v celoti prispela in bo znova prebrana ob naslednjem preverjanju.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>Konfiguracija je uporabljena. Skupna vsebina se prenaša.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>Konfiguracija je uporabljena, vendar dela skupne vsebine ni bilo mogoče namestiti.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>Konfiguracija je uporabljena, vendar del skupne vsebine po večkratnih preverjanjih še vedno ni na voljo.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>Ta mapa vsebuje datoteke, ki niso objava tega računalnika. Izberite prazno mapo.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>Mapa ni na voljo. Preverite, ali obstaja in ali ima ta računalnik dostop do nje.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>Ta računalnik ne objavlja in ne spremlja nobene konfiguracije.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>Čakanje na prvo preverjanje mape.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>Spremembe se objavijo samodejno.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>Ni objavljeno: konfiguracija ni pripravljena za ustvarjanje medijev ali se sklicuje na vsebino, ki v tem računalniku manjka. Prejšnja različica ostane trenutna.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>Potrebna so gesla: vnesite geslo objave ali vnesite manjkajoča gesla na straneh konfiguracije.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>Gesla objave ali ključev tega računalnika ni bilo mogoče prebrati.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>Objavljeno. Računalniki, ki spremljajo mapo, to različico prejmejo ob naslednjem preverjanju.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>Objavljanje konfiguracije…</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>Mapa kaže na starejšo različico od uporabljene. Prezrta je.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>Objava je bila spremenjena. Ni uporabljena.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>Mapo zdaj objavlja drug računalnik. Sprejmite novo referenco ali prenehajte spremljati.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>V to mapo objavlja drug računalnik. Prevzemite jo, če želite objavljati iz tega računalnika.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>Ta objava zahteva novejšo različico programa Foundry OSD.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>Posodobljeno.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>Konfiguracija je posodobljena.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>Geslo objave ne odpre trenutne objave. Vnesite novo geslo.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>Geslo objave ne odpre objave tega računalnika v tej mapi.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>Prenehaj spremljati</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>Konfiguracija ostane nespremenjena in jo je v tem računalniku znova mogoče urejati.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>Želite prenehati spremljati?</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>Ustavi objavljanje</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>Mapa ostane nespremenjena, računalniki, ki jo spremljajo, pa obdržijo zadnjo objavljeno različico. Ta računalnik ne objavlja več svoje konfiguracije.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>Želite ustaviti objavljanje?</value>
+  </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>Prenašanje elementa {0}…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>Nameščanje elementa {0}…</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>Prevzemi</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>V to mapo objavlja drug računalnik. Prevzem nadaljuje njegovo objavo s ključem tega računalnika; računalniki, ki spremljajo mapo, morajo ta računalnik enkrat sprejeti kot novo referenco.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>Ključev objave tega računalnika ni bilo mogoče prebrati. Prevzem s trenutnim geslom objave nadaljuje objavo z novimi ključi; računalniki, ki spremljajo mapo, morajo ta računalnik enkrat sprejeti kot novo referenco.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>Prevzemi to mapo</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>To geslo ne odpre trenutne objave.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>Datoteke ni bilo mogoče prebrati.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>Ta datoteka zahteva novejšo različico programa Foundry OSD.</value>
+  </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>Različica</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>Čakanje na dokončanje prenosa skupne vsebine…</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Napačno geslo s frazo ali poškodovana datoteka.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>To geslo ne odpre objave ali pa je bila objava spremenjena.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Ustavi postopek</value>
@@ -3590,6 +3789,15 @@ Vključena gesla in ključi za dostop: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Zahtevane medijske skrivnosti niso pripravljene.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Dela skupne vsebine ni bilo mogoče namestiti v ta računalnik. Znova se pridobi, ko referenčni računalnik objavi novo različico. Preverite Skupno rabo konfiguracije na strani Nastavitve.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Del skupne vsebine po večkratnih preverjanjih še vedno ni na voljo. Znova objavite iz referenčnega računalnika, nato pa preverite Skupno rabo konfiguracije na strani Nastavitve.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Skupna vsebina se še prenaša. Ustvarjanje nosilcev bo na voljo, ko bo prenos končan.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Izbrani pogon USB je premajhen za predpomnilnik. Uporabite pogon USB z vsaj 16 GB ali izberite »Ustvari brez predpomnilnika« s puščice gumba »Ustvari USB«.</value>
@@ -4164,6 +4372,15 @@ Vključena gesla in ključi za dostop: {2}</value>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Pripravljen za ustvarjanje medijev USB</value>
   </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Skupne vsebine ni bilo mogoče namestiti</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Skupna vsebina ni na voljo</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Čakanje na skupno vsebino</value>
+  </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Preglejte opozorila o medijskem izpisu</value>
   </data>
@@ -4308,13 +4525,13 @@ Uporaba posodobitve znova zažene Foundry OSD.</value>
     <value>Vsebuje nastavitve, ki lahko preprečijo vpis v Autopilot; nezdružljivi načini vpisa bodo med uvajanjem blokirani.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Izberite datoteko, ki jo želite preimenovati, osvežiti ali odstraniti. Izvorne datoteke morajo biti na voljo do ustvarjanja medija; spremenjene vire je treba osvežiti.</value>
+    <value>Izberite datoteko, ki jo želite preimenovati ali odstraniti. Foundry hrani lastno kopijo vsake uvožene datoteke; če želite uporabiti posodobljeno datoteko, odstranite vnos in znova uvozite datoteko.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Datoteke odgovorov</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Preveri vire</value>
+    <value>Preveri datoteke</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Vsebuje ukaze; preverite morebitna navzkrižja s prilagoditvami Foundry in sprožilci namestitve.</value>
@@ -4353,13 +4570,13 @@ Uporaba posodobitve znova zažene Foundry OSD.</value>
     <value>Datoteka mora navesti podprto arhitekturo in vsebovati nastavitve komponent, ki veljajo zanjo.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Katalog vsebuje neveljavne ali podvojene vnose. Osvežite ali odstranite prizadete datoteke.</value>
+    <value>Katalog vsebuje neveljavne ali podvojene vnose. Odstranite prizadete datoteke in jih znova uvozite.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Uporabite veljaven XML datoteke odgovorov za Windows, velik največ 4 MiB, brez DTD-jev ali zunanjih entitet. Datoteko preverite z Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Nekateri viri manjkajo, so spremenjeni ali neveljavni. Pred ustvarjanjem medija te vnose osvežite ali odstranite.</value>
+    <value>Nekatere datoteke manjkajo ali so neveljavne. Pred ustvarjanjem medija odstranite te vnose in znova uvozite datoteke.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Privzeta datoteka manjka — izberite nadomestno</value>
@@ -4374,16 +4591,13 @@ Uporaba posodobitve znova zažene Foundry OSD.</value>
     <value>Foundry ohrani izvirno datoteko in v kopijo za uvajanje doda svoj obvezni ukaz za fazo po namestitvi. Še naprej ste odgovorni za nastavitve in ukaze po meri.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Datoteke po meri zahtevajo zaščito medija za uvajanje z geslom v nastavitvah Splošno. XML lahko vsebuje poverilnice ali skripte. Foundry hrani kopijo vsake datoteke skupaj s konfiguracijo v tem računalniku samo, če je možnost „Zapomni si gesla“ vklopljena v razdelku „Varnostno kopiranje in sinhronizacija nastavitev“; sicer shrani samo pot. Zagonska slika vsebuje šifrirane kopije.</value>
+    <value>Datoteke po meri zahtevajo zaščito medija za uvajanje z geslom v nastavitvah Splošno. XML lahko vsebuje poverilnice ali skripte. Foundry hrani kopijo vsake uvožene datoteke v svoji knjižnici datotek v tem računalniku. Zagonska slika vsebuje šifrirane kopije.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Za uporabo datotek odgovorov po meri v nastavitvah Splošno omogočite zaščito medija za uvajanje z geslom.</value>
   </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Ta vir zdaj podvaja drugo uvoženo datoteko. Odstranite ta vnos in izberite obstoječo datoteko.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Osveži vir</value>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry nima več veljavne kopije te datoteke. Odstranite vnos in znova uvozite datoteko.</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Odstrani</value>
@@ -4397,26 +4611,23 @@ Uporaba posodobitve znova zažene Foundry OSD.</value>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Izbrana datoteka</value>
   </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>Vir se je spremenil. Pred ustvarjanjem medija izberite Osveži vir, da sprejmete posodobljeno datoteko.</value>
-  </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Dve preverjanji virov še vedno čakata na dostop do datotek. Obnovite dostop do nedostopnih mest virov, nato vire preverite znova.</value>
+    <value>Še vedno potekata dve preverjanji datotek. Počakajte, da se končata, nato poskusite znova.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Preverjanje vira je na čakanju. Izberite Preveri vire, da preverite trenutno datoteko, ne da bi sprejeli spremembe vsebine.</value>
+    <value>Preverjanje datoteke je na čakanju. Izberite Preveri datoteke, da preverite shranjeno kopijo.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Vira ni bilo mogoče prebrati. Preverite, ali datoteka še obstaja in je dostopna.</value>
+    <value>Datoteke ni bilo mogoče prebrati. Preverite, ali obstaja in ali jo lahko odprete, nato poskusite znova.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Čas za preverjanje vira je potekel. Preverite dostop do mesta vira in poskusite znova.</value>
+    <value>Preverjanje shranjenih datotek je trajalo predolgo. Poskusite znova.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Podprte so samo nastavitve specialize in oobeSystem. Odstranite druge neprazne faze, navodila za servisiranje brez povezave ali pripravo na ponovni zagon v načinu nadzora.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Vir je preverjen.</value>
+    <value>Datoteka je preverjena.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Uporabi posodobitev</value>

@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Services.Sharing;
+
 namespace Foundry.Core.Services.Configuration;
 
 /// <summary>
@@ -11,7 +13,10 @@ public enum HomeWorkflowState
 {
     Pending,
     Ready,
-    NeedsAttention
+    NeedsAttention,
+
+    /// <summary>The step waits for a follower to finish syncing its shared content; it becomes ready by itself.</summary>
+    Syncing
 }
 
 /// <summary>
@@ -28,11 +33,13 @@ public sealed record HomeWorkflowReadinessEvaluation(
 public static class HomeWorkflowReadinessEvaluator
 {
     /// <summary>
-    /// Evaluates the ADK, General, and Start workflow steps.
+    /// Evaluates the ADK, General, and Start workflow steps. Media creation is blocked until a follower has all its shared content,
+    /// so Start reads <see cref="HomeWorkflowState.Syncing"/> while it arrives and needs attention when it failed or stalled.
     /// </summary>
     public static HomeWorkflowReadinessEvaluation Evaluate(
         bool isAdkReady,
-        ConfigurationOverviewEvaluation overview)
+        ConfigurationOverviewEvaluation overview,
+        SharedContentSyncState sharedContent = SharedContentSyncState.Synced)
     {
         ArgumentNullException.ThrowIfNull(overview);
 
@@ -52,6 +59,8 @@ public static class HomeWorkflowReadinessEvaluator
         return new(
             HomeWorkflowState.Ready,
             generalNeedsAttention ? HomeWorkflowState.NeedsAttention : HomeWorkflowState.Ready,
-            startNeedsAttention ? HomeWorkflowState.NeedsAttention : HomeWorkflowState.Ready);
+            startNeedsAttention || sharedContent is SharedContentSyncState.Failed or SharedContentSyncState.Stalled
+                ? HomeWorkflowState.NeedsAttention
+                : sharedContent == SharedContentSyncState.Syncing ? HomeWorkflowState.Syncing : HomeWorkflowState.Ready);
     }
 }

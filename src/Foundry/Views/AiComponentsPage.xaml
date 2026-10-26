@@ -25,14 +25,16 @@
                     <ToggleSwitch
                         x:Uid="AiComponentsPageEnableToggle"
                         behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                        IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}"
                         IsOn="{x:Bind ViewModel.IsAiComponentRemovalEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Style="{StaticResource FoundryPageHeaderToggleSwitchStyle}" />
                 </controls:PageHeader.ActionContent>
             </controls:PageHeader>
+            <controls:ManagedConfigurationBanner />
 
             <ContentControl
                 HorizontalContentAlignment="Stretch"
-                IsEnabled="{x:Bind ViewModel.IsAiComponentRemovalEnabled, Mode=OneWay}">
+                IsEnabled="{x:Bind controls:BindingFunctions.And(ViewModel.IsAiComponentRemovalEnabled, Managed.IsEditable), Mode=OneWay}">
                 <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
                     <wct:SettingsCard
                         Description="{x:Bind ViewModel.AiComponentRemoveCopilotDescription, Mode=OneWay}"

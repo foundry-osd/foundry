@@ -21,21 +21,23 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
     private const string WifiCertificateFolder = @"Network\Certificates\Wifi";
 
     /// <inheritdoc />
-    public FoundryConnectConfigurationDocument Generate(FoundryConfigurationDocument document, string stagingDirectoryPath)
+    public FoundryConnectConfigurationDocument Generate(FoundryConfigurationDocument document, MediaInputs inputs, string stagingDirectoryPath)
     {
-        return CreateProvisioningBundle(document, stagingDirectoryPath).Configuration;
+        return CreateProvisioningBundle(document, inputs, stagingDirectoryPath).Configuration;
     }
 
     /// <inheritdoc />
     public FoundryConnectProvisioningBundle CreateProvisioningBundle(
         FoundryConfigurationDocument document,
+        MediaInputs inputs,
         string stagingDirectoryPath,
         string? authoringVersion = null)
     {
         ArgumentNullException.ThrowIfNull(document);
+        ArgumentNullException.ThrowIfNull(inputs);
         ArgumentException.ThrowIfNullOrWhiteSpace(stagingDirectoryPath);
 
-        NetworkConfigurationValidationResult validationResult = NetworkConfigurationValidator.Validate(document.Network);
+        NetworkConfigurationValidationResult validationResult = NetworkConfigurationValidator.Validate(document.Network, inputs);
         if (!validationResult.IsValid)
         {
             throw new InvalidOperationException($"Network configuration is invalid: {validationResult.Code}.");
@@ -48,34 +50,33 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
         NetworkSettings network = document.Network;
         Dot1xSettings dot1x = network.Dot1x;
         WifiSettings wifi = network.Wifi;
+        NetworkSecrets secrets = inputs.Network;
         bool isWifiEnabled = network.WifiProvisioned && wifi.IsEnabled;
+        string? wiredCertificatePath = dot1x.IsEnabled ? inputs.ResolveRequired(dot1x.Certificate) : null;
+        string? wifiCertificatePath = isWifiEnabled ? inputs.ResolveRequired(wifi.Certificate) : null;
 
         string? wiredProfileRelativePath = dot1x.IsEnabled
-            ? CopyAsset(dot1x.ProfileTemplatePath, assetRootPath, WiredProfileFolder, assetFiles)
+            ? CopyAsset(inputs.ResolveRequired(dot1x.ProfileTemplate), assetRootPath, WiredProfileFolder, assetFiles)
             : null;
-        string? wiredCertificateRelativePath = dot1x.IsEnabled
-            ? CopyAsset(dot1x.CertificatePath, assetRootPath, WiredCertificateFolder, assetFiles)
-            : null;
+        string? wiredCertificateRelativePath = CopyAsset(wiredCertificatePath, assetRootPath, WiredCertificateFolder, assetFiles);
         string? wifiProfileRelativePath = isWifiEnabled && wifi.HasEnterpriseProfile
-            ? CopyAsset(wifi.EnterpriseProfileTemplatePath, assetRootPath, WifiProfileFolder, assetFiles)
+            ? CopyAsset(inputs.ResolveRequired(wifi.EnterpriseProfileTemplate), assetRootPath, WifiProfileFolder, assetFiles)
             : null;
-        string? wifiCertificateRelativePath = isWifiEnabled
-            ? CopyAsset(wifi.CertificatePath, assetRootPath, WifiCertificateFolder, assetFiles)
-            : null;
-        byte[]? mediaSecretsKey = ResolveMediaSecretsKey(isWifiEnabled, dot1x, wifi);
+        string? wifiCertificateRelativePath = CopyAsset(wifiCertificatePath, assetRootPath, WifiCertificateFolder, assetFiles);
+        byte[]? mediaSecretsKey = ResolveMediaSecretsKey(isWifiEnabled, wifi, secrets, wiredCertificatePath, wifiCertificatePath);
         SecretEnvelope? passphraseSecret = mediaSecretsKey is not null &&
             isWifiEnabled &&
             !wifi.HasEnterpriseProfile &&
-            !string.IsNullOrWhiteSpace(wifi.Passphrase)
-            ? ConnectSecretEnvelopeProtector.Encrypt(wifi.Passphrase!, mediaSecretsKey)
+            !string.IsNullOrWhiteSpace(secrets.WifiPassphrase)
+            ? ConnectSecretEnvelopeProtector.Encrypt(secrets.WifiPassphrase!, mediaSecretsKey)
             : null;
         SecretEnvelope? wiredCertificatePfxPasswordSecret = CreateCertificatePfxPasswordSecret(
-            dot1x.CertificatePath,
-            dot1x.CertificatePfxPassword,
+            wiredCertificatePath,
+            secrets.WiredCertificatePfxPassword,
             mediaSecretsKey);
         SecretEnvelope? wifiCertificatePfxPasswordSecret = CreateCertificatePfxPasswordSecret(
-            wifi.CertificatePath,
-            wifi.CertificatePfxPassword,
+            wifiCertificatePath,
+            secrets.WifiCertificatePfxPassword,
             mediaSecretsKey);
 
         // The generated document uses media-relative asset paths; source file paths stay outside the runtime JSON.
@@ -176,7 +177,7 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
         {
             IsEnabled = isEnabled,
             Ssid = authoring.Ssid,
-            SecurityType = isEnabled ? NetworkConfigurationValidator.NormalizeWifiSecurityType(authoring) : null,
+            SecurityType = isEnabled ? NetworkConfigurationValidator.NormalizeWifiSecurityType(authoring, hasPassphrase: passphraseSecret is not null) : null,
             PassphraseSecret = passphraseSecret,
             HasEnterpriseProfile = authoring.HasEnterpriseProfile,
             EnterpriseProfileTemplatePath = isEnabled && authoring.HasEnterpriseProfile ? enterpriseProfileTemplatePath : null,
@@ -220,13 +221,18 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
         return NormalizeEmbeddedRelativePath(stagedRelativePath);
     }
 
-    private static byte[]? ResolveMediaSecretsKey(bool isWifiEnabled, Dot1xSettings dot1x, WifiSettings wifi)
+    private static byte[]? ResolveMediaSecretsKey(
+        bool isWifiEnabled,
+        WifiSettings wifi,
+        NetworkSecrets secrets,
+        string? wiredCertificatePath,
+        string? wifiCertificatePath)
     {
         bool hasPersonalWifiPassphrase = isWifiEnabled &&
             !wifi.HasEnterpriseProfile &&
-            !string.IsNullOrWhiteSpace(wifi.Passphrase);
-        bool hasCertificatePfxPassword = HasCertificatePfxPassword(dot1x.CertificatePath, dot1x.CertificatePfxPassword) ||
-            HasCertificatePfxPassword(wifi.CertificatePath, wifi.CertificatePfxPassword);
+            !string.IsNullOrWhiteSpace(secrets.WifiPassphrase);
+        bool hasCertificatePfxPassword = HasCertificatePfxPassword(wiredCertificatePath, secrets.WiredCertificatePfxPassword) ||
+            HasCertificatePfxPassword(wifiCertificatePath, secrets.WifiCertificatePfxPassword);
 
         return hasPersonalWifiPassphrase || hasCertificatePfxPassword
             ? ConnectSecretEnvelopeProtector.GenerateMediaKey()

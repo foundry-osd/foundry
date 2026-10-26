@@ -283,6 +283,12 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Išleidimo pastabos</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Pasirinkto failo nepavyko įtraukti į Foundry. Pasirinkite nuskaitomą failą, ne didesnį nei 4 MiB.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Failas nepridėtas</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Numatytasis</value>
   </data>
@@ -389,7 +395,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Nukopijuokite slaptažodį</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Išsaugokite šį PFX failą ir slaptažodį dabar saugioje vietoje. Foundry šiame kompiuteryje išsaugo slaptažodį kartu su konfigūracija tik tada, kai skiltyje „Parametrų atsarginės kopijos ir sinchronizavimas“ įjungta parinktis „Įsiminti slaptažodžius“. Jums reikės abiejų reikšmių, kad sugeneruotumėte įkrovos laikmeną aparatinės įrangos maišos įkėlimui.</value>
+    <value>Išsaugokite šį PFX failą ir slaptažodį dabar saugioje vietoje. Foundry įsimena slaptažodį šiame kompiuteryje savo vietinėje šifruotoje saugykloje. Jis palieka šį kompiuterį tik eksportuojant arba publikuojant, kai pasirinkta „Įtraukti slaptažodžius“. Jums reikės abiejų reikšmių, kad sugeneruotumėte įkrovos laikmeną aparatinės įrangos maišos įkėlimui.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Slaptažodis nukopijuotas.</value>
@@ -737,7 +743,10 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Nepasiekiamas</value>
   </data>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
-    <value>Šis aplankas jau yra šiame profilyje kaip {0}.</value>
+    <value>Šis aplankas jau yra šioje konfigūracijoje kaip {0}.</value>
+  </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>Importuojant konfigūracija buvo pakeista, todėl tvarkyklių rinkinys nebuvo įtrauktas. Importuokite aplanką dar kartą.</value>
   </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>Tvarkyklių rinkinys pašalintas, bet jo vietinės kopijos ištrinti nepavyko.</value>
@@ -749,7 +758,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Tvarkyklių rinkinys</value>
   </data>
   <data name="CustomDrivers.DuplicateName" xml:space="preserve">
-    <value>Šiame profilyje jau yra tvarkyklių rinkinys tokiu pavadinimu.</value>
+    <value>Šioje konfigūracijoje jau yra tvarkyklių rinkinys tokiu pavadinimu.</value>
   </data>
   <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
     <value>Pasirinktinių tvarkyklių rinkinių nėra. Norėdami pradėti, importuokite aplanką su .inf tvarkyklėmis.</value>
@@ -802,26 +811,23 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Tvarkyklių rinkiniai</value>
   </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Importuojant pasikeitė aktyvusis profilis, todėl tvarkyklių rinkinys nebuvo įtrauktas. Importuokite aplanką į šį profilį dar kartą.</value>
-  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Nepasiekiama paleidžiant per PXE. Pasirinktinėms tvarkyklėms reikia visos ISO arba USB laikmenos.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
-    <value>Šio profilio tvarkyklių rinkiniai netinkami. Prieš kurdami arba atnaujindami laikmeną, patikrinkite įtrauktus rinkinius ir numatytąjį rinkinį.</value>
+    <value>Šios konfigūracijos tvarkyklių rinkiniai netinkami. Prieš kurdami arba atnaujindami laikmeną, patikrinkite įtrauktus rinkinius ir numatytąjį rinkinį.</value>
   </data>
   <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
     <value>Rinkinio {0} vietinės kopijos nėra arba ji sugadinta. Prieš kurdami arba atnaujindami laikmeną, iš naujo importuokite aplanką arba neįtraukite rinkinio.</value>
   </data>
   <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
-    <value>Prieš kurdami arba atnaujindami laikmeną, įtraukite į šį profilį bent vieną tvarkyklių rinkinį arba išjunkite pasirinktines tvarkykles.</value>
+    <value>Prieš kurdami arba atnaujindami laikmeną, įtraukite į šią konfigūraciją bent vieną tvarkyklių rinkinį arba išjunkite pasirinktines tvarkykles.</value>
   </data>
   <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
     <value>Pašalinti tvarkyklių rinkinį</value>
   </data>
   <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) bus pašalintas iš dabartinio profilio.</value>
+    <value>{0} ({1}) bus pašalintas iš dabartinės konfigūracijos.</value>
   </data>
   <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
     <value>Nepavyko pašalinti tvarkyklių rinkinio. Bandykite dar kartą.</value>
@@ -830,13 +836,13 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pašalinti tvarkyklių rinkinį?</value>
   </data>
   <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
-    <value>Jo vietinė kopija ištrinama, nebent ją naudoja kitas profilis. Pradinis aplankas ir esamos laikmenos nepakeičiami.</value>
+    <value>Jo vietinė kopija ištrinama. Pradinis aplankas ir esamos laikmenos nepakeičiami.</value>
   </data>
   <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
     <value>Nustatyti kaip numatytąjį</value>
   </data>
   <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
-    <value>Šiame profilyje jau yra didžiausias leistinas tvarkyklių rinkinių skaičius. Prieš importuodami kitą, pašalinkite vieną.</value>
+    <value>Šioje konfigūracijoje jau yra didžiausias leistinas tvarkyklių rinkinių skaičius. Prieš importuodami kitą, pašalinkite vieną.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Tikrinami pasirinktinių tvarkyklių rinkiniai…</value>
@@ -878,7 +884,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pasirinktas atvaizdas</value>
   </data>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
-    <value>Šiame profilyje jau yra atvaizdas tokiu pavadinimu.</value>
+    <value>Šioje konfigūracijoje jau yra atvaizdas tokiu pavadinimu.</value>
   </data>
   <data name="CustomImages.EditionLabel" xml:space="preserve">
     <value>Leidimas</value>
@@ -935,7 +941,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Nepasiekiama paleidžiant per PXE. Pasirinktiniams atvaizdams reikia visos ISO arba USB laikmenos.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Įtraukite į šį profilį bent vieną pasiekiamą „Windows“ atvaizdą. Prieš kurdami arba atnaujindami laikmeną atkurkite trūkstamus įtrauktus atvaizdus ir pataisykite arba išvalykite pageidaujamo atvaizdo ar indekso pasirinkimą.</value>
+    <value>Įtraukite į šią konfigūraciją bent vieną pasiekiamą „Windows“ atvaizdą. Prieš kurdami arba atnaujindami laikmeną atkurkite trūkstamus įtrauktus atvaizdus ir pataisykite arba išvalykite pageidaujamo atvaizdo ar indekso pasirinkimą.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Atnaujinti</value>
@@ -944,7 +950,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pašalinti atvaizdą</value>
   </data>
   <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) bus pašalintas iš dabartinio profilio, o jo vietinė kopija bus ištrinta.</value>
+    <value>{0} ({1}) bus pašalintas iš dabartinės konfigūracijos, o jo vietinė kopija bus ištrinta.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Pašalinti</value>
@@ -953,7 +959,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pašalinti pasirinktinį atvaizdą?</value>
   </data>
   <data name="CustomImages.RemoveWarning" xml:space="preserve">
-    <value>Kituose profiliuose, kuriuose naudojamas šis atvaizdas, jis bus rodomas kaip trūkstamas. Pradinis failas ir esamos laikmenos nebus pakeisti.</value>
+    <value>Pradinis failas ir esamos laikmenos nebus pakeisti.</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Redaguoti</value>
@@ -2768,7 +2774,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Pateikite įmonės Wi-Fi profilio šabloną</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Slaptafrazė kartu su konfigūracija šiame kompiuteryje išsaugoma tik tada, kai skiltyje „Parametrų atsarginės kopijos ir sinchronizavimas“ įjungta parinktis „Įsiminti slaptažodžius“. Kitu atveju ji neišsaugoma ir ją reikia įvesti iš naujo, pavyzdžiui, iš naujo paleidus Foundry OSD.</value>
+    <value>Foundry įsimena slaptafrazę šiame kompiuteryje savo vietinėje šifruotoje saugykloje. Ji palieka šį kompiuterį tik eksportuojant arba publikuojant, kai pasirinkta „Įtraukti slaptažodžius“.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importuoja Foundry valdomą Wi-Fi profilį į Windows prieš OOBE, kad diegimo ryšys išliktų po WinPE.</value>
@@ -3001,299 +3007,6 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Darbinis katalogas (santykinis; tuščias laukas naudoja turinio šakninį katalogą)</value>
   </data>
-  <data name="Profiles.Active" xml:space="preserve">
-    <value>Dabartiniai nustatymai</value>
-  </data>
-  <data name="Profiles.AutoSync" xml:space="preserve">
-    <value>Automatinis sinchronizavimas</value>
-  </data>
-  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
-    <value>Pasirinkti kitą pavadinimą</value>
-  </data>
-  <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>Nepavyko pašalinti kai kurių senų įrašytų slaptažodžių ar prieigos raktų. Bandykite dar kartą, kai bus pasiekiama „Windows“ kredencialų tvarkytuvė.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
-    <value>Uždaryti neišsaugojus</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
-    <value>Naujausių pakeitimų nepavyko išsaugoti, todėl jie bus prarasti.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
-    <value>Uždaryti neišsaugojus nustatymų?</value>
-  </data>
-  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
-    <value>Patvirtinkite slaptažodį</value>
-  </data>
-  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>Patvirtinkite failo slaptažodį</value>
-  </data>
-  <data name="Profiles.Conflict" xml:space="preserve">
-    <value>Šie nustatymai pakeisti šiame kompiuteryje, be to, juos pakeitė kitas asmuo. Pasirinkite, kurią versiją išsaugoti.</value>
-  </data>
-  <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>Pasirinkta versija pakeis kitą. Jei norite išsaugoti atskirą kopiją, pirmiausia pasirinkite „Dubliuoti“.</value>
-  </data>
-  <data name="Profiles.ConnectAction" xml:space="preserve">
-    <value>Prisijungti</value>
-  </data>
-  <data name="Profiles.ConnectDescription" xml:space="preserve">
-    <value>Pasirinkite prisijungimo failą, kurį gavote iš komandos nario.</value>
-  </data>
-  <data name="Profiles.ConnectionPassword" xml:space="preserve">
-    <value>Prisijungimo slaptažodis</value>
-  </data>
-  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
-    <value>Kitiems kompiuteriams reikės šio slaptažodžio, kad galėtų prisijungti.</value>
-  </data>
-  <data name="Profiles.Continue" xml:space="preserve">
-    <value>Tęsti</value>
-  </data>
-  <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Bendrinti šią konfigūraciją</value>
-  </data>
-  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
-    <value>Pasirinkite bendrinamą tinklo aplanką šiai konfigūracijai.</value>
-  </data>
-  <data name="Profiles.Delete" xml:space="preserve">
-    <value>Ištrinti iš šio kompiuterio</value>
-  </data>
-  <data name="Profiles.DeleteAction" xml:space="preserve">
-    <value>Ištrinti</value>
-  </data>
-  <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>Taip pat ištrinti visiems</value>
-  </data>
-  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
-    <value>Ištrinti visiems</value>
-  </data>
-  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
-    <value>Ištrinti visiems?</value>
-  </data>
-  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>Ištrinti šiuos bendrinamus nustatymus visiems? Turintys nesinchronizuotų pakeitimų turi dubliuoti savo nustatymus, kad juos išsaugotų.</value>
-  </data>
-  <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>Ištrinti šiuos nustatymus iš šio kompiuterio? Jei norite atsarginės kopijos, pirmiausia juos eksportuokite.</value>
-  </data>
-  <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>Šie bendrinami nustatymai ištrinti. Pasirinkite „Dubliuoti“, kad išsaugotumėte pakeitimus šiame kompiuteryje.</value>
-  </data>
-  <data name="Profiles.Disconnect" xml:space="preserve">
-    <value>Atsijungti</value>
-  </data>
-  <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>Nebesinchronizuoti šios konfigūracijos šiame kompiuteryje? Dabartiniai nustatymai bus išsaugoti. Bendrinama konfigūracija ir kiti kompiuteriai nebus pakeisti.</value>
-  </data>
-  <data name="Profiles.Export" xml:space="preserve">
-    <value>Eksportuoti</value>
-  </data>
-  <data name="Profiles.ExportDescription" xml:space="preserve">
-    <value>Išsaugoti šią konfigūraciją faile kaip atsarginę kopiją arba kitam kompiuteriui.</value>
-  </data>
-  <data name="Profiles.ExportProtection" xml:space="preserve">
-    <value>Pasirinkite slaptažodį eksportuotam failui apsaugoti. Jo reikės konfigūracijai importuoti.</value>
-  </data>
-  <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Išsaugoti prisijungimo failą</value>
-  </data>
-  <data name="Profiles.Failed" xml:space="preserve">
-    <value>Nepavyko atlikti veiksmo. Patikrinkite failą, jo slaptažodį, prieigos teises ir tinklo ryšį.</value>
-  </data>
-  <data name="Profiles.FolderExists" xml:space="preserve">
-    <value>Šis aplanko pavadinimas jau naudojamas. Prisijunkite naudodami ryšio failą arba grįžkite ir pasirinkite kitą pavadinimą.</value>
-  </data>
-  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
-    <value>Bendrinamame aplanke pasirinkite naują tuščią poaplankį. Esami failai liks nepakeisti.</value>
-  </data>
-  <data name="Profiles.Forget" xml:space="preserve">
-    <value>Išvalyti išsaugotus slaptažodžius ir prieigos duomenis</value>
-  </data>
-  <data name="Profiles.ForgetAction" xml:space="preserve">
-    <value>Išvalyti</value>
-  </data>
-  <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>Pašalinti šiame kompiuteryje šių nustatymų įrašytus slaptažodžius, „Foundry“ įrašytus konfidencialius failus ir sinchronizavimo prieigą? Norėdami sinchronizuoti, turėsite pridėti trūkstamą informaciją ir prisijungti iš naujo. Jau sukurtos laikmenos nesikeis.</value>
-  </data>
-  <data name="Profiles.Heading" xml:space="preserve">
-    <value>„Foundry“ nustatymai</value>
-  </data>
-  <data name="Profiles.Import" xml:space="preserve">
-    <value>Importuoti</value>
-  </data>
-  <data name="Profiles.ImportDescription" xml:space="preserve">
-    <value>Pridėti konfigūraciją iš failo.</value>
-  </data>
-  <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>Įtraukti slaptažodžius ir konfidencialius failus</value>
-  </data>
-  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
-    <value>Šią konfigūraciją naudojantys žmonės gali skaityti įtrauktus slaptažodžius ir konfidencialius failus.</value>
-  </data>
-  <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>Trūksta kai kurių slaptažodžių ar pradinių failų. Pridėkite juos prieš įrašydami ar bendrindami slaptažodžius.</value>
-  </data>
-  <data name="Profiles.InvalidFolderName" xml:space="preserve">
-    <value>Naudokite pavadinimą be specialiųjų simbolių ir be taško ar tarpo pabaigoje.</value>
-  </data>
-  <data name="Profiles.JoinChanged" xml:space="preserve">
-    <value>Bendrinama konfigūracija pasikeitė. Prieš prisijungdami peržiūrėkite naujausią versiją.</value>
-  </data>
-  <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Prisijungti prie bendrinamos konfigūracijos</value>
-  </data>
-  <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>Naudoti šio kompiuterio versiją</value>
-  </data>
-  <data name="Profiles.LearnMore" xml:space="preserve">
-    <value>Sužinoti daugiau</value>
-  </data>
-  <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Saugoti „Windows“ paskyros slaptažodžius šiame kompiuteryje.</value>
-  </data>
-  <data name="Profiles.Locked" xml:space="preserve">
-    <value>„Windows“ negali atrakinti šių įrašytų nustatymų ar jų sinchronizavimo prieigos jūsų paskyrai šiame kompiuteryje.</value>
-  </data>
-  <data name="Profiles.Manage" xml:space="preserve">
-    <value>Daugiau parinkčių</value>
-  </data>
-  <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Trūkstami arba neįtraukti failai: {0}. Prieš kurdami laikmeną, pasirinkite jų vietas.</value>
-  </data>
-  <data name="Profiles.Name" xml:space="preserve">
-    <value>Konfigūracijos pavadinimas</value>
-  </data>
-  <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>Failo slaptažodis</value>
-  </data>
-  <data name="Profiles.PasswordMismatch" xml:space="preserve">
-    <value>Slaptažodžiai nesutampa.</value>
-  </data>
-  <data name="Profiles.Preview" xml:space="preserve">
-    <value>{0}
-Įtraukti failai: {1}
-Įtraukti slaptažodžiai ir prieigos raktai: {2}</value>
-  </data>
-  <data name="Profiles.Ready" xml:space="preserve">
-    <value>Paruošta</value>
-  </data>
-  <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Pasirinkite slaptažodį ryšio failui apsaugoti. Slaptažodį perduokite atskirai. Išsaugokite failą už bendrinamos konfigūracijos aplanko ribų.</value>
-  </data>
-  <data name="Profiles.Remember" xml:space="preserve">
-    <value>Įsiminti slaptažodžius</value>
-  </data>
-  <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>Įsiminti šį ryšį šiame kompiuteryje</value>
-  </data>
-  <data name="Profiles.Rename" xml:space="preserve">
-    <value>Pervardyti</value>
-  </data>
-  <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>Tai pakeis šiuo metu naudojamus nustatymus. Jei pirmiausia norite išsaugoti kopiją, atšaukite ir pasirinkite „Dubliuoti“.</value>
-  </data>
-  <data name="Profiles.RestoreAccess" xml:space="preserve">
-    <value>Atkurti prieigą</value>
-  </data>
-  <data name="Profiles.Rollback" xml:space="preserve">
-    <value>Bendrinamame aplanke įrašytos versijos netikėtai pasikeitė. Atkurkite iš atsarginės kopijos, kuria pasitikite.</value>
-  </data>
-  <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Dubliuoti</value>
-  </data>
-  <data name="Profiles.Select" xml:space="preserve">
-    <value>Pasirinkite konfigūraciją</value>
-  </data>
-  <data name="Profiles.Setup" xml:space="preserve">
-    <value>Nustatyti</value>
-  </data>
-  <data name="Profiles.SetupAction" xml:space="preserve">
-    <value>Nustatyti sinchronizavimą…</value>
-  </data>
-  <data name="Profiles.SetupDescription" xml:space="preserve">
-    <value>Bendrinkite šią konfigūraciją arba prisijunkite prie tos, kurią jūsų komanda jau naudoja.</value>
-  </data>
-  <data name="Profiles.ShareAction" xml:space="preserve">
-    <value>Bendrinti</value>
-  </data>
-  <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>Visi, kas gali importuoti ar sinchronizuoti šiuos nustatymus, gali perskaityti įtrauktus slaptažodžius ir sertifikatų privačiuosius raktus.</value>
-  </data>
-  <data name="Profiles.SharedBusy" xml:space="preserve">
-    <value>Šį bendrinamą aplanką naudoja kita operacija. Netrukus bandykite dar kartą. Jūsų pakeitimai išsaugomi šiame kompiuteryje.</value>
-  </data>
-  <data name="Profiles.SharedFolder" xml:space="preserve">
-    <value>Bendrinamas aplankas</value>
-  </data>
-  <data name="Profiles.SharedUnavailable" xml:space="preserve">
-    <value>Bendrinamas aplankas nepasiekiamas. Patikrinkite jo adresą ir savo prieigą prie tinklo. Jūsų pakeitimai išsaugomi šiame kompiuteryje.</value>
-  </data>
-  <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>Visuose kompiuteriuose naudokite tą patį tinklo aplanką. Jis turi naudoti SMB 3 su privalomu šifravimu. Su debesimi sinchronizuojami aplankai nepalaikomi.</value>
-  </data>
-  <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Foundry nebesaugos šios konfigūracijos slaptažodžių šiame kompiuteryje.</value>
-  </data>
-  <data name="Profiles.StopRememberingAction" xml:space="preserve">
-    <value>Nebeįsiminti</value>
-  </data>
-  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
-    <value>Nebeįsiminti slaptažodžių?</value>
-  </data>
-  <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Sinchronizuoti</value>
-  </data>
-  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
-    <value>Sinchronizuojama…</value>
-  </data>
-  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
-    <value>Pasirinkite versiją</value>
-  </data>
-  <data name="Profiles.SyncStatusError" xml:space="preserve">
-    <value>Nepavyksta sinchronizuoti</value>
-  </data>
-  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
-    <value>Nesukonfigūruota</value>
-  </data>
-  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
-    <value>Aplankas nepasiekiamas</value>
-  </data>
-  <data name="Profiles.SyncStatusPending" xml:space="preserve">
-    <value>Laukiantys sinchronizavimo pakeitimai</value>
-  </data>
-  <data name="Profiles.SyncStatusReady" xml:space="preserve">
-    <value>Paruošta sinchronizuoti</value>
-  </data>
-  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
-    <value>Atnaujinta</value>
-  </data>
-  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
-    <value>Yra pakeitimų</value>
-  </data>
-  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
-    <value>Reikia dėmesio</value>
-  </data>
-  <data name="Profiles.Synchronize" xml:space="preserve">
-    <value>Sinchronizuoti</value>
-  </data>
-  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
-    <value>Palaikyti šią konfigūraciją atnaujintą jūsų komandos kompiuteriuose.</value>
-  </data>
-  <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>Nustatymai atnaujinti</value>
-  </data>
-  <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>„Foundry“ negali atidaryti šio nustatymų formato. Atnaujinkite „Foundry“ ir bandykite dar kartą.</value>
-  </data>
-  <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>Yra pakeitimų iš kito kompiuterio. Pasirinkite „Sinchronizuoti“, kad juos pritaikytumėte.</value>
-  </data>
-  <data name="Profiles.UseRemote" xml:space="preserve">
-    <value>Naudoti bendrinamą versiją</value>
-  </data>
-  <data name="Profiles.Validation" xml:space="preserve">
-    <value>Patikrinkite privalomus laukus. Jei prašoma tinklo aplanko, naudokite kelią, pvz., \\server\share\folder. Jei failo slaptažodį įvedate du kartus, įsitikinkite, kad abu įrašai sutampa.</value>
-  </data>
   <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
     <value>Foundry OSD nepavyko išsaugoti tarpinio serverio nustatymų. Bandykite dar kartą. Išsamesnės informacijos ieškokite žurnale.</value>
   </data>
@@ -3429,12 +3142,6 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Bendra</value>
   </data>
-  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Kurkite atsargines parametrų kopijas, perkelkite juos į kitą kompiuterį arba palaikykite jų sinchronizavimą.</value>
-  </data>
-  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Parametrų atsarginės kopijos ir sinchronizavimas</value>
-  </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Konfigūruokite, kaip Foundry OSD jungiasi prie internetinių paslaugų.</value>
   </data>
@@ -3464,6 +3171,498 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Atnaujinti programą</value>
+  </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>Priimti</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>Priimti naują etaloninį kompiuterį</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>Aplanką dabar publikuoja kitas kompiuteris: {0}. Priimkite jį tik tada, jei tikitės šio pakeitimo, pavyzdžiui, po perėmimo; kitu atveju nustokite sekti aplanką.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>Priimti naują etaloninį kompiuterį?</value>
+  </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Etaloninis kompiuteris pasikeitė, kol šis dialogo langas buvo atidarytas. Prieš priimdami peržiūrėkite naują raktą.</value>
+  </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Perkelkite šią konfigūraciją šifruotu failu arba palaikykite kelių kompiuterių suderinamumą per bendrinamą aplanką.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Konfigūracijos bendrinimas</value>
+  </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>Keisti</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>Keisti slaptažodį</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>Dabartinis publikavimas perrašomas nauju slaptažodžiu. Turinio failai iš naujo nešifruojami, todėl tas, kas žinojo seną slaptažodį, vis dar gali juos skaityti: norėdami visiškai atšaukti ankstesnių skaitytojų prieigą, naudokite parinktį „Iš naujo nustatyti publikavimą“. Aplanką sekantys kompiuteriai naują slaptažodį įveda vieną kartą.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>Keisti publikavimo slaptažodį</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>Tikrinti dabar</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Patvirtinti slaptafrazę</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>Patvirtinkite slaptažodį</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Atsisiunčiama</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>Elementų, kurių nepavyko įdiegti, skaičius: {0}. Jie gaunami iš naujo, kai etaloninis kompiuteris publikuoja naują versiją.</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Tvarkyklių rinkinys</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>Failas</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Atvaizdas</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Paketas po diegimo</value>
+  </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>Aplanke turinys gali būti sugadintas. Publikuokite dar kartą iš etaloninio kompiuterio.</value>
+  </data>
+  <data name="Sharing.CopyButton" xml:space="preserve">
+    <value>Kopijuoti</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>Dabartinis publikavimo slaptažodis</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>Įvesti slaptažodį</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>Publikavimo slaptažodis vėl reikalingas, pavyzdžiui, iš naujo nustačius „Windows“ slaptažodį arba etaloniniam kompiuteriui jį pakeitus.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>Įveskite publikavimo slaptažodį</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Eksportuoti</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>Konfigūracija eksportuota.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Įrašykite parametrus ir mažus failus į užšifruotą failą. Paketai po diegimo, tvarkyklių rinkiniai ir atvaizdai neįtraukiami.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>Konfigūracijos nepavyko eksportuoti. Patikrinkite paskirties vietą ir bandykite dar kartą.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>Šios konfigūracijos failai iš viso viršija 16 MiB ir negali būti eksportuoti.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>Konfigūracija eksportuota, bet kai kurių failų šiame kompiuteryje nėra arba jie sugadinti, todėl jie neįtraukti (skaičius: {0}). Pasirinkite juos dar kartą konfigūracijos puslapiuose ir eksportuokite iš naujo.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Eksportuoti konfigūraciją</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>Failas</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Foundry konfigūracija</value>
+  </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>Aplankas</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>Pasirinkite publikavimo aplanką</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>Sekti</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>Naudokite konfigūraciją, kurią etaloninis kompiuteris publikuoja aplanke. Publikuoti parametrai šiame kompiuteryje tampa tik skaitomi.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>Įveskite aplanką, kuriame publikuoja etaloninis kompiuteris, ir jo publikavimo slaptažodį, tada atidarykite jį, kad peržiūrėtumėte publikavimą.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>Sekimas pakeičia dabartinę konfigūraciją ir publikuotus parametrus padaro tik skaitomus. Šio kompiuterio ISO išvesties kelias, papildomas WinPE tvarkyklių aplankas ir telemetrijos parametrai išsaugomi.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>Sekti aplanką</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>Rastas raktas</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>Rasta versija</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>Pamiršti publikavimo slaptažodį</value>
+  </data>
+  <data name="Sharing.GenerateButton" xml:space="preserve">
+    <value>Generuoti</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>Importuoti</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>Konfigūracija importuota.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>Konfigūracija importuota. Šiame kompiuteryje trūksta turinio: importuokite jį dar kartą atitinkamame puslapyje.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Pakeiskite šią konfigūraciją eksportuotu failu arba ankstesnės versijos profiliu.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>Konfigūracijos nepavyko importuoti. Dabartinė konfigūracija nepakeista.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>Konfigūracija importuota, bet jos slaptažodžių nepavyko įrašyti. Įveskite juos dar kartą konfigūracijos puslapiuose.</value>
+  </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>Importavimas nepasiekiamas, kol šis kompiuteris seka aplanką. Pirmiausia nustokite sekti.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Importuoti konfigūraciją</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Įtraukti slaptažodžius</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>Bet kas, galintis skaityti aplanką ir žinantis publikavimo slaptažodį, gali perskaityti šiuos slaptažodžius.</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Bet kas, turintis šį failą ir jo slaptafrazę, gali perskaityti šiuos slaptažodžius.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>Šis failas nėra Foundry konfigūracija arba yra sugadintas.</value>
+  </data>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>Paskutinė sėkminga patikra</value>
+  </data>
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>Paskutinį kartą publikuota</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
+    <value>Šis Windows vartotojas negali atidaryti šios konfigūracijos.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>Šią konfigūraciją publikuoja {0}, o šiame kompiuteryje ji yra tik skaitoma. Galima keisti tik ISO išvesties kelią, papildomą WinPE tvarkyklių aplanką ir telemetrijos parametrus.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>Šią konfigūraciją publikuoja {0}, o šiame kompiuteryje ji yra tik skaitoma. Publikavime nėra slaptažodžių: įveskite juos čia. Taip pat galima keisti ISO išvesties kelią, papildomą WinPE tvarkyklių aplanką ir telemetrijos parametrus.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>Valdo etaloninis kompiuteris</value>
+  </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Kai kurių konfigūracijos naudojamų failų atkurti nepavyko. Pasirinkite juos iš naujo konfigūracijos puslapiuose.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Ankstesnių versijų konfigūracijos sinchronizavimas nebepalaikomas. Norėdami bendrinti šią konfigūraciją, etaloniniame kompiuteryje naudokite parinktį „Publikuoti aplanke“.</value>
+  </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Patikrinkite konfigūraciją</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Įrašytų slaptažodžių atkurti nepavyko. Įveskite juos iš naujo konfigūracijos puslapiuose.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Importuokite šiuos elementus dar kartą jų puslapiuose. Iki tol atitinkami konfigūracijos elementai nėra parengti.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Trūksta šiame kompiuteryje</value>
+  </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>Naujas raktas</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>Naujas publikavimo slaptažodis</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>Šiame aplanke nėra publikuotos konfigūracijos.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>Dar nepatikrinta: šios reikšmės gautos iš aplanko ir patvirtinamos tik tada, kai dabartinis publikavimo slaptažodis atidaro publikavimą.</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Atidaryti</value>
+  </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Atidaryti failą</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Atidaryti pasirinktą profilį</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>Nepavyko užbaigti operacijos. Išsamią informaciją rasite žurnale.</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>Slaptafrazė nukopijuota į mainų sritį.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Slaptafrazė</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>Slaptafrazės nesutampa.</value>
+  </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>Naujas slaptažodis įrašytas. Pakeitimas bus užbaigtas kito sėkmingo publikavimo metu.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>Publikavimo slaptažodis pakeistas. Aplanką sekantys kompiuteriai naują slaptažodį įveda vieną kartą.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>Slaptažodis nukopijuotas į mainų sritį.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>Slaptažodžiai nesutampa.</value>
+  </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Šią konfigūraciją valdo etaloninis kompiuteris: čia galima įvesti tik slaptažodį.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Įtraukti</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>Taip gali nutikti iš naujo nustačius „Windows“ slaptažodį. Norėdami toliau publikuoti, perimkite aplanką naudodami dabartinį publikavimo slaptažodį; tada aplanką sekantys kompiuteriai vieną kartą priims šį kompiuterį kaip naują etaloninį.</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Neįtraukti</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Eksportuota</value>
+  </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>Atsisiuntimo dydis</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Pavadinimas</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Slaptažodžiai</value>
+  </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>Publikuota</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>Etaloninis kompiuteris</value>
+  </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>Ankstesnis raktas</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Ankstesnės versijos profiliai</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Šie profiliai buvo išsaugoti šiame kompiuteryje prieš naujinimą.</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>Publikavimas dar ne visas pasiekė šį aplanką. Bandykite dar kartą po akimirkos.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>Publikavimo slaptažodis</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>Publikavimas nustatytas iš naujo. Aplanką sekantys kompiuteriai naują slaptažodį įveda vieną kartą.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>Publikuoti</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>Paverskite šį kompiuterį etaloniniu: jo konfigūracija publikuojama aplanke, kurį seka kiti kompiuteriai.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>Pasirinkite tuščią aplanką arba aplanką, kuriame šis kompiuteris jau publikuoja: tinklo bendrinamą aplanką, „OneDrive“ ar „SharePoint“ aplanką arba vietinį aplanką. Aplanką sekantiems kompiuteriams jam skaityti reikia publikavimo slaptažodžio.</value>
+  </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>Publikuoti dabar</value>
+  </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Tikrinamas aplankas…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Baigiamas publikavimas…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>Ruošiamas elementas {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>Siunčiamas elementas {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>Tikrinamas elementas {0}…</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>Publikuoti aplanke</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>Importavimas pakeičia dabartinę konfigūraciją. Šio kompiuterio ISO išvesties kelias, papildomas WinPE tvarkyklių aplankas ir telemetrijos parametrai išsaugomi.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>Nustatyti iš naujo</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>Iš naujo nustatyti publikavimą</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>Naujas slaptažodis ir naujas turinio raktas: kiekvienas turinio failas šifruojamas iš naujo, todėl ankstesnių skaitytojų prieiga visiškai atšaukiama. Aplanką sekantys kompiuteriai naują slaptažodį įveda vieną kartą.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>Iš naujo nustatyti publikavimą</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>Ankstesni skaitytojai vis dar gali atidaryti turinį iki kito sėkmingo publikavimo.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>Šis kompiuteris seka kompiuterį {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>Šis kompiuteris publikuoja savo konfigūraciją</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>Bent 12 simbolių, ir ne tas pats pakartotas simbolis (pavyzdžiui, aaaaaaaaaaaa).</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Nepavyko atsisiųsti dalies stebimos publikacijos bendrinamo turinio. Patikrinkite „Konfigūracijos bendrinimas“ puslapyje „Parametrai“.</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>Publikavimas ir sekimas šio seanso metu nepasiekiami, nes nepavyko nuskaityti bendrinimo būsenos. Išsamią informaciją rasite žurnale.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>Tikrinamas aplankas: publikavimas dar ne visas atkeliavo ir bus nuskaitytas iš naujo kito tikrinimo metu.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>Konfigūracija pritaikyta. Atsisiunčiamas bendrinamas turinys.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>Konfigūracija pritaikyta, bet dalies bendrinamo turinio nepavyko įdiegti.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>Konfigūracija pritaikyta, bet dalis bendrinamo turinio po pakartotinių patikrų vis dar nepasiekiama.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>Šiame aplanke yra failų, kurie nėra šio kompiuterio publikavimas. Pasirinkite tuščią aplanką.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>Aplankas nepasiekiamas. Patikrinkite, ar jis yra ir ar šis kompiuteris turi prieigą prie jo.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>Šis kompiuteris nepublikuoja ir neseka jokios konfigūracijos.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>Laukiama pirmojo aplanko tikrinimo.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>Pakeitimai publikuojami automatiškai.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>Nepublikuota: konfigūracija neparengta laikmenoms kurti arba nurodo turinį, kurio šiame kompiuteryje trūksta. Ankstesnė versija lieka galioti.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>Reikia slaptažodžių: įveskite publikavimo slaptažodį arba konfigūracijos puslapiuose įveskite trūkstamus slaptažodžius.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>Nepavyko nuskaityti šio kompiuterio publikavimo slaptažodžio arba raktų.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>Publikuota. Aplanką sekantys kompiuteriai gaus šią versiją kito tikrinimo metu.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>Publikuojama konfigūracija…</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>Aplankas nurodo senesnę versiją nei pritaikytoji. Ji nepaisoma.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>Publikavimas buvo pakeistas. Jis netaikomas.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>Aplanką dabar publikuoja kitas kompiuteris. Priimkite naują etaloninį kompiuterį arba nustokite sekti.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>Šiame aplanke publikuoja kitas kompiuteris. Perimkite jį, kad publikuotumėte iš šio kompiuterio.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>Šiam publikavimui reikia naujesnės Foundry OSD versijos.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>Naujausia.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>Konfigūracija atnaujinta.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>Publikavimo slaptažodis neatidaro dabartinio publikavimo. Įveskite naują slaptažodį.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>Publikavimo slaptažodis neatidaro šio kompiuterio publikavimo šiame aplanke.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>Nustoti sekti</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>Konfigūracija lieka nepakitusi ir šiame kompiuteryje vėl tampa redaguojama.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>Nustoti sekti?</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>Stabdyti publikavimą</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>Aplankas lieka nepakitęs, o jį sekantys kompiuteriai išlaiko paskutinę publikuotą versiją. Šis kompiuteris nebepublikuoja savo konfigūracijos.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>Stabdyti publikavimą?</value>
+  </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>Atsisiunčiamas elementas {0}…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>Diegiamas elementas {0}…</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>Perimti</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>Šiame aplanke publikuoja kitas kompiuteris. Perėmimas tęsia jo publikavimą su šio kompiuterio raktu; aplanką sekantys kompiuteriai turi vieną kartą priimti šį kompiuterį kaip naują etaloninį.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>Nepavyko nuskaityti šio kompiuterio publikavimo raktų. Perėmimas naudojant dabartinį publikavimo slaptažodį tęsia publikavimą su naujais raktais; aplanką sekantys kompiuteriai turi vieną kartą priimti šį kompiuterį kaip naują etaloninį.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>Perimti šį aplanką</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>Šis slaptažodis neatidaro dabartinio publikavimo.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>Nepavyko perskaityti failo.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>Šiam failui reikalinga naujesnė Foundry OSD versija.</value>
+  </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>Versija</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>Laukiama, kol bus baigtas bendrinamo turinio atsisiuntimas…</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Neteisinga slaptafrazė arba sugadintas failas.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>Šis slaptažodis neatidaro publikavimo arba publikavimas buvo pakeistas.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Stabdyti operaciją</value>
@@ -3590,6 +3789,15 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Reikalingos žiniasklaidos paslaptys neparengtos.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Dalies bendrinamo turinio nepavyko įdiegti šiame kompiuteryje. Jis gaunamas iš naujo, kai etaloninis kompiuteris publikuoja naują versiją. Patikrinkite „Konfigūracijos bendrinimas“ puslapyje „Parametrai“.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Dalis bendrinamo turinio po pakartotinių patikrų vis dar nepasiekiama. Publikuokite dar kartą iš etaloninio kompiuterio, tada patikrinkite „Konfigūracijos bendrinimas“ puslapyje „Parametrai“.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Bendrinamas turinys vis dar atsisiunčiamas. Laikmenų kūrimas bus galimas, kai atsisiuntimas bus baigtas.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Pasirinktas USB diskas per mažas talpyklai. Naudokite bent 16 GB talpos USB diską arba pasirinkite „Sukurti be talpyklos“ spustelėję „Sukurti USB“ rodyklę.</value>
@@ -4164,6 +4372,15 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Paruošta kurti USB mediją</value>
   </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Nepavyko įdiegti bendrinamo turinio</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Bendrinamas turinys nepasiekiamas</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Laukiama bendrinamo turinio</value>
+  </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Peržiūrėkite medijos išvesties įspėjimus</value>
   </data>
@@ -4308,13 +4525,13 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
     <value>Yra parametrų, galinčių neleisti užregistruoti įrenginio „Autopilot“; nesuderinami registravimo režimai diegimo metu bus blokuojami.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Pasirinkite failą, kurį norite pervardyti, atnaujinti arba pašalinti. Šaltinio failai turi būti pasiekiami iki laikmenos sukūrimo; pasikeitusius šaltinius reikia atnaujinti.</value>
+    <value>Pasirinkite failą, kurį norite pervardyti arba pašalinti. Foundry saugo savo kiekvieno importuoto failo kopiją; norėdami naudoti atnaujintą failą, pašalinkite įrašą ir importuokite failą iš naujo.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Atsakymų failai</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Tikrinti šaltinius</value>
+    <value>Tikrinti failus</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Yra komandų; patikrinkite, ar jos nesidubliuoja su „Foundry“ tinkinimais ir diegimo veiksmais.</value>
@@ -4353,13 +4570,13 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
     <value>Faile turi būti nurodyta palaikoma architektūra ir jai taikomi komponentų parametrai.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Kataloge yra netinkamų arba pasikartojančių įrašų. Atnaujinkite arba pašalinkite atitinkamus failus.</value>
+    <value>Kataloge yra netinkamų arba pasikartojančių įrašų. Pašalinkite susijusius failus ir importuokite juos iš naujo.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Naudokite tinkamą „Windows“ atsakymų failo XML, ne didesnį nei 4 MiB, be DTD ir išorinių objektų. Patikrinkite failą naudodami „Windows SIM“.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Kai kurių šaltinių nėra, jie pasikeitė arba yra netinkami. Prieš kurdami laikmeną atnaujinkite arba pašalinkite šiuos įrašus.</value>
+    <value>Kai kurių failų trūksta arba jie netinkami. Prieš kurdami laikmeną, pašalinkite šiuos įrašus ir importuokite failus iš naujo.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Nėra numatytojo failo – pasirinkite kitą</value>
@@ -4374,16 +4591,13 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
     <value>„Foundry“ išsaugo originalų failą ir į diegimo kopiją įtraukia savo būtiną komandą, vykdomą po diegimo. Už pasirinktinius parametrus ir komandas ir toliau atsakote jūs.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Pasirinktiniams failams reikia diegimo laikmenos apsaugos slaptažodžiu bendrojoje konfigūracijoje. XML gali būti kredencialų arba scenarijų. Foundry šiame kompiuteryje išsaugo kiekvieno failo kopiją kartu su konfigūracija tik tada, kai skiltyje „Parametrų atsarginės kopijos ir sinchronizavimas“ įjungta parinktis „Įsiminti slaptažodžius“; kitu atveju išsaugomas tik kelias. Įkrovos atvaizde yra užšifruotos kopijos.</value>
+    <value>Pasirinktiniams failams reikia diegimo laikmenos apsaugos slaptažodžiu bendrojoje konfigūracijoje. XML gali būti kredencialų arba scenarijų. Foundry šiame kompiuteryje saugo kiekvieno importuoto failo kopiją savo failų bibliotekoje. Įkrovos atvaizde yra užšifruotos kopijos.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Norėdami naudoti pasirinktinius atsakymų failus, bendrojoje konfigūracijoje įgalinkite diegimo laikmenos apsaugą slaptažodžiu.</value>
   </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Šis šaltinis dabar sutampa su kitu importuotu failu. Pašalinkite šį įrašą ir pasirinkite esamą failą.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Atnaujinti šaltinį</value>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry nebeturi tinkamos šio failo kopijos. Pašalinkite įrašą ir importuokite failą iš naujo.</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Pašalinti</value>
@@ -4397,26 +4611,23 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Pasirinktas failas</value>
   </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>Šaltinis pasikeitė. Prieš kurdami laikmeną pasirinkite „Atnaujinti šaltinį“, kad priimtumėte atnaujintą failą.</value>
-  </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Dvi šaltinių patikros vis dar laukia prieigos prie failų. Atkurkite prieigą prie nepasiekiamų šaltinių vietų, tada dar kartą patikrinkite šaltinius.</value>
+    <value>Vis dar vykdomi du failų tikrinimai. Palaukite, kol jie baigsis, tada bandykite dar kartą.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Šaltinis dar nepatikrintas. Pasirinkite „Tikrinti šaltinius“, kad patikrintumėte dabartinį failą nepriimdami turinio pakeitimų.</value>
+    <value>Failas dar nepatikrintas. Pasirinkite „Tikrinti failus“, kad patikrintumėte saugomą kopiją.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Nepavyko perskaityti šaltinio. Patikrinkite, ar failas vis dar yra ir ar jis pasiekiamas.</value>
+    <value>Failo nepavyko perskaityti. Patikrinkite, ar jis yra ir ar galite jį atidaryti, tada bandykite dar kartą.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Baigėsi šaltinio tikrinimo laikas. Patikrinkite prieigą prie šaltinio vietos ir bandykite dar kartą.</value>
+    <value>Saugomų failų tikrinimas užtruko per ilgai. Bandykite dar kartą.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Palaikomi tik specialize ir oobeSystem parametrai. Pašalinkite kitus netuščius konfigūracijos etapus, autonominės priežiūros nurodymus arba pakartotinį parengimą audito režimui.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Šaltinis patikrintas.</value>
+    <value>Failas patikrintas.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Taikyti naujinimą</value>

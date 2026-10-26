@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UserControl x:Class="Foundry.Controls.ManagedConfigurationBanner"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Visibility="{x:Bind ViewModel.IsManaged, Mode=OneWay}">
+    <InfoBar
+        Title="{x:Bind ViewModel.BannerTitle, Mode=OneWay}"
+        IsClosable="False"
+        IsOpen="{x:Bind ViewModel.IsManaged, Mode=OneWay}"
+        Message="{x:Bind ViewModel.BannerText, Mode=OneWay}"
+        Severity="Informational" />
+</UserControl>

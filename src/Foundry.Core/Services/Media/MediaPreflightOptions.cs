@@ -4,6 +4,7 @@
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.Sharing;
 using Foundry.Core.Services.WinPe;
 
 namespace Foundry.Core.Services.Media;
@@ -32,6 +33,11 @@ public sealed record MediaPreflightOptions
     /// Gets a value indicating whether deployment configuration can be generated.
     /// </summary>
     public bool IsDeployConfigurationReady { get; init; }
+
+    /// <summary>
+    /// Gets whether the shared content of the publication a follower applied is complete; media creation is blocked until it is.
+    /// </summary>
+    public SharedContentSyncState SharedContentState { get; init; } = SharedContentSyncState.Synced;
 
     /// <summary>
     /// Gets a value indicating whether Connect provisioning files can be generated.

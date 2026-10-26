@@ -4,7 +4,7 @@
 
 namespace Foundry.Views;
 
-/// <summary>Renames the selected driver set; it stays open when the name is already used in the profile.</summary>
+/// <summary>Renames the selected driver set; it stays open when the name is already used in the configuration.</summary>
 public sealed partial class CustomDriverSetEditDialog : ContentDialog
 {
     private readonly string? setId;

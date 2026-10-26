@@ -283,6 +283,12 @@
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>บันทึกประจำรุ่น</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>ไม่สามารถเพิ่มไฟล์ที่เลือกลงใน Foundry ได้ โปรดเลือกไฟล์ที่อ่านได้และมีขนาดไม่เกิน 4 MiB</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>ไม่ได้เพิ่มไฟล์</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>ค่าเริ่มต้น</value>
   </data>
@@ -389,7 +395,7 @@
     <value>คัดลอกรหัสผ่าน</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>บันทึกไฟล์ PFX และรหัสผ่านนี้ในตำแหน่งที่ปลอดภัย Foundry จะบันทึกรหัสผ่านพร้อมกับการกำหนดค่าของคุณบนพีซีเครื่องนี้เฉพาะเมื่อเปิด “จดจำรหัสผ่าน” ใน “สำรองและซิงค์การตั้งค่า” เท่านั้น คุณจะต้องใช้ทั้งสองค่าเพื่อสร้างสื่อสำหรับบูตสำหรับการอัปโหลดแฮชฮาร์ดแวร์</value>
+    <value>บันทึกไฟล์ PFX และรหัสผ่านนี้ในตำแหน่งที่ปลอดภัย Foundry จะจดจำรหัสผ่านบนพีซีเครื่องนี้ไว้ในห้องนิรภัยที่เข้ารหัสภายในเครื่อง และจะออกจากพีซีเครื่องนี้เฉพาะในการส่งออกหรือการเผยแพร่เมื่อเลือก “รวมรหัสผ่าน” เท่านั้น คุณจะต้องใช้ทั้งสองค่าเพื่อสร้างสื่อสำหรับบูตสำหรับการอัปโหลดแฮชฮาร์ดแวร์</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>คัดลอกรหัสผ่านแล้ว</value>
@@ -737,7 +743,10 @@
     <value>ไม่พร้อมใช้งาน</value>
   </data>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
-    <value>โฟลเดอร์นี้อยู่ในโปรไฟล์นี้แล้วในชื่อ {0}</value>
+    <value>โฟลเดอร์นี้อยู่ในการกำหนดค่านี้แล้วในชื่อ {0}</value>
+  </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>การกำหนดค่าถูกแทนที่ระหว่างการนำเข้า จึงไม่ได้เพิ่มชุดไดรเวอร์ นำเข้าโฟลเดอร์อีกครั้ง</value>
   </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>นำชุดไดรเวอร์ออกแล้ว แต่ไม่สามารถลบสำเนาในเครื่องได้</value>
@@ -749,7 +758,7 @@
     <value>ชุดไดรเวอร์</value>
   </data>
   <data name="CustomDrivers.DuplicateName" xml:space="preserve">
-    <value>มีชุดไดรเวอร์ชื่อนี้อยู่ในโปรไฟล์นี้แล้ว</value>
+    <value>มีชุดไดรเวอร์ชื่อนี้อยู่ในการกำหนดค่านี้แล้ว</value>
   </data>
   <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
     <value>ยังไม่มีชุดไดรเวอร์แบบกำหนดเอง นำเข้าโฟลเดอร์ที่มีไดรเวอร์ .inf เพื่อเริ่มต้น</value>
@@ -802,26 +811,23 @@
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>ชุดไดรเวอร์</value>
   </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>โปรไฟล์ที่ใช้งานอยู่เปลี่ยนไประหว่างการนำเข้า จึงไม่ได้เพิ่มชุดไดรเวอร์ นำเข้าโฟลเดอร์อีกครั้งในโปรไฟล์นี้</value>
-  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>ไม่พร้อมใช้งานเมื่อบูตด้วย PXE ไดรเวอร์แบบกำหนดเองต้องใช้สื่อ ISO หรือ USB ฉบับเต็ม</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
-    <value>ชุดไดรเวอร์ของโปรไฟล์นี้ไม่ถูกต้อง ตรวจสอบชุดที่รวมไว้และชุดเริ่มต้นก่อนสร้างหรืออัปเดตสื่อ</value>
+    <value>ชุดไดรเวอร์ของการกำหนดค่านี้ไม่ถูกต้อง ตรวจสอบชุดที่รวมไว้และชุดเริ่มต้นก่อนสร้างหรืออัปเดตสื่อ</value>
   </data>
   <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
     <value>สำเนาในเครื่องของ {0} หายไปหรือเสียหาย นำเข้าโฟลเดอร์อีกครั้งหรือแยกชุดนี้ออกก่อนสร้างหรืออัปเดตสื่อ</value>
   </data>
   <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
-    <value>รวมชุดไดรเวอร์อย่างน้อยหนึ่งชุดไว้ในโปรไฟล์นี้ หรือปิดไดรเวอร์แบบกำหนดเอง ก่อนสร้างหรืออัปเดตสื่อ</value>
+    <value>รวมชุดไดรเวอร์อย่างน้อยหนึ่งชุดไว้ในการกำหนดค่านี้ หรือปิดไดรเวอร์แบบกำหนดเอง ก่อนสร้างหรืออัปเดตสื่อ</value>
   </data>
   <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
     <value>นำชุดไดรเวอร์ออก</value>
   </data>
   <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) จะถูกนำออกจากโปรไฟล์ปัจจุบัน</value>
+    <value>{0} ({1}) จะถูกนำออกจากการกำหนดค่าปัจจุบัน</value>
   </data>
   <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
     <value>ไม่สามารถนำชุดไดรเวอร์ออกได้ ลองอีกครั้ง</value>
@@ -830,13 +836,13 @@
     <value>นำชุดไดรเวอร์ออกไหม</value>
   </data>
   <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
-    <value>สำเนาในเครื่องจะถูกลบ เว้นแต่มีโปรไฟล์อื่นใช้งานอยู่ โฟลเดอร์ต้นฉบับและสื่อที่มีอยู่จะไม่เปลี่ยนแปลง</value>
+    <value>สำเนาในเครื่องจะถูกลบ โฟลเดอร์ต้นฉบับและสื่อที่มีอยู่จะไม่เปลี่ยนแปลง</value>
   </data>
   <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
     <value>ตั้งเป็นค่าเริ่มต้น</value>
   </data>
   <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
-    <value>โปรไฟล์นี้มีชุดไดรเวอร์ครบจำนวนสูงสุดแล้ว นำชุดหนึ่งออกก่อนนำเข้าชุดอื่น</value>
+    <value>การกำหนดค่านี้มีชุดไดรเวอร์ครบจำนวนสูงสุดแล้ว นำชุดหนึ่งออกก่อนนำเข้าชุดอื่น</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>กำลังตรวจสอบชุดไดรเวอร์แบบกำหนดเอง…</value>
@@ -878,7 +884,7 @@
     <value>อิมเมจที่เลือก</value>
   </data>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
-    <value>มีอิมเมจชื่อนี้อยู่ในโปรไฟล์นี้แล้ว</value>
+    <value>มีอิมเมจชื่อนี้อยู่ในการกำหนดค่านี้แล้ว</value>
   </data>
   <data name="CustomImages.EditionLabel" xml:space="preserve">
     <value>รุ่น</value>
@@ -935,7 +941,7 @@
     <value>ไม่พร้อมใช้งานเมื่อบูตด้วย PXE อิมเมจแบบกำหนดเองต้องใช้สื่อ ISO หรือ USB ฉบับเต็ม</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>รวมอิมเมจ Windows ที่พร้อมใช้งานอย่างน้อยหนึ่งรายการไว้ในโปรไฟล์นี้ กู้คืนอิมเมจที่รวมไว้แต่หายไป และแก้ไขหรือล้างการเลือกอิมเมจหรือดัชนีที่ต้องการก่อนสร้างหรืออัปเดตสื่อ</value>
+    <value>รวมอิมเมจ Windows ที่พร้อมใช้งานอย่างน้อยหนึ่งรายการไว้ในการกำหนดค่านี้ กู้คืนอิมเมจที่รวมไว้แต่หายไป และแก้ไขหรือล้างการเลือกอิมเมจหรือดัชนีที่ต้องการก่อนสร้างหรืออัปเดตสื่อ</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>รีเฟรช</value>
@@ -944,7 +950,7 @@
     <value>นำอิมเมจออก</value>
   </data>
   <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) จะถูกนำออกจากโปรไฟล์ปัจจุบัน และสำเนาในเครื่องจะถูกลบ</value>
+    <value>{0} ({1}) จะถูกนำออกจากการกำหนดค่าปัจจุบัน และสำเนาในเครื่องจะถูกลบ</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>นำออก</value>
@@ -953,7 +959,7 @@
     <value>นำอิมเมจแบบกำหนดเองออกไหม</value>
   </data>
   <data name="CustomImages.RemoveWarning" xml:space="preserve">
-    <value>โปรไฟล์อื่นที่ใช้อิมเมจนี้จะแสดงว่าอิมเมจหายไป ไฟล์ต้นฉบับและสื่อที่มีอยู่จะไม่เปลี่ยนแปลง</value>
+    <value>ไฟล์ต้นฉบับและสื่อที่มีอยู่จะไม่เปลี่ยนแปลง</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>แก้ไข</value>
@@ -2768,7 +2774,7 @@
     <value>จัดเตรียมเทมเพลตโปรไฟล์องค์กร Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>ข้อความรหัสผ่านจะถูกบันทึกพร้อมกับการกำหนดค่าของคุณบนพีซีเครื่องนี้เฉพาะเมื่อเปิด “จดจำรหัสผ่าน” ใน “สำรองและซิงค์การตั้งค่า” เท่านั้น มิฉะนั้นจะไม่ถูกบันทึกและต้องป้อนอีกครั้ง เช่น หลังจากรีสตาร์ท Foundry OSD</value>
+    <value>Foundry จะจดจำวลีรหัสผ่านบนพีซีเครื่องนี้ไว้ในห้องนิรภัยที่เข้ารหัสภายในเครื่อง และจะออกจากพีซีเครื่องนี้เฉพาะในการส่งออกหรือการเผยแพร่เมื่อเลือก “รวมรหัสผ่าน” เท่านั้น</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>นำเข้าโปรไฟล์ Wi-Fi ที่ Foundry จัดการลงใน Windows ก่อน OOBE เพื่อรักษาการเชื่อมต่อสำหรับการปรับใช้หลัง WinPE</value>
@@ -3001,299 +3007,6 @@
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>ไดเรกทอรีทำงาน (เส้นทางสัมพัทธ์ หากว่างจะใช้รากของเนื้อหา)</value>
   </data>
-  <data name="Profiles.Active" xml:space="preserve">
-    <value>การตั้งค่าปัจจุบัน</value>
-  </data>
-  <data name="Profiles.AutoSync" xml:space="preserve">
-    <value>ซิงค์อัตโนมัติ</value>
-  </data>
-  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
-    <value>เลือกชื่ออื่น</value>
-  </data>
-  <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>ไม่สามารถลบรหัสผ่านหรือคีย์การเข้าถึงเก่าบางรายการที่บันทึกไว้ได้ ลองอีกครั้งเมื่อ Windows Credential Manager พร้อมใช้งาน</value>
-  </data>
-  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
-    <value>ปิดโดยไม่บันทึก</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
-    <value>ไม่สามารถบันทึกการเปลี่ยนแปลงล่าสุดของคุณได้ และการเปลี่ยนแปลงเหล่านั้นจะสูญหาย</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
-    <value>ปิดโดยไม่บันทึกการตั้งค่าใช่ไหม</value>
-  </data>
-  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
-    <value>ยืนยันรหัสผ่าน</value>
-  </data>
-  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>ยืนยันรหัสผ่านของไฟล์</value>
-  </data>
-  <data name="Profiles.Conflict" xml:space="preserve">
-    <value>การตั้งค่าเหล่านี้มีการเปลี่ยนแปลงทั้งบนพีซีเครื่องนี้และโดยผู้อื่น เลือกเวอร์ชันที่ต้องการเก็บไว้</value>
-  </data>
-  <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>เวอร์ชันที่คุณเลือกจะแทนที่อีกเวอร์ชัน หากต้องการเก็บสำเนาแยกไว้ ให้เลือก “ทำสำเนา” ก่อน</value>
-  </data>
-  <data name="Profiles.ConnectAction" xml:space="preserve">
-    <value>เชื่อมต่อ</value>
-  </data>
-  <data name="Profiles.ConnectDescription" xml:space="preserve">
-    <value>เลือกไฟล์การเชื่อมต่อที่ได้รับจากสมาชิกในทีมของคุณ</value>
-  </data>
-  <data name="Profiles.ConnectionPassword" xml:space="preserve">
-    <value>รหัสผ่านการเชื่อมต่อ</value>
-  </data>
-  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
-    <value>พีซีเครื่องอื่นจะต้องใช้รหัสผ่านนี้เพื่อเชื่อมต่อ</value>
-  </data>
-  <data name="Profiles.Continue" xml:space="preserve">
-    <value>ดำเนินการต่อ</value>
-  </data>
-  <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>แชร์การกำหนดค่านี้</value>
-  </data>
-  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
-    <value>เลือกโฟลเดอร์เครือข่ายที่แชร์สำหรับการกำหนดค่านี้</value>
-  </data>
-  <data name="Profiles.Delete" xml:space="preserve">
-    <value>ลบออกจากพีซีเครื่องนี้</value>
-  </data>
-  <data name="Profiles.DeleteAction" xml:space="preserve">
-    <value>ลบ</value>
-  </data>
-  <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>ลบสำหรับทุกคนด้วย</value>
-  </data>
-  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
-    <value>ลบสำหรับทุกคน</value>
-  </data>
-  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
-    <value>ลบสำหรับทุกคนใช่ไหม</value>
-  </data>
-  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>ต้องการลบการตั้งค่าที่แชร์เหล่านี้สำหรับทุกคนหรือไม่ ผู้ที่มีการเปลี่ยนแปลงที่ยังไม่ได้ซิงค์ต้องทำสำเนาการตั้งค่าของตนเพื่อเก็บไว้</value>
-  </data>
-  <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>ต้องการลบการตั้งค่าเหล่านี้ออกจากพีซีเครื่องนี้หรือไม่ หากต้องการสำรองข้อมูล ให้ส่งออกก่อน</value>
-  </data>
-  <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>การตั้งค่าที่แชร์เหล่านี้ถูกลบแล้ว เลือก “ทำสำเนา” เพื่อเก็บการเปลี่ยนแปลงของคุณไว้บนพีซีเครื่องนี้</value>
-  </data>
-  <data name="Profiles.Disconnect" xml:space="preserve">
-    <value>ยกเลิกการเชื่อมต่อ</value>
-  </data>
-  <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>หยุดซิงโครไนซ์การกำหนดค่านี้บนพีซีเครื่องนี้หรือไม่? การตั้งค่าปัจจุบันของคุณจะยังคงอยู่ การกำหนดค่าที่แชร์และพีซีเครื่องอื่นจะไม่ถูกเปลี่ยนแปลง</value>
-  </data>
-  <data name="Profiles.Export" xml:space="preserve">
-    <value>ส่งออก</value>
-  </data>
-  <data name="Profiles.ExportDescription" xml:space="preserve">
-    <value>บันทึกการกำหนดค่านี้เป็นไฟล์เพื่อสำรองข้อมูลหรือใช้บนพีซีเครื่องอื่น</value>
-  </data>
-  <data name="Profiles.ExportProtection" xml:space="preserve">
-    <value>เลือกรหัสผ่านเพื่อป้องกันไฟล์ที่ส่งออก คุณจะต้องใช้รหัสผ่านนี้เพื่อนำเข้าการกำหนดค่า</value>
-  </data>
-  <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>บันทึกไฟล์การเชื่อมต่อ</value>
-  </data>
-  <data name="Profiles.Failed" xml:space="preserve">
-    <value>ไม่สามารถดำเนินการนี้ให้เสร็จสิ้นได้ ตรวจสอบไฟล์ รหัสผ่านของไฟล์ สิทธิ์การเข้าถึง และการเชื่อมต่อเครือข่ายของคุณ</value>
-  </data>
-  <data name="Profiles.FolderExists" xml:space="preserve">
-    <value>ชื่อโฟลเดอร์นี้มีการใช้งานอยู่แล้ว ให้เชื่อมต่อโดยใช้ไฟล์การเชื่อมต่อ หรือกลับไปเลือกชื่ออื่น</value>
-  </data>
-  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
-    <value>เลือกโฟลเดอร์ย่อยใหม่ที่ว่างเปล่าในโฟลเดอร์ที่แชร์ ไฟล์ที่มีอยู่จะไม่ถูกเปลี่ยนแปลง</value>
-  </data>
-  <data name="Profiles.Forget" xml:space="preserve">
-    <value>ล้างรหัสผ่านและข้อมูลการเข้าถึงที่บันทึกไว้</value>
-  </data>
-  <data name="Profiles.ForgetAction" xml:space="preserve">
-    <value>ล้าง</value>
-  </data>
-  <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>ต้องการลบรหัสผ่านที่บันทึกไว้ ไฟล์ลับที่ Foundry บันทึกไว้ และสิทธิ์เข้าถึงการซิงค์ของการตั้งค่าเหล่านี้บนพีซีเครื่องนี้หรือไม่ คุณจะต้องเพิ่มข้อมูลที่ขาดหายไปและเชื่อมต่อใหม่เพื่อซิงค์ สื่อที่สร้างไว้แล้วจะไม่เปลี่ยนแปลง</value>
-  </data>
-  <data name="Profiles.Heading" xml:space="preserve">
-    <value>การตั้งค่า Foundry</value>
-  </data>
-  <data name="Profiles.Import" xml:space="preserve">
-    <value>นำเข้า</value>
-  </data>
-  <data name="Profiles.ImportDescription" xml:space="preserve">
-    <value>เพิ่มการกำหนดค่าจากไฟล์</value>
-  </data>
-  <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>รวมรหัสผ่านและไฟล์ลับ</value>
-  </data>
-  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
-    <value>ผู้ที่ใช้การกำหนดค่านี้สามารถอ่านรหัสผ่านและไฟล์ลับที่รวมไว้ได้</value>
-  </data>
-  <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>รหัสผ่านหรือไฟล์ต้นทางบางรายการขาดหายไป เพิ่มรายการเหล่านั้นก่อนบันทึกหรือแชร์รหัสผ่าน</value>
-  </data>
-  <data name="Profiles.InvalidFolderName" xml:space="preserve">
-    <value>ใช้ชื่อที่ไม่มีอักขระพิเศษและไม่ลงท้ายด้วยจุดหรือช่องว่าง</value>
-  </data>
-  <data name="Profiles.JoinChanged" xml:space="preserve">
-    <value>การกำหนดค่าที่แชร์มีการเปลี่ยนแปลง ตรวจสอบเวอร์ชันล่าสุดก่อนเชื่อมต่อ</value>
-  </data>
-  <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>เชื่อมต่อกับการกำหนดค่าที่แชร์</value>
-  </data>
-  <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>ใช้เวอร์ชันของพีซีเครื่องนี้</value>
-  </data>
-  <data name="Profiles.LearnMore" xml:space="preserve">
-    <value>เรียนรู้เพิ่มเติม</value>
-  </data>
-  <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>เก็บรหัสผ่านสำหรับบัญชี Windows ของคุณบนพีซีเครื่องนี้</value>
-  </data>
-  <data name="Profiles.Locked" xml:space="preserve">
-    <value>Windows ไม่สามารถปลดล็อกการตั้งค่าที่บันทึกไว้เหล่านี้หรือสิทธิ์เข้าถึงการซิงค์ของการตั้งค่าสำหรับบัญชีของคุณบนพีซีเครื่องนี้ได้</value>
-  </data>
-  <data name="Profiles.Manage" xml:space="preserve">
-    <value>ตัวเลือกเพิ่มเติม</value>
-  </data>
-  <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>ไฟล์ที่ขาดหายไปหรือไม่ได้รวมไว้: {0} เลือกตำแหน่งของไฟล์ก่อนสร้างสื่อ</value>
-  </data>
-  <data name="Profiles.Name" xml:space="preserve">
-    <value>ชื่อชุดการตั้งค่า</value>
-  </data>
-  <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>รหัสผ่านของไฟล์</value>
-  </data>
-  <data name="Profiles.PasswordMismatch" xml:space="preserve">
-    <value>รหัสผ่านไม่ตรงกัน</value>
-  </data>
-  <data name="Profiles.Preview" xml:space="preserve">
-    <value>{0}
-ไฟล์ที่รวมไว้: {1}
-รหัสผ่านและคีย์การเข้าถึงที่รวมไว้: {2}</value>
-  </data>
-  <data name="Profiles.Ready" xml:space="preserve">
-    <value>พร้อม</value>
-  </data>
-  <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>เลือกรหัสผ่านเพื่อป้องกันไฟล์การเชื่อมต่อ แชร์รหัสผ่านแยกต่างหาก บันทึกไฟล์ไว้นอกโฟลเดอร์การกำหนดค่าที่แชร์</value>
-  </data>
-  <data name="Profiles.Remember" xml:space="preserve">
-    <value>จดจำรหัสผ่าน</value>
-  </data>
-  <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>จดจำการเชื่อมต่อนี้บนพีซีเครื่องนี้</value>
-  </data>
-  <data name="Profiles.Rename" xml:space="preserve">
-    <value>เปลี่ยนชื่อ</value>
-  </data>
-  <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>การดำเนินการนี้จะแทนที่การตั้งค่าที่คุณกำลังใช้ หากต้องการเก็บสำเนาไว้ก่อน ให้ยกเลิกแล้วเลือก “ทำสำเนา”</value>
-  </data>
-  <data name="Profiles.RestoreAccess" xml:space="preserve">
-    <value>กู้คืนการเข้าถึง</value>
-  </data>
-  <data name="Profiles.Rollback" xml:space="preserve">
-    <value>เวอร์ชันที่บันทึกไว้ในโฟลเดอร์ที่แชร์มีการเปลี่ยนแปลงโดยไม่คาดคิด กู้คืนจากข้อมูลสำรองที่คุณเชื่อถือ</value>
-  </data>
-  <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>ทำสำเนา</value>
-  </data>
-  <data name="Profiles.Select" xml:space="preserve">
-    <value>เลือกการกำหนดค่า</value>
-  </data>
-  <data name="Profiles.Setup" xml:space="preserve">
-    <value>ตั้งค่า</value>
-  </data>
-  <data name="Profiles.SetupAction" xml:space="preserve">
-    <value>ตั้งค่าการซิงโครไนซ์…</value>
-  </data>
-  <data name="Profiles.SetupDescription" xml:space="preserve">
-    <value>แชร์การกำหนดค่านี้หรือเชื่อมต่อกับการกำหนดค่าที่ทีมของคุณใช้อยู่แล้ว</value>
-  </data>
-  <data name="Profiles.ShareAction" xml:space="preserve">
-    <value>แชร์</value>
-  </data>
-  <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>ทุกคนที่นำเข้าหรือซิงค์การตั้งค่าเหล่านี้ได้จะสามารถอ่านรหัสผ่านและคีย์ส่วนตัวของใบรับรองที่รวมไว้ได้</value>
-  </data>
-  <data name="Profiles.SharedBusy" xml:space="preserve">
-    <value>มีการดำเนินการอื่นกำลังใช้โฟลเดอร์ที่แชร์นี้ ลองอีกครั้งในอีกสักครู่ การเปลี่ยนแปลงของคุณจะยังคงอยู่บนพีซีเครื่องนี้</value>
-  </data>
-  <data name="Profiles.SharedFolder" xml:space="preserve">
-    <value>โฟลเดอร์ที่แชร์</value>
-  </data>
-  <data name="Profiles.SharedUnavailable" xml:space="preserve">
-    <value>ไม่สามารถเข้าถึงโฟลเดอร์ที่แชร์ได้ ตรวจสอบที่อยู่ของโฟลเดอร์และการเข้าถึงเครือข่ายของคุณ การเปลี่ยนแปลงของคุณจะยังคงอยู่บนพีซีเครื่องนี้</value>
-  </data>
-  <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>ใช้โฟลเดอร์เครือข่ายเดียวกันบนพีซีทุกเครื่อง โฟลเดอร์ต้องใช้ SMB 3 โดยกำหนดให้ต้องเข้ารหัส ไม่รองรับโฟลเดอร์ที่ซิงค์กับคลาวด์</value>
-  </data>
-  <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Foundry จะหยุดบันทึกรหัสผ่านสำหรับการกำหนดค่านี้บนพีซีเครื่องนี้</value>
-  </data>
-  <data name="Profiles.StopRememberingAction" xml:space="preserve">
-    <value>หยุดจดจำ</value>
-  </data>
-  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
-    <value>หยุดจดจำรหัสผ่านใช่ไหม</value>
-  </data>
-  <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>ซิงโครไนซ์</value>
-  </data>
-  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
-    <value>กำลังซิงค์…</value>
-  </data>
-  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
-    <value>เลือกเวอร์ชัน</value>
-  </data>
-  <data name="Profiles.SyncStatusError" xml:space="preserve">
-    <value>ไม่สามารถซิงค์ได้</value>
-  </data>
-  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
-    <value>ยังไม่ได้ตั้งค่า</value>
-  </data>
-  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
-    <value>โฟลเดอร์ไม่พร้อมใช้งาน</value>
-  </data>
-  <data name="Profiles.SyncStatusPending" xml:space="preserve">
-    <value>มีการเปลี่ยนแปลงที่รอซิงค์</value>
-  </data>
-  <data name="Profiles.SyncStatusReady" xml:space="preserve">
-    <value>พร้อมซิงค์</value>
-  </data>
-  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
-    <value>เป็นข้อมูลล่าสุด</value>
-  </data>
-  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
-    <value>มีการเปลี่ยนแปลงพร้อมใช้งาน</value>
-  </data>
-  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
-    <value>ต้องตรวจสอบ</value>
-  </data>
-  <data name="Profiles.Synchronize" xml:space="preserve">
-    <value>ซิงโครไนซ์</value>
-  </data>
-  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
-    <value>ทำให้การกำหนดค่านี้เป็นปัจจุบันบนพีซีของทีมคุณ</value>
-  </data>
-  <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>การตั้งค่าเป็นปัจจุบันแล้ว</value>
-  </data>
-  <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>Foundry ไม่สามารถเปิดการตั้งค่าในรูปแบบนี้ได้ อัปเดต Foundry แล้วลองอีกครั้ง</value>
-  </data>
-  <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>มีการเปลี่ยนแปลงจากพีซีเครื่องอื่น เลือก “ซิงโครไนซ์” เพื่อนำมาใช้</value>
-  </data>
-  <data name="Profiles.UseRemote" xml:space="preserve">
-    <value>ใช้เวอร์ชันที่แชร์</value>
-  </data>
-  <data name="Profiles.Validation" xml:space="preserve">
-    <value>ตรวจสอบช่องที่ต้องกรอก หากต้องระบุโฟลเดอร์เครือข่าย ให้ใช้เส้นทาง เช่น \\server\share\folder หากป้อนรหัสผ่านของไฟล์สองครั้ง ตรวจสอบให้แน่ใจว่าทั้งสองครั้งตรงกัน</value>
-  </data>
   <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
     <value>Foundry OSD ไม่สามารถบันทึกการตั้งค่าพร็อกซีได้ ลองอีกครั้ง ดูรายละเอียดได้ในบันทึก</value>
   </data>
@@ -3429,12 +3142,6 @@
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>ทั่วไป</value>
   </data>
-  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>สำรองการตั้งค่าของคุณ โอนไปยังพีซีเครื่องอื่น หรือซิงค์ให้ตรงกันอยู่เสมอ</value>
-  </data>
-  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>สำรองและซิงค์การตั้งค่า</value>
-  </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>กำหนดค่าวิธีที่ Foundry OSD เชื่อมต่อกับบริการออนไลน์</value>
   </data>
@@ -3464,6 +3171,498 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>อัปเดตแอป</value>
+  </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>ยอมรับ</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>ยอมรับพีซีอ้างอิงใหม่</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>ขณะนี้พีซีเครื่องอื่นเผยแพร่โฟลเดอร์นี้: {0} ยอมรับเฉพาะเมื่อคุณคาดว่าจะมีการเปลี่ยนแปลงนี้ เช่น หลังจากการเข้าควบคุม มิฉะนั้นให้หยุดติดตามโฟลเดอร์</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>ยอมรับพีซีอ้างอิงใหม่หรือไม่</value>
+  </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>พีซีอ้างอิงเปลี่ยนไปขณะที่กล่องโต้ตอบนี้เปิดอยู่ โปรดตรวจสอบคีย์ใหม่ก่อนยอมรับ</value>
+  </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>ย้ายการกำหนดค่านี้ด้วยไฟล์ที่เข้ารหัส หรือทำให้พีซีหลายเครื่องสอดคล้องกันผ่านโฟลเดอร์ที่แชร์</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>การแชร์การกำหนดค่า</value>
+  </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>เปลี่ยน</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>เปลี่ยนรหัสผ่าน</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>การเผยแพร่ปัจจุบันจะถูกเขียนใหม่ด้วยรหัสผ่านใหม่ ไฟล์เนื้อหาจะไม่ถูกเข้ารหัสใหม่ ดังนั้นผู้ที่รู้รหัสผ่านเดิมยังคงอ่านไฟล์เหล่านั้นได้ ใช้ รีเซ็ตการเผยแพร่ เพื่อเพิกถอนผู้อ่านเดิมทั้งหมด พีซีที่ติดตามโฟลเดอร์จะป้อนรหัสผ่านใหม่หนึ่งครั้ง</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>เปลี่ยนรหัสผ่านการเผยแพร่</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>ตรวจสอบตอนนี้</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>ยืนยันวลีรหัสผ่าน</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>ยืนยันรหัสผ่าน</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>กำลังดาวน์โหลด</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>จำนวนรายการที่ไม่สามารถติดตั้งได้: {0} ระบบจะดึงข้อมูลเหล่านี้อีกครั้งเมื่อพีซีอ้างอิงเผยแพร่เวอร์ชันใหม่</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>ชุดไดรเวอร์</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>ไฟล์</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>อิมเมจ</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>แพ็คเกจหลังการติดตั้ง</value>
+  </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>เนื้อหาอาจเสียหายในโฟลเดอร์ โปรดเผยแพร่อีกครั้งจากพีซีอ้างอิง</value>
+  </data>
+  <data name="Sharing.CopyButton" xml:space="preserve">
+    <value>คัดลอก</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>รหัสผ่านการเผยแพร่ปัจจุบัน</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>ป้อนรหัสผ่าน</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>จำเป็นต้องใช้รหัสผ่านการเผยแพร่อีกครั้ง เช่น หลังจากรีเซ็ตรหัสผ่าน Windows หรือหลังจากพีซีอ้างอิงเปลี่ยนรหัสผ่าน</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>ป้อนรหัสผ่านการเผยแพร่</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>ส่งออก</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>ส่งออกการกำหนดค่าแล้ว</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>บันทึกการตั้งค่าและไฟล์ขนาดเล็กลงในไฟล์ที่เข้ารหัส ไม่รวมแพ็คเกจหลังการติดตั้ง ชุดไดรเวอร์ และอิมเมจ</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>ไม่สามารถส่งออกการกำหนดค่าได้ โปรดตรวจสอบปลายทางแล้วลองอีกครั้ง</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>ไฟล์ของการกำหนดค่านี้มีขนาดรวมเกิน 16 MiB และไม่สามารถส่งออกได้</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>ส่งออกการกำหนดค่าแล้ว แต่ไฟล์บางไฟล์หายไปหรือเสียหายบนพีซีเครื่องนี้และไม่ได้รวมไว้ (จำนวน: {0}) โปรดเลือกไฟล์เหล่านั้นอีกครั้งในหน้าการกำหนดค่า แล้วส่งออกอีกครั้ง</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>ส่งออกการกำหนดค่า</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>ไฟล์</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>การกำหนดค่า Foundry</value>
+  </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>โฟลเดอร์</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>เลือกโฟลเดอร์การเผยแพร่</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>ติดตาม</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>ใช้การกำหนดค่าที่พีซีอ้างอิงเผยแพร่ไปยังโฟลเดอร์ การตั้งค่าที่เผยแพร่จะเป็นแบบอ่านอย่างเดียวบนพีซีเครื่องนี้</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>ป้อนโฟลเดอร์ที่พีซีอ้างอิงเผยแพร่และรหัสผ่านการเผยแพร่ แล้วเปิดเพื่อดูตัวอย่างการเผยแพร่</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>การติดตามจะแทนที่การกำหนดค่าปัจจุบันและทำให้การตั้งค่าที่เผยแพร่เป็นแบบอ่านอย่างเดียว ระบบจะเก็บเส้นทางเอาต์พุต ISO โฟลเดอร์ไดรเวอร์ WinPE เพิ่มเติม และการตั้งค่าการวัดและส่งข้อมูลทางไกลของพีซีเครื่องนี้ไว้</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>ติดตามโฟลเดอร์</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>คีย์ที่พบ</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>เวอร์ชันที่พบ</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>ลืมรหัสผ่านการเผยแพร่</value>
+  </data>
+  <data name="Sharing.GenerateButton" xml:space="preserve">
+    <value>สร้าง</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>นำเข้า</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>นำเข้าการกำหนดค่าแล้ว</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>นำเข้าการกำหนดค่าแล้ว พีซีเครื่องนี้ขาดเนื้อหาบางส่วน: โปรดนำเข้าอีกครั้งในหน้าของเนื้อหานั้น</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>แทนที่การกำหนดค่านี้ด้วยไฟล์ที่ส่งออกหรือโปรไฟล์จากเวอร์ชันก่อนหน้า</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>ไม่สามารถนำเข้าการกำหนดค่าได้ การกำหนดค่าปัจจุบันไม่มีการเปลี่ยนแปลง</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>นำเข้าการกำหนดค่าแล้ว แต่ไม่สามารถบันทึกรหัสผ่านได้ โปรดป้อนรหัสผ่านอีกครั้งในหน้าการกำหนดค่า</value>
+  </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>ไม่สามารถนำเข้าได้ขณะที่พีซีเครื่องนี้ติดตามโฟลเดอร์ โปรดหยุดติดตามก่อน</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>นำเข้าการกำหนดค่า</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>รวมรหัสผ่าน</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>ทุกคนที่อ่านโฟลเดอร์ได้และรู้รหัสผ่านการเผยแพร่จะอ่านรหัสผ่านเหล่านี้ได้</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>ทุกคนที่มีไฟล์นี้และวลีรหัสผ่านของไฟล์จะสามารถอ่านรหัสผ่านเหล่านี้ได้</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>ไฟล์นี้ไม่ใช่การกำหนดค่า Foundry หรือไฟล์เสียหาย</value>
+  </data>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>ตรวจสอบสำเร็จล่าสุด</value>
+  </data>
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>เผยแพร่ล่าสุด</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
+    <value>ผู้ใช้ Windows รายนี้ไม่สามารถเปิดการกำหนดค่านี้ได้</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>การกำหนดค่านี้เผยแพร่โดย {0} และเป็นแบบอ่านอย่างเดียวบนพีซีเครื่องนี้ เปลี่ยนได้เฉพาะเส้นทางเอาต์พุต ISO โฟลเดอร์ไดรเวอร์ WinPE เพิ่มเติม และการตั้งค่าการวัดและส่งข้อมูลทางไกล</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>การกำหนดค่านี้เผยแพร่โดย {0} และเป็นแบบอ่านอย่างเดียวบนพีซีเครื่องนี้ การเผยแพร่ไม่มีรหัสผ่าน โปรดป้อนรหัสผ่านที่นี่ นอกจากนี้ยังเปลี่ยนเส้นทางเอาต์พุต ISO โฟลเดอร์ไดรเวอร์ WinPE เพิ่มเติม และการตั้งค่าการวัดและส่งข้อมูลทางไกลได้</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>จัดการโดยพีซีอ้างอิง</value>
+  </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>ไม่สามารถกู้คืนไฟล์บางไฟล์ที่การกำหนดค่าใช้อยู่ได้ โปรดเลือกไฟล์เหล่านั้นอีกครั้งในหน้าการกำหนดค่า</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>ไม่รองรับการซิงค์การกำหนดค่าของเวอร์ชันก่อนหน้าอีกต่อไป หากต้องการแชร์การกำหนดค่านี้ โปรดใช้ เผยแพร่ไปยังโฟลเดอร์ บนพีซีอ้างอิง</value>
+  </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>ตรวจสอบการกำหนดค่า</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>ไม่สามารถคืนค่ารหัสผ่านที่บันทึกไว้ได้ โปรดป้อนรหัสผ่านอีกครั้งในหน้าการกำหนดค่า</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>โปรดนำเข้ารายการเหล่านี้อีกครั้งในหน้าของรายการนั้น จนกว่าจะนำเข้า รายการการกำหนดค่าที่เกี่ยวข้องจะยังไม่พร้อม</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>ไม่มีบนพีซีเครื่องนี้</value>
+  </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>คีย์ใหม่</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>รหัสผ่านการเผยแพร่ใหม่</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>โฟลเดอร์นี้ไม่มีการกำหนดค่าที่เผยแพร่</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>ยังไม่ได้ตรวจสอบ: ค่าเหล่านี้มาจากโฟลเดอร์และจะได้รับการยืนยันเมื่อรหัสผ่านการเผยแพร่ปัจจุบันเปิดการเผยแพร่ได้เท่านั้น</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>เปิด</value>
+  </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>เปิดไฟล์</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>เปิดโปรไฟล์ที่เลือก</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>ไม่สามารถดำเนินการให้เสร็จสมบูรณ์ได้ ดูรายละเอียดในบันทึก</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>คัดลอกวลีรหัสผ่านไปยังคลิปบอร์ดแล้ว</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>วลีรหัสผ่าน</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>วลีรหัสผ่านไม่ตรงกัน</value>
+  </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>บันทึกรหัสผ่านใหม่แล้ว การเปลี่ยนแปลงจะเสร็จสมบูรณ์ในการเผยแพร่ครั้งถัดไปที่สำเร็จ</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>เปลี่ยนรหัสผ่านการเผยแพร่แล้ว พีซีที่ติดตามโฟลเดอร์จะป้อนรหัสผ่านใหม่หนึ่งครั้ง</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>คัดลอกรหัสผ่านไปยังคลิปบอร์ดแล้ว</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>รหัสผ่านไม่ตรงกัน</value>
+  </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>การกำหนดค่านี้จัดการโดยพีซีอ้างอิง: ป้อนได้เฉพาะรหัสผ่านที่นี่</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>รวมอยู่</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>กรณีนี้อาจเกิดขึ้นหลังจากรีเซ็ตรหัสผ่าน Windows เข้าควบคุมโฟลเดอร์ด้วยรหัสผ่านการเผยแพร่ปัจจุบันเพื่อเผยแพร่ต่อไป จากนั้นพีซีที่ติดตามโฟลเดอร์จะยอมรับพีซีเครื่องนี้เป็นพีซีอ้างอิงใหม่หนึ่งครั้ง</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>ไม่ได้รวม</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>ส่งออกเมื่อ</value>
+  </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>ขนาดการดาวน์โหลด</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>ชื่อ</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>รหัสผ่าน</value>
+  </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>เผยแพร่เมื่อ</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>พีซีอ้างอิง</value>
+  </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>คีย์ก่อนหน้า</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>โปรไฟล์จากเวอร์ชันก่อนหน้า</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>โปรไฟล์เหล่านี้ถูกบันทึกไว้บนพีซีเครื่องนี้ก่อนการอัปเดต</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>การเผยแพร่ยังมาถึงโฟลเดอร์นี้ไม่ครบ โปรดลองอีกครั้งในอีกสักครู่</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>รหัสผ่านการเผยแพร่</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>รีเซ็ตการเผยแพร่แล้ว พีซีที่ติดตามโฟลเดอร์จะป้อนรหัสผ่านใหม่หนึ่งครั้ง</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>เผยแพร่</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>ตั้งพีซีเครื่องนี้เป็นพีซีอ้างอิง: การกำหนดค่าจะถูกเผยแพร่ไปยังโฟลเดอร์ที่พีซีเครื่องอื่นติดตาม</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>เลือกโฟลเดอร์ว่าง หรือโฟลเดอร์ที่พีซีเครื่องนี้เผยแพร่อยู่แล้ว ได้แก่ การแชร์ในเครือข่าย โฟลเดอร์ OneDrive หรือ SharePoint หรือโฟลเดอร์ภายในเครื่อง พีซีที่ติดตามโฟลเดอร์ต้องใช้รหัสผ่านการเผยแพร่เพื่ออ่านโฟลเดอร์</value>
+  </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>เผยแพร่ตอนนี้</value>
+  </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>กำลังตรวจสอบโฟลเดอร์…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>กำลังทำการเผยแพร่ให้เสร็จสิ้น…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>กำลังเตรียม {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>กำลังส่ง {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>กำลังตรวจสอบ {0}…</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>เผยแพร่ไปยังโฟลเดอร์</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>การนำเข้าจะแทนที่การกำหนดค่าปัจจุบัน เส้นทางเอาต์พุต ISO โฟลเดอร์ไดรเวอร์ WinPE เพิ่มเติม และการตั้งค่าการวัดและส่งข้อมูลทางไกลของพีซีเครื่องนี้จะยังคงอยู่</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>รีเซ็ต</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>รีเซ็ตการเผยแพร่</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>รหัสผ่านใหม่และคีย์เนื้อหาใหม่: ไฟล์เนื้อหาทุกไฟล์จะถูกเข้ารหัสใหม่ ซึ่งเป็นการเพิกถอนผู้อ่านเดิมทั้งหมด พีซีที่ติดตามโฟลเดอร์จะป้อนรหัสผ่านใหม่หนึ่งครั้ง</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>รีเซ็ตการเผยแพร่</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>ผู้อ่านเดิมยังคงเปิดเนื้อหาได้จนกว่าจะมีการเผยแพร่ครั้งถัดไปที่สำเร็จ</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>พีซีเครื่องนี้ติดตาม {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>พีซีเครื่องนี้เผยแพร่การกำหนดค่าของตนเอง</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>อย่างน้อย 12 อักขระ และไม่ใช่อักขระเดียวกันซ้ำๆ (เช่น aaaaaaaaaaaa)</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>ไม่สามารถดาวน์โหลดเนื้อหาที่แชร์บางส่วนของการเผยแพร่ที่ติดตามได้ ตรวจสอบ การแชร์การกำหนดค่า ในหน้าการตั้งค่า</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>การเผยแพร่และการติดตามไม่พร้อมใช้งานในเซสชันนี้ เนื่องจากไม่สามารถอ่านสถานะการแชร์ได้ ดูรายละเอียดในบันทึก</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>กำลังตรวจสอบโฟลเดอร์: การเผยแพร่ยังมาไม่ครบและจะถูกอ่านอีกครั้งในการตรวจสอบครั้งถัดไป</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>นำการกำหนดค่าไปใช้แล้ว กำลังดาวน์โหลดเนื้อหาที่แชร์</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>นำการกำหนดค่าไปใช้แล้ว แต่ไม่สามารถติดตั้งเนื้อหาที่แชร์บางส่วนได้</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>นำการกำหนดค่าไปใช้แล้ว แต่เนื้อหาที่แชร์บางส่วนยังไม่พร้อมใช้งานหลังจากตรวจสอบซ้ำหลายครั้ง</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>โฟลเดอร์นี้มีไฟล์ที่ไม่ใช่การเผยแพร่ของพีซีเครื่องนี้ โปรดเลือกโฟลเดอร์ว่าง</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>โฟลเดอร์ไม่พร้อมใช้งาน ตรวจสอบว่าโฟลเดอร์มีอยู่และพีซีเครื่องนี้เข้าถึงได้</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>พีซีเครื่องนี้ไม่ได้เผยแพร่หรือติดตามการกำหนดค่าใด</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>กำลังรอการตรวจสอบโฟลเดอร์ครั้งแรก</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>ระบบจะเผยแพร่การเปลี่ยนแปลงโดยอัตโนมัติ</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>ไม่ได้เผยแพร่: การกำหนดค่ายังไม่พร้อมสำหรับการสร้างสื่อ หรืออ้างอิงเนื้อหาที่ไม่มีอยู่บนพีซีเครื่องนี้ เวอร์ชันก่อนหน้ายังคงเป็นเวอร์ชันปัจจุบัน</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>ต้องใช้รหัสผ่าน: ป้อนรหัสผ่านการเผยแพร่ หรือป้อนรหัสผ่านที่ขาดหายไปในหน้าการกำหนดค่า</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>ไม่สามารถอ่านรหัสผ่านการเผยแพร่หรือคีย์ของพีซีเครื่องนี้ได้</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>เผยแพร่แล้ว พีซีที่ติดตามโฟลเดอร์จะได้รับเวอร์ชันนี้ในการตรวจสอบครั้งถัดไป</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>กำลังเผยแพร่การกำหนดค่า…</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>โฟลเดอร์ชี้ไปยังเวอร์ชันที่เก่ากว่าเวอร์ชันที่นำไปใช้ ระบบจะละเว้น</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>การเผยแพร่ถูกแก้ไข ระบบจะไม่นำไปใช้</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>ขณะนี้พีซีเครื่องอื่นเผยแพร่โฟลเดอร์นี้ โปรดยอมรับพีซีอ้างอิงใหม่หรือหยุดติดตาม</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>พีซีเครื่องอื่นเผยแพร่ไปยังโฟลเดอร์นี้ เข้าควบคุมโฟลเดอร์เพื่อเผยแพร่จากพีซีเครื่องนี้</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>การเผยแพร่นี้ต้องใช้ Foundry OSD เวอร์ชันใหม่กว่า</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>เป็นปัจจุบัน</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>อัปเดตการกำหนดค่าแล้ว</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>รหัสผ่านการเผยแพร่เปิดการเผยแพร่ปัจจุบันไม่ได้ โปรดป้อนรหัสผ่านใหม่</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>รหัสผ่านการเผยแพร่เปิดการเผยแพร่ของพีซีเครื่องนี้ในโฟลเดอร์นี้ไม่ได้</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>หยุดติดตาม</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>การกำหนดค่าจะยังคงเหมือนเดิมและกลับมาแก้ไขได้บนพีซีเครื่องนี้</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>หยุดติดตามหรือไม่</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>หยุดเผยแพร่</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>โฟลเดอร์จะยังคงเหมือนเดิม และพีซีที่ติดตามจะเก็บเวอร์ชันที่เผยแพร่ล่าสุดไว้ พีซีเครื่องนี้จะไม่เผยแพร่การกำหนดค่าอีกต่อไป</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>หยุดเผยแพร่หรือไม่</value>
+  </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>กำลังดาวน์โหลด {0}…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>กำลังติดตั้ง {0}…</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>เข้าควบคุม</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>พีซีเครื่องอื่นเผยแพร่ไปยังโฟลเดอร์นี้ การเข้าควบคุมจะเผยแพร่ต่อด้วยคีย์ของพีซีเครื่องนี้ พีซีที่ติดตามโฟลเดอร์ต้องยอมรับพีซีเครื่องนี้เป็นพีซีอ้างอิงใหม่หนึ่งครั้ง</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>ไม่สามารถอ่านคีย์การเผยแพร่ของพีซีเครื่องนี้ได้ การเข้าควบคุมด้วยรหัสผ่านการเผยแพร่ปัจจุบันจะเผยแพร่ต่อด้วยคีย์ใหม่ พีซีที่ติดตามโฟลเดอร์ต้องยอมรับพีซีเครื่องนี้เป็นพีซีอ้างอิงใหม่หนึ่งครั้ง</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>เข้าควบคุมโฟลเดอร์นี้</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>รหัสผ่านนี้เปิดการเผยแพร่ปัจจุบันไม่ได้</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>ไม่สามารถอ่านไฟล์ได้</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>ไฟล์นี้ต้องใช้ Foundry OSD เวอร์ชันที่ใหม่กว่า</value>
+  </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>เวอร์ชัน</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>กำลังรอให้ดาวน์โหลดเนื้อหาที่แชร์เสร็จสิ้น…</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>วลีรหัสผ่านไม่ถูกต้องหรือไฟล์เสียหาย</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>รหัสผ่านนี้เปิดการเผยแพร่ไม่ได้ หรือการเผยแพร่ถูกแก้ไข</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>หยุดการดำเนินการ</value>
@@ -3590,6 +3789,15 @@
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>ข้อมูลลับของสื่อที่จำเป็นยังไม่พร้อม</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>ไม่สามารถติดตั้งเนื้อหาที่แชร์บางส่วนบนพีซีเครื่องนี้ได้ ระบบจะดึงข้อมูลอีกครั้งเมื่อพีซีอ้างอิงเผยแพร่เวอร์ชันใหม่ ตรวจสอบ การแชร์การกำหนดค่า ในหน้าการตั้งค่า</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>เนื้อหาที่แชร์บางส่วนยังไม่พร้อมใช้งานหลังจากตรวจสอบหลายครั้ง โปรดเผยแพร่อีกครั้งจากพีซีอ้างอิง แล้วตรวจสอบ การแชร์การกำหนดค่า ในหน้าการตั้งค่า</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>เนื้อหาที่แชร์ยังดาวน์โหลดอยู่ การสร้างสื่อจะพร้อมใช้งานเมื่อการดาวน์โหลดเสร็จสมบูรณ์</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>ไดรฟ์ USB ที่เลือกมีขนาดเล็กเกินไปสำหรับแคช ใช้ไดรฟ์ USB ที่มีขนาดอย่างน้อย 16 GB หรือเลือก “สร้างโดยไม่มีแคช” จากลูกศรของ “สร้าง USB”</value>
@@ -4164,6 +4372,15 @@
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>พร้อมสร้างสื่อ USB</value>
   </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>ไม่สามารถติดตั้งเนื้อหาที่แชร์ได้</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>เนื้อหาที่แชร์ไม่พร้อมใช้งาน</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>กำลังรอเนื้อหาที่แชร์</value>
+  </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>ตรวจสอบคำเตือนเอาต์พุตสื่อ</value>
   </data>
@@ -4308,13 +4525,13 @@
     <value>มีการตั้งค่าที่อาจขัดขวางการลงทะเบียนกับ Autopilot ระบบจะบล็อกโหมดการลงทะเบียนที่เข้ากันไม่ได้ระหว่างการปรับใช้</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>เลือกไฟล์เพื่อเปลี่ยนชื่อ รีเฟรช หรือลบ ไฟล์ต้นฉบับต้องพร้อมใช้งานจนกว่าจะสร้างสื่อเสร็จ หากต้นฉบับเปลี่ยนแปลง ต้องรีเฟรชต้นฉบับ</value>
+    <value>เลือกไฟล์เพื่อเปลี่ยนชื่อหรือลบ Foundry จะเก็บสำเนาของตนเองสำหรับแต่ละไฟล์ที่นำเข้า หากต้องการใช้ไฟล์ที่อัปเดต ให้ลบรายการแล้วนำเข้าไฟล์อีกครั้ง</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>ไฟล์คำตอบ</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>ตรวจสอบต้นฉบับ</value>
+    <value>ตรวจสอบไฟล์</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>มีคำสั่งอยู่ โปรดตรวจสอบความขัดแย้งกับการปรับแต่งของ Foundry และจุดเรียกทำงานระหว่างการติดตั้ง</value>
@@ -4353,13 +4570,13 @@
     <value>ไฟล์ต้องระบุสถาปัตยกรรมที่รองรับและมีการตั้งค่าคอมโพเนนต์ที่ใช้ได้กับสถาปัตยกรรมนั้น</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>แค็ตตาล็อกมีรายการที่ไม่ถูกต้องหรือซ้ำกัน โปรดรีเฟรชหรือลบไฟล์ที่เกี่ยวข้อง</value>
+    <value>แค็ตตาล็อกมีรายการที่ไม่ถูกต้องหรือซ้ำกัน โปรดลบไฟล์ที่ได้รับผลกระทบแล้วนำเข้าอีกครั้ง</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>ใช้ XML ของไฟล์คำตอบ Windows ที่ถูกต้อง ขนาดไม่เกิน 4 MiB และไม่มี DTD หรือเอนทิตีภายนอก ตรวจสอบไฟล์ด้วย Windows SIM</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>ต้นฉบับบางรายการหายไป มีการเปลี่ยนแปลง หรือไม่ถูกต้อง โปรดรีเฟรชหรือลบรายการเหล่านี้ก่อนสร้างสื่อ</value>
+    <value>บางไฟล์หายไปหรือไม่ถูกต้อง โปรดลบรายการเหล่านี้และนำเข้าไฟล์อีกครั้งก่อนสร้างสื่อ</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>ไม่พบไฟล์เริ่มต้น — โปรดเลือกไฟล์แทน</value>
@@ -4374,16 +4591,13 @@
     <value>Foundry จะเก็บไฟล์ต้นฉบับไว้และเพิ่มคำสั่งหลังการติดตั้งที่จำเป็นลงในสำเนาสำหรับการปรับใช้ คุณยังคงรับผิดชอบต่อการตั้งค่าและคำสั่งแบบกำหนดเอง</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>ไฟล์ที่กำหนดเองต้องเปิดใช้การป้องกันสื่อการปรับใช้ด้วยรหัสผ่านในการกำหนดค่าทั่วไป XML อาจมีข้อมูลรับรองหรือสคริปต์ Foundry จะเก็บสำเนาของแต่ละไฟล์พร้อมกับการกำหนดค่าของคุณบนพีซีเครื่องนี้เฉพาะเมื่อเปิด “จดจำรหัสผ่าน” ใน “สำรองและซิงค์การตั้งค่า” เท่านั้น มิฉะนั้นจะบันทึกเฉพาะเส้นทาง อิมเมจสำหรับบูตจะมีสำเนาที่เข้ารหัส</value>
+    <value>ไฟล์ที่กำหนดเองต้องเปิดใช้การป้องกันสื่อการปรับใช้ด้วยรหัสผ่านในการกำหนดค่าทั่วไป XML อาจมีข้อมูลรับรองหรือสคริปต์ Foundry จะเก็บสำเนาของแต่ละไฟล์ที่นำเข้าไว้ในไลบรารีไฟล์บนพีซีเครื่องนี้ อิมเมจสำหรับบูตจะมีสำเนาที่เข้ารหัส</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>เปิดใช้การป้องกันสื่อการปรับใช้ด้วยรหัสผ่านในการกำหนดค่าทั่วไปเพื่อใช้ไฟล์คำตอบที่กำหนดเอง</value>
   </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>ขณะนี้ต้นฉบับนี้ซ้ำกับไฟล์อื่นที่นำเข้าไว้แล้ว โปรดลบรายการนี้และเลือกไฟล์ที่มีอยู่แทน</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>รีเฟรชต้นฉบับ</value>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry ไม่มีสำเนาที่ถูกต้องของไฟล์นี้อีกต่อไป โปรดลบรายการแล้วนำเข้าไฟล์อีกครั้ง</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>ลบ</value>
@@ -4397,26 +4611,23 @@
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>ไฟล์ที่เลือก</value>
   </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>ต้นฉบับมีการเปลี่ยนแปลง ใช้รีเฟรชต้นฉบับเพื่อยอมรับไฟล์ที่อัปเดตก่อนสร้างสื่อ</value>
-  </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>การตรวจสอบต้นฉบับสองรายการยังคงรอการเข้าถึงไฟล์ โปรดกู้คืนการเข้าถึงตำแหน่งต้นฉบับที่ไม่พร้อมใช้งาน แล้วตรวจสอบต้นฉบับอีกครั้ง</value>
+    <value>การตรวจสอบไฟล์สองรายการยังคงทำงานอยู่ โปรดรอจนกว่าจะเสร็จสิ้น แล้วลองอีกครั้ง</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>กำลังรอตรวจสอบต้นฉบับ เลือกตรวจสอบต้นฉบับเพื่อตรวจสอบไฟล์ปัจจุบันโดยไม่ยอมรับการเปลี่ยนแปลงเนื้อหา</value>
+    <value>กำลังรอตรวจสอบไฟล์ เลือกตรวจสอบไฟล์เพื่อตรวจสอบสำเนาที่จัดเก็บไว้</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>ไม่สามารถอ่านต้นฉบับได้ โปรดตรวจสอบว่าไฟล์ยังคงอยู่และเข้าถึงได้</value>
+    <value>ไม่สามารถอ่านไฟล์ได้ โปรดตรวจสอบว่าไฟล์มีอยู่และคุณเปิดได้ แล้วลองอีกครั้ง</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>การตรวจสอบต้นฉบับหมดเวลา โปรดตรวจสอบการเข้าถึงตำแหน่งต้นฉบับแล้วลองอีกครั้ง</value>
+    <value>การตรวจสอบไฟล์ที่จัดเก็บไว้ใช้เวลานานเกินไป โปรดลองอีกครั้ง</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>รองรับเฉพาะการตั้งค่าใน specialize และ oobeSystem เท่านั้น โปรดลบขั้นตอนอื่นที่มีเนื้อหา คำสั่งการให้บริการออฟไลน์ หรือการเตรียมให้เริ่มระบบใหม่ในโหมดตรวจสอบ</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>ตรวจสอบต้นฉบับแล้ว</value>
+    <value>ตรวจสอบไฟล์แล้ว</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>ใช้การอัปเดต</value>

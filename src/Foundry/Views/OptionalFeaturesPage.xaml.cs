@@ -20,6 +20,9 @@ public sealed partial class OptionalFeaturesPage : Page
 
     public CustomizationConfigurationViewModel ViewModel { get; }
 
+    /// <summary>Gets the read-only state of a managed configuration.</summary>
+    public ManagedConfigurationViewModel Managed { get; } = App.GetService<ManagedConfigurationViewModel>();
+
     public OptionalFeaturesPage()
     {
         ViewModel = App.GetService<CustomizationConfigurationViewModel>();

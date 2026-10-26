@@ -2,13 +2,12 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Text.Json.Serialization;
-
 namespace Foundry.Core.Models.Configuration;
 
 /// <summary>
 /// Describes a wired 802.1X profile and optional certificate staged for Foundry.Connect.
 /// </summary>
+/// <remarks>The PFX password never enters this record; the network secret state keeps it, keyed by the certificate content hash.</remarks>
 public sealed record Dot1xSettings
 {
     /// <summary>
@@ -17,9 +16,9 @@ public sealed record Dot1xSettings
     public bool IsEnabled { get; init; }
 
     /// <summary>
-    /// Gets the source XML profile template path.
+    /// Gets the XML profile template held in the authoring file library.
     /// </summary>
-    public string? ProfileTemplatePath { get; init; }
+    public AuthoringFileReference? ProfileTemplate { get; init; }
 
     /// <summary>
     /// Gets the source authentication mode.
@@ -39,18 +38,7 @@ public sealed record Dot1xSettings
     public bool RequiresCertificate { get; init; }
 
     /// <summary>
-    /// Gets the optional source certificate path.
+    /// Gets the optional certificate held in the authoring file library.
     /// </summary>
-    public string? CertificatePath { get; init; }
-
-    /// <summary>
-    /// Gets the session-only password for a configured PFX certificate.
-    /// </summary>
-    [JsonIgnore]
-    public string? CertificatePfxPassword { get; init; }
-
-    /// <summary>
-    /// Gets the encrypted PFX password envelope stored on provisioned media.
-    /// </summary>
-    public SecretEnvelope? CertificatePfxPasswordSecret { get; init; }
+    public AuthoringFileReference? Certificate { get; init; }
 }

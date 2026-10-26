@@ -150,6 +150,7 @@ internal sealed class NavigationStatusService : INavigationStatusService
             ConfigurationOverviewState.Configured or ConfigurationOverviewState.Default => CreateStatus(
                 isProvisioningModeTarget ? "NavigationStatus.ActiveProvisioningMode" : "NavigationStatus.Configured",
                 NavigationInfoBadgeSeverity.Success),
+            ConfigurationOverviewState.Downloading => CreateStatus("Sharing.ContentDownloadingState", NavigationInfoBadgeSeverity.Downloading),
             _ => new NavigationStatus(null, "NavigationStatus.NotConfigured")
         };
     }

@@ -14,7 +14,8 @@ public interface IOobeAdditionalAccountDialogService
         OobeAdditionalAccountSettings? account,
         IReadOnlyList<OobeAdditionalAccountSettings> existingAccounts,
         char[] initialPassword,
-        char[] initialConfirmation);
+        char[] initialConfirmation,
+        bool isPasswordOnly = false);
 }
 
 public sealed partial class OobeAdditionalAccountDialogResult : IDisposable

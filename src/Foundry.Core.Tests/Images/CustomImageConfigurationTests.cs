@@ -5,7 +5,6 @@
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Images;
-using Foundry.Core.Services.Profiles;
 using Xunit;
 
 namespace Foundry.Core.Tests.Images;
@@ -25,21 +24,18 @@ public sealed class CustomImageConfigurationTests
     }
 
     [Fact]
-    public void PortableProfilesRetainReferencesWithoutImageBytesOrHostPaths()
+    public void SavedConfigurationRetainsReferencesWithoutImageBytesOrHostPaths()
     {
-        CustomImagesSettings settings = Settings();
-        FoundryConfigurationDocument projected = DeploymentProfileProjection.CreatePortable(new() { CustomImages = settings });
-        Assert.Equal(settings, projected.CustomImages);
-        string json = new FoundryConfigurationService().Serialize(projected);
+        string json = new FoundryConfigurationService().Serialize(new() { CustomImages = Settings() });
         Assert.DoesNotContain("sourcePath", json, StringComparison.OrdinalIgnoreCase);
         Assert.Contains(new string('a', 64), json);
     }
 
     [Fact]
-    public void InvalidProfileImageMetadataIsRejectedBeforeActivation()
+    public void InvalidImageMetadataIsRejected()
     {
         CustomImagesSettings settings = Settings() with { Images = [Settings().Images[0] with { ContentHash = "../outside" }] };
-        Assert.Throws<InvalidDataException>(() => DeploymentProfileProjection.CreatePortable(new() { CustomImages = settings }));
+        Assert.Throws<InvalidDataException>(() => CustomImageSettingsValidator.ThrowIfInvalid(settings));
     }
 
     [Theory]
@@ -47,7 +43,7 @@ public sealed class CustomImageConfigurationTests
     [InlineData(CustomImageSource.Catalog, true)]
     [InlineData(CustomImageSource.Custom, false)]
     [InlineData(CustomImageSource.Custom, true)]
-    public void ProfilesWithoutIncludedImagesRemainEditable(CustomImageSource defaultSource, bool hasExcludedImage)
+    public void ConfigurationsWithoutIncludedImagesRemainEditable(CustomImageSource defaultSource, bool hasExcludedImage)
     {
         var settings = new CustomImagesSettings
         {
@@ -57,9 +53,8 @@ public sealed class CustomImageConfigurationTests
         };
 
         Assert.Empty(CustomImageSettingsValidator.Validate(settings));
-        FoundryConfigurationDocument portable = DeploymentProfileProjection.CreatePortable(new() { CustomImages = settings });
         var service = new FoundryConfigurationService();
-        FoundryConfigurationDocument restored = service.Deserialize(service.Serialize(portable));
+        FoundryConfigurationDocument restored = service.Deserialize(service.Serialize(new() { CustomImages = settings }));
 
         Assert.True(restored.CustomImages.IsEnabled);
         Assert.Equal(defaultSource, restored.CustomImages.DefaultSource);

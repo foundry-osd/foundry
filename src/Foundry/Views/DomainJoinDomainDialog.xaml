@@ -11,6 +11,10 @@
     <StackPanel
         Width="{ThemeResource FoundryWideInputMinWidth}"
         Spacing="{ThemeResource FoundryContentGroupSpacing}">
+        <TextBlock x:Name="PasswordOnlyHintTextBlock"
+            Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
+            TextWrapping="WrapWholeWords"
+            Visibility="Collapsed" />
         <TextBox x:Name="DomainNameBox"
             x:Uid="DomainJoinDialogDomainName"
             MaxLength="253" />

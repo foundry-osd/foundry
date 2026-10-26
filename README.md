@@ -54,7 +54,7 @@ Operating system, driver pack, firmware, and WinPE metadata come from the mainta
 - **Custom answer files** — [import your own Unattend file](https://docs.foundryosd.com/foundry-osd/customization/unattend) for anything beyond the built-in options.
 - **Network** — [Ethernet, Wi-Fi, and enterprise 802.1X](https://docs.foundryosd.com/foundry-osd/network) in WinPE.
 - **Provisioning** — [Windows Autopilot](https://docs.foundryosd.com/foundry-osd/autopilot) or [Active Directory domain join](https://docs.foundryosd.com/foundry-osd/domain-join).
-- **Profiles and protection** — [save and share configurations](https://docs.foundryosd.com/foundry-osd/deployment-profiles) with your team, and optionally [require a technician password](https://docs.foundryosd.com/foundry-osd/general#password-protection) before deployment starts.
+- **Sharing and protection** — [export your configuration to an encrypted file, or publish it to a shared folder](https://docs.foundryosd.com/foundry-osd/configuration-sharing) that other PCs follow, and optionally [require a technician password](https://docs.foundryosd.com/foundry-osd/general#password-protection) before deployment starts.
 
 ## Get started
 

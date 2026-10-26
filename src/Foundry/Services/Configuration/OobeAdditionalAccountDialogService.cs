@@ -16,13 +16,14 @@ public sealed class OobeAdditionalAccountDialogService(
         OobeAdditionalAccountSettings? account,
         IReadOnlyList<OobeAdditionalAccountSettings> existingAccounts,
         char[] initialPassword,
-        char[] initialConfirmation)
+        char[] initialConfirmation,
+        bool isPasswordOnly = false)
     {
         ArgumentNullException.ThrowIfNull(existingAccounts);
         ArgumentNullException.ThrowIfNull(initialPassword);
         ArgumentNullException.ThrowIfNull(initialConfirmation);
 
-        using var viewModel = new OobeAdditionalAccountDialogViewModel(localizationService, account, existingAccounts);
+        using var viewModel = new OobeAdditionalAccountDialogViewModel(localizationService, account, existingAccounts, isPasswordOnly);
         using var dialog = new OobeAdditionalAccountDialog(viewModel, initialPassword, initialConfirmation)
         {
             XamlRoot = App.MainWindow.Content.XamlRoot

@@ -383,20 +383,39 @@ public static class ConfigurationPackageCodec
     }
 
     /// <summary>
-    /// System.Text.Json assigns an explicit <c>null</c> to non-nullable configuration sections, which migration and later
-    /// consumers do not expect. Writers omit null members, so any null top-level section marks a hand-made package.
+    /// System.Text.Json assigns an explicit <c>null</c> to non-nullable configuration sections and list items, which migration
+    /// and later consumers do not expect. Writers omit null members and never write null items, so an explicit null at any
+    /// depth marks a hand-made or damaged package; it is rejected before migration instead of failing inside it.
     /// </summary>
-    private static bool HasNullMember(JsonElement configuration)
+    private static bool HasNullMember(JsonElement element)
     {
-        foreach (JsonProperty section in configuration.EnumerateObject())
+        switch (element.ValueKind)
         {
-            if (section.Value.ValueKind == JsonValueKind.Null)
-            {
+            case JsonValueKind.Null:
                 return true;
-            }
-        }
+            case JsonValueKind.Object:
+                foreach (JsonProperty member in element.EnumerateObject())
+                {
+                    if (HasNullMember(member.Value))
+                    {
+                        return true;
+                    }
+                }
 
-        return false;
+                return false;
+            case JsonValueKind.Array:
+                foreach (JsonElement item in element.EnumerateArray())
+                {
+                    if (HasNullMember(item))
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            default:
+                return false;
+        }
     }
 
     private static bool TryParseJson(ReadOnlySpan<byte> bytes, out JsonDocument? document)

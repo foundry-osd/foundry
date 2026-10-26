@@ -8,6 +8,9 @@ public sealed partial class MachineNamingPage : Page
 {
     public CustomizationConfigurationViewModel ViewModel { get; }
 
+    /// <summary>Gets the read-only state of a managed configuration.</summary>
+    public ManagedConfigurationViewModel Managed { get; } = App.GetService<ManagedConfigurationViewModel>();
+
     public MachineNamingPage()
     {
         ViewModel = App.GetService<CustomizationConfigurationViewModel>();

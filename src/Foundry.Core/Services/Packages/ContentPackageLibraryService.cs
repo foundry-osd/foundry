@@ -7,10 +7,11 @@ using System.Security.Cryptography;
 using System.Security.Principal;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Packages;
+using Foundry.Utilities.IO;
 
 namespace Foundry.Core.Services.Packages;
 
-/// <summary>Imports owned immutable package snapshots of one <see cref="ContentPackageKind"/> separately from portable deployment profiles.</summary>
+/// <summary>Imports owned immutable package snapshots of one <see cref="ContentPackageKind"/> separately from the configuration that references them.</summary>
 public sealed class ContentPackageLibraryService
 {
     private const int CopyBufferSize = 128 * 1024;
@@ -176,11 +177,15 @@ public sealed class ContentPackageLibraryService
     }
 
     /// <summary>Locks publication/deletion while acquiring read handles and verifies all content before returning.</summary>
-    public async Task<ContentPackageLease> AcquireAsync(string contentHash, CancellationToken cancellationToken = default)
+    /// <param name="contentHash">Content hash of the package.</param>
+    /// <param name="cancellationToken">Stops the verification between reads.</param>
+    /// <param name="verificationProgress">Receives the cumulative bytes hashed so far across the package files, up to their total length.</param>
+    public async Task<ContentPackageLease> AcquireAsync(string contentHash, CancellationToken cancellationToken = default,
+        IProgress<long>? verificationProgress = null)
     {
         cancellationToken.ThrowIfCancellationRequested();
         using FileStream libraryLock = AcquireLibraryLock();
-        return await AcquireCoreAsync(contentHash, cancellationToken).ConfigureAwait(false);
+        return await AcquireCoreAsync(contentHash, cancellationToken, verificationProgress: verificationProgress).ConfigureAwait(false);
     }
 
     /// <summary>Removes only an unreferenced, verified, unleased owned snapshot. Unknown files prevent removal.</summary>
@@ -219,7 +224,8 @@ public sealed class ContentPackageLibraryService
             _ = paths.Resolve(destinationRoot, path);
     }
 
-    private async Task<ContentPackageLease> AcquireCoreAsync(string hash, CancellationToken cancellationToken, bool verifyContent = true)
+    private async Task<ContentPackageLease> AcquireCoreAsync(string hash, CancellationToken cancellationToken, bool verifyContent = true,
+        IProgress<long>? verificationProgress = null)
     {
         string directory = ContentPath(hash);
         string filesRoot = Path.Combine(directory, "files");
@@ -238,14 +244,23 @@ public sealed class ContentPackageLibraryService
                 Directory.EnumerateFileSystemEntries(directory).Any(path => Path.GetFileName(path) is not ("files" or "manifest.json")))
                 throw new InvalidDataException("ContentPackage.PackageContentChanged");
             List<ContentPackageSourceFile> sources = [];
+            long verified = 0;
             foreach (ContentPackageFile file in manifest.Files)
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 string path = paths.Resolve(filesRoot, file.RelativePath);
                 FileStream input = OpenRead(path);
                 handles.Add(input);
-                if (verifyContent && (input.Length != file.Length || !Convert.ToHexStringLower(await SHA256.HashDataAsync(input, cancellationToken).ConfigureAwait(false)).Equals(file.Sha256, StringComparison.OrdinalIgnoreCase)))
-                    throw new InvalidDataException("ContentPackage.PackageContentChanged");
+                if (verifyContent)
+                {
+                    long offset = verified;
+                    if (input.Length != file.Length || !Convert.ToHexStringLower(await FileHash.ComputeSha256Async(input,
+                            verificationProgress is null ? null : bytes => verificationProgress.Report(offset + bytes), cancellationToken).ConfigureAwait(false))
+                        .Equals(file.Sha256, StringComparison.OrdinalIgnoreCase))
+                        throw new InvalidDataException("ContentPackage.PackageContentChanged");
+                    verified += file.Length;
+                }
+
                 input.Position = 0;
                 sources.Add(new(path, file.RelativePath, file.Length, file.Sha256));
             }

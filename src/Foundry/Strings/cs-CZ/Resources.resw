@@ -283,6 +283,12 @@ Licencováno pod licencí MIT.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Poznámky k vydání</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Vybraný soubor se nepodařilo přidat do aplikace Foundry. Vyberte čitelný soubor o velikosti nejvýše 4 MiB.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Soubor nebyl přidán</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Výchozí</value>
   </data>
@@ -389,7 +395,7 @@ Licencováno pod licencí MIT.</value>
     <value>Zkopírujte heslo</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Uložte tento soubor PFX a heslo na bezpečné místo. Foundry ukládá heslo s vaší konfigurací na tomto počítači pouze v případě, že je v části „Zálohování a synchronizace nastavení“ zapnuta možnost „Zapamatovat hesla“. K vygenerování spouštěcího média pro nahrání hardwarového hash budete potřebovat obě hodnoty.</value>
+    <value>Uložte tento soubor PFX a heslo na bezpečné místo. Foundry si pamatuje heslo na tomto počítači ve svém místním šifrovaném trezoru. Tento počítač opouští jen v exportu nebo publikaci, když je zvolena možnost „Zahrnout hesla“. K vygenerování spouštěcího média pro nahrání hardwarového hash budete potřebovat obě hodnoty.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Heslo zkopírováno.</value>
@@ -737,7 +743,10 @@ Licencováno pod licencí MIT.</value>
     <value>Není k dispozici</value>
   </data>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
-    <value>Tato složka již v tomto profilu je jako {0}.</value>
+    <value>Tato složka již v této konfiguraci je jako {0}.</value>
+  </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>Během importu byla konfigurace nahrazena, proto sada ovladačů nebyla přidána. Importujte složku znovu.</value>
   </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>Sada ovladačů byla odebrána, ale její místní kopii nelze odstranit.</value>
@@ -749,7 +758,7 @@ Licencováno pod licencí MIT.</value>
     <value>Sada ovladačů</value>
   </data>
   <data name="CustomDrivers.DuplicateName" xml:space="preserve">
-    <value>V tomto profilu již existuje sada ovladačů s tímto názvem.</value>
+    <value>V této konfiguraci již existuje sada ovladačů s tímto názvem.</value>
   </data>
   <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
     <value>Žádné vlastní sady ovladačů. Začněte importem složky, která obsahuje ovladače .inf.</value>
@@ -802,26 +811,23 @@ Licencováno pod licencí MIT.</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Sady ovladačů</value>
   </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Během importu se změnil aktivní profil, proto sada ovladačů nebyla přidána. Importujte složku znovu v tomto profilu.</value>
-  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Není k dispozici při spuštění přes PXE. Vlastní ovladače vyžadují úplné médium ISO nebo USB.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
-    <value>Sady ovladačů tohoto profilu nejsou platné. Před vytvořením nebo aktualizací média zkontrolujte zahrnuté sady a výchozí sadu.</value>
+    <value>Sady ovladačů této konfigurace nejsou platné. Před vytvořením nebo aktualizací média zkontrolujte zahrnuté sady a výchozí sadu.</value>
   </data>
   <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
     <value>Místní kopie sady {0} chybí nebo je poškozená. Před vytvořením nebo aktualizací média složku znovu importujte nebo sadu vylučte.</value>
   </data>
   <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
-    <value>Před vytvořením nebo aktualizací média zahrňte do tohoto profilu alespoň jednu sadu ovladačů nebo vypněte vlastní ovladače.</value>
+    <value>Před vytvořením nebo aktualizací média zahrňte do této konfigurace alespoň jednu sadu ovladačů nebo vypněte vlastní ovladače.</value>
   </data>
   <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
     <value>Odebrat sadu ovladačů</value>
   </data>
   <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) bude odebrána z aktuálního profilu.</value>
+    <value>{0} ({1}) bude odebrána z aktuální konfigurace.</value>
   </data>
   <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
     <value>Sadu ovladačů nelze odebrat. Zkuste to znovu.</value>
@@ -830,13 +836,13 @@ Licencováno pod licencí MIT.</value>
     <value>Odebrat sadu ovladačů?</value>
   </data>
   <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
-    <value>Její místní kopie se odstraní, pokud ji nepoužívá jiný profil. Původní složka a existující média se nezmění.</value>
+    <value>Její místní kopie se odstraní. Původní složka a existující média se nezmění.</value>
   </data>
   <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
     <value>Nastavit jako výchozí</value>
   </data>
   <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
-    <value>Tento profil dosáhl maximálního počtu sad ovladačů. Před importem další jednu odeberte.</value>
+    <value>Tato konfigurace dosáhla maximálního počtu sad ovladačů. Před importem další jednu odeberte.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Ověřování vlastních sad ovladačů…</value>
@@ -878,7 +884,7 @@ Licencováno pod licencí MIT.</value>
     <value>Vybraná bitová kopie</value>
   </data>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
-    <value>V tomto profilu již existuje obraz s tímto názvem.</value>
+    <value>V této konfiguraci již existuje obraz s tímto názvem.</value>
   </data>
   <data name="CustomImages.EditionLabel" xml:space="preserve">
     <value>Edice</value>
@@ -935,7 +941,7 @@ Licencováno pod licencí MIT.</value>
     <value>Není k dispozici při spuštění přes PXE. Vlastní bitové kopie vyžadují úplné médium ISO nebo USB.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Zahrňte do tohoto profilu alespoň jednu dostupnou bitovou kopii Windows. Před vytvořením nebo aktualizací média obnovte chybějící zahrnuté bitové kopie a opravte nebo zrušte výběr preferované bitové kopie nebo indexu.</value>
+    <value>Zahrňte do této konfigurace alespoň jednu dostupnou bitovou kopii Windows. Před vytvořením nebo aktualizací média obnovte chybějící zahrnuté bitové kopie a opravte nebo zrušte výběr preferované bitové kopie nebo indexu.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Obnovit</value>
@@ -944,7 +950,7 @@ Licencováno pod licencí MIT.</value>
     <value>Odebrat bitovou kopii</value>
   </data>
   <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) bude odebrána z aktuálního profilu a její místní kopie bude odstraněna.</value>
+    <value>{0} ({1}) bude odebrána z aktuální konfigurace a její místní kopie bude odstraněna.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Odebrat</value>
@@ -953,7 +959,7 @@ Licencováno pod licencí MIT.</value>
     <value>Odebrat vlastní bitovou kopii?</value>
   </data>
   <data name="CustomImages.RemoveWarning" xml:space="preserve">
-    <value>V ostatních profilech, které tuto bitovou kopii používají, se zobrazí jako chybějící. Původní soubor a existující média se nezmění.</value>
+    <value>Původní soubor a existující média se nezmění.</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Upravit</value>
@@ -2768,7 +2774,7 @@ Licencováno pod licencí MIT.</value>
     <value>Poskytněte podnikovou šablonu profilu Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Přístupová fráze se uloží s vaší konfigurací na tomto počítači pouze v případě, že je v části „Zálohování a synchronizace nastavení“ zapnuta možnost „Zapamatovat hesla“. Jinak se neukládá a je nutné ji zadat znovu, například po restartu Foundry OSD.</value>
+    <value>Foundry si pamatuje heslo na tomto počítači ve svém místním šifrovaném trezoru. Tento počítač opouští jen v exportu nebo publikaci, když je zvolena možnost „Zahrnout hesla“.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importuje profil Wi-Fi spravovaný Foundry do Windows před OOBE, aby se po WinPE zachovalo připojení potřebné k nasazení.</value>
@@ -3001,299 +3007,6 @@ Licencováno pod licencí MIT.</value>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Pracovní adresář (relativní; prázdná hodnota použije kořen obsahu)</value>
   </data>
-  <data name="Profiles.Active" xml:space="preserve">
-    <value>Aktuální nastavení</value>
-  </data>
-  <data name="Profiles.AutoSync" xml:space="preserve">
-    <value>Automatická synchronizace</value>
-  </data>
-  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
-    <value>Vybrat jiný název</value>
-  </data>
-  <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>Některá stará uložená hesla nebo přístupové klíče se nepodařilo odebrat. Zkuste to znovu, až bude dostupný Správce pověření Windows.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
-    <value>Zavřít bez uložení</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
-    <value>Vaše poslední změny se nepodařilo uložit a budou ztraceny.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
-    <value>Zavřít bez uložení nastavení?</value>
-  </data>
-  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
-    <value>Potvrdit heslo</value>
-  </data>
-  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>Potvrzení hesla k souboru</value>
-  </data>
-  <data name="Profiles.Conflict" xml:space="preserve">
-    <value>Tato nastavení byla změněna na tomto počítači i někým jiným. Vyberte verzi, kterou chcete zachovat.</value>
-  </data>
-  <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>Vybraná verze nahradí druhou. Pokud chcete zachovat samostatnou kopii, zvolte nejprve Duplikovat.</value>
-  </data>
-  <data name="Profiles.ConnectAction" xml:space="preserve">
-    <value>Připojit</value>
-  </data>
-  <data name="Profiles.ConnectDescription" xml:space="preserve">
-    <value>Vyberte soubor připojení, který vám poskytl někdo z vašeho týmu.</value>
-  </data>
-  <data name="Profiles.ConnectionPassword" xml:space="preserve">
-    <value>Heslo pro připojení</value>
-  </data>
-  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
-    <value>Ostatní počítače budou toto heslo potřebovat k připojení.</value>
-  </data>
-  <data name="Profiles.Continue" xml:space="preserve">
-    <value>Pokračovat</value>
-  </data>
-  <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Sdílet tuto konfiguraci</value>
-  </data>
-  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
-    <value>Vyberte sdílenou síťovou složku pro tuto konfiguraci.</value>
-  </data>
-  <data name="Profiles.Delete" xml:space="preserve">
-    <value>Odstranit z tohoto počítače</value>
-  </data>
-  <data name="Profiles.DeleteAction" xml:space="preserve">
-    <value>Odstranit</value>
-  </data>
-  <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>Odstranit také pro všechny</value>
-  </data>
-  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
-    <value>Odstranit pro všechny</value>
-  </data>
-  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
-    <value>Odstranit pro všechny?</value>
-  </data>
-  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>Odstranit tato sdílená nastavení pro všechny? Každý, kdo má nesynchronizované změny, musí svá nastavení duplikovat, aby je zachoval.</value>
-  </data>
-  <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>Odstranit tato nastavení z tohoto počítače? Pokud chcete zálohu, nejprve je exportujte.</value>
-  </data>
-  <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>Tato sdílená nastavení byla odstraněna. Zvolte Duplikovat, pokud chcete zachovat své změny na tomto počítači.</value>
-  </data>
-  <data name="Profiles.Disconnect" xml:space="preserve">
-    <value>Odpojit</value>
-  </data>
-  <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>Zastavit synchronizaci této konfigurace na tomto počítači? Vaše aktuální nastavení zůstane zachováno. Sdílená konfigurace ani ostatní počítače se nezmění.</value>
-  </data>
-  <data name="Profiles.Export" xml:space="preserve">
-    <value>Exportovat</value>
-  </data>
-  <data name="Profiles.ExportDescription" xml:space="preserve">
-    <value>Uložit tuto konfiguraci do souboru jako zálohu nebo pro jiný počítač.</value>
-  </data>
-  <data name="Profiles.ExportProtection" xml:space="preserve">
-    <value>Zvolte heslo pro ochranu exportovaného souboru. Budete ho potřebovat k importu konfigurace.</value>
-  </data>
-  <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Uložit soubor připojení</value>
-  </data>
-  <data name="Profiles.Failed" xml:space="preserve">
-    <value>Tuto akci se nepodařilo dokončit. Zkontrolujte soubor, jeho heslo, svá přístupová oprávnění a síťové připojení.</value>
-  </data>
-  <data name="Profiles.FolderExists" xml:space="preserve">
-    <value>Tento název složky se již používá. Připojte se pomocí souboru připojení nebo se vraťte a vyberte jiný název.</value>
-  </data>
-  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
-    <value>Vyberte novou prázdnou podsložku ve sdílené složce. Stávající soubory zůstanou beze změny.</value>
-  </data>
-  <data name="Profiles.Forget" xml:space="preserve">
-    <value>Vymazat uložená hesla a přístupy</value>
-  </data>
-  <data name="Profiles.ForgetAction" xml:space="preserve">
-    <value>Vymazat</value>
-  </data>
-  <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>Odebrat uložená hesla, důvěrné soubory uložené aplikací Foundry a přístup k synchronizaci těchto nastavení na tomto počítači? Budete muset doplnit chybějící údaje a znovu se připojit k synchronizaci. Již vytvořená média se nezmění.</value>
-  </data>
-  <data name="Profiles.Heading" xml:space="preserve">
-    <value>Nastavení Foundry</value>
-  </data>
-  <data name="Profiles.Import" xml:space="preserve">
-    <value>Importovat</value>
-  </data>
-  <data name="Profiles.ImportDescription" xml:space="preserve">
-    <value>Přidat konfiguraci ze souboru.</value>
-  </data>
-  <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>Zahrnout hesla a důvěrné soubory</value>
-  </data>
-  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
-    <value>Lidé používající tuto konfiguraci mohou číst zahrnutá hesla a důvěrné soubory.</value>
-  </data>
-  <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>Některá hesla nebo zdrojové soubory chybí. Doplňte je před uložením nebo sdílením hesel.</value>
-  </data>
-  <data name="Profiles.InvalidFolderName" xml:space="preserve">
-    <value>Použijte název bez speciálních znaků a bez tečky nebo mezery na konci.</value>
-  </data>
-  <data name="Profiles.JoinChanged" xml:space="preserve">
-    <value>Sdílená konfigurace se změnila. Před připojením zkontrolujte nejnovější verzi.</value>
-  </data>
-  <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Připojit ke sdílené konfiguraci</value>
-  </data>
-  <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>Použít verzi z tohoto počítače</value>
-  </data>
-  <data name="Profiles.LearnMore" xml:space="preserve">
-    <value>Další informace</value>
-  </data>
-  <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Uchovávat hesla pro váš účet Windows v tomto počítači.</value>
-  </data>
-  <data name="Profiles.Locked" xml:space="preserve">
-    <value>Windows nemůže pro váš účet na tomto počítači odemknout tato uložená nastavení ani jejich přístup k synchronizaci.</value>
-  </data>
-  <data name="Profiles.Manage" xml:space="preserve">
-    <value>Další možnosti</value>
-  </data>
-  <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Chybějící nebo nezahrnuté soubory: {0}. Před vytvořením média vyberte jejich umístění.</value>
-  </data>
-  <data name="Profiles.Name" xml:space="preserve">
-    <value>Název konfigurace</value>
-  </data>
-  <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>Heslo k souboru</value>
-  </data>
-  <data name="Profiles.PasswordMismatch" xml:space="preserve">
-    <value>Hesla se neshodují.</value>
-  </data>
-  <data name="Profiles.Preview" xml:space="preserve">
-    <value>{0}
-Zahrnuté soubory: {1}
-Zahrnutá hesla a přístupové klíče: {2}</value>
-  </data>
-  <data name="Profiles.Ready" xml:space="preserve">
-    <value>Připraveno</value>
-  </data>
-  <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Zvolte heslo pro ochranu souboru připojení. Heslo sdílejte samostatně. Uložte soubor mimo složku sdílené konfigurace.</value>
-  </data>
-  <data name="Profiles.Remember" xml:space="preserve">
-    <value>Zapamatovat hesla</value>
-  </data>
-  <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>Zapamatovat si toto připojení na tomto počítači</value>
-  </data>
-  <data name="Profiles.Rename" xml:space="preserve">
-    <value>Přejmenovat</value>
-  </data>
-  <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>Tím se nahradí nastavení, která právě používáte. Pokud chcete nejprve zachovat kopii, akci zrušte a zvolte Duplikovat.</value>
-  </data>
-  <data name="Profiles.RestoreAccess" xml:space="preserve">
-    <value>Obnovit přístup</value>
-  </data>
-  <data name="Profiles.Rollback" xml:space="preserve">
-    <value>Uložené verze ve sdílené složce se neočekávaně změnily. Obnovte je z důvěryhodné zálohy.</value>
-  </data>
-  <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Duplikovat</value>
-  </data>
-  <data name="Profiles.Select" xml:space="preserve">
-    <value>Vyberte konfiguraci</value>
-  </data>
-  <data name="Profiles.Setup" xml:space="preserve">
-    <value>Nastavit</value>
-  </data>
-  <data name="Profiles.SetupAction" xml:space="preserve">
-    <value>Nastavit synchronizaci…</value>
-  </data>
-  <data name="Profiles.SetupDescription" xml:space="preserve">
-    <value>Sdílet tuto konfiguraci nebo se připojit ke konfiguraci, kterou váš tým již používá.</value>
-  </data>
-  <data name="Profiles.ShareAction" xml:space="preserve">
-    <value>Sdílet</value>
-  </data>
-  <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>Každý, kdo může tato nastavení importovat nebo synchronizovat, může přečíst zahrnutá hesla a soukromé klíče certifikátů.</value>
-  </data>
-  <data name="Profiles.SharedBusy" xml:space="preserve">
-    <value>Tuto sdílenou složku používá jiná operace. Zkuste to znovu za chvíli. Vaše změny zůstávají uloženy na tomto počítači.</value>
-  </data>
-  <data name="Profiles.SharedFolder" xml:space="preserve">
-    <value>Sdílená složka</value>
-  </data>
-  <data name="Profiles.SharedUnavailable" xml:space="preserve">
-    <value>Sdílená složka není dostupná. Zkontrolujte její adresu a svůj přístup k síti. Vaše změny zůstávají uloženy na tomto počítači.</value>
-  </data>
-  <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>Na všech počítačích používejte stejnou síťovou složku. Musí používat SMB 3 s povinným šifrováním. Složky synchronizované s cloudem nejsou podporovány.</value>
-  </data>
-  <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Foundry přestane ukládat hesla této konfigurace v tomto počítači.</value>
-  </data>
-  <data name="Profiles.StopRememberingAction" xml:space="preserve">
-    <value>Přestat si pamatovat</value>
-  </data>
-  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
-    <value>Přestat si pamatovat hesla?</value>
-  </data>
-  <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Synchronizovat</value>
-  </data>
-  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
-    <value>Synchronizace…</value>
-  </data>
-  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
-    <value>Vyberte verzi</value>
-  </data>
-  <data name="Profiles.SyncStatusError" xml:space="preserve">
-    <value>Nelze synchronizovat</value>
-  </data>
-  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
-    <value>Nenastaveno</value>
-  </data>
-  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
-    <value>Složka není dostupná</value>
-  </data>
-  <data name="Profiles.SyncStatusPending" xml:space="preserve">
-    <value>Změny k synchronizaci</value>
-  </data>
-  <data name="Profiles.SyncStatusReady" xml:space="preserve">
-    <value>Připraveno k synchronizaci</value>
-  </data>
-  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
-    <value>Aktuální</value>
-  </data>
-  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
-    <value>Dostupné změny</value>
-  </data>
-  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
-    <value>Vyžaduje pozornost</value>
-  </data>
-  <data name="Profiles.Synchronize" xml:space="preserve">
-    <value>Synchronizovat</value>
-  </data>
-  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
-    <value>Udržovat tuto konfiguraci aktuální na počítačích vašeho týmu.</value>
-  </data>
-  <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>Nastavení jsou aktuální</value>
-  </data>
-  <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>Foundry nemůže otevřít tento formát nastavení. Aktualizujte Foundry a zkuste to znovu.</value>
-  </data>
-  <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>Jsou dostupné změny z jiného počítače. Použijte je výběrem Synchronizovat.</value>
-  </data>
-  <data name="Profiles.UseRemote" xml:space="preserve">
-    <value>Použít sdílenou verzi</value>
-  </data>
-  <data name="Profiles.Validation" xml:space="preserve">
-    <value>Zkontrolujte povinná pole. Pokud je požadována síťová složka, použijte cestu jako \\server\share\folder. Pokud zadáváte heslo k souboru dvakrát, musí se obě zadání shodovat.</value>
-  </data>
   <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
     <value>Foundry OSD nemohl uložit nastavení proxy serveru. Zkuste to znovu. Podrobnosti najdete v protokolu.</value>
   </data>
@@ -3429,12 +3142,6 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Obecné</value>
   </data>
-  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Zálohujte svá nastavení, přeneste je do jiného počítače nebo je udržujte synchronizovaná.</value>
-  </data>
-  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Zálohování a synchronizace nastavení</value>
-  </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Nakonfigurujte, jak se aplikace Foundry OSD připojuje k online službám.</value>
   </data>
@@ -3464,6 +3171,498 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Aktualizovat aplikaci</value>
+  </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>Přijmout</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>Přijmout novou referenci</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>Složku nyní publikuje jiný počítač: {0}. Přijměte ho jen v případě, že tuto změnu očekáváte, například po převzetí; jinak složku přestaňte sledovat.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>Přijmout novou referenci?</value>
+  </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Reference se změnila, zatímco bylo toto dialogové okno otevřené. Před přijetím zkontrolujte nový klíč.</value>
+  </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Přeneste tuto konfiguraci pomocí šifrovaného souboru nebo udržujte více počítačů ve shodě pomocí sdílené složky.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Sdílení konfigurace</value>
+  </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>Změnit</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>Změnit heslo</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>Aktuální publikace se přepíše novým heslem. Soubory obsahu se znovu nešifrují, takže kdo znal staré heslo, může je stále číst: k úplnému odvolání dřívějších čtenářů použijte Resetovat publikaci. Počítače, které složku sledují, zadají nové heslo jednou.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>Změnit heslo publikace</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>Zkontrolovat nyní</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Potvrdit heslovou frázi</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>Potvrďte heslo</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Stahuje se</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>Počet položek, které se nepodařilo nainstalovat: {0}. Načtou se znovu, až referenční počítač publikuje novou verzi.</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Sada ovladačů</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>Soubor</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Balíček po instalaci</value>
+  </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>Obsah může být ve složce poškozený. Publikujte znovu z referenčního počítače.</value>
+  </data>
+  <data name="Sharing.CopyButton" xml:space="preserve">
+    <value>Kopírovat</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>Aktuální heslo publikace</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>Zadat heslo</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>Heslo publikace je potřeba znovu, například po resetování hesla systému Windows nebo poté, co ho referenční počítač změnil.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>Zadat heslo publikace</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Exportovat</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>Konfigurace byla exportována.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Uložte nastavení a malé soubory do zašifrovaného souboru. Balíčky po instalaci, sady ovladačů a image nejsou zahrnuty.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>Konfiguraci nebylo možné exportovat. Zkontrolujte cíl a zkuste to znovu.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>Soubory této konfigurace celkem přesahují 16 MiB a nelze je exportovat.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>Konfigurace byla exportována, ale některé soubory na tomto počítači chybí nebo jsou poškozené a nebyly zahrnuty (počet: {0}). Vyberte je znovu na stránkách konfigurace a pak exportujte znovu.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Exportovat konfiguraci</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>Soubor</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Konfigurace Foundry</value>
+  </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>Složka</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>Zvolte složku publikace</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>Sledovat</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>Použijte konfiguraci, kterou referenční počítač publikuje do složky. Publikovaná nastavení budou na tomto počítači jen pro čtení.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>Zadejte složku, do které referenční počítač publikuje, a jeho heslo publikace a pak ji otevřete a zobrazte náhled publikace.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>Sledování nahradí aktuální konfiguraci a publikovaná nastavení budou jen pro čtení. Výstupní cesta ISO, další složka ovladačů WinPE a nastavení telemetrie tohoto počítače zůstanou zachovány.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>Sledovat složku</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>Nalezený klíč</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>Nalezená verze</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>Zapomenout heslo publikace</value>
+  </data>
+  <data name="Sharing.GenerateButton" xml:space="preserve">
+    <value>Vygenerovat</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>Importovat</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>Konfigurace byla importována.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>Konfigurace byla importována. Na tomto počítači chybí obsah: importujte ho znovu na příslušné stránce.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Nahraďte tuto konfiguraci exportovaným souborem nebo profilem z předchozí verze.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>Konfiguraci nebylo možné importovat. Aktuální konfigurace zůstala beze změny.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>Konfigurace byla importována, ale její hesla nebylo možné uložit. Zadejte je znovu na stránkách konfigurace.</value>
+  </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>Import není k dispozici, dokud tento počítač sleduje složku. Nejdřív sledování ukončete.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Importovat konfiguraci</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Zahrnout hesla</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>Kdokoli, kdo může číst složku a zná heslo publikace, může tato hesla přečíst.</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Kdokoli, kdo má tento soubor a jeho heslovou frázi, může tato hesla přečíst.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>Tento soubor není konfigurace Foundry nebo je poškozený.</value>
+  </data>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>Poslední úspěšná kontrola</value>
+  </data>
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>Poslední publikování</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
+    <value>Tento uživatel systému Windows nemůže tuto konfiguraci otevřít.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>Tuto konfiguraci publikuje {0} a na tomto počítači je jen pro čtení. Lze změnit pouze výstupní cestu ISO, další složku ovladačů WinPE a nastavení telemetrie.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>Tuto konfiguraci publikuje {0} a na tomto počítači je jen pro čtení. Publikace neobsahuje hesla: zadejte je zde. Lze také změnit výstupní cestu ISO, další složku ovladačů WinPE a nastavení telemetrie.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>Spravováno referenčním počítačem</value>
+  </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Některé soubory používané konfigurací se nepodařilo obnovit. Vyberte je znovu na stránkách konfigurace.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Synchronizace konfigurace z dřívějších verzí již není podporována. Chcete-li tuto konfiguraci sdílet, použijte na referenčním počítači možnost Publikovat do složky.</value>
+  </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Zkontrolujte konfiguraci</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Uložená hesla se nepodařilo obnovit. Zadejte je znovu na stránkách konfigurace.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Importujte tyto položky znovu na jejich stránkách. Do té doby nejsou odpovídající položky konfigurace připravené.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Chybí na tomto počítači</value>
+  </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>Nový klíč</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>Nové heslo publikace</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>Tato složka neobsahuje publikovanou konfiguraci.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>Zatím neověřeno: tyto hodnoty pocházejí ze složky a potvrdí se až tehdy, když aktuální heslo publikace publikaci otevře.</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Otevřít</value>
+  </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Otevřít soubor</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Otevřít vybraný profil</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>Operaci nebylo možné dokončit. Podrobnosti najdete v protokolu.</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>Heslová fráze byla zkopírována do schránky.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Heslová fráze</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>Heslové fráze se neshodují.</value>
+  </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>Nové heslo je uložené. Změna se dokončí při příští úspěšné publikaci.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>Heslo publikace bylo změněno. Počítače, které složku sledují, zadají nové heslo jednou.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>Heslo bylo zkopírováno do schránky.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>Hesla se neshodují.</value>
+  </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Tuto konfiguraci spravuje referenční počítač: zde lze zadat pouze heslo.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Zahrnuta</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>K tomu může dojít po resetování hesla systému Windows. Pokud chcete dál publikovat, převezměte složku pomocí aktuálního hesla publikace; počítače, které složku sledují, pak jednou přijmou tento počítač jako novou referenci.</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Nezahrnuta</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Exportováno</value>
+  </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>Velikost stahování</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Název</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Hesla</value>
+  </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>Publikováno</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>Referenční počítač</value>
+  </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>Předchozí klíč</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Profily z předchozí verze</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Tyto profily byly uloženy v tomto počítači před aktualizací.</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>Publikace do této složky ještě nedorazila celá. Zkuste to za chvíli znovu.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>Heslo publikace</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>Publikace byla resetována. Počítače, které složku sledují, zadají nové heslo jednou.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>Publikovat</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>Nastavte tento počítač jako referenci: jeho konfigurace se publikuje do složky, kterou sledují jiné počítače.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>Zvolte prázdnou složku nebo složku, do které tento počítač už publikuje: síťovou sdílenou složku, složku OneDrive nebo SharePoint nebo místní složku. Počítače, které složku sledují, potřebují ke čtení heslo publikace.</value>
+  </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>Publikovat nyní</value>
+  </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Kontrola složky…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Dokončování publikace…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>Příprava {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>Odesílání {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>Ověřování {0}…</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>Publikovat do složky</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>Import nahradí aktuální konfiguraci. Výstupní cesta ISO, další složka ovladačů WinPE a nastavení telemetrie tohoto počítače zůstanou zachovány.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>Resetovat</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>Resetovat publikaci</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>Nové heslo a nový klíč obsahu: všechny soubory obsahu se znovu zašifrují, čímž se dřívějším čtenářům úplně odvolá přístup. Počítače, které složku sledují, zadají nové heslo jednou.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>Resetovat publikaci</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>Dřívější čtenáři mohou obsah otevírat až do příští úspěšné publikace.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>Tento počítač sleduje {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>Tento počítač publikuje svou konfiguraci</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>Alespoň 12 znaků a ne stále stejný opakovaný znak (například aaaaaaaaaaaa).</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Část sdíleného obsahu sledované publikace se nepodařilo stáhnout. Zkontrolujte Sdílení konfigurace na stránce Nastavení.</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>Publikování a sledování nejsou během této relace k dispozici, protože stav sdílení nebylo možné přečíst. Podrobnosti najdete v protokolu.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>Kontroluje se složka: publikace ještě nedorazila celá a při příští kontrole se načte znovu.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>Konfigurace je použita. Stahuje se sdílený obsah.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>Konfigurace je použita, ale část sdíleného obsahu se nepodařilo nainstalovat.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>Konfigurace je použita, ale část sdíleného obsahu není ani po opakovaných kontrolách dostupná.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>Tato složka obsahuje soubory, které nejsou publikací tohoto počítače. Zvolte prázdnou složku.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>Složka není k dispozici. Zkontrolujte, že existuje a že k ní má tento počítač přístup.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>Tento počítač žádnou konfiguraci nepublikuje ani nesleduje.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>Čeká se na první kontrolu složky.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>Změny se publikují automaticky.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>Nepublikováno: konfigurace není připravená k vytvoření médií nebo odkazuje na obsah, který na tomto počítači chybí. Předchozí verze zůstává aktuální.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>Jsou potřeba hesla: zadejte heslo publikace nebo zadejte chybějící hesla na stránkách konfigurace.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>Heslo publikace nebo klíče tohoto počítače nebylo možné přečíst.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>Publikováno. Počítače, které složku sledují, dostanou tuto verzi při příští kontrole.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>Publikuje se konfigurace…</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>Složka odkazuje na starší verzi, než je použitá. Ignoruje se.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>Publikace byla změněna. Nepoužije se.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>Složku nyní publikuje jiný počítač. Přijměte novou referenci nebo sledování ukončete.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>Do této složky publikuje jiný počítač. Převezměte ji, pokud chcete publikovat z tohoto počítače.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>Tato publikace vyžaduje novější verzi Foundry OSD.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>Aktuální.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>Konfigurace byla aktualizována.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>Heslo publikace neotevře aktuální publikaci. Zadejte nové heslo.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>Heslo publikace neotevře publikaci tohoto počítače v této složce.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>Ukončit sledování</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>Konfigurace zůstane beze změny a na tomto počítači ji bude opět možné upravovat.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>Ukončit sledování?</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>Ukončit publikování</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>Složka zůstane beze změny a počítače, které ji sledují, si ponechají poslední publikovanou verzi. Tento počítač už nepublikuje svou konfiguraci.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>Ukončit publikování?</value>
+  </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>Stahování {0}…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>Instalace {0}…</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>Převzít</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>Do této složky publikuje jiný počítač. Převzetí pokračuje v jeho publikaci s klíčem tohoto počítače; počítače, které složku sledují, musí jednou přijmout tento počítač jako novou referenci.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>Klíče publikace tohoto počítače nebylo možné přečíst. Převzetí s aktuálním heslem publikace pokračuje v publikaci s novými klíči; počítače, které složku sledují, musí jednou přijmout tento počítač jako novou referenci.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>Převzít tuto složku</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>Toto heslo neotevře aktuální publikaci.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>Soubor nebylo možné přečíst.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>Tento soubor vyžaduje novější verzi Foundry OSD.</value>
+  </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>Verze</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>Čeká se na dokončení stahování sdíleného obsahu…</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Nesprávná heslová fráze nebo poškozený soubor.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>Toto heslo neotevře publikaci, nebo byla publikace změněna.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Zastavit operaci</value>
@@ -3590,6 +3789,15 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Požadovaná tajemství médií nejsou připravena.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Část sdíleného obsahu se na tento počítač nepodařilo nainstalovat. Načte se znovu, až referenční počítač publikuje novou verzi. Zkontrolujte Sdílení konfigurace na stránce Nastavení.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Část sdíleného obsahu není ani po opakovaných kontrolách k dispozici. Publikujte znovu z referenčního počítače a pak zkontrolujte Sdílení konfigurace na stránce Nastavení.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Sdílený obsah se stále stahuje. Vytváření médií bude k dispozici po dokončení stahování.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Vybraná jednotka USB je pro mezipaměť příliš malá. Použijte jednotku USB s kapacitou alespoň 16 GB, nebo vyberte „Vytvořit bez mezipaměti“ pomocí šipky u tlačítka „Vytvořit USB“.</value>
@@ -4164,6 +4372,15 @@ Zahrnutá hesla a přístupové klíče: {2}</value>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Připraveno k vytvoření média USB</value>
   </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Sdílený obsah se nepodařilo nainstalovat</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Sdílený obsah není k dispozici</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Čeká se na sdílený obsah</value>
+  </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Zkontrolujte upozornění na výstup médií</value>
   </data>
@@ -4308,13 +4525,13 @@ Použití aktualizace restartuje Foundry OSD.</value>
     <value>Obsahuje nastavení, která mohou zabránit registraci do Autopilotu. Nekompatibilní režimy registrace budou při nasazení zablokovány.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Vyberte soubor, který chcete přejmenovat, aktualizovat nebo odebrat. Zdrojové soubory musí zůstat dostupné až do vytvoření média. Změněné zdroje je nutné aktualizovat.</value>
+    <value>Vyberte soubor, který chcete přejmenovat nebo odebrat. Foundry uchovává vlastní kopii každého importovaného souboru. Chcete-li použít aktualizovaný soubor, odeberte položku a soubor znovu importujte.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Soubory odpovědí</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Zkontrolovat zdroje</value>
+    <value>Zkontrolovat soubory</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Obsahuje příkazy. Zkontrolujte, zda se nepřekrývají s přizpůsobením a instalačními skripty Foundry.</value>
@@ -4353,13 +4570,13 @@ Použití aktualizace restartuje Foundry OSD.</value>
     <value>Soubor musí uvádět podporovanou architekturu a obsahovat nastavení komponent, která se na ni vztahují.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Katalog obsahuje neplatné nebo duplicitní položky. Dotčené soubory aktualizujte nebo odeberte.</value>
+    <value>Katalog obsahuje neplatné nebo duplicitní položky. Odeberte dotčené soubory a znovu je importujte.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Použijte platný soubor odpovědí systému Windows ve formátu XML o velikosti nejvýše 4 MiB, bez DTD a externích entit. Ověřte soubor pomocí Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Některé zdroje chybí, byly změněny nebo jsou neplatné. Před vytvořením média tyto položky aktualizujte nebo odeberte.</value>
+    <value>Některé soubory chybí nebo jsou neplatné. Před vytvořením média tyto položky odeberte a soubory znovu importujte.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Výchozí volba chybí – vyberte náhradu</value>
@@ -4374,16 +4591,13 @@ Použití aktualizace restartuje Foundry OSD.</value>
     <value>Foundry zachová původní soubor a přidá svůj požadovaný příkaz pro fázi po instalaci do kopie pro nasazení. Za vlastní nastavení a příkazy nadále odpovídáte vy.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Vlastní soubory vyžadují ochranu média pro nasazení heslem v obecné konfiguraci. XML může obsahovat přihlašovací údaje nebo skripty. Foundry uchovává kopii každého souboru s vaší konfigurací na tomto počítači pouze v případě, že je v části „Zálohování a synchronizace nastavení“ zapnuta možnost „Zapamatovat hesla“; jinak ukládá pouze cestu. Spouštěcí bitová kopie obsahuje zašifrované kopie.</value>
+    <value>Vlastní soubory vyžadují ochranu média pro nasazení heslem v obecné konfiguraci. XML může obsahovat přihlašovací údaje nebo skripty. Foundry uchovává kopii každého importovaného souboru ve své knihovně souborů v tomto počítači. Spouštěcí bitová kopie obsahuje zašifrované kopie.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Chcete-li používat vlastní soubory odpovědí, povolte v obecné konfiguraci ochranu média pro nasazení heslem.</value>
   </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Tento zdroj je nyní duplicitou jiného importovaného souboru. Odeberte tuto položku a vyberte existující soubor.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Aktualizovat zdroj</value>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry již nemá platnou kopii tohoto souboru. Odeberte položku a soubor znovu importujte.</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Odebrat</value>
@@ -4397,26 +4611,23 @@ Použití aktualizace restartuje Foundry OSD.</value>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Vybraný soubor</value>
   </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>Zdroj byl změněn. Před vytvořením média přijměte aktualizovaný soubor pomocí volby Aktualizovat zdroj.</value>
-  </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Dvě kontroly zdrojů stále čekají na přístup k souborům. Obnovte přístup k nedostupným umístěním zdrojů a poté zdroje znovu zkontrolujte.</value>
+    <value>Stále probíhají dvě kontroly souborů. Počkejte na jejich dokončení a pak to zkuste znovu.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Zdroj čeká na kontrolu. Volbou Zkontrolovat zdroje ověříte aktuální soubor bez přijetí změn obsahu.</value>
+    <value>Soubor čeká na kontrolu. Volbou Zkontrolovat soubory ověříte uloženou kopii.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Zdroj se nepodařilo přečíst. Zkontrolujte, zda soubor stále existuje a je dostupný.</value>
+    <value>Soubor se nepodařilo přečíst. Ověřte, že existuje a že ho můžete otevřít, a pak to zkuste znovu.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Vypršel časový limit ověření zdroje. Zkontrolujte přístup k umístění zdroje a zkuste to znovu.</value>
+    <value>Kontrola uložených souborů trvala příliš dlouho. Zkuste to znovu.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Podporována jsou pouze nastavení specialize a oobeSystem. Odeberte ostatní neprázdné fáze konfigurace, pokyny pro offline údržbu nebo opětovné zapečetění do režimu auditu.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Zdroj byl ověřen.</value>
+    <value>Soubor byl ověřen.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Použít aktualizaci</value>

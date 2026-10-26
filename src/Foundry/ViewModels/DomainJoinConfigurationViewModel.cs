@@ -19,6 +19,7 @@ namespace Foundry.ViewModels;
 public sealed partial class DomainJoinConfigurationViewModel : ObservableObject, IDisposable
 {
     private readonly IFoundryConfigurationStateService configuration;
+    private readonly ManagedConfigurationViewModel managed;
     private readonly IDomainJoinSecretStateService secrets;
     private readonly IDeploymentProtectionSecretStateService protectionSecrets;
     private readonly IAuthoringDomainOuDiscoveryService discovery;
@@ -38,9 +39,11 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
 
     public DomainJoinConfigurationViewModel(IFoundryConfigurationStateService configuration,
         IDomainJoinSecretStateService secrets, IDeploymentProtectionSecretStateService protectionSecrets, IAuthoringDomainOuDiscoveryService discovery,
-        IDomainJoinDialogService domainDialogs, IDialogService dialogs, IApplicationLocalizationService localization)
+        IDomainJoinDialogService domainDialogs, IDialogService dialogs, IApplicationLocalizationService localization,
+        ManagedConfigurationViewModel managed)
     {
         this.configuration = configuration;
+        this.managed = managed;
         this.secrets = secrets;
         this.protectionSecrets = protectionSecrets;
         this.discovery = discovery;
@@ -48,6 +51,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         this.dialogs = dialogs;
         this.localization = localization;
         configuration.StateChanged += OnStateChanged;
+        managed.PropertyChanged += OnManagedChanged;
         secrets.Changed += OnSecretsChanged;
         protectionSecrets.Changed += OnProtectionSecretsChanged;
         localization.LanguageChanged += OnLanguageChanged;
@@ -116,8 +120,15 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     public Visibility StatusVisibility => ToVisibility(statusKey is not null);
     public Visibility DiscoveringVisibility => ToVisibility(IsDiscovering);
 
-    private bool CanEditDomain => SelectedDomain is not null;
-    private bool CanSetDefaultDomain => SelectedDomain is { } domain &&
+    // A managed configuration keeps its published domains; editing a domain then only enters the password of its account, and
+    // only when the publication does not include passwords and the domain names an account (its own or the shared one).
+    private bool IsEditable => !configuration.IsManaged;
+    private bool CanAddDomain => IsEditable;
+    private bool CanEditDomain => SelectedDomain is { } domain
+        && (IsEditable || (IsZeroTouch && managed.ArePasswordsEditable && PasswordOwner(domain.Settings) is not null));
+    private bool CanRemoveDomain => IsEditable && CanEditDomain;
+    private bool CanAddOrganizationalUnit => IsEditable && SelectedDomain is not null;
+    private bool CanSetDefaultDomain => IsEditable && SelectedDomain is { } domain &&
         !string.Equals(configuration.Current.DomainJoin.DefaultDomainId, domain.Id, StringComparison.OrdinalIgnoreCase);
     private bool CanEditOrganizationalUnit => SelectedDomain is not null && selectedOuRows.Count == 1;
     private bool CanRemoveSelectedOrganizationalUnits => selectedOuRows.Count > 0;
@@ -136,7 +147,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     [ObservableProperty]
     public partial bool IsDiscovering { get; set; }
 
-    /// <summary>Invalidates PasswordBox content when volatile secret ownership or profile state changes.</summary>
+    /// <summary>Invalidates PasswordBox content when volatile secret ownership or configuration state changes.</summary>
     [ObservableProperty]
     public partial int SecretStateVersion { get; set; }
 
@@ -191,7 +202,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         }
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(CanAddDomain))]
     private Task AddDomainAsync() => domainDialogs.ShowDomainAsync(
         new(IsNew: true, AsksForAccount: IsZeroTouch, CanRename: true, DomainName: string.Empty, AccountName: null),
         input => TrySaveDomain(null, input));
@@ -201,6 +212,16 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     {
         if (SelectedDomain is not { } row) return Task.CompletedTask;
         DomainJoinDomainSettings domain = row.Settings;
+        if (configuration.IsManaged)
+        {
+            // Password-only: the published domain and its account stay as they are; a domain on the shared account edits that password.
+            string? owner = PasswordOwner(domain);
+            if (owner is null) return Task.CompletedTask;
+            return domainDialogs.ShowDomainAsync(
+                new(IsNew: false, AsksForAccount: true, CanRename: false, domain.DomainName, owner, PasswordOnly: true),
+                input => TrySavePassword(owner, input));
+        }
+
         return domainDialogs.ShowDomainAsync(
             new(IsNew: false, AsksForAccount: IsZeroTouch, CanRename: domain.OrganizationalUnits.Count == 0, domain.DomainName, domain.AccountName),
             input => TrySaveDomain(domain.Id, input));
@@ -235,6 +256,26 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         return null;
     }
 
+    /// <summary>Gets the account whose password a managed domain uses: its own account, or the shared account.</summary>
+    private string? PasswordOwner(DomainJoinDomainSettings domain) =>
+        domain.AccountName ?? (configuration.Current.DomainJoin.SharedAccountName?.Trim() is { Length: > 0 } shared ? shared : null);
+
+    /// <summary>Stores the password typed in the password-only domain dialog; an empty box keeps the stored password.</summary>
+    private string? TrySavePassword(string owner, DomainJoinDomainDialogInput input)
+    {
+        if (disposed || input.Password.IsEmpty) return null;
+        try
+        {
+            DomainJoinCredentialPayloadCodec.ValidatePassword(input.Password.Span);
+            secrets.SetPassword(owner, input.Password.Span);
+            return null;
+        }
+        catch (Exception exception) when (exception is ArgumentException or InvalidDataException)
+        {
+            return Text("CredentialInputInvalid");
+        }
+    }
+
     private static string GetDomainFailureKey(DomainJoinSettings current, string? domainId, string domainName)
     {
         string name = (domainName ?? string.Empty).Trim();
@@ -249,7 +290,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     }
 
     /// <summary>Removes the selected domain together with its OUs.</summary>
-    [RelayCommand(CanExecute = nameof(CanEditDomain))]
+    [RelayCommand(CanExecute = nameof(CanRemoveDomain))]
     private void RemoveDomain()
     {
         if (SelectedDomain is { } row) Save(DomainJoinDomainCatalog.Remove(configuration.Current.DomainJoin, row.Id));
@@ -261,7 +302,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         if (SelectedDomain is { } row) Save(DomainJoinDomainCatalog.SetDefault(configuration.Current.DomainJoin, row.Id));
     }
 
-    [RelayCommand(CanExecute = nameof(CanEditDomain))]
+    [RelayCommand(CanExecute = nameof(CanAddOrganizationalUnit))]
     private Task AddOrganizationalUnitAsync() => domainDialogs.ShowAddAsync(TryAddOrganizationalUnit);
 
     /// <summary>Adds one typed OU to the selected domain; returns the reason shown in the dialog when it is refused.</summary>
@@ -370,7 +411,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
 
         IReadOnlyList<DomainJoinOrganizationalUnitSettings>? selected =
             await domainDialogs.PickAsync(candidates, result.Status == DomainOuDiscoveryStatus.Incomplete);
-        // The settings can change while the dialog is open, for example through profile synchronization.
+        // The settings can change while the dialog is open, for example when the configuration is replaced.
         if (selected is null || selected.Count == 0 || disposed || !ReferenceEquals(baseline, configuration.Current.DomainJoin)) return;
         try { Save(DomainJoinOrganizationalUnitCatalog.Merge(baseline, domainId, selected)); }
         catch (ArgumentException) { SetStatus(GetMergeFailureKey(row.Settings, selected, "ImportDomainMismatch")); }
@@ -443,7 +484,12 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         Save(configuration.Current.DomainJoin with { SharedAccountName = trimmed.Length == 0 ? null : trimmed });
     }
 
-    private void Save(DomainJoinSettings settings) => configuration.UpdateDomainJoin(settings);
+    private void Save(DomainJoinSettings settings)
+    {
+        // A managed configuration keeps its published domains; only account passwords are entered while it is managed.
+        if (configuration.IsManaged) return;
+        configuration.UpdateDomainJoin(settings);
+    }
     private string Text(string key) => localization.GetString("DomainJoin." + key);
     private static Visibility ToVisibility(bool isVisible) => isVisible ? Visibility.Visible : Visibility.Collapsed;
 
@@ -495,6 +541,8 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
     /// Rebuilds the page only when the Domain Join settings themselves changed. Unrelated configuration changes
     /// reuse the same settings instance and must not discard a running search or the table selections.
     /// </summary>
+    private void OnManagedChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs args) => RefreshPresentation();
+
     private void OnStateChanged(object? sender, EventArgs args)
     {
         if (ReferenceEquals(appliedSettings, configuration.Current.DomainJoin))
@@ -655,6 +703,7 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
             OnPropertyChanged(property);
         }
 
+        AddDomainCommand.NotifyCanExecuteChanged();
         EditDomainCommand.NotifyCanExecuteChanged();
         RemoveDomainCommand.NotifyCanExecuteChanged();
         SetDefaultDomainCommand.NotifyCanExecuteChanged();
@@ -673,12 +722,13 @@ public sealed partial class DomainJoinConfigurationViewModel : ObservableObject,
         ClearDefaultOrganizationalUnitCommand.NotifyCanExecuteChanged();
     }
 
-    /// <summary>Discards search work and subscriptions without clearing credentials owned by the active profile session.</summary>
+    /// <summary>Discards search work and subscriptions without clearing credentials owned by the configuration session.</summary>
     public void Dispose()
     {
         disposed = true;
         StopDiscovery();
         configuration.StateChanged -= OnStateChanged;
+        managed.PropertyChanged -= OnManagedChanged;
         secrets.Changed -= OnSecretsChanged;
         protectionSecrets.Changed -= OnProtectionSecretsChanged;
         localization.LanguageChanged -= OnLanguageChanged;

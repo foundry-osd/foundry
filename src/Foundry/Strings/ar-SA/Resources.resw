@@ -283,6 +283,12 @@
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>ملاحظات الإصدار</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>تعذّرت إضافة الملف المحدد إلى Foundry. اختر ملفًا قابلًا للقراءة لا يتجاوز حجمه 4 ميبيبايت.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>لم تتم إضافة الملف</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>الافتراضي</value>
   </data>
@@ -389,7 +395,7 @@
     <value>انسخ كلمة المرور</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>احفظ ملف PFX وكلمة المرور الآن في مكان آمن. يحفظ Foundry كلمة المرور مع التكوين لديك على هذا الكمبيوتر فقط عندما يكون خيار «تذكّر كلمات المرور» قيد التشغيل في «النسخ الاحتياطي للإعدادات ومزامنتها». ستحتاج إلى كلا القيمتين لإنشاء وسائط التمهيد لتحميل تجزئة الأجهزة.</value>
+    <value>احفظ ملف PFX وكلمة المرور الآن في مكان آمن. يتذكر Foundry كلمة المرور على هذا الكمبيوتر في مخزنه المحلي المشفّر. ولا تغادر هذا الكمبيوتر إلا ضمن تصدير أو نشر عند اختيار «تضمين كلمات المرور». ستحتاج إلى كلا القيمتين لإنشاء وسائط التمهيد لتحميل تجزئة الأجهزة.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>تم نسخ كلمة المرور.</value>
@@ -737,7 +743,10 @@
     <value>غير متاح</value>
   </data>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
-    <value>هذا المجلد موجود بالفعل في ملف التعريف هذا باسم {0}.</value>
+    <value>هذا المجلد موجود بالفعل في هذا التكوين باسم {0}.</value>
+  </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>تم استبدال التكوين أثناء الاستيراد، لذلك لم تتم إضافة مجموعة برامج التشغيل. استورد المجلد مرة أخرى.</value>
   </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>تمت إزالة مجموعة برامج التشغيل، لكن تعذر حذف نسختها المحلية.</value>
@@ -749,7 +758,7 @@
     <value>مجموعة برامج تشغيل</value>
   </data>
   <data name="CustomDrivers.DuplicateName" xml:space="preserve">
-    <value>توجد بالفعل مجموعة برامج تشغيل بهذا الاسم في ملف التعريف هذا.</value>
+    <value>توجد بالفعل مجموعة برامج تشغيل بهذا الاسم في هذا التكوين.</value>
   </data>
   <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
     <value>لا توجد مجموعات برامج تشغيل مخصصة. استورد مجلدًا يحتوي على برامج تشغيل .inf للبدء.</value>
@@ -802,26 +811,23 @@
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>مجموعات برامج التشغيل</value>
   </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>تغيّر ملف التعريف النشط أثناء الاستيراد، لذلك لم تتم إضافة مجموعة برامج التشغيل. استورد المجلد مرة أخرى في ملف التعريف هذا.</value>
-  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>غير متاح مع إقلاع PXE. تتطلب برامج التشغيل المخصصة وسائط ISO أو USB الكاملة.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
-    <value>مجموعات برامج التشغيل في ملف التعريف هذا غير صالحة. تحقق من المجموعات المضمنة والمجموعة الافتراضية قبل إنشاء الوسائط أو تحديثها.</value>
+    <value>مجموعات برامج التشغيل في هذا التكوين غير صالحة. تحقق من المجموعات المضمنة والمجموعة الافتراضية قبل إنشاء الوسائط أو تحديثها.</value>
   </data>
   <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
     <value>النسخة المحلية من {0} مفقودة أو تالفة. استورد المجلد مرة أخرى أو استبعد المجموعة قبل إنشاء الوسائط أو تحديثها.</value>
   </data>
   <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
-    <value>أدرج مجموعة برامج تشغيل واحدة على الأقل في ملف التعريف هذا، أو أوقف تشغيل برامج التشغيل المخصصة، قبل إنشاء الوسائط أو تحديثها.</value>
+    <value>أدرج مجموعة برامج تشغيل واحدة على الأقل في هذا التكوين، أو أوقف تشغيل برامج التشغيل المخصصة، قبل إنشاء الوسائط أو تحديثها.</value>
   </data>
   <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
     <value>إزالة مجموعة برامج التشغيل</value>
   </data>
   <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
-    <value>ستتم إزالة {0} ({1}) من ملف التعريف الحالي.</value>
+    <value>ستتم إزالة {0} ({1}) من التكوين الحالي.</value>
   </data>
   <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
     <value>تعذرت إزالة مجموعة برامج التشغيل. حاول مرة أخرى.</value>
@@ -830,13 +836,13 @@
     <value>هل تريد إزالة مجموعة برامج التشغيل؟</value>
   </data>
   <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
-    <value>تُحذف نسختها المحلية ما لم يستخدمها ملف تعريف آخر. لن يتغير المجلد الأصلي والوسائط الموجودة.</value>
+    <value>تُحذف نسختها المحلية. لن يتغير المجلد الأصلي والوسائط الموجودة.</value>
   </data>
   <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
     <value>تعيين كافتراضي</value>
   </data>
   <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
-    <value>وصل ملف التعريف هذا إلى الحد الأقصى لعدد مجموعات برامج التشغيل. أزل مجموعة قبل استيراد أخرى.</value>
+    <value>وصل هذا التكوين إلى الحد الأقصى لعدد مجموعات برامج التشغيل. أزل مجموعة قبل استيراد أخرى.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>جارٍ التحقق من مجموعات برامج التشغيل المخصصة…</value>
@@ -878,7 +884,7 @@
     <value>الصورة المحددة</value>
   </data>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
-    <value>توجد بالفعل صورة بهذا الاسم في ملف التعريف هذا.</value>
+    <value>توجد بالفعل صورة بهذا الاسم في هذا التكوين.</value>
   </data>
   <data name="CustomImages.EditionLabel" xml:space="preserve">
     <value>الإصدار</value>
@@ -935,7 +941,7 @@
     <value>غير متاح مع إقلاع PXE. تتطلب الصور المخصصة وسائط ISO أو USB الكاملة.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>ضمّن صورة Windows واحدة متاحة على الأقل في ملف التعريف هذا. استعد الصور المضمّنة المفقودة وصحّح اختيار الصورة أو الفهرس المفضل أو ألغِه قبل إنشاء الوسائط أو تحديثها.</value>
+    <value>ضمّن صورة Windows واحدة متاحة على الأقل في هذا التكوين. استعد الصور المضمّنة المفقودة وصحّح اختيار الصورة أو الفهرس المفضل أو ألغِه قبل إنشاء الوسائط أو تحديثها.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>تحديث</value>
@@ -944,7 +950,7 @@
     <value>إزالة الصورة</value>
   </data>
   <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
-    <value>ستتم إزالة {0} ({1}) من ملف التعريف الحالي، وسيتم حذف نسختها المحلية.</value>
+    <value>ستتم إزالة {0} ({1}) من التكوين الحالي، وسيتم حذف نسختها المحلية.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>إزالة</value>
@@ -953,7 +959,7 @@
     <value>هل تريد إزالة الصورة المخصصة؟</value>
   </data>
   <data name="CustomImages.RemoveWarning" xml:space="preserve">
-    <value>ستظهر هذه الصورة كمفقودة في ملفات التعريف الأخرى التي تستخدمها. لن يتغير الملف الأصلي والوسائط الموجودة.</value>
+    <value>لن يتغير الملف الأصلي والوسائط الموجودة.</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>تحرير</value>
@@ -2768,7 +2774,7 @@
     <value>قم بتوفير قالب ملف تعريف المؤسسة Wi-Fi</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>تُحفظ عبارة المرور مع التكوين لديك على هذا الكمبيوتر فقط عندما يكون خيار «تذكّر كلمات المرور» قيد التشغيل في «النسخ الاحتياطي للإعدادات ومزامنتها». وإلا فلا تُحفظ ويجب إدخالها مرة أخرى، مثلًا بعد إعادة تشغيل Foundry OSD.</value>
+    <value>يتذكر Foundry عبارة المرور على هذا الكمبيوتر في مخزنه المحلي المشفّر. ولا تغادر هذا الكمبيوتر إلا ضمن تصدير أو نشر عند اختيار «تضمين كلمات المرور».</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>يستورد ملف تعريف Wi-Fi الذي تديره Foundry إلى Windows قبل OOBE للحفاظ على اتصالية النشر بعد WinPE.</value>
@@ -3001,299 +3007,6 @@
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>دليل العمل (نسبي؛ يُستخدم جذر المحتوى إذا تُرك فارغاً)</value>
   </data>
-  <data name="Profiles.Active" xml:space="preserve">
-    <value>الإعدادات الحالية</value>
-  </data>
-  <data name="Profiles.AutoSync" xml:space="preserve">
-    <value>المزامنة التلقائية</value>
-  </data>
-  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
-    <value>اختر اسمًا آخر</value>
-  </data>
-  <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>تعذرت إزالة بعض كلمات المرور أو مفاتيح الوصول القديمة المحفوظة. حاول مرة أخرى عندما يكون مدير بيانات اعتماد Windows متاحًا.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
-    <value>إغلاق دون حفظ</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
-    <value>تعذر حفظ آخر التغييرات التي أجريتها، وستُفقد.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
-    <value>هل تريد الإغلاق دون حفظ الإعدادات؟</value>
-  </data>
-  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
-    <value>تأكيد كلمة المرور</value>
-  </data>
-  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>تأكيد كلمة مرور الملف</value>
-  </data>
-  <data name="Profiles.Conflict" xml:space="preserve">
-    <value>تم تغيير هذه الإعدادات على هذا الكمبيوتر ومن قِبل شخص آخر. اختر النسخة التي تريد الاحتفاظ بها.</value>
-  </data>
-  <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>ستحل النسخة التي تختارها محل الأخرى. اختر إنشاء نسخة أولًا إذا أردت الاحتفاظ بنسخة منفصلة.</value>
-  </data>
-  <data name="Profiles.ConnectAction" xml:space="preserve">
-    <value>اتصال</value>
-  </data>
-  <data name="Profiles.ConnectDescription" xml:space="preserve">
-    <value>اختر ملف الاتصال الذي قدمه لك أحد أعضاء فريقك.</value>
-  </data>
-  <data name="Profiles.ConnectionPassword" xml:space="preserve">
-    <value>كلمة مرور الاتصال</value>
-  </data>
-  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
-    <value>ستحتاج أجهزة الكمبيوتر الأخرى إلى كلمة المرور هذه للاتصال.</value>
-  </data>
-  <data name="Profiles.Continue" xml:space="preserve">
-    <value>متابعة</value>
-  </data>
-  <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>مشاركة هذا التكوين</value>
-  </data>
-  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
-    <value>اختر مجلد شبكة مشتركًا لهذا التكوين.</value>
-  </data>
-  <data name="Profiles.Delete" xml:space="preserve">
-    <value>حذف من هذا الكمبيوتر</value>
-  </data>
-  <data name="Profiles.DeleteAction" xml:space="preserve">
-    <value>حذف</value>
-  </data>
-  <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>الحذف للجميع أيضًا</value>
-  </data>
-  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
-    <value>الحذف للجميع</value>
-  </data>
-  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
-    <value>هل تريد الحذف للجميع؟</value>
-  </data>
-  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>هل تريد حذف هذه الإعدادات المشتركة للجميع؟ يجب على أي شخص لديه تغييرات لم تتم مزامنتها إنشاء نسخة من إعداداته للاحتفاظ بها.</value>
-  </data>
-  <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>هل تريد حذف هذه الإعدادات من هذا الكمبيوتر؟ صدّرها أولًا إذا أردت نسخة احتياطية.</value>
-  </data>
-  <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>تم حذف هذه الإعدادات المشتركة. اختر إنشاء نسخة للاحتفاظ بتغييراتك على هذا الكمبيوتر.</value>
-  </data>
-  <data name="Profiles.Disconnect" xml:space="preserve">
-    <value>قطع الاتصال</value>
-  </data>
-  <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>هل تريد إيقاف مزامنة هذا التكوين على هذا الكمبيوتر؟ سيتم الاحتفاظ بإعداداتك الحالية. لن يتغير التكوين المشترك أو أجهزة الكمبيوتر الأخرى.</value>
-  </data>
-  <data name="Profiles.Export" xml:space="preserve">
-    <value>تصدير</value>
-  </data>
-  <data name="Profiles.ExportDescription" xml:space="preserve">
-    <value>حفظ هذا التكوين في ملف للنسخ الاحتياطي أو لاستخدامه على كمبيوتر آخر.</value>
-  </data>
-  <data name="Profiles.ExportProtection" xml:space="preserve">
-    <value>اختر كلمة مرور لحماية الملف المُصدَّر. ستحتاج إليها لاستيراد التكوين.</value>
-  </data>
-  <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>حفظ ملف الاتصال</value>
-  </data>
-  <data name="Profiles.Failed" xml:space="preserve">
-    <value>تعذر إكمال هذا الإجراء. تحقق من الملف وكلمة مروره وأذونات الوصول واتصال الشبكة.</value>
-  </data>
-  <data name="Profiles.FolderExists" xml:space="preserve">
-    <value>اسم المجلد هذا مستخدم بالفعل. اتصل باستخدام ملف اتصال، أو ارجع واختر اسمًا آخر.</value>
-  </data>
-  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
-    <value>اختر مجلدًا فرعيًا جديدًا وفارغًا داخل المجلد المشترك. ستبقى الملفات الموجودة دون تغيير.</value>
-  </data>
-  <data name="Profiles.Forget" xml:space="preserve">
-    <value>مسح كلمات المرور وبيانات الوصول المحفوظة</value>
-  </data>
-  <data name="Profiles.ForgetAction" xml:space="preserve">
-    <value>مسح</value>
-  </data>
-  <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>هل تريد إزالة كلمات المرور المحفوظة والملفات السرية التي حفظها Foundry وإمكانية المزامنة لهذه الإعدادات على هذا الكمبيوتر؟ ستحتاج إلى إضافة البيانات الناقصة وإعادة الاتصال للمزامنة. لن تتغير الوسائط التي أنشأتها سابقًا.</value>
-  </data>
-  <data name="Profiles.Heading" xml:space="preserve">
-    <value>إعدادات Foundry</value>
-  </data>
-  <data name="Profiles.Import" xml:space="preserve">
-    <value>استيراد</value>
-  </data>
-  <data name="Profiles.ImportDescription" xml:space="preserve">
-    <value>إضافة تكوين من ملف.</value>
-  </data>
-  <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>تضمين كلمات المرور والملفات السرية</value>
-  </data>
-  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
-    <value>يمكن للأشخاص الذين يستخدمون هذا التكوين قراءة كلمات المرور والملفات السرية المضمنة.</value>
-  </data>
-  <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>بعض كلمات المرور أو الملفات المصدر مفقودة. أضفها قبل حفظ كلمات المرور أو مشاركتها.</value>
-  </data>
-  <data name="Profiles.InvalidFolderName" xml:space="preserve">
-    <value>استخدم اسمًا لا يحتوي على رموز خاصة ولا ينتهي بنقطة أو مسافة.</value>
-  </data>
-  <data name="Profiles.JoinChanged" xml:space="preserve">
-    <value>تغير التكوين المشترك. راجع أحدث إصدار قبل الاتصال.</value>
-  </data>
-  <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>الاتصال بتكوين مشترك</value>
-  </data>
-  <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>استخدام نسخة هذا الكمبيوتر</value>
-  </data>
-  <data name="Profiles.LearnMore" xml:space="preserve">
-    <value>معرفة المزيد</value>
-  </data>
-  <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>الاحتفاظ بكلمات المرور لحساب Windows الخاص بك على هذا الكمبيوتر.</value>
-  </data>
-  <data name="Profiles.Locked" xml:space="preserve">
-    <value>يتعذر على Windows إلغاء قفل هذه الإعدادات المحفوظة أو إمكانية مزامنتها لحسابك على هذا الكمبيوتر.</value>
-  </data>
-  <data name="Profiles.Manage" xml:space="preserve">
-    <value>المزيد من الخيارات</value>
-  </data>
-  <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>الملفات المفقودة أو غير المضمنة: {0}. حدد مواقعها قبل إنشاء الوسائط.</value>
-  </data>
-  <data name="Profiles.Name" xml:space="preserve">
-    <value>اسم التكوين</value>
-  </data>
-  <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>كلمة مرور الملف</value>
-  </data>
-  <data name="Profiles.PasswordMismatch" xml:space="preserve">
-    <value>كلمتا المرور غير متطابقتين.</value>
-  </data>
-  <data name="Profiles.Preview" xml:space="preserve">
-    <value>{0}
-الملفات المضمنة: {1}
-كلمات المرور ومفاتيح الوصول المضمنة: {2}</value>
-  </data>
-  <data name="Profiles.Ready" xml:space="preserve">
-    <value>جاهز</value>
-  </data>
-  <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>اختر كلمة مرور لحماية ملف الاتصال. شارك كلمة المرور بشكل منفصل. احفظ الملف خارج مجلد التكوين المشترك.</value>
-  </data>
-  <data name="Profiles.Remember" xml:space="preserve">
-    <value>تذكّر كلمات المرور</value>
-  </data>
-  <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>تذكر هذا الاتصال على هذا الكمبيوتر</value>
-  </data>
-  <data name="Profiles.Rename" xml:space="preserve">
-    <value>إعادة تسمية</value>
-  </data>
-  <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>سيؤدي هذا إلى استبدال الإعدادات التي تستخدمها. للاحتفاظ بنسخة أولًا، ألغِ الإجراء واختر إنشاء نسخة.</value>
-  </data>
-  <data name="Profiles.RestoreAccess" xml:space="preserve">
-    <value>استعادة الوصول</value>
-  </data>
-  <data name="Profiles.Rollback" xml:space="preserve">
-    <value>تغيرت النسخ المحفوظة في المجلد المشترك بشكل غير متوقع. استعدها من نسخة احتياطية تثق بها.</value>
-  </data>
-  <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>إنشاء نسخة</value>
-  </data>
-  <data name="Profiles.Select" xml:space="preserve">
-    <value>اختر تكوينًا</value>
-  </data>
-  <data name="Profiles.Setup" xml:space="preserve">
-    <value>إعداد</value>
-  </data>
-  <data name="Profiles.SetupAction" xml:space="preserve">
-    <value>إعداد المزامنة…</value>
-  </data>
-  <data name="Profiles.SetupDescription" xml:space="preserve">
-    <value>شارك هذا التكوين أو اتصل بتكوين يستخدمه فريقك بالفعل.</value>
-  </data>
-  <data name="Profiles.ShareAction" xml:space="preserve">
-    <value>مشاركة</value>
-  </data>
-  <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>يمكن لأي شخص يستطيع استيراد هذه الإعدادات أو مزامنتها قراءة كلمات المرور والمفاتيح الخاصة للشهادات المضمنة.</value>
-  </data>
-  <data name="Profiles.SharedBusy" xml:space="preserve">
-    <value>تستخدم عملية أخرى هذا المجلد المشترك. حاول مرة أخرى بعد قليل. يتم الاحتفاظ بتغييراتك على هذا الكمبيوتر.</value>
-  </data>
-  <data name="Profiles.SharedFolder" xml:space="preserve">
-    <value>المجلد المشترك</value>
-  </data>
-  <data name="Profiles.SharedUnavailable" xml:space="preserve">
-    <value>يتعذر الوصول إلى المجلد المشترك. تحقق من عنوانه ومن إمكانية وصولك إلى الشبكة. يتم الاحتفاظ بتغييراتك على هذا الكمبيوتر.</value>
-  </data>
-  <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>استخدم مجلد الشبكة نفسه على كل كمبيوتر. يجب أن يستخدم SMB 3 مع اشتراط التشفير. المجلدات التي تتم مزامنتها مع السحابة غير مدعومة.</value>
-  </data>
-  <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>سيتوقف Foundry عن حفظ كلمات المرور لهذا التكوين على هذا الكمبيوتر.</value>
-  </data>
-  <data name="Profiles.StopRememberingAction" xml:space="preserve">
-    <value>التوقف عن التذكر</value>
-  </data>
-  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
-    <value>هل تريد التوقف عن تذكر كلمات المرور؟</value>
-  </data>
-  <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>مزامنة</value>
-  </data>
-  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
-    <value>جارٍ المزامنة…</value>
-  </data>
-  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
-    <value>اختر نسخة</value>
-  </data>
-  <data name="Profiles.SyncStatusError" xml:space="preserve">
-    <value>تعذرت المزامنة</value>
-  </data>
-  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
-    <value>لم يتم الإعداد</value>
-  </data>
-  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
-    <value>المجلد غير متاح</value>
-  </data>
-  <data name="Profiles.SyncStatusPending" xml:space="preserve">
-    <value>تغييرات بانتظار المزامنة</value>
-  </data>
-  <data name="Profiles.SyncStatusReady" xml:space="preserve">
-    <value>جاهز للمزامنة</value>
-  </data>
-  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
-    <value>محدّث</value>
-  </data>
-  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
-    <value>تغييرات متاحة</value>
-  </data>
-  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
-    <value>يحتاج إلى انتباهك</value>
-  </data>
-  <data name="Profiles.Synchronize" xml:space="preserve">
-    <value>مزامنة</value>
-  </data>
-  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
-    <value>إبقاء هذا التكوين محدثًا على أجهزة الكمبيوتر الخاصة بفريقك.</value>
-  </data>
-  <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>الإعدادات محدّثة</value>
-  </data>
-  <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>لا يستطيع Foundry فتح تنسيق الإعدادات هذا. حدّث Foundry وحاول مرة أخرى.</value>
-  </data>
-  <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>تتوفر تغييرات من كمبيوتر آخر. اختر مزامنة لتطبيقها.</value>
-  </data>
-  <data name="Profiles.UseRemote" xml:space="preserve">
-    <value>استخدام النسخة المشتركة</value>
-  </data>
-  <data name="Profiles.Validation" xml:space="preserve">
-    <value>تحقق من الحقول المطلوبة. إذا طُلب مجلد شبكة، فاستخدم مسارًا مثل \\server\share\folder. إذا أدخلت كلمة مرور الملف مرتين، فتأكد من تطابقهما.</value>
-  </data>
   <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
     <value>تعذر على Foundry OSD حفظ إعدادات الخادم الوكيل. حاول مرة أخرى. تتوفر التفاصيل في السجل.</value>
   </data>
@@ -3429,12 +3142,6 @@
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>عام</value>
   </data>
-  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>انسخ إعداداتك احتياطيًا، أو انقلها إلى كمبيوتر آخر، أو حافظ على مزامنتها.</value>
-  </data>
-  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>النسخ الاحتياطي للإعدادات ومزامنتها</value>
-  </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>قم بتكوين كيفية اتصال Foundry OSD بالخدمات عبر الإنترنت.</value>
   </data>
@@ -3464,6 +3171,498 @@
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>تحديث التطبيق</value>
+  </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>قبول</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>قبول الكمبيوتر المرجعي الجديد</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>أصبح المجلد يُنشر الآن بواسطة كمبيوتر آخر: {0}. اقبله فقط إذا كنت تتوقع هذا التغيير، على سبيل المثال بعد عملية تولٍّ؛ وإلا فأوقف متابعة المجلد.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>هل تريد قبول الكمبيوتر المرجعي الجديد؟</value>
+  </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>تغيّر الكمبيوتر المرجعي أثناء فتح مربع الحوار هذا. راجع المفتاح الجديد قبل قبوله.</value>
+  </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>انقل هذا التكوين باستخدام ملف مشفّر، أو حافظ على توافق عدة أجهزة كمبيوتر من خلال مجلد مشترك.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>مشاركة التكوين</value>
+  </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>تغيير</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>تغيير كلمة المرور</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>تتم إعادة كتابة النشر الحالي بكلمة المرور الجديدة. لا تتم إعادة تشفير ملفات المحتوى، لذا يظل بإمكان من عرف كلمة المرور القديمة قراءتها: استخدم إعادة تعيين النشر لإلغاء وصول القراء السابقين بالكامل. تُدخل أجهزة الكمبيوتر التي تتابع المجلد كلمة المرور الجديدة مرة واحدة.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>تغيير كلمة مرور النشر</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>التحقق الآن</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>تأكيد عبارة المرور</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>تأكيد كلمة المرور</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>جارٍ التنزيل</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>عدد العناصر التي تعذر تثبيتها: {0}. ستتم إعادة جلبها عندما ينشر الكمبيوتر المرجعي إصدارًا جديدًا.</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>مجموعة برامج تشغيل</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>ملف</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>صورة</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>حزمة ما بعد التثبيت</value>
+  </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>قد يكون المحتوى تالفًا في المجلد. انشر مرة أخرى من الكمبيوتر المرجعي.</value>
+  </data>
+  <data name="Sharing.CopyButton" xml:space="preserve">
+    <value>نسخ</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>كلمة مرور النشر الحالية</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>إدخال كلمة المرور</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>كلمة مرور النشر مطلوبة مرة أخرى، على سبيل المثال بعد إعادة تعيين كلمة مرور Windows أو بعد أن غيّرها الكمبيوتر المرجعي.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>إدخال كلمة مرور النشر</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>تصدير</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>تم تصدير التكوين.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>احفظ الإعدادات والملفات الصغيرة في ملف مشفر. لا يتم تضمين حزم ما بعد التثبيت ومجموعات برامج التشغيل والصور.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>تعذر تصدير التكوين. تحقق من الوجهة وحاول مرة أخرى.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>تتجاوز ملفات هذا التكوين 16 MiB في المجموع ولا يمكن تصديرها.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>تم تصدير التكوين، ولكن بعض الملفات مفقودة أو تالفة على هذا الكمبيوتر ولم يتم تضمينها (العدد: {0}). حددها مرة أخرى في صفحات التكوين، ثم صدّر مرة أخرى.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>تصدير التكوين</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>الملف</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>تكوين Foundry</value>
+  </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>المجلد</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>اختر مجلد النشر</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>متابعة</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>استخدم التكوين الذي ينشره كمبيوتر مرجعي في مجلد. تصبح الإعدادات المنشورة للقراءة فقط على هذا الكمبيوتر.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>أدخل المجلد الذي ينشر فيه الكمبيوتر المرجعي وكلمة مرور النشر الخاصة به، ثم افتحه لمعاينة النشر.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>تستبدل المتابعة التكوين الحالي وتجعل الإعدادات المنشورة للقراءة فقط. يتم الاحتفاظ بمسار إخراج ISO والمجلد الإضافي لبرامج تشغيل WinPE وإعدادات القياس عن بُعد لهذا الكمبيوتر.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>متابعة مجلد</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>المفتاح الذي تم العثور عليه</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>الإصدار الذي تم العثور عليه</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>نسيان كلمة مرور النشر</value>
+  </data>
+  <data name="Sharing.GenerateButton" xml:space="preserve">
+    <value>إنشاء</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>استيراد</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>تم استيراد التكوين.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>تم استيراد التكوين. يوجد محتوى مفقود على هذا الكمبيوتر: استورده مرة أخرى من صفحته.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>استبدل هذا التكوين بملف مُصدَّر أو بملف تعريف من الإصدار السابق.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>تعذر استيراد التكوين. لم يتغير التكوين الحالي.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>تم استيراد التكوين، ولكن تعذر حفظ كلمات المرور الخاصة به. أدخلها مرة أخرى في صفحات التكوين.</value>
+  </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>الاستيراد غير متاح بينما يتابع هذا الكمبيوتر مجلدًا. أوقف المتابعة أولاً.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>استيراد تكوين</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>تضمين كلمات المرور</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>يمكن لأي شخص يستطيع قراءة المجلد ويعرف كلمة مرور النشر قراءة كلمات المرور هذه.</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>يمكن لأي شخص لديه هذا الملف وعبارة المرور الخاصة به قراءة كلمات المرور هذه.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>هذا الملف ليس تكوين Foundry، أو أنه تالف.</value>
+  </data>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>آخر تحقق ناجح</value>
+  </data>
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>آخر نشر</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
+    <value>لا يمكن لمستخدم Windows هذا فتح هذا التكوين.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>يتم نشر هذا التكوين بواسطة {0} وهو للقراءة فقط على هذا الكمبيوتر. يمكن تغيير مسار إخراج ISO والمجلد الإضافي لبرامج تشغيل WinPE وإعدادات القياس عن بُعد فقط.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>يتم نشر هذا التكوين بواسطة {0} وهو للقراءة فقط على هذا الكمبيوتر. لا يتضمن النشر كلمات المرور: أدخلها هنا. يمكن أيضًا تغيير مسار إخراج ISO والمجلد الإضافي لبرامج تشغيل WinPE وإعدادات القياس عن بُعد.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>مُدار بواسطة كمبيوتر مرجعي</value>
+  </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>تعذّر استرداد بعض الملفات التي يستخدمها التكوين. حددها مرة أخرى في صفحات التكوين.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>لم تعد مزامنة التكوين في الإصدارات السابقة مدعومة. لمشاركة هذا التكوين، استخدم النشر إلى مجلد على الكمبيوتر المرجعي.</value>
+  </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>تحقق من التكوين</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>تعذّرت استعادة كلمات المرور المحفوظة. أدخلها مرة أخرى في صفحات التكوين.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>استورد هذه العناصر مرة أخرى من صفحاتها. وحتى ذلك الحين، لن تكون عناصر التكوين المطابقة جاهزة.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>مفقود على هذا الكمبيوتر</value>
+  </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>المفتاح الجديد</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>كلمة مرور النشر الجديدة</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>لا يحتوي هذا المجلد على تكوين منشور.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>لم يتم التحقق بعد: تأتي هذه القيم من المجلد ولا يتم تأكيدها إلا عندما تفتح كلمة مرور النشر الحالية النشر.</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>فتح</value>
+  </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>فتح الملف</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>فتح ملف التعريف المحدد</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>تعذر إكمال العملية. راجع السجل للحصول على التفاصيل.</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>تم نسخ عبارة المرور إلى الحافظة.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>عبارة المرور</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>عبارتا المرور غير متطابقتين.</value>
+  </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>تم حفظ كلمة المرور الجديدة. يكتمل التغيير عند النشر الناجح التالي.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>تم تغيير كلمة مرور النشر. تُدخل أجهزة الكمبيوتر التي تتابع المجلد كلمة المرور الجديدة مرة واحدة.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>تم نسخ كلمة المرور إلى الحافظة.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>كلمتا المرور غير متطابقتين.</value>
+  </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>يدير هذا التكوين كمبيوتر مرجعي: يمكن إدخال كلمة المرور فقط هنا.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>مضمنة</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>قد يحدث ذلك بعد إعادة تعيين كلمة مرور Windows. تولَّ المجلد باستخدام كلمة مرور النشر الحالية لمواصلة النشر؛ ستقبل بعد ذلك أجهزة الكمبيوتر التي تتابع المجلد هذا الكمبيوتر مرة واحدة ككمبيوتر مرجعي جديد.</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>غير مضمنة</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>تاريخ التصدير</value>
+  </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>حجم التنزيل</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>كلمات المرور</value>
+  </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>تاريخ النشر</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>الكمبيوتر المرجعي</value>
+  </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>المفتاح السابق</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>ملفات التعريف من الإصدار السابق</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>تم حفظ ملفات التعريف هذه على هذا الكمبيوتر قبل التحديث.</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>لم يصل النشر بالكامل إلى هذا المجلد بعد. أعد المحاولة بعد لحظات.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>كلمة مرور النشر</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>تمت إعادة تعيين النشر. تُدخل أجهزة الكمبيوتر التي تتابع المجلد كلمة المرور الجديدة مرة واحدة.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>نشر</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>اجعل هذا الكمبيوتر هو المرجع: يتم نشر تكوينه في مجلد تتابعه أجهزة كمبيوتر أخرى.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>اختر مجلدًا فارغًا، أو مجلدًا ينشر فيه هذا الكمبيوتر بالفعل: مشاركة شبكة، أو مجلد OneDrive أو SharePoint، أو مجلدًا محليًا. تحتاج أجهزة الكمبيوتر التي تتابع المجلد إلى كلمة مرور النشر لقراءته.</value>
+  </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>النشر الآن</value>
+  </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>جارٍ التحقق من المجلد…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>جارٍ إنهاء النشر…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>جارٍ تحضير {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>جارٍ إرسال {0}…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>جارٍ التحقق من {0}…</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>النشر إلى مجلد</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>يستبدل الاستيراد التكوين الحالي. يتم الاحتفاظ بمسار إخراج ISO والمجلد الإضافي لبرامج تشغيل WinPE وإعدادات بيانات القياس عن بُعد لهذا الكمبيوتر.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>إعادة تعيين</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>إعادة تعيين النشر</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>كلمة مرور جديدة ومفتاح محتوى جديد: تتم إعادة تشفير كل ملف محتوى، مما يلغي وصول القراء السابقين بالكامل. تُدخل أجهزة الكمبيوتر التي تتابع المجلد كلمة المرور الجديدة مرة واحدة.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>إعادة تعيين النشر</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>لا يزال بإمكان القراء السابقين فتح المحتوى حتى النشر الناجح التالي.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>يتابع هذا الكمبيوتر {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>ينشر هذا الكمبيوتر تكوينه</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>12 حرفًا على الأقل، وألا تكون الحرف نفسه مكررًا (مثل aaaaaaaaaaaa).</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>تعذر تنزيل بعض المحتوى المشترك للنشر المتابَع. تحقق من مشاركة التكوين في صفحة الإعدادات.</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>النشر والمتابعة غير متاحين خلال هذه الجلسة لأنه تعذرت قراءة حالة المشاركة. راجع السجل للحصول على التفاصيل.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>جارٍ التحقق من المجلد: لم يصل النشر بالكامل بعد وستتم قراءته مرة أخرى في التحقق التالي.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>تم تطبيق التكوين. جارٍ تنزيل المحتوى المشترك.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>تم تطبيق التكوين، لكن تعذّر تثبيت بعض المحتوى المشترك.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>تم تطبيق التكوين، لكن بعض المحتوى المشترك لا يزال غير متوفر بعد عمليات تحقق متكررة.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>يحتوي هذا المجلد على ملفات ليست نشرًا لهذا الكمبيوتر. اختر مجلدًا فارغًا.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>المجلد غير متوفر. تحقق من وجوده ومن أن هذا الكمبيوتر يمكنه الوصول إليه.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>لا ينشر هذا الكمبيوتر أي تكوين ولا يتابعه.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>في انتظار التحقق الأول من المجلد.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>يتم نشر التغييرات تلقائيًا.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>لم يتم النشر: التكوين غير جاهز لإنشاء الوسائط أو يشير إلى محتوى مفقود على هذا الكمبيوتر. يظل الإصدار السابق هو الحالي.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>كلمات المرور مطلوبة: أدخل كلمة مرور النشر، أو أدخل كلمات المرور المفقودة في صفحات التكوين.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>تعذرت قراءة كلمة مرور النشر أو مفاتيح هذا الكمبيوتر.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>تم النشر. ستتلقى أجهزة الكمبيوتر التي تتابع المجلد هذا الإصدار في التحقق التالي.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>جارٍ نشر التكوين…</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>يشير المجلد إلى إصدار أقدم من الإصدار المطبّق. يتم تجاهله.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>تم تعديل النشر. لن يتم تطبيقه.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>أصبح المجلد يُنشر الآن بواسطة كمبيوتر آخر. اقبل الكمبيوتر المرجعي الجديد أو أوقف المتابعة.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>ينشر كمبيوتر آخر في هذا المجلد. تولَّ المجلد للنشر من هذا الكمبيوتر.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>يتطلب هذا النشر إصدارًا أحدث من Foundry OSD.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>محدّث.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>تم تحديث التكوين.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>لا تفتح كلمة مرور النشر النشر الحالي. أدخل كلمة المرور الجديدة.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>لا تفتح كلمة مرور النشر نشر هذا الكمبيوتر في هذا المجلد.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>إيقاف المتابعة</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>يبقى التكوين كما هو ويصبح قابلاً للتحرير مرة أخرى على هذا الكمبيوتر.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>هل تريد إيقاف المتابعة؟</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>إيقاف النشر</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>يبقى المجلد كما هو وتحتفظ أجهزة الكمبيوتر التي تتابعه بآخر إصدار منشور. لم يعد هذا الكمبيوتر ينشر تكوينه.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>هل تريد إيقاف النشر؟</value>
+  </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>جارٍ تنزيل {0}…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>جارٍ تثبيت {0}…</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>تولٍّ</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>ينشر كمبيوتر آخر في هذا المجلد. يؤدي التولي إلى مواصلة نشره باستخدام مفتاح هذا الكمبيوتر؛ ويجب على أجهزة الكمبيوتر التي تتابع المجلد قبول هذا الكمبيوتر مرة واحدة ككمبيوتر مرجعي جديد.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>تعذرت قراءة مفاتيح النشر الخاصة بهذا الكمبيوتر. يؤدي التولي باستخدام كلمة مرور النشر الحالية إلى مواصلة النشر بمفاتيح جديدة؛ ويجب على أجهزة الكمبيوتر التي تتابع المجلد قبول هذا الكمبيوتر مرة واحدة ككمبيوتر مرجعي جديد.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>تولي هذا المجلد</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>لا تفتح كلمة المرور هذه النشر الحالي.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>تعذرت قراءة الملف.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>يتطلب هذا الملف إصدارًا أحدث من Foundry OSD.</value>
+  </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>الإصدار</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>في انتظار انتهاء تنزيل المحتوى المشترك…</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>عبارة مرور خاطئة أو ملف تالف.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>لا تفتح كلمة المرور هذه النشر، أو تم تعديل النشر.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>إيقاف العملية</value>
@@ -3590,6 +3789,15 @@
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>أسرار الوسائط المطلوبة ليست جاهزة.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>تعذر تثبيت بعض المحتوى المشترك على هذا الكمبيوتر. ستتم إعادة جلبه عندما ينشر الكمبيوتر المرجعي إصدارًا جديدًا. تحقق من مشاركة التكوين في صفحة الإعدادات.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>لا يزال جزء من المحتوى المشترك غير متوفر بعد عمليات تحقق متكررة. انشر مرة أخرى من الكمبيوتر المرجعي، ثم تحقق من مشاركة التكوين في صفحة الإعدادات.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>لا يزال تنزيل المحتوى المشترك جاريًا. يتوفر إنشاء الوسائط بعد اكتمال التنزيل.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>محرك أقراص USB المحدد صغير جدًا لاستيعاب ذاكرة تخزين مؤقت. استخدم محرك أقراص USB بسعة 16 GB على الأقل، أو حدد «إنشاء بدون ذاكرة تخزين مؤقت» من سهم «إنشاء USB».</value>
@@ -4164,6 +4372,15 @@
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>جاهز لإنشاء وسائط USB</value>
   </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>تعذر تثبيت المحتوى المشترك</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>المحتوى المشترك غير متوفر</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>في انتظار المحتوى المشترك</value>
+  </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>راجع تحذيرات مخرجات الوسائط</value>
   </data>
@@ -4308,13 +4525,13 @@
     <value>يحتوي على إعدادات قد تمنع التسجيل في Autopilot؛ سيتم حظر أوضاع التسجيل غير المتوافقة أثناء النشر.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>حدد ملفًا لإعادة تسميته أو تحديثه أو إزالته. يجب أن تظل ملفات المصدر متاحة حتى إنشاء الوسائط؛ وتتطلب المصادر المعدّلة التحديث.</value>
+    <value>حدد ملفًا لإعادة تسميته أو إزالته. يحتفظ Foundry بنسخته الخاصة من كل ملف مستورد؛ لاستخدام ملف محدّث، أزل الإدخال واستورد الملف مرة أخرى.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>ملفات الإجابات</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>التحقق من المصادر</value>
+    <value>التحقق من الملفات</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>يحتوي على أوامر؛ راجع تداخلها مع تخصيصات Foundry وإجراءات الإعداد.</value>
@@ -4353,13 +4570,13 @@
     <value>يجب أن يحدد الملف بنية مدعومة وأن يحتوي على إعدادات مكونات تنطبق عليها.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>يحتوي الكتالوج على إدخالات غير صالحة أو مكررة. حدّث الملفات المعنية أو أزلها.</value>
+    <value>يحتوي الكتالوج على إدخالات غير صالحة أو مكررة. أزل الملفات المعنية واستوردها مرة أخرى.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>استخدم ملف إجابات Windows بصيغة XML صالحة لا يتجاوز حجمه 4 MiB، دون تعريفات DTD أو كيانات خارجية. تحقق من الملف باستخدام Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>بعض المصادر مفقودة أو معدّلة أو غير صالحة. حدّث هذه الإدخالات أو أزلها قبل إنشاء الوسائط.</value>
+    <value>بعض الملفات مفقودة أو غير صالحة. أزل هذه الإدخالات واستورد الملفات مرة أخرى قبل إنشاء الوسائط.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>الاختيار الافتراضي مفقود - اختر بديلًا</value>
@@ -4374,16 +4591,13 @@
     <value>يحافظ Foundry على الملف الأصلي ويضيف أمره المطلوب لمرحلة ما بعد التثبيت إلى نسخة النشر. وتبقى مسؤولاً عن إعداداتك وأوامرك المخصصة.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>تتطلب الملفات المخصصة حماية وسائط النشر بكلمة مرور في الإعدادات العامة. قد يحتوي XML على بيانات اعتماد أو برامج نصية. يحتفظ Foundry بنسخة من كل ملف مع التكوين لديك على هذا الكمبيوتر فقط عندما يكون خيار «تذكّر كلمات المرور» قيد التشغيل في «النسخ الاحتياطي للإعدادات ومزامنتها»؛ وإلا فإنه يحفظ المسار فقط. تحتوي صورة التمهيد على نسخ مشفّرة.</value>
+    <value>تتطلب الملفات المخصصة حماية وسائط النشر بكلمة مرور في الإعدادات العامة. قد يحتوي XML على بيانات اعتماد أو برامج نصية. يحتفظ Foundry بنسخة من كل ملف مستورد في مكتبة الملفات الخاصة به على هذا الكمبيوتر. تحتوي صورة التمهيد على نسخ مشفّرة.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>فعّل حماية وسائط النشر بكلمة مرور في الإعدادات العامة لاستخدام ملفات الإجابات المخصصة.</value>
   </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>أصبح هذا المصدر مطابقًا لملف مستورد آخر. أزل هذا الإدخال واختر الملف الموجود.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>تحديث المصدر</value>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>لم يعد لدى Foundry نسخة صالحة من هذا الملف. أزل الإدخال واستورد الملف مرة أخرى.</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>إزالة</value>
@@ -4397,26 +4611,23 @@
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>الملف المحدد</value>
   </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>تغيّر المصدر. استخدم تحديث المصدر لقبول الملف المحدّث قبل إنشاء الوسائط.</value>
-  </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>ما زالت عمليتا تحقق من المصادر تنتظران الوصول إلى الملفات. أعد إتاحة مواقع المصادر غير المتاحة، ثم تحقق من المصادر مجددًا.</value>
+    <value>لا يزال فحصان للملفات قيد التشغيل. انتظر حتى ينتهيا، ثم أعد المحاولة.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>التحقق من المصدر معلّق. اختر التحقق من المصادر للتحقق من الملف الحالي دون قبول تغييرات المحتوى.</value>
+    <value>التحقق من الملف معلّق. اختر التحقق من الملفات للتحقق من النسخة المخزّنة.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>تعذرت قراءة المصدر. تحقق من أن الملف ما زال موجودًا ويمكن الوصول إليه.</value>
+    <value>تعذّرت قراءة الملف. تحقق من وجوده ومن إمكانية فتحه، ثم أعد المحاولة.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>انتهت مهلة التحقق من المصدر. تحقق من إمكانية الوصول إلى موقع المصدر وحاول مرة أخرى.</value>
+    <value>استغرق التحقق من الملفات المخزّنة وقتًا طويلاً. أعد المحاولة.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>تُدعم إعدادات specialize وoobeSystem فقط. أزل مراحل الإعداد الأخرى غير الفارغة أو تعليمات الصيانة دون اتصال أو إعادة التهيئة لوضع التدقيق.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>تم التحقق من المصدر.</value>
+    <value>تم التحقق من الملف.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>تطبيق التحديث</value>

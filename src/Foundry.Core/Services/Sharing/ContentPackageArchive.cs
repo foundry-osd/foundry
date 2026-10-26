@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Packages;
 using Foundry.Core.Services.Packages;
+using Foundry.Utilities.IO;
 
 namespace Foundry.Core.Services.Sharing;
 
@@ -26,6 +27,12 @@ public static class ContentPackageArchive
     private const int CopyBufferSize = 128 * 1024;
 
     /// <summary>
+    /// Most entries an extraction directory may hold when its lease removes it: above every kind's file limit (20,000 driver files)
+    /// plus their directories.
+    /// </summary>
+    private const int ExtractionMaximumEntries = 100_000;
+
+    /// <summary>
     /// Fixed entry timestamp. The DOS time stored is the clock time of this offset, so a UTC offset keeps the bytes identical in every
     /// time zone. Read-back timestamps carry the local offset and are never checked.
     /// </summary>
@@ -42,9 +49,14 @@ public static class ContentPackageArchive
     /// descriptors and change the bytes). It is left open.
     /// </param>
     /// <param name="cancellationToken">Stops between copy chunks.</param>
+    /// <param name="progress">
+    /// Receives the cumulative bytes handled: the verification of the package files by the lease, then their copy into the archive,
+    /// so it ends at twice the package length.
+    /// </param>
     /// <exception cref="ArgumentException">The destination is not seekable.</exception>
     /// <exception cref="InvalidDataException">The package is missing or damaged in the library.</exception>
-    public static async Task WriteAsync(ContentPackageLibraryService library, string contentHash, Stream destination, CancellationToken cancellationToken)
+    public static async Task WriteAsync(ContentPackageLibraryService library, string contentHash, Stream destination, CancellationToken cancellationToken,
+        IProgress<long>? progress = null)
     {
         ArgumentNullException.ThrowIfNull(library);
         ArgumentNullException.ThrowIfNull(destination);
@@ -53,7 +65,8 @@ public static class ContentPackageArchive
             throw new ArgumentException("The archive destination must be seekable.", nameof(destination));
         }
 
-        await using ContentPackageLease lease = await library.AcquireAsync(contentHash, cancellationToken).ConfigureAwait(false);
+        await using ContentPackageLease lease = await library.AcquireAsync(contentHash, cancellationToken, progress).ConfigureAwait(false);
+        long copied = lease.Files.Sum(file => file.Length);
         byte[] manifest = ContentPackageManifestCodec.Serialize(lease.Manifest);
         await using ZipArchive archive = await ZipArchive.CreateAsync(destination, ZipArchiveMode.Create, leaveOpen: true, entryNameEncoding: null, cancellationToken)
             .ConfigureAwait(false);
@@ -66,7 +79,9 @@ public static class ContentPackageArchive
         {
             await using FileStream input = new(file.SourcePath, FileMode.Open, FileAccess.Read, FileShare.Read, CopyBufferSize, FileOptions.Asynchronous | FileOptions.SequentialScan);
             await using Stream entry = await CreateEntryAsync(archive, FilesPrefix + file.RelativePath, cancellationToken).ConfigureAwait(false);
-            await input.CopyToAsync(entry, CopyBufferSize, cancellationToken).ConfigureAwait(false);
+            long offset = copied;
+            copied += await StreamCopy.CopyAsync(input, entry, progress is null ? null : bytes => progress.Report(offset + bytes), cancellationToken)
+                .ConfigureAwait(false);
         }
     }
 
@@ -89,8 +104,27 @@ public static class ContentPackageArchive
     /// An entry name is unsafe, duplicated or outside <c>manifest.json</c> and <c>files/</c>, the archive does not match its manifest,
     /// the manifest does not hash to <paramref name="expectedHash"/>, or the package breaks the library kind rules.
     /// </exception>
+    public static Task<ContentPackageReference> ImportAsync(ContentPackageLibraryService library, Stream archive, string expectedHash,
+        CancellationToken cancellationToken) =>
+        ImportAsync(library, archive, expectedHash, temporaryRoot: null, cancellationToken);
+
+    /// <inheritdoc cref="ImportAsync(ContentPackageLibraryService, Stream, string, CancellationToken)"/>
+    /// <param name="library">Target library.</param>
+    /// <param name="archive">Seekable archive stream; left open.</param>
+    /// <param name="expectedHash">Content hash listed in the publication.</param>
+    /// <param name="temporaryRoot">
+    /// Dedicated root of the owner-only extraction directories (<see cref="PrivateDirectory"/>); defaults to
+    /// <c>%TEMP%\Foundry\PackageImport</c>. The extraction directory is removed on every path, and abandoned ones under the root are
+    /// removed by the next import.
+    /// </param>
+    /// <param name="cancellationToken">Stops between copy chunks; the extraction directory is removed.</param>
+    /// <param name="progress">
+    /// Receives the cumulative bytes handled: the checked extraction of the package files, then their import into the library, so it
+    /// ends at twice the package length.
+    /// </param>
+    /// <exception cref="IOException">The extraction root is redirected or its cleanup lock is held by another process.</exception>
     public static async Task<ContentPackageReference> ImportAsync(ContentPackageLibraryService library, Stream archive, string expectedHash,
-        CancellationToken cancellationToken)
+        string? temporaryRoot, CancellationToken cancellationToken, IProgress<long>? progress = null)
     {
         ArgumentNullException.ThrowIfNull(library);
         ArgumentNullException.ThrowIfNull(archive);
@@ -106,24 +140,32 @@ public static class ContentPackageArchive
 
         string hash = expectedHash.ToLowerInvariant();
 
-        // The library refuses sources inside its own root, so the files are extracted under the user's temporary folder. The library
-        // also checks source paths against the kind's full-path limit while it inventories them. That check never rejects a package
-        // the destination accepts, because the library root lives under the user profile or ProgramData, so its destination prefix
-        // (root, then content\<64 hex>\files\) is longer than %TEMP%\Foundry\<32 hex>\.
-        string extracted = Path.Combine(Path.GetTempPath(), "Foundry", Guid.NewGuid().ToString("N"));
+        // The library refuses sources inside its own root, so the files are extracted into an owner-only leased directory under the
+        // temporary root (ContentSync passes its own, on the volume of the libraries). The library also checks source paths against
+        // the kind's full-path limit while it inventories them. That check never rejects a package the destination
+        // accepts, as long as the extraction prefix (root, then <32 hex>\package\) is shorter than the destination prefix (library
+        // root, then content\<64 hex>\files\), which holds for the default %TEMP% root and for the per-user sharing root.
+        PrivateDirectoryLease lease = PrivateDirectory.CreateLeased(
+            temporaryRoot ?? Path.Combine(Path.GetTempPath(), "Foundry", "PackageImport"), ExtractionMaximumEntries);
+
+        // A subdirectory: the leased directory also holds its lease file, which must not become package content.
+        string extracted = Path.Combine(lease.Path, "package");
+        long extractedBytes;
         try
         {
             await using (ZipArchive zip = await ZipArchive.CreateAsync(archive, ZipArchiveMode.Read, leaveOpen: true, entryNameEncoding: null, cancellationToken)
                 .ConfigureAwait(false))
             {
-                await ExtractAsync(zip, library.Kind, hash, extracted, cancellationToken).ConfigureAwait(false);
+                extractedBytes = await ExtractAsync(zip, library.Kind, hash, extracted, progress, cancellationToken).ConfigureAwait(false);
             }
 
-            return await ImportExtractedAsync(library, extracted, hash, cancellationToken).ConfigureAwait(false);
+            long offset = extractedBytes;
+            IProgress<ContentPackageImportProgress>? imported = progress is null ? null : new LibraryImportProgress(progress, offset);
+            return await ImportExtractedAsync(library, extracted, hash, cancellationToken, imported).ConfigureAwait(false);
         }
         finally
         {
-            DeleteDirectoryBestEffort(extracted);
+            ReleaseBestEffort(lease);
         }
     }
 
@@ -133,10 +175,10 @@ public static class ContentPackageArchive
     /// import created is then removed, while an entry that existed before the import is never touched.
     /// </summary>
     internal static async Task<ContentPackageReference> ImportExtractedAsync(ContentPackageLibraryService library, string directory, string expectedHash,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken, IProgress<ContentPackageImportProgress>? progress = null)
     {
         IReadOnlySet<string> existing = library.ListContentHashes();
-        ContentPackageReference reference = await library.ImportAsync(directory, cancellationToken).ConfigureAwait(false);
+        ContentPackageReference reference = await library.ImportAsync(directory, progress, cancellationToken).ConfigureAwait(false);
         if (reference.ContentHash.Equals(expectedHash, StringComparison.Ordinal))
         {
             return reference with { DisplayName = reference.ContentHash };
@@ -164,18 +206,16 @@ public static class ContentPackageArchive
     /// </summary>
     private static string ExtractionPath(string root, string relativePath) => Path.Combine(root, relativePath.Replace('/', Path.DirectorySeparatorChar));
 
-    private static void DeleteDirectoryBestEffort(string directory)
+    /// <summary>Removes the extraction directory; a leftover is removed by the next import's abandoned cleanup.</summary>
+    private static void ReleaseBestEffort(PrivateDirectoryLease lease)
     {
         try
         {
-            if (Directory.Exists(directory))
-            {
-                Directory.Delete(directory, recursive: true);
-            }
+            lease.Dispose();
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
         {
-            // A leftover in the user's temporary folder must not replace the import's own outcome.
+            // The leftover must not replace the import's own outcome.
         }
     }
 
@@ -186,8 +226,12 @@ public static class ContentPackageArchive
         return await entry.OpenAsync(cancellationToken).ConfigureAwait(false);
     }
 
-    /// <summary>Validates every entry name, then the manifest, then extracts the manifest's directories and files into <paramref name="root"/>.</summary>
-    private static async Task ExtractAsync(ZipArchive zip, ContentPackageKind kind, string hash, string root, CancellationToken cancellationToken)
+    /// <summary>
+    /// Validates every entry name, then the manifest, then extracts the manifest's directories and files into <paramref name="root"/>,
+    /// reporting the cumulative bytes extracted; returns the package length.
+    /// </summary>
+    private static async Task<long> ExtractAsync(ZipArchive zip, ContentPackageKind kind, string hash, string root, IProgress<long>? progress,
+        CancellationToken cancellationToken)
     {
         ContentPackagePathPolicy policy = new(kind);
         if (zip.Entries.Count > kind.MaximumFiles + 1)
@@ -231,10 +275,16 @@ public static class ContentPackageArchive
         }
 
         byte[] buffer = new byte[CopyBufferSize];
+        long extracted = 0;
         foreach (ContentPackageFile file in manifest.Files)
         {
-            await ExtractFileAsync(files[file.RelativePath], file, ExtractionPath(root, file.RelativePath), buffer, cancellationToken).ConfigureAwait(false);
+            long offset = extracted;
+            await ExtractFileAsync(files[file.RelativePath], file, ExtractionPath(root, file.RelativePath), buffer,
+                progress is null ? null : bytes => progress.Report(offset + bytes), cancellationToken).ConfigureAwait(false);
+            extracted += file.Length;
         }
+
+        return extracted;
     }
 
     private static async Task<ContentPackageManifest> ReadManifestAsync(ZipArchiveEntry? entry, string hash, ContentPackageKind kind, CancellationToken cancellationToken)
@@ -254,7 +304,8 @@ public static class ContentPackageArchive
     }
 
     /// <summary>Copies one entry, rejecting it unless its length and SHA-256 match the manifest.</summary>
-    private static async Task ExtractFileAsync(ZipArchiveEntry entry, ContentPackageFile file, string target, byte[] buffer, CancellationToken cancellationToken)
+    private static async Task ExtractFileAsync(ZipArchiveEntry entry, ContentPackageFile file, string target, byte[] buffer, Action<long>? reportBytes,
+        CancellationToken cancellationToken)
     {
         if (entry.Length != file.Length)
         {
@@ -277,6 +328,7 @@ public static class ContentPackageArchive
 
                 sha256.AppendData(buffer, 0, count);
                 await output.WriteAsync(buffer.AsMemory(0, count), cancellationToken).ConfigureAwait(false);
+                reportBytes?.Invoke(copied);
             }
         }
 
@@ -284,5 +336,11 @@ public static class ContentPackageArchive
         {
             throw new InvalidDataException("ContentPackage.InvalidPackageArchive");
         }
+    }
+
+    /// <summary>Maps the copy-and-verify progress of the library import onto the bytes after the extraction.</summary>
+    private sealed class LibraryImportProgress(IProgress<long> target, long offset) : IProgress<ContentPackageImportProgress>
+    {
+        public void Report(ContentPackageImportProgress value) => target.Report(offset + value.CompletedBytes);
     }
 }

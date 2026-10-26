@@ -185,7 +185,13 @@ public sealed class UnattendMediaTests
                 deployConfigurationJson = deployJson,
                 isDeploymentProtectionEnabled = true,
                 deploymentSecretsKey = Protection.DeploymentKey,
-                unattend = new { isEnabled = true, defaultFileId = FileId, files = new[] { new { id = FileId, displayName = "Office", sourcePath = SourcePath, contentHash = digest } } }
+                unattend = new
+                {
+                    isEnabled = true,
+                    defaultFileId = FileId,
+                    files = new[] { new { id = FileId, displayName = "Office", contentHash = digest, file = new { contentHash = digest.ToLowerInvariant(), fileName = "source.xml", length = Content.Length } } }
+                },
+                unattendSourcePaths = new Dictionary<string, string> { [FileId] = SourcePath }
             }, ConfigurationJsonDefaults.SerializerOptions), ConfigurationJsonDefaults.SerializerOptions)!;
         }
 

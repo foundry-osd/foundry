@@ -46,7 +46,12 @@ public interface IDomainJoinDialogService
 /// <param name="CanRename">Whether the name can change; it cannot while the domain lists OUs.</param>
 /// <param name="DomainName">The current domain name, empty for a new domain.</param>
 /// <param name="AccountName">The current dedicated account; <see langword="null"/> means the shared account.</param>
-public sealed record DomainJoinDomainDialogRequest(bool IsNew, bool AsksForAccount, bool CanRename, string DomainName, string? AccountName);
+/// <param name="PasswordOnly">
+/// Whether only the password of <paramref name="AccountName"/> can be entered: a followed publication manages the domain, so its name
+/// and account are shown read-only, and the password is returned even for a domain on the shared account.
+/// </param>
+public sealed record DomainJoinDomainDialogRequest(bool IsNew, bool AsksForAccount, bool CanRename, string DomainName, string? AccountName,
+    bool PasswordOnly = false);
 
 /// <summary>Carries what was entered in the domain dialog. The save callback copies the password and must not keep this record.</summary>
 public sealed record DomainJoinDomainDialogInput(string DomainName, bool UsesSharedAccount, string AccountName, ReadOnlyMemory<char> Password);

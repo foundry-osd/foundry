@@ -10,25 +10,25 @@ public static class NetworkMediaReadinessEvaluator
 {
     private const string ValidationPassphrasePlaceholder = "FoundryTransientSecret";
 
-    public static NetworkMediaReadinessEvaluation Evaluate(NetworkSettings settings, string? personalWifiPassphrase = null)
+    /// <summary>
+    /// Separates network configuration readiness from the readiness of the personal Wi-Fi passphrase kept outside the document.
+    /// </summary>
+    /// <param name="settings">The authoring network settings.</param>
+    /// <param name="inputs">Where referenced files can be read, and the current network passwords.</param>
+    public static NetworkMediaReadinessEvaluation Evaluate(NetworkSettings settings, MediaInputs inputs)
     {
         ArgumentNullException.ThrowIfNull(settings);
+        ArgumentNullException.ThrowIfNull(inputs);
 
         bool requiresPersonalWifiPassphrase = RequiresPersonalWifiPassphrase(settings);
-        NetworkSettings validationSettings = requiresPersonalWifiPassphrase
-            ? settings with
-            {
-                Wifi = settings.Wifi with
-                {
-                    Passphrase = ValidationPassphrasePlaceholder
-                }
-            }
-            : settings;
+        MediaInputs validationInputs = requiresPersonalWifiPassphrase
+            ? inputs with { Network = inputs.Network with { WifiPassphrase = ValidationPassphrasePlaceholder } }
+            : inputs;
 
-        NetworkConfigurationValidationResult validationResult = NetworkConfigurationValidator.Validate(validationSettings);
+        NetworkConfigurationValidationResult validationResult = NetworkConfigurationValidator.Validate(settings, validationInputs);
         bool isNetworkConfigurationReady = validationResult.IsValid;
         bool areRequiredSecretsReady = !requiresPersonalWifiPassphrase ||
-            IsPersonalWifiPassphraseValid(personalWifiPassphrase);
+            IsPersonalWifiPassphraseValid(inputs.Network.WifiPassphrase);
 
         return new NetworkMediaReadinessEvaluation
         {
@@ -39,25 +39,8 @@ public static class NetworkMediaReadinessEvaluator
         };
     }
 
-    public static NetworkSettings ApplyRequiredSecrets(NetworkSettings settings, string? personalWifiPassphrase)
-    {
-        ArgumentNullException.ThrowIfNull(settings);
-
-        if (!RequiresPersonalWifiPassphrase(settings) || !IsPersonalWifiPassphraseValid(personalWifiPassphrase))
-        {
-            return settings;
-        }
-
-        return settings with
-        {
-            Wifi = settings.Wifi with
-            {
-                Passphrase = personalWifiPassphrase!.Trim()
-            }
-        };
-    }
-
-    private static bool RequiresPersonalWifiPassphrase(NetworkSettings settings)
+    /// <summary>Gets whether the settings provision personal Wi-Fi, whose passphrase the media needs.</summary>
+    internal static bool RequiresPersonalWifiPassphrase(NetworkSettings settings)
     {
         if (!settings.WifiProvisioned || !settings.Wifi.IsEnabled || settings.Wifi.HasEnterpriseProfile)
         {
@@ -70,7 +53,8 @@ public static class NetworkMediaReadinessEvaluator
             StringComparison.OrdinalIgnoreCase);
     }
 
-    private static bool IsPersonalWifiPassphraseValid(string? passphrase)
+    /// <summary>Gets whether a passphrase has the WPA2/WPA3 personal length once trimmed.</summary>
+    internal static bool IsPersonalWifiPassphraseValid(string? passphrase)
     {
         int length = passphrase?.Trim().Length ?? 0;
         return length is >= 8 and <= 63;

@@ -42,7 +42,10 @@ public sealed record PackagePublisher(Guid Id, string Name, string KeyId, byte[]
 /// <summary>One library content item the configuration references.</summary>
 /// <param name="Hash">Lowercase SHA-256 content hash.</param>
 /// <param name="Kind">Library the content belongs to.</param>
-/// <param name="Length">Content length in bytes.</param>
+/// <param name="Length">
+/// Library length in bytes: the file length, the sum of the file lengths of a package or driver set, the WIM length of an image. The
+/// published plaintext of packages, driver sets and images is longer (see <see cref="LocalContentSource"/>).
+/// </param>
 /// <param name="Name">Display name of the content.</param>
 public sealed record PackageContent(string Hash, SharedContentKind Kind, long Length, string Name);
 
@@ -66,6 +69,9 @@ public sealed record ConfigurationPackagePayload
 
     /// <summary>Gets the publication sequence; followers apply only a higher sequence.</summary>
     public long Sequence { get; init; }
+
+    /// <summary>Gets the name shown when the package is imported; set on exports (publications name their <see cref="Publisher"/>).</summary>
+    public string? Name { get; init; }
 
     /// <summary>Gets the signing reference PC; required on publications.</summary>
     public PackagePublisher? Publisher { get; init; }

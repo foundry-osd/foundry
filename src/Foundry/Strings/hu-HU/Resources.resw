@@ -283,6 +283,12 @@ Licenc az MIT licenc alatt.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Kiadási megjegyzések</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>A kiválasztott fájlt nem sikerült hozzáadni a Foundryhoz. Válasszon egy olvasható, legfeljebb 4 MiB méretű fájlt.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>A fájl nincs hozzáadva</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Alapértelmezett</value>
   </data>
@@ -389,7 +395,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Jelszó másolása</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Mentse el ezt a PFX-fájlt és jelszót most egy biztonságos helyre. A Foundry csak akkor menti a jelszót a konfigurációval együtt ezen a számítógépen, ha a(z) „Jelszavak megjegyzése” be van kapcsolva a(z) „Beállítások biztonsági mentése és szinkronizálása” területen. Mindkét értékre szüksége lesz a rendszerindító adathordozó létrehozásához a hardveres hash feltöltéshez.</value>
+    <value>Mentse el ezt a PFX-fájlt és jelszót most egy biztonságos helyre. A Foundry ezen a számítógépen a helyi titkosított tárolójában jegyzi meg a jelszót. Csak exportálásban vagy közzétételben hagyja el ezt a számítógépet, ha a „Jelszavak belefoglalása” lehetőség van kiválasztva. Mindkét értékre szüksége lesz a rendszerindító adathordozó létrehozásához a hardveres hash feltöltéshez.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Jelszó másolva.</value>
@@ -737,7 +743,10 @@ Licenc az MIT licenc alatt.</value>
     <value>Nem elérhető</value>
   </data>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
-    <value>Ez a mappa már szerepel ebben a profilban {0} néven.</value>
+    <value>Ez a mappa már szerepel ebben a konfigurációban {0} néven.</value>
+  </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>A konfiguráció az importálás közben lecserélődött, ezért az illesztőprogram-készlet nem lett hozzáadva. Importálja újra a mappát.</value>
   </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>Az illesztőprogram-készlet el lett távolítva, de a helyi másolatát nem sikerült törölni.</value>
@@ -749,7 +758,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Illesztőprogram-készlet</value>
   </data>
   <data name="CustomDrivers.DuplicateName" xml:space="preserve">
-    <value>Ebben a profilban már létezik ilyen nevű illesztőprogram-készlet.</value>
+    <value>Ebben a konfigurációban már létezik ilyen nevű illesztőprogram-készlet.</value>
   </data>
   <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
     <value>Nincsenek egyéni illesztőprogram-készletek. A kezdéshez importáljon egy .inf illesztőprogramokat tartalmazó mappát.</value>
@@ -802,26 +811,23 @@ Licenc az MIT licenc alatt.</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Illesztőprogram-készletek</value>
   </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Az aktív profil megváltozott az importálás közben, ezért az illesztőprogram-készlet nem lett hozzáadva. Importálja újra a mappát ebben a profilban.</value>
-  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>PXE-rendszerindítással nem érhető el. Az egyéni illesztőprogramokhoz a teljes ISO- vagy USB-adathordozó szükséges.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
-    <value>A profil illesztőprogram-készletei érvénytelenek. Adathordozó létrehozása vagy frissítése előtt ellenőrizze a hozzáadott készleteket és az alapértelmezett készletet.</value>
+    <value>A konfiguráció illesztőprogram-készletei érvénytelenek. Adathordozó létrehozása vagy frissítése előtt ellenőrizze a hozzáadott készleteket és az alapértelmezett készletet.</value>
   </data>
   <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
     <value>A(z) {0} helyi másolata hiányzik vagy sérült. Adathordozó létrehozása vagy frissítése előtt importálja újra a mappát, vagy zárja ki a készletet.</value>
   </data>
   <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
-    <value>Adathordozó létrehozása vagy frissítése előtt adjon hozzá legalább egy illesztőprogram-készletet ehhez a profilhoz, vagy kapcsolja ki az egyéni illesztőprogramokat.</value>
+    <value>Adathordozó létrehozása vagy frissítése előtt adjon hozzá legalább egy illesztőprogram-készletet ehhez a konfigurációhoz, vagy kapcsolja ki az egyéni illesztőprogramokat.</value>
   </data>
   <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
     <value>Illesztőprogram-készlet eltávolítása</value>
   </data>
   <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
-    <value>A(z) {0} ({1}) el lesz távolítva az aktuális profilból.</value>
+    <value>A(z) {0} ({1}) el lesz távolítva az aktuális konfigurációból.</value>
   </data>
   <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
     <value>Az illesztőprogram-készletet nem sikerült eltávolítani. Próbálkozzon újra.</value>
@@ -830,13 +836,13 @@ Licenc az MIT licenc alatt.</value>
     <value>Eltávolítja az illesztőprogram-készletet?</value>
   </data>
   <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
-    <value>A helyi másolata törlődik, kivéve, ha egy másik profil használja. Az eredeti mappa és a meglévő adathordozók nem változnak.</value>
+    <value>A helyi másolata törlődik. Az eredeti mappa és a meglévő adathordozók nem változnak.</value>
   </data>
   <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
     <value>Beállítás alapértelmezettként</value>
   </data>
   <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
-    <value>Ez a profil elérte az illesztőprogram-készletek maximális számát. Egy újabb importálása előtt távolítson el egyet.</value>
+    <value>Ez a konfiguráció elérte az illesztőprogram-készletek maximális számát. Egy újabb importálása előtt távolítson el egyet.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Egyéni illesztőprogram-készletek ellenőrzése…</value>
@@ -878,7 +884,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Kijelölt lemezkép</value>
   </data>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
-    <value>Ebben a profilban már létezik ilyen nevű lemezkép.</value>
+    <value>Ebben a konfigurációban már létezik ilyen nevű lemezkép.</value>
   </data>
   <data name="CustomImages.EditionLabel" xml:space="preserve">
     <value>Kiadás</value>
@@ -935,7 +941,7 @@ Licenc az MIT licenc alatt.</value>
     <value>PXE-rendszerindítással nem érhető el. Az egyéni lemezképekhez a teljes ISO- vagy USB-adathordozó szükséges.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Adjon hozzá legalább egy elérhető Windows-lemezképet ehhez a profilhoz. Az adathordozó létrehozása vagy frissítése előtt állítsa helyre a hiányzó hozzáadott lemezképeket, és javítsa vagy törölje az előnyben részesített lemezkép vagy index kiválasztását.</value>
+    <value>Adjon hozzá legalább egy elérhető Windows-lemezképet ehhez a konfigurációhoz. Az adathordozó létrehozása vagy frissítése előtt állítsa helyre a hiányzó hozzáadott lemezképeket, és javítsa vagy törölje az előnyben részesített lemezkép vagy index kiválasztását.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Frissítés</value>
@@ -944,7 +950,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Lemezkép eltávolítása</value>
   </data>
   <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
-    <value>A rendszer eltávolítja a(z) {0} ({1}) lemezképet az aktuális profilból, és törli a helyi másolatát.</value>
+    <value>A rendszer eltávolítja a(z) {0} ({1}) lemezképet az aktuális konfigurációból, és törli a helyi másolatát.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Eltávolítás</value>
@@ -953,7 +959,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Eltávolítja az egyéni lemezképet?</value>
   </data>
   <data name="CustomImages.RemoveWarning" xml:space="preserve">
-    <value>A lemezképet használó többi profilban hiányzóként jelenik meg. Az eredeti fájl és a meglévő adathordozók nem változnak.</value>
+    <value>Az eredeti fájl és a meglévő adathordozók nem változnak.</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Szerkesztés</value>
@@ -2768,7 +2774,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Hozzon létre egy vállalati Wi-Fi profilsablont</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>A jelszó csak akkor kerül mentésre a konfigurációval együtt ezen a számítógépen, ha a(z) „Jelszavak megjegyzése” be van kapcsolva a(z) „Beállítások biztonsági mentése és szinkronizálása” területen. Ellenkező esetben nem kerül mentésre, és újra meg kell adni, például a Foundry OSD újraindítása után.</value>
+    <value>A Foundry ezen a számítógépen a helyi titkosított tárolójában jegyzi meg a jelmondatot. Csak exportálásban vagy közzétételben hagyja el ezt a számítógépet, ha a „Jelszavak belefoglalása” lehetőség van kiválasztva.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importálja a Foundry által kezelt Wi-Fi-profilt a Windowsba az OOBE előtt, hogy a telepítési kapcsolat a WinPE után is megmaradjon.</value>
@@ -3001,299 +3007,6 @@ Licenc az MIT licenc alatt.</value>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Munkakönyvtár (relatív; üresen a tartalom gyökere)</value>
   </data>
-  <data name="Profiles.Active" xml:space="preserve">
-    <value>Jelenlegi beállítások</value>
-  </data>
-  <data name="Profiles.AutoSync" xml:space="preserve">
-    <value>Automatikus szinkronizálás</value>
-  </data>
-  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
-    <value>Másik név választása</value>
-  </data>
-  <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>Néhány régi mentett jelszót vagy hozzáférési kulcsot nem sikerült eltávolítani. Próbálja újra, amikor a Windows Hitelesítőadat-kezelő elérhető.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
-    <value>Bezárás mentés nélkül</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
-    <value>A legutóbbi módosításokat nem sikerült menteni, és elvesznek.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
-    <value>Bezárja a beállítások mentése nélkül?</value>
-  </data>
-  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
-    <value>Jelszó megerősítése</value>
-  </data>
-  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>Fájljelszó megerősítése</value>
-  </data>
-  <data name="Profiles.Conflict" xml:space="preserve">
-    <value>Ezeket a beállításokat ezen a számítógépen és valaki más is módosította. Válassza ki, melyik verziót szeretné megtartani.</value>
-  </data>
-  <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>A kiválasztott verzió felülírja a másikat. Ha külön másolatot szeretne megőrizni, először válassza a Másolat készítése lehetőséget.</value>
-  </data>
-  <data name="Profiles.ConnectAction" xml:space="preserve">
-    <value>Csatlakozás</value>
-  </data>
-  <data name="Profiles.ConnectDescription" xml:space="preserve">
-    <value>Válassza ki a csapat egyik tagjától kapott csatlakozási fájlt.</value>
-  </data>
-  <data name="Profiles.ConnectionPassword" xml:space="preserve">
-    <value>Csatlakozási jelszó</value>
-  </data>
-  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
-    <value>Más gépeknek erre a jelszóra lesz szükségük a csatlakozáshoz.</value>
-  </data>
-  <data name="Profiles.Continue" xml:space="preserve">
-    <value>Folytatás</value>
-  </data>
-  <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Konfiguráció megosztása</value>
-  </data>
-  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
-    <value>Válasszon megosztott hálózati mappát ehhez a konfigurációhoz.</value>
-  </data>
-  <data name="Profiles.Delete" xml:space="preserve">
-    <value>Törlés erről a számítógépről</value>
-  </data>
-  <data name="Profiles.DeleteAction" xml:space="preserve">
-    <value>Törlés</value>
-  </data>
-  <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>Törlés mindenki számára is</value>
-  </data>
-  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
-    <value>Törlés mindenki számára</value>
-  </data>
-  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
-    <value>Törli mindenki számára?</value>
-  </data>
-  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>Törli ezeket a megosztott beállításokat mindenki számára? Akinek nem szinkronizált módosításai vannak, a megőrzésükhöz másolatot kell készítenie a beállításairól.</value>
-  </data>
-  <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>Törli ezeket a beállításokat erről a számítógépről? Ha biztonsági másolatot szeretne, először exportálja őket.</value>
-  </data>
-  <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>Ezeket a megosztott beállításokat törölték. A módosítások ezen a számítógépen való megőrzéséhez válassza a Másolat készítése lehetőséget.</value>
-  </data>
-  <data name="Profiles.Disconnect" xml:space="preserve">
-    <value>Kapcsolat bontása</value>
-  </data>
-  <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>Leállítja ennek a konfigurációnak a szinkronizálását ezen a gépen? A jelenlegi beállításai megmaradnak. A megosztott konfiguráció és a többi gép nem változik.</value>
-  </data>
-  <data name="Profiles.Export" xml:space="preserve">
-    <value>Exportálás</value>
-  </data>
-  <data name="Profiles.ExportDescription" xml:space="preserve">
-    <value>A konfiguráció mentése fájlba biztonsági másolatként vagy egy másik számítógéphez.</value>
-  </data>
-  <data name="Profiles.ExportProtection" xml:space="preserve">
-    <value>Válasszon jelszót az exportált fájl védelméhez. A konfiguráció importálásakor szüksége lesz rá.</value>
-  </data>
-  <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Csatlakozási fájl mentése</value>
-  </data>
-  <data name="Profiles.Failed" xml:space="preserve">
-    <value>Nem sikerült befejezni a műveletet. Ellenőrizze a fájlt, annak jelszavát, a hozzáférési engedélyeit és a hálózati kapcsolatot.</value>
-  </data>
-  <data name="Profiles.FolderExists" xml:space="preserve">
-    <value>Ez a mappanév már használatban van. Csatlakozzon egy kapcsolati fájllal, vagy lépjen vissza, és válasszon másik nevet.</value>
-  </data>
-  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
-    <value>Válasszon egy új, üres almappát a megosztott mappában. A meglévő fájlok változatlanok maradnak.</value>
-  </data>
-  <data name="Profiles.Forget" xml:space="preserve">
-    <value>Mentett jelszavak és hozzáférések törlése</value>
-  </data>
-  <data name="Profiles.ForgetAction" xml:space="preserve">
-    <value>Törlés</value>
-  </data>
-  <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>Eltávolítja ezekhez a beállításokhoz a mentett jelszavakat, a Foundry által mentett bizalmas fájlokat és a szinkronizálási hozzáférést erről a számítógépről? A szinkronizáláshoz meg kell adnia a hiányzó adatokat, és újra csatlakoznia kell. A már létrehozott adathordozók nem változnak.</value>
-  </data>
-  <data name="Profiles.Heading" xml:space="preserve">
-    <value>Foundry-beállítások</value>
-  </data>
-  <data name="Profiles.Import" xml:space="preserve">
-    <value>Importálás</value>
-  </data>
-  <data name="Profiles.ImportDescription" xml:space="preserve">
-    <value>Konfiguráció hozzáadása fájlból.</value>
-  </data>
-  <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>Jelszavak és bizalmas fájlok hozzáadása</value>
-  </data>
-  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
-    <value>A konfigurációt használó személyek elolvashatják a mellékelt jelszavakat és bizalmas fájlokat.</value>
-  </data>
-  <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>Néhány jelszó vagy forrásfájl hiányzik. Adja hozzá őket a jelszavak mentése vagy megosztása előtt.</value>
-  </data>
-  <data name="Profiles.InvalidFolderName" xml:space="preserve">
-    <value>Olyan nevet használjon, amely nem tartalmaz speciális karaktereket, és nem végződik pontra vagy szóközre.</value>
-  </data>
-  <data name="Profiles.JoinChanged" xml:space="preserve">
-    <value>A megosztott konfiguráció megváltozott. Csatlakozás előtt tekintse át a legújabb verziót.</value>
-  </data>
-  <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Csatlakozás megosztott konfigurációhoz</value>
-  </data>
-  <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>Az ezen a számítógépen lévő verzió használata</value>
-  </data>
-  <data name="Profiles.LearnMore" xml:space="preserve">
-    <value>További információ</value>
-  </data>
-  <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Jelszavak megőrzése a Windows-fiókjához ezen a számítógépen.</value>
-  </data>
-  <data name="Profiles.Locked" xml:space="preserve">
-    <value>A Windows nem tudja feloldani ezeket a mentett beállításokat vagy a szinkronizálási hozzáférésüket az Ön fiókjával ezen a számítógépen.</value>
-  </data>
-  <data name="Profiles.Manage" xml:space="preserve">
-    <value>További lehetőségek</value>
-  </data>
-  <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Hiányzó vagy bele nem foglalt fájlok: {0}. Válassza ki a helyüket az adathordozó létrehozása előtt.</value>
-  </data>
-  <data name="Profiles.Name" xml:space="preserve">
-    <value>Konfiguráció neve</value>
-  </data>
-  <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>Fájljelszó</value>
-  </data>
-  <data name="Profiles.PasswordMismatch" xml:space="preserve">
-    <value>A jelszavak nem egyeznek.</value>
-  </data>
-  <data name="Profiles.Preview" xml:space="preserve">
-    <value>{0}
-Mellékelt fájlok: {1}
-Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
-  </data>
-  <data name="Profiles.Ready" xml:space="preserve">
-    <value>Kész</value>
-  </data>
-  <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Válasszon jelszót a kapcsolati fájl védelméhez. A jelszót külön ossza meg. A fájlt a megosztott konfiguráció mappáján kívülre mentse.</value>
-  </data>
-  <data name="Profiles.Remember" xml:space="preserve">
-    <value>Jelszavak megjegyzése</value>
-  </data>
-  <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>Kapcsolat megjegyzése ezen a számítógépen</value>
-  </data>
-  <data name="Profiles.Rename" xml:space="preserve">
-    <value>Átnevezés</value>
-  </data>
-  <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>Ez felülírja a jelenleg használt beállításokat. Ha előbb másolatot szeretne megőrizni, szakítsa meg a műveletet, és válassza a Másolat készítése lehetőséget.</value>
-  </data>
-  <data name="Profiles.RestoreAccess" xml:space="preserve">
-    <value>Hozzáférés visszaállítása</value>
-  </data>
-  <data name="Profiles.Rollback" xml:space="preserve">
-    <value>A megosztott mappában mentett verziók váratlanul megváltoztak. Állítsa vissza őket egy megbízható biztonsági másolatból.</value>
-  </data>
-  <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Másolat készítése</value>
-  </data>
-  <data name="Profiles.Select" xml:space="preserve">
-    <value>Válasszon konfigurációt</value>
-  </data>
-  <data name="Profiles.Setup" xml:space="preserve">
-    <value>Beállítás</value>
-  </data>
-  <data name="Profiles.SetupAction" xml:space="preserve">
-    <value>Szinkronizálás beállítása…</value>
-  </data>
-  <data name="Profiles.SetupDescription" xml:space="preserve">
-    <value>Ossza meg ezt a konfigurációt, vagy csatlakozzon a csapata által már használt konfigurációhoz.</value>
-  </data>
-  <data name="Profiles.ShareAction" xml:space="preserve">
-    <value>Megosztás</value>
-  </data>
-  <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>Bárki, aki importálhatja vagy szinkronizálhatja ezeket a beállításokat, elolvashatja a mellékelt jelszavakat és a tanúsítványok titkos kulcsait.</value>
-  </data>
-  <data name="Profiles.SharedBusy" xml:space="preserve">
-    <value>Egy másik művelet használja ezt a megosztott mappát. Próbálja újra rövidesen. A módosításai megmaradnak ezen a gépen.</value>
-  </data>
-  <data name="Profiles.SharedFolder" xml:space="preserve">
-    <value>Megosztott mappa</value>
-  </data>
-  <data name="Profiles.SharedUnavailable" xml:space="preserve">
-    <value>A megosztott mappa nem érhető el. Ellenőrizze a címét és a hálózati hozzáférését. A módosításai megmaradnak ezen a gépen.</value>
-  </data>
-  <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>Minden számítógépen ugyanazt a hálózati mappát használja. A mappának SMB 3-at kell használnia kötelező titkosítással. A felhővel szinkronizált mappák nem támogatottak.</value>
-  </data>
-  <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>A Foundry nem menti többé a konfiguráció jelszavait ezen a számítógépen.</value>
-  </data>
-  <data name="Profiles.StopRememberingAction" xml:space="preserve">
-    <value>Megjegyzés leállítása</value>
-  </data>
-  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
-    <value>Leállítja a jelszavak megjegyzését?</value>
-  </data>
-  <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Szinkronizálás</value>
-  </data>
-  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
-    <value>Szinkronizálás…</value>
-  </data>
-  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
-    <value>Válasszon verziót</value>
-  </data>
-  <data name="Profiles.SyncStatusError" xml:space="preserve">
-    <value>Nem sikerült szinkronizálni</value>
-  </data>
-  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
-    <value>Nincs beállítva</value>
-  </data>
-  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
-    <value>A mappa nem érhető el</value>
-  </data>
-  <data name="Profiles.SyncStatusPending" xml:space="preserve">
-    <value>Szinkronizálandó módosítások</value>
-  </data>
-  <data name="Profiles.SyncStatusReady" xml:space="preserve">
-    <value>Szinkronizálásra kész</value>
-  </data>
-  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
-    <value>Naprakész</value>
-  </data>
-  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
-    <value>Módosítások érhetők el</value>
-  </data>
-  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
-    <value>Figyelmet igényel</value>
-  </data>
-  <data name="Profiles.Synchronize" xml:space="preserve">
-    <value>Szinkronizálás</value>
-  </data>
-  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
-    <value>A konfiguráció naprakészen tartása a csapat számítógépein.</value>
-  </data>
-  <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>A beállítások naprakészek</value>
-  </data>
-  <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>A Foundry nem tudja megnyitni ezt a beállításformátumot. Frissítse a Foundryt, és próbálja újra.</value>
-  </data>
-  <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>Egy másik számítógépről származó módosítások érhetők el. Alkalmazásukhoz válassza a Szinkronizálás lehetőséget.</value>
-  </data>
-  <data name="Profiles.UseRemote" xml:space="preserve">
-    <value>Megosztott verzió használata</value>
-  </data>
-  <data name="Profiles.Validation" xml:space="preserve">
-    <value>Ellenőrizze a kötelező mezőket. Ha hálózati mappát kell megadnia, használjon például ilyen elérési utat: \\server\share\folder. Ha kétszer ad meg fájljelszót, ügyeljen arra, hogy a két bejegyzés egyezzen.</value>
-  </data>
   <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
     <value>A Foundry OSD nem tudta menteni a proxybeállításokat. Próbálja újra. A részletek a naplóban találhatók.</value>
   </data>
@@ -3429,12 +3142,6 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Általános</value>
   </data>
-  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Készítsen biztonsági mentést a beállításairól, vigye át őket egy másik számítógépre, vagy tartsa őket szinkronban.</value>
-  </data>
-  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Beállítások biztonsági mentése és szinkronizálása</value>
-  </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Konfigurálja, hogyan csatlakozzon a Foundry OSD az online szolgáltatásokhoz.</value>
   </data>
@@ -3464,6 +3171,498 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Frissítse az alkalmazást</value>
+  </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>Elfogadás</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>Új referencia elfogadása</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>A mappát most egy másik számítógép teszi közzé: {0}. Csak akkor fogadja el, ha számít erre a változásra, például egy átvétel után; ellenkező esetben fejezze be a mappa követését.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>Elfogadja az új referenciát?</value>
+  </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>A referencia megváltozott, amíg ez a párbeszédpanel nyitva volt. Az elfogadás előtt tekintse át az új kulcsot.</value>
+  </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Vigye át ezt a konfigurációt titkosított fájllal, vagy tartson összehangolva több számítógépet egy megosztott mappán keresztül.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Konfiguráció megosztása</value>
+  </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>Módosítás</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>Jelszó módosítása</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>Az aktuális közzététel újraíródik az új jelszóval. A tartalomfájlok nem lesznek újra titkosítva, így aki ismerte a régi jelszót, továbbra is olvashatja őket: a korábbi olvasók teljes visszavonásához használja a Közzététel alaphelyzetbe állítása lehetőséget. A mappát követő számítógépeken egyszer kell megadni az új jelszót.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>Közzétételi jelszó módosítása</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>Ellenőrzés most</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Jelmondat megerősítése</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>Jelszó megerősítése</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Letöltés folyamatban</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>Ennyi elemet nem sikerült telepíteni: {0}. Újra le lesznek kérve, amikor a referenciaszámítógép új verziót tesz közzé.</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Illesztőprogram-készlet</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>Fájl</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Lemezkép</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Telepítés utáni csomag</value>
+  </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>Lehet, hogy a tartalom sérült a mappában. Tegye közzé újra a referenciaszámítógépről.</value>
+  </data>
+  <data name="Sharing.CopyButton" xml:space="preserve">
+    <value>Másolás</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>Aktuális közzétételi jelszó</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>Jelszó megadása</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>Ismét szükség van a közzétételi jelszóra, például a Windows-jelszó alaphelyzetbe állítása után, vagy miután a referenciaszámítógép módosította.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>Közzétételi jelszó megadása</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Exportálás</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>A konfiguráció exportálva.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Mentse a beállításokat és a kis fájlokat egy titkosított fájlba. A telepítés utáni csomagok, az illesztőprogram-készletek és a lemezképek nem kerülnek bele.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>A konfigurációt nem sikerült exportálni. Ellenőrizze a célhelyet, és próbálkozzon újra.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>A konfiguráció fájljai összesen meghaladják a 16 MiB ezért nem exportálhatók.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>A konfiguráció exportálva, de néhány fájl hiányzik vagy sérült ezen a számítógépen, ezért nem került bele (darabszám: {0}). Válassza ki őket újra a konfigurációs oldalakon, majd exportáljon újra.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Konfiguráció exportálása</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>Fájl</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Foundry-konfiguráció</value>
+  </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>Mappa</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>A közzétételi mappa kiválasztása</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>Követés</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>Használja azt a konfigurációt, amelyet egy referenciaszámítógép egy mappában tesz közzé. A közzétett beállítások ezen a számítógépen csak olvashatók lesznek.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>Adja meg a mappát, amelybe a referenciaszámítógép közzétesz, és a közzétételi jelszavát, majd nyissa meg a közzététel előnézetéhez.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>A követés lecseréli az aktuális konfigurációt, és a közzétett beállításokat csak olvashatóvá teszi. A számítógép ISO-kimeneti elérési útja, további WinPE-illesztőprogram-mappája és telemetriai beállításai megmaradnak.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>Mappa követése</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>Talált kulcs</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>Talált verzió</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>Közzétételi jelszó elfelejtése</value>
+  </data>
+  <data name="Sharing.GenerateButton" xml:space="preserve">
+    <value>Generálás</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>Importálás</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>A konfiguráció importálva.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>A konfiguráció importálva. Ezen a számítógépen tartalom hiányzik: importálja újra a hozzá tartozó oldalon.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Cserélje le ezt a konfigurációt egy exportált fájlra vagy az előző verzió egy profiljára.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>A konfigurációt nem sikerült importálni. Az aktuális konfiguráció nem változott.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>A konfiguráció importálva, de a jelszavait nem sikerült menteni. Adja meg őket újra a konfigurációs oldalakon.</value>
+  </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>Az importálás nem érhető el, amíg ez a számítógép egy mappát követ. Előbb fejezze be a követést.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Konfiguráció importálása</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Jelszavak belefoglalása</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>Bárki, aki olvashatja a mappát és ismeri a közzétételi jelszót, elolvashatja ezeket a jelszavakat.</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Bárki, akinél megvan ez a fájl és a jelmondata, elolvashatja ezeket a jelszavakat.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>Ez a fájl nem Foundry-konfiguráció, vagy sérült.</value>
+  </data>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>Utolsó sikeres ellenőrzés</value>
+  </data>
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>Utolsó közzététel</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
+    <value>Ez a Windows-felhasználó nem tudja megnyitni ezt a konfigurációt.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>Ezt a konfigurációt {0} teszi közzé, és ezen a számítógépen csak olvasható. Csak az ISO-kimeneti elérési út, a további WinPE-illesztőprogram-mappa és a telemetriai beállítások módosíthatók.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>Ezt a konfigurációt {0} teszi közzé, és ezen a számítógépen csak olvasható. A közzététel nem tartalmaz jelszavakat: itt adja meg őket. Az ISO-kimeneti elérési út, a további WinPE-illesztőprogram-mappa és a telemetriai beállítások is módosíthatók.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>Referenciaszámítógép által felügyelt</value>
+  </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>A konfiguráció által használt egyes fájlokat nem sikerült helyreállítani. Válassza ki őket újra a konfigurációs oldalakon.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>A korábbi verziók konfigurációszinkronizálása már nem támogatott. A konfiguráció megosztásához használja a referenciaszámítógépen a Közzététel mappába funkciót.</value>
+  </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Ellenőrizze a konfigurációt</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>A mentett jelszavakat nem sikerült visszaállítani. Adja meg őket újra a konfigurációs oldalakon.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Importálja újra ezeket az elemeket a saját oldalukon. Addig a megfelelő konfigurációs elemek nem állnak készen.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Hiányzik ezen a számítógépen</value>
+  </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>Új kulcs</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>Új közzétételi jelszó</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>Ez a mappa nem tartalmaz közzétett konfigurációt.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>Még nincs ellenőrizve: ezek az értékek a mappából származnak, és csak akkor erősítődnek meg, amikor az aktuális közzétételi jelszó megnyitja a közzétételt.</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Megnyitás</value>
+  </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>A fájl megnyitása</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>A kijelölt profil megnyitása</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>A művelet nem hajtható végre. A részleteket a naplóban találja.</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>A jelmondat a vágólapra másolva.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Jelmondat</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>A jelmondatok nem egyeznek.</value>
+  </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>Az új jelszó mentve. A módosítás a következő sikeres közzétételkor fejeződik be.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>A közzétételi jelszó módosult. A mappát követő számítógépeken egyszer kell megadni az új jelszót.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>A jelszó a vágólapra másolva.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>A jelszavak nem egyeznek.</value>
+  </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Ezt a konfigurációt egy referenciaszámítógép felügyeli: itt csak a jelszó adható meg.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Belefoglalva</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>Ez a Windows-jelszó alaphelyzetbe állítása után fordulhat elő. A közzététel folytatásához vegye át a mappát az aktuális közzétételi jelszóval; a mappát követő számítógépek ezután egyszer elfogadják ezt a számítógépet új referenciaként.</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Nincs belefoglalva</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Exportálva</value>
+  </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>Letöltési méret</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Név</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Jelszavak</value>
+  </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>Közzététel dátuma</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>Referenciaszámítógép</value>
+  </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>Előző kulcs</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Az előző verzió profiljai</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Ezeket a profilokat a frissítés előtt mentették erre a számítógépre.</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>A közzététel még nem érkezett meg teljesen ebbe a mappába. Próbálja újra egy kis idő múlva.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>Közzétételi jelszó</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>A közzététel alaphelyzetbe állt. A mappát követő számítógépeken egyszer kell megadni az új jelszót.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>Közzététel</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>Tegye ezt a számítógépet referenciává: a konfigurációja egy olyan mappában jelenik meg, amelyet más számítógépek követnek.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>Válasszon egy üres mappát vagy egy olyat, amelybe ez a számítógép már közzétesz: hálózati megosztást, OneDrive- vagy SharePoint-mappát, vagy helyi mappát. A mappát követő számítógépeknek a közzétételi jelszó kell az olvasásához.</value>
+  </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>Közzététel most</value>
+  </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>A mappa ellenőrzése…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>A közzététel befejezése…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>{0} előkészítése…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>{0} küldése…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>{0} ellenőrzése…</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>Közzététel mappába</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>Az importálás lecseréli az aktuális konfigurációt. A számítógép ISO-kimeneti útvonala, további WinPE-illesztőprogram-mappája és telemetriai beállításai megmaradnak.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>Alaphelyzetbe állítás</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>Közzététel alaphelyzetbe állítása</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>Új jelszó és új tartalomkulcs: minden tartalomfájl újra titkosítva lesz, ami teljesen visszavonja a korábbi olvasókat. A mappát követő számítógépeken egyszer kell megadni az új jelszót.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>Közzététel alaphelyzetbe állítása</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>A korábbi olvasók a következő sikeres közzétételig még megnyithatják a tartalmat.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>Ez a számítógép ezt követi: {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>Ez a számítógép közzéteszi a konfigurációját</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>Legalább 12 karakter, és ne ugyanaz a karakter ismétlődjön (például aaaaaaaaaaaa).</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>A követett közzététel megosztott tartalmának egy részét nem sikerült letölteni. Ellenőrizze a Konfiguráció megosztása részt a Beállítások lapon.</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>A közzététel és a követés ebben a munkamenetben nem érhető el, mert a megosztás állapotát nem sikerült beolvasni. A részleteket a naplóban találja.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>A mappa ellenőrzése: a közzététel még nem érkezett meg teljesen, és a következő ellenőrzéskor újra beolvasásra kerül.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>A konfiguráció alkalmazva. A megosztott tartalom letöltése folyamatban van.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>A konfiguráció alkalmazva, de a megosztott tartalom egy részét nem sikerült telepíteni.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>A konfiguráció alkalmazva, de a megosztott tartalom egy része ismételt ellenőrzések után sem érhető el.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>Ez a mappa olyan fájlokat tartalmaz, amelyek nem ennek a számítógépnek a közzétételei. Válasszon üres mappát.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>A mappa nem érhető el. Ellenőrizze, hogy létezik-e, és hogy ez a számítógép hozzáfér-e.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>Ez a számítógép nem tesz közzé és nem követ konfigurációt.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>Várakozás a mappa első ellenőrzésére.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>A módosítások közzététele automatikus.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>Nincs közzétéve: a konfiguráció nem áll készen adathordozó létrehozására, vagy olyan tartalomra hivatkozik, amely hiányzik erről a számítógépről. Az előző verzió marad érvényben.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>Jelszavak szükségesek: adja meg a közzétételi jelszót, vagy adja meg a hiányzó jelszavakat a konfigurációs lapokon.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>A számítógép közzétételi jelszavát vagy kulcsait nem sikerült beolvasni.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>Közzétéve. A mappát követő számítógépek a következő ellenőrzéskor kapják meg ezt a verziót.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>A konfiguráció közzététele folyamatban…</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>A mappa régebbi verzióra mutat, mint az alkalmazott. A rendszer figyelmen kívül hagyja.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>A közzétételt módosították. Nem lesz alkalmazva.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>A mappát most egy másik számítógép teszi közzé. Fogadja el az új referenciát, vagy fejezze be a követést.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>Egy másik számítógép tesz közzé ebbe a mappába. Vegye át, ha erről a számítógépről szeretne közzétenni.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>Ehhez a közzétételhez a Foundry OSD újabb verziója szükséges.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>Naprakész.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>A konfiguráció frissült.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>A közzétételi jelszó nem nyitja meg az aktuális közzétételt. Adja meg az új jelszót.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>A közzétételi jelszó nem nyitja meg ennek a számítógépnek a közzétételét ebben a mappában.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>Követés befejezése</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>A konfiguráció változatlan marad, és ezen a számítógépen ismét szerkeszthető lesz.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>Befejezi a követést?</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>Közzététel leállítása</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>A mappa változatlan marad, és a követő számítógépek megtartják a legutóbb közzétett verziót. Ez a számítógép többé nem teszi közzé a konfigurációját.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>Leállítja a közzétételt?</value>
+  </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>{0} letöltése…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>{0} telepítése…</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>Átvétel</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>Egy másik számítógép tesz közzé ebbe a mappába. Az átvétel ennek a számítógépnek a kulcsával folytatja a közzétételt; a mappát követő számítógépeknek egyszer el kell fogadniuk ezt a számítógépet új referenciaként.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>A számítógép közzétételi kulcsait nem sikerült beolvasni. Az aktuális közzétételi jelszóval végzett átvétel új kulcsokkal folytatja a közzétételt; a mappát követő számítógépeknek egyszer el kell fogadniuk ezt a számítógépet új referenciaként.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>Ennek a mappának az átvétele</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>Ez a jelszó nem nyitja meg az aktuális közzétételt.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>A fájlt nem sikerült beolvasni.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>Ehhez a fájlhoz a Foundry OSD újabb verziója szükséges.</value>
+  </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>Verzió</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>Várakozás a megosztott tartalom letöltésének befejezésére…</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Helytelen jelmondat vagy sérült fájl.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>Ez a jelszó nem nyitja meg a közzétételt, vagy a közzétételt módosították.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Művelet leállítása</value>
@@ -3590,6 +3789,15 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>A szükséges médiatitkok nincsenek készen.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>A megosztott tartalom egy részét nem sikerült telepíteni erre a számítógépre. Újra le lesz kérve, amikor a referenciaszámítógép új verziót tesz közzé. Ellenőrizze a Konfiguráció megosztása részt a Beállítások lapon.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>A megosztott tartalom egy része ismételt ellenőrzések után sem érhető el. Tegye közzé újra a referenciaszámítógépről, majd ellenőrizze a Konfiguráció megosztása részt a Beállítások lapon.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>A megosztott tartalom letöltése még folyamatban van. Az adathordozó létrehozása a letöltés befejezése után érhető el.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>A kiválasztott USB-meghajtó túl kicsi a gyorsítótárhoz. Használjon legalább 16 GB-os USB-meghajtót, vagy válassza a „Létrehozás gyorsítótár nélkül” lehetőséget az „USB létrehozása” gomb nyilából.</value>
@@ -4164,6 +4372,15 @@ Mellékelt jelszavak és hozzáférési kulcsok: {2}</value>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Készen áll a USB média létrehozására</value>
   </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>A megosztott tartalmat nem sikerült telepíteni</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>A megosztott tartalom nem érhető el</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Várakozás a megosztott tartalomra</value>
+  </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Tekintse át a médiakimenetre vonatkozó figyelmeztetéseket</value>
   </data>
@@ -4308,13 +4525,13 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>Az Autopilot-regisztrációt megakadályozó beállításokat tartalmaz; a nem kompatibilis regisztrációs módokat a rendszer letiltja a telepítés során.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Válasszon ki egy fájlt az átnevezéshez, frissítéshez vagy eltávolításhoz. A forrásfájloknak az adathordozó létrehozásáig elérhetőnek kell maradniuk; a módosult forrásokat frissíteni kell.</value>
+    <value>Válasszon ki egy fájlt az átnevezéshez vagy eltávolításhoz. A Foundry minden importált fájlról saját másolatot tárol; frissített fájl használatához távolítsa el a bejegyzést, és importálja újra a fájlt.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Válaszfájlok</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Források ellenőrzése</value>
+    <value>Fájlok ellenőrzése</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Parancsokat tartalmaz; ellenőrizze, hogy nem ütköznek-e a Foundry testreszabásaival és telepítési műveleteivel.</value>
@@ -4353,13 +4570,13 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>A fájlnak támogatott architektúrát és az arra alkalmazható összetevő-beállításokat kell tartalmaznia.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>A katalógus érvénytelen vagy ismétlődő bejegyzéseket tartalmaz. Frissítse vagy távolítsa el az érintett fájlokat.</value>
+    <value>A katalógus érvénytelen vagy ismétlődő bejegyzéseket tartalmaz. Távolítsa el az érintett fájlokat, és importálja újra őket.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Használjon érvényes, legfeljebb 4 MiB méretű Windows-válaszfájl XML-t DTD-k és külső entitások nélkül. Ellenőrizze a fájlt a Windows SIM eszközzel.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Egyes források hiányoznak, módosultak vagy érvénytelenek. Az adathordozó létrehozása előtt frissítse vagy távolítsa el ezeket a bejegyzéseket.</value>
+    <value>Egyes fájlok hiányoznak vagy érvénytelenek. Az adathordozó létrehozása előtt távolítsa el ezeket a bejegyzéseket, és importálja újra a fájlokat.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Hiányzó alapértelmezés – válasszon másikat</value>
@@ -4374,16 +4591,13 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
     <value>A Foundry megőrzi az eredeti fájlt, és hozzáadja a szükséges telepítés utáni parancsát a telepítési példányhoz. Az egyéni beállításokért és parancsokért továbbra is Ön felel.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Az egyéni fájlok használatához az Általános konfigurációban engedélyezni kell a telepítési adathordozó jelszavas védelmét. Az XML hitelesítő adatokat vagy szkripteket tartalmazhat. A Foundry csak akkor tárolja az egyes fájlok másolatát a konfigurációval együtt ezen a számítógépen, ha a(z) „Jelszavak megjegyzése” be van kapcsolva a(z) „Beállítások biztonsági mentése és szinkronizálása” területen; ellenkező esetben csak az elérési utat menti. A rendszerindító lemezkép titkosított másolatokat tartalmaz.</value>
+    <value>Az egyéni fájlok használatához az Általános konfigurációban engedélyezni kell a telepítési adathordozó jelszavas védelmét. Az XML hitelesítő adatokat vagy szkripteket tartalmazhat. A Foundry minden importált fájlról másolatot tárol a saját fájltárában ezen a számítógépen. A rendszerindító lemezkép titkosított másolatokat tartalmaz.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Az egyéni válaszfájlok használatához engedélyezze a telepítési adathordozó jelszavas védelmét az Általános konfigurációban.</value>
   </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Ez a forrás most megegyezik egy másik importált fájllal. Távolítsa el ezt a bejegyzést, és válassza a meglévő fájlt.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Forrás frissítése</value>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>A Foundry már nem rendelkezik érvényes másolattal erről a fájlról. Távolítsa el a bejegyzést, és importálja újra a fájlt.</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Eltávolítás</value>
@@ -4397,26 +4611,23 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Kiválasztott fájl</value>
   </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>A forrás módosult. Az adathordozó létrehozása előtt a Forrás frissítése művelettel fogadja el a frissített fájlt.</value>
-  </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Két forrásellenőrzés még fájlhozzáférésre vár. Állítsa helyre a nem elérhető forráshelyeket, majd ellenőrizze újra a forrásokat.</value>
+    <value>Még két fájlellenőrzés fut. Várja meg, amíg befejeződnek, majd próbálja újra.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>A forrás ellenőrzésre vár. Válassza a Források ellenőrzése lehetőséget az aktuális fájl ellenőrzéséhez a tartalom változásainak elfogadása nélkül.</value>
+    <value>A fájl ellenőrzésre vár. Válassza a Fájlok ellenőrzése lehetőséget a tárolt másolat ellenőrzéséhez.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>A forrás nem olvasható. Ellenőrizze, hogy a fájl még létezik és elérhető-e.</value>
+    <value>A fájlt nem sikerült beolvasni. Ellenőrizze, hogy létezik-e, és meg tudja-e nyitni, majd próbálja újra.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>A forrás ellenőrzése túllépte az időkorlátot. Ellenőrizze a forrás helyének elérhetőségét, majd próbálja újra.</value>
+    <value>A tárolt fájlok ellenőrzése túl sokáig tartott. Próbálja újra.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Csak a specialize és az oobeSystem beállítások támogatottak. Távolítsa el a többi nem üres konfigurációs fázist, az offline karbantartási utasításokat és az audit módba való visszaállítást.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>A forrás ellenőrizve.</value>
+    <value>A fájl ellenőrizve.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Frissítés alkalmazása</value>

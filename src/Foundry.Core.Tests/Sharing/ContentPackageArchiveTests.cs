@@ -32,6 +32,21 @@ public sealed class ContentPackageArchiveTests : IDisposable
     }
 
     [Fact]
+    public async Task Write_WithProgress_ReportsVerificationThenCopyUpToTwiceTheLength()
+    {
+        ContentPackageLibraryService library = Library("source", ContentPackageKind.Drivers);
+        ContentPackageReference reference = await ImportSourceAsync(library, ("net/e1000.inf", "[Version]"), ("net/e1000.sys", "driver"));
+        List<long> reports = [];
+        using MemoryStream archive = new();
+
+        await ContentPackageArchive.WriteAsync(library, reference.ContentHash, archive, Cancellation, new InlineProgress(reports.Add));
+
+        Assert.Equal(reports.Order(), reports);
+        Assert.Contains(reference.Length, reports);
+        Assert.Equal(2 * reference.Length, reports[^1]);
+    }
+
+    [Fact]
     public async Task WriteImport_DriverSet_RoundTripsHashIntoDriversLibrary()
     {
         ContentPackageLibraryService source = Library("source", ContentPackageKind.Drivers);
@@ -46,6 +61,31 @@ public sealed class ContentPackageArchiveTests : IDisposable
         Assert.Equal(reference.FileCount, imported.FileCount);
         await using ContentPackageLease lease = await target.AcquireAsync(reference.ContentHash, Cancellation);
         Assert.Equal("driver", await File.ReadAllTextAsync(lease.Files.Single(file => file.RelativePath == "net/e1000.sys").SourcePath, Cancellation));
+    }
+
+    [Fact]
+    public async Task Import_SuccessAndFailure_LeaveNoExtractionDirectory()
+    {
+        ContentPackageLibraryService source = Library("source", ContentPackageKind.PostInstallation);
+        ContentPackageReference reference = await ImportSourceAsync(source, ("tool.exe", "tool"));
+        string temporaryRoot = Path.Combine(directory.Path, "import-temp");
+        byte[] bytes = await WriteAsync(source, reference.ContentHash);
+
+        using (MemoryStream archive = new(bytes))
+        {
+            await ContentPackageArchive.ImportAsync(Library("target", ContentPackageKind.PostInstallation), archive, reference.ContentHash, temporaryRoot,
+                Cancellation);
+        }
+
+        Assert.Empty(Directory.EnumerateDirectories(temporaryRoot));
+        using (MemoryStream archive = new(bytes))
+        {
+            // A post-installation package without an INF file breaks the drivers kind rules after extraction.
+            await Assert.ThrowsAsync<InvalidDataException>(() => ContentPackageArchive.ImportAsync(Library("drivers", ContentPackageKind.Drivers), archive,
+                reference.ContentHash, temporaryRoot, Cancellation));
+        }
+
+        Assert.Empty(Directory.EnumerateDirectories(temporaryRoot));
     }
 
     [Fact]
@@ -162,5 +202,10 @@ public sealed class ContentPackageArchiveTests : IDisposable
         using MemoryStream archive = new();
         await ContentPackageArchive.WriteAsync(library, hash, archive, Cancellation);
         return archive.ToArray();
+    }
+
+    private sealed class InlineProgress(Action<long> report) : IProgress<long>
+    {
+        public void Report(long value) => report(value);
     }
 }

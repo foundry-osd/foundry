@@ -283,6 +283,12 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>リリースノート</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>選択したファイルを Foundry に追加できませんでした。4 MiB 以下の読み取り可能なファイルを選択してください。</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>ファイルを追加できませんでした</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>既定</value>
   </data>
@@ -389,7 +395,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>パスワードをコピーする</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>この PFX ファイルとパスワードを安全な場所に保存します。 Foundry は、「設定のバックアップと同期」で「パスワードを保存」がオンの場合にのみ、この PC 上の構成と共にパスワードを保存します。ハードウェア ハッシュ アップロード用のブート メディアを生成するには、両方の値が必要です。</value>
+    <value>この PFX ファイルとパスワードを安全な場所に保存します。 Foundry は、パスワードをこの PC のローカル暗号化保管庫に記憶します。パスワードがこの PC の外に出るのは、[パスワードを含める] を選択したエクスポートまたは発行の場合だけです。ハードウェア ハッシュ アップロード用のブート メディアを生成するには、両方の値が必要です。</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>パスワードがコピーされました。</value>
@@ -737,7 +743,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>利用不可</value>
   </data>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
-    <value>このフォルダーは、このプロファイルに {0} として既に存在します。</value>
+    <value>このフォルダーは、この構成に {0} として既に存在します。</value>
+  </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>インポート中に構成が置き換えられたため、ドライバー セットは追加されませんでした。フォルダーをもう一度インポートしてください。</value>
   </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>ドライバー セットは削除されましたが、ローカル コピーを削除できませんでした。</value>
@@ -749,7 +758,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ドライバー セット</value>
   </data>
   <data name="CustomDrivers.DuplicateName" xml:space="preserve">
-    <value>このプロファイルには同じ名前のドライバー セットが既に存在します。</value>
+    <value>この構成には同じ名前のドライバー セットが既に存在します。</value>
   </data>
   <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
     <value>カスタム ドライバー セットがありません。.inf ドライバーを含むフォルダーをインポートして開始してください。</value>
@@ -802,26 +811,23 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>ドライバー セット</value>
   </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>インポート中にアクティブなプロファイルが変更されたため、ドライバー セットは追加されませんでした。このプロファイルでフォルダーをもう一度インポートしてください。</value>
-  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>PXE ブートでは使用できません。カスタム ドライバーには、完全な ISO または USB メディアが必要です。</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
-    <value>このプロファイルのドライバー セットが無効です。メディアを作成または更新する前に、含まれるセットと既定のセットを確認してください。</value>
+    <value>この構成のドライバー セットが無効です。メディアを作成または更新する前に、含まれるセットと既定のセットを確認してください。</value>
   </data>
   <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
     <value>{0} のローカル コピーが見つからないか、破損しています。メディアを作成または更新する前に、フォルダーを再度インポートするか、セットを除外してください。</value>
   </data>
   <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
-    <value>メディアを作成または更新する前に、このプロファイルに少なくとも 1 つのドライバー セットを含めるか、カスタム ドライバーをオフにしてください。</value>
+    <value>メディアを作成または更新する前に、この構成に少なくとも 1 つのドライバー セットを含めるか、カスタム ドライバーをオフにしてください。</value>
   </data>
   <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
     <value>ドライバー セットの削除</value>
   </data>
   <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) は現在のプロファイルから削除されます。</value>
+    <value>{0} ({1}) は現在の構成から削除されます。</value>
   </data>
   <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
     <value>ドライバー セットを削除できませんでした。もう一度お試しください。</value>
@@ -830,13 +836,13 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ドライバー セットを削除しますか？</value>
   </data>
   <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
-    <value>ほかのプロファイルで使用されていない場合、ローカル コピーは削除されます。元のフォルダーと既存のメディアは変更されません。</value>
+    <value>ローカル コピーは削除されます。元のフォルダーと既存のメディアは変更されません。</value>
   </data>
   <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
     <value>既定に設定</value>
   </data>
   <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
-    <value>このプロファイルのドライバー セット数が上限に達しました。別のセットをインポートする前に 1 つ削除してください。</value>
+    <value>この構成のドライバー セット数が上限に達しました。別のセットをインポートする前に 1 つ削除してください。</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>カスタム ドライバー セットを検証しています…</value>
@@ -878,7 +884,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>選択したイメージ</value>
   </data>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
-    <value>このプロファイルには同じ名前のイメージが既に存在します。</value>
+    <value>この構成には同じ名前のイメージが既に存在します。</value>
   </data>
   <data name="CustomImages.EditionLabel" xml:space="preserve">
     <value>エディション</value>
@@ -935,7 +941,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>PXE ブートでは使用できません。カスタム イメージには、完全な ISO または USB メディアが必要です。</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>このプロファイルに、利用可能な Windows イメージを少なくとも 1 つ含めてください。メディアを作成または更新する前に、含まれているイメージのうち見つからないものを復元し、優先イメージまたはインデックスの選択を修正または解除してください。</value>
+    <value>この構成に、利用可能な Windows イメージを少なくとも 1 つ含めてください。メディアを作成または更新する前に、含まれているイメージのうち見つからないものを復元し、優先イメージまたはインデックスの選択を修正または解除してください。</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>更新</value>
@@ -944,7 +950,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>イメージを削除する</value>
   </data>
   <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) は現在のプロファイルから削除され、そのローカルコピーも削除されます。</value>
+    <value>{0} ({1}) は現在の構成から削除され、そのローカルコピーも削除されます。</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>削除</value>
@@ -953,7 +959,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>カスタムイメージを削除しますか？</value>
   </data>
   <data name="CustomImages.RemoveWarning" xml:space="preserve">
-    <value>このイメージを使用している他のプロファイルでは、イメージが見つからない状態として表示されます。元のファイルと既存のメディアは変更されません。</value>
+    <value>元のファイルと既存のメディアは変更されません。</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>編集</value>
@@ -2768,7 +2774,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>エンタープライズ Wi-Fi プロファイル テンプレートをプロビジョニングする</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>パスフレーズは、「設定のバックアップと同期」で「パスワードを保存」がオンの場合にのみ、この PC 上の構成と共に保存されます。それ以外の場合は保存されないため、たとえば Foundry OSD の再起動後に、もう一度入力する必要があります。</value>
+    <value>Foundry は、パスフレーズをこの PC のローカル暗号化保管庫に記憶します。パスフレーズがこの PC の外に出るのは、[パスワードを含める] を選択したエクスポートまたは発行の場合だけです。</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Foundry で管理されている Wi-Fi プロファイルを OOBE 前に Windows へインポートし、WinPE 後も展開時の接続を維持します。</value>
@@ -3001,299 +3007,6 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>作業ディレクトリ (相対パス。空欄の場合はコンテンツのルート)</value>
   </data>
-  <data name="Profiles.Active" xml:space="preserve">
-    <value>現在の設定</value>
-  </data>
-  <data name="Profiles.AutoSync" xml:space="preserve">
-    <value>自動同期</value>
-  </data>
-  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
-    <value>別の名前を選択</value>
-  </data>
-  <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>古い保存済みパスワードまたはアクセスキーの一部を削除できませんでした。Windows 資格情報マネージャーが利用可能になったら、もう一度お試しください。</value>
-  </data>
-  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
-    <value>保存せずに閉じる</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
-    <value>最新の変更を保存できなかったため、変更内容は失われます。</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
-    <value>設定を保存せずに閉じますか？</value>
-  </data>
-  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
-    <value>パスワードの確認</value>
-  </data>
-  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>ファイルのパスワードを確認</value>
-  </data>
-  <data name="Profiles.Conflict" xml:space="preserve">
-    <value>この設定は、この PC と他のユーザーの両方によって変更されました。残すバージョンを選んでください。</value>
-  </data>
-  <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>選んだバージョンでもう一方を置き換えます。別のコピーを残すには、先に［複製］を選んでください。</value>
-  </data>
-  <data name="Profiles.ConnectAction" xml:space="preserve">
-    <value>接続</value>
-  </data>
-  <data name="Profiles.ConnectDescription" xml:space="preserve">
-    <value>チームのメンバーから受け取った接続ファイルを選択してください。</value>
-  </data>
-  <data name="Profiles.ConnectionPassword" xml:space="preserve">
-    <value>接続パスワード</value>
-  </data>
-  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
-    <value>他の PC が接続するには、このパスワードが必要です。</value>
-  </data>
-  <data name="Profiles.Continue" xml:space="preserve">
-    <value>続行</value>
-  </data>
-  <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>この構成を共有</value>
-  </data>
-  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
-    <value>この構成に使用する共有ネットワークフォルダーを選択してください。</value>
-  </data>
-  <data name="Profiles.Delete" xml:space="preserve">
-    <value>この PC から削除</value>
-  </data>
-  <data name="Profiles.DeleteAction" xml:space="preserve">
-    <value>削除</value>
-  </data>
-  <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>他のすべてのユーザーからも削除</value>
-  </data>
-  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
-    <value>すべてのユーザーに対して削除</value>
-  </data>
-  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
-    <value>すべてのユーザーに対して削除しますか？</value>
-  </data>
-  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>この共有設定をすべてのユーザーから削除しますか？未同期の変更がある場合は、設定を複製して変更を残す必要があります。</value>
-  </data>
-  <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>この設定をこの PC から削除しますか？バックアップを残すには、先にエクスポートしてください。</value>
-  </data>
-  <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>この共有設定は削除されました。［複製］を選ぶと、この PC に変更を残せます。</value>
-  </data>
-  <data name="Profiles.Disconnect" xml:space="preserve">
-    <value>切断</value>
-  </data>
-  <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>この PC でこの構成の同期を停止しますか？現在の設定は保持されます。共有構成や他の PC は変更されません。</value>
-  </data>
-  <data name="Profiles.Export" xml:space="preserve">
-    <value>エクスポート</value>
-  </data>
-  <data name="Profiles.ExportDescription" xml:space="preserve">
-    <value>バックアップや別の PC での使用のために、この構成をファイルに保存します。</value>
-  </data>
-  <data name="Profiles.ExportProtection" xml:space="preserve">
-    <value>エクスポートするファイルを保護するパスワードを選択してください。構成をインポートするときに必要です。</value>
-  </data>
-  <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>接続ファイルを保存</value>
-  </data>
-  <data name="Profiles.Failed" xml:space="preserve">
-    <value>操作を完了できませんでした。ファイル、ファイルのパスワード、アクセス権限、ネットワーク接続を確認してください。</value>
-  </data>
-  <data name="Profiles.FolderExists" xml:space="preserve">
-    <value>このフォルダー名は既に使用されています。接続ファイルを使って接続するか、戻って別の名前を選択してください。</value>
-  </data>
-  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
-    <value>共有フォルダー内の新しい空のサブフォルダーを選択してください。既存のファイルは変更されません。</value>
-  </data>
-  <data name="Profiles.Forget" xml:space="preserve">
-    <value>保存したパスワードとアクセス情報を消去</value>
-  </data>
-  <data name="Profiles.ForgetAction" xml:space="preserve">
-    <value>消去</value>
-  </data>
-  <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>この設定の保存済みパスワード、Foundry が保存した機密ファイル、同期用のアクセス情報をこの PC から削除しますか？同期するには、不足している情報を追加して再接続する必要があります。作成済みのメディアは変更されません。</value>
-  </data>
-  <data name="Profiles.Heading" xml:space="preserve">
-    <value>Foundry の設定</value>
-  </data>
-  <data name="Profiles.Import" xml:space="preserve">
-    <value>インポート</value>
-  </data>
-  <data name="Profiles.ImportDescription" xml:space="preserve">
-    <value>ファイルから構成を追加します。</value>
-  </data>
-  <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>パスワードと機密ファイルを含める</value>
-  </data>
-  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
-    <value>この構成を使用する人は、含まれるパスワードや機密ファイルを読むことができます。</value>
-  </data>
-  <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>一部のパスワードまたは元のファイルがありません。パスワードを保存または共有する前に追加してください。</value>
-  </data>
-  <data name="Profiles.InvalidFolderName" xml:space="preserve">
-    <value>特殊文字を含まず、末尾がピリオドやスペースでない名前を使用してください。</value>
-  </data>
-  <data name="Profiles.JoinChanged" xml:space="preserve">
-    <value>共有構成が変更されました。接続する前に最新のバージョンを確認してください。</value>
-  </data>
-  <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>共有構成に接続</value>
-  </data>
-  <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>この PC のバージョンを使用</value>
-  </data>
-  <data name="Profiles.LearnMore" xml:space="preserve">
-    <value>詳細情報</value>
-  </data>
-  <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>この PC の Windows アカウントにパスワードを保存します。</value>
-  </data>
-  <data name="Profiles.Locked" xml:space="preserve">
-    <value>Windows は、この PC のアカウントで、保存された設定または同期用のアクセス情報のロックを解除できません。</value>
-  </data>
-  <data name="Profiles.Manage" xml:space="preserve">
-    <value>その他のオプション</value>
-  </data>
-  <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>見つからないか含まれていないファイル: {0}。メディアを作成する前に、それぞれの保存場所を選んでください。</value>
-  </data>
-  <data name="Profiles.Name" xml:space="preserve">
-    <value>構成の名前</value>
-  </data>
-  <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>ファイルのパスワード</value>
-  </data>
-  <data name="Profiles.PasswordMismatch" xml:space="preserve">
-    <value>パスワードが一致しません。</value>
-  </data>
-  <data name="Profiles.Preview" xml:space="preserve">
-    <value>{0}
-含まれるファイル: {1}
-含まれるパスワードとアクセスキー: {2}</value>
-  </data>
-  <data name="Profiles.Ready" xml:space="preserve">
-    <value>準備完了</value>
-  </data>
-  <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>接続ファイルを保護するパスワードを設定してください。パスワードはファイルとは別に共有してください。 共有構成のフォルダーの外にファイルを保存してください。</value>
-  </data>
-  <data name="Profiles.Remember" xml:space="preserve">
-    <value>パスワードを保存</value>
-  </data>
-  <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>この PC でこの接続を記憶する</value>
-  </data>
-  <data name="Profiles.Rename" xml:space="preserve">
-    <value>名前の変更</value>
-  </data>
-  <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>現在使用している設定を置き換えます。先にコピーを残すには、キャンセルして［複製］を選んでください。</value>
-  </data>
-  <data name="Profiles.RestoreAccess" xml:space="preserve">
-    <value>アクセスを復元</value>
-  </data>
-  <data name="Profiles.Rollback" xml:space="preserve">
-    <value>共有フォルダーに保存されたバージョンに予期しない変更がありました。信頼できるバックアップから復元してください。</value>
-  </data>
-  <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>複製</value>
-  </data>
-  <data name="Profiles.Select" xml:space="preserve">
-    <value>構成を選択</value>
-  </data>
-  <data name="Profiles.Setup" xml:space="preserve">
-    <value>セットアップ</value>
-  </data>
-  <data name="Profiles.SetupAction" xml:space="preserve">
-    <value>同期を設定…</value>
-  </data>
-  <data name="Profiles.SetupDescription" xml:space="preserve">
-    <value>この構成を共有するか、チームが既に使用している構成に接続します。</value>
-  </data>
-  <data name="Profiles.ShareAction" xml:space="preserve">
-    <value>共有</value>
-  </data>
-  <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>この設定をインポートまたは同期できる人は、含まれるパスワードと証明書の秘密キーを読むことができます。</value>
-  </data>
-  <data name="Profiles.SharedBusy" xml:space="preserve">
-    <value>別の操作がこの共有フォルダーを使用しています。しばらくしてから再試行してください。変更内容はこの PC に保持されます。</value>
-  </data>
-  <data name="Profiles.SharedFolder" xml:space="preserve">
-    <value>共有フォルダー</value>
-  </data>
-  <data name="Profiles.SharedUnavailable" xml:space="preserve">
-    <value>共有フォルダーに接続できません。フォルダーのアドレスとネットワークへのアクセスを確認してください。変更内容はこの PC に保持されます。</value>
-  </data>
-  <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>すべての PC で同じネットワークフォルダーを使用してください。SMB 3 を使用し、暗号化を必須に設定する必要があります。クラウドと同期するフォルダーはサポートされていません。</value>
-  </data>
-  <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Foundry は、この PC でこの構成のパスワードを保存しなくなります。</value>
-  </data>
-  <data name="Profiles.StopRememberingAction" xml:space="preserve">
-    <value>保存を停止する</value>
-  </data>
-  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
-    <value>パスワードの保存を停止しますか？</value>
-  </data>
-  <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>同期</value>
-  </data>
-  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
-    <value>同期中…</value>
-  </data>
-  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
-    <value>バージョンを選択</value>
-  </data>
-  <data name="Profiles.SyncStatusError" xml:space="preserve">
-    <value>同期できません</value>
-  </data>
-  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
-    <value>未設定</value>
-  </data>
-  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
-    <value>フォルダーを利用できません</value>
-  </data>
-  <data name="Profiles.SyncStatusPending" xml:space="preserve">
-    <value>同期する変更があります</value>
-  </data>
-  <data name="Profiles.SyncStatusReady" xml:space="preserve">
-    <value>同期の準備完了</value>
-  </data>
-  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
-    <value>最新の状態</value>
-  </data>
-  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
-    <value>変更があります</value>
-  </data>
-  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
-    <value>確認が必要です</value>
-  </data>
-  <data name="Profiles.Synchronize" xml:space="preserve">
-    <value>同期</value>
-  </data>
-  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
-    <value>チームの各 PC でこの構成を最新の状態に保ちます。</value>
-  </data>
-  <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>設定は最新です</value>
-  </data>
-  <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>Foundry はこの設定形式を開けません。Foundry を更新して、もう一度お試しください。</value>
-  </data>
-  <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>他の PC からの変更があります。［同期］を選んで適用してください。</value>
-  </data>
-  <data name="Profiles.UseRemote" xml:space="preserve">
-    <value>共有バージョンを使用</value>
-  </data>
-  <data name="Profiles.Validation" xml:space="preserve">
-    <value>必須項目を確認してください。ネットワークフォルダーを求められた場合は、\\server\share\folder のようなパスを使用してください。ファイルのパスワードを 2 回入力する場合は、両方が一致していることを確認してください。</value>
-  </data>
   <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
     <value>Foundry OSD はプロキシ設定を保存できませんでした。もう一度お試しください。詳細はログに記録されています。</value>
   </data>
@@ -3429,12 +3142,6 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>一般</value>
   </data>
-  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>設定をバックアップしたり、別の PC に転送したり、同期を維持したりできます。</value>
-  </data>
-  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>設定のバックアップと同期</value>
-  </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Foundry OSD がオンライン サービスに接続する方法を構成します。</value>
   </data>
@@ -3464,6 +3171,498 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>アプリを更新する</value>
+  </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>承認</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>新しい参照 PC を承認</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>このフォルダーは現在、別の PC によって発行されています: {0}。引き継ぎの後など、この変更を想定している場合にのみ承認してください。それ以外の場合は、フォルダーのフォローを停止してください。</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>新しい参照 PC を承認しますか?</value>
+  </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>このダイアログが開いている間に参照 PC が変わりました。承認する前に新しいキーを確認してください。</value>
+  </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>暗号化されたファイルでこの構成を移動するか、共有フォルダーを使用して複数の PC の構成をそろえます。</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>構成の共有</value>
+  </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>変更</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>パスワードの変更</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>現在の発行は新しいパスワードで書き直されます。コンテンツ ファイルは再暗号化されないため、古いパスワードを知っていたユーザーは引き続き読み取ることができます。以前の閲覧者を完全に無効にするには、[発行のリセット] を使用してください。フォルダーをフォローしている PC は、新しいパスワードを 1 回入力します。</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>発行パスワードの変更</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>今すぐ確認</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>パスフレーズの確認</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>パスワードの確認</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>ダウンロード中</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>インストールできなかった項目の数: {0}。参照 PC が新しいバージョンを発行すると、再度取得されます。</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>ドライバー セット</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>ファイル</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>イメージ</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>インストール後のパッケージ</value>
+  </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>コンテンツがフォルダー内で破損している可能性があります。参照 PC から再度発行してください。</value>
+  </data>
+  <data name="Sharing.CopyButton" xml:space="preserve">
+    <value>コピー</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>現在の発行パスワード</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>パスワードの入力</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>Windows パスワードのリセット後や、参照 PC でパスワードが変更された後などに、発行パスワードが再度必要になります。</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>発行パスワードの入力</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>エクスポート</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>構成をエクスポートしました。</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>設定と小さなファイルを暗号化されたファイルに保存します。インストール後のパッケージ、ドライバー セット、イメージは含まれません。</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>構成をエクスポートできませんでした。保存先を確認して、もう一度お試しください。</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>この構成のファイルは合計で 16 MiB を超えているため、エクスポートできません。</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>構成はエクスポートされましたが、この PC で見つからないか破損しているファイルがあり、含まれませんでした (件数: {0})。構成ページでファイルを選択し直してから、もう一度エクスポートしてください。</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>構成のエクスポート</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>ファイル</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Foundry 構成</value>
+  </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>フォルダー</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>発行フォルダーの選択</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>フォロー</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>参照 PC がフォルダーに発行する構成を使用します。発行された設定は、この PC では読み取り専用になります。</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>参照 PC が発行するフォルダーと発行パスワードを入力し、フォルダーを開いて発行内容をプレビューします。</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>フォローすると現在の構成が置き換えられ、発行された設定は読み取り専用になります。この PC の ISO 出力パス、追加の WinPE ドライバー フォルダー、テレメトリ設定は保持されます。</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>フォルダーのフォロー</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>検出されたキー</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>検出されたバージョン</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>発行パスワードを削除する</value>
+  </data>
+  <data name="Sharing.GenerateButton" xml:space="preserve">
+    <value>生成</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>インポート</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>構成をインポートしました。</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>構成をインポートしました。この PC には不足しているコンテンツがあります。該当するページで再度インポートしてください。</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>この構成を、エクスポートされたファイルまたは以前のバージョンのプロファイルに置き換えます。</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>構成をインポートできませんでした。現在の構成は変更されていません。</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>構成をインポートしましたが、パスワードを保存できませんでした。構成ページで再度入力してください。</value>
+  </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>この PC がフォルダーをフォローしている間は、インポートを使用できません。先にフォローを停止してください。</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>構成のインポート</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>パスワードを含める</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>フォルダーを読み取ることができ、発行パスワードを知っているユーザーは誰でも、これらのパスワードを読み取ることができます。</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>このファイルとそのパスフレーズを持っている人は誰でも、これらのパスワードを読み取ることができます。</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>このファイルは Foundry 構成ではないか、破損しています。</value>
+  </data>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>最後に成功した確認</value>
+  </data>
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>最終発行</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
+    <value>この構成は、この Windows ユーザーでは開けません。</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>この構成は {0} によって発行されており、この PC では読み取り専用です。変更できるのは、ISO 出力パス、追加の WinPE ドライバー フォルダー、テレメトリ設定のみです。</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>この構成は {0} によって発行されており、この PC では読み取り専用です。発行にはパスワードが含まれていないため、ここで入力してください。ISO 出力パス、追加の WinPE ドライバー フォルダー、テレメトリ設定も変更できます。</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>参照 PC による管理</value>
+  </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>構成で使用される一部のファイルを回復できませんでした。構成ページでもう一度選択してください。</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>以前のバージョンの構成の同期はサポートされなくなりました。この構成を共有するには、参照 PC で [フォルダーに発行] を使用してください。</value>
+  </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>構成を確認してください</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>保存されたパスワードを復元できませんでした。構成ページでもう一度入力してください。</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>これらの項目を各ページで再度インポートしてください。それまでは、対応する構成項目は準備ができていません。</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>この PC にありません</value>
+  </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>新しいキー</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>新しい発行パスワード</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>このフォルダーには、発行された構成が含まれていません。</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>未確認: これらの値はフォルダーから読み取られたもので、現在の発行パスワードで発行を開いたときにのみ確認されます。</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>開く</value>
+  </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>ファイルを開く</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>選択したプロファイルを開く</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>操作を完了できませんでした。詳細はログを参照してください。</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>パスフレーズをクリップボードにコピーしました。</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>パスフレーズ</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>パスフレーズが一致しません。</value>
+  </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>新しいパスワードを保存しました。変更は次回の発行が成功したときに完了します。</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>発行パスワードを変更しました。フォルダーをフォローしている PC は、新しいパスワードを 1 回入力します。</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>パスワードをクリップボードにコピーしました。</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>パスワードが一致しません。</value>
+  </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>この構成は参照 PC によって管理されています。ここで入力できるのはパスワードのみです。</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>含まれています</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>これは Windows パスワードのリセット後などに発生することがあります。発行を続けるには、現在の発行パスワードでフォルダーを引き継いでください。その後、フォルダーをフォローしている PC は、この PC を新しい参照 PC として 1 回承認します。</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>含まれていません</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>エクスポート日時</value>
+  </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>ダウンロード サイズ</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>パスワード</value>
+  </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>発行日時</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>参照 PC</value>
+  </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>以前のキー</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>以前のバージョンのプロファイル</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>これらのプロファイルは、更新前にこの PC に保存されたものです。</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>発行がまだこのフォルダーに完全に届いていません。しばらくしてからもう一度お試しください。</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>発行パスワード</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>発行をリセットしました。フォルダーをフォローしている PC は、新しいパスワードを 1 回入力します。</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>発行</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>この PC を参照 PC にします。この PC の構成は、他の PC がフォローするフォルダーに発行されます。</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>空のフォルダー、またはこの PC が既に発行しているフォルダーを選択してください: ネットワーク共有、OneDrive または SharePoint のフォルダー、ローカル フォルダーを使用できます。フォルダーをフォローしている PC がこれを読み取るには、発行パスワードが必要です。</value>
+  </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>今すぐ発行</value>
+  </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>フォルダーを確認しています…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>公開を完了しています…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>{0} を準備しています…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>{0} を送信しています…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>{0} を検証しています…</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>フォルダーに発行</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>インポートすると現在の構成が置き換えられます。この PC の ISO 出力パス、追加の WinPE ドライバー フォルダー、テレメトリ設定は保持されます。</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>リセット</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>発行のリセット</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>新しいパスワードと新しいコンテンツ キーを使用します。すべてのコンテンツ ファイルが再暗号化され、以前の閲覧者は完全に無効になります。フォルダーをフォローしている PC は、新しいパスワードを 1 回入力します。</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>発行のリセット</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>次回の発行が成功するまで、以前の閲覧者は引き続きコンテンツを開くことができます。</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>この PC は {0} をフォローしています</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>この PC は構成を発行しています</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>12 文字以上で、同じ文字の繰り返し (例: aaaaaaaaaaaa) は使用できません。</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>フォロー中の発行の共有コンテンツの一部をダウンロードできませんでした。[設定] ページの [構成の共有] を確認してください。</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>共有の状態を読み取れなかったため、このセッションでは発行とフォローを使用できません。詳細はログを参照してください。</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>フォルダーを確認しています: 発行がまだ完全に届いていないため、次回の確認で再度読み取ります。</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>構成が適用されました。共有コンテンツをダウンロードしています。</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>構成は適用されましたが、一部の共有コンテンツをインストールできませんでした。</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>構成は適用されましたが、一部の共有コンテンツは繰り返し確認しても利用できません。</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>このフォルダーには、この PC の発行ではないファイルが含まれています。空のフォルダーを選択してください。</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>フォルダーを使用できません。フォルダーが存在し、この PC がアクセスできることを確認してください。</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>この PC は構成を発行もフォローもしていません。</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>フォルダーの最初の確認を待っています。</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>変更は自動的に発行されます。</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>未発行: 構成がメディアを作成できる状態ではないか、この PC にないコンテンツを参照しています。以前のバージョンが引き続き有効です。</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>パスワードが必要です: 発行パスワードを入力するか、構成ページで不足しているパスワードを入力してください。</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>この PC の発行パスワードまたはキーを読み取れませんでした。</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>発行しました。フォルダーをフォローしている PC は、次回の確認でこのバージョンを受け取ります。</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>構成を発行しています…</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>フォルダーは、適用済みのバージョンより古いバージョンを指しています。無視されます。</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>発行が変更されています。適用されません。</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>このフォルダーは現在、別の PC によって発行されています。新しい参照 PC を承認するか、フォローを停止してください。</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>別の PC がこのフォルダーに発行しています。この PC から発行するには、フォルダーを引き継いでください。</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>この発行には、新しいバージョンの Foundry OSD が必要です。</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>最新の状態です。</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>構成が更新されました。</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>発行パスワードで現在の発行を開けません。新しいパスワードを入力してください。</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>発行パスワードで、このフォルダー内のこの PC の発行を開けません。</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>フォローの停止</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>構成はそのまま残り、この PC で再び編集できるようになります。</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>フォローを停止しますか?</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>発行の停止</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>フォルダーはそのまま残り、フォローしている PC は最後に発行されたバージョンを保持します。この PC は構成を発行しなくなります。</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>発行を停止しますか?</value>
+  </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>{0} をダウンロードしています…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>{0} をインストールしています…</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>引き継ぐ</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>別の PC がこのフォルダーに発行しています。引き継ぐと、この PC のキーで発行が継続されます。フォルダーをフォローしている PC は、この PC を新しい参照 PC として 1 回承認する必要があります。</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>この PC の発行キーを読み取れませんでした。現在の発行パスワードで引き継ぐと、新しいキーで発行が継続されます。フォルダーをフォローしている PC は、この PC を新しい参照 PC として 1 回承認する必要があります。</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>このフォルダーの引き継ぎ</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>このパスワードでは現在の発行を開けません。</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>ファイルを読み取れませんでした。</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>このファイルには、より新しいバージョンの Foundry OSD が必要です。</value>
+  </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>バージョン</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>共有コンテンツのダウンロードが完了するのを待っています…</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>パスフレーズが正しくないか、ファイルが破損しています。</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>このパスワードでは発行を開けないか、発行が変更されています。</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>操作を停止</value>
@@ -3590,6 +3789,15 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>必要なメディア シークレットの準備ができていません。</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>一部の共有コンテンツをこの PC にインストールできませんでした。参照 PC が新しいバージョンを発行すると、再度取得されます。[設定] ページの [構成の共有] を確認してください。</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>共有コンテンツの一部が、繰り返し確認しても利用できません。参照 PC から再度発行してから、[設定] ページの [構成の共有] を確認してください。</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>共有コンテンツはまだダウンロード中です。ダウンロードが完了するとメディアを作成できます。</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>選択した USB ドライブはキャッシュを置くには容量が不足しています。16 GB 以上の USB ドライブを使用するか、「USB を作成」の矢印から「キャッシュなしで作成」を選択してください。</value>
@@ -4164,6 +4372,15 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>USB メディアを作成する準備ができました</value>
   </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>共有コンテンツをインストールできませんでした</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>共有コンテンツを利用できません</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>共有コンテンツを待っています</value>
+  </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>メディア出力の警告を確認する</value>
   </data>
@@ -4308,13 +4525,13 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Autopilot 登録を妨げる可能性のある設定が含まれています。互換性のない登録モードは展開時にブロックされます。</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>名前の変更、更新、または削除を行うファイルを選択してください。メディアの作成が完了するまで、ソースファイルにアクセスできる必要があります。ソースが変更された場合は更新が必要です。</value>
+    <value>名前の変更または削除を行うファイルを選択してください。Foundry はインポートした各ファイルの独自のコピーを保持します。更新したファイルを使用するには、エントリを削除してファイルを再度インポートしてください。</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>応答ファイル</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>ソースの確認</value>
+    <value>ファイルの確認</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>コマンドが含まれています。Foundry のカスタマイズやセットアップ処理との競合を確認してください。</value>
@@ -4353,13 +4570,13 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ファイルには、サポートされているアーキテクチャと、そのアーキテクチャに適用されるコンポーネント設定を指定する必要があります。</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>カタログに無効な項目または重複した項目が含まれています。該当するファイルを更新または削除してください。</value>
+    <value>カタログに無効なエントリまたは重複したエントリが含まれています。該当するファイルを削除して、再度インポートしてください。</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>DTD や外部エンティティを含まない、4 MiB 以下の有効な Windows 応答ファイル XML を使用してください。Windows SIM でファイルを検証してください。</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>一部のソースが見つからないか、変更されているか、無効です。メディアを作成する前に、該当する項目を更新または削除してください。</value>
+    <value>一部のファイルが見つからないか、無効です。メディアを作成する前に、これらのエントリを削除してファイルを再度インポートしてください。</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>既定のファイルが見つかりません — 代わりのファイルを選択してください</value>
@@ -4374,16 +4591,13 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Foundry は元のファイルを保持し、必要なインストール後のコマンドを展開用コピーに追加します。カスタム設定とコマンドの責任は引き続きユーザーにあります。</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>カスタムファイルを使用するには、「全般構成」で展開メディアのパスワード保護を有効にする必要があります。XML には資格情報やスクリプトが含まれている場合があります。Foundry は、「設定のバックアップと同期」で「パスワードを保存」がオンの場合にのみ、この PC 上の構成と共に各ファイルのコピーを保持します。それ以外の場合は、パスのみを保存します。ブートイメージには暗号化されたコピーが含まれます。</value>
+    <value>カスタムファイルを使用するには、「全般構成」で展開メディアのパスワード保護を有効にする必要があります。XML には資格情報やスクリプトが含まれている場合があります。Foundry は、インポートした各ファイルのコピーをこの PC 上のファイルライブラリに保持します。ブートイメージには暗号化されたコピーが含まれます。</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>カスタム応答ファイルを使用するには、「全般構成」で展開メディアのパスワード保護を有効にしてください。</value>
   </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>このソースは、別のインポート済みファイルと同じ内容になっています。この項目を削除し、既存のファイルを選択してください。</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>ソースの更新</value>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry にはこのファイルの有効なコピーがありません。エントリを削除して、ファイルを再度インポートしてください。</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>削除</value>
@@ -4397,26 +4611,23 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>選択したファイル</value>
   </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>ソースが変更されました。メディアを作成する前に、「ソースの更新」で更新済みファイルを受け入れてください。</value>
-  </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>2 件のソース確認がファイルへのアクセスを待機しています。利用できないソースの場所へのアクセスを復旧してから、ソースを再確認してください。</value>
+    <value>2 つのファイル確認がまだ実行中です。完了するまで待ってから、もう一度お試しください。</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>ソースの確認が必要です。「ソースの確認」を選択すると、内容の変更を受け入れずに現在のファイルを検証できます。</value>
+    <value>ファイルの確認が必要です。「ファイルの確認」を選択すると、保存されているコピーを検証できます。</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>ソースを読み取れませんでした。ファイルが存在し、アクセス可能であることを確認してください。</value>
+    <value>ファイルを読み取れませんでした。ファイルが存在し、開けることを確認してから、もう一度お試しください。</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>ソースの検証がタイムアウトしました。ソースの場所へのアクセスを確認して、もう一度お試しください。</value>
+    <value>保存されているファイルの確認に時間がかかりすぎました。もう一度お試しください。</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>specialize と oobeSystem の設定のみサポートされています。空ではない他の構成パス、オフラインサービス処理の指示、監査モードへの再シール設定を削除してください。</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>ソースを検証しました。</value>
+    <value>ファイルを検証しました。</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>更新を適用</value>

@@ -28,6 +28,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
     private readonly IApplicationLocalizationService localizationService;
     private readonly IAppDispatcher appDispatcher;
     private readonly IShellNavigationGuardService shellNavigationGuardService;
+    private readonly Foundry.Services.Sharing.ConfigurationSharingService sharingService;
     private readonly ILogger logger;
 
     [ObservableProperty]
@@ -163,6 +164,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
         IApplicationLocalizationService localizationService,
         IAppDispatcher appDispatcher,
         IShellNavigationGuardService shellNavigationGuardService,
+        Foundry.Services.Sharing.ConfigurationSharingService sharingService,
         ILogger logger)
     {
         this.adkService = adkService;
@@ -171,6 +173,7 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
         this.localizationService = localizationService;
         this.appDispatcher = appDispatcher;
         this.shellNavigationGuardService = shellNavigationGuardService;
+        this.sharingService = sharingService;
         this.logger = logger.ForContext<HomeLandingViewModel>();
 
         HeaderTitle = string.Empty;
@@ -373,17 +376,20 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
     {
         HomeWorkflowReadinessEvaluation workflow = HomeWorkflowReadinessEvaluator.Evaluate(
             adkReady,
-            configurationOverviewService.Evaluate());
+            configurationOverviewService.Evaluate(),
+            sharingService.ContentSyncState);
         string readyText = localizationService.GetString("StartMedia.Readiness.State.Ready");
+        // "Downloading" names the whole fetch, which downloads then installs each item, as on the navigation badge.
+        string syncingText = localizationService.GetString("Sharing.ContentDownloadingState");
         string needsAttentionText = localizationService.GetString("Common.NeedsAttention");
         string requiresAdkText = localizationService.GetString("Home.Status.ConfigCard.BlockedStatus");
 
         Step1State = ToSeverity(workflow.Adk);
         Step1StatusText = adkReady ? readyText : AdkCardStatusText;
         Step2State = ToSeverity(workflow.General);
-        Step2StatusText = GetStatusText(workflow.General, readyText, needsAttentionText, requiresAdkText);
+        Step2StatusText = GetStatusText(workflow.General, readyText, needsAttentionText, requiresAdkText, syncingText);
         Step3State = ToSeverity(workflow.Start);
-        Step3StatusText = GetStatusText(workflow.Start, readyText, needsAttentionText, requiresAdkText);
+        Step3StatusText = GetStatusText(workflow.Start, readyText, needsAttentionText, requiresAdkText, syncingText);
 
         ConfigCardSeverity = ToSeverity(workflow.General);
         ConfigCardStatusText = Step2StatusText;
@@ -400,10 +406,12 @@ public sealed partial class HomeLandingViewModel : ObservableObject, IDisposable
         HomeWorkflowState state,
         string readyText,
         string needsAttentionText,
-        string requiresAdkText) => state switch
+        string requiresAdkText,
+        string syncingText) => state switch
         {
             HomeWorkflowState.Ready => readyText,
             HomeWorkflowState.NeedsAttention => needsAttentionText,
+            HomeWorkflowState.Syncing => syncingText,
             _ => requiresAdkText
         };
 

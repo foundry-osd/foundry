@@ -70,6 +70,13 @@ Foundry Proxy_PasswordBox.PlaceholderText it-IT
 Foundry Proxy_PortNumberBox.PlaceholderText cs-CZ da-DK de-DE el-GR et-EE fi-FI fr-CA fr-FR hr-HR hu-HU lt-LT lv-LV nb-NO nl-NL pl-PL ro-RO sk-SK sl-SI sr-Latn-RS sv-SE tr-TR
 Foundry SettingsPage_GeneralCard.Header es-ES es-MX ro-RO
 Foundry SettingsPage_ProxyCard.Header cs-CZ da-DK de-DE el-GR es-ES es-MX et-EE fi-FI fr-CA fr-FR he-IL hr-HR hu-HU it-IT lt-LT lv-LV nb-NO nl-NL pl-PL pt-BR pt-PT ro-RO sk-SK sl-SI sv-SE tr-TR zh-TW
+Foundry Sharing.ContentKindFile it-IT
+Foundry Sharing.ContentKindImage cs-CZ fr-CA fr-FR
+Foundry Sharing.FileLabel it-IT
+Foundry Sharing.FolderLabel pl-PL ro-RO
+Foundry Sharing.PassphraseLabel de-DE it-IT
+Foundry Sharing.PreviewName de-DE
+Foundry Sharing.VersionLabel da-DK de-DE fr-CA fr-FR sv-SE
 Foundry StartMedia.ByteUnit.B cs-CZ da-DK de-DE el-GR es-ES es-MX et-EE fi-FI hr-HR hu-HU it-IT ja-JP lt-LT lv-LV nb-NO nl-NL pl-PL pt-BR pt-PT ro-RO sk-SK sl-SI sr-Latn-RS sv-SE tr-TR
 Foundry StartMedia.ByteUnit.GB ar-SA bg-BG cs-CZ da-DK de-DE el-GR es-ES es-MX et-EE fi-FI he-IL hr-HR hu-HU it-IT ja-JP ko-KR lt-LT lv-LV nb-NO nl-NL pl-PL pt-BR pt-PT ro-RO ru-RU sk-SK sl-SI sr-Latn-RS sv-SE th-TH tr-TR uk-UA zh-CN zh-TW
 Foundry StartMedia.ByteUnit.KB ar-SA bg-BG cs-CZ da-DK de-DE el-GR es-ES es-MX et-EE fi-FI he-IL hr-HR hu-HU it-IT ja-JP ko-KR lt-LT lv-LV nb-NO nl-NL pl-PL pt-BR pt-PT ro-RO ru-RU sk-SK sl-SI sr-Latn-RS sv-SE th-TH tr-TR uk-UA zh-CN zh-TW

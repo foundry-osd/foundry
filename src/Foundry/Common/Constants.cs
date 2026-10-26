@@ -44,7 +44,9 @@ namespace Foundry.Common
         public static readonly string CustomImagesDirectoryPath = Path.Combine(UserRootDirectoryPath, "Images", "Custom");
         public static readonly string PostInstallPackagesDirectoryPath = Path.Combine(UserRootDirectoryPath, "Packages", "PreOobe");
         public static readonly string CustomDriverPackagesDirectoryPath = Path.Combine(UserRootDirectoryPath, "Packages", "Drivers");
-        public static readonly string DeploymentProfilesDirectoryPath = Path.Combine(UserRootDirectoryPath, "Profiles");
+        public static readonly string AuthoringFilesDirectoryPath = Path.Combine(UserRootDirectoryPath, "Files");
+        /// <summary>Gets the store of the removed deployment profiles feature, read only by the legacy configuration migration.</summary>
+        public static readonly string LegacyProfilesDirectoryPath = Path.Combine(UserRootDirectoryPath, "Profiles");
         public static readonly string LegacyFoundryConfigurationStatePath = Path.Combine(WorkspacesDirectoryPath, "Configuration", "foundry.config.json");
         public static readonly string LegacyDefaultIsoPath = Path.Combine(WorkspacesDirectoryPath, "Iso", "Foundry.iso");
         public static readonly string IsoArtifactDirectoryPath = Path.Combine(RootDirectoryPath, "Artifacts", "Iso");
@@ -56,6 +58,17 @@ namespace Foundry.Common
         public static readonly string LogFilePath = Path.Combine(LogDirectoryPath, "Foundry.log");
         public static readonly string AppSettingsPath = Path.Combine(SettingsDirectoryPath, "appsettings.json");
         public static readonly string FoundryConfigurationStatePath = Path.Combine(ConfigurationWorkspaceDirectoryPath, "foundry.config.json");
+        /// <summary>Gets the DPAPI-protected vault holding the configuration passwords of the current user.</summary>
+        public static readonly string SecretVaultPath = Path.Combine(ConfigurationWorkspaceDirectoryPath, "secrets.dat");
+        /// <summary>Gets the per-user state of the first-launch migration from the removed deployment profiles.</summary>
+        public static readonly string LegacyMigrationStatePath = Path.Combine(ConfigurationWorkspaceDirectoryPath, "migration.json");
+        /// <summary>Gets the per-user configuration sharing role (reference, follower or none); it holds no secret.</summary>
+        public static readonly string SharingStatePath = Path.Combine(ConfigurationWorkspaceDirectoryPath, "sharing.json");
+        /// <summary>
+        /// Gets the per-user root of the owner-only directories configuration sharing decrypts or packs content in, on the volume of
+        /// the libraries that import it rather than under <c>%TEMP%</c>.
+        /// </summary>
+        public static readonly string SharingTemporaryDirectoryPath = Path.Combine(UserRootDirectoryPath, "Temp", "Sharing");
 
         public const string RepositoryUrl = "https://github.com/foundry-osd/foundry";
         public const string LatestReleaseUrl = RepositoryUrl + "/releases/latest";

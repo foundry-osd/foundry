@@ -283,6 +283,12 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Sürüm notları</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Seçilen dosya Foundry'ye eklenemedi. Okunabilir ve en fazla 4 MiB boyutunda bir dosya seçin.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Dosya eklenmedi</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Varsayılan</value>
   </data>
@@ -389,7 +395,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Şifreyi kopyala</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Bu PFX dosyasını ve parolasını şimdi güvenli bir konuma kaydedin. Foundry, parolayı yapılandırmanızla birlikte bu bilgisayarda yalnızca “Ayarları yedekleme ve eşitleme” içinde “Parolaları hatırla” açıkken kaydeder. Donanım karmasını karşıya yüklemek üzere önyükleme ortamı oluşturmak için her iki değere de ihtiyacınız olacak.</value>
+    <value>Bu PFX dosyasını ve parolasını şimdi güvenli bir konuma kaydedin. Foundry parolayı bu bilgisayarda yerel şifreli kasasında hatırlar. Bu bilgisayardan yalnızca “Parolaları dahil et” seçildiğinde bir dışarı aktarma veya yayında çıkar. Donanım karmasını karşıya yüklemek üzere önyükleme ortamı oluşturmak için her iki değere de ihtiyacınız olacak.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Şifre kopyalandı.</value>
@@ -737,7 +743,10 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Kullanılamıyor</value>
   </data>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
-    <value>Bu klasör bu profilde zaten {0} olarak bulunuyor.</value>
+    <value>Bu klasör bu yapılandırmada zaten {0} olarak bulunuyor.</value>
+  </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>İçeri aktarma sırasında yapılandırma değiştirildiği için sürücü kümesi eklenmedi. Klasörü yeniden içeri aktarın.</value>
   </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>Sürücü kümesi kaldırıldı ancak yerel kopyası silinemedi.</value>
@@ -749,7 +758,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Sürücü kümesi</value>
   </data>
   <data name="CustomDrivers.DuplicateName" xml:space="preserve">
-    <value>Bu profilde bu ada sahip bir sürücü kümesi zaten var.</value>
+    <value>Bu yapılandırmada bu ada sahip bir sürücü kümesi zaten var.</value>
   </data>
   <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
     <value>Özel sürücü kümesi yok. Başlamak için .inf sürücüleri içeren bir klasörü içeri aktarın.</value>
@@ -802,26 +811,23 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Sürücü kümeleri</value>
   </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>İçeri aktarma sırasında etkin profil değiştiği için sürücü kümesi eklenmedi. Klasörü bu profile yeniden içeri aktarın.</value>
-  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>PXE önyüklemesiyle kullanılamaz. Özel sürücüler tam ISO veya USB medyasını gerektirir.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
-    <value>Bu profilin sürücü kümeleri geçerli değil. Medya oluşturmadan veya güncelleştirmeden önce dahil edilen kümeleri ve varsayılan kümeyi denetleyin.</value>
+    <value>Bu yapılandırmanın sürücü kümeleri geçerli değil. Medya oluşturmadan veya güncelleştirmeden önce dahil edilen kümeleri ve varsayılan kümeyi denetleyin.</value>
   </data>
   <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
     <value>{0} öğesinin yerel kopyası eksik veya hasarlı. Medya oluşturmadan veya güncelleştirmeden önce klasörü yeniden içeri aktarın ya da kümeyi hariç tutun.</value>
   </data>
   <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
-    <value>Medya oluşturmadan veya güncelleştirmeden önce bu profile en az bir sürücü kümesi ekleyin ya da özel sürücüleri kapatın.</value>
+    <value>Medya oluşturmadan veya güncelleştirmeden önce bu yapılandırmaya en az bir sürücü kümesi ekleyin ya da özel sürücüleri kapatın.</value>
   </data>
   <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
     <value>Sürücü kümesini kaldır</value>
   </data>
   <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) geçerli profilden kaldırılacak.</value>
+    <value>{0} ({1}) geçerli yapılandırmadan kaldırılacak.</value>
   </data>
   <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
     <value>Sürücü kümesi kaldırılamadı. Yeniden deneyin.</value>
@@ -830,13 +836,13 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Sürücü kümesi kaldırılsın mı?</value>
   </data>
   <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
-    <value>Başka bir profil kullanmıyorsa yerel kopyası silinir. Özgün klasör ve mevcut medya değiştirilmez.</value>
+    <value>Yerel kopyası silinir. Özgün klasör ve mevcut medya değiştirilmez.</value>
   </data>
   <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
     <value>Varsayılan olarak ayarla</value>
   </data>
   <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
-    <value>Bu profil en fazla sürücü kümesi sayısına ulaştı. Başka bir küme içeri aktarmadan önce birini kaldırın.</value>
+    <value>Bu yapılandırma en fazla sürücü kümesi sayısına ulaştı. Başka bir küme içeri aktarmadan önce birini kaldırın.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Özel sürücü kümeleri doğrulanıyor…</value>
@@ -878,7 +884,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Seçili görüntü</value>
   </data>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
-    <value>Bu profilde bu ada sahip bir görüntü zaten var.</value>
+    <value>Bu yapılandırmada bu ada sahip bir görüntü zaten var.</value>
   </data>
   <data name="CustomImages.EditionLabel" xml:space="preserve">
     <value>Sürüm</value>
@@ -935,7 +941,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>PXE önyüklemesiyle kullanılamaz. Özel görüntüler tam ISO veya USB medyasını gerektirir.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Bu profile en az bir kullanılabilir Windows görüntüsü dahil edin. Medya oluşturmadan veya güncellemeden önce dahil edilen eksik görüntüleri geri yükleyin ve tercih edilen görüntü veya dizin seçimini düzeltin ya da temizleyin.</value>
+    <value>Bu yapılandırmaya en az bir kullanılabilir Windows görüntüsü dahil edin. Medya oluşturmadan veya güncellemeden önce dahil edilen eksik görüntüleri geri yükleyin ve tercih edilen görüntü veya dizin seçimini düzeltin ya da temizleyin.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Yenile</value>
@@ -944,7 +950,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Görüntüyü kaldır</value>
   </data>
   <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) geçerli profilden kaldırılacak ve yerel kopyası silinecek.</value>
+    <value>{0} ({1}) geçerli yapılandırmadan kaldırılacak ve yerel kopyası silinecek.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Kaldır</value>
@@ -953,7 +959,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Özel görüntü kaldırılsın mı?</value>
   </data>
   <data name="CustomImages.RemoveWarning" xml:space="preserve">
-    <value>Bu görüntüyü kullanan diğer profiller görüntüyü eksik olarak gösterir. Özgün dosya ve mevcut medya değiştirilmez.</value>
+    <value>Özgün dosya ve mevcut medya değiştirilmez.</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Düzenle</value>
@@ -2768,7 +2774,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Kurumsal bir Wi-Fi profil şablonu sağlayın</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Parola, yapılandırmanızla birlikte bu bilgisayarda yalnızca “Ayarları yedekleme ve eşitleme” içinde “Parolaları hatırla” açıkken kaydedilir. Aksi takdirde kaydedilmez ve örneğin Foundry OSD'yi yeniden başlattıktan sonra tekrar girilmesi gerekir.</value>
+    <value>Foundry parola ifadesini bu bilgisayarda yerel şifreli kasasında hatırlar. Bu bilgisayardan yalnızca “Parolaları dahil et” seçildiğinde bir dışarı aktarma veya yayında çıkar.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Foundry tarafından yönetilen Wi-Fi profilini OOBE öncesinde Windows'a içe aktararak dağıtım bağlantısının WinPE sonrasında korunmasını sağlar.</value>
@@ -3001,299 +3007,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Çalışma dizini (göreli; boş bırakılırsa içerik kökü kullanılır)</value>
   </data>
-  <data name="Profiles.Active" xml:space="preserve">
-    <value>Geçerli ayarlar</value>
-  </data>
-  <data name="Profiles.AutoSync" xml:space="preserve">
-    <value>Otomatik eşitleme</value>
-  </data>
-  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
-    <value>Başka bir ad seçin</value>
-  </data>
-  <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>Kaydedilmiş bazı eski parolalar veya erişim anahtarları kaldırılamadı. Windows Kimlik Bilgisi Yöneticisi kullanılabilir olduğunda yeniden deneyin.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
-    <value>Kaydetmeden kapat</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
-    <value>Son değişiklikleriniz kaydedilemedi ve kaybolacak.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
-    <value>Ayarlar kaydedilmeden kapatılsın mı?</value>
-  </data>
-  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
-    <value>Parolayı onaylayın</value>
-  </data>
-  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>Dosya parolasını doğrulayın</value>
-  </data>
-  <data name="Profiles.Conflict" xml:space="preserve">
-    <value>Bu ayarlar hem bu bilgisayarda hem de başka biri tarafından değiştirildi. Hangi sürümü saklamak istediğinizi seçin.</value>
-  </data>
-  <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>Seçtiğiniz sürüm diğerinin yerini alacak. Ayrı bir kopya saklamak istiyorsanız önce “Çoğalt” seçeneğini kullanın.</value>
-  </data>
-  <data name="Profiles.ConnectAction" xml:space="preserve">
-    <value>Bağlan</value>
-  </data>
-  <data name="Profiles.ConnectDescription" xml:space="preserve">
-    <value>Ekibinizden birinin sağladığı bağlantı dosyasını seçin.</value>
-  </data>
-  <data name="Profiles.ConnectionPassword" xml:space="preserve">
-    <value>Bağlantı parolası</value>
-  </data>
-  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
-    <value>Diğer bilgisayarların bağlanmak için bu parolaya ihtiyacı olacaktır.</value>
-  </data>
-  <data name="Profiles.Continue" xml:space="preserve">
-    <value>Devam</value>
-  </data>
-  <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Bu yapılandırmayı paylaş</value>
-  </data>
-  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
-    <value>Bu yapılandırma için paylaşılan bir ağ klasörü seçin.</value>
-  </data>
-  <data name="Profiles.Delete" xml:space="preserve">
-    <value>Bu bilgisayardan sil</value>
-  </data>
-  <data name="Profiles.DeleteAction" xml:space="preserve">
-    <value>Sil</value>
-  </data>
-  <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>Herkes için de sil</value>
-  </data>
-  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
-    <value>Herkes için sil</value>
-  </data>
-  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
-    <value>Herkes için silinsin mi?</value>
-  </data>
-  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>Bu paylaşılan ayarlar herkes için silinsin mi? Eşitlenmemiş değişiklikleri olan kişiler, bunları saklamak için ayarlarını çoğaltmalıdır.</value>
-  </data>
-  <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>Bu ayarlar bu bilgisayardan silinsin mi? Yedek almak istiyorsanız önce dışarı aktarın.</value>
-  </data>
-  <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>Bu paylaşılan ayarlar silindi. Değişikliklerinizi bu bilgisayarda saklamak için “Çoğalt” seçeneğini kullanın.</value>
-  </data>
-  <data name="Profiles.Disconnect" xml:space="preserve">
-    <value>Bağlantıyı kes</value>
-  </data>
-  <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>Bu yapılandırmanın bu bilgisayarda eşitlenmesi durdurulsun mu? Geçerli ayarlarınız korunacak. Paylaşılan yapılandırma ve diğer bilgisayarlar değiştirilmeyecek.</value>
-  </data>
-  <data name="Profiles.Export" xml:space="preserve">
-    <value>Dışa aktar</value>
-  </data>
-  <data name="Profiles.ExportDescription" xml:space="preserve">
-    <value>Bu yapılandırmayı yedekleme veya başka bir bilgisayarda kullanmak için dosyaya kaydedin.</value>
-  </data>
-  <data name="Profiles.ExportProtection" xml:space="preserve">
-    <value>Dışa aktarılan dosyayı korumak için bir parola seçin. Yapılandırmayı içe aktarmak için bu parolaya ihtiyacınız olacak.</value>
-  </data>
-  <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Bağlantı dosyasını kaydet</value>
-  </data>
-  <data name="Profiles.Failed" xml:space="preserve">
-    <value>Bu işlem tamamlanamadı. Dosyayı, dosyanın parolasını, erişim izinlerinizi ve ağ bağlantınızı kontrol edin.</value>
-  </data>
-  <data name="Profiles.FolderExists" xml:space="preserve">
-    <value>Bu klasör adı zaten kullanılıyor. Bir bağlantı dosyası kullanarak bağlanın veya geri dönüp başka bir ad seçin.</value>
-  </data>
-  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
-    <value>Paylaşılan klasörde yeni, boş bir alt klasör seçin. Mevcut dosyalar değişmeden kalacaktır.</value>
-  </data>
-  <data name="Profiles.Forget" xml:space="preserve">
-    <value>Kaydedilen parolaları ve erişim bilgilerini temizle</value>
-  </data>
-  <data name="Profiles.ForgetAction" xml:space="preserve">
-    <value>Temizle</value>
-  </data>
-  <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>Bu bilgisayardaki bu ayarlar için kaydedilmiş parolalar, Foundry tarafından kaydedilmiş gizli dosyalar ve eşitleme erişimi kaldırılsın mı? Eşitlemek için eksik bilgileri eklemeniz ve yeniden bağlanmanız gerekecek. Önceden oluşturduğunuz medyalar değişmeyecek.</value>
-  </data>
-  <data name="Profiles.Heading" xml:space="preserve">
-    <value>Foundry ayarları</value>
-  </data>
-  <data name="Profiles.Import" xml:space="preserve">
-    <value>İçe aktar</value>
-  </data>
-  <data name="Profiles.ImportDescription" xml:space="preserve">
-    <value>Bir dosyadan yapılandırma ekleyin.</value>
-  </data>
-  <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>Parolaları ve gizli dosyaları dahil et</value>
-  </data>
-  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
-    <value>Bu yapılandırmayı kullanan kişiler, dahil edilen parolaları ve gizli dosyaları okuyabilir.</value>
-  </data>
-  <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>Bazı parolalar veya kaynak dosyalar eksik. Parolaları kaydetmeden veya paylaşmadan önce bunları ekleyin.</value>
-  </data>
-  <data name="Profiles.InvalidFolderName" xml:space="preserve">
-    <value>Özel karakter içermeyen ve nokta veya boşlukla bitmeyen bir ad kullanın.</value>
-  </data>
-  <data name="Profiles.JoinChanged" xml:space="preserve">
-    <value>Paylaşılan yapılandırma değişti. Bağlanmadan önce en son sürümü gözden geçirin.</value>
-  </data>
-  <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Paylaşılan bir yapılandırmaya bağlan</value>
-  </data>
-  <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>Bu bilgisayardaki sürümü kullan</value>
-  </data>
-  <data name="Profiles.LearnMore" xml:space="preserve">
-    <value>Daha fazla bilgi</value>
-  </data>
-  <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Windows hesabınızın parolalarını bu bilgisayarda saklayın.</value>
-  </data>
-  <data name="Profiles.Locked" xml:space="preserve">
-    <value>Windows, bu bilgisayardaki hesabınız için bu kayıtlı ayarların veya eşitleme erişimlerinin kilidini açamıyor.</value>
-  </data>
-  <data name="Profiles.Manage" xml:space="preserve">
-    <value>Diğer seçenekler</value>
-  </data>
-  <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Eksik veya dahil edilmemiş dosyalar: {0}. Medya oluşturmadan önce bu dosyaların konumlarını seçin.</value>
-  </data>
-  <data name="Profiles.Name" xml:space="preserve">
-    <value>Yapılandırma adı</value>
-  </data>
-  <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>Dosya parolası</value>
-  </data>
-  <data name="Profiles.PasswordMismatch" xml:space="preserve">
-    <value>Parolalar eşleşmiyor.</value>
-  </data>
-  <data name="Profiles.Preview" xml:space="preserve">
-    <value>{0}
-Dahil edilen dosyalar: {1}
-Dahil edilen parolalar ve erişim anahtarları: {2}</value>
-  </data>
-  <data name="Profiles.Ready" xml:space="preserve">
-    <value>Hazır</value>
-  </data>
-  <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Bağlantı dosyasını korumak için bir parola seçin. Parolayı ayrı olarak paylaşın. Dosyayı paylaşılan yapılandırma klasörünün dışına kaydedin.</value>
-  </data>
-  <data name="Profiles.Remember" xml:space="preserve">
-    <value>Parolaları hatırla</value>
-  </data>
-  <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>Bu bağlantıyı bu bilgisayarda hatırla</value>
-  </data>
-  <data name="Profiles.Rename" xml:space="preserve">
-    <value>Yeniden adlandır</value>
-  </data>
-  <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>Bu işlem, kullandığınız ayarların yerini alacak. Önce bir kopya saklamak için iptal edin ve “Çoğalt” seçeneğini kullanın.</value>
-  </data>
-  <data name="Profiles.RestoreAccess" xml:space="preserve">
-    <value>Erişimi geri yükle</value>
-  </data>
-  <data name="Profiles.Rollback" xml:space="preserve">
-    <value>Paylaşılan klasördeki kayıtlı sürümler beklenmedik şekilde değişti. Güvendiğiniz bir yedekten geri yükleyin.</value>
-  </data>
-  <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Çoğalt</value>
-  </data>
-  <data name="Profiles.Select" xml:space="preserve">
-    <value>Bir yapılandırma seçin</value>
-  </data>
-  <data name="Profiles.Setup" xml:space="preserve">
-    <value>Kur</value>
-  </data>
-  <data name="Profiles.SetupAction" xml:space="preserve">
-    <value>Eşitlemeyi ayarla…</value>
-  </data>
-  <data name="Profiles.SetupDescription" xml:space="preserve">
-    <value>Bu yapılandırmayı paylaşın veya ekibinizin zaten kullandığı bir yapılandırmaya bağlanın.</value>
-  </data>
-  <data name="Profiles.ShareAction" xml:space="preserve">
-    <value>Paylaş</value>
-  </data>
-  <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>Bu ayarları içeri aktarabilen veya eşitleyebilen herkes, dahil edilen parolaları ve sertifikaların özel anahtarlarını okuyabilir.</value>
-  </data>
-  <data name="Profiles.SharedBusy" xml:space="preserve">
-    <value>Başka bir işlem bu paylaşılan klasörü kullanıyor. Kısa süre sonra yeniden deneyin. Değişiklikleriniz bu bilgisayarda korunur.</value>
-  </data>
-  <data name="Profiles.SharedFolder" xml:space="preserve">
-    <value>Paylaşılan klasör</value>
-  </data>
-  <data name="Profiles.SharedUnavailable" xml:space="preserve">
-    <value>Paylaşılan klasöre ulaşılamıyor. Adresini ve ağ erişiminizi kontrol edin. Değişiklikleriniz bu bilgisayarda korunur.</value>
-  </data>
-  <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>Tüm bilgisayarlarda aynı ağ klasörünü kullanın. Klasör, şifrelemenin zorunlu olduğu SMB 3 kullanmalıdır. Bulutla eşitlenen klasörler desteklenmez.</value>
-  </data>
-  <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Foundry, bu yapılandırmanın parolalarını bu bilgisayara kaydetmeyi bırakacak.</value>
-  </data>
-  <data name="Profiles.StopRememberingAction" xml:space="preserve">
-    <value>Hatırlamayı durdur</value>
-  </data>
-  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
-    <value>Parolalar artık hatırlanmasın mı?</value>
-  </data>
-  <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Eşitle</value>
-  </data>
-  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
-    <value>Eşitleniyor…</value>
-  </data>
-  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
-    <value>Bir sürüm seçin</value>
-  </data>
-  <data name="Profiles.SyncStatusError" xml:space="preserve">
-    <value>Eşitlenemiyor</value>
-  </data>
-  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
-    <value>Yapılandırılmadı</value>
-  </data>
-  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
-    <value>Klasöre erişilemiyor</value>
-  </data>
-  <data name="Profiles.SyncStatusPending" xml:space="preserve">
-    <value>Eşitlenecek değişiklikler</value>
-  </data>
-  <data name="Profiles.SyncStatusReady" xml:space="preserve">
-    <value>Eşitlemeye hazır</value>
-  </data>
-  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
-    <value>Güncel</value>
-  </data>
-  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
-    <value>Değişiklikler mevcut</value>
-  </data>
-  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
-    <value>Dikkat gerekiyor</value>
-  </data>
-  <data name="Profiles.Synchronize" xml:space="preserve">
-    <value>Eşitle</value>
-  </data>
-  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
-    <value>Bu yapılandırmayı ekibinizin bilgisayarlarında güncel tutun.</value>
-  </data>
-  <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>Ayarlar güncel</value>
-  </data>
-  <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>Foundry bu ayar biçimini açamıyor. Foundry'yi güncelleyin ve yeniden deneyin.</value>
-  </data>
-  <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>Başka bir bilgisayardan gelen değişiklikler var. Uygulamak için “Eşitle” seçeneğini kullanın.</value>
-  </data>
-  <data name="Profiles.UseRemote" xml:space="preserve">
-    <value>Paylaşılan sürümü kullan</value>
-  </data>
-  <data name="Profiles.Validation" xml:space="preserve">
-    <value>Zorunlu alanları kontrol edin. Bir ağ klasörü isteniyorsa \\server\share\folder gibi bir yol kullanın. Dosya parolasını iki kez giriyorsanız her iki girişin de aynı olduğundan emin olun.</value>
-  </data>
   <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
     <value>Foundry OSD proxy ayarlarını kaydedemedi. Yeniden deneyin. Ayrıntılar günlükte yer alır.</value>
   </data>
@@ -3429,12 +3142,6 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Genel</value>
   </data>
-  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Ayarlarınızı yedekleyin, başka bir bilgisayara aktarın veya eşitlenmiş halde tutun.</value>
-  </data>
-  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Ayarları yedekleme ve eşitleme</value>
-  </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Foundry OSD'nin çevrimiçi hizmetlere nasıl bağlanacağını yapılandırın.</value>
   </data>
@@ -3464,6 +3171,498 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Uygulamayı güncelle</value>
+  </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>Kabul et</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>Yeni başvuruyu kabul et</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>Klasör artık başka bir bilgisayar tarafından yayımlanıyor: {0}. Bunu yalnızca bu değişikliği bekliyorsanız kabul edin, örneğin bir devralmadan sonra; aksi takdirde izlemeyi bırakın.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>Yeni başvuru kabul edilsin mi?</value>
+  </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Bu iletişim kutusu açıkken başvuru değişti. Kabul etmeden önce yeni anahtarı gözden geçirin.</value>
+  </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Bu yapılandırmayı şifrelenmiş bir dosyayla taşıyın veya paylaşılan bir klasör aracılığıyla birden çok bilgisayarı uyumlu tutun.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Yapılandırma paylaşımı</value>
+  </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>Değiştir</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>Parolayı değiştir</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>Geçerli yayın yeni parolayla yeniden yazılır. İçerik dosyaları yeniden şifrelenmez, bu nedenle eski parolayı bilen biri bunları hâlâ okuyabilir: önceki okuyucuları tamamen iptal etmek için Yayını sıfırla seçeneğini kullanın. Klasörü izleyen bilgisayarlar yeni parolayı bir kez girer.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>Yayın parolasını değiştir</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>Şimdi denetle</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Parola ifadesini onayla</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>Parolayı doğrulayın</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>İndiriliyor</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>Yüklenemeyen öğe sayısı: {0}. Başvuru bilgisayarı yeni bir sürüm yayımladığında yeniden alınırlar.</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Sürücü kümesi</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>Dosya</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Görüntü</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Yükleme sonrası paket</value>
+  </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>İçerik klasörde hasar görmüş olabilir. Başvuru bilgisayarından yeniden yayımlayın.</value>
+  </data>
+  <data name="Sharing.CopyButton" xml:space="preserve">
+    <value>Kopyala</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>Geçerli yayın parolası</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>Parola gir</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>Yayın parolası yeniden gerekiyor; örneğin Windows parolası sıfırlandıktan sonra veya başvuru bilgisayarı parolayı değiştirdikten sonra.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>Yayın parolasını girin</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Dışarı aktar</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>Yapılandırma dışarı aktarıldı.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Ayarları ve küçük dosyaları şifreli bir dosyaya kaydedin. Yükleme sonrası paketler, sürücü kümeleri ve görüntüler dahil edilmez.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>Yapılandırma dışarı aktarılamadı. Hedefi denetleyip yeniden deneyin.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>Bu yapılandırmanın dosyaları toplamda 16 MiB'ı aşıyor ve dışarı aktarılamıyor.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>Yapılandırma dışarı aktarıldı ancak bazı dosyalar bu bilgisayarda eksik veya hasarlı olduğundan dahil edilmedi (sayı: {0}). Bunları yapılandırma sayfalarında yeniden seçin ve ardından yeniden dışarı aktarın.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Yapılandırmayı dışarı aktar</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>Dosya</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Foundry yapılandırması</value>
+  </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>Klasör</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>Yayın klasörünü seçin</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>İzle</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>Bir başvuru bilgisayarının bir klasöre yayımladığı yapılandırmayı kullanın. Yayımlanan ayarlar bu bilgisayarda salt okunur olur.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>Başvuru bilgisayarının yayımladığı klasörü ve yayın parolasını girin, ardından yayının önizlemesini görmek için klasörü açın.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>İzleme, geçerli yapılandırmayı değiştirir ve yayımlanan ayarları salt okunur yapar. Bu bilgisayarın ISO çıkış yolu, ek WinPE sürücü klasörü ve telemetri ayarları korunur.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>Bir klasörü izle</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>Bulunan anahtar</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>Bulunan sürüm</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>Yayın parolasını unut</value>
+  </data>
+  <data name="Sharing.GenerateButton" xml:space="preserve">
+    <value>Oluştur</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>İçeri aktar</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>Yapılandırma içeri aktarıldı.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>Yapılandırma içeri aktarıldı. Bu bilgisayarda eksik içerik var: ilgili sayfasında yeniden içeri aktarın.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Bu yapılandırmayı dışarı aktarılmış bir dosyayla veya önceki sürümün bir profiliyle değiştirin.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>Yapılandırma içeri aktarılamadı. Geçerli yapılandırma değiştirilmedi.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>Yapılandırma içeri aktarıldı ancak parolaları kaydedilemedi. Bunları yapılandırma sayfalarında yeniden girin.</value>
+  </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>Bu bilgisayar bir klasörü izlerken içeri aktarma kullanılamaz. Önce izlemeyi bırakın.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Yapılandırmayı içeri aktar</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Parolaları dahil et</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>Klasörü okuyabilen ve yayın parolasını bilen herkes bu parolaları okuyabilir.</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Bu dosyaya ve parola ifadesine sahip olan herkes bu parolaları okuyabilir.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>Bu dosya bir Foundry yapılandırması değil veya hasarlı.</value>
+  </data>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>Son başarılı denetim</value>
+  </data>
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>Son yayımlama</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
+    <value>Bu yapılandırma bu Windows kullanıcısı tarafından açılamaz.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>Bu yapılandırma {0} tarafından yayımlanıyor ve bu bilgisayarda salt okunur. Yalnızca ISO çıkış yolu, ek WinPE sürücü klasörü ve telemetri ayarları değiştirilebilir.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>Bu yapılandırma {0} tarafından yayımlanıyor ve bu bilgisayarda salt okunur. Yayın parola içermiyor: parolaları buraya girin. ISO çıkış yolu, ek WinPE sürücü klasörü ve telemetri ayarları da değiştirilebilir.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>Bir başvuru bilgisayarı tarafından yönetiliyor</value>
+  </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Yapılandırmanın kullandığı bazı dosyalar kurtarılamadı. Bunları yapılandırma sayfalarında yeniden seçin.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Önceki sürümlerin yapılandırma eşitlemesi artık desteklenmiyor. Bu yapılandırmayı paylaşmak için başvuru bilgisayarında Klasöre yayımla seçeneğini kullanın.</value>
+  </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Yapılandırmanızı denetleyin</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Kaydedilen parolalar geri yüklenemedi. Bunları yapılandırma sayfalarında yeniden girin.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Bu öğeleri kendi sayfalarında yeniden içeri aktarın. O zamana kadar ilgili yapılandırma öğeleri hazır değildir.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Bu bilgisayarda eksik</value>
+  </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>Yeni anahtar</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>Yeni yayın parolası</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>Bu klasör yayımlanmış bir yapılandırma içermiyor.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>Henüz doğrulanmadı: bu değerler klasörden gelir ve yalnızca geçerli yayın parolası yayını açtığında onaylanır.</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Aç</value>
+  </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Dosyayı aç</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Seçili profili aç</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>İşlem tamamlanamadı. Ayrıntılar için günlüğe bakın.</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>Parola ifadesi panoya kopyalandı.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Parola ifadesi</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>Parola ifadeleri eşleşmiyor.</value>
+  </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>Yeni parola kaydedildi. Değişiklik bir sonraki başarılı yayımlamada tamamlanır.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>Yayın parolası değiştirildi. Klasörü izleyen bilgisayarlar yeni parolayı bir kez girer.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>Parola panoya kopyalandı.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>Parolalar eşleşmiyor.</value>
+  </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Bu yapılandırma bir başvuru bilgisayarı tarafından yönetiliyor: burada yalnızca parola girilebilir.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Dahil</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>Bu durum Windows parolası sıfırlandıktan sonra oluşabilir. Yayımlamaya devam etmek için klasörü geçerli yayın parolasıyla devralın; ardından klasörü izleyen bilgisayarlar bu bilgisayarı bir kez yeni başvuru olarak kabul eder.</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Dahil değil</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Dışarı aktarma tarihi</value>
+  </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>İndirme boyutu</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Parolalar</value>
+  </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>Yayımlanma tarihi</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>Başvuru bilgisayarı</value>
+  </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>Önceki anahtar</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Önceki sürümün profilleri</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Bu profiller güncellemeden önce bu bilgisayara kaydedildi.</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>Yayın bu klasöre henüz tamamen ulaşmadı. Birazdan yeniden deneyin.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>Yayın parolası</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>Yayın sıfırlandı. Klasörü izleyen bilgisayarlar yeni parolayı bir kez girer.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>Yayımla</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>Bu bilgisayarı başvuru yapın: yapılandırması, diğer bilgisayarların izlediği bir klasöre yayımlanır.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>Boş bir klasör veya bu bilgisayarın zaten yayımladığı bir klasör seçin: bir ağ paylaşımı, bir OneDrive ya da SharePoint klasörü veya yerel bir klasör. Klasörü izleyen bilgisayarların klasörü okumak için yayın parolasına ihtiyacı vardır.</value>
+  </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>Şimdi yayımla</value>
+  </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Klasör denetleniyor…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Yayımlama tamamlanıyor…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>{0} hazırlanıyor…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>{0} gönderiliyor…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>{0} doğrulanıyor…</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>Klasöre yayımla</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>İçeri aktarma geçerli yapılandırmayı değiştirir. Bu bilgisayarın ISO çıkış yolu, ek WinPE sürücü klasörü ve telemetri ayarları korunur.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>Sıfırla</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>Yayını sıfırla</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>Yeni bir parola ve yeni bir içerik anahtarı: her içerik dosyası yeniden şifrelenir ve bu, önceki okuyucuları tamamen iptal eder. Klasörü izleyen bilgisayarlar yeni parolayı bir kez girer.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>Yayını sıfırla</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>Önceki okuyucular bir sonraki başarılı yayımlamaya kadar içeriği hâlâ açabilir.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>Bu bilgisayar {0} kaynağını izliyor</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>Bu bilgisayar kendi yapılandırmasını yayımlıyor</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>En az 12 karakter ve aynı karakterin tekrarı değil (örneğin aaaaaaaaaaaa).</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>İzlenen yayının paylaşılan içeriğinin bir kısmı indirilemedi. Ayarlar sayfasında Yapılandırma paylaşımı bölümünü denetleyin.</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>Paylaşım durumu okunamadığından yayımlama ve izleme bu oturum boyunca kullanılamıyor. Ayrıntılar için günlüğe bakın.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>Klasör denetleniyor: yayın henüz tamamen ulaşmadı ve bir sonraki denetimde yeniden okunacak.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>Yapılandırma uygulandı. Paylaşılan içerik indiriliyor.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>Yapılandırma uygulandı, ancak paylaşılan içeriğin bir kısmı yüklenemedi.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>Yapılandırma uygulandı, ancak paylaşılan içeriğin bir kısmı tekrarlanan denetimlerden sonra hâlâ kullanılamıyor.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>Bu klasör, bu bilgisayarın yayını olmayan dosyalar içeriyor. Boş bir klasör seçin.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>Klasör kullanılamıyor. Klasörün var olduğunu ve bu bilgisayarın erişebildiğini denetleyin.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>Bu bilgisayar herhangi bir yapılandırmayı yayımlamıyor veya izlemiyor.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>Klasörün ilk denetimi bekleniyor.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>Değişiklikler otomatik olarak yayımlanır.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>Yayımlanmadı: yapılandırma medya oluşturmaya hazır değil veya bu bilgisayarda eksik olan içeriğe başvuruyor. Önceki sürüm geçerli olmaya devam ediyor.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>Parolalar gerekiyor: yayın parolasını girin veya eksik parolaları yapılandırma sayfalarında girin.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>Bu bilgisayarın yayın parolası veya anahtarları okunamadı.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>Yayımlandı. Klasörü izleyen bilgisayarlar bu sürümü bir sonraki denetimlerinde alır.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>Yapılandırma yayımlanıyor…</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>Klasör, uygulanandan daha eski bir sürümü gösteriyor. Yok sayılıyor.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>Yayın değiştirildi. Uygulanmıyor.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>Klasör artık başka bir bilgisayar tarafından yayımlanıyor. Yeni başvuruyu kabul edin veya izlemeyi bırakın.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>Bu klasöre başka bir bilgisayar yayımlıyor. Bu bilgisayardan yayımlamak için klasörü devralın.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>Bu yayın, Foundry OSD'nin daha yeni bir sürümünü gerektiriyor.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>Güncel.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>Yapılandırma güncelleştirildi.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>Yayın parolası geçerli yayını açmıyor. Yeni parolayı girin.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>Yayın parolası, bu bilgisayarın bu klasördeki yayınını açmıyor.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>İzlemeyi bırak</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>Yapılandırma olduğu gibi kalır ve bu bilgisayarda yeniden düzenlenebilir olur.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>İzleme bırakılsın mı?</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>Yayımlamayı durdur</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>Klasör olduğu gibi kalır ve klasörü izleyen bilgisayarlar son yayımlanan sürümü korur. Bu bilgisayar artık yapılandırmasını yayımlamaz.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>Yayımlama durdurulsun mu?</value>
+  </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>{0} indiriliyor…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>{0} yükleniyor…</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>Devral</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>Bu klasöre başka bir bilgisayar yayımlıyor. Devralma, yayını bu bilgisayarın anahtarıyla sürdürür; klasörü izleyen bilgisayarların bu bilgisayarı bir kez yeni başvuru olarak kabul etmesi gerekir.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>Bu bilgisayarın yayın anahtarları okunamadı. Geçerli yayın parolasıyla devralma, yayını yeni anahtarlarla sürdürür; klasörü izleyen bilgisayarların bu bilgisayarı bir kez yeni başvuru olarak kabul etmesi gerekir.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>Bu klasörü devral</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>Bu parola geçerli yayını açmıyor.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>Dosya okunamadı.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>Bu dosya, Foundry OSD'nin daha yeni bir sürümünü gerektirir.</value>
+  </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>Sürüm</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>Paylaşılan içeriğin indirilmesinin tamamlanması bekleniyor…</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Yanlış parola ifadesi veya hasarlı dosya.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>Bu parola yayını açmıyor veya yayın değiştirildi.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>İşlemi durdur</value>
@@ -3590,6 +3789,15 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Gerekli medya sırları hazır değil.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Paylaşılan içeriğin bir kısmı bu bilgisayara yüklenemedi. Başvuru bilgisayarı yeni bir sürüm yayımladığında yeniden alınır. Ayarlar sayfasında Yapılandırma paylaşımı bölümünü denetleyin.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Paylaşılan içeriğin bir kısmı tekrarlanan denetimlerden sonra hâlâ kullanılamıyor. Başvuru bilgisayarından yeniden yayımlayın, ardından Ayarlar sayfasında Yapılandırma paylaşımı bölümünü denetleyin.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Paylaşılan içerik hâlâ indiriliyor. Ortam oluşturma, indirme tamamlandığında kullanılabilir.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Seçilen USB sürücüsü önbellek için çok küçük. En az 16 GB boyutunda bir USB sürücüsü kullanın veya “USB oluştur” düğmesinin okundan “Önbellek olmadan oluştur” seçeneğini belirleyin.</value>
@@ -4164,6 +4372,15 @@ Dahil edilen parolalar ve erişim anahtarları: {2}</value>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>USB ortamı oluşturmaya hazır</value>
   </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Paylaşılan içerik yüklenemedi</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Paylaşılan içerik kullanılamıyor</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Paylaşılan içerik bekleniyor</value>
+  </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Medya çıkışı uyarılarını inceleyin</value>
   </data>
@@ -4308,13 +4525,13 @@ Güncellemeyi uygulamak Foundry OSD'yi yeniden başlatır.</value>
     <value>Autopilot kaydını engelleyebilecek ayarlar içerir; uyumsuz kayıt modları dağıtım sırasında engellenir.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Yeniden adlandırmak, yenilemek veya kaldırmak için bir dosya seçin. Kaynak dosyalar medya oluşturulana kadar erişilebilir olmalıdır; değiştirilen kaynakların yenilenmesi gerekir.</value>
+    <value>Yeniden adlandırmak veya kaldırmak için bir dosya seçin. Foundry, içeri aktarılan her dosyanın kendi kopyasını saklar; güncellenmiş bir dosyayı kullanmak için girdiyi kaldırıp dosyayı yeniden içeri aktarın.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Yanıt dosyaları</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Kaynakları denetle</value>
+    <value>Dosyaları denetle</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Komutlar içerir; Foundry özelleştirmeleri ve kurulum tetikleyicileriyle olası çakışmaları inceleyin.</value>
@@ -4353,13 +4570,13 @@ Güncellemeyi uygulamak Foundry OSD'yi yeniden başlatır.</value>
     <value>Dosya, desteklenen bir mimari belirtmeli ve bu mimariye uygulanabilen bileşen ayarları içermelidir.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Katalog geçersiz veya yinelenen girdiler içeriyor. Etkilenen dosyaları yenileyin veya kaldırın.</value>
+    <value>Katalog geçersiz veya yinelenen girdiler içeriyor. İlgili dosyaları kaldırıp yeniden içeri aktarın.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>DTD veya harici varlık içermeyen, en fazla 4 MiB boyutunda geçerli bir Windows yanıt dosyası XML'i kullanın. Dosyayı Windows SIM ile doğrulayın.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Bazı kaynaklar eksik, değiştirilmiş veya geçersiz. Medya oluşturmadan önce bu girdileri yenileyin veya kaldırın.</value>
+    <value>Bazı dosyalar eksik veya geçersiz. Medya oluşturmadan önce bu girdileri kaldırıp dosyaları yeniden içeri aktarın.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Varsayılan dosya eksik — yerine başka bir dosya seçin</value>
@@ -4374,16 +4591,13 @@ Güncellemeyi uygulamak Foundry OSD'yi yeniden başlatır.</value>
     <value>Foundry özgün dosyanızı korur ve gerekli kurulum sonrası komutunu dağıtım kopyasına ekler. Özel ayarlarınız ve komutlarınız sizin sorumluluğunuzda kalır.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Özel dosyalar, Genel yapılandırmada dağıtım medyasının parolayla korunmasını gerektirir. XML, kimlik bilgileri veya betikler içerebilir. Foundry, yapılandırmanızla birlikte bu bilgisayarda her dosyanın bir kopyasını yalnızca “Ayarları yedekleme ve eşitleme” içinde “Parolaları hatırla” açıkken saklar; aksi takdirde yalnızca yolu kaydeder. Önyükleme görüntüsü şifrelenmiş kopyalar içerir.</value>
+    <value>Özel dosyalar, Genel yapılandırmada dağıtım medyasının parolayla korunmasını gerektirir. XML, kimlik bilgileri veya betikler içerebilir. Foundry, içeri aktarılan her dosyanın bir kopyasını bu bilgisayardaki dosya kitaplığında saklar. Önyükleme görüntüsü şifrelenmiş kopyalar içerir.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Özel yanıt dosyalarını kullanmak için Genel yapılandırmada dağıtım medyasının parola korumasını etkinleştirin.</value>
   </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Bu kaynak artık içe aktarılan başka bir dosyayla aynı. Bu girdiyi kaldırın ve mevcut dosyayı seçin.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Kaynağı yenile</value>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Foundry artık bu dosyanın geçerli bir kopyasına sahip değil. Girdiyi kaldırıp dosyayı yeniden içeri aktarın.</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Kaldır</value>
@@ -4397,26 +4611,23 @@ Güncellemeyi uygulamak Foundry OSD'yi yeniden başlatır.</value>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Seçili dosya</value>
   </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>Kaynak değişti. Medya oluşturmadan önce güncellenen dosyayı kabul etmek için Kaynağı yenile'yi kullanın.</value>
-  </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>İki kaynak denetimi hâlâ dosya erişimi bekliyor. Kullanılamayan kaynak konumlarına erişimi yeniden sağlayın, ardından kaynakları tekrar denetleyin.</value>
+    <value>İki dosya denetimi hâlâ çalışıyor. Bitmelerini bekleyip yeniden deneyin.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Kaynak denetimi bekleniyor. İçerik değişikliklerini kabul etmeden geçerli dosyayı doğrulamak için Kaynakları denetle'yi seçin.</value>
+    <value>Dosya denetimi bekleniyor. Depolanan kopyayı doğrulamak için Dosyaları denetle'yi seçin.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Kaynak okunamadı. Dosyanın hâlâ mevcut ve erişilebilir olduğunu denetleyin.</value>
+    <value>Dosya okunamadı. Dosyanın var olduğunu ve açılabildiğini denetleyip yeniden deneyin.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Kaynak doğrulaması zaman aşımına uğradı. Kaynak konumuna erişimi denetleyip yeniden deneyin.</value>
+    <value>Depolanan dosyaların denetlenmesi çok uzun sürdü. Yeniden deneyin.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Yalnızca specialize ve oobeSystem ayarları desteklenir. Diğer boş olmayan yapılandırma aşamalarını, çevrimdışı bakım yönergelerini veya denetim modunda yeniden başlatma hazırlığını kaldırın.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Kaynak doğrulandı.</value>
+    <value>Dosya doğrulandı.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Güncellemeyi uygula</value>

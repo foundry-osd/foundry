@@ -101,4 +101,25 @@ public sealed class ConfigurationContentReferencesTests
         Assert.Equal(["aa", "bb"], hashes.Order());
         Assert.Contains("BB", hashes);
     }
+
+    [Fact]
+    public void AuthoringFileHashes_ListsEveryFileReferenceIncludingAnswerFiles()
+    {
+        static AuthoringFileReference File(string hash) => new() { ContentHash = hash, FileName = "f", Length = 1 };
+        var configuration = new FoundryConfigurationDocument
+        {
+            Network = new()
+            {
+                Dot1x = new() { IsEnabled = false, ProfileTemplate = File("aa"), Certificate = File("bb") },
+                Wifi = new() { EnterpriseProfileTemplate = File("cc"), Certificate = File("bb") }
+            },
+            Autopilot = new() { HardwareHashUpload = new() { BootMediaCertificate = new() { Pfx = File("dd") } } },
+            Unattend = new() { IsEnabled = false, Files = [new() { Id = "1", ContentHash = "ee", File = File("ee") }, new() { Id = "2", ContentHash = "ff" }] }
+        };
+
+        IReadOnlySet<string> hashes = ConfigurationContentReferences.AuthoringFileHashes(configuration);
+
+        Assert.Equal(["aa", "bb", "cc", "dd", "ee"], hashes.Order());
+        Assert.Contains("DD", hashes);
+    }
 }

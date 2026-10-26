@@ -7,9 +7,8 @@ using System.Security.Cryptography;
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
-using Foundry.Core.Models.Profiles;
 using Foundry.Core.Services.Configuration;
-using Foundry.Core.Services.Profiles;
+using Foundry.Core.Services.Files;
 using Foundry.Core.Services.WinPe;
 using Foundry.Telemetry;
 using Foundry.Utilities.IO;
@@ -24,6 +23,12 @@ public sealed class BuildSnapshot : IDisposable
     private const int MaximumDriverEntries = 10_000;
     // Copied drivers plus materialized dependencies; a private folder above this bound is refused instead of deleted.
     private const int MaximumPrivateEntries = MaximumDriverEntries + 1024;
+    private const int MaximumSourceBytes = 4 * 1024 * 1024;
+    private const int MaximumTotalSourceBytes = 8 * 1024 * 1024;
+
+    /// <summary>Message of the <see cref="FileNotFoundException"/> raised when a referenced media source is missing or unavailable.</summary>
+    internal const string DependencyUnavailableMessage = "A referenced media source file is unavailable. Select the file again before building media.";
+
     private readonly OobeAccountSecretState accountSecrets = new();
     private readonly DomainJoinSecretState domainSecrets = new();
     private readonly char[] deploymentPassword;
@@ -33,29 +38,48 @@ public sealed class BuildSnapshot : IDisposable
     private readonly char[]? autopilotCertificatePassword;
     private readonly string privateRootDirectory;
     private readonly string? authoringVersion;
+    private readonly AuthoringFileLibrary? files;
+    // Private copies of the captured authoring files, keyed by content hash.
+    private readonly Dictionary<string, string> sourceCopies = new(StringComparer.OrdinalIgnoreCase);
     private FoundryConfigurationDocument configuration;
     private bool isDisposed;
     private PrivateDirectoryLease? privateDirectory;
+    // Keeps the referenced library files from cleanup from the moment the configuration is captured until they are copied.
+    private IDisposable? sourceFilesLease;
 
-    private BuildSnapshot(FoundryConfigurationDocument source, ReadOnlySpan<char> password, string root, string? authoringVersion)
+    private BuildSnapshot(FoundryConfigurationDocument source, BuildSnapshotSources? sources, ReadOnlySpan<char> password, string root, string? authoringVersion)
     {
         configuration = CloneConfiguration(source);
         this.authoringVersion = authoringVersion;
+        files = sources?.Files;
+        sourceFilesLease = files?.Lease(ConfigurationContentReferences.AuthoringFileHashes(source));
         deploymentPassword = password.ToArray();
-        wifiPassphrase = source.Network.Wifi.Passphrase?.ToCharArray();
-        wiredCertificatePassword = source.Network.Dot1x.CertificatePfxPassword?.ToCharArray();
-        wifiCertificatePassword = source.Network.Wifi.CertificatePfxPassword?.ToCharArray();
-        autopilotCertificatePassword = source.Autopilot.HardwareHashUpload.BootMediaCertificate.PfxPassword?.ToCharArray();
+        wifiPassphrase = sources?.Network.WifiPassphrase?.ToCharArray();
+        wiredCertificatePassword = sources?.Network.WiredCertificatePfxPassword?.ToCharArray();
+        wifiCertificatePassword = sources?.Network.WifiCertificatePfxPassword?.ToCharArray();
+        autopilotCertificatePassword = sources?.AutopilotPfxPassword?.ToCharArray();
         privateRootDirectory = Path.GetFullPath(root);
     }
 
-    /// <summary>Returns a detached configuration copy with stable staged paths and no plaintext passwords.</summary>
+    /// <summary>Returns a detached configuration copy without inactive sources or password envelopes.</summary>
     public FoundryConfigurationDocument Configuration
     {
         get
         {
             ObjectDisposedException.ThrowIf(isDisposed, this);
             return CloneConfiguration(configuration);
+        }
+    }
+
+    /// <summary>Gets the private copy of each captured answer file, keyed by answer-file id.</summary>
+    public IReadOnlyDictionary<string, string> UnattendSourcePaths
+    {
+        get
+        {
+            ObjectDisposedException.ThrowIf(isDisposed, this);
+            return configuration.Unattend.Files
+                .Where(file => file.File is not null && sourceCopies.ContainsKey(file.File.ContentHash))
+                .ToDictionary(file => file.Id, file => sourceCopies[file.File!.ContentHash], StringComparer.OrdinalIgnoreCase);
         }
     }
 
@@ -67,7 +91,7 @@ public sealed class BuildSnapshot : IDisposable
         string privateRootDirectory,
         string? authoringVersion,
         CancellationToken cancellationToken = default) =>
-        CaptureAsync(configuration, accountSecrets, null, deploymentPassword, privateRootDirectory, authoringVersion, cancellationToken);
+        CaptureAsync(configuration, null, accountSecrets, null, deploymentPassword, privateRootDirectory, authoringVersion, cancellationToken);
 
     /// <summary>Copies active domain credentials synchronously before source preparation can await or authoring can change.</summary>
     public static Task<BuildSnapshot> CaptureAsync(
@@ -78,11 +102,26 @@ public sealed class BuildSnapshot : IDisposable
         string privateRootDirectory,
         string? authoringVersion,
         CancellationToken cancellationToken = default) =>
-        CaptureAsync(configuration, accountSecrets, domainSecrets, deploymentPassword, privateRootDirectory, authoringVersion, driverFilesCopied: null, cancellationToken);
+        CaptureAsync(configuration, null, accountSecrets, domainSecrets, deploymentPassword, privateRootDirectory, authoringVersion, cancellationToken);
+
+    /// <summary>
+    /// Captures like the other overloads, copying the session passwords and verified copies of the referenced files from <paramref name="sources"/>.
+    /// </summary>
+    public static Task<BuildSnapshot> CaptureAsync(
+        FoundryConfigurationDocument configuration,
+        BuildSnapshotSources? sources,
+        OobeAccountSecretState accountSecrets,
+        DomainJoinSecretState? domainSecrets,
+        ReadOnlySpan<char> deploymentPassword,
+        string privateRootDirectory,
+        string? authoringVersion,
+        CancellationToken cancellationToken = default) =>
+        CaptureAsync(configuration, sources, accountSecrets, domainSecrets, deploymentPassword, privateRootDirectory, authoringVersion, driverFilesCopied: null, cancellationToken);
 
     /// <summary>Captures like the public overload and reports the running count of copied custom driver files synchronously on the copy thread.</summary>
     internal static Task<BuildSnapshot> CaptureAsync(
         FoundryConfigurationDocument configuration,
+        BuildSnapshotSources? sources,
         OobeAccountSecretState accountSecrets,
         DomainJoinSecretState? domainSecrets,
         ReadOnlySpan<char> deploymentPassword,
@@ -94,7 +133,7 @@ public sealed class BuildSnapshot : IDisposable
         ArgumentNullException.ThrowIfNull(configuration);
         ArgumentNullException.ThrowIfNull(accountSecrets);
         ArgumentException.ThrowIfNullOrWhiteSpace(privateRootDirectory);
-        var snapshot = new BuildSnapshot(configuration, deploymentPassword, privateRootDirectory, authoringVersion);
+        var snapshot = new BuildSnapshot(configuration, sources, deploymentPassword, privateRootDirectory, authoringVersion);
         try
         {
             snapshot.CopyAccountSecrets(accountSecrets);
@@ -119,7 +158,8 @@ public sealed class BuildSnapshot : IDisposable
     public FoundryConnectProvisioningBundle CreateConnectProvisioningBundle(string stagingDirectoryPath, TelemetrySettings? telemetryOverride = null)
     {
         ObjectDisposedException.ThrowIf(isDisposed, this);
-        return new ConnectConfigurationGenerator().CreateProvisioningBundle(CreateGenerationDocument(telemetryOverride), stagingDirectoryPath, authoringVersion);
+        return new ConnectConfigurationGenerator().CreateProvisioningBundle(
+            CreateGenerationDocument(telemetryOverride), CreateGenerationInputs(), stagingDirectoryPath, authoringVersion);
     }
 
     /// <summary>Retains existing Deploy protection and account validation rules while using captured session material.</summary>
@@ -131,7 +171,8 @@ public sealed class BuildSnapshot : IDisposable
             throw new InvalidOperationException("OOBE local account password confirmation is invalid.");
         }
         var generator = new DeployConfigurationGenerator();
-        return generator.Serialize(generator.Generate(CreateGenerationDocument(telemetryOverride), deploymentSecretsKey, protectionSettings, accountSecrets, domainSecrets, authoringVersion));
+        return generator.Serialize(generator.Generate(
+            CreateGenerationDocument(telemetryOverride), deploymentSecretsKey, protectionSettings, accountSecrets, domainSecrets, CreateGenerationInputs(), authoringVersion));
     }
 
     /// <summary>Creates fresh per-media protection using the confirmed password captured before preparation began.</summary>
@@ -149,6 +190,7 @@ public sealed class BuildSnapshot : IDisposable
         if (!isDisposed)
         {
             isDisposed = true;
+            ReleaseSourceFiles();
             accountSecrets.Dispose();
             domainSecrets.Dispose();
             Clear(deploymentPassword);
@@ -237,16 +279,16 @@ public sealed class BuildSnapshot : IDisposable
             ValidateDriverSources(sources.General.CustomDriverDirectoryPath, cancellationToken);
         privateDirectory = PrivateDirectory.CreateLeased(privateRootDirectory, MaximumPrivateEntries);
         LogAbandonedCleanup(privateDirectory.AbandonedCleanup);
-        IReadOnlyList<DeploymentProfileAsset> assets = DeploymentProfileAssetService.Capture(sources, includeContent: true, requireContent: true);
+        configuration = sources;
         try
         {
-            cancellationToken.ThrowIfCancellationRequested();
-            configuration = DeploymentProfileAssetService.Materialize(new DeploymentProfileDocument { Configuration = sources, Assets = assets }, privateDirectory.Path);
+            CaptureSources(sources, privateDirectory.Path);
         }
         finally
         {
-            DeploymentProfileAssetService.Clear(assets);
+            ReleaseSourceFiles();
         }
+        cancellationToken.ThrowIfCancellationRequested();
         if (!string.IsNullOrWhiteSpace(configuration.General.CustomDriverDirectoryPath))
         {
             string destination = Path.Combine(privateDirectory.Path, "Drivers");
@@ -255,6 +297,92 @@ public sealed class BuildSnapshot : IDisposable
         }
         cancellationToken.ThrowIfCancellationRequested();
     }
+
+    /// <summary>
+    /// Copies every active referenced authoring file (802.1X and Wi-Fi profiles and certificates, the Autopilot boot media
+    /// certificate and answer files) from the authoring file library under a generated name in <paramref name="directory"/>;
+    /// generation reads only these copies.
+    /// </summary>
+    /// <remarks>
+    /// Each file is bounded to <see cref="MaximumSourceBytes"/> and all of them to <see cref="MaximumTotalSourceBytes"/>; the
+    /// library verifies every read against the reference hash, and an answer file must also match its recorded digest. A missing
+    /// required file or an unavailable library file fails with <see cref="DependencyUnavailableMessage"/>; a size or hash violation
+    /// fails too, and the caller removes the private directory. Bytes are cleared after each copy; a file referenced twice is
+    /// copied once.
+    /// </remarks>
+    private void CaptureSources(FoundryConfigurationDocument sources, string directory)
+    {
+        long total = 0;
+        NetworkSettings network = sources.Network;
+        bool wiredEnabled = network.Dot1x.IsEnabled;
+        bool wifiEnabled = network.WifiProvisioned && network.Wifi.IsEnabled;
+        bool wifiProfileEnabled = wifiEnabled && network.Wifi.HasEnterpriseProfile;
+        bool hardwareHashEnabled = sources.Autopilot.IsEnabled && sources.Autopilot.ProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload;
+        Copy(network.Dot1x.ProfileTemplate, required: wiredEnabled);
+        Copy(network.Dot1x.Certificate, required: wiredEnabled && network.Dot1x.RequiresCertificate);
+        Copy(network.Wifi.EnterpriseProfileTemplate, required: wifiProfileEnabled);
+        Copy(network.Wifi.Certificate, required: wifiEnabled && network.Wifi.RequiresCertificate);
+        Copy(sources.Autopilot.HardwareHashUpload.BootMediaCertificate.Pfx, required: hardwareHashEnabled);
+        foreach (UnattendFileSettings file in sources.Unattend.Files)
+        {
+            if (file.File is not null && !string.Equals(file.File.ContentHash, file.ContentHash, StringComparison.OrdinalIgnoreCase))
+                throw new InvalidDataException(UnattendFileService.ContentMismatchMessage);
+            Copy(file.File, required: true);
+        }
+
+        void Copy(AuthoringFileReference? reference, bool required)
+        {
+            if (reference is null)
+            {
+                if (required) throw new FileNotFoundException(DependencyUnavailableMessage);
+                return;
+            }
+            if (sourceCopies.ContainsKey(reference.ContentHash)) return;
+            if (files is null || !files.IsAvailable(reference)) throw new FileNotFoundException(DependencyUnavailableMessage);
+            if (reference.Length > MaximumSourceBytes || total + reference.Length > MaximumTotalSourceBytes)
+                throw new InvalidDataException("Media source files exceed the supported size.");
+
+            byte[]? content = null;
+            try
+            {
+                try
+                {
+                    content = files.ReadVerified(reference);
+                }
+                catch (Exception exception) when (exception is FileNotFoundException or DirectoryNotFoundException)
+                {
+                    throw new FileNotFoundException(DependencyUnavailableMessage, exception);
+                }
+                total += content.Length;
+
+                string target = Path.Combine(directory, Guid.NewGuid().ToString("N") + SafeExtension(reference.FileName));
+                using FileStream output = new(target, FileMode.CreateNew, FileAccess.Write, FileShare.None);
+                output.Write(content);
+                sourceCopies.Add(reference.ContentHash, target);
+            }
+            finally
+            {
+                if (content is not null) CryptographicOperations.ZeroMemory(content);
+            }
+        }
+    }
+
+    private void ReleaseSourceFiles()
+    {
+        sourceFilesLease?.Dispose();
+        sourceFilesLease = null;
+    }
+
+    private static string SafeExtension(string path) => Path.GetExtension(path).ToLowerInvariant() switch
+    {
+        ".xml" => ".xml",
+        ".pfx" => ".pfx",
+        ".p12" => ".p12",
+        ".cer" => ".cer",
+        ".crt" => ".crt",
+        ".json" => ".json",
+        _ => ".bin"
+    };
 
     private static void ValidateDriverSources(string source, CancellationToken cancellationToken)
     {
@@ -366,43 +494,31 @@ public sealed class BuildSnapshot : IDisposable
         }
     }
 
-    private FoundryConfigurationDocument CreateGenerationDocument(TelemetrySettings? telemetryOverride)
+    private FoundryConfigurationDocument CreateGenerationDocument(TelemetrySettings? telemetryOverride) =>
+        configuration with { Telemetry = telemetryOverride ?? configuration.Telemetry };
+
+    /// <summary>Gives generators the captured passwords and only the private copies, never the authoring sources.</summary>
+    private MediaInputs CreateGenerationInputs() => new()
     {
-        return configuration with
+        ResolveFile = ResolveCapturedFile,
+        Network = new NetworkSecrets
         {
-            Network = configuration.Network with
-            {
-                Wifi = configuration.Network.Wifi with { Passphrase = AsString(wifiPassphrase), CertificatePfxPassword = AsString(wifiCertificatePassword) },
-                Dot1x = configuration.Network.Dot1x with { CertificatePfxPassword = AsString(wiredCertificatePassword) }
-            },
-            Autopilot = configuration.Autopilot with
-            {
-                HardwareHashUpload = configuration.Autopilot.HardwareHashUpload with
-                {
-                    BootMediaCertificate = configuration.Autopilot.HardwareHashUpload.BootMediaCertificate with { PfxPassword = AsString(autopilotCertificatePassword) }
-                }
-            },
-            Telemetry = telemetryOverride ?? configuration.Telemetry
-        };
-    }
+            WifiPassphrase = AsString(wifiPassphrase),
+            WiredCertificatePfxPassword = AsString(wiredCertificatePassword),
+            WifiCertificatePfxPassword = AsString(wifiCertificatePassword)
+        },
+        AutopilotPfxPassword = AsString(autopilotCertificatePassword)
+    };
+
+    /// <summary>Returns the private copy captured for <paramref name="reference"/>, or <see langword="null"/> when it was not captured.</summary>
+    internal string? ResolveCapturedFile(AuthoringFileReference reference) => sourceCopies.GetValueOrDefault(reference.ContentHash);
 
     private static FoundryConfigurationDocument CloneConfiguration(FoundryConfigurationDocument source)
     {
-        AutopilotBootMediaCertificateSettings bootCertificate = source.Autopilot.HardwareHashUpload.BootMediaCertificate with { PfxPassword = null };
-        FoundryConfigurationDocument sanitized = source with
-        {
-            Network = source.Network with
-            {
-                Wifi = source.Network.Wifi with { Passphrase = null, PassphraseSecret = null, CertificatePfxPassword = null, CertificatePfxPasswordSecret = null },
-                Dot1x = source.Network.Dot1x with { CertificatePfxPassword = null, CertificatePfxPasswordSecret = null }
-            },
-            Autopilot = source.Autopilot with { HardwareHashUpload = source.Autopilot.HardwareHashUpload with { BootMediaCertificate = bootCertificate } }
-        };
-        byte[] bytes = JsonSerializer.SerializeToUtf8Bytes(sanitized, ConfigurationJsonDefaults.SerializerOptions);
+        byte[] bytes = JsonSerializer.SerializeToUtf8Bytes(source, ConfigurationJsonDefaults.SerializerOptions);
         try
         {
-            FoundryConfigurationDocument clone = JsonSerializer.Deserialize<FoundryConfigurationDocument>(bytes, ConfigurationJsonDefaults.SerializerOptions)!;
-            return clone with { Autopilot = clone.Autopilot with { HardwareHashUpload = clone.Autopilot.HardwareHashUpload with { BootMediaCertificate = bootCertificate } } };
+            return JsonSerializer.Deserialize<FoundryConfigurationDocument>(bytes, ConfigurationJsonDefaults.SerializerOptions)!;
         }
         finally
         {
@@ -418,11 +534,11 @@ public sealed class BuildSnapshot : IDisposable
         {
             Network = source.Network with
             {
-                Dot1x = source.Network.Dot1x.IsEnabled ? source.Network.Dot1x : source.Network.Dot1x with { ProfileTemplatePath = null, CertificatePath = null },
+                Dot1x = source.Network.Dot1x.IsEnabled ? source.Network.Dot1x : source.Network.Dot1x with { ProfileTemplate = null, Certificate = null },
                 Wifi = source.Network.Wifi with
                 {
-                    EnterpriseProfileTemplatePath = wifiEnabled && source.Network.Wifi.HasEnterpriseProfile ? source.Network.Wifi.EnterpriseProfileTemplatePath : null,
-                    CertificatePath = wifiEnabled ? source.Network.Wifi.CertificatePath : null
+                    EnterpriseProfileTemplate = wifiEnabled && source.Network.Wifi.HasEnterpriseProfile ? source.Network.Wifi.EnterpriseProfileTemplate : null,
+                    Certificate = wifiEnabled ? source.Network.Wifi.Certificate : null
                 }
             },
             Unattend = source.Unattend.IsEnabled ? source.Unattend : source.Unattend with { Files = [] },

@@ -25,14 +25,16 @@
                     <ToggleSwitch
                         x:Uid="OsSelectionPageEnableToggle"
                         behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                        IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}"
                         IsOn="{x:Bind ViewModel.IsOperatingSystemSelectionEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Style="{StaticResource FoundryPageHeaderToggleSwitchStyle}" />
                 </controls:PageHeader.ActionContent>
             </controls:PageHeader>
+            <controls:ManagedConfigurationBanner />
 
             <ContentControl
                 HorizontalContentAlignment="Stretch"
-                IsEnabled="{x:Bind ViewModel.IsOperatingSystemSelectionEnabled, Mode=OneWay}">
+                IsEnabled="{x:Bind controls:BindingFunctions.And(ViewModel.IsOperatingSystemSelectionEnabled, Managed.IsEditable), Mode=OneWay}">
                 <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
                     <wct:SettingsExpander
                         Description="{x:Bind ViewModel.OperatingSystemVersionGroupDescription, Mode=OneWay}"

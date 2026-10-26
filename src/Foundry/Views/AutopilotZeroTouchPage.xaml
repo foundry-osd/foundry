@@ -23,9 +23,11 @@
                 <controls:PageHeader.ActionContent>
                     <Button
                         Click="OnModeActionClick"
-                        Content="{x:Bind ViewModel.HardwareHashUploadActionText, Mode=OneWay}" />
+                        Content="{x:Bind ViewModel.HardwareHashUploadActionText, Mode=OneWay}"
+                        IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}" />
                 </controls:PageHeader.ActionContent>
             </controls:PageHeader>
+            <controls:ManagedConfigurationBanner />
 
             <ContentControl
                 HorizontalContentAlignment="Stretch"
@@ -34,7 +36,8 @@
                     <wct:SettingsCard
                         HorizontalContentAlignment="Stretch"
                         Description="{x:Bind ViewModel.TenantStatusDescription, Mode=OneWay}"
-                        Header="{x:Bind ViewModel.TenantStatusLabel, Mode=OneWay}">
+                        Header="{x:Bind ViewModel.TenantStatusLabel, Mode=OneWay}"
+                        IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}">
                         <StackPanel
                             HorizontalAlignment="Right"
                             Orientation="Horizontal"
@@ -55,6 +58,7 @@
                         ContentAlignment="Vertical"
                         Description="{x:Bind ViewModel.TenantReadinessDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.TenantReadinessLabel, Mode=OneWay}"
+                        IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}"
                         Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
                         <tv:TableView x:Name="TenantReadinessTable"
                             MaxHeight="{ThemeResource FoundryTableMaxHeight}"
@@ -99,6 +103,7 @@
                         ContentAlignment="Vertical"
                         Description="{x:Bind ViewModel.ProvisionedCertificatesDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.ProvisionedCertificatesLabel, Mode=OneWay}"
+                        IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}"
                         Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
                         <StackPanel Spacing="{ThemeResource FoundrySpace8}">
                             <ScrollViewer
@@ -211,27 +216,30 @@
                         <StackPanel
                             HorizontalAlignment="Right"
                             Spacing="{ThemeResource FoundrySpace8}">
-                            <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBox
-                                    Width="{ThemeResource FoundryWideInputMinWidth}"
-                                    Header="{x:Bind ViewModel.BootMediaCertificatePfxPathLabel, Mode=OneWay}"
-                                    IsReadOnly="True"
-                                    Text="{x:Bind ViewModel.BootMediaCertificatePfxPath, Mode=OneWay}" />
-                                <Button
-                                    Grid.Column="1"
-                                    MinWidth="{StaticResource FoundryCompactActionMinWidth}"
-                                    VerticalAlignment="Bottom"
-                                    Command="{x:Bind ViewModel.SelectBootMediaCertificatePfxCommand}"
-                                    Content="{x:Bind ViewModel.SelectBootMediaCertificateButtonText, Mode=OneWay}" />
-                            </Grid>
+                            <ContentControl IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}">
+                                <Grid ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox
+                                        Width="{ThemeResource FoundryWideInputMinWidth}"
+                                        Header="{x:Bind ViewModel.BootMediaCertificatePfxPathLabel, Mode=OneWay}"
+                                        IsReadOnly="True"
+                                        Text="{x:Bind ViewModel.BootMediaCertificatePfxFileName, Mode=OneWay}" />
+                                    <Button
+                                        Grid.Column="1"
+                                        MinWidth="{StaticResource FoundryCompactActionMinWidth}"
+                                        VerticalAlignment="Bottom"
+                                        Command="{x:Bind ViewModel.SelectBootMediaCertificatePfxCommand}"
+                                        Content="{x:Bind ViewModel.SelectBootMediaCertificateButtonText, Mode=OneWay}" />
+                                </Grid>
+                            </ContentControl>
                             <PasswordBox x:Name="BootMediaCertificatePasswordBox"
                                 Width="{ThemeResource FoundryWideInputMinWidth}"
                                 HorizontalAlignment="Left"
                                 Header="{x:Bind ViewModel.BootMediaCertificatePasswordLabel, Mode=OneWay}"
+                                IsEnabled="{x:Bind Managed.ArePasswordsEditable, Mode=OneWay}"
                                 Loaded="BootMediaCertificatePasswordBox_OnLoaded"
                                 PasswordChanged="BootMediaCertificatePasswordBox_OnPasswordChanged" />
                             <TextBlock
@@ -247,6 +255,7 @@
                         HorizontalContentAlignment="Stretch"
                         Description="{x:Bind ViewModel.GroupTagDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.GroupTagLabel, Mode=OneWay}"
+                        IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}"
                         Visibility="{x:Bind ViewModel.ConnectedTenantDetailsVisibility, Mode=OneWay}">
                         <ComboBox
                             MinWidth="{StaticResource FoundrySettingsActionMinWidth}"

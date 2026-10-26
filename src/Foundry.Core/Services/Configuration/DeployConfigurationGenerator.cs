@@ -67,9 +67,21 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         DeployProtectionSettings? protectionSettings,
         OobeAccountSecretState? oobeAccountSecretState,
         DomainJoinSecretState? domainJoinSecretState,
+        string? authoringVersion = null) =>
+        Generate(document, deploymentSecretsKey, protectionSettings, oobeAccountSecretState, domainJoinSecretState, MediaInputs.None, authoringVersion);
+
+    /// <inheritdoc />
+    public FoundryDeployConfigurationDocument Generate(
+        FoundryConfigurationDocument document,
+        byte[]? deploymentSecretsKey,
+        DeployProtectionSettings? protectionSettings,
+        OobeAccountSecretState? oobeAccountSecretState,
+        DomainJoinSecretState? domainJoinSecretState,
+        MediaInputs inputs,
         string? authoringVersion = null)
     {
         ArgumentNullException.ThrowIfNull(document);
+        ArgumentNullException.ThrowIfNull(inputs);
         DomainJoinConfigurationValidator.ThrowIfProvisioningModesConflict(document.Autopilot, document.DomainJoin);
         if (document.DomainJoin.IsEnabled && !DomainJoinConfigurationValidator.EvaluateReadiness(document.DomainJoin,
             account => domainJoinSecretState?.HasPassword(account) == true,
@@ -79,7 +91,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         CustomDriverSetsSettingsValidator.ThrowIfInvalid(document.CustomDrivers);
         PreOobeConfigurationValidator.ThrowIfInvalid(document.PreOobe);
         UnattendFileService.ValidateSettings(document.Unattend, protectionSettings?.IsEnabled == true);
-        AutopilotConfigurationValidator.ThrowIfNotReady(document.Autopilot, DateTimeOffset.UtcNow);
+        AutopilotConfigurationValidator.ThrowIfNotReady(document.Autopilot, DateTimeOffset.UtcNow, !string.IsNullOrWhiteSpace(inputs.AutopilotPfxPassword));
         MachineNamingValidator.ThrowIfInvalid(document.Customization.MachineNaming);
         OobeAccountConfigurationValidator.ThrowIfInvalid(document.Customization.Oobe, oobeAccountSecretState);
         ThrowIfAutopilotConflictsWithOobeAccounts(document.Autopilot, document.Customization.Oobe);
@@ -210,7 +222,8 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                     : null,
                 HardwareHashUpload = CreateDeployHardwareHashUploadSettings(
                     document.Autopilot,
-                    deploymentSecretsKey)
+                    deploymentSecretsKey,
+                    inputs)
             },
             Telemetry = document.Telemetry
         };
@@ -281,7 +294,8 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
 
     private static DeployAutopilotHardwareHashUploadSettings CreateDeployHardwareHashUploadSettings(
         AutopilotSettings autopilot,
-        byte[]? deploymentSecretsKey)
+        byte[]? deploymentSecretsKey,
+        MediaInputs inputs)
     {
         if (!autopilot.IsEnabled ||
             autopilot.ProvisioningMode != AutopilotProvisioningMode.HardwareHashUpload)
@@ -304,19 +318,20 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                 throw new InvalidOperationException("Autopilot hardware hash upload media generation requires a Deploy secret key.");
             }
 
-            AutopilotBootMediaCertificateSettings bootMediaCertificate = settings.BootMediaCertificate;
-            if (string.IsNullOrWhiteSpace(bootMediaCertificate.PfxPath) ||
-                !File.Exists(bootMediaCertificate.PfxPath))
+            AuthoringFileReference? pfx = settings.BootMediaCertificate.Pfx;
+            string? pfxPath = pfx is null ? null : inputs.ResolveFile(pfx);
+            if (pfxPath is null || !File.Exists(pfxPath))
             {
                 throw new InvalidOperationException("Autopilot hardware hash upload media generation requires the selected PFX file.");
             }
 
-            if (string.IsNullOrWhiteSpace(bootMediaCertificate.PfxPassword))
+            string? pfxPassword = inputs.AutopilotPfxPassword;
+            if (string.IsNullOrWhiteSpace(pfxPassword))
             {
                 throw new InvalidOperationException("Autopilot hardware hash upload media generation requires the selected PFX password.");
             }
 
-            byte[] pfxBytes = File.ReadAllBytes(bootMediaCertificate.PfxPath);
+            byte[] pfxBytes = File.ReadAllBytes(pfxPath);
             try
             {
                 pfxSecret = MediaSecretEnvelopeProtector.EncryptBytes(
@@ -330,7 +345,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             }
 
             pfxPasswordSecret = MediaSecretEnvelopeProtector.EncryptString(
-                bootMediaCertificate.PfxPassword,
+                pfxPassword,
                 deploymentSecretsKey,
                 MediaSecretEnvelopeProtector.DeploymentKeyId);
         }

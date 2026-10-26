@@ -283,6 +283,12 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="AppUpdate_ReleaseNotesLink.Content" xml:space="preserve">
     <value>Izlaiduma piezīmes</value>
   </data>
+  <data name="AuthoringFiles.ImportFailedMessage" xml:space="preserve">
+    <value>Atlasīto failu nevarēja pievienot programmai Foundry. Izvēlieties lasāmu failu, kura lielums nepārsniedz 4 MiB.</value>
+  </data>
+  <data name="AuthoringFiles.ImportFailedTitle" xml:space="preserve">
+    <value>Fails netika pievienots</value>
+  </data>
   <data name="Autopilot.ColumnDefault" xml:space="preserve">
     <value>Noklusējums</value>
   </data>
@@ -389,7 +395,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Kopēt paroli</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedInstruction" xml:space="preserve">
-    <value>Saglabājiet šo PFX failu un paroli tagad drošā vietā. Foundry šajā datorā saglabā paroli kopā ar konfigurāciju tikai tad, ja sadaļā „Iestatījumu dublēšana un sinhronizēšana“ ir ieslēgta opcija „Atcerēties paroles“. Jums būs nepieciešamas abas vērtības, lai ģenerētu sāknēšanas datu nesēju aparatūras jaucējkoda augšupielādei.</value>
+    <value>Saglabājiet šo PFX failu un paroli tagad drošā vietā. Foundry atceras paroli šajā datorā savā lokālajā šifrētajā glabātavā. Tā atstāj šo datoru tikai eksportā vai publikācijā, ja ir izvēlēts “Iekļaut paroles”. Jums būs nepieciešamas abas vērtības, lai ģenerētu sāknēšanas datu nesēju aparatūras jaucējkoda augšupielādei.</value>
   </data>
   <data name="Autopilot.HardwareHashCertificateCreatedPasswordCopied" xml:space="preserve">
     <value>Parole nokopēta.</value>
@@ -737,7 +743,10 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Nav pieejams</value>
   </data>
   <data name="CustomDrivers.AlreadyInProfile" xml:space="preserve">
-    <value>Šī mape jau ir šajā profilā ar nosaukumu {0}.</value>
+    <value>Šī mape jau ir šajā konfigurācijā ar nosaukumu {0}.</value>
+  </data>
+  <data name="CustomDrivers.ConfigurationReplaced" xml:space="preserve">
+    <value>Importēšanas laikā konfigurācija tika aizstāta, tāpēc draiveru kopa netika pievienota. Importējiet mapi vēlreiz.</value>
   </data>
   <data name="CustomDrivers.ContentCleanupFailed" xml:space="preserve">
     <value>Draiveru kopa tika noņemta, taču tās lokālo kopiju neizdevās izdzēst.</value>
@@ -749,7 +758,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Draiveru kopa</value>
   </data>
   <data name="CustomDrivers.DuplicateName" xml:space="preserve">
-    <value>Šajā profilā jau ir draiveru kopa ar šādu nosaukumu.</value>
+    <value>Šajā konfigurācijā jau ir draiveru kopa ar šādu nosaukumu.</value>
   </data>
   <data name="CustomDrivers.EmptyMessage" xml:space="preserve">
     <value>Nav pielāgotu draiveru kopu. Lai sāktu, importējiet mapi, kurā ir .inf draiveri.</value>
@@ -802,26 +811,23 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="CustomDrivers.LibraryLabel" xml:space="preserve">
     <value>Draiveru kopas</value>
   </data>
-  <data name="CustomDrivers.ProfileChanged" xml:space="preserve">
-    <value>Importēšanas laikā mainījās aktīvais profils, tāpēc draiveru kopa netika pievienota. Importējiet mapi šajā profilā vēlreiz.</value>
-  </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
     <value>Nav pieejams, sāknējot ar PXE. Pielāgotiem draiveriem nepieciešams pilns ISO vai USB datu nesējs.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
-    <value>Šī profila draiveru kopas nav derīgas. Pirms datu nesēja izveides vai atjaunināšanas pārbaudiet iekļautās kopas un noklusējuma kopu.</value>
+    <value>Šīs konfigurācijas draiveru kopas nav derīgas. Pirms datu nesēja izveides vai atjaunināšanas pārbaudiet iekļautās kopas un noklusējuma kopu.</value>
   </data>
   <data name="CustomDrivers.ReadinessMissingContent" xml:space="preserve">
     <value>Kopas {0} lokālā kopija trūkst vai ir bojāta. Pirms datu nesēja izveides vai atjaunināšanas vēlreiz importējiet mapi vai izslēdziet kopu.</value>
   </data>
   <data name="CustomDrivers.ReadinessNoIncludedSet" xml:space="preserve">
-    <value>Pirms datu nesēja izveides vai atjaunināšanas iekļaujiet šajā profilā vismaz vienu draiveru kopu vai izslēdziet pielāgotos draiverus.</value>
+    <value>Pirms datu nesēja izveides vai atjaunināšanas iekļaujiet šajā konfigurācijā vismaz vienu draiveru kopu vai izslēdziet pielāgotos draiverus.</value>
   </data>
   <data name="CustomDrivers.RemoveConfirm" xml:space="preserve">
     <value>Noņemt draiveru kopu</value>
   </data>
   <data name="CustomDrivers.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) tiks noņemta no pašreizējā profila.</value>
+    <value>{0} ({1}) tiks noņemta no pašreizējās konfigurācijas.</value>
   </data>
   <data name="CustomDrivers.RemoveFailed" xml:space="preserve">
     <value>Draiveru kopu neizdevās noņemt. Mēģiniet vēlreiz.</value>
@@ -830,13 +836,13 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Vai noņemt draiveru kopu?</value>
   </data>
   <data name="CustomDrivers.RemoveWarning" xml:space="preserve">
-    <value>Tās lokālā kopija tiek izdzēsta, ja to neizmanto cits profils. Sākotnējā mape un esošie datu nesēji netiek mainīti.</value>
+    <value>Tās lokālā kopija tiek izdzēsta. Sākotnējā mape un esošie datu nesēji netiek mainīti.</value>
   </data>
   <data name="CustomDrivers.SetDefaultLabel" xml:space="preserve">
     <value>Iestatīt kā noklusējumu</value>
   </data>
   <data name="CustomDrivers.SetLimitReached" xml:space="preserve">
-    <value>Šajā profilā ir sasniegts maksimālais draiveru kopu skaits. Pirms citas importēšanas noņemiet vienu.</value>
+    <value>Šajā konfigurācijā ir sasniegts maksimālais draiveru kopu skaits. Pirms citas importēšanas noņemiet vienu.</value>
   </data>
   <data name="CustomDrivers.StageVerifying" xml:space="preserve">
     <value>Notiek pielāgoto draiveru kopu pārbaude…</value>
@@ -878,7 +884,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Atlasītais attēls</value>
   </data>
   <data name="CustomImages.DuplicateName" xml:space="preserve">
-    <value>Šajā profilā jau ir attēls ar šādu nosaukumu.</value>
+    <value>Šajā konfigurācijā jau ir attēls ar šādu nosaukumu.</value>
   </data>
   <data name="CustomImages.EditionLabel" xml:space="preserve">
     <value>Izdevums</value>
@@ -935,7 +941,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Nav pieejams, sāknējot ar PXE. Pielāgotiem attēliem nepieciešams pilns ISO vai USB datu nesējs.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
-    <value>Iekļaujiet šajā profilā vismaz vienu pieejamu Windows attēlu. Pirms datu nesēja izveides vai atjaunināšanas atjaunojiet trūkstošos iekļautos attēlus un labojiet vai notīriet vēlamā attēla vai indeksa atlasi.</value>
+    <value>Iekļaujiet šajā konfigurācijā vismaz vienu pieejamu Windows attēlu. Pirms datu nesēja izveides vai atjaunināšanas atjaunojiet trūkstošos iekļautos attēlus un labojiet vai notīriet vēlamā attēla vai indeksa atlasi.</value>
   </data>
   <data name="CustomImages.RefreshLabel" xml:space="preserve">
     <value>Atsvaidzināt</value>
@@ -944,7 +950,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Noņemt attēlu</value>
   </data>
   <data name="CustomImages.RemoveConfirmationFormat" xml:space="preserve">
-    <value>{0} ({1}) tiks noņemts no pašreizējā profila, un tā lokālā kopija tiks dzēsta.</value>
+    <value>{0} ({1}) tiks noņemts no pašreizējās konfigurācijas, un tā lokālā kopija tiks dzēsta.</value>
   </data>
   <data name="CustomImages.RemoveLabel" xml:space="preserve">
     <value>Noņemt</value>
@@ -953,7 +959,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Vai noņemt pielāgoto attēlu?</value>
   </data>
   <data name="CustomImages.RemoveWarning" xml:space="preserve">
-    <value>Citos profilos, kuros tiek izmantots šis attēls, tas tiks rādīts kā trūkstošs. Sākotnējais fails un esošie datu nesēji netiks mainīti.</value>
+    <value>Sākotnējais fails un esošie datu nesēji netiks mainīti.</value>
   </data>
   <data name="CustomImages.RenameLabel" xml:space="preserve">
     <value>Rediģēt</value>
@@ -2768,7 +2774,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Nodrošiniet uzņēmuma Wi-Fi profila veidni</value>
   </data>
   <data name="Network.WifiPersonalHelperText" xml:space="preserve">
-    <value>Ieejas frāze šajā datorā tiek saglabāta kopā ar konfigurāciju tikai tad, ja sadaļā „Iestatījumu dublēšana un sinhronizēšana“ ir ieslēgta opcija „Atcerēties paroles“. Pretējā gadījumā tā netiek saglabāta un tā jāievada vēlreiz, piemēram, pēc Foundry OSD restartēšanas.</value>
+    <value>Foundry atceras ieejas frāzi šajā datorā savā lokālajā šifrētajā glabātavā. Tā atstāj šo datoru tikai eksportā vai publikācijā, ja ir izvēlēts “Iekļaut paroles”.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
     <value>Importē Foundry pārvaldīto Wi-Fi profilu sistēmā Windows pirms OOBE, lai pēc WinPE saglabātu izvietošanas savienojamību.</value>
@@ -3001,299 +3007,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="PostInstallation.WorkingDirectory" xml:space="preserve">
     <value>Darba direktorijs (relatīvs; ja tukšs, izmanto satura sakni)</value>
   </data>
-  <data name="Profiles.Active" xml:space="preserve">
-    <value>Pašreizējie iestatījumi</value>
-  </data>
-  <data name="Profiles.AutoSync" xml:space="preserve">
-    <value>Automātiska sinhronizācija</value>
-  </data>
-  <data name="Profiles.ChooseAnotherName" xml:space="preserve">
-    <value>Izvēlēties citu nosaukumu</value>
-  </data>
-  <data name="Profiles.CleanupPending" xml:space="preserve">
-    <value>Neizdevās noņemt dažas vecās saglabātās paroles vai piekļuves atslēgas. Mēģiniet vēlreiz, kad būs pieejams Windows akreditācijas datu pārvaldnieks.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSaving" xml:space="preserve">
-    <value>Aizvērt, nesaglabājot</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingMessage" xml:space="preserve">
-    <value>Jūsu pēdējās izmaiņas neizdevās saglabāt, un tās tiks zaudētas.</value>
-  </data>
-  <data name="Profiles.CloseWithoutSavingTitle" xml:space="preserve">
-    <value>Vai aizvērt, nesaglabājot iestatījumus?</value>
-  </data>
-  <data name="Profiles.ConfirmConnectionPassword" xml:space="preserve">
-    <value>Apstipriniet paroli</value>
-  </data>
-  <data name="Profiles.ConfirmPassphrase" xml:space="preserve">
-    <value>Apstipriniet faila paroli</value>
-  </data>
-  <data name="Profiles.Conflict" xml:space="preserve">
-    <value>Šie iestatījumi ir mainīti šajā datorā, un tos ir mainījis arī kāds cits. Izvēlieties, kuru versiju paturēt.</value>
-  </data>
-  <data name="Profiles.ConflictWarning" xml:space="preserve">
-    <value>Izvēlētā versija aizstās otru. Ja vēlaties paturēt atsevišķu kopiju, vispirms izvēlieties “Dublēt”.</value>
-  </data>
-  <data name="Profiles.ConnectAction" xml:space="preserve">
-    <value>Savienot</value>
-  </data>
-  <data name="Profiles.ConnectDescription" xml:space="preserve">
-    <value>Izvēlieties savienojuma failu, ko nodrošinājis kāds no jūsu komandas.</value>
-  </data>
-  <data name="Profiles.ConnectionPassword" xml:space="preserve">
-    <value>Savienojuma parole</value>
-  </data>
-  <data name="Profiles.ConnectionPasswordHint" xml:space="preserve">
-    <value>Citiem datoriem būs nepieciešama šī parole, lai izveidotu savienojumu.</value>
-  </data>
-  <data name="Profiles.Continue" xml:space="preserve">
-    <value>Turpināt</value>
-  </data>
-  <data name="Profiles.CreateShared" xml:space="preserve">
-    <value>Kopīgot šo konfigurāciju</value>
-  </data>
-  <data name="Profiles.CreateSharedDescription" xml:space="preserve">
-    <value>Izvēlieties šai konfigurācijai kopīgotu tīkla mapi.</value>
-  </data>
-  <data name="Profiles.Delete" xml:space="preserve">
-    <value>Dzēst no šī datora</value>
-  </data>
-  <data name="Profiles.DeleteAction" xml:space="preserve">
-    <value>Dzēst</value>
-  </data>
-  <data name="Profiles.DeleteShared" xml:space="preserve">
-    <value>Dzēst arī visiem pārējiem</value>
-  </data>
-  <data name="Profiles.DeleteSharedAction" xml:space="preserve">
-    <value>Dzēst visiem</value>
-  </data>
-  <data name="Profiles.DeleteSharedTitle" xml:space="preserve">
-    <value>Vai dzēst visiem?</value>
-  </data>
-  <data name="Profiles.DeleteSharedWarning" xml:space="preserve">
-    <value>Vai dzēst šos koplietotos iestatījumus visiem? Ikvienam, kuram ir nesinhronizētas izmaiņas, ir jādublē savi iestatījumi, lai tās saglabātu.</value>
-  </data>
-  <data name="Profiles.DeleteWarning" xml:space="preserve">
-    <value>Vai dzēst šos iestatījumus no šī datora? Ja vēlaties rezerves kopiju, vispirms eksportējiet tos.</value>
-  </data>
-  <data name="Profiles.DeletedRemote" xml:space="preserve">
-    <value>Šie koplietotie iestatījumi ir izdzēsti. Izvēlieties “Dublēt”, lai paturētu izmaiņas šajā datorā.</value>
-  </data>
-  <data name="Profiles.Disconnect" xml:space="preserve">
-    <value>Atvienot</value>
-  </data>
-  <data name="Profiles.DisconnectWarning" xml:space="preserve">
-    <value>Vai pārtraukt šīs konfigurācijas sinhronizēšanu šajā datorā? Pašreizējie iestatījumi tiks saglabāti. Koplietotā konfigurācija un citi datori netiks mainīti.</value>
-  </data>
-  <data name="Profiles.Export" xml:space="preserve">
-    <value>Eksportēt</value>
-  </data>
-  <data name="Profiles.ExportDescription" xml:space="preserve">
-    <value>Saglabāt šo konfigurāciju failā kā rezerves kopiju vai citam datoram.</value>
-  </data>
-  <data name="Profiles.ExportProtection" xml:space="preserve">
-    <value>Izvēlieties paroli eksportētā faila aizsardzībai. Tā būs vajadzīga, lai importētu konfigurāciju.</value>
-  </data>
-  <data name="Profiles.ExportRecovery" xml:space="preserve">
-    <value>Saglabāt savienojuma failu</value>
-  </data>
-  <data name="Profiles.Failed" xml:space="preserve">
-    <value>Neizdevās pabeigt darbību. Pārbaudiet failu, tā paroli, piekļuves atļaujas un tīkla savienojumu.</value>
-  </data>
-  <data name="Profiles.FolderExists" xml:space="preserve">
-    <value>Šis mapes nosaukums jau tiek izmantots. Izveidojiet savienojumu, izmantojot savienojuma failu, vai atgriezieties un izvēlieties citu nosaukumu.</value>
-  </data>
-  <data name="Profiles.FolderNotEmpty" xml:space="preserve">
-    <value>Koplietotajā mapē izvēlieties jaunu, tukšu apakšmapi. Esošie faili paliks nemainīti.</value>
-  </data>
-  <data name="Profiles.Forget" xml:space="preserve">
-    <value>Notīrīt saglabātās paroles un piekļuves datus</value>
-  </data>
-  <data name="Profiles.ForgetAction" xml:space="preserve">
-    <value>Notīrīt</value>
-  </data>
-  <data name="Profiles.ForgetWarning" xml:space="preserve">
-    <value>Vai noņemt šajā datorā saglabātās paroles, Foundry saglabātos konfidenciālos failus un piekļuvi šo iestatījumu sinhronizācijai? Lai sinhronizētu, būs jāpievieno trūkstošā informācija un jāpievienojas vēlreiz. Jau izveidotie datu nesēji netiks mainīti.</value>
-  </data>
-  <data name="Profiles.Heading" xml:space="preserve">
-    <value>Foundry iestatījumi</value>
-  </data>
-  <data name="Profiles.Import" xml:space="preserve">
-    <value>Importēt</value>
-  </data>
-  <data name="Profiles.ImportDescription" xml:space="preserve">
-    <value>Pievienot konfigurāciju no faila.</value>
-  </data>
-  <data name="Profiles.IncludeSecrets" xml:space="preserve">
-    <value>Iekļaut paroles un konfidenciālus failus</value>
-  </data>
-  <data name="Profiles.IncludedSecretsWarning" xml:space="preserve">
-    <value>Cilvēki, kuri izmanto šo konfigurāciju, var lasīt iekļautās paroles un konfidenciālos failus.</value>
-  </data>
-  <data name="Profiles.Incomplete" xml:space="preserve">
-    <value>Trūkst dažu paroļu vai avota failu. Pievienojiet tos pirms paroļu saglabāšanas vai kopīgošanas.</value>
-  </data>
-  <data name="Profiles.InvalidFolderName" xml:space="preserve">
-    <value>Izmantojiet nosaukumu bez īpašajām rakstzīmēm un bez punkta vai atstarpes beigās.</value>
-  </data>
-  <data name="Profiles.JoinChanged" xml:space="preserve">
-    <value>Koplietotā konfigurācija ir mainījusies. Pirms savienojuma izveides pārskatiet jaunāko versiju.</value>
-  </data>
-  <data name="Profiles.JoinShared" xml:space="preserve">
-    <value>Izveidot savienojumu ar kopīgotu konfigurāciju</value>
-  </data>
-  <data name="Profiles.KeepLocal" xml:space="preserve">
-    <value>Izmantot šī datora versiju</value>
-  </data>
-  <data name="Profiles.LearnMore" xml:space="preserve">
-    <value>Uzzināt vairāk</value>
-  </data>
-  <data name="Profiles.LocalPrivacy" xml:space="preserve">
-    <value>Saglabāt Windows konta paroles šajā datorā.</value>
-  </data>
-  <data name="Profiles.Locked" xml:space="preserve">
-    <value>Windows nevar atbloķēt šos saglabātos iestatījumus vai piekļuvi to sinhronizācijai jūsu kontam šajā datorā.</value>
-  </data>
-  <data name="Profiles.Manage" xml:space="preserve">
-    <value>Vairāk opciju</value>
-  </data>
-  <data name="Profiles.MissingAssets" xml:space="preserve">
-    <value>Trūkstošie vai neiekļautie faili: {0}. Pirms datu nesēja izveides izvēlieties to atrašanās vietas.</value>
-  </data>
-  <data name="Profiles.Name" xml:space="preserve">
-    <value>Konfigurācijas nosaukums</value>
-  </data>
-  <data name="Profiles.Passphrase" xml:space="preserve">
-    <value>Faila parole</value>
-  </data>
-  <data name="Profiles.PasswordMismatch" xml:space="preserve">
-    <value>Paroles nesakrīt.</value>
-  </data>
-  <data name="Profiles.Preview" xml:space="preserve">
-    <value>{0}
-Iekļautie faili: {1}
-Iekļautās paroles un piekļuves atslēgas: {2}</value>
-  </data>
-  <data name="Profiles.Ready" xml:space="preserve">
-    <value>Gatavs</value>
-  </data>
-  <data name="Profiles.RecoveryWarning" xml:space="preserve">
-    <value>Izvēlieties paroli savienojuma faila aizsardzībai. Paroli kopīgojiet atsevišķi. Saglabājiet failu ārpus koplietotās konfigurācijas mapes.</value>
-  </data>
-  <data name="Profiles.Remember" xml:space="preserve">
-    <value>Atcerēties paroles</value>
-  </data>
-  <data name="Profiles.RememberKey" xml:space="preserve">
-    <value>Atcerēties šo savienojumu šajā datorā</value>
-  </data>
-  <data name="Profiles.Rename" xml:space="preserve">
-    <value>Pārdēvēt</value>
-  </data>
-  <data name="Profiles.ReplaceWarning" xml:space="preserve">
-    <value>Tas aizstās pašlaik izmantotos iestatījumus. Lai vispirms paturētu kopiju, atceliet un izvēlieties “Dublēt”.</value>
-  </data>
-  <data name="Profiles.RestoreAccess" xml:space="preserve">
-    <value>Atjaunot piekļuvi</value>
-  </data>
-  <data name="Profiles.Rollback" xml:space="preserve">
-    <value>Koplietotajā mapē saglabātās versijas ir negaidīti mainījušās. Atjaunojiet no uzticamas rezerves kopijas.</value>
-  </data>
-  <data name="Profiles.SaveCopy" xml:space="preserve">
-    <value>Dublēt</value>
-  </data>
-  <data name="Profiles.Select" xml:space="preserve">
-    <value>Izvēlieties konfigurāciju</value>
-  </data>
-  <data name="Profiles.Setup" xml:space="preserve">
-    <value>Iestatīt</value>
-  </data>
-  <data name="Profiles.SetupAction" xml:space="preserve">
-    <value>Iestatīt sinhronizāciju…</value>
-  </data>
-  <data name="Profiles.SetupDescription" xml:space="preserve">
-    <value>Kopīgojiet šo konfigurāciju vai izveidojiet savienojumu ar konfigurāciju, ko jūsu komanda jau izmanto.</value>
-  </data>
-  <data name="Profiles.ShareAction" xml:space="preserve">
-    <value>Kopīgot</value>
-  </data>
-  <data name="Profiles.ShareWarning" xml:space="preserve">
-    <value>Ikviens, kurš var importēt vai sinhronizēt šos iestatījumus, var nolasīt iekļautās paroles un sertifikātu privātās atslēgas.</value>
-  </data>
-  <data name="Profiles.SharedBusy" xml:space="preserve">
-    <value>Cita darbība izmanto šo koplietoto mapi. Pēc brīža mēģiniet vēlreiz. Jūsu izmaiņas tiek saglabātas šajā datorā.</value>
-  </data>
-  <data name="Profiles.SharedFolder" xml:space="preserve">
-    <value>Koplietotā mape</value>
-  </data>
-  <data name="Profiles.SharedUnavailable" xml:space="preserve">
-    <value>Koplietotā mape nav sasniedzama. Pārbaudiet tās adresi un savu piekļuvi tīklam. Jūsu izmaiņas tiek saglabātas šajā datorā.</value>
-  </data>
-  <data name="Profiles.SmbWarning" xml:space="preserve">
-    <value>Visos datoros izmantojiet vienu un to pašu tīkla mapi. Tai jāizmanto SMB 3 ar obligātu šifrēšanu. Ar mākoni sinhronizētas mapes netiek atbalstītas.</value>
-  </data>
-  <data name="Profiles.StopRemembering" xml:space="preserve">
-    <value>Foundry pārtrauks saglabāt šīs konfigurācijas paroles šajā datorā.</value>
-  </data>
-  <data name="Profiles.StopRememberingAction" xml:space="preserve">
-    <value>Pārtraukt atcerēties</value>
-  </data>
-  <data name="Profiles.StopRememberingTitle" xml:space="preserve">
-    <value>Vai pārtraukt atcerēties paroles?</value>
-  </data>
-  <data name="Profiles.SyncNow" xml:space="preserve">
-    <value>Sinhronizēt</value>
-  </data>
-  <data name="Profiles.SyncStatusBusy" xml:space="preserve">
-    <value>Notiek sinhronizēšana…</value>
-  </data>
-  <data name="Profiles.SyncStatusConflict" xml:space="preserve">
-    <value>Izvēlieties versiju</value>
-  </data>
-  <data name="Profiles.SyncStatusError" xml:space="preserve">
-    <value>Nevar sinhronizēt</value>
-  </data>
-  <data name="Profiles.SyncStatusNotConfigured" xml:space="preserve">
-    <value>Nav konfigurēts</value>
-  </data>
-  <data name="Profiles.SyncStatusOffline" xml:space="preserve">
-    <value>Mape nav pieejama</value>
-  </data>
-  <data name="Profiles.SyncStatusPending" xml:space="preserve">
-    <value>Sinhronizējamas izmaiņas</value>
-  </data>
-  <data name="Profiles.SyncStatusReady" xml:space="preserve">
-    <value>Gatavs sinhronizēšanai</value>
-  </data>
-  <data name="Profiles.SyncStatusSuccess" xml:space="preserve">
-    <value>Atjaunināts</value>
-  </data>
-  <data name="Profiles.SyncStatusUpdateAvailable" xml:space="preserve">
-    <value>Pieejamas izmaiņas</value>
-  </data>
-  <data name="Profiles.SyncStatusWarning" xml:space="preserve">
-    <value>Nepieciešama uzmanība</value>
-  </data>
-  <data name="Profiles.Synchronize" xml:space="preserve">
-    <value>Sinhronizēt</value>
-  </data>
-  <data name="Profiles.SynchronizeDescription" xml:space="preserve">
-    <value>Uzturēt šo konfigurāciju atjauninātu jūsu komandas datoros.</value>
-  </data>
-  <data name="Profiles.Synchronized" xml:space="preserve">
-    <value>Iestatījumi ir atjaunināti</value>
-  </data>
-  <data name="Profiles.Unsupported" xml:space="preserve">
-    <value>Foundry nevar atvērt šo iestatījumu formātu. Atjauniniet Foundry un mēģiniet vēlreiz.</value>
-  </data>
-  <data name="Profiles.UpdateAvailable" xml:space="preserve">
-    <value>Ir pieejamas izmaiņas no cita datora. Izvēlieties “Sinhronizēt”, lai tās lietotu.</value>
-  </data>
-  <data name="Profiles.UseRemote" xml:space="preserve">
-    <value>Izmantot koplietoto versiju</value>
-  </data>
-  <data name="Profiles.Validation" xml:space="preserve">
-    <value>Pārbaudiet obligātos laukus. Ja tiek prasīta tīkla mape, izmantojiet ceļu, piemēram, \\server\share\folder. Ja faila paroli ievadāt divreiz, pārliecinieties, ka abi ieraksti sakrīt.</value>
-  </data>
   <data name="Proxy.Status.ApplyFailedMessage" xml:space="preserve">
     <value>Foundry OSD nevarēja saglabāt starpniekservera iestatījumus. Mēģiniet vēlreiz. Plašāka informācija ir žurnālā.</value>
   </data>
@@ -3429,12 +3142,6 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="SettingsPage_GeneralCard.Header" xml:space="preserve">
     <value>Vispārīgi</value>
   </data>
-  <data name="SettingsPage_ProfilesCard.Description" xml:space="preserve">
-    <value>Dublējiet savus iestatījumus, pārsūtiet tos uz citu datoru vai uzturiet tos sinhronizētus.</value>
-  </data>
-  <data name="SettingsPage_ProfilesCard.Header" xml:space="preserve">
-    <value>Iestatījumu dublēšana un sinhronizēšana</value>
-  </data>
   <data name="SettingsPage_ProxyCard.Description" xml:space="preserve">
     <value>Konfigurējiet, kā Foundry OSD izveido savienojumu ar tiešsaistes pakalpojumiem.</value>
   </data>
@@ -3464,6 +3171,498 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   </data>
   <data name="SettingsPage_UpdateCard.Header" xml:space="preserve">
     <value>Atjaunināt lietotni</value>
+  </data>
+  <data name="Sharing.AcceptButton" xml:space="preserve">
+    <value>Pieņemt</value>
+  </data>
+  <data name="Sharing.AcceptReferenceButton" xml:space="preserve">
+    <value>Pieņemt jauno atsauces datoru</value>
+  </data>
+  <data name="Sharing.AcceptReferenceDescription" xml:space="preserve">
+    <value>Mapi tagad publicē cits dators: {0}. Pieņemiet to tikai tad, ja gaidāt šīs izmaiņas, piemēram, pēc pārņemšanas; pretējā gadījumā pārtrauciet sekot mapei.</value>
+  </data>
+  <data name="Sharing.AcceptReferenceTitle" xml:space="preserve">
+    <value>Vai pieņemt jauno atsauces datoru?</value>
+  </data>
+  <data name="Sharing.CandidateChanged" xml:space="preserve">
+    <value>Atsauces dators mainījās, kamēr šis dialoglodziņš bija atvērts. Pirms pieņemšanas pārskatiet jauno atslēgu.</value>
+  </data>
+  <data name="Sharing.CardDescription" xml:space="preserve">
+    <value>Pārvietojiet šo konfigurāciju ar šifrētu failu vai uzturiet vairākus datorus saskaņotus, izmantojot koplietotu mapi.</value>
+  </data>
+  <data name="Sharing.CardHeader" xml:space="preserve">
+    <value>Konfigurācijas koplietošana</value>
+  </data>
+  <data name="Sharing.ChangeButton" xml:space="preserve">
+    <value>Mainīt</value>
+  </data>
+  <data name="Sharing.ChangePasswordButton" xml:space="preserve">
+    <value>Mainīt paroli</value>
+  </data>
+  <data name="Sharing.ChangePasswordDescription" xml:space="preserve">
+    <value>Pašreizējā publikācija tiek pārrakstīta ar jauno paroli. Satura faili netiek šifrēti atkārtoti, tāpēc tas, kurš zināja veco paroli, joprojām tos var lasīt: lai pilnībā atsauktu iepriekšējos lasītājus, izmantojiet opciju Atiestatīt publikāciju. Mapei sekojošie datori vienreiz ievada jauno paroli.</value>
+  </data>
+  <data name="Sharing.ChangePasswordTitle" xml:space="preserve">
+    <value>Mainīt publikācijas paroli</value>
+  </data>
+  <data name="Sharing.CheckNowButton" xml:space="preserve">
+    <value>Pārbaudīt tūlīt</value>
+  </data>
+  <data name="Sharing.ConfirmPassphraseLabel" xml:space="preserve">
+    <value>Apstiprināt ieejas frāzi</value>
+  </data>
+  <data name="Sharing.ConfirmPublicationPasswordLabel" xml:space="preserve">
+    <value>Apstipriniet paroli</value>
+  </data>
+  <data name="Sharing.ContentDownloadingState" xml:space="preserve">
+    <value>Notiek lejupielāde</value>
+  </data>
+  <data name="Sharing.ContentFailed" xml:space="preserve">
+    <value>Vienumu skaits, kurus neizdevās instalēt: {0}. Tie tiek iegūti vēlreiz, kad atsauces dators publicē jaunu versiju.</value>
+  </data>
+  <data name="Sharing.ContentKindDriverSet" xml:space="preserve">
+    <value>Draiveru kopa</value>
+  </data>
+  <data name="Sharing.ContentKindFile" xml:space="preserve">
+    <value>Fails</value>
+  </data>
+  <data name="Sharing.ContentKindImage" xml:space="preserve">
+    <value>Attēls</value>
+  </data>
+  <data name="Sharing.ContentKindPackage" xml:space="preserve">
+    <value>Pēcinstalēšanas pakotne</value>
+  </data>
+  <data name="Sharing.ContentStalled" xml:space="preserve">
+    <value>Saturs mapē var būt bojāts. Publicējiet vēlreiz no atsauces datora.</value>
+  </data>
+  <data name="Sharing.CopyButton" xml:space="preserve">
+    <value>Kopēt</value>
+  </data>
+  <data name="Sharing.CurrentPublicationPasswordLabel" xml:space="preserve">
+    <value>Pašreizējā publikācijas parole</value>
+  </data>
+  <data name="Sharing.EnterPasswordButton" xml:space="preserve">
+    <value>Ievadīt paroli</value>
+  </data>
+  <data name="Sharing.EnterPasswordDescription" xml:space="preserve">
+    <value>Publikācijas parole atkal ir nepieciešama, piemēram, pēc Windows paroles atiestatīšanas vai pēc tam, kad atsauces dators to mainīja.</value>
+  </data>
+  <data name="Sharing.EnterPasswordTitle" xml:space="preserve">
+    <value>Ievadiet publikācijas paroli</value>
+  </data>
+  <data name="Sharing.ExportButton" xml:space="preserve">
+    <value>Eksportēt</value>
+  </data>
+  <data name="Sharing.ExportCompleted" xml:space="preserve">
+    <value>Konfigurācija eksportēta.</value>
+  </data>
+  <data name="Sharing.ExportDescription" xml:space="preserve">
+    <value>Saglabājiet iestatījumus un mazos failus šifrētā failā. Pēcinstalēšanas pakotnes, draiveru kopas un attēli netiek iekļauti.</value>
+  </data>
+  <data name="Sharing.ExportFailed" xml:space="preserve">
+    <value>Konfigurāciju nevarēja eksportēt. Pārbaudiet galamērķi un mēģiniet vēlreiz.</value>
+  </data>
+  <data name="Sharing.ExportFilesTooLarge" xml:space="preserve">
+    <value>Šīs konfigurācijas faili kopā pārsniedz 16 MiB, un tos nevar eksportēt.</value>
+  </data>
+  <data name="Sharing.ExportSkippedFiles" xml:space="preserve">
+    <value>Konfigurācija tika eksportēta, taču daži faili šajā datorā trūkst vai ir bojāti un netika iekļauti (skaits: {0}). Atlasiet tos vēlreiz konfigurācijas lapās un pēc tam eksportējiet vēlreiz.</value>
+  </data>
+  <data name="Sharing.ExportTitle" xml:space="preserve">
+    <value>Eksportēt konfigurāciju</value>
+  </data>
+  <data name="Sharing.FileLabel" xml:space="preserve">
+    <value>Fails</value>
+  </data>
+  <data name="Sharing.FileTypeName" xml:space="preserve">
+    <value>Foundry konfigurācija</value>
+  </data>
+  <data name="Sharing.FolderLabel" xml:space="preserve">
+    <value>Mape</value>
+  </data>
+  <data name="Sharing.FolderPickerTitle" xml:space="preserve">
+    <value>Izvēlieties publikācijas mapi</value>
+  </data>
+  <data name="Sharing.FollowButton" xml:space="preserve">
+    <value>Sekot</value>
+  </data>
+  <data name="Sharing.FollowDescription" xml:space="preserve">
+    <value>Izmantojiet konfigurāciju, ko atsauces dators publicē mapē. Publicētie iestatījumi šajā datorā kļūst tikai lasāmi.</value>
+  </data>
+  <data name="Sharing.FollowDialogDescription" xml:space="preserve">
+    <value>Ievadiet mapi, kurā publicē atsauces dators, un tā publikācijas paroli, pēc tam atveriet to, lai priekšskatītu publikāciju.</value>
+  </data>
+  <data name="Sharing.FollowReplaceWarning" xml:space="preserve">
+    <value>Sekošana aizstāj pašreizējo konfigurāciju un padara publicētos iestatījumus tikai lasāmus. Šī datora ISO izvades ceļš, papildu WinPE draiveru mape un telemetrijas iestatījumi tiek saglabāti.</value>
+  </data>
+  <data name="Sharing.FollowTitle" xml:space="preserve">
+    <value>Sekot mapei</value>
+  </data>
+  <data name="Sharing.ForeignKeyLabel" xml:space="preserve">
+    <value>Atrastā atslēga</value>
+  </data>
+  <data name="Sharing.ForeignVersionLabel" xml:space="preserve">
+    <value>Atrastā versija</value>
+  </data>
+  <data name="Sharing.ForgetPublicationPassword" xml:space="preserve">
+    <value>Aizmirst publikācijas paroli</value>
+  </data>
+  <data name="Sharing.GenerateButton" xml:space="preserve">
+    <value>Ģenerēt</value>
+  </data>
+  <data name="Sharing.ImportButton" xml:space="preserve">
+    <value>Importēt</value>
+  </data>
+  <data name="Sharing.ImportCompleted" xml:space="preserve">
+    <value>Konfigurācija importēta.</value>
+  </data>
+  <data name="Sharing.ImportCompletedMissingContent" xml:space="preserve">
+    <value>Konfigurācija importēta. Šajā datorā trūkst satura: importējiet to vēlreiz attiecīgajā lapā.</value>
+  </data>
+  <data name="Sharing.ImportDescription" xml:space="preserve">
+    <value>Aizstājiet šo konfigurāciju ar eksportētu failu vai iepriekšējās versijas profilu.</value>
+  </data>
+  <data name="Sharing.ImportFailed" xml:space="preserve">
+    <value>Konfigurāciju nevarēja importēt. Pašreizējā konfigurācija nav mainīta.</value>
+  </data>
+  <data name="Sharing.ImportPasswordsNotSaved" xml:space="preserve">
+    <value>Konfigurācija importēta, taču tās paroles nevarēja saglabāt. Ievadiet tās vēlreiz konfigurācijas lapās.</value>
+  </data>
+  <data name="Sharing.ImportRefusedFollowing" xml:space="preserve">
+    <value>Importēšana nav pieejama, kamēr šis dators seko mapei. Vispirms pārtrauciet sekošanu.</value>
+  </data>
+  <data name="Sharing.ImportTitle" xml:space="preserve">
+    <value>Importēt konfigurāciju</value>
+  </data>
+  <data name="Sharing.IncludePasswords" xml:space="preserve">
+    <value>Iekļaut paroles</value>
+  </data>
+  <data name="Sharing.IncludePasswordsPublicationWarning" xml:space="preserve">
+    <value>Ikviens, kurš var lasīt mapi un zina publikācijas paroli, var izlasīt šīs paroles.</value>
+  </data>
+  <data name="Sharing.IncludePasswordsWarning" xml:space="preserve">
+    <value>Ikviens, kuram ir šis fails un tā ieejas frāze, var izlasīt šīs paroles.</value>
+  </data>
+  <data name="Sharing.InvalidFile" xml:space="preserve">
+    <value>Šis fails nav Foundry konfigurācija vai ir bojāts.</value>
+  </data>
+  <data name="Sharing.LastCheckLabel" xml:space="preserve">
+    <value>Pēdējā veiksmīgā pārbaude</value>
+  </data>
+  <data name="Sharing.LastPublishedLabel" xml:space="preserve">
+    <value>Pēdējoreiz publicēts</value>
+  </data>
+  <data name="Sharing.LockedConfiguration" xml:space="preserve">
+    <value>Šis Windows lietotājs nevar atvērt šo konfigurāciju.</value>
+  </data>
+  <data name="Sharing.ManagedBanner" xml:space="preserve">
+    <value>Šo konfigurāciju publicē {0}, un šajā datorā tā ir tikai lasāma. Var mainīt tikai ISO izvades ceļu, papildu WinPE draiveru mapi un telemetrijas iestatījumus.</value>
+  </data>
+  <data name="Sharing.ManagedBannerPasswordsEditable" xml:space="preserve">
+    <value>Šo konfigurāciju publicē {0}, un šajā datorā tā ir tikai lasāma. Publikācijā nav ietvertas paroles: ievadiet tās šeit. Var mainīt arī ISO izvades ceļu, papildu WinPE draiveru mapi un telemetrijas iestatījumus.</value>
+  </data>
+  <data name="Sharing.ManagedBannerTitle" xml:space="preserve">
+    <value>Pārvalda atsauces dators</value>
+  </data>
+  <data name="Sharing.MigrationFilesToReselect" xml:space="preserve">
+    <value>Dažus konfigurācijas izmantotos failus nevarēja atgūt. Atlasiet tos vēlreiz konfigurācijas lapās.</value>
+  </data>
+  <data name="Sharing.MigrationLegacySyncRetired" xml:space="preserve">
+    <value>Iepriekšējo versiju konfigurācijas sinhronizācija vairs netiek atbalstīta. Lai koplietotu šo konfigurāciju, atsauces datorā izmantojiet opciju Publicēt mapē.</value>
+  </data>
+  <data name="Sharing.MigrationNoticesTitle" xml:space="preserve">
+    <value>Pārbaudiet konfigurāciju</value>
+  </data>
+  <data name="Sharing.MigrationPasswordsNeeded" xml:space="preserve">
+    <value>Saglabātās paroles nevarēja atjaunot. Ievadiet tās vēlreiz konfigurācijas lapās.</value>
+  </data>
+  <data name="Sharing.MissingContentGuidance" xml:space="preserve">
+    <value>Importējiet šos vienumus vēlreiz to lapās. Līdz tam atbilstošie konfigurācijas vienumi nav gatavi.</value>
+  </data>
+  <data name="Sharing.MissingContentHeader" xml:space="preserve">
+    <value>Trūkst šajā datorā</value>
+  </data>
+  <data name="Sharing.NewKeyLabel" xml:space="preserve">
+    <value>Jaunā atslēga</value>
+  </data>
+  <data name="Sharing.NewPublicationPasswordLabel" xml:space="preserve">
+    <value>Jaunā publikācijas parole</value>
+  </data>
+  <data name="Sharing.NotAPublication" xml:space="preserve">
+    <value>Šajā mapē nav publicētas konfigurācijas.</value>
+  </data>
+  <data name="Sharing.NotVerified" xml:space="preserve">
+    <value>Vēl nav pārbaudīts: šīs vērtības nāk no mapes un tiek apstiprinātas tikai tad, kad pašreizējā publikācijas parole atver publikāciju.</value>
+  </data>
+  <data name="Sharing.OpenButton" xml:space="preserve">
+    <value>Atvērt</value>
+  </data>
+  <data name="Sharing.OpenFileAutomationName" xml:space="preserve">
+    <value>Atvērt failu</value>
+  </data>
+  <data name="Sharing.OpenProfileAutomationName" xml:space="preserve">
+    <value>Atvērt atlasīto profilu</value>
+  </data>
+  <data name="Sharing.OperationFailed" xml:space="preserve">
+    <value>Darbību nevarēja pabeigt. Detalizētu informāciju skatiet žurnālā.</value>
+  </data>
+  <data name="Sharing.PassphraseCopied" xml:space="preserve">
+    <value>Ieejas frāze nokopēta starpliktuvē.</value>
+  </data>
+  <data name="Sharing.PassphraseLabel" xml:space="preserve">
+    <value>Ieejas frāze</value>
+  </data>
+  <data name="Sharing.PassphraseMismatch" xml:space="preserve">
+    <value>Ieejas frāzes nesakrīt.</value>
+  </data>
+  <data name="Sharing.PasswordChangePending" xml:space="preserve">
+    <value>Jaunā parole ir saglabāta. Izmaiņas tiek pabeigtas nākamajā veiksmīgajā publicēšanā.</value>
+  </data>
+  <data name="Sharing.PasswordChanged" xml:space="preserve">
+    <value>Publikācijas parole ir mainīta. Mapei sekojošie datori vienreiz ievada jauno paroli.</value>
+  </data>
+  <data name="Sharing.PasswordCopied" xml:space="preserve">
+    <value>Parole ir nokopēta starpliktuvē.</value>
+  </data>
+  <data name="Sharing.PasswordMismatch" xml:space="preserve">
+    <value>Paroles nesakrīt.</value>
+  </data>
+  <data name="Sharing.PasswordOnlyHint" xml:space="preserve">
+    <value>Šo konfigurāciju pārvalda atsauces dators: šeit var ievadīt tikai paroli.</value>
+  </data>
+  <data name="Sharing.PasswordsIncluded" xml:space="preserve">
+    <value>Iekļautas</value>
+  </data>
+  <data name="Sharing.PasswordsNeededRecovery" xml:space="preserve">
+    <value>Tā var notikt pēc Windows paroles atiestatīšanas. Lai turpinātu publicēt, pārņemiet mapi ar pašreizējo publikācijas paroli; pēc tam mapei sekojošie datori vienreiz pieņem šo datoru kā jauno atsauces datoru.</value>
+  </data>
+  <data name="Sharing.PasswordsNotIncluded" xml:space="preserve">
+    <value>Nav iekļautas</value>
+  </data>
+  <data name="Sharing.PreviewCreated" xml:space="preserve">
+    <value>Eksportēts</value>
+  </data>
+  <data name="Sharing.PreviewDownload" xml:space="preserve">
+    <value>Lejupielādes apjoms</value>
+  </data>
+  <data name="Sharing.PreviewName" xml:space="preserve">
+    <value>Nosaukums</value>
+  </data>
+  <data name="Sharing.PreviewPasswords" xml:space="preserve">
+    <value>Paroles</value>
+  </data>
+  <data name="Sharing.PreviewPublished" xml:space="preserve">
+    <value>Publicēts</value>
+  </data>
+  <data name="Sharing.PreviewReference" xml:space="preserve">
+    <value>Atsauces dators</value>
+  </data>
+  <data name="Sharing.PreviousKeyLabel" xml:space="preserve">
+    <value>Iepriekšējā atslēga</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfiles" xml:space="preserve">
+    <value>Iepriekšējās versijas profili</value>
+  </data>
+  <data name="Sharing.PreviousVersionProfilesHint" xml:space="preserve">
+    <value>Šie profili tika saglabāti šajā datorā pirms atjauninājuma.</value>
+  </data>
+  <data name="Sharing.PublicationNotYetAvailable" xml:space="preserve">
+    <value>Publikācija vēl nav pilnībā nonākusi šajā mapē. Pēc brīža mēģiniet vēlreiz.</value>
+  </data>
+  <data name="Sharing.PublicationPasswordLabel" xml:space="preserve">
+    <value>Publikācijas parole</value>
+  </data>
+  <data name="Sharing.PublicationReset" xml:space="preserve">
+    <value>Publikācija ir atiestatīta. Mapei sekojošie datori vienreiz ievada jauno paroli.</value>
+  </data>
+  <data name="Sharing.PublishButton" xml:space="preserve">
+    <value>Publicēt</value>
+  </data>
+  <data name="Sharing.PublishDescription" xml:space="preserve">
+    <value>Padariet šo datoru par atsauces datoru: tā konfigurācija tiek publicēta mapē, kurai seko citi datori.</value>
+  </data>
+  <data name="Sharing.PublishDialogDescription" xml:space="preserve">
+    <value>Izvēlieties tukšu mapi vai mapi, kurā šis dators jau publicē: tīkla koplietojumu, OneDrive vai SharePoint mapi vai lokālu mapi. Mapei sekojošajiem datoriem tās lasīšanai ir nepieciešama publikācijas parole.</value>
+  </data>
+  <data name="Sharing.PublishNowButton" xml:space="preserve">
+    <value>Publicēt tūlīt</value>
+  </data>
+  <data name="Sharing.PublishStepCheckingFolder" xml:space="preserve">
+    <value>Notiek mapes pārbaude…</value>
+  </data>
+  <data name="Sharing.PublishStepFinishing" xml:space="preserve">
+    <value>Notiek publicēšanas pabeigšana…</value>
+  </data>
+  <data name="Sharing.PublishStepPreparing" xml:space="preserve">
+    <value>Notiek vienuma {0} sagatavošana…</value>
+  </data>
+  <data name="Sharing.PublishStepSending" xml:space="preserve">
+    <value>Notiek vienuma {0} sūtīšana…</value>
+  </data>
+  <data name="Sharing.PublishStepVerifying" xml:space="preserve">
+    <value>Notiek vienuma {0} pārbaude…</value>
+  </data>
+  <data name="Sharing.PublishTitle" xml:space="preserve">
+    <value>Publicēt mapē</value>
+  </data>
+  <data name="Sharing.ReplaceWarning" xml:space="preserve">
+    <value>Importēšana aizstāj pašreizējo konfigurāciju. Šī datora ISO izvades ceļš, papildu WinPE draiveru mape un telemetrijas iestatījumi tiek saglabāti.</value>
+  </data>
+  <data name="Sharing.ResetButton" xml:space="preserve">
+    <value>Atiestatīt</value>
+  </data>
+  <data name="Sharing.ResetPublicationButton" xml:space="preserve">
+    <value>Atiestatīt publikāciju</value>
+  </data>
+  <data name="Sharing.ResetPublicationDescription" xml:space="preserve">
+    <value>Jauna parole un jauna satura atslēga: katrs satura fails tiek šifrēts atkārtoti, kas pilnībā atsauc iepriekšējos lasītājus. Mapei sekojošie datori vienreiz ievada jauno paroli.</value>
+  </data>
+  <data name="Sharing.ResetPublicationTitle" xml:space="preserve">
+    <value>Atiestatīt publikāciju</value>
+  </data>
+  <data name="Sharing.RevocationPending" xml:space="preserve">
+    <value>Iepriekšējie lasītāji joprojām var atvērt saturu līdz nākamajai veiksmīgajai publicēšanai.</value>
+  </data>
+  <data name="Sharing.RoleFollower" xml:space="preserve">
+    <value>Šis dators seko datoram {0}</value>
+  </data>
+  <data name="Sharing.RoleReference" xml:space="preserve">
+    <value>Šis dators publicē savu konfigurāciju</value>
+  </data>
+  <data name="Sharing.SecretRule" xml:space="preserve">
+    <value>Vismaz 12 rakstzīmes, un ne viena un tā pati rakstzīme atkārtoti (piemēram, aaaaaaaaaaaa).</value>
+  </data>
+  <data name="Sharing.SharedContentUnavailable" xml:space="preserve">
+    <value>Daļu no sekotās publikācijas koplietotā satura neizdevās lejupielādēt. Pārbaudiet Konfigurācijas koplietošana lapā Iestatījumi.</value>
+  </data>
+  <data name="Sharing.SharingUnavailable" xml:space="preserve">
+    <value>Publicēšana un sekošana šajā sesijā nav pieejama, jo koplietošanas stāvokli nevarēja nolasīt. Detalizētu informāciju skatiet žurnālā.</value>
+  </data>
+  <data name="Sharing.StatusChecking" xml:space="preserve">
+    <value>Notiek mapes pārbaude: publikācija vēl nav pilnībā nonākusi, un nākamajā pārbaudē tā tiks nolasīta vēlreiz.</value>
+  </data>
+  <data name="Sharing.StatusContentDownloading" xml:space="preserve">
+    <value>Konfigurācija ir lietota. Notiek koplietotā satura lejupielāde.</value>
+  </data>
+  <data name="Sharing.StatusContentFailed" xml:space="preserve">
+    <value>Konfigurācija ir lietota, taču daļu koplietotā satura neizdevās instalēt.</value>
+  </data>
+  <data name="Sharing.StatusContentStalled" xml:space="preserve">
+    <value>Konfigurācija ir lietota, taču daļa koplietotā satura pēc atkārtotām pārbaudēm joprojām nav pieejama.</value>
+  </data>
+  <data name="Sharing.StatusFolderNotEmpty" xml:space="preserve">
+    <value>Šajā mapē ir faili, kas nav šī datora publikācija. Izvēlieties tukšu mapi.</value>
+  </data>
+  <data name="Sharing.StatusFolderUnavailable" xml:space="preserve">
+    <value>Mape nav pieejama. Pārbaudiet, vai tā pastāv un vai šim datoram ir piekļuve tai.</value>
+  </data>
+  <data name="Sharing.StatusIdle" xml:space="preserve">
+    <value>Šis dators nepublicē un neseko nevienai konfigurācijai.</value>
+  </data>
+  <data name="Sharing.StatusIdleFollower" xml:space="preserve">
+    <value>Tiek gaidīta pirmā mapes pārbaude.</value>
+  </data>
+  <data name="Sharing.StatusIdleReference" xml:space="preserve">
+    <value>Izmaiņas tiek publicētas automātiski.</value>
+  </data>
+  <data name="Sharing.StatusNotPublishedIncomplete" xml:space="preserve">
+    <value>Nav publicēts: konfigurācija nav gatava datu nesēju izveidei vai atsaucas uz saturu, kura šajā datorā trūkst. Iepriekšējā versija paliek spēkā.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeeded" xml:space="preserve">
+    <value>Nepieciešamas paroles: ievadiet publikācijas paroli vai ievadiet trūkstošās paroles konfigurācijas lapās.</value>
+  </data>
+  <data name="Sharing.StatusPasswordsNeededReference" xml:space="preserve">
+    <value>Šī datora publikācijas paroli vai atslēgas nevarēja nolasīt.</value>
+  </data>
+  <data name="Sharing.StatusPublished" xml:space="preserve">
+    <value>Publicēts. Mapei sekojošie datori saņems šo versiju nākamajā pārbaudē.</value>
+  </data>
+  <data name="Sharing.StatusPublishing" xml:space="preserve">
+    <value>Notiek konfigurācijas publicēšana…</value>
+  </data>
+  <data name="Sharing.StatusRollbackRejected" xml:space="preserve">
+    <value>Mape norāda uz vecāku versiju nekā lietotā. Tā tiek ignorēta.</value>
+  </data>
+  <data name="Sharing.StatusTampered" xml:space="preserve">
+    <value>Publikācija ir modificēta. Tā netiek lietota.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisher" xml:space="preserve">
+    <value>Mapi tagad publicē cits dators. Pieņemiet jauno atsauces datoru vai pārtrauciet sekošanu.</value>
+  </data>
+  <data name="Sharing.StatusUnknownPublisherReference" xml:space="preserve">
+    <value>Šajā mapē publicē cits dators. Pārņemiet to, lai publicētu no šī datora.</value>
+  </data>
+  <data name="Sharing.StatusUnsupported" xml:space="preserve">
+    <value>Šai publikācijai nepieciešama jaunāka Foundry OSD versija.</value>
+  </data>
+  <data name="Sharing.StatusUpToDate" xml:space="preserve">
+    <value>Atjaunināts.</value>
+  </data>
+  <data name="Sharing.StatusUpdated" xml:space="preserve">
+    <value>Konfigurācija atjaunināta.</value>
+  </data>
+  <data name="Sharing.StatusWrongPassword" xml:space="preserve">
+    <value>Publikācijas parole neatver pašreizējo publikāciju. Ievadiet jauno paroli.</value>
+  </data>
+  <data name="Sharing.StatusWrongPasswordReference" xml:space="preserve">
+    <value>Publikācijas parole neatver šī datora publikāciju šajā mapē.</value>
+  </data>
+  <data name="Sharing.StopFollowingButton" xml:space="preserve">
+    <value>Pārtraukt sekošanu</value>
+  </data>
+  <data name="Sharing.StopFollowingMessage" xml:space="preserve">
+    <value>Konfigurācija paliek nemainīga, un šajā datorā to atkal var rediģēt.</value>
+  </data>
+  <data name="Sharing.StopFollowingTitle" xml:space="preserve">
+    <value>Vai pārtraukt sekošanu?</value>
+  </data>
+  <data name="Sharing.StopPublishingButton" xml:space="preserve">
+    <value>Pārtraukt publicēšanu</value>
+  </data>
+  <data name="Sharing.StopPublishingMessage" xml:space="preserve">
+    <value>Mape paliek nemainīga, un tai sekojošie datori saglabā pēdējo publicēto versiju. Šis dators vairs nepublicē savu konfigurāciju.</value>
+  </data>
+  <data name="Sharing.StopPublishingTitle" xml:space="preserve">
+    <value>Vai pārtraukt publicēšanu?</value>
+  </data>
+  <data name="Sharing.SyncStepDownloading" xml:space="preserve">
+    <value>Notiek vienuma {0} lejupielāde…</value>
+  </data>
+  <data name="Sharing.SyncStepInstalling" xml:space="preserve">
+    <value>Notiek vienuma {0} instalēšana…</value>
+  </data>
+  <data name="Sharing.TakeOverButton" xml:space="preserve">
+    <value>Pārņemt</value>
+  </data>
+  <data name="Sharing.TakeOverDescription" xml:space="preserve">
+    <value>Šajā mapē publicē cits dators. Pārņemšana turpina tā publikāciju ar šī datora atslēgu; mapei sekojošajiem datoriem vienreiz ir jāpieņem šis dators kā jaunais atsauces dators.</value>
+  </data>
+  <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
+    <value>Šī datora publikācijas atslēgas nevarēja nolasīt. Pārņemšana ar pašreizējo publikācijas paroli turpina publikāciju ar jaunām atslēgām; mapei sekojošajiem datoriem vienreiz ir jāpieņem šis dators kā jaunais atsauces dators.</value>
+  </data>
+  <data name="Sharing.TakeOverTitle" xml:space="preserve">
+    <value>Pārņemt šo mapi</value>
+  </data>
+  <data name="Sharing.TakeOverWrongPassword" xml:space="preserve">
+    <value>Šī parole neatver pašreizējo publikāciju.</value>
+  </data>
+  <data name="Sharing.UnreadableFile" xml:space="preserve">
+    <value>Failu nevarēja nolasīt.</value>
+  </data>
+  <data name="Sharing.UnsupportedFile" xml:space="preserve">
+    <value>Šim failam ir nepieciešama jaunāka Foundry OSD versija.</value>
+  </data>
+  <data name="Sharing.VersionLabel" xml:space="preserve">
+    <value>Versija</value>
+  </data>
+  <data name="Sharing.WaitingForContent" xml:space="preserve">
+    <value>Tiek gaidīta koplietotā satura lejupielādes pabeigšana…</value>
+  </data>
+  <data name="Sharing.WrongPassphrase" xml:space="preserve">
+    <value>Nepareiza ieejas frāze vai bojāts fails.</value>
+  </data>
+  <data name="Sharing.WrongPublicationPassword" xml:space="preserve">
+    <value>Šī parole neatver publikāciju, vai publikācija ir modificēta.</value>
   </data>
   <data name="Shell.Operation.ConfirmStop" xml:space="preserve">
     <value>Apturēt operāciju</value>
@@ -3590,6 +3789,15 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   </data>
   <data name="StartMedia.BlockingReason.RequiredSecretsNotReady" xml:space="preserve">
     <value>Nepieciešamie mediju noslēpumi nav gatavi.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentFailed" xml:space="preserve">
+    <value>Daļu koplietotā satura neizdevās instalēt šajā datorā. Tas tiek iegūts vēlreiz, kad atsauces dators publicē jaunu versiju. Pārbaudiet Konfigurācijas koplietošana lapā Iestatījumi.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentStalled" xml:space="preserve">
+    <value>Daļa koplietotā satura joprojām nav pieejama pēc atkārtotām pārbaudēm. Publicējiet vēlreiz no atsauces datora un pēc tam pārbaudiet Konfigurācijas koplietošana lapā Iestatījumi.</value>
+  </data>
+  <data name="StartMedia.BlockingReason.SharedContentSyncing" xml:space="preserve">
+    <value>Koplietotais saturs joprojām tiek lejupielādēts. Datu nesēju izveide būs pieejama, kad lejupielāde būs pabeigta.</value>
   </data>
   <data name="StartMedia.BlockingReason.UsbTargetBelowMinimumSize" xml:space="preserve">
     <value>Atlasītais USB disks ir pārāk mazs kešatmiņai. Izmantojiet USB disku, kura ietilpība ir vismaz 16 GB, vai ar pogas “Izveidot USB” bultiņu atlasiet “Izveidot bez kešatmiņas”.</value>
@@ -4164,6 +4372,15 @@ Iekļautās paroles un piekļuves atslēgas: {2}</value>
   <data name="StartMedia.Readiness.Status.ReadyUsb" xml:space="preserve">
     <value>Gatavs USB multivides izveidei</value>
   </data>
+  <data name="StartMedia.Readiness.Status.SharedContentFailed" xml:space="preserve">
+    <value>Koplietoto saturu neizdevās instalēt</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentStalled" xml:space="preserve">
+    <value>Koplietotais saturs nav pieejams</value>
+  </data>
+  <data name="StartMedia.Readiness.Status.SharedContentSyncing" xml:space="preserve">
+    <value>Tiek gaidīts koplietotais saturs</value>
+  </data>
   <data name="StartMedia.Readiness.Status.Warnings" xml:space="preserve">
     <value>Pārskatiet multivides izvades brīdinājumus</value>
   </data>
@@ -4308,13 +4525,13 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>Satur iestatījumus, kas var liegt reģistrāciju pakalpojumā Autopilot; nesaderīgi reģistrācijas režīmi izvietošanas laikā tiks bloķēti.</value>
   </data>
   <data name="Unattend.CatalogDescription" xml:space="preserve">
-    <value>Atlasiet failu, ko vēlaties pārdēvēt, atsvaidzināt vai noņemt. Avota failiem jāpaliek pieejamiem līdz datu nesēja izveidei; mainīti avoti ir jāatsvaidzina.</value>
+    <value>Atlasiet failu, ko vēlaties pārdēvēt vai noņemt. Foundry glabā savu katra importētā faila kopiju; lai izmantotu atjauninātu failu, noņemiet ierakstu un importējiet failu vēlreiz.</value>
   </data>
   <data name="Unattend.CatalogLabel" xml:space="preserve">
     <value>Atbilžu faili</value>
   </data>
   <data name="Unattend.CheckSourcesLabel" xml:space="preserve">
-    <value>Pārbaudīt avotus</value>
+    <value>Pārbaudīt failus</value>
   </data>
   <data name="Unattend.CommandsWarning" xml:space="preserve">
     <value>Satur komandas; pārbaudiet, vai tās nepārklājas ar Foundry pielāgojumiem un uzstādīšanas darbībām.</value>
@@ -4353,13 +4570,13 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>Failā jābūt norādītai atbalstītai arhitektūrai un uz to attiecināmiem komponentu iestatījumiem.</value>
   </data>
   <data name="Unattend.InvalidCatalogMessage" xml:space="preserve">
-    <value>Katalogā ir nederīgi vai dublēti ieraksti. Atsvaidziniet vai noņemiet attiecīgos failus.</value>
+    <value>Katalogā ir nederīgi vai dublēti ieraksti. Noņemiet attiecīgos failus un importējiet tos vēlreiz.</value>
   </data>
   <data name="Unattend.InvalidFileMessage" xml:space="preserve">
     <value>Izmantojiet derīgu Windows atbilžu faila XML, kura lielums nepārsniedz 4 MiB un kurā nav DTD vai ārējo entītiju. Validējiet failu ar Windows SIM.</value>
   </data>
   <data name="Unattend.InvalidSourcesMessage" xml:space="preserve">
-    <value>Daži avoti trūkst, ir mainīti vai nav derīgi. Pirms datu nesēja izveides atsvaidziniet vai noņemiet šos ierakstus.</value>
+    <value>Daži faili trūkst vai ir nederīgi. Pirms datu nesēja izveides noņemiet šos ierakstus un importējiet failus vēlreiz.</value>
   </data>
   <data name="Unattend.MissingDefaultOption" xml:space="preserve">
     <value>Trūkst noklusējuma faila — izvēlieties aizstājēju</value>
@@ -4374,16 +4591,13 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
     <value>Foundry saglabā sākotnējo failu un izvietošanas kopijai pievieno savu obligāto komandu darbībām pēc instalēšanas. Jūs joprojām esat atbildīgs par pielāgotajiem iestatījumiem un komandām.</value>
   </data>
   <data name="Unattend.ProtectionDescription" xml:space="preserve">
-    <value>Pielāgotiem failiem nepieciešama izvietošanas datu nesēja aizsardzība ar paroli vispārīgajā konfigurācijā. XML var saturēt akreditācijas datus vai skriptus. Foundry šajā datorā saglabā katra faila kopiju kopā ar konfigurāciju tikai tad, ja sadaļā „Iestatījumu dublēšana un sinhronizēšana“ ir ieslēgta opcija „Atcerēties paroles“; pretējā gadījumā tiek saglabāts tikai ceļš. Sāknēšanas attēlā ir šifrētas kopijas.</value>
+    <value>Pielāgotiem failiem nepieciešama izvietošanas datu nesēja aizsardzība ar paroli vispārīgajā konfigurācijā. XML var saturēt akreditācijas datus vai skriptus. Foundry šajā datorā glabā katra importētā faila kopiju savā failu bibliotēkā. Sāknēšanas attēlā ir šifrētas kopijas.</value>
   </data>
   <data name="Unattend.ProtectionRequiredMessage" xml:space="preserve">
     <value>Lai izmantotu pielāgotus atbilžu failus, vispārīgajā konfigurācijā iespējojiet izvietošanas datu nesēja aizsardzību ar paroli.</value>
   </data>
-  <data name="Unattend.RefreshDuplicateMessage" xml:space="preserve">
-    <value>Šis avots tagad sakrīt ar citu importētu failu. Noņemiet šo ierakstu un izvēlieties esošo failu.</value>
-  </data>
-  <data name="Unattend.RefreshLabel" xml:space="preserve">
-    <value>Atsvaidzināt avotu</value>
+  <data name="Unattend.ReimportRequiredMessage" xml:space="preserve">
+    <value>Programmai Foundry vairs nav derīgas šī faila kopijas. Noņemiet ierakstu un importējiet failu vēlreiz.</value>
   </data>
   <data name="Unattend.RemoveLabel" xml:space="preserve">
     <value>Noņemt</value>
@@ -4397,26 +4611,23 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
   <data name="Unattend.SelectedFileLabel" xml:space="preserve">
     <value>Atlasītais fails</value>
   </data>
-  <data name="Unattend.SourceChangedMessage" xml:space="preserve">
-    <value>Avots ir mainīts. Pirms datu nesēja izveides izmantojiet Atsvaidzināt avotu, lai pieņemtu atjaunināto failu.</value>
-  </data>
   <data name="Unattend.SourceChecksBusyMessage" xml:space="preserve">
-    <value>Divas avotu pārbaudes joprojām gaida piekļuvi failiem. Atjaunojiet piekļuvi nepieejamajām avotu atrašanās vietām un pēc tam vēlreiz pārbaudiet avotus.</value>
+    <value>Joprojām notiek divas failu pārbaudes. Uzgaidiet, līdz tās beidzas, un pēc tam mēģiniet vēlreiz.</value>
   </data>
   <data name="Unattend.SourceNotCheckedMessage" xml:space="preserve">
-    <value>Avota pārbaude vēl nav veikta. Izvēlieties Pārbaudīt avotus, lai validētu pašreizējo failu, nepieņemot satura izmaiņas.</value>
+    <value>Faila pārbaude vēl nav veikta. Izvēlieties Pārbaudīt failus, lai validētu saglabāto kopiju.</value>
   </data>
   <data name="Unattend.SourceReadFailedMessage" xml:space="preserve">
-    <value>Avotu neizdevās nolasīt. Pārbaudiet, vai fails joprojām pastāv un ir pieejams.</value>
+    <value>Failu nevarēja nolasīt. Pārbaudiet, vai tas pastāv un vai varat to atvērt, un pēc tam mēģiniet vēlreiz.</value>
   </data>
   <data name="Unattend.SourceTimeoutMessage" xml:space="preserve">
-    <value>Avota validācijas taimauts. Pārbaudiet piekļuvi avota atrašanās vietai un mēģiniet vēlreiz.</value>
+    <value>Saglabāto failu pārbaude ilga pārāk ilgi. Mēģiniet vēlreiz.</value>
   </data>
   <data name="Unattend.UnsupportedSettingsMessage" xml:space="preserve">
     <value>Tiek atbalstīti tikai specialize un oobeSystem iestatījumi. Noņemiet citus netukšus konfigurācijas posmus, bezsaistes apkopes norādījumus vai atkārtotu sagatavošanu audita režīmam.</value>
   </data>
   <data name="Unattend.ValidSource" xml:space="preserve">
-    <value>Avots validēts.</value>
+    <value>Fails validēts.</value>
   </data>
   <data name="Update.Action.Apply" xml:space="preserve">
     <value>Lietot atjauninājumu</value>
