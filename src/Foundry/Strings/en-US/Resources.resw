@@ -3002,7 +3002,7 @@ Licensed under the MIT License.</value>
     <value>This value is not valid for its type.</value>
   </data>
   <data name="NetworkCache.Validation.InvalidSharePath" xml:space="preserve">
-    <value>Enter a path like \server\share.</value>
+    <value>Enter a path like \\server\share.</value>
   </data>
   <data name="NetworkCache.Validation.MediaProtectionRequired" xml:space="preserve">
     <value>Shares with an account require Deploy password protection, because a PXE boot image can be downloaded by anyone on the network. Turn it on in General.</value>

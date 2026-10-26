@@ -60,6 +60,11 @@ Foundry Nav_UnattendKey.Title
 Foundry Nav_WifiKey.Title
 Foundry Nav_WindowsAutopilotSection.Title ar-SA bg-BG cs-CZ de-DE el-GR es-MX et-EE fi-FI fr-CA fr-FR he-IL hr-HR hu-HU it-IT lt-LT lv-LV pl-PL pt-BR ro-RO ru-RU sk-SK sl-SI sr-Latn-RS tr-TR uk-UA zh-TW
 Foundry Nav_ZeroTouchDomainJoinKey.Title ar-SA bg-BG cs-CZ da-DK de-DE el-GR es-ES es-MX et-EE fi-FI fr-CA fr-FR he-IL hr-HR hu-HU it-IT lt-LT lv-LV nb-NO nl-NL pl-PL pt-BR pt-PT ro-RO ru-RU sk-SK sl-SI sr-Latn-RS sv-SE th-TH tr-TR uk-UA zh-CN zh-TW
+Foundry NetworkCache.ColumnName de-DE
+Foundry NetworkCache.ColumnStatus da-DK de-DE hr-HR nb-NO nl-NL pt-BR sr-Latn-RS sv-SE
+Foundry NetworkCache.ColumnType da-DK
+Foundry NetworkCache.ScopeKindHeader da-DK
+Foundry NetworkCache.ScopeName de-DE
 Foundry OobePageHeader.Title
 Foundry PostInstallation.Application cs-CZ da-DK de-DE es-ES es-MX it-IT nl-NL pt-BR pt-PT ro-RO
 Foundry PostInstallation.TypeHeader da-DK fr-CA fr-FR nb-NO nl-NL
