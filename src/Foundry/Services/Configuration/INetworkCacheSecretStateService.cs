@@ -16,5 +16,4 @@ public interface INetworkCacheSecretStateService
     char[]? GetPasswordCopy(string accountId);
     bool HasPassword(string accountId);
     void Update(NetworkCacheSettings settings);
-    void Clear();
 }

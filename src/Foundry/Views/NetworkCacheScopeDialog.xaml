@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentDialog x:Class="Foundry.Views.NetworkCacheScopeDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -55,7 +55,7 @@
                             </CheckBox>
                             <Button
                                 Grid.Column="1"
-                                AutomationProperties.Name="{x:Bind MoveUpLabel}"
+                                AutomationProperties.Name="{x:Bind MoveUpAutomationName}"
                                 Click="OnMoveUpClick"
                                 IsEnabled="{x:Bind CanMoveUp, Mode=OneWay}"
                                 ToolTipService.ToolTip="{x:Bind MoveUpLabel}">
@@ -65,7 +65,7 @@
                             </Button>
                             <Button
                                 Grid.Column="2"
-                                AutomationProperties.Name="{x:Bind MoveDownLabel}"
+                                AutomationProperties.Name="{x:Bind MoveDownAutomationName}"
                                 Click="OnMoveDownClick"
                                 IsEnabled="{x:Bind CanMoveDown, Mode=OneWay}"
                                 ToolTipService.ToolTip="{x:Bind MoveDownLabel}">

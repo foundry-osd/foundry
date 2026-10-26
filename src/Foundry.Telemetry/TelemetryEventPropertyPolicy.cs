@@ -367,7 +367,7 @@ public static class TelemetryEventPropertyPolicy
         "boot_media_custom_drivers_count" => value is int and >= 0 and <= 256,
         "network_cache_enabled" or "deploy_network_cache_writable" => value is bool,
         "network_cache_share_count" or "network_cache_scope_count" or "network_cache_account_count" => value is int and >= 0 and <= 1000,
-        "deploy_network_cache_outcome" => value is "disabled" or "no_matching_scope" or "connected" or "unavailable",
+        "deploy_network_cache_outcome" => value is "not_resolved" or "disabled" or "no_matching_scope" or "connected" or "unavailable",
         "deploy_network_cache_downloads_reused" => value is int and >= 0 and <= 1000,
         _ => true
     };

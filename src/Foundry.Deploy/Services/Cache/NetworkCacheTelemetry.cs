@@ -7,10 +7,13 @@ namespace Foundry.Deploy.Services.Cache;
 /// <summary>Describes the network cache of a deployment for telemetry, without share paths, servers or accounts.</summary>
 public static class NetworkCacheTelemetry
 {
-    /// <summary>Returns the session-finished properties; a missing session means the feature was not used.</summary>
+    /// <summary>
+    /// Returns the session-finished properties. A missing session means the deployment stopped before the cache strategy
+    /// step, so whether the cache was enabled is unknown.
+    /// </summary>
     public static IReadOnlyDictionary<string, object?> Describe(NetworkCacheSession? session) => new Dictionary<string, object?>
     {
-        ["deploy_network_cache_outcome"] = (session?.Outcome ?? NetworkCacheOutcome.Disabled) switch
+        ["deploy_network_cache_outcome"] = session is null ? "not_resolved" : session.Outcome switch
         {
             NetworkCacheOutcome.NoMatchingScope => "no_matching_scope",
             NetworkCacheOutcome.Connected => "connected",

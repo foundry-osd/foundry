@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.ObjectModel;
-using System.Text;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Application;
 using Foundry.Core.Services.NetworkCache;
@@ -150,8 +149,8 @@ public sealed partial class NetworkCacheConfigurationViewModel : ObservableObjec
         if (SelectedAccount is not { } row) return Task.CompletedTask;
         NetworkCacheAccount account = row.Settings;
         return configuration.IsManaged
-            ? networkCacheDialogs.ShowAccountAsync(new(IsNew: false, account.UserName, PasswordOnly: true), input => TrySavePassword(account.Id, input))
-            : networkCacheDialogs.ShowAccountAsync(new(IsNew: false, account.UserName), input => TrySaveAccount(account.Id, input));
+            ? networkCacheDialogs.ShowAccountAsync(new(IsNew: false, account.UserName, PasswordOnly: true, HasPassword: secrets.HasPassword(account.Id)), input => TrySavePassword(account.Id, input))
+            : networkCacheDialogs.ShowAccountAsync(new(IsNew: false, account.UserName, HasPassword: secrets.HasPassword(account.Id)), input => TrySaveAccount(account.Id, input));
     }
 
     /// <summary>Adds or updates an account and its password; returns the reason shown in the dialog when the entry is refused.</summary>
@@ -194,8 +193,7 @@ public sealed partial class NetworkCacheConfigurationViewModel : ObservableObjec
     {
         if (!input.Password.Span.SequenceEqual(input.Confirmation.Span)) return Text("PasswordMismatch");
         ReadOnlySpan<char> password = input.Password.Span;
-        bool isAccepted = password.IsEmpty ||
-            (!password.Contains('\0') && Encoding.UTF8.GetByteCount(password) <= NetworkShareCredentialPayloadCodec.MaximumPasswordUtf8Bytes);
+        bool isAccepted = password.IsEmpty || NetworkShareCredentialPayloadCodec.IsAcceptedPassword(password);
         return isAccepted ? null : Text("PasswordInvalid");
     }
 
@@ -295,7 +293,10 @@ public sealed partial class NetworkCacheConfigurationViewModel : ObservableObjec
 
     [RelayCommand(CanExecute = nameof(CanAddScope))]
     private Task AddScopeAsync() =>
-        networkCacheDialogs.ShowScopeAsync(new(IsNew: true, Name: string.Empty, NetworkCacheScopeKind.Subnet, Value: string.Empty, GetShareOptions([])),
+        networkCacheDialogs.ShowScopeAsync(
+            // With a single share, a new scope can only use that share, so it starts checked.
+            new(IsNew: true, Name: string.Empty, NetworkCacheScopeKind.Subnet, Value: string.Empty,
+                GetShareOptions(configuration.Current.NetworkCache.Shares is [{ } only] ? (string[])[only.Id] : (string[])[])),
             input => TrySaveScope(null, input));
 
     [RelayCommand(CanExecute = nameof(CanEditScope))]
@@ -479,6 +480,9 @@ public sealed partial class NetworkCacheConfigurationViewModel : ObservableObjec
         {
             row.PasswordText = secrets.HasPassword(row.Id) ? savedText : missingText;
             row.UsedByCount = settings.Shares.Count(share => string.Equals(share.AccountId, row.Id, StringComparison.Ordinal));
+            NetworkCacheValidationIssue? issue = issues.FirstOrDefault(candidate => string.Equals(candidate.ItemId, row.Id, StringComparison.Ordinal));
+            row.IsReady = issue is null;
+            row.StatusText = issue is null ? readyText : Text("Validation." + issue.Code);
         }
 
         foreach (NetworkCacheShareEntryViewModel row in Shares)

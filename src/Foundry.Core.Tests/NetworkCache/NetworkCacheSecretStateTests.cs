@@ -60,6 +60,14 @@ public sealed class NetworkCacheSecretStateTests
     }
 
     [Fact]
+    public void SetPassword_LoneSurrogate_Throws()
+    {
+        using var state = new NetworkCacheSecretState();
+
+        Assert.Throws<InvalidDataException>(() => state.SetPassword("a1", "ab\uD800cd"));
+    }
+
+    [Fact]
     public void SetPassword_TooLong_Throws()
     {
         using var state = new NetworkCacheSecretState();

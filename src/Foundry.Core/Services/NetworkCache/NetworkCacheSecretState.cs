@@ -19,7 +19,7 @@ public sealed class NetworkCacheSecretState : IDisposable
     {
         ObjectDisposedException.ThrowIf(isDisposed, this);
         ArgumentException.ThrowIfNullOrWhiteSpace(accountId);
-        if (!value.IsEmpty && (value.Contains('\0') || System.Text.Encoding.UTF8.GetByteCount(value) > NetworkShareCredentialPayloadCodec.MaximumPasswordUtf8Bytes))
+        if (!value.IsEmpty && !NetworkShareCredentialPayloadCodec.IsAcceptedPassword(value))
             throw new InvalidDataException("The network share password is invalid.");
         Erase(accountId);
         if (!value.IsEmpty) passwords[accountId] = value.ToArray();

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <Page x:Class="Foundry.Views.NetworkCachePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -112,6 +112,21 @@
                                         Width="*"
                                         Binding="{Binding UsedByCount}"
                                         Header="{x:Bind ViewModel.UsedByColumnHeader, Mode=OneWay}" />
+                                    <tv:TableViewTemplateColumn
+                                        Width="3*"
+                                        Header="{x:Bind ViewModel.StatusColumnHeader, Mode=OneWay}"
+                                        SortMemberPath="StatusText">
+                                        <tv:TableViewTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    Margin="12,0,12,0"
+                                                    Style="{Binding StatusStyle}"
+                                                    Text="{Binding StatusText}"
+                                                    TextTrimming="CharacterEllipsis"
+                                                    ToolTipService.ToolTip="{Binding StatusText}" />
+                                            </DataTemplate>
+                                        </tv:TableViewTemplateColumn.CellTemplate>
+                                    </tv:TableViewTemplateColumn>
                                 </tv:TableView.Columns>
                             </tv:TableView>
                         </StackPanel>
@@ -123,7 +138,7 @@
                         Description="{x:Bind ViewModel.SharesDescription, Mode=OneWay}"
                         Header="{x:Bind ViewModel.SharesHeader, Mode=OneWay}">
                         <wct:SettingsCard.HeaderIcon>
-                            <FontIcon Glyph="&#xE8F7;" />
+                            <FontIcon Glyph="&#xE8CE;" />
                         </wct:SettingsCard.HeaderIcon>
                         <StackPanel Spacing="{ThemeResource FoundryContentGroupSpacing}">
                             <ScrollViewer
@@ -163,7 +178,7 @@
                                 TextWrapping="WrapWholeWords"
                                 Visibility="{x:Bind ViewModel.EmptySharesVisibility, Mode=OneWay}" />
                             <TextBlock
-                                Style="{StaticResource FoundryCriticalTextBlockStyle}"
+                                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                 Text="{x:Bind ViewModel.SharesValidationMessage, Mode=OneWay}"
                                 TextWrapping="WrapWholeWords"
                                 Visibility="{x:Bind ViewModel.SharesValidationVisibility, Mode=OneWay}" />
@@ -259,7 +274,7 @@
                                 TextWrapping="WrapWholeWords"
                                 Visibility="{x:Bind ViewModel.EmptyScopesVisibility, Mode=OneWay}" />
                             <TextBlock
-                                Style="{StaticResource FoundryCriticalTextBlockStyle}"
+                                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                 Text="{x:Bind ViewModel.ScopesValidationMessage, Mode=OneWay}"
                                 TextWrapping="WrapWholeWords"
                                 Visibility="{x:Bind ViewModel.ScopesValidationVisibility, Mode=OneWay}" />

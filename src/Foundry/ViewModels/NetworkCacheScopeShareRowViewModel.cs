@@ -13,6 +13,11 @@ public sealed partial class NetworkCacheScopeShareRowViewModel(string shareId, s
     public string MoveUpLabel { get; } = moveUpLabel;
     public string MoveDownLabel { get; } = moveDownLabel;
 
+    /// <summary>Gets the accessible names, which say which share moves because every row has the same buttons.</summary>
+    public string MoveUpAutomationName => $"{MoveUpLabel}: {Path}";
+
+    public string MoveDownAutomationName => $"{MoveDownLabel}: {Path}";
+
     [ObservableProperty]
     public partial bool IsIncluded { get; set; } = isIncluded;
 

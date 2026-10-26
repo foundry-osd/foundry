@@ -111,17 +111,26 @@ public static class NetworkShareCredentialPayloadCodec
             throw new InvalidDataException("The network share credential context is invalid.");
     }
 
-    private static void ValidatePassword(ReadOnlySpan<char> password)
+    /// <summary>
+    /// Tells whether a non-empty password can be encoded into a payload: no null character, valid UTF-16 (no lone
+    /// surrogate) and at most <see cref="MaximumPasswordUtf8Bytes"/> UTF-8 bytes. Authoring uses it so a stored password
+    /// never fails later at media generation.
+    /// </summary>
+    public static bool IsAcceptedPassword(ReadOnlySpan<char> password)
     {
         try
         {
-            if (password.IsEmpty || password.Contains('\0') || Encoding.GetByteCount(password) > MaximumPasswordUtf8Bytes)
-                throw new InvalidDataException("The network share credential password is invalid.");
+            return !password.IsEmpty && !password.Contains('\0') && Encoding.GetByteCount(password) <= MaximumPasswordUtf8Bytes;
         }
         catch (EncoderFallbackException)
         {
-            throw new InvalidDataException("The network share credential password is invalid.");
+            return false;
         }
+    }
+
+    private static void ValidatePassword(ReadOnlySpan<char> password)
+    {
+        if (!IsAcceptedPassword(password)) throw new InvalidDataException("The network share credential password is invalid.");
     }
 
     private static void Clear(char[]? password)

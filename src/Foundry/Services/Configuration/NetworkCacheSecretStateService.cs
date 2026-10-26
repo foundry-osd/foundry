@@ -22,9 +22,5 @@ internal sealed class NetworkCacheSecretStateService : INetworkCacheSecretStateS
     {
         if (state.Update(settings)) Changed?.Invoke(this, EventArgs.Empty);
     }
-    public void Clear()
-    {
-        if (state.Clear()) Changed?.Invoke(this, EventArgs.Empty);
-    }
     public void Dispose() => state.Dispose();
 }

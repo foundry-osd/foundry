@@ -29,7 +29,7 @@ public sealed partial class NetworkCacheAccountDialog : ContentDialog
         ConfirmationBox.Header = localization.GetString("NetworkCache.AccountPasswordConfirmation");
         // Editing keeps the stored password unless a new one is typed.
         PasswordHintTextBlock.Text = localization.GetString("NetworkCache.AccountPasswordKeepHint");
-        PasswordHintTextBlock.Visibility = request.IsNew ? Visibility.Collapsed : Visibility.Visible;
+        PasswordHintTextBlock.Visibility = request.HasPassword ? Visibility.Visible : Visibility.Collapsed;
         if (request.PasswordOnly)
         {
             // A followed publication manages the account: only its password, kept in the local vault, can be entered.

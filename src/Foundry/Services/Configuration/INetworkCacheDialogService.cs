@@ -34,7 +34,8 @@ public interface INetworkCacheDialogService
 /// <param name="PasswordOnly">
 /// Whether only the password can be entered: a followed publication manages the account, so its user name is read-only.
 /// </param>
-public sealed record NetworkCacheAccountDialogRequest(bool IsNew, string UserName, bool PasswordOnly = false);
+/// <param name="HasPassword">Whether the account already has a password, which an empty password box keeps.</param>
+public sealed record NetworkCacheAccountDialogRequest(bool IsNew, string UserName, bool PasswordOnly = false, bool HasPassword = false);
 
 /// <summary>Carries what was entered in the account dialog. The save callback copies the passwords and must not keep this record.</summary>
 public sealed record NetworkCacheAccountDialogInput(string UserName, ReadOnlyMemory<char> Password, ReadOnlyMemory<char> Confirmation);

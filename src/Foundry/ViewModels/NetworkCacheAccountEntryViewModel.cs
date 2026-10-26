@@ -23,5 +23,16 @@ public sealed partial class NetworkCacheAccountEntryViewModel(NetworkCacheAccoun
     [ObservableProperty]
     public partial int UsedByCount { get; set; }
 
+    public Style StatusStyle => (Style)Application.Current.Resources[IsReady ? "FoundrySuccessTextBlockStyle" : "FoundryCriticalTextBlockStyle"];
+
+    /// <summary>Gets or sets what this account still needs before media can be created, or that it is ready.</summary>
+    [ObservableProperty]
+    public partial string StatusText { get; set; } = string.Empty;
+
+    [ObservableProperty]
+    public partial bool IsReady { get; set; }
+
     partial void OnSettingsChanged(NetworkCacheAccount value) => OnPropertyChanged(nameof(UserName));
+
+    partial void OnIsReadyChanged(bool value) => OnPropertyChanged(nameof(StatusStyle));
 }

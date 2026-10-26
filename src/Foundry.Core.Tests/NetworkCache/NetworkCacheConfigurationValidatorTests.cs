@@ -147,6 +147,27 @@ public sealed class NetworkCacheConfigurationValidatorTests
     }
 
     [Fact]
+    public void Migration_DuplicateIds_KeepFirstItemAndDistinctScopeShares()
+    {
+        var document = new FoundryConfigurationDocument
+        {
+            NetworkCache = new NetworkCacheSettings
+            {
+                IsEnabled = true,
+                Accounts = [new() { Id = "a1", UserName = "CONTOSO\\one" }, new() { Id = "a1", UserName = "CONTOSO\\two" }],
+                Shares = [new() { Id = "s1", Path = @"\\fs01\cache" }, new() { Id = "s1", Path = @"\\fs02\cache" }],
+                Scopes = [Scope("c1", "10.0.0.0/8", "s1", "s1"), Scope("c1", "10.1.0.0/16", "s1")]
+            }
+        };
+
+        NetworkCacheSettings migrated = FoundryConfigurationMigration.ApplySchemaMigrations(document).NetworkCache;
+
+        Assert.Equal("CONTOSO\\one", Assert.Single(migrated.Accounts).UserName);
+        Assert.Equal(@"\\fs01\cache", Assert.Single(migrated.Shares).Path);
+        Assert.Equal(["s1"], Assert.Single(migrated.Scopes).ShareIds);
+    }
+
+    [Fact]
     public void Migration_DocumentWithoutSection_GetsDisabledDefault()
     {
         FoundryConfigurationDocument migrated = FoundryConfigurationMigration.ApplySchemaMigrations(new FoundryConfigurationDocument { NetworkCache = null! });

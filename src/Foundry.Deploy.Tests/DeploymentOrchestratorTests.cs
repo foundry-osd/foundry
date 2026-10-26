@@ -657,7 +657,7 @@ public sealed class DeploymentOrchestratorTests
         Assert.Equal("none", telemetryEvent.Properties["deploy_domain_join_ou_source"]);
         Assert.Equal("none", telemetryEvent.Properties["deploy_domain_join_domain_source"]);
         Assert.Equal("disabled", telemetryEvent.Properties["deploy_domain_join_status"]);
-        Assert.Equal("disabled", telemetryEvent.Properties["deploy_network_cache_outcome"]);
+        Assert.Equal("not_resolved", telemetryEvent.Properties["deploy_network_cache_outcome"]);
         Assert.Equal(false, telemetryEvent.Properties["deploy_network_cache_writable"]);
         Assert.Equal(0, telemetryEvent.Properties["deploy_network_cache_downloads_reused"]);
         Assert.True((bool)telemetryEvent.Properties["deploy_oobe_enabled"]!);

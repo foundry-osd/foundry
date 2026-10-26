@@ -11,11 +11,11 @@ namespace Foundry.Deploy.Tests;
 public sealed class NetworkCacheTelemetryTests
 {
     [Fact]
-    public void Describe_NoSession_ReportsDisabled()
+    public void Describe_NoSession_ReportsNotResolved()
     {
         IReadOnlyDictionary<string, object?> properties = NetworkCacheTelemetry.Describe(null);
 
-        Assert.Equal("disabled", properties["deploy_network_cache_outcome"]);
+        Assert.Equal("not_resolved", properties["deploy_network_cache_outcome"]);
         Assert.Equal(false, properties["deploy_network_cache_writable"]);
         Assert.Equal(0, properties["deploy_network_cache_downloads_reused"]);
     }

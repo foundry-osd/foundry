@@ -41,12 +41,18 @@ public static class FoundryConfigurationMigration
             .Select(domain => domain is { OrganizationalUnits: null } ? domain with { OrganizationalUnits = [] } : domain).ToArray()
     };
 
-    /// <summary>Replaces lists written as <c>null</c> by hand or by an older build with empty lists.</summary>
+    /// <summary>
+    /// Replaces lists written as <c>null</c> with empty lists and keeps the first item of each id, so a hand-edited or
+    /// imported document never reaches generation with ambiguous references.
+    /// </summary>
     private static NetworkCacheSettings WithoutNullLists(NetworkCacheSettings settings) => settings with
     {
-        Accounts = settings.Accounts ?? [],
-        Shares = settings.Shares ?? [],
-        Scopes = (settings.Scopes ?? []).Select(scope => scope is { ShareIds: null } ? scope with { ShareIds = [] } : scope).ToArray()
+        Accounts = (settings.Accounts ?? []).DistinctBy(account => account.Id, StringComparer.Ordinal).ToArray(),
+        Shares = (settings.Shares ?? []).DistinctBy(share => share.Id, StringComparer.Ordinal).ToArray(),
+        Scopes = (settings.Scopes ?? [])
+            .DistinctBy(scope => scope.Id, StringComparer.Ordinal)
+            .Select(scope => scope with { ShareIds = (scope.ShareIds ?? []).Distinct(StringComparer.Ordinal).ToArray() })
+            .ToArray()
     };
 
     public static FoundryConfigurationDocument ApplySchemaMigrations(FoundryConfigurationDocument document)
