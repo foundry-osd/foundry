@@ -4,21 +4,42 @@
 
 using System.IO;
 using System.Text.Json;
+using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Logging;
 
 namespace Foundry.Deploy.Services.Deployment.Steps;
 
-public sealed class FinalizeDeploymentAndWriteLogsStep : DeploymentStepBase
+public sealed class FinalizeDeploymentAndWriteLogsStep(
+    INetworkCachePublisher? networkCachePublisher = null,
+    INetworkCacheSessionAccessor? networkCacheAccessor = null) : DeploymentStepBase
 {
+    private static readonly TimeSpan NetworkCacheDrainLimit = TimeSpan.FromMinutes(2);
+
     public override string Name => DeploymentStepNames.FinalizeDeploymentAndWriteLogs;
 
-    protected override Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
+    protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
-        return ExecuteFinalizeAsync(
+        await CompleteNetworkCacheAsync(context, cancellationToken).ConfigureAwait(false);
+        return await ExecuteFinalizeAsync(
             context,
             "Finalizing deployment artifacts.",
             "Deployment finalized.",
-            cancellationToken);
+            cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Gives queued network cache uploads a bounded time before the target workspace, which holds the files being
+    /// published, is cleaned; then closes the share session.
+    /// </summary>
+    private async Task CompleteNetworkCacheAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
+    {
+        if (networkCachePublisher is not null)
+        {
+            context.EmitCurrentStepIndeterminate("Finalizing deployment...", "Writing completion logs...", DeploymentOperationNames.WriteLogs);
+            await networkCachePublisher.DrainAsync(NetworkCacheDrainLimit, cancellationToken).ConfigureAwait(false);
+        }
+
+        networkCacheAccessor?.Current?.Dispose();
     }
 
     protected override Task<DeploymentStepResult> ExecuteDryRunAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)

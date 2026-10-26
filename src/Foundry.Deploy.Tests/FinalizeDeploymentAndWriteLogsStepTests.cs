@@ -29,6 +29,49 @@ public sealed class FinalizeDeploymentAndWriteLogsStepTests
     }
 
     [Fact]
+    public async Task Finalize_DrainsNetworkCachePublisherAndClosesSession()
+    {
+        using var fixture = new Fixture();
+        var publisher = new DrainRecordingPublisher();
+        var connector = new RecordingConnector();
+        var accessor = new Foundry.Deploy.Services.Cache.NetworkCacheSessionAccessor
+        {
+            Current = Foundry.Deploy.Services.Cache.NetworkCacheSession.Connected(@"\\fs01\cache", canWrite: true, connector)
+        };
+
+        DeploymentStepResult result = await new FinalizeDeploymentAndWriteLogsStep(publisher, accessor).ExecuteAsync(fixture.Context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        Assert.Equal(TimeSpan.FromMinutes(2), publisher.DrainLimit);
+        Assert.Equal([@"\\fs01\cache"], connector.Disconnected);
+    }
+
+    private sealed class DrainRecordingPublisher : Foundry.Deploy.Services.Cache.INetworkCachePublisher
+    {
+        public TimeSpan? DrainLimit { get; private set; }
+
+        public void Enqueue(Foundry.Deploy.Services.Cache.NetworkCachePublication publication)
+        {
+        }
+
+        public Task DrainAsync(TimeSpan limit, CancellationToken cancellationToken)
+        {
+            DrainLimit = limit;
+            return Task.CompletedTask;
+        }
+    }
+
+    private sealed class RecordingConnector : Foundry.Utilities.Networking.ISmbConnector
+    {
+        public List<string> Disconnected { get; } = [];
+
+        public Foundry.Utilities.Networking.SmbConnectResult Connect(string uncPath, string? userName, ReadOnlySpan<char> password) =>
+            new(Foundry.Utilities.Networking.SmbConnectStatus.Connected, 0);
+
+        public void Disconnect(string uncPath) => Disconnected.Add(uncPath);
+    }
+
+    [Fact]
     public async Task FinalizeRecordsDomainSkipInSummary()
     {
         var logs = new RecordingDomainLogService();

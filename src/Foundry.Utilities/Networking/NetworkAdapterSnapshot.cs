@@ -18,4 +18,8 @@ public sealed record NetworkAdapterSnapshot(
     IReadOnlyList<NetworkIpv4AddressSnapshot> Ipv4Addresses,
     IReadOnlyList<string> Gateways,
     IReadOnlyList<string> DnsServers,
-    bool IsDhcpEnabled);
+    bool IsDhcpEnabled)
+{
+    /// <summary>Gets the routable IPv4 and IPv6 unicast addresses, without loopback or link-local addresses.</summary>
+    public IReadOnlyList<string> UnicastAddresses { get; init; } = [];
+}
