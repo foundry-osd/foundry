@@ -187,6 +187,8 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<Foundry.Services.DomainJoin.IAuthoringDomainOuDiscoveryService, Foundry.Services.DomainJoin.AuthoringDomainOuDiscoveryService>();
         services.AddSingleton<Foundry.Services.DomainJoin.IDomainJoinDialogService, Foundry.Services.DomainJoin.DomainJoinDialogService>();
         services.AddTransient<DomainJoinConfigurationViewModel>();
+        services.AddSingleton<INetworkCacheDialogService, NetworkCacheDialogService>();
+        services.AddTransient<NetworkCacheConfigurationViewModel>();
         services.AddTransient<CustomizationConfigurationViewModel>();
         services.AddTransient<StartMediaViewModel>();
         services.AddTransient<HomeLandingViewModel>();

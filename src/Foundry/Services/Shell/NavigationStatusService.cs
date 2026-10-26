@@ -58,6 +58,7 @@ internal sealed class NavigationStatusService : INavigationStatusService
     {
         if (pageType == typeof(InteractiveDomainJoinPage)) return ConfigurationNavigationTarget.DomainJoinInteractive;
         if (pageType == typeof(ZeroTouchDomainJoinPage)) return ConfigurationNavigationTarget.DomainJoinAutomatic;
+        if (pageType == typeof(NetworkCachePage)) return ConfigurationNavigationTarget.NetworkCache;
         if (pageType == typeof(GeneralConfigurationPage))
         {
             return ConfigurationNavigationTarget.General;

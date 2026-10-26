@@ -56,6 +56,9 @@ public static class FoundryApplicationInfo
     /// </summary>
     public const string GeneralConfigurationDocumentationUrl = DocumentationUrl + "/foundry-osd/general";
 
+    /// <summary>Gets the network cache documentation URL.</summary>
+    public const string NetworkCacheDocumentationUrl = DocumentationUrl + "/foundry-osd/network-cache";
+
     /// <summary>
     /// Gets the Wi-Fi configuration documentation URL.
     /// </summary>

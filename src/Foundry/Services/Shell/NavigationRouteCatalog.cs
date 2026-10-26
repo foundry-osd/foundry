@@ -33,6 +33,7 @@ public static class NavigationRouteCatalog
         CreatePrimary<HomeLandingPage>("Nav_HomeKey", "E80F", NavigationSection.General, true),
         CreatePrimary<AdkPage>("Nav_AdkKey", "EC7A", NavigationSection.General, true),
         CreatePrimary<GeneralConfigurationPage>("Nav_GeneralConfigurationKey", "E713", NavigationSection.General),
+        CreatePrimary<NetworkCachePage>("Nav_NetworkCacheKey", "E968", NavigationSection.General),
         CreatePrimary<StartPage>("Nav_StartKey", "E768", NavigationSection.General),
         CreatePrimary<EthernetDot1xPage>("Nav_EthernetDot1xKey", "E839", NavigationSection.Network),
         CreatePrimary<WifiPage>("Nav_WifiKey", "E701", NavigationSection.Network),
