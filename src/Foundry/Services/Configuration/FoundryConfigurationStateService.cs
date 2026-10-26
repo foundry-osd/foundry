@@ -6,6 +6,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Media;
+using Foundry.Core.Services.NetworkCache;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Autopilot;
 using Foundry.Telemetry;
@@ -33,6 +34,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     private readonly IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService;
     private readonly IOobeAccountSecretStateService oobeAccountSecretStateService;
     private readonly IDomainJoinSecretStateService domainJoinSecretStateService;
+    private readonly INetworkCacheSecretStateService networkCacheSecretStateService;
     private readonly IAutopilotHardwareHashSessionState autopilotHardwareHashSessionState;
     private readonly AppSettingsService appSettingsService;
     private readonly ILogger logger;
@@ -53,6 +55,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService,
         IOobeAccountSecretStateService oobeAccountSecretStateService,
         IDomainJoinSecretStateService domainJoinSecretStateService,
+        INetworkCacheSecretStateService networkCacheSecretStateService,
         IAutopilotHardwareHashSessionState autopilotHardwareHashSessionState,
         AppSettingsService appSettingsService,
         ILogger logger,
@@ -67,6 +70,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         this.deploymentProtectionSecretStateService = deploymentProtectionSecretStateService;
         this.oobeAccountSecretStateService = oobeAccountSecretStateService;
         this.domainJoinSecretStateService = domainJoinSecretStateService;
+        this.networkCacheSecretStateService = networkCacheSecretStateService;
         this.autopilotHardwareHashSessionState = autopilotHardwareHashSessionState;
         this.appSettingsService = appSettingsService;
         this.logger = logger.ForContext<FoundryConfigurationStateService>();
@@ -137,6 +141,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         networkSecretStateService.Update(document.Network);
         oobeAccountSecretStateService.Update(document.Customization.Oobe);
         domainJoinSecretStateService.Update(document.DomainJoin);
+        networkCacheSecretStateService.Update(document.NetworkCache);
         Current = candidate;
         validatedUnattendSettings = null;
         unattendSourceValidations = [];
@@ -373,8 +378,24 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     {
         ResolveFile = authoringFiles.GetAvailablePath,
         Network = networkSecretStateService.GetSecrets(Current.Network),
-        AutopilotPfxPassword = autopilotHardwareHashSessionState.GetBootMediaCertificatePassword(Current.Autopilot.HardwareHashUpload.BootMediaCertificate.Pfx)
+        AutopilotPfxPassword = autopilotHardwareHashSessionState.GetBootMediaCertificatePassword(Current.Autopilot.HardwareHashUpload.BootMediaCertificate.Pfx),
+        NetworkCachePasswords = GetNetworkCachePasswords(Current.NetworkCache)
     };
+
+    /// <summary>Returns the passwords of the accounts used by a share; unused accounts never reach generated media.</summary>
+    private Dictionary<string, string> GetNetworkCachePasswords(NetworkCacheSettings settings)
+    {
+        var passwords = new Dictionary<string, string>(StringComparer.Ordinal);
+        foreach (string accountId in NetworkCacheConfigurationValidator.UsedAccountIds(settings))
+        {
+            char[]? password = networkCacheSecretStateService.GetPasswordCopy(accountId);
+            if (password is null) continue;
+            passwords[accountId] = new string(password);
+            CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
+        }
+
+        return passwords;
+    }
 
     /// <inheritdoc />
     public AutopilotProvisioningMode AutopilotProvisioningMode => Current.Autopilot.ProvisioningMode;
@@ -453,6 +474,24 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
 
     /// <inheritdoc />
     public void UpdateDomainJoin(DomainJoinSettings settings) => UpdateProvisioningSelection(Current.Autopilot, settings);
+
+    /// <inheritdoc />
+    public void UpdateNetworkCache(NetworkCacheSettings settings)
+    {
+        ArgumentNullException.ThrowIfNull(settings);
+        FoundryConfigurationDocument candidate = Current with { NetworkCache = settings };
+        ThrowIfManagedChange(candidate);
+        Save(candidate);
+        Current = candidate;
+        networkCacheSecretStateService.Update(settings);
+        StateChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    /// <inheritdoc />
+    public NetworkCacheValidationResult NetworkCacheValidation => NetworkCacheConfigurationValidator.EvaluateReadiness(
+        Current.NetworkCache,
+        networkCacheSecretStateService.HasPassword,
+        Current.General.DeploymentProtection.IsEnabled && deploymentProtectionSecretStateService.IsValid);
 
     /// <inheritdoc />
     public void UpdateProvisioningSelection(AutopilotSettings autopilot, DomainJoinSettings domainJoin)
@@ -613,7 +652,12 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     private BuildSnapshotSources CreateSnapshotSources()
     {
         MediaInputs inputs = MediaInputs;
-        return new BuildSnapshotSources(authoringFiles) { Network = inputs.Network, AutopilotPfxPassword = inputs.AutopilotPfxPassword };
+        return new BuildSnapshotSources(authoringFiles)
+        {
+            Network = inputs.Network,
+            AutopilotPfxPassword = inputs.AutopilotPfxPassword,
+            NetworkCachePasswords = inputs.NetworkCachePasswords
+        };
     }
 
     private DomainJoinSecretState CreateDomainJoinSecretState(DomainJoinSettings settings)

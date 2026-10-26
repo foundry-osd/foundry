@@ -38,6 +38,7 @@ internal sealed class SecretVaultBridge : ISecretVaultBridge, IDisposable
     private readonly INetworkSecretStateService network;
     private readonly IOobeAccountSecretStateService oobe;
     private readonly IDomainJoinSecretStateService domainJoin;
+    private readonly INetworkCacheSecretStateService networkCache;
     private readonly IAutopilotHardwareHashSessionState autopilot;
     private readonly IAppDispatcher dispatcher;
     private readonly ILogger logger;
@@ -56,6 +57,7 @@ internal sealed class SecretVaultBridge : ISecretVaultBridge, IDisposable
         INetworkSecretStateService network,
         IOobeAccountSecretStateService oobe,
         IDomainJoinSecretStateService domainJoin,
+        INetworkCacheSecretStateService networkCache,
         IAutopilotHardwareHashSessionState autopilot,
         IAppDispatcher dispatcher,
         ILogger logger)
@@ -66,6 +68,7 @@ internal sealed class SecretVaultBridge : ISecretVaultBridge, IDisposable
         this.network = network;
         this.oobe = oobe;
         this.domainJoin = domainJoin;
+        this.networkCache = networkCache;
         this.autopilot = autopilot;
         this.dispatcher = dispatcher;
         this.logger = logger.ForContext<SecretVaultBridge>();
@@ -107,6 +110,7 @@ internal sealed class SecretVaultBridge : ISecretVaultBridge, IDisposable
         network.Changed += OnChanged;
         oobe.Changed += OnChanged;
         domainJoin.Changed += OnChanged;
+        networkCache.Changed += OnChanged;
         autopilot.BootMediaCertificatePasswordChanged += OnChanged;
         logger.Information("Secret vault loaded. Status={Status}, EntryCount={EntryCount}", Status, vaultEntries.Count);
     }
@@ -156,6 +160,7 @@ internal sealed class SecretVaultBridge : ISecretVaultBridge, IDisposable
         network.Changed -= OnChanged;
         oobe.Changed -= OnChanged;
         domainJoin.Changed -= OnChanged;
+        networkCache.Changed -= OnChanged;
         autopilot.BootMediaCertificatePasswordChanged -= OnChanged;
     }
 
@@ -206,6 +211,18 @@ internal sealed class SecretVaultBridge : ISecretVaultBridge, IDisposable
                 catch (ArgumentException)
                 {
                     logger.Warning("A saved domain join password no longer satisfies the password rules and was not restored.");
+                }
+            }
+
+            foreach ((string accountId, string password) in secrets.NetworkCacheAccounts)
+            {
+                try
+                {
+                    networkCache.SetPassword(accountId, password);
+                }
+                catch (InvalidDataException)
+                {
+                    logger.Warning("A saved network cache password no longer satisfies the password rules and was not restored.");
                 }
             }
         }
@@ -304,6 +321,13 @@ internal sealed class SecretVaultBridge : ISecretVaultBridge, IDisposable
             if (domainJoin.GetPasswordCopy(account) is { } password) domainAccounts[account] = Consume(password);
         }
 
+        var networkCacheAccounts = new Dictionary<string, string>(StringComparer.Ordinal);
+        foreach (NetworkCacheAccount account in current.NetworkCache.Accounts)
+        {
+            if (!string.IsNullOrWhiteSpace(account.Id) && networkCache.GetPasswordCopy(account.Id) is { } password)
+                networkCacheAccounts[account.Id] = Consume(password);
+        }
+
         return new SecretSnapshot
         {
             DeploymentProtection = protection.IsValid ? Consume(protection.GetConfirmedPasswordCopy()) : null,
@@ -313,7 +337,8 @@ internal sealed class SecretVaultBridge : ISecretVaultBridge, IDisposable
             AutopilotCertificatePassword = autopilot.GetBootMediaCertificatePassword(current.Autopilot.HardwareHashUpload.BootMediaCertificate.Pfx),
             OobeAdministrator = Confirmed(oobe.GetAdministratorPasswordCopy(), oobe.GetAdministratorConfirmationCopy()),
             OobeAccounts = oobeAccounts,
-            DomainAccounts = domainAccounts
+            DomainAccounts = domainAccounts,
+            NetworkCacheAccounts = networkCacheAccounts
         };
     }
 

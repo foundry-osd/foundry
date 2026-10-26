@@ -21,6 +21,7 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
     private readonly INetworkSecretStateService networkSecretStateService;
     private readonly IOobeAccountSecretStateService oobeAccountSecretStateService;
     private readonly IDomainJoinSecretStateService domainJoinSecretStateService;
+    private readonly INetworkCacheSecretStateService networkCacheSecretStateService;
     private readonly IWinPeLanguageDiscoveryService languageDiscoveryService;
     private readonly Foundry.Services.Sharing.ConfigurationSharingService sharing;
     private SharedContentSyncState lastSharedContentState;
@@ -33,6 +34,7 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
         INetworkSecretStateService networkSecretStateService,
         IOobeAccountSecretStateService oobeAccountSecretStateService,
         IDomainJoinSecretStateService domainJoinSecretStateService,
+        INetworkCacheSecretStateService networkCacheSecretStateService,
         IWinPeLanguageDiscoveryService languageDiscoveryService,
         Foundry.Services.Sharing.ConfigurationSharingService sharing)
     {
@@ -43,6 +45,7 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
         this.networkSecretStateService = networkSecretStateService;
         this.oobeAccountSecretStateService = oobeAccountSecretStateService;
         this.domainJoinSecretStateService = domainJoinSecretStateService;
+        this.networkCacheSecretStateService = networkCacheSecretStateService;
         this.languageDiscoveryService = languageDiscoveryService;
 
         adkService.StatusChanged += OnAdkStatusChanged;
@@ -51,6 +54,7 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
         networkSecretStateService.Changed += OnUnderlyingStateChanged;
         oobeAccountSecretStateService.Changed += OnUnderlyingStateChanged;
         domainJoinSecretStateService.Changed += OnUnderlyingStateChanged;
+        networkCacheSecretStateService.Changed += OnUnderlyingStateChanged;
         sharing.Changed += OnSharingChanged;
     }
 
@@ -77,6 +81,7 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
                 IsOobeAccountConfigurationReady = oobeAccountSecretStateService.Validate(configuration.Customization.Oobe).IsValid,
                 IsAutopilotConfigurationReady = configurationStateService.IsAutopilotConfigurationReady,
                 IsDomainJoinConfigurationReady = configurationStateService.IsDomainJoinConfigurationReady,
+                IsNetworkCacheConfigurationReady = configurationStateService.NetworkCacheValidation.IsValid,
                 IsCustomImagesReady = configurationStateService.IsCustomImagesReady,
                 IsPostInstallationReady = configurationStateService.IsPostInstallationReady,
                 IsCustomDriversReady = configurationStateService.IsCustomDriversReady,

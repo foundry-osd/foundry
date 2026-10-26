@@ -47,6 +47,7 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
     private readonly INetworkSecretStateService network;
     private readonly IOobeAccountSecretStateService oobe;
     private readonly IDomainJoinSecretStateService domainJoin;
+    private readonly INetworkCacheSecretStateService networkCache;
     private readonly IAutopilotHardwareHashSessionState autopilot;
     private readonly IAppDispatcher dispatcher;
     private readonly ILogger logger;
@@ -75,6 +76,7 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
         INetworkSecretStateService network,
         IOobeAccountSecretStateService oobe,
         IDomainJoinSecretStateService domainJoin,
+        INetworkCacheSecretStateService networkCache,
         IAutopilotHardwareHashSessionState autopilot,
         IAppDispatcher dispatcher,
         ILogger logger)
@@ -90,6 +92,7 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
         this.network = network;
         this.oobe = oobe;
         this.domainJoin = domainJoin;
+        this.networkCache = networkCache;
         this.autopilot = autopilot;
         this.dispatcher = dispatcher;
         this.logger = logger.ForContext<ConfigurationSharingService>();
@@ -255,6 +258,7 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
         network.Changed += OnPublishedSourceChanged;
         oobe.Changed += OnPublishedSourceChanged;
         domainJoin.Changed += OnPublishedSourceChanged;
+        networkCache.Changed += OnPublishedSourceChanged;
         autopilot.BootMediaCertificatePasswordChanged += OnPublishedSourceChanged;
         if (engine.Role == SharingRole.Reference) SchedulePublish();
         else if (engine.Role == SharingRole.Follower) StartFollowerChecks();
@@ -363,6 +367,7 @@ public sealed class ConfigurationSharingService : ISharingHost, IDisposable
             network.Changed -= OnPublishedSourceChanged;
             oobe.Changed -= OnPublishedSourceChanged;
             domainJoin.Changed -= OnPublishedSourceChanged;
+            networkCache.Changed -= OnPublishedSourceChanged;
             autopilot.BootMediaCertificatePasswordChanged -= OnPublishedSourceChanged;
         }
 
