@@ -23,6 +23,36 @@ public sealed class SecretMapTests
     }
 
     [Fact]
+    public void NetworkCacheAccountPassword_RoundTripsByAccountIdWhileTheAccountExists()
+    {
+        FoundryConfigurationDocument configuration = WithNetworkCache(isEnabled: true);
+        var secrets = new SecretSnapshot { NetworkCacheAccounts = new Dictionary<string, string> { ["a1"] = "share-password", ["gone"] = "old" } };
+
+        IReadOnlyDictionary<string, string> entries = SecretMap.ToEntries(configuration, secrets);
+
+        Assert.Equal(new Dictionary<string, string> { [SecretIds.NetworkCacheAccount("a1")] = "share-password" }, entries);
+        Assert.Equal("share-password", SecretMap.FromEntries(configuration, entries).NetworkCacheAccounts["a1"]);
+    }
+
+    [Fact]
+    public void RequiredIds_NetworkCacheAccount_OnlyWhenEnabledAndUsedByAShare()
+    {
+        Assert.Contains(SecretIds.NetworkCacheAccount("a1"), SecretMap.RequiredIds(WithNetworkCache(isEnabled: true)));
+        Assert.DoesNotContain(SecretIds.NetworkCacheAccount("a2"), SecretMap.RequiredIds(WithNetworkCache(isEnabled: true)));
+        Assert.Empty(SecretMap.RequiredIds(WithNetworkCache(isEnabled: false)));
+    }
+
+    private static FoundryConfigurationDocument WithNetworkCache(bool isEnabled) => new()
+    {
+        NetworkCache = new NetworkCacheSettings
+        {
+            IsEnabled = isEnabled,
+            Accounts = [new() { Id = "a1", UserName = "CONTOSO\\svc" }, new() { Id = "a2", UserName = "CONTOSO\\spare" }],
+            Shares = [new() { Id = "s1", Path = @"\\fs01\cache", AccountId = "a1" }]
+        }
+    };
+
+    [Fact]
     public void FromEntries_ChangedCertificate_DoesNotReturnOldPassword()
     {
         var entries = new Dictionary<string, string> { [SecretIds.Dot1xCertificate(OldHash)] = "pfx-password" };
@@ -113,7 +143,7 @@ public sealed class SecretMapTests
             [SecretIds.SigningKey] = "signing-key",
             [SecretIds.MasterKey] = "master-key",
             [SecretIds.PublicationPassword] = "publication-password",
-            ["networkcache/account/a1"] = "share-password",
+            ["future/feature/a1"] = "future-password",
             [SecretIds.WifiPassphrase] = "old-passphrase",
             [SecretIds.Dot1xCertificate(OldHash)] = "old-certificate-password",
         };
@@ -131,7 +161,7 @@ public sealed class SecretMapTests
             [SecretIds.SigningKey] = "signing-key",
             [SecretIds.MasterKey] = "master-key",
             [SecretIds.PublicationPassword] = "publication-password",
-            ["networkcache/account/a1"] = "share-password",
+            ["future/feature/a1"] = "future-password",
             [SecretIds.WifiPassphrase] = "new-passphrase",
             [SecretIds.Dot1xCertificate(NewHash)] = "new-certificate-password",
         }, merged);

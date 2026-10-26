@@ -55,6 +55,9 @@ public static class SecretIds
     /// <summary>Prefix of the domain join account password ids.</summary>
     public const string DomainAccountPrefix = "domain/";
 
+    /// <summary>Prefix of the network cache account password ids.</summary>
+    public const string NetworkCacheAccountPrefix = "networkcache/account/";
+
     /// <summary>Gets the id of the password of a Wi-Fi certificate, keyed by the certificate content hash so it follows its file.</summary>
     public static string WifiCertificate(string hash) => ForHash(WifiCertificatePrefix, hash);
 
@@ -76,6 +79,13 @@ public static class SecretIds
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(canonicalAccount);
         return DomainAccountPrefix + canonicalAccount;
+    }
+
+    /// <summary>Gets the id of the password of a network cache account, keyed by account id.</summary>
+    public static string NetworkCacheAccount(string accountId)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(accountId);
+        return NetworkCacheAccountPrefix + accountId;
     }
 
     /// <summary>Returns whether the id belongs to the sharing machinery and must never be exported or published.</summary>

@@ -50,6 +50,15 @@ public static class SecretMap
                 .FirstOrDefault(pair => DomainJoinCredentialContext.CanonicalizeAccountName(pair.Key) == account).Value,
             Set: (secrets, account, value) => secrets with { DomainAccounts = With(secrets.DomainAccounts, account, value) },
             RequiredWhen: (configuration, account) => configuration.DomainJoin.GetReferencedAccountNames().Contains(account, StringComparer.Ordinal)),
+        new(
+            Keys: configuration => configuration.NetworkCache.Accounts.Select(account => account.Id)
+                .Where(id => !string.IsNullOrWhiteSpace(id)).Distinct(StringComparer.Ordinal),
+            Id: SecretIds.NetworkCacheAccount,
+            Owns: id => id.StartsWith(SecretIds.NetworkCacheAccountPrefix, StringComparison.Ordinal),
+            Get: (secrets, id) => secrets.NetworkCacheAccounts.GetValueOrDefault(id),
+            Set: (secrets, id, value) => secrets with { NetworkCacheAccounts = With(secrets.NetworkCacheAccounts, id, value) },
+            RequiredWhen: (configuration, id) => configuration.NetworkCache.IsEnabled &&
+                configuration.NetworkCache.Shares.Any(share => share.AccountId == id)),
     ];
 
     /// <summary>Returns the vault entries for the passwords of <paramref name="secrets"/> whose owner exists in <paramref name="configuration"/>.</summary>
