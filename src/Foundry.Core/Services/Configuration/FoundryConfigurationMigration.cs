@@ -41,6 +41,14 @@ public static class FoundryConfigurationMigration
             .Select(domain => domain is { OrganizationalUnits: null } ? domain with { OrganizationalUnits = [] } : domain).ToArray()
     };
 
+    /// <summary>Replaces lists written as <c>null</c> by hand or by an older build with empty lists.</summary>
+    private static NetworkCacheSettings WithoutNullLists(NetworkCacheSettings settings) => settings with
+    {
+        Accounts = settings.Accounts ?? [],
+        Shares = settings.Shares ?? [],
+        Scopes = (settings.Scopes ?? []).Select(scope => scope is { ShareIds: null } ? scope with { ShareIds = [] } : scope).ToArray()
+    };
+
     public static FoundryConfigurationDocument ApplySchemaMigrations(FoundryConfigurationDocument document)
     {
         ArgumentNullException.ThrowIfNull(document);
@@ -52,6 +60,7 @@ public static class FoundryConfigurationMigration
         migrated = migrated with { CustomImages = migrated.CustomImages ?? new CustomImagesSettings() };
         migrated = migrated with { CustomDrivers = migrated.CustomDrivers ?? new CustomDriverSetsSettings() };
         migrated = migrated with { PreOobe = migrated.PreOobe ?? new PreOobeSettings() };
+        migrated = migrated with { NetworkCache = WithoutNullLists(migrated.NetworkCache ?? new NetworkCacheSettings()) };
         migrated = migrated with { DomainJoin = WithoutNullLists(migrated.DomainJoin ?? new DomainJoinSettings()) };
         DomainJoinConfigurationValidator.ThrowIfProvisioningModesConflict(migrated.Autopilot, migrated.DomainJoin);
         if (!DomainJoinConfigurationValidator.ValidateMetadata(migrated.DomainJoin).IsValid)

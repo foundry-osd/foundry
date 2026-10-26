@@ -68,6 +68,9 @@ public sealed record FoundryConfigurationDocument
     /// <summary>Gets optional online domain joining: the joinable domains with their OUs and account names, without passwords.</summary>
     public DomainJoinSettings DomainJoin { get; init; } = new();
 
+    /// <summary>Gets the SMB shares Foundry Deploy uses as a shared cache, chosen by IP scope.</summary>
+    public NetworkCacheSettings NetworkCache { get; init; } = new();
+
     /// <summary>
     /// Gets telemetry policy and runtime settings propagated into generated media.
     /// </summary>
