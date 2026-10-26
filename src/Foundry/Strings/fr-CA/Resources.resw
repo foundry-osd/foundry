@@ -2629,6 +2629,12 @@ Sous licence MIT.</value>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
     <value>Nommage des machines</value>
   </data>
+  <data name="Nav_NetworkCacheKey.Description" xml:space="preserve">
+    <value>Utilisez des partages SMB comme cache de téléchargement partagé pour Foundry Deploy.</value>
+  </data>
+  <data name="Nav_NetworkCacheKey.Title" xml:space="preserve">
+    <value>Cache réseau</value>
+  </data>
   <data name="Nav_NetworkSection.Title" xml:space="preserve">
     <value>Réseau</value>
   </data>
@@ -2787,6 +2793,246 @@ Sous licence MIT.</value>
   </data>
   <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Itinérance des profils Windows</value>
+  </data>
+  <data name="NetworkCache.AccountDialogAddTitle" xml:space="preserve">
+    <value>Ajouter un compte</value>
+  </data>
+  <data name="NetworkCache.AccountDialogEditTitle" xml:space="preserve">
+    <value>Modifier le compte</value>
+  </data>
+  <data name="NetworkCache.AccountInUse" xml:space="preserve">
+    <value>Ce compte est utilisé par un partage. Retirez-le d'abord du partage.</value>
+  </data>
+  <data name="NetworkCache.AccountInUseTitleFormat" xml:space="preserve">
+    <value>Impossible de supprimer {0}</value>
+  </data>
+  <data name="NetworkCache.AccountPassword" xml:space="preserve">
+    <value>Mot de passe</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordConfirmation" xml:space="preserve">
+    <value>Confirmer le mot de passe</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordKeepHint" xml:space="preserve">
+    <value>Laissez le mot de passe vide pour conserver le mot de passe actuel.</value>
+  </data>
+  <data name="NetworkCache.AccountUserName" xml:space="preserve">
+    <value>Nom d'utilisateur</value>
+  </data>
+  <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
+    <value>DOMAIN\user ou user@domain</value>
+  </data>
+  <data name="NetworkCache.AccountsDescription" xml:space="preserve">
+    <value>Comptes qui ouvrent les partages. Les appareils les utilisent pour lire un partage et y publier ce qu'ils téléchargent.</value>
+  </data>
+  <data name="NetworkCache.AccountsHeader" xml:space="preserve">
+    <value>Comptes</value>
+  </data>
+  <data name="NetworkCache.ColumnAccount" xml:space="preserve">
+    <value>Compte</value>
+  </data>
+  <data name="NetworkCache.ColumnName" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="NetworkCache.ColumnPassword" xml:space="preserve">
+    <value>Mot de passe</value>
+  </data>
+  <data name="NetworkCache.ColumnPath" xml:space="preserve">
+    <value>Chemin</value>
+  </data>
+  <data name="NetworkCache.ColumnShares" xml:space="preserve">
+    <value>Partages</value>
+  </data>
+  <data name="NetworkCache.ColumnStatus" xml:space="preserve">
+    <value>État</value>
+  </data>
+  <data name="NetworkCache.ColumnType" xml:space="preserve">
+    <value>Type d'étendue</value>
+  </data>
+  <data name="NetworkCache.ColumnUsedBy" xml:space="preserve">
+    <value>Utilisé par</value>
+  </data>
+  <data name="NetworkCache.ColumnUserName" xml:space="preserve">
+    <value>Nom d'utilisateur</value>
+  </data>
+  <data name="NetworkCache.ColumnValue" xml:space="preserve">
+    <value>Valeur</value>
+  </data>
+  <data name="NetworkCache.CommandAdd" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="NetworkCache.CommandEdit" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+  <data name="NetworkCache.CommandRemove" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="NetworkCache.DialogAdd" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="NetworkCache.EmptyAccounts" xml:space="preserve">
+    <value>Aucun compte pour l'instant. Les partages sans compte sont en lecture seule.</value>
+  </data>
+  <data name="NetworkCache.EmptyScopes" xml:space="preserve">
+    <value>Aucune étendue IP pour l'instant.</value>
+  </data>
+  <data name="NetworkCache.EmptyShares" xml:space="preserve">
+    <value>Aucun partage pour l'instant.</value>
+  </data>
+  <data name="NetworkCache.MoveDown" xml:space="preserve">
+    <value>Descendre</value>
+  </data>
+  <data name="NetworkCache.MoveUp" xml:space="preserve">
+    <value>Monter</value>
+  </data>
+  <data name="NetworkCache.NoAccount" xml:space="preserve">
+    <value>Aucun compte</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
+    <value>Partages : {0}, étendues IP : {1}</value>
+  </data>
+  <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
+    <value>Ce mot de passe ne peut pas être utilisé.</value>
+  </data>
+  <data name="NetworkCache.PasswordMismatch" xml:space="preserve">
+    <value>Les mots de passe ne correspondent pas.</value>
+  </data>
+  <data name="NetworkCache.PasswordMissing" xml:space="preserve">
+    <value>Manquant</value>
+  </data>
+  <data name="NetworkCache.PasswordRequiredInput" xml:space="preserve">
+    <value>Saisissez un mot de passe.</value>
+  </data>
+  <data name="NetworkCache.PasswordSaved" xml:space="preserve">
+    <value>Enregistré</value>
+  </data>
+  <data name="NetworkCache.Ready" xml:space="preserve">
+    <value>Prêt</value>
+  </data>
+  <data name="NetworkCache.RemoveShareTitle" xml:space="preserve">
+    <value>Supprimer le partage</value>
+  </data>
+  <data name="NetworkCache.RemoveShareUsedMessageFormat" xml:space="preserve">
+    <value>{0} est utilisé par {1} étendue(s) IP. Le supprimer le retire aussi de ces étendues.</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogAddTitle" xml:space="preserve">
+    <value>Ajouter une étendue IP</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogEditTitle" xml:space="preserve">
+    <value>Modifier l'étendue IP</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Address" xml:space="preserve">
+    <value>Adresse</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Range" xml:space="preserve">
+    <value>Plage</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Subnet" xml:space="preserve">
+    <value>Sous-réseau</value>
+  </data>
+  <data name="NetworkCache.ScopeKindHeader" xml:space="preserve">
+    <value>Type d'étendue</value>
+  </data>
+  <data name="NetworkCache.ScopeName" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="NetworkCache.ScopeNameRequired" xml:space="preserve">
+    <value>Saisissez un nom.</value>
+  </data>
+  <data name="NetworkCache.ScopeNoShares" xml:space="preserve">
+    <value>Ajoutez d'abord un partage.</value>
+  </data>
+  <data name="NetworkCache.ScopeShares" xml:space="preserve">
+    <value>Partages</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
+    <value>Les appareils essaient les partages cochés de haut en bas, puis téléchargent depuis Internet.</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
+    <value>Cochez au moins un partage.</value>
+  </data>
+  <data name="NetworkCache.ScopeValue" xml:space="preserve">
+    <value>Valeur</value>
+  </data>
+  <data name="NetworkCache.ScopeValueInvalid" xml:space="preserve">
+    <value>Saisissez une valeur valide pour ce type.</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Address" xml:space="preserve">
+    <value>10.20.0.15</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Range" xml:space="preserve">
+    <value>10.20.0.10-10.20.0.200</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Subnet" xml:space="preserve">
+    <value>10.10.0.0/16 ou fd00:10::/48</value>
+  </data>
+  <data name="NetworkCache.ScopesDescription" xml:space="preserve">
+    <value>Adresses IP qui déterminent les partages qu'un appareil essaie.</value>
+  </data>
+  <data name="NetworkCache.ScopesHeader" xml:space="preserve">
+    <value>Étendues IP</value>
+  </data>
+  <data name="NetworkCache.ScopesSpecificity" xml:space="preserve">
+    <value>Quand un appareil correspond à plusieurs étendues, la plus précise l'emporte.</value>
+  </data>
+  <data name="NetworkCache.ShareAccount" xml:space="preserve">
+    <value>Compte</value>
+  </data>
+  <data name="NetworkCache.ShareDialogAddTitle" xml:space="preserve">
+    <value>Ajouter un partage</value>
+  </data>
+  <data name="NetworkCache.ShareDialogEditTitle" xml:space="preserve">
+    <value>Modifier le partage</value>
+  </data>
+  <data name="NetworkCache.ShareDuplicate" xml:space="preserve">
+    <value>Ce partage figure déjà dans la liste.</value>
+  </data>
+  <data name="NetworkCache.ShareNoAccountHint" xml:space="preserve">
+    <value>Sans compte, les appareils lisent le partage sans identifiants et n'y écrivent jamais.</value>
+  </data>
+  <data name="NetworkCache.SharePath" xml:space="preserve">
+    <value>Chemin</value>
+  </data>
+  <data name="NetworkCache.SharesDescription" xml:space="preserve">
+    <value>Partages SMB utilisés comme cache. Chaque partage peut s'ouvrir avec un seul compte.</value>
+  </data>
+  <data name="NetworkCache.SharesHeader" xml:space="preserve">
+    <value>Partages</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
+    <value>Cette valeur n'est pas valide pour son type.</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidSharePath" xml:space="preserve">
+    <value>Saisissez un chemin de la forme \\server\share.</value>
+  </data>
+  <data name="NetworkCache.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>Les partages avec un compte nécessitent la protection par mot de passe du déploiement, car n'importe qui sur le réseau peut télécharger une image de démarrage PXE. Activez-la sur la page « Général ».</value>
+  </data>
+  <data name="NetworkCache.Validation.PasswordRequired" xml:space="preserve">
+    <value>Saisissez le mot de passe du compte.</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopeWithoutShare" xml:space="preserve">
+    <value>Cochez au moins un partage.</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopesRequired" xml:space="preserve">
+    <value>Ajoutez au moins une étendue IP.</value>
+  </data>
+  <data name="NetworkCache.Validation.SharesRequired" xml:space="preserve">
+    <value>Ajoutez au moins un partage.</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownAccount" xml:space="preserve">
+    <value>Le compte de ce partage n'existe plus.</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownShare" xml:space="preserve">
+    <value>Un partage de cette étendue n'existe plus.</value>
+  </data>
+  <data name="NetworkCache.Validation.UserNameRequired" xml:space="preserve">
+    <value>Saisissez un nom d'utilisateur.</value>
+  </data>
+  <data name="NetworkCachePageHeader.Description" xml:space="preserve">
+    <value>Permet à Foundry Deploy d'utiliser des partages SMB comme cache partagé, choisi selon l'adresse IP de l'appareil. Windows, les packages de pilotes et le contenu importé sont lus depuis le partage avant Internet, et ce que les appareils téléchargent y est publié en retour.</value>
+  </data>
+  <data name="NetworkCachePageHeader.Title" xml:space="preserve">
+    <value>Cache réseau</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Activer la configuration OOBE</value>
@@ -4778,251 +5024,5 @@ L'application de la mise à jour redémarre Foundry OSD.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Jonction au domaine zero-touch</value>
-  </data>
-  <data name="Nav_NetworkCacheKey.Description" xml:space="preserve">
-    <value>Utilisez des partages SMB comme cache de téléchargement partagé pour Foundry Deploy.</value>
-  </data>
-  <data name="Nav_NetworkCacheKey.Title" xml:space="preserve">
-    <value>Cache réseau</value>
-  </data>
-  <data name="NetworkCache.AccountDialogAddTitle" xml:space="preserve">
-    <value>Ajouter un compte</value>
-  </data>
-  <data name="NetworkCache.AccountDialogEditTitle" xml:space="preserve">
-    <value>Modifier le compte</value>
-  </data>
-  <data name="NetworkCache.AccountInUse" xml:space="preserve">
-    <value>Ce compte est utilisé par un partage. Retirez-le d'abord du partage.</value>
-  </data>
-  <data name="NetworkCache.AccountInUseTitleFormat" xml:space="preserve">
-    <value>Impossible de supprimer {0}</value>
-  </data>
-  <data name="NetworkCache.AccountPassword" xml:space="preserve">
-    <value>Mot de passe</value>
-  </data>
-  <data name="NetworkCache.AccountPasswordConfirmation" xml:space="preserve">
-    <value>Confirmer le mot de passe</value>
-  </data>
-  <data name="NetworkCache.AccountPasswordKeepHint" xml:space="preserve">
-    <value>Laissez le mot de passe vide pour conserver le mot de passe actuel.</value>
-  </data>
-  <data name="NetworkCache.AccountUserName" xml:space="preserve">
-    <value>Nom d'utilisateur</value>
-  </data>
-  <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user ou user@domain</value>
-  </data>
-  <data name="NetworkCache.AccountsDescription" xml:space="preserve">
-    <value>Comptes qui ouvrent les partages. Les appareils les utilisent pour lire un partage et y publier ce qu'ils téléchargent.</value>
-  </data>
-  <data name="NetworkCache.AccountsHeader" xml:space="preserve">
-    <value>Comptes</value>
-  </data>
-  <data name="NetworkCache.ColumnAccount" xml:space="preserve">
-    <value>Compte</value>
-  </data>
-  <data name="NetworkCache.ColumnName" xml:space="preserve">
-    <value>Nom</value>
-  </data>
-  <data name="NetworkCache.ColumnPassword" xml:space="preserve">
-    <value>Mot de passe</value>
-  </data>
-  <data name="NetworkCache.ColumnPath" xml:space="preserve">
-    <value>Chemin</value>
-  </data>
-  <data name="NetworkCache.ColumnShares" xml:space="preserve">
-    <value>Partages</value>
-  </data>
-  <data name="NetworkCache.ColumnStatus" xml:space="preserve">
-    <value>État</value>
-  </data>
-  <data name="NetworkCache.ColumnType" xml:space="preserve">
-    <value>Type d'étendue</value>
-  </data>
-  <data name="NetworkCache.ColumnUsedBy" xml:space="preserve">
-    <value>Utilisé par</value>
-  </data>
-  <data name="NetworkCache.ColumnUserName" xml:space="preserve">
-    <value>Nom d'utilisateur</value>
-  </data>
-  <data name="NetworkCache.ColumnValue" xml:space="preserve">
-    <value>Valeur</value>
-  </data>
-  <data name="NetworkCache.CommandAdd" xml:space="preserve">
-    <value>Ajouter</value>
-  </data>
-  <data name="NetworkCache.CommandEdit" xml:space="preserve">
-    <value>Modifier</value>
-  </data>
-  <data name="NetworkCache.CommandRemove" xml:space="preserve">
-    <value>Supprimer</value>
-  </data>
-  <data name="NetworkCache.DialogAdd" xml:space="preserve">
-    <value>Ajouter</value>
-  </data>
-  <data name="NetworkCache.EmptyAccounts" xml:space="preserve">
-    <value>Aucun compte pour l'instant. Les partages sans compte sont en lecture seule.</value>
-  </data>
-  <data name="NetworkCache.EmptyScopes" xml:space="preserve">
-    <value>Aucune étendue IP pour l'instant.</value>
-  </data>
-  <data name="NetworkCache.EmptyShares" xml:space="preserve">
-    <value>Aucun partage pour l'instant.</value>
-  </data>
-  <data name="NetworkCache.MoveDown" xml:space="preserve">
-    <value>Descendre</value>
-  </data>
-  <data name="NetworkCache.MoveUp" xml:space="preserve">
-    <value>Monter</value>
-  </data>
-  <data name="NetworkCache.NoAccount" xml:space="preserve">
-    <value>Aucun compte</value>
-  </data>
-  <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
-    <value>Partages : {0}, étendues IP : {1}</value>
-  </data>
-  <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
-    <value>Ce mot de passe ne peut pas être utilisé.</value>
-  </data>
-  <data name="NetworkCache.PasswordMismatch" xml:space="preserve">
-    <value>Les mots de passe ne correspondent pas.</value>
-  </data>
-  <data name="NetworkCache.PasswordMissing" xml:space="preserve">
-    <value>Manquant</value>
-  </data>
-  <data name="NetworkCache.PasswordRequiredInput" xml:space="preserve">
-    <value>Saisissez un mot de passe.</value>
-  </data>
-  <data name="NetworkCache.PasswordSaved" xml:space="preserve">
-    <value>Enregistré</value>
-  </data>
-  <data name="NetworkCache.Ready" xml:space="preserve">
-    <value>Prêt</value>
-  </data>
-  <data name="NetworkCache.RemoveShareTitle" xml:space="preserve">
-    <value>Supprimer le partage</value>
-  </data>
-  <data name="NetworkCache.RemoveShareUsedMessageFormat" xml:space="preserve">
-    <value>{0} est utilisé par {1} étendue(s) IP. Le supprimer le retire aussi de ces étendues.</value>
-  </data>
-  <data name="NetworkCache.ScopeDialogAddTitle" xml:space="preserve">
-    <value>Ajouter une étendue IP</value>
-  </data>
-  <data name="NetworkCache.ScopeDialogEditTitle" xml:space="preserve">
-    <value>Modifier l'étendue IP</value>
-  </data>
-  <data name="NetworkCache.ScopeKind.Address" xml:space="preserve">
-    <value>Adresse</value>
-  </data>
-  <data name="NetworkCache.ScopeKind.Range" xml:space="preserve">
-    <value>Plage</value>
-  </data>
-  <data name="NetworkCache.ScopeKind.Subnet" xml:space="preserve">
-    <value>Sous-réseau</value>
-  </data>
-  <data name="NetworkCache.ScopeKindHeader" xml:space="preserve">
-    <value>Type d'étendue</value>
-  </data>
-  <data name="NetworkCache.ScopeName" xml:space="preserve">
-    <value>Nom</value>
-  </data>
-  <data name="NetworkCache.ScopeNameRequired" xml:space="preserve">
-    <value>Saisissez un nom.</value>
-  </data>
-  <data name="NetworkCache.ScopeNoShares" xml:space="preserve">
-    <value>Ajoutez d'abord un partage.</value>
-  </data>
-  <data name="NetworkCache.ScopeShares" xml:space="preserve">
-    <value>Partages</value>
-  </data>
-  <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>Les appareils essaient les partages cochés de haut en bas, puis téléchargent depuis Internet.</value>
-  </data>
-  <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
-    <value>Cochez au moins un partage.</value>
-  </data>
-  <data name="NetworkCache.ScopeValue" xml:space="preserve">
-    <value>Valeur</value>
-  </data>
-  <data name="NetworkCache.ScopeValueInvalid" xml:space="preserve">
-    <value>Saisissez une valeur valide pour ce type.</value>
-  </data>
-  <data name="NetworkCache.ScopeValuePlaceholder.Address" xml:space="preserve">
-    <value>10.20.0.15</value>
-  </data>
-  <data name="NetworkCache.ScopeValuePlaceholder.Range" xml:space="preserve">
-    <value>10.20.0.10-10.20.0.200</value>
-  </data>
-  <data name="NetworkCache.ScopeValuePlaceholder.Subnet" xml:space="preserve">
-    <value>10.10.0.0/16 ou fd00:10::/48</value>
-  </data>
-  <data name="NetworkCache.ScopesDescription" xml:space="preserve">
-    <value>Adresses IP qui déterminent les partages qu'un appareil essaie.</value>
-  </data>
-  <data name="NetworkCache.ScopesHeader" xml:space="preserve">
-    <value>Étendues IP</value>
-  </data>
-  <data name="NetworkCache.ScopesSpecificity" xml:space="preserve">
-    <value>Quand un appareil correspond à plusieurs étendues, la plus précise l'emporte.</value>
-  </data>
-  <data name="NetworkCache.ShareAccount" xml:space="preserve">
-    <value>Compte</value>
-  </data>
-  <data name="NetworkCache.ShareDialogAddTitle" xml:space="preserve">
-    <value>Ajouter un partage</value>
-  </data>
-  <data name="NetworkCache.ShareDialogEditTitle" xml:space="preserve">
-    <value>Modifier le partage</value>
-  </data>
-  <data name="NetworkCache.ShareDuplicate" xml:space="preserve">
-    <value>Ce partage figure déjà dans la liste.</value>
-  </data>
-  <data name="NetworkCache.ShareNoAccountHint" xml:space="preserve">
-    <value>Sans compte, les appareils lisent le partage sans identifiants et n'y écrivent jamais.</value>
-  </data>
-  <data name="NetworkCache.SharePath" xml:space="preserve">
-    <value>Chemin</value>
-  </data>
-  <data name="NetworkCache.SharesDescription" xml:space="preserve">
-    <value>Partages SMB utilisés comme cache. Chaque partage peut s'ouvrir avec un seul compte.</value>
-  </data>
-  <data name="NetworkCache.SharesHeader" xml:space="preserve">
-    <value>Partages</value>
-  </data>
-  <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
-    <value>Cette valeur n'est pas valide pour son type.</value>
-  </data>
-  <data name="NetworkCache.Validation.InvalidSharePath" xml:space="preserve">
-    <value>Saisissez un chemin de la forme \\server\share.</value>
-  </data>
-  <data name="NetworkCache.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Les partages avec un compte nécessitent la protection par mot de passe du déploiement, car n'importe qui sur le réseau peut télécharger une image de démarrage PXE. Activez-la sur la page « Général ».</value>
-  </data>
-  <data name="NetworkCache.Validation.PasswordRequired" xml:space="preserve">
-    <value>Saisissez le mot de passe du compte.</value>
-  </data>
-  <data name="NetworkCache.Validation.ScopeWithoutShare" xml:space="preserve">
-    <value>Cochez au moins un partage.</value>
-  </data>
-  <data name="NetworkCache.Validation.ScopesRequired" xml:space="preserve">
-    <value>Ajoutez au moins une étendue IP.</value>
-  </data>
-  <data name="NetworkCache.Validation.SharesRequired" xml:space="preserve">
-    <value>Ajoutez au moins un partage.</value>
-  </data>
-  <data name="NetworkCache.Validation.UnknownAccount" xml:space="preserve">
-    <value>Le compte de ce partage n'existe plus.</value>
-  </data>
-  <data name="NetworkCache.Validation.UnknownShare" xml:space="preserve">
-    <value>Un partage de cette étendue n'existe plus.</value>
-  </data>
-  <data name="NetworkCache.Validation.UserNameRequired" xml:space="preserve">
-    <value>Saisissez un nom d'utilisateur.</value>
-  </data>
-  <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>Permet à Foundry Deploy d'utiliser des partages SMB comme cache partagé, choisi selon l'adresse IP de l'appareil. Windows, les packages de pilotes et le contenu importé sont lus depuis le partage avant Internet, et ce que les appareils téléchargent y est publié en retour.</value>
-  </data>
-  <data name="NetworkCachePageHeader.Title" xml:space="preserve">
-    <value>Cache réseau</value>
   </data>
 </root>

@@ -2629,6 +2629,12 @@ Licencjonowany na licencji MIT.</value>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
     <value>Nazewnictwo komputerów</value>
   </data>
+  <data name="Nav_NetworkCacheKey.Description" xml:space="preserve">
+    <value>Używaj udziałów SMB jako wspólnej pamięci podręcznej pobierania dla Foundry Deploy.</value>
+  </data>
+  <data name="Nav_NetworkCacheKey.Title" xml:space="preserve">
+    <value>Sieciowa pamięć podręczna</value>
+  </data>
   <data name="Nav_NetworkSection.Title" xml:space="preserve">
     <value>Sieć</value>
   </data>
@@ -2787,6 +2793,246 @@ Licencjonowany na licencji MIT.</value>
   </data>
   <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming profili Windows</value>
+  </data>
+  <data name="NetworkCache.AccountDialogAddTitle" xml:space="preserve">
+    <value>Dodaj konto</value>
+  </data>
+  <data name="NetworkCache.AccountDialogEditTitle" xml:space="preserve">
+    <value>Edytuj konto</value>
+  </data>
+  <data name="NetworkCache.AccountInUse" xml:space="preserve">
+    <value>To konto jest używane przez udział. Najpierw usuń je z udziału.</value>
+  </data>
+  <data name="NetworkCache.AccountInUseTitleFormat" xml:space="preserve">
+    <value>Nie można usunąć {0}</value>
+  </data>
+  <data name="NetworkCache.AccountPassword" xml:space="preserve">
+    <value>Hasło</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordConfirmation" xml:space="preserve">
+    <value>Potwierdź hasło</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordKeepHint" xml:space="preserve">
+    <value>Pozostaw hasło puste, aby zachować bieżące.</value>
+  </data>
+  <data name="NetworkCache.AccountUserName" xml:space="preserve">
+    <value>Nazwa użytkownika</value>
+  </data>
+  <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
+    <value>DOMAIN\user lub user@domain</value>
+  </data>
+  <data name="NetworkCache.AccountsDescription" xml:space="preserve">
+    <value>Konta otwierające udziały. Urządzenia używają ich do odczytu udziału i publikowania tego, co pobiorą.</value>
+  </data>
+  <data name="NetworkCache.AccountsHeader" xml:space="preserve">
+    <value>Konta</value>
+  </data>
+  <data name="NetworkCache.ColumnAccount" xml:space="preserve">
+    <value>Konto</value>
+  </data>
+  <data name="NetworkCache.ColumnName" xml:space="preserve">
+    <value>Nazwa</value>
+  </data>
+  <data name="NetworkCache.ColumnPassword" xml:space="preserve">
+    <value>Hasło</value>
+  </data>
+  <data name="NetworkCache.ColumnPath" xml:space="preserve">
+    <value>Ścieżka</value>
+  </data>
+  <data name="NetworkCache.ColumnShares" xml:space="preserve">
+    <value>Udziały</value>
+  </data>
+  <data name="NetworkCache.ColumnStatus" xml:space="preserve">
+    <value>Stan</value>
+  </data>
+  <data name="NetworkCache.ColumnType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="NetworkCache.ColumnUsedBy" xml:space="preserve">
+    <value>Używane przez</value>
+  </data>
+  <data name="NetworkCache.ColumnUserName" xml:space="preserve">
+    <value>Nazwa użytkownika</value>
+  </data>
+  <data name="NetworkCache.ColumnValue" xml:space="preserve">
+    <value>Wartość</value>
+  </data>
+  <data name="NetworkCache.CommandAdd" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="NetworkCache.CommandEdit" xml:space="preserve">
+    <value>Edytuj</value>
+  </data>
+  <data name="NetworkCache.CommandRemove" xml:space="preserve">
+    <value>Usuń</value>
+  </data>
+  <data name="NetworkCache.DialogAdd" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="NetworkCache.EmptyAccounts" xml:space="preserve">
+    <value>Brak kont. Udziały bez konta są tylko do odczytu.</value>
+  </data>
+  <data name="NetworkCache.EmptyScopes" xml:space="preserve">
+    <value>Brak zakresów IP.</value>
+  </data>
+  <data name="NetworkCache.EmptyShares" xml:space="preserve">
+    <value>Brak udziałów.</value>
+  </data>
+  <data name="NetworkCache.MoveDown" xml:space="preserve">
+    <value>Przenieś w dół</value>
+  </data>
+  <data name="NetworkCache.MoveUp" xml:space="preserve">
+    <value>Przenieś w górę</value>
+  </data>
+  <data name="NetworkCache.NoAccount" xml:space="preserve">
+    <value>Brak konta</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
+    <value>Udziały: {0}, zakresy IP: {1}</value>
+  </data>
+  <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
+    <value>Tego hasła nie można użyć.</value>
+  </data>
+  <data name="NetworkCache.PasswordMismatch" xml:space="preserve">
+    <value>Hasła nie są zgodne.</value>
+  </data>
+  <data name="NetworkCache.PasswordMissing" xml:space="preserve">
+    <value>Brak</value>
+  </data>
+  <data name="NetworkCache.PasswordRequiredInput" xml:space="preserve">
+    <value>Wprowadź hasło.</value>
+  </data>
+  <data name="NetworkCache.PasswordSaved" xml:space="preserve">
+    <value>Zapisane</value>
+  </data>
+  <data name="NetworkCache.Ready" xml:space="preserve">
+    <value>Gotowe</value>
+  </data>
+  <data name="NetworkCache.RemoveShareTitle" xml:space="preserve">
+    <value>Usuń udział</value>
+  </data>
+  <data name="NetworkCache.RemoveShareUsedMessageFormat" xml:space="preserve">
+    <value>{0} jest używany przez zakresy IP (liczba: {1}). Jego usunięcie spowoduje również usunięcie go z tych zakresów.</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogAddTitle" xml:space="preserve">
+    <value>Dodaj zakres IP</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogEditTitle" xml:space="preserve">
+    <value>Edytuj zakres IP</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Address" xml:space="preserve">
+    <value>Adres</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Range" xml:space="preserve">
+    <value>Przedział adresów</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Subnet" xml:space="preserve">
+    <value>Podsieć</value>
+  </data>
+  <data name="NetworkCache.ScopeKindHeader" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="NetworkCache.ScopeName" xml:space="preserve">
+    <value>Nazwa</value>
+  </data>
+  <data name="NetworkCache.ScopeNameRequired" xml:space="preserve">
+    <value>Wprowadź nazwę.</value>
+  </data>
+  <data name="NetworkCache.ScopeNoShares" xml:space="preserve">
+    <value>Najpierw dodaj udział.</value>
+  </data>
+  <data name="NetworkCache.ScopeShares" xml:space="preserve">
+    <value>Udziały</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
+    <value>Urządzenia próbują zaznaczonych udziałów od góry do dołu, a następnie pobierają z Internetu.</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
+    <value>Zaznacz co najmniej jeden udział.</value>
+  </data>
+  <data name="NetworkCache.ScopeValue" xml:space="preserve">
+    <value>Wartość</value>
+  </data>
+  <data name="NetworkCache.ScopeValueInvalid" xml:space="preserve">
+    <value>Wprowadź prawidłową wartość dla tego typu.</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Address" xml:space="preserve">
+    <value>10.20.0.15</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Range" xml:space="preserve">
+    <value>10.20.0.10-10.20.0.200</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Subnet" xml:space="preserve">
+    <value>10.10.0.0/16 lub fd00:10::/48</value>
+  </data>
+  <data name="NetworkCache.ScopesDescription" xml:space="preserve">
+    <value>Adresy IP, które określają udziały, których próbuje urządzenie.</value>
+  </data>
+  <data name="NetworkCache.ScopesHeader" xml:space="preserve">
+    <value>Zakresy IP</value>
+  </data>
+  <data name="NetworkCache.ScopesSpecificity" xml:space="preserve">
+    <value>Gdy urządzenie pasuje do kilku zakresów, wygrywa najbardziej szczegółowy.</value>
+  </data>
+  <data name="NetworkCache.ShareAccount" xml:space="preserve">
+    <value>Konto</value>
+  </data>
+  <data name="NetworkCache.ShareDialogAddTitle" xml:space="preserve">
+    <value>Dodaj udział</value>
+  </data>
+  <data name="NetworkCache.ShareDialogEditTitle" xml:space="preserve">
+    <value>Edytuj udział</value>
+  </data>
+  <data name="NetworkCache.ShareDuplicate" xml:space="preserve">
+    <value>Ten udział jest już na liście.</value>
+  </data>
+  <data name="NetworkCache.ShareNoAccountHint" xml:space="preserve">
+    <value>Bez konta urządzenia odczytują udział bez danych uwierzytelniających i nigdy do niego nie zapisują.</value>
+  </data>
+  <data name="NetworkCache.SharePath" xml:space="preserve">
+    <value>Ścieżka</value>
+  </data>
+  <data name="NetworkCache.SharesDescription" xml:space="preserve">
+    <value>Udziały SMB używane jako pamięć podręczna. Każdy udział można otworzyć jednym kontem.</value>
+  </data>
+  <data name="NetworkCache.SharesHeader" xml:space="preserve">
+    <value>Udziały</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
+    <value>Ta wartość jest nieprawidłowa dla jej typu.</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidSharePath" xml:space="preserve">
+    <value>Wprowadź ścieżkę w formacie \\server\share.</value>
+  </data>
+  <data name="NetworkCache.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>Udziały z kontem wymagają ochrony hasłem Deploy, ponieważ każdy w sieci może pobrać obraz rozruchowy PXE. Włącz ją na stronie Ogólne.</value>
+  </data>
+  <data name="NetworkCache.Validation.PasswordRequired" xml:space="preserve">
+    <value>Wprowadź hasło konta.</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopeWithoutShare" xml:space="preserve">
+    <value>Zaznacz co najmniej jeden udział.</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopesRequired" xml:space="preserve">
+    <value>Dodaj co najmniej jeden zakres IP.</value>
+  </data>
+  <data name="NetworkCache.Validation.SharesRequired" xml:space="preserve">
+    <value>Dodaj co najmniej jeden udział.</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownAccount" xml:space="preserve">
+    <value>Konto tego udziału już nie istnieje.</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownShare" xml:space="preserve">
+    <value>Jeden z udziałów tego zakresu już nie istnieje.</value>
+  </data>
+  <data name="NetworkCache.Validation.UserNameRequired" xml:space="preserve">
+    <value>Wprowadź nazwę użytkownika.</value>
+  </data>
+  <data name="NetworkCachePageHeader.Description" xml:space="preserve">
+    <value>Umożliwia Foundry Deploy używanie udziałów SMB jako wspólnej pamięci podręcznej wybieranej według adresu IP urządzenia. System Windows, pakiety sterowników i zaimportowana zawartość są odczytywane z udziału przed Internetem, a to, co pobiorą urządzenia, jest publikowane z powrotem w udziale.</value>
+  </data>
+  <data name="NetworkCachePageHeader.Title" xml:space="preserve">
+    <value>Sieciowa pamięć podręczna</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Włącz konfigurację OOBE</value>
@@ -4778,251 +5024,5 @@ Zastosowanie aktualizacji uruchomi Foundry OSD ponownie.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Bezobsługowe dołączanie do domeny</value>
-  </data>
-  <data name="Nav_NetworkCacheKey.Description" xml:space="preserve">
-    <value>Używaj udziałów SMB jako wspólnej pamięci podręcznej pobierania dla Foundry Deploy.</value>
-  </data>
-  <data name="Nav_NetworkCacheKey.Title" xml:space="preserve">
-    <value>Sieciowa pamięć podręczna</value>
-  </data>
-  <data name="NetworkCache.AccountDialogAddTitle" xml:space="preserve">
-    <value>Dodaj konto</value>
-  </data>
-  <data name="NetworkCache.AccountDialogEditTitle" xml:space="preserve">
-    <value>Edytuj konto</value>
-  </data>
-  <data name="NetworkCache.AccountInUse" xml:space="preserve">
-    <value>To konto jest używane przez udział. Najpierw usuń je z udziału.</value>
-  </data>
-  <data name="NetworkCache.AccountInUseTitleFormat" xml:space="preserve">
-    <value>Nie można usunąć {0}</value>
-  </data>
-  <data name="NetworkCache.AccountPassword" xml:space="preserve">
-    <value>Hasło</value>
-  </data>
-  <data name="NetworkCache.AccountPasswordConfirmation" xml:space="preserve">
-    <value>Potwierdź hasło</value>
-  </data>
-  <data name="NetworkCache.AccountPasswordKeepHint" xml:space="preserve">
-    <value>Pozostaw hasło puste, aby zachować bieżące.</value>
-  </data>
-  <data name="NetworkCache.AccountUserName" xml:space="preserve">
-    <value>Nazwa użytkownika</value>
-  </data>
-  <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user lub user@domain</value>
-  </data>
-  <data name="NetworkCache.AccountsDescription" xml:space="preserve">
-    <value>Konta otwierające udziały. Urządzenia używają ich do odczytu udziału i publikowania tego, co pobiorą.</value>
-  </data>
-  <data name="NetworkCache.AccountsHeader" xml:space="preserve">
-    <value>Konta</value>
-  </data>
-  <data name="NetworkCache.ColumnAccount" xml:space="preserve">
-    <value>Konto</value>
-  </data>
-  <data name="NetworkCache.ColumnName" xml:space="preserve">
-    <value>Nazwa</value>
-  </data>
-  <data name="NetworkCache.ColumnPassword" xml:space="preserve">
-    <value>Hasło</value>
-  </data>
-  <data name="NetworkCache.ColumnPath" xml:space="preserve">
-    <value>Ścieżka</value>
-  </data>
-  <data name="NetworkCache.ColumnShares" xml:space="preserve">
-    <value>Udziały</value>
-  </data>
-  <data name="NetworkCache.ColumnStatus" xml:space="preserve">
-    <value>Stan</value>
-  </data>
-  <data name="NetworkCache.ColumnType" xml:space="preserve">
-    <value>Typ</value>
-  </data>
-  <data name="NetworkCache.ColumnUsedBy" xml:space="preserve">
-    <value>Używane przez</value>
-  </data>
-  <data name="NetworkCache.ColumnUserName" xml:space="preserve">
-    <value>Nazwa użytkownika</value>
-  </data>
-  <data name="NetworkCache.ColumnValue" xml:space="preserve">
-    <value>Wartość</value>
-  </data>
-  <data name="NetworkCache.CommandAdd" xml:space="preserve">
-    <value>Dodaj</value>
-  </data>
-  <data name="NetworkCache.CommandEdit" xml:space="preserve">
-    <value>Edytuj</value>
-  </data>
-  <data name="NetworkCache.CommandRemove" xml:space="preserve">
-    <value>Usuń</value>
-  </data>
-  <data name="NetworkCache.DialogAdd" xml:space="preserve">
-    <value>Dodaj</value>
-  </data>
-  <data name="NetworkCache.EmptyAccounts" xml:space="preserve">
-    <value>Brak kont. Udziały bez konta są tylko do odczytu.</value>
-  </data>
-  <data name="NetworkCache.EmptyScopes" xml:space="preserve">
-    <value>Brak zakresów IP.</value>
-  </data>
-  <data name="NetworkCache.EmptyShares" xml:space="preserve">
-    <value>Brak udziałów.</value>
-  </data>
-  <data name="NetworkCache.MoveDown" xml:space="preserve">
-    <value>Przenieś w dół</value>
-  </data>
-  <data name="NetworkCache.MoveUp" xml:space="preserve">
-    <value>Przenieś w górę</value>
-  </data>
-  <data name="NetworkCache.NoAccount" xml:space="preserve">
-    <value>Brak konta</value>
-  </data>
-  <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
-    <value>Udziały: {0}, zakresy IP: {1}</value>
-  </data>
-  <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
-    <value>Tego hasła nie można użyć.</value>
-  </data>
-  <data name="NetworkCache.PasswordMismatch" xml:space="preserve">
-    <value>Hasła nie są zgodne.</value>
-  </data>
-  <data name="NetworkCache.PasswordMissing" xml:space="preserve">
-    <value>Brak</value>
-  </data>
-  <data name="NetworkCache.PasswordRequiredInput" xml:space="preserve">
-    <value>Wprowadź hasło.</value>
-  </data>
-  <data name="NetworkCache.PasswordSaved" xml:space="preserve">
-    <value>Zapisane</value>
-  </data>
-  <data name="NetworkCache.Ready" xml:space="preserve">
-    <value>Gotowe</value>
-  </data>
-  <data name="NetworkCache.RemoveShareTitle" xml:space="preserve">
-    <value>Usuń udział</value>
-  </data>
-  <data name="NetworkCache.RemoveShareUsedMessageFormat" xml:space="preserve">
-    <value>{0} jest używany przez zakresy IP (liczba: {1}). Jego usunięcie spowoduje również usunięcie go z tych zakresów.</value>
-  </data>
-  <data name="NetworkCache.ScopeDialogAddTitle" xml:space="preserve">
-    <value>Dodaj zakres IP</value>
-  </data>
-  <data name="NetworkCache.ScopeDialogEditTitle" xml:space="preserve">
-    <value>Edytuj zakres IP</value>
-  </data>
-  <data name="NetworkCache.ScopeKind.Address" xml:space="preserve">
-    <value>Adres</value>
-  </data>
-  <data name="NetworkCache.ScopeKind.Range" xml:space="preserve">
-    <value>Przedział adresów</value>
-  </data>
-  <data name="NetworkCache.ScopeKind.Subnet" xml:space="preserve">
-    <value>Podsieć</value>
-  </data>
-  <data name="NetworkCache.ScopeKindHeader" xml:space="preserve">
-    <value>Typ</value>
-  </data>
-  <data name="NetworkCache.ScopeName" xml:space="preserve">
-    <value>Nazwa</value>
-  </data>
-  <data name="NetworkCache.ScopeNameRequired" xml:space="preserve">
-    <value>Wprowadź nazwę.</value>
-  </data>
-  <data name="NetworkCache.ScopeNoShares" xml:space="preserve">
-    <value>Najpierw dodaj udział.</value>
-  </data>
-  <data name="NetworkCache.ScopeShares" xml:space="preserve">
-    <value>Udziały</value>
-  </data>
-  <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>Urządzenia próbują zaznaczonych udziałów od góry do dołu, a następnie pobierają z Internetu.</value>
-  </data>
-  <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
-    <value>Zaznacz co najmniej jeden udział.</value>
-  </data>
-  <data name="NetworkCache.ScopeValue" xml:space="preserve">
-    <value>Wartość</value>
-  </data>
-  <data name="NetworkCache.ScopeValueInvalid" xml:space="preserve">
-    <value>Wprowadź prawidłową wartość dla tego typu.</value>
-  </data>
-  <data name="NetworkCache.ScopeValuePlaceholder.Address" xml:space="preserve">
-    <value>10.20.0.15</value>
-  </data>
-  <data name="NetworkCache.ScopeValuePlaceholder.Range" xml:space="preserve">
-    <value>10.20.0.10-10.20.0.200</value>
-  </data>
-  <data name="NetworkCache.ScopeValuePlaceholder.Subnet" xml:space="preserve">
-    <value>10.10.0.0/16 lub fd00:10::/48</value>
-  </data>
-  <data name="NetworkCache.ScopesDescription" xml:space="preserve">
-    <value>Adresy IP, które określają udziały, których próbuje urządzenie.</value>
-  </data>
-  <data name="NetworkCache.ScopesHeader" xml:space="preserve">
-    <value>Zakresy IP</value>
-  </data>
-  <data name="NetworkCache.ScopesSpecificity" xml:space="preserve">
-    <value>Gdy urządzenie pasuje do kilku zakresów, wygrywa najbardziej szczegółowy.</value>
-  </data>
-  <data name="NetworkCache.ShareAccount" xml:space="preserve">
-    <value>Konto</value>
-  </data>
-  <data name="NetworkCache.ShareDialogAddTitle" xml:space="preserve">
-    <value>Dodaj udział</value>
-  </data>
-  <data name="NetworkCache.ShareDialogEditTitle" xml:space="preserve">
-    <value>Edytuj udział</value>
-  </data>
-  <data name="NetworkCache.ShareDuplicate" xml:space="preserve">
-    <value>Ten udział jest już na liście.</value>
-  </data>
-  <data name="NetworkCache.ShareNoAccountHint" xml:space="preserve">
-    <value>Bez konta urządzenia odczytują udział bez danych uwierzytelniających i nigdy do niego nie zapisują.</value>
-  </data>
-  <data name="NetworkCache.SharePath" xml:space="preserve">
-    <value>Ścieżka</value>
-  </data>
-  <data name="NetworkCache.SharesDescription" xml:space="preserve">
-    <value>Udziały SMB używane jako pamięć podręczna. Każdy udział można otworzyć jednym kontem.</value>
-  </data>
-  <data name="NetworkCache.SharesHeader" xml:space="preserve">
-    <value>Udziały</value>
-  </data>
-  <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
-    <value>Ta wartość jest nieprawidłowa dla jej typu.</value>
-  </data>
-  <data name="NetworkCache.Validation.InvalidSharePath" xml:space="preserve">
-    <value>Wprowadź ścieżkę w formacie \\server\share.</value>
-  </data>
-  <data name="NetworkCache.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Udziały z kontem wymagają ochrony hasłem Deploy, ponieważ każdy w sieci może pobrać obraz rozruchowy PXE. Włącz ją na stronie Ogólne.</value>
-  </data>
-  <data name="NetworkCache.Validation.PasswordRequired" xml:space="preserve">
-    <value>Wprowadź hasło konta.</value>
-  </data>
-  <data name="NetworkCache.Validation.ScopeWithoutShare" xml:space="preserve">
-    <value>Zaznacz co najmniej jeden udział.</value>
-  </data>
-  <data name="NetworkCache.Validation.ScopesRequired" xml:space="preserve">
-    <value>Dodaj co najmniej jeden zakres IP.</value>
-  </data>
-  <data name="NetworkCache.Validation.SharesRequired" xml:space="preserve">
-    <value>Dodaj co najmniej jeden udział.</value>
-  </data>
-  <data name="NetworkCache.Validation.UnknownAccount" xml:space="preserve">
-    <value>Konto tego udziału już nie istnieje.</value>
-  </data>
-  <data name="NetworkCache.Validation.UnknownShare" xml:space="preserve">
-    <value>Jeden z udziałów tego zakresu już nie istnieje.</value>
-  </data>
-  <data name="NetworkCache.Validation.UserNameRequired" xml:space="preserve">
-    <value>Wprowadź nazwę użytkownika.</value>
-  </data>
-  <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>Umożliwia Foundry Deploy używanie udziałów SMB jako wspólnej pamięci podręcznej wybieranej według adresu IP urządzenia. System Windows, pakiety sterowników i zaimportowana zawartość są odczytywane z udziału przed Internetem, a to, co pobiorą urządzenia, jest publikowane z powrotem w udziale.</value>
-  </data>
-  <data name="NetworkCachePageHeader.Title" xml:space="preserve">
-    <value>Sieciowa pamięć podręczna</value>
   </data>
 </root>

@@ -2629,6 +2629,12 @@ Licenseret under MIT-licensen.</value>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
     <value>Maskinnavngivning</value>
   </data>
+  <data name="Nav_NetworkCacheKey.Description" xml:space="preserve">
+    <value>Brug delte SMB-mapper som en fælles downloadcache til Foundry Deploy.</value>
+  </data>
+  <data name="Nav_NetworkCacheKey.Title" xml:space="preserve">
+    <value>Netværkscache</value>
+  </data>
   <data name="Nav_NetworkSection.Title" xml:space="preserve">
     <value>Netværk</value>
   </data>
@@ -2787,6 +2793,246 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming af Windows-profiler</value>
+  </data>
+  <data name="NetworkCache.AccountDialogAddTitle" xml:space="preserve">
+    <value>Tilføj en konto</value>
+  </data>
+  <data name="NetworkCache.AccountDialogEditTitle" xml:space="preserve">
+    <value>Rediger konto</value>
+  </data>
+  <data name="NetworkCache.AccountInUse" xml:space="preserve">
+    <value>Denne konto bruges af en delt mappe. Fjern den fra den delte mappe først.</value>
+  </data>
+  <data name="NetworkCache.AccountInUseTitleFormat" xml:space="preserve">
+    <value>{0} kan ikke fjernes</value>
+  </data>
+  <data name="NetworkCache.AccountPassword" xml:space="preserve">
+    <value>Adgangskode</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordConfirmation" xml:space="preserve">
+    <value>Bekræft adgangskode</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordKeepHint" xml:space="preserve">
+    <value>Lad adgangskoden være tom for at beholde den nuværende.</value>
+  </data>
+  <data name="NetworkCache.AccountUserName" xml:space="preserve">
+    <value>Brugernavn</value>
+  </data>
+  <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
+    <value>DOMAIN\user eller user@domain</value>
+  </data>
+  <data name="NetworkCache.AccountsDescription" xml:space="preserve">
+    <value>Konti, der åbner delte mapper. Enheder bruger dem til at læse en delt mappe og til at udgive det, de downloader.</value>
+  </data>
+  <data name="NetworkCache.AccountsHeader" xml:space="preserve">
+    <value>Konti</value>
+  </data>
+  <data name="NetworkCache.ColumnAccount" xml:space="preserve">
+    <value>Konto</value>
+  </data>
+  <data name="NetworkCache.ColumnName" xml:space="preserve">
+    <value>Navn</value>
+  </data>
+  <data name="NetworkCache.ColumnPassword" xml:space="preserve">
+    <value>Adgangskode</value>
+  </data>
+  <data name="NetworkCache.ColumnPath" xml:space="preserve">
+    <value>Sti</value>
+  </data>
+  <data name="NetworkCache.ColumnShares" xml:space="preserve">
+    <value>Delte mapper</value>
+  </data>
+  <data name="NetworkCache.ColumnStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="NetworkCache.ColumnType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="NetworkCache.ColumnUsedBy" xml:space="preserve">
+    <value>Bruges af</value>
+  </data>
+  <data name="NetworkCache.ColumnUserName" xml:space="preserve">
+    <value>Brugernavn</value>
+  </data>
+  <data name="NetworkCache.ColumnValue" xml:space="preserve">
+    <value>Værdi</value>
+  </data>
+  <data name="NetworkCache.CommandAdd" xml:space="preserve">
+    <value>Tilføj</value>
+  </data>
+  <data name="NetworkCache.CommandEdit" xml:space="preserve">
+    <value>Rediger</value>
+  </data>
+  <data name="NetworkCache.CommandRemove" xml:space="preserve">
+    <value>Fjern</value>
+  </data>
+  <data name="NetworkCache.DialogAdd" xml:space="preserve">
+    <value>Tilføj</value>
+  </data>
+  <data name="NetworkCache.EmptyAccounts" xml:space="preserve">
+    <value>Ingen konti endnu. Delte mapper uden en konto er skrivebeskyttede.</value>
+  </data>
+  <data name="NetworkCache.EmptyScopes" xml:space="preserve">
+    <value>Intet IP-område endnu.</value>
+  </data>
+  <data name="NetworkCache.EmptyShares" xml:space="preserve">
+    <value>Ingen delte mapper endnu.</value>
+  </data>
+  <data name="NetworkCache.MoveDown" xml:space="preserve">
+    <value>Flyt ned</value>
+  </data>
+  <data name="NetworkCache.MoveUp" xml:space="preserve">
+    <value>Flyt op</value>
+  </data>
+  <data name="NetworkCache.NoAccount" xml:space="preserve">
+    <value>Ingen konto</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
+    <value>Delte mapper: {0}, IP-områder: {1}</value>
+  </data>
+  <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
+    <value>Denne adgangskode kan ikke bruges.</value>
+  </data>
+  <data name="NetworkCache.PasswordMismatch" xml:space="preserve">
+    <value>Adgangskoderne stemmer ikke overens.</value>
+  </data>
+  <data name="NetworkCache.PasswordMissing" xml:space="preserve">
+    <value>Mangler</value>
+  </data>
+  <data name="NetworkCache.PasswordRequiredInput" xml:space="preserve">
+    <value>Angiv en adgangskode.</value>
+  </data>
+  <data name="NetworkCache.PasswordSaved" xml:space="preserve">
+    <value>Gemt</value>
+  </data>
+  <data name="NetworkCache.Ready" xml:space="preserve">
+    <value>Klar</value>
+  </data>
+  <data name="NetworkCache.RemoveShareTitle" xml:space="preserve">
+    <value>Fjern delt mappe</value>
+  </data>
+  <data name="NetworkCache.RemoveShareUsedMessageFormat" xml:space="preserve">
+    <value>{0} bruges af {1} IP-område(r). Hvis den fjernes, fjernes den også fra disse områder.</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogAddTitle" xml:space="preserve">
+    <value>Tilføj et IP-område</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogEditTitle" xml:space="preserve">
+    <value>Rediger IP-område</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Address" xml:space="preserve">
+    <value>Adresse</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Range" xml:space="preserve">
+    <value>Interval</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Subnet" xml:space="preserve">
+    <value>Undernet</value>
+  </data>
+  <data name="NetworkCache.ScopeKindHeader" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="NetworkCache.ScopeName" xml:space="preserve">
+    <value>Navn</value>
+  </data>
+  <data name="NetworkCache.ScopeNameRequired" xml:space="preserve">
+    <value>Angiv et navn.</value>
+  </data>
+  <data name="NetworkCache.ScopeNoShares" xml:space="preserve">
+    <value>Tilføj først en delt mappe.</value>
+  </data>
+  <data name="NetworkCache.ScopeShares" xml:space="preserve">
+    <value>Delte mapper</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
+    <value>Enheder prøver de markerede delte mapper fra top til bund og downloader derefter fra internettet.</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
+    <value>Markér mindst én delt mappe.</value>
+  </data>
+  <data name="NetworkCache.ScopeValue" xml:space="preserve">
+    <value>Værdi</value>
+  </data>
+  <data name="NetworkCache.ScopeValueInvalid" xml:space="preserve">
+    <value>Angiv en gyldig værdi for denne type.</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Address" xml:space="preserve">
+    <value>10.20.0.15</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Range" xml:space="preserve">
+    <value>10.20.0.10-10.20.0.200</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Subnet" xml:space="preserve">
+    <value>10.10.0.0/16 eller fd00:10::/48</value>
+  </data>
+  <data name="NetworkCache.ScopesDescription" xml:space="preserve">
+    <value>IP-adresser, der bestemmer, hvilke delte mapper en enhed prøver.</value>
+  </data>
+  <data name="NetworkCache.ScopesHeader" xml:space="preserve">
+    <value>IP-områder</value>
+  </data>
+  <data name="NetworkCache.ScopesSpecificity" xml:space="preserve">
+    <value>Når en enhed matcher flere områder, gælder det mest specifikke.</value>
+  </data>
+  <data name="NetworkCache.ShareAccount" xml:space="preserve">
+    <value>Konto</value>
+  </data>
+  <data name="NetworkCache.ShareDialogAddTitle" xml:space="preserve">
+    <value>Tilføj en delt mappe</value>
+  </data>
+  <data name="NetworkCache.ShareDialogEditTitle" xml:space="preserve">
+    <value>Rediger delt mappe</value>
+  </data>
+  <data name="NetworkCache.ShareDuplicate" xml:space="preserve">
+    <value>Denne delte mappe er allerede på listen.</value>
+  </data>
+  <data name="NetworkCache.ShareNoAccountHint" xml:space="preserve">
+    <value>Uden en konto læser enheder den delte mappe uden legitimationsoplysninger og skriver aldrig til den.</value>
+  </data>
+  <data name="NetworkCache.SharePath" xml:space="preserve">
+    <value>Sti</value>
+  </data>
+  <data name="NetworkCache.SharesDescription" xml:space="preserve">
+    <value>Delte SMB-mapper, der bruges som cache. Hver delt mappe kan åbnes med én konto.</value>
+  </data>
+  <data name="NetworkCache.SharesHeader" xml:space="preserve">
+    <value>Delte mapper</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
+    <value>Denne værdi er ikke gyldig for dens type.</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidSharePath" xml:space="preserve">
+    <value>Angiv en sti som \\server\share.</value>
+  </data>
+  <data name="NetworkCache.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>Delte mapper med en konto kræver adgangskodebeskyttelse til installation, fordi alle på netværket kan downloade et PXE-boot-image. Aktivér den på siden "Generelt".</value>
+  </data>
+  <data name="NetworkCache.Validation.PasswordRequired" xml:space="preserve">
+    <value>Angiv kontoens adgangskode.</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopeWithoutShare" xml:space="preserve">
+    <value>Markér mindst én delt mappe.</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopesRequired" xml:space="preserve">
+    <value>Tilføj mindst ét IP-område.</value>
+  </data>
+  <data name="NetworkCache.Validation.SharesRequired" xml:space="preserve">
+    <value>Tilføj mindst én delt mappe.</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownAccount" xml:space="preserve">
+    <value>Kontoen for denne delte mappe findes ikke længere.</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownShare" xml:space="preserve">
+    <value>En delt mappe i dette område findes ikke længere.</value>
+  </data>
+  <data name="NetworkCache.Validation.UserNameRequired" xml:space="preserve">
+    <value>Angiv et brugernavn.</value>
+  </data>
+  <data name="NetworkCachePageHeader.Description" xml:space="preserve">
+    <value>Giver Foundry Deploy mulighed for at bruge delte SMB-mapper som fælles cache, valgt ud fra enhedens IP-adresse. Windows, driverpakker og importeret indhold læses fra den delte mappe før internettet, og det, enhederne downloader, udgives tilbage til den.</value>
+  </data>
+  <data name="NetworkCachePageHeader.Title" xml:space="preserve">
+    <value>Netværkscache</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Aktivér OOBE-konfiguration</value>
@@ -4778,251 +5024,5 @@ Anvendelse af opdateringen genstarter Foundry OSD.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Zero-touch-domænetilslutning</value>
-  </data>
-  <data name="Nav_NetworkCacheKey.Description" xml:space="preserve">
-    <value>Brug delte SMB-mapper som en fælles downloadcache til Foundry Deploy.</value>
-  </data>
-  <data name="Nav_NetworkCacheKey.Title" xml:space="preserve">
-    <value>Netværkscache</value>
-  </data>
-  <data name="NetworkCache.AccountDialogAddTitle" xml:space="preserve">
-    <value>Tilføj en konto</value>
-  </data>
-  <data name="NetworkCache.AccountDialogEditTitle" xml:space="preserve">
-    <value>Rediger konto</value>
-  </data>
-  <data name="NetworkCache.AccountInUse" xml:space="preserve">
-    <value>Denne konto bruges af en delt mappe. Fjern den fra den delte mappe først.</value>
-  </data>
-  <data name="NetworkCache.AccountInUseTitleFormat" xml:space="preserve">
-    <value>{0} kan ikke fjernes</value>
-  </data>
-  <data name="NetworkCache.AccountPassword" xml:space="preserve">
-    <value>Adgangskode</value>
-  </data>
-  <data name="NetworkCache.AccountPasswordConfirmation" xml:space="preserve">
-    <value>Bekræft adgangskode</value>
-  </data>
-  <data name="NetworkCache.AccountPasswordKeepHint" xml:space="preserve">
-    <value>Lad adgangskoden være tom for at beholde den nuværende.</value>
-  </data>
-  <data name="NetworkCache.AccountUserName" xml:space="preserve">
-    <value>Brugernavn</value>
-  </data>
-  <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user eller user@domain</value>
-  </data>
-  <data name="NetworkCache.AccountsDescription" xml:space="preserve">
-    <value>Konti, der åbner delte mapper. Enheder bruger dem til at læse en delt mappe og til at udgive det, de downloader.</value>
-  </data>
-  <data name="NetworkCache.AccountsHeader" xml:space="preserve">
-    <value>Konti</value>
-  </data>
-  <data name="NetworkCache.ColumnAccount" xml:space="preserve">
-    <value>Konto</value>
-  </data>
-  <data name="NetworkCache.ColumnName" xml:space="preserve">
-    <value>Navn</value>
-  </data>
-  <data name="NetworkCache.ColumnPassword" xml:space="preserve">
-    <value>Adgangskode</value>
-  </data>
-  <data name="NetworkCache.ColumnPath" xml:space="preserve">
-    <value>Sti</value>
-  </data>
-  <data name="NetworkCache.ColumnShares" xml:space="preserve">
-    <value>Delte mapper</value>
-  </data>
-  <data name="NetworkCache.ColumnStatus" xml:space="preserve">
-    <value>Status</value>
-  </data>
-  <data name="NetworkCache.ColumnType" xml:space="preserve">
-    <value>Type</value>
-  </data>
-  <data name="NetworkCache.ColumnUsedBy" xml:space="preserve">
-    <value>Bruges af</value>
-  </data>
-  <data name="NetworkCache.ColumnUserName" xml:space="preserve">
-    <value>Brugernavn</value>
-  </data>
-  <data name="NetworkCache.ColumnValue" xml:space="preserve">
-    <value>Værdi</value>
-  </data>
-  <data name="NetworkCache.CommandAdd" xml:space="preserve">
-    <value>Tilføj</value>
-  </data>
-  <data name="NetworkCache.CommandEdit" xml:space="preserve">
-    <value>Rediger</value>
-  </data>
-  <data name="NetworkCache.CommandRemove" xml:space="preserve">
-    <value>Fjern</value>
-  </data>
-  <data name="NetworkCache.DialogAdd" xml:space="preserve">
-    <value>Tilføj</value>
-  </data>
-  <data name="NetworkCache.EmptyAccounts" xml:space="preserve">
-    <value>Ingen konti endnu. Delte mapper uden en konto er skrivebeskyttede.</value>
-  </data>
-  <data name="NetworkCache.EmptyScopes" xml:space="preserve">
-    <value>Intet IP-område endnu.</value>
-  </data>
-  <data name="NetworkCache.EmptyShares" xml:space="preserve">
-    <value>Ingen delte mapper endnu.</value>
-  </data>
-  <data name="NetworkCache.MoveDown" xml:space="preserve">
-    <value>Flyt ned</value>
-  </data>
-  <data name="NetworkCache.MoveUp" xml:space="preserve">
-    <value>Flyt op</value>
-  </data>
-  <data name="NetworkCache.NoAccount" xml:space="preserve">
-    <value>Ingen konto</value>
-  </data>
-  <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
-    <value>Delte mapper: {0}, IP-områder: {1}</value>
-  </data>
-  <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
-    <value>Denne adgangskode kan ikke bruges.</value>
-  </data>
-  <data name="NetworkCache.PasswordMismatch" xml:space="preserve">
-    <value>Adgangskoderne stemmer ikke overens.</value>
-  </data>
-  <data name="NetworkCache.PasswordMissing" xml:space="preserve">
-    <value>Mangler</value>
-  </data>
-  <data name="NetworkCache.PasswordRequiredInput" xml:space="preserve">
-    <value>Angiv en adgangskode.</value>
-  </data>
-  <data name="NetworkCache.PasswordSaved" xml:space="preserve">
-    <value>Gemt</value>
-  </data>
-  <data name="NetworkCache.Ready" xml:space="preserve">
-    <value>Klar</value>
-  </data>
-  <data name="NetworkCache.RemoveShareTitle" xml:space="preserve">
-    <value>Fjern delt mappe</value>
-  </data>
-  <data name="NetworkCache.RemoveShareUsedMessageFormat" xml:space="preserve">
-    <value>{0} bruges af {1} IP-område(r). Hvis den fjernes, fjernes den også fra disse områder.</value>
-  </data>
-  <data name="NetworkCache.ScopeDialogAddTitle" xml:space="preserve">
-    <value>Tilføj et IP-område</value>
-  </data>
-  <data name="NetworkCache.ScopeDialogEditTitle" xml:space="preserve">
-    <value>Rediger IP-område</value>
-  </data>
-  <data name="NetworkCache.ScopeKind.Address" xml:space="preserve">
-    <value>Adresse</value>
-  </data>
-  <data name="NetworkCache.ScopeKind.Range" xml:space="preserve">
-    <value>Interval</value>
-  </data>
-  <data name="NetworkCache.ScopeKind.Subnet" xml:space="preserve">
-    <value>Undernet</value>
-  </data>
-  <data name="NetworkCache.ScopeKindHeader" xml:space="preserve">
-    <value>Type</value>
-  </data>
-  <data name="NetworkCache.ScopeName" xml:space="preserve">
-    <value>Navn</value>
-  </data>
-  <data name="NetworkCache.ScopeNameRequired" xml:space="preserve">
-    <value>Angiv et navn.</value>
-  </data>
-  <data name="NetworkCache.ScopeNoShares" xml:space="preserve">
-    <value>Tilføj først en delt mappe.</value>
-  </data>
-  <data name="NetworkCache.ScopeShares" xml:space="preserve">
-    <value>Delte mapper</value>
-  </data>
-  <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>Enheder prøver de markerede delte mapper fra top til bund og downloader derefter fra internettet.</value>
-  </data>
-  <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
-    <value>Markér mindst én delt mappe.</value>
-  </data>
-  <data name="NetworkCache.ScopeValue" xml:space="preserve">
-    <value>Værdi</value>
-  </data>
-  <data name="NetworkCache.ScopeValueInvalid" xml:space="preserve">
-    <value>Angiv en gyldig værdi for denne type.</value>
-  </data>
-  <data name="NetworkCache.ScopeValuePlaceholder.Address" xml:space="preserve">
-    <value>10.20.0.15</value>
-  </data>
-  <data name="NetworkCache.ScopeValuePlaceholder.Range" xml:space="preserve">
-    <value>10.20.0.10-10.20.0.200</value>
-  </data>
-  <data name="NetworkCache.ScopeValuePlaceholder.Subnet" xml:space="preserve">
-    <value>10.10.0.0/16 eller fd00:10::/48</value>
-  </data>
-  <data name="NetworkCache.ScopesDescription" xml:space="preserve">
-    <value>IP-adresser, der bestemmer, hvilke delte mapper en enhed prøver.</value>
-  </data>
-  <data name="NetworkCache.ScopesHeader" xml:space="preserve">
-    <value>IP-områder</value>
-  </data>
-  <data name="NetworkCache.ScopesSpecificity" xml:space="preserve">
-    <value>Når en enhed matcher flere områder, gælder det mest specifikke.</value>
-  </data>
-  <data name="NetworkCache.ShareAccount" xml:space="preserve">
-    <value>Konto</value>
-  </data>
-  <data name="NetworkCache.ShareDialogAddTitle" xml:space="preserve">
-    <value>Tilføj en delt mappe</value>
-  </data>
-  <data name="NetworkCache.ShareDialogEditTitle" xml:space="preserve">
-    <value>Rediger delt mappe</value>
-  </data>
-  <data name="NetworkCache.ShareDuplicate" xml:space="preserve">
-    <value>Denne delte mappe er allerede på listen.</value>
-  </data>
-  <data name="NetworkCache.ShareNoAccountHint" xml:space="preserve">
-    <value>Uden en konto læser enheder den delte mappe uden legitimationsoplysninger og skriver aldrig til den.</value>
-  </data>
-  <data name="NetworkCache.SharePath" xml:space="preserve">
-    <value>Sti</value>
-  </data>
-  <data name="NetworkCache.SharesDescription" xml:space="preserve">
-    <value>Delte SMB-mapper, der bruges som cache. Hver delt mappe kan åbnes med én konto.</value>
-  </data>
-  <data name="NetworkCache.SharesHeader" xml:space="preserve">
-    <value>Delte mapper</value>
-  </data>
-  <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
-    <value>Denne værdi er ikke gyldig for dens type.</value>
-  </data>
-  <data name="NetworkCache.Validation.InvalidSharePath" xml:space="preserve">
-    <value>Angiv en sti som \\server\share.</value>
-  </data>
-  <data name="NetworkCache.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Delte mapper med en konto kræver adgangskodebeskyttelse til installation, fordi alle på netværket kan downloade et PXE-boot-image. Aktivér den på siden "Generelt".</value>
-  </data>
-  <data name="NetworkCache.Validation.PasswordRequired" xml:space="preserve">
-    <value>Angiv kontoens adgangskode.</value>
-  </data>
-  <data name="NetworkCache.Validation.ScopeWithoutShare" xml:space="preserve">
-    <value>Markér mindst én delt mappe.</value>
-  </data>
-  <data name="NetworkCache.Validation.ScopesRequired" xml:space="preserve">
-    <value>Tilføj mindst ét IP-område.</value>
-  </data>
-  <data name="NetworkCache.Validation.SharesRequired" xml:space="preserve">
-    <value>Tilføj mindst én delt mappe.</value>
-  </data>
-  <data name="NetworkCache.Validation.UnknownAccount" xml:space="preserve">
-    <value>Kontoen for denne delte mappe findes ikke længere.</value>
-  </data>
-  <data name="NetworkCache.Validation.UnknownShare" xml:space="preserve">
-    <value>En delt mappe i dette område findes ikke længere.</value>
-  </data>
-  <data name="NetworkCache.Validation.UserNameRequired" xml:space="preserve">
-    <value>Angiv et brugernavn.</value>
-  </data>
-  <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>Giver Foundry Deploy mulighed for at bruge delte SMB-mapper som fælles cache, valgt ud fra enhedens IP-adresse. Windows, driverpakker og importeret indhold læses fra den delte mappe før internettet, og det, enhederne downloader, udgives tilbage til den.</value>
-  </data>
-  <data name="NetworkCachePageHeader.Title" xml:space="preserve">
-    <value>Netværkscache</value>
   </data>
 </root>

@@ -2629,6 +2629,12 @@ Licencováno pod licencí MIT.</value>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
     <value>Pojmenování počítače</value>
   </data>
+  <data name="Nav_NetworkCacheKey.Description" xml:space="preserve">
+    <value>Použijte sdílené složky SMB jako sdílenou mezipaměť pro stahování ve Foundry Deploy.</value>
+  </data>
+  <data name="Nav_NetworkCacheKey.Title" xml:space="preserve">
+    <value>Síťová mezipaměť</value>
+  </data>
   <data name="Nav_NetworkSection.Title" xml:space="preserve">
     <value>Síť</value>
   </data>
@@ -2787,6 +2793,246 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming profilů Windows</value>
+  </data>
+  <data name="NetworkCache.AccountDialogAddTitle" xml:space="preserve">
+    <value>Přidat účet</value>
+  </data>
+  <data name="NetworkCache.AccountDialogEditTitle" xml:space="preserve">
+    <value>Upravit účet</value>
+  </data>
+  <data name="NetworkCache.AccountInUse" xml:space="preserve">
+    <value>Tento účet používá sdílená složka. Nejprve ho ze sdílené složky odeberte.</value>
+  </data>
+  <data name="NetworkCache.AccountInUseTitleFormat" xml:space="preserve">
+    <value>{0} nelze odebrat</value>
+  </data>
+  <data name="NetworkCache.AccountPassword" xml:space="preserve">
+    <value>Heslo</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordConfirmation" xml:space="preserve">
+    <value>Potvrďte heslo</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordKeepHint" xml:space="preserve">
+    <value>Chcete-li zachovat stávající heslo, ponechte heslo prázdné.</value>
+  </data>
+  <data name="NetworkCache.AccountUserName" xml:space="preserve">
+    <value>Uživatelské jméno</value>
+  </data>
+  <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
+    <value>DOMAIN\user nebo user@domain</value>
+  </data>
+  <data name="NetworkCache.AccountsDescription" xml:space="preserve">
+    <value>Účty, které otevírají sdílené složky. Zařízení je používají ke čtení sdílené složky a k publikování toho, co stáhnou.</value>
+  </data>
+  <data name="NetworkCache.AccountsHeader" xml:space="preserve">
+    <value>Účty</value>
+  </data>
+  <data name="NetworkCache.ColumnAccount" xml:space="preserve">
+    <value>Účet</value>
+  </data>
+  <data name="NetworkCache.ColumnName" xml:space="preserve">
+    <value>Název</value>
+  </data>
+  <data name="NetworkCache.ColumnPassword" xml:space="preserve">
+    <value>Heslo</value>
+  </data>
+  <data name="NetworkCache.ColumnPath" xml:space="preserve">
+    <value>Cesta</value>
+  </data>
+  <data name="NetworkCache.ColumnShares" xml:space="preserve">
+    <value>Sdílené složky</value>
+  </data>
+  <data name="NetworkCache.ColumnStatus" xml:space="preserve">
+    <value>Stav</value>
+  </data>
+  <data name="NetworkCache.ColumnType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="NetworkCache.ColumnUsedBy" xml:space="preserve">
+    <value>Používá</value>
+  </data>
+  <data name="NetworkCache.ColumnUserName" xml:space="preserve">
+    <value>Uživatelské jméno</value>
+  </data>
+  <data name="NetworkCache.ColumnValue" xml:space="preserve">
+    <value>Hodnota</value>
+  </data>
+  <data name="NetworkCache.CommandAdd" xml:space="preserve">
+    <value>Přidat</value>
+  </data>
+  <data name="NetworkCache.CommandEdit" xml:space="preserve">
+    <value>Upravit</value>
+  </data>
+  <data name="NetworkCache.CommandRemove" xml:space="preserve">
+    <value>Odebrat</value>
+  </data>
+  <data name="NetworkCache.DialogAdd" xml:space="preserve">
+    <value>Přidat</value>
+  </data>
+  <data name="NetworkCache.EmptyAccounts" xml:space="preserve">
+    <value>Zatím žádný účet. Sdílené složky bez účtu jsou jen pro čtení.</value>
+  </data>
+  <data name="NetworkCache.EmptyScopes" xml:space="preserve">
+    <value>Zatím žádný obor IP adres.</value>
+  </data>
+  <data name="NetworkCache.EmptyShares" xml:space="preserve">
+    <value>Zatím žádná sdílená složka.</value>
+  </data>
+  <data name="NetworkCache.MoveDown" xml:space="preserve">
+    <value>Posunout dolů</value>
+  </data>
+  <data name="NetworkCache.MoveUp" xml:space="preserve">
+    <value>Posunout nahoru</value>
+  </data>
+  <data name="NetworkCache.NoAccount" xml:space="preserve">
+    <value>Žádný účet</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
+    <value>Sdílené složky: {0}, obory IP adres: {1}</value>
+  </data>
+  <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
+    <value>Toto heslo nelze použít.</value>
+  </data>
+  <data name="NetworkCache.PasswordMismatch" xml:space="preserve">
+    <value>Hesla se neshodují.</value>
+  </data>
+  <data name="NetworkCache.PasswordMissing" xml:space="preserve">
+    <value>Chybí</value>
+  </data>
+  <data name="NetworkCache.PasswordRequiredInput" xml:space="preserve">
+    <value>Zadejte heslo.</value>
+  </data>
+  <data name="NetworkCache.PasswordSaved" xml:space="preserve">
+    <value>Uloženo</value>
+  </data>
+  <data name="NetworkCache.Ready" xml:space="preserve">
+    <value>Připraveno</value>
+  </data>
+  <data name="NetworkCache.RemoveShareTitle" xml:space="preserve">
+    <value>Odebrat sdílenou složku</value>
+  </data>
+  <data name="NetworkCache.RemoveShareUsedMessageFormat" xml:space="preserve">
+    <value>Složku {0} používá tento počet oborů IP adres: {1}. Jejím odebráním se odebere i z těchto oborů.</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogAddTitle" xml:space="preserve">
+    <value>Přidat obor IP adres</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogEditTitle" xml:space="preserve">
+    <value>Upravit obor IP adres</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Address" xml:space="preserve">
+    <value>Adresa</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Range" xml:space="preserve">
+    <value>Rozsah</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Subnet" xml:space="preserve">
+    <value>Podsíť</value>
+  </data>
+  <data name="NetworkCache.ScopeKindHeader" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="NetworkCache.ScopeName" xml:space="preserve">
+    <value>Název</value>
+  </data>
+  <data name="NetworkCache.ScopeNameRequired" xml:space="preserve">
+    <value>Zadejte název.</value>
+  </data>
+  <data name="NetworkCache.ScopeNoShares" xml:space="preserve">
+    <value>Nejprve přidejte sdílenou složku.</value>
+  </data>
+  <data name="NetworkCache.ScopeShares" xml:space="preserve">
+    <value>Sdílené složky</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
+    <value>Zařízení zkoušejí zaškrtnuté sdílené složky shora dolů a potom stahují z internetu.</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
+    <value>Zaškrtněte alespoň jednu sdílenou složku.</value>
+  </data>
+  <data name="NetworkCache.ScopeValue" xml:space="preserve">
+    <value>Hodnota</value>
+  </data>
+  <data name="NetworkCache.ScopeValueInvalid" xml:space="preserve">
+    <value>Zadejte platnou hodnotu pro tento typ.</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Address" xml:space="preserve">
+    <value>10.20.0.15</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Range" xml:space="preserve">
+    <value>10.20.0.10-10.20.0.200</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Subnet" xml:space="preserve">
+    <value>10.10.0.0/16 nebo fd00:10::/48</value>
+  </data>
+  <data name="NetworkCache.ScopesDescription" xml:space="preserve">
+    <value>IP adresy, které určují, jaké sdílené složky zařízení zkouší.</value>
+  </data>
+  <data name="NetworkCache.ScopesHeader" xml:space="preserve">
+    <value>Obory IP adres</value>
+  </data>
+  <data name="NetworkCache.ScopesSpecificity" xml:space="preserve">
+    <value>Pokud zařízení odpovídá několika oborům, použije se nejkonkrétnější z nich.</value>
+  </data>
+  <data name="NetworkCache.ShareAccount" xml:space="preserve">
+    <value>Účet</value>
+  </data>
+  <data name="NetworkCache.ShareDialogAddTitle" xml:space="preserve">
+    <value>Přidat sdílenou složku</value>
+  </data>
+  <data name="NetworkCache.ShareDialogEditTitle" xml:space="preserve">
+    <value>Upravit sdílenou složku</value>
+  </data>
+  <data name="NetworkCache.ShareDuplicate" xml:space="preserve">
+    <value>Tato sdílená složka už v seznamu je.</value>
+  </data>
+  <data name="NetworkCache.ShareNoAccountHint" xml:space="preserve">
+    <value>Bez účtu zařízení čtou sdílenou složku bez přihlašovacích údajů a nikdy do ní nezapisují.</value>
+  </data>
+  <data name="NetworkCache.SharePath" xml:space="preserve">
+    <value>Cesta</value>
+  </data>
+  <data name="NetworkCache.SharesDescription" xml:space="preserve">
+    <value>Sdílené složky SMB používané jako mezipaměť. Každou sdílenou složku lze otevřít jedním účtem.</value>
+  </data>
+  <data name="NetworkCache.SharesHeader" xml:space="preserve">
+    <value>Sdílené složky</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
+    <value>Tato hodnota není pro svůj typ platná.</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidSharePath" xml:space="preserve">
+    <value>Zadejte cestu ve tvaru \\server\share.</value>
+  </data>
+  <data name="NetworkCache.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>Sdílené složky s účtem vyžadují ochranu heslem pro nasazení, protože zaváděcí obraz PXE si může stáhnout kdokoli v síti. Zapněte ji na stránce „Obecné“.</value>
+  </data>
+  <data name="NetworkCache.Validation.PasswordRequired" xml:space="preserve">
+    <value>Zadejte heslo účtu.</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopeWithoutShare" xml:space="preserve">
+    <value>Zaškrtněte alespoň jednu sdílenou složku.</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopesRequired" xml:space="preserve">
+    <value>Přidejte alespoň jeden obor IP adres.</value>
+  </data>
+  <data name="NetworkCache.Validation.SharesRequired" xml:space="preserve">
+    <value>Přidejte alespoň jednu sdílenou složku.</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownAccount" xml:space="preserve">
+    <value>Účet této sdílené složky už neexistuje.</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownShare" xml:space="preserve">
+    <value>Některá sdílená složka tohoto oboru už neexistuje.</value>
+  </data>
+  <data name="NetworkCache.Validation.UserNameRequired" xml:space="preserve">
+    <value>Zadejte uživatelské jméno.</value>
+  </data>
+  <data name="NetworkCachePageHeader.Description" xml:space="preserve">
+    <value>Umožňuje Foundry Deploy používat sdílené složky SMB jako sdílenou mezipaměť vybranou podle IP adresy zařízení. Windows, balíčky ovladačů a importovaný obsah se čtou ze sdílené složky dříve než z internetu a to, co zařízení stáhnou, se do ní zpětně publikuje.</value>
+  </data>
+  <data name="NetworkCachePageHeader.Title" xml:space="preserve">
+    <value>Síťová mezipaměť</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Povolit konfiguraci OOBE</value>
@@ -4778,251 +5024,5 @@ Použití aktualizace restartuje Foundry OSD.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Připojení k doméně Zero-touch</value>
-  </data>
-  <data name="Nav_NetworkCacheKey.Description" xml:space="preserve">
-    <value>Použijte sdílené složky SMB jako sdílenou mezipaměť pro stahování ve Foundry Deploy.</value>
-  </data>
-  <data name="Nav_NetworkCacheKey.Title" xml:space="preserve">
-    <value>Síťová mezipaměť</value>
-  </data>
-  <data name="NetworkCache.AccountDialogAddTitle" xml:space="preserve">
-    <value>Přidat účet</value>
-  </data>
-  <data name="NetworkCache.AccountDialogEditTitle" xml:space="preserve">
-    <value>Upravit účet</value>
-  </data>
-  <data name="NetworkCache.AccountInUse" xml:space="preserve">
-    <value>Tento účet používá sdílená složka. Nejprve ho ze sdílené složky odeberte.</value>
-  </data>
-  <data name="NetworkCache.AccountInUseTitleFormat" xml:space="preserve">
-    <value>{0} nelze odebrat</value>
-  </data>
-  <data name="NetworkCache.AccountPassword" xml:space="preserve">
-    <value>Heslo</value>
-  </data>
-  <data name="NetworkCache.AccountPasswordConfirmation" xml:space="preserve">
-    <value>Potvrďte heslo</value>
-  </data>
-  <data name="NetworkCache.AccountPasswordKeepHint" xml:space="preserve">
-    <value>Chcete-li zachovat stávající heslo, ponechte heslo prázdné.</value>
-  </data>
-  <data name="NetworkCache.AccountUserName" xml:space="preserve">
-    <value>Uživatelské jméno</value>
-  </data>
-  <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user nebo user@domain</value>
-  </data>
-  <data name="NetworkCache.AccountsDescription" xml:space="preserve">
-    <value>Účty, které otevírají sdílené složky. Zařízení je používají ke čtení sdílené složky a k publikování toho, co stáhnou.</value>
-  </data>
-  <data name="NetworkCache.AccountsHeader" xml:space="preserve">
-    <value>Účty</value>
-  </data>
-  <data name="NetworkCache.ColumnAccount" xml:space="preserve">
-    <value>Účet</value>
-  </data>
-  <data name="NetworkCache.ColumnName" xml:space="preserve">
-    <value>Název</value>
-  </data>
-  <data name="NetworkCache.ColumnPassword" xml:space="preserve">
-    <value>Heslo</value>
-  </data>
-  <data name="NetworkCache.ColumnPath" xml:space="preserve">
-    <value>Cesta</value>
-  </data>
-  <data name="NetworkCache.ColumnShares" xml:space="preserve">
-    <value>Sdílené složky</value>
-  </data>
-  <data name="NetworkCache.ColumnStatus" xml:space="preserve">
-    <value>Stav</value>
-  </data>
-  <data name="NetworkCache.ColumnType" xml:space="preserve">
-    <value>Typ</value>
-  </data>
-  <data name="NetworkCache.ColumnUsedBy" xml:space="preserve">
-    <value>Používá</value>
-  </data>
-  <data name="NetworkCache.ColumnUserName" xml:space="preserve">
-    <value>Uživatelské jméno</value>
-  </data>
-  <data name="NetworkCache.ColumnValue" xml:space="preserve">
-    <value>Hodnota</value>
-  </data>
-  <data name="NetworkCache.CommandAdd" xml:space="preserve">
-    <value>Přidat</value>
-  </data>
-  <data name="NetworkCache.CommandEdit" xml:space="preserve">
-    <value>Upravit</value>
-  </data>
-  <data name="NetworkCache.CommandRemove" xml:space="preserve">
-    <value>Odebrat</value>
-  </data>
-  <data name="NetworkCache.DialogAdd" xml:space="preserve">
-    <value>Přidat</value>
-  </data>
-  <data name="NetworkCache.EmptyAccounts" xml:space="preserve">
-    <value>Zatím žádný účet. Sdílené složky bez účtu jsou jen pro čtení.</value>
-  </data>
-  <data name="NetworkCache.EmptyScopes" xml:space="preserve">
-    <value>Zatím žádný obor IP adres.</value>
-  </data>
-  <data name="NetworkCache.EmptyShares" xml:space="preserve">
-    <value>Zatím žádná sdílená složka.</value>
-  </data>
-  <data name="NetworkCache.MoveDown" xml:space="preserve">
-    <value>Posunout dolů</value>
-  </data>
-  <data name="NetworkCache.MoveUp" xml:space="preserve">
-    <value>Posunout nahoru</value>
-  </data>
-  <data name="NetworkCache.NoAccount" xml:space="preserve">
-    <value>Žádný účet</value>
-  </data>
-  <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
-    <value>Sdílené složky: {0}, obory IP adres: {1}</value>
-  </data>
-  <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
-    <value>Toto heslo nelze použít.</value>
-  </data>
-  <data name="NetworkCache.PasswordMismatch" xml:space="preserve">
-    <value>Hesla se neshodují.</value>
-  </data>
-  <data name="NetworkCache.PasswordMissing" xml:space="preserve">
-    <value>Chybí</value>
-  </data>
-  <data name="NetworkCache.PasswordRequiredInput" xml:space="preserve">
-    <value>Zadejte heslo.</value>
-  </data>
-  <data name="NetworkCache.PasswordSaved" xml:space="preserve">
-    <value>Uloženo</value>
-  </data>
-  <data name="NetworkCache.Ready" xml:space="preserve">
-    <value>Připraveno</value>
-  </data>
-  <data name="NetworkCache.RemoveShareTitle" xml:space="preserve">
-    <value>Odebrat sdílenou složku</value>
-  </data>
-  <data name="NetworkCache.RemoveShareUsedMessageFormat" xml:space="preserve">
-    <value>Složku {0} používá tento počet oborů IP adres: {1}. Jejím odebráním se odebere i z těchto oborů.</value>
-  </data>
-  <data name="NetworkCache.ScopeDialogAddTitle" xml:space="preserve">
-    <value>Přidat obor IP adres</value>
-  </data>
-  <data name="NetworkCache.ScopeDialogEditTitle" xml:space="preserve">
-    <value>Upravit obor IP adres</value>
-  </data>
-  <data name="NetworkCache.ScopeKind.Address" xml:space="preserve">
-    <value>Adresa</value>
-  </data>
-  <data name="NetworkCache.ScopeKind.Range" xml:space="preserve">
-    <value>Rozsah</value>
-  </data>
-  <data name="NetworkCache.ScopeKind.Subnet" xml:space="preserve">
-    <value>Podsíť</value>
-  </data>
-  <data name="NetworkCache.ScopeKindHeader" xml:space="preserve">
-    <value>Typ</value>
-  </data>
-  <data name="NetworkCache.ScopeName" xml:space="preserve">
-    <value>Název</value>
-  </data>
-  <data name="NetworkCache.ScopeNameRequired" xml:space="preserve">
-    <value>Zadejte název.</value>
-  </data>
-  <data name="NetworkCache.ScopeNoShares" xml:space="preserve">
-    <value>Nejprve přidejte sdílenou složku.</value>
-  </data>
-  <data name="NetworkCache.ScopeShares" xml:space="preserve">
-    <value>Sdílené složky</value>
-  </data>
-  <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>Zařízení zkoušejí zaškrtnuté sdílené složky shora dolů a potom stahují z internetu.</value>
-  </data>
-  <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
-    <value>Zaškrtněte alespoň jednu sdílenou složku.</value>
-  </data>
-  <data name="NetworkCache.ScopeValue" xml:space="preserve">
-    <value>Hodnota</value>
-  </data>
-  <data name="NetworkCache.ScopeValueInvalid" xml:space="preserve">
-    <value>Zadejte platnou hodnotu pro tento typ.</value>
-  </data>
-  <data name="NetworkCache.ScopeValuePlaceholder.Address" xml:space="preserve">
-    <value>10.20.0.15</value>
-  </data>
-  <data name="NetworkCache.ScopeValuePlaceholder.Range" xml:space="preserve">
-    <value>10.20.0.10-10.20.0.200</value>
-  </data>
-  <data name="NetworkCache.ScopeValuePlaceholder.Subnet" xml:space="preserve">
-    <value>10.10.0.0/16 nebo fd00:10::/48</value>
-  </data>
-  <data name="NetworkCache.ScopesDescription" xml:space="preserve">
-    <value>IP adresy, které určují, jaké sdílené složky zařízení zkouší.</value>
-  </data>
-  <data name="NetworkCache.ScopesHeader" xml:space="preserve">
-    <value>Obory IP adres</value>
-  </data>
-  <data name="NetworkCache.ScopesSpecificity" xml:space="preserve">
-    <value>Pokud zařízení odpovídá několika oborům, použije se nejkonkrétnější z nich.</value>
-  </data>
-  <data name="NetworkCache.ShareAccount" xml:space="preserve">
-    <value>Účet</value>
-  </data>
-  <data name="NetworkCache.ShareDialogAddTitle" xml:space="preserve">
-    <value>Přidat sdílenou složku</value>
-  </data>
-  <data name="NetworkCache.ShareDialogEditTitle" xml:space="preserve">
-    <value>Upravit sdílenou složku</value>
-  </data>
-  <data name="NetworkCache.ShareDuplicate" xml:space="preserve">
-    <value>Tato sdílená složka už v seznamu je.</value>
-  </data>
-  <data name="NetworkCache.ShareNoAccountHint" xml:space="preserve">
-    <value>Bez účtu zařízení čtou sdílenou složku bez přihlašovacích údajů a nikdy do ní nezapisují.</value>
-  </data>
-  <data name="NetworkCache.SharePath" xml:space="preserve">
-    <value>Cesta</value>
-  </data>
-  <data name="NetworkCache.SharesDescription" xml:space="preserve">
-    <value>Sdílené složky SMB používané jako mezipaměť. Každou sdílenou složku lze otevřít jedním účtem.</value>
-  </data>
-  <data name="NetworkCache.SharesHeader" xml:space="preserve">
-    <value>Sdílené složky</value>
-  </data>
-  <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
-    <value>Tato hodnota není pro svůj typ platná.</value>
-  </data>
-  <data name="NetworkCache.Validation.InvalidSharePath" xml:space="preserve">
-    <value>Zadejte cestu ve tvaru \\server\share.</value>
-  </data>
-  <data name="NetworkCache.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Sdílené složky s účtem vyžadují ochranu heslem pro nasazení, protože zaváděcí obraz PXE si může stáhnout kdokoli v síti. Zapněte ji na stránce „Obecné“.</value>
-  </data>
-  <data name="NetworkCache.Validation.PasswordRequired" xml:space="preserve">
-    <value>Zadejte heslo účtu.</value>
-  </data>
-  <data name="NetworkCache.Validation.ScopeWithoutShare" xml:space="preserve">
-    <value>Zaškrtněte alespoň jednu sdílenou složku.</value>
-  </data>
-  <data name="NetworkCache.Validation.ScopesRequired" xml:space="preserve">
-    <value>Přidejte alespoň jeden obor IP adres.</value>
-  </data>
-  <data name="NetworkCache.Validation.SharesRequired" xml:space="preserve">
-    <value>Přidejte alespoň jednu sdílenou složku.</value>
-  </data>
-  <data name="NetworkCache.Validation.UnknownAccount" xml:space="preserve">
-    <value>Účet této sdílené složky už neexistuje.</value>
-  </data>
-  <data name="NetworkCache.Validation.UnknownShare" xml:space="preserve">
-    <value>Některá sdílená složka tohoto oboru už neexistuje.</value>
-  </data>
-  <data name="NetworkCache.Validation.UserNameRequired" xml:space="preserve">
-    <value>Zadejte uživatelské jméno.</value>
-  </data>
-  <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>Umožňuje Foundry Deploy používat sdílené složky SMB jako sdílenou mezipaměť vybranou podle IP adresy zařízení. Windows, balíčky ovladačů a importovaný obsah se čtou ze sdílené složky dříve než z internetu a to, co zařízení stáhnou, se do ní zpětně publikuje.</value>
-  </data>
-  <data name="NetworkCachePageHeader.Title" xml:space="preserve">
-    <value>Síťová mezipaměť</value>
   </data>
 </root>

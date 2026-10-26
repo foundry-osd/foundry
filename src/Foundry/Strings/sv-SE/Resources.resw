@@ -2629,6 +2629,12 @@ Licensierad under MIT-licensen.</value>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
     <value>Datornamngivning</value>
   </data>
+  <data name="Nav_NetworkCacheKey.Description" xml:space="preserve">
+    <value>Använd SMB-resurser som en delad nedladdningscache för Foundry Deploy.</value>
+  </data>
+  <data name="Nav_NetworkCacheKey.Title" xml:space="preserve">
+    <value>Nätverkscache</value>
+  </data>
   <data name="Nav_NetworkSection.Title" xml:space="preserve">
     <value>Nätverk</value>
   </data>
@@ -2787,6 +2793,246 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming av Windows-profiler</value>
+  </data>
+  <data name="NetworkCache.AccountDialogAddTitle" xml:space="preserve">
+    <value>Lägg till ett konto</value>
+  </data>
+  <data name="NetworkCache.AccountDialogEditTitle" xml:space="preserve">
+    <value>Redigera konto</value>
+  </data>
+  <data name="NetworkCache.AccountInUse" xml:space="preserve">
+    <value>Det här kontot används av en resurs. Ta först bort det från resursen.</value>
+  </data>
+  <data name="NetworkCache.AccountInUseTitleFormat" xml:space="preserve">
+    <value>Det går inte att ta bort {0}</value>
+  </data>
+  <data name="NetworkCache.AccountPassword" xml:space="preserve">
+    <value>Lösenord</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordConfirmation" xml:space="preserve">
+    <value>Bekräfta lösenord</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordKeepHint" xml:space="preserve">
+    <value>Lämna lösenordet tomt om du vill behålla det nuvarande.</value>
+  </data>
+  <data name="NetworkCache.AccountUserName" xml:space="preserve">
+    <value>Användarnamn</value>
+  </data>
+  <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
+    <value>DOMAIN\user eller user@domain</value>
+  </data>
+  <data name="NetworkCache.AccountsDescription" xml:space="preserve">
+    <value>Konton som öppnar resurser. Enheter använder dem för att läsa en resurs och publicera det de laddar ned.</value>
+  </data>
+  <data name="NetworkCache.AccountsHeader" xml:space="preserve">
+    <value>Konton</value>
+  </data>
+  <data name="NetworkCache.ColumnAccount" xml:space="preserve">
+    <value>Konto</value>
+  </data>
+  <data name="NetworkCache.ColumnName" xml:space="preserve">
+    <value>Namn</value>
+  </data>
+  <data name="NetworkCache.ColumnPassword" xml:space="preserve">
+    <value>Lösenord</value>
+  </data>
+  <data name="NetworkCache.ColumnPath" xml:space="preserve">
+    <value>Sökväg</value>
+  </data>
+  <data name="NetworkCache.ColumnShares" xml:space="preserve">
+    <value>Resurser</value>
+  </data>
+  <data name="NetworkCache.ColumnStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="NetworkCache.ColumnType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="NetworkCache.ColumnUsedBy" xml:space="preserve">
+    <value>Används av</value>
+  </data>
+  <data name="NetworkCache.ColumnUserName" xml:space="preserve">
+    <value>Användarnamn</value>
+  </data>
+  <data name="NetworkCache.ColumnValue" xml:space="preserve">
+    <value>Värde</value>
+  </data>
+  <data name="NetworkCache.CommandAdd" xml:space="preserve">
+    <value>Lägg till</value>
+  </data>
+  <data name="NetworkCache.CommandEdit" xml:space="preserve">
+    <value>Redigera</value>
+  </data>
+  <data name="NetworkCache.CommandRemove" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="NetworkCache.DialogAdd" xml:space="preserve">
+    <value>Lägg till</value>
+  </data>
+  <data name="NetworkCache.EmptyAccounts" xml:space="preserve">
+    <value>Inga konton ännu. Resurser utan konto är skrivskyddade.</value>
+  </data>
+  <data name="NetworkCache.EmptyScopes" xml:space="preserve">
+    <value>Inga IP-omfång ännu.</value>
+  </data>
+  <data name="NetworkCache.EmptyShares" xml:space="preserve">
+    <value>Inga resurser ännu.</value>
+  </data>
+  <data name="NetworkCache.MoveDown" xml:space="preserve">
+    <value>Flytta ned</value>
+  </data>
+  <data name="NetworkCache.MoveUp" xml:space="preserve">
+    <value>Flytta upp</value>
+  </data>
+  <data name="NetworkCache.NoAccount" xml:space="preserve">
+    <value>Inget konto</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
+    <value>Resurser: {0}, IP-omfång: {1}</value>
+  </data>
+  <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
+    <value>Det här lösenordet kan inte användas.</value>
+  </data>
+  <data name="NetworkCache.PasswordMismatch" xml:space="preserve">
+    <value>Lösenorden matchar inte.</value>
+  </data>
+  <data name="NetworkCache.PasswordMissing" xml:space="preserve">
+    <value>Saknas</value>
+  </data>
+  <data name="NetworkCache.PasswordRequiredInput" xml:space="preserve">
+    <value>Ange ett lösenord.</value>
+  </data>
+  <data name="NetworkCache.PasswordSaved" xml:space="preserve">
+    <value>Sparat</value>
+  </data>
+  <data name="NetworkCache.Ready" xml:space="preserve">
+    <value>Klar</value>
+  </data>
+  <data name="NetworkCache.RemoveShareTitle" xml:space="preserve">
+    <value>Ta bort resurs</value>
+  </data>
+  <data name="NetworkCache.RemoveShareUsedMessageFormat" xml:space="preserve">
+    <value>{0} används av {1} IP-omfång. Om du tar bort den tas den även bort från dessa omfång.</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogAddTitle" xml:space="preserve">
+    <value>Lägg till ett IP-omfång</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogEditTitle" xml:space="preserve">
+    <value>Redigera IP-omfång</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Address" xml:space="preserve">
+    <value>Adress</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Range" xml:space="preserve">
+    <value>Intervall</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Subnet" xml:space="preserve">
+    <value>Undernät</value>
+  </data>
+  <data name="NetworkCache.ScopeKindHeader" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="NetworkCache.ScopeName" xml:space="preserve">
+    <value>Namn</value>
+  </data>
+  <data name="NetworkCache.ScopeNameRequired" xml:space="preserve">
+    <value>Ange ett namn.</value>
+  </data>
+  <data name="NetworkCache.ScopeNoShares" xml:space="preserve">
+    <value>Lägg till en resurs först.</value>
+  </data>
+  <data name="NetworkCache.ScopeShares" xml:space="preserve">
+    <value>Resurser</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
+    <value>Enheter provar de markerade resurserna uppifrån och ned och laddar sedan ned från Internet.</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
+    <value>Markera minst en resurs.</value>
+  </data>
+  <data name="NetworkCache.ScopeValue" xml:space="preserve">
+    <value>Värde</value>
+  </data>
+  <data name="NetworkCache.ScopeValueInvalid" xml:space="preserve">
+    <value>Ange ett giltigt värde för den här typen.</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Address" xml:space="preserve">
+    <value>10.20.0.15</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Range" xml:space="preserve">
+    <value>10.20.0.10-10.20.0.200</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Subnet" xml:space="preserve">
+    <value>10.10.0.0/16 eller fd00:10::/48</value>
+  </data>
+  <data name="NetworkCache.ScopesDescription" xml:space="preserve">
+    <value>IP-adresser som avgör vilka resurser en enhet provar.</value>
+  </data>
+  <data name="NetworkCache.ScopesHeader" xml:space="preserve">
+    <value>IP-omfång</value>
+  </data>
+  <data name="NetworkCache.ScopesSpecificity" xml:space="preserve">
+    <value>När en enhet matchar flera omfång gäller det mest specifika.</value>
+  </data>
+  <data name="NetworkCache.ShareAccount" xml:space="preserve">
+    <value>Konto</value>
+  </data>
+  <data name="NetworkCache.ShareDialogAddTitle" xml:space="preserve">
+    <value>Lägg till en resurs</value>
+  </data>
+  <data name="NetworkCache.ShareDialogEditTitle" xml:space="preserve">
+    <value>Redigera resurs</value>
+  </data>
+  <data name="NetworkCache.ShareDuplicate" xml:space="preserve">
+    <value>Den här resursen finns redan i listan.</value>
+  </data>
+  <data name="NetworkCache.ShareNoAccountHint" xml:space="preserve">
+    <value>Utan konto läser enheter resursen utan autentiseringsuppgifter och skriver aldrig till den.</value>
+  </data>
+  <data name="NetworkCache.SharePath" xml:space="preserve">
+    <value>Sökväg</value>
+  </data>
+  <data name="NetworkCache.SharesDescription" xml:space="preserve">
+    <value>SMB-resurser som används som cache. Varje resurs kan öppnas med ett konto.</value>
+  </data>
+  <data name="NetworkCache.SharesHeader" xml:space="preserve">
+    <value>Resurser</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
+    <value>Värdet är inte giltigt för sin typ.</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidSharePath" xml:space="preserve">
+    <value>Ange en sökväg som \\server\share.</value>
+  </data>
+  <data name="NetworkCache.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>Resurser med ett konto kräver lösenordsskydd för distributionen, eftersom vem som helst i nätverket kan ladda ned en PXE-startavbildning. Aktivera det på sidan Allmänt.</value>
+  </data>
+  <data name="NetworkCache.Validation.PasswordRequired" xml:space="preserve">
+    <value>Ange kontots lösenord.</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopeWithoutShare" xml:space="preserve">
+    <value>Markera minst en resurs.</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopesRequired" xml:space="preserve">
+    <value>Lägg till minst ett IP-omfång.</value>
+  </data>
+  <data name="NetworkCache.Validation.SharesRequired" xml:space="preserve">
+    <value>Lägg till minst en resurs.</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownAccount" xml:space="preserve">
+    <value>Kontot för den här resursen finns inte längre.</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownShare" xml:space="preserve">
+    <value>En resurs i det här omfånget finns inte längre.</value>
+  </data>
+  <data name="NetworkCache.Validation.UserNameRequired" xml:space="preserve">
+    <value>Ange ett användarnamn.</value>
+  </data>
+  <data name="NetworkCachePageHeader.Description" xml:space="preserve">
+    <value>Låter Foundry Deploy använda SMB-resurser som en delad cache som väljs utifrån enhetens IP-adress. Windows, drivrutinspaket och importerat innehåll läses från resursen före Internet, och det som enheterna laddar ned publiceras tillbaka till den.</value>
+  </data>
+  <data name="NetworkCachePageHeader.Title" xml:space="preserve">
+    <value>Nätverkscache</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Aktivera OOBE-konfiguration</value>
@@ -4778,251 +5024,5 @@ Uppdateringen startar om Foundry OSD.</value>
   </data>
   <data name="ZeroTouchDomainJoinPageHeader.Title" xml:space="preserve">
     <value>Zero-touch-domänanslutning</value>
-  </data>
-  <data name="Nav_NetworkCacheKey.Description" xml:space="preserve">
-    <value>Använd SMB-resurser som en delad nedladdningscache för Foundry Deploy.</value>
-  </data>
-  <data name="Nav_NetworkCacheKey.Title" xml:space="preserve">
-    <value>Nätverkscache</value>
-  </data>
-  <data name="NetworkCache.AccountDialogAddTitle" xml:space="preserve">
-    <value>Lägg till ett konto</value>
-  </data>
-  <data name="NetworkCache.AccountDialogEditTitle" xml:space="preserve">
-    <value>Redigera konto</value>
-  </data>
-  <data name="NetworkCache.AccountInUse" xml:space="preserve">
-    <value>Det här kontot används av en resurs. Ta först bort det från resursen.</value>
-  </data>
-  <data name="NetworkCache.AccountInUseTitleFormat" xml:space="preserve">
-    <value>Det går inte att ta bort {0}</value>
-  </data>
-  <data name="NetworkCache.AccountPassword" xml:space="preserve">
-    <value>Lösenord</value>
-  </data>
-  <data name="NetworkCache.AccountPasswordConfirmation" xml:space="preserve">
-    <value>Bekräfta lösenord</value>
-  </data>
-  <data name="NetworkCache.AccountPasswordKeepHint" xml:space="preserve">
-    <value>Lämna lösenordet tomt om du vill behålla det nuvarande.</value>
-  </data>
-  <data name="NetworkCache.AccountUserName" xml:space="preserve">
-    <value>Användarnamn</value>
-  </data>
-  <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user eller user@domain</value>
-  </data>
-  <data name="NetworkCache.AccountsDescription" xml:space="preserve">
-    <value>Konton som öppnar resurser. Enheter använder dem för att läsa en resurs och publicera det de laddar ned.</value>
-  </data>
-  <data name="NetworkCache.AccountsHeader" xml:space="preserve">
-    <value>Konton</value>
-  </data>
-  <data name="NetworkCache.ColumnAccount" xml:space="preserve">
-    <value>Konto</value>
-  </data>
-  <data name="NetworkCache.ColumnName" xml:space="preserve">
-    <value>Namn</value>
-  </data>
-  <data name="NetworkCache.ColumnPassword" xml:space="preserve">
-    <value>Lösenord</value>
-  </data>
-  <data name="NetworkCache.ColumnPath" xml:space="preserve">
-    <value>Sökväg</value>
-  </data>
-  <data name="NetworkCache.ColumnShares" xml:space="preserve">
-    <value>Resurser</value>
-  </data>
-  <data name="NetworkCache.ColumnStatus" xml:space="preserve">
-    <value>Status</value>
-  </data>
-  <data name="NetworkCache.ColumnType" xml:space="preserve">
-    <value>Typ</value>
-  </data>
-  <data name="NetworkCache.ColumnUsedBy" xml:space="preserve">
-    <value>Används av</value>
-  </data>
-  <data name="NetworkCache.ColumnUserName" xml:space="preserve">
-    <value>Användarnamn</value>
-  </data>
-  <data name="NetworkCache.ColumnValue" xml:space="preserve">
-    <value>Värde</value>
-  </data>
-  <data name="NetworkCache.CommandAdd" xml:space="preserve">
-    <value>Lägg till</value>
-  </data>
-  <data name="NetworkCache.CommandEdit" xml:space="preserve">
-    <value>Redigera</value>
-  </data>
-  <data name="NetworkCache.CommandRemove" xml:space="preserve">
-    <value>Ta bort</value>
-  </data>
-  <data name="NetworkCache.DialogAdd" xml:space="preserve">
-    <value>Lägg till</value>
-  </data>
-  <data name="NetworkCache.EmptyAccounts" xml:space="preserve">
-    <value>Inga konton ännu. Resurser utan konto är skrivskyddade.</value>
-  </data>
-  <data name="NetworkCache.EmptyScopes" xml:space="preserve">
-    <value>Inga IP-omfång ännu.</value>
-  </data>
-  <data name="NetworkCache.EmptyShares" xml:space="preserve">
-    <value>Inga resurser ännu.</value>
-  </data>
-  <data name="NetworkCache.MoveDown" xml:space="preserve">
-    <value>Flytta ned</value>
-  </data>
-  <data name="NetworkCache.MoveUp" xml:space="preserve">
-    <value>Flytta upp</value>
-  </data>
-  <data name="NetworkCache.NoAccount" xml:space="preserve">
-    <value>Inget konto</value>
-  </data>
-  <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
-    <value>Resurser: {0}, IP-omfång: {1}</value>
-  </data>
-  <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
-    <value>Det här lösenordet kan inte användas.</value>
-  </data>
-  <data name="NetworkCache.PasswordMismatch" xml:space="preserve">
-    <value>Lösenorden matchar inte.</value>
-  </data>
-  <data name="NetworkCache.PasswordMissing" xml:space="preserve">
-    <value>Saknas</value>
-  </data>
-  <data name="NetworkCache.PasswordRequiredInput" xml:space="preserve">
-    <value>Ange ett lösenord.</value>
-  </data>
-  <data name="NetworkCache.PasswordSaved" xml:space="preserve">
-    <value>Sparat</value>
-  </data>
-  <data name="NetworkCache.Ready" xml:space="preserve">
-    <value>Klar</value>
-  </data>
-  <data name="NetworkCache.RemoveShareTitle" xml:space="preserve">
-    <value>Ta bort resurs</value>
-  </data>
-  <data name="NetworkCache.RemoveShareUsedMessageFormat" xml:space="preserve">
-    <value>{0} används av {1} IP-omfång. Om du tar bort den tas den även bort från dessa omfång.</value>
-  </data>
-  <data name="NetworkCache.ScopeDialogAddTitle" xml:space="preserve">
-    <value>Lägg till ett IP-omfång</value>
-  </data>
-  <data name="NetworkCache.ScopeDialogEditTitle" xml:space="preserve">
-    <value>Redigera IP-omfång</value>
-  </data>
-  <data name="NetworkCache.ScopeKind.Address" xml:space="preserve">
-    <value>Adress</value>
-  </data>
-  <data name="NetworkCache.ScopeKind.Range" xml:space="preserve">
-    <value>Intervall</value>
-  </data>
-  <data name="NetworkCache.ScopeKind.Subnet" xml:space="preserve">
-    <value>Undernät</value>
-  </data>
-  <data name="NetworkCache.ScopeKindHeader" xml:space="preserve">
-    <value>Typ</value>
-  </data>
-  <data name="NetworkCache.ScopeName" xml:space="preserve">
-    <value>Namn</value>
-  </data>
-  <data name="NetworkCache.ScopeNameRequired" xml:space="preserve">
-    <value>Ange ett namn.</value>
-  </data>
-  <data name="NetworkCache.ScopeNoShares" xml:space="preserve">
-    <value>Lägg till en resurs först.</value>
-  </data>
-  <data name="NetworkCache.ScopeShares" xml:space="preserve">
-    <value>Resurser</value>
-  </data>
-  <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>Enheter provar de markerade resurserna uppifrån och ned och laddar sedan ned från Internet.</value>
-  </data>
-  <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
-    <value>Markera minst en resurs.</value>
-  </data>
-  <data name="NetworkCache.ScopeValue" xml:space="preserve">
-    <value>Värde</value>
-  </data>
-  <data name="NetworkCache.ScopeValueInvalid" xml:space="preserve">
-    <value>Ange ett giltigt värde för den här typen.</value>
-  </data>
-  <data name="NetworkCache.ScopeValuePlaceholder.Address" xml:space="preserve">
-    <value>10.20.0.15</value>
-  </data>
-  <data name="NetworkCache.ScopeValuePlaceholder.Range" xml:space="preserve">
-    <value>10.20.0.10-10.20.0.200</value>
-  </data>
-  <data name="NetworkCache.ScopeValuePlaceholder.Subnet" xml:space="preserve">
-    <value>10.10.0.0/16 eller fd00:10::/48</value>
-  </data>
-  <data name="NetworkCache.ScopesDescription" xml:space="preserve">
-    <value>IP-adresser som avgör vilka resurser en enhet provar.</value>
-  </data>
-  <data name="NetworkCache.ScopesHeader" xml:space="preserve">
-    <value>IP-omfång</value>
-  </data>
-  <data name="NetworkCache.ScopesSpecificity" xml:space="preserve">
-    <value>När en enhet matchar flera omfång gäller det mest specifika.</value>
-  </data>
-  <data name="NetworkCache.ShareAccount" xml:space="preserve">
-    <value>Konto</value>
-  </data>
-  <data name="NetworkCache.ShareDialogAddTitle" xml:space="preserve">
-    <value>Lägg till en resurs</value>
-  </data>
-  <data name="NetworkCache.ShareDialogEditTitle" xml:space="preserve">
-    <value>Redigera resurs</value>
-  </data>
-  <data name="NetworkCache.ShareDuplicate" xml:space="preserve">
-    <value>Den här resursen finns redan i listan.</value>
-  </data>
-  <data name="NetworkCache.ShareNoAccountHint" xml:space="preserve">
-    <value>Utan konto läser enheter resursen utan autentiseringsuppgifter och skriver aldrig till den.</value>
-  </data>
-  <data name="NetworkCache.SharePath" xml:space="preserve">
-    <value>Sökväg</value>
-  </data>
-  <data name="NetworkCache.SharesDescription" xml:space="preserve">
-    <value>SMB-resurser som används som cache. Varje resurs kan öppnas med ett konto.</value>
-  </data>
-  <data name="NetworkCache.SharesHeader" xml:space="preserve">
-    <value>Resurser</value>
-  </data>
-  <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
-    <value>Värdet är inte giltigt för sin typ.</value>
-  </data>
-  <data name="NetworkCache.Validation.InvalidSharePath" xml:space="preserve">
-    <value>Ange en sökväg som \\server\share.</value>
-  </data>
-  <data name="NetworkCache.Validation.MediaProtectionRequired" xml:space="preserve">
-    <value>Resurser med ett konto kräver lösenordsskydd för distributionen, eftersom vem som helst i nätverket kan ladda ned en PXE-startavbildning. Aktivera det på sidan Allmänt.</value>
-  </data>
-  <data name="NetworkCache.Validation.PasswordRequired" xml:space="preserve">
-    <value>Ange kontots lösenord.</value>
-  </data>
-  <data name="NetworkCache.Validation.ScopeWithoutShare" xml:space="preserve">
-    <value>Markera minst en resurs.</value>
-  </data>
-  <data name="NetworkCache.Validation.ScopesRequired" xml:space="preserve">
-    <value>Lägg till minst ett IP-omfång.</value>
-  </data>
-  <data name="NetworkCache.Validation.SharesRequired" xml:space="preserve">
-    <value>Lägg till minst en resurs.</value>
-  </data>
-  <data name="NetworkCache.Validation.UnknownAccount" xml:space="preserve">
-    <value>Kontot för den här resursen finns inte längre.</value>
-  </data>
-  <data name="NetworkCache.Validation.UnknownShare" xml:space="preserve">
-    <value>En resurs i det här omfånget finns inte längre.</value>
-  </data>
-  <data name="NetworkCache.Validation.UserNameRequired" xml:space="preserve">
-    <value>Ange ett användarnamn.</value>
-  </data>
-  <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>Låter Foundry Deploy använda SMB-resurser som en delad cache som väljs utifrån enhetens IP-adress. Windows, drivrutinspaket och importerat innehåll läses från resursen före Internet, och det som enheterna laddar ned publiceras tillbaka till den.</value>
-  </data>
-  <data name="NetworkCachePageHeader.Title" xml:space="preserve">
-    <value>Nätverkscache</value>
   </data>
 </root>
