@@ -14,7 +14,6 @@ using Foundry.Core.Services.Drivers;
 using Foundry.Core.Services.Images;
 using Foundry.Core.Services.Packages;
 using Foundry.Core.Services.Media;
-using Foundry.Core.Services.Profiles;
 using Foundry.Core.Services.Telemetry;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Adk;
@@ -723,7 +722,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         // Telemetry keeps the tracked step: a diagnostic stage can be a dynamic label, which stays in logs only.
         string? telemetryFailedStepName = null;
         DeploymentMediaProtectionMaterial? deploymentProtectionMaterial = null;
-        DeploymentBuildSnapshot? snapshot = null;
+        BuildSnapshot? snapshot = null;
         FoundryConfigurationDocument capturedConfiguration = foundryConfigurationStateService.Current;
         bool shouldTrackMedia = true;
 
@@ -1285,7 +1284,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private async Task<string> CreateIsoMediaAsync(
         MediaPreflightOptions options,
-        DeploymentBuildSnapshot snapshot,
+        BuildSnapshot snapshot,
         DeploymentMediaProtectionMaterial deploymentProtectionMaterial,
         MediaCreationTelemetryProgressTracker telemetryProgressTracker,
         CancellationToken cancellationToken)
@@ -1346,7 +1345,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private async Task<long> CreatePxeMediaAsync(
         MediaPreflightOptions options,
         string outputDirectoryPath,
-        DeploymentBuildSnapshot snapshot,
+        BuildSnapshot snapshot,
         DeploymentMediaProtectionMaterial deploymentProtectionMaterial,
         MediaCreationTelemetryProgressTracker telemetryProgressTracker,
         CancellationToken cancellationToken)
@@ -1440,7 +1439,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private async Task<WinPeUsbProvisionResult> CreateUsbMediaAsync(
         MediaPreflightOptions options,
         UsbMediaLayout layout,
-        DeploymentBuildSnapshot snapshot,
+        BuildSnapshot snapshot,
         DeploymentMediaProtectionMaterial deploymentProtectionMaterial,
         MediaCreationTelemetryProgressTracker telemetryProgressTracker,
         CancellationToken cancellationToken)
@@ -1515,7 +1514,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private async Task<WinPeUsbProvisionResult> UpdateUsbMediaAsync(
         MediaPreflightOptions options,
-        DeploymentBuildSnapshot snapshot,
+        BuildSnapshot snapshot,
         DeploymentMediaProtectionMaterial deploymentProtectionMaterial,
         MediaCreationTelemetryProgressTracker telemetryProgressTracker,
         CancellationToken cancellationToken)
@@ -1585,7 +1584,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private async Task<PreparedMediaWorkspace> PrepareMediaWorkspaceAsync(
         MediaPreflightOptions options,
-        DeploymentBuildSnapshot snapshot,
+        BuildSnapshot snapshot,
         bool includeRuntimePayloadInImage,
         DeploymentMediaProtectionMaterial deploymentProtectionMaterial,
         MediaCreationTelemetryProgressTracker telemetryProgressTracker,
@@ -1801,7 +1800,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
     private WinPeMountedImageAssetProvisioningOptions CreateAssetProvisioningOptions(
         MediaPreflightOptions options,
-        DeploymentBuildSnapshot snapshot,
+        BuildSnapshot snapshot,
         WinPeToolPaths tools,
         FoundryConnectProvisioningBundle connectBundle,
         DeploymentMediaProtectionMaterial deploymentProtectionMaterial,
