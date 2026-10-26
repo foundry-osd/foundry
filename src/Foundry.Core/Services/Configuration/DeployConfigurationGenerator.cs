@@ -11,6 +11,7 @@ using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Models.Network;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Images;
+using Foundry.Core.Services.NetworkCache;
 
 namespace Foundry.Core.Services.Configuration;
 
@@ -96,11 +97,15 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         OobeAccountConfigurationValidator.ThrowIfInvalid(document.Customization.Oobe, oobeAccountSecretState);
         ThrowIfAutopilotConflictsWithOobeAccounts(document.Autopilot, document.Customization.Oobe);
         ThrowIfOobePasswordsRequireProtectedMedia(document.Customization.Oobe, protectionSettings, deploymentSecretsKey);
+        bool isMediaProtected = protectionSettings?.IsEnabled == true && deploymentSecretsKey is { Length: MediaSecretEnvelopeProtector.KeySizeBytes };
+        if (!NetworkCacheConfigurationValidator.EvaluateReadiness(document.NetworkCache, inputs.NetworkCachePasswords.ContainsKey, isMediaProtected).IsValid)
+            throw new InvalidOperationException("Network cache configuration is not ready for deployment media.");
 
         return new FoundryDeployConfigurationDocument
         {
             AuthoringVersion = authoringVersion,
             DomainJoin = MapDomainJoinSettings(document.DomainJoin, deploymentSecretsKey, domainJoinSecretState),
+            NetworkCache = MapNetworkCacheSettings(document.NetworkCache, deploymentSecretsKey, inputs.NetworkCachePasswords),
             Protection = protectionSettings ?? new DeployProtectionSettings(),
             PreOobe = new DeployPreOobeSettings
             {
@@ -227,6 +232,50 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             },
             Telemetry = document.Telemetry
         };
+    }
+
+    /// <summary>
+    /// Maps the enabled section; each share with an account carries a password payload bound to its share path and
+    /// account, so it never decodes for another share. Readiness, protection included, was validated before.
+    /// </summary>
+    private static DeployNetworkCacheSettings MapNetworkCacheSettings(NetworkCacheSettings settings, byte[]? key, IReadOnlyDictionary<string, string> passwords)
+    {
+        if (!settings.IsEnabled) return new();
+        Dictionary<string, NetworkCacheAccount> accounts = settings.Accounts.ToDictionary(account => account.Id, StringComparer.Ordinal);
+        return new()
+        {
+            IsEnabled = true,
+            Shares = settings.Shares.Select(share =>
+            {
+                NetworkCacheAccount? account = share.AccountId is null ? null : accounts[share.AccountId];
+                return new DeployNetworkCacheShare
+                {
+                    Id = share.Id,
+                    Path = share.Path.Trim(),
+                    AccountName = account?.UserName.Trim(),
+                    EncryptedCredentials = account is null ? null : ProtectShareCredentials(share.Path.Trim(), account.UserName.Trim(), passwords[account.Id], key!)
+                };
+            }).ToArray(),
+            Scopes = settings.Scopes.Select(scope => new DeployNetworkCacheScope
+            {
+                Kind = scope.Kind,
+                Value = scope.Value.Trim(),
+                ShareIds = scope.ShareIds.ToArray()
+            }).ToArray()
+        };
+    }
+
+    private static SecretEnvelope ProtectShareCredentials(string sharePath, string accountName, string password, byte[] key)
+    {
+        byte[] payload = NetworkShareCredentialPayloadCodec.Encode(new(sharePath, accountName), password);
+        try
+        {
+            return MediaSecretEnvelopeProtector.EncryptBytes(payload, key, MediaSecretEnvelopeProtector.DeploymentKeyId);
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(payload);
+        }
     }
 
     private static DeployDomainJoinSettings MapDomainJoinSettings(DomainJoinSettings settings, byte[]? key, DomainJoinSecretState? secrets)

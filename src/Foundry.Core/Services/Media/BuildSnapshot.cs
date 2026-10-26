@@ -36,6 +36,7 @@ public sealed class BuildSnapshot : IDisposable
     private readonly char[]? wiredCertificatePassword;
     private readonly char[]? wifiCertificatePassword;
     private readonly char[]? autopilotCertificatePassword;
+    private readonly Dictionary<string, char[]> networkCachePasswords = new(StringComparer.Ordinal);
     private readonly string privateRootDirectory;
     private readonly string? authoringVersion;
     private readonly AuthoringFileLibrary? files;
@@ -58,6 +59,7 @@ public sealed class BuildSnapshot : IDisposable
         wiredCertificatePassword = sources?.Network.WiredCertificatePfxPassword?.ToCharArray();
         wifiCertificatePassword = sources?.Network.WifiCertificatePfxPassword?.ToCharArray();
         autopilotCertificatePassword = sources?.AutopilotPfxPassword?.ToCharArray();
+        foreach ((string accountId, string value) in sources?.NetworkCachePasswords ?? new Dictionary<string, string>()) networkCachePasswords[accountId] = value.ToCharArray();
         privateRootDirectory = Path.GetFullPath(root);
     }
 
@@ -198,6 +200,7 @@ public sealed class BuildSnapshot : IDisposable
             Clear(wiredCertificatePassword);
             Clear(wifiCertificatePassword);
             Clear(autopilotCertificatePassword);
+            foreach (char[] value in networkCachePasswords.Values) Clear(value);
         }
         if (privateDirectory is null) return;
         try
@@ -507,7 +510,8 @@ public sealed class BuildSnapshot : IDisposable
             WiredCertificatePfxPassword = AsString(wiredCertificatePassword),
             WifiCertificatePfxPassword = AsString(wifiCertificatePassword)
         },
-        AutopilotPfxPassword = AsString(autopilotCertificatePassword)
+        AutopilotPfxPassword = AsString(autopilotCertificatePassword),
+        NetworkCachePasswords = networkCachePasswords.ToDictionary(pair => pair.Key, pair => new string(pair.Value), StringComparer.Ordinal)
     };
 
     /// <summary>Returns the private copy captured for <paramref name="reference"/>, or <see langword="null"/> when it was not captured.</summary>

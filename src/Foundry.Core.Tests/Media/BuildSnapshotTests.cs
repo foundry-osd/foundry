@@ -72,6 +72,44 @@ public sealed class BuildSnapshotTests : IDisposable
     }
 
     [Fact]
+    public async Task SnapshotCarriesNetworkCachePasswordsIntoDeployConfiguration()
+    {
+        using var accounts = new OobeAccountSecretState();
+        var passwords = new Dictionary<string, string> { ["a1"] = "share password" };
+        var document = new FoundryConfigurationDocument
+        {
+            General = new() { DeploymentProtection = new() { IsEnabled = true } },
+            NetworkCache = new()
+            {
+                IsEnabled = true,
+                Accounts = [new() { Id = "a1", UserName = "CONTOSO\\svc" }],
+                Shares = [new() { Id = "s1", Path = @"\\fs01\cache", AccountId = "a1" }],
+                Scopes = [new() { Id = "c1", Name = "All", Kind = NetworkCacheScopeKind.Subnet, Value = "0.0.0.0/0", ShareIds = ["s1"] }]
+            }
+        };
+        Task<BuildSnapshot> capturing = BuildSnapshot.CaptureAsync(
+            document, new BuildSnapshotSources(library) { NetworkCachePasswords = passwords }, accounts, null, "MediaPassword123!", root, null, TestContext.Current.CancellationToken);
+        passwords.Clear();
+        using BuildSnapshot snapshot = await capturing;
+        using var protection = snapshot.CreateDeploymentProtectionMaterial();
+
+        string json = snapshot.GenerateDeployConfigurationJson(deploymentSecretsKey: protection.DeploymentKey, protectionSettings: protection.Settings);
+
+        var deploy = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
+        byte[] payload = MediaSecretEnvelopeProtector.DecryptBytes(deploy.NetworkCache.Shares[0].EncryptedCredentials!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId);
+        try
+        {
+            using var decoded = Foundry.Core.Services.NetworkCache.NetworkShareCredentialPayloadCodec.Decode(payload, new(@"\\fs01\cache", "CONTOSO\\svc"));
+            Assert.Equal("share password", new string(decoded.Password.Span));
+            Assert.DoesNotContain("share password", json, StringComparison.Ordinal);
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(payload);
+        }
+    }
+
+    [Fact]
     public async Task CaptureAsync_PreservesOneAuthoringVersionAcrossBothRuntimeOutputs()
     {
         using var secrets = new OobeAccountSecretState();
