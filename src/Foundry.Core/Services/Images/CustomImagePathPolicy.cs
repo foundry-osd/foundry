@@ -30,6 +30,9 @@ public static class CustomImagePathPolicy
     {
         for (string? current = Path.GetFullPath(path); current is not null; current = Path.GetDirectoryName(current))
         {
+            // Staging validates every destination before it exists; skipping missing entries avoids one exception per
+            // missing folder, which turns large driver sets into thousands of exceptions. The catches cover a race only.
+            if (!Path.Exists(current)) continue;
             try
             {
                 if ((File.GetAttributes(current) & FileAttributes.ReparsePoint) != 0)
