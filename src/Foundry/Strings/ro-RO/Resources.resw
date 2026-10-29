@@ -812,7 +812,7 @@ Licențiat sub licența MIT.</value>
     <value>Seturi de drivere</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
-    <value>Indisponibil la pornirea prin PXE. Driverele personalizate necesită mediul ISO sau USB complet.</value>
+    <value>La pornirea PXE, driverele personalizate necesită cache-ul de rețea. Fără el, folosiți un mediu ISO sau USB.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
     <value>Seturile de drivere ale acestei configurații nu sunt valide. Verificați seturile incluse și setul implicit înainte de a crea sau actualiza mediul.</value>
@@ -938,7 +938,7 @@ Licențiat sub licența MIT.</value>
     <value>Operația asupra imaginii a eșuat. Verificați sursa, spațiul disponibil și jurnalele Foundry.</value>
   </data>
   <data name="CustomImages.PxeWarning" xml:space="preserve">
-    <value>Indisponibil la pornirea prin PXE. Imaginile personalizate necesită mediul ISO sau USB complet.</value>
+    <value>La pornirea PXE, imaginile personalizate necesită cache-ul de rețea. Fără el, folosiți un mediu ISO sau USB.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Includeți cel puțin o imagine Windows disponibilă în această configurație. Restabiliți imaginile incluse care lipsesc și corectați sau ștergeți selecția imaginii sau a indexului preferat înainte de a crea sau de a actualiza mediul.</value>
@@ -2819,7 +2819,7 @@ Licențiat sub licența MIT.</value>
     <value>Nume de utilizator</value>
   </data>
   <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user sau user@domain</value>
+    <value>DOMAIN\user, SERVER\user sau user@domain</value>
   </data>
   <data name="NetworkCache.AccountsDescription" xml:space="preserve">
     <value>Conturi care deschid partajări. Dispozitivele le folosesc pentru a citi o partajare și pentru a publica ceea ce descarcă.</value>
@@ -2827,8 +2827,32 @@ Licențiat sub licența MIT.</value>
   <data name="NetworkCache.AccountsHeader" xml:space="preserve">
     <value>Conturi</value>
   </data>
+  <data name="NetworkCache.CleanUpShareFailedMessageFormat" xml:space="preserve">
+    <value>{0} nu a putut fi curățată. Verificați dacă partajarea este accesibilă și dacă contul ei poate șterge fișiere, apoi încercați din nou.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareKeptMessageFormat" xml:space="preserve">
+    <value>{0} a fost curățată, dar unele fișiere au fost păstrate deoarece sunt în uz, s-au modificat de la publicare sau nu au fost scrise de Foundry.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareMessageFormat" xml:space="preserve">
+    <value>Ștergeți descărcările de pe {0} și conținutul importat pe care nu îl mai folosește nici configurația dvs., nici vreun index publicat? Dispozitivele descarcă din nou ce le trebuie.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareTitle" xml:space="preserve">
+    <value>Curățare partajare</value>
+  </data>
   <data name="NetworkCache.ColumnAccount" xml:space="preserve">
     <value>Cont</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloads" xml:space="preserve">
+    <value>De pe internet</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloadsToolTip" xml:space="preserve">
+    <value>Windows și pachetele de drivere descărcate de dispozitive de pe internet. Curățarea le șterge, iar dispozitivele le descarcă din nou când este nevoie.</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContent" xml:space="preserve">
+    <value>Conținut importat</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContentToolTip" xml:space="preserve">
+    <value>Imaginile personalizate, seturile de drivere și scripturile post-instalare publicate de Foundry OSD. Curățarea le păstrează pe cele încă folosite.</value>
   </data>
   <data name="NetworkCache.ColumnName" xml:space="preserve">
     <value>Nume</value>
@@ -2860,11 +2884,20 @@ Licențiat sub licența MIT.</value>
   <data name="NetworkCache.CommandAdd" xml:space="preserve">
     <value>Adaugă</value>
   </data>
+  <data name="NetworkCache.CommandCleanUp" xml:space="preserve">
+    <value>Curăță</value>
+  </data>
   <data name="NetworkCache.CommandEdit" xml:space="preserve">
     <value>Editează</value>
   </data>
+  <data name="NetworkCache.CommandPublish" xml:space="preserve">
+    <value>Publicare</value>
+  </data>
   <data name="NetworkCache.CommandRemove" xml:space="preserve">
     <value>Elimină</value>
+  </data>
+  <data name="NetworkCache.ContentMissingShareFormat" xml:space="preserve">
+    <value>{0} nu mai conține conținutul publicat. Selectați Publicare.</value>
   </data>
   <data name="NetworkCache.DialogAdd" xml:space="preserve">
     <value>Adaugă</value>
@@ -2887,8 +2920,23 @@ Licențiat sub licența MIT.</value>
   <data name="NetworkCache.NoAccount" xml:space="preserve">
     <value>Niciun cont</value>
   </data>
+  <data name="NetworkCache.NotPublishedMessage" xml:space="preserve">
+    <value>Partajările nu au cele mai recente modificări. Selectați Publicare.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedShareFormat" xml:space="preserve">
+    <value>{0} nu a primit cele mai recente modificări. Selectați Publicare.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedState" xml:space="preserve">
+    <value>Nepublicat</value>
+  </data>
+  <data name="NetworkCache.OutdatedState" xml:space="preserve">
+    <value>Învechit</value>
+  </data>
   <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
     <value>Partajări: {0}, zone IP: {1}</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryWithStateFormat" xml:space="preserve">
+    <value>{0} · {1}</value>
   </data>
   <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
     <value>Această parolă nu poate fi folosită.</value>
@@ -2904,6 +2952,15 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="NetworkCache.PasswordSaved" xml:space="preserve">
     <value>Salvată</value>
+  </data>
+  <data name="NetworkCache.PublishFailedMessage" xml:space="preserve">
+    <value>Conținutul de publicat nu a putut fi pregătit.</value>
+  </data>
+  <data name="NetworkCache.PublishKeysUnavailableMessage" xml:space="preserve">
+    <value>Acest PC nu poate semna ce publică pe partajări, deoarece cheia sa de semnare nu a putut fi citită sau salvată.</value>
+  </data>
+  <data name="NetworkCache.PublishSucceededMessage" xml:space="preserve">
+    <value>Partajările au cele mai recente modificări.</value>
   </data>
   <data name="NetworkCache.Ready" xml:space="preserve">
     <value>Pregătit</value>
@@ -2945,7 +3002,7 @@ Licențiat sub licența MIT.</value>
     <value>Partajări</value>
   </data>
   <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>Dispozitivele încearcă partajările bifate de sus în jos, apoi descarcă de pe internet.</value>
+    <value>Dispozitivele folosesc prima partajare bifată care răspunde, de sus în jos.</value>
   </data>
   <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
     <value>Bifați cel puțin o partajare.</value>
@@ -2998,6 +3055,24 @@ Licențiat sub licența MIT.</value>
   <data name="NetworkCache.SharesHeader" xml:space="preserve">
     <value>Partajări</value>
   </data>
+  <data name="NetworkCache.SpaceCleaningUp" xml:space="preserve">
+    <value>Se curăță…</value>
+  </data>
+  <data name="NetworkCache.SpaceMeasuring" xml:space="preserve">
+    <value>Se măsoară…</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreachable" xml:space="preserve">
+    <value>Inaccesibilă</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreadable" xml:space="preserve">
+    <value>Nu poate fi citită</value>
+  </data>
+  <data name="NetworkCache.TrustedKeyUnavailableMessage" xml:space="preserve">
+    <value>Nu se pot crea suporturi media cu cache-ul de rețea activat, deoarece acest PC nu are o cheie de încredere pentru conținutul publicat pe partajări. Verificați Partajarea configurației pe pagina Setări.</value>
+  </data>
+  <data name="NetworkCache.UpToDateState" xml:space="preserve">
+    <value>Actualizat</value>
+  </data>
   <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
     <value>Această valoare nu este validă pentru tipul ei.</value>
   </data>
@@ -3029,7 +3104,7 @@ Licențiat sub licența MIT.</value>
     <value>Introduceți un nume de utilizator.</value>
   </data>
   <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>Permite ca Foundry Deploy să folosească partajări SMB ca un cache partajat, ales după adresa IP a dispozitivului. Windows, pachetele de drivere și conținutul importat sunt citite din partajare înaintea internetului, iar ceea ce descarcă dispozitivele este publicat înapoi în ea.</value>
+    <value>Permite ca Foundry Deploy să folosească partajări SMB ca un cache partajat, ales după adresa IP a dispozitivului.</value>
   </data>
   <data name="NetworkCachePageHeader.Title" xml:space="preserve">
     <value>Cache de rețea</value>
@@ -3218,7 +3293,7 @@ Licențiat sub licența MIT.</value>
     <value>Argumente PowerShell</value>
   </data>
   <data name="PostInstallation.PxeWarning" xml:space="preserve">
-    <value>Acțiunile care folosesc fișiere importate nu sunt disponibile la pornirea prin PXE. Acestea necesită mediul ISO sau USB complet.</value>
+    <value>La pornirea PXE, acțiunile care folosesc fișiere importate necesită cache-ul de rețea. Fără el, folosiți un mediu ISO sau USB.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Acțiunea nu a putut fi eliminată. Încercați din nou.</value>
@@ -4354,6 +4429,9 @@ Licențiat sub licența MIT.</value>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
     <value>Se deschide imaginea Windows…</value>
   </data>
+  <data name="StartMedia.Operation.NetworkCachePublicationFailedFormat" xml:space="preserve">
+    <value>Aceste partajări ale cache-ului de rețea nu au primit conținutul importat: {0}. Verificați dacă fiecare este accesibilă și permite scrierea, apoi selectați Publicare pe pagina Cache de rețea.</value>
+  </data>
   <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
     <value>Deschide folderul</value>
   </data>
@@ -4389,6 +4467,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
     <value>Pregătirea spațiului de lucru</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.PublishingToNetworkCache" xml:space="preserve">
+    <value>Publicarea în cache-ul de rețea</value>
   </data>
   <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
     <value>Actualizarea unității USB</value>
@@ -4428,6 +4509,12 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Se adaugă componentele Foundry pe unitatea USB…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
+    <value>Se publică conținutul importat în cache-ul de rețea…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCacheShareFormat" xml:space="preserve">
+    <value>Se publică conținutul importat în {0}, partajarea {1} din {2}</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
     <value>Spațiu liber insuficient în folderul de destinație. Fișierele de pornire PXE necesită {0}. Disponibil: {1}. Eliberați spațiu sau alegeți alt folder.</value>
@@ -4476,6 +4563,18 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO creat</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishCancelled" xml:space="preserve">
+    <value>Publicarea în cache-ul de rețea a fost anulată</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishFailed" xml:space="preserve">
+    <value>Publicarea în cache-ul de rețea a eșuat</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishRunning" xml:space="preserve">
+    <value>Se publică în cache-ul de rețea</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishSucceeded" xml:space="preserve">
+    <value>Publicat în cache-ul de rețea</value>
   </data>
   <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
     <value>Crearea fișierelor PXE a fost anulată</value>

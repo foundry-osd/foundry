@@ -812,7 +812,7 @@
     <value>驅動程式集</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
-    <value>使用 PXE 開機時無法使用。自訂驅動程式需要完整的 ISO 或 USB 媒體。</value>
+    <value>使用 PXE 開機時，自訂驅動程式需要網路快取。沒有網路快取時，請使用 ISO 或 USB 媒體。</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
     <value>此組態的驅動程式集無效。在建立或更新媒體之前，請檢查包含的集與預設集。</value>
@@ -938,7 +938,7 @@
     <value>映像作業失敗。請檢查來源、可用空間與 Foundry 記錄。</value>
   </data>
   <data name="CustomImages.PxeWarning" xml:space="preserve">
-    <value>使用 PXE 開機時無法使用。自訂映像需要完整的 ISO 或 USB 媒體。</value>
+    <value>使用 PXE 開機時，自訂映像需要網路快取。沒有網路快取時，請使用 ISO 或 USB 媒體。</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>請在此組態中包含至少一個可用的 Windows 映像。在建立或更新媒體之前，請還原已包含但遺失的映像，並修正或清除慣用映像或索引的選取項目。</value>
@@ -2819,7 +2819,7 @@
     <value>使用者名稱</value>
   </data>
   <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user 或 user@domain</value>
+    <value>DOMAIN\user, SERVER\user 或 user@domain</value>
   </data>
   <data name="NetworkCache.AccountsDescription" xml:space="preserve">
     <value>用來開啟共用的帳戶。裝置會使用這些帳戶讀取共用，並發佈其下載的內容。</value>
@@ -2827,8 +2827,32 @@
   <data name="NetworkCache.AccountsHeader" xml:space="preserve">
     <value>帳戶</value>
   </data>
+  <data name="NetworkCache.CleanUpShareFailedMessageFormat" xml:space="preserve">
+    <value>無法清理 {0}。請檢查該共用是否可連線，以及其帳戶是否能刪除檔案，然後再試一次。</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareKeptMessageFormat" xml:space="preserve">
+    <value>已清理 {0}，但保留了部分檔案，因為這些檔案正在使用中、發佈後已變更，或並非由 Foundry 寫入。</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareMessageFormat" xml:space="preserve">
+    <value>要刪除 {0} 上的下載內容，以及您的設定和任何已發佈的索引都不再使用的匯入內容嗎？裝置會重新下載所需的內容。</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareTitle" xml:space="preserve">
+    <value>清理共用</value>
+  </data>
   <data name="NetworkCache.ColumnAccount" xml:space="preserve">
     <value>帳戶</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloads" xml:space="preserve">
+    <value>來自網際網路</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloadsToolTip" xml:space="preserve">
+    <value>裝置從網際網路下載的 Windows 和驅動程式套件。清除會刪除它們，裝置會在需要時重新下載。</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContent" xml:space="preserve">
+    <value>匯入的內容</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContentToolTip" xml:space="preserve">
+    <value>Foundry OSD 發佈的自訂映像、驅動程式集和安裝後指令碼。清除會保留仍在使用中的內容。</value>
   </data>
   <data name="NetworkCache.ColumnName" xml:space="preserve">
     <value>名稱</value>
@@ -2860,11 +2884,20 @@
   <data name="NetworkCache.CommandAdd" xml:space="preserve">
     <value>新增</value>
   </data>
+  <data name="NetworkCache.CommandCleanUp" xml:space="preserve">
+    <value>清理</value>
+  </data>
   <data name="NetworkCache.CommandEdit" xml:space="preserve">
     <value>編輯</value>
   </data>
+  <data name="NetworkCache.CommandPublish" xml:space="preserve">
+    <value>發佈</value>
+  </data>
   <data name="NetworkCache.CommandRemove" xml:space="preserve">
     <value>移除</value>
+  </data>
+  <data name="NetworkCache.ContentMissingShareFormat" xml:space="preserve">
+    <value>{0} 中已沒有您發佈的內容。請選取 [發佈]。</value>
   </data>
   <data name="NetworkCache.DialogAdd" xml:space="preserve">
     <value>新增</value>
@@ -2887,8 +2920,23 @@
   <data name="NetworkCache.NoAccount" xml:space="preserve">
     <value>無帳戶</value>
   </data>
+  <data name="NetworkCache.NotPublishedMessage" xml:space="preserve">
+    <value>共用中沒有您的最新變更。請選取 [發佈]。</value>
+  </data>
+  <data name="NetworkCache.NotPublishedShareFormat" xml:space="preserve">
+    <value>{0} 未收到您的最新變更。請選取 [發佈]。</value>
+  </data>
+  <data name="NetworkCache.NotPublishedState" xml:space="preserve">
+    <value>未發佈</value>
+  </data>
+  <data name="NetworkCache.OutdatedState" xml:space="preserve">
+    <value>已過時</value>
+  </data>
   <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
     <value>共用：{0}，IP 範圍：{1}</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryWithStateFormat" xml:space="preserve">
+    <value>{0} · {1}</value>
   </data>
   <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
     <value>無法使用此密碼。</value>
@@ -2904,6 +2952,15 @@
   </data>
   <data name="NetworkCache.PasswordSaved" xml:space="preserve">
     <value>已儲存</value>
+  </data>
+  <data name="NetworkCache.PublishFailedMessage" xml:space="preserve">
+    <value>無法準備要發佈的內容。</value>
+  </data>
+  <data name="NetworkCache.PublishKeysUnavailableMessage" xml:space="preserve">
+    <value>無法讀取或儲存此電腦的簽署金鑰，因此無法簽署發佈到共用的內容。</value>
+  </data>
+  <data name="NetworkCache.PublishSucceededMessage" xml:space="preserve">
+    <value>共用中已有您的最新變更。</value>
   </data>
   <data name="NetworkCache.Ready" xml:space="preserve">
     <value>就緒</value>
@@ -2945,7 +3002,7 @@
     <value>共用</value>
   </data>
   <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>裝置會由上而下嘗試已勾選的共用，然後再從網際網路下載。</value>
+    <value>裝置會由上而下使用第一個有回應的已勾選共用。</value>
   </data>
   <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
     <value>請至少勾選一個共用。</value>
@@ -2998,6 +3055,24 @@
   <data name="NetworkCache.SharesHeader" xml:space="preserve">
     <value>共用</value>
   </data>
+  <data name="NetworkCache.SpaceCleaningUp" xml:space="preserve">
+    <value>正在清理…</value>
+  </data>
+  <data name="NetworkCache.SpaceMeasuring" xml:space="preserve">
+    <value>正在測量…</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreachable" xml:space="preserve">
+    <value>無法連線</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreadable" xml:space="preserve">
+    <value>無法讀取</value>
+  </data>
+  <data name="NetworkCache.TrustedKeyUnavailableMessage" xml:space="preserve">
+    <value>此電腦沒有發佈到共用之內容的受信任金鑰，因此無法建立已開啟網路快取的媒體。請在 [設定] 頁面中檢查「設定共用」。</value>
+  </data>
+  <data name="NetworkCache.UpToDateState" xml:space="preserve">
+    <value>最新</value>
+  </data>
   <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
     <value>此值對其類型無效。</value>
   </data>
@@ -3029,7 +3104,7 @@
     <value>請輸入使用者名稱。</value>
   </data>
   <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>讓 Foundry Deploy 將 SMB 共用作為共用快取，並依裝置的 IP 位址選擇。Windows、驅動程式套件和匯入的內容會先從共用讀取，再從網際網路讀取，而裝置下載的內容會發佈回該共用。</value>
+    <value>將依裝置 IP 位址選擇的 SMB 共用作為 Foundry Deploy 的共用快取。</value>
   </data>
   <data name="NetworkCachePageHeader.Title" xml:space="preserve">
     <value>網路快取</value>
@@ -3218,7 +3293,7 @@
     <value>PowerShell 引數</value>
   </data>
   <data name="PostInstallation.PxeWarning" xml:space="preserve">
-    <value>使用匯入檔案的動作在 PXE 開機時無法使用。它們需要完整的 ISO 或 USB 媒體。</value>
+    <value>使用 PXE 開機時，使用匯入檔案的動作需要網路快取。沒有網路快取時，請使用 ISO 或 USB 媒體。</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>無法移除該動作。請再試一次。</value>
@@ -4354,6 +4429,9 @@
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
     <value>正在開啟 Windows 映像…</value>
   </data>
+  <data name="StartMedia.Operation.NetworkCachePublicationFailedFormat" xml:space="preserve">
+    <value>下列網路快取共用未收到匯入的內容: {0}。請確認每個共用都可存取且可寫入，然後在 [網路快取] 頁面上選取 [發佈]。</value>
+  </data>
   <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
     <value>開啟資料夾</value>
   </data>
@@ -4389,6 +4467,9 @@
   </data>
   <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
     <value>準備工作區</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.PublishingToNetworkCache" xml:space="preserve">
+    <value>發佈到網路快取</value>
   </data>
   <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
     <value>更新 USB 磁碟機</value>
@@ -4428,6 +4509,12 @@
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>正在將 Foundry 元件新增至 USB 磁碟機…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
+    <value>正在將匯入的內容發佈到網路快取…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCacheShareFormat" xml:space="preserve">
+    <value>正在將匯入的內容發佈到 {0}，第 {1} 個共用，共 {2} 個</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
     <value>目的地資料夾的可用空間不足。PXE 開機檔案需要 {0}。目前可用：{1}。請釋放空間或選擇其他資料夾。</value>
@@ -4476,6 +4563,18 @@
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>已建立 ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishCancelled" xml:space="preserve">
+    <value>已取消發佈到網路快取</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishFailed" xml:space="preserve">
+    <value>發佈到網路快取失敗</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishRunning" xml:space="preserve">
+    <value>正在發佈到網路快取</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishSucceeded" xml:space="preserve">
+    <value>已發佈到網路快取</value>
   </data>
   <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
     <value>已取消建立 PXE 檔案</value>

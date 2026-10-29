@@ -812,7 +812,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Ohjainjoukot</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
-    <value>Ei käytettävissä PXE-käynnistyksessä. Mukautetut ohjaimet edellyttävät täydellistä ISO- tai USB-tietovälinettä.</value>
+    <value>PXE-käynnistyksessä mukautetut ohjaimet tarvitsevat verkkovälimuistin. Käytä ilman sitä ISO- tai USB-tietovälinettä.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
     <value>Näiden määritysten ohjainjoukot eivät ole kelvollisia. Tarkista sisällytetyt joukot ja oletusjoukko ennen tietovälineen luomista tai päivittämistä.</value>
@@ -938,7 +938,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Näköistiedostotoiminto epäonnistui. Tarkista lähde, vapaa tila ja Foundry-lokit.</value>
   </data>
   <data name="CustomImages.PxeWarning" xml:space="preserve">
-    <value>Ei käytettävissä PXE-käynnistyksessä. Mukautetut näköistiedostot edellyttävät täydellistä ISO- tai USB-tietovälinettä.</value>
+    <value>PXE-käynnistyksessä mukautetut levykuvat tarvitsevat verkkovälimuistin. Käytä ilman sitä ISO- tai USB-tietovälinettä.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Sisällytä näihin määrityksiin vähintään yksi käytettävissä oleva Windows-näköistiedosto. Palauta puuttuvat sisällytetyt näköistiedostot ja korjaa tai poista ensisijaisen näköistiedoston tai indeksin valinta ennen tietovälineen luomista tai päivittämistä.</value>
@@ -2819,7 +2819,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Käyttäjänimi</value>
   </data>
   <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user tai user@domain</value>
+    <value>DOMAIN\user, SERVER\user tai user@domain</value>
   </data>
   <data name="NetworkCache.AccountsDescription" xml:space="preserve">
     <value>Tilit, joilla jaot avataan. Laitteet käyttävät niitä jaon lukemiseen ja lataamiensa tiedostojen julkaisemiseen.</value>
@@ -2827,8 +2827,32 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="NetworkCache.AccountsHeader" xml:space="preserve">
     <value>Tilit</value>
   </data>
+  <data name="NetworkCache.CleanUpShareFailedMessageFormat" xml:space="preserve">
+    <value>Jakoa {0} ei voitu siivota. Tarkista, että jako on käytettävissä ja että sen tili voi poistaa tiedostoja, ja yritä sitten uudelleen.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareKeptMessageFormat" xml:space="preserve">
+    <value>Jako {0} siivottiin, mutta osa tiedostoista säilytettiin, koska ne ovat käytössä, ovat muuttuneet julkaisun jälkeen tai Foundry ei ole kirjoittanut niitä.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareMessageFormat" xml:space="preserve">
+    <value>Poistetaanko jaon {0} lataukset ja tuotu sisältö, jota eivät enää käytä määrityksesi eikä mikään julkaistu indeksi? Laitteet lataavat tarvitsemansa uudelleen.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareTitle" xml:space="preserve">
+    <value>Siivoa jako</value>
+  </data>
   <data name="NetworkCache.ColumnAccount" xml:space="preserve">
     <value>Tili</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloads" xml:space="preserve">
+    <value>Internetistä</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloadsToolTip" xml:space="preserve">
+    <value>Windows ja ohjainpaketit, jotka laitteet latasivat internetistä. Siivous poistaa ne, ja laitteet lataavat ne tarvittaessa uudelleen.</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContent" xml:space="preserve">
+    <value>Tuotu sisältö</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContentToolTip" xml:space="preserve">
+    <value>Foundry OSD:n julkaisemat mukautetut levykuvat, ohjainjoukot ja asennuksen jälkeiset komentosarjat. Siivous säilyttää ne, jotka ovat vielä käytössä.</value>
   </data>
   <data name="NetworkCache.ColumnName" xml:space="preserve">
     <value>Nimi</value>
@@ -2860,11 +2884,20 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="NetworkCache.CommandAdd" xml:space="preserve">
     <value>Lisää</value>
   </data>
+  <data name="NetworkCache.CommandCleanUp" xml:space="preserve">
+    <value>Siivoa</value>
+  </data>
   <data name="NetworkCache.CommandEdit" xml:space="preserve">
     <value>Muokkaa</value>
   </data>
+  <data name="NetworkCache.CommandPublish" xml:space="preserve">
+    <value>Julkaise</value>
+  </data>
   <data name="NetworkCache.CommandRemove" xml:space="preserve">
     <value>Poista</value>
+  </data>
+  <data name="NetworkCache.ContentMissingShareFormat" xml:space="preserve">
+    <value>{0} ei enää sisällä julkaisemaasi sisältöä. Valitse Julkaise.</value>
   </data>
   <data name="NetworkCache.DialogAdd" xml:space="preserve">
     <value>Lisää</value>
@@ -2887,8 +2920,23 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="NetworkCache.NoAccount" xml:space="preserve">
     <value>Ei tiliä</value>
   </data>
+  <data name="NetworkCache.NotPublishedMessage" xml:space="preserve">
+    <value>Jaoissa ei ole uusimpia muutoksiasi. Valitse Julkaise.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedShareFormat" xml:space="preserve">
+    <value>{0} ei saanut uusimpia muutoksiasi. Valitse Julkaise.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedState" xml:space="preserve">
+    <value>Ei julkaistu</value>
+  </data>
+  <data name="NetworkCache.OutdatedState" xml:space="preserve">
+    <value>Vanhentunut</value>
+  </data>
   <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
     <value>Jaot: {0}, IP-laajuudet: {1}</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryWithStateFormat" xml:space="preserve">
+    <value>{0} · {1}</value>
   </data>
   <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
     <value>Tätä salasanaa ei voi käyttää.</value>
@@ -2904,6 +2952,15 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="NetworkCache.PasswordSaved" xml:space="preserve">
     <value>Tallennettu</value>
+  </data>
+  <data name="NetworkCache.PublishFailedMessage" xml:space="preserve">
+    <value>Julkaistavaa sisältöä ei voitu valmistella.</value>
+  </data>
+  <data name="NetworkCache.PublishKeysUnavailableMessage" xml:space="preserve">
+    <value>Tämä tietokone ei voi allekirjoittaa jakoihin julkaisemaansa sisältöä, koska sen allekirjoitusavainta ei voitu lukea tai tallentaa.</value>
+  </data>
+  <data name="NetworkCache.PublishSucceededMessage" xml:space="preserve">
+    <value>Jaoissa on uusimmat muutoksesi.</value>
   </data>
   <data name="NetworkCache.Ready" xml:space="preserve">
     <value>Valmis</value>
@@ -2945,7 +3002,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Jaot</value>
   </data>
   <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>Laitteet kokeilevat valittuja jakoja ylhäältä alas ja lataavat sitten Internetistä.</value>
+    <value>Laitteet käyttävät ensimmäistä valittua jakoa, joka vastaa, ylhäältä alas.</value>
   </data>
   <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
     <value>Valitse vähintään yksi jako.</value>
@@ -2998,6 +3055,24 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="NetworkCache.SharesHeader" xml:space="preserve">
     <value>Jaot</value>
   </data>
+  <data name="NetworkCache.SpaceCleaningUp" xml:space="preserve">
+    <value>Siivotaan…</value>
+  </data>
+  <data name="NetworkCache.SpaceMeasuring" xml:space="preserve">
+    <value>Mitataan…</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreachable" xml:space="preserve">
+    <value>Ei tavoitettavissa</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreadable" xml:space="preserve">
+    <value>Ei luettavissa</value>
+  </data>
+  <data name="NetworkCache.TrustedKeyUnavailableMessage" xml:space="preserve">
+    <value>Tietovälinettä, jossa verkkovälimuisti on käytössä, ei voi luoda, koska tällä tietokoneella ei ole luotettua avainta jakoihin julkaistulle sisällölle. Tarkista Määrityksen jakaminen Asetukset-sivulta.</value>
+  </data>
+  <data name="NetworkCache.UpToDateState" xml:space="preserve">
+    <value>Ajan tasalla</value>
+  </data>
   <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
     <value>Tämä arvo ei kelpaa tyypilleen.</value>
   </data>
@@ -3029,7 +3104,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Anna käyttäjänimi.</value>
   </data>
   <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>Antaa Foundry Deploy -sovelluksen käyttää SMB-jakoja yhteisenä välimuistina, joka valitaan laitteen IP-osoitteen perusteella. Windows, ohjainpaketit ja tuotu sisältö luetaan jaosta ennen Internetiä, ja laitteiden lataamat tiedostot julkaistaan takaisin jakoon.</value>
+    <value>Antaa Foundry Deploy -sovelluksen käyttää SMB-jakoja yhteisenä välimuistina, joka valitaan laitteen IP-osoitteen perusteella.</value>
   </data>
   <data name="NetworkCachePageHeader.Title" xml:space="preserve">
     <value>Verkkovälimuisti</value>
@@ -3218,7 +3293,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>PowerShell-argumentit</value>
   </data>
   <data name="PostInstallation.PxeWarning" xml:space="preserve">
-    <value>Tuotuja tiedostoja käyttävät toiminnot eivät ole käytettävissä PXE-käynnistyksessä. Ne edellyttävät täydellistä ISO- tai USB-tietovälinettä.</value>
+    <value>PXE-käynnistyksessä tuotuja tiedostoja käyttävät toiminnot tarvitsevat verkkovälimuistin. Käytä ilman sitä ISO- tai USB-tietovälinettä.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Toimintoa ei voitu poistaa. Yritä uudelleen.</value>
@@ -4354,6 +4429,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
     <value>Avataan Windows-näköistiedostoa…</value>
   </data>
+  <data name="StartMedia.Operation.NetworkCachePublicationFailedFormat" xml:space="preserve">
+    <value>Nämä verkkovälimuistin jaot eivät saaneet tuotua sisältöä: {0}. Tarkista, että jokainen jako on käytettävissä ja kirjoitettavissa, ja valitse sitten Verkkovälimuisti-sivulla Julkaise.</value>
+  </data>
   <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
     <value>Avaa kansio</value>
   </data>
@@ -4389,6 +4467,9 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
     <value>Valmistellaan työtilaa</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.PublishingToNetworkCache" xml:space="preserve">
+    <value>Julkaisu verkkovälimuistiin</value>
   </data>
   <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
     <value>Päivitetään USB-asemaa</value>
@@ -4428,6 +4509,12 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Lisätään Foundry-komponentteja USB-asemaan…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
+    <value>Julkaistaan tuotua sisältöä verkkovälimuistiin…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCacheShareFormat" xml:space="preserve">
+    <value>Julkaistaan tuotua sisältöä kohteeseen {0}, jako {1}/{2}</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
     <value>Kohdekansiossa ei ole tarpeeksi vapaata tilaa. PXE-käynnistystiedostot tarvitsevat {0}. Käytettävissä: {1}. Vapauta tilaa tai valitse toinen kansio.</value>
@@ -4476,6 +4563,18 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO-tiedosto luotu</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishCancelled" xml:space="preserve">
+    <value>Julkaisu verkkovälimuistiin peruutettu</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishFailed" xml:space="preserve">
+    <value>Julkaisu verkkovälimuistiin epäonnistui</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishRunning" xml:space="preserve">
+    <value>Julkaistaan verkkovälimuistiin</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishSucceeded" xml:space="preserve">
+    <value>Julkaistu verkkovälimuistiin</value>
   </data>
   <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
     <value>PXE-tiedostojen luonti peruutettu</value>

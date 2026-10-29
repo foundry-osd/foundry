@@ -143,6 +143,8 @@ public partial class CustomImageSelectionViewModel : ObservableObject, IDisposab
                 SelectedAsset = matches.Length == 1 ? matches[0] : null;
                 if (SelectedAsset is null) ErrorKey = matches.Length > 1 ? "CustomImages.AmbiguousDefault" : "CustomImages.MissingDefault";
             }
+            // Without a configured default, the first image is offered so the technician only changes what they need.
+            else if (!_defaultsApplied) SelectedAsset = images.FirstOrDefault();
             else SelectedAsset = images.FirstOrDefault(image => image.ImagePath == previous?.ImagePath && image.Id == previous.Id);
             SelectedIndex = null;
             Indexes.Clear();
@@ -180,7 +182,8 @@ public partial class CustomImageSelectionViewModel : ObservableObject, IDisposab
                 SelectedIndex = compatible.SingleOrDefault(index => index.Index == remembered);
                 if (SelectedIndex is null) ErrorKey = ResolveMissingIndexError(indexes, remembered, "CustomImages.InvalidSource");
             }
-            else SelectedIndex = compatible.Length == 1 ? compatible[0] : null;
+            // The first index built for the device is offered; the technician can pick another edition.
+            else SelectedIndex = compatible[0];
         }
         finally { _applyingIndexes = false; }
     }
@@ -214,6 +217,17 @@ public partial class CustomImageSelectionViewModel : ObservableObject, IDisposab
                 }
                 return;
             }
+            // A managed image carries the indexes recorded at import in its hash-bound manifest. Reading them from the file would
+            // hash the whole image first, which takes minutes on a network cache share. Preflight checks the file length and its
+            // index before the disk is erased; it verifies the digest then for local media, and while copying the image to the
+            // target for a network cache share, so the share is read once.
+            if (asset.IsManaged && asset.RecordedIndexes.Count > 0)
+            {
+                _inspectedAsset = asset;
+                ApplyIndexes(asset.RecordedIndexes);
+                return;
+            }
+
             using CustomImageSourceLease lease = await CustomImageSourceLease.AcquireAsync(asset.ImagePath, asset.ExpectedLength, asset.ExpectedHash, pending.Token);
             IReadOnlyList<CustomImageIndex> indexes = await _reader.ReadAsync(asset.ImagePath, pending.Token);
             if (!pending.IsCancellationRequested && ReferenceEquals(_inspection, pending))

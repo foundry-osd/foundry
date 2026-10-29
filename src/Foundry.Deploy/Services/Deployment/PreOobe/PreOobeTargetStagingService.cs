@@ -15,6 +15,7 @@ using Foundry.Core.Services.Packages;
 using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Deployment.Unattend;
 using Foundry.Deploy.Services.DriverPacks;
+using Foundry.Deploy.Services.Localization;
 
 namespace Foundry.Deploy.Services.Deployment.PreOobe;
 
@@ -61,16 +62,22 @@ public sealed class PreOobeTargetStagingService
             string journalPath = Path.Combine(layout.StatePreOobe, "execution-result.json");
             if (File.Exists(planPath) || File.Exists(journalPath)) throw new InvalidDataException("An existing post-installation operation cannot be overwritten.");
             await PreOobeContentResolver.RevalidateAsync(context, content, cancellationToken).ConfigureAwait(false);
+            string stagingMessage = LocalizationText.GetString("PostInstall.Staging");
+            var copyProgress = new PreOobeCopyProgress(
+                (percent, detail) => context.EmitCurrentStep(DeploymentStepState.Running, stagingMessage, percent, stepSubProgressIndeterminate: false, detail),
+                content.RuntimeManifest.Files.Concat(content.Packages.SelectMany(package => package.Manifest.Files)).Sum(file => file.Length));
             foreach (var file in content.RuntimeManifest.Files)
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 string sourcePath = ContentPackagePathPolicy.PostInstallation.Resolve(content.RuntimeDirectory, file.RelativePath);
                 string destination = ContentPackagePathPolicy.PostInstallation.Resolve(layout.RuntimePreOobe, file.RelativePath);
                 _protectDirectory(Path.GetDirectoryName(destination)!);
+                string fileName = Path.GetFileName(destination);
                 await using (var source = await PreOobeContentResolver.OpenVerifiedAsync(sourcePath, file.Length, file.Sha256, cancellationToken).ConfigureAwait(false))
                 await using (var target = new FileStream(destination, FileMode.CreateNew, FileAccess.Write, FileShare.None))
-                    await PostInstallRuntimeSource.CopyBoundedAsync(source, target, file.Length, cancellationToken).ConfigureAwait(false);
+                    await PostInstallRuntimeSource.CopyBoundedAsync(source, target, file.Length, cancellationToken, copyProgress.For(fileName)).ConfigureAwait(false);
                 await using var verified = await PreOobeContentResolver.OpenVerifiedAsync(destination, file.Length, file.Sha256, cancellationToken).ConfigureAwait(false);
+                copyProgress.Completed(fileName, file.Length);
             }
             var actions = new List<PreOobeExecutionAction>();
             var owned = new List<PreOobeOwnedPayload>();
@@ -145,10 +152,21 @@ public sealed class PreOobeTargetStagingService
                     string sourcePath = ContentPackagePathPolicy.PostInstallation.Resolve(package.SourceRoot, file.RelativePath);
                     string destination = ContentPackagePathPolicy.PostInstallation.Resolve(destinationRoot, file.RelativePath);
                     _protectDirectory(Path.GetDirectoryName(destination)!);
+                    string fileName = Path.GetFileName(destination);
+                    // A share file is read once, through its preflight handle, and hashed during the copy; media files are checked again on the target.
+                    if (context.IsOnNetworkCacheShare(sourcePath))
+                    {
+                        await PreOobeContentResolver.CopyHeldShareFileAsync(content, sourcePath, destination, file.Length, file.Sha256, cancellationToken,
+                            copyProgress.For(fileName)).ConfigureAwait(false);
+                        copyProgress.Completed(fileName, file.Length);
+                        continue;
+                    }
+
                     await using (var source = await PreOobeContentResolver.OpenVerifiedAsync(sourcePath, file.Length, file.Sha256, cancellationToken).ConfigureAwait(false))
                     await using (var target = new FileStream(destination, FileMode.CreateNew, FileAccess.Write, FileShare.None))
-                        await source.CopyToAsync(target, cancellationToken).ConfigureAwait(false);
+                        await PostInstallRuntimeSource.CopyBoundedAsync(source, target, file.Length, cancellationToken, copyProgress.For(fileName)).ConfigureAwait(false);
                     await using var verified = await PreOobeContentResolver.OpenVerifiedAsync(destination, file.Length, file.Sha256, cancellationToken).ConfigureAwait(false);
+                    copyProgress.Completed(fileName, file.Length);
                 }
                 staged.Add(new() { ContentHash = package.ContentHash, RelativePath = relative, Manifest = package.Manifest });
                 owned.Add(new()

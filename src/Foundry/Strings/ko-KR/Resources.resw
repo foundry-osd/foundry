@@ -812,7 +812,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>드라이버 세트</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
-    <value>PXE 부팅에서는 사용할 수 없습니다. 사용자 지정 드라이버에는 전체 ISO 또는 USB 미디어가 필요합니다.</value>
+    <value>PXE 부팅에서는 사용자 지정 드라이버에 네트워크 캐시가 필요합니다. 없으면 ISO 또는 USB 미디어를 사용하세요.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
     <value>이 구성의 드라이버 세트가 올바르지 않습니다. 미디어를 만들거나 업데이트하기 전에 포함된 세트와 기본 세트를 확인하세요.</value>
@@ -938,7 +938,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>이미지 작업에 실패했습니다. 원본, 사용 가능한 공간 및 Foundry 로그를 확인하세요.</value>
   </data>
   <data name="CustomImages.PxeWarning" xml:space="preserve">
-    <value>PXE 부팅에서는 사용할 수 없습니다. 사용자 지정 이미지에는 전체 ISO 또는 USB 미디어가 필요합니다.</value>
+    <value>PXE 부팅에서는 사용자 지정 이미지에 네트워크 캐시가 필요합니다. 없으면 ISO 또는 USB 미디어를 사용하세요.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>이 구성에 사용 가능한 Windows 이미지를 하나 이상 포함하세요. 미디어를 만들거나 업데이트하기 전에 포함된 이미지 중 누락된 이미지를 복원하고 선호 이미지 또는 인덱스 선택을 수정하거나 지우세요.</value>
@@ -2819,7 +2819,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>사용자 이름</value>
   </data>
   <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user 또는 user@domain</value>
+    <value>DOMAIN\user, SERVER\user 또는 user@domain</value>
   </data>
   <data name="NetworkCache.AccountsDescription" xml:space="preserve">
     <value>공유를 여는 계정입니다. 장치는 이 계정으로 공유를 읽고 다운로드한 항목을 공유에 게시합니다.</value>
@@ -2827,8 +2827,32 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="NetworkCache.AccountsHeader" xml:space="preserve">
     <value>계정</value>
   </data>
+  <data name="NetworkCache.CleanUpShareFailedMessageFormat" xml:space="preserve">
+    <value>{0}을(를) 정리할 수 없습니다. 공유에 연결할 수 있고 해당 계정이 파일을 삭제할 수 있는지 확인한 후 다시 시도하세요.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareKeptMessageFormat" xml:space="preserve">
+    <value>{0}을(를) 정리했지만 사용 중이거나, 게시된 후 변경되었거나, Foundry에서 쓰지 않은 일부 파일은 유지되었습니다.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareMessageFormat" xml:space="preserve">
+    <value>{0}의 다운로드 및 구성과 게시된 인덱스 어디에서도 더 이상 사용하지 않는 가져온 콘텐츠를 삭제하시겠습니까? 디바이스는 필요한 항목을 다시 다운로드합니다.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareTitle" xml:space="preserve">
+    <value>공유 정리</value>
+  </data>
   <data name="NetworkCache.ColumnAccount" xml:space="preserve">
     <value>계정</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloads" xml:space="preserve">
+    <value>인터넷에서</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloadsToolTip" xml:space="preserve">
+    <value>디바이스가 인터넷에서 다운로드한 Windows 및 드라이버 팩입니다. 정리하면 삭제되며 필요할 때 디바이스가 다시 다운로드합니다.</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContent" xml:space="preserve">
+    <value>가져온 콘텐츠</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContentToolTip" xml:space="preserve">
+    <value>Foundry OSD에서 게시한 사용자 지정 이미지, 드라이버 세트 및 설치 후 스크립트입니다. 정리 시 사용 중인 항목은 유지됩니다.</value>
   </data>
   <data name="NetworkCache.ColumnName" xml:space="preserve">
     <value>이름</value>
@@ -2860,11 +2884,20 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="NetworkCache.CommandAdd" xml:space="preserve">
     <value>추가</value>
   </data>
+  <data name="NetworkCache.CommandCleanUp" xml:space="preserve">
+    <value>정리</value>
+  </data>
   <data name="NetworkCache.CommandEdit" xml:space="preserve">
     <value>편집</value>
   </data>
+  <data name="NetworkCache.CommandPublish" xml:space="preserve">
+    <value>게시</value>
+  </data>
   <data name="NetworkCache.CommandRemove" xml:space="preserve">
     <value>제거</value>
+  </data>
+  <data name="NetworkCache.ContentMissingShareFormat" xml:space="preserve">
+    <value>{0}에 게시한 콘텐츠가 더 이상 없습니다. [게시]를 선택하세요.</value>
   </data>
   <data name="NetworkCache.DialogAdd" xml:space="preserve">
     <value>추가</value>
@@ -2887,8 +2920,23 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="NetworkCache.NoAccount" xml:space="preserve">
     <value>계정 없음</value>
   </data>
+  <data name="NetworkCache.NotPublishedMessage" xml:space="preserve">
+    <value>공유에 최신 변경 내용이 없습니다. [게시]를 선택하세요.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedShareFormat" xml:space="preserve">
+    <value>{0}에서 최신 변경 내용을 받지 못했습니다. [게시]를 선택하세요.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedState" xml:space="preserve">
+    <value>게시되지 않음</value>
+  </data>
+  <data name="NetworkCache.OutdatedState" xml:space="preserve">
+    <value>오래됨</value>
+  </data>
   <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
     <value>공유: {0}, IP 범위: {1}</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryWithStateFormat" xml:space="preserve">
+    <value>{0} · {1}</value>
   </data>
   <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
     <value>이 암호는 사용할 수 없습니다.</value>
@@ -2904,6 +2952,15 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="NetworkCache.PasswordSaved" xml:space="preserve">
     <value>저장됨</value>
+  </data>
+  <data name="NetworkCache.PublishFailedMessage" xml:space="preserve">
+    <value>게시할 콘텐츠를 준비할 수 없습니다.</value>
+  </data>
+  <data name="NetworkCache.PublishKeysUnavailableMessage" xml:space="preserve">
+    <value>서명 키를 읽거나 저장할 수 없어 이 PC에서 공유에 게시하는 내용에 서명할 수 없습니다.</value>
+  </data>
+  <data name="NetworkCache.PublishSucceededMessage" xml:space="preserve">
+    <value>공유에 최신 변경 내용이 있습니다.</value>
   </data>
   <data name="NetworkCache.Ready" xml:space="preserve">
     <value>준비됨</value>
@@ -2945,7 +3002,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>공유</value>
   </data>
   <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>장치는 선택한 공유를 위에서 아래 순서로 시도한 다음 인터넷에서 다운로드합니다.</value>
+    <value>디바이스는 선택된 공유 중 응답하는 첫 번째 공유를 위에서부터 사용합니다.</value>
   </data>
   <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
     <value>공유를 하나 이상 선택하세요.</value>
@@ -2998,6 +3055,24 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="NetworkCache.SharesHeader" xml:space="preserve">
     <value>공유</value>
   </data>
+  <data name="NetworkCache.SpaceCleaningUp" xml:space="preserve">
+    <value>정리하는 중…</value>
+  </data>
+  <data name="NetworkCache.SpaceMeasuring" xml:space="preserve">
+    <value>측정하는 중…</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreachable" xml:space="preserve">
+    <value>연결할 수 없음</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreadable" xml:space="preserve">
+    <value>읽을 수 없음</value>
+  </data>
+  <data name="NetworkCache.TrustedKeyUnavailableMessage" xml:space="preserve">
+    <value>이 PC에 공유에 게시된 콘텐츠에 대한 신뢰할 수 있는 키가 없어 네트워크 캐시를 켠 미디어를 만들 수 없습니다. [설정] 페이지의 [구성 공유]를 확인하세요.</value>
+  </data>
+  <data name="NetworkCache.UpToDateState" xml:space="preserve">
+    <value>최신 상태</value>
+  </data>
   <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
     <value>이 값은 해당 유형에 유효하지 않습니다.</value>
   </data>
@@ -3029,7 +3104,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>사용자 이름을 입력하세요.</value>
   </data>
   <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>Foundry Deploy가 장치 IP 주소에 따라 선택되는 SMB 공유를 공유 캐시로 사용하도록 합니다. Windows, 드라이버 팩 및 가져온 콘텐츠는 인터넷보다 먼저 공유에서 읽으며, 장치가 다운로드한 항목은 다시 공유에 게시됩니다.</value>
+    <value>Foundry Deploy가 장치 IP 주소에 따라 선택되는 SMB 공유를 공유 캐시로 사용하도록 합니다.</value>
   </data>
   <data name="NetworkCachePageHeader.Title" xml:space="preserve">
     <value>네트워크 캐시</value>
@@ -3218,7 +3293,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>PowerShell 인수</value>
   </data>
   <data name="PostInstallation.PxeWarning" xml:space="preserve">
-    <value>가져온 파일을 사용하는 작업은 PXE 부팅에서 사용할 수 없습니다. 전체 ISO 또는 USB 미디어가 필요합니다.</value>
+    <value>PXE 부팅에서는 가져온 파일을 사용하는 작업에 네트워크 캐시가 필요합니다. 없으면 ISO 또는 USB 미디어를 사용하세요.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>작업을 제거하지 못했습니다. 다시 시도하세요.</value>
@@ -4354,6 +4429,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
     <value>Windows 이미지를 여는 중…</value>
   </data>
+  <data name="StartMedia.Operation.NetworkCachePublicationFailedFormat" xml:space="preserve">
+    <value>다음 네트워크 캐시 공유가 가져온 콘텐츠를 받지 못했습니다: {0}. 각 공유에 연결할 수 있고 쓸 수 있는지 확인한 다음 [네트워크 캐시] 페이지에서 [게시]를 선택하세요.</value>
+  </data>
   <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
     <value>폴더 열기</value>
   </data>
@@ -4389,6 +4467,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
     <value>작업 공간 준비</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.PublishingToNetworkCache" xml:space="preserve">
+    <value>네트워크 캐시에 게시</value>
   </data>
   <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
     <value>USB 드라이브 업데이트</value>
@@ -4428,6 +4509,12 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>USB 드라이브에 Foundry 구성 요소를 추가하는 중…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
+    <value>가져온 콘텐츠를 네트워크 캐시에 게시하는 중…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCacheShareFormat" xml:space="preserve">
+    <value>공유 {1}/{2}: 가져온 콘텐츠를 {0}에 게시하는 중</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
     <value>대상 폴더에 사용 가능한 공간이 부족합니다. PXE 부팅 파일에 {0}이(가) 필요합니다. 사용 가능한 공간: {1}. 공간을 확보하거나 다른 폴더를 선택하세요.</value>
@@ -4476,6 +4563,18 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO 만들기 완료</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishCancelled" xml:space="preserve">
+    <value>네트워크 캐시에 게시 취소됨</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishFailed" xml:space="preserve">
+    <value>네트워크 캐시에 게시 실패</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishRunning" xml:space="preserve">
+    <value>네트워크 캐시에 게시하는 중</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishSucceeded" xml:space="preserve">
+    <value>네트워크 캐시에 게시됨</value>
   </data>
   <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
     <value>PXE 파일 만들기 취소됨</value>

@@ -124,6 +124,9 @@ Licensed under the MIT License.</value>
   <data name="Common.Previous" xml:space="preserve">
     <value>Previous</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>Retry</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Unavailable</value>
   </data>
@@ -684,6 +687,45 @@ Continue with deployment?</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Tools</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>The network cache share refused this device. In Foundry OSD, on the Network cache page, check the account of the share and its password; on the server, check the share permissions.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>{0} cannot open {1}. In Foundry OSD, on the Network cache page, check the account password; on the server, check its permissions.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>{0} refused this device. In Foundry OSD, on the Network cache page, set an account for this share; on the server, check the share permissions.</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>Driver sets</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>Custom Windows images</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>Missing: {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>No IP scope contains this device. In Foundry OSD, on the Network cache page, add a scope for this network or a 0.0.0.0/0 scope to a backup share.</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>No IP scope contains this device ({0}). In Foundry OSD, on the Network cache page, add a scope for this network or a 0.0.0.0/0 scope to a backup share.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>The published content on the network cache share is missing or incomplete. In Foundry OSD, on the Network cache page, select Publish.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>The published content on {0} is missing or incomplete. In Foundry OSD, on the Network cache page, select Publish.</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>Network cache not available</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>The network cache share is not responding. On the server, check that the share is online and that port 445 is open.</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>{0} is not responding. On the server, check that the share is online and that port 445 is open.</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Choose the Windows release, language, edition, and license channel.</value>
   </data>
@@ -1053,6 +1095,9 @@ Continue with deployment?</value>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Checking cache disk conflict...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>Checking custom image...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>Checking deployment readiness...</value>
   </data>
@@ -1092,8 +1137,14 @@ Continue with deployment?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Copying AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>Copying custom image...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>Copying driver package...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>Copying from the network cache...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Copying interactive registration files...</value>
@@ -1124,6 +1175,9 @@ Continue with deployment?</value>
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Finalizing deployment...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>Finishing the copy to the network cache...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Importing hardware hash into Microsoft Graph...</value>
@@ -1271,6 +1325,12 @@ Continue with deployment?</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>Extracting</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}: {1} ({2} remaining)</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}: {1}, {2} more ({3} remaining)</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

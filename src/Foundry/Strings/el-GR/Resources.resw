@@ -812,7 +812,7 @@
     <value>Σύνολα προγραμμάτων οδήγησης</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
-    <value>Δεν διατίθεται με εκκίνηση PXE. Τα προσαρμοσμένα προγράμματα οδήγησης απαιτούν το πλήρες μέσο ISO ή USB.</value>
+    <value>Με εκκίνηση PXE, τα προσαρμοσμένα προγράμματα οδήγησης απαιτούν την προσωρινή μνήμη δικτύου. Χωρίς αυτήν, χρησιμοποιήστε μέσα ISO ή USB.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
     <value>Τα σύνολα προγραμμάτων οδήγησης αυτής της ρύθμισης παραμέτρων δεν είναι έγκυρα. Ελέγξτε τα σύνολα που περιλαμβάνονται και το προεπιλεγμένο σύνολο πριν από τη δημιουργία ή την ενημέρωση μέσων.</value>
@@ -938,7 +938,7 @@
     <value>Η λειτουργία εικόνας απέτυχε. Ελέγξτε την πηγή, τον διαθέσιμο χώρο και τα αρχεία καταγραφής του Foundry.</value>
   </data>
   <data name="CustomImages.PxeWarning" xml:space="preserve">
-    <value>Δεν διατίθεται με εκκίνηση PXE. Οι προσαρμοσμένες εικόνες απαιτούν το πλήρες μέσο ISO ή USB.</value>
+    <value>Με εκκίνηση PXE, οι προσαρμοσμένες εικόνες απαιτούν την προσωρινή μνήμη δικτύου. Χωρίς αυτήν, χρησιμοποιήστε μέσα ISO ή USB.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Συμπεριλάβετε τουλάχιστον μία διαθέσιμη εικόνα Windows σε αυτή τη ρύθμιση παραμέτρων. Επαναφέρετε τις συμπεριλαμβανόμενες εικόνες που λείπουν και διορθώστε ή καταργήστε την επιλογή της προτιμώμενης εικόνας ή του δείκτη πριν δημιουργήσετε ή ενημερώσετε το μέσο.</value>
@@ -2819,7 +2819,7 @@
     <value>Όνομα χρήστη</value>
   </data>
   <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user ή user@domain</value>
+    <value>DOMAIN\user, SERVER\user ή user@domain</value>
   </data>
   <data name="NetworkCache.AccountsDescription" xml:space="preserve">
     <value>Λογαριασμοί που ανοίγουν κοινόχρηστους φακέλους. Οι συσκευές τους χρησιμοποιούν για να διαβάζουν έναν κοινόχρηστο φάκελο και για να δημοσιεύουν ό,τι κατεβάζουν.</value>
@@ -2827,8 +2827,32 @@
   <data name="NetworkCache.AccountsHeader" xml:space="preserve">
     <value>Λογαριασμοί</value>
   </data>
+  <data name="NetworkCache.CleanUpShareFailedMessageFormat" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η εκκαθάριση του {0}. Ελέγξτε ότι ο κοινόχρηστος φάκελος είναι προσβάσιμος και ότι ο λογαριασμός του μπορεί να διαγράφει αρχεία και, στη συνέχεια, δοκιμάστε ξανά.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareKeptMessageFormat" xml:space="preserve">
+    <value>Ο φάκελος {0} εκκαθαρίστηκε, αλλά ορισμένα αρχεία διατηρήθηκαν επειδή χρησιμοποιούνται, άλλαξαν από τη δημοσίευσή τους ή δεν γράφτηκαν από το Foundry.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareMessageFormat" xml:space="preserve">
+    <value>Να διαγραφούν οι λήψεις στον φάκελο {0} και το εισαγόμενο περιεχόμενο που δεν χρησιμοποιείται πλέον ούτε από τη διαμόρφωσή σας ούτε από κάποιο δημοσιευμένο ευρετήριο; Οι συσκευές κατεβάζουν ξανά ό,τι χρειάζονται.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareTitle" xml:space="preserve">
+    <value>Εκκαθάριση κοινόχρηστου φακέλου</value>
+  </data>
   <data name="NetworkCache.ColumnAccount" xml:space="preserve">
     <value>Λογαριασμός</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloads" xml:space="preserve">
+    <value>Από το διαδίκτυο</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloadsToolTip" xml:space="preserve">
+    <value>Windows και πακέτα προγραμμάτων οδήγησης που κατέβασαν οι συσκευές από το διαδίκτυο. Η εκκαθάριση τα διαγράφει και οι συσκευές τα κατεβάζουν ξανά όταν χρειάζεται.</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContent" xml:space="preserve">
+    <value>Εισαγόμενο περιεχόμενο</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContentToolTip" xml:space="preserve">
+    <value>Προσαρμοσμένες εικόνες, σύνολα προγραμμάτων οδήγησης και σενάρια μετά την εγκατάσταση που δημοσίευσε το Foundry OSD. Η εκκαθάριση διατηρεί όσα χρησιμοποιούνται ακόμη.</value>
   </data>
   <data name="NetworkCache.ColumnName" xml:space="preserve">
     <value>Όνομα</value>
@@ -2860,11 +2884,20 @@
   <data name="NetworkCache.CommandAdd" xml:space="preserve">
     <value>Προσθήκη</value>
   </data>
+  <data name="NetworkCache.CommandCleanUp" xml:space="preserve">
+    <value>Εκκαθάριση</value>
+  </data>
   <data name="NetworkCache.CommandEdit" xml:space="preserve">
     <value>Επεξεργασία</value>
   </data>
+  <data name="NetworkCache.CommandPublish" xml:space="preserve">
+    <value>Δημοσίευση</value>
+  </data>
   <data name="NetworkCache.CommandRemove" xml:space="preserve">
     <value>Κατάργηση</value>
+  </data>
+  <data name="NetworkCache.ContentMissingShareFormat" xml:space="preserve">
+    <value>Ο φάκελος {0} δεν περιέχει πλέον το περιεχόμενο που δημοσιεύσατε. Επιλέξτε «Δημοσίευση».</value>
   </data>
   <data name="NetworkCache.DialogAdd" xml:space="preserve">
     <value>Προσθήκη</value>
@@ -2887,8 +2920,23 @@
   <data name="NetworkCache.NoAccount" xml:space="preserve">
     <value>Χωρίς λογαριασμό</value>
   </data>
+  <data name="NetworkCache.NotPublishedMessage" xml:space="preserve">
+    <value>Οι κοινόχρηστοι φάκελοι δεν έχουν τις πιο πρόσφατες αλλαγές σας. Επιλέξτε «Δημοσίευση».</value>
+  </data>
+  <data name="NetworkCache.NotPublishedShareFormat" xml:space="preserve">
+    <value>Ο φάκελος {0} δεν έλαβε τις πιο πρόσφατες αλλαγές σας. Επιλέξτε «Δημοσίευση».</value>
+  </data>
+  <data name="NetworkCache.NotPublishedState" xml:space="preserve">
+    <value>Δεν έχει δημοσιευτεί</value>
+  </data>
+  <data name="NetworkCache.OutdatedState" xml:space="preserve">
+    <value>Παρωχημένο</value>
+  </data>
   <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
     <value>Κοινόχρηστοι φάκελοι: {0}, εμβέλειες IP: {1}</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryWithStateFormat" xml:space="preserve">
+    <value>{0} · {1}</value>
   </data>
   <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
     <value>Αυτός ο κωδικός πρόσβασης δεν μπορεί να χρησιμοποιηθεί.</value>
@@ -2904,6 +2952,15 @@
   </data>
   <data name="NetworkCache.PasswordSaved" xml:space="preserve">
     <value>Αποθηκεύτηκε</value>
+  </data>
+  <data name="NetworkCache.PublishFailedMessage" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η προετοιμασία του περιεχομένου για δημοσίευση.</value>
+  </data>
+  <data name="NetworkCache.PublishKeysUnavailableMessage" xml:space="preserve">
+    <value>Αυτός ο υπολογιστής δεν μπορεί να υπογράψει όσα δημοσιεύει στους κοινόχρηστους φακέλους, επειδή δεν ήταν δυνατή η ανάγνωση ή η αποθήκευση του κλειδιού υπογραφής του.</value>
+  </data>
+  <data name="NetworkCache.PublishSucceededMessage" xml:space="preserve">
+    <value>Οι κοινόχρηστοι φάκελοι έχουν τις πιο πρόσφατες αλλαγές σας.</value>
   </data>
   <data name="NetworkCache.Ready" xml:space="preserve">
     <value>Έτοιμο</value>
@@ -2945,7 +3002,7 @@
     <value>Κοινόχρηστοι φάκελοι</value>
   </data>
   <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>Οι συσκευές δοκιμάζουν τους επιλεγμένους κοινόχρηστους φακέλους από πάνω προς τα κάτω και στη συνέχεια κάνουν λήψη από το Internet.</value>
+    <value>Οι συσκευές χρησιμοποιούν τον πρώτο επιλεγμένο κοινόχρηστο φάκελο που αποκρίνεται, από πάνω προς τα κάτω.</value>
   </data>
   <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
     <value>Επιλέξτε τουλάχιστον έναν κοινόχρηστο φάκελο.</value>
@@ -2998,6 +3055,24 @@
   <data name="NetworkCache.SharesHeader" xml:space="preserve">
     <value>Κοινόχρηστοι φάκελοι</value>
   </data>
+  <data name="NetworkCache.SpaceCleaningUp" xml:space="preserve">
+    <value>Γίνεται εκκαθάριση…</value>
+  </data>
+  <data name="NetworkCache.SpaceMeasuring" xml:space="preserve">
+    <value>Γίνεται μέτρηση…</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreachable" xml:space="preserve">
+    <value>Μη προσβάσιμος</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreadable" xml:space="preserve">
+    <value>Δεν είναι δυνατή η ανάγνωση</value>
+  </data>
+  <data name="NetworkCache.TrustedKeyUnavailableMessage" xml:space="preserve">
+    <value>Δεν είναι δυνατή η δημιουργία μέσων με ενεργοποιημένη την προσωρινή μνήμη δικτύου, επειδή αυτός ο υπολογιστής δεν έχει αξιόπιστο κλειδί για το περιεχόμενο που δημοσιεύεται στους κοινόχρηστους φακέλους. Ελέγξτε την Κοινή χρήση διαμόρφωσης στη σελίδα Ρυθμίσεις.</value>
+  </data>
+  <data name="NetworkCache.UpToDateState" xml:space="preserve">
+    <value>Ενημερωμένο</value>
+  </data>
   <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
     <value>Αυτή η τιμή δεν είναι έγκυρη για τον τύπο της.</value>
   </data>
@@ -3029,7 +3104,7 @@
     <value>Εισαγάγετε ένα όνομα χρήστη.</value>
   </data>
   <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>Επιτρέπει στο Foundry Deploy να χρησιμοποιεί κοινόχρηστους φακέλους SMB ως κοινή προσωρινή μνήμη, που επιλέγονται με βάση τη διεύθυνση IP της συσκευής. Τα Windows, τα πακέτα προγραμμάτων οδήγησης και το εισαγόμενο περιεχόμενο διαβάζονται από τον κοινόχρηστο φάκελο πριν από το Internet, και ό,τι κατεβάζουν οι συσκευές δημοσιεύεται πίσω σε αυτόν.</value>
+    <value>Επιτρέπει στο Foundry Deploy να χρησιμοποιεί κοινόχρηστους φακέλους SMB ως κοινή προσωρινή μνήμη, που επιλέγονται με βάση τη διεύθυνση IP της συσκευής.</value>
   </data>
   <data name="NetworkCachePageHeader.Title" xml:space="preserve">
     <value>Προσωρινή μνήμη δικτύου</value>
@@ -3218,7 +3293,7 @@
     <value>Ορίσματα PowerShell</value>
   </data>
   <data name="PostInstallation.PxeWarning" xml:space="preserve">
-    <value>Οι ενέργειες που χρησιμοποιούν εισαγόμενα αρχεία δεν διατίθενται με εκκίνηση PXE. Απαιτούν το πλήρες μέσο ISO ή USB.</value>
+    <value>Με εκκίνηση PXE, οι ενέργειες που χρησιμοποιούν εισαγόμενα αρχεία απαιτούν την προσωρινή μνήμη δικτύου. Χωρίς αυτήν, χρησιμοποιήστε μέσα ISO ή USB.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Δεν ήταν δυνατή η κατάργηση της ενέργειας. Δοκιμάστε ξανά.</value>
@@ -4354,6 +4429,9 @@
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
     <value>Άνοιγμα της εικόνας των Windows…</value>
   </data>
+  <data name="StartMedia.Operation.NetworkCachePublicationFailedFormat" xml:space="preserve">
+    <value>Αυτοί οι κοινόχρηστοι φάκελοι της προσωρινής μνήμης δικτύου δεν έλαβαν το εισαγόμενο περιεχόμενο: {0}. Ελέγξτε ότι ο καθένας είναι προσβάσιμος και εγγράψιμος και, στη συνέχεια, επιλέξτε «Δημοσίευση» στη σελίδα «Προσωρινή μνήμη δικτύου».</value>
+  </data>
   <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
     <value>Άνοιγμα φακέλου</value>
   </data>
@@ -4389,6 +4467,9 @@
   </data>
   <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
     <value>Προετοιμασία του χώρου εργασίας</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.PublishingToNetworkCache" xml:space="preserve">
+    <value>Δημοσίευση στην προσωρινή μνήμη δικτύου</value>
   </data>
   <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
     <value>Ενημέρωση της μονάδας USB</value>
@@ -4428,6 +4509,12 @@
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Προσθήκη στοιχείων του Foundry στη μονάδα USB…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
+    <value>Δημοσίευση εισαγόμενου περιεχομένου στην προσωρινή μνήμη δικτύου…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCacheShareFormat" xml:space="preserve">
+    <value>Δημοσίευση εισαγόμενου περιεχομένου στο {0}, κοινόχρηστος φάκελος {1} από {2}</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
     <value>Δεν υπάρχει αρκετός ελεύθερος χώρος στον φάκελο προορισμού. Τα αρχεία εκκίνησης PXE χρειάζονται {0}. Διαθέσιμος χώρος: {1}. Ελευθερώστε χώρο ή επιλέξτε άλλον φάκελο.</value>
@@ -4476,6 +4563,18 @@
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>Το ISO δημιουργήθηκε</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishCancelled" xml:space="preserve">
+    <value>Η δημοσίευση στην προσωρινή μνήμη δικτύου ακυρώθηκε</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishFailed" xml:space="preserve">
+    <value>Η δημοσίευση στην προσωρινή μνήμη δικτύου απέτυχε</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishRunning" xml:space="preserve">
+    <value>Δημοσίευση στην προσωρινή μνήμη δικτύου</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishSucceeded" xml:space="preserve">
+    <value>Δημοσιεύτηκε στην προσωρινή μνήμη δικτύου</value>
   </data>
   <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
     <value>Η δημιουργία αρχείων PXE ακυρώθηκε</value>

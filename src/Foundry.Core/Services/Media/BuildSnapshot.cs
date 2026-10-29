@@ -9,6 +9,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Files;
+using Foundry.Core.Services.NetworkCache;
 using Foundry.Core.Services.WinPe;
 using Foundry.Telemetry;
 using Foundry.Utilities.IO;
@@ -37,6 +38,7 @@ public sealed class BuildSnapshot : IDisposable
     private readonly char[]? wifiCertificatePassword;
     private readonly char[]? autopilotCertificatePassword;
     private readonly Dictionary<string, char[]> networkCachePasswords = new(StringComparer.Ordinal);
+    private readonly NetworkCacheIndexBinding? networkCacheIndex;
     private readonly string privateRootDirectory;
     private readonly string? authoringVersion;
     private readonly AuthoringFileLibrary? files;
@@ -59,7 +61,11 @@ public sealed class BuildSnapshot : IDisposable
         wiredCertificatePassword = sources?.Network.WiredCertificatePfxPassword?.ToCharArray();
         wifiCertificatePassword = sources?.Network.WifiCertificatePfxPassword?.ToCharArray();
         autopilotCertificatePassword = sources?.AutopilotPfxPassword?.ToCharArray();
-        foreach ((string accountId, string value) in sources?.NetworkCachePasswords ?? new Dictionary<string, string>()) networkCachePasswords[accountId] = value.ToCharArray();
+        // Only the passwords of accounts a share uses are kept, so no other secret stays in memory for the build.
+        IReadOnlyCollection<string> usedAccounts = NetworkCacheConfigurationValidator.UsedAccountIds(source.NetworkCache);
+        foreach ((string accountId, string value) in sources?.NetworkCachePasswords ?? new Dictionary<string, string>())
+            if (usedAccounts.Contains(accountId)) networkCachePasswords[accountId] = value.ToCharArray();
+        networkCacheIndex = sources?.NetworkCacheIndex;
         privateRootDirectory = Path.GetFullPath(root);
     }
 
@@ -184,6 +190,17 @@ public sealed class BuildSnapshot : IDisposable
         return configuration.General.DeploymentProtection.IsEnabled
             ? DeploymentMediaProtectionService.CreateProtected(deploymentPassword)
             : DeploymentMediaProtectionService.CreateUnprotected();
+    }
+
+    /// <summary>
+    /// Returns an owned copy of the captured password of a network cache account, or <see langword="null"/> when none was
+    /// captured. Foundry OSD uses it to open shares while it publishes imported content; the caller must clear the copy.
+    /// </summary>
+    public char[]? GetNetworkCachePasswordCopy(string accountId)
+    {
+        ObjectDisposedException.ThrowIf(isDisposed, this);
+        ArgumentNullException.ThrowIfNull(accountId);
+        return networkCachePasswords.TryGetValue(accountId, out char[]? password) ? password.ToArray() : null;
     }
 
     /// <summary>Clears owned password buffers and removes the private staging directory; cleanup errors are surfaced to the caller.</summary>
@@ -511,7 +528,8 @@ public sealed class BuildSnapshot : IDisposable
             WifiCertificatePfxPassword = AsString(wifiCertificatePassword)
         },
         AutopilotPfxPassword = AsString(autopilotCertificatePassword),
-        NetworkCachePasswords = networkCachePasswords.ToDictionary(pair => pair.Key, pair => new string(pair.Value), StringComparer.Ordinal)
+        NetworkCachePasswords = networkCachePasswords.ToDictionary(pair => pair.Key, pair => new string(pair.Value), StringComparer.Ordinal),
+        NetworkCacheIndex = networkCacheIndex
     };
 
     /// <summary>Returns the private copy captured for <paramref name="reference"/>, or <see langword="null"/> when it was not captured.</summary>

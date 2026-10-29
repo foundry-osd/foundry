@@ -169,6 +169,44 @@ public sealed class DeploymentPreflightTests
         Assert.Null(fixture.Context!.Preflight);
     }
 
+    [Fact]
+    public async Task PostInstallPackage_IsReadFromTheNetworkCacheShareWhenNoMediaHoldsIt()
+    {
+        using var fixture = new PipelineFixture();
+        string script = Path.Combine(fixture.Root, "script.ps1");
+        await File.WriteAllTextAsync(script, "exit 0", TestContext.Current.CancellationToken);
+        var library = new ContentPackageLibraryService(Path.Combine(fixture.Root, "library"), Foundry.Core.Services.Packages.ContentPackageKind.PostInstallation);
+        var reference = await library.ImportAsync(script, TestContext.Current.CancellationToken);
+        var settings = new Foundry.Core.Models.Configuration.PreOobeSettings
+        {
+            IsEnabled = true,
+            Actions = [new() { Id = Guid.NewGuid().ToString("N"), Name = "Fixture", Kind = Foundry.Core.Models.Configuration.PreOobeActionKind.PowerShell,
+                Package = reference, EntryPoint = "script.ps1", Process = new() }]
+        };
+        using var media = await new Foundry.Core.Services.WinPe.WinPePreOobeMediaService().PrepareAsync(library, settings, TestContext.Current.CancellationToken);
+        string share = Path.Combine(fixture.Root, "share");
+        string contentRoot = Path.Combine(share, "Foundry");
+        Directory.CreateDirectory(contentRoot);
+        await new Foundry.Core.Services.WinPe.WinPeContentPackageMediaService(Foundry.Core.Services.Packages.ContentPackageKind.PostInstallation)
+            .PublishAsync(media, contentRoot, TestContext.Current.CancellationToken);
+        fixture.PostInstall = new() { IsEnabled = true, Actions = settings.Actions, ManifestId = media.ManifestId, ManifestHash = media.ManifestHash };
+        // The share maps to no disk, so only the share rule can prove it is separate from the target.
+        fixture.UnmappedPathPrefix = share;
+        var resolver = new PreOobeContentResolver
+        {
+            RuntimeExecutablePath = NativeRuntimeFixture.CreateFiles(fixture.Root),
+            MediaRoots = () => []
+        };
+        DeploymentStepExecutionContext context = fixture.CreateContext();
+        context.RuntimeState.NetworkCacheSharePath = share;
+
+        DeploymentStepResult result = await fixture.CreatePostInstallPreflight(resolver).ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        var package = Assert.Single(context.PostInstallContent!.Packages);
+        Assert.StartsWith(contentRoot, package.SourceRoot, StringComparison.OrdinalIgnoreCase);
+    }
+
     [Theory]
     [InlineData(DeploymentMode.Iso, false)]
     [InlineData(DeploymentMode.Usb, false)]
@@ -236,9 +274,11 @@ public sealed class DeploymentPreflightTests
     }
 
     [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task CustomImage_PreflightValidatesExactIndexBeforePartitionWithoutNetwork(bool invalidHash)
+    [InlineData(false, false)]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    [InlineData(true, true)]
+    public async Task CustomImage_PreflightValidatesExactIndexBeforePartitionWithoutNetwork(bool invalidHash, bool shareConnected)
     {
         using var fixture = new PipelineFixture();
         fixture.CreateCache(fixture.Payload);
@@ -254,6 +294,8 @@ public sealed class DeploymentPreflightTests
         }, index);
         var preflight = new PreflightDeploymentStep(fixture.Storage, new ImageSourceProbe(), new CustomReader(index), deviceArchitecture: Architecture.X64);
         DeploymentStepExecutionContext context = fixture.CreateContext();
+        // A connected share changes nothing for an image on local media: it is still fully verified before the erase.
+        if (shareConnected) context.RuntimeState.NetworkCacheSharePath = Path.Combine(fixture.Root, "share");
         DeploymentStepResult result = await preflight.ExecuteAsync(context, TestContext.Current.CancellationToken);
         Assert.Equal(invalidHash ? DeploymentStepState.Failed : DeploymentStepState.Succeeded, result.State);
         Assert.Empty(fixture.Events);
@@ -266,6 +308,59 @@ public sealed class DeploymentPreflightTests
             Assert.Equal(DeploymentStepState.Succeeded, (await fixture.Prepare.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
             Assert.Equal(["partition"], fixture.Events);
         }
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task CustomImage_OnNetworkCacheShare_IsHashedOnlyWhileCopiedToTheTarget(bool matchingHash)
+    {
+        using var fixture = new PipelineFixture();
+        string share = Path.Combine(fixture.Root, "share");
+        string imagePath = Path.Combine(share, "Foundry", "Images", "install.wim");
+        Directory.CreateDirectory(Path.GetDirectoryName(imagePath)!);
+        await File.WriteAllBytesAsync(imagePath, fixture.Payload, TestContext.Current.CancellationToken);
+        // The share maps to no disk, so only the share rule can prove it is separate from the target.
+        fixture.UnmappedPathPrefix = share;
+        var index = new Foundry.Core.Models.Configuration.CustomImageIndex { Index = 7, EditionId = "Professional", Architecture = "x64", ExpandedSizeBytes = 4096 };
+        fixture.CustomImage = new CustomImageSelection(new CustomImageAsset
+        {
+            Id = "custom",
+            DisplayName = "Custom",
+            ImagePath = imagePath,
+            VolumeRoot = Path.Combine(share, "Foundry"),
+            ExpectedLength = fixture.Payload.Length,
+            ExpectedHash = matchingHash ? Convert.ToHexString(SHA256.HashData(fixture.Payload)) : new string('0', 64)
+        }, index);
+        var preflight = new PreflightDeploymentStep(fixture.Storage, new ImageSourceProbe(), new CustomReader(index), deviceArchitecture: Architecture.X64);
+        DeploymentStepExecutionContext context = fixture.CreateContext();
+        context.RuntimeState.NetworkCacheSharePath = share;
+
+        // A damaged image with the recorded length passes preflight: its content is not read before the erase.
+        Assert.Equal(DeploymentStepState.Succeeded, (await preflight.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
+        Assert.True(context.Preflight!.UsesTargetStorage);
+        Assert.Null(context.Preflight.CustomSourceLease!.ContentHash);
+        Assert.Throws<IOException>(() => File.Delete(imagePath));
+        Assert.Equal(DeploymentStepState.Succeeded, (await fixture.Prepare.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
+
+        DeploymentStepResult copy = await fixture.Download.ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        string localPath = Path.Combine(fixture.WindowsRoot, "Foundry", "Cache", "OperatingSystems", "install.wim");
+        if (!matchingHash)
+        {
+            Assert.Equal(DeploymentStepState.Failed, copy.State);
+            Assert.Equal("invalid_custom_image", copy.Failure?.Code);
+            Assert.False(File.Exists(localPath));
+            Assert.Equal(DeploymentStepState.Failed, (await fixture.Apply.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
+            Assert.Equal(["partition"], fixture.Events);
+            return;
+        }
+        Assert.Equal(DeploymentStepState.Succeeded, copy.State);
+        Assert.Equal(localPath, context.RuntimeState.DownloadedOperatingSystemPath);
+        Assert.Equal(fixture.Payload, File.ReadAllBytes(localPath));
+        Assert.Equal(DeploymentStepState.Succeeded, (await fixture.CheckImage.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
+        Assert.Equal(DeploymentStepState.Succeeded, (await fixture.Apply.ExecuteAsync(context, TestContext.Current.CancellationToken)).State);
+        Assert.Equal(["partition", "apply:7"], fixture.Events);
     }
 
     [Theory]
@@ -889,6 +984,8 @@ public sealed class DeploymentPreflightTests
         public string? OptionalFeatureId { get; init; }
         public bool OptionalFeatureEnable { get; init; } = true;
         public string Failure { get; set; } = "";
+        /// <summary>Paths under this prefix map to no disk, like content on a network share.</summary>
+        public string? UnmappedPathPrefix { get; set; }
         public string? AppliedEdition { get; init; } = "Professional";
         public string? EmbeddedAnswerFile { get; init; }
         public CustomImageSelection? CustomImage { get; set; }
@@ -905,6 +1002,7 @@ public sealed class DeploymentPreflightTests
         public CheckWindowsImageStep CheckImage { get; }
         public ConfigureWindowsBootStep Boot { get; }
         private readonly ApplyOperatingSystemImageStep _apply;
+        public ApplyOperatingSystemImageStep Apply => _apply;
 
         public PipelineFixture(Architecture deviceArchitecture = Architecture.X64)
         {
@@ -1137,7 +1235,9 @@ public sealed class DeploymentPreflightTests
             public Task<IReadOnlyList<TargetDiskInfo>> GetDisksAsync(CancellationToken cancellationToken = default, bool includeExcludedDisks = false) =>
                 Task.FromResult<IReadOnlyList<TargetDiskInfo>>([new() { DiskNumber = 1, Identity = fixture.Identity, SizeBytes = fixture.Identity.SizeBytes, IsSelectable = true, BusType = "SATA" }]);
             public Task<int?> GetDiskNumberForPathAsync(string path, CancellationToken cancellationToken = default) =>
-                Task.FromResult<int?>(fixture.Failure == "unknown_mapping" ? null : fixture.Failure == "target_mapping" ? 1 : 2);
+                Task.FromResult<int?>(fixture.Failure == "unknown_mapping" ||
+                    fixture.UnmappedPathPrefix is { } prefix && path.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)
+                    ? null : fixture.Failure == "target_mapping" ? 1 : 2);
         }
 
         private sealed class PipelineWindows : RecordingDriverApplicationService

@@ -12,6 +12,7 @@ using Foundry.Core.Models.Network;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Images;
 using Foundry.Core.Services.NetworkCache;
+using Foundry.Core.Services.Sharing;
 
 namespace Foundry.Core.Services.Configuration;
 
@@ -100,44 +101,19 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         bool isMediaProtected = protectionSettings?.IsEnabled == true && deploymentSecretsKey is { Length: MediaSecretEnvelopeProtector.KeySizeBytes };
         if (!NetworkCacheConfigurationValidator.EvaluateReadiness(document.NetworkCache, inputs.NetworkCachePasswords.ContainsKey, isMediaProtected).IsValid)
             throw new InvalidOperationException("Network cache configuration is not ready for deployment media.");
+        if (NetworkCacheContentPublisher.IsActive(document.NetworkCache) && inputs.NetworkCacheIndex is null)
+            throw new InvalidOperationException("Network cache configuration is not ready for deployment media.");
+        NetworkCacheContentSections contentSections = MapContentSections(document);
 
         return new FoundryDeployConfigurationDocument
         {
             AuthoringVersion = authoringVersion,
             DomainJoin = MapDomainJoinSettings(document.DomainJoin, deploymentSecretsKey, domainJoinSecretState),
-            NetworkCache = MapNetworkCacheSettings(document.NetworkCache, deploymentSecretsKey, inputs.NetworkCachePasswords),
+            NetworkCache = MapNetworkCacheSettings(document.NetworkCache, deploymentSecretsKey, inputs.NetworkCachePasswords, inputs.NetworkCacheIndex),
             Protection = protectionSettings ?? new DeployProtectionSettings(),
-            PreOobe = new DeployPreOobeSettings
-            {
-                IsEnabled = document.PreOobe.IsEnabled,
-                Actions = document.PreOobe.IsEnabled
-                    ? document.PreOobe.Actions.Where(action => action.IsEnabled).Select(ClonePreOobeAction).ToArray()
-                    : []
-            },
-            CustomImages = document.CustomImages.IsEnabled
-                ? new DeployCustomImagesSettings
-                {
-                    IsEnabled = true,
-                    DefaultSource = document.CustomImages.DefaultSource,
-                    DefaultImageId = document.CustomImages.DefaultImageId,
-                    DefaultImageIndex = document.CustomImages.DefaultImageIndex
-                }
-                : new DeployCustomImagesSettings(),
-            CustomDrivers = document.CustomDrivers.IsEnabled
-                ? new DeployCustomDriversSettings
-                {
-                    IsEnabled = true,
-                    Sets = document.CustomDrivers.Sets.Where(set => set.IsIncluded).Select(set => new DeployCustomDriverSet
-                    {
-                        Id = set.Id,
-                        DisplayName = set.DisplayName,
-                        ContentHash = set.Package.ContentHash,
-                        Length = set.Package.Length,
-                        FileCount = set.Package.FileCount
-                    }).ToArray(),
-                    DefaultSetId = document.CustomDrivers.DefaultSetId
-                }
-                : new DeployCustomDriversSettings(),
+            PreOobe = contentSections.PreOobe,
+            CustomImages = contentSections.CustomImages,
+            CustomDrivers = contentSections.CustomDrivers,
             Unattend = document.Unattend.IsEnabled
                 ? new DeployUnattendSettings
                 {
@@ -235,16 +211,68 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
     }
 
     /// <summary>
-    /// Maps the enabled section; each share with an account carries a password payload bound to its share path and
-    /// account, so it never decodes for another share. Readiness, protection included, was validated before.
+    /// Maps the custom image, custom driver set and post-installation sections as Deploy reads them before media preparation
+    /// binds their manifests. The same mapping feeds the boot configuration and the signed content index, so both describe
+    /// the same content.
     /// </summary>
-    private static DeployNetworkCacheSettings MapNetworkCacheSettings(NetworkCacheSettings settings, byte[]? key, IReadOnlyDictionary<string, string> passwords)
+    /// <param name="document">User-facing Foundry configuration, already validated.</param>
+    public static NetworkCacheContentSections MapContentSections(FoundryConfigurationDocument document)
+    {
+        ArgumentNullException.ThrowIfNull(document);
+        return new(
+            document.CustomImages.IsEnabled
+                ? new DeployCustomImagesSettings
+                {
+                    IsEnabled = true,
+                    DefaultSource = document.CustomImages.DefaultSource,
+                    DefaultImageId = document.CustomImages.DefaultImageId,
+                    DefaultImageIndex = document.CustomImages.DefaultImageIndex
+                }
+                : new DeployCustomImagesSettings(),
+            document.CustomDrivers.IsEnabled
+                ? new DeployCustomDriversSettings
+                {
+                    IsEnabled = true,
+                    Sets = document.CustomDrivers.Sets.Where(set => set.IsIncluded).Select(set => new DeployCustomDriverSet
+                    {
+                        Id = set.Id,
+                        DisplayName = set.DisplayName,
+                        ContentHash = set.Package.ContentHash,
+                        Length = set.Package.Length,
+                        FileCount = set.Package.FileCount
+                    }).ToArray(),
+                    DefaultSetId = document.CustomDrivers.DefaultSetId
+                }
+                : new DeployCustomDriversSettings(),
+            new DeployPreOobeSettings
+            {
+                IsEnabled = document.PreOobe.IsEnabled,
+                Actions = document.PreOobe.IsEnabled
+                    ? document.PreOobe.Actions.Where(action => action.IsEnabled).Select(ClonePreOobeAction).ToArray()
+                    : []
+            });
+    }
+
+    /// <summary>
+    /// Maps the enabled section; each share with an account carries a password payload bound to its share path and
+    /// account, so it never decodes for another share. An active section also carries the key that must have signed the
+    /// content index. Readiness, protection and the index binding were validated before.
+    /// </summary>
+    private static DeployNetworkCacheSettings MapNetworkCacheSettings(
+        NetworkCacheSettings settings,
+        byte[]? key,
+        IReadOnlyDictionary<string, string> passwords,
+        NetworkCacheIndexBinding? index)
     {
         if (!settings.IsEnabled) return new();
         Dictionary<string, NetworkCacheAccount> accounts = settings.Accounts.ToDictionary(account => account.Id, StringComparer.Ordinal);
+        bool isActive = NetworkCacheContentPublisher.IsActive(settings);
         return new()
         {
             IsEnabled = true,
+            PublisherPublicKey = isActive ? Convert.ToBase64String(index!.PublicKey) : null,
+            PublisherKeyId = isActive ? PublicationSigner.KeyId(index!.PublicKey) : null,
+            MinimumIndexSequence = isActive ? index!.MinimumSequence : 0,
             Shares = settings.Shares.Select(share =>
             {
                 NetworkCacheAccount? account = share.AccountId is null ? null : accounts[share.AccountId];

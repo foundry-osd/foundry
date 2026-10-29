@@ -124,6 +124,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Common.Previous" xml:space="preserve">
     <value>Ankstesnis</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>Bandyti dar kartą</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nepasiekiamas</value>
   </data>
@@ -684,6 +687,45 @@ Tęsti diegimą?</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Įrankiai</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>Tinklo talpyklos bendrinamas aplankas atmetė šį įrenginį. Foundry OSD puslapyje Tinklo talpykla patikrinkite bendrinamo aplanko paskyrą ir jos slaptažodį; serveryje patikrinkite bendrinamo aplanko teises.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>Paskyra {0} negali atidaryti {1}. Foundry OSD puslapyje Tinklo talpykla patikrinkite paskyros slaptažodį; serveryje patikrinkite jos teises.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>Aplankas {0} atmetė šį įrenginį. Foundry OSD puslapyje Tinklo talpykla nustatykite šio bendrinamo aplanko paskyrą; serveryje patikrinkite bendrinamo aplanko teises.</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>Tvarkyklių rinkiniai</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>Pasirinktiniai Windows atvaizdai</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>Trūksta: {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>Jokia IP aprėptis neapima šio įrenginio. Foundry OSD puslapyje Tinklo talpykla pridėkite šio tinklo aprėptį arba 0.0.0.0/0 aprėptį su atsarginiu bendrinamu aplanku.</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>Jokia IP aprėptis neapima šio įrenginio ({0}). Foundry OSD puslapyje Tinklo talpykla pridėkite šio tinklo aprėptį arba 0.0.0.0/0 aprėptį su atsarginiu bendrinamu aplanku.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>Tinklo talpyklos bendrinamame aplanke paskelbto turinio nėra arba jis nepilnas. Foundry OSD puslapyje Tinklo talpykla pasirinkite Publikuoti.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>Aplanke {0} paskelbto turinio nėra arba jis nepilnas. Foundry OSD puslapyje Tinklo talpykla pasirinkite Publikuoti.</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>Tinklo talpykla nepasiekiama</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>Tinklo talpyklos bendrinamas aplankas neatsako. Serveryje patikrinkite, ar bendrinamas aplankas prisijungęs ir ar 445 prievadas atidarytas.</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>Aplankas {0} neatsako. Serveryje patikrinkite, ar bendrinamas aplankas prisijungęs ir ar 445 prievadas atidarytas.</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Pasirinkite „Windows“ versiją, kalbą, leidimą ir licencijos kanalą.</value>
   </data>
@@ -1053,6 +1095,9 @@ Tęsti diegimą?</value>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Tikrinamas talpyklos disko konfliktas...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>Peržiūrimas pasirinktinis atvaizdas...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>Tikrinamas pasirengimas diegti...</value>
   </data>
@@ -1092,8 +1137,14 @@ Tęsti diegimą?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Kopijuojamas AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>Kopijuojamas pasirinktinis atvaizdas...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>Kopijuojamas tvarkyklių paketas...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>Kopijuojama iš tinklo talpyklos...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Kopijuojami interaktyvios registracijos failai...</value>
@@ -1124,6 +1175,9 @@ Tęsti diegimą?</value>
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Baigiamas diegimas...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>Baigiamas kopijavimas į tinklo talpyklą...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Aparatinės įrangos maišos importavimas į Microsoft Graph...</value>
@@ -1271,6 +1325,12 @@ Tęsti diegimą?</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>Išskleidžiama</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}: {1} (liko {2})</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}: {1}, dar {2} (liko {3})</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

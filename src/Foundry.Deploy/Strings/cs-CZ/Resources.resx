@@ -124,6 +124,9 @@ Licencováno pod licencí MIT.</value>
   <data name="Common.Previous" xml:space="preserve">
     <value>Zpět</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>Zkusit znovu</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Není k dispozici</value>
   </data>
@@ -684,6 +687,45 @@ Pokračovat v nasazování?</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Nástroje</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>Sdílená složka síťové mezipaměti odmítla toto zařízení. V aplikaci Foundry OSD na stránce Síťová mezipaměť zkontrolujte účet sdílené složky a jeho heslo; na serveru zkontrolujte oprávnění sdílené složky.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>Účet {0} nemůže otevřít složku {1}. V aplikaci Foundry OSD na stránce Síťová mezipaměť zkontrolujte heslo účtu; na serveru zkontrolujte jeho oprávnění.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>Složka {0} odmítla toto zařízení. V aplikaci Foundry OSD na stránce Síťová mezipaměť nastavte pro tuto sdílenou složku účet; na serveru zkontrolujte oprávnění sdílené složky.</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>Sady ovladačů</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>Vlastní bitové kopie Windows</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>Chybí: {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>Toto zařízení nepatří do žádného oboru IP adres. V aplikaci Foundry OSD na stránce Síťová mezipaměť přidejte obor pro tuto síť nebo obor 0.0.0.0/0 se záložní sdílenou složkou.</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>Toto zařízení ({0}) nepatří do žádného oboru IP adres. V aplikaci Foundry OSD na stránce Síťová mezipaměť přidejte obor pro tuto síť nebo obor 0.0.0.0/0 se záložní sdílenou složkou.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>Publikovaný obsah ve sdílené složce síťové mezipaměti chybí nebo je neúplný. V aplikaci Foundry OSD na stránce Síťová mezipaměť vyberte Publikovat.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>Publikovaný obsah ve složce {0} chybí nebo je neúplný. V aplikaci Foundry OSD na stránce Síťová mezipaměť vyberte Publikovat.</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>Síťová mezipaměť není k dispozici</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>Sdílená složka síťové mezipaměti neodpovídá. Na serveru zkontrolujte, že je sdílená složka online a že je otevřený port 445.</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>Složka {0} neodpovídá. Na serveru zkontrolujte, že je sdílená složka online a že je otevřený port 445.</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Zvolte verzi Windows, jazyk, edici a licenční kanál.</value>
   </data>
@@ -1053,6 +1095,9 @@ Pokračovat v nasazování?</value>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Kontrola konfliktu mezipaměti disku...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>Kontrola vlastní bitové kopie...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>Ověřování připravenosti k nasazení...</value>
   </data>
@@ -1092,8 +1137,14 @@ Pokračovat v nasazování?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Kopírování souboru AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>Kopírování vlastní bitové kopie...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>Kopírování balíčku ovladačů...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>Kopírování ze síťové mezipaměti...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Kopírují se soubory interaktivní registrace...</value>
@@ -1124,6 +1175,9 @@ Pokračovat v nasazování?</value>
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Dokončování nasazení...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>Dokončování kopírování do síťové mezipaměti...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Import hardwarového hash do Microsoft Graph...</value>
@@ -1271,6 +1325,12 @@ Pokračovat v nasazování?</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>Extrakce</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}: {1} (zbývá {2})</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}: {1}, další {2} (zbývá {3})</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

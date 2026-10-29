@@ -20,6 +20,15 @@ public interface ISecretVaultBridge
     /// </summary>
     VaultStatus Status { get; }
 
+    /// <summary>
+    /// Gets whether startup has loaded the vault. Before that, <see cref="ReadEntries"/> returns no entries, and a write would replace
+    /// the vault with only the written entries, so callers that write on their own initiative wait for it.
+    /// </summary>
+    bool IsLoaded { get; }
+
+    /// <summary>Raised on the UI thread when startup has loaded the vault and whenever <see cref="Status"/> changes afterwards.</summary>
+    event EventHandler? StatusChanged;
+
     /// <summary>Returns every vault entry, including the ids the bridge does not own, after saving pending password changes.</summary>
     /// <remarks>An unreadable vault, or one that could not be read at startup, returns no entries: check <see cref="Status"/>.</remarks>
     IReadOnlyDictionary<string, string> ReadEntries();

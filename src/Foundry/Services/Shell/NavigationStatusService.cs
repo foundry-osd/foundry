@@ -47,6 +47,15 @@ internal sealed class NavigationStatusService : INavigationStatusService
             return null;
         }
 
+        // Valid settings the shares do not have yet are a caution, not an error: media creation still works.
+        if (target == ConfigurationNavigationTarget.NetworkCache &&
+            overview.GetReason(ConfigurationOverviewItem.NetworkCache) is ConfigurationOverviewReason.NotPublished or ConfigurationOverviewReason.Outdated)
+        {
+            return CreateStatus(overview.GetReason(ConfigurationOverviewItem.NetworkCache) == ConfigurationOverviewReason.NotPublished
+                ? "NetworkCache.NotPublishedState"
+                : "NetworkCache.OutdatedState", NavigationInfoBadgeSeverity.Caution);
+        }
+
         bool isProvisioningModeTarget = target is ConfigurationNavigationTarget.AutopilotJsonProfile or
             ConfigurationNavigationTarget.AutopilotHardwareHashUpload or
             ConfigurationNavigationTarget.AutopilotInteractiveHardwareHashUpload or

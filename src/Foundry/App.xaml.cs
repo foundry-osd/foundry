@@ -91,6 +91,7 @@ namespace Foundry
             Host.Services.GetRequiredService<LegacyMigrationRunner>().Run();
             Host.Services.GetRequiredService<SecretVaultBridge>().Initialize();
             Host.Services.GetRequiredService<Foundry.Services.Sharing.ConfigurationSharingService>().Initialize();
+            Host.Services.GetRequiredService<Foundry.Services.NetworkCache.INetworkCacheSigningService>().Initialize();
             Host.Services.GetRequiredService<IApplicationLocalizationService>().InitializeAsync().GetAwaiter().GetResult();
             RegisterWinUiExceptionHandler();
 

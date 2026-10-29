@@ -8,6 +8,10 @@ using Foundry.Core.Services.Application;
 using Foundry.Core.Services.NetworkCache;
 using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
+using Foundry.Services.NetworkCache;
+using Foundry.Services.Shell;
+using Foundry.Utilities.Networking;
+using Microsoft.UI.Dispatching;
 
 namespace Foundry.ViewModels;
 
@@ -25,13 +29,20 @@ public sealed partial class NetworkCacheConfigurationViewModel : ObservableObjec
     private readonly INetworkCacheDialogService networkCacheDialogs;
     private readonly IDialogService dialogs;
     private readonly IApplicationLocalizationService localization;
+    private readonly INetworkCachePublicationStateService publicationState;
+    private readonly INetworkCachePublicationService publication;
+    private readonly IShellNavigationGuardService navigationGuard;
+    private readonly DispatcherQueue? dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+    private readonly NetworkCacheShareAccess shareAccess;
+    private CancellationTokenSource? shareOperation;
     private IReadOnlyList<NetworkCacheValidationIssue> issues = [];
     private bool applying;
     private bool disposed;
 
     public NetworkCacheConfigurationViewModel(IFoundryConfigurationStateService configuration, INetworkCacheSecretStateService secrets,
         IDeploymentProtectionSecretStateService protectionSecrets, INetworkCacheDialogService networkCacheDialogs, IDialogService dialogs,
-        IApplicationLocalizationService localization, ManagedConfigurationViewModel managed)
+        IApplicationLocalizationService localization, ManagedConfigurationViewModel managed, ISmbConnector smbConnector,
+        INetworkCachePublicationStateService publicationState, INetworkCachePublicationService publication, IShellNavigationGuardService navigationGuard)
     {
         this.configuration = configuration;
         this.managed = managed;
@@ -40,11 +51,17 @@ public sealed partial class NetworkCacheConfigurationViewModel : ObservableObjec
         this.networkCacheDialogs = networkCacheDialogs;
         this.dialogs = dialogs;
         this.localization = localization;
+        this.publicationState = publicationState;
+        this.publication = publication;
+        this.navigationGuard = navigationGuard;
+        shareAccess = new NetworkCacheShareAccess(smbConnector);
         configuration.StateChanged += OnStateChanged;
         managed.PropertyChanged += OnManagedChanged;
         secrets.Changed += OnSecretsChanged;
         protectionSecrets.Changed += OnSecretsChanged;
         localization.LanguageChanged += OnLanguageChanged;
+        publicationState.Changed += OnPublicationChanged;
+        navigationGuard.StateChanged += OnNavigationGuardChanged;
         ApplyState();
     }
 
@@ -64,8 +81,22 @@ public sealed partial class NetworkCacheConfigurationViewModel : ObservableObjec
     public ObservableCollection<NetworkCacheShareEntryViewModel> Shares { get; } = [];
     public ObservableCollection<NetworkCacheScopeEntryViewModel> Scopes { get; } = [];
 
-    public bool IsActive => configuration.Current.NetworkCache.IsEnabled;
-    public string ActionText => localization.GetString(IsActive ? "Common.Disable" : "Common.Enable");
+    /// <summary>
+    /// Gets or sets whether the network cache is on; bound to the page header switch, and saved at once. Turning it on measures
+    /// the shares, as opening the page does.
+    /// </summary>
+    public bool IsActive
+    {
+        get => configuration.Current.NetworkCache.IsEnabled;
+        set
+        {
+            if (value == IsActive) return;
+            Save(configuration.Current.NetworkCache with { IsEnabled = value });
+            if (value) MeasureSpace();
+        }
+    }
+
+    public string EnableLabel => localization.GetString("Nav_NetworkCacheKey.Title");
     public string DocumentationUrl => FoundryApplicationInfo.NetworkCacheDocumentationUrl;
 
     public string AccountsHeader => Text("AccountsHeader");
@@ -91,6 +122,38 @@ public sealed partial class NetworkCacheConfigurationViewModel : ObservableObjec
     public string ValueColumnHeader => Text("ColumnValue");
     public string SharesColumnHeader => Text("ColumnShares");
     public string StatusColumnHeader => Text("ColumnStatus");
+    public string DownloadsColumnHeader => Text("ColumnDownloads");
+    public string DownloadsColumnToolTip => Text("ColumnDownloadsToolTip");
+    public string ImportedContentColumnHeader => Text("ColumnImportedContent");
+    public string ImportedContentColumnToolTip => Text("ColumnImportedContentToolTip");
+    public string RefreshSpaceLabel => localization.GetString("Common.Refresh");
+    public string CleanUpShareLabel => Text("CommandCleanUp");
+    public string PublishLabel => Text("CommandPublish");
+
+    /// <summary>Gets whether Publish is shown: only a PC that writes the index publishes; a follower's shares come from its reference PC.</summary>
+    public Visibility PublishVisibility => ToVisibility(publicationState.CanPublishIndex);
+
+    /// <summary>
+    /// Gets whether the page warns about the publication of valid settings of the active cache: they are not on every share yet,
+    /// they cannot be signed, or media have no key to trust them. The page then asks to publish, or says why it cannot.
+    /// </summary>
+    public bool HasPublicationWarning => LacksTrustedKey ||
+        (IsPublishable && (publicationState.Level != NetworkCachePublicationLevel.UpToDate || !publicationState.CanSignIndex));
+
+    /// <summary>
+    /// Gets the publication warning: that this PC has no key media can trust (a follower without a pinned reference key, or
+    /// unavailable sharing), that this PC has no usable signing key, the shares whose last publication failed, the shares that
+    /// lost the published content, or the shares as a whole when only changes are missing.
+    /// </summary>
+    public string PublicationWarningMessage => LacksTrustedKey && !publicationState.CanPublishIndex
+        ? Text("TrustedKeyUnavailableMessage")
+        : LacksTrustedKey || !publicationState.CanSignIndex
+        ? Text("PublishKeysUnavailableMessage")
+        : publicationState.FailedSharePaths is { Count: > 0 } failed
+        ? localization.FormatString("NetworkCache.NotPublishedShareFormat", string.Join(", ", failed))
+        : publicationState.MissingContentSharePaths is { Count: > 0 } emptied
+        ? localization.FormatString("NetworkCache.ContentMissingShareFormat", string.Join(", ", emptied))
+        : Text("NotPublishedMessage");
 
     public Visibility AccountListVisibility => ToVisibility(Accounts.Count > 0);
     public Visibility EmptyAccountsVisibility => ToVisibility(Accounts.Count == 0);
@@ -131,13 +194,19 @@ public sealed partial class NetworkCacheConfigurationViewModel : ObservableObjec
     private bool CanEditShare => IsEditable && SelectedShare is not null;
     private bool CanAddScope => IsEditable && configuration.Current.NetworkCache.Shares.Count > 0;
     private bool CanEditScope => IsEditable && SelectedScope is not null;
+    // Measuring only reads, so a PC that follows a managed configuration can measure the shares it cannot clean up.
+    private bool CanRefreshSpace => Shares.Count > 0 && !IsShareOperationRunning;
+    private bool CanCleanUpShare => IsEditable && SelectedShare is { IsReachable: true } && !IsShareOperationRunning;
+    // Publishing needs valid shares and accounts, a signing key, and no other operation; it runs in the operation dialog,
+    // which blocks the page meanwhile. It does not use the ADK, so a missing ADK does not block it.
+    private bool IsPublishable => publicationState.CanPublishIndex && NetworkCacheContentPublisher.IsActive(configuration.Current.NetworkCache) &&
+        configuration.NetworkCacheValidation.IsValid;
+    private bool CanPublish => IsPublishable && publicationState.CanSignIndex && !IsShareOperationRunning &&
+        navigationGuard.State is ShellNavigationState.Ready or ShellNavigationState.AdkBlocked;
+    // Valid settings of the active cache that media cannot bind to a trusted index key: media creation refuses them.
+    private bool LacksTrustedKey => NetworkCacheContentPublisher.IsActive(configuration.Current.NetworkCache) &&
+        configuration.NetworkCacheValidation.IsValid && !publicationState.HasTrustedKey;
 
-    [RelayCommand]
-    private void ToggleEnabled()
-    {
-        NetworkCacheSettings current = configuration.Current.NetworkCache;
-        Save(current with { IsEnabled = !current.IsEnabled });
-    }
 
     [RelayCommand(CanExecute = nameof(CanAdd))]
     private Task AddAccountAsync() =>
@@ -174,7 +243,13 @@ public sealed partial class NetworkCacheConfigurationViewModel : ObservableObjec
 
         // The account is saved first: the secret service erases passwords of accounts the settings do not have.
         // An empty password box keeps the password the account already owns.
-        if (!input.Password.IsEmpty && !TrySetPassword(id, input.Password.Span)) return Text("PasswordInvalid");
+        if (!input.Password.IsEmpty && !TrySetPassword(id, input.Password.Span))
+        {
+            // The dialog stays open on the refusal: a new account is removed again, so its next Save adds it only once.
+            if (accountId is null) RemoveAccount(id);
+            return Text("PasswordInvalid");
+        }
+
         if (accountId is null) SelectedAccount = Accounts.FirstOrDefault(row => string.Equals(row.Id, id, StringComparison.Ordinal));
         return null;
     }
@@ -225,7 +300,13 @@ public sealed partial class NetworkCacheConfigurationViewModel : ObservableObjec
             return;
         }
 
-        Save(current with { Accounts = current.Accounts.Where(account => !string.Equals(account.Id, row.Id, StringComparison.Ordinal)).ToArray() });
+        RemoveAccount(row.Id);
+    }
+
+    private void RemoveAccount(string accountId)
+    {
+        NetworkCacheSettings current = configuration.Current.NetworkCache;
+        Save(current with { Accounts = current.Accounts.Where(account => !string.Equals(account.Id, accountId, StringComparison.Ordinal)).ToArray() });
     }
 
     [RelayCommand(CanExecute = nameof(CanAdd))]
@@ -253,6 +334,7 @@ public sealed partial class NetworkCacheConfigurationViewModel : ObservableObjec
 
         string id = shareId ?? Guid.NewGuid().ToString("N");
         var share = new NetworkCacheShare { Id = id, Path = path, AccountId = accountId };
+        NetworkCacheShare? previous = current.Shares.FirstOrDefault(existing => string.Equals(existing.Id, id, StringComparison.Ordinal));
         Save(current with
         {
             Shares = shareId is null
@@ -260,6 +342,10 @@ public sealed partial class NetworkCacheConfigurationViewModel : ObservableObjec
                 : current.Shares.Select(existing => string.Equals(existing.Id, id, StringComparison.Ordinal) ? share : existing).ToArray()
         });
         if (shareId is null) SelectedShare = Shares.FirstOrDefault(row => string.Equals(row.Id, id, StringComparison.Ordinal));
+        // A new share, or one that now points to another path or account, has no measurement yet: its row shows it at once.
+        if (previous is null || !string.Equals(previous.Path, path, StringComparison.OrdinalIgnoreCase) ||
+            !string.Equals(previous.AccountId, accountId, StringComparison.Ordinal))
+            MeasureShare(id);
         return null;
     }
 
@@ -339,6 +425,222 @@ public sealed partial class NetworkCacheConfigurationViewModel : ObservableObjec
         Save(current with { Scopes = current.Scopes.Where(scope => !string.Equals(scope.Id, row.Id, StringComparison.Ordinal)).ToArray() });
     }
 
+    /// <summary>Gets whether the space of the shares is being measured or a share is being cleaned up.</summary>
+    [ObservableProperty]
+    public partial bool IsShareOperationRunning { get; set; }
+
+    /// <summary>
+    /// Measures the shares of an active cache in the background, so their space shows without Refresh: when the page opens, when
+    /// the cache is turned on and after Publish. The rows show Measuring meanwhile and the page stays usable; nothing starts
+    /// while another share operation runs.
+    /// </summary>
+    public void MeasureSpace()
+    {
+        if (!disposed && IsActive && RefreshSpaceCommand.CanExecute(null)) RefreshSpaceCommand.Execute(null);
+    }
+
+    /// <summary>Measures the downloads and the imported content of every share, all shares at once, off the UI thread.</summary>
+    [RelayCommand(CanExecute = nameof(CanRefreshSpace))]
+    private Task RefreshSpaceAsync()
+    {
+        NetworkCacheSettings settings = configuration.Current.NetworkCache;
+        return MeasureSharesAsync(settings, settings.Shares);
+    }
+
+    /// <summary>
+    /// Measures one share of an active cache in the background, for a share added or changed while the page is open; nothing
+    /// starts while another share operation runs, and Refresh measures it then.
+    /// </summary>
+    private void MeasureShare(string shareId)
+    {
+        NetworkCacheSettings settings = configuration.Current.NetworkCache;
+        if (disposed || !IsActive || IsShareOperationRunning ||
+            settings.Shares.FirstOrDefault(share => string.Equals(share.Id, shareId, StringComparison.Ordinal)) is not { } share)
+            return;
+        _ = MeasureSharesAsync(settings, (NetworkCacheShare[])[share]);
+    }
+
+    /// <summary>Measures the given shares as one share operation; leaving the page cancels it.</summary>
+    private async Task MeasureSharesAsync(NetworkCacheSettings settings, IReadOnlyList<NetworkCacheShare> shares)
+    {
+        if (BeginShareOperation() is not { } operation) return;
+        try
+        {
+            await Task.WhenAll(shares.Select(share => MeasureShareAsync(settings, share, operation.Token)));
+        }
+        catch (OperationCanceledException) when (operation.IsCancellationRequested)
+        {
+        }
+        finally
+        {
+            EndShareOperation(operation);
+        }
+    }
+
+    /// <summary>
+    /// Publishes the imported content and the index of the current configuration to every share, without building media, then
+    /// measures the shares again: their imported content changed, and the check confirms they hold the new publication.
+    /// </summary>
+    [RelayCommand(CanExecute = nameof(CanPublish))]
+    private async Task PublishAsync()
+    {
+        await publication.PublishAsync();
+        MeasureSpace();
+    }
+
+    /// <summary>
+    /// After confirmation, deletes the downloads of the selected share and the imported content that neither the current
+    /// configuration nor any signed index on the share references, then measures the share again. Leaving the page cancels it;
+    /// what was already deleted stays deleted.
+    /// </summary>
+    [RelayCommand(CanExecute = nameof(CanCleanUpShare))]
+    private async Task CleanUpShareAsync()
+    {
+        if (SelectedShare is not { } row) return;
+        NetworkCacheSettings settings = configuration.Current.NetworkCache;
+        NetworkCacheShare share = row.Settings;
+        bool confirmed = await dialogs.ConfirmAsync(new ConfirmationDialogRequest(
+            Text("CleanUpShareTitle"),
+            localization.FormatString("NetworkCache.CleanUpShareMessageFormat", share.Path),
+            Text("CommandCleanUp"),
+            localization.GetString("Common.Cancel"),
+            PreferCancel: true));
+        // The settings can change while the dialog is open, for example when the configuration is replaced.
+        if (!confirmed || disposed || !ReferenceEquals(settings, configuration.Current.NetworkCache)) return;
+        if (BeginShareOperation() is not { } operation) return;
+        FoundryConfigurationDocument current = configuration.Current;
+        bool isCleanUpLogged = false;
+        try
+        {
+            SetSpace(share, Text("SpaceCleaningUp"), isReachable: false);
+            Logger.Information("Network cache share clean up started. SharePath={SharePath}", share.Path);
+            NetworkCacheShareAccessResult<NetworkCacheCleanUpResult> result = await shareAccess.RunAsync(settings, share, secrets.GetPasswordCopy,
+                (contentRoot, token) => NetworkCacheShareMaintenance.CleanUpAsync(contentRoot, current, token), operation.Token);
+            isCleanUpLogged = true;
+            if (result is { Status: NetworkCacheShareAccessStatus.Completed, Value: { } cleaned })
+            {
+                Logger.Information(
+                    "Network cache share cleaned up. SharePath={SharePath}, RemovedImages={RemovedImages}, RemovedPackages={RemovedPackages}, RemovedManifests={RemovedManifests}, RetainedEntryCount={RetainedEntryCount}",
+                    share.Path, cleaned.RemovedImages, cleaned.RemovedPackages, cleaned.RemovedManifests, cleaned.RetainedEntries.Count);
+            }
+            else
+            {
+                Logger.Warning(result.Error, "Network cache share could not be cleaned up. SharePath={SharePath}, Status={Status}, ConnectStatus={ConnectStatus}, Win32Error={Win32Error}",
+                    share.Path, result.Status, result.Connection?.Status, result.Connection?.Win32Error);
+            }
+
+            if (disposed) return;
+            await MeasureShareAsync(settings, share, operation.Token);
+            if (disposed) return;
+            string? message = result.Status != NetworkCacheShareAccessStatus.Completed
+                ? localization.FormatString("NetworkCache.CleanUpShareFailedMessageFormat", share.Path)
+                : result.Value?.RetainedEntries.Count > 0 ? localization.FormatString("NetworkCache.CleanUpShareKeptMessageFormat", share.Path) : null;
+            if (message is not null)
+                await dialogs.ShowMessageAsync(new DialogRequest(Text("CleanUpShareTitle"), message, localization.GetString("Common.Close")));
+        }
+        catch (OperationCanceledException) when (operation.IsCancellationRequested)
+        {
+            // Leaving the page cancels a clean up midway; the files it already deleted stay deleted.
+            if (!isCleanUpLogged) Logger.Information("Network cache share clean up cancelled. SharePath={SharePath}", share.Path);
+        }
+        finally
+        {
+            EndShareOperation(operation);
+        }
+    }
+
+    /// <summary>Measures one share and shows the result in its row; an unreachable or unreadable share disables cleaning it up.</summary>
+    private async Task MeasureShareAsync(NetworkCacheSettings settings, NetworkCacheShare share, CancellationToken cancellationToken)
+    {
+        SetSpace(share, Text("SpaceMeasuring"), isReachable: false);
+        NetworkCacheShareExpectation? expectation = publicationState.GetExpectation(share.Id);
+        NetworkCacheShareAccessResult<ShareMeasurement> result = await shareAccess.RunAsync(settings, share, secrets.GetPasswordCopy,
+            (contentRoot, token) => MeasureAndCheckAsync(contentRoot, expectation, token), cancellationToken);
+        if (result is { Status: NetworkCacheShareAccessStatus.Completed, Value: { Usage: var usage, IsIntact: var isIntact } })
+        {
+            if (isIntact is { } intact)
+            {
+                if (!intact) Logger.Warning("Network cache share no longer holds the published content. SharePath={SharePath}", share.Path);
+                publicationState.ReportContentCheck(share.Id, intact);
+            }
+
+            Logger.Debug("Network cache share measured. SharePath={SharePath}, DownloadsBytes={DownloadsBytes}, ImportedContentBytes={ImportedContentBytes}",
+                share.Path, usage.DownloadsBytes, usage.ImportedContentBytes);
+            SetSpace(share, ByteSizeFormatter.Format(localization, (ulong)usage.DownloadsBytes),
+                ByteSizeFormatter.Format(localization, (ulong)usage.ImportedContentBytes), isReachable: true,
+                usage.DownloadsBytes, usage.ImportedContentBytes);
+            return;
+        }
+
+        Logger.Warning(result.Error, "Network cache share could not be measured. SharePath={SharePath}, Status={Status}, ConnectStatus={ConnectStatus}, Win32Error={Win32Error}",
+            share.Path, result.Status, result.Connection?.Status, result.Connection?.Win32Error);
+        SetSpace(share, Text(result.Status == NetworkCacheShareAccessStatus.Unreachable ? "SpaceUnreachable" : "SpaceUnreadable"), isReachable: false);
+    }
+
+    /// <summary>
+    /// Measures a share and, when this PC published the latest changes to it, checks that it still holds them; a check the share
+    /// cannot answer, for any reason other than cancellation, leaves the publication state as it was and keeps the measurement.
+    /// </summary>
+    private static async Task<ShareMeasurement> MeasureAndCheckAsync(string contentRoot, NetworkCacheShareExpectation? expectation, CancellationToken cancellationToken)
+    {
+        NetworkCacheShareUsage usage = await NetworkCacheShareMaintenance.MeasureAsync(contentRoot, cancellationToken);
+        if (expectation is null) return new(usage, null);
+        try
+        {
+            return new(usage, await NetworkCachePublicationCheck.IsIntactAsync(contentRoot, expectation.PublicKey, expectation.Sequence, cancellationToken));
+        }
+        catch (Exception exception) when (exception is not OperationCanceledException)
+        {
+            Logger.Warning(exception, "Network cache share content could not be checked. ContentRoot={ContentRoot}", contentRoot);
+            return new(usage, null);
+        }
+    }
+
+    /// <summary>The space a share uses and, when it was checked, whether it still holds what this PC published.</summary>
+    private sealed record ShareMeasurement(NetworkCacheShareUsage Usage, bool? IsIntact);
+
+    /// <summary>Shows the same progress or failure text in both space columns of the share, whose sizes are then unknown.</summary>
+    private void SetSpace(NetworkCacheShare share, string text, bool isReachable) => SetSpace(share, text, text, isReachable, null, null);
+
+    /// <summary>Updates the row of the measured share, unless it was removed or now points to another path or account.</summary>
+    private void SetSpace(NetworkCacheShare share, string downloadsText, string importedContentText, bool isReachable,
+        long? downloadsBytes, long? importedContentBytes)
+    {
+        if (disposed) return;
+        NetworkCacheShareEntryViewModel? row = Shares.FirstOrDefault(candidate => string.Equals(candidate.Id, share.Id, StringComparison.Ordinal));
+        if (row is null || !string.Equals(row.Settings.Path, share.Path, StringComparison.OrdinalIgnoreCase) ||
+            !string.Equals(row.Settings.AccountId, share.AccountId, StringComparison.Ordinal))
+            return;
+        row.DownloadsText = downloadsText;
+        row.ImportedContentText = importedContentText;
+        row.DownloadsBytes = downloadsBytes;
+        row.ImportedContentBytes = importedContentBytes;
+        row.IsReachable = isReachable;
+        CleanUpShareCommand.NotifyCanExecuteChanged();
+    }
+
+    private CancellationTokenSource? BeginShareOperation()
+    {
+        if (disposed || IsShareOperationRunning) return null;
+        shareOperation = new CancellationTokenSource();
+        IsShareOperationRunning = true;
+        return shareOperation;
+    }
+
+    private void EndShareOperation(CancellationTokenSource operation)
+    {
+        if (ReferenceEquals(shareOperation, operation)) shareOperation = null;
+        operation.Dispose();
+        if (!disposed) IsShareOperationRunning = false;
+    }
+
+    partial void OnIsShareOperationRunningChanged(bool value)
+    {
+        RefreshSpaceCommand.NotifyCanExecuteChanged();
+        CleanUpShareCommand.NotifyCanExecuteChanged();
+        PublishCommand.NotifyCanExecuteChanged();
+    }
+
     /// <summary>Lists "No account" first, then the accounts by user name.</summary>
     private NetworkCacheAccountOption[] GetAccountOptions() =>
     [
@@ -386,6 +688,7 @@ public sealed partial class NetworkCacheConfigurationViewModel : ObservableObjec
     {
         EditShareCommand.NotifyCanExecuteChanged();
         RemoveShareCommand.NotifyCanExecuteChanged();
+        CleanUpShareCommand.NotifyCanExecuteChanged();
     }
 
     partial void OnSelectedScopeChanged(NetworkCacheScopeEntryViewModel? value)
@@ -399,6 +702,25 @@ public sealed partial class NetworkCacheConfigurationViewModel : ObservableObjec
     private void OnManagedChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs args) => RefreshPresentation();
 
     private void OnSecretsChanged(object? sender, EventArgs args) => RefreshPresentation();
+
+    private void OnPublicationChanged(object? sender, EventArgs args) => RefreshPresentation();
+
+    /// <summary>Publish waits for any running operation, media creation included, which the navigation guard reports.</summary>
+    private void OnNavigationGuardChanged(object? sender, EventArgs args)
+    {
+        if (dispatcherQueue?.HasThreadAccess == false)
+        {
+            dispatcherQueue.TryEnqueue(RefreshPublishCommand);
+            return;
+        }
+
+        RefreshPublishCommand();
+    }
+
+    private void RefreshPublishCommand()
+    {
+        if (!disposed) PublishCommand.NotifyCanExecuteChanged();
+    }
 
     private void OnLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs args)
     {
@@ -469,6 +791,11 @@ public sealed partial class NetworkCacheConfigurationViewModel : ObservableObjec
         string savedText = Text("PasswordSaved");
         string missingText = Text("PasswordMissing");
         string noAccountText = Text("NoAccount");
+        string upToDateText = Text("UpToDateState");
+        string notPublishedText = Text("NotPublishedState");
+        string outdatedText = Text("OutdatedState");
+        // A valid share reports whether it has the latest changes, on the PC that publishes them; a follower shows Ready.
+        bool showsPublication = publicationState.CanPublishIndex && NetworkCacheContentPublisher.IsActive(settings);
         Dictionary<string, string> userNames = settings.Accounts
             .GroupBy(account => account.Id, StringComparer.Ordinal)
             .ToDictionary(group => group.Key, group => group.First().UserName, StringComparer.Ordinal);
@@ -495,7 +822,14 @@ public sealed partial class NetworkCacheConfigurationViewModel : ObservableObjec
                 (candidate.Code == NetworkCacheValidationCode.PasswordRequired && accountId is not null &&
                  string.Equals(candidate.ItemId, accountId, StringComparison.Ordinal)));
             row.IsReady = issue is null;
-            row.StatusText = issue is null ? readyText : Text("Validation." + issue.Code);
+            // The row tells only whether the share holds the latest publication; a signing key problem is the warning bar's.
+            NetworkCachePublicationLevel level = publicationState.LevelOf(row.Id);
+            row.NeedsPublication = issue is null && showsPublication && level != NetworkCachePublicationLevel.UpToDate;
+            row.IsUnpublished = row.NeedsPublication && level == NetworkCachePublicationLevel.NotPublished;
+            row.StatusText = issue is not null ? Text("Validation." + issue.Code)
+                : !showsPublication ? readyText
+                : row.IsUnpublished ? notPublishedText
+                : row.NeedsPublication ? outdatedText : upToDateText;
         }
 
         foreach (NetworkCacheScopeEntryViewModel row in Scopes)
@@ -515,10 +849,11 @@ public sealed partial class NetworkCacheConfigurationViewModel : ObservableObjec
         RefreshValidation();
         foreach (string property in new[]
         {
-            nameof(IsActive), nameof(ActionText), nameof(EmptyScopesText), nameof(AccountListVisibility), nameof(EmptyAccountsVisibility),
+            nameof(IsActive), nameof(EmptyScopesText), nameof(AccountListVisibility), nameof(EmptyAccountsVisibility),
             nameof(ShareListVisibility), nameof(EmptySharesVisibility), nameof(ScopeListVisibility), nameof(EmptyScopesVisibility),
             nameof(HasMediaProtectionIssue), nameof(SharesValidationMessage), nameof(SharesValidationVisibility),
-            nameof(ScopesValidationMessage), nameof(ScopesValidationVisibility)
+            nameof(ScopesValidationMessage), nameof(ScopesValidationVisibility), nameof(PublishVisibility), nameof(HasPublicationWarning),
+            nameof(PublicationWarningMessage)
         })
         {
             OnPropertyChanged(property);
@@ -530,6 +865,9 @@ public sealed partial class NetworkCacheConfigurationViewModel : ObservableObjec
         AddShareCommand.NotifyCanExecuteChanged();
         EditShareCommand.NotifyCanExecuteChanged();
         RemoveShareCommand.NotifyCanExecuteChanged();
+        RefreshSpaceCommand.NotifyCanExecuteChanged();
+        CleanUpShareCommand.NotifyCanExecuteChanged();
+        PublishCommand.NotifyCanExecuteChanged();
         AddScopeCommand.NotifyCanExecuteChanged();
         EditScopeCommand.NotifyCanExecuteChanged();
         RemoveScopeCommand.NotifyCanExecuteChanged();
@@ -539,11 +877,14 @@ public sealed partial class NetworkCacheConfigurationViewModel : ObservableObjec
     public void Dispose()
     {
         disposed = true;
+        shareOperation?.Cancel();
         configuration.StateChanged -= OnStateChanged;
         managed.PropertyChanged -= OnManagedChanged;
         secrets.Changed -= OnSecretsChanged;
         protectionSecrets.Changed -= OnSecretsChanged;
         localization.LanguageChanged -= OnLanguageChanged;
+        publicationState.Changed -= OnPublicationChanged;
+        navigationGuard.StateChanged -= OnNavigationGuardChanged;
     }
 
     private sealed record NetworkCacheShareOption(NetworkCacheShare Share, bool IsIncluded);

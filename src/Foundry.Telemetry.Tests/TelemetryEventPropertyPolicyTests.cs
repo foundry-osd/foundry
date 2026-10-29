@@ -193,6 +193,60 @@ public sealed class TelemetryEventPropertyPolicyTests
     }
 
     [Theory]
+    [InlineData(TelemetryEvents.OsdBootMediaFinished, "published")]
+    [InlineData(TelemetryEvents.OsdBootMediaFinished, "none")]
+    [InlineData(TelemetryEvents.OsdNetworkCachePublished, "partial")]
+    [InlineData(TelemetryEvents.OsdNetworkCachePublished, "failed")]
+    public void Sanitize_RetainsNetworkCachePublishResult(string eventName, string value)
+    {
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(eventName,
+            new Dictionary<string, object?> { ["network_cache_publish_result"] = value });
+
+        Assert.Equal(value, Assert.Single(result).Value);
+    }
+
+    [Theory]
+    [InlineData(TelemetryEvents.OsdBootMediaFinished, "Published")]
+    [InlineData(TelemetryEvents.OsdNetworkCachePublished, "skipped")]
+    [InlineData(TelemetryEvents.OsdNetworkCachePublished, 1)]
+    [InlineData(TelemetryEvents.DeploySessionFinished, "published")]
+    public void Sanitize_DropsInvalidOrMisplacedNetworkCachePublishResult(string eventName, object value)
+    {
+        Assert.Empty(TelemetryEventPropertyPolicy.Sanitize(eventName, new Dictionary<string, object?> { ["network_cache_publish_result"] = value }));
+    }
+
+    [Fact]
+    public void Sanitize_ForNetworkCachePublished_RetainsOnlyTheResultAndShareCount()
+    {
+        var properties = new Dictionary<string, object?>
+        {
+            ["network_cache_publish_result"] = "published",
+            ["network_cache_share_count"] = 2,
+            ["operation_id"] = "abc",
+            ["network_cache_share_path"] = @"\\fs01\cache",
+            ["network_cache_enabled"] = true
+        };
+
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.OsdNetworkCachePublished, properties);
+
+        Assert.Equal(["network_cache_publish_result", "network_cache_share_count", "operation_id"], result.Keys.Order(StringComparer.Ordinal));
+    }
+
+    [Theory]
+    [InlineData("no_scope")]
+    [InlineData("unreachable")]
+    [InlineData("access_denied")]
+    [InlineData("not_published")]
+    [InlineData("content_missing")]
+    public void Sanitize_ForDeploySessionFinished_KeepsStartupFailureOutcomes(string outcome)
+    {
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.DeploySessionFinished,
+            new Dictionary<string, object?> { ["deploy_network_cache_outcome"] = outcome });
+
+        Assert.Equal(outcome, result["deploy_network_cache_outcome"]);
+    }
+
+    [Theory]
     [InlineData("deploy_network_cache_outcome", "elsewhere")]
     [InlineData("deploy_network_cache_writable", "yes")]
     [InlineData("deploy_network_cache_downloads_reused", -1)]
@@ -702,6 +756,7 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.True(TelemetryEventPropertyPolicy.IsKnownEvent(TelemetryEvents.OsdBootMediaFinished));
         Assert.True(TelemetryEventPropertyPolicy.IsKnownEvent(TelemetryEvents.ConnectSessionReady));
         Assert.True(TelemetryEventPropertyPolicy.IsKnownEvent(TelemetryEvents.DeploySessionFinished));
+        Assert.True(TelemetryEventPropertyPolicy.IsKnownEvent(TelemetryEvents.OsdNetworkCachePublished));
 
         Assert.False(TelemetryEventPropertyPolicy.IsKnownEvent("app_started"));
         Assert.False(TelemetryEventPropertyPolicy.IsKnownEvent("boot_media_created"));

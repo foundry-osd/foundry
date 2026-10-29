@@ -5,6 +5,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.NetworkCache;
 using Foundry.Core.Services.WinPe;
 using Serilog;
 
@@ -77,6 +78,7 @@ internal sealed partial class JsonAppSettingsService : IAppSettingsService
             migratedGeneralSettings = LegacyAppSettingsMediaMigration.TryReadGeneralSettings(json);
             FoundryAppSettings settings = JsonSerializer.Deserialize(json, FoundryAppSettingsJsonContext.Default.FoundryAppSettings) ?? new FoundryAppSettings();
             ApplyLegacyAppearanceSettings(settings, json);
+            NormalizeNetworkCache(settings);
             return settings;
         }
         catch (Exception ex)
@@ -109,6 +111,13 @@ internal sealed partial class JsonAppSettingsService : IAppSettingsService
 
             return new FoundryAppSettings();
         }
+    }
+
+    /// <summary>Restores a missing section and drops publication records that name no share, so callers never see them.</summary>
+    private static void NormalizeNetworkCache(FoundryAppSettings settings)
+    {
+        settings.NetworkCache ??= new NetworkCacheAppSettings();
+        settings.NetworkCache.Publications = NetworkCachePublicationRecords.Valid(settings.NetworkCache.Publications);
     }
 
     private static void EnsureTelemetryInstallId(FoundryAppSettings settings)

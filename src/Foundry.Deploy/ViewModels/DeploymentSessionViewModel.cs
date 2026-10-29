@@ -965,8 +965,10 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
 
     private void SeedDebugTimeline(DeploymentContext request, string currentStepName, DeploymentStepState currentState)
     {
-        // Assume usable USB cache for this display-only scenario; real deployment resolves storage during preflight.
-        IReadOnlyList<DeploymentPlanEntry> plan = DeploymentPlan.Build(request, usesTargetStorage: request.Mode != DeploymentMode.Usb);
+        // Assume usable USB cache for this display-only scenario; real deployment resolves storage during preflight. A custom
+        // image is shown as a media image, which stays external and is checked before the target is prepared.
+        IReadOnlyList<DeploymentPlanEntry> plan = DeploymentPlan.Build(request,
+            usesTargetStorage: request.OperatingSystem is not CustomImageSelection && request.Mode != DeploymentMode.Usb);
         _timelineTracker.Reset(plan);
         _plannedStepCount = plan.Count;
         _activeStepIndex = TimelineEntries.Single(entry => entry.RawName == currentStepName).StepIndex;

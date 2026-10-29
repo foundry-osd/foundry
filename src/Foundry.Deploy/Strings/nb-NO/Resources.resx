@@ -124,6 +124,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Common.Previous" xml:space="preserve">
     <value>Forrige</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>Prøv igjen</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Utilgjengelig</value>
   </data>
@@ -684,6 +687,45 @@ Vil du fortsette med distribusjonen?</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Verktøy</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>Den delte ressursen for nettverksbufferen avviste denne enheten. I Foundry OSD, på Nettverksbuffer-siden, kontrollerer du kontoen for den delte ressursen og passordet; på serveren kontrollerer du tillatelsene for den delte ressursen.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>{0} kan ikke åpne {1}. I Foundry OSD, på Nettverksbuffer-siden, kontrollerer du passordet for kontoen; på serveren kontrollerer du tillatelsene til kontoen.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>{0} avviste denne enheten. I Foundry OSD, på Nettverksbuffer-siden, angir du en konto for denne delte ressursen; på serveren kontrollerer du tillatelsene for den delte ressursen.</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>Driversett</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>Tilpassede Windows-avbildninger</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>Mangler: {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>Ingen IP-omfang inneholder denne enheten. I Foundry OSD, på Nettverksbuffer-siden, legger du til et omfang for dette nettverket eller et 0.0.0.0/0-omfang med en delt reserveressurs.</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>Ingen IP-omfang inneholder denne enheten ({0}). I Foundry OSD, på Nettverksbuffer-siden, legger du til et omfang for dette nettverket eller et 0.0.0.0/0-omfang med en delt reserveressurs.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>Det publiserte innholdet på den delte ressursen for nettverksbufferen mangler eller er ufullstendig. I Foundry OSD, på Nettverksbuffer-siden, velger du Publiser.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>Det publiserte innholdet på {0} mangler eller er ufullstendig. I Foundry OSD, på Nettverksbuffer-siden, velger du Publiser.</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>Nettverksbufferen er ikke tilgjengelig</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>Den delte ressursen for nettverksbufferen svarer ikke. På serveren kontrollerer du at den delte ressursen er tilkoblet og at port 445 er åpen.</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>{0} svarer ikke. På serveren kontrollerer du at den delte ressursen er tilkoblet og at port 445 er åpen.</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Velg Windows-versjon, språk, utgave og lisenskanal.</value>
   </data>
@@ -1053,6 +1095,9 @@ Vil du fortsette med distribusjonen?</value>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Sjekker bufferdiskkonflikt...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>Sjekker tilpasset avbildning...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>Kontrollerer om distribusjonen er klar...</value>
   </data>
@@ -1092,8 +1137,14 @@ Vil du fortsette med distribusjonen?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Kopierer AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>Kopierer tilpasset avbildning...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>Kopierer driverpakke...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>Kopierer fra nettverksbufferen...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Kopierer interaktive registreringsfiler...</value>
@@ -1124,6 +1175,9 @@ Vil du fortsette med distribusjonen?</value>
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Fullfører distribusjonen...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>Fullfører kopieringen til nettverksbufferen...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Importerer maskinvarehash til Microsoft Graph...</value>
@@ -1271,6 +1325,12 @@ Vil du fortsette med distribusjonen?</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>Trekker ut</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}: {1} ({2} gjenstår)</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}: {1}, {2} til ({3} gjenstår)</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

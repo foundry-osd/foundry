@@ -160,6 +160,29 @@ public sealed class AuthoringArtifactCacheTests : IDisposable
     }
 
     [Fact]
+    public async Task AcquireAsync_UsesTheHashComputedDuringTheDownloadInsteadOfReadingTheFileAgain()
+    {
+        string streamed = Convert.ToHexString(SHA256.HashData(payload));
+        var reports = new List<CachedArtifactVerificationProgress>();
+        await using (var lease = await new AuthoringArtifactCache(root).AcquireAsync(Request, async (path, token) =>
+        {
+            await File.WriteAllBytesAsync(path, payload, token);
+            return streamed;
+        }, TestContext.Current.CancellationToken, new InlineProgress(reports.Add)))
+        {
+            Assert.False(lease.CacheHit);
+        }
+
+        // Only the completion is reported: the file was not read back.
+        Assert.True(Assert.Single(reports).IsComplete);
+        await Assert.ThrowsAsync<InvalidDataException>(() => new AuthoringArtifactCache(Path.Combine(root, "other")).AcquireAsync(Request, async (path, token) =>
+        {
+            await File.WriteAllBytesAsync(path, payload, token);
+            return new string('0', 64);
+        }, TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
     public async Task AcquireAsync_SizeMismatchRejectsBeforeHashing()
     {
         await using (var first = await Acquire()) { }

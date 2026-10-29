@@ -103,6 +103,12 @@ public sealed record DeploymentRuntimeState
     public CacheResolution? ResolvedCache { get; set; }
 
     /// <summary>
+    /// Gets or sets the UNC root of the connected network cache share, set by the cache strategy step when the share
+    /// answers. Content read under it is never on the target disk, so separation checks accept it without disk mapping.
+    /// </summary>
+    public string? NetworkCacheSharePath { get; set; }
+
+    /// <summary>
     /// Gets or sets the detected hardware profile used for package matching.
     /// </summary>
     public HardwareProfile? HardwareProfile { get; set; }

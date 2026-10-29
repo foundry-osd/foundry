@@ -46,6 +46,52 @@ public sealed class FinalizeDeploymentAndWriteLogsStepTests
         Assert.Equal([@"\\fs01\cache"], connector.Disconnected);
     }
 
+    [Fact]
+    public void FormatUpload_NamesTheFileItsProgressTheQueueAndTheTimeLeft()
+    {
+        static string Size(long bytes) => DeploymentStepExecutionContext.FormatByteSize(bytes);
+
+        string known = FinalizeDeploymentAndWriteLogsStep.FormatUpload(
+            new Foundry.Deploy.Services.Cache.NetworkCacheUploadStatus("install.wim", 512L << 20, 1L << 30, 2), TimeSpan.FromSeconds(95.2));
+        string unknown = FinalizeDeploymentAndWriteLogsStep.FormatUpload(
+            new Foundry.Deploy.Services.Cache.NetworkCacheUploadStatus("pack.cab", 1024, 0, 0), TimeSpan.FromSeconds(0.4));
+
+        Assert.Equal($"install.wim: 50% ({Size(512L << 20)} / {Size(1L << 30)}), 2 more (96 seconds remaining)", known);
+        Assert.Equal($"pack.cab: {Size(1024)} (1 second remaining)", unknown);
+    }
+
+    [Fact]
+    public async Task Finalize_AfterTheDrainDeadline_StopsShowingTheUploadCountdown()
+    {
+        // The publisher waits a short grace period past the deadline; the step must not show a countdown stuck at zero.
+        List<string?> labels = [];
+        using var fixture = new Fixture(emit: progress => { lock (labels) labels.Add(progress.StepSubProgressLabel); });
+        var step = new FinalizeDeploymentAndWriteLogsStep(new GracePeriodPublisher(TimeSpan.FromMilliseconds(700)))
+        {
+            DrainLimit = TimeSpan.FromMilliseconds(200)
+        };
+
+        DeploymentStepResult result = await step.ExecuteAsync(fixture.Context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        lock (labels)
+        {
+            Assert.Contains(labels, label => label?.EndsWith("(1 second remaining)", StringComparison.Ordinal) == true);
+            Assert.DoesNotContain(labels, label => label?.Contains("0 seconds remaining", StringComparison.Ordinal) == true);
+        }
+    }
+
+    private sealed class GracePeriodPublisher(TimeSpan drainDuration) : Foundry.Deploy.Services.Cache.INetworkCachePublisher
+    {
+        public Foundry.Deploy.Services.Cache.NetworkCacheUploadStatus? CurrentUpload { get; } = new("install.wim", 512, 1024, 0);
+
+        public void Enqueue(Foundry.Deploy.Services.Cache.NetworkCachePublication publication)
+        {
+        }
+
+        public Task DrainAsync(TimeSpan limit, CancellationToken cancellationToken) => Task.Delay(drainDuration, cancellationToken);
+    }
+
     private sealed class DrainRecordingPublisher : Foundry.Deploy.Services.Cache.INetworkCachePublisher
     {
         public TimeSpan? DrainLimit { get; private set; }
@@ -410,10 +456,11 @@ public sealed class FinalizeDeploymentAndWriteLogsStepTests
         public string Source => Path.Combine(Root, "Foundry");
         public string Evidence => Path.Combine(Context.LogSession.RootPath == Source ? Context.LogSession.LogsDirectoryPath : Path.Combine(Source, "Logs", "Deployment"), "Startup", "evidence.json");
         public DeploymentStepExecutionContext Context { get; }
-        public Fixture(IDeploymentLogService? logService = null, bool initialSessionOutsideTarget = false)
+        public Fixture(IDeploymentLogService? logService = null, bool initialSessionOutsideTarget = false, Action<DeploymentStepProgress>? emit = null)
         {
             string initialSessionRoot = initialSessionOutsideTarget ? Path.Combine(Root, "WinPe") : Source;
-            Context = DeploymentStepExecutionContextTests.CreateExecutionContext(initialSessionRoot, Path.Combine(Source, "Cache"), targetFoundryRoot: Source, logService: logService ?? new DeploymentLogService());
+            Context = DeploymentStepExecutionContextTests.CreateExecutionContext(initialSessionRoot, Path.Combine(Source, "Cache"), targetFoundryRoot: Source,
+                logService: logService ?? new DeploymentLogService(), emitStepProgress: emit);
             Context.RuntimeState.TargetWindowsPartitionRoot = Root;
             Directory.CreateDirectory(Path.GetDirectoryName(Evidence)!);
             File.WriteAllText(Evidence, "startup evidence");

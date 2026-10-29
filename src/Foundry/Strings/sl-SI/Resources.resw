@@ -812,7 +812,7 @@ Licencirano pod licenco MIT.</value>
     <value>Nabori gonilnikov</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
-    <value>Ni na voljo pri zagonu PXE. Gonilniki po meri zahtevajo celoten medij ISO ali USB.</value>
+    <value>Pri zagonu PXE gonilniki po meri potrebujejo omrežni predpomnilnik. Brez njega uporabite medij ISO ali USB.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
     <value>Nabori gonilnikov te konfiguracije niso veljavni. Pred ustvarjanjem ali posodabljanjem medija preverite vključene nabore in privzeti nabor.</value>
@@ -938,7 +938,7 @@ Licencirano pod licenco MIT.</value>
     <value>Opravilo s sliko ni uspelo. Preverite vir, prosti prostor in dnevnike Foundry.</value>
   </data>
   <data name="CustomImages.PxeWarning" xml:space="preserve">
-    <value>Ni na voljo pri zagonu PXE. Prilagojene slike zahtevajo celoten medij ISO ali USB.</value>
+    <value>Pri zagonu PXE slike po meri potrebujejo omrežni predpomnilnik. Brez njega uporabite medij ISO ali USB.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>V to konfiguracijo vključite vsaj eno razpoložljivo sliko sistema Windows. Pred ustvarjanjem ali posodabljanjem medija obnovite manjkajoče vključene slike in popravite ali počistite izbiro prednostne slike ali indeksa.</value>
@@ -2819,7 +2819,7 @@ Licencirano pod licenco MIT.</value>
     <value>Uporabniško ime</value>
   </data>
   <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user ali user@domain</value>
+    <value>DOMAIN\user, SERVER\user ali user@domain</value>
   </data>
   <data name="NetworkCache.AccountsDescription" xml:space="preserve">
     <value>Računi, ki odpirajo skupne mape. Naprave jih uporabljajo za branje skupne mape in objavo prenesenih vsebin.</value>
@@ -2827,8 +2827,32 @@ Licencirano pod licenco MIT.</value>
   <data name="NetworkCache.AccountsHeader" xml:space="preserve">
     <value>Računi</value>
   </data>
+  <data name="NetworkCache.CleanUpShareFailedMessageFormat" xml:space="preserve">
+    <value>Mape {0} ni bilo mogoče počistiti. Preverite, ali je skupna mapa dosegljiva in ali lahko njen račun briše datoteke, nato poskusite znova.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareKeptMessageFormat" xml:space="preserve">
+    <value>Mapa {0} je bila počiščena, vendar so bile nekatere datoteke ohranjene, ker so v uporabi, so se spremenile od objave ali jih ni zapisal Foundry.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareMessageFormat" xml:space="preserve">
+    <value>Želite izbrisati prenose v mapi {0} in uvoženo vsebino, ki je ne uporablja več niti vaša konfiguracija niti noben objavljeni indeks? Naprave znova prenesejo, kar potrebujejo.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareTitle" xml:space="preserve">
+    <value>Počisti skupno mapo</value>
+  </data>
   <data name="NetworkCache.ColumnAccount" xml:space="preserve">
     <value>Račun</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloads" xml:space="preserve">
+    <value>Iz interneta</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloadsToolTip" xml:space="preserve">
+    <value>Windows in paketi gonilnikov, ki so jih naprave prenesle iz interneta. Čiščenje jih izbriše, naprave pa jih po potrebi znova prenesejo.</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContent" xml:space="preserve">
+    <value>Uvožena vsebina</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContentToolTip" xml:space="preserve">
+    <value>Slike po meri, nabori gonilnikov in skripti po namestitvi, ki jih je objavil Foundry OSD. Čiščenje ohrani tiste, ki so še v uporabi.</value>
   </data>
   <data name="NetworkCache.ColumnName" xml:space="preserve">
     <value>Ime</value>
@@ -2860,11 +2884,20 @@ Licencirano pod licenco MIT.</value>
   <data name="NetworkCache.CommandAdd" xml:space="preserve">
     <value>Dodaj</value>
   </data>
+  <data name="NetworkCache.CommandCleanUp" xml:space="preserve">
+    <value>Počisti</value>
+  </data>
   <data name="NetworkCache.CommandEdit" xml:space="preserve">
     <value>Uredi</value>
   </data>
+  <data name="NetworkCache.CommandPublish" xml:space="preserve">
+    <value>Objavi</value>
+  </data>
   <data name="NetworkCache.CommandRemove" xml:space="preserve">
     <value>Odstrani</value>
+  </data>
+  <data name="NetworkCache.ContentMissingShareFormat" xml:space="preserve">
+    <value>Mapa {0} ne vsebuje več vaše objavljene vsebine. Izberite Objavi.</value>
   </data>
   <data name="NetworkCache.DialogAdd" xml:space="preserve">
     <value>Dodaj</value>
@@ -2887,8 +2920,23 @@ Licencirano pod licenco MIT.</value>
   <data name="NetworkCache.NoAccount" xml:space="preserve">
     <value>Brez računa</value>
   </data>
+  <data name="NetworkCache.NotPublishedMessage" xml:space="preserve">
+    <value>Skupne mape nimajo vaših najnovejših sprememb. Izberite Objavi.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedShareFormat" xml:space="preserve">
+    <value>Mapa {0} ni prejela vaših najnovejših sprememb. Izberite Objavi.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedState" xml:space="preserve">
+    <value>Ni objavljeno</value>
+  </data>
+  <data name="NetworkCache.OutdatedState" xml:space="preserve">
+    <value>Zastarelo</value>
+  </data>
   <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
     <value>Skupne mape: {0}, obsegi IP: {1}</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryWithStateFormat" xml:space="preserve">
+    <value>{0} · {1}</value>
   </data>
   <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
     <value>Tega gesla ni mogoče uporabiti.</value>
@@ -2904,6 +2952,15 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="NetworkCache.PasswordSaved" xml:space="preserve">
     <value>Shranjeno</value>
+  </data>
+  <data name="NetworkCache.PublishFailedMessage" xml:space="preserve">
+    <value>Vsebine za objavo ni bilo mogoče pripraviti.</value>
+  </data>
+  <data name="NetworkCache.PublishKeysUnavailableMessage" xml:space="preserve">
+    <value>Ta računalnik ne more podpisati vsebine, ki jo objavlja v skupne mape, ker njegovega ključa za podpisovanje ni bilo mogoče prebrati ali shraniti.</value>
+  </data>
+  <data name="NetworkCache.PublishSucceededMessage" xml:space="preserve">
+    <value>Skupne mape imajo vaše najnovejše spremembe.</value>
   </data>
   <data name="NetworkCache.Ready" xml:space="preserve">
     <value>Pripravljeno</value>
@@ -2945,7 +3002,7 @@ Licencirano pod licenco MIT.</value>
     <value>Skupne mape</value>
   </data>
   <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>Naprave preizkusijo označene skupne mape od zgoraj navzdol, nato pa prenesejo iz interneta.</value>
+    <value>Naprave uporabijo prvo označeno skupno mapo, ki se odzove, od zgoraj navzdol.</value>
   </data>
   <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
     <value>Označite vsaj eno skupno mapo.</value>
@@ -2998,6 +3055,24 @@ Licencirano pod licenco MIT.</value>
   <data name="NetworkCache.SharesHeader" xml:space="preserve">
     <value>Skupne mape</value>
   </data>
+  <data name="NetworkCache.SpaceCleaningUp" xml:space="preserve">
+    <value>Čiščenje…</value>
+  </data>
+  <data name="NetworkCache.SpaceMeasuring" xml:space="preserve">
+    <value>Merjenje…</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreachable" xml:space="preserve">
+    <value>Ni dosegljivo</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreadable" xml:space="preserve">
+    <value>Ni mogoče prebrati</value>
+  </data>
+  <data name="NetworkCache.TrustedKeyUnavailableMessage" xml:space="preserve">
+    <value>Nosilca z vklopljenim omrežnim predpomnilnikom ni mogoče ustvariti, ker ta računalnik nima zaupanja vrednega ključa za vsebino, objavljeno v skupnih mapah. Preverite Skupno rabo konfiguracije na strani Nastavitve.</value>
+  </data>
+  <data name="NetworkCache.UpToDateState" xml:space="preserve">
+    <value>Posodobljeno</value>
+  </data>
   <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
     <value>Ta vrednost ni veljavna za svojo vrsto.</value>
   </data>
@@ -3029,7 +3104,7 @@ Licencirano pod licenco MIT.</value>
     <value>Vnesite uporabniško ime.</value>
   </data>
   <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>Omogoča, da Foundry Deploy uporablja skupne mape SMB kot skupni predpomnilnik, izbran glede na naslov IP naprave. Windows, paketi gonilnikov in uvožena vsebina se berejo iz skupne mape pred internetom, vsebina, ki jo prenesejo naprave, pa se objavi nazaj vanjo.</value>
+    <value>Omogoča, da Foundry Deploy uporablja skupne mape SMB kot skupni predpomnilnik, izbran glede na naslov IP naprave.</value>
   </data>
   <data name="NetworkCachePageHeader.Title" xml:space="preserve">
     <value>Omrežni predpomnilnik</value>
@@ -3218,7 +3293,7 @@ Licencirano pod licenco MIT.</value>
     <value>Argumenti PowerShell</value>
   </data>
   <data name="PostInstallation.PxeWarning" xml:space="preserve">
-    <value>Dejanja, ki uporabljajo uvožene datoteke, niso na voljo pri zagonu PXE. Zahtevajo celoten medij ISO ali USB.</value>
+    <value>Pri zagonu PXE dejanja, ki uporabljajo uvožene datoteke, potrebujejo omrežni predpomnilnik. Brez njega uporabite medij ISO ali USB.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Dejanja ni bilo mogoče odstraniti. Poskusite znova.</value>
@@ -4354,6 +4429,9 @@ Licencirano pod licenco MIT.</value>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
     <value>Odpiranje slike sistema Windows…</value>
   </data>
+  <data name="StartMedia.Operation.NetworkCachePublicationFailedFormat" xml:space="preserve">
+    <value>Te skupne mape omrežnega predpomnilnika niso prejele uvožene vsebine: {0}. Preverite, ali je vsaka dosegljiva in omogoča pisanje, nato na strani Omrežni predpomnilnik izberite Objavi.</value>
+  </data>
   <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
     <value>Odpri mapo</value>
   </data>
@@ -4389,6 +4467,9 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
     <value>Priprava delovnega prostora</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.PublishingToNetworkCache" xml:space="preserve">
+    <value>Objavljanje v omrežni predpomnilnik</value>
   </data>
   <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
     <value>Posodabljanje diska USB</value>
@@ -4428,6 +4509,12 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Dodajanje komponent Foundry na disk USB…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
+    <value>Objavljanje uvožene vsebine v omrežni predpomnilnik…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCacheShareFormat" xml:space="preserve">
+    <value>Objavljanje uvožene vsebine v {0}, skupna mapa {1} od {2}</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
     <value>V ciljni mapi ni dovolj prostega prostora. Zagonske datoteke PXE potrebujejo {0}. Na voljo: {1}. Sprostite prostor ali izberite drugo mapo.</value>
@@ -4476,6 +4563,18 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>Datoteka ISO je ustvarjena</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishCancelled" xml:space="preserve">
+    <value>Objavljanje v omrežni predpomnilnik je preklicano</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishFailed" xml:space="preserve">
+    <value>Objavljanje v omrežni predpomnilnik ni uspelo</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishRunning" xml:space="preserve">
+    <value>Objavljanje v omrežni predpomnilnik</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishSucceeded" xml:space="preserve">
+    <value>Objavljeno v omrežni predpomnilnik</value>
   </data>
   <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
     <value>Ustvarjanje datotek PXE je preklicano</value>

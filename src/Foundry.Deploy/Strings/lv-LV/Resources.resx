@@ -124,6 +124,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Common.Previous" xml:space="preserve">
     <value>Atpakaļ</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>Mēģināt vēlreiz</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nav pieejams</value>
   </data>
@@ -684,6 +687,45 @@ Vai turpināt izvietošanu?</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Rīki</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>Tīkla kešatmiņas koplietojums noraidīja šo ierīci. Programmas Foundry OSD lapā Tīkla kešatmiņa pārbaudiet koplietojuma kontu un tā paroli; serverī pārbaudiet koplietojuma atļaujas.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>Konts {0} nevar atvērt koplietojumu {1}. Programmas Foundry OSD lapā Tīkla kešatmiņa pārbaudiet konta paroli; serverī pārbaudiet tā atļaujas.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>Koplietojums {0} noraidīja šo ierīci. Programmas Foundry OSD lapā Tīkla kešatmiņa iestatiet šim koplietojumam kontu; serverī pārbaudiet koplietojuma atļaujas.</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>Draiveru kopas</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>Pielāgoti Windows attēli</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>Trūkst: {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>Neviens IP tvērums neietver šo ierīci. Programmas Foundry OSD lapā Tīkla kešatmiņa pievienojiet tvērumu šim tīklam vai 0.0.0.0/0 tvērumu ar rezerves koplietojumu.</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>Neviens IP tvērums neietver šo ierīci ({0}). Programmas Foundry OSD lapā Tīkla kešatmiņa pievienojiet tvērumu šim tīklam vai 0.0.0.0/0 tvērumu ar rezerves koplietojumu.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>Tīkla kešatmiņas koplietojumā publicētais saturs trūkst vai ir nepilnīgs. Programmas Foundry OSD lapā Tīkla kešatmiņa atlasiet Publicēt.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>Koplietojumā {0} publicētais saturs trūkst vai ir nepilnīgs. Programmas Foundry OSD lapā Tīkla kešatmiņa atlasiet Publicēt.</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>Tīkla kešatmiņa nav pieejama</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>Tīkla kešatmiņas koplietojums neatbild. Serverī pārbaudiet, vai koplietojums ir tiešsaistē un vai ports 445 ir atvērts.</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>Koplietojums {0} neatbild. Serverī pārbaudiet, vai koplietojums ir tiešsaistē un vai ports 445 ir atvērts.</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Izvēlieties Windows laidienu, valodu, izdevumu un licences kanālu.</value>
   </data>
@@ -1053,6 +1095,9 @@ Vai turpināt izvietošanu?</value>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Notiek kešatmiņas diska konflikta pārbaude...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>Notiek pielāgotā attēla pārbaude...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>Tiek pārbaudīta gatavība izvietošanai...</value>
   </data>
@@ -1092,8 +1137,14 @@ Vai turpināt izvietošanu?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Notiek AutopilotConfigurationFile.json kopēšana...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>Kopē pielāgoto attēlu...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>Kopē draiveru pakotni...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>Kopē no tīkla kešatmiņas...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Tiek kopēti interaktīvās reģistrācijas faili...</value>
@@ -1124,6 +1175,9 @@ Vai turpināt izvietošanu?</value>
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Notiek izvietošanas pabeigšana...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>Notiek kopēšanas uz tīkla kešatmiņu pabeigšana...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Notiek aparatūras jaucējkoda importēšana pakalpojumā Microsoft Graph...</value>
@@ -1271,6 +1325,12 @@ Vai turpināt izvietošanu?</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>Izvilkšana</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}: {1} (atlikušas {2})</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}: {1}, vēl {2} (atlikušas {3})</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

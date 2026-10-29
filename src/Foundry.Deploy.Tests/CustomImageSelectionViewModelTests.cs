@@ -5,6 +5,7 @@
 using System.Runtime.InteropServices;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
+using Foundry.Core.Services.Images;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.Images;
 using Foundry.Deploy.ViewModels;
@@ -58,6 +59,17 @@ public sealed class CustomImageSelectionViewModelTests
         Assert.NotNull(model.Selection);
     }
     [Fact]
+    public void ApplyCatalog_WithoutConfiguredDefaultSelectsTheFirstImage()
+    {
+        using var model = new CustomImageSelectionViewModel();
+        model.Configure(new DeployCustomImagesSettings { IsEnabled = true, DefaultSource = CustomImageSource.Catalog });
+        var first = new CustomImageAsset { Id = "first", DisplayName = "First", ImagePath = @"D:\first.wim", VolumeRoot = @"D:\" };
+        model.ApplyCatalog([first, new CustomImageAsset { Id = "second", DisplayName = "Second", ImagePath = @"D:\second.wim", VolumeRoot = @"D:\" }]);
+        Assert.Same(first, model.SelectedAsset);
+        Assert.Equal(string.Empty, model.ErrorKey);
+    }
+
+    [Fact]
     public void ApplyCatalog_MissingConfiguredDefaultDoesNotChooseAnotherImage()
     {
         using var model = new CustomImageSelectionViewModel();
@@ -69,12 +81,12 @@ public sealed class CustomImageSelectionViewModelTests
     }
 
     [Fact]
-    public void ApplyIndexes_DuplicateEditionsRequireExactIndexAndPreserveNonCatalogMetadata()
+    public void ApplyIndexes_WithoutDefaultOffersTheFirstIndexAndKeepsTheExactChoice()
     {
         using var model = new CustomImageSelectionViewModel(deviceArchitecture: Architecture.X64);
         model.Configure(new DeployCustomImagesSettings { IsEnabled = true, DefaultSource = CustomImageSource.Custom });
         model.ApplyIndexes([new() { Index = 2, Name = "A", EditionId = "EnterpriseS", Architecture = "x64" }, new() { Index = 7, Name = "B", EditionId = "EnterpriseS", Architecture = "x64" }]);
-        Assert.Null(model.SelectedIndex);
+        Assert.Equal(2, model.SelectedIndex?.Index);
         Assert.Equal(2, model.Indexes.Count);
         model.SelectedIndex = model.Indexes[1];
         Assert.Equal(7, model.SelectedIndex.Index);
@@ -123,6 +135,46 @@ public sealed class CustomImageSelectionViewModelTests
 
         Assert.Null(model.Selection);
         Assert.Equal("Preflight.ArchitectureMismatch", model.ErrorKey);
+    }
+
+    [Fact]
+    public void SelectingAManagedImage_ShowsTheIndexesRecordedInItsManifestWithoutReadingTheFile()
+    {
+        var reader = new ThrowingReader();
+        using var model = new CustomImageSelectionViewModel(reader: reader, deviceArchitecture: Architecture.X64);
+        model.Configure(new DeployCustomImagesSettings { IsEnabled = true, DefaultSource = CustomImageSource.Custom });
+        var asset = new CustomImageAsset
+        {
+            Id = "managed",
+            DisplayName = "Image",
+            ExpectedHash = new string('a', 64),
+            ExpectedLength = 10,
+            ImagePath = @"\\server\share\Foundry\Cache\OperatingSystems\Custom\missing\image.wim",
+            VolumeRoot = @"\\server\share\Foundry",
+            RecordedIndexes = [new() { Index = 3, Name = "Enterprise", EditionId = "Enterprise", Architecture = "x64", ExpandedSizeBytes = 100 }]
+        };
+
+        model.ApplyCatalog([asset]);
+        // The catalog preselects the image; selecting it again as a technician would runs the inspection.
+        model.SelectedAsset = null;
+        model.SelectedAsset = asset;
+
+        Assert.Equal(0, reader.ReadCount);
+        Assert.False(model.IsBusy);
+        Assert.Equal(string.Empty, model.ErrorKey);
+        Assert.Equal(3, Assert.Single(model.Indexes).Index);
+        Assert.Equal(3, model.Selection?.Index.Index);
+    }
+
+    private sealed class ThrowingReader : ICustomImageMetadataReader
+    {
+        public int ReadCount { get; private set; }
+
+        public Task<IReadOnlyList<CustomImageIndex>> ReadAsync(string path, CancellationToken cancellationToken = default)
+        {
+            ReadCount++;
+            throw new IOException("The image must not be read.");
+        }
     }
 
     private sealed class EmptyVolumes : IVolumeDiscovery

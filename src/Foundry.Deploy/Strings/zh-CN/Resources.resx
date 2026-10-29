@@ -124,6 +124,9 @@
   <data name="Common.Previous" xml:space="preserve">
     <value>上一步</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>重试</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>不可用</value>
   </data>
@@ -684,6 +687,45 @@
   <data name="Menu.Tools" xml:space="preserve">
     <value>_工具</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>网络缓存共享拒绝了此设备。请在 Foundry OSD 的“网络缓存”页上检查该共享的帐户及其密码，并在服务器上检查该共享的权限。</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>{0} 无法打开 {1}。请在 Foundry OSD 的“网络缓存”页上检查该帐户的密码，并在服务器上检查其权限。</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>{0} 拒绝了此设备。请在 Foundry OSD 的“网络缓存”页上为此共享设置帐户，并在服务器上检查该共享的权限。</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>驱动程序集</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>自定义 Windows 映像</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>缺少：{0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>没有包含此设备的 IP 作用域。请在 Foundry OSD 的“网络缓存”页上为此网络添加作用域，或添加使用备用共享的 0.0.0.0/0 作用域。</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>没有包含此设备 ({0}) 的 IP 作用域。请在 Foundry OSD 的“网络缓存”页上为此网络添加作用域，或添加使用备用共享的 0.0.0.0/0 作用域。</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>网络缓存共享上已发布的内容缺失或不完整。请在 Foundry OSD 的“网络缓存”页上选择“发布”。</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>{0} 上已发布的内容缺失或不完整。请在 Foundry OSD 的“网络缓存”页上选择“发布”。</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>网络缓存不可用</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>网络缓存共享没有响应。请在服务器上检查该共享是否联机以及端口 445 是否打开。</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>{0} 没有响应。请在服务器上检查该共享是否联机以及端口 445 是否打开。</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>选择 Windows 版本、语言、版本类别和许可证通道。</value>
   </data>
@@ -1053,6 +1095,9 @@
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>检查缓存磁盘冲突...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>正在检查自定义映像...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>正在检查部署准备情况...</value>
   </data>
@@ -1092,8 +1137,14 @@
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>正在复制 AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>正在复制自定义映像...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>正在复制驱动程序包...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>正在从网络缓存复制...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>正在复制交互式注册文件...</value>
@@ -1124,6 +1175,9 @@
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>正在完成部署...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>正在完成到网络缓存的复制...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>正在将硬件哈希导入Microsoft Graph...</value>
@@ -1271,6 +1325,12 @@
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>提取</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}：{1}（剩余 {2}）</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}：{1}，另有 {2} 个（剩余 {3}）</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}：{1}%</value>

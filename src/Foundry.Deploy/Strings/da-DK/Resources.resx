@@ -124,6 +124,9 @@ Licenseret under MIT-licensen.</value>
   <data name="Common.Previous" xml:space="preserve">
     <value>Forrige</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>Prøv igen</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Ikke tilgængelig</value>
   </data>
@@ -684,6 +687,45 @@ Vil du fortsætte med implementeringen?</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Værktøjer</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>Den delte mappe til netværkscachen afviste denne enhed. I Foundry OSD skal du på siden Netværkscache kontrollere den delte mappes konto og dens adgangskode; på serveren skal du kontrollere den delte mappes tilladelser.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>{0} kan ikke åbne {1}. I Foundry OSD skal du på siden Netværkscache kontrollere kontoens adgangskode; på serveren skal du kontrollere dens tilladelser.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>{0} afviste denne enhed. I Foundry OSD skal du på siden Netværkscache angive en konto for denne delte mappe; på serveren skal du kontrollere den delte mappes tilladelser.</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>Driversæt</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>Brugerdefinerede Windows-afbildninger</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>Mangler: {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>Intet IP-område indeholder denne enhed. I Foundry OSD skal du på siden Netværkscache tilføje et område for dette netværk eller et 0.0.0.0/0-område med en delt reservemappe.</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>Intet IP-område indeholder denne enhed ({0}). I Foundry OSD skal du på siden Netværkscache tilføje et område for dette netværk eller et 0.0.0.0/0-område med en delt reservemappe.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>Det publicerede indhold i netværkscachens delte mappe mangler eller er ufuldstændigt. I Foundry OSD skal du på siden Netværkscache vælge Publicer.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>Det publicerede indhold i {0} mangler eller er ufuldstændigt. I Foundry OSD skal du på siden Netværkscache vælge Publicer.</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>Netværkscachen er ikke tilgængelig</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>Netværkscachens delte mappe svarer ikke. Kontrollér på serveren, at den delte mappe er online, og at port 445 er åben.</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>{0} svarer ikke. Kontrollér på serveren, at den delte mappe er online, og at port 445 er åben.</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Vælg Windows-version, sprog, udgave og licenskanal.</value>
   </data>
@@ -1053,6 +1095,9 @@ Vil du fortsætte med implementeringen?</value>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Kontrollerer cachediskkonflikt...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>Undersøger brugerdefineret afbildning...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>Kontrollerer, om udrulningen er klar...</value>
   </data>
@@ -1092,8 +1137,14 @@ Vil du fortsætte med implementeringen?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Kopierer AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>Kopierer brugerdefineret afbildning...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>Kopierer driverpakke...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>Kopierer fra netværkscachen...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Kopierer interaktive registreringsfiler...</value>
@@ -1124,6 +1175,9 @@ Vil du fortsætte med implementeringen?</value>
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Afslutter implementering...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>Afslutter kopieringen til netværkscachen...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Importerer hardware-hash til Microsoft Graph...</value>
@@ -1271,6 +1325,12 @@ Vil du fortsætte med implementeringen?</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>Udpakker</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}: {1} ({2} tilbage)</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}: {1}, {2} til ({3} tilbage)</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

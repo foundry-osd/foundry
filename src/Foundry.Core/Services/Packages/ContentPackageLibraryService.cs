@@ -433,8 +433,8 @@ public sealed class ContentPackageLibraryService
     private sealed record SourceInventory(IReadOnlyList<string> Directories, IReadOnlyList<string> Files);
 
     /// <summary>
-    /// Turns the copy, source re-hash and copy verification chunks into one completion. Reports are throttled to a whole-percent change or
-    /// <see cref="ReportIntervalMilliseconds"/>, whichever comes first, and are clamped so a source that grows after the
+    /// Turns the copy, source re-hash and copy verification chunks into one completion. Reports are throttled to one every
+    /// <see cref="ReportIntervalMilliseconds"/>, like every other transfer, and are clamped so a source that grows after the
     /// inventory cannot report more than the totals.
     /// </summary>
     private sealed class ImportProgressReporter(IProgress<ContentPackageImportProgress>? progress, long totalBytes, int totalFiles)
@@ -443,7 +443,6 @@ public sealed class ContentPackageLibraryService
         private const long ReportIntervalMilliseconds = 100;
         private long processedBytes;
         private int completedFiles;
-        private long lastPercent = -1;
         private long lastReportTime;
 
         /// <summary>Counts bytes of any pass; each file is read three times: to copy it, to re-hash the source and to verify the copy.</summary>
@@ -467,10 +466,8 @@ public sealed class ContentPackageLibraryService
             if (progress is null) return;
             long completedBytes = Math.Min(processedBytes / PassCount, totalBytes);
             int files = Math.Min(completedFiles, totalFiles);
-            long percent = totalBytes > 0 ? completedBytes * 100 / totalBytes : files * 100L / totalFiles;
             long now = Environment.TickCount64;
-            if (percent == lastPercent && now - lastReportTime < ReportIntervalMilliseconds) return;
-            lastPercent = percent;
+            if (lastReportTime != 0 && now - lastReportTime < ReportIntervalMilliseconds) return;
             lastReportTime = now;
             progress.Report(new(completedBytes, totalBytes, files, totalFiles));
         }

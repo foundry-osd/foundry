@@ -27,5 +27,10 @@ public enum OperationKind
     /// <summary>
     /// Boot media creation is running.
     /// </summary>
-    MediaCreation
+    MediaCreation,
+
+    /// <summary>
+    /// Publication of the imported content and index to the network cache shares is running.
+    /// </summary>
+    NetworkCachePublication
 }

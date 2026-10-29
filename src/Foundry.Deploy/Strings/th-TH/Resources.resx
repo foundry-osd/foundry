@@ -124,6 +124,9 @@
   <data name="Common.Previous" xml:space="preserve">
     <value>ก่อนหน้า</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>ลองอีกครั้ง</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>ไม่พร้อมใช้งาน</value>
   </data>
@@ -684,6 +687,45 @@
   <data name="Menu.Tools" xml:space="preserve">
     <value>_เครื่องมือ</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>โฟลเดอร์ที่แชร์ของแคชเครือข่ายปฏิเสธอุปกรณ์นี้ ใน Foundry OSD ที่หน้า “แคชเครือข่าย” ให้ตรวจสอบบัญชีของโฟลเดอร์ที่แชร์และรหัสผ่าน และบนเซิร์ฟเวอร์ ให้ตรวจสอบสิทธิ์ของโฟลเดอร์ที่แชร์</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>{0} ไม่สามารถเปิด {1} ได้ ใน Foundry OSD ที่หน้า “แคชเครือข่าย” ให้ตรวจสอบรหัสผ่านของบัญชี และบนเซิร์ฟเวอร์ ให้ตรวจสอบสิทธิ์ของบัญชีนั้น</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>{0} ปฏิเสธอุปกรณ์นี้ ใน Foundry OSD ที่หน้า “แคชเครือข่าย” ให้ตั้งค่าบัญชีสำหรับโฟลเดอร์ที่แชร์นี้ และบนเซิร์ฟเวอร์ ให้ตรวจสอบสิทธิ์ของโฟลเดอร์ที่แชร์</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>ชุดไดรเวอร์</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>อิมเมจ Windows แบบกำหนดเอง</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>ที่ขาดหายไป: {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>ไม่มีขอบเขต IP ใดที่ครอบคลุมอุปกรณ์นี้ ใน Foundry OSD ที่หน้า “แคชเครือข่าย” ให้เพิ่มขอบเขตสำหรับเครือข่ายนี้ หรือขอบเขต 0.0.0.0/0 ที่ใช้โฟลเดอร์ที่แชร์สำรอง</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>ไม่มีขอบเขต IP ใดที่ครอบคลุมอุปกรณ์นี้ ({0}) ใน Foundry OSD ที่หน้า “แคชเครือข่าย” ให้เพิ่มขอบเขตสำหรับเครือข่ายนี้ หรือขอบเขต 0.0.0.0/0 ที่ใช้โฟลเดอร์ที่แชร์สำรอง</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>เนื้อหาที่เผยแพร่บนโฟลเดอร์ที่แชร์ของแคชเครือข่ายขาดหายไปหรือไม่สมบูรณ์ ใน Foundry OSD ที่หน้า “แคชเครือข่าย” ให้เลือก “เผยแพร่”</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>เนื้อหาที่เผยแพร่บน {0} ขาดหายไปหรือไม่สมบูรณ์ ใน Foundry OSD ที่หน้า “แคชเครือข่าย” ให้เลือก “เผยแพร่”</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>แคชเครือข่ายไม่พร้อมใช้งาน</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>โฟลเดอร์ที่แชร์ของแคชเครือข่ายไม่ตอบสนอง บนเซิร์ฟเวอร์ ให้ตรวจสอบว่าโฟลเดอร์ที่แชร์ออนไลน์อยู่และพอร์ต 445 เปิดอยู่</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>{0} ไม่ตอบสนอง บนเซิร์ฟเวอร์ ให้ตรวจสอบว่าโฟลเดอร์ที่แชร์ออนไลน์อยู่และพอร์ต 445 เปิดอยู่</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>เลือกรุ่นภาษา เอดิชัน และช่องทางสิทธิการใช้งานของ Windows</value>
   </data>
@@ -1053,6 +1095,9 @@
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>กำลังตรวจสอบข้อขัดแย้งของดิสก์แคช...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>กำลังตรวจดูอิมเมจแบบกำหนดเอง...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>กำลังตรวจสอบความพร้อมในการปรับใช้...</value>
   </data>
@@ -1092,8 +1137,14 @@
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>กำลังคัดลอก AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>กำลังคัดลอกอิมเมจแบบกำหนดเอง...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>กำลังคัดลอกแพ็กเกจไดรเวอร์...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>กำลังคัดลอกจากแคชเครือข่าย...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>กำลังคัดลอกไฟล์การลงทะเบียนแบบโต้ตอบ...</value>
@@ -1124,6 +1175,9 @@
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>กำลังสิ้นสุดการทำให้ใช้งานได้...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>กำลังทำการคัดลอกไปยังแคชเครือข่ายให้เสร็จสิ้น...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>กำลังนำเข้าแฮชฮาร์ดแวร์ไปที่ Microsoft Graph...</value>
@@ -1271,6 +1325,12 @@
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>กำลังแยกไฟล์</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}: {1} (เหลือ {2})</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}: {1}, อีก {2} รายการ (เหลือ {3})</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

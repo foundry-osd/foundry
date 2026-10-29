@@ -5,6 +5,7 @@
 using System.Collections.ObjectModel;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Application;
+using Foundry.Core.Services.Media;
 using Foundry.Core.Services.Images;
 using Foundry.Services.Application;
 using Foundry.Services.Configuration;
@@ -86,7 +87,8 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
     public string DocumentationUrl => FoundryApplicationInfo.DocumentationUrl + "/foundry-osd/customization/custom-windows-images";
     public string PageTitle => localization.GetString("Nav_CustomImagesKey.Title");
     public string PageDescription => localization.GetString("Nav_CustomImagesKey.Description");
-    public string PxeWarning => localization.GetString("CustomImages.PxeWarning");
+    /// <summary>Gets the PXE warning, empty when the network cache serves imported content to PXE starts.</summary>
+    public string PxeWarning => PxeMissingContent.IsServedByNetworkCache(state.Current) ? string.Empty : localization.GetString("CustomImages.PxeWarning");
     public string EnableLabel => Text("EnableLabel");
     public string ImportLabel => Text("ImportLabel");
     public string RefreshLabel => Text("RefreshLabel");
@@ -367,6 +369,7 @@ public sealed partial class CustomImagesViewModel : ObservableObject, IDisposabl
             SelectedImage = Images.FirstOrDefault(image => image.Reference.Id == selectedId);
             SelectedIndex = Indexes.FirstOrDefault(index => index.Index.Index == selectedIndex);
             OnPropertyChanged(nameof(HasReadinessIssue));
+            OnPropertyChanged(nameof(PxeWarning));
             OnPropertyChanged(nameof(IsEmpty));
             OnPropertyChanged(nameof(HasImages));
             OnPropertyChanged(nameof(CanClearDefault));

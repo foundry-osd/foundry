@@ -29,8 +29,15 @@ public interface ISmbConnector
     /// </summary>
     SmbConnectResult Connect(string uncPath, string? userName, ReadOnlySpan<char> password);
 
-    /// <summary>Closes the session opened for <paramref name="uncPath"/>; failures are ignored.</summary>
+    /// <summary>Closes the session opened for <paramref name="uncPath"/>, closing its open files; failures are ignored.</summary>
     void Disconnect(string uncPath);
+
+    /// <summary>
+    /// Closes the session opened for <paramref name="uncPath"/>; failures are ignored. Without <paramref name="force"/>, a
+    /// session that still has open files, such as one the signed-in user opened in File Explorer, is left open. The default
+    /// implementation ignores <paramref name="force"/> and always forces; implementations that can leave a session open override it.
+    /// </summary>
+    void Disconnect(string uncPath, bool force) => Disconnect(uncPath);
 }
 
 /// <summary>Uses <c>WNetAddConnection2W</c> with a null local name, so no drive letter is consumed.</summary>
@@ -73,11 +80,14 @@ public sealed class SmbConnector : ISmbConnector
     }
 
     /// <inheritdoc />
-    public void Disconnect(string uncPath)
+    public void Disconnect(string uncPath) => Disconnect(uncPath, force: true);
+
+    /// <inheritdoc />
+    public void Disconnect(string uncPath, bool force)
     {
         if (!string.IsNullOrWhiteSpace(uncPath))
         {
-            _ = WNetCancelConnection2(uncPath, 0, true);
+            _ = WNetCancelConnection2(uncPath, 0, force);
         }
     }
 

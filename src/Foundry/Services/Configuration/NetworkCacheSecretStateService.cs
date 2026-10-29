@@ -7,6 +7,7 @@ using Foundry.Core.Services.NetworkCache;
 
 namespace Foundry.Services.Configuration;
 
+/// <summary>Holds the network cache account passwords of the session in memory; disposal, at application shutdown, erases them.</summary>
 internal sealed class NetworkCacheSecretStateService : INetworkCacheSecretStateService, IDisposable
 {
     private readonly NetworkCacheSecretState state = new();

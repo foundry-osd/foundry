@@ -51,6 +51,9 @@ public enum MediaCreationPhase
     /// <summary>Network boot file copy to the output folder.</summary>
     CreatingPxeFiles,
 
+    /// <summary>Imported content and index copy to the network cache shares, after the output is written.</summary>
+    PublishingToNetworkCache,
+
     /// <summary>Workspace cleanup after the output is written.</summary>
     Finishing
 }
@@ -76,6 +79,8 @@ public sealed class MediaCreationProgressPlan
     /// </summary>
     public const int UsbFormattingCompletePercent = 55;
 
+    private const int NetworkCachePublicationWeight = 15;
+
     private readonly MediaCreationKind kind;
     private readonly (MediaCreationPhase Phase, int Weight)[] phases;
 
@@ -95,8 +100,12 @@ public sealed class MediaCreationProgressPlan
     /// Creates the plan for a media output. Weights approximate the relative duration of each phase.
     /// </summary>
     /// <param name="kind">Media output being created.</param>
+    /// <param name="publishesToNetworkCache">
+    /// Whether the build publishes its imported content to the network cache, which adds a step before Finishing; its weight
+    /// comes from boot image customization so the total stays 100.
+    /// </param>
     /// <returns>A new plan positioned at the start of its first phase.</returns>
-    public static MediaCreationProgressPlan For(MediaCreationKind kind)
+    public static MediaCreationProgressPlan For(MediaCreationKind kind, bool publishesToNetworkCache = false)
     {
         (MediaCreationPhase, int)[] phases = kind switch
         {
@@ -136,8 +145,24 @@ public sealed class MediaCreationProgressPlan
             _ => throw new ArgumentOutOfRangeException(nameof(kind), kind, "Unsupported media creation kind.")
         };
 
+        if (publishesToNetworkCache)
+        {
+            var withPublication = new List<(MediaCreationPhase, int)>(phases.Length + 1);
+            foreach ((MediaCreationPhase phase, int weight) in phases)
+            {
+                if (phase == MediaCreationPhase.Finishing) withPublication.Add((MediaCreationPhase.PublishingToNetworkCache, NetworkCachePublicationWeight));
+                withPublication.Add((phase, phase == MediaCreationPhase.CustomizingBootImage ? weight - NetworkCachePublicationWeight : weight));
+            }
+
+            phases = [.. withPublication];
+        }
+
         return new MediaCreationProgressPlan(kind, phases);
     }
+
+    /// <summary>Gets whether the plan has <paramref name="phase"/>, so a caller can report a phase only some builds have.</summary>
+    /// <param name="phase">The phase to look for.</param>
+    public bool Includes(MediaCreationPhase phase) => Array.Exists(phases, entry => entry.Phase == phase);
 
     /// <summary>
     /// Reports progress inside a phase. An earlier phase or a lower value keeps the current progress.

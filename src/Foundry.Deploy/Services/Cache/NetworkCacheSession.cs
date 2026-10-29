@@ -26,15 +26,22 @@ public sealed class NetworkCacheSession : IDisposable
     private bool unresponsive;
     private int downloadsReused;
 
-    private NetworkCacheSession(NetworkCacheOutcome outcome, string? sharePath, bool canWrite, ISmbConnector? connector)
+    private NetworkCacheSession(NetworkCacheOutcome outcome, string? sharePath, bool canWrite, ISmbConnector? connector, NetworkCacheStartupFailure? failure = null)
     {
         Outcome = outcome;
         SharePath = sharePath;
         CanWrite = canWrite;
         this.connector = connector;
+        Failure = failure;
     }
 
     public NetworkCacheOutcome Outcome { get; }
+
+    /// <summary>
+    /// Gets why no share is used when the cache is enabled but unusable (no scope, or the last candidate share failed);
+    /// <see langword="null"/> when the cache is disabled or connected.
+    /// </summary>
+    public NetworkCacheStartupFailure? Failure { get; }
 
     /// <summary>Gets the connected UNC share, or <see langword="null"/> when no share is used.</summary>
     public string? SharePath { get; }
@@ -57,7 +64,8 @@ public sealed class NetworkCacheSession : IDisposable
     /// <summary>Counts one download served by the share.</summary>
     public void RecordReuse() => Interlocked.Increment(ref downloadsReused);
 
-    public static NetworkCacheSession Unavailable(NetworkCacheOutcome outcome) => new(outcome, null, false, null);
+    public static NetworkCacheSession Unavailable(NetworkCacheOutcome outcome, NetworkCacheStartupFailure? failure = null) =>
+        new(outcome, null, false, null, failure);
 
     internal static NetworkCacheSession Connected(string sharePath, bool canWrite, ISmbConnector connector) =>
         new(NetworkCacheOutcome.Connected, sharePath, canWrite, connector);

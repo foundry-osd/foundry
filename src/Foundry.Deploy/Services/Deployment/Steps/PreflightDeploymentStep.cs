@@ -150,18 +150,25 @@ public sealed class PreflightDeploymentStep(
         CustomImageAsset asset = custom.Asset;
         if (!await context.IsCustomSourceSeparateAsync(asset, asset.ImagePath, cancellationToken).ConfigureAwait(false))
             throw Guard("CustomImages.UnsafeSource", "custom_source_identity_unknown");
+        long? expectedLength = asset.ObservedLength ?? asset.ExpectedLength;
+        string? expectedHash = asset.ObservedHash ?? asset.ExpectedHash;
+        bool copiedFromShare = CopiesCustomImageFromShare(context, asset);
         var prepared = new DeploymentPreflightState
         {
             CacheRoot = context.RuntimeState.ResolvedCache?.RootPath ?? throw Guard("Preflight.NotReady", "preflight_not_ready"),
-            UsesTargetStorage = false,
+            UsesTargetStorage = copiedFromShare,
             ImagePath = asset.ImagePath,
-            ExternalImageDirectory = Path.GetDirectoryName(asset.ImagePath)
+            ExternalImageDirectory = copiedFromShare ? null : Path.GetDirectoryName(asset.ImagePath)
         };
         try
         {
-            context.EmitCurrentStepIndeterminate("Checking Windows image...", "Verifying custom image...", DeploymentOperationNames.InspectOperatingSystemImage);
-            prepared.CustomSourceLease = await Services.Images.CustomImageSourceLease.AcquireAsync(asset.ImagePath,
-                asset.ObservedLength ?? asset.ExpectedLength, asset.ObservedHash ?? asset.ExpectedHash, cancellationToken).ConfigureAwait(false);
+            context.EmitCurrentStepIndeterminate("Checking Windows image...", copiedFromShare ? "Checking custom image..." : "Verifying custom image...",
+                DeploymentOperationNames.InspectOperatingSystemImage);
+            // A share image is not read here: its digest is verified while it is copied to the target after disk preparation.
+            prepared.CustomSourceLease = copiedFromShare
+                ? Services.Images.CustomImageSourceLease.OpenWithoutHashing(asset.ImagePath, expectedLength!.Value)
+                : await Services.Images.CustomImageSourceLease.AcquireAsync(asset.ImagePath,
+                    expectedLength, expectedHash, cancellationToken).ConfigureAwait(false);
             var images = await (customMetadataReader ?? new Foundry.Core.Services.Images.NativeCustomImageMetadataReader())
                 .ReadAsync(asset.ImagePath, cancellationToken).ConfigureAwait(false);
             var matches = images.Where(image => image.Index == custom.Index.Index).ToArray();
@@ -179,13 +186,25 @@ public sealed class PreflightDeploymentStep(
             await PreOobe.DomainJoinRuntimeEligibility.ConfirmEditionAsync(context, selected.EditionId, cancellationToken).ConfigureAwait(false);
             prepared.SourceSizeBytes = prepared.CustomSourceLease.Length;
             prepared.TargetDriverBytes = ResolveTargetDriverBytes(context, null);
-            DeploymentCapacityPolicy.EnsureTargetCapacity(context, prepared.Image, 0, prepared.TargetDriverBytes);
+            DeploymentCapacityPolicy.EnsureTargetCapacity(context, prepared.Image, copiedFromShare ? prepared.SourceSizeBytes : 0, prepared.TargetDriverBytes);
             context.RuntimeState.DownloadedOperatingSystemPath = asset.ImagePath;
             context.Preflight = prepared;
-            return DeploymentStepResult.Succeeded("Custom image verified before target preparation.");
+            return DeploymentStepResult.Succeeded(copiedFromShare
+                ? "Custom image checked before target preparation. Its content is verified while it is copied to the target."
+                : "Custom image verified before target preparation.");
         }
         catch { prepared.Dispose(); throw; }
     }
+
+    /// <summary>
+    /// Returns whether a custom image is read from the network cache share and therefore copied to the target after disk
+    /// preparation, hashed in the same pass, instead of being hashed before the erase and applied from the share. Requires the
+    /// recorded length and digest; other sources keep the full verification before the erase.
+    /// </summary>
+    internal static bool CopiesCustomImageFromShare(DeploymentStepExecutionContext context, CustomImageAsset asset) =>
+        context.IsOnNetworkCacheShare(asset.ImagePath) &&
+        (asset.ObservedLength ?? asset.ExpectedLength) is > 0 &&
+        !string.IsNullOrWhiteSpace(asset.ObservedHash ?? asset.ExpectedHash);
 
     protected override Task<DeploymentStepResult> ExecuteDryRunAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
@@ -194,7 +213,9 @@ public sealed class PreflightDeploymentStep(
         context.Preflight = new DeploymentPreflightState
         {
             CacheRoot = context.RuntimeState.ResolvedCache?.RootPath ?? context.Request.CacheRootPath,
-            UsesTargetStorage = true
+            // Mirrors the live route, with the share the cache strategy step recorded from the startup session, so the simulated
+            // plan keeps a media custom image ahead of target preparation and copies a share image after it.
+            UsesTargetStorage = context.Request.OperatingSystem is not CustomImageSelection custom || CopiesCustomImageFromShare(context, custom.Asset)
         };
         return Task.FromResult(DeploymentStepResult.Succeeded("Deployment readiness checked (simulation)."));
     }

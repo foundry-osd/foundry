@@ -297,6 +297,70 @@ public sealed class StagePreOobeCustomizationStepTests
     }
 
     [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task NetworkCacheSharePackage_IsReadOnceThroughItsPreflightHandleAndVerifiedWhileStaged(bool damaged)
+    {
+        using var temp = new TemporaryDirectory();
+        string source = Path.Combine(temp.RootPath, "hello.ps1");
+        await File.WriteAllTextAsync(source, "Write-Output 'fixture'", TestContext.Current.CancellationToken);
+        var library = new Foundry.Core.Services.Packages.ContentPackageLibraryService(Path.Combine(temp.RootPath, "library"), Foundry.Core.Services.Packages.ContentPackageKind.PostInstallation);
+        var reference = await library.ImportAsync(source, TestContext.Current.CancellationToken);
+        var settings = new Foundry.Core.Models.Configuration.PreOobeSettings
+        {
+            IsEnabled = true,
+            Actions = [new() { Id = Guid.NewGuid().ToString("N"), Name = "Fixture", Kind = Foundry.Core.Models.Configuration.PreOobeActionKind.PowerShell,
+                Package = reference, EntryPoint = "hello.ps1", Process = new() }]
+        };
+        using var runtime = NativeRuntimeFixture.Create(temp.RootPath);
+        using var media = await new Foundry.Core.Services.WinPe.WinPePreOobeMediaService().PrepareAsync(library, settings, TestContext.Current.CancellationToken);
+        string share = Path.Combine(temp.RootPath, "share");
+        string contentRoot = Foundry.Core.Services.NetworkCache.NetworkCacheLayout.ContentRoot(share);
+        Directory.CreateDirectory(contentRoot);
+        await new Foundry.Core.Services.WinPe.WinPeContentPackageMediaService(Foundry.Core.Services.Packages.ContentPackageKind.PostInstallation)
+            .PublishAsync(media, contentRoot, TestContext.Current.CancellationToken);
+        string sharedFile = Directory.GetFiles(contentRoot, "hello.ps1", SearchOption.AllDirectories).Single();
+        byte[] original = File.ReadAllBytes(sharedFile);
+        if (damaged)
+        {
+            byte[] bytes = original.ToArray();
+            bytes[0] ^= 0xFF;
+            File.WriteAllBytes(sharedFile, bytes);
+        }
+        using DeploymentStepExecutionContext context = CreateContext(temp, postInstall: new()
+        { IsEnabled = true, Actions = settings.Actions, ManifestId = media.ManifestId, ManifestHash = media.ManifestHash });
+        context.RuntimeState.NetworkCacheSharePath = share;
+        var resolver = new PreOobeContentResolver { RuntimeExecutablePath = Path.Combine(runtime.RuntimeDirectory, "Foundry.PostInstall.exe"), MediaRoots = () => [] };
+
+        // Preflight checks only presence and length on the share, so a damaged file with the recorded length is not read yet.
+        PreOobePreparedContent prepared = (await resolver.PrepareAsync(context, TestContext.Current.CancellationToken))!;
+        context.PostInstallContent!.Dispose();
+        context.PostInstallContent = prepared;
+        // An exclusive handle in place of the preflight handle proves staging never opens the share file again.
+        int held = prepared.Files.FindIndex(file => string.Equals(Path.GetFullPath(file.Path), Path.GetFullPath(sharedFile), StringComparison.OrdinalIgnoreCase));
+        prepared.Files[held].Stream.Dispose();
+        var counting = new CountingFileStream(sharedFile);
+        prepared.Files[held] = (prepared.Files[held].Path, counting);
+        var step = new StagePreOobeCustomizationStep(new FakeDriverPackStrategyResolver(), new PreOobeTargetStagingService(path => Directory.CreateDirectory(path)));
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(original.Length, counting.BytesRead);
+        string[] staged = Directory.GetFiles(Path.Combine(temp.WindowsRoot, "Windows", "Temp", "Foundry", "Payloads", "PostInstall"), "hello.ps1", SearchOption.AllDirectories);
+        if (damaged)
+        {
+            Assert.Equal(DeploymentStepState.Failed, result.State);
+            Assert.Equal("postinstall_staging_failed", result.Failure?.Code);
+            Assert.Empty(staged);
+        }
+        else
+        {
+            Assert.Equal(DeploymentStepState.Succeeded, result.State);
+            Assert.Equal(original, File.ReadAllBytes(Assert.Single(staged)));
+        }
+    }
+
+    [Theory]
     [InlineData(false, false)]
     [InlineData(true, false)]
     [InlineData(true, true)]
@@ -690,6 +754,41 @@ public sealed class StagePreOobeCustomizationStepTests
         public Task<int?> GetDiskNumberForPathAsync(string path, CancellationToken cancellationToken = default)
         {
             return Task.FromResult<int?>(0);
+        }
+    }
+
+    /// <summary>Holds a file exclusively and counts the bytes read through it.</summary>
+    private sealed class CountingFileStream(string path) : FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.Asynchronous)
+    {
+        private int _depth;
+        public long BytesRead { get; private set; }
+
+        public override int Read(byte[] buffer, int offset, int count)
+        {
+            _depth++;
+            try { return Count(base.Read(buffer, offset, count)); }
+            finally { _depth--; }
+        }
+
+        public override async Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
+        {
+            _depth++;
+            try { return Count(await base.ReadAsync(buffer, offset, count, cancellationToken)); }
+            finally { _depth--; }
+        }
+
+        public override async ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancellationToken = default)
+        {
+            _depth++;
+            try { return Count(await base.ReadAsync(buffer, cancellationToken)); }
+            finally { _depth--; }
+        }
+
+        // A derived FileStream routes one overload through another, so only the outermost call counts.
+        private int Count(int read)
+        {
+            if (_depth == 1) BytesRead += read;
+            return read;
         }
     }
 

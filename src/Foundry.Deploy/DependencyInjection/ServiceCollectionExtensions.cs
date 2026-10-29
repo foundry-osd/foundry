@@ -105,7 +105,11 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDomainCredentialVerifier, DomainCredentialVerifier>();
         services.AddSingleton<IZeroTouchDomainCredentialCheck, ZeroTouchDomainCredentialCheck>();
         services.AddSingleton<IDeploymentExecutionService, DeploymentExecutionService>();
-        services.AddSingleton<CustomDriverSetCatalogService>(sp => new CustomDriverSetCatalogService(sp.GetRequiredService<IVolumeDiscovery>(), sp.GetRequiredService<ILogger<CustomDriverSetCatalogService>>()));
+        services.AddSingleton<CustomDriverSetCatalogService>(sp => new CustomDriverSetCatalogService(sp.GetRequiredService<IVolumeDiscovery>(),
+            sp.GetRequiredService<ILogger<CustomDriverSetCatalogService>>(), sp.GetRequiredService<INetworkCacheSessionAccessor>()));
+        services.AddSingleton<Foundry.Deploy.Services.Images.CustomImageCatalogService>(sp => new Foundry.Deploy.Services.Images.CustomImageCatalogService(
+            sp.GetRequiredService<IVolumeDiscovery>(), sp.GetRequiredService<INetworkCacheSessionAccessor>(),
+            sp.GetRequiredService<ILogger<Foundry.Deploy.Services.Images.CustomImageCatalogService>>()));
         services.AddSingleton<ICustomDriverSetStagingService>(sp => new CustomDriverSetStagingService(sp.GetRequiredService<ILogger<CustomDriverSetStagingService>>()));
         services.AddSingleton<UtilityProcessRunner>();
         services.AddSingleton<IProcessRunner, ProcessRunner>();
@@ -115,6 +119,8 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<INetworkCacheProbe, FileSystemNetworkCacheProbe>();
         services.AddSingleton<INetworkCacheSessionResolver, NetworkCacheSessionResolver>();
         services.AddSingleton<INetworkCacheSessionAccessor, NetworkCacheSessionAccessor>();
+        services.AddSingleton<NetworkCacheStartupCheck>();
+        services.AddSingleton<INetworkCacheStartupDialogService, NetworkCacheStartupDialogService>();
         services.AddSingleton<INetworkCacheReader, NetworkCacheReader>();
         services.AddSingleton<INetworkCachePublisher, NetworkCachePublisher>();
         services.AddSingleton<IDeploymentLogService, DeploymentLogService>();

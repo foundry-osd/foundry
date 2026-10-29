@@ -8,6 +8,7 @@ using System.Text.Json;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Packages;
 using Foundry.Core.Models.PreOobe;
+using Foundry.Core.Services.NetworkCache;
 using Foundry.Core.Services.Packages;
 using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Images;
@@ -21,6 +22,16 @@ public class PreOobeContentResolver
     internal string? RuntimeExecutablePath { get; init; } = Environment.GetEnvironmentVariable(PostInstallRuntimeManifest.ExecutableEnvironmentVariable);
     internal PostInstallRuntimeRecovery RuntimeRecovery { get; init; } = new();
     internal Func<string[]> MediaRoots { get; init; } = () => DriveInfo.GetDrives().Where(drive => drive.IsReady).Select(drive => drive.RootDirectory.FullName).ToArray();
+
+    /// <summary>
+    /// Returns the local media roots, then the network cache content root, which mirrors the media layout. Local media
+    /// comes first so it wins when both hold the referenced generation.
+    /// </summary>
+    private string[] ResolveMediaRoots(DeploymentStepExecutionContext context)
+    {
+        string? share = context.RuntimeState.NetworkCacheSharePath;
+        return string.IsNullOrWhiteSpace(share) ? MediaRoots() : [.. MediaRoots(), NetworkCacheLayout.ContentRoot(share)];
+    }
 
     internal static bool IsRequired(DeploymentContext request, DeploymentRuntimeState? state = null) =>
         HasDomainTasks(request, state) ||
@@ -85,7 +96,7 @@ public class PreOobeContentResolver
                 if (!Guid.TryParseExact(settings.ManifestId, "N", out _) || !ContentPackagePathPolicy.IsValidHash(settings.ManifestHash))
                     throw new InvalidDataException("Post-installation media binding is invalid.");
                 var kind = ContentPackageKind.PostInstallation;
-                var media = await new ContentPackageMediaReader(kind).ReadAsync(MediaRoots(), settings.ManifestId, settings.ManifestHash, cancellationToken).ConfigureAwait(false);
+                var media = await new ContentPackageMediaReader(kind).ReadAsync(ResolveMediaRoots(context), settings.ManifestId, settings.ManifestHash, cancellationToken).ConfigureAwait(false);
                 if (media.Status == ContentPackageMediaStatus.Incompatible) throw new InvalidDataException("Post-installation media generation is incompatible.");
                 if (media.Status != ContentPackageMediaStatus.Found) throw new InvalidDataException("The referenced post-installation media generation is unavailable.");
                 await RequireSeparateSourceAsync(context, media.ManifestPath!, cancellationToken).ConfigureAwait(false);
@@ -111,7 +122,10 @@ public class PreOobeContentResolver
                         ContentPackagePathPolicy.PostInstallation.ValidateRelativePath(file.RelativePath);
                         string filePath = ContentPackagePathPolicy.PostInstallation.Resolve(source, file.RelativePath);
                         await RequireSeparateSourceAsync(context, filePath, cancellationToken).ConfigureAwait(false);
-                        prepared.Files.Add((filePath, await OpenVerifiedAsync(filePath, file.Length, file.Sha256, cancellationToken).ConfigureAwait(false)));
+                        // Share files are only checked for presence and length here; staging hashes them while copying, so the share is read once.
+                        prepared.Files.Add((filePath, context.IsOnNetworkCacheShare(filePath)
+                            ? OpenWithoutHashing(filePath, file.Length, file.Sha256)
+                            : await OpenVerifiedAsync(filePath, file.Length, file.Sha256, cancellationToken).ConfigureAwait(false)));
                     }
                     prepared.Packages.Add(new(package.ContentHash, source, item.Manifest));
                 }
@@ -146,8 +160,11 @@ public class PreOobeContentResolver
             ? Task.CompletedTask
             : RequireSeparateSourceAsync(context, path, cancellationToken);
 
-    private static async Task RequireSeparateSourceAsync(DeploymentStepExecutionContext context, string path, CancellationToken cancellationToken)
+    /// <summary>Accepts the network cache share, optical media, or a known physical disk other than the target.</summary>
+    internal static async Task RequireSeparateSourceAsync(DeploymentStepExecutionContext context, string path, CancellationToken cancellationToken)
     {
+        // Checked first: DriveInfo rejects UNC roots.
+        if (context.IsOnNetworkCacheShare(path)) return;
         string root = Path.GetPathRoot(Path.GetFullPath(path))!;
         var drive = new DriveInfo(root);
         if (drive.IsReady && drive.DriveType == DriveType.CDRom) return;
@@ -168,5 +185,66 @@ public class PreOobeContentResolver
             return stream;
         }
         catch { stream.Dispose(); throw; }
+    }
+
+    /// <summary>
+    /// Opens a network cache share file with the same read-only sharing and redirection checks as <see cref="OpenVerifiedAsync"/>
+    /// and checks only its length; the held handle keeps it from being replaced until staging verifies its digest during the copy.
+    /// </summary>
+    internal static FileStream OpenWithoutHashing(string path, long length, string hash)
+    {
+        if (length < 0 || !ContentPackagePathPolicy.IsValidHash(hash)) throw new InvalidDataException("Invalid package file metadata.");
+        CustomImageSourceLease.EnsureRegularPath(path);
+        var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, 81920, FileOptions.Asynchronous);
+        try
+        {
+            if (stream.Length != length) throw new InvalidDataException("Post-installation content failed integrity verification.");
+            return stream;
+        }
+        catch { stream.Dispose(); throw; }
+    }
+
+    /// <summary>
+    /// Copies a held network cache share file to a new target file through its preflight handle, hashing it in the same pass, so
+    /// the share is read once. A length or digest mismatch deletes the target file and throws <see cref="InvalidDataException"/>.
+    /// </summary>
+    internal static async Task CopyHeldShareFileAsync(PreOobePreparedContent content, string sourcePath, string destination, long length,
+        string hash, CancellationToken cancellationToken, Action<long>? onBytes = null)
+    {
+        FileStream source = content.Files.Where(file => string.Equals(file.Path, sourcePath, StringComparison.OrdinalIgnoreCase))
+            .Select(file => (FileStream?)file.Stream).FirstOrDefault()
+            ?? throw new InvalidDataException("Post-installation source is no longer available.");
+        bool created = false;
+        try
+        {
+            using var digest = IncrementalHash.CreateHash(HashAlgorithmName.SHA256);
+            source.Position = 0;
+            await using (var target = new FileStream(destination, FileMode.CreateNew, FileAccess.Write, FileShare.None))
+            {
+                created = true;
+                byte[] buffer = new byte[81920];
+                long total = 0;
+                int count;
+                while ((count = await source.ReadAsync(buffer, cancellationToken).ConfigureAwait(false)) != 0)
+                {
+                    total = checked(total + count);
+                    if (total > length) throw new InvalidDataException("Content exceeds its declared size.");
+                    digest.AppendData(buffer, 0, count);
+                    await target.WriteAsync(buffer.AsMemory(0, count), cancellationToken).ConfigureAwait(false);
+                    onBytes?.Invoke(total);
+                }
+                if (total != length) throw new InvalidDataException("Content is incomplete.");
+            }
+            if (!Convert.ToHexString(digest.GetHashAndReset()).Equals(hash, StringComparison.OrdinalIgnoreCase))
+                throw new InvalidDataException("Post-installation content failed integrity verification.");
+        }
+        catch (Exception exception) when (created)
+        {
+            if (exception is InvalidDataException)
+                Serilog.Log.ForContext<PreOobeContentResolver>().Warning("Post-installation file from the network cache share failed verification during staging. SourcePath={SourcePath}", sourcePath);
+            try { File.Delete(destination); }
+            catch (Exception deleteFailure) when (deleteFailure is IOException or UnauthorizedAccessException) { }
+            throw;
+        }
     }
 }

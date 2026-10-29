@@ -124,6 +124,9 @@ Licenciran prema MIT licenci.</value>
   <data name="Common.Previous" xml:space="preserve">
     <value>Natrag</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>Pokušaj ponovno</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nedostupan</value>
   </data>
@@ -684,6 +687,45 @@ Nastaviti s implementacijom?</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Alati</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>Zajednički resurs mrežne predmemorije odbio je ovaj uređaj. U aplikaciji Foundry OSD na stranici Mrežna predmemorija provjerite račun zajedničkog resursa i njegovu lozinku; na poslužitelju provjerite dozvole zajedničkog resursa.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>Račun {0} ne može otvoriti {1}. U aplikaciji Foundry OSD na stranici Mrežna predmemorija provjerite lozinku računa; na poslužitelju provjerite njegove dozvole.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>Zajednički resurs {0} odbio je ovaj uređaj. U aplikaciji Foundry OSD na stranici Mrežna predmemorija postavite račun za ovaj zajednički resurs; na poslužitelju provjerite dozvole zajedničkog resursa.</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>Skupovi upravljačkih programa</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>Prilagođene slike sustava Windows</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>Nedostaje: {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>Nijedan IP opseg ne sadrži ovaj uređaj. U aplikaciji Foundry OSD na stranici Mrežna predmemorija dodajte opseg za ovu mrežu ili opseg 0.0.0.0/0 s rezervnim zajedničkim resursom.</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>Nijedan IP opseg ne sadrži ovaj uređaj ({0}). U aplikaciji Foundry OSD na stranici Mrežna predmemorija dodajte opseg za ovu mrežu ili opseg 0.0.0.0/0 s rezervnim zajedničkim resursom.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>Objavljeni sadržaj na zajedničkom resursu mrežne predmemorije nedostaje ili je nepotpun. U aplikaciji Foundry OSD na stranici Mrežna predmemorija odaberite Objavi.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>Objavljeni sadržaj na {0} nedostaje ili je nepotpun. U aplikaciji Foundry OSD na stranici Mrežna predmemorija odaberite Objavi.</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>Mrežna predmemorija nije dostupna</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>Zajednički resurs mrežne predmemorije ne odgovara. Na poslužitelju provjerite je li zajednički resurs dostupan i je li priključak 445 otvoren.</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>{0} ne odgovara. Na poslužitelju provjerite je li zajednički resurs dostupan i je li priključak 445 otvoren.</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Odaberite izdanje sustava Windows, jezik, ediciju i licencni kanal.</value>
   </data>
@@ -1053,6 +1095,9 @@ Nastaviti s implementacijom?</value>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Provjera sukoba predmemorije diska...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>Pregled prilagođene slike...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>Provjera spremnosti za implementaciju...</value>
   </data>
@@ -1092,8 +1137,14 @@ Nastaviti s implementacijom?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Kopiranje AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>Kopiranje prilagođene slike...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>Kopiranje paketa upravljačkih programa...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>Kopiranje iz mrežne predmemorije...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Kopiraju se datoteke interaktivne registracije...</value>
@@ -1124,6 +1175,9 @@ Nastaviti s implementacijom?</value>
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Završetak implementacije...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>Dovršavanje kopiranja u mrežnu predmemoriju...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Uvoz hash hardvera u Microsoft Graph...</value>
@@ -1271,6 +1325,12 @@ Nastaviti s implementacijom?</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>Izdvajanje</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}: {1} ({2} preostalo)</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}: {1}, još {2} ({3} preostalo)</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

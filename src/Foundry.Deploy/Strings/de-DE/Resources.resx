@@ -124,6 +124,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Common.Previous" xml:space="preserve">
     <value>Zurück</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>Erneut versuchen</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nicht verfügbar</value>
   </data>
@@ -684,6 +687,45 @@ Mit der Bereitstellung fortfahren?</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Extras</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>Die Freigabe des Netzwerkcaches hat dieses Gerät abgewiesen. Prüfen Sie in Foundry OSD auf der Seite „Netzwerkcache“ das Konto der Freigabe und sein Kennwort; prüfen Sie auf dem Server die Berechtigungen der Freigabe.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>{0} kann {1} nicht öffnen. Prüfen Sie in Foundry OSD auf der Seite „Netzwerkcache“ das Kennwort des Kontos; prüfen Sie auf dem Server seine Berechtigungen.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>{0} hat dieses Gerät abgewiesen. Legen Sie in Foundry OSD auf der Seite „Netzwerkcache“ ein Konto für diese Freigabe fest; prüfen Sie auf dem Server die Berechtigungen der Freigabe.</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>Treibersätze</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>Benutzerdefinierte Windows-Abbilder</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>Fehlend: {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>Kein IP-Bereich enthält dieses Gerät. Fügen Sie in Foundry OSD auf der Seite „Netzwerkcache“ einen Bereich für dieses Netzwerk oder einen Bereich 0.0.0.0/0 mit einer Ersatzfreigabe hinzu.</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>Kein IP-Bereich enthält dieses Gerät ({0}). Fügen Sie in Foundry OSD auf der Seite „Netzwerkcache“ einen Bereich für dieses Netzwerk oder einen Bereich 0.0.0.0/0 mit einer Ersatzfreigabe hinzu.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>Der veröffentlichte Inhalt auf der Freigabe des Netzwerkcaches fehlt oder ist unvollständig. Wählen Sie in Foundry OSD auf der Seite „Netzwerkcache“ „Veröffentlichen“ aus.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>Der veröffentlichte Inhalt auf {0} fehlt oder ist unvollständig. Wählen Sie in Foundry OSD auf der Seite „Netzwerkcache“ „Veröffentlichen“ aus.</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>Netzwerkcache nicht verfügbar</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>Die Freigabe des Netzwerkcaches antwortet nicht. Prüfen Sie auf dem Server, ob die Freigabe online ist und Port 445 geöffnet ist.</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>{0} antwortet nicht. Prüfen Sie auf dem Server, ob die Freigabe online ist und Port 445 geöffnet ist.</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Wählen Sie die Windows-Version, die Sprache, die Edition und den Lizenzkanal aus.</value>
   </data>
@@ -1053,6 +1095,9 @@ Mit der Bereitstellung fortfahren?</value>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Konflikt mit dem Cachedatenträger wird überprüft...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>Benutzerdefiniertes Abbild wird geprüft...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>Bereitschaft für die Bereitstellung wird geprüft...</value>
   </data>
@@ -1092,8 +1137,14 @@ Mit der Bereitstellung fortfahren?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>AutopilotConfigurationFile.json wird kopiert...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>Benutzerdefiniertes Abbild wird kopiert...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>Treiberpaket kopieren...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>Aus dem Netzwerkcache wird kopiert...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Interaktive Registrierungsdateien werden kopiert...</value>
@@ -1124,6 +1175,9 @@ Mit der Bereitstellung fortfahren?</value>
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Bereitstellung wird abgeschlossen...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>Kopie in den Netzwerkcache wird abgeschlossen...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Hardware-Hash wird in Microsoft Graph importiert...</value>
@@ -1271,6 +1325,12 @@ Mit der Bereitstellung fortfahren?</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>Extrahieren</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}: {1} ({2} verbleibend)</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}: {1}, {2} weitere ({3} verbleibend)</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

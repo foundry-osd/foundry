@@ -226,9 +226,14 @@ public sealed class ExtractDriverPackStep : DeploymentStepBase
         return DeploymentStepResult.Succeeded("Custom drivers staged (simulation).");
     }
 
-    /// <summary>Applies the post-installation content rule to a custom driver set: optical media, or a known physical disk other than the target.</summary>
+    /// <summary>
+    /// Applies the post-installation content rule to a custom driver set: the network cache share, optical media, or
+    /// a known physical disk other than the target.
+    /// </summary>
     internal static async Task<bool> IsCustomDriverSourceSeparateAsync(DeploymentStepExecutionContext context, string path, CancellationToken cancellationToken)
     {
+        // Checked first: DriveInfo rejects UNC roots.
+        if (context.IsOnNetworkCacheShare(path)) return true;
         var drive = new DriveInfo(Path.GetPathRoot(Path.GetFullPath(path))!);
         if (drive.IsReady && drive.DriveType == DriveType.CDRom) return true;
         try

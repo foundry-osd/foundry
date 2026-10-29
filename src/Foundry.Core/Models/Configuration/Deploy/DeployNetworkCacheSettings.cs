@@ -11,6 +11,15 @@ public sealed record DeployNetworkCacheSettings
     public IReadOnlyList<DeployNetworkCacheShare> Shares { get; init; } = [];
     /// <summary>Gets the scopes in authoring order; the most specific matching scope wins and ties keep this order.</summary>
     public IReadOnlyList<DeployNetworkCacheScope> Scopes { get; init; } = [];
+    /// <summary>
+    /// Gets the base64 DER SubjectPublicKeyInfo of the key that signs the content index published on the shares. Set when the
+    /// section is active: custom images, driver sets and post-installation settings then come from that index, not the boot image.
+    /// </summary>
+    public string? PublisherPublicKey { get; init; }
+    /// <summary>Gets the fingerprint of <see cref="PublisherPublicKey"/>, which names the index file on each share.</summary>
+    public string? PublisherKeyId { get; init; }
+    /// <summary>Gets the lowest index sequence Deploy accepts, so a stale index published before this media cannot be replayed.</summary>
+    public long MinimumIndexSequence { get; init; }
 }
 
 /// <summary>Carries one share and, when it has an account, the credentials bound to that share and account.</summary>

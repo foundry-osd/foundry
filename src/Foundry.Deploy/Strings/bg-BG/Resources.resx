@@ -124,6 +124,9 @@
   <data name="Common.Previous" xml:space="preserve">
     <value>Назад</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>Повторен опит</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Недостъпен</value>
   </data>
@@ -684,6 +687,45 @@
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Инструменти</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>Споделената папка на мрежовия кеш отказа достъп на това устройство. Във Foundry OSD, на страницата „Мрежов кеш“, проверете акаунта на споделената папка и паролата му; на сървъра проверете разрешенията на споделената папка.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>{0} не може да отвори {1}. Във Foundry OSD, на страницата „Мрежов кеш“, проверете паролата на акаунта; на сървъра проверете разрешенията му.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>{0} отказа достъп на това устройство. Във Foundry OSD, на страницата „Мрежов кеш“, задайте акаунт за тази споделена папка; на сървъра проверете разрешенията на споделената папка.</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>Набори драйвери</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>Персонализирани образи на Windows</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>Липсват: {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>Нито един IP обхват не съдържа това устройство. Във Foundry OSD, на страницата „Мрежов кеш“, добавете обхват за тази мрежа или обхват 0.0.0.0/0 към резервна споделена папка.</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>Нито един IP обхват не съдържа това устройство ({0}). Във Foundry OSD, на страницата „Мрежов кеш“, добавете обхват за тази мрежа или обхват 0.0.0.0/0 към резервна споделена папка.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>Публикуваното съдържание в споделената папка на мрежовия кеш липсва или е непълно. Във Foundry OSD, на страницата „Мрежов кеш“, изберете „Публикуване“.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>Публикуваното съдържание в {0} липсва или е непълно. Във Foundry OSD, на страницата „Мрежов кеш“, изберете „Публикуване“.</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>Мрежовият кеш не е наличен</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>Споделената папка на мрежовия кеш не отговаря. На сървъра проверете дали споделената папка е онлайн и дали порт 445 е отворен.</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>{0} не отговаря. На сървъра проверете дали споделената папка е онлайн и дали порт 445 е отворен.</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Изберете версията на Windows, езика, изданието и лицензионния канал.</value>
   </data>
@@ -1053,6 +1095,9 @@
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Проверява се конфликт на кеш диск...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>Проверява се персонализираният образ...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>Проверка на готовността за разполагане...</value>
   </data>
@@ -1092,8 +1137,14 @@
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Копиране на AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>Копиране на персонализирания образ...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>Копиране на пакета драйвери...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>Копиране от мрежовия кеш...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Копират се файловете за интерактивна регистрация...</value>
@@ -1124,6 +1175,9 @@
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Финализиране на внедряването...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>Копирането в мрежовия кеш се завършва...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Импортиране на хардуерен хеш в Microsoft Graph...</value>
@@ -1271,6 +1325,12 @@
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>Извличане</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}: {1} ({2} оставащи)</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}: {1}, още {2} ({3} оставащи)</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

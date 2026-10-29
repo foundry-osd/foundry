@@ -5,7 +5,6 @@
 using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
-using Foundry.Utilities.Diagnostics;
 
 namespace Foundry.Deploy.Services.Deployment.Steps;
 
@@ -13,18 +12,15 @@ public sealed class ResolveCacheStrategyStep : DeploymentStepBase
 {
     private readonly ICacheLocatorService _cacheLocatorService;
     private readonly ITargetDiskService _targetDiskService;
-    private readonly INetworkCacheSessionResolver? _networkCacheResolver;
     private readonly INetworkCacheSessionAccessor? _networkCacheAccessor;
 
     public ResolveCacheStrategyStep(
         ICacheLocatorService cacheLocatorService,
         ITargetDiskService targetDiskService,
-        INetworkCacheSessionResolver? networkCacheResolver = null,
         INetworkCacheSessionAccessor? networkCacheAccessor = null)
     {
         _cacheLocatorService = cacheLocatorService;
         _targetDiskService = targetDiskService;
-        _networkCacheResolver = networkCacheResolver;
         _networkCacheAccessor = networkCacheAccessor;
     }
 
@@ -42,7 +38,7 @@ public sealed class ResolveCacheStrategyStep : DeploymentStepBase
         context.RuntimeState.ResolvedCache = cache;
         await context.AppendLogAsync(DeploymentLogLevel.Info, $"Cache resolved: {cache.RootPath} ({cache.Source})", cancellationToken).ConfigureAwait(false);
         context.EnsureWorkspaceFolders();
-        await ResolveNetworkCacheAsync(context, cancellationToken).ConfigureAwait(false);
+        await ApplyNetworkCacheSessionAsync(context, string.Empty, cancellationToken).ConfigureAwait(false);
 
         return DeploymentStepResult.Succeeded("Cache strategy resolved.");
     }
@@ -59,31 +55,35 @@ public sealed class ResolveCacheStrategyStep : DeploymentStepBase
         context.RuntimeState.ResolvedCache = cache;
         context.EnsureWorkspaceFolders();
         await context.AppendLogAsync(DeploymentLogLevel.Info, $"[DRY-RUN] Cache resolved: {cache.RootPath} ({cache.Source})", cancellationToken).ConfigureAwait(false);
+        await ApplyNetworkCacheSessionAsync(context, "[DRY-RUN] ", cancellationToken).ConfigureAwait(false);
         await Task.Delay(120, cancellationToken).ConfigureAwait(false);
 
         return DeploymentStepResult.Succeeded("Cache strategy resolved (simulation).");
     }
 
     /// <summary>
-    /// Resolves the network cache before the target disk is prepared, so imported content found on the share can be
-    /// checked by preflight. Share problems never fail the step; downloads then behave as without a network cache.
+    /// Records the share of the network cache session resolved at Deploy startup in the runtime state, before the target
+    /// disk is prepared, so preflight and the separation checks see imported content found on the share. The step never
+    /// resolves the share itself: only the startup check applies the published index, so a session it did not produce is
+    /// never used. A dry run records the same share without reading it, so the simulated plan follows the live order.
+    /// Share problems never fail the step; downloads then behave as without a network cache.
     /// </summary>
-    private async Task ResolveNetworkCacheAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
+    private async Task ApplyNetworkCacheSessionAsync(DeploymentStepExecutionContext context, string logPrefix, CancellationToken cancellationToken)
     {
-        if (_networkCacheResolver is null || _networkCacheAccessor is null)
+        if (_networkCacheAccessor is null)
         {
             return;
         }
 
-        context.EmitCurrentStepIndeterminate("Resolving cache strategy...", "Resolving cache location...", DeploymentOperationNames.ResolveCache);
-        NetworkCacheSession session = await _networkCacheResolver
-            .ResolveAsync(context.RuntimeState.WorkspaceRoot, DiagnosticSessionContext.CurrentSessionId, cancellationToken)
-            .ConfigureAwait(false);
-        _networkCacheAccessor.Current = session;
-        string message = session.IsAvailable
-            ? $"Network cache: {session.SharePath} ({(session.CanWrite ? "read and write" : "read only")})"
-            : $"Network cache not used ({session.Outcome})";
-        await context.AppendLogAsync(DeploymentLogLevel.Info, message, cancellationToken).ConfigureAwait(false);
+        NetworkCacheSession? session = _networkCacheAccessor.Current;
+        context.RuntimeState.NetworkCacheSharePath = session is { IsAvailable: true } ? session.SharePath : null;
+        string message = session switch
+        {
+            null => "Network cache not used (not resolved at startup)",
+            { IsAvailable: true } => $"Network cache: {session.SharePath} ({(session.CanWrite ? "read and write" : "read only")})",
+            _ => $"Network cache not used ({session.Outcome})"
+        };
+        await context.AppendLogAsync(DeploymentLogLevel.Info, logPrefix + message, cancellationToken).ConfigureAwait(false);
     }
 
     private async Task<CacheResolution> AdjustCacheForTargetDiskConflictAsync(

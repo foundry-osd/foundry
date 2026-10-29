@@ -124,6 +124,9 @@
   <data name="Common.Previous" xml:space="preserve">
     <value>Προηγούμενο</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>Επανάληψη</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Μη διαθέσιμο</value>
   </data>
@@ -684,6 +687,45 @@
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Εργαλεία</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>Ο κοινόχρηστος φάκελος της προσωρινής μνήμης δικτύου απέρριψε αυτήν τη συσκευή. Στο Foundry OSD, στη σελίδα «Προσωρινή μνήμη δικτύου», ελέγξτε τον λογαριασμό του κοινόχρηστου φακέλου και τον κωδικό πρόσβασής του· στον διακομιστή, ελέγξτε τα δικαιώματα του κοινόχρηστου φακέλου.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>Ο λογαριασμός {0} δεν μπορεί να ανοίξει τον φάκελο {1}. Στο Foundry OSD, στη σελίδα «Προσωρινή μνήμη δικτύου», ελέγξτε τον κωδικό πρόσβασης του λογαριασμού· στον διακομιστή, ελέγξτε τα δικαιώματά του.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>Ο φάκελος {0} απέρριψε αυτήν τη συσκευή. Στο Foundry OSD, στη σελίδα «Προσωρινή μνήμη δικτύου», ορίστε έναν λογαριασμό για αυτόν τον κοινόχρηστο φάκελο· στον διακομιστή, ελέγξτε τα δικαιώματα του κοινόχρηστου φακέλου.</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>Σύνολα προγραμμάτων οδήγησης</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>Προσαρμοσμένες εικόνες Windows</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>Λείπουν: {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>Καμία εμβέλεια IP δεν περιέχει αυτήν τη συσκευή. Στο Foundry OSD, στη σελίδα «Προσωρινή μνήμη δικτύου», προσθέστε μια εμβέλεια για αυτό το δίκτυο ή μια εμβέλεια 0.0.0.0/0 με έναν εφεδρικό κοινόχρηστο φάκελο.</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>Καμία εμβέλεια IP δεν περιέχει αυτήν τη συσκευή ({0}). Στο Foundry OSD, στη σελίδα «Προσωρινή μνήμη δικτύου», προσθέστε μια εμβέλεια για αυτό το δίκτυο ή μια εμβέλεια 0.0.0.0/0 με έναν εφεδρικό κοινόχρηστο φάκελο.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>Το δημοσιευμένο περιεχόμενο στον κοινόχρηστο φάκελο της προσωρινής μνήμης δικτύου λείπει ή είναι ελλιπές. Στο Foundry OSD, στη σελίδα «Προσωρινή μνήμη δικτύου», επιλέξτε «Δημοσίευση».</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>Το δημοσιευμένο περιεχόμενο στον φάκελο {0} λείπει ή είναι ελλιπές. Στο Foundry OSD, στη σελίδα «Προσωρινή μνήμη δικτύου», επιλέξτε «Δημοσίευση».</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>Η προσωρινή μνήμη δικτύου δεν είναι διαθέσιμη</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>Ο κοινόχρηστος φάκελος της προσωρινής μνήμης δικτύου δεν αποκρίνεται. Στον διακομιστή, ελέγξτε ότι ο κοινόχρηστος φάκελος είναι συνδεδεμένος και ότι η θύρα 445 είναι ανοιχτή.</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>Ο φάκελος {0} δεν αποκρίνεται. Στον διακομιστή, ελέγξτε ότι ο κοινόχρηστος φάκελος είναι συνδεδεμένος και ότι η θύρα 445 είναι ανοιχτή.</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Επιλέξτε την έκδοση των Windows, τη γλώσσα, την έκδοση προϊόντος και το κανάλι άδειας χρήσης.</value>
   </data>
@@ -1053,6 +1095,9 @@
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Έλεγχος διένεξης δίσκου προσωρινής μνήμης...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>Έλεγχος προσαρμοσμένης εικόνας...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>Γίνεται έλεγχος ετοιμότητας ανάπτυξης...</value>
   </data>
@@ -1092,8 +1137,14 @@
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Αντιγραφή AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>Αντιγραφή προσαρμοσμένης εικόνας...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>Αντιγραφή πακέτου οδηγών...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>Αντιγραφή από την προσωρινή μνήμη δικτύου...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Αντιγραφή αρχείων διαδραστικής εγγραφής...</value>
@@ -1124,6 +1175,9 @@
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Ολοκληρώνεται η ανάπτυξη...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>Ολοκλήρωση της αντιγραφής στην προσωρινή μνήμη δικτύου...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Εισαγωγή κατακερματισμού υλικού στο Microsoft Graph...</value>
@@ -1271,6 +1325,12 @@
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>Εξαγωγή</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}: {1} (απομένουν {2})</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}: {1}, {2} ακόμη (απομένουν {3})</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

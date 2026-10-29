@@ -415,7 +415,8 @@ public sealed class DeploymentStepExecutionContextTests
         ITargetDiskService? targetDiskService = null,
         string? operationId = null,
         Action<DeploymentStepProgress>? emitStepProgress = null,
-        DiskIdentity? expectedIdentity = null)
+        DiskIdentity? expectedIdentity = null,
+        bool isDryRun = false)
     {
         var request = new DeploymentContext
         {
@@ -426,12 +427,13 @@ public sealed class DeploymentStepExecutionContextTests
             TargetComputerName = "LAB01",
             OperatingSystem = new OperatingSystemCatalogItem(),
             DriverPackSelectionKind = DriverPackSelectionKind.None,
-            IsDryRun = false
+            IsDryRun = isDryRun
         };
 
         var runtimeState = new DeploymentRuntimeState
         {
             OperationId = operationId ?? string.Empty,
+            IsDryRun = isDryRun,
             WorkspaceRoot = workspaceRoot,
             Mode = mode,
             TargetFoundryRoot = targetFoundryRoot,

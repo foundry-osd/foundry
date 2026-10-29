@@ -682,16 +682,17 @@ public sealed class WinPeBootImagePreparationService : IWinPeBootImagePreparatio
             CachedArtifactLease lease = await new AuthoringArtifactCache(cacheDirectoryPath).AcquireAsync(request, async (path, token) =>
             {
                 WinPeDownloadReporting.Report(progress, WindowsSourceDownload, 0);
-                await HttpTransfer.RunAsync(async (transferToken, reportProgress) =>
+                // The cache checks the SHA-256 computed during the download instead of reading the file again.
+                return await HttpTransfer.RunAsync<string?>(async (transferToken, reportProgress) =>
                 {
                     using HttpResponseMessage response = await _httpClient.GetAsync(sourceUri, HttpCompletionOption.ResponseHeadersRead, transferToken).ConfigureAwait(false);
                     response.EnsureSuccessStatusCode();
                     long? length = response.Content.Headers.ContentLength;
                     await using Stream input = await response.Content.ReadAsStreamAsync(transferToken).ConfigureAwait(false);
                     await using var output = new FileStream(path, FileMode.CreateNew, FileAccess.Write, FileShare.None, 81920, useAsync: true);
-                    await WinPeDownloadReporting.CopyAsync(input, output, length, WindowsSourceDownload, progress, reportProgress, transferToken).ConfigureAwait(false);
+                    WinPeDownloadedFile downloaded = await WinPeDownloadReporting.CopyAsync(input, output, length, WindowsSourceDownload, progress, reportProgress, transferToken).ConfigureAwait(false);
                     if (length.HasValue && output.Length != length.Value) throw new InvalidDataException("Windows source transfer is incomplete.");
-                    return true;
+                    return downloaded.Sha256;
                 }, token).ConfigureAwait(false);
             }, cancellationToken, new CacheVerificationProgress(progress, fileName)).ConfigureAwait(false);
             WinPeDownloadReporting.Report(progress, new WinPeDownloadProgress

@@ -14,7 +14,23 @@ public sealed class AuthoringArtifactCache(string cacheRoot)
     private readonly string root = Path.GetFullPath(cacheRoot);
 
     /// <summary>Acquires and verifies an entry, retaining its interprocess lease through consumer disposal.</summary>
-    public async Task<CachedArtifactLease> AcquireAsync(CachedArtifactRequest request, Func<string, CancellationToken, Task> downloadToTemporaryFile,
+    public Task<CachedArtifactLease> AcquireAsync(CachedArtifactRequest request, Func<string, CancellationToken, Task> downloadToTemporaryFile,
+        CancellationToken cancellationToken = default, IProgress<CachedArtifactVerificationProgress>? verificationProgress = null)
+    {
+        ArgumentNullException.ThrowIfNull(downloadToTemporaryFile);
+        return AcquireAsync(request, async (path, token) =>
+        {
+            await downloadToTemporaryFile(path, token).ConfigureAwait(false);
+            return null;
+        }, cancellationToken, verificationProgress);
+    }
+
+    /// <summary>
+    /// Acquires and verifies an entry, retaining its interprocess lease through consumer disposal. The download returns the
+    /// SHA-256 it computed while writing the file, so a new download is not read again to be verified; <see langword="null"/>
+    /// makes the cache read it back. A cached generation is always read back.
+    /// </summary>
+    public async Task<CachedArtifactLease> AcquireAsync(CachedArtifactRequest request, Func<string, CancellationToken, Task<string?>> downloadToTemporaryFile,
         CancellationToken cancellationToken = default, IProgress<CachedArtifactVerificationProgress>? verificationProgress = null)
     {
         ArgumentNullException.ThrowIfNull(request);
@@ -50,10 +66,11 @@ public sealed class AuthoringArtifactCache(string cacheRoot)
             pending = Path.Combine(entry, ".pending-" + generationId);
             Directory.CreateDirectory(pending);
             string temporaryPath = Path.Combine(pending, request.FileName);
-            await downloadToTemporaryFile(temporaryPath, cancellationToken).ConfigureAwait(false);
+            string? streamedHash = await downloadToTemporaryFile(temporaryPath, cancellationToken).ConfigureAwait(false);
             cancellationToken.ThrowIfCancellationRequested();
-            VerifiedFile? downloaded = await VerifyAsync(temporaryPath, expectedHash, request.ExpectedLength, null,
-                cancellationToken, verificationProgress).ConfigureAwait(false);
+            VerifiedFile? downloaded = streamedHash is null
+                ? await VerifyAsync(temporaryPath, expectedHash, request.ExpectedLength, null, cancellationToken, verificationProgress).ConfigureAwait(false)
+                : CheckStreamed(temporaryPath, streamedHash, expectedHash, request.ExpectedLength, verificationProgress);
             if (downloaded is null) throw new InvalidDataException("Downloaded artifact failed length or SHA-256 verification.");
 
             // Flush the validated original before publishing its directory; no old generation is removed.
@@ -165,6 +182,17 @@ public sealed class AuthoringArtifactCache(string cacheRoot)
         catch (FileNotFoundException) { return null; }
         catch (DirectoryNotFoundException) { return null; }
         catch (JsonException) { return null; }
+    }
+
+    /// <summary>Checks a new download against the SHA-256 computed while it was written, and its length on disk.</summary>
+    private static VerifiedFile? CheckStreamed(string path, string streamedHash, string? expectedHash, long? expectedLength,
+        IProgress<CachedArtifactVerificationProgress>? progress)
+    {
+        var file = new FileInfo(path);
+        if (!file.Exists || file.Length == 0 || expectedLength.HasValue && file.Length != expectedLength) return null;
+        if (expectedHash is not null && !streamedHash.Equals(expectedHash, StringComparison.OrdinalIgnoreCase)) return null;
+        progress?.Report(new(file.Length, file.Length, true));
+        return new(file.Length, streamedHash.ToUpperInvariant());
     }
 
     private static async Task<VerifiedFile?> VerifyAsync(string path, string? expectedHash, long? expectedLength, long? recordedLength,

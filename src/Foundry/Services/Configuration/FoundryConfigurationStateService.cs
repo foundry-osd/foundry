@@ -37,6 +37,8 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     private readonly INetworkCacheSecretStateService networkCacheSecretStateService;
     private readonly IAutopilotHardwareHashSessionState autopilotHardwareHashSessionState;
     private readonly AppSettingsService appSettingsService;
+    // Resolved on use: the signing service depends on the vault bridge and on sharing, which both depend on this service.
+    private readonly Func<Foundry.Services.NetworkCache.INetworkCacheSigningService> networkCacheSigning;
     private readonly ILogger logger;
     private readonly Foundry.Core.Services.Images.CustomImageLibraryService customImageLibrary;
     private readonly Foundry.Core.Services.Packages.ContentPackageLibraryService postInstallPackages;
@@ -58,6 +60,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         INetworkCacheSecretStateService networkCacheSecretStateService,
         IAutopilotHardwareHashSessionState autopilotHardwareHashSessionState,
         AppSettingsService appSettingsService,
+        Func<Foundry.Services.NetworkCache.INetworkCacheSigningService> networkCacheSigning,
         ILogger logger,
         Foundry.Core.Services.Images.CustomImageLibraryService customImageLibrary,
         Foundry.Core.Services.Packages.ContentPackageLibraryService postInstallPackages,
@@ -73,6 +76,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         this.networkCacheSecretStateService = networkCacheSecretStateService;
         this.autopilotHardwareHashSessionState = autopilotHardwareHashSessionState;
         this.appSettingsService = appSettingsService;
+        this.networkCacheSigning = networkCacheSigning;
         this.logger = logger.ForContext<FoundryConfigurationStateService>();
         this.customImageLibrary = customImageLibrary;
         this.postInstallPackages = postInstallPackages;
@@ -379,7 +383,8 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         ResolveFile = authoringFiles.GetAvailablePath,
         Network = networkSecretStateService.GetSecrets(Current.Network),
         AutopilotPfxPassword = autopilotHardwareHashSessionState.GetBootMediaCertificatePassword(Current.Autopilot.HardwareHashUpload.BootMediaCertificate.Pfx),
-        NetworkCachePasswords = GetNetworkCachePasswords(Current.NetworkCache)
+        NetworkCachePasswords = GetNetworkCachePasswords(Current.NetworkCache),
+        NetworkCacheIndex = NetworkCacheContentPublisher.IsActive(Current.NetworkCache) ? networkCacheSigning().GetBinding(minimumSequence: 0) : null
     };
 
     /// <summary>Returns the passwords of the accounts used by a share; unused accounts never reach generated media.</summary>
@@ -629,6 +634,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
     /// <inheritdoc />
     public Task<BuildSnapshot> CaptureBuildSnapshotAsync(
         string privateRootDirectory,
+        NetworkCacheIndexBinding? networkCacheIndex = null,
         CancellationToken cancellationToken = default)
     {
         string? authoringVersion = typeof(FoundryApplicationInfo).Assembly.GetName().Version?.ToString(4);
@@ -641,7 +647,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         try
         {
             return BuildSnapshot.CaptureAsync(
-                document, CreateSnapshotSources(), accountSecrets, domainSecrets, password, privateRootDirectory, authoringVersion, cancellationToken);
+                document, CreateSnapshotSources(networkCacheIndex), accountSecrets, domainSecrets, password, privateRootDirectory, authoringVersion, cancellationToken);
         }
         finally
         {
@@ -649,14 +655,19 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         }
     }
 
-    private BuildSnapshotSources CreateSnapshotSources()
+    /// <summary>
+    /// Returns the sources a snapshot freezes. The index binding is the caller's, never the readiness one of
+    /// <see cref="MediaInputs"/>, so media are not bound to minimum sequence 0 by omission.
+    /// </summary>
+    private BuildSnapshotSources CreateSnapshotSources(NetworkCacheIndexBinding? networkCacheIndex)
     {
         MediaInputs inputs = MediaInputs;
         return new BuildSnapshotSources(authoringFiles)
         {
             Network = inputs.Network,
             AutopilotPfxPassword = inputs.AutopilotPfxPassword,
-            NetworkCachePasswords = inputs.NetworkCachePasswords
+            NetworkCachePasswords = inputs.NetworkCachePasswords,
+            NetworkCacheIndex = networkCacheIndex
         };
     }
 

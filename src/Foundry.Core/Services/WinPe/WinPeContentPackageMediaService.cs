@@ -74,7 +74,9 @@ public sealed class WinPeContentPackageMediaService : IWinPeContentPackageMediaP
                 directories.AddRange(lease.Manifest.Directories.Select(directory => $"{prefix}/{directory}"));
                 files.AddRange(lease.Files.Select(file => new WinPeContentPackageMediaFile(file.SourcePath, $"{prefix}/{file.RelativePath}", file.Length, file.Sha256)));
             }
-            var manifest = new ContentPackageMediaManifest { Id = Guid.NewGuid().ToString("N"), Packages = packages };
+            // The id comes from the manifest content, so the same packages always give the same manifest bytes and id.
+            var unnamed = new ContentPackageMediaManifest { Packages = packages };
+            var manifest = unnamed with { Id = MediaManifestId.From(JsonSerializer.SerializeToUtf8Bytes(unnamed, MediaJsonOptions)) };
             byte[] bytes = JsonSerializer.SerializeToUtf8Bytes(manifest, MediaJsonOptions);
             if (bytes.Length > kind.MaximumMediaManifestBytes) throw new InvalidDataException("ContentPackage.MediaManifestTooLarge");
             return new(kind, manifest, bytes, files, directories, leases);
@@ -111,40 +113,69 @@ public sealed class WinPeContentPackageMediaService : IWinPeContentPackageMediaP
     }
 
     /// <summary>Verifies staged files before exposing the manifest, so canceled publication leaves older boot configurations usable.</summary>
-    public async Task PublishAsync(WinPeContentPackageMediaLease package, string root, CancellationToken cancellationToken,
-        IProgress<WinPeMediaProgress>? progress = null)
+    public Task PublishAsync(WinPeContentPackageMediaLease package, string root, CancellationToken cancellationToken,
+        IProgress<WinPeMediaProgress>? progress = null) =>
+        PublishCoreAsync(package, root, isNetworkCacheShare: false, cancellationToken, progress);
+
+    /// <summary>
+    /// Publishes to a network cache share without reading the share back: a file already at its content path with the recorded
+    /// length counts as present, and a copy is checked against the bytes read from the source. Foundry Deploy verifies the hash
+    /// of every file it uses.
+    /// </summary>
+    public Task PublishToNetworkCacheAsync(WinPeContentPackageMediaLease package, string contentRoot, CancellationToken cancellationToken,
+        IProgress<WinPeMediaProgress>? progress = null) =>
+        PublishCoreAsync(package, contentRoot, isNetworkCacheShare: true, cancellationToken, progress);
+
+    private async Task PublishCoreAsync(WinPeContentPackageMediaLease package, string root, bool isNetworkCacheShare,
+        CancellationToken cancellationToken, IProgress<WinPeMediaProgress>? progress)
     {
         ThrowIfInvalidLease(package);
-        await ValidateSourcesAsync(package, cancellationToken).ConfigureAwait(false);
+        // On a share each copied file is checked against the bytes read from its source, and present files never read it.
+        if (!isNetworkCacheShare) await ValidateSourcesAsync(package, cancellationToken).ConfigureAwait(false);
         string ownedRoot = CustomImagePathPolicy.ResolveRelativePath(root, kind.MediaRoot);
         Directory.CreateDirectory(ownedRoot);
-        using var publicationLock = new FileStream(CustomImagePathPolicy.ResolveRelativePath(ownedRoot, ".publish.lock"), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
-        await ValidateCapacityAsync(package, root, 0, cancellationToken).ConfigureAwait(false);
+        using var publicationLock = new FileStream(CustomImagePathPolicy.ResolveRelativePath(ownedRoot, WinPeMediaFileTransfer.PublicationLockFileName), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+        var byteProgress = WinPeMediaByteProgress.ForFiles(progress, package.Files.Select(file => file.Length), stagingStatus);
+        // Each destination is read at most once: what already matches is reused, and only the rest counts against free space.
+        List<(WinPeContentPackageMediaFile File, string Destination)> missing = [];
+        long required = checked(ReserveBytes + package.ManifestBytes.LongLength);
+        foreach (WinPeContentPackageMediaFile file in package.Files)
+        {
+            string destination = CustomImagePathPolicy.ResolveRelativePath(root, file.RelativePath);
+            bool matches = isNetworkCacheShare
+                ? WinPeMediaFileTransfer.HasLength(destination, file.Length, byteProgress.Full)
+                : await MatchesAsync(destination, file.Length, file.ContentHash, cancellationToken, byteProgress.Full).ConfigureAwait(false);
+            byteProgress.EndOfFile();
+            if (matches) continue;
+            missing.Add((file, destination));
+            required = checked(required + file.Length);
+        }
+        if (availableBytes(root) < required) throw new WinPeMediaCapacityException("ContentPackage.InsufficientMediaSpace");
+        if (isNetworkCacheShare)
+        {
+            // Reused packages and manifests keep their old write time; refreshing it under the lock keeps Clean up on another PC
+            // from removing them before this publication writes the index that binds them.
+            foreach (ContentPackageMediaPackage mediaPackage in package.Manifest.Packages)
+                WinPeMediaFileTransfer.MarkInUse(CustomImagePathPolicy.ResolveRelativePath(root, mediaPackage.RelativePath));
+            WinPeMediaFileTransfer.MarkInUse(CustomImagePathPolicy.ResolveRelativePath(root, package.ManifestRelativePath));
+        }
         string pending = CustomImagePathPolicy.ResolveRelativePath(ownedRoot, ".pending-" + Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(pending);
         try
         {
             List<(string Temporary, string Destination)> copied = [];
-            long completed = 0;
-            foreach (WinPeContentPackageMediaFile file in package.Files)
+            foreach ((WinPeContentPackageMediaFile file, string destination) in missing)
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                string destination = CustomImagePathPolicy.ResolveRelativePath(root, file.RelativePath);
-                if (!await MatchesAsync(destination, file.Length, file.ContentHash, cancellationToken).ConfigureAwait(false))
-                {
-                    string temporary = Path.Combine(pending, Guid.NewGuid().ToString("N"));
-                    await using (var input = new FileStream(file.SourcePath, FileMode.Open, FileAccess.Read, FileShare.Read, 128 * 1024, useAsync: true))
-                    await using (var output = new FileStream(temporary, FileMode.CreateNew, FileAccess.Write, FileShare.None, 128 * 1024, useAsync: true))
-                    {
-                        await input.CopyToAsync(output, cancellationToken).ConfigureAwait(false);
-                        await output.FlushAsync(cancellationToken).ConfigureAwait(false);
-                        output.Flush(flushToDisk: true);
-                    }
-                    if (!await MatchesAsync(temporary, file.Length, file.ContentHash, cancellationToken).ConfigureAwait(false)) throw new InvalidDataException("ContentPackage.PackageContentChanged");
-                    copied.Add((temporary, destination));
-                }
-                completed = checked(completed + file.Length);
-                progress?.Report(new() { Percent = (int)(completed * 90.0 / Math.Max(1, package.TotalBytes)), Status = stagingStatus });
+                string temporary = Path.Combine(pending, Guid.NewGuid().ToString("N"));
+                // On a share the copy is checked against the bytes read from the source; elsewhere the copy is read back.
+                bool verified = isNetworkCacheShare
+                    ? (await WinPeMediaFileTransfer.CopyAsync(file.SourcePath, temporary, byteProgress.Full, cancellationToken).ConfigureAwait(false))
+                        .Matches(file.Length, file.ContentHash)
+                    : await CopyAndReadBackAsync(file, temporary, byteProgress, cancellationToken).ConfigureAwait(false);
+                if (!verified) throw new InvalidDataException("ContentPackage.PackageContentChanged");
+                byteProgress.EndOfFile();
+                copied.Add((temporary, destination));
             }
             foreach (string directory in package.Directories) Directory.CreateDirectory(CustomImagePathPolicy.ResolveRelativePath(root, directory));
             foreach ((string temporary, string destination) in copied)
@@ -173,7 +204,7 @@ public sealed class WinPeContentPackageMediaService : IWinPeContentPackageMediaP
                 Directory.CreateDirectory(Path.GetDirectoryName(manifest)!);
                 File.Move(temporary, manifest);
             }
-            progress?.Report(new() { Percent = 100, Status = verifiedStatus });
+            byteProgress.Complete(100, verifiedStatus);
         }
         finally
         {
@@ -204,13 +235,14 @@ public sealed class WinPeContentPackageMediaService : IWinPeContentPackageMediaP
         ArgumentException.ThrowIfNullOrWhiteSpace(root);
         string ownedRoot = CustomImagePathPolicy.ResolveRelativePath(root, kind.MediaRoot);
         if (!Directory.Exists(ownedRoot)) throw new InvalidDataException("ContentPackage.InvalidMediaBinding");
-        using var publicationLock = new FileStream(CustomImagePathPolicy.ResolveRelativePath(ownedRoot, ".publish.lock"), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+        using var publicationLock = new FileStream(CustomImagePathPolicy.ResolveRelativePath(ownedRoot, WinPeMediaFileTransfer.PublicationLockFileName), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
         // Never prune against a generation that is not on the media: its references are the only protection of live content.
         if (!await MatchesAsync(CustomImagePathPolicy.ResolveRelativePath(root, current.ManifestRelativePath), current.ManifestBytes.Length,
             current.ManifestHash, cancellationToken).ConfigureAwait(false))
             throw new InvalidDataException("ContentPackage.InvalidMediaBinding");
         return await PruneUnderLockAsync(ownedRoot, current.ManifestId + ".json",
-            current.Manifest.Packages.Select(package => package.ContentHash).ToHashSet(StringComparer.OrdinalIgnoreCase), cancellationToken).ConfigureAwait(false);
+            current.Manifest.Packages.Select(package => package.ContentHash).ToHashSet(StringComparer.OrdinalIgnoreCase), supersedesOlderGenerations: true,
+            cancellationToken).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -224,18 +256,106 @@ public sealed class WinPeContentPackageMediaService : IWinPeContentPackageMediaP
         ArgumentException.ThrowIfNullOrWhiteSpace(root);
         string ownedRoot = CustomImagePathPolicy.ResolveRelativePath(root, kind.MediaRoot);
         if (!Directory.Exists(ownedRoot)) return new(0, 0, []);
-        using var publicationLock = new FileStream(CustomImagePathPolicy.ResolveRelativePath(ownedRoot, ".publish.lock"), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
-        return await PruneUnderLockAsync(ownedRoot, null, new HashSet<string>(StringComparer.OrdinalIgnoreCase), cancellationToken).ConfigureAwait(false);
+        using var publicationLock = new FileStream(CustomImagePathPolicy.ResolveRelativePath(ownedRoot, WinPeMediaFileTransfer.PublicationLockFileName), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+        return await PruneUnderLockAsync(ownedRoot, null, new HashSet<string>(StringComparer.OrdinalIgnoreCase), supersedesOlderGenerations: true,
+            cancellationToken).ConfigureAwait(false);
     }
 
-    /// <summary>Removes packages first, then manifests, so a failed run keeps a description for anything left behind.</summary>
-    private async Task<ContentPackagePruneResult> PruneUnderLockAsync(string ownedRoot, string? currentManifestName, HashSet<string> referenced,
+    /// <summary>
+    /// Takes the publication lock of the kind under <paramref name="root"/>, the one <see cref="PublishAsync"/> holds while it
+    /// stages content and exposes its manifest. Returns <see langword="null"/> when the media root of the kind is absent.
+    /// </summary>
+    /// <exception cref="IOException">Another process holds the lock, for example a Foundry OSD publishing content of the kind.</exception>
+    public FileStream? OpenPublicationLock(string root)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(root);
+        string ownedRoot = CustomImagePathPolicy.ResolveRelativePath(root, kind.MediaRoot);
+        if (!Directory.Exists(ownedRoot)) return null;
+        return new FileStream(CustomImagePathPolicy.ResolveRelativePath(ownedRoot, WinPeMediaFileTransfer.PublicationLockFileName), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+    }
+
+    /// <summary>
+    /// Removes the package folders of the kind that no hash of <paramref name="referenced"/> names, from a root that several
+    /// media generations share, such as a network cache share. No generation supersedes the others there, so a manifest is
+    /// removed only when it describes at least one package and none of its packages remains; a manifest that still describes
+    /// kept content stays. Runs for every kind with the proof rules of
+    /// <see cref="PruneAsync(WinPeContentPackageMediaLease, string, CancellationToken)"/>. Does nothing when the media root is absent.
+    /// </summary>
+    /// <remarks>
+    /// The caller holds the lock from <see cref="OpenPublicationLock"/> and computed <paramref name="referenced"/> under it.
+    /// Package folders and manifests last written at or after <paramref name="keepWrittenSinceUtc"/> stay, as does every
+    /// package such a manifest describes: their publisher may not have written the index that references them yet.
+    /// </remarks>
+    public async Task<ContentPackagePruneResult> PruneUnreferencedAsync(string root, IReadOnlySet<string> referenced, DateTime keepWrittenSinceUtc,
         CancellationToken cancellationToken)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(root);
+        ArgumentNullException.ThrowIfNull(referenced);
+        string ownedRoot = CustomImagePathPolicy.ResolveRelativePath(root, kind.MediaRoot);
+        if (!Directory.Exists(ownedRoot)) return new(0, 0, []);
+        ContentPackagePruneResult pruned = await PruneUnderLockAsync(ownedRoot, null, referenced.ToHashSet(StringComparer.OrdinalIgnoreCase),
+            supersedesOlderGenerations: false, cancellationToken, keepWrittenSinceUtc).ConfigureAwait(false);
+        List<string> retained = [.. pruned.RetainedUnknownEntries];
+        RemoveOrphanedStaging(ownedRoot, retained, cancellationToken);
+        return pruned with { RetainedUnknownEntries = retained };
+    }
+
+    /// <summary>
+    /// Deletes the staging folders that an interrupted publication left. Publication stages under the publication lock, so
+    /// while the caller holds that lock every staging folder is orphaned. A folder that holds a reparse point, or a file that
+    /// cannot be deleted, stays and is reported.
+    /// </summary>
+    private void RemoveOrphanedStaging(string ownedRoot, List<string> retained, CancellationToken cancellationToken)
+    {
+        foreach (FileSystemInfo entry in Entries(ownedRoot))
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            if (entry is not DirectoryInfo folder || !folder.Name.StartsWith(".pending-", StringComparison.Ordinal)) continue;
+            if (IsReparsePoint(folder) || ContainsReparsePoint(folder))
+            {
+                Retain(ownedRoot, folder.FullName, "ReparsePoint", retained);
+                continue;
+            }
+
+            try
+            {
+                folder.Delete(recursive: true);
+            }
+            catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+            {
+                Retain(ownedRoot, folder.FullName, "InUse", retained);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Removes packages first, then manifests, so a failed run keeps a description for anything left behind. When
+    /// <paramref name="supersedesOlderGenerations"/> is set, the current generation replaces the older ones, so their manifests
+    /// go once their unreferenced packages are gone; otherwise a manifest goes only once none of its packages remains. With
+    /// <paramref name="keepWrittenSinceUtc"/>, manifests and package folders written since then stay, with every package those manifests describe.
+    /// </summary>
+    private async Task<ContentPackagePruneResult> PruneUnderLockAsync(string ownedRoot, string? currentManifestName, HashSet<string> referenced,
+        bool supersedesOlderGenerations, CancellationToken cancellationToken, DateTime? keepWrittenSinceUtc = null)
     {
         List<string> retained = [];
         Dictionary<string, ContentPackageMediaManifest> previous = await ReadPreviousManifestsAsync(ownedRoot, currentManifestName, retained, cancellationToken).ConfigureAwait(false);
-        int removedPackages = RemoveUnreferencedPackages(ownedRoot, referenced, previous.Values, retained, cancellationToken);
-        int removedManifests = RemoveObsoleteManifests(ownedRoot, referenced, previous, cancellationToken);
+        if (keepWrittenSinceUtc is DateTime since)
+        {
+            foreach (string name in previous.Keys.ToList())
+            {
+                if (File.GetLastWriteTimeUtc(Path.Combine(ownedRoot, "manifests", name)) < since) continue;
+                referenced.UnionWith(previous[name].Packages.Select(package => package.ContentHash));
+                previous.Remove(name);
+            }
+        }
+
+        // A shared root can have readers, such as devices staging a package from a network cache share: an entry in use stays.
+        bool keepEntriesInUse = !supersedesOlderGenerations;
+        int removedPackages = RemoveUnreferencedPackages(ownedRoot, referenced, previous.Values, keepEntriesInUse, keepWrittenSinceUtc, retained, cancellationToken);
+        int removedManifests = supersedesOlderGenerations
+            ? RemoveObsoleteManifests(ownedRoot, referenced, previous, keepEntriesInUse, cancellationToken)
+            : RemoveObsoleteManifests(ownedRoot, [], previous.Where(pair => pair.Value.Packages.Count > 0).ToDictionary(StringComparer.OrdinalIgnoreCase),
+                keepEntriesInUse, cancellationToken);
         return new(removedPackages, removedManifests, retained);
     }
 
@@ -264,7 +384,7 @@ public sealed class WinPeContentPackageMediaService : IWinPeContentPackageMediaP
     }
 
     private int RemoveUnreferencedPackages(string ownedRoot, HashSet<string> referenced, IEnumerable<ContentPackageMediaManifest> previous,
-        List<string> retained, CancellationToken cancellationToken)
+        bool keepEntriesInUse, DateTime? keepWrittenSinceUtc, List<string> retained, CancellationToken cancellationToken)
     {
         string directory = Path.Combine(ownedRoot, "Packages");
         if (!Directory.Exists(directory)) return 0;
@@ -275,31 +395,34 @@ public sealed class WinPeContentPackageMediaService : IWinPeContentPackageMediaP
         foreach (FileSystemInfo entry in Entries(directory))
         {
             cancellationToken.ThrowIfCancellationRequested();
-            if (entry is DirectoryInfo && referenced.Contains(entry.Name)) continue;
+            if (entry is DirectoryInfo && (referenced.Contains(entry.Name) || entry.LastWriteTimeUtc >= keepWrittenSinceUtc)) continue;
             if (entry is not DirectoryInfo folder || !ContentPackagePathPolicy.IsValidHash(entry.Name) || !descriptions.TryGetValue(entry.Name, out ContentPackageManifest? description))
                 Retain(ownedRoot, entry.FullName, "Undescribed", retained);
             else if (IsReparsePoint(folder) || ContainsReparsePoint(folder))
                 Retain(ownedRoot, entry.FullName, "ReparsePoint", retained);
-            else if (RemovePackage(ownedRoot, folder, description, retained)) removed++;
+            else if (RemovePackage(ownedRoot, folder, description, keepEntriesInUse, retained)) removed++;
         }
         return removed;
     }
 
-    /// <summary>Deletes the described files whose length still matches, then the described folders bottom-up while they are empty.</summary>
-    private bool RemovePackage(string ownedRoot, DirectoryInfo folder, ContentPackageManifest description, List<string> retained)
+    /// <summary>
+    /// Deletes the described files whose length still matches, then the described folders bottom-up while they are empty. With
+    /// <paramref name="keepEntriesInUse"/>, a file or folder that cannot be deleted stays and is reported instead of failing the run.
+    /// </summary>
+    private bool RemovePackage(string ownedRoot, DirectoryInfo folder, ContentPackageManifest description, bool keepEntriesInUse, List<string> retained)
     {
         string files = Path.Combine(folder.FullName, "files");
         foreach (ContentPackageFile file in description.Files)
         {
             var info = new FileInfo(Path.Combine(files, file.RelativePath.Replace('/', Path.DirectorySeparatorChar)));
-            if (info.Exists && !IsReparsePoint(info) && info.Length == file.Length) info.Delete();
+            if (info.Exists && !IsReparsePoint(info) && info.Length == file.Length) Delete(info, keepEntriesInUse);
         }
         string[] describedDirectories = description.Directories.Select(directory => Path.Combine(files, directory.Replace('/', Path.DirectorySeparatorChar)))
             .OrderByDescending(directory => directory.Length).Append(files).ToArray();
         foreach (string directory in describedDirectories.Append(folder.FullName))
         {
             var info = new DirectoryInfo(directory);
-            if (info.Exists && !IsReparsePoint(info) && !Entries(directory).Any()) info.Delete();
+            if (info.Exists && !IsReparsePoint(info) && !Entries(directory).Any()) Delete(info, keepEntriesInUse);
         }
         if (!Directory.Exists(folder.FullName)) return true;
         RetainLeftovers(ownedRoot, folder.FullName, describedDirectories.ToHashSet(StringComparer.OrdinalIgnoreCase), retained);
@@ -318,7 +441,7 @@ public sealed class WinPeContentPackageMediaService : IWinPeContentPackageMediaP
     }
 
     private static int RemoveObsoleteManifests(string ownedRoot, HashSet<string> referenced, Dictionary<string, ContentPackageMediaManifest> previous,
-        CancellationToken cancellationToken)
+        bool keepEntriesInUse, CancellationToken cancellationToken)
     {
         int removed = 0;
         foreach ((string name, ContentPackageMediaManifest manifest) in previous)
@@ -327,11 +450,24 @@ public sealed class WinPeContentPackageMediaService : IWinPeContentPackageMediaP
             if (!manifest.Packages.All(package => referenced.Contains(package.ContentHash) || !Path.Exists(Path.Combine(ownedRoot, "Packages", package.ContentHash))))
                 continue;
             var file = new FileInfo(Path.Combine(ownedRoot, "manifests", name));
-            if (!file.Exists || IsReparsePoint(file)) continue;
-            file.Delete();
+            if (!file.Exists || IsReparsePoint(file) || !Delete(file, keepEntriesInUse)) continue;
             removed++;
         }
         return removed;
+    }
+
+    /// <summary>Deletes an entry; with <paramref name="keepEntriesInUse"/>, returns false instead of throwing when it is in use or protected.</summary>
+    private static bool Delete(FileSystemInfo entry, bool keepEntriesInUse)
+    {
+        try
+        {
+            entry.Delete();
+            return true;
+        }
+        catch (Exception exception) when (keepEntriesInUse && exception is IOException or UnauthorizedAccessException)
+        {
+            return false;
+        }
     }
 
     private void Retain(string ownedRoot, string path, string reason, List<string> retained)
@@ -364,12 +500,24 @@ public sealed class WinPeContentPackageMediaService : IWinPeContentPackageMediaP
         if (package.Kind != kind) throw new ArgumentException($"The lease holds '{package.Kind.Name}' packages but this service publishes '{kind.Name}' packages.", nameof(package));
     }
 
-    private static async Task<bool> MatchesAsync(string path, long length, string hash, CancellationToken cancellationToken)
+    private static async Task<bool> CopyAndReadBackAsync(WinPeContentPackageMediaFile file, string temporary, WinPeMediaByteProgress byteProgress,
+        CancellationToken cancellationToken)
+    {
+        await WinPeMediaFileTransfer.CopyAsync(file.SourcePath, temporary, byteProgress.Half, cancellationToken).ConfigureAwait(false);
+        return await MatchesAsync(temporary, file.Length, file.ContentHash, cancellationToken, byteProgress.Half).ConfigureAwait(false);
+    }
+
+    private static async Task<bool> MatchesAsync(string path, long length, string hash, CancellationToken cancellationToken,
+        Action<long>? onBytes = null)
     {
         CustomImagePathPolicy.ValidateNoReparsePoints(path);
         if (!File.Exists(path)) return false;
         await using var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, 128 * 1024, useAsync: true);
-        return stream.Length == length && Convert.ToHexStringLower(await SHA256.HashDataAsync(stream, cancellationToken).ConfigureAwait(false)).Equals(hash, StringComparison.OrdinalIgnoreCase);
+        if (stream.Length != length) return false;
+        string actual = onBytes is null
+            ? Convert.ToHexString(await SHA256.HashDataAsync(stream, cancellationToken).ConfigureAwait(false))
+            : await WinPeMediaFileTransfer.HashAsync(stream, onBytes, cancellationToken).ConfigureAwait(false);
+        return actual.Equals(hash, StringComparison.OrdinalIgnoreCase);
     }
 }
 

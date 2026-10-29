@@ -124,6 +124,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Common.Previous" xml:space="preserve">
     <value>Vorige</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>Opnieuw proberen</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Niet beschikbaar</value>
   </data>
@@ -684,6 +687,45 @@ Doorgaan met de implementatie?</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Hulpmiddelen</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>De share van de netwerkcache heeft dit apparaat geweigerd. Controleer in Foundry OSD op de pagina Netwerkcache het account van de share en het wachtwoord ervan; controleer op de server de machtigingen van de share.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>{0} kan {1} niet openen. Controleer in Foundry OSD op de pagina Netwerkcache het wachtwoord van het account; controleer op de server de machtigingen ervan.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>{0} heeft dit apparaat geweigerd. Stel in Foundry OSD op de pagina Netwerkcache een account in voor deze share; controleer op de server de machtigingen van de share.</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>Stuurprogrammasets</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>Aangepaste Windows-installatiekopieën</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>Ontbreekt: {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>Geen enkel IP-bereik bevat dit apparaat. Voeg in Foundry OSD op de pagina Netwerkcache een bereik voor dit netwerk toe, of een bereik 0.0.0.0/0 met een reserveshare.</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>Geen enkel IP-bereik bevat dit apparaat ({0}). Voeg in Foundry OSD op de pagina Netwerkcache een bereik voor dit netwerk toe, of een bereik 0.0.0.0/0 met een reserveshare.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>De gepubliceerde inhoud op de share van de netwerkcache ontbreekt of is onvolledig. Selecteer in Foundry OSD op de pagina Netwerkcache Publiceren.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>De gepubliceerde inhoud op {0} ontbreekt of is onvolledig. Selecteer in Foundry OSD op de pagina Netwerkcache Publiceren.</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>Netwerkcache niet beschikbaar</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>De share van de netwerkcache reageert niet. Controleer op de server of de share online is en of poort 445 open is.</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>{0} reageert niet. Controleer op de server of de share online is en of poort 445 open is.</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Kies de Windows-versie, de taal, de editie en het licentiekanaal.</value>
   </data>
@@ -1053,6 +1095,9 @@ Doorgaan met de implementatie?</value>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Conflict cacheschijf controleren...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>Aangepaste installatiekopie controleren...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>Controleren of de implementatie gereed is...</value>
   </data>
@@ -1092,8 +1137,14 @@ Doorgaan met de implementatie?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>AutopilotConfigurationFile.json kopiëren...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>Aangepaste installatiekopie kopiëren...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>Stuurprogrammapakket kopiëren...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>Kopiëren uit de netwerkcache...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Interactieve registratiebestanden worden gekopieerd...</value>
@@ -1124,6 +1175,9 @@ Doorgaan met de implementatie?</value>
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Implementatie voltooien...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>Kopie naar de netwerkcache voltooien...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Hardware-hash importeren in Microsoft Graph...</value>
@@ -1271,6 +1325,12 @@ Doorgaan met de implementatie?</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>Extraheren</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}: {1} ({2} resterend)</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}: {1}, nog {2} ({3} resterend)</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

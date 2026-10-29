@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.IO;
 using System.Threading.Channels;
 using Foundry.Core.Services.NetworkCache;
 using Foundry.Utilities.Diagnostics;
@@ -26,7 +27,17 @@ public interface INetworkCachePublisher
     /// grace period. Never throws: publication is an optimization and must not fail a deployment.
     /// </summary>
     Task DrainAsync(TimeSpan limit, CancellationToken cancellationToken);
+
+    /// <summary>Gets the upload in progress and the files still waiting, or <see langword="null"/> when nothing is being uploaded.</summary>
+    NetworkCacheUploadStatus? CurrentUpload => null;
 }
+
+/// <summary>The file being uploaded to the network cache and how many queued files follow it.</summary>
+/// <param name="FileName">The file name on the share.</param>
+/// <param name="BytesCopied">The bytes copied so far.</param>
+/// <param name="TotalBytes">The size of the file.</param>
+/// <param name="FilesWaiting">The queued files after this one.</param>
+public sealed record NetworkCacheUploadStatus(string FileName, long BytesCopied, long TotalBytes, int FilesWaiting);
 
 public sealed class NetworkCachePublisher : INetworkCachePublisher
 {
@@ -39,6 +50,9 @@ public sealed class NetworkCachePublisher : INetworkCachePublisher
     private readonly Lock gate = new();
     private Task? consumer;
     private bool draining;
+    private int queued;
+    private NetworkCacheUploadStatus? current;
+    private string? currentPartialPath;
 
     public NetworkCachePublisher(INetworkCacheSessionAccessor accessor, ILogger<NetworkCachePublisher> logger)
         : this(accessor, logger, null)
@@ -63,10 +77,23 @@ public sealed class NetworkCachePublisher : INetworkCachePublisher
         if (accessor.Current is not { IsAvailable: true, CanWrite: true }) return;
         lock (gate)
         {
-            if (draining || !queue.Writer.TryWrite(publication)) return;
+            if (draining) return;
+            // Counted before the write: a consumer already waiting can take the item at once, and must not count below zero.
+            Interlocked.Increment(ref queued);
+            if (!queue.Writer.TryWrite(publication))
+            {
+                Interlocked.Decrement(ref queued);
+                return;
+            }
+
             consumer ??= Task.Run(ConsumeAsync);
         }
     }
+
+    /// <inheritdoc />
+    /// <remarks>The files waiting are counted when read, so a download queued during the upload is included.</remarks>
+    public NetworkCacheUploadStatus? CurrentUpload =>
+        Volatile.Read(ref current) is { } status ? status with { FilesWaiting = Math.Max(0, Volatile.Read(ref queued)) } : null;
 
     public async Task DrainAsync(TimeSpan limit, CancellationToken cancellationToken)
     {
@@ -99,6 +126,11 @@ public sealed class NetworkCachePublisher : INetworkCachePublisher
             }
 
             logger.LogWarning("Network cache publication did not finish in time; remaining uploads are abandoned.");
+            // The share is disconnected next, so an upload still writing cannot delete its partial file; name it for the administrator.
+            if (!running.IsCompleted && Volatile.Read(ref currentPartialPath) is { } partialPath)
+            {
+                logger.LogWarning("Network cache upload abandoned while writing; its temporary file may remain on the share. PartialPath={PartialPath}", partialPath);
+            }
         }
         catch (Exception exception) when (exception is not OperationCanceledException || !cancellationToken.IsCancellationRequested)
         {
@@ -111,10 +143,14 @@ public sealed class NetworkCachePublisher : INetworkCachePublisher
         // The token is not passed to the reader: after cancellation, a completed channel must end the loop, not throw.
         await foreach (NetworkCachePublication item in queue.Reader.ReadAllAsync(CancellationToken.None).ConfigureAwait(false))
         {
+            Interlocked.Decrement(ref queued);
             if (stopping.IsCancellationRequested) return;
             NetworkCacheSession? session = accessor.Current;
             if (session is not { IsAvailable: true, CanWrite: true, SharePath: not null }) continue;
             string directory = NetworkCacheLayout.DownloadDirectory(session.SharePath, item.Kind, item.Key);
+            long totalBytes = item.ExpectedSize ?? TryGetLength(item.LocalPath);
+            Volatile.Write(ref current, new NetworkCacheUploadStatus(item.FileName, 0, totalBytes, 0));
+            Volatile.Write(ref currentPartialPath, Path.Combine(directory, NetworkCacheLayout.PartialName(item.FileName, DiagnosticSessionContext.CurrentSessionId)));
             try
             {
                 NetworkCachePublishOutcome outcome = await publish(item, directory, stopping.Token).ConfigureAwait(false);
@@ -128,11 +164,23 @@ public sealed class NetworkCachePublisher : INetworkCachePublisher
             {
                 logger.LogWarning("Network cache publication failed. Kind={Kind}, FileName={FileName}, Reason={Reason}", item.Kind, item.FileName, exception.GetType().Name);
             }
+            finally
+            {
+                Volatile.Write(ref current, null);
+                Volatile.Write(ref currentPartialPath, null);
+            }
         }
     }
 
-    private static Task<NetworkCachePublishOutcome> PublishToShareAsync(NetworkCachePublication item, string directory, CancellationToken cancellationToken) =>
+    private Task<NetworkCachePublishOutcome> PublishToShareAsync(NetworkCachePublication item, string directory, CancellationToken cancellationToken) =>
         // The writer does synchronous share IO before its first await, so it always starts on the thread pool.
         Task.Run(() => NetworkCacheWriter.PublishFileAsync(item.LocalPath, directory, item.FileName,
-            DiagnosticSessionContext.CurrentSessionId, item.ExpectedHash, item.ExpectedSize, TimeProvider.System, cancellationToken), cancellationToken);
+            DiagnosticSessionContext.CurrentSessionId, item.ExpectedHash, item.ExpectedSize, TimeProvider.System, cancellationToken,
+            copied => Volatile.Write(ref current, Volatile.Read(ref current) is { } status ? status with { BytesCopied = copied } : null)), cancellationToken);
+
+    private static long TryGetLength(string path)
+    {
+        try { return new FileInfo(path).Length; }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException) { return 0; }
+    }
 }

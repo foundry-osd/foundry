@@ -42,7 +42,18 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
                 if (context.PostInstallContent is null) throw new InvalidDataException("Post-installation readiness is missing.");
                 await PreOobe.PreOobeContentResolver.RevalidateAsync(context, context.PostInstallContent, cancellationToken).ConfigureAwait(false);
             }
-            if (preflight.UsesTargetStorage)
+            if (context.Request.OperatingSystem is CustomImageSelection custom)
+            {
+                if (preflight.CustomSourceLease?.IsReadable() != true ||
+                    !await context.IsCustomSourceSeparateAsync(custom.Asset, preflight.ImagePath!, cancellationToken).ConfigureAwait(false))
+                {
+                    throw PreflightDeploymentStep.Guard("Preflight.NotReady", "preflight_not_ready");
+                }
+                // A network cache share image is copied to the target after preparation, so its archive stays budgeted there.
+                DeploymentCapacityPolicy.EnsureTargetCapacity(context, preflight.Image, preflight.UsesTargetStorage ? preflight.SourceSizeBytes : 0,
+                    preflight.TargetDriverBytes);
+            }
+            else if (preflight.UsesTargetStorage)
             {
                 context.EmitCurrentStepIndeterminate("Checking deployment readiness...", "Checking source access...", DeploymentOperationNames.ProbeOperatingSystemSource);
                 long? sourceSize = await _sourceProbe.ProbeAsync((context.Request.OperatingSystem as OperatingSystemCatalogItem)?.Url ?? string.Empty, cancellationToken).ConfigureAwait(false);
@@ -50,18 +61,11 @@ public sealed class PrepareTargetDiskLayoutStep : DeploymentStepBase
             }
             else
             {
-                bool readable;
-                if (context.Request.OperatingSystem is CustomImageSelection custom)
-                {
-                    readable = preflight.CustomSourceLease?.IsReadable() == true &&
-                        await context.IsCustomSourceSeparateAsync(custom.Asset, preflight.ImagePath!, cancellationToken).ConfigureAwait(false);
-                }
-                else readable = await context.IsExternalStorageAsync(preflight.ImagePath!, cancellationToken).ConfigureAwait(false) && preflight.SourceLease!.ReadByte() >= 0;
-                if (!readable)
+                if (!await context.IsExternalStorageAsync(preflight.ImagePath!, cancellationToken).ConfigureAwait(false) || preflight.SourceLease!.ReadByte() < 0)
                 {
                     throw PreflightDeploymentStep.Guard("Preflight.NotReady", "preflight_not_ready");
                 }
-                if (preflight.SourceLease is not null) preflight.SourceLease.Position = 0;
+                preflight.SourceLease.Position = 0;
                 DeploymentCapacityPolicy.EnsureTargetCapacity(context, preflight.Image, 0, preflight.TargetDriverBytes);
             }
         }

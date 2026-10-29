@@ -76,7 +76,8 @@ internal static class PostInstallRuntimeSource
             throw new InvalidDataException("PostInstall runtime is missing required launch files.");
     }
 
-    internal static async Task CopyBoundedAsync(Stream input, Stream output, long expected, CancellationToken cancellationToken)
+    /// <summary>Copies exactly <paramref name="expected"/> bytes; <paramref name="onBytes"/> receives the bytes copied so far after each chunk.</summary>
+    internal static async Task CopyBoundedAsync(Stream input, Stream output, long expected, CancellationToken cancellationToken, Action<long>? onBytes = null)
     {
         byte[] buffer = new byte[81920];
         long total = 0;
@@ -86,6 +87,7 @@ internal static class PostInstallRuntimeSource
             total = checked(total + count);
             if (total > expected) throw new InvalidDataException("Content exceeds its declared size.");
             await output.WriteAsync(buffer.AsMemory(0, count), cancellationToken).ConfigureAwait(false);
+            onBytes?.Invoke(total);
         }
         if (total != expected) throw new InvalidDataException("Content is incomplete.");
     }

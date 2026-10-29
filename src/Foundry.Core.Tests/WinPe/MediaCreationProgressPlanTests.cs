@@ -21,6 +21,34 @@ public sealed class MediaCreationProgressPlanTests
         Assert.Equal(5, progress.StepCount);
     }
 
+    [Theory]
+    [InlineData(MediaCreationKind.Iso, 6)]
+    [InlineData(MediaCreationKind.UsbCreate, 7)]
+    [InlineData(MediaCreationKind.UsbUpdate, 6)]
+    [InlineData(MediaCreationKind.Pxe, 6)]
+    public void For_WithNetworkCachePublication_AddsAStepBeforeFinishing(MediaCreationKind kind, int stepCount)
+    {
+        MediaCreationProgressPlan plan = MediaCreationProgressPlan.For(kind, publishesToNetworkCache: true);
+
+        MediaCreationProgress publishing = plan.Report(MediaCreationPhase.PublishingToNetworkCache, 100);
+        MediaCreationProgress finishing = plan.Report(MediaCreationPhase.Finishing, 100);
+
+        Assert.True(plan.Includes(MediaCreationPhase.PublishingToNetworkCache));
+        Assert.Equal(stepCount - 1, publishing.StepNumber);
+        Assert.Equal(stepCount, publishing.StepCount);
+        Assert.Equal(95, publishing.Percent);
+        Assert.Equal(100, finishing.Percent);
+    }
+
+    [Fact]
+    public void For_WithoutNetworkCachePublication_KeepsTheMediaSteps()
+    {
+        MediaCreationProgressPlan plan = MediaCreationProgressPlan.For(MediaCreationKind.Iso);
+
+        Assert.False(plan.Includes(MediaCreationPhase.PublishingToNetworkCache));
+        Assert.Equal(5, plan.Current.StepCount);
+    }
+
     [Fact]
     public void ReportFinalMedia_ForPxe_MapsToCreatingPxeFiles()
     {

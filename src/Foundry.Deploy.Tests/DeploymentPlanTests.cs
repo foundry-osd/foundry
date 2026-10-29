@@ -24,17 +24,28 @@ public sealed class DeploymentPlanTests
     }
 
     [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public void Build_OrdersImagePreparationAroundActualStorageRoute(bool usesTargetStorage)
+    [InlineData(false, false, false)]
+    [InlineData(true, false, true)]
+    [InlineData(null, true, false)]
+    [InlineData(false, true, false)]
+    [InlineData(true, true, true)]
+    public void Build_OrdersImagePreparationAroundActualStorageRoute(bool? usesTargetStorage, bool custom, bool targetFirst)
     {
-        string[] imageSteps = usesTargetStorage
+        DeploymentContext request = custom
+            ? Request() with
+            {
+                OperatingSystem = new CustomImageSelection(
+                    new CustomImageAsset { Id = "custom", DisplayName = "Custom", ImagePath = @"\\server\share\Foundry\install.wim", VolumeRoot = @"\\server\share\Foundry" },
+                    new Foundry.Core.Models.Configuration.CustomImageIndex { Index = 1, EditionId = "Professional", Architecture = "x64", ExpandedSizeBytes = 4096 })
+            }
+            : Request();
+        string[] imageSteps = targetFirst
             ? [DeploymentStepNames.PrepareTargetDiskLayout, DeploymentStepNames.DownloadOperatingSystemImage,
                 DeploymentStepNames.CheckWindowsImage, DeploymentStepNames.ApplyOperatingSystemImage, DeploymentStepNames.ConfigureWindowsBoot]
             : [DeploymentStepNames.DownloadOperatingSystemImage, DeploymentStepNames.CheckWindowsImage,
                 DeploymentStepNames.PrepareTargetDiskLayout, DeploymentStepNames.ApplyOperatingSystemImage, DeploymentStepNames.ConfigureWindowsBoot];
 
-        string[] actual = DeploymentPlan.Build(Request(), usesTargetStorage: usesTargetStorage)
+        string[] actual = DeploymentPlan.Build(request, usesTargetStorage: usesTargetStorage)
             .Select(step => step.Name).Where(name => imageSteps.Contains(name)).ToArray();
 
         Assert.Equal(imageSteps, actual);

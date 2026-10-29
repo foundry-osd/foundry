@@ -38,6 +38,10 @@ Each count is an integer capped at 1,000. The event describes the captured confi
 
 Commands, arguments, action or software names and identifiers, hashes, paths, and script content are excluded. Existing telemetry consent and debug controls are unchanged. No PostInstall runtime events are introduced.
 
+## Network cache publication
+
+`osd:boot_media_finished` and `osd:network_cache_published` (sent when Publish on the Network cache page ends) include `network_cache_publish_result`: `published` when every share received the content and the index, `partial` when only some did, `failed` when none did, and `none` when nothing was published (the network cache is off, or the operation stopped before publishing). `osd:network_cache_published` also sends `operation_id` and `network_cache_share_count`. Share paths, account names, key ids, sequences and hashes are never sent.
+
 ## Bounded identifiers
 
 - `osd:boot_media_finished` sends `adk_version` only when the detected ADK version parses as a version of at most 64 characters, and always sends `adk_version_relation` (`unknown`, `below_supported`, `supported` or `above_supported`).

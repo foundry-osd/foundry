@@ -2,8 +2,10 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Globalization;
 using System.Text;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.NetworkCache;
 
 namespace Foundry.Core.Services.Configuration;
 
@@ -31,6 +33,12 @@ public sealed record MediaInputs
     /// <summary>Gets the network cache account passwords, keyed by account id.</summary>
     public IReadOnlyDictionary<string, string> NetworkCachePasswords { get; init; } = new Dictionary<string, string>(StringComparer.Ordinal);
 
+    /// <summary>
+    /// Gets the signed content index binding. Required when the network cache is active, because the boot configuration then
+    /// carries the publisher key instead of the imported content.
+    /// </summary>
+    public NetworkCacheIndexBinding? NetworkCacheIndex { get; init; }
+
     /// <summary>Resolves an optional reference; a reference that cannot be resolved throws.</summary>
     /// <exception cref="FileNotFoundException">The referenced file is unavailable.</exception>
     internal string? ResolveRequired(AuthoringFileReference? reference) => reference is null
@@ -41,7 +49,8 @@ public sealed record MediaInputs
     private bool PrintMembers(StringBuilder builder)
     {
         builder.Append("Network = ").Append(Network).Append(", HasAutopilotPfxPassword = ").Append(AutopilotPfxPassword is not null)
-            .Append(", NetworkCachePasswordCount = ").Append(NetworkCachePasswords.Count);
+            .Append(", NetworkCachePasswordCount = ").Append(NetworkCachePasswords.Count)
+            .Append(", NetworkCacheIndexMinimumSequence = ").Append(NetworkCacheIndex?.MinimumSequence.ToString(CultureInfo.InvariantCulture) ?? "none");
         return true;
     }
 }

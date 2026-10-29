@@ -124,6 +124,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Common.Previous" xml:space="preserve">
     <value>Vissza</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>Újrapróbálkozás</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nem elérhető</value>
   </data>
@@ -684,6 +687,45 @@ Folytatja a telepítést?</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Eszközök</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>A hálózati gyorsítótár megosztása elutasította ezt az eszközt. A Foundry OSD Hálózati gyorsítótár lapján ellenőrizze a megosztás fiókját és jelszavát; a kiszolgálón ellenőrizze a megosztás engedélyeit.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>A(z) {0} fiók nem tudja megnyitni a(z) {1} megosztást. A Foundry OSD Hálózati gyorsítótár lapján ellenőrizze a fiók jelszavát; a kiszolgálón ellenőrizze az engedélyeit.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>A(z) {0} megosztás elutasította ezt az eszközt. A Foundry OSD Hálózati gyorsítótár lapján adjon meg egy fiókot ehhez a megosztáshoz; a kiszolgálón ellenőrizze a megosztás engedélyeit.</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>Illesztőprogram-készletek</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>Egyéni Windows-lemezképek</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>Hiányzik: {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>Egyik IP-hatókör sem tartalmazza ezt az eszközt. A Foundry OSD Hálózati gyorsítótár lapján adjon hozzá egy hatókört ehhez a hálózathoz, vagy egy 0.0.0.0/0 hatókört egy tartalék megosztással.</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>Egyik IP-hatókör sem tartalmazza ezt az eszközt ({0}). A Foundry OSD Hálózati gyorsítótár lapján adjon hozzá egy hatókört ehhez a hálózathoz, vagy egy 0.0.0.0/0 hatókört egy tartalék megosztással.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>A hálózati gyorsítótár megosztásán közzétett tartalom hiányzik vagy hiányos. A Foundry OSD Hálózati gyorsítótár lapján válassza a Közzététel lehetőséget.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>A(z) {0} megosztáson közzétett tartalom hiányzik vagy hiányos. A Foundry OSD Hálózati gyorsítótár lapján válassza a Közzététel lehetőséget.</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>A hálózati gyorsítótár nem érhető el</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>A hálózati gyorsítótár megosztása nem válaszol. A kiszolgálón ellenőrizze, hogy a megosztás online állapotú-e, és hogy a 445-ös port nyitva van-e.</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>A(z) {0} megosztás nem válaszol. A kiszolgálón ellenőrizze, hogy a megosztás online állapotú-e, és hogy a 445-ös port nyitva van-e.</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Válassza ki a Windows-verziót, a nyelvet, a kiadást és a licenccsatornát.</value>
   </data>
@@ -1053,6 +1095,9 @@ Folytatja a telepítést?</value>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>A gyorsítótár lemezütközésének ellenőrzése...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>Egyéni lemezkép vizsgálata...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>Telepítési készenlét ellenőrzése...</value>
   </data>
@@ -1092,8 +1137,14 @@ Folytatja a telepítést?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>AutopilotConfigurationFile.json másolása...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>Egyéni lemezkép másolása...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>Illesztőprogram-csomag másolása...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>Másolás a hálózati gyorsítótárból...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Interaktív regisztrációs fájlok másolása...</value>
@@ -1124,6 +1175,9 @@ Folytatja a telepítést?</value>
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>A telepítés befejezése...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>A hálózati gyorsítótárba másolás befejezése...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Hardveres hash importálása a Microsoft Graph mappába...</value>
@@ -1271,6 +1325,12 @@ Folytatja a telepítést?</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>Kibontás</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}: {1} ({2} maradt)</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}: {1}, még {2} ({3} maradt)</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

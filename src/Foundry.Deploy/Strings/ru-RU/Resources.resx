@@ -124,6 +124,9 @@
   <data name="Common.Previous" xml:space="preserve">
     <value>Назад</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>Повторить</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Недоступно</value>
   </data>
@@ -684,6 +687,45 @@
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Инструменты</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>Общий ресурс сетевого кэша отклонил это устройство. В Foundry OSD на странице «Сетевой кэш» проверьте учетную запись общего ресурса и ее пароль; на сервере проверьте разрешения общего ресурса.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>Учетная запись {0} не может открыть {1}. В Foundry OSD на странице «Сетевой кэш» проверьте пароль учетной записи; на сервере проверьте ее разрешения.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>Общий ресурс {0} отклонил это устройство. В Foundry OSD на странице «Сетевой кэш» задайте учетную запись для этого общего ресурса; на сервере проверьте разрешения общего ресурса.</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>Наборы драйверов</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>Пользовательские образы Windows</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>Отсутствует: {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>Ни одна область IP не содержит это устройство. В Foundry OSD на странице «Сетевой кэш» добавьте область для этой сети или область 0.0.0.0/0 с резервным общим ресурсом.</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>Ни одна область IP не содержит это устройство ({0}). В Foundry OSD на странице «Сетевой кэш» добавьте область для этой сети или область 0.0.0.0/0 с резервным общим ресурсом.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>Опубликованное содержимое в общем ресурсе сетевого кэша отсутствует или неполно. В Foundry OSD на странице «Сетевой кэш» выберите «Опубликовать».</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>Опубликованное содержимое в {0} отсутствует или неполно. В Foundry OSD на странице «Сетевой кэш» выберите «Опубликовать».</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>Сетевой кэш недоступен</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>Общий ресурс сетевого кэша не отвечает. На сервере убедитесь, что общий ресурс в сети и порт 445 открыт.</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>{0} не отвечает. На сервере убедитесь, что общий ресурс в сети и порт 445 открыт.</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Выберите выпуск Windows, язык, редакцию и канал лицензирования.</value>
   </data>
@@ -1053,6 +1095,9 @@
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Проверка конфликта кэш-диска...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>Анализ пользовательского образа...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>Проверка готовности к развертыванию...</value>
   </data>
@@ -1092,8 +1137,14 @@
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Копирование AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>Копирование пользовательского образа...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>Копирование пакета драйверов...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>Копирование из сетевого кэша...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Копирование файлов интерактивной регистрации...</value>
@@ -1124,6 +1175,9 @@
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Завершение развертывания...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>Завершение копирования в сетевой кэш...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Импорт аппаратного хэша в Microsoft Graph...</value>
@@ -1271,6 +1325,12 @@
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>Извлечение</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}: {1} (осталось {2})</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}: {1}, ещё {2} (осталось {3})</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

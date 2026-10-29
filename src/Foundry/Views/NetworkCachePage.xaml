@@ -2,6 +2,7 @@
 <Page x:Class="Foundry.Views.NetworkCachePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:Foundry.Behaviors"
     xmlns:controls="using:Foundry.Controls"
     xmlns:tv="using:WinUI.TableView"
     xmlns:wct="using:CommunityToolkit.WinUI.Controls">
@@ -18,11 +19,12 @@
                 DocumentationUrl="{x:Bind ViewModel.DocumentationUrl, Mode=OneWay}"
                 IconGlyph="&#xE968;">
                 <controls:PageHeader.ActionContent>
-                    <ContentControl IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}">
-                        <Button
-                            Command="{x:Bind ViewModel.ToggleEnabledCommand}"
-                            Content="{x:Bind ViewModel.ActionText, Mode=OneWay}" />
-                    </ContentControl>
+                    <ToggleSwitch
+                        behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                        AutomationProperties.Name="{x:Bind ViewModel.EnableLabel, Mode=OneWay}"
+                        IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}"
+                        IsOn="{x:Bind ViewModel.IsActive, Mode=TwoWay}"
+                        Style="{StaticResource FoundryPageHeaderToggleSwitchStyle}" />
                 </controls:PageHeader.ActionContent>
             </controls:PageHeader>
             <controls:ManagedConfigurationBanner />
@@ -37,6 +39,12 @@
                         Message="{x:Bind ViewModel.MediaProtectionMessage, Mode=OneWay}"
                         Severity="Warning"
                         Visibility="{x:Bind ViewModel.HasMediaProtectionIssue, Mode=OneWay}" />
+                    <InfoBar
+                        IsClosable="False"
+                        IsOpen="{x:Bind ViewModel.HasPublicationWarning, Mode=OneWay}"
+                        Message="{x:Bind ViewModel.PublicationWarningMessage, Mode=OneWay}"
+                        Severity="Warning"
+                        Visibility="{x:Bind ViewModel.HasPublicationWarning, Mode=OneWay}" />
 
                     <wct:SettingsCard
                         HorizontalContentAlignment="Stretch"
@@ -151,7 +159,6 @@
                                     HorizontalAlignment="Left"
                                     DefaultLabelPosition="Right"
                                     IsDynamicOverflowEnabled="False"
-                                    IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}"
                                     OverflowButtonVisibility="Collapsed">
                                     <CommandBar.PrimaryCommands>
                                         <AppBarButton
@@ -169,6 +176,26 @@
                                             Command="{x:Bind ViewModel.RemoveShareCommand}"
                                             Icon="Delete"
                                             Label="{x:Bind ViewModel.RemoveLabel, Mode=OneWay}" />
+                                        <AppBarSeparator />
+                                        <AppBarButton
+                                            Command="{x:Bind ViewModel.PublishCommand}"
+                                            Label="{x:Bind ViewModel.PublishLabel, Mode=OneWay}"
+                                            Visibility="{x:Bind ViewModel.PublishVisibility, Mode=OneWay}">
+                                            <AppBarButton.Icon>
+                                                <FontIcon Glyph="&#xE898;" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
+                                        <AppBarButton
+                                            Command="{x:Bind ViewModel.RefreshSpaceCommand}"
+                                            Icon="Refresh"
+                                            Label="{x:Bind ViewModel.RefreshSpaceLabel, Mode=OneWay}" />
+                                        <AppBarButton
+                                            Command="{x:Bind ViewModel.CleanUpShareCommand}"
+                                            Label="{x:Bind ViewModel.CleanUpShareLabel, Mode=OneWay}">
+                                            <AppBarButton.Icon>
+                                                <FontIcon Glyph="&#xE894;" />
+                                            </AppBarButton.Icon>
+                                        </AppBarButton>
                                     </CommandBar.PrimaryCommands>
                                 </CommandBar>
                             </ScrollViewer>
@@ -208,6 +235,26 @@
                                         Width="3*"
                                         Binding="{Binding AccountText}"
                                         Header="{x:Bind ViewModel.AccountColumnHeader, Mode=OneWay}" />
+                                    <tv:TableViewTextColumn
+                                        Width="2*"
+                                        Binding="{Binding DownloadsText}"
+                                        SortMemberPath="DownloadsSortKey">
+                                        <tv:TableViewTextColumn.Header>
+                                            <TextBlock
+                                                Text="{x:Bind ViewModel.DownloadsColumnHeader, Mode=OneWay}"
+                                                ToolTipService.ToolTip="{x:Bind ViewModel.DownloadsColumnToolTip, Mode=OneWay}" />
+                                        </tv:TableViewTextColumn.Header>
+                                    </tv:TableViewTextColumn>
+                                    <tv:TableViewTextColumn
+                                        Width="2*"
+                                        Binding="{Binding ImportedContentText}"
+                                        SortMemberPath="ImportedContentSortKey">
+                                        <tv:TableViewTextColumn.Header>
+                                            <TextBlock
+                                                Text="{x:Bind ViewModel.ImportedContentColumnHeader, Mode=OneWay}"
+                                                ToolTipService.ToolTip="{x:Bind ViewModel.ImportedContentColumnToolTip, Mode=OneWay}" />
+                                        </tv:TableViewTextColumn.Header>
+                                    </tv:TableViewTextColumn>
                                     <tv:TableViewTemplateColumn
                                         Width="3*"
                                         Header="{x:Bind ViewModel.StatusColumnHeader, Mode=OneWay}"

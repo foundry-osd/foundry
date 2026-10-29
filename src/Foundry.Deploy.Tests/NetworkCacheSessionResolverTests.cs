@@ -41,6 +41,57 @@ public sealed class NetworkCacheSessionResolverTests
 
         Assert.Equal(NetworkCacheOutcome.NoMatchingScope, session.Outcome);
         Assert.Null(session.SharePath);
+        Assert.Equal(new NetworkCacheStartupFailure(NetworkCacheStartupFailureKind.NoScope, DeviceAddress: "192.168.50.1"), session.Failure);
+    }
+
+    [Fact]
+    public async Task Resolve_NoMatchingScope_ReportsFirstNonLoopbackIpv4Address()
+    {
+        var harness = new Harness(Settings(), addresses: ["fe80::1", "127.0.0.1", "192.168.50.1", "192.168.60.1"]);
+
+        using NetworkCacheSession session = await harness.ResolveAsync();
+
+        Assert.Equal("192.168.50.1", session.Failure?.DeviceAddress);
+    }
+
+    [Fact]
+    public async Task Resolve_NoMatchingScope_PrefersAnIpv4AddressThatIsNotLinkLocal()
+    {
+        var harness = new Harness(Settings(), addresses: ["169.254.10.20", "10.20.5.14"]);
+
+        using NetworkCacheSession session = await harness.ResolveAsync();
+
+        Assert.Equal("10.20.5.14", session.Failure?.DeviceAddress);
+    }
+
+    [Fact]
+    public async Task Resolve_NoMatchingScopeAndOnlyALinkLocalIpv4_ReportsIt()
+    {
+        var harness = new Harness(Settings(), addresses: ["fe80::1", "169.254.10.20"]);
+
+        using NetworkCacheSession session = await harness.ResolveAsync();
+
+        Assert.Equal("169.254.10.20", session.Failure?.DeviceAddress);
+    }
+
+    [Fact]
+    public async Task Resolve_NoMatchingScopeAndNoIpv4_ReportsIpv6Address()
+    {
+        var harness = new Harness(Settings(), addresses: ["::1", "2001:db8::5"]);
+
+        using NetworkCacheSession session = await harness.ResolveAsync();
+
+        Assert.Equal("2001:db8::5", session.Failure?.DeviceAddress);
+    }
+
+    [Fact]
+    public async Task Resolve_Disabled_HasNoFailure()
+    {
+        var harness = new Harness(Settings() with { IsEnabled = false });
+
+        using NetworkCacheSession session = await harness.ResolveAsync();
+
+        Assert.Null(session.Failure);
     }
 
     [Fact]
@@ -83,6 +134,105 @@ public sealed class NetworkCacheSessionResolverTests
 
         Assert.Equal(NetworkCacheOutcome.Unavailable, session.Outcome);
         Assert.False(session.CanWrite);
+        Assert.Equal(new NetworkCacheStartupFailure(NetworkCacheStartupFailureKind.Unreachable, SecondShare, "CONTOSO\\svc"), session.Failure);
+    }
+
+    [Fact]
+    public async Task Resolve_AccessDenied_ReportsAccountAndShare()
+    {
+        var harness = new Harness(Settings());
+        harness.Connector.Results[FirstShare] = new(SmbConnectStatus.NotFound, 67);
+        harness.Connector.Results[SecondShare] = new(SmbConnectStatus.AccessDenied, 5);
+
+        using NetworkCacheSession session = await harness.ResolveAsync();
+
+        Assert.Equal(NetworkCacheOutcome.Unavailable, session.Outcome);
+        Assert.Equal(new NetworkCacheStartupFailure(NetworkCacheStartupFailureKind.AccessDenied, SecondShare, "CONTOSO\\svc"), session.Failure);
+    }
+
+    [Fact]
+    public async Task Resolve_SeveralSharesFail_ReportsLastShareFailure()
+    {
+        var harness = new Harness(Settings());
+        harness.Connector.Results[FirstShare] = new(SmbConnectStatus.AccessDenied, 5);
+        harness.Connector.Results[SecondShare] = new(SmbConnectStatus.CredentialConflict, 1219);
+
+        using NetworkCacheSession session = await harness.ResolveAsync();
+
+        Assert.Equal(NetworkCacheStartupFailureKind.Unreachable, session.Failure?.Kind);
+        Assert.Equal(SecondShare, session.Failure?.SharePath);
+    }
+
+    [Fact]
+    public async Task Resolve_AccessDeniedWithoutAccount_ReportsNoAccount()
+    {
+        var harness = new Harness(Settings(withAccount: false));
+        harness.Connector.Results[FirstShare] = new(SmbConnectStatus.NotFound, 53);
+        harness.Connector.Results[SecondShare] = new(SmbConnectStatus.AccessDenied, 5);
+
+        using NetworkCacheSession session = await harness.ResolveAsync();
+
+        Assert.Equal(new NetworkCacheStartupFailure(NetworkCacheStartupFailureKind.AccessDenied, SecondShare), session.Failure);
+    }
+
+    [Fact]
+    public async Task Resolve_ProbeFailsOnEveryShare_ReportsUnreachable()
+    {
+        var harness = new Harness(Settings());
+        harness.Probe.HangingReads.Add(Path.Combine(FirstShare, "Foundry"));
+        harness.Probe.HangingReads.Add(Path.Combine(SecondShare, "Foundry"));
+
+        using NetworkCacheSession session = await harness.ResolveAsync();
+
+        Assert.Equal(new NetworkCacheStartupFailure(NetworkCacheStartupFailureKind.Unreachable, SecondShare, "CONTOSO\\svc"), session.Failure);
+    }
+
+    [Fact]
+    public async Task Resolve_ConnectTimesOut_ReportsUnreachable()
+    {
+        var harness = new Harness(Settings() with { Scopes = [new() { Kind = NetworkCacheScopeKind.Subnet, Value = "10.10.0.0/16", ShareIds = ["s1"] }] },
+            connectTimeout: TimeSpan.FromMilliseconds(50));
+        using var release = new ManualResetEventSlim();
+        harness.Connector.Block = release;
+
+        using NetworkCacheSession session = await harness.ResolveAsync();
+        release.Set();
+
+        Assert.Equal(new NetworkCacheStartupFailure(NetworkCacheStartupFailureKind.Unreachable, FirstShare, "CONTOSO\\svc"), session.Failure);
+    }
+
+    [Fact]
+    public async Task Resolve_MalformedEnvelopeOnLastShare_ReportsUnreachable()
+    {
+        DeployNetworkCacheSettings settings = Settings();
+        DeployNetworkCacheShare broken = settings.Shares[1] with { EncryptedCredentials = settings.Shares[1].EncryptedCredentials! with { Ciphertext = "%%%" } };
+        var harness = new Harness(settings with { Shares = [settings.Shares[0], broken] });
+        harness.Connector.Results[FirstShare] = new(SmbConnectStatus.NotFound, 67);
+
+        using NetworkCacheSession session = await harness.ResolveAsync();
+
+        Assert.Equal(new NetworkCacheStartupFailure(NetworkCacheStartupFailureKind.Unreachable, SecondShare, "CONTOSO\\svc"), session.Failure);
+    }
+
+    [Fact]
+    public async Task Resolve_Connected_HasNoFailure()
+    {
+        var harness = new Harness(Settings());
+
+        using NetworkCacheSession session = await harness.ResolveAsync();
+
+        Assert.Null(session.Failure);
+    }
+
+    [Theory]
+    [InlineData(NetworkCacheStartupFailureKind.NoScope, false)]
+    [InlineData(NetworkCacheStartupFailureKind.AccessDenied, false)]
+    [InlineData(NetworkCacheStartupFailureKind.Unreachable, true)]
+    [InlineData(NetworkCacheStartupFailureKind.NotPublished, true)]
+    [InlineData(NetworkCacheStartupFailureKind.ContentMissing, true)]
+    public void IsRetryable_FollowsWhetherWaitingCanHelp(NetworkCacheStartupFailureKind kind, bool expected)
+    {
+        Assert.Equal(expected, kind.IsRetryable());
     }
 
     [Fact]
@@ -141,6 +291,7 @@ public sealed class NetworkCacheSessionResolverTests
         using NetworkCacheSession session = await harness.ResolveAsync();
 
         Assert.Equal(NetworkCacheOutcome.Unavailable, session.Outcome);
+        Assert.Equal(new NetworkCacheStartupFailure(NetworkCacheStartupFailureKind.Unreachable), session.Failure);
     }
 
     [Fact]
@@ -179,10 +330,13 @@ public sealed class NetworkCacheSessionResolverTests
         private readonly DeployNetworkCacheSettings settings;
         private readonly string[] addresses;
 
-        public Harness(DeployNetworkCacheSettings settings, string[]? addresses = null)
+        private readonly TimeSpan connectTimeout;
+
+        public Harness(DeployNetworkCacheSettings settings, string[]? addresses = null, TimeSpan? connectTimeout = null)
         {
             this.settings = settings;
             this.addresses = addresses ?? ["10.10.4.2"];
+            this.connectTimeout = connectTimeout ?? TimeSpan.FromSeconds(10);
         }
 
         public FakeConnector Connector { get; } = new();
@@ -196,7 +350,7 @@ public sealed class NetworkCacheSessionResolverTests
                 new StaticAdapters(addresses),
                 new StaticKeys(),
                 Probe,
-                connectTimeout: TimeSpan.FromSeconds(10),
+                connectTimeout,
                 probeTimeout: TimeSpan.FromMilliseconds(100),
                 NullLogger<NetworkCacheSessionResolver>.Instance);
             return resolver.ResolveAsync(@"X:\Foundry", "session01", TestContext.Current.CancellationToken);
@@ -211,10 +365,12 @@ public sealed class NetworkCacheSessionResolverTests
         public List<(string Path, string? User)> Connected { get; } = [];
         public List<string> Disconnected { get; } = [];
         public string? LastPassword { get; private set; }
+        public ManualResetEventSlim? Block { get; set; }
 
         public SmbConnectResult Connect(string uncPath, string? userName, ReadOnlySpan<char> password)
         {
             Connected.Add((uncPath, userName));
+            Block?.Wait(TimeSpan.FromSeconds(10));
             if (userName is not null) LastPassword = new string(password);
             return Results.TryGetValue(uncPath, out SmbConnectResult? result) ? result : new(SmbConnectStatus.Connected, 0);
         }

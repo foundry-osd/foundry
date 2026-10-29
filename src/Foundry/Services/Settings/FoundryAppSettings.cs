@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.NetworkCache;
 using Foundry.Core.Services.WinPe;
 using Foundry.Localization;
 
@@ -48,6 +49,23 @@ public sealed class FoundryAppSettings
     /// </summary>
     /// <remarks>The name avoids the legacy <c>media</c> section, which the startup migration still reads.</remarks>
     public MediaOutputAppSettings MediaOutput { get; set; } = new();
+
+    /// <summary>
+    /// Gets or sets what this computer last published to each network cache share.
+    /// </summary>
+    public NetworkCacheAppSettings NetworkCache { get; set; } = new();
+}
+
+/// <summary>
+/// Stores the network cache publication history of this computer; it is never shared with a configuration and holds no secret.
+/// </summary>
+public sealed class NetworkCacheAppSettings
+{
+    /// <summary>
+    /// Gets or sets one record per share id, replaced at each publication attempt
+    /// (<see cref="Foundry.Core.Services.NetworkCache.NetworkCachePublicationRecords.Apply"/>).
+    /// </summary>
+    public List<NetworkCachePublicationRecord> Publications { get; set; } = [];
 }
 
 /// <summary>

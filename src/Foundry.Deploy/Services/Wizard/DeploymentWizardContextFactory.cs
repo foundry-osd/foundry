@@ -4,6 +4,7 @@
 
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Drivers;
+using Foundry.Deploy.Services.Images;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.ViewModels;
 using Microsoft.Extensions.Logging;
@@ -17,19 +18,22 @@ public sealed class DeploymentWizardContextFactory : IDeploymentWizardContextFac
     private readonly ILoggerFactory _loggerFactory;
     private readonly Foundry.Deploy.Services.Deployment.Unattend.UnattendContentService _unattendContentService;
     private readonly CustomDriverSetCatalogService _customDriverSetCatalogService;
+    private readonly CustomImageCatalogService? _customImageCatalogService;
 
     public DeploymentWizardContextFactory(
         IDriverPackSelectionService driverPackSelectionService,
         ILocalizationService localizationService,
         ILoggerFactory loggerFactory,
         Foundry.Deploy.Services.Deployment.Unattend.UnattendContentService unattendContentService,
-        CustomDriverSetCatalogService customDriverSetCatalogService)
+        CustomDriverSetCatalogService customDriverSetCatalogService,
+        CustomImageCatalogService? customImageCatalogService = null)
     {
         _driverPackSelectionService = driverPackSelectionService;
         _localizationService = localizationService;
         _loggerFactory = loggerFactory;
         _unattendContentService = unattendContentService;
         _customDriverSetCatalogService = customDriverSetCatalogService;
+        _customImageCatalogService = customImageCatalogService;
     }
 
     public DeploymentWizardContext Create(bool isDebugSafeMode)
@@ -51,6 +55,7 @@ public sealed class DeploymentWizardContextFactory : IDeploymentWizardContextFac
             operatingSystemCatalog,
             driverPackSelection,
             _customDriverSetCatalogService,
-            _loggerFactory.CreateLogger<DeploymentWizardContext>());
+            _loggerFactory.CreateLogger<DeploymentWizardContext>(),
+            _customImageCatalogService);
     }
 }

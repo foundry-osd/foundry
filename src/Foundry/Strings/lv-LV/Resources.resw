@@ -812,7 +812,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Draiveru kopas</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
-    <value>Nav pieejams, sāknējot ar PXE. Pielāgotiem draiveriem nepieciešams pilns ISO vai USB datu nesējs.</value>
+    <value>Ar PXE sāknēšanu pielāgotajiem draiveriem ir nepieciešama tīkla kešatmiņa. Bez tās izmantojiet ISO vai USB datu nesēju.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
     <value>Šīs konfigurācijas draiveru kopas nav derīgas. Pirms datu nesēja izveides vai atjaunināšanas pārbaudiet iekļautās kopas un noklusējuma kopu.</value>
@@ -938,7 +938,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Attēla darbība neizdevās. Pārbaudiet avotu, brīvo vietu un Foundry žurnālus.</value>
   </data>
   <data name="CustomImages.PxeWarning" xml:space="preserve">
-    <value>Nav pieejams, sāknējot ar PXE. Pielāgotiem attēliem nepieciešams pilns ISO vai USB datu nesējs.</value>
+    <value>Ar PXE sāknēšanu pielāgotajiem attēliem ir nepieciešama tīkla kešatmiņa. Bez tās izmantojiet ISO vai USB datu nesēju.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Iekļaujiet šajā konfigurācijā vismaz vienu pieejamu Windows attēlu. Pirms datu nesēja izveides vai atjaunināšanas atjaunojiet trūkstošos iekļautos attēlus un labojiet vai notīriet vēlamā attēla vai indeksa atlasi.</value>
@@ -2819,7 +2819,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Lietotājvārds</value>
   </data>
   <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user vai user@domain</value>
+    <value>DOMAIN\user, SERVER\user vai user@domain</value>
   </data>
   <data name="NetworkCache.AccountsDescription" xml:space="preserve">
     <value>Konti, ar kuriem tiek atvērti koplietojumi. Ierīces tos izmanto, lai lasītu koplietojumu un publicētu tajā lejupielādēto.</value>
@@ -2827,8 +2827,32 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="NetworkCache.AccountsHeader" xml:space="preserve">
     <value>Konti</value>
   </data>
+  <data name="NetworkCache.CleanUpShareFailedMessageFormat" xml:space="preserve">
+    <value>Koplietojumu {0} nevarēja notīrīt. Pārbaudiet, vai koplietojums ir sasniedzams un vai tā konts var dzēst failus, un pēc tam mēģiniet vēlreiz.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareKeptMessageFormat" xml:space="preserve">
+    <value>Koplietojums {0} tika notīrīts, bet daži faili tika saglabāti, jo tie tiek izmantoti, ir mainīti kopš publicēšanas vai tos nav ierakstījis Foundry.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareMessageFormat" xml:space="preserve">
+    <value>Vai dzēst lejupielādes koplietojumā {0} un importēto saturu, ko vairs neizmanto ne jūsu konfigurācija, ne neviens publicēts indekss? Ierīces atkal lejupielādē to, kas tām nepieciešams.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareTitle" xml:space="preserve">
+    <value>Notīrīt koplietojumu</value>
+  </data>
   <data name="NetworkCache.ColumnAccount" xml:space="preserve">
     <value>Konts</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloads" xml:space="preserve">
+    <value>No interneta</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloadsToolTip" xml:space="preserve">
+    <value>Windows un draiveru pakotnes, ko ierīces lejupielādēja no interneta. Tīrīšana tās izdzēš, un ierīces pēc vajadzības tās lejupielādē vēlreiz.</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContent" xml:space="preserve">
+    <value>Importētais saturs</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContentToolTip" xml:space="preserve">
+    <value>Foundry OSD publicētie pielāgotie attēli, draiveru kopas un pēcinstalēšanas skripti. Tīrīšana saglabā tos, kas vēl tiek izmantoti.</value>
   </data>
   <data name="NetworkCache.ColumnName" xml:space="preserve">
     <value>Nosaukums</value>
@@ -2860,11 +2884,20 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="NetworkCache.CommandAdd" xml:space="preserve">
     <value>Pievienot</value>
   </data>
+  <data name="NetworkCache.CommandCleanUp" xml:space="preserve">
+    <value>Notīrīt</value>
+  </data>
   <data name="NetworkCache.CommandEdit" xml:space="preserve">
     <value>Rediģēt</value>
   </data>
+  <data name="NetworkCache.CommandPublish" xml:space="preserve">
+    <value>Publicēt</value>
+  </data>
   <data name="NetworkCache.CommandRemove" xml:space="preserve">
     <value>Noņemt</value>
+  </data>
+  <data name="NetworkCache.ContentMissingShareFormat" xml:space="preserve">
+    <value>Koplietojumā {0} vairs nav jūsu publicētā satura. Atlasiet Publicēt.</value>
   </data>
   <data name="NetworkCache.DialogAdd" xml:space="preserve">
     <value>Pievienot</value>
@@ -2887,8 +2920,23 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="NetworkCache.NoAccount" xml:space="preserve">
     <value>Nav konta</value>
   </data>
+  <data name="NetworkCache.NotPublishedMessage" xml:space="preserve">
+    <value>Koplietojumos nav jūsu jaunāko izmaiņu. Atlasiet Publicēt.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedShareFormat" xml:space="preserve">
+    <value>Koplietojums {0} nesaņēma jūsu jaunākās izmaiņas. Atlasiet Publicēt.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedState" xml:space="preserve">
+    <value>Nav publicēts</value>
+  </data>
+  <data name="NetworkCache.OutdatedState" xml:space="preserve">
+    <value>Novecojis</value>
+  </data>
   <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
     <value>Koplietojumi: {0}, IP tvērumi: {1}</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryWithStateFormat" xml:space="preserve">
+    <value>{0} · {1}</value>
   </data>
   <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
     <value>Šo paroli nevar izmantot.</value>
@@ -2904,6 +2952,15 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="NetworkCache.PasswordSaved" xml:space="preserve">
     <value>Saglabāta</value>
+  </data>
+  <data name="NetworkCache.PublishFailedMessage" xml:space="preserve">
+    <value>Publicējamo saturu nevarēja sagatavot.</value>
+  </data>
+  <data name="NetworkCache.PublishKeysUnavailableMessage" xml:space="preserve">
+    <value>Šis dators nevar parakstīt to, ko tas publicē koplietojumos, jo tā parakstīšanas atslēgu nevarēja nolasīt vai saglabāt.</value>
+  </data>
+  <data name="NetworkCache.PublishSucceededMessage" xml:space="preserve">
+    <value>Koplietojumos ir jūsu jaunākās izmaiņas.</value>
   </data>
   <data name="NetworkCache.Ready" xml:space="preserve">
     <value>Gatavs</value>
@@ -2945,7 +3002,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Koplietojumi</value>
   </data>
   <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>Ierīces mēģina atzīmētos koplietojumus no augšas uz leju, pēc tam lejupielādē no interneta.</value>
+    <value>Ierīces izmanto pirmo atzīmēto koplietojumu, kas atbild, no augšas uz leju.</value>
   </data>
   <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
     <value>Atzīmējiet vismaz vienu koplietojumu.</value>
@@ -2998,6 +3055,24 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="NetworkCache.SharesHeader" xml:space="preserve">
     <value>Koplietojumi</value>
   </data>
+  <data name="NetworkCache.SpaceCleaningUp" xml:space="preserve">
+    <value>Notiek tīrīšana…</value>
+  </data>
+  <data name="NetworkCache.SpaceMeasuring" xml:space="preserve">
+    <value>Notiek mērīšana…</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreachable" xml:space="preserve">
+    <value>Nav sasniedzams</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreadable" xml:space="preserve">
+    <value>Nevar nolasīt</value>
+  </data>
+  <data name="NetworkCache.TrustedKeyUnavailableMessage" xml:space="preserve">
+    <value>Datu nesēju ar ieslēgtu tīkla kešatmiņu nevar izveidot, jo šim datoram nav uzticamas atslēgas koplietojumos publicētajam saturam. Pārbaudiet Konfigurācijas koplietošana lapā Iestatījumi.</value>
+  </data>
+  <data name="NetworkCache.UpToDateState" xml:space="preserve">
+    <value>Atjaunināts</value>
+  </data>
   <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
     <value>Šī vērtība nav derīga tās tipam.</value>
   </data>
@@ -3029,7 +3104,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Ievadiet lietotājvārdu.</value>
   </data>
   <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>Ļauj Foundry Deploy izmantot SMB koplietojumus kā koplietotu kešatmiņu, kas tiek izvēlēta pēc ierīces IP adreses. Windows, draiveru pakotnes un importētais saturs tiek lasīts no koplietojuma pirms interneta, un ierīču lejupielādētais tiek publicēts atpakaļ tajā.</value>
+    <value>Ļauj Foundry Deploy izmantot SMB koplietojumus kā koplietotu kešatmiņu, kas tiek izvēlēta pēc ierīces IP adreses.</value>
   </data>
   <data name="NetworkCachePageHeader.Title" xml:space="preserve">
     <value>Tīkla kešatmiņa</value>
@@ -3218,7 +3293,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>PowerShell argumenti</value>
   </data>
   <data name="PostInstallation.PxeWarning" xml:space="preserve">
-    <value>Darbības, kas izmanto importētus failus, nav pieejamas, sāknējot ar PXE. Tām nepieciešams pilns ISO vai USB datu nesējs.</value>
+    <value>Ar PXE sāknēšanu darbībām, kas izmanto importētus failus, ir nepieciešama tīkla kešatmiņa. Bez tās izmantojiet ISO vai USB datu nesēju.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Darbību neizdevās noņemt. Mēģiniet vēlreiz.</value>
@@ -4354,6 +4429,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
     <value>Notiek Windows attēla atvēršana…</value>
   </data>
+  <data name="StartMedia.Operation.NetworkCachePublicationFailedFormat" xml:space="preserve">
+    <value>Šie tīkla kešatmiņas koplietojumi nesaņēma importēto saturu: {0}. Pārbaudiet, vai katrs koplietojums ir sasniedzams un rakstāms, un pēc tam lapā Tīkla kešatmiņa atlasiet Publicēt.</value>
+  </data>
   <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
     <value>Atvērt mapi</value>
   </data>
@@ -4389,6 +4467,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
     <value>Darbvietas sagatavošana</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.PublishingToNetworkCache" xml:space="preserve">
+    <value>Publicēšana tīkla kešatmiņā</value>
   </data>
   <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
     <value>USB diska atjaunināšana</value>
@@ -4428,6 +4509,12 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Notiek Foundry komponentu pievienošana USB diskam…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
+    <value>Notiek importētā satura publicēšana tīkla kešatmiņā…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCacheShareFormat" xml:space="preserve">
+    <value>Notiek importētā satura publicēšana uz {0}, koplietojums {1} no {2}</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
     <value>Mērķa mapē nepietiek brīvas vietas. PXE sāknēšanas failiem nepieciešams {0}. Pieejams: {1}. Atbrīvojiet vietu vai izvēlieties citu mapi.</value>
@@ -4476,6 +4563,18 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO ir izveidots</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishCancelled" xml:space="preserve">
+    <value>Publicēšana tīkla kešatmiņā atcelta</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishFailed" xml:space="preserve">
+    <value>Publicēšana tīkla kešatmiņā neizdevās</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishRunning" xml:space="preserve">
+    <value>Notiek publicēšana tīkla kešatmiņā</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishSucceeded" xml:space="preserve">
+    <value>Publicēts tīkla kešatmiņā</value>
   </data>
   <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
     <value>PXE failu izveide atcelta</value>

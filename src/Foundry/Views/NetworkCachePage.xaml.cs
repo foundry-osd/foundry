@@ -25,7 +25,14 @@ public sealed partial class NetworkCachePage : Page
         ViewModel.AccountRowsRemoving += OnAccountRowsRemoving;
         ViewModel.ShareRowsRemoving += OnShareRowsRemoving;
         ViewModel.ScopeRowsRemoving += OnScopeRowsRemoving;
+        Loaded += OnLoaded;
         Unloaded += OnUnloaded;
+    }
+
+    private void OnLoaded(object sender, RoutedEventArgs e)
+    {
+        Loaded -= OnLoaded;
+        ViewModel.MeasureSpace();
     }
 
     private void OnAccountRowsRemoving(object? sender, EventArgs e) => AccountsTable.DeselectAll();
