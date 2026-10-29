@@ -2240,7 +2240,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Parolayı doğrulayın</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Dağıtımdan önce teknisyen parolası isteyin. Gömülü ağ kimlik bilgileri bu parola olmadan erişilebilir durumda kalır.</value>
+    <value>Dağıtımdan önce teknisyen parolası isteyin. Medya bir ağ gizli bilgisi (ör. Wi-Fi parolası veya istemci sertifikası) sağladığında parola koruması gereklidir.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Parola koruması</value>
@@ -2249,7 +2249,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Parola</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Bu parolayı güvende tutun. Yerel Windows hesaplarının parolalarını, etki alanına katılma kimlik bilgilerini, Autopilot kimlik bilgilerini ve profillerini ve özel yanıt dosyalarını korur.</value>
+    <value>Bu parolayı güvende tutun. Yerel Windows hesaplarının parolalarını, etki alanına katılma kimlik bilgilerini, Autopilot kimlik bilgilerini ve profillerini, özel yanıt dosyalarını ve ağ gizli bilgilerini korur: kişisel Wi-Fi parolası, istemci sertifikası ve parolası ile anahtar malzemesi içeren kurumsal Wi-Fi profili.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Dağıtım parolası</value>
@@ -2775,6 +2775,12 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>Kaldır</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>İstemci sertifikasını kaldır</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Seçili güvenilen kök CA sertifikasını kaldır</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Sertifikaları kullan</value>

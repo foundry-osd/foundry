@@ -2240,7 +2240,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>암호 확인</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>배포를 시작하기 전에 기술자 암호를 요구합니다. 포함된 네트워크 자격 증명은 이 암호 없이도 계속 액세스할 수 있습니다.</value>
+    <value>배포를 시작하기 전에 기술자 암호를 요구합니다. 미디어가 Wi-Fi 암호나 클라이언트 인증서와 같은 네트워크 비밀을 프로비저닝하는 경우 암호 보호가 필요합니다.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>암호 보호</value>
@@ -2249,7 +2249,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>암호</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>이 암호를 안전하게 보관하세요. 로컬 Windows 계정 암호, 도메인 가입 자격 증명, Autopilot 자격 증명 및 프로필, 사용자 지정 응답 파일을 보호합니다.</value>
+    <value>이 암호를 안전하게 보관하세요. 로컬 Windows 계정 암호, 도메인 가입 자격 증명, Autopilot 자격 증명 및 프로필, 사용자 지정 응답 파일, 네트워크 비밀(개인 Wi-Fi 암호, 클라이언트 인증서 및 해당 암호, 키 자료가 포함된 엔터프라이즈 Wi-Fi 프로필)을 보호합니다.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>배포 암호</value>
@@ -2775,6 +2775,12 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>제거</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>클라이언트 인증서 제거</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>선택한 신뢰할 수 있는 루트 CA 인증서 제거</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>인증서 사용</value>

@@ -2240,7 +2240,7 @@ Licensed under the MIT License.</value>
     <value>Confirm password</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Require a technician password before deployment. Embedded network credentials remain accessible without this password.</value>
+    <value>Require a technician password before deployment. Password protection is required when the media provisions a network secret, such as a Wi-Fi password or a client certificate.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Password protection</value>
@@ -2249,7 +2249,7 @@ Licensed under the MIT License.</value>
     <value>Password</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Keep this password safe. It protects local Windows account passwords, domain join credentials, Autopilot credentials and profiles, and custom answer files.</value>
+    <value>Keep this password safe. It protects local Windows account passwords, domain join credentials, Autopilot credentials and profiles, custom answer files, and network secrets: the personal Wi-Fi password, the client certificate and its password, and an enterprise Wi-Fi profile that contains key material.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Deployment password</value>
@@ -2776,6 +2776,12 @@ Licensed under the MIT License.</value>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>Remove</value>
   </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>Remove client certificate</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Remove selected trusted root certificate</value>
+  </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Use certificates</value>
   </data>
@@ -2807,7 +2813,7 @@ Licensed under the MIT License.</value>
     <value>Foundry remembers the passphrase on this PC in its local encrypted vault. It leaves this PC only in an export or a publication when Include passwords is chosen.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>When this option is on, every Wi-Fi network joined successfully in Foundry Connect, provisioned or joined manually, is imported into Windows before OOBE, starting with the one that provided internet access, to keep connectivity after WinPE.</value>
+    <value>When this option is on, every Wi-Fi network that Foundry Connect successfully joined, whether provisioned or chosen manually, is imported into Windows before OOBE, starting with the one that provided internet access, to keep connectivity after WinPE.</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows profile roaming</value>

@@ -2240,7 +2240,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Vahvista salasana</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Vaadi teknikon salasana ennen käyttöönoton aloittamista. Upotetut verkon tunnistetiedot ovat edelleen käytettävissä ilman tätä salasanaa.</value>
+    <value>Vaadi teknikon salasana ennen käyttöönoton aloittamista. Salasanasuojaus vaaditaan, kun tietoväline sisältää verkon salaisuuden, kuten Wi-Fi-salasanan tai asiakasvarmenteen.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Salasanasuojaus</value>
@@ -2249,7 +2249,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Salasana</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Säilytä tämä salasana turvallisesti. Se suojaa paikallisten Windows-tilien salasanat, toimialueeseen liittymisen tunnistetiedot, Autopilot-tunnistetiedot ja -profiilit sekä mukautetut vastaustiedostot.</value>
+    <value>Säilytä tämä salasana turvallisesti. Se suojaa paikallisten Windows-tilien salasanat, toimialueeseen liittymisen tunnistetiedot, Autopilot-tunnistetiedot ja -profiilit, mukautetut vastaustiedostot sekä verkon salaisuudet: henkilökohtaisen Wi-Fi-salasanan, asiakasvarmenteen ja sen salasanan sekä yrityksen Wi-Fi-profiilin, joka sisältää avainmateriaalia.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Käyttöönoton salasana</value>
@@ -2775,6 +2775,12 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>Poista</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>Poista asiakasvarmenne</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Poista valittu luotettu juurivarmenne</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Käytä varmenteita</value>

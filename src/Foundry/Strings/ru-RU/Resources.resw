@@ -2240,7 +2240,7 @@
     <value>Подтвердите пароль</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Требовать пароль технического специалиста перед развертыванием. Встроенные сетевые учетные данные остаются доступными без этого пароля.</value>
+    <value>Требовать пароль технического специалиста перед развертыванием. Защита паролем обязательна, если носитель предоставляет сетевой секрет, например пароль Wi-Fi или сертификат клиента.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Защита паролем</value>
@@ -2249,7 +2249,7 @@
     <value>Пароль</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Храните этот пароль в надежном месте. Он защищает пароли локальных учетных записей Windows, учетные данные для присоединения к домену, учетные данные и профили Autopilot, а также пользовательские файлы ответов.</value>
+    <value>Храните этот пароль в надежном месте. Он защищает пароли локальных учетных записей Windows, учетные данные для присоединения к домену, учетные данные и профили Autopilot, пользовательские файлы ответов, а также сетевые секреты: личный пароль Wi-Fi, сертификат клиента и его пароль, а также корпоративный профиль Wi-Fi, содержащий ключевой материал.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Пароль развертывания</value>
@@ -2775,6 +2775,12 @@
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>Удалить</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>Удалить сертификат клиента</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Удалить выбранный сертификат доверенного корневого центра сертификации</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Использовать сертификаты</value>

@@ -2240,7 +2240,7 @@ Licenciado sob a licença MIT.</value>
     <value>Confirmar palavra-passe</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Exigir uma palavra-passe de técnico antes da implementação. As credenciais de rede incorporadas continuam acessíveis sem esta palavra-passe.</value>
+    <value>Exigir uma palavra-passe de técnico antes da implementação. A proteção por palavra-passe é obrigatória quando o suporte aprovisiona um segredo de rede, como uma palavra-passe de Wi-Fi ou um certificado de cliente.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Proteção por palavra-passe</value>
@@ -2249,7 +2249,7 @@ Licenciado sob a licença MIT.</value>
     <value>Palavra-passe</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Guarde esta palavra-passe em segurança. Protege as palavras-passe das contas locais do Windows, as credenciais de associação ao domínio, as credenciais e os perfis do Autopilot e os ficheiros de resposta personalizados.</value>
+    <value>Guarde esta palavra-passe em segurança. Protege as palavras-passe das contas locais do Windows, as credenciais de associação ao domínio, as credenciais e os perfis do Autopilot, os ficheiros de resposta personalizados e os segredos de rede: a palavra-passe pessoal de Wi-Fi, o certificado de cliente e a respetiva palavra-passe, e um perfil empresarial de Wi-Fi que contenha material de chave.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Palavra-passe de implementação</value>
@@ -2775,6 +2775,12 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>Remover</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>Remover o certificado de cliente</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Remover o certificado de AC de raiz fidedigna selecionado</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Utilizar certificados</value>

@@ -2240,7 +2240,7 @@ Licencirano pod MIT licencom.</value>
     <value>Potvrdite lozinku</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Zahtevaj lozinku tehničara pre primene. Ugrađeni mrežni akreditivi ostaju dostupni bez ove lozinke.</value>
+    <value>Zahtevaj lozinku tehničara pre primene. Zaštita lozinkom je obavezna kada medij obezbeđuje mrežnu tajnu, na primer lozinku za Wi-Fi ili sertifikat klijenta.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Zaštita lozinkom</value>
@@ -2249,7 +2249,7 @@ Licencirano pod MIT licencom.</value>
     <value>Lozinka</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Čuvajte ovu lozinku na sigurnom. Ona štiti lozinke lokalnih Windows naloga, akreditive za pridruživanje domenu, Autopilot akreditive i profile, kao i prilagođene datoteke odgovora.</value>
+    <value>Čuvajte ovu lozinku na sigurnom. Ona štiti lozinke lokalnih Windows naloga, akreditive za pridruživanje domenu, Autopilot akreditive i profile, prilagođene datoteke odgovora, kao i mrežne tajne: ličnu lozinku za Wi-Fi, sertifikat klijenta i njegovu lozinku, kao i poslovni profil za Wi-Fi koji sadrži materijal ključa.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Lozinka za primenu</value>
@@ -2775,6 +2775,12 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>Ukloni</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>Ukloni sertifikat klijenta</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Ukloni izabrani sertifikat pouzdanog root CA</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Koristi sertifikate</value>

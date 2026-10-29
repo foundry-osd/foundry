@@ -2240,7 +2240,7 @@
     <value>確認密碼</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>部署前要求輸入技術人員密碼。內嵌的網路認證在沒有此密碼的情況下仍可存取。</value>
+    <value>部署前要求輸入技術人員密碼。當媒體佈建網路秘密（例如 Wi-Fi 密碼或用戶端憑證）時，必須啟用密碼保護。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>密碼保護</value>
@@ -2249,7 +2249,7 @@
     <value>密碼</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>請妥善保管此密碼。它用於保護本機 Windows 帳戶密碼、網域加入認證、Autopilot 認證和設定檔，以及自訂回應檔案。</value>
+    <value>請妥善保管此密碼。它用於保護本機 Windows 帳戶密碼、網域加入認證、Autopilot 認證和設定檔、自訂回應檔案，以及網路秘密：個人 Wi-Fi 密碼、用戶端憑證及其密碼，以及包含金鑰資料的企業 Wi-Fi 設定檔。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>部署密碼</value>
@@ -2775,6 +2775,12 @@
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>移除</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>移除用戶端憑證</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>移除選取的受信任的根 CA 憑證</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>使用憑證</value>

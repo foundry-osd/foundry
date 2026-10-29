@@ -2240,7 +2240,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Patvirtinkite slaptažodį</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Reikalauti techniko slaptažodžio prieš pradedant diegimą. Įterptieji tinklo prisijungimo duomenys lieka pasiekiami be šio slaptažodžio.</value>
+    <value>Reikalauti techniko slaptažodžio prieš pradedant diegimą. Apsauga slaptažodžiu privaloma, kai laikmena pateikia tinklo paslaptį, pvz., Wi-Fi slaptažodį arba kliento sertifikatą.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Apsauga slaptažodžiu</value>
@@ -2249,7 +2249,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Slaptažodis</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Saugiai laikykite šį slaptažodį. Jis apsaugo vietinių „Windows“ paskyrų slaptažodžius, prisijungimo prie domeno duomenis, „Autopilot“ prisijungimo duomenis ir profilius bei pasirinktinius atsakymų failus.</value>
+    <value>Saugiai laikykite šį slaptažodį. Jis apsaugo vietinių „Windows“ paskyrų slaptažodžius, prisijungimo prie domeno duomenis, „Autopilot“ prisijungimo duomenis ir profilius, pasirinktinius atsakymų failus bei tinklo paslaptis: asmeninį Wi-Fi slaptažodį, kliento sertifikatą ir jo slaptažodį bei įmonės Wi-Fi profilį, kuriame yra rakto medžiagos.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Diegimo slaptažodis</value>
@@ -2775,6 +2775,12 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>Pašalinti</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>Pašalinti kliento sertifikatą</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Pašalinti pasirinktą patikimą šakninį CA sertifikatą</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Naudoti sertifikatus</value>

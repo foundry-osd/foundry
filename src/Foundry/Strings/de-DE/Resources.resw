@@ -2240,7 +2240,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Kennwort bestätigen</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Vor dem Start einer Bereitstellung ein Technikerkennwort anfordern. Eingebettete Netzwerkanmeldeinformationen bleiben ohne dieses Kennwort zugänglich.</value>
+    <value>Vor dem Start einer Bereitstellung ein Technikerkennwort anfordern. Der Kennwortschutz ist erforderlich, wenn das Medium ein Netzwerkgeheimnis bereitstellt, etwa ein Wi-Fi-Kennwort oder ein Clientzertifikat.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Kennwortschutz</value>
@@ -2249,7 +2249,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Kennwort</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Bewahren Sie dieses Kennwort sicher auf. Es schützt Kennwörter lokaler Windows-Konten, Anmeldeinformationen für den Domänenbeitritt, Autopilot-Anmeldeinformationen und -Profile sowie benutzerdefinierte Antwortdateien.</value>
+    <value>Bewahren Sie dieses Kennwort sicher auf. Es schützt Kennwörter lokaler Windows-Konten, Anmeldeinformationen für den Domänenbeitritt, Autopilot-Anmeldeinformationen und -Profile, benutzerdefinierte Antwortdateien sowie Netzwerkgeheimnisse: das persönliche Wi-Fi-Kennwort, das Clientzertifikat und sein Kennwort sowie ein Wi-Fi-Unternehmensprofil, das Schlüsselmaterial enthält.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Bereitstellungskennwort</value>
@@ -2775,6 +2775,12 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>Entfernen</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>Clientzertifikat entfernen</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Ausgewähltes vertrauenswürdiges Root-CA-Zertifikat entfernen</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Zertifikate verwenden</value>

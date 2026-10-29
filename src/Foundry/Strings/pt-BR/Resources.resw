@@ -2240,7 +2240,7 @@ Licenciado sob a licença MIT.</value>
     <value>Confirmar senha</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Exija uma senha de técnico antes da implantação. As credenciais de rede incorporadas permanecem acessíveis sem essa senha.</value>
+    <value>Exija uma senha de técnico antes da implantação. A proteção por senha é obrigatória quando a mídia provisiona um segredo de rede, como uma senha de Wi-Fi ou um certificado do cliente.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Proteção por senha</value>
@@ -2249,7 +2249,7 @@ Licenciado sob a licença MIT.</value>
     <value>Senha</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Mantenha essa senha em segurança. Ela protege as senhas de contas locais do Windows, as credenciais de ingresso no domínio, as credenciais e os perfis do Autopilot e os arquivos de resposta personalizados.</value>
+    <value>Mantenha essa senha em segurança. Ela protege as senhas de contas locais do Windows, as credenciais de ingresso no domínio, as credenciais e os perfis do Autopilot, os arquivos de resposta personalizados e os segredos de rede: a senha pessoal de Wi-Fi, o certificado do cliente e sua senha, e um perfil corporativo de Wi-Fi que contém material de chave.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Senha de implantação</value>
@@ -2775,6 +2775,12 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>Remover</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>Remover o certificado do cliente</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Remover o certificado de CA raiz confiável selecionado</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Usar certificados</value>

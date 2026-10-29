@@ -2240,7 +2240,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Bekreft passord</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Krev et teknikerpassord før distribusjon. Innebygd påloggingsinformasjon for nettverk er fortsatt tilgjengelig uten dette passordet.</value>
+    <value>Krev et teknikerpassord før distribusjon. Passordbeskyttelse er påkrevd når mediet klargjør en nettverkshemmelighet, for eksempel et Wi-Fi-passord eller et klientsertifikat.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Passordbeskyttelse</value>
@@ -2249,7 +2249,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Passord</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Oppbevar dette passordet trygt. Det beskytter passord for lokale Windows-kontoer, legitimasjon for domenetilknytning, påloggingsinformasjon og profiler for Autopilot og egendefinerte svarfiler.</value>
+    <value>Oppbevar dette passordet trygt. Det beskytter passord for lokale Windows-kontoer, legitimasjon for domenetilknytning, påloggingsinformasjon og profiler for Autopilot, egendefinerte svarfiler og nettverkshemmeligheter: det personlige Wi-Fi-passordet, klientsertifikatet og passordet til det, og en Wi-Fi-bedriftsprofil som inneholder nøkkelmateriale.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Distribusjonspassord</value>
@@ -2775,6 +2775,12 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>Fjern</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>Fjern klientsertifikat</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Fjern det valgte klarerte rot-CA-sertifikatet</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Bruk sertifikater</value>

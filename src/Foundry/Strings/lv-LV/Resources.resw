@@ -2240,7 +2240,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Apstipriniet paroli</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Pieprasīt tehniķa paroli pirms izvietošanas. Iegultie tīkla akreditācijas dati paliek pieejami bez šīs paroles.</value>
+    <value>Pieprasīt tehniķa paroli pirms izvietošanas. Aizsardzība ar paroli ir obligāta, ja datu nesējs nodrošina tīkla noslēpumu, piemēram, Wi-Fi paroli vai klienta sertifikātu.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Aizsardzība ar paroli</value>
@@ -2249,7 +2249,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Parole</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Glabājiet šo paroli drošībā. Tā aizsargā lokālo Windows kontu paroles, pievienošanās domēnam akreditācijas datus, Autopilot akreditācijas datus un profilus, kā arī pielāgotos atbilžu failus.</value>
+    <value>Glabājiet šo paroli drošībā. Tā aizsargā lokālo Windows kontu paroles, pievienošanās domēnam akreditācijas datus, Autopilot akreditācijas datus un profilus, pielāgotos atbilžu failus, kā arī tīkla noslēpumus: personisko Wi-Fi paroli, klienta sertifikātu un tā paroli, kā arī uzņēmuma Wi-Fi profilu, kas satur atslēgas materiālu.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Izvietošanas parole</value>
@@ -2775,6 +2775,12 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>Noņemt</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>Noņemt klienta sertifikātu</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Noņemt atlasīto uzticamo saknes CA sertifikātu</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Izmantot sertifikātus</value>

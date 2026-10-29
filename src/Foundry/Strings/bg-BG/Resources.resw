@@ -2240,7 +2240,7 @@
     <value>Потвърдете паролата</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Изискване на парола на техник преди започване на разполагането. Вградените мрежови идентификационни данни остават достъпни без тази парола.</value>
+    <value>Изискване на парола на техник преди започване на разполагането. Защитата с парола е задължителна, когато носителят предоставя мрежова тайна, като парола за Wi-Fi или клиентски сертификат.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Защита с парола</value>
@@ -2249,7 +2249,7 @@
     <value>Парола</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Пазете тази парола на сигурно място. Тя защитава паролите на локалните акаунти в Windows, идентификационните данни за присъединяване към домейн, идентификационните данни и профилите на Autopilot и потребителските файлове с отговори.</value>
+    <value>Пазете тази парола на сигурно място. Тя защитава паролите на локалните акаунти в Windows, идентификационните данни за присъединяване към домейн, идентификационните данни и профилите на Autopilot, потребителските файлове с отговори и мрежовите тайни: личната парола за Wi-Fi, клиентския сертификат и паролата му, както и корпоративен профил за Wi-Fi, който съдържа ключов материал.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Парола за разполагане</value>
@@ -2775,6 +2775,12 @@
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>Премахване</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>Премахване на клиентския сертификат</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Премахване на избрания сертификат за доверен основен CA</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Използване на сертификати</value>

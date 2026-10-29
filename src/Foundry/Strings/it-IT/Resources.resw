@@ -2240,7 +2240,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Conferma password</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Richiedi la password di un tecnico prima di avviare una distribuzione. Le credenziali di rete incorporate rimangono accessibili senza questa password.</value>
+    <value>Richiedi la password di un tecnico prima di avviare una distribuzione. La protezione con password è obbligatoria quando il supporto esegue il provisioning di un segreto di rete, ad esempio una password Wi-Fi o un certificato client.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Protezione con password</value>
@@ -2249,7 +2249,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Password</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Conserva questa password al sicuro. Protegge le password degli account locali di Windows, le credenziali di aggiunta al dominio, le credenziali e i profili Autopilot e i file di risposte personalizzati.</value>
+    <value>Conserva questa password al sicuro. Protegge le password degli account locali di Windows, le credenziali di aggiunta al dominio, le credenziali e i profili Autopilot, i file di risposte personalizzati e i segreti di rete: la password Wi-Fi personale, il certificato client e la relativa password e un profilo Wi-Fi aziendale che contiene materiale della chiave.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Password di distribuzione</value>
@@ -2775,6 +2775,12 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>Rimuovi</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>Rimuovi il certificato client</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Rimuovi il certificato della CA radice attendibile selezionato</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Usa certificati</value>

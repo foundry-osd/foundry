@@ -2240,7 +2240,7 @@ Licențiat sub licența MIT.</value>
     <value>Confirmați parola</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Solicitați parola unui tehnician înainte de implementare. Datele de autentificare în rețea încorporate rămân accesibile fără această parolă.</value>
+    <value>Solicitați parola unui tehnician înainte de implementare. Protecția prin parolă este obligatorie atunci când suportul furnizează un secret de rețea, cum ar fi o parolă Wi-Fi sau un certificat client.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Protecție prin parolă</value>
@@ -2249,7 +2249,7 @@ Licențiat sub licența MIT.</value>
     <value>Parolă</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Păstrați această parolă în siguranță. Ea protejează parolele conturilor locale Windows, acreditările de asociere la domeniu, datele de autentificare și profilurile Autopilot, precum și fișierele de răspuns personalizate.</value>
+    <value>Păstrați această parolă în siguranță. Ea protejează parolele conturilor locale Windows, acreditările de asociere la domeniu, datele de autentificare și profilurile Autopilot, fișierele de răspuns personalizate, precum și secretele de rețea: parola Wi-Fi personală, certificatul client și parola acestuia, precum și un profil Wi-Fi de întreprindere care conține material de cheie.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Parolă de implementare</value>
@@ -2775,6 +2775,12 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>Elimină</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>Elimină certificatul client</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Elimină certificatul CA rădăcină de încredere selectat</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Utilizați certificate</value>

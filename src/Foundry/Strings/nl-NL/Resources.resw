@@ -2240,7 +2240,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Wachtwoord bevestigen</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Vereis een technicuswachtwoord vóór de implementatie. Ingesloten netwerkreferenties blijven toegankelijk zonder dit wachtwoord.</value>
+    <value>Vereis een technicuswachtwoord vóór de implementatie. Wachtwoordbeveiliging is vereist wanneer het medium een netwerkgeheim inricht, zoals een Wi-Fi-wachtwoord of een clientcertificaat.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Wachtwoordbeveiliging</value>
@@ -2249,7 +2249,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Wachtwoord</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Bewaar dit wachtwoord veilig. Het beschermt wachtwoorden voor lokale Windows-accounts, referenties voor domeintoetreding, Autopilot-referenties en -profielen en aangepaste antwoordbestanden.</value>
+    <value>Bewaar dit wachtwoord veilig. Het beschermt wachtwoorden voor lokale Windows-accounts, referenties voor domeintoetreding, Autopilot-referenties en -profielen, aangepaste antwoordbestanden en netwerkgeheimen: het persoonlijke Wi-Fi-wachtwoord, het clientcertificaat en het bijbehorende wachtwoord, en een zakelijk Wi-Fi-profiel dat sleutelmateriaal bevat.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Implementatiewachtwoord</value>
@@ -2775,6 +2775,12 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>Verwijderen</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>Clientcertificaat verwijderen</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Geselecteerd vertrouwd root-CA-certificaat verwijderen</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Certificaten gebruiken</value>

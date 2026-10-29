@@ -2240,7 +2240,7 @@ Licensierad under MIT-licensen.</value>
     <value>Bekräfta lösenord</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Kräv ett teknikerlösenord före distributionen. Inbäddade autentiseringsuppgifter för nätverk är fortfarande tillgängliga utan detta lösenord.</value>
+    <value>Kräv ett teknikerlösenord före distributionen. Lösenordsskydd krävs när mediet etablerar en nätverkshemlighet, till exempel ett Wi-Fi-lösenord eller ett klientcertifikat.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Lösenordsskydd</value>
@@ -2249,7 +2249,7 @@ Licensierad under MIT-licensen.</value>
     <value>Lösenord</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Förvara detta lösenord säkert. Det skyddar lösenord för lokala Windows-konton, autentiseringsuppgifter för domänanslutning, autentiseringsuppgifter och profiler för Autopilot samt egna svarsfiler.</value>
+    <value>Förvara detta lösenord säkert. Det skyddar lösenord för lokala Windows-konton, autentiseringsuppgifter för domänanslutning, autentiseringsuppgifter och profiler för Autopilot, egna svarsfiler och nätverkshemligheter: det personliga Wi-Fi-lösenordet, klientcertifikatet och dess lösenord samt en Wi-Fi-företagsprofil som innehåller nyckelmaterial.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Distributionslösenord</value>
@@ -2775,6 +2775,12 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>Ta bort</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>Ta bort klientcertifikat</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Ta bort det valda betrodda rot-CA-certifikatet</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Använd certifikat</value>

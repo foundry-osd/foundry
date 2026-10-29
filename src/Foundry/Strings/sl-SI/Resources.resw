@@ -2240,7 +2240,7 @@ Licencirano pod licenco MIT.</value>
     <value>Potrdite geslo</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Pred uvajanjem zahtevajte geslo tehnika. Vdelane omrežne poverilnice ostanejo dostopne brez tega gesla.</value>
+    <value>Pred uvajanjem zahtevajte geslo tehnika. Zaščita z geslom je obvezna, ko medij zagotovi omrežno skrivnost, na primer geslo za Wi-Fi ali potrdilo odjemalca.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Zaščita z geslom</value>
@@ -2249,7 +2249,7 @@ Licencirano pod licenco MIT.</value>
     <value>Geslo</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>To geslo hranite na varnem. Ščiti gesla lokalnih računov Windows, poverilnice za pridružitev domeni, poverilnice in profile Autopilot ter datoteke odgovorov po meri.</value>
+    <value>To geslo hranite na varnem. Ščiti gesla lokalnih računov Windows, poverilnice za pridružitev domeni, poverilnice in profile Autopilot, datoteke odgovorov po meri ter omrežne skrivnosti: osebno geslo za Wi-Fi, potrdilo odjemalca in njegovo geslo ter poslovni profil za Wi-Fi, ki vsebuje ključni material.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Geslo za uvajanje</value>
@@ -2775,6 +2775,12 @@ Licencirano pod licenco MIT.</value>
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>Odstrani</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>Odstrani potrdilo odjemalca</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Odstrani izbrano potrdilo zaupanja vrednega korenskega CA</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Uporabi potrdila</value>

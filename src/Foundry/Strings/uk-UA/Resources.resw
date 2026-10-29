@@ -2240,7 +2240,7 @@
     <value>Підтвердьте пароль</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Вимагати пароль технічного спеціаліста перед розгортанням. Вбудовані мережеві облікові дані залишаються доступними без цього пароля.</value>
+    <value>Вимагати пароль технічного спеціаліста перед розгортанням. Захист паролем обов’язковий, якщо носій надає мережевий секрет, наприклад пароль Wi-Fi або сертифікат клієнта.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Захист паролем</value>
@@ -2249,7 +2249,7 @@
     <value>Пароль</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Зберігайте цей пароль у безпечному місці. Він захищає паролі локальних облікових записів Windows, облікові дані для приєднання до домену, облікові дані та профілі Autopilot, а також власні файли відповідей.</value>
+    <value>Зберігайте цей пароль у безпечному місці. Він захищає паролі локальних облікових записів Windows, облікові дані для приєднання до домену, облікові дані та профілі Autopilot, власні файли відповідей, а також мережеві секрети: особистий пароль Wi-Fi, сертифікат клієнта та його пароль, а також корпоративний профіль Wi-Fi, що містить ключовий матеріал.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Пароль розгортання</value>
@@ -2775,6 +2775,12 @@
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>Видалити</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>Видалити сертифікат клієнта</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Видалити вибраний сертифікат довіреного кореневого ЦС</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Використовувати сертифікати</value>

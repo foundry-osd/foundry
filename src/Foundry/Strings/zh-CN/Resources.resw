@@ -2240,7 +2240,7 @@
     <value>确认密码</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>部署前要求输入技术人员密码。嵌入的网络凭据在没有此密码的情况下仍可访问。</value>
+    <value>部署前要求输入技术人员密码。当介质预配网络机密（例如 Wi-Fi 密码或客户端证书）时，必须启用密码保护。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>密码保护</value>
@@ -2249,7 +2249,7 @@
     <value>密码</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>请妥善保管此密码。它用于保护本地 Windows 帐户密码、域加入凭据、Autopilot 凭据和配置文件，以及自定义应答文件。</value>
+    <value>请妥善保管此密码。它用于保护本地 Windows 帐户密码、域加入凭据、Autopilot 凭据和配置文件、自定义应答文件，以及网络机密：个人 Wi-Fi 密码、客户端证书及其密码，以及包含密钥材料的企业 Wi-Fi 配置文件。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>部署密码</value>
@@ -2775,6 +2775,12 @@
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>移除</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>移除客户端证书</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>移除所选的受信任的根 CA 证书</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>使用证书</value>

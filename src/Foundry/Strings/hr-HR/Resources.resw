@@ -2240,7 +2240,7 @@ Licenciran prema MIT licenci.</value>
     <value>Potvrdite lozinku</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Zahtijevajte lozinku tehničara prije pokretanja implementacije. Ugrađene mrežne vjerodajnice ostaju dostupne bez ove lozinke.</value>
+    <value>Zahtijevajte lozinku tehničara prije pokretanja implementacije. Zaštita lozinkom obavezna je kada medij dostavlja mrežnu tajnu, primjerice lozinku za Wi-Fi ili certifikat klijenta.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Zaštita lozinkom</value>
@@ -2249,7 +2249,7 @@ Licenciran prema MIT licenci.</value>
     <value>Lozinka</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Čuvajte ovu lozinku na sigurnom. Ona štiti lozinke lokalnih računa sustava Windows, vjerodajnice za pridruživanje domeni, vjerodajnice i profile za Autopilot te prilagođene datoteke odgovora.</value>
+    <value>Čuvajte ovu lozinku na sigurnom. Ona štiti lozinke lokalnih računa sustava Windows, vjerodajnice za pridruživanje domeni, vjerodajnice i profile za Autopilot, prilagođene datoteke odgovora te mrežne tajne: osobnu lozinku za Wi-Fi, certifikat klijenta i njegovu lozinku te poslovni profil za Wi-Fi koji sadrži ključni materijal.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Lozinka za implementaciju</value>
@@ -2775,6 +2775,12 @@ Licenciran prema MIT licenci.</value>
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>Ukloni</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>Ukloni certifikat klijenta</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Ukloni odabrani certifikat pouzdanog korijenskog CA</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Koristi certifikate</value>

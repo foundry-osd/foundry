@@ -2240,7 +2240,7 @@
     <value>אישור הסיסמה</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>דרוש סיסמת טכנאי לפני התחלת פריסה. פרטי הכניסה לרשת המוטמעים נשארים נגישים ללא סיסמה זו.</value>
+    <value>דרוש סיסמת טכנאי לפני התחלת פריסה. הגנה באמצעות סיסמה נדרשת כאשר המדיה מספקת סוד רשת, כגון סיסמת Wi-Fi או אישור לקוח.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>הגנה באמצעות סיסמה</value>
@@ -2249,7 +2249,7 @@
     <value>סיסמה</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>שמור על סיסמה זו במקום בטוח. היא מגנה על סיסמאות של חשבונות Windows מקומיים, על פרטי הכניסה להצטרפות לתחום, על פרטי הכניסה והפרופילים של Autopilot ועל קובצי תשובות מותאמים אישית.</value>
+    <value>שמור על סיסמה זו במקום בטוח. היא מגנה על סיסמאות של חשבונות Windows מקומיים, על פרטי הכניסה להצטרפות לתחום, על פרטי הכניסה והפרופילים של Autopilot, על קובצי תשובות מותאמים אישית ועל סודות הרשת: סיסמת ה-Wi-Fi האישית, אישור הלקוח והסיסמה שלו, ופרופיל Wi-Fi ארגוני שמכיל חומר מפתח.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>סיסמת פריסה</value>
@@ -2775,6 +2775,12 @@
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>הסרה</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>הסרת אישור הלקוח</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>הסרת אישור ה-CA השורש המהימן שנבחר</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>השתמש באישורים</value>

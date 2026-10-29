@@ -190,6 +190,7 @@
                                     <Button
                                         Grid.Column="2"
                                         MinWidth="{StaticResource FoundryCompactActionMinWidth}"
+                                        AutomationProperties.Name="{x:Bind ViewModel.RemoveClientCertificateText, Mode=OneWay}"
                                         Command="{x:Bind ViewModel.RemoveWifiClientCertificateCommand}"
                                         Content="{x:Bind ViewModel.RemoveCertificateText, Mode=OneWay}" />
                                 </Grid>
@@ -228,6 +229,7 @@
                                         Content="{x:Bind ViewModel.AddTrustedRootCertificateText, Mode=OneWay}"
                                         Style="{StaticResource AccentButtonStyle}" />
                                     <Button
+                                        AutomationProperties.Name="{x:Bind ViewModel.RemoveTrustedRootCertificateText, Mode=OneWay}"
                                         Command="{x:Bind ViewModel.RemoveWifiTrustedRootCertificateCommand}"
                                         Content="{x:Bind ViewModel.RemoveCertificateText, Mode=OneWay}" />
                                 </StackPanel>

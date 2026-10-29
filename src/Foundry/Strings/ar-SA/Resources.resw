@@ -2240,7 +2240,7 @@
     <value>تأكيد كلمة المرور</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>اطلب كلمة مرور فني قبل بدء عملية النشر. تظل بيانات اعتماد الشبكة المضمنة متاحة دون كلمة المرور هذه.</value>
+    <value>اطلب كلمة مرور فني قبل بدء عملية النشر. تكون الحماية بكلمة مرور مطلوبة عندما توفّر الوسائط سرًا للشبكة، مثل كلمة مرور Wi-Fi أو شهادة العميل.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>الحماية بكلمة مرور</value>
@@ -2249,7 +2249,7 @@
     <value>كلمة المرور</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>احتفظ بكلمة المرور هذه في مكان آمن. فهي تحمي كلمات مرور حسابات Windows المحلية وبيانات اعتماد الانضمام إلى النطاق وبيانات اعتماد Autopilot وملفات تعريفه وملفات الإجابات المخصصة.</value>
+    <value>احتفظ بكلمة المرور هذه في مكان آمن. فهي تحمي كلمات مرور حسابات Windows المحلية وبيانات اعتماد الانضمام إلى النطاق وبيانات اعتماد Autopilot وملفات تعريفه وملفات الإجابات المخصصة وأسرار الشبكة: كلمة مرور Wi-Fi الشخصية، وشهادة العميل وكلمة مرورها، وملف تعريف Wi-Fi للمؤسسات الذي يحتوي على مواد مفاتيح.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>كلمة مرور النشر</value>
@@ -2775,6 +2775,12 @@
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>إزالة</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>إزالة شهادة العميل</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>إزالة شهادة CA الجذر الموثوق بها المحددة</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>استخدام الشهادات</value>

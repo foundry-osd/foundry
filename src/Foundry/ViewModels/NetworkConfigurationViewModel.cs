@@ -95,10 +95,12 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     /// <summary>Gets the enterprise Wi-Fi trusted root CA certificates, in the order they are staged.</summary>
     public ObservableCollection<TrustedRootCertificateEntry> WifiTrustedRootCertificates { get; } = [];
 
+    /// <summary>Gets or sets the wired trusted root certificate selected in the list; Remove acts on it.</summary>
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(RemoveDot1xTrustedRootCertificateCommand))]
     public partial TrustedRootCertificateEntry? SelectedDot1xTrustedRootCertificate { get; set; }
 
+    /// <summary>Gets or sets the Wi-Fi trusted root certificate selected in the list; Remove acts on it.</summary>
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(RemoveWifiTrustedRootCertificateCommand))]
     public partial TrustedRootCertificateEntry? SelectedWifiTrustedRootCertificate { get; set; }
@@ -106,27 +108,43 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     [ObservableProperty]
     public partial string ProfileTemplateLabel { get; set; }
 
+    /// <summary>Gets the header of the client certificate (PFX) card.</summary>
     [ObservableProperty]
     public partial string ClientCertificateLabel { get; set; }
 
+    /// <summary>Gets the description of the client certificate card.</summary>
     [ObservableProperty]
     public partial string ClientCertificateDescription { get; set; }
 
+    /// <summary>Gets the header of the trusted root CA certificates card.</summary>
     [ObservableProperty]
     public partial string TrustedRootCertificatesLabel { get; set; }
 
+    /// <summary>Gets the description of the trusted root CA certificates card.</summary>
     [ObservableProperty]
     public partial string TrustedRootCertificatesDescription { get; set; }
 
+    /// <summary>Gets the text of the button that adds a trusted root certificate.</summary>
     [ObservableProperty]
     public partial string AddTrustedRootCertificateText { get; set; }
 
+    /// <summary>Gets the visible text of the two Remove buttons.</summary>
     [ObservableProperty]
     public partial string RemoveCertificateText { get; set; }
 
+    /// <summary>Gets the accessible name of the button that removes the client certificate.</summary>
+    [ObservableProperty]
+    public partial string RemoveClientCertificateText { get; set; }
+
+    /// <summary>Gets the accessible name of the button that removes the selected trusted root certificate.</summary>
+    [ObservableProperty]
+    public partial string RemoveTrustedRootCertificateText { get; set; }
+
+    /// <summary>Gets the text shown when no trusted root certificate is listed.</summary>
     [ObservableProperty]
     public partial string NoTrustedRootCertificatesText { get; set; }
 
+    /// <summary>Gets the title of the Password protection InfoBar.</summary>
     [ObservableProperty]
     public partial string NeedsAttentionText { get; set; }
 
@@ -218,7 +236,10 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     /// <summary>Gets whether the PFX password box is shown: only a client certificate has a password.</summary>
     public Visibility WifiClientCertificatePasswordVisibility => wifiClientCertificate is null ? Visibility.Collapsed : Visibility.Visible;
 
+    /// <summary>Gets whether the empty-list text of the wired trusted roots is shown.</summary>
     public Visibility Dot1xNoTrustedRootCertificatesVisibility => Dot1xTrustedRootCertificates.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+
+    /// <summary>Gets whether the empty-list text of the Wi-Fi trusted roots is shown.</summary>
     public Visibility WifiNoTrustedRootCertificatesVisibility => WifiTrustedRootCertificates.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
 
     [ObservableProperty]
@@ -382,12 +403,16 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     public string Dot1xMediaProtectionMessage => FormatFieldValidationMessage(
         NetworkConfigurationValidator.Validate(BuildDot1xOnlySettings(), CreateValidationInputs(), configurationStateService.IsMediaProtected),
         NetworkConfigurationValidationCode.WiredMediaProtectionRequired);
+
+    /// <summary>Gets whether the wired Password protection InfoBar is open.</summary>
     public bool HasDot1xMediaProtectionIssue => !string.IsNullOrWhiteSpace(Dot1xMediaProtectionMessage);
 
     /// <summary>Gets the "Needs attention" text shown when a passphrase or a client certificate is provisioned without Password protection.</summary>
     public string WifiMediaProtectionMessage => FormatFieldValidationMessage(
         NetworkConfigurationValidator.Validate(BuildWifiOnlySettings(), CreateValidationInputs(), configurationStateService.IsMediaProtected),
         NetworkConfigurationValidationCode.WifiMediaProtectionRequired);
+
+    /// <summary>Gets whether the Wi-Fi Password protection InfoBar is open.</summary>
     public bool HasWifiMediaProtectionIssue => !string.IsNullOrWhiteSpace(WifiMediaProtectionMessage);
 
     /// <summary>
@@ -730,7 +755,11 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or InvalidDataException or ArgumentException or NotSupportedException)
         {
-            logger.Warning(exception, "A selected network file could not be imported into the authoring file library. FileKind={FileKind}", fileKind);
+            // No exception object: its message names the picked file (logging ruling).
+            logger.Warning(
+                "A selected network file could not be imported into the authoring file library. FileKind={FileKind}, FailureType={FailureType}",
+                fileKind,
+                exception.GetType().Name);
             await dialogService.ShowMessageAsync(new DialogRequest(
                 localizationService.GetString("AuthoringFiles.ImportFailedTitle"),
                 localizationService.GetString("AuthoringFiles.ImportFailedMessage"),
@@ -944,6 +973,8 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         TrustedRootCertificatesDescription = localizationService.GetString("Network.TrustedRootCertificatesDescription");
         AddTrustedRootCertificateText = localizationService.GetString("Network.AddTrustedRootCertificate");
         RemoveCertificateText = localizationService.GetString("Network.RemoveCertificate");
+        RemoveClientCertificateText = localizationService.GetString("Network.RemoveClientCertificate");
+        RemoveTrustedRootCertificateText = localizationService.GetString("Network.RemoveTrustedRootCertificate");
         NoTrustedRootCertificatesText = localizationService.GetString("Network.NoTrustedRootCertificates");
         NeedsAttentionText = localizationService.GetString("Common.NeedsAttention");
         CertificatePasswordLabel = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificatePasswordLabel");

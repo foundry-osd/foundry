@@ -2240,7 +2240,7 @@ Licencované podľa licencie MIT.</value>
     <value>Potvrďte heslo</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Pred nasadením vyžadovať heslo technika. Vložené sieťové prihlasovacie údaje zostávajú prístupné bez tohto hesla.</value>
+    <value>Pred nasadením vyžadovať heslo technika. Ochrana heslom je povinná, keď médium poskytuje sieťový tajný údaj, napríklad heslo k Wi-Fi alebo klientsky certifikát.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Ochrana heslom</value>
@@ -2249,7 +2249,7 @@ Licencované podľa licencie MIT.</value>
     <value>Heslo</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Uchovávajte toto heslo v bezpečí. Chráni heslá lokálnych kont systému Windows, poverenia na pripojenie k doméne, prihlasovacie údaje a profily Autopilot a vlastné súbory odpovedí.</value>
+    <value>Uchovávajte toto heslo v bezpečí. Chráni heslá lokálnych kont systému Windows, poverenia na pripojenie k doméne, prihlasovacie údaje a profily Autopilot, vlastné súbory odpovedí a sieťové tajné údaje: osobné heslo k Wi-Fi, klientsky certifikát a jeho heslo a podnikový profil Wi-Fi, ktorý obsahuje kľúčový materiál.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Heslo nasadenia</value>
@@ -2775,6 +2775,12 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>Odstrániť</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>Odstrániť klientsky certifikát</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Odstrániť vybratý certifikát dôveryhodnej koreňovej CA</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Používať certifikáty</value>

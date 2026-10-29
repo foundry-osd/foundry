@@ -2240,7 +2240,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>パスワードの確認</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>展開を開始する前に技術者用パスワードを要求します。埋め込まれたネットワーク資格情報は、このパスワードがなくてもアクセスできます。</value>
+    <value>展開を開始する前に技術者用パスワードを要求します。メディアが Wi-Fi のパスワードやクライアント証明書などのネットワーク シークレットをプロビジョニングする場合は、パスワード保護が必要です。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>パスワード保護</value>
@@ -2249,7 +2249,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>パスワード</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>このパスワードは安全に保管してください。Windows のローカル アカウントのパスワード、ドメイン参加の資格情報、Autopilot の資格情報とプロファイル、およびカスタム応答ファイルを保護します。</value>
+    <value>このパスワードは安全に保管してください。Windows のローカル アカウントのパスワード、ドメイン参加の資格情報、Autopilot の資格情報とプロファイル、カスタム応答ファイル、およびネットワーク シークレット (個人用 Wi-Fi のパスワード、クライアント証明書とそのパスワード、キー マテリアルを含むエンタープライズ Wi-Fi プロファイル) を保護します。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>展開パスワード</value>
@@ -2775,6 +2775,12 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>削除</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>クライアント証明書を削除</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>選択した信頼されたルート CA 証明書を削除</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>証明書を使用する</value>

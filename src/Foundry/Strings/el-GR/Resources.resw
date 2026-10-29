@@ -2240,7 +2240,7 @@
     <value>Επιβεβαίωση κωδικού πρόσβασης</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Να απαιτείται κωδικός πρόσβασης τεχνικού πριν από την έναρξη μιας ανάπτυξης. Τα ενσωματωμένα διαπιστευτήρια δικτύου παραμένουν προσβάσιμα χωρίς αυτόν τον κωδικό πρόσβασης.</value>
+    <value>Να απαιτείται κωδικός πρόσβασης τεχνικού πριν από την έναρξη μιας ανάπτυξης. Η προστασία με κωδικό πρόσβασης είναι υποχρεωτική όταν το μέσο παρέχει ένα μυστικό δικτύου, όπως έναν κωδικό πρόσβασης Wi-Fi ή ένα πιστοποιητικό προγράμματος-πελάτη.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Προστασία με κωδικό πρόσβασης</value>
@@ -2249,7 +2249,7 @@
     <value>Κωδικός πρόσβασης</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Φυλάξτε αυτόν τον κωδικό πρόσβασης με ασφάλεια. Προστατεύει τους κωδικούς πρόσβασης των τοπικών λογαριασμών Windows, τα διαπιστευτήρια σύνδεσης σε τομέα, τα διαπιστευτήρια και τα προφίλ Autopilot και τα προσαρμοσμένα αρχεία απαντήσεων.</value>
+    <value>Φυλάξτε αυτόν τον κωδικό πρόσβασης με ασφάλεια. Προστατεύει τους κωδικούς πρόσβασης των τοπικών λογαριασμών Windows, τα διαπιστευτήρια σύνδεσης σε τομέα, τα διαπιστευτήρια και τα προφίλ Autopilot, τα προσαρμοσμένα αρχεία απαντήσεων και τα μυστικά δικτύου: τον προσωπικό κωδικό πρόσβασης Wi-Fi, το πιστοποιητικό προγράμματος-πελάτη και τον κωδικό πρόσβασής του, καθώς και ένα εταιρικό προφίλ Wi-Fi που περιέχει υλικό κλειδιού.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Κωδικός πρόσβασης ανάπτυξης</value>
@@ -2775,6 +2775,12 @@
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>Κατάργηση</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>Κατάργηση πιστοποιητικού προγράμματος-πελάτη</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Κατάργηση του επιλεγμένου αξιόπιστου πιστοποιητικού CA root</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Χρήση πιστοποιητικών</value>

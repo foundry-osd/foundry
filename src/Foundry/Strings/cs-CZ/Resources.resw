@@ -2240,7 +2240,7 @@ Licencováno pod licencí MIT.</value>
     <value>Potvrďte heslo</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Před zahájením nasazení vyžadovat heslo technika. Vložené síťové přihlašovací údaje zůstávají přístupné i bez tohoto hesla.</value>
+    <value>Před zahájením nasazení vyžadovat heslo technika. Ochrana heslem je povinná, když médium zřizuje síťový tajný údaj, například heslo k Wi-Fi nebo klientský certifikát.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Ochrana heslem</value>
@@ -2249,7 +2249,7 @@ Licencováno pod licencí MIT.</value>
     <value>Heslo</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Uchovejte toto heslo v bezpečí. Chrání hesla místních účtů Windows, přihlašovací údaje pro připojení k doméně, přihlašovací údaje a profily Autopilot a vlastní soubory odpovědí.</value>
+    <value>Uchovejte toto heslo v bezpečí. Chrání hesla místních účtů Windows, přihlašovací údaje pro připojení k doméně, přihlašovací údaje a profily Autopilot, vlastní soubory odpovědí a síťové tajné údaje: osobní heslo k Wi-Fi, klientský certifikát a jeho heslo a podnikový profil Wi-Fi, který obsahuje klíčový materiál.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Heslo pro nasazení</value>
@@ -2775,6 +2775,12 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Network.RemoveCertificate" xml:space="preserve">
     <value>Odebrat</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>Odebrat klientský certifikát</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Odebrat vybraný certifikát důvěryhodné kořenové CA</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Používat certifikáty</value>
