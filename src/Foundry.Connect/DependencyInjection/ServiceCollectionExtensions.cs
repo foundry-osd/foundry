@@ -29,6 +29,9 @@ public static class ServiceCollectionExtensions
 {
     private const string DeploymentModeEnvironmentVariable = "FOUNDRY_DEPLOYMENT_MODE";
 
+    /// <summary>Request timeout of the telemetry HTTP client (T3).</summary>
+    internal static readonly TimeSpan TelemetryHttpTimeout = TimeSpan.FromSeconds(10);
+
     /// <summary>
     /// Registers the Foundry.Connect application, UI, lifetime, telemetry and network services.
     /// </summary>
@@ -68,7 +71,7 @@ public static class ServiceCollectionExtensions
             }
 
             return new PostHogTelemetryService(
-                new HttpClient(),
+                CreateTelemetryHttpClient(),
                 options,
                 sp.GetRequiredService<TelemetryContext>(),
                 logger);
@@ -83,6 +86,12 @@ public static class ServiceCollectionExtensions
 
         return services;
     }
+
+    /// <summary>
+    /// Creates the telemetry <see cref="HttpClient"/> with an explicit timeout, shorter than the 100 seconds default, so a
+    /// stalled send cannot linger (T3). The exit path stops waiting after its own, shorter budget.
+    /// </summary>
+    internal static HttpClient CreateTelemetryHttpClient() => new() { Timeout = TelemetryHttpTimeout };
 
     /// <summary>Shuts the WPF application down on its UI thread; exit requests may come from background work.</summary>
     private static void ShutdownApplication(int exitCode)
