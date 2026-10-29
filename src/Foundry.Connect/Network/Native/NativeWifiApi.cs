@@ -7,21 +7,32 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Foundry.Connect.Models.Network;
 
-namespace Foundry.Connect.Services.Network;
+namespace Foundry.Connect.Network.Native;
 
 /// <summary>
-/// Provides the native WLAN API calls used by Foundry.Connect to discover and inspect Wi-Fi state.
+/// Provides the native WLAN API calls used by Foundry.Connect to discover, inspect and drive Wi-Fi state.
 /// </summary>
 /// <remarks>
 /// Interface identifiers must be declared as <see langword="in"/> <see cref="Guid"/> because wlanapi expects
 /// <c>const GUID*</c>. A by-value <see cref="Guid"/> only works on x64, where the calling convention happens to
 /// pass 16-byte structures by reference; ARM64 passes them in registers and the calls fail.
+/// Every import resolves <c>wlanapi.dll</c> from System32 only. Struct layouts mirror the Windows SDK headers.
 /// </remarks>
 internal static class NativeWifiApi
 {
-    private const uint ClientVersion = 2;
-    private const uint AvailableNetworkIncludeAllAdhocProfiles = 0x00000001;
+    internal const uint ClientVersion = 2;
+    internal const uint AvailableNetworkIncludeAllAdhocProfiles = 0x00000001;
     private const int WlanMaxPhyTypeNumber = 8;
+
+    // Values from the Windows SDK 10.0.26100.0 headers (l2cmn.h, wlanapi.h, winerror.h).
+    private const int WlanMaxNameLength = 256;
+    internal const uint NotificationSourceAcm = 0x8;
+    internal const uint AcmConnectionComplete = 10;
+    internal const uint AcmConnectionAttemptFail = 11;
+    internal const uint AcmDisconnected = 21;
+    internal const uint ProfileGetPlaintextKey = 0x4;
+    internal const uint ErrorNotFound = 1168;
+    internal const uint ErrorBadProfile = 1206;
 
     /// <summary>
     /// Describes a WLAN interface and its current SSID when connected.
@@ -34,27 +45,17 @@ internal static class NativeWifiApi
 
     public static bool IsRuntimeAvailable()
     {
-        IntPtr clientHandle = IntPtr.Zero;
-
-        try
-        {
-            clientHandle = OpenClientHandle();
-            return true;
-        }
-        finally
-        {
-            CloseClientHandle(clientHandle);
-        }
+        using WlanClientHandle clientHandle = OpenClientHandle();
+        return true;
     }
 
     public static IReadOnlyList<WifiNetworkSummary> GetAvailableNetworks()
     {
-        IntPtr clientHandle = IntPtr.Zero;
+        using WlanClientHandle clientHandle = OpenClientHandle();
         IntPtr interfaceListPointer = IntPtr.Zero;
 
         try
         {
-            clientHandle = OpenClientHandle();
             ThrowIfError(
                 WlanEnumInterfaces(clientHandle, IntPtr.Zero, out interfaceListPointer),
                 nameof(WlanEnumInterfaces));
@@ -87,18 +88,16 @@ internal static class NativeWifiApi
         finally
         {
             FreeMemory(interfaceListPointer);
-            CloseClientHandle(clientHandle);
         }
     }
 
     public static WifiInterfaceConnectionInfo? GetInterfaceConnectionInfo(Guid interfaceId)
     {
-        IntPtr clientHandle = IntPtr.Zero;
+        using WlanClientHandle clientHandle = OpenClientHandle();
         IntPtr interfaceListPointer = IntPtr.Zero;
 
         try
         {
-            clientHandle = OpenClientHandle();
             ThrowIfError(
                 WlanEnumInterfaces(clientHandle, IntPtr.Zero, out interfaceListPointer),
                 nameof(WlanEnumInterfaces));
@@ -133,18 +132,16 @@ internal static class NativeWifiApi
         finally
         {
             FreeMemory(interfaceListPointer);
-            CloseClientHandle(clientHandle);
         }
     }
 
     public static IReadOnlyList<Guid> GetInterfaceIds()
     {
-        IntPtr clientHandle = IntPtr.Zero;
+        using WlanClientHandle clientHandle = OpenClientHandle();
         IntPtr interfaceListPointer = IntPtr.Zero;
 
         try
         {
-            clientHandle = OpenClientHandle();
             ThrowIfError(
                 WlanEnumInterfaces(clientHandle, IntPtr.Zero, out interfaceListPointer),
                 nameof(WlanEnumInterfaces));
@@ -159,7 +156,6 @@ internal static class NativeWifiApi
         finally
         {
             FreeMemory(interfaceListPointer);
-            CloseClientHandle(clientHandle);
         }
     }
 
@@ -200,7 +196,7 @@ internal static class NativeWifiApi
         return interfaceIds;
     }
 
-    private static IReadOnlyList<WifiNetworkSummary> ReadAvailableNetworks(IntPtr clientHandle, Guid interfaceId)
+    private static IReadOnlyList<WifiNetworkSummary> ReadAvailableNetworks(WlanClientHandle clientHandle, Guid interfaceId)
     {
         IntPtr availableNetworkListPointer = IntPtr.Zero;
 
@@ -320,31 +316,24 @@ internal static class NativeWifiApi
         };
     }
 
-    private static void TryStartScan(IntPtr clientHandle, Guid interfaceId)
+    private static void TryStartScan(WlanClientHandle clientHandle, Guid interfaceId)
     {
         _ = WlanScan(clientHandle, interfaceId, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
     }
 
-    private static IntPtr OpenClientHandle()
+    private static WlanClientHandle OpenClientHandle()
     {
-        ThrowIfError(
-            WlanOpenHandle(ClientVersion, IntPtr.Zero, out _, out IntPtr clientHandle),
-            nameof(WlanOpenHandle));
+        uint result = WlanOpenHandle(ClientVersion, IntPtr.Zero, out _, out WlanClientHandle clientHandle);
+        if (result != 0)
+        {
+            clientHandle.Dispose();
+            ThrowIfError(result, nameof(WlanOpenHandle));
+        }
 
         return clientHandle;
     }
 
-    private static void CloseClientHandle(IntPtr clientHandle)
-    {
-        if (clientHandle == IntPtr.Zero)
-        {
-            return;
-        }
-
-        _ = WlanCloseHandle(clientHandle, IntPtr.Zero);
-    }
-
-    private static void FreeMemory(IntPtr pointer)
+    internal static void FreeMemory(IntPtr pointer)
     {
         if (pointer != IntPtr.Zero)
         {
@@ -360,7 +349,7 @@ internal static class NativeWifiApi
         }
     }
 
-    private static string? TryReadCurrentConnectionSsid(IntPtr clientHandle, Guid interfaceId)
+    private static string? TryReadCurrentConnectionSsid(WlanClientHandle clientHandle, Guid interfaceId)
     {
         IntPtr dataPointer = IntPtr.Zero;
 
@@ -389,42 +378,49 @@ internal static class NativeWifiApi
     }
 
     [DllImport("wlanapi.dll")]
-    private static extern uint WlanOpenHandle(
+    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+    internal static extern uint WlanOpenHandle(
         uint clientVersion,
         IntPtr reserved,
         out uint negotiatedVersion,
-        out IntPtr clientHandle);
+        out WlanClientHandle clientHandle);
 
+    // Stays on IntPtr: WlanClientHandle.ReleaseHandle passes its raw handle here.
     [DllImport("wlanapi.dll")]
-    private static extern uint WlanCloseHandle(
+    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+    internal static extern uint WlanCloseHandle(
         IntPtr clientHandle,
         IntPtr reserved);
 
     [DllImport("wlanapi.dll")]
-    private static extern uint WlanEnumInterfaces(
-        IntPtr clientHandle,
+    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+    internal static extern uint WlanEnumInterfaces(
+        WlanClientHandle clientHandle,
         IntPtr reserved,
         out IntPtr interfaceList);
 
     [DllImport("wlanapi.dll")]
-    private static extern uint WlanGetAvailableNetworkList(
-        IntPtr clientHandle,
+    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+    internal static extern uint WlanGetAvailableNetworkList(
+        WlanClientHandle clientHandle,
         in Guid interfaceGuid,
         uint flags,
         IntPtr reserved,
         out IntPtr availableNetworkList);
 
     [DllImport("wlanapi.dll")]
-    private static extern uint WlanScan(
-        IntPtr clientHandle,
+    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+    internal static extern uint WlanScan(
+        WlanClientHandle clientHandle,
         in Guid interfaceGuid,
         IntPtr dot11Ssid,
         IntPtr ieData,
         IntPtr reserved);
 
     [DllImport("wlanapi.dll")]
-    private static extern uint WlanQueryInterface(
-        IntPtr clientHandle,
+    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+    internal static extern uint WlanQueryInterface(
+        WlanClientHandle clientHandle,
         in Guid interfaceGuid,
         WlanIntfOpcode opCode,
         IntPtr reserved,
@@ -432,18 +428,151 @@ internal static class NativeWifiApi
         out IntPtr data,
         out WlanOpcodeValueType wlanOpcodeValueType);
 
+    /// <summary>
+    /// Adds or replaces a profile on one interface. <paramref name="flags"/> 0 stores an all-user profile;
+    /// <see cref="ErrorBadProfile"/> comes with the WLAN reason in <paramref name="reasonCode"/>.
+    /// </summary>
+    [DllImport("wlanapi.dll", CharSet = CharSet.Unicode)]
+    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+    internal static extern uint WlanSetProfile(
+        WlanClientHandle clientHandle,
+        in Guid interfaceGuid,
+        uint flags,
+        [MarshalAs(UnmanagedType.LPWStr)] string profileXml,
+        [MarshalAs(UnmanagedType.LPWStr)] string? allUserProfileSecurity,
+        [MarshalAs(UnmanagedType.Bool)] bool overwrite,
+        IntPtr reserved,
+        out uint reasonCode);
+
+    /// <summary>
+    /// Reads a profile as XML allocated by wlanapi; free it with <see cref="WlanFreeMemory"/>.
+    /// <see cref="ProfileGetPlaintextKey"/> in <paramref name="flags"/> asks for the key in plain text, which only an
+    /// administrator (SYSTEM in WinPE) receives; otherwise the key stays encrypted and no error is returned.
+    /// </summary>
+    [DllImport("wlanapi.dll", CharSet = CharSet.Unicode)]
+    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+    internal static extern uint WlanGetProfile(
+        WlanClientHandle clientHandle,
+        in Guid interfaceGuid,
+        [MarshalAs(UnmanagedType.LPWStr)] string profileName,
+        IntPtr reserved,
+        out IntPtr profileXml,
+        ref uint flags,
+        out uint grantedAccess);
+
+    /// <summary>
+    /// Starts a connection and returns at once; the outcome arrives later as an ACM notification.
+    /// </summary>
     [DllImport("wlanapi.dll")]
-    private static extern void WlanFreeMemory(IntPtr memory);
+    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+    internal static extern uint WlanConnect(
+        WlanClientHandle clientHandle,
+        in Guid interfaceGuid,
+        in WlanConnectionParameters connectionParameters,
+        IntPtr reserved);
+
+    [DllImport("wlanapi.dll")]
+    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+    internal static extern uint WlanDisconnect(
+        WlanClientHandle clientHandle,
+        in Guid interfaceGuid,
+        IntPtr reserved);
+
+    /// <summary>
+    /// Registers <paramref name="callback"/> for the given sources until the client handle is closed. The delegate
+    /// must stay reachable for that whole time, and the callback must not call this function.
+    /// </summary>
+    [DllImport("wlanapi.dll")]
+    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+    internal static extern uint WlanRegisterNotification(
+        WlanClientHandle clientHandle,
+        uint notificationSource,
+        [MarshalAs(UnmanagedType.Bool)] bool ignoreDuplicate,
+        WlanNotificationCallback? callback,
+        IntPtr callbackContext,
+        IntPtr reserved,
+        IntPtr previousNotificationSource);
+
+    /// <summary>
+    /// Writes the text of a WLAN reason code into <paramref name="buffer"/>; <paramref name="bufferSize"/> counts WCHARs.
+    /// </summary>
+    [DllImport("wlanapi.dll", CharSet = CharSet.Unicode)]
+    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+    internal static extern uint WlanReasonCodeToString(
+        uint reasonCode,
+        uint bufferSize,
+        [Out] char[] buffer,
+        IntPtr reserved);
+
+    [DllImport("wlanapi.dll")]
+    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+    internal static extern void WlanFreeMemory(IntPtr memory);
+
+    /// <summary>
+    /// <c>WLAN_NOTIFICATION_CALLBACK</c>: runs on a wlanapi thread; <paramref name="data"/> points to a
+    /// <see cref="WlanNotificationData"/> that is valid only during the call.
+    /// </summary>
+    [UnmanagedFunctionPointer(CallingConvention.Winapi)]
+    internal delegate void WlanNotificationCallback(IntPtr data, IntPtr context);
+
+    /// <summary>
+    /// <c>WLAN_NOTIFICATION_DATA</c> (<c>L2_NOTIFICATION_DATA</c> in <c>l2cmn.h</c>).
+    /// </summary>
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct WlanNotificationData
+    {
+        public uint NotificationSource;
+        public uint NotificationCode;
+        public Guid InterfaceGuid;
+        public uint DataSize;
+        public IntPtr Data;
+    }
+
+    /// <summary>
+    /// <c>WLAN_CONNECTION_PARAMETERS</c> (<c>wlanapi.h</c>); <see cref="Profile"/> is a caller-owned UTF-16 string.
+    /// </summary>
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct WlanConnectionParameters
+    {
+        public int ConnectionMode;
+        public IntPtr Profile;
+        public IntPtr Ssid;
+        public IntPtr DesiredBssidList;
+        public int BssType;
+        public uint Flags;
+    }
+
+    /// <summary>
+    /// Fixed part of <c>WLAN_CONNECTION_NOTIFICATION_DATA</c> (<c>wlanapi.h</c>); the variable
+    /// <c>strProfileXml</c> tail is not marshaled.
+    /// </summary>
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    internal struct WlanConnectionNotificationHeader
+    {
+        public int ConnectionMode;
+
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = WlanMaxNameLength)]
+        public string ProfileName;
+
+        public Dot11Ssid Ssid;
+        public int BssType;
+
+        [MarshalAs(UnmanagedType.Bool)]
+        public bool SecurityEnabled;
+
+        public uint ReasonCode;
+        public uint Flags;
+    }
 
     [StructLayout(LayoutKind.Sequential)]
-    private struct WlanInterfaceInfoListHeader
+    internal struct WlanInterfaceInfoListHeader
     {
         public int NumberOfItems;
         public int Index;
     }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-    private struct WlanInterfaceInfo
+    internal struct WlanInterfaceInfo
     {
         public Guid InterfaceGuid;
 
@@ -454,14 +583,14 @@ internal static class NativeWifiApi
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    private struct WlanAvailableNetworkListHeader
+    internal struct WlanAvailableNetworkListHeader
     {
         public int NumberOfItems;
         public int Index;
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    private struct Dot11Ssid
+    internal struct Dot11Ssid
     {
         public uint Length;
 
@@ -470,7 +599,7 @@ internal static class NativeWifiApi
     }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-    private struct WlanAvailableNetwork
+    internal struct WlanAvailableNetwork
     {
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
         public string ProfileName;
@@ -503,7 +632,7 @@ internal static class NativeWifiApi
     }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-    private struct WlanConnectionAttributes
+    internal struct WlanConnectionAttributes
     {
         public WlanInterfaceState State;
         public WlanConnectionMode ConnectionMode;
@@ -516,7 +645,7 @@ internal static class NativeWifiApi
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    private struct WlanAssociationAttributes
+    internal struct WlanAssociationAttributes
     {
         public Dot11Ssid Ssid;
         public Dot11BssType BssType;
@@ -532,7 +661,7 @@ internal static class NativeWifiApi
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    private struct WlanSecurityAttributes
+    internal struct WlanSecurityAttributes
     {
         [MarshalAs(UnmanagedType.Bool)]
         public bool SecurityEnabled;
@@ -556,7 +685,7 @@ internal static class NativeWifiApi
         Authenticating = 7
     }
 
-    private enum WlanConnectionMode
+    internal enum WlanConnectionMode
     {
         Profile = 0,
         TemporaryProfile = 1,
@@ -566,7 +695,7 @@ internal static class NativeWifiApi
         Invalid = 5
     }
 
-    private enum WlanIntfOpcode
+    internal enum WlanIntfOpcode
     {
         AutoconfStart = 0,
         AutoconfEnabled = 1,
@@ -578,7 +707,7 @@ internal static class NativeWifiApi
         CurrentConnection = 7
     }
 
-    private enum WlanOpcodeValueType
+    internal enum WlanOpcodeValueType
     {
         QueryOnly = 0,
         SetByGroupPolicy = 1,
@@ -586,14 +715,14 @@ internal static class NativeWifiApi
         Invalid = 3
     }
 
-    private enum Dot11BssType
+    internal enum Dot11BssType
     {
         Infrastructure = 1,
         Independent = 2,
         Any = 3
     }
 
-    private enum Dot11PhyType
+    internal enum Dot11PhyType
     {
         Unknown = 0,
         Any = 0,
@@ -612,7 +741,7 @@ internal static class NativeWifiApi
         IhvEnd = unchecked((int)0xffffffff)
     }
 
-    private enum Dot11AuthAlgorithm : uint
+    internal enum Dot11AuthAlgorithm : uint
     {
         Open80211 = 1,
         SharedKey = 2,
@@ -628,7 +757,7 @@ internal static class NativeWifiApi
         IhvEnd = 0xffffffff
     }
 
-    private enum Dot11CipherAlgorithm : uint
+    internal enum Dot11CipherAlgorithm : uint
     {
         None = 0x00,
         Wep40 = 0x01,

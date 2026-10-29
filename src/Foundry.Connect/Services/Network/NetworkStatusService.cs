@@ -8,6 +8,7 @@ using System.Diagnostics;
 using Foundry.Connect.Models;
 using Foundry.Core.Models.Configuration;
 using Foundry.Connect.Models.Network;
+using Foundry.Connect.Network.Native;
 using Foundry.Utilities.Networking;
 using Foundry.Utilities.Diagnostics;
 using Foundry.Wpf.Localization;
