@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using Foundry.Connect.Configuration;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
+using Foundry.Core.Services.Runtime;
 using Foundry.Core.Services.Security;
 using Microsoft.Extensions.Logging;
 
@@ -71,14 +72,19 @@ public sealed class ConnectUnlockService(
         while (true)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            (bool cancelled, byte[]? key) = await PromptAndUnwrapAsync(protection, failedAttempts > 0).ConfigureAwait(false);
-            if (cancelled)
+            char[]? password = TryPrompt(trigger, failedAttempts > 0, out bool isPromptUnavailable);
+            if (password is null)
             {
                 secrets.MarkUnlockDeclined();
-                logger.LogInformation("Deployment password prompt was cancelled. Trigger={Trigger}", trigger);
+                if (!isPromptUnavailable)
+                {
+                    logger.LogInformation("Deployment password prompt was cancelled. Trigger={Trigger}", trigger);
+                }
+
                 return ConnectUnlockResult.Cancelled;
             }
 
+            byte[]? key = await UnwrapAndZeroPasswordAsync(protection, password).ConfigureAwait(false);
             if (key is null)
             {
                 failedAttempts++;
@@ -91,6 +97,7 @@ public sealed class ConnectUnlockService(
                 continue;
             }
 
+            // From here the caller's token no longer applies: the secrets are unlocked whatever happens next.
             try
             {
                 int unlockedSecretCount = secrets.Unlock(key);
@@ -98,7 +105,7 @@ public sealed class ConnectUnlockService(
                     "Network secrets unlocked. Trigger={Trigger}, UnlockedSecretCount={UnlockedSecretCount}",
                     trigger,
                     unlockedSecretCount);
-                if (!await handoff.TrySendAsync(key, cancellationToken).ConfigureAwait(false))
+                if (!await TryHandOffAsync(key).ConfigureAwait(false))
                 {
                     logger.LogInformation("The deployment key was not handed to Foundry Deploy; Foundry Deploy will ask for the password.");
                 }
@@ -113,25 +120,57 @@ public sealed class ConnectUnlockService(
     }
 
     /// <summary>
-    /// Shows the prompt once and unwraps the key from the typed password, which is zeroed before this returns.
+    /// Shows the prompt once. A prompt that cannot be shown (no WPF application, a dispatcher or owner shutting down) is
+    /// treated as a cancel, so <see cref="UnlockAsync"/> keeps throwing only <see cref="OperationCanceledException"/>.
     /// </summary>
-    /// <returns>Whether the technician cancelled, and the key, or <see langword="null"/> for a wrong password.</returns>
-    private async Task<(bool Cancelled, byte[]? Key)> PromptAndUnwrapAsync(DeployProtectionSettings protection, bool previousAttemptFailed)
+    /// <returns>The typed password, which the caller zeroes, or <see langword="null"/> when cancelled or unavailable.</returns>
+    private char[]? TryPrompt(ConnectUnlockTrigger trigger, bool previousAttemptFailed, out bool isPromptUnavailable)
     {
-        char[]? password = prompt.Prompt(previousAttemptFailed);
-        if (password is null)
+        isPromptUnavailable = false;
+        try
         {
-            return (true, null);
+            return prompt.Prompt(previousAttemptFailed);
         }
+        catch (InvalidOperationException exception)
+        {
+            // No exception object: the message is mirrored remotely (logging ruling).
+            isPromptUnavailable = true;
+            logger.LogWarning(
+                "Deployment password prompt could not be shown; the protected network secrets stay locked. Trigger={Trigger}, FailureType={FailureType}",
+                trigger,
+                exception.GetType().Name);
+            return null;
+        }
+    }
 
+    /// <summary>Unwraps the key from the typed password and zeroes the password on every path.</summary>
+    /// <returns>The key, which the caller zeroes, or <see langword="null"/> for a wrong password.</returns>
+    private async Task<byte[]?> UnwrapAndZeroPasswordAsync(DeployProtectionSettings protection, char[] password)
+    {
         try
         {
             // Not cancellable: the password is zeroed only once the derivation that reads it has finished.
-            return (false, await Task.Run(() => unwrapper.TryUnwrap(protection, password)).ConfigureAwait(false));
+            return await Task.Run(() => unwrapper.TryUnwrap(protection, password)).ConfigureAwait(false);
         }
         finally
         {
             CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
+        }
+    }
+
+    /// <summary>
+    /// Sends the key under its own bounded timeout, not linked to the caller's token (the secrets are already unlocked).
+    /// </summary>
+    private async Task<bool> TryHandOffAsync(byte[] key)
+    {
+        using var timeout = new CancellationTokenSource(DeploymentKeyHandoff.ClientTimeout, timeProvider);
+        try
+        {
+            return await handoff.TrySendAsync(key, timeout.Token).ConfigureAwait(false);
+        }
+        catch (OperationCanceledException) when (timeout.IsCancellationRequested)
+        {
+            return false;
         }
     }
 }

@@ -20,13 +20,20 @@ public enum ConnectUnlockTrigger
 /// <summary>Outcome of <see cref="IConnectUnlockService.UnlockAsync"/>.</summary>
 public enum ConnectUnlockResult
 {
-    /// <summary>No prompt was shown: nothing is locked, the media has no protection block, or an automatic request follows a cancel.</summary>
+    /// <summary>
+    /// No prompt was shown: the media has no protection block, no secret that a feature needs is locked (a locked wired
+    /// secret counts only while 802.1X is enabled, see <see cref="IConnectUnlockService.IsWiredUnlockRequired"/> and
+    /// <see cref="IConnectUnlockService.IsWifiUnlockRequired"/>), or an automatic request follows a cancel.
+    /// </summary>
     NotRequired,
 
     /// <summary>The password was accepted: every locked secret was decrypted and the key was offered to Bootstrap once.</summary>
     Unlocked,
 
-    /// <summary>The technician cancelled the prompt: the secrets stay locked for the session (D9, L4-10).</summary>
+    /// <summary>
+    /// The technician cancelled the prompt, or the prompt could not be shown: the secrets stay locked for the session and
+    /// are not prompted for again automatically (D9, L4-10).
+    /// </summary>
     Cancelled
 }
 
@@ -49,15 +56,26 @@ public interface IConnectUnlockService
     /// <remarks>
     /// Calls are serialized: a call queued behind a successful unlock returns <see cref="ConnectUnlockResult.NotRequired"/>,
     /// and an <see cref="ConnectUnlockTrigger.AutomaticWifi"/> call after a cancel never reopens the prompt. A result other
-    /// than <see cref="ConnectUnlockResult.NotRequired"/> means the prompt was shown, and the returned task stays pending
-    /// while it is open. The password and the key are zeroed on every path and never logged.
+    /// than <see cref="ConnectUnlockResult.NotRequired"/> means the prompt was opened (or could not be, for
+    /// <see cref="ConnectUnlockResult.Cancelled"/>), and the returned task stays pending while it is open. The password and
+    /// the key are zeroed on every path and never logged.
+    /// <para>
+    /// When the gate is free, the first prompt runs synchronously inside this call, before it returns a task: called on the
+    /// UI thread, the modal dialog runs a nested message loop there, so the caller must not hold UI state that a message
+    /// handled meanwhile could change unexpectedly.
+    /// </para>
+    /// <para>
+    /// Once the password is accepted, the outcome is <see cref="ConnectUnlockResult.Unlocked"/> even if
+    /// <paramref name="cancellationToken"/> is cancelled meanwhile: the hand-off to Bootstrap runs under its own bounded
+    /// timeout, not under the caller's token.
+    /// </para>
     /// </remarks>
     /// <param name="trigger">Why the password is needed.</param>
     /// <param name="cancellationToken">Cancels a queued call or a retry delay; it does not close an open prompt.</param>
     /// <returns>The unlock outcome.</returns>
     /// <exception cref="OperationCanceledException">
-    /// <paramref name="cancellationToken"/> was cancelled; the only exception thrown, since the unwrap and the hand-off
-    /// report every failure as a result.
+    /// <paramref name="cancellationToken"/> was cancelled before the password was accepted; the only exception thrown,
+    /// since a prompt that cannot be shown, the unwrap and the hand-off report every failure as a result.
     /// </exception>
     Task<ConnectUnlockResult> UnlockAsync(ConnectUnlockTrigger trigger, CancellationToken cancellationToken);
 }

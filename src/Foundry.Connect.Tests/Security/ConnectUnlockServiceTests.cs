@@ -8,6 +8,7 @@ using Foundry.Connect.Tests.Support;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Autopilot;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect.Tests.Security;
 
@@ -64,6 +65,68 @@ public sealed class ConnectUnlockServiceTests
         Assert.True(secrets.IsUnlockDeclined);
         Assert.True(secrets.IsWifiLocked);
         Assert.Empty(_handoff.Sent);
+        Assert.Equal(2, _prompt.Returned.Count);
+        Assert.All(_prompt.Returned, static password => Assert.All(password, static character => Assert.Equal('\0', character)));
+    }
+
+    [Fact]
+    public async Task UnlockAsync_PromptUnavailable_IsACancelLoggedWithoutTheException()
+    {
+        ConnectRuntimeSecrets secrets = LockedSecrets();
+        _prompt.Failure = new InvalidOperationException("The deployment password prompt requires a running WPF application.");
+
+        ConnectUnlockResult result = await Create(secrets).UnlockAsync(ConnectUnlockTrigger.WiredStartup, TestContext.Current.CancellationToken);
+
+        Assert.Equal(ConnectUnlockResult.Cancelled, result);
+        Assert.True(secrets.IsUnlockDeclined);
+        Assert.Empty(_handoff.Sent);
+        RecordedLogEntry warning = Assert.Single(_logger.Entries, static entry => entry.Level == LogLevel.Warning);
+        Assert.Null(warning.Exception);
+        Assert.Equal(nameof(InvalidOperationException), warning.Properties["FailureType"]);
+        Assert.DoesNotContain(_logger.Entries, static entry => entry.Message.Contains("WPF application", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public async Task UnlockAsync_CallerCancelledDuringTheHandoff_StillReportsUnlockedAndZeroesTheKey()
+    {
+        ConnectRuntimeSecrets secrets = LockedSecrets();
+        _prompt.Answers.Enqueue("right password".ToCharArray());
+        var handoff = new PendingHandoff();
+        using var caller = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
+        var service = new ConnectUnlockService(new FoundryConnectConfigurationDocument(), secrets, _prompt,
+            new FakeUnwrapper(_key, "right password"), handoff, _time, _logger);
+
+        Task<ConnectUnlockResult> unlock = service.UnlockAsync(ConnectUnlockTrigger.ManualWifi, caller.Token);
+        byte[] sentKey = await handoff.Started.Task.WaitAsync(TestContext.Current.CancellationToken);
+        await caller.CancelAsync();
+
+        Assert.False(handoff.Token.IsCancellationRequested);
+        Assert.Equal(_key, sentKey);
+        handoff.Completion.SetResult(true);
+        Assert.Equal(ConnectUnlockResult.Unlocked, await unlock);
+        Assert.All(sentKey, static value => Assert.Equal(0, value));
+        Assert.False(secrets.IsWifiLocked);
+    }
+
+    [Fact]
+    public async Task UnlockAsync_AutomaticQueuedBehindACancelledManualPrompt_DoesNotPrompt()
+    {
+        ConnectRuntimeSecrets secrets = LockedSecrets();
+        var prompt = new BlockingPrompt();
+        var service = new ConnectUnlockService(new FoundryConnectConfigurationDocument(), secrets, prompt,
+            new FakeUnwrapper(_key, "right password"), _handoff, _time, _logger);
+        CancellationToken token = TestContext.Current.CancellationToken;
+
+        Task<ConnectUnlockResult> manual = Task.Run(() => service.UnlockAsync(ConnectUnlockTrigger.ManualWifi, token), token);
+        Assert.True(prompt.Opened.Wait(TimeSpan.FromSeconds(5), token));
+        Task<ConnectUnlockResult> automatic = service.UnlockAsync(ConnectUnlockTrigger.AutomaticWifi, token);
+        Assert.False(automatic.IsCompleted);
+        prompt.Close.Set();
+
+        Assert.Equal(ConnectUnlockResult.Cancelled, await manual);
+        Assert.Equal(ConnectUnlockResult.NotRequired, await automatic);
+        Assert.Equal(1, prompt.CallCount);
+        Assert.True(secrets.IsWifiLocked);
     }
 
     [Fact]
@@ -104,9 +167,11 @@ public sealed class ConnectUnlockServiceTests
         public Queue<char[]?> Answers { get; } = new();
         public List<bool> Calls { get; } = [];
         public List<char[]> Returned { get; } = [];
+        public Exception? Failure { get; set; }
         public char[]? Prompt(bool previousAttemptFailed)
         {
             Calls.Add(previousAttemptFailed);
+            if (Failure is not null) throw Failure;
             char[]? answer = Answers.Dequeue();
             if (answer is not null) Returned.Add(answer);
             return answer;
@@ -126,6 +191,36 @@ public sealed class ConnectUnlockServiceTests
         {
             Sent.Add(deploymentKey.ToArray());
             return Task.FromResult(true);
+        }
+    }
+
+    // Keeps the service's own key buffer, not a copy, to observe that it is zeroed after the send.
+    private sealed class PendingHandoff : IDeploymentKeyHandoffSender
+    {
+        public TaskCompletionSource<byte[]> Started { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        public TaskCompletionSource<bool> Completion { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        public CancellationToken Token { get; private set; }
+        public Task<bool> TrySendAsync(byte[] deploymentKey, CancellationToken cancellationToken)
+        {
+            Token = cancellationToken;
+            Started.SetResult(deploymentKey);
+            return Completion.Task;
+        }
+    }
+
+    // Holds the prompt open on its calling thread until the test closes it with a cancel.
+    private sealed class BlockingPrompt : IDeploymentPasswordPrompt
+    {
+        private int _callCount;
+        public ManualResetEventSlim Opened { get; } = new();
+        public ManualResetEventSlim Close { get; } = new();
+        public int CallCount => Volatile.Read(ref _callCount);
+        public char[]? Prompt(bool previousAttemptFailed)
+        {
+            Interlocked.Increment(ref _callCount);
+            Opened.Set();
+            Close.Wait(TimeSpan.FromSeconds(5));
+            return null;
         }
     }
 }
