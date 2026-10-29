@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Runtime.InteropServices;
 using Foundry.Core.Services.DomainJoin;
 using Foundry.Deploy.Models.Configuration;
-using Foundry.Deploy.Services.ApplicationShell;
+using Foundry.Wpf.Shell;
 using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Catalog;
@@ -58,6 +58,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IThemeService, ThemeService>();
         services.AddSingleton<IKeyboardLayoutSwitcher>(_ => new WindowsKeyboardLayoutSwitcher(KeyboardLayoutHandoff.DefaultPath));
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();
+        services.AddSingleton(WpfApplicationIdentity.FromAssembly(typeof(App).Assembly));
         services.AddSingleton<IDeploymentWizardStateService, DeploymentWizardStateService>();
         services.AddSingleton<IDeploymentWizardContextFactory, DeploymentWizardContextFactory>();
         services.AddSingleton<IDeploymentStartupCoordinator, DeploymentStartupCoordinator>();

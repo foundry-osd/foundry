@@ -535,7 +535,7 @@ public sealed class UnattendRuntimeTests
         { callback(context); return Task.FromResult(DeploymentStepResult.Succeeded("Test step completed.")); }
     }
 
-    private sealed class Shell : Foundry.Deploy.Services.ApplicationShell.IApplicationShellService
+    private sealed class Shell : Foundry.Wpf.Shell.IApplicationShellService
     {
         public int Confirmations { get; private set; }
         public void ShowAbout() { }

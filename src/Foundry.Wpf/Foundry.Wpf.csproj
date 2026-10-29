@@ -18,6 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="..\..\Assets\Brand\Foundry.ico" Link="Assets\Icons\app.ico" />
+    <Resource Include="..\..\Assets\Brand\Foundry.png" Link="Assets\Images\foundry-about-logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Foundry.Localization\Foundry.Localization.csproj" />
     <ProjectReference Include="..\Foundry.Utilities\Foundry.Utilities.csproj" />
   </ItemGroup>

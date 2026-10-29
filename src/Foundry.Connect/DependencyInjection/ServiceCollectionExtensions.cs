@@ -8,7 +8,7 @@ using System.Resources;
 using System.Runtime.InteropServices;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Services.ApplicationLifetime;
-using Foundry.Connect.Services.ApplicationShell;
+using Foundry.Wpf.Shell;
 using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Network;
 using Foundry.Connect.Services.Runtime;
@@ -36,6 +36,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton(args ?? Array.Empty<string>());
 
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();
+        services.AddSingleton(WpfApplicationIdentity.FromAssembly(typeof(App).Assembly));
         services.AddSingleton<IApplicationLifetimeService, ApplicationLifetimeService>();
         services.AddSingleton<IConnectConfigurationService, ConnectConfigurationService>();
         services.AddSingleton(sp => sp.GetRequiredService<IConnectConfigurationService>().Load());

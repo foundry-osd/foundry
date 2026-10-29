@@ -6,7 +6,7 @@ using Foundry.Connect.Models;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Models.Network;
 using Foundry.Connect.Services.ApplicationLifetime;
-using Foundry.Connect.Services.ApplicationShell;
+using Foundry.Wpf.Shell;
 using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Network;
 using Foundry.Wpf.Theme;
@@ -667,6 +667,12 @@ public sealed class MainWindowViewModelTests
 
     private sealed class FakeApplicationShellService : IApplicationShellService
     {
+        public bool ConfirmWarning(string title, string message) => true;
+
+        public void Shutdown()
+        {
+        }
+
         public void ShowAbout()
         {
         }

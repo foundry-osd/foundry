@@ -4,7 +4,7 @@
 
 using System.Windows;
 
-namespace Foundry.Deploy.Views;
+namespace Foundry.Wpf.Dialogs;
 
 public partial class AboutDialog : Window
 {

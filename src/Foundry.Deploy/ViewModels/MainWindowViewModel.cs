@@ -22,7 +22,7 @@ using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.Security;
 using Foundry.Deploy.Services.Startup;
-using Foundry.Deploy.Services.ApplicationShell;
+using Foundry.Wpf.Shell;
 using Foundry.Deploy.Services.System;
 using Foundry.Utilities.Globalization;
 using Foundry.Utilities.Networking;

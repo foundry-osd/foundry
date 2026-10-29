@@ -3,19 +3,20 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Windows;
-using Foundry.Deploy.ViewModels;
-using Foundry.Deploy.Views;
+using Foundry.Wpf.Dialogs;
 using Foundry.Wpf.Localization;
 
-namespace Foundry.Deploy.Services.ApplicationShell;
+namespace Foundry.Wpf.Shell;
 
 public sealed class ApplicationShellService : IApplicationShellService
 {
     private readonly ILocalizationService _localizationService;
+    private readonly WpfApplicationIdentity _identity;
 
-    public ApplicationShellService(ILocalizationService localizationService)
+    public ApplicationShellService(ILocalizationService localizationService, WpfApplicationIdentity identity)
     {
         _localizationService = localizationService;
+        _identity = identity;
     }
 
     public void ShowAbout()
@@ -23,7 +24,7 @@ public sealed class ApplicationShellService : IApplicationShellService
         var viewModel = new AboutDialogViewModel(
             _localizationService.Strings["About.Title"],
             _localizationService.Strings["App.Name"],
-            FoundryDeployApplicationInfo.Version,
+            _identity.Version,
             _localizationService.Strings["About.DescriptionLine1"],
             _localizationService.Strings["About.DescriptionLine2"],
             _localizationService.Strings["About.Footer"]);

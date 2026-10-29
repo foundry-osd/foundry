@@ -4,7 +4,7 @@
 
 using System.Windows;
 
-namespace Foundry.Connect.Views;
+namespace Foundry.Wpf.Dialogs;
 
 public partial class LocalizedMessageDialog : Window
 {

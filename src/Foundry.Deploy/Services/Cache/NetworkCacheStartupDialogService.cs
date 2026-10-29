@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Deploy.Services.Runtime;
-using Foundry.Deploy.Views;
+using Foundry.Wpf.Dialogs;
 using Foundry.Wpf.Localization;
 
 namespace Foundry.Deploy.Services.Cache;

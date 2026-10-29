@@ -4,7 +4,7 @@
 
 using CommunityToolkit.Mvvm.Input;
 
-namespace Foundry.Connect.ViewModels;
+namespace Foundry.Wpf.Dialogs;
 
 public sealed partial class AboutDialogViewModel
 {
