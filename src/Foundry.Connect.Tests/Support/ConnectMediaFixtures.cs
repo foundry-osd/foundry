@@ -7,7 +7,9 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Autopilot;
+using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Runtime;
+using Foundry.Core.Services.WinPe;
 
 namespace Foundry.Connect.Tests.Support;
 
@@ -105,5 +107,44 @@ internal static class ConnectMediaFixtures
         {
             CryptographicOperations.ZeroMemory(mediaKey);
         }
+    }
+
+    /// <summary>
+    /// Writes schema 6 media protected by <see cref="Password"/>: the Core generator output at
+    /// <c>Foundry\Config\foundry.connect.config.json</c> and every staged asset at its media destination under <paramref name="directory"/>.
+    /// </summary>
+    /// <remarks>
+    /// Authoring file references resolve to the file of the same name directly under <paramref name="directory"/>. No media key is written.
+    /// </remarks>
+    /// <returns>The configuration file path and a copy of the deployment key; the caller owns the copy.</returns>
+    public static (string ConfigurationPath, byte[] DeploymentKey) WriteProtectedSchemaSix(
+        TemporaryDirectory directory,
+        FoundryConfigurationDocument authoring,
+        NetworkSecrets secrets)
+    {
+        ArgumentNullException.ThrowIfNull(directory);
+        ArgumentNullException.ThrowIfNull(authoring);
+        ArgumentNullException.ThrowIfNull(secrets);
+        var inputs = new MediaInputs
+        {
+            ResolveFile = reference => Path.Combine(directory.Path, reference.FileName) is var path && File.Exists(path) ? path : null,
+            Network = secrets
+        };
+
+        using DeploymentMediaProtectionMaterial protection = DeploymentMediaProtectionService.CreateProtected(Password);
+        FoundryConnectProvisioningBundle bundle = new ConnectConfigurationGenerator().CreateProvisioningBundle(
+            authoring,
+            inputs,
+            Path.Combine(directory.Path, "Staging"),
+            authoringVersion: null,
+            protection);
+
+        foreach (FoundryConnectProvisionedAssetFile asset in bundle.AssetFiles)
+        {
+            directory.CreateFile(asset.RelativeDestinationPath, File.ReadAllBytes(asset.SourcePath));
+        }
+
+        string configurationPath = directory.CreateFile(Path.Combine("Foundry", "Config", "foundry.connect.config.json"), bundle.ConfigurationJson);
+        return (configurationPath, protection.DeploymentKey.ToArray());
     }
 }

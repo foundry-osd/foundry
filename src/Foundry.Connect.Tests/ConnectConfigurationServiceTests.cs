@@ -742,6 +742,145 @@ public sealed class ConnectConfigurationServiceTests
         Assert.Equal(ConnectSecretFailure.DecryptionFailed, result.Secrets.WifiPassphrase.Failure);
     }
 
+    [Fact]
+    public void Load_ProtectedSchemaSix_IsLockedUntilUnlocked()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var directory = new TemporaryDirectory();
+        (string path, byte[] key) = ConnectMediaFixtures.WriteProtectedSchemaSix(directory, PersonalWifiAndWiredPfxAuthoring(directory),
+            new NetworkSecrets { WifiPassphrase = "lab-passphrase", WiredCertificatePfxPassword = "wired-password" });
+        var logger = new RecordingLogger<ConnectConfigurationService>();
+
+        ConnectConfigurationLoadResult result = ServiceFor(path, logger).Load();
+
+        Assert.True(result.IsSuccess, result.FailureMessage);
+        ConnectRuntimeSecrets secrets = result.Secrets!;
+        Assert.Equal(ConnectSecretStatus.Locked, secrets.WifiPassphrase.Status);
+        Assert.Equal(ConnectSecretStatus.Locked, secrets.WiredCertificatePfxPassword.Status);
+        Assert.Equal(ConnectSecretStatus.Locked, secrets.WiredClientCertificate.Status);
+        Assert.NotNull(secrets.Protection);
+        Assert.False(File.Exists(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(path)!, "Secrets", "media-secrets.key")));
+        Assert.DoesNotContain(logger.Entries, static entry => entry.Level >= LogLevel.Warning);
+        RecordedLogEntry locked = Assert.Single(logger.Entries, static entry => entry.Message.StartsWith("Protected network settings found.", StringComparison.Ordinal));
+        Assert.Equal("Protected network settings found. Wired=True, Wifi=True", locked.Message);
+        Assert.Equal(3, secrets.Unlock(key));
+        Assert.Equal("lab-passphrase", new string(secrets.WifiPassphrase.Value));
+        Assert.Equal("wired-password", new string(secrets.WiredCertificatePfxPassword.Value));
+        Assert.Equal("wired-pfx"u8.ToArray(), secrets.WiredClientCertificate.Content.ToArray());
+    }
+
+    [Fact]
+    public void Load_ProtectedEnterpriseWifi_LocksTheCertificateAndTheKeyedTemplate()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var directory = new TemporaryDirectory();
+        (string path, byte[] key) = ConnectMediaFixtures.WriteProtectedSchemaSix(directory, EnterpriseWifiAuthoring(directory),
+            new NetworkSecrets { WifiCertificatePfxPassword = "wifi-password" });
+
+        ConnectRuntimeSecrets secrets = ServiceFor(path).Load().Secrets!;
+
+        Assert.False(secrets.IsWiredLocked);
+        Assert.True(secrets.IsWifiLocked);
+        Assert.Equal(ConnectSecretStatus.Locked, secrets.WifiCertificatePfxPassword.Status);
+        Assert.Equal(ConnectSecretStatus.Locked, secrets.WifiClientCertificate.Status);
+        Assert.Equal(ConnectSecretStatus.Locked, secrets.WifiEnterpriseProfile.Status);
+        Assert.Equal(3, secrets.Unlock(key));
+        Assert.Equal(KeyedEnterpriseTemplate, System.Text.Encoding.UTF8.GetString(secrets.WifiEnterpriseProfile.Content));
+        secrets.ClearAll();
+        Assert.Equal(ConnectSecretStatus.Cleared, secrets.WifiEnterpriseProfile.Status);
+        Assert.Equal(ConnectSecretStatus.Cleared, secrets.WifiClientCertificate.Status);
+    }
+
+    [Fact]
+    public void Load_SchemaFiveMediaKeyedSecrets_AreAvailableWithoutUnlock()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var directory = new TemporaryDirectory();
+        string path = ConnectMediaFixtures.WriteSchemaFive(directory, wifiPassphrase: "lab-passphrase",
+            wiredCertificatePath: @"Network\Certificates\Wired\wired.pfx", wiredPfxPassword: "wired-password");
+
+        ConnectRuntimeSecrets secrets = ServiceFor(path).Load().Secrets!;
+
+        Assert.Equal("lab-passphrase", new string(secrets.WifiPassphrase.Value));
+        Assert.Equal("wired-password", new string(secrets.WiredCertificatePfxPassword.Value));
+        Assert.False(secrets.IsWiredLocked || secrets.IsWifiLocked);
+        Assert.Equal(ConnectSecretStatus.NotProvisioned, secrets.WiredClientCertificate.Status);
+    }
+
+    [Fact]
+    public void Load_DeploymentKeyedEnvelopeWithoutProtectionBlock_IsUnavailable()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var directory = new TemporaryDirectory();
+        (string path, _) = ConnectMediaFixtures.WriteProtectedSchemaSix(directory, PersonalWifiAndWiredPfxAuthoring(directory),
+            new NetworkSecrets { WifiPassphrase = "lab-passphrase", WiredCertificatePfxPassword = "wired-password" });
+        JsonNode root = JsonNode.Parse(File.ReadAllText(path))!;
+        root.AsObject().Remove("protection");
+        File.WriteAllText(path, root.ToJsonString());
+
+        ConnectRuntimeSecrets secrets = ServiceFor(path).Load().Secrets!;
+
+        Assert.Equal(ConnectSecretStatus.Unavailable, secrets.WifiPassphrase.Status);
+        Assert.Equal(ConnectSecretFailure.DecryptionFailed, secrets.WifiPassphrase.Failure);
+        Assert.Equal(ConnectSecretStatus.Unavailable, secrets.WiredClientCertificate.Status);
+        Assert.False(secrets.IsWifiLocked);
+        Assert.False(secrets.IsWiredLocked);
+    }
+
+    [Fact]
+    public void Load_ProtectedClientCertificateFileMissing_IsUnavailableWithoutNamingTheFile()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var directory = new TemporaryDirectory();
+        (string path, _) = ConnectMediaFixtures.WriteProtectedSchemaSix(directory, PersonalWifiAndWiredPfxAuthoring(directory),
+            new NetworkSecrets { WifiPassphrase = "lab-passphrase", WiredCertificatePfxPassword = "wired-password" });
+        File.Delete(ProtectedWiredCertificatePath(path));
+        var logger = new RecordingLogger<ConnectConfigurationService>();
+
+        ConnectRuntimeSecrets secrets = ServiceFor(path, logger).Load().Secrets!;
+
+        Assert.Equal(ConnectSecretStatus.Unavailable, secrets.WiredClientCertificate.Status);
+        Assert.Equal(ConnectSecretFailure.DecryptionFailed, secrets.WiredClientCertificate.Failure);
+        Assert.Equal(ConnectSecretStatus.Locked, secrets.WiredCertificatePfxPassword.Status);
+        RecordedLogEntry warning = Assert.Single(logger.Entries, static entry => entry.Level == LogLevel.Warning);
+        Assert.Equal("Provisioned secret is unavailable. Secret=wired_client_certificate, Failure=DecryptionFailed", warning.Message);
+        Assert.All(logger.Entries, static entry => Assert.DoesNotContain("client.pfx", entry.Message, StringComparison.OrdinalIgnoreCase));
+    }
+
+    [Theory]
+    [InlineData("not json")]
+    [InlineData("null")]
+    [InlineData("""{"kind":"encrypted","algorithm":"aes-gcm-v1","keyId":"media","nonce":"AA","tag":"AA","ciphertext":"AA"}""")]
+    public void Load_ProtectedClientCertificateFileNotADeploymentEnvelope_IsUnavailable(string content)
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var directory = new TemporaryDirectory();
+        (string path, _) = ConnectMediaFixtures.WriteProtectedSchemaSix(directory, PersonalWifiAndWiredPfxAuthoring(directory),
+            new NetworkSecrets { WifiPassphrase = "lab-passphrase", WiredCertificatePfxPassword = "wired-password" });
+        File.WriteAllText(ProtectedWiredCertificatePath(path), content);
+
+        ConnectRuntimeSecrets secrets = ServiceFor(path).Load().Secrets!;
+
+        Assert.Equal(ConnectSecretStatus.Unavailable, secrets.WiredClientCertificate.Status);
+        Assert.Equal(ConnectSecretFailure.DecryptionFailed, secrets.WiredClientCertificate.Failure);
+    }
+
+    [Fact]
+    public void Load_ProtectedClientCertificateFileOverFourMebibytes_IsUnavailable()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var directory = new TemporaryDirectory();
+        (string path, _) = ConnectMediaFixtures.WriteProtectedSchemaSix(directory, PersonalWifiAndWiredPfxAuthoring(directory),
+            new NetworkSecrets { WifiPassphrase = "lab-passphrase", WiredCertificatePfxPassword = "wired-password" });
+        // Trailing whitespace keeps the envelope valid JSON, so only the size limit rejects it.
+        string certificatePath = ProtectedWiredCertificatePath(path);
+        File.AppendAllText(certificatePath, new string(' ', (4 * 1024 * 1024) + 1 - (int)new FileInfo(certificatePath).Length));
+
+        ConnectRuntimeSecrets secrets = ServiceFor(path).Load().Secrets!;
+
+        Assert.Equal(ConnectSecretStatus.Unavailable, secrets.WiredClientCertificate.Status);
+    }
+
     private static FoundryConnectConfigurationDocument LoadConfiguration(ConnectConfigurationService service) =>
         LoadWithSecrets(service).Configuration;
 
@@ -751,6 +890,57 @@ public sealed class ConnectConfigurationServiceTests
         Assert.True(result.IsSuccess, result.FailureMessage);
         return (result.Configuration, result.Secrets);
     }
+
+    private static ConnectConfigurationService ServiceFor(string configurationPath, ILogger<ConnectConfigurationService>? logger = null) =>
+        new(["--config", configurationPath], logger ?? NullLogger<ConnectConfigurationService>.Instance);
+
+    private const string KeyedEnterpriseTemplate =
+        """<WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1"><name>Corp</name><MSM><security><sharedKey><keyMaterial>secret</keyMaterial></sharedKey></security></MSM></WLANProfile>""";
+
+    // Password protection on, wired 802.1X with a client PFX and a trusted root, and personal Wi-Fi "Lab"; the files live directly under the directory.
+    private static CoreConfiguration.FoundryConfigurationDocument PersonalWifiAndWiredPfxAuthoring(TemporaryDirectory directory) => new()
+    {
+        General = new CoreConfiguration.GeneralSettings { DeploymentProtection = new CoreConfiguration.DeploymentProtectionSettings { IsEnabled = true } },
+        Network = new CoreConfiguration.NetworkSettings
+        {
+            WifiProvisioned = true,
+            Dot1x = new CoreConfiguration.Dot1xSettings
+            {
+                IsEnabled = true,
+                ProfileTemplate = Reference(directory.CreateFile("wired.xml", "<LANProfile />")),
+                ClientCertificate = Reference(directory.CreateFile("client.pfx", "wired-pfx")),
+                TrustedRootCertificates = [Reference(directory.CreateFile("root.cer", "root"))]
+            },
+            Wifi = new CoreConfiguration.WifiSettings
+            {
+                IsEnabled = true,
+                Ssid = "Lab",
+                SecurityType = NetworkConfigurationValidator.WifiSecurityPersonal
+            }
+        }
+    };
+
+    // Password protection on and enterprise Wi-Fi with a template carrying key material and a client PFX.
+    private static CoreConfiguration.FoundryConfigurationDocument EnterpriseWifiAuthoring(TemporaryDirectory directory) => new()
+    {
+        General = new CoreConfiguration.GeneralSettings { DeploymentProtection = new CoreConfiguration.DeploymentProtectionSettings { IsEnabled = true } },
+        Network = new CoreConfiguration.NetworkSettings
+        {
+            WifiProvisioned = true,
+            Wifi = new CoreConfiguration.WifiSettings
+            {
+                IsEnabled = true,
+                Ssid = "Corp",
+                SecurityType = NetworkConfigurationValidator.WifiSecurityEnterprise,
+                HasEnterpriseProfile = true,
+                EnterpriseProfileTemplate = Reference(directory.CreateFile("wifi.xml", KeyedEnterpriseTemplate)),
+                ClientCertificate = Reference(directory.CreateFile("wifi.pfx", "wifi-pfx"))
+            }
+        }
+    };
+
+    private static string ProtectedWiredCertificatePath(string configurationPath) =>
+        System.IO.Path.Combine(System.IO.Path.GetDirectoryName(configurationPath)!, @"Network\Certificates\Wired\client.pfx.encrypted");
 
     private sealed class WarningRecordingLogger : ILogger<ConnectConfigurationService>
     {

@@ -25,6 +25,12 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
     private const string WifiPassphraseSecretName = "wifi_passphrase";
     private const string WifiCertificatePasswordSecretName = "wifi_certificate_password";
     private const string WiredCertificatePasswordSecretName = "wired_certificate_password";
+    private const string WiredClientCertificateSecretName = "wired_client_certificate";
+    private const string WifiClientCertificateSecretName = "wifi_client_certificate";
+    private const string WifiEnterpriseProfileSecretName = "wifi_enterprise_profile";
+
+    // An encrypted PFX or WLAN template is small; a larger file is not read into memory.
+    private const int MaxProtectedFileBytes = 4 * 1024 * 1024;
 
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
@@ -230,7 +236,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
             Dot1x = configuration.Dot1x ?? new ConnectDot1xSettings(),
             // An explicit "telemetry": null in the file falls back to the defaults instead of failing startup.
             Telemetry = configuration.Telemetry ?? new TelemetrySettings(),
-            // The passphrase envelope is consumed by ResolveSecrets; only the decrypted value survives, in ConnectRuntimeSecrets.
+            // The passphrase envelope is consumed by ResolveSecrets; only the decrypted value or the locked envelope survives, in ConnectRuntimeSecrets.
             Wifi = (configuration.Wifi ?? new ConnectWifiSettings()) with { PassphraseSecret = null },
             InternetProbe = probe with
             {
@@ -240,38 +246,76 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         };
     }
 
+    /// <summary>
+    /// Maps every provisioned network secret to its runtime holder (L2-5, L4-9). The envelope <c>keyId</c> decides the key source:
+    /// <c>media</c> is decrypted at once with the media key (schema 5); <c>deployment</c> stays <see cref="ConnectSecretStatus.Locked"/>
+    /// until the deployment password unlocks it, or is <see cref="ConnectSecretStatus.Unavailable"/> on media without a protection block.
+    /// </summary>
+    /// <remarks>
+    /// Envelopes come from the effective certificate sets (<see cref="ConnectCertificateSet"/>) and <c>wifi.passphraseSecret</c>.
+    /// Encrypted files (client PFX, enterprise template) are read here as envelopes; plain files stay paths. The media key is read
+    /// only when a <c>media</c> envelope exists, so schema 6 media without <c>Secrets\media-secrets.key</c> load normally.
+    /// </remarks>
     private ConnectRuntimeSecrets ResolveSecrets(
         FoundryConnectConfigurationDocument configuration,
         JsonElement root,
         string configurationPath)
     {
-        ConnectWifiSettings? wifi = configuration.Wifi;
-        ConnectDot1xSettings? dot1x = configuration.Dot1x;
+        ConnectWifiSettings wifi = configuration.Wifi ?? new ConnectWifiSettings();
+        ConnectCertificateSet wiredCertificates = ConnectCertificateSet.From(configuration.Dot1x ?? new ConnectDot1xSettings());
+        ConnectCertificateSet wifiCertificates = ConnectCertificateSet.From(wifi);
+        SecretEnvelope? wifiPassphraseSecret = wifi.PassphraseSecret;
+        SecretEnvelope? wifiPasswordSecret = wifiCertificates.ClientCertificatePasswordSecret;
+        SecretEnvelope? wiredPasswordSecret = wiredCertificates.ClientCertificatePasswordSecret;
 
-        if (wifi?.PassphraseSecret is null &&
-            wifi?.CertificatePfxPasswordSecret is null &&
-            dot1x?.CertificatePfxPasswordSecret is null)
+        if (wifiPassphraseSecret is null && wifiPasswordSecret is null && wiredPasswordSecret is null &&
+            !wiredCertificates.IsClientCertificateContentProtected &&
+            !wifiCertificates.IsClientCertificateContentProtected &&
+            !wifi.IsEnterpriseProfileTemplateProtected)
         {
             return new ConnectRuntimeSecrets(ReadLegacyWifiPassphrase(root), ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned());
         }
 
-        byte[]? mediaSecretsKey = LoadMediaSecretsKey(configurationPath, out ConnectSecretFailure keyFailure);
+        bool isUnlockable = configuration.Protection?.ProtectedDeploymentKey is not null;
+        ConnectSecretFailure keyFailure = ConnectSecretFailure.None;
+        byte[]? mediaSecretsKey = IsMediaKeyed(wifiPassphraseSecret) || IsMediaKeyed(wifiPasswordSecret) || IsMediaKeyed(wiredPasswordSecret)
+            ? LoadMediaSecretsKey(configurationPath, out keyFailure)
+            : null;
+        var keys = new SecretKeys(mediaSecretsKey, keyFailure, isUnlockable);
         ConnectSecret? wifiPassphrase = null;
         ConnectSecret? wifiCertificatePassword = null;
+        ConnectSecret? wiredCertificatePassword = null;
         try
         {
             // Built one at a time so a value already decrypted is zeroed if a later step throws.
-            wifiPassphrase = wifi?.PassphraseSecret is null
+            wifiPassphrase = wifiPassphraseSecret is null
                 ? ReadLegacyWifiPassphrase(root)
-                : DecryptSecret(wifi.PassphraseSecret, mediaSecretsKey, keyFailure, WifiPassphraseSecretName);
-            wifiCertificatePassword = DecryptSecret(wifi?.CertificatePfxPasswordSecret, mediaSecretsKey, keyFailure, WifiCertificatePasswordSecretName);
-            ConnectSecret wiredCertificatePassword = DecryptSecret(dot1x?.CertificatePfxPasswordSecret, mediaSecretsKey, keyFailure, WiredCertificatePasswordSecretName);
-            return new ConnectRuntimeSecrets(wifiPassphrase, wifiCertificatePassword, wiredCertificatePassword);
+                : ResolveSecret(wifiPassphraseSecret, keys, WifiPassphraseSecretName);
+            wifiCertificatePassword = ResolveSecret(wifiPasswordSecret, keys, WifiCertificatePasswordSecretName);
+            wiredCertificatePassword = ResolveSecret(wiredPasswordSecret, keys, WiredCertificatePasswordSecretName);
+            var secrets = new ConnectRuntimeSecrets(
+                wifiPassphrase,
+                wifiCertificatePassword,
+                wiredCertificatePassword,
+                ResolveProtectedFile(wiredCertificates.IsClientCertificateContentProtected, wiredCertificates.ClientCertificatePath, configurationPath, isUnlockable, WiredClientCertificateSecretName),
+                ResolveProtectedFile(wifiCertificates.IsClientCertificateContentProtected, wifiCertificates.ClientCertificatePath, configurationPath, isUnlockable, WifiClientCertificateSecretName),
+                ResolveProtectedFile(wifi.IsEnterpriseProfileTemplateProtected, wifi.EnterpriseProfileTemplatePath, configurationPath, isUnlockable, WifiEnterpriseProfileSecretName),
+                configuration.Protection);
+            if (secrets.IsWiredLocked || secrets.IsWifiLocked)
+            {
+                _logger.LogInformation(
+                    "Protected network settings found. Wired={WiredLocked}, Wifi={WifiLocked}",
+                    secrets.IsWiredLocked,
+                    secrets.IsWifiLocked);
+            }
+
+            return secrets;
         }
         catch
         {
             wifiPassphrase?.Clear();
             wifiCertificatePassword?.Clear();
+            wiredCertificatePassword?.Clear();
             throw;
         }
         finally
@@ -284,21 +328,44 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         }
     }
 
-    /// <summary>
-    /// Decrypts one envelope into a clearable buffer. A secret that cannot be read becomes <see cref="ConnectSecretStatus.Unavailable"/>
-    /// instead of failing the load, so only the feature that needs it is disabled (D9, L2-5).
-    /// </summary>
+    private static bool IsMediaKeyed(SecretEnvelope? envelope) =>
+        string.Equals(envelope?.KeyId, MediaSecretEnvelopeProtector.KeyId, StringComparison.Ordinal);
+
+    private static bool IsDeploymentKeyed(SecretEnvelope? envelope) =>
+        string.Equals(envelope?.KeyId, MediaSecretEnvelopeProtector.DeploymentKeyId, StringComparison.Ordinal);
+
+    /// <summary>Maps one envelope by its key id; see <see cref="ResolveSecrets"/>.</summary>
     /// <param name="envelope">The envelope, or <see langword="null"/> when the media does not provision this secret.</param>
-    /// <param name="mediaSecretsKey">The media key, or <see langword="null"/> when the key file is missing or unreadable.</param>
-    /// <param name="keyFailure">Why <paramref name="mediaSecretsKey"/> is <see langword="null"/>.</param>
+    /// <param name="keys">The key sources available to this load.</param>
     /// <param name="secretName">The stable, non-identifying secret name used in the log.</param>
-    private ConnectSecret DecryptSecret(SecretEnvelope? envelope, byte[]? mediaSecretsKey, ConnectSecretFailure keyFailure, string secretName)
+    private ConnectSecret ResolveSecret(SecretEnvelope? envelope, SecretKeys keys, string secretName)
     {
         if (envelope is null)
         {
             return ConnectSecret.NotProvisioned();
         }
 
+        if (IsMediaKeyed(envelope))
+        {
+            return DecryptSecret(envelope, keys.MediaSecretsKey, keys.MediaKeyFailure, secretName);
+        }
+
+        // A deployment-keyed envelope on media without a protection block can never be unlocked (D9).
+        return IsDeploymentKeyed(envelope) && keys.IsUnlockable
+            ? ConnectSecret.Locked(envelope)
+            : Unavailable(secretName, ConnectSecretFailure.DecryptionFailed);
+    }
+
+    /// <summary>
+    /// Decrypts one media-keyed envelope into a clearable buffer. A secret that cannot be read becomes <see cref="ConnectSecretStatus.Unavailable"/>
+    /// instead of failing the load, so only the feature that needs it is disabled (D9, L2-5).
+    /// </summary>
+    /// <param name="envelope">The media-keyed envelope.</param>
+    /// <param name="mediaSecretsKey">The media key, or <see langword="null"/> when the key file is missing or unreadable.</param>
+    /// <param name="keyFailure">Why <paramref name="mediaSecretsKey"/> is <see langword="null"/>.</param>
+    /// <param name="secretName">The stable, non-identifying secret name used in the log.</param>
+    private ConnectSecret DecryptSecret(SecretEnvelope envelope, byte[]? mediaSecretsKey, ConnectSecretFailure keyFailure, string secretName)
+    {
         if (mediaSecretsKey is null)
         {
             return Unavailable(secretName, keyFailure);
@@ -320,14 +387,74 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         }
     }
 
+    /// <summary>
+    /// Reads a file staged as a deployment-keyed envelope (L4-5, L4-6) and keeps it locked until the unlock. A file that is missing,
+    /// larger than <see cref="MaxProtectedFileBytes"/>, not an envelope, or on media without a protection block is unavailable.
+    /// </summary>
+    /// <param name="isProtected">Whether the configuration marks the file as encrypted; a plain file stays a path and is not read here.</param>
+    /// <param name="relativePath">The media-relative path from the configuration.</param>
+    /// <param name="configurationPath">The configuration file path that anchors relative assets.</param>
+    /// <param name="isUnlockable">Whether the media carries a protection block that can unwrap the deployment key.</param>
+    /// <param name="secretName">The stable, non-identifying name used in the log; the file name is never logged.</param>
+    private ConnectProtectedContent ResolveProtectedFile(bool isProtected, string? relativePath, string configurationPath, bool isUnlockable, string secretName)
+    {
+        if (!isProtected)
+        {
+            return ConnectProtectedContent.NotProvisioned();
+        }
+
+        SecretEnvelope? envelope = isUnlockable ? ReadEnvelopeFile(relativePath, configurationPath) : null;
+        if (!IsDeploymentKeyed(envelope))
+        {
+            LogUnavailable(secretName, ConnectSecretFailure.DecryptionFailed);
+            return ConnectProtectedContent.Unavailable(ConnectSecretFailure.DecryptionFailed);
+        }
+
+        return ConnectProtectedContent.Locked(envelope!);
+    }
+
+    // Returns null when the file is missing, unreadable, too large or not an envelope; the caller logs the stable secret name instead.
+    private static SecretEnvelope? ReadEnvelopeFile(string? relativePath, string configurationPath)
+    {
+        try
+        {
+            string? path = ProvisionedWifiProfileResolver.ResolveAssetPath(relativePath, configurationPath);
+            if (path is null)
+            {
+                return null;
+            }
+
+            using var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+            if (stream.Length > MaxProtectedFileBytes)
+            {
+                return null;
+            }
+
+            byte[] content = new byte[stream.Length];
+            stream.ReadExactly(content);
+            return JsonSerializer.Deserialize<SecretEnvelope>(content, JsonOptions);
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or JsonException or ArgumentException or NotSupportedException)
+        {
+            return null;
+        }
+    }
+
     private ConnectSecret Unavailable(string secretName, ConnectSecretFailure failure)
     {
+        LogUnavailable(secretName, failure);
+        return ConnectSecret.Unavailable(failure);
+    }
+
+    private void LogUnavailable(string secretName, ConnectSecretFailure failure) =>
         _logger.LogWarning(
             "Provisioned secret is unavailable. Secret={SecretName}, Failure={SecretFailure}",
             secretName,
             failure);
-        return ConnectSecret.Unavailable(failure);
-    }
+
+    /// <summary>The key sources of one load: the media key (schema 5) and whether the deployment key can be unlocked later.</summary>
+    private readonly record struct SecretKeys(byte[]? MediaSecretsKey, ConnectSecretFailure MediaKeyFailure, bool IsUnlockable);
+
 
     // Older media carry a plaintext wifi.passphrase that the Core runtime record no longer models.
     private static ConnectSecret ReadLegacyWifiPassphrase(JsonElement root)
