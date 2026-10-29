@@ -29,6 +29,12 @@ internal sealed class FakeConnectionCoordinator : IConnectionCoordinator
     /// </summary>
     public TaskCompletionSource<ProvisioningOutcome>? ProvisioningGate { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether the <see cref="ProvisioningGate"/> task ignores the caller's cancellation, so the outcome
+    /// can arrive after the caller was cancelled.
+    /// </summary>
+    public bool ProvisioningIgnoresCancellation { get; set; }
+
     /// <summary>Gets the number of <see cref="ApplyProvisioningAsync"/> calls.</summary>
     public int ApplyProvisioningCalls { get; private set; }
 
@@ -69,7 +75,12 @@ internal sealed class FakeConnectionCoordinator : IConnectionCoordinator
     public Task<ProvisioningOutcome> ApplyProvisioningAsync(CancellationToken cancellationToken)
     {
         ApplyProvisioningCalls++;
-        return ProvisioningGate is { } gate ? gate.Task.WaitAsync(cancellationToken) : Task.FromResult(ProvisioningResult);
+        if (ProvisioningGate is not { } gate)
+        {
+            return Task.FromResult(ProvisioningResult);
+        }
+
+        return ProvisioningIgnoresCancellation ? gate.Task : gate.Task.WaitAsync(cancellationToken);
     }
 
     /// <inheritdoc />
