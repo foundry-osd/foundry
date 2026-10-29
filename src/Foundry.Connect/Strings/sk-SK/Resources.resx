@@ -64,23 +64,8 @@ Licencované podľa licencie MIT.</value>
   <data name="Common.Close" xml:space="preserve">
     <value>Zavrieť</value>
   </data>
-  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
-    <value>Konfigurácia: vstavané predvolené nastavenia</value>
-  </data>
-  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
-    <value>Konfigurácia: {0}</value>
-  </data>
   <data name="Common.Connected" xml:space="preserve">
     <value>Pripojené</value>
-  </data>
-  <data name="Common.LastUpdateFormat" xml:space="preserve">
-    <value>Posledná aktualizácia: {0:HH:mm:ss}</value>
-  </data>
-  <data name="Common.LastUpdatePending" xml:space="preserve">
-    <value>Posledná aktualizácia: čaká sa</value>
-  </data>
-  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
-    <value>Obnovuje sa každých {0} sekúnd</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>nedostupné</value>
@@ -135,15 +120,6 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="Debug.Scenarios" xml:space="preserve">
     <value>Scenáre</value>
-  </data>
-  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
-    <value>Zobraziť iba Ethernet</value>
-  </data>
-  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
-    <value>Zobraziť Ethernet + Wi-Fi</value>
-  </data>
-  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
-    <value>Použiť zistené rozloženie</value>
   </data>
   <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
     <value>Vyberte, kam exportovať diagnostiku Foundry</value>
@@ -437,15 +413,6 @@ Licencované podľa licencie MIT.</value>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Sieť pripravená</value>
   </data>
-  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
-    <value>Obnovenie siete zlyhalo</value>
-  </data>
-  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
-    <value>Prístup na internet ešte nebol overený.</value>
-  </data>
-  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
-    <value>Čaká sa na sieť</value>
-  </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>Tmavý</value>
   </data>
@@ -500,9 +467,6 @@ Licencované podľa licencie MIT.</value>
   <data name="Wifi.AuthenticationLabel" xml:space="preserve">
     <value>autentifikácia</value>
   </data>
-  <data name="Wifi.BootImageSettings" xml:space="preserve">
-    <value>Nastavenia zavádzacieho obrazu</value>
-  </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Nakonfigurované zabezpečenie</value>
   </data>
@@ -527,12 +491,6 @@ Licencované podľa licencie MIT.</value>
   <data name="Wifi.DisconnectSelectedAutomationFormat" xml:space="preserve">
     <value>Odpojiť od siete {0}</value>
   </data>
-  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
-    <value>Podnikový profil</value>
-  </data>
-  <data name="Wifi.HiddenNetwork" xml:space="preserve">
-    <value>Skrytá sieť</value>
-  </data>
   <data name="Wifi.NetworkAutomationFormat" xml:space="preserve">
     <value>{0}, {1}, signál {2} percent</value>
   </data>
@@ -550,9 +508,6 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>Momentálne nie sú viditeľné žiadne siete Wi-Fi.</value>
-  </data>
-  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
-    <value>V tomto zavádzacom obraze nie je dostupný žiadny vytvorený profil Wi-Fi.</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
     <value>Heslo Wi-Fi</value>
@@ -587,20 +542,11 @@ Licencované podľa licencie MIT.</value>
   <data name="Wifi.SecurityEnterprise" xml:space="preserve">
     <value>Enterprise</value>
   </data>
-  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
-    <value>{0} (stroj)</value>
-  </data>
-  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
-    <value>{0} (stroj alebo používateľ)</value>
-  </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
     <value>Otvorené</value>
   </data>
   <data name="Wifi.SecurityOwe" xml:space="preserve">
     <value>Otvorené (rozšírené)</value>
-  </data>
-  <data name="Wifi.SecurityPersonal" xml:space="preserve">
-    <value>Osobné</value>
   </data>
   <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
     <value>Špecifické pre dodávateľa</value>
@@ -614,17 +560,11 @@ Licencované podľa licencie MIT.</value>
   <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
     <value>WPA2 Osobné</value>
   </data>
-  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
-    <value>WPA2/WPA3 Enterprise</value>
-  </data>
   <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
     <value>Osobné WPA2/WPA3</value>
   </data>
   <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
     <value>WPA3 Enterprise</value>
-  </data>
-  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
-    <value>WPA3 Enterprise 192-bit</value>
   </data>
   <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
     <value>Osobné WPA3</value>
@@ -632,32 +572,20 @@ Licencované podľa licencie MIT.</value>
   <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
     <value>WPA Enterprise</value>
   </data>
-  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
-    <value>WPA Žiadne</value>
-  </data>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Osobné</value>
   </data>
   <data name="Wifi.SelectNetworkHint" xml:space="preserve">
     <value>Vyberte sieť v zozname a pripojte sa.</value>
   </data>
-  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
-    <value>{0} · Certifikát je súčasťou bootovacieho obrazu</value>
-  </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Ďalšia sieť Wi-Fi je aktívna</value>
-  </data>
-  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
-    <value>Nie je k dispozícii žiadny adaptér Wi-Fi</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>Mimo dosahu</value>
   </data>
   <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
     <value>Pripravené na pripojenie</value>
-  </data>
-  <data name="Wifi.StatusUnavailable" xml:space="preserve">
-    <value>Wi-Fi nie je k dispozícii</value>
   </data>
   <data name="Wifi.Title" xml:space="preserve">
     <value>Wi-Fi</value>

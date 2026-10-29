@@ -64,23 +64,8 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Common.Close" xml:space="preserve">
     <value>Lukk</value>
   </data>
-  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
-    <value>Konfigurasjon: innebygde standardinnstillinger</value>
-  </data>
-  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
-    <value>Konfigurasjon: {0}</value>
-  </data>
   <data name="Common.Connected" xml:space="preserve">
     <value>Tilkoblet</value>
-  </data>
-  <data name="Common.LastUpdateFormat" xml:space="preserve">
-    <value>Sist oppdatert: {0:HH:mm:ss}</value>
-  </data>
-  <data name="Common.LastUpdatePending" xml:space="preserve">
-    <value>Sist oppdatert: venter</value>
-  </data>
-  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
-    <value>Oppdateres hvert {0} sekund</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Utilgjengelig</value>
@@ -135,15 +120,6 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Debug.Scenarios" xml:space="preserve">
     <value>Scenarioer</value>
-  </data>
-  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
-    <value>Vis kun Ethernet</value>
-  </data>
-  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
-    <value>Vis Ethernet + Wi-Fi</value>
-  </data>
-  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
-    <value>Bruk oppdaget layout</value>
   </data>
   <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
     <value>Velg hvor Foundry-diagnostikk skal eksporteres</value>
@@ -437,15 +413,6 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Nettverksklar</value>
   </data>
-  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
-    <value>Nettverksoppdatering mislyktes</value>
-  </data>
-  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
-    <value>Internett-tilgang er ikke validert ennå.</value>
-  </data>
-  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
-    <value>Venter på nettverk</value>
-  </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>Mørk</value>
   </data>
@@ -500,9 +467,6 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Wifi.AuthenticationLabel" xml:space="preserve">
     <value>Autentisering</value>
   </data>
-  <data name="Wifi.BootImageSettings" xml:space="preserve">
-    <value>Innstillinger for oppstartsbilde</value>
-  </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Konfigurert sikkerhet</value>
   </data>
@@ -527,12 +491,6 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Wifi.DisconnectSelectedAutomationFormat" xml:space="preserve">
     <value>Koble fra {0}</value>
   </data>
-  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
-    <value>Bedriftsprofil</value>
-  </data>
-  <data name="Wifi.HiddenNetwork" xml:space="preserve">
-    <value>Skjult nettverk</value>
-  </data>
   <data name="Wifi.NetworkAutomationFormat" xml:space="preserve">
     <value>{0}, {1}, signal {2} prosent</value>
   </data>
@@ -550,9 +508,6 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>Ingen Wi-Fi nettverk er for øyeblikket synlige.</value>
-  </data>
-  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
-    <value>Ingen klargjort Wi-Fi-profil er tilgjengelig i dette oppstartsbildet.</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
     <value>Wi-Fi-passord</value>
@@ -587,20 +542,11 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Wifi.SecurityEnterprise" xml:space="preserve">
     <value>Enterprise</value>
   </data>
-  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
-    <value>{0} (maskin)</value>
-  </data>
-  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
-    <value>{0} (maskin eller bruker)</value>
-  </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
     <value>Åpen</value>
   </data>
   <data name="Wifi.SecurityOwe" xml:space="preserve">
     <value>Åpen (forbedret)</value>
-  </data>
-  <data name="Wifi.SecurityPersonal" xml:space="preserve">
-    <value>Personlig</value>
   </data>
   <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
     <value>Leverandørspesifikk</value>
@@ -614,17 +560,11 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
     <value>WPA2 personlig</value>
   </data>
-  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
-    <value>WPA2/WPA3 Enterprise</value>
-  </data>
   <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
     <value>WPA2/WPA3 Personlig</value>
   </data>
   <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
     <value>WPA3 Enterprise</value>
-  </data>
-  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
-    <value>WPA3 Enterprise 192-bit</value>
   </data>
   <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
     <value>WPA3 personlig</value>
@@ -632,32 +572,20 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
     <value>WPA Enterprise</value>
   </data>
-  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
-    <value>WPA Ingen</value>
-  </data>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Personlig</value>
   </data>
   <data name="Wifi.SelectNetworkHint" xml:space="preserve">
     <value>Velg et nettverk i listen for å koble til.</value>
   </data>
-  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
-    <value>{0} · Sertifikat inkludert i oppstartsbilde</value>
-  </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Et annet Wi-Fi nettverk er aktivt</value>
-  </data>
-  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
-    <value>Ingen Wi-Fi-adapter tilgjengelig</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>Utenfor rekkevidde</value>
   </data>
   <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
     <value>Klar til å koble til</value>
-  </data>
-  <data name="Wifi.StatusUnavailable" xml:space="preserve">
-    <value>Wi-Fi utilgjengelig</value>
   </data>
   <data name="Wifi.Title" xml:space="preserve">
     <value>Wi-Fi</value>

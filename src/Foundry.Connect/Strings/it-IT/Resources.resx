@@ -64,23 +64,8 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Common.Close" xml:space="preserve">
     <value>Chiudi</value>
   </data>
-  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
-    <value>Configurazione: impostazioni predefinite integrate</value>
-  </data>
-  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
-    <value>Configurazione: {0}</value>
-  </data>
   <data name="Common.Connected" xml:space="preserve">
     <value>Connesso</value>
-  </data>
-  <data name="Common.LastUpdateFormat" xml:space="preserve">
-    <value>Ultimo aggiornamento: {0:HH:mm:ss}</value>
-  </data>
-  <data name="Common.LastUpdatePending" xml:space="preserve">
-    <value>Ultimo aggiornamento: in sospeso</value>
-  </data>
-  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
-    <value>Si aggiorna ogni {0} secondi</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Non disponibile</value>
@@ -135,15 +120,6 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="Debug.Scenarios" xml:space="preserve">
     <value>Scenari</value>
-  </data>
-  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
-    <value>Mostra solo Ethernet</value>
-  </data>
-  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
-    <value>Mostra Ethernet + Wi-Fi</value>
-  </data>
-  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
-    <value>Utilizza layout rilevato</value>
   </data>
   <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
     <value>Scegli dove esportare la diagnostica di Foundry</value>
@@ -437,15 +413,6 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Rete pronta</value>
   </data>
-  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
-    <value>Aggiornamento della rete non riuscito</value>
-  </data>
-  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
-    <value>L'accesso a Internet non è stato ancora convalidato.</value>
-  </data>
-  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
-    <value>In attesa della rete</value>
-  </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>Scuro</value>
   </data>
@@ -500,9 +467,6 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Wifi.AuthenticationLabel" xml:space="preserve">
     <value>Autenticazione</value>
   </data>
-  <data name="Wifi.BootImageSettings" xml:space="preserve">
-    <value>Impostazioni dell'immagine di avvio</value>
-  </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Sicurezza configurata</value>
   </data>
@@ -527,12 +491,6 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Wifi.DisconnectSelectedAutomationFormat" xml:space="preserve">
     <value>Disconnetti da {0}</value>
   </data>
-  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
-    <value>Profilo aziendale</value>
-  </data>
-  <data name="Wifi.HiddenNetwork" xml:space="preserve">
-    <value>Rete nascosta</value>
-  </data>
   <data name="Wifi.NetworkAutomationFormat" xml:space="preserve">
     <value>{0}, {1}, segnale {2} percento</value>
   </data>
@@ -550,9 +508,6 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>Nessuna rete Wi-Fi attualmente visibile.</value>
-  </data>
-  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
-    <value>Nessun profilo Wi-Fi sottoposto a provisioning è disponibile in questa immagine di avvio.</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
     <value>Password Wi-Fi</value>
@@ -587,20 +542,11 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Wifi.SecurityEnterprise" xml:space="preserve">
     <value>Impresa</value>
   </data>
-  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
-    <value>{0} (macchina)</value>
-  </data>
-  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
-    <value>{0} (macchina o utente)</value>
-  </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
     <value>Aperto</value>
   </data>
   <data name="Wifi.SecurityOwe" xml:space="preserve">
     <value>Aperto (avanzato)</value>
-  </data>
-  <data name="Wifi.SecurityPersonal" xml:space="preserve">
-    <value>Personale</value>
   </data>
   <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
     <value>Specifico del fornitore</value>
@@ -614,17 +560,11 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
     <value>WPA2 Personale</value>
   </data>
-  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
-    <value>WPA2/WPA3 Aziendale</value>
-  </data>
   <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
     <value>WPA2/WPA3 Personale</value>
   </data>
   <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
     <value>WPA3 aziendale</value>
-  </data>
-  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
-    <value>WPA3 aziendale 192 bit</value>
   </data>
   <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
     <value>WPA3 Personale</value>
@@ -632,32 +572,20 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
     <value>WPA Impresa</value>
   </data>
-  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
-    <value>WPA Nessuno</value>
-  </data>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Personale</value>
   </data>
   <data name="Wifi.SelectNetworkHint" xml:space="preserve">
     <value>Seleziona una rete nell'elenco per connetterti.</value>
   </data>
-  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
-    <value>{0} · Certificato incluso nell'immagine di avvio</value>
-  </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Un'altra rete Wi-Fi è attiva</value>
-  </data>
-  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
-    <value>Nessun adattatore Wi-Fi disponibile</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>Fuori portata</value>
   </data>
   <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
     <value>Pronto per la connessione</value>
-  </data>
-  <data name="Wifi.StatusUnavailable" xml:space="preserve">
-    <value>Wi-Fi non disponibile</value>
   </data>
   <data name="Wifi.Title" xml:space="preserve">
     <value>Wi-Fi</value>

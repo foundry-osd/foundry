@@ -64,23 +64,8 @@
   <data name="Common.Close" xml:space="preserve">
     <value>Κλείσιμο</value>
   </data>
-  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
-    <value>Διαμόρφωση: ενσωματωμένες προεπιλογές</value>
-  </data>
-  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
-    <value>Διαμόρφωση: {0}</value>
-  </data>
   <data name="Common.Connected" xml:space="preserve">
     <value>Συνδεδεμένος</value>
-  </data>
-  <data name="Common.LastUpdateFormat" xml:space="preserve">
-    <value>Τελευταία ενημέρωση: {0:HH:mm:ss}</value>
-  </data>
-  <data name="Common.LastUpdatePending" xml:space="preserve">
-    <value>Τελευταία ενημέρωση: σε εκκρεμότητα</value>
-  </data>
-  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
-    <value>Ανανεώνεται κάθε {0} δευτερόλεπτα</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Μη διαθέσιμο</value>
@@ -135,15 +120,6 @@
   </data>
   <data name="Debug.Scenarios" xml:space="preserve">
     <value>Σενάρια</value>
-  </data>
-  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
-    <value>Εμφάνιση μόνο Ethernet</value>
-  </data>
-  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
-    <value>Εμφάνιση Ethernet + Wi-Fi</value>
-  </data>
-  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
-    <value>Χρήση εντοπισμένης διάταξης</value>
   </data>
   <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
     <value>Επιλέξτε πού θα εξαχθούν τα διαγνωστικά του Foundry</value>
@@ -437,15 +413,6 @@
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Έτοιμο το δίκτυο</value>
   </data>
-  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
-    <value>Η ανανέωση δικτύου απέτυχε</value>
-  </data>
-  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
-    <value>Η πρόσβαση στο Διαδίκτυο δεν έχει ακόμη επικυρωθεί.</value>
-  </data>
-  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
-    <value>Αναμονή για δίκτυο</value>
-  </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>Σκούρο</value>
   </data>
@@ -500,9 +467,6 @@
   <data name="Wifi.AuthenticationLabel" xml:space="preserve">
     <value>Έλεγχος ταυτότητας</value>
   </data>
-  <data name="Wifi.BootImageSettings" xml:space="preserve">
-    <value>Ρυθμίσεις εικόνας εκκίνησης</value>
-  </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Διαμορφωμένη ασφάλεια</value>
   </data>
@@ -527,12 +491,6 @@
   <data name="Wifi.DisconnectSelectedAutomationFormat" xml:space="preserve">
     <value>Αποσύνδεση από το {0}</value>
   </data>
-  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
-    <value>Εταιρικό προφίλ</value>
-  </data>
-  <data name="Wifi.HiddenNetwork" xml:space="preserve">
-    <value>Κρυφό δίκτυο</value>
-  </data>
   <data name="Wifi.NetworkAutomationFormat" xml:space="preserve">
     <value>{0}, {1}, σήμα {2} τοις εκατό</value>
   </data>
@@ -550,9 +508,6 @@
   </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>Δεν είναι ορατά προς το παρόν δίκτυα Wi-Fi.</value>
-  </data>
-  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
-    <value>Δεν υπάρχει διαθέσιμο προφίλ Wi-Fi σε αυτήν την εικόνα εκκίνησης.</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
     <value>Κωδικός πρόσβασης Wi-Fi</value>
@@ -587,20 +542,11 @@
   <data name="Wifi.SecurityEnterprise" xml:space="preserve">
     <value>Επιχείρηση</value>
   </data>
-  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
-    <value>{0} (μηχανή)</value>
-  </data>
-  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
-    <value>{0} (μηχανή ή χρήστης)</value>
-  </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
     <value>Ανοιχτό</value>
   </data>
   <data name="Wifi.SecurityOwe" xml:space="preserve">
     <value>Ανοιχτό (βελτιωμένο)</value>
-  </data>
-  <data name="Wifi.SecurityPersonal" xml:space="preserve">
-    <value>Προσωπικά</value>
   </data>
   <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
     <value>Ειδικά για τον προμηθευτή</value>
@@ -614,17 +560,11 @@
   <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
     <value>WPA2 Personal</value>
   </data>
-  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
-    <value>WPA2/WPA3 Enterprise</value>
-  </data>
   <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
     <value>WPA2/WPA3 Personal</value>
   </data>
   <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
     <value>WPA3 Enterprise</value>
-  </data>
-  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
-    <value>WPA3 Enterprise 192-bit</value>
   </data>
   <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
     <value>WPA3 Personal</value>
@@ -632,32 +572,20 @@
   <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
     <value>WPA Επιχείρηση</value>
   </data>
-  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
-    <value>WPA Κανένα</value>
-  </data>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Προσωπικά</value>
   </data>
   <data name="Wifi.SelectNetworkHint" xml:space="preserve">
     <value>Επιλέξτε ένα δίκτυο από τη λίστα για σύνδεση.</value>
   </data>
-  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
-    <value>{0} · Το πιστοποιητικό περιλαμβάνεται στην εικόνα εκκίνησης</value>
-  </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Ένα άλλο δίκτυο Wi-Fi είναι ενεργό</value>
-  </data>
-  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
-    <value>Δεν υπάρχει διαθέσιμος προσαρμογέας Wi-Fi</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>Εκτός εμβέλειας</value>
   </data>
   <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
     <value>Έτοιμοι για σύνδεση</value>
-  </data>
-  <data name="Wifi.StatusUnavailable" xml:space="preserve">
-    <value>Wi-Fi μη διαθέσιμο</value>
   </data>
   <data name="Wifi.Title" xml:space="preserve">
     <value>Wi-Fi</value>

@@ -64,23 +64,8 @@
   <data name="Common.Close" xml:space="preserve">
     <value>Закрыть</value>
   </data>
-  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
-    <value>Конфигурация: встроенные настройки по умолчанию</value>
-  </data>
-  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
-    <value>Конфигурация: {0}</value>
-  </data>
   <data name="Common.Connected" xml:space="preserve">
     <value>Подключено</value>
-  </data>
-  <data name="Common.LastUpdateFormat" xml:space="preserve">
-    <value>Последнее обновление: {0:HH:mm:ss}</value>
-  </data>
-  <data name="Common.LastUpdatePending" xml:space="preserve">
-    <value>Последнее обновление: ожидается</value>
-  </data>
-  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
-    <value>Обновляется каждые {0} секунд.</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Недоступно</value>
@@ -135,15 +120,6 @@
   </data>
   <data name="Debug.Scenarios" xml:space="preserve">
     <value>Сценарии</value>
-  </data>
-  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
-    <value>Показывать только Ethernet</value>
-  </data>
-  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
-    <value>Показать Ethernet + Wi-Fi</value>
-  </data>
-  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
-    <value>Использовать обнаруженный макет</value>
   </data>
   <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
     <value>Выберите место для экспорта диагностики Foundry</value>
@@ -437,15 +413,6 @@
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Сеть готова</value>
   </data>
-  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
-    <value>Обновление сети не удалось</value>
-  </data>
-  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
-    <value>Доступ в Интернет еще не подтвержден.</value>
-  </data>
-  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
-    <value>Ожидание сети</value>
-  </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>Темный</value>
   </data>
@@ -500,9 +467,6 @@
   <data name="Wifi.AuthenticationLabel" xml:space="preserve">
     <value>Аутентификация</value>
   </data>
-  <data name="Wifi.BootImageSettings" xml:space="preserve">
-    <value>Настройки загрузочного образа</value>
-  </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Настроенная безопасность</value>
   </data>
@@ -527,12 +491,6 @@
   <data name="Wifi.DisconnectSelectedAutomationFormat" xml:space="preserve">
     <value>Отключиться от {0}</value>
   </data>
-  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
-    <value>Профиль предприятия</value>
-  </data>
-  <data name="Wifi.HiddenNetwork" xml:space="preserve">
-    <value>Скрытая сеть</value>
-  </data>
   <data name="Wifi.NetworkAutomationFormat" xml:space="preserve">
     <value>{0}, {1}, сигнал {2} процентов</value>
   </data>
@@ -550,9 +508,6 @@
   </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>Сети Wi-Fi в настоящее время не видны.</value>
-  </data>
-  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
-    <value>В этом загрузочном образе нет подготовленного профиля Wi-Fi.</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
     <value>Пароль Wi-Fi</value>
@@ -587,20 +542,11 @@
   <data name="Wifi.SecurityEnterprise" xml:space="preserve">
     <value>Предприятие</value>
   </data>
-  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
-    <value>{0} (машина)</value>
-  </data>
-  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
-    <value>{0} (машина или пользователь)</value>
-  </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
     <value>Открытая</value>
   </data>
   <data name="Wifi.SecurityOwe" xml:space="preserve">
     <value>Открытая (улучшенная)</value>
-  </data>
-  <data name="Wifi.SecurityPersonal" xml:space="preserve">
-    <value>Персональный</value>
   </data>
   <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
     <value>Зависит от поставщика</value>
@@ -614,17 +560,11 @@
   <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
     <value>WPA2 Персональный</value>
   </data>
-  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
-    <value>WPA2/WPA3 Корпоративный</value>
-  </data>
   <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
     <value>WPA2/WPA3 Персональный</value>
   </data>
   <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
     <value>WPA3 Корпоративный</value>
-  </data>
-  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
-    <value>WPA3 Корпоративный 192-битный</value>
   </data>
   <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
     <value>WPA3 Персональный</value>
@@ -632,32 +572,20 @@
   <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
     <value>WPA Предприятие</value>
   </data>
-  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
-    <value>WPA Нет</value>
-  </data>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Личное</value>
   </data>
   <data name="Wifi.SelectNetworkHint" xml:space="preserve">
     <value>Выберите сеть в списке, чтобы подключиться.</value>
   </data>
-  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
-    <value>{0} · Сертификат включен в загрузочный образ</value>
-  </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Другая сеть Wi-Fi активна</value>
-  </data>
-  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
-    <value>Нет адаптера Wi-Fi</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>Вне зоны действия</value>
   </data>
   <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
     <value>Готов к подключению</value>
-  </data>
-  <data name="Wifi.StatusUnavailable" xml:space="preserve">
-    <value>Wi-Fi недоступен</value>
   </data>
   <data name="Wifi.Title" xml:space="preserve">
     <value>Wi-Fi</value>
