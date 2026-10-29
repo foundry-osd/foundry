@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
-using Foundry.Connect.Services.Configuration;
+using Foundry.Connect.Configuration;
 using Foundry.Connect.Services.Network;
 using Foundry.Utilities.Networking;
 using System.Net.NetworkInformation;
@@ -231,7 +231,8 @@ public sealed class NetworkBootstrapServiceTests
         public bool IsBootMediaUpdateRecommended => false;
         public Foundry.Core.Models.Configuration.BootMediaUpdateReason BootMediaUpdateReason => Foundry.Core.Models.Configuration.BootMediaUpdateReason.None;
 
-        public (FoundryConnectConfigurationDocument Configuration, ConnectRuntimeSecrets Secrets) Load() => (configuration, new ConnectRuntimeSecrets());
+        public ConnectConfigurationLoadResult Load() =>
+            ConnectConfigurationLoadResult.Success(configuration, new ConnectRuntimeSecrets(), Foundry.Core.Models.Configuration.BootMediaUpdateReason.None);
     }
 
     private sealed class TemporaryDirectory : IDisposable

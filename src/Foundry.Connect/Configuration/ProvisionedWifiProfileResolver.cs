@@ -6,7 +6,7 @@ using System.IO;
 using Foundry.Core.Models.Configuration;
 using Foundry.Utilities.Networking;
 
-namespace Foundry.Connect.Services.Configuration;
+namespace Foundry.Connect.Configuration;
 
 /// <summary>
 /// Resolves provisioned Wi-Fi profile names and asset paths from the runtime configuration location.

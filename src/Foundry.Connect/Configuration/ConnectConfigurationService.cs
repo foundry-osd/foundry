@@ -9,9 +9,10 @@ using Foundry.Connect.Services.Runtime;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Runtime;
+using Foundry.Telemetry;
 using Microsoft.Extensions.Logging;
 
-namespace Foundry.Connect.Services.Configuration;
+namespace Foundry.Connect.Configuration;
 
 /// <summary>
 /// Resolves, reads, decrypts, and normalizes Foundry.Connect runtime configuration.
@@ -68,16 +69,29 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
     public BootMediaUpdateReason BootMediaUpdateReason { get; private set; }
 
     /// <inheritdoc />
-    public (FoundryConnectConfigurationDocument Configuration, ConnectRuntimeSecrets Secrets) Load()
+    public ConnectConfigurationLoadResult Load()
     {
         BootMediaUpdateReason = BootMediaUpdateReason.None;
+        try
+        {
+            return LoadCore();
+        }
+        catch (FoundryConnectConfigurationException exception)
+        {
+            _logger.LogError(exception, "Foundry.Connect configuration could not be loaded. ConfigurationPath={ConfigurationPath}", ConfigurationPath);
+            return ConnectConfigurationLoadResult.Failure(exception.Message);
+        }
+    }
+
+    private ConnectConfigurationLoadResult LoadCore()
+    {
         ConfigurationResolution resolution = ResolveConfigurationPath(_args);
         ConfigurationPath = resolution.Path;
         if (string.IsNullOrWhiteSpace(ConfigurationPath))
         {
             IsLoadedFromDisk = false;
             _logger.LogInformation("No Foundry.Connect configuration file was resolved. Using built-in defaults.");
-            return (Normalize(new FoundryConnectConfigurationDocument()), new ConnectRuntimeSecrets());
+            return ConnectConfigurationLoadResult.Success(Normalize(new FoundryConnectConfigurationDocument()), new ConnectRuntimeSecrets(), BootMediaUpdateReason);
         }
 
         string fullPath = Path.GetFullPath(ConfigurationPath);
@@ -88,7 +102,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
                 ConfigurationPath = null;
                 IsLoadedFromDisk = false;
                 _logger.LogInformation("Foundry.Connect configuration file was not found. Using built-in defaults. ConfigurationPath={ConfigurationPath}", fullPath);
-                return (Normalize(new FoundryConnectConfigurationDocument()), new ConnectRuntimeSecrets());
+                return ConnectConfigurationLoadResult.Success(Normalize(new FoundryConnectConfigurationDocument()), new ConnectRuntimeSecrets(), BootMediaUpdateReason);
             }
 
             throw new FoundryConnectConfigurationException($"Configuration file was not found: {fullPath}");
@@ -105,17 +119,19 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
                 throw new FoundryConnectConfigurationException($"Configuration file is empty or invalid: {fullPath}");
             }
 
+            EnforceSchemaPolicy(configuration.SchemaVersion, fullPath);
+
             ConnectRuntimeSecrets secrets = ResolveSecrets(configuration, document.RootElement, fullPath);
             configuration = Normalize(configuration);
             BootMediaUpdateReason = BootMediaFreshnessPolicy.Evaluate(
                 configuration.AuthoringVersion,
                 _runtimeContext.RuntimeVersion,
                 _runtimeContext.IsEligible(ReadProvisioningSource(fullPath)) &&
-                _runtimeContext.IsEligible(configuration.Telemetry?.RuntimePayloadSource));
+                _runtimeContext.IsEligible(configuration.Telemetry.RuntimePayloadSource));
             ConfigurationPath = fullPath;
             IsLoadedFromDisk = true;
             _logger.LogInformation("Loaded Foundry.Connect configuration from disk. ConfigurationPath={ConfigurationPath}", fullPath);
-            return (configuration, secrets);
+            return ConnectConfigurationLoadResult.Success(configuration, secrets, BootMediaUpdateReason);
         }
         catch (FoundryConnectConfigurationException)
         {
@@ -150,6 +166,22 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
             IsRequired: ConnectWorkspacePaths.IsWinPeRuntime());
     }
 
+    private void EnforceSchemaPolicy(int schemaVersion, string configurationPath)
+    {
+        switch (ConnectConfigurationSchemaPolicy.Evaluate(schemaVersion))
+        {
+            case ConnectSchemaDecision.Invalid:
+                throw new FoundryConnectConfigurationException($"Configuration schema version {schemaVersion} is not valid: {configurationPath}");
+            case ConnectSchemaDecision.Newer:
+                _logger.LogWarning(
+                    "Foundry.Connect configuration was authored with a newer schema. Loading it anyway. SchemaVersion={SchemaVersion}, SupportedSchemaVersion={SupportedSchemaVersion}, ConfigurationPath={ConfigurationPath}",
+                    schemaVersion,
+                    FoundryConnectConfigurationDocument.CurrentSchemaVersion,
+                    configurationPath);
+                break;
+        }
+    }
+
     private static FoundryConnectConfigurationDocument Normalize(FoundryConnectConfigurationDocument configuration)
     {
         ConnectInternetProbeSettings probe = configuration.InternetProbe ?? new ConnectInternetProbeSettings();
@@ -173,12 +205,11 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
 
         return configuration with
         {
-            SchemaVersion = configuration.SchemaVersion <= 0
-                ? FoundryConnectConfigurationDocument.CurrentSchemaVersion
-                : configuration.SchemaVersion,
             Capabilities = configuration.Capabilities ?? new ConnectNetworkCapabilitiesSettings(),
             Network = configuration.Network ?? new ConnectNetworkSettings(),
             Dot1x = configuration.Dot1x ?? new ConnectDot1xSettings(),
+            // An explicit "telemetry": null in the file falls back to the defaults instead of failing startup.
+            Telemetry = configuration.Telemetry ?? new TelemetrySettings(),
             // The passphrase envelope is consumed by ResolveSecrets; only the decrypted value survives, in ConnectRuntimeSecrets.
             Wifi = (configuration.Wifi ?? new ConnectWifiSettings()) with { PassphraseSecret = null },
             InternetProbe = probe with

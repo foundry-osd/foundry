@@ -8,7 +8,7 @@ using System.Resources;
 using System.Runtime.InteropServices;
 using Foundry.Connect.Services.ApplicationLifetime;
 using Foundry.Wpf.Shell;
-using Foundry.Connect.Services.Configuration;
+using Foundry.Connect.Configuration;
 using Foundry.Connect.Services.Network;
 using Foundry.Connect.Services.Runtime;
 using Foundry.Wpf.Theme;
@@ -21,7 +21,6 @@ using Foundry.Utilities.Runtime;
 using Foundry.Wpf.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using LoadedConnectConfiguration = (Foundry.Core.Models.Configuration.FoundryConnectConfigurationDocument Configuration, Foundry.Connect.Services.Configuration.ConnectRuntimeSecrets Secrets);
 
 namespace Foundry.Connect.DependencyInjection;
 
@@ -39,11 +38,6 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();
         services.AddSingleton(WpfApplicationIdentity.FromAssembly(typeof(App).Assembly));
         services.AddSingleton<IApplicationLifetimeService, ApplicationLifetimeService>();
-        services.AddSingleton<IConnectConfigurationService, ConnectConfigurationService>();
-        // Load once: the configuration and its session-only secrets are both served from the same load result.
-        services.AddSingleton(typeof(LoadedConnectConfiguration), sp => sp.GetRequiredService<IConnectConfigurationService>().Load());
-        services.AddSingleton(sp => sp.GetRequiredService<LoadedConnectConfiguration>().Configuration);
-        services.AddSingleton(sp => sp.GetRequiredService<LoadedConnectConfiguration>().Secrets);
         services.AddSingleton(CreateTelemetryOptions);
         services.AddSingleton(CreateTelemetryContext);
         services.AddSingleton<ITelemetryService>(sp =>

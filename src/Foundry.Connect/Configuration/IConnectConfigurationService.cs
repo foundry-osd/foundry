@@ -4,7 +4,7 @@
 
 using Foundry.Core.Models.Configuration;
 
-namespace Foundry.Connect.Services.Configuration;
+namespace Foundry.Connect.Configuration;
 
 /// <summary>
 /// Loads and normalizes the Foundry.Connect runtime configuration.
@@ -33,8 +33,8 @@ public interface IConnectConfigurationService
     /// Loads configuration from command-line, environment, or WinPE media locations.
     /// </summary>
     /// <returns>
-    /// The normalized runtime configuration and the session-only secrets decrypted from its envelopes
-    /// or read from legacy plaintext media.
+    /// The normalized runtime configuration with the session-only secrets decrypted from its envelopes or read
+    /// from legacy plaintext media, or a failure message. Configuration problems never throw.
     /// </returns>
-    (FoundryConnectConfigurationDocument Configuration, ConnectRuntimeSecrets Secrets) Load();
+    ConnectConfigurationLoadResult Load();
 }

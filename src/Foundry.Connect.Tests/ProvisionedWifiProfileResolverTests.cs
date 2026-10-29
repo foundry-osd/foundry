@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
-using Foundry.Connect.Services.Configuration;
+using Foundry.Connect.Configuration;
 
 namespace Foundry.Connect.Tests;
 

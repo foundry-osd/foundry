@@ -8,7 +8,7 @@ using System.Net.NetworkInformation;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Foundry.Core.Models.Configuration;
-using Foundry.Connect.Services.Configuration;
+using Foundry.Connect.Configuration;
 using Foundry.Connect.Services.Runtime;
 using Foundry.Connect.Services.System;
 using Foundry.Core.Services.Configuration;

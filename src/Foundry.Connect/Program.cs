@@ -6,7 +6,7 @@ using System.IO;
 using System.Windows;
 using Foundry.Connect.DependencyInjection;
 using Foundry.Core.Models.Configuration;
-using Foundry.Connect.Services.Configuration;
+using Foundry.Connect.Configuration;
 using Foundry.Connect.Services.Logging;
 using Foundry.Connect.Services.Runtime;
 using Foundry.Core.Models.Runtime;
@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using Serilog.Extensions.Logging;
 
 namespace Foundry.Connect;
 
@@ -71,8 +72,16 @@ public static class Program
 
             ConfigureRuntimeCompatibility();
             stage = "configuration";
-            host = BuildHost(args, startup, remoteDiagnosticsService);
-            _ = host.Services.GetRequiredService<FoundryConnectConfigurationDocument>();
+            var configurationService = new ConnectConfigurationService(
+                args, new SerilogLoggerFactory(Log.Logger).CreateLogger<ConnectConfigurationService>());
+            ConnectConfigurationLoadResult loadResult = configurationService.Load();
+            if (!loadResult.IsSuccess)
+            {
+                startup.ReportFailure(new InvalidOperationException(loadResult.FailureMessage), stage);
+                return (int)ChildRuntimeExitCode.ConfigurationFailure;
+            }
+
+            host = BuildHost(args, startup, remoteDiagnosticsService, configurationService, loadResult);
             startup.ReportConfigurationLoaded();
             stage = "services";
             telemetryService = host.Services.GetRequiredService<ITelemetryService>();
@@ -91,11 +100,6 @@ public static class Program
             int exitCode = app.Run(mainWindow);
             programLogger.Information("Foundry.Connect exited with code {ExitCode}.", exitCode);
             return exitCode;
-        }
-        catch (FoundryConnectConfigurationException exception)
-        {
-            ReportFailure(startup, exception, "configuration");
-            return (int)ChildRuntimeExitCode.ConfigurationFailure;
         }
         catch (Exception exception)
         {
@@ -170,13 +174,21 @@ public static class Program
         };
     }
 
-    private static IHost BuildHost(string[] args, RuntimeStartupDiagnostics startup, IRemoteDiagnosticsService remoteDiagnosticsService)
+    private static IHost BuildHost(
+        string[] args,
+        RuntimeStartupDiagnostics startup,
+        IRemoteDiagnosticsService remoteDiagnosticsService,
+        IConnectConfigurationService configurationService,
+        ConnectConfigurationLoadResult loadResult)
     {
         HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
         builder.Logging.ClearProviders();
         builder.Logging.SetMinimumLevel(LogLevel.Trace);
         builder.Logging.AddSerilog(dispose: false);
         builder.Services.AddSingleton(startup);
+        builder.Services.AddSingleton(configurationService);
+        builder.Services.AddSingleton(loadResult.Configuration!);
+        builder.Services.AddSingleton(loadResult.Secrets!);
         builder.Services.AddFoundryConnectApplicationServices(args);
         builder.Services.AddSingleton(remoteDiagnosticsService);
         return builder.Build();

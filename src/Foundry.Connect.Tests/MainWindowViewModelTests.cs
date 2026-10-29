@@ -8,7 +8,7 @@ using Foundry.Connect.Models.Network;
 using Foundry.Connect.Services.ApplicationLifetime;
 using Foundry.Core.Models.Runtime;
 using Foundry.Wpf.Shell;
-using Foundry.Connect.Services.Configuration;
+using Foundry.Connect.Configuration;
 using Foundry.Connect.Services.Network;
 using Foundry.Wpf.Theme;
 using Foundry.Connect.ViewModels;
@@ -697,9 +697,9 @@ public sealed class MainWindowViewModelTests
         public bool IsBootMediaUpdateRecommended => bootMediaUpdateReason != BootMediaUpdateReason.None;
         public BootMediaUpdateReason BootMediaUpdateReason => bootMediaUpdateReason;
 
-        public (FoundryConnectConfigurationDocument Configuration, ConnectRuntimeSecrets Secrets) Load()
+        public ConnectConfigurationLoadResult Load()
         {
-            return (configuration, new ConnectRuntimeSecrets());
+            return ConnectConfigurationLoadResult.Success(configuration, new ConnectRuntimeSecrets(), bootMediaUpdateReason);
         }
     }
 

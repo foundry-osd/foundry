@@ -18,7 +18,7 @@ using Foundry.Connect.Models.Network;
 using Foundry.Core.Models.Runtime;
 using Foundry.Wpf.Shell;
 using Foundry.Connect.Services.ApplicationLifetime;
-using Foundry.Connect.Services.Configuration;
+using Foundry.Connect.Configuration;
 using Foundry.Connect.Services.Logging;
 using Foundry.Connect.Services.Network;
 using Foundry.Wpf.Theme;

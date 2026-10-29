@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-namespace Foundry.Connect.Services.Configuration;
+namespace Foundry.Connect.Configuration;
 
 /// <summary>
 /// Holds the session-only network secrets resolved while loading the Foundry.Connect configuration.

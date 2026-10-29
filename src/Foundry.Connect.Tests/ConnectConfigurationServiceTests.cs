@@ -4,11 +4,12 @@
 
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using Foundry.Connect.Services.Configuration;
+using Foundry.Connect.Configuration;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Runtime;
 using Foundry.Core.Services.Configuration;
 using Foundry.Telemetry;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using CoreConfiguration = Foundry.Core.Models.Configuration;
 
@@ -24,7 +25,7 @@ public sealed class ConnectConfigurationServiceTests
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
         var service = new ConnectConfigurationService([], NullLogger<ConnectConfigurationService>.Instance);
 
-        FoundryConnectConfigurationDocument configuration = service.Load().Configuration;
+        FoundryConnectConfigurationDocument configuration = LoadConfiguration(service);
 
         Assert.False(service.IsLoadedFromDisk);
         Assert.Null(service.ConfigurationPath);
@@ -45,7 +46,7 @@ public sealed class ConnectConfigurationServiceTests
             "normalized.json",
             """
             {
-              "schemaVersion": 0,
+              "schemaVersion": 5,
               "internetProbe": {
                 "probeUris": [
                   " https://example.com/health ",
@@ -60,11 +61,10 @@ public sealed class ConnectConfigurationServiceTests
 
         var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
 
-        FoundryConnectConfigurationDocument configuration = service.Load().Configuration;
+        FoundryConnectConfigurationDocument configuration = LoadConfiguration(service);
 
         Assert.True(service.IsLoadedFromDisk);
         Assert.Equal(System.IO.Path.GetFullPath(configurationPath), service.ConfigurationPath);
-        Assert.Equal(FoundryConnectConfigurationDocument.CurrentSchemaVersion, configuration.SchemaVersion);
         Assert.Equal(30, configuration.InternetProbe.TimeoutSeconds);
         Assert.Equal(
             ["https://example.com/health", "http://contoso.test/connect"],
@@ -79,7 +79,7 @@ public sealed class ConnectConfigurationServiceTests
         string path = CreateJsonFile(directory.Path, "config.json", $$"""{"schemaVersion":{{FoundryConnectConfigurationDocument.CurrentSchemaVersion}},"authoringVersion":"26.10.3.1"}""");
         var service = new ConnectConfigurationService(["--config", path], NullLogger<ConnectConfigurationService>.Instance, ProductionRuntime);
 
-        service.Load();
+        Assert.True(service.Load().IsSuccess);
 
         Assert.Equal(BootMediaUpdateReason.NewerRelease, service.BootMediaUpdateReason);
         Assert.True(service.IsBootMediaUpdateRecommended);
@@ -93,7 +93,7 @@ public sealed class ConnectConfigurationServiceTests
         string path = CreateJsonFile(directory.Path, "config.json", """{"schemaVersion":5}""");
         var service = new ConnectConfigurationService(["--config", path], NullLogger<ConnectConfigurationService>.Instance, ProductionRuntime);
 
-        service.Load();
+        Assert.True(service.Load().IsSuccess);
 
         Assert.Equal(BootMediaUpdateReason.UnknownAuthoringVersion, service.BootMediaUpdateReason);
         Assert.True(service.IsBootMediaUpdateRecommended);
@@ -113,7 +113,7 @@ public sealed class ConnectConfigurationServiceTests
         File.WriteAllText(System.IO.Path.Combine(directory.Path, "foundry.connect.provisioning-source.txt"), source);
         var service = new ConnectConfigurationService(["--config", path], NullLogger<ConnectConfigurationService>.Instance, new BootMediaRuntimeContext(version, winPe, debugger, debugBuild));
 
-        service.Load();
+        Assert.True(service.Load().IsSuccess);
 
         Assert.Equal(BootMediaUpdateReason.None, service.BootMediaUpdateReason);
         Assert.False(service.IsBootMediaUpdateRecommended);
@@ -129,7 +129,7 @@ public sealed class ConnectConfigurationServiceTests
         string path = CreateJsonFile(directory.Path, "config.json", $$$"""{"telemetry":{"runtimePayloadSource":"{{{source}}}"}}""");
         var service = new ConnectConfigurationService(["--config", path], NullLogger<ConnectConfigurationService>.Instance, ProductionRuntime);
 
-        service.Load();
+        Assert.True(service.Load().IsSuccess);
 
         Assert.Equal(expected, service.BootMediaUpdateReason);
     }
@@ -144,7 +144,7 @@ public sealed class ConnectConfigurationServiceTests
         string path = CreateJsonFile(directory.Path, "config.json", $$"""{"schemaVersion":5,"authoringVersion":"{{author}}"}""");
         var service = new ConnectConfigurationService(["--config", path], NullLogger<ConnectConfigurationService>.Instance, ProductionRuntime);
 
-        service.Load();
+        Assert.True(service.Load().IsSuccess);
 
         Assert.Equal(BootMediaUpdateReason.None, service.BootMediaUpdateReason);
         Assert.False(service.IsBootMediaUpdateRecommended);
@@ -159,7 +159,7 @@ public sealed class ConnectConfigurationServiceTests
         Directory.CreateDirectory(System.IO.Path.Combine(directory.Path, "foundry.connect.provisioning-source.txt"));
         var service = new ConnectConfigurationService(["--config", path], NullLogger<ConnectConfigurationService>.Instance, ProductionRuntime);
 
-        service.Load();
+        Assert.True(service.Load().IsSuccess);
 
         Assert.Equal(BootMediaUpdateReason.UnknownAuthoringVersion, service.BootMediaUpdateReason);
     }
@@ -171,11 +171,11 @@ public sealed class ConnectConfigurationServiceTests
         using var directory = new TemporaryDirectory();
         string path = CreateJsonFile(directory.Path, "config.json", """{"schemaVersion":5}""");
         var service = new ConnectConfigurationService(["--config", path], NullLogger<ConnectConfigurationService>.Instance, ProductionRuntime);
-        service.Load();
+        Assert.True(service.Load().IsSuccess);
         Assert.True(service.IsBootMediaUpdateRecommended);
         File.WriteAllText(path, "{invalid}");
 
-        Assert.Throws<FoundryConnectConfigurationException>(() => service.Load());
+        Assert.False(service.Load().IsSuccess);
 
         Assert.Equal(BootMediaUpdateReason.None, service.BootMediaUpdateReason);
         Assert.False(service.IsBootMediaUpdateRecommended);
@@ -205,7 +205,7 @@ public sealed class ConnectConfigurationServiceTests
 
         var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
 
-        FoundryConnectConfigurationDocument configuration = service.Load().Configuration;
+        FoundryConnectConfigurationDocument configuration = LoadConfiguration(service);
 
         Assert.False(configuration.Telemetry.IsEnabled);
         Assert.True(configuration.Telemetry.IsRemoteDiagnosticsEnabled);
@@ -226,7 +226,7 @@ public sealed class ConnectConfigurationServiceTests
             """{ "schemaVersion": 3, "telemetry": { "isEnabled": true } }""");
         var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
 
-        FoundryConnectConfigurationDocument configuration = service.Load().Configuration;
+        FoundryConnectConfigurationDocument configuration = LoadConfiguration(service);
 
         Assert.True(configuration.Telemetry.IsRemoteDiagnosticsEnabled);
     }
@@ -241,7 +241,7 @@ public sealed class ConnectConfigurationServiceTests
 
         var service = new ConnectConfigurationService(["--config", commandLineConfigurationPath], NullLogger<ConnectConfigurationService>.Instance);
 
-        FoundryConnectConfigurationDocument configuration = service.Load().Configuration;
+        FoundryConnectConfigurationDocument configuration = LoadConfiguration(service);
 
         Assert.True(service.IsLoadedFromDisk);
         Assert.Equal(System.IO.Path.GetFullPath(environmentConfigurationPath), service.ConfigurationPath);
@@ -272,7 +272,7 @@ public sealed class ConnectConfigurationServiceTests
 
         var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
 
-        FoundryConnectConfigurationDocument configuration = service.Load().Configuration;
+        FoundryConnectConfigurationDocument configuration = LoadConfiguration(service);
 
         Assert.True(service.IsLoadedFromDisk);
         Assert.Equal(CoreConfiguration.FoundryConnectConfigurationDocument.CurrentSchemaVersion, configuration.SchemaVersion);
@@ -303,7 +303,7 @@ public sealed class ConnectConfigurationServiceTests
 
         var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
 
-        FoundryConnectConfigurationDocument configuration = service.Load().Configuration;
+        FoundryConnectConfigurationDocument configuration = LoadConfiguration(service);
 
         Assert.True(configuration.Network.ProfileRoaming.WiredDot1x.IsEnabled);
         Assert.True(configuration.Network.ProfileRoaming.WiredDot1x.IncludePrivateKeyMaterial);
@@ -331,7 +331,7 @@ public sealed class ConnectConfigurationServiceTests
 
         var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
 
-        FoundryConnectConfigurationDocument configuration = service.Load().Configuration;
+        FoundryConnectConfigurationDocument configuration = LoadConfiguration(service);
 
         Assert.True(configuration.Network.ProfileRoaming.WiredDot1x.IsEnabled);
         Assert.True(configuration.Network.ProfileRoaming.WiredDot1x.IncludePrivateKeyMaterial);
@@ -366,7 +366,7 @@ public sealed class ConnectConfigurationServiceTests
 
         var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
 
-        FoundryConnectConfigurationDocument configuration = service.Load().Configuration;
+        FoundryConnectConfigurationDocument configuration = LoadConfiguration(service);
 
         Assert.True(configuration.Network.ProfileRoaming.WiredDot1x.IsEnabled);
         Assert.True(configuration.Network.ProfileRoaming.WiredDot1x.IncludePrivateKeyMaterial);
@@ -404,7 +404,7 @@ public sealed class ConnectConfigurationServiceTests
 
         var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
 
-        FoundryConnectConfigurationDocument configuration = service.Load().Configuration;
+        FoundryConnectConfigurationDocument configuration = LoadConfiguration(service);
 
         Assert.False(configuration.Network.ProfileRoaming.WiredDot1x.IsEnabled);
         Assert.False(configuration.Network.ProfileRoaming.WiredDot1x.IncludePrivateKeyMaterial);
@@ -444,7 +444,7 @@ public sealed class ConnectConfigurationServiceTests
 
         var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
 
-        (FoundryConnectConfigurationDocument configuration, ConnectRuntimeSecrets secrets) = service.Load();
+        (FoundryConnectConfigurationDocument configuration, ConnectRuntimeSecrets secrets) = LoadWithSecrets(service);
 
         Assert.Equal("26.10.3.1", configuration.AuthoringVersion);
         Assert.Equal("super-secret-passphrase", secrets.WifiPassphrase);
@@ -508,7 +508,7 @@ public sealed class ConnectConfigurationServiceTests
 
         var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
 
-        (FoundryConnectConfigurationDocument configuration, ConnectRuntimeSecrets secrets) = service.Load();
+        (FoundryConnectConfigurationDocument configuration, ConnectRuntimeSecrets secrets) = LoadWithSecrets(service);
 
         Assert.Equal("wired-password", secrets.WiredCertificatePfxPassword);
         Assert.Equal("wifi-password", secrets.WifiCertificatePfxPassword);
@@ -517,7 +517,7 @@ public sealed class ConnectConfigurationServiceTests
     }
 
     [Fact]
-    public void Load_WhenEncryptedPassphraseHasNoMediaKey_ThrowsConfigurationException()
+    public void Load_WhenEncryptedPassphraseHasNoMediaKey_ReportsConfigurationFailure()
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
         using var tempDirectory = new TemporaryDirectory();
@@ -544,12 +544,16 @@ public sealed class ConnectConfigurationServiceTests
 
         var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
 
-        FoundryConnectConfigurationException exception = Assert.Throws<FoundryConnectConfigurationException>(() => service.Load());
-        Assert.Contains("Media secret key file was not found", exception.Message, StringComparison.Ordinal);
+        ConnectConfigurationLoadResult result = service.Load();
+        Assert.False(result.IsSuccess);
+        Assert.Null(result.Configuration);
+        Assert.Null(result.Secrets);
+        string failure = result.FailureMessage!;
+        Assert.Contains("Media secret key file was not found", failure, StringComparison.Ordinal);
     }
 
     [Fact]
-    public void Load_WhenEncryptedPassphraseUsesUnsupportedEnvelope_ThrowsConfigurationException()
+    public void Load_WhenEncryptedPassphraseUsesUnsupportedEnvelope_ReportsConfigurationFailure()
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
         using var tempDirectory = new TemporaryDirectory();
@@ -564,14 +568,18 @@ public sealed class ConnectConfigurationServiceTests
 
         var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
 
-        FoundryConnectConfigurationException exception = Assert.Throws<FoundryConnectConfigurationException>(() => service.Load());
-        Assert.Contains("not supported", exception.Message, StringComparison.Ordinal);
-        Assert.DoesNotContain("super-secret-passphrase", exception.ToString(), StringComparison.Ordinal);
-        Assert.DoesNotContain("unsupported", exception.ToString(), StringComparison.Ordinal);
+        ConnectConfigurationLoadResult result = service.Load();
+        Assert.False(result.IsSuccess);
+        Assert.Null(result.Configuration);
+        Assert.Null(result.Secrets);
+        string failure = result.FailureMessage!;
+        Assert.Contains("not supported", failure, StringComparison.Ordinal);
+        Assert.DoesNotContain("super-secret-passphrase", failure, StringComparison.Ordinal);
+        Assert.DoesNotContain("unsupported", failure, StringComparison.Ordinal);
     }
 
     [Fact]
-    public void Load_WhenEncryptedPassphraseIsTampered_ThrowsConfigurationException()
+    public void Load_WhenEncryptedPassphraseIsTampered_ReportsConfigurationFailure()
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
         using var tempDirectory = new TemporaryDirectory();
@@ -586,10 +594,14 @@ public sealed class ConnectConfigurationServiceTests
 
         var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
 
-        FoundryConnectConfigurationException exception = Assert.Throws<FoundryConnectConfigurationException>(() => service.Load());
-        Assert.Contains("could not be decrypted", exception.Message, StringComparison.Ordinal);
-        Assert.DoesNotContain("super-secret-passphrase", exception.ToString(), StringComparison.Ordinal);
-        Assert.DoesNotContain("AA", exception.ToString(), StringComparison.Ordinal);
+        ConnectConfigurationLoadResult result = service.Load();
+        Assert.False(result.IsSuccess);
+        Assert.Null(result.Configuration);
+        Assert.Null(result.Secrets);
+        string failure = result.FailureMessage!;
+        Assert.Contains("could not be decrypted", failure, StringComparison.Ordinal);
+        Assert.DoesNotContain("super-secret-passphrase", failure, StringComparison.Ordinal);
+        Assert.DoesNotContain("AA", failure, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -617,7 +629,7 @@ public sealed class ConnectConfigurationServiceTests
 
         var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
 
-        (FoundryConnectConfigurationDocument configuration, ConnectRuntimeSecrets secrets) = service.Load();
+        (FoundryConnectConfigurationDocument configuration, ConnectRuntimeSecrets secrets) = LoadWithSecrets(service);
 
         Assert.Equal("legacy-passphrase", secrets.WifiPassphrase);
         Assert.Null(configuration.Wifi.PassphraseSecret);
@@ -647,7 +659,7 @@ public sealed class ConnectConfigurationServiceTests
 
         var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
 
-        FoundryConnectConfigurationDocument configuration = service.Load().Configuration;
+        FoundryConnectConfigurationDocument configuration = LoadConfiguration(service);
 
         Assert.True(service.IsLoadedFromDisk);
         Assert.False(Directory.Exists(System.IO.Path.Combine(tempDirectory.Path, "Secrets")));
@@ -658,6 +670,71 @@ public sealed class ConnectConfigurationServiceTests
         Assert.Equal(
             ["http://www.msftconnecttest.com/connecttest.txt", "http://www.google.com"],
             configuration.InternetProbe.ProbeUris);
+    }
+
+    [Fact]
+    public void Load_SchemaZero_IsConfigurationFailure()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json", """{"schemaVersion":0}""");
+        var service = new ConnectConfigurationService(["--config", path], NullLogger<ConnectConfigurationService>.Instance);
+
+        ConnectConfigurationLoadResult result = service.Load();
+
+        Assert.False(result.IsSuccess);
+        Assert.Null(result.Configuration);
+        Assert.Null(result.Secrets);
+        Assert.Contains("schema version 0", result.FailureMessage, StringComparison.Ordinal);
+        Assert.False(service.IsLoadedFromDisk);
+    }
+
+    [Fact]
+    public void Load_NullTelemetry_UsesDefaults()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json", """{"schemaVersion":5,"telemetry":null}""");
+        var service = new ConnectConfigurationService(["--config", path], NullLogger<ConnectConfigurationService>.Instance);
+
+        FoundryConnectConfigurationDocument configuration = LoadConfiguration(service);
+
+        Assert.Equal(new TelemetrySettings(), configuration.Telemetry);
+    }
+
+    [Fact]
+    public void Load_NewerSchema_LoadsAndLogsWarning()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var directory = new TemporaryDirectory();
+        int newerVersion = FoundryConnectConfigurationDocument.CurrentSchemaVersion + 1;
+        string path = CreateJsonFile(directory.Path, "config.json", $$"""{"schemaVersion":{{newerVersion}}}""");
+        var logger = new WarningRecordingLogger();
+        var service = new ConnectConfigurationService(["--config", path], logger);
+
+        FoundryConnectConfigurationDocument configuration = LoadConfiguration(service);
+
+        Assert.Equal(newerVersion, configuration.SchemaVersion);
+        Assert.True(service.IsLoadedFromDisk);
+        Assert.Equal(1, logger.WarningCount);
+    }
+
+    [Fact]
+    public void Load_WhenMediaSecretKeyHasInvalidLength_ReportsConfigurationFailure()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var tempDirectory = new TemporaryDirectory();
+        Foundry.Core.Models.Configuration.FoundryConnectProvisioningBundle bundle = CreatePersonalWifiProvisioningBundle(tempDirectory.Path);
+        string configDirectory = System.IO.Path.Combine(tempDirectory.Path, "Config");
+        Directory.CreateDirectory(configDirectory);
+        string configurationPath = CreateJsonFile(configDirectory, "foundry.connect.config.json", bundle.ConfigurationJson);
+        CreateBinaryFile(System.IO.Path.Combine(configDirectory, "Secrets"), "media-secrets.key", new byte[16]);
+        var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
+
+        ConnectConfigurationLoadResult result = service.Load();
+
+        Assert.False(result.IsSuccess);
+        Assert.Contains("Media secret key has an invalid length.", result.FailureMessage, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -676,8 +753,39 @@ public sealed class ConnectConfigurationServiceTests
 
         var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
 
-        FoundryConnectConfigurationException exception = Assert.Throws<FoundryConnectConfigurationException>(() => service.Load());
-        Assert.Contains("invalid base64url data", exception.Message, StringComparison.Ordinal);
+        ConnectConfigurationLoadResult result = service.Load();
+        Assert.False(result.IsSuccess);
+        Assert.Null(result.Configuration);
+        Assert.Null(result.Secrets);
+        string failure = result.FailureMessage!;
+        Assert.Contains("invalid base64url data", failure, StringComparison.Ordinal);
+    }
+
+    private static FoundryConnectConfigurationDocument LoadConfiguration(ConnectConfigurationService service) =>
+        LoadWithSecrets(service).Configuration;
+
+    private static (FoundryConnectConfigurationDocument Configuration, ConnectRuntimeSecrets Secrets) LoadWithSecrets(ConnectConfigurationService service)
+    {
+        ConnectConfigurationLoadResult result = service.Load();
+        Assert.True(result.IsSuccess, result.FailureMessage);
+        return (result.Configuration, result.Secrets);
+    }
+
+    private sealed class WarningRecordingLogger : ILogger<ConnectConfigurationService>
+    {
+        public int WarningCount { get; private set; }
+
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
+
+        public bool IsEnabled(LogLevel logLevel) => true;
+
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
+        {
+            if (logLevel == LogLevel.Warning)
+            {
+                WarningCount++;
+            }
+        }
     }
 
     private static string CreateJsonFile(string directoryPath, string fileName, string contents)
