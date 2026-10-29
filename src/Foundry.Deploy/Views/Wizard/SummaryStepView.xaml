@@ -1,14 +1,14 @@
 ﻿<UserControl x:Class="Foundry.Deploy.Views.Wizard.SummaryStepView" x:Name="ViewRoot"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:Foundry.Deploy.Controls"
+    xmlns:controls="clr-namespace:Foundry.Wpf.Controls;assembly=Foundry.Wpf"
     xmlns:viewModels="clr-namespace:Foundry.Deploy.ViewModels">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <controls:WizardPageHeader
+        <controls:PageHeader
             Title="{Binding Strings[Summary.Title]}"
             Description="{Binding Strings[Summary.Description]}"
             Glyph="&#xE9D5;" />

@@ -6,27 +6,10 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Foundry.Wpf;component/Themes/FoundryWpfStyles.xaml" />
                 <ResourceDictionary Source="Themes/DeployStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-            <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
             <converters:OsCatalogFilterDisplayConverter x:Key="OsCatalogFilterDisplayConverter" />
-
-            <Style x:Key="ScrollViewerContentGutterStyle"
-                TargetType="ScrollViewer">
-                <Setter
-                    Property="Padding"
-                    Value="0" />
-                <Style.Triggers>
-                    <DataTrigger
-                        Binding="{Binding ComputedVerticalScrollBarVisibility, RelativeSource={RelativeSource AncestorType={x:Type ScrollViewer}}}"
-                        Value="Visible">
-                        <Setter
-                            Property="Padding"
-                            Value="0,0,24,0" />
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

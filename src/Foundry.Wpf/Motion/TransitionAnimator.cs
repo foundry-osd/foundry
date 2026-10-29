@@ -6,9 +6,9 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
-namespace Foundry.Deploy.Motion;
+namespace Foundry.Wpf.Motion;
 
-internal static class TransitionAnimator
+public static class TransitionAnimator
 {
     private static readonly TimeSpan Duration = TimeSpan.FromMilliseconds(220);
 

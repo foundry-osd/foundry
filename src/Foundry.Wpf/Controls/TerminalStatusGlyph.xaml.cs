@@ -6,9 +6,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media.Effects;
-using Foundry.Deploy.Motion;
+using Foundry.Wpf.Motion;
 
-namespace Foundry.Deploy.Controls;
+namespace Foundry.Wpf.Controls;
 
 public partial class TerminalStatusGlyph : UserControl
 {

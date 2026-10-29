@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-namespace Foundry.Deploy.Controls;
+namespace Foundry.Wpf.Controls;
 
 /// <summary>Says how important the message of an <see cref="InfoBar"/> is, as the WinUI 3 InfoBar does.</summary>
 public enum InfoBarSeverity

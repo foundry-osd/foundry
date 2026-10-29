@@ -4,7 +4,7 @@
 
 using System.Diagnostics;
 
-namespace Foundry.Deploy.Services.Runtime;
+namespace Foundry.Wpf.Runtime;
 
 public static class DebugSafetyMode
 {

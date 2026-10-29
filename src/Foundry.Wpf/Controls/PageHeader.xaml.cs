@@ -5,29 +5,29 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Foundry.Deploy.Controls;
+namespace Foundry.Wpf.Controls;
 
-public partial class WizardPageHeader : UserControl
+public partial class PageHeader : UserControl
 {
     public static readonly DependencyProperty GlyphProperty = DependencyProperty.Register(
         nameof(Glyph),
         typeof(string),
-        typeof(WizardPageHeader),
+        typeof(PageHeader),
         new PropertyMetadata(string.Empty));
 
     public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(
         nameof(Title),
         typeof(string),
-        typeof(WizardPageHeader),
+        typeof(PageHeader),
         new PropertyMetadata(string.Empty));
 
     public static readonly DependencyProperty DescriptionProperty = DependencyProperty.Register(
         nameof(Description),
         typeof(string),
-        typeof(WizardPageHeader),
+        typeof(PageHeader),
         new PropertyMetadata(string.Empty));
 
-    public WizardPageHeader()
+    public PageHeader()
     {
         InitializeComponent();
     }

@@ -5,7 +5,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Threading;
-using Foundry.Deploy.Motion;
+using Foundry.Wpf.Motion;
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.ViewModels;
 

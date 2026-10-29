@@ -5,7 +5,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Foundry.Deploy.Controls;
+namespace Foundry.Wpf.Controls;
 
 /// <summary>
 /// A WPF card aligned on the WinUI 3 InfoBar: a filled severity glyph, an optional title, a message and an optional content

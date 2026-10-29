@@ -6,6 +6,7 @@ using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Deploy.Services.Images;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Runtime;
+using Foundry.Wpf.Runtime;
 
 namespace Foundry.Deploy.ViewModels;
 

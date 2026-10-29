@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Foundry.Deploy.Converters;
+namespace Foundry.Wpf.Converters;
 
 public sealed class InverseBooleanConverter : IValueConverter
 {

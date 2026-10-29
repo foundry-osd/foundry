@@ -20,6 +20,7 @@ using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.DomainJoin;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
+using Foundry.Wpf.Runtime;
 using Foundry.Deploy.Services.Security;
 using Foundry.Deploy.Services.Startup;
 using Foundry.Wpf.Shell;

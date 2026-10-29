@@ -7,9 +7,8 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
-using Foundry.Wpf.Controls;
 
-namespace Foundry.Deploy.Controls;
+namespace Foundry.Wpf.Controls;
 
 public partial class CustomProgressRing : UserControl
 {
