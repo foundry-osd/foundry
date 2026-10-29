@@ -47,6 +47,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<App>();
         services.AddSingleton<MainWindow>();
         services.AddSingleton<MainWindowViewModel>();
+        services.AddSingleton<DiagnosticsViewModel>();
         services.AddSingleton(args ?? Array.Empty<string>());
 
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();

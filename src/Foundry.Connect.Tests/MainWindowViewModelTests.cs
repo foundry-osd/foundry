@@ -4,6 +4,7 @@
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Connect.Lifetime;
+using Foundry.Connect.Tests.Support;
 using Foundry.Connect.Network;
 using Foundry.Core.Models.Runtime;
 using Foundry.Wpf.Shell;
@@ -14,7 +15,6 @@ using Foundry.Utilities.Globalization;
 using Foundry.Wpf.Localization;
 using System.Reflection;
 using System.Resources;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Foundry.Connect.Tests;
@@ -180,18 +180,6 @@ public sealed class MainWindowViewModelTests
     }
 
     [Fact]
-    public void OpenLogFileCommand_WhenLogFileIsUnavailable_LogsWarningWithoutThrowing()
-    {
-        var logger = new RecordingLogger<MainWindowViewModel>();
-        using MainWindowViewModel viewModel = CreateViewModel(logger: logger);
-
-        viewModel.OpenLogFileCommand.Execute(null);
-
-        LogEntry entry = Assert.Single(logger.Entries, item => item.Level == LogLevel.Warning);
-        Assert.True(entry.Properties.ContainsKey("LogFilePath"));
-    }
-
-    [Fact]
     public void KeyboardMenu_ListsActiveLanguageFirst()
     {
         using MainWindowViewModel viewModel = CreateViewModel(keyboardLayoutSwitcher: new FakeKeyboardLayoutSwitcher("0000040C"));
@@ -233,7 +221,6 @@ public sealed class MainWindowViewModelTests
         FakeConnectionCoordinator? coordinator = null,
         FakeNetworkMonitor? monitor = null,
         FakeSuccessfulExitService? successfulExit = null,
-        ILogger<MainWindowViewModel>? logger = null,
         BootMediaUpdateReason bootMediaUpdateReason = BootMediaUpdateReason.None,
         IKeyboardLayoutSwitcher? keyboardLayoutSwitcher = null)
     {
@@ -260,7 +247,8 @@ public sealed class MainWindowViewModelTests
             monitor ?? new FakeNetworkMonitor(),
             successfulExit ?? new FakeSuccessfulExitService(),
             keyboardLayoutSwitcher ?? new FakeKeyboardLayoutSwitcher("0000040C"),
-            logger ?? NullLogger<MainWindowViewModel>.Instance);
+            new DiagnosticsViewModel(TestLocalization.Create(), NullLogger<DiagnosticsViewModel>.Instance),
+            NullLogger<MainWindowViewModel>.Instance);
     }
 
     private static NetworkState CreateOnlineState()
@@ -489,28 +477,4 @@ public sealed class MainWindowViewModelTests
             return ConnectConfigurationLoadResult.Success(configuration, ConnectRuntimeSecrets.None(), bootMediaUpdateReason);
         }
     }
-
-    private sealed class RecordingLogger<T> : ILogger<T>
-    {
-        public List<LogEntry> Entries { get; } = [];
-
-        public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
-
-        public bool IsEnabled(LogLevel logLevel) => true;
-
-        public void Log<TState>(
-            LogLevel logLevel,
-            EventId eventId,
-            TState state,
-            Exception? exception,
-            Func<TState, Exception?, string> formatter)
-        {
-            var properties = state is IEnumerable<KeyValuePair<string, object?>> values
-                ? values.ToDictionary(item => item.Key, item => item.Value, StringComparer.Ordinal)
-                : new Dictionary<string, object?>(StringComparer.Ordinal);
-            Entries.Add(new LogEntry(logLevel, properties));
-        }
-    }
-
-    private sealed record LogEntry(LogLevel Level, IReadOnlyDictionary<string, object?> Properties);
 }

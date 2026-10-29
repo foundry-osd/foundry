@@ -126,13 +126,13 @@
                         Header="{Binding Strings[Tools.RefreshStatus]}" />
                     <Separator />
                     <MenuItem
-                        Command="{Binding OpenLogFileCommand}"
+                        Command="{Binding Diagnostics.OpenLogFileCommand}"
                         Header="{Binding Strings[Tools.OpenLogFile]}" />
                     <MenuItem
-                        Command="{Binding ExportDiagnosticsCommand}"
+                        Command="{Binding Diagnostics.ExportDiagnosticsCommand}"
                         Header="{Binding Strings[Diagnostics.ExportMenu]}" />
                     <MenuItem
-                        Command="{Binding ExportRawDiagnosticsCommand}"
+                        Command="{Binding Diagnostics.ExportRawDiagnosticsCommand}"
                         Header="{Binding Strings[Diagnostics.ExportRawMenu]}" />
                 </MenuItem>
                 <MenuItem

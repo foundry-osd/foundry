@@ -3,11 +3,8 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -20,18 +17,12 @@ using Foundry.Wpf.Shell;
 using Foundry.Connect.Lifetime;
 using Foundry.Connect.Configuration;
 using Foundry.Connect.Network;
-using Foundry.Connect.Services.Logging;
 using Foundry.Wpf.Theme;
-using Foundry.Wpf.Dialogs;
 using Foundry.Localization;
 using Foundry.Utilities.Networking;
-using Foundry.Utilities.Diagnostics;
 using Foundry.Utilities.Globalization;
-using Foundry.Utilities.Runtime;
-using Foundry.Utilities.Storage;
 using Foundry.Wpf.Localization;
 using Foundry.Wpf.ViewModels;
-using Microsoft.Win32;
 using Microsoft.Extensions.Logging;
 using ConnectThemeMode = Foundry.Wpf.Theme.ThemeMode;
 
@@ -42,7 +33,6 @@ namespace Foundry.Connect.ViewModels;
 /// </summary>
 public partial class MainWindowViewModel : LocalizedViewModelBase
 {
-    private const int ShellFolderPickerUnavailableHResult = unchecked((int)0x80040111);
     private const string PendingStatusGlyph = "\uE709";
     private const string ReadyStatusGlyph = "\uE73E";
     private const string EthernetOkGlyph = "\uE839";
@@ -178,10 +168,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         INetworkMonitor monitor,
         ISuccessfulExitService successfulExit,
         IKeyboardLayoutSwitcher keyboardLayoutSwitcher,
+        DiagnosticsViewModel diagnostics,
         ILogger<MainWindowViewModel> logger)
         : base(localizationService)
     {
         _keyboardLayoutSwitcher = keyboardLayoutSwitcher;
+        Diagnostics = diagnostics ?? throw new ArgumentNullException(nameof(diagnostics));
         _themeService = themeService;
         _applicationShellService = applicationShellService;
         _applicationLifetimeService = applicationLifetimeService;
@@ -205,6 +197,11 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     /// Gets the discovered Wi-Fi networks shown in the UI.
     /// </summary>
     public ObservableCollection<WifiNetworkItemViewModel> WifiNetworks { get; } = [];
+
+    /// <summary>
+    /// Gets the Tools menu diagnostics: open the log file and export a support bundle.
+    /// </summary>
+    public DiagnosticsViewModel Diagnostics { get; }
 
     /// <summary>
     /// Gets the supported UI cultures.
@@ -486,171 +483,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private void ShowAbout()
     {
         _applicationShellService.ShowAbout();
-    }
-
-    [RelayCommand]
-    private void OpenLogFile()
-    {
-        string logFilePath = FoundryConnectLogging.CurrentLogFilePath;
-        if (!File.Exists(logFilePath))
-        {
-            _logger.LogWarning("The Foundry Connect log file is unavailable. LogFilePath={LogFilePath}", logFilePath);
-            return;
-        }
-
-        try
-        {
-            ProcessStartInfo startInfo = new("notepad.exe")
-            {
-                UseShellExecute = false
-            };
-            startInfo.ArgumentList.Add(logFilePath);
-            _ = Process.Start(startInfo);
-            _logger.LogInformation("Opened log file at {LogFilePath}.", logFilePath);
-        }
-        catch (Exception exception) when (exception is Win32Exception or InvalidOperationException)
-        {
-            _logger.LogError(exception, "Failed to open log file. LogFilePath={LogFilePath}", logFilePath);
-        }
-    }
-
-    [RelayCommand]
-    private Task ExportDiagnosticsAsync()
-    {
-        return ExportDiagnosticsAsync(SupportBundlePrivacyMode.Sanitized);
-    }
-
-    [RelayCommand]
-    private async Task ExportRawDiagnosticsAsync()
-    {
-        var confirmationDialog = new LocalizedMessageDialog(
-            GetString("Diagnostics.ExportRawTitle"),
-            GetString("Diagnostics.ExportRawWarning"),
-            GetString("Diagnostics.ExportRawConfirm"),
-            GetString("Common.Cancel"));
-        if (confirmationDialog.ShowDialog() != true)
-        {
-            return;
-        }
-
-        await ExportDiagnosticsAsync(SupportBundlePrivacyMode.Raw);
-    }
-
-    private async Task ExportDiagnosticsAsync(SupportBundlePrivacyMode privacyMode)
-    {
-        try
-        {
-            string? destinationDirectoryPath = SelectExportDestination();
-            if (destinationDirectoryPath is null)
-            {
-                return;
-            }
-
-            string? logDirectoryPath = Path.GetDirectoryName(FoundryConnectLogging.CurrentLogFilePath);
-            string[] logFilePaths = string.IsNullOrWhiteSpace(logDirectoryPath) || !Directory.Exists(logDirectoryPath)
-                ? []
-                : Directory.GetFiles(logDirectoryPath, "Foundry*.log", SearchOption.TopDirectoryOnly);
-
-            _logger.LogInformation(
-                "Support bundle export started. PrivacyMode={PrivacyMode}, LogFileCount={LogFileCount}",
-                privacyMode,
-                logFilePaths.Length);
-
-            SupportBundleResult result = await new SupportBundleExporter().ExportAsync(
-                new SupportBundleRequest
-                {
-                    ApplicationName = "Foundry.Connect",
-                    ApplicationVersion = FoundryConnectApplicationInfo.Version,
-                    SessionId = DiagnosticSessionContext.CurrentSessionId,
-                    DestinationDirectoryPath = destinationDirectoryPath,
-                    LogFilePaths = logFilePaths,
-                    PrivacyMode = privacyMode,
-                    Summary = new Dictionary<string, string>
-                    {
-                        ["Architecture"] = RuntimeInformation.ProcessArchitecture.ToString(),
-                        ["DeploymentMode"] = Environment.GetEnvironmentVariable("FOUNDRY_DEPLOYMENT_MODE") ?? "Unknown",
-                        ["OperatingSystem"] = Environment.OSVersion.VersionString
-                    }
-                },
-                _disposeCts.Token);
-
-            _logger.LogInformation(
-                "Support bundle export completed. PrivacyMode={PrivacyMode}, IncludedFileCount={IncludedFileCount}, OmittedFileCount={OmittedFileCount}",
-                privacyMode,
-                result.IncludedFiles.Count,
-                result.OmittedFiles.Count);
-            _ = new LocalizedMessageDialog(
-                GetString("Diagnostics.ExportSucceededTitle"),
-                Format("Diagnostics.ExportSucceededMessageFormat", result.ArchivePath),
-                GetString("Common.Close")).ShowDialog();
-        }
-        catch (OperationCanceledException) when (_disposeCts.IsCancellationRequested)
-        {
-            _logger.LogInformation("Support bundle export canceled because the application is shutting down.");
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Support bundle export failed. PrivacyMode={PrivacyMode}", privacyMode);
-            _ = new LocalizedMessageDialog(
-                GetString("Diagnostics.ExportFailedTitle"),
-                GetString("Diagnostics.ExportFailedMessage"),
-                GetString("Common.Close")).ShowDialog();
-        }
-    }
-
-    private string? SelectExportDestination()
-    {
-        if (WinPeRuntimeDetector.IsWinPeRuntime())
-        {
-            _logger.LogInformation("The shell folder picker was skipped because the application is running in WinPE.");
-            return ResolveRequiredExternalExportDirectory();
-        }
-
-        try
-        {
-            string? externalExportDirectory = ResolveExternalExportDirectory();
-            var picker = new OpenFolderDialog
-            {
-                Title = GetString("Diagnostics.ExportDestinationTitle"),
-                InitialDirectory = ResolveSuggestedExportDirectory(externalExportDirectory)
-            };
-            return picker.ShowDialog() == true ? picker.FolderName : null;
-        }
-        catch (COMException ex) when (ex.HResult == ShellFolderPickerUnavailableHResult)
-        {
-            string? fallbackDirectoryPath = ResolveExternalExportDirectory();
-            _logger.LogWarning(
-                ex,
-                "The shell folder picker is unavailable. Falling back to an external volume. HasFallbackDestination={HasFallbackDestination}",
-                fallbackDirectoryPath is not null);
-            return fallbackDirectoryPath
-                   ?? throw new IOException("No ready external volume is available for the diagnostic export.");
-        }
-    }
-
-    private string ResolveRequiredExternalExportDirectory()
-    {
-        return ResolveExternalExportDirectory()
-               ?? throw new IOException("No ready external volume is available for the diagnostic export.");
-    }
-
-    private static string ResolveSuggestedExportDirectory(string? externalExportDirectory)
-    {
-        try
-        {
-            return externalExportDirectory
-                   ?? Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-        }
-        catch
-        {
-            return Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-        }
-    }
-
-    private string? ResolveExternalExportDirectory()
-    {
-        return SupportBundleDestinationPolicy.SelectExternalDestination(
-            new WindowsVolumeDiscovery().GetVolumes());
     }
 
     [RelayCommand]
@@ -1067,6 +899,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         // Cancelling stops the network monitor and any command still waiting for the coordinator.
         _disposeCts.Cancel();
+        Diagnostics.Dispose();
         CancelCountdown();
         _countdownCts?.Dispose();
         _disposeCts.Dispose();
