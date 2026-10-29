@@ -396,6 +396,20 @@ public sealed class ConnectPageViewModelTests : IDisposable
     }
 
     [Fact]
+    public async Task Dispose_DuringTheWiredPrompt_NeverProvisionsNorStartsTheMonitor()
+    {
+        _unlock.IsWiredUnlockRequired = true;
+        _unlock.Result = ConnectUnlockResult.Unlocked;
+        _unlock.OnUnlock = _page.Dispose;
+
+        await _page.InitializeAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal([ConnectUnlockTrigger.WiredStartup], _unlock.Calls);
+        Assert.Equal(0, _coordinator.ApplyProvisioningCalls);
+        Assert.Equal(0, _monitor.RunCalls);
+    }
+
+    [Fact]
     public async Task Dispose_DuringProvisioning_NeverStartsTheMonitor()
     {
         _coordinator.ProvisioningGate = new TaskCompletionSource<ProvisioningOutcome>(TaskCreationOptions.RunContinuationsAsynchronously);

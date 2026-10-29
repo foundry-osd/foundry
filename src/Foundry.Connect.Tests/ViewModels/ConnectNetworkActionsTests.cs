@@ -79,6 +79,22 @@ public sealed class ConnectNetworkActionsTests
     }
 
     [Fact]
+    public async Task ConnectProvisionedWifi_WhenAConcurrentAutomaticUnlockSucceeded_RefreshesThenConnects()
+    {
+        // The manual call waited behind the automatic prompt, which unlocked everything: nothing is locked any more.
+        var unlock = new FakeUnlockService { IsWifiUnlockRequired = false, Result = ConnectUnlockResult.NotRequired };
+        _coordinator.Publish(LockedState());
+        var actions = new ConnectNetworkActions(_coordinator, unlock, new RecordingLogger<ConnectNetworkActions>());
+
+        OperationOutcome outcome = await actions.ConnectProvisionedWifiAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(OperationStatus.Succeeded, outcome.Status);
+        Assert.Equal([ConnectUnlockTrigger.ManualWifi], unlock.Calls);
+        Assert.Equal(1, _coordinator.RefreshProvisionedWifiCalls);
+        Assert.Equal(1, _coordinator.ConnectProvisionedCalls);
+    }
+
+    [Fact]
     public async Task ConnectProvisionedWifi_WhenTheCallerCancelsDuringUnlock_ReturnsCancelled()
     {
         using var cancellation = new CancellationTokenSource();

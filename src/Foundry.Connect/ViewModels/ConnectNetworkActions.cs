@@ -54,11 +54,12 @@ public sealed class ConnectNetworkActions(IConnectionCoordinator coordinator, IC
 
     /// <summary>
     /// Connects the provisioned Wi-Fi profile. A profile locked by the deployment password is unlocked first; when the
-    /// password is not entered, nothing is connected.
+    /// password is not entered, nothing is connected. When a concurrent automatic unlock already succeeded, the profile is
+    /// refreshed and connected without a prompt.
     /// </summary>
     /// <param name="cancellationToken">Caller cancellation.</param>
     /// <returns>
-    /// The coordinator outcome; <see cref="OperationStatus.Cancelled"/> when the profile stays locked or the caller cancelled
+    /// The coordinator outcome; <see cref="OperationStatus.Cancelled"/> when the prompt was cancelled or the caller cancelled
     /// during the unlock; <see cref="OperationStatus.NoChange"/> while simulated.
     /// </returns>
     public Task<OperationOutcome> ConnectProvisionedWifiAsync(CancellationToken cancellationToken) =>
@@ -131,6 +132,12 @@ public sealed class ConnectNetworkActions(IConnectionCoordinator coordinator, IC
             {
                 // No ConfigureAwait(false): the command that awaits this updates bound properties on the UI thread.
                 result = await UnlockAndRefreshProvisionedWifiAsync(ConnectUnlockTrigger.ManualWifi, cancellationToken);
+                if (result == ConnectUnlockResult.NotRequired)
+                {
+                    // An automatic unlock succeeded while this call waited for the prompt: its refresh may not have run yet,
+                    // so build the now readable profile before connecting it.
+                    await _coordinator.RefreshProvisionedWifiAsync(cancellationToken);
+                }
             }
             catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
             {
@@ -138,7 +145,7 @@ public sealed class ConnectNetworkActions(IConnectionCoordinator coordinator, IC
                 return OperationOutcome.Cancelled(NetworkOperationKind.ConnectProvisionedWifi);
             }
 
-            if (result != ConnectUnlockResult.Unlocked)
+            if (result == ConnectUnlockResult.Cancelled)
             {
                 return OperationOutcome.Cancelled(NetworkOperationKind.ConnectProvisionedWifi);
             }

@@ -315,7 +315,9 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
     // Raised at most once per session on the monitor's thread; the prompt is owned by the loaded main window.
     private void OnUnlockRequested(object? sender, EventArgs e) => _dispatcher.Run(() => _ = OnUnlockRequestedAsync());
 
-    // Never faults: the task is discarded by the event handler.
+    // Never faults: the task is discarded by the event handler. A request raised while a debug scenario is simulated is dropped,
+    // not deferred: the coordinator raises it at most once per session, so the provisioned Wi-Fi then stays locked until the
+    // technician selects its Connect button.
     private async Task OnUnlockRequestedAsync()
     {
         if (_isDisposed || IsSimulation)
