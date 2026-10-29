@@ -10,6 +10,7 @@ using Foundry.Core.Models.Network;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Network;
+using Foundry.Deploy.Services.Security;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using NetworkProfileRoamingTransportSettings = Foundry.Core.Models.Configuration.NetworkProfileRoamingTransportSettings;
@@ -38,6 +39,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             """);
         var service = new NetworkProfileRoamingArtifactService(
             new FakeMediaSecretKeyReader([]),
+            new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
@@ -83,6 +85,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             """);
         var service = new NetworkProfileRoamingArtifactService(
             new FakeMediaSecretKeyReader([]),
+            new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
@@ -132,6 +135,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             """);
         var service = new NetworkProfileRoamingArtifactService(
             new FakeMediaSecretKeyReader([]),
+            new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
@@ -170,6 +174,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             """);
         var service = new NetworkProfileRoamingArtifactService(
             new FakeMediaSecretKeyReader([]),
+            new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
@@ -216,6 +221,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             """);
         var service = new NetworkProfileRoamingArtifactService(
             new FakeMediaSecretKeyReader([]),
+            new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
@@ -274,6 +280,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             """);
         var service = new NetworkProfileRoamingArtifactService(
             new FakeMediaSecretKeyReader(mediaSecretKey),
+            new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
@@ -311,6 +318,57 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
     }
 
     [Fact]
+    public async Task LoadAsync_WhenProtectedPfxHasDeploymentKeyedPassword_DecryptsWithTheDeploymentKey()
+    {
+        string artifactRoot = CreateArtifactRoot();
+        byte[] deploymentKey = RandomNumberGenerator.GetBytes(MediaSecretEnvelopeProtector.KeySizeBytes);
+        byte[] pfxBytes = [4, 5, 6, 7];
+        WriteSecret(
+            Path.Combine(artifactRoot, "certificates", "My", "client.pfx"),
+            MediaSecretEnvelopeProtector.EncryptBytes(pfxBytes, deploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
+        WriteSecret(
+            Path.Combine(artifactRoot, "certificates", "My", "client.pfx.password.json"),
+            MediaSecretEnvelopeProtector.EncryptString("pfx-password", deploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
+        WriteText(
+            Path.Combine(artifactRoot, "manifest.json"),
+            """
+            {
+              "schemaVersion": 1,
+              "certificates": [
+                {
+                  "relativePath": "certificates\\My\\client.pfx",
+                  "kind": "pfxPrivateKey",
+                  "storeName": "My",
+                  "passwordSecretRelativePath": "certificates\\My\\client.pfx.password.json",
+                  "isContentProtected": true
+                }
+              ]
+            }
+            """);
+        var service = new NetworkProfileRoamingArtifactService(
+            new ThrowingMediaSecretKeyReader(),
+            new FakeDeploymentSecretKeyProvider(deploymentKey),
+            NullLogger<NetworkProfileRoamingArtifactService>.Instance);
+
+        var payload = await service.LoadAsync(
+            new DeployNetworkProfileRoamingSettings
+            {
+                Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true, IncludePrivateKeyMaterial = true },
+                ArtifactRootPath = artifactRoot
+            },
+            Path.Combine(artifactRoot, "workspace"),
+            TestContext.Current.CancellationToken);
+
+        Assert.NotNull(payload);
+        var pfxFile = Assert.Single(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "certificates", "My", "client.pfx"));
+        Assert.Equal(pfxBytes, pfxFile.Bytes);
+        Assert.True(pfxFile.IsSensitive);
+        var passwordFile = Assert.Single(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "certificates", "My", "client.pfx.password"));
+        Assert.Equal("pfx-password", passwordFile.Content);
+        Assert.True(passwordFile.IsSensitive);
+    }
+
+    [Fact]
     public async Task LoadAsync_WhenPrivateKeyRoamingDisabled_SkipsPfxMaterial()
     {
         string artifactRoot = CreateArtifactRoot();
@@ -338,6 +396,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             """);
         var service = new NetworkProfileRoamingArtifactService(
             new FakeMediaSecretKeyReader([]),
+            new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
@@ -363,6 +422,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
         var logger = new CapturingLogger<NetworkProfileRoamingArtifactService>();
         var service = new NetworkProfileRoamingArtifactService(
             new FakeMediaSecretKeyReader([]),
+            new FakeDeploymentSecretKeyProvider([]),
             logger);
 
         var payload = await service.LoadAsync(
@@ -399,6 +459,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             """);
         var service = new NetworkProfileRoamingArtifactService(
             new FakeMediaSecretKeyReader([]),
+            new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
@@ -443,6 +504,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             """);
         var service = new NetworkProfileRoamingArtifactService(
             new FakeMediaSecretKeyReader([]),
+            new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
@@ -487,6 +549,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             """);
         var service = new NetworkProfileRoamingArtifactService(
             new FakeMediaSecretKeyReader([]),
+            new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
@@ -533,6 +596,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             """);
         var service = new NetworkProfileRoamingArtifactService(
             new FakeMediaSecretKeyReader([]),
+            new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
@@ -607,6 +671,23 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
         public Task<byte[]> ReadAsync(string workspaceRootPath, CancellationToken cancellationToken = default)
         {
             return Task.FromResult(key);
+        }
+    }
+
+    // Proves the media key is never read: schema 6 media carry no media-secrets.key.
+    private sealed class ThrowingMediaSecretKeyReader : INetworkSecretKeyReader
+    {
+        public Task<byte[]> ReadAsync(string workspaceRootPath, CancellationToken cancellationToken = default)
+        {
+            throw new InvalidOperationException("The media secret key must not be read.");
+        }
+    }
+
+    private sealed class FakeDeploymentSecretKeyProvider(byte[] key) : IDeploymentSecretKeyProvider
+    {
+        public Task<byte[]> ReadAsync(string workspaceRootPath, CancellationToken cancellationToken = default)
+        {
+            return Task.FromResult(key.ToArray());
         }
     }
 
