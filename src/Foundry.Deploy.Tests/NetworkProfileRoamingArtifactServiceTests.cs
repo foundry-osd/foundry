@@ -52,7 +52,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             TestContext.Current.CancellationToken);
 
         Assert.NotNull(payload);
-        Assert.Contains(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "wifi-profile.xml"));
+        Assert.Contains(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "wifi-profile.xml") && file.IsSensitive);
         string importSettingsJson = Assert.Single(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "import-settings.json")).Content;
         using JsonDocument importSettings = JsonDocument.Parse(importSettingsJson);
         Assert.Equal(Path.Combine("NetworkProfiles", "wifi-profile.xml"), importSettings.RootElement.GetProperty("wifiProfileRelativePath").GetString());
@@ -294,8 +294,8 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             TestContext.Current.CancellationToken);
 
         Assert.NotNull(payload);
-        Assert.Contains(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "wifi-profile.xml"));
-        Assert.Contains(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "wired-dot1x-profile.xml"));
+        Assert.Contains(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "wifi-profile.xml") && file.IsSensitive);
+        Assert.Contains(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "wired-dot1x-profile.xml") && !file.IsSensitive);
         Assert.Contains(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "certificates", "Root", "root.cer") && file.Bytes is [1, 2, 3]);
         Assert.Contains(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "certificates", "My", "client.pfx") && file.IsSensitive);
         PreOobeDataFile passwordFile = Assert.Single(

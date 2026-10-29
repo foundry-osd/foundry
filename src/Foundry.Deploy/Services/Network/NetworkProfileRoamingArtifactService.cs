@@ -92,6 +92,7 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
             dataFiles,
             artifactRootPath,
             settings.WiredDot1x.IsEnabled ? manifest.WiredDot1xProfile?.RelativePath : null,
+            isSensitive: false,
             cancellationToken);
         importSettings.WiredDot1xProfileSource = settings.WiredDot1x.IsEnabled ? manifest.WiredDot1xProfile?.Source : null;
         importSettings.WiredDot1xProfileConnectivityExpectation = settings.WiredDot1x.IsEnabled ? manifest.WiredDot1xProfile?.ConnectivityExpectation : null;
@@ -168,7 +169,7 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
                 continue;
             }
 
-            string? stagedRelativePath = AddProfileDataFile(dataFiles, artifactRootPath, profile.RelativePath, cancellationToken);
+            string? stagedRelativePath = AddProfileDataFile(dataFiles, artifactRootPath, profile.RelativePath, isSensitive: true, cancellationToken);
             if (stagedRelativePath is not null)
             {
                 stagedProfiles.Add(new NetworkProfileRoamingImportProfile
@@ -183,10 +184,13 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         return stagedProfiles;
     }
 
+    // A Wi-Fi profile may carry plaintext key material (a personal passphrase or an enterprise keyMaterial element), so it is
+    // staged sensitive: zeroed after staging and deleted by PostInstall once imported. A wired LAN profile has no key material.
     private static string? AddProfileDataFile(
         List<PreOobeScriptDataFile> dataFiles,
         string artifactRootPath,
         string? artifactRelativePath,
+        bool isSensitive,
         CancellationToken cancellationToken)
     {
         if (string.IsNullOrWhiteSpace(artifactRelativePath))
@@ -204,7 +208,8 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         dataFiles.Add(new PreOobeScriptDataFile
         {
             FileName = stagedRelativePath,
-            Bytes = File.ReadAllBytes(sourcePath)
+            Bytes = File.ReadAllBytes(sourcePath),
+            IsSensitive = isSensitive
         });
         cancellationToken.ThrowIfCancellationRequested();
         return stagedRelativePath;

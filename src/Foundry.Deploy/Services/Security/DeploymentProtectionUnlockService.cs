@@ -4,7 +4,6 @@
 
 using System.Security.Cryptography;
 using Foundry.Core.Services.Security;
-using Foundry.Core.Services.WinPe;
 using Foundry.Deploy.Models.Configuration;
 
 namespace Foundry.Deploy.Services.Security;
@@ -16,11 +15,6 @@ namespace Foundry.Deploy.Services.Security;
 public sealed class DeploymentProtectionUnlockService(IDeploymentSecretKeySession session)
     : IDeploymentProtectionUnlockService
 {
-    public const string KeyDerivationAlgorithm = DeploymentMediaProtectionService.KeyDerivationAlgorithm;
-    public const string EnvelopeKind = DeploymentMediaProtectionService.EnvelopeKind;
-    public const string EnvelopeAlgorithm = DeploymentMediaProtectionService.EnvelopeAlgorithm;
-    public const string PasswordDerivedKeyId = DeploymentMediaProtectionService.PasswordDerivedKeyId;
-
     public bool TryUnlock(DeployProtectionSettings settings, ReadOnlySpan<char> password)
     {
         ArgumentNullException.ThrowIfNull(settings);
