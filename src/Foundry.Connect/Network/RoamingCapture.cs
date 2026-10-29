@@ -151,7 +151,7 @@ public sealed class RoamingCapture : IRoamingCapture
             exception.GetType().Name);
     }
 
-    private async Task CaptureWifiAsync(IReadOnlyList<SuccessfulWifiConnection> connections, CancellationToken cancellationToken)
+    private Task CaptureWifiAsync(IReadOnlyList<SuccessfulWifiConnection> connections, CancellationToken cancellationToken)
     {
         List<NetworkProfileRoamingCaptureRequest> requests = [];
         foreach (SuccessfulWifiConnection connection in connections)
@@ -159,24 +159,21 @@ public sealed class RoamingCapture : IRoamingCapture
             // One candidate that cannot be prepared must not drop the others.
             try
             {
-                if (await CreateWifiRequestAsync(connection, cancellationToken).ConfigureAwait(false) is NetworkProfileRoamingCaptureRequest request)
+                if (CreateWifiRequest(connection) is NetworkProfileRoamingCaptureRequest request)
                 {
                     requests.Add(request);
                 }
             }
-            catch (Exception exception) when (!cancellationToken.IsCancellationRequested)
+            catch (Exception exception)
             {
                 LogCaptureFailure(WifiProfileKind, exception);
             }
         }
 
-        if (requests.Count > 0)
-        {
-            await _roaming.CaptureWifiProfilesAsync(requests, cancellationToken).ConfigureAwait(false);
-        }
+        return requests.Count == 0 ? Task.CompletedTask : _roaming.CaptureWifiProfilesAsync(requests, cancellationToken);
     }
 
-    private async Task<NetworkProfileRoamingCaptureRequest?> CreateWifiRequestAsync(SuccessfulWifiConnection connection, CancellationToken cancellationToken)
+    private NetworkProfileRoamingCaptureRequest? CreateWifiRequest(SuccessfulWifiConnection connection)
     {
         ConnectWifiSettings wifi = _configuration.Wifi;
         bool isProvisioned = connection.Source == WifiConnectionSource.Provisioned;
@@ -187,9 +184,18 @@ public sealed class RoamingCapture : IRoamingCapture
         if (isProvisioned && wifi.HasEnterpriseProfile)
         {
             ConnectCertificateSet certificates = ConnectCertificateSet.From(wifi);
-            string? decryptedXml = wifi.IsEnterpriseProfileTemplateProtected
-                ? await ReadProvisionedProfileXmlAsync(cancellationToken).ConfigureAwait(false)
-                : null;
+            string? decryptedXml = null;
+            if (wifi.IsEnterpriseProfileTemplateProtected)
+            {
+                // Capture runs before the exit releases the profile document; the cached outcome is read, never re-run.
+                decryptedXml = _provisioning.LastOutcome?.WifiProfile?.Xml;
+                if (decryptedXml is null)
+                {
+                    _logger.LogWarning("Wi-Fi roaming capture skipped because the protected profile is not available. Source={Source}", connection.Source);
+                    return null;
+                }
+            }
+
             return new NetworkProfileRoamingCaptureRequest(
                 wifi.IsEnterpriseProfileTemplateProtected ? null : ResolveAssetPath(wifi.EnterpriseProfileTemplatePath),
                 source,
@@ -215,15 +221,6 @@ public sealed class RoamingCapture : IRoamingCapture
                     NetworkProfileRoamingConnectivityExpectation.PreOobeConnectable,
                     ProfileXml: profileXml);
         }
-    }
-
-    // Capture runs before the exit releases the profile document, so the cached provisioning outcome still holds it.
-    // A missing document throws so the caller logs its usual capture Warning and skips only this profile.
-    private async Task<string> ReadProvisionedProfileXmlAsync(CancellationToken cancellationToken)
-    {
-        ProvisioningOutcome provisioning = await _provisioning.RunAsync(cancellationToken).ConfigureAwait(false);
-        return provisioning.WifiProfile?.Xml
-            ?? throw new InvalidOperationException("The decrypted provisioned Wi-Fi profile is not available.");
     }
 
     private NetworkProfileRoamingCaptureRequest CreateWiredRequest()

@@ -38,6 +38,12 @@ public interface IProvisioningStep
     Task<ProvisioningOutcome> RunAsync(CancellationToken cancellationToken);
 
     /// <summary>
+    /// Gets the cached outcome (of the run, or of the last refresh) without ever starting provisioning, so a reader at
+    /// exit such as roaming capture cannot re-apply it; <see langword="null"/> while no run has completed successfully.
+    /// </summary>
+    ProvisioningOutcome? LastOutcome { get; }
+
+    /// <summary>
     /// Re-runs only the Wi-Fi part when the cached outcome's Wi-Fi is <see cref="ProvisionedWifiStatus.Locked"/>, after the
     /// deployment password unlocked the secrets, and makes the merged outcome the one every later call returns. The wired
     /// part is never re-run: a wired secret the unlock made readable is zeroed and the wired state is kept (L4-10).

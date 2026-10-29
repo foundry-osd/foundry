@@ -619,6 +619,28 @@ public sealed class ConnectionCoordinatorTests
     }
 
     [Fact]
+    public async Task ApplyObservation_WhileAnOperationRuns_DefersTheUnlockRequest()
+    {
+        var gate = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var step = new FakeProvisioningStep(LockedWifi()) { RefreshGate = gate };
+        ConnectionCoordinator coordinator = await CreateProvisionedAsync(step);
+        int requests = 0;
+        coordinator.UnlockRequested += (_, _) => requests++;
+
+        // The refresh keeps the mode automatic, so only the running operation can hold the request back.
+        Task<ProvisionedWifiState> refresh = coordinator.RefreshProvisionedWifiAsync(Token);
+        await AsyncAssert.EventuallyAsync(() => coordinator.State.ActiveOperation is not null, "the refresh is running");
+        await coordinator.ApplyObservationAsync(Observation(InternetStatus.NoInternet, null, "Lab"), Token);
+        Assert.Equal(0, requests);
+
+        gate.SetResult();
+        await refresh;
+        await coordinator.ApplyObservationAsync(Observation(InternetStatus.NoInternet, null, "Lab"), Token);
+
+        Assert.Equal(1, requests);
+    }
+
+    [Fact]
     public async Task ConnectProvisionedWifi_WhileLocked_FailsWithWifiSecretLocked()
     {
         ConnectionCoordinator coordinator = await CreateProvisionedAsync(LockedWifi());
@@ -683,19 +705,28 @@ public sealed class ConnectionCoordinatorTests
         null,
         _clock.GetUtcNow());
 
-    // Returns its outcome; a refresh returns Refreshed when set, else the same outcome.
+    // Returns its outcome; a refresh returns Refreshed when set, else the same outcome, after RefreshGate when set.
     private sealed class FakeProvisioningStep(ProvisioningOutcome outcome) : IProvisioningStep
     {
         public ProvisioningOutcome? Refreshed { get; init; }
 
+        public TaskCompletionSource? RefreshGate { get; init; }
+
         public int RefreshCalls { get; private set; }
+
+        public ProvisioningOutcome? LastOutcome => outcome;
 
         public Task<ProvisioningOutcome> RunAsync(CancellationToken cancellationToken) => Task.FromResult(outcome);
 
-        public Task<ProvisioningOutcome> RefreshWifiAsync(CancellationToken cancellationToken)
+        public async Task<ProvisioningOutcome> RefreshWifiAsync(CancellationToken cancellationToken)
         {
             RefreshCalls++;
-            return Task.FromResult(Refreshed ?? outcome);
+            if (RefreshGate is { } gate)
+            {
+                await gate.Task.WaitAsync(cancellationToken);
+            }
+
+            return Refreshed ?? outcome;
         }
     }
 

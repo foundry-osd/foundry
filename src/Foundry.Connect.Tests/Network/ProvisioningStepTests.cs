@@ -550,6 +550,145 @@ public sealed class ProvisioningStepTests
         Assert.DoesNotContain(logger.Entries, static entry => entry.Level >= LogLevel.Warning);
     }
 
+    [Theory]
+    [InlineData("utf-8-bom")]
+    [InlineData("utf-16le")]
+    [InlineData("utf-16be")]
+    public async Task RunAsync_WifiProtectedTemplateWithByteOrderMark_IsReady(string encodingName)
+    {
+        using var directory = new TemporaryDirectory();
+        byte[] key = MediaSecretEnvelopeProtector.GenerateMediaKey();
+        Encoding encoding = encodingName switch
+        {
+            "utf-8-bom" => new UTF8Encoding(encoderShouldEmitUTF8Identifier: true),
+            "utf-16le" => Encoding.Unicode,
+            _ => Encoding.BigEndianUnicode
+        };
+        string xml = """
+            <?xml version="1.0" encoding="UTF-16"?>
+            <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
+              <name>Corp Profile</name>
+              <SSIDConfig><SSID><hex>436F7270</hex></SSID></SSIDConfig>
+            </WLANProfile>
+            """;
+        byte[] template = [.. encoding.GetPreamble(), .. encoding.GetBytes(xml)];
+        FoundryConnectConfigurationDocument configuration = ProtectedEnterpriseConfiguration();
+        var secrets = new ConnectRuntimeSecrets(ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned(),
+            wifiEnterpriseProfile: ConnectProtectedContent.Locked(MediaSecretEnvelopeProtector.EncryptBytes(template, key, MediaSecretEnvelopeProtector.DeploymentKeyId)),
+            protection: new DeployProtectionSettings { IsEnabled = true });
+        secrets.Unlock(key);
+
+        ProvisioningOutcome outcome = await CreateStep(directory, configuration, secrets).RunAsync(Token);
+
+        Assert.Equal(ProvisionedWifiStatus.Ready, outcome.Wifi.Status);
+        Assert.Equal("Corp Profile", outcome.WifiProfile!.Name);
+        Assert.Empty(outcome.Failures);
+    }
+
+    [Fact]
+    public async Task RunAsync_WifiLockedEnterprise_HasTheConfiguredSsidAndIsNotHidden()
+    {
+        using var directory = new TemporaryDirectory();
+        byte[] key = MediaSecretEnvelopeProtector.GenerateMediaKey();
+        FoundryConnectConfigurationDocument configuration = ProtectedEnterpriseConfiguration();
+        configuration = configuration with { Wifi = configuration.Wifi with { Ssid = " Corp " } };
+        var secrets = new ConnectRuntimeSecrets(ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned(),
+            wifiEnterpriseProfile: ConnectProtectedContent.Locked(MediaSecretEnvelopeProtector.EncryptBytes([1], key, MediaSecretEnvelopeProtector.DeploymentKeyId)),
+            protection: new DeployProtectionSettings { IsEnabled = true });
+
+        ProvisioningOutcome outcome = await CreateStep(directory, configuration, secrets).RunAsync(Token);
+
+        Assert.Equal(
+            new ProvisionedWifiState(ProvisionedWifiStatus.Locked, ProvisionedWifiUnavailableReason.None, WifiSsid.FromText("Corp"), IsEnterprise: true, IsHidden: false),
+            outcome.Wifi);
+        Assert.Null(outcome.WifiProfile);
+        Assert.Empty(outcome.Failures);
+    }
+
+    [Fact]
+    public async Task RunAsync_WifiLocked_KeepsTheItemsThatAreAlreadyAvailable()
+    {
+        using var directory = new TemporaryDirectory();
+        byte[] key = MediaSecretEnvelopeProtector.GenerateMediaKey();
+        var secrets = new ConnectRuntimeSecrets(
+            ConnectSecret.NotProvisioned(),
+            ConnectSecret.Available("media-keyed-password".ToCharArray()),
+            ConnectSecret.NotProvisioned(),
+            wifiEnterpriseProfile: ConnectProtectedContent.Locked(MediaSecretEnvelopeProtector.EncryptBytes([1], key, MediaSecretEnvelopeProtector.DeploymentKeyId)),
+            protection: new DeployProtectionSettings { IsEnabled = true });
+
+        ProvisioningOutcome outcome = await CreateStep(directory, ProtectedEnterpriseConfiguration(), secrets).RunAsync(Token);
+
+        Assert.Equal(ProvisionedWifiStatus.Locked, outcome.Wifi.Status);
+        Assert.Equal(ConnectSecretStatus.Available, secrets.WifiCertificatePfxPassword.Status);
+        Assert.Equal(ConnectSecretStatus.Locked, secrets.WifiEnterpriseProfile.Status);
+    }
+
+    [Fact]
+    public async Task RefreshWifiAsync_WhenWifiIsNotLocked_ReturnsTheCachedOutcome()
+    {
+        using var directory = new TemporaryDirectory();
+        var wlan = new FakeWlanClient { Snapshot = new(WifiAvailability.Available, [FakeWlanClient.Interface(WifiA)], []) };
+        var secrets = new ConnectRuntimeSecrets(ConnectSecret.Available("correct horse".ToCharArray()), ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned());
+        ProvisioningStep step = CreateStep(directory, PersonalWifiConfiguration(), secrets, wlan: wlan);
+        ProvisioningOutcome first = await step.RunAsync(Token);
+
+        ProvisioningOutcome refreshed = await step.RefreshWifiAsync(Token);
+
+        Assert.Same(first, refreshed);
+        Assert.Same(first, step.LastOutcome);
+        Assert.Single(wlan.SetProfileCalls);
+    }
+
+    [Fact]
+    public void LastOutcome_BeforeAnyRun_IsNullAndStartsNothing()
+    {
+        using var directory = new TemporaryDirectory();
+        var wired = new RecordingWiredClient();
+        ProvisioningStep step = CreateStep(directory, WiredConfiguration(directory), ConnectRuntimeSecrets.None(), wired: wired);
+
+        Assert.Null(step.LastOutcome);
+        Assert.Empty(wired.AddedProfiles);
+    }
+
+    [Fact]
+    public async Task RunAsync_PfxListedAsTrustedRoot_IsRefusedWithOneWarning()
+    {
+        using var directory = new TemporaryDirectory();
+        directory.CreateFile(@"Network\root.pfx", [1]);
+        directory.CreateFile(@"Network\root.cer", [2]);
+        var logger = new RecordingLogger<ProvisioningStep>();
+        var installer = new RecordingCertificateInstaller();
+        FoundryConnectConfigurationDocument configuration = WiredConfiguration(directory);
+        configuration = configuration with
+        {
+            Dot1x = configuration.Dot1x with { TrustedRootCertificates = [@"Network\root.pfx", @"Network\root.cer"] }
+        };
+
+        ProvisioningOutcome outcome = await CreateStep(directory, configuration, ConnectRuntimeSecrets.None(), certificates: installer, logger: logger).RunAsync(Token);
+
+        Assert.Equal(["root.cer"], installer.Calls.Select(static call => Path.GetFileName(call.Path)));
+        Assert.Empty(installer.PfxContents);
+        Assert.Equal([NetworkFailureCode.WiredCertificateImportFailed], outcome.Failures);
+        Assert.Equal(Dot1xAuthenticationStatus.ProfileApplied, outcome.Wired.Status);
+        RecordedLogEntry warning = Assert.Single(logger.Entries, static entry => entry.Level == LogLevel.Warning);
+        Assert.Equal("pfx", warning.Properties["CertificateKind"]);
+        Assert.DoesNotContain("root.pfx", warning.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.All(warning.Properties.Values, static value => Assert.DoesNotContain("root.pfx", value?.ToString() ?? string.Empty, StringComparison.OrdinalIgnoreCase));
+    }
+
+    private static FoundryConnectConfigurationDocument ProtectedEnterpriseConfiguration() => new()
+    {
+        Capabilities = new ConnectNetworkCapabilitiesSettings { WifiProvisioned = true },
+        Wifi = new ConnectWifiSettings
+        {
+            IsEnabled = true,
+            HasEnterpriseProfile = true,
+            EnterpriseProfileTemplatePath = @"Network\corp.xml.encrypted",
+            IsEnterpriseProfileTemplateProtected = true
+        }
+    };
+
     private static FoundryConnectConfigurationDocument WiredConfiguration(TemporaryDirectory directory)
     {
         directory.CreateFile("Network\\wired.xml", "<LANProfile />");

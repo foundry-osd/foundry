@@ -228,9 +228,11 @@ public sealed class RoamingCaptureTests
 
         Assert.Empty(_roaming.Requests);
         RecordedLogEntry warning = Assert.Single(_logger.Entries, static entry => entry.Level == LogLevel.Warning);
-        Assert.Equal("Wifi", warning.Properties["ProfileKind"]);
+        Assert.Contains("protected profile is not available", warning.Message, StringComparison.Ordinal);
+        Assert.Equal(WifiConnectionSource.Provisioned, warning.Properties["Source"]);
         Assert.Null(warning.Exception);
         Assert.DoesNotContain("Corp", warning.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.All(warning.Properties.Values, static value => Assert.DoesNotContain("Corp", value?.ToString() ?? string.Empty, StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]
@@ -325,7 +327,7 @@ public sealed class RoamingCaptureTests
         _history,
         _wlan,
         _roaming,
-        new StubProvisioningStep(provisioning ?? ProvisioningOutcome.NotConfigured),
+        new StubProvisioningStep(provisioning),
         _logger);
 
     private static FoundryConnectConfigurationDocument RoamingConfiguration() => new()
@@ -350,11 +352,16 @@ public sealed class RoamingCaptureTests
         }
     };
 
-    private sealed class StubProvisioningStep(ProvisioningOutcome outcome) : IProvisioningStep
+    // Exposes a cached outcome only: capture at exit must never start provisioning, so running it fails the test.
+    private sealed class StubProvisioningStep(ProvisioningOutcome? outcome) : IProvisioningStep
     {
-        public Task<ProvisioningOutcome> RunAsync(CancellationToken cancellationToken) => Task.FromResult(outcome);
+        public ProvisioningOutcome? LastOutcome => outcome;
 
-        public Task<ProvisioningOutcome> RefreshWifiAsync(CancellationToken cancellationToken) => Task.FromResult(outcome);
+        public Task<ProvisioningOutcome> RunAsync(CancellationToken cancellationToken) =>
+            throw new InvalidOperationException("Roaming capture must not run provisioning.");
+
+        public Task<ProvisioningOutcome> RefreshWifiAsync(CancellationToken cancellationToken) =>
+            throw new InvalidOperationException("Roaming capture must not refresh provisioning.");
     }
 
     private sealed class StubHistory : IWifiConnectionHistory

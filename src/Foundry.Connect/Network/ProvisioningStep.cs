@@ -21,18 +21,29 @@ namespace Foundry.Connect.Network;
 /// interface (T1).
 /// </summary>
 /// <remarks>
-/// Each part installs every trusted root of its <see cref="ConnectCertificateSet"/> and its client PFX, read from a plain
-/// file or, when staged encrypted, from the decrypted content (D8, L4-5). A secret that cannot be read makes only its
-/// feature unavailable (D9). A part whose secrets are still locked by the deployment password is skipped: wired 802.1X
-/// becomes unavailable for the session, the provisioned Wi-Fi stays <see cref="ProvisionedWifiStatus.Locked"/> until
-/// <see cref="RefreshWifiAsync"/> runs after the unlock (L4-10). PFX passwords and contents are cleared right after the
-/// certificate import, the Wi-Fi passphrase right after the profile document is built and a protected template right
-/// after it is decoded (T10, T15, L2-6). The wired and Wi-Fi parts are isolated: an unexpected error in one never stops
-/// the other. Roaming is not captured here (D5). Only Debug details and the wired skip are logged; the coordinator logs
-/// the operation and its failures. No SSID, profile name, file name or profile XML is ever logged.
+/// Each part installs every trusted root of its <see cref="ConnectCertificateSet"/> into <c>LocalMachine\Root</c> (a PFX
+/// listed as a root is refused) and its client PFX, read from a plain file or, when staged encrypted, from the decrypted
+/// content (D8, L4-5). A secret that cannot be read makes only its feature unavailable (D9). A part whose secrets are still
+/// locked by the deployment password is skipped: wired 802.1X becomes unavailable for the session, the provisioned Wi-Fi
+/// stays <see cref="ProvisionedWifiStatus.Locked"/> and keeps its already readable items until <see cref="RefreshWifiAsync"/>
+/// runs after the unlock (L4-10). PFX passwords and contents are cleared right after the certificate import, the Wi-Fi
+/// passphrase right after the profile document is built and a protected template right after it is decoded (T10, T15,
+/// L2-6). The wired and Wi-Fi parts are isolated: an unexpected error in one never stops the other. Roaming is not
+/// captured here (D5). Only Debug details, the wired skip and a refused root are logged; the coordinator logs the
+/// operation and its failures. No SSID, profile name, file name or profile XML is ever logged.
 /// </remarks>
 public sealed class ProvisioningStep : IProvisioningStep
 {
+    // The byte order marks StreamReader detects; UTF-32 LE (FF FE 00 00) is checked before UTF-16 LE (FF FE).
+    private static readonly Encoding[] ByteOrderMarkEncodings =
+    [
+        Encoding.UTF32,
+        new UTF32Encoding(bigEndian: true, byteOrderMark: true),
+        Encoding.UTF8,
+        Encoding.Unicode,
+        Encoding.BigEndianUnicode
+    ];
+
     private readonly object _gate = new();
     private readonly SemaphoreSlim _refreshGate = new(1, 1);
     private readonly FoundryConnectConfigurationDocument _configuration;
@@ -111,6 +122,18 @@ public sealed class ProvisioningStep : IProvisioningStep
             }
 
             return _run;
+        }
+    }
+
+    /// <inheritdoc />
+    public ProvisioningOutcome? LastOutcome
+    {
+        get
+        {
+            lock (_gate)
+            {
+                return _run is { IsCompletedSuccessfully: true } run ? run.Result : null;
+            }
         }
     }
 
@@ -267,6 +290,7 @@ public sealed class ProvisioningStep : IProvisioningStep
     private (ProvisionedWifiState State, WifiProfileDocument? Profile) ProvisionWifi(List<NetworkFailureCode> failures, CancellationToken cancellationToken)
     {
         ConnectWifiSettings settings = _configuration.Wifi;
+        bool keepSecrets = false;
         try
         {
             // Inside the try so a passphrase or password the media carries for a disabled part is still cleared.
@@ -275,9 +299,11 @@ public sealed class ProvisioningStep : IProvisioningStep
                 return (ProvisionedWifiState.NotConfigured, null);
             }
 
-            // Not a failure: the profile is built by RefreshWifiAsync once the deployment password is entered.
+            // Not a failure: the profile is built by RefreshWifiAsync once the deployment password is entered. Items that
+            // are already readable (a media-keyed secret next to a locked one) are kept for that refresh.
             if (_secrets.IsWifiLocked)
             {
+                keepSecrets = true;
                 return (LockedState(settings), null);
             }
 
@@ -300,11 +326,13 @@ public sealed class ProvisioningStep : IProvisioningStep
         }
         finally
         {
-            // Clear keeps locked items, so a part skipped while locked can still be unlocked later.
-            _secrets.WifiPassphrase.Clear();
-            _secrets.WifiCertificatePfxPassword.Clear();
-            _secrets.WifiClientCertificate.Clear();
-            _secrets.WifiEnterpriseProfile.Clear();
+            if (!keepSecrets)
+            {
+                _secrets.WifiPassphrase.Clear();
+                _secrets.WifiCertificatePfxPassword.Clear();
+                _secrets.WifiClientCertificate.Clear();
+                _secrets.WifiEnterpriseProfile.Clear();
+            }
         }
     }
 
@@ -351,14 +379,23 @@ public sealed class ProvisioningStep : IProvisioningStep
         return (Ready(profile, isEnterprise: true), profile);
     }
 
-    // Decodes the decrypted template as UTF-8 (without a byte order mark), then zeroes the content buffer.
+    // Decodes the decrypted template like File.ReadAllText reads a plain one (byte order mark detection, UTF-8 otherwise;
+    // the generator keeps a UTF-16 template as is), then zeroes the content buffer.
     private string DecodeProtectedTemplate()
     {
         try
         {
             ReadOnlySpan<byte> content = _secrets.WifiEnterpriseProfile.Content;
-            ReadOnlySpan<byte> preamble = Encoding.UTF8.Preamble;
-            return Encoding.UTF8.GetString(content.StartsWith(preamble) ? content[preamble.Length..] : content);
+            foreach (Encoding encoding in ByteOrderMarkEncodings)
+            {
+                ReadOnlySpan<byte> preamble = encoding.Preamble;
+                if (content.StartsWith(preamble))
+                {
+                    return encoding.GetString(content[preamble.Length..]);
+                }
+            }
+
+            return Encoding.UTF8.GetString(content);
         }
         finally
         {
@@ -467,10 +504,21 @@ public sealed class ProvisioningStep : IProvisioningStep
             bool importFailed = false;
             foreach (string root in certificates.TrustedRootCertificatePaths)
             {
-                if (ResolveExistingAssetPath(root) is string rootPath)
+                if (ResolveExistingAssetPath(root) is not string rootPath)
                 {
-                    importFailed |= !Record(CertificateInstaller.GetCertificateKind(rootPath), _certificates.Install(rootPath, ReadOnlySpan<char>.Empty));
+                    continue;
                 }
+
+                // Controller ruling: a trusted root only ever goes to LocalMachine\Root; a PFX listed as a root is refused,
+                // never imported into LocalMachine\My with an empty password.
+                if (NetworkProfileRoamingArtifacts.IsPfxPath(rootPath) || NetworkProfileRoamingArtifacts.IsProtectedPfxPath(rootPath))
+                {
+                    _logger.LogWarning("Trusted root certificate refused because it is a PFX package. CertificateKind={CertificateKind}", "pfx");
+                    importFailed = true;
+                    continue;
+                }
+
+                importFailed |= !Record(CertificateInstaller.GetCertificateKind(rootPath), _certificates.Install(rootPath, ReadOnlySpan<char>.Empty));
             }
 
             ReadOnlySpan<char> clientPassword = password.Status == ConnectSecretStatus.Available ? password.Value : ReadOnlySpan<char>.Empty;
