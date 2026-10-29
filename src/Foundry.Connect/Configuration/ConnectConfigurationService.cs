@@ -255,15 +255,24 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
             return new ConnectRuntimeSecrets(ReadLegacyWifiPassphrase(root), ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned());
         }
 
-        byte[]? mediaSecretsKey = LoadMediaSecretsKey(configurationPath);
+        byte[]? mediaSecretsKey = LoadMediaSecretsKey(configurationPath, out ConnectSecretFailure keyFailure);
+        ConnectSecret? wifiPassphrase = null;
+        ConnectSecret? wifiCertificatePassword = null;
         try
         {
-            return new ConnectRuntimeSecrets(
-                wifi?.PassphraseSecret is null
-                    ? ReadLegacyWifiPassphrase(root)
-                    : DecryptSecret(wifi.PassphraseSecret, mediaSecretsKey, WifiPassphraseSecretName),
-                DecryptSecret(wifi?.CertificatePfxPasswordSecret, mediaSecretsKey, WifiCertificatePasswordSecretName),
-                DecryptSecret(dot1x?.CertificatePfxPasswordSecret, mediaSecretsKey, WiredCertificatePasswordSecretName));
+            // Built one at a time so a value already decrypted is zeroed if a later step throws.
+            wifiPassphrase = wifi?.PassphraseSecret is null
+                ? ReadLegacyWifiPassphrase(root)
+                : DecryptSecret(wifi.PassphraseSecret, mediaSecretsKey, keyFailure, WifiPassphraseSecretName);
+            wifiCertificatePassword = DecryptSecret(wifi?.CertificatePfxPasswordSecret, mediaSecretsKey, keyFailure, WifiCertificatePasswordSecretName);
+            ConnectSecret wiredCertificatePassword = DecryptSecret(dot1x?.CertificatePfxPasswordSecret, mediaSecretsKey, keyFailure, WiredCertificatePasswordSecretName);
+            return new ConnectRuntimeSecrets(wifiPassphrase, wifiCertificatePassword, wiredCertificatePassword);
+        }
+        catch
+        {
+            wifiPassphrase?.Clear();
+            wifiCertificatePassword?.Clear();
+            throw;
         }
         finally
         {
@@ -280,9 +289,10 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
     /// instead of failing the load, so only the feature that needs it is disabled (D9, L2-5).
     /// </summary>
     /// <param name="envelope">The envelope, or <see langword="null"/> when the media does not provision this secret.</param>
-    /// <param name="mediaSecretsKey">The media key, or <see langword="null"/> when the key file is missing.</param>
+    /// <param name="mediaSecretsKey">The media key, or <see langword="null"/> when the key file is missing or unreadable.</param>
+    /// <param name="keyFailure">Why <paramref name="mediaSecretsKey"/> is <see langword="null"/>.</param>
     /// <param name="secretName">The stable, non-identifying secret name used in the log.</param>
-    private ConnectSecret DecryptSecret(SecretEnvelope? envelope, byte[]? mediaSecretsKey, string secretName)
+    private ConnectSecret DecryptSecret(SecretEnvelope? envelope, byte[]? mediaSecretsKey, ConnectSecretFailure keyFailure, string secretName)
     {
         if (envelope is null)
         {
@@ -291,7 +301,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
 
         if (mediaSecretsKey is null)
         {
-            return Unavailable(secretName, ConnectSecretFailure.MediaKeyMissing);
+            return Unavailable(secretName, keyFailure);
         }
 
         try
@@ -351,8 +361,8 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         return false;
     }
 
-    // Returns null when the key file is missing; the secrets that need it become unavailable instead of failing the load.
-    private static byte[]? LoadMediaSecretsKey(string configurationPath)
+    // Returns null when the key file is missing or cannot be read; the secrets that need it become unavailable instead of failing the load.
+    private static byte[]? LoadMediaSecretsKey(string configurationPath, out ConnectSecretFailure failure)
     {
         string? configurationDirectory = Path.GetDirectoryName(configurationPath);
         if (string.IsNullOrWhiteSpace(configurationDirectory))
@@ -361,7 +371,22 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         }
 
         string keyPath = Path.Combine(configurationDirectory, WinPeWorkspaceLayout.MediaSecretsKeyRelativePath);
-        return File.Exists(keyPath) ? File.ReadAllBytes(keyPath) : null;
+        if (!File.Exists(keyPath))
+        {
+            failure = ConnectSecretFailure.MediaKeyMissing;
+            return null;
+        }
+
+        try
+        {
+            failure = ConnectSecretFailure.None;
+            return File.ReadAllBytes(keyPath);
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        {
+            failure = ConnectSecretFailure.MediaKeyUnreadable;
+            return null;
+        }
     }
 
     internal readonly record struct ConfigurationResolution(string? Path, bool IsRequired);

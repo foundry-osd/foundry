@@ -371,7 +371,7 @@ public sealed class ProvisioningStep : IProvisioningStep
                 return CertificateStepResult.Completed;
             }
 
-            if (IsPfxPath(certificatePath) && passwordEnvelope is not null && password.Status == ConnectSecretStatus.Unavailable)
+            if (CertificateInstaller.IsPfxPath(certificatePath) && passwordEnvelope is not null && password.Status == ConnectSecretStatus.Unavailable)
             {
                 return CertificateStepResult.SecretUnavailable;
             }
@@ -380,8 +380,8 @@ public sealed class ProvisioningStep : IProvisioningStep
                 certificatePath,
                 password.Status == ConnectSecretStatus.Available ? password.Value : ReadOnlySpan<char>.Empty);
             _logger.LogDebug(
-                "Provisioned certificate processed. CertificateFileName={CertificateFileName}, CertificateInstallStatus={CertificateInstallStatus}",
-                Path.GetFileName(certificatePath),
+                "Provisioned certificate processed. CertificateKind={CertificateKind}, CertificateInstallStatus={CertificateInstallStatus}",
+                CertificateInstaller.GetCertificateKind(certificatePath),
                 result.Status);
             if (!result.IsSuccess)
             {
@@ -415,11 +415,4 @@ public sealed class ProvisioningStep : IProvisioningStep
 
     private static ProvisionedWifiState Unavailable(ProvisionedWifiUnavailableReason reason, bool isEnterprise, WifiSsid? ssid = null) =>
         new(ProvisionedWifiStatus.Unavailable, reason, ssid, IsEnterprise: isEnterprise);
-
-    private static bool IsPfxPath(string certificatePath)
-    {
-        string extension = Path.GetExtension(certificatePath);
-        return string.Equals(extension, ".pfx", StringComparison.OrdinalIgnoreCase)
-            || string.Equals(extension, ".p12", StringComparison.OrdinalIgnoreCase);
-    }
 }

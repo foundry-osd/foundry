@@ -107,13 +107,21 @@ public interface ICertificateInstaller
 }
 
 /// <summary>
+/// Loads a PKCS#12 file; the seam lets tests observe which key storage flags each load uses.
+/// </summary>
+internal delegate X509Certificate2 Pkcs12FileLoader(string path, ReadOnlySpan<char> password, X509KeyStorageFlags keyStorageFlags);
+
+/// <summary>
 /// <see cref="ICertificateInstaller"/> that loads with <see cref="X509CertificateLoader"/>, adds a certificate once per process
 /// and per store (T10), and disposes every loaded instance.
 /// </summary>
 /// <remarks>
-/// The store keeps its own copy, so the loaded instance is disposed right after <see cref="ICertificateStore.Add"/>. With
-/// <see cref="X509KeyStorageFlags.PersistKeySet"/> the private key stays on disk after that dispose. A failure is logged with
-/// the file name and the exception type only: PKCS#12 error messages can echo their inputs.
+/// A PFX is first loaded with <see cref="X509KeyStorageFlags.EphemeralKeySet"/> only to read its thumbprint, so a certificate
+/// that is already installed never writes a private key. Only when the store needs it is the file loaded again with the
+/// persisting flags: <see cref="X509KeyStorageFlags.PersistKeySet"/> keys stay on disk after dispose, in a new container per
+/// load, so a persisting load that is not added would leave an orphaned machine key. The store keeps its own copy, so every
+/// loaded instance is disposed. A failure is logged with the certificate kind and the exception type only: PKCS#12 error
+/// messages can echo their inputs, and author file names can carry organization names into the remote Logs stream.
 /// </remarks>
 public sealed class CertificateInstaller : ICertificateInstaller
 {
@@ -124,6 +132,7 @@ public sealed class CertificateInstaller : ICertificateInstaller
     private readonly ICertificateStore _store;
     private readonly ILogger<CertificateInstaller> _logger;
     private readonly X509KeyStorageFlags _pfxKeyStorageFlags;
+    private readonly Pkcs12FileLoader _loadPkcs12;
 
     /// <summary>
     /// Initializes an installer that persists PFX private keys in the machine key set.
@@ -133,58 +142,105 @@ public sealed class CertificateInstaller : ICertificateInstaller
     {
     }
 
-    /// <summary>Lets tests load PFX files with <see cref="X509KeyStorageFlags.EphemeralKeySet"/> so no key reaches the disk.</summary>
-    internal CertificateInstaller(ICertificateStore store, ILogger<CertificateInstaller> logger, X509KeyStorageFlags pfxKeyStorageFlags)
+    /// <summary>
+    /// Lets tests choose the flags of the persisting load (<see cref="X509KeyStorageFlags.EphemeralKeySet"/> keeps keys off the disk)
+    /// and observe every PKCS#12 load.
+    /// </summary>
+    internal CertificateInstaller(
+        ICertificateStore store,
+        ILogger<CertificateInstaller> logger,
+        X509KeyStorageFlags pfxKeyStorageFlags,
+        Pkcs12FileLoader? loadPkcs12 = null)
     {
         _store = store ?? throw new ArgumentNullException(nameof(store));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _pfxKeyStorageFlags = pfxKeyStorageFlags;
+        _loadPkcs12 = loadPkcs12 ?? (static (path, password, flags) => X509CertificateLoader.LoadPkcs12FromFile(path, password, flags));
     }
 
     /// <inheritdoc />
     public CertificateInstallResult Install(string certificatePath, ReadOnlySpan<char> pfxPassword)
     {
-        X509Certificate2? certificate = null;
+        bool isPfx = IsPfxPath(certificatePath);
         try
         {
-            bool isPfx = IsPfxPath(certificatePath);
-            certificate = isPfx
-                ? X509CertificateLoader.LoadPkcs12FromFile(certificatePath, pfxPassword, _pfxKeyStorageFlags)
-                : X509CertificateLoader.LoadCertificateFromFile(certificatePath);
-            StoreName storeName = isPfx ? StoreName.My : StoreName.Root;
-            string thumbprint = certificate.Thumbprint;
-
-            lock (_gate)
-            {
-                if (_installed.Contains((storeName, thumbprint)) || _store.Contains(storeName, thumbprint))
-                {
-                    _installed.Add((storeName, thumbprint));
-                    return new CertificateInstallResult(CertificateInstallStatus.AlreadyPresent, thumbprint);
-                }
-
-                _store.Add(storeName, certificate);
-                _installed.Add((storeName, thumbprint));
-                return new CertificateInstallResult(CertificateInstallStatus.Installed, thumbprint);
-            }
+            return isPfx ? InstallPfx(certificatePath, pfxPassword) : InstallPublicCertificate(certificatePath);
         }
         catch (Exception exception)
         {
             _logger.LogWarning(
-                "Certificate import failed. CertificateFileName={CertificateFileName}, FailureType={FailureType}",
-                Path.GetFileName(certificatePath),
+                "Certificate import failed. CertificateKind={CertificateKind}, FailureType={FailureType}",
+                GetCertificateKind(certificatePath),
                 exception.GetType().Name);
             return new CertificateInstallResult(CertificateInstallStatus.Failed);
         }
-        finally
+    }
+
+    /// <summary>Returns whether <paramref name="certificatePath"/> names a PKCS#12 file (<c>.pfx</c> or <c>.p12</c>, any case).</summary>
+    internal static bool IsPfxPath(string certificatePath)
+    {
+        string? extension = Path.GetExtension(certificatePath);
+        return string.Equals(extension, ".pfx", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(extension, ".p12", StringComparison.OrdinalIgnoreCase);
+    }
+
+    /// <summary>Returns the non-identifying kind logged instead of the author file name: <c>pfx</c> or <c>certificate</c>.</summary>
+    internal static string GetCertificateKind(string certificatePath) => IsPfxPath(certificatePath) ? "pfx" : "certificate";
+
+    private CertificateInstallResult InstallPfx(string certificatePath, ReadOnlySpan<char> pfxPassword)
+    {
+        string thumbprint;
+        using (X509Certificate2 probe = _loadPkcs12(certificatePath, pfxPassword, X509KeyStorageFlags.EphemeralKeySet))
         {
-            certificate?.Dispose();
+            thumbprint = probe.Thumbprint;
+        }
+
+        lock (_gate)
+        {
+            if (IsAlreadyPresent(StoreName.My, thumbprint))
+            {
+                return new CertificateInstallResult(CertificateInstallStatus.AlreadyPresent, thumbprint);
+            }
+
+            using X509Certificate2 certificate = _loadPkcs12(certificatePath, pfxPassword, _pfxKeyStorageFlags);
+            return Add(StoreName.My, certificate, thumbprint);
         }
     }
 
-    private static bool IsPfxPath(string certificatePath)
+    private CertificateInstallResult InstallPublicCertificate(string certificatePath)
     {
-        string extension = Path.GetExtension(certificatePath);
-        return string.Equals(extension, ".pfx", StringComparison.OrdinalIgnoreCase) ||
-               string.Equals(extension, ".p12", StringComparison.OrdinalIgnoreCase);
+        using X509Certificate2 certificate = X509CertificateLoader.LoadCertificateFromFile(certificatePath);
+        string thumbprint = certificate.Thumbprint;
+        lock (_gate)
+        {
+            return IsAlreadyPresent(StoreName.Root, thumbprint)
+                ? new CertificateInstallResult(CertificateInstallStatus.AlreadyPresent, thumbprint)
+                : Add(StoreName.Root, certificate, thumbprint);
+        }
+    }
+
+    // Callers hold _gate.
+    private bool IsAlreadyPresent(StoreName storeName, string thumbprint)
+    {
+        if (_installed.Contains((storeName, thumbprint)))
+        {
+            return true;
+        }
+
+        if (!_store.Contains(storeName, thumbprint))
+        {
+            return false;
+        }
+
+        _installed.Add((storeName, thumbprint));
+        return true;
+    }
+
+    // Callers hold _gate.
+    private CertificateInstallResult Add(StoreName storeName, X509Certificate2 certificate, string thumbprint)
+    {
+        _store.Add(storeName, certificate);
+        _installed.Add((storeName, thumbprint));
+        return new CertificateInstallResult(CertificateInstallStatus.Installed, thumbprint);
     }
 }

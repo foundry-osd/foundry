@@ -13,8 +13,8 @@ namespace Foundry.Connect.Network;
 /// <remarks>
 /// An SSID is a sequence of 1 to 32 bytes, not text: equality and hashing compare bytes, so two networks that
 /// differ only by case or by invalid UTF-8 sequences stay distinct. The text form is for display only and is never
-/// trimmed. The SSID is a sensitive name for remote diagnostics: <see cref="ToString"/> never returns it, and logs
-/// must pass it only as the structured <c>Ssid</c> property.
+/// trimmed. The SSID is a sensitive name: <see cref="ToString"/> never returns it, and it must never be logged, neither in
+/// message text nor as a structured property, because the remote Logs stream mirrors every log property.
 /// </remarks>
 public sealed class WifiSsid : IEquatable<WifiSsid>
 {

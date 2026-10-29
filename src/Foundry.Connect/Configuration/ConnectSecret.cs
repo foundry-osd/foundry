@@ -33,6 +33,9 @@ public enum ConnectSecretFailure
     /// <summary>The media secret key file is missing next to the configuration.</summary>
     MediaKeyMissing,
 
+    /// <summary>The media secret key file exists but could not be read (I/O error or access denied).</summary>
+    MediaKeyUnreadable,
+
     /// <summary>The media secret key file has an invalid length.</summary>
     MediaKeyInvalid,
 

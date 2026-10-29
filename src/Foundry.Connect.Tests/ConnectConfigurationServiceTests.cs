@@ -616,30 +616,7 @@ public sealed class ConnectConfigurationServiceTests
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
         using var tempDirectory = new TemporaryDirectory();
-        Foundry.Core.Models.Configuration.FoundryConnectProvisioningBundle bundle =
-            new ConnectConfigurationGenerator().CreateProvisioningBundle(
-                new CoreConfiguration.FoundryConfigurationDocument
-                {
-                    Network = new CoreConfiguration.NetworkSettings
-                    {
-                        WifiProvisioned = true,
-                        Dot1x = new CoreConfiguration.Dot1xSettings
-                        {
-                            IsEnabled = true,
-                            ProfileTemplate = Reference(CreateFile(tempDirectory.Path, "wired.xml", "<LANProfile />")),
-                            RequiresCertificate = true,
-                            Certificate = Reference(CreateFile(tempDirectory.Path, "wired.pfx", "wired-pfx"))
-                        },
-                        Wifi = new CoreConfiguration.WifiSettings
-                        {
-                            IsEnabled = true,
-                            Ssid = "Corp WiFi",
-                            SecurityType = "WPA2/WPA3-Personal"
-                        }
-                    }
-                },
-                Inputs(tempDirectory.Path, new NetworkSecrets { WifiPassphrase = "super-secret-passphrase", WiredCertificatePfxPassword = "wired-password" }),
-                tempDirectory.Path);
+        Foundry.Core.Models.Configuration.FoundryConnectProvisioningBundle bundle = CreatePersonalWifiAndWiredProvisioningBundle(tempDirectory.Path);
         Assert.NotNull(bundle.MediaSecretsKey);
 
         string configDirectory = System.IO.Path.Combine(tempDirectory.Path, "Config");
@@ -648,7 +625,8 @@ public sealed class ConnectConfigurationServiceTests
         string configurationPath = CreateJsonFile(configDirectory, "foundry.connect.config.json", configurationJson);
         CreateBinaryFile(System.IO.Path.Combine(configDirectory, "Secrets"), "media-secrets.key", bundle.MediaSecretsKey);
 
-        var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
+        var logger = new RecordingLogger<ConnectConfigurationService>();
+        var service = new ConnectConfigurationService(["--config", configurationPath], logger);
 
         (_, ConnectRuntimeSecrets secrets) = LoadWithSecrets(service);
 
@@ -656,6 +634,42 @@ public sealed class ConnectConfigurationServiceTests
         Assert.Equal(ConnectSecretFailure.DecryptionFailed, secrets.WifiPassphrase.Failure);
         Assert.Equal(ConnectSecretStatus.Available, secrets.WiredCertificatePfxPassword.Status);
         Assert.Equal("wired-password", new string(secrets.WiredCertificatePfxPassword.Value));
+        RecordedLogEntry warning = Assert.Single(logger.Entries, static entry => entry.Level == LogLevel.Warning);
+        Assert.Equal("Provisioned secret is unavailable. Secret=wifi_passphrase, Failure=DecryptionFailed", warning.Message);
+        Assert.Equal("wifi_passphrase", warning.Properties["SecretName"]);
+        Assert.Equal(ConnectSecretFailure.DecryptionFailed, warning.Properties["SecretFailure"]);
+    }
+
+    [Fact]
+    public void Load_WhenMediaKeyCannotBeRead_MarksDependentSecretsUnavailable()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var tempDirectory = new TemporaryDirectory();
+        Foundry.Core.Models.Configuration.FoundryConnectProvisioningBundle bundle = CreatePersonalWifiAndWiredProvisioningBundle(tempDirectory.Path);
+        Assert.NotNull(bundle.MediaSecretsKey);
+
+        string configDirectory = System.IO.Path.Combine(tempDirectory.Path, "Config");
+        Directory.CreateDirectory(configDirectory);
+        string configurationPath = CreateJsonFile(configDirectory, "foundry.connect.config.json", bundle.ConfigurationJson);
+        string keyPath = CreateBinaryFile(System.IO.Path.Combine(configDirectory, "Secrets"), "media-secrets.key", bundle.MediaSecretsKey);
+        var logger = new RecordingLogger<ConnectConfigurationService>();
+        var service = new ConnectConfigurationService(["--config", configurationPath], logger);
+
+        ConnectRuntimeSecrets secrets;
+        // An exclusive handle makes File.ReadAllBytes fail with a sharing violation (IOException) while the file still exists.
+        using (new FileStream(keyPath, FileMode.Open, FileAccess.Read, FileShare.None))
+        {
+            (_, secrets) = LoadWithSecrets(service);
+        }
+
+        Assert.Equal(ConnectSecretStatus.Unavailable, secrets.WifiPassphrase.Status);
+        Assert.Equal(ConnectSecretFailure.MediaKeyUnreadable, secrets.WifiPassphrase.Failure);
+        Assert.Equal(ConnectSecretStatus.Unavailable, secrets.WiredCertificatePfxPassword.Status);
+        Assert.Equal(ConnectSecretFailure.MediaKeyUnreadable, secrets.WiredCertificatePfxPassword.Failure);
+        Assert.Equal(ConnectSecretStatus.NotProvisioned, secrets.WifiCertificatePfxPassword.Status);
+        RecordedLogEntry[] warnings = [.. logger.Entries.Where(static entry => entry.Level == LogLevel.Warning)];
+        Assert.Equal(["wifi_passphrase", "wired_certificate_password"], warnings.Select(static entry => entry.Properties["SecretName"]));
+        Assert.All(warnings, static entry => Assert.Equal(ConnectSecretFailure.MediaKeyUnreadable, entry.Properties["SecretFailure"]));
     }
 
     [Fact]
@@ -884,6 +898,33 @@ public sealed class ConnectConfigurationServiceTests
                 }
             },
             Inputs(stagingDirectoryPath, new NetworkSecrets { WifiPassphrase = "super-secret-passphrase" }),
+            stagingDirectoryPath);
+    }
+
+    private static Foundry.Core.Models.Configuration.FoundryConnectProvisioningBundle CreatePersonalWifiAndWiredProvisioningBundle(string stagingDirectoryPath)
+    {
+        return new ConnectConfigurationGenerator().CreateProvisioningBundle(
+            new CoreConfiguration.FoundryConfigurationDocument
+            {
+                Network = new CoreConfiguration.NetworkSettings
+                {
+                    WifiProvisioned = true,
+                    Dot1x = new CoreConfiguration.Dot1xSettings
+                    {
+                        IsEnabled = true,
+                        ProfileTemplate = Reference(CreateFile(stagingDirectoryPath, "wired.xml", "<LANProfile />")),
+                        RequiresCertificate = true,
+                        Certificate = Reference(CreateFile(stagingDirectoryPath, "wired.pfx", "wired-pfx"))
+                    },
+                    Wifi = new CoreConfiguration.WifiSettings
+                    {
+                        IsEnabled = true,
+                        Ssid = "Corp WiFi",
+                        SecurityType = "WPA2/WPA3-Personal"
+                    }
+                }
+            },
+            Inputs(stagingDirectoryPath, new NetworkSecrets { WifiPassphrase = "super-secret-passphrase", WiredCertificatePfxPassword = "wired-password" }),
             stagingDirectoryPath);
     }
 

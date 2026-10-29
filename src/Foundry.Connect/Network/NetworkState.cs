@@ -307,7 +307,7 @@ public sealed record VisibleWifiNetwork(Guid InterfaceId, WifiSsid Ssid, WifiSec
 /// </summary>
 /// <param name="InterfaceId">WLAN interface that carries the connection.</param>
 /// <param name="Ssid">Connected SSID.</param>
-/// <param name="ProfileName">WLAN profile name; it may expose the SSID, so it is logged only as a structured property.</param>
+/// <param name="ProfileName">WLAN profile name; it may expose the SSID, so it must never be logged (the remote Logs stream mirrors every log property).</param>
 /// <param name="Security">Security type.</param>
 /// <param name="Source">Who created the profile.</param>
 public sealed record WifiConnection(
