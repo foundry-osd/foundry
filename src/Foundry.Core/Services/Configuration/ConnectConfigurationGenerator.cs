@@ -21,8 +21,9 @@ namespace Foundry.Core.Services.Configuration;
 /// <para>
 /// Network secrets are protected by the deployment key only (D10): a personal Wi-Fi passphrase and a client certificate
 /// password become <see cref="MediaSecretEnvelopeProtector.DeploymentKeyId"/> envelopes, and a client PFX and an enterprise
-/// Wi-Fi template that contains <c>keyMaterial</c> are staged as <c>&lt;file name&gt;.encrypted</c>, a <see cref="SecretEnvelope"/>
-/// JSON document of the file bytes. Trusted root certificates and wired profiles stay plain files. No media key is created.
+/// Wi-Fi template that contains <c>keyMaterial</c> (or that cannot be read to tell) are staged as <c>&lt;file name&gt;.encrypted</c>,
+/// a <see cref="SecretEnvelope"/> JSON document of the file bytes. Trusted root certificates and wired profiles stay plain files;
+/// staged files sharing a name get a numeric suffix. No media key is created.
 /// </para>
 /// <para>
 /// A network secret without enabled Password protection is refused (<see cref="InvalidOperationException"/>), even though
@@ -294,10 +295,11 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
         byte[] content = File.ReadAllBytes(GetExistingFullPath(sourcePath));
         try
         {
-            using var reader = new StreamReader(new MemoryStream(content, writable: false), detectEncodingFromByteOrderMarks: true);
-            return WlanProfileReader.ContainsKeyMaterial(reader.ReadToEnd())
-                ? (staging.WriteEncrypted(content, Path.GetFileName(sourcePath), WifiProfileFolder, NetworkConfigurationValidationCode.WifiMediaProtectionRequired), true)
-                : (staging.Copy(sourcePath, WifiProfileFolder), false);
+            // Fail closed: only a template read completely without key material stays plain; an unreadable one is encrypted too.
+            using var stream = new MemoryStream(content, writable: false);
+            return WlanProfileReader.DetectKeyMaterial(stream) == WlanProfileKeyMaterial.Absent
+                ? (staging.Copy(sourcePath, WifiProfileFolder), false)
+                : (staging.WriteEncrypted(content, Path.GetFileName(sourcePath), WifiProfileFolder, NetworkConfigurationValidationCode.WifiMediaProtectionRequired), true);
         }
         finally
         {
@@ -351,6 +353,7 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
     private sealed class AssetStaging(string assetRootPath, byte[]? deploymentKey)
     {
         private readonly List<FoundryConnectProvisionedAssetFile> assetFiles = [];
+        private readonly HashSet<string> stagedRelativePaths = new(StringComparer.OrdinalIgnoreCase);
 
         public IReadOnlyList<FoundryConnectProvisionedAssetFile> AssetFiles => assetFiles;
 
@@ -411,9 +414,22 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
         private byte[] RequireKey(NetworkConfigurationValidationCode protectionRequiredCode) =>
             deploymentKey ?? throw new InvalidOperationException($"Network configuration is invalid: {protectionRequiredCode}.");
 
+        // Two sources may share a file name (trusted roots are distinct by content, not by name). The first keeps its name and each
+        // later one gets "-2", "-3", ... before its first dot, compared case-insensitively like the media file system, so every
+        // staged path and media destination is distinct and deterministic for the same input order.
         private string PrepareStagedFile(string fileName, string folder, out string relativePath)
         {
             string stagedRelativePath = Path.Combine(folder, fileName);
+            int dotIndex = fileName.IndexOf('.', StringComparison.Ordinal);
+            for (int suffix = 2; !stagedRelativePaths.Add(stagedRelativePath); suffix++)
+            {
+                stagedRelativePath = Path.Combine(
+                    folder,
+                    dotIndex < 0
+                        ? $"{fileName}-{suffix}"
+                        : $"{fileName[..dotIndex]}-{suffix}{fileName[dotIndex..]}");
+            }
+
             string stagedFilePath = Path.Combine(assetRootPath, stagedRelativePath);
             Directory.CreateDirectory(Path.GetDirectoryName(stagedFilePath)!);
             assetFiles.Add(new FoundryConnectProvisionedAssetFile

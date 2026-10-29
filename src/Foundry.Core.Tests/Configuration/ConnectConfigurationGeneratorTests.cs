@@ -462,6 +462,130 @@ public sealed class ConnectConfigurationGeneratorTests
         Assert.DoesNotContain("\"kind\"", bundle.ConfigurationJson, StringComparison.Ordinal);
     }
 
+    [Fact]
+    public void Generate_TrustedRootsWithTheSameFileName_AreStagedUnderDistinctNames()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string profile = tempDirectory.CreateFile("source", "wired.xml", "<LANProfile />");
+        string firstRoot = tempDirectory.CreateFile("first", "root.cer", "first-root");
+        string secondRoot = tempDirectory.CreateFile("second", "ROOT.cer", "second-root");
+        FoundryConfigurationDocument document = new()
+        {
+            Network = new NetworkSettings
+            {
+                Dot1x = new Dot1xSettings
+                {
+                    IsEnabled = true,
+                    ProfileTemplate = TestFileReferences.For(profile),
+                    TrustedRootCertificates = [TestFileReferences.For(firstRoot), TestFileReferences.For(secondRoot)]
+                }
+            }
+        };
+
+        FoundryConnectProvisioningBundle bundle = new ConnectConfigurationGenerator().CreateProvisioningBundle(
+            document, TestFileReferences.Resolving(profile, firstRoot, secondRoot), tempDirectory.Path);
+
+        Assert.Equal([@"Network\Certificates\Wired\root.cer", @"Network\Certificates\Wired\ROOT-2.cer"], bundle.Configuration.Dot1x.TrustedRootCertificates);
+        Assert.Equal(bundle.AssetFiles.Count, bundle.AssetFiles.Select(asset => asset.RelativeDestinationPath).Distinct(StringComparer.OrdinalIgnoreCase).Count());
+        Assert.Equal("first-root", File.ReadAllText(StagedSourcePath(bundle, @"Foundry\Config\Network\Certificates\Wired\root.cer")));
+        Assert.Equal("second-root", File.ReadAllText(StagedSourcePath(bundle, @"Foundry\Config\Network\Certificates\Wired\ROOT-2.cer")));
+    }
+
+    [Fact]
+    public void Generate_EnterpriseTemplateWithKeyMaterialOnUnprotectedMedia_IsStagedPlain()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string template = tempDirectory.CreateFile("source", "keyed.xml", KeyedEnterpriseTemplate);
+        FoundryConfigurationDocument document = EnterpriseWifiWithoutCertificates(template);
+
+        FoundryConnectProvisioningBundle bundle = new ConnectConfigurationGenerator().CreateProvisioningBundle(
+            document, SourceInputs(tempDirectory), tempDirectory.Path);
+
+        Assert.False(bundle.Configuration.Wifi.IsEnterpriseProfileTemplateProtected);
+        Assert.Equal(@"Network\Wifi\Profiles\keyed.xml", bundle.Configuration.Wifi.EnterpriseProfileTemplatePath);
+        Assert.Equal(KeyedEnterpriseTemplate, File.ReadAllText(StagedSourcePath(bundle, @"Foundry\Config\Network\Wifi\Profiles\keyed.xml")));
+        Assert.Null(bundle.Configuration.Protection);
+    }
+
+    [Fact]
+    public void Generate_UnreadableEnterpriseTemplateOnProtectedMedia_IsEncrypted()
+    {
+        // A template the reader refuses (here a prohibited DTD) may still hide key material, so protected media encrypt it.
+        using var tempDirectory = new TemporaryDirectory();
+        using DeploymentMediaProtectionMaterial protection = Protected();
+        string template = tempDirectory.CreateFile("source", "dtd.xml",
+            """<!DOCTYPE WLANProfile [<!ENTITY k "secret">]><WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1"><name>&k;</name></WLANProfile>""");
+
+        FoundryConnectProvisioningBundle bundle = new ConnectConfigurationGenerator().CreateProvisioningBundle(
+            EnterpriseWifiWithoutCertificates(template), SourceInputs(tempDirectory), tempDirectory.Path, null, protection);
+
+        Assert.True(bundle.Configuration.Wifi.IsEnterpriseProfileTemplateProtected);
+        Assert.Equal(@"Network\Wifi\Profiles\dtd.xml.encrypted", bundle.Configuration.Wifi.EnterpriseProfileTemplatePath);
+        Assert.Equal(File.ReadAllBytes(template), DecryptStagedAsset(bundle, @"Foundry\Config\Network\Wifi\Profiles\dtd.xml.encrypted", protection));
+        Assert.Equal(protection.Settings, bundle.Configuration.Protection);
+    }
+
+    [Fact]
+    public void Generate_StaleClientCertificateOnPersonalWifi_IsNotStaged()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        using DeploymentMediaProtectionMaterial protection = Protected();
+        FoundryConfigurationDocument source = CreateRuntimeFixtureSource(tempDirectory, enterpriseWifi: false);
+        AuthoringFileReference stalePfx = TestFileReferences.For(tempDirectory.CreateFile("source", "stale.pfx", "stale-pfx"));
+        source = source with { Network = source.Network with { Wifi = source.Network.Wifi with { ClientCertificate = stalePfx } } };
+
+        FoundryConnectProvisioningBundle bundle = new ConnectConfigurationGenerator().CreateProvisioningBundle(
+            source,
+            SourceInputs(tempDirectory, FixtureSecrets(false) with { WifiCertificatePfxPassword = "stale-password" }),
+            tempDirectory.Path,
+            null,
+            protection);
+
+        Assert.Null(bundle.Configuration.Wifi.ClientCertificate);
+        Assert.NotNull(bundle.Configuration.Wifi.PassphraseSecret);
+        Assert.DoesNotContain(bundle.AssetFiles, asset => asset.RelativeDestinationPath.Contains(@"\Wifi\", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public void Generate_StalePassphraseOnEnterpriseWifi_IsNotStaged()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        using DeploymentMediaProtectionMaterial protection = Protected();
+
+        FoundryConnectProvisioningBundle bundle = new ConnectConfigurationGenerator().CreateProvisioningBundle(
+            CreateRuntimeFixtureSource(tempDirectory, enterpriseWifi: true),
+            SourceInputs(tempDirectory, FixtureSecrets(true) with { WifiPassphrase = "stale-passphrase" }),
+            tempDirectory.Path,
+            null,
+            protection);
+
+        Assert.Null(bundle.Configuration.Wifi.PassphraseSecret);
+        Assert.NotNull(bundle.Configuration.Wifi.ClientCertificate);
+    }
+
+    private const string KeyedEnterpriseTemplate =
+        """<WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1"><name>Corp</name><MSM><security><sharedKey><keyMaterial>secret</keyMaterial></sharedKey></security></MSM></WLANProfile>""";
+
+    // Enterprise Wi-Fi with only a template: no client certificate, so the media needs no protection.
+    private static FoundryConfigurationDocument EnterpriseWifiWithoutCertificates(string templatePath) => new()
+    {
+        Network = new NetworkSettings
+        {
+            WifiProvisioned = true,
+            Wifi = new WifiSettings
+            {
+                IsEnabled = true,
+                Ssid = "Corp WiFi",
+                SecurityType = NetworkConfigurationValidator.WifiSecurityEnterprise,
+                HasEnterpriseProfile = true,
+                EnterpriseProfileTemplate = TestFileReferences.For(templatePath)
+            }
+        }
+    };
+
+    private static string StagedSourcePath(FoundryConnectProvisioningBundle bundle, string relativeDestinationPath) =>
+        Assert.Single(bundle.AssetFiles, asset => string.Equals(asset.RelativeDestinationPath, relativeDestinationPath, StringComparison.Ordinal)).SourcePath;
+
     private static DeploymentMediaProtectionMaterial Protected() => DeploymentMediaProtectionService.CreateProtected(FixturePassword);
 
     private static FoundryConfigurationDocument CreateRuntimeFixtureSource(TemporaryDirectory tempDirectory, bool enterpriseWifi)

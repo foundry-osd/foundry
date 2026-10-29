@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -36,33 +37,38 @@ public static class WlanProfileReader
     }
 
     /// <summary>
-    /// Gets whether WLAN profile XML embeds key material, that is any element whose local name is <c>keyMaterial</c>,
+    /// Detects whether WLAN profile XML embeds key material, that is any element whose local name is <c>keyMaterial</c>,
     /// whatever its namespace.
     /// </summary>
-    /// <remarks>DTD processing is prohibited and no external resource is resolved; XML that cannot be parsed returns <see langword="false"/>.</remarks>
-    /// <param name="profileXml">The WLAN profile XML text.</param>
-    /// <returns><see langword="true"/> when a <c>keyMaterial</c> element is present.</returns>
-    public static bool ContainsKeyMaterial(string profileXml)
+    /// <remarks>
+    /// The XML is read from the bytes, so the byte order mark and the encoding declaration decide the decoding, and no string of the
+    /// whole document is created. DTD processing is prohibited and no external resource is resolved. A document that cannot be read
+    /// to its end returns <see cref="WlanProfileKeyMaterial.Unreadable"/>, never <see cref="WlanProfileKeyMaterial.Absent"/>.
+    /// </remarks>
+    /// <param name="profileXml">The WLAN profile XML bytes; the stream is read but not disposed.</param>
+    /// <returns>The detection result.</returns>
+    public static WlanProfileKeyMaterial DetectKeyMaterial(Stream profileXml)
     {
         ArgumentNullException.ThrowIfNull(profileXml);
+        XmlReaderSettings settings = CreateReaderSettings();
+        settings.CloseInput = false;
         try
         {
-            using var textReader = new StringReader(profileXml);
-            using XmlReader reader = XmlReader.Create(textReader, CreateReaderSettings());
+            using XmlReader reader = XmlReader.Create(profileXml, settings);
             while (reader.Read())
             {
                 if (reader.NodeType == XmlNodeType.Element &&
                     string.Equals(reader.LocalName, "keyMaterial", StringComparison.Ordinal))
                 {
-                    return true;
+                    return WlanProfileKeyMaterial.Present;
                 }
             }
 
-            return false;
+            return WlanProfileKeyMaterial.Absent;
         }
-        catch (XmlException)
+        catch (Exception exception) when (exception is XmlException or DecoderFallbackException)
         {
-            return false;
+            return WlanProfileKeyMaterial.Unreadable;
         }
     }
 
