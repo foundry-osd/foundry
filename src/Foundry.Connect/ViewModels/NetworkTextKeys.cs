@@ -128,6 +128,21 @@ public static class NetworkTextKeys
     };
 
     /// <summary>
+    /// Gets the key of the one-line Wi-Fi notice that replaces the Wi-Fi cards when the WLAN stack cannot work (L3-7).
+    /// </summary>
+    /// <param name="availability">The Wi-Fi availability.</param>
+    /// <returns>
+    /// The resource key for a missing runtime or a missing adapter; <see langword="null"/> when Wi-Fi works or is not
+    /// enabled for this media, which shows nothing Wi-Fi related.
+    /// </returns>
+    public static string? WifiNoticeKey(WifiAvailability availability) => availability switch
+    {
+        WifiAvailability.RuntimeMissing => "Wifi.UnavailableAtRuntime",
+        WifiAvailability.NoAdapter => "Wifi.NoAdapterDetected",
+        _ => null
+    };
+
+    /// <summary>
     /// Gets the hero description key for a blocked page.
     /// </summary>
     /// <param name="reason">The blocked reason.</param>

@@ -291,6 +291,32 @@ public sealed class ProvisionedWifiViewModelTests : IDisposable
     }
 
     [Fact]
+    public void BecomingConnected_ClearsAnEarlierFailure()
+    {
+        ProvisionedWifiViewModel viewModel = Create();
+        viewModel.ApplyProvisioningOutcome(new ProvisioningOutcome(Dot1xState.NotConfigured, Ready(), null, [NetworkFailureCode.WifiProfileRejected]));
+        viewModel.Apply(Wifi(WifiAvailability.Available, Ready()), null, null);
+        Assert.True(viewModel.HasFeedback);
+
+        viewModel.Apply(Wifi(WifiAvailability.Available, Ready(), ProvisionedConnection), null, null);
+
+        Assert.False(viewModel.HasFeedback);
+    }
+
+    [Fact]
+    public async Task StayingConnected_KeepsADisconnectFailure()
+    {
+        ProvisionedWifiViewModel viewModel = Create();
+        viewModel.Apply(Wifi(WifiAvailability.Available, Ready(), ProvisionedConnection), null, null);
+        _coordinator.Outcomes.Enqueue(OperationOutcome.Failed(NetworkOperationKind.DisconnectWifi, NetworkFailureCode.DisconnectFailed));
+        await viewModel.DisconnectCommand.ExecuteAsync(null);
+
+        viewModel.Apply(Wifi(WifiAvailability.Available, Ready(), ProvisionedConnection), null, null);
+
+        Assert.True(viewModel.HasFeedback);
+    }
+
+    [Fact]
     public void ProvisioningFailure_FromTheWiredPartShowsNoWifiText()
     {
         ProvisionedWifiViewModel viewModel = Create();

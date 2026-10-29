@@ -4,7 +4,7 @@
 
 using Foundry.Connect.Network;
 using Foundry.Connect.Tests.Support;
-using Foundry.Connect.ViewModels.Debug;
+using Foundry.Connect.ViewModels;
 
 namespace Foundry.Connect.Tests.ViewModels;
 
@@ -79,11 +79,11 @@ public sealed class DebugScenarioCatalogTests
     [InlineData(ConnectDebugScenario.CaptivePortal, true, true, true, InternetStatus.CaptivePortal, WifiAvailability.Disabled)]
     [InlineData(ConnectDebugScenario.EthernetReady, true, true, true, InternetStatus.Online, WifiAvailability.Disabled)]
     [InlineData(ConnectDebugScenario.Dot1xFailed, true, true, false, InternetStatus.NoInternet, WifiAvailability.Disabled)]
-    [InlineData(ConnectDebugScenario.WifiRuntimeMissing, false, false, false, InternetStatus.NoInternet, WifiAvailability.RuntimeMissing)]
-    [InlineData(ConnectDebugScenario.NoWifiAdapter, false, false, false, InternetStatus.NoInternet, WifiAvailability.NoAdapter)]
-    [InlineData(ConnectDebugScenario.WifiNetworks, false, false, false, InternetStatus.NoInternet, WifiAvailability.Available)]
-    [InlineData(ConnectDebugScenario.ProvisionedWifiUnavailable, false, false, false, InternetStatus.NoInternet, WifiAvailability.Available)]
-    [InlineData(ConnectDebugScenario.WifiReady, false, false, false, InternetStatus.Online, WifiAvailability.Available)]
+    [InlineData(ConnectDebugScenario.WifiRuntimeMissing, true, false, false, InternetStatus.NoInternet, WifiAvailability.RuntimeMissing)]
+    [InlineData(ConnectDebugScenario.NoWifiAdapter, true, false, false, InternetStatus.NoInternet, WifiAvailability.NoAdapter)]
+    [InlineData(ConnectDebugScenario.WifiNetworks, true, false, false, InternetStatus.NoInternet, WifiAvailability.Available)]
+    [InlineData(ConnectDebugScenario.ProvisionedWifiUnavailable, true, false, false, InternetStatus.NoInternet, WifiAvailability.Available)]
+    [InlineData(ConnectDebugScenario.WifiReady, true, false, false, InternetStatus.Online, WifiAvailability.Available)]
     public void Scenario_MatchesTheMatrix(
         ConnectDebugScenario scenario,
         bool hasAdapter,

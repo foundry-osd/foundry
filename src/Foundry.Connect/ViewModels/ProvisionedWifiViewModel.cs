@@ -141,7 +141,8 @@ public sealed partial class ProvisionedWifiViewModel : LocalizedViewModelBase
 
     /// <summary>
     /// Applies the latest wireless state. An outcome that is a new instance and belongs to a provisioned connect
-    /// replaces the feedback, which covers the attempts started by the coordinator itself.
+    /// replaces the feedback, which covers the attempts started by the coordinator itself. Becoming connected through
+    /// the provisioned profile clears the feedback first.
     /// </summary>
     /// <param name="wifi">The wireless state read from the coordinator.</param>
     /// <param name="activeOperation">The operation in flight, or <see langword="null"/>.</param>
@@ -150,8 +151,15 @@ public sealed partial class ProvisionedWifiViewModel : LocalizedViewModelBase
     {
         ArgumentNullException.ThrowIfNull(wifi);
 
+        bool wasConnected = IsConnected;
         _wifi = wifi;
         _activeOperation = activeOperation;
+
+        // Once the provisioned profile is connected, an earlier failure no longer describes the card.
+        if (!wasConnected && IsConnected)
+        {
+            _feedbackKey = null;
+        }
 
         // Outcomes are records that compare by value: two identical failures from two attempts must both count as new.
         if (lastOutcome is not null && !ReferenceEquals(lastOutcome, _lastOutcome))

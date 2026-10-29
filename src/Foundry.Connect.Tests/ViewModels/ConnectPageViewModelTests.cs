@@ -1,0 +1,286 @@
+// Copyright (c) Foundry Project contributors.
+// Licensed under the MIT License.
+// See the LICENSE file in the project root for more information.
+
+using System.Globalization;
+using Foundry.Connect.Network;
+using Foundry.Connect.Tests.Support;
+using Foundry.Connect.ViewModels;
+using Foundry.Core.Models.Configuration;
+using Foundry.Wpf.Localization;
+
+namespace Foundry.Connect.Tests.ViewModels;
+
+public sealed class ConnectPageViewModelTests : IDisposable
+{
+    private readonly ManualTimeProvider _clock = new();
+    private readonly FakeConnectionCoordinator _coordinator = new();
+    private readonly FakeNetworkMonitor _monitor = new();
+    private readonly FakeSuccessfulExitService _exit = new();
+    private readonly ResourceLocalizationService _localization = TestLocalization.Create();
+    private readonly List<ConnectFocusTarget> _focus = [];
+    private readonly ConnectPageViewModel _page;
+
+    public ConnectPageViewModelTests()
+    {
+        var actions = new ConnectNetworkActions(_coordinator, new RecordingLogger<ConnectNetworkActions>());
+        var dispatcher = new ImmediateUiDispatcher();
+        var configuration = new FoundryConnectConfigurationDocument
+        {
+            Capabilities = new ConnectNetworkCapabilitiesSettings { WifiProvisioned = true },
+            Wifi = new ConnectWifiSettings { IsEnabled = true, Ssid = "Foundry Lab", SecurityType = "WPA3-Personal" }
+        };
+        _page = new ConnectPageViewModel(
+            _localization, _coordinator, _monitor, actions,
+            new AutoContinueViewModel(_localization, _exit, new FakeApplicationLifetime(), _clock, dispatcher, new RecordingLogger<AutoContinueViewModel>(), isAutoContinueEnabled: true),
+            new EthernetSectionViewModel(_localization),
+            new ProvisionedWifiViewModel(_localization, actions, configuration),
+            new WifiNetworksViewModel(_localization, actions, _monitor),
+            new DiagnosticsViewModel(_localization, new RecordingLogger<DiagnosticsViewModel>()),
+            dispatcher, _clock, new RecordingLogger<ConnectPageViewModel>());
+        _page.FocusRequested += (_, target) => _focus.Add(target);
+    }
+
+    public void Dispose() => _page.Dispose();
+
+    private string Text(string key) => _localization.GetString(key);
+
+    private void Publish(ConnectDebugScenario scenario) => _coordinator.Publish(DebugScenarioCatalog.Create(scenario, _clock.GetUtcNow()));
+
+    public sealed record PageExpectation(
+        ConnectPageStatus Status, BlockedReason Reason, string TitleKey, string DescriptionKey, bool Busy,
+        bool EthernetCard, bool EthernetNotice, bool Provisioned, bool WifiNetworks, string? WifiNoticeKey,
+        bool CaptivePortal, bool Dot1xRow, bool CanContinue, ConnectFocusTarget Focus);
+
+    public static TheoryData<ConnectDebugScenario, PageExpectation> Matrix => new()
+    {
+        { ConnectDebugScenario.Checking, new(ConnectPageStatus.Checking, BlockedReason.None, "Status.CheckingTitle", "Status.CheckingDescription", true, false, false, false, false, null, false, false, false, ConnectFocusTarget.None) },
+        { ConnectDebugScenario.NoAdapter, new(ConnectPageStatus.Blocked, BlockedReason.NoAdapter, "Status.BlockedTitle", "Status.BlockedNoAdapterDescription", false, false, true, false, false, null, false, false, false, ConnectFocusTarget.Retry) },
+        { ConnectDebugScenario.NoLink, new(ConnectPageStatus.Blocked, BlockedReason.NoLink, "Status.BlockedTitle", "Status.BlockedNoLinkDescription", false, true, false, false, false, null, false, false, false, ConnectFocusTarget.Retry) },
+        { ConnectDebugScenario.WaitingForAddress, new(ConnectPageStatus.Blocked, BlockedReason.NoIpAddress, "Status.BlockedTitle", "Status.BlockedNoIpAddressDescription", false, true, false, false, false, null, false, false, false, ConnectFocusTarget.Retry) },
+        { ConnectDebugScenario.ApipaAddress, new(ConnectPageStatus.Blocked, BlockedReason.NoIpAddress, "Status.BlockedTitle", "Status.BlockedNoIpAddressDescription", false, true, false, false, false, null, false, false, false, ConnectFocusTarget.Retry) },
+        { ConnectDebugScenario.EthernetNoInternet, new(ConnectPageStatus.Blocked, BlockedReason.NoInternet, "Status.BlockedTitle", "Status.BlockedNoInternetDescription", false, true, false, false, false, null, false, false, false, ConnectFocusTarget.Retry) },
+        { ConnectDebugScenario.CaptivePortal, new(ConnectPageStatus.Blocked, BlockedReason.CaptivePortal, "Status.BlockedTitle", "Status.BlockedCaptivePortalDescription", false, true, false, false, false, null, true, false, false, ConnectFocusTarget.Retry) },
+        { ConnectDebugScenario.EthernetReady, new(ConnectPageStatus.Ready, BlockedReason.None, "Status.NetworkReadyTitle", "Status.NetworkReadyDescription", false, true, false, false, false, null, false, false, true, ConnectFocusTarget.Continue) },
+        { ConnectDebugScenario.Dot1xFailed, new(ConnectPageStatus.Blocked, BlockedReason.NoIpAddress, "Status.BlockedTitle", "Status.BlockedNoIpAddressDescription", false, true, false, false, false, null, false, true, false, ConnectFocusTarget.Retry) },
+        { ConnectDebugScenario.WifiRuntimeMissing, new(ConnectPageStatus.Blocked, BlockedReason.NoLink, "Status.BlockedTitle", "Status.BlockedNoLinkDescription", false, true, false, false, false, "Wifi.UnavailableAtRuntime", false, false, false, ConnectFocusTarget.Retry) },
+        { ConnectDebugScenario.NoWifiAdapter, new(ConnectPageStatus.Blocked, BlockedReason.NoLink, "Status.BlockedTitle", "Status.BlockedNoLinkDescription", false, true, false, false, false, "Wifi.NoAdapterDetected", false, false, false, ConnectFocusTarget.Retry) },
+        { ConnectDebugScenario.WifiNetworks, new(ConnectPageStatus.Blocked, BlockedReason.NoLink, "Status.BlockedTitle", "Status.BlockedNoLinkDescription", false, true, false, false, true, null, false, false, false, ConnectFocusTarget.WifiNetworks) },
+        { ConnectDebugScenario.ProvisionedWifiUnavailable, new(ConnectPageStatus.Blocked, BlockedReason.NoLink, "Status.BlockedTitle", "Status.BlockedNoLinkDescription", false, true, false, true, true, null, false, false, false, ConnectFocusTarget.WifiNetworks) },
+        { ConnectDebugScenario.WifiReady, new(ConnectPageStatus.Ready, BlockedReason.None, "Status.NetworkReadyTitle", "Status.NetworkReadyDescription", false, true, false, true, true, null, false, false, true, ConnectFocusTarget.Continue) }
+    };
+
+    [Theory]
+    [MemberData(nameof(Matrix))]
+    public void Scenario_RendersTheExpectedPage(ConnectDebugScenario scenario, PageExpectation expected)
+    {
+        Publish(scenario);
+
+        Assert.Equal(expected.Status, _page.Status);
+        Assert.Equal(expected.Reason, _page.BlockedReason);
+        Assert.Equal(Text(expected.TitleKey), _page.HeroTitle);
+        Assert.Equal(Text(expected.DescriptionKey), _page.HeroDescription);
+        Assert.Equal(expected.Busy, _page.IsHeroBusy);
+        Assert.Equal(!expected.Busy, _page.IsHeroTerminal);
+        Assert.Equal(expected.Status == ConnectPageStatus.Blocked, _page.IsBlocked);
+        Assert.Equal(expected.EthernetCard, _page.Ethernet.ShowCard);
+        Assert.Equal(expected.EthernetNotice, _page.Ethernet.ShowNoAdapterNotice);
+        Assert.Equal(expected.Provisioned, _page.ProvisionedWifi.IsVisible);
+        Assert.Equal(expected.WifiNetworks, _page.WifiNetworks.IsVisible);
+        Assert.Equal(expected.WifiNoticeKey is null ? string.Empty : Text(expected.WifiNoticeKey), _page.WifiNoticeText);
+        Assert.Equal(expected.CaptivePortal, _page.ShowCaptivePortalNotice);
+        Assert.Equal(expected.Dot1xRow, _page.Ethernet.HasDot1x);
+        Assert.Equal(expected.CanContinue, _page.AutoContinue.ContinueCommand.CanExecute(null));
+        Assert.Equal(expected.Focus == ConnectFocusTarget.None ? [] : [expected.Focus], _focus);
+    }
+
+    [Fact]
+    public void WifiReady_ShowsTheProvisionedChipAndCountsDown()
+    {
+        Publish(ConnectDebugScenario.WifiReady);
+
+        Assert.Equal(_localization.Format("Wifi.ConnectionChipProvisionedFormat", "Foundry Lab"), _page.ConnectionChipText);
+        Assert.True(_page.AutoContinue.IsCounting);
+    }
+
+    [Theory]
+    [InlineData(NetworkOperationKind.ApplyProvisioning, "Status.ApplyingProvisioningDescription")]
+    [InlineData(NetworkOperationKind.ConnectWifiNetwork, "Status.ConnectingDescription")]
+    public void RunningOperation_ShowsWaiting(NetworkOperationKind operation, string descriptionKey)
+    {
+        _coordinator.Publish(DebugScenarioCatalog.Create(ConnectDebugScenario.WifiNetworks, _clock.GetUtcNow()) with { ActiveOperation = operation });
+
+        Assert.Equal(ConnectPageStatus.Waiting, _page.Status);
+        Assert.True(_page.IsHeroBusy);
+        Assert.Equal(Text("Status.ConnectingTitle"), _page.HeroTitle);
+        Assert.Equal(Text(descriptionKey), _page.HeroDescription);
+    }
+
+    [Fact]
+    public void FocusRequested_OnlyOnStatusTransitions()
+    {
+        Publish(ConnectDebugScenario.EthernetNoInternet);
+        _coordinator.Publish(DebugScenarioCatalog.Create(ConnectDebugScenario.EthernetNoInternet, _clock.GetUtcNow().AddSeconds(10)));
+        Publish(ConnectDebugScenario.EthernetReady);
+
+        Assert.Equal([ConnectFocusTarget.Retry, ConnectFocusTarget.Continue], _focus);
+    }
+
+    [Fact]
+    public void NetworkingInteraction_PausesTheCountdownAndKeepsFocus()
+    {
+        Publish(ConnectDebugScenario.WifiReady);
+        _focus.Clear();
+
+        _page.WifiNetworks.SelectedNetwork = _page.WifiNetworks.Networks[1];
+        Publish(ConnectDebugScenario.WifiNetworks);
+
+        Assert.True(_page.AutoContinue.IsPaused);
+        Assert.Empty(_focus);
+    }
+
+    [Fact]
+    public async Task Simulation_IgnoresLiveStateAndNeverActs()
+    {
+        _page.ApplyDebugScenario(ConnectDebugScenario.WifiNetworks);
+        _coordinator.Publish(DebugScenarioCatalog.Create(ConnectDebugScenario.EthernetReady, _clock.GetUtcNow()));
+        Assert.True(_page.IsSimulation);
+        Assert.Equal(BlockedReason.NoLink, _page.BlockedReason);
+
+        _page.WifiNetworks.SelectedNetwork = _page.WifiNetworks.Networks.Single(item => item.DisplayName == "Workshop");
+        _page.WifiNetworks.SetPassphrase("password1".AsSpan());
+        await _page.WifiNetworks.ConnectCommand.ExecuteAsync(null);
+        _page.ApplyDebugScenario(ConnectDebugScenario.EthernetReady);
+        for (int second = 0; second < 10; second++)
+        {
+            _clock.Advance(AutoContinueViewModel.TickInterval);
+        }
+
+        await (_page.AutoContinue.PendingCompletion ?? Task.CompletedTask);
+        Assert.Empty(_coordinator.ConnectNetworkCalls);
+        Assert.Equal(0, _exit.Calls);
+
+        _page.ApplyDebugScenario(ConnectDebugScenario.Live);
+        Assert.False(_page.IsSimulation);
+        Assert.Equal(ConnectPageStatus.Ready, _page.Status);
+    }
+
+    [Fact]
+    public void LanguageChange_RerendersWithoutRefreshOrFocus()
+    {
+        CultureInfo original = CultureInfo.CurrentUICulture;
+        Publish(ConnectDebugScenario.EthernetNoInternet);
+        _focus.Clear();
+        List<string?> sectionTexts = [];
+        _page.Ethernet.PropertyChanged += (_, args) => sectionTexts.Add($"Ethernet.{args.PropertyName}");
+        _page.ProvisionedWifi.PropertyChanged += (_, args) => sectionTexts.Add($"ProvisionedWifi.{args.PropertyName}");
+        _page.WifiNetworks.PropertyChanged += (_, args) => sectionTexts.Add($"WifiNetworks.{args.PropertyName}");
+        _page.AutoContinue.PropertyChanged += (_, args) => sectionTexts.Add($"AutoContinue.{args.PropertyName}");
+
+        try
+        {
+            _localization.SetCulture(CultureInfo.GetCultureInfo(original.Name == "fr-FR" ? "de-DE" : "fr-FR"));
+
+            Assert.Equal(Text("Status.BlockedTitle"), _page.HeroTitle);
+            Assert.Equal(Text("Status.BlockedNoInternetDescription"), _page.HeroDescription);
+            Assert.Equal(0, _monitor.RefreshRequests);
+            Assert.Empty(_focus);
+            Assert.Contains("Ethernet.StatusText", sectionTexts);
+            Assert.Contains("ProvisionedWifi.StatusText", sectionTexts);
+            Assert.Contains("WifiNetworks.EmptyText", sectionTexts);
+            Assert.Contains("AutoContinue.CaptionText", sectionTexts);
+        }
+        finally
+        {
+            _localization.SetCulture(original);
+        }
+    }
+
+    [Fact]
+    public async Task InitializeAsync_AppliesProvisioningOnceThenStartsTheMonitor()
+    {
+        _coordinator.ProvisioningResult = new ProvisioningOutcome(
+            Dot1xState.NotConfigured,
+            new ProvisionedWifiState(ProvisionedWifiStatus.Ready, Ssid: WifiSsid.FromText("Foundry Lab")),
+            null,
+            [NetworkFailureCode.WifiProfileRejected]);
+
+        await _page.InitializeAsync(TestContext.Current.CancellationToken);
+        await _page.InitializeAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(1, _coordinator.ApplyProvisioningCalls);
+        Assert.Equal(1, _monitor.RunCalls);
+        Assert.Equal(Text("Wifi.ActionApplyProvisionedFailed"), _page.ProvisionedWifi.FeedbackText);
+    }
+
+    [Fact]
+    public void RefreshCommand_RequestsAMonitorRefresh()
+    {
+        _page.RefreshCommand.Execute(null);
+
+        Assert.Equal(1, _monitor.RefreshRequests);
+    }
+
+    [Fact]
+    public async Task Dispose_DuringProvisioning_NeverStartsTheMonitor()
+    {
+        _coordinator.ProvisioningGate = new TaskCompletionSource<ProvisioningOutcome>(TaskCreationOptions.RunContinuationsAsynchronously);
+        Task initialize = _page.InitializeAsync(TestContext.Current.CancellationToken);
+
+        _page.Dispose();
+        _coordinator.ProvisioningGate.TrySetResult(ProvisioningOutcome.NotConfigured);
+        await initialize;
+
+        Assert.Equal(0, _monitor.RunCalls);
+    }
+
+    [Fact]
+    public async Task Dispose_IsIdempotentAndStopsRendering()
+    {
+        await _page.InitializeAsync(TestContext.Current.CancellationToken);
+
+        _page.Dispose();
+        _page.Dispose();
+        Publish(ConnectDebugScenario.EthernetReady);
+        await _page.InitializeAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(ConnectPageStatus.Checking, _page.Status);
+        Assert.Equal(1, _monitor.RunCalls);
+    }
+
+    [Fact]
+    public void StateChanged_RendersTheCurrentStateNotTheStaleArgument()
+    {
+        _coordinator.State = DebugScenarioCatalog.Create(ConnectDebugScenario.EthernetReady, _clock.GetUtcNow());
+
+        _coordinator.RaiseStale(DebugScenarioCatalog.Create(ConnectDebugScenario.NoLink, _clock.GetUtcNow()));
+
+        Assert.Equal(ConnectPageStatus.Ready, _page.Status);
+    }
+
+    [Fact]
+    public void ApplyDebugScenario_LogsTheScenarioOnly()
+    {
+        var logger = new RecordingLogger<ConnectPageViewModel>();
+        using ConnectPageViewModel page = CreatePage(logger);
+
+        page.ApplyDebugScenario(ConnectDebugScenario.WifiReady);
+
+        RecordedLogEntry entry = Assert.Single(logger.Entries);
+        Assert.Equal("Debug scenario applied. Scenario=WifiReady", entry.Message);
+    }
+
+    private ConnectPageViewModel CreatePage(RecordingLogger<ConnectPageViewModel> logger)
+    {
+        var actions = new ConnectNetworkActions(_coordinator, new RecordingLogger<ConnectNetworkActions>());
+        var dispatcher = new ImmediateUiDispatcher();
+        return new ConnectPageViewModel(
+            _localization, _coordinator, _monitor, actions,
+            new AutoContinueViewModel(_localization, _exit, new FakeApplicationLifetime(), _clock, dispatcher, new RecordingLogger<AutoContinueViewModel>(), isAutoContinueEnabled: false),
+            new EthernetSectionViewModel(_localization),
+            new ProvisionedWifiViewModel(_localization, actions, new FoundryConnectConfigurationDocument()),
+            new WifiNetworksViewModel(_localization, actions, _monitor),
+            new DiagnosticsViewModel(_localization, new RecordingLogger<DiagnosticsViewModel>()),
+            dispatcher, _clock, logger);
+    }
+}

@@ -4,7 +4,7 @@
 
 using Foundry.Connect.Network;
 
-namespace Foundry.Connect.ViewModels.Debug;
+namespace Foundry.Connect.ViewModels;
 
 /// <summary>
 /// Simulated network situations for Debug › Scenarios (D16); <see cref="Live"/> means the real network.
@@ -147,8 +147,9 @@ public static class DebugScenarioCatalog
     private static NetworkState WithEthernet(NetworkState state, EthernetInterfaceState networkInterface, InternetStatus internet) =>
         state with { Ethernet = new EthernetState([networkInterface], Dot1xState.NotConfigured), Internet = internet };
 
+    // The Wi-Fi scenarios keep an unplugged Ethernet adapter, the usual WinPE laptop situation.
     private static NetworkState WithWifi(NetworkState state, WifiState wifi, InternetStatus internet) =>
-        state with { Wifi = wifi, Internet = internet };
+        WithEthernet(state, Interface(hasLink: false, IpConfigurationKind.None), internet) with { Wifi = wifi };
 
     private static EthernetInterfaceState DhcpInterface() => Interface(hasLink: true, IpConfigurationKind.Dhcp, "192.0.2.10", "192.0.2.1");
 
