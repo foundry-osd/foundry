@@ -53,4 +53,10 @@ public sealed record FoundryConnectConfigurationDocument
     /// Gets telemetry policy and runtime settings consumed by Foundry.Connect.
     /// </summary>
     public TelemetrySettings Telemetry { get; init; } = new();
+
+    /// <summary>
+    /// Gets the deployment password protection block, the same block as Deploy's; present only when the configuration
+    /// carries deployment-keyed secrets, which stay locked until the deployment password unlocks the key.
+    /// </summary>
+    public Deploy.DeployProtectionSettings? Protection { get; init; }
 }
