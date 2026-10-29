@@ -1,0 +1,34 @@
+<UserControl x:Class="Foundry.Wpf.Controls.PassphraseEditor" x:Name="Root"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    PreviewKeyDown="Root_OnPreviewKeyDown">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <PasswordBox x:Name="MaskedInput"
+            AutomationProperties.Name="{Binding AccessibleName, ElementName=Root}"
+            MaxLength="{Binding MaxLength, ElementName=Root}"
+            PasswordChanged="MaskedInput_OnPasswordChanged" />
+        <TextBox x:Name="RevealedInput"
+            AutomationProperties.Name="{Binding AccessibleName, ElementName=Root}"
+            MaxLength="{Binding MaxLength, ElementName=Root}"
+            TextChanged="RevealedInput_OnTextChanged"
+            Visibility="Collapsed" />
+        <Button x:Name="RevealButton"
+            Grid.Column="1"
+            MinWidth="40"
+            Margin="8,0,0,0"
+            Padding="10,0"
+            VerticalAlignment="Stretch"
+            AutomationProperties.Name="{Binding RevealButtonText, ElementName=Root}"
+            Click="RevealButton_OnClick"
+            ToolTip="{Binding RevealButtonText, ElementName=Root}">
+            <TextBlock
+                FontFamily="{DynamicResource SymbolThemeFontFamily}"
+                FontSize="14"
+                Text="&#xF78D;" />
+        </Button>
+    </Grid>
+</UserControl>

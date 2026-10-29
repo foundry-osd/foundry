@@ -4,6 +4,7 @@
     xmlns:converters="clr-namespace:Foundry.Wpf.Converters">
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    <converters:WidthAtLeastConverter x:Key="WidthAtLeastConverter" />
 
     <Style x:Key="SectionCardBorderStyle"
         TargetType="Border">
