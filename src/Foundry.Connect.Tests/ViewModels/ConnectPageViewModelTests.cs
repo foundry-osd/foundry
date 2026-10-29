@@ -171,6 +171,33 @@ public sealed class ConnectPageViewModelTests : IDisposable
     }
 
     [Fact]
+    public void Ready_AfterANetworkingInteraction_KeepsFocusAndOffersContinueWithoutCounting()
+    {
+        Publish(ConnectDebugScenario.WifiNetworks);
+        _focus.Clear();
+        _page.WifiNetworks.SelectedNetwork = _page.WifiNetworks.Networks[0];
+
+        Publish(ConnectDebugScenario.WifiReady);
+
+        Assert.Equal(ConnectPageStatus.Ready, _page.Status);
+        Assert.Empty(_focus);
+        Assert.True(_page.AutoContinue.IsPaused);
+        Assert.False(_page.AutoContinue.IsContinueDefault);
+        Assert.True(_page.AutoContinue.ContinueCommand.CanExecute(null));
+    }
+
+    [Fact]
+    public void StayHere_MovesTheFocusToContinue()
+    {
+        Publish(ConnectDebugScenario.EthernetReady);
+        _focus.Clear();
+
+        _page.AutoContinue.StayHereCommand.Execute(null);
+
+        Assert.Equal([ConnectFocusTarget.Continue], _focus);
+    }
+
+    [Fact]
     public async Task Simulation_IgnoresLiveStateAndNeverActs()
     {
         _page.ApplyDebugScenario(ConnectDebugScenario.WifiNetworks);

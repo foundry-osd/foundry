@@ -80,6 +80,7 @@ public sealed class WifiNetworksViewModelTests : IDisposable
         Assert.Equal(0, Item("B").SignalQuality);
         Assert.False(_viewModel.ConnectCommand.CanExecute(null));
         Assert.False(_viewModel.ShowPassphrase);
+        Assert.True(_viewModel.HasPassphrase);
     }
 
     [Fact]
@@ -191,5 +192,113 @@ public sealed class WifiNetworksViewModelTests : IDisposable
 
         WifiNetworkItemViewModel item = Item("Lab");
         Assert.Equal(_localization.Format("Wifi.NetworkConnectedAutomationFormat", "Lab", _localization.GetString("Wifi.SecurityWpa3Personal"), 48), item.AutomationName);
+    }
+
+    [Theory]
+    [InlineData(OperationStatus.Succeeded)]
+    [InlineData(OperationStatus.Failed)]
+    public async Task Connect_WhenTheSelectionChangesDuringTheCall_LeavesTheNewSelectionAlone(OperationStatus status)
+    {
+        _viewModel.Apply(State(Networks(("A", WifiSecurityType.Wpa2Personal, 90), ("B", WifiSecurityType.Wpa2Personal, 40))), null);
+        _viewModel.SelectedNetwork = Item("A");
+        _viewModel.SetPassphrase("password1".AsSpan());
+        _coordinator.OperationGate = new TaskCompletionSource<OperationOutcome>();
+        Task connect = _viewModel.ConnectCommand.ExecuteAsync(null);
+        _viewModel.SelectedNetwork = Item("B");
+        _viewModel.SetPassphrase("password2".AsSpan());
+        int cleared = 0;
+        _viewModel.PassphraseCleared += (_, _) => cleared++;
+
+        _coordinator.OperationGate.SetResult(status == OperationStatus.Succeeded
+            ? OperationOutcome.Success(NetworkOperationKind.ConnectWifiNetwork)
+            : OperationOutcome.Failed(NetworkOperationKind.ConnectWifiNetwork, NetworkFailureCode.InvalidPassphrase));
+        await connect;
+
+        Assert.Same(Item("B"), _viewModel.SelectedNetwork);
+        Assert.True(_viewModel.HasPassphrase);
+        Assert.Equal(0, cleared);
+        Assert.False(_viewModel.HasFeedback);
+    }
+
+    [Fact]
+    public void Apply_WhenTheSelectedNetworkBecomesConnected_ZeroesThePassphrase()
+    {
+        _viewModel.Apply(State(Networks(("Lab", WifiSecurityType.Wpa2Personal, 70))), null);
+        _viewModel.SelectedNetwork = Item("Lab");
+        _viewModel.SetPassphrase("password1".AsSpan());
+        int cleared = 0;
+        _viewModel.PassphraseCleared += (_, _) => cleared++;
+
+        _viewModel.Apply(State(Networks(("Lab", WifiSecurityType.Wpa2Personal, 70)), connected: "Lab"), null);
+
+        Assert.False(_viewModel.HasPassphrase);
+        Assert.Equal(1, cleared);
+    }
+
+    [Fact]
+    public async Task SelectingAnotherNetwork_ClearsTheFeedback()
+    {
+        _viewModel.Apply(State(Networks(("A", WifiSecurityType.Wpa2Personal, 90), ("B", WifiSecurityType.Open, 40))), null);
+        _viewModel.SelectedNetwork = Item("A");
+        _viewModel.SetPassphrase("short".AsSpan());
+        _coordinator.Outcomes.Enqueue(OperationOutcome.Failed(NetworkOperationKind.ConnectWifiNetwork, NetworkFailureCode.InvalidPassphrase));
+        await _viewModel.ConnectCommand.ExecuteAsync(null);
+        Assert.True(_viewModel.HasFeedback);
+
+        _viewModel.SelectedNetwork = Item("B");
+
+        Assert.False(_viewModel.HasFeedback);
+        Assert.Equal(string.Empty, _viewModel.FeedbackText);
+    }
+
+    [Fact]
+    public async Task Disconnect_ConnectedSelection_DisconnectsWithoutFeedback()
+    {
+        _viewModel.Apply(State(Networks(("Lab", WifiSecurityType.Open, 70), ("Guest", WifiSecurityType.Open, 50)), connected: "Lab"), null);
+        _viewModel.SelectedNetwork = Item("Guest");
+        Assert.False(_viewModel.DisconnectCommand.CanExecute(null));
+        _viewModel.SelectedNetwork = Item("Lab");
+        Assert.True(_viewModel.DisconnectCommand.CanExecute(null));
+        Assert.False(_viewModel.ConnectCommand.CanExecute(null));
+        int interactions = _interactions;
+
+        await _viewModel.DisconnectCommand.ExecuteAsync(null);
+
+        Assert.Equal(1, _coordinator.DisconnectCalls);
+        Assert.False(_viewModel.HasFeedback);
+        Assert.Equal(interactions + 1, _interactions);
+    }
+
+    [Fact]
+    public void Disconnect_IsDisabledWhileAnOperationRuns()
+    {
+        _viewModel.Apply(State(Networks(("Lab", WifiSecurityType.Open, 70)), connected: "Lab"), NetworkOperationKind.ConnectProvisionedWifi);
+
+        _viewModel.SelectedNetwork = Item("Lab");
+
+        Assert.False(_viewModel.DisconnectCommand.CanExecute(null));
+    }
+
+    [Fact]
+    public void ChooseNetwork_SelectsTheRowOrReportsAnInteractionForTheSelectedOne()
+    {
+        _viewModel.Apply(State(Networks(("A", WifiSecurityType.Open, 90), ("B", WifiSecurityType.Open, 40))), null);
+
+        _viewModel.ChooseNetwork(Item("A"));
+        Assert.Same(Item("A"), _viewModel.SelectedNetwork);
+        int interactions = _interactions;
+        _viewModel.ChooseNetwork(Item("A"));
+
+        Assert.Same(Item("A"), _viewModel.SelectedNetwork);
+        Assert.Equal(interactions + 1, _interactions);
+    }
+
+    [Fact]
+    public void ConnectingToAListedNetwork_ShowsTheConnectingCaption()
+    {
+        _viewModel.Apply(State(Networks(("Lab", WifiSecurityType.Open, 70))), NetworkOperationKind.ConnectWifiNetwork);
+
+        Assert.True(_viewModel.IsConnecting);
+        Assert.Equal(_localization.GetString("Status.ConnectingTitle"), _viewModel.ConnectingText);
     }
 }

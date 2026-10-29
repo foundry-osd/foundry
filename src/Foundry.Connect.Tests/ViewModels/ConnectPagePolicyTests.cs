@@ -60,7 +60,8 @@ public sealed class ConnectPagePolicyTests
     }
 
     [Theory]
-    [InlineData(ConnectPageStatus.Ready, true, false, false, ConnectFocusTarget.Continue)]
+    [InlineData(ConnectPageStatus.Ready, false, true, true, ConnectFocusTarget.Continue)]
+    [InlineData(ConnectPageStatus.Ready, true, false, false, ConnectFocusTarget.None)]
     [InlineData(ConnectPageStatus.Blocked, false, true, true, ConnectFocusTarget.ProvisionedConnect)]
     [InlineData(ConnectPageStatus.Blocked, false, false, true, ConnectFocusTarget.WifiNetworks)]
     [InlineData(ConnectPageStatus.Blocked, false, false, false, ConnectFocusTarget.Retry)]

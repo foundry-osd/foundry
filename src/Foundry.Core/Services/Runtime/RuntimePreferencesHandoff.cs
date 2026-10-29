@@ -32,7 +32,8 @@ public sealed record RuntimePreferences(RuntimeThemePreference Theme, string Cul
 /// </summary>
 /// <remarks>
 /// The file holds no personal data. Connect writes it once, just before its successful exit; Deploy reads it once before its
-/// first window is created. A missing, truncated or foreign file is ignored by the reader, which never throws.
+/// first window is created. A missing, truncated or foreign file is ignored by the reader, which never throws. The file is
+/// overwritten by each successful Connect exit and never deleted, so a later Deploy start reads the last hand-off.
 /// </remarks>
 public static class RuntimePreferencesHandoff
 {

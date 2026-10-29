@@ -92,7 +92,7 @@ Sous licence MIT.</value>
     <value>Ethernet : prêt</value>
   </data>
   <data name="Debug.Scenario.Live" xml:space="preserve">
-    <value>Réseau réel</value>
+    <value>Réseau actuel</value>
   </data>
   <data name="Debug.Scenario.NoAdapter" xml:space="preserve">
     <value>Aucun adaptateur réseau</value>

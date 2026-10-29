@@ -81,7 +81,10 @@ public partial class PassphraseEditor : UserControl
         set => SetValue(RevealButtonTextProperty, value);
     }
 
-    /// <summary>Gets or sets the command executed on Enter when it can execute; Enter is handled either way.</summary>
+    /// <summary>
+    /// Gets or sets the command executed on Enter when it can execute; Enter is handled either way, and an auto-repeated
+    /// Enter never executes it.
+    /// </summary>
     public ICommand? SubmitCommand
     {
         get => (ICommand?)GetValue(SubmitCommandProperty);
@@ -131,6 +134,11 @@ public partial class PassphraseEditor : UserControl
     }
 
     /// <summary>Writes a passphrase into the visible editor without raising <see cref="PassphraseChanged"/>.</summary>
+    /// <remarks>
+    /// <see cref="MaxLength"/> limits typed input only: WPF does not apply <see cref="TextBox.MaxLength"/> or
+    /// <see cref="PasswordBox.MaxLength"/> to programmatic changes, so a longer value is written whole. Callers keep the
+    /// value within <see cref="MaxLength"/>.
+    /// </remarks>
     public void SetPassphrase(ReadOnlySpan<char> value)
     {
         _isSynchronizing = true;
@@ -189,7 +197,13 @@ public partial class PassphraseEditor : UserControl
         }
 
         // Handled for the whole editor, reveal toggle included: an unhandled Enter would reach the window's default button.
+        // A held Enter auto-repeats; only the first press submits.
         e.Handled = true;
+        if (e.IsRepeat)
+        {
+            return;
+        }
+
         ICommand? submit = SubmitCommand;
         if (submit?.CanExecute(null) == true)
         {

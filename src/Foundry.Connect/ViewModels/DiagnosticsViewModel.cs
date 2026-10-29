@@ -202,9 +202,10 @@ public sealed partial class DiagnosticsViewModel : LocalizedViewModelBase
         {
             string? fallbackDirectoryPath = ResolveExternalExportDirectory();
             _logger.LogWarning(
-                ex,
-                "The shell folder picker is unavailable. Falling back to an external volume. HasFallbackDestination={HasFallbackDestination}",
-                fallbackDirectoryPath is not null);
+                "The shell folder picker is unavailable. Falling back to an external volume. HasFallbackDestination={HasFallbackDestination}, FailureType={FailureType}, ErrorCode={ErrorCode}",
+                fallbackDirectoryPath is not null,
+                ex.GetType().Name,
+                ex.HResult);
             return fallbackDirectoryPath
                    ?? throw new IOException("No ready external volume is available for the diagnostic export.");
         }

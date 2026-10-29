@@ -406,7 +406,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
     /// <summary>
     /// Applies the theme and language chosen in Foundry Connect, which runs first. Call once, before the window's first layout.
-    /// A missing or invalid hand-off file leaves the defaults untouched.
+    /// A missing or invalid hand-off file leaves the defaults untouched, and a failure while applying it is logged as a
+    /// warning: the hand-off never fails Deploy's startup.
     /// </summary>
     public void RestoreRuntimePreferencesHandoff() => RestoreRuntimePreferencesHandoff(RuntimePreferencesHandoff.DefaultPath);
 
@@ -417,14 +418,27 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             return;
         }
 
-        _themeService.SetTheme(preferences.Theme switch
+        try
         {
-            RuntimeThemePreference.Light => DeployThemeMode.Light,
-            RuntimeThemePreference.Dark => DeployThemeMode.Dark,
-            _ => DeployThemeMode.System
-        });
-        OnPropertyChanged(nameof(CurrentTheme));
-        LocalizationService.SetCulture(CultureInfo.GetCultureInfo(preferences.CultureName));
+            _themeService.SetTheme(preferences.Theme switch
+            {
+                RuntimeThemePreference.Light => DeployThemeMode.Light,
+                RuntimeThemePreference.Dark => DeployThemeMode.Dark,
+                _ => DeployThemeMode.System
+            });
+            OnPropertyChanged(nameof(CurrentTheme));
+            LocalizationService.SetCulture(CultureInfo.GetCultureInfo(preferences.CultureName));
+        }
+        catch (Exception exception)
+        {
+            // The hand-off is a convenience: Deploy must start with what it has. The exception is not attached because
+            // every log level is mirrored remotely.
+            _logger.LogWarning(
+                "Theme and language from Foundry Connect could not be applied. FailureType={FailureType}",
+                exception.GetType().Name);
+            return;
+        }
+
         _logger.LogInformation(
             "Theme and language restored from Foundry Connect. Theme={Theme}, Culture={Culture}",
             preferences.Theme,

@@ -27,19 +27,28 @@ public sealed class AutoContinuePolicyTests
     [MemberData(nameof(InternetScenarios))]
     public void OnInternetStatus_ScenarioTable(string scenario, AutoContinueState state, InternetStatus internet, AutoContinueStatus expected)
     {
-        Assert.True(expected == AutoContinuePolicy.OnInternetStatus(state, internet, Now).Status, scenario);
+        Assert.True(expected == AutoContinuePolicy.OnInternetStatus(state, internet, Now, hasNetworkingInteraction: false).Status, scenario);
     }
 
     [Fact]
     public void OnInternetStatus_WhenStillOnline_KeepsTheDeadline()
     {
-        Assert.Equal(Counting, AutoContinuePolicy.OnInternetStatus(Counting, InternetStatus.Online, Now.AddSeconds(5)));
+        Assert.Equal(Counting, AutoContinuePolicy.OnInternetStatus(Counting, InternetStatus.Online, Now.AddSeconds(5), hasNetworkingInteraction: false));
+    }
+
+    [Fact]
+    public void OnInternetStatus_AfterANetworkingInteraction_OffersContinueWithoutCounting()
+    {
+        AutoContinueState state = AutoContinuePolicy.OnInternetStatus(AutoContinueState.Initial, InternetStatus.Online, Now, hasNetworkingInteraction: true);
+
+        Assert.Equal(new AutoContinueState(AutoContinueStatus.Paused, null), state);
+        Assert.Equal(AutoContinueState.Initial, AutoContinuePolicy.OnInternetStatus(AutoContinueState.Initial, InternetStatus.NoInternet, Now, hasNetworkingInteraction: true));
     }
 
     [Fact]
     public void Countdown_ElapsesAfterTenSeconds()
     {
-        AutoContinueState state = AutoContinuePolicy.OnInternetStatus(AutoContinueState.Initial, InternetStatus.Online, Now);
+        AutoContinueState state = AutoContinuePolicy.OnInternetStatus(AutoContinueState.Initial, InternetStatus.Online, Now, hasNetworkingInteraction: false);
 
         Assert.Equal(TimeSpan.FromSeconds(10), state.RemainingAt(Now));
         Assert.False(AutoContinuePolicy.ShouldContinue(AutoContinuePolicy.OnTick(state, Now.AddSeconds(9))));

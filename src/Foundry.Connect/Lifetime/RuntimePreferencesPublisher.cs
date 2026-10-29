@@ -68,7 +68,11 @@ public sealed class RuntimePreferencesPublisher : IRuntimePreferencesPublisher
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or ArgumentException)
         {
-            _logger.LogWarning(exception, "Theme and language could not be handed to Foundry Deploy.");
+            // The exception is not attached: every log level is mirrored remotely and its message carries the file path.
+            _logger.LogWarning(
+                "Theme and language could not be handed to Foundry Deploy. FailureType={FailureType}, ErrorCode={ErrorCode}",
+                exception.GetType().Name,
+                exception.HResult);
         }
     }
 

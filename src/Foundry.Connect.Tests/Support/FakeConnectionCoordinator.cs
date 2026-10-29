@@ -8,9 +8,10 @@ namespace Foundry.Connect.Tests.Support;
 
 /// <summary>
 /// Scriptable <see cref="IConnectionCoordinator"/> for view-model tests. Connect and disconnect calls are counted and
-/// return the next queued <see cref="OperationOutcome"/> (a success when the queue is empty); they complete
-/// synchronously, never throw and ignore cancellation. <see cref="ApplyProvisioningAsync"/> can be held open through
-/// <see cref="ProvisioningGate"/> to test the in-flight window.
+/// return the next queued <see cref="OperationOutcome"/> (a success when the queue is empty); without a gate they
+/// complete synchronously, never throw and ignore cancellation. <see cref="ApplyProvisioningAsync"/> and the connect and
+/// disconnect calls can be held open through <see cref="ProvisioningGate"/> and <see cref="OperationGate"/> to test the
+/// in-flight window.
 /// </summary>
 internal sealed class FakeConnectionCoordinator : IConnectionCoordinator
 {
@@ -34,6 +35,12 @@ internal sealed class FakeConnectionCoordinator : IConnectionCoordinator
     /// can arrive after the caller was cancelled.
     /// </summary>
     public bool ProvisioningIgnoresCancellation { get; set; }
+
+    /// <summary>
+    /// Gets or sets a gate whose task every connect or disconnect call returns after being recorded, so a test can act
+    /// while the operation is in flight, then complete, fault or cancel it.
+    /// </summary>
+    public TaskCompletionSource<OperationOutcome>? OperationGate { get; set; }
 
     /// <summary>Gets the number of <see cref="ApplyProvisioningAsync"/> calls.</summary>
     public int ApplyProvisioningCalls { get; private set; }
@@ -91,21 +98,21 @@ internal sealed class FakeConnectionCoordinator : IConnectionCoordinator
     public Task<OperationOutcome> ConnectProvisionedWifiAsync(CancellationToken cancellationToken)
     {
         ConnectProvisionedCalls++;
-        return Task.FromResult(Next(NetworkOperationKind.ConnectProvisionedWifi));
+        return OperationGate?.Task ?? Task.FromResult(Next(NetworkOperationKind.ConnectProvisionedWifi));
     }
 
     /// <inheritdoc />
     public Task<OperationOutcome> ConnectWifiNetworkAsync(WifiSsid ssid, string? passphrase, CancellationToken cancellationToken)
     {
         ConnectNetworkCalls.Add((ssid, passphrase));
-        return Task.FromResult(Next(NetworkOperationKind.ConnectWifiNetwork));
+        return OperationGate?.Task ?? Task.FromResult(Next(NetworkOperationKind.ConnectWifiNetwork));
     }
 
     /// <inheritdoc />
     public Task<OperationOutcome> DisconnectWifiAsync(CancellationToken cancellationToken)
     {
         DisconnectCalls++;
-        return Task.FromResult(Next(NetworkOperationKind.DisconnectWifi));
+        return OperationGate?.Task ?? Task.FromResult(Next(NetworkOperationKind.DisconnectWifi));
     }
 
     /// <inheritdoc />

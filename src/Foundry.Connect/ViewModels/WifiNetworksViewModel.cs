@@ -26,9 +26,11 @@ namespace Foundry.Connect.ViewModels;
 /// </para>
 /// <para>
 /// The password lives in an owned <see cref="char"/> buffer that is zeroed whenever it is replaced, cleared or disposed.
-/// It is never trimmed (T9). A <see cref="string"/> copy exists only for the duration of the connect call, because the
-/// coordinator takes a string. The view model never logs: SSIDs and passwords must stay out of every log. Every member
-/// runs on the UI thread; a command that finishes after <see cref="Dispose"/> changes nothing.
+/// It is never trimmed (T9). The coordinator takes a <see cref="string"/>, so each connect call makes one immutable copy
+/// that cannot be zeroed and stays in memory until the garbage collector reclaims it. The view model never logs: SSIDs
+/// and passwords must stay out of every log. Every member runs on the UI thread; a command that finishes after
+/// <see cref="Dispose"/> changes nothing, and a connect that finishes after the selection changed leaves the new
+/// selection's password and feedback alone.
 /// </para>
 /// </remarks>
 public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
@@ -125,6 +127,11 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
     public bool IsConnecting => _activeOperation == NetworkOperationKind.ConnectWifiNetwork;
 
     /// <summary>
+    /// Gets the caption shown in the details panel while <see cref="IsConnecting"/>.
+    /// </summary>
+    public string ConnectingText => LocalizationService.GetString("Status.ConnectingTitle");
+
+    /// <summary>
     /// Gets the result of the last connect or disconnect, or an empty string.
     /// </summary>
     public string FeedbackText => _feedbackKey is { } key ? LocalizationService.GetString(key) : string.Empty;
@@ -186,8 +193,32 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
     }
 
     /// <summary>
+    /// Selects the row the technician chose with the keyboard (Enter on the list) and reports a networking interaction,
+    /// also when that row is already selected.
+    /// </summary>
+    /// <param name="network">The focused row.</param>
+    public void ChooseNetwork(WifiNetworkItemViewModel network)
+    {
+        ArgumentNullException.ThrowIfNull(network);
+        if (_isDisposed)
+        {
+            return;
+        }
+
+        if (ReferenceEquals(SelectedNetwork, network))
+        {
+            _actions.NotifyInteraction();
+            return;
+        }
+
+        SelectedNetwork = network;
+    }
+
+    /// <summary>
     /// Applies the latest wireless state. While a network is selected the rows keep their positions, new networks are
     /// appended and the selected one stays even when it is no longer visible; otherwise the incoming order is used.
+    /// When the selected network becomes connected, by this panel or by other means, the password is zeroed; it is kept
+    /// when the network merely goes out of range (L3-9).
     /// </summary>
     /// <param name="wifi">The wireless state read from the coordinator.</param>
     /// <param name="activeOperation">The operation in flight, or <see langword="null"/>.</param>
@@ -201,6 +232,7 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
 
         _availability = wifi.Availability;
         _activeOperation = activeOperation;
+        bool wasSelectionConnected = SelectedNetwork?.IsConnected == true;
 
         IReadOnlyList<WifiSsid> order = WifiListOrder.Merge(Networks.Select(static item => item.Ssid).ToList(), wifi.Networks, SelectedNetwork?.Ssid);
         _isSyncing = true;
@@ -211,6 +243,12 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
         finally
         {
             _isSyncing = false;
+        }
+
+        // A connected network needs no password any more; the editor is hidden for it.
+        if (!wasSelectionConnected && SelectedNetwork is { IsConnected: true } && HasPassphrase)
+        {
+            ClearPassphrase();
         }
 
         RaiseAll();
@@ -271,12 +309,14 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
         SetCommandRunning(true);
         try
         {
-            // The coordinator takes a string: this copy lives only for the call. Never trimmed (T9).
+            // The coordinator takes a string: an immutable copy that cannot be zeroed and lives until GC. Never trimmed (T9).
             string? passphrase = network.RequiresPassphrase ? new string(_passphrase) : null;
 
             // No ConfigureAwait(false): the continuation changes bound properties on the UI thread.
             OperationOutcome outcome = await _actions.ConnectWifiNetworkAsync(network.Ssid, passphrase, token);
-            if (_isDisposed)
+
+            // The technician may have picked another network meanwhile: its password and feedback are not this call's.
+            if (_isDisposed || !ReferenceEquals(SelectedNetwork, network))
             {
                 return;
             }
@@ -426,6 +466,7 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(HasNetworks));
         OnPropertyChanged(nameof(EmptyText));
         OnPropertyChanged(nameof(IsConnecting));
+        OnPropertyChanged(nameof(ConnectingText));
         RaiseDetails();
     }
 }

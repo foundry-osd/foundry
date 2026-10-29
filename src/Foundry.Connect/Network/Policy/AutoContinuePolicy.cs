@@ -15,7 +15,7 @@ public enum AutoContinueStatus
     /// <summary>The countdown is running.</summary>
     Counting,
 
-    /// <summary>The technician touched networking during the countdown; it stays off for the session.</summary>
+    /// <summary>The technician touched networking this session; the countdown stays off and Continue is offered.</summary>
     Paused,
 
     /// <summary>The technician chose to stay; it stays off for the session.</summary>
@@ -47,8 +47,9 @@ public sealed record AutoContinueState(AutoContinueStatus Status, DateTimeOffset
 }
 
 /// <summary>
-/// D3: a 10 second countdown starts once the internet is online; an interaction pauses it for the session, "Stay
-/// here" cancels it, and losing the internet resets it. Pure transitions: the caller owns the clock and the timer.
+/// D3: a 10 second countdown starts once the internet is online; an interaction pauses it for the session (or keeps it
+/// from starting when it happened before), "Stay here" cancels it, and losing the internet resets it. Pure transitions:
+/// the caller owns the clock, the timer and the session interaction flag.
 /// </summary>
 public static class AutoContinuePolicy
 {
@@ -59,14 +60,18 @@ public static class AutoContinuePolicy
 
     /// <summary>
     /// Starts the countdown when the internet comes online and resets a running one when it is lost (a captive portal
-    /// counts as lost). Paused, cancelled and elapsed states are left as they are.
+    /// counts as lost). After a networking interaction earlier in the session the internet coming online offers Continue
+    /// without counting: the state goes straight to <see cref="AutoContinueStatus.Paused"/>. Paused, cancelled and
+    /// elapsed states are left as they are.
     /// </summary>
     /// <param name="state">The current state.</param>
     /// <param name="internet">The latest internet status.</param>
     /// <param name="now">The current time.</param>
+    /// <param name="hasNetworkingInteraction">Whether the technician interacted with networking during the session.</param>
     /// <returns>The next state.</returns>
-    public static AutoContinueState OnInternetStatus(AutoContinueState state, InternetStatus internet, DateTimeOffset now) => state.Status switch
+    public static AutoContinueState OnInternetStatus(AutoContinueState state, InternetStatus internet, DateTimeOffset now, bool hasNetworkingInteraction) => state.Status switch
     {
+        AutoContinueStatus.Idle when internet == InternetStatus.Online && hasNetworkingInteraction => new(AutoContinueStatus.Paused, null),
         AutoContinueStatus.Idle when internet == InternetStatus.Online => new(AutoContinueStatus.Counting, now + Countdown),
         AutoContinueStatus.Counting when internet != InternetStatus.Online => AutoContinueState.Initial,
         _ => state

@@ -132,8 +132,9 @@ public static class ConnectPagePolicy
 
     /// <summary>
     /// Chooses the control that takes the focus when the page enters <paramref name="status"/>. Focus moves only for
-    /// <see cref="ConnectPageStatus.Ready"/> and <see cref="ConnectPageStatus.Blocked"/>, and never after a networking
-    /// interaction, so a technician who is typing keeps the focus.
+    /// <see cref="ConnectPageStatus.Ready"/> and <see cref="ConnectPageStatus.Blocked"/>, and never once the technician
+    /// interacted with networking this session, whatever the new status: a technician who is typing or browsing the
+    /// Wi-Fi list keeps the focus.
     /// </summary>
     /// <param name="status">The new page status.</param>
     /// <param name="hasNetworkingInteraction">Whether the technician already interacted with networking.</param>
@@ -142,8 +143,8 @@ public static class ConnectPagePolicy
     /// <returns>The focus target.</returns>
     public static ConnectFocusTarget ResolveFocus(ConnectPageStatus status, bool hasNetworkingInteraction, bool canConnectProvisioned, bool hasVisibleNetworks) => status switch
     {
+        _ when hasNetworkingInteraction => ConnectFocusTarget.None,
         ConnectPageStatus.Ready => ConnectFocusTarget.Continue,
-        ConnectPageStatus.Blocked when hasNetworkingInteraction => ConnectFocusTarget.None,
         ConnectPageStatus.Blocked when canConnectProvisioned => ConnectFocusTarget.ProvisionedConnect,
         ConnectPageStatus.Blocked when hasVisibleNetworks => ConnectFocusTarget.WifiNetworks,
         ConnectPageStatus.Blocked => ConnectFocusTarget.Retry,

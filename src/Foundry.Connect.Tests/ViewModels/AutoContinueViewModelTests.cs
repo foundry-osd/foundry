@@ -4,10 +4,12 @@
 
 using Foundry.Connect.Lifetime;
 using Foundry.Connect.Network;
+using Foundry.Connect.Network.Policy;
 using Foundry.Connect.Tests.Support;
 using Foundry.Connect.ViewModels;
 using Foundry.Core.Models.Runtime;
 using Foundry.Wpf.Localization;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect.Tests.ViewModels;
 
@@ -21,8 +23,8 @@ public sealed class AutoContinueViewModelTests : IDisposable
 
     public void Dispose() => _viewModel?.Dispose();
 
-    private AutoContinueViewModel Create(bool enabled = true) =>
-        _viewModel = new AutoContinueViewModel(_localization, _exit, _lifetime, _clock, new ImmediateUiDispatcher(), new RecordingLogger<AutoContinueViewModel>(), enabled);
+    private AutoContinueViewModel Create(bool enabled = true, RecordingLogger<AutoContinueViewModel>? logger = null) =>
+        _viewModel = new AutoContinueViewModel(_localization, _exit, _lifetime, _clock, new ImmediateUiDispatcher(), logger ?? new RecordingLogger<AutoContinueViewModel>(), enabled);
 
     private void Tick(int seconds)
     {
@@ -84,14 +86,120 @@ public sealed class AutoContinueViewModelTests : IDisposable
     }
 
     [Fact]
-    public void NetworkingInteraction_BeforeOnline_DoesNotPause()
+    public void NetworkingInteraction_BeforeOnline_OffersContinueWithoutCounting()
     {
         AutoContinueViewModel viewModel = Create();
 
         viewModel.OnNetworkingInteraction();
         viewModel.OnInternetStatusChanged(InternetStatus.Online);
 
+        Assert.True(viewModel.IsPaused);
+        Assert.Equal(_localization.GetString("Status.AutoContinuePaused"), viewModel.CaptionText);
+        Assert.True(viewModel.HasCaption);
+        Assert.Equal(0, _clock.ActiveTimerCount);
+        Assert.False(viewModel.IsContinueDefault);
+        Assert.True(viewModel.ContinueCommand.CanExecute(null));
+    }
+
+    [Fact]
+    public void NetworkingInteraction_KeepsContinueOffTheDefaultForTheSession()
+    {
+        AutoContinueViewModel viewModel = Create();
+        viewModel.OnInternetStatusChanged(InternetStatus.Online);
+        viewModel.StayHereCommand.Execute(null);
+        Assert.True(viewModel.IsContinueDefault);
+
+        viewModel.OnNetworkingInteraction();
+        Assert.True(viewModel.IsCancelled);
+        Assert.False(viewModel.IsContinueDefault);
+        viewModel.OnInternetStatusChanged(InternetStatus.NoInternet);
+        viewModel.OnInternetStatusChanged(InternetStatus.Online);
+
+        Assert.False(viewModel.IsContinueDefault);
+        Assert.True(viewModel.ContinueCommand.CanExecute(null));
+    }
+
+    [Fact]
+    public void StayHere_RequestsTheFocusOnContinue()
+    {
+        AutoContinueViewModel viewModel = Create();
+        int requests = 0;
+        viewModel.ContinueFocusRequested += (_, _) => requests++;
+        viewModel.OnInternetStatusChanged(InternetStatus.Online);
+
+        viewModel.StayHereCommand.Execute(null);
+
+        Assert.Equal(1, requests);
+    }
+
+    [Fact]
+    public void StayHere_AfterDispose_DoesNothing()
+    {
+        AutoContinueViewModel viewModel = Create();
+        int requests = 0;
+        viewModel.ContinueFocusRequested += (_, _) => requests++;
+        viewModel.OnInternetStatusChanged(InternetStatus.Online);
+        viewModel.Dispose();
+
+        viewModel.StayHereCommand.Execute(null);
+
+        Assert.Equal(0, requests);
+        Assert.False(viewModel.IsCancelled);
+    }
+
+    [Fact]
+    public async Task FinalProbeThrowing_LogsTheTypeAndWaitsForTheNextOnlineState()
+    {
+        var logger = new RecordingLogger<AutoContinueViewModel>();
+        _exit.Gate = new TaskCompletionSource<SuccessfulExitResult>();
+        _exit.Gate.SetException(new InvalidOperationException("Profile 'Foundry Lab' failed."));
+        AutoContinueViewModel viewModel = Create(logger: logger);
+        viewModel.OnInternetStatusChanged(InternetStatus.Online);
+
+        Tick(10);
+        await viewModel.PendingCompletion!;
+        await viewModel.ContinueCommand.ExecuteAsync(null);
+
+        Assert.Equal(AutoContinueStatus.Idle, viewModel.State.Status);
+        List<RecordedLogEntry> warnings = logger.Entries.Where(static entry => entry.Level == LogLevel.Warning).ToList();
+        Assert.Equal(2, warnings.Count);
+        Assert.All(warnings, static warning => Assert.Equal(nameof(InvalidOperationException), warning.Properties["FailureType"]));
+        Assert.DoesNotContain(logger.Entries, static entry => entry.Exception is not null || entry.Message.Contains("Foundry Lab", StringComparison.Ordinal));
+        viewModel.OnInternetStatusChanged(InternetStatus.Online);
         Assert.True(viewModel.IsCounting);
+    }
+
+    [Fact]
+    public async Task CountdownEnd_DuringAManualContinue_CompletesOnce()
+    {
+        _exit.Gate = new TaskCompletionSource<SuccessfulExitResult>();
+        AutoContinueViewModel viewModel = Create();
+        viewModel.OnInternetStatusChanged(InternetStatus.Online);
+        Tick(9);
+
+        Task manual = viewModel.ContinueCommand.ExecuteAsync(null);
+        Tick(1);
+        _exit.Gate.SetResult(SuccessfulExitResult.Exited);
+        await manual;
+        await (viewModel.PendingCompletion ?? Task.CompletedTask);
+
+        Assert.Equal(1, _exit.Calls);
+    }
+
+    [Fact]
+    public void Dispose_StopsTheCountdown()
+    {
+        AutoContinueViewModel viewModel = Create();
+        viewModel.OnInternetStatusChanged(InternetStatus.Online);
+        Tick(3);
+
+        viewModel.Dispose();
+        Tick(30);
+
+        Assert.Equal(0, _clock.ActiveTimerCount);
+        Assert.Equal(7, viewModel.SecondsRemaining);
+        Assert.Equal(AutoContinueStatus.Counting, viewModel.State.Status);
+        Assert.Equal(0, _exit.Calls);
     }
 
     [Fact]
@@ -166,6 +274,7 @@ public sealed class AutoContinueViewModelTests : IDisposable
         Assert.True(viewModel.IsCounting);
 
         Tick(10);
+        Assert.Equal(AutoContinueStatus.Elapsed, viewModel.State.Status);
         await (viewModel.PendingCompletion ?? Task.CompletedTask);
         await viewModel.ContinueCommand.ExecuteAsync(null);
 

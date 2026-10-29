@@ -256,7 +256,11 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
         }
         catch (Exception ex)
         {
-            _logger.LogDebug(ex, "Existing network profile roaming manifest could not be read. It will be replaced.");
+            // The exception is not attached: its message can name the manifest path or echo profile content.
+            _logger.LogDebug(
+                "Existing network profile roaming manifest could not be read. It will be replaced. FailureType={FailureType}, ErrorCode={ErrorCode}",
+                ex.GetType().Name,
+                ex.HResult);
             return new NetworkProfileRoamingManifest();
         }
     }

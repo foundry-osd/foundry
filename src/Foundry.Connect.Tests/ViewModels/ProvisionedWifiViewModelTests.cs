@@ -352,4 +352,53 @@ public sealed class ProvisionedWifiViewModelTests : IDisposable
 
         Assert.Equal(0, _coordinator.ConnectProvisionedCalls);
     }
+
+    [Fact]
+    public async Task RunningCommand_DisablesBothCommandsUntilItEnds()
+    {
+        ProvisionedWifiViewModel viewModel = Create();
+        viewModel.Apply(Wifi(WifiAvailability.Available, Ready()), null, null);
+        _coordinator.OperationGate = new TaskCompletionSource<OperationOutcome>();
+
+        Task connect = viewModel.ConnectCommand.ExecuteAsync(null);
+
+        // The profile connects before the command returns: Disconnect stays disabled while the command runs.
+        viewModel.Apply(Wifi(WifiAvailability.Available, Ready(), ProvisionedConnection), null, null);
+        Assert.False(viewModel.ConnectCommand.CanExecute(null));
+        Assert.False(viewModel.DisconnectCommand.CanExecute(null));
+        _coordinator.OperationGate.SetResult(OperationOutcome.Success(NetworkOperationKind.ConnectProvisionedWifi));
+        await connect;
+        Assert.True(viewModel.DisconnectCommand.CanExecute(null));
+    }
+
+    [Theory]
+    [InlineData("throws")]
+    [InlineData("cancelled")]
+    [InlineData("cancelled-outcome")]
+    public async Task RunningCommand_ThatThrowsOrIsCancelled_ReenablesTheCommands(string ending)
+    {
+        ProvisionedWifiViewModel viewModel = Create();
+        viewModel.Apply(Wifi(WifiAvailability.Available, Ready()), null, null);
+        _coordinator.OperationGate = new TaskCompletionSource<OperationOutcome>();
+        Task connect = viewModel.ConnectCommand.ExecuteAsync(null);
+        Assert.False(viewModel.ConnectCommand.CanExecute(null));
+
+        switch (ending)
+        {
+            case "throws":
+                _coordinator.OperationGate.SetException(new InvalidOperationException("Simulated failure."));
+                await Assert.ThrowsAsync<InvalidOperationException>(() => connect);
+                break;
+            case "cancelled":
+                _coordinator.OperationGate.SetCanceled(TestContext.Current.CancellationToken);
+                await Assert.ThrowsAnyAsync<OperationCanceledException>(() => connect);
+                break;
+            default:
+                _coordinator.OperationGate.SetResult(OperationOutcome.Cancelled(NetworkOperationKind.ConnectProvisionedWifi));
+                await connect;
+                break;
+        }
+
+        Assert.True(viewModel.ConnectCommand.CanExecute(null));
+    }
 }

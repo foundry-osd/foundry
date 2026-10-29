@@ -14,7 +14,8 @@ namespace Foundry.Connect.ViewModels;
 
 /// <summary>
 /// D3 automatic continue: a 10 second countdown once the internet is online, paused for the session by a networking
-/// interaction, cancelled by "Stay here", and ended by the final probe of <see cref="ISuccessfulExitService"/>.
+/// interaction (and never started once one happened), cancelled by "Stay here", and ended by the final probe of
+/// <see cref="ISuccessfulExitService"/>.
 /// </summary>
 /// <remarks>
 /// <see cref="AutoContinuePolicy"/> decides every transition; this view model owns the clock and the only timer, a one
@@ -22,8 +23,9 @@ namespace Foundry.Connect.ViewModels;
 /// A failed final probe returns to <see cref="AutoContinueStatus.Idle"/>, so the next online state starts a fresh
 /// countdown. In live mode the countdown runs only when <c>isAutoContinueEnabled</c> is set (no debugger attached,
 /// L3-6); under a debug scenario it always runs, and its end and Continue never probe or exit (D16). Continue stays
-/// available whenever the internet is online and no exit was requested. Every member runs on the UI thread; timer and
-/// completion callbacks that arrive after <see cref="Dispose"/> are ignored.
+/// available whenever the internet is online and no exit was requested; only one final probe runs at a time, and a probe
+/// that throws counts as a failed probe. Every member runs on the UI thread; timer and completion callbacks that arrive
+/// after <see cref="Dispose"/> are ignored.
 /// </remarks>
 public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
 {
@@ -42,6 +44,8 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
     private InternetStatus _internet = InternetStatus.Checking;
     private ITimer? _timer;
     private bool _isSimulation;
+    private bool _hasNetworkingInteraction;
+    private bool _isCompleting;
     private bool _isDisposed;
 
     /// <summary>
@@ -73,6 +77,11 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
     }
 
     /// <summary>
+    /// Raised after "Stay here", which hides its own button: the view moves the keyboard focus to Continue.
+    /// </summary>
+    public event EventHandler? ContinueFocusRequested;
+
+    /// <summary>
     /// Gets the current countdown state.
     /// </summary>
     public AutoContinueState State { get; private set; } = AutoContinueState.Initial;
@@ -83,7 +92,7 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
     public bool IsCounting => State.Status == AutoContinueStatus.Counting;
 
     /// <summary>
-    /// Gets whether a networking interaction paused the countdown for the session.
+    /// Gets whether a networking interaction paused the countdown, or kept it from starting, for the session.
     /// </summary>
     public bool IsPaused => State.Status == AutoContinueStatus.Paused;
 
@@ -119,14 +128,16 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
     public bool CanContinue => _internet == InternetStatus.Online && _lifetime.RequestedExitCode is null;
 
     /// <summary>
-    /// Gets whether Continue is the default button. It stops being the default after a networking interaction, so an
-    /// Enter pressed in the Wi-Fi panel never leaves for Deploy (L3-3).
+    /// Gets whether Continue is the default button. It stops being the default for the rest of the session after the
+    /// first networking interaction, whatever the countdown state ("Stay here" included), so an Enter pressed in the Wi-Fi
+    /// panel never leaves for Deploy (L3-3).
     /// </summary>
-    public bool IsContinueDefault => CanContinue && !IsPaused;
+    public bool IsContinueDefault => CanContinue && !_hasNetworkingInteraction;
 
     /// <summary>
-    /// Gets or sets whether a debug scenario is simulated. Setting it stops the timer and restarts from
-    /// <see cref="AutoContinueStatus.Idle"/> with the last internet status.
+    /// Gets or sets whether a debug scenario is simulated. Setting it stops the timer, forgets the networking
+    /// interactions and restarts from <see cref="AutoContinueStatus.Idle"/> with the last internet status, as the page's
+    /// focus logic does.
     /// </summary>
     public bool IsSimulation
     {
@@ -140,6 +151,7 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
 
             bool changed = _isSimulation != value;
             _isSimulation = value;
+            _hasNetworkingInteraction = false;
             Transition(AutoContinueState.Initial);
             if (changed)
             {
@@ -158,7 +170,8 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
     private bool IsCountdownAllowed => _isAutoContinueEnabled || _isSimulation;
 
     /// <summary>
-    /// Applies the latest internet status: online starts the countdown, anything else resets a running one.
+    /// Applies the latest internet status: online starts the countdown (or offers Continue without counting after a
+    /// networking interaction), anything else resets a running one.
     /// </summary>
     /// <param name="internet">The internet status read from the coordinator on the UI thread.</param>
     public void OnInternetStatusChanged(InternetStatus internet)
@@ -171,14 +184,21 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
         _internet = internet;
         if (IsCountdownAllowed)
         {
-            Transition(AutoContinuePolicy.OnInternetStatus(State, internet, _timeProvider.GetUtcNow()));
+            AutoContinueState next = AutoContinuePolicy.OnInternetStatus(State, internet, _timeProvider.GetUtcNow(), _hasNetworkingInteraction);
+            if (next.Status == AutoContinueStatus.Paused && State.Status != AutoContinueStatus.Paused)
+            {
+                _logger.LogInformation("Automatic continue not started; the technician already interacted with the network.");
+            }
+
+            Transition(next);
         }
 
         NotifyAvailability();
     }
 
     /// <summary>
-    /// Pauses a running countdown for the session after the technician touched networking (D3, L3-4).
+    /// Records a networking interaction for the session (D3, L3-4): a running countdown pauses, a later online state
+    /// does not start one, and Continue stops being the default button.
     /// </summary>
     public void OnNetworkingInteraction()
     {
@@ -187,13 +207,15 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
             return;
         }
 
+        _hasNetworkingInteraction = true;
         AutoContinueState next = AutoContinuePolicy.OnNetworkingInteraction(State);
         if (next != State)
         {
             _logger.LogInformation("Automatic continue paused by a network interaction.");
             Transition(next);
-            NotifyAvailability();
         }
+
+        NotifyAvailability();
     }
 
     /// <summary>
@@ -222,8 +244,16 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
     [RelayCommand(CanExecute = nameof(IsCounting))]
     private void StayHere()
     {
+        if (_isDisposed)
+        {
+            return;
+        }
+
         _logger.LogInformation("Automatic continue cancelled by the technician.");
         Transition(AutoContinuePolicy.OnStayHere(State));
+
+        // The "Stay here" button collapses with the countdown; without this the keyboard focus would be lost.
+        ContinueFocusRequested?.Invoke(this, EventArgs.Empty);
     }
 
     [RelayCommand(CanExecute = nameof(CanContinue))]
@@ -280,7 +310,8 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
 
     private async Task CompleteAsync(bool automatic)
     {
-        if (_isDisposed)
+        // A countdown ending while a manual Continue probes joins that probe instead of starting a second one.
+        if (_isDisposed || _isCompleting)
         {
             return;
         }
@@ -297,6 +328,7 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
         }
 
         CancellationToken token = _disposeCts.Token;
+        _isCompleting = true;
         try
         {
             // No ConfigureAwait(false): the continuation changes bound properties on the UI thread.
@@ -314,6 +346,22 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
         catch (OperationCanceledException) when (token.IsCancellationRequested)
         {
             return;
+        }
+        catch (Exception exception)
+        {
+            // Never rethrown: AsyncRelayCommand would crash the app, and the countdown would stay at Elapsed. The exception
+            // is not attached because its message may name a network or a profile file.
+            _logger.LogWarning("Continue failed; waiting for the next online state. FailureType={FailureType}", exception.GetType().Name);
+            if (_isDisposed)
+            {
+                return;
+            }
+
+            Transition(AutoContinuePolicy.OnFinalProbeFailed(State));
+        }
+        finally
+        {
+            _isCompleting = false;
         }
 
         NotifyAvailability();

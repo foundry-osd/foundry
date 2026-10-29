@@ -92,6 +92,7 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
 
         _coordinator.StateChanged += OnCoordinatorStateChanged;
         _actions.InteractionOccurred += OnInteraction;
+        AutoContinue.ContinueFocusRequested += OnContinueFocusRequested;
         LocalizationService.LanguageChanged += OnLocalizationLanguageChanged;
 
         _renderedState = _coordinator.State;
@@ -99,7 +100,7 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
     }
 
     /// <summary>
-    /// Raised on the UI thread when the page status changes and a control should take the focus.
+    /// Raised on the UI thread when the page status changes and a control should take the focus, and after "Stay here".
     /// </summary>
     public event EventHandler<ConnectFocusTarget>? FocusRequested;
 
@@ -272,6 +273,7 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
         _isDisposed = true;
         _coordinator.StateChanged -= OnCoordinatorStateChanged;
         _actions.InteractionOccurred -= OnInteraction;
+        AutoContinue.ContinueFocusRequested -= OnContinueFocusRequested;
         LocalizationService.LanguageChanged -= OnLocalizationLanguageChanged;
         _disposeCts.Cancel();
 
@@ -316,6 +318,15 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
 
         _hasInteraction = true;
         AutoContinue.OnNetworkingInteraction();
+    }
+
+    // "Stay here" hides its own button; the focus goes to Continue, which stays visible while the internet is online.
+    private void OnContinueFocusRequested(object? sender, EventArgs e)
+    {
+        if (!_isDisposed)
+        {
+            FocusRequested?.Invoke(this, ConnectFocusTarget.Continue);
+        }
     }
 
     private void OnLocalizationLanguageChanged(object? sender, ApplicationLanguageChangedEventArgs e) => _dispatcher.Run(OnLanguageChanged);

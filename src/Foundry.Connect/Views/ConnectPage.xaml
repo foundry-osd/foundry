@@ -27,7 +27,7 @@
                             Height="180">
                             <controls:CustomProgressRing
                                 AutomationProperties.Name="{Binding HeroTitle}"
-                                IsIndeterminate="True"
+                                IsIndeterminate="{Binding IsHeroBusy}"
                                 ProgressBrush="{DynamicResource AccentFillColorDefaultBrush}"
                                 Thickness="14"
                                 TrackBrush="{DynamicResource ControlStrongFillColorDefaultBrush}"
@@ -631,6 +631,10 @@
                                     </Button.Style>
                                 </Button>
                             </WrapPanel>
+                            <TextBlock
+                                Style="{StaticResource ConnectNoticeTextBlockStyle}"
+                                Text="{Binding ConnectingText}"
+                                Visibility="{Binding IsConnecting, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             <TextBlock
                                 Style="{StaticResource ConnectNoticeTextBlockStyle}"
                                 Text="{Binding FeedbackText}"

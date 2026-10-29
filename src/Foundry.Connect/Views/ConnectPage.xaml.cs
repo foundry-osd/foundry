@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Threading;
 using Foundry.Connect.ViewModels;
 
@@ -14,7 +15,8 @@ namespace Foundry.Connect.Views;
 /// <summary>
 /// The single Connect page. The code-behind is framework glue only: it copies the password out of the
 /// <see cref="Foundry.Wpf.Controls.PassphraseEditor"/> into the view model (the password is not bindable), empties the
-/// editor when the view model clears the password, and moves the keyboard focus when the page asks for it.
+/// editor when the view model clears the password, keeps Enter on the Wi-Fi list from reaching the window's default
+/// button, and moves the keyboard focus when the page asks for it.
 /// </summary>
 public partial class ConnectPage : UserControl
 {
@@ -25,6 +27,7 @@ public partial class ConnectPage : UserControl
         InitializeComponent();
         DataContextChanged += OnDataContextChanged;
         PassphraseInput.PassphraseChanged += OnPassphraseChanged;
+        WifiNetworksList.PreviewKeyDown += OnWifiNetworksListPreviewKeyDown;
         Loaded += OnLoaded;
         Unloaded += OnUnloaded;
     }
@@ -72,6 +75,25 @@ public partial class ConnectPage : UserControl
     }
 
     private void OnPassphraseCleared(object? sender, EventArgs e) => PassphraseInput.Clear();
+
+    // An unhandled Enter would reach the default button (Continue) and leave for Deploy; on the list it chooses the focused
+    // row instead.
+    private void OnWifiNetworksListPreviewKeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.Key != Key.Enter)
+        {
+            return;
+        }
+
+        e.Handled = true;
+        if (!e.IsRepeat &&
+            _viewModel is not null &&
+            e.OriginalSource is DependencyObject source &&
+            ItemsControl.ContainerFromElement(WifiNetworksList, source) is ListBoxItem { DataContext: WifiNetworkItemViewModel network })
+        {
+            _viewModel.WifiNetworks.ChooseNetwork(network);
+        }
+    }
 
     // Queued at input priority so the bindings of the new status (visibility, enabled state) apply first.
     private void OnFocusRequested(object? sender, ConnectFocusTarget target) =>
