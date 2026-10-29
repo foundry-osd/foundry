@@ -98,6 +98,32 @@ public sealed class CustomImageConfigurationTests
         Assert.Throws<InvalidDataException>(() => CustomImagePathPolicy.ResolveRelativePath(Path.GetTempPath(), path));
     }
 
+    [Fact]
+    public void ReparsePointCheckSkipsMissingFoldersWithoutRaisingExceptions()
+    {
+        string root = Path.Combine(Path.GetTempPath(), "foundry-cipp-" + Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(root);
+        int raised = 0;
+        void Count(object? sender, System.Runtime.ExceptionServices.FirstChanceExceptionEventArgs args)
+        {
+            if (args.Exception is IOException && args.Exception.Message.Contains(root, StringComparison.OrdinalIgnoreCase))
+                Interlocked.Increment(ref raised);
+        }
+
+        AppDomain.CurrentDomain.FirstChanceException += Count;
+        try
+        {
+            CustomImagePathPolicy.ValidateNoReparsePoints(Path.Combine(root, "not", "created", "yet", "file.inf"));
+        }
+        finally
+        {
+            AppDomain.CurrentDomain.FirstChanceException -= Count;
+            Directory.Delete(root, recursive: true);
+        }
+
+        Assert.Equal(0, raised);
+    }
+
     private static CustomImagesSettings Settings() => new()
     {
         IsEnabled = true,
