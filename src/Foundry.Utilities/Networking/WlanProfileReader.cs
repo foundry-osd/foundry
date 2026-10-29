@@ -35,6 +35,43 @@ public static class WlanProfileReader
         return TryReadValue(profilePath, "authentication");
     }
 
+    /// <summary>
+    /// Gets whether WLAN profile XML embeds key material, that is any element whose local name is <c>keyMaterial</c>,
+    /// whatever its namespace.
+    /// </summary>
+    /// <remarks>DTD processing is prohibited and no external resource is resolved; XML that cannot be parsed returns <see langword="false"/>.</remarks>
+    /// <param name="profileXml">The WLAN profile XML text.</param>
+    /// <returns><see langword="true"/> when a <c>keyMaterial</c> element is present.</returns>
+    public static bool ContainsKeyMaterial(string profileXml)
+    {
+        ArgumentNullException.ThrowIfNull(profileXml);
+        try
+        {
+            using var textReader = new StringReader(profileXml);
+            using XmlReader reader = XmlReader.Create(textReader, CreateReaderSettings());
+            while (reader.Read())
+            {
+                if (reader.NodeType == XmlNodeType.Element &&
+                    string.Equals(reader.LocalName, "keyMaterial", StringComparison.Ordinal))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        catch (XmlException)
+        {
+            return false;
+        }
+    }
+
+    private static XmlReaderSettings CreateReaderSettings() => new()
+    {
+        DtdProcessing = DtdProcessing.Prohibit,
+        XmlResolver = null
+    };
+
     private static string? TryReadValue(string? profilePath, string elementName)
     {
         if (string.IsNullOrWhiteSpace(profilePath) || !File.Exists(profilePath))
@@ -44,12 +81,7 @@ public static class WlanProfileReader
 
         try
         {
-            var settings = new XmlReaderSettings
-            {
-                DtdProcessing = DtdProcessing.Prohibit,
-                XmlResolver = null
-            };
-            using XmlReader reader = XmlReader.Create(profilePath, settings);
+            using XmlReader reader = XmlReader.Create(profilePath, CreateReaderSettings());
             XDocument document = XDocument.Load(reader);
 
             return document

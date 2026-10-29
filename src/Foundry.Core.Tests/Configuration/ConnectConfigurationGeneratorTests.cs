@@ -2,9 +2,12 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Text;
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.WinPe;
 using Foundry.Core.Tests.TestUtilities;
 using Foundry.Telemetry;
 
@@ -12,6 +15,8 @@ namespace Foundry.Core.Tests.Configuration;
 
 public sealed class ConnectConfigurationGeneratorTests
 {
+    private const string FixturePassword = "correct horse battery staple";
+
     [Theory]
     [InlineData("26.10.3.1")]
     [InlineData(null)]
@@ -51,16 +56,12 @@ public sealed class ConnectConfigurationGeneratorTests
         Assert.True(root.TryGetProperty("network", out JsonElement network));
         Assert.True(root.TryGetProperty("dot1x", out _));
         Assert.True(root.TryGetProperty("wifi", out _));
-        Assert.True(root.TryGetProperty("internetProbe", out JsonElement internetProbe));
+        Assert.True(root.TryGetProperty("telemetry", out _));
+        Assert.False(root.TryGetProperty("protection", out _));
         Assert.False(capabilities.GetProperty("wifiProvisioned").GetBoolean());
         Assert.False(network.GetProperty("profileRoaming").GetProperty("wiredDot1x").GetProperty("isEnabled").GetBoolean());
         Assert.False(network.GetProperty("profileRoaming").GetProperty("wifi").GetProperty("isEnabled").GetBoolean());
-        Assert.Equal(JsonValueKind.Number, root.GetProperty("dot1x").GetProperty("authenticationMode").ValueKind);
-        Assert.Equal(JsonValueKind.Number, root.GetProperty("wifi").GetProperty("enterpriseAuthenticationMode").ValueKind);
-        Assert.Equal(5, internetProbe.GetProperty("timeoutSeconds").GetInt32());
-        Assert.NotEmpty(internetProbe.GetProperty("probeUris").EnumerateArray());
         Assert.Empty(bundle.AssetFiles);
-        Assert.Null(bundle.MediaSecretsKey);
     }
 
     [Fact]
@@ -172,17 +173,22 @@ public sealed class ConnectConfigurationGeneratorTests
         AssertAsset(bundle, tempDirectory.Path, @"Network\Certificates\Wifi\wifi.cer", @"Foundry\Config\Network\Certificates\Wifi\wifi.cer");
 
         using JsonDocument document = JsonDocument.Parse(bundle.ConfigurationJson);
-        JsonElement root = document.RootElement;
-        Assert.Equal(@"Network\Wired\Profiles\wired.xml", root.GetProperty("dot1x").GetProperty("profileTemplatePath").GetString());
-        Assert.Equal(@"Network\Certificates\Wired\wired.cer", root.GetProperty("dot1x").GetProperty("certificatePath").GetString());
-        Assert.Equal(@"Network\Wifi\Profiles\wifi.xml", root.GetProperty("wifi").GetProperty("enterpriseProfileTemplatePath").GetString());
-        Assert.Equal(@"Network\Certificates\Wifi\wifi.cer", root.GetProperty("wifi").GetProperty("certificatePath").GetString());
+        JsonElement dot1x = document.RootElement.GetProperty("dot1x");
+        JsonElement wifi = document.RootElement.GetProperty("wifi");
+        Assert.Equal(@"Network\Wired\Profiles\wired.xml", dot1x.GetProperty("profileTemplatePath").GetString());
+        Assert.Equal(@"Network\Certificates\Wired\wired.cer", Assert.Single(dot1x.GetProperty("trustedRootCertificates").EnumerateArray()).GetString());
+        Assert.Equal(@"Network\Wifi\Profiles\wifi.xml", wifi.GetProperty("enterpriseProfileTemplatePath").GetString());
+        Assert.Equal(@"Network\Certificates\Wifi\wifi.cer", Assert.Single(wifi.GetProperty("trustedRootCertificates").EnumerateArray()).GetString());
+        Assert.False(dot1x.TryGetProperty("certificatePath", out _));
+        Assert.False(wifi.TryGetProperty("certificatePath", out _));
+        Assert.False(wifi.TryGetProperty("isEnterpriseProfileTemplateProtected", out _));
     }
 
     [Fact]
-    public void CreateProvisioningBundle_WhenPersonalWifiHasTransientPassphrase_WritesEncryptedSecretEnvelope()
+    public void CreateProvisioningBundle_WhenPersonalWifiHasTransientPassphrase_WritesDeploymentKeyedSecretEnvelope()
     {
         using var tempDirectory = new TemporaryDirectory();
+        using DeploymentMediaProtectionMaterial protection = Protected();
         var generator = new ConnectConfigurationGenerator();
 
         FoundryConnectProvisioningBundle bundle = generator.CreateProvisioningBundle(
@@ -200,7 +206,9 @@ public sealed class ConnectConfigurationGeneratorTests
                 }
             },
             SourceInputs(tempDirectory, new NetworkSecrets { WifiPassphrase = "super-secret-passphrase" }),
-            tempDirectory.Path);
+            tempDirectory.Path,
+            null,
+            protection);
 
         using JsonDocument document = JsonDocument.Parse(bundle.ConfigurationJson);
         JsonElement wifi = document.RootElement.GetProperty("wifi");
@@ -208,13 +216,15 @@ public sealed class ConnectConfigurationGeneratorTests
         Assert.True(wifi.TryGetProperty("passphraseSecret", out JsonElement envelope));
         Assert.Equal("encrypted", envelope.GetProperty("kind").GetString());
         Assert.Equal("aes-gcm-v1", envelope.GetProperty("algorithm").GetString());
-        Assert.Equal("media", envelope.GetProperty("keyId").GetString());
+        Assert.Equal("deployment", envelope.GetProperty("keyId").GetString());
         Assert.False(string.IsNullOrWhiteSpace(envelope.GetProperty("nonce").GetString()));
         Assert.False(string.IsNullOrWhiteSpace(envelope.GetProperty("tag").GetString()));
         Assert.False(string.IsNullOrWhiteSpace(envelope.GetProperty("ciphertext").GetString()));
         Assert.DoesNotContain("super-secret-passphrase", bundle.ConfigurationJson, StringComparison.Ordinal);
-        Assert.NotNull(bundle.MediaSecretsKey);
-        Assert.Equal(32, bundle.MediaSecretsKey.Length);
+        Assert.Equal(
+            "super-secret-passphrase",
+            MediaSecretEnvelopeProtector.DecryptString(bundle.Configuration.Wifi.PassphraseSecret!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
+        Assert.True(document.RootElement.GetProperty("protection").TryGetProperty("keyCheck", out _));
         Assert.Empty(bundle.AssetFiles);
     }
 
@@ -222,6 +232,7 @@ public sealed class ConnectConfigurationGeneratorTests
     public void CreateProvisioningBundle_WhenCertificatePathsAreProvided_CopiesCertificatesEvenWhenNotRequired()
     {
         using var tempDirectory = new TemporaryDirectory();
+        using DeploymentMediaProtectionMaterial protection = Protected();
         string wiredCertificatePath = tempDirectory.CreateFile("source", "wired.cer", "wired-cert");
         string wifiCertificatePath = tempDirectory.CreateFile("source", "wifi.cer", "wifi-cert");
         var generator = new ConnectConfigurationGenerator();
@@ -250,92 +261,208 @@ public sealed class ConnectConfigurationGeneratorTests
                 }
             },
             SourceInputs(tempDirectory, new NetworkSecrets { WifiPassphrase = "super-secret-passphrase" }),
-            tempDirectory.Path);
+            tempDirectory.Path,
+            null,
+            protection);
 
         AssertAsset(bundle, tempDirectory.Path, @"Network\Certificates\Wired\wired.cer", @"Foundry\Config\Network\Certificates\Wired\wired.cer");
         AssertAsset(bundle, tempDirectory.Path, @"Network\Certificates\Wifi\wifi.cer", @"Foundry\Config\Network\Certificates\Wifi\wifi.cer");
-        using JsonDocument document = JsonDocument.Parse(bundle.ConfigurationJson);
-        Assert.Equal(@"Network\Certificates\Wired\wired.cer", document.RootElement.GetProperty("dot1x").GetProperty("certificatePath").GetString());
-        Assert.Equal(@"Network\Certificates\Wifi\wifi.cer", document.RootElement.GetProperty("wifi").GetProperty("certificatePath").GetString());
+        Assert.Equal([@"Network\Certificates\Wired\wired.cer"], bundle.Configuration.Dot1x.TrustedRootCertificates);
+        Assert.Equal([@"Network\Certificates\Wifi\wifi.cer"], bundle.Configuration.Wifi.TrustedRootCertificates);
     }
 
     [Fact]
-    public void CreateProvisioningBundle_WhenPfxCertificatePasswordsAreProvided_WritesEncryptedPasswordSecrets()
+    public void CreateProvisioningBundle_WhenPfxCertificatePasswordsAreProvided_WritesDeploymentKeyedPasswordSecrets()
     {
         using var tempDirectory = new TemporaryDirectory();
-        string wiredPfxPath = tempDirectory.CreateFile("source", "wired.pfx", "wired-pfx");
-        string wifiPfxPath = tempDirectory.CreateFile("source", "wifi.pfx", "wifi-pfx");
-        var generator = new ConnectConfigurationGenerator();
+        using DeploymentMediaProtectionMaterial protection = Protected();
 
-        FoundryConnectProvisioningBundle bundle = generator.CreateProvisioningBundle(
-            new FoundryConfigurationDocument
-            {
-                Network = new NetworkSettings
-                {
-                    WifiProvisioned = true,
-                    Dot1x = new Dot1xSettings
-                    {
-                        IsEnabled = true,
-                        ProfileTemplate = TestFileReferences.For(tempDirectory.CreateFile("source", "wired.xml", "<LANProfile />")),
-                        RequiresCertificate = true,
-                        ClientCertificate = TestFileReferences.For(wiredPfxPath)
-                    },
-                    Wifi = new WifiSettings
-                    {
-                        IsEnabled = true,
-                        Ssid = "Corp WiFi",
-                        SecurityType = NetworkConfigurationValidator.WifiSecurityEnterprise,
-                        HasEnterpriseProfile = true,
-                        EnterpriseProfileTemplate = TestFileReferences.For(tempDirectory.CreateFile(
-                            "source",
-                            "wifi.xml",
-                            """
-                            <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
-                              <MSM>
-                                <security>
-                                  <authEncryption>
-                                    <authentication>WPA2</authentication>
-                                  </authEncryption>
-                                </security>
-                              </MSM>
-                            </WLANProfile>
-                            """)),
-                        RequiresCertificate = true,
-                        ClientCertificate = TestFileReferences.For(wifiPfxPath)
-                    }
-                }
-            },
-            SourceInputs(tempDirectory, new NetworkSecrets { WiredCertificatePfxPassword = "wired-password", WifiCertificatePfxPassword = "wifi-password" }),
-            tempDirectory.Path);
+        FoundryConnectProvisioningBundle bundle = new ConnectConfigurationGenerator().CreateProvisioningBundle(
+            CreateRuntimeFixtureSource(tempDirectory, enterpriseWifi: true),
+            SourceInputs(tempDirectory, FixtureSecrets(enterpriseWifi: true)),
+            tempDirectory.Path,
+            null,
+            protection);
 
-        using JsonDocument document = JsonDocument.Parse(bundle.ConfigurationJson);
-        Assert.True(document.RootElement.GetProperty("dot1x").TryGetProperty("certificatePfxPasswordSecret", out JsonElement wiredEnvelope));
-        Assert.True(document.RootElement.GetProperty("wifi").TryGetProperty("certificatePfxPasswordSecret", out JsonElement wifiEnvelope));
-        Assert.Equal("encrypted", wiredEnvelope.GetProperty("kind").GetString());
-        Assert.Equal("encrypted", wifiEnvelope.GetProperty("kind").GetString());
+        ConnectClientCertificateSettings wired = bundle.Configuration.Dot1x.ClientCertificate!;
+        ConnectClientCertificateSettings wifi = bundle.Configuration.Wifi.ClientCertificate!;
+        Assert.Equal(@"Network\Certificates\Wired\wired.pfx.encrypted", wired.Path);
+        Assert.Equal(@"Network\Certificates\Wifi\wifi.pfx.encrypted", wifi.Path);
+        Assert.True(wifi.IsContentProtected);
+        Assert.Equal("wired-password", MediaSecretEnvelopeProtector.DecryptString(wired.PasswordSecret!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
+        Assert.Equal("wifi-password", MediaSecretEnvelopeProtector.DecryptString(wifi.PasswordSecret!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
+        Assert.Equal("wifi-pfx", Encoding.UTF8.GetString(DecryptStagedAsset(bundle, @"Foundry\Config\Network\Certificates\Wifi\wifi.pfx.encrypted", protection)));
         Assert.DoesNotContain("wired-password", bundle.ConfigurationJson, StringComparison.Ordinal);
         Assert.DoesNotContain("wifi-password", bundle.ConfigurationJson, StringComparison.Ordinal);
-        Assert.NotNull(bundle.MediaSecretsKey);
-        Assert.Equal(32, bundle.MediaSecretsKey.Length);
+        Assert.Null(bundle.Configuration.Dot1x.CertificatePath);
+        Assert.Null(bundle.Configuration.Wifi.CertificatePfxPasswordSecret);
+    }
+
+    [Fact]
+    public void CreateProvisioningBundle_WhenPfxPasswordIsEmpty_StagesTheEncryptedPfxWithoutPasswordEnvelope()
+    {
+        // The envelope format refuses an empty ciphertext, so an empty password must not become an undecryptable envelope.
+        using var tempDirectory = new TemporaryDirectory();
+        using DeploymentMediaProtectionMaterial protection = Protected();
+
+        FoundryConnectProvisioningBundle bundle = new ConnectConfigurationGenerator().CreateProvisioningBundle(
+            CreateRuntimeFixtureSource(tempDirectory, enterpriseWifi: true),
+            SourceInputs(tempDirectory, new NetworkSecrets { WiredCertificatePfxPassword = string.Empty }),
+            tempDirectory.Path,
+            null,
+            protection);
+
+        ConnectClientCertificateSettings wired = bundle.Configuration.Dot1x.ClientCertificate!;
+        Assert.True(wired.IsContentProtected);
+        Assert.Null(wired.PasswordSecret);
+        Assert.Null(bundle.Configuration.Wifi.ClientCertificate!.PasswordSecret);
+        Assert.Equal("wired-pfx", Encoding.UTF8.GetString(DecryptStagedAsset(bundle, @"Foundry\Config\Network\Certificates\Wired\wired.pfx.encrypted", protection)));
+        Assert.Equal(protection.Settings, bundle.Configuration.Protection);
     }
 
     [Theory]
-    [InlineData("connect-schema5-dot1x-wifi.json", false)]
-    [InlineData("connect-schema5-dot1x-wifi-enterprise.json", true)]
-    public void Generate_RuntimeJson_IsUnchangedBySplit(string fixtureName, bool enterpriseWifi)
+    [InlineData("connect-schema6-dot1x-wifi.json", false)]
+    [InlineData("connect-schema6-dot1x-wifi-enterprise.json", true)]
+    public void Generate_RuntimeJson_MatchesSchemaSixFixture(string fixtureName, bool enterpriseWifi)
     {
         using var tempDirectory = new TemporaryDirectory();
-        var generator = new ConnectConfigurationGenerator();
+        using DeploymentMediaProtectionMaterial protection = Protected();
 
-        FoundryConnectProvisioningBundle bundle = generator.CreateProvisioningBundle(
-            CreateRuntimeFixtureSource(tempDirectory, enterpriseWifi),
-            SourceInputs(tempDirectory, FixtureSecrets(enterpriseWifi)),
-            tempDirectory.Path,
-            "26.10.18.1");
+        FoundryConnectProvisioningBundle bundle = new ConnectConfigurationGenerator().CreateProvisioningBundle(
+            CreateRuntimeFixtureSource(tempDirectory, enterpriseWifi), SourceInputs(tempDirectory, FixtureSecrets(enterpriseWifi)),
+            tempDirectory.Path, "26.10.18.1", protection);
 
         string expected = File.ReadAllText(System.IO.Path.Combine(AppContext.BaseDirectory, "Configuration", "Fixtures", fixtureName));
         Assert.Equal(NormalizeRuntimeJson(expected), NormalizeRuntimeJson(bundle.ConfigurationJson));
     }
+
+    [Fact]
+    public void Generate_SchemaSix_OmitsDeadRuntimeFields()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        using DeploymentMediaProtectionMaterial protection = Protected();
+
+        FoundryConnectProvisioningBundle bundle = new ConnectConfigurationGenerator().CreateProvisioningBundle(
+            CreateRuntimeFixtureSource(tempDirectory, enterpriseWifi: true), SourceInputs(tempDirectory, FixtureSecrets(true)),
+            tempDirectory.Path, null, protection);
+
+        Assert.All(
+            ["allowRuntimeCredentials", "authenticationMode", "enterpriseAuthenticationMode", "requiresCertificate", "internetProbe"],
+            name => Assert.DoesNotContain($"\"{name}\"", bundle.ConfigurationJson, StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public void Generate_ClientCertificate_IsStagedEncryptedWithTheDeploymentKey()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        using DeploymentMediaProtectionMaterial protection = Protected();
+
+        FoundryConnectProvisioningBundle bundle = new ConnectConfigurationGenerator().CreateProvisioningBundle(
+            CreateRuntimeFixtureSource(tempDirectory, enterpriseWifi: false), SourceInputs(tempDirectory, FixtureSecrets(false)),
+            tempDirectory.Path, null, protection);
+
+        ConnectClientCertificateSettings client = bundle.Configuration.Dot1x.ClientCertificate!;
+        Assert.True(client.IsContentProtected);
+        Assert.EndsWith(".pfx.encrypted", client.Path, StringComparison.Ordinal);
+        Assert.DoesNotContain(bundle.AssetFiles, asset => asset.RelativeDestinationPath.EndsWith(".pfx", StringComparison.OrdinalIgnoreCase));
+        FoundryConnectProvisionedAssetFile staged = Assert.Single(bundle.AssetFiles, asset => asset.RelativeDestinationPath.EndsWith(".pfx.encrypted", StringComparison.Ordinal));
+        SecretEnvelope envelope = JsonSerializer.Deserialize<SecretEnvelope>(File.ReadAllText(staged.SourcePath), ConfigurationJsonDefaults.SerializerOptions)!;
+        Assert.Equal("wired-pfx", Encoding.UTF8.GetString(MediaSecretEnvelopeProtector.DecryptBytes(envelope, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId)));
+        Assert.Equal("wired-password", MediaSecretEnvelopeProtector.DecryptString(client.PasswordSecret!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
+        Assert.Equal("personal-passphrase", MediaSecretEnvelopeProtector.DecryptString(bundle.Configuration.Wifi.PassphraseSecret!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
+        Assert.Equal(protection.Settings, bundle.Configuration.Protection);
+        Assert.False(MediaSecretEnvelopeProtector.HasEncryptedSecrets(bundle.ConfigurationJson));
+    }
+
+    [Fact]
+    public void Generate_NetworkSecretWithoutProtection_IsRefused()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+
+        InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => new ConnectConfigurationGenerator().CreateProvisioningBundle(
+            CreateRuntimeFixtureSource(tempDirectory, enterpriseWifi: false), SourceInputs(tempDirectory, FixtureSecrets(false)), tempDirectory.Path));
+
+        Assert.Contains("MediaProtectionRequired", exception.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void Generate_NetworkSecretWithUnprotectedMaterial_IsRefused()
+    {
+        // Unprotected media stores its deployment key in plaintext, so that key must never protect a network secret.
+        using var tempDirectory = new TemporaryDirectory();
+        using DeploymentMediaProtectionMaterial unprotected = DeploymentMediaProtectionService.CreateUnprotected();
+
+        InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => new ConnectConfigurationGenerator().CreateProvisioningBundle(
+            CreateRuntimeFixtureSource(tempDirectory, enterpriseWifi: false), SourceInputs(tempDirectory, FixtureSecrets(false)), tempDirectory.Path, null, unprotected));
+
+        Assert.Contains("MediaProtectionRequired", exception.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void Generate_TrustedRootsOnly_NeedNoProtection()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string root = tempDirectory.CreateFile("source", "root.cer", "root");
+        FoundryConfigurationDocument document = new()
+        {
+            Network = new NetworkSettings
+            {
+                Dot1x = new Dot1xSettings
+                {
+                    IsEnabled = true,
+                    ProfileTemplate = TestFileReferences.For(tempDirectory.CreateFile("source", "wired.xml", "<LANProfile />")),
+                    RequiresCertificate = true,
+                    TrustedRootCertificates = [TestFileReferences.For(root)]
+                }
+            }
+        };
+
+        FoundryConnectProvisioningBundle bundle = new ConnectConfigurationGenerator().CreateProvisioningBundle(document, SourceInputs(tempDirectory), tempDirectory.Path);
+
+        Assert.Equal([@"Network\Certificates\Wired\root.cer"], bundle.Configuration.Dot1x.TrustedRootCertificates);
+        Assert.Null(bundle.Configuration.Dot1x.ClientCertificate);
+        Assert.Null(bundle.Configuration.Protection);
+        Assert.Equal(6, bundle.Configuration.SchemaVersion);
+    }
+
+    [Fact]
+    public void Generate_EnterpriseTemplateWithKeyMaterial_IsEncrypted()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        using DeploymentMediaProtectionMaterial protection = Protected();
+        FoundryConfigurationDocument source = CreateRuntimeFixtureSource(tempDirectory, enterpriseWifi: true);
+        string template = tempDirectory.CreateFile("source", "keyed.xml",
+            """<WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1"><name>Corp</name><MSM><security><sharedKey><keyMaterial>secret</keyMaterial></sharedKey></security></MSM></WLANProfile>""");
+        source = source with { Network = source.Network with { Wifi = source.Network.Wifi with { EnterpriseProfileTemplate = TestFileReferences.For(template) } } };
+
+        FoundryConnectProvisioningBundle bundle = new ConnectConfigurationGenerator().CreateProvisioningBundle(
+            source, SourceInputs(tempDirectory, FixtureSecrets(true)), tempDirectory.Path, null, protection);
+
+        Assert.True(bundle.Configuration.Wifi.IsEnterpriseProfileTemplateProtected);
+        Assert.EndsWith(".xml.encrypted", bundle.Configuration.Wifi.EnterpriseProfileTemplatePath, StringComparison.Ordinal);
+        Assert.DoesNotContain(bundle.AssetFiles, asset => File.ReadAllText(asset.SourcePath).Contains("secret", StringComparison.Ordinal));
+        Assert.Equal(File.ReadAllBytes(template), DecryptStagedAsset(bundle, @"Foundry\Config\Network\Wifi\Profiles\keyed.xml.encrypted", protection));
+    }
+
+    [Fact]
+    public void Generate_DisabledFeatures_WriteNoSecretOrAsset()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        using DeploymentMediaProtectionMaterial protection = Protected();
+        FoundryConfigurationDocument source = CreateRuntimeFixtureSource(tempDirectory, enterpriseWifi: false);
+        source = source with { Network = source.Network with { Dot1x = source.Network.Dot1x with { IsEnabled = false }, Wifi = source.Network.Wifi with { IsEnabled = false } } };
+
+        FoundryConnectProvisioningBundle bundle = new ConnectConfigurationGenerator().CreateProvisioningBundle(
+            source, SourceInputs(tempDirectory, FixtureSecrets(false)), tempDirectory.Path, null, protection);
+
+        Assert.Empty(bundle.AssetFiles);
+        Assert.Null(bundle.Configuration.Dot1x.ClientCertificate);
+        Assert.Null(bundle.Configuration.Wifi.PassphraseSecret);
+        Assert.Null(bundle.Configuration.Protection);
+        Assert.DoesNotContain("\"kind\"", bundle.ConfigurationJson, StringComparison.Ordinal);
+    }
+
+    private static DeploymentMediaProtectionMaterial Protected() => DeploymentMediaProtectionService.CreateProtected(FixturePassword);
 
     private static FoundryConfigurationDocument CreateRuntimeFixtureSource(TemporaryDirectory tempDirectory, bool enterpriseWifi)
     {
@@ -388,7 +515,8 @@ public sealed class ConnectConfigurationGeneratorTests
                     AuthenticationMode = NetworkAuthenticationMode.UserOnly,
                     AllowRuntimeCredentials = true,
                     RequiresCertificate = true,
-                    ClientCertificate = TestFileReferences.For(tempDirectory.CreateFile("source", "wired.pfx", "wired-pfx"))
+                    ClientCertificate = TestFileReferences.For(tempDirectory.CreateFile("source", "wired.pfx", "wired-pfx")),
+                    TrustedRootCertificates = [TestFileReferences.For(tempDirectory.CreateFile("source", "wired-root.cer", "wired-root"))]
                 },
                 Wifi = wifi
             },
@@ -407,12 +535,21 @@ public sealed class ConnectConfigurationGeneratorTests
         Network = secrets ?? new NetworkSecrets()
     };
 
-    // Secret envelopes use a fresh media key and nonce per generation; every other byte must match the fixture.
+    // Envelopes and the password salt are random per generation; every other byte must match the fixture.
     private static string NormalizeRuntimeJson(string json) =>
         System.Text.RegularExpressions.Regex.Replace(
             json.ReplaceLineEndings("\n"),
-            "\"(nonce|tag|ciphertext)\": \"[^\"]*\"",
+            "\"(nonce|tag|ciphertext|salt)\": \"[^\"]*\"",
             "\"$1\": \"<random>\"");
+
+    private static byte[] DecryptStagedAsset(FoundryConnectProvisioningBundle bundle, string relativeDestinationPath, DeploymentMediaProtectionMaterial protection)
+    {
+        FoundryConnectProvisionedAssetFile staged = Assert.Single(
+            bundle.AssetFiles,
+            asset => string.Equals(asset.RelativeDestinationPath, relativeDestinationPath, StringComparison.Ordinal));
+        SecretEnvelope envelope = JsonSerializer.Deserialize<SecretEnvelope>(File.ReadAllText(staged.SourcePath), ConfigurationJsonDefaults.SerializerOptions)!;
+        return MediaSecretEnvelopeProtector.DecryptBytes(envelope, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId);
+    }
 
     private static void AssertAsset(
         FoundryConnectProvisioningBundle bundle,

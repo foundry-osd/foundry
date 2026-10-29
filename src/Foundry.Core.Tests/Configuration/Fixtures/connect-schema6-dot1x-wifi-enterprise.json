@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 6,
+  "authoringVersion": "26.10.18.1",
+  "capabilities": {
+    "wifiProvisioned": true
+  },
+  "network": {
+    "profileRoaming": {
+      "wiredDot1x": {
+        "isEnabled": true,
+        "includePrivateKeyMaterial": true
+      },
+      "wifi": {
+        "isEnabled": true,
+        "includePrivateKeyMaterial": false
+      }
+    }
+  },
+  "dot1x": {
+    "isEnabled": true,
+    "profileTemplatePath": "Network\\Wired\\Profiles\\wired.xml",
+    "clientCertificate": {
+      "path": "Network\\Certificates\\Wired\\wired.pfx.encrypted",
+      "isContentProtected": true,
+      "passwordSecret": {
+        "kind": "encrypted",
+        "algorithm": "aes-gcm-v1",
+        "keyId": "deployment",
+        "nonce": "jqmGLhYhwmnT7uTb",
+        "tag": "d6LGh4zpJW5ijAnihvrLcg",
+        "ciphertext": "rIzMOhOImzBDwaTru_8"
+      }
+    },
+    "trustedRootCertificates": [
+      "Network\\Certificates\\Wired\\wired-root.cer"
+    ]
+  },
+  "wifi": {
+    "isEnabled": true,
+    "ssid": "Corp WiFi",
+    "securityType": "WPA2/WPA3-Enterprise",
+    "hasEnterpriseProfile": true,
+    "enterpriseProfileTemplatePath": "Network\\Wifi\\Profiles\\wifi.xml",
+    "clientCertificate": {
+      "path": "Network\\Certificates\\Wifi\\wifi.pfx.encrypted",
+      "isContentProtected": true,
+      "passwordSecret": {
+        "kind": "encrypted",
+        "algorithm": "aes-gcm-v1",
+        "keyId": "deployment",
+        "nonce": "8RsL-BvmjUWCrB5o",
+        "tag": "4-LIrphkJ67G04S-WJeHZA",
+        "ciphertext": "KU0Ubyvx8zcng14FPw"
+      }
+    }
+  },
+  "telemetry": {
+    "isEnabled": true,
+    "isRemoteDiagnosticsEnabled": true,
+    "installId": "fixture-install",
+    "hostUrl": "https://eu.i.posthog.com",
+    "projectToken": "",
+    "runtimePayloadSource": "unknown"
+  },
+  "protection": {
+    "isEnabled": true,
+    "keyDerivationAlgorithm": "pbkdf2-sha256",
+    "iterations": 600000,
+    "salt": "FNFqNyE3HdDahS2YbS_vOA",
+    "protectedDeploymentKey": {
+      "kind": "encrypted",
+      "algorithm": "aes-gcm-v1",
+      "keyId": "deployment-password",
+      "nonce": "dqbUpeP64J9bH-cK",
+      "tag": "IkEcvMlIuk6OwHrIoEAQbQ",
+      "ciphertext": "csdU1UtkVT27kEGcz6duLcgifCi5wlnff-wfmtoItyI"
+    },
+    "keyCheck": {
+      "kind": "encrypted",
+      "algorithm": "aes-gcm-v1",
+      "keyId": "deployment-key-check",
+      "nonce": "ZWwesoIVUFPsQ7EW",
+      "tag": "Yhf_cdn60PaHWPhCr4ugKw",
+      "ciphertext": "LGvh7oWA4QFQeeyFhMUcPkokbh3w9_Deq9wLkhTHDQ"
+    }
+  }
+}

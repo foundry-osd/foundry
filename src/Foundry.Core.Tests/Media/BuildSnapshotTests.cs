@@ -11,6 +11,7 @@ using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Files;
 using Foundry.Core.Services.Media;
+using Foundry.Core.Services.WinPe;
 using Foundry.Core.Tests.TestUtilities;
 
 namespace Foundry.Core.Tests.Media;
@@ -137,7 +138,8 @@ public sealed class BuildSnapshotTests : IDisposable
         using var secrets = new OobeAccountSecretState();
         using BuildSnapshot snapshot = await BuildSnapshot.CaptureAsync(
             new(), secrets, [], root, "26.10.3.1", TestContext.Current.CancellationToken);
-        FoundryConnectProvisioningBundle connect = snapshot.CreateConnectProvisioningBundle(Path.Combine(root, "connect"));
+        using DeploymentMediaProtectionMaterial protection = snapshot.CreateDeploymentProtectionMaterial();
+        FoundryConnectProvisioningBundle connect = snapshot.CreateConnectProvisioningBundle(Path.Combine(root, "connect"), protection);
         using JsonDocument connectJson = JsonDocument.Parse(connect.ConfigurationJson);
         using JsonDocument deployJson = JsonDocument.Parse(snapshot.GenerateDeployConfigurationJson());
         using JsonDocument authoringJson = JsonDocument.Parse(new FoundryConfigurationService().Serialize(snapshot.Configuration));
@@ -183,19 +185,14 @@ public sealed class BuildSnapshotTests : IDisposable
         Array.Clear(mediaPassword);
         using BuildSnapshot snapshot = await capture;
         using var protection = snapshot.CreateDeploymentProtectionMaterial();
-        FoundryConnectProvisioningBundle connect = snapshot.CreateConnectProvisioningBundle(Path.Combine(root, "connect"));
-        try
-        {
-            Assert.Equal("OriginalWifiPassword", MediaSecretEnvelopeProtector.DecryptString(connect.Configuration.Wifi.PassphraseSecret!, connect.MediaSecretsKey!));
-            string json = snapshot.GenerateDeployConfigurationJson(deploymentSecretsKey: protection.DeploymentKey, protectionSettings: protection.Settings);
-            FoundryDeployConfigurationDocument deploy = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
-            Assert.Equal("AdminPassword123!", MediaSecretEnvelopeProtector.DecryptString(deploy.Customization.Oobe.AdministratorPasswordSecret!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
-            Assert.DoesNotContain("OriginalWifiPassword", new FoundryConfigurationService().Serialize(snapshot.Configuration), StringComparison.Ordinal);
-        }
-        finally
-        {
-            CryptographicOperations.ZeroMemory(connect.MediaSecretsKey!);
-        }
+        FoundryConnectProvisioningBundle connect = snapshot.CreateConnectProvisioningBundle(Path.Combine(root, "connect"), protection);
+
+        Assert.Equal("OriginalWifiPassword", MediaSecretEnvelopeProtector.DecryptString(
+            connect.Configuration.Wifi.PassphraseSecret!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
+        string json = snapshot.GenerateDeployConfigurationJson(deploymentSecretsKey: protection.DeploymentKey, protectionSettings: protection.Settings);
+        FoundryDeployConfigurationDocument deploy = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
+        Assert.Equal("AdminPassword123!", MediaSecretEnvelopeProtector.DecryptString(deploy.Customization.Oobe.AdministratorPasswordSecret!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
+        Assert.DoesNotContain("OriginalWifiPassword", new FoundryConfigurationService().Serialize(snapshot.Configuration), StringComparison.Ordinal);
     }
 
     [Fact]
@@ -552,23 +549,25 @@ public sealed class BuildSnapshotTests : IDisposable
         using var secrets = new OobeAccountSecretState();
         var document = new FoundryConfigurationDocument
         {
+            General = new() { DeploymentProtection = new() { IsEnabled = true } },
             Network = new() { Dot1x = new() { IsEnabled = true, ProfileTemplate = template, RequiresCertificate = true, ClientCertificate = certificate } }
         };
 
         using BuildSnapshot snapshot = await BuildSnapshot.CaptureAsync(
             document, Sources(new NetworkSecrets { WiredCertificatePfxPassword = "pfx-password" }),
-            secrets, null, [], Path.Combine(root, "snapshots"), null, TestContext.Current.CancellationToken);
+            secrets, null, "MediaPassword123!", Path.Combine(root, "snapshots"), null, TestContext.Current.CancellationToken);
         string capturedTemplate = snapshot.ResolveCapturedFile(template)!;
         string capturedCertificate = snapshot.ResolveCapturedFile(certificate)!;
         File.WriteAllBytes(library.GetAvailablePath(template)!, "<changed! />"u8.ToArray());
-        FoundryConnectProvisioningBundle connect = snapshot.CreateConnectProvisioningBundle(Path.Combine(root, "connect"));
+        using DeploymentMediaProtectionMaterial protection = snapshot.CreateDeploymentProtectionMaterial();
+        FoundryConnectProvisioningBundle connect = snapshot.CreateConnectProvisioningBundle(Path.Combine(root, "connect"), protection);
 
         Assert.StartsWith(Path.Combine(root, "snapshots") + Path.DirectorySeparatorChar, capturedTemplate);
         Assert.Equal("<LANProfile />"u8.ToArray(), File.ReadAllBytes(capturedTemplate));
         Assert.Equal([1, 2, 3], File.ReadAllBytes(capturedCertificate));
         Assert.Equal("<LANProfile />"u8.ToArray(), File.ReadAllBytes(connect.AssetFiles.Single(asset => asset.RelativeDestinationPath.Contains(@"\Wired\Profiles\", StringComparison.Ordinal)).SourcePath));
-        Assert.NotNull(connect.Configuration.Dot1x.CertificatePfxPasswordSecret);
-        CryptographicOperations.ZeroMemory(connect.MediaSecretsKey!);
+        Assert.Equal("pfx-password", MediaSecretEnvelopeProtector.DecryptString(
+            connect.Configuration.Dot1x.ClientCertificate!.PasswordSecret!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
     }
 
     [Fact]

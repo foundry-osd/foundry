@@ -428,98 +428,36 @@ public sealed class ConnectConfigurationServiceTests
     }
 
     [Fact]
-    public void Load_WhenCoreGeneratedConfigurationContainsEncryptedPassphrase_DecryptsPassphraseFromMediaKey()
+    public void Load_WhenSchemaFiveConfigurationContainsEncryptedPassphrase_DecryptsPassphraseFromMediaKey()
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
         using var tempDirectory = new TemporaryDirectory();
-        Foundry.Core.Models.Configuration.FoundryConnectProvisioningBundle bundle =
-            new ConnectConfigurationGenerator().CreateProvisioningBundle(
-                new CoreConfiguration.FoundryConfigurationDocument
-                {
-                    Network = new CoreConfiguration.NetworkSettings
-                    {
-                        WifiProvisioned = true,
-                        Wifi = new CoreConfiguration.WifiSettings
-                        {
-                            IsEnabled = true,
-                            Ssid = "Corp WiFi",
-                            SecurityType = "WPA2/WPA3-Personal"
-                        }
-                    }
-                },
-                Inputs(tempDirectory.Path, new NetworkSecrets { WifiPassphrase = "super-secret-passphrase" }),
-                tempDirectory.Path, "26.10.3.1");
-        Assert.NotNull(bundle.MediaSecretsKey);
-        Assert.DoesNotContain("super-secret-passphrase", bundle.ConfigurationJson, StringComparison.Ordinal);
-
-        string configDirectory = System.IO.Path.Combine(tempDirectory.Path, "Config");
-        Directory.CreateDirectory(configDirectory);
-        string configurationPath = CreateJsonFile(configDirectory, "foundry.connect.config.json", bundle.ConfigurationJson);
-        CreateBinaryFile(System.IO.Path.Combine(configDirectory, "Secrets"), "media-secrets.key", bundle.MediaSecretsKey);
+        string configurationPath = ConnectMediaFixtures.WriteSchemaFive(tempDirectory, wifiPassphrase: "super-secret-passphrase");
+        Assert.DoesNotContain("super-secret-passphrase", File.ReadAllText(configurationPath), StringComparison.Ordinal);
 
         var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
 
         (FoundryConnectConfigurationDocument configuration, ConnectRuntimeSecrets secrets) = LoadWithSecrets(service);
 
-        Assert.Equal("26.10.3.1", configuration.AuthoringVersion);
+        Assert.Equal(5, configuration.SchemaVersion);
         Assert.Equal("super-secret-passphrase", new string(secrets.WifiPassphrase.Value));
         Assert.Null(configuration.Wifi.PassphraseSecret);
     }
 
     [Fact]
-    public void Load_WhenCoreGeneratedConfigurationContainsEncryptedPfxPasswords_DecryptsPasswordsFromMediaKey()
+    public void Load_WhenSchemaFiveConfigurationContainsEncryptedPfxPasswords_DecryptsPasswordsFromMediaKey()
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
         using var tempDirectory = new TemporaryDirectory();
-        Foundry.Core.Models.Configuration.FoundryConnectProvisioningBundle bundle =
-            new ConnectConfigurationGenerator().CreateProvisioningBundle(
-                new CoreConfiguration.FoundryConfigurationDocument
-                {
-                    Network = new CoreConfiguration.NetworkSettings
-                    {
-                        WifiProvisioned = true,
-                        Dot1x = new CoreConfiguration.Dot1xSettings
-                        {
-                            IsEnabled = true,
-                            ProfileTemplate = Reference(CreateFile(tempDirectory.Path, "wired.xml", "<LANProfile />")),
-                            RequiresCertificate = true,
-                            ClientCertificate = Reference(CreateFile(tempDirectory.Path, "wired.pfx", "wired-pfx"))
-                        },
-                        Wifi = new CoreConfiguration.WifiSettings
-                        {
-                            IsEnabled = true,
-                            Ssid = "Corp WiFi",
-                            SecurityType = NetworkConfigurationValidator.WifiSecurityEnterprise,
-                            HasEnterpriseProfile = true,
-                            EnterpriseProfileTemplate = Reference(CreateFile(
-                                tempDirectory.Path,
-                                "wifi.xml",
-                                """
-                                <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
-                                  <MSM>
-                                    <security>
-                                      <authEncryption>
-                                        <authentication>WPA2</authentication>
-                                      </authEncryption>
-                                    </security>
-                                  </MSM>
-                                </WLANProfile>
-                                """)),
-                            RequiresCertificate = true,
-                            ClientCertificate = Reference(CreateFile(tempDirectory.Path, "wifi.pfx", "wifi-pfx"))
-                        }
-                    }
-                },
-                Inputs(tempDirectory.Path, new NetworkSecrets { WiredCertificatePfxPassword = "wired-password", WifiCertificatePfxPassword = "wifi-password" }),
-                tempDirectory.Path);
-        Assert.NotNull(bundle.MediaSecretsKey);
-        Assert.DoesNotContain("wired-password", bundle.ConfigurationJson, StringComparison.Ordinal);
-        Assert.DoesNotContain("wifi-password", bundle.ConfigurationJson, StringComparison.Ordinal);
-
-        string configDirectory = System.IO.Path.Combine(tempDirectory.Path, "Config");
-        Directory.CreateDirectory(configDirectory);
-        string configurationPath = CreateJsonFile(configDirectory, "foundry.connect.config.json", bundle.ConfigurationJson);
-        CreateBinaryFile(System.IO.Path.Combine(configDirectory, "Secrets"), "media-secrets.key", bundle.MediaSecretsKey);
+        string configurationPath = ConnectMediaFixtures.WriteSchemaFive(
+            tempDirectory,
+            wiredCertificatePath: @"Network\Certificates\Wired\wired.pfx",
+            wiredPfxPassword: "wired-password",
+            wifiCertificatePath: @"Network\Certificates\Wifi\wifi.pfx",
+            wifiPfxPassword: "wifi-password");
+        string configurationJson = File.ReadAllText(configurationPath);
+        Assert.DoesNotContain("wired-password", configurationJson, StringComparison.Ordinal);
+        Assert.DoesNotContain("wifi-password", configurationJson, StringComparison.Ordinal);
 
         var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
 
@@ -532,30 +470,38 @@ public sealed class ConnectConfigurationServiceTests
     }
 
     [Fact]
+    public void Load_SchemaFiveDeadRuntimeFields_StillLoad()
+    {
+        // Schema 5 media carry the fields schema 6 no longer writes; Connect still reads them.
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var tempDirectory = new TemporaryDirectory();
+        string configurationPath = ConnectMediaFixtures.WriteSchemaFive(
+            tempDirectory,
+            wiredCertificatePath: @"Network\Certificates\Wired\wired.pfx",
+            wiredPfxPassword: "wired-password",
+            wifiCertificatePath: @"Network\Certificates\Wifi\wifi.pfx",
+            wifiPfxPassword: "wifi-password");
+        string configurationJson = File.ReadAllText(configurationPath);
+        Assert.All(
+            ["\"allowRuntimeCredentials\"", "\"authenticationMode\"", "\"enterpriseAuthenticationMode\"", "\"requiresCertificate\"", "\"internetProbe\""],
+            name => Assert.Contains(name, configurationJson, StringComparison.Ordinal));
+
+        FoundryConnectConfigurationDocument configuration = LoadConfiguration(
+            new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance));
+
+        Assert.Equal(CoreConfiguration.NetworkAuthenticationMode.MachineOnly, configuration.Dot1x.AuthenticationMode);
+        Assert.Equal(CoreConfiguration.NetworkAuthenticationMode.UserOnly, configuration.Wifi.EnterpriseAuthenticationMode);
+        Assert.True(configuration.Dot1x.RequiresCertificate);
+        Assert.Equal(5, configuration.InternetProbe.TimeoutSeconds);
+    }
+
+    [Fact]
     public void Load_WhenEncryptedPassphraseHasNoMediaKey_MarksPassphraseUnavailable()
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
         using var tempDirectory = new TemporaryDirectory();
-        Foundry.Core.Models.Configuration.FoundryConnectProvisioningBundle bundle =
-            new ConnectConfigurationGenerator().CreateProvisioningBundle(
-                new CoreConfiguration.FoundryConfigurationDocument
-                {
-                    Network = new CoreConfiguration.NetworkSettings
-                    {
-                        WifiProvisioned = true,
-                        Wifi = new CoreConfiguration.WifiSettings
-                        {
-                            IsEnabled = true,
-                            Ssid = "Corp WiFi",
-                            SecurityType = "WPA2/WPA3-Personal"
-                        }
-                    }
-                },
-                Inputs(tempDirectory.Path, new NetworkSecrets { WifiPassphrase = "super-secret-passphrase" }),
-                tempDirectory.Path);
-        string configDirectory = System.IO.Path.Combine(tempDirectory.Path, "Config");
-        Directory.CreateDirectory(configDirectory);
-        string configurationPath = CreateJsonFile(configDirectory, "foundry.connect.config.json", bundle.ConfigurationJson);
+        string configurationPath = ConnectMediaFixtures.WriteSchemaFive(tempDirectory, wifiPassphrase: "super-secret-passphrase");
+        File.Delete(MediaKeyPath(configurationPath));
 
         var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
 
@@ -570,14 +516,8 @@ public sealed class ConnectConfigurationServiceTests
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
         using var tempDirectory = new TemporaryDirectory();
-        Foundry.Core.Models.Configuration.FoundryConnectProvisioningBundle bundle = CreatePersonalWifiProvisioningBundle(tempDirectory.Path);
-        Assert.NotNull(bundle.MediaSecretsKey);
-
-        string configDirectory = System.IO.Path.Combine(tempDirectory.Path, "Config");
-        Directory.CreateDirectory(configDirectory);
-        string configurationJson = ReplacePassphraseSecretProperty(bundle.ConfigurationJson, "algorithm", "unsupported");
-        string configurationPath = CreateJsonFile(configDirectory, "foundry.connect.config.json", configurationJson);
-        CreateBinaryFile(System.IO.Path.Combine(configDirectory, "Secrets"), "media-secrets.key", bundle.MediaSecretsKey);
+        string configurationPath = ConnectMediaFixtures.WriteSchemaFive(tempDirectory, wifiPassphrase: "super-secret-passphrase");
+        ReplacePassphraseSecretProperty(configurationPath, "algorithm", "unsupported");
 
         var logger = new RecordingLogger<ConnectConfigurationService>();
         var service = new ConnectConfigurationService(["--config", configurationPath], logger);
@@ -594,14 +534,8 @@ public sealed class ConnectConfigurationServiceTests
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
         using var tempDirectory = new TemporaryDirectory();
-        Foundry.Core.Models.Configuration.FoundryConnectProvisioningBundle bundle = CreatePersonalWifiProvisioningBundle(tempDirectory.Path);
-        Assert.NotNull(bundle.MediaSecretsKey);
-
-        string configDirectory = System.IO.Path.Combine(tempDirectory.Path, "Config");
-        Directory.CreateDirectory(configDirectory);
-        string configurationJson = ReplacePassphraseSecretProperty(bundle.ConfigurationJson, "ciphertext", "AA");
-        string configurationPath = CreateJsonFile(configDirectory, "foundry.connect.config.json", configurationJson);
-        CreateBinaryFile(System.IO.Path.Combine(configDirectory, "Secrets"), "media-secrets.key", bundle.MediaSecretsKey);
+        string configurationPath = ConnectMediaFixtures.WriteSchemaFive(tempDirectory, wifiPassphrase: "super-secret-passphrase");
+        ReplacePassphraseSecretProperty(configurationPath, "ciphertext", "AA");
 
         var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
 
@@ -616,14 +550,8 @@ public sealed class ConnectConfigurationServiceTests
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
         using var tempDirectory = new TemporaryDirectory();
-        Foundry.Core.Models.Configuration.FoundryConnectProvisioningBundle bundle = CreatePersonalWifiAndWiredProvisioningBundle(tempDirectory.Path);
-        Assert.NotNull(bundle.MediaSecretsKey);
-
-        string configDirectory = System.IO.Path.Combine(tempDirectory.Path, "Config");
-        Directory.CreateDirectory(configDirectory);
-        string configurationJson = ReplacePassphraseSecretProperty(bundle.ConfigurationJson, "ciphertext", "AA");
-        string configurationPath = CreateJsonFile(configDirectory, "foundry.connect.config.json", configurationJson);
-        CreateBinaryFile(System.IO.Path.Combine(configDirectory, "Secrets"), "media-secrets.key", bundle.MediaSecretsKey);
+        string configurationPath = WritePersonalWifiAndWiredSchemaFive(tempDirectory);
+        ReplacePassphraseSecretProperty(configurationPath, "ciphertext", "AA");
 
         var logger = new RecordingLogger<ConnectConfigurationService>();
         var service = new ConnectConfigurationService(["--config", configurationPath], logger);
@@ -645,13 +573,8 @@ public sealed class ConnectConfigurationServiceTests
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
         using var tempDirectory = new TemporaryDirectory();
-        Foundry.Core.Models.Configuration.FoundryConnectProvisioningBundle bundle = CreatePersonalWifiAndWiredProvisioningBundle(tempDirectory.Path);
-        Assert.NotNull(bundle.MediaSecretsKey);
-
-        string configDirectory = System.IO.Path.Combine(tempDirectory.Path, "Config");
-        Directory.CreateDirectory(configDirectory);
-        string configurationPath = CreateJsonFile(configDirectory, "foundry.connect.config.json", bundle.ConfigurationJson);
-        string keyPath = CreateBinaryFile(System.IO.Path.Combine(configDirectory, "Secrets"), "media-secrets.key", bundle.MediaSecretsKey);
+        string configurationPath = WritePersonalWifiAndWiredSchemaFive(tempDirectory);
+        string keyPath = MediaKeyPath(configurationPath);
         var logger = new RecordingLogger<ConnectConfigurationService>();
         var service = new ConnectConfigurationService(["--config", configurationPath], logger);
 
@@ -792,11 +715,8 @@ public sealed class ConnectConfigurationServiceTests
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
         using var tempDirectory = new TemporaryDirectory();
-        Foundry.Core.Models.Configuration.FoundryConnectProvisioningBundle bundle = CreatePersonalWifiProvisioningBundle(tempDirectory.Path);
-        string configDirectory = System.IO.Path.Combine(tempDirectory.Path, "Config");
-        Directory.CreateDirectory(configDirectory);
-        string configurationPath = CreateJsonFile(configDirectory, "foundry.connect.config.json", bundle.ConfigurationJson);
-        CreateBinaryFile(System.IO.Path.Combine(configDirectory, "Secrets"), "media-secrets.key", new byte[16]);
+        string configurationPath = ConnectMediaFixtures.WriteSchemaFive(tempDirectory, wifiPassphrase: "super-secret-passphrase");
+        File.WriteAllBytes(MediaKeyPath(configurationPath), new byte[16]);
         var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
 
         ConnectConfigurationLoadResult result = service.Load();
@@ -811,14 +731,8 @@ public sealed class ConnectConfigurationServiceTests
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
         using var tempDirectory = new TemporaryDirectory();
-        Foundry.Core.Models.Configuration.FoundryConnectProvisioningBundle bundle = CreatePersonalWifiProvisioningBundle(tempDirectory.Path);
-        Assert.NotNull(bundle.MediaSecretsKey);
-
-        string configDirectory = System.IO.Path.Combine(tempDirectory.Path, "Config");
-        Directory.CreateDirectory(configDirectory);
-        string configurationJson = ReplacePassphraseSecretProperty(bundle.ConfigurationJson, "ciphertext", "!!");
-        string configurationPath = CreateJsonFile(configDirectory, "foundry.connect.config.json", configurationJson);
-        CreateBinaryFile(System.IO.Path.Combine(configDirectory, "Secrets"), "media-secrets.key", bundle.MediaSecretsKey);
+        string configurationPath = ConnectMediaFixtures.WriteSchemaFive(tempDirectory, wifiPassphrase: "super-secret-passphrase");
+        ReplacePassphraseSecretProperty(configurationPath, "ciphertext", "!!");
 
         var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
 
@@ -875,72 +789,26 @@ public sealed class ConnectConfigurationServiceTests
     }
 
     // Referenced files are created in the staging directory; the generator reads them through this resolver only.
-    private static MediaInputs Inputs(string directory, NetworkSecrets? secrets = null) => new()
+    private static MediaInputs Inputs(string directory) => new()
     {
-        ResolveFile = reference => System.IO.Path.Combine(directory, reference.FileName) is var path && File.Exists(path) ? path : null,
-        Network = secrets ?? new NetworkSecrets()
+        ResolveFile = reference => System.IO.Path.Combine(directory, reference.FileName) is var path && File.Exists(path) ? path : null
     };
 
-    private static Foundry.Core.Models.Configuration.FoundryConnectProvisioningBundle CreatePersonalWifiProvisioningBundle(string stagingDirectoryPath)
-    {
-        return new ConnectConfigurationGenerator().CreateProvisioningBundle(
-            new CoreConfiguration.FoundryConfigurationDocument
-            {
-                Network = new CoreConfiguration.NetworkSettings
-                {
-                    WifiProvisioned = true,
-                    Wifi = new CoreConfiguration.WifiSettings
-                    {
-                        IsEnabled = true,
-                        Ssid = "Corp WiFi",
-                        SecurityType = "WPA2/WPA3-Personal"
-                    }
-                }
-            },
-            Inputs(stagingDirectoryPath, new NetworkSecrets { WifiPassphrase = "super-secret-passphrase" }),
-            stagingDirectoryPath);
-    }
+    private static string WritePersonalWifiAndWiredSchemaFive(TemporaryDirectory directory) =>
+        ConnectMediaFixtures.WriteSchemaFive(
+            directory,
+            wifiPassphrase: "super-secret-passphrase",
+            wiredCertificatePath: @"Network\Certificates\Wired\wired.pfx",
+            wiredPfxPassword: "wired-password");
 
-    private static Foundry.Core.Models.Configuration.FoundryConnectProvisioningBundle CreatePersonalWifiAndWiredProvisioningBundle(string stagingDirectoryPath)
-    {
-        return new ConnectConfigurationGenerator().CreateProvisioningBundle(
-            new CoreConfiguration.FoundryConfigurationDocument
-            {
-                Network = new CoreConfiguration.NetworkSettings
-                {
-                    WifiProvisioned = true,
-                    Dot1x = new CoreConfiguration.Dot1xSettings
-                    {
-                        IsEnabled = true,
-                        ProfileTemplate = Reference(CreateFile(stagingDirectoryPath, "wired.xml", "<LANProfile />")),
-                        RequiresCertificate = true,
-                        ClientCertificate = Reference(CreateFile(stagingDirectoryPath, "wired.pfx", "wired-pfx"))
-                    },
-                    Wifi = new CoreConfiguration.WifiSettings
-                    {
-                        IsEnabled = true,
-                        Ssid = "Corp WiFi",
-                        SecurityType = "WPA2/WPA3-Personal"
-                    }
-                }
-            },
-            Inputs(stagingDirectoryPath, new NetworkSecrets { WifiPassphrase = "super-secret-passphrase", WiredCertificatePfxPassword = "wired-password" }),
-            stagingDirectoryPath);
-    }
+    private static string MediaKeyPath(string configurationPath) =>
+        System.IO.Path.Combine(System.IO.Path.GetDirectoryName(configurationPath)!, WinPeWorkspaceLayout.MediaSecretsKeyRelativePath);
 
-    private static string ReplacePassphraseSecretProperty(string configurationJson, string propertyName, string value)
+    private static void ReplacePassphraseSecretProperty(string configurationPath, string propertyName, string value)
     {
-        JsonNode root = JsonNode.Parse(configurationJson)!;
+        JsonNode root = JsonNode.Parse(File.ReadAllText(configurationPath))!;
         root["wifi"]!["passphraseSecret"]![propertyName] = value;
-        return root.ToJsonString();
-    }
-
-    private static string CreateBinaryFile(string directoryPath, string fileName, byte[] contents)
-    {
-        Directory.CreateDirectory(directoryPath);
-        string filePath = System.IO.Path.Combine(directoryPath, fileName);
-        File.WriteAllBytes(filePath, contents);
-        return filePath;
+        File.WriteAllText(configurationPath, root.ToJsonString());
     }
 
     private static string CreateFile(string directoryPath, string fileName, string contents)
@@ -965,25 +833,6 @@ public sealed class ConnectConfigurationServiceTests
         public void Dispose()
         {
             Environment.SetEnvironmentVariable(_name, _previousValue);
-        }
-    }
-
-    private sealed class TemporaryDirectory : IDisposable
-    {
-        public TemporaryDirectory()
-        {
-            Path = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "Foundry.Connect.Tests", Guid.NewGuid().ToString("N"));
-            Directory.CreateDirectory(Path);
-        }
-
-        public string Path { get; }
-
-        public void Dispose()
-        {
-            if (Directory.Exists(Path))
-            {
-                Directory.Delete(Path, recursive: true);
-            }
         }
     }
 }

@@ -16,7 +16,6 @@ public sealed record WinPeMountedImageAssetProvisioningOptions
     public FoundryBootstrapConfigurationDocument? FoundryBootstrapConfiguration { get; init; }
     public string FoundryConnectConfigurationJson { get; init; } = string.Empty;
     public string DeployConfigurationJson { get; init; } = string.Empty;
-    public byte[]? NetworkSecretsKey { get; init; }
     public byte[]? DeploymentSecretsKey { get; init; }
     public bool IsDeploymentProtectionEnabled { get; init; }
 

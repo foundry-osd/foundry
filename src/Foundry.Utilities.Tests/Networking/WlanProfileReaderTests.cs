@@ -121,6 +121,12 @@ public sealed class WlanProfileReaderTests
         Assert.Null(name);
     }
 
+    [Theory]
+    [InlineData("""<WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1"><MSM><security><sharedKey><keyMaterial>k</keyMaterial></sharedKey></security></MSM></WLANProfile>""", true)]
+    [InlineData("""<WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1"><MSM><security><authEncryption><authentication>WPA2</authentication></authEncryption></security></MSM></WLANProfile>""", false)]
+    [InlineData("not xml", false)]
+    public void ContainsKeyMaterial_DetectsTheElement(string xml, bool expected) => Assert.Equal(expected, WlanProfileReader.ContainsKeyMaterial(xml));
+
     private sealed class TemporaryDirectory : IDisposable
     {
         public TemporaryDirectory()

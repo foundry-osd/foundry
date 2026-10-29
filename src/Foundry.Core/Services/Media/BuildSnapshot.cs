@@ -162,12 +162,19 @@ public sealed class BuildSnapshot : IDisposable
         }
     }
 
-    /// <summary>Generates Connect only from captured credentials and private dependency copies.</summary>
-    public FoundryConnectProvisioningBundle CreateConnectProvisioningBundle(string stagingDirectoryPath, TelemetrySettings? telemetryOverride = null)
+    /// <summary>
+    /// Generates Connect only from captured credentials and private dependency copies; network secrets are encrypted with the
+    /// deployment key of <paramref name="protection"/>, and refused when its Password protection is off.
+    /// </summary>
+    public FoundryConnectProvisioningBundle CreateConnectProvisioningBundle(
+        string stagingDirectoryPath,
+        DeploymentMediaProtectionMaterial protection,
+        TelemetrySettings? telemetryOverride = null)
     {
         ObjectDisposedException.ThrowIf(isDisposed, this);
+        ArgumentNullException.ThrowIfNull(protection);
         return new ConnectConfigurationGenerator().CreateProvisioningBundle(
-            CreateGenerationDocument(telemetryOverride), CreateGenerationInputs(), stagingDirectoryPath, authoringVersion);
+            CreateGenerationDocument(telemetryOverride), CreateGenerationInputs(), stagingDirectoryPath, authoringVersion, protection);
     }
 
     /// <summary>Retains existing Deploy protection and account validation rules while using captured session material.</summary>

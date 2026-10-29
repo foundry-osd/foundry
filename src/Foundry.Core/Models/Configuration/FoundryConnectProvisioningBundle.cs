@@ -20,11 +20,6 @@ public sealed record FoundryConnectProvisioningBundle
     public string ConfigurationJson { get; init; } = string.Empty;
 
     /// <summary>
-    /// Gets the optional secret key written beside encrypted media secrets.
-    /// </summary>
-    public byte[]? MediaSecretsKey { get; init; }
-
-    /// <summary>
     /// Gets additional asset files staged beside the configuration.
     /// </summary>
     public IReadOnlyList<FoundryConnectProvisionedAssetFile> AssetFiles { get; init; } = Array.Empty<FoundryConnectProvisionedAssetFile>();

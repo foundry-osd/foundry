@@ -47,6 +47,7 @@ public sealed record FoundryConnectConfigurationDocument
     /// <summary>
     /// Gets internet connectivity probe settings.
     /// </summary>
+    /// <remarks>Schema 5 and earlier; schema 6 no longer writes it, so Foundry.Connect uses these defaults, the values generation always wrote.</remarks>
     public ConnectInternetProbeSettings InternetProbe { get; init; } = new();
 
     /// <summary>

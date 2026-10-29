@@ -13,7 +13,7 @@ public sealed class ConfigurationSchemaVersionsTests
     {
         Assert.Equal(19, ConfigurationSchemaVersions.FoundryCurrent);
         Assert.Equal(17, ConfigurationSchemaVersions.DeployCurrent);
-        Assert.Equal(5, ConfigurationSchemaVersions.ConnectCurrent);
+        Assert.Equal(6, ConfigurationSchemaVersions.ConnectCurrent);
     }
 
 }
