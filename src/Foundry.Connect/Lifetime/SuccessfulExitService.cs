@@ -48,8 +48,9 @@ public interface ISuccessfulExitService
 /// <remarks>
 /// Order matters: roaming is captured while the profiles still exist, the session-ready event waits at most
 /// <see cref="TelemetryBudget"/> so a slow network cannot hold the exit (T3, NET-04), the secrets and the in-memory
-/// provisioned profile are dropped (T15) and only then the exit is requested. Roaming and telemetry failures never block
-/// the exit. Log entries carry no SSID, profile name or address.
+/// provisioned profile are dropped (T15), the theme and language are handed to Foundry Deploy (D14) and only then the exit
+/// is requested. Roaming, telemetry and hand-off failures never block the exit. Log entries carry no SSID, profile name or
+/// address.
 /// </remarks>
 public sealed class SuccessfulExitService : ISuccessfulExitService
 {
@@ -66,6 +67,7 @@ public sealed class SuccessfulExitService : ISuccessfulExitService
     private readonly ConnectRuntimeSecrets _secrets;
     private readonly IApplicationLifetimeService _lifetime;
     private readonly NetworkRefreshSignal _refreshSignal;
+    private readonly IRuntimePreferencesPublisher _preferences;
     private readonly TimeProvider _timeProvider;
     private readonly ILogger<SuccessfulExitService> _logger;
     private readonly SemaphoreSlim _gate = new(1, 1);
@@ -81,6 +83,7 @@ public sealed class SuccessfulExitService : ISuccessfulExitService
     /// <param name="secrets">Runtime secrets, cleared before the exit.</param>
     /// <param name="lifetime">Application lifetime service that performs the exit.</param>
     /// <param name="refreshSignal">Asks the network monitor for an immediate refresh when the final probe fails.</param>
+    /// <param name="preferences">Hands the theme and language to Foundry Deploy just before the exit.</param>
     /// <param name="timeProvider">Clock that drives the telemetry budget.</param>
     /// <param name="logger">Logger.</param>
     public SuccessfulExitService(
@@ -92,6 +95,7 @@ public sealed class SuccessfulExitService : ISuccessfulExitService
         ConnectRuntimeSecrets secrets,
         IApplicationLifetimeService lifetime,
         NetworkRefreshSignal refreshSignal,
+        IRuntimePreferencesPublisher preferences,
         TimeProvider timeProvider,
         ILogger<SuccessfulExitService> logger)
     {
@@ -103,6 +107,7 @@ public sealed class SuccessfulExitService : ISuccessfulExitService
         _secrets = secrets ?? throw new ArgumentNullException(nameof(secrets));
         _lifetime = lifetime ?? throw new ArgumentNullException(nameof(lifetime));
         _refreshSignal = refreshSignal ?? throw new ArgumentNullException(nameof(refreshSignal));
+        _preferences = preferences ?? throw new ArgumentNullException(nameof(preferences));
         _timeProvider = timeProvider ?? throw new ArgumentNullException(nameof(timeProvider));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
@@ -132,6 +137,7 @@ public sealed class SuccessfulExitService : ISuccessfulExitService
 
             _coordinator.ReleaseProvisionedProfile();
             _secrets.ClearAll();
+            PublishPreferences();
 
             _logger.LogInformation(
                 "Network ready; leaving Foundry Connect. ConnectionType={ConnectionType}",
@@ -154,6 +160,19 @@ public sealed class SuccessfulExitService : ISuccessfulExitService
         {
             _logger.LogDebug("Final internet check failed. FailureType={FailureType}", exception.GetType().Name);
             return InternetStatus.NoInternet;
+        }
+    }
+
+    private void PublishPreferences()
+    {
+        try
+        {
+            _preferences.Publish();
+        }
+        catch (Exception exception)
+        {
+            // The publisher already swallows IO errors; this guard keeps the exit unconditional.
+            _logger.LogWarning("Theme and language hand-off failed. FailureType={FailureType}", exception.GetType().Name);
         }
     }
 

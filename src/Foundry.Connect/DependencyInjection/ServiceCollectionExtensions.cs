@@ -114,6 +114,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<INetworkObservationSource, NetworkObservationSource>();
         services.AddSingleton<INetworkMonitor, NetworkMonitor>();
         services.AddSingleton<IRoamingCapture, RoamingCapture>();
+        services.AddSingleton<IRuntimePreferencesPublisher, RuntimePreferencesPublisher>();
         services.AddSingleton<ISuccessfulExitService, SuccessfulExitService>();
     }
 

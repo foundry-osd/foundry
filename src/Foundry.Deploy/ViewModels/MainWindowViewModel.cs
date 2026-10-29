@@ -12,6 +12,7 @@ using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Foundry.Core.Services.DomainJoin;
+using Foundry.Core.Services.Runtime;
 using Foundry.Deploy;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
@@ -401,6 +402,33 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
 
         RefreshKeyboardMenu();
+    }
+
+    /// <summary>
+    /// Applies the theme and language chosen in Foundry Connect, which runs first. Call once, before the window's first layout.
+    /// A missing or invalid hand-off file leaves the defaults untouched.
+    /// </summary>
+    public void RestoreRuntimePreferencesHandoff() => RestoreRuntimePreferencesHandoff(RuntimePreferencesHandoff.DefaultPath);
+
+    internal void RestoreRuntimePreferencesHandoff(string path)
+    {
+        if (!RuntimePreferencesHandoff.TryRead(path, out RuntimePreferences? preferences))
+        {
+            return;
+        }
+
+        _themeService.SetTheme(preferences.Theme switch
+        {
+            RuntimeThemePreference.Light => DeployThemeMode.Light,
+            RuntimeThemePreference.Dark => DeployThemeMode.Dark,
+            _ => DeployThemeMode.System
+        });
+        OnPropertyChanged(nameof(CurrentTheme));
+        LocalizationService.SetCulture(CultureInfo.GetCultureInfo(preferences.CultureName));
+        _logger.LogInformation(
+            "Theme and language restored from Foundry Connect. Theme={Theme}, Culture={Culture}",
+            preferences.Theme,
+            preferences.CultureName);
     }
 
     private void RefreshKeyboardMenu()

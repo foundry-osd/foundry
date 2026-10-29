@@ -24,10 +24,12 @@ public sealed class SuccessfulExitServiceTests
     private readonly NetworkRefreshSignal _refresh = new();
     private readonly RecordingLogger<SuccessfulExitService> _logger = new();
     private readonly StateCoordinator _coordinator;
+    private readonly RecordingPreferencesPublisher _preferences;
     private readonly ConnectRuntimeSecrets _secrets = new(ConnectSecret.Available("a".ToCharArray()), ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned());
 
     public SuccessfulExitServiceTests()
     {
+        _preferences = new RecordingPreferencesPublisher(_lifetime);
         _coordinator = new StateCoordinator(NetworkState.Initial(_clock.GetUtcNow()) with { Internet = InternetStatus.Online });
     }
 
@@ -74,6 +76,7 @@ public sealed class SuccessfulExitServiceTests
         Assert.Equal(0, _telemetry.Calls);
         Assert.Equal(0, _roaming.Calls);
         Assert.Equal(0, _coordinator.ReleaseCalls);
+        Assert.Equal(0, _preferences.Calls);
         Assert.Equal(ConnectSecretStatus.Available, _secrets.WifiPassphrase.Status);
         await _refresh.WaitAsync(TestContext.Current.CancellationToken);
     }
@@ -163,6 +166,31 @@ public sealed class SuccessfulExitServiceTests
     }
 
     [Fact]
+    public async Task TryComplete_PublishesPreferencesBeforeExit()
+    {
+        _telemetry.CompleteImmediately = true;
+
+        SuccessfulExitResult result = await Create(InternetStatus.Online).TryCompleteAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(SuccessfulExitResult.Exited, result);
+        Assert.Equal(1, _preferences.Calls);
+        Assert.Equal([0], _preferences.ExitCodesSeenAtPublish);
+    }
+
+    [Fact]
+    public async Task TryComplete_WhenPreferencesPublishThrows_StillExits()
+    {
+        _telemetry.CompleteImmediately = true;
+        _preferences.Failure = new InvalidOperationException("boom");
+
+        SuccessfulExitResult result = await Create(InternetStatus.Online).TryCompleteAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(SuccessfulExitResult.Exited, result);
+        Assert.Equal([ChildRuntimeExitCode.Success], _lifetime.Codes);
+        Assert.Contains(_logger.Entries, static entry => entry.Level == LogLevel.Warning);
+    }
+
+    [Fact]
     public void TelemetryHttpClient_HasAnExplicitTimeout()
     {
         using HttpClient client = ServiceCollectionExtensions.CreateTelemetryHttpClient();
@@ -181,6 +209,7 @@ public sealed class SuccessfulExitServiceTests
         _secrets,
         _lifetime,
         _refresh,
+        _preferences,
         _clock,
         _logger);
 
@@ -266,6 +295,25 @@ public sealed class SuccessfulExitServiceTests
         }
 
         public Task FlushAsync(CancellationToken cancellationToken = default) => Task.CompletedTask;
+    }
+
+    private sealed class RecordingPreferencesPublisher(RecordingLifetime lifetime) : IRuntimePreferencesPublisher
+    {
+        public int Calls { get; private set; }
+
+        public List<int> ExitCodesSeenAtPublish { get; } = [];
+
+        public Exception? Failure { get; set; }
+
+        public void Publish()
+        {
+            Calls++;
+            ExitCodesSeenAtPublish.Add(lifetime.Codes.Count);
+            if (Failure is not null)
+            {
+                throw Failure;
+            }
+        }
     }
 
     private sealed class RecordingLifetime : IApplicationLifetimeService

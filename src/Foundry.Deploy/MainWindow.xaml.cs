@@ -21,6 +21,8 @@ public partial class MainWindow : Window
 
     public MainWindow(MainWindowViewModel viewModel, RuntimeStartupDiagnostics startup)
     {
+        // Before InitializeComponent so the first frame already uses the theme and language chosen in Foundry Connect.
+        viewModel.RestoreRuntimePreferencesHandoff();
         InitializeComponent();
         _viewModel = viewModel;
         _startup = startup;
