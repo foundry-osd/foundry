@@ -616,7 +616,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         IsDot1xEnabled = settings.Dot1x.IsEnabled;
         dot1xProfileTemplate = settings.Dot1x.ProfileTemplate;
         IsDot1xCertificateRequired = settings.Dot1x.RequiresCertificate;
-        dot1xCertificate = settings.Dot1x.Certificate;
+        dot1xCertificate = settings.Dot1x.ClientCertificate ?? settings.Dot1x.TrustedRootCertificates.FirstOrDefault();
         Dot1xCertificatePassword = secrets.WiredCertificatePfxPassword ?? string.Empty;
 
         IsWifiProvisioned = settings.WifiProvisioned || settings.Wifi.IsEnabled;
@@ -626,7 +626,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         WifiPassphrase = ResolveWifiPassphrase(settings);
         wifiEnterpriseProfileTemplate = settings.Wifi.EnterpriseProfileTemplate;
         IsWifiCertificateRequired = settings.Wifi.RequiresCertificate;
-        wifiCertificate = settings.Wifi.Certificate;
+        wifiCertificate = settings.Wifi.ClientCertificate ?? settings.Wifi.TrustedRootCertificates.FirstOrDefault();
         WifiCertificatePassword = secrets.WifiCertificatePfxPassword ?? string.Empty;
         IsWiredDot1xProfileRoamingEnabled = settings.RoamWiredDot1xProfileToWindows;
         IsWiredDot1xPrivateKeyMaterialRoamingRequested = settings.RoamWiredDot1xPrivateKeyMaterialToWindows;
@@ -694,17 +694,16 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
             RoamWiredDot1xPrivateKeyMaterialToWindows = IsWiredDot1xPrivateKeyMaterialRoamingRequested,
             RoamWifiProfileToWindows = IsWifiProfileRoamingEnabled,
             RoamWifiPrivateKeyMaterialToWindows = IsWifiPrivateKeyMaterialRoamingRequested,
-            Dot1x = new Dot1xSettings
+            Dot1x = NetworkCertificateShapes.WithCertificate(new Dot1xSettings
             {
                 IsEnabled = IsDot1xEnabled,
                 ProfileTemplate = IsDot1xEnabled ? dot1xProfileTemplate : null,
                 AuthenticationMode = NetworkAuthenticationMode.MachineOnly,
                 AllowRuntimeCredentials = false,
-                RequiresCertificate = IsDot1xEnabled && IsDot1xCertificateRequired,
-                Certificate = IsDot1xCertificatePathEnabled ? dot1xCertificate : null
-            },
+                RequiresCertificate = IsDot1xEnabled && IsDot1xCertificateRequired
+            }, IsDot1xCertificatePathEnabled ? dot1xCertificate : null),
             WifiProvisioned = IsWifiProvisioned,
-            Wifi = new WifiSettings
+            Wifi = NetworkCertificateShapes.WithCertificate(new WifiSettings
             {
                 IsEnabled = IsWifiConfigured,
                 Ssid = IsWifiConfigured && !string.IsNullOrWhiteSpace(WifiSsid)
@@ -717,9 +716,8 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
                 EnterpriseProfileTemplate = IsWifiEnterpriseSectionEnabled ? wifiEnterpriseProfileTemplate : null,
                 EnterpriseAuthenticationMode = NetworkAuthenticationMode.UserOnly,
                 AllowRuntimeCredentials = false,
-                RequiresCertificate = IsWifiEnterpriseSectionEnabled && IsWifiCertificateRequired,
-                Certificate = IsWifiCertificatePathEnabled ? wifiCertificate : null
-            }
+                RequiresCertificate = IsWifiEnterpriseSectionEnabled && IsWifiCertificateRequired
+            }, IsWifiCertificatePathEnabled ? wifiCertificate : null)
         };
     }
 

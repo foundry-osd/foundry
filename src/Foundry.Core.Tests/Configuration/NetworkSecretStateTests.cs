@@ -43,13 +43,13 @@ public sealed class NetworkSecretStateTests
         NetworkSecretState state = new();
         NetworkSettings settings = new()
         {
-            Dot1x = new Dot1xSettings { IsEnabled = true, RequiresCertificate = true, Certificate = TestFileReferences.Detached("first.pfx") }
+            Dot1x = new Dot1xSettings { IsEnabled = true, RequiresCertificate = true, ClientCertificate = TestFileReferences.Detached("first.pfx") }
         };
         state.Update(settings, new NetworkSecrets { WiredCertificatePfxPassword = string.Empty });
         state.Update(settings);
         Assert.Equal(string.Empty, state.GetSecrets(settings).WiredCertificatePfxPassword);
 
-        settings = settings with { Dot1x = settings.Dot1x with { Certificate = TestFileReferences.Detached("second.pfx") } };
+        settings = settings with { Dot1x = settings.Dot1x with { ClientCertificate = TestFileReferences.Detached("second.pfx") } };
         state.Update(settings);
         Assert.Null(state.GetSecrets(settings).WiredCertificatePfxPassword);
     }
@@ -61,14 +61,14 @@ public sealed class NetworkSecretStateTests
         AuthoringFileReference certificate = TestFileReferences.Detached("wifi.pfx");
         NetworkSettings settings = CreatePersonalWifiSettings() with
         {
-            Dot1x = new Dot1xSettings { IsEnabled = true, RequiresCertificate = true, Certificate = certificate }
+            Dot1x = new Dot1xSettings { IsEnabled = true, RequiresCertificate = true, ClientCertificate = certificate }
         };
         state.Update(settings, new NetworkSecrets { WifiPassphrase = " ValidPassphrase123 ", WiredCertificatePfxPassword = "pfx-password" });
 
         NetworkSecrets secrets = state.GetSecrets(settings);
         NetworkSecrets otherCertificate = state.GetSecrets(settings with
         {
-            Dot1x = settings.Dot1x with { Certificate = TestFileReferences.Detached("other.pfx") }
+            Dot1x = settings.Dot1x with { ClientCertificate = TestFileReferences.Detached("other.pfx") }
         });
 
         Assert.Equal("ValidPassphrase123", secrets.WifiPassphrase);
@@ -94,7 +94,7 @@ public sealed class NetworkSecretStateTests
         AuthoringFileReference certificate = TestFileReferences.Detached("wired.pfx");
         NetworkSettings enabled = CreatePersonalWifiSettings() with
         {
-            Dot1x = new Dot1xSettings { IsEnabled = true, RequiresCertificate = true, Certificate = certificate }
+            Dot1x = new Dot1xSettings { IsEnabled = true, RequiresCertificate = true, ClientCertificate = certificate }
         };
         state.Update(enabled, new NetworkSecrets { WifiPassphrase = "ValidPassphrase123", WiredCertificatePfxPassword = "pfx-password" });
         NetworkSettings disabled = enabled with
@@ -118,7 +118,7 @@ public sealed class NetworkSecretStateTests
         NetworkSecretState state = new();
         NetworkSettings settings = CreatePersonalWifiSettings() with
         {
-            Dot1x = new Dot1xSettings { IsEnabled = true, RequiresCertificate = true, Certificate = TestFileReferences.Detached("wired.pfx") }
+            Dot1x = new Dot1xSettings { IsEnabled = true, RequiresCertificate = true, ClientCertificate = TestFileReferences.Detached("wired.pfx") }
         };
         state.Update(settings, new NetworkSecrets { WifiPassphrase = "ValidPassphrase123", WiredCertificatePfxPassword = "pfx-password" });
 

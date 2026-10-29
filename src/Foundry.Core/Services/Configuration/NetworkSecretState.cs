@@ -34,8 +34,8 @@ public sealed class NetworkSecretState
     {
         ArgumentNullException.ThrowIfNull(settings);
 
-        UpdateCertificate(settings.Dot1x.Certificate, entered?.WiredCertificatePfxPassword, ref wiredCertificateHash, ref wiredCertificatePassword);
-        UpdateCertificate(settings.Wifi.Certificate, entered?.WifiCertificatePfxPassword, ref wifiCertificateHash, ref wifiCertificatePassword);
+        UpdateCertificate(settings.Dot1x.ClientCertificate, entered?.WiredCertificatePfxPassword, ref wiredCertificateHash, ref wiredCertificatePassword);
+        UpdateCertificate(settings.Wifi.ClientCertificate, entered?.WifiCertificatePfxPassword, ref wifiCertificateHash, ref wifiCertificatePassword);
         string identity = settings.Wifi.Ssid ?? string.Empty;
         if (!string.Equals(wifiIdentity, identity, StringComparison.Ordinal))
         {
@@ -85,8 +85,8 @@ public sealed class NetworkSecretState
         return new NetworkSecrets
         {
             WifiPassphrase = string.Equals(wifiIdentity, settings.Wifi.Ssid ?? string.Empty, StringComparison.Ordinal) ? PersonalWifiPassphrase : null,
-            WiredCertificatePfxPassword = Matches(wiredCertificateHash, settings.Dot1x.Certificate) ? wiredCertificatePassword : null,
-            WifiCertificatePfxPassword = Matches(wifiCertificateHash, settings.Wifi.Certificate) ? wifiCertificatePassword : null
+            WiredCertificatePfxPassword = Matches(wiredCertificateHash, settings.Dot1x.ClientCertificate) ? wiredCertificatePassword : null,
+            WifiCertificatePfxPassword = Matches(wifiCertificateHash, settings.Wifi.ClientCertificate) ? wifiCertificatePassword : null
         };
     }
 

@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Text.Json.Serialization;
+
 namespace Foundry.Core.Models.Configuration;
 
 /// <summary>
@@ -51,12 +53,25 @@ public sealed record WifiSettings
     public bool AllowRuntimeCredentials { get; init; }
 
     /// <summary>
-    /// Gets whether a certificate file must be staged with the Wi-Fi profile.
+    /// Gets whether certificates are used: a client certificate or at least one trusted root must be staged with the Wi-Fi profile.
     /// </summary>
     public bool RequiresCertificate { get; init; }
 
     /// <summary>
-    /// Gets the optional certificate held in the authoring file library.
+    /// Gets the client certificate (.pfx/.p12) held in the authoring file library; its password stays in the vault under the content hash.
     /// </summary>
-    public AuthoringFileReference? Certificate { get; init; }
+    public AuthoringFileReference? ClientCertificate { get; init; }
+
+    /// <summary>
+    /// Gets the public trusted root CA certificates held in the authoring file library.
+    /// </summary>
+    public IReadOnlyList<AuthoringFileReference> TrustedRootCertificates { get; init; } = [];
+
+    /// <summary>
+    /// Gets the single certificate written by configuration sharing before separate fields existed. Read only: migration moves it
+    /// by shape and clears it, so it is never written.
+    /// </summary>
+    [JsonPropertyName("certificate")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public AuthoringFileReference? LegacyCertificate { get; init; }
 }

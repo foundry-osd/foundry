@@ -730,7 +730,7 @@ public sealed class FoundryConfigurationServiceTests
 
         Assert.Equal("wired.xml", loaded.Network.Dot1x.ProfileTemplate?.FileName);
         Assert.True(library.IsAvailable(loaded.Network.Dot1x.ProfileTemplate!));
-        Assert.Null(loaded.Network.Dot1x.Certificate);
+        Assert.False(NetworkCertificateShapes.HasCertificates(loaded.Network.Dot1x));
         Assert.DoesNotContain("profileTemplatePath", saved, StringComparison.Ordinal);
         Assert.DoesNotContain("LegacyPassphrase-DoNotLeak", saved, StringComparison.Ordinal);
     }

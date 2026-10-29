@@ -4,6 +4,7 @@
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Tests.TestUtilities;
 
 namespace Foundry.Core.Tests.Configuration;
 
@@ -110,8 +111,8 @@ public sealed class ConfigurationContentReferencesTests
         {
             Network = new()
             {
-                Dot1x = new() { IsEnabled = false, ProfileTemplate = File("aa"), Certificate = File("bb") },
-                Wifi = new() { EnterpriseProfileTemplate = File("cc"), Certificate = File("bb") }
+                Dot1x = new() { IsEnabled = false, ProfileTemplate = File("aa"), ClientCertificate = File("bb") },
+                Wifi = new() { EnterpriseProfileTemplate = File("cc"), TrustedRootCertificates = [File("bb")] }
             },
             Autopilot = new() { HardwareHashUpload = new() { BootMediaCertificate = new() { Pfx = File("dd") } } },
             Unattend = new() { IsEnabled = false, Files = [new() { Id = "1", ContentHash = "ee", File = File("ee") }, new() { Id = "2", ContentHash = "ff" }] }
@@ -121,5 +122,17 @@ public sealed class ConfigurationContentReferencesTests
 
         Assert.Equal(["aa", "bb", "cc", "dd", "ee"], hashes.Order());
         Assert.Contains("DD", hashes);
+    }
+
+    [Fact]
+    public void AuthoringFiles_ListClientAndEveryTrustedRoot()
+    {
+        AuthoringFileReference client = TestFileReferences.Detached("c.pfx"), first = TestFileReferences.Detached("r1.cer"), second = TestFileReferences.Detached("r2.crt");
+        var configuration = new FoundryConfigurationDocument
+        {
+            Network = new NetworkSettings { Wifi = new WifiSettings { ClientCertificate = client, TrustedRootCertificates = [first, second] } }
+        };
+
+        Assert.Equal([client, first, second], ConfigurationContentReferences.AuthoringFiles(configuration));
     }
 }

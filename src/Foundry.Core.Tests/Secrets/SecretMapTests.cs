@@ -4,6 +4,7 @@
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Secrets;
+using Foundry.Core.Tests.TestUtilities;
 
 namespace Foundry.Core.Tests.Secrets;
 
@@ -95,7 +96,7 @@ public sealed class SecretMapTests
             General = new GeneralSettings { DeploymentProtection = new DeploymentProtectionSettings { IsEnabled = true } },
             Network = new NetworkSettings
             {
-                Dot1x = new Dot1xSettings { IsEnabled = true, RequiresCertificate = true, Certificate = Reference(OldHash) },
+                Dot1x = new Dot1xSettings { IsEnabled = true, RequiresCertificate = true, ClientCertificate = Reference(OldHash) },
                 WifiProvisioned = true,
                 Wifi = new WifiSettings { IsEnabled = true, Ssid = "Office", SecurityType = "WPA2-Personal" }
             },
@@ -181,11 +182,41 @@ public sealed class SecretMapTests
         Assert.Empty(SecretMap.RequiredIds(disabled));
     }
 
+    [Fact]
+    public void ClientCertificatePassword_KeepsItsVaultId()
+    {
+        AuthoringFileReference pfx = TestFileReferences.Detached("client.pfx");
+        var configuration = new FoundryConfigurationDocument
+        {
+            Network = new NetworkSettings
+            {
+                Dot1x = new Dot1xSettings { IsEnabled = true, RequiresCertificate = true, ClientCertificate = pfx, TrustedRootCertificates = [TestFileReferences.Detached("root.cer")] }
+            }
+        };
+
+        IReadOnlyDictionary<string, string> entries = SecretMap.ToEntries(configuration, new SecretSnapshot { Dot1xCertificatePassword = "pfx-password" });
+
+        Assert.Equal("pfx-password", entries[SecretIds.Dot1xCertificate(pfx.ContentHash)]);
+        Assert.Equal("pfx-password", SecretMap.FromEntries(configuration, entries).Dot1xCertificatePassword);
+        Assert.Contains(SecretIds.Dot1xCertificate(pfx.ContentHash), SecretMap.RequiredIds(configuration));
+    }
+
+    [Fact]
+    public void TrustedRootOnly_OwnsNoPassword()
+    {
+        var configuration = new FoundryConfigurationDocument
+        {
+            Network = new NetworkSettings { Dot1x = new Dot1xSettings { IsEnabled = true, RequiresCertificate = true, TrustedRootCertificates = [TestFileReferences.Detached("root.cer")] } }
+        };
+
+        Assert.Empty(SecretMap.ToEntries(configuration, new SecretSnapshot { Dot1xCertificatePassword = "unused" }));
+    }
+
     private static FoundryConfigurationDocument WithDot1xCertificate(string hash) => new()
     {
         Network = new NetworkSettings
         {
-            Dot1x = new Dot1xSettings { IsEnabled = true, RequiresCertificate = true, Certificate = Reference(hash) }
+            Dot1x = new Dot1xSettings { IsEnabled = true, RequiresCertificate = true, ClientCertificate = Reference(hash) }
         }
     };
 

@@ -120,7 +120,7 @@ public sealed class NetworkConfigurationValidatorTests
                 {
                     IsEnabled = true,
                     ProfileTemplate = TestFileReferences.For(profilePath),
-                    Certificate = TestFileReferences.Detached("missing.cer")
+                    TrustedRootCertificates = [TestFileReferences.Detached("missing.cer")]
                 }
             },
             TestFileReferences.Resolving(profilePath));
@@ -158,7 +158,7 @@ public sealed class NetworkConfigurationValidatorTests
                     SecurityType = NetworkConfigurationValidator.WifiSecurityEnterprise,
                     HasEnterpriseProfile = true,
                     EnterpriseProfileTemplate = TestFileReferences.For(profilePath),
-                    Certificate = TestFileReferences.Detached("missing.cer")
+                    TrustedRootCertificates = [TestFileReferences.Detached("missing.cer")]
                 }
             },
             TestFileReferences.Resolving(profilePath));
@@ -180,6 +180,44 @@ public sealed class NetworkConfigurationValidatorTests
         string result = NetworkConfigurationValidator.ResolveDiscoveredWifiSecurityType(authentication);
 
         Assert.Equal(expected, result);
+    }
+
+    [Fact]
+    public void Validate_WiredTrustedRootOnly_SatisfiesRequiredCertificates()
+    {
+        using var directory = new TemporaryDirectory();
+        string template = Path.Combine(directory.Path, "wired.xml"), root = Path.Combine(directory.Path, "root.cer");
+        File.WriteAllText(template, "<LANProfile />");
+        File.WriteAllBytes(root, [1, 2, 3]);
+
+        NetworkConfigurationValidationResult result = NetworkConfigurationValidator.Validate(new NetworkSettings
+        {
+            Dot1x = new Dot1xSettings { IsEnabled = true, ProfileTemplate = TestFileReferences.For(template), RequiresCertificate = true, TrustedRootCertificates = [TestFileReferences.For(root)] }
+        }, TestFileReferences.Resolving(template, root));
+
+        Assert.True(result.IsValid);
+    }
+
+    [Fact]
+    public void Validate_WiredMissingSecondRoot_ReturnsWiredCertificateMissing()
+    {
+        using var directory = new TemporaryDirectory();
+        string template = Path.Combine(directory.Path, "wired.xml"), root = Path.Combine(directory.Path, "root.cer");
+        File.WriteAllText(template, "<LANProfile />");
+        File.WriteAllBytes(root, [1, 2, 3]);
+
+        NetworkConfigurationValidationResult result = NetworkConfigurationValidator.Validate(new NetworkSettings
+        {
+            Dot1x = new Dot1xSettings
+            {
+                IsEnabled = true,
+                ProfileTemplate = TestFileReferences.For(template),
+                RequiresCertificate = true,
+                TrustedRootCertificates = [TestFileReferences.For(root), TestFileReferences.Detached("gone.cer")]
+            }
+        }, TestFileReferences.Resolving(template, root));
+
+        Assert.Equal(NetworkConfigurationValidationCode.WiredCertificateMissing, result.Code);
     }
 
     private sealed class TemporaryDirectory : IDisposable

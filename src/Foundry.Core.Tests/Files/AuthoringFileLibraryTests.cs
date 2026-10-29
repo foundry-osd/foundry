@@ -169,7 +169,7 @@ public sealed class AuthoringFileLibraryTests : IDisposable
         var afterRemoval = new FoundryConfigurationDocument
         {
             // The 802.1X certificate was removed; Wi-Fi still uses the same bytes.
-            Network = new NetworkSettings { Dot1x = new Dot1xSettings(), Wifi = new WifiSettings { Certificate = certificate } }
+            Network = new NetworkSettings { Dot1x = new Dot1xSettings(), Wifi = new WifiSettings { ClientCertificate = certificate } }
         };
 
         AuthoringFileCleanupResult result = library.DeleteUnreferenced(ConfigurationContentReferences.AuthoringFileHashes(afterRemoval), library.ImportSequence);

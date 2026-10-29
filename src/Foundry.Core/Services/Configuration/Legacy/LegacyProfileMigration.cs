@@ -144,16 +144,12 @@ public static class LegacyProfileMigration
         {
             Network = network with
             {
-                Dot1x = network.Dot1x with
-                {
-                    ProfileTemplate = Find(LegacyFileRole.WiredProfile) ?? network.Dot1x.ProfileTemplate,
-                    Certificate = Find(LegacyFileRole.WiredCertificate) ?? network.Dot1x.Certificate
-                },
-                Wifi = network.Wifi with
-                {
-                    EnterpriseProfileTemplate = Find(LegacyFileRole.WifiProfile) ?? network.Wifi.EnterpriseProfileTemplate,
-                    Certificate = Find(LegacyFileRole.WifiCertificate) ?? network.Wifi.Certificate
-                }
+                Dot1x = ReplaceCertificate(
+                    network.Dot1x with { ProfileTemplate = Find(LegacyFileRole.WiredProfile) ?? network.Dot1x.ProfileTemplate },
+                    Find(LegacyFileRole.WiredCertificate)),
+                Wifi = ReplaceCertificate(
+                    network.Wifi with { EnterpriseProfileTemplate = Find(LegacyFileRole.WifiProfile) ?? network.Wifi.EnterpriseProfileTemplate },
+                    Find(LegacyFileRole.WifiCertificate))
             },
             Autopilot = current.Autopilot with
             {
@@ -178,6 +174,19 @@ public static class LegacyProfileMigration
         AuthoringFileReference? Find(LegacyFileRole role, string? unattendId = null) =>
             imported.GetValueOrDefault(Key(role, unattendId));
     }
+
+    /// <summary>
+    /// A legacy profile held one certificate per feature: its file replaces the certificate the JSON carried (imported from a
+    /// host path) and takes the slot of its shape, PFX as client certificate, any other file as the single trusted root.
+    /// </summary>
+    private static Dot1xSettings ReplaceCertificate(Dot1xSettings settings, AuthoringFileReference? found) => found is null
+        ? settings
+        : NetworkCertificateShapes.WithCertificate(settings with { ClientCertificate = null, TrustedRootCertificates = [] }, found);
+
+    /// <inheritdoc cref="ReplaceCertificate(Dot1xSettings, AuthoringFileReference?)"/>
+    private static WifiSettings ReplaceCertificate(WifiSettings settings, AuthoringFileReference? found) => found is null
+        ? settings
+        : NetworkCertificateShapes.WithCertificate(settings with { ClientCertificate = null, TrustedRootCertificates = [] }, found);
 
     private static SecretSnapshot MapSecrets(
         LegacyConfigurationSnapshot profile,
@@ -230,9 +239,9 @@ public static class LegacyProfileMigration
         bool wired = network.Dot1x.IsEnabled;
         bool wifi = network.WifiProvisioned && network.Wifi.IsEnabled;
         return (wired && network.Dot1x.ProfileTemplate is null) ||
-            (wired && network.Dot1x.RequiresCertificate && network.Dot1x.Certificate is null) ||
+            (wired && network.Dot1x.RequiresCertificate && !NetworkCertificateShapes.HasCertificates(network.Dot1x)) ||
             (wifi && network.Wifi.HasEnterpriseProfile && network.Wifi.EnterpriseProfileTemplate is null) ||
-            (wifi && network.Wifi.RequiresCertificate && network.Wifi.Certificate is null) ||
+            (wifi && network.Wifi.RequiresCertificate && !NetworkCertificateShapes.HasCertificates(network.Wifi)) ||
             (configuration.Autopilot is { IsEnabled: true, ProvisioningMode: AutopilotProvisioningMode.HardwareHashUpload } &&
                 configuration.Autopilot.HardwareHashUpload.BootMediaCertificate.Pfx is null) ||
             (configuration.Unattend.IsEnabled && configuration.Unattend.Files.Any(file => file.File is null));

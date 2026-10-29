@@ -149,7 +149,7 @@ public sealed class ConnectConfigurationGeneratorTests
                         IsEnabled = true,
                         ProfileTemplate = TestFileReferences.For(wiredProfilePath),
                         RequiresCertificate = true,
-                        Certificate = TestFileReferences.For(wiredCertificatePath)
+                        TrustedRootCertificates = [TestFileReferences.For(wiredCertificatePath)]
                     },
                     Wifi = new WifiSettings
                     {
@@ -159,7 +159,7 @@ public sealed class ConnectConfigurationGeneratorTests
                         HasEnterpriseProfile = true,
                         EnterpriseProfileTemplate = TestFileReferences.For(wifiProfilePath),
                         RequiresCertificate = true,
-                        Certificate = TestFileReferences.For(wifiCertificatePath)
+                        TrustedRootCertificates = [TestFileReferences.For(wifiCertificatePath)]
                     }
                 }
             },
@@ -237,7 +237,7 @@ public sealed class ConnectConfigurationGeneratorTests
                         IsEnabled = true,
                         ProfileTemplate = TestFileReferences.For(tempDirectory.CreateFile("source", "wired.xml", "<LANProfile />")),
                         RequiresCertificate = false,
-                        Certificate = TestFileReferences.For(wiredCertificatePath)
+                        TrustedRootCertificates = [TestFileReferences.For(wiredCertificatePath)]
                     },
                     Wifi = new WifiSettings
                     {
@@ -245,7 +245,7 @@ public sealed class ConnectConfigurationGeneratorTests
                         Ssid = "Corp WiFi",
                         SecurityType = NetworkConfigurationValidator.WifiSecurityPersonal,
                         RequiresCertificate = false,
-                        Certificate = TestFileReferences.For(wifiCertificatePath)
+                        TrustedRootCertificates = [TestFileReferences.For(wifiCertificatePath)]
                     }
                 }
             },
@@ -278,7 +278,7 @@ public sealed class ConnectConfigurationGeneratorTests
                         IsEnabled = true,
                         ProfileTemplate = TestFileReferences.For(tempDirectory.CreateFile("source", "wired.xml", "<LANProfile />")),
                         RequiresCertificate = true,
-                        Certificate = TestFileReferences.For(wiredPfxPath)
+                        ClientCertificate = TestFileReferences.For(wiredPfxPath)
                     },
                     Wifi = new WifiSettings
                     {
@@ -301,7 +301,7 @@ public sealed class ConnectConfigurationGeneratorTests
                             </WLANProfile>
                             """)),
                         RequiresCertificate = true,
-                        Certificate = TestFileReferences.For(wifiPfxPath)
+                        ClientCertificate = TestFileReferences.For(wifiPfxPath)
                     }
                 }
             },
@@ -364,7 +364,7 @@ public sealed class ConnectConfigurationGeneratorTests
                 EnterpriseAuthenticationMode = NetworkAuthenticationMode.MachineOrUser,
                 AllowRuntimeCredentials = true,
                 RequiresCertificate = true,
-                Certificate = TestFileReferences.For(tempDirectory.CreateFile("source", "wifi.pfx", "wifi-pfx"))
+                ClientCertificate = TestFileReferences.For(tempDirectory.CreateFile("source", "wifi.pfx", "wifi-pfx"))
             }
             : new WifiSettings
             {
@@ -388,7 +388,7 @@ public sealed class ConnectConfigurationGeneratorTests
                     AuthenticationMode = NetworkAuthenticationMode.UserOnly,
                     AllowRuntimeCredentials = true,
                     RequiresCertificate = true,
-                    Certificate = TestFileReferences.For(tempDirectory.CreateFile("source", "wired.pfx", "wired-pfx"))
+                    ClientCertificate = TestFileReferences.For(tempDirectory.CreateFile("source", "wired.pfx", "wired-pfx"))
                 },
                 Wifi = wifi
             },

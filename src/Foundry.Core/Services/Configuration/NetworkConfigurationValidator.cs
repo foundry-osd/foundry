@@ -217,12 +217,12 @@ public static class NetworkConfigurationValidator
             return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WiredProfileTemplateMissing);
         }
 
-        if (settings.RequiresCertificate && settings.Certificate is null)
+        if (settings.RequiresCertificate && !NetworkCertificateShapes.HasCertificates(settings))
         {
             return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WiredCertificateRequired);
         }
 
-        if (settings.Certificate is not null && !IsAvailable(settings.Certificate, inputs))
+        if (NetworkCertificateShapes.All(settings).Any(certificate => !IsAvailable(certificate, inputs)))
         {
             return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WiredCertificateMissing);
         }
@@ -311,12 +311,12 @@ public static class NetworkConfigurationValidator
             }
         }
 
-        if (settings.RequiresCertificate && settings.Certificate is null)
+        if (settings.RequiresCertificate && !NetworkCertificateShapes.HasCertificates(settings))
         {
             return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WifiEnterpriseCertificateRequired);
         }
 
-        if (settings.Certificate is not null && !IsAvailable(settings.Certificate, inputs))
+        if (NetworkCertificateShapes.All(settings).Any(certificate => !IsAvailable(certificate, inputs)))
         {
             return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WifiEnterpriseCertificateMissing);
         }

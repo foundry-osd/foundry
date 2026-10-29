@@ -483,7 +483,7 @@ public sealed class ConnectConfigurationServiceTests
                             IsEnabled = true,
                             ProfileTemplate = Reference(CreateFile(tempDirectory.Path, "wired.xml", "<LANProfile />")),
                             RequiresCertificate = true,
-                            Certificate = Reference(CreateFile(tempDirectory.Path, "wired.pfx", "wired-pfx"))
+                            ClientCertificate = Reference(CreateFile(tempDirectory.Path, "wired.pfx", "wired-pfx"))
                         },
                         Wifi = new CoreConfiguration.WifiSettings
                         {
@@ -506,7 +506,7 @@ public sealed class ConnectConfigurationServiceTests
                                 </WLANProfile>
                                 """)),
                             RequiresCertificate = true,
-                            Certificate = Reference(CreateFile(tempDirectory.Path, "wifi.pfx", "wifi-pfx"))
+                            ClientCertificate = Reference(CreateFile(tempDirectory.Path, "wifi.pfx", "wifi-pfx"))
                         }
                     }
                 },
@@ -914,7 +914,7 @@ public sealed class ConnectConfigurationServiceTests
                         IsEnabled = true,
                         ProfileTemplate = Reference(CreateFile(stagingDirectoryPath, "wired.xml", "<LANProfile />")),
                         RequiresCertificate = true,
-                        Certificate = Reference(CreateFile(stagingDirectoryPath, "wired.pfx", "wired-pfx"))
+                        ClientCertificate = Reference(CreateFile(stagingDirectoryPath, "wired.pfx", "wired-pfx"))
                     },
                     Wifi = new CoreConfiguration.WifiSettings
                     {

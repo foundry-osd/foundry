@@ -461,9 +461,9 @@ public sealed class BuildSnapshotTests : IDisposable
         {
             Network = new()
             {
-                Dot1x = new() { IsEnabled = true, ProfileTemplate = Reference(CreateSource("wired.xml", length)), Certificate = Reference(CreateSource("wired.pfx", length, fill: 2)), RequiresCertificate = true },
+                Dot1x = new() { IsEnabled = true, ProfileTemplate = Reference(CreateSource("wired.xml", length)), ClientCertificate = Reference(CreateSource("wired.pfx", length, fill: 2)), RequiresCertificate = true },
                 WifiProvisioned = true,
-                Wifi = new() { IsEnabled = true, Certificate = Reference(CreateSource("wifi.pfx", length, fill: 3)), RequiresCertificate = true }
+                Wifi = new() { IsEnabled = true, ClientCertificate = Reference(CreateSource("wifi.pfx", length, fill: 3)), RequiresCertificate = true }
             }
         };
 
@@ -480,15 +480,15 @@ public sealed class BuildSnapshotTests : IDisposable
         using var secrets = new OobeAccountSecretState();
         var selected = new FoundryConfigurationDocument
         {
-            Network = new() { Dot1x = new() { IsEnabled = true, ProfileTemplate = Reference(template), Certificate = Reference(certificate), RequiresCertificate = false } }
+            Network = new() { Dot1x = new() { IsEnabled = true, ProfileTemplate = Reference(template), ClientCertificate = Reference(certificate), RequiresCertificate = false } }
         };
 
         using (BuildSnapshot snapshot = await Capture(selected, secrets))
-            Assert.Equal(File.ReadAllBytes(certificate), File.ReadAllBytes(snapshot.ResolveCapturedFile(selected.Network.Dot1x.Certificate!)!));
+            Assert.Equal(File.ReadAllBytes(certificate), File.ReadAllBytes(snapshot.ResolveCapturedFile(selected.Network.Dot1x.ClientCertificate!)!));
 
-        FoundryConfigurationDocument unselected = selected with { Network = selected.Network with { Dot1x = selected.Network.Dot1x with { Certificate = null } } };
+        FoundryConfigurationDocument unselected = selected with { Network = selected.Network with { Dot1x = selected.Network.Dot1x with { ClientCertificate = null } } };
         using BuildSnapshot withoutCertificate = await Capture(unselected, secrets);
-        Assert.Null(withoutCertificate.ResolveCapturedFile(selected.Network.Dot1x.Certificate!));
+        Assert.Null(withoutCertificate.ResolveCapturedFile(selected.Network.Dot1x.ClientCertificate!));
     }
 
     [Theory]
@@ -524,15 +524,19 @@ public sealed class BuildSnapshotTests : IDisposable
     [InlineData("certificate", ".bin")]
     public async Task CaptureAsync_NamesPrivateCopiesWithGeneratedNamesAndWhitelistedExtensions(string sourceName, string expectedExtension)
     {
-        string certificate = CreateSource(sourceName, 3);
+        AuthoringFileReference certificate = Reference(CreateSource(sourceName, 3));
         using var secrets = new OobeAccountSecretState();
         var document = new FoundryConfigurationDocument
         {
-            Network = new() { Dot1x = new() { IsEnabled = true, ProfileTemplate = Reference(CreateSource("wired.xml", 3, fill: 2)), Certificate = Reference(certificate), RequiresCertificate = true } }
+            Network = new()
+            {
+                Dot1x = NetworkCertificateShapes.WithCertificate(
+                    new Dot1xSettings { IsEnabled = true, ProfileTemplate = Reference(CreateSource("wired.xml", 3, fill: 2)), RequiresCertificate = true }, certificate)
+            }
         };
 
         using BuildSnapshot snapshot = await Capture(document, secrets);
-        string captured = snapshot.ResolveCapturedFile(document.Network.Dot1x.Certificate!)!;
+        string captured = snapshot.ResolveCapturedFile(certificate)!;
         Assert.Equal(expectedExtension, Path.GetExtension(captured));
         Assert.True(Guid.TryParseExact(Path.GetFileNameWithoutExtension(captured), "N", out _));
         Assert.NotEqual(SourcesDirectory, Path.GetDirectoryName(captured));
@@ -548,7 +552,7 @@ public sealed class BuildSnapshotTests : IDisposable
         using var secrets = new OobeAccountSecretState();
         var document = new FoundryConfigurationDocument
         {
-            Network = new() { Dot1x = new() { IsEnabled = true, ProfileTemplate = template, RequiresCertificate = true, Certificate = certificate } }
+            Network = new() { Dot1x = new() { IsEnabled = true, ProfileTemplate = template, RequiresCertificate = true, ClientCertificate = certificate } }
         };
 
         using BuildSnapshot snapshot = await BuildSnapshot.CaptureAsync(

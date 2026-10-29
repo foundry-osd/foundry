@@ -54,8 +54,8 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
         WifiSettings wifi = network.Wifi;
         NetworkSecrets secrets = inputs.Network;
         bool isWifiEnabled = network.WifiProvisioned && wifi.IsEnabled;
-        string? wiredCertificatePath = dot1x.IsEnabled ? inputs.ResolveRequired(dot1x.Certificate) : null;
-        string? wifiCertificatePath = isWifiEnabled ? inputs.ResolveRequired(wifi.Certificate) : null;
+        string? wiredCertificatePath = dot1x.IsEnabled ? inputs.ResolveRequired(dot1x.ClientCertificate ?? dot1x.TrustedRootCertificates.FirstOrDefault()) : null;
+        string? wifiCertificatePath = isWifiEnabled ? inputs.ResolveRequired(wifi.ClientCertificate ?? wifi.TrustedRootCertificates.FirstOrDefault()) : null;
 
         string? wiredProfileRelativePath = dot1x.IsEnabled
             ? CopyAsset(inputs.ResolveRequired(dot1x.ProfileTemplate), assetRootPath, WiredProfileFolder, assetFiles)
