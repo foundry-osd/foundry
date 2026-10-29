@@ -100,6 +100,20 @@ public sealed class LegacyProfileMigrationTests : IDisposable
     }
 
     [Fact]
+    public void Migrate_ProfileCertificateThatIsNotAPfx_BecomesTheSingleTrustedRoot()
+    {
+        LegacyConfigurationSnapshot profile = ReadProfile(Expected.ActiveLocalId);
+        profile = profile with { Files = [.. profile.Files, new LegacyFile(LegacyFileRole.WifiCertificate, null, "wifi-root.cer", "root"u8.ToArray())] };
+
+        LegacyMigrationResult result = LegacyProfileMigration.Migrate(profile.Configuration, profile, activeProfileLocked: false, Import);
+
+        Assert.Null(result.Configuration.Network.Wifi.ClientCertificate);
+        AuthoringFileReference root = Assert.Single(result.Configuration.Network.Wifi.TrustedRootCertificates);
+        Assert.Equal("wifi-root.cer", root.FileName);
+        Assert.Equal("root"u8.ToArray(), library.ReadVerified(root));
+    }
+
+    [Fact]
     public void Migrate_Locked_ReturnsPasswordsNeeded()
     {
         var current = new FoundryConfigurationDocument();

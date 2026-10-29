@@ -60,6 +60,83 @@ public sealed class ConnectCertificateSetTests
     }
 
     [Fact]
+    public void From_SchemaFiveP12_IsTheClientCertificate()
+    {
+        var password = new SecretEnvelope { KeyId = "media" };
+
+        ConnectCertificateSet set = ConnectCertificateSet.From(new ConnectDot1xSettings
+        {
+            CertificatePath = @"Network\Certificates\Wired\client.P12",
+            CertificatePfxPasswordSecret = password
+        });
+
+        Assert.Equal(@"Network\Certificates\Wired\client.P12", set.ClientCertificatePath);
+        Assert.Same(password, set.ClientCertificatePasswordSecret);
+        Assert.Empty(set.TrustedRootCertificatePaths);
+    }
+
+    [Fact]
+    public void From_TrustedRootsOnly_DropsTheLegacyPfxAndItsPassword()
+    {
+        ConnectCertificateSet set = ConnectCertificateSet.From(new ConnectDot1xSettings
+        {
+            CertificatePath = @"Network\Certificates\Wired\old.pfx",
+            CertificatePfxPasswordSecret = new SecretEnvelope { KeyId = "media" },
+            TrustedRootCertificates = [@"Network\Certificates\Wired\root.cer"]
+        });
+
+        Assert.Null(set.ClientCertificatePath);
+        Assert.Null(set.ClientCertificatePasswordSecret);
+        Assert.Equal([@"Network\Certificates\Wired\root.cer"], set.TrustedRootCertificatePaths);
+    }
+
+    [Fact]
+    public void From_ClientCertificateWithABlankPath_FallsBackToTheLegacyPath()
+    {
+        ConnectCertificateSet set = ConnectCertificateSet.From(new ConnectWifiSettings
+        {
+            CertificatePath = @"Network\Certificates\Wifi\old.pfx",
+            ClientCertificate = new ConnectClientCertificateSettings { Path = " ", IsContentProtected = true },
+            TrustedRootCertificates = [" "]
+        });
+
+        Assert.Equal(@"Network\Certificates\Wifi\old.pfx", set.ClientCertificatePath);
+        Assert.False(set.IsClientCertificateContentProtected);
+        Assert.Empty(set.TrustedRootCertificatePaths);
+    }
+
+    [Fact]
+    public void SchemaSixMembers_AreWrittenWithTheirContractNames()
+    {
+        var document = new FoundryConnectConfigurationDocument
+        {
+            Dot1x = new ConnectDot1xSettings
+            {
+                ClientCertificate = new ConnectClientCertificateSettings
+                {
+                    Path = @"Network\Certificates\Wired\client.pfx.encrypted",
+                    IsContentProtected = true,
+                    PasswordSecret = new SecretEnvelope { Kind = "encrypted", KeyId = "deployment" }
+                },
+                TrustedRootCertificates = [@"Network\Certificates\Wired\root.cer"]
+            },
+            Wifi = new ConnectWifiSettings { IsEnterpriseProfileTemplateProtected = true },
+            Protection = new DeployProtectionSettings { IsEnabled = true }
+        };
+
+        using JsonDocument json = JsonDocument.Parse(JsonSerializer.Serialize(document, ConfigurationJsonDefaults.SerializerOptions));
+        JsonElement root = json.RootElement;
+        JsonElement client = root.GetProperty("dot1x").GetProperty("clientCertificate");
+
+        Assert.Equal(@"Network\Certificates\Wired\client.pfx.encrypted", client.GetProperty("path").GetString());
+        Assert.True(client.GetProperty("isContentProtected").GetBoolean());
+        Assert.Equal("deployment", client.GetProperty("passwordSecret").GetProperty("keyId").GetString());
+        Assert.Equal(JsonValueKind.Array, root.GetProperty("dot1x").GetProperty("trustedRootCertificates").ValueKind);
+        Assert.True(root.GetProperty("wifi").GetProperty("isEnterpriseProfileTemplateProtected").GetBoolean());
+        Assert.True(root.GetProperty("protection").GetProperty("isEnabled").GetBoolean());
+    }
+
+    [Fact]
     public void From_NoCertificate_IsEmpty() => Assert.Equal(ConnectCertificateSet.Empty, ConnectCertificateSet.From(new ConnectDot1xSettings()));
 
     [Fact]

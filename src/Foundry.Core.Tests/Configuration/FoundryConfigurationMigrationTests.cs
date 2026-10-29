@@ -76,6 +76,48 @@ public sealed class FoundryConfigurationMigrationTests
     }
 
     [Fact]
+    public void ApplySchemaMigrations_NullTrustedRootList_ReadsAsEmpty()
+    {
+        const string json = """{"schemaVersion":19,"network":{"dot1x":{"isEnabled":true,"trustedRootCertificates":null},"wifi":{"trustedRootCertificates":null}}}""";
+
+        FoundryConfigurationDocument migrated = FoundryConfigurationMigration.ApplySchemaMigrations(
+            JsonSerializer.Deserialize<FoundryConfigurationDocument>(json, ConfigurationJsonDefaults.SerializerOptions)!);
+
+        Assert.Empty(migrated.Network.Dot1x.TrustedRootCertificates);
+        Assert.Empty(migrated.Network.Wifi.TrustedRootCertificates);
+    }
+
+    [Fact]
+    public void ApplySchemaMigrations_NullTrustedRootItems_AreDropped()
+    {
+        AuthoringFileReference root = TestFileReferences.Detached("root.cer");
+        string item = JsonSerializer.Serialize(root, ConfigurationJsonDefaults.SerializerOptions);
+        string json = $$"""{"schemaVersion":19,"network":{"dot1x":{"isEnabled":true,"trustedRootCertificates":[null,{{item}},null]} } }""";
+
+        FoundryConfigurationDocument migrated = FoundryConfigurationMigration.ApplySchemaMigrations(
+            JsonSerializer.Deserialize<FoundryConfigurationDocument>(json, ConfigurationJsonDefaults.SerializerOptions)!);
+
+        Assert.Equal([root], migrated.Network.Dot1x.TrustedRootCertificates);
+    }
+
+    [Fact]
+    public void ApplySchemaMigrations_LegacyPfxWithAClientAlreadySet_KeepsTheCurrentClient()
+    {
+        AuthoringFileReference current = TestFileReferences.Detached("current.pfx");
+        AuthoringFileReference legacy = TestFileReferences.Detached("legacy.pfx");
+        string currentJson = JsonSerializer.Serialize(current, ConfigurationJsonDefaults.SerializerOptions);
+        string legacyJson = JsonSerializer.Serialize(legacy, ConfigurationJsonDefaults.SerializerOptions);
+        string json = $$"""{"schemaVersion":19,"network":{"dot1x":{"isEnabled":true,"clientCertificate":{{currentJson}},"certificate":{{legacyJson}} } } }""";
+
+        FoundryConfigurationDocument migrated = FoundryConfigurationMigration.ApplySchemaMigrations(
+            JsonSerializer.Deserialize<FoundryConfigurationDocument>(json, ConfigurationJsonDefaults.SerializerOptions)!);
+
+        Assert.Equal(current, migrated.Network.Dot1x.ClientCertificate);
+        Assert.Empty(migrated.Network.Dot1x.TrustedRootCertificates);
+        Assert.Null(migrated.Network.Dot1x.LegacyCertificate);
+    }
+
+    [Fact]
     public void WithCertificate_DoesNotDuplicateARoot()
     {
         AuthoringFileReference root = TestFileReferences.Detached("r.cer");

@@ -345,6 +345,10 @@ public sealed class BuildSnapshot : IDisposable
         bool wifiEnabled = network.WifiProvisioned && network.Wifi.IsEnabled;
         bool wifiProfileEnabled = wifiEnabled && network.Wifi.HasEnterpriseProfile;
         bool hardwareHashEnabled = sources.Autopilot.IsEnabled && sources.Autopilot.ProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload;
+        // The flags only decide what a null reference means; a set reference that is unavailable always fails. The client slot may
+        // be empty (a feature can use trusted roots only, and the validator already reports a missing required certificate), while
+        // a null entry in a trusted root list can only come from a damaged document, so it fails closed. A disabled feature has no
+        // certificate left here (SelectActiveSources).
         Copy(network.Dot1x.ProfileTemplate, required: wiredEnabled);
         Copy(network.Dot1x.ClientCertificate, required: false);
         foreach (AuthoringFileReference root in network.Dot1x.TrustedRootCertificates)

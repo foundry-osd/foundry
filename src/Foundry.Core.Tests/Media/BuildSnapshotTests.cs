@@ -488,6 +488,68 @@ public sealed class BuildSnapshotTests : IDisposable
         Assert.Null(withoutCertificate.ResolveCapturedFile(selected.Network.Dot1x.ClientCertificate!));
     }
 
+    [Fact]
+    public async Task CaptureAsync_CopiesTheClientCertificateAndEveryTrustedRoot()
+    {
+        AuthoringFileReference client = Reference(CreateSource("wired.pfx", 3, fill: 2));
+        AuthoringFileReference firstRoot = Reference(CreateSource("first.cer", 3, fill: 3));
+        AuthoringFileReference secondRoot = Reference(CreateSource("second.cer", 3, fill: 4));
+        using var secrets = new OobeAccountSecretState();
+        var document = new FoundryConfigurationDocument
+        {
+            Network = new()
+            {
+                Dot1x = new()
+                {
+                    IsEnabled = true,
+                    ProfileTemplate = Reference(CreateSource("wired.xml", 3)),
+                    RequiresCertificate = true,
+                    ClientCertificate = client,
+                    TrustedRootCertificates = [firstRoot, secondRoot]
+                }
+            }
+        };
+
+        using BuildSnapshot snapshot = await Capture(document, secrets);
+
+        Assert.All([client, firstRoot, secondRoot], reference =>
+            Assert.Equal(File.ReadAllBytes(library.GetAvailablePath(reference)!), File.ReadAllBytes(snapshot.ResolveCapturedFile(reference)!)));
+        Assert.Equal([firstRoot, secondRoot], snapshot.Configuration.Network.Dot1x.TrustedRootCertificates);
+    }
+
+    [Fact]
+    public async Task CaptureAsync_DisabledFeatures_DropTheirCertificates()
+    {
+        // The stale references point to no file: a disabled feature must neither require nor keep them.
+        using var secrets = new OobeAccountSecretState();
+        var document = new FoundryConfigurationDocument
+        {
+            Network = new()
+            {
+                WifiProvisioned = true,
+                Dot1x = new()
+                {
+                    IsEnabled = false,
+                    ClientCertificate = TestFileReferences.Detached("stale.pfx"),
+                    TrustedRootCertificates = [TestFileReferences.Detached("stale-wired.cer")]
+                },
+                Wifi = new()
+                {
+                    IsEnabled = false,
+                    ClientCertificate = TestFileReferences.Detached("stale-wifi.pfx"),
+                    TrustedRootCertificates = [TestFileReferences.Detached("stale-wifi.cer")]
+                }
+            }
+        };
+
+        using BuildSnapshot snapshot = await Capture(document, secrets);
+
+        Assert.Null(snapshot.Configuration.Network.Dot1x.ClientCertificate);
+        Assert.Empty(snapshot.Configuration.Network.Dot1x.TrustedRootCertificates);
+        Assert.Null(snapshot.Configuration.Network.Wifi.ClientCertificate);
+        Assert.Empty(snapshot.Configuration.Network.Wifi.TrustedRootCertificates);
+    }
+
     [Theory]
     [InlineData(null)]
     [InlineData("missing.xml")]

@@ -14,8 +14,10 @@ namespace Foundry.Core.Models.Configuration;
 /// <remarks>
 /// Schema 6 media describe the certificates with <c>clientCertificate</c> and <c>trustedRootCertificates</c>. Schema 5 media
 /// carry one <c>certificatePath</c>, classified by shape with <see cref="NetworkProfileRoamingArtifacts.IsPfxPath"/>: a PFX/P12
-/// is the client certificate with its password, any other file is the single trusted root. Record equality compares
-/// <see cref="TrustedRootCertificatePaths"/> by reference.
+/// is the client certificate with its password, any other file is the single trusted root. As soon as a schema 6 member
+/// names a file (a client certificate path or a non-blank trusted root), the schema 5 fields are ignored: a profile with trusted
+/// roots only drops a legacy PFX and its password, while a client certificate with a blank path counts as absent. Record
+/// equality compares <see cref="TrustedRootCertificatePaths"/> by reference.
 /// </remarks>
 public sealed record ConnectCertificateSet(
     string? ClientCertificatePath,

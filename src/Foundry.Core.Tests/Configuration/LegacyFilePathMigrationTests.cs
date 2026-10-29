@@ -122,6 +122,22 @@ public sealed class LegacyFilePathMigrationTests : IDisposable
     }
 
     [Fact]
+    public void Apply_CertificatePathThatIsNotAPfx_BecomesTheSingleTrustedRoot()
+    {
+        var library = new AuthoringFileLibrary(Path.Combine(temp.Path, "library"));
+        string wiredRoot = CreateSource("wired.cer", "wired-root");
+        string wifiRoot = CreateSource("wifi.crt", "wifi-root");
+        var paths = new LegacyFilePaths(null, wiredRoot, null, wifiRoot, null, new Dictionary<string, string>());
+
+        FoundryConfigurationDocument migrated = FoundryConfigurationMigration.ApplyLegacyFilePaths(new FoundryConfigurationDocument(), paths, ImportExisting(library));
+
+        Assert.Null(migrated.Network.Dot1x.ClientCertificate);
+        Assert.Equal("wired.cer", Assert.Single(migrated.Network.Dot1x.TrustedRootCertificates).FileName);
+        Assert.Null(migrated.Network.Wifi.ClientCertificate);
+        Assert.Equal("wifi.crt", Assert.Single(migrated.Network.Wifi.TrustedRootCertificates).FileName);
+    }
+
+    [Fact]
     public void Apply_MissingFile_LeavesReferenceNull()
     {
         var library = new AuthoringFileLibrary(Path.Combine(temp.Path, "library"));
