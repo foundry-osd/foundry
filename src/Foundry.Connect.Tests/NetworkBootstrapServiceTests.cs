@@ -48,7 +48,7 @@ public sealed class NetworkBootstrapServiceTests
         var roamingService = new CapturingNetworkProfileRoamingService();
         var service = new NetworkBootstrapService(
             configuration,
-            new ConnectRuntimeSecrets(),
+            ConnectRuntimeSecrets.None(),
             new FakeConnectConfigurationService(configuration),
             roamingService,
             NullLogger<NetworkBootstrapService>.Instance,
@@ -75,7 +75,7 @@ public sealed class NetworkBootstrapServiceTests
         };
         var service = new NetworkBootstrapService(
             configuration,
-            new ConnectRuntimeSecrets(),
+            ConnectRuntimeSecrets.None(),
             new FakeConnectConfigurationService(configuration),
             new CapturingNetworkProfileRoamingService(),
             NullLogger<NetworkBootstrapService>.Instance,
@@ -105,7 +105,7 @@ public sealed class NetworkBootstrapServiceTests
         var roamingService = new CapturingNetworkProfileRoamingService();
         var service = new NetworkBootstrapService(
             configuration,
-            new ConnectRuntimeSecrets(),
+            ConnectRuntimeSecrets.None(),
             new FakeConnectConfigurationService(configuration),
             roamingService,
             NullLogger<NetworkBootstrapService>.Instance,
@@ -131,7 +131,7 @@ public sealed class NetworkBootstrapServiceTests
         };
         var service = new NetworkBootstrapService(
             configuration,
-            new ConnectRuntimeSecrets(),
+            ConnectRuntimeSecrets.None(),
             new FakeConnectConfigurationService(configuration),
             new CapturingNetworkProfileRoamingService(),
             NullLogger<NetworkBootstrapService>.Instance,
@@ -169,7 +169,7 @@ public sealed class NetworkBootstrapServiceTests
         };
         var service = new NetworkBootstrapService(
             configuration,
-            new ConnectRuntimeSecrets(),
+            ConnectRuntimeSecrets.None(),
             new FakeConnectConfigurationService(configuration),
             new CapturingNetworkProfileRoamingService(),
             NullLogger<NetworkBootstrapService>.Instance,
@@ -232,7 +232,7 @@ public sealed class NetworkBootstrapServiceTests
         public Foundry.Core.Models.Configuration.BootMediaUpdateReason BootMediaUpdateReason => Foundry.Core.Models.Configuration.BootMediaUpdateReason.None;
 
         public ConnectConfigurationLoadResult Load() =>
-            ConnectConfigurationLoadResult.Success(configuration, new ConnectRuntimeSecrets(), Foundry.Core.Models.Configuration.BootMediaUpdateReason.None);
+            ConnectConfigurationLoadResult.Success(configuration, ConnectRuntimeSecrets.None(), Foundry.Core.Models.Configuration.BootMediaUpdateReason.None);
     }
 
     private sealed class TemporaryDirectory : IDisposable

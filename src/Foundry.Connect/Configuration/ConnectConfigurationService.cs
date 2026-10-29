@@ -22,6 +22,9 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
     private const string DefaultConfigFileName = "foundry.connect.config.json";
     private const string LegacyWifiPropertyName = "wifi";
     private const string LegacyWifiPassphrasePropertyName = "passphrase";
+    private const string WifiPassphraseSecretName = "wifi_passphrase";
+    private const string WifiCertificatePasswordSecretName = "wifi_certificate_password";
+    private const string WiredCertificatePasswordSecretName = "wired_certificate_password";
 
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
@@ -91,7 +94,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         {
             IsLoadedFromDisk = false;
             _logger.LogInformation("No Foundry.Connect configuration file was resolved. Using built-in defaults.");
-            return ConnectConfigurationLoadResult.Success(Normalize(new FoundryConnectConfigurationDocument()), new ConnectRuntimeSecrets(), BootMediaUpdateReason);
+            return ConnectConfigurationLoadResult.Success(Normalize(new FoundryConnectConfigurationDocument()), ConnectRuntimeSecrets.None(), BootMediaUpdateReason);
         }
 
         string fullPath = ResolveFullPath(ConfigurationPath);
@@ -102,12 +105,13 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
                 ConfigurationPath = null;
                 IsLoadedFromDisk = false;
                 _logger.LogInformation("Foundry.Connect configuration file was not found. Using built-in defaults. ConfigurationPath={ConfigurationPath}", fullPath);
-                return ConnectConfigurationLoadResult.Success(Normalize(new FoundryConnectConfigurationDocument()), new ConnectRuntimeSecrets(), BootMediaUpdateReason);
+                return ConnectConfigurationLoadResult.Success(Normalize(new FoundryConnectConfigurationDocument()), ConnectRuntimeSecrets.None(), BootMediaUpdateReason);
             }
 
             throw new FoundryConnectConfigurationException($"Configuration file was not found: {fullPath}");
         }
 
+        ConnectRuntimeSecrets? secrets = null;
         try
         {
             _logger.LogInformation("Loading Foundry.Connect configuration from disk. ConfigurationPath={ConfigurationPath}", fullPath);
@@ -121,7 +125,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
 
             EnforceSchemaPolicy(configuration.SchemaVersion, fullPath);
 
-            ConnectRuntimeSecrets secrets = ResolveSecrets(configuration, document.RootElement, fullPath);
+            secrets = ResolveSecrets(configuration, document.RootElement, fullPath);
             configuration = Normalize(configuration);
             BootMediaUpdateReason = BootMediaFreshnessPolicy.Evaluate(
                 configuration.AuthoringVersion,
@@ -135,10 +139,13 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         }
         catch (FoundryConnectConfigurationException)
         {
+            // A failed load hands no secret to anyone, so zero the buffers that were already decrypted.
+            secrets?.ClearAll();
             throw;
         }
         catch (Exception ex)
         {
+            secrets?.ClearAll();
             throw new FoundryConnectConfigurationException($"Configuration file could not be parsed: {fullPath}", ex);
         }
     }
@@ -233,7 +240,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         };
     }
 
-    private static ConnectRuntimeSecrets ResolveSecrets(
+    private ConnectRuntimeSecrets ResolveSecrets(
         FoundryConnectConfigurationDocument configuration,
         JsonElement root,
         string configurationPath)
@@ -241,68 +248,88 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         ConnectWifiSettings? wifi = configuration.Wifi;
         ConnectDot1xSettings? dot1x = configuration.Dot1x;
 
-        // Older media carry a plaintext wifi.passphrase that the Core runtime record no longer models.
-        string? legacyPassphrase = wifi?.PassphraseSecret is null
-            ? ReadLegacyWifiPassphrase(root)
-            : null;
-
         if (wifi?.PassphraseSecret is null &&
             wifi?.CertificatePfxPasswordSecret is null &&
             dot1x?.CertificatePfxPasswordSecret is null)
         {
-            return new ConnectRuntimeSecrets { WifiPassphrase = legacyPassphrase };
+            return new ConnectRuntimeSecrets(ReadLegacyWifiPassphrase(root), ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned());
         }
 
-        byte[] mediaSecretsKey = LoadMediaSecretsKey(configurationPath);
+        byte[]? mediaSecretsKey = LoadMediaSecretsKey(configurationPath);
         try
         {
-            return new ConnectRuntimeSecrets
-            {
-                WifiPassphrase = wifi?.PassphraseSecret is null
-                    ? legacyPassphrase
-                    : DecryptSecret(wifi.PassphraseSecret, mediaSecretsKey),
-                WifiCertificatePfxPassword = wifi?.CertificatePfxPasswordSecret is null
-                    ? null
-                    : DecryptSecret(wifi.CertificatePfxPasswordSecret, mediaSecretsKey),
-                WiredCertificatePfxPassword = dot1x?.CertificatePfxPasswordSecret is null
-                    ? null
-                    : DecryptSecret(dot1x.CertificatePfxPasswordSecret, mediaSecretsKey)
-            };
+            return new ConnectRuntimeSecrets(
+                wifi?.PassphraseSecret is null
+                    ? ReadLegacyWifiPassphrase(root)
+                    : DecryptSecret(wifi.PassphraseSecret, mediaSecretsKey, WifiPassphraseSecretName),
+                DecryptSecret(wifi?.CertificatePfxPasswordSecret, mediaSecretsKey, WifiCertificatePasswordSecretName),
+                DecryptSecret(dot1x?.CertificatePfxPasswordSecret, mediaSecretsKey, WiredCertificatePasswordSecretName));
         }
         finally
         {
             // The media key should not remain in memory after decrypting the runtime network secrets.
-            CryptographicOperations.ZeroMemory(mediaSecretsKey);
+            if (mediaSecretsKey is not null)
+            {
+                CryptographicOperations.ZeroMemory(mediaSecretsKey);
+            }
         }
     }
 
-    private static string DecryptSecret(SecretEnvelope envelope, byte[] mediaSecretsKey)
+    /// <summary>
+    /// Decrypts one envelope into a clearable buffer. A secret that cannot be read becomes <see cref="ConnectSecretStatus.Unavailable"/>
+    /// instead of failing the load, so only the feature that needs it is disabled (D9, L2-5).
+    /// </summary>
+    /// <param name="envelope">The envelope, or <see langword="null"/> when the media does not provision this secret.</param>
+    /// <param name="mediaSecretsKey">The media key, or <see langword="null"/> when the key file is missing.</param>
+    /// <param name="secretName">The stable, non-identifying secret name used in the log.</param>
+    private ConnectSecret DecryptSecret(SecretEnvelope? envelope, byte[]? mediaSecretsKey, string secretName)
     {
+        if (envelope is null)
+        {
+            return ConnectSecret.NotProvisioned();
+        }
+
+        if (mediaSecretsKey is null)
+        {
+            return Unavailable(secretName, ConnectSecretFailure.MediaKeyMissing);
+        }
+
         try
         {
-            return MediaSecretEnvelopeProtector.DecryptString(envelope, mediaSecretsKey);
+            return ConnectSecret.Available(MediaSecretEnvelopeProtector.DecryptChars(envelope, mediaSecretsKey, [MediaSecretEnvelopeProtector.KeyId]));
         }
-        catch (CryptographicException ex)
+        catch (CryptographicException)
         {
-            // Core messages carry no secret material and are the user-facing Connect texts.
-            throw new FoundryConnectConfigurationException(ex.Message, ex);
+            // Unsupported envelope, tampering or invalid base64url. The exception is not logged: the value must stay out of logs.
+            return Unavailable(secretName, ConnectSecretFailure.DecryptionFailed);
         }
-        catch (ArgumentException ex)
+        catch (ArgumentException)
         {
-            // The key length is the only argument the protector rejects here; map by type because Core words it differently.
-            throw new FoundryConnectConfigurationException("Media secret key has an invalid length.", ex);
+            // The key length is the only argument the protector rejects here.
+            return Unavailable(secretName, ConnectSecretFailure.MediaKeyInvalid);
         }
     }
 
-    private static string? ReadLegacyWifiPassphrase(JsonElement root)
+    private ConnectSecret Unavailable(string secretName, ConnectSecretFailure failure)
+    {
+        _logger.LogWarning(
+            "Provisioned secret is unavailable. Secret={SecretName}, Failure={SecretFailure}",
+            secretName,
+            failure);
+        return ConnectSecret.Unavailable(failure);
+    }
+
+    // Older media carry a plaintext wifi.passphrase that the Core runtime record no longer models.
+    private static ConnectSecret ReadLegacyWifiPassphrase(JsonElement root)
     {
         if (!TryGetPropertyIgnoreCase(root, LegacyWifiPropertyName, out JsonElement wifi) ||
-            !TryGetPropertyIgnoreCase(wifi, LegacyWifiPassphrasePropertyName, out JsonElement passphrase))
+            !TryGetPropertyIgnoreCase(wifi, LegacyWifiPassphrasePropertyName, out JsonElement passphrase) ||
+            passphrase.GetString() is not { } value)
         {
-            return null;
+            return ConnectSecret.NotProvisioned();
         }
 
-        return passphrase.GetString();
+        return ConnectSecret.Available(value.ToCharArray());
     }
 
     // Matches property names the same way the case-insensitive deserializer options do.
@@ -324,7 +351,8 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         return false;
     }
 
-    private static byte[] LoadMediaSecretsKey(string configurationPath)
+    // Returns null when the key file is missing; the secrets that need it become unavailable instead of failing the load.
+    private static byte[]? LoadMediaSecretsKey(string configurationPath)
     {
         string? configurationDirectory = Path.GetDirectoryName(configurationPath);
         if (string.IsNullOrWhiteSpace(configurationDirectory))
@@ -333,12 +361,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         }
 
         string keyPath = Path.Combine(configurationDirectory, WinPeWorkspaceLayout.MediaSecretsKeyRelativePath);
-        if (!File.Exists(keyPath))
-        {
-            throw new FoundryConnectConfigurationException("Media secret key file was not found for encrypted secrets.");
-        }
-
-        return File.ReadAllBytes(keyPath);
+        return File.Exists(keyPath) ? File.ReadAllBytes(keyPath) : null;
     }
 
     internal readonly record struct ConfigurationResolution(string? Path, bool IsRequired);

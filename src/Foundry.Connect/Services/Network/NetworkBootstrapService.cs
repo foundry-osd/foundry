@@ -349,7 +349,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 handledFailures,
                 ImportCertificate(
                     certificatePath,
-                    _secrets.WiredCertificatePfxPassword,
+                    _secrets.WiredCertificatePfxPassword.ToLegacyString(),
                     "wired_certificate_import_failed"));
         }
 
@@ -421,7 +421,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 handledFailures,
                 ImportCertificate(
                     certificatePath,
-                    _secrets.WifiCertificatePfxPassword,
+                    _secrets.WifiCertificatePfxPassword.ToLegacyString(),
                     "wifi_certificate_import_failed"));
         }
 
@@ -501,7 +501,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         }
 
         return await WriteTemporaryWifiProfileAsync(
-            WifiProfileXmlBuilder.Build(_configuration.Wifi.Ssid.Trim(), _configuration.Wifi.SecurityType.Trim(), _secrets.WifiPassphrase),
+            WifiProfileXmlBuilder.Build(_configuration.Wifi.Ssid.Trim(), _configuration.Wifi.SecurityType.Trim(), _secrets.WifiPassphrase.ToLegacyString()),
             cancellationToken).ConfigureAwait(false);
     }
 

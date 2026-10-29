@@ -339,7 +339,7 @@ public sealed class MainWindowViewModelTests
         });
         var networkBootstrapService = new NetworkBootstrapService(
             configuration,
-            new ConnectRuntimeSecrets(),
+            ConnectRuntimeSecrets.None(),
             new FakeConnectConfigurationService(configuration),
             new FakeNetworkProfileRoamingService(),
             loggerFactory.CreateLogger<NetworkBootstrapService>(),
@@ -707,7 +707,7 @@ public sealed class MainWindowViewModelTests
 
         public ConnectConfigurationLoadResult Load()
         {
-            return ConnectConfigurationLoadResult.Success(configuration, new ConnectRuntimeSecrets(), bootMediaUpdateReason);
+            return ConnectConfigurationLoadResult.Success(configuration, ConnectRuntimeSecrets.None(), bootMediaUpdateReason);
         }
     }
 
