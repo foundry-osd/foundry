@@ -4,6 +4,7 @@
 
 using System.Windows;
 using Foundry.Connect.Models;
+using Foundry.Core.Models.Runtime;
 
 namespace Foundry.Connect.Services.ApplicationLifetime;
 
@@ -11,9 +12,9 @@ public sealed class ApplicationLifetimeService : IApplicationLifetimeService
 {
     public bool IsExitRequested { get; private set; }
 
-    public FoundryConnectExitCode ExitCode { get; private set; } = FoundryConnectExitCode.Success;
+    public ChildRuntimeExitCode ExitCode { get; private set; } = ChildRuntimeExitCode.Success;
 
-    public void Exit(FoundryConnectExitCode exitCode)
+    public void Exit(ChildRuntimeExitCode exitCode)
     {
         if (IsExitRequested)
         {

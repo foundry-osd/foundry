@@ -8,6 +8,7 @@ using Foundry.Bootstrap.Processes;
 using Foundry.Bootstrap.Runtime;
 using Foundry.Bootstrap.SystemPreparation;
 using Foundry.Core.Models.PreOobe;
+using Foundry.Core.Models.Runtime;
 using Serilog;
 
 namespace Foundry.Bootstrap;
@@ -61,7 +62,7 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
                 BootstrapOutcome.Succeeded => result.ReadinessConfirmed ? "Foundry Deploy is ready." : "Foundry Deploy was launched. Readiness is unverified.",
                 BootstrapOutcome.Cancelled => "Boot was cancelled. Deployment will not continue.",
                 _ when result.FailureCategory == "readiness_timeout" => "Application readiness was not confirmed within two minutes. The application may still be running.",
-                _ when result.ChildExitCode is int code => $"Foundry {(result.Stage == BootstrapStage.Connect ? "Connect" : "Deploy")} stopped with exit code {code}.",
+                _ when result.ChildExitCode is int code => ChildExitMessages.Describe(result.Stage, code),
                 _ when result.FailureCategory == "capability_invalid" => "Application startup metadata is invalid. Recreate the boot media or refresh the runtime cache.",
                 _ => "This boot stage could not be completed. Check the session log for details."
             };
@@ -101,7 +102,7 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
             context.ChildEnvironment, cancellationToken).ConfigureAwait(false);
         if (!connectResult.Succeeded)
         {
-            return new BootstrapResult(connectResult.ExitCode == 20 ? BootstrapOutcome.Cancelled : BootstrapOutcome.Failed,
+            return new BootstrapResult(connectResult.ExitCode == (int)ChildRuntimeExitCode.UserAborted ? BootstrapOutcome.Cancelled : BootstrapOutcome.Failed,
                 stage, connectResult.ExitCode, connectResult.FailureCategory, connectResult.LastStage, PayloadVersion: payloadVersion);
         }
         Report(BootstrapStatus.Completed, "Foundry Connect completed");

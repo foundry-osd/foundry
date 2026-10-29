@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Threading;
 using Foundry.Connect.Services.ApplicationLifetime;
+using Foundry.Core.Models.Runtime;
 using Foundry.Connect.Services.Runtime;
 using Foundry.Connect.ViewModels;
 using Microsoft.Extensions.Logging;
@@ -55,7 +56,7 @@ public partial class MainWindow : Window
         catch (Exception ex)
         {
             _startup.ReportFailure(ex, "ui_initialization");
-            _applicationLifetimeService.Exit(FoundryConnectExitCode.StartupFailure);
+            _applicationLifetimeService.Exit(ChildRuntimeExitCode.StartupFailure);
         }
     }
 

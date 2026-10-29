@@ -16,6 +16,7 @@ using CommunityToolkit.Mvvm.Input;
 using Foundry.Connect.Models;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Models.Network;
+using Foundry.Core.Models.Runtime;
 using Foundry.Wpf.Shell;
 using Foundry.Connect.Services.ApplicationLifetime;
 using Foundry.Connect.Services.Configuration;
@@ -733,7 +734,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         if (!_applicationLifetimeService.IsExitRequested)
         {
             _logger.LogInformation("Window close detected before a controlled exit. Returning user-aborted exit code.");
-            _applicationLifetimeService.Exit(FoundryConnectExitCode.UserAborted);
+            _applicationLifetimeService.Exit(ChildRuntimeExitCode.UserAborted);
         }
     }
 
@@ -900,7 +901,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             }
 
             await TrackSessionReadyAsync(snapshot, cancellationToken).ConfigureAwait(false);
-            _applicationLifetimeService.Exit(FoundryConnectExitCode.Success);
+            _applicationLifetimeService.Exit(ChildRuntimeExitCode.Success);
         }
         finally
         {

@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Connect.Models;
+using Foundry.Core.Models.Runtime;
 
 namespace Foundry.Connect.Services.ApplicationLifetime;
 
@@ -10,7 +11,7 @@ public interface IApplicationLifetimeService
 {
     bool IsExitRequested { get; }
 
-    FoundryConnectExitCode ExitCode { get; }
+    ChildRuntimeExitCode ExitCode { get; }
 
-    void Exit(FoundryConnectExitCode exitCode);
+    void Exit(ChildRuntimeExitCode exitCode);
 }

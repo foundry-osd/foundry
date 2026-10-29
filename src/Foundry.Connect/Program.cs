@@ -83,7 +83,7 @@ public static class Program
             {
                 startup.ReportFailure(eventArgs.Exception, "dispatcher");
                 eventArgs.Handled = true;
-                app.Shutdown((int)FoundryConnectExitCode.StartupFailure);
+                app.Shutdown((int)ChildRuntimeExitCode.StartupFailure);
             };
             app.InitializeComponent();
             MainWindow mainWindow = host.Services.GetRequiredService<MainWindow>();
@@ -94,12 +94,12 @@ public static class Program
         catch (FoundryConnectConfigurationException exception)
         {
             ReportFailure(startup, exception, "configuration");
-            return (int)FoundryConnectExitCode.ConfigurationFailure;
+            return (int)ChildRuntimeExitCode.ConfigurationFailure;
         }
         catch (Exception exception)
         {
             ReportFailure(startup, exception, stage);
-            return (int)FoundryConnectExitCode.StartupFailure;
+            return (int)ChildRuntimeExitCode.StartupFailure;
         }
         finally
         {
