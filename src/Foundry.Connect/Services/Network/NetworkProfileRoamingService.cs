@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Foundry.Core.Models.Configuration;
@@ -59,80 +60,164 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
     /// <inheritdoc />
     public Task CaptureWifiProfileAsync(NetworkProfileRoamingCaptureRequest request, CancellationToken cancellationToken)
     {
-        return CaptureProfileAsync(request, NetworkProfileRoamingArtifacts.WifiProfileFileName, isWifiProfile: true, cancellationToken);
+        ArgumentNullException.ThrowIfNull(request);
+        return CaptureWifiProfilesAsync([request], cancellationToken);
     }
 
     /// <inheritdoc />
-    public Task CaptureWiredDot1xProfileAsync(NetworkProfileRoamingCaptureRequest request, CancellationToken cancellationToken)
+    public async Task CaptureWifiProfilesAsync(IReadOnlyList<NetworkProfileRoamingCaptureRequest> requests, CancellationToken cancellationToken)
     {
-        return CaptureProfileAsync(request, NetworkProfileRoamingArtifacts.WiredDot1xProfileFileName, isWifiProfile: false, cancellationToken);
-    }
+        ArgumentNullException.ThrowIfNull(requests);
 
-    private async Task CaptureProfileAsync(
-        NetworkProfileRoamingCaptureRequest request,
-        string destinationFileName,
-        bool isWifiProfile,
-        CancellationToken cancellationToken)
-    {
-        ArgumentNullException.ThrowIfNull(request);
-
-        Foundry.Core.Models.Configuration.NetworkProfileRoamingTransportSettings transportSettings = isWifiProfile
-            ? _configuration.Network.ProfileRoaming.Wifi
-            : _configuration.Network.ProfileRoaming.WiredDot1x;
+        Foundry.Core.Models.Configuration.NetworkProfileRoamingTransportSettings transportSettings = _configuration.Network.ProfileRoaming.Wifi;
         if (!transportSettings.IsEnabled)
         {
             return;
         }
 
-        if (string.IsNullOrWhiteSpace(request.ProfilePath) || !File.Exists(request.ProfilePath))
+        NetworkProfileRoamingCaptureRequest[] available = requests.Where(request => IsSourceAvailable(request, isWifiProfile: true)).ToArray();
+        if (available.Length == 0)
         {
-            _logger.LogWarning(
-                "Network profile roaming skipped because the source profile is unavailable. ProfileKind={ProfileKind}, Source={Source}",
-                isWifiProfile ? "Wifi" : "WiredDot1x",
-                request.Source);
             return;
         }
 
         bool startedFreshSession = PrepareArtifactRoot();
-        string destinationPath = Path.Combine(_artifactRootPath, destinationFileName);
-        File.Copy(request.ProfilePath, destinationPath, overwrite: true);
-
-        string source = FormatSource(request.Source);
-        NetworkProfileRoamingManifest existingManifest = startedFreshSession
-            ? new NetworkProfileRoamingManifest()
-            : await LoadManifestAsync(cancellationToken).ConfigureAwait(false);
-        DeleteCertificateArtifactsForSource(source);
-        List<NetworkProfileRoamingCertificate> certificates = existingManifest.Certificates
-            .Where(certificate => !NetworkProfileRoamingArtifacts.IsCertificateOwnedBySource(certificate, source))
-            .ToList();
-        certificates.AddRange(await CopyCertificatesAsync(request, transportSettings, cancellationToken).ConfigureAwait(false));
-
-        var profile = new NetworkProfileRoamingProfile
+        var profiles = new NetworkProfileRoamingProfile[available.Length];
+        for (int index = 0; index < available.Length; index++)
         {
-            RelativePath = destinationFileName,
-            Source = source,
-            ConnectivityExpectation = FormatConnectivityExpectation(request.ConnectivityExpectation)
-        };
+            string fileName = NetworkProfileRoamingArtifacts.GetWifiProfileFileName(index);
+            await WriteProfileFileAsync(available[index], fileName, cancellationToken).ConfigureAwait(false);
+            profiles[index] = CreateProfile(available[index], fileName);
+        }
 
+        NetworkProfileRoamingManifest existingManifest = await LoadExistingManifestAsync(startedFreshSession, cancellationToken).ConfigureAwait(false);
+        IReadOnlyList<NetworkProfileRoamingCertificate> certificates = await ReplaceCertificatesAsync(existingManifest, available, transportSettings, cancellationToken)
+            .ConfigureAwait(false);
         NetworkProfileRoamingManifest manifest = existingManifest with
         {
+            SchemaVersion = NetworkProfileRoamingManifest.CurrentSchemaVersion,
             UpdatedAtUtc = DateTimeOffset.UtcNow,
-            WifiProfile = isWifiProfile ? profile : existingManifest.WifiProfile,
-            WiredDot1xProfile = isWifiProfile ? existingManifest.WiredDot1xProfile : profile,
+            WifiProfile = profiles[0],
+            WifiProfiles = profiles,
             Certificates = certificates
-                .GroupBy(static certificate => certificate.RelativePath, StringComparer.OrdinalIgnoreCase)
-                .Select(static group => group.Last())
-                .ToArray()
+        };
+
+        await WriteManifestAsync(manifest, cancellationToken).ConfigureAwait(false);
+        _logger.LogInformation(
+            "Network profile roaming capture completed. ProfileKind={ProfileKind}, ProfileCount={ProfileCount}, ProvisionedCount={ProvisionedCount}, ManualCount={ManualCount}, CertificateCount={CertificateCount}, PrivateKeyRoamingEnabled={PrivateKeyRoamingEnabled}",
+            "Wifi",
+            available.Length,
+            available.Count(static request => request.Source == NetworkProfileRoamingProfileSource.ProvisionedWifi),
+            available.Count(static request => request.Source == NetworkProfileRoamingProfileSource.ManualWifi),
+            manifest.Certificates.Count,
+            transportSettings.IncludePrivateKeyMaterial);
+    }
+
+    /// <inheritdoc />
+    public async Task CaptureWiredDot1xProfileAsync(NetworkProfileRoamingCaptureRequest request, CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+
+        Foundry.Core.Models.Configuration.NetworkProfileRoamingTransportSettings transportSettings = _configuration.Network.ProfileRoaming.WiredDot1x;
+        if (!transportSettings.IsEnabled || !IsSourceAvailable(request, isWifiProfile: false))
+        {
+            return;
+        }
+
+        bool startedFreshSession = PrepareArtifactRoot();
+        await WriteProfileFileAsync(request, NetworkProfileRoamingArtifacts.WiredDot1xProfileFileName, cancellationToken).ConfigureAwait(false);
+
+        NetworkProfileRoamingManifest existingManifest = await LoadExistingManifestAsync(startedFreshSession, cancellationToken).ConfigureAwait(false);
+        IReadOnlyList<NetworkProfileRoamingCertificate> certificates = await ReplaceCertificatesAsync(existingManifest, [request], transportSettings, cancellationToken)
+            .ConfigureAwait(false);
+        NetworkProfileRoamingManifest manifest = existingManifest with
+        {
+            SchemaVersion = NetworkProfileRoamingManifest.CurrentSchemaVersion,
+            UpdatedAtUtc = DateTimeOffset.UtcNow,
+            WiredDot1xProfile = CreateProfile(request, NetworkProfileRoamingArtifacts.WiredDot1xProfileFileName),
+            Certificates = certificates
         };
 
         await WriteManifestAsync(manifest, cancellationToken).ConfigureAwait(false);
         _logger.LogInformation(
             "Network profile roaming capture completed. ProfileKind={ProfileKind}, Source={Source}, ConnectivityExpectation={ConnectivityExpectation}, CertificateCount={CertificateCount}, PrivateKeyRoamingEnabled={PrivateKeyRoamingEnabled}",
-            isWifiProfile ? "Wifi" : "WiredDot1x",
+            "WiredDot1x",
             request.Source,
             request.ConnectivityExpectation,
             manifest.Certificates.Count,
             transportSettings.IncludePrivateKeyMaterial);
+    }
+
+    private bool IsSourceAvailable(NetworkProfileRoamingCaptureRequest request, bool isWifiProfile)
+    {
+        if (request.ProfileXml is not null ||
+            (!string.IsNullOrWhiteSpace(request.ProfilePath) && File.Exists(request.ProfilePath)))
+        {
+            return true;
+        }
+
+        _logger.LogWarning(
+            "Network profile roaming skipped because the source profile is unavailable. ProfileKind={ProfileKind}, Source={Source}",
+            isWifiProfile ? "Wifi" : "WiredDot1x",
+            request.Source);
+        return false;
+    }
+
+    // XML read back from WLAN is written as UTF-8 without a BOM; a source file is copied byte for byte.
+    private async Task WriteProfileFileAsync(NetworkProfileRoamingCaptureRequest request, string destinationFileName, CancellationToken cancellationToken)
+    {
+        string destinationPath = Path.Combine(_artifactRootPath, destinationFileName);
+        if (request.ProfileXml is not null)
+        {
+            await File.WriteAllTextAsync(destinationPath, request.ProfileXml, new UTF8Encoding(false), cancellationToken).ConfigureAwait(false);
+            return;
+        }
+
+        File.Copy(request.ProfilePath!, destinationPath, overwrite: true);
+    }
+
+    private static NetworkProfileRoamingProfile CreateProfile(NetworkProfileRoamingCaptureRequest request, string fileName)
+    {
+        return new NetworkProfileRoamingProfile
+        {
+            RelativePath = fileName,
+            Source = FormatSource(request.Source),
+            ConnectivityExpectation = FormatConnectivityExpectation(request.ConnectivityExpectation)
+        };
+    }
+
+    private async Task<NetworkProfileRoamingManifest> LoadExistingManifestAsync(bool startedFreshSession, CancellationToken cancellationToken)
+    {
+        return startedFreshSession
+            ? new NetworkProfileRoamingManifest()
+            : await LoadManifestAsync(cancellationToken).ConfigureAwait(false);
+    }
+
+    // The certificates of every source being captured are replaced; other sources keep theirs.
+    private async Task<IReadOnlyList<NetworkProfileRoamingCertificate>> ReplaceCertificatesAsync(
+        NetworkProfileRoamingManifest existingManifest,
+        IReadOnlyList<NetworkProfileRoamingCaptureRequest> requests,
+        Foundry.Core.Models.Configuration.NetworkProfileRoamingTransportSettings transportSettings,
+        CancellationToken cancellationToken)
+    {
+        string[] sources = requests.Select(static request => FormatSource(request.Source)).Distinct(StringComparer.Ordinal).ToArray();
+        foreach (string source in sources)
+        {
+            DeleteCertificateArtifactsForSource(source);
+        }
+
+        List<NetworkProfileRoamingCertificate> certificates = existingManifest.Certificates
+            .Where(certificate => !sources.Any(source => NetworkProfileRoamingArtifacts.IsCertificateOwnedBySource(certificate, source)))
+            .ToList();
+        foreach (NetworkProfileRoamingCaptureRequest request in requests)
+        {
+            certificates.AddRange(await CopyCertificatesAsync(request, transportSettings, cancellationToken).ConfigureAwait(false));
+        }
+
+        return certificates
+            .GroupBy(static certificate => certificate.RelativePath, StringComparer.OrdinalIgnoreCase)
+            .Select(static group => group.Last())
+            .ToArray();
     }
 
     private bool PrepareArtifactRoot()

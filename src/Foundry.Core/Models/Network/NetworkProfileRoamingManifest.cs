@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -10,12 +11,22 @@ namespace Foundry.Core.Models.Network;
 /// <summary>
 /// Describes Foundry-managed network profile material captured in WinPE for Windows import.
 /// </summary>
+/// <remarks>
+/// The manifest has its own schema version, independent of the configuration schemas. Version 2 adds the ordered
+/// <see cref="WifiProfiles"/> list and still writes its first entry to <see cref="WifiProfile"/>, so a reader that
+/// only knows version 1 keeps importing the preferred Wi-Fi profile.
+/// </remarks>
 public sealed record NetworkProfileRoamingManifest
 {
     /// <summary>
+    /// Gets the manifest schema version written by this build.
+    /// </summary>
+    public const int CurrentSchemaVersion = 2;
+
+    /// <summary>
     /// Gets the manifest schema version.
     /// </summary>
-    public int SchemaVersion { get; init; } = 1;
+    public int SchemaVersion { get; init; } = CurrentSchemaVersion;
 
     /// <summary>
     /// Gets the last manifest update timestamp.
@@ -23,9 +34,15 @@ public sealed record NetworkProfileRoamingManifest
     public DateTimeOffset UpdatedAtUtc { get; init; } = DateTimeOffset.UtcNow;
 
     /// <summary>
-    /// Gets the captured Wi-Fi profile metadata.
+    /// Gets the preferred captured Wi-Fi profile metadata: the first entry of <see cref="WifiProfiles"/>, kept for
+    /// schema 1 readers.
     /// </summary>
     public NetworkProfileRoamingProfile? WifiProfile { get; init; }
+
+    /// <summary>
+    /// Gets every captured Wi-Fi profile, most preferred first (schema 2). Empty in a schema 1 manifest.
+    /// </summary>
+    public IReadOnlyList<NetworkProfileRoamingProfile> WifiProfiles { get; init; } = [];
 
     /// <summary>
     /// Gets the captured wired 802.1X profile metadata.
@@ -36,6 +53,21 @@ public sealed record NetworkProfileRoamingManifest
     /// Gets captured certificate metadata.
     /// </summary>
     public IReadOnlyList<NetworkProfileRoamingCertificate> Certificates { get; init; } = [];
+
+    /// <summary>
+    /// Returns the captured Wi-Fi profiles in import order: <see cref="WifiProfiles"/> when it has entries, else the
+    /// single schema 1 <see cref="WifiProfile"/>, else none.
+    /// </summary>
+    /// <returns>The ordered Wi-Fi profiles, most preferred first.</returns>
+    public IReadOnlyList<NetworkProfileRoamingProfile> GetOrderedWifiProfiles()
+    {
+        if (WifiProfiles is { Count: > 0 })
+        {
+            return WifiProfiles;
+        }
+
+        return WifiProfile is null ? [] : [WifiProfile];
+    }
 }
 
 /// <summary>
@@ -101,7 +133,7 @@ public static class NetworkProfileRoamingArtifacts
     public const string ManifestFileName = "manifest.json";
 
     /// <summary>
-    /// Gets the captured Wi-Fi profile file name.
+    /// Gets the file name of the first (preferred) captured Wi-Fi profile.
     /// </summary>
     public const string WifiProfileFileName = "wifi-profile.xml";
 
@@ -164,6 +196,20 @@ public static class NetworkProfileRoamingArtifacts
     /// Gets the expectation token for profiles that depend on Windows machine credentials.
     /// </summary>
     public const string DependsOnMachineCredentialExpectation = "dependsOnMachineCredential";
+
+    /// <summary>
+    /// Returns the file name of a captured Wi-Fi profile by its position in the ordered list:
+    /// <c>wifi-profile.xml</c> for the first, then <c>wifi-profile-2.xml</c>, <c>wifi-profile-3.xml</c>, and so on.
+    /// </summary>
+    /// <param name="index">Zero-based position in the ordered Wi-Fi profile list.</param>
+    /// <returns>The artifact file name.</returns>
+    public static string GetWifiProfileFileName(int index)
+    {
+        ArgumentOutOfRangeException.ThrowIfNegative(index);
+        return index == 0
+            ? WifiProfileFileName
+            : string.Create(CultureInfo.InvariantCulture, $"wifi-profile-{index + 1}.xml");
+    }
 
     /// <summary>
     /// Returns whether the certificate path points to a PFX/P12 package.

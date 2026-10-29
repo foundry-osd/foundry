@@ -691,6 +691,8 @@ public sealed class MainWindowViewModelTests
     {
         public Task CaptureWifiProfileAsync(NetworkProfileRoamingCaptureRequest request, CancellationToken cancellationToken) => Task.CompletedTask;
 
+        public Task CaptureWifiProfilesAsync(IReadOnlyList<NetworkProfileRoamingCaptureRequest> requests, CancellationToken cancellationToken) => Task.CompletedTask;
+
         public Task CaptureWiredDot1xProfileAsync(NetworkProfileRoamingCaptureRequest request, CancellationToken cancellationToken) => Task.CompletedTask;
     }
 

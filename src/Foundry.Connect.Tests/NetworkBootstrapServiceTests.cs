@@ -198,6 +198,9 @@ public sealed class NetworkBootstrapServiceTests
             return Task.CompletedTask;
         }
 
+        public Task CaptureWifiProfilesAsync(IReadOnlyList<NetworkProfileRoamingCaptureRequest> requests, CancellationToken cancellationToken) =>
+            throw new NotSupportedException();
+
         public Task CaptureWiredDot1xProfileAsync(NetworkProfileRoamingCaptureRequest request, CancellationToken cancellationToken)
         {
             WiredCaptureRequest = request;

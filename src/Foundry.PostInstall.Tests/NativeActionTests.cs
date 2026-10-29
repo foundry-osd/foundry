@@ -72,6 +72,111 @@ public sealed class NativeActionTests
         Assert.Equal("Corp", NetworkAction.GetWifiName(normalized));
     }
 
+    [Fact]
+    public async Task Network_WithSeveralWifiProfiles_ImportsLastFirstAndConnectsTheFirstConnectable()
+    {
+        string root = CreateNetworkRoot(
+            """
+            {
+              "wifiProfileRelativePath": "NetworkProfiles\\wifi-profile.xml",
+              "wifiProfileSource": "provisionedWifi",
+              "wifiProfileConnectivityExpectation": "importOnly",
+              "wifiProfiles": [
+                { "relativePath": "NetworkProfiles\\wifi-profile.xml", "source": "provisionedWifi", "connectivityExpectation": "importOnly" },
+                { "relativePath": "NetworkProfiles\\wifi-profile-2.xml", "source": "manualWifi", "connectivityExpectation": "preOobeConnectable" },
+                { "relativePath": "NetworkProfiles\\wifi-profile-3.xml", "source": "manualWifi", "connectivityExpectation": "preOobeConnectable" }
+              ],
+              "certificates": []
+            }
+            """,
+            ("wifi-profile.xml", "Corp"),
+            ("wifi-profile-2.xml", "Guest"),
+            ("wifi-profile-3.xml", "Home"));
+        try
+        {
+            var processes = new RecordingProcesses(new(0, ""));
+
+            ActionStepOutcome outcome = await ExecuteNetworkAsync(root, processes);
+
+            Assert.True(outcome.Succeeded);
+            Assert.False(outcome.HasWarnings);
+            Assert.Equal(
+                [
+                    "wlan add profile filename=" + WifiPath(root, "wifi-profile-3.xml") + " user=all",
+                    "wlan add profile filename=" + WifiPath(root, "wifi-profile-2.xml") + " user=all",
+                    "wlan add profile filename=" + WifiPath(root, "wifi-profile.xml") + " user=all",
+                    "wlan connect name=Guest"
+                ],
+                processes.Commands.Select(static command => string.Join(' ', command.Arguments)));
+            Assert.Contains("<connectionMode>auto</connectionMode>", File.ReadAllText(WifiPath(root, "wifi-profile-3.xml")));
+            Assert.DoesNotContain("connectionMode", File.ReadAllText(WifiPath(root, "wifi-profile.xml")));
+        }
+        finally { Directory.Delete(root, true); }
+    }
+
+    [Fact]
+    public async Task Network_WithOnlyTheSingleWifiEntry_ImportsAndConnectsIt()
+    {
+        string root = CreateNetworkRoot(
+            """
+            {
+              "wifiProfileRelativePath": "NetworkProfiles\\wifi-profile.xml",
+              "wifiProfileSource": "manualWifi",
+              "wifiProfileConnectivityExpectation": "preOobeConnectable",
+              "certificates": []
+            }
+            """,
+            ("wifi-profile.xml", "Guest"));
+        try
+        {
+            var processes = new RecordingProcesses(new(0, ""));
+
+            ActionStepOutcome outcome = await ExecuteNetworkAsync(root, processes);
+
+            Assert.True(outcome.Succeeded);
+            Assert.Equal(
+                ["wlan add profile filename=" + WifiPath(root, "wifi-profile.xml") + " user=all", "wlan connect name=Guest"],
+                processes.Commands.Select(static command => string.Join(' ', command.Arguments)));
+        }
+        finally { Directory.Delete(root, true); }
+    }
+
+    private static string CreateNetworkRoot(string settings, params (string FileName, string Name)[] profiles)
+    {
+        string root = Path.Combine(Path.GetTempPath(), "Foundry.PostInstall.Tests", Guid.NewGuid().ToString("N"));
+        string directory = Path.Combine(root, "Payloads", "NetworkProfiles");
+        Directory.CreateDirectory(directory);
+        File.WriteAllText(Path.Combine(directory, "import-settings.json"), settings);
+        foreach ((string fileName, string name) in profiles)
+        {
+            File.WriteAllText(
+                Path.Combine(directory, fileName),
+                $"<WLANProfile xmlns='http://www.microsoft.com/networking/WLAN/profile/v1'><name>{name}</name><connectionType>ESS</connectionType></WLANProfile>");
+        }
+
+        return root;
+    }
+
+    private static string WifiPath(string root, string fileName) => Path.Combine(root, "Payloads", "NetworkProfiles", fileName);
+
+    private static Task<ActionStepOutcome> ExecuteNetworkAsync(string root, RecordingProcesses processes)
+    {
+        var action = new PreOobeExecutionAction
+        {
+            Id = "network-profile-roaming",
+            BuiltInKind = PreOobeBuiltInKind.Network,
+            Parameters = JsonSerializer.SerializeToElement(new { settingsPath = "Payloads/NetworkProfiles/import-settings.json" })
+        };
+        return new NetworkAction(root, Environment.GetFolderPath(Environment.SpecialFolder.Windows), processes, new NoCertificates())
+            .ExecuteAsync(action, TestContext.Current.CancellationToken);
+    }
+
+    private sealed class NoCertificates : ICertificateImporter
+    {
+        public void Import(string path, string kind, string store, string? passwordPath) =>
+            throw new InvalidOperationException("No certificate is expected.");
+    }
+
     private sealed class RecordingProcesses(ProcessOutcome outcome) : IPreOobeProcessExecutor
     {
         public ProcessOutcome Result { get; set; } = outcome;

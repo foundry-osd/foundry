@@ -58,6 +58,140 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
     }
 
     [Fact]
+    public async Task LoadAsync_WhenManifestListsSeveralWifiProfiles_StagesEveryProfileInOrder()
+    {
+        string artifactRoot = CreateArtifactRoot();
+        WriteText(Path.Combine(artifactRoot, "wifi-profile.xml"), "<WLANProfile>1</WLANProfile>");
+        WriteText(Path.Combine(artifactRoot, "wifi-profile-2.xml"), "<WLANProfile>2</WLANProfile>");
+        WriteText(Path.Combine(artifactRoot, "wifi-profile-3.xml"), "<WLANProfile>3</WLANProfile>");
+        WriteText(
+            Path.Combine(artifactRoot, "manifest.json"),
+            """
+            {
+              "schemaVersion": 2,
+              "wifiProfile": {
+                "relativePath": "wifi-profile.xml",
+                "source": "provisionedWifi",
+                "connectivityExpectation": "importOnly"
+              },
+              "wifiProfiles": [
+                { "relativePath": "wifi-profile.xml", "source": "provisionedWifi", "connectivityExpectation": "importOnly" },
+                { "relativePath": "wifi-profile-2.xml", "source": "manualWifi", "connectivityExpectation": "preOobeConnectable" },
+                { "relativePath": "wifi-profile-3.xml", "source": "manualWifi", "connectivityExpectation": "preOobeConnectable" }
+              ]
+            }
+            """);
+        var service = new NetworkProfileRoamingArtifactService(
+            new FakeMediaSecretKeyReader([]),
+            NullLogger<NetworkProfileRoamingArtifactService>.Instance);
+
+        var payload = await service.LoadAsync(
+            new DeployNetworkProfileRoamingSettings
+            {
+                Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true },
+                ArtifactRootPath = artifactRoot
+            },
+            Path.Combine(artifactRoot, "workspace"),
+            TestContext.Current.CancellationToken);
+
+        Assert.NotNull(payload);
+        Assert.Contains(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "wifi-profile-2.xml") && file.Bytes is not null);
+        Assert.Contains(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "wifi-profile-3.xml") && file.Bytes is not null);
+        string importSettingsJson = Assert.Single(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "import-settings.json")).Content;
+        using JsonDocument importSettings = JsonDocument.Parse(importSettingsJson);
+        Assert.Equal(Path.Combine("NetworkProfiles", "wifi-profile.xml"), importSettings.RootElement.GetProperty("wifiProfileRelativePath").GetString());
+        Assert.Equal("provisionedWifi", importSettings.RootElement.GetProperty("wifiProfileSource").GetString());
+        Assert.Equal("importOnly", importSettings.RootElement.GetProperty("wifiProfileConnectivityExpectation").GetString());
+        JsonElement[] profiles = [.. importSettings.RootElement.GetProperty("wifiProfiles").EnumerateArray()];
+        Assert.Equal(
+            [Path.Combine("NetworkProfiles", "wifi-profile.xml"), Path.Combine("NetworkProfiles", "wifi-profile-2.xml"), Path.Combine("NetworkProfiles", "wifi-profile-3.xml")],
+            profiles.Select(static profile => profile.GetProperty("relativePath").GetString()));
+        Assert.Equal(
+            ["provisionedWifi", "manualWifi", "manualWifi"],
+            profiles.Select(static profile => profile.GetProperty("source").GetString()));
+        Assert.Equal(
+            ["importOnly", "preOobeConnectable", "preOobeConnectable"],
+            profiles.Select(static profile => profile.GetProperty("connectivityExpectation").GetString()));
+    }
+
+    [Fact]
+    public async Task LoadAsync_WhenFirstListedWifiProfileIsMissing_PromotesTheNextOneToTheSingleEntry()
+    {
+        string artifactRoot = CreateArtifactRoot();
+        WriteText(Path.Combine(artifactRoot, "wifi-profile-2.xml"), "<WLANProfile>2</WLANProfile>");
+        WriteText(
+            Path.Combine(artifactRoot, "manifest.json"),
+            """
+            {
+              "schemaVersion": 2,
+              "wifiProfiles": [
+                { "relativePath": "wifi-profile.xml", "source": "provisionedWifi", "connectivityExpectation": "importOnly" },
+                { "relativePath": "wifi-profile-2.xml", "source": "manualWifi", "connectivityExpectation": "preOobeConnectable" }
+              ]
+            }
+            """);
+        var service = new NetworkProfileRoamingArtifactService(
+            new FakeMediaSecretKeyReader([]),
+            NullLogger<NetworkProfileRoamingArtifactService>.Instance);
+
+        var payload = await service.LoadAsync(
+            new DeployNetworkProfileRoamingSettings
+            {
+                Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true },
+                ArtifactRootPath = artifactRoot
+            },
+            Path.Combine(artifactRoot, "workspace"),
+            TestContext.Current.CancellationToken);
+
+        Assert.NotNull(payload);
+        string importSettingsJson = Assert.Single(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "import-settings.json")).Content;
+        using JsonDocument importSettings = JsonDocument.Parse(importSettingsJson);
+        Assert.Equal(Path.Combine("NetworkProfiles", "wifi-profile-2.xml"), importSettings.RootElement.GetProperty("wifiProfileRelativePath").GetString());
+        Assert.Equal("manualWifi", importSettings.RootElement.GetProperty("wifiProfileSource").GetString());
+        Assert.False(importSettings.RootElement.TryGetProperty("wifiProfiles", out _));
+    }
+
+    [Fact]
+    public async Task LoadAsync_WhenSchemaOneManifestHasOneWifiProfile_WritesOnlyTheSingleEntry()
+    {
+        string artifactRoot = CreateArtifactRoot();
+        WriteText(Path.Combine(artifactRoot, "wifi-profile.xml"), "<WLANProfile />");
+        WriteText(
+            Path.Combine(artifactRoot, "manifest.json"),
+            """
+            {
+              "schemaVersion": 1,
+              "wifiProfile": {
+                "relativePath": "wifi-profile.xml",
+                "source": "manualWifi",
+                "connectivityExpectation": "preOobeConnectable"
+              }
+            }
+            """);
+        var service = new NetworkProfileRoamingArtifactService(
+            new FakeMediaSecretKeyReader([]),
+            NullLogger<NetworkProfileRoamingArtifactService>.Instance);
+
+        var payload = await service.LoadAsync(
+            new DeployNetworkProfileRoamingSettings
+            {
+                Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true },
+                ArtifactRootPath = artifactRoot
+            },
+            Path.Combine(artifactRoot, "workspace"),
+            TestContext.Current.CancellationToken);
+
+        Assert.NotNull(payload);
+        Assert.Equal(2, payload.DataFiles.Count);
+        string importSettingsJson = Assert.Single(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "import-settings.json")).Content;
+        using JsonDocument importSettings = JsonDocument.Parse(importSettingsJson);
+        Assert.Equal(
+            ["wifiProfileRelativePath", "wifiProfileSource", "wifiProfileConnectivityExpectation", "certificates"],
+            importSettings.RootElement.EnumerateObject().Select(static property => property.Name));
+        Assert.Equal("preOobeConnectable", importSettings.RootElement.GetProperty("wifiProfileConnectivityExpectation").GetString());
+    }
+
+    [Fact]
     public async Task LoadAsync_WhenManifestReferencesOnlyMissingFiles_ReturnsNull()
     {
         string artifactRoot = CreateArtifactRoot();

@@ -70,13 +70,14 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         var dataFiles = new List<PreOobeScriptDataFile>();
         var importSettings = new NetworkProfileRoamingImportSettings();
 
-        importSettings.WifiProfileRelativePath = AddProfileDataFile(
-            dataFiles,
-            artifactRootPath,
-            settings.Wifi.IsEnabled ? manifest.WifiProfile?.RelativePath : null,
-            cancellationToken);
-        importSettings.WifiProfileSource = settings.Wifi.IsEnabled ? manifest.WifiProfile?.Source : null;
-        importSettings.WifiProfileConnectivityExpectation = settings.Wifi.IsEnabled ? manifest.WifiProfile?.ConnectivityExpectation : null;
+        IReadOnlyList<NetworkProfileRoamingImportProfile> wifiProfiles = settings.Wifi.IsEnabled
+            ? AddWifiProfileDataFiles(dataFiles, artifactRootPath, manifest.GetOrderedWifiProfiles(), cancellationToken)
+            : [];
+        NetworkProfileRoamingImportProfile? preferredWifiProfile = wifiProfiles.FirstOrDefault();
+        importSettings.WifiProfileRelativePath = preferredWifiProfile?.RelativePath;
+        importSettings.WifiProfileSource = preferredWifiProfile?.Source;
+        importSettings.WifiProfileConnectivityExpectation = preferredWifiProfile?.ConnectivityExpectation;
+        importSettings.WifiProfiles = wifiProfiles.Count > 1 ? wifiProfiles : null;
         importSettings.WiredDot1xProfileRelativePath = AddProfileDataFile(
             dataFiles,
             artifactRootPath,
@@ -136,6 +137,40 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         {
             return null;
         }
+    }
+
+    // Stages every Wi-Fi profile whose file exists, in manifest order (most preferred first). The single
+    // wifiProfile* import fields carry the first staged one; wifiProfiles is written only when there are several, so a
+    // schema 1 manifest produces the same import settings as before.
+    private static IReadOnlyList<NetworkProfileRoamingImportProfile> AddWifiProfileDataFiles(
+        List<PreOobeScriptDataFile> dataFiles,
+        string artifactRootPath,
+        IReadOnlyList<NetworkProfileRoamingProfile> profiles,
+        CancellationToken cancellationToken)
+    {
+        var stagedProfiles = new List<NetworkProfileRoamingImportProfile>();
+        var stagedPaths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (NetworkProfileRoamingProfile profile in profiles)
+        {
+            if (string.IsNullOrWhiteSpace(profile.RelativePath) ||
+                !stagedPaths.Add(ToStagedDataRelativePath(profile.RelativePath)))
+            {
+                continue;
+            }
+
+            string? stagedRelativePath = AddProfileDataFile(dataFiles, artifactRootPath, profile.RelativePath, cancellationToken);
+            if (stagedRelativePath is not null)
+            {
+                stagedProfiles.Add(new NetworkProfileRoamingImportProfile
+                {
+                    RelativePath = stagedRelativePath,
+                    Source = profile.Source,
+                    ConnectivityExpectation = profile.ConnectivityExpectation
+                });
+            }
+        }
+
+        return stagedProfiles;
     }
 
     private static string? AddProfileDataFile(
@@ -373,10 +408,18 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         public string? WifiProfileRelativePath { get; set; }
         public string? WifiProfileSource { get; set; }
         public string? WifiProfileConnectivityExpectation { get; set; }
+        public IReadOnlyList<NetworkProfileRoamingImportProfile>? WifiProfiles { get; set; }
         public string? WiredDot1xProfileRelativePath { get; set; }
         public string? WiredDot1xProfileSource { get; set; }
         public string? WiredDot1xProfileConnectivityExpectation { get; set; }
         public IReadOnlyList<NetworkProfileRoamingImportCertificate> Certificates { get; set; } = [];
+    }
+
+    private sealed record NetworkProfileRoamingImportProfile
+    {
+        public string RelativePath { get; init; } = string.Empty;
+        public string? Source { get; init; }
+        public string? ConnectivityExpectation { get; init; }
     }
 
     private sealed record NetworkProfileRoamingImportCertificate
