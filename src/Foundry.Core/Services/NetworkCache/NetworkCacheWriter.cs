@@ -41,8 +41,9 @@ public static class NetworkCacheWriter
         string? expectedHash,
         long? expectedSize,
         TimeProvider clock,
-        CancellationToken cancellationToken) =>
-        PublishFileAsync(sourcePath, targetDirectory, fileName, sessionId, expectedHash, expectedSize, clock, cancellationToken, beforeRename: null);
+        CancellationToken cancellationToken,
+        Action<long>? onTotalBytes = null) =>
+        PublishFileAsync(sourcePath, targetDirectory, fileName, sessionId, expectedHash, expectedSize, clock, cancellationToken, beforeRename: null, onTotalBytes);
 
     internal static async Task<NetworkCachePublishOutcome> PublishFileAsync(
         string sourcePath,
@@ -53,7 +54,8 @@ public static class NetworkCacheWriter
         long? expectedSize,
         TimeProvider clock,
         CancellationToken cancellationToken,
-        Action? beforeRename)
+        Action? beforeRename,
+        Action<long>? onTotalBytes = null)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(sourcePath);
         ArgumentException.ThrowIfNullOrWhiteSpace(targetDirectory);
@@ -76,7 +78,7 @@ public static class NetworkCacheWriter
             await using (FileStream input = new(sourcePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete, 1 << 20, useAsync: true))
             await using (FileStream output = new(partialPath, FileMode.CreateNew, FileAccess.Write, FileShare.None, 1 << 20, useAsync: true))
             {
-                (actualHash, length) = await CopyAndHashAsync(input, output, algorithm, cancellationToken).ConfigureAwait(false);
+                (actualHash, length) = await CopyAndHashAsync(input, output, algorithm, onTotalBytes, cancellationToken).ConfigureAwait(false);
                 await output.FlushAsync(cancellationToken).ConfigureAwait(false);
             }
 
@@ -123,7 +125,9 @@ public static class NetworkCacheWriter
         }
     }
 
-    private static async Task<(string Hash, long Length)> CopyAndHashAsync(Stream input, Stream output, HashAlgorithmName algorithm, CancellationToken cancellationToken)
+    /// <summary>Copies and hashes in one pass; <paramref name="onTotalBytes"/> receives the total bytes copied so far after each chunk.</summary>
+    private static async Task<(string Hash, long Length)> CopyAndHashAsync(Stream input, Stream output, HashAlgorithmName algorithm,
+        Action<long>? onTotalBytes, CancellationToken cancellationToken)
     {
         using IncrementalHash hash = IncrementalHash.CreateHash(algorithm);
         byte[] buffer = new byte[1 << 20];
@@ -134,6 +138,7 @@ public static class NetworkCacheWriter
             hash.AppendData(buffer, 0, read);
             await output.WriteAsync(buffer.AsMemory(0, read), cancellationToken).ConfigureAwait(false);
             length += read;
+            onTotalBytes?.Invoke(length);
         }
 
         return (Convert.ToHexString(hash.GetHashAndReset()), length);

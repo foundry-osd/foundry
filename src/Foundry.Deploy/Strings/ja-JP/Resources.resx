@@ -124,6 +124,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Common.Previous" xml:space="preserve">
     <value>前へ</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>再試行</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>利用不可</value>
   </data>
@@ -684,6 +687,45 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_ツール</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>ネットワーク キャッシュの共有がこのデバイスを拒否しました。Foundry OSD の [ネットワーク キャッシュ] ページで共有のアカウントとそのパスワードを確認し、サーバーで共有のアクセス許可を確認してください。</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>{0} は {1} を開けません。Foundry OSD の [ネットワーク キャッシュ] ページでアカウントのパスワードを確認し、サーバーでそのアクセス許可を確認してください。</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>{0} がこのデバイスを拒否しました。Foundry OSD の [ネットワーク キャッシュ] ページでこの共有のアカウントを設定し、サーバーで共有のアクセス許可を確認してください。</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>ドライバー セット</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>カスタム Windows イメージ</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>不足: {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>このデバイスを含む IP スコープがありません。Foundry OSD の [ネットワーク キャッシュ] ページで、このネットワークのスコープ、またはバックアップ共有を指定した 0.0.0.0/0 スコープを追加してください。</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>このデバイス ({0}) を含む IP スコープがありません。Foundry OSD の [ネットワーク キャッシュ] ページで、このネットワークのスコープ、またはバックアップ共有を指定した 0.0.0.0/0 スコープを追加してください。</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>ネットワーク キャッシュの共有に発行されたコンテンツが見つからないか、不完全です。Foundry OSD の [ネットワーク キャッシュ] ページで [発行] を選択してください。</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>{0} に発行されたコンテンツが見つからないか、不完全です。Foundry OSD の [ネットワーク キャッシュ] ページで [発行] を選択してください。</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>ネットワーク キャッシュを使用できません</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>ネットワーク キャッシュの共有が応答していません。サーバーで、共有がオンラインであり、ポート 445 が開いていることを確認してください。</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>{0} が応答していません。サーバーで、共有がオンラインであり、ポート 445 が開いていることを確認してください。</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Windows のリリース、言語、エディション、ライセンス チャネルを選択します。</value>
   </data>
@@ -1053,6 +1095,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>キャッシュ ディスクの競合を確認しています...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>カスタムイメージを確認しています...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>展開の準備状況を確認しています...</value>
   </data>
@@ -1092,8 +1137,14 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>AutopilotConfigurationFile.json をコピーしています...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>カスタムイメージをコピーしています...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>ドライバーパッケージをコピーしています...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>ネットワーク キャッシュからコピーしています...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>対話型登録ファイルをコピーしています...</value>
@@ -1124,6 +1175,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>導入を完了しています...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>ネットワーク キャッシュへのコピーを完了しています...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>ハードウェア ハッシュを Microsoft Graph にインポートしています...</value>
@@ -1271,6 +1325,12 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>抽出中</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}: {1} ({2} 残り)</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}: {1}、ほか {2} 件 ({3} 残り)</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

@@ -812,7 +812,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Draiverikomplektid</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
-    <value>Pole PXE-käivitusega saadaval. Kohandatud draiverid nõuavad täielikku ISO- või USB-meediumit.</value>
+    <value>PXE-käivituse korral vajavad kohandatud draiverid võrguvahemälu. Ilma selleta kasutage ISO- või USB-andmekandjat.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
     <value>Selle konfiguratsiooni draiverikomplektid pole kehtivad. Kontrollige kaasatud komplekte ja vaikekomplekti enne meediumi loomist või värskendamist.</value>
@@ -938,7 +938,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Tõmmisetoiming nurjus. Kontrollige allikat, vaba ruumi ja Foundry logisid.</value>
   </data>
   <data name="CustomImages.PxeWarning" xml:space="preserve">
-    <value>Pole PXE-käivitusega saadaval. Kohandatud tõmmised nõuavad täielikku ISO- või USB-meediumit.</value>
+    <value>PXE-käivituse korral vajavad kohandatud tõmmised võrguvahemälu. Ilma selleta kasutage ISO- või USB-andmekandjat.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Kaasake sellesse konfiguratsiooni vähemalt üks saadaolev Windowsi tõmmis. Enne meediumi loomist või värskendamist taastage puuduvad kaasatud tõmmised ning parandage või tühjendage eelistatud tõmmise või indeksi valik.</value>
@@ -2819,7 +2819,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Kasutajanimi</value>
   </data>
   <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user või user@domain</value>
+    <value>DOMAIN\user, SERVER\user või user@domain</value>
   </data>
   <data name="NetworkCache.AccountsDescription" xml:space="preserve">
     <value>Kontod, millega ühiskaustu avatakse. Seadmed kasutavad neid ühiskausta lugemiseks ja allalaaditu avaldamiseks.</value>
@@ -2827,8 +2827,32 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="NetworkCache.AccountsHeader" xml:space="preserve">
     <value>Kontod</value>
   </data>
+  <data name="NetworkCache.CleanUpShareFailedMessageFormat" xml:space="preserve">
+    <value>Ühiskausta {0} ei saanud puhastada. Kontrollige, et ühiskaust oleks kättesaadav ja selle konto saaks faile kustutada, ning proovige uuesti.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareKeptMessageFormat" xml:space="preserve">
+    <value>Ühiskaust {0} puhastati, kuid mõned failid jäeti alles, sest need on kasutusel, on pärast avaldamist muutunud või pole Foundry neid kirjutanud.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareMessageFormat" xml:space="preserve">
+    <value>Kas kustutada ühiskaustas {0} olevad allalaadimised ja imporditud sisu, mida ei kasuta enam teie konfiguratsioon ega ükski avaldatud indeks? Seadmed laadivad vajaliku uuesti alla.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareTitle" xml:space="preserve">
+    <value>Puhasta ühiskaust</value>
+  </data>
   <data name="NetworkCache.ColumnAccount" xml:space="preserve">
     <value>Konto</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloads" xml:space="preserve">
+    <value>Internetist</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloadsToolTip" xml:space="preserve">
+    <value>Windows ja draiveripaketid, mille seadmed internetist alla laadisid. Puhastamine kustutab need ja seadmed laadivad need vajaduse korral uuesti alla.</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContent" xml:space="preserve">
+    <value>Imporditud sisu</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContentToolTip" xml:space="preserve">
+    <value>Kohandatud tõmmised, draiverikomplektid ja installijärgsed skriptid, mille Foundry OSD avaldas. Puhastamine säilitab need, mida veel kasutatakse.</value>
   </data>
   <data name="NetworkCache.ColumnName" xml:space="preserve">
     <value>Nimi</value>
@@ -2860,11 +2884,20 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="NetworkCache.CommandAdd" xml:space="preserve">
     <value>Lisa</value>
   </data>
+  <data name="NetworkCache.CommandCleanUp" xml:space="preserve">
+    <value>Puhasta</value>
+  </data>
   <data name="NetworkCache.CommandEdit" xml:space="preserve">
     <value>Muuda</value>
   </data>
+  <data name="NetworkCache.CommandPublish" xml:space="preserve">
+    <value>Avalda</value>
+  </data>
   <data name="NetworkCache.CommandRemove" xml:space="preserve">
     <value>Eemalda</value>
+  </data>
+  <data name="NetworkCache.ContentMissingShareFormat" xml:space="preserve">
+    <value>Ühiskaustas {0} pole enam teie avaldatud sisu. Valige Avalda.</value>
   </data>
   <data name="NetworkCache.DialogAdd" xml:space="preserve">
     <value>Lisa</value>
@@ -2887,8 +2920,23 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="NetworkCache.NoAccount" xml:space="preserve">
     <value>Konto puudub</value>
   </data>
+  <data name="NetworkCache.NotPublishedMessage" xml:space="preserve">
+    <value>Ühiskaustades pole teie viimaseid muudatusi. Valige Avalda.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedShareFormat" xml:space="preserve">
+    <value>Ühiskaust {0} ei saanud teie viimaseid muudatusi. Valige Avalda.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedState" xml:space="preserve">
+    <value>Avaldamata</value>
+  </data>
+  <data name="NetworkCache.OutdatedState" xml:space="preserve">
+    <value>Aegunud</value>
+  </data>
   <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
     <value>Ühiskaustad: {0}, IP-ulatused: {1}</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryWithStateFormat" xml:space="preserve">
+    <value>{0} · {1}</value>
   </data>
   <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
     <value>Seda parooli ei saa kasutada.</value>
@@ -2904,6 +2952,15 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="NetworkCache.PasswordSaved" xml:space="preserve">
     <value>Salvestatud</value>
+  </data>
+  <data name="NetworkCache.PublishFailedMessage" xml:space="preserve">
+    <value>Avaldatavat sisu ei saanud ette valmistada.</value>
+  </data>
+  <data name="NetworkCache.PublishKeysUnavailableMessage" xml:space="preserve">
+    <value>See arvuti ei saa ühiskaustadesse avaldatavat allkirjastada, sest selle allkirjastamisvõtit ei saanud lugeda ega salvestada.</value>
+  </data>
+  <data name="NetworkCache.PublishSucceededMessage" xml:space="preserve">
+    <value>Ühiskaustades on teie viimased muudatused.</value>
   </data>
   <data name="NetworkCache.Ready" xml:space="preserve">
     <value>Valmis</value>
@@ -2945,7 +3002,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Ühiskaustad</value>
   </data>
   <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>Seadmed proovivad märgitud ühiskaustu ülevalt alla ja laadivad seejärel alla Internetist.</value>
+    <value>Seadmed kasutavad ülalt alla esimest märgitud ühiskausta, mis vastab.</value>
   </data>
   <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
     <value>Märkige vähemalt üks ühiskaust.</value>
@@ -2998,6 +3055,24 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="NetworkCache.SharesHeader" xml:space="preserve">
     <value>Ühiskaustad</value>
   </data>
+  <data name="NetworkCache.SpaceCleaningUp" xml:space="preserve">
+    <value>Puhastamine…</value>
+  </data>
+  <data name="NetworkCache.SpaceMeasuring" xml:space="preserve">
+    <value>Mõõtmine…</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreachable" xml:space="preserve">
+    <value>Pole kättesaadav</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreadable" xml:space="preserve">
+    <value>Ei saa lugeda</value>
+  </data>
+  <data name="NetworkCache.TrustedKeyUnavailableMessage" xml:space="preserve">
+    <value>Lubatud võrguvahemäluga andmekandjat ei saa luua, sest sellel arvutil pole ühiskaustadesse avaldatud sisu jaoks usaldusväärset võtit. Kontrollige lehel Sätted jaotist Konfiguratsiooni ühiskasutus.</value>
+  </data>
+  <data name="NetworkCache.UpToDateState" xml:space="preserve">
+    <value>Ajakohane</value>
+  </data>
   <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
     <value>See väärtus ei sobi selle tüübiga.</value>
   </data>
@@ -3029,7 +3104,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Sisestage kasutajanimi.</value>
   </data>
   <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>Võimaldab rakendusel Foundry Deploy kasutada SMB-ühiskaustu ühise vahemäluna, mis valitakse seadme IP-aadressi järgi. Windowsi, draiveripaketid ja imporditud sisu loetakse ühiskaustast enne Internetti ning seadmete allalaaditu avaldatakse sinna tagasi.</value>
+    <value>Võimaldab rakendusel Foundry Deploy kasutada SMB-ühiskaustu ühise vahemäluna, mis valitakse seadme IP-aadressi järgi.</value>
   </data>
   <data name="NetworkCachePageHeader.Title" xml:space="preserve">
     <value>Võrguvahemälu</value>
@@ -3218,7 +3293,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>PowerShelli argumendid</value>
   </data>
   <data name="PostInstallation.PxeWarning" xml:space="preserve">
-    <value>Imporditud faile kasutavad toimingud pole PXE-käivitusega saadaval. Need nõuavad täielikku ISO- või USB-meediumit.</value>
+    <value>PXE-käivituse korral vajavad imporditud faile kasutavad toimingud võrguvahemälu. Ilma selleta kasutage ISO- või USB-andmekandjat.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Toimingut ei saanud eemaldada. Proovige uuesti.</value>
@@ -4354,6 +4429,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
     <value>Windowsi tõmmise avamine…</value>
   </data>
+  <data name="StartMedia.Operation.NetworkCachePublicationFailedFormat" xml:space="preserve">
+    <value>Need võrguvahemälu ühiskaustad ei saanud imporditud sisu: {0}. Kontrollige, et iga ühiskaust oleks kättesaadav ja kirjutatav, ning valige siis lehel Võrguvahemälu Avalda.</value>
+  </data>
   <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
     <value>Ava kaust</value>
   </data>
@@ -4389,6 +4467,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
     <value>Tööruumi ettevalmistamine</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.PublishingToNetworkCache" xml:space="preserve">
+    <value>Võrguvahemällu avaldamine</value>
   </data>
   <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
     <value>USB-ketta värskendamine</value>
@@ -4428,6 +4509,12 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Foundry komponentide lisamine USB-kettale…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
+    <value>Imporditud sisu avaldamine võrguvahemällu…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCacheShareFormat" xml:space="preserve">
+    <value>Imporditud sisu avaldamine asukohta {0}, ühiskaust {1}/{2}</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
     <value>Sihtkaustas pole piisavalt vaba ruumi. PXE-alglaadimisfailid vajavad {0}. Saadaval: {1}. Vabastage ruumi või valige mõni muu kaust.</value>
@@ -4476,6 +4563,18 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO on loodud</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishCancelled" xml:space="preserve">
+    <value>Võrguvahemällu avaldamine tühistati</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishFailed" xml:space="preserve">
+    <value>Võrguvahemällu avaldamine nurjus</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishRunning" xml:space="preserve">
+    <value>Võrguvahemällu avaldamine</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishSucceeded" xml:space="preserve">
+    <value>Avaldatud võrguvahemällu</value>
   </data>
   <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
     <value>PXE-failide loomine tühistati</value>

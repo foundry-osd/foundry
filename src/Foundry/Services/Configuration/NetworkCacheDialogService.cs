@@ -6,6 +6,7 @@ using Foundry.Services.Localization;
 
 namespace Foundry.Services.Configuration;
 
+/// <summary>Shows the account, share and scope dialogs of the Network cache page in the main window.</summary>
 public sealed class NetworkCacheDialogService(IApplicationLocalizationService localization) : INetworkCacheDialogService
 {
     public async Task ShowAccountAsync(NetworkCacheAccountDialogRequest request, Func<NetworkCacheAccountDialogInput, string?> trySave)

@@ -261,6 +261,12 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
     [InlineData("Checking Windows Autopilot devices (1 second remaining)...", "Vérification des appareils Windows Autopilot (1s restant)...")]
     [InlineData("Checking Windows Autopilot devices (600 seconds remaining)...", "Vérification des appareils Windows Autopilot (600s restant)...")]
     [InlineData("Checking Windows Autopilot group tag (600 seconds remaining)...", "Vérification de la balise de groupe Windows Autopilot (600s restant)...")]
+    [InlineData("Checking custom image...", "Contrôle de l'image personnalisée...")]
+    [InlineData("Copying custom image...", "Copie de l'image personnalisée...")]
+    [InlineData("Copying from the network cache...", "Copie depuis le cache réseau...")]
+    [InlineData("Finishing the copy to the network cache...", "Finalisation de la copie vers le cache réseau...")]
+    [InlineData("install.wim: 50% (512.0 MB / 1.0 GB), 2 more (96 seconds remaining)", "install.wim : 50% (512.0 MB / 1.0 GB), 2 en attente (96s restant)")]
+    [InlineData("pack.cab: 1.0 KB (1 second remaining)", "pack.cab : 1.0 KB (1s restant)")]
     [InlineData("Selected Autopilot profile file was not found: 'X:\\profile.json'.", "Le fichier du profil Autopilot sélectionné est introuvable : 'X:\\profile.json'.")]
     [InlineData("Autopilot hardware hash capture failed: OA3 report does not contain a serial number.", "La capture du hachage matériel Autopilot a échoué : OA3 report does not contain a serial number.")]
     [InlineData("Autopilot hardware hash import failed: ZtdDeviceAlreadyAssigned.", "L'import du hachage matériel Autopilot a échoué : ZtdDeviceAlreadyAssigned.")]
@@ -271,6 +277,20 @@ public sealed class DeploymentUiTextLocalizerTests : IDisposable
         CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("fr-FR");
 
         Assert.Equal(expected, DeploymentUiTextLocalizer.LocalizeMessage(input));
+    }
+
+    [Fact]
+    public void LocalizeMessage_TranslatesTheNetworkCacheUploadLineOfTheFinalizeStep()
+    {
+        CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("fr-FR");
+        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("fr-FR");
+        string line = Foundry.Deploy.Services.Deployment.Steps.FinalizeDeploymentAndWriteLogsStep.FormatUpload(
+            new Foundry.Deploy.Services.Cache.NetworkCacheUploadStatus("install.wim", 512, 1024, 2), TimeSpan.FromSeconds(95.2));
+
+        string localized = DeploymentUiTextLocalizer.LocalizeMessage(line);
+
+        Assert.StartsWith("install.wim : ", localized, StringComparison.Ordinal);
+        Assert.EndsWith(", 2 en attente (96s restant)", localized, StringComparison.Ordinal);
     }
 
     public void Dispose()

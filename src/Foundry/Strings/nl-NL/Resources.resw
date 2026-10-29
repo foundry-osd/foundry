@@ -812,7 +812,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Stuurprogrammasets</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
-    <value>Niet beschikbaar bij opstarten via PXE. Aangepaste stuurprogramma's vereisen de volledige ISO- of USB-media.</value>
+    <value>Bij PXE-opstart hebben aangepaste stuurprogramma's de netwerkcache nodig. Gebruik zonder cache ISO- of USB-media.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
     <value>De stuurprogrammasets van deze configuratie zijn niet geldig. Controleer de opgenomen sets en de standaardset voordat u media maakt of bijwerkt.</value>
@@ -938,7 +938,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>De bewerking is mislukt. Controleer de bron, de beschikbare ruimte en de Foundry-logboeken.</value>
   </data>
   <data name="CustomImages.PxeWarning" xml:space="preserve">
-    <value>Niet beschikbaar bij opstarten via PXE. Aangepaste installatiekopieën vereisen de volledige ISO- of USB-media.</value>
+    <value>Bij PXE-opstart hebben aangepaste installatiekopieën de netwerkcache nodig. Gebruik zonder cache ISO- of USB-media.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Neem ten minste één beschikbare Windows-installatiekopie op in deze configuratie. Herstel ontbrekende opgenomen installatiekopieën en corrigeer of wis de selectie van de voorkeursinstallatiekopie of -index voordat u media maakt of bijwerkt.</value>
@@ -2819,7 +2819,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Gebruikersnaam</value>
   </data>
   <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user of user@domain</value>
+    <value>DOMAIN\user, SERVER\user of user@domain</value>
   </data>
   <data name="NetworkCache.AccountsDescription" xml:space="preserve">
     <value>Accounts die shares openen. Apparaten gebruiken ze om een share te lezen en om te publiceren wat ze downloaden.</value>
@@ -2827,8 +2827,32 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="NetworkCache.AccountsHeader" xml:space="preserve">
     <value>Toegangsaccounts</value>
   </data>
+  <data name="NetworkCache.CleanUpShareFailedMessageFormat" xml:space="preserve">
+    <value>{0} kan niet worden opgeschoond. Controleer of de share bereikbaar is en of het account ervan bestanden kan verwijderen en probeer het opnieuw.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareKeptMessageFormat" xml:space="preserve">
+    <value>{0} is opgeschoond, maar sommige bestanden zijn behouden omdat ze in gebruik zijn, sinds de publicatie zijn gewijzigd of niet door Foundry zijn geschreven.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareMessageFormat" xml:space="preserve">
+    <value>De downloads op {0} en de geïmporteerde inhoud verwijderen die noch uw configuratie noch een gepubliceerde index nog gebruikt? Apparaten downloaden opnieuw wat ze nodig hebben.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareTitle" xml:space="preserve">
+    <value>Share opschonen</value>
+  </data>
   <data name="NetworkCache.ColumnAccount" xml:space="preserve">
     <value>Toegangsaccount</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloads" xml:space="preserve">
+    <value>Van internet</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloadsToolTip" xml:space="preserve">
+    <value>Windows en stuurprogrammapakketten die apparaten van internet hebben gedownload. Opschonen verwijdert ze en apparaten downloaden ze opnieuw wanneer nodig.</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContent" xml:space="preserve">
+    <value>Geïmporteerde inhoud</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContentToolTip" xml:space="preserve">
+    <value>Aangepaste installatiekopieën, stuurprogrammasets en scripts na installatie die Foundry OSD heeft gepubliceerd. Opschonen behoudt wat nog wordt gebruikt.</value>
   </data>
   <data name="NetworkCache.ColumnName" xml:space="preserve">
     <value>Naam</value>
@@ -2860,11 +2884,20 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="NetworkCache.CommandAdd" xml:space="preserve">
     <value>Toevoegen</value>
   </data>
+  <data name="NetworkCache.CommandCleanUp" xml:space="preserve">
+    <value>Opschonen</value>
+  </data>
   <data name="NetworkCache.CommandEdit" xml:space="preserve">
     <value>Bewerken</value>
   </data>
+  <data name="NetworkCache.CommandPublish" xml:space="preserve">
+    <value>Publiceren</value>
+  </data>
   <data name="NetworkCache.CommandRemove" xml:space="preserve">
     <value>Verwijderen</value>
+  </data>
+  <data name="NetworkCache.ContentMissingShareFormat" xml:space="preserve">
+    <value>{0} bevat uw gepubliceerde inhoud niet meer. Selecteer Publiceren.</value>
   </data>
   <data name="NetworkCache.DialogAdd" xml:space="preserve">
     <value>Toevoegen</value>
@@ -2887,8 +2920,23 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="NetworkCache.NoAccount" xml:space="preserve">
     <value>Geen account</value>
   </data>
+  <data name="NetworkCache.NotPublishedMessage" xml:space="preserve">
+    <value>De shares bevatten uw laatste wijzigingen niet. Selecteer Publiceren.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedShareFormat" xml:space="preserve">
+    <value>{0} heeft uw laatste wijzigingen niet ontvangen. Selecteer Publiceren.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedState" xml:space="preserve">
+    <value>Niet gepubliceerd</value>
+  </data>
+  <data name="NetworkCache.OutdatedState" xml:space="preserve">
+    <value>Verouderd</value>
+  </data>
   <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
     <value>Shares: {0}, IP-bereiken: {1}</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryWithStateFormat" xml:space="preserve">
+    <value>{0} · {1}</value>
   </data>
   <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
     <value>Dit wachtwoord kan niet worden gebruikt.</value>
@@ -2904,6 +2952,15 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="NetworkCache.PasswordSaved" xml:space="preserve">
     <value>Opgeslagen</value>
+  </data>
+  <data name="NetworkCache.PublishFailedMessage" xml:space="preserve">
+    <value>De te publiceren inhoud kan niet worden voorbereid.</value>
+  </data>
+  <data name="NetworkCache.PublishKeysUnavailableMessage" xml:space="preserve">
+    <value>Deze pc kan wat hij naar de shares publiceert niet ondertekenen, omdat de ondertekeningssleutel niet kon worden gelezen of opgeslagen.</value>
+  </data>
+  <data name="NetworkCache.PublishSucceededMessage" xml:space="preserve">
+    <value>De shares bevatten uw laatste wijzigingen.</value>
   </data>
   <data name="NetworkCache.Ready" xml:space="preserve">
     <value>Gereed</value>
@@ -2945,7 +3002,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Netwerkshares</value>
   </data>
   <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>Apparaten proberen de aangevinkte shares van boven naar beneden en downloaden daarna van internet.</value>
+    <value>Apparaten gebruiken de eerste aangevinkte share die antwoordt, van boven naar beneden.</value>
   </data>
   <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
     <value>Vink ten minste één share aan.</value>
@@ -2998,6 +3055,24 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="NetworkCache.SharesHeader" xml:space="preserve">
     <value>Netwerkshares</value>
   </data>
+  <data name="NetworkCache.SpaceCleaningUp" xml:space="preserve">
+    <value>Wordt opgeschoond…</value>
+  </data>
+  <data name="NetworkCache.SpaceMeasuring" xml:space="preserve">
+    <value>Wordt gemeten…</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreachable" xml:space="preserve">
+    <value>Niet bereikbaar</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreadable" xml:space="preserve">
+    <value>Kan niet worden gelezen</value>
+  </data>
+  <data name="NetworkCache.TrustedKeyUnavailableMessage" xml:space="preserve">
+    <value>Media met de netwerkcache ingeschakeld kunnen niet worden gemaakt, omdat deze pc geen vertrouwde sleutel heeft voor de inhoud die naar de shares is gepubliceerd. Controleer Configuratie delen op de pagina Instellingen.</value>
+  </data>
+  <data name="NetworkCache.UpToDateState" xml:space="preserve">
+    <value>Bijgewerkt</value>
+  </data>
   <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
     <value>Deze waarde is niet geldig voor de soort.</value>
   </data>
@@ -3029,7 +3104,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Voer een gebruikersnaam in.</value>
   </data>
   <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>Hiermee kan Foundry Deploy SMB-shares gebruiken als gedeelde cache, gekozen op basis van het IP-adres van het apparaat. Windows, stuurprogrammapakketten en geïmporteerde inhoud worden vóór internet uit de share gelezen, en wat apparaten downloaden, wordt naar de share teruggepubliceerd.</value>
+    <value>Hiermee kan Foundry Deploy SMB-shares gebruiken als gedeelde cache, gekozen op basis van het IP-adres van het apparaat.</value>
   </data>
   <data name="NetworkCachePageHeader.Title" xml:space="preserve">
     <value>Netwerkcache</value>
@@ -3218,7 +3293,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>PowerShell-argumenten</value>
   </data>
   <data name="PostInstallation.PxeWarning" xml:space="preserve">
-    <value>Acties die geïmporteerde bestanden gebruiken, zijn niet beschikbaar bij opstarten via PXE. Ze vereisen de volledige ISO- of USB-media.</value>
+    <value>Bij PXE-opstart hebben acties die geïmporteerde bestanden gebruiken de netwerkcache nodig. Gebruik zonder cache ISO- of USB-media.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>De actie kon niet worden verwijderd. Probeer het opnieuw.</value>
@@ -4354,6 +4429,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
     <value>Windows-image openen…</value>
   </data>
+  <data name="StartMedia.Operation.NetworkCachePublicationFailedFormat" xml:space="preserve">
+    <value>Deze shares van de netwerkcache hebben de geïmporteerde inhoud niet ontvangen: {0}. Controleer of elke share bereikbaar en beschrijfbaar is en selecteer vervolgens Publiceren op de pagina Netwerkcache.</value>
+  </data>
   <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
     <value>Map openen</value>
   </data>
@@ -4389,6 +4467,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
     <value>Werkruimte voorbereiden</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.PublishingToNetworkCache" xml:space="preserve">
+    <value>Publiceren naar de netwerkcache</value>
   </data>
   <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
     <value>USB-schijf bijwerken</value>
@@ -4428,6 +4509,12 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Foundry-componenten toevoegen aan de USB-schijf…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
+    <value>Geïmporteerde inhoud publiceren naar de netwerkcache…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCacheShareFormat" xml:space="preserve">
+    <value>Geïmporteerde inhoud publiceren naar {0}, share {1} van {2}</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
     <value>Onvoldoende vrije ruimte in de doelmap. De PXE-opstartbestanden hebben {0} nodig. Beschikbaar: {1}. Maak ruimte vrij of kies een andere map.</value>
@@ -4476,6 +4563,18 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO gemaakt</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishCancelled" xml:space="preserve">
+    <value>Publiceren naar de netwerkcache geannuleerd</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishFailed" xml:space="preserve">
+    <value>Publiceren naar de netwerkcache mislukt</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishRunning" xml:space="preserve">
+    <value>Publiceren naar de netwerkcache</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishSucceeded" xml:space="preserve">
+    <value>Gepubliceerd naar de netwerkcache</value>
   </data>
   <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
     <value>Maken van PXE-bestanden geannuleerd</value>

@@ -812,7 +812,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Sürücü kümeleri</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
-    <value>PXE önyüklemesiyle kullanılamaz. Özel sürücüler tam ISO veya USB medyasını gerektirir.</value>
+    <value>PXE önyüklemesinde özel sürücüler ağ önbelleği gerektirir. Ağ önbelleği yoksa ISO veya USB medyası kullanın.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
     <value>Bu yapılandırmanın sürücü kümeleri geçerli değil. Medya oluşturmadan veya güncelleştirmeden önce dahil edilen kümeleri ve varsayılan kümeyi denetleyin.</value>
@@ -938,7 +938,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Görüntü işlemi başarısız oldu. Kaynağı, kullanılabilir alanı ve Foundry günlüklerini kontrol edin.</value>
   </data>
   <data name="CustomImages.PxeWarning" xml:space="preserve">
-    <value>PXE önyüklemesiyle kullanılamaz. Özel görüntüler tam ISO veya USB medyasını gerektirir.</value>
+    <value>PXE önyüklemesinde özel görüntüler ağ önbelleği gerektirir. Ağ önbelleği yoksa ISO veya USB medyası kullanın.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Bu yapılandırmaya en az bir kullanılabilir Windows görüntüsü dahil edin. Medya oluşturmadan veya güncellemeden önce dahil edilen eksik görüntüleri geri yükleyin ve tercih edilen görüntü veya dizin seçimini düzeltin ya da temizleyin.</value>
@@ -2819,7 +2819,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Kullanıcı adı</value>
   </data>
   <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user veya user@domain</value>
+    <value>DOMAIN\user, SERVER\user veya user@domain</value>
   </data>
   <data name="NetworkCache.AccountsDescription" xml:space="preserve">
     <value>Paylaşımları açan hesaplar. Cihazlar bunları bir paylaşımı okumak ve indirdiklerini yayımlamak için kullanır.</value>
@@ -2827,8 +2827,32 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="NetworkCache.AccountsHeader" xml:space="preserve">
     <value>Hesaplar</value>
   </data>
+  <data name="NetworkCache.CleanUpShareFailedMessageFormat" xml:space="preserve">
+    <value>{0} temizlenemedi. Paylaşımın erişilebilir olduğunu ve hesabının dosya silebildiğini denetleyin, ardından yeniden deneyin.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareKeptMessageFormat" xml:space="preserve">
+    <value>{0} temizlendi ancak bazı dosyalar kullanımda olduğu, yayımlandıktan sonra değiştiği veya Foundry tarafından yazılmadığı için tutuldu.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareMessageFormat" xml:space="preserve">
+    <value>{0} üzerindeki indirmeler ve ne yapılandırmanızın ne de yayımlanan herhangi bir dizinin artık kullanmadığı içeri aktarılan içerik silinsin mi? Cihazlar ihtiyaç duyduklarını yeniden indirir.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareTitle" xml:space="preserve">
+    <value>Paylaşımı temizle</value>
+  </data>
   <data name="NetworkCache.ColumnAccount" xml:space="preserve">
     <value>Hesap</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloads" xml:space="preserve">
+    <value>İnternetten</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloadsToolTip" xml:space="preserve">
+    <value>Cihazların internetten indirdiği Windows ve sürücü paketleri. Temizleme bunları siler, cihazlar gerektiğinde yeniden indirir.</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContent" xml:space="preserve">
+    <value>İçeri aktarılan içerik</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContentToolTip" xml:space="preserve">
+    <value>Foundry OSD'nin yayımladığı özel görüntüler, sürücü kümeleri ve yükleme sonrası betikler. Temizleme hâlâ kullanılanları korur.</value>
   </data>
   <data name="NetworkCache.ColumnName" xml:space="preserve">
     <value>İsim</value>
@@ -2860,11 +2884,20 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="NetworkCache.CommandAdd" xml:space="preserve">
     <value>Ekle</value>
   </data>
+  <data name="NetworkCache.CommandCleanUp" xml:space="preserve">
+    <value>Temizle</value>
+  </data>
   <data name="NetworkCache.CommandEdit" xml:space="preserve">
     <value>Düzenle</value>
   </data>
+  <data name="NetworkCache.CommandPublish" xml:space="preserve">
+    <value>Yayımla</value>
+  </data>
   <data name="NetworkCache.CommandRemove" xml:space="preserve">
     <value>Kaldır</value>
+  </data>
+  <data name="NetworkCache.ContentMissingShareFormat" xml:space="preserve">
+    <value>{0} artık yayımladığınız içeriği barındırmıyor. Yayımla'yı seçin.</value>
   </data>
   <data name="NetworkCache.DialogAdd" xml:space="preserve">
     <value>Ekle</value>
@@ -2887,8 +2920,23 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="NetworkCache.NoAccount" xml:space="preserve">
     <value>Hesap yok</value>
   </data>
+  <data name="NetworkCache.NotPublishedMessage" xml:space="preserve">
+    <value>Paylaşımlarda en son değişiklikleriniz yok. Yayımla'yı seçin.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedShareFormat" xml:space="preserve">
+    <value>{0} en son değişikliklerinizi almadı. Yayımla'yı seçin.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedState" xml:space="preserve">
+    <value>Yayımlanmadı</value>
+  </data>
+  <data name="NetworkCache.OutdatedState" xml:space="preserve">
+    <value>Eski</value>
+  </data>
   <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
     <value>Paylaşımlar: {0}, IP kapsamları: {1}</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryWithStateFormat" xml:space="preserve">
+    <value>{0} · {1}</value>
   </data>
   <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
     <value>Bu parola kullanılamaz.</value>
@@ -2904,6 +2952,15 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="NetworkCache.PasswordSaved" xml:space="preserve">
     <value>Kaydedildi</value>
+  </data>
+  <data name="NetworkCache.PublishFailedMessage" xml:space="preserve">
+    <value>Yayımlanacak içerik hazırlanamadı.</value>
+  </data>
+  <data name="NetworkCache.PublishKeysUnavailableMessage" xml:space="preserve">
+    <value>İmzalama anahtarı okunamadığı veya kaydedilemediği için bu bilgisayar paylaşımlarda yayımladığı içeriği imzalayamıyor.</value>
+  </data>
+  <data name="NetworkCache.PublishSucceededMessage" xml:space="preserve">
+    <value>Paylaşımlarda en son değişiklikleriniz var.</value>
   </data>
   <data name="NetworkCache.Ready" xml:space="preserve">
     <value>Hazır</value>
@@ -2945,7 +3002,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Paylaşımlar</value>
   </data>
   <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>Cihazlar işaretli paylaşımları yukarıdan aşağıya dener, ardından İnternet'ten indirir.</value>
+    <value>Cihazlar, yukarıdan aşağıya yanıt veren ilk işaretli paylaşımı kullanır.</value>
   </data>
   <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
     <value>En az bir paylaşımı işaretleyin.</value>
@@ -2998,6 +3055,24 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="NetworkCache.SharesHeader" xml:space="preserve">
     <value>Paylaşımlar</value>
   </data>
+  <data name="NetworkCache.SpaceCleaningUp" xml:space="preserve">
+    <value>Temizleniyor…</value>
+  </data>
+  <data name="NetworkCache.SpaceMeasuring" xml:space="preserve">
+    <value>Ölçülüyor…</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreachable" xml:space="preserve">
+    <value>Erişilemiyor</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreadable" xml:space="preserve">
+    <value>Okunamıyor</value>
+  </data>
+  <data name="NetworkCache.TrustedKeyUnavailableMessage" xml:space="preserve">
+    <value>Bu bilgisayarda paylaşımlarda yayımlanan içerik için güvenilir bir anahtar olmadığından ağ önbelleği açıkken medya oluşturulamaz. Ayarlar sayfasında Yapılandırma paylaşımı bölümünü denetleyin.</value>
+  </data>
+  <data name="NetworkCache.UpToDateState" xml:space="preserve">
+    <value>Güncel</value>
+  </data>
   <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
     <value>Bu değer, türü için geçerli değil.</value>
   </data>
@@ -3029,7 +3104,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Bir kullanıcı adı girin.</value>
   </data>
   <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>Foundry Deploy'un, cihazın IP adresine göre seçilen SMB paylaşımlarını ortak bir önbellek olarak kullanmasını sağlar. Windows, sürücü paketleri ve içeri aktarılan içerik İnternet'ten önce paylaşımdan okunur ve cihazların indirdikleri paylaşıma geri yayımlanır.</value>
+    <value>Cihazın IP adresine göre seçilen SMB paylaşımlarını Foundry Deploy için ortak önbellek olarak kullanın.</value>
   </data>
   <data name="NetworkCachePageHeader.Title" xml:space="preserve">
     <value>Ağ önbelleği</value>
@@ -3218,7 +3293,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>PowerShell bağımsız değişkenleri</value>
   </data>
   <data name="PostInstallation.PxeWarning" xml:space="preserve">
-    <value>İçeri aktarılan dosyaları kullanan eylemler PXE önyüklemesiyle kullanılamaz. Bunlar tam ISO veya USB medyasını gerektirir.</value>
+    <value>PXE önyüklemesinde içeri aktarılan dosyaları kullanan eylemler ağ önbelleği gerektirir. Ağ önbelleği yoksa ISO veya USB medyası kullanın.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Eylem kaldırılamadı. Yeniden deneyin.</value>
@@ -4354,6 +4429,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
     <value>Windows görüntüsü açılıyor…</value>
   </data>
+  <data name="StartMedia.Operation.NetworkCachePublicationFailedFormat" xml:space="preserve">
+    <value>Bu ağ önbelleği paylaşımları içeri aktarılan içeriği almadı: {0}. Her paylaşımın erişilebilir ve yazılabilir olduğunu denetleyin, ardından Ağ önbelleği sayfasında Yayımla'yı seçin.</value>
+  </data>
   <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
     <value>Klasörü aç</value>
   </data>
@@ -4389,6 +4467,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
     <value>Çalışma alanını hazırlama</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.PublishingToNetworkCache" xml:space="preserve">
+    <value>Ağ önbelleğinde yayımlama</value>
   </data>
   <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
     <value>USB sürücüsünü güncelleştirme</value>
@@ -4428,6 +4509,12 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Foundry bileşenleri USB sürücüsüne ekleniyor…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
+    <value>İçeri aktarılan içerik ağ önbelleğinde yayımlanıyor…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCacheShareFormat" xml:space="preserve">
+    <value>İçeri aktarılan içerik {0} konumunda yayımlanıyor, paylaşım {1}/{2}</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
     <value>Hedef klasörde yeterli boş alan yok. PXE önyükleme dosyaları için {0} gerekiyor. Kullanılabilir: {1}. Yer açın veya başka bir klasör seçin.</value>
@@ -4476,6 +4563,18 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO oluşturuldu</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishCancelled" xml:space="preserve">
+    <value>Ağ önbelleğinde yayımlama iptal edildi</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishFailed" xml:space="preserve">
+    <value>Ağ önbelleğinde yayımlama başarısız oldu</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishRunning" xml:space="preserve">
+    <value>Ağ önbelleğinde yayımlanıyor</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishSucceeded" xml:space="preserve">
+    <value>Ağ önbelleğinde yayımlandı</value>
   </data>
   <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
     <value>PXE dosyası oluşturma iptal edildi</value>

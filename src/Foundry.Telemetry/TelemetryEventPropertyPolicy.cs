@@ -110,6 +110,7 @@ public static class TelemetryEventPropertyPolicy
                 "network_cache_share_count",
                 "network_cache_scope_count",
                 "network_cache_account_count",
+                "network_cache_publish_result",
                 "deployment_protection_enabled",
                 "unattend_enabled",
                 "unattend_default_mode",
@@ -194,6 +195,12 @@ public static class TelemetryEventPropertyPolicy
                 "network_wired_dot1x_private_key_roaming_enabled",
                 "network_wifi_profile_roaming_enabled",
                 "network_wifi_private_key_roaming_enabled"
+            },
+            [TelemetryEvents.OsdNetworkCachePublished] = new(StringComparer.Ordinal)
+            {
+                "operation_id",
+                "network_cache_publish_result",
+                "network_cache_share_count"
             },
             [TelemetryEvents.ConnectSessionReady] = new(StringComparer.Ordinal)
             {
@@ -367,8 +374,11 @@ public static class TelemetryEventPropertyPolicy
         "boot_media_custom_drivers_count" => value is int and >= 0 and <= 256,
         "network_cache_enabled" or "deploy_network_cache_writable" => value is bool,
         "network_cache_share_count" or "network_cache_scope_count" or "network_cache_account_count" => value is int and >= 0 and <= 1000,
-        "deploy_network_cache_outcome" => value is "not_resolved" or "disabled" or "no_matching_scope" or "connected" or "unavailable",
+        "deploy_network_cache_outcome" => value is "not_resolved" or "disabled" or "no_matching_scope" or "no_scope" or "connected" or "unavailable" or
+            "unreachable" or "access_denied" or "not_published" or "content_missing",
         "deploy_network_cache_downloads_reused" => value is int and >= 0 and <= 1000,
+        "network_cache_publish_result" => value is TelemetryNetworkCachePublishResults.Published or TelemetryNetworkCachePublishResults.Partial or
+            TelemetryNetworkCachePublishResults.Failed or TelemetryNetworkCachePublishResults.None,
         _ => true
     };
 

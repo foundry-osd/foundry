@@ -124,6 +124,9 @@
   <data name="Common.Previous" xml:space="preserve">
     <value>上一步</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>重試</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>無法使用</value>
   </data>
@@ -684,6 +687,45 @@ ErrorCode=0x80070005
   <data name="Menu.Tools" xml:space="preserve">
     <value>工具(_T)</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>網路快取共用拒絕了此裝置。請在 Foundry OSD 的「網路快取」頁面上檢查共用的帳戶及其密碼，並在伺服器上檢查共用的權限。</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>{0} 無法開啟 {1}。請在 Foundry OSD 的「網路快取」頁面上檢查帳戶密碼，並在伺服器上檢查其權限。</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>{0} 拒絕了此裝置。請在 Foundry OSD 的「網路快取」頁面上為此共用設定帳戶，並在伺服器上檢查共用的權限。</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>驅動程式集</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>自訂 Windows 映像</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>缺少：{0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>沒有任何 IP 範圍包含此裝置。請在 Foundry OSD 的「網路快取」頁面上為此網路新增範圍，或新增使用備份共用的 0.0.0.0/0 範圍。</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>沒有任何 IP 範圍包含此裝置 ({0})。請在 Foundry OSD 的「網路快取」頁面上為此網路新增範圍，或新增使用備份共用的 0.0.0.0/0 範圍。</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>網路快取共用上已發佈的內容遺失或不完整。請在 Foundry OSD 的「網路快取」頁面上選取 [發佈]。</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>{0} 上已發佈的內容遺失或不完整。請在 Foundry OSD 的「網路快取」頁面上選取 [發佈]。</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>網路快取無法使用</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>網路快取共用沒有回應。請在伺服器上檢查共用是否在線上，以及連接埠 445 是否開啟。</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>{0} 沒有回應。請在伺服器上檢查共用是否在線上，以及連接埠 445 是否開啟。</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>選擇 Windows 發行版本、語言、版本與授權通道。</value>
   </data>
@@ -1053,6 +1095,9 @@ ErrorCode=0x80070005
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>正在檢查快取磁碟衝突...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>正在檢查自訂映像...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>正在檢查部署就緒狀態...</value>
   </data>
@@ -1092,8 +1137,14 @@ ErrorCode=0x80070005
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>正在複製 AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>正在複製自訂映像...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>正在複製驅動程式套件...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>正在從網路快取複製...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>正在複製互動式註冊檔案...</value>
@@ -1124,6 +1175,9 @@ ErrorCode=0x80070005
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>正在完成部署...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>正在完成複製到網路快取...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>正在將硬體雜湊匯入 Microsoft Graph...</value>
@@ -1271,6 +1325,12 @@ ErrorCode=0x80070005
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>正在解壓縮</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}：{1}（剩餘 {2}）</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}：{1}，另有 {2} 個（剩餘 {3}）</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}：{1}%</value>

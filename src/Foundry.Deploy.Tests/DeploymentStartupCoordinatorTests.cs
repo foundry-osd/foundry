@@ -5,14 +5,19 @@
 using System.Net;
 using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
 using System.Net.Http;
+using Foundry.Core.Services.NetworkCache;
+using Foundry.Core.Services.Sharing;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Autopilot;
+using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.Startup;
+using Foundry.Utilities.Diagnostics;
+using Foundry.Utilities.Networking;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -201,6 +206,120 @@ public sealed class DeploymentStartupCoordinatorTests
         Assert.Empty(logger.Levels);
     }
 
+    [Fact]
+    public async Task InitializeAsync_ResolvesNetworkCacheSessionAndStoresItForTheWizard()
+    {
+        var dependencies = new StartupDependencies(enabled: false);
+        var discovery = new StubDiscovery(_ => throw new InvalidOperationException("Discovery must not start."));
+        using NetworkCacheSession session = NetworkCacheSession.Unavailable(NetworkCacheOutcome.NoMatchingScope);
+        var resolver = new RecordingNetworkCacheResolver(session);
+        var accessor = new NetworkCacheSessionAccessor();
+        var coordinator = new DeploymentStartupCoordinator(dependencies, dependencies, dependencies, dependencies, dependencies, dependencies,
+            discovery, new RecordingLogger(), networkCacheResolver: resolver, networkCacheAccessor: accessor);
+
+        await coordinator.InitializeAsync(CreateLiveRequest(), TestContext.Current.CancellationToken);
+
+        Assert.Same(session, accessor.Current);
+        string workspaceRoot = Assert.Single(resolver.WorkspaceRoots);
+        Assert.False(string.IsNullOrWhiteSpace(workspaceRoot));
+        Assert.Equal([DiagnosticSessionContext.CurrentSessionId], resolver.SessionIds);
+    }
+
+    [Fact]
+    public async Task InitializeAsync_AgainAfterAFailure_ClosesThePreviousShareBeforeResolving()
+    {
+        var dependencies = new StartupDependencies(enabled: false);
+        var connector = new RecordingConnector();
+        var accessor = new NetworkCacheSessionAccessor { Current = NetworkCacheSession.Connected(@"\\srv\cache", canWrite: false, connector) };
+        using NetworkCacheSession next = NetworkCacheSession.Unavailable(NetworkCacheOutcome.NoMatchingScope);
+        var resolver = new RecordingNetworkCacheResolver(next, onResolve: () => Assert.Equal([@"\\srv\cache"], connector.Disconnected));
+        var coordinator = new DeploymentStartupCoordinator(dependencies, dependencies, dependencies, dependencies, dependencies, dependencies,
+            new StubDiscovery(_ => throw new InvalidOperationException("Discovery must not start.")), new RecordingLogger(),
+            networkCacheResolver: resolver, networkCacheAccessor: accessor);
+
+        await coordinator.InitializeAsync(CreateLiveRequest(), TestContext.Current.CancellationToken);
+
+        Assert.Single(resolver.SessionIds);
+        Assert.Same(next, accessor.Current);
+    }
+
+    [Fact]
+    public async Task InitializeAsync_WithAPublisherKey_PutsTheIndexSectionsInTheSnapshot()
+    {
+        string share = Path.Combine(Path.GetTempPath(), "Fstartupindex", Guid.NewGuid().ToString("N"));
+        try
+        {
+            using PublicationSigningKey signer = PublicationSigningKey.Create();
+            Foundry.Core.Models.Configuration.Deploy.DeployPreOobeSettings preOobe = new()
+            {
+                IsEnabled = true,
+                Actions = [new() { Name = "Restart", Kind = Foundry.Core.Models.Configuration.PreOobeActionKind.Restart }]
+            };
+            byte[] index = NetworkCacheContentIndexCodec.Write(new() { KeyId = signer.KeyId, Sequence = 3, PreOobe = preOobe }, signer);
+            await NetworkCacheIndexStore.WriteAsync(Path.Combine(share, "Foundry"), signer.KeyId, index, TestContext.Current.CancellationToken);
+            var dependencies = new StartupDependencies(enabled: false, networkCache: new()
+            {
+                IsEnabled = true,
+                PublisherPublicKey = Convert.ToBase64String(signer.PublicKey),
+                PublisherKeyId = signer.KeyId
+            });
+            using NetworkCacheSession session = NetworkCacheSession.Connected(share, canWrite: false, new NoopConnector());
+
+            DeploymentStartupSnapshot snapshot = await CreateNetworkCacheCoordinator(dependencies, session).InitializeAsync(CreateLiveRequest(), TestContext.Current.CancellationToken);
+
+            Assert.Null(snapshot.NetworkCacheFailure);
+            Assert.Equal("Restart", Assert.Single(snapshot.DeployConfigurationDocument!.PreOobe.Actions).Name);
+            Assert.Equal(["Kiosk"], snapshot.DeployConfigurationDocument.Autopilot.HardwareHashUpload.KnownGroupTags);
+        }
+        finally
+        {
+            if (Directory.Exists(share)) Directory.Delete(share, recursive: true);
+        }
+    }
+
+    [Fact]
+    public async Task InitializeAsync_WithAPublisherKey_ReportsTheSessionFailure()
+    {
+        var dependencies = new StartupDependencies(enabled: false, networkCache: new() { IsEnabled = true, PublisherPublicKey = "AAAA" });
+        var failure = new NetworkCacheStartupFailure(NetworkCacheStartupFailureKind.AccessDenied, @"\\srv\cache", @"CONTOSO\svc-cache");
+        using NetworkCacheSession session = NetworkCacheSession.Unavailable(NetworkCacheOutcome.Unavailable, failure);
+
+        DeploymentStartupSnapshot snapshot = await CreateNetworkCacheCoordinator(dependencies, session).InitializeAsync(CreateLiveRequest(), TestContext.Current.CancellationToken);
+
+        Assert.Same(failure, snapshot.NetworkCacheFailure);
+    }
+
+    [Fact]
+    public async Task InitializeAsync_InDebugSafeMode_NeverResolvesTheShare()
+    {
+        // A developer machine must not map a real share or write its probe file, even with a publisher key configured.
+        var dependencies = new StartupDependencies(enabled: false, networkCache: new() { IsEnabled = true, PublisherPublicKey = "AAAA" });
+        using NetworkCacheSession session = NetworkCacheSession.Unavailable(NetworkCacheOutcome.Unavailable,
+            new NetworkCacheStartupFailure(NetworkCacheStartupFailureKind.Unreachable, @"\\srv\cache"));
+        var resolver = new RecordingNetworkCacheResolver(session);
+        var accessor = new NetworkCacheSessionAccessor();
+        var coordinator = new DeploymentStartupCoordinator(dependencies, dependencies, dependencies, dependencies, dependencies, dependencies,
+            new StubDiscovery(_ => throw new InvalidOperationException("Discovery must not start.")), new RecordingLogger(),
+            networkCacheResolver: resolver, networkCacheAccessor: accessor);
+
+        DeploymentStartupSnapshot snapshot = await coordinator.InitializeAsync(CreateRequest(), TestContext.Current.CancellationToken);
+
+        Assert.Empty(resolver.SessionIds);
+        Assert.Null(accessor.Current);
+        Assert.Null(snapshot.NetworkCacheFailure);
+    }
+
+    private static DeploymentStartupCoordinator CreateNetworkCacheCoordinator(StartupDependencies dependencies, NetworkCacheSession session) =>
+        new(dependencies, dependencies, dependencies, dependencies, dependencies, dependencies,
+            new StubDiscovery(_ => throw new InvalidOperationException("Discovery must not start.")), new RecordingLogger(),
+            networkCacheResolver: new RecordingNetworkCacheResolver(session), networkCacheAccessor: new NetworkCacheSessionAccessor());
+
+    private sealed class NoopConnector : ISmbConnector
+    {
+        public SmbConnectResult Connect(string uncPath, string? userName, ReadOnlySpan<char> password) => new(SmbConnectStatus.Connected, 0);
+        public void Disconnect(string uncPath) { }
+    }
+
     private static DeploymentStartupCoordinator CreateCoordinator(StubDiscovery discovery, RecordingLogger logger, TimeProvider? clock = null)
     {
         var dependencies = new StartupDependencies();
@@ -214,6 +333,30 @@ public sealed class DeploymentStartupCoordinatorTests
         FallbackComputerName = "TEST-PC"
     };
 
+    /// <summary>A WinPE start, the only one that resolves the network cache; the share itself is replaced by a test resolver.</summary>
+    private static DeploymentStartupRequest CreateLiveRequest() => CreateRequest() with { IsDebugSafeMode = false };
+
+    private sealed class RecordingConnector : ISmbConnector
+    {
+        public List<string> Disconnected { get; } = [];
+        public SmbConnectResult Connect(string uncPath, string? userName, ReadOnlySpan<char> password) => new(SmbConnectStatus.Connected, 0);
+        public void Disconnect(string uncPath) => Disconnected.Add(uncPath);
+    }
+
+    private sealed class RecordingNetworkCacheResolver(NetworkCacheSession session, Action? onResolve = null) : INetworkCacheSessionResolver
+    {
+        public List<string> WorkspaceRoots { get; } = [];
+        public List<string> SessionIds { get; } = [];
+
+        public Task<NetworkCacheSession> ResolveAsync(string workspaceRootPath, string sessionId, CancellationToken cancellationToken)
+        {
+            onResolve?.Invoke();
+            WorkspaceRoots.Add(workspaceRootPath);
+            SessionIds.Add(sessionId);
+            return Task.FromResult(session);
+        }
+    }
+
     private sealed class StubDiscovery(Func<CancellationToken, Task<IReadOnlyList<string>>> discover) : IAutopilotGroupTagDiscoveryService
     {
         public Task<IReadOnlyList<string>> DiscoverAsync(DeployAutopilotHardwareHashUploadSettings settings, string workspaceRootPath, CancellationToken cancellationToken = default)
@@ -221,7 +364,8 @@ public sealed class DeploymentStartupCoordinatorTests
     }
 
     // Replace machine/tenant I/O; exercise the real startup coordinator and its returned configuration.
-    private sealed class StartupDependencies(bool enabled = true, BootMediaUpdateReason reason = BootMediaUpdateReason.None) : IDeployConfigurationService, IAutopilotProfileCatalogService,
+    private sealed class StartupDependencies(bool enabled = true, BootMediaUpdateReason reason = BootMediaUpdateReason.None,
+        Foundry.Core.Models.Configuration.Deploy.DeployNetworkCacheSettings? networkCache = null) : IDeployConfigurationService, IAutopilotProfileCatalogService,
         IHardwareProfileService, IOfflineWindowsComputerNameService, ITargetDiskService, IDeploymentCatalogLoadService
     {
         public DeployConfigurationLoadResult LoadOptional() => new()
@@ -229,6 +373,7 @@ public sealed class DeploymentStartupCoordinatorTests
             BootMediaUpdateReason = reason,
             Document = new FoundryDeployConfigurationDocument
             {
+                NetworkCache = networkCache ?? new(),
                 Autopilot = new DeployAutopilotSettings
                 {
                     IsEnabled = enabled,

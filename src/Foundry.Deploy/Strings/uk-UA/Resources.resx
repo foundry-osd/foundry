@@ -124,6 +124,9 @@
   <data name="Common.Previous" xml:space="preserve">
     <value>Назад</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>Повторити</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Недоступний</value>
   </data>
@@ -684,6 +687,45 @@ ErrorCode=0x80070005
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Інструменти</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>Спільний ресурс мережевого кешу відхилив цей пристрій. У Foundry OSD на сторінці «Мережевий кеш» перевірте обліковий запис спільного ресурсу та його пароль; на сервері перевірте дозволи спільного ресурсу.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>Обліковий запис {0} не може відкрити {1}. У Foundry OSD на сторінці «Мережевий кеш» перевірте пароль облікового запису; на сервері перевірте його дозволи.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>Спільний ресурс {0} відхилив цей пристрій. У Foundry OSD на сторінці «Мережевий кеш» задайте обліковий запис для цього спільного ресурсу; на сервері перевірте дозволи спільного ресурсу.</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>Набори драйверів</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>Користувацькі образи Windows</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>Відсутнє: {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>Жодна область IP не містить цей пристрій. У Foundry OSD на сторінці «Мережевий кеш» додайте область для цієї мережі або область 0.0.0.0/0 з резервним спільним ресурсом.</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>Жодна область IP не містить цей пристрій ({0}). У Foundry OSD на сторінці «Мережевий кеш» додайте область для цієї мережі або область 0.0.0.0/0 з резервним спільним ресурсом.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>Опублікований вміст у спільному ресурсі мережевого кешу відсутній або неповний. У Foundry OSD на сторінці «Мережевий кеш» виберіть «Опублікувати».</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>Опублікований вміст у {0} відсутній або неповний. У Foundry OSD на сторінці «Мережевий кеш» виберіть «Опублікувати».</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>Мережевий кеш недоступний</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>Спільний ресурс мережевого кешу не відповідає. На сервері переконайтеся, що спільний ресурс у мережі, а порт 445 відкритий.</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>{0} не відповідає. На сервері переконайтеся, що спільний ресурс у мережі, а порт 445 відкритий.</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Виберіть випуск Windows, мову, редакцію та канал ліцензування.</value>
   </data>
@@ -1053,6 +1095,9 @@ ErrorCode=0x80070005
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Перевірка конфлікту кеш-диска...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>Аналіз користувацького образу...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>Перевірка готовності до розгортання...</value>
   </data>
@@ -1092,8 +1137,14 @@ ErrorCode=0x80070005
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Копіювання AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>Копіювання користувацького образу...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>Копіювання пакета драйверів...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>Копіювання з мережевого кешу...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Копіюються файли інтерактивної реєстрації...</value>
@@ -1124,6 +1175,9 @@ ErrorCode=0x80070005
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Завершення розгортання...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>Завершення копіювання до мережевого кешу...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Імпорт апаратного хешу в Microsoft Graph...</value>
@@ -1271,6 +1325,12 @@ ErrorCode=0x80070005
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>Видобування</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}: {1} (залишилося {2})</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}: {1}, ще {2} (залишилося {3})</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

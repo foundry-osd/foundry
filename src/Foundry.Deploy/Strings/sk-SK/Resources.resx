@@ -124,6 +124,9 @@ Licencované podľa licencie MIT.</value>
   <data name="Common.Previous" xml:space="preserve">
     <value>Späť</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>Skúsiť znova</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>nedostupné</value>
   </data>
@@ -684,6 +687,45 @@ Pokračovať v nasadzovaní?</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Nástroje</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>Zdieľaný priečinok sieťovej vyrovnávacej pamäte odmietol toto zariadenie. V aplikácii Foundry OSD na stránke Sieťová vyrovnávacia pamäť skontrolujte konto zdieľaného priečinka a jeho heslo; na serveri skontrolujte povolenia zdieľaného priečinka.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>Konto {0} nemôže otvoriť priečinok {1}. V aplikácii Foundry OSD na stránke Sieťová vyrovnávacia pamäť skontrolujte heslo konta; na serveri skontrolujte jeho povolenia.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>Priečinok {0} odmietol toto zariadenie. V aplikácii Foundry OSD na stránke Sieťová vyrovnávacia pamäť nastavte pre tento zdieľaný priečinok konto; na serveri skontrolujte povolenia zdieľaného priečinka.</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>Sady ovládačov</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>Vlastné obrazy systému Windows</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>Chýba: {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>Žiadny obor IP neobsahuje toto zariadenie. V aplikácii Foundry OSD na stránke Sieťová vyrovnávacia pamäť pridajte obor pre túto sieť alebo obor 0.0.0.0/0 so záložným zdieľaným priečinkom.</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>Žiadny obor IP neobsahuje toto zariadenie ({0}). V aplikácii Foundry OSD na stránke Sieťová vyrovnávacia pamäť pridajte obor pre túto sieť alebo obor 0.0.0.0/0 so záložným zdieľaným priečinkom.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>Publikovaný obsah v zdieľanom priečinku sieťovej vyrovnávacej pamäte chýba alebo je neúplný. V aplikácii Foundry OSD na stránke Sieťová vyrovnávacia pamäť vyberte Publikovať.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>Publikovaný obsah v priečinku {0} chýba alebo je neúplný. V aplikácii Foundry OSD na stránke Sieťová vyrovnávacia pamäť vyberte Publikovať.</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>Sieťová vyrovnávacia pamäť nie je k dispozícii</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>Zdieľaný priečinok sieťovej vyrovnávacej pamäte neodpovedá. Na serveri skontrolujte, či je zdieľaný priečinok online a či je otvorený port 445.</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>Priečinok {0} neodpovedá. Na serveri skontrolujte, či je zdieľaný priečinok online a či je otvorený port 445.</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Vyberte verziu Windowsu, jazyk, vydanie a licenčný kanál.</value>
   </data>
@@ -1053,6 +1095,9 @@ Pokračovať v nasadzovaní?</value>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Kontroluje sa konflikt vyrovnávacieho disku...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>Kontroluje sa vlastný obraz...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>Overovanie pripravenosti na nasadenie...</value>
   </data>
@@ -1092,8 +1137,14 @@ Pokračovať v nasadzovaní?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Kopíruje sa súbor AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>Kopíruje sa vlastný obraz...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>Kopírovanie balíka ovládačov...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>Kopíruje sa zo sieťovej vyrovnávacej pamäte...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Kopírujú sa súbory interaktívnej registrácie...</value>
@@ -1124,6 +1175,9 @@ Pokračovať v nasadzovaní?</value>
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Dokončuje sa nasadenie...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>Dokončuje sa kopírovanie do sieťovej vyrovnávacej pamäte...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Importuje sa hardvérový hash do Microsoft Graph...</value>
@@ -1271,6 +1325,12 @@ Pokračovať v nasadzovaní?</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>Extrakcia</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}: {1} (zostáva {2})</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}: {1}, ďalšie {2} (zostáva {3})</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

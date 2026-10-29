@@ -8,7 +8,9 @@ using Foundry.Core.Models.Packages;
 using Foundry.Core.Services.Drivers;
 using Foundry.Core.Services.Packages;
 using Foundry.Core.Services.WinPe;
+using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Drivers;
+using Foundry.Utilities.Networking;
 using Foundry.Utilities.Storage;
 
 namespace Foundry.Deploy.Tests;
@@ -193,6 +195,74 @@ public sealed class CustomDriverSetCatalogTests : IDisposable
         CustomDriverSetCatalog catalog = await service.DiscoverAsync(settings, Cancellation);
 
         Assert.Equal(CustomDriverSetCatalogStatus.Unavailable, catalog.Status);
+    }
+
+    [Fact]
+    public async Task FindsSetsPublishedOnlyOnTheNetworkCacheShare()
+    {
+        var (settings, media) = await PublishAsync(1);
+        string share = Path.Combine(root, "share");
+        CustomImageCatalogTests.CopyTree(media, Path.Combine(share, "Foundry"));
+        using NetworkCacheSession session = NetworkCacheSession.Connected(share, canWrite: false, new NoopConnector());
+        var service = new CustomDriverSetCatalogService(new Volumes(), networkCache: new NetworkCacheSessionAccessor { Current = session });
+
+        CustomDriverSetCatalog catalog = await service.DiscoverAsync(settings, Cancellation);
+
+        Assert.Equal(CustomDriverSetCatalogStatus.Available, catalog.Status);
+        Assert.Equal(Path.Combine(share, "Foundry"), Assert.Single(catalog.Sets).MediaRoot);
+    }
+
+    [Fact]
+    public async Task PrefersLocalMediaOverTheNetworkCacheShare()
+    {
+        var (settings, media) = await PublishAsync(1);
+        string share = Path.Combine(root, "share");
+        CustomImageCatalogTests.CopyTree(media, Path.Combine(share, "Foundry"));
+        using NetworkCacheSession session = NetworkCacheSession.Connected(share, canWrite: false, new NoopConnector());
+        var service = new CustomDriverSetCatalogService(new Volumes(new VolumeInfo(media, "FOUNDRY", DriveType.Removable, true, long.MaxValue)),
+            networkCache: new NetworkCacheSessionAccessor { Current = session });
+
+        CustomDriverSetCatalog catalog = await service.DiscoverAsync(settings, Cancellation);
+
+        Assert.Equal(CustomDriverSetCatalogStatus.Available, catalog.Status);
+        Assert.Equal(media, Assert.Single(catalog.Sets).MediaRoot);
+    }
+
+    [Fact]
+    public async Task IgnoresANetworkCacheShareThatStoppedAnswering()
+    {
+        var (settings, media) = await PublishAsync(1);
+        string share = Path.Combine(root, "share");
+        CustomImageCatalogTests.CopyTree(media, Path.Combine(share, "Foundry"));
+        using NetworkCacheSession session = NetworkCacheSession.Connected(share, canWrite: false, new NoopConnector());
+        session.MarkUnresponsive();
+        var service = new CustomDriverSetCatalogService(new Volumes(), networkCache: new NetworkCacheSessionAccessor { Current = session });
+
+        CustomDriverSetCatalog catalog = await service.DiscoverAsync(settings, Cancellation);
+
+        Assert.Equal(CustomDriverSetCatalogStatus.Unavailable, catalog.Status);
+    }
+
+    [Fact]
+    public async Task TreatsAnUnreadableShareManifestAsNotFound()
+    {
+        var (settings, media) = await PublishAsync(1);
+        string share = Path.Combine(root, "share");
+        CustomImageCatalogTests.CopyTree(media, Path.Combine(share, "Foundry"));
+        string manifest = Path.Combine(share, "Foundry", "Cache", "DriverPacks", "Custom", "manifests", settings.ManifestId + ".json");
+        using NetworkCacheSession session = NetworkCacheSession.Connected(share, canWrite: false, new NoopConnector());
+        using var locked = new FileStream(manifest, FileMode.Open, FileAccess.Read, FileShare.None);
+        var service = new CustomDriverSetCatalogService(new Volumes(), networkCache: new NetworkCacheSessionAccessor { Current = session });
+
+        CustomDriverSetCatalog catalog = await service.DiscoverAsync(settings, Cancellation);
+
+        Assert.Equal(CustomDriverSetCatalogStatus.Unavailable, catalog.Status);
+    }
+
+    private sealed class NoopConnector : ISmbConnector
+    {
+        public SmbConnectResult Connect(string uncPath, string? userName, ReadOnlySpan<char> password) => new(SmbConnectStatus.Connected, 0);
+        public void Disconnect(string uncPath) { }
     }
 
     /// <summary>Imports <paramref name="count"/> sets, publishes them to a media folder and returns the matching Deploy settings.</summary>

@@ -62,13 +62,16 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
                     fileName, package.Sha256, null, AllowCompletedTransferReuse: !string.IsNullOrWhiteSpace(package.Version));
                 lease = await new AuthoringArtifactCache(downloadRootPath).AcquireAsync(request, async (path, token) =>
                 {
-                    WinPeResult result = await DownloadPackageAsync(package.DownloadUri, path, index + 1, packages.Count,
+                    WinPeResult<string> result = await DownloadPackageAsync(package.DownloadUri, path, index + 1, packages.Count,
                         package.Vendor, downloadProgress, token).ConfigureAwait(false);
                     if (!result.IsSuccess)
                     {
                         downloadError = result.Error;
                         throw new IOException("Driver package transfer failed.");
                     }
+
+                    // The cache checks the SHA-256 computed during the download instead of reading the file again.
+                    return result.Value;
                 }, cancellationToken, new CacheVerificationProgress(downloadProgress, fileName, package.Vendor)).ConfigureAwait(false);
             }
             catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or ArgumentException)
@@ -152,7 +155,8 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
         return $"{PathSegment.Sanitize(package.Id)}{extension}";
     }
 
-    private async Task<WinPeResult> DownloadPackageAsync(
+    /// <summary>Downloads one driver package and returns the SHA-256 computed while it was written.</summary>
+    private async Task<WinPeResult<string>> DownloadPackageAsync(
         string sourceUri,
         string destinationPath,
         int packageNumber,
@@ -163,7 +167,7 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
     {
         if (!Uri.TryCreate(sourceUri, UriKind.Absolute, out Uri? uri))
         {
-            return WinPeResult.Failure(
+            return WinPeResult<string>.Failure(
                 WinPeErrorCodes.DownloadFailed,
                 "Driver package download URI is invalid.",
                 sourceUri);
@@ -190,7 +194,7 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    return WinPeResult.Failure(
+                    return WinPeResult<string>.Failure(
                         WinPeErrorCodes.DownloadFailed,
                         "Driver package download failed.",
                         $"URI: '{sourceUri}', HTTP status: {(int)response.StatusCode} {response.ReasonPhrase}",
@@ -209,7 +213,7 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
                     81920,
                     useAsync: true);
 
-                await WinPeDownloadReporting.CopyAsync(
+                WinPeDownloadedFile downloaded = await WinPeDownloadReporting.CopyAsync(
                     sourceStream,
                     destinationStream,
                     totalBytes,
@@ -219,14 +223,14 @@ public sealed class WinPeDriverPackageService : IWinPeDriverPackageService
                     transferToken).ConfigureAwait(false);
                 if (totalBytes.HasValue && destinationStream.Length != totalBytes.Value)
                     throw new InvalidDataException("Driver package transfer is incomplete.");
-                return WinPeResult.Success();
+                return WinPeResult<string>.Success(downloaded.Sha256);
             }, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex) when (
             ex is HttpRequestException or IOException or UnauthorizedAccessException or TimeoutException &&
             !cancellationToken.IsCancellationRequested)
         {
-            return WinPeResult.Failure(
+            return WinPeResult<string>.Failure(
                 WinPeErrorCodes.DownloadFailed,
                 "Failed to download driver package.",
                 $"URI: '{sourceUri}'.{Environment.NewLine}{ex}",

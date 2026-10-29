@@ -501,7 +501,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         string archivePath = Path.Combine(releaseWorkspace, assetName);
         WinPeRuntimeReleaseAsset asset = releaseSnapshot.GetAsset(assetName);
 
-        await HttpTransfer.RunAsync(async (transferToken, reportProgress) =>
+        string downloadedSha256 = await HttpTransfer.RunAsync(async (transferToken, reportProgress) =>
         {
             using HttpRequestMessage request = CreateGitHubRequest(asset.DownloadUrl);
             using HttpResponseMessage response = await _httpClient.SendAsync(
@@ -517,22 +517,21 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             };
             WinPeDownloadReporting.Report(downloadProgress, item, 0);
 
-            await using (Stream source = await response.Content.ReadAsStreamAsync(transferToken).ConfigureAwait(false))
-            await using (FileStream destination = File.Create(archivePath))
-            {
-                await WinPeDownloadReporting.CopyAsync(
-                    source,
-                    destination,
-                    response.Content.Headers.ContentLength,
-                    item,
-                    downloadProgress,
-                    reportProgress,
-                    transferToken).ConfigureAwait(false);
-            }
-            return true;
+            await using Stream source = await response.Content.ReadAsStreamAsync(transferToken).ConfigureAwait(false);
+            await using FileStream destination = File.Create(archivePath);
+            WinPeDownloadedFile downloaded = await WinPeDownloadReporting.CopyAsync(
+                source,
+                destination,
+                response.Content.Headers.ContentLength,
+                item,
+                downloadProgress,
+                reportProgress,
+                transferToken).ConfigureAwait(false);
+            return downloaded.Sha256;
         }, cancellationToken).ConfigureAwait(false);
 
-        await ValidateArchiveDigestAsync(archivePath, asset.Digest, cancellationToken).ConfigureAwait(false);
+        // Checked against the SHA-256 computed during the download, so the archive is not read again.
+        ValidateArchiveDigest(downloadedSha256, asset.Digest);
         return archivePath;
     }
 
@@ -569,17 +568,12 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         };
     }
 
-    private static async Task ValidateArchiveDigestAsync(
-        string archivePath,
-        string digest,
-        CancellationToken cancellationToken)
+    private static void ValidateArchiveDigest(string actualSha256, string digest)
     {
         if (!TryReadSha256Digest(digest, out string expectedSha256))
         {
             throw new InvalidDataException("Release archive requires a valid SHA256 digest.");
         }
-
-        string actualSha256 = await FileHash.ComputeSha256Async(archivePath, cancellationToken).ConfigureAwait(false);
 
         if (!string.Equals(actualSha256, expectedSha256, StringComparison.OrdinalIgnoreCase))
         {

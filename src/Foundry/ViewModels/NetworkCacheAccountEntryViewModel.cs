@@ -15,7 +15,7 @@ public sealed partial class NetworkCacheAccountEntryViewModel(NetworkCacheAccoun
     [ObservableProperty]
     public partial NetworkCacheAccount Settings { get; set; } = settings;
 
-    /// <summary>Gets or sets whether the session holds the account password, as shown in the table.</summary>
+    /// <summary>Gets or sets the text that says whether the session holds the account password.</summary>
     [ObservableProperty]
     public partial string PasswordText { get; set; } = string.Empty;
 

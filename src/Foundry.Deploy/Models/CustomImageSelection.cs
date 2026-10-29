@@ -19,6 +19,12 @@ public sealed record CustomImageAsset
     public string? ExpectedHash { get; init; }
     public string? ObservedHash { get; init; }
     public long? ObservedLength { get; init; }
+
+    /// <summary>
+    /// Gets the indexes recorded for a managed image in its hash-bound media manifest when it was imported; empty for manual files.
+    /// </summary>
+    public IReadOnlyList<CustomImageIndex> RecordedIndexes { get; init; } = [];
+
     public bool IsManaged => ExpectedHash is not null;
     public string DisplayLabel => $"{DisplayName} ({VolumeRoot})";
 }

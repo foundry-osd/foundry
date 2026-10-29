@@ -40,6 +40,83 @@ public sealed class WinPeCustomImageMediaTests : IDisposable
     }
 
     [Fact]
+    public async Task PublishToNetworkCache_KeepsAnImageOfTheRecordedLengthWithoutReadingItAndCopiesAMissingOne()
+    {
+        Directory.CreateDirectory(root);
+        using WinPeCustomImageMediaLease package = CreatePackage();
+        string share = Path.Combine(root, "share");
+        var service = new WinPeCustomImageMediaService(_ => long.MaxValue, (_, _) => Task.FromResult<int?>(1));
+
+        await service.PublishToNetworkCacheAsync(package, share, TestContext.Current.CancellationToken);
+        string image = Path.Combine(share, package.Files[0].RelativePath);
+        Assert.Equal("image", await File.ReadAllTextAsync(image, TestContext.Current.CancellationToken));
+
+        // Same length, other bytes: a share is never read back, so the copy stays; Foundry Deploy verifies it before use.
+        await File.WriteAllTextAsync(image, "IMAGE", TestContext.Current.CancellationToken);
+        await service.PublishToNetworkCacheAsync(package, share, TestContext.Current.CancellationToken);
+        Assert.Equal("IMAGE", await File.ReadAllTextAsync(image, TestContext.Current.CancellationToken));
+
+        // A local drive is read back, so the same file is replaced there.
+        await service.PublishAsync(package, share, TestContext.Current.CancellationToken);
+        Assert.Equal("image", await File.ReadAllTextAsync(image, TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
+    public async Task PublishToNetworkCache_ReportsACopyOnceAndMarksReusedContentAsJustPublished()
+    {
+        Directory.CreateDirectory(root);
+        const int length = 4 * 1024 * 1024;
+        using WinPeCustomImageMediaLease package = CreatePackage(content: new byte[length]);
+        string share = Path.Combine(root, "share");
+        var service = new WinPeCustomImageMediaService(_ => long.MaxValue, (_, _) => Task.FromResult<int?>(1));
+        var copying = new RecordingProgress();
+
+        await service.PublishToNetworkCacheAsync(package, share, TestContext.Current.CancellationToken, copying);
+
+        // A missing image is not counted when it is checked, only while it is copied, so progress never jumps ahead of the copy.
+        Assert.Equal(copying.Reports.Select(report => report.BytesCompleted ?? 0).Order(), copying.Reports.Select(report => report.BytesCompleted ?? 0));
+        Assert.Contains(copying.Reports, report => report.BytesCompleted == length);
+
+        string imageFolder = Path.GetDirectoryName(Path.Combine(share, package.Files[0].RelativePath))!;
+        string manifest = Path.Combine(share, package.ManifestRelativePath);
+        DateTime old = DateTime.UtcNow.AddDays(-3);
+        Directory.SetLastWriteTimeUtc(imageFolder, old);
+        File.SetLastWriteTimeUtc(manifest, old);
+
+        await service.PublishToNetworkCacheAsync(package, share, TestContext.Current.CancellationToken);
+
+        // Reused content looks just published, so a clean up on another PC keeps it until the index that binds it is written.
+        Assert.True(Directory.GetLastWriteTimeUtc(imageFolder) > old.AddDays(2));
+        Assert.True(File.GetLastWriteTimeUtc(manifest) > old.AddDays(2));
+    }
+
+    [Fact]
+    public async Task Publish_ReportsBytesInOrderUpToTheTotalWhenCopyingAndWhenReusingContent()
+    {
+        Directory.CreateDirectory(root);
+        const int length = 8 * 1024 * 1024;
+        using WinPeCustomImageMediaLease package = CreatePackage(content: new byte[length]);
+        string destination = Path.Combine(root, "share");
+        var service = new WinPeCustomImageMediaService(_ => long.MaxValue, (_, _) => Task.FromResult<int?>(1));
+        var copying = new RecordingProgress();
+        var reusing = new RecordingProgress();
+
+        await service.PublishAsync(package, destination, TestContext.Current.CancellationToken, copying);
+        DateTime timestamp = File.GetLastWriteTimeUtc(Path.Combine(destination, package.Files[0].RelativePath));
+        await service.PublishAsync(package, destination, TestContext.Current.CancellationToken, reusing);
+
+        // Reports come at most every 100 ms, so a fast local copy may only report the end of the file.
+        foreach (RecordingProgress progress in new[] { copying, reusing })
+        {
+            Assert.Contains(progress.Reports, report => report.BytesCompleted == length);
+            Assert.All(progress.Reports.Where(report => report.TotalBytes is not null), report => Assert.Equal(length, report.TotalBytes));
+            Assert.Equal(length, progress.Reports[^1].BytesCompleted);
+            Assert.Equal(progress.Reports.Select(report => report.Percent).Order(), progress.Reports.Select(report => report.Percent));
+        }
+        Assert.Equal(timestamp, File.GetLastWriteTimeUtc(Path.Combine(destination, package.Files[0].RelativePath)));
+    }
+
+    [Fact]
     public async Task Publish_CorruptSourceDoesNotPublishManifestOrReplaceOldContent()
     {
         Directory.CreateDirectory(root);
@@ -208,6 +285,51 @@ public sealed class WinPeCustomImageMediaTests : IDisposable
             bound.Replace(package.ManifestHash, new string('0', 64), StringComparison.Ordinal)));
     }
 
+    [Fact]
+    public async Task PrepareTwice_WithTheSameContent_GivesTheSameManifestIdAndBytes()
+    {
+        (CustomImageLibraryService library, CustomImageReference image) = await ImportAsync("first image");
+        var settings = new CustomImagesSettings { IsEnabled = true, Images = [image] };
+        var service = new WinPeCustomImageMediaService();
+
+        using WinPeCustomImageMediaLease first = await service.PrepareAsync(library, settings, TestContext.Current.CancellationToken);
+        using WinPeCustomImageMediaLease second = await service.PrepareAsync(library, settings, TestContext.Current.CancellationToken);
+
+        Assert.Equal(first.ManifestId, second.ManifestId);
+        Assert.Equal(first.ManifestBytes, second.ManifestBytes);
+        Assert.Equal(first.ManifestHash, second.ManifestHash);
+        CustomImageMediaManifest manifest = JsonSerializer.Deserialize<CustomImageMediaManifest>(first.ManifestBytes, ConfigurationJsonDefaults.SerializerOptions)!;
+        Assert.Equal(first.ManifestId, manifest.ManifestId);
+        Assert.Matches("^[0-9a-f]{32}$", first.ManifestId);
+    }
+
+    [Fact]
+    public async Task PrepareWithDifferentContent_GivesDifferentIds()
+    {
+        (CustomImageLibraryService library, CustomImageReference first) = await ImportAsync("first image");
+        string otherSource = Path.Combine(root, "other.wim");
+        await File.WriteAllTextAsync(otherSource, "second image", TestContext.Current.CancellationToken);
+        CustomImageReference second = await library.ImportAsync(new(otherSource, "Other image"), cancellationToken: TestContext.Current.CancellationToken);
+        var service = new WinPeCustomImageMediaService();
+
+        using WinPeCustomImageMediaLease one = await service.PrepareAsync(library,
+            new() { IsEnabled = true, Images = [first] }, TestContext.Current.CancellationToken);
+        using WinPeCustomImageMediaLease both = await service.PrepareAsync(library,
+            new() { IsEnabled = true, Images = [first, second] }, TestContext.Current.CancellationToken);
+
+        Assert.NotEqual(one.ManifestId, both.ManifestId);
+        Assert.NotEqual(one.ManifestHash, both.ManifestHash);
+    }
+
+    private async Task<(CustomImageLibraryService Library, CustomImageReference Image)> ImportAsync(string content)
+    {
+        Directory.CreateDirectory(root);
+        string source = Path.Combine(root, "input.wim");
+        await File.WriteAllTextAsync(source, content, TestContext.Current.CancellationToken);
+        var library = new CustomImageLibraryService(Path.Combine(root, "library"), new MetadataReader());
+        return (library, await library.ImportAsync(new(source, "Profile image"), cancellationToken: TestContext.Current.CancellationToken));
+    }
+
     private static async Task<IReadOnlyDictionary<string, string>> SeedDestinationAsync(WinPeCustomImageMediaLease package, string destination)
     {
         string customRoot = Path.Combine(destination, "Cache", "OperatingSystems", "Custom");
@@ -231,13 +353,22 @@ public sealed class WinPeCustomImageMediaTests : IDisposable
             Task.FromResult<IReadOnlyList<CustomImageIndex>>([new() { Index = 4, Name = "Any image", ExpandedSizeBytes = 1024 }]);
     }
 
-    private WinPeCustomImageMediaLease CreatePackage(string? relativePath = null)
+    private WinPeCustomImageMediaLease CreatePackage(string? relativePath = null, byte[]? content = null)
     {
         string source = Path.Combine(root, "source.wim");
-        File.WriteAllText(source, "image");
-        string hash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes("image")));
+        content ??= Encoding.UTF8.GetBytes("image");
+        File.WriteAllBytes(source, content);
+        string hash = Convert.ToHexString(SHA256.HashData(content));
         return new WinPeCustomImageMediaLease("test-build", Encoding.UTF8.GetBytes("{\"manifestId\":\"test-build\"}"),
-            [new WinPeCustomImageMediaFile(source, relativePath ?? Path.Combine("Cache", "OperatingSystems", "Custom", hash.ToLowerInvariant(), "image.wim"), 5, hash)], []);
+            [new WinPeCustomImageMediaFile(source, relativePath ?? Path.Combine("Cache", "OperatingSystems", "Custom", hash.ToLowerInvariant(), "image.wim"), content.Length, hash)], []);
+    }
+
+    /// <summary>Records reports synchronously, unlike <see cref="Progress{T}"/>, so their order is the reporting order.</summary>
+    private sealed class RecordingProgress : IProgress<WinPeMediaProgress>
+    {
+        public List<WinPeMediaProgress> Reports { get; } = [];
+
+        public void Report(WinPeMediaProgress value) => Reports.Add(value);
     }
 
     public void Dispose()

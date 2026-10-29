@@ -5,7 +5,9 @@
 using System.Security.Cryptography;
 using Foundry.Core.Services.NetworkCache;
 using Foundry.Deploy.Services.Cache;
+using Foundry.Utilities.Diagnostics;
 using Foundry.Utilities.Networking;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Foundry.Deploy.Tests;
@@ -41,6 +43,32 @@ public sealed class NetworkCachePublisherTests : IDisposable
         string final = Path.Combine(NetworkCacheLayout.DownloadDirectory(share, "MicrosoftUpdateCatalogFirmware", "u-key-4"), "fw.cab");
         Assert.Equal(Bytes, File.ReadAllBytes(final));
         Assert.Equal(Convert.ToHexStringLower(SHA256.HashData(Bytes)), File.ReadAllText(final + NetworkCacheLayout.HashSidecarSuffix));
+    }
+
+    [Fact]
+    public async Task CurrentUpload_NamesTheFileInProgressAndTheFilesWaiting()
+    {
+        var started = new TaskCompletionSource();
+        var release = new TaskCompletionSource();
+        var publisher = new NetworkCachePublisher(accessor, NullLogger<NetworkCachePublisher>.Instance, async (_, _, token) =>
+        {
+            started.TrySetResult();
+            await release.Task.WaitAsync(token);
+            return NetworkCachePublishOutcome.Published;
+        });
+        Assert.Null(publisher.CurrentUpload);
+
+        publisher.Enqueue(new(local, "OemDriverPack", "k1", "first.cab", null, 4));
+        await started.Task.WaitAsync(TestContext.Current.CancellationToken);
+        publisher.Enqueue(new(local, "OemDriverPack", "k2", "second.cab", null, 4));
+        NetworkCacheUploadStatus? upload = publisher.CurrentUpload;
+        release.SetResult();
+        await publisher.DrainAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);
+
+        Assert.Equal("first.cab", upload?.FileName);
+        Assert.Equal(4, upload?.TotalBytes);
+        Assert.Equal(1, upload?.FilesWaiting);
+        Assert.Null(publisher.CurrentUpload);
     }
 
     [Fact]
@@ -136,6 +164,41 @@ public sealed class NetworkCachePublisherTests : IDisposable
 
         await publisher.DrainAsync(TimeSpan.FromMilliseconds(100), TestContext.Current.CancellationToken)
             .WaitAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);
+    }
+
+    [Fact]
+    public async Task Drain_WhenAnAbandonedUploadIsStillWriting_NamesItsTemporaryFile()
+    {
+        // The share is disconnected next, so the writer cannot delete its partial file; the log names it for the administrator.
+        var started = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var logger = new RecordingLogger();
+        var publisher = new NetworkCachePublisher(accessor, logger, async (item, directory, token) =>
+        {
+            started.TrySetResult();
+            await Task.Delay(Timeout.InfiniteTimeSpan, CancellationToken.None);
+            return NetworkCachePublishOutcome.Published;
+        }, abandonTimeout: TimeSpan.FromMilliseconds(50));
+
+        publisher.Enqueue(new(local, "OemDriverPack", "g7", "fw.cab", null, 4));
+        await started.Task.WaitAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);
+        await publisher.DrainAsync(TimeSpan.FromMilliseconds(50), TestContext.Current.CancellationToken);
+
+        string expected = Path.Combine(NetworkCacheLayout.DownloadDirectory(share, "OemDriverPack", "g7"),
+            NetworkCacheLayout.PartialName("fw.cab", DiagnosticSessionContext.CurrentSessionId));
+        Assert.Contains(logger.Warnings, properties => Equals(properties.GetValueOrDefault("PartialPath"), expected));
+    }
+
+    private sealed class RecordingLogger : ILogger<NetworkCachePublisher>
+    {
+        public List<IReadOnlyDictionary<string, object?>> Warnings { get; } = [];
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
+        public bool IsEnabled(LogLevel logLevel) => true;
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
+        {
+            if (logLevel != LogLevel.Warning) return;
+            var properties = state as IEnumerable<KeyValuePair<string, object?>> ?? [];
+            lock (Warnings) Warnings.Add(properties.ToDictionary(pair => pair.Key, pair => pair.Value));
+        }
     }
 
     private sealed class NoopConnector : ISmbConnector

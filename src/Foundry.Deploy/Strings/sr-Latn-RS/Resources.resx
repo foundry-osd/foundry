@@ -124,6 +124,9 @@ Licencirano pod MIT licencom.</value>
   <data name="Common.Previous" xml:space="preserve">
     <value>Nazad</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>Pokušaj ponovo</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nedostupno</value>
   </data>
@@ -684,6 +687,45 @@ Operativni sistem: {4}
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Alati</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>Deljeni resurs mrežnog keša je odbio ovaj uređaj. U aplikaciji Foundry OSD, na stranici Mrežni keš, proverite nalog deljenog resursa i njegovu lozinku; na serveru proverite dozvole deljenog resursa.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>Nalog {0} ne može da otvori {1}. U aplikaciji Foundry OSD, na stranici Mrežni keš, proverite lozinku naloga; na serveru proverite njegove dozvole.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>Deljeni resurs {0} je odbio ovaj uređaj. U aplikaciji Foundry OSD, na stranici Mrežni keš, podesite nalog za ovaj deljeni resurs; na serveru proverite dozvole deljenog resursa.</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>Skupovi drajvera</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>Prilagođene Windows slike</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>Nedostaje: {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>Nijedan IP opseg ne sadrži ovaj uređaj. U aplikaciji Foundry OSD, na stranici Mrežni keš, dodajte opseg za ovu mrežu ili opseg 0.0.0.0/0 sa rezervnim deljenim resursom.</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>Nijedan IP opseg ne sadrži ovaj uređaj ({0}). U aplikaciji Foundry OSD, na stranici Mrežni keš, dodajte opseg za ovu mrežu ili opseg 0.0.0.0/0 sa rezervnim deljenim resursom.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>Objavljeni sadržaj na deljenom resursu mrežnog keša nedostaje ili je nepotpun. U aplikaciji Foundry OSD, na stranici Mrežni keš, izaberite Objavi.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>Objavljeni sadržaj na {0} nedostaje ili je nepotpun. U aplikaciji Foundry OSD, na stranici Mrežni keš, izaberite Objavi.</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>Mrežni keš nije dostupan</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>Deljeni resurs mrežnog keša ne odgovara. Na serveru proverite da li je deljeni resurs dostupan i da li je port 445 otvoren.</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>{0} ne odgovara. Na serveru proverite da li je deljeni resurs dostupan i da li je port 445 otvoren.</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Izaberite izdanje operativnog sistema Windows, jezik, ediciju i kanal licence.</value>
   </data>
@@ -1053,6 +1095,9 @@ Operativni sistem: {4}
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Provera konflikta keš diska...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>Pregled prilagođene slike...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>Provera spremnosti za primenu...</value>
   </data>
@@ -1092,8 +1137,14 @@ Operativni sistem: {4}
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Kopiranje AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>Kopiranje prilagođene slike...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>Kopiranje paketa upravljačkih programa...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>Kopiranje iz mrežnog keša...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Kopiraju se datoteke interaktivne registracije...</value>
@@ -1124,6 +1175,9 @@ Operativni sistem: {4}
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Završava se implementacija...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>Dovršavanje kopiranja u mrežni keš...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Uvoz hardverskog heša u Microsoft Graph...</value>
@@ -1271,6 +1325,12 @@ Operativni sistem: {4}
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>Ekstrakcija</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}: {1} ({2} preostalo)</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}: {1}, još {2} ({3} preostalo)</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

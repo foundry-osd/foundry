@@ -812,7 +812,7 @@ Sous licence MIT.</value>
     <value>Ensembles de pilotes</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
-    <value>Non disponible avec un démarrage PXE. Les pilotes personnalisés nécessitent le média ISO ou USB complet.</value>
+    <value>Avec un démarrage PXE, les pilotes personnalisés nécessitent le cache réseau. Sans lui, utilisez un média ISO ou USB.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
     <value>Les ensembles de pilotes de cette configuration ne sont pas valides. Vérifiez les ensembles inclus et l'ensemble par défaut avant de créer ou de mettre à jour un support.</value>
@@ -938,7 +938,7 @@ Sous licence MIT.</value>
     <value>L'opération sur l'image a échoué. Vérifiez la source, l'espace disponible et les journaux Foundry.</value>
   </data>
   <data name="CustomImages.PxeWarning" xml:space="preserve">
-    <value>Non disponible avec un démarrage PXE. Les images personnalisées nécessitent le média ISO ou USB complet.</value>
+    <value>Avec un démarrage PXE, les images personnalisées nécessitent le cache réseau. Sans lui, utilisez un média ISO ou USB.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Incluez au moins une image Windows disponible dans cette configuration. Restaurez les images incluses manquantes et corrigez ou effacez la sélection de l'image ou de l'index préféré avant de créer ou de mettre à jour le support.</value>
@@ -2819,7 +2819,7 @@ Sous licence MIT.</value>
     <value>Nom d'utilisateur</value>
   </data>
   <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user ou user@domain</value>
+    <value>DOMAIN\user, SERVER\user ou user@domain</value>
   </data>
   <data name="NetworkCache.AccountsDescription" xml:space="preserve">
     <value>Comptes qui ouvrent les partages. Les appareils les utilisent pour lire un partage et y publier ce qu'ils téléchargent.</value>
@@ -2827,8 +2827,32 @@ Sous licence MIT.</value>
   <data name="NetworkCache.AccountsHeader" xml:space="preserve">
     <value>Comptes</value>
   </data>
+  <data name="NetworkCache.CleanUpShareFailedMessageFormat" xml:space="preserve">
+    <value>Impossible de nettoyer {0}. Vérifiez que le partage est accessible et que son compte peut supprimer des fichiers, puis réessayez.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareKeptMessageFormat" xml:space="preserve">
+    <value>{0} a été nettoyé, mais certains fichiers ont été conservés, car ils sont en cours d'utilisation, ont été modifiés depuis leur publication ou n'ont pas été écrits par Foundry.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareMessageFormat" xml:space="preserve">
+    <value>Supprimer les téléchargements sur {0} et le contenu importé que ni votre configuration ni aucun index publié n'utilise plus ? Les appareils téléchargent de nouveau ce dont ils ont besoin.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareTitle" xml:space="preserve">
+    <value>Nettoyer le partage</value>
+  </data>
   <data name="NetworkCache.ColumnAccount" xml:space="preserve">
     <value>Compte</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloads" xml:space="preserve">
+    <value>Depuis Internet</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloadsToolTip" xml:space="preserve">
+    <value>Windows et les paquets de pilotes que les appareils ont téléchargés depuis Internet. Le nettoyage les supprime, et les appareils les téléchargent à nouveau au besoin.</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContent" xml:space="preserve">
+    <value>Contenu importé</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContentToolTip" xml:space="preserve">
+    <value>Les images personnalisées, jeux de pilotes et scripts de post-installation publiés par Foundry OSD. Le nettoyage conserve ceux encore utilisés.</value>
   </data>
   <data name="NetworkCache.ColumnName" xml:space="preserve">
     <value>Nom</value>
@@ -2860,11 +2884,20 @@ Sous licence MIT.</value>
   <data name="NetworkCache.CommandAdd" xml:space="preserve">
     <value>Ajouter</value>
   </data>
+  <data name="NetworkCache.CommandCleanUp" xml:space="preserve">
+    <value>Nettoyer</value>
+  </data>
   <data name="NetworkCache.CommandEdit" xml:space="preserve">
     <value>Modifier</value>
   </data>
+  <data name="NetworkCache.CommandPublish" xml:space="preserve">
+    <value>Publier</value>
+  </data>
   <data name="NetworkCache.CommandRemove" xml:space="preserve">
     <value>Supprimer</value>
+  </data>
+  <data name="NetworkCache.ContentMissingShareFormat" xml:space="preserve">
+    <value>{0} ne contient plus le contenu que vous avez publié. Sélectionnez « Publier ».</value>
   </data>
   <data name="NetworkCache.DialogAdd" xml:space="preserve">
     <value>Ajouter</value>
@@ -2887,8 +2920,23 @@ Sous licence MIT.</value>
   <data name="NetworkCache.NoAccount" xml:space="preserve">
     <value>Aucun compte</value>
   </data>
+  <data name="NetworkCache.NotPublishedMessage" xml:space="preserve">
+    <value>Les partages n'ont pas vos dernières modifications. Sélectionnez « Publier ».</value>
+  </data>
+  <data name="NetworkCache.NotPublishedShareFormat" xml:space="preserve">
+    <value>{0} n'a pas reçu vos dernières modifications. Sélectionnez « Publier ».</value>
+  </data>
+  <data name="NetworkCache.NotPublishedState" xml:space="preserve">
+    <value>Non publié</value>
+  </data>
+  <data name="NetworkCache.OutdatedState" xml:space="preserve">
+    <value>Obsolète</value>
+  </data>
   <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
     <value>Partages : {0}, étendues IP : {1}</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryWithStateFormat" xml:space="preserve">
+    <value>{0} · {1}</value>
   </data>
   <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
     <value>Ce mot de passe ne peut pas être utilisé.</value>
@@ -2904,6 +2952,15 @@ Sous licence MIT.</value>
   </data>
   <data name="NetworkCache.PasswordSaved" xml:space="preserve">
     <value>Enregistré</value>
+  </data>
+  <data name="NetworkCache.PublishFailedMessage" xml:space="preserve">
+    <value>Impossible de préparer le contenu à publier.</value>
+  </data>
+  <data name="NetworkCache.PublishKeysUnavailableMessage" xml:space="preserve">
+    <value>Ce PC ne peut pas signer ce qu'il publie sur les partages, car sa clé de signature n'a pas pu être lue ou enregistrée.</value>
+  </data>
+  <data name="NetworkCache.PublishSucceededMessage" xml:space="preserve">
+    <value>Les partages ont vos dernières modifications.</value>
   </data>
   <data name="NetworkCache.Ready" xml:space="preserve">
     <value>Prêt</value>
@@ -2945,7 +3002,7 @@ Sous licence MIT.</value>
     <value>Partages</value>
   </data>
   <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>Les appareils essaient les partages cochés de haut en bas, puis téléchargent depuis Internet.</value>
+    <value>Les appareils utilisent le premier partage coché qui répond, de haut en bas.</value>
   </data>
   <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
     <value>Cochez au moins un partage.</value>
@@ -2998,6 +3055,24 @@ Sous licence MIT.</value>
   <data name="NetworkCache.SharesHeader" xml:space="preserve">
     <value>Partages</value>
   </data>
+  <data name="NetworkCache.SpaceCleaningUp" xml:space="preserve">
+    <value>Nettoyage en cours…</value>
+  </data>
+  <data name="NetworkCache.SpaceMeasuring" xml:space="preserve">
+    <value>Mesure en cours…</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreachable" xml:space="preserve">
+    <value>Inaccessible</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreadable" xml:space="preserve">
+    <value>Illisible</value>
+  </data>
+  <data name="NetworkCache.TrustedKeyUnavailableMessage" xml:space="preserve">
+    <value>Impossible de créer un média avec le cache réseau activé, car ce PC n'a pas de clé de confiance pour le contenu publié sur les partages. Vérifiez Partage de la configuration dans la page Paramètres.</value>
+  </data>
+  <data name="NetworkCache.UpToDateState" xml:space="preserve">
+    <value>À jour</value>
+  </data>
   <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
     <value>Cette valeur n'est pas valide pour son type.</value>
   </data>
@@ -3029,7 +3104,7 @@ Sous licence MIT.</value>
     <value>Saisissez un nom d'utilisateur.</value>
   </data>
   <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>Permet à Foundry Deploy d'utiliser des partages SMB comme cache partagé, choisi selon l'adresse IP de l'appareil. Windows, les packages de pilotes et le contenu importé sont lus depuis le partage avant Internet, et ce que les appareils téléchargent y est publié en retour.</value>
+    <value>Permet à Foundry Deploy d'utiliser des partages SMB comme cache partagé, choisi selon l'adresse IP de l'appareil.</value>
   </data>
   <data name="NetworkCachePageHeader.Title" xml:space="preserve">
     <value>Cache réseau</value>
@@ -3218,7 +3293,7 @@ Sous licence MIT.</value>
     <value>Arguments PowerShell</value>
   </data>
   <data name="PostInstallation.PxeWarning" xml:space="preserve">
-    <value>Les actions qui utilisent des fichiers importés ne sont pas disponibles avec un démarrage PXE. Elles nécessitent le média ISO ou USB complet.</value>
+    <value>Avec un démarrage PXE, les actions qui utilisent des fichiers importés nécessitent le cache réseau. Sans lui, utilisez un média ISO ou USB.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>L'action n'a pas pu être supprimée. Réessayez.</value>
@@ -4354,6 +4429,9 @@ Sous licence MIT.</value>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
     <value>Ouverture de l'image Windows…</value>
   </data>
+  <data name="StartMedia.Operation.NetworkCachePublicationFailedFormat" xml:space="preserve">
+    <value>Ces partages du cache réseau n'ont pas reçu le contenu importé : {0}. Vérifiez que chaque partage est accessible et accessible en écriture, puis sélectionnez « Publier » sur la page « Cache réseau ».</value>
+  </data>
   <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
     <value>Ouvrir le dossier</value>
   </data>
@@ -4389,6 +4467,9 @@ Sous licence MIT.</value>
   </data>
   <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
     <value>Préparation de l'espace de travail</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.PublishingToNetworkCache" xml:space="preserve">
+    <value>Publication dans le cache réseau</value>
   </data>
   <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
     <value>Mise à jour de la clé USB</value>
@@ -4428,6 +4509,12 @@ Sous licence MIT.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Ajout des composants Foundry à la clé USB…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
+    <value>Publication du contenu importé dans le cache réseau…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCacheShareFormat" xml:space="preserve">
+    <value>Publication du contenu importé vers {0}, partage {1} sur {2}</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
     <value>Espace libre insuffisant dans le dossier de destination. Les fichiers de démarrage PXE nécessitent {0}. Espace disponible : {1}. Libérez de l'espace ou choisissez un autre dossier.</value>
@@ -4476,6 +4563,18 @@ Sous licence MIT.</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>Image ISO créée</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishCancelled" xml:space="preserve">
+    <value>Publication dans le cache réseau annulée</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishFailed" xml:space="preserve">
+    <value>Échec de la publication dans le cache réseau</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishRunning" xml:space="preserve">
+    <value>Publication dans le cache réseau</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishSucceeded" xml:space="preserve">
+    <value>Publié dans le cache réseau</value>
   </data>
   <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
     <value>Création des fichiers PXE annulée</value>

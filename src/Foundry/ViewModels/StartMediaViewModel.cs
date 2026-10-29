@@ -15,6 +15,7 @@ using Foundry.Core.Services.Images;
 using Foundry.Core.Services.Packages;
 using Foundry.Core.Services.Sharing;
 using Foundry.Core.Services.Media;
+using Foundry.Core.Services.NetworkCache;
 using Foundry.Core.Services.Telemetry;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Adk;
@@ -118,6 +119,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         IExternalProcessLauncher externalProcessLauncher,
         IAppDispatcher appDispatcher,
         Foundry.Services.Sharing.ConfigurationSharingService sharingService,
+        Foundry.Services.NetworkCache.INetworkCachePublicationService networkCachePublication,
         ILogger logger)
     {
         this.appSettingsService = appSettingsService;
@@ -151,6 +153,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         this.appDispatcher = appDispatcher;
         this.sharingService = sharingService;
         this.logger = logger.ForContext<StartMediaViewModel>();
+        this.networkCachePublication = networkCachePublication;
 
         Architectures =
         [
@@ -707,9 +710,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         using var operationCancellation = new CancellationTokenSource();
         CancellationToken cancellationToken = operationCancellation.Token;
         ResetProgressLogSampling();
-        progressPlan = MediaCreationProgressPlan.For(ToMediaCreationKind(target));
+        progressPlan = MediaCreationProgressPlan.For(ToMediaCreationKind(target),
+            NetworkCacheContentPublisher.IsActive(foundryConfigurationStateService.Current.NetworkCache));
         lastFinalMediaPercent = -1;
         preparedBootImageSource = WinPeBootImageSource.WinRe;
+        ResetNetworkCachePublication();
         RefreshEvaluation();
         // Final media operations can format disks or overwrite ISO output, so the shell remains locked until completion.
         shellNavigationGuardService.SetState(ShellNavigationState.InteractionPending);
@@ -805,8 +810,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 IsUsbTarget(target) ? options.SelectedUsbDisk?.FriendlyName : null);
 
             await WaitForSharedContentAsync(cancellationToken);
+            NetworkCacheIndexBinding? networkCacheIndex = await ResolveNetworkCacheIndexBindingAsync(cancellationToken);
             snapshot = await foundryConfigurationStateService.CaptureBuildSnapshotAsync(
-                Path.Combine(Constants.UserRootDirectoryPath, "BuildSnapshots"), cancellationToken);
+                Path.Combine(Constants.UserRootDirectoryPath, "BuildSnapshots"), networkCacheIndex, cancellationToken);
             cancellationToken.ThrowIfCancellationRequested();
             capturedConfiguration = snapshot.Configuration;
             options = options with { CustomDriverDirectoryPath = capturedConfiguration.General.CustomDriverDirectoryPath };
@@ -849,6 +855,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             if (preparedBootImageSource == WinPeBootImageSource.WinPe)
             {
                 successMessage += Environment.NewLine + Environment.NewLine + localizationService.GetString("StartMedia.Operation.WinReFallbackWarning");
+            }
+
+            if (networkCachePublicationNotice is not null)
+            {
+                successMessage += Environment.NewLine + Environment.NewLine + networkCachePublicationNotice;
             }
 
             cancellationToken.ThrowIfCancellationRequested();
@@ -1317,9 +1328,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 new WinPeIsoMediaOptions
                 {
                     PreparedWorkspace = workspace.PreparedWorkspace,
-                    CustomImages = workspace.CustomImages,
-                    PostInstallation = workspace.PostInstallation,
-                    CustomDrivers = workspace.CustomDrivers,
+                    CustomImages = workspace.MediaCustomImages,
+                    PostInstallation = workspace.MediaPostInstallation,
+                    CustomDrivers = workspace.MediaCustomDrivers,
                     DeployConfigurationJson = workspace.DeployConfigurationJson,
                     OutputIsoPath = options.IsoOutputPath,
                     IsoTempDirectoryPath = Path.Combine(workspace.Lease.OperationDirectoryPath, "Scratch", "Iso"),
@@ -1329,6 +1340,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 cancellationToken);
 
             EnsureSuccess(result);
+            await PublishImportedContentToNetworkCacheAsync(snapshot, workspace, cancellationToken);
             ReportPhase(MediaCreationPhase.Finishing, 0, localizationService.GetString("StartMedia.Operation.RemovingTemporaryFiles"));
             cancellationToken.ThrowIfCancellationRequested();
             logger.Debug("ISO media service completed. OutputIsoPath={OutputIsoPath}", options.IsoOutputPath);
@@ -1383,6 +1395,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 cancellationToken);
 
             EnsureSuccess(result);
+            await PublishImportedContentToNetworkCacheAsync(snapshot, workspace, cancellationToken);
             ReportPhase(MediaCreationPhase.Finishing, 0, localizationService.GetString("StartMedia.Operation.RemovingTemporaryFiles"));
             logger.Debug("PXE boot files written. OutputDirectoryPath={OutputDirectoryPath}, WrittenBytes={WrittenBytes}", outputDirectoryPath, result.Value);
             return result.Value;
@@ -1485,9 +1498,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     FormatMode = options.UsbFormatMode,
                     Layout = layout,
                     RuntimePayloadProvisioning = layout == UsbMediaLayout.WithCache ? workspace.RuntimePayloadProvisioning : null,
-                    CustomImages = workspace.CustomImages,
-                    PostInstallation = workspace.PostInstallation,
-                    CustomDrivers = workspace.CustomDrivers,
+                    CustomImages = workspace.MediaCustomImages,
+                    PostInstallation = workspace.MediaPostInstallation,
+                    CustomDrivers = workspace.MediaCustomDrivers,
                     DeployConfigurationJson = workspace.DeployConfigurationJson,
                     DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(
                         new Progress<WinPeDownloadProgress>(ReportDownloadProgress)),
@@ -1500,6 +1513,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 cancellationToken);
 
             EnsureSuccess(result);
+            await PublishImportedContentToNetworkCacheAsync(snapshot, workspace, cancellationToken);
             ReportPhase(MediaCreationPhase.Finishing, 0, localizationService.GetString("StartMedia.Operation.RemovingTemporaryFiles"));
             logger.Debug(
                 "USB media service completed. DiskNumber={DiskNumber}, BootVolume={BootVolume}, CacheVolume={CacheVolume}",
@@ -1555,9 +1569,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 {
                     FormatMode = options.UsbFormatMode,
                     RuntimePayloadProvisioning = workspace.RuntimePayloadProvisioning,
-                    CustomImages = workspace.CustomImages,
-                    PostInstallation = workspace.PostInstallation,
-                    CustomDrivers = workspace.CustomDrivers,
+                    CustomImages = workspace.MediaCustomImages,
+                    PostInstallation = workspace.MediaPostInstallation,
+                    CustomDrivers = workspace.MediaCustomDrivers,
                     DeployConfigurationJson = workspace.DeployConfigurationJson,
                     DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(
                         new Progress<WinPeDownloadProgress>(ReportDownloadProgress)),
@@ -1570,6 +1584,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 cancellationToken);
 
             EnsureSuccess(result);
+            await PublishImportedContentToNetworkCacheAsync(snapshot, workspace, cancellationToken);
             ReportPhase(MediaCreationPhase.Finishing, 0, localizationService.GetString("StartMedia.Operation.RemovingTemporaryFiles"));
             logger.Debug(
                 "USB boot partition update service completed. DiskNumber={DiskNumber}, BootVolume={BootVolume}, CacheVolume={CacheVolume}",
@@ -1723,10 +1738,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             ReportPhase(MediaCreationPhase.Preparing, 100);
             WinPeResult<WinPeWorkspacePreparationResult> preparationResult;
             WinPeMountedImageAssetProvisioningOptions assetProvisioning;
+            NetworkCacheContentSections networkCacheSections;
             try
             {
-                assetProvisioning = CreateAssetProvisioningOptions(options, snapshot, tools, connectBundle,
-                    deploymentProtectionMaterial, runtimePayloadProvisioning, deployTelemetrySettings, customImages, postInstallation, customDrivers);
+                assetProvisioning = CreateAssetProvisioningOptions(options, snapshot, tools, connectBundle, deploymentProtectionMaterial,
+                    runtimePayloadProvisioning, deployTelemetrySettings, customImages, postInstallation, customDrivers, out networkCacheSections);
                 preparationResult = await workspacePreparationService.PrepareAsync(
                     new WinPeWorkspacePreparationOptions
                     {
@@ -1791,7 +1807,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 customImages,
                 postInstallation,
                 customDrivers,
-                assetProvisioning.DeployConfigurationJson!);
+                assetProvisioning.DeployConfigurationJson!,
+                networkCacheSections,
+                EmbedsImportedContent: !NetworkCacheContentPublisher.IsActive(snapshot.Configuration.NetworkCache));
         }
         catch
         {
@@ -1810,7 +1828,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         TelemetrySettings deployTelemetrySettings,
         WinPeCustomImageMediaLease? customImages,
         WinPeContentPackageMediaLease postInstallation,
-        WinPeContentPackageMediaLease? customDrivers)
+        WinPeContentPackageMediaLease? customDrivers,
+        out NetworkCacheContentSections networkCacheSections)
     {
         bool isHardwareHashMode = options.IsAutopilotEnabled &&
                                   options.AutopilotProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload;
@@ -1834,6 +1853,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         {
             deployConfigurationJson = WinPeCustomDriverSetMediaService.BindConfiguration(customDrivers, deployConfigurationJson);
         }
+
+        // With an active network cache the bound content sections leave the boot image and go into the signed index.
+        (deployConfigurationJson, networkCacheSections) = NetworkCacheBootConfiguration.Split(deployConfigurationJson);
 
         return new WinPeMountedImageAssetProvisioningOptions
         {
@@ -2063,6 +2085,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             MediaCreationPhase.CopyingToUsbDrive => "StartMedia.Operation.Phase.CopyingToUsbDrive",
             MediaCreationPhase.UpdatingUsbDrive => "StartMedia.Operation.Phase.UpdatingUsbDrive",
             MediaCreationPhase.CreatingPxeFiles => "StartMedia.Operation.Phase.CreatingPxeFiles",
+            MediaCreationPhase.PublishingToNetworkCache => "StartMedia.Operation.Phase.PublishingToNetworkCache",
             _ => "StartMedia.Operation.Phase.Finishing"
         });
     }
@@ -2587,7 +2610,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
 
         string bootMediaTarget = GetTelemetryBootMediaTarget(target);
         string bootMediaUsbOperation = GetTelemetryUsbOperation(target);
-        IReadOnlyDictionary<string, object?> properties = BootMediaTelemetryPropertyBuilder.Build(
+        var properties = new Dictionary<string, object?>(BootMediaTelemetryPropertyBuilder.Build(
             bootMediaTarget,
             bootMediaUsbOperation,
             options,
@@ -2599,7 +2622,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             ResolveRuntimePayloadSource(runtimePayloadProvisioning.Deploy),
             diagnostic,
             operationId,
-            adkService.CurrentStatus);
+            adkService.CurrentStatus), StringComparer.Ordinal)
+        {
+            // The publication outcome is known only to this operation, so it joins the configuration snapshot here.
+            ["network_cache_publish_result"] = networkCachePublishResult
+        };
 
         logger.Debug(
             "Tracking media telemetry event. Target={Target}, UsbOperation={UsbOperation}, Success={Success}, FailedStepName={FailedStepName}, DurationSeconds={DurationSeconds}, Architecture={Architecture}, BootImageSource={BootImageSource}, SignatureMode={SignatureMode}, ConnectRuntimePayloadSource={ConnectRuntimePayloadSource}, DeployRuntimePayloadSource={DeployRuntimePayloadSource}.",
@@ -2782,12 +2809,26 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     : FormatDriverOptions(options.DriverVendors, options.CustomDriverDirectoryPath),
                 ConfigurationNavigationTarget.General),
             CreateOverviewItem(ConfigurationOverviewItem.NetworkCache, overview, "Nav_NetworkCacheKey.Title",
-                configuration.NetworkCache.IsEnabled
-                    ? localizationService.FormatString("NetworkCache.OverviewSummaryFormat",
-                        configuration.NetworkCache.Shares.Count, configuration.NetworkCache.Scopes.Count)
-                    : localizationService.GetString("Nav_NetworkCacheKey.Description"),
+                FormatNetworkCacheOverview(configuration.NetworkCache, overview.GetReason(ConfigurationOverviewItem.NetworkCache)),
                 ConfigurationNavigationTarget.NetworkCache)
         ];
+    }
+
+    /// <summary>
+    /// Returns the summary of the network cache row: its shares and scopes and, as information only, whether the shares are
+    /// behind, since media creation publishes to them anyway.
+    /// </summary>
+    private string FormatNetworkCacheOverview(NetworkCacheSettings settings, ConfigurationOverviewReason reason)
+    {
+        if (!settings.IsEnabled) return localizationService.GetString("Nav_NetworkCacheKey.Description");
+        string summary = localizationService.FormatString("NetworkCache.OverviewSummaryFormat", settings.Shares.Count, settings.Scopes.Count);
+        string? state = reason switch
+        {
+            ConfigurationOverviewReason.NotPublished => localizationService.GetString("NetworkCache.NotPublishedState"),
+            ConfigurationOverviewReason.Outdated => localizationService.GetString("NetworkCache.OutdatedState"),
+            _ => null
+        };
+        return state is null ? summary : localizationService.FormatString("NetworkCache.OverviewSummaryWithStateFormat", summary, state);
     }
 
     private IReadOnlyList<StartConfigurationOverviewItemViewModel> BuildNetworkOverview(
@@ -3487,6 +3528,12 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         UsbWithoutCache
     }
 
+    /// <summary>
+    /// Holds a prepared media build. The imported content leases always feed the network cache publication; ISO and USB
+    /// outputs carry them only when <paramref name="EmbedsImportedContent"/> is set, that is when no network cache serves them.
+    /// <paramref name="DeployConfigurationJson"/> is the boot configuration every output writes: with an active network cache it
+    /// lacks the content sections, which <paramref name="NetworkCacheSections"/> keeps, bound to their manifests, for the index.
+    /// </summary>
     private sealed record PreparedMediaWorkspace(
         WinPeWorkspaceLease Lease,
         WinPeWorkspacePreparationResult PreparedWorkspace,
@@ -3495,5 +3542,14 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         WinPeCustomImageMediaLease? CustomImages,
         WinPeContentPackageMediaLease PostInstallation,
         WinPeContentPackageMediaLease? CustomDrivers,
-        string DeployConfigurationJson);
+        string DeployConfigurationJson,
+        NetworkCacheContentSections NetworkCacheSections,
+        bool EmbedsImportedContent)
+    {
+        public WinPeCustomImageMediaLease? MediaCustomImages => EmbedsImportedContent ? CustomImages : null;
+
+        public WinPeContentPackageMediaLease? MediaPostInstallation => EmbedsImportedContent ? PostInstallation : null;
+
+        public WinPeContentPackageMediaLease? MediaCustomDrivers => EmbedsImportedContent ? CustomDrivers : null;
+    }
 }

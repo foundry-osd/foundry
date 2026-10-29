@@ -9,6 +9,7 @@ using Foundry.Core.Services.Drivers;
 using Foundry.Core.Services.Media;
 using Foundry.Core.Services.Packages;
 using Foundry.Deploy.Models;
+using Foundry.Deploy.Services.Cache;
 using Foundry.Utilities.Storage;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -33,12 +34,19 @@ public enum CustomDriverSetCatalogStatus
 /// <param name="Sets">Verified sets in configuration order; empty unless <see cref="CustomDriverSetCatalogStatus.Available"/>.</param>
 public sealed record CustomDriverSetCatalog(CustomDriverSetCatalogStatus Status, IReadOnlyList<CustomDriverSetOption> Sets);
 
-/// <summary>Finds and verifies the bound driver-set media manifest on ready optical volumes and Foundry USB drives, with or without cache.</summary>
-public sealed class CustomDriverSetCatalogService(IVolumeDiscovery? volumes = null, ILogger<CustomDriverSetCatalogService>? logger = null)
+/// <summary>
+/// Finds and verifies the bound driver-set media manifest on ready optical volumes and Foundry USB drives, with or without
+/// cache, then under the connected network cache share content root.
+/// </summary>
+public sealed class CustomDriverSetCatalogService(
+    IVolumeDiscovery? volumes = null,
+    ILogger<CustomDriverSetCatalogService>? logger = null,
+    INetworkCacheSessionAccessor? networkCache = null)
 {
     private static readonly CustomDriverSetCatalog UnavailableCatalog = new(CustomDriverSetCatalogStatus.Unavailable, []);
     private readonly IVolumeDiscovery _volumes = volumes ?? new WindowsVolumeDiscovery();
     private readonly ILogger _logger = logger ?? NullLogger<CustomDriverSetCatalogService>.Instance;
+    private readonly INetworkCacheSessionAccessor? _networkCache = networkCache;
     private readonly ContentPackageMediaReader _reader = new(ContentPackageKind.Drivers);
 
     /// <summary>Verifies the media manifest bound by <paramref name="settings"/> and matches every configured set against it.</summary>
@@ -55,6 +63,12 @@ public sealed class CustomDriverSetCatalogService(IVolumeDiscovery? volumes = nu
         ContentPackageMediaReadResult read;
         try { read = await _reader.ReadAsync(roots, settings.ManifestId, settings.ManifestHash, cancellationToken).ConfigureAwait(false); }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException) { return Invalid("media manifest could not be read"); }
+        if (read.Status is ContentPackageMediaStatus.NotFound or ContentPackageMediaStatus.HashMismatch)
+        {
+            // The share is tried after local media, as one more media root, so local media wins when both hold the sets.
+            ContentPackageMediaReadResult shared = await ReadNetworkCacheAsync(settings, cancellationToken).ConfigureAwait(false);
+            if (shared.Status == ContentPackageMediaStatus.Found || read.Status == ContentPackageMediaStatus.NotFound) read = shared;
+        }
         switch (read.Status)
         {
             case ContentPackageMediaStatus.NotFound:
@@ -88,6 +102,31 @@ public sealed class CustomDriverSetCatalogService(IVolumeDiscovery? volumes = nu
             });
         }
         return Finish(new(CustomDriverSetCatalogStatus.Available, sets));
+    }
+
+    /// <summary>
+    /// Reads the bound manifest under the network cache content root off the calling thread, because UNC I/O can stall.
+    /// A share failure is logged and reported as not found, so it never fails the wizard.
+    /// </summary>
+    private async Task<ContentPackageMediaReadResult> ReadNetworkCacheAsync(DeployCustomDriversSettings settings, CancellationToken cancellationToken)
+    {
+        NetworkCacheSession? session = _networkCache?.Current;
+        if (session is not { IsAvailable: true, ContentRoot: { } contentRoot })
+            return new(ContentPackageMediaStatus.NotFound, null, null);
+        try
+        {
+            ContentPackageMediaReadResult read = await Task.Run(
+                () => _reader.ReadAsync([contentRoot], settings.ManifestId, settings.ManifestHash, cancellationToken), cancellationToken).ConfigureAwait(false);
+            if (read.Status == ContentPackageMediaStatus.Found)
+                _logger.LogInformation("Custom driver sets found on the network cache share. ContentRoot={ContentRoot}", contentRoot);
+            return read;
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        {
+            _logger.LogWarning("Custom driver sets on the network cache share could not be read; treated as not found. ContentRoot={ContentRoot}, Reason={Reason}",
+                contentRoot, exception.GetType().Name);
+            return new(ContentPackageMediaStatus.NotFound, null, null);
+        }
     }
 
     private CustomDriverSetCatalog Unavailable(string reason)

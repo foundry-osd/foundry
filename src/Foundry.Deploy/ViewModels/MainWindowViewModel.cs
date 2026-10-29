@@ -15,6 +15,7 @@ using Foundry.Core.Services.DomainJoin;
 using Foundry.Deploy;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
+using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.DomainJoin;
 using Foundry.Deploy.Services.Operations;
@@ -29,6 +30,7 @@ using Foundry.Utilities.Networking;
 using Foundry.Deploy.Services.Theme;
 using Foundry.Deploy.Services.Wizard;
 using Foundry.Localization;
+using Foundry.Telemetry;
 using ComputerNameRules = Foundry.Core.Services.Configuration.ComputerNameRules;
 using Microsoft.Extensions.Logging;
 using DeployThemeMode = Foundry.Deploy.Services.Theme.ThemeMode;
@@ -37,6 +39,8 @@ namespace Foundry.Deploy.ViewModels;
 
 public partial class MainWindowViewModel : LocalizedViewModelBase
 {
+    private static readonly TimeSpan BlockedStartTelemetryTimeout = TimeSpan.FromSeconds(5);
+
     private readonly IThemeService _themeService;
     private readonly IDeploymentStartupCoordinator _deploymentStartupCoordinator;
     private readonly IDeploymentAccessGate _deploymentAccessGate;
@@ -48,6 +52,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly IDomainCredentialVerifier _domainCredentialVerifier;
     private readonly IZeroTouchMediaCredentialCheck _zeroTouchMediaCredentialCheck;
     private readonly IZeroTouchDomainCredentialCheck _zeroTouchDomainCredentialCheck;
+    private readonly INetworkCacheStartupDialogService _networkCacheStartupDialog;
+    private readonly ITelemetryService _telemetryService;
     private readonly ILogger<MainWindowViewModel> _logger;
     private readonly IKeyboardLayoutSwitcher _keyboardLayoutSwitcher;
     private readonly Dispatcher _dispatcher;
@@ -206,6 +212,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         IDomainCredentialVerifier domainCredentialVerifier,
         IZeroTouchMediaCredentialCheck zeroTouchMediaCredentialCheck,
         IZeroTouchDomainCredentialCheck zeroTouchDomainCredentialCheck,
+        INetworkCacheStartupDialogService networkCacheStartupDialog,
+        ITelemetryService telemetryService,
         ILogger<MainWindowViewModel> logger,
         INetworkAdapterSnapshotProvider? networkAdapterSnapshotProvider = null)
         : base(localizationService)
@@ -222,6 +230,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _domainCredentialVerifier = domainCredentialVerifier;
         _zeroTouchMediaCredentialCheck = zeroTouchMediaCredentialCheck;
         _zeroTouchDomainCredentialCheck = zeroTouchDomainCredentialCheck;
+        _networkCacheStartupDialog = networkCacheStartupDialog;
+        _telemetryService = telemetryService;
         _logger = logger;
         _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
         _deploymentRuntimeContext = deploymentRuntimeContextService.Resolve();
@@ -282,14 +292,37 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         cancellationToken.ThrowIfCancellationRequested();
 
-        DeploymentStartupSnapshot startupSnapshot = await _deploymentStartupCoordinator.InitializeAsync(
-                new DeploymentStartupRequest
+        DeploymentStartupSnapshot startupSnapshot = await RunStartupCoordinatorAsync(cancellationToken).ConfigureAwait(false);
+
+        // The wizard never opens while the network cache blocks startup: the snapshot then still carries the boot image
+        // sections, which an active network cache no longer uses.
+        while (startupSnapshot.NetworkCacheFailure is { } failure)
+        {
+            bool retry = false;
+            RunOnUi(() => retry = _networkCacheStartupDialog.ShowFailure(failure));
+            if (!retry)
+            {
+                _logger.LogWarning("Deployment closed before the wizard because the network cache cannot be used. FailureKind={FailureKind}", failure.Kind);
+                // The blocked start ends the session: report it as one. The network is often what failed, so Close waits for the
+                // send only briefly.
+                try
                 {
-                    RuntimeContext = _deploymentRuntimeContext,
-                    IsDebugSafeMode = IsDebugSafeMode,
-                    FallbackComputerName = ResolveInitialComputerName()
-                }, cancellationToken)
-            .ConfigureAwait(false);
+                    await _telemetryService.TrackAsync(TelemetryEvents.DeploySessionFinished, NetworkCacheTelemetry.DescribeBlockedStart(failure),
+                        CancellationToken.None).WaitAsync(BlockedStartTelemetryTimeout).ConfigureAwait(false);
+                }
+                catch (TimeoutException)
+                {
+                    _logger.LogDebug("The blocked start telemetry was not sent before Foundry Deploy closed.");
+                }
+
+                RunOnUi(_applicationShellService.Shutdown);
+                return;
+            }
+
+            cancellationToken.ThrowIfCancellationRequested();
+            _logger.LogInformation("Network cache startup check retried after FailureKind={FailureKind}.", failure.Kind);
+            startupSnapshot = await RunStartupCoordinatorAsync(cancellationToken).ConfigureAwait(false);
+        }
 
         RunOnUi(() =>
         {
@@ -298,6 +331,15 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             _isInitialized = true;
         });
     }
+
+    private Task<DeploymentStartupSnapshot> RunStartupCoordinatorAsync(CancellationToken cancellationToken) =>
+        _deploymentStartupCoordinator.InitializeAsync(
+            new DeploymentStartupRequest
+            {
+                RuntimeContext = _deploymentRuntimeContext,
+                IsDebugSafeMode = IsDebugSafeMode,
+                FallbackComputerName = ResolveInitialComputerName()
+            }, cancellationToken);
 
     [RelayCommand]
     private void SetCulture(string cultureName)

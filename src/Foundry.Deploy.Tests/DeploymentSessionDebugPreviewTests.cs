@@ -63,6 +63,21 @@ public sealed class DeploymentSessionDebugPreviewTests
         });
 
     [Theory]
+    [InlineData(DeploymentMode.Iso)]
+    [InlineData(DeploymentMode.Usb)]
+    public Task Progress_CustomImage_ChecksTheImageBeforeTheTargetIsPrepared(DeploymentMode mode) =>
+        WithSession(session =>
+        {
+            var index = new Foundry.Core.Models.Configuration.CustomImageIndex { Index = 1, Name = "Custom", Architecture = "x64", EditionId = "Enterprise", ExpandedSizeBytes = 1024 };
+            var asset = new CustomImageAsset { Id = "media", DisplayName = "Image", ImagePath = @"D:\Images\image.wim", VolumeRoot = @"D:\" };
+
+            session.ShowDebugProgress(Request() with { Mode = mode, OperatingSystem = new CustomImageSelection(asset, index) });
+
+            string[] names = session.TimelineEntries.Select(entry => entry.RawName).ToArray();
+            Assert.True(Array.IndexOf(names, DeploymentStepNames.CheckWindowsImage) < Array.IndexOf(names, DeploymentStepNames.PrepareTargetDiskLayout));
+        });
+
+    [Theory]
     [InlineData(DriverPackSelectionKind.None, 10)]
     [InlineData(DriverPackSelectionKind.MicrosoftUpdateCatalog, 14)]
     [InlineData(DriverPackSelectionKind.OemCatalog, 13)]

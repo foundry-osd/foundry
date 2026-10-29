@@ -60,6 +60,22 @@ public enum ConfigurationOverviewState
     Downloading
 }
 
+/// <summary>Explains why an overview item needs attention when its own settings are valid.</summary>
+public enum ConfigurationOverviewReason
+{
+    /// <summary>No reason beyond the item state.</summary>
+    None,
+
+    /// <summary>
+    /// A network cache share holds no usable publication of this PC. It never blocks media creation: media creation publishes to
+    /// the shares after its output.
+    /// </summary>
+    NotPublished,
+
+    /// <summary>The network cache shares hold an older publication of this PC; media creation publishes the latest one.</summary>
+    Outdated
+}
+
 /// <summary>
 /// Supplies persisted configuration and runtime-only readiness inputs for overview evaluation.
 /// </summary>
@@ -103,8 +119,17 @@ public sealed record ConfigurationOverviewContext
     /// <summary>Gets whether the active domain mode has valid metadata and required session inputs.</summary>
     public bool IsDomainJoinConfigurationReady { get; init; }
 
-    /// <summary>Gets whether the enabled network cache has valid shares, scopes, account passwords and the protection it requires.</summary>
+    /// <summary>
+    /// Gets whether the enabled network cache has valid shares, scopes, account passwords and the protection it requires, and a
+    /// trusted signing key for the boot configuration.
+    /// </summary>
     public bool IsNetworkCacheConfigurationReady { get; init; } = true;
+
+    /// <summary>
+    /// Gets how far the shares of the active network cache are from the latest changes of this PC. Always up to date on a
+    /// follower, which never publishes the index. It is information only: media creation publishes to the shares.
+    /// </summary>
+    public NetworkCachePublicationLevel NetworkCachePublication { get; init; } = NetworkCachePublicationLevel.UpToDate;
 
     /// <summary>
     /// Gets whether enabled answer-file sources, references, and media protection are ready.
@@ -134,11 +159,14 @@ public sealed record ConfigurationOverviewContext
 public sealed class ConfigurationOverviewEvaluation
 {
     private readonly IReadOnlyDictionary<ConfigurationOverviewItem, ConfigurationOverviewState> states;
+    private readonly IReadOnlyDictionary<ConfigurationOverviewItem, ConfigurationOverviewReason> reasons;
 
     internal ConfigurationOverviewEvaluation(
-        IReadOnlyDictionary<ConfigurationOverviewItem, ConfigurationOverviewState> states)
+        IReadOnlyDictionary<ConfigurationOverviewItem, ConfigurationOverviewState> states,
+        IReadOnlyDictionary<ConfigurationOverviewItem, ConfigurationOverviewReason> reasons)
     {
         this.states = states;
+        this.reasons = reasons;
     }
 
     /// <summary>
@@ -147,6 +175,11 @@ public sealed class ConfigurationOverviewEvaluation
     /// <param name="item">Overview item to query.</param>
     /// <returns>The current user-facing configuration state.</returns>
     public ConfigurationOverviewState this[ConfigurationOverviewItem item] => states[item];
+
+    /// <summary>Returns why the item needs attention although its settings are valid, or <see cref="ConfigurationOverviewReason.None"/>.</summary>
+    /// <param name="item">Overview item to query.</param>
+    public ConfigurationOverviewReason GetReason(ConfigurationOverviewItem item) =>
+        reasons.GetValueOrDefault(item, ConfigurationOverviewReason.None);
 
     /// <summary>
     /// Gets the number of overview items that require user action.
@@ -243,13 +276,26 @@ public static class ConfigurationOverviewEvaluator
 
         AddAutopilotStates(states, configuration.Autopilot, context.IsAutopilotConfigurationReady);
         AddDomainJoinStates(states, configuration.DomainJoin, context.IsDomainJoinConfigurationReady);
-        states[ConfigurationOverviewItem.NetworkCache] = !configuration.NetworkCache.IsEnabled
-            ? ConfigurationOverviewState.Disabled
-            : context.IsNetworkCacheConfigurationReady
-                ? ConfigurationOverviewState.Configured
-                : ConfigurationOverviewState.NeedsAttention;
-        return new ConfigurationOverviewEvaluation(states);
+        var reasons = new Dictionary<ConfigurationOverviewItem, ConfigurationOverviewReason>();
+        (states[ConfigurationOverviewItem.NetworkCache], reasons[ConfigurationOverviewItem.NetworkCache]) = EvaluateNetworkCache(
+            configuration.NetworkCache.IsEnabled, context.IsNetworkCacheConfigurationReady, context.NetworkCachePublication);
+        return new ConfigurationOverviewEvaluation(states, reasons);
     }
+
+    /// <summary>
+    /// Invalid settings need attention; valid settings are configured, with the publication state as a reason only, since media
+    /// creation publishes to the shares anyway.
+    /// </summary>
+    private static (ConfigurationOverviewState State, ConfigurationOverviewReason Reason) EvaluateNetworkCache(
+        bool isEnabled, bool isReady, NetworkCachePublicationLevel publication) =>
+        !isEnabled ? (ConfigurationOverviewState.Disabled, ConfigurationOverviewReason.None)
+        : !isReady ? (ConfigurationOverviewState.NeedsAttention, ConfigurationOverviewReason.None)
+        : (ConfigurationOverviewState.Configured, publication switch
+        {
+            NetworkCachePublicationLevel.NotPublished => ConfigurationOverviewReason.NotPublished,
+            NetworkCachePublicationLevel.Outdated => ConfigurationOverviewReason.Outdated,
+            _ => ConfigurationOverviewReason.None
+        });
 
     private static void AddDomainJoinStates(
         IDictionary<ConfigurationOverviewItem, ConfigurationOverviewState> states,

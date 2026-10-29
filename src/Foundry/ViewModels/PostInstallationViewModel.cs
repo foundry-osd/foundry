@@ -5,6 +5,7 @@
 using System.Collections.ObjectModel;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Application;
+using Foundry.Core.Services.Media;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Packages;
 using Foundry.Services.Configuration;
@@ -52,7 +53,8 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
     public bool HasReadinessIssue => !state.IsPostInstallationReady;
     public string PageTitle => localization.GetString("Nav_PostInstallationKey.Title");
     public string PageDescription => localization.GetString("Nav_PostInstallationKey.Description");
-    public string PxeWarning => localization.GetString("PostInstallation.PxeWarning");
+    /// <summary>Gets the PXE warning, empty when the network cache serves imported content to PXE starts.</summary>
+    public string PxeWarning => PxeMissingContent.IsServedByNetworkCache(state.Current) ? string.Empty : localization.GetString("PostInstallation.PxeWarning");
     public string DocumentationUrl => FoundryApplicationInfo.DocumentationUrl + "/foundry-osd/customization/post-installation";
     public string AddLabel => Text("Add");
     public string EditLabel => Text("Edit");
@@ -198,6 +200,7 @@ public sealed partial class PostInstallationViewModel : ObservableObject, IDispo
             }
             SelectedAction = Actions.FirstOrDefault(item => item.Action.Id == selectedId);
             OnPropertyChanged(nameof(HasReadinessIssue));
+            OnPropertyChanged(nameof(PxeWarning));
             OnPropertyChanged(nameof(ReadinessDescription));
             OnPropertyChanged(nameof(HasActions));
             OnPropertyChanged(nameof(IsEmpty));

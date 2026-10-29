@@ -5,6 +5,7 @@
 using System.Collections.ObjectModel;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Application;
+using Foundry.Core.Services.Media;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Drivers;
 using Foundry.Services.Application;
@@ -85,7 +86,8 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
     public string DocumentationUrl => FoundryApplicationInfo.DocumentationUrl + "/foundry-osd/customization/custom-drivers";
     public string PageTitle => localization.GetString("Nav_CustomDriversKey.Title");
     public string PageDescription => localization.GetString("Nav_CustomDriversKey.Description");
-    public string PxeWarning => Text("PxeWarning");
+    /// <summary>Gets the PXE warning, empty when the network cache serves imported content to PXE starts.</summary>
+    public string PxeWarning => PxeMissingContent.IsServedByNetworkCache(state.Current) ? string.Empty : Text("PxeWarning");
     public string EnableLabel => Text("EnableLabel");
     public string ImportLabel => Text("ImportLabel");
     public string EmptyMessage => Text("EmptyMessage");
@@ -372,6 +374,7 @@ public sealed partial class CustomDriversViewModel : ObservableObject, IDisposab
             // The initial load is handled by RefreshAsync on Loaded; sets that appear later are inspected here.
             if (hasUnknownState && libraryStateLoaded) _ = InspectUnknownPackagesAsync();
             OnPropertyChanged(nameof(HasReadinessIssue));
+            OnPropertyChanged(nameof(PxeWarning));
             OnPropertyChanged(nameof(ReadinessMessage));
             OnPropertyChanged(nameof(HasSets));
             OnPropertyChanged(nameof(IsEmpty));

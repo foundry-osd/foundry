@@ -72,12 +72,20 @@ public interface IFoundryConfigurationStateService
 
     /// <summary>
     /// Gets the session inputs that validation and generation need beside <see cref="Current"/>: library paths of referenced
-    /// authoring files and the passwords kept outside the document.
+    /// authoring files and the passwords kept outside the document. With an active network cache, the index binding carries the
+    /// trusted key with a minimum sequence of 0, so readiness only requires a trusted key; media creation reads the real minimum
+    /// from the shares and passes it to <see cref="CaptureBuildSnapshotAsync"/>.
     /// </summary>
     MediaInputs MediaInputs { get; }
 
     /// <summary>Freezes current configuration and session secrets synchronously, then prepares private build dependencies off-thread.</summary>
-    Task<BuildSnapshot> CaptureBuildSnapshotAsync(string privateRootDirectory, CancellationToken cancellationToken = default);
+    /// <param name="privateRootDirectory">The folder that receives the private copies of the referenced files.</param>
+    /// <param name="networkCacheIndex">The signed index binding written into the media; required when the network cache is active.</param>
+    /// <param name="cancellationToken">Cancels the capture of the referenced files.</param>
+    Task<BuildSnapshot> CaptureBuildSnapshotAsync(
+        string privateRootDirectory,
+        Foundry.Core.Services.NetworkCache.NetworkCacheIndexBinding? networkCacheIndex = null,
+        CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets the detailed network readiness evaluation used for media creation.

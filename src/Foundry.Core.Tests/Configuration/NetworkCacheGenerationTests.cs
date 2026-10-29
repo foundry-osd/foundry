@@ -8,12 +8,14 @@ using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.NetworkCache;
+using Foundry.Core.Services.Sharing;
 
 namespace Foundry.Core.Tests.Configuration;
 
 public sealed class NetworkCacheGenerationTests
 {
     private static readonly byte[] Key = new byte[32];
+    private static readonly NetworkCacheIndexBinding Binding = new(CreatePublicKey(), 7);
 
     [Fact]
     public void Generate_ShareWithAccount_WritesEnvelopeBoundToShareAndAccount()
@@ -66,6 +68,31 @@ public sealed class NetworkCacheGenerationTests
         Assert.False(media.IsEnabled);
         Assert.Empty(media.Shares);
         Assert.Empty(media.Scopes);
+        Assert.Null(media.PublisherPublicKey);
+        Assert.Null(media.PublisherKeyId);
+        Assert.Equal(0, media.MinimumIndexSequence);
+    }
+
+    [Fact]
+    public void Generate_Active_CarriesPublisherKeyKeyIdAndMinimumSequence()
+    {
+        DeployNetworkCacheSettings media = Generate(Settings(), new Dictionary<string, string> { ["a1"] = "share password" });
+
+        Assert.Equal(Convert.ToBase64String(Binding.PublicKey), media.PublisherPublicKey);
+        Assert.Equal(PublicationSigner.KeyId(Binding.PublicKey), media.PublisherKeyId);
+        Assert.Equal(7, media.MinimumIndexSequence);
+    }
+
+    [Fact]
+    public void Generate_ActiveWithoutBinding_Throws()
+    {
+        var generator = new DeployConfigurationGenerator();
+
+        InvalidOperationException error = Assert.Throws<InvalidOperationException>(() => generator.Generate(
+            new FoundryConfigurationDocument { NetworkCache = Settings() }, Key, new() { IsEnabled = true }, null, null,
+            new MediaInputs { NetworkCachePasswords = new Dictionary<string, string> { ["a1"] = "share password" } }));
+
+        Assert.Equal("Network cache configuration is not ready for deployment media.", error.Message);
     }
 
     [Fact]
@@ -75,7 +102,7 @@ public sealed class NetworkCacheGenerationTests
 
         Assert.Throws<InvalidOperationException>(() => generator.Generate(
             new FoundryConfigurationDocument { NetworkCache = Settings() }, Key, new() { IsEnabled = true }, null, null,
-            new MediaInputs { NetworkCachePasswords = new Dictionary<string, string>() }));
+            new MediaInputs { NetworkCachePasswords = new Dictionary<string, string>(), NetworkCacheIndex = Binding }));
     }
 
     [Fact]
@@ -85,13 +112,19 @@ public sealed class NetworkCacheGenerationTests
 
         Assert.Throws<InvalidOperationException>(() => generator.Generate(
             new FoundryConfigurationDocument { NetworkCache = Settings() }, null, null, null, null,
-            new MediaInputs { NetworkCachePasswords = new Dictionary<string, string> { ["a1"] = "share password" } }));
+            new MediaInputs { NetworkCachePasswords = new Dictionary<string, string> { ["a1"] = "share password" }, NetworkCacheIndex = Binding }));
     }
 
     private static DeployNetworkCacheSettings Generate(NetworkCacheSettings settings, IReadOnlyDictionary<string, string> passwords) =>
         new DeployConfigurationGenerator().Generate(
             new FoundryConfigurationDocument { NetworkCache = settings }, Key, new() { IsEnabled = true }, null, null,
-            new MediaInputs { NetworkCachePasswords = passwords }).NetworkCache;
+            new MediaInputs { NetworkCachePasswords = passwords, NetworkCacheIndex = Binding }).NetworkCache;
+
+    private static byte[] CreatePublicKey()
+    {
+        using PublicationSigningKey key = PublicationSigningKey.Create();
+        return key.PublicKey;
+    }
 
     private static NetworkCacheSettings Settings() => new()
     {

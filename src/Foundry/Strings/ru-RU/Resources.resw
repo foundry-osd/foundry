@@ -812,7 +812,7 @@
     <value>Наборы драйверов</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
-    <value>Недоступно при загрузке по PXE. Пользовательским драйверам требуется полный носитель ISO или USB.</value>
+    <value>При загрузке через PXE пользовательским драйверам нужен сетевой кэш. Без него используйте носитель ISO или USB.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
     <value>Наборы драйверов этой конфигурации недействительны. Перед созданием или обновлением носителя проверьте включённые наборы и набор по умолчанию.</value>
@@ -938,7 +938,7 @@
     <value>Не удалось выполнить операцию с образом. Проверьте источник, свободное место и журналы Foundry.</value>
   </data>
   <data name="CustomImages.PxeWarning" xml:space="preserve">
-    <value>Недоступно при загрузке по PXE. Пользовательским образам требуется полный носитель ISO или USB.</value>
+    <value>При загрузке через PXE пользовательским образам нужен сетевой кэш. Без него используйте носитель ISO или USB.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Включите в эту конфигурацию хотя бы один доступный образ Windows. Восстановите отсутствующие включённые образы и исправьте или сбросьте выбор предпочтительного образа или индекса перед созданием или обновлением носителя.</value>
@@ -2819,7 +2819,7 @@
     <value>Имя пользователя</value>
   </data>
   <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user или user@domain</value>
+    <value>DOMAIN\user, SERVER\user или user@domain</value>
   </data>
   <data name="NetworkCache.AccountsDescription" xml:space="preserve">
     <value>Учетные записи, открывающие общие ресурсы. Устройства используют их для чтения общего ресурса и публикации загруженных данных.</value>
@@ -2827,8 +2827,32 @@
   <data name="NetworkCache.AccountsHeader" xml:space="preserve">
     <value>Учетные записи</value>
   </data>
+  <data name="NetworkCache.CleanUpShareFailedMessageFormat" xml:space="preserve">
+    <value>Не удалось выполнить очистку {0}. Убедитесь, что общий ресурс доступен и его учетная запись может удалять файлы, а затем повторите попытку.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareKeptMessageFormat" xml:space="preserve">
+    <value>Очистка общего ресурса {0} выполнена, но некоторые файлы сохранены, так как они используются, изменились после публикации или были записаны не Foundry.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareMessageFormat" xml:space="preserve">
+    <value>Удалить загрузки на {0} и импортированное содержимое, которое больше не используют ни ваша конфигурация, ни какой-либо опубликованный индекс? Устройства снова скачают то, что им нужно.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareTitle" xml:space="preserve">
+    <value>Очистка общего ресурса</value>
+  </data>
   <data name="NetworkCache.ColumnAccount" xml:space="preserve">
     <value>Учетная запись</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloads" xml:space="preserve">
+    <value>Из Интернета</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloadsToolTip" xml:space="preserve">
+    <value>Windows и пакеты драйверов, скачанные устройствами из Интернета. Очистка удаляет их, а устройства при необходимости скачивают их снова.</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContent" xml:space="preserve">
+    <value>Импортированное содержимое</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContentToolTip" xml:space="preserve">
+    <value>Пользовательские образы, наборы драйверов и скрипты после установки, опубликованные Foundry OSD. Очистка сохраняет те, что ещё используются.</value>
   </data>
   <data name="NetworkCache.ColumnName" xml:space="preserve">
     <value>Имя</value>
@@ -2860,11 +2884,20 @@
   <data name="NetworkCache.CommandAdd" xml:space="preserve">
     <value>Добавить</value>
   </data>
+  <data name="NetworkCache.CommandCleanUp" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
   <data name="NetworkCache.CommandEdit" xml:space="preserve">
     <value>Изменить</value>
   </data>
+  <data name="NetworkCache.CommandPublish" xml:space="preserve">
+    <value>Опубликовать</value>
+  </data>
   <data name="NetworkCache.CommandRemove" xml:space="preserve">
     <value>Удалить</value>
+  </data>
+  <data name="NetworkCache.ContentMissingShareFormat" xml:space="preserve">
+    <value>{0} больше не содержит опубликованное вами содержимое. Выберите «Опубликовать».</value>
   </data>
   <data name="NetworkCache.DialogAdd" xml:space="preserve">
     <value>Добавить</value>
@@ -2887,8 +2920,23 @@
   <data name="NetworkCache.NoAccount" xml:space="preserve">
     <value>Нет учетной записи</value>
   </data>
+  <data name="NetworkCache.NotPublishedMessage" xml:space="preserve">
+    <value>В общих ресурсах нет ваших последних изменений. Выберите «Опубликовать».</value>
+  </data>
+  <data name="NetworkCache.NotPublishedShareFormat" xml:space="preserve">
+    <value>{0} не получил ваши последние изменения. Выберите «Опубликовать».</value>
+  </data>
+  <data name="NetworkCache.NotPublishedState" xml:space="preserve">
+    <value>Не опубликовано</value>
+  </data>
+  <data name="NetworkCache.OutdatedState" xml:space="preserve">
+    <value>Устарело</value>
+  </data>
   <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
     <value>Общие ресурсы: {0}, области IP: {1}</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryWithStateFormat" xml:space="preserve">
+    <value>{0} · {1}</value>
   </data>
   <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
     <value>Этот пароль нельзя использовать.</value>
@@ -2904,6 +2952,15 @@
   </data>
   <data name="NetworkCache.PasswordSaved" xml:space="preserve">
     <value>Сохранен</value>
+  </data>
+  <data name="NetworkCache.PublishFailedMessage" xml:space="preserve">
+    <value>Не удалось подготовить содержимое для публикации.</value>
+  </data>
+  <data name="NetworkCache.PublishKeysUnavailableMessage" xml:space="preserve">
+    <value>Этот компьютер не может подписать то, что он публикует на общих ресурсах, так как не удалось прочитать или сохранить его ключ подписи.</value>
+  </data>
+  <data name="NetworkCache.PublishSucceededMessage" xml:space="preserve">
+    <value>В общих ресурсах есть ваши последние изменения.</value>
   </data>
   <data name="NetworkCache.Ready" xml:space="preserve">
     <value>Готово</value>
@@ -2945,7 +3002,7 @@
     <value>Общие ресурсы</value>
   </data>
   <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>Устройства проверяют отмеченные общие ресурсы сверху вниз, а затем скачивают данные из Интернета.</value>
+    <value>Устройства используют первый отмеченный общий ресурс, который отвечает, сверху вниз.</value>
   </data>
   <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
     <value>Отметьте хотя бы один общий ресурс.</value>
@@ -2998,6 +3055,24 @@
   <data name="NetworkCache.SharesHeader" xml:space="preserve">
     <value>Общие ресурсы</value>
   </data>
+  <data name="NetworkCache.SpaceCleaningUp" xml:space="preserve">
+    <value>Очистка…</value>
+  </data>
+  <data name="NetworkCache.SpaceMeasuring" xml:space="preserve">
+    <value>Измерение…</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreachable" xml:space="preserve">
+    <value>Недоступен</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreadable" xml:space="preserve">
+    <value>Не удается прочитать</value>
+  </data>
+  <data name="NetworkCache.TrustedKeyUnavailableMessage" xml:space="preserve">
+    <value>Невозможно создать носитель с включенным сетевым кэшем, так как у этого компьютера нет доверенного ключа для содержимого, опубликованного на общих ресурсах. Проверьте «Общий доступ к конфигурации» на странице параметров.</value>
+  </data>
+  <data name="NetworkCache.UpToDateState" xml:space="preserve">
+    <value>Актуально</value>
+  </data>
   <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
     <value>Это значение недопустимо для своего типа.</value>
   </data>
@@ -3029,7 +3104,7 @@
     <value>Введите имя пользователя.</value>
   </data>
   <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>Позволяет Foundry Deploy использовать общие ресурсы SMB как общий кэш, выбираемый по IP-адресу устройства. Windows, пакеты драйверов и импортированное содержимое считываются из общего ресурса до обращения к Интернету, а скачанные устройствами данные публикуются обратно в него.</value>
+    <value>Позволяет Foundry Deploy использовать общие ресурсы SMB как общий кэш, выбираемый по IP-адресу устройства.</value>
   </data>
   <data name="NetworkCachePageHeader.Title" xml:space="preserve">
     <value>Сетевой кэш</value>
@@ -3218,7 +3293,7 @@
     <value>Аргументы PowerShell</value>
   </data>
   <data name="PostInstallation.PxeWarning" xml:space="preserve">
-    <value>Действия, использующие импортированные файлы, недоступны при загрузке по PXE. Им требуется полный носитель ISO или USB.</value>
+    <value>При загрузке через PXE действиям, использующим импортированные файлы, нужен сетевой кэш. Без него используйте носитель ISO или USB.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Не удалось удалить действие. Повторите попытку.</value>
@@ -4354,6 +4429,9 @@
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
     <value>Открытие образа Windows…</value>
   </data>
+  <data name="StartMedia.Operation.NetworkCachePublicationFailedFormat" xml:space="preserve">
+    <value>Эти общие ресурсы сетевого кэша не получили импортированное содержимое: {0}. Убедитесь, что каждый ресурс доступен и разрешает запись, а затем выберите «Опубликовать» на странице «Сетевой кэш».</value>
+  </data>
   <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
     <value>Открыть папку</value>
   </data>
@@ -4389,6 +4467,9 @@
   </data>
   <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
     <value>Подготовка рабочего пространства</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.PublishingToNetworkCache" xml:space="preserve">
+    <value>Публикация в сетевом кэше</value>
   </data>
   <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
     <value>Обновление USB-накопителя</value>
@@ -4428,6 +4509,12 @@
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Добавление компонентов Foundry на USB-накопитель…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
+    <value>Публикация импортированного содержимого в сетевом кэше…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCacheShareFormat" xml:space="preserve">
+    <value>Публикация импортированного содержимого в {0}, общий ресурс {1} из {2}</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
     <value>Недостаточно свободного места в папке назначения. Для файлов загрузки PXE требуется {0}. Доступно: {1}. Освободите место или выберите другую папку.</value>
@@ -4476,6 +4563,18 @@
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO создан</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishCancelled" xml:space="preserve">
+    <value>Публикация в сетевом кэше отменена</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishFailed" xml:space="preserve">
+    <value>Не удалось выполнить публикацию в сетевом кэше</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishRunning" xml:space="preserve">
+    <value>Публикация в сетевом кэше</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishSucceeded" xml:space="preserve">
+    <value>Опубликовано в сетевом кэше</value>
   </data>
   <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
     <value>Создание файлов PXE отменено</value>

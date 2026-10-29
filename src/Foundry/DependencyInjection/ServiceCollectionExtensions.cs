@@ -23,6 +23,7 @@ using Foundry.Services.Shell;
 using Foundry.Services.Startup;
 using Foundry.Services.Updates;
 using Foundry.Telemetry;
+using Foundry.Utilities.Networking;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using System.Globalization;
@@ -125,6 +126,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IOobeAccountSecretStateService, OobeAccountSecretStateService>();
         services.AddSingleton<IDomainJoinSecretStateService, DomainJoinSecretStateService>();
         services.AddSingleton<INetworkCacheSecretStateService, NetworkCacheSecretStateService>();
+        services.AddSingleton<ISmbConnector, SmbConnector>();
         services.AddSingleton<IOobeAdditionalAccountDialogService, OobeAdditionalAccountDialogService>();
         services.AddSingleton<IFoundryConfigurationStateService, FoundryConfigurationStateService>();
         services.AddSingleton(_ => new LocalSecretVault(Constants.SecretVaultPath));
@@ -179,6 +181,12 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ContentPackageCleanupService>();
         services.AddSingleton<Foundry.Services.Sharing.ConfigurationTransferService>();
         services.AddSingleton<Foundry.Services.Sharing.ConfigurationSharingService>();
+        services.AddSingleton<Foundry.Services.NetworkCache.INetworkCacheSigningService, Foundry.Services.NetworkCache.NetworkCacheSigningService>();
+        // The configuration state service reads the trusted key through this factory, which breaks the construction cycle.
+        services.AddSingleton<Func<Foundry.Services.NetworkCache.INetworkCacheSigningService>>(sp =>
+            sp.GetRequiredService<Foundry.Services.NetworkCache.INetworkCacheSigningService>);
+        services.AddSingleton<Foundry.Services.NetworkCache.INetworkCachePublicationStateService, Foundry.Services.NetworkCache.NetworkCachePublicationStateService>();
+        services.AddSingleton<Foundry.Services.NetworkCache.INetworkCachePublicationService, Foundry.Services.NetworkCache.NetworkCachePublicationService>();
         services.AddSingleton<ManagedConfigurationViewModel>();
         services.AddTransient<CustomDriversViewModel>();
         services.AddTransient<UnattendConfigurationViewModel>();

@@ -124,6 +124,9 @@
   <data name="Common.Previous" xml:space="preserve">
     <value>הקודם</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>נסה שוב</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>לא זמין</value>
   </data>
@@ -684,6 +687,45 @@ ErrorCode=0x80070005
   <data name="Menu.Tools" xml:space="preserve">
     <value>_כלים</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>השיתוף של מטמון הרשת דחה מכשיר זה. ב-Foundry OSD, בדף 'מטמון רשת', בדוק את החשבון של השיתוף ואת הסיסמה שלו; בשרת, בדוק את ההרשאות של השיתוף.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>{0} אינו יכול לפתוח את {1}. ב-Foundry OSD, בדף 'מטמון רשת', בדוק את סיסמת החשבון; בשרת, בדוק את ההרשאות שלו.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>{0} דחה מכשיר זה. ב-Foundry OSD, בדף 'מטמון רשת', הגדר חשבון עבור שיתוף זה; בשרת, בדוק את ההרשאות של השיתוף.</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>ערכות מנהלי התקנים</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>תמונות Windows מותאמות אישית</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>חסר: {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>אף תחום IP אינו מכיל מכשיר זה. ב-Foundry OSD, בדף 'מטמון רשת', הוסף תחום עבור רשת זו או תחום 0.0.0.0/0 עם שיתוף גיבוי.</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>אף תחום IP אינו מכיל מכשיר זה ({0}). ב-Foundry OSD, בדף 'מטמון רשת', הוסף תחום עבור רשת זו או תחום 0.0.0.0/0 עם שיתוף גיבוי.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>התוכן שפורסם בשיתוף של מטמון הרשת חסר או חלקי. ב-Foundry OSD, בדף 'מטמון רשת', בחר 'פרסם'.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>התוכן שפורסם ב-{0} חסר או חלקי. ב-Foundry OSD, בדף 'מטמון רשת', בחר 'פרסם'.</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>מטמון הרשת אינו זמין</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>השיתוף של מטמון הרשת אינו מגיב. בשרת, ודא שהשיתוף מקוון ושיציאה 445 פתוחה.</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>{0} אינו מגיב. בשרת, ודא שהשיתוף מקוון ושיציאה 445 פתוחה.</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>בחר את מהדורת Windows, השפה, הגרסה וערוץ הרישוי.</value>
   </data>
@@ -1053,6 +1095,9 @@ ErrorCode=0x80070005
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>בודק התנגשות דיסק מטמון...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>בודק תמונה מותאמת אישית...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>בודק מוכנות לפריסה...</value>
   </data>
@@ -1092,8 +1137,14 @@ ErrorCode=0x80070005
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>מעתיק AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>מעתיק תמונה מותאמת אישית...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>מעתיק חבילת מנהלי התקנים...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>מעתיק ממטמון הרשת...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>מעתיק קובצי רישום אינטראקטיבי...</value>
@@ -1124,6 +1175,9 @@ ErrorCode=0x80070005
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>מסיים את הפריסה...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>מסיים את ההעתקה למטמון הרשת...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>מייבא גיבוב חומרה אל Microsoft Graph...</value>
@@ -1271,6 +1325,12 @@ ErrorCode=0x80070005
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>חילוץ</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}: {1} (נותרו {2})</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}: {1}, עוד {2} (נותרו {3})</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

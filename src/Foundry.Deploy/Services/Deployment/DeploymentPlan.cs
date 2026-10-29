@@ -35,7 +35,8 @@ public static class DeploymentPlan
         if (request.UsesCustomUnattend) names.Add(DeploymentStepNames.ValidateCustomUnattend);
         names.Add(DeploymentStepNames.ValidateTargetConfiguration);
 
-        bool external = usesTargetStorage == false || request.OperatingSystem is CustomImageSelection;
+        // A custom image stays external unless preflight staged it on the target (network cache share copy).
+        bool external = usesTargetStorage == false || (usesTargetStorage is null && request.OperatingSystem is CustomImageSelection);
         if (!external) names.Add(DeploymentStepNames.PrepareTargetDiskLayout);
         names.Add(DeploymentStepNames.DownloadOperatingSystemImage);
         names.Add(DeploymentStepNames.CheckWindowsImage);

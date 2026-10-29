@@ -63,7 +63,8 @@ public sealed class WinPePreOobeMediaTests : IDisposable
         var (library, settings) = await InputsAsync();
         var publisher = new WinPeContentPackageMediaService(ContentPackageKind.PostInstallation, _ => long.MaxValue);
         var facade = new WinPePreOobeMediaService();
-        using var prior = await facade.PrepareAsync(library, settings, Cancellation);
+        // Identical content now gives an identical manifest id, so the prior generation must differ from the next one.
+        using var prior = await facade.PrepareAsync(library, settings with { Actions = [settings.Actions[0] with { IsEnabled = false }] }, Cancellation);
         string media = Path.Combine(root, "media");
         await publisher.PublishAsync(prior, media, Cancellation);
         string manual = Path.Combine(media, "Cache", "PreOobe", "operator.txt");
@@ -117,6 +118,31 @@ public sealed class WinPePreOobeMediaTests : IDisposable
         var decoded = JsonSerializer.Deserialize<ContentPackageMediaManifest>(package.ManifestBytes, ConfigurationJsonDefaults.SerializerOptions)!;
         Assert.Equal(package.ManifestId, decoded.Id);
         Assert.Equal(settings.Actions[0].Package!.ContentHash, Assert.Single(decoded.Packages).ContentHash);
+    }
+
+    [Fact]
+    public async Task PrepareTwice_WithTheSameContent_GivesTheSameManifestIdAndBytes()
+    {
+        var (library, settings) = await InputsAsync();
+        var facade = new WinPePreOobeMediaService();
+        using var first = await facade.PrepareAsync(library, settings, Cancellation);
+        using var second = await facade.PrepareAsync(library, settings, Cancellation);
+
+        Assert.Equal(first.ManifestId, second.ManifestId);
+        Assert.Equal(first.ManifestBytes, second.ManifestBytes);
+        Assert.Equal(first.ManifestHash, second.ManifestHash);
+        Assert.Matches("^[0-9a-f]{32}$", first.ManifestId);
+    }
+
+    [Fact]
+    public async Task PrepareWithDifferentContent_GivesDifferentIds()
+    {
+        var (library, settings) = await InputsAsync();
+        var facade = new WinPePreOobeMediaService();
+        using var withPackage = await facade.PrepareAsync(library, settings, Cancellation);
+        using var withoutPackage = await facade.PrepareAsync(library, settings with { Actions = [settings.Actions[0] with { IsEnabled = false }] }, Cancellation);
+
+        Assert.NotEqual(withPackage.ManifestId, withoutPackage.ManifestId);
     }
 
     [Fact]

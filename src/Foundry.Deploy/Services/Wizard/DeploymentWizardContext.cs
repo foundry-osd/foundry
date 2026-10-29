@@ -28,14 +28,15 @@ public sealed class DeploymentWizardContext : IDisposable
         OperatingSystemCatalogViewModel operatingSystemCatalog,
         DriverPackSelectionViewModel driverPackSelection,
         CustomDriverSetCatalogService? customDriverSetCatalog = null,
-        ILogger<DeploymentWizardContext>? logger = null)
+        ILogger<DeploymentWizardContext>? logger = null,
+        Foundry.Deploy.Services.Images.CustomImageCatalogService? customImageCatalog = null)
     {
         _customDriverSetCatalog = customDriverSetCatalog;
         _logger = logger ?? NullLogger<DeploymentWizardContext>.Instance;
         Preparation = preparation ?? throw new ArgumentNullException(nameof(preparation));
         OperatingSystemCatalog = operatingSystemCatalog ?? throw new ArgumentNullException(nameof(operatingSystemCatalog));
         DriverPackSelection = driverPackSelection ?? throw new ArgumentNullException(nameof(driverPackSelection));
-        CustomImages = new();
+        CustomImages = new(customImageCatalog);
         DomainJoinStep = new();
 
         Preparation.StateChanged += OnPreparationStateChanged;

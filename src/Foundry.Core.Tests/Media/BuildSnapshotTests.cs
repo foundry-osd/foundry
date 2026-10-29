@@ -88,7 +88,7 @@ public sealed class BuildSnapshotTests : IDisposable
             }
         };
         Task<BuildSnapshot> capturing = BuildSnapshot.CaptureAsync(
-            document, new BuildSnapshotSources(library) { NetworkCachePasswords = passwords }, accounts, null, "MediaPassword123!", root, null, TestContext.Current.CancellationToken);
+            document, new BuildSnapshotSources(library) { NetworkCachePasswords = passwords, NetworkCacheIndex = new([1, 2, 3], 1) }, accounts, null, "MediaPassword123!", root, null, TestContext.Current.CancellationToken);
         passwords.Clear();
         using BuildSnapshot snapshot = await capturing;
         using var protection = snapshot.CreateDeploymentProtectionMaterial();
@@ -107,6 +107,28 @@ public sealed class BuildSnapshotTests : IDisposable
         {
             CryptographicOperations.ZeroMemory(payload);
         }
+    }
+
+    [Fact]
+    public async Task GetNetworkCachePasswordCopy_ReturnsAnIndependentCopyOfTheCapturedPassword()
+    {
+        using var accounts = new OobeAccountSecretState();
+        var passwords = new Dictionary<string, string> { ["a1"] = "share password", ["unused"] = "other password" };
+        var configuration = new FoundryConfigurationDocument
+        {
+            NetworkCache = new NetworkCacheSettings { Shares = [new NetworkCacheShare { Id = "s1", Path = @"\\fs01\cache", AccountId = "a1" }] }
+        };
+        using BuildSnapshot snapshot = await BuildSnapshot.CaptureAsync(
+            configuration, new BuildSnapshotSources(library) { NetworkCachePasswords = passwords }, accounts, null,
+            "MediaPassword123!", root, null, TestContext.Current.CancellationToken);
+
+        char[] first = snapshot.GetNetworkCachePasswordCopy("a1")!;
+        Array.Clear(first);
+
+        Assert.Equal("share password", new string(snapshot.GetNetworkCachePasswordCopy("a1")));
+        Assert.Null(snapshot.GetNetworkCachePasswordCopy("unknown"));
+        // Accounts no share uses are not captured.
+        Assert.Null(snapshot.GetNetworkCachePasswordCopy("unused"));
     }
 
     [Fact]

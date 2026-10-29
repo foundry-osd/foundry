@@ -124,6 +124,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Common.Previous" xml:space="preserve">
     <value>Edellinen</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>Yritä uudelleen</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Ei saatavilla</value>
   </data>
@@ -684,6 +687,45 @@ Jatketaanko käyttöönottoa?</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Työkalut</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>Verkkovälimuistin jako hylkäsi tämän laitteen. Tarkista Foundry OSD:n Verkkovälimuisti-sivulla jaon tili ja sen salasana; tarkista palvelimella jaon käyttöoikeudet.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>{0} ei voi avata jakoa {1}. Tarkista Foundry OSD:n Verkkovälimuisti-sivulla tilin salasana; tarkista palvelimella sen käyttöoikeudet.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>{0} hylkäsi tämän laitteen. Määritä Foundry OSD:n Verkkovälimuisti-sivulla tälle jaolle tili; tarkista palvelimella jaon käyttöoikeudet.</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>Ohjainjoukot</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>Mukautetut Windows-näköistiedostot</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>Puuttuu: {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>Mikään IP-laajuus ei sisällä tätä laitetta. Lisää Foundry OSD:n Verkkovälimuisti-sivulla laajuus tälle verkolle tai 0.0.0.0/0-laajuus varajaolle.</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>Mikään IP-laajuus ei sisällä tätä laitetta ({0}). Lisää Foundry OSD:n Verkkovälimuisti-sivulla laajuus tälle verkolle tai 0.0.0.0/0-laajuus varajaolle.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>Verkkovälimuistin jaon julkaistu sisältö puuttuu tai on puutteellinen. Valitse Foundry OSD:n Verkkovälimuisti-sivulla Julkaise.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>Jaon {0} julkaistu sisältö puuttuu tai on puutteellinen. Valitse Foundry OSD:n Verkkovälimuisti-sivulla Julkaise.</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>Verkkovälimuisti ei ole käytettävissä</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>Verkkovälimuistin jako ei vastaa. Tarkista palvelimella, että jako on käytettävissä ja portti 445 on auki.</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>{0} ei vastaa. Tarkista palvelimella, että jako on käytettävissä ja portti 445 on auki.</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Valitse Windows-versio, kieli, tuoteversio ja käyttöoikeuskanava.</value>
   </data>
@@ -1053,6 +1095,9 @@ Jatketaanko käyttöönottoa?</value>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Tarkistetaan välimuistin levyristiriitaa...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>Tarkastetaan mukautettua näköistiedostoa...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>Tarkistetaan käyttöönottovalmiutta...</value>
   </data>
@@ -1092,8 +1137,14 @@ Jatketaanko käyttöönottoa?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Kopioidaan AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>Kopioidaan mukautettua näköistiedostoa...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>Kopioidaan ohjainpakettia...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>Kopioidaan verkkovälimuistista...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Kopioidaan vuorovaikutteisen rekisteröinnin tiedostoja...</value>
@@ -1124,6 +1175,9 @@ Jatketaanko käyttöönottoa?</value>
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Käyttöönottoa viimeistellään...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>Viimeistellään kopiointia verkkovälimuistiin...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Tuodaan laitteiston hajautusarvoa Microsoft Graphiin...</value>
@@ -1271,6 +1325,12 @@ Jatketaanko käyttöönottoa?</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>Purkaminen</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}: {1} ({2} jäljellä)</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}: {1}, {2} lisää ({3} jäljellä)</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

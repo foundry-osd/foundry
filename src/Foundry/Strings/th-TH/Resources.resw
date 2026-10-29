@@ -812,7 +812,7 @@
     <value>ชุดไดรเวอร์</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
-    <value>ไม่พร้อมใช้งานเมื่อบูตด้วย PXE ไดรเวอร์แบบกำหนดเองต้องใช้สื่อ ISO หรือ USB ฉบับเต็ม</value>
+    <value>เมื่อบูตด้วย PXE ไดรเวอร์แบบกำหนดเองต้องใช้แคชเครือข่าย หากไม่มี ให้ใช้สื่อ ISO หรือ USB</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
     <value>ชุดไดรเวอร์ของการกำหนดค่านี้ไม่ถูกต้อง ตรวจสอบชุดที่รวมไว้และชุดเริ่มต้นก่อนสร้างหรืออัปเดตสื่อ</value>
@@ -938,7 +938,7 @@
     <value>การดำเนินการกับอิมเมจล้มเหลว ตรวจสอบแหล่งที่มา พื้นที่ว่าง และบันทึกของ Foundry</value>
   </data>
   <data name="CustomImages.PxeWarning" xml:space="preserve">
-    <value>ไม่พร้อมใช้งานเมื่อบูตด้วย PXE อิมเมจแบบกำหนดเองต้องใช้สื่อ ISO หรือ USB ฉบับเต็ม</value>
+    <value>เมื่อบูตด้วย PXE อิมเมจแบบกำหนดเองต้องใช้แคชเครือข่าย หากไม่มี ให้ใช้สื่อ ISO หรือ USB</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>รวมอิมเมจ Windows ที่พร้อมใช้งานอย่างน้อยหนึ่งรายการไว้ในการกำหนดค่านี้ กู้คืนอิมเมจที่รวมไว้แต่หายไป และแก้ไขหรือล้างการเลือกอิมเมจหรือดัชนีที่ต้องการก่อนสร้างหรืออัปเดตสื่อ</value>
@@ -2819,7 +2819,7 @@
     <value>ชื่อผู้ใช้</value>
   </data>
   <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user หรือ user@domain</value>
+    <value>DOMAIN\user, SERVER\user หรือ user@domain</value>
   </data>
   <data name="NetworkCache.AccountsDescription" xml:space="preserve">
     <value>บัญชีที่ใช้เปิดโฟลเดอร์ที่แชร์ อุปกรณ์ใช้บัญชีเหล่านี้เพื่ออ่านโฟลเดอร์ที่แชร์และเผยแพร่สิ่งที่ดาวน์โหลด</value>
@@ -2827,8 +2827,32 @@
   <data name="NetworkCache.AccountsHeader" xml:space="preserve">
     <value>บัญชี</value>
   </data>
+  <data name="NetworkCache.CleanUpShareFailedMessageFormat" xml:space="preserve">
+    <value>ไม่สามารถล้างข้อมูล {0} ได้ ตรวจสอบว่าสามารถเข้าถึงโฟลเดอร์ที่แชร์ได้และบัญชีของโฟลเดอร์นั้นสามารถลบไฟล์ได้ แล้วลองอีกครั้ง</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareKeptMessageFormat" xml:space="preserve">
+    <value>ล้างข้อมูล {0} แล้ว แต่มีบางไฟล์ที่ถูกเก็บไว้เนื่องจากกำลังใช้งานอยู่ มีการเปลี่ยนแปลงหลังจากเผยแพร่ หรือไม่ได้เขียนโดย Foundry</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareMessageFormat" xml:space="preserve">
+    <value>ลบการดาวน์โหลดบน {0} และเนื้อหาที่นำเข้าซึ่งทั้งการกำหนดค่าของคุณและดัชนีที่เผยแพร่ใดๆ ไม่ได้ใช้แล้วหรือไม่ อุปกรณ์จะดาวน์โหลดสิ่งที่ต้องการอีกครั้ง</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareTitle" xml:space="preserve">
+    <value>ล้างข้อมูลโฟลเดอร์ที่แชร์</value>
+  </data>
   <data name="NetworkCache.ColumnAccount" xml:space="preserve">
     <value>บัญชี</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloads" xml:space="preserve">
+    <value>จากอินเทอร์เน็ต</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloadsToolTip" xml:space="preserve">
+    <value>Windows และแพ็กไดรเวอร์ที่อุปกรณ์ดาวน์โหลดจากอินเทอร์เน็ต การล้างข้อมูลจะลบรายการเหล่านี้ และอุปกรณ์จะดาวน์โหลดอีกครั้งเมื่อจำเป็น</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContent" xml:space="preserve">
+    <value>เนื้อหาที่นำเข้า</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContentToolTip" xml:space="preserve">
+    <value>อิมเมจแบบกำหนดเอง ชุดไดรเวอร์ และสคริปต์หลังการติดตั้งที่ Foundry OSD เผยแพร่ การล้างข้อมูลจะเก็บรายการที่ยังใช้งานอยู่</value>
   </data>
   <data name="NetworkCache.ColumnName" xml:space="preserve">
     <value>ชื่อ</value>
@@ -2860,11 +2884,20 @@
   <data name="NetworkCache.CommandAdd" xml:space="preserve">
     <value>เพิ่ม</value>
   </data>
+  <data name="NetworkCache.CommandCleanUp" xml:space="preserve">
+    <value>ล้างข้อมูล</value>
+  </data>
   <data name="NetworkCache.CommandEdit" xml:space="preserve">
     <value>แก้ไข</value>
   </data>
+  <data name="NetworkCache.CommandPublish" xml:space="preserve">
+    <value>เผยแพร่</value>
+  </data>
   <data name="NetworkCache.CommandRemove" xml:space="preserve">
     <value>นำออก</value>
+  </data>
+  <data name="NetworkCache.ContentMissingShareFormat" xml:space="preserve">
+    <value>{0} ไม่มีเนื้อหาที่คุณเผยแพร่แล้ว เลือก “เผยแพร่”</value>
   </data>
   <data name="NetworkCache.DialogAdd" xml:space="preserve">
     <value>เพิ่ม</value>
@@ -2887,8 +2920,23 @@
   <data name="NetworkCache.NoAccount" xml:space="preserve">
     <value>ไม่มีบัญชี</value>
   </data>
+  <data name="NetworkCache.NotPublishedMessage" xml:space="preserve">
+    <value>โฟลเดอร์ที่แชร์ยังไม่มีการเปลี่ยนแปลงล่าสุดของคุณ เลือก “เผยแพร่”</value>
+  </data>
+  <data name="NetworkCache.NotPublishedShareFormat" xml:space="preserve">
+    <value>{0} ไม่ได้รับการเปลี่ยนแปลงล่าสุดของคุณ เลือก “เผยแพร่”</value>
+  </data>
+  <data name="NetworkCache.NotPublishedState" xml:space="preserve">
+    <value>ยังไม่ได้เผยแพร่</value>
+  </data>
+  <data name="NetworkCache.OutdatedState" xml:space="preserve">
+    <value>ล้าสมัย</value>
+  </data>
   <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
     <value>โฟลเดอร์ที่แชร์: {0}, ขอบเขต IP: {1}</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryWithStateFormat" xml:space="preserve">
+    <value>{0} · {1}</value>
   </data>
   <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
     <value>ไม่สามารถใช้รหัสผ่านนี้ได้</value>
@@ -2904,6 +2952,15 @@
   </data>
   <data name="NetworkCache.PasswordSaved" xml:space="preserve">
     <value>บันทึกแล้ว</value>
+  </data>
+  <data name="NetworkCache.PublishFailedMessage" xml:space="preserve">
+    <value>ไม่สามารถเตรียมเนื้อหาที่จะเผยแพร่ได้</value>
+  </data>
+  <data name="NetworkCache.PublishKeysUnavailableMessage" xml:space="preserve">
+    <value>พีซีเครื่องนี้ไม่สามารถลงนามสิ่งที่เผยแพร่ไปยังโฟลเดอร์ที่แชร์ได้ เนื่องจากไม่สามารถอ่านหรือบันทึกคีย์การลงนามของพีซีได้</value>
+  </data>
+  <data name="NetworkCache.PublishSucceededMessage" xml:space="preserve">
+    <value>โฟลเดอร์ที่แชร์มีการเปลี่ยนแปลงล่าสุดของคุณแล้ว</value>
   </data>
   <data name="NetworkCache.Ready" xml:space="preserve">
     <value>พร้อม</value>
@@ -2945,7 +3002,7 @@
     <value>โฟลเดอร์ที่แชร์</value>
   </data>
   <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>อุปกรณ์จะลองใช้โฟลเดอร์ที่แชร์ที่เลือกไว้จากบนลงล่าง แล้วจึงดาวน์โหลดจากอินเทอร์เน็ต</value>
+    <value>อุปกรณ์จะใช้โฟลเดอร์ที่แชร์ที่เลือกไว้รายการแรกที่ตอบสนอง จากบนลงล่าง</value>
   </data>
   <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
     <value>เลือกโฟลเดอร์ที่แชร์อย่างน้อยหนึ่งรายการ</value>
@@ -2998,6 +3055,24 @@
   <data name="NetworkCache.SharesHeader" xml:space="preserve">
     <value>โฟลเดอร์ที่แชร์</value>
   </data>
+  <data name="NetworkCache.SpaceCleaningUp" xml:space="preserve">
+    <value>กำลังล้างข้อมูล…</value>
+  </data>
+  <data name="NetworkCache.SpaceMeasuring" xml:space="preserve">
+    <value>กำลังวัด…</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreachable" xml:space="preserve">
+    <value>ไม่สามารถเข้าถึงได้</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreadable" xml:space="preserve">
+    <value>ไม่สามารถอ่านได้</value>
+  </data>
+  <data name="NetworkCache.TrustedKeyUnavailableMessage" xml:space="preserve">
+    <value>ไม่สามารถสร้างสื่อที่เปิดใช้แคชเครือข่ายได้ เนื่องจากพีซีเครื่องนี้ไม่มีคีย์ที่เชื่อถือได้สำหรับเนื้อหาที่เผยแพร่ไปยังโฟลเดอร์ที่แชร์ ตรวจสอบ การแชร์การกำหนดค่า ในหน้าการตั้งค่า</value>
+  </data>
+  <data name="NetworkCache.UpToDateState" xml:space="preserve">
+    <value>เป็นปัจจุบัน</value>
+  </data>
   <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
     <value>ค่านี้ไม่ถูกต้องสำหรับชนิดของค่า</value>
   </data>
@@ -3029,7 +3104,7 @@
     <value>ป้อนชื่อผู้ใช้</value>
   </data>
   <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>ให้ Foundry Deploy ใช้โฟลเดอร์ที่แชร์ SMB เป็นแคชที่ใช้ร่วมกัน ซึ่งเลือกตามที่อยู่ IP ของอุปกรณ์ Windows, แพ็กไดรเวอร์ และเนื้อหาที่นำเข้าจะถูกอ่านจากโฟลเดอร์ที่แชร์ก่อนอินเทอร์เน็ต และสิ่งที่อุปกรณ์ดาวน์โหลดจะถูกเผยแพร่กลับไปยังโฟลเดอร์นั้น</value>
+    <value>ใช้โฟลเดอร์ที่แชร์ SMB ซึ่งเลือกตามที่อยู่ IP ของอุปกรณ์ เป็นแคชที่ใช้ร่วมกันสำหรับ Foundry Deploy</value>
   </data>
   <data name="NetworkCachePageHeader.Title" xml:space="preserve">
     <value>แคชเครือข่าย</value>
@@ -3218,7 +3293,7 @@
     <value>อาร์กิวเมนต์ PowerShell</value>
   </data>
   <data name="PostInstallation.PxeWarning" xml:space="preserve">
-    <value>การดำเนินการที่ใช้ไฟล์ที่นำเข้าไม่พร้อมใช้งานเมื่อบูตด้วย PXE โดยต้องใช้สื่อ ISO หรือ USB ฉบับเต็ม</value>
+    <value>เมื่อบูตด้วย PXE การดำเนินการที่ใช้ไฟล์ที่นำเข้าต้องใช้แคชเครือข่าย หากไม่มี ให้ใช้สื่อ ISO หรือ USB</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>ไม่สามารถนำการดำเนินการออกได้ ลองอีกครั้ง</value>
@@ -4354,6 +4429,9 @@
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
     <value>กำลังเปิดอิมเมจ Windows…</value>
   </data>
+  <data name="StartMedia.Operation.NetworkCachePublicationFailedFormat" xml:space="preserve">
+    <value>โฟลเดอร์ที่แชร์ของแคชเครือข่ายต่อไปนี้ไม่ได้รับเนื้อหาที่นำเข้า: {0} ตรวจสอบว่าแต่ละโฟลเดอร์เข้าถึงได้และเขียนได้ แล้วเลือก “เผยแพร่” ในหน้าแคชเครือข่าย</value>
+  </data>
   <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
     <value>เปิดโฟลเดอร์</value>
   </data>
@@ -4389,6 +4467,9 @@
   </data>
   <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
     <value>การเตรียมพื้นที่ทำงาน</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.PublishingToNetworkCache" xml:space="preserve">
+    <value>การเผยแพร่ไปยังแคชเครือข่าย</value>
   </data>
   <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
     <value>การอัปเดตไดรฟ์ USB</value>
@@ -4428,6 +4509,12 @@
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>กำลังเพิ่มส่วนประกอบ Foundry ลงในไดรฟ์ USB…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
+    <value>กำลังเผยแพร่เนื้อหาที่นำเข้าไปยังแคชเครือข่าย…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCacheShareFormat" xml:space="preserve">
+    <value>กำลังเผยแพร่เนื้อหาที่นำเข้าไปยัง {0} โฟลเดอร์ที่แชร์ที่ {1} จาก {2}</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
     <value>พื้นที่ว่างในโฟลเดอร์ปลายทางไม่เพียงพอ ไฟล์บูต PXE ต้องใช้ {0} พื้นที่ว่างที่มี: {1} โปรดเพิ่มพื้นที่ว่างหรือเลือกโฟลเดอร์อื่น</value>
@@ -4476,6 +4563,18 @@
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>สร้าง ISO แล้ว</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishCancelled" xml:space="preserve">
+    <value>ยกเลิกการเผยแพร่ไปยังแคชเครือข่ายแล้ว</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishFailed" xml:space="preserve">
+    <value>การเผยแพร่ไปยังแคชเครือข่ายล้มเหลว</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishRunning" xml:space="preserve">
+    <value>กำลังเผยแพร่ไปยังแคชเครือข่าย</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishSucceeded" xml:space="preserve">
+    <value>เผยแพร่ไปยังแคชเครือข่ายแล้ว</value>
   </data>
   <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
     <value>ยกเลิกการสร้างไฟล์ PXE แล้ว</value>

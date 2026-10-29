@@ -812,7 +812,7 @@
     <value>Набори драйвери</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
-    <value>Не е налично при стартиране чрез PXE. Персонализираните драйвери изискват пълния ISO или USB носител.</value>
+    <value>При PXE стартиране персонализираните драйвери изискват мрежовия кеш. Без него използвайте ISO или USB носител.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
     <value>Наборите драйвери на тази конфигурация не са валидни. Проверете включените набори и набора по подразбиране, преди да създадете или актуализирате носител.</value>
@@ -938,7 +938,7 @@
     <value>Операцията с образа е неуспешна. Проверете източника, свободното място и регистрационните файлове на Foundry.</value>
   </data>
   <data name="CustomImages.PxeWarning" xml:space="preserve">
-    <value>Не е налично при стартиране чрез PXE. Персонализираните образи изискват пълния ISO или USB носител.</value>
+    <value>При PXE стартиране персонализираните образи изискват мрежовия кеш. Без него използвайте ISO или USB носител.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Включете поне един наличен образ на Windows в тази конфигурация. Възстановете липсващите включени образи и коригирайте или изчистете избора на предпочитан образ или индекс, преди да създадете или актуализирате носител.</value>
@@ -2819,7 +2819,7 @@
     <value>Потребителско име</value>
   </data>
   <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user или user@domain</value>
+    <value>DOMAIN\user, SERVER\user или user@domain</value>
   </data>
   <data name="NetworkCache.AccountsDescription" xml:space="preserve">
     <value>Акаунти, с които се отварят споделените папки. Устройствата ги използват, за да четат споделена папка и да публикуват изтегленото.</value>
@@ -2827,8 +2827,32 @@
   <data name="NetworkCache.AccountsHeader" xml:space="preserve">
     <value>Акаунти</value>
   </data>
+  <data name="NetworkCache.CleanUpShareFailedMessageFormat" xml:space="preserve">
+    <value>{0} не можа да бъде почистена. Проверете дали споделената папка е достъпна и дали нейният акаунт може да изтрива файлове, след което опитайте отново.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareKeptMessageFormat" xml:space="preserve">
+    <value>{0} е почистена, но някои файлове са запазени, защото се използват, променени са след публикуването им или не са записани от Foundry.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareMessageFormat" xml:space="preserve">
+    <value>Да се изтрият ли изтеглянията в {0} и импортираното съдържание, което вече не се използва нито от конфигурацията ви, нито от публикуван индекс? Устройствата изтеглят отново това, от което се нуждаят.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareTitle" xml:space="preserve">
+    <value>Почистване на споделена папка</value>
+  </data>
   <data name="NetworkCache.ColumnAccount" xml:space="preserve">
     <value>Акаунт</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloads" xml:space="preserve">
+    <value>От интернет</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloadsToolTip" xml:space="preserve">
+    <value>Windows и пакети с драйвери, които устройствата са изтеглили от интернет. Почистването ги изтрива, а устройствата ги изтеглят отново при нужда.</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContent" xml:space="preserve">
+    <value>Импортирано съдържание</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContentToolTip" xml:space="preserve">
+    <value>Персонализирани образи, набори драйвери и скриптове след инсталиране, публикувани от Foundry OSD. Почистването запазва използваните.</value>
   </data>
   <data name="NetworkCache.ColumnName" xml:space="preserve">
     <value>Име</value>
@@ -2860,11 +2884,20 @@
   <data name="NetworkCache.CommandAdd" xml:space="preserve">
     <value>Добавяне</value>
   </data>
+  <data name="NetworkCache.CommandCleanUp" xml:space="preserve">
+    <value>Почистване</value>
+  </data>
   <data name="NetworkCache.CommandEdit" xml:space="preserve">
     <value>Редактиране</value>
   </data>
+  <data name="NetworkCache.CommandPublish" xml:space="preserve">
+    <value>Публикуване</value>
+  </data>
   <data name="NetworkCache.CommandRemove" xml:space="preserve">
     <value>Премахване</value>
+  </data>
+  <data name="NetworkCache.ContentMissingShareFormat" xml:space="preserve">
+    <value>{0} вече не съдържа публикуваното от вас съдържание. Изберете „Публикуване“.</value>
   </data>
   <data name="NetworkCache.DialogAdd" xml:space="preserve">
     <value>Добавяне</value>
@@ -2887,8 +2920,23 @@
   <data name="NetworkCache.NoAccount" xml:space="preserve">
     <value>Без акаунт</value>
   </data>
+  <data name="NetworkCache.NotPublishedMessage" xml:space="preserve">
+    <value>Споделените папки нямат последните ви промени. Изберете „Публикуване“.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedShareFormat" xml:space="preserve">
+    <value>{0} не получи последните ви промени. Изберете „Публикуване“.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedState" xml:space="preserve">
+    <value>Не е публикувано</value>
+  </data>
+  <data name="NetworkCache.OutdatedState" xml:space="preserve">
+    <value>Остаряло</value>
+  </data>
   <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
     <value>Споделени папки: {0}, IP обхвати: {1}</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryWithStateFormat" xml:space="preserve">
+    <value>{0} · {1}</value>
   </data>
   <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
     <value>Тази парола не може да се използва.</value>
@@ -2904,6 +2952,15 @@
   </data>
   <data name="NetworkCache.PasswordSaved" xml:space="preserve">
     <value>Запазена</value>
+  </data>
+  <data name="NetworkCache.PublishFailedMessage" xml:space="preserve">
+    <value>Съдържанието за публикуване не можа да бъде подготвено.</value>
+  </data>
+  <data name="NetworkCache.PublishKeysUnavailableMessage" xml:space="preserve">
+    <value>Този компютър не може да подпише това, което публикува в споделените папки, защото ключът му за подписване не може да бъде прочетен или записан.</value>
+  </data>
+  <data name="NetworkCache.PublishSucceededMessage" xml:space="preserve">
+    <value>Споделените папки имат последните ви промени.</value>
   </data>
   <data name="NetworkCache.Ready" xml:space="preserve">
     <value>Готово</value>
@@ -2945,7 +3002,7 @@
     <value>Споделени папки</value>
   </data>
   <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>Устройствата опитват отметнатите споделени папки отгоре надолу, след което изтеглят от интернет.</value>
+    <value>Устройствата използват първата отметната споделена папка, която отговори, отгоре надолу.</value>
   </data>
   <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
     <value>Отметнете поне една споделена папка.</value>
@@ -2998,6 +3055,24 @@
   <data name="NetworkCache.SharesHeader" xml:space="preserve">
     <value>Споделени папки</value>
   </data>
+  <data name="NetworkCache.SpaceCleaningUp" xml:space="preserve">
+    <value>Почиства се…</value>
+  </data>
+  <data name="NetworkCache.SpaceMeasuring" xml:space="preserve">
+    <value>Измерва се…</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreachable" xml:space="preserve">
+    <value>Недостъпна</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreadable" xml:space="preserve">
+    <value>Не може да бъде прочетена</value>
+  </data>
+  <data name="NetworkCache.TrustedKeyUnavailableMessage" xml:space="preserve">
+    <value>Не може да се създаде носител с включен мрежов кеш, защото този компютър няма доверен ключ за съдържанието, публикувано в споделените папки. Проверете „Споделяне на конфигурацията“ на страницата „Настройки“.</value>
+  </data>
+  <data name="NetworkCache.UpToDateState" xml:space="preserve">
+    <value>Актуално</value>
+  </data>
   <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
     <value>Тази стойност не е валидна за своя тип.</value>
   </data>
@@ -3029,7 +3104,7 @@
     <value>Въведете потребителско име.</value>
   </data>
   <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>Позволява на Foundry Deploy да използва споделени SMB папки като общ кеш, избран според IP адреса на устройството. Windows, пакетите с драйвери и импортираното съдържание се четат от споделената папка преди интернет, а изтегленото от устройствата се публикува обратно в нея.</value>
+    <value>Позволява на Foundry Deploy да използва споделени SMB папки като общ кеш, избран според IP адреса на устройството.</value>
   </data>
   <data name="NetworkCachePageHeader.Title" xml:space="preserve">
     <value>Мрежов кеш</value>
@@ -3218,7 +3293,7 @@
     <value>Аргументи на PowerShell</value>
   </data>
   <data name="PostInstallation.PxeWarning" xml:space="preserve">
-    <value>Действията, които използват импортирани файлове, не са налични при стартиране чрез PXE. Те изискват пълния ISO или USB носител.</value>
+    <value>При PXE стартиране действията, които използват импортирани файлове, изискват мрежовия кеш. Без него използвайте ISO или USB носител.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Действието не можа да бъде премахнато. Опитайте отново.</value>
@@ -4354,6 +4429,9 @@
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
     <value>Отваряне на образа на Windows…</value>
   </data>
+  <data name="StartMedia.Operation.NetworkCachePublicationFailedFormat" xml:space="preserve">
+    <value>Тези споделени папки на мрежовия кеш не получиха импортираното съдържание: {0}. Проверете дали всяка е достъпна и позволява запис, след което изберете „Публикуване“ на страницата „Мрежов кеш“.</value>
+  </data>
   <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
     <value>Отвори папката</value>
   </data>
@@ -4389,6 +4467,9 @@
   </data>
   <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
     <value>Подготовка на работното пространство</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.PublishingToNetworkCache" xml:space="preserve">
+    <value>Публикуване в мрежовия кеш</value>
   </data>
   <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
     <value>Актуализиране на USB диска</value>
@@ -4428,6 +4509,12 @@
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Добавяне на компонентите на Foundry към USB диска…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
+    <value>Публикуване на импортираното съдържание в мрежовия кеш…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCacheShareFormat" xml:space="preserve">
+    <value>Публикуване на импортираното съдържание в {0}, споделена папка {1} от {2}</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
     <value>Няма достатъчно свободно място в целевата папка. PXE файловете за стартиране изискват {0}. Налично: {1}. Освободете място или изберете друга папка.</value>
@@ -4476,6 +4563,18 @@
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO файлът е създаден</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishCancelled" xml:space="preserve">
+    <value>Публикуването в мрежовия кеш е отменено</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishFailed" xml:space="preserve">
+    <value>Публикуването в мрежовия кеш е неуспешно</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishRunning" xml:space="preserve">
+    <value>Публикуване в мрежовия кеш</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishSucceeded" xml:space="preserve">
+    <value>Публикувано в мрежовия кеш</value>
   </data>
   <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
     <value>Създаването на PXE файлове е отменено</value>

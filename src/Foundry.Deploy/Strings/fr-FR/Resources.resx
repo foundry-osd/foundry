@@ -124,6 +124,9 @@ Sous licence MIT.</value>
   <data name="Common.Previous" xml:space="preserve">
     <value>Précédent</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>Réessayer</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Indisponible</value>
   </data>
@@ -684,6 +687,45 @@ Continuer le déploiement ?</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Outils</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>Le partage du cache réseau a refusé cet appareil. Dans Foundry OSD, sur la page Cache réseau, vérifiez le compte du partage et son mot de passe ; sur le serveur, vérifiez les autorisations du partage.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>{0} ne peut pas ouvrir {1}. Dans Foundry OSD, sur la page Cache réseau, vérifiez le mot de passe du compte ; sur le serveur, vérifiez ses autorisations.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>{0} a refusé cet appareil. Dans Foundry OSD, sur la page Cache réseau, définissez un compte pour ce partage ; sur le serveur, vérifiez les autorisations du partage.</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>Ensembles de pilotes</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>Images Windows personnalisées</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>Manquant : {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>Aucune étendue IP ne contient cet appareil. Dans Foundry OSD, sur la page Cache réseau, ajoutez une étendue pour ce réseau ou une étendue 0.0.0.0/0 vers un partage de secours.</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>Aucune étendue IP ne contient cet appareil ({0}). Dans Foundry OSD, sur la page Cache réseau, ajoutez une étendue pour ce réseau ou une étendue 0.0.0.0/0 vers un partage de secours.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>Le contenu publié sur le partage du cache réseau est absent ou incomplet. Dans Foundry OSD, sur la page Cache réseau, sélectionnez « Publier ».</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>Le contenu publié sur {0} est absent ou incomplet. Dans Foundry OSD, sur la page Cache réseau, sélectionnez « Publier ».</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>Cache réseau non disponible</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>Le partage du cache réseau ne répond pas. Sur le serveur, vérifiez que le partage est en ligne et que le port 445 est ouvert.</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>{0} ne répond pas. Sur le serveur, vérifiez que le partage est en ligne et que le port 445 est ouvert.</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Choisissez la version de Windows, la langue, l'édition et le canal de licence.</value>
   </data>
@@ -1053,6 +1095,9 @@ Continuer le déploiement ?</value>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Vérification des conflits disque/cache...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>Contrôle de l'image personnalisée...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>Vérification de l'état de préparation du déploiement...</value>
   </data>
@@ -1092,8 +1137,14 @@ Continuer le déploiement ?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Copie de AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>Copie de l'image personnalisée...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>Copie du paquet de pilotes...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>Copie depuis le cache réseau...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Copie des fichiers d'enregistrement interactif...</value>
@@ -1124,6 +1175,9 @@ Continuer le déploiement ?</value>
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Finalisation du déploiement...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>Finalisation de la copie vers le cache réseau...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Import du hachage matériel dans Microsoft Graph...</value>
@@ -1271,6 +1325,12 @@ Continuer le déploiement ?</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>Extraction</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0} : {1} ({2} restant)</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0} : {1}, {2} en attente ({3} restant)</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0} : {1} %</value>

@@ -36,11 +36,60 @@ public sealed class NetworkCacheTelemetryTests
     }
 
     [Theory]
-    [InlineData(NetworkCacheOutcome.NoMatchingScope, "no_matching_scope")]
-    [InlineData(NetworkCacheOutcome.Unavailable, "unavailable")]
-    public void Describe_UnavailableSession_ReportsOutcome(NetworkCacheOutcome outcome, string expected)
+    [InlineData(NetworkCacheOutcome.NoMatchingScope, NetworkCacheStartupFailureKind.NoScope, "no_scope")]
+    [InlineData(NetworkCacheOutcome.Unavailable, NetworkCacheStartupFailureKind.AccessDenied, "access_denied")]
+    [InlineData(NetworkCacheOutcome.Unavailable, NetworkCacheStartupFailureKind.Unreachable, "unreachable")]
+    public void Describe_SessionWithFailure_ReportsKindWithoutShareOrAccount(NetworkCacheOutcome outcome, NetworkCacheStartupFailureKind kind, string expected)
     {
-        Assert.Equal(expected, NetworkCacheTelemetry.Describe(NetworkCacheSession.Unavailable(outcome))["deploy_network_cache_outcome"]);
+        var failure = new NetworkCacheStartupFailure(kind, @"\\fs01\cache", "CONTOSO\\svc", "10.10.4.2");
+
+        IReadOnlyDictionary<string, object?> properties = NetworkCacheTelemetry.Describe(NetworkCacheSession.Unavailable(outcome, failure));
+
+        Assert.Equal(expected, properties["deploy_network_cache_outcome"]);
+        Assert.DoesNotContain(properties.Values, value => value is string text && (text.Contains("fs01", StringComparison.OrdinalIgnoreCase) ||
+                                                                               text.Contains("svc", StringComparison.OrdinalIgnoreCase) ||
+                                                                               text.Contains("10.10", StringComparison.Ordinal)));
+    }
+
+    [Theory]
+    [InlineData(NetworkCacheStartupFailureKind.NoScope, "no_scope")]
+    [InlineData(NetworkCacheStartupFailureKind.Unreachable, "unreachable")]
+    [InlineData(NetworkCacheStartupFailureKind.AccessDenied, "access_denied")]
+    [InlineData(NetworkCacheStartupFailureKind.NotPublished, "not_published")]
+    [InlineData(NetworkCacheStartupFailureKind.ContentMissing, "content_missing")]
+    public void OutcomeName_StartupFailureKind_IsAnAllowedOutcome(NetworkCacheStartupFailureKind kind, string expected)
+    {
+        string outcome = NetworkCacheTelemetry.OutcomeName(kind);
+
+        Assert.Equal(expected, outcome);
+        IReadOnlyDictionary<string, object?> sent = TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.DeploySessionFinished,
+            new Dictionary<string, object?> { ["deploy_network_cache_outcome"] = outcome });
+        Assert.Equal(expected, sent["deploy_network_cache_outcome"]);
+    }
+
+    [Theory]
+    [InlineData(NetworkCacheStartupFailureKind.NoScope, "no_scope")]
+    [InlineData(NetworkCacheStartupFailureKind.Unreachable, "unreachable")]
+    [InlineData(NetworkCacheStartupFailureKind.AccessDenied, "access_denied")]
+    [InlineData(NetworkCacheStartupFailureKind.NotPublished, "not_published")]
+    [InlineData(NetworkCacheStartupFailureKind.ContentMissing, "content_missing")]
+    public void DescribeBlockedStart_ReportsAFailedSessionWithTheCauseAndNoShareOrAccount(NetworkCacheStartupFailureKind kind, string expected)
+    {
+        var failure = new NetworkCacheStartupFailure(kind, @"\\fs01\cache", "CONTOSO\\svc", "10.10.4.2");
+
+        IReadOnlyDictionary<string, object?> sent = TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.DeploySessionFinished,
+            NetworkCacheTelemetry.DescribeBlockedStart(failure));
+
+        Assert.Equal(expected, sent["deploy_network_cache_outcome"]);
+        Assert.Equal(false, sent["deploy_session_success"]);
+        Assert.Equal(false, sent["deploy_session_cancelled"]);
+        Assert.Equal(0, sent["deploy_session_completed_step_count"]);
+        Assert.Equal(false, sent["deploy_network_cache_writable"]);
+        Assert.Equal(0, sent["deploy_network_cache_downloads_reused"]);
+        Assert.Matches("^[0-9a-f]{32}$", Assert.IsType<string>(sent["operation_id"]));
+        Assert.DoesNotContain(sent.Values, value => value is string text && (text.Contains("fs01", StringComparison.OrdinalIgnoreCase) ||
+                                                                         text.Contains("svc", StringComparison.OrdinalIgnoreCase) ||
+                                                                         text.Contains("10.10", StringComparison.Ordinal)));
     }
 
     [Fact]

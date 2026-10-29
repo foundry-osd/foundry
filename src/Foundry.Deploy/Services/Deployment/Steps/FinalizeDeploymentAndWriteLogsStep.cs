@@ -14,8 +14,12 @@ public sealed class FinalizeDeploymentAndWriteLogsStep(
     INetworkCacheSessionAccessor? networkCacheAccessor = null) : DeploymentStepBase
 {
     private static readonly TimeSpan NetworkCacheDrainLimit = TimeSpan.FromMinutes(2);
+    private static readonly TimeSpan UploadProgressInterval = TimeSpan.FromMilliseconds(100);
 
     public override string Name => DeploymentStepNames.FinalizeDeploymentAndWriteLogs;
+
+    /// <summary>Gets the time queued network cache uploads get before the workspace is cleaned; two minutes outside tests.</summary>
+    internal TimeSpan DrainLimit { get; init; } = NetworkCacheDrainLimit;
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
@@ -36,10 +40,53 @@ public sealed class FinalizeDeploymentAndWriteLogsStep(
         if (networkCachePublisher is not null)
         {
             context.EmitCurrentStepIndeterminate("Finalizing deployment...", "Writing completion logs...", DeploymentOperationNames.WriteLogs);
-            await networkCachePublisher.DrainAsync(NetworkCacheDrainLimit, cancellationToken).ConfigureAwait(false);
+            DateTimeOffset deadline = DateTimeOffset.UtcNow + DrainLimit;
+            Task drain = networkCachePublisher.DrainAsync(DrainLimit, cancellationToken);
+            // While an upload is still running, the step says so with its progress and the time left, like the Autopilot upload.
+            // Running out of time is not shown: the next device downloads the file again, and the log records it. Once the
+            // deadline passes, the publisher only waits a short grace period for the abandoned upload, so the step goes back
+            // to its own status instead of showing a countdown at zero.
+            bool showsUpload = false;
+            while (!drain.IsCompleted)
+            {
+                TimeSpan remaining = deadline - DateTimeOffset.UtcNow;
+                if (remaining > TimeSpan.Zero && networkCachePublisher.CurrentUpload is { } upload)
+                {
+                    context.EmitCurrentStep(DeploymentStepState.Running, "Finishing the copy to the network cache...",
+                        Percent(upload), stepSubProgressIndeterminate: upload.TotalBytes <= 0, FormatUpload(upload, remaining));
+                    showsUpload = true;
+                }
+                else if (showsUpload && remaining <= TimeSpan.Zero)
+                {
+                    context.EmitCurrentStepIndeterminate("Finalizing deployment...", "Writing completion logs...", DeploymentOperationNames.WriteLogs);
+                    showsUpload = false;
+                }
+
+                await Task.WhenAny(drain, Task.Delay(UploadProgressInterval, cancellationToken)).ConfigureAwait(false);
+            }
+
+            await drain.ConfigureAwait(false);
         }
 
         networkCacheAccessor?.Current?.Dispose();
+    }
+
+    private static double? Percent(NetworkCacheUploadStatus upload) =>
+        upload.TotalBytes > 0 ? Math.Min(100d, upload.BytesCopied * 100d / upload.TotalBytes) : null;
+
+    /// <summary>
+    /// Formats the invariant upload line: progress of the current file, files still waiting, and the time left before Deploy
+    /// moves on. <see cref="Foundry.Deploy.Services.Localization.DeploymentUiTextLocalizer"/> parses this exact shape to show it in the UI language.
+    /// </summary>
+    internal static string FormatUpload(NetworkCacheUploadStatus upload, TimeSpan remaining)
+    {
+        double seconds = Math.Max(0, Math.Ceiling(remaining.TotalSeconds));
+        string timeLeft = seconds == 1 ? "1 second" : $"{seconds:0} seconds";
+        string progress = upload.TotalBytes > 0
+            ? $"{Percent(upload):0.#}% ({DeploymentStepExecutionContext.FormatByteSize(upload.BytesCopied)} / {DeploymentStepExecutionContext.FormatByteSize(upload.TotalBytes)})"
+            : DeploymentStepExecutionContext.FormatByteSize(upload.BytesCopied);
+        string waiting = upload.FilesWaiting > 0 ? $", {upload.FilesWaiting} more" : string.Empty;
+        return $"{upload.FileName}: {progress}{waiting} ({timeLeft} remaining)";
     }
 
     protected override Task<DeploymentStepResult> ExecuteDryRunAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)

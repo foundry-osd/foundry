@@ -812,7 +812,7 @@ Licencované podľa licencie MIT.</value>
     <value>Sady ovládačov</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
-    <value>Nie je k dispozícii pri spustení cez PXE. Vlastné ovládače vyžadujú úplné médium ISO alebo USB.</value>
+    <value>Pri spustení cez PXE vyžadujú vlastné ovládače sieťovú vyrovnávaciu pamäť. Bez nej použite médium ISO alebo USB.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
     <value>Sady ovládačov tejto konfigurácie nie sú platné. Pred vytvorením alebo aktualizáciou média skontrolujte zahrnuté sady a predvolenú sadu.</value>
@@ -938,7 +938,7 @@ Licencované podľa licencie MIT.</value>
     <value>Operácia s obrazom zlyhala. Skontrolujte zdroj, voľné miesto a denníky Foundry.</value>
   </data>
   <data name="CustomImages.PxeWarning" xml:space="preserve">
-    <value>Nie je k dispozícii pri spustení cez PXE. Vlastné obrazy vyžadujú úplné médium ISO alebo USB.</value>
+    <value>Pri spustení cez PXE vyžadujú vlastné obrazy sieťovú vyrovnávaciu pamäť. Bez nej použite médium ISO alebo USB.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Zahrňte do tejto konfigurácie aspoň jeden dostupný obraz systému Windows. Pred vytvorením alebo aktualizáciou média obnovte chýbajúce zahrnuté obrazy a opravte alebo zrušte výber preferovaného obrazu alebo indexu.</value>
@@ -2819,7 +2819,7 @@ Licencované podľa licencie MIT.</value>
     <value>Meno používateľa</value>
   </data>
   <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user alebo user@domain</value>
+    <value>DOMAIN\user, SERVER\user alebo user@domain</value>
   </data>
   <data name="NetworkCache.AccountsDescription" xml:space="preserve">
     <value>Kontá, ktoré otvárajú zdieľané priečinky. Zariadenia ich používajú na čítanie zdieľaného priečinka a na publikovanie toho, čo stiahnu.</value>
@@ -2827,8 +2827,32 @@ Licencované podľa licencie MIT.</value>
   <data name="NetworkCache.AccountsHeader" xml:space="preserve">
     <value>Kontá</value>
   </data>
+  <data name="NetworkCache.CleanUpShareFailedMessageFormat" xml:space="preserve">
+    <value>Priečinok {0} sa nepodarilo vyčistiť. Skontrolujte, či je zdieľaný priečinok dostupný a či jeho konto môže odstraňovať súbory, a potom to skúste znova.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareKeptMessageFormat" xml:space="preserve">
+    <value>Priečinok {0} bol vyčistený, no niektoré súbory sa ponechali, pretože sa používajú, od publikovania sa zmenili alebo ich nezapísal Foundry.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareMessageFormat" xml:space="preserve">
+    <value>Odstrániť stiahnuté súbory v priečinku {0} a importovaný obsah, ktorý už nepoužíva vaša konfigurácia ani žiadny publikovaný index? Zariadenia si znova stiahnu, čo potrebujú.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareTitle" xml:space="preserve">
+    <value>Vyčistiť zdieľaný priečinok</value>
+  </data>
   <data name="NetworkCache.ColumnAccount" xml:space="preserve">
     <value>Konto</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloads" xml:space="preserve">
+    <value>Z internetu</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloadsToolTip" xml:space="preserve">
+    <value>Windows a balíky ovládačov, ktoré zariadenia stiahli z internetu. Vyčistenie ich odstráni a zariadenia ich v prípade potreby stiahnu znova.</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContent" xml:space="preserve">
+    <value>Importovaný obsah</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContentToolTip" xml:space="preserve">
+    <value>Vlastné obrazy, sady ovládačov a skripty po inštalácii publikované aplikáciou Foundry OSD. Vyčistenie ponechá tie, ktoré sa stále používajú.</value>
   </data>
   <data name="NetworkCache.ColumnName" xml:space="preserve">
     <value>Názov</value>
@@ -2860,11 +2884,20 @@ Licencované podľa licencie MIT.</value>
   <data name="NetworkCache.CommandAdd" xml:space="preserve">
     <value>Pridať</value>
   </data>
+  <data name="NetworkCache.CommandCleanUp" xml:space="preserve">
+    <value>Vyčistiť</value>
+  </data>
   <data name="NetworkCache.CommandEdit" xml:space="preserve">
     <value>Upraviť</value>
   </data>
+  <data name="NetworkCache.CommandPublish" xml:space="preserve">
+    <value>Publikovať</value>
+  </data>
   <data name="NetworkCache.CommandRemove" xml:space="preserve">
     <value>Odstrániť</value>
+  </data>
+  <data name="NetworkCache.ContentMissingShareFormat" xml:space="preserve">
+    <value>Priečinok {0} už neobsahuje váš publikovaný obsah. Vyberte Publikovať.</value>
   </data>
   <data name="NetworkCache.DialogAdd" xml:space="preserve">
     <value>Pridať</value>
@@ -2887,8 +2920,23 @@ Licencované podľa licencie MIT.</value>
   <data name="NetworkCache.NoAccount" xml:space="preserve">
     <value>Žiadne konto</value>
   </data>
+  <data name="NetworkCache.NotPublishedMessage" xml:space="preserve">
+    <value>Zdieľané priečinky nemajú vaše najnovšie zmeny. Vyberte Publikovať.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedShareFormat" xml:space="preserve">
+    <value>Priečinok {0} neprijal vaše najnovšie zmeny. Vyberte Publikovať.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedState" xml:space="preserve">
+    <value>Nepublikované</value>
+  </data>
+  <data name="NetworkCache.OutdatedState" xml:space="preserve">
+    <value>Zastarané</value>
+  </data>
   <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
     <value>Zdieľané priečinky: {0}, obory IP: {1}</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryWithStateFormat" xml:space="preserve">
+    <value>{0} · {1}</value>
   </data>
   <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
     <value>Toto heslo nie je možné použiť.</value>
@@ -2904,6 +2952,15 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="NetworkCache.PasswordSaved" xml:space="preserve">
     <value>Uložené</value>
+  </data>
+  <data name="NetworkCache.PublishFailedMessage" xml:space="preserve">
+    <value>Obsah na publikovanie sa nepodarilo pripraviť.</value>
+  </data>
+  <data name="NetworkCache.PublishKeysUnavailableMessage" xml:space="preserve">
+    <value>Tento počítač nemôže podpísať obsah, ktorý publikuje do zdieľaných priečinkov, pretože jeho podpisový kľúč nebolo možné prečítať ani uložiť.</value>
+  </data>
+  <data name="NetworkCache.PublishSucceededMessage" xml:space="preserve">
+    <value>Zdieľané priečinky majú vaše najnovšie zmeny.</value>
   </data>
   <data name="NetworkCache.Ready" xml:space="preserve">
     <value>Pripravené</value>
@@ -2945,7 +3002,7 @@ Licencované podľa licencie MIT.</value>
     <value>Zdieľané priečinky</value>
   </data>
   <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>Zariadenia skúšajú začiarknuté zdieľané priečinky zhora nadol a potom sťahujú z internetu.</value>
+    <value>Zariadenia použijú prvý začiarknutý zdieľaný priečinok, ktorý odpovie, zhora nadol.</value>
   </data>
   <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
     <value>Začiarknite aspoň jeden zdieľaný priečinok.</value>
@@ -2998,6 +3055,24 @@ Licencované podľa licencie MIT.</value>
   <data name="NetworkCache.SharesHeader" xml:space="preserve">
     <value>Zdieľané priečinky</value>
   </data>
+  <data name="NetworkCache.SpaceCleaningUp" xml:space="preserve">
+    <value>Čistí sa…</value>
+  </data>
+  <data name="NetworkCache.SpaceMeasuring" xml:space="preserve">
+    <value>Meria sa…</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreachable" xml:space="preserve">
+    <value>Nedostupné</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreadable" xml:space="preserve">
+    <value>Nedá sa prečítať</value>
+  </data>
+  <data name="NetworkCache.TrustedKeyUnavailableMessage" xml:space="preserve">
+    <value>Médium so zapnutou sieťovou vyrovnávacou pamäťou nie je možné vytvoriť, pretože tento počítač nemá dôveryhodný kľúč pre obsah publikovaný do zdieľaných priečinkov. Skontrolujte Zdieľanie konfigurácie na stránke Nastavenia.</value>
+  </data>
+  <data name="NetworkCache.UpToDateState" xml:space="preserve">
+    <value>Aktuálne</value>
+  </data>
   <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
     <value>Táto hodnota nie je platná pre svoj typ.</value>
   </data>
@@ -3029,7 +3104,7 @@ Licencované podľa licencie MIT.</value>
     <value>Zadajte meno používateľa.</value>
   </data>
   <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>Umožňuje nástroju Foundry Deploy používať zdieľané priečinky SMB ako zdieľanú vyrovnávaciu pamäť vybranú podľa IP adresy zariadenia. Windows, balíky ovládačov a importovaný obsah sa čítajú zo zdieľaného priečinka pred internetom a to, čo zariadenia stiahnu, sa doň publikuje späť.</value>
+    <value>Umožňuje nástroju Foundry Deploy používať zdieľané priečinky SMB ako zdieľanú vyrovnávaciu pamäť vybranú podľa IP adresy zariadenia.</value>
   </data>
   <data name="NetworkCachePageHeader.Title" xml:space="preserve">
     <value>Sieťová vyrovnávacia pamäť</value>
@@ -3218,7 +3293,7 @@ Licencované podľa licencie MIT.</value>
     <value>Argumenty PowerShellu</value>
   </data>
   <data name="PostInstallation.PxeWarning" xml:space="preserve">
-    <value>Akcie, ktoré používajú importované súbory, nie sú pri spustení cez PXE k dispozícii. Vyžadujú úplné médium ISO alebo USB.</value>
+    <value>Pri spustení cez PXE vyžadujú akcie, ktoré používajú importované súbory, sieťovú vyrovnávaciu pamäť. Bez nej použite médium ISO alebo USB.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Akciu sa nepodarilo odstrániť. Skúste to znova.</value>
@@ -4354,6 +4429,9 @@ Licencované podľa licencie MIT.</value>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
     <value>Otvára sa obraz Windows…</value>
   </data>
+  <data name="StartMedia.Operation.NetworkCachePublicationFailedFormat" xml:space="preserve">
+    <value>Tieto zdieľané priečinky sieťovej vyrovnávacej pamäte neprijali importovaný obsah: {0}. Overte, že je každý dostupný a zapisovateľný, a potom na stránke Sieťová vyrovnávacia pamäť vyberte Publikovať.</value>
+  </data>
   <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
     <value>Otvoriť priečinok</value>
   </data>
@@ -4389,6 +4467,9 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
     <value>Príprava pracovného priestoru</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.PublishingToNetworkCache" xml:space="preserve">
+    <value>Publikovanie do sieťovej vyrovnávacej pamäte</value>
   </data>
   <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
     <value>Aktualizácia disku USB</value>
@@ -4428,6 +4509,12 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Pridávajú sa komponenty Foundry na disk USB…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
+    <value>Publikovanie importovaného obsahu do sieťovej vyrovnávacej pamäte…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCacheShareFormat" xml:space="preserve">
+    <value>Publikovanie importovaného obsahu do {0}, zdieľaný priečinok {1} z {2}</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
     <value>V cieľovom priečinku nie je dostatok voľného miesta. Zavádzacie súbory PXE potrebujú {0}. Dostupné: {1}. Uvoľnite miesto alebo vyberte iný priečinok.</value>
@@ -4476,6 +4563,18 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO bolo vytvorené</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishCancelled" xml:space="preserve">
+    <value>Publikovanie do sieťovej vyrovnávacej pamäte bolo zrušené</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishFailed" xml:space="preserve">
+    <value>Publikovanie do sieťovej vyrovnávacej pamäte zlyhalo</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishRunning" xml:space="preserve">
+    <value>Publikovanie do sieťovej vyrovnávacej pamäte</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishSucceeded" xml:space="preserve">
+    <value>Publikované do sieťovej vyrovnávacej pamäte</value>
   </data>
   <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
     <value>Vytváranie súborov PXE bolo zrušené</value>

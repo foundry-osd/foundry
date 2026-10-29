@@ -54,6 +54,47 @@ public sealed class PxeMissingContentTests
         Assert.False(missing.HasAny);
     }
 
+    [Fact]
+    public void Evaluate_ReportsNothingMissingWhenTheNetworkCacheHasAShare()
+    {
+        FoundryConfigurationDocument configuration = CreateConfigurationWithImportedContent() with
+        {
+            NetworkCache = new NetworkCacheSettings { IsEnabled = true, Shares = [new NetworkCacheShare { Id = "s1", Path = @"\\fs01\cache" }] }
+        };
+
+        PxeMissingContent missing = PxeMissingContent.Evaluate(configuration);
+
+        Assert.True(PxeMissingContent.IsServedByNetworkCache(configuration));
+        Assert.Equal(new PxeMissingContent(0, 0, 0), missing);
+    }
+
+    [Theory]
+    [InlineData(false, true)]
+    [InlineData(true, false)]
+    public void Evaluate_CountsContentWhenTheNetworkCacheCannotServeIt(bool isEnabled, bool hasShare)
+    {
+        FoundryConfigurationDocument configuration = CreateConfigurationWithImportedContent() with
+        {
+            NetworkCache = new NetworkCacheSettings
+            {
+                IsEnabled = isEnabled,
+                Shares = hasShare ? [new NetworkCacheShare { Id = "s1", Path = @"\\fs01\cache" }] : []
+            }
+        };
+
+        PxeMissingContent missing = PxeMissingContent.Evaluate(configuration);
+
+        Assert.False(PxeMissingContent.IsServedByNetworkCache(configuration));
+        Assert.Equal(new PxeMissingContent(1, 1, 1), missing);
+    }
+
+    private static FoundryConfigurationDocument CreateConfigurationWithImportedContent() => new()
+    {
+        CustomImages = new CustomImagesSettings { IsEnabled = true, Images = [new CustomImageReference { Id = "a" }] },
+        CustomDrivers = new CustomDriverSetsSettings { IsEnabled = true, Sets = [new CustomDriverSetReference { Id = "a" }] },
+        PreOobe = new PreOobeSettings { IsEnabled = true, Actions = [CreateAction(withPackage: true)] }
+    };
+
     private static PreOobeActionSettings CreateAction(bool withPackage) =>
         PreOobeActionSettings.Create(withPackage ? PreOobeActionKind.Application : PreOobeActionKind.Command, "Action") with
         {

@@ -812,7 +812,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Treibersätze</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
-    <value>Nicht verfügbar bei PXE-Start. Benutzerdefinierte Treiber erfordern das vollständige ISO- oder USB-Medium.</value>
+    <value>Beim PXE-Start benötigen benutzerdefinierte Treiber den Netzwerkcache. Verwenden Sie ohne ihn ISO- oder USB-Medien.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
     <value>Die Treibersätze dieser Konfiguration sind ungültig. Prüfen Sie die enthaltenen Sätze und den Standardsatz, bevor Sie Medien erstellen oder aktualisieren.</value>
@@ -938,7 +938,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Der Abbildvorgang ist fehlgeschlagen. Prüfen Sie die Quelle, den verfügbaren Speicherplatz und die Foundry-Protokolle.</value>
   </data>
   <data name="CustomImages.PxeWarning" xml:space="preserve">
-    <value>Nicht verfügbar bei PXE-Start. Benutzerdefinierte Abbilder erfordern das vollständige ISO- oder USB-Medium.</value>
+    <value>Beim PXE-Start benötigen benutzerdefinierte Abbilder den Netzwerkcache. Verwenden Sie ohne ihn ISO- oder USB-Medien.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Nehmen Sie mindestens ein verfügbares Windows-Abbild in diese Konfiguration auf. Stellen Sie fehlende enthaltene Abbilder wieder her und korrigieren oder löschen Sie die Auswahl des bevorzugten Abbilds oder Index, bevor Sie Medien erstellen oder aktualisieren.</value>
@@ -2819,7 +2819,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Benutzername</value>
   </data>
   <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user oder user@domain</value>
+    <value>DOMAIN\user, SERVER\user oder user@domain</value>
   </data>
   <data name="NetworkCache.AccountsDescription" xml:space="preserve">
     <value>Konten, mit denen Freigaben geöffnet werden. Geräte verwenden sie, um eine Freigabe zu lesen und ihre Downloads dort zu veröffentlichen.</value>
@@ -2827,8 +2827,32 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="NetworkCache.AccountsHeader" xml:space="preserve">
     <value>Konten</value>
   </data>
+  <data name="NetworkCache.CleanUpShareFailedMessageFormat" xml:space="preserve">
+    <value>{0} konnte nicht bereinigt werden. Prüfen Sie, ob die Freigabe erreichbar ist und ihr Konto Dateien löschen kann, und versuchen Sie es dann erneut.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareKeptMessageFormat" xml:space="preserve">
+    <value>{0} wurde bereinigt, aber einige Dateien wurden beibehalten, weil sie verwendet werden, seit ihrer Veröffentlichung geändert wurden oder nicht von Foundry geschrieben wurden.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareMessageFormat" xml:space="preserve">
+    <value>Die Downloads auf {0} und die importierten Inhalte löschen, die weder Ihre Konfiguration noch ein veröffentlichter Index noch verwendet? Geräte laden erneut herunter, was sie benötigen.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareTitle" xml:space="preserve">
+    <value>Freigabe bereinigen</value>
+  </data>
   <data name="NetworkCache.ColumnAccount" xml:space="preserve">
     <value>Konto</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloads" xml:space="preserve">
+    <value>Aus dem Internet</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloadsToolTip" xml:space="preserve">
+    <value>Windows und Treiberpakete, die Geräte aus dem Internet heruntergeladen haben. Die Bereinigung löscht sie, und die Geräte laden sie bei Bedarf erneut herunter.</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContent" xml:space="preserve">
+    <value>Importierte Inhalte</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContentToolTip" xml:space="preserve">
+    <value>Benutzerdefinierte Images, Treibersätze und Skripts nach der Installation, die Foundry OSD veröffentlicht hat. Die Bereinigung behält die noch verwendeten.</value>
   </data>
   <data name="NetworkCache.ColumnName" xml:space="preserve">
     <value>Name</value>
@@ -2860,11 +2884,20 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="NetworkCache.CommandAdd" xml:space="preserve">
     <value>Hinzufügen</value>
   </data>
+  <data name="NetworkCache.CommandCleanUp" xml:space="preserve">
+    <value>Bereinigen</value>
+  </data>
   <data name="NetworkCache.CommandEdit" xml:space="preserve">
     <value>Bearbeiten</value>
   </data>
+  <data name="NetworkCache.CommandPublish" xml:space="preserve">
+    <value>Veröffentlichen</value>
+  </data>
   <data name="NetworkCache.CommandRemove" xml:space="preserve">
     <value>Entfernen</value>
+  </data>
+  <data name="NetworkCache.ContentMissingShareFormat" xml:space="preserve">
+    <value>{0} enthält Ihre veröffentlichten Inhalte nicht mehr. Wählen Sie „Veröffentlichen“ aus.</value>
   </data>
   <data name="NetworkCache.DialogAdd" xml:space="preserve">
     <value>Hinzufügen</value>
@@ -2887,8 +2920,23 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="NetworkCache.NoAccount" xml:space="preserve">
     <value>Kein Konto</value>
   </data>
+  <data name="NetworkCache.NotPublishedMessage" xml:space="preserve">
+    <value>Die Freigaben enthalten Ihre neuesten Änderungen nicht. Wählen Sie „Veröffentlichen“ aus.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedShareFormat" xml:space="preserve">
+    <value>{0} hat Ihre neuesten Änderungen nicht erhalten. Wählen Sie „Veröffentlichen“ aus.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedState" xml:space="preserve">
+    <value>Nicht veröffentlicht</value>
+  </data>
+  <data name="NetworkCache.OutdatedState" xml:space="preserve">
+    <value>Veraltet</value>
+  </data>
   <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
     <value>Freigaben: {0}, IP-Bereiche: {1}</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryWithStateFormat" xml:space="preserve">
+    <value>{0} · {1}</value>
   </data>
   <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
     <value>Dieses Kennwort kann nicht verwendet werden.</value>
@@ -2904,6 +2952,15 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="NetworkCache.PasswordSaved" xml:space="preserve">
     <value>Gespeichert</value>
+  </data>
+  <data name="NetworkCache.PublishFailedMessage" xml:space="preserve">
+    <value>Die zu veröffentlichenden Inhalte konnten nicht vorbereitet werden.</value>
+  </data>
+  <data name="NetworkCache.PublishKeysUnavailableMessage" xml:space="preserve">
+    <value>Dieser PC kann nicht signieren, was er auf den Freigaben veröffentlicht, weil sein Signaturschlüssel nicht gelesen oder gespeichert werden konnte.</value>
+  </data>
+  <data name="NetworkCache.PublishSucceededMessage" xml:space="preserve">
+    <value>Die Freigaben enthalten Ihre neuesten Änderungen.</value>
   </data>
   <data name="NetworkCache.Ready" xml:space="preserve">
     <value>Bereit</value>
@@ -2945,7 +3002,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Freigaben</value>
   </data>
   <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>Geräte versuchen die ausgewählten Freigaben von oben nach unten und laden dann aus dem Internet herunter.</value>
+    <value>Geräte verwenden die erste ausgewählte Freigabe, die antwortet, von oben nach unten.</value>
   </data>
   <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
     <value>Wählen Sie mindestens eine Freigabe aus.</value>
@@ -2998,6 +3055,24 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="NetworkCache.SharesHeader" xml:space="preserve">
     <value>Freigaben</value>
   </data>
+  <data name="NetworkCache.SpaceCleaningUp" xml:space="preserve">
+    <value>Wird bereinigt…</value>
+  </data>
+  <data name="NetworkCache.SpaceMeasuring" xml:space="preserve">
+    <value>Wird gemessen…</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreachable" xml:space="preserve">
+    <value>Nicht erreichbar</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreadable" xml:space="preserve">
+    <value>Nicht lesbar</value>
+  </data>
+  <data name="NetworkCache.TrustedKeyUnavailableMessage" xml:space="preserve">
+    <value>Medien mit aktiviertem Netzwerkcache können nicht erstellt werden, weil dieser PC keinen vertrauenswürdigen Schlüssel für die auf den Freigaben veröffentlichten Inhalte hat. Prüfen Sie „Konfigurationsfreigabe“ auf der Seite „Einstellungen“.</value>
+  </data>
+  <data name="NetworkCache.UpToDateState" xml:space="preserve">
+    <value>Aktuell</value>
+  </data>
   <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
     <value>Dieser Wert ist für seinen Typ ungültig.</value>
   </data>
@@ -3029,7 +3104,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Geben Sie einen Benutzernamen ein.</value>
   </data>
   <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>Ermöglicht Foundry Deploy, SMB-Freigaben als gemeinsamen Cache zu verwenden, ausgewählt anhand der IP-Adresse des Geräts. Windows, Treiberpakete und importierte Inhalte werden vor dem Internet aus der Freigabe gelesen, und was Geräte herunterladen, wird dorthin zurück veröffentlicht.</value>
+    <value>Ermöglicht Foundry Deploy, SMB-Freigaben als gemeinsamen Cache zu verwenden, ausgewählt anhand der IP-Adresse des Geräts.</value>
   </data>
   <data name="NetworkCachePageHeader.Title" xml:space="preserve">
     <value>Netzwerkcache</value>
@@ -3218,7 +3293,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>PowerShell-Argumente</value>
   </data>
   <data name="PostInstallation.PxeWarning" xml:space="preserve">
-    <value>Aktionen, die importierte Dateien verwenden, sind bei PXE-Start nicht verfügbar. Sie erfordern das vollständige ISO- oder USB-Medium.</value>
+    <value>Beim PXE-Start benötigen Aktionen, die importierte Dateien verwenden, den Netzwerkcache. Verwenden Sie ohne ihn ISO- oder USB-Medien.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Die Aktion konnte nicht entfernt werden. Versuchen Sie es erneut.</value>
@@ -4354,6 +4429,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
     <value>Windows-Abbild wird geöffnet…</value>
   </data>
+  <data name="StartMedia.Operation.NetworkCachePublicationFailedFormat" xml:space="preserve">
+    <value>Diese Freigaben des Netzwerkcaches haben die importierten Inhalte nicht erhalten: {0}. Prüfen Sie, ob jede Freigabe erreichbar und beschreibbar ist, und wählen Sie dann auf der Seite „Netzwerkcache“ „Veröffentlichen“ aus.</value>
+  </data>
   <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
     <value>Ordner öffnen</value>
   </data>
@@ -4389,6 +4467,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
     <value>Vorbereiten des Arbeitsbereichs</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.PublishingToNetworkCache" xml:space="preserve">
+    <value>Veröffentlichung im Netzwerkcache</value>
   </data>
   <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
     <value>Aktualisieren des USB-Laufwerks</value>
@@ -4428,6 +4509,12 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Foundry-Komponenten werden dem USB-Laufwerk hinzugefügt…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
+    <value>Importierte Inhalte werden im Netzwerkcache veröffentlicht…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCacheShareFormat" xml:space="preserve">
+    <value>Importierte Inhalte werden in {0} veröffentlicht, Freigabe {1} von {2}</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
     <value>Nicht genügend freier Speicherplatz im Zielordner. Die PXE-Startdateien benötigen {0}. Verfügbar: {1}. Geben Sie Speicherplatz frei oder wählen Sie einen anderen Ordner.</value>
@@ -4476,6 +4563,18 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO erstellt</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishCancelled" xml:space="preserve">
+    <value>Veröffentlichung im Netzwerkcache abgebrochen</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishFailed" xml:space="preserve">
+    <value>Veröffentlichung im Netzwerkcache fehlgeschlagen</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishRunning" xml:space="preserve">
+    <value>Veröffentlichung im Netzwerkcache</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishSucceeded" xml:space="preserve">
+    <value>Im Netzwerkcache veröffentlicht</value>
   </data>
   <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
     <value>PXE-Dateierstellung abgebrochen</value>

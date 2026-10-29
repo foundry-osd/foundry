@@ -124,6 +124,9 @@
   <data name="Common.Previous" xml:space="preserve">
     <value>السابق</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>إعادة المحاولة</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>غير متاح</value>
   </data>
@@ -684,6 +687,45 @@
   <data name="Menu.Tools" xml:space="preserve">
     <value>_الأدوات</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>رفضت مشاركة ذاكرة التخزين المؤقت للشبكة هذا الجهاز. في Foundry OSD، في صفحة "ذاكرة التخزين المؤقت للشبكة"، تحقق من حساب المشاركة وكلمة المرور الخاصة به؛ وعلى الخادم، تحقق من أذونات المشاركة.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>لا يمكن لـ {0} فتح {1}. في Foundry OSD، في صفحة "ذاكرة التخزين المؤقت للشبكة"، تحقق من كلمة مرور الحساب؛ وعلى الخادم، تحقق من أذوناته.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>رفض {0} هذا الجهاز. في Foundry OSD، في صفحة "ذاكرة التخزين المؤقت للشبكة"، عيّن حسابًا لهذه المشاركة؛ وعلى الخادم، تحقق من أذونات المشاركة.</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>مجموعات برامج التشغيل</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>صور Windows المخصصة</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>مفقود: {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>لا يوجد نطاق IP يحتوي على هذا الجهاز. في Foundry OSD، في صفحة "ذاكرة التخزين المؤقت للشبكة"، أضف نطاقًا لهذه الشبكة أو نطاق 0.0.0.0/0 إلى مشاركة احتياطية.</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>لا يوجد نطاق IP يحتوي على هذا الجهاز ({0}). في Foundry OSD، في صفحة "ذاكرة التخزين المؤقت للشبكة"، أضف نطاقًا لهذه الشبكة أو نطاق 0.0.0.0/0 إلى مشاركة احتياطية.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>المحتوى المنشور على مشاركة ذاكرة التخزين المؤقت للشبكة مفقود أو غير مكتمل. في Foundry OSD، في صفحة "ذاكرة التخزين المؤقت للشبكة"، حدد "نشر".</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>المحتوى المنشور على {0} مفقود أو غير مكتمل. في Foundry OSD، في صفحة "ذاكرة التخزين المؤقت للشبكة"، حدد "نشر".</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>ذاكرة التخزين المؤقت للشبكة غير متاحة</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>مشاركة ذاكرة التخزين المؤقت للشبكة لا تستجيب. على الخادم، تحقق من أن المشاركة متصلة وأن المنفذ 445 مفتوح.</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>{0} لا يستجيب. على الخادم، تحقق من أن المشاركة متصلة وأن المنفذ 445 مفتوح.</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>اختر إصدار Windows واللغة والنسخة وقناة الترخيص.</value>
   </data>
@@ -1053,6 +1095,9 @@
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>جارٍ التحقق من تعارض قرص ذاكرة التخزين المؤقت...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>جارٍ فحص الصورة المخصصة...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>جارٍ التحقق من الجاهزية للنشر...</value>
   </data>
@@ -1092,8 +1137,14 @@
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>جارٍ نسخ AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>جارٍ نسخ الصورة المخصصة...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>جارٍ نسخ حزمة برامج التشغيل...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>جارٍ النسخ من ذاكرة التخزين المؤقت للشبكة...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>جارٍ نسخ ملفات التسجيل التفاعلي...</value>
@@ -1124,6 +1175,9 @@
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>الانتهاء من النشر...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>جارٍ إنهاء النسخ إلى ذاكرة التخزين المؤقت للشبكة...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>جارٍ استيراد تجزئة الأجهزة إلى Microsoft Graph...</value>
@@ -1271,6 +1325,12 @@
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>استخراج</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}: {1} ({2} المتبقية)</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}: {1}، {2} أخرى ({3} المتبقية)</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

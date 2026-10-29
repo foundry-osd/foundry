@@ -124,6 +124,9 @@ Licențiat sub licența MIT.</value>
   <data name="Common.Previous" xml:space="preserve">
     <value>Înapoi</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>Reîncearcă</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Indisponibil</value>
   </data>
@@ -684,6 +687,45 @@ Continuați cu implementarea?</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Instrumente</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>Partajarea cache-ului de rețea a refuzat acest dispozitiv. În Foundry OSD, pe pagina Cache de rețea, verificați contul partajării și parola acestuia; pe server, verificați permisiunile partajării.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>{0} nu poate deschide {1}. În Foundry OSD, pe pagina Cache de rețea, verificați parola contului; pe server, verificați permisiunile acestuia.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>{0} a refuzat acest dispozitiv. În Foundry OSD, pe pagina Cache de rețea, setați un cont pentru această partajare; pe server, verificați permisiunile partajării.</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>Seturi de drivere</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>Imagini Windows personalizate</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>Lipsă: {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>Nicio zonă IP nu conține acest dispozitiv. În Foundry OSD, pe pagina Cache de rețea, adăugați o zonă pentru această rețea sau o zonă 0.0.0.0/0 cu o partajare de rezervă.</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>Nicio zonă IP nu conține acest dispozitiv ({0}). În Foundry OSD, pe pagina Cache de rețea, adăugați o zonă pentru această rețea sau o zonă 0.0.0.0/0 cu o partajare de rezervă.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>Conținutul publicat pe partajarea cache-ului de rețea lipsește sau este incomplet. În Foundry OSD, pe pagina Cache de rețea, selectați Publicare.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>Conținutul publicat pe {0} lipsește sau este incomplet. În Foundry OSD, pe pagina Cache de rețea, selectați Publicare.</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>Cache-ul de rețea nu este disponibil</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>Partajarea cache-ului de rețea nu răspunde. Pe server, verificați dacă partajarea este online și dacă portul 445 este deschis.</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>{0} nu răspunde. Pe server, verificați dacă partajarea este online și dacă portul 445 este deschis.</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Alegeți versiunea Windows, limba, ediția și canalul de licențiere.</value>
   </data>
@@ -1053,6 +1095,9 @@ Continuați cu implementarea?</value>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Se verifică conflictul discului cache...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>Se examinează imaginea personalizată...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>Se verifică pregătirea pentru implementare...</value>
   </data>
@@ -1092,8 +1137,14 @@ Continuați cu implementarea?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Se copiează AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>Se copiază imaginea personalizată...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>Se copiază pachetul de drivere...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>Se copiază din cache-ul de rețea...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Se copiază fișierele de înregistrare interactivă...</value>
@@ -1124,6 +1175,9 @@ Continuați cu implementarea?</value>
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Se finalizează implementarea...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>Se finalizează copierea în cache-ul de rețea...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Se importă hash hardware în Microsoft Graph...</value>
@@ -1271,6 +1325,12 @@ Continuați cu implementarea?</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>Extragerea</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}: {1} ({2} rămase)</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}: {1}, încă {2} ({3} rămase)</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

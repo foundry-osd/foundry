@@ -4,6 +4,7 @@
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.NetworkCache;
 using Foundry.Core.Services.Sharing;
 using Foundry.Core.Services.WinPe;
 using Foundry.Services.Adk;
@@ -24,6 +25,8 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
     private readonly INetworkCacheSecretStateService networkCacheSecretStateService;
     private readonly IWinPeLanguageDiscoveryService languageDiscoveryService;
     private readonly Foundry.Services.Sharing.ConfigurationSharingService sharing;
+    private readonly Foundry.Services.NetworkCache.INetworkCacheSigningService networkCacheSigning;
+    private readonly Foundry.Services.NetworkCache.INetworkCachePublicationStateService networkCachePublication;
     private SharedContentSyncState lastSharedContentState;
     private ConfigurationOverviewEvaluation? cachedEvaluation;
 
@@ -36,9 +39,13 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
         IDomainJoinSecretStateService domainJoinSecretStateService,
         INetworkCacheSecretStateService networkCacheSecretStateService,
         IWinPeLanguageDiscoveryService languageDiscoveryService,
-        Foundry.Services.Sharing.ConfigurationSharingService sharing)
+        Foundry.Services.Sharing.ConfigurationSharingService sharing,
+        Foundry.Services.NetworkCache.INetworkCacheSigningService networkCacheSigning,
+        Foundry.Services.NetworkCache.INetworkCachePublicationStateService networkCachePublication)
     {
         this.sharing = sharing;
+        this.networkCacheSigning = networkCacheSigning;
+        this.networkCachePublication = networkCachePublication;
         this.adkService = adkService;
         this.configurationStateService = configurationStateService;
         this.deploymentProtectionSecretStateService = deploymentProtectionSecretStateService;
@@ -56,6 +63,9 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
         domainJoinSecretStateService.Changed += OnUnderlyingStateChanged;
         networkCacheSecretStateService.Changed += OnUnderlyingStateChanged;
         sharing.Changed += OnSharingChanged;
+        // Trust follows the sharing role and the signing key, so readiness and the overview follow them too.
+        networkCacheSigning.Changed += OnUnderlyingStateChanged;
+        networkCachePublication.Changed += OnUnderlyingStateChanged;
     }
 
     public event EventHandler? Changed;
@@ -81,7 +91,8 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
                 IsOobeAccountConfigurationReady = oobeAccountSecretStateService.Validate(configuration.Customization.Oobe).IsValid,
                 IsAutopilotConfigurationReady = configurationStateService.IsAutopilotConfigurationReady,
                 IsDomainJoinConfigurationReady = configurationStateService.IsDomainJoinConfigurationReady,
-                IsNetworkCacheConfigurationReady = configurationStateService.NetworkCacheValidation.IsValid,
+                IsNetworkCacheConfigurationReady = IsNetworkCacheConfigurationReady(configuration.NetworkCache),
+                NetworkCachePublication = networkCachePublication.Level,
                 IsCustomImagesReady = configurationStateService.IsCustomImagesReady,
                 IsPostInstallationReady = configurationStateService.IsPostInstallationReady,
                 IsCustomDriversReady = configurationStateService.IsCustomDriversReady,
@@ -91,6 +102,15 @@ internal sealed class ConfigurationOverviewService : IConfigurationOverviewServi
             return cachedEvaluation;
         }
     }
+
+    /// <summary>
+    /// Valid settings are not enough for an active cache: media bind to a trusted index key, and generation refuses the cache
+    /// without one (a publishing PC whose signing key cannot be read or created, a follower without a pinned reference key,
+    /// or unavailable sharing). The cache then needs attention, so the overview and the navigation point to it.
+    /// </summary>
+    private bool IsNetworkCacheConfigurationReady(NetworkCacheSettings settings) =>
+        configurationStateService.NetworkCacheValidation.IsValid &&
+        (!NetworkCacheContentPublisher.IsActive(settings) || networkCachePublication.HasTrustedKey);
 
     private void OnAdkStatusChanged(object? sender, AdkStatusChangedEventArgs e) => Invalidate();
 

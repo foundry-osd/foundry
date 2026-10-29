@@ -812,7 +812,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ドライバー セット</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
-    <value>PXE ブートでは使用できません。カスタム ドライバーには、完全な ISO または USB メディアが必要です。</value>
+    <value>PXE ブートでは、カスタム ドライバーにネットワーク キャッシュが必要です。ない場合は、ISO または USB メディアを使用してください。</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
     <value>この構成のドライバー セットが無効です。メディアを作成または更新する前に、含まれるセットと既定のセットを確認してください。</value>
@@ -938,7 +938,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>イメージの操作に失敗しました。ソース、空き容量、Foundry のログを確認してください。</value>
   </data>
   <data name="CustomImages.PxeWarning" xml:space="preserve">
-    <value>PXE ブートでは使用できません。カスタム イメージには、完全な ISO または USB メディアが必要です。</value>
+    <value>PXE ブートでは、カスタム イメージにネットワーク キャッシュが必要です。ない場合は、ISO または USB メディアを使用してください。</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>この構成に、利用可能な Windows イメージを少なくとも 1 つ含めてください。メディアを作成または更新する前に、含まれているイメージのうち見つからないものを復元し、優先イメージまたはインデックスの選択を修正または解除してください。</value>
@@ -2819,7 +2819,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ユーザー名</value>
   </data>
   <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user または user@domain</value>
+    <value>DOMAIN\user, SERVER\user または user@domain</value>
   </data>
   <data name="NetworkCache.AccountsDescription" xml:space="preserve">
     <value>共有を開くアカウントです。デバイスはこれらを使用して共有を読み取り、ダウンロードしたものを共有に発行します。</value>
@@ -2827,8 +2827,32 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="NetworkCache.AccountsHeader" xml:space="preserve">
     <value>アカウント</value>
   </data>
+  <data name="NetworkCache.CleanUpShareFailedMessageFormat" xml:space="preserve">
+    <value>{0} をクリーンアップできませんでした。共有にアクセスできること、および共有のアカウントでファイルを削除できることを確認してから、もう一度お試しください。</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareKeptMessageFormat" xml:space="preserve">
+    <value>{0} をクリーンアップしましたが、使用中のファイル、発行後に変更されたファイル、または Foundry が書き込んでいないファイルは保持されました。</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareMessageFormat" xml:space="preserve">
+    <value>{0} のダウンロードと、構成でも発行済みのインデックスでも使用されなくなったインポート済みコンテンツを削除しますか? デバイスは必要なものを再度ダウンロードします。</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareTitle" xml:space="preserve">
+    <value>共有をクリーンアップ</value>
+  </data>
   <data name="NetworkCache.ColumnAccount" xml:space="preserve">
     <value>アカウント</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloads" xml:space="preserve">
+    <value>インターネットから</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloadsToolTip" xml:space="preserve">
+    <value>デバイスがインターネットからダウンロードした Windows とドライバー パック。クリーンアップで削除され、必要に応じてデバイスが再ダウンロードします。</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContent" xml:space="preserve">
+    <value>インポートしたコンテンツ</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContentToolTip" xml:space="preserve">
+    <value>Foundry OSD が発行したカスタム イメージ、ドライバー セット、インストール後スクリプト。クリーンアップでは使用中のものが保持されます。</value>
   </data>
   <data name="NetworkCache.ColumnName" xml:space="preserve">
     <value>名前</value>
@@ -2860,11 +2884,20 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="NetworkCache.CommandAdd" xml:space="preserve">
     <value>追加</value>
   </data>
+  <data name="NetworkCache.CommandCleanUp" xml:space="preserve">
+    <value>クリーンアップ</value>
+  </data>
   <data name="NetworkCache.CommandEdit" xml:space="preserve">
     <value>編集</value>
   </data>
+  <data name="NetworkCache.CommandPublish" xml:space="preserve">
+    <value>発行</value>
+  </data>
   <data name="NetworkCache.CommandRemove" xml:space="preserve">
     <value>削除</value>
+  </data>
+  <data name="NetworkCache.ContentMissingShareFormat" xml:space="preserve">
+    <value>{0} に発行したコンテンツがなくなっています。[発行] を選択してください。</value>
   </data>
   <data name="NetworkCache.DialogAdd" xml:space="preserve">
     <value>追加</value>
@@ -2887,8 +2920,23 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="NetworkCache.NoAccount" xml:space="preserve">
     <value>アカウントなし</value>
   </data>
+  <data name="NetworkCache.NotPublishedMessage" xml:space="preserve">
+    <value>共有に最新の変更が反映されていません。[発行] を選択してください。</value>
+  </data>
+  <data name="NetworkCache.NotPublishedShareFormat" xml:space="preserve">
+    <value>{0} に最新の変更が反映されていません。[発行] を選択してください。</value>
+  </data>
+  <data name="NetworkCache.NotPublishedState" xml:space="preserve">
+    <value>未発行</value>
+  </data>
+  <data name="NetworkCache.OutdatedState" xml:space="preserve">
+    <value>古い</value>
+  </data>
   <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
     <value>共有: {0}、IP スコープ: {1}</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryWithStateFormat" xml:space="preserve">
+    <value>{0} · {1}</value>
   </data>
   <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
     <value>このパスワードは使用できません。</value>
@@ -2904,6 +2952,15 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="NetworkCache.PasswordSaved" xml:space="preserve">
     <value>保存済み</value>
+  </data>
+  <data name="NetworkCache.PublishFailedMessage" xml:space="preserve">
+    <value>発行するコンテンツを準備できませんでした。</value>
+  </data>
+  <data name="NetworkCache.PublishKeysUnavailableMessage" xml:space="preserve">
+    <value>署名キーを読み取りまたは保存できなかったため、この PC は共有に発行する内容に署名できません。</value>
+  </data>
+  <data name="NetworkCache.PublishSucceededMessage" xml:space="preserve">
+    <value>共有に最新の変更が反映されています。</value>
   </data>
   <data name="NetworkCache.Ready" xml:space="preserve">
     <value>準備完了</value>
@@ -2945,7 +3002,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>共有</value>
   </data>
   <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>デバイスは、チェックされた共有を上から順に試し、その後インターネットからダウンロードします。</value>
+    <value>デバイスは、チェックされた共有のうち応答した最初の共有を上から順に使用します。</value>
   </data>
   <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
     <value>少なくとも 1 つの共有をチェックしてください。</value>
@@ -2998,6 +3055,24 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="NetworkCache.SharesHeader" xml:space="preserve">
     <value>共有</value>
   </data>
+  <data name="NetworkCache.SpaceCleaningUp" xml:space="preserve">
+    <value>クリーンアップしています…</value>
+  </data>
+  <data name="NetworkCache.SpaceMeasuring" xml:space="preserve">
+    <value>測定しています…</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreachable" xml:space="preserve">
+    <value>アクセスできません</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreadable" xml:space="preserve">
+    <value>読み取れません</value>
+  </data>
+  <data name="NetworkCache.TrustedKeyUnavailableMessage" xml:space="preserve">
+    <value>この PC には共有に発行されたコンテンツの信頼済みキーがないため、ネットワーク キャッシュを有効にしたメディアを作成できません。[設定] ページの [構成の共有] を確認してください。</value>
+  </data>
+  <data name="NetworkCache.UpToDateState" xml:space="preserve">
+    <value>最新</value>
+  </data>
   <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
     <value>この値はその種類に対して無効です。</value>
   </data>
@@ -3029,7 +3104,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ユーザー名を入力してください。</value>
   </data>
   <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>Foundry Deploy が SMB 共有を共有キャッシュとして使用できるようにします。共有はデバイスの IP アドレスによって選択されます。Windows、ドライバー パッケージ、インポートしたコンテンツはインターネットより先に共有から読み取られ、デバイスがダウンロードしたものは共有に発行されます。</value>
+    <value>デバイスの IP アドレスで選ばれる SMB 共有を、Foundry Deploy の共有キャッシュとして使用します。</value>
   </data>
   <data name="NetworkCachePageHeader.Title" xml:space="preserve">
     <value>ネットワーク キャッシュ</value>
@@ -3218,7 +3293,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>PowerShell の引数</value>
   </data>
   <data name="PostInstallation.PxeWarning" xml:space="preserve">
-    <value>インポートしたファイルを使用するアクションは、PXE ブートでは使用できません。完全な ISO または USB メディアが必要です。</value>
+    <value>PXE ブートでは、インポートしたファイルを使用するアクションにネットワーク キャッシュが必要です。ない場合は、ISO または USB メディアを使用してください。</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>アクションを削除できませんでした。もう一度お試しください。</value>
@@ -4354,6 +4429,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
     <value>Windows イメージを開いています…</value>
   </data>
+  <data name="StartMedia.Operation.NetworkCachePublicationFailedFormat" xml:space="preserve">
+    <value>次のネットワーク キャッシュ共有はインポートしたコンテンツを受け取りませんでした: {0}。各共有にアクセスでき、書き込み可能であることを確認してから、[ネットワーク キャッシュ] ページで [発行] を選択してください。</value>
+  </data>
   <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
     <value>フォルダーを開く</value>
   </data>
@@ -4389,6 +4467,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
     <value>ワークスペースの準備</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.PublishingToNetworkCache" xml:space="preserve">
+    <value>ネットワーク キャッシュへの発行</value>
   </data>
   <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
     <value>USB ドライブの更新</value>
@@ -4428,6 +4509,12 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Foundry コンポーネントを USB ドライブに追加しています…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
+    <value>インポートしたコンテンツをネットワーク キャッシュに発行しています…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCacheShareFormat" xml:space="preserve">
+    <value>共有 {1}/{2}: インポートしたコンテンツを {0} に発行しています</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
     <value>保存先フォルダーの空き容量が不足しています。PXE ブート ファイルには {0} が必要です。使用可能な容量: {1}。空き容量を増やすか、別のフォルダーを選択してください。</value>
@@ -4476,6 +4563,18 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO を作成しました</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishCancelled" xml:space="preserve">
+    <value>ネットワーク キャッシュへの発行がキャンセルされました</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishFailed" xml:space="preserve">
+    <value>ネットワーク キャッシュへの発行に失敗しました</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishRunning" xml:space="preserve">
+    <value>ネットワーク キャッシュに発行しています</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishSucceeded" xml:space="preserve">
+    <value>ネットワーク キャッシュに発行しました</value>
   </data>
   <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
     <value>PXE ファイルの作成がキャンセルされました</value>

@@ -37,9 +37,10 @@ public sealed partial class WinPeCustomImageMediaService
                     RelativePath = imagePath
                 });
             }
-            string id = Guid.NewGuid().ToString("N");
-            byte[] manifest = JsonSerializer.SerializeToUtf8Bytes(new CustomImageMediaManifest { ManifestId = id, Images = entries },
-                ConfigurationJsonDefaults.SerializerOptions);
+            // The id comes from the manifest content, so the same images always give the same manifest bytes and id.
+            var unnamed = new CustomImageMediaManifest { Images = entries };
+            string id = MediaManifestId.From(JsonSerializer.SerializeToUtf8Bytes(unnamed, ConfigurationJsonDefaults.SerializerOptions));
+            byte[] manifest = JsonSerializer.SerializeToUtf8Bytes(unnamed with { ManifestId = id }, ConfigurationJsonDefaults.SerializerOptions);
             return new WinPeCustomImageMediaLease(id, manifest, files.Values.ToArray(), leases);
         }
         catch

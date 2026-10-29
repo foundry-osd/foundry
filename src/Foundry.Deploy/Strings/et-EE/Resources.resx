@@ -124,6 +124,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Common.Previous" xml:space="preserve">
     <value>Eelmine</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>Proovi uuesti</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Pole saadaval</value>
   </data>
@@ -684,6 +687,45 @@ Kas jätkata juurutamisega?</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Tööriistad</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>Võrguvahemälu ühiskaust keeldus sellest seadmest. Kontrollige rakenduse Foundry OSD lehel Võrguvahemälu ühiskausta kontot ja selle parooli; kontrollige serveris ühiskausta õigusi.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>Konto {0} ei saa avada ühiskausta {1}. Kontrollige rakenduse Foundry OSD lehel Võrguvahemälu konto parooli; kontrollige serveris selle õigusi.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>Ühiskaust {0} keeldus sellest seadmest. Määrake rakenduse Foundry OSD lehel Võrguvahemälu sellele ühiskaustale konto; kontrollige serveris ühiskausta õigusi.</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>Draiverikomplektid</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>Kohandatud Windowsi tõmmised</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>Puudu: {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>Ükski IP-ulatus ei sisalda seda seadet. Lisage rakenduse Foundry OSD lehel Võrguvahemälu selle võrgu ulatus või varuühiskaustaga ulatus 0.0.0.0/0.</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>Ükski IP-ulatus ei sisalda seda seadet ({0}). Lisage rakenduse Foundry OSD lehel Võrguvahemälu selle võrgu ulatus või varuühiskaustaga ulatus 0.0.0.0/0.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>Võrguvahemälu ühiskaustas avaldatud sisu puudub või on puudulik. Valige rakenduse Foundry OSD lehel Võrguvahemälu Avalda.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>Ühiskaustas {0} avaldatud sisu puudub või on puudulik. Valige rakenduse Foundry OSD lehel Võrguvahemälu Avalda.</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>Võrguvahemälu pole saadaval</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>Võrguvahemälu ühiskaust ei vasta. Kontrollige serveris, et ühiskaust oleks võrgus ja port 445 avatud.</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>Ühiskaust {0} ei vasta. Kontrollige serveris, et ühiskaust oleks võrgus ja port 445 avatud.</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Valige Windowsi versioon, keel, väljaanne ja litsentsikanal.</value>
   </data>
@@ -1053,6 +1095,9 @@ Kas jätkata juurutamisega?</value>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Vahemälu kettakonflikti kontrollimine...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>Kohandatud tõmmise läbivaatamine...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>Juurutusvalmiduse kontrollimine...</value>
   </data>
@@ -1092,8 +1137,14 @@ Kas jätkata juurutamisega?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>AutopilotConfigurationFile.json kopeerimine...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>Kohandatud tõmmise kopeerimine...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>Draiveripaketi kopeerimine...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>Võrguvahemälust kopeerimine...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Interaktiivse registreerimise failide kopeerimine...</value>
@@ -1124,6 +1175,9 @@ Kas jätkata juurutamisega?</value>
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Juurutamise lõpetamine...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>Võrguvahemällu kopeerimise lõpetamine...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Riistvararäsi importimine asukohta Microsoft Graph...</value>
@@ -1271,6 +1325,12 @@ Kas jätkata juurutamisega?</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>Ekstraheerimine</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}: {1} ({2} jäänud)</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}: {1}, veel {2} ({3} jäänud)</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

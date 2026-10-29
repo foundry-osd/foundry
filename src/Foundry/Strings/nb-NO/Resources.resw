@@ -812,7 +812,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Driversett</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
-    <value>Ikke tilgjengelig ved PXE-oppstart. Tilpassede drivere krever det fullstendige ISO- eller USB-mediet.</value>
+    <value>Med PXE-oppstart krever egendefinerte drivere nettverksbufferen. Uten den bruker du ISO- eller USB-medier.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
     <value>Driversettene i denne konfigurasjonen er ugyldige. Kontroller de inkluderte settene og standardsettet før du oppretter eller oppdaterer medier.</value>
@@ -938,7 +938,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Avbildningsoperasjonen mislyktes. Kontroller kilden, ledig plass og Foundry-loggene.</value>
   </data>
   <data name="CustomImages.PxeWarning" xml:space="preserve">
-    <value>Ikke tilgjengelig ved PXE-oppstart. Tilpassede avbildninger krever det fullstendige ISO- eller USB-mediet.</value>
+    <value>Med PXE-oppstart krever egendefinerte bilder nettverksbufferen. Uten den bruker du ISO- eller USB-medier.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Inkluder minst én tilgjengelig Windows-avbildning i denne konfigurasjonen. Gjenopprett manglende inkluderte avbildninger, og rett eller fjern valget av foretrukket avbildning eller indeks før du oppretter eller oppdaterer medier.</value>
@@ -2819,7 +2819,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Brukernavn</value>
   </data>
   <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user eller user@domain</value>
+    <value>DOMAIN\user, SERVER\user eller user@domain</value>
   </data>
   <data name="NetworkCache.AccountsDescription" xml:space="preserve">
     <value>Kontoer som åpner delte ressurser. Enhetene bruker dem til å lese en delt ressurs og til å publisere det de laster ned.</value>
@@ -2827,8 +2827,32 @@ Lisensiert under MIT-lisensen.</value>
   <data name="NetworkCache.AccountsHeader" xml:space="preserve">
     <value>Kontoer</value>
   </data>
+  <data name="NetworkCache.CleanUpShareFailedMessageFormat" xml:space="preserve">
+    <value>{0} kunne ikke ryddes opp. Kontroller at den delte ressursen er tilgjengelig og at kontoen kan slette filer, og prøv deretter på nytt.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareKeptMessageFormat" xml:space="preserve">
+    <value>{0} ble ryddet opp, men noen filer ble beholdt fordi de er i bruk, er endret siden de ble publisert, eller ikke er skrevet av Foundry.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareMessageFormat" xml:space="preserve">
+    <value>Vil du slette nedlastingene på {0} og det importerte innholdet som verken konfigurasjonen din eller noen publisert indeks lenger bruker? Enhetene laster ned det de trenger på nytt.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareTitle" xml:space="preserve">
+    <value>Rydd opp i delt ressurs</value>
+  </data>
   <data name="NetworkCache.ColumnAccount" xml:space="preserve">
     <value>Konto</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloads" xml:space="preserve">
+    <value>Fra Internett</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloadsToolTip" xml:space="preserve">
+    <value>Windows og driverpakker som enhetene har lastet ned fra Internett. Opprydding sletter dem, og enhetene laster dem ned på nytt ved behov.</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContent" xml:space="preserve">
+    <value>Importert innhold</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContentToolTip" xml:space="preserve">
+    <value>Egendefinerte bilder, driversett og skript etter installasjon som Foundry OSD har publisert. Opprydding beholder de som fortsatt brukes.</value>
   </data>
   <data name="NetworkCache.ColumnName" xml:space="preserve">
     <value>Navn</value>
@@ -2860,11 +2884,20 @@ Lisensiert under MIT-lisensen.</value>
   <data name="NetworkCache.CommandAdd" xml:space="preserve">
     <value>Legg til</value>
   </data>
+  <data name="NetworkCache.CommandCleanUp" xml:space="preserve">
+    <value>Rydd opp</value>
+  </data>
   <data name="NetworkCache.CommandEdit" xml:space="preserve">
     <value>Rediger</value>
   </data>
+  <data name="NetworkCache.CommandPublish" xml:space="preserve">
+    <value>Publiser</value>
+  </data>
   <data name="NetworkCache.CommandRemove" xml:space="preserve">
     <value>Fjern</value>
+  </data>
+  <data name="NetworkCache.ContentMissingShareFormat" xml:space="preserve">
+    <value>{0} inneholder ikke lenger innholdet du publiserte. Velg Publiser.</value>
   </data>
   <data name="NetworkCache.DialogAdd" xml:space="preserve">
     <value>Legg til</value>
@@ -2887,8 +2920,23 @@ Lisensiert under MIT-lisensen.</value>
   <data name="NetworkCache.NoAccount" xml:space="preserve">
     <value>Ingen konto</value>
   </data>
+  <data name="NetworkCache.NotPublishedMessage" xml:space="preserve">
+    <value>De delte ressursene har ikke de siste endringene dine. Velg Publiser.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedShareFormat" xml:space="preserve">
+    <value>{0} mottok ikke de siste endringene dine. Velg Publiser.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedState" xml:space="preserve">
+    <value>Ikke publisert</value>
+  </data>
+  <data name="NetworkCache.OutdatedState" xml:space="preserve">
+    <value>Utdatert</value>
+  </data>
   <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
     <value>Delte ressurser: {0}, IP-omfang: {1}</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryWithStateFormat" xml:space="preserve">
+    <value>{0} · {1}</value>
   </data>
   <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
     <value>Dette passordet kan ikke brukes.</value>
@@ -2904,6 +2952,15 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="NetworkCache.PasswordSaved" xml:space="preserve">
     <value>Lagret</value>
+  </data>
+  <data name="NetworkCache.PublishFailedMessage" xml:space="preserve">
+    <value>Innholdet som skal publiseres, kunne ikke klargjøres.</value>
+  </data>
+  <data name="NetworkCache.PublishKeysUnavailableMessage" xml:space="preserve">
+    <value>Denne PC-en kan ikke signere det den publiserer til de delte ressursene, fordi signeringsnøkkelen ikke kunne leses eller lagres.</value>
+  </data>
+  <data name="NetworkCache.PublishSucceededMessage" xml:space="preserve">
+    <value>De delte ressursene har de siste endringene dine.</value>
   </data>
   <data name="NetworkCache.Ready" xml:space="preserve">
     <value>Klar</value>
@@ -2945,7 +3002,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Delte ressurser</value>
   </data>
   <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>Enhetene prøver de avmerkede delte ressursene ovenfra og ned, og laster deretter ned fra Internett.</value>
+    <value>Enhetene bruker den første avmerkede delte ressursen som svarer, ovenfra og ned.</value>
   </data>
   <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
     <value>Merk av for minst én delt ressurs.</value>
@@ -2998,6 +3055,24 @@ Lisensiert under MIT-lisensen.</value>
   <data name="NetworkCache.SharesHeader" xml:space="preserve">
     <value>Delte ressurser</value>
   </data>
+  <data name="NetworkCache.SpaceCleaningUp" xml:space="preserve">
+    <value>Rydder opp…</value>
+  </data>
+  <data name="NetworkCache.SpaceMeasuring" xml:space="preserve">
+    <value>Måler…</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreachable" xml:space="preserve">
+    <value>Kan ikke nås</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreadable" xml:space="preserve">
+    <value>Kan ikke leses</value>
+  </data>
+  <data name="NetworkCache.TrustedKeyUnavailableMessage" xml:space="preserve">
+    <value>Medier med nettverksbufferen slått på kan ikke opprettes fordi denne PC-en ikke har en klarert nøkkel for innholdet som er publisert til de delte ressursene. Kontroller Deling av konfigurasjon på Innstillinger-siden.</value>
+  </data>
+  <data name="NetworkCache.UpToDateState" xml:space="preserve">
+    <value>Oppdatert</value>
+  </data>
   <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
     <value>Denne verdien er ikke gyldig for typen.</value>
   </data>
@@ -3029,7 +3104,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Angi et brukernavn.</value>
   </data>
   <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>Lar Foundry Deploy bruke delte SMB-ressurser som et felles buffer, valgt etter enhetens IP-adresse. Windows, driverpakker og importert innhold leses fra den delte ressursen før Internett, og det enhetene laster ned, publiseres tilbake til den.</value>
+    <value>Lar Foundry Deploy bruke delte SMB-ressurser som et felles buffer, valgt etter enhetens IP-adresse.</value>
   </data>
   <data name="NetworkCachePageHeader.Title" xml:space="preserve">
     <value>Nettverksbuffer</value>
@@ -3218,7 +3293,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>PowerShell-argumenter</value>
   </data>
   <data name="PostInstallation.PxeWarning" xml:space="preserve">
-    <value>Handlinger som bruker importerte filer, er ikke tilgjengelige ved PXE-oppstart. De krever det fullstendige ISO- eller USB-mediet.</value>
+    <value>Med PXE-oppstart krever handlinger som bruker importerte filer, nettverksbufferen. Uten den bruker du ISO- eller USB-medier.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Handlingen kunne ikke fjernes. Prøv igjen.</value>
@@ -4354,6 +4429,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
     <value>Åpner Windows-avbildningen…</value>
   </data>
+  <data name="StartMedia.Operation.NetworkCachePublicationFailedFormat" xml:space="preserve">
+    <value>Disse delte ressursene i nettverksbufferen mottok ikke det importerte innholdet: {0}. Kontroller at hver ressurs kan nås og skrives til, og velg deretter Publiser på siden Nettverksbuffer.</value>
+  </data>
   <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
     <value>Åpne mappe</value>
   </data>
@@ -4389,6 +4467,9 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
     <value>Klargjør arbeidsområdet</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.PublishingToNetworkCache" xml:space="preserve">
+    <value>Publisering til nettverksbufferen</value>
   </data>
   <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
     <value>Oppdaterer USB-stasjonen</value>
@@ -4428,6 +4509,12 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Legger til Foundry-komponenter på USB-stasjonen…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
+    <value>Publiserer importert innhold til nettverksbufferen…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCacheShareFormat" xml:space="preserve">
+    <value>Publiserer importert innhold til {0}, delt ressurs {1} av {2}</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
     <value>Det er ikke nok ledig plass i målmappen. PXE-oppstartsfilene krever {0}. Tilgjengelig: {1}. Frigjør plass eller velg en annen mappe.</value>
@@ -4476,6 +4563,18 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO er opprettet</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishCancelled" xml:space="preserve">
+    <value>Publiseringen til nettverksbufferen ble avbrutt</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishFailed" xml:space="preserve">
+    <value>Kunne ikke publisere til nettverksbufferen</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishRunning" xml:space="preserve">
+    <value>Publiserer til nettverksbufferen</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishSucceeded" xml:space="preserve">
+    <value>Publisert til nettverksbufferen</value>
   </data>
   <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
     <value>Opprettingen av PXE-filer ble avbrutt</value>

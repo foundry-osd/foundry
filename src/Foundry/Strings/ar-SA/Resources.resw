@@ -812,7 +812,7 @@
     <value>مجموعات برامج التشغيل</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
-    <value>غير متاح مع إقلاع PXE. تتطلب برامج التشغيل المخصصة وسائط ISO أو USB الكاملة.</value>
+    <value>مع تمهيد PXE، تحتاج برامج التشغيل المخصصة إلى ذاكرة التخزين المؤقت للشبكة. بدونها، استخدم وسائط ISO أو USB.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
     <value>مجموعات برامج التشغيل في هذا التكوين غير صالحة. تحقق من المجموعات المضمنة والمجموعة الافتراضية قبل إنشاء الوسائط أو تحديثها.</value>
@@ -938,7 +938,7 @@
     <value>فشلت عملية الصورة. تحقّق من المصدر والمساحة المتاحة وسجلات Foundry.</value>
   </data>
   <data name="CustomImages.PxeWarning" xml:space="preserve">
-    <value>غير متاح مع إقلاع PXE. تتطلب الصور المخصصة وسائط ISO أو USB الكاملة.</value>
+    <value>مع تمهيد PXE، تحتاج الصور المخصصة إلى ذاكرة التخزين المؤقت للشبكة. بدونها، استخدم وسائط ISO أو USB.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>ضمّن صورة Windows واحدة متاحة على الأقل في هذا التكوين. استعد الصور المضمّنة المفقودة وصحّح اختيار الصورة أو الفهرس المفضل أو ألغِه قبل إنشاء الوسائط أو تحديثها.</value>
@@ -2819,7 +2819,7 @@
     <value>اسم المستخدم</value>
   </data>
   <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user أو user@domain</value>
+    <value>DOMAIN\user, SERVER\user أو user@domain</value>
   </data>
   <data name="NetworkCache.AccountsDescription" xml:space="preserve">
     <value>الحسابات التي تفتح المشاركات. تستخدمها الأجهزة لقراءة المشاركة ولنشر ما تنزّله.</value>
@@ -2827,8 +2827,32 @@
   <data name="NetworkCache.AccountsHeader" xml:space="preserve">
     <value>الحسابات</value>
   </data>
+  <data name="NetworkCache.CleanUpShareFailedMessageFormat" xml:space="preserve">
+    <value>تعذّر تنظيف {0}. تحقق من إمكانية الوصول إلى المشاركة ومن أن حسابها يمكنه حذف الملفات، ثم أعد المحاولة.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareKeptMessageFormat" xml:space="preserve">
+    <value>تم تنظيف {0}، ولكن تم الاحتفاظ ببعض الملفات لأنها قيد الاستخدام، أو تغيّرت منذ نشرها، أو لم يكتبها Foundry.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareMessageFormat" xml:space="preserve">
+    <value>هل تريد حذف التنزيلات على {0} والمحتوى المستورد الذي لم يعد يستخدمه تكوينك ولا أي فهرس منشور؟ تقوم الأجهزة بتنزيل ما تحتاج إليه مرة أخرى.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareTitle" xml:space="preserve">
+    <value>تنظيف المشاركة</value>
+  </data>
   <data name="NetworkCache.ColumnAccount" xml:space="preserve">
     <value>الحساب</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloads" xml:space="preserve">
+    <value>من الإنترنت</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloadsToolTip" xml:space="preserve">
+    <value>Windows وحزم برامج التشغيل التي نزّلتها الأجهزة من الإنترنت. يحذفها التنظيف، وتنزّلها الأجهزة مجددًا عند الحاجة.</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContent" xml:space="preserve">
+    <value>المحتوى المستورد</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContentToolTip" xml:space="preserve">
+    <value>الصور المخصصة ومجموعات برامج التشغيل والبرامج النصية لما بعد التثبيت التي نشرها Foundry OSD. يحتفظ التنظيف بما لا يزال مستخدمًا.</value>
   </data>
   <data name="NetworkCache.ColumnName" xml:space="preserve">
     <value>الاسم</value>
@@ -2860,11 +2884,20 @@
   <data name="NetworkCache.CommandAdd" xml:space="preserve">
     <value>إضافة</value>
   </data>
+  <data name="NetworkCache.CommandCleanUp" xml:space="preserve">
+    <value>تنظيف</value>
+  </data>
   <data name="NetworkCache.CommandEdit" xml:space="preserve">
     <value>تحرير</value>
   </data>
+  <data name="NetworkCache.CommandPublish" xml:space="preserve">
+    <value>نشر</value>
+  </data>
   <data name="NetworkCache.CommandRemove" xml:space="preserve">
     <value>إزالة</value>
+  </data>
+  <data name="NetworkCache.ContentMissingShareFormat" xml:space="preserve">
+    <value>لم يعد {0} يحتوي على المحتوى الذي نشرته. حدد "نشر".</value>
   </data>
   <data name="NetworkCache.DialogAdd" xml:space="preserve">
     <value>إضافة</value>
@@ -2887,8 +2920,23 @@
   <data name="NetworkCache.NoAccount" xml:space="preserve">
     <value>بلا حساب</value>
   </data>
+  <data name="NetworkCache.NotPublishedMessage" xml:space="preserve">
+    <value>لا تحتوي المشاركات على أحدث تغييراتك. حدد "نشر".</value>
+  </data>
+  <data name="NetworkCache.NotPublishedShareFormat" xml:space="preserve">
+    <value>لم يتلقَّ {0} أحدث تغييراتك. حدد "نشر".</value>
+  </data>
+  <data name="NetworkCache.NotPublishedState" xml:space="preserve">
+    <value>غير منشور</value>
+  </data>
+  <data name="NetworkCache.OutdatedState" xml:space="preserve">
+    <value>قديم</value>
+  </data>
   <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
     <value>المشاركات: {0}، نطاقات IP: {1}</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryWithStateFormat" xml:space="preserve">
+    <value>{0} · {1}</value>
   </data>
   <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
     <value>لا يمكن استخدام كلمة المرور هذه.</value>
@@ -2904,6 +2952,15 @@
   </data>
   <data name="NetworkCache.PasswordSaved" xml:space="preserve">
     <value>محفوظة</value>
+  </data>
+  <data name="NetworkCache.PublishFailedMessage" xml:space="preserve">
+    <value>تعذّر تجهيز المحتوى المراد نشره.</value>
+  </data>
+  <data name="NetworkCache.PublishKeysUnavailableMessage" xml:space="preserve">
+    <value>لا يمكن لهذا الكمبيوتر توقيع ما ينشره على المشاركات لأنه تعذّرت قراءة مفتاح التوقيع الخاص به أو حفظه.</value>
+  </data>
+  <data name="NetworkCache.PublishSucceededMessage" xml:space="preserve">
+    <value>تحتوي المشاركات على أحدث تغييراتك.</value>
   </data>
   <data name="NetworkCache.Ready" xml:space="preserve">
     <value>جاهز</value>
@@ -2945,7 +3002,7 @@
     <value>المشاركات</value>
   </data>
   <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>تجرّب الأجهزة المشاركات المحددة من الأعلى إلى الأسفل، ثم تنزّل من الإنترنت.</value>
+    <value>تستخدم الأجهزة أول مشاركة محددة تستجيب، من الأعلى إلى الأسفل.</value>
   </data>
   <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
     <value>حدد مشاركة واحدة على الأقل.</value>
@@ -2998,6 +3055,24 @@
   <data name="NetworkCache.SharesHeader" xml:space="preserve">
     <value>المشاركات</value>
   </data>
+  <data name="NetworkCache.SpaceCleaningUp" xml:space="preserve">
+    <value>جارٍ التنظيف…</value>
+  </data>
+  <data name="NetworkCache.SpaceMeasuring" xml:space="preserve">
+    <value>جارٍ القياس…</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreachable" xml:space="preserve">
+    <value>يتعذر الوصول إليها</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreadable" xml:space="preserve">
+    <value>تتعذر قراءتها</value>
+  </data>
+  <data name="NetworkCache.TrustedKeyUnavailableMessage" xml:space="preserve">
+    <value>لا يمكن إنشاء وسائط مع تشغيل ذاكرة التخزين المؤقت للشبكة لأن هذا الكمبيوتر لا يملك مفتاحًا موثوقًا للمحتوى المنشور على المشاركات. تحقق من مشاركة التكوين في صفحة الإعدادات.</value>
+  </data>
+  <data name="NetworkCache.UpToDateState" xml:space="preserve">
+    <value>محدّث</value>
+  </data>
   <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
     <value>هذه القيمة غير صالحة لنوعها.</value>
   </data>
@@ -3029,7 +3104,7 @@
     <value>أدخل اسم مستخدم.</value>
   </data>
   <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>يتيح لـ Foundry Deploy استخدام مشاركات SMB كذاكرة تخزين مؤقت مشتركة يتم اختيارها حسب عنوان IP للجهاز. تتم قراءة Windows وحزم برامج التشغيل والمحتوى المستورد من المشاركة قبل الإنترنت، ويُنشر ما تنزّله الأجهزة مرة أخرى إليها.</value>
+    <value>يتيح لـ Foundry Deploy استخدام مشاركات SMB كذاكرة تخزين مؤقت مشتركة يتم اختيارها حسب عنوان IP للجهاز.</value>
   </data>
   <data name="NetworkCachePageHeader.Title" xml:space="preserve">
     <value>ذاكرة التخزين المؤقت للشبكة</value>
@@ -3218,7 +3293,7 @@
     <value>وسيطات PowerShell</value>
   </data>
   <data name="PostInstallation.PxeWarning" xml:space="preserve">
-    <value>الإجراءات التي تستخدم ملفات مستوردة غير متاحة مع إقلاع PXE. تتطلب وسائط ISO أو USB الكاملة.</value>
+    <value>مع تمهيد PXE، تحتاج الإجراءات التي تستخدم ملفات مستوردة إلى ذاكرة التخزين المؤقت للشبكة. بدونها، استخدم وسائط ISO أو USB.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>تعذرت إزالة الإجراء. حاول مرة أخرى.</value>
@@ -4354,6 +4429,9 @@
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
     <value>جارٍ فتح صورة Windows…</value>
   </data>
+  <data name="StartMedia.Operation.NetworkCachePublicationFailedFormat" xml:space="preserve">
+    <value>لم تتلقَّ مشاركات ذاكرة التخزين المؤقت للشبكة هذه المحتوى المستورد: {0}. تحقق من إمكانية الوصول إلى كل مشاركة والكتابة فيها، ثم حدد "نشر" في صفحة ذاكرة التخزين المؤقت للشبكة.</value>
+  </data>
   <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
     <value>فتح المجلد</value>
   </data>
@@ -4389,6 +4467,9 @@
   </data>
   <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
     <value>إعداد مساحة العمل</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.PublishingToNetworkCache" xml:space="preserve">
+    <value>النشر إلى ذاكرة التخزين المؤقت للشبكة</value>
   </data>
   <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
     <value>تحديث قرص USB</value>
@@ -4428,6 +4509,12 @@
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>جارٍ إضافة مكونات Foundry إلى قرص USB…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
+    <value>جارٍ نشر المحتوى المستورد إلى ذاكرة التخزين المؤقت للشبكة…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCacheShareFormat" xml:space="preserve">
+    <value>جارٍ نشر المحتوى المستورد إلى {0}، المشاركة {1} من {2}</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
     <value>لا توجد مساحة حرة كافية في المجلد الوجهة. تحتاج ملفات إقلاع PXE إلى {0}. المساحة المتاحة: {1}. حرّر مساحة أو اختر مجلدًا آخر.</value>
@@ -4476,6 +4563,18 @@
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>تم إنشاء ملف ISO</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishCancelled" xml:space="preserve">
+    <value>تم إلغاء النشر إلى ذاكرة التخزين المؤقت للشبكة</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishFailed" xml:space="preserve">
+    <value>فشل النشر إلى ذاكرة التخزين المؤقت للشبكة</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishRunning" xml:space="preserve">
+    <value>جارٍ النشر إلى ذاكرة التخزين المؤقت للشبكة</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishSucceeded" xml:space="preserve">
+    <value>تم النشر إلى ذاكرة التخزين المؤقت للشبكة</value>
   </data>
   <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
     <value>تم إلغاء إنشاء ملفات PXE</value>

@@ -4,6 +4,7 @@
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.NetworkCache;
 using Foundry.Core.Services.WinPe;
 
 namespace Foundry.Core.Tests.Configuration;
@@ -62,6 +63,38 @@ public sealed class ConfigurationOverviewEvaluatorTests
 
         Assert.Equal(expected, evaluation[ConfigurationOverviewItem.NetworkCache]);
         Assert.Equal(expected, ConfigurationOverviewNavigationEvaluator.EvaluateTarget(evaluation, ConfigurationNavigationTarget.NetworkCache));
+    }
+
+    [Theory]
+    [InlineData(NetworkCachePublicationLevel.UpToDate, ConfigurationOverviewReason.None)]
+    [InlineData(NetworkCachePublicationLevel.Outdated, ConfigurationOverviewReason.Outdated)]
+    [InlineData(NetworkCachePublicationLevel.NotPublished, ConfigurationOverviewReason.NotPublished)]
+    public void Evaluate_ActiveNetworkCacheIsConfiguredWhateverItsPublication(NetworkCachePublicationLevel publication,
+        ConfigurationOverviewReason expectedReason)
+    {
+        var configuration = new FoundryConfigurationDocument { NetworkCache = new NetworkCacheSettings { IsEnabled = true } };
+
+        ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(
+            CreateContext(configuration) with { NetworkCachePublication = publication });
+
+        Assert.Equal(ConfigurationOverviewState.Configured, evaluation[ConfigurationOverviewItem.NetworkCache]);
+        Assert.Equal(expectedReason, evaluation.GetReason(ConfigurationOverviewItem.NetworkCache));
+        Assert.Equal(ConfigurationOverviewState.Configured,
+            ConfigurationOverviewNavigationEvaluator.EvaluateTarget(evaluation, ConfigurationNavigationTarget.NetworkCache));
+    }
+
+    [Theory]
+    [InlineData(false, true, ConfigurationOverviewState.Disabled)]
+    [InlineData(true, false, ConfigurationOverviewState.NeedsAttention)]
+    public void Evaluate_NotPublishedIsNotTheReasonOfADisabledOrInvalidNetworkCache(bool isEnabled, bool isReady, ConfigurationOverviewState expected)
+    {
+        var configuration = new FoundryConfigurationDocument { NetworkCache = new NetworkCacheSettings { IsEnabled = isEnabled } };
+
+        ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(
+            CreateContext(configuration) with { IsNetworkCacheConfigurationReady = isReady, NetworkCachePublication = NetworkCachePublicationLevel.NotPublished });
+
+        Assert.Equal(expected, evaluation[ConfigurationOverviewItem.NetworkCache]);
+        Assert.Equal(ConfigurationOverviewReason.None, evaluation.GetReason(ConfigurationOverviewItem.NetworkCache));
     }
 
     [Fact]

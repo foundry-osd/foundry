@@ -5,6 +5,7 @@
 using System.IO;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Security.Cryptography;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Autopilot;
@@ -76,9 +77,11 @@ public sealed class NetworkCacheSessionResolver : INetworkCacheSessionResolver
         }
         catch (Exception exception) when (exception is not OperationCanceledException || !cancellationToken.IsCancellationRequested)
         {
-            // The network cache is an optimization: an unexpected configuration or platform error must never fail a deployment.
-            logger.LogWarning("Network cache resolution failed; deployment continues without it. Reason={Reason}", exception.GetType().Name);
-            return NetworkCacheSession.Unavailable(NetworkCacheOutcome.Unavailable);
+            // An unexpected configuration or platform error is a session failure, never an exception: the startup check then
+            // blocks a configured content index with a retryable cause, and media without one deploy without the cache.
+            logger.LogWarning("Network cache resolution failed; startup stops when the boot media use its content index. Reason={Reason}", exception.GetType().Name);
+            // The cause is unknown, so the closest actionable reading is that the share could not be used right now.
+            return NetworkCacheSession.Unavailable(NetworkCacheOutcome.Unavailable, new(NetworkCacheStartupFailureKind.Unreachable));
         }
     }
 
@@ -90,31 +93,42 @@ public sealed class NetworkCacheSessionResolver : INetworkCacheSessionResolver
             return NetworkCacheSession.Unavailable(NetworkCacheOutcome.Disabled);
         }
 
-        IReadOnlyList<DeployNetworkCacheShare> candidates = NetworkCacheShareSelector.Select(settings, ReadLocalAddresses());
+        IPAddress[] localAddresses = ReadLocalAddresses();
+        IReadOnlyList<DeployNetworkCacheShare> candidates = NetworkCacheShareSelector.Select(settings, localAddresses);
         logger.LogInformation("Resolving network cache. CandidateShares={CandidateShares}", candidates.Count);
         if (candidates.Count == 0)
         {
-            logger.LogInformation("Network cache not used. Outcome={Outcome}", NetworkCacheOutcome.NoMatchingScope);
-            return NetworkCacheSession.Unavailable(NetworkCacheOutcome.NoMatchingScope);
+            string? deviceAddress = SelectDeviceAddress(localAddresses);
+            logger.LogInformation("Network cache not used. Outcome={Outcome}, DeviceAddress={DeviceAddress}", NetworkCacheOutcome.NoMatchingScope, deviceAddress);
+            return NetworkCacheSession.Unavailable(
+                NetworkCacheOutcome.NoMatchingScope,
+                new(NetworkCacheStartupFailureKind.NoScope, DeviceAddress: deviceAddress));
         }
 
+        NetworkCacheStartupFailure? lastFailure = null;
         foreach (DeployNetworkCacheShare share in candidates)
         {
-            NetworkCacheSession? session = await TryShareAsync(share, workspaceRootPath, sessionId, cancellationToken).ConfigureAwait(false);
+            (NetworkCacheSession? session, NetworkCacheStartupFailure? failure) = await TryShareAsync(share, workspaceRootPath, sessionId, cancellationToken).ConfigureAwait(false);
             if (session is not null)
             {
                 logger.LogInformation("Network cache connected. SharePath={SharePath}, CanWrite={CanWrite}", session.SharePath, session.CanWrite);
                 return session;
             }
+
+            lastFailure = failure;
         }
 
-        logger.LogWarning("Network cache unavailable; deployment continues without it. Outcome={Outcome}", NetworkCacheOutcome.Unavailable);
-        return NetworkCacheSession.Unavailable(NetworkCacheOutcome.Unavailable);
+        logger.LogWarning("Network cache unavailable; startup stops when the boot media use its content index. Outcome={Outcome}, FailureKind={FailureKind}, SharePath={SharePath}",
+            NetworkCacheOutcome.Unavailable, lastFailure?.Kind, lastFailure?.SharePath);
+        return NetworkCacheSession.Unavailable(NetworkCacheOutcome.Unavailable, lastFailure);
     }
 
-    private async Task<NetworkCacheSession?> TryShareAsync(DeployNetworkCacheShare share, string workspaceRootPath, string sessionId, CancellationToken cancellationToken)
+    private async Task<(NetworkCacheSession? Session, NetworkCacheStartupFailure? Failure)> TryShareAsync(
+        DeployNetworkCacheShare share, string workspaceRootPath, string sessionId, CancellationToken cancellationToken)
     {
         bool hasAccount = !string.IsNullOrWhiteSpace(share.AccountName) && share.EncryptedCredentials is not null;
+        string? accountName = hasAccount ? share.AccountName : null;
+        NetworkCacheStartupFailure Failed(NetworkCacheStartupFailureKind kind) => new(kind, share.Path, accountName);
         SmbConnectResult result;
         // The key is read inside the delegate so Connect's finally always clears it, whether or not the wait times out.
         Task<SmbConnectResult> connecting = Task.Run(async () =>
@@ -135,19 +149,21 @@ public sealed class NetworkCacheSessionResolver : INetworkCacheSessionResolver
                 TaskContinuationOptions.OnlyOnRanToCompletion,
                 TaskScheduler.Default);
             logger.LogWarning("Network cache share connection timed out. SharePath={SharePath}", share.Path);
-            return null;
+            return (null, Failed(NetworkCacheStartupFailureKind.Unreachable));
         }
         catch (Exception exception) when (exception is not OperationCanceledException || !cancellationToken.IsCancellationRequested)
         {
             logger.LogWarning("Network cache share skipped. SharePath={SharePath}, Reason={Reason}", share.Path, exception.GetType().Name);
-            return null;
+            return (null, Failed(NetworkCacheStartupFailureKind.Unreachable));
         }
 
         if (result.Status != SmbConnectStatus.Connected)
         {
             logger.LogWarning("Network cache share connection failed. SharePath={SharePath}, Status={Status}, Win32Error={Win32Error}",
                 share.Path, result.Status, result.Win32Error);
-            return null;
+            return (null, Failed(result.Status == SmbConnectStatus.AccessDenied
+                ? NetworkCacheStartupFailureKind.AccessDenied
+                : NetworkCacheStartupFailureKind.Unreachable));
         }
 
         string contentRoot = NetworkCacheLayout.ContentRoot(share.Path);
@@ -155,12 +171,12 @@ public sealed class NetworkCacheSessionResolver : INetworkCacheSessionResolver
         {
             logger.LogWarning("Network cache share did not answer. SharePath={SharePath}", share.Path);
             connector.Disconnect(share.Path);
-            return null;
+            return (null, Failed(NetworkCacheStartupFailureKind.Unreachable));
         }
 
         bool canWrite = hasAccount &&
                         await ProbeAsync(token => probe.CanWriteAsync(contentRoot, sessionId, token), cancellationToken).ConfigureAwait(false);
-        return NetworkCacheSession.Connected(share.Path, canWrite, connector);
+        return (NetworkCacheSession.Connected(share.Path, canWrite, connector), null);
     }
 
     private SmbConnectResult Connect(DeployNetworkCacheShare share, byte[]? key)
@@ -198,10 +214,27 @@ public sealed class NetworkCacheSessionResolver : INetworkCacheSessionResolver
         }
     }
 
-    private IEnumerable<IPAddress> ReadLocalAddresses() => adapters.GetAdapters()
+    private IPAddress[] ReadLocalAddresses() => adapters.GetAdapters()
         .Where(adapter => adapter.OperationalStatus == OperationalStatus.Up)
         .SelectMany(adapter => adapter.UnicastAddresses)
         .Select(text => IPAddress.TryParse(text, out IPAddress? address) ? address : null)
         .OfType<IPAddress>()
         .ToArray();
+
+    /// <summary>
+    /// Picks the address to show an administrator who must add a scope: the first IPv4 address that is not link-local, else the
+    /// first IPv4, else the first IPv6, never loopback. A link-local address (169.254.0.0/16) only means DHCP did not answer.
+    /// </summary>
+    private static string? SelectDeviceAddress(IReadOnlyList<IPAddress> localAddresses)
+    {
+        IPAddress[] candidates = [.. localAddresses.Where(address => !IPAddress.IsLoopback(address))];
+        IPAddress[] ipv4 = [.. candidates.Where(address => address.AddressFamily == AddressFamily.InterNetwork)];
+        return (ipv4.FirstOrDefault(address => !IsLinkLocal(address)) ?? ipv4.FirstOrDefault() ?? candidates.FirstOrDefault())?.ToString();
+    }
+
+    private static bool IsLinkLocal(IPAddress ipv4)
+    {
+        byte[] bytes = ipv4.GetAddressBytes();
+        return bytes[0] == 169 && bytes[1] == 254;
+    }
 }

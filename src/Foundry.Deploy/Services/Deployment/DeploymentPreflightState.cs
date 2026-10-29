@@ -10,6 +10,11 @@ namespace Foundry.Deploy.Services.Deployment;
 internal sealed class DeploymentPreflightState : IDisposable
 {
     public required string CacheRoot { get; init; }
+
+    /// <summary>
+    /// Gets whether the image archive is staged on the target after disk preparation: a catalog download, or a custom image
+    /// on the network cache share, which is copied to the target and verified during the copy.
+    /// </summary>
     public bool UsesTargetStorage { get; init; }
     public string? ExternalImageDirectory { get; init; }
     public long SourceSizeBytes { get; set; }
@@ -24,21 +29,27 @@ internal sealed class DeploymentPreflightState : IDisposable
     public bool MatchesStoragePlan(DeploymentStepExecutionContext context) =>
         string.Equals(CacheRoot, context.RuntimeState.ResolvedCache?.RootPath, StringComparison.OrdinalIgnoreCase);
 
-    /// <summary>Rejects stale readiness after cache or prepared-image paths are changed.</summary>
+    /// <summary>
+    /// Rejects stale readiness after cache or prepared-image paths are changed. A custom image lease is always rechecked, including
+    /// for a network cache share image staged on the target, whose lease moves from the share file to the verified target copy.
+    /// </summary>
     public bool Matches(DeploymentStepExecutionContext context)
     {
         try
         {
             return MatchesStoragePlan(context) &&
-                (UsesTargetStorage || (Image is not null &&
-                    (CustomSourceLease is not null ? CustomSourceLease.IsReadable() && CustomSourceLease.Length == SourceSizeBytes : SourceLease?.CanRead == true && SourceLease.Length == SourceSizeBytes) &&
-                    string.Equals(ImagePath, context.RuntimeState.DownloadedOperatingSystemPath, StringComparison.OrdinalIgnoreCase) && File.Exists(ImagePath)));
+                (CustomSourceLease is not null
+                    ? Image is not null && CustomSourceLease.IsReadable() && CustomSourceLease.Length == SourceSizeBytes && MatchesImagePath(context)
+                    : UsesTargetStorage || (Image is not null && SourceLease?.CanRead == true && SourceLease.Length == SourceSizeBytes && MatchesImagePath(context)));
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or ObjectDisposedException)
         {
             return false;
         }
     }
+
+    private bool MatchesImagePath(DeploymentStepExecutionContext context) =>
+        string.Equals(ImagePath, context.RuntimeState.DownloadedOperatingSystemPath, StringComparison.OrdinalIgnoreCase) && File.Exists(ImagePath);
 
     /// <summary>Keeps a verified external file readable and prevents replacement while it is needed.</summary>
     public void Dispose()

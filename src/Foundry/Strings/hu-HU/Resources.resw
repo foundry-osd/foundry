@@ -812,7 +812,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Illesztőprogram-készletek</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
-    <value>PXE-rendszerindítással nem érhető el. Az egyéni illesztőprogramokhoz a teljes ISO- vagy USB-adathordozó szükséges.</value>
+    <value>PXE-rendszerindításnál az egyéni illesztőprogramokhoz hálózati gyorsítótár szükséges. Enélkül használjon ISO- vagy USB-adathordozót.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
     <value>A konfiguráció illesztőprogram-készletei érvénytelenek. Adathordozó létrehozása vagy frissítése előtt ellenőrizze a hozzáadott készleteket és az alapértelmezett készletet.</value>
@@ -938,7 +938,7 @@ Licenc az MIT licenc alatt.</value>
     <value>A lemezképművelet sikertelen. Ellenőrizze a forrást, a szabad helyet és a Foundry naplóit.</value>
   </data>
   <data name="CustomImages.PxeWarning" xml:space="preserve">
-    <value>PXE-rendszerindítással nem érhető el. Az egyéni lemezképekhez a teljes ISO- vagy USB-adathordozó szükséges.</value>
+    <value>PXE-rendszerindításnál az egyéni lemezképekhez hálózati gyorsítótár szükséges. Enélkül használjon ISO- vagy USB-adathordozót.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Adjon hozzá legalább egy elérhető Windows-lemezképet ehhez a konfigurációhoz. Az adathordozó létrehozása vagy frissítése előtt állítsa helyre a hiányzó hozzáadott lemezképeket, és javítsa vagy törölje az előnyben részesített lemezkép vagy index kiválasztását.</value>
@@ -2819,7 +2819,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Felhasználónév</value>
   </data>
   <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user vagy user@domain</value>
+    <value>DOMAIN\user, SERVER\user vagy user@domain</value>
   </data>
   <data name="NetworkCache.AccountsDescription" xml:space="preserve">
     <value>A megosztásokat megnyitó fiókok. Az eszközök ezekkel olvassák a megosztást, és ezekkel teszik közzé benne a letöltött tartalmat.</value>
@@ -2827,8 +2827,32 @@ Licenc az MIT licenc alatt.</value>
   <data name="NetworkCache.AccountsHeader" xml:space="preserve">
     <value>Fiókok</value>
   </data>
+  <data name="NetworkCache.CleanUpShareFailedMessageFormat" xml:space="preserve">
+    <value>A(z) {0} megosztást nem sikerült megtisztítani. Ellenőrizze, hogy a megosztás elérhető-e, és hogy a fiókja törölhet-e fájlokat, majd próbálkozzon újra.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareKeptMessageFormat" xml:space="preserve">
+    <value>A(z) {0} megosztás meg lett tisztítva, de néhány fájl megmaradt, mert használatban van, a közzététele óta megváltozott, vagy nem a Foundry írta.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareMessageFormat" xml:space="preserve">
+    <value>Törli a(z) {0} megosztáson lévő letöltéseket és azt az importált tartalmat, amelyet már sem a konfigurációja, sem egyetlen közzétett index sem használ? Az eszközök újra letöltik, amire szükségük van.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareTitle" xml:space="preserve">
+    <value>Megosztás tisztítása</value>
+  </data>
   <data name="NetworkCache.ColumnAccount" xml:space="preserve">
     <value>Fiók</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloads" xml:space="preserve">
+    <value>Az internetről</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloadsToolTip" xml:space="preserve">
+    <value>A Windows és az illesztőprogram-csomagok, amelyeket az eszközök az internetről töltöttek le. A tisztítás törli őket, és az eszközök szükség esetén újra letöltik.</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContent" xml:space="preserve">
+    <value>Importált tartalom</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContentToolTip" xml:space="preserve">
+    <value>A Foundry OSD által közzétett egyéni lemezképek, illesztőprogram-készletek és telepítés utáni szkriptek. A tisztítás megtartja a még használtakat.</value>
   </data>
   <data name="NetworkCache.ColumnName" xml:space="preserve">
     <value>Név</value>
@@ -2860,11 +2884,20 @@ Licenc az MIT licenc alatt.</value>
   <data name="NetworkCache.CommandAdd" xml:space="preserve">
     <value>Hozzáadás</value>
   </data>
+  <data name="NetworkCache.CommandCleanUp" xml:space="preserve">
+    <value>Tisztítás</value>
+  </data>
   <data name="NetworkCache.CommandEdit" xml:space="preserve">
     <value>Szerkesztés</value>
   </data>
+  <data name="NetworkCache.CommandPublish" xml:space="preserve">
+    <value>Közzététel</value>
+  </data>
   <data name="NetworkCache.CommandRemove" xml:space="preserve">
     <value>Eltávolítás</value>
+  </data>
+  <data name="NetworkCache.ContentMissingShareFormat" xml:space="preserve">
+    <value>A(z) {0} már nem tartalmazza a közzétett tartalmat. Válassza a Közzététel lehetőséget.</value>
   </data>
   <data name="NetworkCache.DialogAdd" xml:space="preserve">
     <value>Hozzáadás</value>
@@ -2887,8 +2920,23 @@ Licenc az MIT licenc alatt.</value>
   <data name="NetworkCache.NoAccount" xml:space="preserve">
     <value>Nincs fiók</value>
   </data>
+  <data name="NetworkCache.NotPublishedMessage" xml:space="preserve">
+    <value>A megosztások nem tartalmazzák a legutóbbi módosításait. Válassza a Közzététel lehetőséget.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedShareFormat" xml:space="preserve">
+    <value>A(z) {0} nem kapta meg a legutóbbi módosításait. Válassza a Közzététel lehetőséget.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedState" xml:space="preserve">
+    <value>Nincs közzétéve</value>
+  </data>
+  <data name="NetworkCache.OutdatedState" xml:space="preserve">
+    <value>Elavult</value>
+  </data>
   <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
     <value>Megosztások: {0}, IP-hatókörök: {1}</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryWithStateFormat" xml:space="preserve">
+    <value>{0} · {1}</value>
   </data>
   <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
     <value>Ez a jelszó nem használható.</value>
@@ -2904,6 +2952,15 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="NetworkCache.PasswordSaved" xml:space="preserve">
     <value>Mentve</value>
+  </data>
+  <data name="NetworkCache.PublishFailedMessage" xml:space="preserve">
+    <value>A közzéteendő tartalmat nem sikerült előkészíteni.</value>
+  </data>
+  <data name="NetworkCache.PublishKeysUnavailableMessage" xml:space="preserve">
+    <value>Ez a számítógép nem tudja aláírni, amit a megosztásokra közzétesz, mert az aláírókulcsát nem sikerült beolvasni vagy menteni.</value>
+  </data>
+  <data name="NetworkCache.PublishSucceededMessage" xml:space="preserve">
+    <value>A megosztások tartalmazzák a legutóbbi módosításait.</value>
   </data>
   <data name="NetworkCache.Ready" xml:space="preserve">
     <value>Kész</value>
@@ -2945,7 +3002,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Megosztások</value>
   </data>
   <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>Az eszközök fentről lefelé haladva próbálják a bejelölt megosztásokat, majd az internetről töltenek le.</value>
+    <value>Az eszközök az első bejelölt, válaszoló megosztást használják, fentről lefelé haladva.</value>
   </data>
   <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
     <value>Jelöljön be legalább egy megosztást.</value>
@@ -2998,6 +3055,24 @@ Licenc az MIT licenc alatt.</value>
   <data name="NetworkCache.SharesHeader" xml:space="preserve">
     <value>Megosztások</value>
   </data>
+  <data name="NetworkCache.SpaceCleaningUp" xml:space="preserve">
+    <value>Tisztítás folyamatban…</value>
+  </data>
+  <data name="NetworkCache.SpaceMeasuring" xml:space="preserve">
+    <value>Mérés folyamatban…</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreachable" xml:space="preserve">
+    <value>Nem érhető el</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreadable" xml:space="preserve">
+    <value>Nem olvasható</value>
+  </data>
+  <data name="NetworkCache.TrustedKeyUnavailableMessage" xml:space="preserve">
+    <value>Bekapcsolt hálózati gyorsítótárral nem hozható létre adathordozó, mert ennek a számítógépnek nincs megbízható kulcsa a megosztásokra közzétett tartalomhoz. Ellenőrizze a Konfiguráció megosztása részt a Beállítások lapon.</value>
+  </data>
+  <data name="NetworkCache.UpToDateState" xml:space="preserve">
+    <value>Naprakész</value>
+  </data>
   <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
     <value>Ez az érték nem érvényes a típusához.</value>
   </data>
@@ -3029,7 +3104,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Adjon meg egy felhasználónevet.</value>
   </data>
   <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>Lehetővé teszi, hogy a Foundry Deploy SMB-megosztásokat használjon közös gyorsítótárként, az eszköz IP-címe alapján kiválasztva. A Windows, az illesztőprogram-csomagok és az importált tartalom az internet előtt a megosztásból töltődik be, az eszközök által letöltött tartalom pedig visszakerül a megosztásba.</value>
+    <value>Lehetővé teszi, hogy a Foundry Deploy SMB-megosztásokat használjon közös gyorsítótárként, az eszköz IP-címe alapján kiválasztva.</value>
   </data>
   <data name="NetworkCachePageHeader.Title" xml:space="preserve">
     <value>Hálózati gyorsítótár</value>
@@ -3218,7 +3293,7 @@ Licenc az MIT licenc alatt.</value>
     <value>PowerShell-argumentumok</value>
   </data>
   <data name="PostInstallation.PxeWarning" xml:space="preserve">
-    <value>Az importált fájlokat használó műveletek PXE-rendszerindítással nem érhetők el. Ezekhez a teljes ISO- vagy USB-adathordozó szükséges.</value>
+    <value>PXE-rendszerindításnál az importált fájlokat használó műveletekhez hálózati gyorsítótár szükséges. Enélkül használjon ISO- vagy USB-adathordozót.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>A műveletet nem sikerült eltávolítani. Próbálja újra.</value>
@@ -4354,6 +4429,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
     <value>A Windows-lemezkép megnyitása…</value>
   </data>
+  <data name="StartMedia.Operation.NetworkCachePublicationFailedFormat" xml:space="preserve">
+    <value>Ezek a hálózati gyorsítótár-megosztások nem kapták meg az importált tartalmat: {0}. Ellenőrizze, hogy mindegyik elérhető és írható, majd a Hálózati gyorsítótár lapon válassza a Közzététel lehetőséget.</value>
+  </data>
   <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
     <value>Mappa megnyitása</value>
   </data>
@@ -4389,6 +4467,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
     <value>A munkaterület előkészítése</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.PublishingToNetworkCache" xml:space="preserve">
+    <value>Közzététel a hálózati gyorsítótárban</value>
   </data>
   <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
     <value>Az USB-meghajtó frissítése</value>
@@ -4428,6 +4509,12 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Foundry-összetevők hozzáadása az USB-meghajtóhoz…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
+    <value>Importált tartalom közzététele a hálózati gyorsítótárban…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCacheShareFormat" xml:space="preserve">
+    <value>Importált tartalom közzététele ide: {0}, {1}/{2}. megosztás</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
     <value>Nincs elég szabad hely a célmappában. A PXE rendszerindító fájlokhoz {0} szükséges. Elérhető: {1}. Szabadítson fel helyet, vagy válasszon másik mappát.</value>
@@ -4476,6 +4563,18 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>Az ISO létrejött</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishCancelled" xml:space="preserve">
+    <value>A hálózati gyorsítótárba való közzététel megszakítva</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishFailed" xml:space="preserve">
+    <value>A hálózati gyorsítótárba való közzététel sikertelen</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishRunning" xml:space="preserve">
+    <value>Közzététel a hálózati gyorsítótárba</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishSucceeded" xml:space="preserve">
+    <value>Közzétéve a hálózati gyorsítótárba</value>
   </data>
   <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
     <value>A PXE-fájlok létrehozása megszakítva</value>

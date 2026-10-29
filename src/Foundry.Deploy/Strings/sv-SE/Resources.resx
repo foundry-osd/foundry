@@ -124,6 +124,9 @@ Licensierad under MIT-licensen.</value>
   <data name="Common.Previous" xml:space="preserve">
     <value>Föregående</value>
   </data>
+  <data name="Common.Retry" xml:space="preserve">
+    <value>Försök igen</value>
+  </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Ej tillgänglig</value>
   </data>
@@ -684,6 +687,45 @@ Fortsätt med implementeringen?</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Verktyg</value>
   </data>
+  <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
+    <value>Nätverkscachens resurs nekade den här enheten. Kontrollera resursens konto och dess lösenord på sidan Nätverkscache i Foundry OSD; kontrollera resursens behörigheter på servern.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedFormat" xml:space="preserve">
+    <value>{0} kan inte öppna {1}. Kontrollera kontots lösenord på sidan Nätverkscache i Foundry OSD; kontrollera dess behörigheter på servern.</value>
+  </data>
+  <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
+    <value>{0} nekade den här enheten. Ange ett konto för den här resursen på sidan Nätverkscache i Foundry OSD; kontrollera resursens behörigheter på servern.</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
+    <value>Drivrutinsuppsättningar</value>
+  </data>
+  <data name="NetworkCacheStartup.CustomImagesItem" xml:space="preserve">
+    <value>Anpassade Windows-avbildningar</value>
+  </data>
+  <data name="NetworkCacheStartup.MissingItemsFormat" xml:space="preserve">
+    <value>Saknas: {0}</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScope" xml:space="preserve">
+    <value>Inget IP-omfång innehåller den här enheten. Lägg till ett omfång för det här nätverket eller ett 0.0.0.0/0-omfång med en reservresurs på sidan Nätverkscache i Foundry OSD.</value>
+  </data>
+  <data name="NetworkCacheStartup.NoScopeFormat" xml:space="preserve">
+    <value>Inget IP-omfång innehåller den här enheten ({0}). Lägg till ett omfång för det här nätverket eller ett 0.0.0.0/0-omfång med en reservresurs på sidan Nätverkscache i Foundry OSD.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublished" xml:space="preserve">
+    <value>Det publicerade innehållet på nätverkscachens resurs saknas eller är ofullständigt. Välj Publicera på sidan Nätverkscache i Foundry OSD.</value>
+  </data>
+  <data name="NetworkCacheStartup.NotPublishedFormat" xml:space="preserve">
+    <value>Det publicerade innehållet på {0} saknas eller är ofullständigt. Välj Publicera på sidan Nätverkscache i Foundry OSD.</value>
+  </data>
+  <data name="NetworkCacheStartup.Title" xml:space="preserve">
+    <value>Nätverkscachen är inte tillgänglig</value>
+  </data>
+  <data name="NetworkCacheStartup.Unreachable" xml:space="preserve">
+    <value>Nätverkscachens resurs svarar inte. Kontrollera på servern att resursen är online och att port 445 är öppen.</value>
+  </data>
+  <data name="NetworkCacheStartup.UnreachableFormat" xml:space="preserve">
+    <value>{0} svarar inte. Kontrollera på servern att resursen är online och att port 445 är öppen.</value>
+  </data>
   <data name="OperatingSystem.Description" xml:space="preserve">
     <value>Välj Windows-version, språk, utgåva och licenskanal.</value>
   </data>
@@ -1053,6 +1095,9 @@ Fortsätt med implementeringen?</value>
   <data name="StepMessage.CheckingCacheDiskConflict" xml:space="preserve">
     <value>Kontrollerar cachediskkonflikt...</value>
   </data>
+  <data name="StepMessage.CheckingCustomImage" xml:space="preserve">
+    <value>Kontrollerar anpassad avbildning...</value>
+  </data>
   <data name="StepMessage.CheckingDeploymentReadiness" xml:space="preserve">
     <value>Kontrollerar om distributionen är redo...</value>
   </data>
@@ -1092,8 +1137,14 @@ Fortsätt med implementeringen?</value>
   <data name="StepMessage.CopyingAutopilotConfiguration" xml:space="preserve">
     <value>Kopierar AutopilotConfigurationFile.json...</value>
   </data>
+  <data name="StepMessage.CopyingCustomImage" xml:space="preserve">
+    <value>Kopierar anpassad avbildning...</value>
+  </data>
   <data name="StepMessage.CopyingDriverPackage" xml:space="preserve">
     <value>Kopierar drivrutinspaket...</value>
+  </data>
+  <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
+    <value>Kopierar från nätverkscachen...</value>
   </data>
   <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
     <value>Kopierar interaktiva registreringsfiler...</value>
@@ -1124,6 +1175,9 @@ Fortsätt med implementeringen?</value>
   </data>
   <data name="StepMessage.FinalizingDeployment" xml:space="preserve">
     <value>Slutför implementering...</value>
+  </data>
+  <data name="StepMessage.FinishingNetworkCacheCopy" xml:space="preserve">
+    <value>Slutför kopieringen till nätverkscachen...</value>
   </data>
   <data name="StepMessage.ImportingHardwareHashIntoMicrosoftGraph" xml:space="preserve">
     <value>Importerar hårdvaruhash till Microsoft Graph...</value>
@@ -1271,6 +1325,12 @@ Fortsätt med implementeringen?</value>
   </data>
   <data name="StepProgress.Extracting" xml:space="preserve">
     <value>Extraherar</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
+    <value>{0}: {1} ({2} återstår)</value>
+  </data>
+  <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
+    <value>{0}: {1}, {2} till ({3} återstår)</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

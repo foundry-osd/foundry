@@ -812,7 +812,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Tvarkyklių rinkiniai</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
-    <value>Nepasiekiama paleidžiant per PXE. Pasirinktinėms tvarkyklėms reikia visos ISO arba USB laikmenos.</value>
+    <value>Paleidžiant per PXE, pasirinktinėms tvarkyklėms reikia tinklo talpyklos. Be jos naudokite ISO arba USB laikmeną.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
     <value>Šios konfigūracijos tvarkyklių rinkiniai netinkami. Prieš kurdami arba atnaujindami laikmeną, patikrinkite įtrauktus rinkinius ir numatytąjį rinkinį.</value>
@@ -938,7 +938,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Atvaizdo operacija nepavyko. Patikrinkite šaltinį, laisvą vietą ir Foundry žurnalus.</value>
   </data>
   <data name="CustomImages.PxeWarning" xml:space="preserve">
-    <value>Nepasiekiama paleidžiant per PXE. Pasirinktiniams atvaizdams reikia visos ISO arba USB laikmenos.</value>
+    <value>Paleidžiant per PXE, pasirinktiniams atvaizdams reikia tinklo talpyklos. Be jos naudokite ISO arba USB laikmeną.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>Įtraukite į šią konfigūraciją bent vieną pasiekiamą „Windows“ atvaizdą. Prieš kurdami arba atnaujindami laikmeną atkurkite trūkstamus įtrauktus atvaizdus ir pataisykite arba išvalykite pageidaujamo atvaizdo ar indekso pasirinkimą.</value>
@@ -2819,7 +2819,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Naudotojo vardas</value>
   </data>
   <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user arba user@domain</value>
+    <value>DOMAIN\user, SERVER\user arba user@domain</value>
   </data>
   <data name="NetworkCache.AccountsDescription" xml:space="preserve">
     <value>Paskyros, kuriomis atidaromi bendrinami aplankai. Įrenginiai jas naudoja bendrinamam aplankui skaityti ir tam, ką atsisiunčia, publikuoti.</value>
@@ -2827,8 +2827,32 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="NetworkCache.AccountsHeader" xml:space="preserve">
     <value>Paskyros</value>
   </data>
+  <data name="NetworkCache.CleanUpShareFailedMessageFormat" xml:space="preserve">
+    <value>Nepavyko sutvarkyti {0}. Patikrinkite, ar bendrinamas aplankas pasiekiamas ir ar jo paskyra gali naikinti failus, tada bandykite dar kartą.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareKeptMessageFormat" xml:space="preserve">
+    <value>{0} sutvarkytas, tačiau kai kurie failai palikti, nes jie naudojami, buvo pakeisti po publikavimo arba jų neįrašė Foundry.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareMessageFormat" xml:space="preserve">
+    <value>Panaikinti atsisiuntimus aplanke {0} ir importuotą turinį, kurio nebenaudoja nei jūsų konfigūracija, nei joks publikuotas indeksas? Įrenginiai iš naujo atsisiunčia tai, ko jiems reikia.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareTitle" xml:space="preserve">
+    <value>Sutvarkyti bendrinamą aplanką</value>
+  </data>
   <data name="NetworkCache.ColumnAccount" xml:space="preserve">
     <value>Paskyra</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloads" xml:space="preserve">
+    <value>Iš interneto</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloadsToolTip" xml:space="preserve">
+    <value>Windows ir tvarkyklių paketai, kuriuos įrenginiai atsisiuntė iš interneto. Išvalymas juos panaikina, o įrenginiai prireikus atsisiunčia juos iš naujo.</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContent" xml:space="preserve">
+    <value>Importuotas turinys</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContentToolTip" xml:space="preserve">
+    <value>Pasirinktiniai atvaizdai, tvarkyklių rinkiniai ir poįdiegimo scenarijai, kuriuos paskelbė Foundry OSD. Išvalymas palieka tuos, kurie dar naudojami.</value>
   </data>
   <data name="NetworkCache.ColumnName" xml:space="preserve">
     <value>Pavadinimas</value>
@@ -2860,11 +2884,20 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="NetworkCache.CommandAdd" xml:space="preserve">
     <value>Pridėti</value>
   </data>
+  <data name="NetworkCache.CommandCleanUp" xml:space="preserve">
+    <value>Sutvarkyti</value>
+  </data>
   <data name="NetworkCache.CommandEdit" xml:space="preserve">
     <value>Redaguoti</value>
   </data>
+  <data name="NetworkCache.CommandPublish" xml:space="preserve">
+    <value>Publikuoti</value>
+  </data>
   <data name="NetworkCache.CommandRemove" xml:space="preserve">
     <value>Pašalinti</value>
+  </data>
+  <data name="NetworkCache.ContentMissingShareFormat" xml:space="preserve">
+    <value>{0} nebeturi jūsų publikuoto turinio. Pasirinkite Publikuoti.</value>
   </data>
   <data name="NetworkCache.DialogAdd" xml:space="preserve">
     <value>Pridėti</value>
@@ -2887,8 +2920,23 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="NetworkCache.NoAccount" xml:space="preserve">
     <value>Nėra paskyros</value>
   </data>
+  <data name="NetworkCache.NotPublishedMessage" xml:space="preserve">
+    <value>Bendrinamuose aplankuose nėra naujausių jūsų pakeitimų. Pasirinkite Publikuoti.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedShareFormat" xml:space="preserve">
+    <value>{0} negavo naujausių jūsų pakeitimų. Pasirinkite Publikuoti.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedState" xml:space="preserve">
+    <value>Nepublikuota</value>
+  </data>
+  <data name="NetworkCache.OutdatedState" xml:space="preserve">
+    <value>Pasenęs</value>
+  </data>
   <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
     <value>Bendrinami aplankai: {0}, IP aprėptys: {1}</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryWithStateFormat" xml:space="preserve">
+    <value>{0} · {1}</value>
   </data>
   <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
     <value>Šio slaptažodžio naudoti negalima.</value>
@@ -2904,6 +2952,15 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="NetworkCache.PasswordSaved" xml:space="preserve">
     <value>Įrašytas</value>
+  </data>
+  <data name="NetworkCache.PublishFailedMessage" xml:space="preserve">
+    <value>Nepavyko paruošti publikuojamo turinio.</value>
+  </data>
+  <data name="NetworkCache.PublishKeysUnavailableMessage" xml:space="preserve">
+    <value>Šis kompiuteris negali pasirašyti to, ką publikuoja bendrinamuose aplankuose, nes nepavyko perskaityti arba įrašyti jo pasirašymo rakto.</value>
+  </data>
+  <data name="NetworkCache.PublishSucceededMessage" xml:space="preserve">
+    <value>Bendrinamuose aplankuose yra naujausi jūsų pakeitimai.</value>
   </data>
   <data name="NetworkCache.Ready" xml:space="preserve">
     <value>Paruošta</value>
@@ -2945,7 +3002,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Bendrinami aplankai</value>
   </data>
   <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>Įrenginiai bando pažymėtus bendrinamus aplankus iš viršaus į apačią, tada atsisiunčia iš interneto.</value>
+    <value>Įrenginiai naudoja pirmą pažymėtą atsakantį bendrinamą aplanką, iš viršaus į apačią.</value>
   </data>
   <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
     <value>Pažymėkite bent vieną bendrinamą aplanką.</value>
@@ -2998,6 +3055,24 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="NetworkCache.SharesHeader" xml:space="preserve">
     <value>Bendrinami aplankai</value>
   </data>
+  <data name="NetworkCache.SpaceCleaningUp" xml:space="preserve">
+    <value>Tvarkoma…</value>
+  </data>
+  <data name="NetworkCache.SpaceMeasuring" xml:space="preserve">
+    <value>Matuojama…</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreachable" xml:space="preserve">
+    <value>Nepasiekiamas</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreadable" xml:space="preserve">
+    <value>Nepavyksta nuskaityti</value>
+  </data>
+  <data name="NetworkCache.TrustedKeyUnavailableMessage" xml:space="preserve">
+    <value>Laikmenos su įjungta tinklo talpykla sukurti negalima, nes šis kompiuteris neturi patikimo rakto bendrinamuose aplankuose publikuotam turiniui. Patikrinkite „Konfigūracijos bendrinimas“ puslapyje „Parametrai“.</value>
+  </data>
+  <data name="NetworkCache.UpToDateState" xml:space="preserve">
+    <value>Naujausia</value>
+  </data>
   <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
     <value>Ši reikšmė netinka jos tipui.</value>
   </data>
@@ -3029,7 +3104,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Įveskite naudotojo vardą.</value>
   </data>
   <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>Leidžia Foundry Deploy naudoti SMB bendrinamus aplankus kaip bendrą talpyklą, parenkamą pagal įrenginio IP adresą. Windows, tvarkyklių paketai ir importuotas turinys skaitomi iš bendrinamo aplanko prieš internetą, o tai, ką įrenginiai atsisiunčia, publikuojama atgal į jį.</value>
+    <value>Leidžia Foundry Deploy naudoti SMB bendrinamus aplankus kaip bendrą talpyklą, parenkamą pagal įrenginio IP adresą.</value>
   </data>
   <data name="NetworkCachePageHeader.Title" xml:space="preserve">
     <value>Tinklo talpykla</value>
@@ -3218,7 +3293,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>PowerShell argumentai</value>
   </data>
   <data name="PostInstallation.PxeWarning" xml:space="preserve">
-    <value>Veiksmai, naudojantys importuotus failus, nepasiekiami paleidžiant per PXE. Jiems reikia visos ISO arba USB laikmenos.</value>
+    <value>Paleidžiant per PXE, veiksmams, kurie naudoja importuotus failus, reikia tinklo talpyklos. Be jos naudokite ISO arba USB laikmeną.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>Nepavyko pašalinti veiksmo. Bandykite dar kartą.</value>
@@ -4354,6 +4429,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
     <value>Atidaromas Windows atvaizdas…</value>
   </data>
+  <data name="StartMedia.Operation.NetworkCachePublicationFailedFormat" xml:space="preserve">
+    <value>Šie tinklo talpyklos bendrinami aplankai negavo importuoto turinio: {0}. Patikrinkite, ar kiekvienas pasiekiamas ir į jį galima rašyti, tada puslapyje Tinklo talpykla pasirinkite Publikuoti.</value>
+  </data>
   <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
     <value>Atidaryti aplanką</value>
   </data>
@@ -4389,6 +4467,9 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
     <value>Ruošiama darbo sritis</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.PublishingToNetworkCache" xml:space="preserve">
+    <value>Publikavimas tinklo talpykloje</value>
   </data>
   <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
     <value>Naujinamas USB diskas</value>
@@ -4428,6 +4509,12 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>Į USB diską pridedami Foundry komponentai…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
+    <value>Importuotas turinys publikuojamas tinklo talpykloje…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCacheShareFormat" xml:space="preserve">
+    <value>Importuotas turinys publikuojamas į {0}, bendrinamas aplankas {1} iš {2}</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
     <value>Paskirties aplanke nepakanka laisvos vietos. PXE įkrovos failams reikia {0}. Laisva vieta: {1}. Atlaisvinkite vietos arba pasirinkite kitą aplanką.</value>
@@ -4476,6 +4563,18 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ISO sukurtas</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishCancelled" xml:space="preserve">
+    <value>Publikavimas tinklo talpykloje atšauktas</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishFailed" xml:space="preserve">
+    <value>Nepavyko publikuoti tinklo talpykloje</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishRunning" xml:space="preserve">
+    <value>Publikuojama tinklo talpykloje</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishSucceeded" xml:space="preserve">
+    <value>Publikuota tinklo talpykloje</value>
   </data>
   <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
     <value>PXE failų kūrimas atšauktas</value>

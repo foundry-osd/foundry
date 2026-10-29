@@ -812,7 +812,7 @@
     <value>ערכות מנהלי התקנים</value>
   </data>
   <data name="CustomDrivers.PxeWarning" xml:space="preserve">
-    <value>לא זמין באתחול PXE. מנהלי התקנים מותאמים אישית דורשים את מדיית ה-ISO או ה-USB המלאה.</value>
+    <value>באתחול PXE, מנהלי התקנים מותאמים אישית דורשים את מטמון הרשת. בלעדיו, השתמש במדיית ISO או USB.</value>
   </data>
   <data name="CustomDrivers.ReadinessInvalid" xml:space="preserve">
     <value>ערכות מנהלי ההתקנים של תצורה זו אינן חוקיות. יש לבדוק את הערכות הכלולות ואת ערכת ברירת המחדל לפני יצירה או עדכון של מדיה.</value>
@@ -938,7 +938,7 @@
     <value>הפעולה על התמונה נכשלה. יש לבדוק את המקור, את השטח הפנוי ואת יומני Foundry.</value>
   </data>
   <data name="CustomImages.PxeWarning" xml:space="preserve">
-    <value>לא זמין באתחול PXE. תמונות מותאמות אישית דורשות את מדיית ה-ISO או ה-USB המלאה.</value>
+    <value>באתחול PXE, תמונות מותאמות אישית דורשות את מטמון הרשת. בלעדיו, השתמש במדיית ISO או USB.</value>
   </data>
   <data name="CustomImages.ReadinessMessage" xml:space="preserve">
     <value>יש לכלול לפחות תמונת Windows זמינה אחת בתצורה זו. יש לשחזר תמונות כלולות שחסרות ולתקן או לנקות את בחירת התמונה או האינדקס המועדפים לפני יצירה או עדכון של המדיה.</value>
@@ -2819,7 +2819,7 @@
     <value>שם משתמש</value>
   </data>
   <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
-    <value>DOMAIN\user או user@domain</value>
+    <value>DOMAIN\user, SERVER\user או user@domain</value>
   </data>
   <data name="NetworkCache.AccountsDescription" xml:space="preserve">
     <value>חשבונות שפותחים שיתופים. המכשירים משתמשים בהם כדי לקרוא שיתוף ולפרסם בו את מה שהם מורידים.</value>
@@ -2827,8 +2827,32 @@
   <data name="NetworkCache.AccountsHeader" xml:space="preserve">
     <value>חשבונות</value>
   </data>
+  <data name="NetworkCache.CleanUpShareFailedMessageFormat" xml:space="preserve">
+    <value>לא ניתן היה לנקות את {0}. ודא שהשיתוף נגיש ושהחשבון שלו יכול למחוק קבצים, ולאחר מכן נסה שוב.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareKeptMessageFormat" xml:space="preserve">
+    <value>{0} נוקה, אך חלק מהקבצים נשמרו מכיוון שהם בשימוש, השתנו מאז שפורסמו או לא נכתבו על ידי Foundry.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareMessageFormat" xml:space="preserve">
+    <value>למחוק את ההורדות ב-{0} ואת התוכן המיובא שכבר לא משתמשים בו לא התצורה שלך ולא אף אינדקס שפורסם? המכשירים יורידו שוב את מה שהם צריכים.</value>
+  </data>
+  <data name="NetworkCache.CleanUpShareTitle" xml:space="preserve">
+    <value>נקה שיתוף</value>
+  </data>
   <data name="NetworkCache.ColumnAccount" xml:space="preserve">
     <value>חשבון</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloads" xml:space="preserve">
+    <value>מהאינטרנט</value>
+  </data>
+  <data name="NetworkCache.ColumnDownloadsToolTip" xml:space="preserve">
+    <value>Windows וחבילות מנהלי התקנים שהמכשירים הורידו מהאינטרנט. הניקוי מוחק אותם, והמכשירים מורידים אותם שוב בעת הצורך.</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContent" xml:space="preserve">
+    <value>תוכן מיובא</value>
+  </data>
+  <data name="NetworkCache.ColumnImportedContentToolTip" xml:space="preserve">
+    <value>תמונות מותאמות אישית, ערכות מנהלי התקנים וסקריפטים שלאחר ההתקנה שפורסמו על ידי Foundry OSD. הניקוי שומר את אלה שעדיין בשימוש.</value>
   </data>
   <data name="NetworkCache.ColumnName" xml:space="preserve">
     <value>שם</value>
@@ -2860,11 +2884,20 @@
   <data name="NetworkCache.CommandAdd" xml:space="preserve">
     <value>הוספה</value>
   </data>
+  <data name="NetworkCache.CommandCleanUp" xml:space="preserve">
+    <value>נקה</value>
+  </data>
   <data name="NetworkCache.CommandEdit" xml:space="preserve">
     <value>עריכה</value>
   </data>
+  <data name="NetworkCache.CommandPublish" xml:space="preserve">
+    <value>פרסם</value>
+  </data>
   <data name="NetworkCache.CommandRemove" xml:space="preserve">
     <value>הסרה</value>
+  </data>
+  <data name="NetworkCache.ContentMissingShareFormat" xml:space="preserve">
+    <value>{0} כבר לא מכיל את התוכן שפרסמת. בחר 'פרסם'.</value>
   </data>
   <data name="NetworkCache.DialogAdd" xml:space="preserve">
     <value>הוספה</value>
@@ -2887,8 +2920,23 @@
   <data name="NetworkCache.NoAccount" xml:space="preserve">
     <value>ללא חשבון</value>
   </data>
+  <data name="NetworkCache.NotPublishedMessage" xml:space="preserve">
+    <value>השיתופים אינם כוללים את השינויים האחרונים שלך. בחר 'פרסם'.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedShareFormat" xml:space="preserve">
+    <value>{0} לא קיבל את השינויים האחרונים שלך. בחר 'פרסם'.</value>
+  </data>
+  <data name="NetworkCache.NotPublishedState" xml:space="preserve">
+    <value>לא פורסם</value>
+  </data>
+  <data name="NetworkCache.OutdatedState" xml:space="preserve">
+    <value>לא עדכני</value>
+  </data>
   <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
     <value>שיתופים: {0}, תחומי IP: {1}</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryWithStateFormat" xml:space="preserve">
+    <value>{0} · {1}</value>
   </data>
   <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
     <value>לא ניתן להשתמש בסיסמה זו.</value>
@@ -2904,6 +2952,15 @@
   </data>
   <data name="NetworkCache.PasswordSaved" xml:space="preserve">
     <value>נשמרה</value>
+  </data>
+  <data name="NetworkCache.PublishFailedMessage" xml:space="preserve">
+    <value>לא ניתן היה להכין את התוכן לפרסום.</value>
+  </data>
+  <data name="NetworkCache.PublishKeysUnavailableMessage" xml:space="preserve">
+    <value>מחשב זה אינו יכול לחתום על מה שהוא מפרסם בשיתופים, כי לא ניתן היה לקרוא או לשמור את מפתח החתימה שלו.</value>
+  </data>
+  <data name="NetworkCache.PublishSucceededMessage" xml:space="preserve">
+    <value>השיתופים כוללים את השינויים האחרונים שלך.</value>
   </data>
   <data name="NetworkCache.Ready" xml:space="preserve">
     <value>מוכן</value>
@@ -2945,7 +3002,7 @@
     <value>שיתופים</value>
   </data>
   <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
-    <value>המכשירים מנסים את השיתופים המסומנים מלמעלה למטה, ולאחר מכן מורידים מהאינטרנט.</value>
+    <value>המכשירים משתמשים בשיתוף המסומן הראשון שעונה, מלמעלה למטה.</value>
   </data>
   <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
     <value>סמן לפחות שיתוף אחד.</value>
@@ -2998,6 +3055,24 @@
   <data name="NetworkCache.SharesHeader" xml:space="preserve">
     <value>שיתופים</value>
   </data>
+  <data name="NetworkCache.SpaceCleaningUp" xml:space="preserve">
+    <value>מנקה…</value>
+  </data>
+  <data name="NetworkCache.SpaceMeasuring" xml:space="preserve">
+    <value>מודד…</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreachable" xml:space="preserve">
+    <value>לא ניתן לגשת</value>
+  </data>
+  <data name="NetworkCache.SpaceUnreadable" xml:space="preserve">
+    <value>לא ניתן לקרוא</value>
+  </data>
+  <data name="NetworkCache.TrustedKeyUnavailableMessage" xml:space="preserve">
+    <value>לא ניתן ליצור מדיה כשמטמון הרשת מופעל, כי למחשב זה אין מפתח מהימן עבור התוכן שפורסם בשיתופים. בדוק את שיתוף התצורה בדף ההגדרות.</value>
+  </data>
+  <data name="NetworkCache.UpToDateState" xml:space="preserve">
+    <value>מעודכן</value>
+  </data>
   <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
     <value>ערך זה אינו חוקי עבור הסוג שלו.</value>
   </data>
@@ -3029,7 +3104,7 @@
     <value>הזן שם משתמש.</value>
   </data>
   <data name="NetworkCachePageHeader.Description" xml:space="preserve">
-    <value>מאפשר ל-Foundry Deploy להשתמש בשיתופי SMB כמטמון משותף, שנבחר לפי כתובת ה-IP של המכשיר. Windows, חבילות מנהלי התקנים ותוכן מיובא נקראים מהשיתוף לפני האינטרנט, ומה שהמכשירים מורידים מתפרסם בחזרה בשיתוף.</value>
+    <value>מאפשר ל-Foundry Deploy להשתמש בשיתופי SMB כמטמון משותף, שנבחר לפי כתובת ה-IP של המכשיר.</value>
   </data>
   <data name="NetworkCachePageHeader.Title" xml:space="preserve">
     <value>מטמון רשת</value>
@@ -3218,7 +3293,7 @@
     <value>ארגומנטים של PowerShell</value>
   </data>
   <data name="PostInstallation.PxeWarning" xml:space="preserve">
-    <value>פעולות שמשתמשות בקבצים מיובאים אינן זמינות באתחול PXE. הן דורשות את מדיית ה-ISO או ה-USB המלאה.</value>
+    <value>באתחול PXE, פעולות שמשתמשות בקבצים מיובאים דורשות את מטמון הרשת. בלעדיו, השתמש במדיית ISO או USB.</value>
   </data>
   <data name="PostInstallation.RemoveFailed" xml:space="preserve">
     <value>לא ניתן היה להסיר את הפעולה. נסה שוב.</value>
@@ -4354,6 +4429,9 @@
   <data name="StartMedia.Operation.MountingWindowsSourceImage" xml:space="preserve">
     <value>פותח את תמונת Windows…</value>
   </data>
+  <data name="StartMedia.Operation.NetworkCachePublicationFailedFormat" xml:space="preserve">
+    <value>שיתופי מטמון הרשת האלה לא קיבלו את התוכן המיובא: {0}. ודא שכל שיתוף נגיש וניתן לכתיבה, ולאחר מכן בחר 'פרסם' בדף 'מטמון רשת'.</value>
+  </data>
   <data name="StartMedia.Operation.OpenFolder" xml:space="preserve">
     <value>פתח תיקייה</value>
   </data>
@@ -4389,6 +4467,9 @@
   </data>
   <data name="StartMedia.Operation.Phase.Preparing" xml:space="preserve">
     <value>הכנת סביבת העבודה</value>
+  </data>
+  <data name="StartMedia.Operation.Phase.PublishingToNetworkCache" xml:space="preserve">
+    <value>פרסום במטמון הרשת</value>
   </data>
   <data name="StartMedia.Operation.Phase.UpdatingUsbDrive" xml:space="preserve">
     <value>עדכון כונן ה-USB</value>
@@ -4428,6 +4509,12 @@
   </data>
   <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
     <value>מוסיף רכיבי Foundry לכונן ה-USB…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
+    <value>מפרסם תוכן מיובא במטמון הרשת…</value>
+  </data>
+  <data name="StartMedia.Operation.PublishingToNetworkCacheShareFormat" xml:space="preserve">
+    <value>מפרסם תוכן מיובא ב-{0}, שיתוף {1} מתוך {2}</value>
   </data>
   <data name="StartMedia.Operation.PxeOutputCapacityInsufficient" xml:space="preserve">
     <value>אין מספיק שטח פנוי בתיקיית היעד. קובצי אתחול ה-PXE דורשים {0}. זמין: {1}. יש לפנות מקום או לבחור תיקייה אחרת.</value>
@@ -4476,6 +4563,18 @@
   </data>
   <data name="StartMedia.Operation.Title.IsoSucceeded" xml:space="preserve">
     <value>ה-ISO נוצר</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishCancelled" xml:space="preserve">
+    <value>הפרסום במטמון הרשת בוטל</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishFailed" xml:space="preserve">
+    <value>הפרסום במטמון הרשת נכשל</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishRunning" xml:space="preserve">
+    <value>מפרסם במטמון הרשת</value>
+  </data>
+  <data name="StartMedia.Operation.Title.NetworkCachePublishSucceeded" xml:space="preserve">
+    <value>פורסם במטמון הרשת</value>
   </data>
   <data name="StartMedia.Operation.Title.PxeCancelled" xml:space="preserve">
     <value>יצירת קובצי ה-PXE בוטלה</value>

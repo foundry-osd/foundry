@@ -46,9 +46,31 @@ public sealed class DeploymentStepExecutionContext : IDisposable
     /// <summary>Retains verified external post-installation content through target staging.</summary>
     internal PreOobe.PreOobePreparedContent? PostInstallContent { get; set; }
 
-    /// <summary>Proves a cache path is on a known physical disk other than the target; WinPE RAM is never external staging.</summary>
+    /// <summary>
+    /// Returns whether <paramref name="path"/> is under the connected network cache share. The check is lexical
+    /// (no I/O), so it is safe for UNC paths that <see cref="DriveInfo"/> and disk mapping cannot handle.
+    /// </summary>
+    internal bool IsOnNetworkCacheShare(string path)
+    {
+        string? share = RuntimeState.NetworkCacheSharePath;
+        if (string.IsNullOrWhiteSpace(share) || string.IsNullOrWhiteSpace(path)) return false;
+        string shareRoot = Path.TrimEndingDirectorySeparator(Path.GetFullPath(share)) + Path.DirectorySeparatorChar;
+        string fullPath = Path.GetFullPath(path);
+        return fullPath.StartsWith(shareRoot, StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(fullPath + Path.DirectorySeparatorChar, shareRoot, StringComparison.OrdinalIgnoreCase);
+    }
+
+    /// <summary>
+    /// Proves a path is on storage separate from the target disk: the network cache share, or a known physical disk
+    /// other than the target; WinPE RAM is never external staging. Throws a guard when the path maps to the target disk.
+    /// </summary>
     internal async Task<bool> IsExternalStorageAsync(string path, CancellationToken cancellationToken)
     {
+        if (IsOnNetworkCacheShare(path))
+        {
+            return true;
+        }
+
         string? root = Path.GetPathRoot(Path.GetFullPath(path));
         if (string.Equals(root, @"X:\", StringComparison.OrdinalIgnoreCase))
         {
@@ -593,10 +615,15 @@ public sealed class DeploymentStepExecutionContext : IDisposable
     /// </summary>
     /// <param name="artifactLabel">User-facing artifact label.</param>
     /// <param name="operationName">Stable logical operation name.</param>
+    /// <param name="transferMessage">
+    /// Step message shown while bytes move, for a copy that is not a download; <see langword="null"/> shows
+    /// <c>Downloading {artifactLabel}...</c>.
+    /// </param>
     /// <returns>A download progress reporter.</returns>
     public IProgress<DownloadProgress> CreateDownloadProgressReporter(
         string artifactLabel,
-        string operationName)
+        string operationName,
+        string? transferMessage = null)
     {
         SetCurrentOperation(operationName);
         DownloadPhase? lastPhase = null;
@@ -655,7 +682,7 @@ public sealed class DeploymentStepExecutionContext : IDisposable
                     details = isVerifyingCache ? "Checking cache..." : $"{FormatByteSize(progress.BytesProcessed)} downloaded";
                 }
 
-                string stepMessage = isVerifyingCache ? "Checking cache..." : $"Downloading {artifactLabel}...";
+                string stepMessage = isVerifyingCache ? "Checking cache..." : transferMessage ?? $"Downloading {artifactLabel}...";
                 ReportCurrentStepProgress(stepMessage);
                 EmitCurrentStep(
                     DeploymentStepState.Running,
@@ -864,7 +891,7 @@ public sealed class DeploymentStepExecutionContext : IDisposable
         return (int)Math.Round((double)stepIndex / stepCount * 100d);
     }
 
-    private static string FormatByteSize(long bytes)
+    internal static string FormatByteSize(long bytes)
     {
         string[] units = ["B", "KB", "MB", "GB", "TB"];
         double size = Math.Max(0, bytes);
