@@ -2,9 +2,9 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Deploy.Controls;
+using Foundry.Wpf.Controls;
 
-namespace Foundry.Deploy.Tests;
+namespace Foundry.Wpf.Tests.Controls;
 
 public sealed class ProgressAnimationDurationPolicyTests
 {

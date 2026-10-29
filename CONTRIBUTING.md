@@ -35,8 +35,9 @@ dotnet restore .\src\Foundry.slnx --nologo
 | `Foundry.Localization` | Shared cultures and resource-based localization |
 | `Foundry.Telemetry` | Shared telemetry contracts, privacy rules, and implementations |
 | `Foundry.Utilities` | Independent reusable technical mechanisms |
+| `Foundry.Wpf` | Shared WPF building blocks for the WPF runtimes: styles, controls, dialogs, motion, theme, and WPF localization services |
 
-Keep WinUI 3 concerns in `Foundry` and WPF concerns in their owning runtime. `Foundry.Core` must not depend on UI projects. `Foundry.Utilities` is a leaf project and must not reference another Foundry project. Runtime-specific workflows stay in the runtime that owns them.
+Keep WinUI 3 concerns in `Foundry`, shared WPF building blocks in `Foundry.Wpf`, and application-specific WPF concerns in the WPF runtime that owns them. `Foundry.Core` must not depend on UI projects. `Foundry.Utilities` is a leaf project and must not reference another Foundry project. Runtime-specific workflows stay in the runtime that owns them.
 
 ## Make a change
 

@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-namespace Foundry.Deploy.Controls;
+namespace Foundry.Wpf.Controls;
 
 public static class ProgressAnimationDurationPolicy
 {

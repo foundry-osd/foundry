@@ -44,12 +44,13 @@ Solution architecture and project ownership:
 - `Foundry.PostInstall` is the .NET console runtime for Windows setup before OOBE. It owns built-in and custom action execution, process supervision, durable restart/resume, and owned cleanup. Deploy owns target staging and answer-file integration; PostInstall runs the interactive Autopilot assistant as a built-in action, while the assistant script remains a separate Deploy-staged runtime.
 - `Foundry.Localization` provides shared culture definitions and resource-based localization services used by the applications.
 - `Foundry.Telemetry` provides shared telemetry contracts, event definitions, context, privacy rules, PostHog integration, and the no-op telemetry implementation.
+- `Foundry.Wpf` contains WPF building blocks shared by WPF runtime applications: styles, controls, dialogs, motion, theme and WPF localization services. It contains no business rules, configuration schemas or workflow logic.
 - `Foundry.Utilities` contains reusable technical mechanisms that are independent of a Foundry-specific workflow, UI framework, configuration schema, or telemetry taxonomy.
 
 Project dependency rules:
 - `Foundry.Core` must not depend on any UI project.
 - Keep WinUI 3 concerns in `Foundry`.
-- Keep WPF concerns in `Foundry.Connect` or `Foundry.Deploy`.
+- Keep shared WPF building blocks in `Foundry.Wpf` and application-specific WPF concerns in the WPF application that owns them.
 - Keep `Foundry.PostInstall` independent of UI projects; shared execution contracts belong in `Foundry.Core`.
 - Put reusable business rules and configuration contracts in `Foundry.Core` when they are shared or independent from a specific UI framework.
 - Put runtime-specific behavior in the runtime project that owns it.
@@ -58,7 +59,8 @@ Project dependency rules:
 - Bootstrap and PostInstall console messages use English; keep Foundry OSD authoring controls translated in every supported culture.
 - Use `Foundry.Telemetry` for shared telemetry behavior instead of creating application-specific telemetry implementations.
 - `Foundry.Utilities` is a leaf project and must not reference another Foundry project.
-- `Foundry.Core`, `Foundry`, `Foundry.Bootstrap`, `Foundry.Connect`, `Foundry.Deploy`, `Foundry.PostInstall`, `Foundry.Localization`, and `Foundry.Telemetry` may consume `Foundry.Utilities` when a capability has a stable cross-project contract.
+- `Foundry.Wpf` may reference `Foundry.Localization`, `Foundry.Telemetry` and `Foundry.Utilities`; it must not reference `Foundry.Core` or an application project. Only WPF applications reference `Foundry.Wpf`.
+- `Foundry.Core`, `Foundry`, `Foundry.Bootstrap`, `Foundry.Connect`, `Foundry.Deploy`, `Foundry.PostInstall`, `Foundry.Localization`, `Foundry.Telemetry`, and `Foundry.Wpf` may consume `Foundry.Utilities` when a capability has a stable cross-project contract.
 - A type belongs in `Foundry.Utilities` only when it is technical, independently testable, and either has multiple consumers or replaces proven duplication.
 - Destructive deployment and media operations remain in the project that owns the workflow even when they use shared utility primitives.
 
@@ -122,6 +124,7 @@ Unit testing rules:
 - `Foundry.Localization.Tests` owns tests for shared localization behavior.
 - `Foundry.Telemetry.Tests` owns tests for shared telemetry behavior and privacy rules.
 - `Foundry.Utilities.Tests` owns direct tests for utility behavior; consuming projects retain adapter, policy, schema, and integration tests.
+- `Foundry.Wpf.Tests` owns tests for the logic of shared WPF building blocks in `Foundry.Wpf`.
 - Do not create a test project for the `Foundry` WinUI 3 application.
 - Do not add automated tests for `Foundry` views, code-behind, bindings, navigation, or other WinUI 3 UI behavior.
 - Do not test WPF views, code-behind, bindings, or framework behavior unless explicitly requested.

@@ -23,6 +23,7 @@
     <ProjectReference Include="..\Foundry.Localization\Foundry.Localization.csproj" />
     <ProjectReference Include="..\Foundry.Telemetry\Foundry.Telemetry.csproj" />
     <ProjectReference Include="..\Foundry.Utilities\Foundry.Utilities.csproj" />
+    <ProjectReference Include="..\Foundry.Wpf\Foundry.Wpf.csproj" />
   </ItemGroup>
 
   <ItemGroup>

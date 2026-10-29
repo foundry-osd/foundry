@@ -31,6 +31,8 @@
       - any-glob-to-any-file:
           - 'src/Foundry.Deploy/**'
           - 'src/Foundry.Deploy.Tests/**'
+          - 'src/Foundry.Wpf/**'
+          - 'src/Foundry.Wpf.Tests/**'
 
 # Foundry WinPE network provisioning application
 'project: foundry-connect':
@@ -38,6 +40,8 @@
       - any-glob-to-any-file:
           - 'src/Foundry.Connect/**'
           - 'src/Foundry.Connect.Tests/**'
+          - 'src/Foundry.Wpf/**'
+          - 'src/Foundry.Wpf.Tests/**'
 
 # Foundry WinPE boot orchestration runtime
 'project: foundry-bootstrap':
@@ -65,8 +69,8 @@ ui:
           - 'src/Foundry.Deploy/ViewModels/**'
           - 'src/Foundry.Deploy/Converters/**'
           - 'src/Foundry.Connect/ViewModels/**'
-          - 'src/Foundry.Connect/Converters/**'
-          - 'src/Foundry.Connect/Assets/**'
+          - 'src/Foundry.Wpf/**'
+          - 'src/Foundry.Wpf.Tests/**'
 
 # Tests
 tests:
