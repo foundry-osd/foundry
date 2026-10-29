@@ -39,6 +39,8 @@ public sealed class WlanClient : IWlanClient
 
     private readonly TimeProvider _timeProvider;
     private readonly ILogger<WlanClient> _logger;
+    private readonly Lock _snapshotFailureLock = new();
+    private string? _lastSnapshotFailure;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="WlanClient"/> class.
@@ -57,40 +59,19 @@ public sealed class WlanClient : IWlanClient
     /// <inheritdoc />
     public WlanSnapshot GetSnapshot(bool requestScan)
     {
+        // Snapshots are polled; only the first failure of a read is kept and logged when it changes.
+        string? failure = null;
+        void RecordFailure(string nativeCall, uint error) => failure ??= $"{nativeCall}:{error}";
+
         try
         {
-            using WlanClientHandle? handle = OpenHandle(out uint openError);
-            if (handle is null)
-            {
-                return WlanSnapshot.RuntimeMissing(openError);
-            }
-
-            List<WlanInterfaceSnapshot>? interfaces = ReadInterfaces(handle, out uint enumError);
-            if (interfaces is null)
-            {
-                return WlanSnapshot.RuntimeMissing(enumError);
-            }
-
-            if (interfaces.Count == 0)
-            {
-                return new WlanSnapshot(WifiAvailability.NoAdapter, [], []);
-            }
-
-            List<WlanAvailableNetworkInfo> networks = [];
-            foreach (WlanInterfaceSnapshot wlanInterface in interfaces)
-            {
-                networks.AddRange(ReadAvailableNetworks(handle, wlanInterface.InterfaceId));
-                if (requestScan)
-                {
-                    _ = NativeWifiApi.WlanScan(handle, wlanInterface.InterfaceId, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
-                }
-            }
-
-            return new WlanSnapshot(WifiAvailability.Available, interfaces, networks);
+            WlanSnapshot snapshot = ReadSnapshot(requestScan, RecordFailure);
+            ReportSnapshotFailure(failure);
+            return snapshot;
         }
         catch (Exception exception)
         {
-            _logger.LogDebug(exception, "WLAN snapshot could not be read. NativeCall={NativeCall}", "GetSnapshot");
+            ReportSnapshotFailure(exception.GetType().Name, exception);
             return WlanSnapshot.RuntimeMissing(0);
         }
     }
@@ -102,7 +83,7 @@ public sealed class WlanClient : IWlanClient
 
         try
         {
-            using WlanClientHandle? handle = OpenHandle(out uint openError);
+            using WlanClientHandle? handle = OpenHandle(out uint openError, LogCallFailure);
             if (handle is null)
             {
                 return MapOpenFailure(openError);
@@ -160,7 +141,7 @@ public sealed class WlanClient : IWlanClient
 
         try
         {
-            handle = OpenHandle(out uint openError);
+            handle = OpenHandle(out uint openError, LogCallFailure);
             if (handle is null)
             {
                 return MapOpenFailure(openError);
@@ -240,7 +221,7 @@ public sealed class WlanClient : IWlanClient
 
         try
         {
-            using WlanClientHandle? handle = OpenHandle(out uint openError);
+            using WlanClientHandle? handle = OpenHandle(out uint openError, LogCallFailure);
             if (handle is null)
             {
                 return MapOpenFailure(openError);
@@ -256,7 +237,7 @@ public sealed class WlanClient : IWlanClient
             long startedAt = _timeProvider.GetTimestamp();
             while (true)
             {
-                List<WlanInterfaceSnapshot>? interfaces = ReadInterfaces(handle, out uint enumError);
+                List<WlanInterfaceSnapshot>? interfaces = ReadInterfaces(handle, out uint enumError, LogCallFailure);
                 if (interfaces is null)
                 {
                     return new WlanOperationResult(WlanOperationStatus.RequestFailed, enumError);
@@ -437,7 +418,70 @@ public sealed class WlanClient : IWlanClient
         return items;
     }
 
-    private WlanClientHandle? OpenHandle(out uint error)
+    /// <summary>
+    /// Logs a snapshot failure only when it differs from the previous snapshot's, and once when snapshots recover.
+    /// </summary>
+    /// <remarks>
+    /// The monitor polls snapshots; a missing runtime would otherwise log the same failure on every refresh.
+    /// </remarks>
+    /// <param name="failure">Failing native call and error (or exception type), or <see langword="null"/> for a clean read.</param>
+    /// <param name="exception">Exception behind the failure, logged with the first occurrence only.</param>
+    internal void ReportSnapshotFailure(string? failure, Exception? exception = null)
+    {
+        string? previous;
+        lock (_snapshotFailureLock)
+        {
+            previous = _lastSnapshotFailure;
+            _lastSnapshotFailure = failure;
+        }
+
+        if (string.Equals(previous, failure, StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        if (failure is null)
+        {
+            _logger.LogDebug("WLAN snapshot read succeeded again. PreviousSnapshotFailure={SnapshotFailure}", previous);
+            return;
+        }
+
+        _logger.LogDebug(exception, "WLAN snapshot read failed. SnapshotFailure={SnapshotFailure}", failure);
+    }
+
+    private WlanSnapshot ReadSnapshot(bool requestScan, Action<string, uint> reportFailure)
+    {
+        using WlanClientHandle? handle = OpenHandle(out uint openError, reportFailure);
+        if (handle is null)
+        {
+            return WlanSnapshot.RuntimeMissing(openError);
+        }
+
+        List<WlanInterfaceSnapshot>? interfaces = ReadInterfaces(handle, out uint enumError, reportFailure);
+        if (interfaces is null)
+        {
+            return WlanSnapshot.RuntimeMissing(enumError);
+        }
+
+        if (interfaces.Count == 0)
+        {
+            return new WlanSnapshot(WifiAvailability.NoAdapter, [], []);
+        }
+
+        List<WlanAvailableNetworkInfo> networks = [];
+        foreach (WlanInterfaceSnapshot wlanInterface in interfaces)
+        {
+            networks.AddRange(ReadAvailableNetworks(handle, wlanInterface.InterfaceId, reportFailure));
+            if (requestScan)
+            {
+                _ = NativeWifiApi.WlanScan(handle, wlanInterface.InterfaceId, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
+            }
+        }
+
+        return new WlanSnapshot(WifiAvailability.Available, interfaces, networks);
+    }
+
+    private static WlanClientHandle? OpenHandle(out uint error, Action<string, uint> reportFailure)
     {
         error = NativeWifiApi.WlanOpenHandle(NativeWifiApi.ClientVersion, IntPtr.Zero, out _, out WlanClientHandle handle);
         if (error == 0)
@@ -446,11 +490,14 @@ public sealed class WlanClient : IWlanClient
         }
 
         handle.Dispose();
-        LogWlanFailure(nameof(NativeWifiApi.WlanOpenHandle), error, 0);
+        reportFailure(nameof(NativeWifiApi.WlanOpenHandle), error);
         return null;
     }
 
-    private List<WlanInterfaceSnapshot>? ReadInterfaces(WlanClientHandle handle, out uint error)
+    private static List<WlanInterfaceSnapshot>? ReadInterfaces(
+        WlanClientHandle handle,
+        out uint error,
+        Action<string, uint> reportFailure)
     {
         IntPtr interfaceListPointer = IntPtr.Zero;
 
@@ -459,7 +506,7 @@ public sealed class WlanClient : IWlanClient
             error = NativeWifiApi.WlanEnumInterfaces(handle, IntPtr.Zero, out interfaceListPointer);
             if (error != 0)
             {
-                LogWlanFailure(nameof(NativeWifiApi.WlanEnumInterfaces), error, 0);
+                reportFailure(nameof(NativeWifiApi.WlanEnumInterfaces), error);
                 return null;
             }
 
@@ -468,7 +515,7 @@ public sealed class WlanClient : IWlanClient
             {
                 WlanInterfaceStatus status = MapInterfaceState(info.State);
                 WlanCurrentConnection? connection = status == WlanInterfaceStatus.Connected
-                    ? ReadCurrentConnection(handle, info.InterfaceGuid)
+                    ? ReadCurrentConnection(handle, info.InterfaceGuid, reportFailure)
                     : null;
                 interfaces.Add(new WlanInterfaceSnapshot(info.InterfaceGuid, info.InterfaceDescription ?? string.Empty, status, connection));
             }
@@ -481,7 +528,10 @@ public sealed class WlanClient : IWlanClient
         }
     }
 
-    private WlanCurrentConnection? ReadCurrentConnection(WlanClientHandle handle, Guid interfaceId)
+    private static WlanCurrentConnection? ReadCurrentConnection(
+        WlanClientHandle handle,
+        Guid interfaceId,
+        Action<string, uint> reportFailure)
     {
         IntPtr dataPointer = IntPtr.Zero;
 
@@ -495,9 +545,14 @@ public sealed class WlanClient : IWlanClient
                 out _,
                 out dataPointer,
                 out _);
-            if (error != 0 || dataPointer == IntPtr.Zero)
+            if (error != 0)
             {
-                LogWlanFailure(nameof(NativeWifiApi.WlanQueryInterface), error, 0);
+                reportFailure(nameof(NativeWifiApi.WlanQueryInterface), error);
+                return null;
+            }
+
+            if (dataPointer == IntPtr.Zero)
+            {
                 return null;
             }
 
@@ -515,7 +570,10 @@ public sealed class WlanClient : IWlanClient
         }
     }
 
-    private List<WlanAvailableNetworkInfo> ReadAvailableNetworks(WlanClientHandle handle, Guid interfaceId)
+    private static List<WlanAvailableNetworkInfo> ReadAvailableNetworks(
+        WlanClientHandle handle,
+        Guid interfaceId,
+        Action<string, uint> reportFailure)
     {
         IntPtr networkListPointer = IntPtr.Zero;
 
@@ -529,7 +587,7 @@ public sealed class WlanClient : IWlanClient
                 out networkListPointer);
             if (error != 0)
             {
-                LogWlanFailure(nameof(NativeWifiApi.WlanGetAvailableNetworkList), error, 0);
+                reportFailure(nameof(NativeWifiApi.WlanGetAvailableNetworkList), error);
                 return [];
             }
 
@@ -572,7 +630,7 @@ public sealed class WlanClient : IWlanClient
 
         try
         {
-            using WlanClientHandle? handle = OpenHandle(out _);
+            using WlanClientHandle? handle = OpenHandle(out _, LogCallFailure);
             if (handle is null)
             {
                 return false;
@@ -607,8 +665,27 @@ public sealed class WlanClient : IWlanClient
         }
         finally
         {
+            // The buffer may hold the plaintext key; clear it before it goes back to the wlanapi heap.
+            ClearUnicodeString(profileXmlPointer);
             NativeWifiApi.FreeMemory(profileXmlPointer);
         }
+    }
+
+    private static void ClearUnicodeString(IntPtr pointer)
+    {
+        if (pointer == IntPtr.Zero)
+        {
+            return;
+        }
+
+        int length = 0;
+        while (Marshal.ReadInt16(pointer, length * sizeof(char)) != 0)
+        {
+            length++;
+        }
+
+        int byteCount = (length + 1) * sizeof(char);
+        Marshal.Copy(new byte[byteCount], 0, pointer, byteCount);
     }
 
     private WlanOperationResult ReadConnectionAfterTimeout(
@@ -617,7 +694,7 @@ public sealed class WlanClient : IWlanClient
         string profileName,
         uint lastReason)
     {
-        List<WlanInterfaceSnapshot>? interfaces = ReadInterfaces(handle, out _);
+        List<WlanInterfaceSnapshot>? interfaces = ReadInterfaces(handle, out _, LogCallFailure);
         WlanInterfaceSnapshot? wlanInterface = interfaces?.Find(candidate => candidate.InterfaceId == interfaceId);
         if (interfaces is not null && wlanInterface is null)
         {
@@ -641,6 +718,11 @@ public sealed class WlanClient : IWlanClient
             win32Error,
             reasonCode,
             ReadReasonText(reasonCode));
+    }
+
+    private void LogCallFailure(string nativeCall, uint win32Error)
+    {
+        LogWlanFailure(nativeCall, win32Error, 0);
     }
 
     private void LogRuntimeMissing(Exception exception, string nativeCall)
