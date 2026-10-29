@@ -16,20 +16,25 @@ using Microsoft.Extensions.Logging;
 namespace Foundry.Connect.Network;
 
 /// <summary>
-/// Applies the media network provisioning once per process: the wired 802.1X profile with its certificate and a
+/// Applies the media network provisioning once per process: the wired 802.1X profile with its certificates and a
 /// reconnect of every linked Ethernet interface (T8), then the provisioned Wi-Fi profile on every present WLAN
 /// interface (T1).
 /// </summary>
 /// <remarks>
-/// A secret that cannot be read makes only its feature unavailable (D9). PFX passwords are cleared right after the
-/// certificate import and the Wi-Fi passphrase right after the profile document is built (T10, T15, L2-6). The wired
-/// and Wi-Fi parts are isolated: an unexpected error in one never stops the other. Roaming is not captured here (D5).
-/// Only Debug details are logged; the coordinator logs the operation and its failures. No SSID, profile name or
-/// profile XML is ever logged.
+/// Each part installs every trusted root of its <see cref="ConnectCertificateSet"/> and its client PFX, read from a plain
+/// file or, when staged encrypted, from the decrypted content (D8, L4-5). A secret that cannot be read makes only its
+/// feature unavailable (D9). A part whose secrets are still locked by the deployment password is skipped: wired 802.1X
+/// becomes unavailable for the session, the provisioned Wi-Fi stays <see cref="ProvisionedWifiStatus.Locked"/> until
+/// <see cref="RefreshWifiAsync"/> runs after the unlock (L4-10). PFX passwords and contents are cleared right after the
+/// certificate import, the Wi-Fi passphrase right after the profile document is built and a protected template right
+/// after it is decoded (T10, T15, L2-6). The wired and Wi-Fi parts are isolated: an unexpected error in one never stops
+/// the other. Roaming is not captured here (D5). Only Debug details and the wired skip are logged; the coordinator logs
+/// the operation and its failures. No SSID, profile name, file name or profile XML is ever logged.
 /// </remarks>
 public sealed class ProvisioningStep : IProvisioningStep
 {
     private readonly object _gate = new();
+    private readonly SemaphoreSlim _refreshGate = new(1, 1);
     private readonly FoundryConnectConfigurationDocument _configuration;
     private readonly string? _configurationPath;
     private readonly ConnectRuntimeSecrets _secrets;
@@ -109,6 +114,32 @@ public sealed class ProvisioningStep : IProvisioningStep
         }
     }
 
+    /// <inheritdoc />
+    public async Task<ProvisioningOutcome> RefreshWifiAsync(CancellationToken cancellationToken)
+    {
+        await RunAsync(cancellationToken).ConfigureAwait(false);
+        await _refreshGate.WaitAsync(cancellationToken).ConfigureAwait(false);
+        try
+        {
+            // Read again under the refresh gate: a refresh this call waited behind may have replaced the cached outcome.
+            ProvisioningOutcome cached = await RunAsync(cancellationToken).ConfigureAwait(false);
+            ProvisioningOutcome refreshed = await Task.Run(() => RefreshCore(cached, cancellationToken), CancellationToken.None).ConfigureAwait(false);
+            if (!ReferenceEquals(refreshed, cached))
+            {
+                lock (_gate)
+                {
+                    _run = Task.FromResult(refreshed);
+                }
+            }
+
+            return refreshed;
+        }
+        finally
+        {
+            _refreshGate.Release();
+        }
+    }
+
     private async Task<ProvisioningOutcome> RunCoreAsync(CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -119,6 +150,21 @@ public sealed class ProvisioningStep : IProvisioningStep
         (ProvisionedWifiState wifi, WifiProfileDocument? profile) = ProvisionWifi(failures, cancellationToken);
 
         return new ProvisioningOutcome(wired, wifi, profile, failures.ToArray());
+    }
+
+    private ProvisioningOutcome RefreshCore(ProvisioningOutcome cached, CancellationToken cancellationToken)
+    {
+        // The wired part never runs again this session, so a wired secret a later unlock made readable is never used (L4-10).
+        ClearWiredSecrets();
+        if (cached.Wifi.Status != ProvisionedWifiStatus.Locked)
+        {
+            return cached;
+        }
+
+        cancellationToken.ThrowIfCancellationRequested();
+        List<NetworkFailureCode> failures = [.. cached.Failures];
+        (ProvisionedWifiState wifi, WifiProfileDocument? profile) = ProvisionWifi(failures, cancellationToken);
+        return cached with { Wifi = wifi, WifiProfile = profile, Failures = failures.ToArray() };
     }
 
     private async Task<Dot1xState> ProvisionWiredAsync(List<NetworkFailureCode> failures, CancellationToken cancellationToken)
@@ -132,6 +178,13 @@ public sealed class ProvisioningStep : IProvisioningStep
                 return Dot1xState.NotConfigured;
             }
 
+            // The wired startup prompt ran before provisioning (L4-12): a secret still locked means it was cancelled.
+            if (_secrets.IsWiredLocked)
+            {
+                _logger.LogInformation("Wired 802.1X skipped because the deployment password was not entered.");
+                return new Dot1xState(Dot1xAuthenticationStatus.Unavailable, Dot1xFailureReason.UnlockCancelled);
+            }
+
             return await ApplyWiredAsync(settings, failures, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception exception) when (!cancellationToken.IsCancellationRequested)
@@ -142,7 +195,7 @@ public sealed class ProvisioningStep : IProvisioningStep
         }
         finally
         {
-            _secrets.WiredCertificatePfxPassword.Clear();
+            ClearWiredSecrets();
         }
     }
 
@@ -155,13 +208,13 @@ public sealed class ProvisioningStep : IProvisioningStep
             return new Dot1xState(Dot1xAuthenticationStatus.Failed, Dot1xFailureReason.ProfileTemplateMissing);
         }
 
-        CertificateStepResult certificate = InstallCertificate(
-            settings.CertificatePath,
-            settings.CertificatePfxPasswordSecret,
+        CertificateStepResult certificates = InstallCertificates(
+            ConnectCertificateSet.From(settings),
             _secrets.WiredCertificatePfxPassword,
+            _secrets.WiredClientCertificate,
             NetworkFailureCode.WiredCertificateImportFailed,
             failures);
-        if (certificate == CertificateStepResult.SecretUnavailable)
+        if (certificates == CertificateStepResult.SecretUnavailable)
         {
             failures.Add(NetworkFailureCode.WiredSecretUnavailable);
             return new Dot1xState(Dot1xAuthenticationStatus.Unavailable, Dot1xFailureReason.SecretUnavailable);
@@ -222,6 +275,12 @@ public sealed class ProvisioningStep : IProvisioningStep
                 return (ProvisionedWifiState.NotConfigured, null);
             }
 
+            // Not a failure: the profile is built by RefreshWifiAsync once the deployment password is entered.
+            if (_secrets.IsWifiLocked)
+            {
+                return (LockedState(settings), null);
+            }
+
             (ProvisionedWifiState state, WifiProfileDocument? profile) = settings.HasEnterpriseProfile
                 ? ReadEnterpriseProfile(settings, failures)
                 : BuildPersonalProfile(settings, failures);
@@ -241,34 +300,48 @@ public sealed class ProvisioningStep : IProvisioningStep
         }
         finally
         {
+            // Clear keeps locked items, so a part skipped while locked can still be unlocked later.
             _secrets.WifiPassphrase.Clear();
             _secrets.WifiCertificatePfxPassword.Clear();
+            _secrets.WifiClientCertificate.Clear();
+            _secrets.WifiEnterpriseProfile.Clear();
         }
     }
 
     private (ProvisionedWifiState State, WifiProfileDocument? Profile) ReadEnterpriseProfile(ConnectWifiSettings settings, List<NetworkFailureCode> failures)
     {
-        string? templatePath = ResolveAssetPath(settings.EnterpriseProfileTemplatePath);
-        if (templatePath is null || !File.Exists(templatePath))
+        // A protected template comes from the decrypted content; its .xml.encrypted file is not read again here.
+        bool isTemplateProtected = settings.IsEnterpriseProfileTemplateProtected;
+        string? templatePath = isTemplateProtected ? null : ResolveAssetPath(settings.EnterpriseProfileTemplatePath);
+        if (isTemplateProtected)
+        {
+            if (_secrets.WifiEnterpriseProfile.Status != ConnectSecretStatus.Available)
+            {
+                failures.Add(NetworkFailureCode.WifiSecretUnavailable);
+                return (Unavailable(ProvisionedWifiUnavailableReason.SecretUnavailable, isEnterprise: true), null);
+            }
+        }
+        else if (templatePath is null || !File.Exists(templatePath))
         {
             failures.Add(NetworkFailureCode.ProvisionedProfileUnavailable);
             return (Unavailable(ProvisionedWifiUnavailableReason.ProfileTemplateMissing, isEnterprise: true), null);
         }
 
-        CertificateStepResult certificate = InstallCertificate(
-            settings.CertificatePath,
-            settings.CertificatePfxPasswordSecret,
+        CertificateStepResult certificates = InstallCertificates(
+            ConnectCertificateSet.From(settings),
             _secrets.WifiCertificatePfxPassword,
+            _secrets.WifiClientCertificate,
             NetworkFailureCode.WifiCertificateImportFailed,
             failures);
-        if (certificate == CertificateStepResult.SecretUnavailable)
+        if (certificates == CertificateStepResult.SecretUnavailable)
         {
             failures.Add(NetworkFailureCode.WifiSecretUnavailable);
             return (Unavailable(ProvisionedWifiUnavailableReason.SecretUnavailable, isEnterprise: true), null);
         }
 
         // A template without a readable name or SSID fails closed instead of guessing an identity.
-        WifiProfileDocument? profile = WifiProfileDocument.FromXml(File.ReadAllText(templatePath));
+        string xml = isTemplateProtected ? DecodeProtectedTemplate() : File.ReadAllText(templatePath!);
+        WifiProfileDocument? profile = WifiProfileDocument.FromXml(xml);
         if (profile is null)
         {
             failures.Add(NetworkFailureCode.ProvisionedProfileUnavailable);
@@ -278,13 +351,27 @@ public sealed class ProvisioningStep : IProvisioningStep
         return (Ready(profile, isEnterprise: true), profile);
     }
 
+    // Decodes the decrypted template as UTF-8 (without a byte order mark), then zeroes the content buffer.
+    private string DecodeProtectedTemplate()
+    {
+        try
+        {
+            ReadOnlySpan<byte> content = _secrets.WifiEnterpriseProfile.Content;
+            ReadOnlySpan<byte> preamble = Encoding.UTF8.Preamble;
+            return Encoding.UTF8.GetString(content.StartsWith(preamble) ? content[preamble.Length..] : content);
+        }
+        finally
+        {
+            _secrets.WifiEnterpriseProfile.Clear();
+        }
+    }
+
     private (ProvisionedWifiState State, WifiProfileDocument? Profile) BuildPersonalProfile(ConnectWifiSettings settings, List<NetworkFailureCode> failures)
     {
         // L2-21: the configured SSID keeps today's trim; the passphrase is never trimmed (T9).
-        string? ssidText = settings.Ssid?.Trim();
-        WifiSsid? ssid = null;
+        WifiSsid? ssid = ConfiguredSsid(settings);
         WifiProfileSecurity? security = WifiSecurityClassifier.FromConfiguredSecurityType(settings.SecurityType);
-        if (string.IsNullOrEmpty(ssidText) || !WifiSsid.TryFromBytes(Encoding.UTF8.GetBytes(ssidText), out ssid) || security is null)
+        if (ssid is null || security is null)
         {
             failures.Add(NetworkFailureCode.ProvisionedProfileUnavailable);
             return (Unavailable(ProvisionedWifiUnavailableReason.InvalidConfiguration, isEnterprise: false, ssid), null);
@@ -353,40 +440,50 @@ public sealed class ProvisioningStep : IProvisioningStep
     }
 
     /// <summary>
-    /// Imports the configured certificate when its file exists, then clears its PFX password.
+    /// Imports every existing trusted root of <paramref name="certificates"/>, then its client certificate, and clears the
+    /// PFX password and content.
     /// </summary>
     /// <returns>
-    /// <see cref="CertificateStepResult.SecretUnavailable"/> when a PFX file needs a password the media carries but that
-    /// could not be read; the caller then stops its part. An import failure only adds <paramref name="importFailure"/>.
+    /// <see cref="CertificateStepResult.SecretUnavailable"/> when the client certificate needs a password or a protected
+    /// content the media carries but that could not be read; the caller then stops its part and nothing is imported. An
+    /// import failure only adds <paramref name="importFailure"/> and the remaining certificates are still imported.
     /// </returns>
-    private CertificateStepResult InstallCertificate(
-        string? configuredPath,
-        SecretEnvelope? passwordEnvelope,
+    private CertificateStepResult InstallCertificates(
+        ConnectCertificateSet certificates,
         ConnectSecret password,
+        ConnectProtectedContent content,
         NetworkFailureCode importFailure,
         List<NetworkFailureCode> failures)
     {
         try
         {
-            string? certificatePath = ResolveAssetPath(configuredPath);
-            if (certificatePath is null || !File.Exists(certificatePath))
-            {
-                return CertificateStepResult.Completed;
-            }
-
-            if (NetworkProfileRoamingArtifacts.IsPfxPath(certificatePath) && passwordEnvelope is not null && password.Status == ConnectSecretStatus.Unavailable)
+            string? clientPath = certificates.IsClientCertificateContentProtected ? null : ResolveExistingAssetPath(certificates.ClientCertificatePath);
+            bool hasClient = certificates.IsClientCertificateContentProtected || clientPath is not null;
+            if (hasClient && IsClientSecretUnavailable(certificates, password, content, clientPath))
             {
                 return CertificateStepResult.SecretUnavailable;
             }
 
-            CertificateInstallResult result = _certificates.Install(
-                certificatePath,
-                password.Status == ConnectSecretStatus.Available ? password.Value : ReadOnlySpan<char>.Empty);
-            _logger.LogDebug(
-                "Provisioned certificate processed. CertificateKind={CertificateKind}, CertificateInstallStatus={CertificateInstallStatus}",
-                CertificateInstaller.GetCertificateKind(certificatePath),
-                result.Status);
-            if (!result.IsSuccess)
+            bool importFailed = false;
+            foreach (string root in certificates.TrustedRootCertificatePaths)
+            {
+                if (ResolveExistingAssetPath(root) is string rootPath)
+                {
+                    importFailed |= !Record(CertificateInstaller.GetCertificateKind(rootPath), _certificates.Install(rootPath, ReadOnlySpan<char>.Empty));
+                }
+            }
+
+            ReadOnlySpan<char> clientPassword = password.Status == ConnectSecretStatus.Available ? password.Value : ReadOnlySpan<char>.Empty;
+            if (certificates.IsClientCertificateContentProtected)
+            {
+                importFailed |= !Record("pfx", _certificates.InstallPfx(content.Content, clientPassword));
+            }
+            else if (clientPath is not null)
+            {
+                importFailed |= !Record(CertificateInstaller.GetCertificateKind(clientPath), _certificates.Install(clientPath, clientPassword));
+            }
+
+            if (importFailed)
             {
                 failures.Add(importFailure);
             }
@@ -396,10 +493,37 @@ public sealed class ProvisioningStep : IProvisioningStep
         finally
         {
             password.Clear();
+            content.Clear();
         }
     }
 
+    // A protected client needs its decrypted content; a plain PFX (lot 2 rule) needs the password the media carries.
+    private static bool IsClientSecretUnavailable(ConnectCertificateSet certificates, ConnectSecret password, ConnectProtectedContent content, string? clientPath)
+    {
+        bool passwordUnavailable = certificates.ClientCertificatePasswordSecret is not null && password.Status == ConnectSecretStatus.Unavailable;
+        return certificates.IsClientCertificateContentProtected
+            ? content.Status != ConnectSecretStatus.Available || passwordUnavailable
+            : NetworkProfileRoamingArtifacts.IsPfxPath(clientPath!) && passwordUnavailable;
+    }
+
+    private bool Record(string certificateKind, CertificateInstallResult result)
+    {
+        _logger.LogDebug(
+            "Provisioned certificate processed. CertificateKind={CertificateKind}, CertificateInstallStatus={CertificateInstallStatus}",
+            certificateKind,
+            result.Status);
+        return result.IsSuccess;
+    }
+
+    private void ClearWiredSecrets()
+    {
+        _secrets.WiredCertificatePfxPassword.Clear();
+        _secrets.WiredClientCertificate.Clear();
+    }
+
     private string? ResolveAssetPath(string? value) => ProvisionedWifiProfileResolver.ResolveAssetPath(value, _configurationPath);
+
+    private string? ResolveExistingAssetPath(string? value) => ResolveAssetPath(value) is string path && File.Exists(path) ? path : null;
 
     // The exception is not attached: a template read error names the template file, often "Wi-Fi-<SSID>.xml".
     private void LogUnexpectedFailure(Exception exception, string part)
@@ -414,6 +538,21 @@ public sealed class ProvisioningStep : IProvisioningStep
             exception.GetType().Name,
             NetworkFailureTaxonomy.ExceptionErrorCode(exception));
     }
+
+    // L2-21: the configured SSID is trimmed; an empty or over-long value has no SSID.
+    private static WifiSsid? ConfiguredSsid(ConnectWifiSettings settings)
+    {
+        string? text = settings.Ssid?.Trim();
+        return !string.IsNullOrEmpty(text) && WifiSsid.TryFromBytes(Encoding.UTF8.GetBytes(text), out WifiSsid? ssid) ? ssid : null;
+    }
+
+    // A locked enterprise template has no readable name, SSID or hidden flag; only the configured SSID is known (L4-11).
+    private ProvisionedWifiState LockedState(ConnectWifiSettings settings) => new(
+        ProvisionedWifiStatus.Locked,
+        _secrets.IsUnlockDeclined ? ProvisionedWifiUnavailableReason.UnlockCancelled : ProvisionedWifiUnavailableReason.None,
+        ConfiguredSsid(settings),
+        IsEnterprise: settings.HasEnterpriseProfile,
+        IsHidden: false);
 
     private static ProvisionedWifiState Ready(WifiProfileDocument profile, bool isEnterprise) =>
         new(ProvisionedWifiStatus.Ready, ProvisionedWifiUnavailableReason.None, profile.Ssid, profile.Name, isEnterprise, profile.IsHidden);

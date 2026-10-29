@@ -19,7 +19,9 @@ namespace Foundry.Connect.Network;
 /// held, so a manual request that arrived first always wins. Operation bodies run on the thread pool, never on the
 /// caller's (UI) thread, because the WLAN calls block. Each operation releases the gate, then requests a refresh.
 /// Every automatic attempt counts toward the backoff until an observation shows the provisioned connection online, so a
-/// network that associates but never reaches the internet is retried ever more slowly.
+/// network that associates but never reaches the internet is retried ever more slowly. A provisioned Wi-Fi locked by the
+/// deployment password never starts an attempt; the coordinator raises <see cref="UnlockRequested"/> once instead when the
+/// attempt would otherwise run (L4-11), and <see cref="RefreshProvisionedWifiAsync"/> builds the profile after the unlock.
 /// </remarks>
 public sealed class ConnectionCoordinator : IConnectionCoordinator, IWifiConnectionHistory, IDisposable
 {
@@ -43,6 +45,7 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IWifiConnect
     private int _consecutiveFailures;
     private DateTimeOffset? _lastAttemptAt;
     private bool _profileReleased;
+    private bool _unlockRequested;
 
     /// <summary>
     /// Initializes the coordinator with the initial state (nothing observed, internet being checked, automatic mode).
@@ -69,6 +72,9 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IWifiConnect
 
     /// <inheritdoc />
     public event EventHandler<NetworkState>? StateChanged;
+
+    /// <inheritdoc />
+    public event EventHandler? UnlockRequested;
 
     /// <inheritdoc />
     public NetworkState State => Volatile.Read(ref _state);
@@ -101,22 +107,7 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IWifiConnect
                 }
 
                 result = provisioning;
-                foreach (NetworkFailureCode failure in provisioning.Failures)
-                {
-                    // The step logs its own Warning for an unexpected error; one Warning per failure.
-                    if (failure == NetworkFailureCode.Unexpected)
-                    {
-                        scope.MarkFailureLogged();
-                    }
-                    else
-                    {
-                        scope.LogFailure(failure, null);
-                    }
-                }
-
-                return provisioning.Failures.Count == 0
-                    ? OperationOutcome.Success(NetworkOperationKind.ApplyProvisioning)
-                    : OperationOutcome.Failed(NetworkOperationKind.ApplyProvisioning, provisioning.Failures[0]);
+                return LogProvisioningFailures(scope, provisioning.Failures);
             },
             cancellationToken).ConfigureAwait(false);
 
@@ -127,6 +118,41 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IWifiConnect
 
         // An unexpected provisioning exception leaves nothing provisioned; Ethernet and manual Wi-Fi keep working.
         return result ?? ProvisioningOutcome.NotConfigured;
+    }
+
+    /// <inheritdoc />
+    public async Task<ProvisionedWifiState> RefreshProvisionedWifiAsync(CancellationToken cancellationToken)
+    {
+        OperationOutcome outcome = await RunOperationAsync(
+            NetworkOperationKind.ApplyProvisioning,
+            NetworkOperationTrigger.Manual,
+            async scope =>
+            {
+                ProvisioningOutcome refreshed = await _provisioningStep.RefreshWifiAsync(cancellationToken).ConfigureAwait(false);
+                int previousFailureCount;
+                lock (_stateLock)
+                {
+                    previousFailureCount = _provisioning?.Failures.Count ?? 0;
+                    _provisioning = refreshed;
+
+                    // The exit already dropped the profile document; a document built afterwards is not kept either.
+                    if (_profileReleased)
+                    {
+                        refreshed.WifiProfile?.Clear();
+                    }
+                }
+
+                // The merged outcome keeps the startup failures first; only those of the refresh are logged again.
+                return LogProvisioningFailures(scope, refreshed.Failures.Skip(previousFailureCount).ToArray());
+            },
+            cancellationToken).ConfigureAwait(false);
+
+        if (outcome.Status == OperationStatus.Cancelled)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+        }
+
+        return State.Wifi.Provisioned;
     }
 
     /// <inheritdoc />
@@ -151,6 +177,12 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IWifiConnect
                     _consecutiveFailures = 0;
                 }
             }
+        }
+
+        // A locked profile never starts an automatic attempt, so the unlock request is decided here, after the publish.
+        if (TryClaimUnlockRequest())
+        {
+            RaiseUnlockRequested();
         }
 
         // A running operation means no automatic attempt now (IsOperationRunning); never queue one behind it.
@@ -355,6 +387,11 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IWifiConnect
         }
 
         ProvisionedWifiState provisioned = provisioning?.Wifi ?? ProvisionedWifiState.NotConfigured;
+        if (provisioned.Status == ProvisionedWifiStatus.Locked)
+        {
+            return OperationOutcome.Failed(Kind, NetworkFailureCode.WifiSecretLocked);
+        }
+
         if (provisioned.Status != ProvisionedWifiStatus.Ready)
         {
             return OperationOutcome.Failed(
@@ -518,7 +555,67 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IWifiConnect
         return OperationOutcome.Failed(kind, failure, result.ReasonCode != 0 ? result.ReasonCode : null);
     }
 
-    // Called with the state lock held and the gate held, so the automatic attempt cannot overlap an operation.
+    // One Warning per failure; the step logs its own Warning for an unexpected error.
+    private static OperationOutcome LogProvisioningFailures(NetworkOperationScope scope, IReadOnlyList<NetworkFailureCode> failures)
+    {
+        foreach (NetworkFailureCode failure in failures)
+        {
+            if (failure == NetworkFailureCode.Unexpected)
+            {
+                scope.MarkFailureLogged();
+            }
+            else
+            {
+                scope.LogFailure(failure, null);
+            }
+        }
+
+        return failures.Count == 0
+            ? OperationOutcome.Success(NetworkOperationKind.ApplyProvisioning)
+            : OperationOutcome.Failed(NetworkOperationKind.ApplyProvisioning, failures[0]);
+    }
+
+    // Decides and records the at-most-once unlock request under the state lock (L4-11). A cancelled prompt counts as
+    // already requested, so a technician who declined at the wired startup prompt is never prompted again (L4-10).
+    private bool TryClaimUnlockRequest()
+    {
+        lock (_stateLock)
+        {
+            bool alreadyRequested = _unlockRequested
+                || _state.Wifi.Provisioned.Reason == ProvisionedWifiUnavailableReason.UnlockCancelled;
+            AutomaticConnectInput input = BuildAutomaticInput() with { IsOperationRunning = _activeOperation is not null };
+            if (!ConnectionPolicy.ShouldRequestUnlock(input, alreadyRequested))
+            {
+                return false;
+            }
+
+            _unlockRequested = true;
+            return true;
+        }
+    }
+
+    // Raised outside the lock; only the exception type of a failing handler is logged.
+    private void RaiseUnlockRequested()
+    {
+        if (UnlockRequested is not { } handlers)
+        {
+            return;
+        }
+
+        foreach (EventHandler handler in handlers.GetInvocationList().Cast<EventHandler>())
+        {
+            try
+            {
+                handler(this, EventArgs.Empty);
+            }
+            catch (Exception exception)
+            {
+                _logger.LogWarning("Unlock request subscriber failed. FailureType={FailureType}", exception.GetType().Name);
+            }
+        }
+    }
+
+    // Called with the state lock held. The automatic attempt also holds the gate, so it cannot overlap an operation.
     private AutomaticConnectInput BuildAutomaticInput()
     {
         WifiState wifi = _state.Wifi;

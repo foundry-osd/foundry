@@ -577,16 +577,87 @@ public sealed class ConnectionCoordinatorTests
         Assert.Contains("Manual", text, StringComparison.Ordinal);
     }
 
+    private static ProvisioningOutcome LockedWifi(ProvisionedWifiUnavailableReason reason = ProvisionedWifiUnavailableReason.None) => new(Dot1xState.NotConfigured,
+        new ProvisionedWifiState(ProvisionedWifiStatus.Locked, reason, WifiSsid.FromText("Lab")), null, []);
+
+    [Fact]
+    public async Task ApplyObservation_NoInternetAndLockedProvisionedWifi_RequestsUnlockOnce()
+    {
+        ConnectionCoordinator coordinator = await CreateProvisionedAsync(LockedWifi());
+        int requests = 0;
+        coordinator.UnlockRequested += (_, _) => requests++;
+
+        await coordinator.ApplyObservationAsync(Observation(InternetStatus.NoInternet, null, "Lab"), Token);
+        await coordinator.ApplyObservationAsync(Observation(InternetStatus.NoInternet, null, "Lab"), Token);
+
+        Assert.Equal(1, requests);
+        Assert.Empty(_wlan.ConnectCalls);
+    }
+
+    [Fact]
+    public async Task ApplyObservation_EthernetOnline_NeverRequestsUnlock()
+    {
+        ConnectionCoordinator coordinator = await CreateProvisionedAsync(LockedWifi());
+        int requests = 0;
+        coordinator.UnlockRequested += (_, _) => requests++;
+
+        await coordinator.ApplyObservationAsync(Observation(InternetStatus.Online, null, "Lab"), Token);
+
+        Assert.Equal(0, requests);
+    }
+
+    [Fact]
+    public async Task ApplyObservation_AfterACancelledUnlock_NeverRequestsUnlockAgain()
+    {
+        ConnectionCoordinator coordinator = await CreateProvisionedAsync(LockedWifi(ProvisionedWifiUnavailableReason.UnlockCancelled));
+        int requests = 0;
+        coordinator.UnlockRequested += (_, _) => requests++;
+
+        await coordinator.ApplyObservationAsync(Observation(InternetStatus.NoInternet, null, "Lab"), Token);
+
+        Assert.Equal(0, requests);
+    }
+
+    [Fact]
+    public async Task ConnectProvisionedWifi_WhileLocked_FailsWithWifiSecretLocked()
+    {
+        ConnectionCoordinator coordinator = await CreateProvisionedAsync(LockedWifi());
+
+        OperationOutcome outcome = await coordinator.ConnectProvisionedWifiAsync(Token);
+
+        Assert.Equal(NetworkFailureCode.WifiSecretLocked, outcome.Failure);
+    }
+
+    [Fact]
+    public async Task RefreshProvisionedWifi_AfterUnlock_PublishesTheReadyProfileAndConnectsAutomatically()
+    {
+        var step = new FakeProvisioningStep(LockedWifi()) { Refreshed = ReadyLab() };
+        ConnectionCoordinator coordinator = await CreateProvisionedAsync(step);
+
+        ProvisionedWifiState refreshed = await coordinator.RefreshProvisionedWifiAsync(Token);
+        await coordinator.ApplyObservationAsync(Observation(InternetStatus.NoInternet, null, "Lab"), Token);
+
+        Assert.Equal(ProvisionedWifiStatus.Ready, refreshed.Status);
+        Assert.Equal(1, step.RefreshCalls);
+        Assert.Equal([(WifiInterface, "Lab")], _wlan.ConnectCalls);
+        Assert.Contains(_logger.Entries, entry => entry.Message.Contains("Trigger=manual", StringComparison.Ordinal)
+            && entry.Message.Contains("network.apply_provisioned_settings", StringComparison.Ordinal));
+    }
+
     private static bool Mentions(RecordedLogEntry entry, string text) =>
         entry.Message.Contains(text, StringComparison.Ordinal)
         || entry.Properties.Values.Any(value => value?.ToString()?.Contains(text, StringComparison.Ordinal) == true)
         || entry.Exception?.ToString().Contains(text, StringComparison.Ordinal) == true;
 
+    private Task<ConnectionCoordinator> CreateProvisionedAsync(
+        ProvisioningOutcome provisioning, bool wifiEnabled = true, IWlanClient? wlan = null, NetworkRefreshSignal? signal = null) =>
+        CreateProvisionedAsync(new FakeProvisioningStep(provisioning), wifiEnabled, wlan, signal);
+
     private async Task<ConnectionCoordinator> CreateProvisionedAsync(
-        ProvisioningOutcome provisioning, bool wifiEnabled = true, IWlanClient? wlan = null, NetworkRefreshSignal? signal = null)
+        FakeProvisioningStep step, bool wifiEnabled = true, IWlanClient? wlan = null, NetworkRefreshSignal? signal = null)
     {
         _wlan.Snapshot = new WlanSnapshot(WifiAvailability.Available, [FakeWlanClient.Interface(WifiInterface)], []);
-        var coordinator = new ConnectionCoordinator(new FakeProvisioningStep(provisioning), wlan ?? _wlan,
+        var coordinator = new ConnectionCoordinator(step, wlan ?? _wlan,
             new ConnectNetworkOptions(wifiEnabled, TimeSpan.FromSeconds(10)), signal ?? new NetworkRefreshSignal(), _clock, _logger);
         await coordinator.ApplyProvisioningAsync(Token);
         return coordinator;
@@ -612,9 +683,20 @@ public sealed class ConnectionCoordinatorTests
         null,
         _clock.GetUtcNow());
 
+    // Returns its outcome; a refresh returns Refreshed when set, else the same outcome.
     private sealed class FakeProvisioningStep(ProvisioningOutcome outcome) : IProvisioningStep
     {
+        public ProvisioningOutcome? Refreshed { get; init; }
+
+        public int RefreshCalls { get; private set; }
+
         public Task<ProvisioningOutcome> RunAsync(CancellationToken cancellationToken) => Task.FromResult(outcome);
+
+        public Task<ProvisioningOutcome> RefreshWifiAsync(CancellationToken cancellationToken)
+        {
+            RefreshCalls++;
+            return Task.FromResult(Refreshed ?? outcome);
+        }
     }
 
     // Records the thread of every WLAN call and can fail SetProfile with an exception.

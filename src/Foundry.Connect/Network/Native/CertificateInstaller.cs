@@ -105,6 +105,13 @@ public interface ICertificateInstaller
     /// <see cref="CertificateInstallStatus.Failed"/>.
     /// </summary>
     CertificateInstallResult Install(string certificatePath, ReadOnlySpan<char> pfxPassword);
+
+    /// <summary>
+    /// Imports PKCS#12 content decrypted in memory (a client PFX staged encrypted, L4-5) into <c>LocalMachine\My</c>; the
+    /// password may be empty. Idempotent by thumbprint. The caller keeps and zeroes both buffers. Never throws; a failure is
+    /// <see cref="CertificateInstallStatus.Failed"/>.
+    /// </summary>
+    CertificateInstallResult InstallPfx(ReadOnlySpan<byte> pfxContent, ReadOnlySpan<char> password);
 }
 
 /// <summary>
@@ -113,12 +120,17 @@ public interface ICertificateInstaller
 internal delegate X509Certificate2 Pkcs12FileLoader(string path, ReadOnlySpan<char> password, X509KeyStorageFlags keyStorageFlags);
 
 /// <summary>
+/// Loads PKCS#12 content from memory; the seam lets tests observe which key storage flags each load uses.
+/// </summary>
+internal delegate X509Certificate2 Pkcs12ContentLoader(ReadOnlySpan<byte> content, ReadOnlySpan<char> password, X509KeyStorageFlags keyStorageFlags);
+
+/// <summary>
 /// <see cref="ICertificateInstaller"/> that loads with <see cref="X509CertificateLoader"/>, adds a certificate once per process
 /// and per store (T10), and disposes every loaded instance.
 /// </summary>
 /// <remarks>
-/// A PFX is first loaded with <see cref="X509KeyStorageFlags.EphemeralKeySet"/> only to read its thumbprint, so a certificate
-/// that is already installed never writes a private key. Only when the store needs it is the file loaded again with the
+/// A PFX, from a file or from decrypted content, is first loaded with <see cref="X509KeyStorageFlags.EphemeralKeySet"/> only to
+/// read its thumbprint, so a certificate that is already installed never writes a private key. Only when the store needs it is it loaded again with the
 /// persisting flags: <see cref="X509KeyStorageFlags.PersistKeySet"/> keys stay on disk after dispose, in a new container per
 /// load, so a persisting load that is not added would leave an orphaned machine key. The store keeps its own copy, so every
 /// loaded instance is disposed. Residual risk: when the store refuses the certificate after the persisting load, that key
@@ -129,6 +141,7 @@ internal delegate X509Certificate2 Pkcs12FileLoader(string path, ReadOnlySpan<ch
 public sealed class CertificateInstaller : ICertificateInstaller
 {
     private const X509KeyStorageFlags ProductionPfxKeyStorageFlags = X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet;
+    private const string PfxCertificateKind = "pfx";
 
     private readonly object _gate = new();
     private readonly HashSet<(StoreName StoreName, string Thumbprint)> _installed = [];
@@ -136,6 +149,7 @@ public sealed class CertificateInstaller : ICertificateInstaller
     private readonly ILogger<CertificateInstaller> _logger;
     private readonly X509KeyStorageFlags _pfxKeyStorageFlags;
     private readonly Pkcs12FileLoader _loadPkcs12;
+    private readonly Pkcs12ContentLoader _loadPkcs12Content;
 
     /// <summary>
     /// Initializes an installer that persists PFX private keys in the machine key set.
@@ -153,12 +167,14 @@ public sealed class CertificateInstaller : ICertificateInstaller
         ICertificateStore store,
         ILogger<CertificateInstaller> logger,
         X509KeyStorageFlags pfxKeyStorageFlags,
-        Pkcs12FileLoader? loadPkcs12 = null)
+        Pkcs12FileLoader? loadPkcs12 = null,
+        Pkcs12ContentLoader? loadPkcs12Content = null)
     {
         _store = store ?? throw new ArgumentNullException(nameof(store));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _pfxKeyStorageFlags = pfxKeyStorageFlags;
         _loadPkcs12 = loadPkcs12 ?? (static (path, password, flags) => X509CertificateLoader.LoadPkcs12FromFile(path, password, flags));
+        _loadPkcs12Content = loadPkcs12Content ?? (static (content, password, flags) => X509CertificateLoader.LoadPkcs12(content, password, flags));
     }
 
     /// <inheritdoc />
@@ -171,16 +187,34 @@ public sealed class CertificateInstaller : ICertificateInstaller
         }
         catch (Exception exception)
         {
-            _logger.LogWarning(
-                "Certificate import failed. CertificateKind={CertificateKind}, FailureType={FailureType}",
-                GetCertificateKind(certificatePath),
-                exception.GetType().Name);
-            return new CertificateInstallResult(CertificateInstallStatus.Failed);
+            return LogFailure(GetCertificateKind(certificatePath), exception);
+        }
+    }
+
+    /// <inheritdoc />
+    public CertificateInstallResult InstallPfx(ReadOnlySpan<byte> pfxContent, ReadOnlySpan<char> password)
+    {
+        try
+        {
+            return InstallPfxContent(pfxContent, password);
+        }
+        catch (Exception exception)
+        {
+            return LogFailure(PfxCertificateKind, exception);
         }
     }
 
     /// <summary>Returns the non-identifying kind logged instead of the author file name: <c>pfx</c> or <c>certificate</c>.</summary>
-    internal static string GetCertificateKind(string certificatePath) => NetworkProfileRoamingArtifacts.IsPfxPath(certificatePath) ? "pfx" : "certificate";
+    internal static string GetCertificateKind(string certificatePath) => NetworkProfileRoamingArtifacts.IsPfxPath(certificatePath) ? PfxCertificateKind : "certificate";
+
+    private CertificateInstallResult LogFailure(string certificateKind, Exception exception)
+    {
+        _logger.LogWarning(
+            "Certificate import failed. CertificateKind={CertificateKind}, FailureType={FailureType}",
+            certificateKind,
+            exception.GetType().Name);
+        return new CertificateInstallResult(CertificateInstallStatus.Failed);
+    }
 
     private CertificateInstallResult InstallPfx(string certificatePath, ReadOnlySpan<char> pfxPassword)
     {
@@ -198,6 +232,27 @@ public sealed class CertificateInstaller : ICertificateInstaller
             }
 
             using X509Certificate2 certificate = _loadPkcs12(certificatePath, pfxPassword, _pfxKeyStorageFlags);
+            return Add(StoreName.My, certificate, thumbprint);
+        }
+    }
+
+    // The same probe-then-persist rule as InstallPfx(string, ...), over in-memory content.
+    private CertificateInstallResult InstallPfxContent(ReadOnlySpan<byte> pfxContent, ReadOnlySpan<char> password)
+    {
+        string thumbprint;
+        using (X509Certificate2 probe = _loadPkcs12Content(pfxContent, password, X509KeyStorageFlags.EphemeralKeySet))
+        {
+            thumbprint = probe.Thumbprint;
+        }
+
+        lock (_gate)
+        {
+            if (IsAlreadyPresent(StoreName.My, thumbprint))
+            {
+                return new CertificateInstallResult(CertificateInstallStatus.AlreadyPresent, thumbprint);
+            }
+
+            using X509Certificate2 certificate = _loadPkcs12Content(pfxContent, password, _pfxKeyStorageFlags);
             return Add(StoreName.My, certificate, thumbprint);
         }
     }

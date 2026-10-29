@@ -34,6 +34,7 @@ public static class NetworkTextKeys
             NetworkFailureCode.NoWirelessAdapter => "Wifi.NoAdapterAvailable",
             NetworkFailureCode.WifiFeatureDisabled or NetworkFailureCode.ProvisionedProfileUnavailable => "Wifi.ActionProvisionedProfileUnavailable",
             NetworkFailureCode.WifiSecretUnavailable => "Wifi.ActionProvisionedSecretUnavailable",
+            NetworkFailureCode.WifiSecretLocked => "Wifi.ActionProvisionedLocked",
             NetworkFailureCode.InvalidPassphrase => "Wifi.ActionInvalidPassphrase",
             NetworkFailureCode.NetworkNotVisible => "Wifi.ActionNetworkNotVisible",
             NetworkFailureCode.UnsupportedSecurity => "Wifi.ActionSelectedNotSupported",
@@ -76,6 +77,7 @@ public static class NetworkTextKeys
         Dot1xFailureReason.ProfileTemplateMissing => "Ethernet.Dot1xReasonProfileTemplateMissing",
         Dot1xFailureReason.ProfileImportFailed => "Ethernet.Dot1xReasonProfileImportFailed",
         Dot1xFailureReason.AuthenticationFailed => "Ethernet.Dot1xReasonAuthenticationFailed",
+        Dot1xFailureReason.UnlockCancelled => "Ethernet.Dot1xReasonUnlockCancelled",
         _ => null
     };
 
@@ -90,6 +92,7 @@ public static class NetworkTextKeys
         ProvisionedWifiUnavailableReason.ProfileTemplateMissing => "Wifi.ProvisionedUnavailableTemplate",
         ProvisionedWifiUnavailableReason.InvalidConfiguration => "Wifi.ProvisionedUnavailableConfiguration",
         ProvisionedWifiUnavailableReason.InvalidPassphrase => "Wifi.ProvisionedUnavailablePassphrase",
+        ProvisionedWifiUnavailableReason.UnlockCancelled => "Wifi.ProvisionedUnlockCancelled",
         _ => "Wifi.ActionProvisionedProfileUnavailable"
     };
 

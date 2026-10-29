@@ -26,6 +26,7 @@ public sealed class NetworkFailureTaxonomyTests
     [InlineData(NetworkFailureCode.WiredProfileImportFailed, "profile_import_failed", "wired_profile_import_failed")]
     [InlineData(NetworkFailureCode.WiredReconnectFailed, "reconnect_request_failed", "wired_reconnect_request_failed")]
     [InlineData(NetworkFailureCode.WiredCertificateImportFailed, "certificate_import_failed", "wired_certificate_import_failed")]
+    [InlineData(NetworkFailureCode.WifiSecretLocked, "secret_locked", "wifi_secret_locked")]
     public void Describe_KeepsExistingRemoteTaxonomy(NetworkFailureCode code, string reason, string expectedCode)
     {
         NetworkFailureDescriptor descriptor = NetworkFailureTaxonomy.Describe(code);

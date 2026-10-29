@@ -110,7 +110,10 @@ public enum NetworkFailureCode
     WiredProfileImportFailed,
 
     /// <summary>The wired adapter could not be reconnected after the profile was applied.</summary>
-    WiredReconnectFailed
+    WiredReconnectFailed,
+
+    /// <summary>The provisioned Wi-Fi secret is protected by the deployment password, which is not unlocked yet.</summary>
+    WifiSecretLocked
 }
 
 /// <summary>

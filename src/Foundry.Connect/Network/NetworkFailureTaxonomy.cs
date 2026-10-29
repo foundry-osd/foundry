@@ -57,6 +57,9 @@ public static class NetworkFailureTaxonomy
             NetworkFailureCode.WiredCertificateImportFailed => ("certificate_import_failed", "wired_certificate_import_failed"),
             NetworkFailureCode.WiredProfileImportFailed => ("profile_import_failed", "wired_profile_import_failed"),
             NetworkFailureCode.WiredReconnectFailed => ("reconnect_request_failed", "wired_reconnect_request_failed"),
+
+            // Logs only (ruling R2): no telemetry event carries this value.
+            NetworkFailureCode.WifiSecretLocked => ("secret_locked", "wifi_secret_locked"),
             _ => throw new ArgumentOutOfRangeException(nameof(code), code, "The failure code has no remote description.")
         };
 

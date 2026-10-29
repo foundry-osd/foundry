@@ -71,25 +71,53 @@ public static class ConnectionPolicy
     }
 
     /// <summary>
-    /// Gets whether the provisioned network can be targeted from the current scan list. A profile without an SSID
+    /// Gets whether the provisioned network can be targeted from the current scan list. A ready profile without an SSID
     /// (an enterprise template that carries none) cannot be matched against the list, so it counts as reachable and
-    /// the attempt decides. A non-broadcast profile is handled separately through
-    /// <see cref="AutomaticConnectInput.ProvisionedProfileIsHidden"/>.
+    /// the attempt decides. A locked profile counts only when its configured SSID is listed: a locked enterprise template
+    /// has no readable SSID, so only the Connect button unlocks it (ruling R4, L4-11). A non-broadcast profile is handled
+    /// separately through <see cref="AutomaticConnectInput.ProvisionedProfileIsHidden"/>.
     /// </summary>
     /// <param name="wifi">The current wireless state.</param>
-    /// <returns><see langword="true"/> when the provisioned profile is ready and its SSID is listed or unknown.</returns>
+    /// <returns>
+    /// <see langword="true"/> when the provisioned profile is ready and its SSID is listed or unknown, or locked and its
+    /// SSID is listed.
+    /// </returns>
     public static bool IsProvisionedNetworkVisible(WifiState wifi)
     {
         ArgumentNullException.ThrowIfNull(wifi);
 
         ProvisionedWifiState provisioned = wifi.Provisioned;
-        if (provisioned.Status != ProvisionedWifiStatus.Ready)
+        return provisioned.Status switch
         {
-            return false;
-        }
-
-        return provisioned.Ssid is not WifiSsid ssid || wifi.Networks.Any(network => network.Ssid == ssid);
+            ProvisionedWifiStatus.Ready => provisioned.Ssid is not WifiSsid ssid || IsListed(wifi, ssid),
+            ProvisionedWifiStatus.Locked => provisioned.Ssid is WifiSsid ssid && IsListed(wifi, ssid),
+            _ => false
+        };
     }
+
+    /// <summary>
+    /// Decides whether to ask for the deployment password automatically: at most once per session, and only when the
+    /// automatic provisioned connect would run if the profile were not locked (L4-11). Ethernet that reaches the internet
+    /// (or a check that has not finished) never prompts.
+    /// </summary>
+    /// <param name="input">The facts to decide on; <see cref="AutomaticConnectInput.ProvisionedNetworkVisible"/> comes from <see cref="IsProvisionedNetworkVisible"/>.</param>
+    /// <param name="alreadyRequested">Whether a request was already raised this session or the technician already declined the prompt.</param>
+    /// <returns><see langword="true"/> when the unlock should be requested now.</returns>
+    public static bool ShouldRequestUnlock(AutomaticConnectInput input, bool alreadyRequested)
+    {
+        ArgumentNullException.ThrowIfNull(input);
+
+        return !alreadyRequested &&
+               input.Mode == ConnectionMode.Automatic &&
+               !input.IsOperationRunning &&
+               input.ProvisionedStatus == ProvisionedWifiStatus.Locked &&
+               input.WifiAvailability == WifiAvailability.Available &&
+               !input.ConnectedToProvisioned &&
+               (input.ProvisionedNetworkVisible || input.ProvisionedProfileIsHidden) &&
+               input.Internet is InternetStatus.NoInternet or InternetStatus.CaptivePortal;
+    }
+
+    private static bool IsListed(WifiState wifi, WifiSsid ssid) => wifi.Networks.Any(network => network.Ssid == ssid);
 
     /// <summary>
     /// Decides whether to start an automatic attempt on the provisioned Wi-Fi now. It requires automatic mode, no

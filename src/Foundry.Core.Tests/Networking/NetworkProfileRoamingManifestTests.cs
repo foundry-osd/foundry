@@ -72,6 +72,25 @@ public sealed class NetworkProfileRoamingManifestTests
         Assert.Equal(expected, NetworkProfileRoamingArtifacts.GetWifiProfileFileName(index));
     }
 
+    [Theory]
+    [InlineData(@"Network\client.pfx.encrypted", true)]
+    [InlineData(@"Network\CLIENT.P12.ENCRYPTED", true)]
+    [InlineData(@"Network\client.pfx", false)]
+    [InlineData(@"Network\corp.xml.encrypted", false)]
+    [InlineData(null, false)]
+    public void IsProtectedPfxPath_MatchesOnlyEncryptedPfxFiles(string? path, bool expected)
+    {
+        Assert.Equal(expected, NetworkProfileRoamingArtifacts.IsProtectedPfxPath(path));
+    }
+
+    [Fact]
+    public void Serialize_UnprotectedCertificate_OmitsIsContentProtected()
+    {
+        string json = JsonSerializer.Serialize(new NetworkProfileRoamingCertificate { RelativePath = "a.cer" }, JsonOptions);
+
+        Assert.DoesNotContain("isContentProtected", json, StringComparison.Ordinal);
+    }
+
     [Fact]
     public void GetWifiProfileFileName_RejectsNegativeIndex()
     {

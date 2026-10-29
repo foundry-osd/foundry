@@ -21,6 +21,18 @@ internal sealed class FakeConnectionCoordinator : IConnectionCoordinator
     /// <inheritdoc />
     public event EventHandler<NetworkState>? StateChanged;
 
+    /// <inheritdoc />
+    public event EventHandler? UnlockRequested;
+
+    /// <summary>
+    /// Gets or sets the result of <see cref="RefreshProvisionedWifiAsync"/>; <see langword="null"/> returns the provisioned
+    /// state of <see cref="State"/>.
+    /// </summary>
+    public ProvisionedWifiState? RefreshResult { get; set; }
+
+    /// <summary>Gets the number of <see cref="RefreshProvisionedWifiAsync"/> calls.</summary>
+    public int RefreshProvisionedWifiCalls { get; private set; }
+
     /// <summary>Gets or sets the result of <see cref="ApplyProvisioningAsync"/> when no gate is set.</summary>
     public ProvisioningOutcome ProvisioningResult { get; set; } = ProvisioningOutcome.NotConfigured;
 
@@ -77,6 +89,16 @@ internal sealed class FakeConnectionCoordinator : IConnectionCoordinator
     /// </summary>
     /// <param name="staleArgument">An argument older than <see cref="State"/>.</param>
     public void RaiseStale(NetworkState staleArgument) => StateChanged?.Invoke(this, staleArgument);
+
+    /// <summary>Raises <see cref="UnlockRequested"/> on the calling thread.</summary>
+    public void RaiseUnlockRequested() => UnlockRequested?.Invoke(this, EventArgs.Empty);
+
+    /// <inheritdoc />
+    public Task<ProvisionedWifiState> RefreshProvisionedWifiAsync(CancellationToken cancellationToken)
+    {
+        RefreshProvisionedWifiCalls++;
+        return Task.FromResult(RefreshResult ?? State.Wifi.Provisioned);
+    }
 
     /// <inheritdoc />
     public Task<ProvisioningOutcome> ApplyProvisioningAsync(CancellationToken cancellationToken)

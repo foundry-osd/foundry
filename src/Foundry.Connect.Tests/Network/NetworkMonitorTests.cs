@@ -269,7 +269,15 @@ public sealed class NetworkMonitorTests
             return Task.CompletedTask;
         }
 
+        public event EventHandler? UnlockRequested
+        {
+            add { }
+            remove { }
+        }
+
         public Task<ProvisioningOutcome> ApplyProvisioningAsync(CancellationToken cancellationToken) => throw new NotSupportedException();
+
+        public Task<ProvisionedWifiState> RefreshProvisionedWifiAsync(CancellationToken cancellationToken) => Task.FromResult(State.Wifi.Provisioned);
 
         public Task<OperationOutcome> ConnectProvisionedWifiAsync(CancellationToken cancellationToken) => throw new NotSupportedException();
 

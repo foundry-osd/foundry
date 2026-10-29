@@ -112,6 +112,46 @@ public sealed class ConnectionPolicyTests
     }
 
     [Fact]
+    public void IsProvisionedNetworkVisible_WhenLockedSsidIsListed_IsTrue()
+    {
+        WifiState wifi = WifiWith(new(ProvisionedWifiStatus.Locked, Ssid: WifiSsid.FromText("Provisioned")), Visible("Provisioned"));
+
+        Assert.True(ConnectionPolicy.IsProvisionedNetworkVisible(wifi));
+    }
+
+    [Fact]
+    public void IsProvisionedNetworkVisible_WhenLockedProfileHasNoSsid_IsFalse()
+    {
+        // R4: a locked enterprise profile has no readable SSID; only the Connect button unlocks it.
+        WifiState wifi = WifiWith(new(ProvisionedWifiStatus.Locked, Ssid: null, IsEnterprise: true), Visible("Other"));
+
+        Assert.False(ConnectionPolicy.IsProvisionedNetworkVisible(wifi));
+    }
+
+    private static AutomaticConnectInput LockedInput(InternetStatus internet = InternetStatus.NoInternet, ConnectionMode mode = ConnectionMode.Automatic,
+        bool visible = true, bool running = false) =>
+        new(mode, ProvisionedWifiStatus.Locked, WifiAvailability.Available, visible, false, false, internet, running, 0, null,
+            new DateTimeOffset(2026, 10, 29, 8, 0, 0, TimeSpan.Zero));
+
+    [Theory]
+    [InlineData("no_internet", InternetStatus.NoInternet, ConnectionMode.Automatic, true, false, false, true)]
+    [InlineData("captive_portal", InternetStatus.CaptivePortal, ConnectionMode.Automatic, true, false, false, true)]
+    [InlineData("ethernet_online", InternetStatus.Online, ConnectionMode.Automatic, true, false, false, false)]
+    [InlineData("checking", InternetStatus.Checking, ConnectionMode.Automatic, true, false, false, false)]
+    [InlineData("manual_mode", InternetStatus.NoInternet, ConnectionMode.Manual, true, false, false, false)]
+    [InlineData("not_visible", InternetStatus.NoInternet, ConnectionMode.Automatic, false, false, false, false)]
+    [InlineData("operation_running", InternetStatus.NoInternet, ConnectionMode.Automatic, true, true, false, false)]
+    [InlineData("already_requested", InternetStatus.NoInternet, ConnectionMode.Automatic, true, false, true, false)]
+    public void ShouldRequestUnlock(string row, InternetStatus internet, ConnectionMode mode, bool visible, bool running, bool requested, bool expected)
+    {
+        Assert.True(expected == ConnectionPolicy.ShouldRequestUnlock(LockedInput(internet, mode, visible, running), requested), row);
+    }
+
+    [Fact]
+    public void ShouldConnectProvisionedAutomatically_NeverForLocked() =>
+        Assert.False(ConnectionPolicy.ShouldConnectProvisionedAutomatically(LockedInput()));
+
+    [Fact]
     public void IsProvisionedNetworkVisible_WhenNothingIsProvisioned_IsFalse()
     {
         WifiState wifi = WifiWith(ProvisionedWifiState.NotConfigured, Visible("Provisioned"));

@@ -287,13 +287,16 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
                 continue;
             }
 
-            if (NetworkProfileRoamingArtifacts.IsPfxPath(certificatePath))
+            // A protected PFX is the deployment-keyed envelope file: it follows the private-key rule and stays encrypted (L4-15).
+            bool isProtectedPfx = NetworkProfileRoamingArtifacts.IsProtectedPfxPath(certificatePath);
+            if (isProtectedPfx || NetworkProfileRoamingArtifacts.IsPfxPath(certificatePath))
             {
                 NetworkProfileRoamingCertificate? pfxCertificate = await CopyPfxCertificateAsync(
                     request.Source,
                     certificatePath,
                     request.CertificatePfxPasswordSecret,
                     transportSettings.IncludePrivateKeyMaterial,
+                    isProtectedPfx,
                     cancellationToken).ConfigureAwait(false);
                 if (pfxCertificate is not null)
                 {
@@ -333,6 +336,7 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
         string certificatePath,
         SecretEnvelope? passwordSecret,
         bool includePrivateKeyMaterial,
+        bool isContentProtected,
         CancellationToken cancellationToken)
     {
         if (!includePrivateKeyMaterial)
@@ -363,7 +367,8 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
             RelativePath = NetworkProfileRoamingArtifacts.NormalizeRelativePath(Path.Combine(NetworkProfileRoamingArtifacts.CertificatesDirectoryName, NetworkProfileRoamingArtifacts.MyStoreName, sourceName, fileName)),
             Kind = NetworkProfileRoamingArtifacts.PfxPrivateKeyKind,
             StoreName = NetworkProfileRoamingArtifacts.MyStoreName,
-            PasswordSecretRelativePath = passwordSecretRelativePath
+            PasswordSecretRelativePath = passwordSecretRelativePath,
+            IsContentProtected = isContentProtected
         };
     }
 

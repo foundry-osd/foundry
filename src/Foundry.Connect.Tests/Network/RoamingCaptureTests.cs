@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Connect.Network;
+using Foundry.Connect.Network.Policy;
 using Foundry.Connect.Services.Network;
 using Foundry.Connect.Tests.Support;
 using Foundry.Core.Models.Configuration;
@@ -147,6 +148,92 @@ public sealed class RoamingCaptureTests
     }
 
     [Fact]
+    public async Task Capture_ProvisionedEnterpriseWithProtectedClientCertificate_PassesTheEncryptedPathAndItsPassword()
+    {
+        using var directory = new TemporaryDirectory();
+        directory.CreateFile("Network\\corp.xml", "<WLANProfile/>");
+        string client = directory.CreateFile("Network\\client.pfx.encrypted", "{}");
+        string root = directory.CreateFile("Network\\root.cer", [1, 2, 3]);
+        var password = new SecretEnvelope { KeyId = "deployment" };
+        _history.Add("Corp", WifiConnectionSource.Provisioned, minutesAgo: 1);
+        FoundryConnectConfigurationDocument configuration = RoamingConfiguration() with
+        {
+            Capabilities = new ConnectNetworkCapabilitiesSettings { WifiProvisioned = true },
+            Wifi = new ConnectWifiSettings
+            {
+                IsEnabled = true,
+                HasEnterpriseProfile = true,
+                EnterpriseProfileTemplatePath = "Network\\corp.xml",
+                ClientCertificate = new ConnectClientCertificateSettings { Path = "Network\\client.pfx.encrypted", IsContentProtected = true, PasswordSecret = password },
+                TrustedRootCertificates = ["Network\\root.cer", "Network\\missing.cer"]
+            }
+        };
+
+        await Create(configuration, directory).CaptureAsync(WifiPathState("Corp", WifiConnectionSource.Provisioned), TestContext.Current.CancellationToken);
+
+        NetworkProfileRoamingCaptureRequest request = Assert.Single(_roaming.Requests).Request;
+        Assert.Equal([client, root], request.CertificatePaths);
+        Assert.Same(password, request.CertificatePfxPasswordSecret);
+    }
+
+    [Fact]
+    public async Task Capture_ProvisionedEnterpriseWithProtectedTemplate_RoamsTheDecryptedProfileXml()
+    {
+        using var directory = new TemporaryDirectory();
+        directory.CreateFile("Network\\corp.xml.encrypted", "{}");
+        var document = new WifiProfileDocument("Corp Profile", WifiSsid.FromText("Corp"), false, "<WLANProfile><name>Corp Profile</name></WLANProfile>");
+        var provisioning = new ProvisioningOutcome(
+            Dot1xState.NotConfigured,
+            new ProvisionedWifiState(ProvisionedWifiStatus.Ready, Ssid: WifiSsid.FromText("Corp"), ProfileName: "Corp Profile", IsEnterprise: true),
+            document,
+            []);
+        _history.Add("Corp", WifiConnectionSource.Provisioned, minutesAgo: 1);
+        FoundryConnectConfigurationDocument configuration = RoamingConfiguration() with
+        {
+            Capabilities = new ConnectNetworkCapabilitiesSettings { WifiProvisioned = true },
+            Wifi = new ConnectWifiSettings
+            {
+                IsEnabled = true,
+                HasEnterpriseProfile = true,
+                EnterpriseProfileTemplatePath = "Network\\corp.xml.encrypted",
+                IsEnterpriseProfileTemplateProtected = true
+            }
+        };
+
+        await Create(configuration, directory, provisioning).CaptureAsync(WifiPathState("Corp", WifiConnectionSource.Provisioned), TestContext.Current.CancellationToken);
+
+        NetworkProfileRoamingCaptureRequest request = Assert.Single(_roaming.Requests).Request;
+        Assert.Null(request.ProfilePath);
+        Assert.Equal(document.Xml, request.ProfileXml);
+        Assert.Equal(NetworkProfileRoamingProfileSource.ProvisionedWifi, request.Source);
+    }
+
+    [Fact]
+    public async Task Capture_ProvisionedEnterpriseWithProtectedTemplateWithoutDocument_SkipsWithOneWarning()
+    {
+        _history.Add("Corp", WifiConnectionSource.Provisioned, minutesAgo: 1);
+        FoundryConnectConfigurationDocument configuration = RoamingConfiguration() with
+        {
+            Capabilities = new ConnectNetworkCapabilitiesSettings { WifiProvisioned = true },
+            Wifi = new ConnectWifiSettings
+            {
+                IsEnabled = true,
+                HasEnterpriseProfile = true,
+                EnterpriseProfileTemplatePath = "Network\\Wi-Fi-Corp.xml.encrypted",
+                IsEnterpriseProfileTemplateProtected = true
+            }
+        };
+
+        await Create(configuration).CaptureAsync(WifiPathState("Corp", WifiConnectionSource.Provisioned), TestContext.Current.CancellationToken);
+
+        Assert.Empty(_roaming.Requests);
+        RecordedLogEntry warning = Assert.Single(_logger.Entries, static entry => entry.Level == LogLevel.Warning);
+        Assert.Equal("Wifi", warning.Properties["ProfileKind"]);
+        Assert.Null(warning.Exception);
+        Assert.DoesNotContain("Corp", warning.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
     public async Task Capture_ProvisionedPersonal_ReadsTheProfileBack()
     {
         _wlan.Profiles[(WifiInterface, "Guest")] = UnprotectedProfile;
@@ -232,12 +319,13 @@ public sealed class RoamingCaptureTests
         Assert.DoesNotContain(_logger.Entries, static entry => entry.Level == LogLevel.Warning);
     }
 
-    private RoamingCapture Create(FoundryConnectConfigurationDocument configuration, TemporaryDirectory? directory = null) => new(
+    private RoamingCapture Create(FoundryConnectConfigurationDocument configuration, TemporaryDirectory? directory = null, ProvisioningOutcome? provisioning = null) => new(
         configuration,
         directory is null ? null : Path.Combine(directory.Path, "foundry.connect.config.json"),
         _history,
         _wlan,
         _roaming,
+        new StubProvisioningStep(provisioning ?? ProvisioningOutcome.NotConfigured),
         _logger);
 
     private static FoundryConnectConfigurationDocument RoamingConfiguration() => new()
@@ -261,6 +349,13 @@ public sealed class RoamingCaptureTests
             Connection = new WifiConnection(WifiInterface, WifiSsid.FromText(ssid), ssid, WifiSecurityType.Wpa2Personal, source)
         }
     };
+
+    private sealed class StubProvisioningStep(ProvisioningOutcome outcome) : IProvisioningStep
+    {
+        public Task<ProvisioningOutcome> RunAsync(CancellationToken cancellationToken) => Task.FromResult(outcome);
+
+        public Task<ProvisioningOutcome> RefreshWifiAsync(CancellationToken cancellationToken) => Task.FromResult(outcome);
+    }
 
     private sealed class StubHistory : IWifiConnectionHistory
     {

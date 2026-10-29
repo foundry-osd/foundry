@@ -32,12 +32,31 @@ public interface IConnectionCoordinator
     event EventHandler<NetworkState>? StateChanged;
 
     /// <summary>
+    /// Raised at most once per session, outside any lock and after the state that caused it was published, when the
+    /// provisioned Wi-Fi is locked by the deployment password and needed: automatic mode, Ethernet gives no internet and
+    /// the provisioned network is reachable (L4-11, <see cref="Policy.ConnectionPolicy.ShouldRequestUnlock"/>). Never raised
+    /// after the technician declined the prompt (L4-10). A handler that throws is logged and ignored.
+    /// </summary>
+    event EventHandler? UnlockRequested;
+
+    /// <summary>
     /// Runs the once-per-process provisioning under the operation gate, keeps its outcome and publishes the state.
     /// </summary>
     /// <param name="cancellationToken">Caller cancellation.</param>
     /// <returns>The provisioning outcome.</returns>
     /// <exception cref="OperationCanceledException">The caller cancelled.</exception>
     Task<ProvisioningOutcome> ApplyProvisioningAsync(CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Re-runs the Wi-Fi part of the provisioning after an unlock, under the operation gate, keeps the merged outcome and
+    /// its profile document, and publishes the state. Logged as the <see cref="NetworkOperationKind.ApplyProvisioning"/>
+    /// operation with the <c>manual</c> trigger; it does not change the connection mode. Call it only after the unlock has
+    /// completed: the secrets are decrypted one item at a time.
+    /// </summary>
+    /// <param name="cancellationToken">Caller cancellation.</param>
+    /// <returns>The provisioned Wi-Fi state after the refresh; still <see cref="ProvisionedWifiStatus.Locked"/> when nothing was unlocked.</returns>
+    /// <exception cref="OperationCanceledException">The caller cancelled.</exception>
+    Task<ProvisionedWifiState> RefreshProvisionedWifiAsync(CancellationToken cancellationToken);
 
     /// <summary>
     /// Composes and publishes the state for a new observation, then runs at most one automatic provisioned attempt

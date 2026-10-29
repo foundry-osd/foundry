@@ -107,9 +107,43 @@ public sealed class CertificateInstallerTests
         Assert.All(warning.Properties.Values, static value => Assert.DoesNotContain("client", value?.ToString() ?? string.Empty, StringComparison.OrdinalIgnoreCase));
     }
 
+    [Fact]
+    public void InstallPfx_FromBytes_AddsToPersonalStoreOnce()
+    {
+        using var directory = new TemporaryDirectory();
+        byte[] content = File.ReadAllBytes(CreateCertificateFiles(directory).PfxPath);
+        var store = new FakeCertificateStore();
+        var loader = new RecordingPkcs12Loader();
+        CertificateInstaller installer = CreateInstaller(store, loader);
+
+        Assert.Equal(CertificateInstallStatus.Installed, installer.InstallPfx(content, "pfx-password").Status);
+        Assert.Equal(CertificateInstallStatus.AlreadyPresent, installer.InstallPfx(content, "pfx-password").Status);
+        Assert.Equal(StoreName.My, Assert.Single(store.Added).StoreName);
+        Assert.Equal([X509KeyStorageFlags.EphemeralKeySet, ProductionFlags, X509KeyStorageFlags.EphemeralKeySet], loader.Attempts);
+    }
+
+    [Fact]
+    public void InstallPfx_WrongPassword_FailsWithThePfxKindOnly()
+    {
+        using var directory = new TemporaryDirectory();
+        byte[] content = File.ReadAllBytes(CreateCertificateFiles(directory).PfxPath);
+        var logger = new RecordingLogger<CertificateInstaller>();
+        var loader = new RecordingPkcs12Loader();
+        var installer = new CertificateInstaller(new FakeCertificateStore(), logger, ProductionFlags, loader.Load, loader.LoadContent);
+
+        CertificateInstallResult result = installer.InstallPfx(content, "wrong-password");
+
+        Assert.Equal(CertificateInstallStatus.Failed, result.Status);
+        Assert.DoesNotContain(loader.Attempts, static flags => flags.HasFlag(X509KeyStorageFlags.PersistKeySet));
+        RecordedLogEntry warning = Assert.Single(logger.Entries, static entry => entry.Level == LogLevel.Warning);
+        Assert.Equal("pfx", warning.Properties["CertificateKind"]);
+        Assert.Equal(nameof(CryptographicException), warning.Properties["FailureType"]);
+        Assert.Null(warning.Exception);
+    }
+
     // Production flags: the recording loader substitutes EphemeralKeySet, so no test writes a key to disk.
     private static CertificateInstaller CreateInstaller(FakeCertificateStore store, RecordingPkcs12Loader loader) =>
-        new(store, new RecordingLogger<CertificateInstaller>(), ProductionFlags, loader.Load);
+        new(store, new RecordingLogger<CertificateInstaller>(), ProductionFlags, loader.Load, loader.LoadContent);
 
     private static (string PfxPath, string CerPath, string Thumbprint) CreateCertificateFiles(TemporaryDirectory directory)
     {
@@ -135,6 +169,14 @@ public sealed class CertificateInstallerTests
         {
             Attempts.Add(keyStorageFlags);
             X509Certificate2 certificate = X509CertificateLoader.LoadPkcs12FromFile(path, password, X509KeyStorageFlags.EphemeralKeySet);
+            Loads.Add(new RecordedPkcs12Load(keyStorageFlags, certificate));
+            return certificate;
+        }
+
+        public X509Certificate2 LoadContent(ReadOnlySpan<byte> content, ReadOnlySpan<char> password, X509KeyStorageFlags keyStorageFlags)
+        {
+            Attempts.Add(keyStorageFlags);
+            X509Certificate2 certificate = X509CertificateLoader.LoadPkcs12(content, password, X509KeyStorageFlags.EphemeralKeySet);
             Loads.Add(new RecordedPkcs12Load(keyStorageFlags, certificate));
             return certificate;
         }

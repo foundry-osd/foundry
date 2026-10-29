@@ -36,4 +36,16 @@ public interface IProvisioningStep
     /// <param name="cancellationToken">Caller cancellation.</param>
     /// <returns>The provisioning outcome; failures are values, never exceptions.</returns>
     Task<ProvisioningOutcome> RunAsync(CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Re-runs only the Wi-Fi part when the cached outcome's Wi-Fi is <see cref="ProvisionedWifiStatus.Locked"/>, after the
+    /// deployment password unlocked the secrets, and makes the merged outcome the one every later call returns. The wired
+    /// part is never re-run: a wired secret the unlock made readable is zeroed and the wired state is kept (L4-10).
+    /// </summary>
+    /// <param name="cancellationToken">Caller cancellation.</param>
+    /// <returns>
+    /// The merged outcome (wired unchanged; failures are the cached ones followed by those of the Wi-Fi refresh), or the
+    /// cached outcome when the Wi-Fi part is not locked.
+    /// </returns>
+    Task<ProvisioningOutcome> RefreshWifiAsync(CancellationToken cancellationToken);
 }

@@ -4,6 +4,7 @@
 
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Models.Network;
 using Foundry.Connect.Services.Network;
 using Microsoft.Extensions.Logging.Abstractions;
 using CoreConnectNetworkProfileRoamingSettings = Foundry.Core.Models.Configuration.ConnectNetworkProfileRoamingSettings;
@@ -284,6 +285,37 @@ public sealed class NetworkProfileRoamingServiceTests
         Assert.Equal($"{certificateRelativePath}.password.json", passwordSecretRelativePath);
         Assert.True(File.Exists(Path.Combine(tempDirectory.ArtifactPath, certificateRelativePath)));
         Assert.True(File.Exists(Path.Combine(tempDirectory.ArtifactPath, passwordSecretRelativePath)));
+    }
+
+    [Fact]
+    public async Task CaptureWiredDot1xProfileAsync_WhenProtectedPfxIsProvided_MarksItContentProtected()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string profilePath = tempDirectory.CreateFile("source", "wired.xml", "<LANProfile />");
+        string certificatePath = tempDirectory.CreateFile("source", "client.pfx.encrypted", "{\"keyId\":\"deployment\"}");
+        var service = new NetworkProfileRoamingService(
+            CreateEnabledConfiguration(includePrivateKeyMaterial: true),
+            NullLogger<NetworkProfileRoamingService>.Instance,
+            tempDirectory.ArtifactPath);
+
+        await service.CaptureWiredDot1xProfileAsync(
+            new NetworkProfileRoamingCaptureRequest(
+                profilePath,
+                NetworkProfileRoamingProfileSource.ProvisionedWiredDot1x,
+                NetworkProfileRoamingConnectivityExpectation.DependsOnMachineCredential,
+                [certificatePath],
+                CreateSecretEnvelope()),
+            TestContext.Current.CancellationToken);
+
+        NetworkProfileRoamingManifest manifest = JsonSerializer.Deserialize<NetworkProfileRoamingManifest>(
+            File.ReadAllText(Path.Combine(tempDirectory.ArtifactPath, "manifest.json")),
+            JsonSerializerOptions.Web)!;
+        NetworkProfileRoamingCertificate certificate = Assert.Single(manifest.Certificates);
+        Assert.Equal(NetworkProfileRoamingArtifacts.PfxPrivateKeyKind, certificate.Kind);
+        Assert.Equal("My", certificate.StoreName);
+        Assert.True(certificate.IsContentProtected);
+        Assert.NotNull(certificate.PasswordSecretRelativePath);
+        Assert.Equal("{\"keyId\":\"deployment\"}", File.ReadAllText(Path.Combine(tempDirectory.ArtifactPath, certificate.RelativePath)));
     }
 
     [Fact]

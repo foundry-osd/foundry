@@ -35,10 +35,12 @@ public interface IRoamingCapture
 /// Default <see cref="IRoamingCapture"/>.
 /// </summary>
 /// <remarks>
-/// A provisioned enterprise Wi-Fi profile is roamed from the media template with its certificate. Every other Wi-Fi
-/// profile is read back from WLAN with its key in plain text; a profile that cannot be read, or whose key is still
-/// protected, is skipped with one Warning. The SSID, the profile name and the profile XML are never logged (the remote
-/// Logs stream mirrors every property).
+/// A provisioned enterprise Wi-Fi profile is roamed from the media template with its certificates (the client PFX, then
+/// the trusted roots). A template staged encrypted is roamed from the profile document provisioning decrypted and keeps
+/// until exit (L4-15, L2-6); a protected client PFX is roamed as its encrypted file with its deployment-keyed password
+/// envelope. Every other Wi-Fi profile is read back from WLAN with its key in plain text; a profile that cannot be read, or
+/// whose key is still protected, is skipped with one Warning. The SSID, the profile name, file names and the profile XML
+/// are never logged (the remote Logs stream mirrors every property).
 /// </remarks>
 public sealed class RoamingCapture : IRoamingCapture
 {
@@ -50,6 +52,7 @@ public sealed class RoamingCapture : IRoamingCapture
     private readonly IWifiConnectionHistory _history;
     private readonly IWlanClient _wlan;
     private readonly INetworkProfileRoamingService _roaming;
+    private readonly IProvisioningStep _provisioning;
     private readonly ILogger<RoamingCapture> _logger;
 
     /// <summary>
@@ -60,6 +63,7 @@ public sealed class RoamingCapture : IRoamingCapture
     /// <param name="history">Successful Wi-Fi connections of this session.</param>
     /// <param name="wlan">WLAN client used to read profiles back.</param>
     /// <param name="roaming">Roaming artifact writer.</param>
+    /// <param name="provisioning">Provisioning step; its cached outcome holds the decrypted enterprise profile document.</param>
     /// <param name="logger">Logger.</param>
     public RoamingCapture(
         FoundryConnectConfigurationDocument configuration,
@@ -67,8 +71,9 @@ public sealed class RoamingCapture : IRoamingCapture
         IWifiConnectionHistory history,
         IWlanClient wlan,
         INetworkProfileRoamingService roaming,
+        IProvisioningStep provisioning,
         ILogger<RoamingCapture> logger)
-        : this(configuration, configurationService.ConfigurationPath, history, wlan, roaming, logger)
+        : this(configuration, configurationService.ConfigurationPath, history, wlan, roaming, provisioning, logger)
     {
     }
 
@@ -78,6 +83,7 @@ public sealed class RoamingCapture : IRoamingCapture
         IWifiConnectionHistory history,
         IWlanClient wlan,
         INetworkProfileRoamingService roaming,
+        IProvisioningStep provisioning,
         ILogger<RoamingCapture> logger)
     {
         _configuration = configuration;
@@ -85,6 +91,7 @@ public sealed class RoamingCapture : IRoamingCapture
         _history = history;
         _wlan = wlan;
         _roaming = roaming;
+        _provisioning = provisioning;
         _logger = logger;
     }
 
@@ -144,7 +151,7 @@ public sealed class RoamingCapture : IRoamingCapture
             exception.GetType().Name);
     }
 
-    private Task CaptureWifiAsync(IReadOnlyList<SuccessfulWifiConnection> connections, CancellationToken cancellationToken)
+    private async Task CaptureWifiAsync(IReadOnlyList<SuccessfulWifiConnection> connections, CancellationToken cancellationToken)
     {
         List<NetworkProfileRoamingCaptureRequest> requests = [];
         foreach (SuccessfulWifiConnection connection in connections)
@@ -152,21 +159,24 @@ public sealed class RoamingCapture : IRoamingCapture
             // One candidate that cannot be prepared must not drop the others.
             try
             {
-                if (CreateWifiRequest(connection) is NetworkProfileRoamingCaptureRequest request)
+                if (await CreateWifiRequestAsync(connection, cancellationToken).ConfigureAwait(false) is NetworkProfileRoamingCaptureRequest request)
                 {
                     requests.Add(request);
                 }
             }
-            catch (Exception exception)
+            catch (Exception exception) when (!cancellationToken.IsCancellationRequested)
             {
                 LogCaptureFailure(WifiProfileKind, exception);
             }
         }
 
-        return requests.Count == 0 ? Task.CompletedTask : _roaming.CaptureWifiProfilesAsync(requests, cancellationToken);
+        if (requests.Count > 0)
+        {
+            await _roaming.CaptureWifiProfilesAsync(requests, cancellationToken).ConfigureAwait(false);
+        }
     }
 
-    private NetworkProfileRoamingCaptureRequest? CreateWifiRequest(SuccessfulWifiConnection connection)
+    private async Task<NetworkProfileRoamingCaptureRequest?> CreateWifiRequestAsync(SuccessfulWifiConnection connection, CancellationToken cancellationToken)
     {
         ConnectWifiSettings wifi = _configuration.Wifi;
         bool isProvisioned = connection.Source == WifiConnectionSource.Provisioned;
@@ -176,12 +186,17 @@ public sealed class RoamingCapture : IRoamingCapture
 
         if (isProvisioned && wifi.HasEnterpriseProfile)
         {
+            ConnectCertificateSet certificates = ConnectCertificateSet.From(wifi);
+            string? decryptedXml = wifi.IsEnterpriseProfileTemplateProtected
+                ? await ReadProvisionedProfileXmlAsync(cancellationToken).ConfigureAwait(false)
+                : null;
             return new NetworkProfileRoamingCaptureRequest(
-                ResolveAssetPath(wifi.EnterpriseProfileTemplatePath),
+                wifi.IsEnterpriseProfileTemplateProtected ? null : ResolveAssetPath(wifi.EnterpriseProfileTemplatePath),
                 source,
                 ResolveConnectivityExpectation(wifi.EnterpriseAuthenticationMode),
-                ResolveExistingAssetPaths(wifi.CertificatePath),
-                wifi.CertificatePfxPasswordSecret);
+                ResolveCertificatePaths(certificates),
+                certificates.ClientCertificatePasswordSecret,
+                decryptedXml);
         }
 
         string? profileXml = _wlan.GetProfileXml(connection.InterfaceId, connection.ProfileName);
@@ -202,21 +217,37 @@ public sealed class RoamingCapture : IRoamingCapture
         }
     }
 
+    // Capture runs before the exit releases the profile document, so the cached provisioning outcome still holds it.
+    // A missing document throws so the caller logs its usual capture Warning and skips only this profile.
+    private async Task<string> ReadProvisionedProfileXmlAsync(CancellationToken cancellationToken)
+    {
+        ProvisioningOutcome provisioning = await _provisioning.RunAsync(cancellationToken).ConfigureAwait(false);
+        return provisioning.WifiProfile?.Xml
+            ?? throw new InvalidOperationException("The decrypted provisioned Wi-Fi profile is not available.");
+    }
+
     private NetworkProfileRoamingCaptureRequest CreateWiredRequest()
     {
         ConnectDot1xSettings dot1x = _configuration.Dot1x;
+        ConnectCertificateSet certificates = ConnectCertificateSet.From(dot1x);
         return new NetworkProfileRoamingCaptureRequest(
             ResolveAssetPath(dot1x.ProfileTemplatePath),
             NetworkProfileRoamingProfileSource.ProvisionedWiredDot1x,
             ResolveConnectivityExpectation(dot1x.AuthenticationMode),
-            ResolveExistingAssetPaths(dot1x.CertificatePath),
-            dot1x.CertificatePfxPasswordSecret);
+            ResolveCertificatePaths(certificates),
+            certificates.ClientCertificatePasswordSecret);
     }
 
     private string? ResolveAssetPath(string? value) => ProvisionedWifiProfileResolver.ResolveAssetPath(value, _configurationPath);
 
-    private IReadOnlyList<string> ResolveExistingAssetPaths(string? value) =>
-        ResolveAssetPath(value) is string path && File.Exists(path) ? [path] : [];
+    // The client certificate (plain or protected) first, then the trusted roots; only files that exist.
+    private IReadOnlyList<string> ResolveCertificatePaths(ConnectCertificateSet certificates) =>
+        new[] { certificates.ClientCertificatePath }
+            .Concat(certificates.TrustedRootCertificatePaths)
+            .Select(ResolveAssetPath)
+            .Where(static path => path is not null && File.Exists(path))
+            .Select(static path => path!)
+            .ToArray();
 
     // A machine-only profile authenticates before sign-in; any other mode needs a user and is import-only before OOBE.
     private static NetworkProfileRoamingConnectivityExpectation ResolveConnectivityExpectation(NetworkAuthenticationMode mode) =>

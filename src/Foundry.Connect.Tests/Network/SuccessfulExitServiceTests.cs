@@ -254,9 +254,17 @@ public sealed class SuccessfulExitServiceTests
             remove { }
         }
 
+        public event EventHandler? UnlockRequested
+        {
+            add { }
+            remove { }
+        }
+
         public void ReleaseProvisionedProfile() => ReleaseCalls++;
 
         public Task<ProvisioningOutcome> ApplyProvisioningAsync(CancellationToken cancellationToken) => throw new NotSupportedException();
+
+        public Task<ProvisionedWifiState> RefreshProvisionedWifiAsync(CancellationToken cancellationToken) => Task.FromResult(State.Wifi.Provisioned);
 
         public Task ApplyObservationAsync(NetworkObservation observation, CancellationToken cancellationToken) => throw new NotSupportedException();
 

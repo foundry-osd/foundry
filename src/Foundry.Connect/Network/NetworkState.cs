@@ -109,7 +109,13 @@ public enum Dot1xFailureReason
     ProfileImportFailed,
 
     /// <summary>The profile is applied but authentication failed.</summary>
-    AuthenticationFailed
+    AuthenticationFailed,
+
+    /// <summary>
+    /// The wired secrets are protected by the deployment password, which was not entered; wired 802.1X stays unavailable
+    /// for the session (L4-10).
+    /// </summary>
+    UnlockCancelled
 }
 
 /// <summary>
@@ -190,7 +196,13 @@ public enum ProvisionedWifiStatus
     Unavailable,
 
     /// <summary>The profile can be applied and connected.</summary>
-    Ready
+    Ready,
+
+    /// <summary>
+    /// A profile secret is protected by the deployment password and not unlocked yet; the profile is built once the
+    /// password is entered. <see cref="ProvisionedWifiUnavailableReason.UnlockCancelled"/> marks a declined prompt.
+    /// </summary>
+    Locked
 }
 
 /// <summary>
@@ -211,7 +223,13 @@ public enum ProvisionedWifiUnavailableReason
     InvalidConfiguration,
 
     /// <summary>The passphrase does not satisfy the security type.</summary>
-    InvalidPassphrase
+    InvalidPassphrase,
+
+    /// <summary>
+    /// The deployment password prompt was cancelled; the profile stays <see cref="ProvisionedWifiStatus.Locked"/> and is
+    /// never prompted for again automatically (L4-10).
+    /// </summary>
+    UnlockCancelled
 }
 
 /// <summary>

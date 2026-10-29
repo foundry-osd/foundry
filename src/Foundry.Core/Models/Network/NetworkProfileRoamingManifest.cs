@@ -5,6 +5,7 @@
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Foundry.Core.Models.Network;
 
@@ -115,6 +116,14 @@ public sealed record NetworkProfileRoamingCertificate
     /// Gets the encrypted password secret relative path for PFX/private-key imports.
     /// </summary>
     public string? PasswordSecretRelativePath { get; init; }
+
+    /// <summary>
+    /// Gets whether the copied file is a <see cref="Configuration.SecretEnvelope"/> JSON document encrypted with the
+    /// deployment key (a client PFX staged encrypted, L4-15) instead of the PFX itself; omitted when false.
+    /// </summary>
+    /// <remarks>Foundry.Deploy decrypts it with the unlocked deployment key before staging the PFX.</remarks>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public bool IsContentProtected { get; init; }
 }
 
 /// <summary>
@@ -220,6 +229,15 @@ public static class NetworkProfileRoamingArtifacts
         return string.Equals(extension, ".pfx", StringComparison.OrdinalIgnoreCase) ||
             string.Equals(extension, ".p12", StringComparison.OrdinalIgnoreCase);
     }
+
+    /// <summary>
+    /// Returns whether the certificate path points to a PFX/P12 package staged encrypted with the deployment key
+    /// (<c>.pfx.encrypted</c> or <c>.p12.encrypted</c>).
+    /// </summary>
+    public static bool IsProtectedPfxPath(string? path) =>
+        path is not null &&
+        (path.EndsWith(".pfx.encrypted", StringComparison.OrdinalIgnoreCase) ||
+         path.EndsWith(".p12.encrypted", StringComparison.OrdinalIgnoreCase));
 
     /// <summary>
     /// Creates a stable artifact file name that preserves the source extension and avoids same-name collisions.
