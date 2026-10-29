@@ -10,6 +10,10 @@ using Foundry.Wpf.Motion;
 
 namespace Foundry.Wpf.Controls;
 
+/// <summary>
+/// Terminal status icon showing a success or failure glyph in the matching system status color.
+/// The colored glow is omitted in high-contrast mode, and a fade-and-scale entrance plays on load and whenever the control becomes visible again.
+/// </summary>
 public partial class TerminalStatusGlyph : UserControl
 {
     public static readonly DependencyProperty IsSuccessProperty = DependencyProperty.Register(

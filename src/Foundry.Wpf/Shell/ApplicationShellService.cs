@@ -26,6 +26,7 @@ public sealed class ApplicationShellService : IApplicationShellService
         _identity = identity;
     }
 
+    /// <inheritdoc/>
     public void ShowAbout()
     {
         var viewModel = new AboutDialogViewModel(
@@ -66,6 +67,7 @@ public sealed class ApplicationShellService : IApplicationShellService
         return result == MessageBoxResult.Yes;
     }
 
+    /// <inheritdoc/>
     public void Shutdown()
     {
         Application.Current?.Shutdown();

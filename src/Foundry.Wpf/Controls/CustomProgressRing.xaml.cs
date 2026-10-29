@@ -10,6 +10,10 @@ using System.Windows.Media.Effects;
 
 namespace Foundry.Wpf.Controls;
 
+/// <summary>
+/// Circular progress indicator: draws a determinate arc for <see cref="Value"/> (0-100) or a spinning arc when <see cref="IsIndeterminate"/> is set.
+/// Determinate changes are animated, and a non-zero target never moves the ring backwards; only a target of zero resets it.
+/// </summary>
 public partial class CustomProgressRing : UserControl
 {
     private const double StartAngle = -90d;
