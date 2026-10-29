@@ -82,6 +82,16 @@ public sealed class NetworkStatusSnapshot
     public string? ConnectedWifiSsid { get; init; }
 
     /// <summary>
+    /// Gets the upper-case hexadecimal bytes of the connected Wi-Fi SSID; rows are matched on it, never on the display text.
+    /// </summary>
+    public string? ConnectedWifiSsidHex { get; init; }
+
+    /// <summary>
+    /// Gets a value indicating whether the current Wi-Fi connection uses the provisioned profile.
+    /// </summary>
+    public bool IsConnectedWifiProvisioned { get; init; }
+
+    /// <summary>
     /// Gets the discovered Wi-Fi networks.
     /// </summary>
     public IReadOnlyList<WifiNetworkSummary> WifiNetworks { get; init; } = Array.Empty<WifiNetworkSummary>();

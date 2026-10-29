@@ -19,12 +19,11 @@ using Foundry.Core.Models.Runtime;
 using Foundry.Wpf.Shell;
 using Foundry.Connect.Lifetime;
 using Foundry.Connect.Configuration;
+using Foundry.Connect.Network;
 using Foundry.Connect.Services.Logging;
-using Foundry.Connect.Services.Network;
 using Foundry.Wpf.Theme;
 using Foundry.Wpf.Dialogs;
 using Foundry.Localization;
-using Foundry.Telemetry;
 using Foundry.Utilities.Networking;
 using Foundry.Utilities.Diagnostics;
 using Foundry.Utilities.Globalization;
@@ -59,14 +58,13 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly IApplicationLifetimeService _applicationLifetimeService;
     private readonly IConnectConfigurationService _configurationService;
     private readonly FoundryConnectConfigurationDocument _configuration;
-    private readonly INetworkBootstrapService _networkBootstrapService;
-    private readonly INetworkStatusService _networkStatusService;
-    private readonly ITelemetryService _telemetryService;
+    private readonly IConnectionCoordinator _coordinator;
+    private readonly INetworkMonitor _monitor;
+    private readonly ISuccessfulExitService _successfulExit;
+    private readonly LegacyNetworkStateAdapter _adapter;
     private readonly IKeyboardLayoutSwitcher _keyboardLayoutSwitcher;
     private readonly ILogger<MainWindowViewModel> _logger;
     private readonly Dispatcher _dispatcher;
-    private readonly SemaphoreSlim _refreshGate = new(1, 1);
-    private readonly SemaphoreSlim _successfulExitGate = new(1, 1);
     private readonly CancellationTokenSource _disposeCts = new();
     private readonly bool _isAutoCloseEnabled;
 
@@ -74,11 +72,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private bool _isInitialized;
     private bool _isDisposed;
     private bool _isSyncingWifiNetworks;
-    private bool _hasTrackedSessionReady;
+    private bool _isProvisionedWifiCommandRunning;
     private NetworkStatusSnapshot? _lastNetworkReadySnapshot;
-    private string? _lastSelectedWifiNetworkSsid;
-    private DateTimeOffset? _lastConfiguredWifiConnectAttemptAt;
+    private OperationOutcome? _lastAppliedOutcome;
+    private string? _lastSelectedWifiNetworkSsidHex;
     private string? _connectedWifiSsid;
+    private bool _isConnectedWifiProvisioned;
 
     [ObservableProperty]
     private NetworkLayoutMode layoutMode;
@@ -164,6 +163,10 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     /// <summary>
     /// Initializes the main window view model and wires runtime services.
     /// </summary>
+    /// <remarks>
+    /// The view model only displays the coordinator's published state and forwards the technician's actions to it: it
+    /// starts no automatic connection, logs no network operation and sends no telemetry (UI-03, NET-01, NET-07).
+    /// </remarks>
     public MainWindowViewModel(
         IThemeService themeService,
         ILocalizationService localizationService,
@@ -171,9 +174,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         IApplicationLifetimeService applicationLifetimeService,
         IConnectConfigurationService configurationService,
         FoundryConnectConfigurationDocument configuration,
-        INetworkBootstrapService networkBootstrapService,
-        INetworkStatusService networkStatusService,
-        ITelemetryService telemetryService,
+        IConnectionCoordinator coordinator,
+        INetworkMonitor monitor,
+        ISuccessfulExitService successfulExit,
         IKeyboardLayoutSwitcher keyboardLayoutSwitcher,
         ILogger<MainWindowViewModel> logger)
         : base(localizationService)
@@ -184,9 +187,10 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _applicationLifetimeService = applicationLifetimeService;
         _configurationService = configurationService;
         _configuration = configuration;
-        _networkBootstrapService = networkBootstrapService;
-        _networkStatusService = networkStatusService;
-        _telemetryService = telemetryService;
+        _coordinator = coordinator ?? throw new ArgumentNullException(nameof(coordinator));
+        _monitor = monitor ?? throw new ArgumentNullException(nameof(monitor));
+        _successfulExit = successfulExit ?? throw new ArgumentNullException(nameof(successfulExit));
+        _adapter = new LegacyNetworkStateAdapter(localizationService);
         _logger = logger;
         _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
         _isAutoCloseEnabled = !Debugger.IsAttached;
@@ -296,7 +300,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     /// <summary>
     /// Gets a value indicating whether the current Wi-Fi connection matches the provisioned profile.
     /// </summary>
-    public bool IsProvisionedWifiConnected => IsProvisionedWifiConnection(_connectedWifiSsid);
+    public bool IsProvisionedWifiConnected => _isConnectedWifiProvisioned;
 
     /// <summary>
     /// Gets a value indicating whether the provisioned Wi-Fi profile can be connected now.
@@ -365,8 +369,11 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public bool CanDisconnectSelectedWifi => SelectedWifiNetwork is { IsConnected: true } && !IsNetworkActionInProgress;
 
     /// <summary>
-    /// Applies provisioned network settings, refreshes the first snapshot, and starts background monitoring.
+    /// Subscribes to the published network state, applies the provisioning once, then starts the network monitor.
     /// </summary>
+    /// <remarks>
+    /// The coordinator and the monitor log their own operations and run their blocking work off the caller's thread.
+    /// </remarks>
     public async Task InitializeAsync()
     {
         if (_isInitialized)
@@ -377,17 +384,23 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         _isInitialized = true;
         _logger.LogInformation("Starting Foundry.Connect initialization.");
+        _coordinator.StateChanged += OnCoordinatorStateChanged;
 
-        _logger.LogInformation("Applying provisioned network settings.");
-        await ApplyProvisionedSettingsAsync(_disposeCts.Token).ConfigureAwait(false);
-        _logger.LogInformation("Provisioned network settings step finished.");
+        try
+        {
+            ProvisioningOutcome outcome = await _coordinator.ApplyProvisioningAsync(_disposeCts.Token).ConfigureAwait(false);
+            if (LegacyNetworkStateAdapter.ResolveProvisioningFeedbackKey(outcome) is string feedbackKey)
+            {
+                await RunOnUiAsync(() => ProvisionedWifiActionFeedbackText = GetString(feedbackKey)).ConfigureAwait(false);
+            }
+        }
+        catch (OperationCanceledException) when (_disposeCts.IsCancellationRequested)
+        {
+            // The window closed during provisioning.
+            return;
+        }
 
-        _logger.LogInformation("Refreshing initial network snapshot.");
-        await RefreshCoreAsync(_disposeCts.Token).ConfigureAwait(false);
-        _logger.LogInformation("Initial network snapshot refresh completed.");
-
-        _ = MonitorAsync(_disposeCts.Token);
-        _logger.LogInformation("Background network monitoring started.");
+        _ = _monitor.RunAsync(_disposeCts.Token);
     }
 
     [RelayCommand]
@@ -643,7 +656,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [RelayCommand]
     private Task RefreshStatusAsync()
     {
-        return RefreshCoreAsync(_disposeCts.Token);
+        _monitor.RequestRefresh();
+        return Task.CompletedTask;
     }
 
     [RelayCommand(CanExecute = nameof(CanContinueBootstrap))]
@@ -674,40 +688,27 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private async Task ConnectConfiguredWifiAsync()
     {
         await ExecuteProvisionedWifiActionAsync(
-            () => _networkBootstrapService.ConnectConfiguredWifiAsync(_disposeCts.Token),
-            "wifi.provisioned_action",
-            BuildProvisionedWifiConnectFeedback,
-            refreshAfterAction: true).ConfigureAwait(false);
+            () => _coordinator.ConnectProvisionedWifiAsync(_disposeCts.Token)).ConfigureAwait(false);
     }
 
     [RelayCommand(CanExecute = nameof(CanDisconnectConfiguredWifi))]
     private async Task DisconnectConfiguredWifiAsync()
     {
         await ExecuteProvisionedWifiActionAsync(
-            () => _networkBootstrapService.DisconnectWifiAsync(_disposeCts.Token),
-            "wifi.provisioned_action",
-            BuildProvisionedWifiDisconnectFeedback,
-            refreshAfterAction: true).ConfigureAwait(false);
+            () => _coordinator.DisconnectWifiAsync(_disposeCts.Token)).ConfigureAwait(false);
     }
 
     [RelayCommand(CanExecute = nameof(CanConnectSelectedWifi))]
     private async Task ConnectSelectedWifiAsync()
     {
-        if (SelectedWifiNetwork is null)
+        if (SelectedWifiNetwork is not { SsidHex: string ssidHex } network)
         {
             return;
         }
 
+        string? passphrase = network.RequiresPassphrase ? SelectedWifiPassphrase : null;
         await ExecuteSelectedWifiActionAsync(
-            () => _networkBootstrapService.ConnectWifiNetworkAsync(
-                SelectedWifiNetwork.Ssid,
-                SelectedWifiNetwork.SsidHex,
-                SelectedWifiNetwork.Authentication,
-                SelectedWifiNetwork.RequiresPassphrase ? SelectedWifiPassphrase : null,
-                _disposeCts.Token),
-            "wifi.selected_action",
-            BuildSelectedWifiConnectFeedback,
-            refreshAfterAction: true).ConfigureAwait(false);
+            () => _coordinator.ConnectWifiNetworkAsync(WifiSsid.FromHex(ssidHex), passphrase, _disposeCts.Token)).ConfigureAwait(false);
     }
 
     [RelayCommand(CanExecute = nameof(CanDisconnectSelectedWifi))]
@@ -719,10 +720,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
 
         await ExecuteSelectedWifiActionAsync(
-            () => _networkBootstrapService.DisconnectWifiAsync(_disposeCts.Token),
-            "wifi.selected_action",
-            result => BuildSelectedWifiDisconnectFeedback(result.StatusMessage),
-            refreshAfterAction: true).ConfigureAwait(false);
+            () => _coordinator.DisconnectWifiAsync(_disposeCts.Token)).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -737,64 +735,33 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
     }
 
-    private async Task MonitorAsync(CancellationToken cancellationToken)
+    // Raised on arbitrary threads, possibly with a stale argument: the current state is read again on the UI thread.
+    private void OnCoordinatorStateChanged(object? sender, NetworkState state)
     {
-        using PeriodicTimer timer = new(TimeSpan.FromSeconds(FoundryConnectApplicationInfo.DefaultRefreshIntervalSeconds));
-
-        try
+        _ = RunOnUiAsync(() =>
         {
-            while (await timer.WaitForNextTickAsync(cancellationToken).ConfigureAwait(false))
+            if (!_isDisposed)
             {
-                await RefreshCoreAsync(cancellationToken).ConfigureAwait(false);
+                ApplyState(_coordinator.State);
             }
-        }
-        catch (OperationCanceledException)
-        {
-            // Ignore disposal-driven shutdown.
-        }
+        });
     }
 
-    private async Task RefreshCoreAsync(CancellationToken cancellationToken)
+    private void ApplyState(NetworkState state)
     {
-        string operationId = CreateNetworkOperationId();
-        await _refreshGate.WaitAsync(cancellationToken).ConfigureAwait(false);
+        ApplySnapshot(_adapter.ToSnapshot(state));
+        IsProvisionedWifiActionInProgress = _isProvisionedWifiCommandRunning ||
+                                            state.ActiveOperation == NetworkOperationKind.ConnectProvisionedWifi;
+        OnPropertyChanged(nameof(ProvisionedWifiProfileName));
 
-        try
+        // Automatic provisioned attempts keep showing their feedback in the provisioned panel, as before lot 2.
+        if (!ReferenceEquals(state.LastOutcome, _lastAppliedOutcome))
         {
-            NetworkStatusSnapshot snapshot = await _networkStatusService.GetSnapshotAsync(cancellationToken).ConfigureAwait(false);
-            _logger.LogDebug(
-                "Network snapshot refreshed. LayoutMode={LayoutMode}, HasInternetAccess={HasInternetAccess}, IsEthernetConnected={IsEthernetConnected}, IsWifiRuntimeAvailable={IsWifiRuntimeAvailable}, HasWirelessAdapter={HasWirelessAdapter}, WifiNetworkCount={WifiNetworkCount}.",
-                snapshot.LayoutMode,
-                snapshot.HasInternetAccess,
-                snapshot.IsEthernetConnected,
-                snapshot.IsWifiRuntimeAvailable,
-                snapshot.HasWirelessAdapter,
-                snapshot.WifiNetworks.Count);
-            await RunOnUiAsync(() => ApplySnapshot(snapshot)).ConfigureAwait(false);
-        }
-        catch (OperationCanceledException)
-        {
-            // Ignore shutdown-driven refresh cancellation.
-        }
-        catch (Exception ex)
-        {
-            LogNetworkFailure(
-                LogLevel.Error,
-                "network.refresh",
-                operationId,
-                NetworkTelemetryClassifier.ClassifyFailure(ex),
-                ex);
-            await RunOnUiAsync(() =>
+            _lastAppliedOutcome = state.LastOutcome;
+            if (state.LastOutcome is { Operation: NetworkOperationKind.ConnectProvisionedWifi } outcome)
             {
-                IsPrimaryStatusSuccessful = false;
-                PrimaryStatusGlyph = PendingStatusGlyph;
-                PrimaryStatusTitle = GetString("Status.NetworkRefreshFailedTitle");
-                PrimaryStatusDescription = ex.Message;
-            }).ConfigureAwait(false);
-        }
-        finally
-        {
-            _refreshGate.Release();
+                ProvisionedWifiActionFeedbackText = ResolveFeedbackText(outcome, fromProvisionedPanel: true);
+            }
         }
     }
 
@@ -806,6 +773,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         IsWifiRuntimeAvailable = snapshot.IsWifiRuntimeAvailable;
         HasWirelessAdapter = snapshot.HasWirelessAdapter;
         _connectedWifiSsid = snapshot.ConnectedWifiSsid;
+        _isConnectedWifiProvisioned = snapshot.IsConnectedWifiProvisioned;
         _lastNetworkReadySnapshot = snapshot.HasInternetAccess ? snapshot : null;
 
         EthernetGlyph = ResolveEthernetGlyph(snapshot);
@@ -821,123 +789,28 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(ProvisionedWifiPlaceholderText));
         RefreshDerivedConnectionState(snapshot);
 
-        SyncWifiNetworks(snapshot.WifiNetworks, snapshot.ConnectedWifiSsid);
+        SyncWifiNetworks(snapshot.WifiNetworks, snapshot.ConnectedWifiSsidHex);
         ApplyPrimaryStatus(snapshot.HasInternetAccess);
         UpdateCountdown(snapshot);
-
-        if (!snapshot.HasInternetAccess &&
-            snapshot.LayoutMode == NetworkLayoutMode.EthernetWifi &&
-            snapshot.IsWifiRuntimeAvailable &&
-            _configuration.Wifi.IsEnabled &&
-            !IsNetworkActionInProgress &&
-            !IsProvisionedWifiConnected &&
-            ShouldRetryConfiguredWifiConnect())
-        {
-            _lastConfiguredWifiConnectAttemptAt = DateTimeOffset.UtcNow;
-            // Auto-retry the provisioned Wi-Fi profile only when Ethernet has not already satisfied internet access.
-            _ = Task.Run(async () =>
-            {
-                await ExecuteProvisionedWifiActionAsync(
-                    () => _networkBootstrapService.ConnectConfiguredWifiAsync(_disposeCts.Token),
-                    "wifi.provisioned_action",
-                    BuildProvisionedWifiConnectFeedback,
-                    refreshAfterAction: true).ConfigureAwait(false);
-            });
-        }
     }
 
-    private async Task TrackSessionReadyAsync(NetworkStatusSnapshot snapshot, CancellationToken cancellationToken)
+    // The exit service confirms internet with a final probe; when it is not online the next state update cancels the
+    // countdown.
+    private async Task ContinueBootstrapSuccessfullyAsync(CancellationToken cancellationToken)
     {
-        if (_hasTrackedSessionReady || !snapshot.HasInternetAccess)
+        if (_lastNetworkReadySnapshot is null || _applicationLifetimeService.RequestedExitCode is not null)
         {
             return;
         }
 
-        _hasTrackedSessionReady = true;
-        string connectionType = NetworkTelemetryClassifier.ClassifyConnection(snapshot);
-        string wifiSecurity = ResolveWifiSecurity(snapshot, connectionType);
-        string wifiSource = ResolveWifiSource(snapshot, connectionType);
-        var properties = new Dictionary<string, object?>
-        {
-            ["connect_network_connection_type"] = connectionType,
-            ["connect_network_layout_mode"] = NetworkTelemetryClassifier.ClassifyLayout(snapshot.LayoutMode),
-            ["connect_ethernet_available"] = snapshot.HasEthernetAdapter,
-            ["connect_wifi_available"] = snapshot.HasWirelessAdapter && snapshot.IsWifiRuntimeAvailable,
-            ["connect_wifi_security_type"] = wifiSecurity,
-            ["connect_wifi_source"] = wifiSource,
-            ["connect_wired_dot1x_enabled"] = _configuration.Dot1x.IsEnabled,
-            ["connect_wifi_provisioned"] = HasProvisionedWifiProfile
-        };
-
-        _logger.LogDebug(
-            "Tracking Connect session-ready telemetry event. ConnectionType={ConnectionType}, LayoutMode={LayoutMode}, WifiSecurity={WifiSecurity}, WifiSource={WifiSource}, WiredDot1xEnabled={WiredDot1xEnabled}, WifiProvisioned={WifiProvisioned}.",
-            connectionType,
-            properties["connect_network_layout_mode"],
-            wifiSecurity,
-            wifiSource,
-            _configuration.Dot1x.IsEnabled,
-            HasProvisionedWifiProfile);
-
-        await _telemetryService.TrackAsync(TelemetryEvents.ConnectSessionReady, properties, cancellationToken).ConfigureAwait(false);
-        _logger.LogDebug("Connect session-ready telemetry event queued. ConnectionType={ConnectionType}.", connectionType);
-    }
-
-    private async Task ContinueBootstrapSuccessfullyAsync(CancellationToken cancellationToken)
-    {
-        await _successfulExitGate.WaitAsync(cancellationToken).ConfigureAwait(false);
-
         try
         {
-            if (_applicationLifetimeService.RequestedExitCode is not null)
-            {
-                return;
-            }
-
-            NetworkStatusSnapshot? snapshot = _lastNetworkReadySnapshot;
-            if (snapshot is null || !snapshot.HasInternetAccess)
-            {
-                return;
-            }
-
-            await TrackSessionReadyAsync(snapshot, cancellationToken).ConfigureAwait(false);
-            _applicationLifetimeService.TryExit(ChildRuntimeExitCode.Success);
+            _ = await _successfulExit.TryCompleteAsync(cancellationToken).ConfigureAwait(false);
         }
-        finally
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
-            _successfulExitGate.Release();
+            // The countdown was cancelled or the window closed.
         }
-    }
-
-    private string ResolveWifiSecurity(NetworkStatusSnapshot snapshot, string connectionType)
-    {
-        if (!string.Equals(connectionType, "wifi", StringComparison.Ordinal))
-        {
-            return "none";
-        }
-
-        WifiNetworkSummary? connectedNetwork = snapshot.WifiNetworks.FirstOrDefault(network =>
-            string.Equals(network.Ssid, snapshot.ConnectedWifiSsid, StringComparison.OrdinalIgnoreCase));
-        if (connectedNetwork is not null)
-        {
-            return NetworkTelemetryClassifier.ClassifyWifiSecurity(connectedNetwork.Authentication);
-        }
-
-        if (_configuration.Wifi.HasEnterpriseProfile)
-        {
-            return "enterprise";
-        }
-
-        return NetworkTelemetryClassifier.ClassifyWifiSecurity(_configuration.Wifi.SecurityType);
-    }
-
-    private string ResolveWifiSource(NetworkStatusSnapshot snapshot, string connectionType)
-    {
-        if (!string.Equals(connectionType, "wifi", StringComparison.Ordinal))
-        {
-            return "none";
-        }
-
-        return IsProvisionedWifiConnection(snapshot.ConnectedWifiSsid) ? "provisioned" : "manual";
     }
 
     private void ApplyPrimaryStatus(bool hasInternetAccess)
@@ -982,7 +855,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(AutoContinueText));
 
         _countdownCts = CancellationTokenSource.CreateLinkedTokenSource(_disposeCts.Token);
-        _ = Task.Run(() => RunCountdownAsync(_countdownCts.Token), _countdownCts.Token);
+        // The first await is the one-second delay, so the loop leaves the UI thread at once (no Task.Run, spec 5.4).
+        _ = RunCountdownAsync(_countdownCts.Token);
     }
 
     private async Task RunCountdownAsync(CancellationToken cancellationToken)
@@ -1039,15 +913,22 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         ContinueBootstrapCommand.NotifyCanExecuteChanged();
     }
 
-    private void SyncWifiNetworks(IReadOnlyList<WifiNetworkSummary> networks, string? connectedWifiSsid)
+    // Rows are keyed on the SSID bytes (hex, ordinal): two networks that differ only by case are two rows (D6).
+    private void SyncWifiNetworks(IReadOnlyList<WifiNetworkSummary> networks, string? connectedWifiSsidHex)
     {
-        string? selectedSsid = SelectedWifiNetwork?.Ssid;
+        string? selectedSsidHex = SelectedWifiNetwork?.SsidHex;
         string preservedPassphrase = SelectedWifiNetwork?.RequiresPassphrase == true
             ? SelectedWifiPassphrase
             : string.Empty;
-        Dictionary<string, WifiNetworkItemViewModel> existingNetworks = WifiNetworks.ToDictionary(
-            network => network.Ssid,
-            StringComparer.OrdinalIgnoreCase);
+        Dictionary<string, WifiNetworkItemViewModel> existingNetworks = new(StringComparer.Ordinal);
+        foreach (WifiNetworkItemViewModel existing in WifiNetworks)
+        {
+            if (existing.SsidHex is string existingHex)
+            {
+                existingNetworks.TryAdd(existingHex, existing);
+            }
+        }
+
         List<WifiNetworkItemViewModel> orderedNetworks = new(networks.Count);
 
         _isSyncingWifiNetworks = true;
@@ -1056,13 +937,14 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         {
             foreach (WifiNetworkSummary network in networks)
             {
-                if (!existingNetworks.TryGetValue(network.Ssid, out WifiNetworkItemViewModel? wifiNetwork))
+                string ssidHex = network.SsidHex ?? string.Empty;
+                if (!existingNetworks.TryGetValue(ssidHex, out WifiNetworkItemViewModel? wifiNetwork))
                 {
                     wifiNetwork = new WifiNetworkItemViewModel(network.Ssid);
                 }
 
                 wifiNetwork.Update(
-                    network.Ssid == "Hidden network" ? GetString("Wifi.HiddenNetwork") : network.Ssid,
+                    network.Ssid,
                     TranslateDiscoveredWifiSecurity(network.Authentication),
                     network.SsidHex,
                     network.Authentication,
@@ -1071,16 +953,16 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                     ResolveWifiGlyph(network.SignalStrengthPercent),
                     CanDirectConnect(network.Authentication),
                     RequiresPassphrase(network.Authentication),
-                    string.Equals(network.Ssid, connectedWifiSsid, StringComparison.OrdinalIgnoreCase));
+                    string.Equals(network.SsidHex, connectedWifiSsidHex, StringComparison.Ordinal));
                 orderedNetworks.Add(wifiNetwork);
             }
 
             SyncWifiNetworkCollection(orderedNetworks);
 
             SelectedWifiNetwork = orderedNetworks.FirstOrDefault(network =>
-                string.Equals(network.Ssid, selectedSsid, StringComparison.OrdinalIgnoreCase))
+                string.Equals(network.SsidHex, selectedSsidHex, StringComparison.Ordinal))
                 ?? orderedNetworks.FirstOrDefault(network =>
-                    string.Equals(network.Ssid, connectedWifiSsid, StringComparison.OrdinalIgnoreCase));
+                    string.Equals(network.SsidHex, connectedWifiSsidHex, StringComparison.Ordinal));
         }
         finally
         {
@@ -1181,12 +1063,13 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
 
         LocalizationService.LanguageChanged -= OnLanguageChanged;
+        _coordinator.StateChanged -= OnCoordinatorStateChanged;
+
+        // Cancelling stops the network monitor and any command still waiting for the coordinator.
         _disposeCts.Cancel();
         CancelCountdown();
         _countdownCts?.Dispose();
         _disposeCts.Dispose();
-        _refreshGate.Dispose();
-        _successfulExitGate.Dispose();
         base.Dispose();
         _isDisposed = true;
     }
@@ -1206,9 +1089,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     partial void OnSelectedWifiNetworkChanged(WifiNetworkItemViewModel? value)
     {
         bool hasChangedSelection = !string.Equals(
-            _lastSelectedWifiNetworkSsid,
-            value?.Ssid,
-            StringComparison.OrdinalIgnoreCase);
+            _lastSelectedWifiNetworkSsidHex,
+            value?.SsidHex,
+            StringComparison.Ordinal);
 
         if (!_isSyncingWifiNetworks &&
             (value is null || !value.RequiresPassphrase || value.IsConnected || hasChangedSelection))
@@ -1218,7 +1101,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         SelectedWifiActionFeedbackText = string.Empty;
 
-        _lastSelectedWifiNetworkSsid = value?.Ssid;
+        _lastSelectedWifiNetworkSsidHex = value?.SsidHex;
 
         ConnectSelectedWifiCommand.NotifyCanExecuteChanged();
         DisconnectSelectedWifiCommand.NotifyCanExecuteChanged();
@@ -1292,9 +1175,13 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             OnPropertyChanged(nameof(ProvisionedWifiStatusText));
             OnPropertyChanged(nameof(ProvisionedWifiPlaceholderText));
             OnPropertyChanged(nameof(WifiDiscoveryEmptyStateText));
-        });
 
-        _ = RefreshCoreAsync(_disposeCts.Token);
+            // Texts are rebuilt from the typed state; no network refresh is needed (UI-05).
+            if (_isInitialized && !_isDisposed)
+            {
+                ApplyState(_coordinator.State);
+            }
+        });
     }
 
     private void ApplyLocalizedDefaults()
@@ -1307,69 +1194,18 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         EthernetGateway = GetString("Common.Unavailable");
     }
 
-    private async Task ApplyProvisionedSettingsAsync(CancellationToken cancellationToken)
+    // The coordinator logs the operation and requests a refresh; the view model only tracks the panel's progress and
+    // feedback.
+    private async Task ExecuteProvisionedWifiActionAsync(Func<Task<OperationOutcome>> action)
     {
         if (_disposeCts.IsCancellationRequested)
         {
             return;
         }
-
-        string operationId = CreateNetworkOperationId();
-        using IDisposable? operationScope = BeginNetworkOperationScope(operationId, "network.apply_provisioned_settings");
-
-        try
-        {
-            NetworkBootstrapResult result = await _networkBootstrapService.ApplyProvisionedSettingsAsync(cancellationToken).ConfigureAwait(false);
-            LogHandledNetworkFailures("network.apply_provisioned_settings", operationId, result);
-            string? feedback = BuildProvisionedWifiInitializationFeedback(result.StatusMessage);
-            if (!string.IsNullOrWhiteSpace(feedback))
-            {
-                await RunOnUiAsync(() => ProvisionedWifiActionFeedbackText = feedback).ConfigureAwait(false);
-            }
-        }
-        catch (OperationCanceledException)
-        {
-            // Ignore shutdown-driven cancellations.
-        }
-        catch (Exception ex)
-        {
-            LogNetworkFailure(
-                LogLevel.Error,
-                "network.apply_provisioned_settings",
-                operationId,
-                NetworkTelemetryClassifier.ClassifyFailure(ex),
-                ex);
-            await RunOnUiAsync(() => ProvisionedWifiActionFeedbackText = GetString("Wifi.ActionApplyProvisionedFailed")).ConfigureAwait(false);
-        }
-    }
-
-    private bool ShouldRetryConfiguredWifiConnect()
-    {
-        if (_lastConfiguredWifiConnectAttemptAt is null)
-        {
-            return true;
-        }
-
-        int retryDelaySeconds = Math.Max(FoundryConnectApplicationInfo.DefaultRefreshIntervalSeconds * 2, 10);
-        return DateTimeOffset.UtcNow - _lastConfiguredWifiConnectAttemptAt.Value >= TimeSpan.FromSeconds(retryDelaySeconds);
-    }
-
-    private async Task ExecuteProvisionedWifiActionAsync(
-        Func<Task<NetworkBootstrapResult>> action,
-        string networkOperation,
-        Func<string, string?> resolveFeedback,
-        bool refreshAfterAction)
-    {
-        if (_disposeCts.IsCancellationRequested)
-        {
-            return;
-        }
-
-        string operationId = CreateNetworkOperationId();
-        using IDisposable? operationScope = BeginNetworkOperationScope(operationId, networkOperation);
 
         await RunOnUiAsync(() =>
         {
+            _isProvisionedWifiCommandRunning = true;
             IsNetworkActionInProgress = true;
             IsProvisionedWifiActionInProgress = true;
             ProvisionedWifiActionFeedbackText = string.Empty;
@@ -1377,59 +1213,26 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         try
         {
-            NetworkBootstrapResult result = await action().ConfigureAwait(false);
-            LogHandledNetworkFailures(networkOperation, operationId, result);
-            string? feedback = resolveFeedback(result.StatusMessage);
-
-            await RunOnUiAsync(() =>
-            {
-                ProvisionedWifiActionFeedbackText = string.IsNullOrWhiteSpace(feedback)
-                    ? string.Empty
-                    : feedback;
-            }).ConfigureAwait(false);
-
-            if (refreshAfterAction)
-            {
-                await RefreshCoreAsync(_disposeCts.Token).ConfigureAwait(false);
-            }
-        }
-        catch (OperationCanceledException)
-        {
-            // Ignore shutdown-driven cancellations.
-        }
-        catch (Exception ex)
-        {
-            LogNetworkFailure(
-                LogLevel.Error,
-                networkOperation,
-                operationId,
-                NetworkTelemetryClassifier.ClassifyFailure(ex),
-                ex);
-            await RunOnUiAsync(() => ProvisionedWifiActionFeedbackText = GetString("Wifi.ActionTryAgain")).ConfigureAwait(false);
+            OperationOutcome outcome = await action().ConfigureAwait(false);
+            await RunOnUiAsync(() => ProvisionedWifiActionFeedbackText = ResolveFeedbackText(outcome, fromProvisionedPanel: true)).ConfigureAwait(false);
         }
         finally
         {
             await RunOnUiAsync(() =>
             {
-                IsProvisionedWifiActionInProgress = false;
+                _isProvisionedWifiCommandRunning = false;
+                IsProvisionedWifiActionInProgress = _coordinator.State.ActiveOperation == NetworkOperationKind.ConnectProvisionedWifi;
                 IsNetworkActionInProgress = false;
             }).ConfigureAwait(false);
         }
     }
 
-    private async Task ExecuteSelectedWifiActionAsync(
-        Func<Task<NetworkBootstrapResult>> action,
-        string networkOperation,
-        Func<NetworkBootstrapResult, string?> resolveFeedback,
-        bool refreshAfterAction)
+    private async Task ExecuteSelectedWifiActionAsync(Func<Task<OperationOutcome>> action)
     {
         if (_disposeCts.IsCancellationRequested)
         {
             return;
         }
-
-        string operationId = CreateNetworkOperationId();
-        using IDisposable? operationScope = BeginNetworkOperationScope(operationId, networkOperation);
 
         await RunOnUiAsync(() =>
         {
@@ -1440,40 +1243,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         try
         {
-            NetworkBootstrapResult result = await action().ConfigureAwait(false);
-            LogHandledNetworkFailures(networkOperation, operationId, result);
-            string? feedback = resolveFeedback(result);
-
-            await RunOnUiAsync(() =>
-            {
-                if (string.IsNullOrWhiteSpace(feedback))
-                {
-                    SelectedWifiActionFeedbackText = string.Empty;
-                }
-                else
-                {
-                    SelectedWifiActionFeedbackText = feedback;
-                }
-            }).ConfigureAwait(false);
-
-            if (refreshAfterAction)
-            {
-                await RefreshCoreAsync(_disposeCts.Token).ConfigureAwait(false);
-            }
-        }
-        catch (OperationCanceledException)
-        {
-            // Ignore shutdown-driven cancellations.
-        }
-        catch (Exception ex)
-        {
-            LogNetworkFailure(
-                LogLevel.Error,
-                networkOperation,
-                operationId,
-                NetworkTelemetryClassifier.ClassifyFailure(ex),
-                ex);
-            await RunOnUiAsync(() => SelectedWifiActionFeedbackText = GetString("Wifi.ActionTryAgain")).ConfigureAwait(false);
+            OperationOutcome outcome = await action().ConfigureAwait(false);
+            await RunOnUiAsync(() => SelectedWifiActionFeedbackText = ResolveFeedbackText(outcome, fromProvisionedPanel: false)).ConfigureAwait(false);
         }
         finally
         {
@@ -1485,104 +1256,13 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
     }
 
-    private string? BuildSelectedWifiConnectFeedback(NetworkBootstrapResult result)
+    private string ResolveFeedbackText(OperationOutcome outcome, bool fromProvisionedPanel)
     {
-        string status = result.StatusMessage;
-        if (status.StartsWith("Wi-Fi connected to ", StringComparison.Ordinal))
-        {
-            return null;
-        }
-
-        if (result.HandledFailures.Any(static failure => failure.Code == NetworkBootstrapHandledFailure.WifiRuntimeNotSupportedCode))
-        {
-            return GetString("Wifi.ActionSelectedNotSupported");
-        }
-
-        if (status.Contains("No wireless adapter", StringComparison.OrdinalIgnoreCase))
-        {
-            return GetString("Wifi.NoAdapterAvailable");
-        }
-
-        return GetString("Wifi.ActionConnectFailed");
+        return LegacyNetworkStateAdapter.ResolveFeedbackKey(outcome, fromProvisionedPanel) is string key
+            ? GetString(key)
+            : string.Empty;
     }
 
-    private string? BuildProvisionedWifiConnectFeedback(string status)
-    {
-        if (status.Contains("Wi-Fi connected to ", StringComparison.Ordinal))
-        {
-            return null;
-        }
-
-        if (status.Contains("No wireless adapter", StringComparison.OrdinalIgnoreCase))
-        {
-            return GetString("Wifi.NoAdapterAvailable");
-        }
-
-        if (status.Contains("not provisioned for this image", StringComparison.OrdinalIgnoreCase) ||
-            status.Contains("No Wi-Fi profile is available", StringComparison.OrdinalIgnoreCase))
-        {
-            return GetString("Wifi.ActionProvisionedProfileUnavailable");
-        }
-
-        return GetString("Wifi.ActionProvisionedConnectFailed");
-    }
-
-    private string? BuildProvisionedWifiDisconnectFeedback(string status)
-    {
-        if (status.StartsWith("Wi-Fi disconnected from ", StringComparison.Ordinal) ||
-            status.StartsWith("Wi-Fi is already disconnected.", StringComparison.Ordinal))
-        {
-            return null;
-        }
-
-        if (status.Contains("No wireless adapter", StringComparison.OrdinalIgnoreCase))
-        {
-            return GetString("Wifi.NoAdapterAvailable");
-        }
-
-        return GetString("Wifi.ActionProvisionedDisconnectFailed");
-    }
-
-    private string? BuildProvisionedWifiInitializationFeedback(string status)
-    {
-        if (!HasProvisionedWifiProfile ||
-            string.IsNullOrWhiteSpace(status) ||
-            status.Contains("imported.", StringComparison.OrdinalIgnoreCase) &&
-            !status.Contains("failed", StringComparison.OrdinalIgnoreCase))
-        {
-            return null;
-        }
-
-        if (status.Contains("failed", StringComparison.OrdinalIgnoreCase) ||
-            status.Contains("not supported", StringComparison.OrdinalIgnoreCase) ||
-            status.Contains("No Wi-Fi profile", StringComparison.OrdinalIgnoreCase))
-        {
-            if (status.Contains("No Wi-Fi profile", StringComparison.OrdinalIgnoreCase))
-            {
-                return GetString("Wifi.ActionProvisionedProfileUnavailable");
-            }
-
-            return GetString("Wifi.ActionApplyProvisionedFailed");
-        }
-
-        return null;
-    }
-
-    private string? BuildSelectedWifiDisconnectFeedback(string status)
-    {
-        if (status.StartsWith("Wi-Fi disconnected from ", StringComparison.Ordinal) ||
-            status.StartsWith("Wi-Fi is already disconnected.", StringComparison.Ordinal))
-        {
-            return null;
-        }
-
-        if (status.Contains("No wireless adapter", StringComparison.OrdinalIgnoreCase))
-        {
-            return GetString("Wifi.NoAdapterAvailable");
-        }
-
-        return GetString("Wifi.ActionDisconnectFailed");
-    }
 
     /// <summary>
     /// Represents one Wi-Fi network row in the discovery list.
@@ -1735,75 +1415,16 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         if (_configuration.Wifi.HasEnterpriseProfile)
         {
-            try
-            {
-                string? profileName = ProvisionedWifiProfileResolver.ResolveProfileName(
-                    _configuration.Wifi,
-                    _configurationService.ConfigurationPath);
-                if (!string.IsNullOrWhiteSpace(profileName))
-                {
-                    return profileName;
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogDebug(ex, "Failed to resolve the provisioned Wi-Fi profile name.");
-            }
-
-            return GetString("Wifi.EnterpriseProfile");
+            // The provisioning step read the template once; the name is known after it ran.
+            string? profileName = _coordinator.State.Wifi.Provisioned.ProfileName;
+            return string.IsNullOrWhiteSpace(profileName)
+                ? GetString("Wifi.EnterpriseProfile")
+                : profileName;
         }
 
         return string.IsNullOrWhiteSpace(_configuration.Wifi.Ssid)
             ? GetString("Wifi.UnnamedProvisionedProfile")
             : _configuration.Wifi.Ssid.Trim();
-    }
-
-    private void LogHandledNetworkFailures(string networkOperation, string operationId, NetworkBootstrapResult result)
-    {
-        foreach (NetworkBootstrapHandledFailure handledFailure in result.HandledFailures.Distinct())
-        {
-            LogNetworkFailure(
-                LogLevel.Warning,
-                networkOperation,
-                operationId,
-                new NetworkFailureClassification(
-                    handledFailure.Kind,
-                    handledFailure.Reason,
-                    handledFailure.Code));
-        }
-    }
-
-    private void LogNetworkFailure(
-        LogLevel level,
-        string networkOperation,
-        string operationId,
-        NetworkFailureClassification failure,
-        Exception? exception = null)
-    {
-        _logger.Log(
-            level,
-            eventId: default,
-            exception,
-            "Network operation failed. Workflow={Workflow}, OperationId={OperationId}, NetworkOperation={NetworkOperation}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}",
-            "connect",
-            operationId,
-            networkOperation,
-            failure.Kind,
-            failure.Reason,
-            failure.Code);
-    }
-
-    private IDisposable? BeginNetworkOperationScope(string operationId, string networkOperation) =>
-        _logger.BeginScope(new Dictionary<string, object>
-        {
-            ["Workflow"] = "connect",
-            ["OperationId"] = operationId,
-            ["NetworkOperation"] = networkOperation
-        });
-
-    private static string CreateNetworkOperationId()
-    {
-        return Guid.NewGuid().ToString("N", CultureInfo.InvariantCulture);
     }
 
     private string BuildProvisionedWifiAuthenticationText()
@@ -1946,27 +1567,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         return IsProvisionedWifiConnected
             ? Format("Wifi.ConnectionChipProvisionedFormat", _connectedWifiSsid)
             : Format("Wifi.ConnectionChipFormat", _connectedWifiSsid);
-    }
-
-    private bool IsProvisionedWifiConnection(string? ssid)
-    {
-        if (!HasProvisionedWifiProfile || string.IsNullOrWhiteSpace(ssid))
-        {
-            return false;
-        }
-
-        string trimmedSsid = ssid.Trim();
-
-        if (!string.IsNullOrWhiteSpace(_configuration.Wifi.Ssid) &&
-            string.Equals(trimmedSsid, _configuration.Wifi.Ssid.Trim(), StringComparison.OrdinalIgnoreCase))
-        {
-            return true;
-        }
-
-        string profileName = ResolveProvisionedWifiProfileName();
-        return !string.IsNullOrWhiteSpace(profileName) &&
-               !string.Equals(profileName, GetString("Wifi.EnterpriseProfile"), StringComparison.OrdinalIgnoreCase) &&
-               string.Equals(trimmedSsid, profileName, StringComparison.OrdinalIgnoreCase);
     }
 
     private static bool CanDirectConnect(string authentication)

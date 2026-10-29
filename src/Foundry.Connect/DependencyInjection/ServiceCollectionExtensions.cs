@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Diagnostics;
 using System.Globalization;
 using System.Net.Http;
 using System.Resources;
@@ -10,6 +11,8 @@ using System.Windows;
 using Foundry.Connect.Lifetime;
 using Foundry.Wpf.Shell;
 using Foundry.Connect.Configuration;
+using Foundry.Connect.Network;
+using Foundry.Connect.Network.Native;
 using Foundry.Connect.Services.Network;
 using Foundry.Connect.Services.Runtime;
 using Foundry.Wpf.Theme;
@@ -79,12 +82,39 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ILocalizationService>(_ => new ResourceLocalizationService(new ResourceManager("Foundry.Connect.Strings.Resources", typeof(App).Assembly)));
         services.AddSingleton<INetworkAdapterSnapshotProvider, WindowsNetworkAdapterSnapshotProvider>();
         services.AddSingleton<INetworkProfileRoamingService, NetworkProfileRoamingService>();
-        services.AddSingleton<INetworkBootstrapService, NetworkBootstrapService>();
-        services.AddSingleton<INetworkStatusService, NetworkStatusService>();
+        AddNetworkServices(services);
         services.AddSingleton<IThemeService, ThemeService>();
         services.AddSingleton<IKeyboardLayoutSwitcher>(_ => new WindowsKeyboardLayoutSwitcher(KeyboardLayoutHandoff.DefaultPath));
 
         return services;
+    }
+
+    /// <summary>
+    /// Registers the typed network stack. The coordinator is one singleton exposed as both
+    /// <see cref="IConnectionCoordinator"/> and <see cref="IWifiConnectionHistory"/>, so roaming capture reads the
+    /// connections this same coordinator made.
+    /// </summary>
+    private static void AddNetworkServices(IServiceCollection services)
+    {
+        services.AddSingleton(TimeProvider.System);
+        services.AddSingleton(sp => ConnectNetworkOptions.FromConfiguration(
+            sp.GetRequiredService<FoundryConnectConfigurationDocument>(),
+            Debugger.IsAttached));
+        services.AddSingleton<NetworkRefreshSignal>();
+        services.AddSingleton<IWlanClient, WlanClient>();
+        services.AddSingleton<IConnectProcessRunner, ConnectProcessRunner>();
+        services.AddSingleton<IWiredDot1xClient, WiredDot1xClient>();
+        services.AddSingleton<ICertificateStore, LocalMachineCertificateStore>();
+        services.AddSingleton<ICertificateInstaller, CertificateInstaller>();
+        services.AddSingleton<IConnectivityProbe, ConnectivityProbe>();
+        services.AddSingleton<IProvisioningStep, ProvisioningStep>();
+        services.AddSingleton<ConnectionCoordinator>();
+        services.AddSingleton<IConnectionCoordinator>(sp => sp.GetRequiredService<ConnectionCoordinator>());
+        services.AddSingleton<IWifiConnectionHistory>(sp => sp.GetRequiredService<ConnectionCoordinator>());
+        services.AddSingleton<INetworkObservationSource, NetworkObservationSource>();
+        services.AddSingleton<INetworkMonitor, NetworkMonitor>();
+        services.AddSingleton<IRoamingCapture, RoamingCapture>();
+        services.AddSingleton<ISuccessfulExitService, SuccessfulExitService>();
     }
 
     /// <summary>
