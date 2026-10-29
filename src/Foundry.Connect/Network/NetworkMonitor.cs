@@ -102,12 +102,15 @@ public sealed class NetworkMonitor(
         }
         catch (Exception exception) when (!(exception is OperationCanceledException && cancellationToken.IsCancellationRequested))
         {
-            // Exception text can carry identifying data: the type is logged at Error, the exception itself at Debug only.
+            // Exception text can carry identifying data and every level reaches the remote Logs stream, so only the type
+            // and its numeric code are logged, never the exception.
             string failureType = exception.GetType().Name;
             if (!string.Equals(failureType, _lastFailureType, StringComparison.Ordinal))
             {
-                _logger.LogError("Network observation pass failed. FailureType={FailureType}", failureType);
-                _logger.LogDebug(exception, "Network observation pass failure detail. FailureType={FailureType}", failureType);
+                _logger.LogError(
+                    "Network observation pass failed. FailureType={FailureType}, ErrorCode={ErrorCode}",
+                    failureType,
+                    NetworkFailureTaxonomy.ExceptionErrorCode(exception));
                 _lastFailureType = failureType;
             }
         }

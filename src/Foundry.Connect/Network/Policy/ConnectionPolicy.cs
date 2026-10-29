@@ -15,7 +15,7 @@ namespace Foundry.Connect.Network.Policy;
 /// <param name="ConnectedToProvisioned">Whether the current Wi-Fi connection already uses the provisioned profile.</param>
 /// <param name="Internet">Current internet reachability.</param>
 /// <param name="IsOperationRunning">Whether a connect or disconnect operation is in flight.</param>
-/// <param name="ConsecutiveFailures">Failed automatic attempts since the last success.</param>
+/// <param name="ConsecutiveFailures">Automatic attempts started since an observation last showed the provisioned connection online; an attempt that associates without internet still counts.</param>
 /// <param name="LastAttemptAt">When the last automatic attempt started, or <see langword="null"/> when none ran yet.</param>
 /// <param name="Now">The current time, supplied by the caller's <see cref="TimeProvider"/>.</param>
 public sealed record AutomaticConnectInput(
@@ -54,10 +54,10 @@ public static class ConnectionPolicy
     public static ConnectionMode AfterManualAction(ConnectionMode current) => ConnectionMode.Manual;
 
     /// <summary>
-    /// Gets the wait before the next automatic attempt: none before the first attempt or after a success, then 20, 40
-    /// and 80 seconds, capped at <see cref="MaximumRetryDelay"/>.
+    /// Gets the wait before the next automatic attempt: none before the first attempt or once the provisioned connection
+    /// was seen online, then 20, 40 and 80 seconds, capped at <see cref="MaximumRetryDelay"/>.
     /// </summary>
-    /// <param name="consecutiveFailures">Failed automatic attempts since the last success.</param>
+    /// <param name="consecutiveFailures">Automatic attempts started since the provisioned connection was last seen online.</param>
     /// <returns>The minimum interval between two attempts.</returns>
     public static TimeSpan RetryDelay(int consecutiveFailures)
     {

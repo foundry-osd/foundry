@@ -191,17 +191,22 @@ public sealed class SuccessfulExitService : ISuccessfulExitService
 
     private async Task TrackSessionReadyAsync(NetworkState state, CancellationToken cancellationToken)
     {
+        Task? tracking = null;
         try
         {
             using var budget = new CancellationTokenSource(TelemetryBudget, _timeProvider);
             using CancellationTokenSource linked = CancellationTokenSource.CreateLinkedTokenSource(budget.Token, cancellationToken);
-            await _telemetry
-                .TrackAsync(TelemetryEvents.ConnectSessionReady, ConnectSessionReadyTelemetry.Build(state, _configuration), linked.Token)
-                .WaitAsync(TelemetryBudget, _timeProvider, cancellationToken)
-                .ConfigureAwait(false);
+            tracking = _telemetry.TrackAsync(TelemetryEvents.ConnectSessionReady, ConnectSessionReadyTelemetry.Build(state, _configuration), linked.Token);
+            await tracking.WaitAsync(TelemetryBudget, _timeProvider, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception exception) when (exception is TimeoutException || (exception is OperationCanceledException && !cancellationToken.IsCancellationRequested))
         {
+            // The send is abandoned, not awaited: observe a later fault so it never surfaces as an unobserved exception.
+            _ = tracking?.ContinueWith(
+                static task => _ = task.Exception,
+                CancellationToken.None,
+                TaskContinuationOptions.OnlyOnFaulted | TaskContinuationOptions.ExecuteSynchronously,
+                TaskScheduler.Default);
             _logger.LogInformation(
                 "Session-ready telemetry did not complete within the exit budget. BudgetSeconds={BudgetSeconds}",
                 TelemetryBudget.TotalSeconds);

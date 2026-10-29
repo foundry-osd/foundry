@@ -23,6 +23,7 @@ public sealed class ConnectProcessRunnerTests
             CommandProcessor,
             "/d /c \"echo connected & echo failed 1>&2 & exit /b 7\"",
             TimeSpan.FromSeconds(30),
+            ConnectProcessLogging.EveryRun,
             TestContext.Current.CancellationToken);
 
         Assert.Equal(ConnectProcessStatus.Completed, result.Status);
@@ -36,6 +37,32 @@ public sealed class ConnectProcessRunnerTests
         Assert.Equal("cmd.exe", warning.Properties["ToolName"]);
     }
 
+    // A status read repeated on every monitor pass logs its first outcome and then only an outcome that differs.
+    [Fact]
+    public async Task RunAsync_OnChange_LogsOnlyWhenTheOutcomeChanges()
+    {
+        using var directory = new TemporaryDirectory();
+        string marker = Path.Combine(directory.Path, "failing.marker");
+        string arguments = $"/d /c \"if exist \"{marker}\" (exit /b 7) else (exit /b 0)\"";
+        var logger = new RecordingLogger<ConnectProcessRunner>();
+        var runner = new ConnectProcessRunner(TimeProvider.System, logger);
+
+        async Task<int> RunAsync() => (await runner.RunAsync(
+            CommandProcessor, arguments, TimeSpan.FromSeconds(30), ConnectProcessLogging.OnChange, TestContext.Current.CancellationToken)).ExitCode;
+
+        int[] healthy = [await RunAsync(), await RunAsync()];
+        Assert.Equal([0, 0], healthy);
+        File.WriteAllText(marker, string.Empty);
+        int[] failing = [await RunAsync(), await RunAsync()];
+        Assert.Equal([7, 7], failing);
+        File.Delete(marker);
+        Assert.Equal(0, await RunAsync());
+
+        Assert.Equal(
+            [(LogLevel.Debug, 0), (LogLevel.Warning, 7), (LogLevel.Debug, 0)],
+            logger.Entries.Select(static entry => (entry.Level, (int)entry.Properties["ExitCode"]!)));
+    }
+
     [Fact]
     public async Task RunAsync_WhenTimeoutElapses_KillsProcessAndReportsTimedOut()
     {
@@ -47,6 +74,7 @@ public sealed class ConnectProcessRunnerTests
             CommandProcessor,
             "/d /c \"ping -n 30 127.0.0.1 >nul\"",
             TimeSpan.FromSeconds(5),
+            ConnectProcessLogging.EveryRun,
             TestContext.Current.CancellationToken);
         clock.Advance(TimeSpan.FromSeconds(5));
         ConnectProcessResult result = await run.WaitAsync(TimeSpan.FromSeconds(20), TestContext.Current.CancellationToken);
@@ -67,6 +95,7 @@ public sealed class ConnectProcessRunnerTests
             Path.Combine(Path.GetTempPath(), $"foundry-missing-{Guid.NewGuid():N}.exe"),
             string.Empty,
             TimeSpan.FromSeconds(5),
+            ConnectProcessLogging.EveryRun,
             TestContext.Current.CancellationToken);
 
         Assert.Equal(ConnectProcessStatus.StartFailed, result.Status);
@@ -81,7 +110,7 @@ public sealed class ConnectProcessRunnerTests
         var runner = new ConnectProcessRunner(TimeProvider.System, new RecordingLogger<ConnectProcessRunner>());
 
         await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() => runner.RunAsync(
-            CommandProcessor, "/d /c exit /b 0", TimeSpan.FromMilliseconds(milliseconds), TestContext.Current.CancellationToken));
+            CommandProcessor, "/d /c exit /b 0", TimeSpan.FromMilliseconds(milliseconds), ConnectProcessLogging.EveryRun, TestContext.Current.CancellationToken));
     }
 
     [Fact]
@@ -92,6 +121,6 @@ public sealed class ConnectProcessRunnerTests
         cancellation.Cancel();
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() => runner.RunAsync(
-            CommandProcessor, "/d /c exit /b 0", TimeSpan.FromSeconds(5), cancellation.Token));
+            CommandProcessor, "/d /c exit /b 0", TimeSpan.FromSeconds(5), ConnectProcessLogging.EveryRun, cancellation.Token));
     }
 }

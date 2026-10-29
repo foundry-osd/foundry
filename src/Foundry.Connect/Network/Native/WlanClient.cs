@@ -71,7 +71,8 @@ public sealed class WlanClient : IWlanClient
         }
         catch (Exception exception)
         {
-            ReportSnapshotFailure(exception.GetType().Name, exception);
+            // The exception is not logged: its message can carry identifying data and every level is mirrored remotely.
+            ReportSnapshotFailure(FormattableString.Invariant($"{exception.GetType().Name}:{NetworkFailureTaxonomy.ExceptionErrorCode(exception)}"));
             return WlanSnapshot.RuntimeMissing(0);
         }
     }
@@ -424,9 +425,8 @@ public sealed class WlanClient : IWlanClient
     /// <remarks>
     /// The monitor polls snapshots; a missing runtime would otherwise log the same failure on every refresh.
     /// </remarks>
-    /// <param name="failure">Failing native call and error (or exception type), or <see langword="null"/> for a clean read.</param>
-    /// <param name="exception">Exception behind the failure, logged with the first occurrence only.</param>
-    internal void ReportSnapshotFailure(string? failure, Exception? exception = null)
+    /// <param name="failure">Failing native call and error (or exception type and code), or <see langword="null"/> for a clean read.</param>
+    internal void ReportSnapshotFailure(string? failure)
     {
         string? previous;
         lock (_snapshotFailureLock)
@@ -446,7 +446,7 @@ public sealed class WlanClient : IWlanClient
             return;
         }
 
-        _logger.LogDebug(exception, "WLAN snapshot read failed. SnapshotFailure={SnapshotFailure}", failure);
+        _logger.LogDebug("WLAN snapshot read failed. SnapshotFailure={SnapshotFailure}", failure);
     }
 
     private WlanSnapshot ReadSnapshot(bool requestScan, Action<string, uint> reportFailure)
@@ -725,9 +725,14 @@ public sealed class WlanClient : IWlanClient
         LogWlanFailure(nativeCall, win32Error, 0);
     }
 
+    // The exception is not attached (every level is mirrored remotely); its type and HRESULT identify the cause.
     private void LogRuntimeMissing(Exception exception, string nativeCall)
     {
-        _logger.LogDebug(exception, "WLAN runtime is not available. NativeCall={NativeCall}", nativeCall);
+        _logger.LogDebug(
+            "WLAN runtime is not available. NativeCall={NativeCall}, FailureType={FailureType}, ErrorCode={ErrorCode}",
+            nativeCall,
+            exception.GetType().Name,
+            NetworkFailureTaxonomy.ExceptionErrorCode(exception));
     }
 
     private static string? ReadReasonText(uint reasonCode)

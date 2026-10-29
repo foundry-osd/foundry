@@ -11,7 +11,11 @@ namespace Foundry.Connect.Network;
 /// Operations run one at a time. A manual request switches the mode to <see cref="ConnectionMode.Manual"/> and
 /// publishes it before it waits for a running operation, so no further automatic attempt starts (D4, NET-01). Failures
 /// are returned as typed <see cref="OperationOutcome"/> values; each operation is logged once at start and once at its
-/// end (D17).
+/// end (D17). The manual operations (<see cref="ConnectProvisionedWifiAsync"/>, <see cref="ConnectWifiNetworkAsync"/>,
+/// <see cref="DisconnectWifiAsync"/>) never throw for a network or caller-cancellation reason: a cancelled request returns
+/// <see cref="OperationStatus.Cancelled"/> and an unexpected error returns <see cref="OperationStatus.Failed"/> with
+/// <see cref="NetworkFailureCode.Unexpected"/>. They throw only for invalid arguments (<see cref="ArgumentNullException"/>)
+/// and after shutdown disposed the coordinator (<see cref="ObjectDisposedException"/>).
 /// </remarks>
 public interface IConnectionCoordinator
 {

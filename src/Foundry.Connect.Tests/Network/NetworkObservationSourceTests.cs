@@ -142,7 +142,7 @@ public sealed class NetworkObservationSourceTests
     }
 
     [Fact]
-    public async Task Observe_LogsTheFailureTypeAtWarningAndTheExceptionOnlyAtDebug()
+    public async Task Observe_LogsTheFailureTypeAndCodeButNeverTheException()
     {
         const string Identifying = "Lab-Guest-SSID";
         _wlan.SnapshotException = new Win32Exception(1062, Identifying);
@@ -152,16 +152,15 @@ public sealed class NetworkObservationSourceTests
         RecordedLogEntry warning = Assert.Single(_logger.Entries, static entry => entry.Level == LogLevel.Warning);
         Assert.Equal("wifi", warning.Properties["Part"]);
         Assert.Equal(nameof(Win32Exception), warning.Properties["FailureType"]);
-        Assert.Null(warning.Exception);
+        Assert.Equal(1062, warning.Properties["ErrorCode"]);
         Assert.All(
-            _logger.Entries.Where(static entry => entry.Level > LogLevel.Debug),
+            _logger.Entries,
             entry =>
             {
                 Assert.Null(entry.Exception);
                 Assert.DoesNotContain(Identifying, entry.Message, StringComparison.Ordinal);
                 Assert.DoesNotContain(entry.Properties.Values, value => value?.ToString()?.Contains(Identifying, StringComparison.Ordinal) == true);
             });
-        Assert.Contains(_logger.Entries, static entry => entry.Level == LogLevel.Debug && entry.Exception is Win32Exception);
     }
 
     [Fact]

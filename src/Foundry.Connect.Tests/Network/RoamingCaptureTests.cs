@@ -199,6 +199,39 @@ public sealed class RoamingCaptureTests
         Assert.Equal(nameof(IOException), warning.Properties["FailureType"]);
     }
 
+    [Fact]
+    public async Task Capture_WhenOneCandidateThrows_StillCapturesTheOthers()
+    {
+        _wlan.Profiles[(WifiInterface, "Cafe")] = OpenProfile;
+        _wlan.ProfileReadFailures["Guest"] = new InvalidOperationException("Guest profile could not be read");
+        _history.Add("Guest", WifiConnectionSource.Manual, minutesAgo: 10);
+        _history.Add("Cafe", WifiConnectionSource.Manual, minutesAgo: 1);
+
+        await Create(RoamingConfiguration()).CaptureAsync(WifiPathState("Guest", WifiConnectionSource.Manual), TestContext.Current.CancellationToken);
+
+        IReadOnlyList<NetworkProfileRoamingCaptureRequest> batch = Assert.Single(_roaming.WifiBatches);
+        Assert.Equal([OpenProfile], batch.Select(static request => request.ProfileXml));
+        RecordedLogEntry warning = Assert.Single(_logger.Entries, static entry => entry.Level == LogLevel.Warning);
+        Assert.Equal(nameof(InvalidOperationException), warning.Properties["FailureType"]);
+        Assert.Null(warning.Exception);
+        Assert.DoesNotContain("Guest", warning.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task Capture_WhenCallerCancels_ThrowsWithoutLoggingACaptureFailure()
+    {
+        _wlan.Profiles[(WifiInterface, "Guest")] = UnprotectedProfile;
+        _history.Add("Guest", WifiConnectionSource.Manual, minutesAgo: 1);
+        using var cancellation = new CancellationTokenSource();
+        await cancellation.CancelAsync();
+        _roaming.Failure = new OperationCanceledException(cancellation.Token);
+
+        await Assert.ThrowsAsync<OperationCanceledException>(() =>
+            Create(RoamingConfiguration()).CaptureAsync(WifiPathState("Guest", WifiConnectionSource.Manual), cancellation.Token));
+
+        Assert.DoesNotContain(_logger.Entries, static entry => entry.Level == LogLevel.Warning);
+    }
+
     private RoamingCapture Create(FoundryConnectConfigurationDocument configuration, TemporaryDirectory? directory = null) => new(
         configuration,
         directory is null ? null : Path.Combine(directory.Path, "foundry.connect.config.json"),

@@ -48,6 +48,9 @@ public sealed class ConnectivityProbe : IConnectivityProbe, IDisposable
     private readonly TimeProvider _timeProvider;
     private readonly ILogger<ConnectivityProbe> _logger;
 
+    // Last logged result per endpoint host; guarded by lock (_lastResults).
+    private readonly Dictionary<string, EndpointResult> _lastResults = new(StringComparer.Ordinal);
+
     /// <summary>
     /// Creates a probe that sends real HTTP requests.
     /// </summary>
@@ -97,7 +100,7 @@ public sealed class ConnectivityProbe : IConnectivityProbe, IDisposable
         ProbeObservation observation;
         try
         {
-            observation = await RequestAsync(endpoint, linked.Token).ConfigureAwait(false);
+            observation = await RequestAsync(endpoint, linked.Token, cancellationToken).ConfigureAwait(false);
         }
         catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
         {
@@ -108,27 +111,65 @@ public sealed class ConnectivityProbe : IConnectivityProbe, IDisposable
             observation = new ProbeObservation(endpoint, false, null, null);
         }
 
-        _logger.LogDebug(
-            "Connectivity endpoint probed. Endpoint={Endpoint} Responded={Responded} StatusCode={StatusCode}",
-            endpoint.Uri.Host,
-            observation.Responded,
-            observation.StatusCode);
+        LogWhenChanged(observation);
         return observation;
     }
 
-    private async Task<ProbeObservation> RequestAsync(NcsiEndpoint endpoint, CancellationToken cancellationToken)
+    // The monitor probes on every pass: an endpoint result is logged only when it differs from the previous one.
+    private void LogWhenChanged(ProbeObservation observation)
+    {
+        var result = new EndpointResult(
+            observation.Responded,
+            observation.StatusCode,
+            string.Equals(observation.Body, observation.Endpoint.ExpectedBody, StringComparison.Ordinal));
+        lock (_lastResults)
+        {
+            if (_lastResults.TryGetValue(observation.Endpoint.Uri.Host, out EndpointResult previous) && previous == result)
+            {
+                return;
+            }
+
+            _lastResults[observation.Endpoint.Uri.Host] = result;
+        }
+
+        _logger.LogDebug(
+            "Connectivity endpoint result changed. Endpoint={Endpoint} Responded={Responded} StatusCode={StatusCode} BodyMatched={BodyMatched}",
+            observation.Endpoint.Uri.Host,
+            result.Responded,
+            result.StatusCode,
+            result.BodyMatched);
+    }
+
+    private async Task<ProbeObservation> RequestAsync(NcsiEndpoint endpoint, CancellationToken requestToken, CancellationToken callerToken)
     {
         using var request = new HttpRequestMessage(HttpMethod.Get, endpoint.Uri);
         request.Headers.CacheControl = new CacheControlHeaderValue { NoCache = true };
         request.Headers.ConnectionClose = true;
 
         using HttpResponseMessage response = await _client
-            .SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
+            .SendAsync(request, HttpCompletionOption.ResponseHeadersRead, requestToken)
             .ConfigureAwait(false);
 
-        string body = await ReadBodyAsync(response, cancellationToken).ConfigureAwait(false);
+        string? body;
+        try
+        {
+            body = await ReadBodyAsync(response, requestToken).ConfigureAwait(false);
+        }
+        catch (Exception exception) when (IsBodyReadFailure(exception, callerToken))
+        {
+            // Headers arrived, so something answered: an unreadable body is an unexpected body (CaptivePortal, L2-8),
+            // never "no response".
+            body = null;
+        }
+
         return new ProbeObservation(endpoint, true, (int)response.StatusCode, body);
     }
+
+    // The request token also carries the deadline: a deadline cancellation is a body failure, a caller cancellation is
+    // not (it reaches the caller).
+    private static bool IsBodyReadFailure(Exception exception, CancellationToken callerToken) =>
+        exception is HttpRequestException or IOException ||
+        (exception is OperationCanceledException && !callerToken.IsCancellationRequested);
 
     private static async Task<string> ReadBodyAsync(HttpResponseMessage response, CancellationToken cancellationToken)
     {
@@ -149,4 +190,6 @@ public sealed class ConnectivityProbe : IConnectivityProbe, IDisposable
 
         return Encoding.UTF8.GetString(buffer, 0, length);
     }
+
+    private readonly record struct EndpointResult(bool Responded, int? StatusCode, bool BodyMatched);
 }

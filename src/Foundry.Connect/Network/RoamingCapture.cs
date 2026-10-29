@@ -21,8 +21,9 @@ namespace Foundry.Connect.Network;
 public interface IRoamingCapture
 {
     /// <summary>
-    /// Captures the selected Wi-Fi and wired 802.1X profiles. Never throws; a failure is a Warning and never changes
-    /// the exit outcome (spec 5.5).
+    /// Captures the selected Wi-Fi and wired 802.1X profiles. A failure is a Warning and never changes the exit outcome
+    /// (spec 5.5); a Wi-Fi profile that cannot be prepared is skipped with its own Warning and the others are still
+    /// captured. Only a caller cancellation throws (<see cref="OperationCanceledException"/>).
     /// </summary>
     /// <param name="state">Network state at exit.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
@@ -109,29 +110,38 @@ public sealed class RoamingCapture : IRoamingCapture
 
         if (selection.WifiProfiles.Count > 0)
         {
-            await RunCaptureAsync(WifiProfileKind, () => CaptureWifiAsync(selection.WifiProfiles, cancellationToken)).ConfigureAwait(false);
+            await RunCaptureAsync(WifiProfileKind, () => CaptureWifiAsync(selection.WifiProfiles, cancellationToken), cancellationToken).ConfigureAwait(false);
         }
 
         if (selection.CaptureWiredDot1x)
         {
-            await RunCaptureAsync(WiredDot1xProfileKind, () => _roaming.CaptureWiredDot1xProfileAsync(CreateWiredRequest(), cancellationToken)).ConfigureAwait(false);
+            await RunCaptureAsync(
+                WiredDot1xProfileKind,
+                () => _roaming.CaptureWiredDot1xProfileAsync(CreateWiredRequest(), cancellationToken),
+                cancellationToken).ConfigureAwait(false);
         }
     }
 
-    private async Task RunCaptureAsync(string profileKind, Func<Task> capture)
+    // A caller cancellation is not a capture failure: it propagates to the caller.
+    private async Task RunCaptureAsync(string profileKind, Func<Task> capture, CancellationToken cancellationToken)
     {
         try
         {
             await capture().ConfigureAwait(false);
         }
-        catch (Exception exception)
+        catch (Exception exception) when (!cancellationToken.IsCancellationRequested)
         {
-            // The exception is not attached: its message could name a profile file.
-            _logger.LogWarning(
-                "Network profile roaming capture failed. ProfileKind={ProfileKind}, FailureType={FailureType}",
-                profileKind,
-                exception.GetType().Name);
+            LogCaptureFailure(profileKind, exception);
         }
+    }
+
+    // The exception is not attached: its message could name a profile file.
+    private void LogCaptureFailure(string profileKind, Exception exception)
+    {
+        _logger.LogWarning(
+            "Network profile roaming capture failed. ProfileKind={ProfileKind}, FailureType={FailureType}",
+            profileKind,
+            exception.GetType().Name);
     }
 
     private Task CaptureWifiAsync(IReadOnlyList<SuccessfulWifiConnection> connections, CancellationToken cancellationToken)
@@ -139,9 +149,17 @@ public sealed class RoamingCapture : IRoamingCapture
         List<NetworkProfileRoamingCaptureRequest> requests = [];
         foreach (SuccessfulWifiConnection connection in connections)
         {
-            if (CreateWifiRequest(connection) is NetworkProfileRoamingCaptureRequest request)
+            // One candidate that cannot be prepared must not drop the others.
+            try
             {
-                requests.Add(request);
+                if (CreateWifiRequest(connection) is NetworkProfileRoamingCaptureRequest request)
+                {
+                    requests.Add(request);
+                }
+            }
+            catch (Exception exception)
+            {
+                LogCaptureFailure(WifiProfileKind, exception);
             }
         }
 

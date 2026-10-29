@@ -129,8 +129,8 @@ public sealed class NetworkMonitorTests
         await run;
         RecordedLogEntry error = Assert.Single(logger.Entries, static entry => entry.Level == LogLevel.Error);
         Assert.Equal(nameof(InvalidOperationException), error.Properties["FailureType"]);
-        Assert.Null(error.Exception);
-        Assert.Contains(logger.Entries, static entry => entry.Level == LogLevel.Debug && entry.Exception is InvalidOperationException);
+        Assert.Equal(new InvalidOperationException().HResult, error.Properties["ErrorCode"]);
+        Assert.All(logger.Entries, static entry => Assert.Null(entry.Exception));
     }
 
     [Fact]

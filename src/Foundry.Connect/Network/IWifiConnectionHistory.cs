@@ -11,7 +11,8 @@ public interface IWifiConnectionHistory
 {
     /// <summary>
     /// Gets a snapshot of the successful connections, one entry per interface and profile name, in order of first
-    /// success. A repeated success updates the entry's time. The history is never logged.
+    /// success. A repeated success updates the entry's time. A provisioned profile that Windows joined by itself is
+    /// recorded when an observation first shows it connected. The history is never logged.
     /// </summary>
     IReadOnlyList<SuccessfulWifiConnection> SuccessfulWifiConnections { get; }
 }

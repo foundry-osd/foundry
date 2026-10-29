@@ -19,8 +19,9 @@ public sealed record RoamingSelection(IReadOnlyList<SuccessfulWifiConnection> Wi
 /// <remarks>
 /// Every Wi-Fi network that Connect joined successfully during the session is roamed, provisioned or manual, even when
 /// Ethernet carries the internet. Order: the current Wi-Fi connection while internet is <see cref="InternetStatus.Online"/>
-/// first, then the others by most recent success. A network that was never joined successfully in this session
-/// (a failed attempt, or a connection Windows made by itself) is never roamed. Wi-Fi follows the Wi-Fi roaming option;
+/// first, then the others by most recent success. A provisioned profile that Windows joined by itself counts as joined,
+/// because Connect provisioned it this session. A network that was never joined successfully in this session (a failed
+/// attempt, or a non-provisioned connection Windows made by itself) is never roamed. Wi-Fi follows the Wi-Fi roaming option;
 /// wired 802.1X follows the wired option and needs the wired profile to have been applied.
 /// </remarks>
 public static class RoamingSelectionPolicy

@@ -121,8 +121,10 @@ internal delegate X509Certificate2 Pkcs12FileLoader(string path, ReadOnlySpan<ch
 /// that is already installed never writes a private key. Only when the store needs it is the file loaded again with the
 /// persisting flags: <see cref="X509KeyStorageFlags.PersistKeySet"/> keys stay on disk after dispose, in a new container per
 /// load, so a persisting load that is not added would leave an orphaned machine key. The store keeps its own copy, so every
-/// loaded instance is disposed. A failure is logged with the certificate kind and the exception type only: PKCS#12 error
-/// messages can echo their inputs, and author file names can carry organization names into the remote Logs stream.
+/// loaded instance is disposed. Residual risk: when the store refuses the certificate after the persisting load, that key
+/// stays on disk; it is accepted because the WinPE system drive (X:) is volatile and is discarded at reboot. A failure
+/// is logged with the certificate kind and the exception type only: PKCS#12 error messages can echo their inputs, and
+/// author file names can carry organization names into the remote Logs stream.
 /// </remarks>
 public sealed class CertificateInstaller : ICertificateInstaller
 {

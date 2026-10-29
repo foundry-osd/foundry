@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.ComponentModel;
 using System.Globalization;
 using System.Net;
 using System.Net.Http;
@@ -99,6 +100,23 @@ public static class NetworkFailureTaxonomy
         }
 
         return new NetworkFailureDescriptor(NetworkKind, "transport", null);
+    }
+
+    /// <summary>
+    /// Gets the numeric code logged next to the exception type in place of the exception itself: the Win32 error of a
+    /// <see cref="Win32Exception"/>, otherwise <see cref="Exception.HResult"/>.
+    /// </summary>
+    /// <remarks>
+    /// The remote Logs stream mirrors every log property and the message of an attached exception, and exception
+    /// messages can carry a file path, an SSID or a profile name, so network log events carry the type and this code only.
+    /// </remarks>
+    /// <param name="exception">The exception.</param>
+    /// <returns>The Win32 error or the HRESULT.</returns>
+    public static int ExceptionErrorCode(Exception exception)
+    {
+        ArgumentNullException.ThrowIfNull(exception);
+
+        return exception is Win32Exception win32 ? win32.NativeErrorCode : exception.HResult;
     }
 
     /// <summary>

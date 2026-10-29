@@ -32,7 +32,10 @@ public interface IWiredDot1xClient
     /// <summary>Restarts authentication on one interface with <c>netsh lan reconnect</c>.</summary>
     Task<WiredCommandResult> ReconnectAsync(string interfaceName, CancellationToken cancellationToken);
 
-    /// <summary>Reads the state of every wired interface. The list is empty when the command fails or times out.</summary>
+    /// <summary>
+    /// Reads the state of every wired interface. The list is empty when the command fails or times out. The read repeats on
+    /// every monitor pass, so the process run is logged only when its outcome changes.
+    /// </summary>
     Task<IReadOnlyList<WiredInterfaceAuthentication>> ReadAuthenticationAsync(CancellationToken cancellationToken);
 }
 
@@ -70,7 +73,7 @@ public sealed class WiredDot1xClient(IConnectProcessRunner runner) : IWiredDot1x
     public async Task<IReadOnlyList<WiredInterfaceAuthentication>> ReadAuthenticationAsync(CancellationToken cancellationToken)
     {
         ConnectProcessResult result = await runner
-            .RunAsync(NetshPath, "lan show interfaces", ShowInterfacesTimeout, cancellationToken)
+            .RunAsync(NetshPath, "lan show interfaces", ShowInterfacesTimeout, ConnectProcessLogging.OnChange, cancellationToken)
             .ConfigureAwait(false);
 
         return result.IsSuccess ? NetshLanInterfaceParser.Parse(result.StandardOutput) : [];
@@ -88,7 +91,7 @@ public sealed class WiredDot1xClient(IConnectProcessRunner runner) : IWiredDot1x
         }
 
         ConnectProcessResult result = await runner
-            .RunAsync(NetshPath, arguments, timeout, cancellationToken)
+            .RunAsync(NetshPath, arguments, timeout, ConnectProcessLogging.EveryRun, cancellationToken)
             .ConfigureAwait(false);
 
         return new WiredCommandResult(result.IsSuccess, result.Status, result.ExitCode);

@@ -139,12 +139,17 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IWifiConnect
             _lastObservation = observation;
         }
 
+        WifiConnection? previousConnection = State.Wifi.Connection;
         NetworkState state = Publish();
-        if (state.Internet == InternetStatus.Online && state.Wifi.Connection?.Source == WifiConnectionSource.Provisioned)
+        if (state.Wifi.Connection is { Source: WifiConnectionSource.Provisioned } provisioned)
         {
-            lock (_stateLock)
+            RecordObservedProvisionedConnection(provisioned, previousConnection);
+            if (state.Internet == InternetStatus.Online)
             {
-                _consecutiveFailures = 0;
+                lock (_stateLock)
+                {
+                    _consecutiveFailures = 0;
+                }
             }
         }
 
@@ -547,6 +552,24 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IWifiConnect
             {
                 _successfulConnections[index] = entry;
             }
+        }
+    }
+
+    // Windows joins an auto-mode provisioned profile by itself, so no Connect operation records that connection.
+    // Connect provisioned the profile this session, so a connection seen for the first time, or again after another
+    // state, counts as a success to roam (D5). A connection that stays up is not re-recorded on every poll.
+    private void RecordObservedProvisionedConnection(WifiConnection connection, WifiConnection? previous)
+    {
+        lock (_stateLock)
+        {
+            bool known = _successfulConnections.Exists(item =>
+                item.InterfaceId == connection.InterfaceId && string.Equals(item.ProfileName, connection.ProfileName, StringComparison.Ordinal));
+            if (known && Equals(previous, connection))
+            {
+                return;
+            }
+
+            RecordSuccessfulConnection(connection.InterfaceId, connection.ProfileName, connection.Ssid, WifiConnectionSource.Provisioned);
         }
     }
 

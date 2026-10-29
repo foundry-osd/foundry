@@ -71,6 +71,39 @@ public sealed class ConnectivityProbeTests
         Assert.Equal(InternetStatus.NoInternet, await check.WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken));
     }
 
+    // Headers arrived, so something answered (L2-8): an unreadable body is an unexpected body, never "no response".
+    [Fact]
+    public async Task Check_WhenBodyReadFailsAfterHeaders_IsCaptivePortal()
+    {
+        var handler = new StubHttpMessageHandler((_, _) => Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK) { Content = new FailingContent() }));
+        using var probe = new ConnectivityProbe(handler, new ManualTimeProvider(), new RecordingLogger<ConnectivityProbe>());
+
+        Assert.Equal(InternetStatus.CaptivePortal, await probe.CheckAsync(TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
+    public async Task Check_LogsEndpointResultsOnlyWhenTheyChange()
+    {
+        bool portal = false;
+        var handler = new StubHttpMessageHandler((request, _) => Task.FromResult(
+            portal ? Text(HttpStatusCode.OK, "<html>sign in</html>")
+            : request.RequestUri!.Host.Contains("msftconnecttest", StringComparison.Ordinal) ? Text(HttpStatusCode.OK, "Microsoft Connect Test")
+            : Text(HttpStatusCode.OK, "Microsoft NCSI")));
+        var logger = new RecordingLogger<ConnectivityProbe>();
+        using var probe = new ConnectivityProbe(handler, new ManualTimeProvider(), logger);
+
+        await probe.CheckAsync(TestContext.Current.CancellationToken);
+        await probe.CheckAsync(TestContext.Current.CancellationToken);
+        Assert.Equal(2, logger.Entries.Count);
+
+        portal = true;
+        await probe.CheckAsync(TestContext.Current.CancellationToken);
+        await probe.CheckAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(4, logger.Entries.Count);
+        Assert.Equal([true, true, false, false], logger.Entries.Select(static entry => (bool)entry.Properties["BodyMatched"]!));
+    }
+
     [Fact]
     public async Task Check_RequestsOnlyNcsiEndpointsWithoutCache()
     {
@@ -87,5 +120,18 @@ public sealed class ConnectivityProbeTests
         Assert.Equal(
             ["www.msftconnecttest.com", "www.msftncsi.com"],
             handler.RequestedUris.Select(static uri => uri.Host).Order(StringComparer.Ordinal));
+    }
+
+    // A body whose transfer breaks after the headers were received.
+    private sealed class FailingContent : HttpContent
+    {
+        protected override Task SerializeToStreamAsync(Stream stream, TransportContext? context) =>
+            Task.FromException(new IOException("The connection was reset."));
+
+        protected override bool TryComputeLength(out long length)
+        {
+            length = 0;
+            return false;
+        }
     }
 }

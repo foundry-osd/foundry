@@ -29,6 +29,9 @@ internal sealed class FakeWlanClient : IWlanClient
 
     public Dictionary<(Guid InterfaceId, string ProfileName), string> Profiles { get; } = [];
 
+    // Profile name -> exception thrown by GetProfileXml.
+    public Dictionary<string, Exception> ProfileReadFailures { get; } = [];
+
     public List<(Guid InterfaceId, string Xml)> SetProfileCalls { get; } = [];
 
     // Empty queue: Succeeded.
@@ -87,7 +90,9 @@ internal sealed class FakeWlanClient : IWlanClient
     {
         lock (_gate)
         {
-            return Profiles.GetValueOrDefault((interfaceId, profileName));
+            return ProfileReadFailures.TryGetValue(profileName, out Exception? failure)
+                ? throw failure
+                : Profiles.GetValueOrDefault((interfaceId, profileName));
         }
     }
 

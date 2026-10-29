@@ -51,6 +51,22 @@ public sealed class SuccessfulExitServiceTests
     }
 
     [Fact]
+    public async Task TryComplete_WhenTelemetryIgnoresItsToken_StillExitsAfterTheTwoSecondBudget()
+    {
+        _telemetry.IgnoreCancellation = true;
+        SuccessfulExitService service = Create(InternetStatus.Online);
+
+        Task<SuccessfulExitResult> exit = service.TryCompleteAsync(TestContext.Current.CancellationToken);
+        await AsyncAssert.EventuallyAsync(() => _telemetry.Calls == 1 && _clock.ActiveTimerCount > 0, "telemetry was sent with a budget timer");
+        Assert.False(exit.IsCompleted);
+        _clock.Advance(SuccessfulExitService.TelemetryBudget);
+
+        Assert.Equal(SuccessfulExitResult.Exited, await exit.WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken));
+        Assert.Equal([ChildRuntimeExitCode.Success], _lifetime.Codes);
+        Assert.False(_telemetry.Pending.Task.IsCompleted);
+    }
+
+    [Fact]
     public async Task TryComplete_SendsTheSessionReadyEventBuiltFromTheTypedState()
     {
         _telemetry.CompleteImmediately = true;
@@ -270,6 +286,11 @@ public sealed class SuccessfulExitServiceTests
 
         public bool CompleteImmediately { get; set; }
 
+        // A sink that never honors its token: the send stays pending forever.
+        public bool IgnoreCancellation { get; set; }
+
+        public TaskCompletionSource Pending { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+
         public Exception? Failure { get; set; }
 
         public string? LastEventName { get; private set; }
@@ -288,6 +309,12 @@ public sealed class SuccessfulExitServiceTests
 
             if (CompleteImmediately)
             {
+                return;
+            }
+
+            if (IgnoreCancellation)
+            {
+                await Pending.Task.ConfigureAwait(false);
                 return;
             }
 

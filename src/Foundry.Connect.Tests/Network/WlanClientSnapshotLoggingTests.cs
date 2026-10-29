@@ -19,20 +19,20 @@ public sealed class WlanClientSnapshotLoggingTests
         client.ReportSnapshotFailure(null);
         client.ReportSnapshotFailure("WlanOpenHandle:1062");
         client.ReportSnapshotFailure("WlanOpenHandle:1062");
-        client.ReportSnapshotFailure("DllNotFoundException", new DllNotFoundException());
-        client.ReportSnapshotFailure("DllNotFoundException", new DllNotFoundException());
+        client.ReportSnapshotFailure("DllNotFoundException:-2146233052");
+        client.ReportSnapshotFailure("DllNotFoundException:-2146233052");
         client.ReportSnapshotFailure(null);
         client.ReportSnapshotFailure(null);
 
         Assert.Equal(
             [
                 "WLAN snapshot read failed. SnapshotFailure=WlanOpenHandle:1062",
-                "WLAN snapshot read failed. SnapshotFailure=DllNotFoundException",
-                "WLAN snapshot read succeeded again. PreviousSnapshotFailure=DllNotFoundException"
+                "WLAN snapshot read failed. SnapshotFailure=DllNotFoundException:-2146233052",
+                "WLAN snapshot read succeeded again. PreviousSnapshotFailure=DllNotFoundException:-2146233052"
             ],
             logger.Messages);
         Assert.All(logger.Levels, static level => Assert.Equal(LogLevel.Debug, level));
-        Assert.Equal(1, logger.ExceptionCount);
+        Assert.Equal(0, logger.ExceptionCount);
     }
 
     private sealed class RecordingLogger : ILogger<WlanClient>

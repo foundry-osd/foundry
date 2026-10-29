@@ -7,6 +7,7 @@ using Foundry.Connect.Network;
 using Foundry.Connect.Network.Native;
 using Foundry.Connect.Network.Policy;
 using Foundry.Connect.Tests.Support;
+using Foundry.Core.Models.Configuration;
 using Foundry.Telemetry;
 using Microsoft.Extensions.Logging;
 using Serilog;
@@ -363,7 +364,9 @@ public sealed class ConnectionCoordinatorTests
 
         Assert.Equal(OperationOutcome.Failed(NetworkOperationKind.ConnectWifiNetwork, NetworkFailureCode.Unexpected), outcome);
         RecordedLogEntry error = Assert.Single(_logger.Entries, static entry => entry.Level == LogLevel.Error);
-        Assert.IsType<InvalidOperationException>(error.Exception);
+        Assert.Null(error.Exception);
+        Assert.Equal(nameof(InvalidOperationException), error.Properties["FailureType"]);
+        Assert.Equal(new InvalidOperationException().HResult, error.Properties["ErrorCode"]);
         Assert.DoesNotContain(_logger.Entries, static entry => entry.Level == LogLevel.Warning);
         Assert.Null(coordinator.State.ActiveOperation);
     }
@@ -533,6 +536,33 @@ public sealed class ConnectionCoordinatorTests
 
         SuccessfulWifiConnection entry = Assert.Single(coordinator.SuccessfulWifiConnections);
         Assert.Equal(first + TimeSpan.FromMinutes(3), entry.LastSucceededAt);
+    }
+
+    [Fact]
+    public async Task ApplyObservation_RecordsAProvisionedConnectionWindowsJoinedByItself()
+    {
+        ConnectionCoordinator coordinator = await CreateProvisionedAsync(ReadyLab());
+        await coordinator.ApplyObservationAsync(Observation(InternetStatus.Online, null, "Guest"), Token);
+        await coordinator.ConnectWifiNetworkAsync(WifiSsid.FromText("Guest"), "guest passphrase", Token);
+        _clock.Advance(TimeSpan.FromMinutes(1));
+
+        await coordinator.ApplyObservationAsync(Observation(InternetStatus.Online, "Lab", "Lab", "Guest"), Token);
+        DateTimeOffset seenAt = _clock.GetUtcNow();
+        _clock.Advance(TimeSpan.FromMinutes(1));
+        await coordinator.ApplyObservationAsync(Observation(InternetStatus.Online, "Lab", "Lab", "Guest"), Token);
+
+        Assert.Equal(
+            new SuccessfulWifiConnection(WifiInterface, "Lab", WifiSsid.FromText("Lab"), WifiConnectionSource.Provisioned, seenAt),
+            coordinator.SuccessfulWifiConnections[1]);
+        RoamingSelection selection = RoamingSelectionPolicy.Select(
+            coordinator.State,
+            coordinator.SuccessfulWifiConnections,
+            new ConnectNetworkProfileRoamingSettings
+            {
+                Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true }
+            },
+            wiredDot1xEnabled: false);
+        Assert.Equal(["Lab", "Guest"], selection.WifiProfiles.Select(item => item.ProfileName));
     }
 
     [Fact]

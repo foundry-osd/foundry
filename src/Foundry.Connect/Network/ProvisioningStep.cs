@@ -124,13 +124,14 @@ public sealed class ProvisioningStep : IProvisioningStep
     private async Task<Dot1xState> ProvisionWiredAsync(List<NetworkFailureCode> failures, CancellationToken cancellationToken)
     {
         ConnectDot1xSettings settings = _configuration.Dot1x;
-        if (!settings.IsEnabled)
-        {
-            return Dot1xState.NotConfigured;
-        }
-
         try
         {
+            // Inside the try so a password the media carries for a disabled part is still cleared.
+            if (!settings.IsEnabled)
+            {
+                return Dot1xState.NotConfigured;
+            }
+
             return await ApplyWiredAsync(settings, failures, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception exception) when (!cancellationToken.IsCancellationRequested)
@@ -213,13 +214,14 @@ public sealed class ProvisioningStep : IProvisioningStep
     private (ProvisionedWifiState State, WifiProfileDocument? Profile) ProvisionWifi(List<NetworkFailureCode> failures, CancellationToken cancellationToken)
     {
         ConnectWifiSettings settings = _configuration.Wifi;
-        if (!_configuration.Capabilities.WifiProvisioned || !settings.IsEnabled)
-        {
-            return (ProvisionedWifiState.NotConfigured, null);
-        }
-
         try
         {
+            // Inside the try so a passphrase or password the media carries for a disabled part is still cleared.
+            if (!_configuration.Capabilities.WifiProvisioned || !settings.IsEnabled)
+            {
+                return (ProvisionedWifiState.NotConfigured, null);
+            }
+
             (ProvisionedWifiState state, WifiProfileDocument? profile) = settings.HasEnterpriseProfile
                 ? ReadEnterpriseProfile(settings, failures)
                 : BuildPersonalProfile(settings, failures);
@@ -399,16 +401,18 @@ public sealed class ProvisioningStep : IProvisioningStep
 
     private string? ResolveAssetPath(string? value) => ProvisionedWifiProfileResolver.ResolveAssetPath(value, _configurationPath);
 
+    // The exception is not attached: a template read error names the template file, often "Wi-Fi-<SSID>.xml".
     private void LogUnexpectedFailure(Exception exception, string part)
     {
         NetworkFailureDescriptor descriptor = NetworkFailureTaxonomy.Describe(NetworkFailureCode.Unexpected);
         _logger.LogWarning(
-            exception,
-            "Network provisioning part failed unexpectedly. ProvisioningPart={ProvisioningPart}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}",
+            "Network provisioning part failed unexpectedly. ProvisioningPart={ProvisioningPart}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, FailureType={FailureType}, ErrorCode={ErrorCode}",
             part,
             descriptor.Kind,
             descriptor.Reason,
-            descriptor.Code);
+            descriptor.Code,
+            exception.GetType().Name,
+            NetworkFailureTaxonomy.ExceptionErrorCode(exception));
     }
 
     private static ProvisionedWifiState Ready(WifiProfileDocument profile, bool isEnterprise) =>

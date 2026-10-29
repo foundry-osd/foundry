@@ -38,6 +38,21 @@ public sealed record ConnectProcessResult(ConnectProcessStatus Status, int ExitC
 }
 
 /// <summary>
+/// How <see cref="IConnectProcessRunner"/> logs a run.
+/// </summary>
+public enum ConnectProcessLogging
+{
+    /// <summary>A one-off operation: every run logs its start and its outcome.</summary>
+    EveryRun,
+
+    /// <summary>
+    /// A status read repeated on every monitor pass: the start is not logged, and an outcome is logged only when it
+    /// differs from the previous run of the same command (state is logged on transitions, never on every poll).
+    /// </summary>
+    OnChange
+}
+
+/// <summary>
 /// Runs external tools with a mandatory timeout.
 /// </summary>
 public interface IConnectProcessRunner
@@ -47,8 +62,19 @@ public interface IConnectProcessRunner
     /// syntax, L2-17). A timeout is reported as <see cref="ConnectProcessStatus.TimedOut"/>; cancelling
     /// <paramref name="cancellationToken"/> throws <see cref="OperationCanceledException"/>.
     /// </summary>
+    /// <param name="executablePath">Absolute path of the tool.</param>
+    /// <param name="rawArguments">Arguments passed unchanged.</param>
+    /// <param name="timeout">Time allowed before the process tree is stopped.</param>
+    /// <param name="logging">Whether every run or only a changed outcome is logged.</param>
+    /// <param name="cancellationToken">Caller cancellation.</param>
+    /// <returns>How the process ended.</returns>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="timeout"/> is not positive or not finite.</exception>
-    Task<ConnectProcessResult> RunAsync(string executablePath, string rawArguments, TimeSpan timeout, CancellationToken cancellationToken);
+    Task<ConnectProcessResult> RunAsync(
+        string executablePath,
+        string rawArguments,
+        TimeSpan timeout,
+        ConnectProcessLogging logging,
+        CancellationToken cancellationToken);
 }
 
 /// <summary>
@@ -67,11 +93,15 @@ public sealed class ConnectProcessRunner(TimeProvider timeProvider, ILogger<Conn
 
     private readonly ProcessRunner _processRunner = new();
 
+    // Last logged outcome per command for ConnectProcessLogging.OnChange; kept in memory only, never logged.
+    private readonly Dictionary<string, string> _lastOutcomes = new(StringComparer.Ordinal);
+
     /// <inheritdoc />
     public async Task<ConnectProcessResult> RunAsync(
         string executablePath,
         string rawArguments,
         TimeSpan timeout,
+        ConnectProcessLogging logging,
         CancellationToken cancellationToken)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(executablePath);
@@ -84,8 +114,12 @@ public sealed class ConnectProcessRunner(TimeProvider timeProvider, ILogger<Conn
         using var linked = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, timeoutSource.Token);
 
         string toolName = Path.GetFileName(executablePath).ToLowerInvariant();
+        string commandKey = $"{executablePath}\n{rawArguments}";
         long startTimestamp = timeProvider.GetTimestamp();
-        logger.LogDebug("External process started. ToolName={ToolName}", toolName);
+        if (logging == ConnectProcessLogging.EveryRun)
+        {
+            logger.LogDebug("External process started. ToolName={ToolName}", toolName);
+        }
 
         try
         {
@@ -95,7 +129,11 @@ public sealed class ConnectProcessRunner(TimeProvider timeProvider, ILogger<Conn
                     linked.Token)
                 .ConfigureAwait(false);
 
-            LogCompleted(result, toolName, timeProvider.GetElapsedTime(startTimestamp));
+            if (ShouldLog(logging, commandKey, $"completed:{result.ExitCode}"))
+            {
+                LogCompleted(result, toolName, timeProvider.GetElapsedTime(startTimestamp));
+            }
+
             return new ConnectProcessResult(ConnectProcessStatus.Completed, result.ExitCode, result.StandardOutput, result.StandardError);
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
@@ -105,10 +143,13 @@ public sealed class ConnectProcessRunner(TimeProvider timeProvider, ILogger<Conn
         catch (OperationCanceledException exception) when (timeoutSource.IsCancellationRequested)
         {
             // The caller did not cancel (handled above), so the timeout cancelled the linked token.
-            logger.LogWarning(
-                "External process timed out and was stopped. ToolName={ToolName}, TimeoutSeconds={TimeoutSeconds}",
-                toolName,
-                timeout.TotalSeconds);
+            if (ShouldLog(logging, commandKey, "timed_out"))
+            {
+                logger.LogWarning(
+                    "External process timed out and was stopped. ToolName={ToolName}, TimeoutSeconds={TimeoutSeconds}",
+                    toolName,
+                    timeout.TotalSeconds);
+            }
 
             ProcessCanceledException? canceled = exception as ProcessCanceledException;
             return new ConnectProcessResult(
@@ -119,24 +160,54 @@ public sealed class ConnectProcessRunner(TimeProvider timeProvider, ILogger<Conn
         }
         catch (ProcessStartException exception)
         {
-            using IDisposable? scope = logger.BeginScope(
-                RemoteProcessDiagnostics.CreateStartFailureProperties(exception, timeProvider.GetElapsedTime(startTimestamp)));
-            logger.LogWarning("External process could not start. ToolName={ToolName}", toolName);
+            if (ShouldLog(logging, commandKey, "start_failed"))
+            {
+                using IDisposable? scope = logger.BeginScope(
+                    RemoteProcessDiagnostics.CreateStartFailureProperties(exception, timeProvider.GetElapsedTime(startTimestamp)));
+                logger.LogWarning("External process could not start. ToolName={ToolName}", toolName);
+            }
+
             return StartFailed(exception.Message);
         }
         catch (Exception exception)
         {
-            logger.LogWarning(
-                exception,
-                "External process execution failed. ToolName={ToolName}, FailureType={FailureType}",
-                toolName,
-                exception.GetType().Name);
+            // The exception is not attached: the remote Logs stream mirrors its message, which can echo the arguments.
+            string failureType = exception.GetType().Name;
+            if (ShouldLog(logging, commandKey, $"failed:{failureType}"))
+            {
+                logger.LogWarning(
+                    "External process execution failed. ToolName={ToolName}, FailureType={FailureType}, ErrorCode={ErrorCode}",
+                    toolName,
+                    failureType,
+                    NetworkFailureTaxonomy.ExceptionErrorCode(exception));
+            }
+
             return StartFailed(exception.Message);
         }
     }
 
     private static ConnectProcessResult StartFailed(string message) =>
         new(ConnectProcessStatus.StartFailed, -1, string.Empty, message);
+
+    // EveryRun always logs; OnChange logs the first outcome of a command and then only an outcome that differs.
+    private bool ShouldLog(ConnectProcessLogging logging, string commandKey, string outcome)
+    {
+        if (logging == ConnectProcessLogging.EveryRun)
+        {
+            return true;
+        }
+
+        lock (_lastOutcomes)
+        {
+            if (_lastOutcomes.TryGetValue(commandKey, out string? previous) && string.Equals(previous, outcome, StringComparison.Ordinal))
+            {
+                return false;
+            }
+
+            _lastOutcomes[commandKey] = outcome;
+            return true;
+        }
+    }
 
     private void LogCompleted(ProcessExecutionResult result, string toolName, TimeSpan elapsed)
     {

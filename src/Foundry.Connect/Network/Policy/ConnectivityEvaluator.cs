@@ -17,7 +17,7 @@ public sealed record NcsiEndpoint(Uri Uri, string ExpectedBody);
 /// <param name="Endpoint">The probed endpoint.</param>
 /// <param name="Responded">Whether any HTTP response was received; <see langword="false"/> on timeout or transport failure.</param>
 /// <param name="StatusCode">The HTTP status code, or <see langword="null"/> when nothing responded.</param>
-/// <param name="Body">The first bytes of the body decoded as UTF-8, or <see langword="null"/> when nothing responded.</param>
+/// <param name="Body">The first bytes of the body decoded as UTF-8, or <see langword="null"/> when nothing responded or the body could not be read after the headers arrived.</param>
 public sealed record ProbeObservation(NcsiEndpoint Endpoint, bool Responded, int? StatusCode, string? Body);
 
 /// <summary>

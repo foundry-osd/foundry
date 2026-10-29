@@ -120,6 +120,9 @@ public sealed class NetworkOperationScope : IDisposable
     private const string FailureTemplate =
         "Network operation failed. Workflow={Workflow}, OperationId={OperationId}, NetworkOperation={NetworkOperation}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, WlanReasonCode={WlanReasonCode}";
 
+    private const string ExceptionTemplate =
+        "Network operation failed. Workflow={Workflow}, OperationId={OperationId}, NetworkOperation={NetworkOperation}, FailureKind={FailureKind}, FailureReason={FailureReason}, FailureCode={FailureCode}, FailureType={FailureType}, ErrorCode={ErrorCode}";
+
     private readonly ILogger _logger;
     private readonly TimeProvider _timeProvider;
     private readonly string _operationName;
@@ -189,6 +192,11 @@ public sealed class NetworkOperationScope : IDisposable
     /// <summary>
     /// Writes one Error for an unexpected exception, classified with <see cref="NetworkFailureTaxonomy.ClassifyException"/>.
     /// </summary>
+    /// <remarks>
+    /// The exception object is not attached: the remote Logs stream mirrors its message, which can name a profile file,
+    /// an SSID or a profile name. The type name and <see cref="NetworkFailureTaxonomy.ExceptionErrorCode"/> are logged
+    /// instead, so this Error creates no Error Tracking issue.
+    /// </remarks>
     /// <param name="exception">The exception.</param>
     public void LogException(Exception exception)
     {
@@ -196,8 +204,9 @@ public sealed class NetworkOperationScope : IDisposable
 
         NetworkFailureDescriptor descriptor = NetworkFailureTaxonomy.ClassifyException(exception);
         _failureLogged = true;
-        _logger.Log(LogLevel.Error, default, exception, FailureTemplate,
-            "connect", OperationId, _operationName, descriptor.Kind, descriptor.Reason, descriptor.Code, null);
+        _logger.Log(LogLevel.Error, default, null, ExceptionTemplate,
+            "connect", OperationId, _operationName, descriptor.Kind, descriptor.Reason, descriptor.Code,
+            exception.GetType().Name, NetworkFailureTaxonomy.ExceptionErrorCode(exception));
     }
 
     /// <summary>

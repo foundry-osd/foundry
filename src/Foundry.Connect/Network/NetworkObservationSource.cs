@@ -216,11 +216,12 @@ public sealed class NetworkObservationSource(
             return;
         }
 
+        // The exception is not attached: its message can carry identifying data and every level is mirrored remotely.
         _logger.LogWarning(
-            "Network observation part failed. Part={Part}, FailureType={FailureType}",
+            "Network observation part failed. Part={Part}, FailureType={FailureType}, ErrorCode={ErrorCode}",
             part,
-            exception.GetType().Name);
-        _logger.LogDebug(exception, "Network observation part failure detail. Part={Part}", part);
+            exception.GetType().Name,
+            NetworkFailureTaxonomy.ExceptionErrorCode(exception));
     }
 
     private void ReportPartSucceeded(string part)

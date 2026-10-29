@@ -9,6 +9,7 @@ using Foundry.Connect.Network.Native;
 using Foundry.Connect.Tests.Support;
 using Foundry.Core.Models.Configuration;
 using Foundry.Utilities.Networking;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect.Tests.Network;
 
@@ -296,6 +297,58 @@ public sealed class ProvisioningStepTests
             Assert.DoesNotContain(entry.Properties.Values, value => value?.ToString()?.Contains(ssid, StringComparison.Ordinal) == true);
             Assert.DoesNotContain(ssid, entry.Exception?.ToString() ?? string.Empty, StringComparison.Ordinal);
         });
+    }
+
+    [Fact]
+    public async Task Wifi_Enterprise_WhenTemplateReadThrows_LogsNeitherPathNorSsid()
+    {
+        const string ssid = "Corp-Secret-Net";
+        using var directory = new TemporaryDirectory();
+        string template = directory.CreateFile($"Network\\Wi-Fi-{ssid}.xml", "<WLANProfile />");
+        var logger = new RecordingLogger<ProvisioningStep>();
+        FoundryConnectConfigurationDocument configuration = new()
+        {
+            Capabilities = new ConnectNetworkCapabilitiesSettings { WifiProvisioned = true },
+            Wifi = new ConnectWifiSettings { IsEnabled = true, HasEnterpriseProfile = true, EnterpriseProfileTemplatePath = $"Network\\Wi-Fi-{ssid}.xml" }
+        };
+
+        ProvisioningOutcome outcome;
+        using (new FileStream(template, FileMode.Open, FileAccess.Read, FileShare.None))
+        {
+            outcome = await CreateStep(directory, configuration, ConnectRuntimeSecrets.None(), logger: logger).RunAsync(TestContext.Current.CancellationToken);
+        }
+
+        Assert.Equal([NetworkFailureCode.Unexpected], outcome.Failures);
+        RecordedLogEntry warning = Assert.Single(logger.Entries, static entry => entry.Level == LogLevel.Warning);
+        Assert.Equal(nameof(IOException), warning.Properties["FailureType"]);
+        Assert.IsType<int>(warning.Properties["ErrorCode"]);
+        Assert.All(logger.Entries, entry =>
+        {
+            Assert.Null(entry.Exception);
+            foreach (string identifier in new[] { ssid, template })
+            {
+                Assert.DoesNotContain(identifier, entry.Message, StringComparison.OrdinalIgnoreCase);
+                Assert.DoesNotContain(entry.Properties.Values, value => value?.ToString()?.Contains(identifier, StringComparison.OrdinalIgnoreCase) == true);
+            }
+        });
+    }
+
+    [Fact]
+    public async Task DisabledParts_StillClearTheSecretsTheMediaCarries()
+    {
+        using var directory = new TemporaryDirectory();
+        var secrets = new ConnectRuntimeSecrets(
+            ConnectSecret.Available("correct horse".ToCharArray()),
+            ConnectSecret.Available("wifi-password".ToCharArray()),
+            ConnectSecret.Available("wired-password".ToCharArray()));
+
+        ProvisioningOutcome outcome = await CreateStep(directory, new FoundryConnectConfigurationDocument(), secrets).RunAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(Dot1xState.NotConfigured, outcome.Wired);
+        Assert.Equal(ProvisionedWifiState.NotConfigured, outcome.Wifi);
+        Assert.Equal(ConnectSecretStatus.Cleared, secrets.WifiPassphrase.Status);
+        Assert.Equal(ConnectSecretStatus.Cleared, secrets.WifiCertificatePfxPassword.Status);
+        Assert.Equal(ConnectSecretStatus.Cleared, secrets.WiredCertificatePfxPassword.Status);
     }
 
     private static FoundryConnectConfigurationDocument WiredConfiguration(TemporaryDirectory directory)

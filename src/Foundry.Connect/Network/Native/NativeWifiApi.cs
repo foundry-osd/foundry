@@ -2,15 +2,12 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.ComponentModel;
 using System.Runtime.InteropServices;
-using System.Text;
-using Foundry.Connect.Models.Network;
 
 namespace Foundry.Connect.Network.Native;
 
 /// <summary>
-/// Provides the native WLAN API calls used by Foundry.Connect to discover, inspect and drive Wi-Fi state.
+/// Declares the <c>wlanapi.dll</c> imports, constants and structure layouts that <see cref="WlanClient"/> calls.
 /// </summary>
 /// <remarks>
 /// Interface identifiers must be declared as <see langword="in"/> <see cref="Guid"/> because wlanapi expects
