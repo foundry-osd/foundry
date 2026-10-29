@@ -204,7 +204,8 @@ public sealed class DeploymentAccessGateTests
     {
         using DeploymentMediaProtectionMaterial material = DeploymentMediaProtectionService.CreateProtected("correct horse battery staple");
         var handoff = new FakeHandoff(Enumerable.Repeat((byte)7, 32).ToArray());
-        var dialog = new FakePasswordDialogService("correct");
+        var dialog = new FakePasswordDialogService();
+        using var session = new DeploymentSecretKeySession();
         var gate = new DeploymentAccessGate(
             new FakeConfigurationService(new FoundryDeployConfigurationDocument
             {
@@ -214,29 +215,35 @@ public sealed class DeploymentAccessGateTests
             dialog,
             new ImmediateRetryDelay(),
             handoff,
-            new DeploymentSecretKeySession(),
+            session,
             NullLogger<DeploymentAccessGate>.Instance);
 
-        Assert.True(await gate.AuthorizeAsync(TestContext.Current.CancellationToken));
+        // The prompt is cancelled: nothing but the rejected key could have unlocked the session.
+        Assert.False(await gate.AuthorizeAsync(TestContext.Current.CancellationToken));
         Assert.Equal(1, dialog.PromptCount);
         Assert.All(handoff.Handed!, static value => Assert.Equal(0, value));
+        Assert.False(session.IsUnlocked);
     }
 
     [Fact]
     public async Task AuthorizeAsync_WhenKeyCheckIsMissing_IgnoresHandedOffKey()
     {
+        var handoff = new FakeHandoff(Enumerable.Repeat((byte)7, 32).ToArray());
         var dialog = new FakePasswordDialogService("correct");
+        using var session = new DeploymentSecretKeySession();
         var gate = new DeploymentAccessGate(
             new FakeConfigurationService(new FoundryDeployConfigurationDocument { Protection = new DeployProtectionSettings { IsEnabled = true } }),
             new FakeUnlockService("correct"),
             dialog,
             new ImmediateRetryDelay(),
-            new FakeHandoff(new byte[32]),
-            new DeploymentSecretKeySession(),
+            handoff,
+            session,
             NullLogger<DeploymentAccessGate>.Instance);
 
         Assert.True(await gate.AuthorizeAsync(TestContext.Current.CancellationToken));
         Assert.Equal(1, dialog.PromptCount);
+        Assert.All(handoff.Handed!, static value => Assert.Equal(0, value));
+        Assert.False(session.IsUnlocked);
     }
 
     [Fact]
