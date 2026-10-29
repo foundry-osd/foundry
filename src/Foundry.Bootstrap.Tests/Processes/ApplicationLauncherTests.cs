@@ -5,6 +5,8 @@
 using System.Diagnostics;
 using Foundry.Bootstrap.Processes;
 using Serilog;
+using Serilog.Core;
+using Serilog.Events;
 using Xunit;
 
 namespace Foundry.Bootstrap.Tests.Processes;
@@ -44,6 +46,90 @@ public sealed class ApplicationLauncherTests
             Assert.Equal(exitCode, result.ExitCode);
             Assert.Equal(exitCode == 0, result.Succeeded);
             Assert.False(File.Exists(executable));
+        }
+        finally { Directory.Delete(directory, recursive: true); }
+    }
+
+    [Fact]
+    public async Task RunConnectAsync_ReportsTheProcessIdAndHoldsTheProcessUntilReleased()
+    {
+        string directory = Directory.CreateTempSubdirectory("FoundryPayloadExit-").FullName;
+        string executable = Path.Combine(directory, "Foundry.Connect.exe");
+        try
+        {
+            File.WriteAllText(executable, "prepared payload");
+            using var logger = new LoggerConfiguration().CreateLogger();
+            Process? launchedProcess = null;
+            int launchedProcessId = 0;
+            var launcher = new ApplicationLauncher(logger, startProcess: _ =>
+            {
+                launchedProcess = Process.Start(new ProcessStartInfo(Environment.GetEnvironmentVariable("ComSpec")!, "/d /c exit 0")
+                {
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                })!;
+                launchedProcessId = launchedProcess.Id;
+                return launchedProcess;
+            });
+            int? reportedProcessId = null;
+            var exitedWhenReleased = new List<bool>();
+
+            using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+            ApplicationLaunchResult result = await launcher.RunConnectAsync(executable, "missing.json",
+                new Dictionary<string, string?>(), deadline.Token,
+                processStarted: processId => reportedProcessId = processId,
+                processReleasing: () =>
+                {
+                    // A disposed Process throws here, and the launcher would swallow it: record instead of asserting.
+                    exitedWhenReleased.Add(launchedProcess!.HasExited);
+                    return Task.CompletedTask;
+                });
+
+            Assert.True(result.Succeeded);
+            Assert.Equal(launchedProcessId, reportedProcessId);
+            Assert.Equal([true], exitedWhenReleased);
+        }
+        finally { Directory.Delete(directory, recursive: true); }
+    }
+
+    [Fact]
+    public async Task RunConnectAsync_FailingKeyHandoffCallbacksAreLoggedWithoutExceptionAndDoNotChangeTheLaunch()
+    {
+        string directory = Directory.CreateTempSubdirectory("FoundryPayloadExit-").FullName;
+        string executable = Path.Combine(directory, "Foundry.Connect.exe");
+        try
+        {
+            File.WriteAllText(executable, "prepared payload");
+            var events = new List<LogEvent>();
+            using var logger = new LoggerConfiguration().WriteTo.Sink(new DelegatingSink(events.Add)).CreateLogger();
+            var launcher = new ApplicationLauncher(logger, startProcess: _ => Process.Start(new ProcessStartInfo(
+                Environment.GetEnvironmentVariable("ComSpec")!, "/d /c exit 0")
+            {
+                UseShellExecute = false,
+                CreateNoWindow = true
+            }));
+            int releases = 0;
+
+            using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+            ApplicationLaunchResult result = await launcher.RunConnectAsync(executable, "missing.json",
+                new Dictionary<string, string?>(), deadline.Token,
+                processStarted: _ => throw new InvalidOperationException("secret detail"),
+                processReleasing: () =>
+                {
+                    releases++;
+                    throw new IOException("secret detail");
+                });
+
+            Assert.True(result.Succeeded);
+            Assert.Equal(1, releases);
+            LogEvent[] failures = [.. events.Where(item => item.MessageTemplate.Text.StartsWith("Key hand-off callback failed", StringComparison.Ordinal))];
+            Assert.Equal(["\"InvalidOperationException\"", "\"IOException\""], failures.Select(item => item.Properties["FailureType"].ToString()));
+            Assert.All(failures, item =>
+            {
+                Assert.Equal(LogEventLevel.Warning, item.Level);
+                Assert.Null(item.Exception);
+                Assert.DoesNotContain("secret detail", item.RenderMessage(), StringComparison.Ordinal);
+            });
         }
         finally { Directory.Delete(directory, recursive: true); }
     }
@@ -325,5 +411,10 @@ public sealed class ApplicationLauncherTests
             }
             Directory.Delete(directory, recursive: true);
         }
+    }
+
+    private sealed class DelegatingSink(Action<LogEvent> emit) : ILogEventSink
+    {
+        public void Emit(LogEvent logEvent) => emit(logEvent);
     }
 }

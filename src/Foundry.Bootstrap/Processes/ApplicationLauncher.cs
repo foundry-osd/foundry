@@ -17,19 +17,21 @@ internal sealed class ApplicationLauncher(ILogger logger, string? sessionDirecto
     Func<ProcessStartInfo, Process?>? startProcess = null, Action<string>? releasePayload = null) : IApplicationLauncher
 {
     public Task<ApplicationLaunchResult> RunConnectAsync(string executable, string configurationPath,
-        IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken)
+        IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken,
+        Action<int>? processStarted = null, Func<Task>? processReleasing = null)
     {
         string[] arguments = File.Exists(configurationPath) ? ["--config", configurationPath] : [];
-        return LaunchAsync(executable, "Foundry.Connect", environment, arguments, true, cancellationToken);
+        return LaunchAsync(executable, "Foundry.Connect", environment, arguments, true, cancellationToken,
+            processStarted, processReleasing);
     }
 
     public Task<ApplicationLaunchResult> StartDeployAsync(string executable, IReadOnlyDictionary<string, string?> environment,
-        CancellationToken cancellationToken) =>
-        LaunchAsync(executable, "Foundry.Deploy", environment, [], false, cancellationToken);
+        CancellationToken cancellationToken, Action<int>? processStarted = null, Func<Task>? processReleasing = null) =>
+        LaunchAsync(executable, "Foundry.Deploy", environment, [], false, cancellationToken, processStarted, processReleasing);
 
     private async Task<ApplicationLaunchResult> LaunchAsync(string executable, string application,
         IReadOnlyDictionary<string, string?> environment, string[] arguments, bool waitForCompletion,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken, Action<int>? processStarted, Func<Task>? processReleasing)
     {
         cancellationToken.ThrowIfCancellationRequested();
         StartupCapabilityResult capability = RuntimeStartupCapabilities.Negotiate(executable);
@@ -68,6 +70,12 @@ internal sealed class ApplicationLauncher(ILogger logger, string? sessionDirecto
         using Process process = Start(start);
         try
         {
+            if (processStarted is not null)
+            {
+                try { processStarted(process.Id); }
+                catch (Exception exception) { LogHandoffCallbackFailure(application, exception); }
+            }
+
             if (!supported)
             {
                 if (!waitForCompletion) { return new(true); }
@@ -119,8 +127,20 @@ internal sealed class ApplicationLauncher(ILogger logger, string? sessionDirecto
                 try { releasePayload?.Invoke(executable); }
                 catch (Exception exception) { logger.Warning(exception, "Exited runtime payload could not be released for {Component}", application); }
             }
+
+            // Awaited before `using` disposes the process: its open handle keeps the process id from being reused while the
+            // key relay still trusts it.
+            if (processReleasing is not null)
+            {
+                try { await processReleasing().ConfigureAwait(false); }
+                catch (Exception exception) { LogHandoffCallbackFailure(application, exception); }
+            }
         }
     }
+
+    // Key hand-off code never attaches the exception object (its message is mirrored to remote logs).
+    private void LogHandoffCallbackFailure(string application, Exception exception) =>
+        logger.Warning("Key hand-off callback failed for {Component}. FailureType={FailureType}", application, exception.GetType().Name);
 
     internal async Task<int> ObserveAsync(Process process, CancellationToken cancellationToken)
     {

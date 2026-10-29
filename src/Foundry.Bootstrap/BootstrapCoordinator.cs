@@ -9,6 +9,7 @@ using Foundry.Bootstrap.Runtime;
 using Foundry.Bootstrap.SystemPreparation;
 using Foundry.Core.Models.PreOobe;
 using Foundry.Core.Models.Runtime;
+using Foundry.Core.Services.Runtime;
 using Serilog;
 
 namespace Foundry.Bootstrap;
@@ -18,16 +19,33 @@ namespace Foundry.Bootstrap;
 /// current stage, or none when that stage has not resolved one yet. <paramref name="readPayloadVersion"/> defaults to
 /// the executable file version and must not throw.
 /// </summary>
+/// <remarks>
+/// The deployment key unlocked by Foundry Connect is relayed to Foundry Deploy through one
+/// <see cref="IDeploymentKeyRelay"/> per boot (<paramref name="createKeyRelay"/>, default <see cref="DeploymentKeyRelay"/>).
+/// Each child gets only its own pipe name variable, the other one is removed from its environment. The key is served only
+/// when Connect exited 0, and the relay is disposed (key zeroed) when this workflow ends on any path. A hand-off failure is
+/// logged with its exception type only and never changes the boot outcome; Deploy then prompts for the password.
+/// </remarks>
 internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeResolver runtime,
     ISystemPreparation preparation, IApplicationLauncher launcher, IBootstrapLogPersistence persistence,
     ILogger logger, Action<BootstrapProgress> progress, Action? deliveryReady = null,
-    Action<BootstrapResult, TimeSpan>? completed = null, Func<string, string?>? readPayloadVersion = null)
+    Action<BootstrapResult, TimeSpan>? completed = null, Func<string, string?>? readPayloadVersion = null,
+    Func<IDeploymentKeyRelay>? createKeyRelay = null)
 {
+    private const string HandoffNotRequested = "not_requested";
+    private const string HandoffReceived = "received";
+    private const string HandoffDelivered = "delivered";
+    private const string HandoffNotDelivered = "not_delivered";
+
     private BootstrapStage stage = BootstrapStage.Environment;
     private BootstrapStage? loggedStage;
     private long stageStarted;
     private readonly Func<string, string?> readPayloadVersion = readPayloadVersion ?? ReadFileVersion;
+    private readonly Func<IDeploymentKeyRelay> createKeyRelay = createKeyRelay ?? (() => new DeploymentKeyRelay(logger));
     private string? payloadVersion;
+    // Null until the relay exists; then not_requested (no key from Connect), received (key held, never served),
+    // delivered or not_delivered (served to Deploy).
+    private string? handoffOutcome;
 
     internal async Task<BootstrapResult> RunAsync(CancellationToken cancellationToken)
     {
@@ -67,6 +85,10 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
                 _ => "This boot stage could not be completed. Check the session log for details."
             };
             Report(status, message);
+            if (handoffOutcome is not null)
+            {
+                logger.Information("Deployment key hand-off finished. HandoffOutcome={HandoffOutcome}", handoffOutcome);
+            }
             logger.Information("Bootstrap finished with {Outcome} at {Stage}; child exit {ExitCode}; elapsed {DurationMilliseconds} ms",
                 result.Outcome, result.Stage, result.ChildExitCode, Stopwatch.GetElapsedTime(started).TotalMilliseconds);
             try { completed?.Invoke(result, Stopwatch.GetElapsedTime(started)); }
@@ -97,9 +119,29 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
         string connect = await runtime.ResolveAsync("Foundry.Connect", context.ConnectIsDebug, cancellationToken).ConfigureAwait(false);
         payloadVersion = readPayloadVersion(connect);
 
+        // Disposal zeroes any held key on every exit path, including a Connect failure.
+        using IDeploymentKeyRelay relay = createKeyRelay();
+        handoffOutcome = HandoffNotRequested;
+        string? sendPipe = TryBeginHandoff(relay.BeginReceive);
+        bool handoffEnabled = sendPipe is not null;
+        bool hasKey = false;
+        bool receiveEnded = false;
+        var connectEnvironment = new Dictionary<string, string?>(context.ChildEnvironment)
+        {
+            [DeploymentKeyHandoff.SendPipeEnvironmentVariable] = sendPipe,
+            [DeploymentKeyHandoff.ReceivePipeEnvironmentVariable] = null
+        };
+
         Report(BootstrapStatus.Running, "Waiting for Foundry Connect");
         ApplicationLaunchResult connectResult = await launcher.RunConnectAsync(connect, context.ConnectConfigurationPath,
-            context.ChildEnvironment, cancellationToken).ConfigureAwait(false);
+            connectEnvironment, cancellationToken, handoffEnabled ? relay.ExpectSender : null,
+            handoffEnabled ? EndReceiveAsync : null).ConfigureAwait(false);
+        // The launcher returned without starting Connect (for example invalid startup metadata), so the hook never ran.
+        if (handoffEnabled && !receiveEnded)
+        {
+            hasKey = await EndHandoffAsync(relay.EndReceiveAsync).ConfigureAwait(false);
+        }
+        if (hasKey) { handoffOutcome = HandoffReceived; }
         if (!connectResult.Succeeded)
         {
             return new BootstrapResult(connectResult.ExitCode == (int)ChildRuntimeExitCode.UserAborted ? BootstrapOutcome.Cancelled : BootstrapOutcome.Failed,
@@ -132,15 +174,49 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
         string postInstall = await runtime.ResolveAsync("Foundry.PostInstall", context.DeployIsDebug, cancellationToken).ConfigureAwait(false);
         var deployEnvironment = new Dictionary<string, string?>(context.ChildEnvironment)
         {
-            [PostInstallRuntimeManifest.ExecutableEnvironmentVariable] = postInstall
+            [PostInstallRuntimeManifest.ExecutableEnvironmentVariable] = postInstall,
+            [DeploymentKeyHandoff.SendPipeEnvironmentVariable] = null,
+            [DeploymentKeyHandoff.ReceivePipeEnvironmentVariable] = null
         };
         Report(BootstrapStatus.Completed, "Deployment applications prepared");
         stage = BootstrapStage.Deploy;
         Report(BootstrapStatus.Running, "Starting Foundry Deploy");
         cancellationToken.ThrowIfCancellationRequested();
-        ApplicationLaunchResult deployResult = await launcher.StartDeployAsync(deploy, deployEnvironment, cancellationToken).ConfigureAwait(false);
+        // The key is served only while the launcher waits for Deploy readiness; EndServeAsync zeroes it.
+        string? receivePipe = hasKey ? TryBeginHandoff(relay.BeginServe) : null;
+        deployEnvironment[DeploymentKeyHandoff.ReceivePipeEnvironmentVariable] = receivePipe;
+        bool delivered = false;
+        bool serveEnded = false;
+        ApplicationLaunchResult deployResult;
+        try
+        {
+            deployResult = await launcher.StartDeployAsync(deploy, deployEnvironment, cancellationToken,
+                receivePipe is not null ? relay.ExpectReceiver : null,
+                receivePipe is not null ? EndServeAsync : null).ConfigureAwait(false);
+        }
+        finally
+        {
+            if (handoffEnabled && !serveEnded)
+            {
+                delivered = await EndHandoffAsync(relay.EndServeAsync).ConfigureAwait(false);
+            }
+            if (receivePipe is not null) { handoffOutcome = delivered ? HandoffDelivered : HandoffNotDelivered; }
+        }
         return new BootstrapResult(deployResult.Succeeded ? BootstrapOutcome.Succeeded : BootstrapOutcome.Failed, stage,
             deployResult.ExitCode, deployResult.FailureCategory, deployResult.LastStage, deployResult.ReadinessConfirmed, payloadVersion);
+
+        // Launcher hooks: awaited while the launcher still holds the child's Process, so its process id cannot be reused.
+        async Task EndReceiveAsync()
+        {
+            hasKey = await EndHandoffAsync(relay.EndReceiveAsync).ConfigureAwait(false);
+            receiveEnded = true;
+        }
+
+        async Task EndServeAsync()
+        {
+            delivered = await EndHandoffAsync(relay.EndServeAsync).ConfigureAwait(false);
+            serveEnded = true;
+        }
     }
 
     private static string? ReadFileVersion(string executable)
@@ -148,6 +224,33 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
         try { return FileVersionInfo.GetVersionInfo(executable).FileVersion; }
         catch { return null; }
     }
+
+    // The documented creation failures of a relay pipe; the child then gets no pipe name and Deploy prompts.
+    private string? TryBeginHandoff(Func<string?> begin)
+    {
+        try { return begin(); }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException
+            or InvalidOperationException or ObjectDisposedException)
+        {
+            LogHandoffFailure(exception);
+            return null;
+        }
+    }
+
+    // End* do not throw by contract; a failure still must not replace the boot outcome.
+    private async Task<bool> EndHandoffAsync(Func<Task<bool>> end)
+    {
+        try { return await end().ConfigureAwait(false); }
+        catch (Exception exception)
+        {
+            LogHandoffFailure(exception);
+            return false;
+        }
+    }
+
+    // Key hand-off code never attaches the exception object (its message is mirrored to remote logs).
+    private void LogHandoffFailure(Exception exception) =>
+        logger.Warning("Deployment key hand-off failed. FailureType={FailureType}", exception.GetType().Name);
 
     private async Task BestEffortAsync(Func<Task> action, string warning)
     {

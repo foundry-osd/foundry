@@ -592,13 +592,15 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         public Task PrepareSystemAsync(CancellationToken cancellationToken) => Task.CompletedTask;
         public Task PersistAsync(CancellationToken cancellationToken) => Task.CompletedTask;
         public Task<ApplicationLaunchResult> RunConnectAsync(string executable, string configurationPath,
-            IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken)
+            IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken,
+            Action<int>? processStarted = null, Func<Task>? processReleasing = null)
         {
             LaunchedContent.Add(File.ReadAllText(executable));
             return Task.FromResult(new ApplicationLaunchResult(false, 20));
         }
         public Task<ApplicationLaunchResult> StartDeployAsync(string executable,
-            IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken) =>
+            IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken,
+            Action<int>? processStarted = null, Func<Task>? processReleasing = null) =>
             throw new InvalidOperationException("Connect cancellation must prevent deployment.");
     }
 }

@@ -2,11 +2,15 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Collections.Concurrent;
 using Foundry.Bootstrap.Diagnostics;
 using Foundry.Bootstrap.Processes;
 using Foundry.Bootstrap.Runtime;
 using Foundry.Bootstrap.SystemPreparation;
+using Foundry.Core.Services.Runtime;
 using Serilog;
+using Serilog.Core;
+using Serilog.Events;
 using Xunit;
 
 namespace Foundry.Bootstrap.Tests;
@@ -199,6 +203,67 @@ public sealed class BootstrapCoordinatorTests
         Assert.Null(result.PayloadVersion);
     }
 
+    [Fact]
+    public async Task ConnectUnlock_IsRelayedToDeployOnly()
+    {
+        using var fixture = new Fixture();
+
+        Assert.Equal(BootstrapOutcome.Succeeded, (await fixture.RunAsync()).Outcome);
+
+        Assert.Equal(SendPipe, fixture.ConnectEnvironment![DeploymentKeyHandoff.SendPipeEnvironmentVariable]);
+        Assert.Null(fixture.ConnectEnvironment[DeploymentKeyHandoff.ReceivePipeEnvironmentVariable]);
+        Assert.Equal(ReceivePipe, fixture.DeployEnvironment![DeploymentKeyHandoff.ReceivePipeEnvironmentVariable]);
+        Assert.Null(fixture.DeployEnvironment[DeploymentKeyHandoff.SendPipeEnvironmentVariable]);
+        Assert.Equal(["begin-receive", "sender:4242", "end-receive", "begin-serve", "receiver:4343", "end-serve", "dispose"], fixture.Relay.Calls);
+        Assert.Equal(["delivered"], fixture.HandoffOutcomes());
+        fixture.AssertNoEventContains(SendPipe);
+        fixture.AssertNoEventContains(ReceivePipe);
+    }
+
+    [Fact]
+    public async Task NoUnlock_DeployGetsNoPipe()
+    {
+        using var fixture = new Fixture { Relay = new FakeKeyRelay { ReceivesKey = false } };
+
+        await fixture.RunAsync();
+
+        Assert.Null(fixture.DeployEnvironment![DeploymentKeyHandoff.ReceivePipeEnvironmentVariable]);
+        Assert.DoesNotContain("begin-serve", fixture.Relay.Calls);
+        Assert.Equal(["not_requested"], fixture.HandoffOutcomes());
+    }
+
+    [Theory]
+    [InlineData(20)]
+    [InlineData(22)]
+    public async Task ConnectFailure_DiscardsTheRelayBeforeDeploy(int exitCode)
+    {
+        using var fixture = new Fixture { ConnectExit = exitCode };
+
+        await fixture.RunAsync();
+
+        Assert.DoesNotContain("begin-serve", fixture.Relay.Calls);
+        Assert.Equal("dispose", fixture.Relay.Calls[^1]);
+    }
+
+    [Fact]
+    public async Task RelayFailure_NeverChangesTheBootOutcome()
+    {
+        using var fixture = new Fixture { Relay = new FakeKeyRelay { BeginReceiveThrows = true } };
+
+        Assert.Equal(BootstrapOutcome.Succeeded, (await fixture.RunAsync()).Outcome);
+        Assert.Null(fixture.ConnectEnvironment![DeploymentKeyHandoff.SendPipeEnvironmentVariable]);
+        Assert.Null(fixture.DeployEnvironment![DeploymentKeyHandoff.ReceivePipeEnvironmentVariable]);
+        Assert.Equal(["begin-receive", "dispose"], fixture.Relay.Calls);
+        LogEvent failure = Assert.Single(fixture.Events, item => item.MessageTemplate.Text.StartsWith("Deployment key hand-off failed", StringComparison.Ordinal));
+        Assert.Equal(LogEventLevel.Warning, failure.Level);
+        Assert.Null(failure.Exception);
+        Assert.Equal("\"IOException\"", failure.Properties["FailureType"].ToString());
+        Assert.Equal(["not_requested"], fixture.HandoffOutcomes());
+    }
+
+    private const string SendPipe = "Foundry.DeploymentKey.00000000000000000000000000000001";
+    private const string ReceivePipe = "Foundry.DeploymentKey.00000000000000000000000000000002";
+
     private static string? ReadTestPayloadVersion(string executable) => executable switch
     {
         "Foundry.Connect.exe" => "26.10.18.1",
@@ -206,9 +271,34 @@ public sealed class BootstrapCoordinatorTests
         _ => "1.0.0.0"
     };
 
+    private sealed class FakeKeyRelay : IDeploymentKeyRelay
+    {
+        internal bool ReceivesKey { get; init; } = true;
+        internal bool BeginReceiveThrows { get; init; }
+        internal List<string> Calls { get; } = [];
+        public string BeginReceive()
+        {
+            Calls.Add("begin-receive");
+            return BeginReceiveThrows ? throw new IOException() : SendPipe;
+        }
+        public void ExpectSender(int processId) => Calls.Add($"sender:{processId}");
+        public Task<bool> EndReceiveAsync() { Calls.Add("end-receive"); return Task.FromResult(ReceivesKey); }
+        public string? BeginServe() { Calls.Add("begin-serve"); return ReceivesKey ? ReceivePipe : null; }
+        public void ExpectReceiver(int processId) => Calls.Add($"receiver:{processId}");
+        public Task<bool> EndServeAsync() { Calls.Add("end-serve"); return Task.FromResult(true); }
+        public void Dispose() => Calls.Add("dispose");
+    }
+
+    private sealed class DelegatingSink(Action<LogEvent> emit) : ILogEventSink
+    {
+        public void Emit(LogEvent logEvent) => emit(logEvent);
+    }
+
     private sealed class Fixture : IDisposable, IRuntimeResolver, ISystemPreparation, IApplicationLauncher, IBootstrapLogPersistence
     {
-        private readonly Serilog.Core.Logger logger = new LoggerConfiguration().CreateLogger();
+        private readonly ConcurrentQueue<LogEvent> events = new();
+        private readonly Serilog.Core.Logger logger;
+        internal Fixture() => logger = new LoggerConfiguration().MinimumLevel.Verbose().WriteTo.Sink(new DelegatingSink(events.Enqueue)).CreateLogger();
         private readonly CancellationTokenSource cancellation = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
         internal BootstrapContext Context { get; set; } = new(@"X:\Foundry", @"D:\Runtime", "win-x64", "TEST", @"D:\Logs\TEST", false, false);
         internal List<string> Calls { get; } = [];
@@ -229,10 +319,28 @@ public sealed class BootstrapCoordinatorTests
         internal Func<string, string?>? ReadPayloadVersion { get; init; }
         internal List<BootstrapResult> Outcomes { get; } = [];
 
+        internal FakeKeyRelay Relay { get; init; } = new();
+        internal IReadOnlyDictionary<string, string?>? ConnectEnvironment { get; private set; }
+        internal IReadOnlyList<LogEvent> Events => [.. events];
+
         internal Task<BootstrapResult> RunAsync() => new BootstrapCoordinator(Context, this, this, this, this,
             logger, Progress.Add,
             ObserveDiagnostics ? () => Calls.Add("delivery") : null,
-            ObserveDiagnostics ? (result, _) => Outcomes.Add(result) : null, ReadPayloadVersion).RunAsync(cancellation.Token);
+            ObserveDiagnostics ? (result, _) => Outcomes.Add(result) : null, ReadPayloadVersion, () => Relay).RunAsync(cancellation.Token);
+
+        internal List<string> HandoffOutcomes() =>
+            [.. events.Where(item => item.Properties.ContainsKey("HandoffOutcome"))
+                .Select(item => ((ScalarValue)item.Properties["HandoffOutcome"]).Value!.ToString()!)];
+
+        // Neither the template, the rendered message nor any property may carry the text.
+        internal void AssertNoEventContains(string text)
+        {
+            foreach (LogEvent logEvent in events)
+            {
+                Assert.DoesNotContain(text, logEvent.RenderMessage(), StringComparison.OrdinalIgnoreCase);
+                Assert.All(logEvent.Properties.Values, value => Assert.DoesNotContain(text, value.ToString(), StringComparison.OrdinalIgnoreCase));
+            }
+        }
 
         public Task<string> ResolveAsync(string applicationName, bool skipReleaseLookup, CancellationToken cancellationToken)
         {
@@ -275,22 +383,29 @@ public sealed class BootstrapCoordinatorTests
             return Task.CompletedTask;
         }
 
-        public Task<ApplicationLaunchResult> RunConnectAsync(string executable, string configurationPath,
-            IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken)
+        public async Task<ApplicationLaunchResult> RunConnectAsync(string executable, string configurationPath,
+            IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken,
+            Action<int>? processStarted = null, Func<Task>? processReleasing = null)
         {
             Calls.Add("connect");
+            ConnectEnvironment = environment;
             Assert.Equal("TEST", environment["FOUNDRY_DIAGNOSTIC_SESSION_ID"]);
             if (CancelConnect) { cancellation.Cancel(); cancellationToken.ThrowIfCancellationRequested(); }
             if (ConnectTimeout) { throw new TaskCanceledException("Internal operation timed out."); }
-            return Task.FromResult(new ApplicationLaunchResult(ConnectExit == 0, ConnectExit));
+            processStarted?.Invoke(4242);
+            if (processReleasing is not null) { await processReleasing(); }
+            return new ApplicationLaunchResult(ConnectExit == 0, ConnectExit);
         }
 
-        public Task<ApplicationLaunchResult> StartDeployAsync(string executable, IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken)
+        public async Task<ApplicationLaunchResult> StartDeployAsync(string executable, IReadOnlyDictionary<string, string?> environment,
+            CancellationToken cancellationToken, Action<int>? processStarted = null, Func<Task>? processReleasing = null)
         {
             Calls.Add("deploy");
             DeployEnvironment = environment;
             if (DeployFails) { throw new IOException(); }
-            return Task.FromResult(new ApplicationLaunchResult(true, ReadinessConfirmed: true));
+            processStarted?.Invoke(4343);
+            if (processReleasing is not null) { await processReleasing(); }
+            return new ApplicationLaunchResult(true, ReadinessConfirmed: true);
         }
 
         public Task PersistAsync(CancellationToken cancellationToken)
