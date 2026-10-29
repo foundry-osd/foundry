@@ -155,6 +155,7 @@ Foundry.Connect App.Name
 Foundry.Connect App.WindowTitle
 Foundry.Connect Common.VersionFormat da-DK de-DE sv-SE
 Foundry.Connect Ethernet.AdapterLabel da-DK de-DE et-EE hr-HR hu-HU nb-NO nl-NL pl-PL sl-SI sr-Latn-RS sv-SE
+Foundry.Connect Ethernet.Dot1xLabel
 Foundry.Connect Ethernet.GatewayLabel da-DK de-DE it-IT nb-NO nl-NL pt-BR ro-RO sv-SE
 Foundry.Connect Ethernet.Ipv4Label
 Foundry.Connect Ethernet.Title

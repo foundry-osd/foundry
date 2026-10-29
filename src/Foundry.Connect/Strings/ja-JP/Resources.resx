@@ -34,6 +34,12 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>切断する</value>
   </data>
+  <data name="Action.Retry" xml:space="preserve">
+    <value>再試行</value>
+  </data>
+  <data name="Action.StayHere" xml:space="preserve">
+    <value>この画面にとどまる</value>
+  </data>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
@@ -82,6 +88,54 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>バージョン: {0}</value>
   </data>
+  <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
+    <value>Ethernet: 自己割り当てアドレス</value>
+  </data>
+  <data name="Debug.Scenario.CaptivePortal" xml:space="preserve">
+    <value>Ethernet: サインイン ページ</value>
+  </data>
+  <data name="Debug.Scenario.Checking" xml:space="preserve">
+    <value>ネットワークを確認しています</value>
+  </data>
+  <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
+    <value>Ethernet: 802.1X 失敗</value>
+  </data>
+  <data name="Debug.Scenario.EthernetNoInternet" xml:space="preserve">
+    <value>Ethernet: インターネットなし</value>
+  </data>
+  <data name="Debug.Scenario.EthernetReady" xml:space="preserve">
+    <value>Ethernet: 準備完了</value>
+  </data>
+  <data name="Debug.Scenario.Live" xml:space="preserve">
+    <value>実際のネットワーク</value>
+  </data>
+  <data name="Debug.Scenario.NoAdapter" xml:space="preserve">
+    <value>ネットワーク アダプターなし</value>
+  </data>
+  <data name="Debug.Scenario.NoLink" xml:space="preserve">
+    <value>Ethernet: ケーブルなし</value>
+  </data>
+  <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
+    <value>Wi-Fi アダプターなし</value>
+  </data>
+  <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
+    <value>プロビジョニング済み Wi-Fi は利用できません</value>
+  </data>
+  <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
+    <value>Ethernet: アドレスを待機中</value>
+  </data>
+  <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
+    <value>Wi-Fi ネットワーク</value>
+  </data>
+  <data name="Debug.Scenario.WifiReady" xml:space="preserve">
+    <value>Wi-Fi: 準備完了</value>
+  </data>
+  <data name="Debug.Scenario.WifiRuntimeMissing" xml:space="preserve">
+    <value>Wi-Fi サポートなし</value>
+  </data>
+  <data name="Debug.Scenarios" xml:space="preserve">
+    <value>シナリオ</value>
+  </data>
   <data name="Debug.ShowEthernetOnly" xml:space="preserve">
     <value>Ethernetのみを表示</value>
   </data>
@@ -125,11 +179,47 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Ethernet.AdapterLabel" xml:space="preserve">
     <value>アダプター</value>
   </data>
+  <data name="Ethernet.ApipaAddress" xml:space="preserve">
+    <value>自己割り当てアドレス: DHCP サーバーが応答しませんでした</value>
+  </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>ケーブル接続を確認してください</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>DHCP リースが検出されました</value>
+  </data>
+  <data name="Ethernet.Dot1xAuthenticated" xml:space="preserve">
+    <value>認証済み</value>
+  </data>
+  <data name="Ethernet.Dot1xAuthenticating" xml:space="preserve">
+    <value>認証中</value>
+  </data>
+  <data name="Ethernet.Dot1xFailed" xml:space="preserve">
+    <value>認証に失敗しました</value>
+  </data>
+  <data name="Ethernet.Dot1xLabel" xml:space="preserve">
+    <value>802.1X</value>
+  </data>
+  <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
+    <value>プロファイル適用済み</value>
+  </data>
+  <data name="Ethernet.Dot1xProvisioningFailed" xml:space="preserve">
+    <value>有線 802.1X 設定を適用できませんでした。</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
+    <value>ネットワークが認証を拒否しました。証明書とスイッチ ポートの設定を確認してください。</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileImportFailed" xml:space="preserve">
+    <value>Windows がブートメディアの 802.1X プロファイルを拒否しました。</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileTemplateMissing" xml:space="preserve">
+    <value>ブートメディアに 802.1X プロファイルがありません。ブートメディアを再作成してください。</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
+    <value>802.1X 証明書のパスワードを読み取れません。ブートメディアを再作成してください。</value>
+  </data>
+  <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
+    <value>利用不可</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>ゲートウェイ</value>
@@ -273,28 +363,73 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>ウクライナ語 (ウクライナ)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>バージョン情報</value>
+    <value>_バージョン情報</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>デバッグ</value>
+    <value>_デバッグ</value>
   </data>
   <data name="Menu.Keyboard" xml:space="preserve">
-    <value>キーボード</value>
+    <value>_キーボード</value>
   </data>
   <data name="Menu.KeyboardFormat" xml:space="preserve">
-    <value>キーボード ({0})</value>
+    <value>_キーボード ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
-    <value>言語</value>
+    <value>_言語</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>テーマ</value>
+    <value>_テーマ</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
-    <value>ツール</value>
+    <value>_ツール</value>
+  </data>
+  <data name="Notice.CaptivePortalMessage" xml:space="preserve">
+    <value>ネットワークがインターネット アクセスの代わりにサインイン ページを返しました。このネットワークで許可されている場合は別のデバイスからサインインするか、別のネットワークを使用してから、[再試行] を選択してください。</value>
+  </data>
+  <data name="Notice.CaptivePortalTitle" xml:space="preserve">
+    <value>サインイン ページが検出されました</value>
+  </data>
+  <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
+    <value>ブートメディアのネットワーク設定を適用しています。</value>
+  </data>
+  <data name="Status.AutoContinueCancelled" xml:space="preserve">
+    <value>自動続行はオフです。準備ができたら [続ける] を選択してください。</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>{0}s で自動的に続行します</value>
+  </data>
+  <data name="Status.AutoContinuePaused" xml:space="preserve">
+    <value>ネットワーク設定が変更されたため、自動続行は一時停止しています。</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
+    <value>このネットワークでは Web ページでのサインインが必要です。</value>
+  </data>
+  <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
+    <value>ネットワーク アダプターが検出されませんでした。サポートされている Ethernet または Wi-Fi アダプターを接続してから、[再試行] を選択してください。</value>
+  </data>
+  <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
+    <value>ネットワークには接続されていますが、インターネットに到達できません。ファイアウォールまたはプロキシを確認してから、[再試行] を選択してください。</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
+    <value>ネットワークから IP アドレスが割り当てられませんでした。このネットワークの DHCP を確認してから、[再試行] を選択してください。</value>
+  </data>
+  <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
+    <value>ネットワーク接続がありません。Ethernet ケーブルを接続するか、Wi-Fi ネットワークに接続してください。</value>
+  </data>
+  <data name="Status.BlockedTitle" xml:space="preserve">
+    <value>インターネットにアクセスできません</value>
+  </data>
+  <data name="Status.CheckingDescription" xml:space="preserve">
+    <value>Foundry Connect がネットワーク接続を確認しています。</value>
+  </data>
+  <data name="Status.CheckingTitle" xml:space="preserve">
+    <value>ネットワークを確認しています</value>
+  </data>
+  <data name="Status.ConnectingDescription" xml:space="preserve">
+    <value>ネットワーク操作を実行しています。最大 20 秒かかる場合があります。</value>
+  </data>
+  <data name="Status.ConnectingTitle" xml:space="preserve">
+    <value>接続しています</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>インターネットアクセスが検証されました。今すぐ続行できます。</value>
@@ -332,8 +467,17 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Wifi.ActionConnectFailed" xml:space="preserve">
     <value>接続できません。パスワードまたはネットワーク設定を確認して、再試行してください。</value>
   </data>
+  <data name="Wifi.ActionConnectTimedOut" xml:space="preserve">
+    <value>接続の試行がタイムアウトしました。アクセス ポイントに近づいてから、もう一度お試しください。</value>
+  </data>
   <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
     <value>切断できません。もう一度やり直してください。</value>
+  </data>
+  <data name="Wifi.ActionInvalidPassphrase" xml:space="preserve">
+    <value>パスワードがこのネットワークの要件を満たしていません。</value>
+  </data>
+  <data name="Wifi.ActionNetworkNotVisible" xml:space="preserve">
+    <value>このネットワークは表示されなくなりました。一覧を更新して、もう一度お試しください。</value>
   </data>
   <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
     <value>プロビジョニングされた Wi-Fi プロファイルに接続できません。もう一度やり直してください。</value>
@@ -343,6 +487,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>プロビジョニングされた Wi-Fi プロファイルは使用できません。</value>
+  </data>
+  <data name="Wifi.ActionProvisionedSecretUnavailable" xml:space="preserve">
+    <value>プロビジョニング済み Wi-Fi のパスワードを読み取れません。ブートメディアを再作成してください。</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
     <value>この Wi-Fi ネットワークは、このビルドではサポートされていません。</value>
@@ -359,6 +506,12 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>設定されたセキュリティ</value>
   </data>
+  <data name="Wifi.ConnectProvisionedAutomationName" xml:space="preserve">
+    <value>プロビジョニング済み Wi-Fi に接続</value>
+  </data>
+  <data name="Wifi.ConnectSelectedAutomationFormat" xml:space="preserve">
+    <value>{0} に接続</value>
+  </data>
   <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
     <value>Ethernet</value>
   </data>
@@ -368,11 +521,26 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
     <value>プロビジョニング済み Wi-Fi · {0}</value>
   </data>
+  <data name="Wifi.DisconnectProvisionedAutomationName" xml:space="preserve">
+    <value>プロビジョニング済み Wi-Fi を切断</value>
+  </data>
+  <data name="Wifi.DisconnectSelectedAutomationFormat" xml:space="preserve">
+    <value>{0} から切断</value>
+  </data>
   <data name="Wifi.EnterpriseProfile" xml:space="preserve">
     <value>エンタープライズ プロファイル</value>
   </data>
   <data name="Wifi.HiddenNetwork" xml:space="preserve">
     <value>隠れたネットワーク</value>
+  </data>
+  <data name="Wifi.NetworkAutomationFormat" xml:space="preserve">
+    <value>{0}、{1}、信号 {2} パーセント</value>
+  </data>
+  <data name="Wifi.NetworkConnectedAutomationFormat" xml:space="preserve">
+    <value>{0}、{1}、信号 {2} パーセント、接続済み</value>
+  </data>
+  <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
+    <value>表示されている Wi-Fi ネットワーク</value>
   </data>
   <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
     <value>Wi-Fi アダプターは使用できません。</value>
@@ -386,6 +554,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
     <value>このブート イメージでは、プロビジョニングされた Wi-Fi プロファイルを使用できません。</value>
   </data>
+  <data name="Wifi.PassphraseLabel" xml:space="preserve">
+    <value>Wi-Fi パスワード</value>
+  </data>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>プロファイル</value>
   </data>
@@ -394,6 +565,21 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
     <value>プロビジョニング済み Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableConfiguration" xml:space="preserve">
+    <value>プロビジョニング済み Wi-Fi の設定が無効です。ブートメディアを再作成してください。</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailablePassphrase" xml:space="preserve">
+    <value>プロビジョニング済み Wi-Fi のパスワードがネットワークの要件を満たしていません。ブートメディアを再作成してください。</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
+    <value>このブートメディアからプロビジョニング済み Wi-Fi のパスワードを読み取れません。ブートメディアを再作成してください。Ethernet とその他の Wi-Fi ネットワークは引き続き使用できます。</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
+    <value>ブートメディアにエンタープライズ Wi-Fi プロファイルがありません。ブートメディアを再作成してください。</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
+    <value>プロビジョニング済み Wi-Fi は利用できません</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Wi-Fi ネットワークを更新します</value>
@@ -409,6 +595,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
     <value>オープン</value>
+  </data>
+  <data name="Wifi.SecurityOwe" xml:space="preserve">
+    <value>オープン (拡張)</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>個人的な</value>
@@ -449,6 +638,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA 個人</value>
   </data>
+  <data name="Wifi.SelectNetworkHint" xml:space="preserve">
+    <value>接続するには一覧からネットワークを選択してください。</value>
+  </data>
   <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
     <value>{0} · ブート イメージに証明書が含まれています</value>
   </data>
@@ -457,6 +649,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Wifi.StatusNoAdapter" xml:space="preserve">
     <value>使用可能な Wi-Fi アダプターがありません</value>
+  </data>
+  <data name="Wifi.StatusNotInRange" xml:space="preserve">
+    <value>範囲外</value>
   </data>
   <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
     <value>接続する準備ができました</value>

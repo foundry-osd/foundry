@@ -34,6 +34,12 @@ Licensed under the MIT License.</value>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Disconnect</value>
   </data>
+  <data name="Action.Retry" xml:space="preserve">
+    <value>Retry</value>
+  </data>
+  <data name="Action.StayHere" xml:space="preserve">
+    <value>Stay here</value>
+  </data>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
@@ -82,6 +88,54 @@ Licensed under the MIT License.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Version: {0}</value>
   </data>
+  <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
+    <value>Ethernet: self-assigned address</value>
+  </data>
+  <data name="Debug.Scenario.CaptivePortal" xml:space="preserve">
+    <value>Ethernet: sign-in page</value>
+  </data>
+  <data name="Debug.Scenario.Checking" xml:space="preserve">
+    <value>Checking the network</value>
+  </data>
+  <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
+    <value>Ethernet: 802.1X failed</value>
+  </data>
+  <data name="Debug.Scenario.EthernetNoInternet" xml:space="preserve">
+    <value>Ethernet: no internet</value>
+  </data>
+  <data name="Debug.Scenario.EthernetReady" xml:space="preserve">
+    <value>Ethernet: ready</value>
+  </data>
+  <data name="Debug.Scenario.Live" xml:space="preserve">
+    <value>Live network</value>
+  </data>
+  <data name="Debug.Scenario.NoAdapter" xml:space="preserve">
+    <value>No network adapter</value>
+  </data>
+  <data name="Debug.Scenario.NoLink" xml:space="preserve">
+    <value>Ethernet: no cable</value>
+  </data>
+  <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
+    <value>No Wi-Fi adapter</value>
+  </data>
+  <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
+    <value>Provisioned Wi-Fi unavailable</value>
+  </data>
+  <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
+    <value>Ethernet: waiting for an address</value>
+  </data>
+  <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
+    <value>Wi-Fi networks</value>
+  </data>
+  <data name="Debug.Scenario.WifiReady" xml:space="preserve">
+    <value>Wi-Fi: ready</value>
+  </data>
+  <data name="Debug.Scenario.WifiRuntimeMissing" xml:space="preserve">
+    <value>Wi-Fi support missing</value>
+  </data>
+  <data name="Debug.Scenarios" xml:space="preserve">
+    <value>Scenarios</value>
+  </data>
   <data name="Debug.ShowEthernetOnly" xml:space="preserve">
     <value>Show Ethernet only</value>
   </data>
@@ -125,11 +179,47 @@ Licensed under the MIT License.</value>
   <data name="Ethernet.AdapterLabel" xml:space="preserve">
     <value>Adapter</value>
   </data>
+  <data name="Ethernet.ApipaAddress" xml:space="preserve">
+    <value>Self-assigned address: the DHCP server did not answer</value>
+  </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>Check the cable connection</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>DHCP lease detected</value>
+  </data>
+  <data name="Ethernet.Dot1xAuthenticated" xml:space="preserve">
+    <value>Authenticated</value>
+  </data>
+  <data name="Ethernet.Dot1xAuthenticating" xml:space="preserve">
+    <value>Authenticating</value>
+  </data>
+  <data name="Ethernet.Dot1xFailed" xml:space="preserve">
+    <value>Authentication failed</value>
+  </data>
+  <data name="Ethernet.Dot1xLabel" xml:space="preserve">
+    <value>802.1X</value>
+  </data>
+  <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
+    <value>Profile applied</value>
+  </data>
+  <data name="Ethernet.Dot1xProvisioningFailed" xml:space="preserve">
+    <value>The wired 802.1X settings could not be applied.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
+    <value>The network rejected the authentication. Check the certificate and the switch port settings.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileImportFailed" xml:space="preserve">
+    <value>Windows rejected the 802.1X profile from the boot media.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileTemplateMissing" xml:space="preserve">
+    <value>The 802.1X profile is missing from the boot media. Recreate the boot media.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
+    <value>The 802.1X certificate password cannot be read. Recreate the boot media.</value>
+  </data>
+  <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
+    <value>Unavailable</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Gateway</value>
@@ -273,28 +363,73 @@ Licensed under the MIT License.</value>
     <value>Ukrainian (Ukraine)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>About</value>
+    <value>_About</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>Debug</value>
+    <value>_Debug</value>
   </data>
   <data name="Menu.Keyboard" xml:space="preserve">
-    <value>Keyboard</value>
+    <value>_Keyboard</value>
   </data>
   <data name="Menu.KeyboardFormat" xml:space="preserve">
-    <value>Keyboard ({0})</value>
+    <value>_Keyboard ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
-    <value>Language</value>
+    <value>_Language</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>Theme</value>
+    <value>_Theme</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
-    <value>Tools</value>
+    <value>_Tools</value>
+  </data>
+  <data name="Notice.CaptivePortalMessage" xml:space="preserve">
+    <value>The network answered with a sign-in page instead of internet access. Sign in from another device if this network allows it, or use another network, then select Retry.</value>
+  </data>
+  <data name="Notice.CaptivePortalTitle" xml:space="preserve">
+    <value>Sign-in page detected</value>
+  </data>
+  <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
+    <value>Applying the network settings from the boot media.</value>
+  </data>
+  <data name="Status.AutoContinueCancelled" xml:space="preserve">
+    <value>Automatic continue is off. Select Continue when you are ready.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Continuing automatically in {0}s</value>
+  </data>
+  <data name="Status.AutoContinuePaused" xml:space="preserve">
+    <value>Automatic continue is paused because you changed network settings.</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
+    <value>This network requires signing in on a web page.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
+    <value>No network adapter was detected. Connect a supported Ethernet or Wi-Fi adapter, then select Retry.</value>
+  </data>
+  <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
+    <value>The network is connected but cannot reach the internet. Check the firewall or proxy, then select Retry.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
+    <value>The network did not provide an IP address. Check DHCP on this network, then select Retry.</value>
+  </data>
+  <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
+    <value>No network connection. Connect an Ethernet cable or join a Wi-Fi network.</value>
+  </data>
+  <data name="Status.BlockedTitle" xml:space="preserve">
+    <value>No internet access</value>
+  </data>
+  <data name="Status.CheckingDescription" xml:space="preserve">
+    <value>Foundry Connect is checking the network connection.</value>
+  </data>
+  <data name="Status.CheckingTitle" xml:space="preserve">
+    <value>Checking the network</value>
+  </data>
+  <data name="Status.ConnectingDescription" xml:space="preserve">
+    <value>A network action is in progress. It can take up to 20 seconds.</value>
+  </data>
+  <data name="Status.ConnectingTitle" xml:space="preserve">
+    <value>Connecting</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>Internet access has been validated. You can continue now.</value>
@@ -332,8 +467,17 @@ Licensed under the MIT License.</value>
   <data name="Wifi.ActionConnectFailed" xml:space="preserve">
     <value>Unable to connect. Check the password or network settings and try again.</value>
   </data>
+  <data name="Wifi.ActionConnectTimedOut" xml:space="preserve">
+    <value>The connection attempt timed out. Move closer to the access point and try again.</value>
+  </data>
   <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
     <value>Unable to disconnect. Try again.</value>
+  </data>
+  <data name="Wifi.ActionInvalidPassphrase" xml:space="preserve">
+    <value>The password does not meet the requirements of this network.</value>
+  </data>
+  <data name="Wifi.ActionNetworkNotVisible" xml:space="preserve">
+    <value>This network is no longer visible. Refresh the list and try again.</value>
   </data>
   <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
     <value>Unable to connect the provisioned Wi-Fi profile. Try again.</value>
@@ -343,6 +487,9 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>The provisioned Wi-Fi profile is not available.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedSecretUnavailable" xml:space="preserve">
+    <value>The provisioned Wi-Fi password cannot be read. Recreate the boot media.</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
     <value>This Wi-Fi network is not supported in this build.</value>
@@ -359,6 +506,12 @@ Licensed under the MIT License.</value>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Configured security</value>
   </data>
+  <data name="Wifi.ConnectProvisionedAutomationName" xml:space="preserve">
+    <value>Connect the provisioned Wi-Fi</value>
+  </data>
+  <data name="Wifi.ConnectSelectedAutomationFormat" xml:space="preserve">
+    <value>Connect to {0}</value>
+  </data>
   <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
     <value>Ethernet</value>
   </data>
@@ -368,11 +521,26 @@ Licensed under the MIT License.</value>
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
     <value>Provisioned Wi-Fi · {0}</value>
   </data>
+  <data name="Wifi.DisconnectProvisionedAutomationName" xml:space="preserve">
+    <value>Disconnect the provisioned Wi-Fi</value>
+  </data>
+  <data name="Wifi.DisconnectSelectedAutomationFormat" xml:space="preserve">
+    <value>Disconnect from {0}</value>
+  </data>
   <data name="Wifi.EnterpriseProfile" xml:space="preserve">
     <value>Enterprise profile</value>
   </data>
   <data name="Wifi.HiddenNetwork" xml:space="preserve">
     <value>Hidden network</value>
+  </data>
+  <data name="Wifi.NetworkAutomationFormat" xml:space="preserve">
+    <value>{0}, {1}, signal {2} percent</value>
+  </data>
+  <data name="Wifi.NetworkConnectedAutomationFormat" xml:space="preserve">
+    <value>{0}, {1}, signal {2} percent, connected</value>
+  </data>
+  <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
+    <value>Visible Wi-Fi networks</value>
   </data>
   <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
     <value>No Wi-Fi adapter is available.</value>
@@ -386,6 +554,9 @@ Licensed under the MIT License.</value>
   <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
     <value>No provisioned Wi-Fi profile is available in this boot image.</value>
   </data>
+  <data name="Wifi.PassphraseLabel" xml:space="preserve">
+    <value>Wi-Fi password</value>
+  </data>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Profile</value>
   </data>
@@ -394,6 +565,21 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
     <value>Provisioned Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableConfiguration" xml:space="preserve">
+    <value>The provisioned Wi-Fi settings are not valid. Recreate the boot media.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailablePassphrase" xml:space="preserve">
+    <value>The provisioned Wi-Fi password does not meet the requirements of the network. Recreate the boot media.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
+    <value>The provisioned Wi-Fi password cannot be read from this boot media. Recreate the boot media. Ethernet and other Wi-Fi networks still work.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
+    <value>The enterprise Wi-Fi profile is missing from the boot media. Recreate the boot media.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
+    <value>Provisioned Wi-Fi unavailable</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Refresh Wi-Fi networks</value>
@@ -409,6 +595,9 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
     <value>Open</value>
+  </data>
+  <data name="Wifi.SecurityOwe" xml:space="preserve">
+    <value>Enhanced Open</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>Personal</value>
@@ -449,6 +638,9 @@ Licensed under the MIT License.</value>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Personal</value>
   </data>
+  <data name="Wifi.SelectNetworkHint" xml:space="preserve">
+    <value>Select a network in the list to connect.</value>
+  </data>
   <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
     <value>{0} · Certificate included in boot image</value>
   </data>
@@ -457,6 +649,9 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Wifi.StatusNoAdapter" xml:space="preserve">
     <value>No Wi-Fi adapter available</value>
+  </data>
+  <data name="Wifi.StatusNotInRange" xml:space="preserve">
+    <value>Not in range</value>
   </data>
   <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
     <value>Ready to connect</value>

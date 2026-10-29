@@ -34,6 +34,12 @@
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Відключити</value>
   </data>
+  <data name="Action.Retry" xml:space="preserve">
+    <value>Повторити</value>
+  </data>
+  <data name="Action.StayHere" xml:space="preserve">
+    <value>Залишитися тут</value>
+  </data>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
@@ -82,6 +88,54 @@
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Версія: {0}</value>
   </data>
+  <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
+    <value>Ethernet: автоматично призначена адреса</value>
+  </data>
+  <data name="Debug.Scenario.CaptivePortal" xml:space="preserve">
+    <value>Ethernet: сторінка входу</value>
+  </data>
+  <data name="Debug.Scenario.Checking" xml:space="preserve">
+    <value>Перевірка мережі</value>
+  </data>
+  <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
+    <value>Ethernet: збій 802.1X</value>
+  </data>
+  <data name="Debug.Scenario.EthernetNoInternet" xml:space="preserve">
+    <value>Ethernet: немає Інтернету</value>
+  </data>
+  <data name="Debug.Scenario.EthernetReady" xml:space="preserve">
+    <value>Ethernet: готово</value>
+  </data>
+  <data name="Debug.Scenario.Live" xml:space="preserve">
+    <value>Реальна мережа</value>
+  </data>
+  <data name="Debug.Scenario.NoAdapter" xml:space="preserve">
+    <value>Немає мережевого адаптера</value>
+  </data>
+  <data name="Debug.Scenario.NoLink" xml:space="preserve">
+    <value>Ethernet: немає кабелю</value>
+  </data>
+  <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
+    <value>Немає адаптера Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
+    <value>Підготовлена мережа Wi-Fi недоступна</value>
+  </data>
+  <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
+    <value>Ethernet: очікування адреси</value>
+  </data>
+  <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
+    <value>Мережі Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenario.WifiReady" xml:space="preserve">
+    <value>Wi-Fi: готово</value>
+  </data>
+  <data name="Debug.Scenario.WifiRuntimeMissing" xml:space="preserve">
+    <value>Немає підтримки Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenarios" xml:space="preserve">
+    <value>Сценарії</value>
+  </data>
   <data name="Debug.ShowEthernetOnly" xml:space="preserve">
     <value>Показувати лише Ethernet</value>
   </data>
@@ -125,11 +179,47 @@
   <data name="Ethernet.AdapterLabel" xml:space="preserve">
     <value>Адаптер</value>
   </data>
+  <data name="Ethernet.ApipaAddress" xml:space="preserve">
+    <value>Автоматично призначена адреса: DHCP-сервер не відповів</value>
+  </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>Перевірте підключення кабелю</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>Виявлено оренду DHCP</value>
+  </data>
+  <data name="Ethernet.Dot1xAuthenticated" xml:space="preserve">
+    <value>Автентифіковано</value>
+  </data>
+  <data name="Ethernet.Dot1xAuthenticating" xml:space="preserve">
+    <value>Виконується автентифікація</value>
+  </data>
+  <data name="Ethernet.Dot1xFailed" xml:space="preserve">
+    <value>Помилка автентифікації</value>
+  </data>
+  <data name="Ethernet.Dot1xLabel" xml:space="preserve">
+    <value>802.1X</value>
+  </data>
+  <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
+    <value>Профіль застосовано</value>
+  </data>
+  <data name="Ethernet.Dot1xProvisioningFailed" xml:space="preserve">
+    <value>Не вдалося застосувати параметри 802.1X для дротової мережі.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
+    <value>Мережа відхилила автентифікацію. Перевірте сертифікат і параметри порту комутатора.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileImportFailed" xml:space="preserve">
+    <value>Windows відхилила профіль 802.1X із завантажувального носія.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileTemplateMissing" xml:space="preserve">
+    <value>Профіль 802.1X відсутній на завантажувальному носії. Створіть завантажувальний носій заново.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
+    <value>Не вдається прочитати пароль сертифіката 802.1X. Створіть завантажувальний носій заново.</value>
+  </data>
+  <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
+    <value>Недоступно</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Шлюз</value>
@@ -273,28 +363,73 @@
     <value>Українська (Україна)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>Про програму</value>
+    <value>_Про програму</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>Налагодження</value>
+    <value>_Налагодження</value>
   </data>
   <data name="Menu.Keyboard" xml:space="preserve">
-    <value>Клавіатура</value>
+    <value>_Клавіатура</value>
   </data>
   <data name="Menu.KeyboardFormat" xml:space="preserve">
-    <value>Клавіатура ({0})</value>
+    <value>_Клавіатура ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
-    <value>Мова</value>
+    <value>_Мова</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>Тема</value>
+    <value>_Тема</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
-    <value>Інструменти</value>
+    <value>_Інструменти</value>
+  </data>
+  <data name="Notice.CaptivePortalMessage" xml:space="preserve">
+    <value>Мережа відповіла сторінкою входу замість доступу до Інтернету. Увійдіть з іншого пристрою, якщо ця мережа це дозволяє, або скористайтеся іншою мережею, а потім виберіть «Повторити».</value>
+  </data>
+  <data name="Notice.CaptivePortalTitle" xml:space="preserve">
+    <value>Виявлено сторінку входу</value>
+  </data>
+  <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
+    <value>Застосовуються мережеві параметри із завантажувального носія.</value>
+  </data>
+  <data name="Status.AutoContinueCancelled" xml:space="preserve">
+    <value>Автоматичне продовження вимкнено. Виберіть «Продовжити», коли будете готові.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Продовження автоматично через {0}s</value>
+  </data>
+  <data name="Status.AutoContinuePaused" xml:space="preserve">
+    <value>Автоматичне продовження призупинено, оскільки ви змінили мережеві параметри.</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
+    <value>Ця мережа вимагає входу на вебсторінці.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
+    <value>Мережевий адаптер не виявлено. Підключіть підтримуваний адаптер Ethernet або Wi-Fi, а потім виберіть «Повторити».</value>
+  </data>
+  <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
+    <value>Мережу підключено, але доступу до Інтернету немає. Перевірте брандмауер або проксі-сервер, а потім виберіть «Повторити».</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
+    <value>Мережа не надала IP-адресу. Перевірте DHCP у цій мережі, а потім виберіть «Повторити».</value>
+  </data>
+  <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
+    <value>Немає мережевого підключення. Підключіть кабель Ethernet або приєднайтеся до мережі Wi-Fi.</value>
+  </data>
+  <data name="Status.BlockedTitle" xml:space="preserve">
+    <value>Немає доступу до Інтернету</value>
+  </data>
+  <data name="Status.CheckingDescription" xml:space="preserve">
+    <value>Foundry Connect перевіряє мережеве підключення.</value>
+  </data>
+  <data name="Status.CheckingTitle" xml:space="preserve">
+    <value>Перевірка мережі</value>
+  </data>
+  <data name="Status.ConnectingDescription" xml:space="preserve">
+    <value>Виконується мережева дія. Це може тривати до 20 секунд.</value>
+  </data>
+  <data name="Status.ConnectingTitle" xml:space="preserve">
+    <value>Підключення</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>Доступ до Інтернету підтверджено. Ви можете продовжити зараз.</value>
@@ -332,8 +467,17 @@
   <data name="Wifi.ActionConnectFailed" xml:space="preserve">
     <value>Не вдалося підключитися. Перевірте пароль або налаштування мережі та повторіть спробу.</value>
   </data>
+  <data name="Wifi.ActionConnectTimedOut" xml:space="preserve">
+    <value>Час очікування підключення минув. Підійдіть ближче до точки доступу та повторіть спробу.</value>
+  </data>
   <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
     <value>Не вдається відключитися. Спробуйте знову.</value>
+  </data>
+  <data name="Wifi.ActionInvalidPassphrase" xml:space="preserve">
+    <value>Пароль не відповідає вимогам цієї мережі.</value>
+  </data>
+  <data name="Wifi.ActionNetworkNotVisible" xml:space="preserve">
+    <value>Ця мережа більше не відображається. Оновіть список і повторіть спробу.</value>
   </data>
   <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
     <value>Не вдається підключитися до профілю Wi-Fi. Спробуйте знову.</value>
@@ -343,6 +487,9 @@
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Наданий профіль Wi-Fi недоступний.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedSecretUnavailable" xml:space="preserve">
+    <value>Не вдається прочитати пароль підготовленої мережі Wi-Fi. Створіть завантажувальний носій заново.</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
     <value>Ця мережа Wi-Fi не підтримується цією збіркою.</value>
@@ -359,6 +506,12 @@
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Налаштована безпека</value>
   </data>
+  <data name="Wifi.ConnectProvisionedAutomationName" xml:space="preserve">
+    <value>Підключити підготовлену мережу Wi-Fi</value>
+  </data>
+  <data name="Wifi.ConnectSelectedAutomationFormat" xml:space="preserve">
+    <value>Підключитися до {0}</value>
+  </data>
   <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
     <value>Ethernet</value>
   </data>
@@ -368,11 +521,26 @@
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
     <value>Надано Wi-Fi · {0}</value>
   </data>
+  <data name="Wifi.DisconnectProvisionedAutomationName" xml:space="preserve">
+    <value>Відключити підготовлену мережу Wi-Fi</value>
+  </data>
+  <data name="Wifi.DisconnectSelectedAutomationFormat" xml:space="preserve">
+    <value>Відключитися від {0}</value>
+  </data>
   <data name="Wifi.EnterpriseProfile" xml:space="preserve">
     <value>Профіль підприємства</value>
   </data>
   <data name="Wifi.HiddenNetwork" xml:space="preserve">
     <value>Прихована мережа</value>
+  </data>
+  <data name="Wifi.NetworkAutomationFormat" xml:space="preserve">
+    <value>{0}, {1}, сигнал {2} відсотків</value>
+  </data>
+  <data name="Wifi.NetworkConnectedAutomationFormat" xml:space="preserve">
+    <value>{0}, {1}, сигнал {2} відсотків, підключено</value>
+  </data>
+  <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
+    <value>Видимі мережі Wi-Fi</value>
   </data>
   <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
     <value>Адаптер Wi-Fi недоступний.</value>
@@ -386,6 +554,9 @@
   <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
     <value>У цьому завантажувальному образі немає підготовленого профілю Wi-Fi.</value>
   </data>
+  <data name="Wifi.PassphraseLabel" xml:space="preserve">
+    <value>Пароль Wi-Fi</value>
+  </data>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Профіль</value>
   </data>
@@ -394,6 +565,21 @@
   </data>
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
     <value>Надано Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableConfiguration" xml:space="preserve">
+    <value>Параметри підготовленої мережі Wi-Fi недійсні. Створіть завантажувальний носій заново.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailablePassphrase" xml:space="preserve">
+    <value>Пароль підготовленої мережі Wi-Fi не відповідає вимогам мережі. Створіть завантажувальний носій заново.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
+    <value>Не вдається прочитати пароль підготовленої мережі Wi-Fi з цього завантажувального носія. Створіть завантажувальний носій заново. Ethernet та інші мережі Wi-Fi продовжують працювати.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
+    <value>Корпоративний профіль Wi-Fi відсутній на завантажувальному носії. Створіть завантажувальний носій заново.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
+    <value>Підготовлена мережа Wi-Fi недоступна</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Оновити Wi-Fi мережі</value>
@@ -409,6 +595,9 @@
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
     <value>Відкрита</value>
+  </data>
+  <data name="Wifi.SecurityOwe" xml:space="preserve">
+    <value>Відкрита (покращена)</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>Особисті</value>
@@ -449,6 +638,9 @@
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Особисте</value>
   </data>
+  <data name="Wifi.SelectNetworkHint" xml:space="preserve">
+    <value>Виберіть мережу в списку, щоб підключитися.</value>
+  </data>
   <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
     <value>{0} · Сертифікат включено до образу завантаження</value>
   </data>
@@ -457,6 +649,9 @@
   </data>
   <data name="Wifi.StatusNoAdapter" xml:space="preserve">
     <value>Немає адаптера Wi-Fi</value>
+  </data>
+  <data name="Wifi.StatusNotInRange" xml:space="preserve">
+    <value>Поза зоною дії</value>
   </data>
   <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
     <value>Готовий до підключення</value>

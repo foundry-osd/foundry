@@ -34,6 +34,12 @@ Licenc az MIT licenc alatt.</value>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Leválasztás</value>
   </data>
+  <data name="Action.Retry" xml:space="preserve">
+    <value>Újrapróbálkozás</value>
+  </data>
+  <data name="Action.StayHere" xml:space="preserve">
+    <value>Itt maradok</value>
+  </data>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
@@ -82,6 +88,54 @@ Licenc az MIT licenc alatt.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Verzió: {0}</value>
   </data>
+  <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
+    <value>Ethernet: automatikusan kiosztott cím</value>
+  </data>
+  <data name="Debug.Scenario.CaptivePortal" xml:space="preserve">
+    <value>Ethernet: bejelentkezési oldal</value>
+  </data>
+  <data name="Debug.Scenario.Checking" xml:space="preserve">
+    <value>Hálózat ellenőrzése</value>
+  </data>
+  <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
+    <value>Ethernet: 802.1X sikertelen</value>
+  </data>
+  <data name="Debug.Scenario.EthernetNoInternet" xml:space="preserve">
+    <value>Ethernet: nincs internet</value>
+  </data>
+  <data name="Debug.Scenario.EthernetReady" xml:space="preserve">
+    <value>Ethernet: kész</value>
+  </data>
+  <data name="Debug.Scenario.Live" xml:space="preserve">
+    <value>Valós hálózat</value>
+  </data>
+  <data name="Debug.Scenario.NoAdapter" xml:space="preserve">
+    <value>Nincs hálózati adapter</value>
+  </data>
+  <data name="Debug.Scenario.NoLink" xml:space="preserve">
+    <value>Ethernet: nincs kábel</value>
+  </data>
+  <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
+    <value>Nincs Wi-Fi adapter</value>
+  </data>
+  <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
+    <value>A kiépített Wi-Fi nem érhető el</value>
+  </data>
+  <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
+    <value>Ethernet: várakozás címre</value>
+  </data>
+  <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
+    <value>Wi-Fi hálózatok</value>
+  </data>
+  <data name="Debug.Scenario.WifiReady" xml:space="preserve">
+    <value>Wi-Fi: kész</value>
+  </data>
+  <data name="Debug.Scenario.WifiRuntimeMissing" xml:space="preserve">
+    <value>Hiányzik a Wi-Fi támogatás</value>
+  </data>
+  <data name="Debug.Scenarios" xml:space="preserve">
+    <value>Forgatókönyvek</value>
+  </data>
   <data name="Debug.ShowEthernetOnly" xml:space="preserve">
     <value>Csak a Ethernet megjelenítése</value>
   </data>
@@ -125,11 +179,47 @@ Licenc az MIT licenc alatt.</value>
   <data name="Ethernet.AdapterLabel" xml:space="preserve">
     <value>Adapter</value>
   </data>
+  <data name="Ethernet.ApipaAddress" xml:space="preserve">
+    <value>Automatikusan kiosztott cím: a DHCP-kiszolgáló nem válaszolt</value>
+  </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>Ellenőrizze a kábelcsatlakozást</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>DHCP-bérlet észlelve</value>
+  </data>
+  <data name="Ethernet.Dot1xAuthenticated" xml:space="preserve">
+    <value>Hitelesítve</value>
+  </data>
+  <data name="Ethernet.Dot1xAuthenticating" xml:space="preserve">
+    <value>Hitelesítés folyamatban</value>
+  </data>
+  <data name="Ethernet.Dot1xFailed" xml:space="preserve">
+    <value>Sikertelen hitelesítés</value>
+  </data>
+  <data name="Ethernet.Dot1xLabel" xml:space="preserve">
+    <value>802.1X</value>
+  </data>
+  <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
+    <value>Profil alkalmazva</value>
+  </data>
+  <data name="Ethernet.Dot1xProvisioningFailed" xml:space="preserve">
+    <value>A vezetékes 802.1X-beállításokat nem sikerült alkalmazni.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
+    <value>A hálózat elutasította a hitelesítést. Ellenőrizze a tanúsítványt és a kapcsoló portjának beállításait.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileImportFailed" xml:space="preserve">
+    <value>A Windows elutasította a rendszerindító adathordozón lévő 802.1X-profilt.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileTemplateMissing" xml:space="preserve">
+    <value>A 802.1X-profil hiányzik a rendszerindító adathordozóról. Hozza létre újra a rendszerindító adathordozót.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
+    <value>A 802.1X-tanúsítvány jelszava nem olvasható. Hozza létre újra a rendszerindító adathordozót.</value>
+  </data>
+  <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
+    <value>Nem érhető el</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Átjáró</value>
@@ -273,28 +363,73 @@ Licenc az MIT licenc alatt.</value>
     <value>ukrán (Ukrajna)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>Névjegy</value>
+    <value>_Névjegy</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>Hibakeresés</value>
+    <value>_Hibakeresés</value>
   </data>
   <data name="Menu.Keyboard" xml:space="preserve">
-    <value>Billentyűzet</value>
+    <value>_Billentyűzet</value>
   </data>
   <data name="Menu.KeyboardFormat" xml:space="preserve">
-    <value>Billentyűzet ({0})</value>
+    <value>_Billentyűzet ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
-    <value>Nyelv</value>
+    <value>_Nyelv</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>Téma</value>
+    <value>_Téma</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
-    <value>Eszközök</value>
+    <value>_Eszközök</value>
+  </data>
+  <data name="Notice.CaptivePortalMessage" xml:space="preserve">
+    <value>A hálózat internet-hozzáférés helyett bejelentkezési oldallal válaszolt. Jelentkezzen be egy másik eszközről, ha a hálózat engedi, vagy használjon másik hálózatot, majd válassza az Újrapróbálkozás lehetőséget.</value>
+  </data>
+  <data name="Notice.CaptivePortalTitle" xml:space="preserve">
+    <value>Bejelentkezési oldal észlelve</value>
+  </data>
+  <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
+    <value>A rendszerindító adathordozó hálózati beállításainak alkalmazása.</value>
+  </data>
+  <data name="Status.AutoContinueCancelled" xml:space="preserve">
+    <value>Az automatikus folytatás ki van kapcsolva. Ha készen áll, válassza a Folytatás lehetőséget.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Automatikus folytatás {0}s</value>
+  </data>
+  <data name="Status.AutoContinuePaused" xml:space="preserve">
+    <value>Az automatikus folytatás szünetel, mert módosította a hálózati beállításokat.</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
+    <value>Ehhez a hálózathoz weboldalon kell bejelentkezni.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
+    <value>Nem észlelhető hálózati adapter. Csatlakoztasson egy támogatott Ethernet- vagy Wi-Fi adaptert, majd válassza az Újrapróbálkozás lehetőséget.</value>
+  </data>
+  <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
+    <value>A hálózat csatlakoztatva van, de nem éri el az internetet. Ellenőrizze a tűzfalat vagy a proxyt, majd válassza az Újrapróbálkozás lehetőséget.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
+    <value>A hálózat nem adott IP-címet. Ellenőrizze a hálózat DHCP-beállításait, majd válassza az Újrapróbálkozás lehetőséget.</value>
+  </data>
+  <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
+    <value>Nincs hálózati kapcsolat. Csatlakoztasson Ethernet-kábelt, vagy csatlakozzon egy Wi-Fi hálózathoz.</value>
+  </data>
+  <data name="Status.BlockedTitle" xml:space="preserve">
+    <value>Nincs internet-hozzáférés</value>
+  </data>
+  <data name="Status.CheckingDescription" xml:space="preserve">
+    <value>A Foundry Connect ellenőrzi a hálózati kapcsolatot.</value>
+  </data>
+  <data name="Status.CheckingTitle" xml:space="preserve">
+    <value>Hálózat ellenőrzése</value>
+  </data>
+  <data name="Status.ConnectingDescription" xml:space="preserve">
+    <value>Hálózati művelet van folyamatban. Akár 20 másodpercig is tarthat.</value>
+  </data>
+  <data name="Status.ConnectingTitle" xml:space="preserve">
+    <value>Csatlakozás folyamatban</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>Az internet-hozzáférés érvényesítése megtörtént. Most folytathatja.</value>
@@ -332,8 +467,17 @@ Licenc az MIT licenc alatt.</value>
   <data name="Wifi.ActionConnectFailed" xml:space="preserve">
     <value>Nem lehet csatlakozni. Ellenőrizze a jelszót vagy a hálózati beállításokat, és próbálja újra.</value>
   </data>
+  <data name="Wifi.ActionConnectTimedOut" xml:space="preserve">
+    <value>A csatlakozási kísérlet túllépte az időkorlátot. Menjen közelebb a hozzáférési ponthoz, és próbálja újra.</value>
+  </data>
   <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
     <value>Nem sikerült leválasztani. Próbáld újra.</value>
+  </data>
+  <data name="Wifi.ActionInvalidPassphrase" xml:space="preserve">
+    <value>A jelszó nem felel meg a hálózat követelményeinek.</value>
+  </data>
+  <data name="Wifi.ActionNetworkNotVisible" xml:space="preserve">
+    <value>Ez a hálózat már nem látható. Frissítse a listát, és próbálja újra.</value>
   </data>
   <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
     <value>Nem lehet csatlakozni a kiépített Wi-Fi profilhoz. Próbáld újra.</value>
@@ -343,6 +487,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>A kiépített Wi-Fi profil nem érhető el.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedSecretUnavailable" xml:space="preserve">
+    <value>A kiépített Wi-Fi jelszava nem olvasható. Hozza létre újra a rendszerindító adathordozót.</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
     <value>Ez a Wi-Fi hálózat nem támogatott ebben a buildben.</value>
@@ -359,6 +506,12 @@ Licenc az MIT licenc alatt.</value>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Konfigurált biztonság</value>
   </data>
+  <data name="Wifi.ConnectProvisionedAutomationName" xml:space="preserve">
+    <value>Csatlakozás a kiépített Wi-Fi hálózathoz</value>
+  </data>
+  <data name="Wifi.ConnectSelectedAutomationFormat" xml:space="preserve">
+    <value>Csatlakozás ehhez: {0}</value>
+  </data>
   <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
     <value>Ethernet</value>
   </data>
@@ -368,11 +521,26 @@ Licenc az MIT licenc alatt.</value>
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
     <value>Kiépítve Wi-Fi · {0}</value>
   </data>
+  <data name="Wifi.DisconnectProvisionedAutomationName" xml:space="preserve">
+    <value>Leválasztás a kiépített Wi-Fi hálózatról</value>
+  </data>
+  <data name="Wifi.DisconnectSelectedAutomationFormat" xml:space="preserve">
+    <value>Leválasztás erről: {0}</value>
+  </data>
   <data name="Wifi.EnterpriseProfile" xml:space="preserve">
     <value>Vállalati profil</value>
   </data>
   <data name="Wifi.HiddenNetwork" xml:space="preserve">
     <value>Rejtett hálózat</value>
+  </data>
+  <data name="Wifi.NetworkAutomationFormat" xml:space="preserve">
+    <value>{0}, {1}, jelerősség {2} százalék</value>
+  </data>
+  <data name="Wifi.NetworkConnectedAutomationFormat" xml:space="preserve">
+    <value>{0}, {1}, jelerősség {2} százalék, csatlakozva</value>
+  </data>
+  <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
+    <value>Látható Wi-Fi hálózatok</value>
   </data>
   <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
     <value>Nem áll rendelkezésre Wi-Fi adapter.</value>
@@ -386,6 +554,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
     <value>Ebben a rendszerindító lemezképben nem érhető el kiépített Wi-Fi profil.</value>
   </data>
+  <data name="Wifi.PassphraseLabel" xml:space="preserve">
+    <value>Wi-Fi jelszó</value>
+  </data>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Profil</value>
   </data>
@@ -394,6 +565,21 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
     <value>Ellátva Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableConfiguration" xml:space="preserve">
+    <value>A kiépített Wi-Fi beállításai érvénytelenek. Hozza létre újra a rendszerindító adathordozót.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailablePassphrase" xml:space="preserve">
+    <value>A kiépített Wi-Fi jelszava nem felel meg a hálózat követelményeinek. Hozza létre újra a rendszerindító adathordozót.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
+    <value>A kiépített Wi-Fi jelszava nem olvasható erről a rendszerindító adathordozóról. Hozza létre újra a rendszerindító adathordozót. Az Ethernet és a többi Wi-Fi hálózat továbbra is működik.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
+    <value>A vállalati Wi-Fi profil hiányzik a rendszerindító adathordozóról. Hozza létre újra a rendszerindító adathordozót.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
+    <value>A kiépített Wi-Fi nem érhető el</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Frissítse a Wi-Fi hálózatokat</value>
@@ -409,6 +595,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
     <value>Nyílt</value>
+  </data>
+  <data name="Wifi.SecurityOwe" xml:space="preserve">
+    <value>Nyílt (továbbfejlesztett)</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>Személyes</value>
@@ -449,6 +638,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Személyes</value>
   </data>
+  <data name="Wifi.SelectNetworkHint" xml:space="preserve">
+    <value>A csatlakozáshoz válasszon egy hálózatot a listából.</value>
+  </data>
   <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
     <value>{0} · A tanúsítványt a rendszerindító lemezkép tartalmazza</value>
   </data>
@@ -457,6 +649,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Wifi.StatusNoAdapter" xml:space="preserve">
     <value>Nem áll rendelkezésre Wi-Fi adapter</value>
+  </data>
+  <data name="Wifi.StatusNotInRange" xml:space="preserve">
+    <value>Hatótávolságon kívül</value>
   </data>
   <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
     <value>Csatlakozásra kész</value>

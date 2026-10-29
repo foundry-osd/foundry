@@ -34,6 +34,12 @@ Licencované podľa licencie MIT.</value>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Odpojiť</value>
   </data>
+  <data name="Action.Retry" xml:space="preserve">
+    <value>Skúsiť znova</value>
+  </data>
+  <data name="Action.StayHere" xml:space="preserve">
+    <value>Zostať tu</value>
+  </data>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
@@ -82,6 +88,54 @@ Licencované podľa licencie MIT.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Verzia: {0}</value>
   </data>
+  <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
+    <value>Ethernet: automaticky priradená adresa</value>
+  </data>
+  <data name="Debug.Scenario.CaptivePortal" xml:space="preserve">
+    <value>Ethernet: prihlasovacia stránka</value>
+  </data>
+  <data name="Debug.Scenario.Checking" xml:space="preserve">
+    <value>Kontrola siete</value>
+  </data>
+  <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
+    <value>Ethernet: 802.1X zlyhalo</value>
+  </data>
+  <data name="Debug.Scenario.EthernetNoInternet" xml:space="preserve">
+    <value>Ethernet: bez internetu</value>
+  </data>
+  <data name="Debug.Scenario.EthernetReady" xml:space="preserve">
+    <value>Ethernet: pripravené</value>
+  </data>
+  <data name="Debug.Scenario.Live" xml:space="preserve">
+    <value>Skutočná sieť</value>
+  </data>
+  <data name="Debug.Scenario.NoAdapter" xml:space="preserve">
+    <value>Žiadny sieťový adaptér</value>
+  </data>
+  <data name="Debug.Scenario.NoLink" xml:space="preserve">
+    <value>Ethernet: bez kábla</value>
+  </data>
+  <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
+    <value>Žiadny adaptér Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
+    <value>Poskytnutá sieť Wi-Fi nie je k dispozícii</value>
+  </data>
+  <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
+    <value>Ethernet: čaká sa na adresu</value>
+  </data>
+  <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
+    <value>Siete Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenario.WifiReady" xml:space="preserve">
+    <value>Wi-Fi: pripravené</value>
+  </data>
+  <data name="Debug.Scenario.WifiRuntimeMissing" xml:space="preserve">
+    <value>Chýba podpora Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenarios" xml:space="preserve">
+    <value>Scenáre</value>
+  </data>
   <data name="Debug.ShowEthernetOnly" xml:space="preserve">
     <value>Zobraziť iba Ethernet</value>
   </data>
@@ -125,11 +179,47 @@ Licencované podľa licencie MIT.</value>
   <data name="Ethernet.AdapterLabel" xml:space="preserve">
     <value>Adaptér</value>
   </data>
+  <data name="Ethernet.ApipaAddress" xml:space="preserve">
+    <value>Automaticky priradená adresa: server DHCP neodpovedal</value>
+  </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>Skontrolujte pripojenie kábla</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>Zistil sa prenájom DHCP</value>
+  </data>
+  <data name="Ethernet.Dot1xAuthenticated" xml:space="preserve">
+    <value>Overené</value>
+  </data>
+  <data name="Ethernet.Dot1xAuthenticating" xml:space="preserve">
+    <value>Prebieha overovanie</value>
+  </data>
+  <data name="Ethernet.Dot1xFailed" xml:space="preserve">
+    <value>Overenie zlyhalo</value>
+  </data>
+  <data name="Ethernet.Dot1xLabel" xml:space="preserve">
+    <value>802.1X</value>
+  </data>
+  <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
+    <value>Profil použitý</value>
+  </data>
+  <data name="Ethernet.Dot1xProvisioningFailed" xml:space="preserve">
+    <value>Nastavenia 802.1X pre káblovú sieť sa nepodarilo použiť.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
+    <value>Sieť odmietla overenie. Skontrolujte certifikát a nastavenia portu prepínača.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileImportFailed" xml:space="preserve">
+    <value>Systém Windows odmietol profil 802.1X zo zavádzacieho média.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileTemplateMissing" xml:space="preserve">
+    <value>V zavádzacom médiu chýba profil 802.1X. Znova vytvorte zavádzacie médium.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
+    <value>Heslo certifikátu 802.1X sa nedá prečítať. Znova vytvorte zavádzacie médium.</value>
+  </data>
+  <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
+    <value>Nie je k dispozícii</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Brána</value>
@@ -273,28 +363,73 @@ Licencované podľa licencie MIT.</value>
     <value>ukrajinčina (Ukrajina)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>O aplikácii</value>
+    <value>_O aplikácii</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>Ladenie</value>
+    <value>_Ladenie</value>
   </data>
   <data name="Menu.Keyboard" xml:space="preserve">
-    <value>Klávesnica</value>
+    <value>_Klávesnica</value>
   </data>
   <data name="Menu.KeyboardFormat" xml:space="preserve">
-    <value>Klávesnica ({0})</value>
+    <value>_Klávesnica ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
-    <value>Jazyk</value>
+    <value>_Jazyk</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>Motív</value>
+    <value>_Motív</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
-    <value>Nástroje</value>
+    <value>_Nástroje</value>
+  </data>
+  <data name="Notice.CaptivePortalMessage" xml:space="preserve">
+    <value>Sieť namiesto prístupu na internet odpovedala prihlasovacou stránkou. Ak to sieť umožňuje, prihláste sa z iného zariadenia, alebo použite inú sieť a potom vyberte Skúsiť znova.</value>
+  </data>
+  <data name="Notice.CaptivePortalTitle" xml:space="preserve">
+    <value>Zistila sa prihlasovacia stránka</value>
+  </data>
+  <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
+    <value>Používajú sa nastavenia siete zo zavádzacieho média.</value>
+  </data>
+  <data name="Status.AutoContinueCancelled" xml:space="preserve">
+    <value>Automatické pokračovanie je vypnuté. Keď budete pripravení, vyberte Pokračovať.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Pokračovanie automaticky v {0}s</value>
+  </data>
+  <data name="Status.AutoContinuePaused" xml:space="preserve">
+    <value>Automatické pokračovanie je pozastavené, pretože ste zmenili nastavenia siete.</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
+    <value>Táto sieť vyžaduje prihlásenie na webovej stránke.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
+    <value>Nenašiel sa žiadny sieťový adaptér. Pripojte podporovaný adaptér Ethernet alebo Wi-Fi a potom vyberte Skúsiť znova.</value>
+  </data>
+  <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
+    <value>Sieť je pripojená, ale nemá prístup na internet. Skontrolujte bránu firewall alebo server proxy a potom vyberte Skúsiť znova.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
+    <value>Sieť nepridelila žiadnu IP adresu. Skontrolujte DHCP v tejto sieti a potom vyberte Skúsiť znova.</value>
+  </data>
+  <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
+    <value>Žiadne sieťové pripojenie. Pripojte kábel Ethernet alebo sa pripojte k sieti Wi-Fi.</value>
+  </data>
+  <data name="Status.BlockedTitle" xml:space="preserve">
+    <value>Žiadny prístup na internet</value>
+  </data>
+  <data name="Status.CheckingDescription" xml:space="preserve">
+    <value>Foundry Connect kontroluje sieťové pripojenie.</value>
+  </data>
+  <data name="Status.CheckingTitle" xml:space="preserve">
+    <value>Kontrola siete</value>
+  </data>
+  <data name="Status.ConnectingDescription" xml:space="preserve">
+    <value>Prebieha sieťová akcia. Môže trvať až 20 sekúnd.</value>
+  </data>
+  <data name="Status.ConnectingTitle" xml:space="preserve">
+    <value>Pripája sa</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>Prístup na internet bol overený. Teraz môžete pokračovať.</value>
@@ -332,8 +467,17 @@ Licencované podľa licencie MIT.</value>
   <data name="Wifi.ActionConnectFailed" xml:space="preserve">
     <value>Nedá sa pripojiť. Skontrolujte heslo alebo nastavenia siete a skúste to znova.</value>
   </data>
+  <data name="Wifi.ActionConnectTimedOut" xml:space="preserve">
+    <value>Časový limit pokusu o pripojenie uplynul. Presuňte sa bližšie k prístupovému bodu a skúste to znova.</value>
+  </data>
   <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
     <value>Nedá sa odpojiť. Skúste to znova.</value>
+  </data>
+  <data name="Wifi.ActionInvalidPassphrase" xml:space="preserve">
+    <value>Heslo nespĺňa požiadavky tejto siete.</value>
+  </data>
+  <data name="Wifi.ActionNetworkNotVisible" xml:space="preserve">
+    <value>Táto sieť už nie je viditeľná. Obnovte zoznam a skúste to znova.</value>
   </data>
   <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
     <value>Nedá sa pripojiť poskytnutý profil Wi-Fi. Skúste to znova.</value>
@@ -343,6 +487,9 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Poskytnutý profil Wi-Fi nie je dostupný.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedSecretUnavailable" xml:space="preserve">
+    <value>Heslo poskytnutej siete Wi-Fi sa nedá prečítať. Znova vytvorte zavádzacie médium.</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
     <value>Táto sieť Wi-Fi nie je v tejto zostave podporovaná.</value>
@@ -359,6 +506,12 @@ Licencované podľa licencie MIT.</value>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Nakonfigurované zabezpečenie</value>
   </data>
+  <data name="Wifi.ConnectProvisionedAutomationName" xml:space="preserve">
+    <value>Pripojiť poskytnutú sieť Wi-Fi</value>
+  </data>
+  <data name="Wifi.ConnectSelectedAutomationFormat" xml:space="preserve">
+    <value>Pripojiť k sieti {0}</value>
+  </data>
   <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
     <value>Ethernet</value>
   </data>
@@ -368,11 +521,26 @@ Licencované podľa licencie MIT.</value>
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
     <value>Poskytnuté Wi-Fi · {0}</value>
   </data>
+  <data name="Wifi.DisconnectProvisionedAutomationName" xml:space="preserve">
+    <value>Odpojiť poskytnutú sieť Wi-Fi</value>
+  </data>
+  <data name="Wifi.DisconnectSelectedAutomationFormat" xml:space="preserve">
+    <value>Odpojiť od siete {0}</value>
+  </data>
   <data name="Wifi.EnterpriseProfile" xml:space="preserve">
     <value>Podnikový profil</value>
   </data>
   <data name="Wifi.HiddenNetwork" xml:space="preserve">
     <value>Skrytá sieť</value>
+  </data>
+  <data name="Wifi.NetworkAutomationFormat" xml:space="preserve">
+    <value>{0}, {1}, signál {2} percent</value>
+  </data>
+  <data name="Wifi.NetworkConnectedAutomationFormat" xml:space="preserve">
+    <value>{0}, {1}, signál {2} percent, pripojené</value>
+  </data>
+  <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
+    <value>Viditeľné siete Wi-Fi</value>
   </data>
   <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
     <value>Nie je k dispozícii žiadny adaptér Wi-Fi.</value>
@@ -386,6 +554,9 @@ Licencované podľa licencie MIT.</value>
   <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
     <value>V tomto zavádzacom obraze nie je dostupný žiadny vytvorený profil Wi-Fi.</value>
   </data>
+  <data name="Wifi.PassphraseLabel" xml:space="preserve">
+    <value>Heslo Wi-Fi</value>
+  </data>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Profil</value>
   </data>
@@ -394,6 +565,21 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
     <value>Poskytnuté Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableConfiguration" xml:space="preserve">
+    <value>Nastavenia poskytnutej siete Wi-Fi nie sú platné. Znova vytvorte zavádzacie médium.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailablePassphrase" xml:space="preserve">
+    <value>Heslo poskytnutej siete Wi-Fi nespĺňa požiadavky siete. Znova vytvorte zavádzacie médium.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
+    <value>Heslo poskytnutej siete Wi-Fi sa nedá prečítať z tohto zavádzacieho média. Znova vytvorte zavádzacie médium. Ethernet a ostatné siete Wi-Fi naďalej fungujú.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
+    <value>V zavádzacom médiu chýba podnikový profil Wi-Fi. Znova vytvorte zavádzacie médium.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
+    <value>Poskytnutá sieť Wi-Fi nie je k dispozícii</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Obnovte siete Wi-Fi</value>
@@ -409,6 +595,9 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
     <value>Otvorené</value>
+  </data>
+  <data name="Wifi.SecurityOwe" xml:space="preserve">
+    <value>Otvorené (rozšírené)</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>Osobné</value>
@@ -449,6 +638,9 @@ Licencované podľa licencie MIT.</value>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Osobné</value>
   </data>
+  <data name="Wifi.SelectNetworkHint" xml:space="preserve">
+    <value>Vyberte sieť v zozname a pripojte sa.</value>
+  </data>
   <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
     <value>{0} · Certifikát je súčasťou bootovacieho obrazu</value>
   </data>
@@ -457,6 +649,9 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="Wifi.StatusNoAdapter" xml:space="preserve">
     <value>Nie je k dispozícii žiadny adaptér Wi-Fi</value>
+  </data>
+  <data name="Wifi.StatusNotInRange" xml:space="preserve">
+    <value>Mimo dosahu</value>
   </data>
   <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
     <value>Pripravené na pripojenie</value>

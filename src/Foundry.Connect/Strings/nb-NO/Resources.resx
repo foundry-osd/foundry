@@ -34,6 +34,12 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Koble fra</value>
   </data>
+  <data name="Action.Retry" xml:space="preserve">
+    <value>Prøv igjen</value>
+  </data>
+  <data name="Action.StayHere" xml:space="preserve">
+    <value>Bli her</value>
+  </data>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
@@ -82,6 +88,54 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Versjon: {0}</value>
   </data>
+  <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
+    <value>Ethernet: selvtildelt adresse</value>
+  </data>
+  <data name="Debug.Scenario.CaptivePortal" xml:space="preserve">
+    <value>Ethernet: påloggingsside</value>
+  </data>
+  <data name="Debug.Scenario.Checking" xml:space="preserve">
+    <value>Kontrollerer nettverket</value>
+  </data>
+  <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
+    <value>Ethernet: 802.1X mislyktes</value>
+  </data>
+  <data name="Debug.Scenario.EthernetNoInternet" xml:space="preserve">
+    <value>Ethernet: ingen Internett-tilgang</value>
+  </data>
+  <data name="Debug.Scenario.EthernetReady" xml:space="preserve">
+    <value>Ethernet: klar</value>
+  </data>
+  <data name="Debug.Scenario.Live" xml:space="preserve">
+    <value>Ekte nettverk</value>
+  </data>
+  <data name="Debug.Scenario.NoAdapter" xml:space="preserve">
+    <value>Ingen nettverksadapter</value>
+  </data>
+  <data name="Debug.Scenario.NoLink" xml:space="preserve">
+    <value>Ethernet: ingen kabel</value>
+  </data>
+  <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
+    <value>Ingen Wi-Fi-adapter</value>
+  </data>
+  <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
+    <value>Klargjort Wi-Fi utilgjengelig</value>
+  </data>
+  <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
+    <value>Ethernet: venter på en adresse</value>
+  </data>
+  <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
+    <value>Wi-Fi-nettverk</value>
+  </data>
+  <data name="Debug.Scenario.WifiReady" xml:space="preserve">
+    <value>Wi-Fi: klar</value>
+  </data>
+  <data name="Debug.Scenario.WifiRuntimeMissing" xml:space="preserve">
+    <value>Wi-Fi-støtte mangler</value>
+  </data>
+  <data name="Debug.Scenarios" xml:space="preserve">
+    <value>Scenarioer</value>
+  </data>
   <data name="Debug.ShowEthernetOnly" xml:space="preserve">
     <value>Vis kun Ethernet</value>
   </data>
@@ -125,11 +179,47 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Ethernet.AdapterLabel" xml:space="preserve">
     <value>Adapter</value>
   </data>
+  <data name="Ethernet.ApipaAddress" xml:space="preserve">
+    <value>Selvtildelt adresse: DHCP-serveren svarte ikke</value>
+  </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>Sjekk kabeltilkoblingen</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>DHCP-lease oppdaget</value>
+  </data>
+  <data name="Ethernet.Dot1xAuthenticated" xml:space="preserve">
+    <value>Godkjent</value>
+  </data>
+  <data name="Ethernet.Dot1xAuthenticating" xml:space="preserve">
+    <value>Godkjenner</value>
+  </data>
+  <data name="Ethernet.Dot1xFailed" xml:space="preserve">
+    <value>Godkjenningen mislyktes</value>
+  </data>
+  <data name="Ethernet.Dot1xLabel" xml:space="preserve">
+    <value>802.1X</value>
+  </data>
+  <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
+    <value>Profil brukt</value>
+  </data>
+  <data name="Ethernet.Dot1xProvisioningFailed" xml:space="preserve">
+    <value>De kablede 802.1X-innstillingene kunne ikke brukes.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
+    <value>Nettverket avviste godkjenningen. Kontroller sertifikatet og innstillingene for svitsjporten.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileImportFailed" xml:space="preserve">
+    <value>Windows avviste 802.1X-profilen fra oppstartsmediet.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileTemplateMissing" xml:space="preserve">
+    <value>802.1X-profilen mangler på oppstartsmediet. Opprett oppstartsmediet på nytt.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
+    <value>Passordet for 802.1X-sertifikatet kan ikke leses. Opprett oppstartsmediet på nytt.</value>
+  </data>
+  <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
+    <value>Utilgjengelig</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Gateway</value>
@@ -273,28 +363,73 @@ Lisensiert under MIT-lisensen.</value>
     <value>Ukrainsk (Ukraina)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>Om</value>
+    <value>_Om</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>Feilsøk</value>
+    <value>_Feilsøk</value>
   </data>
   <data name="Menu.Keyboard" xml:space="preserve">
-    <value>Tastatur</value>
+    <value>T_astatur</value>
   </data>
   <data name="Menu.KeyboardFormat" xml:space="preserve">
-    <value>Tastatur ({0})</value>
+    <value>T_astatur ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
-    <value>Språk</value>
+    <value>_Språk</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>Tema</value>
+    <value>_Tema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
-    <value>Verktøy</value>
+    <value>_Verktøy</value>
+  </data>
+  <data name="Notice.CaptivePortalMessage" xml:space="preserve">
+    <value>Nettverket svarte med en påloggingsside i stedet for Internett-tilgang. Logg på fra en annen enhet hvis nettverket tillater det, eller bruk et annet nettverk, og velg deretter Prøv igjen.</value>
+  </data>
+  <data name="Notice.CaptivePortalTitle" xml:space="preserve">
+    <value>Påloggingsside oppdaget</value>
+  </data>
+  <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
+    <value>Bruker nettverksinnstillingene fra oppstartsmediet.</value>
+  </data>
+  <data name="Status.AutoContinueCancelled" xml:space="preserve">
+    <value>Automatisk fortsettelse er slått av. Velg Fortsett når du er klar.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Fortsetter automatisk i {0}s</value>
+  </data>
+  <data name="Status.AutoContinuePaused" xml:space="preserve">
+    <value>Automatisk fortsettelse er satt på pause fordi du endret nettverksinnstillingene.</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
+    <value>Dette nettverket krever pålogging på en nettside.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
+    <value>Ingen nettverksadapter ble oppdaget. Koble til en støttet Ethernet- eller Wi-Fi-adapter, og velg deretter Prøv igjen.</value>
+  </data>
+  <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
+    <value>Nettverket er tilkoblet, men når ikke Internett. Kontroller brannmuren eller proxyen, og velg deretter Prøv igjen.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
+    <value>Nettverket ga ingen IP-adresse. Kontroller DHCP på dette nettverket, og velg deretter Prøv igjen.</value>
+  </data>
+  <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
+    <value>Ingen nettverkstilkobling. Koble til en Ethernet-kabel eller et Wi-Fi-nettverk.</value>
+  </data>
+  <data name="Status.BlockedTitle" xml:space="preserve">
+    <value>Ingen Internett-tilgang</value>
+  </data>
+  <data name="Status.CheckingDescription" xml:space="preserve">
+    <value>Foundry Connect kontrollerer nettverkstilkoblingen.</value>
+  </data>
+  <data name="Status.CheckingTitle" xml:space="preserve">
+    <value>Kontrollerer nettverket</value>
+  </data>
+  <data name="Status.ConnectingDescription" xml:space="preserve">
+    <value>En nettverkshandling pågår. Den kan ta opptil 20 sekunder.</value>
+  </data>
+  <data name="Status.ConnectingTitle" xml:space="preserve">
+    <value>Kobler til</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>Internett-tilgang er validert. Du kan fortsette nå.</value>
@@ -332,8 +467,17 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Wifi.ActionConnectFailed" xml:space="preserve">
     <value>Kan ikke koble til. Sjekk passordet eller nettverksinnstillingene og prøv igjen.</value>
   </data>
+  <data name="Wifi.ActionConnectTimedOut" xml:space="preserve">
+    <value>Tilkoblingsforsøket fikk tidsavbrudd. Flytt deg nærmere tilgangspunktet og prøv igjen.</value>
+  </data>
   <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
     <value>Kan ikke koble fra. Prøv igjen.</value>
+  </data>
+  <data name="Wifi.ActionInvalidPassphrase" xml:space="preserve">
+    <value>Passordet oppfyller ikke kravene for dette nettverket.</value>
+  </data>
+  <data name="Wifi.ActionNetworkNotVisible" xml:space="preserve">
+    <value>Dette nettverket er ikke lenger synlig. Oppdater listen og prøv igjen.</value>
   </data>
   <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
     <value>Kan ikke koble til den klargjorte Wi-Fi-profilen. Prøv igjen.</value>
@@ -343,6 +487,9 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Den klargjorte Wi-Fi-profilen er ikke tilgjengelig.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedSecretUnavailable" xml:space="preserve">
+    <value>Det klargjorte Wi-Fi-passordet kan ikke leses. Opprett oppstartsmediet på nytt.</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
     <value>Dette Wi-Fi-nettverket støttes ikke i denne versjonen.</value>
@@ -359,6 +506,12 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Konfigurert sikkerhet</value>
   </data>
+  <data name="Wifi.ConnectProvisionedAutomationName" xml:space="preserve">
+    <value>Koble til det klargjorte Wi-Fi-nettverket</value>
+  </data>
+  <data name="Wifi.ConnectSelectedAutomationFormat" xml:space="preserve">
+    <value>Koble til {0}</value>
+  </data>
   <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
     <value>Ethernet</value>
   </data>
@@ -368,11 +521,26 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
     <value>Klargjort Wi-Fi · {0}</value>
   </data>
+  <data name="Wifi.DisconnectProvisionedAutomationName" xml:space="preserve">
+    <value>Koble fra det klargjorte Wi-Fi-nettverket</value>
+  </data>
+  <data name="Wifi.DisconnectSelectedAutomationFormat" xml:space="preserve">
+    <value>Koble fra {0}</value>
+  </data>
   <data name="Wifi.EnterpriseProfile" xml:space="preserve">
     <value>Bedriftsprofil</value>
   </data>
   <data name="Wifi.HiddenNetwork" xml:space="preserve">
     <value>Skjult nettverk</value>
+  </data>
+  <data name="Wifi.NetworkAutomationFormat" xml:space="preserve">
+    <value>{0}, {1}, signal {2} prosent</value>
+  </data>
+  <data name="Wifi.NetworkConnectedAutomationFormat" xml:space="preserve">
+    <value>{0}, {1}, signal {2} prosent, tilkoblet</value>
+  </data>
+  <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
+    <value>Synlige Wi-Fi-nettverk</value>
   </data>
   <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
     <value>Ingen Wi-Fi-adapter er tilgjengelig.</value>
@@ -386,6 +554,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
     <value>Ingen klargjort Wi-Fi-profil er tilgjengelig i dette oppstartsbildet.</value>
   </data>
+  <data name="Wifi.PassphraseLabel" xml:space="preserve">
+    <value>Wi-Fi-passord</value>
+  </data>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Profil</value>
   </data>
@@ -394,6 +565,21 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
     <value>Klargjort Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableConfiguration" xml:space="preserve">
+    <value>De klargjorte Wi-Fi-innstillingene er ugyldige. Opprett oppstartsmediet på nytt.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailablePassphrase" xml:space="preserve">
+    <value>Det klargjorte Wi-Fi-passordet oppfyller ikke kravene for nettverket. Opprett oppstartsmediet på nytt.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
+    <value>Det klargjorte Wi-Fi-passordet kan ikke leses fra dette oppstartsmediet. Opprett oppstartsmediet på nytt. Ethernet og andre Wi-Fi-nettverk fungerer fortsatt.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
+    <value>Bedriftens Wi-Fi-profil mangler på oppstartsmediet. Opprett oppstartsmediet på nytt.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
+    <value>Klargjort Wi-Fi utilgjengelig</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Oppdater Wi-Fi nettverk</value>
@@ -409,6 +595,9 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
     <value>Åpen</value>
+  </data>
+  <data name="Wifi.SecurityOwe" xml:space="preserve">
+    <value>Åpen (forbedret)</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>Personlig</value>
@@ -449,6 +638,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Personlig</value>
   </data>
+  <data name="Wifi.SelectNetworkHint" xml:space="preserve">
+    <value>Velg et nettverk i listen for å koble til.</value>
+  </data>
   <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
     <value>{0} · Sertifikat inkludert i oppstartsbilde</value>
   </data>
@@ -457,6 +649,9 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Wifi.StatusNoAdapter" xml:space="preserve">
     <value>Ingen Wi-Fi-adapter tilgjengelig</value>
+  </data>
+  <data name="Wifi.StatusNotInRange" xml:space="preserve">
+    <value>Utenfor rekkevidde</value>
   </data>
   <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
     <value>Klar til å koble til</value>

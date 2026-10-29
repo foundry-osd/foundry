@@ -34,6 +34,12 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Katkaise yhteys</value>
   </data>
+  <data name="Action.Retry" xml:space="preserve">
+    <value>Yritä uudelleen</value>
+  </data>
+  <data name="Action.StayHere" xml:space="preserve">
+    <value>Pysy tässä</value>
+  </data>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
@@ -82,6 +88,54 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Versio: {0}</value>
   </data>
+  <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
+    <value>Ethernet: itse määritetty osoite</value>
+  </data>
+  <data name="Debug.Scenario.CaptivePortal" xml:space="preserve">
+    <value>Ethernet: kirjautumissivu</value>
+  </data>
+  <data name="Debug.Scenario.Checking" xml:space="preserve">
+    <value>Tarkistetaan verkkoa</value>
+  </data>
+  <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
+    <value>Ethernet: 802.1X epäonnistui</value>
+  </data>
+  <data name="Debug.Scenario.EthernetNoInternet" xml:space="preserve">
+    <value>Ethernet: ei internetiä</value>
+  </data>
+  <data name="Debug.Scenario.EthernetReady" xml:space="preserve">
+    <value>Ethernet: valmis</value>
+  </data>
+  <data name="Debug.Scenario.Live" xml:space="preserve">
+    <value>Todellinen verkko</value>
+  </data>
+  <data name="Debug.Scenario.NoAdapter" xml:space="preserve">
+    <value>Ei verkkosovitinta</value>
+  </data>
+  <data name="Debug.Scenario.NoLink" xml:space="preserve">
+    <value>Ethernet: ei kaapelia</value>
+  </data>
+  <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
+    <value>Ei Wi-Fi-sovitinta</value>
+  </data>
+  <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
+    <value>Valmisteltu Wi-Fi ei käytettävissä</value>
+  </data>
+  <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
+    <value>Ethernet: odotetaan osoitetta</value>
+  </data>
+  <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
+    <value>Wi-Fi-verkot</value>
+  </data>
+  <data name="Debug.Scenario.WifiReady" xml:space="preserve">
+    <value>Wi-Fi: valmis</value>
+  </data>
+  <data name="Debug.Scenario.WifiRuntimeMissing" xml:space="preserve">
+    <value>Wi-Fi-tuki puuttuu</value>
+  </data>
+  <data name="Debug.Scenarios" xml:space="preserve">
+    <value>Skenaariot</value>
+  </data>
   <data name="Debug.ShowEthernetOnly" xml:space="preserve">
     <value>Näytä vain Ethernet</value>
   </data>
@@ -125,11 +179,47 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Ethernet.AdapterLabel" xml:space="preserve">
     <value>Sovitin</value>
   </data>
+  <data name="Ethernet.ApipaAddress" xml:space="preserve">
+    <value>Itse määritetty osoite: DHCP-palvelin ei vastannut</value>
+  </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>Tarkista kaapelin liitäntä</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>DHCP-vuokrasopimus havaittu</value>
+  </data>
+  <data name="Ethernet.Dot1xAuthenticated" xml:space="preserve">
+    <value>Todennettu</value>
+  </data>
+  <data name="Ethernet.Dot1xAuthenticating" xml:space="preserve">
+    <value>Todennetaan</value>
+  </data>
+  <data name="Ethernet.Dot1xFailed" xml:space="preserve">
+    <value>Todennus epäonnistui</value>
+  </data>
+  <data name="Ethernet.Dot1xLabel" xml:space="preserve">
+    <value>802.1X</value>
+  </data>
+  <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
+    <value>Profiili otettu käyttöön</value>
+  </data>
+  <data name="Ethernet.Dot1xProvisioningFailed" xml:space="preserve">
+    <value>Kiinteän verkon 802.1X-asetuksia ei voitu ottaa käyttöön.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
+    <value>Verkko hylkäsi todennuksen. Tarkista varmenne ja kytkimen portin asetukset.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileImportFailed" xml:space="preserve">
+    <value>Windows hylkäsi käynnistysmedian 802.1X-profiilin.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileTemplateMissing" xml:space="preserve">
+    <value>802.1X-profiili puuttuu käynnistysmediasta. Luo käynnistysmedia uudelleen.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
+    <value>802.1X-varmenteen salasanaa ei voi lukea. Luo käynnistysmedia uudelleen.</value>
+  </data>
+  <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
+    <value>Ei käytettävissä</value>
   </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Yhdyskäytävä</value>
@@ -273,28 +363,73 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Ukraina (Ukraina)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>Tietoja</value>
+    <value>_Tietoja</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>Virheenkorjaus</value>
+    <value>_Virheenkorjaus</value>
   </data>
   <data name="Menu.Keyboard" xml:space="preserve">
-    <value>Näppäimistö</value>
+    <value>_Näppäimistö</value>
   </data>
   <data name="Menu.KeyboardFormat" xml:space="preserve">
-    <value>Näppäimistö ({0})</value>
+    <value>_Näppäimistö ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
-    <value>Kieli</value>
+    <value>_Kieli</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>Teema</value>
+    <value>_Teema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
-    <value>Työkalut</value>
+    <value>_Työkalut</value>
+  </data>
+  <data name="Notice.CaptivePortalMessage" xml:space="preserve">
+    <value>Verkko vastasi kirjautumissivulla internet-yhteyden sijaan. Kirjaudu toisella laitteella, jos verkko sallii sen, tai käytä toista verkkoa ja valitse sitten Yritä uudelleen.</value>
+  </data>
+  <data name="Notice.CaptivePortalTitle" xml:space="preserve">
+    <value>Kirjautumissivu havaittu</value>
+  </data>
+  <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
+    <value>Otetaan käyttöön käynnistysmedian verkkoasetuksia.</value>
+  </data>
+  <data name="Status.AutoContinueCancelled" xml:space="preserve">
+    <value>Automaattinen jatkaminen on poistettu käytöstä. Valitse Jatka, kun olet valmis.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Jatkuu automaattisesti {0}s</value>
+  </data>
+  <data name="Status.AutoContinuePaused" xml:space="preserve">
+    <value>Automaattinen jatkaminen on keskeytetty, koska muutit verkkoasetuksia.</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
+    <value>Tämä verkko edellyttää kirjautumista verkkosivulla.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
+    <value>Verkkosovitinta ei havaittu. Liitä tuettu Ethernet- tai Wi-Fi-sovitin ja valitse sitten Yritä uudelleen.</value>
+  </data>
+  <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
+    <value>Verkko on yhdistetty, mutta internetiin ei saada yhteyttä. Tarkista palomuuri tai välityspalvelin ja valitse sitten Yritä uudelleen.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
+    <value>Verkko ei antanut IP-osoitetta. Tarkista tämän verkon DHCP ja valitse sitten Yritä uudelleen.</value>
+  </data>
+  <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
+    <value>Ei verkkoyhteyttä. Liitä Ethernet-kaapeli tai muodosta yhteys Wi-Fi-verkkoon.</value>
+  </data>
+  <data name="Status.BlockedTitle" xml:space="preserve">
+    <value>Ei internet-yhteyttä</value>
+  </data>
+  <data name="Status.CheckingDescription" xml:space="preserve">
+    <value>Foundry Connect tarkistaa verkkoyhteyttä.</value>
+  </data>
+  <data name="Status.CheckingTitle" xml:space="preserve">
+    <value>Tarkistetaan verkkoa</value>
+  </data>
+  <data name="Status.ConnectingDescription" xml:space="preserve">
+    <value>Verkkotoiminto on käynnissä. Se voi kestää enintään 20 sekuntia.</value>
+  </data>
+  <data name="Status.ConnectingTitle" xml:space="preserve">
+    <value>Yhdistetään</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>Internet-yhteys on vahvistettu. Voit jatkaa nyt.</value>
@@ -332,8 +467,17 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Wifi.ActionConnectFailed" xml:space="preserve">
     <value>Yhteyden muodostaminen ei onnistu. Tarkista salasana tai verkkoasetukset ja yritä uudelleen.</value>
   </data>
+  <data name="Wifi.ActionConnectTimedOut" xml:space="preserve">
+    <value>Yhteysyritys aikakatkaistiin. Siirry lähemmäs tukiasemaa ja yritä uudelleen.</value>
+  </data>
   <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
     <value>Yhteyttä ei voi katkaista. Yritä uudelleen.</value>
+  </data>
+  <data name="Wifi.ActionInvalidPassphrase" xml:space="preserve">
+    <value>Salasana ei täytä tämän verkon vaatimuksia.</value>
+  </data>
+  <data name="Wifi.ActionNetworkNotVisible" xml:space="preserve">
+    <value>Tämä verkko ei ole enää näkyvissä. Päivitä luettelo ja yritä uudelleen.</value>
   </data>
   <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
     <value>Ei voida muodostaa yhteyttä määritettyyn Wi-Fi-profiiliin. Yritä uudelleen.</value>
@@ -343,6 +487,9 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Käytettävissä oleva Wi-Fi-profiili ei ole käytettävissä.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedSecretUnavailable" xml:space="preserve">
+    <value>Valmistellun Wi-Fi-verkon salasanaa ei voi lukea. Luo käynnistysmedia uudelleen.</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
     <value>Tätä Wi-Fi-verkkoa ei tueta tässä koontiversiossa.</value>
@@ -359,6 +506,12 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Konfiguroitu suojaus</value>
   </data>
+  <data name="Wifi.ConnectProvisionedAutomationName" xml:space="preserve">
+    <value>Yhdistä valmisteltuun Wi-Fi-verkkoon</value>
+  </data>
+  <data name="Wifi.ConnectSelectedAutomationFormat" xml:space="preserve">
+    <value>Yhdistä verkkoon {0}</value>
+  </data>
   <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
     <value>Ethernet</value>
   </data>
@@ -368,11 +521,26 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
     <value>Toimitettu Wi-Fi · {0}</value>
   </data>
+  <data name="Wifi.DisconnectProvisionedAutomationName" xml:space="preserve">
+    <value>Katkaise yhteys valmisteltuun Wi-Fi-verkkoon</value>
+  </data>
+  <data name="Wifi.DisconnectSelectedAutomationFormat" xml:space="preserve">
+    <value>Katkaise yhteys verkkoon {0}</value>
+  </data>
   <data name="Wifi.EnterpriseProfile" xml:space="preserve">
     <value>Yritysprofiili</value>
   </data>
   <data name="Wifi.HiddenNetwork" xml:space="preserve">
     <value>Piilotettu verkko</value>
+  </data>
+  <data name="Wifi.NetworkAutomationFormat" xml:space="preserve">
+    <value>{0}, {1}, signaali {2} prosenttia</value>
+  </data>
+  <data name="Wifi.NetworkConnectedAutomationFormat" xml:space="preserve">
+    <value>{0}, {1}, signaali {2} prosenttia, yhdistetty</value>
+  </data>
+  <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
+    <value>Näkyvät Wi-Fi-verkot</value>
   </data>
   <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
     <value>Wi-Fi-sovitinta ei ole saatavilla.</value>
@@ -386,6 +554,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
     <value>Tässä käynnistyskuvassa ei ole saatavilla Wi-Fi-profiilia.</value>
   </data>
+  <data name="Wifi.PassphraseLabel" xml:space="preserve">
+    <value>Wi-Fi-salasana</value>
+  </data>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Profiili</value>
   </data>
@@ -394,6 +565,21 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
     <value>Varustettu Wi-Fi</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableConfiguration" xml:space="preserve">
+    <value>Valmistellun Wi-Fi-verkon asetukset eivät ole kelvolliset. Luo käynnistysmedia uudelleen.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailablePassphrase" xml:space="preserve">
+    <value>Valmistellun Wi-Fi-verkon salasana ei täytä verkon vaatimuksia. Luo käynnistysmedia uudelleen.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
+    <value>Valmistellun Wi-Fi-verkon salasanaa ei voi lukea tältä käynnistysmedialta. Luo käynnistysmedia uudelleen. Ethernet ja muut Wi-Fi-verkot toimivat edelleen.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
+    <value>Yrityksen Wi-Fi-profiili puuttuu käynnistysmediasta. Luo käynnistysmedia uudelleen.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
+    <value>Valmisteltu Wi-Fi ei käytettävissä</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Päivitä Wi-Fi-verkot</value>
@@ -409,6 +595,9 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
     <value>Avoin</value>
+  </data>
+  <data name="Wifi.SecurityOwe" xml:space="preserve">
+    <value>Avoin (parannettu)</value>
   </data>
   <data name="Wifi.SecurityPersonal" xml:space="preserve">
     <value>Henkilökohtainen</value>
@@ -449,6 +638,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Henkilökohtainen</value>
   </data>
+  <data name="Wifi.SelectNetworkHint" xml:space="preserve">
+    <value>Valitse verkko luettelosta muodostaaksesi yhteyden.</value>
+  </data>
   <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
     <value>{0} · Varmenne sisältyy käynnistyskuvaan</value>
   </data>
@@ -457,6 +649,9 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Wifi.StatusNoAdapter" xml:space="preserve">
     <value>Wi-Fi-sovitinta ei ole saatavilla</value>
+  </data>
+  <data name="Wifi.StatusNotInRange" xml:space="preserve">
+    <value>Ei kantoalueella</value>
   </data>
   <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
     <value>Valmis yhdistämään</value>
