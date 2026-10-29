@@ -2215,12 +2215,6 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
     <value>Bendra prijungimo prie domeno paskyra</value>
   </data>
-  <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>Patikimas šakninio CA sertifikato failas</value>
-  </data>
-  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>Pasirinkite 802.1X sertifikatą</value>
-  </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Įgalinti Ethernet 802.1X konfigūraciją</value>
   </data>
@@ -2710,8 +2704,23 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="NavigationStatus.NotConfigured" xml:space="preserve">
     <value>Nesukonfigūruota</value>
   </data>
+  <data name="Network.AddTrustedRootCertificate" xml:space="preserve">
+    <value>Pridėti sertifikatą</value>
+  </data>
+  <data name="Network.ClientCertificateDescription" xml:space="preserve">
+    <value>Sertifikatas su privačiuoju raktu, kuris autentifikuoja šį įrenginį (EAP-TLS).</value>
+  </data>
+  <data name="Network.ClientCertificateLabel" xml:space="preserve">
+    <value>Kliento sertifikatas (PFX)</value>
+  </data>
+  <data name="Network.ClientCertificatePickerTitle" xml:space="preserve">
+    <value>Pasirinkite kliento sertifikatą</value>
+  </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>Įmonės elgesį lemia šios versijos profilio šablonas. Diegimo metu įvesti 802.1X kredencialai čia nepateikiami.</value>
+  </data>
+  <data name="Network.ErrorMediaProtectionRequired" xml:space="preserve">
+    <value>Wi-Fi slaptažodžius ir kliento sertifikatus saugo diegimo slaptažodis. Puslapyje „Bendra“ įjunkite apsaugą slaptažodžiu ir nustatykite diegimo slaptažodį.</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
     <value>Nepalaikomas Wi-Fi saugos tipas '{0}'.</value>
@@ -2723,10 +2732,10 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Įmonės Wi-Fi profilio šablone turi būti palaikoma įmonės autentifikavimo reikšmė.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>Įmonės Wi-Fi patikimas šakninės CA sertifikato failas nerastas.</value>
+    <value>Įmonės Wi-Fi sertifikato failas nerastas. Pasirinkite jį dar kartą.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>Įmonei Wi-Fi reikalingas patikimas šakninio CA sertifikato failas, kai įgalintas sertifikato patikimumas.</value>
+    <value>Naudojant sertifikatus, įmonės Wi-Fi reikalauja kliento sertifikato arba patikimo šakninio CA sertifikato.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
     <value>Įmonės Wi-Fi profilio šablono failas nerastas.</value>
@@ -2744,10 +2753,10 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Wi-Fi konfigūracijai reikalingas SSID.</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>Laidinio 802.1X patikimo šakninio CA sertifikato failas nerastas.</value>
+    <value>Laidinio 802.1X sertifikato failas nerastas. Pasirinkite jį dar kartą.</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>„Wired 802.1X“ reikalauja patikimo šakninio CA sertifikato failo, kai įgalintas patikimumas.</value>
+    <value>Naudojant sertifikatus, laidiniam 802.1X reikia kliento sertifikato arba patikimo šakninio CA sertifikato.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
     <value>Laidinio 802.1X profilio šablono failas nerastas.</value>
@@ -2755,14 +2764,20 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
     <value>Laidiniam 802.1X reikalingas laidinio profilio šablonas.</value>
   </data>
+  <data name="Network.NoTrustedRootCertificates" xml:space="preserve">
+    <value>Nepridėta jokio patikimo šakninio CA sertifikato.</value>
+  </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
     <value>Profilio šablono failas</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
     <value>Pasirinkite tinklo profilio šabloną</value>
   </data>
+  <data name="Network.RemoveCertificate" xml:space="preserve">
+    <value>Pašalinti</value>
+  </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>Importuokite patikimą šakninį CA sertifikatą</value>
+    <value>Naudoti sertifikatus</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Nukopijuoja sukonfigūruotus PFX kliento sertifikatus į Windows ir prieš OOBE importuoja juos į LocalMachine asmeninę sertifikatų saugyklą.</value>
@@ -2772,6 +2787,15 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Perkelti tinklo profilius į Windows</value>
+  </data>
+  <data name="Network.TrustedRootCertificatePickerTitle" xml:space="preserve">
+    <value>Pasirinkite patikimą šakninį CA sertifikatą</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesDescription" xml:space="preserve">
+    <value>Įstaigų, išdavusių autentifikavimo serverio sertifikatą, viešieji sertifikatai.</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesLabel" xml:space="preserve">
+    <value>Patikimi šakniniai CA sertifikatai</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>Išplėstinė įmonė Wi-Fi</value>
@@ -2783,7 +2807,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Foundry įsimena slaptafrazę šiame kompiuteryje savo vietinėje šifruotoje saugykloje. Ji palieka šį kompiuterį tik eksportuojant arba publikuojant, kai pasirinkta „Įtraukti slaptažodžius“.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>Importuoja Foundry valdomą Wi-Fi profilį į Windows prieš OOBE, kad diegimo ryšys išliktų po WinPE.</value>
+    <value>Kai ši parinktis įjungta, kiekvienas Wi-Fi tinklas, prie kurio sėkmingai prisijungta per Foundry Connect, parengtas iš anksto arba prijungtas rankiniu būdu, importuojamas į Windows prieš OOBE, pradedant tuo, kuris suteikė interneto prieigą, kad ryšys išliktų po WinPE.</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows profilių tarptinklinis perkėlimas</value>
@@ -5072,12 +5096,6 @@ Pritaikius naujinimą Foundry OSD paleidžiama iš naujo.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Atnaujinti</value>
-  </data>
-  <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>Patikimas šakninio CA sertifikato failas</value>
-  </data>
-  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>Pasirinkite Wi-Fi sertifikatą</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Iš anksto sudarykite Wi-Fi profilį</value>

@@ -2215,12 +2215,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
     <value>Ühine liitmiskonto</value>
   </data>
-  <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>Usaldusväärne juur-CA sertifikaadi fail</value>
-  </data>
-  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>Valige 802.1X sertifikaat</value>
-  </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Luba Ethernet 802.1X konfiguratsioon</value>
   </data>
@@ -2710,8 +2704,23 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="NavigationStatus.NotConfigured" xml:space="preserve">
     <value>Pole konfigureeritud</value>
   </data>
+  <data name="Network.AddTrustedRootCertificate" xml:space="preserve">
+    <value>Lisa sertifikaat</value>
+  </data>
+  <data name="Network.ClientCertificateDescription" xml:space="preserve">
+    <value>Privaatvõtmega sertifikaat, mis autendib selle seadme (EAP-TLS).</value>
+  </data>
+  <data name="Network.ClientCertificateLabel" xml:space="preserve">
+    <value>Kliendisertifikaat (PFX)</value>
+  </data>
+  <data name="Network.ClientCertificatePickerTitle" xml:space="preserve">
+    <value>Valige kliendisertifikaat</value>
+  </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>Ettevõtte käitumist juhib selle järgu profiilimall. Juurutamise ajal sisestatud 802.1X mandaadid ei ole siin ette nähtud.</value>
+  </data>
+  <data name="Network.ErrorMediaProtectionRequired" xml:space="preserve">
+    <value>Wi-Fi paroole ja kliendisertifikaate kaitseb juurutusparool. Lubage lehel „Üldine“ paroolikaitse ja määrake juurutusparool.</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
     <value>Toetamata Wi-Fi turbetüüp '{0}'.</value>
@@ -2723,10 +2732,10 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Ettevõtte Wi-Fi profiilimall peab sisaldama toetatud ettevõtte autentimise väärtust.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>Ettevõtte Wi-Fi usaldusväärset juur-CA sertifikaadi faili ei leitud.</value>
+    <value>Ettevõtte Wi-Fi sertifikaadi faili ei leitud. Valige see uuesti.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>Enterprise Wi-Fi nõuab usaldusväärse juur-CA sertifikaadi faili, kui serdi usaldusväärsus on lubatud.</value>
+    <value>Ettevõtte Wi-Fi nõuab sertifikaatide kasutamisel kliendisertifikaati või usaldusväärset juur-CA sertifikaati.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
     <value>Ettevõtte Wi-Fi profiilimalli faili ei leitud.</value>
@@ -2744,10 +2753,10 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Wi-Fi konfiguratsioon nõuab SSID.</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>Juhtmega 802.1X usaldusväärset juur-CA sertifikaadi faili ei leitud.</value>
+    <value>Juhtmega 802.1X sertifikaadi faili ei leitud. Valige see uuesti.</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>Juhtmega 802.1X nõuab usaldusväärse juur-CA sertifikaadi faili, kui serdi usaldusväärsus on lubatud.</value>
+    <value>Juhtmega 802.1X nõuab sertifikaatide kasutamisel kliendisertifikaati või usaldusväärset juur-CA sertifikaati.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
     <value>Juhtmega 802.1X profiili mallifaili ei leitud.</value>
@@ -2755,14 +2764,20 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
     <value>Juhtmega 802.1X nõuab juhtmega profiili malli.</value>
   </data>
+  <data name="Network.NoTrustedRootCertificates" xml:space="preserve">
+    <value>Ühtegi usaldusväärset juur-CA sertifikaati pole lisatud.</value>
+  </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
     <value>Profiili mallifail</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
     <value>Valige võrguprofiili mall</value>
   </data>
+  <data name="Network.RemoveCertificate" xml:space="preserve">
+    <value>Eemalda</value>
+  </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>Importige usaldusväärne juur-CA sertifikaat</value>
+    <value>Kasuta sertifikaate</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Kopeerib konfigureeritud PFX-kliendisertifikaadid Windowsisse ja impordib need enne OOBE-d LocalMachine isiklikku sertifikaadihoidlasse.</value>
@@ -2772,6 +2787,15 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Rända võrguprofiilid Windowsisse</value>
+  </data>
+  <data name="Network.TrustedRootCertificatePickerTitle" xml:space="preserve">
+    <value>Valige usaldusväärne juur-CA sertifikaat</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesDescription" xml:space="preserve">
+    <value>Autentimisserveri sertifikaadi väljastanud asutuste avalikud sertifikaadid.</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesLabel" xml:space="preserve">
+    <value>Usaldusväärsed juur-CA sertifikaadid</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>Täiustatud ettevõte Wi-Fi</value>
@@ -2783,7 +2807,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Foundry jätab paroolifraasi selles arvutis meelde oma kohalikku krüptitud hoidlasse. See lahkub sellest arvutist ainult ekspordis või avaldamises, kui on valitud „Kaasa paroolid“.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>Impordib Foundry hallatava Wi-Fi profiili Windowsisse enne OOBE-d, et juurutuse ühenduvus säiliks pärast WinPE-d.</value>
+    <value>Kui see suvand on sees, imporditakse enne OOBE-d Windowsisse iga Wi-Fi võrk, millega Foundry Connectis edukalt ühendus loodi, nii eelseadistatud kui ka käsitsi ühendatud, alustades sellest, mis andis internetiühenduse, et ühenduvus säiliks pärast WinPE-d.</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windowsi profiilide rändlus</value>
@@ -5072,12 +5096,6 @@ Värskenduse rakendamine taaskäivitab Foundry OSD.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Värskenda</value>
-  </data>
-  <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>Usaldusväärne juur-CA sertifikaadi fail</value>
-  </data>
-  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>Valige Wi-Fi sertifikaat</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Looge eelnevalt Wi-Fi profiil</value>

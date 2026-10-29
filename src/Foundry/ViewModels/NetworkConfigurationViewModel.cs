@@ -19,13 +19,18 @@ namespace Foundry.ViewModels;
 /// </summary>
 /// <remarks>
 /// Selected profiles and certificates are imported into the <see cref="AuthoringFileLibrary"/> and referenced by content hash.
-/// Passphrases and PFX passwords are routed through <see cref="INetworkSecretStateService"/> so they can be used for
-/// provisioning without entering the configuration.
+/// Each transport has two certificate slots: one client certificate (PFX) and a list of trusted root CA certificates; both are
+/// saved on every edit. Passphrases and PFX passwords are routed through <see cref="INetworkSecretStateService"/>, the PFX
+/// password bound to the client certificate content hash, so they can be used for provisioning without entering the configuration.
 /// </remarks>
 public sealed partial class NetworkConfigurationViewModel : ObservableObject, IDisposable
 {
+    private static readonly string[] ClientCertificateFilters = [".pfx", ".p12"];
+    private static readonly string[] TrustedRootCertificateFilters = [".cer", ".crt", "*"];
+
     private readonly IFoundryConfigurationStateService configurationStateService;
     private readonly INetworkSecretStateService networkSecretStateService;
+    private readonly IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService;
     private readonly IFilePickerService filePickerService;
     private readonly IDialogService dialogService;
     private readonly AuthoringFileLibrary authoringFiles;
@@ -34,9 +39,9 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     private bool isApplyingState = true;
     private bool isSavingState;
     private AuthoringFileReference? dot1xProfileTemplate;
-    private AuthoringFileReference? dot1xCertificate;
+    private AuthoringFileReference? dot1xClientCertificate;
     private AuthoringFileReference? wifiEnterpriseProfileTemplate;
-    private AuthoringFileReference? wifiCertificate;
+    private AuthoringFileReference? wifiClientCertificate;
 
     [ObservableProperty]
     public partial string CertificatePasswordLabel { get; set; } = string.Empty;
@@ -53,6 +58,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     public NetworkConfigurationViewModel(
         IFoundryConfigurationStateService configurationStateService,
         INetworkSecretStateService networkSecretStateService,
+        IDeploymentProtectionSecretStateService deploymentProtectionSecretStateService,
         IFilePickerService filePickerService,
         IDialogService dialogService,
         AuthoringFileLibrary authoringFiles,
@@ -61,6 +67,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     {
         this.configurationStateService = configurationStateService;
         this.networkSecretStateService = networkSecretStateService;
+        this.deploymentProtectionSecretStateService = deploymentProtectionSecretStateService;
         this.filePickerService = filePickerService;
         this.dialogService = dialogService;
         this.authoringFiles = authoringFiles;
@@ -73,6 +80,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
 
         localizationService.LanguageChanged += OnLanguageChanged;
         configurationStateService.StateChanged += OnConfigurationStateChanged;
+        deploymentProtectionSecretStateService.Changed += OnDeploymentProtectionChanged;
         isApplyingState = false;
     }
 
@@ -81,11 +89,46 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     /// </summary>
     public ObservableCollection<SelectionOption<string>> WifiSecurityTypes { get; } = [];
 
+    /// <summary>Gets the wired 802.1X trusted root CA certificates, in the order they are staged.</summary>
+    public ObservableCollection<TrustedRootCertificateEntry> Dot1xTrustedRootCertificates { get; } = [];
+
+    /// <summary>Gets the enterprise Wi-Fi trusted root CA certificates, in the order they are staged.</summary>
+    public ObservableCollection<TrustedRootCertificateEntry> WifiTrustedRootCertificates { get; } = [];
+
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(RemoveDot1xTrustedRootCertificateCommand))]
+    public partial TrustedRootCertificateEntry? SelectedDot1xTrustedRootCertificate { get; set; }
+
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(RemoveWifiTrustedRootCertificateCommand))]
+    public partial TrustedRootCertificateEntry? SelectedWifiTrustedRootCertificate { get; set; }
+
     [ObservableProperty]
     public partial string ProfileTemplateLabel { get; set; }
 
     [ObservableProperty]
-    public partial string Dot1xCertificateLabel { get; set; }
+    public partial string ClientCertificateLabel { get; set; }
+
+    [ObservableProperty]
+    public partial string ClientCertificateDescription { get; set; }
+
+    [ObservableProperty]
+    public partial string TrustedRootCertificatesLabel { get; set; }
+
+    [ObservableProperty]
+    public partial string TrustedRootCertificatesDescription { get; set; }
+
+    [ObservableProperty]
+    public partial string AddTrustedRootCertificateText { get; set; }
+
+    [ObservableProperty]
+    public partial string RemoveCertificateText { get; set; }
+
+    [ObservableProperty]
+    public partial string NoTrustedRootCertificatesText { get; set; }
+
+    [ObservableProperty]
+    public partial string NeedsAttentionText { get; set; }
 
     [ObservableProperty]
     public partial string RequiresCertificateText { get; set; }
@@ -113,9 +156,6 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
 
     [ObservableProperty]
     public partial string WifiEnterpriseTemplateText { get; set; }
-
-    [ObservableProperty]
-    public partial string WifiCertificateLabel { get; set; }
 
     [ObservableProperty]
     public partial string WiredDot1xWindowsRoamingHeader { get; set; }
@@ -163,14 +203,23 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     /// <summary>Gets the file name of the selected wired profile template.</summary>
     public string Dot1xProfileTemplateFileName => dot1xProfileTemplate?.FileName ?? string.Empty;
 
-    /// <summary>Gets the file name of the selected wired certificate.</summary>
-    public string Dot1xCertificateFileName => dot1xCertificate?.FileName ?? string.Empty;
+    /// <summary>Gets the file name of the selected wired client certificate.</summary>
+    public string Dot1xClientCertificateFileName => dot1xClientCertificate?.FileName ?? string.Empty;
 
     /// <summary>Gets the file name of the selected enterprise Wi-Fi profile template.</summary>
     public string WifiEnterpriseProfileTemplateFileName => wifiEnterpriseProfileTemplate?.FileName ?? string.Empty;
 
-    /// <summary>Gets the file name of the selected Wi-Fi certificate.</summary>
-    public string WifiCertificateFileName => wifiCertificate?.FileName ?? string.Empty;
+    /// <summary>Gets the file name of the selected Wi-Fi client certificate.</summary>
+    public string WifiClientCertificateFileName => wifiClientCertificate?.FileName ?? string.Empty;
+
+    /// <summary>Gets whether the PFX password box is shown: only a client certificate has a password.</summary>
+    public Visibility Dot1xClientCertificatePasswordVisibility => dot1xClientCertificate is null ? Visibility.Collapsed : Visibility.Visible;
+
+    /// <summary>Gets whether the PFX password box is shown: only a client certificate has a password.</summary>
+    public Visibility WifiClientCertificatePasswordVisibility => wifiClientCertificate is null ? Visibility.Collapsed : Visibility.Visible;
+
+    public Visibility Dot1xNoTrustedRootCertificatesVisibility => Dot1xTrustedRootCertificates.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+    public Visibility WifiNoTrustedRootCertificatesVisibility => WifiTrustedRootCertificates.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsDot1xCertificatePathEnabled))]
@@ -329,6 +378,18 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         NetworkConfigurationValidationCode.WifiEnterpriseCertificateMissing);
     public Visibility WifiCertificateValidationVisibility => ToVisibility(WifiCertificateValidationMessage);
 
+    /// <summary>Gets the "Needs attention" text shown when a client certificate is provisioned without Password protection.</summary>
+    public string Dot1xMediaProtectionMessage => FormatFieldValidationMessage(
+        NetworkConfigurationValidator.Validate(BuildDot1xOnlySettings(), CreateValidationInputs(), configurationStateService.IsMediaProtected),
+        NetworkConfigurationValidationCode.WiredMediaProtectionRequired);
+    public bool HasDot1xMediaProtectionIssue => !string.IsNullOrWhiteSpace(Dot1xMediaProtectionMessage);
+
+    /// <summary>Gets the "Needs attention" text shown when a passphrase or a client certificate is provisioned without Password protection.</summary>
+    public string WifiMediaProtectionMessage => FormatFieldValidationMessage(
+        NetworkConfigurationValidator.Validate(BuildWifiOnlySettings(), CreateValidationInputs(), configurationStateService.IsMediaProtected),
+        NetworkConfigurationValidationCode.WifiMediaProtectionRequired);
+    public bool HasWifiMediaProtectionIssue => !string.IsNullOrWhiteSpace(WifiMediaProtectionMessage);
+
     /// <summary>
     /// Releases subscriptions to localization and shared configuration state.
     /// </summary>
@@ -336,6 +397,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     {
         localizationService.LanguageChanged -= OnLanguageChanged;
         configurationStateService.StateChanged -= OnConfigurationStateChanged;
+        deploymentProtectionSecretStateService.Changed -= OnDeploymentProtectionChanged;
     }
 
     [RelayCommand]
@@ -349,13 +411,43 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     }
 
     [RelayCommand]
-    private async Task BrowseDot1xCertificateAsync()
+    private async Task BrowseDot1xClientCertificateAsync()
     {
-        if (await PickAndImportAsync("Dot1x.CertificatePickerTitle", (string[])[".cer", ".crt", ".pfx", "*"], "WiredCertificate") is { } reference)
+        if (await PickAndImportAsync("Network.ClientCertificatePickerTitle", ClientCertificateFilters, "WiredClientCertificate") is { } reference)
         {
-            SetDot1xCertificate(reference);
+            SetDot1xClientCertificate(reference);
         }
     }
+
+    [RelayCommand(CanExecute = nameof(CanRemoveDot1xClientCertificate))]
+    private void RemoveDot1xClientCertificate() => SetDot1xClientCertificate(null);
+
+    private bool CanRemoveDot1xClientCertificate() => dot1xClientCertificate is not null;
+
+    [RelayCommand]
+    private async Task AddDot1xTrustedRootCertificateAsync()
+    {
+        if (await PickAndImportAsync("Network.TrustedRootCertificatePickerTitle", TrustedRootCertificateFilters, "WiredTrustedRootCertificate") is { } reference &&
+            TryAddTrustedRoot(Dot1xTrustedRootCertificates, reference))
+        {
+            OnFileSelectionChanged();
+        }
+    }
+
+    [RelayCommand(CanExecute = nameof(CanRemoveDot1xTrustedRootCertificate))]
+    private void RemoveDot1xTrustedRootCertificate()
+    {
+        if (SelectedDot1xTrustedRootCertificate is not { } selected)
+        {
+            return;
+        }
+
+        SelectedDot1xTrustedRootCertificate = null;
+        Dot1xTrustedRootCertificates.Remove(selected);
+        OnFileSelectionChanged();
+    }
+
+    private bool CanRemoveDot1xTrustedRootCertificate() => SelectedDot1xTrustedRootCertificate is not null;
 
     [RelayCommand]
     private async Task BrowseWifiEnterpriseProfileTemplateAsync()
@@ -368,13 +460,43 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     }
 
     [RelayCommand]
-    private async Task BrowseWifiCertificateAsync()
+    private async Task BrowseWifiClientCertificateAsync()
     {
-        if (await PickAndImportAsync("Wifi.CertificatePickerTitle", (string[])[".cer", ".crt", ".pfx", "*"], "WifiCertificate") is { } reference)
+        if (await PickAndImportAsync("Network.ClientCertificatePickerTitle", ClientCertificateFilters, "WifiClientCertificate") is { } reference)
         {
-            SetWifiCertificate(reference);
+            SetWifiClientCertificate(reference);
         }
     }
+
+    [RelayCommand(CanExecute = nameof(CanRemoveWifiClientCertificate))]
+    private void RemoveWifiClientCertificate() => SetWifiClientCertificate(null);
+
+    private bool CanRemoveWifiClientCertificate() => wifiClientCertificate is not null;
+
+    [RelayCommand]
+    private async Task AddWifiTrustedRootCertificateAsync()
+    {
+        if (await PickAndImportAsync("Network.TrustedRootCertificatePickerTitle", TrustedRootCertificateFilters, "WifiTrustedRootCertificate") is { } reference &&
+            TryAddTrustedRoot(WifiTrustedRootCertificates, reference))
+        {
+            OnFileSelectionChanged();
+        }
+    }
+
+    [RelayCommand(CanExecute = nameof(CanRemoveWifiTrustedRootCertificate))]
+    private void RemoveWifiTrustedRootCertificate()
+    {
+        if (SelectedWifiTrustedRootCertificate is not { } selected)
+        {
+            return;
+        }
+
+        SelectedWifiTrustedRootCertificate = null;
+        WifiTrustedRootCertificates.Remove(selected);
+        OnFileSelectionChanged();
+    }
+
+    private bool CanRemoveWifiTrustedRootCertificate() => SelectedWifiTrustedRootCertificate is not null;
 
     partial void OnIsDot1xEnabledChanged(bool value)
     {
@@ -382,7 +504,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         {
             dot1xProfileTemplate = null;
             IsDot1xCertificateRequired = false;
-            SetDot1xCertificate(null);
+            ClearDot1xCertificates();
         }
 
         ClearWiredDot1xRoamingIfUnavailable();
@@ -393,7 +515,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     {
         if (!value)
         {
-            SetDot1xCertificate(null);
+            ClearDot1xCertificates();
         }
 
         SaveState();
@@ -422,7 +544,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
             WifiPassphrase = string.Empty;
             wifiEnterpriseProfileTemplate = null;
             IsWifiCertificateRequired = false;
-            SetWifiCertificate(null);
+            ClearWifiCertificates();
             networkSecretStateService.ClearPersonalWifiPassphrase();
         }
 
@@ -452,7 +574,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         {
             wifiEnterpriseProfileTemplate = null;
             IsWifiCertificateRequired = false;
-            SetWifiCertificate(null);
+            ClearWifiCertificates();
         }
 
         OnPropertyChanged(nameof(IsWifiPersonalSelected));
@@ -475,18 +597,18 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     {
         if (!value)
         {
-            SetWifiCertificate(null);
+            ClearWifiCertificates();
         }
 
         SaveState();
         RefreshPresentationState();
     }
 
-    /// <summary>Selects a wired certificate; a different certificate never keeps the password typed for the previous one.</summary>
-    private void SetDot1xCertificate(AuthoringFileReference? reference)
+    /// <summary>Selects the wired client certificate; a different certificate never keeps the password typed for the previous one.</summary>
+    private void SetDot1xClientCertificate(AuthoringFileReference? reference)
     {
-        bool changed = reference != dot1xCertificate;
-        dot1xCertificate = reference;
+        bool changed = reference != dot1xClientCertificate;
+        dot1xClientCertificate = reference;
         if (changed && !isApplyingState)
         {
             Dot1xCertificatePassword = string.Empty;
@@ -495,11 +617,11 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         OnFileSelectionChanged();
     }
 
-    /// <summary>Selects a Wi-Fi certificate; a different certificate never keeps the password typed for the previous one.</summary>
-    private void SetWifiCertificate(AuthoringFileReference? reference)
+    /// <summary>Selects the Wi-Fi client certificate; a different certificate never keeps the password typed for the previous one.</summary>
+    private void SetWifiClientCertificate(AuthoringFileReference? reference)
     {
-        bool changed = reference != wifiCertificate;
-        wifiCertificate = reference;
+        bool changed = reference != wifiClientCertificate;
+        wifiClientCertificate = reference;
         if (changed && !isApplyingState)
         {
             WifiCertificatePassword = string.Empty;
@@ -507,6 +629,60 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
 
         OnFileSelectionChanged();
     }
+
+    /// <summary>Drops both wired certificate slots when certificates are no longer used.</summary>
+    private void ClearDot1xCertificates()
+    {
+        SelectedDot1xTrustedRootCertificate = null;
+        Dot1xTrustedRootCertificates.Clear();
+        SetDot1xClientCertificate(null);
+    }
+
+    /// <summary>Drops both Wi-Fi certificate slots when certificates are no longer used.</summary>
+    private void ClearWifiCertificates()
+    {
+        SelectedWifiTrustedRootCertificate = null;
+        WifiTrustedRootCertificates.Clear();
+        SetWifiClientCertificate(null);
+    }
+
+    /// <summary>Appends a trusted root unless a certificate with the same content hash is already listed.</summary>
+    private static bool TryAddTrustedRoot(ObservableCollection<TrustedRootCertificateEntry> entries, AuthoringFileReference reference)
+    {
+        if (entries.Any(entry => IsSameFile(entry.Reference, reference)))
+        {
+            return false;
+        }
+
+        entries.Add(new TrustedRootCertificateEntry(reference));
+        return true;
+    }
+
+    /// <summary>
+    /// Mirrors the persisted trusted roots; the list is rebuilt only when its content hashes changed, so a state echo keeps the
+    /// selection, and a rebuilt list keeps the previously selected certificate when it is still there.
+    /// </summary>
+    private static TrustedRootCertificateEntry? SyncTrustedRoots(
+        ObservableCollection<TrustedRootCertificateEntry> entries,
+        IReadOnlyList<AuthoringFileReference> roots,
+        TrustedRootCertificateEntry? selected)
+    {
+        if (entries.Select(entry => entry.Reference.ContentHash).SequenceEqual(roots.Select(root => root.ContentHash), StringComparer.OrdinalIgnoreCase))
+        {
+            return selected;
+        }
+
+        entries.Clear();
+        foreach (AuthoringFileReference root in roots)
+        {
+            entries.Add(new TrustedRootCertificateEntry(root));
+        }
+
+        return selected is null ? null : entries.FirstOrDefault(entry => IsSameFile(entry.Reference, selected.Reference));
+    }
+
+    private static bool IsSameFile(AuthoringFileReference left, AuthoringFileReference right) =>
+        string.Equals(left.ContentHash, right.ContentHash, StringComparison.OrdinalIgnoreCase);
 
     private void OnFileSelectionChanged()
     {
@@ -518,9 +694,15 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     private void RaiseFileSelectionChanged()
     {
         OnPropertyChanged(nameof(Dot1xProfileTemplateFileName));
-        OnPropertyChanged(nameof(Dot1xCertificateFileName));
+        OnPropertyChanged(nameof(Dot1xClientCertificateFileName));
+        OnPropertyChanged(nameof(Dot1xClientCertificatePasswordVisibility));
+        OnPropertyChanged(nameof(Dot1xNoTrustedRootCertificatesVisibility));
         OnPropertyChanged(nameof(WifiEnterpriseProfileTemplateFileName));
-        OnPropertyChanged(nameof(WifiCertificateFileName));
+        OnPropertyChanged(nameof(WifiClientCertificateFileName));
+        OnPropertyChanged(nameof(WifiClientCertificatePasswordVisibility));
+        OnPropertyChanged(nameof(WifiNoTrustedRootCertificatesVisibility));
+        RemoveDot1xClientCertificateCommand.NotifyCanExecuteChanged();
+        RemoveWifiClientCertificateCommand.NotifyCanExecuteChanged();
         OnPropertyChanged(nameof(Dot1xValidationMessage));
         OnPropertyChanged(nameof(HasDot1xValidationError));
         OnPropertyChanged(nameof(Dot1xValidationVisibility));
@@ -616,7 +798,11 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         IsDot1xEnabled = settings.Dot1x.IsEnabled;
         dot1xProfileTemplate = settings.Dot1x.ProfileTemplate;
         IsDot1xCertificateRequired = settings.Dot1x.RequiresCertificate;
-        dot1xCertificate = settings.Dot1x.ClientCertificate ?? settings.Dot1x.TrustedRootCertificates.FirstOrDefault();
+        dot1xClientCertificate = settings.Dot1x.ClientCertificate;
+        SelectedDot1xTrustedRootCertificate = SyncTrustedRoots(
+            Dot1xTrustedRootCertificates,
+            settings.Dot1x.TrustedRootCertificates,
+            SelectedDot1xTrustedRootCertificate);
         Dot1xCertificatePassword = secrets.WiredCertificatePfxPassword ?? string.Empty;
 
         IsWifiProvisioned = settings.WifiProvisioned || settings.Wifi.IsEnabled;
@@ -626,7 +812,11 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         WifiPassphrase = ResolveWifiPassphrase(settings);
         wifiEnterpriseProfileTemplate = settings.Wifi.EnterpriseProfileTemplate;
         IsWifiCertificateRequired = settings.Wifi.RequiresCertificate;
-        wifiCertificate = settings.Wifi.ClientCertificate ?? settings.Wifi.TrustedRootCertificates.FirstOrDefault();
+        wifiClientCertificate = settings.Wifi.ClientCertificate;
+        SelectedWifiTrustedRootCertificate = SyncTrustedRoots(
+            WifiTrustedRootCertificates,
+            settings.Wifi.TrustedRootCertificates,
+            SelectedWifiTrustedRootCertificate);
         WifiCertificatePassword = secrets.WifiCertificatePfxPassword ?? string.Empty;
         IsWiredDot1xProfileRoamingEnabled = settings.RoamWiredDot1xProfileToWindows;
         IsWiredDot1xPrivateKeyMaterialRoamingRequested = settings.RoamWiredDot1xPrivateKeyMaterialToWindows;
@@ -672,8 +862,8 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
             WifiPassphrase = IsWifiPersonalSectionEnabled && !string.IsNullOrWhiteSpace(WifiPassphrase)
                 ? WifiPassphrase.Trim()
                 : null,
-            WiredCertificatePfxPassword = IsDot1xCertificatePathEnabled ? Dot1xCertificatePassword : null,
-            WifiCertificatePfxPassword = IsWifiCertificatePathEnabled ? WifiCertificatePassword : null
+            WiredCertificatePfxPassword = IsDot1xCertificatePathEnabled && dot1xClientCertificate is not null ? Dot1xCertificatePassword : null,
+            WifiCertificatePfxPassword = IsWifiCertificatePathEnabled && wifiClientCertificate is not null ? WifiCertificatePassword : null
         };
     }
 
@@ -694,16 +884,18 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
             RoamWiredDot1xPrivateKeyMaterialToWindows = IsWiredDot1xPrivateKeyMaterialRoamingRequested,
             RoamWifiProfileToWindows = IsWifiProfileRoamingEnabled,
             RoamWifiPrivateKeyMaterialToWindows = IsWifiPrivateKeyMaterialRoamingRequested,
-            Dot1x = NetworkCertificateShapes.WithCertificate(new Dot1xSettings
+            Dot1x = new Dot1xSettings
             {
                 IsEnabled = IsDot1xEnabled,
                 ProfileTemplate = IsDot1xEnabled ? dot1xProfileTemplate : null,
                 AuthenticationMode = NetworkAuthenticationMode.MachineOnly,
                 AllowRuntimeCredentials = false,
-                RequiresCertificate = IsDot1xEnabled && IsDot1xCertificateRequired
-            }, IsDot1xCertificatePathEnabled ? dot1xCertificate : null),
+                RequiresCertificate = IsDot1xEnabled && IsDot1xCertificateRequired,
+                ClientCertificate = IsDot1xCertificatePathEnabled ? dot1xClientCertificate : null,
+                TrustedRootCertificates = IsDot1xCertificatePathEnabled ? ToReferences(Dot1xTrustedRootCertificates) : []
+            },
             WifiProvisioned = IsWifiProvisioned,
-            Wifi = NetworkCertificateShapes.WithCertificate(new WifiSettings
+            Wifi = new WifiSettings
             {
                 IsEnabled = IsWifiConfigured,
                 Ssid = IsWifiConfigured && !string.IsNullOrWhiteSpace(WifiSsid)
@@ -716,10 +908,15 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
                 EnterpriseProfileTemplate = IsWifiEnterpriseSectionEnabled ? wifiEnterpriseProfileTemplate : null,
                 EnterpriseAuthenticationMode = NetworkAuthenticationMode.UserOnly,
                 AllowRuntimeCredentials = false,
-                RequiresCertificate = IsWifiEnterpriseSectionEnabled && IsWifiCertificateRequired
-            }, IsWifiCertificatePathEnabled ? wifiCertificate : null)
+                RequiresCertificate = IsWifiEnterpriseSectionEnabled && IsWifiCertificateRequired,
+                ClientCertificate = IsWifiCertificatePathEnabled ? wifiClientCertificate : null,
+                TrustedRootCertificates = IsWifiCertificatePathEnabled ? ToReferences(WifiTrustedRootCertificates) : []
+            }
         };
     }
+
+    private static AuthoringFileReference[] ToReferences(IEnumerable<TrustedRootCertificateEntry> entries) =>
+        [.. entries.Select(entry => entry.Reference)];
 
     private NetworkSettings BuildDot1xOnlySettings()
     {
@@ -741,7 +938,14 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     private void RefreshLocalizedText()
     {
         ProfileTemplateLabel = localizationService.GetString("Network.ProfileTemplateLabel");
-        Dot1xCertificateLabel = localizationService.GetString("Dot1x.CertificateLabel");
+        ClientCertificateLabel = localizationService.GetString("Network.ClientCertificateLabel");
+        ClientCertificateDescription = localizationService.GetString("Network.ClientCertificateDescription");
+        TrustedRootCertificatesLabel = localizationService.GetString("Network.TrustedRootCertificatesLabel");
+        TrustedRootCertificatesDescription = localizationService.GetString("Network.TrustedRootCertificatesDescription");
+        AddTrustedRootCertificateText = localizationService.GetString("Network.AddTrustedRootCertificate");
+        RemoveCertificateText = localizationService.GetString("Network.RemoveCertificate");
+        NoTrustedRootCertificatesText = localizationService.GetString("Network.NoTrustedRootCertificates");
+        NeedsAttentionText = localizationService.GetString("Common.NeedsAttention");
         CertificatePasswordLabel = localizationService.GetString("Autopilot.HardwareHashBootMediaCertificatePasswordLabel");
         RequiresCertificateText = localizationService.GetString("Network.RequiresCertificateLabel");
         WifiConfiguredText = localizationService.GetString("Wifi.ConfigureLabel");
@@ -752,7 +956,6 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         WifiEnterpriseHeader = localizationService.GetString("Network.WifiEnterpriseAdvancedHeader");
         WifiEnterpriseDescription = localizationService.GetString("Network.EnterpriseTemplateDrivenHelperText");
         WifiEnterpriseTemplateText = localizationService.GetString("Network.WifiEnterpriseTemplateLabel");
-        WifiCertificateLabel = localizationService.GetString("Wifi.CertificateLabel");
         WiredDot1xWindowsRoamingHeader = localizationService.GetString("Network.WiredDot1xWindowsRoamingSectionTitle");
         WiredDot1xWindowsRoamingDescription = localizationService.GetString("Network.WiredDot1xWindowsRoamingHelperText");
         WifiWindowsRoamingHeader = localizationService.GetString("Network.WifiWindowsRoamingSectionTitle");
@@ -799,6 +1002,16 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         ApplyState(configurationStateService.Current.Network);
     }
 
+    /// <summary>
+    /// The deployment password changes on the General page without a configuration change; network secrets require it
+    /// (<see cref="IFoundryConfigurationStateService.IsMediaProtected"/>), so the validation texts are re-read.
+    /// </summary>
+    private void OnDeploymentProtectionChanged(object? sender, EventArgs e)
+    {
+        RaiseFileSelectionChanged();
+        RefreshPresentationState();
+    }
+
     private void RefreshPresentationState()
     {
         OnPropertyChanged(nameof(Dot1xCertificatePathVisibility));
@@ -826,6 +1039,10 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         OnPropertyChanged(nameof(WifiEnterpriseTemplateValidationVisibility));
         OnPropertyChanged(nameof(WifiCertificateValidationMessage));
         OnPropertyChanged(nameof(WifiCertificateValidationVisibility));
+        OnPropertyChanged(nameof(Dot1xMediaProtectionMessage));
+        OnPropertyChanged(nameof(HasDot1xMediaProtectionIssue));
+        OnPropertyChanged(nameof(WifiMediaProtectionMessage));
+        OnPropertyChanged(nameof(HasWifiMediaProtectionIssue));
 
         IsWiredDot1xWindowsRoamingExpanded = IsWiredDot1xProfileRoamingAvailable && IsWiredDot1xProfileRoamingEnabled;
         IsWifiWindowsRoamingExpanded = IsWifiProfileRoamingAvailable && IsWifiProfileRoamingEnabled;
@@ -887,34 +1104,29 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
             NetworkConfigurationValidationCode.WiredProfileTemplateRequired or
             NetworkConfigurationValidationCode.WiredProfileTemplateMissing or
             NetworkConfigurationValidationCode.WiredCertificateRequired or
-            NetworkConfigurationValidationCode.WiredCertificateMissing;
+            NetworkConfigurationValidationCode.WiredCertificateMissing or
+            NetworkConfigurationValidationCode.WiredMediaProtectionRequired;
     }
 
+    /// <summary>Formats a result for one page: wired codes show only on the Ethernet 802.1X page, the others only on the Wi-Fi page.</summary>
     private string FormatValidationMessage(NetworkConfigurationValidationResult result, bool dot1xOnly)
     {
-        if (result.IsValid)
-        {
-            return string.Empty;
-        }
-
-        if (dot1xOnly && result.Code is not (
-            NetworkConfigurationValidationCode.WiredProfileTemplateRequired or
-            NetworkConfigurationValidationCode.WiredProfileTemplateMissing or
-            NetworkConfigurationValidationCode.WiredCertificateRequired or
-            NetworkConfigurationValidationCode.WiredCertificateMissing))
-        {
-            return string.Empty;
-        }
-
-        if (!dot1xOnly && result.Code is
-            NetworkConfigurationValidationCode.WiredProfileTemplateRequired or
-            NetworkConfigurationValidationCode.WiredProfileTemplateMissing or
-            NetworkConfigurationValidationCode.WiredCertificateRequired or
-            NetworkConfigurationValidationCode.WiredCertificateMissing)
+        if (result.IsValid || dot1xOnly != IsDot1xValidationCode(result.Code))
         {
             return string.Empty;
         }
 
         return NetworkConfigurationValidationTextFormatter.Format(localizationService, result);
     }
+}
+
+/// <summary>One trusted root CA certificate listed on a network page; the content hash of <see cref="Reference"/> is its identity.</summary>
+/// <param name="Reference">The certificate held in the authoring file library.</param>
+public sealed record TrustedRootCertificateEntry(AuthoringFileReference Reference)
+{
+    /// <summary>Gets the file name shown in the list.</summary>
+    public string FileName => Reference.FileName;
+
+    /// <summary>Returns the file name, which list item automation peers read when no other name is set.</summary>
+    public override string ToString() => FileName;
 }

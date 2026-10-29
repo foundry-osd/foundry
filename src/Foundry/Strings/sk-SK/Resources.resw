@@ -2215,12 +2215,6 @@ Licencované podľa licencie MIT.</value>
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
     <value>Zdieľaný účet na pripojenie</value>
   </data>
-  <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>Súbor certifikátu dôveryhodnej koreňovej CA</value>
-  </data>
-  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>Vyberte certifikát 802.1X</value>
-  </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Povoliť konfiguráciu Ethernet 802.1X</value>
   </data>
@@ -2710,8 +2704,23 @@ Licencované podľa licencie MIT.</value>
   <data name="NavigationStatus.NotConfigured" xml:space="preserve">
     <value>Nenakonfigurované</value>
   </data>
+  <data name="Network.AddTrustedRootCertificate" xml:space="preserve">
+    <value>Pridať certifikát</value>
+  </data>
+  <data name="Network.ClientCertificateDescription" xml:space="preserve">
+    <value>Certifikát so súkromným kľúčom, ktorý overuje toto zariadenie (EAP-TLS).</value>
+  </data>
+  <data name="Network.ClientCertificateLabel" xml:space="preserve">
+    <value>Klientsky certifikát (PFX)</value>
+  </data>
+  <data name="Network.ClientCertificatePickerTitle" xml:space="preserve">
+    <value>Vyberte klientsky certifikát</value>
+  </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>Správanie podniku je riadené šablónou profilu v tejto zostave. Poverenia 802.1X zadané počas nasadenia tu nie sú poskytované.</value>
+  </data>
+  <data name="Network.ErrorMediaProtectionRequired" xml:space="preserve">
+    <value>Heslá k Wi-Fi a klientske certifikáty chráni heslo nasadenia. Na stránke „Všeobecné“ zapnite ochranu heslom a nastavte heslo nasadenia.</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
     <value>Nepodporovaný typ zabezpečenia Wi-Fi '{0}'.</value>
@@ -2723,10 +2732,10 @@ Licencované podľa licencie MIT.</value>
     <value>Šablóna profilu Enterprise Wi-Fi musí obsahovať podporovanú hodnotu podnikovej autentifikácie.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>Súbor dôveryhodného koreňového certifikátu CA podniku Wi-Fi sa nenašiel.</value>
+    <value>Súbor certifikátu pre podnikovú sieť Wi-Fi sa nenašiel. Vyberte ho znova.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>Podnik Wi-Fi vyžaduje súbor certifikátu dôveryhodnej koreňovej CA, keď je povolená dôveryhodnosť certifikátu.</value>
+    <value>Podniková sieť Wi-Fi pri používaní certifikátov vyžaduje klientsky certifikát alebo certifikát dôveryhodnej koreňovej CA.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
     <value>Súbor šablóny profilu Enterprise Wi-Fi sa nenašiel.</value>
@@ -2744,10 +2753,10 @@ Licencované podľa licencie MIT.</value>
     <value>Konfigurácia Wi-Fi vyžaduje SSID.</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>Súbor certifikátu dôveryhodnej koreňovej CA pre káblové pripojenie 802.1X sa nenašiel.</value>
+    <value>Súbor certifikátu pre káblové pripojenie 802.1X sa nenašiel. Vyberte ho znova.</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>Wired 802.1X vyžaduje súbor certifikátu dôveryhodnej koreňovej CA, keď je povolená dôveryhodnosť certifikátu.</value>
+    <value>Káblové pripojenie 802.1X pri používaní certifikátov vyžaduje klientsky certifikát alebo certifikát dôveryhodnej koreňovej CA.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
     <value>Súbor šablóny profilu káblového pripojenia 802.1X sa nenašiel.</value>
@@ -2755,14 +2764,20 @@ Licencované podľa licencie MIT.</value>
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
     <value>Wired 802.1X vyžaduje šablónu káblového profilu.</value>
   </data>
+  <data name="Network.NoTrustedRootCertificates" xml:space="preserve">
+    <value>Nie je pridaný žiadny certifikát dôveryhodnej koreňovej CA.</value>
+  </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
     <value>Súbor šablóny profilu</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
     <value>Vyberte šablónu sieťového profilu</value>
   </data>
+  <data name="Network.RemoveCertificate" xml:space="preserve">
+    <value>Odstrániť</value>
+  </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>Importujte dôveryhodný certifikát koreňovej CA</value>
+    <value>Používať certifikáty</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Skopíruje nakonfigurované klientské certifikáty PFX do Windows a pred OOBE ich importuje do osobného úložiska certifikátov LocalMachine.</value>
@@ -2772,6 +2787,15 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Preniesť sieťové profily do Windows</value>
+  </data>
+  <data name="Network.TrustedRootCertificatePickerTitle" xml:space="preserve">
+    <value>Vyberte certifikát dôveryhodnej koreňovej CA</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesDescription" xml:space="preserve">
+    <value>Verejné certifikáty autorít, ktoré vydali certifikát overovacieho servera.</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesLabel" xml:space="preserve">
+    <value>Certifikáty dôveryhodných koreňových CA</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>Pokročilý podnik Wi-Fi</value>
@@ -2783,7 +2807,7 @@ Licencované podľa licencie MIT.</value>
     <value>Foundry si pamätá heslo v tomto počítači vo svojom lokálnom šifrovanom trezore. Tento počítač opúšťa iba v exporte alebo publikácii, keď je zvolená možnosť „Zahrnúť heslá“.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>Importuje profil Wi-Fi spravovaný Foundry do Windows pred OOBE, aby sa po WinPE zachovalo pripojenie potrebné na nasadenie.</value>
+    <value>Keď je táto možnosť zapnutá, každá sieť Wi-Fi, ku ktorej sa vo Foundry Connect podarilo pripojiť, zriadená aj pripojená ručne, sa pred OOBE importuje do Windows, počnúc tou, ktorá poskytla prístup na internet, aby sa po WinPE zachovalo pripojenie.</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming profilov Windows</value>
@@ -5072,12 +5096,6 @@ Použitie aktualizácie reštartuje Foundry OSD.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Aktualizovať</value>
-  </data>
-  <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>Súbor certifikátu dôveryhodnej koreňovej CA</value>
-  </data>
-  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>Vyberte certifikát Wi-Fi</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Predbežne si vytvorte profil Wi-Fi</value>

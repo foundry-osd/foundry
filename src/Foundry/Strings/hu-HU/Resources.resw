@@ -2215,12 +2215,6 @@ Licenc az MIT licenc alatt.</value>
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
     <value>Közös csatlakoztatási fiók</value>
   </data>
-  <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>Megbízható root CA tanúsítványfájl</value>
-  </data>
-  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>Válassza a 802.1X tanúsítványt</value>
-  </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Ethernet 802.1X-konfiguráció engedélyezése</value>
   </data>
@@ -2710,8 +2704,23 @@ Licenc az MIT licenc alatt.</value>
   <data name="NavigationStatus.NotConfigured" xml:space="preserve">
     <value>Nincs konfigurálva</value>
   </data>
+  <data name="Network.AddTrustedRootCertificate" xml:space="preserve">
+    <value>Tanúsítvány hozzáadása</value>
+  </data>
+  <data name="Network.ClientCertificateDescription" xml:space="preserve">
+    <value>Tanúsítvány a titkos kulcsával, amely hitelesíti ezt az eszközt (EAP-TLS).</value>
+  </data>
+  <data name="Network.ClientCertificateLabel" xml:space="preserve">
+    <value>Ügyféltanúsítvány (PFX)</value>
+  </data>
+  <data name="Network.ClientCertificatePickerTitle" xml:space="preserve">
+    <value>Válassza ki az ügyféltanúsítványt</value>
+  </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>A vállalati viselkedést az ebben a buildben található profilsablon vezérli. A telepítés során megadott 802.1X hitelesítő adatok itt nincsenek kiépítve.</value>
+  </data>
+  <data name="Network.ErrorMediaProtectionRequired" xml:space="preserve">
+    <value>A Wi-Fi-jelszavakat és az ügyféltanúsítványokat a telepítési jelszó védi. Engedélyezze a jelszavas védelmet az „Általános” oldalon, és állítsa be a telepítési jelszót.</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
     <value>Nem támogatott Wi-Fi biztonsági típus: '{0}'.</value>
@@ -2723,10 +2732,10 @@ Licenc az MIT licenc alatt.</value>
     <value>Az Enterprise Wi-Fi profilsablonnak tartalmaznia kell egy támogatott vállalati hitelesítési értéket.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>Vállalati Wi-Fi megbízható root CA tanúsítványfájl nem található.</value>
+    <value>Egy vállalati Wi-Fi-tanúsítványfájl nem található. Válassza ki újra.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>Enterprise Wi-Fi megbízható root CA tanúsítványfájlt igényel, ha a tanúsítvány megbízhatósága engedélyezve van.</value>
+    <value>A vállalati Wi-Fi tanúsítványok használatakor ügyféltanúsítványt vagy megbízható gyökér CA-tanúsítványt igényel.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
     <value>A vállalati Wi-Fi profilsablon fájl nem található.</value>
@@ -2744,10 +2753,10 @@ Licenc az MIT licenc alatt.</value>
     <value>Az Wi-Fi konfigurációhoz SSID szükséges.</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>A vezetékes 802.1X megbízható gyökér CA tanúsítványfájl nem található.</value>
+    <value>Egy vezetékes 802.1X-tanúsítványfájl nem található. Válassza ki újra.</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>A Wired 802.1X megbízható gyökér CA-tanúsítványfájlt igényel, ha a tanúsítvány megbízhatósága engedélyezett.</value>
+    <value>A vezetékes 802.1X tanúsítványok használatakor ügyféltanúsítványt vagy megbízható gyökér CA-tanúsítványt igényel.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
     <value>A vezetékes 802.1X profilsablon fájl nem található.</value>
@@ -2755,14 +2764,20 @@ Licenc az MIT licenc alatt.</value>
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
     <value>A vezetékes 802.1X-hez vezetékes profilsablon szükséges.</value>
   </data>
+  <data name="Network.NoTrustedRootCertificates" xml:space="preserve">
+    <value>Nincs hozzáadva megbízható gyökér CA-tanúsítvány.</value>
+  </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
     <value>Profil sablon fájl</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
     <value>Válasszon ki egy hálózati profilsablont</value>
   </data>
+  <data name="Network.RemoveCertificate" xml:space="preserve">
+    <value>Eltávolítás</value>
+  </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>Importáljon megbízható gyökér CA-tanúsítványt</value>
+    <value>Tanúsítványok használata</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Átmásolja a konfigurált PFX ügyféltanúsítványokat a Windowsba, és az OOBE előtt importálja őket a LocalMachine személyes tanúsítványtárába.</value>
@@ -2772,6 +2787,15 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Hálózati profilok átvitele Windowsba</value>
+  </data>
+  <data name="Network.TrustedRootCertificatePickerTitle" xml:space="preserve">
+    <value>Válasszon egy megbízható gyökér CA-tanúsítványt</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesDescription" xml:space="preserve">
+    <value>A hitelesítési kiszolgáló tanúsítványát kiállító hatóságok nyilvános tanúsítványai.</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesLabel" xml:space="preserve">
+    <value>Megbízható gyökér CA-tanúsítványok</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>Haladó vállalat Wi-Fi</value>
@@ -2783,7 +2807,7 @@ Licenc az MIT licenc alatt.</value>
     <value>A Foundry ezen a számítógépen a helyi titkosított tárolójában jegyzi meg a jelmondatot. Csak exportálásban vagy közzétételben hagyja el ezt a számítógépet, ha a „Jelszavak belefoglalása” lehetőség van kiválasztva.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>Importálja a Foundry által kezelt Wi-Fi-profilt a Windowsba az OOBE előtt, hogy a telepítési kapcsolat a WinPE után is megmaradjon.</value>
+    <value>Ha ez a beállítás be van kapcsolva, a Foundry Connectben sikeresen csatlakoztatott minden Wi-Fi-hálózat – akár előre konfigurált, akár manuálisan csatlakoztatott – importálásra kerül a Windowsba az OOBE előtt, kezdve azzal, amely az internet-hozzáférést biztosította, hogy a kapcsolat a WinPE után is megmaradjon.</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows-profilok barangolása</value>
@@ -5072,12 +5096,6 @@ A frissítés alkalmazása újraindítja a Foundry OSD-t.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Frissítés</value>
-  </data>
-  <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>Megbízható root CA tanúsítványfájl</value>
-  </data>
-  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>Válassza ki a Wi-Fi tanúsítványt</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Készítsen előzetesen egy Wi-Fi profilt</value>

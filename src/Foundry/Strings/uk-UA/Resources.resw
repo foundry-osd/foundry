@@ -2215,12 +2215,6 @@
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
     <value>Спільний обліковий запис для приєднання</value>
   </data>
-  <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>Файл сертифіката довіреного кореневого ЦС</value>
-  </data>
-  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>Виберіть сертифікат 802.1X</value>
-  </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Увімкнути налаштування Ethernet 802.1X</value>
   </data>
@@ -2710,8 +2704,23 @@
   <data name="NavigationStatus.NotConfigured" xml:space="preserve">
     <value>Не налаштовано</value>
   </data>
+  <data name="Network.AddTrustedRootCertificate" xml:space="preserve">
+    <value>Додати сертифікат</value>
+  </data>
+  <data name="Network.ClientCertificateDescription" xml:space="preserve">
+    <value>Сертифікат із закритим ключем, який автентифікує цей пристрій (EAP-TLS).</value>
+  </data>
+  <data name="Network.ClientCertificateLabel" xml:space="preserve">
+    <value>Сертифікат клієнта (PFX)</value>
+  </data>
+  <data name="Network.ClientCertificatePickerTitle" xml:space="preserve">
+    <value>Виберіть сертифікат клієнта</value>
+  </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>Поведінка підприємства визначається шаблоном профілю в цій збірці. Облікові дані 802.1X, введені під час розгортання, тут не надаються.</value>
+  </data>
+  <data name="Network.ErrorMediaProtectionRequired" xml:space="preserve">
+    <value>Паролі Wi-Fi і сертифікати клієнта захищено паролем розгортання. Увімкніть захист паролем на сторінці «Загальні» і встановіть пароль розгортання.</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
     <value>Непідтримуваний тип безпеки Wi-Fi '{0}'.</value>
@@ -2723,10 +2732,10 @@
     <value>Шаблон профілю підприємства Wi-Fi має містити підтримуване значення автентифікації підприємства.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>Файл сертифіката корпоративного Wi-Fi надійного кореневого ЦС не знайдено.</value>
+    <value>Файл сертифіката корпоративної мережі Wi-Fi не знайдено. Виберіть його знову.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>Підприємству Wi-Fi потрібен файл сертифіката надійного кореневого ЦС, якщо ввімкнено довіру сертифіката.</value>
+    <value>Для корпоративної мережі Wi-Fi під час використання сертифікатів потрібен сертифікат клієнта або сертифікат довіреного кореневого ЦС.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
     <value>Файл шаблону профілю підприємства Wi-Fi не знайдено.</value>
@@ -2744,10 +2753,10 @@
     <value>Конфігурація Wi-Fi вимагає SSID.</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>Файл сертифіката надійного кореневого ЦС Wired 802.1X не знайдено.</value>
+    <value>Файл сертифіката дротової мережі 802.1X не знайдено. Виберіть його знову.</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>Для Wired 802.1X потрібен файл сертифіката надійного кореневого ЦС, якщо ввімкнено довіру сертифікату.</value>
+    <value>Для дротової мережі 802.1X під час використання сертифікатів потрібен сертифікат клієнта або сертифікат довіреного кореневого ЦС.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
     <value>Файл шаблону профілю Wired 802.1X не знайдено.</value>
@@ -2755,14 +2764,20 @@
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
     <value>Для Wired 802.1X потрібен шаблон дротового профілю.</value>
   </data>
+  <data name="Network.NoTrustedRootCertificates" xml:space="preserve">
+    <value>Сертифікат довіреного кореневого ЦС не додано.</value>
+  </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
     <value>Файл шаблону профілю</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
     <value>Виберіть шаблон профілю мережі</value>
   </data>
+  <data name="Network.RemoveCertificate" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>Імпортуйте надійний кореневий сертифікат ЦС</value>
+    <value>Використовувати сертифікати</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Копіює налаштовані клієнтські сертифікати PFX до Windows і імпортує їх до особистого сховища сертифікатів LocalMachine перед OOBE.</value>
@@ -2772,6 +2787,15 @@
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Перенести мережеві профілі до Windows</value>
+  </data>
+  <data name="Network.TrustedRootCertificatePickerTitle" xml:space="preserve">
+    <value>Виберіть сертифікат довіреного кореневого ЦС</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesDescription" xml:space="preserve">
+    <value>Відкриті сертифікати центрів, які видали сертифікат сервера автентифікації.</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesLabel" xml:space="preserve">
+    <value>Сертифікати довірених кореневих ЦС</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>Розширене підприємство Wi-Fi</value>
@@ -2783,7 +2807,7 @@
     <value>Foundry запам'ятовує парольну фразу на цьому комп'ютері у своєму локальному зашифрованому сховищі. Вона залишає цей комп'ютер лише в експорті або публікації, якщо вибрано «Включити паролі».</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>Імпортує керований Foundry профіль Wi-Fi до Windows перед OOBE, щоб зберегти підключення для розгортання після WinPE.</value>
+    <value>Коли цей параметр увімкнено, кожна мережа Wi-Fi, до якої вдалося підключитися у Foundry Connect (підготовлена або підключена вручну), імпортується до Windows перед OOBE, починаючи з тієї, що надала доступ до Інтернету, щоб зберегти підключення після WinPE.</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Роумінг профілів Windows</value>
@@ -5072,12 +5096,6 @@
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>оновлення</value>
-  </data>
-  <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>Файл сертифіката довіреного кореневого ЦС</value>
-  </data>
-  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>Виберіть сертифікат Wi-Fi</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Попередньо створіть профіль Wi-Fi</value>

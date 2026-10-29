@@ -2215,12 +2215,6 @@
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
     <value>Κοινόχρηστος λογαριασμός σύνδεσης σε τομέα</value>
   </data>
-  <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>Αξιόπιστο αρχείο πιστοποιητικού CA root</value>
-  </data>
-  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>Επιλέξτε πιστοποιητικό 802.1X</value>
-  </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Ενεργοποίηση διαμόρφωσης Ethernet 802.1X</value>
   </data>
@@ -2710,8 +2704,23 @@
   <data name="NavigationStatus.NotConfigured" xml:space="preserve">
     <value>Μη διαμορφωμένο</value>
   </data>
+  <data name="Network.AddTrustedRootCertificate" xml:space="preserve">
+    <value>Προσθήκη πιστοποιητικού</value>
+  </data>
+  <data name="Network.ClientCertificateDescription" xml:space="preserve">
+    <value>Πιστοποιητικό με το ιδιωτικό του κλειδί που ελέγχει την ταυτότητα αυτής της συσκευής (EAP-TLS).</value>
+  </data>
+  <data name="Network.ClientCertificateLabel" xml:space="preserve">
+    <value>Πιστοποιητικό προγράμματος-πελάτη (PFX)</value>
+  </data>
+  <data name="Network.ClientCertificatePickerTitle" xml:space="preserve">
+    <value>Επιλέξτε το πιστοποιητικό προγράμματος-πελάτη</value>
+  </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>Η εταιρική συμπεριφορά καθορίζεται από το πρότυπο προφίλ σε αυτήν την έκδοση. Τα διαπιστευτήρια 802.1X που εισάγονται κατά την ανάπτυξη δεν παρέχονται εδώ.</value>
+  </data>
+  <data name="Network.ErrorMediaProtectionRequired" xml:space="preserve">
+    <value>Οι κωδικοί πρόσβασης Wi-Fi και τα πιστοποιητικά προγράμματος-πελάτη προστατεύονται από τον κωδικό πρόσβασης ανάπτυξης. Ενεργοποιήστε την προστασία με κωδικό πρόσβασης στη σελίδα «Γενικά» και ορίστε τον κωδικό πρόσβασης ανάπτυξης.</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
     <value>Μη υποστηριζόμενος τύπος ασφαλείας Wi-Fi '{0}'.</value>
@@ -2723,10 +2732,10 @@
     <value>Το πρότυπο προφίλ του Enterprise Wi-Fi πρέπει να περιέχει μια υποστηριζόμενη τιμή εταιρικού ελέγχου ταυτότητας.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>Το αρχείο πιστοποιητικού CA ρίζας Enterprise Wi-Fi δεν βρέθηκε.</value>
+    <value>Δεν βρέθηκε ένα αρχείο πιστοποιητικού Wi-Fi επιχείρησης. Επιλέξτε το ξανά.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>Το Enterprise Wi-Fi απαιτεί ένα αξιόπιστο αρχείο πιστοποιητικού CA root όταν είναι ενεργοποιημένη η αξιοπιστία πιστοποιητικού.</value>
+    <value>Το Wi-Fi επιχείρησης απαιτεί πιστοποιητικό προγράμματος-πελάτη ή αξιόπιστο πιστοποιητικό CA root όταν χρησιμοποιούνται πιστοποιητικά.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
     <value>Το αρχείο προτύπου προφίλ Enterprise Wi-Fi δεν βρέθηκε.</value>
@@ -2744,10 +2753,10 @@
     <value>Η διαμόρφωση Wi-Fi απαιτεί ένα SSID.</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>Το ενσύρματο 802.1X αξιόπιστο αρχείο πιστοποιητικού CA root δεν βρέθηκε.</value>
+    <value>Δεν βρέθηκε ένα αρχείο πιστοποιητικού ενσύρματου 802.1X. Επιλέξτε το ξανά.</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>Το Wired 802.1X απαιτεί ένα αξιόπιστο αρχείο πιστοποιητικού CA root όταν είναι ενεργοποιημένη η αξιοπιστία πιστοποιητικού.</value>
+    <value>Το ενσύρματο 802.1X απαιτεί πιστοποιητικό προγράμματος-πελάτη ή αξιόπιστο πιστοποιητικό CA root όταν χρησιμοποιούνται πιστοποιητικά.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
     <value>Το ενσύρματο αρχείο προτύπου προφίλ 802.1X δεν βρέθηκε.</value>
@@ -2755,14 +2764,20 @@
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
     <value>Το Wired 802.1X απαιτεί ένα πρότυπο ενσύρματου προφίλ.</value>
   </data>
+  <data name="Network.NoTrustedRootCertificates" xml:space="preserve">
+    <value>Δεν έχει προστεθεί αξιόπιστο πιστοποιητικό CA root.</value>
+  </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
     <value>Αρχείο προτύπου προφίλ</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
     <value>Επιλέξτε ένα πρότυπο προφίλ δικτύου</value>
   </data>
+  <data name="Network.RemoveCertificate" xml:space="preserve">
+    <value>Κατάργηση</value>
+  </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>Εισαγάγετε ένα αξιόπιστο πιστοποιητικό CA root</value>
+    <value>Χρήση πιστοποιητικών</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Αντιγράφει τα διαμορφωμένα πιστοποιητικά πελάτη PFX στα Windows και τα εισάγει στον προσωπικό χώρο αποθήκευσης πιστοποιητικών LocalMachine πριν από το OOBE.</value>
@@ -2772,6 +2787,15 @@
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Περιαγωγή προφίλ δικτύου στα Windows</value>
+  </data>
+  <data name="Network.TrustedRootCertificatePickerTitle" xml:space="preserve">
+    <value>Επιλέξτε ένα αξιόπιστο πιστοποιητικό CA root</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesDescription" xml:space="preserve">
+    <value>Δημόσια πιστοποιητικά των αρχών που εξέδωσαν το πιστοποιητικό του διακομιστή ελέγχου ταυτότητας.</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesLabel" xml:space="preserve">
+    <value>Αξιόπιστα πιστοποιητικά CA root</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>Προηγμένη επιχείρηση Wi-Fi</value>
@@ -2783,7 +2807,7 @@
     <value>Το Foundry απομνημονεύει τη φράση πρόσβασης σε αυτόν τον υπολογιστή στο τοπικό κρυπτογραφημένο θησαυροφυλάκιό του. Φεύγει από αυτόν τον υπολογιστή μόνο σε εξαγωγή ή δημοσίευση, όταν έχει επιλεγεί «Συμπερίληψη κωδικών πρόσβασης».</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>Εισάγει το προφίλ Wi-Fi που διαχειρίζεται το Foundry στα Windows πριν από το OOBE, ώστε να διατηρηθεί η συνδεσιμότητα ανάπτυξης μετά το WinPE.</value>
+    <value>Όταν αυτή η επιλογή είναι ενεργοποιημένη, κάθε δίκτυο Wi-Fi στο οποίο έγινε επιτυχής σύνδεση στο Foundry Connect, είτε έχει παρασχεθεί είτε συνδέθηκε χειροκίνητα, εισάγεται στα Windows πριν από το OOBE, ξεκινώντας από εκείνο που παρείχε πρόσβαση στο Internet, ώστε να διατηρηθεί η συνδεσιμότητα μετά το WinPE.</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Περιαγωγή προφίλ Windows</value>
@@ -5072,12 +5096,6 @@
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Ενημέρωση</value>
-  </data>
-  <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>Αξιόπιστο αρχείο πιστοποιητικού CA root</value>
-  </data>
-  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>Επιλέξτε το πιστοποιητικό Wi-Fi</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Παρέχετε εκ των προτέρων ένα προφίλ Wi-Fi</value>

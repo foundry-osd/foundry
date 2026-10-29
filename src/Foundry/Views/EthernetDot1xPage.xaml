@@ -36,6 +36,13 @@
                 HorizontalContentAlignment="Stretch"
                 IsEnabled="{x:Bind ViewModel.IsDot1xEnabled, Mode=OneWay}">
                 <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                    <InfoBar
+                        Title="{x:Bind ViewModel.NeedsAttentionText, Mode=OneWay}"
+                        IsClosable="False"
+                        IsOpen="{x:Bind ViewModel.HasDot1xMediaProtectionIssue, Mode=OneWay}"
+                        Message="{x:Bind ViewModel.Dot1xMediaProtectionMessage, Mode=OneWay}"
+                        Severity="Error"
+                        Visibility="{x:Bind ViewModel.HasDot1xMediaProtectionIssue, Mode=OneWay}" />
                     <wct:SettingsCard
                         HorizontalContentAlignment="Stretch"
                         Header="{x:Bind ViewModel.ProfileTemplateLabel, Mode=OneWay}"
@@ -77,7 +84,8 @@
                     </wct:SettingsCard>
                     <wct:SettingsCard
                         HorizontalContentAlignment="Stretch"
-                        Header="{x:Bind ViewModel.Dot1xCertificateLabel, Mode=OneWay}"
+                        Description="{x:Bind ViewModel.ClientCertificateDescription, Mode=OneWay}"
+                        Header="{x:Bind ViewModel.ClientCertificateLabel, Mode=OneWay}"
                         Visibility="{x:Bind ViewModel.Dot1xCertificatePathVisibility, Mode=OneWay}">
                         <StackPanel
                             HorizontalAlignment="Right"
@@ -87,17 +95,23 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <TextBox
                                         Width="{ThemeResource FoundryWideInputMinWidth}"
-                                        AutomationProperties.Name="{x:Bind ViewModel.Dot1xCertificateLabel, Mode=OneWay}"
+                                        AutomationProperties.Name="{x:Bind ViewModel.ClientCertificateLabel, Mode=OneWay}"
                                         IsReadOnly="True"
-                                        Text="{x:Bind ViewModel.Dot1xCertificateFileName, Mode=OneWay}" />
+                                        Text="{x:Bind ViewModel.Dot1xClientCertificateFileName, Mode=OneWay}" />
                                     <Button
                                         Grid.Column="1"
                                         MinWidth="{StaticResource FoundryCompactActionMinWidth}"
-                                        Command="{x:Bind ViewModel.BrowseDot1xCertificateCommand}"
+                                        Command="{x:Bind ViewModel.BrowseDot1xClientCertificateCommand}"
                                         Content="{x:Bind ViewModel.BrowseButtonText, Mode=OneWay}" />
+                                    <Button
+                                        Grid.Column="2"
+                                        MinWidth="{StaticResource FoundryCompactActionMinWidth}"
+                                        Command="{x:Bind ViewModel.RemoveDot1xClientCertificateCommand}"
+                                        Content="{x:Bind ViewModel.RemoveCertificateText, Mode=OneWay}" />
                                 </Grid>
                             </ContentControl>
                             <PasswordBox
@@ -105,7 +119,8 @@
                                 HorizontalAlignment="Left"
                                 Header="{x:Bind ViewModel.CertificatePasswordLabel, Mode=OneWay}"
                                 IsEnabled="{x:Bind Managed.ArePasswordsEditable, Mode=OneWay}"
-                                Password="{x:Bind ViewModel.Dot1xCertificatePassword, Mode=TwoWay}" />
+                                Password="{x:Bind ViewModel.Dot1xCertificatePassword, Mode=TwoWay}"
+                                Visibility="{x:Bind ViewModel.Dot1xClientCertificatePasswordVisibility, Mode=OneWay}" />
                             <TextBlock
                                 MaxWidth="{ThemeResource FoundryWideInputMinWidth}"
                                 HorizontalAlignment="Left"
@@ -114,6 +129,54 @@
                                 TextWrapping="WrapWholeWords"
                                 Visibility="{x:Bind ViewModel.Dot1xCertificateValidationVisibility, Mode=OneWay}" />
                         </StackPanel>
+                    </wct:SettingsCard>
+                    <wct:SettingsCard
+                        HorizontalContentAlignment="Stretch"
+                        ContentAlignment="Vertical"
+                        Description="{x:Bind ViewModel.TrustedRootCertificatesDescription, Mode=OneWay}"
+                        Header="{x:Bind ViewModel.TrustedRootCertificatesLabel, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.Dot1xCertificatePathVisibility, Mode=OneWay}">
+                        <ContentControl
+                            HorizontalContentAlignment="Stretch"
+                            IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}">
+                            <StackPanel Spacing="{ThemeResource FoundryContentGroupSpacing}">
+                                <StackPanel
+                                    Orientation="Horizontal"
+                                    Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                    <Button
+                                        Command="{x:Bind ViewModel.AddDot1xTrustedRootCertificateCommand}"
+                                        Content="{x:Bind ViewModel.AddTrustedRootCertificateText, Mode=OneWay}"
+                                        Style="{StaticResource AccentButtonStyle}" />
+                                    <Button
+                                        Command="{x:Bind ViewModel.RemoveDot1xTrustedRootCertificateCommand}"
+                                        Content="{x:Bind ViewModel.RemoveCertificateText, Mode=OneWay}" />
+                                </StackPanel>
+
+                                <TextBlock
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Style="{StaticResource FoundryBodyTextBlockStyle}"
+                                    Text="{x:Bind ViewModel.NoTrustedRootCertificatesText, Mode=OneWay}"
+                                    TextWrapping="WrapWholeWords"
+                                    Visibility="{x:Bind ViewModel.Dot1xNoTrustedRootCertificatesVisibility, Mode=OneWay}" />
+                                <ListView
+                                    MaxHeight="{ThemeResource FoundryTableMaxHeight}"
+                                    AutomationProperties.Name="{x:Bind ViewModel.TrustedRootCertificatesLabel, Mode=OneWay}"
+                                    ItemsSource="{x:Bind ViewModel.Dot1xTrustedRootCertificates}"
+                                    SelectedItem="{x:Bind ViewModel.SelectedDot1xTrustedRootCertificate, Mode=TwoWay}"
+                                    SelectionMode="Single">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="viewModels:TrustedRootCertificateEntry">
+                                            <TextBlock
+                                                Padding="0,8"
+                                                Style="{StaticResource FoundryBodyTextBlockStyle}"
+                                                Text="{x:Bind FileName}"
+                                                TextTrimming="CharacterEllipsis"
+                                                ToolTipService.ToolTip="{x:Bind FileName}" />
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackPanel>
+                        </ContentControl>
                     </wct:SettingsCard>
 
                     <wct:SettingsExpander

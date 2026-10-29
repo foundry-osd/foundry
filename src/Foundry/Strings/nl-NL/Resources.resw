@@ -2215,12 +2215,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
     <value>Gedeeld toetredingsaccount</value>
   </data>
-  <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>Vertrouwd root-CA-certificaatbestand</value>
-  </data>
-  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>Selecteer 802.1X-certificaat</value>
-  </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Configuratie van Ethernet 802.1X inschakelen</value>
   </data>
@@ -2710,8 +2704,23 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="NavigationStatus.NotConfigured" xml:space="preserve">
     <value>Niet geconfigureerd</value>
   </data>
+  <data name="Network.AddTrustedRootCertificate" xml:space="preserve">
+    <value>Certificaat toevoegen</value>
+  </data>
+  <data name="Network.ClientCertificateDescription" xml:space="preserve">
+    <value>Certificaat met de bijbehorende persoonlijke sleutel dat dit apparaat verifieert (EAP-TLS).</value>
+  </data>
+  <data name="Network.ClientCertificateLabel" xml:space="preserve">
+    <value>Clientcertificaat (PFX)</value>
+  </data>
+  <data name="Network.ClientCertificatePickerTitle" xml:space="preserve">
+    <value>Selecteer het clientcertificaat</value>
+  </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>Bedrijfsgedrag wordt aangestuurd door de profielsjabloon in deze build. 802.1X-referenties die tijdens de implementatie zijn ingevoerd, worden hier niet ingericht.</value>
+  </data>
+  <data name="Network.ErrorMediaProtectionRequired" xml:space="preserve">
+    <value>Wi-Fi-wachtwoorden en clientcertificaten worden beveiligd door het implementatiewachtwoord. Schakel wachtwoordbeveiliging in op de pagina Algemeen en stel het implementatiewachtwoord in.</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
     <value>Niet-ondersteund Wi-Fi beveiligingstype '{0}'.</value>
@@ -2723,10 +2732,10 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Enterprise Wi-Fi profielsjabloon moet een ondersteunde ondernemingsauthenticatiewaarde bevatten.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>Enterprise Wi-Fi vertrouwd root-CA-certificaatbestand is niet gevonden.</value>
+    <value>Een certificaatbestand voor zakelijke Wi-Fi is niet gevonden. Selecteer het opnieuw.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>Enterprise Wi-Fi vereist een vertrouwd root-CA-certificaatbestand wanneer certificaatvertrouwen is ingeschakeld.</value>
+    <value>Zakelijke Wi-Fi vereist een clientcertificaat of een vertrouwd root-CA-certificaat wanneer certificaten worden gebruikt.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
     <value>Enterprise Wi-Fi profielsjabloonbestand is niet gevonden.</value>
@@ -2744,10 +2753,10 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Wi-Fi-configuratie vereist een SSID.</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>Het bekabelde 802.1X vertrouwde root-CA-certificaatbestand is niet gevonden.</value>
+    <value>Een certificaatbestand voor bekabelde 802.1X is niet gevonden. Selecteer het opnieuw.</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>Voor Wired 802.1X is een vertrouwd root-CA-certificaatbestand vereist wanneer certificaatvertrouwen is ingeschakeld.</value>
+    <value>Bekabelde 802.1X vereist een clientcertificaat of een vertrouwd root-CA-certificaat wanneer certificaten worden gebruikt.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
     <value>Het bekabelde 802.1X-profielsjabloonbestand is niet gevonden.</value>
@@ -2755,14 +2764,20 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
     <value>Bedraad 802.1X vereist een bekabeld profielsjabloon.</value>
   </data>
+  <data name="Network.NoTrustedRootCertificates" xml:space="preserve">
+    <value>Geen vertrouwd root-CA-certificaat toegevoegd.</value>
+  </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
     <value>Profielsjabloonbestand</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
     <value>Selecteer een netwerkprofielsjabloon</value>
   </data>
+  <data name="Network.RemoveCertificate" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>Importeer een vertrouwd root-CA-certificaat</value>
+    <value>Certificaten gebruiken</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Kopieert geconfigureerde PFX-clientcertificaten naar Windows en importeert ze vóór OOBE in het persoonlijke LocalMachine-certificaatarchief.</value>
@@ -2772,6 +2787,15 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Netwerkprofielen naar Windows roamen</value>
+  </data>
+  <data name="Network.TrustedRootCertificatePickerTitle" xml:space="preserve">
+    <value>Selecteer een vertrouwd root-CA-certificaat</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesDescription" xml:space="preserve">
+    <value>Openbare certificaten van de instanties die het certificaat van de verificatieserver hebben uitgegeven.</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesLabel" xml:space="preserve">
+    <value>Vertrouwde root-CA-certificaten</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>Geavanceerde onderneming Wi-Fi</value>
@@ -2783,7 +2807,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Foundry onthoudt de wachtwoordzin op deze pc in de lokale versleutelde kluis. Deze verlaat deze pc alleen in een export of publicatie wanneer “Wachtwoorden opnemen” is gekozen.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>Importeert het door Foundry beheerde Wi-Fi-profiel vóór OOBE in Windows om de implementatieconnectiviteit na WinPE te behouden.</value>
+    <value>Wanneer deze optie is ingeschakeld, wordt elk Wi-Fi-netwerk waarmee in Foundry Connect verbinding is gemaakt, ingericht of handmatig verbonden, vóór OOBE in Windows geïmporteerd, te beginnen met het netwerk dat internettoegang bood, om de connectiviteit na WinPE te behouden.</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming van Windows-profielen</value>
@@ -5072,12 +5096,6 @@ Het toepassen van de update start Foundry OSD opnieuw.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Bijwerken</value>
-  </data>
-  <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>Vertrouwd root-CA-certificaatbestand</value>
-  </data>
-  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>Selecteer het Wi-Fi-certificaat</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Maak vooraf een Wi-Fi-profiel aan</value>

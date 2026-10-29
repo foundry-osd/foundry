@@ -2215,12 +2215,6 @@ Licențiat sub licența MIT.</value>
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
     <value>Cont de asociere partajat</value>
   </data>
-  <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>Fișier de certificat CA rădăcină de încredere</value>
-  </data>
-  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>Selectați certificatul 802.1X</value>
-  </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Activați configurarea Ethernet 802.1X</value>
   </data>
@@ -2710,8 +2704,23 @@ Licențiat sub licența MIT.</value>
   <data name="NavigationStatus.NotConfigured" xml:space="preserve">
     <value>Neconfigurat</value>
   </data>
+  <data name="Network.AddTrustedRootCertificate" xml:space="preserve">
+    <value>Adaugă un certificat</value>
+  </data>
+  <data name="Network.ClientCertificateDescription" xml:space="preserve">
+    <value>Certificat cu cheia privată care autentifică acest dispozitiv (EAP-TLS).</value>
+  </data>
+  <data name="Network.ClientCertificateLabel" xml:space="preserve">
+    <value>Certificat client (PFX)</value>
+  </data>
+  <data name="Network.ClientCertificatePickerTitle" xml:space="preserve">
+    <value>Selectați certificatul client</value>
+  </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>Comportamentul întreprinderii este determinat de șablonul de profil din această versiune. Acreditările 802.1X introduse în timpul implementării nu sunt furnizate aici.</value>
+  </data>
+  <data name="Network.ErrorMediaProtectionRequired" xml:space="preserve">
+    <value>Parolele Wi-Fi și certificatele client sunt protejate de parola de implementare. Activați protecția prin parolă pe pagina General și setați parola de implementare.</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
     <value>Tip de securitate Wi-Fi neacceptat „{0}”.</value>
@@ -2723,10 +2732,10 @@ Licențiat sub licența MIT.</value>
     <value>Șablonul de profil de întreprindere Wi-Fi trebuie să conțină o valoare de autentificare de întreprindere acceptată.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>Fișierul certificat CA rădăcină de încredere pentru întreprindere Wi-Fi nu a fost găsit.</value>
+    <value>Un fișier de certificat Wi-Fi pentru întreprindere nu a fost găsit. Selectați-l din nou.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>Enterprise Wi-Fi necesită un fișier de certificat CA rădăcină de încredere atunci când încrederea în certificat este activată.</value>
+    <value>Wi-Fi pentru întreprindere necesită un certificat client sau un certificat CA rădăcină de încredere atunci când se utilizează certificate.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
     <value>Fișierul șablon al profilului Enterprise Wi-Fi nu a fost găsit.</value>
@@ -2744,10 +2753,10 @@ Licențiat sub licența MIT.</value>
     <value>Configurarea Wi-Fi necesită un SSID.</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>Fișierul de certificat CA rădăcină de încredere 802.1X cu fir nu a fost găsit.</value>
+    <value>Un fișier de certificat 802.1X cu fir nu a fost găsit. Selectați-l din nou.</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>Wired 802.1X necesită un fișier de certificat CA rădăcină de încredere atunci când încrederea în certificat este activată.</value>
+    <value>802.1X cu fir necesită un certificat client sau un certificat CA rădăcină de încredere atunci când se utilizează certificate.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
     <value>Fișierul șablon de profil 802.1X cu fir nu a fost găsit.</value>
@@ -2755,14 +2764,20 @@ Licențiat sub licența MIT.</value>
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
     <value>802.1X cu fir necesită un șablon de profil cu fir.</value>
   </data>
+  <data name="Network.NoTrustedRootCertificates" xml:space="preserve">
+    <value>Nu a fost adăugat niciun certificat CA rădăcină de încredere.</value>
+  </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
     <value>Fișier șablon de profil</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
     <value>Selectați un șablon de profil de rețea</value>
   </data>
+  <data name="Network.RemoveCertificate" xml:space="preserve">
+    <value>Elimină</value>
+  </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>Importați un certificat CA rădăcină de încredere</value>
+    <value>Utilizați certificate</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Copiază certificatele client PFX configurate în Windows și le importă în depozitul personal de certificate LocalMachine înainte de OOBE.</value>
@@ -2772,6 +2787,15 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Transferă profilurile de rețea în Windows</value>
+  </data>
+  <data name="Network.TrustedRootCertificatePickerTitle" xml:space="preserve">
+    <value>Selectați un certificat CA rădăcină de încredere</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesDescription" xml:space="preserve">
+    <value>Certificatele publice ale autorităților care au emis certificatul serverului de autentificare.</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesLabel" xml:space="preserve">
+    <value>Certificate CA rădăcină de încredere</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>Întreprindere avansată Wi-Fi</value>
@@ -2783,7 +2807,7 @@ Licențiat sub licența MIT.</value>
     <value>Foundry reține fraza de acces pe acest PC în seiful său local criptat. Aceasta părăsește acest PC doar într-un export sau o publicare, când este aleasă opțiunea „Include parolele”.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>Importă profilul Wi-Fi gestionat de Foundry în Windows înainte de OOBE, pentru a păstra conectivitatea de implementare după WinPE.</value>
+    <value>Când această opțiune este activată, fiecare rețea Wi-Fi la care s-a realizat cu succes conexiunea în Foundry Connect, configurată în prealabil sau conectată manual, este importată în Windows înainte de OOBE, începând cu cea care a oferit acces la internet, pentru a păstra conectivitatea după WinPE.</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming pentru profilurile Windows</value>
@@ -5072,12 +5096,6 @@ Aplicarea actualizării repornește Foundry OSD.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Actualizare</value>
-  </data>
-  <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>Fișier de certificat CA rădăcină de încredere</value>
-  </data>
-  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>Selectați certificatul Wi-Fi</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Furnizați în prealabil un profil Wi-Fi</value>

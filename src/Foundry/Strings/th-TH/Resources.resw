@@ -2215,12 +2215,6 @@
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
     <value>บัญชีที่ใช้ร่วมกันสำหรับเข้าร่วมโดเมน</value>
   </data>
-  <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>ไฟล์ใบรับรอง root CA ที่เชื่อถือได้</value>
-  </data>
-  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>เลือกใบรับรอง 802.1X</value>
-  </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>เปิดใช้งานการกำหนดค่า Ethernet 802.1X</value>
   </data>
@@ -2710,8 +2704,23 @@
   <data name="NavigationStatus.NotConfigured" xml:space="preserve">
     <value>ยังไม่ได้กำหนดค่า</value>
   </data>
+  <data name="Network.AddTrustedRootCertificate" xml:space="preserve">
+    <value>เพิ่มใบรับรอง</value>
+  </data>
+  <data name="Network.ClientCertificateDescription" xml:space="preserve">
+    <value>ใบรับรองพร้อมคีย์ส่วนตัวที่ใช้รับรองความถูกต้องของอุปกรณ์นี้ (EAP-TLS)</value>
+  </data>
+  <data name="Network.ClientCertificateLabel" xml:space="preserve">
+    <value>ใบรับรองไคลเอ็นต์ (PFX)</value>
+  </data>
+  <data name="Network.ClientCertificatePickerTitle" xml:space="preserve">
+    <value>เลือกใบรับรองไคลเอ็นต์</value>
+  </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>ลักษณะการทำงานขององค์กรขับเคลื่อนโดยเทมเพลตโปรไฟล์ในรุ่นนี้ ข้อมูลประจำตัว 802.1X ที่ป้อนระหว่างการใช้งานไม่ได้ถูกจัดเตรียมไว้ที่นี่</value>
+  </data>
+  <data name="Network.ErrorMediaProtectionRequired" xml:space="preserve">
+    <value>รหัสผ่าน Wi-Fi และใบรับรองไคลเอ็นต์ได้รับการป้องกันด้วยรหัสผ่านการปรับใช้ เปิดการป้องกันด้วยรหัสผ่านในหน้า "ทั่วไป" และตั้งรหัสผ่านการปรับใช้</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
     <value>ไม่รองรับประเภทความปลอดภัย Wi-Fi '{0}'</value>
@@ -2723,10 +2732,10 @@
     <value>เทมเพลตโปรไฟล์ Enterprise Wi-Fi ต้องมีค่าการรับรองความถูกต้องขององค์กรที่รองรับ</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>ไม่พบไฟล์ใบรับรอง CA หลักที่เชื่อถือได้ขององค์กร Wi-Fi</value>
+    <value>ไม่พบไฟล์ใบรับรอง Wi-Fi ระดับองค์กร โปรดเลือกอีกครั้ง</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>Enterprise Wi-Fi ต้องการไฟล์ใบรับรอง CA รูทที่เชื่อถือได้ เมื่อเปิดใช้งานความน่าเชื่อถือของใบรับรอง</value>
+    <value>Wi-Fi ระดับองค์กรต้องใช้ใบรับรองไคลเอ็นต์หรือใบรับรอง root CA ที่เชื่อถือได้เมื่อใช้ใบรับรอง</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
     <value>ไม่พบไฟล์เทมเพลตโปรไฟล์ Enterprise Wi-Fi</value>
@@ -2744,10 +2753,10 @@
     <value>การกำหนดค่า Wi-Fi จำเป็นต้องมี SSID</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>ไม่พบไฟล์ใบรับรอง root CA ที่เชื่อถือได้แบบใช้สาย 802.1X</value>
+    <value>ไม่พบไฟล์ใบรับรอง 802.1X แบบใช้สาย โปรดเลือกอีกครั้ง</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>Wired 802.1X ต้องใช้ไฟล์ใบรับรอง CA หลักที่เชื่อถือได้ เมื่อเปิดใช้งานความน่าเชื่อถือของใบรับรอง</value>
+    <value>802.1X แบบใช้สายต้องใช้ใบรับรองไคลเอ็นต์หรือใบรับรอง root CA ที่เชื่อถือได้เมื่อใช้ใบรับรอง</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
     <value>ไม่พบไฟล์เทมเพลตโปรไฟล์ 802.1X แบบใช้สาย</value>
@@ -2755,14 +2764,20 @@
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
     <value>Wired 802.1X ต้องใช้เทมเพลตโปรไฟล์แบบใช้สาย</value>
   </data>
+  <data name="Network.NoTrustedRootCertificates" xml:space="preserve">
+    <value>ยังไม่ได้เพิ่มใบรับรอง root CA ที่เชื่อถือได้</value>
+  </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
     <value>ไฟล์เทมเพลตโปรไฟล์</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
     <value>เลือกเทมเพลตโปรไฟล์เครือข่าย</value>
   </data>
+  <data name="Network.RemoveCertificate" xml:space="preserve">
+    <value>ลบ</value>
+  </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>นำเข้าใบรับรอง CA หลักที่เชื่อถือได้</value>
+    <value>ใช้ใบรับรอง</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>คัดลอกใบรับรองไคลเอ็นต์ PFX ที่กำหนดค่าไว้ไปยัง Windows และนำเข้าไปยังที่เก็บใบรับรองส่วนบุคคล LocalMachine ก่อน OOBE</value>
@@ -2772,6 +2787,15 @@
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>โรมมิ่งโปรไฟล์เครือข่ายไปยัง Windows</value>
+  </data>
+  <data name="Network.TrustedRootCertificatePickerTitle" xml:space="preserve">
+    <value>เลือกใบรับรอง root CA ที่เชื่อถือได้</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesDescription" xml:space="preserve">
+    <value>ใบรับรองสาธารณะของผู้ออกใบรับรองที่ออกใบรับรองของเซิร์ฟเวอร์การรับรองความถูกต้อง</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesLabel" xml:space="preserve">
+    <value>ใบรับรอง root CA ที่เชื่อถือได้</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>องค์กรขั้นสูง Wi-Fi</value>
@@ -2783,7 +2807,7 @@
     <value>Foundry จะจดจำวลีรหัสผ่านบนพีซีเครื่องนี้ไว้ในห้องนิรภัยที่เข้ารหัสภายในเครื่อง และจะออกจากพีซีเครื่องนี้เฉพาะในการส่งออกหรือการเผยแพร่เมื่อเลือก “รวมรหัสผ่าน” เท่านั้น</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>นำเข้าโปรไฟล์ Wi-Fi ที่ Foundry จัดการลงใน Windows ก่อน OOBE เพื่อรักษาการเชื่อมต่อสำหรับการปรับใช้หลัง WinPE</value>
+    <value>เมื่อเปิดตัวเลือกนี้ เครือข่าย Wi-Fi ทุกเครือข่ายที่เชื่อมต่อสำเร็จใน Foundry Connect ทั้งที่จัดเตรียมไว้หรือเชื่อมต่อด้วยตนเอง จะถูกนำเข้าลงใน Windows ก่อน OOBE โดยเริ่มจากเครือข่ายที่ให้การเข้าถึงอินเทอร์เน็ต เพื่อรักษาการเชื่อมต่อหลัง WinPE</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>การโรมมิ่งโปรไฟล์ Windows</value>
@@ -5072,12 +5096,6 @@
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>อัปเดต</value>
-  </data>
-  <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>ไฟล์ใบรับรอง root CA ที่เชื่อถือได้</value>
-  </data>
-  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>เลือกใบรับรอง Wi-Fi</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>จัดเตรียมโปรไฟล์ Wi-Fi ล่วงหน้า</value>

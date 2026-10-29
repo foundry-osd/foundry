@@ -2215,12 +2215,6 @@ Lisensiert under MIT-lisensen.</value>
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
     <value>Felles tilknytningskonto</value>
   </data>
-  <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>Klarert rot-CA-sertifikatfil</value>
-  </data>
-  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>Velg 802.1X-sertifikat</value>
-  </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Aktiver konfigurasjon av Ethernet 802.1X</value>
   </data>
@@ -2710,8 +2704,23 @@ Lisensiert under MIT-lisensen.</value>
   <data name="NavigationStatus.NotConfigured" xml:space="preserve">
     <value>Ikke konfigurert</value>
   </data>
+  <data name="Network.AddTrustedRootCertificate" xml:space="preserve">
+    <value>Legg til sertifikat</value>
+  </data>
+  <data name="Network.ClientCertificateDescription" xml:space="preserve">
+    <value>Sertifikat med privat nøkkel som godkjenner denne enheten (EAP-TLS).</value>
+  </data>
+  <data name="Network.ClientCertificateLabel" xml:space="preserve">
+    <value>Klientsertifikat (PFX)</value>
+  </data>
+  <data name="Network.ClientCertificatePickerTitle" xml:space="preserve">
+    <value>Velg klientsertifikatet</value>
+  </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>Bedriftsatferd er drevet av profilmalen i denne bygningen. 802.1X-legitimasjon angitt under distribusjon blir ikke klargjort her.</value>
+  </data>
+  <data name="Network.ErrorMediaProtectionRequired" xml:space="preserve">
+    <value>Wi-Fi-passord og klientsertifikater beskyttes av distribusjonspassordet. Slå på passordbeskyttelse på siden Generelt, og angi distribusjonspassordet.</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
     <value>Ikke støttet Wi-Fi sikkerhetstype '{0}'.</value>
@@ -2723,10 +2732,10 @@ Lisensiert under MIT-lisensen.</value>
     <value>Enterprise Wi-Fi profilmal må inneholde en støttet bedriftsautentiseringsverdi.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>Enterprise Wi-Fi klarert rot-CA-sertifikatfil ble ikke funnet.</value>
+    <value>Finner ikke en sertifikatfil for bedrifts-Wi-Fi. Velg den på nytt.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>Enterprise Wi-Fi krever en klarert rot-CA-sertifikatfil når sertifikatklarering er aktivert.</value>
+    <value>Bedrifts-Wi-Fi krever et klientsertifikat eller et klarert rot-CA-sertifikat når sertifikater brukes.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
     <value>Enterprise Wi-Fi profilmalfil ble ikke funnet.</value>
@@ -2744,10 +2753,10 @@ Lisensiert under MIT-lisensen.</value>
     <value>Wi-Fi-konfigurasjon krever en SSID.</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>Kablet 802.1X klarert rot CA-sertifikatfil ble ikke funnet.</value>
+    <value>Finner ikke en sertifikatfil for kablet 802.1X. Velg den på nytt.</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>Wired 802.1X krever en klarert rot-CA-sertifikatfil når sertifikatklarering er aktivert.</value>
+    <value>Kablet 802.1X krever et klientsertifikat eller et klarert rot-CA-sertifikat når sertifikater brukes.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
     <value>Kablet 802.1X-profilmalfil ble ikke funnet.</value>
@@ -2755,14 +2764,20 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
     <value>Wired 802.1X krever en kablet profilmal.</value>
   </data>
+  <data name="Network.NoTrustedRootCertificates" xml:space="preserve">
+    <value>Ingen klarert rot-CA-sertifikat er lagt til.</value>
+  </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
     <value>Profilmalfil</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
     <value>Velg en nettverksprofilmal</value>
   </data>
+  <data name="Network.RemoveCertificate" xml:space="preserve">
+    <value>Fjern</value>
+  </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>Importer et pålitelig rot-CA-sertifikat</value>
+    <value>Bruk sertifikater</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Kopierer konfigurerte PFX-klientsertifikater til Windows og importerer dem til det personlige LocalMachine-sertifikatlageret før OOBE.</value>
@@ -2772,6 +2787,15 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Roam nettverksprofiler til Windows</value>
+  </data>
+  <data name="Network.TrustedRootCertificatePickerTitle" xml:space="preserve">
+    <value>Velg et klarert rot-CA-sertifikat</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesDescription" xml:space="preserve">
+    <value>Offentlige sertifikater fra instansene som utstedte sertifikatet til godkjenningsserveren.</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesLabel" xml:space="preserve">
+    <value>Klarerte rot-CA-sertifikater</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>Avansert bedrift Wi-Fi</value>
@@ -2783,7 +2807,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Foundry husker passordfrasen på denne PC-en i sitt lokale krypterte hvelv. Den forlater bare denne PC-en i en eksport eller en publisering når «Ta med passord» er valgt.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>Importerer Wi-Fi-profilen som administreres av Foundry, til Windows før OOBE for å bevare utrullingstilkoblingen etter WinPE.</value>
+    <value>Når dette alternativet er på, importeres hvert Wi-Fi-nettverk som det ble koblet til i Foundry Connect, klargjort eller koblet til manuelt, til Windows før OOBE, med nettverket som ga Internett-tilgang først, for å bevare tilkoblingen etter WinPE.</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming av Windows-profiler</value>
@@ -5072,12 +5096,6 @@ Oppdateringen starter Foundry OSD på nytt.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Oppdater</value>
-  </data>
-  <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>Klarert rot-CA-sertifikatfil</value>
-  </data>
-  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>Velg Wi-Fi-sertifikatet</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Forhåndstillegg en Wi-Fi-profil</value>

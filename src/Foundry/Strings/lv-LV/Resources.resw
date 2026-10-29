@@ -2215,12 +2215,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
     <value>Kopīgais pievienošanas konts</value>
   </data>
-  <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>Uzticams saknes CA sertifikāta fails</value>
-  </data>
-  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>Atlasiet 802.1X sertifikātu</value>
-  </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Iespējot Ethernet 802.1X konfigurāciju</value>
   </data>
@@ -2710,8 +2704,23 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="NavigationStatus.NotConfigured" xml:space="preserve">
     <value>Nav konfigurēts</value>
   </data>
+  <data name="Network.AddTrustedRootCertificate" xml:space="preserve">
+    <value>Pievienot sertifikātu</value>
+  </data>
+  <data name="Network.ClientCertificateDescription" xml:space="preserve">
+    <value>Sertifikāts ar privāto atslēgu, kas autentificē šo ierīci (EAP-TLS).</value>
+  </data>
+  <data name="Network.ClientCertificateLabel" xml:space="preserve">
+    <value>Klienta sertifikāts (PFX)</value>
+  </data>
+  <data name="Network.ClientCertificatePickerTitle" xml:space="preserve">
+    <value>Atlasiet klienta sertifikātu</value>
+  </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>Uzņēmuma darbību nosaka šajā būvniecībā esošā profila veidne. Izvietošanas laikā ievadītie 802.1X akreditācijas dati šeit netiek nodrošināti.</value>
+  </data>
+  <data name="Network.ErrorMediaProtectionRequired" xml:space="preserve">
+    <value>Wi-Fi paroles un klientu sertifikātus aizsargā izvietošanas parole. Lapā „Vispārīgi” ieslēdziet aizsardzību ar paroli un iestatiet izvietošanas paroli.</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
     <value>Neatbalstīts Wi-Fi drošības veids '{0}'.</value>
@@ -2723,10 +2732,10 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Uzņēmuma Wi-Fi profila veidnē ir jāietver atbalstīta uzņēmuma autentifikācijas vērtība.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>Uzņēmuma Wi-Fi uzticamais saknes CA sertifikāta fails netika atrasts.</value>
+    <value>Uzņēmuma Wi-Fi sertifikāta fails netika atrasts. Atlasiet to vēlreiz.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>Uzņēmumam Wi-Fi ir nepieciešams uzticams saknes CA sertifikāta fails, ja sertifikāta uzticamība ir iespējota.</value>
+    <value>Ja tiek izmantoti sertifikāti, uzņēmuma Wi-Fi pieprasa klienta sertifikātu vai uzticamu saknes CA sertifikātu.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
     <value>Uzņēmuma Wi-Fi profila veidnes fails netika atrasts.</value>
@@ -2744,10 +2753,10 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Wi-Fi konfigurācijai ir nepieciešams SSID.</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>Vadu 802.1X uzticams saknes CA sertifikāta fails netika atrasts.</value>
+    <value>Vadu 802.1X sertifikāta fails netika atrasts. Atlasiet to vēlreiz.</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>Wired 802.1X pieprasa uzticamu saknes CA sertifikāta failu, ja ir iespējota sertifikāta uzticamība.</value>
+    <value>Ja tiek izmantoti sertifikāti, vadu 802.1X pieprasa klienta sertifikātu vai uzticamu saknes CA sertifikātu.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
     <value>Vadu 802.1X profila veidnes fails netika atrasts.</value>
@@ -2755,14 +2764,20 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
     <value>Wired 802.1X nepieciešama vadu profila veidne.</value>
   </data>
+  <data name="Network.NoTrustedRootCertificates" xml:space="preserve">
+    <value>Nav pievienots neviens uzticams saknes CA sertifikāts.</value>
+  </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
     <value>Profila veidnes fails</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
     <value>Atlasiet tīkla profila veidni</value>
   </data>
+  <data name="Network.RemoveCertificate" xml:space="preserve">
+    <value>Noņemt</value>
+  </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>Importējiet uzticamu saknes CA sertifikātu</value>
+    <value>Izmantot sertifikātus</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Kopē konfigurētos PFX klienta sertifikātus uz Windows un pirms OOBE importē tos LocalMachine personīgajā sertifikātu krātuvē.</value>
@@ -2772,6 +2787,15 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Pārvietot tīkla profilus uz Windows</value>
+  </data>
+  <data name="Network.TrustedRootCertificatePickerTitle" xml:space="preserve">
+    <value>Atlasiet uzticamu saknes CA sertifikātu</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesDescription" xml:space="preserve">
+    <value>To iestāžu publiskie sertifikāti, kuras izdeva autentifikācijas servera sertifikātu.</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesLabel" xml:space="preserve">
+    <value>Uzticami saknes CA sertifikāti</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>Uzlabots uzņēmums Wi-Fi</value>
@@ -2783,7 +2807,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Foundry atceras ieejas frāzi šajā datorā savā lokālajā šifrētajā glabātavā. Tā atstāj šo datoru tikai eksportā vai publikācijā, ja ir izvēlēts “Iekļaut paroles”.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>Importē Foundry pārvaldīto Wi-Fi profilu sistēmā Windows pirms OOBE, lai pēc WinPE saglabātu izvietošanas savienojamību.</value>
+    <value>Ja šī opcija ir ieslēgta, katrs Wi-Fi tīkls, ar kuru Foundry Connect tika veiksmīgi izveidots savienojums, gan nodrošināts, gan pievienots manuāli, tiek importēts sistēmā Windows pirms OOBE, sākot ar to, kas nodrošināja piekļuvi internetam, lai pēc WinPE saglabātu savienojamību.</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows profilu viesabonēšana</value>
@@ -5072,12 +5096,6 @@ Atjauninājuma lietošana restartē Foundry OSD.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Atjaunināt</value>
-  </data>
-  <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>Uzticams saknes CA sertifikāta fails</value>
-  </data>
-  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>Atlasiet Wi-Fi sertifikātu</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Iepriekš nodrošiniet Wi-Fi profilu</value>

@@ -2215,12 +2215,6 @@ Licenciran prema MIT licenci.</value>
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
     <value>Zajednički račun za pridruživanje</value>
   </data>
-  <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>Datoteka certifikata pouzdanog korijenskog CA</value>
-  </data>
-  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>Odaberite 802.1X certifikat</value>
-  </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Omogući konfiguraciju za Ethernet 802.1X</value>
   </data>
@@ -2710,8 +2704,23 @@ Licenciran prema MIT licenci.</value>
   <data name="NavigationStatus.NotConfigured" xml:space="preserve">
     <value>Nije konfigurirano</value>
   </data>
+  <data name="Network.AddTrustedRootCertificate" xml:space="preserve">
+    <value>Dodaj certifikat</value>
+  </data>
+  <data name="Network.ClientCertificateDescription" xml:space="preserve">
+    <value>Certifikat s privatnim ključem koji provjerava autentičnost ovog uređaja (EAP-TLS).</value>
+  </data>
+  <data name="Network.ClientCertificateLabel" xml:space="preserve">
+    <value>Certifikat klijenta (PFX)</value>
+  </data>
+  <data name="Network.ClientCertificatePickerTitle" xml:space="preserve">
+    <value>Odaberite certifikat klijenta</value>
+  </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>Ponašanje poduzeća je vođeno predloškom profila u ovoj verziji. 802.1X vjerodajnice unesene tijekom implementacije nisu ovdje osigurane.</value>
+  </data>
+  <data name="Network.ErrorMediaProtectionRequired" xml:space="preserve">
+    <value>Lozinke za Wi-Fi i certifikati klijenta zaštićeni su lozinkom za implementaciju. Omogućite zaštitu lozinkom na stranici „Općenito” i postavite lozinku za implementaciju.</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
     <value>Nepodržana Wi-Fi vrsta sigurnosti '{0}'.</value>
@@ -2723,10 +2732,10 @@ Licenciran prema MIT licenci.</value>
     <value>Predložak profila poduzeća Wi-Fi mora sadržavati podržanu vrijednost provjere autentičnosti poduzeća.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>Datoteka certifikata pouzdanog korijenskog CA poduzeća Wi-Fi nije pronađena.</value>
+    <value>Datoteka certifikata za poslovni Wi-Fi nije pronađena. Ponovno je odaberite.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>Poduzeće Wi-Fi zahtijeva pouzdanu datoteku s korijenskim CA certifikatom kada je povjerenje certifikata omogućeno.</value>
+    <value>Poslovni Wi-Fi zahtijeva certifikat klijenta ili certifikat pouzdanog korijenskog CA kada se koriste certifikati.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
     <value>Datoteka predloška profila poduzeća Wi-Fi nije pronađena.</value>
@@ -2744,10 +2753,10 @@ Licenciran prema MIT licenci.</value>
     <value>Wi-Fi konfiguracija zahtijeva SSID.</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>Wired 802.1X trusted root CA datoteka certifikata nije pronađena.</value>
+    <value>Datoteka certifikata za žičani 802.1X nije pronađena. Ponovno je odaberite.</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>Wired 802.1X zahtijeva pouzdanu datoteku korijenskog CA certifikata kada je omogućeno povjerenje certifikata.</value>
+    <value>Žičani 802.1X zahtijeva certifikat klijenta ili certifikat pouzdanog korijenskog CA kada se koriste certifikati.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
     <value>Datoteka predloška profila žičanog 802.1X nije pronađena.</value>
@@ -2755,14 +2764,20 @@ Licenciran prema MIT licenci.</value>
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
     <value>Žičani 802.1X zahtijeva predložak žičanog profila.</value>
   </data>
+  <data name="Network.NoTrustedRootCertificates" xml:space="preserve">
+    <value>Nije dodan nijedan certifikat pouzdanog korijenskog CA.</value>
+  </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
     <value>Datoteka predloška profila</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
     <value>Odaberite predložak mrežnog profila</value>
   </data>
+  <data name="Network.RemoveCertificate" xml:space="preserve">
+    <value>Ukloni</value>
+  </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>Uvezite pouzdani korijenski CA certifikat</value>
+    <value>Koristi certifikate</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Kopira konfigurirane PFX klijentske certifikate u Windows i uvozi ih u osobnu pohranu certifikata LocalMachine prije OOBE-a.</value>
@@ -2772,6 +2787,15 @@ Licenciran prema MIT licenci.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Prenesi mrežne profile u Windows</value>
+  </data>
+  <data name="Network.TrustedRootCertificatePickerTitle" xml:space="preserve">
+    <value>Odaberite certifikat pouzdanog korijenskog CA</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesDescription" xml:space="preserve">
+    <value>Javni certifikati izdavatelja koji su izdali certifikat poslužitelja za provjeru autentičnosti.</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesLabel" xml:space="preserve">
+    <value>Certifikati pouzdanih korijenskih CA</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>Napredno poduzeće Wi-Fi</value>
@@ -2783,7 +2807,7 @@ Licenciran prema MIT licenci.</value>
     <value>Foundry pamti lozinku na ovom računalu u svom lokalnom šifriranom trezoru. Ovo računalo napušta samo u izvozu ili objavi kada je odabrano „Uključi lozinke“.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>Uvozi Wi-Fi profil kojim upravlja Foundry u Windows prije OOBE-a kako bi se povezivost implementacije sačuvala nakon WinPE-a.</value>
+    <value>Kada je ova mogućnost uključena, svaka Wi-Fi mreža s kojom je uspješno uspostavljena veza u aplikaciji Foundry Connect, pripremljena ili ručno povezana, uvozi se u Windows prije OOBE-a, počevši od one koja je omogućila pristup internetu, kako bi se povezivost sačuvala nakon WinPE-a.</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming Windows profila</value>
@@ -5072,12 +5096,6 @@ Primjena ažuriranja ponovno pokreće Foundry OSD.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Ažurirati</value>
-  </data>
-  <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>Datoteka certifikata pouzdanog korijenskog CA</value>
-  </data>
-  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>Odaberite Wi-Fi certifikat</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Unaprijed dodijeli Wi-Fi profil</value>

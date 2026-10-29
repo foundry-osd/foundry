@@ -2215,12 +2215,6 @@ Sous licence MIT.</value>
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
     <value>Compte de jonction partagé</value>
   </data>
-  <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>Fichier de certificat d'autorité racine de confiance</value>
-  </data>
-  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>Sélectionner le certificat 802.1X</value>
-  </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Activer la configuration Ethernet 802.1X</value>
   </data>
@@ -2710,8 +2704,23 @@ Sous licence MIT.</value>
   <data name="NavigationStatus.NotConfigured" xml:space="preserve">
     <value>Non configuré</value>
   </data>
+  <data name="Network.AddTrustedRootCertificate" xml:space="preserve">
+    <value>Ajouter un certificat</value>
+  </data>
+  <data name="Network.ClientCertificateDescription" xml:space="preserve">
+    <value>Certificat avec sa clé privée qui authentifie cet appareil (EAP-TLS).</value>
+  </data>
+  <data name="Network.ClientCertificateLabel" xml:space="preserve">
+    <value>Certificat client (PFX)</value>
+  </data>
+  <data name="Network.ClientCertificatePickerTitle" xml:space="preserve">
+    <value>Sélectionner le certificat client</value>
+  </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>Le comportement entreprise est piloté par le modèle de profil dans cette version. Les informations d'identification 802.1X saisies pendant le déploiement ne sont pas provisionnées ici.</value>
+  </data>
+  <data name="Network.ErrorMediaProtectionRequired" xml:space="preserve">
+    <value>Les mots de passe Wi-Fi et les certificats clients sont protégés par le mot de passe de déploiement. Activez la protection par mot de passe sur la page « Général » et définissez le mot de passe de déploiement.</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
     <value>Type de sécurité Wi-Fi non pris en charge : « {0} ».</value>
@@ -2723,10 +2732,10 @@ Sous licence MIT.</value>
     <value>Le modèle de profil Wi-Fi d'entreprise doit contenir une valeur d'authentification d'entreprise prise en charge.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>Le fichier du certificat d'autorité racine de confiance Wi-Fi d'entreprise est introuvable.</value>
+    <value>Un fichier de certificat Wi-Fi d'entreprise est introuvable. Sélectionnez-le à nouveau.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>Le Wi-Fi d'entreprise nécessite un certificat d'autorité racine de confiance lorsque la confiance par certificat est activée.</value>
+    <value>Le Wi-Fi d'entreprise nécessite un certificat client ou un certificat d'autorité racine de confiance lorsque des certificats sont utilisés.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
     <value>Le fichier du modèle de profil Wi-Fi d'entreprise est introuvable.</value>
@@ -2744,10 +2753,10 @@ Sous licence MIT.</value>
     <value>La configuration Wi-Fi nécessite un SSID.</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>Le fichier du certificat d'autorité racine de confiance 802.1X filaire est introuvable.</value>
+    <value>Un fichier de certificat 802.1X filaire est introuvable. Sélectionnez-le à nouveau.</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>Le 802.1X filaire nécessite un certificat d'autorité racine de confiance lorsque la confiance par certificat est activée.</value>
+    <value>Le 802.1X filaire nécessite un certificat client ou un certificat d'autorité racine de confiance lorsque des certificats sont utilisés.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
     <value>Le fichier du modèle de profil 802.1X filaire est introuvable.</value>
@@ -2755,14 +2764,20 @@ Sous licence MIT.</value>
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
     <value>Le 802.1X filaire nécessite un modèle de profil filaire.</value>
   </data>
+  <data name="Network.NoTrustedRootCertificates" xml:space="preserve">
+    <value>Aucun certificat d'autorité racine de confiance ajouté.</value>
+  </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
     <value>Fichier modèle de profil</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
     <value>Sélectionner un modèle de profil réseau</value>
   </data>
+  <data name="Network.RemoveCertificate" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>Importer un certificat d'autorité racine de confiance</value>
+    <value>Utiliser des certificats</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Copie les certificats client PFX configurés vers Windows et les importe dans le magasin personnel LocalMachine avant l'OOBE.</value>
@@ -2772,6 +2787,15 @@ Sous licence MIT.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Roamer les profils réseau vers Windows</value>
+  </data>
+  <data name="Network.TrustedRootCertificatePickerTitle" xml:space="preserve">
+    <value>Sélectionner un certificat d'autorité racine de confiance</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesDescription" xml:space="preserve">
+    <value>Certificats publics des autorités qui ont émis le certificat du serveur d'authentification.</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesLabel" xml:space="preserve">
+    <value>Certificats d'autorité racine de confiance</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>Wi-Fi entreprise avancé</value>
@@ -2783,7 +2807,7 @@ Sous licence MIT.</value>
     <value>Foundry mémorise la phrase secrète sur ce PC dans son coffre local chiffré. Elle ne quitte ce PC que dans une exportation ou une publication lorsque « Inclure les mots de passe » est choisi.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>Importe le profil Wi-Fi géré par Foundry dans Windows avant l'OOBE afin de conserver la connectivité de déploiement après WinPE.</value>
+    <value>Lorsque cette option est activée, chaque réseau Wi-Fi rejoint avec succès dans Foundry Connect, provisionné ou rejoint manuellement, est importé dans Windows avant l'OOBE, en commençant par celui qui a fourni l'accès à Internet, afin de conserver la connectivité après WinPE.</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Itinérance des profils Windows</value>
@@ -5072,12 +5096,6 @@ L'application de la mise à jour redémarre Foundry OSD.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Mise à jour</value>
-  </data>
-  <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>Fichier de certificat d'autorité racine de confiance</value>
-  </data>
-  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>Sélectionner le certificat Wi-Fi</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Préprovisionner un profil Wi-Fi</value>

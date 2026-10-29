@@ -2215,12 +2215,6 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
     <value>Jaettu liittämistili</value>
   </data>
-  <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>Luotettu juurivarmennetiedosto</value>
-  </data>
-  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>Valitse 802.1X-sertifikaatti</value>
-  </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Ota Ethernet 802.1X -määritys käyttöön</value>
   </data>
@@ -2710,8 +2704,23 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="NavigationStatus.NotConfigured" xml:space="preserve">
     <value>Ei määritetty</value>
   </data>
+  <data name="Network.AddTrustedRootCertificate" xml:space="preserve">
+    <value>Lisää varmenne</value>
+  </data>
+  <data name="Network.ClientCertificateDescription" xml:space="preserve">
+    <value>Varmenne yksityisine avaimineen, joka todentaa tämän laitteen (EAP-TLS).</value>
+  </data>
+  <data name="Network.ClientCertificateLabel" xml:space="preserve">
+    <value>Asiakasvarmenne (PFX)</value>
+  </data>
+  <data name="Network.ClientCertificatePickerTitle" xml:space="preserve">
+    <value>Valitse asiakasvarmenne</value>
+  </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>Yrityksen toimintaa ohjaa tämän koontiversion profiilimalli. Käyttöönoton aikana annettuja 802.1X-tunnistetietoja ei ole määritetty tässä.</value>
+  </data>
+  <data name="Network.ErrorMediaProtectionRequired" xml:space="preserve">
+    <value>Wi-Fi-salasanat ja asiakasvarmenteet suojataan käyttöönoton salasanalla. Ota salasanasuojaus käyttöön sivulla ”Yleiset” ja määritä käyttöönoton salasana.</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
     <value>Ei tuettu Wi-Fi suojaustyyppiä '{0}'.</value>
@@ -2723,10 +2732,10 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Enterprise Wi-Fi -profiilimallin on sisällettävä tuettu yrityksen todennusarvo.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>Enterprise Wi-Fi luotettua juurivarmennetiedostoa ei löytynyt.</value>
+    <value>Yritys-Wi-Fin varmennetiedostoa ei löytynyt. Valitse se uudelleen.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>Enterprise Wi-Fi vaatii luotetun juuri CA -sertifikaattitiedoston, kun varmenteen luottamus on käytössä.</value>
+    <value>Yritys-Wi-Fi vaatii asiakasvarmenteen tai luotetun juurivarmenteen, kun varmenteita käytetään.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
     <value>Enterprise Wi-Fi -profiilimallitiedostoa ei löytynyt.</value>
@@ -2744,10 +2753,10 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Wi-Fi-määritys vaatii SSID.</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>Kiinteä 802.1X luotettu juurivarmennetiedostoa ei löytynyt.</value>
+    <value>Kiinteän 802.1X-yhteyden varmennetiedostoa ei löytynyt. Valitse se uudelleen.</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>Kiinteä 802.1X vaatii luotetun päävarmenteen varmennetiedoston, kun varmenteen luottamus on käytössä.</value>
+    <value>Kiinteä 802.1X vaatii asiakasvarmenteen tai luotetun juurivarmenteen, kun varmenteita käytetään.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
     <value>Langallisen 802.1X-profiilin mallitiedostoa ei löytynyt.</value>
@@ -2755,14 +2764,20 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
     <value>Langallinen 802.1X vaatii langallisen profiilimallin.</value>
   </data>
+  <data name="Network.NoTrustedRootCertificates" xml:space="preserve">
+    <value>Luotettua juurivarmennetta ei ole lisätty.</value>
+  </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
     <value>Profiilimallitiedosto</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
     <value>Valitse verkkoprofiilimalli</value>
   </data>
+  <data name="Network.RemoveCertificate" xml:space="preserve">
+    <value>Poista</value>
+  </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>Tuo luotettu CA-juurivarmenne</value>
+    <value>Käytä varmenteita</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Kopioi määritetyt PFX-asiakasvarmenteet Windowsiin ja tuo ne LocalMachine-henkilökohtaiseen varmennevarastoon ennen OOBE-vaihetta.</value>
@@ -2772,6 +2787,15 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Siirrä verkkoprofiilit Windowsiin</value>
+  </data>
+  <data name="Network.TrustedRootCertificatePickerTitle" xml:space="preserve">
+    <value>Valitse luotettu juurivarmenne</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesDescription" xml:space="preserve">
+    <value>Todennuspalvelimen varmenteen myöntäneiden varmentajien julkiset varmenteet.</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesLabel" xml:space="preserve">
+    <value>Luotetut juurivarmenteet</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>Edistynyt yritys Wi-Fi</value>
@@ -2783,7 +2807,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Foundry muistaa salauslauseen tässä tietokoneessa paikallisessa salatussa holvissaan. Se lähtee tästä tietokoneesta vain viennissä tai julkaisussa, kun ”Sisällytä salasanat” on valittu.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>Tuo Foundryn hallitseman Wi-Fi-profiilin Windowsiin ennen OOBE-vaihetta, jotta käyttöönoton yhteys säilyy WinPE:n jälkeen.</value>
+    <value>Kun tämä asetus on käytössä, jokainen Wi-Fi-verkko, johon Foundry Connectissa muodostettiin yhteys onnistuneesti, valmiiksi määritetty tai manuaalisesti yhdistetty, tuodaan Windowsiin ennen OOBE-vaihetta alkaen siitä, joka tarjosi internetyhteyden, jotta yhteys säilyy WinPE:n jälkeen.</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows-profiilien siirto</value>
@@ -5072,12 +5096,6 @@ Päivityksen asentaminen käynnistää Foundry OSD:n uudelleen.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Päivitä</value>
-  </data>
-  <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>Luotettu juurivarmennetiedosto</value>
-  </data>
-  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>Valitse Wi-Fi-varmenne</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Luo etukäteen Wi-Fi-profiili</value>

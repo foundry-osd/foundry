@@ -7,6 +7,7 @@ using Foundry.Services.Localization;
 
 namespace Foundry.ViewModels;
 
+/// <summary>Maps a network validation result to its localized text; both protection codes share one text that reads the same before a secret is typed.</summary>
 internal static class NetworkConfigurationValidationTextFormatter
 {
     public static string Format(
@@ -34,6 +35,8 @@ internal static class NetworkConfigurationValidationTextFormatter
             NetworkConfigurationValidationCode.WifiEnterpriseAuthenticationMismatch => "Network.ErrorWifiEnterpriseAuthenticationMismatchFormat",
             NetworkConfigurationValidationCode.WifiEnterpriseCertificateRequired => "Network.ErrorWifiEnterpriseCertificateRequired",
             NetworkConfigurationValidationCode.WifiEnterpriseCertificateMissing => "Network.ErrorWifiEnterpriseCertificateMissing",
+            NetworkConfigurationValidationCode.WiredMediaProtectionRequired or
+            NetworkConfigurationValidationCode.WifiMediaProtectionRequired => "Network.ErrorMediaProtectionRequired",
             _ => string.Empty
         };
 

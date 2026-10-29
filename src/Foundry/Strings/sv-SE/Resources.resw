@@ -2215,12 +2215,6 @@ Licensierad under MIT-licensen.</value>
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
     <value>Delat anslutningskonto</value>
   </data>
-  <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>Betrodd rot-CA-certifikatfil</value>
-  </data>
-  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>Välj 802.1X-certifikat</value>
-  </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Aktivera konfiguration av Ethernet 802.1X</value>
   </data>
@@ -2710,8 +2704,23 @@ Licensierad under MIT-licensen.</value>
   <data name="NavigationStatus.NotConfigured" xml:space="preserve">
     <value>Inte konfigurerad</value>
   </data>
+  <data name="Network.AddTrustedRootCertificate" xml:space="preserve">
+    <value>Lägg till certifikat</value>
+  </data>
+  <data name="Network.ClientCertificateDescription" xml:space="preserve">
+    <value>Certifikat med sin privata nyckel som autentiserar den här enheten (EAP-TLS).</value>
+  </data>
+  <data name="Network.ClientCertificateLabel" xml:space="preserve">
+    <value>Klientcertifikat (PFX)</value>
+  </data>
+  <data name="Network.ClientCertificatePickerTitle" xml:space="preserve">
+    <value>Välj klientcertifikatet</value>
+  </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>Företagsbeteende drivs av profilmallen i denna build. 802.1X-uppgifter som angetts under distributionen tillhandahålls inte här.</value>
+  </data>
+  <data name="Network.ErrorMediaProtectionRequired" xml:space="preserve">
+    <value>Wi-Fi-lösenord och klientcertifikat skyddas av distributionslösenordet. Aktivera lösenordsskydd på sidan ”Allmänt” och ange distributionslösenordet.</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
     <value>Stöds inte Wi-Fi säkerhetstyp '{0}'.</value>
@@ -2723,10 +2732,10 @@ Licensierad under MIT-licensen.</value>
     <value>Enterprise Wi-Fi profilmall måste innehålla ett företagsautentiseringsvärde som stöds.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>Enterprise Wi-Fi betrodd rot-CA-certifikatfil hittades inte.</value>
+    <value>En certifikatfil för företags-Wi-Fi hittades inte. Välj den igen.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>Enterprise Wi-Fi kräver en betrodd rot-CA-certifikatfil när certifikatförtroende är aktiverat.</value>
+    <value>Företags-Wi-Fi kräver ett klientcertifikat eller ett betrott rot-CA-certifikat när certifikat används.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
     <value>Enterprise Wi-Fi profilmallfil hittades inte.</value>
@@ -2744,10 +2753,10 @@ Licensierad under MIT-licensen.</value>
     <value>Wi-Fi-konfiguration kräver en SSID.</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>Kabelansluten 802.1X betrodd rot-CA-certifikatfil hittades inte.</value>
+    <value>En certifikatfil för kabelanslutet 802.1X hittades inte. Välj den igen.</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>Wired 802.1X kräver en betrodd rot-CA-certifikatfil när certifikattillförlitlighet är aktiverat.</value>
+    <value>Kabelanslutet 802.1X kräver ett klientcertifikat eller ett betrott rot-CA-certifikat när certifikat används.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
     <value>Trådbunden 802.1X-profilmallfil hittades inte.</value>
@@ -2755,14 +2764,20 @@ Licensierad under MIT-licensen.</value>
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
     <value>Wired 802.1X kräver en trådbunden profilmall.</value>
   </data>
+  <data name="Network.NoTrustedRootCertificates" xml:space="preserve">
+    <value>Inget betrott rot-CA-certifikat har lagts till.</value>
+  </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
     <value>Profilmallsfil</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
     <value>Välj en nätverksprofilmall</value>
   </data>
+  <data name="Network.RemoveCertificate" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>Importera ett pålitligt rot-CA-certifikat</value>
+    <value>Använd certifikat</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Kopierar konfigurerade PFX-klientcertifikat till Windows och importerar dem till LocalMachine personliga certifikatarkiv före OOBE.</value>
@@ -2772,6 +2787,15 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Roama nätverksprofiler till Windows</value>
+  </data>
+  <data name="Network.TrustedRootCertificatePickerTitle" xml:space="preserve">
+    <value>Välj ett betrott rot-CA-certifikat</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesDescription" xml:space="preserve">
+    <value>Offentliga certifikat från de utfärdare som utfärdade autentiseringsserverns certifikat.</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesLabel" xml:space="preserve">
+    <value>Betrodda rot-CA-certifikat</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>Avancerat företag Wi-Fi</value>
@@ -2783,7 +2807,7 @@ Licensierad under MIT-licensen.</value>
     <value>Foundry kommer ihåg lösenfrasen på den här datorn i sitt lokala krypterade valv. Den lämnar bara den här datorn i en export eller en publicering när ”Inkludera lösenord” har valts.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>Importerar Wi-Fi-profilen som hanteras av Foundry till Windows före OOBE för att bevara distributionsanslutningen efter WinPE.</value>
+    <value>När det här alternativet är aktiverat importeras varje Wi-Fi-nätverk som har anslutits i Foundry Connect, etablerat eller anslutet manuellt, till Windows före OOBE, med början med det som gav internetåtkomst, för att bevara anslutningen efter WinPE.</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming av Windows-profiler</value>
@@ -5072,12 +5096,6 @@ Uppdateringen startar om Foundry OSD.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Uppdatering</value>
-  </data>
-  <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>Betrodd rot-CA-certifikatfil</value>
-  </data>
-  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>Välj Wi-Fi-certifikatet</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Ange en Wi-Fi profil i förväg</value>

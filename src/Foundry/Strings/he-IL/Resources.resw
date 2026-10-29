@@ -2215,12 +2215,6 @@
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
     <value>חשבון צירוף משותף</value>
   </data>
-  <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>קובץ אישור CA שורש מהימן</value>
-  </data>
-  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>בחר אישור 802.1X</value>
-  </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>הפעלת תצורת Ethernet 802.1X</value>
   </data>
@@ -2710,8 +2704,23 @@
   <data name="NavigationStatus.NotConfigured" xml:space="preserve">
     <value>לא מוגדר</value>
   </data>
+  <data name="Network.AddTrustedRootCertificate" xml:space="preserve">
+    <value>הוסף אישור</value>
+  </data>
+  <data name="Network.ClientCertificateDescription" xml:space="preserve">
+    <value>אישור עם המפתח הפרטי שלו שמאמת את המכשיר הזה (EAP-TLS).</value>
+  </data>
+  <data name="Network.ClientCertificateLabel" xml:space="preserve">
+    <value>אישור לקוח (PFX)</value>
+  </data>
+  <data name="Network.ClientCertificatePickerTitle" xml:space="preserve">
+    <value>בחר את אישור הלקוח</value>
+  </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>התנהגות ארגונית מונעת על ידי תבנית הפרופיל ב-build זה. אישורי 802.1X שהוזנו במהלך הפריסה אינם מסופקים כאן.</value>
+  </data>
+  <data name="Network.ErrorMediaProtectionRequired" xml:space="preserve">
+    <value>סיסמת הפריסה מגינה על סיסמאות Wi-Fi ועל אישורי לקוח. הפעל הגנה באמצעות סיסמה בעמוד "כללי" והגדר את סיסמת הפריסה.</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
     <value>לא נתמך Wi-Fi סוג אבטחה '{0}'.</value>
@@ -2723,10 +2732,10 @@
     <value>תבנית פרופיל Enterprise Wi-Fi חייבת להכיל ערך אימות ארגוני נתמך.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>Enterprise Wi-Fi קובץ אישור CA שורש מהימן לא נמצא.</value>
+    <value>קובץ אישור של Wi-Fi ארגוני לא נמצא. בחר אותו שוב.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>Enterprise Wi-Fi דורש קובץ אישור CA שורש מהימן כאשר אמון אישור מופעל.</value>
+    <value>Wi-Fi ארגוני דורש אישור לקוח או אישור CA שורש מהימן כאשר נעשה שימוש באישורים.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
     <value>לא נמצא קובץ תבנית פרופיל Enterprise Wi-Fi.</value>
@@ -2744,10 +2753,10 @@
     <value>תצורת Wi-Fi דורשת SSID.</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>לא נמצא קובץ אישור CA שורש מהימן קווי 802.1X.</value>
+    <value>קובץ אישור של 802.1X קווי לא נמצא. בחר אותו שוב.</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>Wired 802.1X דורש קובץ אישור CA שורש מהימן כאשר אמון אישור מופעל.</value>
+    <value>802.1X קווי דורש אישור לקוח או אישור CA שורש מהימן כאשר נעשה שימוש באישורים.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
     <value>לא נמצא קובץ תבנית פרופיל קווי 802.1X.</value>
@@ -2755,14 +2764,20 @@
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
     <value>Wired 802.1X דורש תבנית פרופיל קווי.</value>
   </data>
+  <data name="Network.NoTrustedRootCertificates" xml:space="preserve">
+    <value>לא נוסף אישור CA שורש מהימן.</value>
+  </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
     <value>קובץ תבנית פרופיל</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
     <value>בחר תבנית פרופיל רשת</value>
   </data>
+  <data name="Network.RemoveCertificate" xml:space="preserve">
+    <value>הסרה</value>
+  </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>ייבא אישור CA שורש מהימן</value>
+    <value>השתמש באישורים</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>מעתיק אישורי לקוח PFX מוגדרים אל Windows ומייבא אותם אל מאגר האישורים האישי LocalMachine לפני OOBE.</value>
@@ -2772,6 +2787,15 @@
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>נדוד פרופילי רשת אל Windows</value>
+  </data>
+  <data name="Network.TrustedRootCertificatePickerTitle" xml:space="preserve">
+    <value>בחר אישור CA שורש מהימן</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesDescription" xml:space="preserve">
+    <value>אישורים ציבוריים של הרשויות שהנפיקו את האישור של שרת האימות.</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesLabel" xml:space="preserve">
+    <value>אישורי CA שורש מהימנים</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>ארגון מתקדם Wi-Fi</value>
@@ -2783,7 +2807,7 @@
     <value>Foundry זוכר את משפט הסיסמה במחשב זה בכספת המקומית המוצפנת שלו. הוא יוצא ממחשב זה רק בייצוא או בפרסום כאשר נבחרה האפשרות “כלול סיסמאות”.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>מייבא את פרופיל ה-Wi-Fi המנוהל על ידי Foundry אל Windows לפני OOBE, כדי לשמור על קישוריות הפריסה אחרי WinPE.</value>
+    <value>כאשר אפשרות זו מופעלת, כל רשת Wi-Fi שאליה התחברו בהצלחה ב-Foundry Connect, בין שהוגדרה מראש ובין שחוברה ידנית, מיובאת אל Windows לפני OOBE, החל מהרשת שסיפקה גישה לאינטרנט, כדי לשמור על הקישוריות אחרי WinPE.</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>נדידת פרופילי Windows</value>
@@ -5072,12 +5096,6 @@
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>עדכון</value>
-  </data>
-  <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>קובץ אישור CA שורש מהימן</value>
-  </data>
-  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>בחר את האישור Wi-Fi</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>ספק מראש פרופיל Wi-Fi</value>
