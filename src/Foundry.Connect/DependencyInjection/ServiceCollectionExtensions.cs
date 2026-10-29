@@ -6,7 +6,8 @@ using System.Globalization;
 using System.Net.Http;
 using System.Resources;
 using System.Runtime.InteropServices;
-using Foundry.Connect.Services.ApplicationLifetime;
+using System.Windows;
+using Foundry.Connect.Lifetime;
 using Foundry.Wpf.Shell;
 using Foundry.Connect.Configuration;
 using Foundry.Connect.Services.Network;
@@ -28,6 +29,13 @@ public static class ServiceCollectionExtensions
 {
     private const string DeploymentModeEnvironmentVariable = "FOUNDRY_DEPLOYMENT_MODE";
 
+    /// <summary>
+    /// Registers the Foundry.Connect application, UI, lifetime, telemetry and network services.
+    /// </summary>
+    /// <remarks>The caller pre-registers <see cref="IConnectConfigurationService"/>, the loaded <see cref="FoundryConnectConfigurationDocument"/> and its <see cref="ConnectRuntimeSecrets"/>.</remarks>
+    /// <param name="services">The service collection to update.</param>
+    /// <param name="args">The command-line arguments of the process.</param>
+    /// <returns>The same service collection.</returns>
     public static IServiceCollection AddFoundryConnectApplicationServices(this IServiceCollection services, string[] args)
     {
         services.AddSingleton<App>();
@@ -37,7 +45,8 @@ public static class ServiceCollectionExtensions
 
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();
         services.AddSingleton(WpfApplicationIdentity.FromAssembly(typeof(App).Assembly));
-        services.AddSingleton<IApplicationLifetimeService, ApplicationLifetimeService>();
+        services.AddSingleton<IApplicationLifetimeService>(sp => new ApplicationLifetimeService(
+            ShutdownApplication, sp.GetRequiredService<ILogger<ApplicationLifetimeService>>()));
         services.AddSingleton(CreateTelemetryOptions);
         services.AddSingleton(CreateTelemetryContext);
         services.AddSingleton<ITelemetryService>(sp =>
@@ -73,6 +82,24 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IKeyboardLayoutSwitcher>(_ => new WindowsKeyboardLayoutSwitcher(KeyboardLayoutHandoff.DefaultPath));
 
         return services;
+    }
+
+    /// <summary>Shuts the WPF application down on its UI thread; exit requests may come from background work.</summary>
+    private static void ShutdownApplication(int exitCode)
+    {
+        Application? app = Application.Current;
+        if (app is null)
+        {
+            return;
+        }
+
+        if (app.Dispatcher.CheckAccess())
+        {
+            app.Shutdown(exitCode);
+            return;
+        }
+
+        _ = app.Dispatcher.InvokeAsync(() => app.Shutdown(exitCode));
     }
 
     private static TelemetryOptions CreateTelemetryOptions(IServiceProvider serviceProvider)

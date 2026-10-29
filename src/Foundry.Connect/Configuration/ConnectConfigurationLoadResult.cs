@@ -26,10 +26,16 @@ public sealed record ConnectConfigurationLoadResult(
     public ConnectRuntimeSecrets? Secrets { get; init; }
 
     /// <summary>
+    /// Gets the original exception that made loading fail, or <see langword="null"/> on success. Startup diagnostics
+    /// report this exception so the failure record keeps its type, inner exception and stack trace.
+    /// </summary>
+    public Exception? FailureException { get; init; }
+
+    /// <summary>
     /// Gets whether the configuration was loaded.
     /// </summary>
     [MemberNotNullWhen(true, nameof(Configuration), nameof(Secrets))]
-    [MemberNotNullWhen(false, nameof(FailureMessage))]
+    [MemberNotNullWhen(false, nameof(FailureMessage), nameof(FailureException))]
     public bool IsSuccess => Configuration is not null;
 
     /// <summary>
@@ -44,6 +50,8 @@ public sealed record ConnectConfigurationLoadResult(
     /// <summary>
     /// Creates the result of a failed load.
     /// </summary>
-    public static ConnectConfigurationLoadResult Failure(string failureMessage) =>
-        new(null, failureMessage, BootMediaUpdateReason.None);
+    /// <param name="failureMessage">A message without secret material describing why loading failed.</param>
+    /// <param name="failureException">The original exception that made loading fail.</param>
+    public static ConnectConfigurationLoadResult Failure(string failureMessage, Exception failureException) =>
+        new(null, failureMessage, BootMediaUpdateReason.None) { FailureException = failureException };
 }

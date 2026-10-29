@@ -86,6 +86,9 @@ public sealed class RuntimeStartupDiagnostics
     /// <summary>Publishes successful configuration loading before the UI is constructed.</summary>
     public void ReportConfigurationLoaded() => Report(StartupStage.ConfigurationLoaded);
 
+    /// <summary>Indicates that the first usable UI was reported; failures after this point are runtime failures.</summary>
+    public bool IsUiReady => Volatile.Read(ref _ready) != 0;
+
     /// <summary>Publishes the first usable UI once; a recorded failure always takes precedence.</summary>
     public void ReportUiReady()
     {

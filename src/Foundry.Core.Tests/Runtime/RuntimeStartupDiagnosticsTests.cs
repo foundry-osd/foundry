@@ -97,6 +97,7 @@ public sealed class RuntimeStartupDiagnosticsTests
 
         Assert.Same(exception, captured);
         Assert.Equal(["persist", StartupStage.StartupFailed + ":" + recordId.ToString("N")], calls);
+        Assert.False(startup.IsUiReady);
     }
 
     [Fact]
@@ -129,10 +130,12 @@ public sealed class RuntimeStartupDiagnosticsTests
         Assert.Empty(stages);
         initialized.SetResult();
         Assert.Empty(stages);
+        Assert.False(startup.IsUiReady);
         rendered.SetResult();
         await observation;
 
         Assert.Equal([StartupStage.UiReady], stages);
+        Assert.True(startup.IsUiReady);
     }
 
     [Fact]

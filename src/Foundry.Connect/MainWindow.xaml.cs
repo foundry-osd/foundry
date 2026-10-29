@@ -5,7 +5,8 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Threading;
-using Foundry.Connect.Services.ApplicationLifetime;
+using Foundry.Connect.Lifetime;
+using Foundry.Connect.Startup;
 using Foundry.Core.Models.Runtime;
 using Foundry.Core.Services.Runtime;
 using Foundry.Connect.ViewModels;
@@ -47,16 +48,16 @@ public partial class MainWindow : Window
         try
         {
             await _startup.ObserveInitializationAsync(_viewModel.InitializeAsync, WaitForRenderedAsync,
-                () => !_closed && !_applicationLifetimeService.IsExitRequested);
+                () => !_closed && _applicationLifetimeService.RequestedExitCode is null);
             _logger.LogInformation("MainWindow asynchronous initialization finished.");
         }
-        catch (OperationCanceledException) when (_closed || _applicationLifetimeService.IsExitRequested)
+        catch (OperationCanceledException) when (_closed || _applicationLifetimeService.RequestedExitCode is not null)
         {
         }
         catch (Exception ex)
         {
             _startup.ReportFailure(ex, "ui_initialization");
-            _applicationLifetimeService.Exit(ChildRuntimeExitCode.StartupFailure);
+            _applicationLifetimeService.TryExit(ConnectStartupFailurePolicy.Map(ConnectStartupStage.UiStartup));
         }
     }
 
@@ -68,7 +69,7 @@ public partial class MainWindow : Window
 
     protected override void OnClosing(CancelEventArgs e)
     {
-        _logger.LogInformation("MainWindow closing. IsExitRequested={IsExitRequested}.", _applicationLifetimeService.IsExitRequested);
+        _logger.LogInformation("MainWindow closing. RequestedExitCode={RequestedExitCode}.", _applicationLifetimeService.RequestedExitCode);
 
         if (DataContext is MainWindowViewModel viewModel)
         {

@@ -5,7 +5,7 @@
 using Foundry.Connect.Models;
 using Foundry.Core.Models.Configuration;
 using Foundry.Connect.Models.Network;
-using Foundry.Connect.Services.ApplicationLifetime;
+using Foundry.Connect.Lifetime;
 using Foundry.Core.Models.Runtime;
 using Foundry.Wpf.Shell;
 using Foundry.Connect.Configuration;
@@ -104,7 +104,7 @@ public sealed class MainWindowViewModelTests
         Assert.True((bool)telemetryEvent.Properties["connect_wifi_provisioned"]!);
         Assert.True((bool)telemetryEvent.Properties["connect_wired_dot1x_enabled"]!);
         Assert.False(telemetryEvent.Properties.ContainsKey("success"));
-        Assert.Equal(ChildRuntimeExitCode.Success, lifetime.ExitCode);
+        Assert.Equal(ChildRuntimeExitCode.Success, lifetime.RequestedExitCode);
         Assert.True(telemetry.CallsCompletedBeforeExit);
     }
 
@@ -601,15 +601,23 @@ public sealed class MainWindowViewModelTests
             this.telemetryService = telemetryService;
         }
 
-        public bool IsExitRequested { get; private set; }
+        private readonly CancellationTokenSource exitRequested = new();
 
-        public ChildRuntimeExitCode ExitCode { get; private set; }
+        public ChildRuntimeExitCode? RequestedExitCode { get; private set; }
 
-        public void Exit(ChildRuntimeExitCode exitCode)
+        public CancellationToken ExitRequested => exitRequested.Token;
+
+        public bool TryExit(ChildRuntimeExitCode exitCode)
         {
+            if (RequestedExitCode is not null)
+            {
+                return false;
+            }
+
             telemetryService?.HasExitHappened = true;
-            ExitCode = exitCode;
-            IsExitRequested = true;
+            RequestedExitCode = exitCode;
+            exitRequested.Cancel();
+            return true;
         }
     }
 

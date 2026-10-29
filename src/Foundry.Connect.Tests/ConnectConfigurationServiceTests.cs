@@ -182,6 +182,20 @@ public sealed class ConnectConfigurationServiceTests
     }
 
     [Fact]
+    public void Load_WhenConfigurationPathIsInvalid_ReportsConfigurationFailureWithOriginalException()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        var service = new ConnectConfigurationService(["--config", "invalid\0path.json"], NullLogger<ConnectConfigurationService>.Instance);
+
+        ConnectConfigurationLoadResult result = service.Load();
+
+        Assert.False(result.IsSuccess);
+        FoundryConnectConfigurationException failure = Assert.IsType<FoundryConnectConfigurationException>(result.FailureException);
+        Assert.Equal(failure.Message, result.FailureMessage);
+        Assert.IsType<ArgumentException>(failure.InnerException);
+    }
+
+    [Fact]
     public void Load_WhenConfigurationContainsTelemetry_PreservesTelemetrySettings()
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);

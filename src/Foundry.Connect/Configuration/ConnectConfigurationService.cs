@@ -79,7 +79,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         catch (FoundryConnectConfigurationException exception)
         {
             _logger.LogError(exception, "Foundry.Connect configuration could not be loaded. ConfigurationPath={ConfigurationPath}", ConfigurationPath);
-            return ConnectConfigurationLoadResult.Failure(exception.Message);
+            return ConnectConfigurationLoadResult.Failure(exception.Message, exception);
         }
     }
 
@@ -94,7 +94,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
             return ConnectConfigurationLoadResult.Success(Normalize(new FoundryConnectConfigurationDocument()), new ConnectRuntimeSecrets(), BootMediaUpdateReason);
         }
 
-        string fullPath = Path.GetFullPath(ConfigurationPath);
+        string fullPath = ResolveFullPath(ConfigurationPath);
         if (!File.Exists(fullPath))
         {
             if (!resolution.IsRequired)
@@ -140,6 +140,19 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         catch (Exception ex)
         {
             throw new FoundryConnectConfigurationException($"Configuration file could not be parsed: {fullPath}", ex);
+        }
+    }
+
+    /// <summary>Turns a malformed configuration path into a configuration failure instead of an escaping exception.</summary>
+    private static string ResolveFullPath(string configurationPath)
+    {
+        try
+        {
+            return Path.GetFullPath(configurationPath);
+        }
+        catch (Exception ex) when (ex is ArgumentException or PathTooLongException)
+        {
+            throw new FoundryConnectConfigurationException($"Configuration path is not valid: {configurationPath}", ex);
         }
     }
 

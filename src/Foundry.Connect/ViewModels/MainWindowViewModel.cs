@@ -17,7 +17,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Connect.Models.Network;
 using Foundry.Core.Models.Runtime;
 using Foundry.Wpf.Shell;
-using Foundry.Connect.Services.ApplicationLifetime;
+using Foundry.Connect.Lifetime;
 using Foundry.Connect.Configuration;
 using Foundry.Connect.Services.Logging;
 using Foundry.Connect.Services.Network;
@@ -291,7 +291,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     /// <summary>
     /// Gets a value indicating whether automatic bootstrap can continue to deployment.
     /// </summary>
-    public bool CanContinueBootstrap => HasInternetAccess && !_applicationLifetimeService.IsExitRequested;
+    public bool CanContinueBootstrap => HasInternetAccess && _applicationLifetimeService.RequestedExitCode is null;
 
     /// <summary>
     /// Gets a value indicating whether the current Wi-Fi connection matches the provisioned profile.
@@ -730,10 +730,10 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     /// </summary>
     public void HandleWindowClosing()
     {
-        if (!_applicationLifetimeService.IsExitRequested)
+        if (_applicationLifetimeService.RequestedExitCode is null)
         {
             _logger.LogInformation("Window close detected before a controlled exit. Returning user-aborted exit code.");
-            _applicationLifetimeService.Exit(ChildRuntimeExitCode.UserAborted);
+            _applicationLifetimeService.TryExit(ChildRuntimeExitCode.UserAborted);
         }
     }
 
@@ -888,7 +888,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         try
         {
-            if (_applicationLifetimeService.IsExitRequested)
+            if (_applicationLifetimeService.RequestedExitCode is not null)
             {
                 return;
             }
@@ -900,7 +900,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             }
 
             await TrackSessionReadyAsync(snapshot, cancellationToken).ConfigureAwait(false);
-            _applicationLifetimeService.Exit(ChildRuntimeExitCode.Success);
+            _applicationLifetimeService.TryExit(ChildRuntimeExitCode.Success);
         }
         finally
         {
@@ -961,7 +961,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     {
         if (snapshot.HasInternetAccess && _isAutoCloseEnabled)
         {
-            if (IsCountdownActive || _applicationLifetimeService.IsExitRequested)
+            if (IsCountdownActive || _applicationLifetimeService.RequestedExitCode is not null)
             {
                 return;
             }
@@ -999,7 +999,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                 }).ConfigureAwait(false);
             }
 
-            if (!_applicationLifetimeService.IsExitRequested)
+            if (_applicationLifetimeService.RequestedExitCode is null)
             {
                 _logger.LogInformation("Internet validation remained stable through the countdown. Exiting successfully.");
                 await ContinueBootstrapSuccessfullyAsync(cancellationToken).ConfigureAwait(false);
