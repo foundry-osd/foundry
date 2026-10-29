@@ -21,10 +21,14 @@ public sealed record BuildSnapshotSources(AuthoringFileLibrary Files)
     /// <summary>Gets the password of the Autopilot boot media PFX.</summary>
     public string? AutopilotPfxPassword { get; init; }
 
+    /// <summary>Gets the network cache account passwords, keyed by account id.</summary>
+    public IReadOnlyDictionary<string, string> NetworkCachePasswords { get; init; } = new Dictionary<string, string>(StringComparer.Ordinal);
+
     // Records print their members; a password is reported as present or absent, never printed.
     private bool PrintMembers(StringBuilder builder)
     {
-        builder.Append("Network = ").Append(Network).Append(", HasAutopilotPfxPassword = ").Append(AutopilotPfxPassword is not null);
+        builder.Append("Network = ").Append(Network).Append(", HasAutopilotPfxPassword = ").Append(AutopilotPfxPassword is not null)
+            .Append(", NetworkCachePasswordCount = ").Append(NetworkCachePasswords.Count);
         return true;
     }
 }

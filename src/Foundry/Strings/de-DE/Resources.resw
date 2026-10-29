@@ -2629,6 +2629,12 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
     <value>Computerbenennung</value>
   </data>
+  <data name="Nav_NetworkCacheKey.Description" xml:space="preserve">
+    <value>Verwenden Sie SMB-Freigaben als gemeinsamen Download-Cache für Foundry Deploy.</value>
+  </data>
+  <data name="Nav_NetworkCacheKey.Title" xml:space="preserve">
+    <value>Netzwerkcache</value>
+  </data>
   <data name="Nav_NetworkSection.Title" xml:space="preserve">
     <value>Netzwerk</value>
   </data>
@@ -2787,6 +2793,246 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming von Windows-Profilen</value>
+  </data>
+  <data name="NetworkCache.AccountDialogAddTitle" xml:space="preserve">
+    <value>Konto hinzufügen</value>
+  </data>
+  <data name="NetworkCache.AccountDialogEditTitle" xml:space="preserve">
+    <value>Konto bearbeiten</value>
+  </data>
+  <data name="NetworkCache.AccountInUse" xml:space="preserve">
+    <value>Dieses Konto wird von einer Freigabe verwendet. Entfernen Sie es zuerst aus der Freigabe.</value>
+  </data>
+  <data name="NetworkCache.AccountInUseTitleFormat" xml:space="preserve">
+    <value>{0} kann nicht entfernt werden</value>
+  </data>
+  <data name="NetworkCache.AccountPassword" xml:space="preserve">
+    <value>Kennwort</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordConfirmation" xml:space="preserve">
+    <value>Kennwort bestätigen</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordKeepHint" xml:space="preserve">
+    <value>Lassen Sie das Kennwort leer, um das aktuelle beizubehalten.</value>
+  </data>
+  <data name="NetworkCache.AccountUserName" xml:space="preserve">
+    <value>Benutzername</value>
+  </data>
+  <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
+    <value>DOMAIN\user oder user@domain</value>
+  </data>
+  <data name="NetworkCache.AccountsDescription" xml:space="preserve">
+    <value>Konten, mit denen Freigaben geöffnet werden. Geräte verwenden sie, um eine Freigabe zu lesen und ihre Downloads dort zu veröffentlichen.</value>
+  </data>
+  <data name="NetworkCache.AccountsHeader" xml:space="preserve">
+    <value>Konten</value>
+  </data>
+  <data name="NetworkCache.ColumnAccount" xml:space="preserve">
+    <value>Konto</value>
+  </data>
+  <data name="NetworkCache.ColumnName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NetworkCache.ColumnPassword" xml:space="preserve">
+    <value>Kennwort</value>
+  </data>
+  <data name="NetworkCache.ColumnPath" xml:space="preserve">
+    <value>Pfad</value>
+  </data>
+  <data name="NetworkCache.ColumnShares" xml:space="preserve">
+    <value>Freigaben</value>
+  </data>
+  <data name="NetworkCache.ColumnStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="NetworkCache.ColumnType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="NetworkCache.ColumnUsedBy" xml:space="preserve">
+    <value>Verwendet von</value>
+  </data>
+  <data name="NetworkCache.ColumnUserName" xml:space="preserve">
+    <value>Benutzername</value>
+  </data>
+  <data name="NetworkCache.ColumnValue" xml:space="preserve">
+    <value>Wert</value>
+  </data>
+  <data name="NetworkCache.CommandAdd" xml:space="preserve">
+    <value>Hinzufügen</value>
+  </data>
+  <data name="NetworkCache.CommandEdit" xml:space="preserve">
+    <value>Bearbeiten</value>
+  </data>
+  <data name="NetworkCache.CommandRemove" xml:space="preserve">
+    <value>Entfernen</value>
+  </data>
+  <data name="NetworkCache.DialogAdd" xml:space="preserve">
+    <value>Hinzufügen</value>
+  </data>
+  <data name="NetworkCache.EmptyAccounts" xml:space="preserve">
+    <value>Noch kein Konto. Freigaben ohne Konto sind schreibgeschützt.</value>
+  </data>
+  <data name="NetworkCache.EmptyScopes" xml:space="preserve">
+    <value>Noch kein IP-Bereich.</value>
+  </data>
+  <data name="NetworkCache.EmptyShares" xml:space="preserve">
+    <value>Noch keine Freigabe.</value>
+  </data>
+  <data name="NetworkCache.MoveDown" xml:space="preserve">
+    <value>Nach unten</value>
+  </data>
+  <data name="NetworkCache.MoveUp" xml:space="preserve">
+    <value>Nach oben</value>
+  </data>
+  <data name="NetworkCache.NoAccount" xml:space="preserve">
+    <value>Kein Konto</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
+    <value>Freigaben: {0}, IP-Bereiche: {1}</value>
+  </data>
+  <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
+    <value>Dieses Kennwort kann nicht verwendet werden.</value>
+  </data>
+  <data name="NetworkCache.PasswordMismatch" xml:space="preserve">
+    <value>Die Kennwörter stimmen nicht überein.</value>
+  </data>
+  <data name="NetworkCache.PasswordMissing" xml:space="preserve">
+    <value>Fehlt</value>
+  </data>
+  <data name="NetworkCache.PasswordRequiredInput" xml:space="preserve">
+    <value>Geben Sie ein Kennwort ein.</value>
+  </data>
+  <data name="NetworkCache.PasswordSaved" xml:space="preserve">
+    <value>Gespeichert</value>
+  </data>
+  <data name="NetworkCache.Ready" xml:space="preserve">
+    <value>Bereit</value>
+  </data>
+  <data name="NetworkCache.RemoveShareTitle" xml:space="preserve">
+    <value>Freigabe entfernen</value>
+  </data>
+  <data name="NetworkCache.RemoveShareUsedMessageFormat" xml:space="preserve">
+    <value>{0} wird von {1} IP-Bereich(en) verwendet. Beim Entfernen wird die Freigabe auch aus diesen Bereichen entfernt.</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogAddTitle" xml:space="preserve">
+    <value>IP-Bereich hinzufügen</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogEditTitle" xml:space="preserve">
+    <value>IP-Bereich bearbeiten</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Address" xml:space="preserve">
+    <value>Adresse</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Range" xml:space="preserve">
+    <value>Adressbereich</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Subnet" xml:space="preserve">
+    <value>Subnetz</value>
+  </data>
+  <data name="NetworkCache.ScopeKindHeader" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="NetworkCache.ScopeName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NetworkCache.ScopeNameRequired" xml:space="preserve">
+    <value>Geben Sie einen Namen ein.</value>
+  </data>
+  <data name="NetworkCache.ScopeNoShares" xml:space="preserve">
+    <value>Fügen Sie zuerst eine Freigabe hinzu.</value>
+  </data>
+  <data name="NetworkCache.ScopeShares" xml:space="preserve">
+    <value>Freigaben</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
+    <value>Geräte versuchen die ausgewählten Freigaben von oben nach unten und laden dann aus dem Internet herunter.</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
+    <value>Wählen Sie mindestens eine Freigabe aus.</value>
+  </data>
+  <data name="NetworkCache.ScopeValue" xml:space="preserve">
+    <value>Wert</value>
+  </data>
+  <data name="NetworkCache.ScopeValueInvalid" xml:space="preserve">
+    <value>Geben Sie einen gültigen Wert für diesen Typ ein.</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Address" xml:space="preserve">
+    <value>10.20.0.15</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Range" xml:space="preserve">
+    <value>10.20.0.10-10.20.0.200</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Subnet" xml:space="preserve">
+    <value>10.10.0.0/16 oder fd00:10::/48</value>
+  </data>
+  <data name="NetworkCache.ScopesDescription" xml:space="preserve">
+    <value>IP-Adressen, die bestimmen, welche Freigaben ein Gerät versucht.</value>
+  </data>
+  <data name="NetworkCache.ScopesHeader" xml:space="preserve">
+    <value>IP-Bereiche</value>
+  </data>
+  <data name="NetworkCache.ScopesSpecificity" xml:space="preserve">
+    <value>Wenn ein Gerät mehreren Bereichen entspricht, gilt der spezifischste.</value>
+  </data>
+  <data name="NetworkCache.ShareAccount" xml:space="preserve">
+    <value>Konto</value>
+  </data>
+  <data name="NetworkCache.ShareDialogAddTitle" xml:space="preserve">
+    <value>Freigabe hinzufügen</value>
+  </data>
+  <data name="NetworkCache.ShareDialogEditTitle" xml:space="preserve">
+    <value>Freigabe bearbeiten</value>
+  </data>
+  <data name="NetworkCache.ShareDuplicate" xml:space="preserve">
+    <value>Diese Freigabe ist bereits aufgelistet.</value>
+  </data>
+  <data name="NetworkCache.ShareNoAccountHint" xml:space="preserve">
+    <value>Ohne Konto lesen Geräte die Freigabe ohne Anmeldeinformationen und schreiben nie darauf.</value>
+  </data>
+  <data name="NetworkCache.SharePath" xml:space="preserve">
+    <value>Pfad</value>
+  </data>
+  <data name="NetworkCache.SharesDescription" xml:space="preserve">
+    <value>SMB-Freigaben, die als Cache verwendet werden. Jede Freigabe kann mit einem Konto geöffnet werden.</value>
+  </data>
+  <data name="NetworkCache.SharesHeader" xml:space="preserve">
+    <value>Freigaben</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
+    <value>Dieser Wert ist für seinen Typ ungültig.</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidSharePath" xml:space="preserve">
+    <value>Geben Sie einen Pfad wie \\server\share ein.</value>
+  </data>
+  <data name="NetworkCache.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>Freigaben mit einem Konto erfordern den Kennwortschutz für die Bereitstellung, da ein PXE-Startabbild von jedem im Netzwerk heruntergeladen werden kann. Aktivieren Sie ihn auf der Seite „Allgemein“.</value>
+  </data>
+  <data name="NetworkCache.Validation.PasswordRequired" xml:space="preserve">
+    <value>Geben Sie das Kontokennwort ein.</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopeWithoutShare" xml:space="preserve">
+    <value>Wählen Sie mindestens eine Freigabe aus.</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopesRequired" xml:space="preserve">
+    <value>Fügen Sie mindestens einen IP-Bereich hinzu.</value>
+  </data>
+  <data name="NetworkCache.Validation.SharesRequired" xml:space="preserve">
+    <value>Fügen Sie mindestens eine Freigabe hinzu.</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownAccount" xml:space="preserve">
+    <value>Das Konto dieser Freigabe ist nicht mehr vorhanden.</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownShare" xml:space="preserve">
+    <value>Eine Freigabe dieses Bereichs ist nicht mehr vorhanden.</value>
+  </data>
+  <data name="NetworkCache.Validation.UserNameRequired" xml:space="preserve">
+    <value>Geben Sie einen Benutzernamen ein.</value>
+  </data>
+  <data name="NetworkCachePageHeader.Description" xml:space="preserve">
+    <value>Ermöglicht Foundry Deploy, SMB-Freigaben als gemeinsamen Cache zu verwenden, ausgewählt anhand der IP-Adresse des Geräts. Windows, Treiberpakete und importierte Inhalte werden vor dem Internet aus der Freigabe gelesen, und was Geräte herunterladen, wird dorthin zurück veröffentlicht.</value>
+  </data>
+  <data name="NetworkCachePageHeader.Title" xml:space="preserve">
+    <value>Netzwerkcache</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>OOBE-Konfiguration aktivieren</value>

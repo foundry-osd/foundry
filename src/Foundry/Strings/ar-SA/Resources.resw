@@ -2629,6 +2629,12 @@
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
     <value>تسمية الجهاز</value>
   </data>
+  <data name="Nav_NetworkCacheKey.Description" xml:space="preserve">
+    <value>استخدم مشاركات SMB كذاكرة تخزين مؤقت مشتركة للتنزيلات في Foundry Deploy.</value>
+  </data>
+  <data name="Nav_NetworkCacheKey.Title" xml:space="preserve">
+    <value>ذاكرة التخزين المؤقت للشبكة</value>
+  </data>
   <data name="Nav_NetworkSection.Title" xml:space="preserve">
     <value>الشبكة</value>
   </data>
@@ -2787,6 +2793,246 @@
   </data>
   <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>تجوال ملفات تعريف Windows</value>
+  </data>
+  <data name="NetworkCache.AccountDialogAddTitle" xml:space="preserve">
+    <value>إضافة حساب</value>
+  </data>
+  <data name="NetworkCache.AccountDialogEditTitle" xml:space="preserve">
+    <value>تحرير الحساب</value>
+  </data>
+  <data name="NetworkCache.AccountInUse" xml:space="preserve">
+    <value>تستخدم إحدى المشاركات هذا الحساب. أزله من المشاركة أولاً.</value>
+  </data>
+  <data name="NetworkCache.AccountInUseTitleFormat" xml:space="preserve">
+    <value>تتعذر إزالة {0}</value>
+  </data>
+  <data name="NetworkCache.AccountPassword" xml:space="preserve">
+    <value>كلمة المرور</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordConfirmation" xml:space="preserve">
+    <value>تأكيد كلمة المرور</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordKeepHint" xml:space="preserve">
+    <value>اترك كلمة المرور فارغة للاحتفاظ بكلمة المرور الحالية.</value>
+  </data>
+  <data name="NetworkCache.AccountUserName" xml:space="preserve">
+    <value>اسم المستخدم</value>
+  </data>
+  <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
+    <value>DOMAIN\user أو user@domain</value>
+  </data>
+  <data name="NetworkCache.AccountsDescription" xml:space="preserve">
+    <value>الحسابات التي تفتح المشاركات. تستخدمها الأجهزة لقراءة المشاركة ولنشر ما تنزّله.</value>
+  </data>
+  <data name="NetworkCache.AccountsHeader" xml:space="preserve">
+    <value>الحسابات</value>
+  </data>
+  <data name="NetworkCache.ColumnAccount" xml:space="preserve">
+    <value>الحساب</value>
+  </data>
+  <data name="NetworkCache.ColumnName" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="NetworkCache.ColumnPassword" xml:space="preserve">
+    <value>كلمة المرور</value>
+  </data>
+  <data name="NetworkCache.ColumnPath" xml:space="preserve">
+    <value>المسار</value>
+  </data>
+  <data name="NetworkCache.ColumnShares" xml:space="preserve">
+    <value>المشاركات</value>
+  </data>
+  <data name="NetworkCache.ColumnStatus" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="NetworkCache.ColumnType" xml:space="preserve">
+    <value>النوع</value>
+  </data>
+  <data name="NetworkCache.ColumnUsedBy" xml:space="preserve">
+    <value>مستخدَم بواسطة</value>
+  </data>
+  <data name="NetworkCache.ColumnUserName" xml:space="preserve">
+    <value>اسم المستخدم</value>
+  </data>
+  <data name="NetworkCache.ColumnValue" xml:space="preserve">
+    <value>القيمة</value>
+  </data>
+  <data name="NetworkCache.CommandAdd" xml:space="preserve">
+    <value>إضافة</value>
+  </data>
+  <data name="NetworkCache.CommandEdit" xml:space="preserve">
+    <value>تحرير</value>
+  </data>
+  <data name="NetworkCache.CommandRemove" xml:space="preserve">
+    <value>إزالة</value>
+  </data>
+  <data name="NetworkCache.DialogAdd" xml:space="preserve">
+    <value>إضافة</value>
+  </data>
+  <data name="NetworkCache.EmptyAccounts" xml:space="preserve">
+    <value>لا توجد حسابات بعد. المشاركات التي ليس لها حساب للقراءة فقط.</value>
+  </data>
+  <data name="NetworkCache.EmptyScopes" xml:space="preserve">
+    <value>لا توجد نطاقات IP بعد.</value>
+  </data>
+  <data name="NetworkCache.EmptyShares" xml:space="preserve">
+    <value>لا توجد مشاركات بعد.</value>
+  </data>
+  <data name="NetworkCache.MoveDown" xml:space="preserve">
+    <value>نقل لأسفل</value>
+  </data>
+  <data name="NetworkCache.MoveUp" xml:space="preserve">
+    <value>نقل لأعلى</value>
+  </data>
+  <data name="NetworkCache.NoAccount" xml:space="preserve">
+    <value>بلا حساب</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
+    <value>المشاركات: {0}، نطاقات IP: {1}</value>
+  </data>
+  <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
+    <value>لا يمكن استخدام كلمة المرور هذه.</value>
+  </data>
+  <data name="NetworkCache.PasswordMismatch" xml:space="preserve">
+    <value>كلمتا المرور غير متطابقتين.</value>
+  </data>
+  <data name="NetworkCache.PasswordMissing" xml:space="preserve">
+    <value>مفقودة</value>
+  </data>
+  <data name="NetworkCache.PasswordRequiredInput" xml:space="preserve">
+    <value>أدخل كلمة مرور.</value>
+  </data>
+  <data name="NetworkCache.PasswordSaved" xml:space="preserve">
+    <value>محفوظة</value>
+  </data>
+  <data name="NetworkCache.Ready" xml:space="preserve">
+    <value>جاهز</value>
+  </data>
+  <data name="NetworkCache.RemoveShareTitle" xml:space="preserve">
+    <value>إزالة المشاركة</value>
+  </data>
+  <data name="NetworkCache.RemoveShareUsedMessageFormat" xml:space="preserve">
+    <value>تُستخدم {0} في {1} من نطاقات IP. تؤدي إزالتها أيضاً إلى إزالتها من تلك النطاقات.</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogAddTitle" xml:space="preserve">
+    <value>إضافة نطاق IP</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogEditTitle" xml:space="preserve">
+    <value>تحرير نطاق IP</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Address" xml:space="preserve">
+    <value>عنوان</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Range" xml:space="preserve">
+    <value>مدى</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Subnet" xml:space="preserve">
+    <value>شبكة فرعية</value>
+  </data>
+  <data name="NetworkCache.ScopeKindHeader" xml:space="preserve">
+    <value>النوع</value>
+  </data>
+  <data name="NetworkCache.ScopeName" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="NetworkCache.ScopeNameRequired" xml:space="preserve">
+    <value>أدخل اسماً.</value>
+  </data>
+  <data name="NetworkCache.ScopeNoShares" xml:space="preserve">
+    <value>أضف مشاركة أولاً.</value>
+  </data>
+  <data name="NetworkCache.ScopeShares" xml:space="preserve">
+    <value>المشاركات</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
+    <value>تجرّب الأجهزة المشاركات المحددة من الأعلى إلى الأسفل، ثم تنزّل من الإنترنت.</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
+    <value>حدد مشاركة واحدة على الأقل.</value>
+  </data>
+  <data name="NetworkCache.ScopeValue" xml:space="preserve">
+    <value>القيمة</value>
+  </data>
+  <data name="NetworkCache.ScopeValueInvalid" xml:space="preserve">
+    <value>أدخل قيمة صالحة لهذا النوع.</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Address" xml:space="preserve">
+    <value>10.20.0.15</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Range" xml:space="preserve">
+    <value>10.20.0.10-10.20.0.200</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Subnet" xml:space="preserve">
+    <value>10.10.0.0/16 أو fd00:10::/48</value>
+  </data>
+  <data name="NetworkCache.ScopesDescription" xml:space="preserve">
+    <value>عناوين IP التي تحدد المشاركات التي يجربها الجهاز.</value>
+  </data>
+  <data name="NetworkCache.ScopesHeader" xml:space="preserve">
+    <value>نطاقات IP</value>
+  </data>
+  <data name="NetworkCache.ScopesSpecificity" xml:space="preserve">
+    <value>عندما يطابق الجهاز عدة نطاقات، يُطبَّق النطاق الأكثر تحديداً.</value>
+  </data>
+  <data name="NetworkCache.ShareAccount" xml:space="preserve">
+    <value>الحساب</value>
+  </data>
+  <data name="NetworkCache.ShareDialogAddTitle" xml:space="preserve">
+    <value>إضافة مشاركة</value>
+  </data>
+  <data name="NetworkCache.ShareDialogEditTitle" xml:space="preserve">
+    <value>تحرير المشاركة</value>
+  </data>
+  <data name="NetworkCache.ShareDuplicate" xml:space="preserve">
+    <value>هذه المشاركة مدرجة بالفعل.</value>
+  </data>
+  <data name="NetworkCache.ShareNoAccountHint" xml:space="preserve">
+    <value>بدون حساب، تقرأ الأجهزة المشاركة دون بيانات اعتماد ولا تكتب فيها أبداً.</value>
+  </data>
+  <data name="NetworkCache.SharePath" xml:space="preserve">
+    <value>المسار</value>
+  </data>
+  <data name="NetworkCache.SharesDescription" xml:space="preserve">
+    <value>مشاركات SMB المستخدمة كذاكرة تخزين مؤقت. يمكن فتح كل مشاركة باستخدام حساب واحد.</value>
+  </data>
+  <data name="NetworkCache.SharesHeader" xml:space="preserve">
+    <value>المشاركات</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
+    <value>هذه القيمة غير صالحة لنوعها.</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidSharePath" xml:space="preserve">
+    <value>أدخل مساراً مثل \\server\share.</value>
+  </data>
+  <data name="NetworkCache.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>تتطلب المشاركات التي لها حساب تفعيل الحماية بكلمة مرور النشر، لأن أي شخص على الشبكة يمكنه تنزيل صورة تمهيد PXE. فعّلها في صفحة «عام».</value>
+  </data>
+  <data name="NetworkCache.Validation.PasswordRequired" xml:space="preserve">
+    <value>أدخل كلمة مرور الحساب.</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopeWithoutShare" xml:space="preserve">
+    <value>حدد مشاركة واحدة على الأقل.</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopesRequired" xml:space="preserve">
+    <value>أضف نطاق IP واحداً على الأقل.</value>
+  </data>
+  <data name="NetworkCache.Validation.SharesRequired" xml:space="preserve">
+    <value>أضف مشاركة واحدة على الأقل.</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownAccount" xml:space="preserve">
+    <value>لم يعد حساب هذه المشاركة موجوداً.</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownShare" xml:space="preserve">
+    <value>لم تعد إحدى مشاركات هذا النطاق موجودة.</value>
+  </data>
+  <data name="NetworkCache.Validation.UserNameRequired" xml:space="preserve">
+    <value>أدخل اسم مستخدم.</value>
+  </data>
+  <data name="NetworkCachePageHeader.Description" xml:space="preserve">
+    <value>يتيح لـ Foundry Deploy استخدام مشاركات SMB كذاكرة تخزين مؤقت مشتركة يتم اختيارها حسب عنوان IP للجهاز. تتم قراءة Windows وحزم برامج التشغيل والمحتوى المستورد من المشاركة قبل الإنترنت، ويُنشر ما تنزّله الأجهزة مرة أخرى إليها.</value>
+  </data>
+  <data name="NetworkCachePageHeader.Title" xml:space="preserve">
+    <value>ذاكرة التخزين المؤقت للشبكة</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>تمكين تكوين OOBE</value>

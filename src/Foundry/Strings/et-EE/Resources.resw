@@ -2629,6 +2629,12 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
     <value>Masina nimetamine</value>
   </data>
+  <data name="Nav_NetworkCacheKey.Description" xml:space="preserve">
+    <value>Kasutage SMB-ühiskaustu rakenduse Foundry Deploy ühise allalaadimisvahemäluna.</value>
+  </data>
+  <data name="Nav_NetworkCacheKey.Title" xml:space="preserve">
+    <value>Võrguvahemälu</value>
+  </data>
   <data name="Nav_NetworkSection.Title" xml:space="preserve">
     <value>Võrk</value>
   </data>
@@ -2787,6 +2793,246 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windowsi profiilide rändlus</value>
+  </data>
+  <data name="NetworkCache.AccountDialogAddTitle" xml:space="preserve">
+    <value>Lisa konto</value>
+  </data>
+  <data name="NetworkCache.AccountDialogEditTitle" xml:space="preserve">
+    <value>Muuda kontot</value>
+  </data>
+  <data name="NetworkCache.AccountInUse" xml:space="preserve">
+    <value>Seda kontot kasutab ühiskaust. Eemaldage see esmalt ühiskaustast.</value>
+  </data>
+  <data name="NetworkCache.AccountInUseTitleFormat" xml:space="preserve">
+    <value>{0} ei saa eemaldada</value>
+  </data>
+  <data name="NetworkCache.AccountPassword" xml:space="preserve">
+    <value>Parool</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordConfirmation" xml:space="preserve">
+    <value>Kinnita parool</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordKeepHint" xml:space="preserve">
+    <value>Praeguse parooli säilitamiseks jätke parool tühjaks.</value>
+  </data>
+  <data name="NetworkCache.AccountUserName" xml:space="preserve">
+    <value>Kasutajanimi</value>
+  </data>
+  <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
+    <value>DOMAIN\user või user@domain</value>
+  </data>
+  <data name="NetworkCache.AccountsDescription" xml:space="preserve">
+    <value>Kontod, millega ühiskaustu avatakse. Seadmed kasutavad neid ühiskausta lugemiseks ja allalaaditu avaldamiseks.</value>
+  </data>
+  <data name="NetworkCache.AccountsHeader" xml:space="preserve">
+    <value>Kontod</value>
+  </data>
+  <data name="NetworkCache.ColumnAccount" xml:space="preserve">
+    <value>Konto</value>
+  </data>
+  <data name="NetworkCache.ColumnName" xml:space="preserve">
+    <value>Nimi</value>
+  </data>
+  <data name="NetworkCache.ColumnPassword" xml:space="preserve">
+    <value>Parool</value>
+  </data>
+  <data name="NetworkCache.ColumnPath" xml:space="preserve">
+    <value>Tee</value>
+  </data>
+  <data name="NetworkCache.ColumnShares" xml:space="preserve">
+    <value>Ühiskaustad</value>
+  </data>
+  <data name="NetworkCache.ColumnStatus" xml:space="preserve">
+    <value>Olek</value>
+  </data>
+  <data name="NetworkCache.ColumnType" xml:space="preserve">
+    <value>Tüüp</value>
+  </data>
+  <data name="NetworkCache.ColumnUsedBy" xml:space="preserve">
+    <value>Kasutab</value>
+  </data>
+  <data name="NetworkCache.ColumnUserName" xml:space="preserve">
+    <value>Kasutajanimi</value>
+  </data>
+  <data name="NetworkCache.ColumnValue" xml:space="preserve">
+    <value>Väärtus</value>
+  </data>
+  <data name="NetworkCache.CommandAdd" xml:space="preserve">
+    <value>Lisa</value>
+  </data>
+  <data name="NetworkCache.CommandEdit" xml:space="preserve">
+    <value>Muuda</value>
+  </data>
+  <data name="NetworkCache.CommandRemove" xml:space="preserve">
+    <value>Eemalda</value>
+  </data>
+  <data name="NetworkCache.DialogAdd" xml:space="preserve">
+    <value>Lisa</value>
+  </data>
+  <data name="NetworkCache.EmptyAccounts" xml:space="preserve">
+    <value>Kontosid veel pole. Kontota ühiskaustad on kirjutuskaitstud.</value>
+  </data>
+  <data name="NetworkCache.EmptyScopes" xml:space="preserve">
+    <value>IP-ulatusi veel pole.</value>
+  </data>
+  <data name="NetworkCache.EmptyShares" xml:space="preserve">
+    <value>Ühiskaustu veel pole.</value>
+  </data>
+  <data name="NetworkCache.MoveDown" xml:space="preserve">
+    <value>Liiguta alla</value>
+  </data>
+  <data name="NetworkCache.MoveUp" xml:space="preserve">
+    <value>Liiguta üles</value>
+  </data>
+  <data name="NetworkCache.NoAccount" xml:space="preserve">
+    <value>Konto puudub</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
+    <value>Ühiskaustad: {0}, IP-ulatused: {1}</value>
+  </data>
+  <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
+    <value>Seda parooli ei saa kasutada.</value>
+  </data>
+  <data name="NetworkCache.PasswordMismatch" xml:space="preserve">
+    <value>Paroolid ei ühti.</value>
+  </data>
+  <data name="NetworkCache.PasswordMissing" xml:space="preserve">
+    <value>Puudub</value>
+  </data>
+  <data name="NetworkCache.PasswordRequiredInput" xml:space="preserve">
+    <value>Sisestage parool.</value>
+  </data>
+  <data name="NetworkCache.PasswordSaved" xml:space="preserve">
+    <value>Salvestatud</value>
+  </data>
+  <data name="NetworkCache.Ready" xml:space="preserve">
+    <value>Valmis</value>
+  </data>
+  <data name="NetworkCache.RemoveShareTitle" xml:space="preserve">
+    <value>Eemalda ühiskaust</value>
+  </data>
+  <data name="NetworkCache.RemoveShareUsedMessageFormat" xml:space="preserve">
+    <value>Ühiskausta {0} kasutab IP-ulatuste arv: {1}. Selle eemaldamisel eemaldatakse see ka nendest ulatustest.</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogAddTitle" xml:space="preserve">
+    <value>Lisa IP-ulatus</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogEditTitle" xml:space="preserve">
+    <value>Muuda IP-ulatust</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Address" xml:space="preserve">
+    <value>Aadress</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Range" xml:space="preserve">
+    <value>Vahemik</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Subnet" xml:space="preserve">
+    <value>Alamvõrk</value>
+  </data>
+  <data name="NetworkCache.ScopeKindHeader" xml:space="preserve">
+    <value>Tüüp</value>
+  </data>
+  <data name="NetworkCache.ScopeName" xml:space="preserve">
+    <value>Nimi</value>
+  </data>
+  <data name="NetworkCache.ScopeNameRequired" xml:space="preserve">
+    <value>Sisestage nimi.</value>
+  </data>
+  <data name="NetworkCache.ScopeNoShares" xml:space="preserve">
+    <value>Lisage esmalt ühiskaust.</value>
+  </data>
+  <data name="NetworkCache.ScopeShares" xml:space="preserve">
+    <value>Ühiskaustad</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
+    <value>Seadmed proovivad märgitud ühiskaustu ülevalt alla ja laadivad seejärel alla Internetist.</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
+    <value>Märkige vähemalt üks ühiskaust.</value>
+  </data>
+  <data name="NetworkCache.ScopeValue" xml:space="preserve">
+    <value>Väärtus</value>
+  </data>
+  <data name="NetworkCache.ScopeValueInvalid" xml:space="preserve">
+    <value>Sisestage selle tüübi jaoks sobiv väärtus.</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Address" xml:space="preserve">
+    <value>10.20.0.15</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Range" xml:space="preserve">
+    <value>10.20.0.10-10.20.0.200</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Subnet" xml:space="preserve">
+    <value>10.10.0.0/16 või fd00:10::/48</value>
+  </data>
+  <data name="NetworkCache.ScopesDescription" xml:space="preserve">
+    <value>IP-aadressid, mis määravad, milliseid ühiskaustu seade proovib.</value>
+  </data>
+  <data name="NetworkCache.ScopesHeader" xml:space="preserve">
+    <value>IP-ulatused</value>
+  </data>
+  <data name="NetworkCache.ScopesSpecificity" xml:space="preserve">
+    <value>Kui seade vastab mitmele ulatusele, kehtib kõige täpsem.</value>
+  </data>
+  <data name="NetworkCache.ShareAccount" xml:space="preserve">
+    <value>Konto</value>
+  </data>
+  <data name="NetworkCache.ShareDialogAddTitle" xml:space="preserve">
+    <value>Lisa ühiskaust</value>
+  </data>
+  <data name="NetworkCache.ShareDialogEditTitle" xml:space="preserve">
+    <value>Muuda ühiskausta</value>
+  </data>
+  <data name="NetworkCache.ShareDuplicate" xml:space="preserve">
+    <value>See ühiskaust on juba loendis.</value>
+  </data>
+  <data name="NetworkCache.ShareNoAccountHint" xml:space="preserve">
+    <value>Kontota loevad seadmed ühiskausta ilma mandaadita ega kirjuta sinna kunagi.</value>
+  </data>
+  <data name="NetworkCache.SharePath" xml:space="preserve">
+    <value>Tee</value>
+  </data>
+  <data name="NetworkCache.SharesDescription" xml:space="preserve">
+    <value>Vahemäluna kasutatavad SMB-ühiskaustad. Iga ühiskausta saab avada ühe kontoga.</value>
+  </data>
+  <data name="NetworkCache.SharesHeader" xml:space="preserve">
+    <value>Ühiskaustad</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
+    <value>See väärtus ei sobi selle tüübiga.</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidSharePath" xml:space="preserve">
+    <value>Sisestage tee kujul \\server\share.</value>
+  </data>
+  <data name="NetworkCache.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>Kontoga ühiskaustad nõuavad juurutuse paroolikaitset, sest PXE alglaadimistõmmist saab alla laadida igaüks võrgus. Lubage see lehel „Üldine“.</value>
+  </data>
+  <data name="NetworkCache.Validation.PasswordRequired" xml:space="preserve">
+    <value>Sisestage konto parool.</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopeWithoutShare" xml:space="preserve">
+    <value>Märkige vähemalt üks ühiskaust.</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopesRequired" xml:space="preserve">
+    <value>Lisage vähemalt üks IP-ulatus.</value>
+  </data>
+  <data name="NetworkCache.Validation.SharesRequired" xml:space="preserve">
+    <value>Lisage vähemalt üks ühiskaust.</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownAccount" xml:space="preserve">
+    <value>Selle ühiskausta kontot pole enam olemas.</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownShare" xml:space="preserve">
+    <value>Selle ulatuse üht ühiskausta pole enam olemas.</value>
+  </data>
+  <data name="NetworkCache.Validation.UserNameRequired" xml:space="preserve">
+    <value>Sisestage kasutajanimi.</value>
+  </data>
+  <data name="NetworkCachePageHeader.Description" xml:space="preserve">
+    <value>Võimaldab rakendusel Foundry Deploy kasutada SMB-ühiskaustu ühise vahemäluna, mis valitakse seadme IP-aadressi järgi. Windowsi, draiveripaketid ja imporditud sisu loetakse ühiskaustast enne Internetti ning seadmete allalaaditu avaldatakse sinna tagasi.</value>
+  </data>
+  <data name="NetworkCachePageHeader.Title" xml:space="preserve">
+    <value>Võrguvahemälu</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Luba OOBE konfiguratsioon</value>

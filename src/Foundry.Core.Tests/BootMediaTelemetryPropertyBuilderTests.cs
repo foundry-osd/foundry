@@ -1331,6 +1331,36 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             diagnostic,
             adkStatus: adkStatus);
 
+    [Theory]
+    [InlineData(true, 2, 3, 1)]
+    [InlineData(false, 0, 0, 0)]
+    public void Build_ReportsNetworkCacheCountsWithoutPathsOrAccounts(bool enabled, int shares, int scopes, int accounts)
+    {
+        var document = new FoundryConfigurationDocument
+        {
+            NetworkCache = new NetworkCacheSettings
+            {
+                IsEnabled = enabled,
+                Accounts = [new() { Id = "a1", UserName = "PRIVATE\\svc" }],
+                Shares = [new() { Id = "s1", Path = @"\\privatefs\cache", AccountId = "a1" }, new() { Id = "s2", Path = @"\\privatefs2\cache" }],
+                Scopes =
+                [
+                    new() { Id = "c1", Name = "PrivateSite", Kind = NetworkCacheScopeKind.Subnet, Value = "10.0.0.0/8", ShareIds = ["s1"] },
+                    new() { Id = "c2", Name = "PrivateSite2", Kind = NetworkCacheScopeKind.Address, Value = "10.1.1.1", ShareIds = ["s2"] },
+                    new() { Id = "c3", Name = "PrivateSite3", Kind = NetworkCacheScopeKind.Range, Value = "10.2.0.1-10.2.0.9", ShareIds = ["s1"] }
+                ]
+            }
+        };
+
+        IReadOnlyDictionary<string, object?> result = BuildWith(document);
+
+        Assert.Equal(enabled, result["network_cache_enabled"]);
+        Assert.Equal(shares, result["network_cache_share_count"]);
+        Assert.Equal(scopes, result["network_cache_scope_count"]);
+        Assert.Equal(accounts, result["network_cache_account_count"]);
+        Assert.DoesNotContain(result.Values, value => value is string text && text.Contains("private", StringComparison.OrdinalIgnoreCase));
+    }
+
     [Fact]
     public void Build_FailedWithoutDiagnostic_ReportsUnknownFailureKind()
     {

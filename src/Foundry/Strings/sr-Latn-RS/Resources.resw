@@ -2629,6 +2629,12 @@ Licencirano pod MIT licencom.</value>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
     <value>Imenovanje računara</value>
   </data>
+  <data name="Nav_NetworkCacheKey.Description" xml:space="preserve">
+    <value>Koristite SMB deljene resurse kao zajednički keš preuzimanja za Foundry Deploy.</value>
+  </data>
+  <data name="Nav_NetworkCacheKey.Title" xml:space="preserve">
+    <value>Mrežni keš</value>
+  </data>
   <data name="Nav_NetworkSection.Title" xml:space="preserve">
     <value>Mreža</value>
   </data>
@@ -2787,6 +2793,246 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roming Windows profila</value>
+  </data>
+  <data name="NetworkCache.AccountDialogAddTitle" xml:space="preserve">
+    <value>Dodaj nalog</value>
+  </data>
+  <data name="NetworkCache.AccountDialogEditTitle" xml:space="preserve">
+    <value>Uredi nalog</value>
+  </data>
+  <data name="NetworkCache.AccountInUse" xml:space="preserve">
+    <value>Ovaj nalog koristi deljeni resurs. Prvo ga uklonite iz deljenog resursa.</value>
+  </data>
+  <data name="NetworkCache.AccountInUseTitleFormat" xml:space="preserve">
+    <value>Nije moguće ukloniti {0}</value>
+  </data>
+  <data name="NetworkCache.AccountPassword" xml:space="preserve">
+    <value>Lozinka</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordConfirmation" xml:space="preserve">
+    <value>Potvrdite lozinku</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordKeepHint" xml:space="preserve">
+    <value>Ostavite lozinku praznu da biste zadržali trenutnu.</value>
+  </data>
+  <data name="NetworkCache.AccountUserName" xml:space="preserve">
+    <value>Korisničko ime</value>
+  </data>
+  <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
+    <value>DOMAIN\user ili user@domain</value>
+  </data>
+  <data name="NetworkCache.AccountsDescription" xml:space="preserve">
+    <value>Nalozi koji otvaraju deljene resurse. Uređaji ih koriste za čitanje deljenog resursa i objavljivanje onoga što preuzmu.</value>
+  </data>
+  <data name="NetworkCache.AccountsHeader" xml:space="preserve">
+    <value>Nalozi</value>
+  </data>
+  <data name="NetworkCache.ColumnAccount" xml:space="preserve">
+    <value>Nalog</value>
+  </data>
+  <data name="NetworkCache.ColumnName" xml:space="preserve">
+    <value>Ime</value>
+  </data>
+  <data name="NetworkCache.ColumnPassword" xml:space="preserve">
+    <value>Lozinka</value>
+  </data>
+  <data name="NetworkCache.ColumnPath" xml:space="preserve">
+    <value>Putanja</value>
+  </data>
+  <data name="NetworkCache.ColumnShares" xml:space="preserve">
+    <value>Deljeni resursi</value>
+  </data>
+  <data name="NetworkCache.ColumnStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="NetworkCache.ColumnType" xml:space="preserve">
+    <value>Tip</value>
+  </data>
+  <data name="NetworkCache.ColumnUsedBy" xml:space="preserve">
+    <value>Koristi ga</value>
+  </data>
+  <data name="NetworkCache.ColumnUserName" xml:space="preserve">
+    <value>Korisničko ime</value>
+  </data>
+  <data name="NetworkCache.ColumnValue" xml:space="preserve">
+    <value>Vrednost</value>
+  </data>
+  <data name="NetworkCache.CommandAdd" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="NetworkCache.CommandEdit" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="NetworkCache.CommandRemove" xml:space="preserve">
+    <value>Ukloni</value>
+  </data>
+  <data name="NetworkCache.DialogAdd" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="NetworkCache.EmptyAccounts" xml:space="preserve">
+    <value>Još nema naloga. Deljeni resursi bez naloga su samo za čitanje.</value>
+  </data>
+  <data name="NetworkCache.EmptyScopes" xml:space="preserve">
+    <value>Još nema IP opsega.</value>
+  </data>
+  <data name="NetworkCache.EmptyShares" xml:space="preserve">
+    <value>Još nema deljenih resursa.</value>
+  </data>
+  <data name="NetworkCache.MoveDown" xml:space="preserve">
+    <value>Pomeri nadole</value>
+  </data>
+  <data name="NetworkCache.MoveUp" xml:space="preserve">
+    <value>Pomeri nagore</value>
+  </data>
+  <data name="NetworkCache.NoAccount" xml:space="preserve">
+    <value>Bez naloga</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
+    <value>Deljeni resursi: {0}, IP opsezi: {1}</value>
+  </data>
+  <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
+    <value>Ova lozinka ne može da se koristi.</value>
+  </data>
+  <data name="NetworkCache.PasswordMismatch" xml:space="preserve">
+    <value>Lozinke se ne podudaraju.</value>
+  </data>
+  <data name="NetworkCache.PasswordMissing" xml:space="preserve">
+    <value>Nedostaje</value>
+  </data>
+  <data name="NetworkCache.PasswordRequiredInput" xml:space="preserve">
+    <value>Unesite lozinku.</value>
+  </data>
+  <data name="NetworkCache.PasswordSaved" xml:space="preserve">
+    <value>Sačuvano</value>
+  </data>
+  <data name="NetworkCache.Ready" xml:space="preserve">
+    <value>Spreman</value>
+  </data>
+  <data name="NetworkCache.RemoveShareTitle" xml:space="preserve">
+    <value>Ukloni deljeni resurs</value>
+  </data>
+  <data name="NetworkCache.RemoveShareUsedMessageFormat" xml:space="preserve">
+    <value>{0} se koristi u IP opsezima ({1}). Uklanjanjem se uklanja i iz tih opsega.</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogAddTitle" xml:space="preserve">
+    <value>Dodaj IP opseg</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogEditTitle" xml:space="preserve">
+    <value>Uredi IP opseg</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Address" xml:space="preserve">
+    <value>Adresa</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Range" xml:space="preserve">
+    <value>Raspon</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Subnet" xml:space="preserve">
+    <value>Podmreža</value>
+  </data>
+  <data name="NetworkCache.ScopeKindHeader" xml:space="preserve">
+    <value>Tip</value>
+  </data>
+  <data name="NetworkCache.ScopeName" xml:space="preserve">
+    <value>Ime</value>
+  </data>
+  <data name="NetworkCache.ScopeNameRequired" xml:space="preserve">
+    <value>Unesite ime.</value>
+  </data>
+  <data name="NetworkCache.ScopeNoShares" xml:space="preserve">
+    <value>Prvo dodajte deljeni resurs.</value>
+  </data>
+  <data name="NetworkCache.ScopeShares" xml:space="preserve">
+    <value>Deljeni resursi</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
+    <value>Uređaji isprobavaju označene deljene resurse odozgo nadole, a zatim preuzimaju sa interneta.</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
+    <value>Označite bar jedan deljeni resurs.</value>
+  </data>
+  <data name="NetworkCache.ScopeValue" xml:space="preserve">
+    <value>Vrednost</value>
+  </data>
+  <data name="NetworkCache.ScopeValueInvalid" xml:space="preserve">
+    <value>Unesite važeću vrednost za ovaj tip.</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Address" xml:space="preserve">
+    <value>10.20.0.15</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Range" xml:space="preserve">
+    <value>10.20.0.10-10.20.0.200</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Subnet" xml:space="preserve">
+    <value>10.10.0.0/16 ili fd00:10::/48</value>
+  </data>
+  <data name="NetworkCache.ScopesDescription" xml:space="preserve">
+    <value>IP adrese koje određuju deljene resurse koje uređaj isprobava.</value>
+  </data>
+  <data name="NetworkCache.ScopesHeader" xml:space="preserve">
+    <value>IP opsezi</value>
+  </data>
+  <data name="NetworkCache.ScopesSpecificity" xml:space="preserve">
+    <value>Kada se uređaj podudara sa više opsega, primenjuje se najspecifičniji.</value>
+  </data>
+  <data name="NetworkCache.ShareAccount" xml:space="preserve">
+    <value>Nalog</value>
+  </data>
+  <data name="NetworkCache.ShareDialogAddTitle" xml:space="preserve">
+    <value>Dodaj deljeni resurs</value>
+  </data>
+  <data name="NetworkCache.ShareDialogEditTitle" xml:space="preserve">
+    <value>Uredi deljeni resurs</value>
+  </data>
+  <data name="NetworkCache.ShareDuplicate" xml:space="preserve">
+    <value>Ovaj deljeni resurs je već na listi.</value>
+  </data>
+  <data name="NetworkCache.ShareNoAccountHint" xml:space="preserve">
+    <value>Bez naloga uređaji čitaju deljeni resurs bez akreditiva i nikada ne upisuju u njega.</value>
+  </data>
+  <data name="NetworkCache.SharePath" xml:space="preserve">
+    <value>Putanja</value>
+  </data>
+  <data name="NetworkCache.SharesDescription" xml:space="preserve">
+    <value>SMB deljeni resursi koji se koriste kao keš. Svaki deljeni resurs može da se otvara jednim nalogom.</value>
+  </data>
+  <data name="NetworkCache.SharesHeader" xml:space="preserve">
+    <value>Deljeni resursi</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
+    <value>Ova vrednost nije važeća za svoj tip.</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidSharePath" xml:space="preserve">
+    <value>Unesite putanju kao što je \\server\share.</value>
+  </data>
+  <data name="NetworkCache.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>Deljeni resursi sa nalogom zahtevaju zaštitu lozinkom za primenu, jer PXE imidž za pokretanje može da preuzme bilo ko na mreži. Uključite je na stranici Opšte.</value>
+  </data>
+  <data name="NetworkCache.Validation.PasswordRequired" xml:space="preserve">
+    <value>Unesite lozinku naloga.</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopeWithoutShare" xml:space="preserve">
+    <value>Označite bar jedan deljeni resurs.</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopesRequired" xml:space="preserve">
+    <value>Dodajte bar jedan IP opseg.</value>
+  </data>
+  <data name="NetworkCache.Validation.SharesRequired" xml:space="preserve">
+    <value>Dodajte bar jedan deljeni resurs.</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownAccount" xml:space="preserve">
+    <value>Nalog ovog deljenog resursa više ne postoji.</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownShare" xml:space="preserve">
+    <value>Jedan deljeni resurs ovog opsega više ne postoji.</value>
+  </data>
+  <data name="NetworkCache.Validation.UserNameRequired" xml:space="preserve">
+    <value>Unesite korisničko ime.</value>
+  </data>
+  <data name="NetworkCachePageHeader.Description" xml:space="preserve">
+    <value>Omogućava alatki Foundry Deploy da koristi SMB deljene resurse kao zajednički keš, izabran prema IP adresi uređaja. Windows, paketi drajvera i uvezeni sadržaj čitaju se sa deljenog resursa pre interneta, a ono što uređaji preuzmu objavljuje se nazad na njega.</value>
+  </data>
+  <data name="NetworkCachePageHeader.Title" xml:space="preserve">
+    <value>Mrežni keš</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Omogući konfiguraciju za OOBE</value>

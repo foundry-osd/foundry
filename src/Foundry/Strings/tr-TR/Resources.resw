@@ -2629,6 +2629,12 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
     <value>Makine adlandırma</value>
   </data>
+  <data name="Nav_NetworkCacheKey.Description" xml:space="preserve">
+    <value>SMB paylaşımlarını Foundry Deploy için ortak bir indirme önbelleği olarak kullanın.</value>
+  </data>
+  <data name="Nav_NetworkCacheKey.Title" xml:space="preserve">
+    <value>Ağ önbelleği</value>
+  </data>
   <data name="Nav_NetworkSection.Title" xml:space="preserve">
     <value>Ağ</value>
   </data>
@@ -2787,6 +2793,246 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows profil dolaşımı</value>
+  </data>
+  <data name="NetworkCache.AccountDialogAddTitle" xml:space="preserve">
+    <value>Hesap ekle</value>
+  </data>
+  <data name="NetworkCache.AccountDialogEditTitle" xml:space="preserve">
+    <value>Hesabı düzenle</value>
+  </data>
+  <data name="NetworkCache.AccountInUse" xml:space="preserve">
+    <value>Bu hesap bir paylaşım tarafından kullanılıyor. Önce paylaşımdan kaldırın.</value>
+  </data>
+  <data name="NetworkCache.AccountInUseTitleFormat" xml:space="preserve">
+    <value>{0} kaldırılamıyor</value>
+  </data>
+  <data name="NetworkCache.AccountPassword" xml:space="preserve">
+    <value>Parola</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordConfirmation" xml:space="preserve">
+    <value>Parolayı doğrulayın</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordKeepHint" xml:space="preserve">
+    <value>Geçerli parolayı korumak için parolayı boş bırakın.</value>
+  </data>
+  <data name="NetworkCache.AccountUserName" xml:space="preserve">
+    <value>Kullanıcı adı</value>
+  </data>
+  <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
+    <value>DOMAIN\user veya user@domain</value>
+  </data>
+  <data name="NetworkCache.AccountsDescription" xml:space="preserve">
+    <value>Paylaşımları açan hesaplar. Cihazlar bunları bir paylaşımı okumak ve indirdiklerini yayımlamak için kullanır.</value>
+  </data>
+  <data name="NetworkCache.AccountsHeader" xml:space="preserve">
+    <value>Hesaplar</value>
+  </data>
+  <data name="NetworkCache.ColumnAccount" xml:space="preserve">
+    <value>Hesap</value>
+  </data>
+  <data name="NetworkCache.ColumnName" xml:space="preserve">
+    <value>İsim</value>
+  </data>
+  <data name="NetworkCache.ColumnPassword" xml:space="preserve">
+    <value>Parola</value>
+  </data>
+  <data name="NetworkCache.ColumnPath" xml:space="preserve">
+    <value>Yol</value>
+  </data>
+  <data name="NetworkCache.ColumnShares" xml:space="preserve">
+    <value>Paylaşımlar</value>
+  </data>
+  <data name="NetworkCache.ColumnStatus" xml:space="preserve">
+    <value>Durum</value>
+  </data>
+  <data name="NetworkCache.ColumnType" xml:space="preserve">
+    <value>Tür</value>
+  </data>
+  <data name="NetworkCache.ColumnUsedBy" xml:space="preserve">
+    <value>Kullanan</value>
+  </data>
+  <data name="NetworkCache.ColumnUserName" xml:space="preserve">
+    <value>Kullanıcı adı</value>
+  </data>
+  <data name="NetworkCache.ColumnValue" xml:space="preserve">
+    <value>Değer</value>
+  </data>
+  <data name="NetworkCache.CommandAdd" xml:space="preserve">
+    <value>Ekle</value>
+  </data>
+  <data name="NetworkCache.CommandEdit" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="NetworkCache.CommandRemove" xml:space="preserve">
+    <value>Kaldır</value>
+  </data>
+  <data name="NetworkCache.DialogAdd" xml:space="preserve">
+    <value>Ekle</value>
+  </data>
+  <data name="NetworkCache.EmptyAccounts" xml:space="preserve">
+    <value>Henüz hesap yok. Hesabı olmayan paylaşımlar salt okunurdur.</value>
+  </data>
+  <data name="NetworkCache.EmptyScopes" xml:space="preserve">
+    <value>Henüz IP kapsamı yok.</value>
+  </data>
+  <data name="NetworkCache.EmptyShares" xml:space="preserve">
+    <value>Henüz paylaşım yok.</value>
+  </data>
+  <data name="NetworkCache.MoveDown" xml:space="preserve">
+    <value>Aşağı taşı</value>
+  </data>
+  <data name="NetworkCache.MoveUp" xml:space="preserve">
+    <value>Yukarı taşı</value>
+  </data>
+  <data name="NetworkCache.NoAccount" xml:space="preserve">
+    <value>Hesap yok</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
+    <value>Paylaşımlar: {0}, IP kapsamları: {1}</value>
+  </data>
+  <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
+    <value>Bu parola kullanılamaz.</value>
+  </data>
+  <data name="NetworkCache.PasswordMismatch" xml:space="preserve">
+    <value>Parolalar eşleşmiyor.</value>
+  </data>
+  <data name="NetworkCache.PasswordMissing" xml:space="preserve">
+    <value>Eksik</value>
+  </data>
+  <data name="NetworkCache.PasswordRequiredInput" xml:space="preserve">
+    <value>Bir parola girin.</value>
+  </data>
+  <data name="NetworkCache.PasswordSaved" xml:space="preserve">
+    <value>Kaydedildi</value>
+  </data>
+  <data name="NetworkCache.Ready" xml:space="preserve">
+    <value>Hazır</value>
+  </data>
+  <data name="NetworkCache.RemoveShareTitle" xml:space="preserve">
+    <value>Paylaşımı kaldır</value>
+  </data>
+  <data name="NetworkCache.RemoveShareUsedMessageFormat" xml:space="preserve">
+    <value>{0}, {1} IP kapsamı tarafından kullanılıyor. Kaldırıldığında bu kapsamlardan da kaldırılır.</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogAddTitle" xml:space="preserve">
+    <value>IP kapsamı ekle</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogEditTitle" xml:space="preserve">
+    <value>IP kapsamını düzenle</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Address" xml:space="preserve">
+    <value>Adres</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Range" xml:space="preserve">
+    <value>Aralık</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Subnet" xml:space="preserve">
+    <value>Alt ağ</value>
+  </data>
+  <data name="NetworkCache.ScopeKindHeader" xml:space="preserve">
+    <value>Tür</value>
+  </data>
+  <data name="NetworkCache.ScopeName" xml:space="preserve">
+    <value>İsim</value>
+  </data>
+  <data name="NetworkCache.ScopeNameRequired" xml:space="preserve">
+    <value>Bir isim girin.</value>
+  </data>
+  <data name="NetworkCache.ScopeNoShares" xml:space="preserve">
+    <value>Önce bir paylaşım ekleyin.</value>
+  </data>
+  <data name="NetworkCache.ScopeShares" xml:space="preserve">
+    <value>Paylaşımlar</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
+    <value>Cihazlar işaretli paylaşımları yukarıdan aşağıya dener, ardından İnternet'ten indirir.</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
+    <value>En az bir paylaşımı işaretleyin.</value>
+  </data>
+  <data name="NetworkCache.ScopeValue" xml:space="preserve">
+    <value>Değer</value>
+  </data>
+  <data name="NetworkCache.ScopeValueInvalid" xml:space="preserve">
+    <value>Bu tür için geçerli bir değer girin.</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Address" xml:space="preserve">
+    <value>10.20.0.15</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Range" xml:space="preserve">
+    <value>10.20.0.10-10.20.0.200</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Subnet" xml:space="preserve">
+    <value>10.10.0.0/16 veya fd00:10::/48</value>
+  </data>
+  <data name="NetworkCache.ScopesDescription" xml:space="preserve">
+    <value>Bir cihazın denediği paylaşımları belirleyen IP adresleri.</value>
+  </data>
+  <data name="NetworkCache.ScopesHeader" xml:space="preserve">
+    <value>IP kapsamları</value>
+  </data>
+  <data name="NetworkCache.ScopesSpecificity" xml:space="preserve">
+    <value>Bir cihaz birden fazla kapsamla eşleştiğinde en belirgin olan geçerli olur.</value>
+  </data>
+  <data name="NetworkCache.ShareAccount" xml:space="preserve">
+    <value>Hesap</value>
+  </data>
+  <data name="NetworkCache.ShareDialogAddTitle" xml:space="preserve">
+    <value>Paylaşım ekle</value>
+  </data>
+  <data name="NetworkCache.ShareDialogEditTitle" xml:space="preserve">
+    <value>Paylaşımı düzenle</value>
+  </data>
+  <data name="NetworkCache.ShareDuplicate" xml:space="preserve">
+    <value>Bu paylaşım zaten listede.</value>
+  </data>
+  <data name="NetworkCache.ShareNoAccountHint" xml:space="preserve">
+    <value>Hesap olmadan cihazlar paylaşımı kimlik bilgisi kullanmadan okur ve ona asla yazmaz.</value>
+  </data>
+  <data name="NetworkCache.SharePath" xml:space="preserve">
+    <value>Yol</value>
+  </data>
+  <data name="NetworkCache.SharesDescription" xml:space="preserve">
+    <value>Önbellek olarak kullanılan SMB paylaşımları. Her paylaşım tek bir hesapla açılabilir.</value>
+  </data>
+  <data name="NetworkCache.SharesHeader" xml:space="preserve">
+    <value>Paylaşımlar</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
+    <value>Bu değer, türü için geçerli değil.</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidSharePath" xml:space="preserve">
+    <value>\\server\share gibi bir yol girin.</value>
+  </data>
+  <data name="NetworkCache.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>Hesabı olan paylaşımlar dağıtım parola korumasını gerektirir, çünkü bir PXE önyükleme görüntüsünü ağdaki herkes indirebilir. Bunu Genel sayfasında açın.</value>
+  </data>
+  <data name="NetworkCache.Validation.PasswordRequired" xml:space="preserve">
+    <value>Hesap parolasını girin.</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopeWithoutShare" xml:space="preserve">
+    <value>En az bir paylaşımı işaretleyin.</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopesRequired" xml:space="preserve">
+    <value>En az bir IP kapsamı ekleyin.</value>
+  </data>
+  <data name="NetworkCache.Validation.SharesRequired" xml:space="preserve">
+    <value>En az bir paylaşım ekleyin.</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownAccount" xml:space="preserve">
+    <value>Bu paylaşımın hesabı artık mevcut değil.</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownShare" xml:space="preserve">
+    <value>Bu kapsamın paylaşımlarından biri artık mevcut değil.</value>
+  </data>
+  <data name="NetworkCache.Validation.UserNameRequired" xml:space="preserve">
+    <value>Bir kullanıcı adı girin.</value>
+  </data>
+  <data name="NetworkCachePageHeader.Description" xml:space="preserve">
+    <value>Foundry Deploy'un, cihazın IP adresine göre seçilen SMB paylaşımlarını ortak bir önbellek olarak kullanmasını sağlar. Windows, sürücü paketleri ve içeri aktarılan içerik İnternet'ten önce paylaşımdan okunur ve cihazların indirdikleri paylaşıma geri yayımlanır.</value>
+  </data>
+  <data name="NetworkCachePageHeader.Title" xml:space="preserve">
+    <value>Ağ önbelleği</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>OOBE yapılandırmasını etkinleştir</value>

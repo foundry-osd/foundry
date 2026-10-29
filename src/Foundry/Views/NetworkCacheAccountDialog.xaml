@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog x:Class="Foundry.Views.NetworkCacheAccountDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    CloseButtonStyle="{ThemeResource DefaultButtonStyle}"
+    CornerRadius="{ThemeResource OverlayCornerRadius}"
+    DefaultButton="Primary"
+    PrimaryButtonClick="OnPrimaryButtonClick"
+    PrimaryButtonStyle="{ThemeResource AccentButtonStyle}"
+    Style="{ThemeResource DefaultContentDialogStyle}">
+    <StackPanel
+        Width="{ThemeResource FoundryWideInputMinWidth}"
+        Spacing="{ThemeResource FoundryContentGroupSpacing}">
+        <TextBlock x:Name="PasswordOnlyHintTextBlock"
+            Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
+            TextWrapping="WrapWholeWords"
+            Visibility="Collapsed" />
+        <TextBox x:Name="UserNameBox"
+            MaxLength="512" />
+        <PasswordBox x:Name="PasswordBox"
+            MaxLength="2560" />
+        <PasswordBox x:Name="ConfirmationBox"
+            MaxLength="2560" />
+        <TextBlock x:Name="PasswordHintTextBlock"
+            Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
+            TextWrapping="WrapWholeWords"
+            Visibility="Collapsed" />
+        <TextBlock x:Name="ValidationTextBlock"
+            Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+            TextWrapping="WrapWholeWords"
+            Visibility="Collapsed" />
+    </StackPanel>
+</ContentDialog>

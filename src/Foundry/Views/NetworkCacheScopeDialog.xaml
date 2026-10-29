@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog x:Class="Foundry.Views.NetworkCacheScopeDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:Foundry.ViewModels"
+    CloseButtonStyle="{ThemeResource DefaultButtonStyle}"
+    CornerRadius="{ThemeResource OverlayCornerRadius}"
+    DefaultButton="Primary"
+    PrimaryButtonClick="OnPrimaryButtonClick"
+    PrimaryButtonStyle="{ThemeResource AccentButtonStyle}"
+    Style="{ThemeResource DefaultContentDialogStyle}">
+    <StackPanel
+        Width="{ThemeResource FoundryWideInputMinWidth}"
+        Spacing="{ThemeResource FoundryContentGroupSpacing}">
+        <TextBox x:Name="NameBox"
+            MaxLength="128" />
+        <ComboBox x:Name="KindComboBox"
+            HorizontalAlignment="Stretch"
+            DisplayMemberPath="DisplayName"
+            SelectionChanged="OnKindChanged" />
+        <TextBox x:Name="ValueBox"
+            MaxLength="100" />
+        <StackPanel Spacing="{ThemeResource FoundryTextGroupSpacing}">
+            <TextBlock x:Name="SharesHeaderTextBlock"
+                Style="{ThemeResource BodyStrongTextBlockStyle}"
+                TextWrapping="WrapWholeWords" />
+            <TextBlock x:Name="SharesHintTextBlock"
+                Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
+                TextWrapping="WrapWholeWords" />
+        </StackPanel>
+        <TextBlock x:Name="NoSharesTextBlock"
+            Style="{ThemeResource FoundrySecondaryBodyTextBlockStyle}"
+            TextWrapping="WrapWholeWords"
+            Visibility="Collapsed" />
+        <ScrollViewer
+            MaxHeight="240"
+            VerticalScrollBarVisibility="Auto">
+            <ItemsControl x:Name="SharesList"
+                IsTabStop="False">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="vm:NetworkCacheScopeShareRowViewModel">
+                        <Grid ColumnSpacing="{ThemeResource FoundrySpace8}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <CheckBox
+                                MinWidth="0"
+                                IsChecked="{x:Bind IsIncluded, Mode=TwoWay}">
+                                <TextBlock
+                                    Text="{x:Bind Path}"
+                                    TextTrimming="CharacterEllipsis"
+                                    ToolTipService.ToolTip="{x:Bind Path}" />
+                            </CheckBox>
+                            <Button
+                                Grid.Column="1"
+                                AutomationProperties.Name="{x:Bind MoveUpAutomationName}"
+                                Click="OnMoveUpClick"
+                                IsEnabled="{x:Bind CanMoveUp, Mode=OneWay}"
+                                ToolTipService.ToolTip="{x:Bind MoveUpLabel}">
+                                <FontIcon
+                                    FontSize="{ThemeResource FoundryIconSizeSmall}"
+                                    Glyph="&#xE70E;" />
+                            </Button>
+                            <Button
+                                Grid.Column="2"
+                                AutomationProperties.Name="{x:Bind MoveDownAutomationName}"
+                                Click="OnMoveDownClick"
+                                IsEnabled="{x:Bind CanMoveDown, Mode=OneWay}"
+                                ToolTipService.ToolTip="{x:Bind MoveDownLabel}">
+                                <FontIcon
+                                    FontSize="{ThemeResource FoundryIconSizeSmall}"
+                                    Glyph="&#xE70D;" />
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <TextBlock x:Name="ValidationTextBlock"
+            Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+            TextWrapping="WrapWholeWords"
+            Visibility="Collapsed" />
+    </StackPanel>
+</ContentDialog>

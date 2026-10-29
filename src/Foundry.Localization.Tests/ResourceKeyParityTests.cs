@@ -87,6 +87,7 @@ public sealed class ResourceKeyParityTests
             "EthernetDot1xPageHeader.Description",
             "GeneralConfiguration.PageDescription",
             "MachineNamingPageHeader.Description",
+            "NetworkCachePageHeader.Description",
             "OobePageHeader.Description",
             "OptionalFeaturesPageHeader.Description",
             "OsSelectionPageHeader.Description",

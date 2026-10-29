@@ -60,6 +60,7 @@ public sealed class ArtifactDownloadServiceNetworkTierTests : IDisposable
         Assert.Equal("network-cache", result.Method);
         Assert.False(result.Downloaded);
         Assert.Equal(ShareBytes, await File.ReadAllBytesAsync(destination, TestContext.Current.CancellationToken));
+        Assert.Equal(1, accessor.Current!.DownloadsReused);
         Assert.Equal(0, handler.Requests);
     }
 

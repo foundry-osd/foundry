@@ -52,6 +52,7 @@ public static class ConfigurationOverviewNavigationEvaluator
             ConfigurationNavigationTarget.WindowsOptionalFeatures => evaluation[ConfigurationOverviewItem.OptionalFeatures],
             ConfigurationNavigationTarget.AppxRemoval => evaluation[ConfigurationOverviewItem.AppxRemoval],
             ConfigurationNavigationTarget.AiComponentRemoval => evaluation[ConfigurationOverviewItem.AiComponents],
+            ConfigurationNavigationTarget.NetworkCache => evaluation[ConfigurationOverviewItem.NetworkCache],
             _ => throw new ArgumentOutOfRangeException(nameof(target), target, "The navigation target has no configuration overview state.")
         };
     }

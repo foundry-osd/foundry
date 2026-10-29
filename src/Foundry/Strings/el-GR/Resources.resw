@@ -2629,6 +2629,12 @@
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
     <value>Ονομασία υπολογιστή</value>
   </data>
+  <data name="Nav_NetworkCacheKey.Description" xml:space="preserve">
+    <value>Χρησιμοποιήστε κοινόχρηστους φακέλους SMB ως κοινή προσωρινή μνήμη λήψεων για το Foundry Deploy.</value>
+  </data>
+  <data name="Nav_NetworkCacheKey.Title" xml:space="preserve">
+    <value>Προσωρινή μνήμη δικτύου</value>
+  </data>
   <data name="Nav_NetworkSection.Title" xml:space="preserve">
     <value>Δίκτυο</value>
   </data>
@@ -2787,6 +2793,246 @@
   </data>
   <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Περιαγωγή προφίλ Windows</value>
+  </data>
+  <data name="NetworkCache.AccountDialogAddTitle" xml:space="preserve">
+    <value>Προσθήκη λογαριασμού</value>
+  </data>
+  <data name="NetworkCache.AccountDialogEditTitle" xml:space="preserve">
+    <value>Επεξεργασία λογαριασμού</value>
+  </data>
+  <data name="NetworkCache.AccountInUse" xml:space="preserve">
+    <value>Αυτός ο λογαριασμός χρησιμοποιείται από έναν κοινόχρηστο φάκελο. Καταργήστε τον πρώτα από τον κοινόχρηστο φάκελο.</value>
+  </data>
+  <data name="NetworkCache.AccountInUseTitleFormat" xml:space="preserve">
+    <value>Δεν είναι δυνατή η κατάργηση του {0}</value>
+  </data>
+  <data name="NetworkCache.AccountPassword" xml:space="preserve">
+    <value>Κωδικός πρόσβασης</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordConfirmation" xml:space="preserve">
+    <value>Επιβεβαίωση κωδικού πρόσβασης</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordKeepHint" xml:space="preserve">
+    <value>Αφήστε τον κωδικό πρόσβασης κενό για να διατηρήσετε τον τρέχοντα.</value>
+  </data>
+  <data name="NetworkCache.AccountUserName" xml:space="preserve">
+    <value>Όνομα χρήστη</value>
+  </data>
+  <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
+    <value>DOMAIN\user ή user@domain</value>
+  </data>
+  <data name="NetworkCache.AccountsDescription" xml:space="preserve">
+    <value>Λογαριασμοί που ανοίγουν κοινόχρηστους φακέλους. Οι συσκευές τους χρησιμοποιούν για να διαβάζουν έναν κοινόχρηστο φάκελο και για να δημοσιεύουν ό,τι κατεβάζουν.</value>
+  </data>
+  <data name="NetworkCache.AccountsHeader" xml:space="preserve">
+    <value>Λογαριασμοί</value>
+  </data>
+  <data name="NetworkCache.ColumnAccount" xml:space="preserve">
+    <value>Λογαριασμός</value>
+  </data>
+  <data name="NetworkCache.ColumnName" xml:space="preserve">
+    <value>Όνομα</value>
+  </data>
+  <data name="NetworkCache.ColumnPassword" xml:space="preserve">
+    <value>Κωδικός πρόσβασης</value>
+  </data>
+  <data name="NetworkCache.ColumnPath" xml:space="preserve">
+    <value>Διαδρομή</value>
+  </data>
+  <data name="NetworkCache.ColumnShares" xml:space="preserve">
+    <value>Κοινόχρηστοι φάκελοι</value>
+  </data>
+  <data name="NetworkCache.ColumnStatus" xml:space="preserve">
+    <value>Κατάσταση</value>
+  </data>
+  <data name="NetworkCache.ColumnType" xml:space="preserve">
+    <value>Τύπος</value>
+  </data>
+  <data name="NetworkCache.ColumnUsedBy" xml:space="preserve">
+    <value>Χρησιμοποιείται από</value>
+  </data>
+  <data name="NetworkCache.ColumnUserName" xml:space="preserve">
+    <value>Όνομα χρήστη</value>
+  </data>
+  <data name="NetworkCache.ColumnValue" xml:space="preserve">
+    <value>Τιμή</value>
+  </data>
+  <data name="NetworkCache.CommandAdd" xml:space="preserve">
+    <value>Προσθήκη</value>
+  </data>
+  <data name="NetworkCache.CommandEdit" xml:space="preserve">
+    <value>Επεξεργασία</value>
+  </data>
+  <data name="NetworkCache.CommandRemove" xml:space="preserve">
+    <value>Κατάργηση</value>
+  </data>
+  <data name="NetworkCache.DialogAdd" xml:space="preserve">
+    <value>Προσθήκη</value>
+  </data>
+  <data name="NetworkCache.EmptyAccounts" xml:space="preserve">
+    <value>Δεν υπάρχει ακόμα λογαριασμός. Οι κοινόχρηστοι φάκελοι χωρίς λογαριασμό είναι μόνο για ανάγνωση.</value>
+  </data>
+  <data name="NetworkCache.EmptyScopes" xml:space="preserve">
+    <value>Δεν υπάρχει ακόμα εμβέλεια IP.</value>
+  </data>
+  <data name="NetworkCache.EmptyShares" xml:space="preserve">
+    <value>Δεν υπάρχει ακόμα κοινόχρηστος φάκελος.</value>
+  </data>
+  <data name="NetworkCache.MoveDown" xml:space="preserve">
+    <value>Μετακίνηση κάτω</value>
+  </data>
+  <data name="NetworkCache.MoveUp" xml:space="preserve">
+    <value>Μετακίνηση επάνω</value>
+  </data>
+  <data name="NetworkCache.NoAccount" xml:space="preserve">
+    <value>Χωρίς λογαριασμό</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
+    <value>Κοινόχρηστοι φάκελοι: {0}, εμβέλειες IP: {1}</value>
+  </data>
+  <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
+    <value>Αυτός ο κωδικός πρόσβασης δεν μπορεί να χρησιμοποιηθεί.</value>
+  </data>
+  <data name="NetworkCache.PasswordMismatch" xml:space="preserve">
+    <value>Οι κωδικοί πρόσβασης δεν ταιριάζουν.</value>
+  </data>
+  <data name="NetworkCache.PasswordMissing" xml:space="preserve">
+    <value>Λείπει</value>
+  </data>
+  <data name="NetworkCache.PasswordRequiredInput" xml:space="preserve">
+    <value>Εισαγάγετε έναν κωδικό πρόσβασης.</value>
+  </data>
+  <data name="NetworkCache.PasswordSaved" xml:space="preserve">
+    <value>Αποθηκεύτηκε</value>
+  </data>
+  <data name="NetworkCache.Ready" xml:space="preserve">
+    <value>Έτοιμο</value>
+  </data>
+  <data name="NetworkCache.RemoveShareTitle" xml:space="preserve">
+    <value>Κατάργηση κοινόχρηστου φακέλου</value>
+  </data>
+  <data name="NetworkCache.RemoveShareUsedMessageFormat" xml:space="preserve">
+    <value>Ο φάκελος {0} χρησιμοποιείται από {1} εμβέλεια(ες) IP. Η κατάργησή του τον καταργεί και από αυτές τις εμβέλειες.</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogAddTitle" xml:space="preserve">
+    <value>Προσθήκη εμβέλειας IP</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogEditTitle" xml:space="preserve">
+    <value>Επεξεργασία εμβέλειας IP</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Address" xml:space="preserve">
+    <value>Διεύθυνση</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Range" xml:space="preserve">
+    <value>Περιοχή</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Subnet" xml:space="preserve">
+    <value>Υποδίκτυο</value>
+  </data>
+  <data name="NetworkCache.ScopeKindHeader" xml:space="preserve">
+    <value>Τύπος</value>
+  </data>
+  <data name="NetworkCache.ScopeName" xml:space="preserve">
+    <value>Όνομα</value>
+  </data>
+  <data name="NetworkCache.ScopeNameRequired" xml:space="preserve">
+    <value>Εισαγάγετε ένα όνομα.</value>
+  </data>
+  <data name="NetworkCache.ScopeNoShares" xml:space="preserve">
+    <value>Προσθέστε πρώτα έναν κοινόχρηστο φάκελο.</value>
+  </data>
+  <data name="NetworkCache.ScopeShares" xml:space="preserve">
+    <value>Κοινόχρηστοι φάκελοι</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
+    <value>Οι συσκευές δοκιμάζουν τους επιλεγμένους κοινόχρηστους φακέλους από πάνω προς τα κάτω και στη συνέχεια κάνουν λήψη από το Internet.</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
+    <value>Επιλέξτε τουλάχιστον έναν κοινόχρηστο φάκελο.</value>
+  </data>
+  <data name="NetworkCache.ScopeValue" xml:space="preserve">
+    <value>Τιμή</value>
+  </data>
+  <data name="NetworkCache.ScopeValueInvalid" xml:space="preserve">
+    <value>Εισαγάγετε μια έγκυρη τιμή για αυτόν τον τύπο.</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Address" xml:space="preserve">
+    <value>10.20.0.15</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Range" xml:space="preserve">
+    <value>10.20.0.10-10.20.0.200</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Subnet" xml:space="preserve">
+    <value>10.10.0.0/16 ή fd00:10::/48</value>
+  </data>
+  <data name="NetworkCache.ScopesDescription" xml:space="preserve">
+    <value>Διευθύνσεις IP που καθορίζουν ποιους κοινόχρηστους φακέλους δοκιμάζει μια συσκευή.</value>
+  </data>
+  <data name="NetworkCache.ScopesHeader" xml:space="preserve">
+    <value>Εμβέλειες IP</value>
+  </data>
+  <data name="NetworkCache.ScopesSpecificity" xml:space="preserve">
+    <value>Όταν μια συσκευή αντιστοιχεί σε πολλές εμβέλειες, υπερισχύει η πιο συγκεκριμένη.</value>
+  </data>
+  <data name="NetworkCache.ShareAccount" xml:space="preserve">
+    <value>Λογαριασμός</value>
+  </data>
+  <data name="NetworkCache.ShareDialogAddTitle" xml:space="preserve">
+    <value>Προσθήκη κοινόχρηστου φακέλου</value>
+  </data>
+  <data name="NetworkCache.ShareDialogEditTitle" xml:space="preserve">
+    <value>Επεξεργασία κοινόχρηστου φακέλου</value>
+  </data>
+  <data name="NetworkCache.ShareDuplicate" xml:space="preserve">
+    <value>Αυτός ο κοινόχρηστος φάκελος υπάρχει ήδη στη λίστα.</value>
+  </data>
+  <data name="NetworkCache.ShareNoAccountHint" xml:space="preserve">
+    <value>Χωρίς λογαριασμό, οι συσκευές διαβάζουν τον κοινόχρηστο φάκελο χωρίς διαπιστευτήρια και δεν γράφουν ποτέ σε αυτόν.</value>
+  </data>
+  <data name="NetworkCache.SharePath" xml:space="preserve">
+    <value>Διαδρομή</value>
+  </data>
+  <data name="NetworkCache.SharesDescription" xml:space="preserve">
+    <value>Κοινόχρηστοι φάκελοι SMB που χρησιμοποιούνται ως προσωρινή μνήμη. Κάθε κοινόχρηστος φάκελος μπορεί να ανοίγει με έναν λογαριασμό.</value>
+  </data>
+  <data name="NetworkCache.SharesHeader" xml:space="preserve">
+    <value>Κοινόχρηστοι φάκελοι</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
+    <value>Αυτή η τιμή δεν είναι έγκυρη για τον τύπο της.</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidSharePath" xml:space="preserve">
+    <value>Εισαγάγετε μια διαδρομή όπως \\server\share.</value>
+  </data>
+  <data name="NetworkCache.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>Οι κοινόχρηστοι φάκελοι με λογαριασμό απαιτούν προστασία ανάπτυξης με κωδικό πρόσβασης, επειδή οποιοσδήποτε στο δίκτυο μπορεί να κατεβάσει μια εικόνα εκκίνησης PXE. Ενεργοποιήστε την στη σελίδα «Γενικά».</value>
+  </data>
+  <data name="NetworkCache.Validation.PasswordRequired" xml:space="preserve">
+    <value>Εισαγάγετε τον κωδικό πρόσβασης του λογαριασμού.</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopeWithoutShare" xml:space="preserve">
+    <value>Επιλέξτε τουλάχιστον έναν κοινόχρηστο φάκελο.</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopesRequired" xml:space="preserve">
+    <value>Προσθέστε τουλάχιστον μία εμβέλεια IP.</value>
+  </data>
+  <data name="NetworkCache.Validation.SharesRequired" xml:space="preserve">
+    <value>Προσθέστε τουλάχιστον έναν κοινόχρηστο φάκελο.</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownAccount" xml:space="preserve">
+    <value>Ο λογαριασμός αυτού του κοινόχρηστου φακέλου δεν υπάρχει πλέον.</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownShare" xml:space="preserve">
+    <value>Ένας κοινόχρηστος φάκελος αυτής της εμβέλειας δεν υπάρχει πλέον.</value>
+  </data>
+  <data name="NetworkCache.Validation.UserNameRequired" xml:space="preserve">
+    <value>Εισαγάγετε ένα όνομα χρήστη.</value>
+  </data>
+  <data name="NetworkCachePageHeader.Description" xml:space="preserve">
+    <value>Επιτρέπει στο Foundry Deploy να χρησιμοποιεί κοινόχρηστους φακέλους SMB ως κοινή προσωρινή μνήμη, που επιλέγονται με βάση τη διεύθυνση IP της συσκευής. Τα Windows, τα πακέτα προγραμμάτων οδήγησης και το εισαγόμενο περιεχόμενο διαβάζονται από τον κοινόχρηστο φάκελο πριν από το Internet, και ό,τι κατεβάζουν οι συσκευές δημοσιεύεται πίσω σε αυτόν.</value>
+  </data>
+  <data name="NetworkCachePageHeader.Title" xml:space="preserve">
+    <value>Προσωρινή μνήμη δικτύου</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Ενεργοποίηση διαμόρφωσης OOBE</value>

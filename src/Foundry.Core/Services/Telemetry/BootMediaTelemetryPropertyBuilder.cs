@@ -112,6 +112,7 @@ public static class BootMediaTelemetryPropertyBuilder
         AddCustomizationTelemetryProperties(properties, document.Customization);
         AddPostInstallationTelemetryProperties(properties, postInstallation);
         AddDomainJoinTelemetryProperties(properties, document.DomainJoin ?? new DomainJoinSettings());
+        AddNetworkCacheTelemetryProperties(properties, document.NetworkCache ?? new NetworkCacheSettings());
         AddOperatingSystemSelectionTelemetryProperties(properties, document.OperatingSystemSelection);
         // True when any Customization page option, OS selection, unattend, custom images or post-installation is enabled.
         properties["customization_any_enabled"] =
@@ -154,6 +155,21 @@ public static class BootMediaTelemetryPropertyBuilder
             : 0;
         properties["domain_join_default_ou_set"] = enabled && domains.Any(domain => !string.IsNullOrWhiteSpace(domain.DefaultOuId));
     }
+
+    /// <summary>
+    /// Reports how the network cache is configured with counts only, never a share path, account or scope. A disabled
+    /// section reports zeros so a saved but inactive draft is not counted as usage.
+    /// </summary>
+    private static void AddNetworkCacheTelemetryProperties(IDictionary<string, object?> properties, NetworkCacheSettings settings)
+    {
+        bool enabled = settings.IsEnabled;
+        properties["network_cache_enabled"] = enabled;
+        properties["network_cache_share_count"] = enabled ? Math.Clamp(settings.Shares.Count, 0, MaximumNetworkCacheItems) : 0;
+        properties["network_cache_scope_count"] = enabled ? Math.Clamp(settings.Scopes.Count, 0, MaximumNetworkCacheItems) : 0;
+        properties["network_cache_account_count"] = enabled ? Math.Clamp(settings.Accounts.Count, 0, MaximumNetworkCacheItems) : 0;
+    }
+
+    private const int MaximumNetworkCacheItems = 1000;
 
     private static void AddPostInstallationTelemetryProperties(
         IDictionary<string, object?> properties,

@@ -80,6 +80,9 @@ public sealed partial class StartPage : Page
             case ConfigurationNavigationTarget.General:
                 App.Current.NavigationService.NavigateTo(typeof(GeneralConfigurationPage));
                 break;
+            case ConfigurationNavigationTarget.NetworkCache:
+                App.Current.NavigationService.NavigateTo(typeof(NetworkCachePage));
+                break;
             case ConfigurationNavigationTarget.EthernetDot1x:
                 App.Current.NavigationService.NavigateTo(typeof(EthernetDot1xPage));
                 break;

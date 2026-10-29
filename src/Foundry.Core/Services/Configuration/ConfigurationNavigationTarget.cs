@@ -25,5 +25,6 @@ public enum ConfigurationNavigationTarget
     AiComponentRemoval,
     PostInstallation,
     DomainJoinInteractive,
-    DomainJoinAutomatic
+    DomainJoinAutomatic,
+    NetworkCache
 }

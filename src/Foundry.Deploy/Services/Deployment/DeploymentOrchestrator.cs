@@ -8,6 +8,7 @@ using System.IO;
 using Foundry.Core.Services.Telemetry;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
+using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Network;
 using Foundry.Deploy.Services.Http;
@@ -30,6 +31,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
     private readonly ITelemetryService _telemetryService;
     private readonly ILogger<DeploymentOrchestrator> _logger;
     private readonly INetworkProfileRoamingArtifactService? _networkProfileRoamingArtifactService;
+    private readonly INetworkCacheSessionAccessor? _networkCacheAccessor;
 
     /// <summary>
     /// Initializes the deployment orchestrator and validates the registered step sequence.
@@ -41,7 +43,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         IEnumerable<IDeploymentStep> steps,
         ITelemetryService telemetryService,
         ILogger<DeploymentOrchestrator> logger,
-        INetworkProfileRoamingArtifactService? networkProfileRoamingArtifactService = null)
+        INetworkProfileRoamingArtifactService? networkProfileRoamingArtifactService = null,
+        INetworkCacheSessionAccessor? networkCacheAccessor = null)
     {
         _operationProgressService = operationProgressService;
         _deploymentLogService = deploymentLogService;
@@ -49,6 +52,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         _telemetryService = telemetryService;
         _logger = logger;
         _networkProfileRoamingArtifactService = networkProfileRoamingArtifactService;
+        _networkCacheAccessor = networkCacheAccessor;
 
         var stepsByName = new Dictionary<string, IDeploymentStep>(StringComparer.Ordinal);
         foreach (IDeploymentStep step in steps)
@@ -533,6 +537,11 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
             ["deploy_oobe_account_creation_skipped"] = !context.UsesCustomUnattend && context.Oobe.AdditionalAccounts.Count > 0,
             ["deploy_completion_reboot_mode"] = rebootPolicy.Mode
         };
+
+        foreach ((string key, object? value) in NetworkCacheTelemetry.Describe(_networkCacheAccessor?.Current))
+        {
+            properties[key] = value;
+        }
 
         if (rebootPolicy.DelaySeconds is not null)
         {

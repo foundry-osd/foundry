@@ -2629,6 +2629,12 @@
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
     <value>การตั้งชื่อเครื่อง</value>
   </data>
+  <data name="Nav_NetworkCacheKey.Description" xml:space="preserve">
+    <value>ใช้โฟลเดอร์ที่แชร์ SMB เป็นแคชการดาวน์โหลดที่ใช้ร่วมกันสำหรับ Foundry Deploy</value>
+  </data>
+  <data name="Nav_NetworkCacheKey.Title" xml:space="preserve">
+    <value>แคชเครือข่าย</value>
+  </data>
   <data name="Nav_NetworkSection.Title" xml:space="preserve">
     <value>เครือข่าย</value>
   </data>
@@ -2787,6 +2793,246 @@
   </data>
   <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>การโรมมิ่งโปรไฟล์ Windows</value>
+  </data>
+  <data name="NetworkCache.AccountDialogAddTitle" xml:space="preserve">
+    <value>เพิ่มบัญชี</value>
+  </data>
+  <data name="NetworkCache.AccountDialogEditTitle" xml:space="preserve">
+    <value>แก้ไขบัญชี</value>
+  </data>
+  <data name="NetworkCache.AccountInUse" xml:space="preserve">
+    <value>บัญชีนี้ถูกใช้โดยโฟลเดอร์ที่แชร์ นำบัญชีออกจากโฟลเดอร์ที่แชร์ก่อน</value>
+  </data>
+  <data name="NetworkCache.AccountInUseTitleFormat" xml:space="preserve">
+    <value>ไม่สามารถนำ {0} ออกได้</value>
+  </data>
+  <data name="NetworkCache.AccountPassword" xml:space="preserve">
+    <value>รหัสผ่าน</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordConfirmation" xml:space="preserve">
+    <value>ยืนยันรหัสผ่าน</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordKeepHint" xml:space="preserve">
+    <value>เว้นรหัสผ่านว่างไว้เพื่อใช้รหัสผ่านปัจจุบันต่อไป</value>
+  </data>
+  <data name="NetworkCache.AccountUserName" xml:space="preserve">
+    <value>ชื่อผู้ใช้</value>
+  </data>
+  <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
+    <value>DOMAIN\user หรือ user@domain</value>
+  </data>
+  <data name="NetworkCache.AccountsDescription" xml:space="preserve">
+    <value>บัญชีที่ใช้เปิดโฟลเดอร์ที่แชร์ อุปกรณ์ใช้บัญชีเหล่านี้เพื่ออ่านโฟลเดอร์ที่แชร์และเผยแพร่สิ่งที่ดาวน์โหลด</value>
+  </data>
+  <data name="NetworkCache.AccountsHeader" xml:space="preserve">
+    <value>บัญชี</value>
+  </data>
+  <data name="NetworkCache.ColumnAccount" xml:space="preserve">
+    <value>บัญชี</value>
+  </data>
+  <data name="NetworkCache.ColumnName" xml:space="preserve">
+    <value>ชื่อ</value>
+  </data>
+  <data name="NetworkCache.ColumnPassword" xml:space="preserve">
+    <value>รหัสผ่าน</value>
+  </data>
+  <data name="NetworkCache.ColumnPath" xml:space="preserve">
+    <value>เส้นทาง</value>
+  </data>
+  <data name="NetworkCache.ColumnShares" xml:space="preserve">
+    <value>โฟลเดอร์ที่แชร์</value>
+  </data>
+  <data name="NetworkCache.ColumnStatus" xml:space="preserve">
+    <value>สถานะ</value>
+  </data>
+  <data name="NetworkCache.ColumnType" xml:space="preserve">
+    <value>ชนิด</value>
+  </data>
+  <data name="NetworkCache.ColumnUsedBy" xml:space="preserve">
+    <value>ใช้โดย</value>
+  </data>
+  <data name="NetworkCache.ColumnUserName" xml:space="preserve">
+    <value>ชื่อผู้ใช้</value>
+  </data>
+  <data name="NetworkCache.ColumnValue" xml:space="preserve">
+    <value>ค่า</value>
+  </data>
+  <data name="NetworkCache.CommandAdd" xml:space="preserve">
+    <value>เพิ่ม</value>
+  </data>
+  <data name="NetworkCache.CommandEdit" xml:space="preserve">
+    <value>แก้ไข</value>
+  </data>
+  <data name="NetworkCache.CommandRemove" xml:space="preserve">
+    <value>นำออก</value>
+  </data>
+  <data name="NetworkCache.DialogAdd" xml:space="preserve">
+    <value>เพิ่ม</value>
+  </data>
+  <data name="NetworkCache.EmptyAccounts" xml:space="preserve">
+    <value>ยังไม่มีบัญชี โฟลเดอร์ที่แชร์ที่ไม่มีบัญชีจะเป็นแบบอ่านอย่างเดียว</value>
+  </data>
+  <data name="NetworkCache.EmptyScopes" xml:space="preserve">
+    <value>ยังไม่มีขอบเขต IP</value>
+  </data>
+  <data name="NetworkCache.EmptyShares" xml:space="preserve">
+    <value>ยังไม่มีโฟลเดอร์ที่แชร์</value>
+  </data>
+  <data name="NetworkCache.MoveDown" xml:space="preserve">
+    <value>เลื่อนลง</value>
+  </data>
+  <data name="NetworkCache.MoveUp" xml:space="preserve">
+    <value>เลื่อนขึ้น</value>
+  </data>
+  <data name="NetworkCache.NoAccount" xml:space="preserve">
+    <value>ไม่มีบัญชี</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
+    <value>โฟลเดอร์ที่แชร์: {0}, ขอบเขต IP: {1}</value>
+  </data>
+  <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
+    <value>ไม่สามารถใช้รหัสผ่านนี้ได้</value>
+  </data>
+  <data name="NetworkCache.PasswordMismatch" xml:space="preserve">
+    <value>รหัสผ่านไม่ตรงกัน</value>
+  </data>
+  <data name="NetworkCache.PasswordMissing" xml:space="preserve">
+    <value>หายไป</value>
+  </data>
+  <data name="NetworkCache.PasswordRequiredInput" xml:space="preserve">
+    <value>ป้อนรหัสผ่าน</value>
+  </data>
+  <data name="NetworkCache.PasswordSaved" xml:space="preserve">
+    <value>บันทึกแล้ว</value>
+  </data>
+  <data name="NetworkCache.Ready" xml:space="preserve">
+    <value>พร้อม</value>
+  </data>
+  <data name="NetworkCache.RemoveShareTitle" xml:space="preserve">
+    <value>นำโฟลเดอร์ที่แชร์ออก</value>
+  </data>
+  <data name="NetworkCache.RemoveShareUsedMessageFormat" xml:space="preserve">
+    <value>{0} ถูกใช้โดยขอบเขต IP {1} รายการ การนำออกจะนำออกจากขอบเขตเหล่านั้นด้วย</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogAddTitle" xml:space="preserve">
+    <value>เพิ่มขอบเขต IP</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogEditTitle" xml:space="preserve">
+    <value>แก้ไขขอบเขต IP</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Address" xml:space="preserve">
+    <value>ที่อยู่</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Range" xml:space="preserve">
+    <value>ช่วง</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Subnet" xml:space="preserve">
+    <value>ซับเน็ต</value>
+  </data>
+  <data name="NetworkCache.ScopeKindHeader" xml:space="preserve">
+    <value>ชนิด</value>
+  </data>
+  <data name="NetworkCache.ScopeName" xml:space="preserve">
+    <value>ชื่อ</value>
+  </data>
+  <data name="NetworkCache.ScopeNameRequired" xml:space="preserve">
+    <value>ป้อนชื่อ</value>
+  </data>
+  <data name="NetworkCache.ScopeNoShares" xml:space="preserve">
+    <value>เพิ่มโฟลเดอร์ที่แชร์ก่อน</value>
+  </data>
+  <data name="NetworkCache.ScopeShares" xml:space="preserve">
+    <value>โฟลเดอร์ที่แชร์</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
+    <value>อุปกรณ์จะลองใช้โฟลเดอร์ที่แชร์ที่เลือกไว้จากบนลงล่าง แล้วจึงดาวน์โหลดจากอินเทอร์เน็ต</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
+    <value>เลือกโฟลเดอร์ที่แชร์อย่างน้อยหนึ่งรายการ</value>
+  </data>
+  <data name="NetworkCache.ScopeValue" xml:space="preserve">
+    <value>ค่า</value>
+  </data>
+  <data name="NetworkCache.ScopeValueInvalid" xml:space="preserve">
+    <value>ป้อนค่าที่ถูกต้องสำหรับชนิดนี้</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Address" xml:space="preserve">
+    <value>10.20.0.15</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Range" xml:space="preserve">
+    <value>10.20.0.10-10.20.0.200</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Subnet" xml:space="preserve">
+    <value>10.10.0.0/16 หรือ fd00:10::/48</value>
+  </data>
+  <data name="NetworkCache.ScopesDescription" xml:space="preserve">
+    <value>ที่อยู่ IP ที่กำหนดโฟลเดอร์ที่แชร์ที่อุปกรณ์จะลองใช้</value>
+  </data>
+  <data name="NetworkCache.ScopesHeader" xml:space="preserve">
+    <value>ขอบเขต IP</value>
+  </data>
+  <data name="NetworkCache.ScopesSpecificity" xml:space="preserve">
+    <value>เมื่ออุปกรณ์ตรงกับหลายขอบเขต ขอบเขตที่เจาะจงที่สุดจะมีผล</value>
+  </data>
+  <data name="NetworkCache.ShareAccount" xml:space="preserve">
+    <value>บัญชี</value>
+  </data>
+  <data name="NetworkCache.ShareDialogAddTitle" xml:space="preserve">
+    <value>เพิ่มโฟลเดอร์ที่แชร์</value>
+  </data>
+  <data name="NetworkCache.ShareDialogEditTitle" xml:space="preserve">
+    <value>แก้ไขโฟลเดอร์ที่แชร์</value>
+  </data>
+  <data name="NetworkCache.ShareDuplicate" xml:space="preserve">
+    <value>โฟลเดอร์ที่แชร์นี้อยู่ในรายการแล้ว</value>
+  </data>
+  <data name="NetworkCache.ShareNoAccountHint" xml:space="preserve">
+    <value>หากไม่มีบัญชี อุปกรณ์จะอ่านโฟลเดอร์ที่แชร์โดยไม่ใช้ข้อมูลประจำตัวและจะไม่เขียนลงในโฟลเดอร์นั้น</value>
+  </data>
+  <data name="NetworkCache.SharePath" xml:space="preserve">
+    <value>เส้นทาง</value>
+  </data>
+  <data name="NetworkCache.SharesDescription" xml:space="preserve">
+    <value>โฟลเดอร์ที่แชร์ SMB ที่ใช้เป็นแคช โฟลเดอร์ที่แชร์แต่ละรายการสามารถเปิดด้วยบัญชีเดียว</value>
+  </data>
+  <data name="NetworkCache.SharesHeader" xml:space="preserve">
+    <value>โฟลเดอร์ที่แชร์</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
+    <value>ค่านี้ไม่ถูกต้องสำหรับชนิดของค่า</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidSharePath" xml:space="preserve">
+    <value>ป้อนเส้นทางเช่น \\server\share</value>
+  </data>
+  <data name="NetworkCache.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>โฟลเดอร์ที่แชร์ที่มีบัญชีต้องใช้การป้องกันด้วยรหัสผ่านการปรับใช้ เนื่องจากทุกคนในเครือข่ายสามารถดาวน์โหลดอิมเมจสำหรับบูต PXE ได้ เปิดใช้งานในหน้า "ทั่วไป"</value>
+  </data>
+  <data name="NetworkCache.Validation.PasswordRequired" xml:space="preserve">
+    <value>ป้อนรหัสผ่านของบัญชี</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopeWithoutShare" xml:space="preserve">
+    <value>เลือกโฟลเดอร์ที่แชร์อย่างน้อยหนึ่งรายการ</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopesRequired" xml:space="preserve">
+    <value>เพิ่มขอบเขต IP อย่างน้อยหนึ่งรายการ</value>
+  </data>
+  <data name="NetworkCache.Validation.SharesRequired" xml:space="preserve">
+    <value>เพิ่มโฟลเดอร์ที่แชร์อย่างน้อยหนึ่งรายการ</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownAccount" xml:space="preserve">
+    <value>บัญชีของโฟลเดอร์ที่แชร์นี้ไม่มีอยู่อีกต่อไป</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownShare" xml:space="preserve">
+    <value>โฟลเดอร์ที่แชร์บางรายการของขอบเขตนี้ไม่มีอยู่อีกต่อไป</value>
+  </data>
+  <data name="NetworkCache.Validation.UserNameRequired" xml:space="preserve">
+    <value>ป้อนชื่อผู้ใช้</value>
+  </data>
+  <data name="NetworkCachePageHeader.Description" xml:space="preserve">
+    <value>ให้ Foundry Deploy ใช้โฟลเดอร์ที่แชร์ SMB เป็นแคชที่ใช้ร่วมกัน ซึ่งเลือกตามที่อยู่ IP ของอุปกรณ์ Windows, แพ็กไดรเวอร์ และเนื้อหาที่นำเข้าจะถูกอ่านจากโฟลเดอร์ที่แชร์ก่อนอินเทอร์เน็ต และสิ่งที่อุปกรณ์ดาวน์โหลดจะถูกเผยแพร่กลับไปยังโฟลเดอร์นั้น</value>
+  </data>
+  <data name="NetworkCachePageHeader.Title" xml:space="preserve">
+    <value>แคชเครือข่าย</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>เปิดใช้งานการกำหนดค่า OOBE</value>

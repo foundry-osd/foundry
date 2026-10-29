@@ -4,6 +4,7 @@
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Media;
+using Foundry.Core.Services.NetworkCache;
 using Foundry.Core.Services.WinPe;
 
 namespace Foundry.Core.Services.Configuration;
@@ -36,7 +37,8 @@ public enum ConfigurationOverviewItem
     AiComponents,
     PostInstallation,
     DomainJoinInteractive,
-    DomainJoinAutomatic
+    DomainJoinAutomatic,
+    NetworkCache
 }
 
 /// <summary>
@@ -100,6 +102,9 @@ public sealed record ConfigurationOverviewContext
 
     /// <summary>Gets whether the active domain mode has valid metadata and required session inputs.</summary>
     public bool IsDomainJoinConfigurationReady { get; init; }
+
+    /// <summary>Gets whether the enabled network cache has valid shares, scopes, account passwords and the protection it requires.</summary>
+    public bool IsNetworkCacheConfigurationReady { get; init; } = true;
 
     /// <summary>
     /// Gets whether enabled answer-file sources, references, and media protection are ready.
@@ -209,7 +214,8 @@ public static class ConfigurationOverviewEvaluator
                 general.DeploymentProtection.IsEnabled,
                 context.IsDeploymentProtectionSecretReady,
                 OobeAccountConfigurationValidator.RequiresProtectedMedia(customization.Oobe) ||
-                (configuration.DomainJoin.IsEnabled && configuration.DomainJoin.Mode == DomainJoinMode.Automatic)),
+                (configuration.DomainJoin.IsEnabled && configuration.DomainJoin.Mode == DomainJoinMode.Automatic) ||
+                NetworkCacheConfigurationValidator.RequiresMediaProtection(configuration.NetworkCache)),
             [ConfigurationOverviewItem.DriverOptions] = EvaluateDrivers(general, context.IsCustomDriverConfigurationReady),
             [ConfigurationOverviewItem.EthernetDot1x] = EvaluateNetworkTransport(
                 configuration.Network.Dot1x.IsEnabled,
@@ -237,6 +243,11 @@ public static class ConfigurationOverviewEvaluator
 
         AddAutopilotStates(states, configuration.Autopilot, context.IsAutopilotConfigurationReady);
         AddDomainJoinStates(states, configuration.DomainJoin, context.IsDomainJoinConfigurationReady);
+        states[ConfigurationOverviewItem.NetworkCache] = !configuration.NetworkCache.IsEnabled
+            ? ConfigurationOverviewState.Disabled
+            : context.IsNetworkCacheConfigurationReady
+                ? ConfigurationOverviewState.Configured
+                : ConfigurationOverviewState.NeedsAttention;
         return new ConfigurationOverviewEvaluation(states);
     }
 

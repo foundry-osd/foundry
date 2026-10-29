@@ -2629,6 +2629,12 @@
   <data name="Nav_MachineNamingKey.Title" xml:space="preserve">
     <value>מתן שמות למחשבים</value>
   </data>
+  <data name="Nav_NetworkCacheKey.Description" xml:space="preserve">
+    <value>השתמש בשיתופי SMB כמטמון הורדות משותף עבור Foundry Deploy.</value>
+  </data>
+  <data name="Nav_NetworkCacheKey.Title" xml:space="preserve">
+    <value>מטמון רשת</value>
+  </data>
   <data name="Nav_NetworkSection.Title" xml:space="preserve">
     <value>רשת</value>
   </data>
@@ -2787,6 +2793,246 @@
   </data>
   <data name="Network.WiredDot1xWindowsRoamingSectionTitle" xml:space="preserve">
     <value>נדידת פרופילי Windows</value>
+  </data>
+  <data name="NetworkCache.AccountDialogAddTitle" xml:space="preserve">
+    <value>הוסף חשבון</value>
+  </data>
+  <data name="NetworkCache.AccountDialogEditTitle" xml:space="preserve">
+    <value>ערוך חשבון</value>
+  </data>
+  <data name="NetworkCache.AccountInUse" xml:space="preserve">
+    <value>חשבון זה נמצא בשימוש על ידי שיתוף. הסר אותו תחילה מהשיתוף.</value>
+  </data>
+  <data name="NetworkCache.AccountInUseTitleFormat" xml:space="preserve">
+    <value>לא ניתן להסיר את {0}</value>
+  </data>
+  <data name="NetworkCache.AccountPassword" xml:space="preserve">
+    <value>סיסמה</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordConfirmation" xml:space="preserve">
+    <value>אישור הסיסמה</value>
+  </data>
+  <data name="NetworkCache.AccountPasswordKeepHint" xml:space="preserve">
+    <value>השאר את הסיסמה ריקה כדי לשמור את הסיסמה הנוכחית.</value>
+  </data>
+  <data name="NetworkCache.AccountUserName" xml:space="preserve">
+    <value>שם משתמש</value>
+  </data>
+  <data name="NetworkCache.AccountUserNamePlaceholder" xml:space="preserve">
+    <value>DOMAIN\user או user@domain</value>
+  </data>
+  <data name="NetworkCache.AccountsDescription" xml:space="preserve">
+    <value>חשבונות שפותחים שיתופים. המכשירים משתמשים בהם כדי לקרוא שיתוף ולפרסם בו את מה שהם מורידים.</value>
+  </data>
+  <data name="NetworkCache.AccountsHeader" xml:space="preserve">
+    <value>חשבונות</value>
+  </data>
+  <data name="NetworkCache.ColumnAccount" xml:space="preserve">
+    <value>חשבון</value>
+  </data>
+  <data name="NetworkCache.ColumnName" xml:space="preserve">
+    <value>שם</value>
+  </data>
+  <data name="NetworkCache.ColumnPassword" xml:space="preserve">
+    <value>סיסמה</value>
+  </data>
+  <data name="NetworkCache.ColumnPath" xml:space="preserve">
+    <value>נתיב</value>
+  </data>
+  <data name="NetworkCache.ColumnShares" xml:space="preserve">
+    <value>שיתופים</value>
+  </data>
+  <data name="NetworkCache.ColumnStatus" xml:space="preserve">
+    <value>מצב</value>
+  </data>
+  <data name="NetworkCache.ColumnType" xml:space="preserve">
+    <value>סוג</value>
+  </data>
+  <data name="NetworkCache.ColumnUsedBy" xml:space="preserve">
+    <value>בשימוש על ידי</value>
+  </data>
+  <data name="NetworkCache.ColumnUserName" xml:space="preserve">
+    <value>שם משתמש</value>
+  </data>
+  <data name="NetworkCache.ColumnValue" xml:space="preserve">
+    <value>ערך</value>
+  </data>
+  <data name="NetworkCache.CommandAdd" xml:space="preserve">
+    <value>הוספה</value>
+  </data>
+  <data name="NetworkCache.CommandEdit" xml:space="preserve">
+    <value>עריכה</value>
+  </data>
+  <data name="NetworkCache.CommandRemove" xml:space="preserve">
+    <value>הסרה</value>
+  </data>
+  <data name="NetworkCache.DialogAdd" xml:space="preserve">
+    <value>הוספה</value>
+  </data>
+  <data name="NetworkCache.EmptyAccounts" xml:space="preserve">
+    <value>אין עדיין חשבונות. שיתופים ללא חשבון הם לקריאה בלבד.</value>
+  </data>
+  <data name="NetworkCache.EmptyScopes" xml:space="preserve">
+    <value>אין עדיין תחומי IP.</value>
+  </data>
+  <data name="NetworkCache.EmptyShares" xml:space="preserve">
+    <value>אין עדיין שיתופים.</value>
+  </data>
+  <data name="NetworkCache.MoveDown" xml:space="preserve">
+    <value>העבר למטה</value>
+  </data>
+  <data name="NetworkCache.MoveUp" xml:space="preserve">
+    <value>העבר למעלה</value>
+  </data>
+  <data name="NetworkCache.NoAccount" xml:space="preserve">
+    <value>ללא חשבון</value>
+  </data>
+  <data name="NetworkCache.OverviewSummaryFormat" xml:space="preserve">
+    <value>שיתופים: {0}, תחומי IP: {1}</value>
+  </data>
+  <data name="NetworkCache.PasswordInvalid" xml:space="preserve">
+    <value>לא ניתן להשתמש בסיסמה זו.</value>
+  </data>
+  <data name="NetworkCache.PasswordMismatch" xml:space="preserve">
+    <value>הסיסמאות אינן תואמות.</value>
+  </data>
+  <data name="NetworkCache.PasswordMissing" xml:space="preserve">
+    <value>חסרה</value>
+  </data>
+  <data name="NetworkCache.PasswordRequiredInput" xml:space="preserve">
+    <value>הזן סיסמה.</value>
+  </data>
+  <data name="NetworkCache.PasswordSaved" xml:space="preserve">
+    <value>נשמרה</value>
+  </data>
+  <data name="NetworkCache.Ready" xml:space="preserve">
+    <value>מוכן</value>
+  </data>
+  <data name="NetworkCache.RemoveShareTitle" xml:space="preserve">
+    <value>הסר שיתוף</value>
+  </data>
+  <data name="NetworkCache.RemoveShareUsedMessageFormat" xml:space="preserve">
+    <value>{0} נמצא בשימוש על ידי {1} תחומי IP. הסרתו תסיר אותו גם מתחומים אלה.</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogAddTitle" xml:space="preserve">
+    <value>הוסף תחום IP</value>
+  </data>
+  <data name="NetworkCache.ScopeDialogEditTitle" xml:space="preserve">
+    <value>ערוך תחום IP</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Address" xml:space="preserve">
+    <value>כתובת</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Range" xml:space="preserve">
+    <value>טווח</value>
+  </data>
+  <data name="NetworkCache.ScopeKind.Subnet" xml:space="preserve">
+    <value>רשת משנה</value>
+  </data>
+  <data name="NetworkCache.ScopeKindHeader" xml:space="preserve">
+    <value>סוג</value>
+  </data>
+  <data name="NetworkCache.ScopeName" xml:space="preserve">
+    <value>שם</value>
+  </data>
+  <data name="NetworkCache.ScopeNameRequired" xml:space="preserve">
+    <value>הזן שם.</value>
+  </data>
+  <data name="NetworkCache.ScopeNoShares" xml:space="preserve">
+    <value>הוסף תחילה שיתוף.</value>
+  </data>
+  <data name="NetworkCache.ScopeShares" xml:space="preserve">
+    <value>שיתופים</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesHint" xml:space="preserve">
+    <value>המכשירים מנסים את השיתופים המסומנים מלמעלה למטה, ולאחר מכן מורידים מהאינטרנט.</value>
+  </data>
+  <data name="NetworkCache.ScopeSharesRequired" xml:space="preserve">
+    <value>סמן לפחות שיתוף אחד.</value>
+  </data>
+  <data name="NetworkCache.ScopeValue" xml:space="preserve">
+    <value>ערך</value>
+  </data>
+  <data name="NetworkCache.ScopeValueInvalid" xml:space="preserve">
+    <value>הזן ערך חוקי עבור סוג זה.</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Address" xml:space="preserve">
+    <value>10.20.0.15</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Range" xml:space="preserve">
+    <value>10.20.0.10-10.20.0.200</value>
+  </data>
+  <data name="NetworkCache.ScopeValuePlaceholder.Subnet" xml:space="preserve">
+    <value>10.10.0.0/16 או fd00:10::/48</value>
+  </data>
+  <data name="NetworkCache.ScopesDescription" xml:space="preserve">
+    <value>כתובות IP שקובעות אילו שיתופים מכשיר מנסה.</value>
+  </data>
+  <data name="NetworkCache.ScopesHeader" xml:space="preserve">
+    <value>תחומי IP</value>
+  </data>
+  <data name="NetworkCache.ScopesSpecificity" xml:space="preserve">
+    <value>כאשר מכשיר תואם לכמה תחומים, התחום הספציפי ביותר גובר.</value>
+  </data>
+  <data name="NetworkCache.ShareAccount" xml:space="preserve">
+    <value>חשבון</value>
+  </data>
+  <data name="NetworkCache.ShareDialogAddTitle" xml:space="preserve">
+    <value>הוסף שיתוף</value>
+  </data>
+  <data name="NetworkCache.ShareDialogEditTitle" xml:space="preserve">
+    <value>ערוך שיתוף</value>
+  </data>
+  <data name="NetworkCache.ShareDuplicate" xml:space="preserve">
+    <value>שיתוף זה כבר מופיע ברשימה.</value>
+  </data>
+  <data name="NetworkCache.ShareNoAccountHint" xml:space="preserve">
+    <value>ללא חשבון, המכשירים קוראים את השיתוף ללא אישורים ולעולם אינם כותבים אליו.</value>
+  </data>
+  <data name="NetworkCache.SharePath" xml:space="preserve">
+    <value>נתיב</value>
+  </data>
+  <data name="NetworkCache.SharesDescription" xml:space="preserve">
+    <value>שיתופי SMB המשמשים כמטמון. ניתן לפתוח כל שיתוף באמצעות חשבון אחד.</value>
+  </data>
+  <data name="NetworkCache.SharesHeader" xml:space="preserve">
+    <value>שיתופים</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidScope" xml:space="preserve">
+    <value>ערך זה אינו חוקי עבור הסוג שלו.</value>
+  </data>
+  <data name="NetworkCache.Validation.InvalidSharePath" xml:space="preserve">
+    <value>הזן נתיב כמו \\server\share.</value>
+  </data>
+  <data name="NetworkCache.Validation.MediaProtectionRequired" xml:space="preserve">
+    <value>שיתופים עם חשבון דורשים הגנה באמצעות סיסמה לפריסה, מכיוון שכל אחד ברשת יכול להוריד תמונת אתחול PXE. הפעל אותה בעמוד "כללי".</value>
+  </data>
+  <data name="NetworkCache.Validation.PasswordRequired" xml:space="preserve">
+    <value>הזן את סיסמת החשבון.</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopeWithoutShare" xml:space="preserve">
+    <value>סמן לפחות שיתוף אחד.</value>
+  </data>
+  <data name="NetworkCache.Validation.ScopesRequired" xml:space="preserve">
+    <value>הוסף לפחות תחום IP אחד.</value>
+  </data>
+  <data name="NetworkCache.Validation.SharesRequired" xml:space="preserve">
+    <value>הוסף לפחות שיתוף אחד.</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownAccount" xml:space="preserve">
+    <value>החשבון של שיתוף זה כבר אינו קיים.</value>
+  </data>
+  <data name="NetworkCache.Validation.UnknownShare" xml:space="preserve">
+    <value>אחד השיתופים של תחום זה כבר אינו קיים.</value>
+  </data>
+  <data name="NetworkCache.Validation.UserNameRequired" xml:space="preserve">
+    <value>הזן שם משתמש.</value>
+  </data>
+  <data name="NetworkCachePageHeader.Description" xml:space="preserve">
+    <value>מאפשר ל-Foundry Deploy להשתמש בשיתופי SMB כמטמון משותף, שנבחר לפי כתובת ה-IP של המכשיר. Windows, חבילות מנהלי התקנים ותוכן מיובא נקראים מהשיתוף לפני האינטרנט, ומה שהמכשירים מורידים מתפרסם בחזרה בשיתוף.</value>
+  </data>
+  <data name="NetworkCachePageHeader.Title" xml:space="preserve">
+    <value>מטמון רשת</value>
   </data>
   <data name="OobePageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>הפעלת תצורת OOBE</value>

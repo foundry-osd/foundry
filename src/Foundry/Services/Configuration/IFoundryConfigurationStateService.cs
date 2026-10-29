@@ -202,6 +202,12 @@ public interface IFoundryConfigurationStateService
     /// <summary>Gets domain metadata and automatic credential/protection readiness for the active mode.</summary>
     bool IsDomainJoinConfigurationReady { get; }
 
+    /// <summary>Persists the network cache settings and erases the passwords of accounts they no longer have.</summary>
+    void UpdateNetworkCache(NetworkCacheSettings settings);
+
+    /// <summary>Gets the readiness issues of the network cache section, with account passwords and Deploy protection.</summary>
+    Foundry.Core.Services.NetworkCache.NetworkCacheValidationResult NetworkCacheValidation { get; }
+
     /// <summary>
     /// Persists answer-file metadata and source references without storing XML content.
     /// </summary>

@@ -165,6 +165,43 @@ public sealed class TelemetryEventPropertyPolicyTests
     }
 
     [Fact]
+    public void Sanitize_ForBootMediaFinished_RetainsNetworkCacheConfiguration()
+    {
+        var properties = new Dictionary<string, object?>
+        {
+            ["network_cache_enabled"] = true,
+            ["network_cache_share_count"] = 2,
+            ["network_cache_scope_count"] = 3,
+            ["network_cache_account_count"] = 1,
+            ["network_cache_share_path"] = @"\\fs01\cache"
+        };
+
+        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.OsdBootMediaFinished, properties);
+
+        Assert.Equal(4, result.Count);
+        Assert.False(result.ContainsKey("network_cache_share_path"));
+    }
+
+    [Theory]
+    [InlineData("network_cache_share_count", -1)]
+    [InlineData("network_cache_scope_count", 1001)]
+    [InlineData("network_cache_account_count", "1")]
+    [InlineData("network_cache_enabled", "true")]
+    public void Sanitize_ForBootMediaFinished_DropsInvalidNetworkCacheValues(string key, object value)
+    {
+        Assert.Empty(TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.OsdBootMediaFinished, new Dictionary<string, object?> { [key] = value }));
+    }
+
+    [Theory]
+    [InlineData("deploy_network_cache_outcome", "elsewhere")]
+    [InlineData("deploy_network_cache_writable", "yes")]
+    [InlineData("deploy_network_cache_downloads_reused", -1)]
+    public void Sanitize_ForDeploySessionFinished_DropsInvalidNetworkCacheValues(string key, object value)
+    {
+        Assert.Empty(TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.DeploySessionFinished, new Dictionary<string, object?> { [key] = value }));
+    }
+
+    [Fact]
     public void Sanitize_ForCustomDeployment_RetainsTechnicalMetadataAndFullBuild()
     {
         var properties = new Dictionary<string, object?>

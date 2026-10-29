@@ -2780,7 +2780,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 driverReason.HasValue
                     ? GetBlockingReasonText(driverReason.Value)
                     : FormatDriverOptions(options.DriverVendors, options.CustomDriverDirectoryPath),
-                ConfigurationNavigationTarget.General)
+                ConfigurationNavigationTarget.General),
+            CreateOverviewItem(ConfigurationOverviewItem.NetworkCache, overview, "Nav_NetworkCacheKey.Title",
+                configuration.NetworkCache.IsEnabled
+                    ? localizationService.FormatString("NetworkCache.OverviewSummaryFormat",
+                        configuration.NetworkCache.Shares.Count, configuration.NetworkCache.Scopes.Count)
+                    : localizationService.GetString("Nav_NetworkCacheKey.Description"),
+                ConfigurationNavigationTarget.NetworkCache)
         ];
     }
 

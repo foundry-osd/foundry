@@ -41,6 +41,20 @@ public static class FoundryConfigurationMigration
             .Select(domain => domain is { OrganizationalUnits: null } ? domain with { OrganizationalUnits = [] } : domain).ToArray()
     };
 
+    /// <summary>
+    /// Replaces lists written as <c>null</c> with empty lists and keeps the first item of each id, so a hand-edited or
+    /// imported document never reaches generation with ambiguous references.
+    /// </summary>
+    private static NetworkCacheSettings WithoutNullLists(NetworkCacheSettings settings) => settings with
+    {
+        Accounts = (settings.Accounts ?? []).DistinctBy(account => account.Id, StringComparer.Ordinal).ToArray(),
+        Shares = (settings.Shares ?? []).DistinctBy(share => share.Id, StringComparer.Ordinal).ToArray(),
+        Scopes = (settings.Scopes ?? [])
+            .DistinctBy(scope => scope.Id, StringComparer.Ordinal)
+            .Select(scope => scope with { ShareIds = (scope.ShareIds ?? []).Distinct(StringComparer.Ordinal).ToArray() })
+            .ToArray()
+    };
+
     public static FoundryConfigurationDocument ApplySchemaMigrations(FoundryConfigurationDocument document)
     {
         ArgumentNullException.ThrowIfNull(document);
@@ -52,6 +66,7 @@ public static class FoundryConfigurationMigration
         migrated = migrated with { CustomImages = migrated.CustomImages ?? new CustomImagesSettings() };
         migrated = migrated with { CustomDrivers = migrated.CustomDrivers ?? new CustomDriverSetsSettings() };
         migrated = migrated with { PreOobe = migrated.PreOobe ?? new PreOobeSettings() };
+        migrated = migrated with { NetworkCache = WithoutNullLists(migrated.NetworkCache ?? new NetworkCacheSettings()) };
         migrated = migrated with { DomainJoin = WithoutNullLists(migrated.DomainJoin ?? new DomainJoinSettings()) };
         DomainJoinConfigurationValidator.ThrowIfProvisioningModesConflict(migrated.Autopilot, migrated.DomainJoin);
         if (!DomainJoinConfigurationValidator.ValidateMetadata(migrated.DomainJoin).IsValid)

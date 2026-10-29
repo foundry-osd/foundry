@@ -32,6 +32,39 @@ public sealed class ConfigurationOverviewEvaluatorTests
     }
 
     [Fact]
+    public void Evaluate_NetworkCacheShareAccountWithoutProtectionNeedsAttentionOnGeneralPage()
+    {
+        var configuration = new FoundryConfigurationDocument
+        {
+            NetworkCache = new NetworkCacheSettings
+            {
+                IsEnabled = true,
+                Accounts = [new() { Id = "a1", UserName = "CONTOSO\\svc" }],
+                Shares = [new() { Id = "s1", Path = @"\\fs01\cache", AccountId = "a1" }]
+            }
+        };
+
+        ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(CreateContext(configuration));
+
+        Assert.Equal(ConfigurationOverviewState.NeedsAttention, evaluation[ConfigurationOverviewItem.DeploymentProtection]);
+    }
+
+    [Theory]
+    [InlineData(false, true, ConfigurationOverviewState.Disabled)]
+    [InlineData(true, true, ConfigurationOverviewState.Configured)]
+    [InlineData(true, false, ConfigurationOverviewState.NeedsAttention)]
+    public void Evaluate_NetworkCacheState(bool isEnabled, bool isReady, ConfigurationOverviewState expected)
+    {
+        var configuration = new FoundryConfigurationDocument { NetworkCache = new NetworkCacheSettings { IsEnabled = isEnabled } };
+
+        ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(
+            CreateContext(configuration) with { IsNetworkCacheConfigurationReady = isReady });
+
+        Assert.Equal(expected, evaluation[ConfigurationOverviewItem.NetworkCache]);
+        Assert.Equal(expected, ConfigurationOverviewNavigationEvaluator.EvaluateTarget(evaluation, ConfigurationNavigationTarget.NetworkCache));
+    }
+
+    [Fact]
     public void Evaluate_AutomaticDomainWithoutProtectionNeedsAttentionOnGeneralPage()
     {
         var configuration = new FoundryConfigurationDocument

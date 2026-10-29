@@ -31,4 +31,7 @@ public sealed record SecretSnapshot
 
     /// <summary>Gets the domain join passwords, keyed by account name in any spelling; lookups use the canonical account name.</summary>
     public IReadOnlyDictionary<string, string> DomainAccounts { get; init; } = new Dictionary<string, string>(StringComparer.Ordinal);
+
+    /// <summary>Gets the network cache account passwords, keyed by account id.</summary>
+    public IReadOnlyDictionary<string, string> NetworkCacheAccounts { get; init; } = new Dictionary<string, string>(StringComparer.Ordinal);
 }
