@@ -31,4 +31,15 @@ public sealed class ApplicationLifetimeServiceTests
             Assert.False(SingleInstanceGuard.TryAcquire(name, out _));
         }
     }
+
+    [Fact]
+    public void Dispose_ReleasesInstanceName()
+    {
+        string name = $"Local\\Foundry.Connect.Test.{Guid.NewGuid():N}";
+        Assert.True(SingleInstanceGuard.TryAcquire(name, out SingleInstanceGuard? first));
+        first!.Dispose();
+
+        Assert.True(SingleInstanceGuard.TryAcquire(name, out SingleInstanceGuard? second));
+        second!.Dispose();
+    }
 }

@@ -23,4 +23,14 @@ public static class ConnectStartupFailurePolicy
         ConnectStartupStage.Running => ChildRuntimeExitCode.RuntimeFailure,
         _ => throw new ArgumentOutOfRangeException(nameof(stage), stage, "Unknown Foundry.Connect startup stage.")
     };
+
+    /// <summary>
+    /// Chooses the code the process returns: an exit request accepted by the exit authority always wins, so a failure
+    /// raised while that exit is in progress cannot replace it.
+    /// </summary>
+    /// <param name="requestedExitCode">The exit code accepted by the exit authority, or <see langword="null"/> when none was requested.</param>
+    /// <param name="fallbackExitCode">The code to return when no exit was requested: the WPF exit code or the mapped failure code.</param>
+    /// <returns>The process exit code.</returns>
+    public static int ResolveProcessExitCode(ChildRuntimeExitCode? requestedExitCode, int fallbackExitCode)
+        => requestedExitCode is { } requested ? (int)requested : fallbackExitCode;
 }

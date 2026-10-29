@@ -42,7 +42,9 @@ public static class Program
         IRemoteDiagnosticsService? remoteDiagnosticsService = null;
         RuntimeStartupDiagnostics? startup = null;
         SingleInstanceGuard? instanceGuard = null;
+        IApplicationLifetimeService? lifetime = null;
         Serilog.ILogger programLogger = Serilog.Core.Logger.None;
+        string category = "managed_startup";
         // Managed startup (logging, diagnostics, runtime checks) precedes the policy stages.
         ConnectStartupStage? stage = null;
         try
@@ -81,41 +83,47 @@ public static class Program
             }
 
             ConfigureRuntimeCompatibility();
+            category = "configuration";
             stage = ConnectStartupStage.Configuration;
             var configurationService = new ConnectConfigurationService(
                 args, new SerilogLoggerFactory(Log.Logger).CreateLogger<ConnectConfigurationService>());
             ConnectConfigurationLoadResult loadResult = configurationService.Load();
             if (!loadResult.IsSuccess)
             {
-                ReportFailure(startup, loadResult.FailureException, GetFailureCategory(stage));
+                ReportFailure(startup, loadResult.FailureException, category);
                 return (int)ConnectStartupFailurePolicy.Map(ConnectStartupStage.Configuration);
             }
 
+            // Building the host keeps the "configuration" category but is not a configuration failure for the exit code.
             stage = ConnectStartupStage.Services;
             host = BuildHost(args, startup, remoteDiagnosticsService, configurationService, loadResult.Configuration, loadResult.Secrets);
             startup.ReportConfigurationLoaded();
+            category = "services";
             telemetryService = host.Services.GetRequiredService<ITelemetryService>();
             InitializeRemoteDiagnostics(host.Services, remoteDiagnosticsService);
 
+            category = "ui_startup";
             stage = ConnectStartupStage.UiStartup;
             App app = host.Services.GetRequiredService<App>();
-            IApplicationLifetimeService lifetime = host.Services.GetRequiredService<IApplicationLifetimeService>();
+            IApplicationLifetimeService exitAuthority = host.Services.GetRequiredService<IApplicationLifetimeService>();
+            lifetime = exitAuthority;
             app.DispatcherUnhandledException += (_, eventArgs) =>
             {
                 startup.ReportFailure(eventArgs.Exception, "dispatcher");
                 eventArgs.Handled = true;
-                lifetime.TryExit(GetFailureExitCode(ConnectStartupStage.UiStartup, startup));
+                exitAuthority.TryExit(GetFailureExitCode(ConnectStartupStage.UiStartup, startup));
             };
             app.InitializeComponent();
             MainWindow mainWindow = host.Services.GetRequiredService<MainWindow>();
-            int exitCode = app.Run(mainWindow);
+            int exitCode = ConnectStartupFailurePolicy.ResolveProcessExitCode(exitAuthority.RequestedExitCode, app.Run(mainWindow));
             programLogger.Information("Foundry.Connect exited with code {ExitCode}.", exitCode);
             return exitCode;
         }
         catch (Exception exception)
         {
-            ReportFailure(startup, exception, GetFailureCategory(stage));
-            return (int)GetFailureExitCode(stage, startup);
+            ReportFailure(startup, exception, category);
+            return ConnectStartupFailurePolicy.ResolveProcessExitCode(
+                lifetime?.RequestedExitCode, (int)GetFailureExitCode(stage, startup));
         }
         finally
         {
@@ -144,15 +152,6 @@ public static class Program
 
         return ConnectStartupFailurePolicy.Map(startup?.IsUiReady == true ? ConnectStartupStage.Running : current);
     }
-
-    /// <summary>Returns the failure category reported to Foundry.Bootstrap for a failure in <paramref name="stage"/>.</summary>
-    private static string GetFailureCategory(ConnectStartupStage? stage) => stage switch
-    {
-        null => "managed_startup",
-        ConnectStartupStage.Configuration => "configuration",
-        ConnectStartupStage.Services => "services",
-        _ => "ui_startup"
-    };
 
     private static void ReportFailure(RuntimeStartupDiagnostics? startup, Exception exception, string category)
     {

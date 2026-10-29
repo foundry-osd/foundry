@@ -16,4 +16,11 @@ public sealed class ConnectStartupFailurePolicyTests
     [InlineData(ConnectStartupStage.Running, ChildRuntimeExitCode.RuntimeFailure)]
     public void Map_StageToExitCode(ConnectStartupStage stage, ChildRuntimeExitCode expected)
         => Assert.Equal(expected, ConnectStartupFailurePolicy.Map(stage));
+
+    [Theory]
+    [InlineData(ChildRuntimeExitCode.Success, (int)ChildRuntimeExitCode.RuntimeFailure, (int)ChildRuntimeExitCode.Success)]
+    [InlineData(ChildRuntimeExitCode.UserAborted, (int)ChildRuntimeExitCode.StartupFailure, (int)ChildRuntimeExitCode.UserAborted)]
+    [InlineData(null, (int)ChildRuntimeExitCode.RuntimeFailure, (int)ChildRuntimeExitCode.RuntimeFailure)]
+    public void ResolveProcessExitCode_AcceptedExitRequestWins(ChildRuntimeExitCode? requested, int fallback, int expected)
+        => Assert.Equal(expected, ConnectStartupFailurePolicy.ResolveProcessExitCode(requested, fallback));
 }

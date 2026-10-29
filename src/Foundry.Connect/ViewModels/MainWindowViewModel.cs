@@ -730,10 +730,10 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     /// </summary>
     public void HandleWindowClosing()
     {
-        if (_applicationLifetimeService.RequestedExitCode is null)
+        // TryExit decides atomically, so a controlled exit that won the race keeps its exit code.
+        if (_applicationLifetimeService.TryExit(ChildRuntimeExitCode.UserAborted))
         {
             _logger.LogInformation("Window close detected before a controlled exit. Returning user-aborted exit code.");
-            _applicationLifetimeService.TryExit(ChildRuntimeExitCode.UserAborted);
         }
     }
 
