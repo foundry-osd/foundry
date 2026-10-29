@@ -31,7 +31,9 @@ public interface INetworkMonitor
 /// The interval is measured from the end of a pass, so passes never overlap. A pass publishes only complete
 /// observations: while the connectivity probe of a new pass is running, the coordinator keeps the internet status of the
 /// previous pass, so <see cref="InternetStatus.Checking"/> appears only before the first result and never resets the
-/// auto-continue countdown. A pass that fails is logged once per failure type and the loop continues.
+/// auto-continue countdown. A pass that fails is logged once per failure type and the loop continues; the first pass that
+/// succeeds afterwards is logged as recovered. The loop runs on the thread pool, never on the thread that called
+/// <see cref="RunAsync"/>, because the observation source reads the network adapters synchronously.
 /// </remarks>
 public sealed class NetworkMonitor(
     INetworkObservationSource source,
@@ -60,11 +62,8 @@ public sealed class NetworkMonitor(
 
         try
         {
-            while (true)
-            {
-                await RefreshOnceAsync(cancellationToken).ConfigureAwait(false);
-                await WaitForNextPassAsync(cancellationToken).ConfigureAwait(false);
-            }
+            // The first pass reads the Ethernet and WLAN adapters synchronously: the loop never runs on the caller's thread.
+            await Task.Run(() => RunLoopAsync(cancellationToken), cancellationToken).ConfigureAwait(false);
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
@@ -79,6 +78,15 @@ public sealed class NetworkMonitor(
     /// <inheritdoc />
     public void RequestRefresh() => _refreshSignal.Request();
 
+    private async Task RunLoopAsync(CancellationToken cancellationToken)
+    {
+        while (true)
+        {
+            await RefreshOnceAsync(cancellationToken).ConfigureAwait(false);
+            await WaitForNextPassAsync(cancellationToken).ConfigureAwait(false);
+        }
+    }
+
     private async Task RefreshOnceAsync(CancellationToken cancellationToken)
     {
         try
@@ -86,7 +94,11 @@ public sealed class NetworkMonitor(
             bool readWiredAuthentication = _coordinator.State.Ethernet.Dot1x.IsProfileApplied;
             NetworkObservation observation = await _source.ObserveAsync(readWiredAuthentication, cancellationToken).ConfigureAwait(false);
             await _coordinator.ApplyObservationAsync(observation, cancellationToken).ConfigureAwait(false);
-            _lastFailureType = null;
+            if (_lastFailureType is not null)
+            {
+                _logger.LogInformation("Network monitor pass recovered.");
+                _lastFailureType = null;
+            }
         }
         catch (Exception exception) when (!(exception is OperationCanceledException && cancellationToken.IsCancellationRequested))
         {

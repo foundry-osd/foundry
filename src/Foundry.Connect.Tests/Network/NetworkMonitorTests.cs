@@ -133,6 +133,55 @@ public sealed class NetworkMonitorTests
         Assert.Contains(logger.Entries, static entry => entry.Level == LogLevel.Debug && entry.Exception is InvalidOperationException);
     }
 
+    [Fact]
+    public async Task RunAsync_WhenAFailedPassIsFollowedByASuccess_LogsRecoveryOnce()
+    {
+        var source = new CountingSource(_clock);
+        var coordinator = new RecordingCoordinator(_clock) { ApplyException = new InvalidOperationException("boom") };
+        using var cancellation = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
+        var logger = new RecordingLogger<NetworkMonitor>();
+        var monitor = new NetworkMonitor(source, coordinator, new NetworkRefreshSignal(), new ConnectNetworkOptions(true, TimeSpan.FromSeconds(10)), _clock, logger);
+
+        Task run = monitor.RunAsync(cancellation.Token);
+        await AsyncAssert.EventuallyAsync(() => source.Calls == 1 && _clock.ActiveTimerCount == 1, "first pass failed, interval timer armed");
+        coordinator.ApplyException = null;
+        _clock.Advance(TimeSpan.FromSeconds(10));
+        await AsyncAssert.EventuallyAsync(() => coordinator.Observations.Count == 1 && _clock.ActiveTimerCount == 1, "second pass succeeded");
+        _clock.Advance(TimeSpan.FromSeconds(10));
+        await AsyncAssert.EventuallyAsync(() => coordinator.Observations.Count == 2, "third pass succeeded");
+
+        await cancellation.CancelAsync();
+        await run;
+        RecordedLogEntry recovered = Assert.Single(logger.Entries, static entry => entry.Message == "Network monitor pass recovered.");
+        Assert.Equal(LogLevel.Information, recovered.Level);
+        Assert.Null(recovered.Exception);
+    }
+
+    [Fact]
+    public async Task RunAsync_RunsTheFirstPassOffTheCallingThread()
+    {
+        var source = new CountingSource(_clock);
+        var coordinator = new RecordingCoordinator(_clock);
+        using var cancellation = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
+        NetworkMonitor monitor = CreateMonitor(source, coordinator);
+
+        // A dedicated thread is never a pool thread, so it cannot be the one that later runs the loop.
+        Task? run = null;
+        int callerThreadId = 0;
+        var caller = new Thread(() =>
+        {
+            callerThreadId = Environment.CurrentManagedThreadId;
+            run = monitor.RunAsync(cancellation.Token);
+        });
+        caller.Start();
+        caller.Join();
+        await AsyncAssert.EventuallyAsync(() => source.Calls == 1, "first observation");
+
+        Assert.NotEqual(callerThreadId, source.FirstObserveThreadId);
+        await cancellation.CancelAsync();
+        await run!;
+    }
+
     private NetworkMonitor CreateMonitor(INetworkObservationSource source, IConnectionCoordinator coordinator) =>
         new(source, coordinator, new NetworkRefreshSignal(), new ConnectNetworkOptions(true, TimeSpan.FromSeconds(10)), _clock, new RecordingLogger<NetworkMonitor>());
 
@@ -141,11 +190,14 @@ public sealed class NetworkMonitorTests
         private readonly object _gate = new();
         private readonly List<bool> _wiredFlags = [];
         private int _calls;
+        private int _firstThreadId;
 
         // When set, the next observation waits for it before returning.
         public TaskCompletionSource? Gate { get; set; }
 
         public int Calls => Volatile.Read(ref _calls);
+
+        public int FirstObserveThreadId => Volatile.Read(ref _firstThreadId);
 
         public IReadOnlyList<bool> WiredFlags
         {
@@ -165,6 +217,7 @@ public sealed class NetworkMonitorTests
                 _wiredFlags.Add(readWiredAuthentication);
             }
 
+            Interlocked.CompareExchange(ref _firstThreadId, Environment.CurrentManagedThreadId, 0);
             Interlocked.Increment(ref _calls);
             if (Gate is { } gate)
             {
