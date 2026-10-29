@@ -60,8 +60,12 @@ public static class NetworkConfigurationValidator
     /// </summary>
     /// <param name="settings">The network settings to validate.</param>
     /// <param name="inputs">Where referenced profiles and certificates can be read, and the personal Wi-Fi passphrase.</param>
+    /// <param name="isMediaProtected">
+    /// Whether Password protection is on and usable: its session password is valid in Foundry OSD, or the build material is protected in the generator.
+    /// A network secret (personal Wi-Fi passphrase, client certificate) is refused without it.
+    /// </param>
     /// <returns>A validation result.</returns>
-    public static NetworkConfigurationValidationResult Validate(NetworkSettings settings, MediaInputs inputs)
+    public static NetworkConfigurationValidationResult Validate(NetworkSettings settings, MediaInputs inputs, bool isMediaProtected)
     {
         ArgumentNullException.ThrowIfNull(settings);
         ArgumentNullException.ThrowIfNull(inputs);
@@ -71,13 +75,48 @@ public static class NetworkConfigurationValidator
             return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WifiProvisioningRequired);
         }
 
-        NetworkConfigurationValidationResult dot1xResult = ValidateDot1x(settings.Dot1x, inputs);
+        NetworkConfigurationValidationResult dot1xResult = ValidateDot1x(settings.Dot1x, inputs, isMediaProtected);
         if (!dot1xResult.IsValid)
         {
             return dot1xResult;
         }
 
-        return ValidateWifi(settings.WifiProvisioned, settings.Wifi, inputs);
+        return ValidateWifi(settings.WifiProvisioned, settings.Wifi, inputs, isMediaProtected);
+    }
+
+    /// <summary>
+    /// Gets whether an enabled feature provisions a network secret, which requires Password protection on the media.
+    /// </summary>
+    /// <remarks>
+    /// Counts a personal Wi-Fi passphrase present in <see cref="MediaInputs.Network"/> (the vault-backed state) and a client certificate
+    /// on enabled wired 802.1X or on enabled, provisioned enterprise Wi-Fi; a PFX counts even without a password because it carries the private key.
+    /// Trusted root certificates are public and never count.
+    /// </remarks>
+    /// <param name="settings">The network settings to inspect.</param>
+    /// <param name="inputs">The current network secrets.</param>
+    /// <returns><see langword="true"/> when the media must be protected.</returns>
+    public static bool RequiresMediaProtection(NetworkSettings settings, MediaInputs inputs)
+    {
+        ArgumentNullException.ThrowIfNull(settings);
+        ArgumentNullException.ThrowIfNull(inputs);
+
+        if (settings.Dot1x.IsEnabled && settings.Dot1x.ClientCertificate is not null)
+        {
+            return true;
+        }
+
+        if (!settings.WifiProvisioned || !settings.Wifi.IsEnabled)
+        {
+            return false;
+        }
+
+        // Same classification as ValidateWifi, so the rule and the validation agree on what a personal or enterprise profile is.
+        if (settings.Wifi.HasEnterpriseProfile || NormalizeEnterpriseSecurityType(settings.Wifi.SecurityType) is not null)
+        {
+            return settings.Wifi.ClientCertificate is not null;
+        }
+
+        return IsPersonalSecurityType(settings.Wifi.SecurityType) && !string.IsNullOrWhiteSpace(inputs.Network.WifiPassphrase);
     }
 
     /// <summary>
@@ -200,7 +239,7 @@ public static class NetworkConfigurationValidator
             : null;
     }
 
-    private static NetworkConfigurationValidationResult ValidateDot1x(Dot1xSettings settings, MediaInputs inputs)
+    private static NetworkConfigurationValidationResult ValidateDot1x(Dot1xSettings settings, MediaInputs inputs, bool isMediaProtected)
     {
         if (!settings.IsEnabled)
         {
@@ -227,13 +266,18 @@ public static class NetworkConfigurationValidator
             return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WiredCertificateMissing);
         }
 
+        if (settings.ClientCertificate is not null && !isMediaProtected)
+        {
+            return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WiredMediaProtectionRequired);
+        }
+
         return NetworkConfigurationValidationResult.Success;
     }
 
     private static bool IsAvailable(AuthoringFileReference reference, MediaInputs inputs) =>
         inputs.ResolveFile(reference) is { } path && File.Exists(path);
 
-    private static NetworkConfigurationValidationResult ValidateWifi(bool wifiProvisioned, WifiSettings settings, MediaInputs inputs)
+    private static NetworkConfigurationValidationResult ValidateWifi(bool wifiProvisioned, WifiSettings settings, MediaInputs inputs, bool isMediaProtected)
     {
         if (!settings.IsEnabled)
         {
@@ -270,17 +314,23 @@ public static class NetworkConfigurationValidator
             {
                 return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WifiPersonalPassphraseInvalid);
             }
+
+            if (!isMediaProtected)
+            {
+                return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WifiMediaProtectionRequired);
+            }
         }
 
         return isEnterprise
-            ? ValidateEnterpriseWifi(settings, enterpriseSecurityType, inputs)
+            ? ValidateEnterpriseWifi(settings, enterpriseSecurityType, inputs, isMediaProtected)
             : NetworkConfigurationValidationResult.Success;
     }
 
     private static NetworkConfigurationValidationResult ValidateEnterpriseWifi(
         WifiSettings settings,
         string? enterpriseSecurityType,
-        MediaInputs inputs)
+        MediaInputs inputs,
+        bool isMediaProtected)
     {
         if (settings.EnterpriseProfileTemplate is null)
         {
@@ -319,6 +369,11 @@ public static class NetworkConfigurationValidator
         if (NetworkCertificateShapes.All(settings).Any(certificate => !IsAvailable(certificate, inputs)))
         {
             return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WifiEnterpriseCertificateMissing);
+        }
+
+        if (settings.ClientCertificate is not null && !isMediaProtected)
+        {
+            return NetworkConfigurationValidationResult.Failure(NetworkConfigurationValidationCode.WifiMediaProtectionRequired);
         }
 
         return NetworkConfigurationValidationResult.Success;

@@ -264,6 +264,9 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         Current.General.DeploymentProtection.IsEnabled && deploymentProtectionSecretStateService.IsValid).IsValid;
 
     /// <inheritdoc />
+    public bool IsMediaProtected => Current.General.DeploymentProtection.IsEnabled && deploymentProtectionSecretStateService.IsValid;
+
+    /// <inheritdoc />
     public bool IsUnattendConfigurationReady
     {
         get
@@ -1060,7 +1063,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
 
     private NetworkMediaReadinessEvaluation EvaluateNetworkMediaReadiness()
     {
-        return NetworkMediaReadinessEvaluator.Evaluate(Current.Network, MediaInputs);
+        return NetworkMediaReadinessEvaluator.Evaluate(Current.Network, MediaInputs, IsMediaProtected);
     }
 
     private AutopilotProfileSettings? GetSelectedAutopilotProfile()

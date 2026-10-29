@@ -2850,11 +2850,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         {
             WifiProvisioned = false,
             Wifi = new WifiSettings()
-        }, mediaInputs);
+        }, mediaInputs, foundryConfigurationStateService.IsMediaProtected);
         NetworkConfigurationValidationResult wifiValidation = NetworkConfigurationValidator.Validate(configuration.Network with
         {
             Dot1x = new Dot1xSettings()
-        }, mediaInputs);
+        }, mediaInputs, foundryConfigurationStateService.IsMediaProtected);
 
         return
         (StartConfigurationOverviewItemViewModel[])

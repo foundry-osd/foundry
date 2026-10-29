@@ -39,7 +39,10 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
         ArgumentNullException.ThrowIfNull(inputs);
         ArgumentException.ThrowIfNullOrWhiteSpace(stagingDirectoryPath);
 
-        NetworkConfigurationValidationResult validationResult = NetworkConfigurationValidator.Validate(document.Network, inputs);
+        NetworkConfigurationValidationResult validationResult = NetworkConfigurationValidator.Validate(
+            document.Network,
+            inputs,
+            isMediaProtected: true); // Task 6 replaces this with the build protection material.
         if (!validationResult.IsValid)
         {
             throw new InvalidOperationException($"Network configuration is invalid: {validationResult.Code}.");

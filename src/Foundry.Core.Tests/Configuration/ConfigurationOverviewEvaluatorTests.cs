@@ -628,6 +628,31 @@ public sealed class ConfigurationOverviewEvaluatorTests
         IsIncluded = isIncluded
     };
 
+    [Theory]
+    [InlineData(false, ConfigurationOverviewState.NeedsAttention, ConfigurationOverviewState.NeedsAttention)]
+    [InlineData(true, ConfigurationOverviewState.Configured, ConfigurationOverviewState.Configured)]
+    public void Evaluate_ProvisionedWifiPassphrase_RequiresProtection(bool protectionEnabled, ConfigurationOverviewState wifi, ConfigurationOverviewState protection)
+    {
+        var configuration = new FoundryConfigurationDocument
+        {
+            General = new GeneralSettings { DeploymentProtection = new DeploymentProtectionSettings { IsEnabled = protectionEnabled } },
+            Network = new NetworkSettings
+            {
+                WifiProvisioned = true,
+                Wifi = new WifiSettings { IsEnabled = true, Ssid = "Lab", SecurityType = NetworkConfigurationValidator.WifiSecurityPersonal }
+            }
+        };
+
+        ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(CreateContext(configuration) with
+        {
+            NetworkInputs = new MediaInputs { Network = new NetworkSecrets { WifiPassphrase = "lab-passphrase" } },
+            IsDeploymentProtectionSecretReady = protectionEnabled
+        });
+
+        Assert.Equal(wifi, evaluation[ConfigurationOverviewItem.Wifi]);
+        Assert.Equal(protection, evaluation[ConfigurationOverviewItem.DeploymentProtection]);
+    }
+
     private static ConfigurationOverviewContext CreateContext(FoundryConfigurationDocument configuration)
     {
         return new ConfigurationOverviewContext

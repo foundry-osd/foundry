@@ -204,6 +204,7 @@ public static class ConfigurationOverviewEvaluator
         FoundryConfigurationDocument configuration = context.Configuration;
         GeneralSettings general = configuration.General;
         CustomizationSettings customization = configuration.Customization;
+        bool isMediaProtected = general.DeploymentProtection.IsEnabled && context.IsDeploymentProtectionSecretReady;
 
         var states = new Dictionary<ConfigurationOverviewItem, ConfigurationOverviewState>
         {
@@ -246,16 +247,17 @@ public static class ConfigurationOverviewEvaluator
             [ConfigurationOverviewItem.DeploymentProtection] = EvaluateDeploymentProtection(
                 general.DeploymentProtection.IsEnabled,
                 context.IsDeploymentProtectionSecretReady,
+                NetworkConfigurationValidator.RequiresMediaProtection(configuration.Network, context.NetworkInputs) ||
                 OobeAccountConfigurationValidator.RequiresProtectedMedia(customization.Oobe) ||
                 (configuration.DomainJoin.IsEnabled && configuration.DomainJoin.Mode == DomainJoinMode.Automatic) ||
                 NetworkCacheConfigurationValidator.RequiresMediaProtection(configuration.NetworkCache)),
             [ConfigurationOverviewItem.DriverOptions] = EvaluateDrivers(general, context.IsCustomDriverConfigurationReady),
             [ConfigurationOverviewItem.EthernetDot1x] = EvaluateNetworkTransport(
                 configuration.Network.Dot1x.IsEnabled,
-                CreateEthernetOnlyNetwork(configuration.Network), context.NetworkInputs),
+                CreateEthernetOnlyNetwork(configuration.Network), context.NetworkInputs, isMediaProtected),
             [ConfigurationOverviewItem.Wifi] = EvaluateNetworkTransport(
                 configuration.Network.WifiProvisioned,
-                CreateWifiOnlyNetwork(configuration.Network), context.NetworkInputs),
+                CreateWifiOnlyNetwork(configuration.Network), context.NetworkInputs, isMediaProtected),
             [ConfigurationOverviewItem.OperatingSystemSelection] = EvaluateOptionalFeature(
                 configuration.OperatingSystemSelection.IsEnabled),
             [ConfigurationOverviewItem.MachineNaming] = EvaluateMachineNaming(customization.MachineNaming),
@@ -355,10 +357,10 @@ public static class ConfigurationOverviewEvaluator
     private static ConfigurationOverviewState EvaluateOptionalFeature(bool isEnabled) =>
         isEnabled ? ConfigurationOverviewState.Configured : ConfigurationOverviewState.Disabled;
 
-    private static ConfigurationOverviewState EvaluateNetworkTransport(bool isEnabled, NetworkSettings settings, MediaInputs inputs) =>
+    private static ConfigurationOverviewState EvaluateNetworkTransport(bool isEnabled, NetworkSettings settings, MediaInputs inputs, bool isMediaProtected) =>
         !isEnabled
             ? ConfigurationOverviewState.NotConfigured
-            : NetworkConfigurationValidator.Validate(settings, inputs).IsValid
+            : NetworkConfigurationValidator.Validate(settings, inputs, isMediaProtected).IsValid
                 ? ConfigurationOverviewState.Configured
                 : ConfigurationOverviewState.NeedsAttention;
 

@@ -13,7 +13,7 @@ public sealed class NetworkMediaReadinessEvaluatorTests
     [Fact]
     public void Evaluate_WhenNetworkFeaturesAreDisabled_ReturnsReady()
     {
-        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(new NetworkSettings(), MediaInputs.None);
+        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(new NetworkSettings(), MediaInputs.None, isMediaProtected: false);
 
         Assert.True(evaluation.IsNetworkConfigurationReady);
         Assert.True(evaluation.IsConnectProvisioningReady);
@@ -32,7 +32,7 @@ public sealed class NetworkMediaReadinessEvaluatorTests
             }
         };
 
-        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(settings, MediaInputs.None);
+        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(settings, MediaInputs.None, isMediaProtected: false);
 
         Assert.False(evaluation.IsNetworkConfigurationReady);
         Assert.False(evaluation.IsConnectProvisioningReady);
@@ -50,7 +50,7 @@ public sealed class NetworkMediaReadinessEvaluatorTests
             Dot1x = new Dot1xSettings { IsEnabled = true }
         };
 
-        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(settings, MediaInputs.None);
+        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(settings, MediaInputs.None, isMediaProtected: false);
 
         Assert.False(evaluation.IsNetworkConfigurationReady);
         Assert.Equal(NetworkConfigurationValidationCode.WifiProvisioningRequired, evaluation.NetworkConfigurationValidationCode);
@@ -61,7 +61,7 @@ public sealed class NetworkMediaReadinessEvaluatorTests
     {
         NetworkSettings settings = CreatePersonalWifiSettings();
 
-        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(settings, MediaInputs.None);
+        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(settings, MediaInputs.None, isMediaProtected: true);
 
         Assert.True(evaluation.IsNetworkConfigurationReady);
         Assert.False(evaluation.IsConnectProvisioningReady);
@@ -73,7 +73,7 @@ public sealed class NetworkMediaReadinessEvaluatorTests
     {
         NetworkSettings settings = CreatePersonalWifiSettings();
 
-        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(settings, WithPassphrase("ValidPassphrase123"));
+        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(settings, WithPassphrase("ValidPassphrase123"), isMediaProtected: true);
 
         Assert.True(evaluation.IsNetworkConfigurationReady);
         Assert.True(evaluation.IsConnectProvisioningReady);
@@ -85,11 +85,25 @@ public sealed class NetworkMediaReadinessEvaluatorTests
     {
         NetworkSettings settings = CreatePersonalWifiSettings();
 
-        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(settings, WithPassphrase("short"));
+        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(settings, WithPassphrase("short"), isMediaProtected: true);
 
         Assert.True(evaluation.IsNetworkConfigurationReady);
         Assert.False(evaluation.IsConnectProvisioningReady);
         Assert.False(evaluation.AreRequiredSecretsReady);
+    }
+
+    [Fact]
+    public void Evaluate_PersonalWifiWithoutProtection_IsNotReadyForMedia()
+    {
+        NetworkSettings settings = CreatePersonalWifiSettings();
+        MediaInputs inputs = WithPassphrase("lab-passphrase");
+
+        NetworkMediaReadinessEvaluation unprotected = NetworkMediaReadinessEvaluator.Evaluate(settings, inputs, isMediaProtected: false);
+        NetworkMediaReadinessEvaluation protectedMedia = NetworkMediaReadinessEvaluator.Evaluate(settings, inputs, isMediaProtected: true);
+
+        Assert.False(unprotected.IsConnectProvisioningReady);
+        Assert.Equal(NetworkConfigurationValidationCode.WifiMediaProtectionRequired, unprotected.NetworkConfigurationValidationCode);
+        Assert.True(protectedMedia.IsConnectProvisioningReady);
     }
 
     private static MediaInputs WithPassphrase(string passphrase) =>

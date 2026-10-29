@@ -276,10 +276,10 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     public bool IsWiredDot1xPrivateKeyMaterialRoamingEnabled => IsWiredDot1xProfileRoamingAvailable && IsWiredDot1xProfileRoamingEnabled;
     public bool IsWifiPrivateKeyMaterialRoamingEnabled => IsWifiProfileRoamingAvailable && IsWifiProfileRoamingEnabled;
     public bool HasDot1xValidationError => !string.IsNullOrWhiteSpace(Dot1xValidationMessage);
-    public string Dot1xValidationMessage => FormatValidationMessage(NetworkConfigurationValidator.Validate(BuildDot1xOnlySettings(), CreateValidationInputs()), dot1xOnly: true);
+    public string Dot1xValidationMessage => FormatValidationMessage(NetworkConfigurationValidator.Validate(BuildDot1xOnlySettings(), CreateValidationInputs(), configurationStateService.IsMediaProtected), dot1xOnly: true);
     public Visibility Dot1xValidationVisibility => HasDot1xValidationError ? Visibility.Visible : Visibility.Collapsed;
     public bool HasWifiValidationError => !string.IsNullOrWhiteSpace(WifiValidationMessage);
-    public string WifiValidationMessage => FormatValidationMessage(NetworkConfigurationValidator.Validate(BuildWifiOnlySettings(), CreateValidationInputs()), dot1xOnly: false);
+    public string WifiValidationMessage => FormatValidationMessage(NetworkConfigurationValidator.Validate(BuildWifiOnlySettings(), CreateValidationInputs(), configurationStateService.IsMediaProtected), dot1xOnly: false);
     public Visibility WifiValidationVisibility => HasWifiValidationError ? Visibility.Visible : Visibility.Collapsed;
     public bool HasValidationError => HasDot1xValidationError || HasWifiValidationError;
 
@@ -295,36 +295,36 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
     public Visibility WiredDot1xRoamPrivateKeyMaterialVisibility => IsWiredDot1xPrivateKeyMaterialRoamingEnabled ? Visibility.Visible : Visibility.Collapsed;
     public Visibility WifiRoamPrivateKeyMaterialVisibility => IsWifiPrivateKeyMaterialRoamingEnabled ? Visibility.Visible : Visibility.Collapsed;
     public string Dot1xProfileTemplateValidationMessage => FormatFieldValidationMessage(
-        NetworkConfigurationValidator.Validate(BuildDot1xOnlySettings(), CreateValidationInputs()),
+        NetworkConfigurationValidator.Validate(BuildDot1xOnlySettings(), CreateValidationInputs(), configurationStateService.IsMediaProtected),
         NetworkConfigurationValidationCode.WiredProfileTemplateRequired,
         NetworkConfigurationValidationCode.WiredProfileTemplateMissing);
     public Visibility Dot1xProfileTemplateValidationVisibility => ToVisibility(Dot1xProfileTemplateValidationMessage);
     public string Dot1xCertificateValidationMessage => FormatFieldValidationMessage(
-        NetworkConfigurationValidator.Validate(BuildDot1xOnlySettings(), CreateValidationInputs()),
+        NetworkConfigurationValidator.Validate(BuildDot1xOnlySettings(), CreateValidationInputs(), configurationStateService.IsMediaProtected),
         NetworkConfigurationValidationCode.WiredCertificateRequired,
         NetworkConfigurationValidationCode.WiredCertificateMissing);
     public Visibility Dot1xCertificateValidationVisibility => ToVisibility(Dot1xCertificateValidationMessage);
     public string WifiSsidValidationMessage => FormatFieldValidationMessage(
-        NetworkConfigurationValidator.Validate(BuildWifiOnlySettings(), CreateValidationInputs()),
+        NetworkConfigurationValidator.Validate(BuildWifiOnlySettings(), CreateValidationInputs(), configurationStateService.IsMediaProtected),
         NetworkConfigurationValidationCode.WifiSsidRequired);
     public Visibility WifiSsidValidationVisibility => ToVisibility(WifiSsidValidationMessage);
     public string WifiSecurityTypeValidationMessage => FormatFieldValidationMessage(
-        NetworkConfigurationValidator.Validate(BuildWifiOnlySettings(), CreateValidationInputs()),
+        NetworkConfigurationValidator.Validate(BuildWifiOnlySettings(), CreateValidationInputs(), configurationStateService.IsMediaProtected),
         NetworkConfigurationValidationCode.UnsupportedWifiSecurityType);
     public Visibility WifiSecurityTypeValidationVisibility => ToVisibility(WifiSecurityTypeValidationMessage);
     public string WifiPassphraseValidationMessage => FormatFieldValidationMessage(
-        NetworkConfigurationValidator.Validate(BuildWifiOnlySettings(), CreateValidationInputs()),
+        NetworkConfigurationValidator.Validate(BuildWifiOnlySettings(), CreateValidationInputs(), configurationStateService.IsMediaProtected),
         NetworkConfigurationValidationCode.WifiPersonalPassphraseInvalid);
     public Visibility WifiPassphraseValidationVisibility => ToVisibility(WifiPassphraseValidationMessage);
     public string WifiEnterpriseTemplateValidationMessage => FormatFieldValidationMessage(
-        NetworkConfigurationValidator.Validate(BuildWifiOnlySettings(), CreateValidationInputs()),
+        NetworkConfigurationValidator.Validate(BuildWifiOnlySettings(), CreateValidationInputs(), configurationStateService.IsMediaProtected),
         NetworkConfigurationValidationCode.WifiEnterpriseProfileTemplateRequired,
         NetworkConfigurationValidationCode.WifiEnterpriseProfileTemplateMissing,
         NetworkConfigurationValidationCode.WifiEnterpriseAuthenticationUnsupported,
         NetworkConfigurationValidationCode.WifiEnterpriseAuthenticationMismatch);
     public Visibility WifiEnterpriseTemplateValidationVisibility => ToVisibility(WifiEnterpriseTemplateValidationMessage);
     public string WifiCertificateValidationMessage => FormatFieldValidationMessage(
-        NetworkConfigurationValidator.Validate(BuildWifiOnlySettings(), CreateValidationInputs()),
+        NetworkConfigurationValidator.Validate(BuildWifiOnlySettings(), CreateValidationInputs(), configurationStateService.IsMediaProtected),
         NetworkConfigurationValidationCode.WifiEnterpriseCertificateRequired,
         NetworkConfigurationValidationCode.WifiEnterpriseCertificateMissing);
     public Visibility WifiCertificateValidationVisibility => ToVisibility(WifiCertificateValidationMessage);
