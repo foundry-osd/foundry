@@ -194,6 +194,9 @@ Licenseret under MIT-licensen.</value>
   <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
     <value>Adgangskoden til 802.1X-certifikatet kan ikke læses. Opret startmediet igen.</value>
   </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>Adgangskoden til installation blev ikke angivet, så 802.1X-indstillingerne blev ikke anvendt. Ethernet uden 802.1X og Wi-Fi fungerer stadig.</value>
+  </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Ikke tilgængelig</value>
   </data>
@@ -428,6 +431,27 @@ Licenseret under MIT-licensen.</value>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Opdater status</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>Fortsæt</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>Angiv adgangskoden til installation for at bruge de beskyttede netværksindstillinger på dette startmedie.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>Adgangskode påkrævet</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>Adgangskoden er forkert. Prøv igen.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>Adgangskode til installation</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>Beskyttede netværksindstillinger</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>Vis eller skjul adgangskoden</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>Kan ikke anvende de klargjorte netværksindstillinger.</value>
   </data>
@@ -451,6 +475,9 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Kan ikke afbryde forbindelsen til den klargjorte Wi-Fi profil. Prøv igen.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
+    <value>Angiv adgangskoden til installation for at bruge det klargjorte Wi-Fi.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Den klargjorte Wi-Fi-profil er ikke tilgængelig.</value>
@@ -515,6 +542,9 @@ Licenseret under MIT-licensen.</value>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Profil</value>
   </data>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>Det klargjorte Wi-Fi er beskyttet af adgangskoden til installation. Vælg Forbind for at angive den.</value>
+  </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>Dette netværk kræver en klargjort Wi-Fi profil.</value>
   </data>
@@ -535,6 +565,9 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
     <value>Klargjort Wi-Fi ikke tilgængeligt</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>Adgangskoden til installation blev ikke angivet. Vælg Forbind for at angive den. Ethernet og andre Wi-Fi-netværk fungerer stadig.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Opdater Wi-Fi netværk</value>
@@ -580,6 +613,9 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Et andet Wi-Fi netværk er aktivt</value>
+  </data>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>Adgangskode påkrævet</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>Uden for rækkevidde</value>

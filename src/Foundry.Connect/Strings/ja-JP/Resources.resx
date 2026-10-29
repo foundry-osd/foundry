@@ -194,6 +194,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
     <value>802.1X 証明書のパスワードを読み取れません。ブートメディアを再作成してください。</value>
   </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>展開パスワードが入力されなかったため、802.1X 設定は適用されませんでした。802.1X を使用しない Ethernet と Wi-Fi は引き続き使用できます。</value>
+  </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>利用不可</value>
   </data>
@@ -428,6 +431,27 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>ステータスの更新</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>続行</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>このブートメディアの保護されたネットワーク設定を使用するには、展開パスワードを入力してください。</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>パスワードが必要です</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>パスワードが正しくありません。もう一度お試しください。</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>展開パスワード</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>保護されたネットワーク設定</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>パスワードの表示と非表示を切り替える</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>プロビジョニングされたネットワーク設定を適用できません。</value>
   </data>
@@ -451,6 +475,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>プロビジョニングされた Wi-Fi プロファイルを切断できません。もう一度やり直してください。</value>
+  </data>
+  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
+    <value>プロビジョニング済み Wi-Fi を使用するには、展開パスワードを入力してください。</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>プロビジョニングされた Wi-Fi プロファイルは使用できません。</value>
@@ -515,6 +542,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>プロファイル</value>
   </data>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>プロビジョニング済み Wi-Fi は展開パスワードで保護されています。入力するには [接続する] を選択してください。</value>
+  </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>このネットワークには、プロビジョニングされた Wi-Fi プロファイルが必要です。</value>
   </data>
@@ -535,6 +565,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
     <value>プロビジョニング済み Wi-Fi は利用できません</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>展開パスワードが入力されませんでした。入力するには [接続する] を選択してください。Ethernet とその他の Wi-Fi ネットワークは引き続き使用できます。</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Wi-Fi ネットワークを更新します</value>
@@ -580,6 +613,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>別の Wi-Fi ネットワークがアクティブです</value>
+  </data>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>パスワードが必要です</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>範囲外</value>

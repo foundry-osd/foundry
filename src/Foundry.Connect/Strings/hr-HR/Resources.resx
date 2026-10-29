@@ -194,6 +194,9 @@ Licenciran prema MIT licenci.</value>
   <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
     <value>Lozinku 802.1X certifikata nije moguće pročitati. Ponovno izradite medij za pokretanje.</value>
   </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>Lozinka za implementaciju nije unesena pa postavke 802.1X nisu primijenjene. Ethernet bez 802.1X i Wi-Fi i dalje rade.</value>
+  </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Nedostupno</value>
   </data>
@@ -428,6 +431,27 @@ Licenciran prema MIT licenci.</value>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Osvježi status</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>Nastavi</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>Unesite lozinku za implementaciju da biste koristili zaštićene mrežne postavke s ovog medija za pokretanje.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>Potrebna je lozinka</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>Lozinka nije točna. Pokušajte ponovno.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>Lozinka za implementaciju</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>Zaštićene mrežne postavke</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>Prikaži ili sakrij lozinku</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>Nije moguće primijeniti dodijeljene mrežne postavke.</value>
   </data>
@@ -451,6 +475,9 @@ Licenciran prema MIT licenci.</value>
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Nije moguće odspojiti osigurani Wi-Fi profil. Pokušajte ponovno.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
+    <value>Unesite lozinku za implementaciju da biste koristili osiguranu Wi-Fi mrežu.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Omogućeni Wi-Fi profil nije dostupan.</value>
@@ -515,6 +542,9 @@ Licenciran prema MIT licenci.</value>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Profil</value>
   </data>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>Osigurana Wi-Fi mreža zaštićena je lozinkom za implementaciju. Odaberite Poveži se da biste je unijeli.</value>
+  </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>Ova mreža zahtijeva osigurani Wi-Fi profil.</value>
   </data>
@@ -535,6 +565,9 @@ Licenciran prema MIT licenci.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
     <value>Osigurana Wi-Fi mreža nije dostupna</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>Lozinka za implementaciju nije unesena. Odaberite Poveži se da biste je unijeli. Ethernet i ostale Wi-Fi mreže i dalje rade.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Osvježi Wi-Fi mreže</value>
@@ -580,6 +613,9 @@ Licenciran prema MIT licenci.</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Druga Wi-Fi mreža je aktivna</value>
+  </data>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>Potrebna je lozinka</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>Izvan dometa</value>

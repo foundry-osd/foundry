@@ -194,6 +194,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
     <value>Das Kennwort des 802.1X-Zertifikats kann nicht gelesen werden. Erstellen Sie das Startmedium neu.</value>
   </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>Das Bereitstellungskennwort wurde nicht eingegeben, daher wurden die 802.1X-Einstellungen nicht angewendet. Ethernet ohne 802.1X und Wi-Fi funktionieren weiterhin.</value>
+  </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Nicht verfügbar</value>
   </data>
@@ -428,6 +431,27 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Status aktualisieren</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>Fortfahren</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>Geben Sie das Bereitstellungskennwort ein, um die geschützten Netzwerkeinstellungen dieses Startmediums zu verwenden.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>Kennwort erforderlich</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>Das Kennwort ist falsch. Versuchen Sie es erneut.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>Bereitstellungskennwort</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>Geschützte Netzwerkeinstellungen</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>Kennwort anzeigen oder ausblenden</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>Die bereitgestellten Netzwerkeinstellungen können nicht angewendet werden.</value>
   </data>
@@ -451,6 +475,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Das bereitgestellte Wi-Fi-Profil kann nicht getrennt werden. Versuchen Sie es erneut.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
+    <value>Geben Sie das Bereitstellungskennwort ein, um das bereitgestellte Wi-Fi zu verwenden.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Das bereitgestellte Wi-Fi-Profil ist nicht verfügbar.</value>
@@ -515,6 +542,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Profil</value>
   </data>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>Das bereitgestellte Wi-Fi ist durch das Bereitstellungskennwort geschützt. Wählen Sie „Verbinden“, um es einzugeben.</value>
+  </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>Für dieses Netzwerk ist ein bereitgestelltes Wi-Fi-Profil erforderlich.</value>
   </data>
@@ -535,6 +565,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
     <value>Bereitgestelltes Wi-Fi nicht verfügbar</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>Das Bereitstellungskennwort wurde nicht eingegeben. Wählen Sie „Verbinden“, um es einzugeben. Ethernet und andere Wi-Fi-Netzwerke funktionieren weiterhin.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Wi-Fi Netzwerke aktualisieren</value>
@@ -580,6 +613,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Ein anderes Wi-Fi Netzwerk ist aktiv</value>
+  </data>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>Kennwort erforderlich</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>Außer Reichweite</value>

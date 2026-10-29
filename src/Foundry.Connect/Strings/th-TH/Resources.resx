@@ -194,6 +194,9 @@
   <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
     <value>ไม่สามารถอ่านรหัสผ่านของใบรับรอง 802.1X ได้ สร้างสื่อบูตใหม่</value>
   </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>ไม่ได้ป้อนรหัสผ่านการปรับใช้ จึงไม่ได้นำการตั้งค่า 802.1X ไปใช้ Ethernet ที่ไม่ใช้ 802.1X และ Wi-Fi ยังคงใช้งานได้</value>
+  </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>ไม่พร้อมใช้งาน</value>
   </data>
@@ -428,6 +431,27 @@
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>รีเฟรชสถานะ</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>ดำเนินการต่อ</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>ป้อนรหัสผ่านการปรับใช้เพื่อใช้การตั้งค่าเครือข่ายที่ได้รับการป้องกันของสื่อบูตนี้</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>ต้องใช้รหัสผ่าน</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>รหัสผ่านไม่ถูกต้อง โปรดลองอีกครั้ง</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>รหัสผ่านการปรับใช้</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>การตั้งค่าเครือข่ายที่ได้รับการป้องกัน</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>แสดงหรือซ่อนรหัสผ่าน</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>ไม่สามารถใช้การตั้งค่าเครือข่ายที่จัดเตรียมไว้ได้</value>
   </data>
@@ -451,6 +475,9 @@
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>ไม่สามารถยกเลิกการเชื่อมต่อโปรไฟล์ Wi-Fi ที่จัดสรรไว้ได้ ลองอีกครั้ง</value>
+  </data>
+  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
+    <value>ป้อนรหัสผ่านการปรับใช้เพื่อใช้ Wi-Fi ที่จัดเตรียมไว้</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>โปรไฟล์ Wi-Fi ที่จัดเตรียมไว้ไม่พร้อมใช้งาน</value>
@@ -515,6 +542,9 @@
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>โปรไฟล์</value>
   </data>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>Wi-Fi ที่จัดเตรียมไว้ได้รับการป้องกันด้วยรหัสผ่านการปรับใช้ เลือก เชื่อมต่อ เพื่อป้อนรหัสผ่าน</value>
+  </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>เครือข่ายนี้ต้องการโปรไฟล์ Wi-Fi ที่จัดเตรียมไว้</value>
   </data>
@@ -535,6 +565,9 @@
   </data>
   <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
     <value>Wi-Fi ที่จัดเตรียมไว้ไม่พร้อมใช้งาน</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>ไม่ได้ป้อนรหัสผ่านการปรับใช้ เลือก เชื่อมต่อ เพื่อป้อนรหัสผ่าน Ethernet และเครือข่าย Wi-Fi อื่นยังคงใช้งานได้</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>รีเฟรชเครือข่าย Wi-Fi</value>
@@ -580,6 +613,9 @@
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>เครือข่าย Wi-Fi อื่นเปิดใช้งานอยู่</value>
+  </data>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>ต้องใช้รหัสผ่าน</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>อยู่นอกระยะ</value>

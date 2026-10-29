@@ -194,6 +194,9 @@
   <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
     <value>无法读取 802.1X 证书密码。请重新制作启动介质。</value>
   </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>未输入部署密码，因此未应用 802.1X 设置。不使用 802.1X 的 Ethernet 和 Wi-Fi 仍可正常使用。</value>
+  </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>不可用</value>
   </data>
@@ -428,6 +431,27 @@
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>刷新状态</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>继续</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>输入部署密码以使用此启动介质中受保护的网络设置。</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>需要密码</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>密码不正确，请重试。</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>部署密码</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>受保护的网络设置</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>显示或隐藏密码</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>无法应用配置的网络设置。</value>
   </data>
@@ -451,6 +475,9 @@
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>无法断开配置的 Wi-Fi 配置文件。再试一次。</value>
+  </data>
+  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
+    <value>输入部署密码以使用已配置的 Wi-Fi。</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>所配置的 Wi-Fi 配置文件不可用。</value>
@@ -515,6 +542,9 @@
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>配置文件</value>
   </data>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>已配置的 Wi-Fi 受部署密码保护。请选择“连接”以输入密码。</value>
+  </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>该网络需要配置Wi-Fi配置文件。</value>
   </data>
@@ -535,6 +565,9 @@
   </data>
   <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
     <value>已配置的 Wi-Fi 不可用</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>未输入部署密码。请选择“连接”以输入密码。Ethernet 和其他 Wi-Fi 网络仍可正常使用。</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>刷新Wi-Fi网络</value>
@@ -580,6 +613,9 @@
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>另一个 Wi-Fi 网络处于活动状态</value>
+  </data>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>需要密码</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>不在范围内</value>

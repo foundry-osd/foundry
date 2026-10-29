@@ -194,6 +194,9 @@ Licencované podľa licencie MIT.</value>
   <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
     <value>Heslo certifikátu 802.1X sa nedá prečítať. Znova vytvorte zavádzacie médium.</value>
   </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>Heslo nasadenia nebolo zadané, preto sa nastavenia 802.1X nepoužili. Ethernet bez 802.1X a Wi-Fi naďalej fungujú.</value>
+  </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Nie je k dispozícii</value>
   </data>
@@ -428,6 +431,27 @@ Licencované podľa licencie MIT.</value>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Obnoviť stav</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>Pokračovať</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>Zadajte heslo nasadenia, aby ste mohli použiť chránené nastavenia siete z tohto zavádzacieho média.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>Vyžaduje sa heslo</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>Heslo je nesprávne. Skúste to znova.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>Heslo nasadenia</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>Chránené nastavenia siete</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>Zobraziť alebo skryť heslo</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>Nie je možné použiť zabezpečené nastavenia siete.</value>
   </data>
@@ -451,6 +475,9 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Nie je možné odpojiť poskytnutý profil Wi-Fi. Skúste to znova.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
+    <value>Zadajte heslo nasadenia, aby ste mohli použiť poskytnutú sieť Wi-Fi.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Poskytnutý profil Wi-Fi nie je dostupný.</value>
@@ -515,6 +542,9 @@ Licencované podľa licencie MIT.</value>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Profil</value>
   </data>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>Poskytnutá sieť Wi-Fi je chránená heslom nasadenia. Ak ho chcete zadať, vyberte Pripojte sa.</value>
+  </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>Táto sieť vyžaduje vytvorený profil Wi-Fi.</value>
   </data>
@@ -535,6 +565,9 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
     <value>Poskytnutá sieť Wi-Fi nie je k dispozícii</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>Heslo nasadenia nebolo zadané. Ak ho chcete zadať, vyberte Pripojte sa. Ethernet a ostatné siete Wi-Fi naďalej fungujú.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Obnovte siete Wi-Fi</value>
@@ -580,6 +613,9 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Ďalšia sieť Wi-Fi je aktívna</value>
+  </data>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>Vyžaduje sa heslo</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>Mimo dosahu</value>

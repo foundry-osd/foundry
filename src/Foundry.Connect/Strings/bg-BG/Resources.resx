@@ -194,6 +194,9 @@
   <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
     <value>Паролата на сертификата за 802.1X не може да бъде прочетена. Създайте отново носителя за стартиране.</value>
   </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>Паролата за разполагане не беше въведена, затова настройките за 802.1X не бяха приложени. Ethernet без 802.1X и Wi-Fi продължават да работят.</value>
+  </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Недостъпно</value>
   </data>
@@ -428,6 +431,27 @@
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Опресняване на състоянието</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>Продължи</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>Въведете паролата за разполагане, за да използвате защитените мрежови настройки на този носител за стартиране.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>Изисква се парола</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>Паролата е неправилна. Опитайте отново.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>Парола за разполагане</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>Защитени мрежови настройки</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>Показване или скриване на паролата</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>Не могат да се приложат предоставените мрежови настройки.</value>
   </data>
@@ -451,6 +475,9 @@
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Не може да се прекъсне връзката с предоставения Wi-Fi профил. Опитайте отново.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
+    <value>Въведете паролата за разполагане, за да използвате осигурения Wi-Fi.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Осигуреният Wi-Fi профил не е наличен.</value>
@@ -515,6 +542,9 @@
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Профил</value>
   </data>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>Осигуреният Wi-Fi е защитен с паролата за разполагане. Изберете „Свържете се“, за да я въведете.</value>
+  </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>Тази мрежа изисква осигурен Wi-Fi профил.</value>
   </data>
@@ -535,6 +565,9 @@
   </data>
   <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
     <value>Осигуреният Wi-Fi е недостъпен</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>Паролата за разполагане не беше въведена. Изберете „Свържете се“, за да я въведете. Ethernet и другите Wi-Fi мрежи продължават да работят.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Опресняване на Wi-Fi мрежи</value>
@@ -580,6 +613,9 @@
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Друга Wi-Fi мрежа е активна</value>
+  </data>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>Изисква се парола</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>Извън обхват</value>

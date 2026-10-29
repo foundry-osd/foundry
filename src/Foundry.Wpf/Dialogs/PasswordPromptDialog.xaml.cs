@@ -7,30 +7,36 @@ using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Foundry.Deploy.Views;
+namespace Foundry.Wpf.Dialogs;
 
-public partial class DeploymentPasswordDialog : Window
+/// <summary>
+/// Modal password prompt with caller-localized texts. Continue (Enter) sets <c>DialogResult</c> to
+/// <see langword="true"/> and moves the typed password into an internal buffer; Cancel (Esc) closes without
+/// one. Both editors are cleared on submit and on close, so the password leaves the dialog only through
+/// <see cref="TakePassword"/>.
+/// </summary>
+public partial class PasswordPromptDialog : Window
 {
     private char[] password = [];
     private bool isPasswordRevealed;
     private bool isSynchronizingPasswordEditors;
 
     public static readonly DependencyProperty HeadingTextProperty = DependencyProperty.Register(
-        nameof(HeadingText), typeof(string), typeof(DeploymentPasswordDialog), new PropertyMetadata(string.Empty));
+        nameof(HeadingText), typeof(string), typeof(PasswordPromptDialog), new PropertyMetadata(string.Empty));
     public static readonly DependencyProperty DescriptionTextProperty = DependencyProperty.Register(
-        nameof(DescriptionText), typeof(string), typeof(DeploymentPasswordDialog), new PropertyMetadata(string.Empty));
+        nameof(DescriptionText), typeof(string), typeof(PasswordPromptDialog), new PropertyMetadata(string.Empty));
     public static readonly DependencyProperty PasswordPlaceholderProperty = DependencyProperty.Register(
-        nameof(PasswordPlaceholder), typeof(string), typeof(DeploymentPasswordDialog), new PropertyMetadata(string.Empty));
+        nameof(PasswordPlaceholder), typeof(string), typeof(PasswordPromptDialog), new PropertyMetadata(string.Empty));
     public static readonly DependencyProperty ContinueTextProperty = DependencyProperty.Register(
-        nameof(ContinueText), typeof(string), typeof(DeploymentPasswordDialog), new PropertyMetadata(string.Empty));
+        nameof(ContinueText), typeof(string), typeof(PasswordPromptDialog), new PropertyMetadata(string.Empty));
     public static readonly DependencyProperty CancelTextProperty = DependencyProperty.Register(
-        nameof(CancelText), typeof(string), typeof(DeploymentPasswordDialog), new PropertyMetadata(string.Empty));
+        nameof(CancelText), typeof(string), typeof(PasswordPromptDialog), new PropertyMetadata(string.Empty));
     public static readonly DependencyProperty TogglePasswordVisibilityTextProperty = DependencyProperty.Register(
-        nameof(TogglePasswordVisibilityText), typeof(string), typeof(DeploymentPasswordDialog), new PropertyMetadata(string.Empty));
+        nameof(TogglePasswordVisibilityText), typeof(string), typeof(PasswordPromptDialog), new PropertyMetadata(string.Empty));
     public static readonly DependencyProperty ErrorTextProperty = DependencyProperty.Register(
-        nameof(ErrorText), typeof(string), typeof(DeploymentPasswordDialog), new PropertyMetadata(string.Empty));
+        nameof(ErrorText), typeof(string), typeof(PasswordPromptDialog), new PropertyMetadata(string.Empty));
 
-    public DeploymentPasswordDialog()
+    public PasswordPromptDialog()
     {
         InitializeComponent();
         Loaded += (_, _) => PasswordInput.Focus();
@@ -51,6 +57,10 @@ public partial class DeploymentPasswordDialog : Window
 
     public string ErrorText { get => (string)GetValue(ErrorTextProperty); set => SetValue(ErrorTextProperty, value); }
 
+    /// <summary>
+    /// Transfers ownership of the submitted password; the caller zeroes the returned array. A second call
+    /// returns an empty array.
+    /// </summary>
     public char[] TakePassword()
     {
         char[] value = password;

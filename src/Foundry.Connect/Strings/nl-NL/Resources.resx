@@ -194,6 +194,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
     <value>Het wachtwoord van het 802.1X-certificaat kan niet worden gelezen. Maak het opstartmedium opnieuw.</value>
   </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>Het implementatiewachtwoord is niet ingevoerd, dus de 802.1X-instellingen zijn niet toegepast. Ethernet zonder 802.1X en Wi-Fi werken nog steeds.</value>
+  </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Niet beschikbaar</value>
   </data>
@@ -428,6 +431,27 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Status vernieuwen</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>Doorgaan</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>Voer het implementatiewachtwoord in om de beveiligde netwerkinstellingen van dit opstartmedium te gebruiken.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>Wachtwoord vereist</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>Het wachtwoord is onjuist. Probeer het opnieuw.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>Implementatiewachtwoord</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>Beveiligde netwerkinstellingen</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>Wachtwoord tonen of verbergen</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>Kan de ingerichte netwerkinstellingen niet toepassen.</value>
   </data>
@@ -451,6 +475,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Kan het ingerichte Wi-Fi-profiel niet ontkoppelen. Probeer het opnieuw.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
+    <value>Voer het implementatiewachtwoord in om de ingerichte Wi-Fi te gebruiken.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Het ingerichte Wi-Fi profiel is niet beschikbaar.</value>
@@ -515,6 +542,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Profiel</value>
   </data>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>De ingerichte Wi-Fi is beveiligd met het implementatiewachtwoord. Selecteer Verbinden om het in te voeren.</value>
+  </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>Voor dit netwerk is een ingericht Wi-Fi-profiel vereist.</value>
   </data>
@@ -535,6 +565,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
     <value>Ingerichte Wi-Fi niet beschikbaar</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>Het implementatiewachtwoord is niet ingevoerd. Selecteer Verbinden om het in te voeren. Ethernet en andere Wi-Fi-netwerken werken nog steeds.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Ververs Wi-Fi netwerken</value>
@@ -580,6 +613,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Er is nog een Wi-Fi-netwerk actief</value>
+  </data>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>Wachtwoord vereist</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>Buiten bereik</value>

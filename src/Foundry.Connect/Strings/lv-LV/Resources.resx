@@ -194,6 +194,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
     <value>Nevar nolasīt 802.1X sertifikāta paroli. Izveidojiet sāknēšanas datu nesēju no jauna.</value>
   </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>Izvietošanas parole netika ievadīta, tāpēc 802.1X iestatījumi netika lietoti. Ethernet bez 802.1X un Wi-Fi joprojām darbojas.</value>
+  </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Nav pieejams</value>
   </data>
@@ -428,6 +431,27 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Atsvaidzināt statusu</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>Turpināt</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>Ievadiet izvietošanas paroli, lai izmantotu šī sāknēšanas datu nesēja aizsargātos tīkla iestatījumus.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>Nepieciešama parole</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>Parole nav pareiza. Mēģiniet vēlreiz.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>Izvietošanas parole</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>Aizsargāti tīkla iestatījumi</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>Rādīt vai paslēpt paroli</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>Nevar lietot nodrošinātos tīkla iestatījumus.</value>
   </data>
@@ -451,6 +475,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Nevar atvienot nodrošināto Wi-Fi profilu. Mēģiniet vēlreiz.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
+    <value>Ievadiet izvietošanas paroli, lai izmantotu nodrošināto Wi-Fi.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Nodrošinātais Wi-Fi profils nav pieejams.</value>
@@ -515,6 +542,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Profils</value>
   </data>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>Nodrošinātais Wi-Fi ir aizsargāts ar izvietošanas paroli. Lai to ievadītu, atlasiet Savienot.</value>
+  </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>Šim tīklam ir nepieciešams nodrošināts Wi-Fi profils.</value>
   </data>
@@ -535,6 +565,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
     <value>Nodrošinātais Wi-Fi nav pieejams</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>Izvietošanas parole netika ievadīta. Lai to ievadītu, atlasiet Savienot. Ethernet un citi Wi-Fi tīkli joprojām darbojas.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Atsvaidziniet Wi-Fi tīklus</value>
@@ -580,6 +613,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Cits Wi-Fi tīkls ir aktīvs</value>
+  </data>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>Nepieciešama parole</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>Ārpus darbības zonas</value>

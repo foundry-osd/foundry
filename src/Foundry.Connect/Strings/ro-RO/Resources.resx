@@ -194,6 +194,9 @@ Licențiat sub licența MIT.</value>
   <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
     <value>Parola certificatului 802.1X nu poate fi citită. Recreați suportul de pornire.</value>
   </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>Parola de implementare nu a fost introdusă, așa că setările 802.1X nu au fost aplicate. Ethernet fără 802.1X și Wi-Fi funcționează în continuare.</value>
+  </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Indisponibil</value>
   </data>
@@ -428,6 +431,27 @@ Licențiat sub licența MIT.</value>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Starea de reîmprospătare</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>Continuați</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>Introduceți parola de implementare pentru a utiliza setările de rețea protejate de pe acest suport de pornire.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>Parolă necesară</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>Parola este incorectă. Încercați din nou.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>Parolă de implementare</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>Setări de rețea protejate</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>Afișați sau ascundeți parola</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>Nu se pot aplica setările de rețea furnizate.</value>
   </data>
@@ -451,6 +475,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Nu se poate deconecta profilul Wi-Fi furnizat. Încearcă din nou.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
+    <value>Introduceți parola de implementare pentru a utiliza rețeaua Wi-Fi furnizată.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Profilul Wi-Fi furnizat nu este disponibil.</value>
@@ -515,6 +542,9 @@ Licențiat sub licența MIT.</value>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Profil</value>
   </data>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>Rețeaua Wi-Fi furnizată este protejată de parola de implementare. Selectați Conectați-vă pentru a o introduce.</value>
+  </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>Această rețea necesită un profil Wi-Fi prevăzut.</value>
   </data>
@@ -535,6 +565,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
     <value>Wi-Fi furnizat indisponibil</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>Parola de implementare nu a fost introdusă. Selectați Conectați-vă pentru a o introduce. Ethernet și celelalte rețele Wi-Fi funcționează în continuare.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Actualizează rețelele Wi-Fi</value>
@@ -580,6 +613,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>O altă rețea Wi-Fi este activă</value>
+  </data>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>Parolă necesară</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>În afara razei de acoperire</value>

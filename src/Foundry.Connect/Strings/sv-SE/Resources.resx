@@ -194,6 +194,9 @@ Licensierad under MIT-licensen.</value>
   <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
     <value>Lösenordet för 802.1X-certifikatet kan inte läsas. Skapa startmediet på nytt.</value>
   </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>Distributionslösenordet angavs inte, så 802.1X-inställningarna tillämpades inte. Ethernet utan 802.1X och Wi-Fi fungerar fortfarande.</value>
+  </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Ej tillgänglig</value>
   </data>
@@ -428,6 +431,27 @@ Licensierad under MIT-licensen.</value>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Uppdatera status</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>Fortsätt</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>Ange distributionslösenordet för att använda de skyddade nätverksinställningarna på det här startmediet.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>Lösenord krävs</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>Lösenordet är felaktigt. Försök igen.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>Distributionslösenord</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>Skyddade nätverksinställningar</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>Visa eller dölj lösenordet</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>Det gick inte att tillämpa de tillhandahållna nätverksinställningarna.</value>
   </data>
@@ -451,6 +475,9 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Det går inte att koppla bort den tillhandahållna Wi-Fi-profilen. Försök igen.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
+    <value>Ange distributionslösenordet för att använda det tillhandahållna Wi-Fi-nätverket.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Den tillhandahållna Wi-Fi-profilen är inte tillgänglig.</value>
@@ -515,6 +542,9 @@ Licensierad under MIT-licensen.</value>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Profil</value>
   </data>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>Det tillhandahållna Wi-Fi-nätverket skyddas av distributionslösenordet. Välj Anslut för att ange det.</value>
+  </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>Detta nätverk kräver en tillhandahållen Wi-Fi-profil.</value>
   </data>
@@ -535,6 +565,9 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
     <value>Tillhandahållet Wi-Fi är inte tillgängligt</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>Distributionslösenordet angavs inte. Välj Anslut för att ange det. Ethernet och andra Wi-Fi-nätverk fungerar fortfarande.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Uppdatera Wi-Fi nätverk</value>
@@ -580,6 +613,9 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Ett annat Wi-Fi nätverk är aktivt</value>
+  </data>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>Lösenord krävs</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>Utom räckhåll</value>

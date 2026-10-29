@@ -194,6 +194,9 @@ Licencjonowany na licencji MIT.</value>
   <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
     <value>Nie można odczytać hasła certyfikatu 802.1X. Utwórz ponownie nośnik rozruchowy.</value>
   </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>Nie wprowadzono hasła wdrożenia, więc ustawienia 802.1X nie zostały zastosowane. Ethernet bez 802.1X i Wi-Fi nadal działają.</value>
+  </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Niedostępne</value>
   </data>
@@ -428,6 +431,27 @@ Licencjonowany na licencji MIT.</value>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Odśwież stan</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>Kontynuuj</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>Wprowadź hasło wdrożenia, aby użyć chronionych ustawień sieci z tego nośnika rozruchowego.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>Wymagane hasło</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>Hasło jest nieprawidłowe. Spróbuj ponownie.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>Hasło wdrożenia</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>Chronione ustawienia sieci</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>Pokaż lub ukryj hasło</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>Nie można zastosować udostępnionych ustawień sieciowych.</value>
   </data>
@@ -451,6 +475,9 @@ Licencjonowany na licencji MIT.</value>
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Nie można odłączyć udostępnionego profilu Wi-Fi. Spróbuj ponownie.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
+    <value>Wprowadź hasło wdrożenia, aby użyć udostępnionej sieci Wi-Fi.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Udostępniony profil Wi-Fi jest niedostępny.</value>
@@ -515,6 +542,9 @@ Licencjonowany na licencji MIT.</value>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Profil</value>
   </data>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>Udostępniona sieć Wi-Fi jest chroniona hasłem wdrożenia. Wybierz Połącz, aby je wprowadzić.</value>
+  </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>Ta sieć wymaga udostępnionego profilu Wi-Fi.</value>
   </data>
@@ -535,6 +565,9 @@ Licencjonowany na licencji MIT.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
     <value>Udostępniona sieć Wi-Fi niedostępna</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>Nie wprowadzono hasła wdrożenia. Wybierz Połącz, aby je wprowadzić. Ethernet i inne sieci Wi-Fi nadal działają.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Odśwież sieci Wi-Fi</value>
@@ -580,6 +613,9 @@ Licencjonowany na licencji MIT.</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Inna sieć Wi-Fi jest aktywna</value>
+  </data>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>Wymagane hasło</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>Poza zasięgiem</value>

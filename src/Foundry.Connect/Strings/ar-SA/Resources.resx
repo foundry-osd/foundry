@@ -194,6 +194,9 @@
   <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
     <value>تتعذر قراءة كلمة مرور شهادة 802.1X. أعد إنشاء وسائط التمهيد.</value>
   </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>لم يتم إدخال كلمة مرور النشر، لذلك لم يتم تطبيق إعدادات 802.1X. لا تزال شبكة Ethernet بدون 802.1X وشبكة Wi-Fi تعمل.</value>
+  </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>غير متاح</value>
   </data>
@@ -428,6 +431,27 @@
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>تحديث الحالة</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>متابعة</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>أدخل كلمة مرور النشر لاستخدام إعدادات الشبكة المحمية في وسائط التمهيد هذه.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>كلمة المرور مطلوبة</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>كلمة المرور غير صحيحة. حاول مرة أخرى.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>كلمة مرور النشر</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>إعدادات الشبكة المحمية</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>إظهار كلمة المرور أو إخفاؤها</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>غير قادر على تطبيق إعدادات الشبكة المتوفرة.</value>
   </data>
@@ -451,6 +475,9 @@
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>غير قادر على قطع اتصال ملف التعريف Wi-Fi المتوفر. حاول ثانية.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
+    <value>أدخل كلمة مرور النشر لاستخدام شبكة Wi-Fi الموفّرة.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>ملف التعريف Wi-Fi المتوفر غير متوفر.</value>
@@ -515,6 +542,9 @@
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>ملف التعريف</value>
   </data>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>شبكة Wi-Fi الموفّرة محمية بكلمة مرور النشر. حدد الاتصال لإدخالها.</value>
+  </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>تتطلب هذه الشبكة ملف تعريف Wi-Fi متوفر.</value>
   </data>
@@ -535,6 +565,9 @@
   </data>
   <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
     <value>شبكة Wi-Fi الموفّرة غير متاحة</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>لم يتم إدخال كلمة مرور النشر. حدد الاتصال لإدخالها. لا تزال شبكة Ethernet وشبكات Wi-Fi الأخرى تعمل.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>قم بتحديث الشبكات Wi-Fi</value>
@@ -580,6 +613,9 @@
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>شبكة Wi-Fi أخرى نشطة</value>
+  </data>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>كلمة المرور مطلوبة</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>خارج النطاق</value>

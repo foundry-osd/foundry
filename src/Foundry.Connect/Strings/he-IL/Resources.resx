@@ -194,6 +194,9 @@
   <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
     <value>לא ניתן לקרוא את הסיסמה של אישור 802.1X. צור מחדש את מדיית האתחול.</value>
   </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>סיסמת הפריסה לא הוזנה, ולכן הגדרות 802.1X לא הוחלו. Ethernet ללא 802.1X ו-Wi-Fi עדיין פועלים.</value>
+  </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>לא זמין</value>
   </data>
@@ -428,6 +431,27 @@
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>סטטוס רענון</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>המשך</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>הזן את סיסמת הפריסה כדי להשתמש בהגדרות הרשת המוגנות של מדיית אתחול זו.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>נדרשת סיסמה</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>הסיסמה שגויה. נסה שוב.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>סיסמת פריסה</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>הגדרות רשת מוגנות</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>הצג או הסתר את הסיסמה</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>לא ניתן להחיל את הגדרות הרשת המוגדרות.</value>
   </data>
@@ -451,6 +475,9 @@
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>לא ניתן לנתק את הפרופיל Wi-Fi המיועד. נסה שוב.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
+    <value>הזן את סיסמת הפריסה כדי להשתמש ב-Wi-Fi המסופקת.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>פרופיל Wi-Fi המוקצה אינו זמין.</value>
@@ -515,6 +542,9 @@
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>פרופיל</value>
   </data>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>רשת ה-Wi-Fi המסופקת מוגנת באמצעות סיסמת הפריסה. בחר התחבר כדי להזין אותה.</value>
+  </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>רשת זו דורשת פרופיל Wi-Fi מסופק.</value>
   </data>
@@ -535,6 +565,9 @@
   </data>
   <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
     <value>רשת ה-Wi-Fi המסופקת אינה זמינה</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>סיסמת הפריסה לא הוזנה. בחר התחבר כדי להזין אותה. Ethernet ורשתות Wi-Fi אחרות עדיין פועלים.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>רענן Wi-Fi רשתות</value>
@@ -580,6 +613,9 @@
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>רשת Wi-Fi פעילה אחרת</value>
+  </data>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>נדרשת סיסמה</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>מחוץ לטווח</value>

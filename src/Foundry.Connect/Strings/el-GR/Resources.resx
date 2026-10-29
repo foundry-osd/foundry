@@ -194,6 +194,9 @@
   <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
     <value>Δεν είναι δυνατή η ανάγνωση του κωδικού πρόσβασης του πιστοποιητικού 802.1X. Δημιουργήστε ξανά το μέσο εκκίνησης.</value>
   </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>Δεν εισαγάγατε τον κωδικό πρόσβασης ανάπτυξης, επομένως οι ρυθμίσεις 802.1X δεν εφαρμόστηκαν. Το Ethernet χωρίς 802.1X και το Wi-Fi εξακολουθούν να λειτουργούν.</value>
+  </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Μη διαθέσιμο</value>
   </data>
@@ -428,6 +431,27 @@
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Κατάσταση ανανέωσης</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>Συνέχεια</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>Εισαγάγετε τον κωδικό πρόσβασης ανάπτυξης για να χρησιμοποιήσετε τις προστατευμένες ρυθμίσεις δικτύου αυτού του μέσου εκκίνησης.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>Απαιτείται κωδικός πρόσβασης</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>Ο κωδικός πρόσβασης είναι λανθασμένος. Δοκιμάστε ξανά.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>Κωδικός πρόσβασης ανάπτυξης</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>Προστατευμένες ρυθμίσεις δικτύου</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>Εμφάνιση ή απόκρυψη κωδικού πρόσβασης</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>Δεν είναι δυνατή η εφαρμογή των παρεχόμενων ρυθμίσεων δικτύου.</value>
   </data>
@@ -451,6 +475,9 @@
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Δεν είναι δυνατή η αποσύνδεση του προβλεπόμενου προφίλ Wi-Fi. Προσπαθήστε ξανά.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
+    <value>Εισαγάγετε τον κωδικό πρόσβασης ανάπτυξης για να χρησιμοποιήσετε το προβλεπόμενο Wi-Fi.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Το προβλεπόμενο προφίλ Wi-Fi δεν είναι διαθέσιμο.</value>
@@ -515,6 +542,9 @@
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Προφίλ</value>
   </data>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>Το προβλεπόμενο Wi-Fi προστατεύεται από τον κωδικό πρόσβασης ανάπτυξης. Επιλέξτε Συνδεθείτε για να τον εισαγάγετε.</value>
+  </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>Αυτό το δίκτυο απαιτεί ένα προβλεπόμενο προφίλ Wi-Fi.</value>
   </data>
@@ -535,6 +565,9 @@
   </data>
   <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
     <value>Το προβλεπόμενο Wi-Fi δεν είναι διαθέσιμο</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>Δεν εισαγάγατε τον κωδικό πρόσβασης ανάπτυξης. Επιλέξτε Συνδεθείτε για να τον εισαγάγετε. Το Ethernet και τα άλλα δίκτυα Wi-Fi εξακολουθούν να λειτουργούν.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Ανανεώστε τα δίκτυα Wi-Fi</value>
@@ -580,6 +613,9 @@
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Ένα άλλο δίκτυο Wi-Fi είναι ενεργό</value>
+  </data>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>Απαιτείται κωδικός πρόσβασης</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>Εκτός εμβέλειας</value>

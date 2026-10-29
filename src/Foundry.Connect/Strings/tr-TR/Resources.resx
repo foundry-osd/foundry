@@ -194,6 +194,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
     <value>802.1X sertifikasının şifresi okunamıyor. Önyükleme medyasını yeniden oluşturun.</value>
   </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>Dağıtım parolası girilmediği için 802.1X ayarları uygulanmadı. 802.1X olmadan Ethernet ve Wi-Fi çalışmaya devam ediyor.</value>
+  </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Kullanılamıyor</value>
   </data>
@@ -428,6 +431,27 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Durumu yenile</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>Devam</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>Bu önyükleme medyasının korumalı ağ ayarlarını kullanmak için dağıtım parolasını girin.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>Parola gerekli</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>Parola yanlış. Tekrar deneyin.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>Dağıtım parolası</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>Korumalı ağ ayarları</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>Parolayı göster veya gizle</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>Sağlanan ağ ayarları uygulanamıyor.</value>
   </data>
@@ -451,6 +475,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Sağlanan Wi-Fi profilinin bağlantısı kesilemiyor. Tekrar deneyin.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
+    <value>Sağlanan Wi-Fi'yi kullanmak için dağıtım parolasını girin.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Temel hazırlığı yapılan Wi-Fi profili mevcut değil.</value>
@@ -515,6 +542,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Profil</value>
   </data>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>Sağlanan Wi-Fi, dağıtım parolasıyla korunuyor. Parolayı girmek için Bağlan'ı seçin.</value>
+  </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>Bu ağ, temel hazırlığı yapılmış bir Wi-Fi profili gerektirir.</value>
   </data>
@@ -535,6 +565,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
     <value>Sağlanan Wi-Fi kullanılamıyor</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>Dağıtım parolası girilmedi. Parolayı girmek için Bağlan'ı seçin. Ethernet ve diğer Wi-Fi ağları çalışmaya devam ediyor.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Wi-Fi ağlarını yenile</value>
@@ -580,6 +613,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Başka bir Wi-Fi ağı etkin</value>
+  </data>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>Parola gerekli</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>Kapsama alanı dışında</value>

@@ -194,6 +194,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
     <value>802.1X-sertifikaadi parooli ei saa lugeda. Looge alglaadimismeedium uuesti.</value>
   </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>Juurutusparooli ei sisestatud, seega 802.1X-sätteid ei rakendatud. Ethernet ilma 802.1X-ita ja Wi-Fi töötavad endiselt.</value>
+  </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Pole saadaval</value>
   </data>
@@ -428,6 +431,27 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Värskenda olekut</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>Jätka</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>Sisestage juurutusparool, et kasutada selle alglaadimismeediumi kaitstud võrgusätteid.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>Parool on nõutav</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>Parool on vale. Proovi uuesti.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>Juurutusparool</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>Kaitstud võrgusätted</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>Kuva või peida parool</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>Ettevalmistatud võrguseadeid ei saa rakendada.</value>
   </data>
@@ -451,6 +475,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Ettevalmistatud Wi-Fi profiili ei saa lahti ühendada. Proovi uuesti.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
+    <value>Sisestage juurutusparool, et kasutada ettevalmistatud Wi-Fi-t.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Ettevalmistatud Wi-Fi profiil pole saadaval.</value>
@@ -515,6 +542,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Profiil</value>
   </data>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>Ettevalmistatud Wi-Fi on kaitstud juurutusparooliga. Selle sisestamiseks valige Ühendage.</value>
+  </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>See võrk nõuab ette nähtud Wi-Fi profiili.</value>
   </data>
@@ -535,6 +565,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
     <value>Ettevalmistatud Wi-Fi pole saadaval</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>Juurutusparooli ei sisestatud. Selle sisestamiseks valige Ühendage. Ethernet ja teised Wi-Fi võrgud töötavad endiselt.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Värskenda Wi-Fi võrke</value>
@@ -580,6 +613,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Teine Wi-Fi võrk on aktiivne</value>
+  </data>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>Parool on nõutav</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>Levialast väljas</value>

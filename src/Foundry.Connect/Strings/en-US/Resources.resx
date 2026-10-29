@@ -194,6 +194,9 @@ Licensed under the MIT License.</value>
   <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
     <value>The 802.1X certificate password cannot be read. Recreate the boot media.</value>
   </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>The deployment password was not entered, so the 802.1X settings were not applied. Ethernet without 802.1X and Wi-Fi still work.</value>
+  </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Unavailable</value>
   </data>
@@ -428,6 +431,27 @@ Licensed under the MIT License.</value>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Refresh status</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>Enter the deployment password to use the protected network settings of this boot media.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>Password required</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>The password is incorrect. Try again.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>Deployment password</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>Protected network settings</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>Show or hide password</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>Unable to apply the provisioned network settings.</value>
   </data>
@@ -451,6 +475,9 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Unable to disconnect the provisioned Wi-Fi profile. Try again.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
+    <value>Enter the deployment password to use the provisioned Wi-Fi.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>The provisioned Wi-Fi profile is not available.</value>
@@ -515,6 +542,9 @@ Licensed under the MIT License.</value>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Profile</value>
   </data>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>The provisioned Wi-Fi is protected by the deployment password. Select Connect to enter it.</value>
+  </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>This network requires a provisioned Wi-Fi profile.</value>
   </data>
@@ -535,6 +565,9 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
     <value>Provisioned Wi-Fi unavailable</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>The deployment password was not entered. Select Connect to enter it. Ethernet and other Wi-Fi networks still work.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Refresh Wi-Fi networks</value>
@@ -580,6 +613,9 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Another Wi-Fi network is active</value>
+  </data>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>Password required</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>Not in range</value>

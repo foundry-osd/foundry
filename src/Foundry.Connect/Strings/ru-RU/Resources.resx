@@ -194,6 +194,9 @@
   <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
     <value>Не удается прочитать пароль сертификата 802.1X. Создайте загрузочный носитель заново.</value>
   </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>Пароль развертывания не был введен, поэтому параметры 802.1X не применены. Ethernet без 802.1X и Wi-Fi продолжают работать.</value>
+  </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Недоступно</value>
   </data>
@@ -428,6 +431,27 @@
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Обновить статус</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>Продолжить</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>Введите пароль развертывания, чтобы использовать защищенные сетевые параметры этого загрузочного носителя.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>Требуется пароль</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>Неверный пароль. Повторите попытку.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>Пароль развертывания</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>Защищенные сетевые параметры</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>Показать или скрыть пароль</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>Невозможно применить предоставленные настройки сети.</value>
   </data>
@@ -451,6 +475,9 @@
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Невозможно отключить подготовленный профиль Wi-Fi. Попробуйте еще раз.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
+    <value>Введите пароль развертывания, чтобы использовать подготовленную сеть Wi-Fi.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Предоставленный профиль Wi-Fi недоступен.</value>
@@ -515,6 +542,9 @@
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Профиль</value>
   </data>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>Подготовленная сеть Wi-Fi защищена паролем развертывания. Выберите «Подключиться», чтобы ввести его.</value>
+  </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>Для этой сети требуется подготовленный профиль Wi-Fi.</value>
   </data>
@@ -535,6 +565,9 @@
   </data>
   <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
     <value>Подготовленная сеть Wi-Fi недоступна</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>Пароль развертывания не был введен. Выберите «Подключиться», чтобы ввести его. Ethernet и другие сети Wi-Fi продолжают работать.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Обновить сети Wi-Fi</value>
@@ -580,6 +613,9 @@
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Другая сеть Wi-Fi активна</value>
+  </data>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>Требуется пароль</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>Вне зоны действия</value>

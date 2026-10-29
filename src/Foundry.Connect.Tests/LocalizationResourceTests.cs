@@ -75,6 +75,13 @@ public sealed class LocalizationResourceTests
         "Wifi.SelectNetworkHint", "Wifi.StatusNotInRange"
     };
 
+    public static TheoryData<string> UnlockKeys => new()
+    {
+        "Ethernet.Dot1xReasonUnlockCancelled", "Unlock.Continue", "Unlock.Description", "Unlock.Heading", "Unlock.InvalidPassword",
+        "Unlock.PasswordPlaceholder", "Unlock.Title", "Unlock.TogglePasswordVisibility", "Wifi.ActionProvisionedLocked",
+        "Wifi.ProvisionedLocked", "Wifi.ProvisionedUnlockCancelled", "Wifi.StatusLocked"
+    };
+
     [Theory]
     [MemberData(nameof(SupportedCultures))]
     public void ResourceSet_ContainsRequiredLabelsForAdkCulture(string cultureName)
@@ -95,6 +102,19 @@ public sealed class LocalizationResourceTests
     [Theory]
     [MemberData(nameof(SinglePageKeys))]
     public void EveryCulture_ContainsSinglePageKey(string key)
+    {
+        ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(App).Assembly);
+
+        foreach (string cultureName in CultureNames)
+        {
+            ResourceSet? resourceSet = resourceManager.GetResourceSet(CultureInfo.GetCultureInfo(cultureName), createIfNotExists: true, tryParents: false);
+            Assert.False(string.IsNullOrWhiteSpace(resourceSet?.GetString(key)), $"{cultureName} {key}");
+        }
+    }
+
+    [Theory]
+    [MemberData(nameof(UnlockKeys))]
+    public void EveryCulture_ContainsUnlockKey(string key)
     {
         ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(App).Assembly);
 

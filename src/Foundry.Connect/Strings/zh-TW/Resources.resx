@@ -194,6 +194,9 @@
   <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
     <value>無法讀取 802.1X 憑證密碼。請重新製作開機媒體。</value>
   </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>未輸入部署密碼，因此未套用 802.1X 設定。不使用 802.1X 的 Ethernet 與 Wi-Fi 仍可正常運作。</value>
+  </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>無法使用</value>
   </data>
@@ -428,6 +431,27 @@
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>重新整理狀態</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>繼續</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>輸入部署密碼以使用此開機媒體中受保護的網路設定。</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>需要密碼</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>密碼不正確，請再試一次。</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>部署密碼</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>受保護的網路設定</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>顯示或隱藏密碼</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>無法套用已佈建的網路設定。</value>
   </data>
@@ -451,6 +475,9 @@
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>無法中斷已佈建 Wi-Fi 設定檔的連線。請再試一次。</value>
+  </data>
+  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
+    <value>輸入部署密碼以使用已佈建的 Wi-Fi。</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>無法使用已佈建的 Wi-Fi 設定檔。</value>
@@ -515,6 +542,9 @@
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>設定檔</value>
   </data>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>已佈建的 Wi-Fi 受部署密碼保護。請選取「連線」以輸入密碼。</value>
+  </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>此網路需要已佈建的 Wi-Fi 設定檔。</value>
   </data>
@@ -535,6 +565,9 @@
   </data>
   <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
     <value>已佈建的 Wi-Fi 無法使用</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>未輸入部署密碼。請選取「連線」以輸入密碼。Ethernet 與其他 Wi-Fi 網路仍可正常運作。</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>重新整理 Wi-Fi 網路</value>
@@ -580,6 +613,9 @@
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>另一個 Wi-Fi 網路正在使用中</value>
+  </data>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>需要密碼</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>不在範圍內</value>

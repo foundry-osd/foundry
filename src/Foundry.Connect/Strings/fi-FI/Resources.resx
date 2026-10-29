@@ -194,6 +194,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
     <value>802.1X-varmenteen salasanaa ei voi lukea. Luo käynnistysmedia uudelleen.</value>
   </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>Käyttöönoton salasanaa ei annettu, joten 802.1X-asetuksia ei otettu käyttöön. Ethernet ilman 802.1X:ää ja Wi-Fi toimivat edelleen.</value>
+  </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Ei käytettävissä</value>
   </data>
@@ -428,6 +431,27 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Päivitä tila</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>Jatka</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>Anna käyttöönoton salasana, jotta voit käyttää tämän käynnistysmedian suojattuja verkkoasetuksia.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>Salasana vaaditaan</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>Salasana on virheellinen. Yritä uudelleen.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>Käyttöönoton salasana</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>Suojatut verkkoasetukset</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>Näytä tai piilota salasana</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>Varattuja verkkoasetuksia ei voi ottaa käyttöön.</value>
   </data>
@@ -451,6 +475,9 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Ei voida katkaista hallittua Wi-Fi-profiilia. Yritä uudelleen.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
+    <value>Anna käyttöönoton salasana, jotta voit käyttää valmisteltua Wi-Fi-verkkoa.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Käytettävissä oleva Wi-Fi-profiili ei ole käytettävissä.</value>
@@ -515,6 +542,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Profiili</value>
   </data>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>Valmisteltu Wi-Fi-verkko on suojattu käyttöönoton salasanalla. Anna se valitsemalla Yhdistä.</value>
+  </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>Tämä verkko vaatii valmiin Wi-Fi-profiilin.</value>
   </data>
@@ -535,6 +565,9 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
     <value>Valmisteltu Wi-Fi ei käytettävissä</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>Käyttöönoton salasanaa ei annettu. Anna se valitsemalla Yhdistä. Ethernet ja muut Wi-Fi-verkot toimivat edelleen.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Päivitä Wi-Fi-verkot</value>
@@ -580,6 +613,9 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Toinen Wi-Fi-verkko on aktiivinen</value>
+  </data>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>Salasana vaaditaan</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>Ei kantoalueella</value>

@@ -194,6 +194,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
     <value>A 802.1X-tanúsítvány jelszava nem olvasható. Hozza létre újra a rendszerindító adathordozót.</value>
   </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>A telepítési jelszó nem lett megadva, ezért a 802.1X-beállítások nem lettek alkalmazva. Az Ethernet 802.1X nélkül és a Wi-Fi továbbra is működik.</value>
+  </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Nem érhető el</value>
   </data>
@@ -428,6 +431,27 @@ Licenc az MIT licenc alatt.</value>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Frissítési állapot</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>Folytatás</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>Adja meg a telepítési jelszót a rendszerindító adathordozó védett hálózati beállításainak használatához.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>Jelszó szükséges</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>A jelszó helytelen. Próbálja újra.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>Telepítési jelszó</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>Védett hálózati beállítások</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>Jelszó megjelenítése vagy elrejtése</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>Nem lehet alkalmazni a kiépített hálózati beállításokat.</value>
   </data>
@@ -451,6 +475,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Nem lehet leválasztani a kiépített Wi-Fi profilt. Próbáld újra.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
+    <value>Adja meg a telepítési jelszót a kiépített Wi-Fi használatához.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>A kiépített Wi-Fi profil nem érhető el.</value>
@@ -515,6 +542,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Profil</value>
   </data>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>A kiépített Wi-Fi a telepítési jelszóval védett. A megadásához válassza a Csatlakozás lehetőséget.</value>
+  </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>Ehhez a hálózathoz egy Wi-Fi profil szükséges.</value>
   </data>
@@ -535,6 +565,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
     <value>A kiépített Wi-Fi nem érhető el</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>A telepítési jelszó nem lett megadva. A megadásához válassza a Csatlakozás lehetőséget. Az Ethernet és a többi Wi-Fi hálózat továbbra is működik.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Frissítse a Wi-Fi hálózatokat</value>
@@ -580,6 +613,9 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Egy másik Wi-Fi hálózat aktív</value>
+  </data>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>Jelszó szükséges</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>Hatótávolságon kívül</value>

@@ -194,6 +194,9 @@
   <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
     <value>Не вдається прочитати пароль сертифіката 802.1X. Створіть завантажувальний носій заново.</value>
   </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>Пароль розгортання не введено, тому параметри 802.1X не застосовано. Ethernet без 802.1X і Wi-Fi продовжують працювати.</value>
+  </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Недоступно</value>
   </data>
@@ -428,6 +431,27 @@
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Оновити статус</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>Продовжити</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>Введіть пароль розгортання, щоб використовувати захищені мережеві параметри цього завантажувального носія.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>Потрібен пароль</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>Пароль неправильний. Спробуйте ще раз.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>Пароль розгортання</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>Захищені мережеві параметри</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>Показати або приховати пароль</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>Неможливо застосувати налаштування мережі.</value>
   </data>
@@ -451,6 +475,9 @@
   </data>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Неможливо відключити наданий профіль Wi-Fi. Спробуйте знову.</value>
+  </data>
+  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
+    <value>Введіть пароль розгортання, щоб використовувати підготовлену мережу Wi-Fi.</value>
   </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Наданий профіль Wi-Fi недоступний.</value>
@@ -515,6 +542,9 @@
   <data name="Wifi.ProfileLabel" xml:space="preserve">
     <value>Профіль</value>
   </data>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>Підготовлена мережа Wi-Fi захищена паролем розгортання. Виберіть «Підключитися», щоб ввести його.</value>
+  </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>Для цієї мережі потрібен профіль Wi-Fi.</value>
   </data>
@@ -535,6 +565,9 @@
   </data>
   <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
     <value>Підготовлена мережа Wi-Fi недоступна</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>Пароль розгортання не введено. Виберіть «Підключитися», щоб ввести його. Ethernet та інші мережі Wi-Fi продовжують працювати.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Оновити Wi-Fi мережі</value>
@@ -580,6 +613,9 @@
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Ще одна мережа Wi-Fi активна</value>
+  </data>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>Потрібен пароль</value>
   </data>
   <data name="Wifi.StatusNotInRange" xml:space="preserve">
     <value>Поза зоною дії</value>
