@@ -24,7 +24,8 @@ namespace Foundry.Bootstrap.Processes;
 /// </para>
 /// <para>
 /// The key lives only in one pinned 32-byte buffer that is zeroed when serving ends and on disposal; read buffers are zeroed
-/// in <see langword="finally"/>. Nothing is written to disk, and logs carry outcome categories, process ids, lengths and
+/// in <see langword="finally"/> of their exchange, so for an exchange still in flight at disposal that zeroing is eventual
+/// (it runs once the disposed pipe fails the pending read). Nothing is written to disk, and logs carry outcome categories, process ids, lengths and
 /// exception type names only, never key bytes, pipe names or exception messages. No hand-off failure escapes a loop.
 /// </para>
 /// </remarks>
@@ -42,6 +43,10 @@ internal sealed class DeploymentKeyRelay(ILogger logger) : IDeploymentKeyRelay
     internal byte[]? HeldKeyForTesting => key;
 
     /// <summary>Creates one non-inheritable, single-instance hand-off pipe server with the hand-off security.</summary>
+    /// <remarks>
+    /// <see cref="PipeOptions.FirstPipeInstance"/> is belt-and-braces: .NET already requests the first instance when the
+    /// maximum instance count is 1, so creation fails when another process created the name first.
+    /// </remarks>
     internal static NamedPipeServerStream CreateServer(string pipeName, PipeDirection direction) =>
         NamedPipeServerStreamAcl.Create(pipeName, direction, 1, PipeTransmissionMode.Byte,
             PipeOptions.Asynchronous | PipeOptions.FirstPipeInstance, 0, 0, DeploymentKeyHandoff.CreateServerSecurity(),
@@ -108,7 +113,10 @@ internal sealed class DeploymentKeyRelay(ILogger logger) : IDeploymentKeyRelay
         return delivered;
     }
 
-    /// <summary>Cancels both pipes, disposes them and zeroes the key.</summary>
+    /// <summary>
+    /// Cancels both pipes, disposes them and zeroes the key at once; the read buffer of an exchange still in flight is zeroed
+    /// when that exchange ends.
+    /// </summary>
     public void Dispose()
     {
         lock (gate)
@@ -127,15 +135,8 @@ internal sealed class DeploymentKeyRelay(ILogger logger) : IDeploymentKeyRelay
         ZeroKey();
     }
 
-    private static void Expect(PipeSession? session, int processId)
-    {
-        if (session is null)
-        {
-            throw new InvalidOperationException("The deployment key pipe was not created.");
-        }
-
-        session.ExpectedProcess.TrySetResult(processId);
-    }
+    // No pipe (BeginServe without a key, or Begin never called) means nothing to expect, like End* without a pipe.
+    private static void Expect(PipeSession? session, int processId) => session?.ExpectedProcess.TrySetResult(processId);
 
     private async Task<bool> ReceiveAsync(PipeSession session)
     {

@@ -17,6 +17,8 @@ namespace Foundry.Core.Services.Runtime;
 /// one after a successful unlock, and Foundry Deploy reads it once from the second one. Each pipe has a random 128-bit name
 /// handed to exactly one child through one environment variable, accepts one connection from the launched child process
 /// only (the server checks the client process id), is created non-inheritable and grants access to the current user only.
+/// The DACL names the user SID and .NET does not set <c>PIPE_REJECT_REMOTE_CLIENTS</c>, so the client process id check is
+/// the backstop against a remote client authenticated as the same account.
 /// </para>
 /// <para>
 /// Anonymous pipes and handle inheritance are not used: <c>Process.Start</c> makes every inheritable handle visible to every
