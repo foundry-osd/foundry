@@ -310,7 +310,7 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
 
     private async Task CompleteAsync(bool automatic)
     {
-        // A countdown ending while a manual Continue probes joins that probe instead of starting a second one.
+        // A second caller, such as a countdown ending while a manual Continue probes, returns at once without a second probe.
         if (_isDisposed || _isCompleting)
         {
             return;

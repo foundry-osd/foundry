@@ -15,7 +15,7 @@ namespace Foundry.Connect.Network;
 public static class EthernetStateReader
 {
     /// <summary>
-    /// Returns whether an interface type is a wired Ethernet family, the same set the legacy services used.
+    /// Returns whether an interface type is a wired Ethernet family.
     /// </summary>
     /// <param name="type">Interface type.</param>
     /// <returns><see langword="true"/> for Ethernet types.</returns>
