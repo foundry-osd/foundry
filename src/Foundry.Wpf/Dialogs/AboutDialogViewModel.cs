@@ -6,6 +6,10 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace Foundry.Wpf.Dialogs;
 
+/// <summary>
+/// Immutable display data for <see cref="AboutDialog"/> plus a close command. The view model never closes
+/// the window itself: the host subscribes to <see cref="CloseRequested"/> and closes the dialog.
+/// </summary>
 public sealed partial class AboutDialogViewModel
 {
     public AboutDialogViewModel(
@@ -36,6 +40,7 @@ public sealed partial class AboutDialogViewModel
 
     public string Footer { get; }
 
+    /// <summary>Raised when the operator asks to close the dialog; the owner of the window must handle it.</summary>
     public event EventHandler? CloseRequested;
 
     [RelayCommand]
