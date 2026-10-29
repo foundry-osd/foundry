@@ -5,10 +5,12 @@
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using Foundry.Connect.Network;
+using Foundry.Connect.Security;
 using Foundry.Connect.Tests.Support;
 using Foundry.Connect.ViewModels;
 using Foundry.Core.Models.Configuration;
 using Foundry.Wpf.Localization;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect.Tests.ViewModels;
 
@@ -16,6 +18,7 @@ public sealed class ConnectPageViewModelTests : IDisposable
 {
     private readonly ManualTimeProvider _clock = new();
     private readonly FakeConnectionCoordinator _coordinator = new();
+    private readonly FakeUnlockService _unlock = new();
     private readonly FakeNetworkMonitor _monitor = new();
     private readonly FakeSuccessfulExitService _exit = new();
     private readonly ResourceLocalizationService _localization = TestLocalization.Create();
@@ -24,7 +27,7 @@ public sealed class ConnectPageViewModelTests : IDisposable
 
     public ConnectPageViewModelTests()
     {
-        var actions = new ConnectNetworkActions(_coordinator, new RecordingLogger<ConnectNetworkActions>());
+        var actions = new ConnectNetworkActions(_coordinator, _unlock, new RecordingLogger<ConnectNetworkActions>());
         var dispatcher = new ImmediateUiDispatcher();
         var configuration = new FoundryConnectConfigurationDocument
         {
@@ -258,6 +261,115 @@ public sealed class ConnectPageViewModelTests : IDisposable
         }
     }
 
+    [Theory]
+    [InlineData(ConnectUnlockResult.Unlocked)]
+    [InlineData(ConnectUnlockResult.Cancelled)]
+    public async Task InitializeAsync_UnlocksWiredBeforeProvisioning(ConnectUnlockResult unlockResult)
+    {
+        _unlock.IsWiredUnlockRequired = true;
+        _unlock.Result = unlockResult;
+        int provisioningCallsAtUnlock = -1;
+        _unlock.OnUnlock = () => provisioningCallsAtUnlock = _coordinator.ApplyProvisioningCalls;
+
+        await _page.InitializeAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal([ConnectUnlockTrigger.WiredStartup], _unlock.Calls);
+        Assert.Equal(0, provisioningCallsAtUnlock);
+        Assert.Equal(1, _coordinator.ApplyProvisioningCalls);
+        Assert.Equal(1, _monitor.RunCalls);
+    }
+
+    [Fact]
+    public async Task InitializeAsync_AfterTheWiredPrompt_OffersContinueWithoutCountingOrFocus()
+    {
+        _unlock.IsWiredUnlockRequired = true;
+        _unlock.Result = ConnectUnlockResult.Unlocked;
+        await _page.InitializeAsync(TestContext.Current.CancellationToken);
+
+        Publish(ConnectDebugScenario.EthernetReady);
+
+        Assert.True(_page.AutoContinue.IsPaused);
+        Assert.False(_page.AutoContinue.IsContinueDefault);
+        Assert.True(_page.AutoContinue.ContinueCommand.CanExecute(null));
+        Assert.Empty(_focus);
+    }
+
+    [Fact]
+    public void UnlockRequested_PromptsForWifiUnlessSimulatedOrDisposed()
+    {
+        _unlock.IsWifiUnlockRequired = true;
+
+        _coordinator.RaiseUnlockRequested();
+        _page.ApplyDebugScenario(ConnectDebugScenario.WifiNetworks);
+        _coordinator.RaiseUnlockRequested();
+        _page.ApplyDebugScenario(ConnectDebugScenario.Live);
+        _page.Dispose();
+        _coordinator.RaiseUnlockRequested();
+
+        Assert.Equal([ConnectUnlockTrigger.AutomaticWifi], _unlock.Calls);
+    }
+
+    [Fact]
+    public void AutomaticUnlock_ThenOnline_OffersContinueWithoutCountingOrFocus()
+    {
+        _unlock.IsWifiUnlockRequired = true;
+        _unlock.Result = ConnectUnlockResult.Unlocked;
+        Publish(ConnectDebugScenario.EthernetNoInternet);
+        _focus.Clear();
+
+        _coordinator.RaiseUnlockRequested();
+        Publish(ConnectDebugScenario.WifiReady);
+
+        Assert.Equal(1, _coordinator.RefreshProvisionedWifiCalls);
+        Assert.Equal(ConnectPageStatus.Ready, _page.Status);
+        Assert.False(_page.AutoContinue.IsCounting);
+        Assert.True(_page.AutoContinue.IsPaused);
+        Assert.False(_page.AutoContinue.IsContinueDefault);
+        Assert.True(_page.AutoContinue.ContinueCommand.CanExecute(null));
+        Assert.Empty(_focus);
+    }
+
+    [Fact]
+    public void EthernetOnline_WhileTheAutomaticPromptIsOpen_NeverExits()
+    {
+        _unlock.IsWifiUnlockRequired = true;
+        _unlock.Result = ConnectUnlockResult.Cancelled;
+        Publish(ConnectDebugScenario.EthernetNoInternet);
+        bool countingWhilePrompting = true;
+        _unlock.OnUnlock = () =>
+        {
+            Publish(ConnectDebugScenario.EthernetReady);
+            for (int second = 0; second <= 10; second++)
+            {
+                _clock.Advance(AutoContinueViewModel.TickInterval);
+            }
+
+            countingWhilePrompting = _page.AutoContinue.IsCounting;
+        };
+
+        _coordinator.RaiseUnlockRequested();
+
+        Assert.False(countingWhilePrompting);
+        Assert.Null(_page.AutoContinue.PendingCompletion);
+        Assert.Equal(0, _exit.Calls);
+        Assert.Equal(ConnectPageStatus.Ready, _page.Status);
+    }
+
+    [Fact]
+    public void UnlockRequested_WhenThePromptFails_LogsTheFailureTypeOnly()
+    {
+        var logger = new RecordingLogger<ConnectPageViewModel>();
+        using ConnectPageViewModel page = CreatePage(logger);
+        _unlock.IsWifiUnlockRequired = true;
+        _unlock.OnUnlock = () => throw new InvalidOperationException("Foundry Lab profile failed.");
+
+        _coordinator.RaiseUnlockRequested();
+
+        RecordedLogEntry entry = Assert.Single(logger.Entries, static entry => entry.Level == LogLevel.Warning);
+        Assert.Equal("Automatic deployment password prompt failed. FailureType=InvalidOperationException", entry.Message);
+        Assert.Null(entry.Exception);
+    }
+
     [Fact]
     public async Task InitializeAsync_AppliesProvisioningOnceThenStartsTheMonitor()
     {
@@ -395,7 +507,7 @@ public sealed class ConnectPageViewModelTests : IDisposable
 
     private ConnectPageViewModel CreatePage(RecordingLogger<ConnectPageViewModel> logger, FakeNetworkMonitor? monitor = null)
     {
-        var actions = new ConnectNetworkActions(_coordinator, new RecordingLogger<ConnectNetworkActions>());
+        var actions = new ConnectNetworkActions(_coordinator, _unlock, new RecordingLogger<ConnectNetworkActions>());
         var dispatcher = new ImmediateUiDispatcher();
         return new ConnectPageViewModel(
             _localization, _coordinator, monitor ?? _monitor, actions,

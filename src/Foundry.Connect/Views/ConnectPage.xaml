@@ -307,6 +307,11 @@
                         Message="{Binding UnavailableText}"
                         Severity="Warning"
                         Visibility="{Binding IsUnavailable, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <controls:InfoBar
+                        Margin="0,12,0,0"
+                        Message="{Binding LockedText}"
+                        Severity="Informational"
+                        Visibility="{Binding IsLocked, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     <WrapPanel Margin="0,16,0,0">
                         <Button x:Name="ProvisionedConnectButton"
                             AutomationProperties.Name="{Binding Strings[Wifi.ConnectProvisionedAutomationName]}"

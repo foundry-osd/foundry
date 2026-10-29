@@ -57,11 +57,19 @@ public sealed class NetworkTextKeysTests
     [InlineData(NetworkOperationKind.ConnectWifiNetwork, NetworkFailureCode.ConnectTimedOut, false, "Wifi.ActionConnectTimedOut")]
     [InlineData(NetworkOperationKind.ConnectWifiNetwork, NetworkFailureCode.UnsupportedSecurity, false, "Wifi.ActionSelectedNotSupported")]
     [InlineData(NetworkOperationKind.ConnectProvisionedWifi, NetworkFailureCode.WifiSecretUnavailable, true, "Wifi.ActionProvisionedSecretUnavailable")]
+    [InlineData(NetworkOperationKind.ConnectProvisionedWifi, NetworkFailureCode.WifiSecretLocked, true, "Wifi.ActionProvisionedLocked")]
     [InlineData(NetworkOperationKind.ApplyProvisioning, NetworkFailureCode.WiredSecretUnavailable, false, "Ethernet.Dot1xReasonSecretUnavailable")]
     [InlineData(NetworkOperationKind.ConnectWifiNetwork, NetworkFailureCode.Unexpected, false, "Wifi.ActionTryAgain")]
     public void OutcomeKey_PicksTheMostSpecificText(NetworkOperationKind operation, NetworkFailureCode code, bool provisionedPanel, string expected)
     {
         Assert.Equal(expected, NetworkTextKeys.OutcomeKey(OperationOutcome.Failed(operation, code), provisionedPanel));
+    }
+
+    [Fact]
+    public void UnlockCancelledKeys_AreSpecific()
+    {
+        Assert.Equal("Wifi.ProvisionedUnlockCancelled", NetworkTextKeys.ProvisionedUnavailableKey(ProvisionedWifiUnavailableReason.UnlockCancelled));
+        Assert.Equal("Ethernet.Dot1xReasonUnlockCancelled", NetworkTextKeys.Dot1xReasonKey(Dot1xFailureReason.UnlockCancelled));
     }
 
     [Fact]

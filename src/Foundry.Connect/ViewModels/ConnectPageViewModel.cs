@@ -14,7 +14,8 @@ namespace Foundry.Connect.ViewModels;
 /// <summary>
 /// The single Connect page: renders the live or simulated <see cref="NetworkState"/> into the hero, the connection chip,
 /// the notices and the five child view models, requests the focus on page status changes, switches debug scenarios,
-/// and owns the startup sequence (provisioning, then the network monitor) and its shutdown.
+/// and owns the startup sequence (the wired unlock prompt, the provisioning, then the network monitor), the automatic
+/// unlock prompt of the provisioned Wi-Fi (<see cref="IConnectionCoordinator.UnlockRequested"/>) and its shutdown.
 /// </summary>
 /// <remarks>
 /// <para>
@@ -26,8 +27,9 @@ namespace Foundry.Connect.ViewModels;
 /// <para>
 /// While a debug scenario is active the live state is still recorded but not rendered, and every network action, the
 /// final probe and the exit are skipped by <see cref="ConnectNetworkActions"/> and <see cref="AutoContinueViewModel"/>
-/// (D16). The view model logs only the applied scenario; it never logs a network state. The children are DI singletons
-/// disposed by the container, not by <see cref="Dispose"/>.
+/// (D16), and no automatic unlock prompt is shown. The view model logs only the applied scenario and a failed automatic
+/// unlock prompt; it never logs a network state. The children are DI singletons disposed by the container, not by
+/// <see cref="Dispose"/>.
 /// </para>
 /// </remarks>
 public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
@@ -54,7 +56,7 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
     /// <param name="localization">Source of the texts and language change events.</param>
     /// <param name="coordinator">Owner of the network state; also applies the provisioning at startup.</param>
     /// <param name="monitor">Periodic observer started by <see cref="InitializeAsync"/>; refreshed by <see cref="RefreshCommand"/>.</param>
-    /// <param name="actions">The page's only path to the coordinator for technician actions.</param>
+    /// <param name="actions">The page's only path to the coordinator and to the unlock prompts.</param>
     /// <param name="autoContinue">The countdown and Continue.</param>
     /// <param name="ethernet">The Ethernet card.</param>
     /// <param name="provisionedWifi">The provisioned Wi-Fi card.</param>
@@ -91,6 +93,7 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
         _coordinator.StateChanged += OnCoordinatorStateChanged;
+        _coordinator.UnlockRequested += OnUnlockRequested;
         _actions.InteractionOccurred += OnInteraction;
         AutoContinue.ContinueFocusRequested += OnContinueFocusRequested;
         LocalizationService.LanguageChanged += OnLocalizationLanguageChanged;
@@ -194,12 +197,14 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
         NetworkTextKeys.HeroKeys(Status, BlockedReason, _renderedState.ActiveOperation);
 
     /// <summary>
-    /// Applies the provisioning once, shows its Wi-Fi feedback, then starts the network monitor. Later calls do nothing.
+    /// Asks for the deployment password when wired 802.1X needs it, applies the provisioning once, shows its Wi-Fi
+    /// feedback, then starts the network monitor. Later calls do nothing.
     /// </summary>
     /// <remarks>
-    /// The monitor is started with the page lifetime token, not <paramref name="cancellationToken"/>, and is not
-    /// awaited: it runs its loop off the caller thread until <see cref="Dispose"/>. It never starts once the page is
-    /// disposed.
+    /// Call it once the main window is loaded and visible: the wired prompt is owned by it (L4-12) and may run a nested
+    /// modal loop inside this call. A cancelled prompt still provisions, with wired 802.1X unavailable for the session. The
+    /// monitor is started with the page lifetime token, not <paramref name="cancellationToken"/>, and is not awaited: it
+    /// runs its loop off the caller thread until <see cref="Dispose"/>. It never starts once the page is disposed.
     /// </remarks>
     /// <param name="cancellationToken">Caller cancellation for the provisioning step.</param>
     /// <returns>A task that completes once the monitor is started, or when the page is disposed or cancelled first.</returns>
@@ -218,7 +223,13 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
         ProvisioningOutcome outcome;
         try
         {
-            // No ConfigureAwait(false): the continuation updates bound properties on the UI thread.
+            // No ConfigureAwait(false): the continuations update bound properties on the UI thread.
+            await _actions.UnlockWiredAtStartupAsync(linked.Token);
+            if (_isDisposed)
+            {
+                return;
+            }
+
             outcome = await _coordinator.ApplyProvisioningAsync(linked.Token);
         }
         catch (OperationCanceledException) when (linked.IsCancellationRequested)
@@ -272,6 +283,7 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
 
         _isDisposed = true;
         _coordinator.StateChanged -= OnCoordinatorStateChanged;
+        _coordinator.UnlockRequested -= OnUnlockRequested;
         _actions.InteractionOccurred -= OnInteraction;
         AutoContinue.ContinueFocusRequested -= OnContinueFocusRequested;
         LocalizationService.LanguageChanged -= OnLocalizationLanguageChanged;
@@ -299,6 +311,33 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
                 OnLiveState(_coordinator.State);
             }
         });
+
+    // Raised at most once per session on the monitor's thread; the prompt is owned by the loaded main window.
+    private void OnUnlockRequested(object? sender, EventArgs e) => _dispatcher.Run(() => _ = OnUnlockRequestedAsync());
+
+    // Never faults: the task is discarded by the event handler.
+    private async Task OnUnlockRequestedAsync()
+    {
+        if (_isDisposed || IsSimulation)
+        {
+            return;
+        }
+
+        // Read before the first await (the prompt may run a nested modal loop inside the call): Dispose disposes the source.
+        CancellationToken token = _disposeCts.Token;
+        try
+        {
+            await _actions.UnlockProvisionedWifiAsync(token);
+        }
+        catch (OperationCanceledException) when (token.IsCancellationRequested)
+        {
+        }
+        catch (Exception exception)
+        {
+            // No exception object: its message may name a network or a profile file (logging ruling).
+            _logger.LogWarning("Automatic deployment password prompt failed. FailureType={FailureType}", exception.GetType().Name);
+        }
+    }
 
     private void OnLiveState(NetworkState state)
     {

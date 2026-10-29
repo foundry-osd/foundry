@@ -154,7 +154,7 @@ public sealed class MainWindowViewModelTests
             Capabilities = new ConnectNetworkCapabilitiesSettings { WifiProvisioned = true },
             Wifi = new ConnectWifiSettings { IsEnabled = true, Ssid = "Foundry Lab", SecurityType = "WPA3-Personal" }
         };
-        var actions = new ConnectNetworkActions(_coordinator, new RecordingLogger<ConnectNetworkActions>());
+        var actions = new ConnectNetworkActions(_coordinator, new FakeUnlockService(), new RecordingLogger<ConnectNetworkActions>());
         var dispatcher = new ImmediateUiDispatcher();
         var diagnostics = new DiagnosticsViewModel(_localization, new RecordingLogger<DiagnosticsViewModel>());
         var page = new ConnectPageViewModel(

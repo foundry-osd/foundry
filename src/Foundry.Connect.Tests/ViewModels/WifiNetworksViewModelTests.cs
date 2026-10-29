@@ -21,7 +21,7 @@ public sealed class WifiNetworksViewModelTests : IDisposable
 
     public WifiNetworksViewModelTests()
     {
-        _actions = new ConnectNetworkActions(_coordinator, new RecordingLogger<ConnectNetworkActions>());
+        _actions = new ConnectNetworkActions(_coordinator, new FakeUnlockService(), new RecordingLogger<ConnectNetworkActions>());
         _actions.InteractionOccurred += (_, _) => _interactions++;
         _viewModel = new WifiNetworksViewModel(_localization, _actions, _monitor);
     }

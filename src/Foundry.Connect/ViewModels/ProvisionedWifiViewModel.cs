@@ -13,7 +13,7 @@ namespace Foundry.Connect.ViewModels;
 
 /// <summary>
 /// The provisioned Wi-Fi card: the profile from the media configuration, its status, connect and disconnect, and the
-/// D9 unavailable state with its reason.
+/// D9 unavailable state with its reason, and the locked state whose Connect button asks for the deployment password (D11).
 /// </summary>
 /// <remarks>
 /// Every text is derived from the typed <see cref="WifiState"/> and resolved on demand, so a language change only needs
@@ -91,6 +91,21 @@ public sealed partial class ProvisionedWifiViewModel : LocalizedViewModelBase
     public string UnavailableText => IsUnavailable ? LocalizationService.GetString(NetworkTextKeys.ProvisionedUnavailableKey(_wifi.Provisioned.Reason)) : string.Empty;
 
     /// <summary>
+    /// Gets whether the profile needs the deployment password before it can be used; its Connect button prompts for it.
+    /// </summary>
+    public bool IsLocked => _wifi.Provisioned.Status == ProvisionedWifiStatus.Locked;
+
+    /// <summary>
+    /// Gets the explanation of a locked profile, which tells whether the password was already declined (L4-10), or an
+    /// empty string.
+    /// </summary>
+    public string LockedText => IsLocked
+        ? LocalizationService.GetString(_wifi.Provisioned.Reason == ProvisionedWifiUnavailableReason.UnlockCancelled
+            ? "Wifi.ProvisionedUnlockCancelled"
+            : "Wifi.ProvisionedLocked")
+        : string.Empty;
+
+    /// <summary>
     /// Gets the result of the last action or attempt, or an empty string.
     /// </summary>
     public string FeedbackText => _feedbackKey is { } key ? LocalizationService.GetString(key) : string.Empty;
@@ -107,6 +122,11 @@ public sealed partial class ProvisionedWifiViewModel : LocalizedViewModelBase
             if (IsUnavailable)
             {
                 return "Wifi.ProvisionedUnavailableTitle";
+            }
+
+            if (IsLocked)
+            {
+                return "Wifi.StatusLocked";
             }
 
             if (IsConnected)
@@ -133,7 +153,7 @@ public sealed partial class ProvisionedWifiViewModel : LocalizedViewModelBase
 
     private bool CanConnect => !_isCommandRunning
         && _activeOperation is null
-        && _wifi.Provisioned.Status == ProvisionedWifiStatus.Ready
+        && _wifi.Provisioned.Status is ProvisionedWifiStatus.Ready or ProvisionedWifiStatus.Locked
         && _wifi.Availability == WifiAvailability.Available
         && !IsConnected;
 
@@ -275,6 +295,8 @@ public sealed partial class ProvisionedWifiViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(IsConnecting));
         OnPropertyChanged(nameof(IsUnavailable));
         OnPropertyChanged(nameof(UnavailableText));
+        OnPropertyChanged(nameof(IsLocked));
+        OnPropertyChanged(nameof(LockedText));
         OnPropertyChanged(nameof(FeedbackText));
         OnPropertyChanged(nameof(HasFeedback));
         NotifyCommands();

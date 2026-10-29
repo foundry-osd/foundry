@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Connect.Network;
+using Foundry.Connect.Security;
 using Foundry.Connect.Tests.Support;
 using Foundry.Connect.ViewModels;
 using Foundry.Core.Models.Configuration;
@@ -16,6 +17,7 @@ public sealed class ProvisionedWifiViewModelTests : IDisposable
     private static readonly WifiSsid Lab = WifiSsid.FromText("Foundry Lab");
     private readonly ResourceLocalizationService _localization = TestLocalization.Create();
     private readonly FakeConnectionCoordinator _coordinator = new();
+    private readonly FakeUnlockService _unlock = new();
     private readonly List<ProvisionedWifiViewModel> _created = [];
 
     public void Dispose()
@@ -26,7 +28,7 @@ public sealed class ProvisionedWifiViewModelTests : IDisposable
         }
     }
 
-    private ConnectNetworkActions Actions() => new(_coordinator, new RecordingLogger<ConnectNetworkActions>());
+    private ConnectNetworkActions Actions() => new(_coordinator, _unlock, new RecordingLogger<ConnectNetworkActions>());
 
     private ProvisionedWifiViewModel Create(string? securityType = "WPA3-Personal", ConnectNetworkActions? actions = null)
     {
@@ -77,6 +79,45 @@ public sealed class ProvisionedWifiViewModelTests : IDisposable
         Assert.Equal(_localization.GetString(key), viewModel.UnavailableText);
         Assert.Equal(_localization.GetString("Wifi.ProvisionedUnavailableTitle"), viewModel.StatusText);
         Assert.False(viewModel.ConnectCommand.CanExecute(null));
+    }
+
+    [Theory]
+    [InlineData(ProvisionedWifiUnavailableReason.None, "Wifi.ProvisionedLocked")]
+    [InlineData(ProvisionedWifiUnavailableReason.UnlockCancelled, "Wifi.ProvisionedUnlockCancelled")]
+    public void Apply_Locked_ShowsTheLockedTextAndKeepsConnectEnabled(ProvisionedWifiUnavailableReason reason, string key)
+    {
+        ProvisionedWifiViewModel viewModel = Create();
+
+        viewModel.Apply(Wifi(WifiAvailability.Available, new ProvisionedWifiState(ProvisionedWifiStatus.Locked, reason, Lab)), null, null);
+
+        Assert.True(viewModel.IsVisible);
+        Assert.True(viewModel.IsLocked);
+        Assert.False(viewModel.IsUnavailable);
+        Assert.Equal(_localization.GetString("Wifi.StatusLocked"), viewModel.StatusText);
+        Assert.Equal(_localization.GetString(key), viewModel.LockedText);
+        Assert.True(viewModel.ConnectCommand.CanExecute(null));
+    }
+
+    [Fact]
+    public async Task Connect_OnALockedProfileThatStaysLocked_ShowsNoFeedback()
+    {
+        _unlock.IsWifiUnlockRequired = true;
+        _unlock.Result = ConnectUnlockResult.Cancelled;
+        ProvisionedWifiViewModel viewModel = Create();
+        bool canExecuteWhilePrompting = true;
+        _unlock.OnUnlock = () => canExecuteWhilePrompting = viewModel.ConnectCommand.CanExecute(null);
+        _coordinator.Publish(_coordinator.State with
+        {
+            Wifi = Wifi(WifiAvailability.Available, new ProvisionedWifiState(ProvisionedWifiStatus.Locked, Ssid: Lab))
+        });
+        viewModel.Apply(_coordinator.State.Wifi, null, null);
+
+        await viewModel.ConnectCommand.ExecuteAsync(null);
+
+        Assert.Equal([ConnectUnlockTrigger.ManualWifi], _unlock.Calls);
+        Assert.False(canExecuteWhilePrompting);
+        Assert.Equal(0, _coordinator.ConnectProvisionedCalls);
+        Assert.False(viewModel.HasFeedback);
     }
 
     public static TheoryData<string, WifiState, NetworkOperationKind?, string> StatusRows => new()
