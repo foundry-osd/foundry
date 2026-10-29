@@ -50,6 +50,28 @@ public sealed class DeploymentKeyProtectionTests
     }
 
     [Fact]
+    public void KeyCheck_RejectsAnotherLabelUnderTheDeploymentKey()
+    {
+        using DeploymentMediaProtectionMaterial material = DeploymentMediaProtectionService.CreateProtected(Password);
+        SecretEnvelope otherLabel = MediaSecretEnvelopeProtector.EncryptBytes(
+            "foundry-deployment-key-check-v2"u8.ToArray(), material.DeploymentKey, DeploymentKeyProtection.KeyCheckKeyId);
+
+        Assert.False(DeploymentKeyProtection.VerifyKeyCheck(otherLabel, material.DeploymentKey));
+    }
+
+    [Fact]
+    public void KeyCheck_RejectsTheLabelUnderAForeignKeyId()
+    {
+        using DeploymentMediaProtectionMaterial material = DeploymentMediaProtectionService.CreateProtected(Password);
+        SecretEnvelope foreignKeyId = MediaSecretEnvelopeProtector.EncryptBytes(
+            "foundry-deployment-key-check-v1"u8.ToArray(), material.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId);
+
+        Assert.False(DeploymentKeyProtection.VerifyKeyCheck(foreignKeyId, material.DeploymentKey));
+        Assert.False(DeploymentKeyProtection.VerifyKeyCheck(
+            material.Settings.KeyCheck! with { KeyId = MediaSecretEnvelopeProtector.DeploymentKeyId }, material.DeploymentKey));
+    }
+
+    [Fact]
     public void KeyCheck_IsNotAMediaKeyedSecret()
     {
         using DeploymentMediaProtectionMaterial material = DeploymentMediaProtectionService.CreateProtected(Password);
