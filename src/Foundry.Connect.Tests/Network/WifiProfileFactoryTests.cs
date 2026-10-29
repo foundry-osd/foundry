@@ -131,6 +131,23 @@ public sealed class WifiProfileFactoryTests
         Assert.Null(WifiProfileDocument.FromXml("<not-a-profile/>"));
     }
 
+    // A provisioned template whose SSID cannot be read is unusable; it never falls back to another SSID element.
+    [Theory]
+    [InlineData("<hex>43ZZ</hex><name>Corp</name>")]
+    [InlineData("<name>ThisNameIsLongerThanThirtyTwoBytesForSure</name>")]
+    public void FromXml_WhenSsidIsUnreadable_ReturnsNull(string ssidElements)
+    {
+        string template = $"""
+            <?xml version="1.0"?>
+            <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
+              <name>Corp Profile</name>
+              <SSIDConfig><SSID>{ssidElements}</SSID></SSIDConfig>
+            </WLANProfile>
+            """;
+
+        Assert.Null(WifiProfileDocument.FromXml(template));
+    }
+
     [Fact]
     public void Document_HidesXmlAndCanBeCleared()
     {

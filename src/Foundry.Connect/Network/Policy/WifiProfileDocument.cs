@@ -85,7 +85,8 @@ public sealed class WifiProfileDocument
     /// <param name="xml">WLAN profile XML.</param>
     /// <returns>
     /// The document with the name, the SSID (<c>SSIDConfig/SSID/hex</c>, else <c>name</c>) and the
-    /// <c>nonBroadcast</c> flag; <see langword="null"/> when the XML is not a WLAN profile with a name.
+    /// <c>nonBroadcast</c> flag; <see langword="null"/> when the XML is not a WLAN profile with a name, or when its
+    /// SSID value is present but unreadable (invalid hexadecimal, or not 1 to 32 bytes).
     /// </returns>
     public static WifiProfileDocument? FromXml(string xml)
     {
@@ -119,16 +120,25 @@ public sealed class WifiProfileDocument
 
         XElement? ssidConfig = root.Element(ns + "SSIDConfig");
         bool isHidden = string.Equals(ssidConfig?.Element(ns + "nonBroadcast")?.Value.Trim(), "true", StringComparison.OrdinalIgnoreCase);
-        WifiSsid? ssid = ReadSsid(ssidConfig?.Element(ns + "SSID"), ns);
+        if (!TryReadSsid(ssidConfig?.Element(ns + "SSID"), ns, out WifiSsid? ssid))
+        {
+            return null;
+        }
 
         return new WifiProfileDocument(name, ssid, isHidden, xml);
     }
 
-    private static WifiSsid? ReadSsid(XElement? ssidElement, XNamespace ns)
+    /// <summary>
+    /// Reads the SSID of a profile. A <c>hex</c> value wins over <c>name</c>; a value that is present but unreadable
+    /// fails closed and never falls back to the other element, so a template cannot target an unintended network.
+    /// </summary>
+    /// <returns><see langword="false"/> when an SSID value is present but unreadable.</returns>
+    private static bool TryReadSsid(XElement? ssidElement, XNamespace ns, out WifiSsid? ssid)
     {
+        ssid = null;
         if (ssidElement is null)
         {
-            return null;
+            return true;
         }
 
         string? hex = ssidElement.Element(ns + "hex")?.Value.Trim();
@@ -136,20 +146,21 @@ public sealed class WifiProfileDocument
         {
             try
             {
-                return WifiSsid.FromHex(hex);
+                ssid = WifiSsid.FromHex(hex);
+                return true;
             }
             catch (Exception ex) when (ex is FormatException or ArgumentOutOfRangeException)
             {
-                // An unreadable hex value falls back to the textual name.
+                return false;
             }
         }
 
         string? text = ssidElement.Element(ns + "name")?.Value;
         if (string.IsNullOrEmpty(text))
         {
-            return null;
+            return true;
         }
 
-        return WifiSsid.TryFromBytes(Encoding.UTF8.GetBytes(text), out WifiSsid? ssid) ? ssid : null;
+        return WifiSsid.TryFromBytes(Encoding.UTF8.GetBytes(text), out ssid);
     }
 }
