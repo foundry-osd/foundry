@@ -78,7 +78,7 @@ public static class Program
 
             if (!SingleInstanceGuard.TryAcquire(SingleInstanceGuard.ConnectInstanceName, out instanceGuard))
             {
-                programLogger.Error("Another Foundry.Connect instance is already running. Exiting before any UI is shown.");
+                ReportFailure(startup, new InvalidOperationException("Another Foundry.Connect instance is already running."), category);
                 return (int)ChildRuntimeExitCode.StartupFailure;
             }
 

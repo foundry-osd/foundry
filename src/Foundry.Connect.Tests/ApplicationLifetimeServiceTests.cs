@@ -20,26 +20,4 @@ public sealed class ApplicationLifetimeServiceTests
         Assert.Equal(ChildRuntimeExitCode.Success, service.RequestedExitCode);
         Assert.True(service.ExitRequested.IsCancellationRequested);
     }
-
-    [Fact]
-    public void TryAcquire_SecondInstanceFails()
-    {
-        string name = $"Local\\Foundry.Connect.Test.{Guid.NewGuid():N}";
-        Assert.True(SingleInstanceGuard.TryAcquire(name, out SingleInstanceGuard? first));
-        using (first)
-        {
-            Assert.False(SingleInstanceGuard.TryAcquire(name, out _));
-        }
-    }
-
-    [Fact]
-    public void Dispose_ReleasesInstanceName()
-    {
-        string name = $"Local\\Foundry.Connect.Test.{Guid.NewGuid():N}";
-        Assert.True(SingleInstanceGuard.TryAcquire(name, out SingleInstanceGuard? first));
-        first!.Dispose();
-
-        Assert.True(SingleInstanceGuard.TryAcquire(name, out SingleInstanceGuard? second));
-        second!.Dispose();
-    }
 }

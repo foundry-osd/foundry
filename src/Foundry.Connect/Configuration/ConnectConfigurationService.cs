@@ -78,7 +78,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
         }
         catch (FoundryConnectConfigurationException exception)
         {
-            _logger.LogError(exception, "Foundry.Connect configuration could not be loaded. ConfigurationPath={ConfigurationPath}", ConfigurationPath);
+            _logger.LogDebug(exception, "Foundry.Connect configuration could not be loaded. ConfigurationPath={ConfigurationPath}", ConfigurationPath);
             return ConnectConfigurationLoadResult.Failure(exception.Message, exception);
         }
     }

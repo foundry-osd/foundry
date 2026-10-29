@@ -29,7 +29,7 @@ internal static class ConnectWorkspacePaths
     public static string GetConfigFilePath(string fileName)
     {
         return IsWinPeRuntime()
-            ? GetWinPeWorkspacePath("Config", fileName)
+            ? Path.Combine(WinPeWorkspaceLayout.ConfigDirectory, fileName)
             : Path.Combine(AppContext.BaseDirectory, fileName);
     }
 
@@ -41,7 +41,7 @@ internal static class ConnectWorkspacePaths
     {
         if (IsWinPeRuntime())
         {
-            yield return GetWinPeWorkspacePath("Logs");
+            yield return WinPeWorkspaceLayout.LogsDirectory;
         }
 
         yield return Path.Combine(Path.GetTempPath(), "Foundry", "Logs");
@@ -57,7 +57,7 @@ internal static class ConnectWorkspacePaths
     {
         if (IsWinPeRuntime())
         {
-            yield return GetWinPeWorkspacePath("Temp", applicationFolderName);
+            yield return Path.Combine(WinPeWorkspaceLayout.TempDirectory, applicationFolderName);
         }
 
         yield return Path.Combine(Path.GetTempPath(), applicationFolderName);
@@ -70,18 +70,7 @@ internal static class ConnectWorkspacePaths
     public static string GetNetworkProfileRoamingDirectory()
     {
         return IsWinPeRuntime()
-            ? GetWinPeWorkspacePath("Runtime", "NetworkProfileRoaming")
+            ? Path.Combine(WinPeWorkspaceLayout.RuntimeDirectory, "NetworkProfileRoaming")
             : Path.Combine(Path.GetTempPath(), "Foundry", "Runtime", "NetworkProfileRoaming");
-    }
-
-    private static string GetWinPeWorkspacePath(params string[] relativeSegments)
-    {
-        string currentPath = WinPeWorkspaceLayout.Root;
-        foreach (string segment in relativeSegments)
-        {
-            currentPath = Path.Combine(currentPath, segment);
-        }
-
-        return currentPath;
     }
 }
