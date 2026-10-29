@@ -22,6 +22,7 @@ using Foundry.Deploy.Services.Security;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.ViewModels;
 using Foundry.Utilities.Processes;
+using Foundry.Wpf.Localization;
 using Microsoft.Extensions.Logging.Abstractions;
 using CoreFile = Foundry.Core.Models.Configuration.Deploy.DeployUnattendFile;
 using CoreSettings = Foundry.Core.Models.Configuration.Deploy.DeployUnattendSettings;
@@ -244,7 +245,7 @@ public sealed class UnattendRuntimeTests
     public void Selection_WhenCustomSelected_SuppressesNameValidationAndRestoresNativeChoice()
     {
         using var fixture = new Fixture();
-        using var preparation = new DeploymentPreparationViewModel(new LocalizationService(), false, fixture.Service);
+        using var preparation = new DeploymentPreparationViewModel(new ResourceLocalizationService(LocalizationText.ResourceManager), false, fixture.Service);
         preparation.TargetComputerName = "NATIVE-PC";
         preparation.ApplyUnattendConfiguration(new CoreSettings { IsEnabled = true, DefaultFileId = fixture.Selection.File.Id, Files = [fixture.Selection.File] }, fixture.ConfigurationPath);
         Assert.True(preparation.UsesCustomUnattend);
@@ -273,7 +274,7 @@ public sealed class UnattendRuntimeTests
         try
         {
             using var fixture = new Fixture();
-            var localization = new LocalizationService();
+            var localization = new ResourceLocalizationService(LocalizationText.ResourceManager);
             localization.SetCulture(CultureInfo.GetCultureInfo("en-US"));
             using var preparation = new DeploymentPreparationViewModel(localization, false, fixture.Service);
             preparation.ApplyUnattendConfiguration(new CoreSettings
@@ -310,7 +311,7 @@ public sealed class UnattendRuntimeTests
     public void Selection_WhenDefaultIsMissing_DoesNotFallBackToNative()
     {
         using var fixture = new Fixture();
-        using var preparation = new DeploymentPreparationViewModel(new LocalizationService(), false, fixture.Service);
+        using var preparation = new DeploymentPreparationViewModel(new ResourceLocalizationService(LocalizationText.ResourceManager), false, fixture.Service);
         preparation.ApplyUnattendConfiguration(new CoreSettings { IsEnabled = true, DefaultFileId = "missing", Files = [fixture.Selection.File] }, fixture.ConfigurationPath);
         Assert.Null(preparation.SelectedUnattendOption);
         Assert.False(preparation.IsUnattendSelectionValid);
@@ -320,7 +321,7 @@ public sealed class UnattendRuntimeTests
     public void Selection_WhenArchitectureChanges_RevalidatesAndRecovers()
     {
         using var fixture = new Fixture();
-        using var preparation = new DeploymentPreparationViewModel(new LocalizationService(), false, fixture.Service);
+        using var preparation = new DeploymentPreparationViewModel(new ResourceLocalizationService(LocalizationText.ResourceManager), false, fixture.Service);
         preparation.ApplyUnattendConfiguration(new CoreSettings { IsEnabled = true, DefaultFileId = fixture.Selection.File.Id, Files = [fixture.Selection.File] }, fixture.ConfigurationPath);
         preparation.UpdateUnattendContext("arm64");
         Assert.False(preparation.IsUnattendSelectionValid);
@@ -332,7 +333,7 @@ public sealed class UnattendRuntimeTests
     public void Selection_WhenDomainJoinIsRequired_RejectsIncompatibleAnswerFile()
     {
         using var fixture = new Fixture("<ComputerName>CUSTOM-PC</ComputerName><ComputerName>OTHER-PC</ComputerName>");
-        using var preparation = new DeploymentPreparationViewModel(new LocalizationService(), false, fixture.Service);
+        using var preparation = new DeploymentPreparationViewModel(new ResourceLocalizationService(LocalizationText.ResourceManager), false, fixture.Service);
         preparation.ApplyUnattendConfiguration(new CoreSettings { IsEnabled = true, DefaultFileId = fixture.Selection.File.Id, Files = [fixture.Selection.File] }, fixture.ConfigurationPath);
         preparation.UpdateUnattendContext("x64");
         Assert.True(preparation.IsUnattendSelectionValid);

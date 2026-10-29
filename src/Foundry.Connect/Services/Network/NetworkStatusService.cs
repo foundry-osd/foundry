@@ -7,10 +7,10 @@ using System.Net.NetworkInformation;
 using System.Diagnostics;
 using Foundry.Connect.Models;
 using Foundry.Connect.Models.Configuration;
-using Foundry.Connect.Services.Localization;
 using Foundry.Connect.Models.Network;
 using Foundry.Utilities.Networking;
 using Foundry.Utilities.Diagnostics;
+using Foundry.Wpf.Localization;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect.Services.Network;

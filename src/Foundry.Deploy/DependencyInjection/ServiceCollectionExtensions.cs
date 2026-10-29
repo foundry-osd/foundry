@@ -37,6 +37,7 @@ using Foundry.Utilities.Globalization;
 using Foundry.Utilities.Networking;
 using Foundry.Utilities.Runtime;
 using Foundry.Utilities.Storage;
+using Foundry.Wpf.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using UtilityProcessRunner = Foundry.Utilities.Processes.ProcessRunner;
@@ -53,7 +54,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<MainWindow>();
         services.AddSingleton<MainWindowViewModel>();
 
-        services.AddSingleton<ILocalizationService, LocalizationService>();
+        services.AddSingleton<ILocalizationService>(_ => new ResourceLocalizationService(LocalizationText.ResourceManager));
         services.AddSingleton<IThemeService, ThemeService>();
         services.AddSingleton<IKeyboardLayoutSwitcher>(_ => new WindowsKeyboardLayoutSwitcher(KeyboardLayoutHandoff.DefaultPath));
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();

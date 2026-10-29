@@ -3,11 +3,12 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Net.NetworkInformation;
+using System.Resources;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Models.Network;
-using Foundry.Connect.Services.Localization;
 using Foundry.Connect.Services.Network;
 using Foundry.Utilities.Networking;
+using Foundry.Wpf.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -88,7 +89,7 @@ public sealed class NetworkStatusServiceTests
         };
         var service = new NetworkStatusService(
             configuration,
-            new LocalizationService(),
+            new ResourceLocalizationService(new ResourceManager("Foundry.Connect.Strings.Resources", typeof(App).Assembly)),
             logger,
             new StubNetworkAdapterSnapshotProvider([]));
 
@@ -111,7 +112,7 @@ public sealed class NetworkStatusServiceTests
 
         return new NetworkStatusService(
             configuration,
-            new LocalizationService(),
+            new ResourceLocalizationService(new ResourceManager("Foundry.Connect.Strings.Resources", typeof(App).Assembly)),
             NullLogger<NetworkStatusService>.Instance,
             provider);
     }

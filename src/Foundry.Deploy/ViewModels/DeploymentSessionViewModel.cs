@@ -25,6 +25,8 @@ using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Views;
+using Foundry.Wpf.Localization;
+using Foundry.Wpf.ViewModels;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 

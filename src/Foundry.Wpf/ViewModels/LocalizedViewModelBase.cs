@@ -5,10 +5,10 @@
 using System.Windows;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Foundry.Deploy.Services.Localization;
 using Foundry.Localization;
+using Foundry.Wpf.Localization;
 
-namespace Foundry.Deploy.ViewModels;
+namespace Foundry.Wpf.ViewModels;
 
 public abstract class LocalizedViewModelBase : ObservableObject, IDisposable
 {

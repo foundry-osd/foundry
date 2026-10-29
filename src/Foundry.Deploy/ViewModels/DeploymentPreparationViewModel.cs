@@ -11,6 +11,8 @@ using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.System;
+using Foundry.Wpf.Localization;
+using Foundry.Wpf.ViewModels;
 using ComputerNameRules = Foundry.Core.Services.Configuration.ComputerNameRules;
 
 namespace Foundry.Deploy.ViewModels;

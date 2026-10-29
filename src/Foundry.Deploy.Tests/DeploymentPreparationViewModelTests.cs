@@ -8,6 +8,7 @@ using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.ViewModels;
+using Foundry.Wpf.Localization;
 using MachineNameComponentType = Foundry.Core.Models.Configuration.MachineNameComponentType;
 using MachineNamingMode = Foundry.Core.Models.Configuration.MachineNamingMode;
 
@@ -522,7 +523,7 @@ public sealed class DeploymentPreparationViewModelTests
     private static DeploymentPreparationViewModel CreateViewModel()
     {
         return new DeploymentPreparationViewModel(
-            new LocalizationService(),
+            new ResourceLocalizationService(LocalizationText.ResourceManager),
             isDebugSafeMode: false);
     }
 

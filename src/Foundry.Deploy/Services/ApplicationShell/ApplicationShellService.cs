@@ -3,9 +3,9 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Windows;
-using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.ViewModels;
 using Foundry.Deploy.Views;
+using Foundry.Wpf.Localization;
 
 namespace Foundry.Deploy.Services.ApplicationShell;
 

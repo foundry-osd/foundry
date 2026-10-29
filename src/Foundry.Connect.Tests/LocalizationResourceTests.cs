@@ -4,7 +4,6 @@
 
 using System.Globalization;
 using System.Resources;
-using Foundry.Connect.Services.Localization;
 
 namespace Foundry.Connect.Tests;
 
@@ -58,7 +57,7 @@ public sealed class LocalizationResourceTests
     {
         ResourceManager resourceManager = new(
             "Foundry.Connect.Strings.Resources",
-            typeof(LocalizationService).Assembly);
+            typeof(App).Assembly);
         CultureInfo culture = CultureInfo.GetCultureInfo(cultureName);
 
         ResourceSet? resourceSet = resourceManager.GetResourceSet(culture, createIfNotExists: true, tryParents: false);

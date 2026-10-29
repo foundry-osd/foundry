@@ -4,12 +4,12 @@
 
 using System.Globalization;
 using System.Net.Http;
+using System.Resources;
 using System.Runtime.InteropServices;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Services.ApplicationLifetime;
 using Foundry.Connect.Services.ApplicationShell;
 using Foundry.Connect.Services.Configuration;
-using Foundry.Connect.Services.Localization;
 using Foundry.Connect.Services.Network;
 using Foundry.Connect.Services.Runtime;
 using Foundry.Connect.Services.Theme;
@@ -18,6 +18,7 @@ using Foundry.Telemetry;
 using Foundry.Utilities.Globalization;
 using Foundry.Utilities.Networking;
 using Foundry.Utilities.Runtime;
+using Foundry.Wpf.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -64,7 +65,7 @@ public static class ServiceCollectionExtensions
                 sp.GetRequiredService<TelemetryContext>(),
                 logger);
         });
-        services.AddSingleton<ILocalizationService, LocalizationService>();
+        services.AddSingleton<ILocalizationService>(_ => new ResourceLocalizationService(new ResourceManager("Foundry.Connect.Strings.Resources", typeof(App).Assembly)));
         services.AddSingleton<INetworkAdapterSnapshotProvider, WindowsNetworkAdapterSnapshotProvider>();
         services.AddSingleton<INetworkProfileRoamingService, NetworkProfileRoamingService>();
         services.AddSingleton<INetworkBootstrapService, NetworkBootstrapService>();

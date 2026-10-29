@@ -8,14 +8,15 @@ using Foundry.Connect.Models.Network;
 using Foundry.Connect.Services.ApplicationLifetime;
 using Foundry.Connect.Services.ApplicationShell;
 using Foundry.Connect.Services.Configuration;
-using Foundry.Connect.Services.Localization;
 using Foundry.Connect.Services.Network;
 using Foundry.Connect.Services.Theme;
 using Foundry.Connect.ViewModels;
 using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
 using Foundry.Telemetry;
 using Foundry.Utilities.Globalization;
+using Foundry.Wpf.Localization;
 using System.Reflection;
+using System.Resources;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Serilog;
@@ -484,7 +485,7 @@ public sealed class MainWindowViewModelTests
 
         return new MainWindowViewModel(
             new FakeThemeService(),
-            new LocalizationService(),
+            new ResourceLocalizationService(new ResourceManager("Foundry.Connect.Strings.Resources", typeof(App).Assembly)),
             new FakeApplicationShellService(),
             lifetimeService,
             new FakeConnectConfigurationService(configuration, bootMediaUpdateReason),
