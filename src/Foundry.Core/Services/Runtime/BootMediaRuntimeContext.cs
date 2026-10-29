@@ -5,13 +5,14 @@
 using System.Diagnostics;
 using Foundry.Utilities.Runtime;
 
-namespace Foundry.Connect.Services.Runtime;
+namespace Foundry.Core.Services.Runtime;
 
 /// <summary>Captures the runtime evidence used to decide whether boot-media advice applies.</summary>
-internal readonly record struct BootMediaRuntimeContext(string? RuntimeVersion, bool IsWinPeRuntime, bool IsDebuggerAttached, bool IsDebugBuild)
+public readonly record struct BootMediaRuntimeContext(string? RuntimeVersion, bool IsWinPeRuntime, bool IsDebuggerAttached, bool IsDebugBuild)
 {
-    /// <summary>Captures this runtime assembly and process environment without using the authoring application.</summary>
-    public static BootMediaRuntimeContext Capture()
+    /// <summary>Captures the supplied runtime version and the process environment without using the authoring application.</summary>
+    /// <param name="runtimeVersion">Version of the calling runtime application, compared against the authoring release.</param>
+    public static BootMediaRuntimeContext Capture(string? runtimeVersion)
     {
 #if DEBUG
         const bool isDebugBuild = true;
@@ -19,7 +20,7 @@ internal readonly record struct BootMediaRuntimeContext(string? RuntimeVersion, 
         const bool isDebugBuild = false;
 #endif
         return new BootMediaRuntimeContext(
-            typeof(BootMediaRuntimeContext).Assembly.GetName().Version?.ToString(),
+            runtimeVersion,
             WinPeRuntimeDetector.IsWinPeRuntime(),
             Debugger.IsAttached,
             isDebugBuild);

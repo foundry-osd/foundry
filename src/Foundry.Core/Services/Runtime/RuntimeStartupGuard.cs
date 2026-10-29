@@ -5,10 +5,17 @@
 using System.Diagnostics;
 using Foundry.Utilities.Runtime;
 
-namespace Foundry.Deploy.Services.Runtime;
+namespace Foundry.Core.Services.Runtime;
 
-internal static class RuntimeStartupGuard
+/// <summary>
+/// Prevents a boot-media runtime application from running outside WinPE except during DEBUG debugger sessions.
+/// </summary>
+public static class RuntimeStartupGuard
 {
+    /// <summary>
+    /// Gets whether the current process is allowed to continue startup.
+    /// </summary>
+    /// <returns><see langword="true"/> when the runtime is WinPE or a debugger bypass is active.</returns>
     public static bool CanRun()
     {
         return RuntimeStartupPolicy.CanRun(WinPeRuntimeDetector.IsWinPeRuntime(), IsDebuggerBypassEnabled());

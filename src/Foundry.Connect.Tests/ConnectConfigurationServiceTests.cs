@@ -6,7 +6,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Services.Configuration;
-using Foundry.Connect.Services.Runtime;
+using Foundry.Core.Services.Runtime;
 using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
 using Foundry.Core.Services.Configuration;
 using Foundry.Telemetry;

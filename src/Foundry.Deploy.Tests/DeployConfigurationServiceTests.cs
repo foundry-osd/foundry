@@ -4,7 +4,7 @@
 
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Configuration;
-using Foundry.Deploy.Services.Runtime;
+using Foundry.Core.Services.Runtime;
 using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
 using Microsoft.Extensions.Logging.Abstractions;
 

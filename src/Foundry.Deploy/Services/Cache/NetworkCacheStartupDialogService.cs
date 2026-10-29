@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Deploy.Services.Runtime;
+using Foundry.Core.Services.Runtime;
 using Foundry.Wpf.Dialogs;
 using Foundry.Wpf.Localization;
 

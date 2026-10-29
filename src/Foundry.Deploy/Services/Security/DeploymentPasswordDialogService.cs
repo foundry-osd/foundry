@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Windows;
-using Foundry.Deploy.Services.Runtime;
+using Foundry.Core.Services.Runtime;
 using Foundry.Deploy.Views;
 using Foundry.Wpf.Localization;
 

@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Deploy.Services.Runtime;
+using Foundry.Core.Services.Runtime;
 using Foundry.Core.Models.Runtime;
 using Foundry.Telemetry;
 using Foundry.Utilities.Diagnostics;
@@ -10,17 +10,46 @@ using Serilog;
 using Serilog.Core;
 using Serilog.Events;
 
-namespace Foundry.Deploy.Tests;
+namespace Foundry.Core.Tests.Runtime;
 
-[Collection(nameof(SerilogCollection))]
+[Collection(RuntimeStartupDiagnosticsCollection.Name)]
 public sealed class RuntimeStartupDiagnosticsTests
 {
+    private static readonly RuntimeApplicationIdentity Identity =
+        new("Foundry.Connect", TelemetryApps.FoundryConnect, "1.0.0.0");
+
+    [Fact]
+    public void TerminationFileName_IsDerivedFromApplicationId()
+        => Assert.Equal("FoundryDeploy-terminated.txt",
+            new RuntimeApplicationIdentity("Foundry.Deploy", TelemetryApps.FoundryDeploy, "1.0.0.0").TerminationFileName);
+
+    [Fact]
+    public void TerminatingExceptionEvidenceUsesTheIdentityTerminationFileName()
+    {
+        string directory = Path.Combine(Path.GetTempPath(), "FoundryTests", Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(directory);
+        try
+        {
+            var startup = new RuntimeStartupDiagnostics(Identity, reporter: null, settings: null);
+
+            startup.SetLocalLogPath(Path.Combine(directory, "Foundry.Connect.log"));
+            startup.RecordTerminatingException(new InvalidOperationException());
+
+            Assert.Equal(typeof(InvalidOperationException).FullName,
+                File.ReadAllText(Path.Combine(directory, "FoundryConnect-terminated.txt")));
+        }
+        finally
+        {
+            Directory.Delete(directory, recursive: true);
+        }
+    }
+
     [Fact]
     public void FailureNormalizationErrorStillPublishesFailedStatus()
     {
         string? stage = null;
         string? recordId = "unset";
-        var startup = new RuntimeStartupDiagnostics(
+        var startup = new RuntimeStartupDiagnostics(Identity,
             (value, _, id) => { stage = value; recordId = id; },
             (_, _, _) => throw new InvalidOperationException("Capture must not run after normalization fails"), Logger.None);
 
@@ -40,7 +69,7 @@ public sealed class RuntimeStartupDiagnosticsTests
     {
         string? stage = null;
         string? recordId = "unset";
-        var startup = new RuntimeStartupDiagnostics(
+        var startup = new RuntimeStartupDiagnostics(Identity,
             (value, _, id) => { stage = value; recordId = id; },
             (_, _, _) => throw new IOException("unavailable storage"), Logger.None);
 
@@ -57,7 +86,7 @@ public sealed class RuntimeStartupDiagnosticsTests
         var exception = new InvalidOperationException("original failure");
         Guid recordId = Guid.NewGuid();
         Exception? captured = null;
-        var startup = new RuntimeStartupDiagnostics(
+        var startup = new RuntimeStartupDiagnostics(Identity,
             (stage, category, id) => calls.Add(stage + ":" + id),
             (error, _, category) => { captured = error; calls.Add("persist"); return recordId; },
             Logger.None);
@@ -75,7 +104,7 @@ public sealed class RuntimeStartupDiagnosticsTests
     {
         var stages = new List<string>();
         int captures = 0;
-        var startup = new RuntimeStartupDiagnostics(
+        var startup = new RuntimeStartupDiagnostics(Identity,
             (stage, category, id) => stages.Add(stage),
             (_, _, _) => { captures++; return Guid.NewGuid(); },
             Logger.None);
@@ -93,7 +122,7 @@ public sealed class RuntimeStartupDiagnosticsTests
         var initialized = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         var rendered = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         var stages = new List<string>();
-        var startup = new RuntimeStartupDiagnostics(
+        var startup = new RuntimeStartupDiagnostics(Identity,
             (stage, _, _) => stages.Add(stage), (_, _, _) => null, Logger.None);
 
         Task observation = startup.ObserveInitializationAsync(() => initialized.Task, () => rendered.Task, () => true);
@@ -110,7 +139,7 @@ public sealed class RuntimeStartupDiagnosticsTests
     public async Task ClosingDuringInitializationDoesNotReportReadiness()
     {
         var stages = new List<string>();
-        var startup = new RuntimeStartupDiagnostics(
+        var startup = new RuntimeStartupDiagnostics(Identity,
             (stage, _, _) => stages.Add(stage), (_, _, _) => null, Logger.None);
 
         await startup.ObserveInitializationAsync(() => Task.CompletedTask, () => Task.CompletedTask, () => false);
@@ -121,7 +150,7 @@ public sealed class RuntimeStartupDiagnosticsTests
     [Fact]
     public void MissingEarlyConsentDoesNotConfigureRemoteService()
     {
-        var startup = new RuntimeStartupDiagnostics(reporter: null, settings: null);
+        var startup = new RuntimeStartupDiagnostics(Identity, reporter: null, settings: null);
         var service = new RecordingDiagnosticsService();
 
         startup.InitializeRemoteDiagnostics(service);
@@ -133,7 +162,7 @@ public sealed class RuntimeStartupDiagnosticsTests
     public void EarlyOptOutPassesDestinationForPendingRecordPurgeAndStopsForwarding()
     {
         TelemetrySettings settings = CreateSettings() with { IsRemoteDiagnosticsEnabled = false };
-        var startup = new RuntimeStartupDiagnostics(reporter: null, settings);
+        var startup = new RuntimeStartupDiagnostics(Identity, reporter: null, settings);
         var service = new RecordingDiagnosticsService();
         RemoteDiagnosticsSink.Clear();
         RemoteDiagnosticsSink.SetService(service);
@@ -160,7 +189,7 @@ public sealed class RuntimeStartupDiagnosticsTests
     public void RuntimeInitializationKeepsUsingTheEarlyStartupService()
     {
         TelemetrySettings settings = CreateSettings();
-        var startup = new RuntimeStartupDiagnostics(reporter: null, settings);
+        var startup = new RuntimeStartupDiagnostics(Identity, reporter: null, settings);
         var service = new RecordingDiagnosticsService();
         RemoteDiagnosticsSink.Clear();
         try
@@ -189,11 +218,11 @@ public sealed class RuntimeStartupDiagnosticsTests
     public void StartupFailureExchangeAndLocalLogShareOriginalEventIdentityAndContent()
     {
         var sink = new RecordingLogSink();
-        using var logger = (Logger)FoundryLogConfiguration.CreateDebugLogger("Foundry.Deploy",
+        using var logger = (Logger)FoundryLogConfiguration.CreateDebugLogger(Identity.ApplicationId,
             DiagnosticSessionContext.CurrentSessionId, LogEventLevel.Verbose, additionalSink: sink);
         LogEvent? captured = null;
         Dictionary<string, LogEventPropertyValue>? capturedProperties = null;
-        var startup = new RuntimeStartupDiagnostics((_, _, _) => { },
+        var startup = new RuntimeStartupDiagnostics(Identity, (_, _, _) => { },
             (_, entry, _) =>
             {
                 captured = entry;

@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using Foundry.Core.Services.Runtime;
 using Foundry.Utilities.Runtime;
 
 namespace Foundry.Connect.Services.Runtime;
@@ -12,8 +13,6 @@ namespace Foundry.Connect.Services.Runtime;
 /// </summary>
 internal static class ConnectWorkspacePaths
 {
-    private const string WinPeWorkspaceRoot = @"X:\Foundry";
-
     /// <summary>
     /// Gets a value indicating whether Foundry.Connect is running inside WinPE.
     /// </summary>
@@ -77,7 +76,7 @@ internal static class ConnectWorkspacePaths
 
     private static string GetWinPeWorkspacePath(params string[] relativeSegments)
     {
-        string currentPath = WinPeWorkspaceRoot;
+        string currentPath = WinPeWorkspaceLayout.Root;
         foreach (string segment in relativeSegments)
         {
             currentPath = Path.Combine(currentPath, segment);

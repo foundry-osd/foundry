@@ -37,7 +37,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
     /// <param name="args">Command-line arguments used to resolve configuration.</param>
     /// <param name="logger">The logger used for configuration diagnostics.</param>
     public ConnectConfigurationService(string[] args, ILogger<ConnectConfigurationService> logger)
-        : this(args, logger, BootMediaRuntimeContext.Capture())
+        : this(args, logger, BootMediaRuntimeContext.Capture(typeof(ConnectConfigurationService).Assembly.GetName().Version?.ToString()))
     {
     }
 

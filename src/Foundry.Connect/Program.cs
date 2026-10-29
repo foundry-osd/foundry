@@ -25,6 +25,7 @@ namespace Foundry.Connect;
 public static class Program
 {
     private const string DisableFluentBackdropSwitch = "Switch.System.Windows.Appearance.DisableFluentThemeWindowBackdrop";
+    private static readonly RuntimeApplicationIdentity Identity = new("Foundry.Connect", TelemetryApps.FoundryConnect, FoundryConnectApplicationInfo.Version);
     private static readonly TimeSpan DiagnosticsShutdownTimeout = TimeSpan.FromSeconds(2);
 
     /// <summary>Starts configuration and services before entering the synchronous WPF dispatcher loop.</summary>
@@ -42,7 +43,7 @@ public static class Program
         try
         {
             var configurationPath = ConnectConfigurationService.ResolveConfigurationPath(args);
-            startup = RuntimeStartupDiagnostics.Create(configurationPath.Path ?? "", configurationPath.IsRequired);
+            startup = RuntimeStartupDiagnostics.Create(Identity, configurationPath.Path ?? "", configurationPath.IsRequired);
             RegisterGlobalExceptionHandlers(startup);
             try
             {
@@ -54,7 +55,7 @@ public static class Program
             {
                 startupLogFilePath = "<unavailable>";
                 Log.Logger = FoundryLogConfiguration.CreateDebugLogger(
-                    "Foundry.Connect", DiagnosticSessionContext.CurrentSessionId,
+                    Identity.ApplicationId, DiagnosticSessionContext.CurrentSessionId,
                     Serilog.Events.LogEventLevel.Verbose, additionalSink: RemoteDiagnosticsSink.Instance);
                 Log.ForContext(typeof(Program)).Error(exception, "File logging initialization failed. Falling back to debugger output.");
             }
@@ -121,7 +122,7 @@ public static class Program
         }
         try
         {
-            RuntimeStartupReporter.FromEnvironment("Foundry.Connect")?.Report(StartupStage.StartupFailed, category);
+            RuntimeStartupReporter.FromEnvironment(Identity.ApplicationId)?.Report(StartupStage.StartupFailed, category);
         }
         catch { }
         try

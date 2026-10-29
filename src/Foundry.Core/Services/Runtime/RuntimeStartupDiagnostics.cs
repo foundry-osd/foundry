@@ -6,18 +6,18 @@ using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
 using Foundry.Core.Models.Runtime;
-using Foundry.Core.Services.Runtime;
 using Foundry.Telemetry;
 using Foundry.Utilities.Diagnostics;
 using Serilog;
 using Serilog.Events;
 using Serilog.Parsing;
 
-namespace Foundry.Deploy.Services.Runtime;
+namespace Foundry.Core.Services.Runtime;
 
 /// <summary>Owns child startup acknowledgements and transfers only pre-readiness failure evidence to Bootstrap.</summary>
 public sealed class RuntimeStartupDiagnostics
 {
+    private readonly RuntimeApplicationIdentity _identity;
     private readonly Action<string, string?, string?> _report;
     private readonly Func<Exception, LogEvent, string, Guid?> _capture;
     private readonly Func<ILogger> _logger;
@@ -27,25 +27,27 @@ public sealed class RuntimeStartupDiagnostics
     private int _failed;
     private int _ready;
 
-    internal RuntimeStartupDiagnostics(Action<string, string?, string?> report,
+    internal RuntimeStartupDiagnostics(RuntimeApplicationIdentity identity, Action<string, string?, string?> report,
         Func<Exception, LogEvent, string, Guid?> capture, ILogger logger)
     {
+        _identity = identity;
         _report = report;
         _capture = capture;
         _logger = () => logger;
     }
 
-    internal RuntimeStartupDiagnostics(RuntimeStartupReporter? reporter, TelemetrySettings? settings)
+    internal RuntimeStartupDiagnostics(RuntimeApplicationIdentity identity, RuntimeStartupReporter? reporter, TelemetrySettings? settings)
     {
+        _identity = identity;
         ProtocolEnabled = reporter is not null;
         _report = (stage, category, id) => reporter?.Report(stage, category, id);
         _logger = () => Log.ForContext<RuntimeStartupDiagnostics>();
         _emergencyPath = reporter is null ? null : Path.Combine(Path.GetDirectoryName(reporter.StatusPath)!, "startup-terminated.txt");
-        var context = new RemoteDiagnosticsContext(TelemetryApps.FoundryDeploy, FoundryDeployApplicationInfo.Version,
+        var context = new RemoteDiagnosticsContext(identity.TelemetryApplication, identity.Version,
             TelemetryBuildConfiguration.Current, TelemetryRuntimeModes.WinPe,
             RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant(), CultureInfo.CurrentUICulture.Name,
             reporter?.SessionId ?? DiagnosticSessionContext.CurrentSessionId,
-            TelemetryApps.FoundryDeploy + "@" + FoundryDeployApplicationInfo.Version);
+            identity.TelemetryApplication + "@" + identity.Version);
         _earlySettings = settings;
         _earlyContext = context;
         _capture = (exception, entry, category) =>
@@ -62,17 +64,17 @@ public sealed class RuntimeStartupDiagnostics
     public bool ProtocolEnabled { get; }
 
     /// <summary>Loads only early diagnostic preferences; standalone startup never gains consent from Bootstrap files.</summary>
-    internal static RuntimeStartupDiagnostics Create(string childConfigurationPath, bool configurationRequired = true)
+    public static RuntimeStartupDiagnostics Create(RuntimeApplicationIdentity identity, string childConfigurationPath, bool configurationRequired = true)
     {
-        RuntimeStartupReporter? reporter = RuntimeStartupReporter.FromEnvironment("Foundry.Deploy");
+        RuntimeStartupReporter? reporter = RuntimeStartupReporter.FromEnvironment(identity.ApplicationId);
         reporter?.Report(StartupStage.ManagedStarted);
         TelemetrySettings? settings = reporter is null ? null : RuntimeTelemetryConsent.ReadSettings(
-            @"X:\Foundry\Config\foundry.bootstrap.config.json", childConfigurationPath, configurationRequired);
-        return new RuntimeStartupDiagnostics(reporter, settings);
+            WinPeWorkspaceLayout.BootstrapConfigurationPath, childConfigurationPath, configurationRequired);
+        return new RuntimeStartupDiagnostics(identity, reporter, settings);
     }
 
     /// <summary>Starts the process service with verified managed-startup consent before full configuration loading.</summary>
-    internal void InitializeRemoteDiagnostics(IRemoteDiagnosticsService service)
+    public void InitializeRemoteDiagnostics(IRemoteDiagnosticsService service)
     {
         if (_earlySettings is null || _earlyContext is null) return;
         var context = new TelemetryContext(_earlyContext.App, _earlyContext.AppVersion,
@@ -111,7 +113,7 @@ public sealed class RuntimeStartupDiagnostics
                 new MessageTemplateParser().Parse("Application failed at {FailureReason}."),
                 [new LogEventProperty("FailureReason", new ScalarValue(category)),
                  new LogEventProperty("SourceContext", new ScalarValue(typeof(RuntimeStartupDiagnostics).FullName))]),
-                "Foundry.Deploy", DiagnosticSessionContext.CurrentSessionId);
+                _identity.ApplicationId, DiagnosticSessionContext.CurrentSessionId);
             try
             {
                 if (Volatile.Read(ref _ready) == 0) recordId = _capture(exception, entry, category);
@@ -137,14 +139,14 @@ public sealed class RuntimeStartupDiagnostics
     }
 
     /// <summary>Prepares a local evidence destination while normal startup is still safe to perform path work.</summary>
-    internal void SetLocalLogPath(string path)
+    public void SetLocalLogPath(string path)
     {
         if (_emergencyPath is null && Path.IsPathFullyQualified(path))
-            _emergencyPath = Path.Combine(Path.GetDirectoryName(path)!, "FoundryDeploy-terminated.txt");
+            _emergencyPath = Path.Combine(Path.GetDirectoryName(path)!, _identity.TerminationFileName);
     }
 
     /// <summary>Attempts minimal local evidence during process termination; never touches log sinks, services or transport.</summary>
-    internal void RecordTerminatingException(Exception? exception)
+    public void RecordTerminatingException(Exception? exception)
     {
         try
         {
