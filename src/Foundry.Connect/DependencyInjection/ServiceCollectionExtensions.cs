@@ -12,7 +12,7 @@ using Foundry.Connect.Services.ApplicationShell;
 using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Network;
 using Foundry.Connect.Services.Runtime;
-using Foundry.Connect.Services.Theme;
+using Foundry.Wpf.Theme;
 using Foundry.Connect.ViewModels;
 using Foundry.Telemetry;
 using Foundry.Utilities.Globalization;

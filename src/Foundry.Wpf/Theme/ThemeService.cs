@@ -2,15 +2,20 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 
-namespace Foundry.Deploy.Services.Theme;
+namespace Foundry.Wpf.Theme;
 
+/// <summary>
+/// Applies the Fluent theme dictionary to the running WPF application and notifies when the theme changes.
+/// </summary>
 public sealed class ThemeService : IThemeService, INotifyPropertyChanged
 {
     private ThemeMode _currentTheme;
 
+    /// <inheritdoc />
     public ThemeMode CurrentTheme
     {
         get => _currentTheme;
@@ -25,13 +30,18 @@ public sealed class ThemeService : IThemeService, INotifyPropertyChanged
         }
     }
 
+    /// <inheritdoc />
     public event PropertyChangedEventHandler? PropertyChanged;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ThemeService" /> class using the system theme.
+    /// </summary>
     public ThemeService()
     {
         CurrentTheme = ThemeMode.System;
     }
 
+    /// <inheritdoc />
     public void SetTheme(ThemeMode theme)
     {
         CurrentTheme = theme;
@@ -45,8 +55,6 @@ public sealed class ThemeService : IThemeService, INotifyPropertyChanged
             return;
         }
 
-        ResourceDictionary resources = app.Resources;
-
         ResourceDictionary dictionary = theme switch
         {
             ThemeMode.Light => new ResourceDictionary { Source = new Uri("pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.Light.xaml", UriKind.Absolute) },
@@ -54,13 +62,24 @@ public sealed class ThemeService : IThemeService, INotifyPropertyChanged
             _ => new ResourceDictionary { Source = new Uri("pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.xaml", UriKind.Absolute) }
         };
 
-        if (resources.MergedDictionaries.Count == 0)
+        ApplyFluentDictionary(app.Resources.MergedDictionaries, dictionary);
+    }
+
+    /// <summary>
+    /// Installs the Fluent dictionary as the first merged dictionary, leaving every other merged
+    /// dictionary (shared styles registered after it) untouched.
+    /// </summary>
+    /// <param name="mergedDictionaries">Merged dictionaries of the application resources.</param>
+    /// <param name="fluent">Fluent dictionary matching the requested theme.</param>
+    internal static void ApplyFluentDictionary(Collection<ResourceDictionary> mergedDictionaries, ResourceDictionary fluent)
+    {
+        if (mergedDictionaries.Count == 0)
         {
-            resources.MergedDictionaries.Add(dictionary);
+            mergedDictionaries.Add(fluent);
             return;
         }
 
-        resources.MergedDictionaries[0] = dictionary;
+        mergedDictionaries[0] = fluent;
     }
 
     private void OnPropertyChanged(string propertyName)

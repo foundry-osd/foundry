@@ -28,7 +28,7 @@ using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.Security;
 using Foundry.Deploy.Services.Startup;
 using Foundry.Deploy.Services.System;
-using Foundry.Deploy.Services.Theme;
+using Foundry.Wpf.Theme;
 using Foundry.Deploy.Services.Wizard;
 using Foundry.Deploy.ViewModels;
 using Foundry.Telemetry;

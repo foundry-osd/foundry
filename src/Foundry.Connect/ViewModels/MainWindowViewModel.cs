@@ -21,7 +21,7 @@ using Foundry.Connect.Services.ApplicationLifetime;
 using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Logging;
 using Foundry.Connect.Services.Network;
-using Foundry.Connect.Services.Theme;
+using Foundry.Wpf.Theme;
 using Foundry.Connect.Views;
 using Foundry.Localization;
 using Foundry.Telemetry;
@@ -34,7 +34,7 @@ using Foundry.Wpf.Localization;
 using Foundry.Wpf.ViewModels;
 using Microsoft.Win32;
 using Microsoft.Extensions.Logging;
-using ConnectThemeMode = Foundry.Connect.Services.Theme.ThemeMode;
+using ConnectThemeMode = Foundry.Wpf.Theme.ThemeMode;
 
 namespace Foundry.Connect.ViewModels;
 

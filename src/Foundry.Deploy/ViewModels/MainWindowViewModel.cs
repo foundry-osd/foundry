@@ -26,7 +26,7 @@ using Foundry.Deploy.Services.ApplicationShell;
 using Foundry.Deploy.Services.System;
 using Foundry.Utilities.Globalization;
 using Foundry.Utilities.Networking;
-using Foundry.Deploy.Services.Theme;
+using Foundry.Wpf.Theme;
 using Foundry.Deploy.Services.Wizard;
 using Foundry.Localization;
 using Foundry.Telemetry;
@@ -34,7 +34,7 @@ using Foundry.Wpf.Localization;
 using Foundry.Wpf.ViewModels;
 using ComputerNameRules = Foundry.Core.Services.Configuration.ComputerNameRules;
 using Microsoft.Extensions.Logging;
-using DeployThemeMode = Foundry.Deploy.Services.Theme.ThemeMode;
+using DeployThemeMode = Foundry.Wpf.Theme.ThemeMode;
 
 namespace Foundry.Deploy.ViewModels;
 

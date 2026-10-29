@@ -9,7 +9,7 @@ using Foundry.Connect.Services.ApplicationLifetime;
 using Foundry.Connect.Services.ApplicationShell;
 using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Network;
-using Foundry.Connect.Services.Theme;
+using Foundry.Wpf.Theme;
 using Foundry.Connect.ViewModels;
 using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
 using Foundry.Telemetry;
