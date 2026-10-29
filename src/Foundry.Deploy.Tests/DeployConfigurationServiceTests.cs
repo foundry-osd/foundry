@@ -426,6 +426,18 @@ public sealed class DeployConfigurationServiceTests
         Assert.False(result.Document.Network.ProfileRoaming.Wifi.IncludePrivateKeyMaterial);
     }
 
+    [Fact]
+    public void LoadOptional_ReadsTheProtectionKeyCheck()
+    {
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "config.json",
+            """{"protection":{"isEnabled":true,"keyCheck":{"kind":"encrypted","algorithm":"aes-gcm-v1","keyId":"deployment-key-check","nonce":"n","tag":"t","ciphertext":"c"}}}""");
+
+        DeployConfigurationLoadResult result = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path).LoadOptional();
+
+        Assert.Equal("deployment-key-check", result.Document!.Protection.KeyCheck!.KeyId);
+    }
+
     private static string CreateJsonFile(string directoryPath, string fileName, string contents)
     {
         string filePath = Path.Combine(directoryPath, fileName);

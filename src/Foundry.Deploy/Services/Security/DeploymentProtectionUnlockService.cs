@@ -3,19 +3,23 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Security.Cryptography;
+using Foundry.Core.Services.Security;
+using Foundry.Core.Services.WinPe;
 using Foundry.Deploy.Models.Configuration;
-using Foundry.Utilities.Security;
-using SecretEnvelope = Foundry.Core.Models.Configuration.SecretEnvelope;
 
 namespace Foundry.Deploy.Services.Security;
 
+/// <summary>
+/// Unlocks protected deployment media by unwrapping the deployment key with the shared Core implementation
+/// and storing it in the Deploy secret key session.
+/// </summary>
 public sealed class DeploymentProtectionUnlockService(IDeploymentSecretKeySession session)
     : IDeploymentProtectionUnlockService
 {
-    public const string KeyDerivationAlgorithm = "pbkdf2-sha256";
-    public const string EnvelopeKind = "encrypted";
-    public const string EnvelopeAlgorithm = "aes-gcm-v1";
-    public const string PasswordDerivedKeyId = "deployment-password";
+    public const string KeyDerivationAlgorithm = DeploymentMediaProtectionService.KeyDerivationAlgorithm;
+    public const string EnvelopeKind = DeploymentMediaProtectionService.EnvelopeKind;
+    public const string EnvelopeAlgorithm = DeploymentMediaProtectionService.EnvelopeAlgorithm;
+    public const string PasswordDerivedKeyId = DeploymentMediaProtectionService.PasswordDerivedKeyId;
 
     public bool TryUnlock(DeployProtectionSettings settings, ReadOnlySpan<char> password)
     {
@@ -27,77 +31,25 @@ public sealed class DeploymentProtectionUnlockService(IDeploymentSecretKeySessio
             return true;
         }
 
-        byte[]? derivedKey = null;
-        byte[]? deploymentKey = null;
-        try
-        {
-            ValidateSettings(settings);
-            byte[] salt = Base64Url.Decode(settings.Salt);
-            try
-            {
-                if (salt.Length != PasswordKeyDerivation.SaltSizeBytes)
-                {
-                    return false;
-                }
-
-                derivedKey = PasswordKeyDerivation.DeriveKey(
-                    password,
-                    salt,
-                    settings.Iterations,
-                    AesGcmEncryption.KeySizeBytes);
-            }
-            finally
-            {
-                CryptographicOperations.ZeroMemory(salt);
-            }
-
-            SecretEnvelope envelope = settings.ProtectedDeploymentKey;
-            var payload = new AesGcmPayload(
-                Base64Url.Decode(envelope.Nonce),
-                Base64Url.Decode(envelope.Tag),
-                Base64Url.Decode(envelope.Ciphertext));
-            deploymentKey = AesGcmEncryption.Decrypt(payload, derivedKey);
-            if (deploymentKey.Length != AesGcmEncryption.KeySizeBytes)
-            {
-                return false;
-            }
-
-            session.SetKey(deploymentKey);
-            return true;
-        }
-        catch (Exception ex) when (ex is ArgumentException or FormatException or CryptographicException)
+        byte[]? deploymentKey = DeploymentKeyProtection.TryUnwrap(
+            settings.KeyDerivationAlgorithm,
+            settings.Iterations,
+            settings.Salt,
+            settings.ProtectedDeploymentKey,
+            password);
+        if (deploymentKey is null)
         {
             return false;
         }
+
+        try
+        {
+            session.SetKey(deploymentKey);
+            return true;
+        }
         finally
         {
-            if (derivedKey is not null)
-            {
-                CryptographicOperations.ZeroMemory(derivedKey);
-            }
-
-            if (deploymentKey is not null)
-            {
-                CryptographicOperations.ZeroMemory(deploymentKey);
-            }
-        }
-    }
-
-    private static void ValidateSettings(DeployProtectionSettings settings)
-    {
-        SecretEnvelope envelope = settings.ProtectedDeploymentKey ??
-            throw new CryptographicException("Deployment protection metadata is invalid.");
-        if (!string.Equals(settings.KeyDerivationAlgorithm, KeyDerivationAlgorithm, StringComparison.Ordinal) ||
-            settings.Iterations != PasswordKeyDerivation.DefaultIterations ||
-            string.IsNullOrWhiteSpace(settings.Salt) ||
-            !string.Equals(envelope.Kind, EnvelopeKind, StringComparison.Ordinal) ||
-            !string.Equals(envelope.Algorithm, EnvelopeAlgorithm, StringComparison.Ordinal) ||
-            !string.Equals(envelope.KeyId, PasswordDerivedKeyId, StringComparison.Ordinal) ||
-            string.IsNullOrWhiteSpace(envelope.Nonce) ||
-            string.IsNullOrWhiteSpace(envelope.Tag) ||
-            string.IsNullOrWhiteSpace(envelope.Ciphertext))
-        {
-            throw new CryptographicException("Deployment protection metadata is invalid.");
+            CryptographicOperations.ZeroMemory(deploymentKey);
         }
     }
 }
