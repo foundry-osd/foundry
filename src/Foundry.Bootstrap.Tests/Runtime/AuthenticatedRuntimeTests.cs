@@ -38,7 +38,8 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
 
         foreach (HttpClient client in new[] { online, online, offline })
         {
-            var coordinator = new BootstrapCoordinator(context, Resolver(client, logger), boundary, boundary, boundary, logger, _ => { });
+            var coordinator = new BootstrapCoordinator(context, Resolver(client, logger), boundary, boundary, boundary, logger, _ => { },
+                createKeyRelay: () => new NoOpKeyRelay());
             Assert.Equal(BootstrapOutcome.Cancelled, (await coordinator.RunAsync(TestContext.Current.CancellationToken)).Outcome);
         }
 
@@ -582,6 +583,18 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
     {
         internal List<LogEvent> Events { get; } = [];
         public void Emit(LogEvent logEvent) => Events.Add(logEvent);
+    }
+
+    // Keeps this runtime test away from real named pipes; the relay itself is covered by DeploymentKeyRelayTests.
+    private sealed class NoOpKeyRelay : IDeploymentKeyRelay
+    {
+        public string BeginReceive() => "Foundry.DeploymentKey.00000000000000000000000000000000";
+        public void ExpectSender(int processId) { }
+        public Task<bool> EndReceiveAsync() => Task.FromResult(false);
+        public string? BeginServe() => null;
+        public void ExpectReceiver(int processId) { }
+        public Task<bool> EndServeAsync() => Task.FromResult(false);
+        public void Dispose() { }
     }
 
     private sealed class ConnectBoundary : ISystemPreparation, IApplicationLauncher, IBootstrapLogPersistence

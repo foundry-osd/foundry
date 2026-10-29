@@ -4,8 +4,8 @@
 
 using System.Diagnostics;
 using Foundry.Bootstrap.Processes;
+using Foundry.Bootstrap.Tests.Support;
 using Serilog;
-using Serilog.Core;
 using Serilog.Events;
 using Xunit;
 
@@ -411,10 +411,5 @@ public sealed class ApplicationLauncherTests
             }
             Directory.Delete(directory, recursive: true);
         }
-    }
-
-    private sealed class DelegatingSink(Action<LogEvent> emit) : ILogEventSink
-    {
-        public void Emit(LogEvent logEvent) => emit(logEvent);
     }
 }

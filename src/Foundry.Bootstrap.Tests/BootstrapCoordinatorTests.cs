@@ -7,9 +7,9 @@ using Foundry.Bootstrap.Diagnostics;
 using Foundry.Bootstrap.Processes;
 using Foundry.Bootstrap.Runtime;
 using Foundry.Bootstrap.SystemPreparation;
+using Foundry.Bootstrap.Tests.Support;
 using Foundry.Core.Services.Runtime;
 using Serilog;
-using Serilog.Core;
 using Serilog.Events;
 using Xunit;
 
@@ -261,6 +261,40 @@ public sealed class BootstrapCoordinatorTests
         Assert.Equal(["not_requested"], fixture.HandoffOutcomes());
     }
 
+    [Fact]
+    public async Task LauncherWithoutHooks_EndsEachHandoffExactlyOnce()
+    {
+        using var fixture = new Fixture { SkipLaunchHooks = true };
+
+        Assert.Equal(BootstrapOutcome.Succeeded, (await fixture.RunAsync()).Outcome);
+
+        Assert.Equal(["begin-receive", "end-receive", "begin-serve", "end-serve", "dispose"], fixture.Relay.Calls);
+        Assert.Equal(["delivered"], fixture.HandoffOutcomes());
+    }
+
+    [Fact]
+    public async Task DeployStartFailure_EndsTheServeOnceAndReportsNotDelivered()
+    {
+        using var fixture = new Fixture { DeployFails = true, Relay = new FakeKeyRelay { Delivers = false } };
+
+        Assert.Equal(BootstrapOutcome.Failed, (await fixture.RunAsync()).Outcome);
+
+        Assert.Equal(ReceivePipe, fixture.DeployEnvironment![DeploymentKeyHandoff.ReceivePipeEnvironmentVariable]);
+        Assert.Equal(["begin-receive", "sender:4242", "end-receive", "begin-serve", "end-serve", "dispose"], fixture.Relay.Calls);
+        Assert.Equal(["not_delivered"], fixture.HandoffOutcomes());
+    }
+
+    [Fact]
+    public async Task ConnectResolutionFailure_StillLogsOneHandoffOutcome()
+    {
+        using var fixture = new Fixture { ConnectResolveFails = true };
+
+        Assert.Equal(BootstrapOutcome.Failed, (await fixture.RunAsync()).Outcome);
+
+        Assert.Empty(fixture.Relay.Calls);
+        Assert.Equal(["not_requested"], fixture.HandoffOutcomes());
+    }
+
     private const string SendPipe = "Foundry.DeploymentKey.00000000000000000000000000000001";
     private const string ReceivePipe = "Foundry.DeploymentKey.00000000000000000000000000000002";
 
@@ -275,6 +309,7 @@ public sealed class BootstrapCoordinatorTests
     {
         internal bool ReceivesKey { get; init; } = true;
         internal bool BeginReceiveThrows { get; init; }
+        internal bool Delivers { get; init; } = true;
         internal List<string> Calls { get; } = [];
         public string BeginReceive()
         {
@@ -285,13 +320,8 @@ public sealed class BootstrapCoordinatorTests
         public Task<bool> EndReceiveAsync() { Calls.Add("end-receive"); return Task.FromResult(ReceivesKey); }
         public string? BeginServe() { Calls.Add("begin-serve"); return ReceivesKey ? ReceivePipe : null; }
         public void ExpectReceiver(int processId) => Calls.Add($"receiver:{processId}");
-        public Task<bool> EndServeAsync() { Calls.Add("end-serve"); return Task.FromResult(true); }
+        public Task<bool> EndServeAsync() { Calls.Add("end-serve"); return Task.FromResult(Delivers); }
         public void Dispose() => Calls.Add("dispose");
-    }
-
-    private sealed class DelegatingSink(Action<LogEvent> emit) : ILogEventSink
-    {
-        public void Emit(LogEvent logEvent) => emit(logEvent);
     }
 
     private sealed class Fixture : IDisposable, IRuntimeResolver, ISystemPreparation, IApplicationLauncher, IBootstrapLogPersistence
@@ -316,6 +346,7 @@ public sealed class BootstrapCoordinatorTests
         internal bool EarlyClockFails { get; init; }
         internal bool ConnectResolveFails { get; init; }
         internal bool DeployResolveFails { get; init; }
+        internal bool SkipLaunchHooks { get; init; }
         internal Func<string, string?>? ReadPayloadVersion { get; init; }
         internal List<BootstrapResult> Outcomes { get; } = [];
 
@@ -392,8 +423,11 @@ public sealed class BootstrapCoordinatorTests
             Assert.Equal("TEST", environment["FOUNDRY_DIAGNOSTIC_SESSION_ID"]);
             if (CancelConnect) { cancellation.Cancel(); cancellationToken.ThrowIfCancellationRequested(); }
             if (ConnectTimeout) { throw new TaskCanceledException("Internal operation timed out."); }
-            processStarted?.Invoke(4242);
-            if (processReleasing is not null) { await processReleasing(); }
+            if (!SkipLaunchHooks)
+            {
+                processStarted?.Invoke(4242);
+                if (processReleasing is not null) { await processReleasing(); }
+            }
             return new ApplicationLaunchResult(ConnectExit == 0, ConnectExit);
         }
 
@@ -403,8 +437,11 @@ public sealed class BootstrapCoordinatorTests
             Calls.Add("deploy");
             DeployEnvironment = environment;
             if (DeployFails) { throw new IOException(); }
-            processStarted?.Invoke(4343);
-            if (processReleasing is not null) { await processReleasing(); }
+            if (!SkipLaunchHooks)
+            {
+                processStarted?.Invoke(4343);
+                if (processReleasing is not null) { await processReleasing(); }
+            }
             return new ApplicationLaunchResult(true, ReadinessConfirmed: true);
         }
 

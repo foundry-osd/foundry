@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.Concurrent;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO.Pipes;
 using System.Runtime.InteropServices;
@@ -278,6 +279,10 @@ public sealed class DeploymentKeyRelayTests
         catch (InvalidOperationException)
         {
             // The process exited between the check and the kill.
+        }
+        catch (Win32Exception)
+        {
+            // The process is terminating or cannot be killed; the test outcome does not depend on it.
         }
     }
 

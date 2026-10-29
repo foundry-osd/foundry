@@ -12,11 +12,12 @@ namespace Foundry.Bootstrap.Processes;
 /// Call order for one boot: <see cref="BeginReceive"/> before Connect starts, <see cref="ExpectSender"/> once Connect has a
 /// process id, <see cref="EndReceiveAsync"/> after Connect exited; then <see cref="BeginServe"/> before Deploy starts,
 /// <see cref="ExpectReceiver"/> once Deploy has a process id and <see cref="EndServeAsync"/> once Deploy is ready or failed.
-/// Only the <c>Begin</c> members throw, with <see cref="IOException"/> or <see cref="UnauthorizedAccessException"/>, when a
-/// pipe cannot be created (for example when its name already exists); no other hand-off failure throws, and a missing key
-/// only makes Deploy prompt for the password. <see cref="ExpectSender"/>, <see cref="ExpectReceiver"/> and the <c>End</c>
-/// members do nothing when their pipe was not created, so a caller can call them unconditionally (for example after
-/// <see cref="BeginServe"/> returned <see langword="null"/>).
+/// Only the <c>Begin</c> members throw: <see cref="IOException"/> or <see cref="UnauthorizedAccessException"/> when a pipe
+/// cannot be created (for example when its name already exists), <see cref="InvalidOperationException"/> when called a
+/// second time, and <see cref="ObjectDisposedException"/> after <see cref="IDisposable.Dispose"/>. No other hand-off failure
+/// throws, and a missing key only makes Deploy prompt for the password. <see cref="ExpectSender"/>,
+/// <see cref="ExpectReceiver"/> and the <c>End</c> members do nothing when their pipe was not created, so a caller can call
+/// them unconditionally (for example after <see cref="BeginServe"/> returned <see langword="null"/>).
 /// </remarks>
 internal interface IDeploymentKeyRelay : IDisposable
 {

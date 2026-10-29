@@ -43,9 +43,9 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
     private readonly Func<string, string?> readPayloadVersion = readPayloadVersion ?? ReadFileVersion;
     private readonly Func<IDeploymentKeyRelay> createKeyRelay = createKeyRelay ?? (() => new DeploymentKeyRelay(logger));
     private string? payloadVersion;
-    // Null until the relay exists; then not_requested (no key from Connect), received (key held, never served),
-    // delivered or not_delivered (served to Deploy).
-    private string? handoffOutcome;
+    // Logged once per boot: not_requested (no key from Connect, including a boot that ended before Connect ran), received
+    // (key held, never served), delivered or not_delivered (served to Deploy).
+    private string handoffOutcome = HandoffNotRequested;
 
     internal async Task<BootstrapResult> RunAsync(CancellationToken cancellationToken)
     {
@@ -85,10 +85,7 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
                 _ => "This boot stage could not be completed. Check the session log for details."
             };
             Report(status, message);
-            if (handoffOutcome is not null)
-            {
-                logger.Information("Deployment key hand-off finished. HandoffOutcome={HandoffOutcome}", handoffOutcome);
-            }
+            logger.Information("Deployment key hand-off finished. HandoffOutcome={HandoffOutcome}", handoffOutcome);
             logger.Information("Bootstrap finished with {Outcome} at {Stage}; child exit {ExitCode}; elapsed {DurationMilliseconds} ms",
                 result.Outcome, result.Stage, result.ChildExitCode, Stopwatch.GetElapsedTime(started).TotalMilliseconds);
             try { completed?.Invoke(result, Stopwatch.GetElapsedTime(started)); }
@@ -121,7 +118,6 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
 
         // Disposal zeroes any held key on every exit path, including a Connect failure.
         using IDeploymentKeyRelay relay = createKeyRelay();
-        handoffOutcome = HandoffNotRequested;
         string? sendPipe = TryBeginHandoff(relay.BeginReceive);
         bool handoffEnabled = sendPipe is not null;
         bool hasKey = false;
