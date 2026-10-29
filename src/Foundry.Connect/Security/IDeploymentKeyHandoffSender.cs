@@ -12,7 +12,10 @@ public interface IDeploymentKeyHandoffSender
 {
     /// <summary>Writes the deployment key to the Bootstrap hand-off pipe, at most once per process.</summary>
     /// <param name="deploymentKey">The 32-byte deployment key; the caller keeps ownership and zeroes it.</param>
-    /// <param name="cancellationToken">Caller cancellation, the only failure that propagates.</param>
+    /// <param name="cancellationToken">
+    /// Bounds the send; its cancellation is the only failure that propagates. The unlock service passes its own bounded timeout
+    /// token, not linked to its caller, because the secrets are already unlocked when the key is sent.
+    /// </param>
     /// <returns><see langword="true"/> when the key was written; <see langword="false"/> when no hand-off is available, it was already used, or the pipe failed.</returns>
     Task<bool> TrySendAsync(byte[] deploymentKey, CancellationToken cancellationToken);
 }

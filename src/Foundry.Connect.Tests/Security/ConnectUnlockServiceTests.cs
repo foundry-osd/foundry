@@ -8,6 +8,7 @@ using Foundry.Connect.Tests.Support;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Autopilot;
+using Foundry.Core.Services.Security;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect.Tests.Security;
@@ -84,6 +85,47 @@ public sealed class ConnectUnlockServiceTests
         Assert.Null(warning.Exception);
         Assert.Equal(nameof(InvalidOperationException), warning.Properties["FailureType"]);
         Assert.DoesNotContain(_logger.Entries, static entry => entry.Message.Contains("WPF application", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public async Task UnlockAsync_KeyThatFailsTheMediaKeyCheck_KeepsTheSecretsLockedAndSendsNothing()
+    {
+        var secrets = new ConnectRuntimeSecrets(
+            ConnectSecret.Locked(MediaSecretEnvelopeProtector.EncryptString("lab-passphrase", _key, MediaSecretEnvelopeProtector.DeploymentKeyId)),
+            ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned(),
+            protection: new DeployProtectionSettings { IsEnabled = true, KeyCheck = DeploymentKeyProtection.CreateKeyCheck(MediaSecretEnvelopeProtector.GenerateMediaKey()) });
+        _prompt.Answers.Enqueue("right password".ToCharArray());
+
+        ConnectUnlockResult result = await Create(secrets).UnlockAsync(ConnectUnlockTrigger.ManualWifi, TestContext.Current.CancellationToken);
+
+        Assert.Equal(ConnectUnlockResult.Cancelled, result);
+        Assert.True(secrets.IsWifiLocked);
+        Assert.True(secrets.IsUnlockDeclined);
+        Assert.Empty(_handoff.Sent);
+        RecordedLogEntry warning = Assert.Single(_logger.Entries, static entry => entry.Level == LogLevel.Warning);
+        Assert.Null(warning.Exception);
+        Assert.Equal(ConnectUnlockTrigger.ManualWifi, warning.Properties["Trigger"]);
+    }
+
+    [Fact]
+    public async Task UnlockAsync_ProtectedFileTamperedWith_LogsItsFailureTypeOnce()
+    {
+        var secrets = new ConnectRuntimeSecrets(
+            ConnectSecret.Locked(MediaSecretEnvelopeProtector.EncryptString("lab-passphrase", _key, MediaSecretEnvelopeProtector.DeploymentKeyId)),
+            ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned(),
+            wiredClientCertificate: ConnectProtectedContent.Locked(
+                MediaSecretEnvelopeProtector.EncryptBytes([1, 2, 3], MediaSecretEnvelopeProtector.GenerateMediaKey(), MediaSecretEnvelopeProtector.DeploymentKeyId)),
+            protection: new DeployProtectionSettings { IsEnabled = true });
+        _prompt.Answers.Enqueue("right password".ToCharArray());
+
+        ConnectUnlockResult result = await Create(secrets).UnlockAsync(ConnectUnlockTrigger.ManualWifi, TestContext.Current.CancellationToken);
+
+        Assert.Equal(ConnectUnlockResult.Unlocked, result);
+        Assert.Equal(ConnectSecretFailure.DecryptionFailed, secrets.WiredClientCertificate.Failure);
+        RecordedLogEntry warning = Assert.Single(_logger.Entries, static entry => entry.Level == LogLevel.Warning);
+        Assert.Null(warning.Exception);
+        Assert.Equal("WiredClientCertificate", warning.Properties["ProtectedContent"]);
+        Assert.Equal(nameof(System.Security.Cryptography.CryptographicException), warning.Properties["FailureType"]);
     }
 
     [Fact]

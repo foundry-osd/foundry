@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration.Deploy;
+using Foundry.Core.Services.Security;
 
 namespace Foundry.Connect.Configuration;
 
@@ -52,7 +53,8 @@ public sealed class ConnectRuntimeSecrets
     }
 
     /// <summary>
-    /// Gets the personal Wi-Fi passphrase, decrypted from the media envelope or read from legacy plaintext media.
+    /// Gets the personal Wi-Fi passphrase: decrypted at load from a media-keyed envelope (schema 5) or read from legacy plaintext
+    /// media, or <see cref="ConnectSecretStatus.Locked"/> in a deployment-keyed envelope until <see cref="Unlock"/> decrypts it.
     /// </summary>
     public ConnectSecret WifiPassphrase { get; }
 
@@ -117,12 +119,25 @@ public sealed class ConnectRuntimeSecrets
     /// <summary>
     /// Decrypts every locked secret and content with the unlocked deployment key; items in another state are left as they are.
     /// </summary>
+    /// <remarks>
+    /// Pass only a key returned by <see cref="DeploymentKeyProtection.TryUnwrap(DeployProtectionSettings, ReadOnlySpan{char})"/> for
+    /// <see cref="Protection"/>. When the media carries a key check, the key must pass it first. The unlock is not atomic across
+    /// items: each one is decrypted on its own, so an item that does not decrypt (a tampered or foreign envelope) becomes
+    /// <see cref="ConnectSecretStatus.Unavailable"/> while the others become <see cref="ConnectSecretStatus.Available"/>.
+    /// </remarks>
     /// <param name="deploymentKey">The deployment key; the caller keeps ownership and zeroes it.</param>
     /// <returns>How many items became <see cref="ConnectSecretStatus.Available"/>.</returns>
-    /// <exception cref="ArgumentException"><paramref name="deploymentKey"/> is not a 32-byte key; nothing is changed.</exception>
+    /// <exception cref="ArgumentException">
+    /// <paramref name="deploymentKey"/> is not a 32-byte key, or it fails the key check of <see cref="Protection"/>; nothing is changed.
+    /// </exception>
     public int Unlock(byte[] deploymentKey)
     {
         ConnectSecret.ValidateDeploymentKey(deploymentKey);
+        if (Protection?.KeyCheck is { } keyCheck && !DeploymentKeyProtection.VerifyKeyCheck(keyCheck, deploymentKey))
+        {
+            throw new ArgumentException("The key is not the deployment key of this media.", nameof(deploymentKey));
+        }
+
         int unlocked = 0;
         foreach (ConnectSecret secret in (ReadOnlySpan<ConnectSecret>)[WifiPassphrase, WifiCertificatePfxPassword, WiredCertificatePfxPassword])
         {

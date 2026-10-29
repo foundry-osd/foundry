@@ -24,6 +24,7 @@ public sealed class ConnectProtectedContent
     private SecretEnvelope? _envelope;
     private ConnectSecretStatus _status;
     private ConnectSecretFailure _failure;
+    private string? _failureType;
 
     private ConnectProtectedContent(ConnectSecretStatus status, ConnectSecretFailure failure, SecretEnvelope? envelope)
     {
@@ -52,6 +53,21 @@ public sealed class ConnectProtectedContent
             lock (_gate)
             {
                 return _failure;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Gets the exception type name of the failed decryption when <see cref="TryUnlock"/> could not decrypt the content (a
+    /// tampered or foreign file), for logging without the exception; <see langword="null"/> otherwise.
+    /// </summary>
+    public string? FailureType
+    {
+        get
+        {
+            lock (_gate)
+            {
+                return _failureType;
             }
         }
     }
@@ -92,8 +108,8 @@ public sealed class ConnectProtectedContent
 
     /// <summary>
     /// Decrypts <see cref="ConnectSecretStatus.Locked"/> content with the unlocked deployment key. Content that does not decrypt
-    /// becomes <see cref="ConnectSecretStatus.Unavailable"/> with <see cref="ConnectSecretFailure.DecryptionFailed"/>; any other
-    /// state is kept.
+    /// becomes <see cref="ConnectSecretStatus.Unavailable"/> with <see cref="ConnectSecretFailure.DecryptionFailed"/> and keeps the
+    /// exception type in <see cref="FailureType"/>; any other state is kept.
     /// </summary>
     /// <param name="deploymentKey">The deployment key; the caller keeps ownership and zeroes it.</param>
     /// <returns><see langword="true"/> when the content became <see cref="ConnectSecretStatus.Available"/>.</returns>
@@ -116,11 +132,12 @@ public sealed class ConnectProtectedContent
                 _status = ConnectSecretStatus.Available;
                 return true;
             }
-            catch (CryptographicException)
+            catch (CryptographicException exception)
             {
-                // Tampered or foreign envelope; no file name or byte is logged.
+                // Tampered or foreign envelope; only the exception type is kept, never a file name or byte.
                 _status = ConnectSecretStatus.Unavailable;
                 _failure = ConnectSecretFailure.DecryptionFailed;
+                _failureType = exception.GetType().Name;
                 return false;
             }
         }

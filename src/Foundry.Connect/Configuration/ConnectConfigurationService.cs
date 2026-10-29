@@ -455,7 +455,6 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
     /// <summary>The key sources of one load: the media key (schema 5) and whether the deployment key can be unlocked later.</summary>
     private readonly record struct SecretKeys(byte[]? MediaSecretsKey, ConnectSecretFailure MediaKeyFailure, bool IsUnlockable);
 
-
     // Older media carry a plaintext wifi.passphrase that the Core runtime record no longer models.
     private static ConnectSecret ReadLegacyWifiPassphrase(JsonElement root)
     {

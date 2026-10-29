@@ -100,11 +100,16 @@ public sealed class ConnectUnlockService(
             // From here the caller's token no longer applies: the secrets are unlocked whatever happens next.
             try
             {
-                int unlockedSecretCount = secrets.Unlock(key);
+                if (!TryUnlockSecrets(key, trigger, out int unlockedSecretCount))
+                {
+                    return ConnectUnlockResult.Cancelled;
+                }
+
                 logger.LogInformation(
                     "Network secrets unlocked. Trigger={Trigger}, UnlockedSecretCount={UnlockedSecretCount}",
                     trigger,
                     unlockedSecretCount);
+                LogUndecryptableContent();
                 if (!await TryHandOffAsync(key).ConfigureAwait(false))
                 {
                     logger.LogInformation("The deployment key was not handed to Foundry Deploy; Foundry Deploy will ask for the password.");
@@ -140,6 +145,50 @@ public sealed class ConnectUnlockService(
                 trigger,
                 exception.GetType().Name);
             return null;
+        }
+    }
+
+    /// <summary>
+    /// Decrypts the locked secrets. A key that fails the media key check (an inconsistent protection block) unlocks nothing
+    /// and is handled like a cancel: the secrets stay locked for the session and the key is not handed off.
+    /// </summary>
+    private bool TryUnlockSecrets(byte[] key, ConnectUnlockTrigger trigger, out int unlockedSecretCount)
+    {
+        try
+        {
+            unlockedSecretCount = secrets.Unlock(key);
+            return true;
+        }
+        catch (ArgumentException)
+        {
+            unlockedSecretCount = 0;
+            secrets.MarkUnlockDeclined();
+            logger.LogWarning(
+                "The unwrapped deployment key does not match the media key check; the protected network secrets stay locked. Trigger={Trigger}",
+                trigger);
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Logs each protected file that the unlocked key could not decrypt (tampered or foreign) once, by its role and exception type
+    /// only. Runs after the only successful unlock of the session.
+    /// </summary>
+    private void LogUndecryptableContent()
+    {
+        LogIfUndecryptable(secrets.WiredClientCertificate, nameof(ConnectRuntimeSecrets.WiredClientCertificate));
+        LogIfUndecryptable(secrets.WifiClientCertificate, nameof(ConnectRuntimeSecrets.WifiClientCertificate));
+        LogIfUndecryptable(secrets.WifiEnterpriseProfile, nameof(ConnectRuntimeSecrets.WifiEnterpriseProfile));
+    }
+
+    private void LogIfUndecryptable(ConnectProtectedContent content, string role)
+    {
+        if (content.FailureType is { } failureType)
+        {
+            logger.LogWarning(
+                "A protected network file could not be decrypted with the deployment key. ProtectedContent={ProtectedContent}, FailureType={FailureType}",
+                role,
+                failureType);
         }
     }
 
