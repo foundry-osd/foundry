@@ -21,7 +21,9 @@ public interface IConnectionCoordinator
     NetworkState State { get; }
 
     /// <summary>
-    /// Raised after each published state, outside any lock, on the thread that caused the change.
+    /// Raised after each published state, outside any lock, on the thread that caused the change (often a thread-pool
+    /// thread). Under concurrent publishes the argument may already be stale when the handler runs: handlers must read
+    /// <see cref="State"/> again instead of trusting the argument. A handler that throws is logged and ignored.
     /// </summary>
     event EventHandler<NetworkState>? StateChanged;
 

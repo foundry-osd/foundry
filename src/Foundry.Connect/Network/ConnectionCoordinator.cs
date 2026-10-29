@@ -16,9 +16,12 @@ namespace Foundry.Connect.Network;
 /// lock; the gate (<see cref="SemaphoreSlim"/> with one slot) admits one operation at a time. A manual request
 /// switches to <see cref="ConnectionMode.Manual"/> and publishes before it waits for the gate (D4, NET-01). An
 /// automatic attempt never waits: it starts only when the gate is free, and the policy is evaluated while the gate is
-/// held, so a manual request that arrived first always wins. Each operation ends with a refresh request.
+/// held, so a manual request that arrived first always wins. Operation bodies run on the thread pool, never on the
+/// caller's (UI) thread, because the WLAN calls block. Each operation releases the gate, then requests a refresh.
+/// Every automatic attempt counts toward the backoff until an observation shows the provisioned connection online, so a
+/// network that associates but never reaches the internet is retried ever more slowly.
 /// </remarks>
-public sealed class ConnectionCoordinator : IConnectionCoordinator, IDisposable
+public sealed class ConnectionCoordinator : IConnectionCoordinator, IWifiConnectionHistory, IDisposable
 {
     private readonly object _stateLock = new();
     private readonly SemaphoreSlim _gate = new(1, 1);
@@ -27,7 +30,9 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IDisposable
     private readonly ConnectNetworkOptions _options;
     private readonly NetworkRefreshSignal _refreshSignal;
     private readonly TimeProvider _timeProvider;
+    private readonly ILogger _logger;
     private readonly NetworkOperationLogger _operationLogger;
+    private readonly List<SuccessfulWifiConnection> _successfulConnections = [];
 
     private NetworkState _state;
     private ConnectionMode _mode = ConnectionMode.Automatic;
@@ -55,7 +60,8 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IDisposable
         _options = options ?? throw new ArgumentNullException(nameof(options));
         _refreshSignal = refreshSignal ?? throw new ArgumentNullException(nameof(refreshSignal));
         _timeProvider = timeProvider ?? throw new ArgumentNullException(nameof(timeProvider));
-        _operationLogger = new NetworkOperationLogger(logger ?? throw new ArgumentNullException(nameof(logger)), timeProvider);
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _operationLogger = new NetworkOperationLogger(logger, timeProvider);
 
         // The provisioning publish (no observation yet) composes the same summary, so it logs no transition.
         _state = NetworkState.Initial(timeProvider.GetUtcNow());
@@ -66,6 +72,18 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IDisposable
 
     /// <inheritdoc />
     public NetworkState State => Volatile.Read(ref _state);
+
+    /// <inheritdoc />
+    public IReadOnlyList<SuccessfulWifiConnection> SuccessfulWifiConnections
+    {
+        get
+        {
+            lock (_stateLock)
+            {
+                return [.. _successfulConnections];
+            }
+        }
+    }
 
     /// <inheritdoc />
     public async Task<ProvisioningOutcome> ApplyProvisioningAsync(CancellationToken cancellationToken)
@@ -85,7 +103,15 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IDisposable
                 result = provisioning;
                 foreach (NetworkFailureCode failure in provisioning.Failures)
                 {
-                    scope.LogFailure(failure, null);
+                    // The step logs its own Warning for an unexpected error; one Warning per failure.
+                    if (failure == NetworkFailureCode.Unexpected)
+                    {
+                        scope.MarkFailureLogged();
+                    }
+                    else
+                    {
+                        scope.LogFailure(failure, null);
+                    }
                 }
 
                 return provisioning.Failures.Count == 0
@@ -113,7 +139,14 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IDisposable
             _lastObservation = observation;
         }
 
-        Publish();
+        NetworkState state = Publish();
+        if (state.Internet == InternetStatus.Online && state.Wifi.Connection?.Source == WifiConnectionSource.Provisioned)
+        {
+            lock (_stateLock)
+            {
+                _consecutiveFailures = 0;
+            }
+        }
 
         // A running operation means no automatic attempt now (IsOperationRunning); never queue one behind it.
         if (!_gate.Wait(0))
@@ -131,7 +164,10 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IDisposable
                     return;
                 }
 
+                // Counted before the attempt: only an online provisioned connection resets the backoff, so an
+                // association without internet keeps the delay growing.
                 _lastAttemptAt = _timeProvider.GetUtcNow();
+                _consecutiveFailures++;
             }
 
             started = true;
@@ -148,7 +184,6 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IDisposable
             NetworkOperationKind.ConnectProvisionedWifi,
             NetworkOperationTrigger.Automatic,
             _ => ConnectProvisionedCoreAsync(cancellationToken),
-            RecordAutomaticOutcome,
             cancellationToken).ConfigureAwait(false);
     }
 
@@ -228,7 +263,7 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IDisposable
             return OperationOutcome.Cancelled(kind);
         }
 
-        return await RunUnderGateAsync(kind, trigger, body, null, cancellationToken).ConfigureAwait(false);
+        return await RunUnderGateAsync(kind, trigger, body, cancellationToken).ConfigureAwait(false);
     }
 
     // Runs one operation while the caller holds the gate, and releases it.
@@ -236,7 +271,6 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IDisposable
         NetworkOperationKind kind,
         NetworkOperationTrigger trigger,
         Func<NetworkOperationScope, Task<OperationOutcome>> body,
-        Action<OperationOutcome>? recordOutcome,
         CancellationToken cancellationToken)
     {
         try
@@ -252,7 +286,9 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IDisposable
             OperationOutcome outcome;
             try
             {
-                outcome = await body(scope).ConfigureAwait(false);
+                // A free gate completes the wait synchronously, so without Task.Run the blocking WLAN calls would run
+                // on the caller's (UI) thread. The logging scope flows with the execution context.
+                outcome = await Task.Run(() => body(scope), CancellationToken.None).ConfigureAwait(false);
             }
             catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
             {
@@ -269,7 +305,6 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IDisposable
             {
                 _lastOutcome = outcome;
                 _activeOperation = null;
-                recordOutcome?.Invoke(outcome);
             }
 
             Publish();
@@ -277,8 +312,20 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IDisposable
         }
         finally
         {
-            _refreshSignal.Request();
             _gate.Release();
+            RequestRefresh();
+        }
+    }
+
+    private void RequestRefresh()
+    {
+        try
+        {
+            _refreshSignal.Request();
+        }
+        catch (ObjectDisposedException)
+        {
+            // Shutdown disposed the monitor's signal; there is nothing left to refresh.
         }
     }
 
@@ -343,6 +390,11 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IDisposable
         }
 
         WlanOperationResult result = await _wlan.ConnectAsync(target, profile.Name, cancellationToken).ConfigureAwait(false);
+        if (result.IsSuccess)
+        {
+            RecordSuccessfulConnection(target, profile.Name, provisioned.Ssid ?? profile.Ssid, WifiConnectionSource.Provisioned);
+        }
+
         return MapConnect(Kind, result);
     }
 
@@ -386,6 +438,11 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IDisposable
             }
 
             WlanOperationResult result = await _wlan.ConnectAsync(network.InterfaceId, document.Name, cancellationToken).ConfigureAwait(false);
+            if (result.IsSuccess)
+            {
+                RecordSuccessfulConnection(network.InterfaceId, document.Name, ssid, WifiConnectionSource.Manual);
+            }
+
             return MapConnect(Kind, result);
         }
         finally
@@ -474,20 +531,26 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IDisposable
             _timeProvider.GetUtcNow());
     }
 
-    // Called with the state lock held, before the gate is released.
-    private void RecordAutomaticOutcome(OperationOutcome outcome)
+    // One entry per interface and profile name (WLAN profiles are per interface); a repeated success updates it.
+    private void RecordSuccessfulConnection(Guid interfaceId, string profileName, WifiSsid? ssid, WifiConnectionSource source)
     {
-        if (outcome.IsSuccess)
+        var entry = new SuccessfulWifiConnection(interfaceId, profileName, ssid, source, _timeProvider.GetUtcNow());
+        lock (_stateLock)
         {
-            _consecutiveFailures = 0;
-        }
-        else if (outcome.Status == OperationStatus.Failed)
-        {
-            _consecutiveFailures++;
+            int index = _successfulConnections.FindIndex(item =>
+                item.InterfaceId == interfaceId && string.Equals(item.ProfileName, profileName, StringComparison.Ordinal));
+            if (index < 0)
+            {
+                _successfulConnections.Add(entry);
+            }
+            else
+            {
+                _successfulConnections[index] = entry;
+            }
         }
     }
 
-    private void Publish()
+    private NetworkState Publish()
     {
         NetworkState current;
         lock (_stateLock)
@@ -500,6 +563,31 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IDisposable
             _operationLogger.LogTransition(previous, current);
         }
 
-        StateChanged?.Invoke(this, current);
+        RaiseStateChanged(current);
+        return current;
+    }
+
+    // A throwing subscriber must never leave ActiveOperation set or skip the terminal log, and must not stop the
+    // other subscribers. Only the exception type is logged: subscriber messages may name a network.
+    private void RaiseStateChanged(NetworkState state)
+    {
+        if (StateChanged is not { } handlers)
+        {
+            return;
+        }
+
+        foreach (EventHandler<NetworkState> handler in handlers.GetInvocationList().Cast<EventHandler<NetworkState>>())
+        {
+            try
+            {
+                handler(this, state);
+            }
+            catch (Exception exception)
+            {
+                _logger.LogWarning(
+                    "Network state subscriber failed. ExceptionType={ExceptionType}",
+                    exception.GetType().FullName);
+            }
+        }
     }
 }

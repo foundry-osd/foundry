@@ -8,21 +8,6 @@ using Microsoft.Extensions.Logging;
 namespace Foundry.Connect.Network;
 
 /// <summary>
-/// What started a network operation; logged as the <c>Trigger</c> property.
-/// </summary>
-public enum NetworkOperationTrigger
-{
-    /// <summary>The technician asked for it.</summary>
-    Manual,
-
-    /// <summary>The connection policy started it.</summary>
-    Automatic,
-
-    /// <summary>Connect started it once at startup.</summary>
-    Startup
-}
-
-/// <summary>
 /// Writes the network operation and state-transition log entries (D17, NET-07/08).
 /// </summary>
 /// <remarks>
@@ -190,6 +175,15 @@ public sealed class NetworkOperationScope : IDisposable
         _failureLogged = true;
         _logger.Log(LogLevel.Warning, default, null, FailureTemplate,
             "connect", OperationId, _operationName, descriptor.Kind, descriptor.Reason, descriptor.Code, wlanReasonCode);
+    }
+
+    /// <summary>
+    /// Records that a component inside the operation already logged its failure Warning, so
+    /// <see cref="LogOutcome"/> adds none.
+    /// </summary>
+    public void MarkFailureLogged()
+    {
+        _failureLogged = true;
     }
 
     /// <summary>
