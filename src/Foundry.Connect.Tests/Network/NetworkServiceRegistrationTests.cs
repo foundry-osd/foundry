@@ -6,12 +6,16 @@ using Foundry.Connect.Configuration;
 using Foundry.Connect.DependencyInjection;
 using Foundry.Connect.Lifetime;
 using Foundry.Connect.Network;
+using Foundry.Connect.Security;
+using Foundry.Connect.Tests.Support;
 using Foundry.Connect.ViewModels;
 using Foundry.Core.Models.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Foundry.Connect.Tests.Network;
 
+// Resolving the page graph constructs the hand-off sender, which removes the process-wide hand-off variable.
+[Collection(nameof(DeploymentKeyHandoffEnvironmentCollection))]
 public sealed class NetworkServiceRegistrationTests
 {
     [Fact]
@@ -25,6 +29,7 @@ public sealed class NetworkServiceRegistrationTests
         Assert.Same(coordinator, provider.GetRequiredService<ConnectionCoordinator>());
         Assert.NotNull(provider.GetRequiredService<ISuccessfulExitService>());
         Assert.NotNull(provider.GetRequiredService<INetworkMonitor>());
+        Assert.NotNull(provider.GetRequiredService<IConnectUnlockService>());
     }
 
     [Fact]

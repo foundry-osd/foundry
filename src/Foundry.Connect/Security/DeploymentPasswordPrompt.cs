@@ -11,7 +11,7 @@ namespace Foundry.Connect.Security;
 
 /// <summary>
 /// Shows the shared <see cref="PasswordPromptDialog"/> with the Connect unlock texts on the UI thread, owned by the
-/// active window or the main window (the rule Deploy's password dialog service uses).
+/// active window, else by the main window once it is loaded and visible, else by no window.
 /// </summary>
 public sealed class DeploymentPasswordPrompt(ILocalizationService localization) : IDeploymentPasswordPrompt
 {
@@ -44,19 +44,27 @@ public sealed class DeploymentPasswordPrompt(ILocalizationService localization) 
         return dialog.ShowDialog() == true ? dialog.TakePassword() : null;
     }
 
+    /// <summary>
+    /// Picks the dialog owner. <see cref="Window.Owner"/> throws for a window whose handle is not created yet or that was
+    /// closed, so the main window is used only once it is loaded and visible; without an owner the dialog is still modal
+    /// for the UI thread.
+    /// </summary>
     private static Window? ResolveOwnerWindow()
     {
-        if (Application.Current?.Windows is not null)
+        Application? application = Application.Current;
+        if (application is null)
         {
-            foreach (Window window in Application.Current.Windows)
+            return null;
+        }
+
+        foreach (Window window in application.Windows)
+        {
+            if (window.IsActive)
             {
-                if (window.IsActive)
-                {
-                    return window;
-                }
+                return window;
             }
         }
 
-        return Application.Current?.MainWindow;
+        return application.MainWindow is { IsLoaded: true, IsVisible: true } mainWindow ? mainWindow : null;
     }
 }

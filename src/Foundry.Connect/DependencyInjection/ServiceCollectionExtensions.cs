@@ -14,6 +14,7 @@ using Foundry.Wpf.Shell;
 using Foundry.Connect.Configuration;
 using Foundry.Connect.Network;
 using Foundry.Connect.Network.Native;
+using Foundry.Connect.Security;
 using Foundry.Connect.Services.Network;
 using Foundry.Connect.Services.Runtime;
 using Foundry.Wpf.Theme;
@@ -85,6 +86,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<INetworkAdapterSnapshotProvider, WindowsNetworkAdapterSnapshotProvider>();
         services.AddSingleton<INetworkProfileRoamingService, NetworkProfileRoamingService>();
         AddNetworkServices(services);
+        AddSecurityServices(services);
         services.AddSingleton<IThemeService, ThemeService>();
         services.AddSingleton<IKeyboardLayoutSwitcher>(_ => new WindowsKeyboardLayoutSwitcher(KeyboardLayoutHandoff.DefaultPath));
 
@@ -144,6 +146,18 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IRoamingCapture, RoamingCapture>();
         services.AddSingleton<IRuntimePreferencesPublisher, RuntimePreferencesPublisher>();
         services.AddSingleton<ISuccessfulExitService, SuccessfulExitService>();
+    }
+
+    /// <summary>
+    /// Registers the deployment password unlock (D11). The hand-off sender reads and removes its pipe name when it is
+    /// constructed with the main window graph, before provisioning starts any child process (L4-19).
+    /// </summary>
+    private static void AddSecurityServices(IServiceCollection services)
+    {
+        services.AddSingleton<IDeploymentPasswordPrompt, DeploymentPasswordPrompt>();
+        services.AddSingleton<IDeploymentKeyUnwrapper, DeploymentKeyUnwrapper>();
+        services.AddSingleton<IDeploymentKeyHandoffSender, EnvironmentDeploymentKeyHandoffSender>();
+        services.AddSingleton<IConnectUnlockService, ConnectUnlockService>();
     }
 
     /// <summary>
