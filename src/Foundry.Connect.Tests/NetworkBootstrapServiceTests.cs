@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Connect.Models.Configuration;
+using Foundry.Core.Models.Configuration;
 using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Network;
 using Foundry.Utilities.Networking;
@@ -32,13 +32,13 @@ public sealed class NetworkBootstrapServiceTests
     [Fact]
     public async Task ApplyProvisionedSettingsAsync_WhenProvisionedWifiHasNoWinPeAdapter_StillCapturesProfileForRoaming()
     {
-        var configuration = new FoundryConnectConfiguration
+        var configuration = new FoundryConnectConfigurationDocument
         {
-            Capabilities = new NetworkCapabilitiesOptions
+            Capabilities = new ConnectNetworkCapabilitiesSettings
             {
                 WifiProvisioned = true
             },
-            Wifi = new WifiSettings
+            Wifi = new ConnectWifiSettings
             {
                 IsEnabled = true,
                 Ssid = "Foundry",
@@ -48,6 +48,7 @@ public sealed class NetworkBootstrapServiceTests
         var roamingService = new CapturingNetworkProfileRoamingService();
         var service = new NetworkBootstrapService(
             configuration,
+            new ConnectRuntimeSecrets(),
             new FakeConnectConfigurationService(configuration),
             roamingService,
             NullLogger<NetworkBootstrapService>.Instance,
@@ -68,12 +69,13 @@ public sealed class NetworkBootstrapServiceTests
     [Fact]
     public async Task ConnectWifiNetworkAsync_WhenNetworkIsEnterprise_ReturnsRuntimeNotSupportedFailure()
     {
-        var configuration = new FoundryConnectConfiguration
+        var configuration = new FoundryConnectConfigurationDocument
         {
-            Capabilities = new NetworkCapabilitiesOptions { WifiProvisioned = true }
+            Capabilities = new ConnectNetworkCapabilitiesSettings { WifiProvisioned = true }
         };
         var service = new NetworkBootstrapService(
             configuration,
+            new ConnectRuntimeSecrets(),
             new FakeConnectConfigurationService(configuration),
             new CapturingNetworkProfileRoamingService(),
             NullLogger<NetworkBootstrapService>.Instance,
@@ -92,9 +94,9 @@ public sealed class NetworkBootstrapServiceTests
     {
         using var tempDirectory = new TemporaryDirectory();
         string profilePath = tempDirectory.CreateFile("wired.xml", "<LANProfile />");
-        var configuration = new FoundryConnectConfiguration
+        var configuration = new FoundryConnectConfigurationDocument
         {
-            Dot1x = new Dot1xSettings
+            Dot1x = new ConnectDot1xSettings
             {
                 IsEnabled = true,
                 ProfileTemplatePath = profilePath
@@ -103,6 +105,7 @@ public sealed class NetworkBootstrapServiceTests
         var roamingService = new CapturingNetworkProfileRoamingService();
         var service = new NetworkBootstrapService(
             configuration,
+            new ConnectRuntimeSecrets(),
             new FakeConnectConfigurationService(configuration),
             roamingService,
             NullLogger<NetworkBootstrapService>.Instance,
@@ -118,9 +121,9 @@ public sealed class NetworkBootstrapServiceTests
     [Fact]
     public async Task ApplyProvisionedSettingsAsync_WhenWiredProfileTemplateIsMissing_ReturnsStructuredWiredFailure()
     {
-        var configuration = new FoundryConnectConfiguration
+        var configuration = new FoundryConnectConfigurationDocument
         {
-            Dot1x = new Dot1xSettings
+            Dot1x = new ConnectDot1xSettings
             {
                 IsEnabled = true,
                 ProfileTemplatePath = "missing-wired-profile.xml"
@@ -128,6 +131,7 @@ public sealed class NetworkBootstrapServiceTests
         };
         var service = new NetworkBootstrapService(
             configuration,
+            new ConnectRuntimeSecrets(),
             new FakeConnectConfigurationService(configuration),
             new CapturingNetworkProfileRoamingService(),
             NullLogger<NetworkBootstrapService>.Instance,
@@ -145,18 +149,18 @@ public sealed class NetworkBootstrapServiceTests
     [Fact]
     public async Task ApplyProvisionedSettingsAsync_WhenWiredAndWifiBootstrapFailuresMix_ReturnsSeparateStructuredFailures()
     {
-        var configuration = new FoundryConnectConfiguration
+        var configuration = new FoundryConnectConfigurationDocument
         {
-            Dot1x = new Dot1xSettings
+            Dot1x = new ConnectDot1xSettings
             {
                 IsEnabled = true,
                 ProfileTemplatePath = "missing-wired-profile.xml"
             },
-            Capabilities = new NetworkCapabilitiesOptions
+            Capabilities = new ConnectNetworkCapabilitiesSettings
             {
                 WifiProvisioned = true
             },
-            Wifi = new WifiSettings
+            Wifi = new ConnectWifiSettings
             {
                 IsEnabled = true,
                 Ssid = "Foundry",
@@ -165,6 +169,7 @@ public sealed class NetworkBootstrapServiceTests
         };
         var service = new NetworkBootstrapService(
             configuration,
+            new ConnectRuntimeSecrets(),
             new FakeConnectConfigurationService(configuration),
             new CapturingNetworkProfileRoamingService(),
             NullLogger<NetworkBootstrapService>.Instance,
@@ -217,7 +222,7 @@ public sealed class NetworkBootstrapServiceTests
             false);
     }
 
-    private sealed class FakeConnectConfigurationService(FoundryConnectConfiguration configuration) : IConnectConfigurationService
+    private sealed class FakeConnectConfigurationService(FoundryConnectConfigurationDocument configuration) : IConnectConfigurationService
     {
         public string? ConfigurationPath => null;
 
@@ -226,7 +231,7 @@ public sealed class NetworkBootstrapServiceTests
         public bool IsBootMediaUpdateRecommended => false;
         public Foundry.Core.Models.Configuration.BootMediaUpdateReason BootMediaUpdateReason => Foundry.Core.Models.Configuration.BootMediaUpdateReason.None;
 
-        public FoundryConnectConfiguration Load() => configuration;
+        public (FoundryConnectConfigurationDocument Configuration, ConnectRuntimeSecrets Secrets) Load() => (configuration, new ConnectRuntimeSecrets());
     }
 
     private sealed class TemporaryDirectory : IDisposable

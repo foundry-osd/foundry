@@ -5,7 +5,7 @@
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Foundry.Connect.Models.Configuration;
+using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Network;
 using Foundry.Connect.Services.Runtime;
 using Microsoft.Extensions.Logging;
@@ -24,7 +24,7 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     };
 
-    private readonly FoundryConnectConfiguration _configuration;
+    private readonly FoundryConnectConfigurationDocument _configuration;
     private readonly ILogger<NetworkProfileRoamingService> _logger;
     private readonly string _artifactRootPath;
     private bool _artifactRootPrepared;
@@ -35,14 +35,14 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
     /// <param name="configuration">The loaded runtime configuration.</param>
     /// <param name="logger">Logger.</param>
     public NetworkProfileRoamingService(
-        FoundryConnectConfiguration configuration,
+        FoundryConnectConfigurationDocument configuration,
         ILogger<NetworkProfileRoamingService> logger)
         : this(configuration, logger, ConnectWorkspacePaths.GetNetworkProfileRoamingDirectory())
     {
     }
 
     internal NetworkProfileRoamingService(
-        FoundryConnectConfiguration configuration,
+        FoundryConnectConfigurationDocument configuration,
         ILogger<NetworkProfileRoamingService> logger,
         string artifactRootPath)
     {

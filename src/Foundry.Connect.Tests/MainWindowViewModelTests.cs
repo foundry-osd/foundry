@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Connect.Models;
-using Foundry.Connect.Models.Configuration;
+using Foundry.Core.Models.Configuration;
 using Foundry.Connect.Models.Network;
 using Foundry.Connect.Services.ApplicationLifetime;
 using Foundry.Core.Models.Runtime;
@@ -12,7 +12,6 @@ using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Network;
 using Foundry.Wpf.Theme;
 using Foundry.Connect.ViewModels;
-using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
 using Foundry.Telemetry;
 using Foundry.Utilities.Globalization;
 using Foundry.Wpf.Localization;
@@ -313,13 +312,13 @@ public sealed class MainWindowViewModelTests
     {
         using var temporaryDirectory = new TemporaryDirectory();
         string certificatePath = temporaryDirectory.CreateFile("invalid.cer", "not-a-certificate");
-        var configuration = new FoundryConnectConfiguration
+        var configuration = new FoundryConnectConfigurationDocument
         {
-            Capabilities = new NetworkCapabilitiesOptions
+            Capabilities = new ConnectNetworkCapabilitiesSettings
             {
                 WifiProvisioned = true
             },
-            Wifi = new WifiSettings
+            Wifi = new ConnectWifiSettings
             {
                 IsEnabled = true,
                 CertificatePath = certificatePath
@@ -340,6 +339,7 @@ public sealed class MainWindowViewModelTests
         });
         var networkBootstrapService = new NetworkBootstrapService(
             configuration,
+            new ConnectRuntimeSecrets(),
             new FakeConnectConfigurationService(configuration),
             new FakeNetworkProfileRoamingService(),
             loggerFactory.CreateLogger<NetworkBootstrapService>(),
@@ -472,16 +472,16 @@ public sealed class MainWindowViewModelTests
         IKeyboardLayoutSwitcher? keyboardLayoutSwitcher = null)
     {
         lifetimeService ??= new RecordingApplicationLifetimeService(telemetryService);
-        var configuration = new FoundryConnectConfiguration
+        var configuration = new FoundryConnectConfigurationDocument
         {
-            Capabilities = new NetworkCapabilitiesOptions { WifiProvisioned = true },
-            Wifi = new WifiSettings
+            Capabilities = new ConnectNetworkCapabilitiesSettings { WifiProvisioned = true },
+            Wifi = new ConnectWifiSettings
             {
                 IsEnabled = true,
                 SecurityType = "WPA2-Personal",
                 Ssid = "Foundry"
             },
-            Dot1x = new Dot1xSettings { IsEnabled = true }
+            Dot1x = new ConnectDot1xSettings { IsEnabled = true }
         };
 
         return new MainWindowViewModel(
@@ -687,7 +687,7 @@ public sealed class MainWindowViewModelTests
     }
 
     private sealed class FakeConnectConfigurationService(
-        FoundryConnectConfiguration configuration,
+        FoundryConnectConfigurationDocument configuration,
         BootMediaUpdateReason bootMediaUpdateReason = BootMediaUpdateReason.None) : IConnectConfigurationService
     {
         public string? ConfigurationPath => null;
@@ -697,9 +697,9 @@ public sealed class MainWindowViewModelTests
         public bool IsBootMediaUpdateRecommended => bootMediaUpdateReason != BootMediaUpdateReason.None;
         public BootMediaUpdateReason BootMediaUpdateReason => bootMediaUpdateReason;
 
-        public FoundryConnectConfiguration Load()
+        public (FoundryConnectConfigurationDocument Configuration, ConnectRuntimeSecrets Secrets) Load()
         {
-            return configuration;
+            return (configuration, new ConnectRuntimeSecrets());
         }
     }
 

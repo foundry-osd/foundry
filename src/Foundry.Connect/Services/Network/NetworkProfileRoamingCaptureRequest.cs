@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Connect.Models.Configuration;
+using Foundry.Core.Models.Configuration;
 
 namespace Foundry.Connect.Services.Network;
 

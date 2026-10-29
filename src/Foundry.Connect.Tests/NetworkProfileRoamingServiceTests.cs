@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Text.Json;
-using Foundry.Connect.Models.Configuration;
+using Foundry.Core.Models.Configuration;
 using Foundry.Connect.Services.Network;
 using Microsoft.Extensions.Logging.Abstractions;
 using CoreConnectNetworkProfileRoamingSettings = Foundry.Core.Models.Configuration.ConnectNetworkProfileRoamingSettings;
@@ -19,7 +19,7 @@ public sealed class NetworkProfileRoamingServiceTests
         using var tempDirectory = new TemporaryDirectory();
         string profilePath = tempDirectory.CreateFile("source", "wifi.xml", "<WLANProfile />");
         var service = new NetworkProfileRoamingService(
-            new FoundryConnectConfiguration(),
+            new FoundryConnectConfigurationDocument(),
             NullLogger<NetworkProfileRoamingService>.Instance,
             tempDirectory.ArtifactPath);
 
@@ -326,12 +326,12 @@ public sealed class NetworkProfileRoamingServiceTests
         Assert.Contains(relativePaths, path => File.ReadAllText(Path.Combine(tempDirectory.ArtifactPath, path)) == "wifi-certificate");
     }
 
-    private static FoundryConnectConfiguration CreateEnabledConfiguration(
+    private static FoundryConnectConfigurationDocument CreateEnabledConfiguration(
         bool includePrivateKeyMaterial = false,
         bool wiredEnabled = true,
         bool wifiEnabled = true)
     {
-        return new FoundryConnectConfiguration
+        return new FoundryConnectConfigurationDocument
         {
             Network = new CoreConnectNetworkSettings
             {

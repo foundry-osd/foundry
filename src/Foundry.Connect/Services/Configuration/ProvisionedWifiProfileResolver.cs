@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
-using Foundry.Connect.Models.Configuration;
+using Foundry.Core.Models.Configuration;
 using Foundry.Utilities.Networking;
 
 namespace Foundry.Connect.Services.Configuration;
@@ -49,7 +49,7 @@ internal static class ProvisionedWifiProfileResolver
     /// <param name="wifiSettings">Provisioned Wi-Fi settings.</param>
     /// <param name="configurationPath">Configuration file path that anchors relative assets.</param>
     /// <returns>The WLAN profile name or SSID when available.</returns>
-    public static string? ResolveProfileName(WifiSettings wifiSettings, string? configurationPath)
+    public static string? ResolveProfileName(ConnectWifiSettings wifiSettings, string? configurationPath)
     {
         if (wifiSettings.HasEnterpriseProfile)
         {

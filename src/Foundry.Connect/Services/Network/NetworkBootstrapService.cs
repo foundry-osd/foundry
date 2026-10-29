@@ -7,7 +7,7 @@ using System.IO;
 using System.Net.NetworkInformation;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using Foundry.Connect.Models.Configuration;
+using Foundry.Core.Models.Configuration;
 using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Runtime;
 using Foundry.Connect.Services.System;
@@ -28,7 +28,8 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
     private static readonly TimeSpan WifiProfileImportRetryDelay = TimeSpan.FromSeconds(2);
     private const int WinPeWifiProfileImportRetryCount = 3;
 
-    private readonly FoundryConnectConfiguration _configuration;
+    private readonly FoundryConnectConfigurationDocument _configuration;
+    private readonly ConnectRuntimeSecrets _secrets;
     private readonly IConnectConfigurationService _configurationService;
     private readonly INetworkProfileRoamingService _networkProfileRoamingService;
     private readonly ILogger<NetworkBootstrapService> _logger;
@@ -40,18 +41,21 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
     /// Initializes a network bootstrap service.
     /// </summary>
     /// <param name="configuration">The loaded runtime configuration.</param>
+    /// <param name="secrets">The session-only network secrets resolved with the configuration.</param>
     /// <param name="configurationService">The configuration service used to resolve relative asset paths.</param>
     /// <param name="networkProfileRoamingService">The service used to capture eligible profiles for Windows import.</param>
     /// <param name="logger">The logger used for network command diagnostics.</param>
     /// <param name="networkAdapterSnapshotProvider">The provider used to enumerate wired adapters.</param>
     public NetworkBootstrapService(
-        FoundryConnectConfiguration configuration,
+        FoundryConnectConfigurationDocument configuration,
+        ConnectRuntimeSecrets secrets,
         IConnectConfigurationService configurationService,
         INetworkProfileRoamingService networkProfileRoamingService,
         ILogger<NetworkBootstrapService> logger,
         INetworkAdapterSnapshotProvider? networkAdapterSnapshotProvider = null)
         : this(
             configuration,
+            secrets,
             configurationService,
             networkProfileRoamingService,
             logger,
@@ -61,7 +65,8 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
     }
 
     internal NetworkBootstrapService(
-        FoundryConnectConfiguration configuration,
+        FoundryConnectConfigurationDocument configuration,
+        ConnectRuntimeSecrets secrets,
         IConnectConfigurationService configurationService,
         INetworkProfileRoamingService networkProfileRoamingService,
         ILogger<NetworkBootstrapService> logger,
@@ -69,6 +74,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         INetworkAdapterSnapshotProvider? networkAdapterSnapshotProvider = null)
     {
         _configuration = configuration;
+        _secrets = secrets;
         _configurationService = configurationService;
         _networkProfileRoamingService = networkProfileRoamingService;
         _logger = logger;
@@ -342,7 +348,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 handledFailures,
                 ImportCertificate(
                     certificatePath,
-                    _configuration.Dot1x.CertificatePfxPassword,
+                    _secrets.WiredCertificatePfxPassword,
                     "wired_certificate_import_failed"));
         }
 
@@ -414,7 +420,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
                 handledFailures,
                 ImportCertificate(
                     certificatePath,
-                    _configuration.Wifi.CertificatePfxPassword,
+                    _secrets.WifiCertificatePfxPassword,
                     "wifi_certificate_import_failed"));
         }
 
@@ -494,7 +500,7 @@ public sealed class NetworkBootstrapService : INetworkBootstrapService
         }
 
         return await WriteTemporaryWifiProfileAsync(
-            WifiProfileXmlBuilder.Build(_configuration.Wifi.Ssid.Trim(), _configuration.Wifi.SecurityType.Trim(), _configuration.Wifi.Passphrase),
+            WifiProfileXmlBuilder.Build(_configuration.Wifi.Ssid.Trim(), _configuration.Wifi.SecurityType.Trim(), _secrets.WifiPassphrase),
             cancellationToken).ConfigureAwait(false);
     }
 

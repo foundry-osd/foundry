@@ -161,6 +161,9 @@ public static class MediaSecretEnvelopeProtector
     /// <summary>
     /// Decrypts binary secret material with an explicit logical key identifier.
     /// </summary>
+    /// <exception cref="CryptographicException">
+    /// The envelope is unsupported, incomplete, not valid base64url, or fails authentication.
+    /// </exception>
     public static byte[] DecryptBytes(SecretEnvelope envelope, byte[] key, string keyId)
     {
         ArgumentNullException.ThrowIfNull(envelope);
@@ -168,14 +171,22 @@ public static class MediaSecretEnvelopeProtector
         ValidateEnvelope(envelope, keyId);
         ValidateKey(key);
 
+        AesGcmPayload payload;
         try
         {
-            return AesGcmEncryption.Decrypt(
-                new AesGcmPayload(
-                    Base64Url.Decode(envelope.Nonce),
-                    Base64Url.Decode(envelope.Tag),
-                    Base64Url.Decode(envelope.Ciphertext)),
-                key);
+            payload = new AesGcmPayload(
+                Base64Url.Decode(envelope.Nonce),
+                Base64Url.Decode(envelope.Tag),
+                Base64Url.Decode(envelope.Ciphertext));
+        }
+        catch (FormatException ex)
+        {
+            throw new CryptographicException("Encrypted secret envelope contains invalid base64url data.", ex);
+        }
+
+        try
+        {
+            return AesGcmEncryption.Decrypt(payload, key);
         }
         catch (CryptographicException ex)
         {

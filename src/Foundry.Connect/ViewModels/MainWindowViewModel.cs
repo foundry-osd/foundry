@@ -4,7 +4,6 @@
 
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -14,7 +13,7 @@ using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Foundry.Connect.Models;
-using Foundry.Connect.Models.Configuration;
+using Foundry.Core.Models.Configuration;
 using Foundry.Connect.Models.Network;
 using Foundry.Core.Models.Runtime;
 using Foundry.Wpf.Shell;
@@ -59,7 +58,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly IApplicationShellService _applicationShellService;
     private readonly IApplicationLifetimeService _applicationLifetimeService;
     private readonly IConnectConfigurationService _configurationService;
-    private readonly FoundryConnectConfiguration _configuration;
+    private readonly FoundryConnectConfigurationDocument _configuration;
     private readonly INetworkBootstrapService _networkBootstrapService;
     private readonly INetworkStatusService _networkStatusService;
     private readonly ITelemetryService _telemetryService;
@@ -171,7 +170,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         IApplicationShellService applicationShellService,
         IApplicationLifetimeService applicationLifetimeService,
         IConnectConfigurationService configurationService,
-        FoundryConnectConfiguration configuration,
+        FoundryConnectConfigurationDocument configuration,
         INetworkBootstrapService networkBootstrapService,
         INetworkStatusService networkStatusService,
         ITelemetryService telemetryService,

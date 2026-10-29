@@ -4,7 +4,7 @@
 
 using System.Net.NetworkInformation;
 using System.Resources;
-using Foundry.Connect.Models.Configuration;
+using Foundry.Core.Models.Configuration;
 using Foundry.Connect.Models.Network;
 using Foundry.Connect.Services.Network;
 using Foundry.Utilities.Networking;
@@ -79,9 +79,9 @@ public sealed class NetworkStatusServiceTests
     public async Task GetSnapshotAsync_WhenProbeFails_LogsSanitizedEndpoint()
     {
         var logger = new RecordingLogger<NetworkStatusService>();
-        var configuration = new FoundryConnectConfiguration
+        var configuration = new FoundryConnectConfigurationDocument
         {
-            InternetProbe = new InternetProbeOptions
+            InternetProbe = new ConnectInternetProbeSettings
             {
                 ProbeUris = ["http://user:password@127.0.0.1:1/status?token=secret#fragment"],
                 TimeoutSeconds = 1
@@ -105,9 +105,9 @@ public sealed class NetworkStatusServiceTests
 
     private static NetworkStatusService CreateService(INetworkAdapterSnapshotProvider provider)
     {
-        var configuration = new FoundryConnectConfiguration
+        var configuration = new FoundryConnectConfigurationDocument
         {
-            InternetProbe = new InternetProbeOptions { ProbeUris = [] }
+            InternetProbe = new ConnectInternetProbeSettings { ProbeUris = [] }
         };
 
         return new NetworkStatusService(

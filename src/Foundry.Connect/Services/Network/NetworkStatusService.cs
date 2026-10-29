@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Diagnostics;
 using Foundry.Connect.Models;
-using Foundry.Connect.Models.Configuration;
+using Foundry.Core.Models.Configuration;
 using Foundry.Connect.Models.Network;
 using Foundry.Utilities.Networking;
 using Foundry.Utilities.Diagnostics;
@@ -26,7 +26,7 @@ public sealed class NetworkStatusService : INetworkStatusService
     });
     private static readonly TimeSpan WifiDiscoveryGracePeriod = TimeSpan.FromSeconds(15);
 
-    private readonly FoundryConnectConfiguration _configuration;
+    private readonly FoundryConnectConfigurationDocument _configuration;
     private readonly ILocalizationService _localizationService;
     private readonly INetworkAdapterSnapshotProvider _networkAdapterSnapshotProvider;
     private readonly ILogger<NetworkStatusService> _logger;
@@ -34,7 +34,7 @@ public sealed class NetworkStatusService : INetworkStatusService
     private DateTimeOffset? _lastStableWifiNetworksAt;
 
     public NetworkStatusService(
-        FoundryConnectConfiguration configuration,
+        FoundryConnectConfigurationDocument configuration,
         ILocalizationService localizationService,
         ILogger<NetworkStatusService> logger,
         INetworkAdapterSnapshotProvider? networkAdapterSnapshotProvider = null)

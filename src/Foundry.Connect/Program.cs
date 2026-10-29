@@ -5,7 +5,7 @@
 using System.IO;
 using System.Windows;
 using Foundry.Connect.DependencyInjection;
-using Foundry.Connect.Models.Configuration;
+using Foundry.Core.Models.Configuration;
 using Foundry.Connect.Services.Configuration;
 using Foundry.Connect.Services.Logging;
 using Foundry.Connect.Services.Runtime;
@@ -72,7 +72,7 @@ public static class Program
             ConfigureRuntimeCompatibility();
             stage = "configuration";
             host = BuildHost(args, startup, remoteDiagnosticsService);
-            _ = host.Services.GetRequiredService<FoundryConnectConfiguration>();
+            _ = host.Services.GetRequiredService<FoundryConnectConfigurationDocument>();
             startup.ReportConfigurationLoaded();
             stage = "services";
             telemetryService = host.Services.GetRequiredService<ITelemetryService>();
@@ -184,7 +184,7 @@ public static class Program
 
     private static void InitializeRemoteDiagnostics(IServiceProvider services, IRemoteDiagnosticsService remoteDiagnosticsService)
     {
-        TelemetrySettings settings = services.GetRequiredService<FoundryConnectConfiguration>().Telemetry;
+        TelemetrySettings settings = services.GetRequiredService<FoundryConnectConfigurationDocument>().Telemetry;
         TelemetryContext context = services.GetRequiredService<TelemetryContext>();
         RemoteDiagnosticsLifecycle.Initialize(remoteDiagnosticsService, settings, context);
     }

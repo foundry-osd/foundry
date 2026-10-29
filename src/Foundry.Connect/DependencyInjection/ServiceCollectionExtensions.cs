@@ -6,7 +6,6 @@ using System.Globalization;
 using System.Net.Http;
 using System.Resources;
 using System.Runtime.InteropServices;
-using Foundry.Connect.Models.Configuration;
 using Foundry.Connect.Services.ApplicationLifetime;
 using Foundry.Wpf.Shell;
 using Foundry.Connect.Services.Configuration;
@@ -14,6 +13,7 @@ using Foundry.Connect.Services.Network;
 using Foundry.Connect.Services.Runtime;
 using Foundry.Wpf.Theme;
 using Foundry.Connect.ViewModels;
+using Foundry.Core.Models.Configuration;
 using Foundry.Telemetry;
 using Foundry.Utilities.Globalization;
 using Foundry.Utilities.Networking;
@@ -21,6 +21,7 @@ using Foundry.Utilities.Runtime;
 using Foundry.Wpf.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using LoadedConnectConfiguration = (Foundry.Core.Models.Configuration.FoundryConnectConfigurationDocument Configuration, Foundry.Connect.Services.Configuration.ConnectRuntimeSecrets Secrets);
 
 namespace Foundry.Connect.DependencyInjection;
 
@@ -39,7 +40,10 @@ public static class ServiceCollectionExtensions
         services.AddSingleton(WpfApplicationIdentity.FromAssembly(typeof(App).Assembly));
         services.AddSingleton<IApplicationLifetimeService, ApplicationLifetimeService>();
         services.AddSingleton<IConnectConfigurationService, ConnectConfigurationService>();
-        services.AddSingleton(sp => sp.GetRequiredService<IConnectConfigurationService>().Load());
+        // Load once: the configuration and its session-only secrets are both served from the same load result.
+        services.AddSingleton(typeof(LoadedConnectConfiguration), sp => sp.GetRequiredService<IConnectConfigurationService>().Load());
+        services.AddSingleton(sp => sp.GetRequiredService<LoadedConnectConfiguration>().Configuration);
+        services.AddSingleton(sp => sp.GetRequiredService<LoadedConnectConfiguration>().Secrets);
         services.AddSingleton(CreateTelemetryOptions);
         services.AddSingleton(CreateTelemetryContext);
         services.AddSingleton<ITelemetryService>(sp =>
@@ -79,7 +83,7 @@ public static class ServiceCollectionExtensions
 
     private static TelemetryOptions CreateTelemetryOptions(IServiceProvider serviceProvider)
     {
-        TelemetrySettings settings = serviceProvider.GetRequiredService<FoundryConnectConfiguration>().Telemetry;
+        TelemetrySettings settings = serviceProvider.GetRequiredService<FoundryConnectConfigurationDocument>().Telemetry;
         return new TelemetryOptions(
             settings.IsEnabled,
             string.IsNullOrWhiteSpace(settings.HostUrl) ? TelemetryDefaults.PostHogEuHost : settings.HostUrl,
@@ -89,7 +93,7 @@ public static class ServiceCollectionExtensions
 
     private static TelemetryContext CreateTelemetryContext(IServiceProvider serviceProvider)
     {
-        FoundryConnectConfiguration configuration = serviceProvider.GetRequiredService<FoundryConnectConfiguration>();
+        FoundryConnectConfigurationDocument configuration = serviceProvider.GetRequiredService<FoundryConnectConfigurationDocument>();
         string runtime = WinPeRuntimeDetector.IsWinPeRuntime() ? TelemetryRuntimeModes.WinPe : TelemetryRuntimeModes.Desktop;
         return TelemetryContextFactory.Create(
             TelemetryApps.FoundryConnect,

@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Connect.Models.Configuration;
 using Foundry.Core.Models.Configuration;
 
 namespace Foundry.Connect.Services.Configuration;
@@ -33,6 +32,9 @@ public interface IConnectConfigurationService
     /// <summary>
     /// Loads configuration from command-line, environment, or WinPE media locations.
     /// </summary>
-    /// <returns>The normalized runtime configuration.</returns>
-    FoundryConnectConfiguration Load();
+    /// <returns>
+    /// The normalized runtime configuration and the session-only secrets decrypted from its envelopes
+    /// or read from legacy plaintext media.
+    /// </returns>
+    (FoundryConnectConfigurationDocument Configuration, ConnectRuntimeSecrets Secrets) Load();
 }

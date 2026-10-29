@@ -4,6 +4,7 @@
 
 using System.Security.Cryptography;
 using System.Text;
+using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Autopilot;
 
 namespace Foundry.Core.Tests.Autopilot;
@@ -37,6 +38,15 @@ public sealed class AutopilotMediaSecretProtectorTests
 
         Assert.DoesNotContain(secret, exception.ToString(), StringComparison.Ordinal);
         Assert.DoesNotContain(Convert.ToBase64String(Encoding.UTF8.GetBytes(secret)), exception.ToString(), StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void DecryptString_InvalidBase64_ThrowsCryptographicException()
+    {
+        byte[] key = MediaSecretEnvelopeProtector.GenerateMediaKey();
+        SecretEnvelope envelope = MediaSecretEnvelopeProtector.EncryptString("secret", key) with { Ciphertext = "!!" };
+        CryptographicException ex = Assert.Throws<CryptographicException>(() => MediaSecretEnvelopeProtector.DecryptString(envelope, key));
+        Assert.Contains("base64url", ex.Message);
     }
 
     [Fact]

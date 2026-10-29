@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Connect.Models.Configuration;
+using Foundry.Core.Models.Configuration;
 using Foundry.Connect.Services.Configuration;
 
 namespace Foundry.Connect.Tests;
@@ -33,7 +33,7 @@ public sealed class ProvisionedWifiProfileResolverTests
         string profilePath = CreateWifiProfile(tempDirectory.Path, "Enterprise WiFi");
 
         string? profileName = ProvisionedWifiProfileResolver.ResolveProfileName(
-            new WifiSettings
+            new ConnectWifiSettings
             {
                 HasEnterpriseProfile = true,
                 EnterpriseProfileTemplatePath = profilePath
