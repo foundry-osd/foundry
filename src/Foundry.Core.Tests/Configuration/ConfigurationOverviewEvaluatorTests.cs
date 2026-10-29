@@ -6,6 +6,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.NetworkCache;
 using Foundry.Core.Services.WinPe;
+using Foundry.Core.Tests.TestUtilities;
 
 namespace Foundry.Core.Tests.Configuration;
 
@@ -620,14 +621,6 @@ public sealed class ConfigurationOverviewEvaluatorTests
         Assert.Equal(ConfigurationOverviewState.NeedsAttention, state);
     }
 
-    private static CustomDriverSetReference CreateDriverSet(bool isIncluded) => new()
-    {
-        Id = Guid.NewGuid().ToString("N"),
-        DisplayName = "Synthetic drivers",
-        Package = new ContentPackageReference { ContentHash = new string('a', 64), DisplayName = "Synthetic drivers", FileCount = 1, Length = 1 },
-        IsIncluded = isIncluded
-    };
-
     [Theory]
     [InlineData(false, ConfigurationOverviewState.NeedsAttention, ConfigurationOverviewState.NeedsAttention)]
     [InlineData(true, ConfigurationOverviewState.Configured, ConfigurationOverviewState.Configured)]
@@ -652,6 +645,84 @@ public sealed class ConfigurationOverviewEvaluatorTests
         Assert.Equal(wifi, evaluation[ConfigurationOverviewItem.Wifi]);
         Assert.Equal(protection, evaluation[ConfigurationOverviewItem.DeploymentProtection]);
     }
+
+    [Theory]
+    [InlineData(false, ConfigurationOverviewState.NeedsAttention, ConfigurationOverviewState.NeedsAttention)]
+    [InlineData(true, ConfigurationOverviewState.Configured, ConfigurationOverviewState.Configured)]
+    public void Evaluate_WiredClientPfx_RequiresProtection(bool protectionEnabled, ConfigurationOverviewState ethernet, ConfigurationOverviewState protection)
+    {
+        using var directory = new TemporaryDirectory();
+        string template = CreateFile(directory, "wired.xml", "<LANProfile />");
+        string client = CreateFile(directory, "client.pfx", "pfx");
+        var configuration = new FoundryConfigurationDocument
+        {
+            General = new GeneralSettings { DeploymentProtection = new DeploymentProtectionSettings { IsEnabled = protectionEnabled } },
+            Network = new NetworkSettings
+            {
+                Dot1x = new Dot1xSettings { IsEnabled = true, ProfileTemplate = TestFileReferences.For(template), ClientCertificate = TestFileReferences.For(client) }
+            }
+        };
+
+        ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(CreateContext(configuration) with
+        {
+            NetworkInputs = TestFileReferences.Resolving(template, client),
+            IsDeploymentProtectionSecretReady = protectionEnabled
+        });
+
+        Assert.Equal(ethernet, evaluation[ConfigurationOverviewItem.EthernetDot1x]);
+        Assert.Equal(protection, evaluation[ConfigurationOverviewItem.DeploymentProtection]);
+    }
+
+    [Theory]
+    [InlineData(false, ConfigurationOverviewState.NeedsAttention, ConfigurationOverviewState.NeedsAttention)]
+    [InlineData(true, ConfigurationOverviewState.Configured, ConfigurationOverviewState.Configured)]
+    public void Evaluate_EnterpriseWifiClientCertificate_RequiresProtection(bool protectionEnabled, ConfigurationOverviewState wifi, ConfigurationOverviewState protection)
+    {
+        using var directory = new TemporaryDirectory();
+        string template = CreateFile(directory, "wifi.xml", "<WLANProfile />");
+        string client = CreateFile(directory, "wifi.pfx", "pfx");
+        var configuration = new FoundryConfigurationDocument
+        {
+            General = new GeneralSettings { DeploymentProtection = new DeploymentProtectionSettings { IsEnabled = protectionEnabled } },
+            Network = new NetworkSettings
+            {
+                WifiProvisioned = true,
+                Wifi = new WifiSettings
+                {
+                    IsEnabled = true,
+                    Ssid = "Corp",
+                    SecurityType = NetworkConfigurationValidator.WifiSecurityEnterprise,
+                    HasEnterpriseProfile = true,
+                    EnterpriseProfileTemplate = TestFileReferences.For(template),
+                    ClientCertificate = TestFileReferences.For(client)
+                }
+            }
+        };
+
+        ConfigurationOverviewEvaluation evaluation = ConfigurationOverviewEvaluator.Evaluate(CreateContext(configuration) with
+        {
+            NetworkInputs = TestFileReferences.Resolving(template, client),
+            IsDeploymentProtectionSecretReady = protectionEnabled
+        });
+
+        Assert.Equal(wifi, evaluation[ConfigurationOverviewItem.Wifi]);
+        Assert.Equal(protection, evaluation[ConfigurationOverviewItem.DeploymentProtection]);
+    }
+
+    private static string CreateFile(TemporaryDirectory directory, string fileName, string content)
+    {
+        string path = Path.Combine(directory.Path, fileName);
+        File.WriteAllText(path, content);
+        return path;
+    }
+
+    private static CustomDriverSetReference CreateDriverSet(bool isIncluded) => new()
+    {
+        Id = Guid.NewGuid().ToString("N"),
+        DisplayName = "Synthetic drivers",
+        Package = new ContentPackageReference { ContentHash = new string('a', 64), DisplayName = "Synthetic drivers", FileCount = 1, Length = 1 },
+        IsIncluded = isIncluded
+    };
 
     private static ConfigurationOverviewContext CreateContext(FoundryConfigurationDocument configuration)
     {

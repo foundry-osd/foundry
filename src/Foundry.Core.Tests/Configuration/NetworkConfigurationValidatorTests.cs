@@ -323,6 +323,48 @@ public sealed class NetworkConfigurationValidatorTests
             MediaInputs.None));
     }
 
+    [Theory]
+    [InlineData(NetworkConfigurationValidator.WifiSecurityPersonal, false, false, true, true)]
+    [InlineData(NetworkConfigurationValidator.WifiSecurityOpen, false, false, true, false)]
+    [InlineData(NetworkConfigurationValidator.WifiSecurityEnterprise, true, true, false, true)]
+    [InlineData(NetworkConfigurationValidator.WifiSecurityEnterprise, true, false, false, false)]
+    [InlineData(NetworkConfigurationValidator.WifiSecurityEnterprise, true, false, true, false)]
+    [InlineData(NetworkConfigurationValidator.WifiSecurityEnterprise, false, true, false, true)]
+    [InlineData(NetworkConfigurationValidator.WifiSecurityPersonal, true, false, true, true)]
+    [InlineData(NetworkConfigurationValidator.WifiSecurityPersonal, false, true, false, false)]
+    public void RequiresMediaProtection_FollowsTheWifiClassification(
+        string securityType, bool hasEnterpriseProfile, bool withClient, bool withPassphrase, bool expected)
+    {
+        var settings = new NetworkSettings
+        {
+            WifiProvisioned = true,
+            Wifi = new WifiSettings
+            {
+                IsEnabled = true,
+                Ssid = "Lab",
+                SecurityType = securityType,
+                HasEnterpriseProfile = hasEnterpriseProfile,
+                ClientCertificate = withClient ? TestFileReferences.Detached("client.pfx") : null,
+                TrustedRootCertificates = [TestFileReferences.Detached("root.cer")]
+            }
+        };
+
+        Assert.Equal(expected, NetworkConfigurationValidator.RequiresMediaProtection(settings, withPassphrase ? WithPassphrase() : MediaInputs.None));
+        Assert.False(NetworkConfigurationValidator.RequiresMediaProtection(settings with { WifiProvisioned = false }, WithPassphrase()));
+    }
+
+    [Fact]
+    public void RequiresMediaProtection_StaleEnterpriseFlagOnPersonalWifi_AgreesWithTheValidator()
+    {
+        // A personal profile whose enterprise flag was left set still provisions its passphrase, and the validator asks for protection.
+        NetworkSettings settings = PersonalWifi() with { Wifi = PersonalWifi().Wifi with { HasEnterpriseProfile = true } };
+
+        Assert.Equal(
+            NetworkConfigurationValidationCode.WifiMediaProtectionRequired,
+            NetworkConfigurationValidator.Validate(settings, WithPassphrase(), isMediaProtected: false).Code);
+        Assert.True(NetworkConfigurationValidator.RequiresMediaProtection(settings, WithPassphrase()));
+    }
+
     private sealed class TemporaryDirectory : IDisposable
     {
         public TemporaryDirectory()

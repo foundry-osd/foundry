@@ -110,13 +110,12 @@ public static class NetworkConfigurationValidator
             return false;
         }
 
-        // Same classification as ValidateWifi, so the rule and the validation agree on what a personal or enterprise profile is.
-        if (settings.Wifi.HasEnterpriseProfile || NormalizeEnterpriseSecurityType(settings.Wifi.SecurityType) is not null)
-        {
-            return settings.Wifi.ClientCertificate is not null;
-        }
-
-        return IsPersonalSecurityType(settings.Wifi.SecurityType) && !string.IsNullOrWhiteSpace(inputs.Network.WifiPassphrase);
+        // Same classification as ValidateWifi, so the rule and the validation agree: the personal and enterprise checks are
+        // independent, so a personal type with a stale enterprise flag still requires protection for its passphrase.
+        bool isEnterprise = settings.Wifi.HasEnterpriseProfile || NormalizeEnterpriseSecurityType(settings.Wifi.SecurityType) is not null;
+        bool isPersonal = IsPersonalSecurityType(settings.Wifi.SecurityType);
+        return (isEnterprise && settings.Wifi.ClientCertificate is not null) ||
+               (isPersonal && !string.IsNullOrWhiteSpace(inputs.Network.WifiPassphrase));
     }
 
     /// <summary>
