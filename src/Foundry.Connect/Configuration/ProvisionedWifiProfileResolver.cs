@@ -3,13 +3,11 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
-using Foundry.Core.Models.Configuration;
-using Foundry.Utilities.Networking;
 
 namespace Foundry.Connect.Configuration;
 
 /// <summary>
-/// Resolves provisioned Wi-Fi profile names and asset paths from the runtime configuration location.
+/// Resolves provisioned Wi-Fi asset paths from the runtime configuration location.
 /// </summary>
 internal static class ProvisionedWifiProfileResolver
 {
@@ -41,24 +39,5 @@ internal static class ProvisionedWifiProfileResolver
 
         configurationDirectoryPath ??= AppContext.BaseDirectory;
         return Path.GetFullPath(Path.Combine(configurationDirectoryPath, trimmed));
-    }
-
-    /// <summary>
-    /// Resolves the profile name used by the provisioned Wi-Fi configuration.
-    /// </summary>
-    /// <param name="wifiSettings">Provisioned Wi-Fi settings.</param>
-    /// <param name="configurationPath">Configuration file path that anchors relative assets.</param>
-    /// <returns>The WLAN profile name or SSID when available.</returns>
-    public static string? ResolveProfileName(ConnectWifiSettings wifiSettings, string? configurationPath)
-    {
-        if (wifiSettings.HasEnterpriseProfile)
-        {
-            string? profilePath = ResolveAssetPath(wifiSettings.EnterpriseProfileTemplatePath, configurationPath);
-            return WlanProfileReader.TryReadName(profilePath);
-        }
-
-        return string.IsNullOrWhiteSpace(wifiSettings.Ssid)
-            ? null
-            : wifiSettings.Ssid.Trim();
     }
 }

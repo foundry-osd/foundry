@@ -9,6 +9,7 @@ using Foundry.Connect.Configuration;
 using Foundry.Connect.Network.Native;
 using Foundry.Connect.Network.Policy;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Models.Network;
 using Foundry.Utilities.Networking;
 using Microsoft.Extensions.Logging;
 
@@ -371,7 +372,7 @@ public sealed class ProvisioningStep : IProvisioningStep
                 return CertificateStepResult.Completed;
             }
 
-            if (CertificateInstaller.IsPfxPath(certificatePath) && passwordEnvelope is not null && password.Status == ConnectSecretStatus.Unavailable)
+            if (NetworkProfileRoamingArtifacts.IsPfxPath(certificatePath) && passwordEnvelope is not null && password.Status == ConnectSecretStatus.Unavailable)
             {
                 return CertificateStepResult.SecretUnavailable;
             }

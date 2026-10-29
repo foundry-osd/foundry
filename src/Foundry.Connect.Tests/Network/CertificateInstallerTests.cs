@@ -107,14 +107,6 @@ public sealed class CertificateInstallerTests
         Assert.All(warning.Properties.Values, static value => Assert.DoesNotContain("client", value?.ToString() ?? string.Empty, StringComparison.OrdinalIgnoreCase));
     }
 
-    [Theory]
-    [InlineData(@"C:\media\client.pfx", true)]
-    [InlineData(@"C:\media\client.P12", true)]
-    [InlineData(@"C:\media\root.cer", false)]
-    [InlineData(@"C:\media\pfx", false)]
-    public void IsPfxPath_ComparesExtensionIgnoringCase(string path, bool expected) =>
-        Assert.Equal(expected, CertificateInstaller.IsPfxPath(path));
-
     // Production flags: the recording loader substitutes EphemeralKeySet, so no test writes a key to disk.
     private static CertificateInstaller CreateInstaller(FakeCertificateStore store, RecordingPkcs12Loader loader) =>
         new(store, new RecordingLogger<CertificateInstaller>(), ProductionFlags, loader.Load);

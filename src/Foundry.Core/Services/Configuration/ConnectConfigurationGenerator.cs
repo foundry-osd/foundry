@@ -4,6 +4,7 @@
 
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Models.Network;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Utilities.IO;
 
@@ -252,19 +253,9 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
 
     private static bool HasCertificatePfxPassword(string? certificatePath, string? certificatePfxPassword)
     {
-        return IsPfxPath(certificatePath) && !string.IsNullOrWhiteSpace(certificatePfxPassword);
-    }
-
-    private static bool IsPfxPath(string? certificatePath)
-    {
-        if (string.IsNullOrWhiteSpace(certificatePath))
-        {
-            return false;
-        }
-
-        string extension = Path.GetExtension(certificatePath);
-        return string.Equals(extension, ".pfx", StringComparison.OrdinalIgnoreCase) ||
-            string.Equals(extension, ".p12", StringComparison.OrdinalIgnoreCase);
+        return !string.IsNullOrWhiteSpace(certificatePath)
+            && NetworkProfileRoamingArtifacts.IsPfxPath(certificatePath)
+            && !string.IsNullOrWhiteSpace(certificatePfxPassword);
     }
 
     private static string NormalizeEmbeddedRelativePath(string relativePath)

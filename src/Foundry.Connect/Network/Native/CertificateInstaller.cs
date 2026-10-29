@@ -4,6 +4,7 @@
 
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
+using Foundry.Core.Models.Network;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect.Network.Native;
@@ -161,7 +162,7 @@ public sealed class CertificateInstaller : ICertificateInstaller
     /// <inheritdoc />
     public CertificateInstallResult Install(string certificatePath, ReadOnlySpan<char> pfxPassword)
     {
-        bool isPfx = IsPfxPath(certificatePath);
+        bool isPfx = NetworkProfileRoamingArtifacts.IsPfxPath(certificatePath);
         try
         {
             return isPfx ? InstallPfx(certificatePath, pfxPassword) : InstallPublicCertificate(certificatePath);
@@ -176,16 +177,8 @@ public sealed class CertificateInstaller : ICertificateInstaller
         }
     }
 
-    /// <summary>Returns whether <paramref name="certificatePath"/> names a PKCS#12 file (<c>.pfx</c> or <c>.p12</c>, any case).</summary>
-    internal static bool IsPfxPath(string certificatePath)
-    {
-        string? extension = Path.GetExtension(certificatePath);
-        return string.Equals(extension, ".pfx", StringComparison.OrdinalIgnoreCase) ||
-               string.Equals(extension, ".p12", StringComparison.OrdinalIgnoreCase);
-    }
-
     /// <summary>Returns the non-identifying kind logged instead of the author file name: <c>pfx</c> or <c>certificate</c>.</summary>
-    internal static string GetCertificateKind(string certificatePath) => IsPfxPath(certificatePath) ? "pfx" : "certificate";
+    internal static string GetCertificateKind(string certificatePath) => NetworkProfileRoamingArtifacts.IsPfxPath(certificatePath) ? "pfx" : "certificate";
 
     private CertificateInstallResult InstallPfx(string certificatePath, ReadOnlySpan<char> pfxPassword)
     {

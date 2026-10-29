@@ -132,18 +132,6 @@ public sealed class ConnectSecret
         }
     }
 
-    /// <summary>
-    /// Copies the value into a managed string for the legacy bootstrap path, which cannot be zeroed.
-    /// </summary>
-    /// <remarks>Temporary for <c>NetworkBootstrapService</c>; deleted with it.</remarks>
-    internal string? ToLegacyString()
-    {
-        lock (_gate)
-        {
-            return _status == ConnectSecretStatus.Available && _value is not null ? new string(_value) : null;
-        }
-    }
-
     /// <inheritdoc />
     public override string ToString() => $"ConnectSecret({Status})";
 }

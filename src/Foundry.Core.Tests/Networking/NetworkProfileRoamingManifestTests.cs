@@ -78,6 +78,16 @@ public sealed class NetworkProfileRoamingManifestTests
         Assert.Throws<ArgumentOutOfRangeException>(() => NetworkProfileRoamingArtifacts.GetWifiProfileFileName(-1));
     }
 
+    [Theory]
+    [InlineData(@"C:\media\client.pfx", true)]
+    [InlineData(@"C:\media\client.P12", true)]
+    [InlineData(@"C:\media\root.cer", false)]
+    [InlineData(@"C:\media\pfx", false)]
+    public void IsPfxPath_ComparesExtensionIgnoringCase(string path, bool expected)
+    {
+        Assert.Equal(expected, NetworkProfileRoamingArtifacts.IsPfxPath(path));
+    }
+
     private static NetworkProfileRoamingProfile Profile(string relativePath, string source) => new()
     {
         RelativePath = relativePath,

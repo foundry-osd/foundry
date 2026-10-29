@@ -50,8 +50,7 @@ public sealed class NetworkObservationSource(
     ILogger<NetworkObservationSource> logger) : INetworkObservationSource
 {
     /// <summary>
-    /// Gets how long a non-empty Wi-Fi network list is reused when discovery briefly returns nothing (today's
-    /// <c>NetworkStatusService</c> value).
+    /// Gets how long a non-empty Wi-Fi network list is reused when discovery briefly returns nothing.
     /// </summary>
     public static readonly TimeSpan WifiDiscoveryGracePeriod = TimeSpan.FromSeconds(15);
 
