@@ -7,12 +7,13 @@ using System.Text;
 using System.Text.Json;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Models.Network;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Deploy.Models.Configuration;
-using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Network;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using NetworkProfileRoamingTransportSettings = Foundry.Core.Models.Configuration.NetworkProfileRoamingTransportSettings;
+using SecretEnvelope = Foundry.Core.Models.Configuration.SecretEnvelope;
 
 namespace Foundry.Deploy.Tests;
 
@@ -99,7 +100,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
     public async Task LoadAsync_WhenPrivateKeyRoamingEnabled_StagesProfilesCertificatesAndPfxPassword()
     {
         string artifactRoot = CreateArtifactRoot();
-        byte[] mediaSecretKey = RandomNumberGenerator.GetBytes(DeployMediaSecretEnvelopeProtector.KeySizeBytes);
+        byte[] mediaSecretKey = RandomNumberGenerator.GetBytes(MediaSecretEnvelopeProtector.KeySizeBytes);
         WriteText(Path.Combine(artifactRoot, "wifi-profile.xml"), "<WLANProfile />");
         WriteText(Path.Combine(artifactRoot, "wired-dot1x-profile.xml"), "<LANProfile />");
         WriteBytes(Path.Combine(artifactRoot, "certificates", "Root", "root.cer"), [1, 2, 3]);
@@ -453,9 +454,9 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
         aes.Encrypt(nonce, plaintextBytes, ciphertext, tag);
         return new SecretEnvelope
         {
-            Kind = DeployMediaSecretEnvelopeProtector.Kind,
-            Algorithm = DeployMediaSecretEnvelopeProtector.Algorithm,
-            KeyId = DeployMediaSecretEnvelopeProtector.KeyId,
+            Kind = MediaSecretEnvelopeProtector.Kind,
+            Algorithm = MediaSecretEnvelopeProtector.Algorithm,
+            KeyId = MediaSecretEnvelopeProtector.KeyId,
             Nonce = Base64UrlEncode(nonce),
             Tag = Base64UrlEncode(tag),
             Ciphertext = Base64UrlEncode(ciphertext)

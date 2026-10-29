@@ -5,6 +5,7 @@
 using System.Security.Cryptography;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Utilities.Security;
+using SecretEnvelope = Foundry.Core.Models.Configuration.SecretEnvelope;
 
 namespace Foundry.Deploy.Services.Security;
 

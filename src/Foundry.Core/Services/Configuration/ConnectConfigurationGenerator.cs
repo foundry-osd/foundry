@@ -4,6 +4,7 @@
 
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Utilities.IO;
 
 namespace Foundry.Core.Services.Configuration;
@@ -68,7 +69,7 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
             isWifiEnabled &&
             !wifi.HasEnterpriseProfile &&
             !string.IsNullOrWhiteSpace(secrets.WifiPassphrase)
-            ? ConnectSecretEnvelopeProtector.Encrypt(secrets.WifiPassphrase!, mediaSecretsKey)
+            ? MediaSecretEnvelopeProtector.EncryptString(secrets.WifiPassphrase!, mediaSecretsKey)
             : null;
         SecretEnvelope? wiredCertificatePfxPasswordSecret = CreateCertificatePfxPasswordSecret(
             wiredCertificatePath,
@@ -235,7 +236,7 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
             HasCertificatePfxPassword(wifiCertificatePath, secrets.WifiCertificatePfxPassword);
 
         return hasPersonalWifiPassphrase || hasCertificatePfxPassword
-            ? ConnectSecretEnvelopeProtector.GenerateMediaKey()
+            ? MediaSecretEnvelopeProtector.GenerateMediaKey()
             : null;
     }
 
@@ -245,7 +246,7 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
         byte[]? mediaSecretsKey)
     {
         return mediaSecretsKey is not null && HasCertificatePfxPassword(certificatePath, certificatePfxPassword)
-            ? ConnectSecretEnvelopeProtector.Encrypt(certificatePfxPassword!, mediaSecretsKey)
+            ? MediaSecretEnvelopeProtector.EncryptString(certificatePfxPassword!, mediaSecretsKey)
             : null;
     }
 

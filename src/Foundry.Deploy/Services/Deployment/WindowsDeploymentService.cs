@@ -10,8 +10,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Deploy.Models.Configuration;
-using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Security;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.Services.Deployment.Unattend;
@@ -675,7 +675,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
 
     private static char[] DecryptPassword(
         bool isBlank,
-        Foundry.Deploy.Models.Configuration.SecretEnvelope? secret,
+        SecretEnvelope? secret,
         byte[]? deploymentKey)
     {
         if (isBlank)
@@ -688,7 +688,7 @@ public sealed class WindowsDeploymentService : IWindowsDeploymentService
             throw new InvalidOperationException("An encrypted OOBE account password is missing.");
         }
 
-        return DeployMediaSecretEnvelopeProtector.DecryptDeployChars(secret, deploymentKey);
+        return MediaSecretEnvelopeProtector.DecryptChars(secret, deploymentKey, MediaSecretEnvelopeProtector.DeployKeyIds);
     }
 
     private static XElement CreatePasswordElement(

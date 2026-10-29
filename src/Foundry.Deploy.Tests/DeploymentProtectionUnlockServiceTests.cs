@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using Foundry.Core.Services.WinPe;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Security;
+using SecretEnvelope = Foundry.Core.Models.Configuration.SecretEnvelope;
 
 namespace Foundry.Deploy.Tests;
 
@@ -99,7 +100,7 @@ public sealed class DeploymentProtectionUnlockServiceTests
 
     private static DeployProtectionSettings Map(Foundry.Core.Models.Configuration.Deploy.DeployProtectionSettings settings)
     {
-        Foundry.Core.Models.Configuration.SecretEnvelope sourceEnvelope =
+        SecretEnvelope sourceEnvelope =
             settings.ProtectedDeploymentKey ?? throw new InvalidOperationException("Protected deployment key is required.");
 
         return new DeployProtectionSettings

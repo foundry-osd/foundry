@@ -10,6 +10,7 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Security;
 using Microsoft.Extensions.Logging;
@@ -73,12 +74,14 @@ public sealed class AutopilotHardwareHashUploadService(
         char[]? pfxPassword = null;
         try
         {
-            pfxBytes = DeployMediaSecretEnvelopeProtector.DecryptDeployBytes(
+            pfxBytes = MediaSecretEnvelopeProtector.DecryptBytes(
                 request.Settings.CertificatePfxSecret!,
-                deploymentKey);
-            pfxPassword = DeployMediaSecretEnvelopeProtector.DecryptDeployChars(
+                deploymentKey,
+                MediaSecretEnvelopeProtector.DeployKeyIds);
+            pfxPassword = MediaSecretEnvelopeProtector.DecryptChars(
                 request.Settings.CertificatePfxPasswordSecret!,
-                deploymentKey);
+                deploymentKey,
+                MediaSecretEnvelopeProtector.DeployKeyIds);
 
             progress?.Report(new AutopilotHardwareHashUploadProgress(
                 "Authenticating Autopilot hardware hash upload...",

@@ -7,8 +7,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Linq;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Deploy.Models.Configuration;
-using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Security;
 using Foundry.Deploy.Services.System;
@@ -895,7 +895,7 @@ public sealed class WindowsDeploymentServiceTests
     {
         using var workspace = new TemporaryWorkspace();
         string windowsRoot = CreateWindowsRoot(workspace);
-        byte[] key = RandomNumberGenerator.GetBytes(DeployMediaSecretEnvelopeProtector.KeySizeBytes);
+        byte[] key = RandomNumberGenerator.GetBytes(MediaSecretEnvelopeProtector.KeySizeBytes);
         const string plaintext = "Admin-Password-DoNotLeak";
         var keyProvider = new StaticDeploymentSecretKeyProvider(key);
         var service = new WindowsDeploymentService(
@@ -935,7 +935,7 @@ public sealed class WindowsDeploymentServiceTests
     {
         using var workspace = new TemporaryWorkspace();
         string windowsRoot = CreateWindowsRoot(workspace);
-        byte[] key = RandomNumberGenerator.GetBytes(DeployMediaSecretEnvelopeProtector.KeySizeBytes);
+        byte[] key = RandomNumberGenerator.GetBytes(MediaSecretEnvelopeProtector.KeySizeBytes);
         const string plaintext = "Standard-Password-DoNotLeak";
         var service = new WindowsDeploymentService(
             new NoOpProcessRunner(),
@@ -1056,7 +1056,7 @@ public sealed class WindowsDeploymentServiceTests
     public async Task ConfigureOfflineOobeAsync_WhenEncryptedPasswordHasNoKeyProvider_ThrowsWithoutLeakingPassword()
     {
         using var workspace = new TemporaryWorkspace();
-        byte[] key = RandomNumberGenerator.GetBytes(DeployMediaSecretEnvelopeProtector.KeySizeBytes);
+        byte[] key = RandomNumberGenerator.GetBytes(MediaSecretEnvelopeProtector.KeySizeBytes);
         const string plaintext = "Missing-Key-Password-DoNotLeak";
         var service = new WindowsDeploymentService(new NoOpProcessRunner(), NullLogger<WindowsDeploymentService>.Instance, new StubWindowsImageInfoReader());
 
@@ -1154,7 +1154,7 @@ public sealed class WindowsDeploymentServiceTests
     private static WindowsImageInfo Image(int index, string edition, ulong size = 16136958857, string name = "Windows", string architecture = "x64")
         => new(index, name, edition, size, architecture, new Version(10, 0, 26200));
 
-    private static Foundry.Deploy.Models.Configuration.SecretEnvelope EncryptSecret(string plaintext, byte[] key)
+    private static SecretEnvelope EncryptSecret(string plaintext, byte[] key)
     {
         byte[] payload = Encoding.UTF8.GetBytes(plaintext);
         byte[] nonce = RandomNumberGenerator.GetBytes(12);
@@ -1164,11 +1164,11 @@ public sealed class WindowsDeploymentServiceTests
         aes.Encrypt(nonce, payload, ciphertext, tag);
         CryptographicOperations.ZeroMemory(payload);
 
-        return new Foundry.Deploy.Models.Configuration.SecretEnvelope
+        return new SecretEnvelope
         {
-            Kind = DeployMediaSecretEnvelopeProtector.Kind,
-            Algorithm = DeployMediaSecretEnvelopeProtector.Algorithm,
-            KeyId = DeployMediaSecretEnvelopeProtector.DeploymentKeyId,
+            Kind = MediaSecretEnvelopeProtector.Kind,
+            Algorithm = MediaSecretEnvelopeProtector.Algorithm,
+            KeyId = MediaSecretEnvelopeProtector.DeploymentKeyId,
             Nonce = Base64UrlEncode(nonce),
             Tag = Base64UrlEncode(tag),
             Ciphertext = Base64UrlEncode(ciphertext)

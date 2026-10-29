@@ -8,11 +8,10 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Foundry.Core.Models.Network;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Deploy.Services.Deployment.PreOobe;
 using Microsoft.Extensions.Logging;
 using CoreDeployNetworkProfileRoamingSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkProfileRoamingSettings;
-using CoreMediaSecretEnvelopeProtector = Foundry.Core.Services.Autopilot.MediaSecretEnvelopeProtector;
-using CoreSecretEnvelope = Foundry.Core.Models.Configuration.SecretEnvelope;
 
 namespace Foundry.Deploy.Services.Network;
 
@@ -309,7 +308,7 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         }
 
         await using FileStream stream = File.OpenRead(passwordSecretPath);
-        CoreSecretEnvelope? envelope = await JsonSerializer.DeserializeAsync<CoreSecretEnvelope>(
+        SecretEnvelope? envelope = await JsonSerializer.DeserializeAsync<SecretEnvelope>(
                 stream,
                 JsonOptions,
                 cancellationToken)
@@ -319,7 +318,7 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
             return null;
         }
 
-        string password = CoreMediaSecretEnvelopeProtector.DecryptString(envelope, mediaSecretKey);
+        string password = MediaSecretEnvelopeProtector.DecryptString(envelope, mediaSecretKey);
         string passwordRelativePath = ToStagedDataRelativePath(certificate.RelativePath + ".password");
         dataFiles.Add(new PreOobeScriptDataFile
         {

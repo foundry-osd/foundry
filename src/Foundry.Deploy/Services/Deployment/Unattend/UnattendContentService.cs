@@ -5,12 +5,13 @@
 using System.IO;
 using System.Security.Cryptography;
 using System.Text.Json;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
-using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Security;
+using SecretEnvelope = Foundry.Core.Models.Configuration.SecretEnvelope;
 
 namespace Foundry.Deploy.Services.Deployment.Unattend;
 
@@ -53,8 +54,8 @@ public sealed class UnattendContentService(IDeploymentSecretKeySession keySessio
             SecretEnvelope envelope = JsonSerializer.Deserialize<SecretEnvelope>(envelopeBytes,
                 ConfigurationJsonDefaults.SerializerOptions) ?? throw new InvalidDataException();
             key = keySession.GetKeyCopy();
-            content = DeployMediaSecretEnvelopeProtector.DecryptBytes(envelope, key,
-                DeployMediaSecretEnvelopeProtector.DeploymentKeyId);
+            content = MediaSecretEnvelopeProtector.DecryptBytes(envelope, key,
+                MediaSecretEnvelopeProtector.DeploymentKeyId);
             if (!string.Equals(Convert.ToHexString(SHA256.HashData(content)), selection.File.ContentHash,
                 StringComparison.OrdinalIgnoreCase))
             {
