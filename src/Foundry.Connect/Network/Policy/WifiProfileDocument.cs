@@ -14,7 +14,7 @@ namespace Foundry.Connect.Network.Policy;
 /// </summary>
 /// <remarks>
 /// The XML may contain key material. This is a class, not a record, so no generated member prints it, and
-/// <see cref="ToString"/> never shows it (T15). <see cref="Clear"/> drops the reference at exit (L2-6); the string
+/// <see cref="ToString"/> never shows it. <see cref="Clear"/> drops the reference at exit; the string
 /// itself cannot be zeroed.
 /// </remarks>
 public sealed class WifiProfileDocument

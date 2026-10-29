@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging;
 namespace Foundry.Connect.ViewModels;
 
 /// <summary>
-/// D3 automatic continue: a 10 second countdown once the internet is online, paused for the session by a networking
+/// Automatic continue: a 10 second countdown once the internet is online, paused for the session by a networking
 /// interaction (and never started once one happened), cancelled by "Stay here", and ended by the final probe of
 /// <see cref="ISuccessfulExitService"/>.
 /// </summary>
@@ -21,8 +21,8 @@ namespace Foundry.Connect.ViewModels;
 /// <see cref="AutoContinuePolicy"/> decides every transition; this view model owns the clock and the only timer, a one
 /// second tick created through the injected <see cref="TimeProvider"/> and marshaled through <see cref="IUiDispatcher"/>.
 /// A failed final probe returns to <see cref="AutoContinueStatus.Idle"/>, so the next online state starts a fresh
-/// countdown. In live mode the countdown runs only when <c>isAutoContinueEnabled</c> is set (no debugger attached,
-/// L3-6); under a debug scenario it always runs, and its end and Continue never probe or exit (D16). Continue stays
+/// countdown. In live mode the countdown runs only when <c>isAutoContinueEnabled</c> is set (no debugger attached);
+/// under a debug scenario it always runs, and its end and Continue never probe or exit. Continue stays
 /// available whenever the internet is online and no exit was requested; only one final probe runs at a time, and a probe
 /// that throws counts as a failed probe. Every member runs on the UI thread; timer and completion callbacks that arrive
 /// after <see cref="Dispose"/> are ignored.
@@ -130,7 +130,7 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
     /// <summary>
     /// Gets whether Continue is the default button. It stops being the default for the rest of the session after the
     /// first networking interaction, whatever the countdown state ("Stay here" included), so an Enter pressed in the Wi-Fi
-    /// panel never leaves for Deploy (L3-3).
+    /// panel never leaves for Deploy.
     /// </summary>
     public bool IsContinueDefault => CanContinue && !_hasNetworkingInteraction;
 
@@ -197,7 +197,7 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
     }
 
     /// <summary>
-    /// Records a networking interaction for the session (D3, L3-4): a running countdown pauses, a later online state
+    /// Records a networking interaction for the session: a running countdown pauses, a later online state
     /// does not start one, and Continue stops being the default button.
     /// </summary>
     public void OnNetworkingInteraction()

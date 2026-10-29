@@ -5,7 +5,7 @@
 namespace Foundry.Connect.Network;
 
 /// <summary>
-/// Read-only session history of successful Wi-Fi connections (D5), kept by the connection coordinator.
+/// Read-only session history of successful Wi-Fi connections, kept by the connection coordinator.
 /// </summary>
 public interface IWifiConnectionHistory
 {

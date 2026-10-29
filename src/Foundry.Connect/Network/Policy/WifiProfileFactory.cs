@@ -43,7 +43,7 @@ public sealed record WifiProfileBuildResult(WifiProfileDocument? Profile, WifiPr
 }
 
 /// <summary>
-/// Builds WLAN profiles for manual connections and provisioned open or personal networks (T9, NET-15).
+/// Builds WLAN profiles for manual connections and provisioned open or personal networks.
 /// </summary>
 /// <remarks>
 /// The profile XML is written with an <see cref="XmlWriter"/>, never by concatenating the SSID or the passphrase.

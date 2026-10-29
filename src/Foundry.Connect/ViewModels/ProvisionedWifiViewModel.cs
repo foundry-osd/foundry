@@ -13,12 +13,12 @@ namespace Foundry.Connect.ViewModels;
 
 /// <summary>
 /// The provisioned Wi-Fi card: the profile from the media configuration, its status, connect and disconnect, and the
-/// D9 unavailable state with its reason, and the locked state whose Connect button asks for the deployment password (D11).
+/// unavailable state with its reason, and the locked state whose Connect button asks for the deployment password.
 /// </summary>
 /// <remarks>
 /// Every text is derived from the typed <see cref="WifiState"/> and resolved on demand, so a language change only needs
-/// <see cref="RefreshTexts"/> (UI-05). The security label comes from the configured security type; the WLAN template is
-/// never read (UI-04, L3-15). Commands go through <see cref="ConnectNetworkActions"/>, which reports the interaction and
+/// <see cref="RefreshTexts"/>. The security label comes from the configured security type; the WLAN template is
+/// never read. Commands go through <see cref="ConnectNetworkActions"/>, which reports the interaction and
 /// skips the coordinator under a debug scenario. The view model never logs: SSIDs and profile names must stay out of
 /// every log. Every member runs on the UI thread; a command that finishes after <see cref="Dispose"/> changes nothing.
 /// </remarks>
@@ -48,7 +48,7 @@ public sealed partial class ProvisionedWifiViewModel : LocalizedViewModelBase
     }
 
     /// <summary>
-    /// Gets whether the card is shown: a profile is configured and Wi-Fi works on this machine (L3-7).
+    /// Gets whether the card is shown: a profile is configured and Wi-Fi works on this machine.
     /// </summary>
     public bool IsVisible => _wifi.Provisioned.Status != ProvisionedWifiStatus.NotConfigured && _wifi.Availability == WifiAvailability.Available;
 
@@ -81,7 +81,7 @@ public sealed partial class ProvisionedWifiViewModel : LocalizedViewModelBase
     public bool IsConnecting => _activeOperation == NetworkOperationKind.ConnectProvisionedWifi;
 
     /// <summary>
-    /// Gets whether the profile is configured but cannot be used (D9).
+    /// Gets whether the profile is configured but cannot be used.
     /// </summary>
     public bool IsUnavailable => _wifi.Provisioned.Status == ProvisionedWifiStatus.Unavailable;
 
@@ -96,7 +96,7 @@ public sealed partial class ProvisionedWifiViewModel : LocalizedViewModelBase
     public bool IsLocked => _wifi.Provisioned.Status == ProvisionedWifiStatus.Locked;
 
     /// <summary>
-    /// Gets the explanation of a locked profile, which tells whether the password was already declined (L4-10), or an
+    /// Gets the explanation of a locked profile, which tells whether the password was already declined, or an
     /// empty string.
     /// </summary>
     public string LockedText => IsLocked

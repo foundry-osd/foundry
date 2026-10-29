@@ -21,10 +21,10 @@ public sealed record NcsiEndpoint(Uri Uri, string ExpectedBody);
 public sealed record ProbeObservation(NcsiEndpoint Endpoint, bool Responded, int? StatusCode, string? Body);
 
 /// <summary>
-/// Decides the internet status from the endpoint results of one probe (D2, L2-8).
+/// Decides the internet status from the endpoint results of one probe.
 /// </summary>
 /// <remarks>
-/// The configured <c>internetProbe</c> section is deliberately not used (D12). Only an exact
+/// The configured <c>internetProbe</c> section is deliberately not used. Only an exact
 /// <c>200</c> answer with the expected body proves the internet; every other answer, including a redirect,
 /// a proxy authentication request or an HTML sign-in page, means something intercepts web traffic.
 /// </remarks>

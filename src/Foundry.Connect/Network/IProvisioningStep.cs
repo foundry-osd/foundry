@@ -13,7 +13,7 @@ namespace Foundry.Connect.Network;
 /// <param name="Wifi">Provisioned Wi-Fi profile state.</param>
 /// <param name="WifiProfile">
 /// The provisioned profile document when <paramref name="Wifi"/> is <see cref="ProvisionedWifiStatus.Ready"/>. It is
-/// kept until exit so the profile can be set again on a Wi-Fi adapter that appears later (L2-6).
+/// kept until exit so the profile can be set again on a Wi-Fi adapter that appears later.
 /// </param>
 /// <param name="Failures">Failures met while provisioning, in order; the coordinator logs and reports them.</param>
 public sealed record ProvisioningOutcome(Dot1xState Wired, ProvisionedWifiState Wifi, WifiProfileDocument? WifiProfile, IReadOnlyList<NetworkFailureCode> Failures)
@@ -46,7 +46,7 @@ public interface IProvisioningStep
     /// <summary>
     /// Re-runs only the Wi-Fi part when the cached outcome's Wi-Fi is <see cref="ProvisionedWifiStatus.Locked"/>, after the
     /// deployment password unlocked the secrets, and makes the merged outcome the one every later call returns. The wired
-    /// part is never re-run: a wired secret the unlock made readable is zeroed and the wired state is kept (L4-10).
+    /// part is never re-run: a wired secret the unlock made readable is zeroed and the wired state is kept.
     /// </summary>
     /// <param name="cancellationToken">Caller cancellation.</param>
     /// <returns>

@@ -14,8 +14,8 @@ namespace Foundry.Connect.Configuration;
 /// The Core runtime configuration carries secrets only as encrypted envelopes. Decrypted values and the legacy
 /// plaintext Wi-Fi passphrase of older media live here instead, so they never round-trip through the shared
 /// configuration contract. Each secret has its own availability: one that cannot be read disables only the feature
-/// that needs it (D9). Secrets protected by the deployment key stay <see cref="ConnectSecretStatus.Locked"/> until one
-/// <see cref="Unlock"/> decrypts all of them (L4-12). This is deliberately a class whose <c>ToString</c> prints no value.
+/// that needs it. Secrets protected by the deployment key stay <see cref="ConnectSecretStatus.Locked"/> until one
+/// <see cref="Unlock"/> decrypts all of them. This is deliberately a class whose <c>ToString</c> prints no value.
 /// </remarks>
 public sealed class ConnectRuntimeSecrets
 {
@@ -106,7 +106,7 @@ public sealed class ConnectRuntimeSecrets
 
     /// <summary>
     /// Gets whether the technician cancelled the deployment password prompt during this session; locked secrets then stay locked
-    /// and are not prompted for again automatically (L4-10).
+    /// and are not prompted for again automatically.
     /// </summary>
     public bool IsUnlockDeclined => _isUnlockDeclined;
 

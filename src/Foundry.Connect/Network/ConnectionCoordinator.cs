@@ -14,14 +14,14 @@ namespace Foundry.Connect.Network;
 /// <remarks>
 /// Mode, provisioning outcome, last observation, operation data and the automatic-attempt backoff live behind one
 /// lock; the gate (<see cref="SemaphoreSlim"/> with one slot) admits one operation at a time. A manual request
-/// switches to <see cref="ConnectionMode.Manual"/> and publishes before it waits for the gate (D4, NET-01). An
+/// switches to <see cref="ConnectionMode.Manual"/> and publishes before it waits for the gate. An
 /// automatic attempt never waits: it starts only when the gate is free, and the policy is evaluated while the gate is
 /// held, so a manual request that arrived first always wins. Operation bodies run on the thread pool, never on the
 /// caller's (UI) thread, because the WLAN calls block. Each operation releases the gate, then requests a refresh.
 /// Every automatic attempt counts toward the backoff until an observation shows the provisioned connection online, so a
 /// network that associates but never reaches the internet is retried ever more slowly. A provisioned Wi-Fi locked by the
 /// deployment password never starts an attempt; the coordinator raises <see cref="UnlockRequested"/> once instead when the
-/// attempt would otherwise run (L4-11), and <see cref="RefreshProvisionedWifiAsync"/> builds the profile after the unlock.
+/// attempt would otherwise run, and <see cref="RefreshProvisionedWifiAsync"/> builds the profile after the unlock.
 /// </remarks>
 public sealed class ConnectionCoordinator : IConnectionCoordinator, IWifiConnectionHistory, IDisposable
 {
@@ -421,7 +421,7 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IWifiConnect
             return OperationOutcome.Failed(Kind, NetworkFailureCode.NoWirelessAdapter);
         }
 
-        // WLAN profiles are per interface: an adapter that appeared after provisioning gets the profile now (L2-6).
+        // WLAN profiles are per interface: an adapter that appeared after provisioning gets the profile now.
         if (!_wlan.HasProfile(target, profile.Name))
         {
             WlanOperationResult set = _wlan.SetProfile(target, profile.Xml);
@@ -575,8 +575,8 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IWifiConnect
             : OperationOutcome.Failed(NetworkOperationKind.ApplyProvisioning, failures[0]);
     }
 
-    // Decides and records the at-most-once unlock request under the state lock (L4-11). A cancelled prompt counts as
-    // already requested, so a technician who declined at the wired startup prompt is never prompted again (L4-10).
+    // Decides and records the at-most-once unlock request under the state lock. A cancelled prompt counts as
+    // already requested, so a technician who declined at the wired startup prompt is never prompted again.
     private bool TryClaimUnlockRequest()
     {
         lock (_stateLock)
@@ -654,7 +654,7 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IWifiConnect
 
     // Windows joins an auto-mode provisioned profile by itself, so no Connect operation records that connection.
     // Connect provisioned the profile this session, so a connection seen for the first time, or again after another
-    // state, counts as a success to roam (D5). A connection that stays up is not re-recorded on every poll.
+    // state, counts as a success to roam. A connection that stays up is not re-recorded on every poll.
     private void RecordObservedProvisionedConnection(WifiConnection connection, WifiConnection? previous)
     {
         lock (_stateLock)

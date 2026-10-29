@@ -19,7 +19,7 @@ namespace Foundry.Core.Services.Configuration;
 /// </summary>
 /// <remarks>
 /// <para>
-/// Network secrets are protected by the deployment key only (D10): a personal Wi-Fi passphrase and a client certificate
+/// Network secrets are protected by the deployment key only: a personal Wi-Fi passphrase and a client certificate
 /// password become <see cref="MediaSecretEnvelopeProtector.DeploymentKeyId"/> envelopes, and a client PFX and an enterprise
 /// Wi-Fi template that contains <c>keyMaterial</c> (or that cannot be read to tell) are staged as <c>&lt;file name&gt;.encrypted</c>,
 /// a <see cref="SecretEnvelope"/> JSON document of the file bytes. Trusted root certificates and wired profiles stay plain files;
@@ -42,7 +42,7 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
     private const string WifiCertificateFolder = @"Network\Certificates\Wifi";
     private const string EncryptedFileSuffix = ".encrypted";
 
-    // Runtime fields schema 6 no longer writes (T7). Connect still reads them from older media, where they hold the values the
+    // Runtime fields schema 6 no longer writes. Connect still reads them from older media, where they hold the values the
     // runtime records default to, so they are removed only from the serialized output.
     private static readonly string[] OmittedDot1xProperties = ["allowRuntimeCredentials", "authenticationMode", "requiresCertificate"];
     private static readonly string[] OmittedWifiProperties = ["allowRuntimeCredentials", "enterpriseAuthenticationMode", "requiresCertificate"];

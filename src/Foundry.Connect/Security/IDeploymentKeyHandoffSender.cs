@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect.Security;
 
-/// <summary>Hands the unlocked deployment key to Foundry Bootstrap, which serves it to Foundry Deploy (L4-1, L4-2).</summary>
+/// <summary>Hands the unlocked deployment key to Foundry Bootstrap, which serves it to Foundry Deploy.</summary>
 public interface IDeploymentKeyHandoffSender
 {
     /// <summary>Writes the deployment key to the Bootstrap hand-off pipe, at most once per process.</summary>
@@ -24,7 +24,7 @@ public interface IDeploymentKeyHandoffSender
 /// Sends the deployment key through the pipe named by <see cref="DeploymentKeyHandoff.SendPipeEnvironmentVariable"/>.
 /// </summary>
 /// <remarks>
-/// The variable is read once at construction and removed from the process environment right away (L4-19), so no child
+/// The variable is read once at construction and removed from the process environment right away, so no child
 /// started by Connect (for example <c>netsh</c>) inherits the pipe name; the composition root constructs this
 /// sender with the main window graph, before provisioning starts. The pipe name is never logged.
 /// </remarks>

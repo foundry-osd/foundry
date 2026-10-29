@@ -5,7 +5,7 @@
 namespace Foundry.Deploy.Services.Security;
 
 /// <summary>
-/// Receives the deployment key Foundry Bootstrap relays from Foundry Connect after a successful unlock (L4-1, L4-2).
+/// Receives the deployment key Foundry Bootstrap relays from Foundry Connect after a successful unlock.
 /// </summary>
 /// <remarks>
 /// A received key is not trusted: <see cref="DeploymentAccessGate"/> accepts it only when the media key check

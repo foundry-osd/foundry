@@ -10,8 +10,8 @@ namespace Foundry.Connect.ViewModels;
 
 /// <summary>
 /// The page's only path to the coordinator and to the deployment password prompt. Every technician action first reports a
-/// networking interaction (D3 pause); while a debug scenario is simulated every action is skipped and returns NoChange
-/// (D16, L3-6).
+/// networking interaction, which pauses the countdown; while a debug scenario is simulated every action is skipped and returns
+/// NoChange.
 /// </summary>
 /// <remarks>
 /// <para>
@@ -84,8 +84,8 @@ public sealed class ConnectNetworkActions(IConnectionCoordinator coordinator, IC
         Run(NetworkOperationKind.DisconnectWifi, () => _coordinator.DisconnectWifiAsync(cancellationToken));
 
     /// <summary>
-    /// Asks for the deployment password at startup when wired 802.1X needs a locked secret (L4-12). Call it before the
-    /// provisioning, once the main window is shown; a cancel leaves wired 802.1X unavailable for the session (L4-10).
+    /// Asks for the deployment password at startup when wired 802.1X needs a locked secret. Call it before the
+    /// provisioning, once the main window is shown; a cancel leaves wired 802.1X unavailable for the session.
     /// </summary>
     /// <param name="cancellationToken">Caller cancellation.</param>
     /// <returns><see cref="ConnectUnlockResult.NotRequired"/> without a prompt unless a wired secret is locked; else the unlock outcome.</returns>
@@ -103,7 +103,7 @@ public sealed class ConnectNetworkActions(IConnectionCoordinator coordinator, IC
 
     /// <summary>
     /// Asks for the deployment password because Ethernet gives no internet and the locked provisioned Wi-Fi is needed
-    /// (<see cref="IConnectionCoordinator.UnlockRequested"/>, L4-11), then refreshes the provisioned Wi-Fi so the page shows
+    /// (<see cref="IConnectionCoordinator.UnlockRequested"/>), then refreshes the provisioned Wi-Fi so the page shows
     /// it ready, or locked with the "not entered" text after a cancel.
     /// </summary>
     /// <param name="cancellationToken">Caller cancellation.</param>

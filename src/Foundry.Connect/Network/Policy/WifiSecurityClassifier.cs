@@ -29,7 +29,7 @@ public enum WifiProfileSecurity
 }
 
 /// <summary>
-/// Classifies Wi-Fi security from native algorithms instead of display labels (T9, NET-12).
+/// Classifies Wi-Fi security from native algorithms instead of display labels.
 /// </summary>
 public static class WifiSecurityClassifier
 {
@@ -64,7 +64,7 @@ public static class WifiSecurityClassifier
 
     /// <summary>
     /// Returns the profile security for a discovered network, or <see langword="null"/> when the network cannot be
-    /// connected from the list (WEP, WPA1, enterprise, unknown; L2-14).
+    /// connected from the list (WEP, WPA1, enterprise, unknown).
     /// </summary>
     /// <param name="security">Classified security type of a discovered network.</param>
     /// <returns>The profile security, or <see langword="null"/>.</returns>

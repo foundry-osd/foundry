@@ -24,7 +24,7 @@ namespace Foundry.Connect.ViewModels;
 /// </summary>
 /// <remarks>
 /// The export is sanitized by default; the raw export asks for an explicit sensitive-data confirmation first. The
-/// dialogs and the folder picker are shown from here, as before the page rework (L3-16). Disposing the view model
+/// dialogs and the folder picker are shown from here. Disposing the view model
 /// cancels a running export.
 /// </remarks>
 public sealed partial class DiagnosticsViewModel : LocalizedViewModelBase

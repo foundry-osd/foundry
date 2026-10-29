@@ -12,7 +12,7 @@ namespace Foundry.Connect.Network.Native;
 /// Native Wifi implementation of <see cref="IWlanClient"/>.
 /// </summary>
 /// <remarks>
-/// Every operation opens and closes its own client handle (L2-11). WLAN failures are returned as results and logged at
+/// Every operation opens and closes its own client handle. WLAN failures are returned as results and logged at
 /// Debug only; the connection coordinator owns Information and Warning logging. SSIDs and profile XML are never logged.
 /// </remarks>
 public sealed class WlanClient : IWlanClient

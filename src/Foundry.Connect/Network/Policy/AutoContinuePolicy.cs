@@ -47,7 +47,7 @@ public sealed record AutoContinueState(AutoContinueStatus Status, DateTimeOffset
 }
 
 /// <summary>
-/// D3: a 10 second countdown starts once the internet is online; an interaction pauses it for the session (or keeps it
+/// A 10 second countdown starts once the internet is online; an interaction pauses it for the session (or keeps it
 /// from starting when it happened before), "Stay here" cancels it, and losing the internet resets it. Pure transitions:
 /// the caller owns the clock, the timer and the session interaction flag.
 /// </summary>

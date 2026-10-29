@@ -11,12 +11,12 @@ namespace Foundry.Connect.ViewModels;
 
 /// <summary>
 /// One row of the Wi-Fi list, identified by its SSID bytes. The row is reused across observations so the list
-/// selection keeps the same instance (T12).
+/// selection keeps the same instance.
 /// </summary>
 /// <remarks>
 /// A row that is no longer visible keeps its last seen security and reports a signal of 0 (the selected network stays
-/// listed as "Not in range", L3-9). Whether the network can be joined from the list comes from
-/// <see cref="WifiSecurityClassifier.ToProfileSecurity"/> (L3-8). The row holds no secret; every member runs on the UI
+/// listed as "Not in range"). Whether the network can be joined from the list comes from
+/// <see cref="WifiSecurityClassifier.ToProfileSecurity"/>. The row holds no secret; every member runs on the UI
 /// thread.
 /// </remarks>
 public sealed class WifiNetworkItemViewModel : ObservableObject

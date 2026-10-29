@@ -113,7 +113,7 @@ public enum Dot1xFailureReason
 
     /// <summary>
     /// The wired secrets are protected by the deployment password, which was not entered; wired 802.1X stays unavailable
-    /// for the session (L4-10).
+    /// for the session.
     /// </summary>
     UnlockCancelled
 }
@@ -227,7 +227,7 @@ public enum ProvisionedWifiUnavailableReason
 
     /// <summary>
     /// The deployment password prompt was cancelled; the profile stays <see cref="ProvisionedWifiStatus.Locked"/> and is
-    /// never prompted for again automatically (L4-10).
+    /// never prompted for again automatically.
     /// </summary>
     UnlockCancelled
 }

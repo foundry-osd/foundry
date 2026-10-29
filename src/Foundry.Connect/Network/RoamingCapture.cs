@@ -16,13 +16,13 @@ namespace Foundry.Connect.Network;
 
 /// <summary>
 /// Writes the network profiles selected by <see cref="RoamingSelectionPolicy"/> to the roaming artifact at successful
-/// exit (D5).
+/// exit.
 /// </summary>
 public interface IRoamingCapture
 {
     /// <summary>
-    /// Captures the selected Wi-Fi and wired 802.1X profiles. A failure is a Warning and never changes the exit outcome
-    /// (spec 5.5); a Wi-Fi profile that cannot be prepared is skipped with its own Warning and the others are still
+    /// Captures the selected Wi-Fi and wired 802.1X profiles. A failure is a Warning and never changes the exit outcome;
+    /// a Wi-Fi profile that cannot be prepared is skipped with its own Warning and the others are still
     /// captured. Only a caller cancellation throws (<see cref="OperationCanceledException"/>).
     /// </summary>
     /// <param name="state">Network state at exit.</param>
@@ -37,7 +37,7 @@ public interface IRoamingCapture
 /// <remarks>
 /// A provisioned enterprise Wi-Fi profile is roamed from the media template with its certificates (the client PFX, then
 /// the trusted roots). A template staged encrypted is roamed from the profile document provisioning decrypted and keeps
-/// until exit (L4-15, L2-6); a protected client PFX is roamed as its encrypted file with its deployment-keyed password
+/// until exit; a protected client PFX is roamed as its encrypted file with its deployment-keyed password
 /// envelope. Every other Wi-Fi profile is read back from WLAN with its key in plain text; a profile that cannot be read, or
 /// whose key is still protected, is skipped with one Warning. The SSID, the profile name, file names and the profile XML
 /// are never logged (the remote Logs stream mirrors every property).

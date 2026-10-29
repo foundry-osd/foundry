@@ -718,7 +718,7 @@ public sealed class TelemetryEventPropertyPolicyTests
     [Fact]
     public void Sanitize_ForConnectSessionReady_StillAllowsLayoutModeFromOlderMedia()
     {
-        // Boot media built before the single page still send it (spec T17).
+        // Boot media built before the single page still send it.
         Dictionary<string, object?> input = new()
         {
             ["boot_media_target"] = "usb",

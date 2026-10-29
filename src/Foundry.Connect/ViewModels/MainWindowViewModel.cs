@@ -27,7 +27,7 @@ namespace Foundry.Connect.ViewModels;
 /// </summary>
 /// <remarks>
 /// The shell holds no network state: the page renders it and owns the startup sequence. The Debug menu and its
-/// command exist only in debug safety mode (D16): outside it the menu is hidden and the command refuses to run, so a
+/// command exist only in debug safety mode: outside it the menu is hidden and the command refuses to run, so a
 /// simulated state can never be shown in a shipped runtime. The page, its children and the diagnostics are DI
 /// singletons disposed by the container, not by <see cref="Dispose"/>.
 /// </remarks>
@@ -160,7 +160,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             : "BootMedia.UpdateRecommendedToolTip");
 
     /// <summary>
-    /// Gets whether the Debug menu is shown: only in debug safety mode, a Debug build with a debugger attached (D16).
+    /// Gets whether the Debug menu is shown: only in debug safety mode, a Debug build with a debugger attached.
     /// </summary>
     public bool IsDebugMenuVisible { get; }
 

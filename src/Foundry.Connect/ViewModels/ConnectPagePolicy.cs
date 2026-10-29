@@ -70,7 +70,7 @@ public enum ConnectFocusTarget
 }
 
 /// <summary>
-/// Page-level decisions over the typed network state (L3-2, L3-11): the page status, the blocked reason and where the
+/// Page-level decisions over the typed network state: the page status, the blocked reason and where the
 /// focus goes. Pure functions: they read the state and never change it.
 /// </summary>
 public static class ConnectPagePolicy

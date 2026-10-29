@@ -122,7 +122,7 @@ public sealed class ConnectionPolicyTests
     [Fact]
     public void IsProvisionedNetworkVisible_WhenLockedProfileHasNoSsid_IsFalse()
     {
-        // R4: a locked enterprise profile has no readable SSID; only the Connect button unlocks it.
+        // A locked enterprise profile has no readable SSID; only the Connect button unlocks it.
         WifiState wifi = WifiWith(new(ProvisionedWifiStatus.Locked, Ssid: null, IsEnterprise: true), Visible("Other"));
 
         Assert.False(ConnectionPolicy.IsProvisionedNetworkVisible(wifi));

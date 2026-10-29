@@ -29,7 +29,7 @@ public interface IConnectivityProbe
 
 /// <summary>
 /// NCSI-style probe: both <see cref="ConnectivityEvaluator.Endpoints"/> are requested in parallel without following
-/// redirects, so a captive portal can never look like the internet (D2, NET-02).
+/// redirects, so a captive portal can never look like the internet.
 /// </summary>
 /// <remarks>
 /// The client has no <see cref="HttpClient.Timeout"/> (it would surface as a <see cref="TaskCanceledException"/> that is hard
@@ -157,7 +157,7 @@ public sealed class ConnectivityProbe : IConnectivityProbe, IDisposable
         }
         catch (Exception exception) when (IsBodyReadFailure(exception, callerToken))
         {
-            // Headers arrived, so something answered: an unreadable body is an unexpected body (CaptivePortal, L2-8),
+            // Headers arrived, so something answered: an unreadable body is an unexpected body (CaptivePortal),
             // never "no response".
             body = null;
         }

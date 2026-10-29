@@ -7,7 +7,7 @@ using Foundry.Connect.Network.Native;
 namespace Foundry.Connect.Network.Policy;
 
 /// <summary>
-/// Builds the list of Wi-Fi networks shown to the technician (D6, NET-12).
+/// Builds the list of Wi-Fi networks shown to the technician.
 /// </summary>
 public static class WifiNetworkListPolicy
 {

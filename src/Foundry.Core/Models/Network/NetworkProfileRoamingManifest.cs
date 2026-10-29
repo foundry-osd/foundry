@@ -119,7 +119,7 @@ public sealed record NetworkProfileRoamingCertificate
 
     /// <summary>
     /// Gets whether the copied file is a <see cref="Configuration.SecretEnvelope"/> JSON document encrypted with the
-    /// deployment key (a client PFX staged encrypted, L4-15) instead of the PFX itself; omitted when false.
+    /// deployment key (a client PFX staged encrypted) instead of the PFX itself; omitted when false.
     /// </summary>
     /// <remarks>Foundry.Deploy decrypts it with the unlocked deployment key before staging the PFX.</remarks>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]

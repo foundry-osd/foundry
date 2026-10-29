@@ -32,7 +32,7 @@ public sealed record AutomaticConnectInput(
     DateTimeOffset Now);
 
 /// <summary>
-/// D4: the provisioned Wi-Fi is retried automatically until the technician acts manually.
+/// The provisioned Wi-Fi is retried automatically until the technician acts manually.
 /// </summary>
 public static class ConnectionPolicy
 {
@@ -74,7 +74,7 @@ public static class ConnectionPolicy
     /// Gets whether the provisioned network can be targeted from the current scan list. A ready profile without an SSID
     /// (an enterprise template that carries none) cannot be matched against the list, so it counts as reachable and
     /// the attempt decides. A locked profile counts only when its configured SSID is listed: a locked enterprise template
-    /// has no readable SSID, so only the Connect button unlocks it (ruling R4, L4-11). A non-broadcast profile is handled
+    /// has no readable SSID, so only the Connect button unlocks it. A non-broadcast profile is handled
     /// separately through <see cref="AutomaticConnectInput.ProvisionedProfileIsHidden"/>.
     /// </summary>
     /// <param name="wifi">The current wireless state.</param>
@@ -97,7 +97,7 @@ public static class ConnectionPolicy
 
     /// <summary>
     /// Decides whether to ask for the deployment password automatically: at most once per session, and only when the
-    /// automatic provisioned connect would run if the profile were not locked (L4-11). Ethernet that reaches the internet
+    /// automatic provisioned connect would run if the profile were not locked. Ethernet that reaches the internet
     /// (or a check that has not finished) never prompts.
     /// </summary>
     /// <param name="input">The facts to decide on; <see cref="AutomaticConnectInput.ProvisionedNetworkVisible"/> comes from <see cref="IsProvisionedNetworkVisible"/>.</param>

@@ -107,7 +107,7 @@ public interface ICertificateInstaller
     CertificateInstallResult Install(string certificatePath, ReadOnlySpan<char> pfxPassword);
 
     /// <summary>
-    /// Imports PKCS#12 content decrypted in memory (a client PFX staged encrypted, L4-5) into <c>LocalMachine\My</c>; the
+    /// Imports PKCS#12 content decrypted in memory (a client PFX staged encrypted) into <c>LocalMachine\My</c>; the
     /// password may be empty. Idempotent by thumbprint. The caller keeps and zeroes both buffers. Never throws; a failure is
     /// <see cref="CertificateInstallStatus.Failed"/>.
     /// </summary>
@@ -126,7 +126,7 @@ internal delegate X509Certificate2 Pkcs12ContentLoader(ReadOnlySpan<byte> conten
 
 /// <summary>
 /// <see cref="ICertificateInstaller"/> that loads with <see cref="X509CertificateLoader"/>, adds a certificate once per process
-/// and per store (T10), and disposes every loaded instance.
+/// and per store, and disposes every loaded instance.
 /// </summary>
 /// <remarks>
 /// A PFX, from a file or from decrypted content, is first loaded with <see cref="X509KeyStorageFlags.EphemeralKeySet"/> only to

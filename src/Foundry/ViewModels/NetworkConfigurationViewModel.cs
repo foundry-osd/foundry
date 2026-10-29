@@ -755,7 +755,7 @@ public sealed partial class NetworkConfigurationViewModel : ObservableObject, ID
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or InvalidDataException or ArgumentException or NotSupportedException)
         {
-            // No exception object: its message names the picked file (logging ruling).
+            // No exception object: its message names the picked file.
             logger.Warning(
                 "A selected network file could not be imported into the authoring file library. FileKind={FileKind}, FailureType={FailureType}",
                 fileKind,

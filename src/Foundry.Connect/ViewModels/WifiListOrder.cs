@@ -7,7 +7,7 @@ using Foundry.Connect.Network;
 namespace Foundry.Connect.ViewModels;
 
 /// <summary>
-/// T12: the list keeps the technician's view stable while a network is selected (L3-9).
+/// The list keeps the technician's view stable while a network is selected.
 /// </summary>
 /// <remarks>
 /// SSIDs are compared by bytes (<see cref="WifiSsid"/> equality), so names that differ only by case stay separate rows.

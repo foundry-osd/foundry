@@ -287,7 +287,7 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
                 continue;
             }
 
-            // A protected PFX is the deployment-keyed envelope file: it follows the private-key rule and stays encrypted (L4-15).
+            // A protected PFX is the deployment-keyed envelope file: it follows the private-key rule and stays encrypted.
             bool isProtectedPfx = NetworkProfileRoamingArtifacts.IsProtectedPfxPath(certificatePath);
             if (isProtectedPfx || NetworkProfileRoamingArtifacts.IsPfxPath(certificatePath))
             {

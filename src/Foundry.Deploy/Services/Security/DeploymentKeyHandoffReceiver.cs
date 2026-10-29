@@ -11,7 +11,7 @@ namespace Foundry.Deploy.Services.Security;
 /// Receives the deployment key through the pipe named by <see cref="DeploymentKeyHandoff.ReceivePipeEnvironmentVariable"/>.
 /// </summary>
 /// <remarks>
-/// The variable is read once at construction and removed from the process environment right away (L4-19), so no child
+/// The variable is read once at construction and removed from the process environment right away, so no child
 /// started by a deployment step inherits the pipe name; the receiver is constructed with <see cref="DeploymentAccessGate"/>
 /// when the main window view model is resolved, before any deployment step runs. The pipe name is never logged.
 /// <see cref="DeploymentKeyHandoff.TryReceiveAsync"/> is bounded by <see cref="DeploymentKeyHandoff.ClientTimeout"/> and

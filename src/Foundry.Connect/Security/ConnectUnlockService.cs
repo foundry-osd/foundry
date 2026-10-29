@@ -14,9 +14,9 @@ using Microsoft.Extensions.Logging;
 namespace Foundry.Connect.Security;
 
 /// <summary>
-/// Runs the deployment password prompt loop of D11: Deploy's retry delay after each wrong password, cancel → the secrets
-/// stay locked for the session (D9), success → every locked secret is decrypted (L4-12) and the key is handed to
-/// Bootstrap once (L4-2).
+/// Runs the deployment password prompt loop: Deploy's retry delay after each wrong password, cancel → the secrets
+/// stay locked for the session, success → every locked secret is decrypted and the key is handed to
+/// Bootstrap once.
 /// </summary>
 /// <remarks>
 /// The password, its length and the key are never logged. The password is zeroed after each unwrap attempt and the key
@@ -138,7 +138,7 @@ public sealed class ConnectUnlockService(
         }
         catch (InvalidOperationException exception)
         {
-            // No exception object: the message is mirrored remotely (logging ruling).
+            // No exception object: the message is mirrored remotely.
             isPromptUnavailable = true;
             logger.LogWarning(
                 "Deployment password prompt could not be shown; the protected network secrets stay locked. Trigger={Trigger}, FailureType={FailureType}",

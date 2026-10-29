@@ -168,7 +168,7 @@ public sealed record WlanSnapshot(
 /// Native WLAN client used by the network layer.
 /// </summary>
 /// <remarks>
-/// No member throws for WLAN failures: errors become results (T11, NET-05/06). Caller cancellation still throws
+/// No member throws for WLAN failures: errors become results. Caller cancellation still throws
 /// <see cref="OperationCanceledException"/>. Each call opens and closes its own client handle.
 /// </remarks>
 public interface IWlanClient

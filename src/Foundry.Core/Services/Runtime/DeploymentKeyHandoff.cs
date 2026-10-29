@@ -10,7 +10,7 @@ using System.Security.Principal;
 
 namespace Foundry.Core.Services.Runtime;
 
-/// <summary>Contract of the one-shot deployment key hand-off Connect → Bootstrap → Deploy (spec 5.7, D11).</summary>
+/// <summary>Contract of the one-shot deployment key hand-off Connect → Bootstrap → Deploy.</summary>
 /// <remarks>
 /// <para>
 /// Foundry Bootstrap owns two named pipes per boot: Foundry Connect writes the 32-byte deployment key once into the first

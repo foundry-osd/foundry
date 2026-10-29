@@ -364,7 +364,7 @@
                 </StackPanel>
             </Border>
 
-            <!--  6. Wi-Fi networks card: list and details side by side from 760 px, stacked below (L3-22)  -->
+            <!--  6. Wi-Fi networks card: list and details side by side from 760 px, stacked below  -->
             <Border
                 DataContext="{Binding WifiNetworks}"
                 Style="{StaticResource SectionCardBorderStyle}"
@@ -412,7 +412,7 @@
                         </Button>
                     </Grid>
 
-                    <!--  Tab enters and leaves the list as one stop; the arrows move the selection only (UI-01).  -->
+                    <!--  Tab enters and leaves the list as one stop; the arrows move the selection only.  -->
                     <ListBox x:Name="WifiNetworksList"
                         Grid.Row="1"
                         MaxHeight="280"

@@ -15,9 +15,9 @@ namespace Foundry.Connect.ViewModels;
 /// </summary>
 /// <remarks>
 /// Every text is derived from the last <see cref="EthernetState"/> given to <see cref="Apply"/> and resolved on demand,
-/// so <see cref="RefreshTexts"/> after a language change needs no network refresh (UI-05). The details expander is open
+/// so <see cref="RefreshTexts"/> after a language change needs no network refresh. The details expander is open
 /// until the first usable address, then collapsed; afterwards it changes only when the usable state changes, so a
-/// choice made by the technician survives the periodic observations (L3-23). The view model reads no file and does
+/// choice made by the technician survives the periodic observations. The view model reads no file and does
 /// no I/O, and every member runs on the UI thread.
 /// </remarks>
 /// <param name="localization">Source of the texts.</param>
@@ -45,7 +45,7 @@ public sealed partial class EthernetSectionViewModel(ILocalizationService locali
     public bool ShowCard => _ethernet.HasAdapter;
 
     /// <summary>
-    /// Gets whether the one-line "no adapter" notice is shown. It stays hidden while the first observation is pending (L3-10).
+    /// Gets whether the one-line "no adapter" notice is shown. It stays hidden while the first observation is pending.
     /// </summary>
     public bool ShowNoAdapterNotice => !_isChecking && !_ethernet.HasAdapter;
 
@@ -105,7 +105,7 @@ public sealed partial class EthernetSectionViewModel(ILocalizationService locali
     public string Dot1xReasonText => NetworkTextKeys.Dot1xReasonKey(_ethernet.Dot1x.Reason) is { } key ? GetString(key) : string.Empty;
 
     /// <summary>
-    /// Gets whether the 802.1X InfoBar is shown: the status is failed or unavailable (L3-17).
+    /// Gets whether the 802.1X InfoBar is shown: the status is failed or unavailable.
     /// </summary>
     public bool ShowDot1xNotice => _ethernet.Dot1x.Status is Dot1xAuthenticationStatus.Failed or Dot1xAuthenticationStatus.Unavailable;
 

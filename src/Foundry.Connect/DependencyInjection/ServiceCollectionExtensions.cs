@@ -34,7 +34,7 @@ public static class ServiceCollectionExtensions
 {
     private const string DeploymentModeEnvironmentVariable = "FOUNDRY_DEPLOYMENT_MODE";
 
-    /// <summary>Request timeout of the telemetry HTTP client (T3).</summary>
+    /// <summary>Request timeout of the telemetry HTTP client.</summary>
     internal static readonly TimeSpan TelemetryHttpTimeout = TimeSpan.FromSeconds(10);
 
     /// <summary>
@@ -94,7 +94,7 @@ public static class ServiceCollectionExtensions
     }
 
     /// <summary>
-    /// Registers the single page and its sections as singletons with the window's lifetime (L3-19). One
+    /// Registers the single page and its sections as singletons with the window's lifetime. One
     /// <see cref="ConnectNetworkActions"/> is shared by the page and every section, so a debug scenario set on the page
     /// gates every network action and every action pauses the countdown.
     /// </summary>
@@ -149,8 +149,8 @@ public static class ServiceCollectionExtensions
     }
 
     /// <summary>
-    /// Registers the deployment password unlock (D11). The hand-off sender reads and removes its pipe name when it is
-    /// constructed with the main window graph, before provisioning starts any child process (L4-19).
+    /// Registers the deployment password unlock. The hand-off sender reads and removes its pipe name when it is
+    /// constructed with the main window graph, before provisioning starts any child process.
     /// </summary>
     private static void AddSecurityServices(IServiceCollection services)
     {
@@ -162,7 +162,7 @@ public static class ServiceCollectionExtensions
 
     /// <summary>
     /// Creates the telemetry <see cref="HttpClient"/> with an explicit timeout, shorter than the 100 seconds default, so a
-    /// stalled send cannot linger (T3). The exit path stops waiting after its own, shorter budget.
+    /// stalled send cannot linger. The exit path stops waiting after its own, shorter budget.
     /// </summary>
     internal static HttpClient CreateTelemetryHttpClient() => new() { Timeout = TelemetryHttpTimeout };
 

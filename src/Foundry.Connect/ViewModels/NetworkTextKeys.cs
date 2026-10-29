@@ -131,7 +131,7 @@ public static class NetworkTextKeys
     };
 
     /// <summary>
-    /// Gets the key of the one-line Wi-Fi notice that replaces the Wi-Fi cards when the WLAN stack cannot work (L3-7).
+    /// Gets the key of the one-line Wi-Fi notice that replaces the Wi-Fi cards when the WLAN stack cannot work.
     /// </summary>
     /// <param name="availability">The Wi-Fi availability.</param>
     /// <returns>

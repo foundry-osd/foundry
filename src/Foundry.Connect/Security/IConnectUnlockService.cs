@@ -7,10 +7,10 @@ namespace Foundry.Connect.Security;
 /// <summary>Why Foundry Connect asks for the deployment password; logged with every unlock outcome.</summary>
 public enum ConnectUnlockTrigger
 {
-    /// <summary>Wired 802.1X needs a locked secret at startup, before provisioning runs (L4-12).</summary>
+    /// <summary>Wired 802.1X needs a locked secret at startup, before provisioning runs.</summary>
     WiredStartup,
 
-    /// <summary>Ethernet gives no internet and the automatic provisioned Wi-Fi connection needs a locked secret (L4-11).</summary>
+    /// <summary>Ethernet gives no internet and the automatic provisioned Wi-Fi connection needs a locked secret.</summary>
     AutomaticWifi,
 
     /// <summary>The technician selected Connect on the locked provisioned Wi-Fi.</summary>
@@ -32,14 +32,14 @@ public enum ConnectUnlockResult
 
     /// <summary>
     /// The technician cancelled the prompt, the prompt could not be shown, or the unwrapped key failed the media key check:
-    /// the secrets stay locked for the session and are not prompted for again automatically (D9, L4-10).
+    /// the secrets stay locked for the session and are not prompted for again automatically.
     /// </summary>
     Cancelled
 }
 
 /// <summary>
-/// Unlocks the network secrets protected by the deployment key with the deployment password (D11), then hands the key to
-/// Foundry Bootstrap once so Foundry Deploy does not ask again (L4-2).
+/// Unlocks the network secrets protected by the deployment key with the deployment password, then hands the key to
+/// Foundry Bootstrap once so Foundry Deploy does not ask again.
 /// </summary>
 public interface IConnectUnlockService
 {

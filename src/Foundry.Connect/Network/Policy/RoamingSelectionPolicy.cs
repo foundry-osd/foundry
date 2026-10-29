@@ -7,14 +7,14 @@ using Foundry.Core.Models.Configuration;
 namespace Foundry.Connect.Network.Policy;
 
 /// <summary>
-/// What to roam to the deployed Windows at successful exit (D5).
+/// What to roam to the deployed Windows at successful exit.
 /// </summary>
 /// <param name="WifiProfiles">Wi-Fi connections to roam, most preferred first; one entry per profile name.</param>
 /// <param name="CaptureWiredDot1x">Whether the wired 802.1X profile is roamed.</param>
 public sealed record RoamingSelection(IReadOnlyList<SuccessfulWifiConnection> WifiProfiles, bool CaptureWiredDot1x);
 
 /// <summary>
-/// Chooses the network profiles roamed to Windows at successful exit (D5, owner decision 2026-10-29).
+/// Chooses the network profiles roamed to Windows at successful exit.
 /// </summary>
 /// <remarks>
 /// Every Wi-Fi network that Connect joined successfully during the session is roamed, provisioned or manual, even when

@@ -43,7 +43,7 @@ public interface IWiredDot1xClient
 /// <see cref="IWiredDot1xClient"/> backed by the System32 <c>netsh.exe</c>.
 /// </summary>
 /// <remarks>
-/// Arguments stay raw <c>key="value"</c> text (L2-17), so a value containing a double quote is refused before any process starts.
+/// Arguments stay raw <c>key="value"</c> text, so a value containing a double quote is refused before any process starts.
 /// </remarks>
 public sealed class WiredDot1xClient(IConnectProcessRunner runner) : IWiredDot1xClient
 {

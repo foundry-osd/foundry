@@ -19,7 +19,7 @@ public interface INetworkObservationSource
     /// </summary>
     /// <remarks>
     /// Each part is gathered independently: a part that fails is replaced by its degraded value and never hides the
-    /// others (T11, NET-05/06). The returned internet status is never <see cref="InternetStatus.Checking"/>.
+    /// others. The returned internet status is never <see cref="InternetStatus.Checking"/>.
     /// </remarks>
     /// <param name="readWiredAuthentication">Whether to read the wired 802.1X authentication state.</param>
     /// <param name="cancellationToken">Caller cancellation.</param>

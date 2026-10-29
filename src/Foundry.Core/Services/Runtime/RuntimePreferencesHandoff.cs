@@ -22,7 +22,7 @@ public enum RuntimeThemePreference
     Dark
 }
 
-/// <summary>Theme and UI culture handed from one WinPE application to the next (D14).</summary>
+/// <summary>Theme and UI culture handed from one WinPE application to the next.</summary>
 /// <param name="Theme">Theme the previous application was running with.</param>
 /// <param name="CultureName">Known UI culture name, for example <c>fr-FR</c>.</param>
 public sealed record RuntimePreferences(RuntimeThemePreference Theme, string CultureName);

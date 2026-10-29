@@ -12,7 +12,7 @@ namespace Foundry.Connect.Telemetry;
 /// Builds the properties of the <c>connect:session_ready</c> event from the typed network state.
 /// </summary>
 /// <remarks>
-/// Keys and value sets are the ones <c>TelemetryEventPropertyPolicy</c> allows (T17, L2-4), same keys as lot 2 except
+/// Keys and value sets are the ones <c>TelemetryEventPropertyPolicy</c> allows, the same keys as before the single page except
 /// <c>connect_network_layout_mode</c>, retired by the single page; the allowlist keeps it for older media. Only categories
 /// and booleans are produced: never an SSID, a profile name or an address.
 /// </remarks>

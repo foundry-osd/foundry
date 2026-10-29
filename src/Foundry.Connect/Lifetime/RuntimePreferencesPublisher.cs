@@ -22,7 +22,7 @@ public interface IRuntimePreferencesPublisher
 }
 
 /// <summary>
-/// Publishes the theme and language through <see cref="RuntimePreferencesHandoff"/> (D14).
+/// Publishes the theme and language through <see cref="RuntimePreferencesHandoff"/>.
 /// </summary>
 /// <remarks>
 /// A write failure is logged as a warning and swallowed: the hand-off is a convenience and must never change the exit

@@ -20,7 +20,7 @@ namespace Foundry.Deploy.Services.Network;
 /// Converts Connect-captured network profile roaming artifacts into pre-OOBE data files.
 /// </summary>
 /// <remarks>
-/// Each secret envelope's key identifier decides its key (L4-15): deployment-keyed envelopes (a protected PFX and its
+/// Each secret envelope's key identifier decides its key: deployment-keyed envelopes (a protected PFX and its
 /// password) decrypt with the unlocked deployment key, media-keyed ones (schema 5 media) with the media key. Each key is
 /// read lazily, at most once per load, only when an envelope needs it (schema 6 media have no media key file), and zeroed
 /// when the load ends.
@@ -300,7 +300,7 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         }
     }
 
-    // A protected certificate file is a deployment-keyed SecretEnvelope JSON document (L4-15); it is staged decrypted.
+    // A protected certificate file is a deployment-keyed SecretEnvelope JSON document; it is staged decrypted.
     private static async Task<byte[]?> ReadCertificateBytesAsync(
         string sourcePath,
         NetworkProfileRoamingCertificate certificate,

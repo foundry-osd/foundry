@@ -71,7 +71,7 @@ public sealed class ConnectivityProbeTests
         Assert.Equal(InternetStatus.NoInternet, await check.WaitAsync(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken));
     }
 
-    // Headers arrived, so something answered (L2-8): an unreadable body is an unexpected body, never "no response".
+    // Headers arrived, so something answered: an unreadable body is an unexpected body, never "no response".
     [Fact]
     public async Task Check_WhenBodyReadFailsAfterHeaders_IsCaptivePortal()
     {

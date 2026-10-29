@@ -53,7 +53,7 @@ public static class EthernetStateReader
     }
 
     /// <summary>
-    /// Classifies how an adapter obtained its IPv4 address (L2-15).
+    /// Classifies how an adapter obtained its IPv4 address.
     /// </summary>
     /// <param name="adapter">Adapter snapshot.</param>
     /// <returns>

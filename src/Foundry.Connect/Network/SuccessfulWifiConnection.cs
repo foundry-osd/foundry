@@ -8,7 +8,7 @@ using System.Text;
 namespace Foundry.Connect.Network;
 
 /// <summary>
-/// A Wi-Fi connection that succeeded during this session (D5), kept so the exit step can decide what to roam.
+/// A Wi-Fi connection that succeeded during this session, kept so the exit step can decide what to roam.
 /// </summary>
 /// <remarks>
 /// The SSID and the profile name identify a network and must never be logged, so the generated

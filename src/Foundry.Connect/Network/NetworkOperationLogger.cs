@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace Foundry.Connect.Network;
 
 /// <summary>
-/// Writes the network operation and state-transition log entries (D17, NET-07/08).
+/// Writes the network operation and state-transition log entries.
 /// </summary>
 /// <remarks>
 /// The PostHog Logs stream mirrors every message and every structured property, so no entry carries an SSID, a WLAN

@@ -43,12 +43,12 @@ public interface ISuccessfulExitService
 }
 
 /// <summary>
-/// Leaves Foundry Connect once, after a final probe has confirmed the internet (D3, D2).
+/// Leaves Foundry Connect once, after a final probe has confirmed the internet.
 /// </summary>
 /// <remarks>
 /// Order matters: roaming is captured while the profiles still exist, the session-ready event waits at most
-/// <see cref="TelemetryBudget"/> so a slow network cannot hold the exit (T3, NET-04), the secrets and the in-memory
-/// provisioned profile are dropped (T15), the theme and language are handed to Foundry Deploy (D14) and only then the exit
+/// <see cref="TelemetryBudget"/> so a slow network cannot hold the exit, the secrets and the in-memory
+/// provisioned profile are dropped, the theme and language are handed to Foundry Deploy and only then the exit
 /// is requested. Roaming, telemetry and hand-off failures never block the exit. Log entries carry no SSID, profile name or
 /// address.
 /// </remarks>

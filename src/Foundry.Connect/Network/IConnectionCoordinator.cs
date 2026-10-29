@@ -9,9 +9,9 @@ namespace Foundry.Connect.Network;
 /// </summary>
 /// <remarks>
 /// Operations run one at a time. A manual request switches the mode to <see cref="ConnectionMode.Manual"/> and
-/// publishes it before it waits for a running operation, so no further automatic attempt starts (D4, NET-01). Failures
+/// publishes it before it waits for a running operation, so no further automatic attempt starts. Failures
 /// are returned as typed <see cref="OperationOutcome"/> values; each operation is logged once at start and once at its
-/// end (D17). The manual operations (<see cref="ConnectProvisionedWifiAsync"/>, <see cref="ConnectWifiNetworkAsync"/>,
+/// end. The manual operations (<see cref="ConnectProvisionedWifiAsync"/>, <see cref="ConnectWifiNetworkAsync"/>,
 /// <see cref="DisconnectWifiAsync"/>) never throw for a network or caller-cancellation reason: a cancelled request returns
 /// <see cref="OperationStatus.Cancelled"/> and an unexpected error returns <see cref="OperationStatus.Failed"/> with
 /// <see cref="NetworkFailureCode.Unexpected"/>. They throw only for invalid arguments (<see cref="ArgumentNullException"/>)
@@ -34,8 +34,8 @@ public interface IConnectionCoordinator
     /// <summary>
     /// Raised at most once per session, outside any lock and after the state that caused it was published, when the
     /// provisioned Wi-Fi is locked by the deployment password and needed: automatic mode, Ethernet gives no internet and
-    /// the provisioned network is reachable (L4-11, <see cref="Policy.ConnectionPolicy.ShouldRequestUnlock"/>). Never raised
-    /// after the technician declined the prompt (L4-10). A handler that throws is logged and ignored.
+    /// the provisioned network is reachable (<see cref="Policy.ConnectionPolicy.ShouldRequestUnlock"/>). Never raised
+    /// after the technician declined the prompt. A handler that throws is logged and ignored.
     /// </summary>
     event EventHandler? UnlockRequested;
 
@@ -60,7 +60,7 @@ public interface IConnectionCoordinator
 
     /// <summary>
     /// Composes and publishes the state for a new observation, then runs at most one automatic provisioned attempt
-    /// when the connection policy allows it (L2-20). No attempt starts while another operation runs.
+    /// when the connection policy allows it. No attempt starts while another operation runs.
     /// </summary>
     /// <param name="observation">What the monitor saw.</param>
     /// <param name="cancellationToken">Caller cancellation.</param>
@@ -92,7 +92,7 @@ public interface IConnectionCoordinator
     Task<OperationOutcome> DisconnectWifiAsync(CancellationToken cancellationToken);
 
     /// <summary>
-    /// Drops the provisioned profile document at exit (L2-6). Later provisioned connects report
+    /// Drops the provisioned profile document at exit. Later provisioned connects report
     /// <see cref="NetworkFailureCode.ProvisionedProfileUnavailable"/>.
     /// </summary>
     void ReleaseProvisionedProfile();

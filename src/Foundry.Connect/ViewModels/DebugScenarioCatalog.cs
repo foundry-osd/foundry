@@ -7,7 +7,7 @@ using Foundry.Connect.Network;
 namespace Foundry.Connect.ViewModels;
 
 /// <summary>
-/// Simulated network situations for Debug › Scenarios (D16); <see cref="Live"/> means the real network.
+/// Simulated network situations for Debug › Scenarios; <see cref="Live"/> means the real network.
 /// </summary>
 public enum ConnectDebugScenario
 {
@@ -58,7 +58,7 @@ public enum ConnectDebugScenario
 }
 
 /// <summary>
-/// Builds the 14 simulated <see cref="NetworkState"/> values behind Debug › Scenarios (D16, L3-1).
+/// Builds the 14 simulated <see cref="NetworkState"/> values behind Debug › Scenarios.
 /// </summary>
 /// <remarks>
 /// The states are fixed fake data: the SSIDs are sample names and the addresses come from the documentation range

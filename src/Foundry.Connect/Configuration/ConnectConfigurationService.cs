@@ -244,7 +244,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
     }
 
     /// <summary>
-    /// Maps every provisioned network secret to its runtime holder (L2-5, L4-9). The envelope <c>keyId</c> decides the key source:
+    /// Maps every provisioned network secret to its runtime holder. The envelope <c>keyId</c> decides the key source:
     /// <c>media</c> is decrypted at once with the media key (schema 5); <c>deployment</c> stays <see cref="ConnectSecretStatus.Locked"/>
     /// until the deployment password unlocks it, or is <see cref="ConnectSecretStatus.Unavailable"/> on media without a protection block.
     /// </summary>
@@ -347,7 +347,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
             return DecryptSecret(envelope, keys.MediaSecretsKey, keys.MediaKeyFailure, secretName);
         }
 
-        // A deployment-keyed envelope on media without a protection block can never be unlocked (D9).
+        // A deployment-keyed envelope on media without a protection block can never be unlocked.
         return IsDeploymentKeyed(envelope) && keys.IsUnlockable
             ? ConnectSecret.Locked(envelope)
             : Unavailable(secretName, ConnectSecretFailure.DecryptionFailed);
@@ -355,7 +355,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
 
     /// <summary>
     /// Decrypts one media-keyed envelope into a clearable buffer. A secret that cannot be read becomes <see cref="ConnectSecretStatus.Unavailable"/>
-    /// instead of failing the load, so only the feature that needs it is disabled (D9, L2-5).
+    /// instead of failing the load, so only the feature that needs it is disabled.
     /// </summary>
     /// <param name="envelope">The media-keyed envelope.</param>
     /// <param name="mediaSecretsKey">The media key, or <see langword="null"/> when the key file is missing or unreadable.</param>
@@ -385,7 +385,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
     }
 
     /// <summary>
-    /// Reads a file staged as a deployment-keyed envelope (L4-5, L4-6) and keeps it locked until the unlock. A file that is missing,
+    /// Reads a file staged as a deployment-keyed envelope and keeps it locked until the unlock. A file that is missing,
     /// larger than <see cref="ConnectProtectedFileLimits.MaxEnvelopeFileBytes"/> (the generator never stages one), not an envelope,
     /// or on media without a protection block is unavailable.
     /// </summary>

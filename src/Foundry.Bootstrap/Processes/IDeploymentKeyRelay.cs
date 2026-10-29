@@ -5,8 +5,8 @@
 namespace Foundry.Bootstrap.Processes;
 
 /// <summary>
-/// Relays the deployment key once from Foundry Connect to Foundry Deploy through two Bootstrap-owned named pipes
-/// (spec 5.7, D11). See <see cref="Foundry.Core.Services.Runtime.DeploymentKeyHandoff"/> for the pipe contract.
+/// Relays the deployment key once from Foundry Connect to Foundry Deploy through two Bootstrap-owned named pipes.
+/// See <see cref="Foundry.Core.Services.Runtime.DeploymentKeyHandoff"/> for the pipe contract.
 /// </summary>
 /// <remarks>
 /// Call order for one boot: <see cref="BeginReceive"/> before Connect starts, <see cref="ExpectSender"/> once Connect has a

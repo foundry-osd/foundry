@@ -74,7 +74,7 @@ public sealed class ConnectSessionReadyTelemetryTests
             properties.Keys.Order(StringComparer.Ordinal));
     }
 
-    // T17 contract check: everything Connect sends survives the allowlist unchanged.
+    // Contract check: everything Connect sends survives the allowlist unchanged.
     [Fact]
     public void Build_SurvivesTheTelemetryAllowlist()
     {

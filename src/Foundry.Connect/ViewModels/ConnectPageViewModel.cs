@@ -22,12 +22,12 @@ namespace Foundry.Connect.ViewModels;
 /// <see cref="IConnectionCoordinator.StateChanged"/> arrives on any thread and its argument may be stale, so every
 /// notification is marshaled through <see cref="IUiDispatcher"/> and renders <see cref="IConnectionCoordinator.State"/>
 /// read again on the UI thread. Every text is resolved from the typed state on demand, so a language change renders
-/// the same state again and refreshes the children's texts without a network refresh or a focus move (UI-05).
+/// the same state again and refreshes the children's texts without a network refresh or a focus move.
 /// </para>
 /// <para>
 /// While a debug scenario is active the live state is still recorded but not rendered, and every network action, the
-/// final probe and the exit are skipped by <see cref="ConnectNetworkActions"/> and <see cref="AutoContinueViewModel"/>
-/// (D16), and no automatic unlock prompt is shown. The view model logs only the applied scenario and a failed automatic
+/// final probe and the exit are skipped by <see cref="ConnectNetworkActions"/> and <see cref="AutoContinueViewModel"/>,
+/// and no automatic unlock prompt is shown. The view model logs only the applied scenario and a failed automatic
 /// unlock prompt; it never logs a network state. The children are DI singletons disposed by the container, not by
 /// <see cref="Dispose"/>.
 /// </para>
@@ -172,12 +172,12 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
     /// <summary>Gets whether the connection chip is shown.</summary>
     public bool HasConnectionChip => ConnectionChipText.Length > 0;
 
-    /// <summary>Gets whether the captive portal InfoBar is shown (L3-17).</summary>
+    /// <summary>Gets whether the captive portal InfoBar is shown.</summary>
     public bool ShowCaptivePortalNotice => BlockedReason == BlockedReason.CaptivePortal;
 
     /// <summary>
     /// Gets the one-line notice that replaces the Wi-Fi cards when the WLAN runtime or the adapter is missing, or an
-    /// empty string (L3-7).
+    /// empty string.
     /// </summary>
     public string WifiNoticeText => NetworkTextKeys.WifiNoticeKey(_renderedState.Wifi.Availability) is { } key ? LocalizationService.GetString(key) : string.Empty;
 
@@ -201,7 +201,7 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
     /// feedback, then starts the network monitor. Later calls do nothing.
     /// </summary>
     /// <remarks>
-    /// Call it once the main window is loaded and visible: the wired prompt is owned by it (L4-12) and may run a nested
+    /// Call it once the main window is loaded and visible: the wired prompt is owned by it and may run a nested
     /// modal loop inside this call. A cancelled prompt still provisions, with wired 802.1X unavailable for the session. The
     /// monitor is started with the page lifetime token, not <paramref name="cancellationToken"/>, and is not awaited: it
     /// runs its loop off the caller thread until <see cref="Dispose"/>. It never starts once the page is disposed.
@@ -297,7 +297,7 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
 
     /// <summary>
     /// Asks the monitor for an early observation: the Retry button and Tools › Refresh status. Not a networking
-    /// interaction (L3-4).
+    /// interaction.
     /// </summary>
     [RelayCommand]
     private void Refresh() => _monitor.RequestRefresh();
@@ -336,7 +336,7 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
         }
         catch (Exception exception)
         {
-            // No exception object: its message may name a network or a profile file (logging ruling).
+            // No exception object: its message may name a network or a profile file.
             _logger.LogWarning("Automatic deployment password prompt failed. FailureType={FailureType}", exception.GetType().Name);
         }
     }

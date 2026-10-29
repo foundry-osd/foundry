@@ -14,19 +14,19 @@ using Foundry.Wpf.ViewModels;
 namespace Foundry.Connect.ViewModels;
 
 /// <summary>
-/// The Wi-Fi networks card: a selection-only list and a details panel with the password outside the list (UI-01).
+/// The Wi-Fi networks card: a selection-only list and a details panel with the password outside the list.
 /// </summary>
 /// <remarks>
 /// <para>
-/// The list keeps its order while a network is selected (T12, L3-9): rows are reused by SSID bytes and the collection is
+/// The list keeps its order while a network is selected: rows are reused by SSID bytes and the collection is
 /// synchronized in place, so the selected instance, the password being typed and the keyboard position survive the
 /// periodic observations. Without a selection the list follows the <c>WifiNetworkListPolicy</c> order. Programmatic
-/// updates never count as networking interactions (L3-4); selecting another network, typing a password and every
+/// updates never count as networking interactions; selecting another network, typing a password and every
 /// connect or disconnect do.
 /// </para>
 /// <para>
 /// The password lives in an owned <see cref="char"/> buffer that is zeroed whenever it is replaced, cleared or disposed.
-/// It is never trimmed (T9). The coordinator takes a <see cref="string"/>, so each connect call makes one immutable copy
+/// It is never trimmed. The coordinator takes a <see cref="string"/>, so each connect call makes one immutable copy
 /// that cannot be zeroed and stays in memory until the garbage collector reclaims it. The view model never logs: SSIDs
 /// and passwords must stay out of every log. Every member runs on the UI thread; a command that finishes after
 /// <see cref="Dispose"/> changes nothing, and a connect that finishes after the selection changed leaves the new
@@ -77,7 +77,7 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
     public ObservableCollection<WifiNetworkItemViewModel> Networks { get; } = [];
 
     /// <summary>
-    /// Gets whether the card is shown: Wi-Fi works on this machine (L3-7).
+    /// Gets whether the card is shown: Wi-Fi works on this machine.
     /// </summary>
     public bool IsVisible => _availability == WifiAvailability.Available;
 
@@ -112,7 +112,7 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
     public bool HasUnsupportedText => UnsupportedKey is not null;
 
     /// <summary>
-    /// Gets why the selected network cannot be joined from the list, or an empty string (L3-8).
+    /// Gets why the selected network cannot be joined from the list, or an empty string.
     /// </summary>
     public string UnsupportedText => UnsupportedKey is { } key ? LocalizationService.GetString(key) : string.Empty;
 
@@ -218,7 +218,7 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
     /// Applies the latest wireless state. While a network is selected the rows keep their positions, new networks are
     /// appended and the selected one stays even when it is no longer visible; otherwise the incoming order is used.
     /// When the selected network becomes connected, by this panel or by other means, the password is zeroed; it is kept
-    /// when the network merely goes out of range (L3-9).
+    /// when the network merely goes out of range.
     /// </summary>
     /// <param name="wifi">The wireless state read from the coordinator.</param>
     /// <param name="activeOperation">The operation in flight, or <see langword="null"/>.</param>
@@ -309,7 +309,7 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
         SetCommandRunning(true);
         try
         {
-            // The coordinator takes a string: an immutable copy that cannot be zeroed and lives until GC. Never trimmed (T9).
+            // The coordinator takes a string: an immutable copy that cannot be zeroed and lives until GC. Never trimmed.
             string? passphrase = network.RequiresPassphrase ? new string(_passphrase) : null;
 
             // No ConfigureAwait(false): the continuation changes bound properties on the UI thread.
@@ -367,7 +367,7 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
     }
 
     /// <summary>
-    /// Asks the monitor for an early observation. Not a networking interaction (L3-4).
+    /// Asks the monitor for an early observation. Not a networking interaction.
     /// </summary>
     [RelayCommand]
     private void Refresh() => _monitor.RequestRefresh();

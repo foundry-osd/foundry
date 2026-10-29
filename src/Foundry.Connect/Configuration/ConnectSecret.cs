@@ -20,7 +20,7 @@ public enum ConnectSecretStatus
     /// <summary>The secret was read and its value can be used.</summary>
     Available,
 
-    /// <summary>The media carries the secret but it could not be read; only the feature that needs it is disabled (D9).</summary>
+    /// <summary>The media carries the secret but it could not be read; only the feature that needs it is disabled.</summary>
     Unavailable,
 
     /// <summary>The value was used and its buffer was zeroed.</summary>
@@ -28,7 +28,7 @@ public enum ConnectSecretStatus
 
     /// <summary>
     /// The media carries the secret encrypted with the deployment key; it stays unreadable until the deployment password
-    /// unlocks the key (L4-9).
+    /// unlocks the key.
     /// </summary>
     Locked
 }
@@ -58,12 +58,12 @@ public enum ConnectSecretFailure
 }
 
 /// <summary>
-/// One provisioned network secret held in a Connect-owned character buffer that can be zeroed (T15).
+/// One provisioned network secret held in a Connect-owned character buffer that can be zeroed.
 /// </summary>
 /// <remarks>
 /// Deliberately not a record: <see cref="ToString"/> shows only the status, so the value cannot reach logs or diagnostics
 /// through string formatting. <see cref="Clear"/> zeroes the buffer; callers clear a secret as soon as its consumer no
-/// longer needs it (L2-6). A <see cref="ConnectSecretStatus.Locked"/> secret keeps its deployment-keyed envelope until
+/// longer needs it. A <see cref="ConnectSecretStatus.Locked"/> secret keeps its deployment-keyed envelope until
 /// <see cref="TryUnlock"/>; <see cref="Clear"/> never drops it.
 /// </remarks>
 public sealed class ConnectSecret

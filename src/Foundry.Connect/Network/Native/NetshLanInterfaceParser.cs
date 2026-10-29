@@ -8,7 +8,7 @@ namespace Foundry.Connect.Network.Native;
 /// Reads the wired 802.1X authentication state of each interface from <c>netsh lan show interfaces</c> output.
 /// </summary>
 /// <remarks>
-/// The parser is deliberately narrow (L2-12): it reads only the <c>Name</c> and <c>State</c> lines and recognizes English
+/// The parser is deliberately narrow: it reads only the <c>Name</c> and <c>State</c> lines and recognizes English
 /// state text. Localized or unfamiliar text yields an unknown (<see langword="null"/>) status, which callers show as
 /// <see cref="Dot1xAuthenticationStatus.ProfileApplied"/>.
 /// </remarks>

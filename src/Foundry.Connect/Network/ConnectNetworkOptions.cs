@@ -22,8 +22,8 @@ public sealed record ConnectNetworkOptions(bool IsWifiFeatureEnabled, TimeSpan R
     /// Creates the options for a media configuration.
     /// </summary>
     /// <remarks>
-    /// Wi-Fi is enabled when the media provisions it or a debugger is attached (L2-10), the rule the legacy network
-    /// services apply today so the developer loop keeps Wi-Fi on unprovisioned media.
+    /// Wi-Fi is enabled when the media provisions it or a debugger is attached, so the developer loop keeps
+    /// Wi-Fi on unprovisioned media.
     /// </remarks>
     /// <param name="configuration">Media configuration.</param>
     /// <param name="isDebuggerAttached">Whether a debugger is attached to the process.</param>

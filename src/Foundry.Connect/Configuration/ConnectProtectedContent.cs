@@ -13,7 +13,7 @@ namespace Foundry.Connect.Configuration;
 /// Connect-owned byte buffer that can be zeroed.
 /// </summary>
 /// <remarks>
-/// Schema 6 stages these files as deployment-keyed <see cref="SecretEnvelope"/> JSON documents (L4-5, L4-6). The loader keeps
+/// Schema 6 stages these files as deployment-keyed <see cref="SecretEnvelope"/> JSON documents. The loader keeps
 /// the envelope while the content is <see cref="ConnectSecretStatus.Locked"/>; <see cref="TryUnlock"/> decrypts it with the
 /// unlocked deployment key. Deliberately not a record: <see cref="ToString"/> shows only the status, never bytes.
 /// </remarks>

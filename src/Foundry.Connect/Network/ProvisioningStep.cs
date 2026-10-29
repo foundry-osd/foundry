@@ -17,19 +17,19 @@ namespace Foundry.Connect.Network;
 
 /// <summary>
 /// Applies the media network provisioning once per process: the wired 802.1X profile with its certificates and a
-/// reconnect of every linked Ethernet interface (T8), then the provisioned Wi-Fi profile on every present WLAN
-/// interface (T1).
+/// reconnect of every linked Ethernet interface, then the provisioned Wi-Fi profile on every present WLAN
+/// interface.
 /// </summary>
 /// <remarks>
 /// Each part installs every trusted root of its <see cref="ConnectCertificateSet"/> into <c>LocalMachine\Root</c> (a PFX
 /// listed as a root is refused) and its client PFX, read from a plain file or, when staged encrypted, from the decrypted
-/// content (D8, L4-5). A secret that cannot be read makes only its feature unavailable (D9). A part whose secrets are still
+/// content. A secret that cannot be read makes only its feature unavailable. A part whose secrets are still
 /// locked by the deployment password is skipped: wired 802.1X becomes unavailable for the session, the provisioned Wi-Fi
 /// stays <see cref="ProvisionedWifiStatus.Locked"/> and keeps its already readable items until <see cref="RefreshWifiAsync"/>
-/// runs after the unlock (L4-10). PFX passwords and contents are cleared right after the certificate import, the Wi-Fi
-/// passphrase right after the profile document is built and a protected template right after it is decoded (T10, T15,
-/// L2-6). The wired and Wi-Fi parts are isolated: an unexpected error in one never stops the other. Roaming is not
-/// captured here (D5). Only Debug details, the wired skip and a refused root are logged; the coordinator logs the
+/// runs after the unlock. PFX passwords and contents are cleared right after the certificate import, the Wi-Fi
+/// passphrase right after the profile document is built and a protected template right after it is decoded.
+/// The wired and Wi-Fi parts are isolated: an unexpected error in one never stops the other. Roaming is not
+/// captured here. Only Debug details, the wired skip and a refused root are logged; the coordinator logs the
 /// operation and its failures. No SSID, profile name, file name or profile XML is ever logged.
 /// </remarks>
 public sealed class ProvisioningStep : IProvisioningStep
@@ -177,7 +177,7 @@ public sealed class ProvisioningStep : IProvisioningStep
 
     private ProvisioningOutcome RefreshCore(ProvisioningOutcome cached, CancellationToken cancellationToken)
     {
-        // The wired part never runs again this session, so a wired secret a later unlock made readable is never used (L4-10).
+        // The wired part never runs again this session, so a wired secret a later unlock made readable is never used.
         ClearWiredSecrets();
         if (cached.Wifi.Status != ProvisionedWifiStatus.Locked)
         {
@@ -201,7 +201,7 @@ public sealed class ProvisioningStep : IProvisioningStep
                 return Dot1xState.NotConfigured;
             }
 
-            // The wired startup prompt ran before provisioning (L4-12): a secret still locked means it was cancelled.
+            // The wired startup prompt ran before provisioning: a secret still locked means it was cancelled.
             if (_secrets.IsWiredLocked)
             {
                 _logger.LogInformation("Wired 802.1X skipped because the deployment password was not entered.");
@@ -405,7 +405,7 @@ public sealed class ProvisioningStep : IProvisioningStep
 
     private (ProvisionedWifiState State, WifiProfileDocument? Profile) BuildPersonalProfile(ConnectWifiSettings settings, List<NetworkFailureCode> failures)
     {
-        // L2-21: the configured SSID keeps today's trim; the passphrase is never trimmed (T9).
+        // The configured SSID is trimmed; the passphrase is never trimmed.
         WifiSsid? ssid = ConfiguredSsid(settings);
         WifiProfileSecurity? security = WifiSecurityClassifier.FromConfiguredSecurityType(settings.SecurityType);
         if (ssid is null || security is null)
@@ -509,7 +509,7 @@ public sealed class ProvisioningStep : IProvisioningStep
                     continue;
                 }
 
-                // Controller ruling: a trusted root only ever goes to LocalMachine\Root; a PFX listed as a root is refused,
+                // A trusted root only ever goes to LocalMachine\Root; a PFX listed as a root is refused,
                 // never imported into LocalMachine\My with an empty password.
                 if (NetworkProfileRoamingArtifacts.IsPfxPath(rootPath) || NetworkProfileRoamingArtifacts.IsProtectedPfxPath(rootPath))
                 {
@@ -545,7 +545,7 @@ public sealed class ProvisioningStep : IProvisioningStep
         }
     }
 
-    // A protected client needs its decrypted content; a plain PFX (lot 2 rule) needs the password the media carries.
+    // A protected client needs its decrypted content; a plain PFX needs the password the media carries.
     private static bool IsClientSecretUnavailable(ConnectCertificateSet certificates, ConnectSecret password, ConnectProtectedContent content, string? clientPath)
     {
         bool passwordUnavailable = certificates.ClientCertificatePasswordSecret is not null && password.Status == ConnectSecretStatus.Unavailable;
@@ -587,14 +587,14 @@ public sealed class ProvisioningStep : IProvisioningStep
             NetworkFailureTaxonomy.ExceptionErrorCode(exception));
     }
 
-    // L2-21: the configured SSID is trimmed; an empty or over-long value has no SSID.
+    // The configured SSID is trimmed; an empty or over-long value has no SSID.
     private static WifiSsid? ConfiguredSsid(ConnectWifiSettings settings)
     {
         string? text = settings.Ssid?.Trim();
         return !string.IsNullOrEmpty(text) && WifiSsid.TryFromBytes(Encoding.UTF8.GetBytes(text), out WifiSsid? ssid) ? ssid : null;
     }
 
-    // A locked enterprise template has no readable name, SSID or hidden flag; only the configured SSID is known (L4-11).
+    // A locked enterprise template has no readable name, SSID or hidden flag; only the configured SSID is known.
     private ProvisionedWifiState LockedState(ConnectWifiSettings settings) => new(
         ProvisionedWifiStatus.Locked,
         _secrets.IsUnlockDeclined ? ProvisionedWifiUnavailableReason.UnlockCancelled : ProvisionedWifiUnavailableReason.None,

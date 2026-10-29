@@ -17,7 +17,7 @@ public interface IDeploymentKeyUnwrapper
     byte[]? TryUnwrap(DeployProtectionSettings settings, ReadOnlySpan<char> password);
 }
 
-/// <summary>Unwraps the deployment key with the implementation Foundry Deploy uses (L4-4).</summary>
+/// <summary>Unwraps the deployment key with the implementation Foundry Deploy uses.</summary>
 public sealed class DeploymentKeyUnwrapper : IDeploymentKeyUnwrapper
 {
     /// <inheritdoc />

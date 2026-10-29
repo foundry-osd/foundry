@@ -59,7 +59,7 @@ public interface IConnectProcessRunner
 {
     /// <summary>
     /// Runs <paramref name="executablePath"/> with <paramref name="rawArguments"/> passed unchanged (netsh <c>key="value"</c>
-    /// syntax, L2-17). A timeout is reported as <see cref="ConnectProcessStatus.TimedOut"/>; cancelling
+    /// syntax). A timeout is reported as <see cref="ConnectProcessStatus.TimedOut"/>; cancelling
     /// <paramref name="cancellationToken"/> throws <see cref="OperationCanceledException"/>.
     /// </summary>
     /// <param name="executablePath">Absolute path of the tool.</param>
