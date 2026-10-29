@@ -14,7 +14,7 @@ public sealed class ConnectProcessRunnerTests
         ?? Path.Combine(Environment.SystemDirectory, "cmd.exe");
 
     [Fact]
-    public async Task RunAsync_CapturesExitCodeAndLogsStandardErrorLocally()
+    public async Task RunAsync_CapturesExitCodeAndLogsStandardErrorLengthOnly()
     {
         var logger = new RecordingLogger<ConnectProcessRunner>();
         var runner = new ConnectProcessRunner(TimeProvider.System, logger);
@@ -30,7 +30,9 @@ public sealed class ConnectProcessRunnerTests
         Assert.Contains("failed", result.StandardError, StringComparison.Ordinal);
         RecordedLogEntry warning = Assert.Single(logger.Entries, static entry => entry.Level == LogLevel.Warning);
         Assert.Equal(7, warning.Properties["ExitCode"]);
-        Assert.Contains("failed", Assert.IsType<string>(warning.Properties["StandardError"]), StringComparison.Ordinal);
+        Assert.Equal(result.StandardError.Length, warning.Properties["StandardErrorLength"]);
+        Assert.DoesNotContain("StandardError", warning.Properties.Keys);
+        Assert.DoesNotContain("failed", warning.Message, StringComparison.Ordinal);
         Assert.Equal("cmd.exe", warning.Properties["ToolName"]);
     }
 
@@ -38,7 +40,8 @@ public sealed class ConnectProcessRunnerTests
     public async Task RunAsync_WhenTimeoutElapses_KillsProcessAndReportsTimedOut()
     {
         var clock = new ManualTimeProvider();
-        var runner = new ConnectProcessRunner(clock, new RecordingLogger<ConnectProcessRunner>());
+        var logger = new RecordingLogger<ConnectProcessRunner>();
+        var runner = new ConnectProcessRunner(clock, logger);
 
         Task<ConnectProcessResult> run = runner.RunAsync(
             CommandProcessor,
@@ -49,6 +52,10 @@ public sealed class ConnectProcessRunnerTests
         ConnectProcessResult result = await run.WaitAsync(TimeSpan.FromSeconds(20), TestContext.Current.CancellationToken);
 
         Assert.Equal(ConnectProcessStatus.TimedOut, result.Status);
+        Assert.Equal(-1, result.ExitCode);
+        RecordedLogEntry warning = Assert.Single(logger.Entries, static entry => entry.Level == LogLevel.Warning);
+        Assert.Equal(5d, warning.Properties["TimeoutSeconds"]);
+        Assert.Equal("cmd.exe", warning.Properties["ToolName"]);
     }
 
     [Fact]
@@ -63,6 +70,18 @@ public sealed class ConnectProcessRunnerTests
             TestContext.Current.CancellationToken);
 
         Assert.Equal(ConnectProcessStatus.StartFailed, result.Status);
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-1)]
+    [InlineData(-1000)]
+    public async Task RunAsync_WhenTimeoutIsNotPositive_Throws(int milliseconds)
+    {
+        var runner = new ConnectProcessRunner(TimeProvider.System, new RecordingLogger<ConnectProcessRunner>());
+
+        await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() => runner.RunAsync(
+            CommandProcessor, "/d /c exit /b 0", TimeSpan.FromMilliseconds(milliseconds), TestContext.Current.CancellationToken));
     }
 
     [Fact]

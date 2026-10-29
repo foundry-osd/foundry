@@ -47,6 +47,7 @@ public interface IConnectProcessRunner
     /// syntax, L2-17). A timeout is reported as <see cref="ConnectProcessStatus.TimedOut"/>; cancelling
     /// <paramref name="cancellationToken"/> throws <see cref="OperationCanceledException"/>.
     /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="timeout"/> is not positive or not finite.</exception>
     Task<ConnectProcessResult> RunAsync(string executablePath, string rawArguments, TimeSpan timeout, CancellationToken cancellationToken);
 }
 
@@ -55,12 +56,14 @@ public interface IConnectProcessRunner
 /// </summary>
 /// <remarks>
 /// The shared runner drains redirected standard output and error asynchronously and kills the process tree on cancellation,
-/// so a chatty or hung tool cannot deadlock the caller. Exit codes and standard error are logged locally (the PostHog Logs
-/// stream drops properties that are not allowlisted); the arguments are never logged.
+/// so a chatty or hung tool cannot deadlock the caller. The exit code and the length of the standard error are logged; the
+/// standard-error text and the arguments are not, because the remote Logs stream mirrors every log property and only
+/// <see cref="Foundry.Utilities.Diagnostics.LogSecretMasker"/> masks secrets. The full standard error stays available in the returned result.
 /// </remarks>
 public sealed class ConnectProcessRunner(TimeProvider timeProvider, ILogger<ConnectProcessRunner> logger) : IConnectProcessRunner
 {
-    private const int MaxLoggedStandardErrorLength = 4096;
+    // CancellationTokenSource accepts at most uint.MaxValue - 1 milliseconds.
+    private static readonly TimeSpan MaxTimeout = TimeSpan.FromMilliseconds(uint.MaxValue - 1d);
 
     private readonly ProcessRunner _processRunner = new();
 
@@ -73,6 +76,8 @@ public sealed class ConnectProcessRunner(TimeProvider timeProvider, ILogger<Conn
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(executablePath);
         ArgumentNullException.ThrowIfNull(rawArguments);
+        ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(timeout, TimeSpan.Zero);
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(timeout, MaxTimeout);
 
         // Both sources exist before the first await so a manual clock can fire the timeout right after this call returns.
         using var timeoutSource = new CancellationTokenSource(timeout, timeProvider);
@@ -97,9 +102,9 @@ public sealed class ConnectProcessRunner(TimeProvider timeProvider, ILogger<Conn
         {
             throw;
         }
-        catch (OperationCanceledException exception)
+        catch (OperationCanceledException exception) when (timeoutSource.IsCancellationRequested)
         {
-            // Only the timeout can have cancelled the linked token here.
+            // The caller did not cancel (handled above), so the timeout cancelled the linked token.
             logger.LogWarning(
                 "External process timed out and was stopped. ToolName={ToolName}, TimeoutSeconds={TimeoutSeconds}",
                 toolName,
@@ -121,7 +126,7 @@ public sealed class ConnectProcessRunner(TimeProvider timeProvider, ILogger<Conn
         }
         catch (Exception exception)
         {
-            logger.LogDebug(
+            logger.LogWarning(
                 exception,
                 "External process execution failed. ToolName={ToolName}, FailureType={FailureType}",
                 toolName,
@@ -145,17 +150,11 @@ public sealed class ConnectProcessRunner(TimeProvider timeProvider, ILogger<Conn
             return;
         }
 
-        string standardError = result.StandardError.Trim();
-        if (standardError.Length > MaxLoggedStandardErrorLength)
-        {
-            standardError = standardError[..MaxLoggedStandardErrorLength];
-        }
-
         using IDisposable? scope = logger.BeginScope(RemoteProcessDiagnostics.CreateProperties(result, elapsed));
         logger.LogWarning(
-            "External process returned a nonzero exit code. ToolName={ToolName}, ExitCode={ExitCode}, StandardError={StandardError}",
+            "External process returned a nonzero exit code. ToolName={ToolName}, ExitCode={ExitCode}, StandardErrorLength={StandardErrorLength}",
             toolName,
             result.ExitCode,
-            standardError);
+            result.StandardError.Length);
     }
 }

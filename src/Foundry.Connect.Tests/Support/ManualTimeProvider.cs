@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace Foundry.Connect.Tests.Support;
 
 /// <summary>
@@ -44,33 +46,77 @@ internal sealed class ManualTimeProvider : TimeProvider
 
     public override long GetTimestamp() => GetUtcNow().UtcTicks;
 
+    /// <summary>
+    /// Moves the clock forward, firing due timers one at a time in due order. The clock reads each timer's due time while
+    /// its callback runs, then the final time. A periodic timer fires once per period that fits in the interval.
+    /// </summary>
     public void Advance(TimeSpan delta)
     {
-        List<ManualTimer> due;
-        DateTimeOffset now;
+        ArgumentOutOfRangeException.ThrowIfLessThan(delta, TimeSpan.Zero);
+
+        DateTimeOffset target;
         lock (_gate)
         {
-            _now += delta;
-            now = _now;
-            due = _timers.Where(timer => timer.DueAt is { } dueAt && dueAt <= now).OrderBy(static timer => timer.DueAt).ToList();
+            target = _now + delta;
         }
 
-        foreach (ManualTimer timer in due)
+        // The next timer is picked under the lock on every step, so a timer disposed or re-armed by an earlier callback is
+        // never fired from a stale snapshot.
+        while (TryTakeNextDue(target, out ManualTimer? timer))
         {
-            timer.Fire(now);
+            timer.Invoke();
         }
     }
 
     public override ITimer CreateTimer(TimerCallback callback, object? state, TimeSpan dueTime, TimeSpan period)
     {
         var timer = new ManualTimer(this, callback, state);
+        timer.Change(dueTime, period);
         lock (_gate)
         {
             _timers.Add(timer);
         }
 
-        timer.Change(dueTime, period);
         return timer;
+    }
+
+    private bool TryTakeNextDue(DateTimeOffset target, [NotNullWhen(true)] out ManualTimer? next)
+    {
+        lock (_gate)
+        {
+            next = null;
+            foreach (ManualTimer timer in _timers)
+            {
+                if (timer.DueAt is { } dueAt && dueAt <= target && (next is null || dueAt < next.DueAt))
+                {
+                    next = timer;
+                }
+            }
+
+            if (next is null)
+            {
+                _now = target;
+                return false;
+            }
+
+            DateTimeOffset due = next.DueAt!.Value;
+            if (due > _now)
+            {
+                _now = due;
+            }
+
+            // Re-arm before the callback runs so the callback can still dispose or change the timer.
+            next.AdvanceAfterFire(due);
+            return true;
+        }
+    }
+
+    private static void ValidateInterval(TimeSpan value, string parameterName)
+    {
+        if (value != Timeout.InfiniteTimeSpan)
+        {
+            ArgumentOutOfRangeException.ThrowIfLessThan(value, TimeSpan.Zero, parameterName);
+        }
     }
 
     private sealed class ManualTimer(ManualTimeProvider owner, TimerCallback callback, object? state) : ITimer
@@ -81,6 +127,9 @@ internal sealed class ManualTimeProvider : TimeProvider
 
         public bool Change(TimeSpan dueTime, TimeSpan period)
         {
+            ValidateInterval(dueTime, nameof(dueTime));
+            ValidateInterval(period, nameof(period));
+
             lock (owner._gate)
             {
                 DueAt = dueTime == Timeout.InfiniteTimeSpan ? null : owner._now + dueTime;
@@ -90,15 +139,11 @@ internal sealed class ManualTimeProvider : TimeProvider
             return true;
         }
 
-        public void Fire(DateTimeOffset now)
-        {
-            lock (owner._gate)
-            {
-                DueAt = _period > TimeSpan.Zero && _period != Timeout.InfiniteTimeSpan ? now + _period : null;
-            }
+        // Called with the owner gate held.
+        public void AdvanceAfterFire(DateTimeOffset firedAt) =>
+            DueAt = _period > TimeSpan.Zero ? firedAt + _period : null;
 
-            callback(state);
-        }
+        public void Invoke() => callback(state);
 
         public void Dispose()
         {
