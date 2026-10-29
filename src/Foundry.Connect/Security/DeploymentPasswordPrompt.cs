@@ -4,6 +4,7 @@
 
 using System.Windows;
 using System.Windows.Threading;
+using Foundry.Core.Services.Runtime;
 using Foundry.Wpf.Dialogs;
 using Foundry.Wpf.Localization;
 
@@ -13,7 +14,12 @@ namespace Foundry.Connect.Security;
 /// Shows the shared <see cref="PasswordPromptDialog"/> with the Connect unlock texts on the UI thread, owned by the
 /// active window, else by the main window once it is loaded and visible, else by no window.
 /// </summary>
-public sealed class DeploymentPasswordPrompt(ILocalizationService localization) : IDeploymentPasswordPrompt
+/// <remarks>
+/// The wired startup prompt runs before the page initialization completes, so the first rendered prompt reports the UI
+/// ready: otherwise Bootstrap's readiness window would expire while the technician types the password.
+/// </remarks>
+public sealed class DeploymentPasswordPrompt(ILocalizationService localization, RuntimeStartupDiagnostics startup)
+    : IDeploymentPasswordPrompt
 {
     /// <inheritdoc />
     public char[]? Prompt(bool previousAttemptFailed)
@@ -41,8 +47,12 @@ public sealed class DeploymentPasswordPrompt(ILocalizationService localization) 
             Owner = ResolveOwnerWindow()
         };
 
+        dialog.ContentRendered += (_, _) => OnDialogRendered();
         return dialog.ShowDialog() == true ? dialog.TakePassword() : null;
     }
+
+    /// <summary>Reports the first usable UI; later calls do nothing.</summary>
+    internal void OnDialogRendered() => startup.ReportUiReady();
 
     /// <summary>
     /// Picks the dialog owner. <see cref="Window.Owner"/> throws for a window whose handle is not created yet or that was

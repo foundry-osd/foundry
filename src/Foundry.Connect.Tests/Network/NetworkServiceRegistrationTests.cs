@@ -10,6 +10,9 @@ using Foundry.Connect.Security;
 using Foundry.Connect.Tests.Support;
 using Foundry.Connect.ViewModels;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Models.Runtime;
+using Foundry.Core.Services.Runtime;
+using Foundry.Telemetry;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Foundry.Connect.Tests.Network;
@@ -30,6 +33,7 @@ public sealed class NetworkServiceRegistrationTests
         Assert.NotNull(provider.GetRequiredService<ISuccessfulExitService>());
         Assert.NotNull(provider.GetRequiredService<INetworkMonitor>());
         Assert.NotNull(provider.GetRequiredService<IConnectUnlockService>());
+        Assert.IsType<DeploymentPasswordPrompt>(provider.GetRequiredService<IDeploymentPasswordPrompt>());
     }
 
     [Fact]
@@ -62,6 +66,8 @@ public sealed class NetworkServiceRegistrationTests
         services.AddSingleton<IConnectConfigurationService>(new StubConfigurationService(configuration));
         services.AddSingleton(configuration);
         services.AddSingleton(ConnectRuntimeSecrets.None());
+        services.AddSingleton(RuntimeStartupDiagnostics.Create(
+            new RuntimeApplicationIdentity("Foundry.Connect", TelemetryApps.FoundryConnect, "1.0.0.0"), "", configurationRequired: false));
         services.AddFoundryConnectApplicationServices([]);
         return services.BuildServiceProvider();
     }
