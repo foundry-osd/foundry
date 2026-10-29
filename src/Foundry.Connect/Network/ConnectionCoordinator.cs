@@ -1,0 +1,505 @@
+// Copyright (c) Foundry Project contributors.
+// Licensed under the MIT License.
+// See the LICENSE file in the project root for more information.
+
+using Foundry.Connect.Network.Native;
+using Foundry.Connect.Network.Policy;
+using Microsoft.Extensions.Logging;
+
+namespace Foundry.Connect.Network;
+
+/// <summary>
+/// Serializes every network change behind one operation gate and publishes the composed <see cref="NetworkState"/>.
+/// </summary>
+/// <remarks>
+/// Mode, provisioning outcome, last observation, operation data and the automatic-attempt backoff live behind one
+/// lock; the gate (<see cref="SemaphoreSlim"/> with one slot) admits one operation at a time. A manual request
+/// switches to <see cref="ConnectionMode.Manual"/> and publishes before it waits for the gate (D4, NET-01). An
+/// automatic attempt never waits: it starts only when the gate is free, and the policy is evaluated while the gate is
+/// held, so a manual request that arrived first always wins. Each operation ends with a refresh request.
+/// </remarks>
+public sealed class ConnectionCoordinator : IConnectionCoordinator, IDisposable
+{
+    private readonly object _stateLock = new();
+    private readonly SemaphoreSlim _gate = new(1, 1);
+    private readonly IProvisioningStep _provisioningStep;
+    private readonly IWlanClient _wlan;
+    private readonly ConnectNetworkOptions _options;
+    private readonly NetworkRefreshSignal _refreshSignal;
+    private readonly TimeProvider _timeProvider;
+    private readonly NetworkOperationLogger _operationLogger;
+
+    private NetworkState _state;
+    private ConnectionMode _mode = ConnectionMode.Automatic;
+    private ProvisioningOutcome? _provisioning;
+    private NetworkObservation? _lastObservation;
+    private NetworkOperationKind? _activeOperation;
+    private OperationOutcome? _lastOutcome;
+    private int _consecutiveFailures;
+    private DateTimeOffset? _lastAttemptAt;
+    private bool _profileReleased;
+
+    /// <summary>
+    /// Initializes the coordinator with the initial state (nothing observed, internet being checked, automatic mode).
+    /// </summary>
+    public ConnectionCoordinator(
+        IProvisioningStep provisioning,
+        IWlanClient wlan,
+        ConnectNetworkOptions options,
+        NetworkRefreshSignal refreshSignal,
+        TimeProvider timeProvider,
+        ILogger<ConnectionCoordinator> logger)
+    {
+        _provisioningStep = provisioning ?? throw new ArgumentNullException(nameof(provisioning));
+        _wlan = wlan ?? throw new ArgumentNullException(nameof(wlan));
+        _options = options ?? throw new ArgumentNullException(nameof(options));
+        _refreshSignal = refreshSignal ?? throw new ArgumentNullException(nameof(refreshSignal));
+        _timeProvider = timeProvider ?? throw new ArgumentNullException(nameof(timeProvider));
+        _operationLogger = new NetworkOperationLogger(logger ?? throw new ArgumentNullException(nameof(logger)), timeProvider);
+
+        // The provisioning publish (no observation yet) composes the same summary, so it logs no transition.
+        _state = NetworkState.Initial(timeProvider.GetUtcNow());
+    }
+
+    /// <inheritdoc />
+    public event EventHandler<NetworkState>? StateChanged;
+
+    /// <inheritdoc />
+    public NetworkState State => Volatile.Read(ref _state);
+
+    /// <inheritdoc />
+    public async Task<ProvisioningOutcome> ApplyProvisioningAsync(CancellationToken cancellationToken)
+    {
+        ProvisioningOutcome? result = null;
+        OperationOutcome outcome = await RunOperationAsync(
+            NetworkOperationKind.ApplyProvisioning,
+            NetworkOperationTrigger.Startup,
+            async scope =>
+            {
+                ProvisioningOutcome provisioning = await _provisioningStep.RunAsync(cancellationToken).ConfigureAwait(false);
+                lock (_stateLock)
+                {
+                    _provisioning = provisioning;
+                }
+
+                result = provisioning;
+                foreach (NetworkFailureCode failure in provisioning.Failures)
+                {
+                    scope.LogFailure(failure, null);
+                }
+
+                return provisioning.Failures.Count == 0
+                    ? OperationOutcome.Success(NetworkOperationKind.ApplyProvisioning)
+                    : OperationOutcome.Failed(NetworkOperationKind.ApplyProvisioning, provisioning.Failures[0]);
+            },
+            cancellationToken).ConfigureAwait(false);
+
+        if (outcome.Status == OperationStatus.Cancelled)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+        }
+
+        // An unexpected provisioning exception leaves nothing provisioned; Ethernet and manual Wi-Fi keep working.
+        return result ?? ProvisioningOutcome.NotConfigured;
+    }
+
+    /// <inheritdoc />
+    public async Task ApplyObservationAsync(NetworkObservation observation, CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(observation);
+
+        lock (_stateLock)
+        {
+            _lastObservation = observation;
+        }
+
+        Publish();
+
+        // A running operation means no automatic attempt now (IsOperationRunning); never queue one behind it.
+        if (!_gate.Wait(0))
+        {
+            return;
+        }
+
+        bool started = false;
+        try
+        {
+            lock (_stateLock)
+            {
+                if (!ConnectionPolicy.ShouldConnectProvisionedAutomatically(BuildAutomaticInput()))
+                {
+                    return;
+                }
+
+                _lastAttemptAt = _timeProvider.GetUtcNow();
+            }
+
+            started = true;
+        }
+        finally
+        {
+            if (!started)
+            {
+                _gate.Release();
+            }
+        }
+
+        await RunUnderGateAsync(
+            NetworkOperationKind.ConnectProvisionedWifi,
+            NetworkOperationTrigger.Automatic,
+            _ => ConnectProvisionedCoreAsync(cancellationToken),
+            RecordAutomaticOutcome,
+            cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc />
+    public Task<OperationOutcome> ConnectProvisionedWifiAsync(CancellationToken cancellationToken)
+    {
+        return RunManualAsync(
+            NetworkOperationKind.ConnectProvisionedWifi,
+            _ => ConnectProvisionedCoreAsync(cancellationToken),
+            cancellationToken);
+    }
+
+    /// <inheritdoc />
+    public Task<OperationOutcome> ConnectWifiNetworkAsync(WifiSsid ssid, string? passphrase, CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(ssid);
+
+        return RunManualAsync(
+            NetworkOperationKind.ConnectWifiNetwork,
+            _ => ConnectWifiNetworkCoreAsync(ssid, passphrase, cancellationToken),
+            cancellationToken);
+    }
+
+    /// <inheritdoc />
+    public Task<OperationOutcome> DisconnectWifiAsync(CancellationToken cancellationToken)
+    {
+        return RunManualAsync(
+            NetworkOperationKind.DisconnectWifi,
+            _ => DisconnectCoreAsync(cancellationToken),
+            cancellationToken);
+    }
+
+    /// <inheritdoc />
+    public void ReleaseProvisionedProfile()
+    {
+        lock (_stateLock)
+        {
+            _provisioning?.WifiProfile?.Clear();
+            _profileReleased = true;
+        }
+    }
+
+    /// <inheritdoc />
+    public void Dispose()
+    {
+        _gate.Dispose();
+    }
+
+    // The mode switch and its publish happen synchronously, before the returned task waits for the gate.
+    private Task<OperationOutcome> RunManualAsync(
+        NetworkOperationKind kind,
+        Func<NetworkOperationScope, Task<OperationOutcome>> body,
+        CancellationToken cancellationToken)
+    {
+        lock (_stateLock)
+        {
+            _mode = ConnectionPolicy.AfterManualAction(_mode);
+        }
+
+        Publish();
+        return RunOperationAsync(kind, NetworkOperationTrigger.Manual, body, cancellationToken);
+    }
+
+    private async Task<OperationOutcome> RunOperationAsync(
+        NetworkOperationKind kind,
+        NetworkOperationTrigger trigger,
+        Func<NetworkOperationScope, Task<OperationOutcome>> body,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            await _gate.WaitAsync(cancellationToken).ConfigureAwait(false);
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            // Cancelled while queued: the operation never started, so nothing is logged.
+            return OperationOutcome.Cancelled(kind);
+        }
+
+        return await RunUnderGateAsync(kind, trigger, body, null, cancellationToken).ConfigureAwait(false);
+    }
+
+    // Runs one operation while the caller holds the gate, and releases it.
+    private async Task<OperationOutcome> RunUnderGateAsync(
+        NetworkOperationKind kind,
+        NetworkOperationTrigger trigger,
+        Func<NetworkOperationScope, Task<OperationOutcome>> body,
+        Action<OperationOutcome>? recordOutcome,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            using NetworkOperationScope scope = _operationLogger.Begin(kind, trigger);
+            lock (_stateLock)
+            {
+                _activeOperation = kind;
+            }
+
+            Publish();
+
+            OperationOutcome outcome;
+            try
+            {
+                outcome = await body(scope).ConfigureAwait(false);
+            }
+            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+            {
+                outcome = OperationOutcome.Cancelled(kind);
+            }
+            catch (Exception exception)
+            {
+                scope.LogException(exception);
+                outcome = OperationOutcome.Failed(kind, NetworkFailureCode.Unexpected);
+            }
+
+            scope.LogOutcome(outcome);
+            lock (_stateLock)
+            {
+                _lastOutcome = outcome;
+                _activeOperation = null;
+                recordOutcome?.Invoke(outcome);
+            }
+
+            Publish();
+            return outcome;
+        }
+        finally
+        {
+            _refreshSignal.Request();
+            _gate.Release();
+        }
+    }
+
+    private async Task<OperationOutcome> ConnectProvisionedCoreAsync(CancellationToken cancellationToken)
+    {
+        const NetworkOperationKind Kind = NetworkOperationKind.ConnectProvisionedWifi;
+        if (!_options.IsWifiFeatureEnabled)
+        {
+            return OperationOutcome.Failed(Kind, NetworkFailureCode.WifiFeatureDisabled);
+        }
+
+        ProvisioningOutcome? provisioning;
+        NetworkState state;
+        IReadOnlyList<Guid> interfaceIds;
+        bool released;
+        lock (_stateLock)
+        {
+            provisioning = _provisioning;
+            state = _state;
+            interfaceIds = _lastObservation?.Wifi.InterfaceIds ?? [];
+            released = _profileReleased;
+        }
+
+        ProvisionedWifiState provisioned = provisioning?.Wifi ?? ProvisionedWifiState.NotConfigured;
+        if (provisioned.Status != ProvisionedWifiStatus.Ready)
+        {
+            return OperationOutcome.Failed(
+                Kind,
+                provisioned.Status == ProvisionedWifiStatus.Unavailable && provisioned.Reason == ProvisionedWifiUnavailableReason.SecretUnavailable
+                    ? NetworkFailureCode.WifiSecretUnavailable
+                    : NetworkFailureCode.ProvisionedProfileUnavailable);
+        }
+
+        WifiProfileDocument? profile = provisioning?.WifiProfile;
+        if (profile is null || released)
+        {
+            return OperationOutcome.Failed(Kind, NetworkFailureCode.ProvisionedProfileUnavailable);
+        }
+
+        if (CheckAvailability(Kind, state.Wifi.Availability) is OperationOutcome unavailable)
+        {
+            return unavailable;
+        }
+
+        Guid? interfaceId = provisioned.Ssid is WifiSsid ssid
+            ? state.Wifi.Networks.FirstOrDefault(network => network.Ssid == ssid)?.InterfaceId
+            : null;
+        interfaceId ??= interfaceIds.Count > 0 ? interfaceIds[0] : null;
+        if (interfaceId is not Guid target)
+        {
+            return OperationOutcome.Failed(Kind, NetworkFailureCode.NoWirelessAdapter);
+        }
+
+        // WLAN profiles are per interface: an adapter that appeared after provisioning gets the profile now (L2-6).
+        if (!_wlan.HasProfile(target, profile.Name))
+        {
+            WlanOperationResult set = _wlan.SetProfile(target, profile.Xml);
+            if (!set.IsSuccess)
+            {
+                return MapSetProfileFailure(Kind, set);
+            }
+        }
+
+        WlanOperationResult result = await _wlan.ConnectAsync(target, profile.Name, cancellationToken).ConfigureAwait(false);
+        return MapConnect(Kind, result);
+    }
+
+    private async Task<OperationOutcome> ConnectWifiNetworkCoreAsync(WifiSsid ssid, string? passphrase, CancellationToken cancellationToken)
+    {
+        const NetworkOperationKind Kind = NetworkOperationKind.ConnectWifiNetwork;
+        if (!_options.IsWifiFeatureEnabled)
+        {
+            return OperationOutcome.Failed(Kind, NetworkFailureCode.WifiFeatureDisabled);
+        }
+
+        NetworkState state = State;
+        if (CheckAvailability(Kind, state.Wifi.Availability) is OperationOutcome unavailable)
+        {
+            return unavailable;
+        }
+
+        VisibleWifiNetwork? network = state.Wifi.Networks.FirstOrDefault(item => item.Ssid == ssid);
+        if (network is null)
+        {
+            return OperationOutcome.Failed(Kind, NetworkFailureCode.NetworkNotVisible);
+        }
+
+        if (WifiSecurityClassifier.ToProfileSecurity(network.Security) is not WifiProfileSecurity security)
+        {
+            return OperationOutcome.Failed(Kind, NetworkFailureCode.UnsupportedSecurity);
+        }
+
+        WifiProfileBuildResult build = WifiProfileFactory.Build(ssid, security, passphrase.AsSpan());
+        if (build.Profile is not WifiProfileDocument document)
+        {
+            return OperationOutcome.Failed(Kind, NetworkFailureCode.InvalidPassphrase);
+        }
+
+        try
+        {
+            WlanOperationResult set = _wlan.SetProfile(network.InterfaceId, document.Xml);
+            if (!set.IsSuccess)
+            {
+                return MapSetProfileFailure(Kind, set);
+            }
+
+            WlanOperationResult result = await _wlan.ConnectAsync(network.InterfaceId, document.Name, cancellationToken).ConfigureAwait(false);
+            return MapConnect(Kind, result);
+        }
+        finally
+        {
+            // The manual passphrase is never kept.
+            document.Clear();
+        }
+    }
+
+    private async Task<OperationOutcome> DisconnectCoreAsync(CancellationToken cancellationToken)
+    {
+        const NetworkOperationKind Kind = NetworkOperationKind.DisconnectWifi;
+        if (State.Wifi.Connection is not WifiConnection connection)
+        {
+            return OperationOutcome.NoChange(Kind);
+        }
+
+        WlanOperationResult result = await _wlan.DisconnectAsync(connection.InterfaceId, cancellationToken).ConfigureAwait(false);
+        return result.Status switch
+        {
+            WlanOperationStatus.Succeeded => OperationOutcome.Success(Kind),
+            WlanOperationStatus.RuntimeMissing => Failed(Kind, NetworkFailureCode.WifiRuntimeMissing, result),
+            WlanOperationStatus.InterfaceNotFound => Failed(Kind, NetworkFailureCode.NoWirelessAdapter, result),
+            WlanOperationStatus.TimedOut => Failed(Kind, NetworkFailureCode.DisconnectTimedOut, result),
+            _ => Failed(Kind, NetworkFailureCode.DisconnectFailed, result)
+        };
+    }
+
+    private static OperationOutcome? CheckAvailability(NetworkOperationKind kind, WifiAvailability availability)
+    {
+        return availability switch
+        {
+            WifiAvailability.Available => null,
+            WifiAvailability.RuntimeMissing => OperationOutcome.Failed(kind, NetworkFailureCode.WifiRuntimeMissing),
+
+            // Disabled here means no observation yet: no interface is known.
+            _ => OperationOutcome.Failed(kind, NetworkFailureCode.NoWirelessAdapter)
+        };
+    }
+
+    private static OperationOutcome MapConnect(NetworkOperationKind kind, WlanOperationResult result)
+    {
+        return result.Status switch
+        {
+            WlanOperationStatus.Succeeded => OperationOutcome.Success(kind),
+            WlanOperationStatus.RuntimeMissing => Failed(kind, NetworkFailureCode.WifiRuntimeMissing, result),
+            WlanOperationStatus.RequestFailed => Failed(kind, NetworkFailureCode.ConnectRequestFailed, result),
+            WlanOperationStatus.ConnectionFailed => Failed(kind, NetworkFailureCode.ConnectionFailed, result),
+            WlanOperationStatus.TimedOut => Failed(kind, NetworkFailureCode.ConnectTimedOut, result),
+            WlanOperationStatus.ProfileRejected => Failed(kind, NetworkFailureCode.WifiProfileRejected, result),
+            WlanOperationStatus.InterfaceNotFound => Failed(kind, NetworkFailureCode.NoWirelessAdapter, result),
+            _ => Failed(kind, NetworkFailureCode.Unexpected, result)
+        };
+    }
+
+    private static OperationOutcome MapSetProfileFailure(NetworkOperationKind kind, WlanOperationResult result)
+    {
+        return result.Status switch
+        {
+            WlanOperationStatus.RuntimeMissing => Failed(kind, NetworkFailureCode.WifiRuntimeMissing, result),
+            WlanOperationStatus.InterfaceNotFound => Failed(kind, NetworkFailureCode.NoWirelessAdapter, result),
+            _ => Failed(kind, NetworkFailureCode.WifiProfileRejected, result)
+        };
+    }
+
+    private static OperationOutcome Failed(NetworkOperationKind kind, NetworkFailureCode failure, WlanOperationResult result)
+    {
+        return OperationOutcome.Failed(kind, failure, result.ReasonCode != 0 ? result.ReasonCode : null);
+    }
+
+    // Called with the state lock held and the gate held, so the automatic attempt cannot overlap an operation.
+    private AutomaticConnectInput BuildAutomaticInput()
+    {
+        WifiState wifi = _state.Wifi;
+        return new AutomaticConnectInput(
+            _mode,
+            wifi.Provisioned.Status,
+            wifi.Availability,
+            ConnectionPolicy.IsProvisionedNetworkVisible(wifi),
+            wifi.Provisioned.IsHidden,
+            wifi.Connection?.Source == WifiConnectionSource.Provisioned,
+            _state.Internet,
+            IsOperationRunning: false,
+            _consecutiveFailures,
+            _lastAttemptAt,
+            _timeProvider.GetUtcNow());
+    }
+
+    // Called with the state lock held, before the gate is released.
+    private void RecordAutomaticOutcome(OperationOutcome outcome)
+    {
+        if (outcome.IsSuccess)
+        {
+            _consecutiveFailures = 0;
+        }
+        else if (outcome.Status == OperationStatus.Failed)
+        {
+            _consecutiveFailures++;
+        }
+    }
+
+    private void Publish()
+    {
+        NetworkState current;
+        lock (_stateLock)
+        {
+            NetworkState previous = _state;
+            current = NetworkStateComposer.Compose(_lastObservation, _mode, _provisioning, _activeOperation, _lastOutcome, _timeProvider.GetUtcNow());
+            Volatile.Write(ref _state, current);
+
+            // Logged under the lock so transitions appear in publish order.
+            _operationLogger.LogTransition(previous, current);
+        }
+
+        StateChanged?.Invoke(this, current);
+    }
+}
