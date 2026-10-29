@@ -563,6 +563,51 @@ public sealed class ConnectConfigurationGeneratorTests
         Assert.NotNull(bundle.Configuration.Wifi.ClientCertificate);
     }
 
+    [Fact]
+    public void Generate_EncryptedAssetOverTheConnectLimit_IsRefusedWithoutNamingTheFile()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        using DeploymentMediaProtectionMaterial protection = Protected();
+        FoundryConfigurationDocument source = CreateRuntimeFixtureSource(tempDirectory, enterpriseWifi: false);
+        // Base64URL makes the envelope about 4/3 of the source: 3.2 MB of PFX exceeds the 4 MiB envelope limit.
+        File.WriteAllBytes(System.IO.Path.Combine(tempDirectory.Path, "source", "wired.pfx"), new byte[3_200_000]);
+
+        InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => new ConnectConfigurationGenerator().CreateProvisioningBundle(
+            source, SourceInputs(tempDirectory, FixtureSecrets(false)), tempDirectory.Path, null, protection));
+
+        Assert.Contains(ConnectProtectedFileLimits.MaxEnvelopeFileBytes.ToString(System.Globalization.CultureInfo.InvariantCulture), exception.Message, StringComparison.Ordinal);
+        Assert.DoesNotContain("wired.pfx", exception.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void Generate_EncryptedAssetUnderTheConnectLimit_IsStagedWithinIt()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        using DeploymentMediaProtectionMaterial protection = Protected();
+        FoundryConfigurationDocument source = CreateRuntimeFixtureSource(tempDirectory, enterpriseWifi: false);
+        File.WriteAllBytes(System.IO.Path.Combine(tempDirectory.Path, "source", "wired.pfx"), new byte[3_000_000]);
+
+        FoundryConnectProvisioningBundle bundle = new ConnectConfigurationGenerator().CreateProvisioningBundle(
+            source, SourceInputs(tempDirectory, FixtureSecrets(false)), tempDirectory.Path, null, protection);
+
+        string staged = StagedSourcePath(bundle, @"Foundry\Config\Network\Certificates\Wired\wired.pfx.encrypted");
+        Assert.InRange(new FileInfo(staged).Length, 4_000_000, ConnectProtectedFileLimits.MaxEnvelopeFileBytes);
+    }
+
+    [Fact]
+    public void Generate_EmptyEnterpriseTemplateOnProtectedMedia_IsRefusedClearly()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        using DeploymentMediaProtectionMaterial protection = Protected();
+        string template = tempDirectory.CreateFile("source", "empty.xml", string.Empty);
+
+        InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => new ConnectConfigurationGenerator().CreateProvisioningBundle(
+            EnterpriseWifiWithoutCertificates(template), SourceInputs(tempDirectory), tempDirectory.Path, null, protection));
+
+        Assert.Contains("empty", exception.Message, StringComparison.Ordinal);
+        Assert.DoesNotContain("empty.xml", exception.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
     private const string KeyedEnterpriseTemplate =
         """<WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1"><name>Corp</name><MSM><security><sharedKey><keyMaterial>secret</keyMaterial></sharedKey></security></MSM></WLANProfile>""";
 

@@ -28,7 +28,8 @@ namespace Foundry.Core.Services.Configuration;
 /// <para>
 /// A network secret without enabled Password protection is refused (<see cref="InvalidOperationException"/>), even though
 /// Foundry OSD already blocks media creation. The <c>protection</c> block, with its key check, is written only when at least one
-/// secret was encrypted. A disabled feature writes no path, no envelope and no asset (CFG-08).
+/// secret was encrypted. A disabled feature writes no path, no envelope and no asset (CFG-08). An encrypted asset must not be
+/// empty and its envelope must fit <see cref="ConnectProtectedFileLimits.MaxEnvelopeFileBytes"/>, the size Connect reads.
 /// </para>
 /// </remarks>
 public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerator
@@ -392,12 +393,28 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
         /// Writes <paramref name="content"/> as a deployment-keyed <see cref="SecretEnvelope"/> JSON file named
         /// <c>&lt;<paramref name="fileName"/>&gt;.encrypted</c>; the caller zeroes <paramref name="content"/>.
         /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// <paramref name="content"/> is empty, or its envelope would exceed <see cref="ConnectProtectedFileLimits.MaxEnvelopeFileBytes"/>,
+        /// which Connect would refuse to read. The message names the staging folder only, never the file.
+        /// </exception>
         public string WriteEncrypted(byte[] content, string fileName, string folder, NetworkConfigurationValidationCode protectionRequiredCode)
         {
             byte[] key = RequireKey(protectionRequiredCode);
+            if (content.Length == 0)
+            {
+                throw new InvalidOperationException($"Foundry Connect protected asset in '{folder}' is empty and cannot be staged.");
+            }
+
             SecretEnvelope envelope = MediaSecretEnvelopeProtector.EncryptBytes(content, key, MediaSecretEnvelopeProtector.DeploymentKeyId);
+            byte[] envelopeJson = JsonSerializer.SerializeToUtf8Bytes(envelope, ConfigurationJsonDefaults.SerializerOptions);
+            if (envelopeJson.Length > ConnectProtectedFileLimits.MaxEnvelopeFileBytes)
+            {
+                throw new InvalidOperationException(
+                    $"Foundry Connect protected asset in '{folder}' is too large: its encrypted file would exceed {ConnectProtectedFileLimits.MaxEnvelopeFileBytes} bytes.");
+            }
+
             string stagedFilePath = PrepareStagedFile(fileName + EncryptedFileSuffix, folder, out string relativePath);
-            File.WriteAllText(stagedFilePath, JsonSerializer.Serialize(envelope, ConfigurationJsonDefaults.SerializerOptions));
+            File.WriteAllBytes(stagedFilePath, envelopeJson);
             HasProtectedContent = true;
             return relativePath;
         }

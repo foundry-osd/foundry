@@ -29,9 +29,6 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
     private const string WifiClientCertificateSecretName = "wifi_client_certificate";
     private const string WifiEnterpriseProfileSecretName = "wifi_enterprise_profile";
 
-    // An encrypted PFX or WLAN template is small; a larger file is not read into memory.
-    private const int MaxProtectedFileBytes = 4 * 1024 * 1024;
-
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
         PropertyNameCaseInsensitive = true,
@@ -389,7 +386,8 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
 
     /// <summary>
     /// Reads a file staged as a deployment-keyed envelope (L4-5, L4-6) and keeps it locked until the unlock. A file that is missing,
-    /// larger than <see cref="MaxProtectedFileBytes"/>, not an envelope, or on media without a protection block is unavailable.
+    /// larger than <see cref="ConnectProtectedFileLimits.MaxEnvelopeFileBytes"/> (the generator never stages one), not an envelope,
+    /// or on media without a protection block is unavailable.
     /// </summary>
     /// <param name="isProtected">Whether the configuration marks the file as encrypted; a plain file stays a path and is not read here.</param>
     /// <param name="relativePath">The media-relative path from the configuration.</param>
@@ -425,7 +423,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
             }
 
             using var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
-            if (stream.Length > MaxProtectedFileBytes)
+            if (stream.Length > ConnectProtectedFileLimits.MaxEnvelopeFileBytes)
             {
                 return null;
             }

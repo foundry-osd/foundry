@@ -866,7 +866,7 @@ public sealed class ConnectConfigurationServiceTests
     }
 
     [Fact]
-    public void Load_ProtectedClientCertificateFileOverFourMebibytes_IsUnavailable()
+    public void Load_ProtectedClientCertificateFileOverTheSharedLimit_IsUnavailable()
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
         using var directory = new TemporaryDirectory();
@@ -874,11 +874,27 @@ public sealed class ConnectConfigurationServiceTests
             new NetworkSecrets { WifiPassphrase = "lab-passphrase", WiredCertificatePfxPassword = "wired-password" });
         // Trailing whitespace keeps the envelope valid JSON, so only the size limit rejects it.
         string certificatePath = ProtectedWiredCertificatePath(path);
-        File.AppendAllText(certificatePath, new string(' ', (4 * 1024 * 1024) + 1 - (int)new FileInfo(certificatePath).Length));
+        File.AppendAllText(certificatePath, new string(' ', ConnectProtectedFileLimits.MaxEnvelopeFileBytes + 1 - (int)new FileInfo(certificatePath).Length));
 
         ConnectRuntimeSecrets secrets = ServiceFor(path).Load().Secrets!;
 
         Assert.Equal(ConnectSecretStatus.Unavailable, secrets.WiredClientCertificate.Status);
+    }
+
+    [Fact]
+    public void Load_ProtectedClientCertificateFileAtTheSharedLimit_IsLocked()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var directory = new TemporaryDirectory();
+        (string path, byte[] key) = ConnectMediaFixtures.WriteProtectedSchemaSix(directory, PersonalWifiAndWiredPfxAuthoring(directory),
+            new NetworkSecrets { WifiPassphrase = "lab-passphrase", WiredCertificatePfxPassword = "wired-password" });
+        string certificatePath = ProtectedWiredCertificatePath(path);
+        File.AppendAllText(certificatePath, new string(' ', ConnectProtectedFileLimits.MaxEnvelopeFileBytes - (int)new FileInfo(certificatePath).Length));
+
+        ConnectRuntimeSecrets secrets = ServiceFor(path).Load().Secrets!;
+
+        Assert.Equal(ConnectSecretStatus.Locked, secrets.WiredClientCertificate.Status);
+        Assert.Equal(3, secrets.Unlock(key));
     }
 
     private static FoundryConnectConfigurationDocument LoadConfiguration(ConnectConfigurationService service) =>
