@@ -205,7 +205,7 @@ public static class TelemetryEventPropertyPolicy
             [TelemetryEvents.ConnectSessionReady] = new(StringComparer.Ordinal)
             {
                 "connect_network_connection_type",
-                "connect_network_layout_mode",
+                "connect_network_layout_mode", // Retired by the single page (lot 3); kept for boot media built before it (spec T17).
                 "connect_ethernet_available",
                 "connect_wifi_available",
                 "connect_wifi_security_type",

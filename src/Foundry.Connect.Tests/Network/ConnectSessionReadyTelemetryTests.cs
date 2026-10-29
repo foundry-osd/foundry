@@ -34,7 +34,7 @@ public sealed class ConnectSessionReadyTelemetryTests
         IReadOnlyDictionary<string, object?> properties = ConnectSessionReadyTelemetry.Build(state, configuration);
 
         Assert.Equal("wifi", properties["connect_network_connection_type"]);
-        Assert.Equal("ethernet_wifi", properties["connect_network_layout_mode"]);
+        Assert.False(properties.ContainsKey("connect_network_layout_mode"));
         Assert.Equal(false, properties["connect_ethernet_available"]);
         Assert.Equal(true, properties["connect_wifi_available"]);
         Assert.Equal("personal", properties["connect_wifi_security_type"]);
@@ -57,9 +57,21 @@ public sealed class ConnectSessionReadyTelemetryTests
         IReadOnlyDictionary<string, object?> properties = ConnectSessionReadyTelemetry.Build(state, new FoundryConnectConfigurationDocument());
 
         Assert.Equal("ethernet", properties["connect_network_connection_type"]);
-        Assert.Equal("ethernet_only", properties["connect_network_layout_mode"]);
+        Assert.False(properties.ContainsKey("connect_network_layout_mode"));
         Assert.Equal("none", properties["connect_wifi_security_type"]);
         Assert.Equal("none", properties["connect_wifi_source"]);
+    }
+
+    [Fact]
+    public void Build_SendsExactlyTheSinglePageProperties()
+    {
+        NetworkState state = NetworkState.Initial(Now) with { Internet = InternetStatus.Online };
+
+        IReadOnlyDictionary<string, object?> properties = ConnectSessionReadyTelemetry.Build(state, new FoundryConnectConfigurationDocument());
+
+        Assert.Equal(
+            ["connect_ethernet_available", "connect_network_connection_type", "connect_wifi_available", "connect_wifi_provisioned", "connect_wifi_security_type", "connect_wifi_source", "connect_wired_dot1x_enabled"],
+            properties.Keys.Order(StringComparer.Ordinal));
     }
 
     // T17 contract check: everything Connect sends survives the allowlist unchanged.

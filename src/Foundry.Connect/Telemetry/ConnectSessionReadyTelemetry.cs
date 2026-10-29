@@ -12,8 +12,9 @@ namespace Foundry.Connect.Telemetry;
 /// Builds the properties of the <c>connect:session_ready</c> event from the typed network state.
 /// </summary>
 /// <remarks>
-/// Keys and value sets are the ones <c>TelemetryEventPropertyPolicy</c> allows (T17, L2-4). Only categories and booleans
-/// are produced: never an SSID, a profile name or an address.
+/// Keys and value sets are the ones <c>TelemetryEventPropertyPolicy</c> allows (T17, L2-4), same keys as lot 2 except
+/// <c>connect_network_layout_mode</c>, retired by the single page; the allowlist keeps it for older media. Only categories
+/// and booleans are produced: never an SSID, a profile name or an address.
 /// </remarks>
 public static class ConnectSessionReadyTelemetry
 {
@@ -39,7 +40,6 @@ public static class ConnectSessionReadyTelemetry
         return new Dictionary<string, object?>(StringComparer.Ordinal)
         {
             ["connect_network_connection_type"] = ConnectionType(state.ActiveInternetPath),
-            ["connect_network_layout_mode"] = availability is WifiAvailability.Available or WifiAvailability.NoAdapter ? "ethernet_wifi" : "ethernet_only",
             ["connect_ethernet_available"] = state.Ethernet.HasAdapter,
             ["connect_wifi_available"] = availability == WifiAvailability.Available,
             ["connect_wifi_security_type"] = connection is null ? None : WifiSecurityClassifier.TelemetryCategory(connection.Security),
