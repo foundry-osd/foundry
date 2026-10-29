@@ -1,0 +1,644 @@
+﻿<UserControl x:Class="Foundry.Connect.Views.ConnectPage" x:Name="PageRoot"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Foundry.Wpf.Controls;assembly=Foundry.Wpf">
+    <!--  One scrolling column; document order is the Tab order, so no TabIndex is set anywhere.  -->
+    <ScrollViewer x:Name="PageScrollViewer"
+        HorizontalContentAlignment="Stretch"
+        Focusable="False"
+        HorizontalScrollBarVisibility="Disabled"
+        Style="{StaticResource ScrollViewerContentGutterStyle}"
+        VerticalScrollBarVisibility="Auto">
+        <StackPanel
+            MaxWidth="980"
+            Margin="16,24,16,24"
+            HorizontalAlignment="Stretch">
+
+            <!--  1. Status hero  -->
+            <Border Style="{StaticResource ConnectHeroBorderStyle}">
+                <StackPanel HorizontalAlignment="Center">
+                    <!--  The shared ring and glyph are drawn at 180 px; the hero shows them at 64 px.  -->
+                    <Viewbox
+                        Width="64"
+                        Height="64"
+                        HorizontalAlignment="Center">
+                        <Grid
+                            Width="180"
+                            Height="180">
+                            <controls:CustomProgressRing
+                                AutomationProperties.Name="{Binding HeroTitle}"
+                                IsIndeterminate="True"
+                                ProgressBrush="{DynamicResource AccentFillColorDefaultBrush}"
+                                Thickness="14"
+                                TrackBrush="{DynamicResource ControlStrongFillColorDefaultBrush}"
+                                Visibility="{Binding IsHeroBusy, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <controls:TerminalStatusGlyph
+                                AutomationName="{Binding HeroTitle}"
+                                IsSuccess="{Binding IsHeroSuccess}"
+                                Visibility="{Binding IsHeroTerminal, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        </Grid>
+                    </Viewbox>
+                    <TextBlock
+                        Margin="0,16,0,0"
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource TitleTextBlockStyle}"
+                        Text="{Binding HeroTitle}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="0,8,0,0"
+                        HorizontalAlignment="Center"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="{Binding HeroDescription}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Margin="0,8,0,0"
+                        HorizontalAlignment="Center"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{Binding ConnectionChipText}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap"
+                        Visibility="{Binding HasConnectionChip, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <WrapPanel
+                        Margin="0,16,0,0"
+                        HorizontalAlignment="Center"
+                        DataContext="{Binding AutoContinue}">
+                        <Button x:Name="ContinueButton"
+                            AutomationProperties.Name="{Binding Strings[Action.Continue]}"
+                            Command="{Binding ContinueCommand}"
+                            Content="{Binding Strings[Action.Continue]}"
+                            IsDefault="{Binding IsContinueDefault}"
+                            Style="{StaticResource ConnectAccentActionButtonStyle}"
+                            Visibility="{Binding CanContinue, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <Button
+                            AutomationProperties.Name="{Binding Strings[Action.StayHere]}"
+                            Command="{Binding StayHereCommand}"
+                            Content="{Binding Strings[Action.StayHere]}"
+                            Style="{StaticResource ConnectActionButtonStyle}"
+                            Visibility="{Binding IsCounting, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    </WrapPanel>
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        DataContext="{Binding AutoContinue}"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{Binding CaptionText}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap"
+                        Visibility="{Binding HasCaption, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <WrapPanel
+                        Margin="0,16,0,0"
+                        HorizontalAlignment="Center"
+                        Visibility="{Binding IsBlocked, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Button x:Name="RetryButton"
+                            AutomationProperties.Name="{Binding Strings[Action.Retry]}"
+                            Command="{Binding RefreshCommand}"
+                            Content="{Binding Strings[Action.Retry]}"
+                            Style="{StaticResource ConnectAccentActionButtonStyle}" />
+                        <Button
+                            AutomationProperties.Name="{Binding Strings[Diagnostics.ExportMenu]}"
+                            Command="{Binding Diagnostics.ExportDiagnosticsCommand}"
+                            Content="{Binding Strings[Diagnostics.ExportMenu]}"
+                            Style="{StaticResource ConnectActionButtonStyle}" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <!--  2. Captive portal notice  -->
+            <controls:InfoBar
+                Title="{Binding Strings[Notice.CaptivePortalTitle]}"
+                Margin="0,0,0,16"
+                Message="{Binding Strings[Notice.CaptivePortalMessage]}"
+                Severity="Warning"
+                Visibility="{Binding ShowCaptivePortalNotice, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+            <!--  3. Ethernet: a one-line notice without adapter, else the card  -->
+            <TextBlock
+                Margin="0,0,0,16"
+                DataContext="{Binding Ethernet}"
+                Style="{StaticResource ConnectNoticeTextBlockStyle}"
+                Text="{Binding NoAdapterText}"
+                Visibility="{Binding ShowNoAdapterNotice, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <Border
+                DataContext="{Binding Ethernet}"
+                Style="{StaticResource SectionCardBorderStyle}"
+                Visibility="{Binding ShowCard, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Expander
+                    HorizontalContentAlignment="Stretch"
+                    AutomationProperties.Name="{Binding Strings[Ethernet.Title]}"
+                    IsExpanded="{Binding IsDetailsExpanded, Mode=TwoWay}">
+                    <Expander.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Margin="0,0,12,0"
+                                Style="{StaticResource ConnectGlyphTextBlockStyle}"
+                                Text="{Binding Glyph}" />
+                            <StackPanel Grid.Column="1">
+                                <TextBlock
+                                    Style="{StaticResource ConnectSectionTitleTextBlockStyle}"
+                                    Text="{Binding Strings[Ethernet.Title]}" />
+                                <WrapPanel>
+                                    <TextBlock
+                                        Margin="0,0,12,0"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="{Binding StatusText}"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="{Binding IpAddress}"
+                                        Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                </WrapPanel>
+                            </StackPanel>
+                        </Grid>
+                    </Expander.Header>
+                    <StackPanel Margin="0,8,0,0">
+                        <TextBlock
+                            Margin="0,0,0,12"
+                            Text="{Binding SecondaryStatusText}">
+                            <TextBlock.Style>
+                                <Style
+                                    BasedOn="{StaticResource ConnectNoticeTextBlockStyle}"
+                                    TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding SecondaryStatusText}"
+                                            Value="">
+                                            <Setter
+                                                Property="Visibility"
+                                                Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Style="{StaticResource ConnectFieldLabelTextBlockStyle}"
+                                Text="{Binding Strings[Ethernet.AdapterLabel]}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{Binding AdapterName}"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Style="{StaticResource ConnectFieldLabelTextBlockStyle}"
+                                Text="{Binding Strings[Ethernet.Ipv4Label]}" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{Binding IpAddress}"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                Grid.Row="2"
+                                Style="{StaticResource ConnectFieldLabelTextBlockStyle}"
+                                Text="{Binding Strings[Ethernet.GatewayLabel]}" />
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{Binding Gateway}"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                Grid.Row="3"
+                                Style="{StaticResource ConnectFieldLabelTextBlockStyle}"
+                                Text="{Binding Strings[Ethernet.Dot1xLabel]}"
+                                Visibility="{Binding HasDot1x, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{Binding Dot1xStatusText}"
+                                TextWrapping="Wrap"
+                                Visibility="{Binding HasDot1x, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        </Grid>
+                        <controls:InfoBar
+                            Title="{Binding Dot1xStatusText}"
+                            Margin="0,12,0,0"
+                            Message="{Binding Dot1xReasonText}"
+                            Severity="{Binding Dot1xNoticeSeverity}"
+                            Visibility="{Binding ShowDot1xNotice, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    </StackPanel>
+                </Expander>
+            </Border>
+
+            <!--  4. Wi-Fi notice: no WLAN runtime or no wireless adapter  -->
+            <TextBlock
+                Margin="0,0,0,16"
+                Style="{StaticResource ConnectNoticeTextBlockStyle}"
+                Text="{Binding WifiNoticeText}"
+                Visibility="{Binding HasWifiNotice, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+            <!--  5. Provisioned Wi-Fi card  -->
+            <Border
+                DataContext="{Binding ProvisionedWifi}"
+                Style="{StaticResource SectionCardBorderStyle}"
+                Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Margin="0,0,12,0"
+                            Style="{StaticResource ConnectGlyphTextBlockStyle}"
+                            Text="&#xF081;" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Style="{StaticResource ConnectSectionTitleTextBlockStyle}"
+                            Text="{Binding Strings[Wifi.ProvisionedTitle]}" />
+                    </Grid>
+                    <Grid Margin="0,12,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Style="{StaticResource ConnectFieldLabelTextBlockStyle}"
+                            Text="{Binding Strings[Wifi.ProfileLabel]}" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding DisplayName}"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Style="{StaticResource ConnectFieldLabelTextBlockStyle}"
+                            Text="{Binding Strings[Wifi.AuthenticationLabel]}" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{Binding SecurityText}"
+                            TextWrapping="Wrap" />
+                    </Grid>
+                    <TextBlock
+                        Margin="0,8,0,0"
+                        Style="{StaticResource ConnectNoticeTextBlockStyle}"
+                        Text="{Binding StatusText}" />
+                    <controls:InfoBar
+                        Title="{Binding Strings[Wifi.ProvisionedUnavailableTitle]}"
+                        Margin="0,12,0,0"
+                        Message="{Binding UnavailableText}"
+                        Severity="Warning"
+                        Visibility="{Binding IsUnavailable, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <WrapPanel Margin="0,16,0,0">
+                        <Button x:Name="ProvisionedConnectButton"
+                            AutomationProperties.Name="{Binding Strings[Wifi.ConnectProvisionedAutomationName]}"
+                            Command="{Binding ConnectCommand}"
+                            Content="{Binding Strings[Action.Connect]}">
+                            <Button.Style>
+                                <Style
+                                    BasedOn="{StaticResource ConnectAccentActionButtonStyle}"
+                                    TargetType="Button">
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding IsConnected}"
+                                            Value="True">
+                                            <Setter
+                                                Property="Visibility"
+                                                Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                        <Button
+                            AutomationProperties.Name="{Binding Strings[Wifi.DisconnectProvisionedAutomationName]}"
+                            Command="{Binding DisconnectCommand}"
+                            Content="{Binding Strings[Action.Disconnect]}">
+                            <Button.Style>
+                                <Style
+                                    BasedOn="{StaticResource ConnectActionButtonStyle}"
+                                    TargetType="Button">
+                                    <Setter
+                                        Property="Visibility"
+                                        Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding IsConnected}"
+                                            Value="True">
+                                            <Setter
+                                                Property="Visibility"
+                                                Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </WrapPanel>
+                    <TextBlock
+                        Style="{StaticResource ConnectNoticeTextBlockStyle}"
+                        Text="{Binding FeedbackText}"
+                        Visibility="{Binding HasFeedback, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                </StackPanel>
+            </Border>
+
+            <!--  6. Wi-Fi networks card: list and details side by side from 760 px, stacked below (L3-22)  -->
+            <Border
+                DataContext="{Binding WifiNetworks}"
+                Style="{StaticResource SectionCardBorderStyle}"
+                Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid x:Name="WifiSectionGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid
+                        Grid.ColumnSpan="2"
+                        Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Margin="0,0,12,0"
+                            Style="{StaticResource ConnectGlyphTextBlockStyle}"
+                            Text="&#xE701;" />
+                        <TextBlock
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource ConnectSectionTitleTextBlockStyle}"
+                            Text="{Binding Strings[Wifi.Title]}" />
+                        <Button
+                            Grid.Column="2"
+                            MinWidth="40"
+                            Padding="10,0"
+                            VerticalAlignment="Stretch"
+                            AutomationProperties.Name="{Binding Strings[Wifi.RefreshNetworks]}"
+                            Command="{Binding RefreshCommand}"
+                            ToolTip="{Binding Strings[Wifi.RefreshNetworks]}">
+                            <TextBlock
+                                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                FontSize="14"
+                                Text="&#xE72C;" />
+                        </Button>
+                    </Grid>
+
+                    <!--  Tab enters and leaves the list as one stop; the arrows move the selection only (UI-01).  -->
+                    <ListBox x:Name="WifiNetworksList"
+                        Grid.Row="1"
+                        MaxHeight="280"
+                        VerticalAlignment="Top"
+                        HorizontalContentAlignment="Stretch"
+                        AutomationProperties.Name="{Binding Strings[Wifi.NetworksListAutomationName]}"
+                        ItemsSource="{Binding Networks}"
+                        KeyboardNavigation.TabNavigation="Once"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        SelectedItem="{Binding SelectedNetwork, Mode=TwoWay}"
+                        SelectionMode="Single"
+                        Visibility="{Binding HasNetworks, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <ListBox.ItemContainerStyle>
+                            <Style
+                                BasedOn="{StaticResource {x:Type ListBoxItem}}"
+                                TargetType="ListBoxItem">
+                                <Setter
+                                    Property="AutomationProperties.Name"
+                                    Value="{Binding AutomationName}" />
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid x:Name="NetworkRow"
+                                    Margin="0,4">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Margin="0,0,12,0"
+                                        Style="{StaticResource ConnectGlyphTextBlockStyle}"
+                                        Text="{Binding SignalGlyph}" />
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock
+                                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                                            Text="{Binding DisplayName}"
+                                            TextWrapping="Wrap" />
+                                        <TextBlock
+                                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="{Binding SecurityText}"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+                                    <TextBlock
+                                        Grid.Column="2"
+                                        Margin="12,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="{Binding DataContext.Strings[Common.Connected], ElementName=WifiNetworksList}"
+                                        Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                </Grid>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding IsInRange}"
+                                        Value="False">
+                                        <Setter
+                                            TargetName="NetworkRow"
+                                            Property="Opacity"
+                                            Value="0.6" />
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <StackPanel x:Name="WifiDetailsPanel">
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Setter
+                                    Property="Grid.Row"
+                                    Value="2" />
+                                <Setter
+                                    Property="Grid.Column"
+                                    Value="0" />
+                                <Setter
+                                    Property="Grid.ColumnSpan"
+                                    Value="2" />
+                                <Setter
+                                    Property="Margin"
+                                    Value="0,16,0,0" />
+                                <Style.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding ActualWidth, ElementName=WifiSectionGrid, Converter={StaticResource WidthAtLeastConverter}, ConverterParameter=760}"
+                                        Value="True">
+                                        <Setter
+                                            Property="Grid.Row"
+                                            Value="1" />
+                                        <Setter
+                                            Property="Grid.Column"
+                                            Value="1" />
+                                        <Setter
+                                            Property="Grid.ColumnSpan"
+                                            Value="1" />
+                                        <Setter
+                                            Property="Width"
+                                            Value="360" />
+                                        <Setter
+                                            Property="Margin"
+                                            Value="16,0,0,0" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+
+                        <TextBlock Text="{Binding EmptyText}">
+                            <TextBlock.Style>
+                                <Style
+                                    BasedOn="{StaticResource ConnectNoticeTextBlockStyle}"
+                                    TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding HasNetworks}"
+                                            Value="True">
+                                            <Setter
+                                                Property="Visibility"
+                                                Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <TextBlock Text="{Binding SelectionHintText}">
+                            <TextBlock.Style>
+                                <Style
+                                    BasedOn="{StaticResource ConnectNoticeTextBlockStyle}"
+                                    TargetType="TextBlock">
+                                    <Setter
+                                        Property="Visibility"
+                                        Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition
+                                                    Binding="{Binding HasNetworks}"
+                                                    Value="True" />
+                                                <Condition
+                                                    Binding="{Binding HasSelection}"
+                                                    Value="False" />
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter
+                                                Property="Visibility"
+                                                Value="Visible" />
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+
+                        <StackPanel Visibility="{Binding HasSelection, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <TextBlock
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{Binding SelectedNetwork.DisplayName}"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Text="{Binding SelectedNetwork.SecurityText}"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                Margin="0,8,0,0"
+                                Style="{StaticResource ConnectNoticeTextBlockStyle}"
+                                Text="{Binding UnsupportedText}"
+                                Visibility="{Binding HasUnsupportedText, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <TextBlock
+                                Margin="0,12,0,4"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{Binding Strings[Wifi.PassphraseLabel]}"
+                                Visibility="{Binding ShowPassphrase, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <controls:PassphraseEditor x:Name="PassphraseInput"
+                                Margin="0,4,0,8"
+                                AccessibleName="{Binding Strings[Wifi.PassphraseLabel]}"
+                                MaxLength="64"
+                                RevealButtonText="{Binding Strings[Wifi.TogglePassphraseVisibility]}"
+                                SubmitCommand="{Binding ConnectCommand}"
+                                Visibility="{Binding ShowPassphrase, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <WrapPanel Margin="0,8,0,0">
+                                <Button
+                                    AutomationProperties.Name="{Binding ConnectAutomationName}"
+                                    Command="{Binding ConnectCommand}"
+                                    Content="{Binding Strings[Action.Connect]}">
+                                    <Button.Style>
+                                        <Style
+                                            BasedOn="{StaticResource ConnectAccentActionButtonStyle}"
+                                            TargetType="Button">
+                                            <Style.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding SelectedNetwork.IsConnected}"
+                                                    Value="True">
+                                                    <Setter
+                                                        Property="Visibility"
+                                                        Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                                <Button
+                                    AutomationProperties.Name="{Binding DisconnectAutomationName}"
+                                    Command="{Binding DisconnectCommand}"
+                                    Content="{Binding Strings[Action.Disconnect]}">
+                                    <Button.Style>
+                                        <Style
+                                            BasedOn="{StaticResource ConnectActionButtonStyle}"
+                                            TargetType="Button">
+                                            <Setter
+                                                Property="Visibility"
+                                                Value="Collapsed" />
+                                            <Style.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding SelectedNetwork.IsConnected}"
+                                                    Value="True">
+                                                    <Setter
+                                                        Property="Visibility"
+                                                        Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </WrapPanel>
+                            <TextBlock
+                                Style="{StaticResource ConnectNoticeTextBlockStyle}"
+                                Text="{Binding FeedbackText}"
+                                Visibility="{Binding HasFeedback, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

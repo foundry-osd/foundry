@@ -6,6 +6,7 @@ using Foundry.Connect.Configuration;
 using Foundry.Connect.DependencyInjection;
 using Foundry.Connect.Lifetime;
 using Foundry.Connect.Network;
+using Foundry.Connect.ViewModels;
 using Foundry.Core.Models.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,6 +25,28 @@ public sealed class NetworkServiceRegistrationTests
         Assert.Same(coordinator, provider.GetRequiredService<ConnectionCoordinator>());
         Assert.NotNull(provider.GetRequiredService<ISuccessfulExitService>());
         Assert.NotNull(provider.GetRequiredService<INetworkMonitor>());
+    }
+
+    [Fact]
+    public async Task AddFoundryConnectApplicationServices_ComposesThePageAroundOneNetworkActions()
+    {
+        using ServiceProvider provider = BuildProvider();
+        ConnectNetworkActions actions = provider.GetRequiredService<ConnectNetworkActions>();
+        int interactions = 0;
+        actions.InteractionOccurred += (_, _) => interactions++;
+
+        // A simulated scenario keeps every action away from the real coordinator.
+        ConnectPageViewModel page = provider.GetRequiredService<ConnectPageViewModel>();
+        page.ApplyDebugScenario(ConnectDebugScenario.WifiReady);
+        page.WifiNetworks.SetPassphrase("password1".AsSpan());
+        await page.ProvisionedWifi.DisconnectCommand.ExecuteAsync(null);
+
+        Assert.True(actions.IsSimulation);
+        Assert.Equal(2, interactions);
+        Assert.Same(provider.GetRequiredService<WifiNetworksViewModel>(), page.WifiNetworks);
+        Assert.Same(provider.GetRequiredService<ProvisionedWifiViewModel>(), page.ProvisionedWifi);
+        Assert.Same(provider.GetRequiredService<AutoContinueViewModel>(), page.AutoContinue);
+        Assert.Same(provider.GetRequiredService<DiagnosticsViewModel>(), page.Diagnostics);
     }
 
     private static ServiceProvider BuildProvider()

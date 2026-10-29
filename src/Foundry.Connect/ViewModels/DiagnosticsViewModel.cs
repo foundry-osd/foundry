@@ -84,7 +84,7 @@ public sealed partial class DiagnosticsViewModel : LocalizedViewModelBase
         }
         catch (Exception exception) when (exception is Win32Exception or InvalidOperationException)
         {
-            _logger.LogError(exception, "Failed to open log file. LogFilePath={LogFilePath}", logFilePath);
+            _logger.LogError("Failed to open log file. LogFilePath={LogFilePath}, FailureType={FailureType}", logFilePath, exception.GetType().Name);
         }
     }
 
@@ -172,7 +172,7 @@ public sealed partial class DiagnosticsViewModel : LocalizedViewModelBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Support bundle export failed. PrivacyMode={PrivacyMode}", privacyMode);
+            _logger.LogError("Support bundle export failed. PrivacyMode={PrivacyMode}, FailureType={FailureType}", privacyMode, ex.GetType().Name);
             _ = new LocalizedMessageDialog(
                 Strings["Diagnostics.ExportFailedTitle"],
                 Strings["Diagnostics.ExportFailedMessage"],

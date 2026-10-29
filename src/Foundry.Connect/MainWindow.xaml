@@ -3,7 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="clr-namespace:Foundry.Connect.Models"
     xmlns:views="clr-namespace:Foundry.Connect.Views"
     Title="{Binding WindowTitle}"
     Icon="/Assets/Icons/app.ico"
@@ -11,25 +10,15 @@
     WindowState="Maximized"
     WindowStyle="None"
     mc:Ignorable="d">
-    <Window.Resources>
-        <DataTemplate x:Key="EthernetOnlyTemplate">
-            <views:EthernetOnlyView />
-        </DataTemplate>
-
-        <DataTemplate x:Key="EthernetWifiTemplate">
-            <views:EthernetWifiView />
-        </DataTemplate>
-    </Window.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
@@ -122,7 +111,7 @@
                     ItemsSource="{Binding KeyboardMenuEntries}" />
                 <MenuItem Header="{Binding Strings[Menu.Tools]}">
                     <MenuItem
-                        Command="{Binding RefreshStatusCommand}"
+                        Command="{Binding Page.RefreshCommand}"
                         Header="{Binding Strings[Tools.RefreshStatus]}" />
                     <Separator />
                     <MenuItem
@@ -135,198 +124,85 @@
                         Command="{Binding Diagnostics.ExportRawDiagnosticsCommand}"
                         Header="{Binding Strings[Diagnostics.ExportRawMenu]}" />
                 </MenuItem>
+                <!--  Debug safety mode only (D16): hidden here, and the command refuses to run outside it.  -->
                 <MenuItem
                     Header="{Binding Strings[Menu.Debug]}"
                     Visibility="{Binding IsDebugMenuVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <MenuItem
-                        Command="{Binding UseRuntimeDebugLayoutCommand}"
-                        Header="{Binding Strings[Debug.UseRuntimeLayout]}" />
-                    <MenuItem
-                        Command="{Binding ShowEthernetOnlyDebugLayoutCommand}"
-                        Header="{Binding Strings[Debug.ShowEthernetOnly]}" />
-                    <MenuItem
-                        Command="{Binding ShowEthernetWifiDebugLayoutCommand}"
-                        Header="{Binding Strings[Debug.ShowEthernetWifi]}" />
+                        Header="{Binding Strings[Debug.Scenarios]}"
+                        ItemsSource="{Binding DebugScenarios}">
+                        <MenuItem.ItemContainerStyle>
+                            <Style TargetType="{x:Type MenuItem}">
+                                <Setter
+                                    Property="Header"
+                                    Value="{Binding Header}" />
+                                <Setter
+                                    Property="Command"
+                                    Value="{Binding DataContext.SetDebugScenarioCommand, RelativeSource={RelativeSource AncestorType={x:Type Menu}}}" />
+                                <Setter
+                                    Property="CommandParameter"
+                                    Value="{Binding Scenario}" />
+                                <Setter
+                                    Property="IsCheckable"
+                                    Value="True" />
+                                <Setter
+                                    Property="IsChecked"
+                                    Value="{Binding IsSelected, Mode=OneWay}" />
+                            </Style>
+                        </MenuItem.ItemContainerStyle>
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem
                     Command="{Binding ShowAboutCommand}"
                     Header="{Binding Strings[Menu.About]}" />
             </Menu>
 
-            <StackPanel
+            <!--  The menu keeps its width; the banner gets what is left, at most 360 px, and trims its caption (800 px wide windows).  -->
+            <Grid
                 Grid.Column="1"
-                Margin="0,0,16,0"
+                MaxWidth="360"
+                Margin="12,0,12,0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
-                Orientation="Horizontal">
-                <StackPanel
-                    Margin="0,0,12,0"
-                    Orientation="Horizontal"
-                    Visibility="{Binding IsBootMediaUpdateRecommended, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <StackPanel.ToolTip>
-                        <ToolTip>
-                            <TextBlock
-                                MaxWidth="480"
-                                Text="{Binding BootMediaUpdateRecommendedToolTip}"
-                                TextWrapping="Wrap" />
-                        </ToolTip>
-                    </StackPanel.ToolTip>
-                    <TextBlock
-                        Margin="0,0,4,0"
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource SymbolThemeFontFamily}"
-                        Foreground="{DynamicResource SystemFillColorCautionBrush}"
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="&#xE7BA;" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Foreground="{DynamicResource SystemFillColorCautionBrush}"
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{Binding BootMediaUpdateRecommendedText}" />
-                </StackPanel>
-                <TextBlock
-                    VerticalAlignment="Center"
-                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{Binding VersionDisplay}" />
-            </StackPanel>
-        </Grid>
-
-        <Grid x:Name="MainContentHost"
-            Grid.Row="1"
-            Margin="32">
-            <Grid
-                Width="{Binding ElementName=MainContentHost, Path=ActualWidth}"
-                Height="{Binding ElementName=MainContentHost, Path=ActualHeight}"
-                MaxWidth="1440"
-                MaxHeight="900"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
-                <Border Style="{StaticResource SectionCardBorderStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
+                Visibility="{Binding IsBootMediaUpdateRecommended, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.ToolTip>
+                    <ToolTip>
                         <TextBlock
-                            Grid.Column="0"
-                            Margin="0,0,16,0"
-                            VerticalAlignment="Center"
-                            FontFamily="{StaticResource SymbolThemeFontFamily}"
-                            FontSize="28"
-                            Text="{Binding PrimaryStatusGlyph}">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Setter
-                                        Property="Foreground"
-                                        Value="{DynamicResource SystemFillColorCautionBrush}" />
-                                    <Style.Triggers>
-                                        <DataTrigger
-                                            Binding="{Binding IsPrimaryStatusSuccessful}"
-                                            Value="True">
-                                            <Setter
-                                                Property="Foreground"
-                                                Value="{DynamicResource SystemFillColorSuccessBrush}" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-
-                        <StackPanel Grid.Column="1">
-                            <TextBlock Text="{Binding PrimaryStatusTitle}">
-                                <TextBlock.Style>
-                                    <Style
-                                        BasedOn="{StaticResource TitleTextBlockStyle}"
-                                        TargetType="TextBlock">
-                                        <Setter
-                                            Property="Foreground"
-                                            Value="{DynamicResource SystemFillColorCautionBrush}" />
-                                        <Style.Triggers>
-                                            <DataTrigger
-                                                Binding="{Binding IsPrimaryStatusSuccessful}"
-                                                Value="True">
-                                                <Setter
-                                                    Property="Foreground"
-                                                    Value="{DynamicResource SystemFillColorSuccessBrush}" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
-                            <TextBlock
-                                Margin="0,8,0,0"
-                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="{Binding PrimaryStatusDescription}"
-                                TextWrapping="Wrap" />
-                            <TextBlock
-                                Margin="0,12,0,0"
-                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="{Binding CurrentConnectionChipText}"
-                                Visibility="{Binding HasCurrentConnectionChip, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                        </StackPanel>
-
-                        <StackPanel
-                            Grid.Column="2"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center">
-                            <Button
-                                Width="140"
-                                HorizontalAlignment="Right"
-                                Command="{Binding ContinueBootstrapCommand}"
-                                Content="{Binding Strings[Action.Continue]}"
-                                Style="{DynamicResource AccentButtonStyle}"
-                                Visibility="{Binding CanContinueBootstrap, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                            <TextBlock
-                                Margin="0,8,0,0"
-                                HorizontalAlignment="Right"
-                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="{Binding AutoContinueText}"
-                                Visibility="{Binding IsCountdownActive, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                        </StackPanel>
-                    </Grid>
-                </Border>
-
-                <ContentControl
-                    Grid.Row="1"
-                    Margin="0,8,0,0"
-                    Content="{Binding}">
-                    <ContentControl.Style>
-                        <Style TargetType="ContentControl">
-                            <Setter
-                                Property="ContentTemplate"
-                                Value="{StaticResource EthernetOnlyTemplate}" />
-                            <Style.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding EffectiveLayoutMode}"
-                                    Value="{x:Static models:NetworkLayoutMode.EthernetWifi}">
-                                    <Setter
-                                        Property="ContentTemplate"
-                                        Value="{StaticResource EthernetWifiTemplate}" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ContentControl.Style>
-                </ContentControl>
+                            MaxWidth="480"
+                            Text="{Binding BootMediaUpdateRecommendedToolTip}"
+                            TextWrapping="Wrap" />
+                    </ToolTip>
+                </Grid.ToolTip>
+                <TextBlock
+                    Margin="0,0,4,0"
+                    VerticalAlignment="Center"
+                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                    Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="&#xE7BA;" />
+                <TextBlock
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="{Binding BootMediaUpdateRecommendedText}"
+                    TextTrimming="CharacterEllipsis" />
             </Grid>
+            <TextBlock
+                Grid.Column="2"
+                Margin="0,0,16,0"
+                VerticalAlignment="Center"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="{Binding VersionDisplay}" />
         </Grid>
 
-        <StatusBar Grid.Row="2">
-            <StatusBarItem Content="{Binding ConfigurationSourceText}" />
-            <StatusBarItem Content="{Binding RefreshIntervalText}" />
-            <StatusBarItem HorizontalContentAlignment="Right">
-                <TextBlock Text="{Binding LastUpdatedText}" />
-            </StatusBarItem>
-        </StatusBar>
+        <views:ConnectPage
+            Grid.Row="1"
+            DataContext="{Binding Page}" />
     </Grid>
 </Window>

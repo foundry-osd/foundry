@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Resources;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Threading;
 using Foundry.Connect.Lifetime;
 using Foundry.Wpf.Shell;
 using Foundry.Connect.Configuration;
@@ -47,7 +48,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<App>();
         services.AddSingleton<MainWindow>();
         services.AddSingleton<MainWindowViewModel>();
-        services.AddSingleton<DiagnosticsViewModel>();
+        AddPageViewModels(services);
         services.AddSingleton(args ?? Array.Empty<string>());
 
         services.AddSingleton<IApplicationShellService, ApplicationShellService>();
@@ -88,6 +89,32 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IKeyboardLayoutSwitcher>(_ => new WindowsKeyboardLayoutSwitcher(KeyboardLayoutHandoff.DefaultPath));
 
         return services;
+    }
+
+    /// <summary>
+    /// Registers the single page and its sections as singletons with the window's lifetime (L3-19). One
+    /// <see cref="ConnectNetworkActions"/> is shared by the page and every section, so a debug scenario set on the page
+    /// gates every network action and every action pauses the countdown.
+    /// </summary>
+    private static void AddPageViewModels(IServiceCollection services)
+    {
+        // Program creates the App before it resolves the window, so this is the UI dispatcher whatever the resolving
+        // thread; without an Application (tests) it falls back to the resolving thread's dispatcher.
+        services.AddSingleton<IUiDispatcher>(_ => new WpfUiDispatcher(Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher));
+        services.AddSingleton<ConnectNetworkActions>();
+        services.AddSingleton(sp => new AutoContinueViewModel(
+            sp.GetRequiredService<ILocalizationService>(),
+            sp.GetRequiredService<ISuccessfulExitService>(),
+            sp.GetRequiredService<IApplicationLifetimeService>(),
+            sp.GetRequiredService<TimeProvider>(),
+            sp.GetRequiredService<IUiDispatcher>(),
+            sp.GetRequiredService<ILogger<AutoContinueViewModel>>(),
+            isAutoContinueEnabled: !Debugger.IsAttached));
+        services.AddSingleton<EthernetSectionViewModel>();
+        services.AddSingleton<ProvisionedWifiViewModel>();
+        services.AddSingleton<WifiNetworksViewModel>();
+        services.AddSingleton<DiagnosticsViewModel>();
+        services.AddSingleton<ConnectPageViewModel>();
     }
 
     /// <summary>
