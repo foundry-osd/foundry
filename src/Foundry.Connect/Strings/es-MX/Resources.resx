@@ -383,29 +383,47 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>La red respondió con una página de inicio de sesión en lugar de acceso a Internet. Inicie sesión desde otro dispositivo si esta red lo permite o use otra red y luego seleccione Reintentar.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Se requiere iniciar sesión</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>La autenticación 802.1X cableada no se completó correctamente. El motivo se muestra en la sección Ethernet.</value>
+    <value>El motivo se muestra en la sección Ethernet.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>La autenticación 802.1X cableada no se completó correctamente</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>No hay conexión de red. Conéctese a una red Wi-Fi.</value>
+    <value>Conéctese a una red Wi-Fi.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>No hay ningún adaptador de red disponible. Revise las secciones Ethernet y Wi-Fi y luego seleccione Reintentar.</value>
+    <value>Revise las secciones Ethernet y Wi-Fi y luego seleccione Reintentar.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>No hay ningún adaptador de red</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>No hay conexión de red. Conecte un cable Ethernet.</value>
+    <value>Conecte un cable Ethernet.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>No hay ningún cable Ethernet</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>No hay ningún adaptador de red disponible. Revise la sección Ethernet y luego seleccione Reintentar.</value>
+    <value>Revise la sección Ethernet y luego seleccione Reintentar.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>La red está conectada, pero no puede acceder a Internet. Revise el firewall o el proxy y luego seleccione Reintentar.</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>La red no proporcionó ninguna dirección IP. Revise el DHCP de esta red y luego seleccione Reintentar.</value>
+    <value>Revise el DHCP de esta red y luego seleccione Reintentar.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>No hay ninguna dirección IP</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>No hay conexión de red. Conecte un cable Ethernet o conéctese a una red Wi-Fi.</value>
+    <value>Conecte un cable Ethernet o conéctese a una red Wi-Fi.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>No hay conexión de red</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Sin acceso a Internet</value>

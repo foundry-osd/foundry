@@ -383,29 +383,47 @@ Licencirano pod licenco MIT.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Omrežje se je namesto z dostopom do interneta odzvalo s stranjo za prijavo. Prijavite se z druge naprave, če omrežje to dovoljuje, ali uporabite drugo omrežje in nato izberite Poskusi znova.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Potrebna je prijava</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>Žično overjanje 802.1X ni uspelo. Vzrok je prikazan v razdelku Ethernet.</value>
+    <value>Vzrok je prikazan v razdelku Ethernet.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>Žično overjanje 802.1X ni uspelo</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>Ni omrežne povezave. Povežite se z omrežjem Wi-Fi.</value>
+    <value>Povežite se z omrežjem Wi-Fi.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Na voljo ni nobenega omrežnega adapterja. Preverite razdelka Ethernet in Wi-Fi ter nato izberite Poskusi znova.</value>
+    <value>Preverite razdelka Ethernet in Wi-Fi ter nato izberite Poskusi znova.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Ni omrežnega adapterja</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>Ni omrežne povezave. Priključite kabel Ethernet.</value>
+    <value>Priključite kabel Ethernet.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Ni kabla Ethernet</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>Na voljo ni nobenega omrežnega adapterja. Preverite razdelek Ethernet in nato izberite Poskusi znova.</value>
+    <value>Preverite razdelek Ethernet in nato izberite Poskusi znova.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Omrežje je povezano, vendar ne doseže interneta. Preverite požarni zid ali proxy in nato izberite Poskusi znova.</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>Omrežje ni dodelilo naslova IP. Preverite DHCP v tem omrežju in nato izberite Poskusi znova.</value>
+    <value>Preverite DHCP v tem omrežju in nato izberite Poskusi znova.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>Ni naslova IP</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>Ni omrežne povezave. Priključite kabel Ethernet ali se povežite z omrežjem Wi-Fi.</value>
+    <value>Priključite kabel Ethernet ali se povežite z omrežjem Wi-Fi.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Ni omrežne povezave</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Ni dostopa do interneta</value>

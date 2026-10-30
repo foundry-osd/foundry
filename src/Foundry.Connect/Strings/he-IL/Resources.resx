@@ -383,29 +383,47 @@
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>הרשת השיבה בדף כניסה במקום בגישה לאינטרנט. היכנס ממכשיר אחר אם הרשת מאפשרת זאת, או השתמש ברשת אחרת, ולאחר מכן בחר נסה שוב.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>נדרשת כניסה</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>אימות 802.1X קווי לא הצליח. הסיבה מוצגת במקטע Ethernet.</value>
+    <value>הסיבה מוצגת במקטע Ethernet.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>אימות 802.1X קווי לא הצליח</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>אין חיבור לרשת. התחבר לרשת Wi-Fi.</value>
+    <value>התחבר לרשת Wi-Fi.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>אין מתאם רשת זמין. בדוק את המקטעים Ethernet ו-Wi-Fi, ולאחר מכן בחר נסה שוב.</value>
+    <value>בדוק את המקטעים Ethernet ו-Wi-Fi, ולאחר מכן בחר נסה שוב.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>אין מתאם רשת</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>אין חיבור לרשת. חבר כבל Ethernet.</value>
+    <value>חבר כבל Ethernet.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>אין כבל Ethernet</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>אין מתאם רשת זמין. בדוק את המקטע Ethernet, ולאחר מכן בחר נסה שוב.</value>
+    <value>בדוק את המקטע Ethernet, ולאחר מכן בחר נסה שוב.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>הרשת מחוברת אך אין גישה לאינטרנט. בדוק את חומת האש או את ה-proxy, ולאחר מכן בחר נסה שוב.</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>הרשת לא סיפקה כתובת IP. בדוק את ה-DHCP ברשת זו, ולאחר מכן בחר נסה שוב.</value>
+    <value>בדוק את ה-DHCP ברשת זו, ולאחר מכן בחר נסה שוב.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>אין כתובת IP</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>אין חיבור לרשת. חבר כבל Ethernet או התחבר לרשת Wi-Fi.</value>
+    <value>חבר כבל Ethernet או התחבר לרשת Wi-Fi.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>אין חיבור לרשת</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>אין גישה לאינטרנט</value>

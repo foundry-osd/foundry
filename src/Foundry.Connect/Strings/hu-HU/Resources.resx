@@ -383,29 +383,47 @@ Licenc az MIT licenc alatt.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>A hálózat internet-hozzáférés helyett bejelentkezési oldallal válaszolt. Jelentkezzen be egy másik eszközről, ha a hálózat engedi, vagy használjon másik hálózatot, majd válassza az Újrapróbálkozás lehetőséget.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Bejelentkezés szükséges</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>A vezetékes 802.1X-hitelesítés nem sikerült. Az ok az Ethernet szakaszban látható.</value>
+    <value>Az ok az Ethernet szakaszban látható.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>A vezetékes 802.1X-hitelesítés nem sikerült</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>Nincs hálózati kapcsolat. Csatlakozzon egy Wi-Fi hálózathoz.</value>
+    <value>Csatlakozzon egy Wi-Fi hálózathoz.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Nem érhető el hálózati adapter. Ellenőrizze az Ethernet és a Wi-Fi szakaszt, majd válassza az Újrapróbálkozás lehetőséget.</value>
+    <value>Ellenőrizze az Ethernet és a Wi-Fi szakaszt, majd válassza az Újrapróbálkozás lehetőséget.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Nincs hálózati adapter</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>Nincs hálózati kapcsolat. Csatlakoztasson Ethernet-kábelt.</value>
+    <value>Csatlakoztasson Ethernet-kábelt.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Nincs Ethernet-kábel</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>Nem érhető el hálózati adapter. Ellenőrizze az Ethernet szakaszt, majd válassza az Újrapróbálkozás lehetőséget.</value>
+    <value>Ellenőrizze az Ethernet szakaszt, majd válassza az Újrapróbálkozás lehetőséget.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>A hálózat csatlakoztatva van, de nem éri el az internetet. Ellenőrizze a tűzfalat vagy a proxyt, majd válassza az Újrapróbálkozás lehetőséget.</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>A hálózat nem adott IP-címet. Ellenőrizze a hálózat DHCP-beállításait, majd válassza az Újrapróbálkozás lehetőséget.</value>
+    <value>Ellenőrizze a hálózat DHCP-beállításait, majd válassza az Újrapróbálkozás lehetőséget.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>Nincs IP-cím</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>Nincs hálózati kapcsolat. Csatlakoztasson Ethernet-kábelt, vagy csatlakozzon egy Wi-Fi hálózathoz.</value>
+    <value>Csatlakoztasson Ethernet-kábelt, vagy csatlakozzon egy Wi-Fi hálózathoz.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Nincs hálózati kapcsolat</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Nincs internet-hozzáférés</value>

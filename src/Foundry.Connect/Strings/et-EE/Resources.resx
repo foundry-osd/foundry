@@ -383,29 +383,47 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Võrk vastas interneti-juurdepääsu asemel sisselogimislehega. Logige sisse teisest seadmest, kui võrk seda lubab, või kasutage teist võrku ja valige seejärel Proovi uuesti.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Nõutav on sisselogimine</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>Juhtmega 802.1X-autentimine ei õnnestunud. Põhjus on näidatud jaotises Ethernet.</value>
+    <value>Põhjus on näidatud jaotises Ethernet.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>Juhtmega 802.1X-autentimine ei õnnestunud</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>Võrguühendus puudub. Looge ühendus Wi-Fi võrguga.</value>
+    <value>Looge ühendus Wi-Fi võrguga.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Ükski võrguadapter pole saadaval. Kontrollige jaotisi Ethernet ja Wi-Fi ning valige seejärel Proovi uuesti.</value>
+    <value>Kontrollige jaotisi Ethernet ja Wi-Fi ning valige seejärel Proovi uuesti.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Võrguadapter puudub</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>Võrguühendus puudub. Ühendage Etherneti kaabel.</value>
+    <value>Ühendage Etherneti kaabel.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Etherneti kaabel puudub</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>Ükski võrguadapter pole saadaval. Kontrollige jaotist Ethernet ja valige seejärel Proovi uuesti.</value>
+    <value>Kontrollige jaotist Ethernet ja valige seejärel Proovi uuesti.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Võrk on ühendatud, kuid internetti ei jõuta. Kontrollige tulemüüri või puhverserverit ja valige seejärel Proovi uuesti.</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>Võrk ei andnud IP-aadressi. Kontrollige selle võrgu DHCP-d ja valige seejärel Proovi uuesti.</value>
+    <value>Kontrollige selle võrgu DHCP-d ja valige seejärel Proovi uuesti.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>IP-aadress puudub</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>Võrguühendus puudub. Ühendage Etherneti kaabel või looge ühendus Wi-Fi võrguga.</value>
+    <value>Ühendage Etherneti kaabel või looge ühendus Wi-Fi võrguga.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Võrguühendus puudub</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Interneti-juurdepääs puudub</value>

@@ -383,29 +383,47 @@
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>استجابت الشبكة بصفحة تسجيل دخول بدلاً من الوصول إلى الإنترنت. سجّل الدخول من جهاز آخر إذا كانت الشبكة تسمح بذلك، أو استخدم شبكة أخرى، ثم حدد إعادة المحاولة.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>يلزم تسجيل الدخول</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>لم تنجح مصادقة 802.1X السلكية. يظهر السبب في قسم Ethernet.</value>
+    <value>يظهر السبب في قسم Ethernet.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>لم تنجح مصادقة 802.1X السلكية</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>لا يوجد اتصال بالشبكة. انضم إلى شبكة Wi-Fi.</value>
+    <value>انضم إلى شبكة Wi-Fi.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>لا يتوفر أي محول شبكة. تحقق من قسمي Ethernet وWi-Fi، ثم حدد إعادة المحاولة.</value>
+    <value>تحقق من قسمي Ethernet وWi-Fi، ثم حدد إعادة المحاولة.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>لا يوجد محول شبكة</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>لا يوجد اتصال بالشبكة. وصّل كبل Ethernet.</value>
+    <value>وصّل كبل Ethernet.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>لا يوجد كبل Ethernet</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>لا يتوفر أي محول شبكة. تحقق من قسم Ethernet، ثم حدد إعادة المحاولة.</value>
+    <value>تحقق من قسم Ethernet، ثم حدد إعادة المحاولة.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>الشبكة متصلة ولكن لا يمكنها الوصول إلى الإنترنت. تحقق من جدار الحماية أو الوكيل، ثم حدد إعادة المحاولة.</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>لم توفر الشبكة عنوان IP. تحقق من DHCP على هذه الشبكة، ثم حدد إعادة المحاولة.</value>
+    <value>تحقق من DHCP على هذه الشبكة، ثم حدد إعادة المحاولة.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>لا يوجد عنوان IP</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>لا يوجد اتصال بالشبكة. وصّل كبل Ethernet أو انضم إلى شبكة Wi-Fi.</value>
+    <value>وصّل كبل Ethernet أو انضم إلى شبكة Wi-Fi.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>لا يوجد اتصال بالشبكة</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>لا يوجد وصول إلى الإنترنت</value>

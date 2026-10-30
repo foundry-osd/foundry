@@ -383,29 +383,47 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>ネットワークがインターネット アクセスの代わりにサインイン ページを返しました。このネットワークで許可されている場合は別のデバイスからサインインするか、別のネットワークを使用してから、[再試行] を選択してください。</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>サインインが必要です</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>有線 802.1X 認証に成功しませんでした。理由は Ethernet セクションに表示されます。</value>
+    <value>理由は Ethernet セクションに表示されます。</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>有線 802.1X 認証に成功しませんでした</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>ネットワーク接続がありません。Wi-Fi ネットワークに接続してください。</value>
+    <value>Wi-Fi ネットワークに接続してください。</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>使用できるネットワーク アダプターがありません。Ethernet と Wi-Fi のセクションを確認してから、[再試行] を選択してください。</value>
+    <value>Ethernet と Wi-Fi のセクションを確認してから、[再試行] を選択してください。</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>ネットワーク アダプターがありません</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>ネットワーク接続がありません。Ethernet ケーブルを接続してください。</value>
+    <value>Ethernet ケーブルを接続してください。</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Ethernet ケーブルが接続されていません</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>使用できるネットワーク アダプターがありません。Ethernet セクションを確認してから、[再試行] を選択してください。</value>
+    <value>Ethernet セクションを確認してから、[再試行] を選択してください。</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>ネットワークには接続されていますが、インターネットに到達できません。ファイアウォールまたはプロキシを確認してから、[再試行] を選択してください。</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>ネットワークから IP アドレスが割り当てられませんでした。このネットワークの DHCP を確認してから、[再試行] を選択してください。</value>
+    <value>このネットワークの DHCP を確認してから、[再試行] を選択してください。</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>IP アドレスがありません</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>ネットワーク接続がありません。Ethernet ケーブルを接続するか、Wi-Fi ネットワークに接続してください。</value>
+    <value>Ethernet ケーブルを接続するか、Wi-Fi ネットワークに接続してください。</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>ネットワーク接続がありません</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>インターネットにアクセスできません</value>

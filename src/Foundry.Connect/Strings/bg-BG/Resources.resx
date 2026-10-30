@@ -383,29 +383,47 @@
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Мрежата отговори със страница за влизане вместо с достъп до интернет. Влезте от друго устройство, ако мрежата позволява, или използвайте друга мрежа, след което изберете „Повторен опит“.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Изисква се влизане</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>Кабелното удостоверяване с 802.1X не беше успешно. Причината е показана в раздела Ethernet.</value>
+    <value>Причината е показана в раздела Ethernet.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>Кабелното удостоверяване с 802.1X не беше успешно</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>Няма мрежова връзка. Присъединете се към Wi-Fi мрежа.</value>
+    <value>Присъединете се към Wi-Fi мрежа.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Няма наличен мрежов адаптер. Проверете разделите Ethernet и Wi-Fi, след което изберете „Повторен опит“.</value>
+    <value>Проверете разделите Ethernet и Wi-Fi, след което изберете „Повторен опит“.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Няма мрежов адаптер</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>Няма мрежова връзка. Свържете Ethernet кабел.</value>
+    <value>Свържете Ethernet кабел.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Няма Ethernet кабел</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>Няма наличен мрежов адаптер. Проверете раздела Ethernet, след което изберете „Повторен опит“.</value>
+    <value>Проверете раздела Ethernet, след което изберете „Повторен опит“.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Мрежата е свързана, но няма достъп до интернет. Проверете защитната стена или прокси сървъра, след което изберете „Повторен опит“.</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>Мрежата не предостави IP адрес. Проверете DHCP в тази мрежа, след което изберете „Повторен опит“.</value>
+    <value>Проверете DHCP в тази мрежа, след което изберете „Повторен опит“.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>Няма IP адрес</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>Няма мрежова връзка. Свържете Ethernet кабел или се присъединете към Wi-Fi мрежа.</value>
+    <value>Свържете Ethernet кабел или се присъединете към Wi-Fi мрежа.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Няма мрежова връзка</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Няма достъп до интернет</value>

@@ -383,29 +383,47 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Verkko vastasi kirjautumissivulla internet-yhteyden sijaan. Kirjaudu toisella laitteella, jos verkko sallii sen, tai käytä toista verkkoa ja valitse sitten Yritä uudelleen.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Kirjautuminen vaaditaan</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>Langallinen 802.1X-todennus ei onnistunut. Syy näkyy Ethernet-osiossa.</value>
+    <value>Syy näkyy Ethernet-osiossa.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>Langallinen 802.1X-todennus ei onnistunut</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>Ei verkkoyhteyttä. Muodosta yhteys Wi-Fi-verkkoon.</value>
+    <value>Muodosta yhteys Wi-Fi-verkkoon.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Verkkosovitinta ei ole käytettävissä. Tarkista Ethernet- ja Wi-Fi-osiot ja valitse sitten Yritä uudelleen.</value>
+    <value>Tarkista Ethernet- ja Wi-Fi-osiot ja valitse sitten Yritä uudelleen.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Ei verkkosovitinta</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>Ei verkkoyhteyttä. Liitä Ethernet-kaapeli.</value>
+    <value>Liitä Ethernet-kaapeli.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Ei Ethernet-kaapelia</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>Verkkosovitinta ei ole käytettävissä. Tarkista Ethernet-osio ja valitse sitten Yritä uudelleen.</value>
+    <value>Tarkista Ethernet-osio ja valitse sitten Yritä uudelleen.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Verkko on yhdistetty, mutta internetiin ei saada yhteyttä. Tarkista palomuuri tai välityspalvelin ja valitse sitten Yritä uudelleen.</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>Verkko ei antanut IP-osoitetta. Tarkista tämän verkon DHCP ja valitse sitten Yritä uudelleen.</value>
+    <value>Tarkista tämän verkon DHCP ja valitse sitten Yritä uudelleen.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>Ei IP-osoitetta</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>Ei verkkoyhteyttä. Liitä Ethernet-kaapeli tai muodosta yhteys Wi-Fi-verkkoon.</value>
+    <value>Liitä Ethernet-kaapeli tai muodosta yhteys Wi-Fi-verkkoon.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Ei verkkoyhteyttä</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Ei internet-yhteyttä</value>

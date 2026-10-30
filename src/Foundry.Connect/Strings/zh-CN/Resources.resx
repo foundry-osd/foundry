@@ -383,29 +383,47 @@
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>网络返回了登录页面，而不是互联网访问。如果此网络允许，请从其他设备登录，或使用其他网络，然后选择“重试”。</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>需要登录</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>有线 802.1X 身份验证未成功。原因显示在 Ethernet 部分中。</value>
+    <value>原因显示在 Ethernet 部分中。</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>有线 802.1X 身份验证未成功</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>无网络连接。请加入 Wi-Fi 网络。</value>
+    <value>请加入 Wi-Fi 网络。</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>没有可用的网络适配器。请检查 Ethernet 和 Wi-Fi 部分，然后选择“重试”。</value>
+    <value>请检查 Ethernet 和 Wi-Fi 部分，然后选择“重试”。</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>没有网络适配器</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>无网络连接。请连接 Ethernet 网线。</value>
+    <value>请连接 Ethernet 网线。</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>没有 Ethernet 网线</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>没有可用的网络适配器。请检查 Ethernet 部分，然后选择“重试”。</value>
+    <value>请检查 Ethernet 部分，然后选择“重试”。</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>网络已连接，但无法访问互联网。请检查防火墙或代理，然后选择“重试”。</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>网络未提供 IP 地址。请检查此网络的 DHCP，然后选择“重试”。</value>
+    <value>请检查此网络的 DHCP，然后选择“重试”。</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>没有 IP 地址</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>无网络连接。请连接 Ethernet 网线或加入 Wi-Fi 网络。</value>
+    <value>请连接 Ethernet 网线或加入 Wi-Fi 网络。</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>无网络连接</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>无互联网访问</value>

@@ -383,29 +383,47 @@ Licencjonowany na licencji MIT.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Sieć odpowiedziała stroną logowania zamiast dostępu do Internetu. Zaloguj się z innego urządzenia, jeśli sieć na to pozwala, lub użyj innej sieci, a następnie wybierz Ponów próbę.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Wymagane logowanie</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>Przewodowe uwierzytelnianie 802.1X nie powiodło się. Przyczyna jest widoczna w sekcji Ethernet.</value>
+    <value>Przyczyna jest widoczna w sekcji Ethernet.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>Przewodowe uwierzytelnianie 802.1X nie powiodło się</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>Brak połączenia sieciowego. Połącz się z siecią Wi-Fi.</value>
+    <value>Połącz się z siecią Wi-Fi.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Brak dostępnego adaptera sieciowego. Sprawdź sekcje Ethernet i Wi-Fi, a następnie wybierz Ponów próbę.</value>
+    <value>Sprawdź sekcje Ethernet i Wi-Fi, a następnie wybierz Ponów próbę.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Brak adaptera sieciowego</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>Brak połączenia sieciowego. Podłącz kabel Ethernet.</value>
+    <value>Podłącz kabel Ethernet.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Brak kabla Ethernet</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>Brak dostępnego adaptera sieciowego. Sprawdź sekcję Ethernet, a następnie wybierz Ponów próbę.</value>
+    <value>Sprawdź sekcję Ethernet, a następnie wybierz Ponów próbę.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Sieć jest połączona, ale nie ma dostępu do Internetu. Sprawdź zaporę lub serwer proxy, a następnie wybierz Ponów próbę.</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>Sieć nie przydzieliła adresu IP. Sprawdź DHCP w tej sieci, a następnie wybierz Ponów próbę.</value>
+    <value>Sprawdź DHCP w tej sieci, a następnie wybierz Ponów próbę.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>Brak adresu IP</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>Brak połączenia sieciowego. Podłącz kabel Ethernet lub połącz się z siecią Wi-Fi.</value>
+    <value>Podłącz kabel Ethernet lub połącz się z siecią Wi-Fi.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Brak połączenia sieciowego</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Brak dostępu do Internetu</value>

@@ -383,29 +383,47 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Nettverket svarte med en påloggingsside i stedet for Internett-tilgang. Logg på fra en annen enhet hvis nettverket tillater det, eller bruk et annet nettverk, og velg deretter Prøv igjen.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Pålogging kreves</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>Kablet 802.1X-godkjenning mislyktes. Årsaken vises i Ethernet-delen.</value>
+    <value>Årsaken vises i Ethernet-delen.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>Kablet 802.1X-godkjenning mislyktes</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>Ingen nettverkstilkobling. Koble til et Wi-Fi-nettverk.</value>
+    <value>Koble til et Wi-Fi-nettverk.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Ingen nettverksadapter er tilgjengelig. Kontroller Ethernet- og Wi-Fi-delene, og velg deretter Prøv igjen.</value>
+    <value>Kontroller Ethernet- og Wi-Fi-delene, og velg deretter Prøv igjen.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Ingen nettverksadapter</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>Ingen nettverkstilkobling. Koble til en Ethernet-kabel.</value>
+    <value>Koble til en Ethernet-kabel.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Ingen Ethernet-kabel</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>Ingen nettverksadapter er tilgjengelig. Kontroller Ethernet-delen, og velg deretter Prøv igjen.</value>
+    <value>Kontroller Ethernet-delen, og velg deretter Prøv igjen.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Nettverket er tilkoblet, men når ikke Internett. Kontroller brannmuren eller proxyen, og velg deretter Prøv igjen.</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>Nettverket ga ingen IP-adresse. Kontroller DHCP på dette nettverket, og velg deretter Prøv igjen.</value>
+    <value>Kontroller DHCP på dette nettverket, og velg deretter Prøv igjen.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>Ingen IP-adresse</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>Ingen nettverkstilkobling. Koble til en Ethernet-kabel eller et Wi-Fi-nettverk.</value>
+    <value>Koble til en Ethernet-kabel eller et Wi-Fi-nettverk.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Ingen nettverkstilkobling</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Ingen Internett-tilgang</value>

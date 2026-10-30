@@ -157,9 +157,31 @@ public static class NetworkTextKeys
     };
 
     /// <summary>
+    /// Gets the hero title key for a blocked page: it names the blocking cause, so "No internet access" is kept for a
+    /// usable connection that cannot reach the internet. A missing link is "No Ethernet cable" when Ethernet is the only
+    /// way to connect, else "No network connection".
+    /// </summary>
+    /// <param name="reason">The blocked reason.</param>
+    /// <param name="hasEthernetAdapter">Whether an Ethernet adapter is seen.</param>
+    /// <param name="wifi">The current Wi-Fi availability.</param>
+    /// <returns>The resource key; any other reason maps to the no-internet title.</returns>
+    public static string BlockedTitleKey(BlockedReason reason, bool hasEthernetAdapter, WifiAvailability wifi) => reason switch
+    {
+        BlockedReason.NoAdapter => "Status.BlockedNoAdapterTitle",
+        BlockedReason.NoLink when hasEthernetAdapter && wifi != WifiAvailability.Available => "Status.BlockedNoCableTitle",
+        BlockedReason.NoLink when !hasEthernetAdapter && wifi != WifiAvailability.Available => "Status.BlockedNoAdapterTitle",
+        BlockedReason.NoLink => "Status.BlockedNoLinkTitle",
+        BlockedReason.NoIpAddress => "Status.BlockedNoIpAddressTitle",
+        BlockedReason.WiredAuthentication => "Status.BlockedDot1xTitle",
+        BlockedReason.CaptivePortal => "Status.BlockedCaptivePortalTitle",
+        _ => "Status.BlockedTitle"
+    };
+
+    /// <summary>
     /// Gets the title and description keys of the hero banner. Checking and ready have no description. Waiting names
     /// what runs: the provisioning, a network action (a Wi-Fi disconnect has its own title, never "Connecting"), or,
-    /// with no operation, wired 802.1X authentication.
+    /// with no operation, wired 802.1X authentication. Blocked names the cause in the title
+    /// (<see cref="BlockedTitleKey"/>) and what to do in the description (<see cref="BlockedDescriptionKey"/>).
     /// </summary>
     /// <param name="status">The page status.</param>
     /// <param name="reason">The blocked reason; used only when the page is blocked.</param>
@@ -174,7 +196,8 @@ public static class NetworkTextKeys
             ConnectPageStatus.Checking => ("Status.CheckingTitle", null),
             ConnectPageStatus.Waiting => (WaitingTitleKey(state.ActiveOperation), WaitingDescriptionKey(state.ActiveOperation)),
             ConnectPageStatus.Ready => ("Status.NetworkReadyTitle", null),
-            _ => ("Status.BlockedTitle", BlockedDescriptionKey(reason, state.Ethernet.HasAdapter, state.Wifi.Availability, isWifiSectionShown))
+            _ => (BlockedTitleKey(reason, state.Ethernet.HasAdapter, state.Wifi.Availability),
+                BlockedDescriptionKey(reason, state.Ethernet.HasAdapter, state.Wifi.Availability, isWifiSectionShown))
         };
     }
 

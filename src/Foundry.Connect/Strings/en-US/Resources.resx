@@ -383,29 +383,47 @@ Licensed under the MIT License.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>The network answered with a sign-in page instead of internet access. Sign in from another device if this network allows it, or use another network, then select Retry.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Sign-in required</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>Wired 802.1X authentication did not succeed. The reason is shown in the Ethernet section.</value>
+    <value>The reason is shown in the Ethernet section.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>Wired 802.1X authentication did not succeed</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>No network connection. Join a Wi-Fi network.</value>
+    <value>Join a Wi-Fi network.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>No network adapter is available. Check the Ethernet and Wi-Fi sections, then select Retry.</value>
+    <value>Check the Ethernet and Wi-Fi sections, then select Retry.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>No network adapter</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>No network connection. Connect an Ethernet cable.</value>
+    <value>Connect an Ethernet cable.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>No Ethernet cable</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>No network adapter is available. Check the Ethernet section, then select Retry.</value>
+    <value>Check the Ethernet section, then select Retry.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>The network is connected but cannot reach the internet. Check the firewall or proxy, then select Retry.</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>The network did not provide an IP address. Check DHCP on this network, then select Retry.</value>
+    <value>Check DHCP on this network, then select Retry.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>No IP address</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>No network connection. Connect an Ethernet cable or join a Wi-Fi network.</value>
+    <value>Connect an Ethernet cable or join a Wi-Fi network.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>No network connection</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>No internet access</value>

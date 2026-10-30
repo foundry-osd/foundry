@@ -383,29 +383,47 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Tīkls interneta piekļuves vietā atbildēja ar pierakstīšanās lapu. Pierakstieties no citas ierīces, ja tīkls to atļauj, vai izmantojiet citu tīklu, pēc tam atlasiet Mēģināt vēlreiz.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Nepieciešama pierakstīšanās</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>Vadu 802.1X autentifikācija neizdevās. Iemesls ir redzams sadaļā Ethernet.</value>
+    <value>Iemesls ir redzams sadaļā Ethernet.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>Vadu 802.1X autentifikācija neizdevās</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>Nav tīkla savienojuma. Pievienojieties Wi-Fi tīklam.</value>
+    <value>Pievienojieties Wi-Fi tīklam.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Nav pieejams neviens tīkla adapteris. Pārbaudiet sadaļas Ethernet un Wi-Fi, pēc tam atlasiet Mēģināt vēlreiz.</value>
+    <value>Pārbaudiet sadaļas Ethernet un Wi-Fi, pēc tam atlasiet Mēģināt vēlreiz.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Nav tīkla adaptera</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>Nav tīkla savienojuma. Pievienojiet Ethernet kabeli.</value>
+    <value>Pievienojiet Ethernet kabeli.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Nav Ethernet kabeļa</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>Nav pieejams neviens tīkla adapteris. Pārbaudiet sadaļu Ethernet, pēc tam atlasiet Mēģināt vēlreiz.</value>
+    <value>Pārbaudiet sadaļu Ethernet, pēc tam atlasiet Mēģināt vēlreiz.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Tīkls ir savienots, bet nevar piekļūt internetam. Pārbaudiet ugunsmūri vai starpniekserveri, pēc tam atlasiet Mēģināt vēlreiz.</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>Tīkls nepiešķīra IP adresi. Pārbaudiet DHCP šajā tīklā, pēc tam atlasiet Mēģināt vēlreiz.</value>
+    <value>Pārbaudiet DHCP šajā tīklā, pēc tam atlasiet Mēģināt vēlreiz.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>Nav IP adreses</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>Nav tīkla savienojuma. Pievienojiet Ethernet kabeli vai pievienojieties Wi-Fi tīklam.</value>
+    <value>Pievienojiet Ethernet kabeli vai pievienojieties Wi-Fi tīklam.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Nav tīkla savienojuma</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Nav interneta piekļuves</value>

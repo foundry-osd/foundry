@@ -122,6 +122,7 @@ public sealed class NetworkTextKeysTests
             {
                 foreach (WifiAvailability wifi in Enum.GetValues<WifiAvailability>())
                 {
+                    Assert.True(ConnectResources.Exists(NetworkTextKeys.BlockedTitleKey(reason, hasEthernetAdapter, wifi)), $"{reason} {hasEthernetAdapter} {wifi}");
                     foreach (bool isWifiSectionShown in new[] { true, false })
                     {
                         string key = NetworkTextKeys.BlockedDescriptionKey(reason, hasEthernetAdapter, wifi, isWifiSectionShown);
@@ -166,6 +167,22 @@ public sealed class NetworkTextKeysTests
     }
 
     [Theory]
+    [InlineData(BlockedReason.NoAdapter, false, WifiAvailability.NoAdapter, "Status.BlockedNoAdapterTitle")]
+    [InlineData(BlockedReason.NoLink, true, WifiAvailability.Disabled, "Status.BlockedNoCableTitle")]
+    [InlineData(BlockedReason.NoLink, true, WifiAvailability.NoAdapter, "Status.BlockedNoCableTitle")]
+    [InlineData(BlockedReason.NoLink, true, WifiAvailability.Available, "Status.BlockedNoLinkTitle")]
+    [InlineData(BlockedReason.NoLink, false, WifiAvailability.Available, "Status.BlockedNoLinkTitle")]
+    [InlineData(BlockedReason.NoLink, false, WifiAvailability.RuntimeMissing, "Status.BlockedNoAdapterTitle")]
+    [InlineData(BlockedReason.WiredAuthentication, true, WifiAvailability.Available, "Status.BlockedDot1xTitle")]
+    [InlineData(BlockedReason.NoIpAddress, true, WifiAvailability.Disabled, "Status.BlockedNoIpAddressTitle")]
+    [InlineData(BlockedReason.CaptivePortal, true, WifiAvailability.Available, "Status.BlockedCaptivePortalTitle")]
+    [InlineData(BlockedReason.NoInternet, false, WifiAvailability.Available, "Status.BlockedTitle")]
+    public void BlockedTitleKey_NamesTheCause(BlockedReason reason, bool hasEthernetAdapter, WifiAvailability wifi, string expected)
+    {
+        Assert.Equal(expected, NetworkTextKeys.BlockedTitleKey(reason, hasEthernetAdapter, wifi));
+    }
+
+    [Theory]
     [InlineData(WifiAvailability.Disabled)]
     [InlineData(WifiAvailability.RuntimeMissing)]
     public void BlockedDescriptionKey_WithoutWifiSection_NeverMentionsWifi(WifiAvailability wifi)
@@ -176,6 +193,7 @@ public sealed class NetworkTextKeysTests
             {
                 string key = NetworkTextKeys.BlockedDescriptionKey(reason, hasEthernetAdapter, wifi, isWifiSectionShown: false);
                 Assert.DoesNotContain("Wi-Fi", _localization.GetString(key), StringComparison.Ordinal);
+                Assert.DoesNotContain("Wi-Fi", _localization.GetString(NetworkTextKeys.BlockedTitleKey(reason, hasEthernetAdapter, wifi)), StringComparison.Ordinal);
             }
         }
     }

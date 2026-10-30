@@ -383,29 +383,47 @@ Sous licence MIT.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Le réseau a répondu par une page de connexion au lieu d'un accès Internet. Connectez-vous à partir d'un autre appareil si ce réseau le permet, ou utilisez un autre réseau, puis sélectionnez Réessayer.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Connexion requise</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>L'authentification 802.1X filaire n'a pas réussi. La raison est indiquée dans la section Ethernet.</value>
+    <value>La raison est indiquée dans la section Ethernet.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>L'authentification 802.1X filaire n'a pas réussi</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>Aucune connexion réseau. Joignez-vous à un réseau Wi-Fi.</value>
+    <value>Joignez-vous à un réseau Wi-Fi.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Aucun adaptateur réseau n'est disponible. Vérifiez les sections Ethernet et Wi-Fi, puis sélectionnez Réessayer.</value>
+    <value>Vérifiez les sections Ethernet et Wi-Fi, puis sélectionnez Réessayer.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Aucun adaptateur réseau</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>Aucune connexion réseau. Branchez un câble Ethernet.</value>
+    <value>Branchez un câble Ethernet.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Aucun câble Ethernet</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>Aucun adaptateur réseau n'est disponible. Vérifiez la section Ethernet, puis sélectionnez Réessayer.</value>
+    <value>Vérifiez la section Ethernet, puis sélectionnez Réessayer.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Le réseau est connecté, mais il n'accède pas à Internet. Vérifiez le pare-feu ou le proxy, puis sélectionnez Réessayer.</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>Le réseau n'a fourni aucune adresse IP. Vérifiez le DHCP de ce réseau, puis sélectionnez Réessayer.</value>
+    <value>Vérifiez le DHCP de ce réseau, puis sélectionnez Réessayer.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>Aucune adresse IP</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>Aucune connexion réseau. Branchez un câble Ethernet ou joignez-vous à un réseau Wi-Fi.</value>
+    <value>Branchez un câble Ethernet ou joignez-vous à un réseau Wi-Fi.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Aucune connexion réseau</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Aucun accès Internet</value>

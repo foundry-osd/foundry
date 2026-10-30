@@ -383,29 +383,47 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Het netwerk antwoordde met een aanmeldpagina in plaats van internettoegang. Meld u aan vanaf een ander apparaat als dit netwerk dat toestaat, of gebruik een ander netwerk, en selecteer daarna Opnieuw proberen.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Aanmelden vereist</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>De bekabelde 802.1X-verificatie is niet gelukt. De reden staat in de sectie Ethernet.</value>
+    <value>De reden staat in de sectie Ethernet.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>De bekabelde 802.1X-verificatie is niet gelukt</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>Geen netwerkverbinding. Maak verbinding met een Wi-Fi-netwerk.</value>
+    <value>Maak verbinding met een Wi-Fi-netwerk.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Er is geen netwerkadapter beschikbaar. Controleer de secties Ethernet en Wi-Fi en selecteer daarna Opnieuw proberen.</value>
+    <value>Controleer de secties Ethernet en Wi-Fi en selecteer daarna Opnieuw proberen.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Geen netwerkadapter</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>Geen netwerkverbinding. Sluit een Ethernet-kabel aan.</value>
+    <value>Sluit een Ethernet-kabel aan.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Geen Ethernet-kabel</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>Er is geen netwerkadapter beschikbaar. Controleer de sectie Ethernet en selecteer daarna Opnieuw proberen.</value>
+    <value>Controleer de sectie Ethernet en selecteer daarna Opnieuw proberen.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Het netwerk is verbonden maar kan het internet niet bereiken. Controleer de firewall of proxy en selecteer daarna Opnieuw proberen.</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>Het netwerk heeft geen IP-adres toegewezen. Controleer DHCP op dit netwerk en selecteer daarna Opnieuw proberen.</value>
+    <value>Controleer DHCP op dit netwerk en selecteer daarna Opnieuw proberen.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>Geen IP-adres</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>Geen netwerkverbinding. Sluit een Ethernet-kabel aan of maak verbinding met een Wi-Fi-netwerk.</value>
+    <value>Sluit een Ethernet-kabel aan of maak verbinding met een Wi-Fi-netwerk.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Geen netwerkverbinding</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Geen internettoegang</value>

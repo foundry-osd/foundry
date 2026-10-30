@@ -383,29 +383,47 @@ Licensierad under MIT-licensen.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Nätverket svarade med en inloggningssida i stället för internetåtkomst. Logga in från en annan enhet om nätverket tillåter det, eller använd ett annat nätverk, och välj sedan Försök igen.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Inloggning krävs</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>Den trådbundna 802.1X-autentiseringen lyckades inte. Orsaken visas i avsnittet Ethernet.</value>
+    <value>Orsaken visas i avsnittet Ethernet.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>Den trådbundna 802.1X-autentiseringen lyckades inte</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>Ingen nätverksanslutning. Anslut till ett Wi-Fi-nätverk.</value>
+    <value>Anslut till ett Wi-Fi-nätverk.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Ingen nätverksadapter är tillgänglig. Kontrollera avsnitten Ethernet och Wi-Fi och välj sedan Försök igen.</value>
+    <value>Kontrollera avsnitten Ethernet och Wi-Fi och välj sedan Försök igen.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Ingen nätverksadapter</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>Ingen nätverksanslutning. Anslut en Ethernet-kabel.</value>
+    <value>Anslut en Ethernet-kabel.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Ingen Ethernet-kabel</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>Ingen nätverksadapter är tillgänglig. Kontrollera avsnittet Ethernet och välj sedan Försök igen.</value>
+    <value>Kontrollera avsnittet Ethernet och välj sedan Försök igen.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Nätverket är anslutet men når inte internet. Kontrollera brandväggen eller proxyn och välj sedan Försök igen.</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>Nätverket tilldelade ingen IP-adress. Kontrollera DHCP i det här nätverket och välj sedan Försök igen.</value>
+    <value>Kontrollera DHCP i det här nätverket och välj sedan Försök igen.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>Ingen IP-adress</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>Ingen nätverksanslutning. Anslut en Ethernet-kabel eller anslut till ett Wi-Fi-nätverk.</value>
+    <value>Anslut en Ethernet-kabel eller anslut till ett Wi-Fi-nätverk.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Ingen nätverksanslutning</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Ingen internetåtkomst</value>

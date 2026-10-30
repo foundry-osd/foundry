@@ -383,29 +383,47 @@
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Сеть ответила страницей входа вместо доступа в Интернет. Выполните вход с другого устройства, если эта сеть это позволяет, или используйте другую сеть, затем выберите «Повторить».</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Требуется вход</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>Проводная проверка подлинности 802.1X не выполнена. Причина указана в разделе Ethernet.</value>
+    <value>Причина указана в разделе Ethernet.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>Проводная проверка подлинности 802.1X не выполнена</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>Нет сетевого подключения. Подключитесь к сети Wi-Fi.</value>
+    <value>Подключитесь к сети Wi-Fi.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Нет доступного сетевого адаптера. Проверьте разделы Ethernet и Wi-Fi, затем выберите «Повторить».</value>
+    <value>Проверьте разделы Ethernet и Wi-Fi, затем выберите «Повторить».</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Нет сетевого адаптера</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>Нет сетевого подключения. Подключите кабель Ethernet.</value>
+    <value>Подключите кабель Ethernet.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Нет кабеля Ethernet</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>Нет доступного сетевого адаптера. Проверьте раздел Ethernet, затем выберите «Повторить».</value>
+    <value>Проверьте раздел Ethernet, затем выберите «Повторить».</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Сеть подключена, но нет доступа в Интернет. Проверьте брандмауэр или прокси-сервер, затем выберите «Повторить».</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>Сеть не предоставила IP-адрес. Проверьте DHCP в этой сети, затем выберите «Повторить».</value>
+    <value>Проверьте DHCP в этой сети, затем выберите «Повторить».</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>Нет IP-адреса</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>Нет сетевого подключения. Подключите кабель Ethernet или подключитесь к сети Wi-Fi.</value>
+    <value>Подключите кабель Ethernet или подключитесь к сети Wi-Fi.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Нет сетевого подключения</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Нет доступа в Интернет</value>

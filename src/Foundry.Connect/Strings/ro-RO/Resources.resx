@@ -383,29 +383,47 @@ Licențiat sub licența MIT.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Rețeaua a răspuns cu o pagină de conectare în loc de acces la internet. Conectați-vă de pe alt dispozitiv dacă rețeaua permite acest lucru sau folosiți altă rețea, apoi selectați Reîncearcă.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Este necesară conectarea</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>Autentificarea 802.1X prin cablu nu a reușit. Motivul este afișat în secțiunea Ethernet.</value>
+    <value>Motivul este afișat în secțiunea Ethernet.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>Autentificarea 802.1X prin cablu nu a reușit</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>Nicio conexiune la rețea. Conectați-vă la o rețea Wi-Fi.</value>
+    <value>Conectați-vă la o rețea Wi-Fi.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Nu este disponibil niciun adaptor de rețea. Verificați secțiunile Ethernet și Wi-Fi, apoi selectați Reîncearcă.</value>
+    <value>Verificați secțiunile Ethernet și Wi-Fi, apoi selectați Reîncearcă.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Niciun adaptor de rețea</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>Nicio conexiune la rețea. Conectați un cablu Ethernet.</value>
+    <value>Conectați un cablu Ethernet.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Niciun cablu Ethernet</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>Nu este disponibil niciun adaptor de rețea. Verificați secțiunea Ethernet, apoi selectați Reîncearcă.</value>
+    <value>Verificați secțiunea Ethernet, apoi selectați Reîncearcă.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Rețeaua este conectată, dar nu poate accesa internetul. Verificați firewallul sau proxy-ul, apoi selectați Reîncearcă.</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>Rețeaua nu a furnizat nicio adresă IP. Verificați DHCP în această rețea, apoi selectați Reîncearcă.</value>
+    <value>Verificați DHCP în această rețea, apoi selectați Reîncearcă.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>Nicio adresă IP</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>Nicio conexiune la rețea. Conectați un cablu Ethernet sau conectați-vă la o rețea Wi-Fi.</value>
+    <value>Conectați un cablu Ethernet sau conectați-vă la o rețea Wi-Fi.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Nicio conexiune la rețea</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Fără acces la internet</value>

@@ -90,6 +90,22 @@ public sealed class LocalizationResourceTests
         "Status.BlockedNoEthernetAdapterDescription", "Status.DisconnectingTitle", "Status.Dot1xAuthenticatingDescription", "Wifi.UnavailableOnDevice"
     };
 
+    public static TheoryData<string> BannerTitleAndLabelKeys => new()
+    {
+        "Ethernet.IpAssignmentLabel", "Status.BlockedCaptivePortalTitle", "Status.BlockedDot1xTitle", "Status.BlockedNoAdapterTitle",
+        "Status.BlockedNoCableTitle", "Status.BlockedNoIpAddressTitle", "Status.BlockedNoLinkTitle"
+    };
+
+    // Each blocked banner pairs a cause title with a description that says what to do; the description no longer
+    // repeats the cause, so no culture keeps the old first sentence in front of it.
+    public static TheoryData<string, string> TitleAndDescriptionPairs => new()
+    {
+        { "Status.BlockedNoLinkTitle", "Status.BlockedNoLinkDescription" },
+        { "Status.BlockedNoLinkTitle", "Status.BlockedNoCableDescription" },
+        { "Status.BlockedNoLinkTitle", "Status.BlockedJoinWifiDescription" },
+        { "Status.BlockedDot1xTitle", "Status.BlockedDot1xDescription" }
+    };
+
     [Theory]
     [MemberData(nameof(SupportedCultures))]
     public void ResourceSet_ContainsRequiredLabelsForAdkCulture(string cultureName)
@@ -166,13 +182,44 @@ public sealed class LocalizationResourceTests
     }
 
     [Theory]
+    [MemberData(nameof(BannerTitleAndLabelKeys))]
+    public void EveryCulture_ContainsBannerTitleOrLabelKey(string key)
+    {
+        ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(App).Assembly);
+
+        Assert.All(CultureNames, cultureName =>
+        {
+            ResourceSet resourceSet = resourceManager.GetResourceSet(CultureInfo.GetCultureInfo(cultureName), createIfNotExists: true, tryParents: false)!;
+            Assert.False(string.IsNullOrWhiteSpace(resourceSet.GetString(key)), $"{cultureName} {key}");
+        });
+    }
+
+    [Theory]
+    [MemberData(nameof(TitleAndDescriptionPairs))]
+    public void BlockedDescriptions_DoNotRepeatTheTitle(string titleKey, string descriptionKey)
+    {
+        ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(App).Assembly);
+
+        Assert.All(CultureNames, cultureName =>
+        {
+            ResourceSet resourceSet = resourceManager.GetResourceSet(CultureInfo.GetCultureInfo(cultureName), createIfNotExists: true, tryParents: false)!;
+            Assert.DoesNotContain(resourceSet.GetString(titleKey)!, resourceSet.GetString(descriptionKey), StringComparison.Ordinal);
+        });
+    }
+
+    [Theory]
     [MemberData(nameof(SupportedCultures))]
     public void WiredTexts_DoNotMentionWifi(string cultureName)
     {
         ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(App).Assembly);
         ResourceSet resourceSet = resourceManager.GetResourceSet(CultureInfo.GetCultureInfo(cultureName), createIfNotExists: true, tryParents: false)!;
 
-        foreach (string key in new[] { "Ethernet.Dot1xReasonUnlockCancelled", "Ethernet.UnavailableOnDevice", "Status.BlockedNoEthernetAdapterDescription", "Status.BlockedNoCableDescription" })
+        foreach (string key in new[]
+        {
+            "Ethernet.Dot1xReasonUnlockCancelled", "Ethernet.UnavailableOnDevice", "Status.BlockedNoEthernetAdapterDescription", "Status.BlockedNoCableDescription",
+            "Status.BlockedNoAdapterTitle", "Status.BlockedNoCableTitle", "Status.BlockedNoLinkTitle", "Status.BlockedDot1xTitle", "Status.BlockedNoIpAddressTitle",
+            "Status.BlockedCaptivePortalTitle", "Status.BlockedTitle"
+        })
         {
             Assert.DoesNotContain("Wi-Fi", resourceSet.GetString(key), StringComparison.Ordinal);
         }

@@ -383,29 +383,47 @@ Licenciado sob a licença MIT.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>A rede respondeu com uma página de entrada em vez de acesso à Internet. Entre por outro dispositivo se esta rede permitir, ou use outra rede e selecione Tentar novamente.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Entrada necessária</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>A autenticação 802.1X com fio não teve êxito. O motivo é mostrado na seção Ethernet.</value>
+    <value>O motivo é mostrado na seção Ethernet.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>A autenticação 802.1X com fio não teve êxito</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>Sem conexão de rede. Entre em uma rede Wi-Fi.</value>
+    <value>Entre em uma rede Wi-Fi.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Nenhum adaptador de rede está disponível. Verifique as seções Ethernet e Wi-Fi e selecione Tentar novamente.</value>
+    <value>Verifique as seções Ethernet e Wi-Fi e selecione Tentar novamente.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Nenhum adaptador de rede</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>Sem conexão de rede. Conecte um cabo Ethernet.</value>
+    <value>Conecte um cabo Ethernet.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Nenhum cabo Ethernet</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>Nenhum adaptador de rede está disponível. Verifique a seção Ethernet e selecione Tentar novamente.</value>
+    <value>Verifique a seção Ethernet e selecione Tentar novamente.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>A rede está conectada, mas não consegue acessar a Internet. Verifique o firewall ou o proxy e selecione Tentar novamente.</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>A rede não forneceu um endereço IP. Verifique o DHCP nesta rede e selecione Tentar novamente.</value>
+    <value>Verifique o DHCP nesta rede e selecione Tentar novamente.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>Nenhum endereço IP</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>Sem conexão de rede. Conecte um cabo Ethernet ou entre em uma rede Wi-Fi.</value>
+    <value>Conecte um cabo Ethernet ou entre em uma rede Wi-Fi.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Sem conexão de rede</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Sem acesso à Internet</value>

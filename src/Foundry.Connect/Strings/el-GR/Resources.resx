@@ -383,29 +383,47 @@
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Το δίκτυο απάντησε με σελίδα σύνδεσης αντί για πρόσβαση στο Διαδίκτυο. Συνδεθείτε από άλλη συσκευή, εάν το δίκτυο το επιτρέπει, ή χρησιμοποιήστε άλλο δίκτυο και, στη συνέχεια, επιλέξτε Επανάληψη.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Απαιτείται σύνδεση</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>Ο ενσύρματος έλεγχος ταυτότητας 802.1X δεν ολοκληρώθηκε με επιτυχία. Η αιτία εμφανίζεται στην ενότητα Ethernet.</value>
+    <value>Η αιτία εμφανίζεται στην ενότητα Ethernet.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>Ο ενσύρματος έλεγχος ταυτότητας 802.1X δεν ολοκληρώθηκε με επιτυχία</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>Δεν υπάρχει σύνδεση δικτύου. Συνδεθείτε σε ένα δίκτυο Wi-Fi.</value>
+    <value>Συνδεθείτε σε ένα δίκτυο Wi-Fi.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Δεν υπάρχει διαθέσιμος προσαρμογέας δικτύου. Ελέγξτε τις ενότητες Ethernet και Wi-Fi και, στη συνέχεια, επιλέξτε Επανάληψη.</value>
+    <value>Ελέγξτε τις ενότητες Ethernet και Wi-Fi και, στη συνέχεια, επιλέξτε Επανάληψη.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Δεν υπάρχει προσαρμογέας δικτύου</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>Δεν υπάρχει σύνδεση δικτύου. Συνδέστε ένα καλώδιο Ethernet.</value>
+    <value>Συνδέστε ένα καλώδιο Ethernet.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Δεν υπάρχει καλώδιο Ethernet</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>Δεν υπάρχει διαθέσιμος προσαρμογέας δικτύου. Ελέγξτε την ενότητα Ethernet και, στη συνέχεια, επιλέξτε Επανάληψη.</value>
+    <value>Ελέγξτε την ενότητα Ethernet και, στη συνέχεια, επιλέξτε Επανάληψη.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Το δίκτυο είναι συνδεδεμένο, αλλά δεν έχει πρόσβαση στο Διαδίκτυο. Ελέγξτε το τείχος προστασίας ή τον διακομιστή μεσολάβησης και, στη συνέχεια, επιλέξτε Επανάληψη.</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>Το δίκτυο δεν παρείχε διεύθυνση IP. Ελέγξτε το DHCP σε αυτό το δίκτυο και, στη συνέχεια, επιλέξτε Επανάληψη.</value>
+    <value>Ελέγξτε το DHCP σε αυτό το δίκτυο και, στη συνέχεια, επιλέξτε Επανάληψη.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>Δεν υπάρχει διεύθυνση IP</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>Δεν υπάρχει σύνδεση δικτύου. Συνδέστε ένα καλώδιο Ethernet ή συνδεθείτε σε ένα δίκτυο Wi-Fi.</value>
+    <value>Συνδέστε ένα καλώδιο Ethernet ή συνδεθείτε σε ένα δίκτυο Wi-Fi.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Δεν υπάρχει σύνδεση δικτύου</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Δεν υπάρχει πρόσβαση στο Διαδίκτυο</value>

@@ -383,29 +383,47 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>La rete ha risposto con una pagina di accesso invece che con l'accesso a Internet. Accedi da un altro dispositivo se la rete lo consente, oppure usa un'altra rete, quindi seleziona Riprova.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Accesso richiesto</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>L'autenticazione 802.1X cablata non è riuscita. Il motivo è indicato nella sezione Ethernet.</value>
+    <value>Il motivo è indicato nella sezione Ethernet.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>L'autenticazione 802.1X cablata non è riuscita</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>Nessuna connessione di rete. Connettiti a una rete Wi-Fi.</value>
+    <value>Connettiti a una rete Wi-Fi.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Nessun adattatore di rete disponibile. Controlla le sezioni Ethernet e Wi-Fi, quindi seleziona Riprova.</value>
+    <value>Controlla le sezioni Ethernet e Wi-Fi, quindi seleziona Riprova.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Nessun adattatore di rete</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>Nessuna connessione di rete. Collega un cavo Ethernet.</value>
+    <value>Collega un cavo Ethernet.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Nessun cavo Ethernet</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>Nessun adattatore di rete disponibile. Controlla la sezione Ethernet, quindi seleziona Riprova.</value>
+    <value>Controlla la sezione Ethernet, quindi seleziona Riprova.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>La rete è connessa ma non raggiunge Internet. Controlla il firewall o il proxy, quindi seleziona Riprova.</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>La rete non ha fornito un indirizzo IP. Controlla il DHCP su questa rete, quindi seleziona Riprova.</value>
+    <value>Controlla il DHCP su questa rete, quindi seleziona Riprova.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>Nessun indirizzo IP</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>Nessuna connessione di rete. Collega un cavo Ethernet o connettiti a una rete Wi-Fi.</value>
+    <value>Collega un cavo Ethernet o connettiti a una rete Wi-Fi.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Nessuna connessione di rete</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Nessun accesso a Internet</value>

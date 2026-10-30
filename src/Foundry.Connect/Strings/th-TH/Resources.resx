@@ -383,29 +383,47 @@
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>เครือข่ายตอบกลับด้วยหน้าลงชื่อเข้าใช้แทนการเข้าถึงอินเทอร์เน็ต ลงชื่อเข้าใช้จากอุปกรณ์อื่นหากเครือข่ายนี้อนุญาต หรือใช้เครือข่ายอื่น แล้วเลือก ลองอีกครั้ง</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>ต้องลงชื่อเข้าใช้</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>การรับรองความถูกต้อง 802.1X แบบใช้สายไม่สำเร็จ สาเหตุแสดงอยู่ในส่วน Ethernet</value>
+    <value>สาเหตุแสดงอยู่ในส่วน Ethernet</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>การรับรองความถูกต้อง 802.1X แบบใช้สายไม่สำเร็จ</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>ไม่มีการเชื่อมต่อเครือข่าย เข้าร่วมเครือข่าย Wi-Fi</value>
+    <value>เข้าร่วมเครือข่าย Wi-Fi</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>ไม่มีอะแดปเตอร์เครือข่ายที่พร้อมใช้งาน ตรวจสอบส่วน Ethernet และ Wi-Fi แล้วเลือก ลองอีกครั้ง</value>
+    <value>ตรวจสอบส่วน Ethernet และ Wi-Fi แล้วเลือก ลองอีกครั้ง</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>ไม่มีอะแดปเตอร์เครือข่าย</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>ไม่มีการเชื่อมต่อเครือข่าย เสียบสาย Ethernet</value>
+    <value>เสียบสาย Ethernet</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>ไม่มีสาย Ethernet</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>ไม่มีอะแดปเตอร์เครือข่ายที่พร้อมใช้งาน ตรวจสอบส่วน Ethernet แล้วเลือก ลองอีกครั้ง</value>
+    <value>ตรวจสอบส่วน Ethernet แล้วเลือก ลองอีกครั้ง</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>เครือข่ายเชื่อมต่ออยู่แต่เข้าถึงอินเทอร์เน็ตไม่ได้ ตรวจสอบไฟร์วอลล์หรือพร็อกซี แล้วเลือก ลองอีกครั้ง</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>เครือข่ายไม่ได้ให้ที่อยู่ IP ตรวจสอบ DHCP บนเครือข่ายนี้ แล้วเลือก ลองอีกครั้ง</value>
+    <value>ตรวจสอบ DHCP บนเครือข่ายนี้ แล้วเลือก ลองอีกครั้ง</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>ไม่มีที่อยู่ IP</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>ไม่มีการเชื่อมต่อเครือข่าย เสียบสาย Ethernet หรือเข้าร่วมเครือข่าย Wi-Fi</value>
+    <value>เสียบสาย Ethernet หรือเข้าร่วมเครือข่าย Wi-Fi</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>ไม่มีการเชื่อมต่อเครือข่าย</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>ไม่มีการเข้าถึงอินเทอร์เน็ต</value>

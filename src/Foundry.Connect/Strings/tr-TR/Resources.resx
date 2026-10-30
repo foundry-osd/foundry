@@ -383,29 +383,47 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Ağ, internet erişimi yerine bir oturum açma sayfasıyla yanıt verdi. Bu ağ izin veriyorsa başka bir cihazdan oturum açın veya başka bir ağ kullanın, ardından Yeniden dene'yi seçin.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Oturum açılması gerekiyor</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>Kablolu 802.1X kimlik doğrulaması başarılı olmadı. Neden, Ethernet bölümünde gösterilir.</value>
+    <value>Neden, Ethernet bölümünde gösterilir.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>Kablolu 802.1X kimlik doğrulaması başarılı olmadı</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>Ağ bağlantısı yok. Bir Wi-Fi ağına katılın.</value>
+    <value>Bir Wi-Fi ağına katılın.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Kullanılabilir ağ bağdaştırıcısı yok. Ethernet ve Wi-Fi bölümlerini denetleyin, ardından Yeniden dene'yi seçin.</value>
+    <value>Ethernet ve Wi-Fi bölümlerini denetleyin, ardından Yeniden dene'yi seçin.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Ağ bağdaştırıcısı yok</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>Ağ bağlantısı yok. Bir Ethernet kablosu takın.</value>
+    <value>Bir Ethernet kablosu takın.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Ethernet kablosu yok</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>Kullanılabilir ağ bağdaştırıcısı yok. Ethernet bölümünü denetleyin, ardından Yeniden dene'yi seçin.</value>
+    <value>Ethernet bölümünü denetleyin, ardından Yeniden dene'yi seçin.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Ağ bağlı ancak internete ulaşamıyor. Güvenlik duvarını veya proxy'yi denetleyin, ardından Yeniden dene'yi seçin.</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>Ağ bir IP adresi sağlamadı. Bu ağdaki DHCP'yi denetleyin, ardından Yeniden dene'yi seçin.</value>
+    <value>Bu ağdaki DHCP'yi denetleyin, ardından Yeniden dene'yi seçin.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>IP adresi yok</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>Ağ bağlantısı yok. Bir Ethernet kablosu takın veya bir Wi-Fi ağına katılın.</value>
+    <value>Bir Ethernet kablosu takın veya bir Wi-Fi ağına katılın.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Ağ bağlantısı yok</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>İnternet erişimi yok</value>

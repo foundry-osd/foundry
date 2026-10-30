@@ -383,29 +383,47 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>네트워크가 인터넷 연결 대신 로그인 페이지로 응답했습니다. 이 네트워크에서 허용하는 경우 다른 장치에서 로그인하거나 다른 네트워크를 사용한 다음 다시 시도를 선택하세요.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>로그인 필요</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>유선 802.1X 인증에 성공하지 못했습니다. 원인은 Ethernet 섹션에 표시됩니다.</value>
+    <value>원인은 Ethernet 섹션에 표시됩니다.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>유선 802.1X 인증에 성공하지 못했습니다</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>네트워크 연결이 없습니다. Wi-Fi 네트워크에 연결하세요.</value>
+    <value>Wi-Fi 네트워크에 연결하세요.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>사용 가능한 네트워크 어댑터가 없습니다. Ethernet 및 Wi-Fi 섹션을 확인한 다음 다시 시도를 선택하세요.</value>
+    <value>Ethernet 및 Wi-Fi 섹션을 확인한 다음 다시 시도를 선택하세요.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>네트워크 어댑터 없음</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>네트워크 연결이 없습니다. Ethernet 케이블을 연결하세요.</value>
+    <value>Ethernet 케이블을 연결하세요.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Ethernet 케이블 없음</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>사용 가능한 네트워크 어댑터가 없습니다. Ethernet 섹션을 확인한 다음 다시 시도를 선택하세요.</value>
+    <value>Ethernet 섹션을 확인한 다음 다시 시도를 선택하세요.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>네트워크에 연결되었지만 인터넷에 연결할 수 없습니다. 방화벽 또는 프록시를 확인한 다음 다시 시도를 선택하세요.</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>네트워크에서 IP 주소를 제공하지 않았습니다. 이 네트워크의 DHCP를 확인한 다음 다시 시도를 선택하세요.</value>
+    <value>이 네트워크의 DHCP를 확인한 다음 다시 시도를 선택하세요.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>IP 주소 없음</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>네트워크 연결이 없습니다. Ethernet 케이블을 연결하거나 Wi-Fi 네트워크에 연결하세요.</value>
+    <value>Ethernet 케이블을 연결하거나 Wi-Fi 네트워크에 연결하세요.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>네트워크 연결이 없습니다</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>인터넷 연결 없음</value>

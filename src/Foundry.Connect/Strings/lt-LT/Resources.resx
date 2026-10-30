@@ -383,29 +383,47 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Tinklas vietoj interneto prieigos pateikė prisijungimo puslapį. Prisijunkite iš kito įrenginio, jei tinklas tai leidžia, arba naudokite kitą tinklą, tada pasirinkite Bandyti dar kartą.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Reikia prisijungti</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>Laidinė 802.1X autentifikacija nepavyko. Priežastis rodoma Ethernet skyriuje.</value>
+    <value>Priežastis rodoma Ethernet skyriuje.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>Laidinė 802.1X autentifikacija nepavyko</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>Nėra tinklo ryšio. Prisijunkite prie Wi-Fi tinklo.</value>
+    <value>Prisijunkite prie Wi-Fi tinklo.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Nėra pasiekiamo tinklo adapterio. Patikrinkite Ethernet ir Wi-Fi skyrius, tada pasirinkite Bandyti dar kartą.</value>
+    <value>Patikrinkite Ethernet ir Wi-Fi skyrius, tada pasirinkite Bandyti dar kartą.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Nėra tinklo adapterio</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>Nėra tinklo ryšio. Prijunkite Ethernet kabelį.</value>
+    <value>Prijunkite Ethernet kabelį.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Nėra Ethernet kabelio</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>Nėra pasiekiamo tinklo adapterio. Patikrinkite Ethernet skyrių, tada pasirinkite Bandyti dar kartą.</value>
+    <value>Patikrinkite Ethernet skyrių, tada pasirinkite Bandyti dar kartą.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Tinklas prijungtas, bet negali pasiekti interneto. Patikrinkite užkardą arba tarpinį serverį, tada pasirinkite Bandyti dar kartą.</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>Tinklas nesuteikė IP adreso. Patikrinkite šio tinklo DHCP, tada pasirinkite Bandyti dar kartą.</value>
+    <value>Patikrinkite šio tinklo DHCP, tada pasirinkite Bandyti dar kartą.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>Nėra IP adreso</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>Nėra tinklo ryšio. Prijunkite Ethernet kabelį arba prisijunkite prie Wi-Fi tinklo.</value>
+    <value>Prijunkite Ethernet kabelį arba prisijunkite prie Wi-Fi tinklo.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Nėra tinklo ryšio</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Nėra interneto prieigos</value>

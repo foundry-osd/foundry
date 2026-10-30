@@ -383,29 +383,47 @@ Licencováno pod licencí MIT.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Síť místo přístupu k internetu odpověděla přihlašovací stránkou. Pokud to síť umožňuje, přihlaste se z jiného zařízení, nebo použijte jinou síť a potom vyberte Zkusit znovu.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Vyžaduje se přihlášení</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>Kabelové ověřování 802.1X nebylo úspěšné. Důvod je uveden v části Ethernet.</value>
+    <value>Důvod je uveden v části Ethernet.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>Kabelové ověřování 802.1X nebylo úspěšné</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>Žádné síťové připojení. Připojte se k síti Wi-Fi.</value>
+    <value>Připojte se k síti Wi-Fi.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Není k dispozici žádný síťový adaptér. Zkontrolujte části Ethernet a Wi-Fi a potom vyberte Zkusit znovu.</value>
+    <value>Zkontrolujte části Ethernet a Wi-Fi a potom vyberte Zkusit znovu.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Žádný síťový adaptér</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>Žádné síťové připojení. Připojte kabel Ethernet.</value>
+    <value>Připojte kabel Ethernet.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Žádný kabel Ethernet</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>Není k dispozici žádný síťový adaptér. Zkontrolujte část Ethernet a potom vyberte Zkusit znovu.</value>
+    <value>Zkontrolujte část Ethernet a potom vyberte Zkusit znovu.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Síť je připojená, ale nemá přístup k internetu. Zkontrolujte bránu firewall nebo proxy server a potom vyberte Zkusit znovu.</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>Síť nepřidělila žádnou IP adresu. Zkontrolujte DHCP v této síti a potom vyberte Zkusit znovu.</value>
+    <value>Zkontrolujte DHCP v této síti a potom vyberte Zkusit znovu.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>Žádná IP adresa</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>Žádné síťové připojení. Připojte kabel Ethernet nebo se připojte k síti Wi-Fi.</value>
+    <value>Připojte kabel Ethernet nebo se připojte k síti Wi-Fi.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Žádné síťové připojení</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Žádný přístup k internetu</value>

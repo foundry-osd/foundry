@@ -383,29 +383,47 @@ Licenciran prema MIT licenci.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Mreža je umjesto pristupa internetu odgovorila stranicom za prijavu. Prijavite se s drugog uređaja ako to mreža dopušta ili upotrijebite drugu mrežu, a zatim odaberite Pokušaj ponovno.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Potrebna je prijava</value>
+  </data>
   <data name="Status.BlockedDot1xDescription" xml:space="preserve">
-    <value>Žičana autentifikacija 802.1X nije uspjela. Razlog je prikazan u odjeljku Ethernet.</value>
+    <value>Razlog je prikazan u odjeljku Ethernet.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>Žičana autentifikacija 802.1X nije uspjela</value>
   </data>
   <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
-    <value>Nema mrežne veze. Povežite se s Wi-Fi mrežom.</value>
+    <value>Povežite se s Wi-Fi mrežom.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Nema dostupnog mrežnog adaptera. Provjerite odjeljke Ethernet i Wi-Fi, a zatim odaberite Pokušaj ponovno.</value>
+    <value>Provjerite odjeljke Ethernet i Wi-Fi, a zatim odaberite Pokušaj ponovno.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Nema mrežnog adaptera</value>
   </data>
   <data name="Status.BlockedNoCableDescription" xml:space="preserve">
-    <value>Nema mrežne veze. Priključite Ethernet kabel.</value>
+    <value>Priključite Ethernet kabel.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Nema Ethernet kabela</value>
   </data>
   <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
-    <value>Nema dostupnog mrežnog adaptera. Provjerite odjeljak Ethernet, a zatim odaberite Pokušaj ponovno.</value>
+    <value>Provjerite odjeljak Ethernet, a zatim odaberite Pokušaj ponovno.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Mreža je povezana, ali ne može pristupiti internetu. Provjerite vatrozid ili proxy, a zatim odaberite Pokušaj ponovno.</value>
   </data>
   <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
-    <value>Mreža nije dodijelila IP adresu. Provjerite DHCP na ovoj mreži, a zatim odaberite Pokušaj ponovno.</value>
+    <value>Provjerite DHCP na ovoj mreži, a zatim odaberite Pokušaj ponovno.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>Nema IP adrese</value>
   </data>
   <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
-    <value>Nema mrežne veze. Priključite Ethernet kabel ili se povežite s Wi-Fi mrežom.</value>
+    <value>Priključite Ethernet kabel ili se povežite s Wi-Fi mrežom.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Nema mrežne veze</value>
   </data>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Nema pristupa internetu</value>
