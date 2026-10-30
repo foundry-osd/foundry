@@ -229,8 +229,37 @@
                     </Grid>
                 </Border>
 
-                <!--  2. Sections: the columns copy TargetStepView (* / 24 / *).  -->
+                <!--
+                    2. Sections: the columns copy TargetStepView (* / 24 / *). In one column the grid keeps its content
+                    height, so the star row does not take the band's free space and the cards stack with the normal
+                    gap; only two columns stretch it to fill the band.
+                -->
                 <Grid Grid.Row="2">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter
+                                Property="VerticalAlignment"
+                                Value="Top" />
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition
+                                            Binding="{Binding ActualWidth, ElementName=PageRoot, Converter={StaticResource WidthAtLeastConverter}, ConverterParameter=1100}"
+                                            Value="True" />
+                                        <Condition
+                                            Binding="{Binding ActualHeight, ElementName=PageRoot, Converter={StaticResource WidthAtLeastConverter}, ConverterParameter=700}"
+                                            Value="True" />
+                                        <Condition
+                                            Binding="{Binding DataContext.UsesTwoColumns, ElementName=PageRoot}"
+                                            Value="True" />
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter
+                                        Property="VerticalAlignment"
+                                        Value="Stretch" />
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="24" />
