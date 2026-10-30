@@ -39,9 +39,10 @@ public sealed record AutoContinueState(AutoContinueStatus Status, int SecondsRem
 }
 
 /// <summary>
-/// A 10 second countdown starts once the internet is online; an interaction pauses it for the session (or keeps it
-/// from starting when it happened before), "Stay here" cancels it, and losing the internet resets it. Pure transitions:
-/// the caller owns the one second timer and the session interaction flag.
+/// A 10 second countdown starts once the internet is online and no deployment password prompt is open; an interaction
+/// pauses it for the session (or keeps it from starting when it happened before), "Stay here" cancels it, and losing the
+/// internet or opening the prompt resets it. Pure transitions: the caller owns the one second timer, the session
+/// interaction flag and the prompt flag.
 /// </summary>
 /// <remarks>
 /// Like the Foundry Deploy reboot countdown, each tick removes one whole second and the countdown ends on the tick
@@ -57,20 +58,26 @@ public static class AutoContinuePolicy
     /// <summary>
     /// Starts the countdown when the internet comes online and resets a running one when it is lost (a captive portal
     /// counts as lost). After a networking interaction earlier in the session the internet coming online offers Continue
-    /// without counting: the state goes straight to <see cref="AutoContinueStatus.Paused"/>. Paused, cancelled and
-    /// elapsed states are left as they are.
+    /// without counting: the state goes straight to <see cref="AutoContinueStatus.Paused"/>. While the deployment password
+    /// prompt is open the internet counts as not online yet: nothing starts and a running countdown is reset, so the
+    /// caller applies the status again once the prompt closes. Paused, cancelled and elapsed states are left as they are.
     /// </summary>
     /// <param name="state">The current state.</param>
     /// <param name="internet">The latest internet status.</param>
     /// <param name="hasNetworkingInteraction">Whether the technician interacted with networking during the session.</param>
+    /// <param name="isPasswordPromptOpen">Whether the deployment password prompt is open.</param>
     /// <returns>The next state.</returns>
-    public static AutoContinueState OnInternetStatus(AutoContinueState state, InternetStatus internet, bool hasNetworkingInteraction) => state.Status switch
+    public static AutoContinueState OnInternetStatus(AutoContinueState state, InternetStatus internet, bool hasNetworkingInteraction, bool isPasswordPromptOpen)
     {
-        AutoContinueStatus.Idle when internet == InternetStatus.Online && hasNetworkingInteraction => new(AutoContinueStatus.Paused, 0),
-        AutoContinueStatus.Idle when internet == InternetStatus.Online => new(AutoContinueStatus.Counting, CountdownSeconds),
-        AutoContinueStatus.Counting when internet != InternetStatus.Online => AutoContinueState.Initial,
-        _ => state
-    };
+        bool isOnline = internet == InternetStatus.Online && !isPasswordPromptOpen;
+        return state.Status switch
+        {
+            AutoContinueStatus.Idle when isOnline && hasNetworkingInteraction => new(AutoContinueStatus.Paused, 0),
+            AutoContinueStatus.Idle when isOnline => new(AutoContinueStatus.Counting, CountdownSeconds),
+            AutoContinueStatus.Counting when !isOnline => AutoContinueState.Initial,
+            _ => state
+        };
+    }
 
     /// <summary>
     /// Pauses a running countdown after a networking interaction; any other state is unchanged.

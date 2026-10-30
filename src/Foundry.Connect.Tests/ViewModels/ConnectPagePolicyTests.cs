@@ -83,6 +83,60 @@ public sealed class ConnectPagePolicyTests
         Assert.True(reason == ConnectPagePolicy.ResolveBlockedReason(state), scenario);
     }
 
+    // Right after a connection, an internet that has not answered yet reads as a check in progress; a real answer (a sign-in
+    // page) and the other statuses are unchanged.
+    public static TheoryData<string, NetworkState, ConnectPageStatus, BlockedReason> RecheckRows => new()
+    {
+        { "ethernet_no_internet", State(InternetStatus.NoInternet, Dhcp), ConnectPageStatus.Checking, BlockedReason.None },
+        { "wifi_no_internet", State(InternetStatus.NoInternet, NoLink, WifiAvailability.Available, wifiConnected: true), ConnectPageStatus.Checking, BlockedReason.None },
+        { "waiting_for_address", State(InternetStatus.NoInternet, LinkNoAddress), ConnectPageStatus.Checking, BlockedReason.None },
+        { "captive_portal", State(InternetStatus.CaptivePortal, Dhcp), ConnectPageStatus.Blocked, BlockedReason.CaptivePortal },
+        { "dot1x_authenticating_without_address", State(InternetStatus.NoInternet, LinkNoAddress, dot1x: Dot1xAuthenticationStatus.Authenticating), ConnectPageStatus.Waiting, BlockedReason.None },
+        { "connecting_offline", State(InternetStatus.NoInternet, NoLink, WifiAvailability.Available, operation: NetworkOperationKind.ConnectWifiNetwork), ConnectPageStatus.Waiting, BlockedReason.None },
+        { "online", State(InternetStatus.Online, Dhcp), ConnectPageStatus.Ready, BlockedReason.None }
+    };
+
+    [Theory]
+    [MemberData(nameof(RecheckRows))]
+    public void StatusAndReason_DuringTheInternetRecheck(string scenario, NetworkState state, ConnectPageStatus status, BlockedReason reason)
+    {
+        Assert.True(status == ConnectPagePolicy.ResolveStatus(state, isInternetRecheckPending: true), scenario);
+        Assert.True(reason == ConnectPagePolicy.ResolveBlockedReason(state, isInternetRecheckPending: true), scenario);
+    }
+
+    public static TheoryData<string, NetworkState, NetworkState, bool> RecheckStarts
+    {
+        get
+        {
+            NetworkState blocked = State(InternetStatus.NoInternet, NoLink, WifiAvailability.Available);
+            OperationOutcome previousOutcome = OperationOutcome.Success(NetworkOperationKind.ConnectWifiNetwork);
+            NetworkState afterConnect = blocked with { LastOutcome = previousOutcome };
+            return new()
+            {
+                { "cable_plugged", State(InternetStatus.NoInternet, NoLink), State(InternetStatus.NoInternet, LinkNoAddress), true },
+                { "address_obtained", State(InternetStatus.NoInternet, LinkNoAddress), State(InternetStatus.NoInternet, Dhcp), true },
+                { "link_and_address_at_once", State(InternetStatus.NoInternet, NoLink), State(InternetStatus.NoInternet, Dhcp), true },
+                { "address_kept", State(InternetStatus.NoInternet, Dhcp), State(InternetStatus.NoInternet, Dhcp), false },
+                { "first_observation", State(InternetStatus.Checking), State(InternetStatus.NoInternet, Dhcp), false },
+                { "address_obtained_online", State(InternetStatus.NoInternet, LinkNoAddress), State(InternetStatus.Online, Dhcp), false },
+                { "wifi_connected", blocked, blocked with { LastOutcome = OperationOutcome.Success(NetworkOperationKind.ConnectWifiNetwork) }, true },
+                { "provisioned_connected", blocked, blocked with { LastOutcome = OperationOutcome.Success(NetworkOperationKind.ConnectProvisionedWifi) }, true },
+                { "same_connect_again", afterConnect, blocked with { LastOutcome = OperationOutcome.Success(NetworkOperationKind.ConnectWifiNetwork) }, true },
+                { "outcome_republished", afterConnect, afterConnect with { ObservedAt = Now.AddSeconds(5) }, false },
+                { "connect_failed", blocked, blocked with { LastOutcome = OperationOutcome.Failed(NetworkOperationKind.ConnectWifiNetwork, NetworkFailureCode.ConnectionFailed) }, false },
+                { "disconnected", blocked, blocked with { LastOutcome = OperationOutcome.Success(NetworkOperationKind.DisconnectWifi) }, false },
+                { "provisioning_applied", blocked, blocked with { LastOutcome = OperationOutcome.Success(NetworkOperationKind.ApplyProvisioning) }, false }
+            };
+        }
+    }
+
+    [Theory]
+    [MemberData(nameof(RecheckStarts))]
+    public void StartsInternetRecheck_AfterAConnectionOnly(string scenario, NetworkState previous, NetworkState current, bool expected)
+    {
+        Assert.True(expected == ConnectPagePolicy.StartsInternetRecheck(previous, current), scenario);
+    }
+
     [Theory]
     [InlineData(WifiAvailability.Disabled, false)]
     [InlineData(WifiAvailability.RuntimeMissing, false)]

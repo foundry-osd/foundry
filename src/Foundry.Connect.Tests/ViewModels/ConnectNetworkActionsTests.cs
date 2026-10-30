@@ -117,24 +117,19 @@ public sealed class ConnectNetworkActionsTests
     }
 
     [Fact]
-    public async Task UnlockProvisionedWifi_CountsAsAnInteractionAndRefreshes()
+    public async Task UnlockProvisionedWifi_RefreshesWithoutReportingAnInteraction()
     {
         var unlock = new FakeUnlockService { IsWifiUnlockRequired = true, Result = ConnectUnlockResult.Unlocked };
         _coordinator.Publish(LockedState());
         var actions = new ConnectNetworkActions(_coordinator, unlock, new RecordingLogger<ConnectNetworkActions>());
         int interactions = 0;
         actions.InteractionOccurred += (_, _) => interactions++;
-        int interactionsAtUnlock = -1;
-        unlock.OnUnlock = () => interactionsAtUnlock = interactions;
 
         Assert.Equal(ConnectUnlockResult.Unlocked, await actions.UnlockProvisionedWifiAsync(TestContext.Current.CancellationToken));
 
         Assert.Equal([ConnectUnlockTrigger.AutomaticWifi], unlock.Calls);
         Assert.Equal(1, _coordinator.RefreshProvisionedWifiCalls);
-
-        // Reported before the prompt opens: the countdown must never complete while the prompt is open.
-        Assert.Equal(1, interactionsAtUnlock);
-        Assert.Equal(1, interactions);
+        Assert.Equal(0, interactions);
     }
 
     [Fact]
@@ -167,7 +162,7 @@ public sealed class ConnectNetworkActionsTests
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
-    public async Task UnlockWiredAtStartup_PromptsOnlyWhenRequiredAndCountsAsAnInteraction(bool required)
+    public async Task UnlockWiredAtStartup_PromptsOnlyWhenRequiredWithoutReportingAnInteraction(bool required)
     {
         var unlock = new FakeUnlockService { IsWiredUnlockRequired = required, Result = ConnectUnlockResult.Cancelled };
         var actions = new ConnectNetworkActions(_coordinator, unlock, new RecordingLogger<ConnectNetworkActions>());
@@ -178,7 +173,7 @@ public sealed class ConnectNetworkActionsTests
 
         Assert.Equal(required ? ConnectUnlockResult.Cancelled : ConnectUnlockResult.NotRequired, result);
         Assert.Equal(required ? [ConnectUnlockTrigger.WiredStartup] : [], unlock.Calls);
-        Assert.Equal(required ? 1 : 0, interactions);
+        Assert.Equal(0, interactions);
         Assert.Equal(0, _coordinator.RefreshProvisionedWifiCalls);
     }
 

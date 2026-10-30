@@ -4,6 +4,7 @@
 
 using CommunityToolkit.Mvvm.Input;
 using Foundry.Connect.Network;
+using Foundry.Connect.Security;
 using Foundry.Localization;
 using Foundry.Wpf.Localization;
 using Foundry.Wpf.ViewModels;
@@ -32,11 +33,18 @@ namespace Foundry.Connect.ViewModels;
 /// the same state again and refreshes the children's texts without a network refresh or a focus move.
 /// </para>
 /// <para>
+/// The automatic unlock prompts are not networking interactions: the countdown only waits while one is open and starts
+/// once it closes if the internet is online. Right after a connection (<see cref="ConnectPagePolicy.StartsInternetRecheck"/>)
+/// an internet that has not answered yet shows as checking while the monitor is asked for an observation every
+/// <see cref="ConnectPagePolicy.InternetRecheckInterval"/>; after <see cref="ConnectPagePolicy.InternetRecheckDuration"/>
+/// without internet the page shows the normal blocked state.
+/// </para>
+/// <para>
 /// While a debug scenario is active the live state is still recorded but not rendered, and every network action, the
 /// final probe and the exit are skipped by <see cref="ConnectNetworkActions"/> and <see cref="AutoContinueViewModel"/>,
-/// and no automatic unlock prompt is shown. The view model logs only the applied scenario and a failed automatic
-/// unlock prompt; it never logs a network state. The children are DI singletons disposed by the container, not by
-/// <see cref="Dispose"/>.
+/// and no automatic unlock prompt or internet re-check runs. The view model logs only the applied scenario and a failed
+/// automatic unlock prompt; it never logs a network state. The children are DI singletons disposed by the container, not
+/// by <see cref="Dispose"/>.
 /// </para>
 /// </remarks>
 public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
@@ -52,6 +60,8 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
     private NetworkState? _liveState;
     private ConnectPageStatus? _lastStatus = ConnectPageStatus.Checking;
     private bool _hasInteraction;
+    private ITimer? _internetRecheckTimer;
+    private int _internetRecheckTicks;
     private bool _isLayoutDecided;
     private bool _isInitialized;
     private bool _isDisposed;
@@ -70,8 +80,8 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
     /// <param name="provisionedWifi">The provisioned Wi-Fi card.</param>
     /// <param name="wifiNetworks">The Wi-Fi networks card.</param>
     /// <param name="diagnostics">The Tools menu commands.</param>
-    /// <param name="dispatcher">Marshals coordinator and language notifications to the UI thread.</param>
-    /// <param name="timeProvider">Clock of the simulated states.</param>
+    /// <param name="dispatcher">Marshals coordinator, language and re-check timer notifications to the UI thread.</param>
+    /// <param name="timeProvider">Clock of the simulated states and timer of the internet re-check.</param>
     /// <param name="logger">Logger for applied debug scenarios.</param>
     public ConnectPageViewModel(
         ILocalizationService localization,
@@ -228,7 +238,7 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
         try
         {
             // No ConfigureAwait(false): the continuations update bound properties on the UI thread.
-            await _actions.UnlockWiredAtStartupAsync(linked.Token);
+            await UnlockWithCountdownHeldAsync(_actions.UnlockWiredAtStartupAsync, linked.Token);
             if (_isDisposed)
             {
                 return;
@@ -269,6 +279,7 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
         AutoContinue.IsSimulation = IsSimulation;
         _lastStatus = null;
         _hasInteraction = false;
+        StopInternetRecheck();
 
         // Each scenario, and the return to Live, chooses the layout again.
         _isLayoutDecided = false;
@@ -280,7 +291,8 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
     }
 
     /// <summary>
-    /// Unsubscribes, cancels the network monitor and observes its task without waiting for it. Idempotent.
+    /// Unsubscribes, stops the internet re-check, cancels the network monitor and observes its task without waiting for
+    /// it. Idempotent.
     /// </summary>
     public override void Dispose()
     {
@@ -295,6 +307,7 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
         _actions.InteractionOccurred -= OnInteraction;
         AutoContinue.ContinueFocusRequested -= OnContinueFocusRequested;
         LocalizationService.LanguageChanged -= OnLocalizationLanguageChanged;
+        StopInternetRecheck();
         _disposeCts.Cancel();
 
         // Never block the UI thread on the monitor; reading Exception keeps a faulted loop from going unobserved.
@@ -337,7 +350,7 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
         CancellationToken token = _disposeCts.Token;
         try
         {
-            await _actions.UnlockProvisionedWifiAsync(token);
+            await UnlockWithCountdownHeldAsync(_actions.UnlockProvisionedWifiAsync, token);
         }
         catch (OperationCanceledException) when (token.IsCancellationRequested)
         {
@@ -349,13 +362,74 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
         }
     }
 
+    // The automatic prompts are not networking interactions; the countdown is only held while one is open. Held before the
+    // call because the first prompt may run a nested modal loop inside it, where state changes are rendered.
+    private async Task UnlockWithCountdownHeldAsync(Func<CancellationToken, Task<ConnectUnlockResult>> unlock, CancellationToken cancellationToken)
+    {
+        AutoContinue.OnPasswordPromptOpened();
+        try
+        {
+            await unlock(cancellationToken);
+        }
+        finally
+        {
+            AutoContinue.OnPasswordPromptClosed();
+        }
+    }
+
     private void OnLiveState(NetworkState state)
     {
+        NetworkState? previous = _liveState;
         _liveState = state;
-        if (!IsSimulation)
+        if (IsSimulation)
         {
-            Render(state);
+            return;
         }
+
+        if (previous is not null && ConnectPagePolicy.StartsInternetRecheck(previous, state))
+        {
+            StartInternetRecheck();
+        }
+
+        Render(state);
+    }
+
+    // Each tick asks the monitor for an early observation; the last one ends the re-check and renders the state again, so a
+    // page still without internet shows it blocked. Never changes the monitor's normal interval.
+    private void StartInternetRecheck()
+    {
+        StopInternetRecheck();
+        _internetRecheckTicks = 0;
+        _internetRecheckTimer = _timeProvider.CreateTimer(
+            _ => _dispatcher.Run(OnInternetRecheckTick),
+            null,
+            ConnectPagePolicy.InternetRecheckInterval,
+            ConnectPagePolicy.InternetRecheckInterval);
+    }
+
+    private void StopInternetRecheck()
+    {
+        _internetRecheckTimer?.Dispose();
+        _internetRecheckTimer = null;
+    }
+
+    private void OnInternetRecheckTick()
+    {
+        // A tick queued on the dispatcher can run after Dispose or after the re-check stopped.
+        if (_isDisposed || _internetRecheckTimer is null)
+        {
+            return;
+        }
+
+        _internetRecheckTicks++;
+        if (ConnectPagePolicy.InternetRecheckInterval * _internetRecheckTicks < ConnectPagePolicy.InternetRecheckDuration)
+        {
+            _monitor.RequestRefresh();
+            return;
+        }
+
+        StopInternetRecheck();
+        Render(_renderedState);
     }
 
     private void OnInteraction(object? sender, EventArgs e)
@@ -398,9 +472,15 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
     private void Render(NetworkState state)
     {
         _renderedState = state;
-        ConnectPageStatus status = ConnectPagePolicy.ResolveStatus(state);
+        if (state.Internet == InternetStatus.Online)
+        {
+            StopInternetRecheck();
+        }
+
+        bool isInternetRecheckPending = _internetRecheckTimer is not null;
+        ConnectPageStatus status = ConnectPagePolicy.ResolveStatus(state, isInternetRecheckPending);
         Status = status;
-        BlockedReason = ConnectPagePolicy.ResolveBlockedReason(state);
+        BlockedReason = ConnectPagePolicy.ResolveBlockedReason(state, isInternetRecheckPending);
 
         // "Checking" means no observation yet, not the page status (which is Waiting during the startup provisioning).
         bool hasObservation = state.Internet != InternetStatus.Checking;

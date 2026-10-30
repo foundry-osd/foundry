@@ -143,6 +143,55 @@ public sealed class AutoContinueViewModelTests : IDisposable
     }
 
     [Fact]
+    public void PasswordPrompt_HoldsTheCountdownUntilItCloses()
+    {
+        AutoContinueViewModel viewModel = Create();
+        viewModel.OnPasswordPromptOpened();
+
+        viewModel.OnInternetStatusChanged(InternetStatus.Online);
+        Tick(30);
+
+        Assert.Equal(AutoContinueState.Initial, viewModel.State);
+        Assert.Equal(0, _clock.ActiveTimerCount);
+        Assert.Equal(0, _exit.Calls);
+
+        viewModel.OnPasswordPromptClosed();
+
+        Assert.True(viewModel.IsCounting);
+        Assert.Equal(10, viewModel.SecondsRemaining);
+        Assert.True(viewModel.IsContinueDefault);
+    }
+
+    [Fact]
+    public void PasswordPrompt_OpenedDuringTheCountdown_StopsItAndRestartsFromTenAfterClose()
+    {
+        AutoContinueViewModel viewModel = Create();
+        viewModel.OnInternetStatusChanged(InternetStatus.Online);
+        Tick(4);
+
+        viewModel.OnPasswordPromptOpened();
+        Tick(30);
+        Assert.False(viewModel.IsCounting);
+        Assert.Equal(0, _exit.Calls);
+
+        viewModel.OnPasswordPromptClosed();
+        Assert.Equal(10, viewModel.SecondsRemaining);
+    }
+
+    [Fact]
+    public void PasswordPrompt_ClosedWithoutInternet_DoesNotCount()
+    {
+        AutoContinueViewModel viewModel = Create();
+        viewModel.OnPasswordPromptOpened();
+        viewModel.OnInternetStatusChanged(InternetStatus.Online);
+        viewModel.OnInternetStatusChanged(InternetStatus.NoInternet);
+
+        viewModel.OnPasswordPromptClosed();
+
+        Assert.Equal(AutoContinueState.Initial, viewModel.State);
+    }
+
+    [Fact]
     public void StayHere_RequestsTheFocusOnContinue()
     {
         AutoContinueViewModel viewModel = Create();

@@ -13,9 +13,9 @@ using Microsoft.Extensions.Logging;
 namespace Foundry.Connect.ViewModels;
 
 /// <summary>
-/// Automatic continue: a 10 second countdown once the internet is online, paused for the session by a networking
-/// interaction (and never started once one happened), cancelled by "Stay here", and ended by the final probe of
-/// <see cref="ISuccessfulExitService"/>.
+/// Automatic continue: a 10 second countdown once the internet is online, held while an automatic deployment password
+/// prompt is open, paused for the session by a networking interaction (and never started once one happened), cancelled by
+/// "Stay here", and ended by the final probe of <see cref="ISuccessfulExitService"/>.
 /// </summary>
 /// <remarks>
 /// <see cref="AutoContinuePolicy"/> decides every transition; this view model owns the only timer, a one
@@ -46,6 +46,7 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
     private ITimer? _timer;
     private bool _isSimulation;
     private bool _hasNetworkingInteraction;
+    private bool _isPasswordPromptOpen;
     private bool _isCompleting;
     private bool _isDisposed;
 
@@ -162,7 +163,7 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
 
     /// <summary>
     /// Applies the latest internet status: online starts the countdown (or offers Continue without counting after a
-    /// networking interaction), anything else resets a running one.
+    /// networking interaction) unless a password prompt is open, anything else resets a running one.
     /// </summary>
     /// <param name="internet">The internet status read from the coordinator on the UI thread.</param>
     public void OnInternetStatusChanged(InternetStatus internet)
@@ -175,7 +176,7 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
         _internet = internet;
         if (IsCountdownAllowed)
         {
-            AutoContinueState next = AutoContinuePolicy.OnInternetStatus(State, internet, _hasNetworkingInteraction);
+            AutoContinueState next = AutoContinuePolicy.OnInternetStatus(State, internet, _hasNetworkingInteraction, _isPasswordPromptOpen);
             if (next.Status == AutoContinueStatus.Paused && State.Status != AutoContinueStatus.Paused)
             {
                 _logger.LogInformation("Automatic continue not started; the technician already interacted with the network.");
@@ -210,6 +211,19 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
     }
 
     /// <summary>
+    /// Holds the countdown while an automatic deployment password prompt is open: a running countdown resets and an online
+    /// internet starts none, so Connect never leaves while the prompt is open. The prompt itself is not a networking
+    /// interaction.
+    /// </summary>
+    public void OnPasswordPromptOpened() => SetPasswordPromptOpen(true);
+
+    /// <summary>
+    /// Releases the hold of <see cref="OnPasswordPromptOpened"/>: the last internet status applies again, so a countdown
+    /// starts from the full delay when the internet is online and no networking interaction happened.
+    /// </summary>
+    public void OnPasswordPromptClosed() => SetPasswordPromptOpen(false);
+
+    /// <summary>
     /// Raises <see cref="CaptionText"/> again after a language change; the countdown keeps its seconds.
     /// </summary>
     public void RefreshTexts() => OnPropertyChanged(nameof(CaptionText));
@@ -230,6 +244,17 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
         _disposeCts.Cancel();
         _disposeCts.Dispose();
         base.Dispose();
+    }
+
+    private void SetPasswordPromptOpen(bool isOpen)
+    {
+        if (_isDisposed)
+        {
+            return;
+        }
+
+        _isPasswordPromptOpen = isOpen;
+        OnInternetStatusChanged(_internet);
     }
 
     [RelayCommand(CanExecute = nameof(IsCounting))]

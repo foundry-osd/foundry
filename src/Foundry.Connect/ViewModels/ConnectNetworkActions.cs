@@ -20,11 +20,11 @@ namespace Foundry.Connect.ViewModels;
 /// </para>
 /// <para>
 /// The two unlock entry points, <see cref="UnlockWiredAtStartupAsync"/> and <see cref="UnlockProvisionedWifiAsync"/>, are
-/// raised by Connect, not by the technician, but a prompt counts as a networking interaction once it is shown: the
-/// interaction is reported right before the prompt opens, so the countdown never completes and Connect never exits while it
-/// is open, and focus does not move afterwards. They throw only <see cref="OperationCanceledException"/>. The first prompt
-/// may run synchronously inside the call (a nested modal loop on the UI thread); the provisioned Wi-Fi is refreshed only
-/// after the unlock has completed.
+/// raised by Connect, not by the technician, so they report no networking interaction; the caller holds the countdown
+/// while they run (<see cref="AutoContinueViewModel.OnPasswordPromptOpened"/>), so Connect never exits while a prompt is
+/// open. Only the prompt that the provisioned Wi-Fi Connect button opens counts as an interaction, through the click. They
+/// throw only <see cref="OperationCanceledException"/>. The first prompt may run synchronously inside the call (a nested
+/// modal loop on the UI thread); the provisioned Wi-Fi is refreshed only after the unlock has completed.
 /// </para>
 /// </remarks>
 /// <param name="coordinator">Coordinator that executes the live operations.</param>
@@ -42,8 +42,8 @@ public sealed class ConnectNetworkActions(IConnectionCoordinator coordinator, IC
     public bool IsSimulation { get; set; }
 
     /// <summary>
-    /// Raised on the calling thread before every technician action, before every unlock prompt, and by
-    /// <see cref="NotifyInteraction"/>.
+    /// Raised on the calling thread before every technician action, the provisioned Wi-Fi Connect button included, and by
+    /// <see cref="NotifyInteraction"/>; never by the automatic unlock prompts.
     /// </summary>
     public event EventHandler? InteractionOccurred;
 
@@ -97,7 +97,6 @@ public sealed class ConnectNetworkActions(IConnectionCoordinator coordinator, IC
             return Task.FromResult(ConnectUnlockResult.NotRequired);
         }
 
-        NotifyInteraction();
         return _unlock.UnlockAsync(ConnectUnlockTrigger.WiredStartup, cancellationToken);
     }
 
@@ -119,7 +118,6 @@ public sealed class ConnectNetworkActions(IConnectionCoordinator coordinator, IC
             return Task.FromResult(ConnectUnlockResult.NotRequired);
         }
 
-        NotifyInteraction();
         return UnlockAndRefreshProvisionedWifiAsync(ConnectUnlockTrigger.AutomaticWifi, cancellationToken);
     }
 

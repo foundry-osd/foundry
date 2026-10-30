@@ -498,7 +498,7 @@ public sealed class ConnectPageViewModelTests : IDisposable
     }
 
     [Fact]
-    public async Task InitializeAsync_AfterTheWiredPrompt_OffersContinueWithoutCountingOrFocus()
+    public async Task InitializeAsync_AfterTheWiredPrompt_StartsTheCountdownAndFocusesContinueOnceOnline()
     {
         _unlock.IsWiredUnlockRequired = true;
         _unlock.Result = ConnectUnlockResult.Unlocked;
@@ -506,10 +506,30 @@ public sealed class ConnectPageViewModelTests : IDisposable
 
         Publish(ConnectDebugScenario.EthernetReady);
 
-        Assert.Equal(AutoContinueStatus.Paused, _page.AutoContinue.State.Status);
-        Assert.False(_page.AutoContinue.IsContinueDefault);
-        Assert.True(_page.AutoContinue.ContinueCommand.CanExecute(null));
-        Assert.Empty(_focus);
+        Assert.True(_page.AutoContinue.IsCounting);
+        Assert.True(_page.AutoContinue.IsContinueDefault);
+        Assert.Equal([ConnectFocusTarget.Continue], _focus);
+    }
+
+    [Fact]
+    public async Task InitializeAsync_OnlineWhileTheWiredPromptIsOpen_StartsTheCountdownOnlyOnceItCloses()
+    {
+        _unlock.IsWiredUnlockRequired = true;
+        _unlock.Result = ConnectUnlockResult.Unlocked;
+        bool countingWhilePrompting = true;
+        _unlock.OnUnlock = () =>
+        {
+            Publish(ConnectDebugScenario.EthernetReady);
+            _clock.Advance(TimeSpan.FromSeconds(11));
+            countingWhilePrompting = _page.AutoContinue.IsCounting;
+        };
+
+        await _page.InitializeAsync(TestContext.Current.CancellationToken);
+
+        Assert.False(countingWhilePrompting);
+        Assert.Equal(0, _exit.Calls);
+        Assert.True(_page.AutoContinue.IsCounting);
+        Assert.Equal(AutoContinuePolicy.CountdownSeconds, _page.AutoContinue.SecondsRemaining);
     }
 
     [Fact]
@@ -528,7 +548,7 @@ public sealed class ConnectPageViewModelTests : IDisposable
     }
 
     [Fact]
-    public void AutomaticUnlock_ThenOnline_OffersContinueWithoutCountingOrFocus()
+    public void AutomaticUnlock_ThenOnline_StartsTheCountdownAndFocusesContinue()
     {
         _unlock.IsWifiUnlockRequired = true;
         _unlock.Result = ConnectUnlockResult.Unlocked;
@@ -540,15 +560,13 @@ public sealed class ConnectPageViewModelTests : IDisposable
 
         Assert.Equal(1, _coordinator.RefreshProvisionedWifiCalls);
         Assert.Equal(ConnectPageStatus.Ready, _page.Status);
-        Assert.False(_page.AutoContinue.IsCounting);
-        Assert.Equal(AutoContinueStatus.Paused, _page.AutoContinue.State.Status);
-        Assert.False(_page.AutoContinue.IsContinueDefault);
-        Assert.True(_page.AutoContinue.ContinueCommand.CanExecute(null));
-        Assert.Empty(_focus);
+        Assert.True(_page.AutoContinue.IsCounting);
+        Assert.True(_page.AutoContinue.IsContinueDefault);
+        Assert.Equal([ConnectFocusTarget.Continue], _focus);
     }
 
     [Fact]
-    public void EthernetOnline_WhileTheAutomaticPromptIsOpen_NeverExits()
+    public void EthernetOnline_WhileTheAutomaticPromptIsOpen_StartsTheCountdownOnlyOnceItCloses()
     {
         _unlock.IsWifiUnlockRequired = true;
         _unlock.Result = ConnectUnlockResult.Cancelled;
@@ -571,6 +589,110 @@ public sealed class ConnectPageViewModelTests : IDisposable
         Assert.Null(_page.AutoContinue.PendingCompletion);
         Assert.Equal(0, _exit.Calls);
         Assert.Equal(ConnectPageStatus.Ready, _page.Status);
+        Assert.True(_page.AutoContinue.IsCounting);
+        Assert.Equal(AutoContinuePolicy.CountdownSeconds, _page.AutoContinue.SecondsRemaining);
+    }
+
+    [Fact]
+    public async Task ProvisionedConnectPrompt_StillCountsAsAnInteraction()
+    {
+        _unlock.IsWifiUnlockRequired = true;
+        _unlock.Result = ConnectUnlockResult.Unlocked;
+        Publish(ConnectDebugScenario.ProvisionedWifiLocked);
+        _focus.Clear();
+
+        await _page.ProvisionedWifi.ConnectCommand.ExecuteAsync(null);
+        Publish(ConnectDebugScenario.WifiReady);
+
+        Assert.Equal([ConnectUnlockTrigger.ManualWifi], _unlock.Calls);
+        Assert.Equal(AutoContinueStatus.Paused, _page.AutoContinue.State.Status);
+        Assert.False(_page.AutoContinue.IsContinueDefault);
+        Assert.Empty(_focus);
+    }
+
+    private NetworkState ConnectedWithoutInternet(NetworkOperationKind operation = NetworkOperationKind.ConnectProvisionedWifi) =>
+        DebugScenarioCatalog.Create(ConnectDebugScenario.WifiReady, _clock.GetUtcNow()) with
+        {
+            Internet = InternetStatus.NoInternet,
+            LastOutcome = OperationOutcome.Success(operation)
+        };
+
+    [Fact]
+    public void Connected_WithoutInternetYet_ShowsTheCheckRecheckingEveryTwoSecondsThenBlocksAfterTen()
+    {
+        Publish(ConnectDebugScenario.WifiConnecting);
+
+        _coordinator.Publish(ConnectedWithoutInternet());
+
+        Assert.Equal(ConnectPageStatus.Checking, _page.Status);
+        Assert.Equal(Text("Status.CheckingTitle"), _page.BannerTitle);
+        Assert.False(_page.HasBannerDescription);
+        Assert.False(_page.ShowRetryActions);
+        for (int recheck = 1; recheck <= 4; recheck++)
+        {
+            _clock.Advance(TimeSpan.FromSeconds(2));
+            _coordinator.Publish(_coordinator.State with { ObservedAt = _clock.GetUtcNow() });
+            Assert.Equal(recheck, _monitor.RefreshRequests);
+            Assert.Equal(ConnectPageStatus.Checking, _page.Status);
+        }
+
+        _clock.Advance(TimeSpan.FromSeconds(2));
+
+        Assert.Equal(ConnectPageStatus.Blocked, _page.Status);
+        Assert.Equal(BlockedReason.NoInternet, _page.BlockedReason);
+        Assert.Equal(Text("Status.BlockedTitle"), _page.BannerTitle);
+        Assert.True(_page.ShowRetryActions);
+        Assert.Equal([ConnectFocusTarget.WifiNetworks], _focus);
+        _clock.Advance(TimeSpan.FromSeconds(30));
+        Assert.Equal(4, _monitor.RefreshRequests);
+        Assert.Equal(0, _clock.ActiveTimerCount);
+    }
+
+    [Fact]
+    public void Connected_OnlineWithinTheRecheck_IsReadyAndCountsDown()
+    {
+        Publish(ConnectDebugScenario.WifiConnecting);
+        _coordinator.Publish(ConnectedWithoutInternet(NetworkOperationKind.ConnectWifiNetwork));
+        _clock.Advance(TimeSpan.FromSeconds(2));
+
+        _coordinator.Publish(_coordinator.State with { Internet = InternetStatus.Online });
+
+        Assert.Equal(ConnectPageStatus.Ready, _page.Status);
+        Assert.True(_page.AutoContinue.IsCounting);
+        Assert.Equal([ConnectFocusTarget.Continue], _focus);
+        _clock.Advance(TimeSpan.FromSeconds(4));
+        Assert.Equal(1, _monitor.RefreshRequests);
+    }
+
+    [Fact]
+    public void EthernetAddressObtained_WithoutInternetYet_ShowsTheCheckUntilTheRecheckEnds()
+    {
+        Publish(ConnectDebugScenario.WaitingForAddress);
+        _focus.Clear();
+
+        Publish(ConnectDebugScenario.EthernetNoInternet);
+        Assert.Equal(ConnectPageStatus.Checking, _page.Status);
+        Assert.Empty(_focus);
+
+        _clock.Advance(TimeSpan.FromSeconds(10));
+
+        Assert.Equal(ConnectPageStatus.Blocked, _page.Status);
+        Assert.Equal(BlockedReason.NoInternet, _page.BlockedReason);
+        Assert.Equal([ConnectFocusTarget.Retry], _focus);
+    }
+
+    [Fact]
+    public void ApplyDebugScenario_EndsTheRecheck()
+    {
+        Publish(ConnectDebugScenario.WaitingForAddress);
+        Publish(ConnectDebugScenario.EthernetNoInternet);
+
+        _page.ApplyDebugScenario(ConnectDebugScenario.EthernetNoInternet);
+        _clock.Advance(TimeSpan.FromSeconds(10));
+
+        Assert.Equal(ConnectPageStatus.Blocked, _page.Status);
+        Assert.Equal(0, _monitor.RefreshRequests);
+        Assert.Equal(0, _clock.ActiveTimerCount);
     }
 
     [Fact]

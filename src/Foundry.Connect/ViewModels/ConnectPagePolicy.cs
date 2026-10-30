@@ -11,7 +11,7 @@ namespace Foundry.Connect.ViewModels;
 /// </summary>
 public enum ConnectPageStatus
 {
-    /// <summary>The first observation has not completed yet.</summary>
+    /// <summary>The first observation has not completed yet, or the internet is re-checked right after a connection.</summary>
     Checking,
 
     /// <summary>A network operation runs, or wired 802.1X authenticates, and the internet is not online.</summary>
@@ -79,6 +79,16 @@ public enum ConnectFocusTarget
 public static class ConnectPagePolicy
 {
     /// <summary>
+    /// Interval between two internet re-checks right after a connection (<see cref="StartsInternetRecheck"/>).
+    /// </summary>
+    public static readonly TimeSpan InternetRecheckInterval = TimeSpan.FromSeconds(2);
+
+    /// <summary>
+    /// How long the internet is re-checked right after a connection before the page shows it blocked.
+    /// </summary>
+    public static readonly TimeSpan InternetRecheckDuration = TimeSpan.FromSeconds(10);
+
+    /// <summary>
     /// Gets whether this media offers Wi-Fi at all: the WLAN stack runs, with or without an adapter. The page decides
     /// its layout from this once, at the first observation.
     /// </summary>
@@ -114,11 +124,14 @@ public static class ConnectPagePolicy
     /// <summary>
     /// Resolves the page status: ready when the internet is online, else waiting while an operation runs, else
     /// checking while the internet check is pending, else waiting while wired 802.1X authenticates
-    /// (<see cref="IsWiredAuthenticationPending"/>), else blocked.
+    /// (<see cref="IsWiredAuthenticationPending"/>), else checking during the re-check that follows a connection while the
+    /// internet has not answered (<see cref="StartsInternetRecheck"/>), else blocked. A captive portal is an answer, so it
+    /// stays blocked during the re-check.
     /// </summary>
     /// <param name="state">The network state.</param>
+    /// <param name="isInternetRecheckPending">Whether the re-check that follows a connection is still running.</param>
     /// <returns>The page status.</returns>
-    public static ConnectPageStatus ResolveStatus(NetworkState state)
+    public static ConnectPageStatus ResolveStatus(NetworkState state, bool isInternetRecheckPending = false)
     {
         ArgumentNullException.ThrowIfNull(state);
         if (state.Internet == InternetStatus.Online)
@@ -136,7 +149,42 @@ public static class ConnectPagePolicy
             return ConnectPageStatus.Checking;
         }
 
-        return IsWiredAuthenticationPending(state) ? ConnectPageStatus.Waiting : ConnectPageStatus.Blocked;
+        if (IsWiredAuthenticationPending(state))
+        {
+            return ConnectPageStatus.Waiting;
+        }
+
+        return isInternetRecheckPending && state.Internet == InternetStatus.NoInternet ? ConnectPageStatus.Checking : ConnectPageStatus.Blocked;
+    }
+
+    /// <summary>
+    /// Gets whether a connection was just made, so the internet is re-checked for a short while before the page shows it
+    /// blocked: a Wi-Fi connect (manual or provisioned, by the technician or automatic) has just succeeded, or, after an
+    /// earlier observation, the Ethernet link came up or a usable Ethernet address appeared. Nothing starts once the
+    /// internet is online.
+    /// </summary>
+    /// <remarks>
+    /// The coordinator creates one outcome per finished operation and republishes that same instance with every later
+    /// observation, so a new succeeded connect outcome is recognized by reference, even when it equals the previous one.
+    /// </remarks>
+    /// <param name="previous">The previously received live state.</param>
+    /// <param name="current">The newly received live state.</param>
+    /// <returns><see langword="true"/> when the re-check should (re)start.</returns>
+    public static bool StartsInternetRecheck(NetworkState previous, NetworkState current)
+    {
+        ArgumentNullException.ThrowIfNull(previous);
+        ArgumentNullException.ThrowIfNull(current);
+        if (current.Internet == InternetStatus.Online)
+        {
+            return false;
+        }
+
+        bool connected = !ReferenceEquals(previous.LastOutcome, current.LastOutcome)
+            && current.LastOutcome is { Status: OperationStatus.Succeeded, Operation: NetworkOperationKind.ConnectWifiNetwork or NetworkOperationKind.ConnectProvisionedWifi };
+        bool ethernetCameUp = previous.Internet != InternetStatus.Checking
+            && ((!previous.Ethernet.HasLink && current.Ethernet.HasLink)
+                || (!previous.Ethernet.HasUsableAddress && current.Ethernet.HasUsableAddress));
+        return connected || ethernetCameUp;
     }
 
     /// <summary>
@@ -145,10 +193,11 @@ public static class ConnectPagePolicy
     /// Ethernet link, then no link behind an adapter, then no adapter.
     /// </summary>
     /// <param name="state">The network state.</param>
+    /// <param name="isInternetRecheckPending">Whether the re-check that follows a connection is still running.</param>
     /// <returns>The reason, or <see cref="BlockedReason.None"/> when the page is not blocked.</returns>
-    public static BlockedReason ResolveBlockedReason(NetworkState state)
+    public static BlockedReason ResolveBlockedReason(NetworkState state, bool isInternetRecheckPending = false)
     {
-        if (ResolveStatus(state) != ConnectPageStatus.Blocked)
+        if (ResolveStatus(state, isInternetRecheckPending) != ConnectPageStatus.Blocked)
         {
             return BlockedReason.None;
         }

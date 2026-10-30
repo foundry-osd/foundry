@@ -26,28 +26,36 @@ public sealed class AutoContinuePolicyTests
     [MemberData(nameof(InternetScenarios))]
     public void OnInternetStatus_ScenarioTable(string scenario, AutoContinueState state, InternetStatus internet, AutoContinueStatus expected)
     {
-        Assert.True(expected == AutoContinuePolicy.OnInternetStatus(state, internet, hasNetworkingInteraction: false).Status, scenario);
+        Assert.True(expected == AutoContinuePolicy.OnInternetStatus(state, internet, hasNetworkingInteraction: false, isPasswordPromptOpen: false).Status, scenario);
     }
 
     [Fact]
     public void OnInternetStatus_WhenStillOnline_KeepsTheSecondsLeft()
     {
-        Assert.Equal(Counting, AutoContinuePolicy.OnInternetStatus(Counting, InternetStatus.Online, hasNetworkingInteraction: false));
+        Assert.Equal(Counting, AutoContinuePolicy.OnInternetStatus(Counting, InternetStatus.Online, hasNetworkingInteraction: false, isPasswordPromptOpen: false));
     }
 
     [Fact]
     public void OnInternetStatus_AfterANetworkingInteraction_OffersContinueWithoutCounting()
     {
-        AutoContinueState state = AutoContinuePolicy.OnInternetStatus(AutoContinueState.Initial, InternetStatus.Online, hasNetworkingInteraction: true);
+        AutoContinueState state = AutoContinuePolicy.OnInternetStatus(AutoContinueState.Initial, InternetStatus.Online, hasNetworkingInteraction: true, isPasswordPromptOpen: false);
 
         Assert.Equal(new AutoContinueState(AutoContinueStatus.Paused, 0), state);
-        Assert.Equal(AutoContinueState.Initial, AutoContinuePolicy.OnInternetStatus(AutoContinueState.Initial, InternetStatus.NoInternet, hasNetworkingInteraction: true));
+        Assert.Equal(AutoContinueState.Initial, AutoContinuePolicy.OnInternetStatus(AutoContinueState.Initial, InternetStatus.NoInternet, hasNetworkingInteraction: true, isPasswordPromptOpen: false));
+    }
+
+    [Fact]
+    public void OnInternetStatus_WhilePasswordPromptIsOpen_NeverCounts()
+    {
+        Assert.Equal(AutoContinueState.Initial, AutoContinuePolicy.OnInternetStatus(AutoContinueState.Initial, InternetStatus.Online, hasNetworkingInteraction: false, isPasswordPromptOpen: true));
+        Assert.Equal(AutoContinueState.Initial, AutoContinuePolicy.OnInternetStatus(Counting, InternetStatus.Online, hasNetworkingInteraction: false, isPasswordPromptOpen: true));
+        Assert.Equal(AutoContinueState.Initial, AutoContinuePolicy.OnInternetStatus(AutoContinueState.Initial, InternetStatus.Online, hasNetworkingInteraction: true, isPasswordPromptOpen: true));
     }
 
     [Fact]
     public void Countdown_ShowsEachSecondOnceAndElapsesOnTheTenthTick()
     {
-        AutoContinueState state = AutoContinuePolicy.OnInternetStatus(AutoContinueState.Initial, InternetStatus.Online, hasNetworkingInteraction: false);
+        AutoContinueState state = AutoContinuePolicy.OnInternetStatus(AutoContinueState.Initial, InternetStatus.Online, hasNetworkingInteraction: false, isPasswordPromptOpen: false);
         List<int> shown = [];
 
         for (int tick = 1; tick <= 10; tick++)
