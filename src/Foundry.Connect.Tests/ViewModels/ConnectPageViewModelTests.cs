@@ -52,26 +52,26 @@ public sealed class ConnectPageViewModelTests : IDisposable
     private void Publish(ConnectDebugScenario scenario) => _coordinator.Publish(DebugScenarioCatalog.Create(scenario, _clock.GetUtcNow()));
 
     public sealed record PageExpectation(
-        ConnectPageStatus Status, BlockedReason Reason, string TitleKey, string DescriptionKey, bool Busy,
+        ConnectPageStatus Status, BlockedReason Reason, string TitleKey, string? DescriptionKey, bool Busy,
         bool EthernetCard, bool EthernetNotice, bool Provisioned, bool WifiNetworks, string? WifiNoticeKey,
         bool CaptivePortal, bool Dot1xRow, bool CanContinue, ConnectFocusTarget Focus);
 
     public static TheoryData<ConnectDebugScenario, PageExpectation> Matrix => new()
     {
-        { ConnectDebugScenario.Checking, new(ConnectPageStatus.Checking, BlockedReason.None, "Status.CheckingTitle", "Status.CheckingDescription", true, false, false, false, false, null, false, false, false, ConnectFocusTarget.None) },
-        { ConnectDebugScenario.NoAdapter, new(ConnectPageStatus.Blocked, BlockedReason.NoAdapter, "Status.BlockedTitle", "Status.BlockedNoAdapterDescription", false, false, true, false, false, null, false, false, false, ConnectFocusTarget.Retry) },
-        { ConnectDebugScenario.NoLink, new(ConnectPageStatus.Blocked, BlockedReason.NoLink, "Status.BlockedTitle", "Status.BlockedNoLinkDescription", false, true, false, false, false, null, false, false, false, ConnectFocusTarget.Retry) },
+        { ConnectDebugScenario.Checking, new(ConnectPageStatus.Checking, BlockedReason.None, "Status.CheckingTitle", null, true, false, false, false, false, null, false, false, false, ConnectFocusTarget.None) },
+        { ConnectDebugScenario.NoAdapter, new(ConnectPageStatus.Blocked, BlockedReason.NoAdapter, "Status.BlockedTitle", "Status.BlockedNoEthernetAdapterDescription", false, false, true, false, false, null, false, false, false, ConnectFocusTarget.Retry) },
+        { ConnectDebugScenario.NoLink, new(ConnectPageStatus.Blocked, BlockedReason.NoLink, "Status.BlockedTitle", "Status.BlockedNoCableDescription", false, true, false, false, false, null, false, false, false, ConnectFocusTarget.Retry) },
         { ConnectDebugScenario.WaitingForAddress, new(ConnectPageStatus.Blocked, BlockedReason.NoIpAddress, "Status.BlockedTitle", "Status.BlockedNoIpAddressDescription", false, true, false, false, false, null, false, false, false, ConnectFocusTarget.Retry) },
         { ConnectDebugScenario.ApipaAddress, new(ConnectPageStatus.Blocked, BlockedReason.NoIpAddress, "Status.BlockedTitle", "Status.BlockedNoIpAddressDescription", false, true, false, false, false, null, false, false, false, ConnectFocusTarget.Retry) },
         { ConnectDebugScenario.EthernetNoInternet, new(ConnectPageStatus.Blocked, BlockedReason.NoInternet, "Status.BlockedTitle", "Status.BlockedNoInternetDescription", false, true, false, false, false, null, false, false, false, ConnectFocusTarget.Retry) },
         { ConnectDebugScenario.CaptivePortal, new(ConnectPageStatus.Blocked, BlockedReason.CaptivePortal, "Status.BlockedTitle", "Status.BlockedCaptivePortalDescription", false, true, false, false, false, null, true, false, false, ConnectFocusTarget.Retry) },
-        { ConnectDebugScenario.EthernetReady, new(ConnectPageStatus.Ready, BlockedReason.None, "Status.NetworkReadyTitle", "Status.NetworkReadyDescription", false, true, false, false, false, null, false, false, true, ConnectFocusTarget.Continue) },
-        { ConnectDebugScenario.Dot1xFailed, new(ConnectPageStatus.Blocked, BlockedReason.NoIpAddress, "Status.BlockedTitle", "Status.BlockedNoIpAddressDescription", false, true, false, false, false, null, false, true, false, ConnectFocusTarget.Retry) },
-        { ConnectDebugScenario.WifiRuntimeMissing, new(ConnectPageStatus.Blocked, BlockedReason.NoLink, "Status.BlockedTitle", "Status.BlockedNoLinkDescription", false, true, false, false, false, "Wifi.UnavailableAtRuntime", false, false, false, ConnectFocusTarget.Retry) },
-        { ConnectDebugScenario.NoWifiAdapter, new(ConnectPageStatus.Blocked, BlockedReason.NoLink, "Status.BlockedTitle", "Status.BlockedNoLinkDescription", false, true, false, false, false, "Wifi.NoAdapterDetected", false, false, false, ConnectFocusTarget.Retry) },
+        { ConnectDebugScenario.EthernetReady, new(ConnectPageStatus.Ready, BlockedReason.None, "Status.NetworkReadyTitle", null, false, true, false, false, false, null, false, false, true, ConnectFocusTarget.Continue) },
+        { ConnectDebugScenario.Dot1xFailed, new(ConnectPageStatus.Blocked, BlockedReason.WiredAuthentication, "Status.BlockedTitle", "Status.BlockedDot1xDescription", false, true, false, false, false, null, false, true, false, ConnectFocusTarget.Retry) },
+        { ConnectDebugScenario.WifiRuntimeMissing, new(ConnectPageStatus.Blocked, BlockedReason.NoLink, "Status.BlockedTitle", "Status.BlockedNoCableDescription", false, true, false, false, false, "Wifi.UnavailableAtRuntime", false, false, false, ConnectFocusTarget.Retry) },
+        { ConnectDebugScenario.NoWifiAdapter, new(ConnectPageStatus.Blocked, BlockedReason.NoLink, "Status.BlockedTitle", "Status.BlockedNoCableDescription", false, true, false, false, false, "Wifi.NoAdapterDetected", false, false, false, ConnectFocusTarget.Retry) },
         { ConnectDebugScenario.WifiNetworks, new(ConnectPageStatus.Blocked, BlockedReason.NoLink, "Status.BlockedTitle", "Status.BlockedNoLinkDescription", false, true, false, false, true, null, false, false, false, ConnectFocusTarget.WifiNetworks) },
         { ConnectDebugScenario.ProvisionedWifiUnavailable, new(ConnectPageStatus.Blocked, BlockedReason.NoLink, "Status.BlockedTitle", "Status.BlockedNoLinkDescription", false, true, false, true, true, null, false, false, false, ConnectFocusTarget.WifiNetworks) },
-        { ConnectDebugScenario.WifiReady, new(ConnectPageStatus.Ready, BlockedReason.None, "Status.NetworkReadyTitle", "Status.NetworkReadyDescription", false, true, false, true, true, null, false, false, true, ConnectFocusTarget.Continue) }
+        { ConnectDebugScenario.WifiReady, new(ConnectPageStatus.Ready, BlockedReason.None, "Status.NetworkReadyTitle", null, false, true, false, true, true, null, false, false, true, ConnectFocusTarget.Continue) }
     };
 
     [Theory]
@@ -83,7 +83,8 @@ public sealed class ConnectPageViewModelTests : IDisposable
         Assert.Equal(expected.Status, _page.Status);
         Assert.Equal(expected.Reason, _page.BlockedReason);
         Assert.Equal(Text(expected.TitleKey), _page.HeroTitle);
-        Assert.Equal(Text(expected.DescriptionKey), _page.HeroDescription);
+        Assert.Equal(expected.DescriptionKey is null ? string.Empty : Text(expected.DescriptionKey), _page.HeroDescription);
+        Assert.Equal(expected.DescriptionKey is not null, _page.HasHeroDescription);
         Assert.Equal(expected.Busy, _page.IsHeroBusy);
         Assert.Equal(!expected.Busy, _page.IsHeroTerminal);
         Assert.Equal(expected.Status == ConnectPageStatus.Blocked, _page.IsBlocked);

@@ -19,7 +19,12 @@ public static class NetworkTextKeys
     /// </summary>
     /// <param name="outcome">The operation outcome.</param>
     /// <param name="provisionedPanel">Whether the message is shown in the provisioned Wi-Fi card, which words disconnect failures differently.</param>
-    /// <returns>The resource key, or <see langword="null"/> unless the outcome is <see cref="OperationStatus.Failed"/>.</returns>
+    /// <returns>
+    /// The resource key, or <see langword="null"/> unless the outcome is <see cref="OperationStatus.Failed"/>. A lost
+    /// adapter (<see cref="NetworkFailureCode.NoWirelessAdapter"/>) or Wi-Fi runtime
+    /// (<see cref="NetworkFailureCode.WifiRuntimeMissing"/>) also gives <see langword="null"/>: the Wi-Fi card shows that
+    /// state once, without a feedback line.
+    /// </returns>
     public static string? OutcomeKey(OperationOutcome outcome, bool provisionedPanel = false)
     {
         ArgumentNullException.ThrowIfNull(outcome);
@@ -30,11 +35,10 @@ public static class NetworkTextKeys
 
         return outcome.Failure switch
         {
-            NetworkFailureCode.WifiRuntimeMissing => "Wifi.UnavailableAtRuntime",
-            NetworkFailureCode.NoWirelessAdapter => "Wifi.NoAdapterAvailable",
+            NetworkFailureCode.WifiRuntimeMissing or NetworkFailureCode.NoWirelessAdapter => null,
             NetworkFailureCode.WifiFeatureDisabled or NetworkFailureCode.ProvisionedProfileUnavailable => "Wifi.ActionProvisionedProfileUnavailable",
-            NetworkFailureCode.WifiSecretUnavailable => "Wifi.ActionProvisionedSecretUnavailable",
-            NetworkFailureCode.WifiSecretLocked => "Wifi.ActionProvisionedLocked",
+            NetworkFailureCode.WifiSecretUnavailable => "Wifi.ProvisionedUnavailableSecret",
+            NetworkFailureCode.WifiSecretLocked => "Wifi.ProvisionedLocked",
             NetworkFailureCode.InvalidPassphrase => "Wifi.ActionInvalidPassphrase",
             NetworkFailureCode.NetworkNotVisible => "Wifi.ActionNetworkNotVisible",
             NetworkFailureCode.UnsupportedSecurity => "Wifi.ActionSelectedNotSupported",
@@ -46,7 +50,6 @@ public static class NetworkTextKeys
             NetworkFailureCode.WifiCertificateImportFailed => "Wifi.ActionApplyProvisionedFailed",
             NetworkFailureCode.WiredSecretUnavailable => "Ethernet.Dot1xReasonSecretUnavailable",
             NetworkFailureCode.WiredProfileTemplateMissing => "Ethernet.Dot1xReasonProfileTemplateMissing",
-            NetworkFailureCode.WiredCertificateImportFailed or NetworkFailureCode.WiredProfileImportFailed or NetworkFailureCode.WiredReconnectFailed => "Ethernet.Dot1xProvisioningFailed",
             _ => "Wifi.ActionTryAgain"
         };
     }
@@ -146,31 +149,60 @@ public static class NetworkTextKeys
     };
 
     /// <summary>
-    /// Gets the hero description key for a blocked page.
+    /// Gets the hero description key for a blocked page. It offers only what this device can do: without the Wi-Fi
+    /// section no text names Wi-Fi, and without an Ethernet adapter no text proposes Ethernet. A missing adapter points
+    /// to the sections that are shown.
     /// </summary>
     /// <param name="reason">The blocked reason.</param>
+    /// <param name="hasEthernetAdapter">Whether an Ethernet adapter is seen.</param>
+    /// <param name="wifi">The current Wi-Fi availability.</param>
+    /// <param name="isWifiSectionShown">Whether the page shows the Wi-Fi section.</param>
     /// <returns>The resource key; any other reason maps to the generic no-internet text.</returns>
-    public static string BlockedDescriptionKey(BlockedReason reason) => reason switch
+    public static string BlockedDescriptionKey(BlockedReason reason, bool hasEthernetAdapter, WifiAvailability wifi, bool isWifiSectionShown) => reason switch
     {
-        BlockedReason.NoAdapter => "Status.BlockedNoAdapterDescription",
-        BlockedReason.NoLink => "Status.BlockedNoLinkDescription",
+        BlockedReason.NoAdapter => NoAdapterDescriptionKey(isWifiSectionShown),
+        BlockedReason.NoLink when hasEthernetAdapter && wifi == WifiAvailability.Available => "Status.BlockedNoLinkDescription",
+        BlockedReason.NoLink when hasEthernetAdapter => "Status.BlockedNoCableDescription",
+        BlockedReason.NoLink when wifi == WifiAvailability.Available => "Status.BlockedJoinWifiDescription",
+        BlockedReason.NoLink => NoAdapterDescriptionKey(isWifiSectionShown),
         BlockedReason.NoIpAddress => "Status.BlockedNoIpAddressDescription",
+        BlockedReason.WiredAuthentication => "Status.BlockedDot1xDescription",
         BlockedReason.CaptivePortal => "Status.BlockedCaptivePortalDescription",
         _ => "Status.BlockedNoInternetDescription"
     };
 
     /// <summary>
-    /// Gets the title and description keys of the hero banner.
+    /// Gets the title and description keys of the hero banner. Checking and ready have no description. Waiting names
+    /// what runs: the provisioning, a network action (a Wi-Fi disconnect has its own title, never "Connecting"), or,
+    /// with no operation, wired 802.1X authentication.
     /// </summary>
     /// <param name="status">The page status.</param>
     /// <param name="reason">The blocked reason; used only when the page is blocked.</param>
-    /// <param name="activeOperation">The running operation; used only to word the waiting description.</param>
-    /// <returns>The resource keys.</returns>
-    public static (string TitleKey, string DescriptionKey) HeroKeys(ConnectPageStatus status, BlockedReason reason, NetworkOperationKind? activeOperation) => status switch
+    /// <param name="state">The rendered network state; its running operation words the waiting texts.</param>
+    /// <param name="isWifiSectionShown">Whether the page shows the Wi-Fi section; used only when the page is blocked.</param>
+    /// <returns>The resource keys; the description key is <see langword="null"/> when the banner has no description.</returns>
+    public static (string TitleKey, string? DescriptionKey) HeroKeys(ConnectPageStatus status, BlockedReason reason, NetworkState state, bool isWifiSectionShown)
     {
-        ConnectPageStatus.Checking => ("Status.CheckingTitle", "Status.CheckingDescription"),
-        ConnectPageStatus.Waiting => ("Status.ConnectingTitle", activeOperation == NetworkOperationKind.ApplyProvisioning ? "Status.ApplyingProvisioningDescription" : "Status.ConnectingDescription"),
-        ConnectPageStatus.Ready => ("Status.NetworkReadyTitle", "Status.NetworkReadyDescription"),
-        _ => ("Status.BlockedTitle", BlockedDescriptionKey(reason))
+        ArgumentNullException.ThrowIfNull(state);
+        return status switch
+        {
+            ConnectPageStatus.Checking => ("Status.CheckingTitle", null),
+            ConnectPageStatus.Waiting => (WaitingTitleKey(state.ActiveOperation), WaitingDescriptionKey(state.ActiveOperation)),
+            ConnectPageStatus.Ready => ("Status.NetworkReadyTitle", null),
+            _ => ("Status.BlockedTitle", BlockedDescriptionKey(reason, state.Ethernet.HasAdapter, state.Wifi.Availability, isWifiSectionShown))
+        };
+    }
+
+    private static string NoAdapterDescriptionKey(bool isWifiSectionShown) =>
+        isWifiSectionShown ? "Status.BlockedNoAdapterDescription" : "Status.BlockedNoEthernetAdapterDescription";
+
+    private static string WaitingTitleKey(NetworkOperationKind? operation) =>
+        operation == NetworkOperationKind.DisconnectWifi ? "Status.DisconnectingTitle" : "Status.ConnectingTitle";
+
+    private static string WaitingDescriptionKey(NetworkOperationKind? operation) => operation switch
+    {
+        NetworkOperationKind.ApplyProvisioning => "Status.ApplyingProvisioningDescription",
+        null => "Status.Dot1xAuthenticatingDescription",
+        _ => "Status.ConnectingDescription"
     };
 }

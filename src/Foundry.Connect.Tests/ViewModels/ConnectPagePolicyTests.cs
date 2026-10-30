@@ -20,11 +20,21 @@ public sealed class ConnectPagePolicyTests
         EthernetInterfaceState? ethernet = null,
         WifiAvailability wifi = WifiAvailability.Disabled,
         bool wifiConnected = false,
-        NetworkOperationKind? operation = null) =>
+        NetworkOperationKind? operation = null,
+        Dot1xAuthenticationStatus dot1x = Dot1xAuthenticationStatus.NotConfigured) =>
         NetworkState.Initial(Now) with
         {
             Internet = internet,
-            Ethernet = new EthernetState(ethernet is null ? [] : [ethernet], Dot1xState.NotConfigured),
+            Ethernet = new EthernetState(
+                ethernet is null ? [] : [ethernet],
+                dot1x == Dot1xAuthenticationStatus.NotConfigured
+                    ? Dot1xState.NotConfigured
+                    : new Dot1xState(dot1x, dot1x switch
+                    {
+                        Dot1xAuthenticationStatus.Failed => Dot1xFailureReason.AuthenticationFailed,
+                        Dot1xAuthenticationStatus.Unavailable => Dot1xFailureReason.SecretUnavailable,
+                        _ => Dot1xFailureReason.None
+                    })),
             Wifi = WifiState.Initial with
             {
                 Availability = wifi,
@@ -48,7 +58,21 @@ public sealed class ConnectPagePolicyTests
         { "apipa", State(InternetStatus.NoInternet, Apipa), ConnectPageStatus.Blocked, BlockedReason.NoIpAddress },
         { "ethernet_no_internet", State(InternetStatus.NoInternet, Dhcp), ConnectPageStatus.Blocked, BlockedReason.NoInternet },
         { "wifi_no_internet", State(InternetStatus.NoInternet, NoLink, WifiAvailability.Available, wifiConnected: true), ConnectPageStatus.Blocked, BlockedReason.NoInternet },
-        { "captive_portal", State(InternetStatus.CaptivePortal, Dhcp), ConnectPageStatus.Blocked, BlockedReason.CaptivePortal }
+        { "captive_portal", State(InternetStatus.CaptivePortal, Dhcp), ConnectPageStatus.Blocked, BlockedReason.CaptivePortal },
+        { "dot1x_authenticating_without_address", State(InternetStatus.NoInternet, LinkNoAddress, dot1x: Dot1xAuthenticationStatus.Authenticating), ConnectPageStatus.Waiting, BlockedReason.None },
+        { "dot1x_authenticating_apipa", State(InternetStatus.NoInternet, Apipa, dot1x: Dot1xAuthenticationStatus.Authenticating), ConnectPageStatus.Waiting, BlockedReason.None },
+        { "dot1x_authenticating_with_address", State(InternetStatus.NoInternet, Dhcp, dot1x: Dot1xAuthenticationStatus.Authenticating), ConnectPageStatus.Blocked, BlockedReason.NoInternet },
+        { "dot1x_authenticating_on_wifi", State(InternetStatus.NoInternet, LinkNoAddress, WifiAvailability.Available, wifiConnected: true, dot1x: Dot1xAuthenticationStatus.Authenticating), ConnectPageStatus.Blocked, BlockedReason.NoInternet },
+        { "dot1x_authenticating_without_link", State(InternetStatus.NoInternet, NoLink, dot1x: Dot1xAuthenticationStatus.Authenticating), ConnectPageStatus.Blocked, BlockedReason.NoLink },
+        { "dot1x_authenticating_online", State(InternetStatus.Online, LinkNoAddress, WifiAvailability.Available, wifiConnected: true, dot1x: Dot1xAuthenticationStatus.Authenticating), ConnectPageStatus.Ready, BlockedReason.None },
+        { "dot1x_failed_without_address", State(InternetStatus.NoInternet, LinkNoAddress, dot1x: Dot1xAuthenticationStatus.Failed), ConnectPageStatus.Blocked, BlockedReason.WiredAuthentication },
+        { "dot1x_unavailable_without_address", State(InternetStatus.NoInternet, LinkNoAddress, dot1x: Dot1xAuthenticationStatus.Unavailable), ConnectPageStatus.Blocked, BlockedReason.WiredAuthentication },
+        { "dot1x_failed_apipa", State(InternetStatus.NoInternet, Apipa, dot1x: Dot1xAuthenticationStatus.Failed), ConnectPageStatus.Blocked, BlockedReason.WiredAuthentication },
+        { "dot1x_failed_with_address", State(InternetStatus.NoInternet, Dhcp, dot1x: Dot1xAuthenticationStatus.Failed), ConnectPageStatus.Blocked, BlockedReason.NoInternet },
+        { "dot1x_failed_on_wifi", State(InternetStatus.NoInternet, LinkNoAddress, WifiAvailability.Available, wifiConnected: true, dot1x: Dot1xAuthenticationStatus.Failed), ConnectPageStatus.Blocked, BlockedReason.NoInternet },
+        { "dot1x_failed_without_link", State(InternetStatus.NoInternet, NoLink, dot1x: Dot1xAuthenticationStatus.Failed), ConnectPageStatus.Blocked, BlockedReason.NoLink },
+        { "dot1x_profile_applied_without_address", State(InternetStatus.NoInternet, LinkNoAddress, dot1x: Dot1xAuthenticationStatus.ProfileApplied), ConnectPageStatus.Blocked, BlockedReason.NoIpAddress },
+        { "dot1x_failed_captive_portal", State(InternetStatus.CaptivePortal, Dhcp, dot1x: Dot1xAuthenticationStatus.Failed), ConnectPageStatus.Blocked, BlockedReason.CaptivePortal }
     };
 
     [Theory]
@@ -57,6 +81,27 @@ public sealed class ConnectPagePolicyTests
     {
         Assert.True(status == ConnectPagePolicy.ResolveStatus(state), scenario);
         Assert.True(reason == ConnectPagePolicy.ResolveBlockedReason(state), scenario);
+    }
+
+    [Theory]
+    [InlineData(WifiAvailability.Disabled, false)]
+    [InlineData(WifiAvailability.RuntimeMissing, false)]
+    [InlineData(WifiAvailability.NoAdapter, true)]
+    [InlineData(WifiAvailability.Available, true)]
+    public void IsWifiOffered_OnlyWhenTheWlanStackRuns(WifiAvailability availability, bool expected)
+    {
+        Assert.Equal(expected, ConnectPagePolicy.IsWifiOffered(availability));
+    }
+
+    [Theory]
+    [InlineData(true, WifiAvailability.RuntimeMissing, true)]
+    [InlineData(true, WifiAvailability.NoAdapter, true)]
+    [InlineData(false, WifiAvailability.Available, true)]
+    [InlineData(false, WifiAvailability.NoAdapter, false)]
+    [InlineData(false, WifiAvailability.Disabled, false)]
+    public void IsWifiSectionShown_FollowsTheSessionLayoutThenAWorkingWifi(bool usesTwoColumns, WifiAvailability availability, bool expected)
+    {
+        Assert.Equal(expected, ConnectPagePolicy.IsWifiSectionShown(usesTwoColumns, availability));
     }
 
     [Theory]

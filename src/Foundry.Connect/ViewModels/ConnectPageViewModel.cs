@@ -137,8 +137,11 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
     /// <summary>Gets the hero title.</summary>
     public string HeroTitle => LocalizationService.GetString(HeroKeys.TitleKey);
 
-    /// <summary>Gets the hero description.</summary>
-    public string HeroDescription => LocalizationService.GetString(HeroKeys.DescriptionKey);
+    /// <summary>Gets the hero description, or an empty string when the banner has none (checking and ready).</summary>
+    public string HeroDescription => HeroKeys.DescriptionKey is { } key ? LocalizationService.GetString(key) : string.Empty;
+
+    /// <summary>Gets whether the hero shows a description line.</summary>
+    public bool HasHeroDescription => HeroKeys.DescriptionKey is not null;
 
     /// <summary>Gets whether the hero shows the progress ring: checking or waiting.</summary>
     public bool IsHeroBusy => Status is ConnectPageStatus.Checking or ConnectPageStatus.Waiting;
@@ -193,8 +196,8 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
     /// <summary>Gets the state rendered last, live or simulated.</summary>
     internal NetworkState CurrentState => _renderedState;
 
-    private (string TitleKey, string DescriptionKey) HeroKeys =>
-        NetworkTextKeys.HeroKeys(Status, BlockedReason, _renderedState.ActiveOperation);
+    private (string TitleKey, string? DescriptionKey) HeroKeys =>
+        NetworkTextKeys.HeroKeys(Status, BlockedReason, _renderedState, ConnectPagePolicy.IsWifiOffered(_renderedState.Wifi.Availability));
 
     /// <summary>
     /// Asks for the deployment password when wired 802.1X needs it, applies the provisioning once, shows its Wi-Fi
@@ -425,6 +428,7 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(IsBlocked));
         OnPropertyChanged(nameof(HeroTitle));
         OnPropertyChanged(nameof(HeroDescription));
+        OnPropertyChanged(nameof(HasHeroDescription));
         OnPropertyChanged(nameof(IsHeroBusy));
         OnPropertyChanged(nameof(IsHeroTerminal));
         OnPropertyChanged(nameof(IsHeroSuccess));

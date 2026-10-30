@@ -14,7 +14,7 @@ public enum ConnectPageStatus
     /// <summary>The first observation has not completed yet.</summary>
     Checking,
 
-    /// <summary>A network operation runs and the internet is not online.</summary>
+    /// <summary>A network operation runs, or wired 802.1X authenticates, and the internet is not online.</summary>
     Waiting,
 
     /// <summary>The internet is online; the technician can continue.</summary>
@@ -40,6 +40,9 @@ public enum BlockedReason
 
     /// <summary>The Ethernet link is up but no usable address was obtained.</summary>
     NoIpAddress,
+
+    /// <summary>The Ethernet link is up, wired 802.1X failed or is unavailable, and no usable address was obtained.</summary>
+    WiredAuthentication,
 
     /// <summary>The network intercepts web traffic, typically a guest portal that needs a sign-in.</summary>
     CaptivePortal,
@@ -76,8 +79,42 @@ public enum ConnectFocusTarget
 public static class ConnectPagePolicy
 {
     /// <summary>
+    /// Gets whether this media offers Wi-Fi at all: the WLAN stack runs, with or without an adapter. The page decides
+    /// its layout from this once, at the first observation.
+    /// </summary>
+    /// <param name="availability">The Wi-Fi availability.</param>
+    /// <returns><see langword="true"/> for <see cref="WifiAvailability.Available"/> and <see cref="WifiAvailability.NoAdapter"/>.</returns>
+    public static bool IsWifiOffered(WifiAvailability availability) =>
+        availability is WifiAvailability.Available or WifiAvailability.NoAdapter;
+
+    /// <summary>
+    /// Gets whether the Wi-Fi section is shown: always in a two-column session, otherwise only while Wi-Fi works.
+    /// </summary>
+    /// <param name="usesTwoColumns">Whether the session layout has two columns.</param>
+    /// <param name="availability">The current Wi-Fi availability.</param>
+    /// <returns><see langword="true"/> when the Wi-Fi section is shown.</returns>
+    public static bool IsWifiSectionShown(bool usesTwoColumns, WifiAvailability availability) =>
+        usesTwoColumns || availability == WifiAvailability.Available;
+
+    /// <summary>
+    /// Gets whether wired 802.1X is still authenticating and the page should wait for it: the Ethernet link is up, no
+    /// usable Ethernet address exists yet and no Wi-Fi connection is in use. There is no time limit.
+    /// </summary>
+    /// <param name="state">The network state.</param>
+    /// <returns><see langword="true"/> while wired 802.1X authentication is pending.</returns>
+    public static bool IsWiredAuthenticationPending(NetworkState state)
+    {
+        ArgumentNullException.ThrowIfNull(state);
+        return state.Ethernet.Dot1x.Status == Dot1xAuthenticationStatus.Authenticating
+            && state.Ethernet.HasLink
+            && !state.Ethernet.HasUsableAddress
+            && state.Wifi.Connection is null;
+    }
+
+    /// <summary>
     /// Resolves the page status: ready when the internet is online, else waiting while an operation runs, else
-    /// checking while the internet check is pending, else blocked.
+    /// checking while the internet check is pending, else waiting while wired 802.1X authenticates
+    /// (<see cref="IsWiredAuthenticationPending"/>), else blocked.
     /// </summary>
     /// <param name="state">The network state.</param>
     /// <returns>The page status.</returns>
@@ -94,12 +131,18 @@ public static class ConnectPagePolicy
             return ConnectPageStatus.Waiting;
         }
 
-        return state.Internet == InternetStatus.Checking ? ConnectPageStatus.Checking : ConnectPageStatus.Blocked;
+        if (state.Internet == InternetStatus.Checking)
+        {
+            return ConnectPageStatus.Checking;
+        }
+
+        return IsWiredAuthenticationPending(state) ? ConnectPageStatus.Waiting : ConnectPageStatus.Blocked;
     }
 
     /// <summary>
     /// Resolves why the page is blocked, naming the closest fixable cause: a captive portal, then no internet behind a
-    /// usable connection, then no address behind an Ethernet link, then no link behind an adapter, then no adapter.
+    /// usable connection, then a failed or unavailable wired 802.1X behind an Ethernet link, then no address behind an
+    /// Ethernet link, then no link behind an adapter, then no adapter.
     /// </summary>
     /// <param name="state">The network state.</param>
     /// <returns>The reason, or <see cref="BlockedReason.None"/> when the page is not blocked.</returns>
@@ -122,7 +165,9 @@ public static class ConnectPagePolicy
 
         if (state.Ethernet.HasLink)
         {
-            return BlockedReason.NoIpAddress;
+            return state.Ethernet.Dot1x.Status is Dot1xAuthenticationStatus.Failed or Dot1xAuthenticationStatus.Unavailable
+                ? BlockedReason.WiredAuthentication
+                : BlockedReason.NoIpAddress;
         }
 
         return state.Ethernet.HasAdapter || state.Wifi.Availability == WifiAvailability.Available
