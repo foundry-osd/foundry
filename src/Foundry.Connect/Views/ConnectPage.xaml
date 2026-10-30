@@ -533,7 +533,7 @@
                                 </Expander>
                             </Border>
 
-                            <!--  2c. Provisioned Wi-Fi card: one message and one action button  -->
+                            <!--  2c. Provisioned Wi-Fi card: one message and one action button at the right, like the Wi-Fi refresh button  -->
                             <Border x:Name="ProvisionedCard"
                                 DataContext="{Binding ProvisionedWifi}"
                                 Style="{StaticResource SectionCardBorderStyle}"
@@ -585,7 +585,7 @@
                                     </Grid>
                                     <Button x:Name="ProvisionedActionButton"
                                         Margin="0,16,0,0"
-                                        HorizontalAlignment="Left"
+                                        HorizontalAlignment="Right"
                                         AutomationProperties.Name="{Binding PrimaryActionAutomationName}"
                                         Command="{Binding PrimaryActionCommand}"
                                         Content="{Binding PrimaryActionText}"
@@ -827,19 +827,16 @@
                                     RevealButtonText="{Binding Strings[Wifi.TogglePassphraseVisibility]}"
                                     SubmitCommand="{Binding ConnectCommand}"
                                     Visibility="{Binding ShowPassphrase, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                <!--  The button sits at the right edge; the small connecting ring shows at its left.  -->
                                 <StackPanel
                                     Margin="0,16,0,0"
+                                    HorizontalAlignment="Right"
                                     Orientation="Horizontal"
                                     Visibility="{Binding ShowPrimaryAction, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                    <Button x:Name="WifiActionButton"
-                                        AutomationProperties.Name="{Binding PrimaryActionAutomationName}"
-                                        Command="{Binding PrimaryActionCommand}"
-                                        Content="{Binding PrimaryActionText}"
-                                        Style="{StaticResource ConnectAccentActionButtonStyle}" />
                                     <Viewbox
                                         Width="16"
                                         Height="16"
-                                        Margin="12,0,0,0"
+                                        Margin="0,0,12,0"
                                         VerticalAlignment="Center"
                                         Visibility="{Binding IsConnecting, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <controls:CustomProgressRing
@@ -851,6 +848,11 @@
                                             Thickness="16"
                                             TrackBrush="{DynamicResource ControlStrongFillColorDefaultBrush}" />
                                     </Viewbox>
+                                    <Button x:Name="WifiActionButton"
+                                        AutomationProperties.Name="{Binding PrimaryActionAutomationName}"
+                                        Command="{Binding PrimaryActionCommand}"
+                                        Content="{Binding PrimaryActionText}"
+                                        Style="{StaticResource ConnectAccentActionButtonStyle}" />
                                 </StackPanel>
                                 <Grid
                                     Margin="0,12,0,0"
