@@ -34,6 +34,7 @@ public sealed class EthernetSectionViewModelTests
         Assert.Equal(_localization.GetString(statusKey), viewModel.StatusText);
         Assert.Equal(configurationKey is null ? string.Empty : _localization.GetString(configurationKey), viewModel.ConfigurationText);
         Assert.Equal(connected, viewModel.IsConnected);
+        Assert.Equal("Ethernet 2", viewModel.AdapterName);
     }
 
     [Theory]
@@ -118,6 +119,7 @@ public sealed class EthernetSectionViewModelTests
     [InlineData(Dot1xAuthenticationStatus.Authenticating, Dot1xFailureReason.None, "Ethernet.Dot1xAuthenticating", null, InfoBarSeverity.Informational, true)]
     [InlineData(Dot1xAuthenticationStatus.Authenticated, Dot1xFailureReason.None, "Ethernet.Dot1xAuthenticated", null, InfoBarSeverity.Success, false)]
     [InlineData(Dot1xAuthenticationStatus.Failed, Dot1xFailureReason.AuthenticationFailed, "Ethernet.Dot1xFailed", "Ethernet.Dot1xReasonAuthenticationFailed", InfoBarSeverity.Error, false)]
+    [InlineData(Dot1xAuthenticationStatus.Failed, Dot1xFailureReason.ProfileImportFailed, "Ethernet.Dot1xFailed", "Ethernet.Dot1xReasonProfileImportFailed", InfoBarSeverity.Error, false)]
     [InlineData(Dot1xAuthenticationStatus.Failed, Dot1xFailureReason.ProfileTemplateMissing, "Ethernet.Dot1xFailed", "Ethernet.Dot1xReasonProfileTemplateMissing", InfoBarSeverity.Error, false)]
     [InlineData(Dot1xAuthenticationStatus.Unavailable, Dot1xFailureReason.SecretUnavailable, "Ethernet.Dot1xUnavailable", "Ethernet.Dot1xReasonSecretUnavailable", InfoBarSeverity.Warning, false)]
     [InlineData(Dot1xAuthenticationStatus.Unavailable, Dot1xFailureReason.UnlockCancelled, "Ethernet.Dot1xUnavailable", "Ethernet.Dot1xReasonUnlockCancelled", InfoBarSeverity.Warning, false)]

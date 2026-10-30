@@ -106,6 +106,63 @@ public sealed class ConnectPageViewModelTests : IDisposable
         Assert.Equal(expected.Focus == ConnectFocusTarget.None ? [] : [expected.Focus], _focus);
     }
 
+    [Theory]
+    [InlineData(ConnectDebugScenario.Checking, null, null, false)]
+    [InlineData(ConnectDebugScenario.NoAdapter, null, null, true)]
+    [InlineData(ConnectDebugScenario.NoLink, "Ethernet.NoActiveLink", null, false)]
+    [InlineData(ConnectDebugScenario.WaitingForAddress, "Ethernet.WaitingConfiguration", null, false)]
+    [InlineData(ConnectDebugScenario.ApipaAddress, "Ethernet.WaitingConfiguration", null, false)]
+    [InlineData(ConnectDebugScenario.EthernetNoInternet, "Common.Connected", null, false)]
+    [InlineData(ConnectDebugScenario.CaptivePortal, "Common.Connected", null, false)]
+    [InlineData(ConnectDebugScenario.EthernetReady, "Common.Connected", null, false)]
+    [InlineData(ConnectDebugScenario.Dot1xFailed, "Ethernet.WaitingConfiguration", null, false)]
+    [InlineData(ConnectDebugScenario.WifiRuntimeMissing, "Ethernet.NoActiveLink", null, false)]
+    [InlineData(ConnectDebugScenario.NoWifiAdapter, "Ethernet.NoActiveLink", null, false)]
+    [InlineData(ConnectDebugScenario.WifiNetworks, "Ethernet.NoActiveLink", null, false)]
+    [InlineData(ConnectDebugScenario.ProvisionedWifiUnavailable, "Ethernet.NoActiveLink", "Common.Unavailable", false)]
+    [InlineData(ConnectDebugScenario.WifiReady, "Ethernet.NoActiveLink", "Common.Connected", false)]
+    [InlineData(ConnectDebugScenario.ProvisionedWifiLocked, "Ethernet.NoActiveLink", "Wifi.StatusLocked", false)]
+    [InlineData(ConnectDebugScenario.Dot1xAuthenticating, "Ethernet.WaitingConfiguration", null, false)]
+    [InlineData(ConnectDebugScenario.WifiConnecting, "Ethernet.NoActiveLink", "Status.ConnectingTitle", false)]
+    [InlineData(ConnectDebugScenario.WifiOnly, null, "Wifi.StatusNotInRange", true)]
+    public void Scenario_ShowsTheSectionTexts(ConnectDebugScenario scenario, string? ethernetPillKey, string? provisionedPillKey, bool ethernetLine)
+    {
+        Publish(scenario);
+
+        Assert.Equal(ethernetPillKey is not null, _page.Ethernet.ShowCard);
+        if (ethernetPillKey is not null)
+        {
+            Assert.Equal(Text(ethernetPillKey), _page.Ethernet.StatusText);
+        }
+
+        Assert.Equal(provisionedPillKey is not null, _page.ProvisionedWifi.IsVisible);
+        if (provisionedPillKey is not null)
+        {
+            Assert.Equal(Text(provisionedPillKey), _page.ProvisionedWifi.StatusText);
+        }
+
+        Assert.Equal(ethernetLine, _page.Ethernet.ShowNoAdapterNotice);
+        Assert.Equal(Text("Ethernet.UnavailableOnDevice"), _page.Ethernet.NoAdapterText);
+    }
+
+    [Theory]
+    [InlineData(ConnectDebugScenario.EthernetReady, "192.0.2.10")]
+    [InlineData(ConnectDebugScenario.WaitingForAddress, "")]
+    public void Scenario_EthernetSecondaryLineShowsOnlyTheAddress(ConnectDebugScenario scenario, string expected)
+    {
+        Publish(scenario);
+
+        Assert.Equal(expected, _page.Ethernet.SecondaryStatusText);
+    }
+
+    [Fact]
+    public void ApipaScenario_NamesASelfAssignedAddress()
+    {
+        Publish(ConnectDebugScenario.ApipaAddress);
+
+        Assert.Equal(Text("Ethernet.ApipaAddress"), _page.Ethernet.SecondaryStatusText);
+    }
+
     [Fact]
     public void Layout_IsChosenAtTheFirstObservationOnly()
     {
@@ -210,11 +267,24 @@ public sealed class ConnectPageViewModelTests : IDisposable
         NetworkState state = DebugScenarioCatalog.Create(ConnectDebugScenario.WifiOnly, _clock.GetUtcNow());
         _coordinator.Publish(state with { Wifi = state.Wifi with { Provisioned = profile } });
 
-        // Neutral (en-US) values, so the check does not depend on the build machine's culture; the Ethernet line names its own section.
-        string?[] keys = [NetworkTextKeys.HeroKeys(_page.Status, _page.BlockedReason, _page.CurrentState, isWifiSectionShown: true).DescriptionKey,
-            _page.ProvisionedWifi.IsUnavailable ? NetworkTextKeys.ProvisionedUnavailableKey(profile.Reason) : null,
-            _page.ProvisionedWifi.IsLocked ? "Wifi.ProvisionedUnlockCancelled" : null];
-        Assert.All(keys.OfType<string>(), key => Assert.DoesNotContain("Ethernet", ConnectResources.NeutralValue(key), StringComparison.Ordinal));
+        // The rendered texts; every culture keeps the word "Ethernet". The Ethernet line names its own section and is left out.
+        List<string> visible = [_page.HeroTitle, _page.HeroDescription, _page.ConnectionChipText, _page.AutoContinue.CaptionText];
+        if (_page.ProvisionedWifi.IsVisible)
+        {
+            visible.AddRange([_page.ProvisionedWifi.StatusText, _page.ProvisionedWifi.MessageText]);
+        }
+
+        if (_page.WifiNetworks.IsVisible)
+        {
+            visible.AddRange([_page.WifiNetworks.UnavailableMessageText, _page.WifiNetworks.DetailMessageText]);
+            if (_page.WifiNetworks.ShowEmptyText)
+            {
+                visible.Add(_page.WifiNetworks.EmptyText);
+            }
+        }
+
+        Assert.True(_page.Ethernet.ShowNoAdapterNotice);
+        Assert.All(visible, text => Assert.DoesNotContain("Ethernet", text, StringComparison.Ordinal));
     }
 
     [Fact]

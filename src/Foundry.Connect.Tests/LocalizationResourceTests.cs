@@ -186,8 +186,9 @@ public sealed class LocalizationResourceTests
     [InlineData("Ethernet.UnavailableOnDevice")]
     public void SectionTexts_CarryNoAlternativePathOrDriverAdvice(string key)
     {
-        string value = ConnectResources.NeutralValue(key)!;
+        string? value = ConnectResources.NeutralValue(key);
 
+        Assert.NotNull(value);
         Assert.DoesNotContain("still work", value, StringComparison.Ordinal);
         Assert.DoesNotContain("You can also", value, StringComparison.Ordinal);
         Assert.DoesNotContain("driver", value, StringComparison.OrdinalIgnoreCase);
