@@ -174,7 +174,10 @@ public static class DebugScenarioCatalog
                     null,
                     VisibleNetworks(),
                     new ProvisionedWifiState(ProvisionedWifiStatus.Ready, Ssid: ProvisionedSsid, ProfileName: "Foundry Lab")),
-                InternetStatus.NoInternet) with { ActiveOperation = NetworkOperationKind.ConnectProvisionedWifi },
+                InternetStatus.NoInternet) with
+            {
+                ActiveOperation = NetworkOperationKind.ConnectProvisionedWifi
+            },
             ConnectDebugScenario.WifiOnly => state with
             {
                 Wifi = new WifiState(

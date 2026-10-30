@@ -5,7 +5,7 @@
     <!--
         One XAML tree in three arrangements, switched by setters only:
         - two columns: PageRoot at least 1100 x 700 and a two-column session (UsesTwoColumns); no page scroll, the left
-          column scrolls on its own and the Wi-Fi list fills the right column;
+        column scrolls on its own and the Wi-Fi list fills the right column;
         - one column wide: same size, one-column session; 980 px, the page scrolls when needed;
         - narrow: below 1100 x 700; one column, 980 px, page scroll, the banner buttons under the text.
         Document order is the Tab order (banner, Ethernet, provisioned Wi-Fi, Wi-Fi card), so no TabIndex is set.
