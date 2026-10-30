@@ -11,33 +11,32 @@ using Foundry.Wpf.ViewModels;
 namespace Foundry.Connect.ViewModels;
 
 /// <summary>
-/// The Ethernet card: link and address summary, the details (adapter, IP address, gateway) and the wired 802.1X row.
+/// The Ethernet section: a compact header (glyph, status pill, one secondary line and the wired 802.1X row with its
+/// reason), the folded details (adapter, IPv4 address, gateway, configuration) and the one-line "not available on this
+/// device" text.
 /// </summary>
 /// <remarks>
 /// Every text is derived from the last <see cref="EthernetState"/> given to <see cref="Apply"/> and resolved on demand,
-/// so <see cref="RefreshTexts"/> after a language change needs no network refresh. The details expander is open
-/// until the first usable address, then collapsed; afterwards it changes only when the usable state changes, so a
-/// choice made by the technician survives the periodic observations. The view model reads no file and does
-/// no I/O, and every member runs on the UI thread.
+/// so <see cref="RefreshTexts"/> after a language change needs no network refresh. The details start collapsed and
+/// only the technician opens or closes them: <see cref="Apply"/> never touches <see cref="IsDetailsExpanded"/>. The
+/// "not available" line shows in every layout once the first observation exists. The view model reads no file and
+/// does no I/O, and every member runs on the UI thread.
 /// </remarks>
 /// <param name="localization">Source of the texts.</param>
 public sealed partial class EthernetSectionViewModel(ILocalizationService localization) : LocalizedViewModelBase(localization)
 {
-    private const string ConnectedGlyph = "\uE839";
-    private const string WarningGlyph = "\uEB56";
-    private const string ErrorGlyph = "\uEB55";
+    private const string ConnectedGlyph = "";
+    private const string WarningGlyph = "";
+    private const string ErrorGlyph = "";
 
     private EthernetState _ethernet = EthernetState.Empty;
     private bool _isChecking = true;
-    private bool _hasApplied;
-    private bool _wasConnected;
 
     /// <summary>
-    /// Gets or sets whether the details are expanded. The technician can change it; <see cref="Apply"/> overrides it
-    /// only when <see cref="IsConnected"/> changes.
+    /// Gets or sets whether the details are expanded. False at start; only the technician changes it.
     /// </summary>
     [ObservableProperty]
-    private bool isDetailsExpanded = true;
+    private bool isDetailsExpanded;
 
     /// <summary>
     /// Gets whether the card is shown: an Ethernet adapter exists.
@@ -45,14 +44,15 @@ public sealed partial class EthernetSectionViewModel(ILocalizationService locali
     public bool ShowCard => _ethernet.HasAdapter;
 
     /// <summary>
-    /// Gets whether the one-line "no adapter" notice is shown. It stays hidden while the first observation is pending.
+    /// Gets whether the one-line "not available on this device" text is shown: an observation exists and no Ethernet
+    /// adapter is seen (a missing adapter or a failed Ethernet read). It stays hidden before the first observation.
     /// </summary>
     public bool ShowNoAdapterNotice => !_isChecking && !_ethernet.HasAdapter;
 
     /// <summary>
-    /// Gets the text of the "no adapter" notice.
+    /// Gets the neutral "not available on this device" text.
     /// </summary>
-    public string NoAdapterText => GetString("Ethernet.NoAdapterDetected");
+    public string NoAdapterText => GetString("Ethernet.UnavailableOnDevice");
 
     /// <summary>
     /// Gets whether an interface has a link and a DHCP or static address.
@@ -65,14 +65,36 @@ public sealed partial class EthernetSectionViewModel(ILocalizationService locali
     public string Glyph => _ethernet.HasUsableAddress ? ConnectedGlyph : _ethernet.HasAdapter ? WarningGlyph : ErrorGlyph;
 
     /// <summary>
-    /// Gets the headline status of the card.
+    /// Gets the status pill: no link, connected or waiting for the configuration.
     /// </summary>
-    public string StatusText => GetString(StatusKeys.Primary);
+    public string StatusText => GetString(_ethernet.Primary switch
+    {
+        null => "Ethernet.UnavailableOnDevice",
+        { HasLink: false } => "Ethernet.NoActiveLink",
+        { HasUsableAddress: true } => "Common.Connected",
+        _ => "Ethernet.WaitingConfiguration"
+    });
 
     /// <summary>
-    /// Gets the explanation under the headline, or an empty string.
+    /// Gets the secondary header line: the IPv4 address when connected, "Self-assigned address" for an APIPA address,
+    /// else an empty string. The banner keeps the diagnosis. The address is displayed only, never logged.
     /// </summary>
-    public string SecondaryStatusText => StatusKeys.Secondary is { } key ? GetString(key) : string.Empty;
+    public string SecondaryStatusText => _ethernet.Primary switch
+    {
+        { HasUsableAddress: true, Ipv4Address: { } address } => address,
+        { HasLink: true, IpConfiguration: IpConfigurationKind.Apipa } => GetString("Ethernet.ApipaAddress"),
+        _ => string.Empty
+    };
+
+    /// <summary>
+    /// Gets the configuration detail: a DHCP lease or a static configuration, else an empty string.
+    /// </summary>
+    public string ConfigurationText => _ethernet.Primary switch
+    {
+        { HasUsableAddress: true, IpConfiguration: IpConfigurationKind.Dhcp } => GetString("Ethernet.DhcpLeaseDetected"),
+        { HasUsableAddress: true, IpConfiguration: IpConfigurationKind.Static } => GetString("Ethernet.StaticConfigurationDetected"),
+        _ => string.Empty
+    };
 
     /// <summary>
     /// Gets the name of the described adapter.
@@ -100,51 +122,43 @@ public sealed partial class EthernetSectionViewModel(ILocalizationService locali
     public string Dot1xStatusText => NetworkTextKeys.Dot1xStatusKey(_ethernet.Dot1x.Status) is { } key ? GetString(key) : string.Empty;
 
     /// <summary>
+    /// Gets the severity glyph of the 802.1X row: success when authenticated, error when failed, warning when
+    /// unavailable, else informational.
+    /// </summary>
+    public InfoBarSeverity Dot1xSeverity => _ethernet.Dot1x.Status switch
+    {
+        Dot1xAuthenticationStatus.Authenticated => InfoBarSeverity.Success,
+        Dot1xAuthenticationStatus.Failed => InfoBarSeverity.Error,
+        Dot1xAuthenticationStatus.Unavailable => InfoBarSeverity.Warning,
+        _ => InfoBarSeverity.Informational
+    };
+
+    /// <summary>
+    /// Gets whether 802.1X is authenticating; the row then shows a progress ring instead of the severity glyph.
+    /// </summary>
+    public bool IsDot1xAuthenticating => _ethernet.Dot1x.Status == Dot1xAuthenticationStatus.Authenticating;
+
+    /// <summary>
+    /// Gets whether the 802.1X reason line is shown: the status is failed or unavailable.
+    /// </summary>
+    public bool HasDot1xReason => _ethernet.Dot1x.Status is Dot1xAuthenticationStatus.Failed or Dot1xAuthenticationStatus.Unavailable;
+
+    /// <summary>
     /// Gets the reason of an unavailable or failed 802.1X state, or an empty string.
     /// </summary>
     public string Dot1xReasonText => NetworkTextKeys.Dot1xReasonKey(_ethernet.Dot1x.Reason) is { } key ? GetString(key) : string.Empty;
 
     /// <summary>
-    /// Gets whether the 802.1X InfoBar is shown: the status is failed or unavailable.
-    /// </summary>
-    public bool ShowDot1xNotice => _ethernet.Dot1x.Status is Dot1xAuthenticationStatus.Failed or Dot1xAuthenticationStatus.Unavailable;
-
-    /// <summary>
-    /// Gets the severity of the 802.1X InfoBar: error for a failure, warning for an unavailable profile.
-    /// </summary>
-    public InfoBarSeverity Dot1xNoticeSeverity => _ethernet.Dot1x.Status == Dot1xAuthenticationStatus.Failed ? InfoBarSeverity.Error : InfoBarSeverity.Warning;
-
-    private (string Primary, string? Secondary) StatusKeys => _ethernet.Primary switch
-    {
-        null => ("Ethernet.NoAdapterDetected", null),
-        { HasLink: false } => ("Ethernet.NoActiveLink", "Ethernet.CheckCable"),
-        { IpConfiguration: IpConfigurationKind.Dhcp } => ("Common.Connected", "Ethernet.DhcpLeaseDetected"),
-        { IpConfiguration: IpConfigurationKind.Static } => ("Common.Connected", "Ethernet.StaticConfigurationDetected"),
-        { IpConfiguration: IpConfigurationKind.Apipa } => ("Ethernet.WaitingConfiguration", "Ethernet.ApipaAddress"),
-        _ => ("Ethernet.WaitingConfiguration", "Ethernet.WaitingDhcp")
-    };
-
-    /// <summary>
-    /// Applies the latest wired state. The first call sets the expander from the connected state; later calls change it
-    /// only when the connected state changes.
+    /// Applies the latest wired state. The details expander is never changed here.
     /// </summary>
     /// <param name="ethernet">The wired state read from the coordinator.</param>
-    /// <param name="isChecking">Whether the first observation is still pending.</param>
+    /// <param name="isChecking">Whether no observation exists yet.</param>
     public void Apply(EthernetState ethernet, bool isChecking)
     {
         ArgumentNullException.ThrowIfNull(ethernet);
 
         _ethernet = ethernet;
         _isChecking = isChecking;
-
-        bool connected = ethernet.HasUsableAddress;
-        if (!_hasApplied || connected != _wasConnected)
-        {
-            IsDetailsExpanded = !connected;
-        }
-
-        _hasApplied = true;
-        _wasConnected = connected;
         RaiseAll();
     }
 
@@ -165,13 +179,15 @@ public sealed partial class EthernetSectionViewModel(ILocalizationService locali
         OnPropertyChanged(nameof(Glyph));
         OnPropertyChanged(nameof(StatusText));
         OnPropertyChanged(nameof(SecondaryStatusText));
+        OnPropertyChanged(nameof(ConfigurationText));
         OnPropertyChanged(nameof(AdapterName));
         OnPropertyChanged(nameof(IpAddress));
         OnPropertyChanged(nameof(Gateway));
         OnPropertyChanged(nameof(HasDot1x));
         OnPropertyChanged(nameof(Dot1xStatusText));
+        OnPropertyChanged(nameof(Dot1xSeverity));
+        OnPropertyChanged(nameof(IsDot1xAuthenticating));
+        OnPropertyChanged(nameof(HasDot1xReason));
         OnPropertyChanged(nameof(Dot1xReasonText));
-        OnPropertyChanged(nameof(ShowDot1xNotice));
-        OnPropertyChanged(nameof(Dot1xNoticeSeverity));
     }
 }

@@ -397,7 +397,8 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
         Status = status;
         BlockedReason = ConnectPagePolicy.ResolveBlockedReason(state);
 
-        Ethernet.Apply(state.Ethernet, status == ConnectPageStatus.Checking);
+        // "Checking" for the sections means no observation yet, not the page status (which is Waiting during the startup provisioning).
+        Ethernet.Apply(state.Ethernet, state.Internet == InternetStatus.Checking);
         ProvisionedWifi.Apply(state.Wifi, state.ActiveOperation, state.LastOutcome);
         WifiNetworks.Apply(state.Wifi, state.ActiveOperation);
         AutoContinue.OnInternetStatusChanged(state.Internet);

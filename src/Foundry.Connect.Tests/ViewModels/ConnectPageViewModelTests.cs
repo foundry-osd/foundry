@@ -96,8 +96,8 @@ public sealed class ConnectPageViewModelTests : IDisposable
         Assert.Equal(expected.CaptivePortal, _page.ShowCaptivePortalNotice);
         Assert.Equal(expected.Dot1xRow, _page.Ethernet.HasDot1x);
 
-        // The only 802.1X row in the matrix is a failure, so the row and its InfoBar go together.
-        Assert.Equal(expected.Dot1xRow, _page.Ethernet.ShowDot1xNotice);
+        // The only 802.1X row in the matrix is a failure, so the row and its reason line go together.
+        Assert.Equal(expected.Dot1xRow, _page.Ethernet.HasDot1xReason);
         Assert.Equal(expected.CanContinue, _page.AutoContinue.ContinueCommand.CanExecute(null));
         Assert.Equal(expected.Focus == ConnectFocusTarget.None ? [] : [expected.Focus], _focus);
     }
