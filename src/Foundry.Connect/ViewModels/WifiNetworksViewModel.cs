@@ -8,13 +8,15 @@ using System.Security.Cryptography;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Foundry.Connect.Network;
+using Foundry.Wpf.Controls;
 using Foundry.Wpf.Localization;
 using Foundry.Wpf.ViewModels;
 
 namespace Foundry.Connect.ViewModels;
 
 /// <summary>
-/// The Wi-Fi networks card: a selection-only list and a details panel with the password outside the list.
+/// The Wi-Fi networks card: a selection-only list and, under it, a details panel with the password outside the list,
+/// one message and one action button; or the neutral "not available on this device" text when Wi-Fi does not work.
 /// </summary>
 /// <remarks>
 /// <para>
@@ -39,6 +41,7 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
     private readonly INetworkMonitor _monitor;
     private readonly CancellationTokenSource _disposeCts = new();
     private WifiAvailability _availability = WifiAvailability.Disabled;
+    private bool _isCardShown;
     private NetworkOperationKind? _activeOperation;
     private char[] _passphrase = [];
     private string? _feedbackKey;
@@ -72,14 +75,46 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
     public event EventHandler? PassphraseCleared;
 
     /// <summary>
+    /// Raised on the UI thread once each time a connect or disconnect run by this view model ends (never after
+    /// <see cref="Dispose"/>), so the view can return the keyboard focus to the panel's action button when WPF lost it.
+    /// </summary>
+    public event EventHandler? ActionFocusRequested;
+
+    /// <summary>
     /// Gets the list rows in display order.
     /// </summary>
     public ObservableCollection<WifiNetworkItemViewModel> Networks { get; } = [];
 
     /// <summary>
-    /// Gets whether the card is shown: Wi-Fi works on this machine.
+    /// Gets whether the Wi-Fi card is shown, as decided by the page (<see cref="ConnectPagePolicy.IsWifiSectionShown"/>).
     /// </summary>
-    public bool IsVisible => _availability == WifiAvailability.Available;
+    public bool IsVisible => _isCardShown;
+
+    /// <summary>
+    /// Gets whether the network list area is shown: the card is shown and Wi-Fi works.
+    /// </summary>
+    public bool IsListVisible => _isCardShown && _availability == WifiAvailability.Available;
+
+    /// <summary>
+    /// Gets whether the list itself is shown: the list area is shown and has rows.
+    /// </summary>
+    public bool ShowNetworkList => IsListVisible && HasNetworks;
+
+    /// <summary>
+    /// Gets whether the "no network visible" text is shown: the list area is shown without rows.
+    /// </summary>
+    public bool ShowEmptyText => IsListVisible && !HasNetworks;
+
+    /// <summary>
+    /// Gets whether the card shows the neutral "not available on this device" text in place of the list: the card is
+    /// shown but Wi-Fi does not work (no adapter, a lost runtime or a failed read).
+    /// </summary>
+    public bool HasUnavailableMessage => _isCardShown && _availability != WifiAvailability.Available;
+
+    /// <summary>
+    /// Gets the neutral "not available on this device" text, or an empty string.
+    /// </summary>
+    public string UnavailableMessageText => HasUnavailableMessage ? LocalizationService.GetString("Wifi.UnavailableOnDevice") : string.Empty;
 
     /// <summary>
     /// Gets whether the list has rows.
@@ -97,9 +132,9 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
     public bool HasSelection => SelectedNetwork is not null;
 
     /// <summary>
-    /// Gets the hint shown in the details panel while nothing is selected.
+    /// Gets whether the details panel under the list is shown: the list area is shown and a network is selected.
     /// </summary>
-    public string SelectionHintText => LocalizationService.GetString("Wifi.SelectNetworkHint");
+    public bool ShowDetails => IsListVisible && HasSelection;
 
     /// <summary>
     /// Gets whether the password editor is shown: the selected network needs one, is in range and is not connected.
@@ -107,14 +142,38 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
     public bool ShowPassphrase => SelectedNetwork is { RequiresPassphrase: true, IsConnected: false, IsInRange: true };
 
     /// <summary>
-    /// Gets whether the selected network cannot be joined from the list.
+    /// Gets the panel's single message. A connected selection shows only the last feedback. Otherwise, in order: why the
+    /// network cannot be joined from the list, else "Not in range", else the last feedback, else an empty string.
     /// </summary>
-    public bool HasUnsupportedText => UnsupportedKey is not null;
+    public string DetailMessageText => DetailMessageKey is { } key ? LocalizationService.GetString(key) : string.Empty;
 
     /// <summary>
-    /// Gets why the selected network cannot be joined from the list, or an empty string.
+    /// Gets the severity glyph of <see cref="DetailMessageText"/>: informational for an unsupported or out-of-range
+    /// network, error for a feedback.
     /// </summary>
-    public string UnsupportedText => UnsupportedKey is { } key ? LocalizationService.GetString(key) : string.Empty;
+    public InfoBarSeverity DetailMessageSeverity => SelectedNetwork is { IsConnected: false } network && (!network.IsSupported || !network.IsInRange)
+        ? InfoBarSeverity.Informational
+        : InfoBarSeverity.Error;
+
+    /// <summary>
+    /// Gets whether the panel shows a message.
+    /// </summary>
+    public bool HasDetailMessage => DetailMessageKey is not null;
+
+    /// <summary>
+    /// Gets whether the panel's action button is shown: the selection is connected, or it is supported and in range.
+    /// </summary>
+    public bool ShowPrimaryAction => SelectedNetwork is { IsConnected: true } or { IsSupported: true, IsInRange: true };
+
+    /// <summary>
+    /// Gets the label of the action button: Disconnect for a connected selection, else Connect.
+    /// </summary>
+    public string PrimaryActionText => LocalizationService.GetString(SelectedNetwork is { IsConnected: true } ? "Action.Disconnect" : "Action.Connect");
+
+    /// <summary>
+    /// Gets the automation name of the action button, or an empty string without a selection.
+    /// </summary>
+    public string PrimaryActionAutomationName => SelectedNetwork is { IsConnected: true } ? DisconnectAutomationName : ConnectAutomationName;
 
     /// <summary>
     /// Gets whether a password has been typed.
@@ -122,14 +181,9 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
     public bool HasPassphrase => _passphrase.Length > 0;
 
     /// <summary>
-    /// Gets whether a connection to a listed network is in flight.
+    /// Gets whether a connection to a listed network is in flight; the panel shows a small progress ring.
     /// </summary>
     public bool IsConnecting => _activeOperation == NetworkOperationKind.ConnectWifiNetwork;
-
-    /// <summary>
-    /// Gets the caption shown in the details panel while <see cref="IsConnecting"/>.
-    /// </summary>
-    public string ConnectingText => LocalizationService.GetString("Status.ConnectingTitle");
 
     /// <summary>
     /// Gets the result of the last connect or disconnect, or an empty string.
@@ -169,6 +223,16 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
 
     private bool CanDisconnect => !_isCommandRunning && _activeOperation is null && SelectedNetwork is { IsConnected: true };
 
+    private bool CanRunPrimaryAction => SelectedNetwork is { IsConnected: true } ? CanDisconnect : CanConnect;
+
+    // A connected selection is never "not supported" or "not in range": IsConnected takes precedence.
+    private string? DetailMessageKey => SelectedNetwork switch
+    {
+        null => null,
+        { IsConnected: true } => _feedbackKey,
+        _ => UnsupportedKey ?? (SelectedNetwork.IsInRange ? _feedbackKey : "Wifi.StatusNotInRange")
+    };
+
     /// <summary>
     /// Replaces the password with a copy of <paramref name="value"/>, as typed (never trimmed). The previous buffer is
     /// zeroed. A non-empty value reports a networking interaction.
@@ -186,6 +250,7 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
         Zero(previous);
         OnPropertyChanged(nameof(HasPassphrase));
         ConnectCommand.NotifyCanExecuteChanged();
+        PrimaryActionCommand.NotifyCanExecuteChanged();
         if (!value.IsEmpty)
         {
             _actions.NotifyInteraction();
@@ -218,11 +283,13 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
     /// Applies the latest wireless state. While a network is selected the rows keep their positions, new networks are
     /// appended and the selected one stays even when it is no longer visible; otherwise the incoming order is used.
     /// When the selected network becomes connected, by this panel or by other means, the password is zeroed; it is kept
-    /// when the network merely goes out of range.
+    /// when the network merely goes out of range. The selection is kept while Wi-Fi is not available, so the list comes
+    /// back as it was on the next good read.
     /// </summary>
     /// <param name="wifi">The wireless state read from the coordinator.</param>
     /// <param name="activeOperation">The operation in flight, or <see langword="null"/>.</param>
-    public void Apply(WifiState wifi, NetworkOperationKind? activeOperation)
+    /// <param name="isCardShown">Whether the page shows the Wi-Fi card.</param>
+    public void Apply(WifiState wifi, NetworkOperationKind? activeOperation, bool isCardShown)
     {
         ArgumentNullException.ThrowIfNull(wifi);
         if (_isDisposed)
@@ -231,6 +298,7 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
         }
 
         _availability = wifi.Availability;
+        _isCardShown = isCardShown;
         _activeOperation = activeOperation;
         bool wasSelectionConnected = SelectedNetwork?.IsConnected == true;
 
@@ -333,6 +401,7 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
             if (!_isDisposed)
             {
                 SetCommandRunning(false);
+                ActionFocusRequested?.Invoke(this, EventArgs.Empty);
             }
         }
     }
@@ -362,9 +431,14 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
             if (!_isDisposed)
             {
                 SetCommandRunning(false);
+                ActionFocusRequested?.Invoke(this, EventArgs.Empty);
             }
         }
     }
+
+    // One command for the panel's single button, so the button keeps its command while it turns from Connect to Disconnect.
+    [RelayCommand(CanExecute = nameof(CanRunPrimaryAction))]
+    private Task PrimaryActionAsync() => SelectedNetwork is { IsConnected: true } ? DisconnectAsync() : ConnectAsync();
 
     /// <summary>
     /// Asks the monitor for an early observation. Not a networking interaction.
@@ -431,6 +505,9 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
         _feedbackKey = key;
         OnPropertyChanged(nameof(FeedbackText));
         OnPropertyChanged(nameof(HasFeedback));
+        OnPropertyChanged(nameof(DetailMessageText));
+        OnPropertyChanged(nameof(DetailMessageSeverity));
+        OnPropertyChanged(nameof(HasDetailMessage));
     }
 
     private void SetCommandRunning(bool value)
@@ -443,18 +520,23 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
     {
         ConnectCommand.NotifyCanExecuteChanged();
         DisconnectCommand.NotifyCanExecuteChanged();
+        PrimaryActionCommand.NotifyCanExecuteChanged();
     }
 
     private void RaiseDetails()
     {
         OnPropertyChanged(nameof(HasSelection));
-        OnPropertyChanged(nameof(SelectionHintText));
+        OnPropertyChanged(nameof(ShowDetails));
         OnPropertyChanged(nameof(ShowPassphrase));
-        OnPropertyChanged(nameof(HasUnsupportedText));
-        OnPropertyChanged(nameof(UnsupportedText));
         OnPropertyChanged(nameof(HasPassphrase));
         OnPropertyChanged(nameof(FeedbackText));
         OnPropertyChanged(nameof(HasFeedback));
+        OnPropertyChanged(nameof(DetailMessageText));
+        OnPropertyChanged(nameof(DetailMessageSeverity));
+        OnPropertyChanged(nameof(HasDetailMessage));
+        OnPropertyChanged(nameof(ShowPrimaryAction));
+        OnPropertyChanged(nameof(PrimaryActionText));
+        OnPropertyChanged(nameof(PrimaryActionAutomationName));
         OnPropertyChanged(nameof(ConnectAutomationName));
         OnPropertyChanged(nameof(DisconnectAutomationName));
         NotifyCommands();
@@ -463,10 +545,14 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
     private void RaiseAll()
     {
         OnPropertyChanged(nameof(IsVisible));
+        OnPropertyChanged(nameof(IsListVisible));
+        OnPropertyChanged(nameof(ShowNetworkList));
+        OnPropertyChanged(nameof(ShowEmptyText));
+        OnPropertyChanged(nameof(HasUnavailableMessage));
+        OnPropertyChanged(nameof(UnavailableMessageText));
         OnPropertyChanged(nameof(HasNetworks));
         OnPropertyChanged(nameof(EmptyText));
         OnPropertyChanged(nameof(IsConnecting));
-        OnPropertyChanged(nameof(ConnectingText));
         RaiseDetails();
     }
 }

@@ -400,7 +400,7 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
         // "Checking" for the sections means no observation yet, not the page status (which is Waiting during the startup provisioning).
         Ethernet.Apply(state.Ethernet, state.Internet == InternetStatus.Checking);
         ProvisionedWifi.Apply(state.Wifi, state.ActiveOperation, state.LastOutcome);
-        WifiNetworks.Apply(state.Wifi, state.ActiveOperation);
+        WifiNetworks.Apply(state.Wifi, state.ActiveOperation, ConnectPagePolicy.IsWifiOffered(state.Wifi.Availability));
         AutoContinue.OnInternetStatusChanged(state.Internet);
         RaisePageProperties();
 
@@ -414,7 +414,7 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
             status,
             _hasInteraction,
             ProvisionedWifi.IsVisible && ProvisionedWifi.ConnectCommand.CanExecute(null),
-            WifiNetworks.IsVisible && WifiNetworks.HasNetworks);
+            WifiNetworks.IsListVisible && WifiNetworks.HasNetworks);
         if (target != ConnectFocusTarget.None)
         {
             FocusRequested?.Invoke(this, target);
