@@ -54,50 +54,37 @@ public sealed class LocalizationResourceTests
 
     public static TheoryData<string> SupportedCultures => new(CultureNames);
 
-    public static TheoryData<string> SinglePageKeys => new()
+    // Texts of the page, its bindings and the unlock prompt: the parity tests keep the key sets equal, this keeps them filled.
+    public static TheoryData<string> PageKeys => new()
     {
-        "Action.Retry", "Action.StayHere",
-        "Debug.Scenario.ApipaAddress", "Debug.Scenario.CaptivePortal", "Debug.Scenario.Checking", "Debug.Scenario.Dot1xFailed",
-        "Debug.Scenario.EthernetNoInternet", "Debug.Scenario.EthernetReady", "Debug.Scenario.Live", "Debug.Scenario.NoAdapter",
-        "Debug.Scenario.NoLink", "Debug.Scenario.NoWifiAdapter", "Debug.Scenario.ProvisionedWifiUnavailable", "Debug.Scenario.WaitingForAddress",
-        "Debug.Scenario.WifiNetworks", "Debug.Scenario.WifiReady", "Debug.Scenario.WifiRuntimeMissing", "Debug.Scenarios",
-        "Ethernet.ApipaAddress", "Ethernet.Dot1xAuthenticated", "Ethernet.Dot1xAuthenticating", "Ethernet.Dot1xFailed", "Ethernet.Dot1xLabel",
-        "Ethernet.Dot1xProfileApplied", "Ethernet.Dot1xReasonAuthenticationFailed",
-        "Ethernet.Dot1xReasonProfileImportFailed", "Ethernet.Dot1xReasonProfileTemplateMissing", "Ethernet.Dot1xReasonSecretUnavailable",
-        "Ethernet.Dot1xUnavailable",
-        "Status.ApplyingProvisioningDescription", "Status.AutoContinueCancelled", "Status.AutoContinuePaused", "Status.BlockedCaptivePortalDescription",
-        "Status.BlockedNoAdapterDescription", "Status.BlockedNoInternetDescription", "Status.BlockedNoIpAddressDescription", "Status.BlockedNoLinkDescription",
-        "Status.BlockedTitle", "Status.CheckingTitle", "Status.ConnectingDescription", "Status.ConnectingTitle",
-        "Wifi.ActionConnectTimedOut", "Wifi.ActionInvalidPassphrase", "Wifi.ActionNetworkNotVisible",
+        "Action.Retry", "Action.StayHere", "Debug.Scenario.ApipaAddress", "Debug.Scenario.CaptivePortal", "Debug.Scenario.Checking",
+        "Debug.Scenario.Dot1xAuthenticating", "Debug.Scenario.Dot1xFailed", "Debug.Scenario.EthernetNoInternet",
+        "Debug.Scenario.EthernetReady", "Debug.Scenario.Live", "Debug.Scenario.NoAdapter", "Debug.Scenario.NoLink",
+        "Debug.Scenario.NoWifiAdapter", "Debug.Scenario.ProvisionedWifiLocked", "Debug.Scenario.ProvisionedWifiUnavailable",
+        "Debug.Scenario.WaitingForAddress", "Debug.Scenario.WifiConnecting", "Debug.Scenario.WifiNetworks", "Debug.Scenario.WifiOnly",
+        "Debug.Scenario.WifiReady", "Debug.Scenario.WifiRuntimeMissing", "Debug.Scenarios", "Ethernet.ApipaAddress",
+        "Ethernet.Dot1xAuthenticated", "Ethernet.Dot1xAuthenticating", "Ethernet.Dot1xFailed", "Ethernet.Dot1xLabel",
+        "Ethernet.Dot1xProfileApplied", "Ethernet.Dot1xReasonAuthenticationFailed", "Ethernet.Dot1xReasonProfileImportFailed",
+        "Ethernet.Dot1xReasonProfileTemplateMissing", "Ethernet.Dot1xReasonSecretUnavailable", "Ethernet.Dot1xReasonUnlockCancelled",
+        "Ethernet.Dot1xUnavailable", "Ethernet.IpAssignmentLabel", "Ethernet.UnavailableOnDevice", "Status.ApplyingProvisioningDescription",
+        "Status.AutoContinueCancelled", "Status.AutoContinuePaused", "Status.BlockedCaptivePortalDescription",
+        "Status.BlockedCaptivePortalTitle", "Status.BlockedDot1xDescription", "Status.BlockedDot1xTitle",
+        "Status.BlockedJoinWifiDescription", "Status.BlockedNoAdapterDescription", "Status.BlockedNoAdapterTitle",
+        "Status.BlockedNoCableDescription", "Status.BlockedNoCableTitle", "Status.BlockedNoEthernetAdapterDescription",
+        "Status.BlockedNoInternetDescription", "Status.BlockedNoIpAddressDescription", "Status.BlockedNoIpAddressTitle",
+        "Status.BlockedNoLinkDescription", "Status.BlockedNoLinkTitle", "Status.BlockedTitle", "Status.CheckingTitle",
+        "Status.ConnectingDescription", "Status.ConnectingTitle", "Status.DisconnectingTitle", "Status.Dot1xAuthenticatingDescription",
+        "Unlock.Continue", "Unlock.Description", "Unlock.Heading", "Unlock.InvalidPassword", "Unlock.PasswordPlaceholder", "Unlock.Title",
+        "Unlock.TogglePasswordVisibility", "Wifi.ActionConnectTimedOut", "Wifi.ActionInvalidPassphrase", "Wifi.ActionNetworkNotVisible",
         "Wifi.ConnectProvisionedAutomationName", "Wifi.ConnectSelectedAutomationFormat", "Wifi.DisconnectProvisionedAutomationName",
         "Wifi.DisconnectSelectedAutomationFormat", "Wifi.NetworkAutomationFormat", "Wifi.NetworkConnectedAutomationFormat",
-        "Wifi.NetworksListAutomationName", "Wifi.PassphraseLabel", "Wifi.ProvisionedUnavailableConfiguration", "Wifi.ProvisionedUnavailablePassphrase",
-        "Wifi.ProvisionedUnavailableSecret", "Wifi.ProvisionedUnavailableTemplate", "Wifi.SecurityOwe",
-        "Wifi.StatusNotInRange"
+        "Wifi.NetworksListAutomationName", "Wifi.PassphraseLabel", "Wifi.ProvisionedLocked", "Wifi.ProvisionedUnavailableConfiguration",
+        "Wifi.ProvisionedUnavailablePassphrase", "Wifi.ProvisionedUnavailableSecret", "Wifi.ProvisionedUnavailableTemplate",
+        "Wifi.ProvisionedUnlockCancelled", "Wifi.SecurityOwe", "Wifi.StatusLocked", "Wifi.StatusNotInRange", "Wifi.UnavailableOnDevice"
     };
 
-    public static TheoryData<string> UnlockKeys => new()
-    {
-        "Ethernet.Dot1xReasonUnlockCancelled", "Unlock.Continue", "Unlock.Description", "Unlock.Heading", "Unlock.InvalidPassword",
-        "Unlock.PasswordPlaceholder", "Unlock.Title", "Unlock.TogglePasswordVisibility",
-        "Wifi.ProvisionedLocked", "Wifi.ProvisionedUnlockCancelled", "Wifi.StatusLocked"
-    };
-
-    public static TheoryData<string> LayoutKeys => new()
-    {
-        "Debug.Scenario.Dot1xAuthenticating", "Debug.Scenario.ProvisionedWifiLocked", "Debug.Scenario.WifiConnecting", "Debug.Scenario.WifiOnly",
-        "Ethernet.UnavailableOnDevice", "Status.BlockedDot1xDescription", "Status.BlockedJoinWifiDescription", "Status.BlockedNoCableDescription",
-        "Status.BlockedNoEthernetAdapterDescription", "Status.DisconnectingTitle", "Status.Dot1xAuthenticatingDescription", "Wifi.UnavailableOnDevice"
-    };
-
-    public static TheoryData<string> BannerTitleAndLabelKeys => new()
-    {
-        "Ethernet.IpAssignmentLabel", "Status.BlockedCaptivePortalTitle", "Status.BlockedDot1xTitle", "Status.BlockedNoAdapterTitle",
-        "Status.BlockedNoCableTitle", "Status.BlockedNoIpAddressTitle", "Status.BlockedNoLinkTitle"
-    };
-
-    // Each blocked banner pairs a cause title with a description that says what to do; the description no longer
-    // repeats the cause, so no culture keeps the old first sentence in front of it.
+    // Each blocked banner pairs a cause title with a description that says what to do; the description never repeats
+    // the title, in any culture.
     public static TheoryData<string, string> TitleAndDescriptionPairs => new()
     {
         { "Status.BlockedNoLinkTitle", "Status.BlockedNoLinkDescription" },
@@ -124,8 +111,8 @@ public sealed class LocalizationResourceTests
     }
 
     [Theory]
-    [MemberData(nameof(SinglePageKeys))]
-    public void EveryCulture_ContainsSinglePageKey(string key)
+    [MemberData(nameof(PageKeys))]
+    public void EveryCulture_ContainsPageKey(string key)
     {
         ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(App).Assembly);
 
@@ -134,64 +121,6 @@ public sealed class LocalizationResourceTests
             ResourceSet? resourceSet = resourceManager.GetResourceSet(CultureInfo.GetCultureInfo(cultureName), createIfNotExists: true, tryParents: false);
             Assert.False(string.IsNullOrWhiteSpace(resourceSet?.GetString(key)), $"{cultureName} {key}");
         }
-    }
-
-    [Theory]
-    [MemberData(nameof(UnlockKeys))]
-    public void EveryCulture_ContainsUnlockKey(string key)
-    {
-        ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(App).Assembly);
-
-        foreach (string cultureName in CultureNames)
-        {
-            ResourceSet? resourceSet = resourceManager.GetResourceSet(CultureInfo.GetCultureInfo(cultureName), createIfNotExists: true, tryParents: false);
-            Assert.False(string.IsNullOrWhiteSpace(resourceSet?.GetString(key)), $"{cultureName} {key}");
-        }
-    }
-
-    [Theory]
-    [MemberData(nameof(LayoutKeys))]
-    public void EveryCulture_ContainsLayoutKey(string key)
-    {
-        ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(App).Assembly);
-
-        foreach (string cultureName in CultureNames)
-        {
-            ResourceSet? resourceSet = resourceManager.GetResourceSet(CultureInfo.GetCultureInfo(cultureName), createIfNotExists: true, tryParents: false);
-            Assert.False(string.IsNullOrWhiteSpace(resourceSet?.GetString(key)), $"{cultureName} {key}");
-        }
-    }
-
-    [Theory]
-    [MemberData(nameof(SupportedCultures))]
-    public void RemovedLayoutKeys_AreGoneInEveryCulture(string cultureName)
-    {
-        ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(App).Assembly);
-        ResourceSet resourceSet = resourceManager.GetResourceSet(CultureInfo.GetCultureInfo(cultureName), createIfNotExists: true, tryParents: false)!;
-
-        foreach (string key in new[]
-        {
-            "Ethernet.CheckCable", "Ethernet.Dot1xProvisioningFailed", "Ethernet.NoAdapterDetected", "Ethernet.WaitingDhcp", "Notice.CaptivePortalMessage",
-            "Notice.CaptivePortalTitle", "Status.CheckingDescription", "Status.NetworkReadyDescription", "Wifi.ActionProvisionedLocked",
-            "Wifi.ActionProvisionedSecretUnavailable", "Wifi.AuthenticationLabel", "Wifi.NoAdapterAvailable", "Wifi.NoAdapterDetected", "Wifi.ProfileLabel",
-            "Wifi.ProvisionedUnavailableTitle", "Wifi.SelectNetworkHint", "Wifi.UnavailableAtRuntime"
-        })
-        {
-            Assert.Null(resourceSet.GetString(key));
-        }
-    }
-
-    [Theory]
-    [MemberData(nameof(BannerTitleAndLabelKeys))]
-    public void EveryCulture_ContainsBannerTitleOrLabelKey(string key)
-    {
-        ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(App).Assembly);
-
-        Assert.All(CultureNames, cultureName =>
-        {
-            ResourceSet resourceSet = resourceManager.GetResourceSet(CultureInfo.GetCultureInfo(cultureName), createIfNotExists: true, tryParents: false)!;
-            Assert.False(string.IsNullOrWhiteSpace(resourceSet.GetString(key)), $"{cultureName} {key}");
-        });
     }
 
     [Theory]

@@ -140,7 +140,7 @@ public sealed class WifiNetworksViewModelTests : IDisposable
     }
 
     [Fact]
-    public async Task Connect_FailureShowsFeedbackAndKeepsThePassphrase()
+    public async Task Connect_FailureIsThePanelMessageAndKeepsThePassphrase()
     {
         _viewModel.Apply(State(Networks(("Workshop", WifiSecurityType.Wpa2Personal, 64))), null, isCardShown: true);
         _viewModel.SelectedNetwork = Item("Workshop");
@@ -149,7 +149,8 @@ public sealed class WifiNetworksViewModelTests : IDisposable
 
         await _viewModel.ConnectCommand.ExecuteAsync(null);
 
-        Assert.Equal(_localization.GetString("Wifi.ActionInvalidPassphrase"), _viewModel.FeedbackText);
+        Assert.Equal(_localization.GetString("Wifi.ActionInvalidPassphrase"), _viewModel.DetailMessageText);
+        Assert.Equal(InfoBarSeverity.Error, _viewModel.DetailMessageSeverity);
         Assert.True(_viewModel.HasPassphrase);
     }
 
@@ -377,20 +378,6 @@ public sealed class WifiNetworksViewModelTests : IDisposable
         Assert.False(_viewModel.HasDetailMessage);
         Assert.True(_viewModel.ShowPrimaryAction);
         Assert.True(_viewModel.PrimaryActionCommand.CanExecute(null));
-    }
-
-    [Fact]
-    public async Task FailedConnect_IsThePanelMessage()
-    {
-        _viewModel.Apply(State(Networks(("Lab", WifiSecurityType.Wpa2Personal, 70))), null, isCardShown: true);
-        _viewModel.SelectedNetwork = Item("Lab");
-        _viewModel.SetPassphrase("password1".AsSpan());
-        _coordinator.Outcomes.Enqueue(OperationOutcome.Failed(NetworkOperationKind.ConnectWifiNetwork, NetworkFailureCode.InvalidPassphrase));
-
-        await _viewModel.PrimaryActionCommand.ExecuteAsync(null);
-
-        Assert.Equal(_localization.GetString("Wifi.ActionInvalidPassphrase"), _viewModel.DetailMessageText);
-        Assert.Equal(InfoBarSeverity.Error, _viewModel.DetailMessageSeverity);
     }
 
     [Fact]

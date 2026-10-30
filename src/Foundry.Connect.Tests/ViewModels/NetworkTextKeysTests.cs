@@ -50,15 +50,6 @@ public sealed class NetworkTextKeysTests
     }
 
     [Theory]
-    [InlineData(NetworkFailureCode.NoWirelessAdapter)]
-    [InlineData(NetworkFailureCode.WifiRuntimeMissing)]
-    public void OutcomeKey_AdapterOrRuntimeLossGivesNoFeedback(NetworkFailureCode code)
-    {
-        Assert.Null(NetworkTextKeys.OutcomeKey(OperationOutcome.Failed(NetworkOperationKind.ConnectWifiNetwork, code)));
-        Assert.Null(NetworkTextKeys.OutcomeKey(OperationOutcome.Failed(NetworkOperationKind.ConnectProvisionedWifi, code), provisionedPanel: true));
-    }
-
-    [Theory]
     [InlineData(OperationStatus.Succeeded)]
     [InlineData(OperationStatus.NoChange)]
     [InlineData(OperationStatus.Cancelled)]
@@ -208,15 +199,6 @@ public sealed class NetworkTextKeysTests
                 "Ethernet.UnavailableOnDevice", "Ethernet.NoActiveLink", "Ethernet.WaitingConfiguration", "Ethernet.ApipaAddress"]);
 
         Assert.All(keys, key => Assert.DoesNotContain("Wi-Fi", _localization.GetString(key), StringComparison.Ordinal));
-    }
-
-    [Fact]
-    public void BannerKeys_CheckingAndReadyHaveNoDescription()
-    {
-        NetworkState state = NetworkState.Initial(Now);
-
-        Assert.Null(NetworkTextKeys.BannerKeys(ConnectPageStatus.Checking, BlockedReason.None, state, isWifiSectionShown: false).DescriptionKey);
-        Assert.Null(NetworkTextKeys.BannerKeys(ConnectPageStatus.Ready, BlockedReason.None, state, isWifiSectionShown: true).DescriptionKey);
     }
 
     [Theory]

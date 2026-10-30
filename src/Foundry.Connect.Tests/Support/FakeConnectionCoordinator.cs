@@ -24,12 +24,6 @@ internal sealed class FakeConnectionCoordinator : IConnectionCoordinator
     /// <inheritdoc />
     public event EventHandler? UnlockRequested;
 
-    /// <summary>
-    /// Gets or sets the result of <see cref="RefreshProvisionedWifiAsync"/>; <see langword="null"/> returns the provisioned
-    /// state of <see cref="State"/>.
-    /// </summary>
-    public ProvisionedWifiState? RefreshResult { get; set; }
-
     /// <summary>Gets the number of <see cref="RefreshProvisionedWifiAsync"/> calls.</summary>
     public int RefreshProvisionedWifiCalls { get; private set; }
 
@@ -97,7 +91,7 @@ internal sealed class FakeConnectionCoordinator : IConnectionCoordinator
     public Task<ProvisionedWifiState> RefreshProvisionedWifiAsync(CancellationToken cancellationToken)
     {
         RefreshProvisionedWifiCalls++;
-        return Task.FromResult(RefreshResult ?? State.Wifi.Provisioned);
+        return Task.FromResult(State.Wifi.Provisioned);
     }
 
     /// <inheritdoc />

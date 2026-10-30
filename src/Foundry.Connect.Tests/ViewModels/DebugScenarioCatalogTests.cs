@@ -106,7 +106,7 @@ public sealed class DebugScenarioCatalogTests
     }
 
     [Fact]
-    public void NewScenarios_CarryTheirDefiningState()
+    public void LockedAuthenticatingAndWifiOnlyScenarios_CarryTheirDefiningState()
     {
         ProvisionedWifiState locked = DebugScenarioCatalog.Create(ConnectDebugScenario.ProvisionedWifiLocked, Now).Wifi.Provisioned;
         Assert.Equal(ProvisionedWifiStatus.Locked, locked.Status);

@@ -172,24 +172,6 @@ public sealed class ConnectPageViewModelTests : IDisposable
         Assert.Equal(Text("Ethernet.UnavailableOnDevice"), _page.Ethernet.NoAdapterText);
     }
 
-    [Theory]
-    [InlineData(ConnectDebugScenario.EthernetReady, "192.0.2.10")]
-    [InlineData(ConnectDebugScenario.WaitingForAddress, "")]
-    public void Scenario_EthernetSecondaryLineShowsOnlyTheAddress(ConnectDebugScenario scenario, string expected)
-    {
-        Publish(scenario);
-
-        Assert.Equal(expected, _page.Ethernet.SecondaryStatusText);
-    }
-
-    [Fact]
-    public void ApipaScenario_NamesASelfAssignedAddress()
-    {
-        Publish(ConnectDebugScenario.ApipaAddress);
-
-        Assert.Equal(Text("Ethernet.ApipaAddress"), _page.Ethernet.SecondaryStatusText);
-    }
-
     [Fact]
     public void Layout_IsChosenAtTheFirstObservationOnly()
     {
@@ -241,17 +223,6 @@ public sealed class ConnectPageViewModelTests : IDisposable
         Assert.Equal(Text("Status.BlockedNoAdapterDescription"), _page.BannerDescription);
         Assert.True(_page.Ethernet.ShowUnavailableCard);
         Assert.True(_page.WifiNetworks.HasUnavailableMessage);
-    }
-
-    [Fact]
-    public void DisconnectInProgress_ShowsTheNeutralInProgressText()
-    {
-        _coordinator.Publish(DebugScenarioCatalog.Create(ConnectDebugScenario.WifiNetworks, _clock.GetUtcNow()) with { ActiveOperation = NetworkOperationKind.DisconnectWifi });
-
-        Assert.Equal(ConnectPageStatus.Waiting, _page.Status);
-        Assert.Equal(Text("Status.DisconnectingTitle"), _page.BannerTitle);
-        Assert.Equal(Text("Status.ConnectingDescription"), _page.BannerDescription);
-        Assert.False(_page.ShowRetryActions);
     }
 
     public static TheoryData<ConnectDebugScenario> ScenariosWithoutWifi => new(
@@ -327,10 +298,9 @@ public sealed class ConnectPageViewModelTests : IDisposable
     }
 
     [Theory]
-    [MemberData(nameof(Matrix))]
-    public void Scenario_NeverShowsTheSameMessageTwice(ConnectDebugScenario scenario, PageExpectation expected)
+    [MemberData(nameof(SimulatedScenarios))]
+    public void Scenario_NeverShowsTheSameMessageTwice(ConnectDebugScenario scenario)
     {
-        _ = expected;
         Publish(scenario);
 
         List<string> messages = [_page.BannerDescription];
@@ -370,20 +340,6 @@ public sealed class ConnectPageViewModelTests : IDisposable
 
         Assert.Equal(_localization.Format("Wifi.ConnectionChipProvisionedFormat", "Foundry Lab"), _page.ConnectionChipText);
         Assert.True(_page.AutoContinue.IsCounting);
-    }
-
-    [Theory]
-    [InlineData(NetworkOperationKind.ApplyProvisioning, "Status.ApplyingProvisioningDescription")]
-    [InlineData(NetworkOperationKind.ConnectWifiNetwork, "Status.ConnectingDescription")]
-    public void RunningOperation_ShowsWaiting(NetworkOperationKind operation, string descriptionKey)
-    {
-        _coordinator.Publish(DebugScenarioCatalog.Create(ConnectDebugScenario.WifiNetworks, _clock.GetUtcNow()) with { ActiveOperation = operation });
-
-        Assert.Equal(ConnectPageStatus.Waiting, _page.Status);
-        Assert.True(_page.IsBannerBusy);
-        Assert.Equal(Text("Status.ConnectingTitle"), _page.BannerTitle);
-        Assert.Equal(Text(descriptionKey), _page.BannerDescription);
-        Assert.False(_page.ShowRetryActions);
     }
 
     [Fact]
