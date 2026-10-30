@@ -68,6 +68,7 @@ public partial class CustomProgressRing : UserControl
         InitializeComponent();
         Loaded += OnLoaded;
         SizeChanged += OnSizeChanged;
+        IsVisibleChanged += OnIsVisibleChanged;
         Unloaded += OnUnloaded;
     }
 
@@ -127,6 +128,16 @@ public partial class CustomProgressRing : UserControl
     private void OnSizeChanged(object sender, SizeChangedEventArgs e)
     {
         UpdateVisuals();
+    }
+
+    // A collapsed ring reports a zero size, so a change made while it is collapsed draws nothing. Shown again at its
+    // previous size, WPF raises no SizeChanged: draw here, where ActualWidth already holds that size again.
+    private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        if ((bool)e.NewValue)
+        {
+            UpdateVisuals();
+        }
     }
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
