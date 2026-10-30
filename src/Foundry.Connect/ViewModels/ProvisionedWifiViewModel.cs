@@ -6,14 +6,16 @@ using CommunityToolkit.Mvvm.Input;
 using Foundry.Connect.Network;
 using Foundry.Connect.Network.Policy;
 using Foundry.Core.Models.Configuration;
+using Foundry.Wpf.Controls;
 using Foundry.Wpf.Localization;
 using Foundry.Wpf.ViewModels;
 
 namespace Foundry.Connect.ViewModels;
 
 /// <summary>
-/// The provisioned Wi-Fi card: the profile from the media configuration, its status, connect and disconnect, and the
-/// unavailable state with its reason, and the locked state whose Connect button asks for the deployment password.
+/// The provisioned Wi-Fi card: the profile from the media configuration, a status pill, one message (the unavailable
+/// reason, the locked text or the last feedback) and one action button that connects or disconnects. A locked
+/// profile's Connect asks for the deployment password.
 /// </summary>
 /// <remarks>
 /// Every text is derived from the typed <see cref="WifiState"/> and resolved on demand, so a language change only needs
@@ -46,6 +48,12 @@ public sealed partial class ProvisionedWifiViewModel : LocalizedViewModelBase
         _actions = actions ?? throw new ArgumentNullException(nameof(actions));
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
     }
+
+    /// <summary>
+    /// Raised on the UI thread once each time a command run by this view model ends (never after <see cref="Dispose"/>),
+    /// so the view can return the keyboard focus to the card's action button when WPF lost it.
+    /// </summary>
+    public event EventHandler? ActionFocusRequested;
 
     /// <summary>
     /// Gets whether the card is shown: a profile is configured and Wi-Fi works on this machine.
@@ -115,13 +123,46 @@ public sealed partial class ProvisionedWifiViewModel : LocalizedViewModelBase
     /// </summary>
     public bool HasFeedback => _feedbackKey is not null;
 
+    /// <summary>
+    /// Gets the card's single message, in order: the unavailable reason, else the locked text, else the last feedback,
+    /// else an empty string. Feedback is hidden while the profile is unavailable or locked.
+    /// </summary>
+    public string MessageText => IsUnavailable ? UnavailableText : IsLocked ? LockedText : FeedbackText;
+
+    /// <summary>
+    /// Gets the severity glyph of <see cref="MessageText"/>: warning for the unavailable reason, informational for the
+    /// locked text, error for a feedback.
+    /// </summary>
+    public InfoBarSeverity MessageSeverity => IsUnavailable ? InfoBarSeverity.Warning : IsLocked ? InfoBarSeverity.Informational : InfoBarSeverity.Error;
+
+    /// <summary>
+    /// Gets whether the card shows a message.
+    /// </summary>
+    public bool HasMessage => MessageText.Length > 0;
+
+    /// <summary>
+    /// Gets whether the action button is shown: hidden while the profile is unavailable.
+    /// </summary>
+    public bool ShowPrimaryAction => !IsUnavailable;
+
+    /// <summary>
+    /// Gets the label of the action button: Disconnect when the provisioned profile is connected, else Connect.
+    /// </summary>
+    public string PrimaryActionText => LocalizationService.GetString(IsConnected ? "Action.Disconnect" : "Action.Connect");
+
+    /// <summary>
+    /// Gets the automation name of the action button.
+    /// </summary>
+    public string PrimaryActionAutomationName => LocalizationService.GetString(
+        IsConnected ? "Wifi.DisconnectProvisionedAutomationName" : "Wifi.ConnectProvisionedAutomationName");
+
     private string StatusKey
     {
         get
         {
             if (IsUnavailable)
             {
-                return "Wifi.ProvisionedUnavailableTitle";
+                return "Common.Unavailable";
             }
 
             if (IsLocked)
@@ -158,6 +199,8 @@ public sealed partial class ProvisionedWifiViewModel : LocalizedViewModelBase
         && !IsConnected;
 
     private bool CanDisconnect => !_isCommandRunning && _activeOperation is null && IsConnected;
+
+    private bool CanRunPrimaryAction => IsConnected ? CanDisconnect : CanConnect;
 
     /// <summary>
     /// Applies the latest wireless state. An outcome that is a new instance and belongs to a provisioned connect
@@ -210,8 +253,7 @@ public sealed partial class ProvisionedWifiViewModel : LocalizedViewModelBase
             outcome.Failures.Any(static failure => failure is NetworkFailureCode.WifiCertificateImportFailed or NetworkFailureCode.WifiProfileRejected))
         {
             _feedbackKey = "Wifi.ActionApplyProvisionedFailed";
-            OnPropertyChanged(nameof(FeedbackText));
-            OnPropertyChanged(nameof(HasFeedback));
+            RaiseFeedback();
         }
     }
 
@@ -242,6 +284,10 @@ public sealed partial class ProvisionedWifiViewModel : LocalizedViewModelBase
     [RelayCommand(CanExecute = nameof(CanDisconnect))]
     private Task DisconnectAsync() => RunAsync(_actions.DisconnectWifiAsync);
 
+    // One command for the card's single button, so the button keeps its command while it turns from Connect to Disconnect.
+    [RelayCommand(CanExecute = nameof(CanRunPrimaryAction))]
+    private Task PrimaryActionAsync() => IsConnected ? DisconnectAsync() : ConnectAsync();
+
     private async Task RunAsync(Func<CancellationToken, Task<OperationOutcome>> action)
     {
         if (_isDisposed)
@@ -261,14 +307,14 @@ public sealed partial class ProvisionedWifiViewModel : LocalizedViewModelBase
             }
 
             _feedbackKey = NetworkTextKeys.OutcomeKey(outcome, provisionedPanel: true);
-            OnPropertyChanged(nameof(FeedbackText));
-            OnPropertyChanged(nameof(HasFeedback));
+            RaiseFeedback();
         }
         finally
         {
             if (!_isDisposed)
             {
                 SetCommandRunning(false);
+                ActionFocusRequested?.Invoke(this, EventArgs.Empty);
             }
         }
     }
@@ -283,6 +329,16 @@ public sealed partial class ProvisionedWifiViewModel : LocalizedViewModelBase
     {
         ConnectCommand.NotifyCanExecuteChanged();
         DisconnectCommand.NotifyCanExecuteChanged();
+        PrimaryActionCommand.NotifyCanExecuteChanged();
+    }
+
+    private void RaiseFeedback()
+    {
+        OnPropertyChanged(nameof(FeedbackText));
+        OnPropertyChanged(nameof(HasFeedback));
+        OnPropertyChanged(nameof(MessageText));
+        OnPropertyChanged(nameof(MessageSeverity));
+        OnPropertyChanged(nameof(HasMessage));
     }
 
     private void RaiseAll()
@@ -297,8 +353,10 @@ public sealed partial class ProvisionedWifiViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(UnavailableText));
         OnPropertyChanged(nameof(IsLocked));
         OnPropertyChanged(nameof(LockedText));
-        OnPropertyChanged(nameof(FeedbackText));
-        OnPropertyChanged(nameof(HasFeedback));
+        OnPropertyChanged(nameof(ShowPrimaryAction));
+        OnPropertyChanged(nameof(PrimaryActionText));
+        OnPropertyChanged(nameof(PrimaryActionAutomationName));
+        RaiseFeedback();
         NotifyCommands();
     }
 }

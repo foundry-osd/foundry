@@ -2,11 +2,13 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using CommunityToolkit.Mvvm.Input;
 using Foundry.Connect.Network;
 using Foundry.Connect.Security;
 using Foundry.Connect.Tests.Support;
 using Foundry.Connect.ViewModels;
 using Foundry.Core.Models.Configuration;
+using Foundry.Wpf.Controls;
 using Foundry.Wpf.Localization;
 
 namespace Foundry.Connect.Tests.ViewModels;
@@ -77,7 +79,10 @@ public sealed class ProvisionedWifiViewModelTests : IDisposable
 
         Assert.True(viewModel.IsUnavailable);
         Assert.Equal(_localization.GetString(key), viewModel.UnavailableText);
-        Assert.Equal(_localization.GetString("Wifi.ProvisionedUnavailableTitle"), viewModel.StatusText);
+        Assert.Equal(_localization.GetString("Common.Unavailable"), viewModel.StatusText);
+        Assert.Equal(_localization.GetString(key), viewModel.MessageText);
+        Assert.Equal(InfoBarSeverity.Warning, viewModel.MessageSeverity);
+        Assert.False(viewModel.ShowPrimaryAction);
         Assert.False(viewModel.ConnectCommand.CanExecute(null));
     }
 
@@ -95,7 +100,97 @@ public sealed class ProvisionedWifiViewModelTests : IDisposable
         Assert.False(viewModel.IsUnavailable);
         Assert.Equal(_localization.GetString("Wifi.StatusLocked"), viewModel.StatusText);
         Assert.Equal(_localization.GetString(key), viewModel.LockedText);
+        Assert.Equal(_localization.GetString(key), viewModel.MessageText);
+        Assert.Equal(InfoBarSeverity.Informational, viewModel.MessageSeverity);
         Assert.True(viewModel.ConnectCommand.CanExecute(null));
+        Assert.True(viewModel.PrimaryActionCommand.CanExecute(null));
+    }
+
+    [Fact]
+    public async Task Feedback_IsTheMessageOnlyWhileTheProfileIsUsable()
+    {
+        ProvisionedWifiViewModel viewModel = Create();
+        viewModel.Apply(Wifi(WifiAvailability.Available, Ready()), null, null);
+        _coordinator.Outcomes.Enqueue(OperationOutcome.Failed(NetworkOperationKind.ConnectProvisionedWifi, NetworkFailureCode.ConnectTimedOut));
+        await viewModel.ConnectCommand.ExecuteAsync(null);
+        Assert.Equal(_localization.GetString("Wifi.ActionConnectTimedOut"), viewModel.MessageText);
+        Assert.Equal(InfoBarSeverity.Error, viewModel.MessageSeverity);
+
+        viewModel.Apply(Wifi(WifiAvailability.Available, new ProvisionedWifiState(ProvisionedWifiStatus.Unavailable, ProvisionedWifiUnavailableReason.SecretUnavailable, Lab)), null, null);
+        Assert.Equal(_localization.GetString("Wifi.ProvisionedUnavailableSecret"), viewModel.MessageText);
+
+        viewModel.Apply(Wifi(WifiAvailability.Available, new ProvisionedWifiState(ProvisionedWifiStatus.Locked, ProvisionedWifiUnavailableReason.UnlockCancelled, Lab)), null, null);
+        Assert.Equal(_localization.GetString("Wifi.ProvisionedUnlockCancelled"), viewModel.MessageText);
+    }
+
+    [Fact]
+    public async Task AdapterLostDuringConnect_GivesNoFeedback()
+    {
+        ProvisionedWifiViewModel viewModel = Create();
+        viewModel.Apply(Wifi(WifiAvailability.Available, Ready()), null, null);
+        _coordinator.Outcomes.Enqueue(OperationOutcome.Failed(NetworkOperationKind.ConnectProvisionedWifi, NetworkFailureCode.NoWirelessAdapter));
+
+        await viewModel.ConnectCommand.ExecuteAsync(null);
+
+        Assert.False(viewModel.HasFeedback);
+        Assert.False(viewModel.HasMessage);
+    }
+
+    [Fact]
+    public void ReadyWithoutFeedback_HasNoMessage()
+    {
+        ProvisionedWifiViewModel viewModel = Create();
+
+        viewModel.Apply(Wifi(WifiAvailability.Available, Ready()), null, null);
+
+        Assert.False(viewModel.HasMessage);
+        Assert.Equal(string.Empty, viewModel.MessageText);
+    }
+
+    [Fact]
+    public async Task PrimaryAction_IsOneCommandFromConnectToDisconnect()
+    {
+        ProvisionedWifiViewModel viewModel = Create();
+        viewModel.Apply(Wifi(WifiAvailability.Available, Ready()), null, null);
+        IAsyncRelayCommand command = viewModel.PrimaryActionCommand;
+        Assert.Equal(_localization.GetString("Action.Connect"), viewModel.PrimaryActionText);
+        Assert.Equal(_localization.GetString("Wifi.ConnectProvisionedAutomationName"), viewModel.PrimaryActionAutomationName);
+
+        await command.ExecuteAsync(null);
+        viewModel.Apply(Wifi(WifiAvailability.Available, Ready(), ProvisionedConnection), null, null);
+
+        Assert.Same(command, viewModel.PrimaryActionCommand);
+        Assert.Equal(1, _coordinator.ConnectProvisionedCalls);
+        Assert.Equal(_localization.GetString("Action.Disconnect"), viewModel.PrimaryActionText);
+        Assert.Equal(_localization.GetString("Wifi.DisconnectProvisionedAutomationName"), viewModel.PrimaryActionAutomationName);
+        Assert.True(command.CanExecute(null));
+
+        await command.ExecuteAsync(null);
+        Assert.Equal(1, _coordinator.DisconnectCalls);
+    }
+
+    [Fact]
+    public void PrimaryAction_IsDisabledWhileAnOperationRuns()
+    {
+        ProvisionedWifiViewModel viewModel = Create();
+
+        viewModel.Apply(Wifi(WifiAvailability.Available, Ready()), NetworkOperationKind.ConnectProvisionedWifi, null);
+
+        Assert.False(viewModel.PrimaryActionCommand.CanExecute(null));
+        Assert.Equal(_localization.GetString("Status.ConnectingTitle"), viewModel.StatusText);
+    }
+
+    [Fact]
+    public async Task Command_RequestsTheActionFocusOnceWhenItEnds()
+    {
+        ProvisionedWifiViewModel viewModel = Create();
+        viewModel.Apply(Wifi(WifiAvailability.Available, Ready()), null, null);
+        int requests = 0;
+        viewModel.ActionFocusRequested += (_, _) => requests++;
+
+        await viewModel.PrimaryActionCommand.ExecuteAsync(null);
+
+        Assert.Equal(1, requests);
     }
 
     [Fact]
