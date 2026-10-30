@@ -82,6 +82,9 @@ Licencirano pod MIT licencom.</value>
   <data name="Debug.Scenario.Checking" xml:space="preserve">
     <value>Provera mreže</value>
   </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet: potvrda autentičnosti 802.1X je u toku</value>
+  </data>
   <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
     <value>Ethernet: 802.1X nije uspeo</value>
   </data>
@@ -103,14 +106,23 @@ Licencirano pod MIT licencom.</value>
   <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
     <value>Nema Wi-Fi adaptera</value>
   </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>Obezbeđena Wi-Fi mreža: potrebna je lozinka</value>
+  </data>
   <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
     <value>Obezbeđena Wi-Fi mreža nije dostupna</value>
   </data>
   <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
     <value>Ethernet: čeka se adresa</value>
   </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>Obezbeđena Wi-Fi mreža: povezivanje</value>
+  </data>
   <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
     <value>Wi-Fi mreže</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>Nema Ethernet adaptera, Wi-Fi mreže</value>
   </data>
   <data name="Debug.Scenario.WifiReady" xml:space="preserve">
     <value>Wi-Fi: spreman</value>
@@ -156,7 +168,7 @@ Licencirano pod MIT licencom.</value>
     <value>Adapter</value>
   </data>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
-    <value>Automatski dodeljena adresa: DHCP server nije odgovorio</value>
+    <value>Automatski dodeljena adresa</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>Proverite vezu kabla</value>
@@ -195,7 +207,7 @@ Licencirano pod MIT licencom.</value>
     <value>Nije moguće pročitati lozinku 802.1X sertifikata. Ponovo napravite medijum za pokretanje.</value>
   </data>
   <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
-    <value>Lozinka za primenu nije uneta, pa postavke 802.1X nisu primenjene. Ethernet bez 802.1X i Wi-Fi i dalje rade.</value>
+    <value>Lozinka za primenu nije uneta, pa postavke 802.1X nisu primenjene.</value>
   </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Nedostupno</value>
@@ -217,6 +229,9 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>Ethernet nije dostupan na ovom uređaju.</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Čeka se konfiguracija mreže</value>
@@ -381,10 +396,22 @@ Licencirano pod MIT licencom.</value>
     <value>Automatski nastavak je pauziran jer ste promenili mrežne postavke.</value>
   </data>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
-    <value>Ova mreža zahteva prijavljivanje na veb stranici.</value>
+    <value>Mreža je umesto pristupa internetu odgovorila stranicom za prijavljivanje. Prijavite se sa drugog uređaja ako mreža to dozvoljava ili koristite drugu mrežu, a zatim izaberite Pokušaj ponovo.</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>Žična potvrda autentičnosti 802.1X nije uspela. Razlog je prikazan u odeljku Ethernet.</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>Nema mrežne veze. Povežite se sa Wi-Fi mrežom.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Nije otkriven mrežni adapter. Priključite podržani Ethernet ili Wi-Fi adapter, a zatim izaberite Pokušaj ponovo.</value>
+    <value>Nema dostupnog mrežnog adaptera. Proverite odeljke Ethernet i Wi-Fi, a zatim izaberite Pokušaj ponovo.</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>Nema mrežne veze. Priključite Ethernet kabl.</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>Nema dostupnog mrežnog adaptera. Proverite odeljak Ethernet, a zatim izaberite Pokušaj ponovo.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Mreža je povezana, ali ne može da pristupi internetu. Proverite zaštitni zid ili proksi, a zatim izaberite Pokušaj ponovo.</value>
@@ -409,6 +436,12 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="Status.ConnectingTitle" xml:space="preserve">
     <value>Povezivanje</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>Prekidanje veze</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>Žična potvrda autentičnosti 802.1X je u toku.</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>Pristup internetu je potvrđen. Sada možete nastaviti.</value>
@@ -558,7 +591,7 @@ Licencirano pod MIT licencom.</value>
     <value>Lozinka obezbeđene Wi-Fi mreže ne ispunjava zahteve mreže. Ponovo napravite medijum za pokretanje.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
-    <value>Nije moguće pročitati lozinku obezbeđene Wi-Fi mreže sa ovog medijuma za pokretanje. Ponovo napravite medijum za pokretanje. Ethernet i druge Wi-Fi mreže i dalje rade.</value>
+    <value>Nije moguće pročitati lozinku obezbeđene Wi-Fi mreže sa ovog medijuma za pokretanje. Ponovo napravite medijum za pokretanje.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>Na medijumu za pokretanje nedostaje Wi-Fi profil preduzeća. Ponovo napravite medijum za pokretanje.</value>
@@ -567,7 +600,7 @@ Licencirano pod MIT licencom.</value>
     <value>Obezbeđena Wi-Fi mreža nije dostupna</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
-    <value>Lozinka za primenu nije uneta. Izaberite Povežite se da biste je uneli. Ethernet i druge Wi-Fi mreže i dalje rade.</value>
+    <value>Lozinka za primenu nije uneta. Izaberite Povežite se da biste je uneli.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Osvežite Wi-Fi mreže</value>
@@ -631,6 +664,9 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
     <value>Wi-Fi podrška nije dostupna u ovom okruženju za pokretanje.</value>
+  </data>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>Wi-Fi nije dostupan na ovom uređaju.</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>Neimenovani obezbeđeni profil</value>

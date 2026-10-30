@@ -82,6 +82,9 @@
   <data name="Debug.Scenario.Checking" xml:space="preserve">
     <value>جارٍ فحص الشبكة</value>
   </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet: جارٍ مصادقة 802.1X</value>
+  </data>
   <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
     <value>Ethernet: فشل 802.1X</value>
   </data>
@@ -103,14 +106,23 @@
   <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
     <value>لا يوجد محول Wi-Fi</value>
   </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>شبكة Wi-Fi الموفّرة: كلمة المرور مطلوبة</value>
+  </data>
   <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
     <value>شبكة Wi-Fi الموفّرة غير متاحة</value>
   </data>
   <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
     <value>Ethernet: في انتظار عنوان</value>
   </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>شبكة Wi-Fi الموفّرة: جارٍ الاتصال</value>
+  </data>
   <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
     <value>شبكات Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>لا يوجد محول Ethernet، شبكات Wi-Fi</value>
   </data>
   <data name="Debug.Scenario.WifiReady" xml:space="preserve">
     <value>Wi-Fi: جاهز</value>
@@ -156,7 +168,7 @@
     <value>محول</value>
   </data>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
-    <value>عنوان معيّن ذاتيًا: لم يستجب خادم DHCP</value>
+    <value>عنوان معيّن ذاتيًا</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>تحقق من اتصال الكابل</value>
@@ -195,7 +207,7 @@
     <value>تتعذر قراءة كلمة مرور شهادة 802.1X. أعد إنشاء وسائط التمهيد.</value>
   </data>
   <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
-    <value>لم يتم إدخال كلمة مرور النشر، لذلك لم يتم تطبيق إعدادات 802.1X. لا تزال شبكة Ethernet بدون 802.1X وشبكة Wi-Fi تعمل.</value>
+    <value>لم يتم إدخال كلمة مرور النشر، لذلك لم يتم تطبيق إعدادات 802.1X.</value>
   </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>غير متاح</value>
@@ -217,6 +229,9 @@
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>شبكة Ethernet غير متاحة على هذا الجهاز.</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>في انتظار تكوين الشبكة</value>
@@ -381,10 +396,22 @@
     <value>تم إيقاف المتابعة التلقائية مؤقتًا لأنك غيّرت إعدادات الشبكة.</value>
   </data>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
-    <value>تتطلب هذه الشبكة تسجيل الدخول عبر صفحة ويب.</value>
+    <value>استجابت الشبكة بصفحة تسجيل دخول بدلاً من الوصول إلى الإنترنت. سجّل الدخول من جهاز آخر إذا كانت الشبكة تسمح بذلك، أو استخدم شبكة أخرى، ثم حدد إعادة المحاولة.</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>لم تنجح مصادقة 802.1X السلكية. يظهر السبب في قسم Ethernet.</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>لا يوجد اتصال بالشبكة. انضم إلى شبكة Wi-Fi.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>لم يتم اكتشاف أي محول شبكة. وصّل محول Ethernet أو Wi-Fi مدعومًا، ثم حدد إعادة المحاولة.</value>
+    <value>لا يتوفر أي محول شبكة. تحقق من قسمي Ethernet وWi-Fi، ثم حدد إعادة المحاولة.</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>لا يوجد اتصال بالشبكة. وصّل كبل Ethernet.</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>لا يتوفر أي محول شبكة. تحقق من قسم Ethernet، ثم حدد إعادة المحاولة.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>الشبكة متصلة ولكن لا يمكنها الوصول إلى الإنترنت. تحقق من جدار الحماية أو الوكيل، ثم حدد إعادة المحاولة.</value>
@@ -409,6 +436,12 @@
   </data>
   <data name="Status.ConnectingTitle" xml:space="preserve">
     <value>جارٍ الاتصال</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>جارٍ قطع الاتصال</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>جارٍ تنفيذ مصادقة 802.1X السلكية.</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>تم التحقق من صحة الوصول إلى الإنترنت. يمكنك الاستمرار الآن.</value>
@@ -558,7 +591,7 @@
     <value>كلمة مرور شبكة Wi-Fi الموفّرة لا تستوفي متطلبات الشبكة. أعد إنشاء وسائط التمهيد.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
-    <value>تتعذر قراءة كلمة مرور شبكة Wi-Fi الموفّرة من وسائط التمهيد هذه. أعد إنشاء وسائط التمهيد. لا تزال شبكة Ethernet وشبكات Wi-Fi الأخرى تعمل.</value>
+    <value>تتعذر قراءة كلمة مرور شبكة Wi-Fi الموفّرة من وسائط التمهيد هذه. أعد إنشاء وسائط التمهيد.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>ملف تعريف Wi-Fi الخاص بالمؤسسة مفقود من وسائط التمهيد. أعد إنشاء وسائط التمهيد.</value>
@@ -567,7 +600,7 @@
     <value>شبكة Wi-Fi الموفّرة غير متاحة</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
-    <value>لم يتم إدخال كلمة مرور النشر. حدد الاتصال لإدخالها. لا تزال شبكة Ethernet وشبكات Wi-Fi الأخرى تعمل.</value>
+    <value>لم يتم إدخال كلمة مرور النشر. حدد الاتصال لإدخالها.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>قم بتحديث الشبكات Wi-Fi</value>
@@ -631,6 +664,9 @@
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
     <value>الدعم Wi-Fi غير متوفر في بيئة التمهيد هذه.</value>
+  </data>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>شبكة Wi-Fi غير متاحة على هذا الجهاز.</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>ملف تعريف تم توفيره بدون اسم</value>

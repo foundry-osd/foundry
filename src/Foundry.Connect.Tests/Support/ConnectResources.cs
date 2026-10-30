@@ -22,4 +22,12 @@ internal static class ConnectResources
     /// <returns><see langword="true"/> when the neutral set holds a non-empty value for the key.</returns>
     public static bool Exists(string key) =>
         !string.IsNullOrEmpty(Manager.GetResourceSet(CultureInfo.InvariantCulture, createIfNotExists: true, tryParents: false)?.GetString(key));
+
+    /// <summary>
+    /// Gets the neutral (en-US) value of a key, or <see langword="null"/>.
+    /// </summary>
+    /// <param name="key">Resource key.</param>
+    /// <returns>The neutral value.</returns>
+    public static string? NeutralValue(string key) =>
+        Manager.GetResourceSet(CultureInfo.InvariantCulture, createIfNotExists: true, tryParents: false)?.GetString(key);
 }

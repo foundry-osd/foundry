@@ -82,6 +82,9 @@ Licenseret under MIT-licensen.</value>
   <data name="Debug.Scenario.Checking" xml:space="preserve">
     <value>Kontrollerer netværket</value>
   </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet: 802.1X-godkendelse i gang</value>
+  </data>
   <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
     <value>Ethernet: 802.1X mislykkedes</value>
   </data>
@@ -103,14 +106,23 @@ Licenseret under MIT-licensen.</value>
   <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
     <value>Ingen Wi-Fi-adapter</value>
   </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>Klargjort Wi-Fi: adgangskode påkrævet</value>
+  </data>
   <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
     <value>Klargjort Wi-Fi ikke tilgængeligt</value>
   </data>
   <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
     <value>Ethernet: venter på en adresse</value>
   </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>Klargjort Wi-Fi: opretter forbindelse</value>
+  </data>
   <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
     <value>Wi-Fi-netværk</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>Ingen Ethernet-adapter, Wi-Fi-netværk</value>
   </data>
   <data name="Debug.Scenario.WifiReady" xml:space="preserve">
     <value>Wi-Fi: klar</value>
@@ -156,7 +168,7 @@ Licenseret under MIT-licensen.</value>
     <value>Adapter</value>
   </data>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
-    <value>Selvtildelt adresse: DHCP-serveren svarede ikke</value>
+    <value>Selvtildelt adresse</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>Kontroller kabelforbindelsen</value>
@@ -195,7 +207,7 @@ Licenseret under MIT-licensen.</value>
     <value>Adgangskoden til 802.1X-certifikatet kan ikke læses. Opret startmediet igen.</value>
   </data>
   <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
-    <value>Adgangskoden til installation blev ikke angivet, så 802.1X-indstillingerne blev ikke anvendt. Ethernet uden 802.1X og Wi-Fi fungerer stadig.</value>
+    <value>Adgangskoden til installation blev ikke angivet, så 802.1X-indstillingerne blev ikke anvendt.</value>
   </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Ikke tilgængelig</value>
@@ -217,6 +229,9 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>Ethernet er ikke tilgængeligt på denne enhed.</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Venter på netværkskonfiguration</value>
@@ -381,10 +396,22 @@ Licenseret under MIT-licensen.</value>
     <value>Automatisk fortsættelse er sat på pause, fordi du har ændret netværksindstillingerne.</value>
   </data>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
-    <value>Dette netværk kræver login på en webside.</value>
+    <value>Netværket svarede med en loginside i stedet for internetadgang. Log på fra en anden enhed, hvis netværket tillader det, eller brug et andet netværk, og vælg derefter Prøv igen.</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>Kablet 802.1X-godkendelse lykkedes ikke. Årsagen vises i afsnittet Ethernet.</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>Ingen netværksforbindelse. Opret forbindelse til et Wi-Fi-netværk.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Der blev ikke fundet nogen netværksadapter. Tilslut en understøttet Ethernet- eller Wi-Fi-adapter, og vælg derefter Prøv igen.</value>
+    <value>Der er ingen tilgængelig netværksadapter. Kontrollér afsnittene Ethernet og Wi-Fi, og vælg derefter Prøv igen.</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>Ingen netværksforbindelse. Tilslut et Ethernet-kabel.</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>Der er ingen tilgængelig netværksadapter. Kontrollér afsnittet Ethernet, og vælg derefter Prøv igen.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Netværket er forbundet, men kan ikke nå internettet. Kontrollér firewallen eller proxyen, og vælg derefter Prøv igen.</value>
@@ -409,6 +436,12 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="Status.ConnectingTitle" xml:space="preserve">
     <value>Opretter forbindelse</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>Afbryder forbindelsen</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>Kablet 802.1X-godkendelse er i gang.</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>Internetadgang er blevet valideret. Du kan fortsætte nu.</value>
@@ -558,7 +591,7 @@ Licenseret under MIT-licensen.</value>
     <value>Den klargjorte Wi-Fi-adgangskode opfylder ikke netværkets krav. Opret startmediet igen.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
-    <value>Den klargjorte Wi-Fi-adgangskode kan ikke læses fra dette startmedie. Opret startmediet igen. Ethernet og andre Wi-Fi-netværk fungerer stadig.</value>
+    <value>Den klargjorte Wi-Fi-adgangskode kan ikke læses fra dette startmedie. Opret startmediet igen.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>Virksomhedens Wi-Fi-profil mangler på startmediet. Opret startmediet igen.</value>
@@ -567,7 +600,7 @@ Licenseret under MIT-licensen.</value>
     <value>Klargjort Wi-Fi ikke tilgængeligt</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
-    <value>Adgangskoden til installation blev ikke angivet. Vælg Forbind for at angive den. Ethernet og andre Wi-Fi-netværk fungerer stadig.</value>
+    <value>Adgangskoden til installation blev ikke angivet. Vælg Forbind for at angive den.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Opdater Wi-Fi netværk</value>
@@ -631,6 +664,9 @@ Licenseret under MIT-licensen.</value>
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
     <value>Wi-Fi support er ikke tilgængelig i dette opstartsmiljø.</value>
+  </data>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>Wi-Fi er ikke tilgængeligt på denne enhed.</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>Unavngivet klargjort profil</value>

@@ -82,6 +82,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Debug.Scenario.Checking" xml:space="preserve">
     <value>Netwerk controleren</value>
   </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet: bezig met 802.1X-verificatie</value>
+  </data>
   <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
     <value>Ethernet: 802.1X mislukt</value>
   </data>
@@ -103,14 +106,23 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
     <value>Geen Wi-Fi-adapter</value>
   </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>Ingerichte Wi-Fi: wachtwoord vereist</value>
+  </data>
   <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
     <value>Ingerichte Wi-Fi niet beschikbaar</value>
   </data>
   <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
     <value>Ethernet: wachten op een adres</value>
   </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>Ingerichte Wi-Fi: verbinding maken</value>
+  </data>
   <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
     <value>Wi-Fi-netwerken</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>Geen Ethernet-adapter, Wi-Fi-netwerken</value>
   </data>
   <data name="Debug.Scenario.WifiReady" xml:space="preserve">
     <value>Wi-Fi: gereed</value>
@@ -156,7 +168,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Adapter</value>
   </data>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
-    <value>Zelf toegewezen adres: de DHCP-server heeft niet geantwoord</value>
+    <value>Zelf toegewezen adres</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>Controleer de kabelaansluiting</value>
@@ -195,7 +207,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Het wachtwoord van het 802.1X-certificaat kan niet worden gelezen. Maak het opstartmedium opnieuw.</value>
   </data>
   <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
-    <value>Het implementatiewachtwoord is niet ingevoerd, dus de 802.1X-instellingen zijn niet toegepast. Ethernet zonder 802.1X en Wi-Fi werken nog steeds.</value>
+    <value>Het implementatiewachtwoord is niet ingevoerd, dus de 802.1X-instellingen zijn niet toegepast.</value>
   </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Niet beschikbaar</value>
@@ -217,6 +229,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>Ethernet is niet beschikbaar op dit apparaat.</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Wachten op netwerkconfiguratie</value>
@@ -381,10 +396,22 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Automatisch doorgaan is onderbroken omdat u netwerkinstellingen hebt gewijzigd.</value>
   </data>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
-    <value>Voor dit netwerk moet u zich aanmelden op een webpagina.</value>
+    <value>Het netwerk antwoordde met een aanmeldpagina in plaats van internettoegang. Meld u aan vanaf een ander apparaat als dit netwerk dat toestaat, of gebruik een ander netwerk, en selecteer daarna Opnieuw proberen.</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>De bekabelde 802.1X-verificatie is niet gelukt. De reden staat in de sectie Ethernet.</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>Geen netwerkverbinding. Maak verbinding met een Wi-Fi-netwerk.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Er is geen netwerkadapter gedetecteerd. Sluit een ondersteunde Ethernet- of Wi-Fi-adapter aan en selecteer daarna Opnieuw proberen.</value>
+    <value>Er is geen netwerkadapter beschikbaar. Controleer de secties Ethernet en Wi-Fi en selecteer daarna Opnieuw proberen.</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>Geen netwerkverbinding. Sluit een Ethernet-kabel aan.</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>Er is geen netwerkadapter beschikbaar. Controleer de sectie Ethernet en selecteer daarna Opnieuw proberen.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Het netwerk is verbonden maar kan het internet niet bereiken. Controleer de firewall of proxy en selecteer daarna Opnieuw proberen.</value>
@@ -409,6 +436,12 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Status.ConnectingTitle" xml:space="preserve">
     <value>Verbinding maken</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>Verbinding verbreken</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>De bekabelde 802.1X-verificatie wordt uitgevoerd.</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>Internettoegang is gevalideerd. U kunt nu doorgaan.</value>
@@ -558,7 +591,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Het ingerichte Wi-Fi-wachtwoord voldoet niet aan de vereisten van het netwerk. Maak het opstartmedium opnieuw.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
-    <value>Het ingerichte Wi-Fi-wachtwoord kan niet van dit opstartmedium worden gelezen. Maak het opstartmedium opnieuw. Ethernet en andere Wi-Fi-netwerken werken nog steeds.</value>
+    <value>Het ingerichte Wi-Fi-wachtwoord kan niet van dit opstartmedium worden gelezen. Maak het opstartmedium opnieuw.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>Het zakelijke Wi-Fi-profiel ontbreekt op het opstartmedium. Maak het opstartmedium opnieuw.</value>
@@ -567,7 +600,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Ingerichte Wi-Fi niet beschikbaar</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
-    <value>Het implementatiewachtwoord is niet ingevoerd. Selecteer Verbinden om het in te voeren. Ethernet en andere Wi-Fi-netwerken werken nog steeds.</value>
+    <value>Het implementatiewachtwoord is niet ingevoerd. Selecteer Verbinden om het in te voeren.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Ververs Wi-Fi netwerken</value>
@@ -631,6 +664,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
     <value>Wi-Fi ondersteuning is niet beschikbaar in deze opstartomgeving.</value>
+  </data>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>Wi-Fi is niet beschikbaar op dit apparaat.</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>Naamloos ingericht profiel</value>

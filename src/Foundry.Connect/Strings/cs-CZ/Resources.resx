@@ -82,6 +82,9 @@ Licencováno pod licencí MIT.</value>
   <data name="Debug.Scenario.Checking" xml:space="preserve">
     <value>Kontrola sítě</value>
   </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet: probíhá ověřování 802.1X</value>
+  </data>
   <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
     <value>Ethernet: 802.1X selhalo</value>
   </data>
@@ -103,14 +106,23 @@ Licencováno pod licencí MIT.</value>
   <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
     <value>Žádný adaptér Wi-Fi</value>
   </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>Zřízená síť Wi-Fi: je vyžadováno heslo</value>
+  </data>
   <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
     <value>Zřízená síť Wi-Fi není k dispozici</value>
   </data>
   <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
     <value>Ethernet: čekání na adresu</value>
   </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>Zřízená síť Wi-Fi: připojování</value>
+  </data>
   <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
     <value>Sítě Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>Žádný adaptér Ethernet, sítě Wi-Fi</value>
   </data>
   <data name="Debug.Scenario.WifiReady" xml:space="preserve">
     <value>Wi-Fi: připraveno</value>
@@ -156,7 +168,7 @@ Licencováno pod licencí MIT.</value>
     <value>Adaptér</value>
   </data>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
-    <value>Automaticky přiřazená adresa: server DHCP neodpověděl</value>
+    <value>Automaticky přiřazená adresa</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>Zkontrolujte připojení kabelu</value>
@@ -195,7 +207,7 @@ Licencováno pod licencí MIT.</value>
     <value>Heslo certifikátu 802.1X nelze přečíst. Znovu vytvořte spouštěcí médium.</value>
   </data>
   <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
-    <value>Heslo pro nasazení nebylo zadáno, proto nebylo použito nastavení 802.1X. Ethernet bez 802.1X a Wi-Fi nadále fungují.</value>
+    <value>Heslo pro nasazení nebylo zadáno, proto nebylo použito nastavení 802.1X.</value>
   </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Není k dispozici</value>
@@ -217,6 +229,9 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>Ethernet není na tomto zařízení k dispozici.</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Čekání na konfiguraci sítě</value>
@@ -381,10 +396,22 @@ Licencováno pod licencí MIT.</value>
     <value>Automatické pokračování je pozastaveno, protože jste změnili nastavení sítě.</value>
   </data>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
-    <value>Tato síť vyžaduje přihlášení na webové stránce.</value>
+    <value>Síť místo přístupu k internetu odpověděla přihlašovací stránkou. Pokud to síť umožňuje, přihlaste se z jiného zařízení, nebo použijte jinou síť a potom vyberte Zkusit znovu.</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>Kabelové ověřování 802.1X nebylo úspěšné. Důvod je uveden v části Ethernet.</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>Žádné síťové připojení. Připojte se k síti Wi-Fi.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Nebyl zjištěn žádný síťový adaptér. Připojte podporovaný adaptér Ethernet nebo Wi-Fi a potom vyberte Zkusit znovu.</value>
+    <value>Není k dispozici žádný síťový adaptér. Zkontrolujte části Ethernet a Wi-Fi a potom vyberte Zkusit znovu.</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>Žádné síťové připojení. Připojte kabel Ethernet.</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>Není k dispozici žádný síťový adaptér. Zkontrolujte část Ethernet a potom vyberte Zkusit znovu.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Síť je připojená, ale nemá přístup k internetu. Zkontrolujte bránu firewall nebo proxy server a potom vyberte Zkusit znovu.</value>
@@ -409,6 +436,12 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Status.ConnectingTitle" xml:space="preserve">
     <value>Připojování</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>Odpojování</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>Probíhá kabelové ověřování 802.1X.</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>Přístup k internetu byl ověřen. Nyní můžete pokračovat.</value>
@@ -558,7 +591,7 @@ Licencováno pod licencí MIT.</value>
     <value>Heslo zřízené sítě Wi-Fi nesplňuje požadavky sítě. Znovu vytvořte spouštěcí médium.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
-    <value>Heslo zřízené sítě Wi-Fi nelze z tohoto spouštěcího média přečíst. Znovu vytvořte spouštěcí médium. Ethernet a ostatní sítě Wi-Fi nadále fungují.</value>
+    <value>Heslo zřízené sítě Wi-Fi nelze z tohoto spouštěcího média přečíst. Znovu vytvořte spouštěcí médium.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>Na spouštěcím médiu chybí podnikový profil Wi-Fi. Znovu vytvořte spouštěcí médium.</value>
@@ -567,7 +600,7 @@ Licencováno pod licencí MIT.</value>
     <value>Zřízená síť Wi-Fi není k dispozici</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
-    <value>Heslo pro nasazení nebylo zadáno. Vyberte Připojte se a zadejte ho. Ethernet a ostatní sítě Wi-Fi nadále fungují.</value>
+    <value>Heslo pro nasazení nebylo zadáno. Vyberte Připojte se a zadejte ho.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Obnovte sítě Wi-Fi</value>
@@ -631,6 +664,9 @@ Licencováno pod licencí MIT.</value>
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
     <value>Podpora Wi-Fi není v tomto spouštěcím prostředí dostupná.</value>
+  </data>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>Wi-Fi není na tomto zařízení k dispozici.</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>Nepojmenovaný zřízený profil</value>

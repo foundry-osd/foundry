@@ -82,6 +82,9 @@ Licențiat sub licența MIT.</value>
   <data name="Debug.Scenario.Checking" xml:space="preserve">
     <value>Se verifică rețeaua</value>
   </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet: autentificare 802.1X în curs</value>
+  </data>
   <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
     <value>Ethernet: 802.1X a eșuat</value>
   </data>
@@ -103,14 +106,23 @@ Licențiat sub licența MIT.</value>
   <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
     <value>Niciun adaptor Wi-Fi</value>
   </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>Wi-Fi furnizat: parolă necesară</value>
+  </data>
   <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
     <value>Wi-Fi furnizat indisponibil</value>
   </data>
   <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
     <value>Ethernet: se așteaptă o adresă</value>
   </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>Wi-Fi furnizat: se conectează</value>
+  </data>
   <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
     <value>Rețele Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>Niciun adaptor Ethernet, rețele Wi-Fi</value>
   </data>
   <data name="Debug.Scenario.WifiReady" xml:space="preserve">
     <value>Wi-Fi: pregătit</value>
@@ -156,7 +168,7 @@ Licențiat sub licența MIT.</value>
     <value>Adaptor</value>
   </data>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
-    <value>Adresă autoatribuită: serverul DHCP nu a răspuns</value>
+    <value>Adresă autoatribuită</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>Verificați conexiunea cablului</value>
@@ -195,7 +207,7 @@ Licențiat sub licența MIT.</value>
     <value>Parola certificatului 802.1X nu poate fi citită. Recreați suportul de pornire.</value>
   </data>
   <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
-    <value>Parola de implementare nu a fost introdusă, așa că setările 802.1X nu au fost aplicate. Ethernet fără 802.1X și Wi-Fi funcționează în continuare.</value>
+    <value>Parola de implementare nu a fost introdusă, așa că setările 802.1X nu au fost aplicate.</value>
   </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Indisponibil</value>
@@ -217,6 +229,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>Ethernet nu este disponibil pe acest dispozitiv.</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Se așteaptă configurarea rețelei</value>
@@ -381,10 +396,22 @@ Licențiat sub licența MIT.</value>
     <value>Continuarea automată este întreruptă deoarece ați modificat setările de rețea.</value>
   </data>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
-    <value>Această rețea necesită conectarea pe o pagină web.</value>
+    <value>Rețeaua a răspuns cu o pagină de conectare în loc de acces la internet. Conectați-vă de pe alt dispozitiv dacă rețeaua permite acest lucru sau folosiți altă rețea, apoi selectați Reîncearcă.</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>Autentificarea 802.1X prin cablu nu a reușit. Motivul este afișat în secțiunea Ethernet.</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>Nicio conexiune la rețea. Conectați-vă la o rețea Wi-Fi.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Nu a fost detectat niciun adaptor de rețea. Conectați un adaptor Ethernet sau Wi-Fi compatibil, apoi selectați Reîncearcă.</value>
+    <value>Nu este disponibil niciun adaptor de rețea. Verificați secțiunile Ethernet și Wi-Fi, apoi selectați Reîncearcă.</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>Nicio conexiune la rețea. Conectați un cablu Ethernet.</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>Nu este disponibil niciun adaptor de rețea. Verificați secțiunea Ethernet, apoi selectați Reîncearcă.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Rețeaua este conectată, dar nu poate accesa internetul. Verificați firewallul sau proxy-ul, apoi selectați Reîncearcă.</value>
@@ -409,6 +436,12 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Status.ConnectingTitle" xml:space="preserve">
     <value>Se conectează</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>Se deconectează</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>Autentificarea 802.1X prin cablu este în curs.</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>Accesul la internet a fost validat. Puteți continua acum.</value>
@@ -558,7 +591,7 @@ Licențiat sub licența MIT.</value>
     <value>Parola Wi-Fi furnizată nu îndeplinește cerințele rețelei. Recreați suportul de pornire.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
-    <value>Parola Wi-Fi furnizată nu poate fi citită de pe acest suport de pornire. Recreați suportul de pornire. Ethernet și celelalte rețele Wi-Fi funcționează în continuare.</value>
+    <value>Parola Wi-Fi furnizată nu poate fi citită de pe acest suport de pornire. Recreați suportul de pornire.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>Profilul Wi-Fi de întreprindere lipsește de pe suportul de pornire. Recreați suportul de pornire.</value>
@@ -567,7 +600,7 @@ Licențiat sub licența MIT.</value>
     <value>Wi-Fi furnizat indisponibil</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
-    <value>Parola de implementare nu a fost introdusă. Selectați Conectați-vă pentru a o introduce. Ethernet și celelalte rețele Wi-Fi funcționează în continuare.</value>
+    <value>Parola de implementare nu a fost introdusă. Selectați Conectați-vă pentru a o introduce.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Actualizează rețelele Wi-Fi</value>
@@ -631,6 +664,9 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
     <value>Suportul Wi-Fi nu este disponibil în acest mediu de boot.</value>
+  </data>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>Wi-Fi nu este disponibil pe acest dispozitiv.</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>Profil furnizat fără nume</value>

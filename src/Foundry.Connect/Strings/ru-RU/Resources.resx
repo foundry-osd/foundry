@@ -82,6 +82,9 @@
   <data name="Debug.Scenario.Checking" xml:space="preserve">
     <value>Проверка сети</value>
   </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet: проверка подлинности 802.1X</value>
+  </data>
   <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
     <value>Ethernet: сбой 802.1X</value>
   </data>
@@ -103,14 +106,23 @@
   <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
     <value>Нет адаптера Wi-Fi</value>
   </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>Подготовленная сеть Wi-Fi: требуется пароль</value>
+  </data>
   <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
     <value>Подготовленная сеть Wi-Fi недоступна</value>
   </data>
   <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
     <value>Ethernet: ожидание адреса</value>
   </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>Подготовленная сеть Wi-Fi: подключение</value>
+  </data>
   <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
     <value>Сети Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>Нет адаптера Ethernet, сети Wi-Fi</value>
   </data>
   <data name="Debug.Scenario.WifiReady" xml:space="preserve">
     <value>Wi-Fi: готово</value>
@@ -156,7 +168,7 @@
     <value>Адаптер</value>
   </data>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
-    <value>Автоматически назначенный адрес: DHCP-сервер не ответил</value>
+    <value>Автоматически назначенный адрес</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>Проверьте подключение кабеля</value>
@@ -195,7 +207,7 @@
     <value>Не удается прочитать пароль сертификата 802.1X. Создайте загрузочный носитель заново.</value>
   </data>
   <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
-    <value>Пароль развертывания не был введен, поэтому параметры 802.1X не применены. Ethernet без 802.1X и Wi-Fi продолжают работать.</value>
+    <value>Пароль развертывания не был введен, поэтому параметры 802.1X не применены.</value>
   </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Недоступно</value>
@@ -217,6 +229,9 @@
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>Ethernet недоступен на этом устройстве.</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Ожидание конфигурации сети</value>
@@ -381,10 +396,22 @@
     <value>Автоматическое продолжение приостановлено, так как вы изменили сетевые параметры.</value>
   </data>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
-    <value>Для этой сети требуется вход на веб-странице.</value>
+    <value>Сеть ответила страницей входа вместо доступа в Интернет. Выполните вход с другого устройства, если эта сеть это позволяет, или используйте другую сеть, затем выберите «Повторить».</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>Проводная проверка подлинности 802.1X не выполнена. Причина указана в разделе Ethernet.</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>Нет сетевого подключения. Подключитесь к сети Wi-Fi.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Сетевой адаптер не обнаружен. Подключите поддерживаемый адаптер Ethernet или Wi-Fi, затем выберите «Повторить».</value>
+    <value>Нет доступного сетевого адаптера. Проверьте разделы Ethernet и Wi-Fi, затем выберите «Повторить».</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>Нет сетевого подключения. Подключите кабель Ethernet.</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>Нет доступного сетевого адаптера. Проверьте раздел Ethernet, затем выберите «Повторить».</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Сеть подключена, но нет доступа в Интернет. Проверьте брандмауэр или прокси-сервер, затем выберите «Повторить».</value>
@@ -409,6 +436,12 @@
   </data>
   <data name="Status.ConnectingTitle" xml:space="preserve">
     <value>Подключение</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>Отключение</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>Выполняется проводная проверка подлинности 802.1X.</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>Доступ в Интернет подтвержден. Вы можете продолжить сейчас.</value>
@@ -558,7 +591,7 @@
     <value>Пароль подготовленной сети Wi-Fi не соответствует требованиям сети. Создайте загрузочный носитель заново.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
-    <value>Не удается прочитать пароль подготовленной сети Wi-Fi с этого загрузочного носителя. Создайте загрузочный носитель заново. Ethernet и другие сети Wi-Fi продолжают работать.</value>
+    <value>Не удается прочитать пароль подготовленной сети Wi-Fi с этого загрузочного носителя. Создайте загрузочный носитель заново.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>Корпоративный профиль Wi-Fi отсутствует на загрузочном носителе. Создайте загрузочный носитель заново.</value>
@@ -567,7 +600,7 @@
     <value>Подготовленная сеть Wi-Fi недоступна</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
-    <value>Пароль развертывания не был введен. Выберите «Подключиться», чтобы ввести его. Ethernet и другие сети Wi-Fi продолжают работать.</value>
+    <value>Пароль развертывания не был введен. Выберите «Подключиться», чтобы ввести его.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Обновить сети Wi-Fi</value>
@@ -631,6 +664,9 @@
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
     <value>Поддержка Wi-Fi недоступна в этой среде загрузки.</value>
+  </data>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>Wi-Fi недоступен на этом устройстве.</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>Безымянный подготовленный профиль</value>

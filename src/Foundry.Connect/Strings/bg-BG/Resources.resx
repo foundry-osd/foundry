@@ -82,6 +82,9 @@
   <data name="Debug.Scenario.Checking" xml:space="preserve">
     <value>Проверка на мрежата</value>
   </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet: удостоверяване с 802.1X</value>
+  </data>
   <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
     <value>Ethernet: неуспешно 802.1X</value>
   </data>
@@ -103,14 +106,23 @@
   <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
     <value>Няма Wi-Fi адаптер</value>
   </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>Осигурен Wi-Fi: изисква се парола</value>
+  </data>
   <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
     <value>Осигуреният Wi-Fi е недостъпен</value>
   </data>
   <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
     <value>Ethernet: изчакване на адрес</value>
   </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>Осигурен Wi-Fi: свързване</value>
+  </data>
   <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
     <value>Wi-Fi мрежи</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>Няма Ethernet адаптер, Wi-Fi мрежи</value>
   </data>
   <data name="Debug.Scenario.WifiReady" xml:space="preserve">
     <value>Wi-Fi: готово</value>
@@ -156,7 +168,7 @@
     <value>Адаптер</value>
   </data>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
-    <value>Автоматично присвоен адрес: DHCP сървърът не отговори</value>
+    <value>Автоматично присвоен адрес</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>Проверете кабелната връзка</value>
@@ -195,7 +207,7 @@
     <value>Паролата на сертификата за 802.1X не може да бъде прочетена. Създайте отново носителя за стартиране.</value>
   </data>
   <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
-    <value>Паролата за разполагане не беше въведена, затова настройките за 802.1X не бяха приложени. Ethernet без 802.1X и Wi-Fi продължават да работят.</value>
+    <value>Паролата за разполагане не беше въведена, затова настройките за 802.1X не бяха приложени.</value>
   </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Недостъпно</value>
@@ -217,6 +229,9 @@
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>Ethernet не е наличен на това устройство.</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Изчакване на мрежова конфигурация</value>
@@ -381,10 +396,22 @@
     <value>Автоматичното продължаване е на пауза, защото сте променили мрежовите настройки.</value>
   </data>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
-    <value>Тази мрежа изисква влизане чрез уеб страница.</value>
+    <value>Мрежата отговори със страница за влизане вместо с достъп до интернет. Влезте от друго устройство, ако мрежата позволява, или използвайте друга мрежа, след което изберете „Повторен опит“.</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>Кабелното удостоверяване с 802.1X не беше успешно. Причината е показана в раздела Ethernet.</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>Няма мрежова връзка. Присъединете се към Wi-Fi мрежа.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Не е открит мрежов адаптер. Свържете поддържан Ethernet или Wi-Fi адаптер, след което изберете „Повторен опит“.</value>
+    <value>Няма наличен мрежов адаптер. Проверете разделите Ethernet и Wi-Fi, след което изберете „Повторен опит“.</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>Няма мрежова връзка. Свържете Ethernet кабел.</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>Няма наличен мрежов адаптер. Проверете раздела Ethernet, след което изберете „Повторен опит“.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Мрежата е свързана, но няма достъп до интернет. Проверете защитната стена или прокси сървъра, след което изберете „Повторен опит“.</value>
@@ -409,6 +436,12 @@
   </data>
   <data name="Status.ConnectingTitle" xml:space="preserve">
     <value>Свързване</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>Прекъсване на връзката</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>Извършва се кабелно удостоверяване с 802.1X.</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>Достъпът до интернет е валидиран. Можете да продължите сега.</value>
@@ -558,7 +591,7 @@
     <value>Паролата на осигурения Wi-Fi не отговаря на изискванията на мрежата. Създайте отново носителя за стартиране.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
-    <value>Паролата на осигурения Wi-Fi не може да бъде прочетена от този носител за стартиране. Създайте отново носителя за стартиране. Ethernet и другите Wi-Fi мрежи продължават да работят.</value>
+    <value>Паролата на осигурения Wi-Fi не може да бъде прочетена от този носител за стартиране. Създайте отново носителя за стартиране.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>Корпоративният Wi-Fi профил липсва в носителя за стартиране. Създайте отново носителя за стартиране.</value>
@@ -567,7 +600,7 @@
     <value>Осигуреният Wi-Fi е недостъпен</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
-    <value>Паролата за разполагане не беше въведена. Изберете „Свържете се“, за да я въведете. Ethernet и другите Wi-Fi мрежи продължават да работят.</value>
+    <value>Паролата за разполагане не беше въведена. Изберете „Свържете се“, за да я въведете.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Опресняване на Wi-Fi мрежи</value>
@@ -631,6 +664,9 @@
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
     <value>Поддръжката на Wi-Fi не е налична в тази среда за зареждане.</value>
+  </data>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>Wi-Fi не е наличен на това устройство.</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>Обезпечен профил без име</value>

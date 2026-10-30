@@ -82,6 +82,9 @@
   <data name="Debug.Scenario.Checking" xml:space="preserve">
     <value>กำลังตรวจสอบเครือข่าย</value>
   </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet: กำลังรับรองความถูกต้อง 802.1X</value>
+  </data>
   <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
     <value>Ethernet: 802.1X ล้มเหลว</value>
   </data>
@@ -103,14 +106,23 @@
   <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
     <value>ไม่มีอะแดปเตอร์ Wi-Fi</value>
   </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>Wi-Fi ที่จัดเตรียมไว้: ต้องใช้รหัสผ่าน</value>
+  </data>
   <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
     <value>Wi-Fi ที่จัดเตรียมไว้ไม่พร้อมใช้งาน</value>
   </data>
   <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
     <value>Ethernet: กำลังรอที่อยู่</value>
   </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>Wi-Fi ที่จัดเตรียมไว้: กำลังเชื่อมต่อ</value>
+  </data>
   <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
     <value>เครือข่าย Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>ไม่มีอะแดปเตอร์ Ethernet, มีเครือข่าย Wi-Fi</value>
   </data>
   <data name="Debug.Scenario.WifiReady" xml:space="preserve">
     <value>Wi-Fi: พร้อม</value>
@@ -156,7 +168,7 @@
     <value>อะแดปเตอร์</value>
   </data>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
-    <value>ที่อยู่ที่กำหนดเองโดยอัตโนมัติ: เซิร์ฟเวอร์ DHCP ไม่ตอบสนอง</value>
+    <value>ที่อยู่ที่กำหนดเองโดยอัตโนมัติ</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>ตรวจสอบการเชื่อมต่อสายเคเบิล</value>
@@ -195,7 +207,7 @@
     <value>ไม่สามารถอ่านรหัสผ่านของใบรับรอง 802.1X ได้ สร้างสื่อบูตใหม่</value>
   </data>
   <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
-    <value>ไม่ได้ป้อนรหัสผ่านการปรับใช้ จึงไม่ได้นำการตั้งค่า 802.1X ไปใช้ Ethernet ที่ไม่ใช้ 802.1X และ Wi-Fi ยังคงใช้งานได้</value>
+    <value>ไม่ได้ป้อนรหัสผ่านการปรับใช้ จึงไม่ได้นำการตั้งค่า 802.1X ไปใช้</value>
   </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>ไม่พร้อมใช้งาน</value>
@@ -217,6 +229,9 @@
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>Ethernet ไม่พร้อมใช้งานบนอุปกรณ์นี้</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>กำลังรอการกำหนดค่าเครือข่าย</value>
@@ -381,10 +396,22 @@
     <value>การดำเนินการต่ออัตโนมัติหยุดชั่วคราวเนื่องจากคุณเปลี่ยนการตั้งค่าเครือข่าย</value>
   </data>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
-    <value>เครือข่ายนี้กำหนดให้ลงชื่อเข้าใช้บนหน้าเว็บ</value>
+    <value>เครือข่ายตอบกลับด้วยหน้าลงชื่อเข้าใช้แทนการเข้าถึงอินเทอร์เน็ต ลงชื่อเข้าใช้จากอุปกรณ์อื่นหากเครือข่ายนี้อนุญาต หรือใช้เครือข่ายอื่น แล้วเลือก ลองอีกครั้ง</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>การรับรองความถูกต้อง 802.1X แบบใช้สายไม่สำเร็จ สาเหตุแสดงอยู่ในส่วน Ethernet</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>ไม่มีการเชื่อมต่อเครือข่าย เข้าร่วมเครือข่าย Wi-Fi</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>ไม่พบอะแดปเตอร์เครือข่าย เชื่อมต่ออะแดปเตอร์ Ethernet หรือ Wi-Fi ที่รองรับ แล้วเลือก ลองอีกครั้ง</value>
+    <value>ไม่มีอะแดปเตอร์เครือข่ายที่พร้อมใช้งาน ตรวจสอบส่วน Ethernet และ Wi-Fi แล้วเลือก ลองอีกครั้ง</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>ไม่มีการเชื่อมต่อเครือข่าย เสียบสาย Ethernet</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>ไม่มีอะแดปเตอร์เครือข่ายที่พร้อมใช้งาน ตรวจสอบส่วน Ethernet แล้วเลือก ลองอีกครั้ง</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>เครือข่ายเชื่อมต่ออยู่แต่เข้าถึงอินเทอร์เน็ตไม่ได้ ตรวจสอบไฟร์วอลล์หรือพร็อกซี แล้วเลือก ลองอีกครั้ง</value>
@@ -409,6 +436,12 @@
   </data>
   <data name="Status.ConnectingTitle" xml:space="preserve">
     <value>กำลังเชื่อมต่อ</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>กำลังตัดการเชื่อมต่อ</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>กำลังรับรองความถูกต้อง 802.1X แบบใช้สาย</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>การเข้าถึงอินเทอร์เน็ตได้รับการตรวจสอบแล้ว คุณสามารถดำเนินการต่อได้ทันที</value>
@@ -558,7 +591,7 @@
     <value>รหัสผ่าน Wi-Fi ที่จัดเตรียมไว้ไม่ตรงตามข้อกำหนดของเครือข่าย สร้างสื่อบูตใหม่</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
-    <value>ไม่สามารถอ่านรหัสผ่าน Wi-Fi ที่จัดเตรียมไว้จากสื่อบูตนี้ได้ สร้างสื่อบูตใหม่ Ethernet และเครือข่าย Wi-Fi อื่นยังคงใช้งานได้</value>
+    <value>ไม่สามารถอ่านรหัสผ่าน Wi-Fi ที่จัดเตรียมไว้จากสื่อบูตนี้ได้ สร้างสื่อบูตใหม่</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>ไม่พบโปรไฟล์ Wi-Fi องค์กรในสื่อบูต สร้างสื่อบูตใหม่</value>
@@ -567,7 +600,7 @@
     <value>Wi-Fi ที่จัดเตรียมไว้ไม่พร้อมใช้งาน</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
-    <value>ไม่ได้ป้อนรหัสผ่านการปรับใช้ เลือก เชื่อมต่อ เพื่อป้อนรหัสผ่าน Ethernet และเครือข่าย Wi-Fi อื่นยังคงใช้งานได้</value>
+    <value>ไม่ได้ป้อนรหัสผ่านการปรับใช้ เลือก เชื่อมต่อ เพื่อป้อนรหัสผ่าน</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>รีเฟรชเครือข่าย Wi-Fi</value>
@@ -631,6 +664,9 @@
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
     <value>การสนับสนุน Wi-Fi ไม่พร้อมใช้งานในสภาพแวดล้อมการบูตนี้</value>
+  </data>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>Wi-Fi ไม่พร้อมใช้งานบนอุปกรณ์นี้</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>โปรไฟล์ที่จัดสรรไม่มีชื่อ</value>

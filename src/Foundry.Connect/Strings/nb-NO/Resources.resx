@@ -82,6 +82,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Debug.Scenario.Checking" xml:space="preserve">
     <value>Kontrollerer nettverket</value>
   </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet: 802.1X-godkjenning pågår</value>
+  </data>
   <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
     <value>Ethernet: 802.1X mislyktes</value>
   </data>
@@ -103,14 +106,23 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
     <value>Ingen Wi-Fi-adapter</value>
   </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>Klargjort Wi-Fi: passord kreves</value>
+  </data>
   <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
     <value>Klargjort Wi-Fi utilgjengelig</value>
   </data>
   <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
     <value>Ethernet: venter på en adresse</value>
   </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>Klargjort Wi-Fi: kobler til</value>
+  </data>
   <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
     <value>Wi-Fi-nettverk</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>Ingen Ethernet-adapter, Wi-Fi-nettverk</value>
   </data>
   <data name="Debug.Scenario.WifiReady" xml:space="preserve">
     <value>Wi-Fi: klar</value>
@@ -156,7 +168,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Adapter</value>
   </data>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
-    <value>Selvtildelt adresse: DHCP-serveren svarte ikke</value>
+    <value>Selvtildelt adresse</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>Sjekk kabeltilkoblingen</value>
@@ -195,7 +207,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Passordet for 802.1X-sertifikatet kan ikke leses. Opprett oppstartsmediet på nytt.</value>
   </data>
   <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
-    <value>Distribusjonspassordet ble ikke angitt, så 802.1X-innstillingene ble ikke brukt. Ethernet uten 802.1X og Wi-Fi fungerer fortsatt.</value>
+    <value>Distribusjonspassordet ble ikke angitt, så 802.1X-innstillingene ble ikke brukt.</value>
   </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Utilgjengelig</value>
@@ -217,6 +229,9 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>Ethernet er ikke tilgjengelig på denne enheten.</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Venter på nettverkskonfigurasjon</value>
@@ -381,10 +396,22 @@ Lisensiert under MIT-lisensen.</value>
     <value>Automatisk fortsettelse er satt på pause fordi du endret nettverksinnstillingene.</value>
   </data>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
-    <value>Dette nettverket krever pålogging på en nettside.</value>
+    <value>Nettverket svarte med en påloggingsside i stedet for Internett-tilgang. Logg på fra en annen enhet hvis nettverket tillater det, eller bruk et annet nettverk, og velg deretter Prøv igjen.</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>Kablet 802.1X-godkjenning mislyktes. Årsaken vises i Ethernet-delen.</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>Ingen nettverkstilkobling. Koble til et Wi-Fi-nettverk.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Ingen nettverksadapter ble oppdaget. Koble til en støttet Ethernet- eller Wi-Fi-adapter, og velg deretter Prøv igjen.</value>
+    <value>Ingen nettverksadapter er tilgjengelig. Kontroller Ethernet- og Wi-Fi-delene, og velg deretter Prøv igjen.</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>Ingen nettverkstilkobling. Koble til en Ethernet-kabel.</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>Ingen nettverksadapter er tilgjengelig. Kontroller Ethernet-delen, og velg deretter Prøv igjen.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Nettverket er tilkoblet, men når ikke Internett. Kontroller brannmuren eller proxyen, og velg deretter Prøv igjen.</value>
@@ -409,6 +436,12 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Status.ConnectingTitle" xml:space="preserve">
     <value>Kobler til</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>Kobler fra</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>Kablet 802.1X-godkjenning pågår.</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>Internett-tilgang er validert. Du kan fortsette nå.</value>
@@ -558,7 +591,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Det klargjorte Wi-Fi-passordet oppfyller ikke kravene for nettverket. Opprett oppstartsmediet på nytt.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
-    <value>Det klargjorte Wi-Fi-passordet kan ikke leses fra dette oppstartsmediet. Opprett oppstartsmediet på nytt. Ethernet og andre Wi-Fi-nettverk fungerer fortsatt.</value>
+    <value>Det klargjorte Wi-Fi-passordet kan ikke leses fra dette oppstartsmediet. Opprett oppstartsmediet på nytt.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>Bedriftens Wi-Fi-profil mangler på oppstartsmediet. Opprett oppstartsmediet på nytt.</value>
@@ -567,7 +600,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Klargjort Wi-Fi utilgjengelig</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
-    <value>Distribusjonspassordet ble ikke angitt. Velg Koble til for å skrive det inn. Ethernet og andre Wi-Fi-nettverk fungerer fortsatt.</value>
+    <value>Distribusjonspassordet ble ikke angitt. Velg Koble til for å skrive det inn.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Oppdater Wi-Fi nettverk</value>
@@ -631,6 +664,9 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
     <value>Wi-Fi støtte er ikke tilgjengelig i dette oppstartsmiljøet.</value>
+  </data>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>Wi-Fi er ikke tilgjengelig på denne enheten.</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>Unavngitt klargjort profil</value>

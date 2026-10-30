@@ -82,6 +82,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Debug.Scenario.Checking" xml:space="preserve">
     <value>Tarkistetaan verkkoa</value>
   </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet: 802.1X-todennus käynnissä</value>
+  </data>
   <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
     <value>Ethernet: 802.1X epäonnistui</value>
   </data>
@@ -103,14 +106,23 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
     <value>Ei Wi-Fi-sovitinta</value>
   </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>Valmisteltu Wi-Fi: salasana vaaditaan</value>
+  </data>
   <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
     <value>Valmisteltu Wi-Fi ei käytettävissä</value>
   </data>
   <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
     <value>Ethernet: odotetaan osoitetta</value>
   </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>Valmisteltu Wi-Fi: yhdistetään</value>
+  </data>
   <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
     <value>Wi-Fi-verkot</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>Ei Ethernet-sovitinta, Wi-Fi-verkot</value>
   </data>
   <data name="Debug.Scenario.WifiReady" xml:space="preserve">
     <value>Wi-Fi: valmis</value>
@@ -156,7 +168,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Sovitin</value>
   </data>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
-    <value>Itse määritetty osoite: DHCP-palvelin ei vastannut</value>
+    <value>Itse määritetty osoite</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>Tarkista kaapelin liitäntä</value>
@@ -195,7 +207,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>802.1X-varmenteen salasanaa ei voi lukea. Luo käynnistysmedia uudelleen.</value>
   </data>
   <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
-    <value>Käyttöönoton salasanaa ei annettu, joten 802.1X-asetuksia ei otettu käyttöön. Ethernet ilman 802.1X:ää ja Wi-Fi toimivat edelleen.</value>
+    <value>Käyttöönoton salasanaa ei annettu, joten 802.1X-asetuksia ei otettu käyttöön.</value>
   </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Ei käytettävissä</value>
@@ -217,6 +229,9 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>Ethernet ei ole käytettävissä tässä laitteessa.</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Odotetaan verkon määritystä</value>
@@ -381,10 +396,22 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Automaattinen jatkaminen on keskeytetty, koska muutit verkkoasetuksia.</value>
   </data>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
-    <value>Tämä verkko edellyttää kirjautumista verkkosivulla.</value>
+    <value>Verkko vastasi kirjautumissivulla internet-yhteyden sijaan. Kirjaudu toisella laitteella, jos verkko sallii sen, tai käytä toista verkkoa ja valitse sitten Yritä uudelleen.</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>Langallinen 802.1X-todennus ei onnistunut. Syy näkyy Ethernet-osiossa.</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>Ei verkkoyhteyttä. Muodosta yhteys Wi-Fi-verkkoon.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Verkkosovitinta ei havaittu. Liitä tuettu Ethernet- tai Wi-Fi-sovitin ja valitse sitten Yritä uudelleen.</value>
+    <value>Verkkosovitinta ei ole käytettävissä. Tarkista Ethernet- ja Wi-Fi-osiot ja valitse sitten Yritä uudelleen.</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>Ei verkkoyhteyttä. Liitä Ethernet-kaapeli.</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>Verkkosovitinta ei ole käytettävissä. Tarkista Ethernet-osio ja valitse sitten Yritä uudelleen.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Verkko on yhdistetty, mutta internetiin ei saada yhteyttä. Tarkista palomuuri tai välityspalvelin ja valitse sitten Yritä uudelleen.</value>
@@ -409,6 +436,12 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Status.ConnectingTitle" xml:space="preserve">
     <value>Yhdistetään</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>Katkaistaan yhteyttä</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>Langallinen 802.1X-todennus on käynnissä.</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>Internet-yhteys on vahvistettu. Voit jatkaa nyt.</value>
@@ -558,7 +591,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Valmistellun Wi-Fi-verkon salasana ei täytä verkon vaatimuksia. Luo käynnistysmedia uudelleen.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
-    <value>Valmistellun Wi-Fi-verkon salasanaa ei voi lukea tältä käynnistysmedialta. Luo käynnistysmedia uudelleen. Ethernet ja muut Wi-Fi-verkot toimivat edelleen.</value>
+    <value>Valmistellun Wi-Fi-verkon salasanaa ei voi lukea tältä käynnistysmedialta. Luo käynnistysmedia uudelleen.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>Yrityksen Wi-Fi-profiili puuttuu käynnistysmediasta. Luo käynnistysmedia uudelleen.</value>
@@ -567,7 +600,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Valmisteltu Wi-Fi ei käytettävissä</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
-    <value>Käyttöönoton salasanaa ei annettu. Anna se valitsemalla Yhdistä. Ethernet ja muut Wi-Fi-verkot toimivat edelleen.</value>
+    <value>Käyttöönoton salasanaa ei annettu. Anna se valitsemalla Yhdistä.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Päivitä Wi-Fi-verkot</value>
@@ -631,6 +664,9 @@ Lisensoitu MIT-lisenssillä.</value>
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
     <value>Wi-Fi tuki ei ole saatavilla tässä käynnistysympäristössä.</value>
+  </data>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>Wi-Fi ei ole käytettävissä tässä laitteessa.</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>Nimetön hallinnoitu profiili</value>

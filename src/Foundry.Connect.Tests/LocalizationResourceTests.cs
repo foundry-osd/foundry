@@ -4,6 +4,7 @@
 
 using System.Globalization;
 using System.Resources;
+using Foundry.Connect.Tests.Support;
 
 namespace Foundry.Connect.Tests;
 
@@ -82,6 +83,13 @@ public sealed class LocalizationResourceTests
         "Wifi.ProvisionedLocked", "Wifi.ProvisionedUnlockCancelled", "Wifi.StatusLocked"
     };
 
+    public static TheoryData<string> LayoutKeys => new()
+    {
+        "Debug.Scenario.Dot1xAuthenticating", "Debug.Scenario.ProvisionedWifiLocked", "Debug.Scenario.WifiConnecting", "Debug.Scenario.WifiOnly",
+        "Ethernet.UnavailableOnDevice", "Status.BlockedDot1xDescription", "Status.BlockedJoinWifiDescription", "Status.BlockedNoCableDescription",
+        "Status.BlockedNoEthernetAdapterDescription", "Status.DisconnectingTitle", "Status.Dot1xAuthenticatingDescription", "Wifi.UnavailableOnDevice"
+    };
+
     [Theory]
     [MemberData(nameof(SupportedCultures))]
     public void ResourceSet_ContainsRequiredLabelsForAdkCulture(string cultureName)
@@ -123,6 +131,57 @@ public sealed class LocalizationResourceTests
             ResourceSet? resourceSet = resourceManager.GetResourceSet(CultureInfo.GetCultureInfo(cultureName), createIfNotExists: true, tryParents: false);
             Assert.False(string.IsNullOrWhiteSpace(resourceSet?.GetString(key)), $"{cultureName} {key}");
         }
+    }
+
+    [Theory]
+    [MemberData(nameof(LayoutKeys))]
+    public void EveryCulture_ContainsLayoutKey(string key)
+    {
+        ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(App).Assembly);
+
+        foreach (string cultureName in CultureNames)
+        {
+            ResourceSet? resourceSet = resourceManager.GetResourceSet(CultureInfo.GetCultureInfo(cultureName), createIfNotExists: true, tryParents: false);
+            Assert.False(string.IsNullOrWhiteSpace(resourceSet?.GetString(key)), $"{cultureName} {key}");
+        }
+    }
+
+    [Theory]
+    [MemberData(nameof(SupportedCultures))]
+    public void CaptivePortalDescription_CarriesTheFullSignInText(string cultureName)
+    {
+        ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(App).Assembly);
+        ResourceSet resourceSet = resourceManager.GetResourceSet(CultureInfo.GetCultureInfo(cultureName), createIfNotExists: true, tryParents: false)!;
+
+        Assert.Equal(resourceSet.GetString("Notice.CaptivePortalMessage"), resourceSet.GetString("Status.BlockedCaptivePortalDescription"));
+    }
+
+    [Theory]
+    [MemberData(nameof(SupportedCultures))]
+    public void WiredTexts_DoNotMentionWifi(string cultureName)
+    {
+        ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(App).Assembly);
+        ResourceSet resourceSet = resourceManager.GetResourceSet(CultureInfo.GetCultureInfo(cultureName), createIfNotExists: true, tryParents: false)!;
+
+        foreach (string key in new[] { "Ethernet.Dot1xReasonUnlockCancelled", "Ethernet.UnavailableOnDevice", "Status.BlockedNoEthernetAdapterDescription", "Status.BlockedNoCableDescription" })
+        {
+            Assert.DoesNotContain("Wi-Fi", resourceSet.GetString(key), StringComparison.Ordinal);
+        }
+    }
+
+    [Theory]
+    [InlineData("Ethernet.Dot1xReasonUnlockCancelled")]
+    [InlineData("Wifi.ProvisionedUnavailableSecret")]
+    [InlineData("Wifi.ProvisionedUnlockCancelled")]
+    [InlineData("Wifi.UnavailableOnDevice")]
+    [InlineData("Ethernet.UnavailableOnDevice")]
+    public void SectionTexts_CarryNoAlternativePathOrDriverAdvice(string key)
+    {
+        string value = ConnectResources.NeutralValue(key)!;
+
+        Assert.DoesNotContain("still work", value, StringComparison.Ordinal);
+        Assert.DoesNotContain("You can also", value, StringComparison.Ordinal);
+        Assert.DoesNotContain("driver", value, StringComparison.OrdinalIgnoreCase);
     }
 
     [Theory]

@@ -82,6 +82,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Debug.Scenario.Checking" xml:space="preserve">
     <value>Võrgu kontrollimine</value>
   </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet: 802.1X-autentimine käib</value>
+  </data>
   <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
     <value>Ethernet: 802.1X nurjus</value>
   </data>
@@ -103,14 +106,23 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
     <value>Wi-Fi adapter puudub</value>
   </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>Ettevalmistatud Wi-Fi: parool on nõutav</value>
+  </data>
   <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
     <value>Ettevalmistatud Wi-Fi pole saadaval</value>
   </data>
   <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
     <value>Ethernet: aadressi ootamine</value>
   </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>Ettevalmistatud Wi-Fi: ühendamine</value>
+  </data>
   <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
     <value>Wi-Fi võrgud</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>Ethernet-adapter puudub, Wi-Fi võrgud</value>
   </data>
   <data name="Debug.Scenario.WifiReady" xml:space="preserve">
     <value>Wi-Fi: valmis</value>
@@ -156,7 +168,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Adapter</value>
   </data>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
-    <value>Automaatselt määratud aadress: DHCP-server ei vastanud</value>
+    <value>Automaatselt määratud aadress</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>Kontrollige kaabli ühendust</value>
@@ -195,7 +207,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>802.1X-sertifikaadi parooli ei saa lugeda. Looge alglaadimismeedium uuesti.</value>
   </data>
   <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
-    <value>Juurutusparooli ei sisestatud, seega 802.1X-sätteid ei rakendatud. Ethernet ilma 802.1X-ita ja Wi-Fi töötavad endiselt.</value>
+    <value>Juurutusparooli ei sisestatud, seega 802.1X-sätteid ei rakendatud.</value>
   </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Pole saadaval</value>
@@ -217,6 +229,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>Ethernet pole selles seadmes saadaval.</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Võrgu konfigureerimise ootel</value>
@@ -381,10 +396,22 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Automaatne jätkamine on peatatud, sest muutsite võrgusätteid.</value>
   </data>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
-    <value>See võrk nõuab veebilehel sisselogimist.</value>
+    <value>Võrk vastas interneti-juurdepääsu asemel sisselogimislehega. Logige sisse teisest seadmest, kui võrk seda lubab, või kasutage teist võrku ja valige seejärel Proovi uuesti.</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>Juhtmega 802.1X-autentimine ei õnnestunud. Põhjus on näidatud jaotises Ethernet.</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>Võrguühendus puudub. Looge ühendus Wi-Fi võrguga.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Võrguadapterit ei tuvastatud. Ühendage toetatud Ethernet- või Wi-Fi adapter ja valige seejärel Proovi uuesti.</value>
+    <value>Ükski võrguadapter pole saadaval. Kontrollige jaotisi Ethernet ja Wi-Fi ning valige seejärel Proovi uuesti.</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>Võrguühendus puudub. Ühendage Etherneti kaabel.</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>Ükski võrguadapter pole saadaval. Kontrollige jaotist Ethernet ja valige seejärel Proovi uuesti.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Võrk on ühendatud, kuid internetti ei jõuta. Kontrollige tulemüüri või puhverserverit ja valige seejärel Proovi uuesti.</value>
@@ -409,6 +436,12 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Status.ConnectingTitle" xml:space="preserve">
     <value>Ühendamine</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>Ühenduse katkestamine</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>Juhtmega 802.1X-autentimine on pooleli.</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>Interneti-juurdepääs on kinnitatud. Saate nüüd jätkata.</value>
@@ -558,7 +591,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Ettevalmistatud Wi-Fi parool ei vasta võrgu nõuetele. Looge alglaadimismeedium uuesti.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
-    <value>Ettevalmistatud Wi-Fi parooli ei saa sellelt alglaadimismeediumilt lugeda. Looge alglaadimismeedium uuesti. Ethernet ja teised Wi-Fi võrgud töötavad endiselt.</value>
+    <value>Ettevalmistatud Wi-Fi parooli ei saa sellelt alglaadimismeediumilt lugeda. Looge alglaadimismeedium uuesti.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>Alglaadimismeediumilt puudub ettevõtte Wi-Fi profiil. Looge alglaadimismeedium uuesti.</value>
@@ -567,7 +600,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Ettevalmistatud Wi-Fi pole saadaval</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
-    <value>Juurutusparooli ei sisestatud. Selle sisestamiseks valige Ühendage. Ethernet ja teised Wi-Fi võrgud töötavad endiselt.</value>
+    <value>Juurutusparooli ei sisestatud. Selle sisestamiseks valige Ühendage.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Värskenda Wi-Fi võrke</value>
@@ -631,6 +664,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
     <value>Wi-Fi tugi pole selles alglaadimiskeskkonnas saadaval.</value>
+  </data>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>Wi-Fi pole selles seadmes saadaval.</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>Nimetu ette nähtud profiil</value>

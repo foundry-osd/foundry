@@ -82,6 +82,9 @@ Licensed under the MIT License.</value>
   <data name="Debug.Scenario.Checking" xml:space="preserve">
     <value>Checking the network</value>
   </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet: 802.1X authenticating</value>
+  </data>
   <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
     <value>Ethernet: 802.1X failed</value>
   </data>
@@ -103,14 +106,23 @@ Licensed under the MIT License.</value>
   <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
     <value>No Wi-Fi adapter</value>
   </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>Provisioned Wi-Fi: password required</value>
+  </data>
   <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
     <value>Provisioned Wi-Fi unavailable</value>
   </data>
   <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
     <value>Ethernet: waiting for an address</value>
   </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>Provisioned Wi-Fi: connecting</value>
+  </data>
   <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
     <value>Wi-Fi networks</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>No Ethernet adapter, Wi-Fi networks</value>
   </data>
   <data name="Debug.Scenario.WifiReady" xml:space="preserve">
     <value>Wi-Fi: ready</value>
@@ -156,7 +168,7 @@ Licensed under the MIT License.</value>
     <value>Adapter</value>
   </data>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
-    <value>Self-assigned address: the DHCP server did not answer</value>
+    <value>Self-assigned address</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>Check the cable connection</value>
@@ -195,7 +207,7 @@ Licensed under the MIT License.</value>
     <value>The 802.1X certificate password cannot be read. Recreate the boot media.</value>
   </data>
   <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
-    <value>The deployment password was not entered, so the 802.1X settings were not applied. Ethernet without 802.1X and Wi-Fi still work.</value>
+    <value>The deployment password was not entered, so the 802.1X settings were not applied.</value>
   </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Unavailable</value>
@@ -217,6 +229,9 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>Ethernet isn't available on this device.</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Waiting for network configuration</value>
@@ -381,10 +396,22 @@ Licensed under the MIT License.</value>
     <value>Automatic continue is paused because you changed network settings.</value>
   </data>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
-    <value>This network requires signing in on a web page.</value>
+    <value>The network answered with a sign-in page instead of internet access. Sign in from another device if this network allows it, or use another network, then select Retry.</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>Wired 802.1X authentication did not succeed. The reason is shown in the Ethernet section.</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>No network connection. Join a Wi-Fi network.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>No network adapter was detected. Connect a supported Ethernet or Wi-Fi adapter, then select Retry.</value>
+    <value>No network adapter is available. Check the Ethernet and Wi-Fi sections, then select Retry.</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>No network connection. Connect an Ethernet cable.</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>No network adapter is available. Check the Ethernet section, then select Retry.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>The network is connected but cannot reach the internet. Check the firewall or proxy, then select Retry.</value>
@@ -409,6 +436,12 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Status.ConnectingTitle" xml:space="preserve">
     <value>Connecting</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>Disconnecting</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>Wired 802.1X authentication is in progress.</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>Internet access has been validated. You can continue now.</value>
@@ -558,7 +591,7 @@ Licensed under the MIT License.</value>
     <value>The provisioned Wi-Fi password does not meet the requirements of the network. Recreate the boot media.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
-    <value>The provisioned Wi-Fi password cannot be read from this boot media. Recreate the boot media. Ethernet and other Wi-Fi networks still work.</value>
+    <value>The provisioned Wi-Fi password cannot be read from this boot media. Recreate the boot media.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>The enterprise Wi-Fi profile is missing from the boot media. Recreate the boot media.</value>
@@ -567,7 +600,7 @@ Licensed under the MIT License.</value>
     <value>Provisioned Wi-Fi unavailable</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
-    <value>The deployment password was not entered. Select Connect to enter it. Ethernet and other Wi-Fi networks still work.</value>
+    <value>The deployment password was not entered. Select Connect to enter it.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Refresh Wi-Fi networks</value>
@@ -631,6 +664,9 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
     <value>Wi-Fi support is not available in this boot environment.</value>
+  </data>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>Wi-Fi isn't available on this device.</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>Unnamed provisioned profile</value>

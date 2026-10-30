@@ -82,6 +82,9 @@ Licenciado sob a licença MIT.</value>
   <data name="Debug.Scenario.Checking" xml:space="preserve">
     <value>Verificando a rede</value>
   </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet: autenticando 802.1X</value>
+  </data>
   <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
     <value>Ethernet: falha no 802.1X</value>
   </data>
@@ -103,14 +106,23 @@ Licenciado sob a licença MIT.</value>
   <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
     <value>Nenhum adaptador Wi-Fi</value>
   </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>Wi-Fi provisionado: senha obrigatória</value>
+  </data>
   <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
     <value>Wi-Fi provisionado indisponível</value>
   </data>
   <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
     <value>Ethernet: aguardando um endereço</value>
   </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>Wi-Fi provisionado: conectando</value>
+  </data>
   <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
     <value>Redes Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>Nenhum adaptador Ethernet, redes Wi-Fi</value>
   </data>
   <data name="Debug.Scenario.WifiReady" xml:space="preserve">
     <value>Wi-Fi: pronto</value>
@@ -156,7 +168,7 @@ Licenciado sob a licença MIT.</value>
     <value>Adaptador</value>
   </data>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
-    <value>Endereço autoatribuído: o servidor DHCP não respondeu</value>
+    <value>Endereço autoatribuído</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>Verifique a conexão do cabo</value>
@@ -195,7 +207,7 @@ Licenciado sob a licença MIT.</value>
     <value>Não é possível ler a senha do certificado 802.1X. Recrie a mídia de inicialização.</value>
   </data>
   <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
-    <value>A senha de implantação não foi inserida, então as configurações 802.1X não foram aplicadas. A Ethernet sem 802.1X e o Wi-Fi continuam funcionando.</value>
+    <value>A senha de implantação não foi inserida, então as configurações 802.1X não foram aplicadas.</value>
   </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Indisponível</value>
@@ -217,6 +229,9 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>A Ethernet não está disponível neste dispositivo.</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Aguardando configuração de rede</value>
@@ -381,10 +396,22 @@ Licenciado sob a licença MIT.</value>
     <value>A continuação automática está pausada porque você alterou as configurações de rede.</value>
   </data>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
-    <value>Esta rede exige entrar em uma página da web.</value>
+    <value>A rede respondeu com uma página de entrada em vez de acesso à Internet. Entre por outro dispositivo se esta rede permitir, ou use outra rede e selecione Tentar novamente.</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>A autenticação 802.1X com fio não teve êxito. O motivo é mostrado na seção Ethernet.</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>Sem conexão de rede. Entre em uma rede Wi-Fi.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Nenhum adaptador de rede foi detectado. Conecte um adaptador Ethernet ou Wi-Fi compatível e selecione Tentar novamente.</value>
+    <value>Nenhum adaptador de rede está disponível. Verifique as seções Ethernet e Wi-Fi e selecione Tentar novamente.</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>Sem conexão de rede. Conecte um cabo Ethernet.</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>Nenhum adaptador de rede está disponível. Verifique a seção Ethernet e selecione Tentar novamente.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>A rede está conectada, mas não consegue acessar a Internet. Verifique o firewall ou o proxy e selecione Tentar novamente.</value>
@@ -409,6 +436,12 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="Status.ConnectingTitle" xml:space="preserve">
     <value>Conectando</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>Desconectando</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>A autenticação 802.1X com fio está em andamento.</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>O acesso à Internet foi validado. Você pode continuar agora.</value>
@@ -558,7 +591,7 @@ Licenciado sob a licença MIT.</value>
     <value>A senha do Wi-Fi provisionado não atende aos requisitos da rede. Recrie a mídia de inicialização.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
-    <value>Não é possível ler a senha do Wi-Fi provisionado desta mídia de inicialização. Recrie a mídia de inicialização. A Ethernet e as outras redes Wi-Fi continuam funcionando.</value>
+    <value>Não é possível ler a senha do Wi-Fi provisionado desta mídia de inicialização. Recrie a mídia de inicialização.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>O perfil Wi-Fi empresarial está ausente da mídia de inicialização. Recrie a mídia de inicialização.</value>
@@ -567,7 +600,7 @@ Licenciado sob a licença MIT.</value>
     <value>Wi-Fi provisionado indisponível</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
-    <value>A senha de implantação não foi inserida. Selecione Conectar para inseri-la. A Ethernet e as outras redes Wi-Fi continuam funcionando.</value>
+    <value>A senha de implantação não foi inserida. Selecione Conectar para inseri-la.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Atualizar redes Wi-Fi</value>
@@ -631,6 +664,9 @@ Licenciado sob a licença MIT.</value>
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
     <value>O suporte Wi-Fi não está disponível neste ambiente de inicialização.</value>
+  </data>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>O Wi-Fi não está disponível neste dispositivo.</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>Perfil provisionado sem nome</value>

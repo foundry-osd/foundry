@@ -82,6 +82,9 @@ Licensierad under MIT-licensen.</value>
   <data name="Debug.Scenario.Checking" xml:space="preserve">
     <value>Kontrollerar nätverket</value>
   </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet: 802.1X-autentisering pågår</value>
+  </data>
   <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
     <value>Ethernet: 802.1X misslyckades</value>
   </data>
@@ -103,14 +106,23 @@ Licensierad under MIT-licensen.</value>
   <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
     <value>Ingen Wi-Fi-adapter</value>
   </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>Tillhandahållet Wi-Fi: lösenord krävs</value>
+  </data>
   <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
     <value>Tillhandahållet Wi-Fi är inte tillgängligt</value>
   </data>
   <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
     <value>Ethernet: väntar på en adress</value>
   </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>Tillhandahållet Wi-Fi: ansluter</value>
+  </data>
   <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
     <value>Wi-Fi-nätverk</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>Ingen Ethernet-adapter, Wi-Fi-nätverk</value>
   </data>
   <data name="Debug.Scenario.WifiReady" xml:space="preserve">
     <value>Wi-Fi: klart</value>
@@ -156,7 +168,7 @@ Licensierad under MIT-licensen.</value>
     <value>Adapter</value>
   </data>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
-    <value>Självtilldelad adress: DHCP-servern svarade inte</value>
+    <value>Självtilldelad adress</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>Kontrollera kabelanslutningen</value>
@@ -195,7 +207,7 @@ Licensierad under MIT-licensen.</value>
     <value>Lösenordet för 802.1X-certifikatet kan inte läsas. Skapa startmediet på nytt.</value>
   </data>
   <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
-    <value>Distributionslösenordet angavs inte, så 802.1X-inställningarna tillämpades inte. Ethernet utan 802.1X och Wi-Fi fungerar fortfarande.</value>
+    <value>Distributionslösenordet angavs inte, så 802.1X-inställningarna tillämpades inte.</value>
   </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Ej tillgänglig</value>
@@ -217,6 +229,9 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>Ethernet är inte tillgängligt på den här enheten.</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Väntar på nätverkskonfiguration</value>
@@ -381,10 +396,22 @@ Licensierad under MIT-licensen.</value>
     <value>Automatisk fortsättning har pausats eftersom du ändrade nätverksinställningarna.</value>
   </data>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
-    <value>Det här nätverket kräver inloggning på en webbsida.</value>
+    <value>Nätverket svarade med en inloggningssida i stället för internetåtkomst. Logga in från en annan enhet om nätverket tillåter det, eller använd ett annat nätverk, och välj sedan Försök igen.</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>Den trådbundna 802.1X-autentiseringen lyckades inte. Orsaken visas i avsnittet Ethernet.</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>Ingen nätverksanslutning. Anslut till ett Wi-Fi-nätverk.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Ingen nätverksadapter hittades. Anslut en Ethernet- eller Wi-Fi-adapter som stöds och välj sedan Försök igen.</value>
+    <value>Ingen nätverksadapter är tillgänglig. Kontrollera avsnitten Ethernet och Wi-Fi och välj sedan Försök igen.</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>Ingen nätverksanslutning. Anslut en Ethernet-kabel.</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>Ingen nätverksadapter är tillgänglig. Kontrollera avsnittet Ethernet och välj sedan Försök igen.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Nätverket är anslutet men når inte internet. Kontrollera brandväggen eller proxyn och välj sedan Försök igen.</value>
@@ -409,6 +436,12 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Status.ConnectingTitle" xml:space="preserve">
     <value>Ansluter</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>Kopplar från</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>Trådbunden 802.1X-autentisering pågår.</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>Internetåtkomst har validerats. Du kan fortsätta nu.</value>
@@ -558,7 +591,7 @@ Licensierad under MIT-licensen.</value>
     <value>Det tillhandahållna Wi-Fi-lösenordet uppfyller inte nätverkets krav. Skapa startmediet på nytt.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
-    <value>Det tillhandahållna Wi-Fi-lösenordet kan inte läsas från det här startmediet. Skapa startmediet på nytt. Ethernet och andra Wi-Fi-nätverk fungerar fortfarande.</value>
+    <value>Det tillhandahållna Wi-Fi-lösenordet kan inte läsas från det här startmediet. Skapa startmediet på nytt.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>Företagets Wi-Fi-profil saknas på startmediet. Skapa startmediet på nytt.</value>
@@ -567,7 +600,7 @@ Licensierad under MIT-licensen.</value>
     <value>Tillhandahållet Wi-Fi är inte tillgängligt</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
-    <value>Distributionslösenordet angavs inte. Välj Anslut för att ange det. Ethernet och andra Wi-Fi-nätverk fungerar fortfarande.</value>
+    <value>Distributionslösenordet angavs inte. Välj Anslut för att ange det.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Uppdatera Wi-Fi nätverk</value>
@@ -631,6 +664,9 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
     <value>Wi-Fi support är inte tillgängligt i den här startmiljön.</value>
+  </data>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>Wi-Fi är inte tillgängligt på den här enheten.</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>Namnlös tillhandahållen profil</value>

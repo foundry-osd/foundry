@@ -82,6 +82,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Debug.Scenario.Checking" xml:space="preserve">
     <value>Ağ denetleniyor</value>
   </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet: 802.1X kimlik doğrulanıyor</value>
+  </data>
   <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
     <value>Ethernet: 802.1X başarısız</value>
   </data>
@@ -103,14 +106,23 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
     <value>Wi-Fi bağdaştırıcısı yok</value>
   </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>Sağlanan Wi-Fi: parola gerekli</value>
+  </data>
   <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
     <value>Sağlanan Wi-Fi kullanılamıyor</value>
   </data>
   <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
     <value>Ethernet: adres bekleniyor</value>
   </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>Sağlanan Wi-Fi: bağlanıyor</value>
+  </data>
   <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
     <value>Wi-Fi ağları</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>Ethernet bağdaştırıcısı yok, Wi-Fi ağları</value>
   </data>
   <data name="Debug.Scenario.WifiReady" xml:space="preserve">
     <value>Wi-Fi: hazır</value>
@@ -156,7 +168,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Adaptör</value>
   </data>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
-    <value>Otomatik atanan adres: DHCP sunucusu yanıt vermedi</value>
+    <value>Otomatik atanan adres</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>Kablo bağlantısını kontrol edin</value>
@@ -195,7 +207,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>802.1X sertifikasının şifresi okunamıyor. Önyükleme medyasını yeniden oluşturun.</value>
   </data>
   <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
-    <value>Dağıtım parolası girilmediği için 802.1X ayarları uygulanmadı. 802.1X olmadan Ethernet ve Wi-Fi çalışmaya devam ediyor.</value>
+    <value>Dağıtım parolası girilmediği için 802.1X ayarları uygulanmadı.</value>
   </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Kullanılamıyor</value>
@@ -217,6 +229,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>Ethernet bu cihazda kullanılamıyor.</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Ağ yapılandırması bekleniyor</value>
@@ -381,10 +396,22 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Ağ ayarlarını değiştirdiğiniz için otomatik devam duraklatıldı.</value>
   </data>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
-    <value>Bu ağ, bir web sayfasında oturum açmayı gerektiriyor.</value>
+    <value>Ağ, internet erişimi yerine bir oturum açma sayfasıyla yanıt verdi. Bu ağ izin veriyorsa başka bir cihazdan oturum açın veya başka bir ağ kullanın, ardından Yeniden dene'yi seçin.</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>Kablolu 802.1X kimlik doğrulaması başarılı olmadı. Neden, Ethernet bölümünde gösterilir.</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>Ağ bağlantısı yok. Bir Wi-Fi ağına katılın.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Ağ bağdaştırıcısı algılanmadı. Desteklenen bir Ethernet veya Wi-Fi bağdaştırıcısı bağlayın, ardından Yeniden dene'yi seçin.</value>
+    <value>Kullanılabilir ağ bağdaştırıcısı yok. Ethernet ve Wi-Fi bölümlerini denetleyin, ardından Yeniden dene'yi seçin.</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>Ağ bağlantısı yok. Bir Ethernet kablosu takın.</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>Kullanılabilir ağ bağdaştırıcısı yok. Ethernet bölümünü denetleyin, ardından Yeniden dene'yi seçin.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Ağ bağlı ancak internete ulaşamıyor. Güvenlik duvarını veya proxy'yi denetleyin, ardından Yeniden dene'yi seçin.</value>
@@ -409,6 +436,12 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Status.ConnectingTitle" xml:space="preserve">
     <value>Bağlanıyor</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>Bağlantı kesiliyor</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>Kablolu 802.1X kimlik doğrulaması devam ediyor.</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>İnternet erişimi doğrulandı. Şimdi devam edebilirsiniz.</value>
@@ -558,7 +591,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Sağlanan Wi-Fi şifresi ağın gereksinimlerini karşılamıyor. Önyükleme medyasını yeniden oluşturun.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
-    <value>Sağlanan Wi-Fi şifresi bu önyükleme medyasından okunamıyor. Önyükleme medyasını yeniden oluşturun. Ethernet ve diğer Wi-Fi ağları çalışmaya devam ediyor.</value>
+    <value>Sağlanan Wi-Fi şifresi bu önyükleme medyasından okunamıyor. Önyükleme medyasını yeniden oluşturun.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>Kurumsal Wi-Fi profili önyükleme medyasında eksik. Önyükleme medyasını yeniden oluşturun.</value>
@@ -567,7 +600,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Sağlanan Wi-Fi kullanılamıyor</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
-    <value>Dağıtım parolası girilmedi. Parolayı girmek için Bağlan'ı seçin. Ethernet ve diğer Wi-Fi ağları çalışmaya devam ediyor.</value>
+    <value>Dağıtım parolası girilmedi. Parolayı girmek için Bağlan'ı seçin.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Wi-Fi ağlarını yenile</value>
@@ -631,6 +664,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
     <value>Bu önyükleme ortamında Wi-Fi desteği mevcut değildir.</value>
+  </data>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>Wi-Fi bu cihazda kullanılamıyor.</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>Adsız temel hazırlık profili</value>

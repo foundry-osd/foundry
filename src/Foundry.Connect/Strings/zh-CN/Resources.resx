@@ -82,6 +82,9 @@
   <data name="Debug.Scenario.Checking" xml:space="preserve">
     <value>正在检查网络</value>
   </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet：正在进行 802.1X 验证</value>
+  </data>
   <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
     <value>Ethernet：802.1X 失败</value>
   </data>
@@ -103,14 +106,23 @@
   <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
     <value>无 Wi-Fi 适配器</value>
   </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>已配置的 Wi-Fi：需要密码</value>
+  </data>
   <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
     <value>已配置的 Wi-Fi 不可用</value>
   </data>
   <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
     <value>Ethernet：正在等待地址</value>
   </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>已配置的 Wi-Fi：正在连接</value>
+  </data>
   <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
     <value>Wi-Fi 网络</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>无 Ethernet 适配器，有 Wi-Fi 网络</value>
   </data>
   <data name="Debug.Scenario.WifiReady" xml:space="preserve">
     <value>Wi-Fi：就绪</value>
@@ -156,7 +168,7 @@
     <value>适配器</value>
   </data>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
-    <value>自动分配的地址：DHCP 服务器未响应</value>
+    <value>自动分配的地址</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>检查电缆连接</value>
@@ -195,7 +207,7 @@
     <value>无法读取 802.1X 证书密码。请重新制作启动介质。</value>
   </data>
   <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
-    <value>未输入部署密码，因此未应用 802.1X 设置。不使用 802.1X 的 Ethernet 和 Wi-Fi 仍可正常使用。</value>
+    <value>未输入部署密码，因此未应用 802.1X 设置。</value>
   </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>不可用</value>
@@ -217,6 +229,9 @@
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>此设备上无法使用 Ethernet。</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>等待网络配置</value>
@@ -381,10 +396,22 @@
     <value>由于您更改了网络设置，自动继续已暂停。</value>
   </data>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
-    <value>此网络需要在网页上登录。</value>
+    <value>网络返回了登录页面，而不是互联网访问。如果此网络允许，请从其他设备登录，或使用其他网络，然后选择“重试”。</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>有线 802.1X 身份验证未成功。原因显示在 Ethernet 部分中。</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>无网络连接。请加入 Wi-Fi 网络。</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>未检测到网络适配器。请连接受支持的 Ethernet 或 Wi-Fi 适配器，然后选择“重试”。</value>
+    <value>没有可用的网络适配器。请检查 Ethernet 和 Wi-Fi 部分，然后选择“重试”。</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>无网络连接。请连接 Ethernet 网线。</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>没有可用的网络适配器。请检查 Ethernet 部分，然后选择“重试”。</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>网络已连接，但无法访问互联网。请检查防火墙或代理，然后选择“重试”。</value>
@@ -409,6 +436,12 @@
   </data>
   <data name="Status.ConnectingTitle" xml:space="preserve">
     <value>正在连接</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>正在断开连接</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>正在进行有线 802.1X 身份验证。</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>互联网访问已得到验证。您现在可以继续。</value>
@@ -558,7 +591,7 @@
     <value>已配置的 Wi-Fi 密码不符合网络要求。请重新制作启动介质。</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
-    <value>无法从此启动介质读取已配置的 Wi-Fi 密码。请重新制作启动介质。Ethernet 和其他 Wi-Fi 网络仍可正常使用。</value>
+    <value>无法从此启动介质读取已配置的 Wi-Fi 密码。请重新制作启动介质。</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>启动介质中缺少企业 Wi-Fi 配置文件。请重新制作启动介质。</value>
@@ -567,7 +600,7 @@
     <value>已配置的 Wi-Fi 不可用</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
-    <value>未输入部署密码。请选择“连接”以输入密码。Ethernet 和其他 Wi-Fi 网络仍可正常使用。</value>
+    <value>未输入部署密码。请选择“连接”以输入密码。</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>刷新Wi-Fi网络</value>
@@ -631,6 +664,9 @@
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
     <value>Wi-Fi 支持在此引导环境中不可用。</value>
+  </data>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>此设备上无法使用 Wi-Fi。</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>未命名的配置文件</value>

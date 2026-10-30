@@ -82,6 +82,9 @@
   <data name="Debug.Scenario.Checking" xml:space="preserve">
     <value>Έλεγχος δικτύου</value>
   </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet: έλεγχος ταυτότητας 802.1X σε εξέλιξη</value>
+  </data>
   <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
     <value>Ethernet: αποτυχία 802.1X</value>
   </data>
@@ -103,14 +106,23 @@
   <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
     <value>Χωρίς προσαρμογέα Wi-Fi</value>
   </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>Προβλεπόμενο Wi-Fi: απαιτείται κωδικός πρόσβασης</value>
+  </data>
   <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
     <value>Το προβλεπόμενο Wi-Fi δεν είναι διαθέσιμο</value>
   </data>
   <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
     <value>Ethernet: αναμονή για διεύθυνση</value>
   </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>Προβλεπόμενο Wi-Fi: σύνδεση σε εξέλιξη</value>
+  </data>
   <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
     <value>Δίκτυα Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>Χωρίς προσαρμογέα Ethernet, δίκτυα Wi-Fi</value>
   </data>
   <data name="Debug.Scenario.WifiReady" xml:space="preserve">
     <value>Wi-Fi: έτοιμο</value>
@@ -156,7 +168,7 @@
     <value>Προσαρμογέας</value>
   </data>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
-    <value>Αυτόματα εκχωρημένη διεύθυνση: ο διακομιστής DHCP δεν απάντησε</value>
+    <value>Αυτόματα εκχωρημένη διεύθυνση</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>Ελέγξτε τη σύνδεση του καλωδίου</value>
@@ -195,7 +207,7 @@
     <value>Δεν είναι δυνατή η ανάγνωση του κωδικού πρόσβασης του πιστοποιητικού 802.1X. Δημιουργήστε ξανά το μέσο εκκίνησης.</value>
   </data>
   <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
-    <value>Δεν εισαγάγατε τον κωδικό πρόσβασης ανάπτυξης, επομένως οι ρυθμίσεις 802.1X δεν εφαρμόστηκαν. Το Ethernet χωρίς 802.1X και το Wi-Fi εξακολουθούν να λειτουργούν.</value>
+    <value>Δεν εισαγάγατε τον κωδικό πρόσβασης ανάπτυξης, επομένως οι ρυθμίσεις 802.1X δεν εφαρμόστηκαν.</value>
   </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>Μη διαθέσιμο</value>
@@ -217,6 +229,9 @@
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>Το Ethernet δεν είναι διαθέσιμο σε αυτήν τη συσκευή.</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Αναμονή για διαμόρφωση δικτύου</value>
@@ -381,10 +396,22 @@
     <value>Η αυτόματη συνέχεια τέθηκε σε παύση επειδή αλλάξατε τις ρυθμίσεις δικτύου.</value>
   </data>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
-    <value>Αυτό το δίκτυο απαιτεί σύνδεση σε μια ιστοσελίδα.</value>
+    <value>Το δίκτυο απάντησε με σελίδα σύνδεσης αντί για πρόσβαση στο Διαδίκτυο. Συνδεθείτε από άλλη συσκευή, εάν το δίκτυο το επιτρέπει, ή χρησιμοποιήστε άλλο δίκτυο και, στη συνέχεια, επιλέξτε Επανάληψη.</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>Ο ενσύρματος έλεγχος ταυτότητας 802.1X δεν ολοκληρώθηκε με επιτυχία. Η αιτία εμφανίζεται στην ενότητα Ethernet.</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>Δεν υπάρχει σύνδεση δικτύου. Συνδεθείτε σε ένα δίκτυο Wi-Fi.</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>Δεν εντοπίστηκε προσαρμογέας δικτύου. Συνδέστε έναν υποστηριζόμενο προσαρμογέα Ethernet ή Wi-Fi και, στη συνέχεια, επιλέξτε Επανάληψη.</value>
+    <value>Δεν υπάρχει διαθέσιμος προσαρμογέας δικτύου. Ελέγξτε τις ενότητες Ethernet και Wi-Fi και, στη συνέχεια, επιλέξτε Επανάληψη.</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>Δεν υπάρχει σύνδεση δικτύου. Συνδέστε ένα καλώδιο Ethernet.</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>Δεν υπάρχει διαθέσιμος προσαρμογέας δικτύου. Ελέγξτε την ενότητα Ethernet και, στη συνέχεια, επιλέξτε Επανάληψη.</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>Το δίκτυο είναι συνδεδεμένο, αλλά δεν έχει πρόσβαση στο Διαδίκτυο. Ελέγξτε το τείχος προστασίας ή τον διακομιστή μεσολάβησης και, στη συνέχεια, επιλέξτε Επανάληψη.</value>
@@ -409,6 +436,12 @@
   </data>
   <data name="Status.ConnectingTitle" xml:space="preserve">
     <value>Σύνδεση σε εξέλιξη</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>Αποσύνδεση σε εξέλιξη</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>Ο ενσύρματος έλεγχος ταυτότητας 802.1X βρίσκεται σε εξέλιξη.</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>Η πρόσβαση στο Διαδίκτυο έχει επικυρωθεί. Μπορείτε να συνεχίσετε τώρα.</value>
@@ -558,7 +591,7 @@
     <value>Ο κωδικός πρόσβασης του προβλεπόμενου Wi-Fi δεν πληροί τις απαιτήσεις του δικτύου. Δημιουργήστε ξανά το μέσο εκκίνησης.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
-    <value>Δεν είναι δυνατή η ανάγνωση του κωδικού πρόσβασης του προβλεπόμενου Wi-Fi από αυτό το μέσο εκκίνησης. Δημιουργήστε ξανά το μέσο εκκίνησης. Το Ethernet και τα άλλα δίκτυα Wi-Fi εξακολουθούν να λειτουργούν.</value>
+    <value>Δεν είναι δυνατή η ανάγνωση του κωδικού πρόσβασης του προβλεπόμενου Wi-Fi από αυτό το μέσο εκκίνησης. Δημιουργήστε ξανά το μέσο εκκίνησης.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>Το εταιρικό προφίλ Wi-Fi λείπει από το μέσο εκκίνησης. Δημιουργήστε ξανά το μέσο εκκίνησης.</value>
@@ -567,7 +600,7 @@
     <value>Το προβλεπόμενο Wi-Fi δεν είναι διαθέσιμο</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
-    <value>Δεν εισαγάγατε τον κωδικό πρόσβασης ανάπτυξης. Επιλέξτε Συνδεθείτε για να τον εισαγάγετε. Το Ethernet και τα άλλα δίκτυα Wi-Fi εξακολουθούν να λειτουργούν.</value>
+    <value>Δεν εισαγάγατε τον κωδικό πρόσβασης ανάπτυξης. Επιλέξτε Συνδεθείτε για να τον εισαγάγετε.</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Ανανεώστε τα δίκτυα Wi-Fi</value>
@@ -631,6 +664,9 @@
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
     <value>Η υποστήριξη Wi-Fi δεν είναι διαθέσιμη σε αυτό το περιβάλλον εκκίνησης.</value>
+  </data>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>Το Wi-Fi δεν είναι διαθέσιμο σε αυτήν τη συσκευή.</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>Ανώνυμο προβλεπόμενο προφίλ</value>

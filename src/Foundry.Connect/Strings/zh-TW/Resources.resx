@@ -82,6 +82,9 @@
   <data name="Debug.Scenario.Checking" xml:space="preserve">
     <value>正在檢查網路</value>
   </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet：正在進行 802.1X 驗證</value>
+  </data>
   <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
     <value>Ethernet：802.1X 失敗</value>
   </data>
@@ -103,14 +106,23 @@
   <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
     <value>沒有 Wi-Fi 介面卡</value>
   </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>已佈建的 Wi-Fi：需要密碼</value>
+  </data>
   <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
     <value>已佈建的 Wi-Fi 無法使用</value>
   </data>
   <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
     <value>Ethernet：正在等待位址</value>
   </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>已佈建的 Wi-Fi：正在連線</value>
+  </data>
   <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
     <value>Wi-Fi 網路</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>沒有 Ethernet 介面卡，有 Wi-Fi 網路</value>
   </data>
   <data name="Debug.Scenario.WifiReady" xml:space="preserve">
     <value>Wi-Fi：就緒</value>
@@ -156,7 +168,7 @@
     <value>介面卡</value>
   </data>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
-    <value>自動指派的位址：DHCP 伺服器沒有回應</value>
+    <value>自動指派的位址</value>
   </data>
   <data name="Ethernet.CheckCable" xml:space="preserve">
     <value>檢查網路線連接</value>
@@ -195,7 +207,7 @@
     <value>無法讀取 802.1X 憑證密碼。請重新製作開機媒體。</value>
   </data>
   <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
-    <value>未輸入部署密碼，因此未套用 802.1X 設定。不使用 802.1X 的 Ethernet 與 Wi-Fi 仍可正常運作。</value>
+    <value>未輸入部署密碼，因此未套用 802.1X 設定。</value>
   </data>
   <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
     <value>無法使用</value>
@@ -217,6 +229,9 @@
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
+  </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>此裝置無法使用 Ethernet。</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>正在等待網路設定</value>
@@ -381,10 +396,22 @@
     <value>由於您變更了網路設定，自動繼續已暫停。</value>
   </data>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
-    <value>此網路需要在網頁上登入。</value>
+    <value>網路傳回登入頁面，而不是網際網路存取。如果此網路允許，請從其他裝置登入，或使用其他網路，然後選取「重試」。</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>有線 802.1X 驗證未成功。原因會顯示在 Ethernet 區段中。</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>沒有網路連線。請加入 Wi-Fi 網路。</value>
   </data>
   <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
-    <value>未偵測到網路介面卡。請連接支援的 Ethernet 或 Wi-Fi 介面卡，然後選取「重試」。</value>
+    <value>沒有可用的網路介面卡。請檢查 Ethernet 和 Wi-Fi 區段，然後選取「重試」。</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>沒有網路連線。請連接 Ethernet 網路線。</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>沒有可用的網路介面卡。請檢查 Ethernet 區段，然後選取「重試」。</value>
   </data>
   <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
     <value>網路已連線，但無法連上網際網路。請檢查防火牆或 Proxy，然後選取「重試」。</value>
@@ -409,6 +436,12 @@
   </data>
   <data name="Status.ConnectingTitle" xml:space="preserve">
     <value>正在連線</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>正在中斷連線</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>正在進行有線 802.1X 驗證。</value>
   </data>
   <data name="Status.NetworkReadyDescription" xml:space="preserve">
     <value>已驗證網際網路存取。您現在可以繼續。</value>
@@ -558,7 +591,7 @@
     <value>已佈建的 Wi-Fi 密碼不符合網路的需求。請重新製作開機媒體。</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
-    <value>無法從此開機媒體讀取已佈建的 Wi-Fi 密碼。請重新製作開機媒體。Ethernet 與其他 Wi-Fi 網路仍可正常運作。</value>
+    <value>無法從此開機媒體讀取已佈建的 Wi-Fi 密碼。請重新製作開機媒體。</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>開機媒體中缺少企業 Wi-Fi 設定檔。請重新製作開機媒體。</value>
@@ -567,7 +600,7 @@
     <value>已佈建的 Wi-Fi 無法使用</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
-    <value>未輸入部署密碼。請選取「連線」以輸入密碼。Ethernet 與其他 Wi-Fi 網路仍可正常運作。</value>
+    <value>未輸入部署密碼。請選取「連線」以輸入密碼。</value>
   </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>重新整理 Wi-Fi 網路</value>
@@ -631,6 +664,9 @@
   </data>
   <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
     <value>此開機環境不支援 Wi-Fi。</value>
+  </data>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>此裝置無法使用 Wi-Fi。</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>未命名的已佈建設定檔</value>
