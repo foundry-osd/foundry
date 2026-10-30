@@ -136,29 +136,23 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
     /// <summary>Gets why the page is blocked, or <see cref="BlockedReason.None"/>.</summary>
     public BlockedReason BlockedReason { get; private set; }
 
-    /// <summary>Gets whether the internet is online.</summary>
-    public bool IsReady => Status == ConnectPageStatus.Ready;
+    /// <summary>Gets the banner title.</summary>
+    public string BannerTitle => LocalizationService.GetString(BannerKeys.TitleKey);
 
-    /// <summary>Gets whether the internet is not reachable and nothing is running.</summary>
-    public bool IsBlocked => Status == ConnectPageStatus.Blocked;
+    /// <summary>Gets the banner description, or an empty string when the banner has none (checking and ready).</summary>
+    public string BannerDescription => BannerKeys.DescriptionKey is { } key ? LocalizationService.GetString(key) : string.Empty;
 
-    /// <summary>Gets the hero title.</summary>
-    public string HeroTitle => LocalizationService.GetString(HeroKeys.TitleKey);
+    /// <summary>Gets whether the banner shows a description line.</summary>
+    public bool HasBannerDescription => BannerKeys.DescriptionKey is not null;
 
-    /// <summary>Gets the hero description, or an empty string when the banner has none (checking and ready).</summary>
-    public string HeroDescription => HeroKeys.DescriptionKey is { } key ? LocalizationService.GetString(key) : string.Empty;
+    /// <summary>Gets whether the banner shows the progress ring: checking or waiting.</summary>
+    public bool IsBannerBusy => Status is ConnectPageStatus.Checking or ConnectPageStatus.Waiting;
 
-    /// <summary>Gets whether the hero shows a description line.</summary>
-    public bool HasHeroDescription => HeroKeys.DescriptionKey is not null;
-
-    /// <summary>Gets whether the hero shows the progress ring: checking or waiting.</summary>
-    public bool IsHeroBusy => Status is ConnectPageStatus.Checking or ConnectPageStatus.Waiting;
-
-    /// <summary>Gets whether the hero shows the terminal status glyph: ready or blocked.</summary>
-    public bool IsHeroTerminal => !IsHeroBusy;
+    /// <summary>Gets whether the banner shows the terminal status glyph: ready or blocked.</summary>
+    public bool IsBannerTerminal => !IsBannerBusy;
 
     /// <summary>Gets whether the terminal glyph shows success.</summary>
-    public bool IsHeroSuccess => IsReady;
+    public bool IsBannerSuccess => Status == ConnectPageStatus.Ready;
 
     /// <summary>
     /// Gets the connection chip: Ethernet when it has a usable address, else the Wi-Fi network in use, else empty.
@@ -193,7 +187,7 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
     /// Gets whether the banner shows Retry and Export diagnostics: the page is blocked, or it waits with no operation
     /// running (wired 802.1X authenticating), where Retry means "check again".
     /// </summary>
-    public bool ShowRetryActions => IsBlocked || (Status == ConnectPageStatus.Waiting && _renderedState.ActiveOperation is null);
+    public bool ShowRetryActions => Status == ConnectPageStatus.Blocked || (Status == ConnectPageStatus.Waiting && _renderedState.ActiveOperation is null);
 
     /// <summary>Gets whether a debug scenario replaces the live state.</summary>
     public bool IsSimulation { get; private set; }
@@ -201,13 +195,10 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
     /// <summary>Gets the active debug scenario; <see cref="ConnectDebugScenario.Live"/> for the real network.</summary>
     public ConnectDebugScenario ActiveDebugScenario { get; private set; }
 
-    /// <summary>Gets the state rendered last, live or simulated.</summary>
-    internal NetworkState CurrentState => _renderedState;
-
     private bool IsWifiSectionShown => ConnectPagePolicy.IsWifiSectionShown(UsesTwoColumns, _renderedState.Wifi.Availability);
 
-    private (string TitleKey, string? DescriptionKey) HeroKeys =>
-        NetworkTextKeys.HeroKeys(Status, BlockedReason, _renderedState, IsWifiSectionShown);
+    private (string TitleKey, string? DescriptionKey) BannerKeys =>
+        NetworkTextKeys.BannerKeys(Status, BlockedReason, _renderedState, IsWifiSectionShown);
 
     /// <summary>
     /// Asks for the deployment password when wired 802.1X needs it, applies the provisioning once, shows its Wi-Fi
@@ -446,14 +437,12 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
     {
         OnPropertyChanged(nameof(Status));
         OnPropertyChanged(nameof(BlockedReason));
-        OnPropertyChanged(nameof(IsReady));
-        OnPropertyChanged(nameof(IsBlocked));
-        OnPropertyChanged(nameof(HeroTitle));
-        OnPropertyChanged(nameof(HeroDescription));
-        OnPropertyChanged(nameof(HasHeroDescription));
-        OnPropertyChanged(nameof(IsHeroBusy));
-        OnPropertyChanged(nameof(IsHeroTerminal));
-        OnPropertyChanged(nameof(IsHeroSuccess));
+        OnPropertyChanged(nameof(BannerTitle));
+        OnPropertyChanged(nameof(BannerDescription));
+        OnPropertyChanged(nameof(HasBannerDescription));
+        OnPropertyChanged(nameof(IsBannerBusy));
+        OnPropertyChanged(nameof(IsBannerTerminal));
+        OnPropertyChanged(nameof(IsBannerSuccess));
         OnPropertyChanged(nameof(ConnectionChipText));
         OnPropertyChanged(nameof(HasConnectionChip));
         OnPropertyChanged(nameof(UsesTwoColumns));

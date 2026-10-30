@@ -139,7 +139,7 @@ public sealed class NetworkTextKeysTests
             {
                 foreach (bool isWifiSectionShown in new[] { true, false })
                 {
-                    (string title, string? description) = NetworkTextKeys.HeroKeys(status, reason, state, isWifiSectionShown);
+                    (string title, string? description) = NetworkTextKeys.BannerKeys(status, reason, state, isWifiSectionShown);
                     Assert.True(ConnectResources.Exists(title), $"{status} {reason} {isWifiSectionShown}");
                     Assert.True(description is null || ConnectResources.Exists(description), $"{status} {reason} {isWifiSectionShown}");
                 }
@@ -211,12 +211,12 @@ public sealed class NetworkTextKeysTests
     }
 
     [Fact]
-    public void HeroKeys_CheckingAndReadyHaveNoDescription()
+    public void BannerKeys_CheckingAndReadyHaveNoDescription()
     {
         NetworkState state = NetworkState.Initial(Now);
 
-        Assert.Null(NetworkTextKeys.HeroKeys(ConnectPageStatus.Checking, BlockedReason.None, state, isWifiSectionShown: false).DescriptionKey);
-        Assert.Null(NetworkTextKeys.HeroKeys(ConnectPageStatus.Ready, BlockedReason.None, state, isWifiSectionShown: true).DescriptionKey);
+        Assert.Null(NetworkTextKeys.BannerKeys(ConnectPageStatus.Checking, BlockedReason.None, state, isWifiSectionShown: false).DescriptionKey);
+        Assert.Null(NetworkTextKeys.BannerKeys(ConnectPageStatus.Ready, BlockedReason.None, state, isWifiSectionShown: true).DescriptionKey);
     }
 
     [Theory]
@@ -225,10 +225,10 @@ public sealed class NetworkTextKeysTests
     [InlineData(NetworkOperationKind.ConnectProvisionedWifi, "Status.ConnectingTitle", "Status.ConnectingDescription")]
     [InlineData(NetworkOperationKind.DisconnectWifi, "Status.DisconnectingTitle", "Status.ConnectingDescription")]
     [InlineData(null, "Status.ConnectingTitle", "Status.Dot1xAuthenticatingDescription")]
-    public void HeroKeys_WaitingNamesWhatRuns(NetworkOperationKind? operation, string expectedTitle, string expectedDescription)
+    public void BannerKeys_WaitingNamesWhatRuns(NetworkOperationKind? operation, string expectedTitle, string expectedDescription)
     {
         NetworkState state = NetworkState.Initial(Now) with { ActiveOperation = operation };
 
-        Assert.Equal((expectedTitle, expectedDescription), NetworkTextKeys.HeroKeys(ConnectPageStatus.Waiting, BlockedReason.None, state, isWifiSectionShown: false));
+        Assert.Equal((expectedTitle, expectedDescription), NetworkTextKeys.BannerKeys(ConnectPageStatus.Waiting, BlockedReason.None, state, isWifiSectionShown: false));
     }
 }

@@ -47,17 +47,12 @@ public sealed partial class EthernetSectionViewModel(ILocalizationService locali
     /// Gets whether the card with the "not available on this device" text is shown: an observation exists and no Ethernet
     /// adapter is seen (a missing adapter or a failed Ethernet read). It stays hidden before the first observation.
     /// </summary>
-    public bool ShowNoAdapterNotice => !_isChecking && !_ethernet.HasAdapter;
+    public bool ShowUnavailableCard => !_isChecking && !_ethernet.HasAdapter;
 
     /// <summary>
     /// Gets the neutral "not available on this device" text.
     /// </summary>
     public string NoAdapterText => GetString("Ethernet.UnavailableOnDevice");
-
-    /// <summary>
-    /// Gets whether an interface has a link and a DHCP or static address.
-    /// </summary>
-    public bool IsConnected => _ethernet.HasUsableAddress;
 
     /// <summary>
     /// Gets the Segoe Fluent glyph: connected, adapter without usable address, or no adapter.
@@ -178,9 +173,8 @@ public sealed partial class EthernetSectionViewModel(ILocalizationService locali
     private void RaiseAll()
     {
         OnPropertyChanged(nameof(ShowCard));
-        OnPropertyChanged(nameof(ShowNoAdapterNotice));
+        OnPropertyChanged(nameof(ShowUnavailableCard));
         OnPropertyChanged(nameof(NoAdapterText));
-        OnPropertyChanged(nameof(IsConnected));
         OnPropertyChanged(nameof(Glyph));
         OnPropertyChanged(nameof(StatusText));
         OnPropertyChanged(nameof(SecondaryStatusText));

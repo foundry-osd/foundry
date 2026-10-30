@@ -19,12 +19,12 @@ public sealed class EthernetSectionViewModelTests
             dot1x ?? Dot1xState.NotConfigured);
 
     [Theory]
-    [InlineData(false, IpConfigurationKind.None, "Ethernet.NoActiveLink", null, false)]
-    [InlineData(true, IpConfigurationKind.None, "Ethernet.WaitingConfiguration", null, false)]
-    [InlineData(true, IpConfigurationKind.Apipa, "Ethernet.WaitingConfiguration", null, false)]
-    [InlineData(true, IpConfigurationKind.Dhcp, "Common.Connected", "Ethernet.DhcpLeaseDetected", true)]
-    [InlineData(true, IpConfigurationKind.Static, "Common.Connected", "Ethernet.StaticConfigurationDetected", true)]
-    public void Apply_DescribesLinkAndAddress(bool link, IpConfigurationKind ip, string statusKey, string? configurationKey, bool connected)
+    [InlineData(false, IpConfigurationKind.None, "Ethernet.NoActiveLink", null)]
+    [InlineData(true, IpConfigurationKind.None, "Ethernet.WaitingConfiguration", null)]
+    [InlineData(true, IpConfigurationKind.Apipa, "Ethernet.WaitingConfiguration", null)]
+    [InlineData(true, IpConfigurationKind.Dhcp, "Common.Connected", "Ethernet.DhcpLeaseDetected")]
+    [InlineData(true, IpConfigurationKind.Static, "Common.Connected", "Ethernet.StaticConfigurationDetected")]
+    public void Apply_DescribesLinkAndAddress(bool link, IpConfigurationKind ip, string statusKey, string? configurationKey)
     {
         var viewModel = new EthernetSectionViewModel(_localization);
 
@@ -34,7 +34,6 @@ public sealed class EthernetSectionViewModelTests
         Assert.Equal(_localization.GetString(statusKey), viewModel.StatusText);
         Assert.Equal(configurationKey is null ? string.Empty : _localization.GetString(configurationKey), viewModel.ConfigurationText);
         Assert.Equal(configurationKey is not null, viewModel.HasConfiguration);
-        Assert.Equal(connected, viewModel.IsConnected);
         Assert.Equal("Ethernet 2", viewModel.AdapterName);
     }
 
@@ -105,14 +104,14 @@ public sealed class EthernetSectionViewModelTests
     [Theory]
     [InlineData(true, false)]
     [InlineData(false, true)]
-    public void NoAdapterNotice_IsHiddenWhileChecking(bool isChecking, bool expectedNotice)
+    public void UnavailableCard_IsHiddenWhileChecking(bool isChecking, bool expectedCard)
     {
         var viewModel = new EthernetSectionViewModel(_localization);
 
         viewModel.Apply(EthernetState.Empty, isChecking);
 
         Assert.False(viewModel.ShowCard);
-        Assert.Equal(expectedNotice, viewModel.ShowNoAdapterNotice);
+        Assert.Equal(expectedCard, viewModel.ShowUnavailableCard);
     }
 
     [Theory]

@@ -127,14 +127,9 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
     public string EmptyText => LocalizationService.GetString("Wifi.NoNetworksVisible");
 
     /// <summary>
-    /// Gets whether a network is selected.
-    /// </summary>
-    public bool HasSelection => SelectedNetwork is not null;
-
-    /// <summary>
     /// Gets whether the details panel under the list is shown: the list area is shown and a network is selected.
     /// </summary>
-    public bool ShowDetails => IsListVisible && HasSelection;
+    public bool ShowDetails => IsListVisible && SelectedNetwork is not null;
 
     /// <summary>
     /// Gets whether the password editor is shown: the selected network needs one, is in range and is not connected.
@@ -171,9 +166,14 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
     public string PrimaryActionText => LocalizationService.GetString(SelectedNetwork is { IsConnected: true } ? "Action.Disconnect" : "Action.Connect");
 
     /// <summary>
-    /// Gets the automation name of the action button, or an empty string without a selection.
+    /// Gets the automation name of the action button, which names the selected network, or an empty string without a
+    /// selection.
     /// </summary>
-    public string PrimaryActionAutomationName => SelectedNetwork is { IsConnected: true } ? DisconnectAutomationName : ConnectAutomationName;
+    public string PrimaryActionAutomationName => SelectedNetwork is { } network
+        ? LocalizationService.Format(
+            network.IsConnected ? "Wifi.DisconnectSelectedAutomationFormat" : "Wifi.ConnectSelectedAutomationFormat",
+            network.DisplayName)
+        : string.Empty;
 
     /// <summary>
     /// Gets whether a password has been typed.
@@ -194,20 +194,6 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
     /// Gets whether there is feedback to show.
     /// </summary>
     public bool HasFeedback => _feedbackKey is not null;
-
-    /// <summary>
-    /// Gets the name announced for the connect button, or an empty string.
-    /// </summary>
-    public string ConnectAutomationName => SelectedNetwork is { } network
-        ? LocalizationService.Format("Wifi.ConnectSelectedAutomationFormat", network.DisplayName)
-        : string.Empty;
-
-    /// <summary>
-    /// Gets the name announced for the disconnect button, or an empty string.
-    /// </summary>
-    public string DisconnectAutomationName => SelectedNetwork is { } network
-        ? LocalizationService.Format("Wifi.DisconnectSelectedAutomationFormat", network.DisplayName)
-        : string.Empty;
 
     private string? UnsupportedKey => SelectedNetwork switch
     {
@@ -525,7 +511,6 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
 
     private void RaiseDetails()
     {
-        OnPropertyChanged(nameof(HasSelection));
         OnPropertyChanged(nameof(ShowDetails));
         OnPropertyChanged(nameof(ShowPassphrase));
         OnPropertyChanged(nameof(HasPassphrase));
@@ -537,8 +522,6 @@ public sealed partial class WifiNetworksViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(ShowPrimaryAction));
         OnPropertyChanged(nameof(PrimaryActionText));
         OnPropertyChanged(nameof(PrimaryActionAutomationName));
-        OnPropertyChanged(nameof(ConnectAutomationName));
-        OnPropertyChanged(nameof(DisconnectAutomationName));
         NotifyCommands();
     }
 

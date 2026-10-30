@@ -5,6 +5,7 @@
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using Foundry.Connect.Network;
+using Foundry.Connect.Network.Policy;
 using Foundry.Connect.Security;
 using Foundry.Connect.Tests.Support;
 using Foundry.Connect.ViewModels;
@@ -53,7 +54,7 @@ public sealed class ConnectPageViewModelTests : IDisposable
 
     public sealed record PageExpectation(
         ConnectPageStatus Status, BlockedReason Reason, string TitleKey, string? DescriptionKey, bool RetryActions, bool TwoColumns,
-        bool EthernetCard, bool EthernetLine, bool Provisioned, bool WifiCard, bool WifiList, bool WifiUnavailable,
+        bool EthernetCard, bool EthernetUnavailableCard, bool Provisioned, bool WifiCard, bool WifiList, bool WifiUnavailable,
         bool Dot1xRow, bool Dot1xReason, bool CanContinue, ConnectFocusTarget Focus);
 
     private const string Blocked = "Status.BlockedTitle";
@@ -88,14 +89,14 @@ public sealed class ConnectPageViewModelTests : IDisposable
 
         Assert.Equal(expected.Status, _page.Status);
         Assert.Equal(expected.Reason, _page.BlockedReason);
-        Assert.Equal(Text(expected.TitleKey), _page.HeroTitle);
-        Assert.Equal(expected.DescriptionKey is null ? string.Empty : Text(expected.DescriptionKey), _page.HeroDescription);
-        Assert.Equal(expected.DescriptionKey is not null, _page.HasHeroDescription);
-        Assert.Equal(expected.Status is ConnectPageStatus.Checking or ConnectPageStatus.Waiting, _page.IsHeroBusy);
+        Assert.Equal(Text(expected.TitleKey), _page.BannerTitle);
+        Assert.Equal(expected.DescriptionKey is null ? string.Empty : Text(expected.DescriptionKey), _page.BannerDescription);
+        Assert.Equal(expected.DescriptionKey is not null, _page.HasBannerDescription);
+        Assert.Equal(expected.Status is ConnectPageStatus.Checking or ConnectPageStatus.Waiting, _page.IsBannerBusy);
         Assert.Equal(expected.RetryActions, _page.ShowRetryActions);
         Assert.Equal(expected.TwoColumns, _page.UsesTwoColumns);
         Assert.Equal(expected.EthernetCard, _page.Ethernet.ShowCard);
-        Assert.Equal(expected.EthernetLine, _page.Ethernet.ShowNoAdapterNotice);
+        Assert.Equal(expected.EthernetUnavailableCard, _page.Ethernet.ShowUnavailableCard);
         Assert.Equal(expected.Provisioned, _page.ProvisionedWifi.IsVisible);
         Assert.Equal(expected.WifiCard, _page.WifiNetworks.IsVisible);
         Assert.Equal(expected.WifiList, _page.WifiNetworks.IsListVisible);
@@ -117,14 +118,14 @@ public sealed class ConnectPageViewModelTests : IDisposable
     {
         Publish(scenario);
 
-        bool isEthernetSectionShown = _page.Ethernet.ShowCard || _page.Ethernet.ShowNoAdapterNotice;
+        bool isEthernetSectionShown = _page.Ethernet.ShowCard || _page.Ethernet.ShowUnavailableCard;
         string[] namesEthernetSection = ["Status.BlockedNoAdapterDescription", "Status.BlockedNoEthernetAdapterDescription", "Status.BlockedDot1xDescription"];
-        if (namesEthernetSection.Any(key => Text(key) == _page.HeroDescription))
+        if (namesEthernetSection.Any(key => Text(key) == _page.BannerDescription))
         {
             Assert.True(isEthernetSectionShown);
         }
 
-        if (Text("Status.BlockedNoAdapterDescription") == _page.HeroDescription)
+        if (Text("Status.BlockedNoAdapterDescription") == _page.BannerDescription)
         {
             Assert.True(_page.WifiNetworks.IsVisible);
         }
@@ -151,7 +152,7 @@ public sealed class ConnectPageViewModelTests : IDisposable
     [InlineData(ConnectDebugScenario.Dot1xAuthenticating, "Ethernet.WaitingConfiguration", null, false)]
     [InlineData(ConnectDebugScenario.WifiConnecting, "Ethernet.NoActiveLink", "Status.ConnectingTitle", false)]
     [InlineData(ConnectDebugScenario.WifiOnly, null, "Wifi.StatusNotInRange", true)]
-    public void Scenario_ShowsTheSectionTexts(ConnectDebugScenario scenario, string? ethernetPillKey, string? provisionedPillKey, bool ethernetLine)
+    public void Scenario_ShowsTheSectionTexts(ConnectDebugScenario scenario, string? ethernetPillKey, string? provisionedPillKey, bool ethernetUnavailableCard)
     {
         Publish(scenario);
 
@@ -167,7 +168,7 @@ public sealed class ConnectPageViewModelTests : IDisposable
             Assert.Equal(Text(provisionedPillKey), _page.ProvisionedWifi.StatusText);
         }
 
-        Assert.Equal(ethernetLine, _page.Ethernet.ShowNoAdapterNotice);
+        Assert.Equal(ethernetUnavailableCard, _page.Ethernet.ShowUnavailableCard);
         Assert.Equal(Text("Ethernet.UnavailableOnDevice"), _page.Ethernet.NoAdapterText);
     }
 
@@ -219,16 +220,16 @@ public sealed class ConnectPageViewModelTests : IDisposable
     }
 
     [Fact]
-    public void EthernetReadFailure_ShowsTheNeutralLineWithoutChangingTheLayout()
+    public void EthernetReadFailure_ShowsTheUnavailableCardWithoutChangingTheLayout()
     {
         Publish(ConnectDebugScenario.WifiNetworks);
 
         _coordinator.Publish(DebugScenarioCatalog.Create(ConnectDebugScenario.WifiNetworks, _clock.GetUtcNow()) with { Ethernet = EthernetState.Empty });
 
         Assert.True(_page.UsesTwoColumns);
-        Assert.True(_page.Ethernet.ShowNoAdapterNotice);
+        Assert.True(_page.Ethernet.ShowUnavailableCard);
         Assert.Equal(Text("Ethernet.UnavailableOnDevice"), _page.Ethernet.NoAdapterText);
-        Assert.Equal(Text("Status.BlockedJoinWifiDescription"), _page.HeroDescription);
+        Assert.Equal(Text("Status.BlockedJoinWifiDescription"), _page.BannerDescription);
     }
 
     [Fact]
@@ -237,8 +238,8 @@ public sealed class ConnectPageViewModelTests : IDisposable
         _coordinator.Publish(DebugScenarioCatalog.Create(ConnectDebugScenario.NoWifiAdapter, _clock.GetUtcNow()) with { Ethernet = EthernetState.Empty });
 
         Assert.Equal(BlockedReason.NoAdapter, _page.BlockedReason);
-        Assert.Equal(Text("Status.BlockedNoAdapterDescription"), _page.HeroDescription);
-        Assert.True(_page.Ethernet.ShowNoAdapterNotice);
+        Assert.Equal(Text("Status.BlockedNoAdapterDescription"), _page.BannerDescription);
+        Assert.True(_page.Ethernet.ShowUnavailableCard);
         Assert.True(_page.WifiNetworks.HasUnavailableMessage);
     }
 
@@ -248,8 +249,8 @@ public sealed class ConnectPageViewModelTests : IDisposable
         _coordinator.Publish(DebugScenarioCatalog.Create(ConnectDebugScenario.WifiNetworks, _clock.GetUtcNow()) with { ActiveOperation = NetworkOperationKind.DisconnectWifi });
 
         Assert.Equal(ConnectPageStatus.Waiting, _page.Status);
-        Assert.Equal(Text("Status.DisconnectingTitle"), _page.HeroTitle);
-        Assert.Equal(Text("Status.ConnectingDescription"), _page.HeroDescription);
+        Assert.Equal(Text("Status.DisconnectingTitle"), _page.BannerTitle);
+        Assert.Equal(Text("Status.ConnectingDescription"), _page.BannerDescription);
         Assert.False(_page.ShowRetryActions);
     }
 
@@ -264,13 +265,13 @@ public sealed class ConnectPageViewModelTests : IDisposable
     {
         Publish(scenario);
 
-        List<string> visible = [_page.HeroTitle, _page.HeroDescription, _page.ConnectionChipText, _page.AutoContinue.CaptionText];
+        List<string> visible = [_page.BannerTitle, _page.BannerDescription, _page.ConnectionChipText, _page.AutoContinue.CaptionText];
         if (_page.Ethernet.ShowCard)
         {
             visible.AddRange([_page.Ethernet.StatusText, _page.Ethernet.SecondaryStatusText, _page.Ethernet.ConfigurationText, _page.Ethernet.Dot1xStatusText, _page.Ethernet.Dot1xReasonText]);
         }
 
-        if (_page.Ethernet.ShowNoAdapterNotice)
+        if (_page.Ethernet.ShowUnavailableCard)
         {
             visible.Add(_page.Ethernet.NoAdapterText);
         }
@@ -293,8 +294,8 @@ public sealed class ConnectPageViewModelTests : IDisposable
         NetworkState state = DebugScenarioCatalog.Create(ConnectDebugScenario.WifiOnly, _clock.GetUtcNow());
         _coordinator.Publish(state with { Wifi = state.Wifi with { Provisioned = profile } });
 
-        // The rendered texts; every culture keeps the word "Ethernet". The Ethernet line names its own section and is left out.
-        List<string> visible = [_page.HeroTitle, _page.HeroDescription, _page.ConnectionChipText, _page.AutoContinue.CaptionText];
+        // The rendered texts; every culture keeps the word "Ethernet". The Ethernet card text names its own section and is left out.
+        List<string> visible = [_page.BannerTitle, _page.BannerDescription, _page.ConnectionChipText, _page.AutoContinue.CaptionText];
         if (_page.ProvisionedWifi.IsVisible)
         {
             visible.AddRange([_page.ProvisionedWifi.StatusText, _page.ProvisionedWifi.MessageText]);
@@ -309,18 +310,18 @@ public sealed class ConnectPageViewModelTests : IDisposable
             }
         }
 
-        Assert.True(_page.Ethernet.ShowNoAdapterNotice);
+        Assert.True(_page.Ethernet.ShowUnavailableCard);
         Assert.All(visible, text => Assert.DoesNotContain("Ethernet", text, StringComparison.Ordinal));
     }
 
     [Fact]
-    public void ApplyingProvisioningAtStartup_ShowsNoAdapterLine()
+    public void ApplyingProvisioningAtStartup_HidesTheEthernetUnavailableCard()
     {
         _coordinator.Publish(NetworkState.Initial(_clock.GetUtcNow()) with { ActiveOperation = NetworkOperationKind.ApplyProvisioning });
 
         Assert.Equal(ConnectPageStatus.Waiting, _page.Status);
-        Assert.Equal(Text("Status.ApplyingProvisioningDescription"), _page.HeroDescription);
-        Assert.False(_page.Ethernet.ShowNoAdapterNotice);
+        Assert.Equal(Text("Status.ApplyingProvisioningDescription"), _page.BannerDescription);
+        Assert.False(_page.Ethernet.ShowUnavailableCard);
         Assert.False(_page.ShowRetryActions);
         Assert.False(_page.UsesTwoColumns);
     }
@@ -332,13 +333,13 @@ public sealed class ConnectPageViewModelTests : IDisposable
         _ = expected;
         Publish(scenario);
 
-        List<string> messages = [_page.HeroDescription];
+        List<string> messages = [_page.BannerDescription];
         if (_page.Ethernet.HasDot1xReason)
         {
             messages.Add(_page.Ethernet.Dot1xReasonText);
         }
 
-        if (_page.Ethernet.ShowNoAdapterNotice)
+        if (_page.Ethernet.ShowUnavailableCard)
         {
             messages.Add(_page.Ethernet.NoAdapterText);
         }
@@ -379,9 +380,9 @@ public sealed class ConnectPageViewModelTests : IDisposable
         _coordinator.Publish(DebugScenarioCatalog.Create(ConnectDebugScenario.WifiNetworks, _clock.GetUtcNow()) with { ActiveOperation = operation });
 
         Assert.Equal(ConnectPageStatus.Waiting, _page.Status);
-        Assert.True(_page.IsHeroBusy);
-        Assert.Equal(Text("Status.ConnectingTitle"), _page.HeroTitle);
-        Assert.Equal(Text(descriptionKey), _page.HeroDescription);
+        Assert.True(_page.IsBannerBusy);
+        Assert.Equal(Text("Status.ConnectingTitle"), _page.BannerTitle);
+        Assert.Equal(Text(descriptionKey), _page.BannerDescription);
         Assert.False(_page.ShowRetryActions);
     }
 
@@ -431,7 +432,7 @@ public sealed class ConnectPageViewModelTests : IDisposable
         _page.WifiNetworks.SelectedNetwork = _page.WifiNetworks.Networks[1];
         Publish(ConnectDebugScenario.WifiNetworks);
 
-        Assert.True(_page.AutoContinue.IsPaused);
+        Assert.Equal(AutoContinueStatus.Paused, _page.AutoContinue.State.Status);
         Assert.Empty(_focus);
     }
 
@@ -446,7 +447,7 @@ public sealed class ConnectPageViewModelTests : IDisposable
 
         Assert.Equal(ConnectPageStatus.Ready, _page.Status);
         Assert.Empty(_focus);
-        Assert.True(_page.AutoContinue.IsPaused);
+        Assert.Equal(AutoContinueStatus.Paused, _page.AutoContinue.State.Status);
         Assert.False(_page.AutoContinue.IsContinueDefault);
         Assert.True(_page.AutoContinue.ContinueCommand.CanExecute(null));
     }
@@ -504,13 +505,13 @@ public sealed class ConnectPageViewModelTests : IDisposable
         {
             _localization.SetCulture(CultureInfo.GetCultureInfo(original.Name == "fr-FR" ? "de-DE" : "fr-FR"));
 
-            Assert.Equal(Text("Status.BlockedNoLinkTitle"), _page.HeroTitle);
-            Assert.Equal(Text("Status.BlockedNoLinkDescription"), _page.HeroDescription);
+            Assert.Equal(Text("Status.BlockedNoLinkTitle"), _page.BannerTitle);
+            Assert.Equal(Text("Status.BlockedNoLinkDescription"), _page.BannerDescription);
             Assert.Equal(0, _monitor.RefreshRequests);
             Assert.Empty(_focus);
             Assert.Same(row, _page.WifiNetworks.Networks[0]);
-            Assert.Contains("Page.HeroTitle", raised);
-            Assert.Contains("Page.HeroDescription", raised);
+            Assert.Contains("Page.BannerTitle", raised);
+            Assert.Contains("Page.BannerDescription", raised);
             Assert.Contains("Page.ConnectionChipText", raised);
             Assert.Contains("Row.SecurityText", raised);
             Assert.Contains("Row.AutomationName", raised);
@@ -549,7 +550,7 @@ public sealed class ConnectPageViewModelTests : IDisposable
 
         Publish(ConnectDebugScenario.EthernetReady);
 
-        Assert.True(_page.AutoContinue.IsPaused);
+        Assert.Equal(AutoContinueStatus.Paused, _page.AutoContinue.State.Status);
         Assert.False(_page.AutoContinue.IsContinueDefault);
         Assert.True(_page.AutoContinue.ContinueCommand.CanExecute(null));
         Assert.Empty(_focus);
@@ -584,7 +585,7 @@ public sealed class ConnectPageViewModelTests : IDisposable
         Assert.Equal(1, _coordinator.RefreshProvisionedWifiCalls);
         Assert.Equal(ConnectPageStatus.Ready, _page.Status);
         Assert.False(_page.AutoContinue.IsCounting);
-        Assert.True(_page.AutoContinue.IsPaused);
+        Assert.Equal(AutoContinueStatus.Paused, _page.AutoContinue.State.Status);
         Assert.False(_page.AutoContinue.IsContinueDefault);
         Assert.True(_page.AutoContinue.ContinueCommand.CanExecute(null));
         Assert.Empty(_focus);

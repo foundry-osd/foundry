@@ -55,12 +55,6 @@ public sealed class WifiNetworkItemViewModel : ObservableObject
     public WifiSecurityType Security { get; private set; }
 
     /// <summary>
-    /// Gets the security of the profile written to join the network, or <see langword="null"/> when it cannot be
-    /// joined from the list.
-    /// </summary>
-    public WifiProfileSecurity? ProfileSecurity => WifiSecurityClassifier.ToProfileSecurity(Security);
-
-    /// <summary>
     /// Gets whether the network can be joined from the list.
     /// </summary>
     public bool IsSupported => ProfileSecurity is not null;
@@ -115,6 +109,9 @@ public sealed class WifiNetworkItemViewModel : ObservableObject
         SecurityText,
         SignalQuality);
 
+    // The security of the profile written to join the network, or null when it cannot be joined from the list.
+    private WifiProfileSecurity? ProfileSecurity => WifiSecurityClassifier.ToProfileSecurity(Security);
+
     /// <summary>
     /// Applies the latest observation of the network.
     /// </summary>
@@ -136,7 +133,6 @@ public sealed class WifiNetworkItemViewModel : ObservableObject
 
         IsConnected = isConnected;
         OnPropertyChanged(nameof(Security));
-        OnPropertyChanged(nameof(ProfileSecurity));
         OnPropertyChanged(nameof(IsSupported));
         OnPropertyChanged(nameof(IsEnterprise));
         OnPropertyChanged(nameof(RequiresPassphrase));

@@ -101,7 +101,7 @@ public sealed class AutoContinueViewModelTests : IDisposable
         viewModel.OnInternetStatusChanged(InternetStatus.Online);
 
         Assert.Equal(0, _exit.Calls);
-        Assert.True(viewModel.IsPaused);
+        Assert.Equal(AutoContinueStatus.Paused, viewModel.State.Status);
         Assert.Equal(_localization.GetString("Status.AutoContinuePaused"), viewModel.CaptionText);
         Assert.Equal(0, _clock.ActiveTimerCount);
         Assert.False(viewModel.IsContinueDefault);
@@ -116,7 +116,7 @@ public sealed class AutoContinueViewModelTests : IDisposable
         viewModel.OnNetworkingInteraction();
         viewModel.OnInternetStatusChanged(InternetStatus.Online);
 
-        Assert.True(viewModel.IsPaused);
+        Assert.Equal(AutoContinueStatus.Paused, viewModel.State.Status);
         Assert.Equal(_localization.GetString("Status.AutoContinuePaused"), viewModel.CaptionText);
         Assert.True(viewModel.HasCaption);
         Assert.Equal(0, _clock.ActiveTimerCount);
@@ -133,7 +133,7 @@ public sealed class AutoContinueViewModelTests : IDisposable
         Assert.True(viewModel.IsContinueDefault);
 
         viewModel.OnNetworkingInteraction();
-        Assert.True(viewModel.IsCancelled);
+        Assert.Equal(AutoContinueStatus.Cancelled, viewModel.State.Status);
         Assert.False(viewModel.IsContinueDefault);
         viewModel.OnInternetStatusChanged(InternetStatus.NoInternet);
         viewModel.OnInternetStatusChanged(InternetStatus.Online);
@@ -167,7 +167,7 @@ public sealed class AutoContinueViewModelTests : IDisposable
         viewModel.StayHereCommand.Execute(null);
 
         Assert.Equal(0, requests);
-        Assert.False(viewModel.IsCancelled);
+        Assert.NotEqual(AutoContinueStatus.Cancelled, viewModel.State.Status);
     }
 
     [Fact]
@@ -236,7 +236,7 @@ public sealed class AutoContinueViewModelTests : IDisposable
         Tick(30);
 
         Assert.Equal(0, _exit.Calls);
-        Assert.True(viewModel.IsCancelled);
+        Assert.Equal(AutoContinueStatus.Cancelled, viewModel.State.Status);
         Assert.Equal(_localization.GetString("Status.AutoContinueCancelled"), viewModel.CaptionText);
         Assert.False(viewModel.StayHereCommand.CanExecute(null));
         await viewModel.ContinueCommand.ExecuteAsync(null);

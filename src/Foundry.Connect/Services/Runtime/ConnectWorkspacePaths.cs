@@ -9,7 +9,7 @@ using Foundry.Utilities.Runtime;
 namespace Foundry.Connect.Services.Runtime;
 
 /// <summary>
-/// Resolves Foundry.Connect configuration, log, and temporary paths for WinPE and desktop runtimes.
+/// Resolves Foundry.Connect configuration, log, and network profile roaming paths for WinPE and desktop runtimes.
 /// </summary>
 internal static class ConnectWorkspacePaths
 {
@@ -46,21 +46,6 @@ internal static class ConnectWorkspacePaths
 
         yield return Path.Combine(Path.GetTempPath(), "Foundry", "Logs");
         yield return AppContext.BaseDirectory;
-    }
-
-    /// <summary>
-    /// Enumerates temporary directories suitable for application runtime files.
-    /// </summary>
-    /// <param name="applicationFolderName">Folder name used below the runtime temporary root.</param>
-    /// <returns>Candidate temporary directories in preferred order.</returns>
-    public static IEnumerable<string> EnumerateTemporaryDirectories(string applicationFolderName)
-    {
-        if (IsWinPeRuntime())
-        {
-            yield return Path.Combine(WinPeWorkspaceLayout.TempDirectory, applicationFolderName);
-        }
-
-        yield return Path.Combine(Path.GetTempPath(), applicationFolderName);
     }
 
     /// <summary>

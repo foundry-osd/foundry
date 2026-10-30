@@ -134,7 +134,7 @@ public static class NetworkTextKeys
     };
 
     /// <summary>
-    /// Gets the hero description key for a blocked page. It offers only what this device can do: without the Wi-Fi
+    /// Gets the banner description key for a blocked page. It offers only what this device can do: without the Wi-Fi
     /// section no text names Wi-Fi, and without an Ethernet adapter no text proposes Ethernet. A missing adapter points
     /// to the sections that are shown.
     /// </summary>
@@ -157,7 +157,7 @@ public static class NetworkTextKeys
     };
 
     /// <summary>
-    /// Gets the hero title key for a blocked page: it names the blocking cause, so "No internet access" is kept for a
+    /// Gets the banner title key for a blocked page: it names the blocking cause, so "No internet access" is kept for a
     /// usable connection that cannot reach the internet. A missing link is "No Ethernet cable" when Ethernet is the only
     /// way to connect, else "No network connection".
     /// </summary>
@@ -178,7 +178,7 @@ public static class NetworkTextKeys
     };
 
     /// <summary>
-    /// Gets the title and description keys of the hero banner. Checking and ready have no description. Waiting names
+    /// Gets the title and description keys of the banner. Checking and ready have no description. Waiting names
     /// what runs: the provisioning, a network action (a Wi-Fi disconnect has its own title, never "Connecting"), or,
     /// with no operation, wired 802.1X authentication. Blocked names the cause in the title
     /// (<see cref="BlockedTitleKey"/>) and what to do in the description (<see cref="BlockedDescriptionKey"/>).
@@ -188,7 +188,7 @@ public static class NetworkTextKeys
     /// <param name="state">The rendered network state; its running operation words the waiting texts.</param>
     /// <param name="isWifiSectionShown">Whether the page shows the Wi-Fi section; used only when the page is blocked.</param>
     /// <returns>The resource keys; the description key is <see langword="null"/> when the banner has no description.</returns>
-    public static (string TitleKey, string? DescriptionKey) HeroKeys(ConnectPageStatus status, BlockedReason reason, NetworkState state, bool isWifiSectionShown)
+    public static (string TitleKey, string? DescriptionKey) BannerKeys(ConnectPageStatus status, BlockedReason reason, NetworkState state, bool isWifiSectionShown)
     {
         ArgumentNullException.ThrowIfNull(state);
         return status switch

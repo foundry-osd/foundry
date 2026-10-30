@@ -77,8 +77,6 @@ public sealed class ProvisionedWifiViewModelTests : IDisposable
 
         viewModel.Apply(Wifi(WifiAvailability.Available, new ProvisionedWifiState(ProvisionedWifiStatus.Unavailable, reason, Lab)), null, null);
 
-        Assert.True(viewModel.IsUnavailable);
-        Assert.Equal(_localization.GetString(key), viewModel.UnavailableText);
         Assert.Equal(_localization.GetString("Common.Unavailable"), viewModel.StatusText);
         Assert.Equal(_localization.GetString(key), viewModel.MessageText);
         Assert.Equal(InfoBarSeverity.Warning, viewModel.MessageSeverity);
@@ -96,10 +94,7 @@ public sealed class ProvisionedWifiViewModelTests : IDisposable
         viewModel.Apply(Wifi(WifiAvailability.Available, new ProvisionedWifiState(ProvisionedWifiStatus.Locked, reason, Lab)), null, null);
 
         Assert.True(viewModel.IsVisible);
-        Assert.True(viewModel.IsLocked);
-        Assert.False(viewModel.IsUnavailable);
         Assert.Equal(_localization.GetString("Wifi.StatusLocked"), viewModel.StatusText);
-        Assert.Equal(_localization.GetString(key), viewModel.LockedText);
         Assert.Equal(_localization.GetString(key), viewModel.MessageText);
         Assert.Equal(InfoBarSeverity.Informational, viewModel.MessageSeverity);
         Assert.True(viewModel.ConnectCommand.CanExecute(null));

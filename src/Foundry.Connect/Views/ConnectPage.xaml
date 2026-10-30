@@ -141,16 +141,16 @@
                                 Width="180"
                                 Height="180">
                                 <controls:CustomProgressRing
-                                    AutomationProperties.Name="{Binding HeroTitle}"
-                                    IsIndeterminate="{Binding IsHeroBusy}"
+                                    AutomationProperties.Name="{Binding BannerTitle}"
+                                    IsIndeterminate="{Binding IsBannerBusy}"
                                     ProgressBrush="{DynamicResource AccentFillColorDefaultBrush}"
                                     Thickness="14"
                                     TrackBrush="{DynamicResource ControlStrongFillColorDefaultBrush}"
-                                    Visibility="{Binding IsHeroBusy, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    Visibility="{Binding IsBannerBusy, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                 <controls:TerminalStatusGlyph
-                                    AutomationName="{Binding HeroTitle}"
-                                    IsSuccess="{Binding IsHeroSuccess}"
-                                    Visibility="{Binding IsHeroTerminal, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    AutomationName="{Binding BannerTitle}"
+                                    IsSuccess="{Binding IsBannerSuccess}"
+                                    Visibility="{Binding IsBannerTerminal, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             </Grid>
                         </Viewbox>
 
@@ -163,7 +163,7 @@
                                     Margin="0,0,12,0"
                                     VerticalAlignment="Center"
                                     Style="{StaticResource SubtitleTextBlockStyle}"
-                                    Text="{Binding HeroTitle}"
+                                    Text="{Binding BannerTitle}"
                                     TextWrapping="Wrap" />
                                 <Border
                                     Style="{StaticResource ConnectPillBorderStyle}"
@@ -177,9 +177,9 @@
                                 Margin="0,4,0,0"
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                 Style="{StaticResource BodyTextBlockStyle}"
-                                Text="{Binding HeroDescription}"
+                                Text="{Binding BannerDescription}"
                                 TextWrapping="Wrap"
-                                Visibility="{Binding HasHeroDescription, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                Visibility="{Binding HasBannerDescription, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             <TextBlock
                                 Margin="0,4,0,0"
                                 DataContext="{Binding AutoContinue}"
@@ -294,7 +294,7 @@
                             <Border x:Name="EthernetUnavailableCard"
                                 DataContext="{Binding Ethernet}"
                                 Style="{StaticResource SectionCardBorderStyle}"
-                                Visibility="{Binding ShowNoAdapterNotice, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                Visibility="{Binding ShowUnavailableCard, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <StackPanel>
                                     <Grid MinHeight="32">
                                         <Grid.ColumnDefinitions>

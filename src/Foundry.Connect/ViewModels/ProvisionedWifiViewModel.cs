@@ -79,41 +79,6 @@ public sealed partial class ProvisionedWifiViewModel : LocalizedViewModelBase
     public string StatusText => LocalizationService.GetString(StatusKey);
 
     /// <summary>
-    /// Gets whether the current Wi-Fi connection uses the provisioned profile.
-    /// </summary>
-    public bool IsConnected => _wifi.Connection?.Source == WifiConnectionSource.Provisioned;
-
-    /// <summary>
-    /// Gets whether a provisioned connection attempt is in flight.
-    /// </summary>
-    public bool IsConnecting => _activeOperation == NetworkOperationKind.ConnectProvisionedWifi;
-
-    /// <summary>
-    /// Gets whether the profile is configured but cannot be used.
-    /// </summary>
-    public bool IsUnavailable => _wifi.Provisioned.Status == ProvisionedWifiStatus.Unavailable;
-
-    /// <summary>
-    /// Gets the explanation of an unavailable profile, or an empty string.
-    /// </summary>
-    public string UnavailableText => IsUnavailable ? LocalizationService.GetString(NetworkTextKeys.ProvisionedUnavailableKey(_wifi.Provisioned.Reason)) : string.Empty;
-
-    /// <summary>
-    /// Gets whether the profile needs the deployment password before it can be used; its Connect button prompts for it.
-    /// </summary>
-    public bool IsLocked => _wifi.Provisioned.Status == ProvisionedWifiStatus.Locked;
-
-    /// <summary>
-    /// Gets the explanation of a locked profile, which tells whether the password was already declined, or an
-    /// empty string.
-    /// </summary>
-    public string LockedText => IsLocked
-        ? LocalizationService.GetString(_wifi.Provisioned.Reason == ProvisionedWifiUnavailableReason.UnlockCancelled
-            ? "Wifi.ProvisionedUnlockCancelled"
-            : "Wifi.ProvisionedLocked")
-        : string.Empty;
-
-    /// <summary>
     /// Gets the result of the last action or attempt, or an empty string.
     /// </summary>
     public string FeedbackText => _feedbackKey is { } key ? LocalizationService.GetString(key) : string.Empty;
@@ -124,8 +89,9 @@ public sealed partial class ProvisionedWifiViewModel : LocalizedViewModelBase
     public bool HasFeedback => _feedbackKey is not null;
 
     /// <summary>
-    /// Gets the card's single message, in order: the unavailable reason, else the locked text, else the last feedback,
-    /// else an empty string. Feedback is hidden while the profile is unavailable or locked.
+    /// Gets the card's single message, in order: the unavailable reason, else the locked text (which tells whether the
+    /// password was already declined), else the last feedback, else an empty string. Feedback is hidden while the
+    /// profile is unavailable or locked.
     /// </summary>
     public string MessageText => IsUnavailable ? UnavailableText : IsLocked ? LockedText : FeedbackText;
 
@@ -155,6 +121,21 @@ public sealed partial class ProvisionedWifiViewModel : LocalizedViewModelBase
     /// </summary>
     public string PrimaryActionAutomationName => LocalizationService.GetString(
         IsConnected ? "Wifi.DisconnectProvisionedAutomationName" : "Wifi.ConnectProvisionedAutomationName");
+
+    private bool IsConnected => _wifi.Connection?.Source == WifiConnectionSource.Provisioned;
+
+    private bool IsConnecting => _activeOperation == NetworkOperationKind.ConnectProvisionedWifi;
+
+    private bool IsUnavailable => _wifi.Provisioned.Status == ProvisionedWifiStatus.Unavailable;
+
+    // A locked profile needs the deployment password; its Connect button prompts for it.
+    private bool IsLocked => _wifi.Provisioned.Status == ProvisionedWifiStatus.Locked;
+
+    private string UnavailableText => LocalizationService.GetString(NetworkTextKeys.ProvisionedUnavailableKey(_wifi.Provisioned.Reason));
+
+    private string LockedText => LocalizationService.GetString(_wifi.Provisioned.Reason == ProvisionedWifiUnavailableReason.UnlockCancelled
+        ? "Wifi.ProvisionedUnlockCancelled"
+        : "Wifi.ProvisionedLocked");
 
     private string StatusKey
     {
@@ -347,12 +328,6 @@ public sealed partial class ProvisionedWifiViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(DisplayName));
         OnPropertyChanged(nameof(SecurityText));
         OnPropertyChanged(nameof(StatusText));
-        OnPropertyChanged(nameof(IsConnected));
-        OnPropertyChanged(nameof(IsConnecting));
-        OnPropertyChanged(nameof(IsUnavailable));
-        OnPropertyChanged(nameof(UnavailableText));
-        OnPropertyChanged(nameof(IsLocked));
-        OnPropertyChanged(nameof(LockedText));
         OnPropertyChanged(nameof(ShowPrimaryAction));
         OnPropertyChanged(nameof(PrimaryActionText));
         OnPropertyChanged(nameof(PrimaryActionAutomationName));

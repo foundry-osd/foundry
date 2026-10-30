@@ -93,16 +93,6 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
     public bool IsCounting => State.Status == AutoContinueStatus.Counting;
 
     /// <summary>
-    /// Gets whether a networking interaction paused the countdown, or kept it from starting, for the session.
-    /// </summary>
-    public bool IsPaused => State.Status == AutoContinueStatus.Paused;
-
-    /// <summary>
-    /// Gets whether the technician chose to stay for the session.
-    /// </summary>
-    public bool IsCancelled => State.Status == AutoContinueStatus.Cancelled;
-
-    /// <summary>
     /// Gets the whole seconds left; 0 unless the countdown is running.
     /// </summary>
     public int SecondsRemaining => State.SecondsRemaining;
@@ -281,8 +271,6 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(State));
         OnPropertyChanged(nameof(SecondsRemaining));
         OnPropertyChanged(nameof(IsCounting));
-        OnPropertyChanged(nameof(IsPaused));
-        OnPropertyChanged(nameof(IsCancelled));
         OnPropertyChanged(nameof(CaptionText));
         OnPropertyChanged(nameof(HasCaption));
         OnPropertyChanged(nameof(IsContinueDefault));
