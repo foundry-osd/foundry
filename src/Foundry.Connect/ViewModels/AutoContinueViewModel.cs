@@ -18,8 +18,9 @@ namespace Foundry.Connect.ViewModels;
 /// <see cref="ISuccessfulExitService"/>.
 /// </summary>
 /// <remarks>
-/// <see cref="AutoContinuePolicy"/> decides every transition; this view model owns the clock and the only timer, a one
-/// second tick created through the injected <see cref="TimeProvider"/> and marshaled through <see cref="IUiDispatcher"/>.
+/// <see cref="AutoContinuePolicy"/> decides every transition; this view model owns the only timer, a one
+/// second tick created through the injected <see cref="TimeProvider"/> and marshaled through <see cref="IUiDispatcher"/>;
+/// each tick removes one whole second, so a late or early tick never skips or repeats a second.
 /// A failed final probe returns to <see cref="AutoContinueStatus.Idle"/>, so the next online state starts a fresh
 /// countdown. In live mode the countdown runs only when <c>isAutoContinueEnabled</c> is set (no debugger attached);
 /// under a debug scenario it always runs, and its end and Continue never probe or exit. Continue stays
@@ -54,7 +55,7 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
     /// <param name="localization">Source of the caption texts.</param>
     /// <param name="successfulExit">Single exit path; performs the final probe.</param>
     /// <param name="lifetime">Tells whether an exit was already requested.</param>
-    /// <param name="timeProvider">Clock and timer factory of the countdown.</param>
+    /// <param name="timeProvider">Timer factory of the countdown.</param>
     /// <param name="dispatcher">Marshals timer ticks to the UI thread.</param>
     /// <param name="logger">Logger for the countdown lifecycle.</param>
     /// <param name="isAutoContinueEnabled">Whether the countdown runs in live mode.</param>
@@ -102,9 +103,9 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
     public bool IsCancelled => State.Status == AutoContinueStatus.Cancelled;
 
     /// <summary>
-    /// Gets the whole seconds left, rounded up; 0 unless the countdown is running.
+    /// Gets the whole seconds left; 0 unless the countdown is running.
     /// </summary>
-    public int SecondsRemaining { get; private set; }
+    public int SecondsRemaining => State.SecondsRemaining;
 
     /// <summary>
     /// Gets the countdown caption for the current state, or an empty string when there is nothing to say.
@@ -184,7 +185,7 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
         _internet = internet;
         if (IsCountdownAllowed)
         {
-            AutoContinueState next = AutoContinuePolicy.OnInternetStatus(State, internet, _timeProvider.GetUtcNow(), _hasNetworkingInteraction);
+            AutoContinueState next = AutoContinuePolicy.OnInternetStatus(State, internet, _hasNetworkingInteraction);
             if (next.Status == AutoContinueStatus.Paused && State.Status != AutoContinueStatus.Paused)
             {
                 _logger.LogInformation("Automatic continue not started; the technician already interacted with the network.");
@@ -219,7 +220,7 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
     }
 
     /// <summary>
-    /// Raises <see cref="CaptionText"/> again after a language change; the countdown keeps its deadline.
+    /// Raises <see cref="CaptionText"/> again after a language change; the countdown keeps its seconds.
     /// </summary>
     public void RefreshTexts() => OnPropertyChanged(nameof(CaptionText));
 
@@ -277,8 +278,8 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
             _timer = null;
         }
 
-        UpdateRemaining();
         OnPropertyChanged(nameof(State));
+        OnPropertyChanged(nameof(SecondsRemaining));
         OnPropertyChanged(nameof(IsCounting));
         OnPropertyChanged(nameof(IsPaused));
         OnPropertyChanged(nameof(IsCancelled));
@@ -296,16 +297,12 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
             return;
         }
 
-        AutoContinueState next = AutoContinuePolicy.OnTick(State, _timeProvider.GetUtcNow());
+        AutoContinueState next = AutoContinuePolicy.OnTick(State);
+        Transition(next);
         if (AutoContinuePolicy.ShouldContinue(next))
         {
-            Transition(next);
             PendingCompletion = CompleteAsync(automatic: true);
-            return;
         }
-
-        UpdateRemaining();
-        OnPropertyChanged(nameof(CaptionText));
     }
 
     private async Task CompleteAsync(bool automatic)
@@ -373,15 +370,5 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(HasCaption));
         OnPropertyChanged(nameof(IsContinueDefault));
         ContinueCommand.NotifyCanExecuteChanged();
-    }
-
-    private void UpdateRemaining()
-    {
-        int seconds = (int)Math.Ceiling(State.RemainingAt(_timeProvider.GetUtcNow()).TotalSeconds);
-        if (seconds != SecondsRemaining)
-        {
-            SecondsRemaining = seconds;
-            OnPropertyChanged(nameof(SecondsRemaining));
-        }
     }
 }

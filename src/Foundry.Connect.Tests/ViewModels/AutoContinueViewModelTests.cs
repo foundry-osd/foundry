@@ -51,6 +51,29 @@ public sealed class AutoContinueViewModelTests : IDisposable
     }
 
     [Fact]
+    public async Task Countdown_WhenTicksDriftAroundTheSecondBoundaries_ShowsEveryDigitOnceAndEndsAfterTenTicks()
+    {
+        // A real timer fires a little early or late: the ticks read 0.999 s, 2.001 s, 2.999 s and so on.
+        var clock = new SkewedClock(_clock);
+        AutoContinueViewModel viewModel = _viewModel = new AutoContinueViewModel(
+            _localization, _exit, _lifetime, clock, new ImmediateUiDispatcher(), new RecordingLogger<AutoContinueViewModel>(), isAutoContinueEnabled: true);
+        List<int> shownBeforeEachTick = [];
+
+        viewModel.OnInternetStatusChanged(InternetStatus.Online);
+        for (int tick = 1; tick <= 10; tick++)
+        {
+            Assert.True(viewModel.IsCounting, $"tick {tick}");
+            shownBeforeEachTick.Add(viewModel.SecondsRemaining);
+            clock.Skew = TimeSpan.FromMilliseconds(tick % 2 == 1 ? -1 : 1);
+            _clock.Advance(AutoContinueViewModel.TickInterval);
+        }
+
+        await viewModel.PendingCompletion!;
+        Assert.Equal([10, 9, 8, 7, 6, 5, 4, 3, 2, 1], shownBeforeEachTick);
+        Assert.Equal(1, _exit.Calls);
+    }
+
+    [Fact]
     public async Task Countdown_Elapsed_ContinuesExactlyOnce()
     {
         AutoContinueViewModel viewModel = Create();
@@ -290,5 +313,16 @@ public sealed class AutoContinueViewModelTests : IDisposable
         viewModel.OnInternetStatusChanged(InternetStatus.Online);
 
         Assert.False(viewModel.ContinueCommand.CanExecute(null));
+    }
+
+    // Reads the manual clock shifted by Skew, as a timer callback that fires slightly early or late would.
+    private sealed class SkewedClock(ManualTimeProvider inner) : TimeProvider
+    {
+        public TimeSpan Skew { get; set; }
+
+        public override DateTimeOffset GetUtcNow() => inner.GetUtcNow() + Skew;
+
+        public override ITimer CreateTimer(TimerCallback callback, object? state, TimeSpan dueTime, TimeSpan period) =>
+            inner.CreateTimer(callback, state, dueTime, period);
     }
 }

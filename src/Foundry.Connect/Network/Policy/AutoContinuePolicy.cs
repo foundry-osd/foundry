@@ -29,34 +29,30 @@ public enum AutoContinueStatus
 /// Immutable automatic continue state.
 /// </summary>
 /// <param name="Status">Current phase.</param>
-/// <param name="Deadline">When the countdown ends; set only while <see cref="AutoContinueStatus.Counting"/>.</param>
-public sealed record AutoContinueState(AutoContinueStatus Status, DateTimeOffset? Deadline)
+/// <param name="SecondsRemaining">Whole seconds left; above zero only while <see cref="AutoContinueStatus.Counting"/>.</param>
+public sealed record AutoContinueState(AutoContinueStatus Status, int SecondsRemaining)
 {
     /// <summary>
     /// Gets the state before the internet is first online.
     /// </summary>
-    public static AutoContinueState Initial { get; } = new(AutoContinueStatus.Idle, null);
-
-    /// <summary>
-    /// Gets the time left on the running countdown.
-    /// </summary>
-    /// <param name="now">The current time.</param>
-    /// <returns>The remaining time, or <see cref="TimeSpan.Zero"/> when no countdown runs or it has ended.</returns>
-    public TimeSpan RemainingAt(DateTimeOffset now) =>
-        Status == AutoContinueStatus.Counting && Deadline is DateTimeOffset deadline && deadline > now ? deadline - now : TimeSpan.Zero;
+    public static AutoContinueState Initial { get; } = new(AutoContinueStatus.Idle, 0);
 }
 
 /// <summary>
 /// A 10 second countdown starts once the internet is online; an interaction pauses it for the session (or keeps it
 /// from starting when it happened before), "Stay here" cancels it, and losing the internet resets it. Pure transitions:
-/// the caller owns the clock, the timer and the session interaction flag.
+/// the caller owns the one second timer and the session interaction flag.
 /// </summary>
+/// <remarks>
+/// Like the Foundry Deploy reboot countdown, each tick removes one whole second and the countdown ends on the tick
+/// that reaches zero, so every second from 10 down to 1 shows exactly once whatever the timer jitter.
+/// </remarks>
 public static class AutoContinuePolicy
 {
     /// <summary>
-    /// Length of the countdown.
+    /// Length of the countdown, in whole seconds (one tick each).
     /// </summary>
-    public static readonly TimeSpan Countdown = TimeSpan.FromSeconds(FoundryConnectApplicationInfo.DefaultAutoContinueDelaySeconds);
+    public const int CountdownSeconds = FoundryConnectApplicationInfo.DefaultAutoContinueDelaySeconds;
 
     /// <summary>
     /// Starts the countdown when the internet comes online and resets a running one when it is lost (a captive portal
@@ -66,13 +62,12 @@ public static class AutoContinuePolicy
     /// </summary>
     /// <param name="state">The current state.</param>
     /// <param name="internet">The latest internet status.</param>
-    /// <param name="now">The current time.</param>
     /// <param name="hasNetworkingInteraction">Whether the technician interacted with networking during the session.</param>
     /// <returns>The next state.</returns>
-    public static AutoContinueState OnInternetStatus(AutoContinueState state, InternetStatus internet, DateTimeOffset now, bool hasNetworkingInteraction) => state.Status switch
+    public static AutoContinueState OnInternetStatus(AutoContinueState state, InternetStatus internet, bool hasNetworkingInteraction) => state.Status switch
     {
-        AutoContinueStatus.Idle when internet == InternetStatus.Online && hasNetworkingInteraction => new(AutoContinueStatus.Paused, null),
-        AutoContinueStatus.Idle when internet == InternetStatus.Online => new(AutoContinueStatus.Counting, now + Countdown),
+        AutoContinueStatus.Idle when internet == InternetStatus.Online && hasNetworkingInteraction => new(AutoContinueStatus.Paused, 0),
+        AutoContinueStatus.Idle when internet == InternetStatus.Online => new(AutoContinueStatus.Counting, CountdownSeconds),
         AutoContinueStatus.Counting when internet != InternetStatus.Online => AutoContinueState.Initial,
         _ => state
     };
@@ -83,7 +78,7 @@ public static class AutoContinuePolicy
     /// <param name="state">The current state.</param>
     /// <returns>The next state.</returns>
     public static AutoContinueState OnNetworkingInteraction(AutoContinueState state) =>
-        state.Status == AutoContinueStatus.Counting ? new(AutoContinueStatus.Paused, null) : state;
+        state.Status == AutoContinueStatus.Counting ? new(AutoContinueStatus.Paused, 0) : state;
 
     /// <summary>
     /// Cancels the countdown for the session; an elapsed countdown stays elapsed.
@@ -91,18 +86,19 @@ public static class AutoContinuePolicy
     /// <param name="state">The current state.</param>
     /// <returns>The next state.</returns>
     public static AutoContinueState OnStayHere(AutoContinueState state) =>
-        state.Status == AutoContinueStatus.Elapsed ? state : new(AutoContinueStatus.Cancelled, null);
+        state.Status == AutoContinueStatus.Elapsed ? state : new(AutoContinueStatus.Cancelled, 0);
 
     /// <summary>
-    /// Ends a running countdown whose deadline has passed.
+    /// Removes one second from a running countdown and ends it when none is left; any other state is unchanged.
     /// </summary>
     /// <param name="state">The current state.</param>
-    /// <param name="now">The current time.</param>
     /// <returns>The next state.</returns>
-    public static AutoContinueState OnTick(AutoContinueState state, DateTimeOffset now) =>
-        state.Status == AutoContinueStatus.Counting && state.Deadline is DateTimeOffset deadline && now >= deadline
-            ? new(AutoContinueStatus.Elapsed, null)
-            : state;
+    public static AutoContinueState OnTick(AutoContinueState state) => state.Status switch
+    {
+        AutoContinueStatus.Counting when state.SecondsRemaining > 1 => state with { SecondsRemaining = state.SecondsRemaining - 1 },
+        AutoContinueStatus.Counting => new(AutoContinueStatus.Elapsed, 0),
+        _ => state
+    };
 
     /// <summary>
     /// The final probe before exit failed: wait for the next online state.
