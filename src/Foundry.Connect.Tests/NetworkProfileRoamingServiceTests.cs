@@ -6,6 +6,8 @@ using System.Text.Json;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Network;
 using Foundry.Connect.Services.Network;
+using Foundry.Connect.Tests.Support;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using CoreConnectNetworkProfileRoamingSettings = Foundry.Core.Models.Configuration.ConnectNetworkProfileRoamingSettings;
 using CoreConnectNetworkSettings = Foundry.Core.Models.Configuration.ConnectNetworkSettings;
@@ -173,6 +175,30 @@ public sealed class NetworkProfileRoamingServiceTests
 
         Assert.True(Directory.Exists(tempDirectory.ArtifactPath));
         Assert.False(File.Exists(Path.Combine(tempDirectory.ArtifactPath, "manifest.json")));
+    }
+
+    [Fact]
+    public void Constructor_WhenStaleArtifactsCannotBeDeleted_LogsTheFailureTypeWithoutTheExceptionOrTheFileName()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        Directory.CreateDirectory(tempDirectory.ArtifactPath);
+        string lockedPath = Path.Combine(tempDirectory.ArtifactPath, "contoso-root-authority.cer");
+        File.WriteAllText(lockedPath, "certificate-bytes");
+        var logger = new RecordingLogger<NetworkProfileRoamingService>();
+
+        using (new FileStream(lockedPath, FileMode.Open, FileAccess.Read, FileShare.None))
+        {
+            _ = new NetworkProfileRoamingService(CreateEnabledConfiguration(), logger, tempDirectory.ArtifactPath);
+        }
+
+        RecordedLogEntry warning = Assert.Single(logger.Entries, static entry => entry.Level == LogLevel.Warning);
+        Assert.Null(warning.Exception);
+        Assert.Equal(nameof(IOException), warning.Properties["FailureType"]);
+        Assert.True(warning.Properties.ContainsKey("ErrorCode"));
+        Assert.DoesNotContain("contoso-root-authority", warning.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.All(
+            warning.Properties.Values,
+            static value => Assert.DoesNotContain("contoso-root-authority", Convert.ToString(value, System.Globalization.CultureInfo.InvariantCulture) ?? string.Empty, StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]

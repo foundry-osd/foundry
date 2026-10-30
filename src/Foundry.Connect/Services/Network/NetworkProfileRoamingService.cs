@@ -389,10 +389,12 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
         }
         catch (Exception ex)
         {
+            // The exception is not attached: its message can name a staged certificate file.
             _logger.LogWarning(
-                ex,
-                "Failed to delete stale network profile roaming artifacts. ArtifactName={ArtifactName}",
-                Path.GetFileName(path));
+                "Failed to delete stale network profile roaming artifacts. ArtifactName={ArtifactName}, FailureType={FailureType}, ErrorCode={ErrorCode}",
+                Path.GetFileName(path),
+                ex.GetType().Name,
+                ex.HResult);
         }
     }
 
