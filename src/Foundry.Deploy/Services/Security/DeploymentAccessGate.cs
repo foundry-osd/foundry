@@ -12,7 +12,7 @@ namespace Foundry.Deploy.Services.Security;
 
 /// <summary>
 /// Authorizes Foundry Deploy startup on protected media: accepts the deployment key handed over by Foundry Connect when
-/// the media key check authenticates it, and otherwise prompts for the deployment password with a progressive retry delay.
+/// the media's key check authenticates it, and otherwise prompts for the deployment password with a progressive retry delay.
 /// </summary>
 /// <remarks>
 /// The hand-off is read only when the media requires an unlock, and before the first prompt: Foundry Bootstrap serves the

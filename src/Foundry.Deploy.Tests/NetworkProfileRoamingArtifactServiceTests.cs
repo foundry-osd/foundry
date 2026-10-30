@@ -368,6 +368,76 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
         Assert.True(passwordFile.IsSensitive);
     }
 
+    [Theory]
+    [InlineData("certificate-tampered", nameof(CryptographicException))]
+    [InlineData("certificate-malformed", nameof(JsonException))]
+    [InlineData("password-tampered", nameof(CryptographicException))]
+    public async Task LoadAsync_WhenAProtectedPfxIsDamaged_SkipsItAndItsPasswordAndStagesTheRest(string damage, string expectedFailureType)
+    {
+        string artifactRoot = CreateArtifactRoot();
+        byte[] deploymentKey = RandomNumberGenerator.GetBytes(MediaSecretEnvelopeProtector.KeySizeBytes);
+        string pfxPath = Path.Combine(artifactRoot, "certificates", "My", "contoso-client.pfx.encrypted");
+        SecretEnvelope pfxEnvelope = MediaSecretEnvelopeProtector.EncryptBytes([4, 5, 6, 7], deploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId);
+        SecretEnvelope passwordEnvelope = MediaSecretEnvelopeProtector.EncryptString("pfx-password", deploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId);
+        if (damage == "certificate-malformed")
+        {
+            WriteText(pfxPath, "{ not json");
+        }
+        else
+        {
+            WriteSecret(pfxPath, damage == "certificate-tampered" ? pfxEnvelope with { Ciphertext = Base64UrlEncode([9, 9, 9, 9]) } : pfxEnvelope);
+        }
+
+        WriteSecret(
+            Path.Combine(artifactRoot, "certificates", "My", "contoso-client.pfx.encrypted.password.json"),
+            damage == "password-tampered" ? passwordEnvelope with { Tag = pfxEnvelope.Tag } : passwordEnvelope);
+        WriteText(Path.Combine(artifactRoot, "certificates", "Root", "root.cer"), "root-certificate");
+        WriteText(
+            Path.Combine(artifactRoot, "manifest.json"),
+            """
+            {
+              "schemaVersion": 1,
+              "certificates": [
+                {
+                  "relativePath": "certificates\\My\\contoso-client.pfx.encrypted",
+                  "kind": "pfxPrivateKey",
+                  "storeName": "My",
+                  "passwordSecretRelativePath": "certificates\\My\\contoso-client.pfx.encrypted.password.json",
+                  "isContentProtected": true
+                },
+                {
+                  "relativePath": "certificates\\Root\\root.cer",
+                  "kind": "publicCertificate",
+                  "storeName": "Root"
+                }
+              ]
+            }
+            """);
+        var logger = new CapturingLogger<NetworkProfileRoamingArtifactService>();
+        var service = new NetworkProfileRoamingArtifactService(
+            new ThrowingMediaSecretKeyReader(),
+            new FakeDeploymentSecretKeyProvider(deploymentKey),
+            logger);
+
+        var payload = await service.LoadAsync(
+            new DeployNetworkProfileRoamingSettings
+            {
+                Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true, IncludePrivateKeyMaterial = true },
+                ArtifactRootPath = artifactRoot
+            },
+            Path.Combine(artifactRoot, "workspace"),
+            TestContext.Current.CancellationToken);
+
+        Assert.NotNull(payload);
+        Assert.Contains(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "certificates", "Root", "root.cer"));
+        Assert.DoesNotContain(payload.DataFiles, file => file.FileName.Contains("contoso-client", StringComparison.OrdinalIgnoreCase));
+        CapturedWarning warning = Assert.Single(logger.Warnings);
+        Assert.Null(warning.Exception);
+        Assert.Equal(expectedFailureType, warning.Properties["FailureType"]);
+        Assert.Equal("pfxPrivateKey", warning.Properties["CertificateKind"]);
+        Assert.DoesNotContain("contoso-client", warning.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
     [Fact]
     public async Task LoadAsync_WhenPrivateKeyRoamingDisabled_SkipsPfxMaterial()
     {
@@ -693,9 +763,13 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
 
     private sealed record PreOobeDataFile(string FileName, string Content, bool IsSensitive);
 
+    private sealed record CapturedWarning(string Message, Exception? Exception, IReadOnlyDictionary<string, object?> Properties);
+
     private sealed class CapturingLogger<T> : ILogger<T>
     {
         public List<string> Messages { get; } = [];
+
+        public List<CapturedWarning> Warnings { get; } = [];
 
         public IDisposable? BeginScope<TState>(TState state)
             where TState : notnull
@@ -715,6 +789,16 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             if (logLevel == LogLevel.Warning)
             {
                 Messages.Add(formatter(state, exception));
+                var properties = new Dictionary<string, object?>(StringComparer.Ordinal);
+                if (state is IEnumerable<KeyValuePair<string, object?>> pairs)
+                {
+                    foreach ((string name, object? value) in pairs)
+                    {
+                        properties[name] = value;
+                    }
+                }
+
+                Warnings.Add(new CapturedWarning(formatter(state, exception), exception, properties));
             }
         }
     }

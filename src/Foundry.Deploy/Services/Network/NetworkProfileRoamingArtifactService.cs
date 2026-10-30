@@ -23,7 +23,8 @@ namespace Foundry.Deploy.Services.Network;
 /// Each secret envelope's key identifier decides its key: deployment-keyed envelopes (a protected PFX and its
 /// password) decrypt with the unlocked deployment key, media-keyed ones (schema 5 media) with the media key. Each key is
 /// read lazily, at most once per load, only when an envelope needs it (schema 6 media have no media key file), and zeroed
-/// when the load ends.
+/// when the load ends. A damaged protected certificate or password (malformed JSON, an invalid or tampered envelope) skips
+/// that certificate and its password with one Warning; the rest of roaming continues.
 /// </remarks>
 public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamingArtifactService
 {
@@ -255,8 +256,34 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
                     continue;
                 }
 
-                byte[]? certificateBytes = await ReadCertificateBytesAsync(sourcePath, certificate, secretKeys, cancellationToken)
-                    .ConfigureAwait(false);
+                byte[]? certificateBytes = null;
+                string? password = null;
+                try
+                {
+                    certificateBytes = await ReadCertificateBytesAsync(sourcePath, certificate, secretKeys, cancellationToken)
+                        .ConfigureAwait(false);
+                    if (certificateBytes is not null && isPfxPrivateKey)
+                    {
+                        password = await ReadPfxPasswordAsync(artifactRootPath, certificate, secretKeys, cancellationToken)
+                            .ConfigureAwait(false);
+                    }
+                }
+                catch (Exception exception) when (exception is JsonException or CryptographicException)
+                {
+                    // A damaged protected file disables only this certificate and its password; the rest of roaming continues.
+                    // The exception is not attached: its message can echo file content.
+                    if (certificateBytes is not null)
+                    {
+                        CryptographicOperations.ZeroMemory(certificateBytes);
+                    }
+
+                    _logger.LogWarning(
+                        "A protected network profile roaming certificate could not be read and is skipped. CertificateKind={CertificateKind}, FailureType={FailureType}",
+                        certificate.Kind,
+                        exception.GetType().Name);
+                    continue;
+                }
+
                 if (certificateBytes is null)
                 {
                     continue;
@@ -271,15 +298,7 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
                     IsSensitive = isPfxPrivateKey || certificate.IsContentProtected
                 });
 
-                string? passwordRelativePath = isPfxPrivateKey
-                    ? await AddPfxPasswordDataFileAsync(
-                            dataFiles,
-                            artifactRootPath,
-                            certificate,
-                            secretKeys,
-                            cancellationToken)
-                        .ConfigureAwait(false)
-                    : null;
+                string? passwordRelativePath = password is null ? null : AddPfxPasswordDataFile(dataFiles, certificate, password);
 
                 importCertificates.Add(new NetworkProfileRoamingImportCertificate
                 {
@@ -355,8 +374,7 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
     }
 
     // The envelope is parsed before any key is read: its key identifier chooses the key, and schema 6 media have no media key.
-    private static async Task<string?> AddPfxPasswordDataFileAsync(
-        List<PreOobeScriptDataFile> dataFiles,
+    private static async Task<string?> ReadPfxPasswordAsync(
         string artifactRootPath,
         NetworkProfileRoamingCertificate certificate,
         RoamingSecretKeys secretKeys,
@@ -379,7 +397,7 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
             return null;
         }
 
-        string password = string.Equals(envelope.KeyId, MediaSecretEnvelopeProtector.DeploymentKeyId, StringComparison.Ordinal)
+        return string.Equals(envelope.KeyId, MediaSecretEnvelopeProtector.DeploymentKeyId, StringComparison.Ordinal)
             ? MediaSecretEnvelopeProtector.DecryptString(
                 envelope,
                 await secretKeys.GetDeploymentKeyAsync(cancellationToken).ConfigureAwait(false),
@@ -387,6 +405,10 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
             : MediaSecretEnvelopeProtector.DecryptString(
                 envelope,
                 await secretKeys.GetMediaKeyAsync(cancellationToken).ConfigureAwait(false));
+    }
+
+    private static string AddPfxPasswordDataFile(List<PreOobeScriptDataFile> dataFiles, NetworkProfileRoamingCertificate certificate, string password)
+    {
         string passwordRelativePath = ToStagedDataRelativePath(certificate.RelativePath + ".password");
         dataFiles.Add(new PreOobeScriptDataFile
         {

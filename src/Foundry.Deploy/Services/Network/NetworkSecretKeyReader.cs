@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using Foundry.Core.Services.Runtime;
 using Foundry.Utilities.Security;
 
 namespace Foundry.Deploy.Services.Network;
@@ -17,7 +18,7 @@ public interface INetworkSecretKeyReader
 /// </summary>
 public sealed class NetworkSecretKeyReader : INetworkSecretKeyReader
 {
-    private const string KeyRelativePath = @"Config\Secrets\media-secrets.key";
+    private const string KeyRelativePath = @"Config\" + WinPeWorkspaceLayout.MediaSecretsKeyRelativePath;
 
     public async Task<byte[]> ReadAsync(string workspaceRootPath, CancellationToken cancellationToken = default)
     {
