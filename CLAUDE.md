@@ -48,7 +48,7 @@ You must speak and write code exclusively in English.
 
 - `Foundry` is the WinUI 3 authoring application. It owns the desktop authoring experience, navigation, views, view models, and UI-specific services used to configure and generate deployment media.
 - `Foundry.Core` contains shared business logic, configuration models, validation, media creation, Windows ADK and WinPE operations, Autopilot integration, and framework-independent orchestration used by the applications.
-- `Foundry.Bootstrap` is the .NET console runtime for WinPE boot orchestration. It owns runtime payload resolution, cache recovery, system preparation, child process supervision, console progress, and local boot diagnostics. It must not reference UI projects or replace PowerShell workflows owned by other applications.
+- `Foundry.Bootstrap` is the .NET console runtime for WinPE boot orchestration. It owns runtime payload resolution, cache recovery, system preparation, child process supervision, the deployment key relay between Foundry Connect and Foundry Deploy, console progress, and local boot diagnostics. It must not reference UI projects or replace PowerShell workflows owned by other applications.
 - `Foundry.Connect` is the WPF network provisioning runtime included in boot media. It owns runtime networking, configuration loading, application lifecycle, and the Connect-specific UI.
 - `Foundry.Deploy` is the WPF deployment runtime included in boot media. It owns deployment workflows, hardware discovery, downloads, driver packs, caching, runtime configuration, startup validation, and the Deploy-specific UI.
 - `Foundry.PostInstall` is the .NET console runtime for Windows setup before OOBE. It owns built-in and custom action execution, process supervision, durable restart/resume, and owned cleanup. Deploy owns target staging and answer-file integration; PostInstall runs the interactive Autopilot assistant as a built-in action, while the assistant script remains a separate Deploy-staged runtime.
@@ -133,7 +133,7 @@ You must speak and write code exclusively in English.
 - When adding new functionality, add or update the smallest relevant set of tests
 - Keep test projects aligned with the main project naming and solution structure
 - `Foundry.Core.Tests` owns tests for shared business logic, configuration contracts, validation, selection, transformation, and orchestration in `Foundry.Core`.
-- `Foundry.Bootstrap.Tests` owns tests for boot sequencing, runtime selection, cache rollback, process observation, cancellation, and best-effort system preparation and diagnostics in `Foundry.Bootstrap`.
+- `Foundry.Bootstrap.Tests` owns tests for boot sequencing, runtime selection, cache rollback, process observation, cancellation, the deployment key relay, and best-effort system preparation and diagnostics in `Foundry.Bootstrap`.
 - `Foundry.Connect.Tests` owns tests for `Foundry.Connect` runtime behavior and its integration with shared `Foundry.Core` contracts.
 - `Foundry.Deploy.Tests` owns tests for `Foundry.Deploy` runtime behavior.
 - `Foundry.PostInstall.Tests` owns tests for action execution, process supervision, checkpoint integrity, restart/resume, and owned cleanup in `Foundry.PostInstall`; run Windows Setup and native servicing acceptance only in disposable test environments.
