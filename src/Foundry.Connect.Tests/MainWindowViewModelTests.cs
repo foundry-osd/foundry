@@ -97,7 +97,7 @@ public sealed class MainWindowViewModelTests
         Assert.Equal(ConnectDebugScenario.CaptivePortal, viewModel.Page.ActiveDebugScenario);
         Assert.Equal(BlockedReason.CaptivePortal, viewModel.Page.BlockedReason);
         Assert.Equal(ConnectDebugScenario.CaptivePortal, Assert.Single(viewModel.DebugScenarios, static option => option.IsSelected).Scenario);
-        Assert.Equal(15, viewModel.DebugScenarios.Count);
+        Assert.Equal(19, viewModel.DebugScenarios.Count);
     }
 
     [Fact]

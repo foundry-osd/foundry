@@ -13,10 +13,10 @@ public sealed class DebugScenarioCatalogTests
     private static readonly DateTimeOffset Now = new(2026, 10, 29, 8, 0, 0, TimeSpan.Zero);
 
     [Fact]
-    public void All_ListsLiveFirstThenTheFourteenScenarios()
+    public void All_ListsLiveFirstThenTheEighteenScenarios()
     {
         Assert.Equal(ConnectDebugScenario.Live, DebugScenarioCatalog.All[0]);
-        Assert.Equal(15, DebugScenarioCatalog.All.Count);
+        Assert.Equal(19, DebugScenarioCatalog.All.Count);
     }
 
     [Fact]
@@ -34,7 +34,7 @@ public sealed class DebugScenarioCatalogTests
 
             Assert.Equal(Now, state.ObservedAt);
             Assert.Equal(ConnectionMode.Automatic, state.Mode);
-            Assert.Null(state.ActiveOperation);
+            Assert.Equal(scenario == ConnectDebugScenario.WifiConnecting ? NetworkOperationKind.ConnectProvisionedWifi : null, state.ActiveOperation);
             Assert.Null(state.LastOutcome);
         }
     }
@@ -84,6 +84,10 @@ public sealed class DebugScenarioCatalogTests
     [InlineData(ConnectDebugScenario.WifiNetworks, true, false, false, InternetStatus.NoInternet, WifiAvailability.Available)]
     [InlineData(ConnectDebugScenario.ProvisionedWifiUnavailable, true, false, false, InternetStatus.NoInternet, WifiAvailability.Available)]
     [InlineData(ConnectDebugScenario.WifiReady, true, false, false, InternetStatus.Online, WifiAvailability.Available)]
+    [InlineData(ConnectDebugScenario.ProvisionedWifiLocked, true, false, false, InternetStatus.NoInternet, WifiAvailability.Available)]
+    [InlineData(ConnectDebugScenario.Dot1xAuthenticating, true, true, false, InternetStatus.NoInternet, WifiAvailability.Disabled)]
+    [InlineData(ConnectDebugScenario.WifiConnecting, true, false, false, InternetStatus.NoInternet, WifiAvailability.Available)]
+    [InlineData(ConnectDebugScenario.WifiOnly, false, false, false, InternetStatus.NoInternet, WifiAvailability.Available)]
     public void Scenario_MatchesTheMatrix(
         ConnectDebugScenario scenario,
         bool hasAdapter,
@@ -99,5 +103,18 @@ public sealed class DebugScenarioCatalogTests
         Assert.Equal(hasUsableAddress, state.Ethernet.HasUsableAddress);
         Assert.Equal(internet, state.Internet);
         Assert.Equal(wifi, state.Wifi.Availability);
+    }
+
+    [Fact]
+    public void NewScenarios_CarryTheirDefiningState()
+    {
+        ProvisionedWifiState locked = DebugScenarioCatalog.Create(ConnectDebugScenario.ProvisionedWifiLocked, Now).Wifi.Provisioned;
+        Assert.Equal(ProvisionedWifiStatus.Locked, locked.Status);
+        Assert.Equal(ProvisionedWifiUnavailableReason.UnlockCancelled, locked.Reason);
+        Assert.Equal(Dot1xAuthenticationStatus.Authenticating, DebugScenarioCatalog.Create(ConnectDebugScenario.Dot1xAuthenticating, Now).Ethernet.Dot1x.Status);
+
+        NetworkState wifiOnly = DebugScenarioCatalog.Create(ConnectDebugScenario.WifiOnly, Now);
+        Assert.Equal(ProvisionedWifiStatus.Ready, wifiOnly.Wifi.Provisioned.Status);
+        Assert.DoesNotContain(wifiOnly.Wifi.Networks, network => network.Ssid.Equals(wifiOnly.Wifi.Provisioned.Ssid));
     }
 }

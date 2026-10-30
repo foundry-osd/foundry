@@ -54,11 +54,23 @@ public enum ConnectDebugScenario
     ProvisionedWifiUnavailable,
 
     /// <summary>S13: connected to the provisioned Wi-Fi with internet.</summary>
-    WifiReady
+    WifiReady,
+
+    /// <summary>S14: the provisioned Wi-Fi stays locked after the deployment password prompt was cancelled.</summary>
+    ProvisionedWifiLocked,
+
+    /// <summary>S15: a cable is plugged and wired 802.1X is still authenticating.</summary>
+    Dot1xAuthenticating,
+
+    /// <summary>S16: a provisioned Wi-Fi connection is in progress.</summary>
+    WifiConnecting,
+
+    /// <summary>S17: no Ethernet adapter; Wi-Fi networks in range without the provisioned SSID, the profile is ready.</summary>
+    WifiOnly
 }
 
 /// <summary>
-/// Builds the 14 simulated <see cref="NetworkState"/> values behind Debug › Scenarios.
+/// Builds the 18 simulated <see cref="NetworkState"/> values behind Debug › Scenarios.
 /// </summary>
 /// <remarks>
 /// The states are fixed fake data: the SSIDs are sample names and the addresses come from the documentation range
@@ -89,7 +101,7 @@ public static class DebugScenarioCatalog
     /// </summary>
     /// <param name="scenario">A simulated scenario.</param>
     /// <param name="now">The observation time of the state.</param>
-    /// <returns>An automatic-mode state without operation or outcome.</returns>
+    /// <returns>An automatic-mode state without outcome; only <see cref="ConnectDebugScenario.WifiConnecting"/> carries a running operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="scenario"/> is <see cref="ConnectDebugScenario.Live"/> or undefined.</exception>
     public static NetworkState Create(ConnectDebugScenario scenario, DateTimeOffset now)
     {
@@ -140,6 +152,38 @@ public static class DebugScenarioCatalog
                     VisibleNetworks(),
                     new ProvisionedWifiState(ProvisionedWifiStatus.Ready, Ssid: ProvisionedSsid, ProfileName: "Foundry Lab")),
                 InternetStatus.Online),
+            ConnectDebugScenario.ProvisionedWifiLocked => WithWifi(
+                state,
+                new WifiState(
+                    WifiAvailability.Available,
+                    null,
+                    VisibleNetworks(),
+                    new ProvisionedWifiState(ProvisionedWifiStatus.Locked, ProvisionedWifiUnavailableReason.UnlockCancelled, ProvisionedSsid)),
+                InternetStatus.NoInternet),
+            ConnectDebugScenario.Dot1xAuthenticating => state with
+            {
+                Ethernet = new EthernetState(
+                    [Interface(hasLink: true, IpConfigurationKind.None)],
+                    new Dot1xState(Dot1xAuthenticationStatus.Authenticating, Dot1xFailureReason.None)),
+                Internet = InternetStatus.NoInternet
+            },
+            ConnectDebugScenario.WifiConnecting => WithWifi(
+                state,
+                new WifiState(
+                    WifiAvailability.Available,
+                    null,
+                    VisibleNetworks(),
+                    new ProvisionedWifiState(ProvisionedWifiStatus.Ready, Ssid: ProvisionedSsid, ProfileName: "Foundry Lab")),
+                InternetStatus.NoInternet) with { ActiveOperation = NetworkOperationKind.ConnectProvisionedWifi },
+            ConnectDebugScenario.WifiOnly => state with
+            {
+                Wifi = new WifiState(
+                    WifiAvailability.Available,
+                    null,
+                    VisibleNetworks(includeProvisioned: false),
+                    new ProvisionedWifiState(ProvisionedWifiStatus.Ready, Ssid: ProvisionedSsid, ProfileName: "Foundry Lab")),
+                Internet = InternetStatus.NoInternet
+            },
             _ => throw new ArgumentOutOfRangeException(nameof(scenario), scenario, "Only the simulated scenarios can be created; Live is the real network."),
         };
     }
@@ -156,11 +200,12 @@ public static class DebugScenarioCatalog
     private static EthernetInterfaceState Interface(bool hasLink, IpConfigurationKind configuration, string? address = null, string? gateway = null) =>
         new("debug-ethernet", "Ethernet", hasLink, configuration, address, gateway);
 
-    private static VisibleWifiNetwork[] VisibleNetworks() =>
+    // includeProvisioned: false drops the provisioned SSID, so the provisioned profile is "not in range".
+    private static VisibleWifiNetwork[] VisibleNetworks(bool includeProvisioned = true) =>
     [
         new(WifiAdapterId, WifiSsid.FromText("Guest"), WifiSecurityType.Open, 82),
         new(WifiAdapterId, WifiSsid.FromText("Workshop"), WifiSecurityType.Wpa2Personal, 64),
-        new(WifiAdapterId, ProvisionedSsid, WifiSecurityType.Wpa3Personal, 48),
+        .. includeProvisioned ? [new VisibleWifiNetwork(WifiAdapterId, ProvisionedSsid, WifiSecurityType.Wpa3Personal, 48)] : Array.Empty<VisibleWifiNetwork>(),
         new(WifiAdapterId, WifiSsid.FromText("Corp-Secure"), WifiSecurityType.Wpa2Enterprise, 30)
     ];
 }
