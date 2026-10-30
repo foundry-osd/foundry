@@ -312,7 +312,7 @@ ErrorCode=0x80070005
     <value>繼續</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>請輸入技術人員密碼以繼續。</value>
+    <value>請輸入部署密碼以繼續。</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>需要密碼</value>

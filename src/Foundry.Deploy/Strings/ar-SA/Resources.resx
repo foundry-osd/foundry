@@ -312,7 +312,7 @@
     <value>متابعة</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>أدخل كلمة مرور الفني للمتابعة.</value>
+    <value>أدخل كلمة مرور النشر للمتابعة.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>كلمة المرور مطلوبة</value>

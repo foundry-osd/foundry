@@ -468,7 +468,7 @@ Licenciran prema MIT licenci.</value>
     <value>Nastavi</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>Unesite lozinku za implementaciju da biste koristili zaštićene mrežne postavke s ovog medija za pokretanje.</value>
+    <value>Za nastavak unesite lozinku za implementaciju.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>Potrebna je lozinka</value>

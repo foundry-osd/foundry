@@ -312,7 +312,7 @@
     <value>Продължи</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>Въведете паролата на техника, за да продължите.</value>
+    <value>Въведете паролата за разполагане, за да продължите.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>Изисква се парола</value>

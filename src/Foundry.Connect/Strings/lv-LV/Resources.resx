@@ -468,7 +468,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Turpināt</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>Ievadiet izvietošanas paroli, lai izmantotu šī sāknēšanas datu nesēja aizsargātos tīkla iestatījumus.</value>
+    <value>Lai turpinātu, ievadiet izvietošanas paroli.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>Nepieciešama parole</value>

@@ -468,7 +468,7 @@ Concesso in licenza con la licenza MIT.</value>
     <value>Continua</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>Inserisci la password di distribuzione per usare le impostazioni di rete protette di questo supporto di avvio.</value>
+    <value>Inserisci la password di distribuzione per continuare.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>Password richiesta</value>

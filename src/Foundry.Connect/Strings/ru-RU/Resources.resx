@@ -468,7 +468,7 @@
     <value>Продолжить</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>Введите пароль развертывания, чтобы использовать защищенные сетевые параметры этого загрузочного носителя.</value>
+    <value>Введите пароль развертывания, чтобы продолжить.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>Требуется пароль</value>

@@ -468,7 +468,7 @@ Licensed under the MIT License.</value>
     <value>Continue</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>Enter the deployment password to use the protected network settings of this boot media.</value>
+    <value>Enter the deployment password to continue.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>Password required</value>

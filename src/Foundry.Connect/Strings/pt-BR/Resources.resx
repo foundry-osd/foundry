@@ -468,7 +468,7 @@ Licenciado sob a licença MIT.</value>
     <value>Continuar</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>Insira a senha de implantação para usar as configurações de rede protegidas desta mídia de inicialização.</value>
+    <value>Insira a senha de implantação para continuar.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>Senha obrigatória</value>

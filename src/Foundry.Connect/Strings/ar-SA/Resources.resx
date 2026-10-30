@@ -468,7 +468,7 @@
     <value>متابعة</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>أدخل كلمة مرور النشر لاستخدام إعدادات الشبكة المحمية في وسائط التمهيد هذه.</value>
+    <value>أدخل كلمة مرور النشر للمتابعة.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>كلمة المرور مطلوبة</value>

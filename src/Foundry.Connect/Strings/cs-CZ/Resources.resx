@@ -468,7 +468,7 @@ Licencováno pod licencí MIT.</value>
     <value>Pokračovat</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>Zadejte heslo pro nasazení, abyste mohli použít chráněné nastavení sítě z tohoto spouštěcího média.</value>
+    <value>Pokračujte zadáním hesla pro nasazení.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>Je vyžadováno heslo</value>

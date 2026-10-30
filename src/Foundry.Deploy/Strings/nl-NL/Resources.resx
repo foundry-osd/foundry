@@ -312,7 +312,7 @@ Actie: controleer de schijfkenmerken en probeer de implementatie opnieuw.</value
     <value>Doorgaan</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>Voer het wachtwoord van de technicus in om door te gaan.</value>
+    <value>Voer het implementatiewachtwoord in om door te gaan.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>Wachtwoord vereist</value>

@@ -468,7 +468,7 @@
     <value>ดำเนินการต่อ</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>ป้อนรหัสผ่านการปรับใช้เพื่อใช้การตั้งค่าเครือข่ายที่ได้รับการป้องกันของสื่อบูตนี้</value>
+    <value>ป้อนรหัสผ่านการปรับใช้เพื่อดำเนินการต่อ</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>ต้องใช้รหัสผ่าน</value>

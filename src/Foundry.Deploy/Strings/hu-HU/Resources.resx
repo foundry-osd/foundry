@@ -312,7 +312,7 @@ Művelet: Ellenőrizze a lemezattribútumokat, és próbálkozzon újra a közpo
     <value>Folytatás</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>A folytatáshoz adja meg a technikusi jelszót.</value>
+    <value>A folytatáshoz adja meg a telepítési jelszót.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>Jelszó szükséges</value>

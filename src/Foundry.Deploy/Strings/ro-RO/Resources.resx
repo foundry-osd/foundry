@@ -312,7 +312,7 @@ Acțiune: Verificați atributele discului și reîncercați implementarea.</valu
     <value>Continuați</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>Introduceți parola tehnicianului pentru a continua.</value>
+    <value>Introduceți parola de implementare pentru a continua.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>Parolă necesară</value>

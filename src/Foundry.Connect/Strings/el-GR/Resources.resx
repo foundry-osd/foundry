@@ -468,7 +468,7 @@
     <value>Συνέχεια</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>Εισαγάγετε τον κωδικό πρόσβασης ανάπτυξης για να χρησιμοποιήσετε τις προστατευμένες ρυθμίσεις δικτύου αυτού του μέσου εκκίνησης.</value>
+    <value>Εισαγάγετε τον κωδικό πρόσβασης ανάπτυξης για να συνεχίσετε.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>Απαιτείται κωδικός πρόσβασης</value>

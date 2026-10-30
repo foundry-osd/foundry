@@ -312,7 +312,7 @@ Eylem: Disk özniteliklerini doğrulayın ve dağıtımı yeniden deneyin.</valu
     <value>Devam</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>Devam etmek için teknisyen parolasını girin.</value>
+    <value>Devam etmek için dağıtım parolasını girin.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>Parola gerekli</value>

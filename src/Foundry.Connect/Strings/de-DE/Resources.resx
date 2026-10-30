@@ -468,7 +468,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Fortfahren</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>Geben Sie das Bereitstellungskennwort ein, um die geschützten Netzwerkeinstellungen dieses Startmediums zu verwenden.</value>
+    <value>Geben Sie das Bereitstellungskennwort ein, um fortzufahren.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>Kennwort erforderlich</value>

@@ -468,7 +468,7 @@ Licențiat sub licența MIT.</value>
     <value>Continuați</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>Introduceți parola de implementare pentru a utiliza setările de rețea protejate de pe acest suport de pornire.</value>
+    <value>Introduceți parola de implementare pentru a continua.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>Parolă necesară</value>

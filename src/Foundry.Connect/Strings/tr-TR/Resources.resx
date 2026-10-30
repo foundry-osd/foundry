@@ -468,7 +468,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Devam</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>Bu önyükleme medyasının korumalı ağ ayarlarını kullanmak için dağıtım parolasını girin.</value>
+    <value>Devam etmek için dağıtım parolasını girin.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>Parola gerekli</value>

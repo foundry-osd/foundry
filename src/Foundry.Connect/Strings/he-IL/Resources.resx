@@ -468,7 +468,7 @@
     <value>המשך</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>הזן את סיסמת הפריסה כדי להשתמש בהגדרות הרשת המוגנות של מדיית אתחול זו.</value>
+    <value>הזן את סיסמת הפריסה כדי להמשיך.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>נדרשת סיסמה</value>

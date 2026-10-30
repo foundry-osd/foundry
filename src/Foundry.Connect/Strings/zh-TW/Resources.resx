@@ -468,7 +468,7 @@
     <value>繼續</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>輸入部署密碼以使用此開機媒體中受保護的網路設定。</value>
+    <value>請輸入部署密碼以繼續。</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>需要密碼</value>

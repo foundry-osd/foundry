@@ -468,7 +468,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>続行</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>このブートメディアの保護されたネットワーク設定を使用するには、展開パスワードを入力してください。</value>
+    <value>続行するには、展開パスワードを入力してください。</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>パスワードが必要です</value>

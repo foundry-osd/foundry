@@ -468,7 +468,7 @@ Licencirano pod licenco MIT.</value>
     <value>Nadaljuj</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>Vnesite geslo za uvajanje, da uporabite zaščitene omrežne nastavitve tega zagonskega medija.</value>
+    <value>Za nadaljevanje vnesite geslo za uvajanje.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>Zahtevano je geslo</value>

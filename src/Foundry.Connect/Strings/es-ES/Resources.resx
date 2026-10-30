@@ -468,7 +468,7 @@ Licenciado bajo la Licencia MIT.</value>
     <value>Continuar</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>Introduzca la contraseña de implementación para usar la configuración de red protegida de este medio de arranque.</value>
+    <value>Introduzca la contraseña de implementación para continuar.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>Se requiere contraseña</value>

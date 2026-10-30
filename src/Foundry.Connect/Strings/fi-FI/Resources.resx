@@ -468,7 +468,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Jatka</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>Anna käyttöönoton salasana, jotta voit käyttää tämän käynnistysmedian suojattuja verkkoasetuksia.</value>
+    <value>Jatka antamalla käyttöönoton salasana.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>Salasana vaaditaan</value>

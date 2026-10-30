@@ -468,7 +468,7 @@ Licenc az MIT licenc alatt.</value>
     <value>Folytatás</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>Adja meg a telepítési jelszót a rendszerindító adathordozó védett hálózati beállításainak használatához.</value>
+    <value>A folytatáshoz adja meg a telepítési jelszót.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>Jelszó szükséges</value>

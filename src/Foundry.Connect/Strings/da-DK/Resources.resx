@@ -468,7 +468,7 @@ Licenseret under MIT-licensen.</value>
     <value>Fortsæt</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>Angiv adgangskoden til installation for at bruge de beskyttede netværksindstillinger på dette startmedie.</value>
+    <value>Angiv adgangskoden til installation for at fortsætte.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>Adgangskode påkrævet</value>

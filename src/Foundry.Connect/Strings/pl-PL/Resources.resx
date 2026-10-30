@@ -468,7 +468,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Kontynuuj</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>Wprowadź hasło wdrożenia, aby użyć chronionych ustawień sieci z tego nośnika rozruchowego.</value>
+    <value>Wprowadź hasło wdrożenia, aby kontynuować.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>Wymagane hasło</value>

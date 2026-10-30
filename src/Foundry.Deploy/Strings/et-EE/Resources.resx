@@ -312,7 +312,7 @@ Toiming: kontrollige ketta atribuute ja proovige juurutamist uuesti.</value>
     <value>Jätka</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>Jätkamiseks sisesta tehniku parool.</value>
+    <value>Jätkamiseks sisesta juurutusparool.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>Parool on nõutav</value>

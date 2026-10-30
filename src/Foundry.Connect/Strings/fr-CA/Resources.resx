@@ -468,7 +468,7 @@ Sous licence MIT.</value>
     <value>Continuer</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>Entrez le mot de passe de déploiement pour utiliser les paramètres réseau protégés de ce support de démarrage.</value>
+    <value>Entrez le mot de passe de déploiement pour continuer.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>Mot de passe requis</value>

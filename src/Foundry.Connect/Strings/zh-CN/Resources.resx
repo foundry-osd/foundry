@@ -468,7 +468,7 @@
     <value>继续</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>输入部署密码以使用此启动介质中受保护的网络设置。</value>
+    <value>请输入部署密码以继续。</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>需要密码</value>

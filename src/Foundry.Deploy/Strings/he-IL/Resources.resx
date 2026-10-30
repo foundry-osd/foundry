@@ -312,7 +312,7 @@ ErrorCode=0x80070005
     <value>המשך</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>הזן את סיסמת הטכנאי כדי להמשיך.</value>
+    <value>הזן את סיסמת הפריסה כדי להמשיך.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>נדרשת סיסמה</value>

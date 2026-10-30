@@ -468,7 +468,7 @@ Lisensiert under MIT-lisensen.</value>
     <value>Fortsett</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>Skriv inn distribusjonspassordet for å bruke de beskyttede nettverksinnstillingene på dette oppstartsmediet.</value>
+    <value>Skriv inn distribusjonspassordet for å fortsette.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>Passord kreves</value>

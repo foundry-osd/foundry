@@ -468,7 +468,7 @@ Gelicentieerd onder de MIT-licentie.</value>
     <value>Doorgaan</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>Voer het implementatiewachtwoord in om de beveiligde netwerkinstellingen van dit opstartmedium te gebruiken.</value>
+    <value>Voer het implementatiewachtwoord in om door te gaan.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>Wachtwoord vereist</value>

@@ -468,7 +468,7 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Tęsti</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>Įveskite diegimo slaptažodį, kad galėtumėte naudoti apsaugotus šios įkrovos laikmenos tinklo parametrus.</value>
+    <value>Norėdami tęsti, įveskite diegimo slaptažodį.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>Reikalingas slaptažodis</value>

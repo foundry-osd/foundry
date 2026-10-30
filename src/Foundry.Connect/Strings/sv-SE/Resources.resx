@@ -468,7 +468,7 @@ Licensierad under MIT-licensen.</value>
     <value>Fortsätt</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>Ange distributionslösenordet för att använda de skyddade nätverksinställningarna på det här startmediet.</value>
+    <value>Ange distributionslösenordet för att fortsätta.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>Lösenord krävs</value>

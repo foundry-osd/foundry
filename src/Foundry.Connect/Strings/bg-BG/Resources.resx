@@ -468,7 +468,7 @@
     <value>Продължи</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>Въведете паролата за разполагане, за да използвате защитените мрежови настройки на този носител за стартиране.</value>
+    <value>Въведете паролата за разполагане, за да продължите.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>Изисква се парола</value>

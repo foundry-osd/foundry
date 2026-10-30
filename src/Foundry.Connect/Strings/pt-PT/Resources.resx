@@ -468,7 +468,7 @@ Licenciado sob a licença MIT.</value>
     <value>Continuar</value>
   </data>
   <data name="Unlock.Description" xml:space="preserve">
-    <value>Introduza a palavra-passe de implementação para utilizar as definições de rede protegidas deste suporte de arranque.</value>
+    <value>Introduza a palavra-passe de implementação para continuar.</value>
   </data>
   <data name="Unlock.Heading" xml:space="preserve">
     <value>Palavra-passe necessária</value>
