@@ -27,6 +27,6 @@ public static class WinPeWorkspaceLayout
     /// <summary>Bootstrap configuration read by child applications for early diagnostic preferences.</summary>
     public const string BootstrapConfigurationPath = ConfigDirectory + @"\foundry.bootstrap.config.json";
 
-    /// <summary>Location of the media secrets key, relative to the configuration directory.</summary>
+    /// <summary>Location of the media secrets key, relative to the configuration directory; the key exists on older (schema 5) media only.</summary>
     public const string MediaSecretsKeyRelativePath = @"Secrets\media-secrets.key";
 }

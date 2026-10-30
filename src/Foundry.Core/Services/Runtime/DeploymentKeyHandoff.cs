@@ -27,7 +27,7 @@ namespace Foundry.Core.Services.Runtime;
 /// </para>
 /// <para>
 /// The key is never logged, persisted or put in an exception message. A key that does not arrive is not an error: Deploy
-/// then prompts for the deployment password as before, and a received key is still validated by the media key check.
+/// then prompts for the deployment password as before, and a received key is still validated by the media's key check.
 /// </para>
 /// </remarks>
 public static class DeploymentKeyHandoff

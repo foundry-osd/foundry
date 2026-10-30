@@ -14,5 +14,9 @@ public interface IApplicationShellService
     bool ConfirmWarning(string title, string message);
 
     /// <summary>Shuts the WPF application down.</summary>
+    /// <remarks>
+    /// The application ends with exit code 0. Foundry.Connect returns a meaningful exit code to Foundry.Bootstrap, so it must
+    /// exit only through its lifetime service (<c>TryExit</c>), never through this method.
+    /// </remarks>
     void Shutdown();
 }

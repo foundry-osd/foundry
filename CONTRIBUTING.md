@@ -28,7 +28,7 @@ dotnet restore .\src\Foundry.slnx --nologo
 | --- | --- |
 | `Foundry` | WinUI 3 desktop authoring application |
 | `Foundry.Core` | Shared business logic, configuration, validation, media creation, and orchestration |
-| `Foundry.Bootstrap` | .NET console runtime for Windows PE boot orchestration, runtime payload preparation, and startup diagnostics |
+| `Foundry.Bootstrap` | .NET console runtime for Windows PE boot orchestration, runtime payload preparation, the deployment key relay between Foundry Connect and Foundry Deploy, and startup diagnostics |
 | `Foundry.Connect` | WPF network-provisioning runtime included in boot media |
 | `Foundry.Deploy` | WPF deployment runtime included in boot media |
 | `Foundry.PostInstall` | .NET console runtime for built-in and custom post-installation actions, restart/resume, and cleanup before OOBE |

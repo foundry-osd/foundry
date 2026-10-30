@@ -26,7 +26,7 @@ public static class MediaSecretEnvelopeProtector
     public const string Algorithm = "aes-gcm-v1";
 
     /// <summary>
-    /// Logical key identifier for the media secret key stored with generated boot media.
+    /// Logical key identifier for the media secret key, which exists on older (schema 5) media only.
     /// </summary>
     public const string KeyId = "media";
 
@@ -57,9 +57,9 @@ public static class MediaSecretEnvelopeProtector
     public const int TagSizeBytes = AesGcmEncryption.TagSizeBytes;
 
     /// <summary>
-    /// Creates a new random media secret key for generated boot media.
+    /// Creates a new random 32-byte key. Generated media no longer store a media key; one exists on older (schema 5) media only.
     /// </summary>
-    /// <returns>A 32-byte media secret key.</returns>
+    /// <returns>A 32-byte key.</returns>
     public static byte[] GenerateMediaKey()
     {
         return AesGcmEncryption.GenerateKey();
