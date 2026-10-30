@@ -18,9 +18,6 @@ public static class WinPeWorkspaceLayout
     /// <summary>Directory holding runtime log files.</summary>
     public const string LogsDirectory = Root + @"\Logs";
 
-    /// <summary>Directory holding transient application files.</summary>
-    public const string TempDirectory = Root + @"\Temp";
-
     /// <summary>Directory holding runtime artifacts shared between boot-media applications.</summary>
     public const string RuntimeDirectory = Root + @"\Runtime";
 
