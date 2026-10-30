@@ -58,13 +58,6 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
     }
 
     /// <inheritdoc />
-    public Task CaptureWifiProfileAsync(NetworkProfileRoamingCaptureRequest request, CancellationToken cancellationToken)
-    {
-        ArgumentNullException.ThrowIfNull(request);
-        return CaptureWifiProfilesAsync([request], cancellationToken);
-    }
-
-    /// <inheritdoc />
     public async Task CaptureWifiProfilesAsync(IReadOnlyList<NetworkProfileRoamingCaptureRequest> requests, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(requests);

@@ -4,6 +4,7 @@
 
 using System.Security.Cryptography;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Autopilot;
@@ -93,9 +94,16 @@ internal static class ConnectMediaFixtures
                     }
             };
 
+            // The model no longer carries internetProbe, so the section schema 5 always wrote is added to the document.
+            JsonObject root = JsonSerializer.SerializeToNode(document, SchemaFiveSerializerOptions)!.AsObject();
+            root["internetProbe"] = new JsonObject
+            {
+                ["probeUris"] = new JsonArray("http://www.msftconnecttest.com/connecttest.txt", "http://www.google.com"),
+                ["timeoutSeconds"] = 5
+            };
             string configurationPath = directory.CreateFile(
                 Path.Combine("Config", "foundry.connect.config.json"),
-                JsonSerializer.Serialize(document, SchemaFiveSerializerOptions));
+                root.ToJsonString(SchemaFiveSerializerOptions));
             if (hasEnvelope)
             {
                 directory.CreateFile(Path.Combine("Config", WinPeWorkspaceLayout.MediaSecretsKeyRelativePath), mediaKey);

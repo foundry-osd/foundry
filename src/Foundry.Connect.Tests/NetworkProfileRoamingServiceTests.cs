@@ -17,7 +17,7 @@ namespace Foundry.Connect.Tests;
 public sealed class NetworkProfileRoamingServiceTests
 {
     [Fact]
-    public async Task CaptureWifiProfileAsync_WhenRoamingIsDisabled_DoesNotCreateArtifact()
+    public async Task CaptureWifiProfilesAsync_WhenRoamingIsDisabled_DoesNotCreateArtifact()
     {
         using var tempDirectory = new TemporaryDirectory();
         string profilePath = tempDirectory.CreateFile("source", "wifi.xml", "<WLANProfile />");
@@ -26,18 +26,18 @@ public sealed class NetworkProfileRoamingServiceTests
             NullLogger<NetworkProfileRoamingService>.Instance,
             tempDirectory.ArtifactPath);
 
-        await service.CaptureWifiProfileAsync(
-            new NetworkProfileRoamingCaptureRequest(
+        await service.CaptureWifiProfilesAsync(
+            [new NetworkProfileRoamingCaptureRequest(
                 profilePath,
                 NetworkProfileRoamingProfileSource.ManualWifi,
-                NetworkProfileRoamingConnectivityExpectation.PreOobeConnectable),
+                NetworkProfileRoamingConnectivityExpectation.PreOobeConnectable)],
             TestContext.Current.CancellationToken);
 
         Assert.False(Directory.Exists(tempDirectory.ArtifactPath));
     }
 
     [Fact]
-    public async Task CaptureWifiProfileAsync_WhenOnlyWiredRoamingIsEnabled_DoesNotCreateArtifact()
+    public async Task CaptureWifiProfilesAsync_WhenOnlyWiredRoamingIsEnabled_DoesNotCreateArtifact()
     {
         using var tempDirectory = new TemporaryDirectory();
         string profilePath = tempDirectory.CreateFile("source", "wifi.xml", "<WLANProfile />");
@@ -46,18 +46,18 @@ public sealed class NetworkProfileRoamingServiceTests
             NullLogger<NetworkProfileRoamingService>.Instance,
             tempDirectory.ArtifactPath);
 
-        await service.CaptureWifiProfileAsync(
-            new NetworkProfileRoamingCaptureRequest(
+        await service.CaptureWifiProfilesAsync(
+            [new NetworkProfileRoamingCaptureRequest(
                 profilePath,
                 NetworkProfileRoamingProfileSource.ManualWifi,
-                NetworkProfileRoamingConnectivityExpectation.PreOobeConnectable),
+                NetworkProfileRoamingConnectivityExpectation.PreOobeConnectable)],
             TestContext.Current.CancellationToken);
 
         Assert.False(File.Exists(Path.Combine(tempDirectory.ArtifactPath, "wifi-profile.xml")));
     }
 
     [Fact]
-    public async Task CaptureWifiProfileAsync_WhenManualWifiSucceeds_WritesWifiProfileAndManifest()
+    public async Task CaptureWifiProfilesAsync_WhenManualWifiSucceeds_WritesWifiProfileAndManifest()
     {
         using var tempDirectory = new TemporaryDirectory();
         string profilePath = tempDirectory.CreateFile("source", "wifi.xml", "<WLANProfile><name>Guest</name></WLANProfile>");
@@ -66,11 +66,11 @@ public sealed class NetworkProfileRoamingServiceTests
             NullLogger<NetworkProfileRoamingService>.Instance,
             tempDirectory.ArtifactPath);
 
-        await service.CaptureWifiProfileAsync(
-            new NetworkProfileRoamingCaptureRequest(
+        await service.CaptureWifiProfilesAsync(
+            [new NetworkProfileRoamingCaptureRequest(
                 profilePath,
                 NetworkProfileRoamingProfileSource.ManualWifi,
-                NetworkProfileRoamingConnectivityExpectation.PreOobeConnectable),
+                NetworkProfileRoamingConnectivityExpectation.PreOobeConnectable)],
             TestContext.Current.CancellationToken);
 
         string copiedProfilePath = Path.Combine(tempDirectory.ArtifactPath, "wifi-profile.xml");
@@ -85,17 +85,17 @@ public sealed class NetworkProfileRoamingServiceTests
     }
 
     [Fact]
-    public async Task CaptureWifiProfileAsync_WhenProfileXmlIsProvided_WritesItWithoutASourceFile()
+    public async Task CaptureWifiProfilesAsync_WhenProfileXmlIsProvided_WritesItWithoutASourceFile()
     {
         using var tempDirectory = new TemporaryDirectory();
         var service = new NetworkProfileRoamingService(CreateEnabledConfiguration(), NullLogger<NetworkProfileRoamingService>.Instance, tempDirectory.ArtifactPath);
 
-        await service.CaptureWifiProfileAsync(
-            new NetworkProfileRoamingCaptureRequest(
+        await service.CaptureWifiProfilesAsync(
+            [new NetworkProfileRoamingCaptureRequest(
                 null,
                 NetworkProfileRoamingProfileSource.ManualWifi,
                 NetworkProfileRoamingConnectivityExpectation.PreOobeConnectable,
-                ProfileXml: "<WLANProfile><name>Guest</name></WLANProfile>"),
+                ProfileXml: "<WLANProfile><name>Guest</name></WLANProfile>")],
             TestContext.Current.CancellationToken);
 
         Assert.Equal("<WLANProfile><name>Guest</name></WLANProfile>", File.ReadAllText(Path.Combine(tempDirectory.ArtifactPath, "wifi-profile.xml")));
@@ -202,7 +202,7 @@ public sealed class NetworkProfileRoamingServiceTests
     }
 
     [Fact]
-    public async Task CaptureWifiProfileAsync_WhenPreviousSessionManifestExists_StartsFreshManifest()
+    public async Task CaptureWifiProfilesAsync_WhenPreviousSessionManifestExists_StartsFreshManifest()
     {
         using var tempDirectory = new TemporaryDirectory();
         Directory.CreateDirectory(tempDirectory.ArtifactPath);
@@ -231,11 +231,11 @@ public sealed class NetworkProfileRoamingServiceTests
             NullLogger<NetworkProfileRoamingService>.Instance,
             tempDirectory.ArtifactPath);
 
-        await service.CaptureWifiProfileAsync(
-            new NetworkProfileRoamingCaptureRequest(
+        await service.CaptureWifiProfilesAsync(
+            [new NetworkProfileRoamingCaptureRequest(
                 profilePath,
                 NetworkProfileRoamingProfileSource.ManualWifi,
-                NetworkProfileRoamingConnectivityExpectation.PreOobeConnectable),
+                NetworkProfileRoamingConnectivityExpectation.PreOobeConnectable)],
             TestContext.Current.CancellationToken);
 
         using JsonDocument manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(tempDirectory.ArtifactPath, "manifest.json")));
@@ -437,12 +437,12 @@ public sealed class NetworkProfileRoamingServiceTests
                 [wiredCertificatePath]),
             TestContext.Current.CancellationToken);
 
-        await service.CaptureWifiProfileAsync(
-            new NetworkProfileRoamingCaptureRequest(
+        await service.CaptureWifiProfilesAsync(
+            [new NetworkProfileRoamingCaptureRequest(
                 wifiProfilePath,
                 NetworkProfileRoamingProfileSource.ProvisionedWifi,
                 NetworkProfileRoamingConnectivityExpectation.ImportOnly,
-                [wifiCertificatePath]),
+                [wifiCertificatePath])],
             TestContext.Current.CancellationToken);
 
         using JsonDocument manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(tempDirectory.ArtifactPath, "manifest.json")));

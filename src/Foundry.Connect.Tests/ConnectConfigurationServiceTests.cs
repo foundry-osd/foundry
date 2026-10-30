@@ -31,45 +31,6 @@ public sealed class ConnectConfigurationServiceTests
         Assert.False(service.IsLoadedFromDisk);
         Assert.Null(service.ConfigurationPath);
         Assert.Equal(FoundryConnectConfigurationDocument.CurrentSchemaVersion, configuration.SchemaVersion);
-        Assert.Equal(5, configuration.InternetProbe.TimeoutSeconds);
-        Assert.Equal(
-            ["http://www.msftconnecttest.com/connecttest.txt", "http://www.google.com"],
-            configuration.InternetProbe.ProbeUris);
-    }
-
-    [Fact]
-    public void Load_WhenConfigurationFileContainsMixedProbeUris_NormalizesValues()
-    {
-        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
-        using var tempDirectory = new TemporaryDirectory();
-        string configurationPath = CreateJsonFile(
-            tempDirectory.Path,
-            "normalized.json",
-            """
-            {
-              "schemaVersion": 5,
-              "internetProbe": {
-                "probeUris": [
-                  " https://example.com/health ",
-                  "invalid-uri",
-                  "https://example.com/health",
-                  "http://contoso.test/connect"
-                ],
-                "timeoutSeconds": 99
-              }
-            }
-            """);
-
-        var service = new ConnectConfigurationService(["--config", configurationPath], NullLogger<ConnectConfigurationService>.Instance);
-
-        FoundryConnectConfigurationDocument configuration = LoadConfiguration(service);
-
-        Assert.True(service.IsLoadedFromDisk);
-        Assert.Equal(System.IO.Path.GetFullPath(configurationPath), service.ConfigurationPath);
-        Assert.Equal(30, configuration.InternetProbe.TimeoutSeconds);
-        Assert.Equal(
-            ["https://example.com/health", "http://contoso.test/connect"],
-            configuration.InternetProbe.ProbeUris);
     }
 
     [Fact]
@@ -314,7 +275,6 @@ public sealed class ConnectConfigurationServiceTests
         Assert.Equal(@"Network\Wired\Profiles\wired.xml", configuration.Dot1x.ProfileTemplatePath);
         Assert.NotNull(configuration.Capabilities);
         Assert.NotNull(configuration.Wifi);
-        Assert.NotNull(configuration.InternetProbe);
     }
 
     [Fact]
@@ -512,7 +472,6 @@ public sealed class ConnectConfigurationServiceTests
         Assert.Equal(CoreConfiguration.NetworkAuthenticationMode.MachineOnly, configuration.Dot1x.AuthenticationMode);
         Assert.Equal(CoreConfiguration.NetworkAuthenticationMode.UserOnly, configuration.Wifi.EnterpriseAuthenticationMode);
         Assert.True(configuration.Dot1x.RequiresCertificate);
-        Assert.Equal(5, configuration.InternetProbe.TimeoutSeconds);
     }
 
     [Fact]
@@ -677,10 +636,6 @@ public sealed class ConnectConfigurationServiceTests
         Assert.Equal(5, configuration.SchemaVersion);
         Assert.Equal("Open WiFi", configuration.Wifi.Ssid);
         Assert.False(configuration.Dot1x.IsEnabled);
-        Assert.Equal(5, configuration.InternetProbe.TimeoutSeconds);
-        Assert.Equal(
-            ["http://www.msftconnecttest.com/connecttest.txt", "http://www.google.com"],
-            configuration.InternetProbe.ProbeUris);
     }
 
     [Fact]

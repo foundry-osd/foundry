@@ -45,12 +45,6 @@ public sealed record FoundryConnectConfigurationDocument
     public ConnectWifiSettings Wifi { get; init; } = new();
 
     /// <summary>
-    /// Gets internet connectivity probe settings.
-    /// </summary>
-    /// <remarks>Schema 5 and earlier; schema 6 no longer writes it, so Foundry.Connect uses these defaults, the values generation always wrote.</remarks>
-    public ConnectInternetProbeSettings InternetProbe { get; init; } = new();
-
-    /// <summary>
     /// Gets telemetry policy and runtime settings consumed by Foundry.Connect.
     /// </summary>
     public TelemetrySettings Telemetry { get; init; } = new();

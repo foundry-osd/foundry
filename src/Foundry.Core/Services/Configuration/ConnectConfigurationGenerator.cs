@@ -46,7 +46,6 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
     // runtime records default to, so they are removed only from the serialized output.
     private static readonly string[] OmittedDot1xProperties = ["allowRuntimeCredentials", "authenticationMode", "requiresCertificate"];
     private static readonly string[] OmittedWifiProperties = ["allowRuntimeCredentials", "enterpriseAuthenticationMode", "requiresCertificate"];
-    private const string OmittedRootProperty = "internetProbe";
 
     /// <inheritdoc />
     public FoundryConnectConfigurationDocument Generate(FoundryConfigurationDocument document, MediaInputs inputs, string stagingDirectoryPath)
@@ -124,15 +123,14 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
 
     /// <inheritdoc />
     /// <remarks>
-    /// The schema 6 output omits <c>allowRuntimeCredentials</c>, <c>authenticationMode</c>, <c>enterpriseAuthenticationMode</c>,
-    /// <c>requiresCertificate</c> and <c>internetProbe</c>; Foundry.Connect reads their defaults, which equal the values earlier
-    /// schemas always wrote.
+    /// The schema 6 output omits <c>allowRuntimeCredentials</c>, <c>authenticationMode</c>, <c>enterpriseAuthenticationMode</c>
+    /// and <c>requiresCertificate</c>; Foundry.Connect reads their defaults, which equal the values earlier schemas always wrote.
+    /// The <c>internetProbe</c> section of earlier schemas is no longer part of the model, so it is not written either.
     /// </remarks>
     public string Serialize(FoundryConnectConfigurationDocument document)
     {
         ArgumentNullException.ThrowIfNull(document);
         JsonObject root = JsonSerializer.SerializeToNode(document, ConfigurationJsonDefaults.SerializerOptions)!.AsObject();
-        root.Remove(OmittedRootProperty);
         RemoveProperties(root["dot1x"], OmittedDot1xProperties);
         RemoveProperties(root["wifi"], OmittedWifiProperties);
         return root.ToJsonString(ConfigurationJsonDefaults.SerializerOptions);

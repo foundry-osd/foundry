@@ -36,9 +36,9 @@ public interface INetworkObservationSource
 /// The connectivity probe starts first so it runs while the synchronous Ethernet and WLAN reads happen, and it is awaited
 /// last. Wireless discovery is flaky for a moment after a scan, so a non-empty network list is reused for
 /// <see cref="WifiDiscoveryGracePeriod"/> when discovery briefly returns nothing. Part failures are logged on the
-/// transition only (one Warning with the exception type, one Information on recovery); exception text can carry
-/// identifying data, so the exception object is attached at Debug only. The network monitor runs the source off the
-/// caller's thread, so the blocking Ethernet and WLAN reads never execute on the UI thread.
+/// transition only (one Warning with the exception type and error code, one Information on recovery); exception text can
+/// carry identifying data and every level is mirrored remotely, so the exception object is never attached. The network
+/// monitor runs the source off the caller's thread, so the blocking Ethernet and WLAN reads never execute on the UI thread.
 /// </remarks>
 public sealed class NetworkObservationSource(
     INetworkAdapterSnapshotProvider adapters,

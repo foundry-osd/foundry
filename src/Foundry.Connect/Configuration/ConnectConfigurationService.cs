@@ -212,25 +212,6 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
 
     private static FoundryConnectConfigurationDocument Normalize(FoundryConnectConfigurationDocument configuration)
     {
-        ConnectInternetProbeSettings probe = configuration.InternetProbe ?? new ConnectInternetProbeSettings();
-
-        string[] probeUris = probe.ProbeUris
-            .Where(static value => !string.IsNullOrWhiteSpace(value))
-            .Select(static value => value.Trim())
-            .Where(static value => Uri.TryCreate(value, UriKind.Absolute, out _))
-            .Distinct(StringComparer.OrdinalIgnoreCase)
-            .ToArray();
-
-        if (probeUris.Length == 0)
-        {
-            // Keep internet detection useful even when the generated configuration omits explicit probe endpoints.
-            probeUris =
-            [
-                "http://www.msftconnecttest.com/connecttest.txt",
-                "http://www.google.com"
-            ];
-        }
-
         return configuration with
         {
             Capabilities = configuration.Capabilities ?? new ConnectNetworkCapabilitiesSettings(),
@@ -239,12 +220,7 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
             // An explicit "telemetry": null in the file falls back to the defaults instead of failing startup.
             Telemetry = configuration.Telemetry ?? new TelemetrySettings(),
             // The passphrase envelope is consumed by ResolveSecrets; only the decrypted value or the locked envelope survives, in ConnectRuntimeSecrets.
-            Wifi = (configuration.Wifi ?? new ConnectWifiSettings()) with { PassphraseSecret = null },
-            InternetProbe = probe with
-            {
-                ProbeUris = probeUris,
-                TimeoutSeconds = Math.Clamp(probe.TimeoutSeconds, 1, 30)
-            }
+            Wifi = (configuration.Wifi ?? new ConnectWifiSettings()) with { PassphraseSecret = null }
         };
     }
 

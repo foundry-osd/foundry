@@ -10,14 +10,6 @@ namespace Foundry.Connect.Services.Network;
 public interface INetworkProfileRoamingService
 {
     /// <summary>
-    /// Captures a Wi-Fi profile into the runtime roaming artifact, replacing the captured Wi-Fi profiles.
-    /// </summary>
-    /// <param name="request">The capture request.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>A task representing the capture operation.</returns>
-    Task CaptureWifiProfileAsync(NetworkProfileRoamingCaptureRequest request, CancellationToken cancellationToken);
-
-    /// <summary>
     /// Captures ordered Wi-Fi profiles into the runtime roaming artifact, replacing the captured Wi-Fi profiles. The
     /// first written profile is the preferred one; a request whose source is unavailable is skipped with a Warning and
     /// the next one takes its place.

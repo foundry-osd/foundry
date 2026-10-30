@@ -24,7 +24,7 @@ public sealed record ProbeObservation(NcsiEndpoint Endpoint, bool Responded, int
 /// Decides the internet status from the endpoint results of one probe.
 /// </summary>
 /// <remarks>
-/// The configured <c>internetProbe</c> section is deliberately not used. Only an exact
+/// The <c>internetProbe</c> section that schema 5 media carry is ignored. Only an exact
 /// <c>200</c> answer with the expected body proves the internet; every other answer, including a redirect,
 /// a proxy authentication request or an HTML sign-in page, means something intercepts web traffic.
 /// </remarks>

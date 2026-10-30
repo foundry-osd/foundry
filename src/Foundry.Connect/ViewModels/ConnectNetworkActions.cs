@@ -154,8 +154,9 @@ public sealed class ConnectNetworkActions(IConnectionCoordinator coordinator, IC
         return await _coordinator.ConnectProvisionedWifiAsync(cancellationToken);
     }
 
-    // The refresh runs only once the unlock completed: the secrets are decrypted one item at a time. NotRequired changed
-    // nothing, so it needs no refresh.
+    // The refresh runs only once the unlock completed: the secrets are decrypted one item at a time. NotRequired is not
+    // refreshed here: this call unlocked nothing, and a caller that needs the profile of an unlock that completed meanwhile
+    // refreshes it itself.
     private async Task<ConnectUnlockResult> UnlockAndRefreshProvisionedWifiAsync(ConnectUnlockTrigger trigger, CancellationToken cancellationToken)
     {
         ConnectUnlockResult result = await _unlock.UnlockAsync(trigger, cancellationToken);

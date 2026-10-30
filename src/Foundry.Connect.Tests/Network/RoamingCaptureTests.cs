@@ -382,9 +382,6 @@ public sealed class RoamingCaptureTests
 
         public Exception? Failure { get; set; }
 
-        public Task CaptureWifiProfileAsync(NetworkProfileRoamingCaptureRequest request, CancellationToken cancellationToken) =>
-            CaptureWifiProfilesAsync([request], cancellationToken);
-
         public Task CaptureWifiProfilesAsync(IReadOnlyList<NetworkProfileRoamingCaptureRequest> requests, CancellationToken cancellationToken)
         {
             ThrowIfFailing();
