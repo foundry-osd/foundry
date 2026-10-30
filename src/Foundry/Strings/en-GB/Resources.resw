@@ -2780,7 +2780,7 @@ Licensed under the MIT License.</value>
     <value>Remove client certificate</value>
   </data>
   <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
-    <value>Remove selected trusted root certificate</value>
+    <value>Remove selected trusted root CA certificate</value>
   </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
     <value>Use certificates</value>
