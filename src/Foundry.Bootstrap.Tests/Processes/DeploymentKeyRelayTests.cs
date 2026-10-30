@@ -94,6 +94,19 @@ public sealed class DeploymentKeyRelayTests
     }
 
     [Fact]
+    public async Task EndMembers_AfterDispose_DoNotThrow()
+    {
+        var relay = new DeploymentKeyRelay(Logger);
+        relay.BeginReceive();
+        relay.ExpectSender(Environment.ProcessId);
+
+        relay.Dispose();
+
+        Assert.False(await relay.EndReceiveAsync());
+        Assert.False(await relay.EndServeAsync());
+    }
+
+    [Fact]
     public void ExpectWithoutPipe_DoesNothing()
     {
         using var relay = new DeploymentKeyRelay(Logger);
@@ -180,6 +193,29 @@ public sealed class DeploymentKeyRelayTests
         Assert.Equal(2, sink.Events.Count);
         sink.AssertNeverContains(inbound);
         sink.AssertNeverContains(outbound!);
+    }
+
+    [Fact]
+    public async Task Serve_ToUnexpectedProcess_IsRefusedAndNotDelivered()
+    {
+        using Process other = Process.Start(new ProcessStartInfo("ping.exe", "-n 30 127.0.0.1") { UseShellExecute = false, CreateNoWindow = true })!;
+        try
+        {
+            using var relay = new DeploymentKeyRelay(Logger);
+            string inbound = relay.BeginReceive();
+            relay.ExpectSender(Environment.ProcessId);
+            await DeploymentKeyHandoff.TrySendAsync(inbound, Key, TestContext.Current.CancellationToken);
+            Assert.True(await relay.EndReceiveAsync());
+
+            string outbound = relay.BeginServe()!;
+            relay.ExpectReceiver(other.Id);
+            byte[]? received = await DeploymentKeyHandoff.TryReceiveAsync(outbound, TestContext.Current.CancellationToken);
+
+            Assert.True(received is null || received.Length == 0);
+            Assert.False(await relay.EndServeAsync());
+            Assert.All(relay.HeldKeyForTesting!, static value => Assert.Equal(0, value));
+        }
+        finally { KillQuietly(other); }
     }
 
     [Fact]

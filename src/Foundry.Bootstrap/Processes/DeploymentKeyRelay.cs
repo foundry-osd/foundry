@@ -20,7 +20,7 @@ namespace Foundry.Bootstrap.Processes;
 /// handle and the DACL of <see cref="DeploymentKeyHandoff.CreateServerSecurity"/>. It accepts exactly one connection and is
 /// disposed after it; the client process id (<c>GetNamedPipeClientProcessId</c>, read at connection time) must equal the
 /// launched child's id, so another process can neither plant nor read a key. Anonymous pipes are not used because
-/// <c>Process.Start</c> exposes every inheritable handle to every child on .NET 10 (the 2026-10-23 note).
+/// <c>Process.Start</c> exposes every inheritable handle to every child on .NET 10.
 /// </para>
 /// <para>
 /// The key lives only in one pinned 32-byte buffer that is zeroed when serving ends and on disposal; read buffers are zeroed
@@ -114,8 +114,8 @@ internal sealed class DeploymentKeyRelay(ILogger logger) : IDeploymentKeyRelay
     }
 
     /// <summary>
-    /// Cancels both pipes, disposes them and zeroes the key at once; the read buffer of an exchange still in flight is zeroed
-    /// when that exchange ends.
+    /// Cancels both pipes, disposes them with their cancellation sources and zeroes the key at once; the read buffer of an
+    /// exchange still in flight is zeroed when that exchange ends.
     /// </summary>
     public void Dispose()
     {
@@ -133,6 +133,7 @@ internal sealed class DeploymentKeyRelay(ILogger logger) : IDeploymentKeyRelay
         inbound?.Dispose();
         outbound?.Dispose();
         ZeroKey();
+        disposal.Dispose();
     }
 
     // No pipe (BeginServe without a key, or Begin never called) means nothing to expect, like End* without a pipe.
@@ -292,7 +293,15 @@ internal sealed class DeploymentKeyRelay(ILogger logger) : IDeploymentKeyRelay
 
         public async Task<bool> EndAsync()
         {
-            Stop.Cancel();
+            try
+            {
+                Stop.Cancel();
+            }
+            catch (ObjectDisposedException)
+            {
+                // The relay was disposed, which already cancelled the wait for a connection.
+            }
+
             return await Completion.ConfigureAwait(false);
         }
 
@@ -300,6 +309,7 @@ internal sealed class DeploymentKeyRelay(ILogger logger) : IDeploymentKeyRelay
         {
             Stop.Cancel();
             Server.Dispose();
+            Stop.Dispose();
         }
     }
 }
