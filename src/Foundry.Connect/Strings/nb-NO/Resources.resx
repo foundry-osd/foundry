@@ -170,9 +170,6 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
     <value>Selvtildelt adresse</value>
   </data>
-  <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>Sjekk kabeltilkoblingen</value>
-  </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>DHCP-lease oppdaget</value>
   </data>
@@ -190,9 +187,6 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
     <value>Profil brukt</value>
-  </data>
-  <data name="Ethernet.Dot1xProvisioningFailed" xml:space="preserve">
-    <value>De kablede 802.1X-innstillingene kunne ikke brukes.</value>
   </data>
   <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
     <value>Nettverket avviste godkjenningen. Kontroller sertifikatet og innstillingene for svitsjporten.</value>
@@ -221,9 +215,6 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
     <value>Ingen aktiv kobling</value>
   </data>
-  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>Ingen Ethernet-adapter oppdaget.</value>
-  </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>Statisk nettverkskonfigurasjon oppdaget</value>
   </data>
@@ -235,9 +226,6 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Venter på nettverkskonfigurasjon</value>
-  </data>
-  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>Venter på DHCP eller statisk nettverkskonfigurasjon</value>
   </data>
   <data name="Keyboard.OtherLanguages" xml:space="preserve">
     <value>Andre språk</value>
@@ -377,12 +365,6 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Verktøy</value>
   </data>
-  <data name="Notice.CaptivePortalMessage" xml:space="preserve">
-    <value>Nettverket svarte med en påloggingsside i stedet for Internett-tilgang. Logg på fra en annen enhet hvis nettverket tillater det, eller bruk et annet nettverk, og velg deretter Prøv igjen.</value>
-  </data>
-  <data name="Notice.CaptivePortalTitle" xml:space="preserve">
-    <value>Påloggingsside oppdaget</value>
-  </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Bruker nettverksinnstillingene fra oppstartsmediet.</value>
   </data>
@@ -425,9 +407,6 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Ingen Internett-tilgang</value>
   </data>
-  <data name="Status.CheckingDescription" xml:space="preserve">
-    <value>Foundry Connect kontrollerer nettverkstilkoblingen.</value>
-  </data>
   <data name="Status.CheckingTitle" xml:space="preserve">
     <value>Kontrollerer nettverket</value>
   </data>
@@ -442,9 +421,6 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Kablet 802.1X-godkjenning pågår.</value>
-  </data>
-  <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>Internett-tilgang er validert. Du kan fortsette nå.</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Nettverksklar</value>
@@ -509,23 +485,14 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Kan ikke koble fra den klargjorte Wi-Fi-profilen. Prøv igjen.</value>
   </data>
-  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
-    <value>Skriv inn distribusjonspassordet for å bruke det klargjorte Wi-Fi-nettverket.</value>
-  </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Den klargjorte Wi-Fi-profilen er ikke tilgjengelig.</value>
-  </data>
-  <data name="Wifi.ActionProvisionedSecretUnavailable" xml:space="preserve">
-    <value>Det klargjorte Wi-Fi-passordet kan ikke leses. Opprett oppstartsmediet på nytt.</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
     <value>Dette Wi-Fi-nettverket støttes ikke i denne versjonen.</value>
   </data>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
     <value>Kan ikke fullføre Wi-Fi handlingen. Prøv igjen.</value>
-  </data>
-  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>Autentisering</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Konfigurert sikkerhet</value>
@@ -560,20 +527,11 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
     <value>Synlige Wi-Fi-nettverk</value>
   </data>
-  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>Ingen Wi-Fi-adapter er tilgjengelig.</value>
-  </data>
-  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>Ingen Wi-Fi-adapter er oppdaget.</value>
-  </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>Ingen Wi-Fi nettverk er for øyeblikket synlige.</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
     <value>Wi-Fi-passord</value>
-  </data>
-  <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>Profil</value>
   </data>
   <data name="Wifi.ProvisionedLocked" xml:space="preserve">
     <value>Det klargjorte Wi-Fi-nettverket er beskyttet av distribusjonspassordet. Velg Koble til for å skrive det inn.</value>
@@ -595,9 +553,6 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>Bedriftens Wi-Fi-profil mangler på oppstartsmediet. Opprett oppstartsmediet på nytt.</value>
-  </data>
-  <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
-    <value>Klargjort Wi-Fi utilgjengelig</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
     <value>Distribusjonspassordet ble ikke angitt. Velg Koble til for å skrive det inn.</value>
@@ -641,9 +596,6 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Personlig</value>
   </data>
-  <data name="Wifi.SelectNetworkHint" xml:space="preserve">
-    <value>Velg et nettverk i listen for å koble til.</value>
-  </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Et annet Wi-Fi nettverk er aktivt</value>
   </data>
@@ -661,9 +613,6 @@ Lisensiert under MIT-lisensen.</value>
   </data>
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
     <value>Vis eller skjul Wi-Fi passord</value>
-  </data>
-  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>Wi-Fi støtte er ikke tilgjengelig i dette oppstartsmiljøet.</value>
   </data>
   <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
     <value>Wi-Fi er ikke tilgjengelig på denne enheten.</value>

@@ -62,24 +62,24 @@ public sealed class LocalizationResourceTests
         "Debug.Scenario.NoLink", "Debug.Scenario.NoWifiAdapter", "Debug.Scenario.ProvisionedWifiUnavailable", "Debug.Scenario.WaitingForAddress",
         "Debug.Scenario.WifiNetworks", "Debug.Scenario.WifiReady", "Debug.Scenario.WifiRuntimeMissing", "Debug.Scenarios",
         "Ethernet.ApipaAddress", "Ethernet.Dot1xAuthenticated", "Ethernet.Dot1xAuthenticating", "Ethernet.Dot1xFailed", "Ethernet.Dot1xLabel",
-        "Ethernet.Dot1xProfileApplied", "Ethernet.Dot1xProvisioningFailed", "Ethernet.Dot1xReasonAuthenticationFailed",
+        "Ethernet.Dot1xProfileApplied", "Ethernet.Dot1xReasonAuthenticationFailed",
         "Ethernet.Dot1xReasonProfileImportFailed", "Ethernet.Dot1xReasonProfileTemplateMissing", "Ethernet.Dot1xReasonSecretUnavailable",
-        "Ethernet.Dot1xUnavailable", "Notice.CaptivePortalMessage", "Notice.CaptivePortalTitle",
+        "Ethernet.Dot1xUnavailable",
         "Status.ApplyingProvisioningDescription", "Status.AutoContinueCancelled", "Status.AutoContinuePaused", "Status.BlockedCaptivePortalDescription",
         "Status.BlockedNoAdapterDescription", "Status.BlockedNoInternetDescription", "Status.BlockedNoIpAddressDescription", "Status.BlockedNoLinkDescription",
-        "Status.BlockedTitle", "Status.CheckingDescription", "Status.CheckingTitle", "Status.ConnectingDescription", "Status.ConnectingTitle",
-        "Wifi.ActionConnectTimedOut", "Wifi.ActionInvalidPassphrase", "Wifi.ActionNetworkNotVisible", "Wifi.ActionProvisionedSecretUnavailable",
+        "Status.BlockedTitle", "Status.CheckingTitle", "Status.ConnectingDescription", "Status.ConnectingTitle",
+        "Wifi.ActionConnectTimedOut", "Wifi.ActionInvalidPassphrase", "Wifi.ActionNetworkNotVisible",
         "Wifi.ConnectProvisionedAutomationName", "Wifi.ConnectSelectedAutomationFormat", "Wifi.DisconnectProvisionedAutomationName",
         "Wifi.DisconnectSelectedAutomationFormat", "Wifi.NetworkAutomationFormat", "Wifi.NetworkConnectedAutomationFormat",
         "Wifi.NetworksListAutomationName", "Wifi.PassphraseLabel", "Wifi.ProvisionedUnavailableConfiguration", "Wifi.ProvisionedUnavailablePassphrase",
-        "Wifi.ProvisionedUnavailableSecret", "Wifi.ProvisionedUnavailableTemplate", "Wifi.ProvisionedUnavailableTitle", "Wifi.SecurityOwe",
-        "Wifi.SelectNetworkHint", "Wifi.StatusNotInRange"
+        "Wifi.ProvisionedUnavailableSecret", "Wifi.ProvisionedUnavailableTemplate", "Wifi.SecurityOwe",
+        "Wifi.StatusNotInRange"
     };
 
     public static TheoryData<string> UnlockKeys => new()
     {
         "Ethernet.Dot1xReasonUnlockCancelled", "Unlock.Continue", "Unlock.Description", "Unlock.Heading", "Unlock.InvalidPassword",
-        "Unlock.PasswordPlaceholder", "Unlock.Title", "Unlock.TogglePasswordVisibility", "Wifi.ActionProvisionedLocked",
+        "Unlock.PasswordPlaceholder", "Unlock.Title", "Unlock.TogglePasswordVisibility",
         "Wifi.ProvisionedLocked", "Wifi.ProvisionedUnlockCancelled", "Wifi.StatusLocked"
     };
 
@@ -148,12 +148,21 @@ public sealed class LocalizationResourceTests
 
     [Theory]
     [MemberData(nameof(SupportedCultures))]
-    public void CaptivePortalDescription_CarriesTheFullSignInText(string cultureName)
+    public void RemovedLayoutKeys_AreGoneInEveryCulture(string cultureName)
     {
         ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(App).Assembly);
         ResourceSet resourceSet = resourceManager.GetResourceSet(CultureInfo.GetCultureInfo(cultureName), createIfNotExists: true, tryParents: false)!;
 
-        Assert.Equal(resourceSet.GetString("Notice.CaptivePortalMessage"), resourceSet.GetString("Status.BlockedCaptivePortalDescription"));
+        foreach (string key in new[]
+        {
+            "Ethernet.CheckCable", "Ethernet.Dot1xProvisioningFailed", "Ethernet.NoAdapterDetected", "Ethernet.WaitingDhcp", "Notice.CaptivePortalMessage",
+            "Notice.CaptivePortalTitle", "Status.CheckingDescription", "Status.NetworkReadyDescription", "Wifi.ActionProvisionedLocked",
+            "Wifi.ActionProvisionedSecretUnavailable", "Wifi.AuthenticationLabel", "Wifi.NoAdapterAvailable", "Wifi.NoAdapterDetected", "Wifi.ProfileLabel",
+            "Wifi.ProvisionedUnavailableTitle", "Wifi.SelectNetworkHint", "Wifi.UnavailableAtRuntime"
+        })
+        {
+            Assert.Null(resourceSet.GetString(key));
+        }
     }
 
     [Theory]

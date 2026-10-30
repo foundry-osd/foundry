@@ -170,9 +170,6 @@
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
     <value>Автоматично призначена адреса</value>
   </data>
-  <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>Перевірте підключення кабелю</value>
-  </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>Виявлено оренду DHCP</value>
   </data>
@@ -190,9 +187,6 @@
   </data>
   <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
     <value>Профіль застосовано</value>
-  </data>
-  <data name="Ethernet.Dot1xProvisioningFailed" xml:space="preserve">
-    <value>Не вдалося застосувати параметри 802.1X для дротової мережі.</value>
   </data>
   <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
     <value>Мережа відхилила автентифікацію. Перевірте сертифікат і параметри порту комутатора.</value>
@@ -221,9 +215,6 @@
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
     <value>Немає активного підключення</value>
   </data>
-  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>Адаптер Ethernet не виявлено.</value>
-  </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>Виявлено статичну конфігурацію мережі</value>
   </data>
@@ -235,9 +226,6 @@
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Очікування конфігурації мережі</value>
-  </data>
-  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>Очікування DHCP або статичної конфігурації мережі</value>
   </data>
   <data name="Keyboard.OtherLanguages" xml:space="preserve">
     <value>Інші мови</value>
@@ -377,12 +365,6 @@
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Інструменти</value>
   </data>
-  <data name="Notice.CaptivePortalMessage" xml:space="preserve">
-    <value>Мережа відповіла сторінкою входу замість доступу до Інтернету. Увійдіть з іншого пристрою, якщо ця мережа це дозволяє, або скористайтеся іншою мережею, а потім виберіть «Повторити».</value>
-  </data>
-  <data name="Notice.CaptivePortalTitle" xml:space="preserve">
-    <value>Виявлено сторінку входу</value>
-  </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Застосовуються мережеві параметри із завантажувального носія.</value>
   </data>
@@ -425,9 +407,6 @@
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Немає доступу до Інтернету</value>
   </data>
-  <data name="Status.CheckingDescription" xml:space="preserve">
-    <value>Foundry Connect перевіряє мережеве підключення.</value>
-  </data>
   <data name="Status.CheckingTitle" xml:space="preserve">
     <value>Перевірка мережі</value>
   </data>
@@ -442,9 +421,6 @@
   </data>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Виконується дротова автентифікація 802.1X.</value>
-  </data>
-  <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>Доступ до Інтернету підтверджено. Ви можете продовжити зараз.</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Мережа готова</value>
@@ -509,23 +485,14 @@
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Неможливо відключити наданий профіль Wi-Fi. Спробуйте знову.</value>
   </data>
-  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
-    <value>Введіть пароль розгортання, щоб використовувати підготовлену мережу Wi-Fi.</value>
-  </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Наданий профіль Wi-Fi недоступний.</value>
-  </data>
-  <data name="Wifi.ActionProvisionedSecretUnavailable" xml:space="preserve">
-    <value>Не вдається прочитати пароль підготовленої мережі Wi-Fi. Створіть завантажувальний носій заново.</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
     <value>Ця мережа Wi-Fi не підтримується цією збіркою.</value>
   </data>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
     <value>Не вдалося завершити дію Wi-Fi. Спробуйте знову.</value>
-  </data>
-  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>Аутентифікація</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Налаштована безпека</value>
@@ -560,20 +527,11 @@
   <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
     <value>Видимі мережі Wi-Fi</value>
   </data>
-  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>Адаптер Wi-Fi недоступний.</value>
-  </data>
-  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>Адаптер Wi-Fi наразі не виявлено.</value>
-  </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>Наразі не видно жодної мережі Wi-Fi.</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
     <value>Пароль Wi-Fi</value>
-  </data>
-  <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>Профіль</value>
   </data>
   <data name="Wifi.ProvisionedLocked" xml:space="preserve">
     <value>Підготовлена мережа Wi-Fi захищена паролем розгортання. Виберіть «Підключитися», щоб ввести його.</value>
@@ -595,9 +553,6 @@
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>Корпоративний профіль Wi-Fi відсутній на завантажувальному носії. Створіть завантажувальний носій заново.</value>
-  </data>
-  <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
-    <value>Підготовлена мережа Wi-Fi недоступна</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
     <value>Пароль розгортання не введено. Виберіть «Підключитися», щоб ввести його.</value>
@@ -641,9 +596,6 @@
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Особисте</value>
   </data>
-  <data name="Wifi.SelectNetworkHint" xml:space="preserve">
-    <value>Виберіть мережу в списку, щоб підключитися.</value>
-  </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Ще одна мережа Wi-Fi активна</value>
   </data>
@@ -661,9 +613,6 @@
   </data>
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
     <value>Показати або приховати пароль Wi-Fi</value>
-  </data>
-  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>Підтримка Wi-Fi недоступна в цьому середовищі завантаження.</value>
   </data>
   <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
     <value>Wi-Fi недоступний на цьому пристрої.</value>

@@ -170,9 +170,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
     <value>Automātiski piešķirta adrese</value>
   </data>
-  <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>Pārbaudiet kabeļa savienojumu</value>
-  </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>Atklāta DHCP noma</value>
   </data>
@@ -190,9 +187,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
     <value>Profils lietots</value>
-  </data>
-  <data name="Ethernet.Dot1xProvisioningFailed" xml:space="preserve">
-    <value>Vadu tīkla 802.1X iestatījumus nevarēja lietot.</value>
   </data>
   <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
     <value>Tīkls noraidīja autentifikāciju. Pārbaudiet sertifikātu un komutatora porta iestatījumus.</value>
@@ -221,9 +215,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
     <value>Nav aktīva savienojuma</value>
   </data>
-  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>Nav atrasts Ethernet adapteris.</value>
-  </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>Konstatēta statiskā tīkla konfigurācija</value>
   </data>
@@ -235,9 +226,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Gaida tīkla konfigurāciju</value>
-  </data>
-  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>Gaida DHCP vai statisku tīkla konfigurāciju</value>
   </data>
   <data name="Keyboard.OtherLanguages" xml:space="preserve">
     <value>Citas valodas</value>
@@ -377,12 +365,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Rīki</value>
   </data>
-  <data name="Notice.CaptivePortalMessage" xml:space="preserve">
-    <value>Tīkls interneta piekļuves vietā atbildēja ar pierakstīšanās lapu. Pierakstieties no citas ierīces, ja tīkls to atļauj, vai izmantojiet citu tīklu, pēc tam atlasiet Mēģināt vēlreiz.</value>
-  </data>
-  <data name="Notice.CaptivePortalTitle" xml:space="preserve">
-    <value>Konstatēta pierakstīšanās lapa</value>
-  </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Tiek lietoti tīkla iestatījumi no sāknēšanas datu nesēja.</value>
   </data>
@@ -425,9 +407,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Nav interneta piekļuves</value>
   </data>
-  <data name="Status.CheckingDescription" xml:space="preserve">
-    <value>Foundry Connect pārbauda tīkla savienojumu.</value>
-  </data>
   <data name="Status.CheckingTitle" xml:space="preserve">
     <value>Tiek pārbaudīts tīkls</value>
   </data>
@@ -442,9 +421,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Notiek vadu 802.1X autentifikācija.</value>
-  </data>
-  <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>Interneta piekļuve ir apstiprināta. Jūs varat turpināt tagad.</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Tīkls gatavs</value>
@@ -509,23 +485,14 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Nevar atvienot nodrošināto Wi-Fi profilu. Mēģiniet vēlreiz.</value>
   </data>
-  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
-    <value>Ievadiet izvietošanas paroli, lai izmantotu nodrošināto Wi-Fi.</value>
-  </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Nodrošinātais Wi-Fi profils nav pieejams.</value>
-  </data>
-  <data name="Wifi.ActionProvisionedSecretUnavailable" xml:space="preserve">
-    <value>Nevar nolasīt nodrošinātā Wi-Fi paroli. Izveidojiet sāknēšanas datu nesēju no jauna.</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
     <value>Šis Wi-Fi tīkls šajā būvniecībā netiek atbalstīts.</value>
   </data>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
     <value>Nevar pabeigt Wi-Fi darbību. Mēģiniet vēlreiz.</value>
-  </data>
-  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>Autentifikācija</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Konfigurēta drošība</value>
@@ -560,20 +527,11 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
     <value>Redzamie Wi-Fi tīkli</value>
   </data>
-  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>Nav pieejams Wi-Fi adapteris.</value>
-  </data>
-  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>Pašlaik nav atrasts neviens Wi-Fi adapteris.</value>
-  </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>Pašlaik nav redzams neviens Wi-Fi tīkls.</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
     <value>Wi-Fi parole</value>
-  </data>
-  <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>Profils</value>
   </data>
   <data name="Wifi.ProvisionedLocked" xml:space="preserve">
     <value>Nodrošinātais Wi-Fi ir aizsargāts ar izvietošanas paroli. Lai to ievadītu, atlasiet Savienot.</value>
@@ -595,9 +553,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>Sāknēšanas datu nesējā trūkst uzņēmuma Wi-Fi profila. Izveidojiet sāknēšanas datu nesēju no jauna.</value>
-  </data>
-  <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
-    <value>Nodrošinātais Wi-Fi nav pieejams</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
     <value>Izvietošanas parole netika ievadīta. Lai to ievadītu, atlasiet Savienot.</value>
@@ -641,9 +596,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Personiski</value>
   </data>
-  <data name="Wifi.SelectNetworkHint" xml:space="preserve">
-    <value>Atlasiet tīklu sarakstā, lai izveidotu savienojumu.</value>
-  </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Cits Wi-Fi tīkls ir aktīvs</value>
   </data>
@@ -661,9 +613,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
     <value>Rādīt vai paslēpt Wi-Fi paroli</value>
-  </data>
-  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>Wi-Fi atbalsts nav pieejams šajā sāknēšanas vidē.</value>
   </data>
   <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
     <value>Wi-Fi šajā ierīcē nav pieejams.</value>

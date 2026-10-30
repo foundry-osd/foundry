@@ -170,9 +170,6 @@
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
     <value>自动分配的地址</value>
   </data>
-  <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>检查电缆连接</value>
-  </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>检测到 DHCP 租约</value>
   </data>
@@ -190,9 +187,6 @@
   </data>
   <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
     <value>已应用配置文件</value>
-  </data>
-  <data name="Ethernet.Dot1xProvisioningFailed" xml:space="preserve">
-    <value>无法应用有线 802.1X 设置。</value>
   </data>
   <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
     <value>网络拒绝了身份验证。请检查证书和交换机端口设置。</value>
@@ -221,9 +215,6 @@
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
     <value>没有活动链接</value>
   </data>
-  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>未检测到 Ethernet 适配器。</value>
-  </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>检测到静态网络配置</value>
   </data>
@@ -235,9 +226,6 @@
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>等待网络配置</value>
-  </data>
-  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>等待DHCP或静态网络配置</value>
   </data>
   <data name="Keyboard.OtherLanguages" xml:space="preserve">
     <value>其他语言</value>
@@ -377,12 +365,6 @@
   <data name="Menu.Tools" xml:space="preserve">
     <value>_工具</value>
   </data>
-  <data name="Notice.CaptivePortalMessage" xml:space="preserve">
-    <value>网络返回了登录页面，而不是互联网访问。如果此网络允许，请从其他设备登录，或使用其他网络，然后选择“重试”。</value>
-  </data>
-  <data name="Notice.CaptivePortalTitle" xml:space="preserve">
-    <value>检测到登录页面</value>
-  </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>正在应用启动介质中的网络设置。</value>
   </data>
@@ -425,9 +407,6 @@
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>无互联网访问</value>
   </data>
-  <data name="Status.CheckingDescription" xml:space="preserve">
-    <value>Foundry Connect 正在检查网络连接。</value>
-  </data>
   <data name="Status.CheckingTitle" xml:space="preserve">
     <value>正在检查网络</value>
   </data>
@@ -442,9 +421,6 @@
   </data>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>正在进行有线 802.1X 身份验证。</value>
-  </data>
-  <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>互联网访问已得到验证。您现在可以继续。</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>网络就绪</value>
@@ -509,23 +485,14 @@
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>无法断开配置的 Wi-Fi 配置文件。再试一次。</value>
   </data>
-  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
-    <value>输入部署密码以使用已配置的 Wi-Fi。</value>
-  </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>所配置的 Wi-Fi 配置文件不可用。</value>
-  </data>
-  <data name="Wifi.ActionProvisionedSecretUnavailable" xml:space="preserve">
-    <value>无法读取已配置的 Wi-Fi 密码。请重新制作启动介质。</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
     <value>此版本不支持Wi-Fi 网络。</value>
   </data>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
     <value>无法完成Wi-Fi 操作。再试一次。</value>
-  </data>
-  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>认证</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>配置的安全性</value>
@@ -560,20 +527,11 @@
   <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
     <value>可见的 Wi-Fi 网络</value>
   </data>
-  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>没有可用的 Wi-Fi 适配器。</value>
-  </data>
-  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>当前未检测到 Wi-Fi 适配器。</value>
-  </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>目前没有Wi-Fi 网络可见。</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
     <value>Wi-Fi 密码</value>
-  </data>
-  <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>配置文件</value>
   </data>
   <data name="Wifi.ProvisionedLocked" xml:space="preserve">
     <value>已配置的 Wi-Fi 受部署密码保护。请选择“连接”以输入密码。</value>
@@ -595,9 +553,6 @@
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>启动介质中缺少企业 Wi-Fi 配置文件。请重新制作启动介质。</value>
-  </data>
-  <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
-    <value>已配置的 Wi-Fi 不可用</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
     <value>未输入部署密码。请选择“连接”以输入密码。</value>
@@ -641,9 +596,6 @@
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA个人</value>
   </data>
-  <data name="Wifi.SelectNetworkHint" xml:space="preserve">
-    <value>在列表中选择一个网络进行连接。</value>
-  </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>另一个 Wi-Fi 网络处于活动状态</value>
   </data>
@@ -661,9 +613,6 @@
   </data>
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
     <value>显示或隐藏Wi-Fi密码</value>
-  </data>
-  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>Wi-Fi 支持在此引导环境中不可用。</value>
   </data>
   <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
     <value>此设备上无法使用 Wi-Fi。</value>

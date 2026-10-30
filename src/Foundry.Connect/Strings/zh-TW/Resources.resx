@@ -170,9 +170,6 @@
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
     <value>自動指派的位址</value>
   </data>
-  <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>檢查網路線連接</value>
-  </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>偵測到 DHCP 租約</value>
   </data>
@@ -190,9 +187,6 @@
   </data>
   <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
     <value>已套用設定檔</value>
-  </data>
-  <data name="Ethernet.Dot1xProvisioningFailed" xml:space="preserve">
-    <value>無法套用有線 802.1X 設定。</value>
   </data>
   <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
     <value>網路拒絕了驗證。請檢查憑證及交換器連接埠設定。</value>
@@ -221,9 +215,6 @@
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
     <value>沒有作用中的連結</value>
   </data>
-  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>未偵測到 Ethernet 介面卡。</value>
-  </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>偵測到靜態網路設定</value>
   </data>
@@ -235,9 +226,6 @@
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>正在等待網路設定</value>
-  </data>
-  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>正在等待 DHCP 或靜態網路設定</value>
   </data>
   <data name="Keyboard.OtherLanguages" xml:space="preserve">
     <value>其他語言</value>
@@ -377,12 +365,6 @@
   <data name="Menu.Tools" xml:space="preserve">
     <value>工具(_T)</value>
   </data>
-  <data name="Notice.CaptivePortalMessage" xml:space="preserve">
-    <value>網路傳回登入頁面，而不是網際網路存取。如果此網路允許，請從其他裝置登入，或使用其他網路，然後選取「重試」。</value>
-  </data>
-  <data name="Notice.CaptivePortalTitle" xml:space="preserve">
-    <value>偵測到登入頁面</value>
-  </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>正在套用開機媒體中的網路設定。</value>
   </data>
@@ -425,9 +407,6 @@
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>沒有網際網路存取</value>
   </data>
-  <data name="Status.CheckingDescription" xml:space="preserve">
-    <value>Foundry Connect 正在檢查網路連線。</value>
-  </data>
   <data name="Status.CheckingTitle" xml:space="preserve">
     <value>正在檢查網路</value>
   </data>
@@ -442,9 +421,6 @@
   </data>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>正在進行有線 802.1X 驗證。</value>
-  </data>
-  <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>已驗證網際網路存取。您現在可以繼續。</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>網路就緒</value>
@@ -509,23 +485,14 @@
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>無法中斷已佈建 Wi-Fi 設定檔的連線。請再試一次。</value>
   </data>
-  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
-    <value>輸入部署密碼以使用已佈建的 Wi-Fi。</value>
-  </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>無法使用已佈建的 Wi-Fi 設定檔。</value>
-  </data>
-  <data name="Wifi.ActionProvisionedSecretUnavailable" xml:space="preserve">
-    <value>無法讀取已佈建的 Wi-Fi 密碼。請重新製作開機媒體。</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
     <value>此組建不支援這個 Wi-Fi 網路。</value>
   </data>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
     <value>無法完成 Wi-Fi 動作。請再試一次。</value>
-  </data>
-  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>驗證</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>已設定的安全性</value>
@@ -560,20 +527,11 @@
   <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
     <value>可見的 Wi-Fi 網路</value>
   </data>
-  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>沒有可用的 Wi-Fi 介面卡。</value>
-  </data>
-  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>目前未偵測到 Wi-Fi 介面卡。</value>
-  </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>目前看不到任何 Wi-Fi 網路。</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
     <value>Wi-Fi 密碼</value>
-  </data>
-  <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>設定檔</value>
   </data>
   <data name="Wifi.ProvisionedLocked" xml:space="preserve">
     <value>已佈建的 Wi-Fi 受部署密碼保護。請選取「連線」以輸入密碼。</value>
@@ -595,9 +553,6 @@
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>開機媒體中缺少企業 Wi-Fi 設定檔。請重新製作開機媒體。</value>
-  </data>
-  <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
-    <value>已佈建的 Wi-Fi 無法使用</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
     <value>未輸入部署密碼。請選取「連線」以輸入密碼。</value>
@@ -641,9 +596,6 @@
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA 個人版</value>
   </data>
-  <data name="Wifi.SelectNetworkHint" xml:space="preserve">
-    <value>請從清單中選取要連線的網路。</value>
-  </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>另一個 Wi-Fi 網路正在使用中</value>
   </data>
@@ -661,9 +613,6 @@
   </data>
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
     <value>顯示或隱藏 Wi-Fi 密碼</value>
-  </data>
-  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>此開機環境不支援 Wi-Fi。</value>
   </data>
   <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
     <value>此裝置無法使用 Wi-Fi。</value>

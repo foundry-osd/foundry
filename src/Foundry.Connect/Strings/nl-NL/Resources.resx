@@ -170,9 +170,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
     <value>Zelf toegewezen adres</value>
   </data>
-  <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>Controleer de kabelaansluiting</value>
-  </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>DHCP-lease gedetecteerd</value>
   </data>
@@ -190,9 +187,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
     <value>Profiel toegepast</value>
-  </data>
-  <data name="Ethernet.Dot1xProvisioningFailed" xml:space="preserve">
-    <value>De bekabelde 802.1X-instellingen kunnen niet worden toegepast.</value>
   </data>
   <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
     <value>Het netwerk heeft de verificatie geweigerd. Controleer het certificaat en de instellingen van de switchpoort.</value>
@@ -221,9 +215,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
     <value>Geen actieve link</value>
   </data>
-  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>Geen Ethernet-adapter gedetecteerd.</value>
-  </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>Statische netwerkconfiguratie gedetecteerd</value>
   </data>
@@ -235,9 +226,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Wachten op netwerkconfiguratie</value>
-  </data>
-  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>Wachten op DHCP of statische netwerkconfiguratie</value>
   </data>
   <data name="Keyboard.OtherLanguages" xml:space="preserve">
     <value>Andere talen</value>
@@ -377,12 +365,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Hulpmiddelen</value>
   </data>
-  <data name="Notice.CaptivePortalMessage" xml:space="preserve">
-    <value>Het netwerk antwoordde met een aanmeldpagina in plaats van internettoegang. Meld u aan vanaf een ander apparaat als dit netwerk dat toestaat, of gebruik een ander netwerk, en selecteer daarna Opnieuw proberen.</value>
-  </data>
-  <data name="Notice.CaptivePortalTitle" xml:space="preserve">
-    <value>Aanmeldpagina gedetecteerd</value>
-  </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>De netwerkinstellingen van het opstartmedium worden toegepast.</value>
   </data>
@@ -425,9 +407,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Geen internettoegang</value>
   </data>
-  <data name="Status.CheckingDescription" xml:space="preserve">
-    <value>Foundry Connect controleert de netwerkverbinding.</value>
-  </data>
   <data name="Status.CheckingTitle" xml:space="preserve">
     <value>Netwerk controleren</value>
   </data>
@@ -442,9 +421,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>De bekabelde 802.1X-verificatie wordt uitgevoerd.</value>
-  </data>
-  <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>Internettoegang is gevalideerd. U kunt nu doorgaan.</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Netwerk klaar</value>
@@ -509,23 +485,14 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Kan het ingerichte Wi-Fi-profiel niet ontkoppelen. Probeer het opnieuw.</value>
   </data>
-  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
-    <value>Voer het implementatiewachtwoord in om de ingerichte Wi-Fi te gebruiken.</value>
-  </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Het ingerichte Wi-Fi profiel is niet beschikbaar.</value>
-  </data>
-  <data name="Wifi.ActionProvisionedSecretUnavailable" xml:space="preserve">
-    <value>Het ingerichte Wi-Fi-wachtwoord kan niet worden gelezen. Maak het opstartmedium opnieuw.</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
     <value>Dit Wi-Fi netwerk wordt niet ondersteund in deze build.</value>
   </data>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
     <value>Kan de actie Wi-Fi niet voltooien. Probeer het opnieuw.</value>
-  </data>
-  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>Authenticatie</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Geconfigureerde beveiliging</value>
@@ -560,20 +527,11 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
     <value>Zichtbare Wi-Fi-netwerken</value>
   </data>
-  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>Er is geen Wi-Fi-adapter beschikbaar.</value>
-  </data>
-  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>Er is momenteel geen Wi-Fi-adapter gedetecteerd.</value>
-  </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>Er zijn momenteel geen Wi-Fi-netwerken zichtbaar.</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
     <value>Wi-Fi-wachtwoord</value>
-  </data>
-  <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>Profiel</value>
   </data>
   <data name="Wifi.ProvisionedLocked" xml:space="preserve">
     <value>De ingerichte Wi-Fi is beveiligd met het implementatiewachtwoord. Selecteer Verbinden om het in te voeren.</value>
@@ -595,9 +553,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>Het zakelijke Wi-Fi-profiel ontbreekt op het opstartmedium. Maak het opstartmedium opnieuw.</value>
-  </data>
-  <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
-    <value>Ingerichte Wi-Fi niet beschikbaar</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
     <value>Het implementatiewachtwoord is niet ingevoerd. Selecteer Verbinden om het in te voeren.</value>
@@ -641,9 +596,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Persoonlijk</value>
   </data>
-  <data name="Wifi.SelectNetworkHint" xml:space="preserve">
-    <value>Selecteer een netwerk in de lijst om verbinding te maken.</value>
-  </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Er is nog een Wi-Fi-netwerk actief</value>
   </data>
@@ -661,9 +613,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
     <value>Toon of verberg het Wi-Fi wachtwoord</value>
-  </data>
-  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>Wi-Fi ondersteuning is niet beschikbaar in deze opstartomgeving.</value>
   </data>
   <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
     <value>Wi-Fi is niet beschikbaar op dit apparaat.</value>

@@ -170,9 +170,6 @@
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
     <value>Автоматически назначенный адрес</value>
   </data>
-  <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>Проверьте подключение кабеля</value>
-  </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>Обнаружена аренда DHCP</value>
   </data>
@@ -190,9 +187,6 @@
   </data>
   <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
     <value>Профиль применен</value>
-  </data>
-  <data name="Ethernet.Dot1xProvisioningFailed" xml:space="preserve">
-    <value>Не удалось применить параметры 802.1X для проводной сети.</value>
   </data>
   <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
     <value>Сеть отклонила проверку подлинности. Проверьте сертификат и параметры порта коммутатора.</value>
@@ -221,9 +215,6 @@
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
     <value>Нет активного подключения</value>
   </data>
-  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>Адаптер Ethernet не обнаружен.</value>
-  </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>Обнаружена статическая конфигурация сети</value>
   </data>
@@ -235,9 +226,6 @@
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Ожидание конфигурации сети</value>
-  </data>
-  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>Ожидание DHCP или статической конфигурации сети</value>
   </data>
   <data name="Keyboard.OtherLanguages" xml:space="preserve">
     <value>Другие языки</value>
@@ -377,12 +365,6 @@
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Инструменты</value>
   </data>
-  <data name="Notice.CaptivePortalMessage" xml:space="preserve">
-    <value>Сеть ответила страницей входа вместо доступа в Интернет. Выполните вход с другого устройства, если эта сеть это позволяет, или используйте другую сеть, затем выберите «Повторить».</value>
-  </data>
-  <data name="Notice.CaptivePortalTitle" xml:space="preserve">
-    <value>Обнаружена страница входа</value>
-  </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Применяются сетевые параметры с загрузочного носителя.</value>
   </data>
@@ -425,9 +407,6 @@
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Нет доступа в Интернет</value>
   </data>
-  <data name="Status.CheckingDescription" xml:space="preserve">
-    <value>Foundry Connect проверяет сетевое подключение.</value>
-  </data>
   <data name="Status.CheckingTitle" xml:space="preserve">
     <value>Проверка сети</value>
   </data>
@@ -442,9 +421,6 @@
   </data>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Выполняется проводная проверка подлинности 802.1X.</value>
-  </data>
-  <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>Доступ в Интернет подтвержден. Вы можете продолжить сейчас.</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Сеть готова</value>
@@ -509,23 +485,14 @@
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Невозможно отключить подготовленный профиль Wi-Fi. Попробуйте еще раз.</value>
   </data>
-  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
-    <value>Введите пароль развертывания, чтобы использовать подготовленную сеть Wi-Fi.</value>
-  </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Предоставленный профиль Wi-Fi недоступен.</value>
-  </data>
-  <data name="Wifi.ActionProvisionedSecretUnavailable" xml:space="preserve">
-    <value>Не удается прочитать пароль подготовленной сети Wi-Fi. Создайте загрузочный носитель заново.</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
     <value>Эта сеть Wi-Fi не поддерживается в этой сборке.</value>
   </data>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
     <value>Невозможно выполнить действие Wi-Fi. Попробуйте еще раз.</value>
-  </data>
-  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>Аутентификация</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Настроенная безопасность</value>
@@ -560,20 +527,11 @@
   <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
     <value>Видимые сети Wi-Fi</value>
   </data>
-  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>Адаптер Wi-Fi недоступен.</value>
-  </data>
-  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>Адаптер Wi-Fi в настоящее время не обнаружен.</value>
-  </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>Сети Wi-Fi в настоящее время не видны.</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
     <value>Пароль Wi-Fi</value>
-  </data>
-  <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>Профиль</value>
   </data>
   <data name="Wifi.ProvisionedLocked" xml:space="preserve">
     <value>Подготовленная сеть Wi-Fi защищена паролем развертывания. Выберите «Подключиться», чтобы ввести его.</value>
@@ -595,9 +553,6 @@
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>Корпоративный профиль Wi-Fi отсутствует на загрузочном носителе. Создайте загрузочный носитель заново.</value>
-  </data>
-  <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
-    <value>Подготовленная сеть Wi-Fi недоступна</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
     <value>Пароль развертывания не был введен. Выберите «Подключиться», чтобы ввести его.</value>
@@ -641,9 +596,6 @@
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Личное</value>
   </data>
-  <data name="Wifi.SelectNetworkHint" xml:space="preserve">
-    <value>Выберите сеть в списке, чтобы подключиться.</value>
-  </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Другая сеть Wi-Fi активна</value>
   </data>
@@ -661,9 +613,6 @@
   </data>
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
     <value>Показать или скрыть пароль Wi-Fi</value>
-  </data>
-  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>Поддержка Wi-Fi недоступна в этой среде загрузки.</value>
   </data>
   <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
     <value>Wi-Fi недоступен на этом устройстве.</value>

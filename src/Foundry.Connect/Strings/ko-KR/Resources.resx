@@ -170,9 +170,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
     <value>자체 할당 주소</value>
   </data>
-  <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>케이블 연결을 확인하세요</value>
-  </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>DHCP 임대 감지됨</value>
   </data>
@@ -190,9 +187,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
     <value>프로필 적용됨</value>
-  </data>
-  <data name="Ethernet.Dot1xProvisioningFailed" xml:space="preserve">
-    <value>유선 802.1X 설정을 적용할 수 없습니다.</value>
   </data>
   <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
     <value>네트워크에서 인증을 거부했습니다. 인증서와 스위치 포트 설정을 확인하세요.</value>
@@ -221,9 +215,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
     <value>활성 링크 없음</value>
   </data>
-  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>Ethernet 어댑터가 감지되지 않았습니다.</value>
-  </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>정적 네트워크 구성이 감지되었습니다.</value>
   </data>
@@ -235,9 +226,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>네트워크 구성을 기다리는 중</value>
-  </data>
-  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>DHCP 또는 정적 네트워크 구성을 기다리는 중</value>
   </data>
   <data name="Keyboard.OtherLanguages" xml:space="preserve">
     <value>기타 언어</value>
@@ -377,12 +365,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_도구</value>
   </data>
-  <data name="Notice.CaptivePortalMessage" xml:space="preserve">
-    <value>네트워크가 인터넷 연결 대신 로그인 페이지로 응답했습니다. 이 네트워크에서 허용하는 경우 다른 장치에서 로그인하거나 다른 네트워크를 사용한 다음 다시 시도를 선택하세요.</value>
-  </data>
-  <data name="Notice.CaptivePortalTitle" xml:space="preserve">
-    <value>로그인 페이지 감지됨</value>
-  </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>부팅 미디어의 네트워크 설정을 적용하는 중입니다.</value>
   </data>
@@ -425,9 +407,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>인터넷 연결 없음</value>
   </data>
-  <data name="Status.CheckingDescription" xml:space="preserve">
-    <value>Foundry Connect에서 네트워크 연결을 확인하는 중입니다.</value>
-  </data>
   <data name="Status.CheckingTitle" xml:space="preserve">
     <value>네트워크 확인 중</value>
   </data>
@@ -442,9 +421,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>유선 802.1X 인증이 진행 중입니다.</value>
-  </data>
-  <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>인터넷 접속이 확인되었습니다. 이제 계속할 수 있습니다.</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>네트워크 준비</value>
@@ -509,23 +485,14 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>프로비저닝된 Wi-Fi 프로필의 연결을 끊을 수 없습니다. 다시 시도해 보세요.</value>
   </data>
-  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
-    <value>프로비저닝된 Wi-Fi를 사용하려면 배포 암호를 입력하세요.</value>
-  </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>프로비저닝된 Wi-Fi 프로필을 사용할 수 없습니다.</value>
-  </data>
-  <data name="Wifi.ActionProvisionedSecretUnavailable" xml:space="preserve">
-    <value>프로비저닝된 Wi-Fi 비밀번호를 읽을 수 없습니다. 부팅 미디어를 다시 만드세요.</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
     <value>이 Wi-Fi 네트워크는 이 빌드에서 지원되지 않습니다.</value>
   </data>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
     <value>Wi-Fi 작업을 완료할 수 없습니다. 다시 시도해 보세요.</value>
-  </data>
-  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>인증</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>구성된 보안</value>
@@ -560,20 +527,11 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
     <value>표시되는 Wi-Fi 네트워크</value>
   </data>
-  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>Wi-Fi 어댑터를 사용할 수 없습니다.</value>
-  </data>
-  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>현재 Wi-Fi 어댑터가 감지되지 않습니다.</value>
-  </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>현재 Wi-Fi 네트워크가 표시되지 않습니다.</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
     <value>Wi-Fi 비밀번호</value>
-  </data>
-  <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>프로필</value>
   </data>
   <data name="Wifi.ProvisionedLocked" xml:space="preserve">
     <value>프로비저닝된 Wi-Fi는 배포 암호로 보호되어 있습니다. 연결하다를 선택하여 암호를 입력하세요.</value>
@@ -595,9 +553,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>부팅 미디어에 엔터프라이즈 Wi-Fi 프로필이 없습니다. 부팅 미디어를 다시 만드세요.</value>
-  </data>
-  <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
-    <value>프로비저닝된 Wi-Fi 사용 불가</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
     <value>배포 암호가 입력되지 않았습니다. 연결하다를 선택하여 암호를 입력하세요.</value>
@@ -641,9 +596,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA 개인</value>
   </data>
-  <data name="Wifi.SelectNetworkHint" xml:space="preserve">
-    <value>연결할 네트워크를 목록에서 선택하세요.</value>
-  </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>다른 Wi-Fi 네트워크가 활성 상태입니다.</value>
   </data>
@@ -661,9 +613,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
     <value>Wi-Fi 비밀번호 표시 또는 숨기기</value>
-  </data>
-  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>이 부트 환경에서는 Wi-Fi 지원을 사용할 수 없습니다.</value>
   </data>
   <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
     <value>이 장치에서는 Wi-Fi를 사용할 수 없습니다.</value>

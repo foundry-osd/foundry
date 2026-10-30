@@ -170,9 +170,6 @@ Licensierad under MIT-licensen.</value>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
     <value>Självtilldelad adress</value>
   </data>
-  <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>Kontrollera kabelanslutningen</value>
-  </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>DHCP-lån upptäcktes</value>
   </data>
@@ -190,9 +187,6 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
     <value>Profilen har tillämpats</value>
-  </data>
-  <data name="Ethernet.Dot1xProvisioningFailed" xml:space="preserve">
-    <value>De trådbundna 802.1X-inställningarna kunde inte tillämpas.</value>
   </data>
   <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
     <value>Nätverket avvisade autentiseringen. Kontrollera certifikatet och inställningarna för switchporten.</value>
@@ -221,9 +215,6 @@ Licensierad under MIT-licensen.</value>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
     <value>Ingen aktiv länk</value>
   </data>
-  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>Ingen Ethernet-adapter upptäckt.</value>
-  </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>Statisk nätverkskonfiguration upptäcktes</value>
   </data>
@@ -235,9 +226,6 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Väntar på nätverkskonfiguration</value>
-  </data>
-  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>Väntar på DHCP eller statisk nätverkskonfiguration</value>
   </data>
   <data name="Keyboard.OtherLanguages" xml:space="preserve">
     <value>Andra språk</value>
@@ -377,12 +365,6 @@ Licensierad under MIT-licensen.</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Verktyg</value>
   </data>
-  <data name="Notice.CaptivePortalMessage" xml:space="preserve">
-    <value>Nätverket svarade med en inloggningssida i stället för internetåtkomst. Logga in från en annan enhet om nätverket tillåter det, eller använd ett annat nätverk, och välj sedan Försök igen.</value>
-  </data>
-  <data name="Notice.CaptivePortalTitle" xml:space="preserve">
-    <value>Inloggningssida identifierad</value>
-  </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Nätverksinställningarna från startmediet tillämpas.</value>
   </data>
@@ -425,9 +407,6 @@ Licensierad under MIT-licensen.</value>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Ingen internetåtkomst</value>
   </data>
-  <data name="Status.CheckingDescription" xml:space="preserve">
-    <value>Foundry Connect kontrollerar nätverksanslutningen.</value>
-  </data>
   <data name="Status.CheckingTitle" xml:space="preserve">
     <value>Kontrollerar nätverket</value>
   </data>
@@ -442,9 +421,6 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Trådbunden 802.1X-autentisering pågår.</value>
-  </data>
-  <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>Internetåtkomst har validerats. Du kan fortsätta nu.</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Nätverk redo</value>
@@ -509,23 +485,14 @@ Licensierad under MIT-licensen.</value>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Det går inte att koppla bort den tillhandahållna Wi-Fi-profilen. Försök igen.</value>
   </data>
-  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
-    <value>Ange distributionslösenordet för att använda det tillhandahållna Wi-Fi-nätverket.</value>
-  </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Den tillhandahållna Wi-Fi-profilen är inte tillgänglig.</value>
-  </data>
-  <data name="Wifi.ActionProvisionedSecretUnavailable" xml:space="preserve">
-    <value>Det tillhandahållna Wi-Fi-lösenordet kan inte läsas. Skapa startmediet på nytt.</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
     <value>Detta Wi-Fi nätverk stöds inte i denna version.</value>
   </data>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
     <value>Det gick inte att slutföra Wi-Fi-åtgärden. Försök igen.</value>
-  </data>
-  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>Autentisering</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Konfigurerad säkerhet</value>
@@ -560,20 +527,11 @@ Licensierad under MIT-licensen.</value>
   <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
     <value>Synliga Wi-Fi-nätverk</value>
   </data>
-  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>Ingen Wi-Fi-adapter är tillgänglig.</value>
-  </data>
-  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>Ingen Wi-Fi-adapter har upptäckts för närvarande.</value>
-  </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>Inga Wi-Fi-nätverk är för närvarande synliga.</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
     <value>Wi-Fi-lösenord</value>
-  </data>
-  <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>Profil</value>
   </data>
   <data name="Wifi.ProvisionedLocked" xml:space="preserve">
     <value>Det tillhandahållna Wi-Fi-nätverket skyddas av distributionslösenordet. Välj Anslut för att ange det.</value>
@@ -595,9 +553,6 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>Företagets Wi-Fi-profil saknas på startmediet. Skapa startmediet på nytt.</value>
-  </data>
-  <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
-    <value>Tillhandahållet Wi-Fi är inte tillgängligt</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
     <value>Distributionslösenordet angavs inte. Välj Anslut för att ange det.</value>
@@ -641,9 +596,6 @@ Licensierad under MIT-licensen.</value>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Personligt</value>
   </data>
-  <data name="Wifi.SelectNetworkHint" xml:space="preserve">
-    <value>Välj ett nätverk i listan för att ansluta.</value>
-  </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Ett annat Wi-Fi nätverk är aktivt</value>
   </data>
@@ -661,9 +613,6 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
     <value>Visa eller dölj Wi-Fi lösenord</value>
-  </data>
-  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>Wi-Fi support är inte tillgängligt i den här startmiljön.</value>
   </data>
   <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
     <value>Wi-Fi är inte tillgängligt på den här enheten.</value>

@@ -170,9 +170,6 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
     <value>Indirizzo autoassegnato</value>
   </data>
-  <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>Controllare la connessione del cavo</value>
-  </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>Lease DHCP rilevato</value>
   </data>
@@ -190,9 +187,6 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
     <value>Profilo applicato</value>
-  </data>
-  <data name="Ethernet.Dot1xProvisioningFailed" xml:space="preserve">
-    <value>Impossibile applicare le impostazioni 802.1X cablate.</value>
   </data>
   <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
     <value>La rete ha rifiutato l'autenticazione. Controlla il certificato e le impostazioni della porta dello switch.</value>
@@ -221,9 +215,6 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
     <value>Nessun collegamento attivo</value>
   </data>
-  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>Nessun adattatore Ethernet rilevato.</value>
-  </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>Rilevata configurazione di rete statica</value>
   </data>
@@ -235,9 +226,6 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>In attesa della configurazione di rete</value>
-  </data>
-  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>In attesa di DHCP o configurazione di rete statica</value>
   </data>
   <data name="Keyboard.OtherLanguages" xml:space="preserve">
     <value>Altre lingue</value>
@@ -377,12 +365,6 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Strumenti</value>
   </data>
-  <data name="Notice.CaptivePortalMessage" xml:space="preserve">
-    <value>La rete ha risposto con una pagina di accesso invece che con l'accesso a Internet. Accedi da un altro dispositivo se la rete lo consente, oppure usa un'altra rete, quindi seleziona Riprova.</value>
-  </data>
-  <data name="Notice.CaptivePortalTitle" xml:space="preserve">
-    <value>Pagina di accesso rilevata</value>
-  </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Applicazione delle impostazioni di rete dal supporto di avvio.</value>
   </data>
@@ -425,9 +407,6 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Nessun accesso a Internet</value>
   </data>
-  <data name="Status.CheckingDescription" xml:space="preserve">
-    <value>Foundry Connect sta verificando la connessione di rete.</value>
-  </data>
   <data name="Status.CheckingTitle" xml:space="preserve">
     <value>Verifica della rete</value>
   </data>
@@ -442,9 +421,6 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Autenticazione 802.1X cablata in corso.</value>
-  </data>
-  <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>L'accesso a Internet è stato convalidato. Puoi continuare ora.</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Rete pronta</value>
@@ -509,23 +485,14 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Impossibile disconnettere il profilo Wi-Fi predisposto. Riprova.</value>
   </data>
-  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
-    <value>Inserisci la password di distribuzione per usare il Wi-Fi con provisioning.</value>
-  </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Il profilo Wi-Fi assegnato non è disponibile.</value>
-  </data>
-  <data name="Wifi.ActionProvisionedSecretUnavailable" xml:space="preserve">
-    <value>Impossibile leggere la password Wi-Fi con provisioning. Ricrea il supporto di avvio.</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
     <value>Questa rete Wi-Fi non è supportata in questa build.</value>
   </data>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
     <value>Impossibile completare l'azione Wi-Fi. Riprova.</value>
-  </data>
-  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>Autenticazione</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Sicurezza configurata</value>
@@ -560,20 +527,11 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
     <value>Reti Wi-Fi visibili</value>
   </data>
-  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>Non è disponibile alcun adattatore Wi-Fi.</value>
-  </data>
-  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>Nessun adattatore Wi-Fi attualmente rilevato.</value>
-  </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>Nessuna rete Wi-Fi attualmente visibile.</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
     <value>Password Wi-Fi</value>
-  </data>
-  <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>Profilo</value>
   </data>
   <data name="Wifi.ProvisionedLocked" xml:space="preserve">
     <value>Il Wi-Fi con provisioning è protetto dalla password di distribuzione. Seleziona Connettiti per inserirla.</value>
@@ -595,9 +553,6 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>Il profilo Wi-Fi aziendale manca nel supporto di avvio. Ricrea il supporto di avvio.</value>
-  </data>
-  <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
-    <value>Wi-Fi con provisioning non disponibile</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
     <value>La password di distribuzione non è stata inserita. Seleziona Connettiti per inserirla.</value>
@@ -641,9 +596,6 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Personale</value>
   </data>
-  <data name="Wifi.SelectNetworkHint" xml:space="preserve">
-    <value>Seleziona una rete nell'elenco per connetterti.</value>
-  </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Un'altra rete Wi-Fi è attiva</value>
   </data>
@@ -661,9 +613,6 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
     <value>Mostra o nascondi la password Wi-Fi</value>
-  </data>
-  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>Il supporto Wi-Fi non è disponibile in questo ambiente di boot.</value>
   </data>
   <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
     <value>Il Wi-Fi non è disponibile su questo dispositivo.</value>

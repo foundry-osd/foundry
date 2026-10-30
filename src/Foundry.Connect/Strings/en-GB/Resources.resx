@@ -170,9 +170,6 @@ Licensed under the MIT License.</value>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
     <value>Self-assigned address</value>
   </data>
-  <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>Check the cable connection</value>
-  </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>DHCP lease detected</value>
   </data>
@@ -190,9 +187,6 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
     <value>Profile applied</value>
-  </data>
-  <data name="Ethernet.Dot1xProvisioningFailed" xml:space="preserve">
-    <value>The wired 802.1X settings could not be applied.</value>
   </data>
   <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
     <value>The network rejected the authentication. Check the certificate and the switch port settings.</value>
@@ -221,9 +215,6 @@ Licensed under the MIT License.</value>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
     <value>No active link</value>
   </data>
-  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>No Ethernet adapter detected.</value>
-  </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>Static network configuration detected</value>
   </data>
@@ -235,9 +226,6 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Waiting for network configuration</value>
-  </data>
-  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>Waiting for DHCP or static network configuration</value>
   </data>
   <data name="Keyboard.OtherLanguages" xml:space="preserve">
     <value>Other languages</value>
@@ -377,12 +365,6 @@ Licensed under the MIT License.</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Tools</value>
   </data>
-  <data name="Notice.CaptivePortalMessage" xml:space="preserve">
-    <value>The network answered with a sign-in page instead of internet access. Sign in from another device if this network allows it, or use another network, then select Retry.</value>
-  </data>
-  <data name="Notice.CaptivePortalTitle" xml:space="preserve">
-    <value>Sign-in page detected</value>
-  </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Applying the network settings from the boot media.</value>
   </data>
@@ -425,9 +407,6 @@ Licensed under the MIT License.</value>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>No internet access</value>
   </data>
-  <data name="Status.CheckingDescription" xml:space="preserve">
-    <value>Foundry Connect is checking the network connection.</value>
-  </data>
   <data name="Status.CheckingTitle" xml:space="preserve">
     <value>Checking the network</value>
   </data>
@@ -442,9 +421,6 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Wired 802.1X authentication is in progress.</value>
-  </data>
-  <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>Internet access has been validated. You can continue now.</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Network ready</value>
@@ -509,23 +485,14 @@ Licensed under the MIT License.</value>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Unable to disconnect the provisioned Wi-Fi profile. Try again.</value>
   </data>
-  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
-    <value>Enter the deployment password to use the provisioned Wi-Fi.</value>
-  </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>The provisioned Wi-Fi profile is not available.</value>
-  </data>
-  <data name="Wifi.ActionProvisionedSecretUnavailable" xml:space="preserve">
-    <value>The provisioned Wi-Fi password cannot be read. Recreate the boot media.</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
     <value>This Wi-Fi network is not supported in this build.</value>
   </data>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
     <value>Unable to complete the Wi-Fi action. Try again.</value>
-  </data>
-  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>Authentication</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Configured security</value>
@@ -560,20 +527,11 @@ Licensed under the MIT License.</value>
   <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
     <value>Visible Wi-Fi networks</value>
   </data>
-  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>No Wi-Fi adapter is available.</value>
-  </data>
-  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>No Wi-Fi adapter is currently detected.</value>
-  </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>No Wi-Fi networks are currently visible.</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
     <value>Wi-Fi password</value>
-  </data>
-  <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>Profile</value>
   </data>
   <data name="Wifi.ProvisionedLocked" xml:space="preserve">
     <value>The provisioned Wi-Fi is protected by the deployment password. Select Connect to enter it.</value>
@@ -595,9 +553,6 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>The enterprise Wi-Fi profile is missing from the boot media. Recreate the boot media.</value>
-  </data>
-  <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
-    <value>Provisioned Wi-Fi unavailable</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
     <value>The deployment password was not entered. Select Connect to enter it.</value>
@@ -641,9 +596,6 @@ Licensed under the MIT License.</value>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Personal</value>
   </data>
-  <data name="Wifi.SelectNetworkHint" xml:space="preserve">
-    <value>Select a network in the list to connect.</value>
-  </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Another Wi-Fi network is active</value>
   </data>
@@ -661,9 +613,6 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
     <value>Show or hide Wi-Fi password</value>
-  </data>
-  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>Wi-Fi support is not available in this boot environment.</value>
   </data>
   <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
     <value>Wi-Fi isn't available on this device.</value>

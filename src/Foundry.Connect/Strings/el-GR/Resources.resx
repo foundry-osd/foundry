@@ -170,9 +170,6 @@
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
     <value>Αυτόματα εκχωρημένη διεύθυνση</value>
   </data>
-  <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>Ελέγξτε τη σύνδεση του καλωδίου</value>
-  </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>Εντοπίστηκε μίσθωση DHCP</value>
   </data>
@@ -190,9 +187,6 @@
   </data>
   <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
     <value>Το προφίλ εφαρμόστηκε</value>
-  </data>
-  <data name="Ethernet.Dot1xProvisioningFailed" xml:space="preserve">
-    <value>Δεν ήταν δυνατή η εφαρμογή των ρυθμίσεων 802.1X ενσύρματου δικτύου.</value>
   </data>
   <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
     <value>Το δίκτυο απέρριψε τον έλεγχο ταυτότητας. Ελέγξτε το πιστοποιητικό και τις ρυθμίσεις της θύρας του μεταγωγέα.</value>
@@ -221,9 +215,6 @@
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
     <value>Δεν υπάρχει ενεργή σύνδεση</value>
   </data>
-  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>Δεν εντοπίστηκε προσαρμογέας Ethernet.</value>
-  </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>Εντοπίστηκε στατική διαμόρφωση δικτύου</value>
   </data>
@@ -235,9 +226,6 @@
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Αναμονή για διαμόρφωση δικτύου</value>
-  </data>
-  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>Αναμονή για DHCP ή στατική διαμόρφωση δικτύου</value>
   </data>
   <data name="Keyboard.OtherLanguages" xml:space="preserve">
     <value>Άλλες γλώσσες</value>
@@ -377,12 +365,6 @@
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Εργαλεία</value>
   </data>
-  <data name="Notice.CaptivePortalMessage" xml:space="preserve">
-    <value>Το δίκτυο απάντησε με σελίδα σύνδεσης αντί για πρόσβαση στο Διαδίκτυο. Συνδεθείτε από άλλη συσκευή, εάν το δίκτυο το επιτρέπει, ή χρησιμοποιήστε άλλο δίκτυο και, στη συνέχεια, επιλέξτε Επανάληψη.</value>
-  </data>
-  <data name="Notice.CaptivePortalTitle" xml:space="preserve">
-    <value>Εντοπίστηκε σελίδα σύνδεσης</value>
-  </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Εφαρμογή των ρυθμίσεων δικτύου από το μέσο εκκίνησης.</value>
   </data>
@@ -425,9 +407,6 @@
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>Δεν υπάρχει πρόσβαση στο Διαδίκτυο</value>
   </data>
-  <data name="Status.CheckingDescription" xml:space="preserve">
-    <value>Το Foundry Connect ελέγχει τη σύνδεση δικτύου.</value>
-  </data>
   <data name="Status.CheckingTitle" xml:space="preserve">
     <value>Έλεγχος δικτύου</value>
   </data>
@@ -442,9 +421,6 @@
   </data>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Ο ενσύρματος έλεγχος ταυτότητας 802.1X βρίσκεται σε εξέλιξη.</value>
-  </data>
-  <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>Η πρόσβαση στο Διαδίκτυο έχει επικυρωθεί. Μπορείτε να συνεχίσετε τώρα.</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Έτοιμο το δίκτυο</value>
@@ -509,23 +485,14 @@
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Δεν είναι δυνατή η αποσύνδεση του προβλεπόμενου προφίλ Wi-Fi. Προσπαθήστε ξανά.</value>
   </data>
-  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
-    <value>Εισαγάγετε τον κωδικό πρόσβασης ανάπτυξης για να χρησιμοποιήσετε το προβλεπόμενο Wi-Fi.</value>
-  </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Το προβλεπόμενο προφίλ Wi-Fi δεν είναι διαθέσιμο.</value>
-  </data>
-  <data name="Wifi.ActionProvisionedSecretUnavailable" xml:space="preserve">
-    <value>Δεν είναι δυνατή η ανάγνωση του κωδικού πρόσβασης του προβλεπόμενου Wi-Fi. Δημιουργήστε ξανά το μέσο εκκίνησης.</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
     <value>Αυτό το δίκτυο Wi-Fi δεν υποστηρίζεται σε αυτήν την έκδοση.</value>
   </data>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
     <value>Δεν είναι δυνατή η ολοκλήρωση της ενέργειας Wi-Fi. Προσπαθήστε ξανά.</value>
-  </data>
-  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>Έλεγχος ταυτότητας</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Διαμορφωμένη ασφάλεια</value>
@@ -560,20 +527,11 @@
   <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
     <value>Ορατά δίκτυα Wi-Fi</value>
   </data>
-  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>Δεν υπάρχει διαθέσιμος προσαρμογέας Wi-Fi.</value>
-  </data>
-  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>Δεν έχει εντοπιστεί προσαρμογέας Wi-Fi αυτήν τη στιγμή.</value>
-  </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>Δεν είναι ορατά προς το παρόν δίκτυα Wi-Fi.</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
     <value>Κωδικός πρόσβασης Wi-Fi</value>
-  </data>
-  <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>Προφίλ</value>
   </data>
   <data name="Wifi.ProvisionedLocked" xml:space="preserve">
     <value>Το προβλεπόμενο Wi-Fi προστατεύεται από τον κωδικό πρόσβασης ανάπτυξης. Επιλέξτε Συνδεθείτε για να τον εισαγάγετε.</value>
@@ -595,9 +553,6 @@
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>Το εταιρικό προφίλ Wi-Fi λείπει από το μέσο εκκίνησης. Δημιουργήστε ξανά το μέσο εκκίνησης.</value>
-  </data>
-  <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
-    <value>Το προβλεπόμενο Wi-Fi δεν είναι διαθέσιμο</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
     <value>Δεν εισαγάγατε τον κωδικό πρόσβασης ανάπτυξης. Επιλέξτε Συνδεθείτε για να τον εισαγάγετε.</value>
@@ -641,9 +596,6 @@
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Προσωπικά</value>
   </data>
-  <data name="Wifi.SelectNetworkHint" xml:space="preserve">
-    <value>Επιλέξτε ένα δίκτυο από τη λίστα για σύνδεση.</value>
-  </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Ένα άλλο δίκτυο Wi-Fi είναι ενεργό</value>
   </data>
@@ -661,9 +613,6 @@
   </data>
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
     <value>Εμφάνιση ή απόκρυψη του κωδικού πρόσβασης Wi-Fi</value>
-  </data>
-  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>Η υποστήριξη Wi-Fi δεν είναι διαθέσιμη σε αυτό το περιβάλλον εκκίνησης.</value>
   </data>
   <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
     <value>Το Wi-Fi δεν είναι διαθέσιμο σε αυτήν τη συσκευή.</value>

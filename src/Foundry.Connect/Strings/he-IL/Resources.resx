@@ -170,9 +170,6 @@
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
     <value>כתובת שהוקצתה עצמית</value>
   </data>
-  <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>בדוק את חיבור הכבל</value>
-  </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>זוהתה חכירת DHCP</value>
   </data>
@@ -190,9 +187,6 @@
   </data>
   <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
     <value>הפרופיל הוחל</value>
-  </data>
-  <data name="Ethernet.Dot1xProvisioningFailed" xml:space="preserve">
-    <value>לא ניתן היה להחיל את הגדרות 802.1X של הרשת הקווית.</value>
   </data>
   <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
     <value>הרשת דחתה את האימות. בדוק את האישור ואת הגדרות היציאה במתג.</value>
@@ -221,9 +215,6 @@
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
     <value>אין קישור פעיל</value>
   </data>
-  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>לא זוהה מתאם Ethernet.</value>
-  </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>זוהתה תצורת רשת סטטית</value>
   </data>
@@ -235,9 +226,6 @@
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>ממתין לתצורת הרשת</value>
-  </data>
-  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>ממתין ל-DHCP או לתצורת רשת סטטית</value>
   </data>
   <data name="Keyboard.OtherLanguages" xml:space="preserve">
     <value>שפות אחרות</value>
@@ -377,12 +365,6 @@
   <data name="Menu.Tools" xml:space="preserve">
     <value>_כלים</value>
   </data>
-  <data name="Notice.CaptivePortalMessage" xml:space="preserve">
-    <value>הרשת השיבה בדף כניסה במקום בגישה לאינטרנט. היכנס ממכשיר אחר אם הרשת מאפשרת זאת, או השתמש ברשת אחרת, ולאחר מכן בחר נסה שוב.</value>
-  </data>
-  <data name="Notice.CaptivePortalTitle" xml:space="preserve">
-    <value>זוהה דף כניסה</value>
-  </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>מחיל את הגדרות הרשת ממדיית האתחול.</value>
   </data>
@@ -425,9 +407,6 @@
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>אין גישה לאינטרנט</value>
   </data>
-  <data name="Status.CheckingDescription" xml:space="preserve">
-    <value>Foundry Connect בודק את חיבור הרשת.</value>
-  </data>
   <data name="Status.CheckingTitle" xml:space="preserve">
     <value>בודק את הרשת</value>
   </data>
@@ -442,9 +421,6 @@
   </data>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>אימות 802.1X קווי מתבצע.</value>
-  </data>
-  <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>הגישה לאינטרנט אומתה. אתה יכול להמשיך עכשיו.</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>מוכן לרשת</value>
@@ -509,23 +485,14 @@
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>לא ניתן לנתק את הפרופיל Wi-Fi המיועד. נסה שוב.</value>
   </data>
-  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
-    <value>הזן את סיסמת הפריסה כדי להשתמש ב-Wi-Fi המסופקת.</value>
-  </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>פרופיל Wi-Fi המוקצה אינו זמין.</value>
-  </data>
-  <data name="Wifi.ActionProvisionedSecretUnavailable" xml:space="preserve">
-    <value>לא ניתן לקרוא את סיסמת ה-Wi-Fi המסופקת. צור מחדש את מדיית האתחול.</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
     <value>רשת Wi-Fi זו אינה נתמכת ב-build זה.</value>
   </data>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
     <value>לא ניתן להשלים את הפעולה Wi-Fi. נסה שוב.</value>
-  </data>
-  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>אימות</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>אבטחה מוגדרת</value>
@@ -560,20 +527,11 @@
   <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
     <value>רשתות Wi-Fi גלויות</value>
   </data>
-  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>אין מתאם Wi-Fi זמין.</value>
-  </data>
-  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>לא זוהה כעת מתאם Wi-Fi.</value>
-  </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>אין כרגע רשתות Wi-Fi גלויות.</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
     <value>סיסמת Wi-Fi</value>
-  </data>
-  <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>פרופיל</value>
   </data>
   <data name="Wifi.ProvisionedLocked" xml:space="preserve">
     <value>רשת ה-Wi-Fi המסופקת מוגנת באמצעות סיסמת הפריסה. בחר התחבר כדי להזין אותה.</value>
@@ -595,9 +553,6 @@
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>פרופיל ה-Wi-Fi הארגוני חסר במדיית האתחול. צור מחדש את מדיית האתחול.</value>
-  </data>
-  <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
-    <value>רשת ה-Wi-Fi המסופקת אינה זמינה</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
     <value>סיסמת הפריסה לא הוזנה. בחר התחבר כדי להזין אותה.</value>
@@ -641,9 +596,6 @@
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA אישי</value>
   </data>
-  <data name="Wifi.SelectNetworkHint" xml:space="preserve">
-    <value>בחר רשת ברשימה כדי להתחבר.</value>
-  </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>רשת Wi-Fi פעילה אחרת</value>
   </data>
@@ -661,9 +613,6 @@
   </data>
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
     <value>הצג או הסתר את הסיסמה Wi-Fi</value>
-  </data>
-  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>תמיכה Wi-Fi אינה זמינה בסביבת אתחול זו.</value>
   </data>
   <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
     <value>Wi-Fi אינו זמין במכשיר זה.</value>

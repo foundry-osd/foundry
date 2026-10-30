@@ -170,9 +170,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Ethernet.ApipaAddress" xml:space="preserve">
     <value>Otomatik atanan adres</value>
   </data>
-  <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>Kablo bağlantısını kontrol edin</value>
-  </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>DHCP kiralaması algılandı</value>
   </data>
@@ -190,9 +187,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
     <value>Profil uygulandı</value>
-  </data>
-  <data name="Ethernet.Dot1xProvisioningFailed" xml:space="preserve">
-    <value>Kablolu 802.1X ayarları uygulanamadı.</value>
   </data>
   <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
     <value>Ağ kimlik doğrulamayı reddetti. Sertifikayı ve anahtar bağlantı noktası ayarlarını denetleyin.</value>
@@ -221,9 +215,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
     <value>Etkin bağlantı yok</value>
   </data>
-  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>Ethernet bağdaştırıcısı algılanmadı.</value>
-  </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>Statik ağ yapılandırması algılandı</value>
   </data>
@@ -235,9 +226,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Ağ yapılandırması bekleniyor</value>
-  </data>
-  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>DHCP veya statik ağ yapılandırması bekleniyor</value>
   </data>
   <data name="Keyboard.OtherLanguages" xml:space="preserve">
     <value>Diğer diller</value>
@@ -377,12 +365,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Araçlar</value>
   </data>
-  <data name="Notice.CaptivePortalMessage" xml:space="preserve">
-    <value>Ağ, internet erişimi yerine bir oturum açma sayfasıyla yanıt verdi. Bu ağ izin veriyorsa başka bir cihazdan oturum açın veya başka bir ağ kullanın, ardından Yeniden dene'yi seçin.</value>
-  </data>
-  <data name="Notice.CaptivePortalTitle" xml:space="preserve">
-    <value>Oturum açma sayfası algılandı</value>
-  </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Önyükleme medyasındaki ağ ayarları uygulanıyor.</value>
   </data>
@@ -425,9 +407,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Status.BlockedTitle" xml:space="preserve">
     <value>İnternet erişimi yok</value>
   </data>
-  <data name="Status.CheckingDescription" xml:space="preserve">
-    <value>Foundry Connect ağ bağlantısını denetliyor.</value>
-  </data>
   <data name="Status.CheckingTitle" xml:space="preserve">
     <value>Ağ denetleniyor</value>
   </data>
@@ -442,9 +421,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Kablolu 802.1X kimlik doğrulaması devam ediyor.</value>
-  </data>
-  <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>İnternet erişimi doğrulandı. Şimdi devam edebilirsiniz.</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Ağa hazır</value>
@@ -509,23 +485,14 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Wifi.ActionProvisionedDisconnectFailed" xml:space="preserve">
     <value>Sağlanan Wi-Fi profilinin bağlantısı kesilemiyor. Tekrar deneyin.</value>
   </data>
-  <data name="Wifi.ActionProvisionedLocked" xml:space="preserve">
-    <value>Sağlanan Wi-Fi'yi kullanmak için dağıtım parolasını girin.</value>
-  </data>
   <data name="Wifi.ActionProvisionedProfileUnavailable" xml:space="preserve">
     <value>Temel hazırlığı yapılan Wi-Fi profili mevcut değil.</value>
-  </data>
-  <data name="Wifi.ActionProvisionedSecretUnavailable" xml:space="preserve">
-    <value>Sağlanan Wi-Fi şifresi okunamıyor. Önyükleme medyasını yeniden oluşturun.</value>
   </data>
   <data name="Wifi.ActionSelectedNotSupported" xml:space="preserve">
     <value>Bu Wi-Fi ağı bu yapıda desteklenmiyor.</value>
   </data>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
     <value>Wi-Fi işlemi tamamlanamıyor. Tekrar deneyin.</value>
-  </data>
-  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>Kimlik doğrulama</value>
   </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Yapılandırılmış güvenlik</value>
@@ -560,20 +527,11 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
     <value>Görünür Wi-Fi ağları</value>
   </data>
-  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>Wi-Fi adaptör mevcut değil.</value>
-  </data>
-  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>Şu anda hiçbir Wi-Fi bağdaştırıcısı algılanmadı.</value>
-  </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>Şu anda hiçbir Wi-Fi ağı görünmüyor.</value>
   </data>
   <data name="Wifi.PassphraseLabel" xml:space="preserve">
     <value>Wi-Fi şifresi</value>
-  </data>
-  <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>Profil</value>
   </data>
   <data name="Wifi.ProvisionedLocked" xml:space="preserve">
     <value>Sağlanan Wi-Fi, dağıtım parolasıyla korunuyor. Parolayı girmek için Bağlan'ı seçin.</value>
@@ -595,9 +553,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
     <value>Kurumsal Wi-Fi profili önyükleme medyasında eksik. Önyükleme medyasını yeniden oluşturun.</value>
-  </data>
-  <data name="Wifi.ProvisionedUnavailableTitle" xml:space="preserve">
-    <value>Sağlanan Wi-Fi kullanılamıyor</value>
   </data>
   <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
     <value>Dağıtım parolası girilmedi. Parolayı girmek için Bağlan'ı seçin.</value>
@@ -641,9 +596,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Kişisel</value>
   </data>
-  <data name="Wifi.SelectNetworkHint" xml:space="preserve">
-    <value>Bağlanmak için listeden bir ağ seçin.</value>
-  </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Başka bir Wi-Fi ağı etkin</value>
   </data>
@@ -661,9 +613,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
     <value>Wi-Fi şifresini göster veya gizle</value>
-  </data>
-  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>Bu önyükleme ortamında Wi-Fi desteği mevcut değildir.</value>
   </data>
   <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
     <value>Wi-Fi bu cihazda kullanılamıyor.</value>
