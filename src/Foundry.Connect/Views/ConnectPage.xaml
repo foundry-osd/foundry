@@ -4,10 +4,10 @@
     xmlns:controls="clr-namespace:Foundry.Wpf.Controls;assembly=Foundry.Wpf">
     <!--
         One XAML tree in three arrangements, switched by setters only:
-        - two columns: PageRoot at least 1100 x 700 and a two-column session (UsesTwoColumns); no page scroll, the left
+        - two columns: PageRoot at least 1000 x 700 and a two-column session (UsesTwoColumns); no page scroll, the left
         column scrolls on its own and the Wi-Fi list fills the right column;
         - one column wide: same size, one-column session; 980 px, the page scrolls when needed;
-        - narrow: below 1100 x 700; one column, 980 px, page scroll.
+        - narrow: below 1000 x 700; one column, 980 px, page scroll.
         In every arrangement the page area copies Deploy's MainContentHost: a band of at most 900 px, centered in the
         page, with the content at its top. The banner buttons stay at the right of the banner text.
         Document order is the Tab order (banner, Ethernet, provisioned Wi-Fi, Wi-Fi card), so no TabIndex is set.
@@ -27,7 +27,7 @@
                     <MultiDataTrigger>
                         <MultiDataTrigger.Conditions>
                             <Condition
-                                Binding="{Binding ActualWidth, ElementName=PageRoot, Converter={StaticResource WidthAtLeastConverter}, ConverterParameter=1100}"
+                                Binding="{Binding ActualWidth, ElementName=PageRoot, Converter={StaticResource WidthAtLeastConverter}, ConverterParameter=1000}"
                                 Value="True" />
                             <Condition
                                 Binding="{Binding ActualHeight, ElementName=PageRoot, Converter={StaticResource WidthAtLeastConverter}, ConverterParameter=700}"
@@ -89,7 +89,7 @@
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
                                     <Condition
-                                        Binding="{Binding ActualWidth, ElementName=PageRoot, Converter={StaticResource WidthAtLeastConverter}, ConverterParameter=1100}"
+                                        Binding="{Binding ActualWidth, ElementName=PageRoot, Converter={StaticResource WidthAtLeastConverter}, ConverterParameter=1000}"
                                         Value="True" />
                                     <Condition
                                         Binding="{Binding ActualHeight, ElementName=PageRoot, Converter={StaticResource WidthAtLeastConverter}, ConverterParameter=700}"
@@ -244,7 +244,7 @@
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
                                         <Condition
-                                            Binding="{Binding ActualWidth, ElementName=PageRoot, Converter={StaticResource WidthAtLeastConverter}, ConverterParameter=1100}"
+                                            Binding="{Binding ActualWidth, ElementName=PageRoot, Converter={StaticResource WidthAtLeastConverter}, ConverterParameter=1000}"
                                             Value="True" />
                                         <Condition
                                             Binding="{Binding ActualHeight, ElementName=PageRoot, Converter={StaticResource WidthAtLeastConverter}, ConverterParameter=700}"
@@ -297,7 +297,7 @@
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
                                             <Condition
-                                                Binding="{Binding ActualWidth, ElementName=PageRoot, Converter={StaticResource WidthAtLeastConverter}, ConverterParameter=1100}"
+                                                Binding="{Binding ActualWidth, ElementName=PageRoot, Converter={StaticResource WidthAtLeastConverter}, ConverterParameter=1000}"
                                                 Value="True" />
                                             <Condition
                                                 Binding="{Binding ActualHeight, ElementName=PageRoot, Converter={StaticResource WidthAtLeastConverter}, ConverterParameter=700}"
@@ -652,7 +652,7 @@
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
                                             <Condition
-                                                Binding="{Binding ActualWidth, ElementName=PageRoot, Converter={StaticResource WidthAtLeastConverter}, ConverterParameter=1100}"
+                                                Binding="{Binding ActualWidth, ElementName=PageRoot, Converter={StaticResource WidthAtLeastConverter}, ConverterParameter=1000}"
                                                 Value="True" />
                                             <Condition
                                                 Binding="{Binding ActualHeight, ElementName=PageRoot, Converter={StaticResource WidthAtLeastConverter}, ConverterParameter=700}"
@@ -751,7 +751,7 @@
                                             <MultiDataTrigger>
                                                 <MultiDataTrigger.Conditions>
                                                     <Condition
-                                                        Binding="{Binding ActualWidth, ElementName=PageRoot, Converter={StaticResource WidthAtLeastConverter}, ConverterParameter=1100}"
+                                                        Binding="{Binding ActualWidth, ElementName=PageRoot, Converter={StaticResource WidthAtLeastConverter}, ConverterParameter=1000}"
                                                         Value="True" />
                                                     <Condition
                                                         Binding="{Binding ActualHeight, ElementName=PageRoot, Converter={StaticResource WidthAtLeastConverter}, ConverterParameter=700}"
