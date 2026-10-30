@@ -383,6 +383,9 @@
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>استجابت الشبكة بصفحة تسجيل دخول بدلاً من الوصول إلى الإنترنت. سجّل الدخول من جهاز آخر إذا كانت الشبكة تسمح بذلك، أو استخدم شبكة أخرى، ثم حدد إعادة المحاولة.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>استجابت الشبكة بصفحة تسجيل دخول بدلاً من الوصول إلى الإنترنت. سجّل الدخول من جهاز آخر إذا كانت الشبكة تسمح بذلك، ثم حدد إعادة المحاولة.</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>يلزم تسجيل الدخول</value>
   </data>

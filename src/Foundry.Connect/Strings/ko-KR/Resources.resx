@@ -383,6 +383,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>네트워크가 인터넷 연결 대신 로그인 페이지로 응답했습니다. 이 네트워크에서 허용하는 경우 다른 장치에서 로그인하거나 다른 네트워크를 사용한 다음 다시 시도를 선택하세요.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>네트워크가 인터넷 연결 대신 로그인 페이지로 응답했습니다. 이 네트워크에서 허용하는 경우 다른 장치에서 로그인한 다음 다시 시도를 선택하세요.</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>로그인 필요</value>
   </data>

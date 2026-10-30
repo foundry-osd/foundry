@@ -383,6 +383,9 @@
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Мрежата отговори със страница за влизане вместо с достъп до интернет. Влезте от друго устройство, ако мрежата позволява, или използвайте друга мрежа, след което изберете „Повторен опит“.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>Мрежата отговори със страница за влизане вместо с достъп до интернет. Влезте от друго устройство, ако мрежата позволява, след което изберете „Повторен опит“.</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>Изисква се влизане</value>
   </data>

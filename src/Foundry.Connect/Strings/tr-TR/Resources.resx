@@ -383,6 +383,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Ağ, internet erişimi yerine bir oturum açma sayfasıyla yanıt verdi. Bu ağ izin veriyorsa başka bir cihazdan oturum açın veya başka bir ağ kullanın, ardından Yeniden dene'yi seçin.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>Ağ, internet erişimi yerine bir oturum açma sayfasıyla yanıt verdi. Bu ağ izin veriyorsa başka bir cihazdan oturum açın, ardından Yeniden dene'yi seçin.</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>Oturum açılması gerekiyor</value>
   </data>

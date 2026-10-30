@@ -383,6 +383,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Het netwerk antwoordde met een aanmeldpagina in plaats van internettoegang. Meld u aan vanaf een ander apparaat als dit netwerk dat toestaat, of gebruik een ander netwerk, en selecteer daarna Opnieuw proberen.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>Het netwerk antwoordde met een aanmeldpagina in plaats van internettoegang. Meld u aan vanaf een ander apparaat als dit netwerk dat toestaat, en selecteer daarna Opnieuw proberen.</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>Aanmelden vereist</value>
   </data>

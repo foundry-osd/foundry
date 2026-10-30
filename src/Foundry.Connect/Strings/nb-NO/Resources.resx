@@ -383,6 +383,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Nettverket svarte med en påloggingsside i stedet for Internett-tilgang. Logg på fra en annen enhet hvis nettverket tillater det, eller bruk et annet nettverk, og velg deretter Prøv igjen.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>Nettverket svarte med en påloggingsside i stedet for Internett-tilgang. Logg på fra en annen enhet hvis nettverket tillater det, og velg deretter Prøv igjen.</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>Pålogging kreves</value>
   </data>

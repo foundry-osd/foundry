@@ -136,7 +136,7 @@ public static class NetworkTextKeys
     /// <summary>
     /// Gets the banner description key for a blocked page. It offers only what this device can do: without the Wi-Fi
     /// section no text names Wi-Fi, and without an Ethernet adapter no text proposes Ethernet. A missing adapter points
-    /// to the sections that are shown.
+    /// to the sections that are shown, and a sign-in page offers another network only when Wi-Fi is shown and available.
     /// </summary>
     /// <param name="reason">The blocked reason.</param>
     /// <param name="hasEthernetAdapter">Whether an Ethernet adapter is seen.</param>
@@ -152,7 +152,8 @@ public static class NetworkTextKeys
         BlockedReason.NoLink => NoAdapterDescriptionKey(isWifiSectionShown),
         BlockedReason.NoIpAddress => "Status.BlockedNoIpAddressDescription",
         BlockedReason.WiredAuthentication => "Status.BlockedDot1xDescription",
-        BlockedReason.CaptivePortal => "Status.BlockedCaptivePortalDescription",
+        BlockedReason.CaptivePortal when isWifiSectionShown && wifi == WifiAvailability.Available => "Status.BlockedCaptivePortalDescription",
+        BlockedReason.CaptivePortal => "Status.BlockedCaptivePortalSignInDescription",
         _ => "Status.BlockedNoInternetDescription"
     };
 

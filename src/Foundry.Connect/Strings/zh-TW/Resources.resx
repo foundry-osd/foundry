@@ -383,6 +383,9 @@
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>網路傳回登入頁面，而不是網際網路存取。如果此網路允許，請從其他裝置登入，或使用其他網路，然後選取「重試」。</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>網路傳回登入頁面，而不是網際網路存取。如果此網路允許，請從其他裝置登入，然後選取「重試」。</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>需要登入</value>
   </data>

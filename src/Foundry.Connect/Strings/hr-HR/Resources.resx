@@ -383,6 +383,9 @@ Licenciran prema MIT licenci.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Mreža je umjesto pristupa internetu odgovorila stranicom za prijavu. Prijavite se s drugog uređaja ako to mreža dopušta ili upotrijebite drugu mrežu, a zatim odaberite Pokušaj ponovno.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>Mreža je umjesto pristupa internetu odgovorila stranicom za prijavu. Prijavite se s drugog uređaja ako to mreža dopušta, a zatim odaberite Pokušaj ponovno.</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>Potrebna je prijava</value>
   </data>

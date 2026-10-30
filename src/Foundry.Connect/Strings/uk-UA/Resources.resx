@@ -383,6 +383,9 @@
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Мережа відповіла сторінкою входу замість доступу до Інтернету. Увійдіть з іншого пристрою, якщо ця мережа це дозволяє, або скористайтеся іншою мережею, а потім виберіть «Повторити».</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>Мережа відповіла сторінкою входу замість доступу до Інтернету. Увійдіть з іншого пристрою, якщо ця мережа це дозволяє, а потім виберіть «Повторити».</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>Потрібен вхід</value>
   </data>

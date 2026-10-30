@@ -383,6 +383,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Tinklas vietoj interneto prieigos pateikė prisijungimo puslapį. Prisijunkite iš kito įrenginio, jei tinklas tai leidžia, arba naudokite kitą tinklą, tada pasirinkite Bandyti dar kartą.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>Tinklas vietoj interneto prieigos pateikė prisijungimo puslapį. Prisijunkite iš kito įrenginio, jei tinklas tai leidžia, tada pasirinkite Bandyti dar kartą.</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>Reikia prisijungti</value>
   </data>

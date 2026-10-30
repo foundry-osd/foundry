@@ -383,6 +383,9 @@ Licencované podľa licencie MIT.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Sieť namiesto prístupu na internet odpovedala prihlasovacou stránkou. Ak to sieť umožňuje, prihláste sa z iného zariadenia, alebo použite inú sieť a potom vyberte Skúsiť znova.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>Sieť namiesto prístupu na internet odpovedala prihlasovacou stránkou. Ak to sieť umožňuje, prihláste sa z iného zariadenia a potom vyberte Skúsiť znova.</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>Vyžaduje sa prihlásenie</value>
   </data>

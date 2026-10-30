@@ -383,6 +383,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Tīkls interneta piekļuves vietā atbildēja ar pierakstīšanās lapu. Pierakstieties no citas ierīces, ja tīkls to atļauj, vai izmantojiet citu tīklu, pēc tam atlasiet Mēģināt vēlreiz.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>Tīkls interneta piekļuves vietā atbildēja ar pierakstīšanās lapu. Pierakstieties no citas ierīces, ja tīkls to atļauj, pēc tam atlasiet Mēģināt vēlreiz.</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>Nepieciešama pierakstīšanās</value>
   </data>

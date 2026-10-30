@@ -383,6 +383,9 @@ Sous licence MIT.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Le réseau a répondu par une page de connexion au lieu d'un accès Internet. Connectez-vous depuis un autre appareil si ce réseau le permet, ou utilisez un autre réseau, puis sélectionnez Réessayer.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>Le réseau a répondu par une page de connexion au lieu d'un accès Internet. Connectez-vous depuis un autre appareil si ce réseau le permet, puis sélectionnez Réessayer.</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>Connexion requise</value>
   </data>

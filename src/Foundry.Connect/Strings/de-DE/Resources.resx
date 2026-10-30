@@ -383,6 +383,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Das Netzwerk hat mit einer Anmeldeseite statt mit Internetzugang geantwortet. Melden Sie sich auf einem anderen Gerät an, wenn dieses Netzwerk es erlaubt, oder verwenden Sie ein anderes Netzwerk, und wählen Sie dann „Erneut versuchen“.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>Das Netzwerk hat mit einer Anmeldeseite statt mit Internetzugang geantwortet. Melden Sie sich auf einem anderen Gerät an, wenn dieses Netzwerk es erlaubt, und wählen Sie dann „Erneut versuchen“.</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>Anmeldung erforderlich</value>
   </data>

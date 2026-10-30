@@ -68,7 +68,7 @@ public sealed class LocalizationResourceTests
         "Ethernet.Dot1xReasonProfileTemplateMissing", "Ethernet.Dot1xReasonSecretUnavailable", "Ethernet.Dot1xReasonUnlockCancelled",
         "Ethernet.Dot1xUnavailable", "Ethernet.IpAssignmentLabel", "Ethernet.UnavailableOnDevice", "Status.ApplyingProvisioningDescription",
         "Status.AutoContinueCancelled", "Status.AutoContinuePaused", "Status.BlockedCaptivePortalDescription",
-        "Status.BlockedCaptivePortalTitle", "Status.BlockedDot1xDescription", "Status.BlockedDot1xTitle",
+        "Status.BlockedCaptivePortalSignInDescription", "Status.BlockedCaptivePortalTitle", "Status.BlockedDot1xDescription", "Status.BlockedDot1xTitle",
         "Status.BlockedJoinWifiDescription", "Status.BlockedNoAdapterDescription", "Status.BlockedNoAdapterTitle",
         "Status.BlockedNoCableDescription", "Status.BlockedNoCableTitle", "Status.BlockedNoEthernetAdapterDescription",
         "Status.BlockedNoInternetDescription", "Status.BlockedNoIpAddressDescription", "Status.BlockedNoIpAddressTitle",
@@ -147,7 +147,7 @@ public sealed class LocalizationResourceTests
         {
             "Ethernet.Dot1xReasonUnlockCancelled", "Ethernet.UnavailableOnDevice", "Status.BlockedNoEthernetAdapterDescription", "Status.BlockedNoCableDescription",
             "Status.BlockedNoAdapterTitle", "Status.BlockedNoCableTitle", "Status.BlockedNoLinkTitle", "Status.BlockedDot1xTitle", "Status.BlockedNoIpAddressTitle",
-            "Status.BlockedCaptivePortalTitle", "Status.BlockedTitle"
+            "Status.BlockedCaptivePortalSignInDescription", "Status.BlockedCaptivePortalTitle", "Status.BlockedTitle"
         })
         {
             Assert.DoesNotContain("Wi-Fi", resourceSet.GetString(key), StringComparison.Ordinal);

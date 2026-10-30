@@ -383,6 +383,9 @@
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>网络返回了登录页面，而不是互联网访问。如果此网络允许，请从其他设备登录，或使用其他网络，然后选择“重试”。</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>网络返回了登录页面，而不是互联网访问。如果此网络允许，请从其他设备登录，然后选择“重试”。</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>需要登录</value>
   </data>

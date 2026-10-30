@@ -383,6 +383,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Verkko vastasi kirjautumissivulla internet-yhteyden sijaan. Kirjaudu toisella laitteella, jos verkko sallii sen, tai käytä toista verkkoa ja valitse sitten Yritä uudelleen.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>Verkko vastasi kirjautumissivulla internet-yhteyden sijaan. Kirjaudu toisella laitteella, jos verkko sallii sen, ja valitse sitten Yritä uudelleen.</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>Kirjautuminen vaaditaan</value>
   </data>

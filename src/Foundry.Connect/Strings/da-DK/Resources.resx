@@ -383,6 +383,9 @@ Licenseret under MIT-licensen.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Netværket svarede med en loginside i stedet for internetadgang. Log på fra en anden enhed, hvis netværket tillader det, eller brug et andet netværk, og vælg derefter Prøv igen.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>Netværket svarede med en loginside i stedet for internetadgang. Log på fra en anden enhed, hvis netværket tillader det, og vælg derefter Prøv igen.</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>Logon påkrævet</value>
   </data>

@@ -383,6 +383,9 @@
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>הרשת השיבה בדף כניסה במקום בגישה לאינטרנט. היכנס ממכשיר אחר אם הרשת מאפשרת זאת, או השתמש ברשת אחרת, ולאחר מכן בחר נסה שוב.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>הרשת השיבה בדף כניסה במקום בגישה לאינטרנט. היכנס ממכשיר אחר אם הרשת מאפשרת זאת, ולאחר מכן בחר נסה שוב.</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>נדרשת כניסה</value>
   </data>

@@ -383,6 +383,9 @@ Licencjonowany na licencji MIT.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Sieć odpowiedziała stroną logowania zamiast dostępu do Internetu. Zaloguj się z innego urządzenia, jeśli sieć na to pozwala, lub użyj innej sieci, a następnie wybierz Ponów próbę.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>Sieć odpowiedziała stroną logowania zamiast dostępu do Internetu. Zaloguj się z innego urządzenia, jeśli sieć na to pozwala, a następnie wybierz Ponów próbę.</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>Wymagane logowanie</value>
   </data>

@@ -383,6 +383,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Võrk vastas interneti-juurdepääsu asemel sisselogimislehega. Logige sisse teisest seadmest, kui võrk seda lubab, või kasutage teist võrku ja valige seejärel Proovi uuesti.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>Võrk vastas interneti-juurdepääsu asemel sisselogimislehega. Logige sisse teisest seadmest, kui võrk seda lubab, ja valige seejärel Proovi uuesti.</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>Nõutav on sisselogimine</value>
   </data>

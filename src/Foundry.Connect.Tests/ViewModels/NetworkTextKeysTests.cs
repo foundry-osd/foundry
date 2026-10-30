@@ -150,7 +150,11 @@ public sealed class NetworkTextKeysTests
     [InlineData(BlockedReason.NoLink, false, WifiAvailability.Available, true, "Status.BlockedJoinWifiDescription")]
     [InlineData(BlockedReason.WiredAuthentication, true, WifiAvailability.Disabled, false, "Status.BlockedDot1xDescription")]
     [InlineData(BlockedReason.NoIpAddress, true, WifiAvailability.Available, true, "Status.BlockedNoIpAddressDescription")]
-    [InlineData(BlockedReason.CaptivePortal, true, WifiAvailability.Disabled, false, "Status.BlockedCaptivePortalDescription")]
+    [InlineData(BlockedReason.CaptivePortal, true, WifiAvailability.Available, true, "Status.BlockedCaptivePortalDescription")]
+    [InlineData(BlockedReason.CaptivePortal, true, WifiAvailability.Available, false, "Status.BlockedCaptivePortalSignInDescription")]
+    [InlineData(BlockedReason.CaptivePortal, true, WifiAvailability.Disabled, false, "Status.BlockedCaptivePortalSignInDescription")]
+    [InlineData(BlockedReason.CaptivePortal, true, WifiAvailability.NoAdapter, true, "Status.BlockedCaptivePortalSignInDescription")]
+    [InlineData(BlockedReason.CaptivePortal, true, WifiAvailability.RuntimeMissing, true, "Status.BlockedCaptivePortalSignInDescription")]
     [InlineData(BlockedReason.NoInternet, false, WifiAvailability.Available, true, "Status.BlockedNoInternetDescription")]
     public void BlockedDescriptionKey_OffersOnlyWhatThisDeviceCanDo(BlockedReason reason, bool hasEthernetAdapter, WifiAvailability wifi, bool isWifiSectionShown, string expected)
     {

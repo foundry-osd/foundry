@@ -383,6 +383,9 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>La rete ha risposto con una pagina di accesso invece che con l'accesso a Internet. Accedi da un altro dispositivo se la rete lo consente, oppure usa un'altra rete, quindi seleziona Riprova.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>La rete ha risposto con una pagina di accesso invece che con l'accesso a Internet. Accedi da un altro dispositivo se la rete lo consente, quindi seleziona Riprova.</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>Accesso richiesto</value>
   </data>

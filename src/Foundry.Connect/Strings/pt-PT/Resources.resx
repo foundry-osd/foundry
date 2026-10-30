@@ -383,6 +383,9 @@ Licenciado sob a licença MIT.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>A rede respondeu com uma página de início de sessão em vez de acesso à Internet. Inicie sessão a partir de outro dispositivo se esta rede o permitir, ou utilize outra rede e, em seguida, selecione Tentar novamente.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>A rede respondeu com uma página de início de sessão em vez de acesso à Internet. Inicie sessão a partir de outro dispositivo se esta rede o permitir e, em seguida, selecione Tentar novamente.</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>Início de sessão necessário</value>
   </data>

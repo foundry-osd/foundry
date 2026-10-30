@@ -383,6 +383,9 @@
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>เครือข่ายตอบกลับด้วยหน้าลงชื่อเข้าใช้แทนการเข้าถึงอินเทอร์เน็ต ลงชื่อเข้าใช้จากอุปกรณ์อื่นหากเครือข่ายนี้อนุญาต หรือใช้เครือข่ายอื่น แล้วเลือก ลองอีกครั้ง</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>เครือข่ายตอบกลับด้วยหน้าลงชื่อเข้าใช้แทนการเข้าถึงอินเทอร์เน็ต ลงชื่อเข้าใช้จากอุปกรณ์อื่นหากเครือข่ายนี้อนุญาต แล้วเลือก ลองอีกครั้ง</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>ต้องลงชื่อเข้าใช้</value>
   </data>

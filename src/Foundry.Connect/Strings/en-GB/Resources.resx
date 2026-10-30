@@ -383,6 +383,9 @@ Licensed under the MIT License.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>The network answered with a sign-in page instead of internet access. Sign in from another device if this network allows it, or use another network, then select Retry.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>The network answered with a sign-in page instead of internet access. Sign in from another device if this network allows it, then select Retry.</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>Sign-in required</value>
   </data>

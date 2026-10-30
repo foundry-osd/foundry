@@ -383,6 +383,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>A hálózat internet-hozzáférés helyett bejelentkezési oldallal válaszolt. Jelentkezzen be egy másik eszközről, ha a hálózat engedi, vagy használjon másik hálózatot, majd válassza az Újrapróbálkozás lehetőséget.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>A hálózat internet-hozzáférés helyett bejelentkezési oldallal válaszolt. Jelentkezzen be egy másik eszközről, ha a hálózat engedi, majd válassza az Újrapróbálkozás lehetőséget.</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>Bejelentkezés szükséges</value>
   </data>

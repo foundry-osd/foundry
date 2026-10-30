@@ -383,6 +383,9 @@ Licencirano pod licenco MIT.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Omrežje se je namesto z dostopom do interneta odzvalo s stranjo za prijavo. Prijavite se z druge naprave, če omrežje to dovoljuje, ali uporabite drugo omrežje in nato izberite Poskusi znova.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>Omrežje se je namesto z dostopom do interneta odzvalo s stranjo za prijavo. Prijavite se z druge naprave, če omrežje to dovoljuje, in nato izberite Poskusi znova.</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>Potrebna je prijava</value>
   </data>

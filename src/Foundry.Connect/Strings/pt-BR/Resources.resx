@@ -383,6 +383,9 @@ Licenciado sob a licença MIT.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>A rede respondeu com uma página de entrada em vez de acesso à Internet. Entre por outro dispositivo se esta rede permitir, ou use outra rede e selecione Tentar novamente.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>A rede respondeu com uma página de entrada em vez de acesso à Internet. Entre por outro dispositivo se esta rede permitir e selecione Tentar novamente.</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>Entrada necessária</value>
   </data>

@@ -383,6 +383,9 @@ Licensierad under MIT-licensen.</value>
   <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
     <value>Nätverket svarade med en inloggningssida i stället för internetåtkomst. Logga in från en annan enhet om nätverket tillåter det, eller använd ett annat nätverk, och välj sedan Försök igen.</value>
   </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>Nätverket svarade med en inloggningssida i stället för internetåtkomst. Logga in från en annan enhet om nätverket tillåter det, och välj sedan Försök igen.</value>
+  </data>
   <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
     <value>Inloggning krävs</value>
   </data>
