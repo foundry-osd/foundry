@@ -115,10 +115,26 @@ public sealed class LegacyFilePathMigrationTests : IDisposable
         AuthoringFileReference profile = Assert.IsType<AuthoringFileReference>(migrated.Network.Dot1x.ProfileTemplate);
         Assert.Equal("wired.xml", profile.FileName);
         Assert.Equal("<LANProfile />"u8.ToArray(), library.ReadVerified(profile));
-        Assert.Equal("wired.pfx", migrated.Network.Dot1x.Certificate?.FileName);
+        Assert.Equal("wired.pfx", migrated.Network.Dot1x.ClientCertificate?.FileName);
         Assert.Equal("autopilot.pfx", migrated.Autopilot.HardwareHashUpload.BootMediaCertificate.Pfx?.FileName);
         Assert.Null(migrated.Network.Wifi.EnterpriseProfileTemplate);
-        Assert.Null(migrated.Network.Wifi.Certificate);
+        Assert.False(NetworkCertificateShapes.HasCertificates(migrated.Network.Wifi));
+    }
+
+    [Fact]
+    public void Apply_CertificatePathThatIsNotAPfx_BecomesTheSingleTrustedRoot()
+    {
+        var library = new AuthoringFileLibrary(Path.Combine(temp.Path, "library"));
+        string wiredRoot = CreateSource("wired.cer", "wired-root");
+        string wifiRoot = CreateSource("wifi.crt", "wifi-root");
+        var paths = new LegacyFilePaths(null, wiredRoot, null, wifiRoot, null, new Dictionary<string, string>());
+
+        FoundryConfigurationDocument migrated = FoundryConfigurationMigration.ApplyLegacyFilePaths(new FoundryConfigurationDocument(), paths, ImportExisting(library));
+
+        Assert.Null(migrated.Network.Dot1x.ClientCertificate);
+        Assert.Equal("wired.cer", Assert.Single(migrated.Network.Dot1x.TrustedRootCertificates).FileName);
+        Assert.Null(migrated.Network.Wifi.ClientCertificate);
+        Assert.Equal("wifi.crt", Assert.Single(migrated.Network.Wifi.TrustedRootCertificates).FileName);
     }
 
     [Fact]
@@ -132,7 +148,7 @@ public sealed class LegacyFilePathMigrationTests : IDisposable
 
         Assert.Null(migrated.Network.Dot1x.ProfileTemplate);
         Assert.Null(migrated.Network.Wifi.EnterpriseProfileTemplate);
-        Assert.Null(migrated.Network.Wifi.Certificate);
+        Assert.False(NetworkCertificateShapes.HasCertificates(migrated.Network.Wifi));
         Assert.Null(migrated.Autopilot.HardwareHashUpload.BootMediaCertificate.Pfx);
         Assert.False(Directory.Exists(Path.Combine(temp.Path, "library", "content")));
     }

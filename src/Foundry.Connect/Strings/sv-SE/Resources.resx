@@ -34,6 +34,12 @@ Licensierad under MIT-licensen.</value>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Koppla från</value>
   </data>
+  <data name="Action.Retry" xml:space="preserve">
+    <value>Försök igen</value>
+  </data>
+  <data name="Action.StayHere" xml:space="preserve">
+    <value>Stanna kvar</value>
+  </data>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
@@ -58,23 +64,8 @@ Licensierad under MIT-licensen.</value>
   <data name="Common.Close" xml:space="preserve">
     <value>Stäng</value>
   </data>
-  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
-    <value>Konfiguration: inbyggda standardinställningar</value>
-  </data>
-  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
-    <value>Konfiguration: {0}</value>
-  </data>
   <data name="Common.Connected" xml:space="preserve">
     <value>Ansluten</value>
-  </data>
-  <data name="Common.LastUpdateFormat" xml:space="preserve">
-    <value>Senast uppdaterad: {0:HH:mm:ss}</value>
-  </data>
-  <data name="Common.LastUpdatePending" xml:space="preserve">
-    <value>Senast uppdaterad: väntar</value>
-  </data>
-  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
-    <value>Uppdateras varje {0} sekund</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Ej tillgänglig</value>
@@ -82,14 +73,65 @@ Licensierad under MIT-licensen.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Version: {0}</value>
   </data>
-  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
-    <value>Visa endast Ethernet</value>
+  <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
+    <value>Ethernet: självtilldelad adress</value>
   </data>
-  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
-    <value>Visa Ethernet + Wi-Fi</value>
+  <data name="Debug.Scenario.CaptivePortal" xml:space="preserve">
+    <value>Ethernet: inloggningssida</value>
   </data>
-  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
-    <value>Använd upptäckt layout</value>
+  <data name="Debug.Scenario.Checking" xml:space="preserve">
+    <value>Kontrollerar nätverket</value>
+  </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet: 802.1X-autentisering pågår</value>
+  </data>
+  <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
+    <value>Ethernet: 802.1X misslyckades</value>
+  </data>
+  <data name="Debug.Scenario.EthernetNoInternet" xml:space="preserve">
+    <value>Ethernet: inget internet</value>
+  </data>
+  <data name="Debug.Scenario.EthernetReady" xml:space="preserve">
+    <value>Ethernet: klart</value>
+  </data>
+  <data name="Debug.Scenario.Live" xml:space="preserve">
+    <value>Verkligt nätverk</value>
+  </data>
+  <data name="Debug.Scenario.NoAdapter" xml:space="preserve">
+    <value>Ingen nätverksadapter</value>
+  </data>
+  <data name="Debug.Scenario.NoLink" xml:space="preserve">
+    <value>Ethernet: ingen kabel</value>
+  </data>
+  <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
+    <value>Ingen Wi-Fi-adapter</value>
+  </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>Tillhandahållet Wi-Fi: lösenord krävs</value>
+  </data>
+  <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
+    <value>Tillhandahållet Wi-Fi är inte tillgängligt</value>
+  </data>
+  <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
+    <value>Ethernet: väntar på en adress</value>
+  </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>Tillhandahållet Wi-Fi: ansluter</value>
+  </data>
+  <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
+    <value>Wi-Fi-nätverk</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>Ingen Ethernet-adapter, Wi-Fi-nätverk</value>
+  </data>
+  <data name="Debug.Scenario.WifiReady" xml:space="preserve">
+    <value>Wi-Fi: klart</value>
+  </data>
+  <data name="Debug.Scenario.WifiRuntimeMissing" xml:space="preserve">
+    <value>Wi-Fi-stöd saknas</value>
+  </data>
+  <data name="Debug.Scenarios" xml:space="preserve">
+    <value>Scenarier</value>
   </data>
   <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
     <value>Välj var Foundry-diagnostik ska exporteras</value>
@@ -125,14 +167,50 @@ Licensierad under MIT-licensen.</value>
   <data name="Ethernet.AdapterLabel" xml:space="preserve">
     <value>Adapter</value>
   </data>
-  <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>Kontrollera kabelanslutningen</value>
+  <data name="Ethernet.ApipaAddress" xml:space="preserve">
+    <value>Självtilldelad adress</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>DHCP-lån upptäcktes</value>
   </data>
+  <data name="Ethernet.Dot1xAuthenticated" xml:space="preserve">
+    <value>Autentiserad</value>
+  </data>
+  <data name="Ethernet.Dot1xAuthenticating" xml:space="preserve">
+    <value>Autentiserar</value>
+  </data>
+  <data name="Ethernet.Dot1xFailed" xml:space="preserve">
+    <value>Autentiseringen misslyckades</value>
+  </data>
+  <data name="Ethernet.Dot1xLabel" xml:space="preserve">
+    <value>802.1X</value>
+  </data>
+  <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
+    <value>Profilen har tillämpats</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
+    <value>Nätverket avvisade autentiseringen. Kontrollera certifikatet och inställningarna för switchporten.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileImportFailed" xml:space="preserve">
+    <value>Windows avvisade 802.1X-profilen från startmediet.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileTemplateMissing" xml:space="preserve">
+    <value>802.1X-profilen saknas på startmediet. Skapa startmediet på nytt.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
+    <value>Lösenordet för 802.1X-certifikatet kan inte läsas. Skapa startmediet på nytt.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>Distributionslösenordet angavs inte, så 802.1X-inställningarna tillämpades inte.</value>
+  </data>
+  <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
+    <value>Ej tillgänglig</value>
+  </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Gateway</value>
+  </data>
+  <data name="Ethernet.IpAssignmentLabel" xml:space="preserve">
+    <value>IP-tilldelning</value>
   </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
@@ -140,20 +218,17 @@ Licensierad under MIT-licensen.</value>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
     <value>Ingen aktiv länk</value>
   </data>
-  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>Ingen Ethernet-adapter upptäckt.</value>
-  </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>Statisk nätverkskonfiguration upptäcktes</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>Ethernet är inte tillgängligt på den här enheten.</value>
+  </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Väntar på nätverkskonfiguration</value>
-  </data>
-  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>Väntar på DHCP eller statisk nätverkskonfiguration</value>
   </data>
   <data name="Keyboard.OtherLanguages" xml:space="preserve">
     <value>Andra språk</value>
@@ -273,43 +348,106 @@ Licensierad under MIT-licensen.</value>
     <value>Ukrainska (Ukraina)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>Om</value>
+    <value>_Om</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>Felsök</value>
+    <value>_Felsök</value>
   </data>
   <data name="Menu.Keyboard" xml:space="preserve">
-    <value>Tangentbord</value>
+    <value>T_angentbord</value>
   </data>
   <data name="Menu.KeyboardFormat" xml:space="preserve">
-    <value>Tangentbord ({0})</value>
+    <value>T_angentbord ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
-    <value>Språk</value>
+    <value>_Språk</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>Tema</value>
+    <value>_Tema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
-    <value>Verktyg</value>
+    <value>_Verktyg</value>
+  </data>
+  <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
+    <value>Nätverksinställningarna från startmediet tillämpas.</value>
+  </data>
+  <data name="Status.AutoContinueCancelled" xml:space="preserve">
+    <value>Automatisk fortsättning är avstängd. Välj Fortsätt när du är redo.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Fortsätter automatiskt i {0}s</value>
   </data>
-  <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>Internetåtkomst har validerats. Du kan fortsätta nu.</value>
+  <data name="Status.AutoContinuePaused" xml:space="preserve">
+    <value>Automatisk fortsättning har pausats eftersom du ändrade nätverksinställningarna.</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
+    <value>Nätverket svarade med en inloggningssida i stället för internetåtkomst. Logga in från en annan enhet om nätverket tillåter det, eller använd ett annat nätverk, och välj sedan Försök igen.</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>Nätverket svarade med en inloggningssida i stället för internetåtkomst. Logga in från en annan enhet om nätverket tillåter det, och välj sedan Försök igen.</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Inloggning krävs</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>Orsaken visas i avsnittet Ethernet.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>Den trådbundna 802.1X-autentiseringen lyckades inte</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>Anslut till ett Wi-Fi-nätverk.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
+    <value>Kontrollera avsnitten Ethernet och Wi-Fi och välj sedan Försök igen.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Ingen nätverksadapter</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>Anslut en Ethernet-kabel.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Ingen Ethernet-kabel</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>Kontrollera avsnittet Ethernet och välj sedan Försök igen.</value>
+  </data>
+  <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
+    <value>Nätverket är anslutet men når inte internet. Kontrollera brandväggen eller proxyn och välj sedan Försök igen.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
+    <value>Kontrollera DHCP i det här nätverket och välj sedan Försök igen.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>Ingen IP-adress</value>
+  </data>
+  <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
+    <value>Anslut en Ethernet-kabel eller anslut till ett Wi-Fi-nätverk.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Ingen nätverksanslutning</value>
+  </data>
+  <data name="Status.BlockedTitle" xml:space="preserve">
+    <value>Ingen internetåtkomst</value>
+  </data>
+  <data name="Status.CheckingTitle" xml:space="preserve">
+    <value>Kontrollerar nätverket</value>
+  </data>
+  <data name="Status.ConnectingDescription" xml:space="preserve">
+    <value>En nätverksåtgärd pågår. Det kan ta upp till 20 sekunder.</value>
+  </data>
+  <data name="Status.ConnectingTitle" xml:space="preserve">
+    <value>Ansluter</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>Kopplar från</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>Trådbunden 802.1X-autentisering pågår.</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Nätverk redo</value>
-  </data>
-  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
-    <value>Det gick inte att uppdatera nätverket</value>
-  </data>
-  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
-    <value>Internetåtkomst har inte validerats ännu.</value>
-  </data>
-  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
-    <value>Väntar på nätverk</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>Mörkt</value>
@@ -326,14 +464,44 @@ Licensierad under MIT-licensen.</value>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Uppdatera status</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>Fortsätt</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>Ange distributionslösenordet för att fortsätta.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>Lösenord krävs</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>Lösenordet är felaktigt. Försök igen.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>Distributionslösenord</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>Skyddade nätverksinställningar</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>Visa eller dölj lösenordet</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>Det gick inte att tillämpa de tillhandahållna nätverksinställningarna.</value>
   </data>
   <data name="Wifi.ActionConnectFailed" xml:space="preserve">
     <value>Det går inte att ansluta. Kontrollera lösenordet eller nätverksinställningarna och försök igen.</value>
   </data>
+  <data name="Wifi.ActionConnectTimedOut" xml:space="preserve">
+    <value>Tidsgränsen för anslutningsförsöket överskreds. Flytta närmare åtkomstpunkten och försök igen.</value>
+  </data>
   <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
     <value>Det går inte att koppla från. Försök igen.</value>
+  </data>
+  <data name="Wifi.ActionInvalidPassphrase" xml:space="preserve">
+    <value>Lösenordet uppfyller inte kraven för det här nätverket.</value>
+  </data>
+  <data name="Wifi.ActionNetworkNotVisible" xml:space="preserve">
+    <value>Det här nätverket är inte längre synligt. Uppdatera listan och försök igen.</value>
   </data>
   <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
     <value>Det går inte att ansluta den tillhandahållna Wi-Fi-profilen. Försök igen.</value>
@@ -350,14 +518,14 @@ Licensierad under MIT-licensen.</value>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
     <value>Det gick inte att slutföra Wi-Fi-åtgärden. Försök igen.</value>
   </data>
-  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>Autentisering</value>
-  </data>
-  <data name="Wifi.BootImageSettings" xml:space="preserve">
-    <value>Inställningar för startbild</value>
-  </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Konfigurerad säkerhet</value>
+  </data>
+  <data name="Wifi.ConnectProvisionedAutomationName" xml:space="preserve">
+    <value>Anslut det tillhandahållna Wi-Fi-nätverket</value>
+  </data>
+  <data name="Wifi.ConnectSelectedAutomationFormat" xml:space="preserve">
+    <value>Anslut till {0}</value>
   </data>
   <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
     <value>Ethernet</value>
@@ -368,26 +536,29 @@ Licensierad under MIT-licensen.</value>
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
     <value>Tillhandahållet Wi-Fi · {0}</value>
   </data>
-  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
-    <value>Företagsprofil</value>
+  <data name="Wifi.DisconnectProvisionedAutomationName" xml:space="preserve">
+    <value>Koppla från det tillhandahållna Wi-Fi-nätverket</value>
   </data>
-  <data name="Wifi.HiddenNetwork" xml:space="preserve">
-    <value>Dolt nätverk</value>
+  <data name="Wifi.DisconnectSelectedAutomationFormat" xml:space="preserve">
+    <value>Koppla från {0}</value>
   </data>
-  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>Ingen Wi-Fi-adapter är tillgänglig.</value>
+  <data name="Wifi.NetworkAutomationFormat" xml:space="preserve">
+    <value>{0}, {1}, signal {2} procent</value>
   </data>
-  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>Ingen Wi-Fi-adapter har upptäckts för närvarande.</value>
+  <data name="Wifi.NetworkConnectedAutomationFormat" xml:space="preserve">
+    <value>{0}, {1}, signal {2} procent, ansluten</value>
+  </data>
+  <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
+    <value>Synliga Wi-Fi-nätverk</value>
   </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>Inga Wi-Fi-nätverk är för närvarande synliga.</value>
   </data>
-  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
-    <value>Ingen tillhandahållen Wi-Fi-profil är tillgänglig i den här startbilden.</value>
+  <data name="Wifi.PassphraseLabel" xml:space="preserve">
+    <value>Wi-Fi-lösenord</value>
   </data>
-  <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>Profil</value>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>Det tillhandahållna Wi-Fi-nätverket skyddas av distributionslösenordet. Välj Anslut för att ange det.</value>
   </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>Detta nätverk kräver en tillhandahållen Wi-Fi-profil.</value>
@@ -395,23 +566,32 @@ Licensierad under MIT-licensen.</value>
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
     <value>Tillhandahållet Wi-Fi</value>
   </data>
+  <data name="Wifi.ProvisionedUnavailableConfiguration" xml:space="preserve">
+    <value>De tillhandahållna Wi-Fi-inställningarna är ogiltiga. Skapa startmediet på nytt.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailablePassphrase" xml:space="preserve">
+    <value>Det tillhandahållna Wi-Fi-lösenordet uppfyller inte nätverkets krav. Skapa startmediet på nytt.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
+    <value>Det tillhandahållna Wi-Fi-lösenordet kan inte läsas från det här startmediet. Skapa startmediet på nytt.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
+    <value>Företagets Wi-Fi-profil saknas på startmediet. Skapa startmediet på nytt.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>Distributionslösenordet angavs inte. Välj Anslut för att ange det.</value>
+  </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Uppdatera Wi-Fi nätverk</value>
   </data>
   <data name="Wifi.SecurityEnterprise" xml:space="preserve">
     <value>Företag</value>
   </data>
-  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
-    <value>{0} (maskin)</value>
-  </data>
-  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
-    <value>{0} (maskin eller användare)</value>
-  </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
     <value>Öppen</value>
   </data>
-  <data name="Wifi.SecurityPersonal" xml:space="preserve">
-    <value>Personligt</value>
+  <data name="Wifi.SecurityOwe" xml:space="preserve">
+    <value>Öppen (förbättrad)</value>
   </data>
   <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
     <value>Leverantörsspecifik</value>
@@ -425,17 +605,11 @@ Licensierad under MIT-licensen.</value>
   <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
     <value>WPA2 Personlig</value>
   </data>
-  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
-    <value>WPA2/WPA3 Enterprise</value>
-  </data>
   <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
     <value>WPA2/WPA3 Personal</value>
   </data>
   <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
     <value>WPA3 Enterprise</value>
-  </data>
-  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
-    <value>WPA3 Enterprise 192-bitars</value>
   </data>
   <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
     <value>WPA3 Personlig</value>
@@ -443,26 +617,20 @@ Licensierad under MIT-licensen.</value>
   <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
     <value>WPA Enterprise</value>
   </data>
-  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
-    <value>WPA Inga</value>
-  </data>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Personligt</value>
-  </data>
-  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
-    <value>{0} · Certifikat ingår i startbilden</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Ett annat Wi-Fi nätverk är aktivt</value>
   </data>
-  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
-    <value>Ingen Wi-Fi-adapter tillgänglig</value>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>Lösenord krävs</value>
+  </data>
+  <data name="Wifi.StatusNotInRange" xml:space="preserve">
+    <value>Utom räckhåll</value>
   </data>
   <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
     <value>Klar att ansluta</value>
-  </data>
-  <data name="Wifi.StatusUnavailable" xml:space="preserve">
-    <value>Wi-Fi ej tillgänglig</value>
   </data>
   <data name="Wifi.Title" xml:space="preserve">
     <value>Wi-Fi</value>
@@ -470,8 +638,8 @@ Licensierad under MIT-licensen.</value>
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
     <value>Visa eller dölj Wi-Fi lösenord</value>
   </data>
-  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>Wi-Fi support är inte tillgängligt i den här startmiljön.</value>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>Wi-Fi är inte tillgängligt på den här enheten.</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>Namnlös tillhandahållen profil</value>

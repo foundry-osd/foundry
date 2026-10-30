@@ -312,7 +312,7 @@ Akcia: Overte atribúty disku a zopakujte nasadenie.</value>
     <value>Pokračovať</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>Ak chcete pokračovať, zadajte heslo technika.</value>
+    <value>Ak chcete pokračovať, zadajte heslo nasadenia.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>Vyžaduje sa heslo</value>

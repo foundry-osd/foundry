@@ -2215,12 +2215,6 @@
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
     <value>共用的網域加入帳戶</value>
   </data>
-  <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>受信任的根 CA 憑證檔案</value>
-  </data>
-  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>選取 802.1X 憑證</value>
-  </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>啟用 Ethernet 802.1X 設定</value>
   </data>
@@ -2246,7 +2240,7 @@
     <value>確認密碼</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>部署前要求輸入技術人員密碼。內嵌的網路認證在沒有此密碼的情況下仍可存取。</value>
+    <value>部署前要求輸入技術人員密碼。當媒體佈建網路秘密（例如 Wi-Fi 密碼或用戶端憑證）時，必須啟用密碼保護。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>密碼保護</value>
@@ -2255,7 +2249,7 @@
     <value>密碼</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>請妥善保管此密碼。它用於保護本機 Windows 帳戶密碼、網域加入認證、Autopilot 認證和設定檔，以及自訂回應檔案。</value>
+    <value>請妥善保管此密碼。它用於保護本機 Windows 帳戶密碼、網域加入認證、Autopilot 認證和設定檔、自訂回應檔案，以及網路秘密：個人 Wi-Fi 密碼、用戶端憑證及其密碼，以及包含金鑰資料的企業 Wi-Fi 設定檔。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>部署密碼</value>
@@ -2710,8 +2704,23 @@
   <data name="NavigationStatus.NotConfigured" xml:space="preserve">
     <value>未設定</value>
   </data>
+  <data name="Network.AddTrustedRootCertificate" xml:space="preserve">
+    <value>新增憑證</value>
+  </data>
+  <data name="Network.ClientCertificateDescription" xml:space="preserve">
+    <value>含有私密金鑰、用於驗證此裝置的憑證 (EAP-TLS)。</value>
+  </data>
+  <data name="Network.ClientCertificateLabel" xml:space="preserve">
+    <value>用戶端憑證 (PFX)</value>
+  </data>
+  <data name="Network.ClientCertificatePickerTitle" xml:space="preserve">
+    <value>選取用戶端憑證</value>
+  </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>在此組建中，企業行為由設定檔範本決定。部署期間輸入的 802.1X 認證不會在此佈建。</value>
+  </data>
+  <data name="Network.ErrorMediaProtectionRequired" xml:space="preserve">
+    <value>Wi-Fi 密碼和用戶端憑證受部署密碼保護。請在「一般」頁面啟用密碼保護，並設定部署密碼。</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
     <value>不支援的 Wi-Fi 安全性類型「{0}」。</value>
@@ -2723,10 +2732,10 @@
     <value>企業 Wi-Fi 設定檔範本必須包含支援的企業驗證值。</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>找不到企業 Wi-Fi 受信任的根 CA 憑證檔案。</value>
+    <value>找不到企業 Wi-Fi 憑證檔案。請重新選取。</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>啟用憑證信任時，企業 Wi-Fi 需要受信任的根 CA 憑證檔案。</value>
+    <value>使用憑證時，企業 Wi-Fi 需要用戶端憑證或受信任的根 CA 憑證。</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
     <value>找不到企業 Wi-Fi 設定檔範本檔案。</value>
@@ -2744,10 +2753,10 @@
     <value>Wi-Fi 設定需要 SSID。</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>找不到有線 802.1X 受信任根 CA 憑證檔案。</value>
+    <value>找不到有線 802.1X 憑證檔案。請重新選取。</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>啟用憑證信任時，有線 802.1X 需要受信任的根 CA 憑證檔案。</value>
+    <value>使用憑證時，有線 802.1X 需要用戶端憑證或受信任的根 CA 憑證。</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
     <value>找不到有線 802.1X 設定檔範本檔案。</value>
@@ -2755,14 +2764,26 @@
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
     <value>有線 802.1X 需要有線設定檔範本。</value>
   </data>
+  <data name="Network.NoTrustedRootCertificates" xml:space="preserve">
+    <value>尚未新增受信任的根 CA 憑證。</value>
+  </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
     <value>設定檔範本檔案</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
     <value>選取網路設定檔範本</value>
   </data>
+  <data name="Network.RemoveCertificate" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>移除用戶端憑證</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>移除選取的受信任的根 CA 憑證</value>
+  </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>匯入受信任的根 CA 憑證</value>
+    <value>使用憑證</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>將已設定的 PFX 用戶端憑證複製到 Windows，並在 OOBE 前匯入 LocalMachine 個人憑證存放區。</value>
@@ -2772,6 +2793,15 @@
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>將網路設定檔漫遊至 Windows</value>
+  </data>
+  <data name="Network.TrustedRootCertificatePickerTitle" xml:space="preserve">
+    <value>選取受信任的根 CA 憑證</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesDescription" xml:space="preserve">
+    <value>簽發驗證伺服器憑證之機構的公開憑證。</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesLabel" xml:space="preserve">
+    <value>受信任的根 CA 憑證</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>進階企業 Wi-Fi</value>
@@ -2783,7 +2813,7 @@
     <value>Foundry 會將複雜密碼記在這部電腦上的本機加密保存庫中。只有在選擇「包含密碼」的匯出或發佈中，它才會離開這部電腦。</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>在 OOBE 前將 Foundry 管理的 Wi-Fi 設定檔匯入 Windows，以在 WinPE 後維持部署連線。</value>
+    <value>啟用此選項後，在 Foundry Connect 中成功連線的每個 Wi-Fi 網路 (無論是預先佈建或手動連線) 都會在 OOBE 前匯入 Windows，並優先匯入提供網際網路存取的網路，以在 WinPE 後維持連線。</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows 設定檔漫遊</value>
@@ -5072,12 +5102,6 @@
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>更新</value>
-  </data>
-  <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>受信任的根 CA 憑證檔案</value>
-  </data>
-  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>選取 Wi-Fi 憑證</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>預先佈建 Wi-Fi 設定檔</value>

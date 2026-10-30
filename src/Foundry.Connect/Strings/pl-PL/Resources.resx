@@ -34,6 +34,12 @@ Licencjonowany na licencji MIT.</value>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Rozłącz</value>
   </data>
+  <data name="Action.Retry" xml:space="preserve">
+    <value>Ponów próbę</value>
+  </data>
+  <data name="Action.StayHere" xml:space="preserve">
+    <value>Zostań tutaj</value>
+  </data>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
@@ -58,23 +64,8 @@ Licencjonowany na licencji MIT.</value>
   <data name="Common.Close" xml:space="preserve">
     <value>Zamknij</value>
   </data>
-  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
-    <value>Konfiguracja: wbudowane ustawienia domyślne</value>
-  </data>
-  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
-    <value>Konfiguracja: {0}</value>
-  </data>
   <data name="Common.Connected" xml:space="preserve">
     <value>Połączono</value>
-  </data>
-  <data name="Common.LastUpdateFormat" xml:space="preserve">
-    <value>Ostatnia aktualizacja: {0:HH:mm:ss}</value>
-  </data>
-  <data name="Common.LastUpdatePending" xml:space="preserve">
-    <value>Ostatnia aktualizacja: w toku</value>
-  </data>
-  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
-    <value>Odświeża co {0} sekundy</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Niedostępne</value>
@@ -82,14 +73,65 @@ Licencjonowany na licencji MIT.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Wersja: {0}</value>
   </data>
-  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
-    <value>Pokaż tylko Ethernet</value>
+  <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
+    <value>Ethernet: adres przypisany automatycznie</value>
   </data>
-  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
-    <value>Pokaż Ethernet + Wi-Fi</value>
+  <data name="Debug.Scenario.CaptivePortal" xml:space="preserve">
+    <value>Ethernet: strona logowania</value>
   </data>
-  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
-    <value>Użyj wykrytego układu</value>
+  <data name="Debug.Scenario.Checking" xml:space="preserve">
+    <value>Sprawdzanie sieci</value>
+  </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet: uwierzytelnianie 802.1X</value>
+  </data>
+  <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
+    <value>Ethernet: błąd 802.1X</value>
+  </data>
+  <data name="Debug.Scenario.EthernetNoInternet" xml:space="preserve">
+    <value>Ethernet: brak internetu</value>
+  </data>
+  <data name="Debug.Scenario.EthernetReady" xml:space="preserve">
+    <value>Ethernet: gotowe</value>
+  </data>
+  <data name="Debug.Scenario.Live" xml:space="preserve">
+    <value>Rzeczywista sieć</value>
+  </data>
+  <data name="Debug.Scenario.NoAdapter" xml:space="preserve">
+    <value>Brak adaptera sieciowego</value>
+  </data>
+  <data name="Debug.Scenario.NoLink" xml:space="preserve">
+    <value>Ethernet: brak kabla</value>
+  </data>
+  <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
+    <value>Brak adaptera Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>Udostępniona sieć Wi-Fi: wymagane hasło</value>
+  </data>
+  <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
+    <value>Udostępniona sieć Wi-Fi niedostępna</value>
+  </data>
+  <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
+    <value>Ethernet: oczekiwanie na adres</value>
+  </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>Udostępniona sieć Wi-Fi: łączenie</value>
+  </data>
+  <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
+    <value>Sieci Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>Brak adaptera Ethernet, sieci Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenario.WifiReady" xml:space="preserve">
+    <value>Wi-Fi: gotowe</value>
+  </data>
+  <data name="Debug.Scenario.WifiRuntimeMissing" xml:space="preserve">
+    <value>Brak obsługi Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenarios" xml:space="preserve">
+    <value>Scenariusze</value>
   </data>
   <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
     <value>Wybierz, gdzie wyeksportować diagnostykę Foundry</value>
@@ -125,14 +167,50 @@ Licencjonowany na licencji MIT.</value>
   <data name="Ethernet.AdapterLabel" xml:space="preserve">
     <value>Adapter</value>
   </data>
-  <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>Sprawdź połączenie kablowe</value>
+  <data name="Ethernet.ApipaAddress" xml:space="preserve">
+    <value>Adres przypisany automatycznie</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>Wykryto dzierżawę DHCP</value>
   </data>
+  <data name="Ethernet.Dot1xAuthenticated" xml:space="preserve">
+    <value>Uwierzytelniono</value>
+  </data>
+  <data name="Ethernet.Dot1xAuthenticating" xml:space="preserve">
+    <value>Uwierzytelnianie</value>
+  </data>
+  <data name="Ethernet.Dot1xFailed" xml:space="preserve">
+    <value>Uwierzytelnianie nie powiodło się</value>
+  </data>
+  <data name="Ethernet.Dot1xLabel" xml:space="preserve">
+    <value>802.1X</value>
+  </data>
+  <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
+    <value>Zastosowano profil</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
+    <value>Sieć odrzuciła uwierzytelnianie. Sprawdź certyfikat i ustawienia portu przełącznika.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileImportFailed" xml:space="preserve">
+    <value>System Windows odrzucił profil 802.1X z nośnika rozruchowego.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileTemplateMissing" xml:space="preserve">
+    <value>Na nośniku rozruchowym brakuje profilu 802.1X. Utwórz ponownie nośnik rozruchowy.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
+    <value>Nie można odczytać hasła certyfikatu 802.1X. Utwórz ponownie nośnik rozruchowy.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>Nie wprowadzono hasła wdrożenia, więc ustawienia 802.1X nie zostały zastosowane.</value>
+  </data>
+  <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
+    <value>Niedostępne</value>
+  </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Brama</value>
+  </data>
+  <data name="Ethernet.IpAssignmentLabel" xml:space="preserve">
+    <value>Przypisanie IP</value>
   </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
@@ -140,20 +218,17 @@ Licencjonowany na licencji MIT.</value>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
     <value>Brak aktywnego połączenia</value>
   </data>
-  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>Nie wykryto adaptera Ethernet.</value>
-  </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>Wykryto statyczną konfigurację sieci</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>Ethernet nie jest dostępny na tym urządzeniu.</value>
+  </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Czekam na konfigurację sieci</value>
-  </data>
-  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>Oczekiwanie na DHCP lub statyczną konfigurację sieci</value>
   </data>
   <data name="Keyboard.OtherLanguages" xml:space="preserve">
     <value>Inne języki</value>
@@ -273,43 +348,106 @@ Licencjonowany na licencji MIT.</value>
     <value>ukraiński (Ukraina)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>Informacje</value>
+    <value>_Informacje</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>Debuguj</value>
+    <value>_Debugowanie</value>
   </data>
   <data name="Menu.Keyboard" xml:space="preserve">
-    <value>Klawiatura</value>
+    <value>_Klawiatura</value>
   </data>
   <data name="Menu.KeyboardFormat" xml:space="preserve">
-    <value>Klawiatura ({0})</value>
+    <value>_Klawiatura ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
-    <value>Język</value>
+    <value>_Język</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>Motyw</value>
+    <value>_Motyw</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
-    <value>Narzędzia</value>
+    <value>_Narzędzia</value>
+  </data>
+  <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
+    <value>Stosowanie ustawień sieci z nośnika rozruchowego.</value>
+  </data>
+  <data name="Status.AutoContinueCancelled" xml:space="preserve">
+    <value>Automatyczna kontynuacja jest wyłączona. Wybierz Kontynuuj, gdy wszystko będzie gotowe.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Kontynuacja automatyczna w {0}s</value>
   </data>
-  <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>Dostęp do Internetu został zweryfikowany. Możesz teraz kontynuować.</value>
+  <data name="Status.AutoContinuePaused" xml:space="preserve">
+    <value>Automatyczna kontynuacja została wstrzymana, ponieważ zmieniono ustawienia sieci.</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
+    <value>Sieć odpowiedziała stroną logowania zamiast dostępu do Internetu. Zaloguj się z innego urządzenia, jeśli sieć na to pozwala, lub użyj innej sieci, a następnie wybierz Ponów próbę.</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>Sieć odpowiedziała stroną logowania zamiast dostępu do Internetu. Zaloguj się z innego urządzenia, jeśli sieć na to pozwala, a następnie wybierz Ponów próbę.</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Wymagane logowanie</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>Przyczyna jest widoczna w sekcji Ethernet.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>Przewodowe uwierzytelnianie 802.1X nie powiodło się</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>Połącz się z siecią Wi-Fi.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
+    <value>Sprawdź sekcje Ethernet i Wi-Fi, a następnie wybierz Ponów próbę.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Brak adaptera sieciowego</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>Podłącz kabel Ethernet.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Brak kabla Ethernet</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>Sprawdź sekcję Ethernet, a następnie wybierz Ponów próbę.</value>
+  </data>
+  <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
+    <value>Sieć jest połączona, ale nie ma dostępu do Internetu. Sprawdź zaporę lub serwer proxy, a następnie wybierz Ponów próbę.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
+    <value>Sprawdź DHCP w tej sieci, a następnie wybierz Ponów próbę.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>Brak adresu IP</value>
+  </data>
+  <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
+    <value>Podłącz kabel Ethernet lub połącz się z siecią Wi-Fi.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Brak połączenia sieciowego</value>
+  </data>
+  <data name="Status.BlockedTitle" xml:space="preserve">
+    <value>Brak dostępu do Internetu</value>
+  </data>
+  <data name="Status.CheckingTitle" xml:space="preserve">
+    <value>Sprawdzanie sieci</value>
+  </data>
+  <data name="Status.ConnectingDescription" xml:space="preserve">
+    <value>Trwa operacja sieciowa. Może to potrwać do 20 sekund.</value>
+  </data>
+  <data name="Status.ConnectingTitle" xml:space="preserve">
+    <value>Łączenie</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>Rozłączanie</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>Trwa przewodowe uwierzytelnianie 802.1X.</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Sieć gotowa</value>
-  </data>
-  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
-    <value>Odświeżanie sieci nie powiodło się</value>
-  </data>
-  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
-    <value>Dostęp do Internetu nie został jeszcze zweryfikowany.</value>
-  </data>
-  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
-    <value>Czekam na sieć</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>Ciemny</value>
@@ -326,14 +464,44 @@ Licencjonowany na licencji MIT.</value>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Odśwież stan</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>Kontynuuj</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>Wprowadź hasło wdrożenia, aby kontynuować.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>Wymagane hasło</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>Hasło jest nieprawidłowe. Spróbuj ponownie.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>Hasło wdrożenia</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>Chronione ustawienia sieci</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>Pokaż lub ukryj hasło</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>Nie można zastosować udostępnionych ustawień sieciowych.</value>
   </data>
   <data name="Wifi.ActionConnectFailed" xml:space="preserve">
     <value>Nie można się połączyć. Sprawdź hasło lub ustawienia sieciowe i spróbuj ponownie.</value>
   </data>
+  <data name="Wifi.ActionConnectTimedOut" xml:space="preserve">
+    <value>Upłynął limit czasu próby połączenia. Podejdź bliżej punktu dostępu i spróbuj ponownie.</value>
+  </data>
   <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
     <value>Nie można się rozłączyć. Spróbuj ponownie.</value>
+  </data>
+  <data name="Wifi.ActionInvalidPassphrase" xml:space="preserve">
+    <value>Hasło nie spełnia wymagań tej sieci.</value>
+  </data>
+  <data name="Wifi.ActionNetworkNotVisible" xml:space="preserve">
+    <value>Ta sieć nie jest już widoczna. Odśwież listę i spróbuj ponownie.</value>
   </data>
   <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
     <value>Nie można połączyć udostępnionego profilu Wi-Fi. Spróbuj ponownie.</value>
@@ -350,14 +518,14 @@ Licencjonowany na licencji MIT.</value>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
     <value>Nie można ukończyć akcji Wi-Fi. Spróbuj ponownie.</value>
   </data>
-  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>Uwierzytelnianie</value>
-  </data>
-  <data name="Wifi.BootImageSettings" xml:space="preserve">
-    <value>Ustawienia obrazu rozruchowego</value>
-  </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Skonfigurowane zabezpieczenia</value>
+  </data>
+  <data name="Wifi.ConnectProvisionedAutomationName" xml:space="preserve">
+    <value>Połącz z udostępnioną siecią Wi-Fi</value>
+  </data>
+  <data name="Wifi.ConnectSelectedAutomationFormat" xml:space="preserve">
+    <value>Połącz z siecią {0}</value>
   </data>
   <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
     <value>Ethernet</value>
@@ -368,26 +536,29 @@ Licencjonowany na licencji MIT.</value>
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
     <value>Udostępniono Wi-Fi · {0}</value>
   </data>
-  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
-    <value>Profil przedsiębiorstwa</value>
+  <data name="Wifi.DisconnectProvisionedAutomationName" xml:space="preserve">
+    <value>Rozłącz udostępnioną sieć Wi-Fi</value>
   </data>
-  <data name="Wifi.HiddenNetwork" xml:space="preserve">
-    <value>Ukryta sieć</value>
+  <data name="Wifi.DisconnectSelectedAutomationFormat" xml:space="preserve">
+    <value>Rozłącz z siecią {0}</value>
   </data>
-  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>Żaden adapter Wi-Fi nie jest dostępny.</value>
+  <data name="Wifi.NetworkAutomationFormat" xml:space="preserve">
+    <value>{0}, {1}, sygnał {2} procent</value>
   </data>
-  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>Obecnie nie wykryto żadnego adaptera Wi-Fi.</value>
+  <data name="Wifi.NetworkConnectedAutomationFormat" xml:space="preserve">
+    <value>{0}, {1}, sygnał {2} procent, połączono</value>
+  </data>
+  <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
+    <value>Widoczne sieci Wi-Fi</value>
   </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>Obecnie nie są widoczne żadne sieci Wi-Fi.</value>
   </data>
-  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
-    <value>W tym obrazie rozruchowym nie jest dostępny żaden udostępniony profil Wi-Fi.</value>
+  <data name="Wifi.PassphraseLabel" xml:space="preserve">
+    <value>Hasło Wi-Fi</value>
   </data>
-  <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>Profil</value>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>Udostępniona sieć Wi-Fi jest chroniona hasłem wdrożenia. Wybierz Połącz, aby je wprowadzić.</value>
   </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>Ta sieć wymaga udostępnionego profilu Wi-Fi.</value>
@@ -395,23 +566,32 @@ Licencjonowany na licencji MIT.</value>
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
     <value>Udostępniono Wi-Fi</value>
   </data>
+  <data name="Wifi.ProvisionedUnavailableConfiguration" xml:space="preserve">
+    <value>Ustawienia udostępnionej sieci Wi-Fi są nieprawidłowe. Utwórz ponownie nośnik rozruchowy.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailablePassphrase" xml:space="preserve">
+    <value>Hasło udostępnionej sieci Wi-Fi nie spełnia wymagań sieci. Utwórz ponownie nośnik rozruchowy.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
+    <value>Nie można odczytać hasła udostępnionej sieci Wi-Fi z tego nośnika rozruchowego. Utwórz ponownie nośnik rozruchowy.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
+    <value>Na nośniku rozruchowym brakuje firmowego profilu Wi-Fi. Utwórz ponownie nośnik rozruchowy.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>Nie wprowadzono hasła wdrożenia. Wybierz Połącz, aby je wprowadzić.</value>
+  </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Odśwież sieci Wi-Fi</value>
   </data>
   <data name="Wifi.SecurityEnterprise" xml:space="preserve">
     <value>Przedsiębiorstwo</value>
   </data>
-  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
-    <value>{0} (maszyna)</value>
-  </data>
-  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
-    <value>{0} (maszyna lub użytkownik)</value>
-  </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
     <value>Otwarte</value>
   </data>
-  <data name="Wifi.SecurityPersonal" xml:space="preserve">
-    <value>Osobiste</value>
+  <data name="Wifi.SecurityOwe" xml:space="preserve">
+    <value>Otwarte (rozszerzone)</value>
   </data>
   <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
     <value>Specyficzne dla dostawcy</value>
@@ -425,17 +605,11 @@ Licencjonowany na licencji MIT.</value>
   <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
     <value>WPA2 Osobisty</value>
   </data>
-  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
-    <value>WPA2/WPA3 dla przedsiębiorstw</value>
-  </data>
   <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
     <value>WPA2/WPA3 Osobisty</value>
   </data>
   <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
     <value>WPA3 dla przedsiębiorstw</value>
-  </data>
-  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
-    <value>WPA3 Enterprise 192-bitowy</value>
   </data>
   <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
     <value>WPA3 Osobisty</value>
@@ -443,26 +617,20 @@ Licencjonowany na licencji MIT.</value>
   <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
     <value>WPA Przedsiębiorstwo</value>
   </data>
-  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
-    <value>WPA Brak</value>
-  </data>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Osobiste</value>
-  </data>
-  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
-    <value>{0} · Certyfikat zawarty w obrazie startowym</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Inna sieć Wi-Fi jest aktywna</value>
   </data>
-  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
-    <value>Brak dostępnego adaptera Wi-Fi</value>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>Wymagane hasło</value>
+  </data>
+  <data name="Wifi.StatusNotInRange" xml:space="preserve">
+    <value>Poza zasięgiem</value>
   </data>
   <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
     <value>Gotowy do podłączenia</value>
-  </data>
-  <data name="Wifi.StatusUnavailable" xml:space="preserve">
-    <value>Wi-Fi niedostępne</value>
   </data>
   <data name="Wifi.Title" xml:space="preserve">
     <value>Wi-Fi</value>
@@ -470,8 +638,8 @@ Licencjonowany na licencji MIT.</value>
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
     <value>Pokaż lub ukryj hasło Wi-Fi</value>
   </data>
-  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>Obsługa Wi-Fi nie jest dostępna w tym środowisku startowym.</value>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>Wi-Fi nie jest dostępne na tym urządzeniu.</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>Nienazwany profil udostępniony</value>

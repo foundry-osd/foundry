@@ -34,6 +34,12 @@ Licențiat sub licența MIT.</value>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Deconectați-vă</value>
   </data>
+  <data name="Action.Retry" xml:space="preserve">
+    <value>Reîncearcă</value>
+  </data>
+  <data name="Action.StayHere" xml:space="preserve">
+    <value>Rămâi aici</value>
+  </data>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
@@ -58,23 +64,8 @@ Licențiat sub licența MIT.</value>
   <data name="Common.Close" xml:space="preserve">
     <value>Închide</value>
   </data>
-  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
-    <value>Configurație: setări implicite încorporate</value>
-  </data>
-  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
-    <value>Configurație: {0}</value>
-  </data>
   <data name="Common.Connected" xml:space="preserve">
     <value>Conectat</value>
-  </data>
-  <data name="Common.LastUpdateFormat" xml:space="preserve">
-    <value>Ultima actualizare: {0:HH:mm:ss}</value>
-  </data>
-  <data name="Common.LastUpdatePending" xml:space="preserve">
-    <value>Ultima actualizare: în așteptare</value>
-  </data>
-  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
-    <value>Reîmprospătează la fiecare {0} secunde</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Indisponibil</value>
@@ -82,14 +73,65 @@ Licențiat sub licența MIT.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Versiune: {0}</value>
   </data>
-  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
-    <value>Afișați numai Ethernet</value>
+  <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
+    <value>Ethernet: adresă autoatribuită</value>
   </data>
-  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
-    <value>Afișați Ethernet + Wi-Fi</value>
+  <data name="Debug.Scenario.CaptivePortal" xml:space="preserve">
+    <value>Ethernet: pagină de conectare</value>
   </data>
-  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
-    <value>Utilizați aspectul detectat</value>
+  <data name="Debug.Scenario.Checking" xml:space="preserve">
+    <value>Se verifică rețeaua</value>
+  </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet: autentificare 802.1X în curs</value>
+  </data>
+  <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
+    <value>Ethernet: 802.1X a eșuat</value>
+  </data>
+  <data name="Debug.Scenario.EthernetNoInternet" xml:space="preserve">
+    <value>Ethernet: fără internet</value>
+  </data>
+  <data name="Debug.Scenario.EthernetReady" xml:space="preserve">
+    <value>Ethernet: pregătit</value>
+  </data>
+  <data name="Debug.Scenario.Live" xml:space="preserve">
+    <value>Rețea reală</value>
+  </data>
+  <data name="Debug.Scenario.NoAdapter" xml:space="preserve">
+    <value>Niciun adaptor de rețea</value>
+  </data>
+  <data name="Debug.Scenario.NoLink" xml:space="preserve">
+    <value>Ethernet: fără cablu</value>
+  </data>
+  <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
+    <value>Niciun adaptor Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>Wi-Fi furnizat: parolă necesară</value>
+  </data>
+  <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
+    <value>Wi-Fi furnizat indisponibil</value>
+  </data>
+  <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
+    <value>Ethernet: se așteaptă o adresă</value>
+  </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>Wi-Fi furnizat: se conectează</value>
+  </data>
+  <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
+    <value>Rețele Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>Niciun adaptor Ethernet, rețele Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenario.WifiReady" xml:space="preserve">
+    <value>Wi-Fi: pregătit</value>
+  </data>
+  <data name="Debug.Scenario.WifiRuntimeMissing" xml:space="preserve">
+    <value>Lipsește suportul Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenarios" xml:space="preserve">
+    <value>Scenarii</value>
   </data>
   <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
     <value>Alegeți unde să exportați diagnosticele Foundry</value>
@@ -125,14 +167,50 @@ Licențiat sub licența MIT.</value>
   <data name="Ethernet.AdapterLabel" xml:space="preserve">
     <value>Adaptor</value>
   </data>
-  <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>Verificați conexiunea cablului</value>
+  <data name="Ethernet.ApipaAddress" xml:space="preserve">
+    <value>Adresă autoatribuită</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>A fost detectată o închiriere DHCP</value>
   </data>
+  <data name="Ethernet.Dot1xAuthenticated" xml:space="preserve">
+    <value>Autentificat</value>
+  </data>
+  <data name="Ethernet.Dot1xAuthenticating" xml:space="preserve">
+    <value>Se autentifică</value>
+  </data>
+  <data name="Ethernet.Dot1xFailed" xml:space="preserve">
+    <value>Autentificarea a eșuat</value>
+  </data>
+  <data name="Ethernet.Dot1xLabel" xml:space="preserve">
+    <value>802.1X</value>
+  </data>
+  <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
+    <value>Profil aplicat</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
+    <value>Rețeaua a respins autentificarea. Verificați certificatul și setările portului switch-ului.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileImportFailed" xml:space="preserve">
+    <value>Windows a respins profilul 802.1X de pe suportul de pornire.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileTemplateMissing" xml:space="preserve">
+    <value>Profilul 802.1X lipsește de pe suportul de pornire. Recreați suportul de pornire.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
+    <value>Parola certificatului 802.1X nu poate fi citită. Recreați suportul de pornire.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>Parola de implementare nu a fost introdusă, așa că setările 802.1X nu au fost aplicate.</value>
+  </data>
+  <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
+    <value>Indisponibil</value>
+  </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Gateway</value>
+  </data>
+  <data name="Ethernet.IpAssignmentLabel" xml:space="preserve">
+    <value>Atribuire IP</value>
   </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
@@ -140,20 +218,17 @@ Licențiat sub licența MIT.</value>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
     <value>Nicio legătură activă</value>
   </data>
-  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>Nu a fost detectat niciun adaptor Ethernet.</value>
-  </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>Configurația statică a rețelei a fost detectată</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>Ethernet nu este disponibil pe acest dispozitiv.</value>
+  </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Se așteaptă configurarea rețelei</value>
-  </data>
-  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>Se așteaptă DHCP sau configurația statică a rețelei</value>
   </data>
   <data name="Keyboard.OtherLanguages" xml:space="preserve">
     <value>Alte limbi</value>
@@ -273,43 +348,106 @@ Licențiat sub licența MIT.</value>
     <value>ucraineană (Ucraina)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>Despre</value>
+    <value>_Despre</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>Depanare</value>
+    <value>_Depanare</value>
   </data>
   <data name="Menu.Keyboard" xml:space="preserve">
-    <value>Tastatură</value>
+    <value>T_astatură</value>
   </data>
   <data name="Menu.KeyboardFormat" xml:space="preserve">
-    <value>Tastatură ({0})</value>
+    <value>T_astatură ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
-    <value>Limba</value>
+    <value>_Limba</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>Temă</value>
+    <value>_Temă</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
-    <value>Instrumente</value>
+    <value>_Instrumente</value>
+  </data>
+  <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
+    <value>Se aplică setările de rețea de pe suportul de pornire.</value>
+  </data>
+  <data name="Status.AutoContinueCancelled" xml:space="preserve">
+    <value>Continuarea automată este dezactivată. Selectați Continuă când sunteți pregătit.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Continuând automat în {0}s</value>
   </data>
-  <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>Accesul la internet a fost validat. Puteți continua acum.</value>
+  <data name="Status.AutoContinuePaused" xml:space="preserve">
+    <value>Continuarea automată este întreruptă deoarece ați modificat setările de rețea.</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
+    <value>Rețeaua a răspuns cu o pagină de conectare în loc de acces la internet. Conectați-vă de pe alt dispozitiv dacă rețeaua permite acest lucru sau folosiți altă rețea, apoi selectați Reîncearcă.</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>Rețeaua a răspuns cu o pagină de conectare în loc de acces la internet. Conectați-vă de pe alt dispozitiv dacă rețeaua permite acest lucru, apoi selectați Reîncearcă.</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Este necesară conectarea</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>Motivul este afișat în secțiunea Ethernet.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>Autentificarea 802.1X prin cablu nu a reușit</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>Conectați-vă la o rețea Wi-Fi.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
+    <value>Verificați secțiunile Ethernet și Wi-Fi, apoi selectați Reîncearcă.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Niciun adaptor de rețea</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>Conectați un cablu Ethernet.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Niciun cablu Ethernet</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>Verificați secțiunea Ethernet, apoi selectați Reîncearcă.</value>
+  </data>
+  <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
+    <value>Rețeaua este conectată, dar nu poate accesa internetul. Verificați firewallul sau proxy-ul, apoi selectați Reîncearcă.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
+    <value>Verificați DHCP în această rețea, apoi selectați Reîncearcă.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>Nicio adresă IP</value>
+  </data>
+  <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
+    <value>Conectați un cablu Ethernet sau conectați-vă la o rețea Wi-Fi.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Nicio conexiune la rețea</value>
+  </data>
+  <data name="Status.BlockedTitle" xml:space="preserve">
+    <value>Fără acces la internet</value>
+  </data>
+  <data name="Status.CheckingTitle" xml:space="preserve">
+    <value>Se verifică rețeaua</value>
+  </data>
+  <data name="Status.ConnectingDescription" xml:space="preserve">
+    <value>O acțiune de rețea este în curs. Poate dura până la 20 de secunde.</value>
+  </data>
+  <data name="Status.ConnectingTitle" xml:space="preserve">
+    <value>Se conectează</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>Se deconectează</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>Autentificarea 802.1X prin cablu este în curs.</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Rețea gata</value>
-  </data>
-  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
-    <value>Reîmprospătarea rețelei a eșuat</value>
-  </data>
-  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
-    <value>Accesul la internet nu a fost încă validat.</value>
-  </data>
-  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
-    <value>În așteptarea rețelei</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>Întunecat</value>
@@ -326,14 +464,44 @@ Licențiat sub licența MIT.</value>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Starea de reîmprospătare</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>Continuați</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>Introduceți parola de implementare pentru a continua.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>Parolă necesară</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>Parola este incorectă. Încercați din nou.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>Parolă de implementare</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>Setări de rețea protejate</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>Afișați sau ascundeți parola</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>Nu se pot aplica setările de rețea furnizate.</value>
   </data>
   <data name="Wifi.ActionConnectFailed" xml:space="preserve">
     <value>Nu se poate conecta. Verificați parola sau setările de rețea și încercați din nou.</value>
   </data>
+  <data name="Wifi.ActionConnectTimedOut" xml:space="preserve">
+    <value>Încercarea de conectare a expirat. Apropiați-vă de punctul de acces și încercați din nou.</value>
+  </data>
   <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
     <value>Nu se poate deconecta. Încearcă din nou.</value>
+  </data>
+  <data name="Wifi.ActionInvalidPassphrase" xml:space="preserve">
+    <value>Parola nu îndeplinește cerințele acestei rețele.</value>
+  </data>
+  <data name="Wifi.ActionNetworkNotVisible" xml:space="preserve">
+    <value>Această rețea nu mai este vizibilă. Reîmprospătați lista și încercați din nou.</value>
   </data>
   <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
     <value>Nu se poate conecta profilul furnizat Wi-Fi. Încearcă din nou.</value>
@@ -350,14 +518,14 @@ Licențiat sub licența MIT.</value>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
     <value>Nu se poate finaliza acțiunea Wi-Fi. Încearcă din nou.</value>
   </data>
-  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>Autentificare</value>
-  </data>
-  <data name="Wifi.BootImageSettings" xml:space="preserve">
-    <value>Setări de imagine de pornire</value>
-  </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Securitate configurată</value>
+  </data>
+  <data name="Wifi.ConnectProvisionedAutomationName" xml:space="preserve">
+    <value>Conectează Wi-Fi-ul furnizat</value>
+  </data>
+  <data name="Wifi.ConnectSelectedAutomationFormat" xml:space="preserve">
+    <value>Conectare la {0}</value>
   </data>
   <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
     <value>Ethernet</value>
@@ -368,26 +536,29 @@ Licențiat sub licența MIT.</value>
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
     <value>Furnizat Wi-Fi · {0}</value>
   </data>
-  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
-    <value>Profil de întreprindere</value>
+  <data name="Wifi.DisconnectProvisionedAutomationName" xml:space="preserve">
+    <value>Deconectează Wi-Fi-ul furnizat</value>
   </data>
-  <data name="Wifi.HiddenNetwork" xml:space="preserve">
-    <value>Rețea ascunsă</value>
+  <data name="Wifi.DisconnectSelectedAutomationFormat" xml:space="preserve">
+    <value>Deconectare de la {0}</value>
   </data>
-  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>Nu este disponibil niciun adaptor Wi-Fi.</value>
+  <data name="Wifi.NetworkAutomationFormat" xml:space="preserve">
+    <value>{0}, {1}, semnal {2} la sută</value>
   </data>
-  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>În prezent, nu este detectat niciun adaptor Wi-Fi.</value>
+  <data name="Wifi.NetworkConnectedAutomationFormat" xml:space="preserve">
+    <value>{0}, {1}, semnal {2} la sută, conectată</value>
+  </data>
+  <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
+    <value>Rețele Wi-Fi vizibile</value>
   </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>În prezent, nu sunt vizibile rețele Wi-Fi.</value>
   </data>
-  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
-    <value>Niciun profil Wi-Fi nu este disponibil în această imagine de pornire.</value>
+  <data name="Wifi.PassphraseLabel" xml:space="preserve">
+    <value>Parolă Wi-Fi</value>
   </data>
-  <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>Profil</value>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>Rețeaua Wi-Fi furnizată este protejată de parola de implementare. Selectați Conectați-vă pentru a o introduce.</value>
   </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>Această rețea necesită un profil Wi-Fi prevăzut.</value>
@@ -395,23 +566,32 @@ Licențiat sub licența MIT.</value>
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
     <value>Aprovizionat Wi-Fi</value>
   </data>
+  <data name="Wifi.ProvisionedUnavailableConfiguration" xml:space="preserve">
+    <value>Setările Wi-Fi furnizate nu sunt valide. Recreați suportul de pornire.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailablePassphrase" xml:space="preserve">
+    <value>Parola Wi-Fi furnizată nu îndeplinește cerințele rețelei. Recreați suportul de pornire.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
+    <value>Parola Wi-Fi furnizată nu poate fi citită de pe acest suport de pornire. Recreați suportul de pornire.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
+    <value>Profilul Wi-Fi de întreprindere lipsește de pe suportul de pornire. Recreați suportul de pornire.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>Parola de implementare nu a fost introdusă. Selectați Conectați-vă pentru a o introduce.</value>
+  </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Actualizează rețelele Wi-Fi</value>
   </data>
   <data name="Wifi.SecurityEnterprise" xml:space="preserve">
     <value>Întreprindere</value>
   </data>
-  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
-    <value>{0} (mașină)</value>
-  </data>
-  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
-    <value>{0} (mașină sau utilizator)</value>
-  </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
     <value>Deschis</value>
   </data>
-  <data name="Wifi.SecurityPersonal" xml:space="preserve">
-    <value>Personal</value>
+  <data name="Wifi.SecurityOwe" xml:space="preserve">
+    <value>Deschis (îmbunătățit)</value>
   </data>
   <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
     <value>Specific furnizorului</value>
@@ -425,17 +605,11 @@ Licențiat sub licența MIT.</value>
   <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
     <value>WPA2 Personal</value>
   </data>
-  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
-    <value>WPA2/WPA3 Enterprise</value>
-  </data>
   <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
     <value>WPA2/WPA3 Personal</value>
   </data>
   <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
     <value>WPA3 Enterprise</value>
-  </data>
-  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
-    <value>WPA3 Enterprise pe 192 de biți</value>
   </data>
   <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
     <value>WPA3 Personal</value>
@@ -443,26 +617,20 @@ Licențiat sub licența MIT.</value>
   <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
     <value>WPA Enterprise</value>
   </data>
-  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
-    <value>WPA Niciuna</value>
-  </data>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Personal</value>
-  </data>
-  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
-    <value>{0} · Certificat inclus în imaginea de pornire</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>O altă rețea Wi-Fi este activă</value>
   </data>
-  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
-    <value>Nu este disponibil niciun adaptor Wi-Fi</value>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>Parolă necesară</value>
+  </data>
+  <data name="Wifi.StatusNotInRange" xml:space="preserve">
+    <value>În afara razei de acoperire</value>
   </data>
   <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
     <value>Gata de conectare</value>
-  </data>
-  <data name="Wifi.StatusUnavailable" xml:space="preserve">
-    <value>Wi-Fi indisponibil</value>
   </data>
   <data name="Wifi.Title" xml:space="preserve">
     <value>Wi-Fi</value>
@@ -470,8 +638,8 @@ Licențiat sub licența MIT.</value>
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
     <value>Afișează sau ascunde parola Wi-Fi</value>
   </data>
-  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>Suportul Wi-Fi nu este disponibil în acest mediu de boot.</value>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>Wi-Fi nu este disponibil pe acest dispozitiv.</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>Profil furnizat fără nume</value>

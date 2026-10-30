@@ -45,12 +45,13 @@ public sealed record FoundryConnectConfigurationDocument
     public ConnectWifiSettings Wifi { get; init; } = new();
 
     /// <summary>
-    /// Gets internet connectivity probe settings.
-    /// </summary>
-    public ConnectInternetProbeSettings InternetProbe { get; init; } = new();
-
-    /// <summary>
     /// Gets telemetry policy and runtime settings consumed by Foundry.Connect.
     /// </summary>
     public TelemetrySettings Telemetry { get; init; } = new();
+
+    /// <summary>
+    /// Gets the deployment password protection block, the same block as Deploy's; present only when the configuration
+    /// carries deployment-keyed secrets, which stay locked until the deployment password unlocks the key.
+    /// </summary>
+    public Deploy.DeployProtectionSettings? Protection { get; init; }
 }

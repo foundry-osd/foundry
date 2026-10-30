@@ -7,7 +7,6 @@ using System.Windows;
 using Foundry.Deploy.DependencyInjection;
 using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Logging;
-using Foundry.Deploy.Services.Runtime;
 using Foundry.Core.Models.Runtime;
 using Foundry.Core.Services.Runtime;
 using Foundry.Telemetry;
@@ -24,6 +23,7 @@ namespace Foundry.Deploy;
 public static class Program
 {
     private const string DisableFluentBackdropSwitch = "Switch.System.Windows.Appearance.DisableFluentThemeWindowBackdrop";
+    private static readonly RuntimeApplicationIdentity Identity = new("Foundry.Deploy", TelemetryApps.FoundryDeploy, FoundryDeployApplicationInfo.Version);
     private static readonly TimeSpan DiagnosticsShutdownTimeout = TimeSpan.FromSeconds(2);
 
     /// <summary>Starts configuration and services before entering the synchronous WPF dispatcher loop.</summary>
@@ -42,7 +42,7 @@ public static class Program
         string stage = "managed_startup";
         try
         {
-            startup = RuntimeStartupDiagnostics.Create(DeployConfigurationService.DefaultConfigurationPath, configurationRequired: false);
+            startup = RuntimeStartupDiagnostics.Create(Identity, DeployConfigurationService.DefaultConfigurationPath, configurationRequired: false);
             RegisterGlobalExceptionHandlers(startup);
             try
             {
@@ -54,7 +54,7 @@ public static class Program
             {
                 startupLogFilePath = "<unavailable>";
                 Log.Logger = FoundryLogConfiguration.CreateDebugLogger(
-                    "Foundry.Deploy", DiagnosticSessionContext.CurrentSessionId,
+                    Identity.ApplicationId, DiagnosticSessionContext.CurrentSessionId,
                     Serilog.Events.LogEventLevel.Verbose, additionalSink: RemoteDiagnosticsSink.Instance);
                 Log.ForContext(typeof(Program)).Error(exception, "File logging initialization failed. Falling back to debugger output.");
             }
@@ -123,7 +123,7 @@ public static class Program
         }
         try
         {
-            RuntimeStartupReporter.FromEnvironment("Foundry.Deploy")?.Report(StartupStage.StartupFailed, category);
+            RuntimeStartupReporter.FromEnvironment(Identity.ApplicationId)?.Report(StartupStage.StartupFailed, category);
         }
         catch { }
         try

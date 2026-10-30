@@ -312,7 +312,7 @@ Action: Verify disk attributes and retry deployment.</value>
     <value>Continue</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>Enter the technician password to continue.</value>
+    <value>Enter the deployment password to continue.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>Password required</value>

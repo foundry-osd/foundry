@@ -68,6 +68,7 @@ public static class FoundryConfigurationMigration
         migrated = migrated with { PreOobe = migrated.PreOobe ?? new PreOobeSettings() };
         migrated = migrated with { NetworkCache = WithoutNullLists(migrated.NetworkCache ?? new NetworkCacheSettings()) };
         migrated = migrated with { DomainJoin = WithoutNullLists(migrated.DomainJoin ?? new DomainJoinSettings()) };
+        migrated = MigrateLegacyCertificates(migrated);
         DomainJoinConfigurationValidator.ThrowIfProvisioningModesConflict(migrated.Autopilot, migrated.DomainJoin);
         if (!DomainJoinConfigurationValidator.ValidateMetadata(migrated.DomainJoin).IsValid)
         {
@@ -90,6 +91,33 @@ public static class FoundryConfigurationMigration
         return migrated.SchemaVersion < FoundryConfigurationDocument.CurrentSchemaVersion
             ? migrated with { SchemaVersion = FoundryConfigurationDocument.CurrentSchemaVersion }
             : migrated;
+    }
+
+    /// <summary>
+    /// Moves the single <c>certificate</c> written by configuration sharing builds into the separate fields by shape, whatever the
+    /// schema number: a PFX/P12 becomes the client certificate (its vault password stays keyed by the same content hash), any
+    /// other file the single trusted root. The legacy member is cleared so it is never written again.
+    /// </summary>
+    /// <remarks>A trusted root list read as <c>null</c> means none; null items of a hand-edited file are dropped.</remarks>
+    private static FoundryConfigurationDocument MigrateLegacyCertificates(FoundryConfigurationDocument document)
+    {
+        Dot1xSettings dot1x = document.Network.Dot1x;
+        WifiSettings wifi = document.Network.Wifi;
+        return document with
+        {
+            Network = document.Network with
+            {
+                Dot1x = NetworkCertificateShapes.WithCertificate(
+                    dot1x with { LegacyCertificate = null, TrustedRootCertificates = WithoutNullItems(dot1x.TrustedRootCertificates) },
+                    dot1x.LegacyCertificate),
+                Wifi = NetworkCertificateShapes.WithCertificate(
+                    wifi with { LegacyCertificate = null, TrustedRootCertificates = WithoutNullItems(wifi.TrustedRootCertificates) },
+                    wifi.LegacyCertificate)
+            }
+        };
+
+        static IReadOnlyList<AuthoringFileReference> WithoutNullItems(IReadOnlyList<AuthoringFileReference>? roots) =>
+            roots is null ? [] : roots.Any(root => root is null) ? roots.Where(root => root is not null).ToArray() : roots;
     }
 
     /// <summary>
@@ -163,16 +191,12 @@ public static class FoundryConfigurationMigration
         {
             Network = network with
             {
-                Dot1x = network.Dot1x with
-                {
-                    ProfileTemplate = network.Dot1x.ProfileTemplate ?? Import(paths.Dot1xProfileTemplate),
-                    Certificate = network.Dot1x.Certificate ?? Import(paths.Dot1xCertificate)
-                },
-                Wifi = network.Wifi with
-                {
-                    EnterpriseProfileTemplate = network.Wifi.EnterpriseProfileTemplate ?? Import(paths.WifiEnterpriseProfileTemplate),
-                    Certificate = network.Wifi.Certificate ?? Import(paths.WifiCertificate)
-                }
+                Dot1x = NetworkCertificateShapes.WithCertificate(
+                    network.Dot1x with { ProfileTemplate = network.Dot1x.ProfileTemplate ?? Import(paths.Dot1xProfileTemplate) },
+                    NetworkCertificateShapes.HasCertificates(network.Dot1x) ? null : Import(paths.Dot1xCertificate)),
+                Wifi = NetworkCertificateShapes.WithCertificate(
+                    network.Wifi with { EnterpriseProfileTemplate = network.Wifi.EnterpriseProfileTemplate ?? Import(paths.WifiEnterpriseProfileTemplate) },
+                    NetworkCertificateShapes.HasCertificates(network.Wifi) ? null : Import(paths.WifiCertificate))
             },
             Autopilot = document.Autopilot with
             {

@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Services.Security;
+
 namespace Foundry.Deploy.Services.Security;
 
 public sealed class DeploymentAccessRetryDelay : IDeploymentAccessRetryDelay
@@ -13,7 +15,6 @@ public sealed class DeploymentAccessRetryDelay : IDeploymentAccessRetryDelay
 
     internal static TimeSpan GetDelay(int failedAttemptNumber)
     {
-        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(failedAttemptNumber);
-        return TimeSpan.FromSeconds(Math.Min(failedAttemptNumber, 5));
+        return DeploymentPasswordRetryPolicy.GetDelay(failedAttemptNumber);
     }
 }

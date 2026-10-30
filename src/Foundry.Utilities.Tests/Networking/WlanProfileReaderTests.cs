@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Text;
 using Foundry.Utilities.Networking;
 
 namespace Foundry.Utilities.Tests.Networking;
@@ -119,6 +120,29 @@ public sealed class WlanProfileReaderTests
         string? name = WlanProfileReader.TryReadName(profilePath);
 
         Assert.Null(name);
+    }
+
+    [Theory]
+    [InlineData("""<WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1"><MSM><security><sharedKey><keyMaterial>k</keyMaterial></sharedKey></security></MSM></WLANProfile>""", WlanProfileKeyMaterial.Present)]
+    [InlineData("""<WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1"><MSM><security><authEncryption><authentication>WPA2</authentication></authEncryption></security></MSM></WLANProfile>""", WlanProfileKeyMaterial.Absent)]
+    [InlineData("not xml", WlanProfileKeyMaterial.Unreadable)]
+    [InlineData("""<!DOCTYPE WLANProfile [<!ENTITY k "secret">]><WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1"><name>&k;</name></WLANProfile>""", WlanProfileKeyMaterial.Unreadable)]
+    public void DetectKeyMaterial_ClassifiesTheProfile(string xml, WlanProfileKeyMaterial expected)
+    {
+        using var stream = new MemoryStream(Encoding.UTF8.GetBytes(xml));
+
+        Assert.Equal(expected, WlanProfileReader.DetectKeyMaterial(stream));
+    }
+
+    [Fact]
+    public void DetectKeyMaterial_HonorsTheDeclaredEncoding()
+    {
+        // UTF-16 bytes with a BOM and a matching declaration: a byte stream reader decodes them, a UTF-8 text decoder would not.
+        byte[] content = [.. Encoding.Unicode.GetPreamble(), .. Encoding.Unicode.GetBytes(
+            """<?xml version="1.0" encoding="UTF-16"?><WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1"><keyMaterial>k</keyMaterial></WLANProfile>""")];
+        using var stream = new MemoryStream(content);
+
+        Assert.Equal(WlanProfileKeyMaterial.Present, WlanProfileReader.DetectKeyMaterial(stream));
     }
 
     private sealed class TemporaryDirectory : IDisposable

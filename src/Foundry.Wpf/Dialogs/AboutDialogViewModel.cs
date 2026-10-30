@@ -1,0 +1,51 @@
+// Copyright (c) Foundry Project contributors.
+// Licensed under the MIT License.
+// See the LICENSE file in the project root for more information.
+
+using CommunityToolkit.Mvvm.Input;
+
+namespace Foundry.Wpf.Dialogs;
+
+/// <summary>
+/// Immutable display data for <see cref="AboutDialog"/> plus a close command. The view model never closes
+/// the window itself: the host subscribes to <see cref="CloseRequested"/> and closes the dialog.
+/// </summary>
+public sealed partial class AboutDialogViewModel
+{
+    public AboutDialogViewModel(
+        string aboutTitle,
+        string appName,
+        string version,
+        string descriptionLine1,
+        string descriptionLine2,
+        string footer)
+    {
+        AboutTitle = aboutTitle;
+        AppName = appName;
+        Version = version;
+        DescriptionLine1 = descriptionLine1;
+        DescriptionLine2 = descriptionLine2;
+        Footer = footer;
+    }
+
+    public string AboutTitle { get; }
+
+    public string AppName { get; }
+
+    public string Version { get; }
+
+    public string DescriptionLine1 { get; }
+
+    public string DescriptionLine2 { get; }
+
+    public string Footer { get; }
+
+    /// <summary>Raised when the operator asks to close the dialog; the owner of the window must handle it.</summary>
+    public event EventHandler? CloseRequested;
+
+    [RelayCommand]
+    private void Close()
+    {
+        CloseRequested?.Invoke(this, EventArgs.Empty);
+    }
+}

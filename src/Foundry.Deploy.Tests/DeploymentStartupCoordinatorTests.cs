@@ -20,6 +20,7 @@ using Foundry.Utilities.Diagnostics;
 using Foundry.Utilities.Networking;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using SecretEnvelope = Foundry.Core.Models.Configuration.SecretEnvelope;
 
 namespace Foundry.Deploy.Tests;
 

@@ -17,6 +17,7 @@ using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Network;
+using Foundry.Deploy.Services.Security;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Foundry.Deploy.Tests;
@@ -106,7 +107,7 @@ public sealed class DeploymentCustomizationScenarioTests
         context.UnattendSnapshot = new UnattendSnapshot(answer.ToArray(), UnattendFileService.Inspect(answer, "amd64"));
         var forbidden = new ForbiddenExternalServices();
         context.NetworkProfileRoamingPayload = await new NetworkProfileRoamingArtifactService(
-            forbidden, NullLogger<NetworkProfileRoamingArtifactService>.Instance)
+            forbidden, forbidden, NullLogger<NetworkProfileRoamingArtifactService>.Instance)
             .LoadAsync(request.Network.ProfileRoaming, fixture.WorkspaceRoot, cancellationToken);
         context.NetworkProfileRoamingResolved = true;
         Assert.NotNull(context.NetworkProfileRoamingPayload);
@@ -209,7 +210,7 @@ public sealed class DeploymentCustomizationScenarioTests
         }
     }
 
-    private sealed class ForbiddenExternalServices : INetworkSecretKeyReader, IAutopilotHardwareHashCaptureService, IAutopilotHardwareHashUploadService, IAutopilotProfileContentService
+    private sealed class ForbiddenExternalServices : INetworkSecretKeyReader, IDeploymentSecretKeyProvider, IAutopilotHardwareHashCaptureService, IAutopilotHardwareHashUploadService, IAutopilotProfileContentService
     {
         public Task<byte[]> ReadAsync(string workspaceRootPath, CancellationToken cancellationToken = default) => throw new NotSupportedException();
         public Task<AutopilotHardwareHashCaptureResult> CaptureAsync(AutopilotHardwareHashCaptureRequest request, CancellationToken cancellationToken = default) => throw new NotSupportedException();

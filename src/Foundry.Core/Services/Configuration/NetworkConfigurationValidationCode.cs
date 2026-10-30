@@ -20,5 +20,7 @@ public enum NetworkConfigurationValidationCode
     WifiEnterpriseAuthenticationUnsupported,
     WifiEnterpriseAuthenticationMismatch,
     WifiEnterpriseCertificateRequired,
-    WifiEnterpriseCertificateMissing
+    WifiEnterpriseCertificateMissing,
+    WiredMediaProtectionRequired,
+    WifiMediaProtectionRequired
 }

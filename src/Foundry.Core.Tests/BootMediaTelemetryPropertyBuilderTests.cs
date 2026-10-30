@@ -499,7 +499,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
                     IsEnabled = true,
                     ProfileTemplate = TestFileReferences.Detached("wired.xml"),
                     RequiresCertificate = true,
-                    Certificate = TestFileReferences.Detached("wired.cer")
+                    TrustedRootCertificates = [TestFileReferences.Detached("wired.cer")]
                 },
                 WifiProvisioned = true,
                 Wifi = new WifiSettings
@@ -1121,14 +1121,14 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
                 {
                     IsEnabled = true,
                     RequiresCertificate = false,
-                    Certificate = TestFileReferences.Detached("wired.cer")
+                    TrustedRootCertificates = [TestFileReferences.Detached("wired.cer")]
                 },
                 Wifi = new WifiSettings
                 {
                     IsEnabled = true,
                     HasEnterpriseProfile = true,
                     RequiresCertificate = false,
-                    Certificate = TestFileReferences.Detached("wifi.cer")
+                    TrustedRootCertificates = [TestFileReferences.Detached("wifi.cer")]
                 }
             }
         };

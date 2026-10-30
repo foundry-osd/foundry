@@ -312,7 +312,7 @@ Action : vérifiez les attributs du disque et réessayez le déploiement.</value
     <value>Continuer</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>Entrez le mot de passe du technicien pour continuer.</value>
+    <value>Entrez le mot de passe de déploiement pour continuer.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>Mot de passe requis</value>

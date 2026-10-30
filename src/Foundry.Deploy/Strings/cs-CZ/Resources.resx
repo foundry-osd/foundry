@@ -312,7 +312,7 @@ Akce: Ověřte atributy disku a opakujte nasazení.</value>
     <value>Pokračovat</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>Pokračujte zadáním hesla technika.</value>
+    <value>Pokračujte zadáním hesla pro nasazení.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>Je vyžadováno heslo</value>

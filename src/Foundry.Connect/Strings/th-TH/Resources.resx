@@ -34,6 +34,12 @@
   <data name="Action.Disconnect" xml:space="preserve">
     <value>ตัดการเชื่อมต่อ</value>
   </data>
+  <data name="Action.Retry" xml:space="preserve">
+    <value>ลองอีกครั้ง</value>
+  </data>
+  <data name="Action.StayHere" xml:space="preserve">
+    <value>อยู่ที่หน้านี้</value>
+  </data>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
@@ -58,23 +64,8 @@
   <data name="Common.Close" xml:space="preserve">
     <value>ปิด</value>
   </data>
-  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
-    <value>การกำหนดค่า: ค่าเริ่มต้นในตัว</value>
-  </data>
-  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
-    <value>การกำหนดค่า: {0}</value>
-  </data>
   <data name="Common.Connected" xml:space="preserve">
     <value>เชื่อมต่อแล้ว</value>
-  </data>
-  <data name="Common.LastUpdateFormat" xml:space="preserve">
-    <value>อัปเดตล่าสุด: {0:HH:mm:ss}</value>
-  </data>
-  <data name="Common.LastUpdatePending" xml:space="preserve">
-    <value>อัปเดตล่าสุด: รอดำเนินการ</value>
-  </data>
-  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
-    <value>รีเฟรชทุกๆ {0} วินาที</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>ไม่พร้อมใช้งาน</value>
@@ -82,14 +73,65 @@
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>เวอร์ชัน: {0}</value>
   </data>
-  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
-    <value>แสดง Ethernet เท่านั้น</value>
+  <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
+    <value>Ethernet: ที่อยู่ที่กำหนดเองโดยอัตโนมัติ</value>
   </data>
-  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
-    <value>แสดง Ethernet + Wi-Fi</value>
+  <data name="Debug.Scenario.CaptivePortal" xml:space="preserve">
+    <value>Ethernet: หน้าลงชื่อเข้าใช้</value>
   </data>
-  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
-    <value>ใช้เค้าโครงที่ตรวจพบ</value>
+  <data name="Debug.Scenario.Checking" xml:space="preserve">
+    <value>กำลังตรวจสอบเครือข่าย</value>
+  </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet: กำลังรับรองความถูกต้อง 802.1X</value>
+  </data>
+  <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
+    <value>Ethernet: 802.1X ล้มเหลว</value>
+  </data>
+  <data name="Debug.Scenario.EthernetNoInternet" xml:space="preserve">
+    <value>Ethernet: ไม่มีอินเทอร์เน็ต</value>
+  </data>
+  <data name="Debug.Scenario.EthernetReady" xml:space="preserve">
+    <value>Ethernet: พร้อม</value>
+  </data>
+  <data name="Debug.Scenario.Live" xml:space="preserve">
+    <value>เครือข่ายจริง</value>
+  </data>
+  <data name="Debug.Scenario.NoAdapter" xml:space="preserve">
+    <value>ไม่มีอะแดปเตอร์เครือข่าย</value>
+  </data>
+  <data name="Debug.Scenario.NoLink" xml:space="preserve">
+    <value>Ethernet: ไม่มีสายเคเบิล</value>
+  </data>
+  <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
+    <value>ไม่มีอะแดปเตอร์ Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>Wi-Fi ที่จัดเตรียมไว้: ต้องใช้รหัสผ่าน</value>
+  </data>
+  <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
+    <value>Wi-Fi ที่จัดเตรียมไว้ไม่พร้อมใช้งาน</value>
+  </data>
+  <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
+    <value>Ethernet: กำลังรอที่อยู่</value>
+  </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>Wi-Fi ที่จัดเตรียมไว้: กำลังเชื่อมต่อ</value>
+  </data>
+  <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
+    <value>เครือข่าย Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>ไม่มีอะแดปเตอร์ Ethernet, มีเครือข่าย Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenario.WifiReady" xml:space="preserve">
+    <value>Wi-Fi: พร้อม</value>
+  </data>
+  <data name="Debug.Scenario.WifiRuntimeMissing" xml:space="preserve">
+    <value>ไม่มีการสนับสนุน Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenarios" xml:space="preserve">
+    <value>สถานการณ์</value>
   </data>
   <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
     <value>เลือกตำแหน่งที่จะส่งออกข้อมูลการวินิจฉัยของ Foundry</value>
@@ -125,14 +167,50 @@
   <data name="Ethernet.AdapterLabel" xml:space="preserve">
     <value>อะแดปเตอร์</value>
   </data>
-  <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>ตรวจสอบการเชื่อมต่อสายเคเบิล</value>
+  <data name="Ethernet.ApipaAddress" xml:space="preserve">
+    <value>ที่อยู่ที่กำหนดเองโดยอัตโนมัติ</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>ตรวจพบการเช่า DHCP</value>
   </data>
+  <data name="Ethernet.Dot1xAuthenticated" xml:space="preserve">
+    <value>รับรองความถูกต้องแล้ว</value>
+  </data>
+  <data name="Ethernet.Dot1xAuthenticating" xml:space="preserve">
+    <value>กำลังรับรองความถูกต้อง</value>
+  </data>
+  <data name="Ethernet.Dot1xFailed" xml:space="preserve">
+    <value>การรับรองความถูกต้องล้มเหลว</value>
+  </data>
+  <data name="Ethernet.Dot1xLabel" xml:space="preserve">
+    <value>802.1X</value>
+  </data>
+  <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
+    <value>นำโปรไฟล์ไปใช้แล้ว</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
+    <value>เครือข่ายปฏิเสธการรับรองความถูกต้อง ตรวจสอบใบรับรองและการตั้งค่าพอร์ตของสวิตช์</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileImportFailed" xml:space="preserve">
+    <value>Windows ปฏิเสธโปรไฟล์ 802.1X จากสื่อบูต</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileTemplateMissing" xml:space="preserve">
+    <value>ไม่พบโปรไฟล์ 802.1X ในสื่อบูต สร้างสื่อบูตใหม่</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
+    <value>ไม่สามารถอ่านรหัสผ่านของใบรับรอง 802.1X ได้ สร้างสื่อบูตใหม่</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>ไม่ได้ป้อนรหัสผ่านการปรับใช้ จึงไม่ได้นำการตั้งค่า 802.1X ไปใช้</value>
+  </data>
+  <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
+    <value>ไม่พร้อมใช้งาน</value>
+  </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>เกตเวย์</value>
+  </data>
+  <data name="Ethernet.IpAssignmentLabel" xml:space="preserve">
+    <value>การกำหนด IP</value>
   </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
@@ -140,20 +218,17 @@
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
     <value>ไม่มีลิงก์ที่ใช้งานอยู่</value>
   </data>
-  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>ไม่พบอะแดปเตอร์ Ethernet</value>
-  </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>ตรวจพบการกำหนดค่าเครือข่ายแบบคงที่</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>Ethernet ไม่พร้อมใช้งานบนอุปกรณ์นี้</value>
+  </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>กำลังรอการกำหนดค่าเครือข่าย</value>
-  </data>
-  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>กำลังรอ DHCP หรือการกำหนดค่าเครือข่ายแบบคงที่</value>
   </data>
   <data name="Keyboard.OtherLanguages" xml:space="preserve">
     <value>ภาษาอื่นๆ</value>
@@ -273,43 +348,106 @@
     <value>ยูเครน (ยูเครน)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>เกี่ยวกับ</value>
+    <value>_เกี่ยวกับ</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>ดีบัก</value>
+    <value>_ดีบั๊ก</value>
   </data>
   <data name="Menu.Keyboard" xml:space="preserve">
-    <value>แป้นพิมพ์</value>
+    <value>_แป้นพิมพ์</value>
   </data>
   <data name="Menu.KeyboardFormat" xml:space="preserve">
-    <value>แป้นพิมพ์ ({0})</value>
+    <value>_แป้นพิมพ์ ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
-    <value>ภาษา</value>
+    <value>_ภาษา</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>ธีม</value>
+    <value>_ธีม</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
-    <value>เครื่องมือ</value>
+    <value>_เครื่องมือ</value>
+  </data>
+  <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
+    <value>กำลังนำการตั้งค่าเครือข่ายจากสื่อบูตไปใช้</value>
+  </data>
+  <data name="Status.AutoContinueCancelled" xml:space="preserve">
+    <value>การดำเนินการต่ออัตโนมัติปิดอยู่ เลือก ดำเนินการต่อ เมื่อคุณพร้อม</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>ต่อเนื่องอัตโนมัติใน {0}s</value>
   </data>
-  <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>การเข้าถึงอินเทอร์เน็ตได้รับการตรวจสอบแล้ว คุณสามารถดำเนินการต่อได้ทันที</value>
+  <data name="Status.AutoContinuePaused" xml:space="preserve">
+    <value>การดำเนินการต่ออัตโนมัติหยุดชั่วคราวเนื่องจากคุณเปลี่ยนการตั้งค่าเครือข่าย</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
+    <value>เครือข่ายตอบกลับด้วยหน้าลงชื่อเข้าใช้แทนการเข้าถึงอินเทอร์เน็ต ลงชื่อเข้าใช้จากอุปกรณ์อื่นหากเครือข่ายนี้อนุญาต หรือใช้เครือข่ายอื่น แล้วเลือก ลองอีกครั้ง</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>เครือข่ายตอบกลับด้วยหน้าลงชื่อเข้าใช้แทนการเข้าถึงอินเทอร์เน็ต ลงชื่อเข้าใช้จากอุปกรณ์อื่นหากเครือข่ายนี้อนุญาต แล้วเลือก ลองอีกครั้ง</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>ต้องลงชื่อเข้าใช้</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>สาเหตุแสดงอยู่ในส่วน Ethernet</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>การรับรองความถูกต้อง 802.1X แบบใช้สายไม่สำเร็จ</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>เข้าร่วมเครือข่าย Wi-Fi</value>
+  </data>
+  <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
+    <value>ตรวจสอบส่วน Ethernet และ Wi-Fi แล้วเลือก ลองอีกครั้ง</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>ไม่มีอะแดปเตอร์เครือข่าย</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>เสียบสาย Ethernet</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>ไม่มีสาย Ethernet</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>ตรวจสอบส่วน Ethernet แล้วเลือก ลองอีกครั้ง</value>
+  </data>
+  <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
+    <value>เครือข่ายเชื่อมต่ออยู่แต่เข้าถึงอินเทอร์เน็ตไม่ได้ ตรวจสอบไฟร์วอลล์หรือพร็อกซี แล้วเลือก ลองอีกครั้ง</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
+    <value>ตรวจสอบ DHCP บนเครือข่ายนี้ แล้วเลือก ลองอีกครั้ง</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>ไม่มีที่อยู่ IP</value>
+  </data>
+  <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
+    <value>เสียบสาย Ethernet หรือเข้าร่วมเครือข่าย Wi-Fi</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>ไม่มีการเชื่อมต่อเครือข่าย</value>
+  </data>
+  <data name="Status.BlockedTitle" xml:space="preserve">
+    <value>ไม่มีการเข้าถึงอินเทอร์เน็ต</value>
+  </data>
+  <data name="Status.CheckingTitle" xml:space="preserve">
+    <value>กำลังตรวจสอบเครือข่าย</value>
+  </data>
+  <data name="Status.ConnectingDescription" xml:space="preserve">
+    <value>กำลังดำเนินการด้านเครือข่าย อาจใช้เวลาถึง 20 วินาที</value>
+  </data>
+  <data name="Status.ConnectingTitle" xml:space="preserve">
+    <value>กำลังเชื่อมต่อ</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>กำลังตัดการเชื่อมต่อ</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>กำลังรับรองความถูกต้อง 802.1X แบบใช้สาย</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>เครือข่ายพร้อม</value>
-  </data>
-  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
-    <value>การรีเฟรชเครือข่ายล้มเหลว</value>
-  </data>
-  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
-    <value>การเข้าถึงอินเทอร์เน็ตยังไม่ได้รับการตรวจสอบ</value>
-  </data>
-  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
-    <value>กำลังรอเครือข่าย</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>มืด</value>
@@ -326,14 +464,44 @@
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>รีเฟรชสถานะ</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>ดำเนินการต่อ</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>ป้อนรหัสผ่านการปรับใช้เพื่อดำเนินการต่อ</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>ต้องใช้รหัสผ่าน</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>รหัสผ่านไม่ถูกต้อง โปรดลองอีกครั้ง</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>รหัสผ่านการปรับใช้</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>การตั้งค่าเครือข่ายที่ได้รับการป้องกัน</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>แสดงหรือซ่อนรหัสผ่าน</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>ไม่สามารถใช้การตั้งค่าเครือข่ายที่จัดเตรียมไว้ได้</value>
   </data>
   <data name="Wifi.ActionConnectFailed" xml:space="preserve">
     <value>ไม่สามารถเชื่อมต่อได้ ตรวจสอบรหัสผ่านหรือการตั้งค่าเครือข่ายแล้วลองอีกครั้ง</value>
   </data>
+  <data name="Wifi.ActionConnectTimedOut" xml:space="preserve">
+    <value>การพยายามเชื่อมต่อหมดเวลา เข้าใกล้จุดเข้าใช้งานมากขึ้นแล้วลองอีกครั้ง</value>
+  </data>
   <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
     <value>ไม่สามารถตัดการเชื่อมต่อได้ ลองอีกครั้ง</value>
+  </data>
+  <data name="Wifi.ActionInvalidPassphrase" xml:space="preserve">
+    <value>รหัสผ่านไม่ตรงตามข้อกำหนดของเครือข่ายนี้</value>
+  </data>
+  <data name="Wifi.ActionNetworkNotVisible" xml:space="preserve">
+    <value>ไม่เห็นเครือข่ายนี้แล้ว รีเฟรชรายการแล้วลองอีกครั้ง</value>
   </data>
   <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
     <value>ไม่สามารถเชื่อมต่อโปรไฟล์ Wi-Fi ที่จัดสรรไว้ได้ ลองอีกครั้ง</value>
@@ -350,14 +518,14 @@
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
     <value>ไม่สามารถดำเนินการ Wi-Fi ให้เสร็จสิ้นได้ ลองอีกครั้ง</value>
   </data>
-  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>การรับรองความถูกต้อง</value>
-  </data>
-  <data name="Wifi.BootImageSettings" xml:space="preserve">
-    <value>การตั้งค่าอิมเมจสำหรับบูต</value>
-  </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>ความปลอดภัยที่กำหนดค่าไว้</value>
+  </data>
+  <data name="Wifi.ConnectProvisionedAutomationName" xml:space="preserve">
+    <value>เชื่อมต่อ Wi-Fi ที่จัดเตรียมไว้</value>
+  </data>
+  <data name="Wifi.ConnectSelectedAutomationFormat" xml:space="preserve">
+    <value>เชื่อมต่อกับ {0}</value>
   </data>
   <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
     <value>Ethernet</value>
@@ -368,26 +536,29 @@
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
     <value>จัดสรรแล้ว Wi-Fi · {0}</value>
   </data>
-  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
-    <value>โปรไฟล์องค์กร</value>
+  <data name="Wifi.DisconnectProvisionedAutomationName" xml:space="preserve">
+    <value>ตัดการเชื่อมต่อ Wi-Fi ที่จัดเตรียมไว้</value>
   </data>
-  <data name="Wifi.HiddenNetwork" xml:space="preserve">
-    <value>เครือข่ายที่ซ่อนอยู่</value>
+  <data name="Wifi.DisconnectSelectedAutomationFormat" xml:space="preserve">
+    <value>ตัดการเชื่อมต่อจาก {0}</value>
   </data>
-  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>ไม่มีอะแดปเตอร์ Wi-Fi</value>
+  <data name="Wifi.NetworkAutomationFormat" xml:space="preserve">
+    <value>{0}, {1}, สัญญาณ {2} เปอร์เซ็นต์</value>
   </data>
-  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>ไม่พบอะแดปเตอร์ Wi-Fi ในขณะนี้</value>
+  <data name="Wifi.NetworkConnectedAutomationFormat" xml:space="preserve">
+    <value>{0}, {1}, สัญญาณ {2} เปอร์เซ็นต์, เชื่อมต่อแล้ว</value>
+  </data>
+  <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
+    <value>เครือข่าย Wi-Fi ที่มองเห็น</value>
   </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>ขณะนี้ไม่มีเครือข่าย Wi-Fi ให้เห็น</value>
   </data>
-  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
-    <value>ไม่มีโปรไฟล์ Wi-Fi ที่จัดเตรียมไว้ในอิมเมจสำหรับบูตนี้</value>
+  <data name="Wifi.PassphraseLabel" xml:space="preserve">
+    <value>รหัสผ่าน Wi-Fi</value>
   </data>
-  <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>โปรไฟล์</value>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>Wi-Fi ที่จัดเตรียมไว้ได้รับการป้องกันด้วยรหัสผ่านการปรับใช้ เลือก เชื่อมต่อ เพื่อป้อนรหัสผ่าน</value>
   </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>เครือข่ายนี้ต้องการโปรไฟล์ Wi-Fi ที่จัดเตรียมไว้</value>
@@ -395,23 +566,32 @@
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
     <value>จัดสรร Wi-Fi</value>
   </data>
+  <data name="Wifi.ProvisionedUnavailableConfiguration" xml:space="preserve">
+    <value>การตั้งค่า Wi-Fi ที่จัดเตรียมไว้ไม่ถูกต้อง สร้างสื่อบูตใหม่</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailablePassphrase" xml:space="preserve">
+    <value>รหัสผ่าน Wi-Fi ที่จัดเตรียมไว้ไม่ตรงตามข้อกำหนดของเครือข่าย สร้างสื่อบูตใหม่</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
+    <value>ไม่สามารถอ่านรหัสผ่าน Wi-Fi ที่จัดเตรียมไว้จากสื่อบูตนี้ได้ สร้างสื่อบูตใหม่</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
+    <value>ไม่พบโปรไฟล์ Wi-Fi องค์กรในสื่อบูต สร้างสื่อบูตใหม่</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>ไม่ได้ป้อนรหัสผ่านการปรับใช้ เลือก เชื่อมต่อ เพื่อป้อนรหัสผ่าน</value>
+  </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>รีเฟรชเครือข่าย Wi-Fi</value>
   </data>
   <data name="Wifi.SecurityEnterprise" xml:space="preserve">
     <value>องค์กร</value>
   </data>
-  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
-    <value>{0} (เครื่อง)</value>
-  </data>
-  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
-    <value>{0} (เครื่องหรือผู้ใช้)</value>
-  </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
     <value>แบบเปิด</value>
   </data>
-  <data name="Wifi.SecurityPersonal" xml:space="preserve">
-    <value>ส่วนตัว</value>
+  <data name="Wifi.SecurityOwe" xml:space="preserve">
+    <value>แบบเปิด (ปรับปรุง)</value>
   </data>
   <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
     <value>เฉพาะผู้ขาย</value>
@@ -425,17 +605,11 @@
   <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
     <value>WPA2 ส่วนบุคคล</value>
   </data>
-  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
-    <value>องค์กร WPA2/WPA3</value>
-  </data>
   <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
     <value>WPA2/WPA3 ส่วนบุคคล</value>
   </data>
   <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
     <value>องค์กร WPA3</value>
-  </data>
-  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
-    <value>WPA3 องค์กร 192 บิต</value>
   </data>
   <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
     <value>WPA3 ส่วนบุคคล</value>
@@ -443,26 +617,20 @@
   <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
     <value>WPA เอ็นเตอร์ไพรส์</value>
   </data>
-  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
-    <value>WPA ไม่มี</value>
-  </data>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA ส่วนตัว</value>
-  </data>
-  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
-    <value>{0} · ใบรับรองรวมอยู่ในอิมเมจสำหรับบูต</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>เครือข่าย Wi-Fi อื่นเปิดใช้งานอยู่</value>
   </data>
-  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
-    <value>ไม่มีอะแดปเตอร์ Wi-Fi</value>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>ต้องใช้รหัสผ่าน</value>
+  </data>
+  <data name="Wifi.StatusNotInRange" xml:space="preserve">
+    <value>อยู่นอกระยะ</value>
   </data>
   <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
     <value>พร้อมเชื่อมต่อ</value>
-  </data>
-  <data name="Wifi.StatusUnavailable" xml:space="preserve">
-    <value>Wi-Fi ไม่พร้อมใช้งาน</value>
   </data>
   <data name="Wifi.Title" xml:space="preserve">
     <value>Wi-Fi</value>
@@ -470,8 +638,8 @@
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
     <value>แสดงหรือซ่อนรหัสผ่าน Wi-Fi</value>
   </data>
-  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>การสนับสนุน Wi-Fi ไม่พร้อมใช้งานในสภาพแวดล้อมการบูตนี้</value>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>Wi-Fi ไม่พร้อมใช้งานบนอุปกรณ์นี้</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>โปรไฟล์ที่จัดสรรไม่มีชื่อ</value>

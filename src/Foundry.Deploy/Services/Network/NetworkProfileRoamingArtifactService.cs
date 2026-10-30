@@ -8,17 +8,24 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Foundry.Core.Models.Network;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Deploy.Services.Deployment.PreOobe;
+using Foundry.Deploy.Services.Security;
 using Microsoft.Extensions.Logging;
 using CoreDeployNetworkProfileRoamingSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkProfileRoamingSettings;
-using CoreMediaSecretEnvelopeProtector = Foundry.Core.Services.Autopilot.MediaSecretEnvelopeProtector;
-using CoreSecretEnvelope = Foundry.Core.Models.Configuration.SecretEnvelope;
 
 namespace Foundry.Deploy.Services.Network;
 
 /// <summary>
 /// Converts Connect-captured network profile roaming artifacts into pre-OOBE data files.
 /// </summary>
+/// <remarks>
+/// Each secret envelope's key identifier decides its key: deployment-keyed envelopes (a protected PFX and its
+/// password) decrypt with the unlocked deployment key, media-keyed ones (schema 5 media) with the media key. Each key is
+/// read lazily, at most once per load, only when an envelope needs it (schema 6 media have no media key file), and zeroed
+/// when the load ends. A damaged protected certificate or password (malformed JSON, an invalid or tampered envelope) skips
+/// that certificate and its password with one Warning; the rest of roaming continues.
+/// </remarks>
 public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamingArtifactService
 {
     private const string ImportSettingsRelativePath = @"NetworkProfiles\import-settings.json";
@@ -31,13 +38,16 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
     };
 
     private readonly INetworkSecretKeyReader _networkSecretKeyReader;
+    private readonly IDeploymentSecretKeyProvider _deploymentSecretKeyProvider;
     private readonly ILogger<NetworkProfileRoamingArtifactService> _logger;
 
     public NetworkProfileRoamingArtifactService(
         INetworkSecretKeyReader networkSecretKeyReader,
+        IDeploymentSecretKeyProvider deploymentSecretKeyProvider,
         ILogger<NetworkProfileRoamingArtifactService> logger)
     {
         _networkSecretKeyReader = networkSecretKeyReader;
+        _deploymentSecretKeyProvider = deploymentSecretKeyProvider;
         _logger = logger;
     }
 
@@ -71,17 +81,19 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         var dataFiles = new List<PreOobeScriptDataFile>();
         var importSettings = new NetworkProfileRoamingImportSettings();
 
-        importSettings.WifiProfileRelativePath = AddProfileDataFile(
-            dataFiles,
-            artifactRootPath,
-            settings.Wifi.IsEnabled ? manifest.WifiProfile?.RelativePath : null,
-            cancellationToken);
-        importSettings.WifiProfileSource = settings.Wifi.IsEnabled ? manifest.WifiProfile?.Source : null;
-        importSettings.WifiProfileConnectivityExpectation = settings.Wifi.IsEnabled ? manifest.WifiProfile?.ConnectivityExpectation : null;
+        IReadOnlyList<NetworkProfileRoamingImportProfile> wifiProfiles = settings.Wifi.IsEnabled
+            ? AddWifiProfileDataFiles(dataFiles, artifactRootPath, manifest.GetOrderedWifiProfiles(), cancellationToken)
+            : [];
+        NetworkProfileRoamingImportProfile? preferredWifiProfile = wifiProfiles.FirstOrDefault();
+        importSettings.WifiProfileRelativePath = preferredWifiProfile?.RelativePath;
+        importSettings.WifiProfileSource = preferredWifiProfile?.Source;
+        importSettings.WifiProfileConnectivityExpectation = preferredWifiProfile?.ConnectivityExpectation;
+        importSettings.WifiProfiles = wifiProfiles.Count > 1 ? wifiProfiles : null;
         importSettings.WiredDot1xProfileRelativePath = AddProfileDataFile(
             dataFiles,
             artifactRootPath,
             settings.WiredDot1x.IsEnabled ? manifest.WiredDot1xProfile?.RelativePath : null,
+            isSensitive: false,
             cancellationToken);
         importSettings.WiredDot1xProfileSource = settings.WiredDot1x.IsEnabled ? manifest.WiredDot1xProfile?.Source : null;
         importSettings.WiredDot1xProfileConnectivityExpectation = settings.WiredDot1x.IsEnabled ? manifest.WiredDot1xProfile?.ConnectivityExpectation : null;
@@ -139,10 +151,47 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         }
     }
 
+    // Stages every Wi-Fi profile whose file exists, in manifest order (most preferred first). The single
+    // wifiProfile* import fields carry the first staged one; wifiProfiles is written only when there are several, so a
+    // schema 1 manifest produces the same import settings as before.
+    private static IReadOnlyList<NetworkProfileRoamingImportProfile> AddWifiProfileDataFiles(
+        List<PreOobeScriptDataFile> dataFiles,
+        string artifactRootPath,
+        IReadOnlyList<NetworkProfileRoamingProfile> profiles,
+        CancellationToken cancellationToken)
+    {
+        var stagedProfiles = new List<NetworkProfileRoamingImportProfile>();
+        var stagedPaths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (NetworkProfileRoamingProfile profile in profiles)
+        {
+            if (string.IsNullOrWhiteSpace(profile.RelativePath) ||
+                !stagedPaths.Add(ToStagedDataRelativePath(profile.RelativePath)))
+            {
+                continue;
+            }
+
+            string? stagedRelativePath = AddProfileDataFile(dataFiles, artifactRootPath, profile.RelativePath, isSensitive: true, cancellationToken);
+            if (stagedRelativePath is not null)
+            {
+                stagedProfiles.Add(new NetworkProfileRoamingImportProfile
+                {
+                    RelativePath = stagedRelativePath,
+                    Source = profile.Source,
+                    ConnectivityExpectation = profile.ConnectivityExpectation
+                });
+            }
+        }
+
+        return stagedProfiles;
+    }
+
+    // A Wi-Fi profile may carry plaintext key material (a personal passphrase or an enterprise keyMaterial element), so it is
+    // staged sensitive: zeroed after staging and deleted by PostInstall once imported. A wired LAN profile has no key material.
     private static string? AddProfileDataFile(
         List<PreOobeScriptDataFile> dataFiles,
         string artifactRootPath,
         string? artifactRelativePath,
+        bool isSensitive,
         CancellationToken cancellationToken)
     {
         if (string.IsNullOrWhiteSpace(artifactRelativePath))
@@ -160,7 +209,8 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         dataFiles.Add(new PreOobeScriptDataFile
         {
             FileName = stagedRelativePath,
-            Bytes = File.ReadAllBytes(sourcePath)
+            Bytes = File.ReadAllBytes(sourcePath),
+            IsSensitive = isSensitive
         });
         cancellationToken.ThrowIfCancellationRequested();
         return stagedRelativePath;
@@ -175,7 +225,7 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         CancellationToken cancellationToken)
     {
         var importCertificates = new List<NetworkProfileRoamingImportCertificate>();
-        byte[]? mediaSecretKey = null;
+        var secretKeys = new RoamingSecretKeys(_networkSecretKeyReader, _deploymentSecretKeyProvider, workspaceRootPath);
 
         try
         {
@@ -206,30 +256,49 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
                     continue;
                 }
 
+                byte[]? certificateBytes = null;
+                string? password = null;
+                try
+                {
+                    certificateBytes = await ReadCertificateBytesAsync(sourcePath, certificate, secretKeys, cancellationToken)
+                        .ConfigureAwait(false);
+                    if (certificateBytes is not null && isPfxPrivateKey)
+                    {
+                        password = await ReadPfxPasswordAsync(artifactRootPath, certificate, secretKeys, cancellationToken)
+                            .ConfigureAwait(false);
+                    }
+                }
+                catch (Exception exception) when (exception is JsonException or CryptographicException)
+                {
+                    // A damaged protected file disables only this certificate and its password; the rest of roaming continues.
+                    // The exception is not attached: its message can echo file content.
+                    if (certificateBytes is not null)
+                    {
+                        CryptographicOperations.ZeroMemory(certificateBytes);
+                    }
+
+                    _logger.LogWarning(
+                        "A protected network profile roaming certificate could not be read and is skipped. CertificateKind={CertificateKind}, FailureType={FailureType}",
+                        certificate.Kind,
+                        exception.GetType().Name);
+                    continue;
+                }
+
+                if (certificateBytes is null)
+                {
+                    continue;
+                }
+
+                // The staged name keeps the manifest path: PostInstall imports by kind, not by extension.
                 string stagedRelativePath = ToStagedDataRelativePath(certificate.RelativePath);
                 dataFiles.Add(new PreOobeScriptDataFile
                 {
                     FileName = stagedRelativePath,
-                    Bytes = File.ReadAllBytes(sourcePath),
-                    IsSensitive = isPfxPrivateKey
+                    Bytes = certificateBytes,
+                    IsSensitive = isPfxPrivateKey || certificate.IsContentProtected
                 });
 
-                string? passwordRelativePath = null;
-                if (isPfxPrivateKey)
-                {
-                    if (!string.IsNullOrWhiteSpace(certificate.PasswordSecretRelativePath))
-                    {
-                        mediaSecretKey ??= await _networkSecretKeyReader.ReadAsync(workspaceRootPath, cancellationToken).ConfigureAwait(false);
-                    }
-
-                    passwordRelativePath = await AddPfxPasswordDataFileAsync(
-                            dataFiles,
-                            artifactRootPath,
-                            certificate,
-                            mediaSecretKey,
-                            cancellationToken)
-                        .ConfigureAwait(false);
-                }
+                string? passwordRelativePath = password is null ? null : AddPfxPasswordDataFile(dataFiles, certificate, password);
 
                 importCertificates.Add(new NetworkProfileRoamingImportCertificate
                 {
@@ -246,11 +315,30 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         }
         finally
         {
-            if (mediaSecretKey is not null)
-            {
-                CryptographicOperations.ZeroMemory(mediaSecretKey);
-            }
+            secretKeys.Clear();
         }
+    }
+
+    // A protected certificate file is a deployment-keyed SecretEnvelope JSON document; it is staged decrypted.
+    private static async Task<byte[]?> ReadCertificateBytesAsync(
+        string sourcePath,
+        NetworkProfileRoamingCertificate certificate,
+        RoamingSecretKeys secretKeys,
+        CancellationToken cancellationToken)
+    {
+        if (!certificate.IsContentProtected)
+        {
+            return File.ReadAllBytes(sourcePath);
+        }
+
+        SecretEnvelope? envelope = await ReadEnvelopeAsync(sourcePath, cancellationToken).ConfigureAwait(false);
+        if (envelope is null)
+        {
+            return null;
+        }
+
+        byte[] deploymentKey = await secretKeys.GetDeploymentKeyAsync(cancellationToken).ConfigureAwait(false);
+        return MediaSecretEnvelopeProtector.DecryptBytes(envelope, deploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId);
     }
 
     private static NetworkProfileRoamingTransportSettings? ResolveTransportSettings(
@@ -285,11 +373,11 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
             : null;
     }
 
-    private async Task<string?> AddPfxPasswordDataFileAsync(
-        List<PreOobeScriptDataFile> dataFiles,
+    // The envelope is parsed before any key is read: its key identifier chooses the key, and schema 6 media have no media key.
+    private static async Task<string?> ReadPfxPasswordAsync(
         string artifactRootPath,
         NetworkProfileRoamingCertificate certificate,
-        byte[]? mediaSecretKey,
+        RoamingSecretKeys secretKeys,
         CancellationToken cancellationToken)
     {
         if (string.IsNullOrWhiteSpace(certificate.PasswordSecretRelativePath))
@@ -303,23 +391,24 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
             return null;
         }
 
-        if (mediaSecretKey is null)
-        {
-            return null;
-        }
-
-        await using FileStream stream = File.OpenRead(passwordSecretPath);
-        CoreSecretEnvelope? envelope = await JsonSerializer.DeserializeAsync<CoreSecretEnvelope>(
-                stream,
-                JsonOptions,
-                cancellationToken)
-            .ConfigureAwait(false);
+        SecretEnvelope? envelope = await ReadEnvelopeAsync(passwordSecretPath, cancellationToken).ConfigureAwait(false);
         if (envelope is null)
         {
             return null;
         }
 
-        string password = CoreMediaSecretEnvelopeProtector.DecryptString(envelope, mediaSecretKey);
+        return string.Equals(envelope.KeyId, MediaSecretEnvelopeProtector.DeploymentKeyId, StringComparison.Ordinal)
+            ? MediaSecretEnvelopeProtector.DecryptString(
+                envelope,
+                await secretKeys.GetDeploymentKeyAsync(cancellationToken).ConfigureAwait(false),
+                MediaSecretEnvelopeProtector.DeploymentKeyId)
+            : MediaSecretEnvelopeProtector.DecryptString(
+                envelope,
+                await secretKeys.GetMediaKeyAsync(cancellationToken).ConfigureAwait(false));
+    }
+
+    private static string AddPfxPasswordDataFile(List<PreOobeScriptDataFile> dataFiles, NetworkProfileRoamingCertificate certificate, string password)
+    {
         string passwordRelativePath = ToStagedDataRelativePath(certificate.RelativePath + ".password");
         dataFiles.Add(new PreOobeScriptDataFile
         {
@@ -329,6 +418,16 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         });
 
         return passwordRelativePath;
+    }
+
+    private static async Task<SecretEnvelope?> ReadEnvelopeAsync(string path, CancellationToken cancellationToken)
+    {
+        await using FileStream stream = File.OpenRead(path);
+        return await JsonSerializer.DeserializeAsync<SecretEnvelope>(
+                stream,
+                JsonOptions,
+                cancellationToken)
+            .ConfigureAwait(false);
     }
 
     private static string ResolveArtifactPath(string artifactRootPath, string relativePath)
@@ -369,15 +468,56 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         return Path.Combine(segments);
     }
 
+    /// <summary>
+    /// Reads the media key and the deployment key lazily, each at most once per load, and zeroes both in <see cref="Clear"/>.
+    /// </summary>
+    private sealed class RoamingSecretKeys(
+        INetworkSecretKeyReader mediaKeys,
+        IDeploymentSecretKeyProvider deploymentKeys,
+        string workspaceRootPath)
+    {
+        private byte[]? _mediaKey;
+        private byte[]? _deploymentKey;
+
+        public async Task<byte[]> GetMediaKeyAsync(CancellationToken cancellationToken) =>
+            _mediaKey ??= await mediaKeys.ReadAsync(workspaceRootPath, cancellationToken).ConfigureAwait(false);
+
+        public async Task<byte[]> GetDeploymentKeyAsync(CancellationToken cancellationToken) =>
+            _deploymentKey ??= await deploymentKeys.ReadAsync(workspaceRootPath, cancellationToken).ConfigureAwait(false);
+
+        public void Clear()
+        {
+            if (_mediaKey is not null)
+            {
+                CryptographicOperations.ZeroMemory(_mediaKey);
+                _mediaKey = null;
+            }
+
+            if (_deploymentKey is not null)
+            {
+                CryptographicOperations.ZeroMemory(_deploymentKey);
+                _deploymentKey = null;
+            }
+        }
+    }
+
     private sealed record NetworkProfileRoamingImportSettings
     {
         public string? WifiProfileRelativePath { get; set; }
         public string? WifiProfileSource { get; set; }
         public string? WifiProfileConnectivityExpectation { get; set; }
+        public IReadOnlyList<NetworkProfileRoamingImportProfile>? WifiProfiles { get; set; }
         public string? WiredDot1xProfileRelativePath { get; set; }
         public string? WiredDot1xProfileSource { get; set; }
         public string? WiredDot1xProfileConnectivityExpectation { get; set; }
         public IReadOnlyList<NetworkProfileRoamingImportCertificate> Certificates { get; set; } = [];
+    }
+
+    private sealed record NetworkProfileRoamingImportProfile
+    {
+        public string RelativePath { get; init; } = string.Empty;
+        public string? Source { get; init; }
+        public string? ConnectivityExpectation { get; init; }
     }
 
     private sealed record NetworkProfileRoamingImportCertificate

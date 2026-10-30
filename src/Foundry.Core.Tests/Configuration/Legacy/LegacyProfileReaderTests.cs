@@ -33,7 +33,8 @@ public sealed class LegacyProfileReaderTests
             && file.Content.SequenceEqual(Convert.FromBase64String(Expected.WiredCertificateBase64)));
         Assert.Contains(snapshot.Files, file => file.Role == LegacyFileRole.WiredProfile && file.FileName.EndsWith(".xml", StringComparison.Ordinal));
         Assert.Contains(snapshot.Files, file => file.Role == LegacyFileRole.Unattend && file.UnattendId == Expected.UnattendId);
-        Assert.Null(snapshot.Configuration.Network.Dot1x.Certificate);
+        Assert.Null(snapshot.Configuration.Network.Dot1x.ClientCertificate);
+        Assert.Empty(snapshot.Configuration.Network.Dot1x.TrustedRootCertificates);
         Assert.False(snapshot.IsConnectionFile);
         Assert.False(snapshot.WasShared);
     }
@@ -117,7 +118,8 @@ public sealed class LegacyProfileReaderTests
         Assert.Contains(snapshot.Secrets, secret => secret.Kind == LegacySecretKind.DomainJoin && secret.Key == Expected.DomainAccount && secret.Value == Expected.DomainPassword);
         Assert.Contains(snapshot.Files, file => file.Role == LegacyFileRole.WiredCertificate);
         // The legacy host path is not a library reference; the certificate bytes come with the snapshot files.
-        Assert.Null(snapshot.Configuration.Network.Dot1x.Certificate);
+        Assert.Null(snapshot.Configuration.Network.Dot1x.ClientCertificate);
+        Assert.Empty(snapshot.Configuration.Network.Dot1x.TrustedRootCertificates);
         Assert.False(snapshot.WasShared);
         Assert.False(snapshot.IsConnectionFile);
     }

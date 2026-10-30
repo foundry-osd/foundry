@@ -312,7 +312,7 @@ Ação: Verifique os atributos do disco e tente novamente a implantação.</valu
     <value>Continuar</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>Insira a senha do técnico para continuar.</value>
+    <value>Insira a senha de implantação para continuar.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>Senha obrigatória</value>

@@ -312,7 +312,7 @@
     <value>继续</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>请输入技术人员密码以继续。</value>
+    <value>请输入部署密码以继续。</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>需要密码</value>

@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 6,
+  "authoringVersion": "26.10.18.1",
+  "capabilities": {
+    "wifiProvisioned": true
+  },
+  "network": {
+    "profileRoaming": {
+      "wiredDot1x": {
+        "isEnabled": true,
+        "includePrivateKeyMaterial": true
+      },
+      "wifi": {
+        "isEnabled": true,
+        "includePrivateKeyMaterial": false
+      }
+    }
+  },
+  "dot1x": {
+    "isEnabled": true,
+    "profileTemplatePath": "Network\\Wired\\Profiles\\wired.xml",
+    "clientCertificate": {
+      "path": "Network\\Certificates\\Wired\\wired.pfx.encrypted",
+      "isContentProtected": true,
+      "passwordSecret": {
+        "kind": "encrypted",
+        "algorithm": "aes-gcm-v1",
+        "keyId": "deployment",
+        "nonce": "VuTFIzWu2n6FR0FA",
+        "tag": "vblkYG6BBH-j4MYFUxgRQg",
+        "ciphertext": "Yp5lduvoS-5yB5TTsM4"
+      }
+    },
+    "trustedRootCertificates": [
+      "Network\\Certificates\\Wired\\wired-root.cer"
+    ]
+  },
+  "wifi": {
+    "isEnabled": true,
+    "ssid": "Branch WiFi",
+    "securityType": "WPA2/WPA3-Personal",
+    "passphraseSecret": {
+      "kind": "encrypted",
+      "algorithm": "aes-gcm-v1",
+      "keyId": "deployment",
+      "nonce": "XPRszOhQbhQEuzBv",
+      "tag": "wkOI9X_kJEHqEOAs-FJGHA",
+      "ciphertext": "TqeeujFAJitl8OUyQYGlGWpfLg"
+    },
+    "hasEnterpriseProfile": false
+  },
+  "telemetry": {
+    "isEnabled": true,
+    "isRemoteDiagnosticsEnabled": true,
+    "installId": "fixture-install",
+    "hostUrl": "https://eu.i.posthog.com",
+    "projectToken": "",
+    "runtimePayloadSource": "unknown"
+  },
+  "protection": {
+    "isEnabled": true,
+    "keyDerivationAlgorithm": "pbkdf2-sha256",
+    "iterations": 600000,
+    "salt": "4XJL5oyk-c2AJFCJEZGJCA",
+    "protectedDeploymentKey": {
+      "kind": "encrypted",
+      "algorithm": "aes-gcm-v1",
+      "keyId": "deployment-password",
+      "nonce": "3Bv3pPcAhShN3KlA",
+      "tag": "qOLh1hSGBCeYemN-paEiYw",
+      "ciphertext": "Amzy4kJ2iWUHw3DGhSaYwX0YkbOlsZidBl1S3oVqfOs"
+    },
+    "keyCheck": {
+      "kind": "encrypted",
+      "algorithm": "aes-gcm-v1",
+      "keyId": "deployment-key-check",
+      "nonce": "RLBjMOcXTIfg82ll",
+      "tag": "mIHzZGFY1x0udeMObBAmQQ",
+      "ciphertext": "OZkASDz4ASdNAkpG-GlGiVvp7qwpLOVK4WyRVSH1DQ"
+    }
+  }
+}

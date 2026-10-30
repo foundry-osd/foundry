@@ -15,7 +15,8 @@ public static class NetworkMediaReadinessEvaluator
     /// </summary>
     /// <param name="settings">The authoring network settings.</param>
     /// <param name="inputs">Where referenced files can be read, and the current network passwords.</param>
-    public static NetworkMediaReadinessEvaluation Evaluate(NetworkSettings settings, MediaInputs inputs)
+    /// <param name="isMediaProtected">Whether Password protection is on and usable; a network secret is not ready without it.</param>
+    public static NetworkMediaReadinessEvaluation Evaluate(NetworkSettings settings, MediaInputs inputs, bool isMediaProtected)
     {
         ArgumentNullException.ThrowIfNull(settings);
         ArgumentNullException.ThrowIfNull(inputs);
@@ -25,7 +26,7 @@ public static class NetworkMediaReadinessEvaluator
             ? inputs with { Network = inputs.Network with { WifiPassphrase = ValidationPassphrasePlaceholder } }
             : inputs;
 
-        NetworkConfigurationValidationResult validationResult = NetworkConfigurationValidator.Validate(settings, validationInputs);
+        NetworkConfigurationValidationResult validationResult = NetworkConfigurationValidator.Validate(settings, validationInputs, isMediaProtected);
         bool isNetworkConfigurationReady = validationResult.IsValid;
         bool areRequiredSecretsReady = !requiresPersonalWifiPassphrase ||
             IsPersonalWifiPassphraseValid(inputs.Network.WifiPassphrase);
@@ -40,9 +41,13 @@ public static class NetworkMediaReadinessEvaluator
     }
 
     /// <summary>Gets whether the settings provision personal Wi-Fi, whose passphrase the media needs.</summary>
+    /// <remarks>
+    /// Same rule as <see cref="NetworkConfigurationValidator"/>: a personal security type needs the passphrase even when an
+    /// enterprise profile is still recorded from an earlier security type.
+    /// </remarks>
     internal static bool RequiresPersonalWifiPassphrase(NetworkSettings settings)
     {
-        if (!settings.WifiProvisioned || !settings.Wifi.IsEnabled || settings.Wifi.HasEnterpriseProfile)
+        if (!settings.WifiProvisioned || !settings.Wifi.IsEnabled)
         {
             return false;
         }

@@ -144,6 +144,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
         string connectConfigurationJson = string.IsNullOrWhiteSpace(options.FoundryConnectConfigurationJson)
             ? CreateFallbackFoundryConnectConfigurationJson()
             : options.FoundryConnectConfigurationJson;
+        EnsureNoMediaKeyedSecrets(connectConfigurationJson);
 
         await File.WriteAllTextAsync(
             Path.Combine(foundryConfigPath, "foundry.connect.config.json"),
@@ -162,12 +163,6 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
             Path.Combine(foundryConfigPath, "foundry.deploy.config.json"),
             deployConfigurationJson,
             Utf8NoBom,
-            cancellationToken).ConfigureAwait(false);
-
-        await WriteNetworkSecretsKeyAsync(
-            foundryConfigPath,
-            connectConfigurationJson,
-            options.NetworkSecretsKey,
             cancellationToken).ConfigureAwait(false);
 
         await WriteDeploymentSecretsKeyAsync(
@@ -208,39 +203,17 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
         }
     }
 
-    private static async Task WriteNetworkSecretsKeyAsync(
-        string foundryConfigPath,
-        string connectConfigurationJson,
-        byte[]? networkSecretsKey,
-        CancellationToken cancellationToken)
+    /// <summary>
+    /// Refuses a Foundry Connect configuration that still carries a media-keyed envelope: new media never ship a media key, so
+    /// such a secret could not be decrypted, and network secrets are protected by the deployment key only.
+    /// </summary>
+    /// <exception cref="ArgumentException">The configuration contains a media-keyed envelope.</exception>
+    private static void EnsureNoMediaKeyedSecrets(string connectConfigurationJson)
     {
-        bool hasEncryptedSecrets = MediaSecretEnvelopeProtector.HasEncryptedSecrets(connectConfigurationJson);
-        if (networkSecretsKey is null || networkSecretsKey.Length == 0)
+        if (MediaSecretEnvelopeProtector.HasEncryptedSecrets(connectConfigurationJson))
         {
-            if (hasEncryptedSecrets)
-            {
-                throw new ArgumentException("Foundry encrypted media secrets require a media secret key.");
-            }
-
-            return;
+            throw new ArgumentException("Foundry Connect configuration must not contain media-keyed secrets.");
         }
-
-        if (!hasEncryptedSecrets)
-        {
-            throw new ArgumentException("A media secret key must not be provisioned without encrypted Foundry media secrets.");
-        }
-
-        if (networkSecretsKey.Length != 32)
-        {
-            throw new ArgumentException("Media secret key must be 32 bytes.");
-        }
-
-        string secretsPath = Path.Combine(foundryConfigPath, "Secrets");
-        Directory.CreateDirectory(secretsPath);
-        await File.WriteAllBytesAsync(
-            Path.Combine(secretsPath, "media-secrets.key"),
-            networkSecretsKey,
-            cancellationToken).ConfigureAwait(false);
     }
 
     private static async Task WriteDeploymentSecretsKeyAsync(
@@ -451,7 +424,8 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
 
     private static string CreateFallbackFoundryConnectConfigurationJson()
     {
-        return JsonSerializer.Serialize(new FoundryConnectConfigurationDocument(), ConfigurationJsonDefaults.SerializerOptions);
+        // Same schema 6 writer as generated media, so the fallback omits the fields Connect no longer consumes.
+        return new ConnectConfigurationGenerator().Serialize(new FoundryConnectConfigurationDocument());
     }
 
     private static string CreateFallbackDeployConfigurationJson()

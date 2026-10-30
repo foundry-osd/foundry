@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using SecretEnvelope = Foundry.Core.Models.Configuration.SecretEnvelope;
+
 namespace Foundry.Deploy.Models.Configuration;
 
 /// <summary>
@@ -18,4 +20,9 @@ public sealed record DeployProtectionSettings
     public string Salt { get; init; } = string.Empty;
 
     public SecretEnvelope ProtectedDeploymentKey { get; init; } = new();
+
+    /// <summary>
+    /// Authenticates a deployment key handed over by Foundry Connect; absent on media built before it.
+    /// </summary>
+    public SecretEnvelope? KeyCheck { get; init; }
 }

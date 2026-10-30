@@ -13,7 +13,7 @@ using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Images;
 using CustomImageSourceLease = Foundry.Deploy.Services.Images.CustomImageSourceLease;
 using Foundry.Deploy.Services.Localization;
-using Foundry.Deploy.Services.Runtime;
+using Foundry.Wpf.Runtime;
 
 namespace Foundry.Deploy.ViewModels;
 

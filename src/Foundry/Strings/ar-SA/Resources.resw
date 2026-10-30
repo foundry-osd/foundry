@@ -2215,12 +2215,6 @@
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
     <value>حساب الانضمام المشترك</value>
   </data>
-  <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>ملف شهادة CA الجذر الموثوق به</value>
-  </data>
-  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>حدد شهادة 802.1X</value>
-  </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>تمكين تكوين Ethernet 802.1X</value>
   </data>
@@ -2246,7 +2240,7 @@
     <value>تأكيد كلمة المرور</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>اطلب كلمة مرور فني قبل بدء عملية النشر. تظل بيانات اعتماد الشبكة المضمنة متاحة دون كلمة المرور هذه.</value>
+    <value>اطلب كلمة مرور فني قبل بدء عملية النشر. تكون الحماية بكلمة مرور مطلوبة عندما توفّر الوسائط سرًا للشبكة، مثل كلمة مرور Wi-Fi أو شهادة العميل.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>الحماية بكلمة مرور</value>
@@ -2255,7 +2249,7 @@
     <value>كلمة المرور</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>احتفظ بكلمة المرور هذه في مكان آمن. فهي تحمي كلمات مرور حسابات Windows المحلية وبيانات اعتماد الانضمام إلى النطاق وبيانات اعتماد Autopilot وملفات تعريفه وملفات الإجابات المخصصة.</value>
+    <value>احتفظ بكلمة المرور هذه في مكان آمن. فهي تحمي كلمات مرور حسابات Windows المحلية وبيانات اعتماد الانضمام إلى النطاق وبيانات اعتماد Autopilot وملفات تعريفه وملفات الإجابات المخصصة وأسرار الشبكة: كلمة مرور Wi-Fi الشخصية، وشهادة العميل وكلمة مرورها، وملف تعريف Wi-Fi للمؤسسات الذي يحتوي على مواد مفاتيح.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>كلمة مرور النشر</value>
@@ -2710,8 +2704,23 @@
   <data name="NavigationStatus.NotConfigured" xml:space="preserve">
     <value>غير مُهيّأ</value>
   </data>
+  <data name="Network.AddTrustedRootCertificate" xml:space="preserve">
+    <value>إضافة شهادة</value>
+  </data>
+  <data name="Network.ClientCertificateDescription" xml:space="preserve">
+    <value>شهادة مع مفتاحها الخاص تصادق على هذا الجهاز (EAP-TLS).</value>
+  </data>
+  <data name="Network.ClientCertificateLabel" xml:space="preserve">
+    <value>شهادة العميل (PFX)</value>
+  </data>
+  <data name="Network.ClientCertificatePickerTitle" xml:space="preserve">
+    <value>حدد شهادة العميل</value>
+  </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>يعتمد سلوك المؤسسة على قالب الملف الشخصي الموجود في هذا الإصدار. لا يتم توفير بيانات اعتماد 802.1X التي تم إدخالها أثناء النشر هنا.</value>
+  </data>
+  <data name="Network.ErrorMediaProtectionRequired" xml:space="preserve">
+    <value>تحمي كلمة مرور النشر كلمات مرور Wi-Fi وشهادات العميل. فعّل الحماية بكلمة مرور في صفحة «عام» وعيّن كلمة مرور النشر.</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
     <value>نوع الأمان Wi-Fi غير مدعوم '{0}'.</value>
@@ -2723,10 +2732,10 @@
     <value>يجب أن يحتوي قالب ملف تعريف المؤسسة Wi-Fi على قيمة مصادقة مؤسسية مدعومة.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>لم يتم العثور على ملف شهادة CA الجذر الموثوق به للمؤسسة Wi-Fi.</value>
+    <value>لم يتم العثور على ملف شهادة Wi-Fi للمؤسسات. حدده مرة أخرى.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>يتطلب Enterprise Wi-Fi ملف شهادة CA جذر موثوقًا به عند تمكين الثقة بالشهادة.</value>
+    <value>تتطلب شبكة Wi-Fi للمؤسسات شهادة عميل أو شهادة CA جذر موثوقًا بها عند استخدام الشهادات.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
     <value>لم يتم العثور على ملف قالب ملف تعريف Enterprise Wi-Fi.</value>
@@ -2744,10 +2753,10 @@
     <value>يتطلب تكوين Wi-Fi SSID.</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>لم يتم العثور على ملف شهادة CA الجذري الموثوق به السلكي 802.1X.</value>
+    <value>لم يتم العثور على ملف شهادة 802.1X السلكية. حدده مرة أخرى.</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>يتطلب Wired 802.1X ملف شهادة CA جذر موثوقًا به عند تمكين الثقة بالشهادة.</value>
+    <value>يتطلب 802.1X السلكي شهادة عميل أو شهادة CA جذر موثوقًا بها عند استخدام الشهادات.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
     <value>لم يتم العثور على ملف قالب ملف تعريف 802.1X السلكي.</value>
@@ -2755,14 +2764,26 @@
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
     <value>يتطلب Wired 802.1X قالب ملف تعريف سلكي.</value>
   </data>
+  <data name="Network.NoTrustedRootCertificates" xml:space="preserve">
+    <value>لم تتم إضافة أي شهادة CA جذر موثوق بها.</value>
+  </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
     <value>ملف قالب ملف التعريف</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
     <value>حدد قالب ملف تعريف الشبكة</value>
   </data>
+  <data name="Network.RemoveCertificate" xml:space="preserve">
+    <value>إزالة</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>إزالة شهادة العميل</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>إزالة شهادة CA الجذر الموثوق بها المحددة</value>
+  </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>قم باستيراد شهادة CA الجذرية الموثوقة</value>
+    <value>استخدام الشهادات</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>ينسخ شهادات عميل PFX المكوّنة إلى Windows ويستوردها إلى مخزن الشهادات الشخصي LocalMachine قبل OOBE.</value>
@@ -2772,6 +2793,15 @@
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>تجوال ملفات تعريف الشبكة إلى Windows</value>
+  </data>
+  <data name="Network.TrustedRootCertificatePickerTitle" xml:space="preserve">
+    <value>حدد شهادة CA جذر موثوق بها</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesDescription" xml:space="preserve">
+    <value>الشهادات العامة للجهات التي أصدرت شهادة خادم المصادقة.</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesLabel" xml:space="preserve">
+    <value>شهادات CA الجذر الموثوق بها</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>مؤسسة متقدمة Wi-Fi</value>
@@ -2783,7 +2813,7 @@
     <value>يتذكر Foundry عبارة المرور على هذا الكمبيوتر في مخزنه المحلي المشفّر. ولا تغادر هذا الكمبيوتر إلا ضمن تصدير أو نشر عند اختيار «تضمين كلمات المرور».</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>يستورد ملف تعريف Wi-Fi الذي تديره Foundry إلى Windows قبل OOBE للحفاظ على اتصالية النشر بعد WinPE.</value>
+    <value>عند تشغيل هذا الخيار، يتم استيراد كل شبكة Wi-Fi تم الاتصال بها بنجاح في Foundry Connect، سواء كانت مُعدّة مسبقًا أو تم الاتصال بها يدويًا، إلى Windows قبل OOBE، بدءًا بالشبكة التي وفّرت الوصول إلى الإنترنت، للحفاظ على الاتصال بعد WinPE.</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>تجوال ملفات تعريف Windows</value>
@@ -5072,12 +5102,6 @@
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>تحديث</value>
-  </data>
-  <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>ملف شهادة CA الجذر الموثوق به</value>
-  </data>
-  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>حدد الشهادة Wi-Fi</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>قم بتوفير ملف تعريف Wi-Fi مسبقًا</value>

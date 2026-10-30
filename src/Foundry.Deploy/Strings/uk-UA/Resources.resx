@@ -312,7 +312,7 @@ ErrorCode=0x80070005
     <value>Продовжити</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>Введіть пароль технічного спеціаліста, щоб продовжити.</value>
+    <value>Введіть пароль розгортання, щоб продовжити.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>Потрібен пароль</value>

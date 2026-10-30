@@ -6,6 +6,7 @@ using System.IO;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Configuration;
 using ConfigurationSchemaVersions = Foundry.Core.Models.Configuration.ConfigurationSchemaVersions;
+using SecretEnvelope = Foundry.Core.Models.Configuration.SecretEnvelope;
 
 namespace Foundry.Deploy.Services.Security;
 

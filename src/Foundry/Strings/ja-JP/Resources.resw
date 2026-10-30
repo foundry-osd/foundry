@@ -2215,12 +2215,6 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
     <value>共有の参加用アカウント</value>
   </data>
-  <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>信頼されたルート CA 証明書ファイル</value>
-  </data>
-  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>802.1X証明書を選択します</value>
-  </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Ethernet 802.1X の構成を有効にする</value>
   </data>
@@ -2246,7 +2240,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>パスワードの確認</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>展開を開始する前に技術者用パスワードを要求します。埋め込まれたネットワーク資格情報は、このパスワードがなくてもアクセスできます。</value>
+    <value>展開を開始する前に技術者用パスワードを要求します。メディアが Wi-Fi のパスワードやクライアント証明書などのネットワーク シークレットをプロビジョニングする場合は、パスワード保護が必要です。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>パスワード保護</value>
@@ -2255,7 +2249,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>パスワード</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>このパスワードは安全に保管してください。Windows のローカル アカウントのパスワード、ドメイン参加の資格情報、Autopilot の資格情報とプロファイル、およびカスタム応答ファイルを保護します。</value>
+    <value>このパスワードは安全に保管してください。Windows のローカル アカウントのパスワード、ドメイン参加の資格情報、Autopilot の資格情報とプロファイル、カスタム応答ファイル、およびネットワーク シークレット (個人用 Wi-Fi のパスワード、クライアント証明書とそのパスワード、キー マテリアルを含むエンタープライズ Wi-Fi プロファイル) を保護します。</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>展開パスワード</value>
@@ -2710,8 +2704,23 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="NavigationStatus.NotConfigured" xml:space="preserve">
     <value>未構成</value>
   </data>
+  <data name="Network.AddTrustedRootCertificate" xml:space="preserve">
+    <value>証明書を追加</value>
+  </data>
+  <data name="Network.ClientCertificateDescription" xml:space="preserve">
+    <value>このデバイスを認証する、秘密キー付きの証明書 (EAP-TLS)。</value>
+  </data>
+  <data name="Network.ClientCertificateLabel" xml:space="preserve">
+    <value>クライアント証明書 (PFX)</value>
+  </data>
+  <data name="Network.ClientCertificatePickerTitle" xml:space="preserve">
+    <value>クライアント証明書を選択</value>
+  </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>エンタープライズ動作は、このビルドのプロファイル テンプレートによって駆動されます。導入中に入力された 802.1X 認証情報は、ここではプロビジョニングされません。</value>
+  </data>
+  <data name="Network.ErrorMediaProtectionRequired" xml:space="preserve">
+    <value>Wi-Fi のパスワードとクライアント証明書は展開パスワードで保護されます。「一般」ページでパスワード保護を有効にし、展開パスワードを設定してください。</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
     <value>Wi-Fi セキュリティ タイプ '{0}' はサポートされていません。</value>
@@ -2723,10 +2732,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Enterprise Wi-Fi プロファイル テンプレートには、サポートされているエンタープライズ認証値が含まれている必要があります。</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>エンタープライズ Wi-Fi の信頼されたルート CA 証明書ファイルが見つかりませんでした。</value>
+    <value>エンタープライズ Wi-Fi の証明書ファイルが見つかりません。もう一度選択してください。</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>Enterprise Wi-Fi では、証明書の信頼が有効になっている場合、信頼されたルート CA 証明書ファイルが必要です。</value>
+    <value>証明書を使用する場合、エンタープライズ Wi-Fi にはクライアント証明書または信頼されたルート CA 証明書が必要です。</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
     <value>エンタープライズ Wi-Fi プロファイル テンプレート ファイルが見つかりませんでした。</value>
@@ -2744,10 +2753,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Wi-Fi 構成には SSID が必要です。</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>有線 802.1X 信頼されたルート CA 証明書ファイルが見つかりませんでした。</value>
+    <value>有線 802.1X の証明書ファイルが見つかりません。もう一度選択してください。</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>有線 802.1X では、証明書の信頼が有効になっている場合、信頼されたルート CA 証明書ファイルが必要です。</value>
+    <value>証明書を使用する場合、有線 802.1X にはクライアント証明書または信頼されたルート CA 証明書が必要です。</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
     <value>有線 802.1X プロファイル テンプレート ファイルが見つかりませんでした。</value>
@@ -2755,14 +2764,26 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
     <value>有線 802.1X には有線プロファイル テンプレートが必要です。</value>
   </data>
+  <data name="Network.NoTrustedRootCertificates" xml:space="preserve">
+    <value>信頼されたルート CA 証明書が追加されていません。</value>
+  </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
     <value>プロファイルテンプレートファイル</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
     <value>ネットワーク プロファイル テンプレートを選択します</value>
   </data>
+  <data name="Network.RemoveCertificate" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>クライアント証明書を削除</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>選択した信頼されたルート CA 証明書を削除</value>
+  </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>信頼されたルート CA 証明書をインポートする</value>
+    <value>証明書を使用する</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>構成済みの PFX クライアント証明書を Windows にコピーし、OOBE 前に LocalMachine の個人証明書ストアへインポートします。</value>
@@ -2772,6 +2793,15 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>ネットワーク プロファイルを Windows にローミングする</value>
+  </data>
+  <data name="Network.TrustedRootCertificatePickerTitle" xml:space="preserve">
+    <value>信頼されたルート CA 証明書を選択</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesDescription" xml:space="preserve">
+    <value>認証サーバーの証明書を発行した機関の公開証明書。</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesLabel" xml:space="preserve">
+    <value>信頼されたルート CA 証明書</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>先進的なエンタープライズ Wi-Fi</value>
@@ -2783,7 +2813,7 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>Foundry は、パスフレーズをこの PC のローカル暗号化保管庫に記憶します。パスフレーズがこの PC の外に出るのは、[パスワードを含める] を選択したエクスポートまたは発行の場合だけです。</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>Foundry で管理されている Wi-Fi プロファイルを OOBE 前に Windows へインポートし、WinPE 後も展開時の接続を維持します。</value>
+    <value>このオプションがオンの場合、Foundry Connect で正常に接続したすべての Wi-Fi ネットワーク (プロビジョニング済みまたは手動で接続したもの) を、インターネット アクセスを提供したものから順に OOBE 前に Windows へインポートし、WinPE 後も接続を維持します。</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows プロファイルのローミング</value>
@@ -5072,12 +5102,6 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>アップデート</value>
-  </data>
-  <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>信頼されたルート CA 証明書ファイル</value>
-  </data>
-  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>Wi-Fi 証明書を選択します</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Wi-Fi プロファイルを事前にプロビジョニングする</value>

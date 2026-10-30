@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -35,6 +36,48 @@ public static class WlanProfileReader
         return TryReadValue(profilePath, "authentication");
     }
 
+    /// <summary>
+    /// Detects whether WLAN profile XML embeds key material, that is any element whose local name is <c>keyMaterial</c>,
+    /// whatever its namespace.
+    /// </summary>
+    /// <remarks>
+    /// The XML is read from the bytes, so the byte order mark and the encoding declaration decide the decoding, and no string of the
+    /// whole document is created. DTD processing is prohibited and no external resource is resolved. A document that cannot be read
+    /// to its end returns <see cref="WlanProfileKeyMaterial.Unreadable"/>, never <see cref="WlanProfileKeyMaterial.Absent"/>.
+    /// </remarks>
+    /// <param name="profileXml">The WLAN profile XML bytes; the stream is read but not disposed.</param>
+    /// <returns>The detection result.</returns>
+    public static WlanProfileKeyMaterial DetectKeyMaterial(Stream profileXml)
+    {
+        ArgumentNullException.ThrowIfNull(profileXml);
+        XmlReaderSettings settings = CreateReaderSettings();
+        settings.CloseInput = false;
+        try
+        {
+            using XmlReader reader = XmlReader.Create(profileXml, settings);
+            while (reader.Read())
+            {
+                if (reader.NodeType == XmlNodeType.Element &&
+                    string.Equals(reader.LocalName, "keyMaterial", StringComparison.Ordinal))
+                {
+                    return WlanProfileKeyMaterial.Present;
+                }
+            }
+
+            return WlanProfileKeyMaterial.Absent;
+        }
+        catch (Exception exception) when (exception is XmlException or DecoderFallbackException)
+        {
+            return WlanProfileKeyMaterial.Unreadable;
+        }
+    }
+
+    private static XmlReaderSettings CreateReaderSettings() => new()
+    {
+        DtdProcessing = DtdProcessing.Prohibit,
+        XmlResolver = null
+    };
+
     private static string? TryReadValue(string? profilePath, string elementName)
     {
         if (string.IsNullOrWhiteSpace(profilePath) || !File.Exists(profilePath))
@@ -44,12 +87,7 @@ public static class WlanProfileReader
 
         try
         {
-            var settings = new XmlReaderSettings
-            {
-                DtdProcessing = DtdProcessing.Prohibit,
-                XmlResolver = null
-            };
-            using XmlReader reader = XmlReader.Create(profilePath, settings);
+            using XmlReader reader = XmlReader.Create(profilePath, CreateReaderSettings());
             XDocument document = XDocument.Load(reader);
 
             return document

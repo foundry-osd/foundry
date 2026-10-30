@@ -10,6 +10,8 @@ using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Drivers;
 using Foundry.Deploy.Services.Localization;
+using Foundry.Wpf.Localization;
+using Foundry.Wpf.ViewModels;
 
 namespace Foundry.Deploy.ViewModels;
 

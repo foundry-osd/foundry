@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Services.NetworkCache;
-using Foundry.Deploy.Services.Localization;
+using Foundry.Wpf.Localization;
 
 namespace Foundry.Deploy.Services.Cache;
 

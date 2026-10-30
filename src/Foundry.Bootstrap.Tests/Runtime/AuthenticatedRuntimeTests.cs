@@ -38,7 +38,8 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
 
         foreach (HttpClient client in new[] { online, online, offline })
         {
-            var coordinator = new BootstrapCoordinator(context, Resolver(client, logger), boundary, boundary, boundary, logger, _ => { });
+            var coordinator = new BootstrapCoordinator(context, Resolver(client, logger), boundary, boundary, boundary, logger, _ => { },
+                createKeyRelay: () => new NoOpKeyRelay());
             Assert.Equal(BootstrapOutcome.Cancelled, (await coordinator.RunAsync(TestContext.Current.CancellationToken)).Outcome);
         }
 
@@ -584,6 +585,18 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         public void Emit(LogEvent logEvent) => Events.Add(logEvent);
     }
 
+    // Keeps this runtime test away from real named pipes; the relay itself is covered by DeploymentKeyRelayTests.
+    private sealed class NoOpKeyRelay : IDeploymentKeyRelay
+    {
+        public string BeginReceive() => "Foundry.DeploymentKey.00000000000000000000000000000000";
+        public void ExpectSender(int processId) { }
+        public Task<bool> EndReceiveAsync() => Task.FromResult(false);
+        public string? BeginServe() => null;
+        public void ExpectReceiver(int processId) { }
+        public Task<bool> EndServeAsync() => Task.FromResult(false);
+        public void Dispose() { }
+    }
+
     private sealed class ConnectBoundary : ISystemPreparation, IApplicationLauncher, IBootstrapLogPersistence
     {
         internal List<string> LaunchedContent { get; } = [];
@@ -592,13 +605,15 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         public Task PrepareSystemAsync(CancellationToken cancellationToken) => Task.CompletedTask;
         public Task PersistAsync(CancellationToken cancellationToken) => Task.CompletedTask;
         public Task<ApplicationLaunchResult> RunConnectAsync(string executable, string configurationPath,
-            IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken)
+            IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken,
+            Action<int>? processStarted = null, Func<Task>? processReleasing = null)
         {
             LaunchedContent.Add(File.ReadAllText(executable));
             return Task.FromResult(new ApplicationLaunchResult(false, 20));
         }
         public Task<ApplicationLaunchResult> StartDeployAsync(string executable,
-            IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken) =>
+            IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken,
+            Action<int>? processStarted = null, Func<Task>? processReleasing = null) =>
             throw new InvalidOperationException("Connect cancellation must prevent deployment.");
     }
 }

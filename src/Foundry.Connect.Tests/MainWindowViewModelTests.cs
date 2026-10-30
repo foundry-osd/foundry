@@ -2,396 +2,34 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Connect.Models;
-using Foundry.Connect.Models.Configuration;
-using Foundry.Connect.Models.Network;
-using Foundry.Connect.Services.ApplicationLifetime;
-using Foundry.Connect.Services.ApplicationShell;
-using Foundry.Connect.Services.Configuration;
-using Foundry.Connect.Services.Localization;
-using Foundry.Connect.Services.Network;
-using Foundry.Connect.Services.Theme;
+using System.Globalization;
+using Foundry.Core.Models.Configuration;
+using Foundry.Connect.Tests.Support;
+using Foundry.Core.Models.Runtime;
+using Foundry.Wpf.Shell;
+using Foundry.Connect.Configuration;
+using Foundry.Wpf.Theme;
 using Foundry.Connect.ViewModels;
-using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
-using Foundry.Telemetry;
 using Foundry.Utilities.Globalization;
-using System.Reflection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
-using Serilog;
-using Serilog.Core;
-using Serilog.Events;
+using Foundry.Wpf.Localization;
 
 namespace Foundry.Connect.Tests;
 
-[Collection(ConnectRemoteDiagnosticsCollection.Name)]
 public sealed class MainWindowViewModelTests
 {
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task RefreshStatusCommand_WhenSelectedNetworkConnectionChanges_RefreshesWifiCommandAvailability(bool initiallyConnected)
-    {
-        static NetworkStatusSnapshot Snapshot(bool connected) => new()
-        {
-            LayoutMode = NetworkLayoutMode.EthernetWifi,
-            IsWifiRuntimeAvailable = true,
-            HasWirelessAdapter = true,
-            ConnectedWifiSsid = connected ? "Foundry" : null,
-            WifiNetworks = [new WifiNetworkSummary { Ssid = "Foundry", Authentication = "Open" }]
-        };
-
-        using MainWindowViewModel viewModel = CreateViewModel(
-            new RecordingTelemetryService(),
-            new QueueNetworkStatusService(Snapshot(initiallyConnected), Snapshot(!initiallyConnected)));
-        await viewModel.RefreshStatusCommand.ExecuteAsync(null);
-        viewModel.SelectedWifiNetwork = Assert.Single(viewModel.WifiNetworks);
-        MainWindowViewModel.WifiNetworkItemViewModel selectedNetwork = viewModel.SelectedWifiNetwork;
-        bool canConnect = viewModel.ConnectSelectedWifiCommand.CanExecute(null);
-        bool canDisconnect = viewModel.DisconnectSelectedWifiCommand.CanExecute(null);
-        Assert.Equal(!initiallyConnected, canConnect);
-        Assert.Equal(initiallyConnected, canDisconnect);
-        viewModel.ConnectSelectedWifiCommand.CanExecuteChanged += (_, _) =>
-            canConnect = viewModel.ConnectSelectedWifiCommand.CanExecute(null);
-        viewModel.DisconnectSelectedWifiCommand.CanExecuteChanged += (_, _) =>
-            canDisconnect = viewModel.DisconnectSelectedWifiCommand.CanExecute(null);
-
-        await viewModel.RefreshStatusCommand.ExecuteAsync(null);
-
-        Assert.Same(selectedNetwork, viewModel.SelectedWifiNetwork);
-        Assert.Equal(initiallyConnected, canConnect);
-        Assert.Equal(!initiallyConnected, canDisconnect);
-    }
-
-    [Fact]
-    public async Task InitializeAsync_WhenNetworkIsReady_DoesNotTrackSessionReadyImmediately()
-    {
-        var telemetry = new RecordingTelemetryService();
-        MainWindowViewModel viewModel = CreateViewModel(
-            telemetry,
-            new QueueNetworkStatusService(CreateReadySnapshot()));
-
-        await viewModel.InitializeAsync();
-        viewModel.Dispose();
-
-        Assert.Empty(telemetry.Events);
-    }
-
-    [Fact]
-    public async Task ContinueBootstrapCommand_WhenNetworkIsReady_TracksSessionReadyBeforeSuccessfulExit()
-    {
-        var telemetry = new RecordingTelemetryService();
-        var lifetime = new RecordingApplicationLifetimeService(telemetry);
-        MainWindowViewModel viewModel = CreateViewModel(
-            telemetry,
-            new QueueNetworkStatusService(CreateReadySnapshot()),
-            lifetime);
-
-        await viewModel.InitializeAsync();
-
-        viewModel.ContinueBootstrapCommand.Execute(null);
-        viewModel.Dispose();
-
-        TelemetryEvent telemetryEvent = Assert.Single(telemetry.Events);
-        Assert.Equal(TelemetryEvents.ConnectSessionReady, telemetryEvent.Name);
-        Assert.Equal("ethernet", telemetryEvent.Properties["connect_network_connection_type"]);
-        Assert.Equal("ethernet_wifi", telemetryEvent.Properties["connect_network_layout_mode"]);
-        Assert.True((bool)telemetryEvent.Properties["connect_ethernet_available"]!);
-        Assert.True((bool)telemetryEvent.Properties["connect_wifi_available"]!);
-        Assert.Equal("none", telemetryEvent.Properties["connect_wifi_security_type"]);
-        Assert.Equal("none", telemetryEvent.Properties["connect_wifi_source"]);
-        Assert.True((bool)telemetryEvent.Properties["connect_wifi_provisioned"]!);
-        Assert.True((bool)telemetryEvent.Properties["connect_wired_dot1x_enabled"]!);
-        Assert.False(telemetryEvent.Properties.ContainsKey("success"));
-        Assert.Equal(FoundryConnectExitCode.Success, lifetime.ExitCode);
-        Assert.True(telemetry.CallsCompletedBeforeExit);
-    }
-
-    [Fact]
-    public async Task ContinueBootstrapCommand_WhenExecutedTwice_TracksSessionReadyOnce()
-    {
-        var telemetry = new RecordingTelemetryService();
-        var lifetime = new RecordingApplicationLifetimeService(telemetry);
-        MainWindowViewModel viewModel = CreateViewModel(
-            telemetry,
-            new QueueNetworkStatusService(CreateReadySnapshot()),
-            lifetime);
-
-        await viewModel.InitializeAsync();
-
-        viewModel.ContinueBootstrapCommand.Execute(null);
-        viewModel.ContinueBootstrapCommand.Execute(null);
-        viewModel.Dispose();
-
-        Assert.Single(telemetry.Events);
-    }
-
-    [Fact]
-    public async Task InitializeAsync_WhenProvisionedSettingsFail_LogsStructuredNetworkFailure()
-    {
-        var telemetry = new RecordingTelemetryService();
-        var logger = new RecordingLogger<MainWindowViewModel>();
-        MainWindowViewModel viewModel = CreateViewModel(
-            telemetry,
-            new QueueNetworkStatusService(CreateReadySnapshot()),
-            networkBootstrapService: new ThrowingNetworkBootstrapService(),
-            logger: logger);
-
-        await viewModel.InitializeAsync();
-        viewModel.Dispose();
-
-        LogEntry entry = Assert.Single(logger.Entries, item => item.Level == LogLevel.Error);
-        Assert.Equal("network.apply_provisioned_settings", entry.Properties["NetworkOperation"]);
-        Assert.Equal("network", entry.Properties["FailureKind"]);
-        Assert.Equal("http_status", entry.Properties["FailureReason"]);
-        Assert.Equal("502", entry.Properties["FailureCode"]);
-    }
-
-    [Fact]
-    public async Task InitializeAsync_WhenProvisionedSettingsReturnHandledFailure_LogsStructuredFailureOnce()
-    {
-        var telemetry = new RecordingTelemetryService();
-        var logger = new RecordingLogger<MainWindowViewModel>();
-        MainWindowViewModel viewModel = CreateViewModel(
-            telemetry,
-            new QueueNetworkStatusService(CreateReadySnapshot()),
-            networkBootstrapService: new ResultNetworkBootstrapService(NetworkBootstrapResult.Failed(
-                "Wi-Fi profile import failed: simulated error",
-                new NetworkBootstrapHandledFailure("network", "profile_import_failed", "wifi_profile_import_failed"))),
-            logger: logger);
-
-        await viewModel.InitializeAsync();
-        viewModel.Dispose();
-
-        LogEntry entry = Assert.Single(logger.Entries, item =>
-            item.Level == LogLevel.Warning &&
-            Equals(item.Properties["NetworkOperation"], "network.apply_provisioned_settings"));
-        Assert.Equal("connect", entry.Properties["Workflow"]);
-        Assert.False(string.IsNullOrWhiteSpace(Assert.IsType<string>(entry.Properties["OperationId"])));
-        Assert.Equal("network", entry.Properties["FailureKind"]);
-        Assert.Equal("profile_import_failed", entry.Properties["FailureReason"]);
-        Assert.Equal("wifi_profile_import_failed", entry.Properties["FailureCode"]);
-        Assert.Single(logger.Entries, item => item.Properties.ContainsKey("FailureKind"));
-    }
-
-    [Fact]
-    public async Task ConnectConfiguredWifiAsync_WhenHandledFailureIsReturned_LogsStructuredFailureOnce()
-    {
-        var telemetry = new RecordingTelemetryService();
-        var logger = new RecordingLogger<MainWindowViewModel>();
-        MainWindowViewModel viewModel = CreateViewModel(
-            telemetry,
-            new QueueNetworkStatusService(CreateDisconnectedSnapshot(), CreateDisconnectedSnapshot()),
-            networkBootstrapService: new ConnectConfiguredWifiResultNetworkBootstrapService(NetworkBootstrapResult.Failed(
-                "Wi-Fi connection request failed: simulated error",
-                new NetworkBootstrapHandledFailure("network", "connect_request_failed", "wifi_connect_request_failed"))),
-            logger: logger);
-
-        await viewModel.InitializeAsync();
-
-        await InvokeNonPublicAsync(viewModel, "ConnectConfiguredWifiAsync");
-        viewModel.Dispose();
-
-        LogEntry entry = Assert.Single(logger.Entries, item =>
-            item.Level == LogLevel.Warning &&
-            Equals(item.Properties["NetworkOperation"], "wifi.provisioned_action"));
-        Assert.Equal("connect", entry.Properties["Workflow"]);
-        Assert.False(string.IsNullOrWhiteSpace(Assert.IsType<string>(entry.Properties["OperationId"])));
-        Assert.Equal("network", entry.Properties["FailureKind"]);
-        Assert.Equal("connect_request_failed", entry.Properties["FailureReason"]);
-        Assert.Equal("wifi_connect_request_failed", entry.Properties["FailureCode"]);
-        Assert.Single(logger.Entries, item => item.Properties.ContainsKey("FailureKind"));
-    }
-
-    [Fact]
-    public async Task ConnectSelectedWifiAsync_WhenRuntimeSupportIsMissing_ShowsNotSupportedFeedback()
-    {
-        using MainWindowViewModel viewModel = CreateViewModel(
-            new RecordingTelemetryService(),
-            new QueueNetworkStatusService(CreateDisconnectedSnapshot()),
-            networkBootstrapService: new ConnectWifiNetworkResultNetworkBootstrapService(NetworkBootstrapResult.Failed(
-                "Enterprise Wi-Fi from the discovery list requires a provisioned profile template in this build.",
-                new NetworkBootstrapHandledFailure("network", "unsupported", "wifi_runtime_not_supported"))));
-        await viewModel.RefreshStatusCommand.ExecuteAsync(null);
-        viewModel.SelectedWifiNetwork = Assert.Single(viewModel.WifiNetworks);
-
-        await InvokeNonPublicAsync(viewModel, "ConnectSelectedWifiAsync");
-
-        Assert.Equal(viewModel.Strings["Wifi.ActionSelectedNotSupported"], viewModel.SelectedWifiActionFeedbackText);
-    }
-
-    [Fact]
-    public async Task ConnectSelectedWifiAsync_WhenAnotherFailureIsReturned_ShowsGenericConnectFailure()
-    {
-        using MainWindowViewModel viewModel = CreateViewModel(
-            new RecordingTelemetryService(),
-            new QueueNetworkStatusService(CreateDisconnectedSnapshot()),
-            networkBootstrapService: new ConnectWifiNetworkResultNetworkBootstrapService(NetworkBootstrapResult.Failed(
-                "Wi-Fi connection failed for 'Foundry': timeout",
-                new NetworkBootstrapHandledFailure("network", "timeout", "wifi_connect_timeout"))));
-        await viewModel.RefreshStatusCommand.ExecuteAsync(null);
-        viewModel.SelectedWifiNetwork = Assert.Single(viewModel.WifiNetworks);
-
-        await InvokeNonPublicAsync(viewModel, "ConnectSelectedWifiAsync");
-
-        Assert.Equal(viewModel.Strings["Wifi.ActionConnectFailed"], viewModel.SelectedWifiActionFeedbackText);
-    }
-
-    [Fact]
-    public async Task InitializeAsync_WhenProvisionedSettingsReturnWiredHandledFailure_LogsStructuredWiredFailure()
-    {
-        var telemetry = new RecordingTelemetryService();
-        var logger = new RecordingLogger<MainWindowViewModel>();
-        MainWindowViewModel viewModel = CreateViewModel(
-            telemetry,
-            new QueueNetworkStatusService(CreateReadySnapshot()),
-            networkBootstrapService: new ResultNetworkBootstrapService(NetworkBootstrapResult.Failed(
-                "Wired 802.1X is enabled, but no wired profile template was found.",
-                new NetworkBootstrapHandledFailure("network", "profile_unavailable", "wired_profile_template_missing"))),
-            logger: logger);
-
-        await viewModel.InitializeAsync();
-        viewModel.Dispose();
-
-        LogEntry entry = Assert.Single(logger.Entries, item => item.Properties.ContainsKey("FailureKind"));
-        Assert.Equal("network.apply_provisioned_settings", entry.Properties["NetworkOperation"]);
-        Assert.Equal("profile_unavailable", entry.Properties["FailureReason"]);
-        Assert.Equal("wired_profile_template_missing", entry.Properties["FailureCode"]);
-    }
-
-    [Fact]
-    public async Task InitializeAsync_WhenProvisionedSettingsReturnMixedHandledFailures_LogsOneStructuredEventPerFailure()
-    {
-        var telemetry = new RecordingTelemetryService();
-        var logger = new RecordingLogger<MainWindowViewModel>();
-        MainWindowViewModel viewModel = CreateViewModel(
-            telemetry,
-            new QueueNetworkStatusService(CreateReadySnapshot()),
-            networkBootstrapService: new ResultNetworkBootstrapService(new NetworkBootstrapResult(
-                "Wired and Wi-Fi bootstrap finished with handled failures.",
-                [
-                    new NetworkBootstrapHandledFailure("network", "profile_unavailable", "wired_profile_template_missing"),
-                    new NetworkBootstrapHandledFailure("network", "missing_adapter", "no_wireless_adapter")
-                ])),
-            logger: logger);
-
-        await viewModel.InitializeAsync();
-        viewModel.Dispose();
-
-        LogEntry[] entries = logger.Entries
-            .Where(item => item.Properties.ContainsKey("FailureKind"))
-            .ToArray();
-        Assert.Equal(2, entries.Length);
-        Assert.All(entries, entry => Assert.Equal("network.apply_provisioned_settings", entry.Properties["NetworkOperation"]));
-        string operationId = Assert.IsType<string>(entries[0].Properties["OperationId"]);
-        Assert.All(entries, entry => Assert.Equal(operationId, entry.Properties["OperationId"]));
-        Assert.Contains(entries, entry => Equals(entry.Properties["FailureCode"], "wired_profile_template_missing"));
-        Assert.Contains(entries, entry => Equals(entry.Properties["FailureCode"], "no_wireless_adapter"));
-    }
-
-    [Fact]
-    public async Task InitializeAsync_WhenProvisionedSettingsAreCancelled_DoesNotLogStructuredFailure()
-    {
-        var telemetry = new RecordingTelemetryService();
-        var logger = new RecordingLogger<MainWindowViewModel>();
-        MainWindowViewModel viewModel = CreateViewModel(
-            telemetry,
-            new QueueNetworkStatusService(CreateReadySnapshot()),
-            networkBootstrapService: new CancellingNetworkBootstrapService(),
-            logger: logger);
-
-        await viewModel.InitializeAsync();
-        viewModel.Dispose();
-
-        Assert.DoesNotContain(logger.Entries, item => item.Properties.ContainsKey("FailureKind"));
-    }
-
-    [Fact]
-    public async Task InitializeAsync_WhenHandledFailuresAlsoLogLocalServiceDetails_ForwardsAllLocalDiagnosticEvents()
-    {
-        using var temporaryDirectory = new TemporaryDirectory();
-        string certificatePath = temporaryDirectory.CreateFile("invalid.cer", "not-a-certificate");
-        var configuration = new FoundryConnectConfiguration
-        {
-            Capabilities = new NetworkCapabilitiesOptions
-            {
-                WifiProvisioned = true
-            },
-            Wifi = new WifiSettings
-            {
-                IsEnabled = true,
-                CertificatePath = certificatePath
-            }
-        };
-        var telemetry = new RecordingTelemetryService();
-        var remoteDiagnostics = new RecordingRemoteDiagnosticsService();
-        var localSink = new RecordingSerilogSink();
-        using Logger serilogLogger = new LoggerConfiguration()
-            .MinimumLevel.Verbose()
-            .WriteTo.Sink(localSink)
-            .WriteTo.Sink(RemoteDiagnosticsSink.Instance)
-            .CreateLogger();
-        using ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
-        {
-            builder.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
-            builder.AddSerilog(serilogLogger, dispose: false);
-        });
-        var networkBootstrapService = new NetworkBootstrapService(
-            configuration,
-            new FakeConnectConfigurationService(configuration),
-            new FakeNetworkProfileRoamingService(),
-            loggerFactory.CreateLogger<NetworkBootstrapService>(),
-            getWifiInterfaceIds: static () => []);
-        MainWindowViewModel viewModel = CreateViewModel(
-            telemetry,
-            new QueueNetworkStatusService(CreateReadySnapshot()),
-            networkBootstrapService: networkBootstrapService,
-            logger: loggerFactory.CreateLogger<MainWindowViewModel>());
-
-        RemoteDiagnosticsSink.SetService(remoteDiagnostics);
-
-        try
-        {
-            await viewModel.InitializeAsync();
-        }
-        finally
-        {
-            viewModel.Dispose();
-            RemoteDiagnosticsSink.Clear();
-        }
-
-        Assert.Equal(localSink.Events, remoteDiagnostics.Events);
-        Assert.Equal(2, remoteDiagnostics.ExportEligibleWarnings.Count);
-        Assert.All(
-            remoteDiagnostics.ExportEligibleWarnings,
-            warning =>
-            {
-                Assert.Equal(LogEventLevel.Warning, warning.Level);
-                Assert.False(string.IsNullOrWhiteSpace(GetScalarText(warning, "FailureCode")));
-            });
-        Assert.Contains(
-            remoteDiagnostics.ExportEligibleWarnings,
-            warning => GetScalarText(warning, "FailureCode") == "wifi_certificate_import_failed");
-        Assert.Contains(
-            remoteDiagnostics.ExportEligibleWarnings,
-            warning => GetScalarText(warning, "FailureCode") == "wifi_profile_unavailable");
-
-        LogEvent localCertificateDiagnostic = Assert.Single(localSink.Events, item =>
-            item.Level == LogEventLevel.Information &&
-            item.Exception is not null &&
-            item.Properties.ContainsKey("CertificateFileName"));
-        Assert.Equal("invalid.cer", GetScalarText(localCertificateDiagnostic, "CertificateFileName"));
-    }
+    private readonly ManualTimeProvider _clock = new();
+    private readonly FakeConnectionCoordinator _coordinator = new();
+    private readonly FakeNetworkMonitor _monitor = new();
+    private readonly FakeSuccessfulExitService _exit = new();
+    private readonly FakeApplicationLifetime _lifetime = new();
+    private readonly ResourceLocalizationService _localization = TestLocalization.Create();
 
     [Theory]
     [InlineData(BootMediaUpdateReason.NewerRelease, "BootMedia.UpdateAvailable", "BootMedia.UpdateRecommendedToolTip")]
     [InlineData(BootMediaUpdateReason.UnknownAuthoringVersion, "BootMedia.UpdateRecommended", "BootMedia.UnknownAuthoringVersionToolTip")]
     public void BootMediaBanner_SelectsCaptionAndToolTipForReason(BootMediaUpdateReason reason, string textKey, string toolTipKey)
     {
-        using MainWindowViewModel viewModel = CreateViewModel(
-            new RecordingTelemetryService(),
-            new QueueNetworkStatusService(CreateReadySnapshot()),
-            bootMediaUpdateReason: reason);
+        using MainWindowViewModel viewModel = CreateViewModel(bootMediaUpdateReason: reason);
 
         Assert.True(viewModel.IsBootMediaUpdateRecommended);
         Assert.Equal(viewModel.Strings[textKey], viewModel.BootMediaUpdateRecommendedText);
@@ -399,27 +37,9 @@ public sealed class MainWindowViewModelTests
     }
 
     [Fact]
-    public void OpenLogFileCommand_WhenLogFileIsUnavailable_LogsWarningWithoutThrowing()
-    {
-        var logger = new RecordingLogger<MainWindowViewModel>();
-        using MainWindowViewModel viewModel = CreateViewModel(
-            new RecordingTelemetryService(),
-            new QueueNetworkStatusService(CreateReadySnapshot()),
-            logger: logger);
-
-        viewModel.OpenLogFileCommand.Execute(null);
-
-        LogEntry entry = Assert.Single(logger.Entries, item => item.Level == LogLevel.Warning);
-        Assert.True(entry.Properties.ContainsKey("LogFilePath"));
-    }
-
-    [Fact]
     public void KeyboardMenu_ListsActiveLanguageFirst()
     {
-        using MainWindowViewModel viewModel = CreateViewModel(
-            new RecordingTelemetryService(),
-            new QueueNetworkStatusService(CreateReadySnapshot()),
-            keyboardLayoutSwitcher: new FakeKeyboardLayoutSwitcher("0000040C"));
+        using MainWindowViewModel viewModel = CreateViewModel(keyboardLayoutSwitcher: new FakeKeyboardLayoutSwitcher("0000040C"));
 
         Assert.Equal(["0000080C", "0000040C", null, null], viewModel.KeyboardMenuEntries.Select(entry => entry.LayoutId));
         Assert.True(viewModel.KeyboardMenuEntries[1].IsSelected);
@@ -433,10 +53,7 @@ public sealed class MainWindowViewModelTests
     public void SetKeyboardLayoutCommand_AppliesAndRefreshesSelection()
     {
         var switcher = new FakeKeyboardLayoutSwitcher("0000040C");
-        using MainWindowViewModel viewModel = CreateViewModel(
-            new RecordingTelemetryService(),
-            new QueueNetworkStatusService(CreateReadySnapshot()),
-            keyboardLayoutSwitcher: switcher);
+        using MainWindowViewModel viewModel = CreateViewModel(keyboardLayoutSwitcher: switcher);
 
         viewModel.SetKeyboardLayoutCommand.Execute("0000080C");
 
@@ -449,10 +66,7 @@ public sealed class MainWindowViewModelTests
     public void SetKeyboardLayoutCommand_WhenApplyFails_KeepsPreviousSelection()
     {
         var switcher = new FakeKeyboardLayoutSwitcher("0000040C") { FailApply = true };
-        using MainWindowViewModel viewModel = CreateViewModel(
-            new RecordingTelemetryService(),
-            new QueueNetworkStatusService(CreateReadySnapshot()),
-            keyboardLayoutSwitcher: switcher);
+        using MainWindowViewModel viewModel = CreateViewModel(keyboardLayoutSwitcher: switcher);
 
         viewModel.SetKeyboardLayoutCommand.Execute("0000080C");
 
@@ -460,165 +74,107 @@ public sealed class MainWindowViewModelTests
         Assert.Contains("FR", viewModel.KeyboardMenuHeader, StringComparison.Ordinal);
     }
 
-    private static MainWindowViewModel CreateViewModel(
-        RecordingTelemetryService telemetryService,
-        INetworkStatusService networkStatusService,
-        RecordingApplicationLifetimeService? lifetimeService = null,
-        INetworkBootstrapService? networkBootstrapService = null,
-        ILogger<MainWindowViewModel>? logger = null,
+    [Fact]
+    public void DebugMenu_IsHiddenOutsideDebugSafetyMode()
+    {
+        using MainWindowViewModel viewModel = CreateViewModel();   // public constructor; Release tests → DebugSafetyMode.IsEnabled is false
+
+        Assert.False(viewModel.IsDebugMenuVisible);
+        Assert.False(viewModel.SetDebugScenarioCommand.CanExecute(ConnectDebugScenario.CaptivePortal));
+
+        // The command also guards itself: executing it anyway never reaches the page.
+        viewModel.SetDebugScenarioCommand.Execute(ConnectDebugScenario.CaptivePortal);
+        Assert.Equal(ConnectDebugScenario.Live, viewModel.Page.ActiveDebugScenario);
+    }
+
+    [Fact]
+    public void SetDebugScenario_AppliesItToThePageAndChecksTheMenu()
+    {
+        using MainWindowViewModel viewModel = CreateViewModel(isDebugSafeMode: true);
+
+        viewModel.SetDebugScenarioCommand.Execute(ConnectDebugScenario.CaptivePortal);
+
+        Assert.Equal(ConnectDebugScenario.CaptivePortal, viewModel.Page.ActiveDebugScenario);
+        Assert.Equal(BlockedReason.CaptivePortal, viewModel.Page.BlockedReason);
+        Assert.Equal(ConnectDebugScenario.CaptivePortal, Assert.Single(viewModel.DebugScenarios, static option => option.IsSelected).Scenario);
+        Assert.Equal(19, viewModel.DebugScenarios.Count);
+    }
+
+    [Fact]
+    public void LanguageChange_RebuildsTheScenarioHeaders()
+    {
+        CultureInfo original = CultureInfo.CurrentUICulture;
+        using MainWindowViewModel viewModel = CreateViewModel(isDebugSafeMode: true);
+        viewModel.SetDebugScenarioCommand.Execute(ConnectDebugScenario.WifiReady);
+
+        try
+        {
+            _localization.SetCulture(CultureInfo.GetCultureInfo(original.Name == "fr-FR" ? "de-DE" : "fr-FR"));
+
+            Assert.Equal(
+                DebugScenarioCatalog.All.Select(scenario => _localization.GetString(DebugScenarioCatalog.ResourceKey(scenario))),
+                viewModel.DebugScenarios.Select(option => option.Header));
+            Assert.Equal(ConnectDebugScenario.WifiReady, Assert.Single(viewModel.DebugScenarios, static option => option.IsSelected).Scenario);
+        }
+        finally
+        {
+            _localization.SetCulture(original);
+        }
+    }
+
+    [Fact]
+    public async Task InitializeAsync_InitializesThePageOnce()
+    {
+        using MainWindowViewModel viewModel = CreateViewModel();
+
+        await viewModel.InitializeAsync();
+        await viewModel.InitializeAsync();
+
+        Assert.Equal(1, _coordinator.ApplyProvisioningCalls);
+    }
+
+    [Fact]
+    public void HandleWindowClosing_RequestsUserAbortedUnlessAnExitWon()
+    {
+        using MainWindowViewModel viewModel = CreateViewModel();
+
+        viewModel.HandleWindowClosing();
+        viewModel.HandleWindowClosing();
+
+        Assert.Equal([ChildRuntimeExitCode.UserAborted], _lifetime.Codes);
+    }
+
+    private MainWindowViewModel CreateViewModel(
         BootMediaUpdateReason bootMediaUpdateReason = BootMediaUpdateReason.None,
-        IKeyboardLayoutSwitcher? keyboardLayoutSwitcher = null)
+        IKeyboardLayoutSwitcher? keyboardLayoutSwitcher = null,
+        bool? isDebugSafeMode = null)
     {
-        lifetimeService ??= new RecordingApplicationLifetimeService(telemetryService);
-        var configuration = new FoundryConnectConfiguration
+        var configuration = new FoundryConnectConfigurationDocument
         {
-            Capabilities = new NetworkCapabilitiesOptions { WifiProvisioned = true },
-            Wifi = new WifiSettings
-            {
-                IsEnabled = true,
-                SecurityType = "WPA2-Personal",
-                Ssid = "Foundry"
-            },
-            Dot1x = new Dot1xSettings { IsEnabled = true }
+            Capabilities = new ConnectNetworkCapabilitiesSettings { WifiProvisioned = true },
+            Wifi = new ConnectWifiSettings { IsEnabled = true, Ssid = "Foundry Lab", SecurityType = "WPA3-Personal" }
         };
+        var actions = new ConnectNetworkActions(_coordinator, new FakeUnlockService(), new RecordingLogger<ConnectNetworkActions>());
+        var dispatcher = new ImmediateUiDispatcher();
+        var diagnostics = new DiagnosticsViewModel(_localization, new RecordingLogger<DiagnosticsViewModel>());
+        var page = new ConnectPageViewModel(
+            _localization, _coordinator, _monitor, actions,
+            new AutoContinueViewModel(_localization, _exit, _lifetime, _clock, dispatcher, new RecordingLogger<AutoContinueViewModel>(), isAutoContinueEnabled: true),
+            new EthernetSectionViewModel(_localization),
+            new ProvisionedWifiViewModel(_localization, actions, configuration),
+            new WifiNetworksViewModel(_localization, actions, _monitor),
+            diagnostics,
+            dispatcher, _clock, new RecordingLogger<ConnectPageViewModel>());
 
-        return new MainWindowViewModel(
-            new FakeThemeService(),
-            new LocalizationService(),
-            new FakeApplicationShellService(),
-            lifetimeService,
-            new FakeConnectConfigurationService(configuration, bootMediaUpdateReason),
-            configuration,
-            networkBootstrapService ?? new FakeNetworkBootstrapService(),
-            networkStatusService,
-            telemetryService,
-            keyboardLayoutSwitcher ?? new FakeKeyboardLayoutSwitcher("0000040C"),
-            logger ?? NullLogger<MainWindowViewModel>.Instance);
-    }
+        var themeService = new FakeThemeService();
+        var shell = new FakeApplicationShellService();
+        var configurationService = new FakeConnectConfigurationService(configuration, bootMediaUpdateReason);
+        IKeyboardLayoutSwitcher switcher = keyboardLayoutSwitcher ?? new FakeKeyboardLayoutSwitcher("0000040C");
+        var logger = new RecordingLogger<MainWindowViewModel>();
 
-    private static NetworkStatusSnapshot CreateReadySnapshot()
-    {
-        return new NetworkStatusSnapshot
-        {
-            LayoutMode = NetworkLayoutMode.EthernetWifi,
-            HasInternetAccess = true,
-            HasEthernetAdapter = true,
-            IsEthernetConnected = true,
-            HasEthernetIpv4 = true,
-            HasDhcpLease = true,
-            IsWifiRuntimeAvailable = true,
-            HasWirelessAdapter = true,
-            EthernetStatusText = "Connected",
-            WifiNetworks =
-            [
-                new WifiNetworkSummary
-                {
-                    Ssid = "Foundry",
-                    Authentication = "WPA2-Personal",
-                    Encryption = "AES",
-                    SignalStrengthPercent = 100
-                }
-            ]
-        };
-    }
-
-    private static NetworkStatusSnapshot CreateDisconnectedSnapshot()
-    {
-        return new NetworkStatusSnapshot
-        {
-            LayoutMode = NetworkLayoutMode.EthernetWifi,
-            HasInternetAccess = false,
-            HasEthernetAdapter = true,
-            IsEthernetConnected = false,
-            HasEthernetIpv4 = false,
-            HasDhcpLease = false,
-            IsWifiRuntimeAvailable = true,
-            HasWirelessAdapter = true,
-            EthernetStatusText = "Disconnected",
-            WifiNetworks =
-            [
-                new WifiNetworkSummary
-                {
-                    Ssid = "Foundry",
-                    Authentication = "WPA2-Personal",
-                    Encryption = "AES",
-                    SignalStrengthPercent = 100
-                }
-            ]
-        };
-    }
-
-    private static async Task InvokeNonPublicAsync(object instance, string methodName)
-    {
-        MethodInfo method = instance.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic)
-            ?? throw new InvalidOperationException($"Method '{methodName}' was not found.");
-        Task task = Assert.IsAssignableFrom<Task>(method.Invoke(instance, null));
-        await task;
-    }
-
-    private static bool HasTrueScalar(LogEvent logEvent, string propertyName) =>
-        logEvent.Properties.TryGetValue(propertyName, out LogEventPropertyValue? propertyValue) &&
-        propertyValue is ScalarValue { Value: true };
-
-    private static string GetScalarText(LogEvent logEvent, string propertyName) =>
-        logEvent.Properties.TryGetValue(propertyName, out LogEventPropertyValue? value) && value is ScalarValue scalar
-            ? scalar.Value?.ToString() ?? string.Empty
-            : string.Empty;
-
-    private sealed class RecordingTelemetryService : ITelemetryService
-    {
-        public List<TelemetryEvent> Events { get; } = [];
-
-        public bool CallsCompletedBeforeExit { get; private set; }
-
-        public bool HasExitHappened { get; set; }
-
-        public Task TrackAsync(string eventName, IReadOnlyDictionary<string, object?> properties, CancellationToken cancellationToken = default)
-        {
-            Events.Add(new TelemetryEvent(eventName, new Dictionary<string, object?>(properties)));
-            CallsCompletedBeforeExit = !HasExitHappened;
-            return Task.CompletedTask;
-        }
-
-        public Task FlushAsync(CancellationToken cancellationToken = default)
-        {
-            return Task.CompletedTask;
-        }
-    }
-
-    private sealed class RecordingApplicationLifetimeService : IApplicationLifetimeService
-    {
-        private readonly RecordingTelemetryService? telemetryService;
-
-        public RecordingApplicationLifetimeService()
-        {
-        }
-
-        public RecordingApplicationLifetimeService(RecordingTelemetryService telemetryService)
-        {
-            this.telemetryService = telemetryService;
-        }
-
-        public bool IsExitRequested { get; private set; }
-
-        public FoundryConnectExitCode ExitCode { get; private set; }
-
-        public void Exit(FoundryConnectExitCode exitCode)
-        {
-            telemetryService?.HasExitHappened = true;
-            ExitCode = exitCode;
-            IsExitRequested = true;
-        }
-    }
-
-    private sealed class QueueNetworkStatusService(params NetworkStatusSnapshot[] snapshots) : INetworkStatusService
-    {
-        private readonly Queue<NetworkStatusSnapshot> snapshots = new(snapshots);
-
-        public Task<NetworkStatusSnapshot> GetSnapshotAsync(CancellationToken cancellationToken)
-        {
-            return Task.FromResult(snapshots.Count > 1 ? snapshots.Dequeue() : snapshots.Peek());
-        }
+        return isDebugSafeMode is bool debugSafeMode
+            ? new MainWindowViewModel(themeService, _localization, shell, _lifetime, configurationService, switcher, page, diagnostics, logger, debugSafeMode)
+            : new MainWindowViewModel(themeService, _localization, shell, _lifetime, configurationService, switcher, page, diagnostics, logger);
     }
 
     private sealed class FakeKeyboardLayoutSwitcher(string activeLayoutId) : IKeyboardLayoutSwitcher
@@ -666,20 +222,19 @@ public sealed class MainWindowViewModelTests
 
     private sealed class FakeApplicationShellService : IApplicationShellService
     {
+        public bool ConfirmWarning(string title, string message) => true;
+
+        public void Shutdown()
+        {
+        }
+
         public void ShowAbout()
         {
         }
     }
 
-    private sealed class FakeNetworkProfileRoamingService : INetworkProfileRoamingService
-    {
-        public Task CaptureWifiProfileAsync(NetworkProfileRoamingCaptureRequest request, CancellationToken cancellationToken) => Task.CompletedTask;
-
-        public Task CaptureWiredDot1xProfileAsync(NetworkProfileRoamingCaptureRequest request, CancellationToken cancellationToken) => Task.CompletedTask;
-    }
-
     private sealed class FakeConnectConfigurationService(
-        FoundryConnectConfiguration configuration,
+        FoundryConnectConfigurationDocument configuration,
         BootMediaUpdateReason bootMediaUpdateReason = BootMediaUpdateReason.None) : IConnectConfigurationService
     {
         public string? ConfigurationPath => null;
@@ -689,222 +244,9 @@ public sealed class MainWindowViewModelTests
         public bool IsBootMediaUpdateRecommended => bootMediaUpdateReason != BootMediaUpdateReason.None;
         public BootMediaUpdateReason BootMediaUpdateReason => bootMediaUpdateReason;
 
-        public FoundryConnectConfiguration Load()
+        public ConnectConfigurationLoadResult Load()
         {
-            return configuration;
+            return ConnectConfigurationLoadResult.Success(configuration, ConnectRuntimeSecrets.None(), bootMediaUpdateReason);
         }
     }
-
-    private sealed class FakeNetworkBootstrapService : INetworkBootstrapService
-    {
-        public Task<NetworkBootstrapResult> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken)
-        {
-            return Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
-        }
-
-        public Task<NetworkBootstrapResult> ConnectConfiguredWifiAsync(CancellationToken cancellationToken)
-        {
-            return Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
-        }
-
-        public Task<NetworkBootstrapResult> ConnectWifiNetworkAsync(
-            string ssid,
-            string? ssidHex,
-            string authentication,
-            string? passphrase,
-            CancellationToken cancellationToken)
-        {
-            return Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
-        }
-
-        public Task<NetworkBootstrapResult> DisconnectWifiAsync(CancellationToken cancellationToken)
-        {
-            return Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
-        }
-    }
-
-    private sealed class ThrowingNetworkBootstrapService : INetworkBootstrapService
-    {
-        public Task<NetworkBootstrapResult> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken) =>
-            Task.FromException<NetworkBootstrapResult>(new HttpRequestException("Simulated failure.", null, System.Net.HttpStatusCode.BadGateway));
-
-        public Task<NetworkBootstrapResult> ConnectConfiguredWifiAsync(CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
-
-        public Task<NetworkBootstrapResult> ConnectWifiNetworkAsync(
-            string ssid,
-            string? ssidHex,
-            string authentication,
-            string? passphrase,
-            CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
-
-        public Task<NetworkBootstrapResult> DisconnectWifiAsync(CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
-    }
-
-    private sealed class ResultNetworkBootstrapService(NetworkBootstrapResult applyProvisionedSettingsResult) : INetworkBootstrapService
-    {
-        public Task<NetworkBootstrapResult> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken) =>
-            Task.FromResult(applyProvisionedSettingsResult);
-
-        public Task<NetworkBootstrapResult> ConnectConfiguredWifiAsync(CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
-
-        public Task<NetworkBootstrapResult> ConnectWifiNetworkAsync(
-            string ssid,
-            string? ssidHex,
-            string authentication,
-            string? passphrase,
-            CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
-
-        public Task<NetworkBootstrapResult> DisconnectWifiAsync(CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
-    }
-
-    private sealed class ConnectConfiguredWifiResultNetworkBootstrapService(NetworkBootstrapResult connectConfiguredWifiResult) : INetworkBootstrapService
-    {
-        public Task<NetworkBootstrapResult> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
-
-        public Task<NetworkBootstrapResult> ConnectConfiguredWifiAsync(CancellationToken cancellationToken) =>
-            Task.FromResult(connectConfiguredWifiResult);
-
-        public Task<NetworkBootstrapResult> ConnectWifiNetworkAsync(
-            string ssid,
-            string? ssidHex,
-            string authentication,
-            string? passphrase,
-            CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
-
-        public Task<NetworkBootstrapResult> DisconnectWifiAsync(CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
-    }
-
-    private sealed class ConnectWifiNetworkResultNetworkBootstrapService(NetworkBootstrapResult connectWifiNetworkResult) : INetworkBootstrapService
-    {
-        public Task<NetworkBootstrapResult> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
-
-        public Task<NetworkBootstrapResult> ConnectConfiguredWifiAsync(CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
-
-        public Task<NetworkBootstrapResult> ConnectWifiNetworkAsync(
-            string ssid,
-            string? ssidHex,
-            string authentication,
-            string? passphrase,
-            CancellationToken cancellationToken) => Task.FromResult(connectWifiNetworkResult);
-
-        public Task<NetworkBootstrapResult> DisconnectWifiAsync(CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
-    }
-
-    private sealed class CancellingNetworkBootstrapService : INetworkBootstrapService
-    {
-        public Task<NetworkBootstrapResult> ApplyProvisionedSettingsAsync(CancellationToken cancellationToken) =>
-            Task.FromCanceled<NetworkBootstrapResult>(cancellationToken.IsCancellationRequested
-                ? cancellationToken
-                : new CancellationToken(canceled: true));
-
-        public Task<NetworkBootstrapResult> ConnectConfiguredWifiAsync(CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
-
-        public Task<NetworkBootstrapResult> ConnectWifiNetworkAsync(
-            string ssid,
-            string? ssidHex,
-            string authentication,
-            string? passphrase,
-            CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
-
-        public Task<NetworkBootstrapResult> DisconnectWifiAsync(CancellationToken cancellationToken) => Task.FromResult(NetworkBootstrapResult.Success(string.Empty));
-    }
-
-    private sealed class RecordingLogger<T> : ILogger<T>
-    {
-        public List<LogEntry> Entries { get; } = [];
-
-        public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
-
-        public bool IsEnabled(LogLevel logLevel) => true;
-
-        public void Log<TState>(
-            LogLevel logLevel,
-            EventId eventId,
-            TState state,
-            Exception? exception,
-            Func<TState, Exception?, string> formatter)
-        {
-            var properties = state is IEnumerable<KeyValuePair<string, object?>> values
-                ? values.ToDictionary(item => item.Key, item => item.Value, StringComparer.Ordinal)
-                : new Dictionary<string, object?>(StringComparer.Ordinal);
-            Entries.Add(new LogEntry(logLevel, properties));
-        }
-    }
-
-    private sealed record LogEntry(LogLevel Level, IReadOnlyDictionary<string, object?> Properties);
-
-    private sealed class RecordingRemoteDiagnosticsService : IRemoteDiagnosticsService
-    {
-        public List<LogEvent> ExportEligibleWarnings { get; } = [];
-        public List<LogEvent> Events { get; } = [];
-
-        public void Configure(RemoteDiagnosticsOptions options, RemoteDiagnosticsContext context)
-        {
-        }
-
-        public void Disable()
-        {
-        }
-
-        public void Emit(LogEvent logEvent)
-        {
-            Events.Add(logEvent);
-            if (logEvent.Level == LogEventLevel.Warning && !HasTrueScalar(logEvent, "RemoteDiagnosticsInternal"))
-            {
-                ExportEligibleWarnings.Add(logEvent);
-            }
-        }
-
-        public Task FlushAsync(CancellationToken cancellationToken)
-        {
-            return Task.CompletedTask;
-        }
-
-        public ValueTask DisposeAsync()
-        {
-            return ValueTask.CompletedTask;
-        }
-    }
-
-    private sealed class RecordingSerilogSink : ILogEventSink
-    {
-        public List<LogEvent> Events { get; } = [];
-
-        public void Emit(LogEvent logEvent)
-        {
-            Events.Add(logEvent);
-        }
-    }
-
-    private sealed class TemporaryDirectory : IDisposable
-    {
-        public TemporaryDirectory()
-        {
-            Path = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "Foundry.Connect.Tests", Guid.NewGuid().ToString("N"));
-            Directory.CreateDirectory(Path);
-        }
-
-        public string Path { get; }
-
-        public string CreateFile(string fileName, string contents)
-        {
-            string path = System.IO.Path.Combine(Path, fileName);
-            File.WriteAllText(path, contents);
-            return path;
-        }
-
-        public void Dispose()
-        {
-            if (Directory.Exists(Path))
-            {
-                Directory.Delete(Path, recursive: true);
-            }
-        }
-    }
-}
-
-[CollectionDefinition(ConnectRemoteDiagnosticsCollection.Name, DisableParallelization = true)]
-public sealed class ConnectRemoteDiagnosticsCollection
-{
-    public const string Name = "ConnectRemoteDiagnostics";
 }

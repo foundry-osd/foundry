@@ -312,7 +312,7 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>계속</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>계속하려면 기술자 암호를 입력하세요.</value>
+    <value>계속하려면 배포 암호를 입력하세요.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>암호 필요</value>

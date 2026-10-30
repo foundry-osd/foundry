@@ -12,6 +12,7 @@ using Foundry.Deploy.Services.System;
 using Foundry.Deploy.ViewModels;
 using Foundry.Utilities.Networking;
 using Foundry.Utilities.Processes;
+using Foundry.Wpf.Localization;
 using Microsoft.Extensions.Logging.Abstractions;
 using DeployUnattendFile = Foundry.Core.Models.Configuration.Deploy.DeployUnattendFile;
 
@@ -231,7 +232,7 @@ public sealed class DeploymentSessionDebugPreviewTests
             {
                 using DeploymentSessionViewModel session = new(dispatcher, NullLogger.Instance,
                     new OperationProgressService(), new PreviewOnlyOrchestrator(), new RejectingProcessRunner(),
-                    new LocalizationService(), isDebugSafeMode: true, new EmptyNetworkSnapshotProvider());
+                    new ResourceLocalizationService(LocalizationText.ResourceManager), isDebugSafeMode: true, new EmptyNetworkSnapshotProvider());
                 test(session);
                 completion.SetResult();
             }

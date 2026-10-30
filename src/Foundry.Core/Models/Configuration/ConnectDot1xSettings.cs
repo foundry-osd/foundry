@@ -24,27 +24,43 @@ public sealed record ConnectDot1xSettings
     public string? ProfileTemplatePath { get; init; }
 
     /// <summary>
-    /// Gets the runtime authentication mode; generation emits the fixed machine-only mode.
+    /// Gets the runtime authentication mode; generation always emitted the fixed machine-only mode.
     /// </summary>
+    /// <remarks>Schema 5 and earlier; schema 6 no longer writes it, and Foundry.Connect reads this default, the value generation always wrote.</remarks>
     public NetworkAuthenticationMode AuthenticationMode { get; init; } = NetworkAuthenticationMode.MachineOnly;
 
     /// <summary>
-    /// Gets whether runtime credential collection is allowed; generation always disables it.
+    /// Gets whether runtime credential collection is allowed; generation always disabled it.
     /// </summary>
+    /// <remarks>Schema 5 and earlier; schema 6 no longer writes it, and Foundry.Connect reads this default, the value generation always wrote.</remarks>
     public bool AllowRuntimeCredentials { get; init; }
 
     /// <summary>
     /// Gets whether a certificate file is staged with the profile.
     /// </summary>
+    /// <remarks>Schema 5 and earlier; schema 6 no longer writes it, and Foundry.Connect does not consume it.</remarks>
     public bool RequiresCertificate { get; init; }
 
     /// <summary>
     /// Gets the media-relative path of the staged certificate.
     /// </summary>
+    /// <remarks>Schema 5; read for older media, not written from schema 6. <see cref="ConnectCertificateSet"/> maps it by shape.</remarks>
     public string? CertificatePath { get; init; }
 
     /// <summary>
     /// Gets the encrypted PFX password envelope stored on provisioned media.
     /// </summary>
+    /// <remarks>Schema 5; read for older media, not written from schema 6.</remarks>
     public SecretEnvelope? CertificatePfxPasswordSecret { get; init; }
+
+    /// <summary>
+    /// Gets the client certificate staged with the profile (schema 6), or <see langword="null"/> when none is staged.
+    /// </summary>
+    public ConnectClientCertificateSettings? ClientCertificate { get; init; }
+
+    /// <summary>
+    /// Gets the media-relative paths of the trusted root certificates (<c>.cer</c>/<c>.crt</c>) staged with the profile
+    /// (schema 6), in installation order, or <see langword="null"/> when none is staged.
+    /// </summary>
+    public IReadOnlyList<string>? TrustedRootCertificates { get; init; }
 }

@@ -34,6 +34,12 @@
   <data name="Action.Disconnect" xml:space="preserve">
     <value>قطع الاتصال</value>
   </data>
+  <data name="Action.Retry" xml:space="preserve">
+    <value>إعادة المحاولة</value>
+  </data>
+  <data name="Action.StayHere" xml:space="preserve">
+    <value>البقاء هنا</value>
+  </data>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
@@ -58,23 +64,8 @@
   <data name="Common.Close" xml:space="preserve">
     <value>إغلاق</value>
   </data>
-  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
-    <value>التكوين: الإعدادات الافتراضية المضمنة</value>
-  </data>
-  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
-    <value>التكوين: {0}</value>
-  </data>
   <data name="Common.Connected" xml:space="preserve">
     <value>متصل</value>
-  </data>
-  <data name="Common.LastUpdateFormat" xml:space="preserve">
-    <value>آخر تحديث: {0:HH:mm:ss}</value>
-  </data>
-  <data name="Common.LastUpdatePending" xml:space="preserve">
-    <value>آخر تحديث: معلق</value>
-  </data>
-  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
-    <value>يتم التحديث كل {0} ثانية</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>غير متاح</value>
@@ -82,14 +73,65 @@
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>الإصدار: {0}</value>
   </data>
-  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
-    <value>إظهار Ethernet فقط</value>
+  <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
+    <value>Ethernet: عنوان معيّن ذاتيًا</value>
   </data>
-  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
-    <value>عرض Ethernet + Wi-Fi</value>
+  <data name="Debug.Scenario.CaptivePortal" xml:space="preserve">
+    <value>Ethernet: صفحة تسجيل الدخول</value>
   </data>
-  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
-    <value>استخدم التخطيط المكتشف</value>
+  <data name="Debug.Scenario.Checking" xml:space="preserve">
+    <value>جارٍ فحص الشبكة</value>
+  </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet: جارٍ مصادقة 802.1X</value>
+  </data>
+  <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
+    <value>Ethernet: فشل 802.1X</value>
+  </data>
+  <data name="Debug.Scenario.EthernetNoInternet" xml:space="preserve">
+    <value>Ethernet: لا يوجد إنترنت</value>
+  </data>
+  <data name="Debug.Scenario.EthernetReady" xml:space="preserve">
+    <value>Ethernet: جاهز</value>
+  </data>
+  <data name="Debug.Scenario.Live" xml:space="preserve">
+    <value>الشبكة الفعلية</value>
+  </data>
+  <data name="Debug.Scenario.NoAdapter" xml:space="preserve">
+    <value>لا يوجد محول شبكة</value>
+  </data>
+  <data name="Debug.Scenario.NoLink" xml:space="preserve">
+    <value>Ethernet: لا يوجد كبل</value>
+  </data>
+  <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
+    <value>لا يوجد محول Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>شبكة Wi-Fi الموفّرة: كلمة المرور مطلوبة</value>
+  </data>
+  <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
+    <value>شبكة Wi-Fi الموفّرة غير متاحة</value>
+  </data>
+  <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
+    <value>Ethernet: في انتظار عنوان</value>
+  </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>شبكة Wi-Fi الموفّرة: جارٍ الاتصال</value>
+  </data>
+  <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
+    <value>شبكات Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>لا يوجد محول Ethernet، شبكات Wi-Fi</value>
+  </data>
+  <data name="Debug.Scenario.WifiReady" xml:space="preserve">
+    <value>Wi-Fi: جاهز</value>
+  </data>
+  <data name="Debug.Scenario.WifiRuntimeMissing" xml:space="preserve">
+    <value>دعم Wi-Fi مفقود</value>
+  </data>
+  <data name="Debug.Scenarios" xml:space="preserve">
+    <value>السيناريوهات</value>
   </data>
   <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
     <value>اختر مكان تصدير تشخيصات Foundry</value>
@@ -125,14 +167,50 @@
   <data name="Ethernet.AdapterLabel" xml:space="preserve">
     <value>محول</value>
   </data>
-  <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>تحقق من اتصال الكابل</value>
+  <data name="Ethernet.ApipaAddress" xml:space="preserve">
+    <value>عنوان معيّن ذاتيًا</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>تم اكتشاف تأجير DHCP</value>
   </data>
+  <data name="Ethernet.Dot1xAuthenticated" xml:space="preserve">
+    <value>تمت المصادقة</value>
+  </data>
+  <data name="Ethernet.Dot1xAuthenticating" xml:space="preserve">
+    <value>جارٍ المصادقة</value>
+  </data>
+  <data name="Ethernet.Dot1xFailed" xml:space="preserve">
+    <value>فشلت المصادقة</value>
+  </data>
+  <data name="Ethernet.Dot1xLabel" xml:space="preserve">
+    <value>802.1X</value>
+  </data>
+  <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
+    <value>تم تطبيق ملف التعريف</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
+    <value>رفضت الشبكة المصادقة. تحقق من الشهادة ومن إعدادات منفذ المحوّل.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileImportFailed" xml:space="preserve">
+    <value>رفض Windows ملف تعريف 802.1X الموجود على وسائط التمهيد.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileTemplateMissing" xml:space="preserve">
+    <value>ملف تعريف 802.1X مفقود من وسائط التمهيد. أعد إنشاء وسائط التمهيد.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
+    <value>تتعذر قراءة كلمة مرور شهادة 802.1X. أعد إنشاء وسائط التمهيد.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>لم يتم إدخال كلمة مرور النشر، لذلك لم يتم تطبيق إعدادات 802.1X.</value>
+  </data>
+  <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
+    <value>غير متاح</value>
+  </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>العبّارة</value>
+  </data>
+  <data name="Ethernet.IpAssignmentLabel" xml:space="preserve">
+    <value>تعيين IP</value>
   </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
@@ -140,20 +218,17 @@
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
     <value>لا يوجد ارتباط نشط</value>
   </data>
-  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>لم يتم اكتشاف محول Ethernet.</value>
-  </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>تم اكتشاف تكوين شبكة ثابت</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>شبكة Ethernet غير متاحة على هذا الجهاز.</value>
+  </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>في انتظار تكوين الشبكة</value>
-  </data>
-  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>في انتظار DHCP أو تكوين الشبكة الثابتة</value>
   </data>
   <data name="Keyboard.OtherLanguages" xml:space="preserve">
     <value>لغات أخرى</value>
@@ -273,43 +348,106 @@
     <value>الأوكرانية (أوكرانيا)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>حول</value>
+    <value>_حول</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>تصحيح</value>
+    <value>_تصحيح</value>
   </data>
   <data name="Menu.Keyboard" xml:space="preserve">
-    <value>لوحة المفاتيح</value>
+    <value>_لوحة المفاتيح</value>
   </data>
   <data name="Menu.KeyboardFormat" xml:space="preserve">
-    <value>لوحة المفاتيح ({0})</value>
+    <value>_لوحة المفاتيح ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
-    <value>اللغة</value>
+    <value>_اللغة</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>النسق</value>
+    <value>_النسق</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
-    <value>أدوات</value>
+    <value>_الأدوات</value>
+  </data>
+  <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
+    <value>جارٍ تطبيق إعدادات الشبكة من وسائط التمهيد.</value>
+  </data>
+  <data name="Status.AutoContinueCancelled" xml:space="preserve">
+    <value>المتابعة التلقائية متوقفة. حدد متابعة عندما تكون جاهزًا.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>المتابعة تلقائيًا في {0}s</value>
   </data>
-  <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>تم التحقق من صحة الوصول إلى الإنترنت. يمكنك الاستمرار الآن.</value>
+  <data name="Status.AutoContinuePaused" xml:space="preserve">
+    <value>تم إيقاف المتابعة التلقائية مؤقتًا لأنك غيّرت إعدادات الشبكة.</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
+    <value>استجابت الشبكة بصفحة تسجيل دخول بدلاً من الوصول إلى الإنترنت. سجّل الدخول من جهاز آخر إذا كانت الشبكة تسمح بذلك، أو استخدم شبكة أخرى، ثم حدد إعادة المحاولة.</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>استجابت الشبكة بصفحة تسجيل دخول بدلاً من الوصول إلى الإنترنت. سجّل الدخول من جهاز آخر إذا كانت الشبكة تسمح بذلك، ثم حدد إعادة المحاولة.</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>يلزم تسجيل الدخول</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>يظهر السبب في قسم Ethernet.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>لم تنجح مصادقة 802.1X السلكية</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>انضم إلى شبكة Wi-Fi.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
+    <value>تحقق من قسمي Ethernet وWi-Fi، ثم حدد إعادة المحاولة.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>لا يوجد محول شبكة</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>وصّل كبل Ethernet.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>لا يوجد كبل Ethernet</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>تحقق من قسم Ethernet، ثم حدد إعادة المحاولة.</value>
+  </data>
+  <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
+    <value>الشبكة متصلة ولكن لا يمكنها الوصول إلى الإنترنت. تحقق من جدار الحماية أو الوكيل، ثم حدد إعادة المحاولة.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
+    <value>تحقق من DHCP على هذه الشبكة، ثم حدد إعادة المحاولة.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>لا يوجد عنوان IP</value>
+  </data>
+  <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
+    <value>وصّل كبل Ethernet أو انضم إلى شبكة Wi-Fi.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>لا يوجد اتصال بالشبكة</value>
+  </data>
+  <data name="Status.BlockedTitle" xml:space="preserve">
+    <value>لا يوجد وصول إلى الإنترنت</value>
+  </data>
+  <data name="Status.CheckingTitle" xml:space="preserve">
+    <value>جارٍ فحص الشبكة</value>
+  </data>
+  <data name="Status.ConnectingDescription" xml:space="preserve">
+    <value>يجري تنفيذ إجراء على الشبكة. قد يستغرق ذلك ما يصل إلى 20 ثانية.</value>
+  </data>
+  <data name="Status.ConnectingTitle" xml:space="preserve">
+    <value>جارٍ الاتصال</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>جارٍ قطع الاتصال</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>جارٍ تنفيذ مصادقة 802.1X السلكية.</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>الشبكة جاهزة</value>
-  </data>
-  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
-    <value>فشل تحديث الشبكة</value>
-  </data>
-  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
-    <value>لم يتم التحقق من صحة الوصول إلى الإنترنت بعد.</value>
-  </data>
-  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
-    <value>في انتظار الشبكة</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>داكن</value>
@@ -326,14 +464,44 @@
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>تحديث الحالة</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>متابعة</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>أدخل كلمة مرور النشر للمتابعة.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>كلمة المرور مطلوبة</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>كلمة المرور غير صحيحة. حاول مرة أخرى.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>كلمة مرور النشر</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>إعدادات الشبكة المحمية</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>إظهار كلمة المرور أو إخفاؤها</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>غير قادر على تطبيق إعدادات الشبكة المتوفرة.</value>
   </data>
   <data name="Wifi.ActionConnectFailed" xml:space="preserve">
     <value>غير قادر على الاتصال. تحقق من كلمة المرور أو إعدادات الشبكة وحاول مرة أخرى.</value>
   </data>
+  <data name="Wifi.ActionConnectTimedOut" xml:space="preserve">
+    <value>انتهت مهلة محاولة الاتصال. اقترب من نقطة الوصول وحاول مرة أخرى.</value>
+  </data>
   <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
     <value>غير قادر على قطع الاتصال. حاول ثانية.</value>
+  </data>
+  <data name="Wifi.ActionInvalidPassphrase" xml:space="preserve">
+    <value>كلمة المرور لا تستوفي متطلبات هذه الشبكة.</value>
+  </data>
+  <data name="Wifi.ActionNetworkNotVisible" xml:space="preserve">
+    <value>لم تعد هذه الشبكة مرئية. حدّث القائمة وحاول مرة أخرى.</value>
   </data>
   <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
     <value>غير قادر على الاتصال بملف التعريف Wi-Fi المتوفر. حاول ثانية.</value>
@@ -350,14 +518,14 @@
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
     <value>غير قادر على إكمال الإجراء Wi-Fi. حاول ثانية.</value>
   </data>
-  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>المصادقة</value>
-  </data>
-  <data name="Wifi.BootImageSettings" xml:space="preserve">
-    <value>إعدادات صورة التمهيد</value>
-  </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>الأمن الذي تم تكوينه</value>
+  </data>
+  <data name="Wifi.ConnectProvisionedAutomationName" xml:space="preserve">
+    <value>الاتصال بشبكة Wi-Fi الموفّرة</value>
+  </data>
+  <data name="Wifi.ConnectSelectedAutomationFormat" xml:space="preserve">
+    <value>الاتصال بـ {0}</value>
   </data>
   <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
     <value>Ethernet</value>
@@ -368,26 +536,29 @@
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
     <value>تم توفيره Wi-Fi · {0}</value>
   </data>
-  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
-    <value>ملف تعريف المؤسسة</value>
+  <data name="Wifi.DisconnectProvisionedAutomationName" xml:space="preserve">
+    <value>قطع الاتصال بشبكة Wi-Fi الموفّرة</value>
   </data>
-  <data name="Wifi.HiddenNetwork" xml:space="preserve">
-    <value>شبكة مخفية</value>
+  <data name="Wifi.DisconnectSelectedAutomationFormat" xml:space="preserve">
+    <value>قطع الاتصال بـ {0}</value>
   </data>
-  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>لا يتوفر محول Wi-Fi.</value>
+  <data name="Wifi.NetworkAutomationFormat" xml:space="preserve">
+    <value>{0}، {1}، الإشارة {2} بالمائة</value>
   </data>
-  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>لم يتم اكتشاف أي محول Wi-Fi حاليًا.</value>
+  <data name="Wifi.NetworkConnectedAutomationFormat" xml:space="preserve">
+    <value>{0}، {1}، الإشارة {2} بالمائة، متصل</value>
+  </data>
+  <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
+    <value>شبكات Wi-Fi المرئية</value>
   </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>لا توجد شبكات Wi-Fi مرئية حاليًا.</value>
   </data>
-  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
-    <value>لا يتوفر ملف تعريف Wi-Fi في صورة التمهيد هذه.</value>
+  <data name="Wifi.PassphraseLabel" xml:space="preserve">
+    <value>كلمة مرور Wi-Fi</value>
   </data>
-  <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>ملف التعريف</value>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>شبكة Wi-Fi الموفّرة محمية بكلمة مرور النشر. حدد الاتصال لإدخالها.</value>
   </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>تتطلب هذه الشبكة ملف تعريف Wi-Fi متوفر.</value>
@@ -395,23 +566,32 @@
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
     <value>تم توفيره Wi-Fi</value>
   </data>
+  <data name="Wifi.ProvisionedUnavailableConfiguration" xml:space="preserve">
+    <value>إعدادات شبكة Wi-Fi الموفّرة غير صالحة. أعد إنشاء وسائط التمهيد.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailablePassphrase" xml:space="preserve">
+    <value>كلمة مرور شبكة Wi-Fi الموفّرة لا تستوفي متطلبات الشبكة. أعد إنشاء وسائط التمهيد.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
+    <value>تتعذر قراءة كلمة مرور شبكة Wi-Fi الموفّرة من وسائط التمهيد هذه. أعد إنشاء وسائط التمهيد.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
+    <value>ملف تعريف Wi-Fi الخاص بالمؤسسة مفقود من وسائط التمهيد. أعد إنشاء وسائط التمهيد.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>لم يتم إدخال كلمة مرور النشر. حدد الاتصال لإدخالها.</value>
+  </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>قم بتحديث الشبكات Wi-Fi</value>
   </data>
   <data name="Wifi.SecurityEnterprise" xml:space="preserve">
     <value>المؤسسة</value>
   </data>
-  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
-    <value>{0} (الجهاز)</value>
-  </data>
-  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
-    <value>{0} (الجهاز أو المستخدم)</value>
-  </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
     <value>مفتوح</value>
   </data>
-  <data name="Wifi.SecurityPersonal" xml:space="preserve">
-    <value>شخصي</value>
+  <data name="Wifi.SecurityOwe" xml:space="preserve">
+    <value>مفتوح (محسّن)</value>
   </data>
   <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
     <value>خاص بالبائع</value>
@@ -425,17 +605,11 @@
   <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
     <value>WPA2 شخصي</value>
   </data>
-  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
-    <value>المؤسسة WPA2/WPA3</value>
-  </data>
   <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
     <value>WPA2/WPA3 شخصي</value>
   </data>
   <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
     <value>المؤسسة WPA3</value>
-  </data>
-  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
-    <value>WPA3 المؤسسة 192 بت</value>
   </data>
   <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
     <value>WPA3 الشخصية</value>
@@ -443,26 +617,20 @@
   <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
     <value>WPA إنتربرايز</value>
   </data>
-  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
-    <value>WPA لا يوجد</value>
-  </data>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA شخصي</value>
-  </data>
-  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
-    <value>{0} · الشهادة مضمنة في صورة التمهيد</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>شبكة Wi-Fi أخرى نشطة</value>
   </data>
-  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
-    <value>لا يتوفر محول Wi-Fi</value>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>كلمة المرور مطلوبة</value>
+  </data>
+  <data name="Wifi.StatusNotInRange" xml:space="preserve">
+    <value>خارج النطاق</value>
   </data>
   <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
     <value>جاهز للاتصال</value>
-  </data>
-  <data name="Wifi.StatusUnavailable" xml:space="preserve">
-    <value>Wi-Fi غير متوفر</value>
   </data>
   <data name="Wifi.Title" xml:space="preserve">
     <value>Wi-Fi</value>
@@ -470,8 +638,8 @@
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
     <value>إظهار أو إخفاء كلمة المرور Wi-Fi</value>
   </data>
-  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>الدعم Wi-Fi غير متوفر في بيئة التمهيد هذه.</value>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>شبكة Wi-Fi غير متاحة على هذا الجهاز.</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>ملف تعريف تم توفيره بدون اسم</value>

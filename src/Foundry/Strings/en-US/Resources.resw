@@ -2215,12 +2215,6 @@ Licensed under the MIT License.</value>
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
     <value>Shared join account</value>
   </data>
-  <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>Trusted root CA certificate file</value>
-  </data>
-  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>Select 802.1X certificate</value>
-  </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Enable Ethernet 802.1X configuration</value>
   </data>
@@ -2246,7 +2240,7 @@ Licensed under the MIT License.</value>
     <value>Confirm password</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Require a technician password before deployment. Embedded network credentials remain accessible without this password.</value>
+    <value>Require a technician password before deployment. Password protection is required when the media provisions a network secret, such as a Wi-Fi password or a client certificate.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Password protection</value>
@@ -2255,7 +2249,7 @@ Licensed under the MIT License.</value>
     <value>Password</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Keep this password safe. It protects local Windows account passwords, domain join credentials, Autopilot credentials and profiles, and custom answer files.</value>
+    <value>Keep this password safe. It protects local Windows account passwords, domain join credentials, Autopilot credentials and profiles, custom answer files, and network secrets: the personal Wi-Fi password, the client certificate and its password, and an enterprise Wi-Fi profile that contains key material.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Deployment password</value>
@@ -2710,8 +2704,23 @@ Licensed under the MIT License.</value>
   <data name="NavigationStatus.NotConfigured" xml:space="preserve">
     <value>Not configured</value>
   </data>
+  <data name="Network.AddTrustedRootCertificate" xml:space="preserve">
+    <value>Add certificate</value>
+  </data>
+  <data name="Network.ClientCertificateDescription" xml:space="preserve">
+    <value>Certificate with its private key that authenticates this device (EAP-TLS).</value>
+  </data>
+  <data name="Network.ClientCertificateLabel" xml:space="preserve">
+    <value>Client certificate (PFX)</value>
+  </data>
+  <data name="Network.ClientCertificatePickerTitle" xml:space="preserve">
+    <value>Select the client certificate</value>
+  </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>Enterprise behavior is driven by the profile template in this build. 802.1X credentials entered during deployment are not provisioned here.</value>
+  </data>
+  <data name="Network.ErrorMediaProtectionRequired" xml:space="preserve">
+    <value>Wi-Fi passwords and client certificates are protected by the deployment password. Turn on password protection on the General page and set the deployment password.</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
     <value>Unsupported Wi-Fi security type '{0}'.</value>
@@ -2723,10 +2732,10 @@ Licensed under the MIT License.</value>
     <value>Enterprise Wi-Fi profile template must contain a supported enterprise authentication value.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>Enterprise Wi-Fi trusted root CA certificate file was not found.</value>
+    <value>An enterprise Wi-Fi certificate file was not found. Select it again.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>Enterprise Wi-Fi requires a trusted root CA certificate file when certificate trust is enabled.</value>
+    <value>Enterprise Wi-Fi requires a client certificate or a trusted root CA certificate when certificates are used.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
     <value>Enterprise Wi-Fi profile template file was not found.</value>
@@ -2744,10 +2753,10 @@ Licensed under the MIT License.</value>
     <value>Wi-Fi configuration requires an SSID.</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>Wired 802.1X trusted root CA certificate file was not found.</value>
+    <value>A wired 802.1X certificate file was not found. Select it again.</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>Wired 802.1X requires a trusted root CA certificate file when certificate trust is enabled.</value>
+    <value>Wired 802.1X requires a client certificate or a trusted root CA certificate when certificates are used.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
     <value>Wired 802.1X profile template file was not found.</value>
@@ -2755,14 +2764,26 @@ Licensed under the MIT License.</value>
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
     <value>Wired 802.1X requires a wired profile template.</value>
   </data>
+  <data name="Network.NoTrustedRootCertificates" xml:space="preserve">
+    <value>No trusted root CA certificate added.</value>
+  </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
     <value>Profile template file</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
     <value>Select a network profile template</value>
   </data>
+  <data name="Network.RemoveCertificate" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>Remove client certificate</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Remove selected trusted root CA certificate</value>
+  </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>Import a trusted root CA certificate</value>
+    <value>Use certificates</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Copies configured PFX client certificates to Windows and imports them into the LocalMachine personal certificate store before OOBE.</value>
@@ -2772,6 +2793,15 @@ Licensed under the MIT License.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Roam network profiles to Windows</value>
+  </data>
+  <data name="Network.TrustedRootCertificatePickerTitle" xml:space="preserve">
+    <value>Select a trusted root CA certificate</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesDescription" xml:space="preserve">
+    <value>Public certificates of the authorities that issued the authentication server certificate.</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesLabel" xml:space="preserve">
+    <value>Trusted root CA certificates</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>Advanced enterprise Wi-Fi</value>
@@ -2783,7 +2813,7 @@ Licensed under the MIT License.</value>
     <value>Foundry remembers the passphrase on this PC in its local encrypted vault. It leaves this PC only in an export or a publication when Include passwords is chosen.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>Import the Wi-Fi profile managed by Foundry into Windows before OOBE to preserve deployment connectivity after WinPE.</value>
+    <value>When this option is on, every Wi-Fi network that Foundry Connect successfully joined, whether provisioned or chosen manually, is imported into Windows before OOBE, starting with the one that provided internet access, to keep connectivity after WinPE.</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows profile roaming</value>
@@ -5072,12 +5102,6 @@ Applying the update restarts Foundry OSD.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Update</value>
-  </data>
-  <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>Trusted root CA certificate file</value>
-  </data>
-  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>Select the Wi-Fi certificate</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Pre-provision a Wi-Fi profile</value>

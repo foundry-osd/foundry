@@ -5,10 +5,12 @@
 using System.IO;
 using System.Windows;
 using Foundry.Connect.DependencyInjection;
-using Foundry.Connect.Models.Configuration;
-using Foundry.Connect.Services.Configuration;
+using Foundry.Core.Models.Configuration;
+using Foundry.Connect.Configuration;
+using Foundry.Connect.Lifetime;
 using Foundry.Connect.Services.Logging;
 using Foundry.Connect.Services.Runtime;
+using Foundry.Connect.Startup;
 using Foundry.Core.Models.Runtime;
 using Foundry.Core.Services.Runtime;
 using Foundry.Telemetry;
@@ -18,6 +20,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using Serilog.Extensions.Logging;
 
 namespace Foundry.Connect;
 
@@ -25,6 +28,7 @@ namespace Foundry.Connect;
 public static class Program
 {
     private const string DisableFluentBackdropSwitch = "Switch.System.Windows.Appearance.DisableFluentThemeWindowBackdrop";
+    private static readonly RuntimeApplicationIdentity Identity = new("Foundry.Connect", TelemetryApps.FoundryConnect, FoundryConnectApplicationInfo.Version);
     private static readonly TimeSpan DiagnosticsShutdownTimeout = TimeSpan.FromSeconds(2);
 
     /// <summary>Starts configuration and services before entering the synchronous WPF dispatcher loop.</summary>
@@ -37,12 +41,16 @@ public static class Program
         ITelemetryService? telemetryService = null;
         IRemoteDiagnosticsService? remoteDiagnosticsService = null;
         RuntimeStartupDiagnostics? startup = null;
+        SingleInstanceGuard? instanceGuard = null;
+        IApplicationLifetimeService? lifetime = null;
         Serilog.ILogger programLogger = Serilog.Core.Logger.None;
-        string stage = "managed_startup";
+        string category = "managed_startup";
+        // Managed startup (logging, diagnostics, runtime checks) precedes the policy stages.
+        ConnectStartupStage? stage = null;
         try
         {
             var configurationPath = ConnectConfigurationService.ResolveConfigurationPath(args);
-            startup = RuntimeStartupDiagnostics.Create(configurationPath.Path ?? "", configurationPath.IsRequired);
+            startup = RuntimeStartupDiagnostics.Create(Identity, configurationPath.Path ?? "", configurationPath.IsRequired);
             RegisterGlobalExceptionHandlers(startup);
             try
             {
@@ -54,9 +62,11 @@ public static class Program
             {
                 startupLogFilePath = "<unavailable>";
                 Log.Logger = FoundryLogConfiguration.CreateDebugLogger(
-                    "Foundry.Connect", DiagnosticSessionContext.CurrentSessionId,
+                    Identity.ApplicationId, DiagnosticSessionContext.CurrentSessionId,
                     Serilog.Events.LogEventLevel.Verbose, additionalSink: RemoteDiagnosticsSink.Instance);
-                Log.ForContext(typeof(Program)).Error(exception, "File logging initialization failed. Falling back to debugger output.");
+                Log.ForContext(typeof(Program)).Error(
+                    "File logging initialization failed. Falling back to debugger output. FailureType={FailureType}, ErrorCode={ErrorCode}",
+                    exception.GetType().Name, exception.HResult);
             }
 
             remoteDiagnosticsService = new PostHogRemoteDiagnosticsSink();
@@ -68,48 +78,86 @@ public static class Program
             if (!RuntimeStartupGuard.CanRun())
                 throw new InvalidOperationException("Foundry.Connect requires Windows PE outside a DEBUG debugger session.");
 
+            if (!SingleInstanceGuard.TryAcquire(SingleInstanceGuard.ConnectInstanceName, out instanceGuard))
+            {
+                ReportFailure(startup, new InvalidOperationException("Another Foundry.Connect instance is already running."), category);
+                return (int)ChildRuntimeExitCode.StartupFailure;
+            }
+
             ConfigureRuntimeCompatibility();
-            stage = "configuration";
-            host = BuildHost(args, startup, remoteDiagnosticsService);
-            _ = host.Services.GetRequiredService<FoundryConnectConfiguration>();
+            category = "configuration";
+            stage = ConnectStartupStage.Configuration;
+            var configurationService = new ConnectConfigurationService(
+                args, new SerilogLoggerFactory(Log.Logger).CreateLogger<ConnectConfigurationService>());
+            ConnectConfigurationLoadResult loadResult = configurationService.Load();
+            if (!loadResult.IsSuccess)
+            {
+                ReportFailure(startup, loadResult.FailureException, category);
+                return (int)ConnectStartupFailurePolicy.Map(ConnectStartupStage.Configuration);
+            }
+
+            // Building the host keeps the "configuration" category but is not a configuration failure for the exit code.
+            stage = ConnectStartupStage.Services;
+            host = BuildHost(args, startup, remoteDiagnosticsService, configurationService, loadResult.Configuration, loadResult.Secrets);
             startup.ReportConfigurationLoaded();
-            stage = "services";
+            category = "services";
             telemetryService = host.Services.GetRequiredService<ITelemetryService>();
             InitializeRemoteDiagnostics(host.Services, remoteDiagnosticsService);
 
-            stage = "ui_startup";
+            category = "ui_startup";
+            stage = ConnectStartupStage.UiStartup;
             App app = host.Services.GetRequiredService<App>();
+            IApplicationLifetimeService exitAuthority = host.Services.GetRequiredService<IApplicationLifetimeService>();
+            lifetime = exitAuthority;
             app.DispatcherUnhandledException += (_, eventArgs) =>
             {
                 startup.ReportFailure(eventArgs.Exception, "dispatcher");
                 eventArgs.Handled = true;
-                app.Shutdown((int)FoundryConnectExitCode.StartupFailure);
+                exitAuthority.TryExit(GetFailureExitCode(ConnectStartupStage.UiStartup, startup));
             };
             app.InitializeComponent();
             MainWindow mainWindow = host.Services.GetRequiredService<MainWindow>();
-            int exitCode = app.Run(mainWindow);
+            int exitCode = ConnectStartupFailurePolicy.ResolveProcessExitCode(exitAuthority.RequestedExitCode, app.Run(mainWindow));
             programLogger.Information("Foundry.Connect exited with code {ExitCode}.", exitCode);
             return exitCode;
         }
-        catch (FoundryConnectConfigurationException exception)
-        {
-            ReportFailure(startup, exception, "configuration");
-            return (int)FoundryConnectExitCode.ConfigurationFailure;
-        }
         catch (Exception exception)
         {
-            ReportFailure(startup, exception, stage);
-            return (int)FoundryConnectExitCode.StartupFailure;
+            ReportFailure(startup, exception, category);
+            return ConnectStartupFailurePolicy.ResolveProcessExitCode(
+                lifetime?.RequestedExitCode, (int)GetFailureExitCode(stage, startup));
         }
         finally
         {
             try { host?.Dispose(); }
-            catch (Exception exception) { programLogger.Warning(exception, "Application service disposal failed."); }
+            catch (Exception exception)
+            {
+                programLogger.Warning(
+                    "Application service disposal failed. FailureType={FailureType}, ErrorCode={ErrorCode}",
+                    exception.GetType().Name, exception.HResult);
+            }
             programLogger.Information("Foundry.Connect application shutdown completed. Closing diagnostics.");
             ShutdownDiagnostics(telemetryService, remoteDiagnosticsService);
             try { Task.Run(() => Log.CloseAndFlushAsync().AsTask()).WaitAsync(DiagnosticsShutdownTimeout).GetAwaiter().GetResult(); }
             catch { }
+            // Released last, on the thread that acquired it, so a next instance cannot start while this one still flushes.
+            try { instanceGuard?.Dispose(); }
+            catch { }
         }
+    }
+
+    /// <summary>
+    /// Maps a failure to its exit code; failures before a policy stage keep the generic startup failure code, and once
+    /// the UI reported readiness to Foundry.Bootstrap every failure is a runtime failure.
+    /// </summary>
+    private static ChildRuntimeExitCode GetFailureExitCode(ConnectStartupStage? stage, RuntimeStartupDiagnostics? startup)
+    {
+        if (stage is not { } current)
+        {
+            return ChildRuntimeExitCode.StartupFailure;
+        }
+
+        return ConnectStartupFailurePolicy.MapFailure(current, startup?.IsUiReady == true);
     }
 
     private static void ReportFailure(RuntimeStartupDiagnostics? startup, Exception exception, string category)
@@ -121,7 +169,7 @@ public static class Program
         }
         try
         {
-            RuntimeStartupReporter.FromEnvironment("Foundry.Connect")?.Report(StartupStage.StartupFailed, category);
+            RuntimeStartupReporter.FromEnvironment(Identity.ApplicationId)?.Report(StartupStage.StartupFailed, category);
         }
         catch { }
         try
@@ -169,13 +217,22 @@ public static class Program
         };
     }
 
-    private static IHost BuildHost(string[] args, RuntimeStartupDiagnostics startup, IRemoteDiagnosticsService remoteDiagnosticsService)
+    private static IHost BuildHost(
+        string[] args,
+        RuntimeStartupDiagnostics startup,
+        IRemoteDiagnosticsService remoteDiagnosticsService,
+        IConnectConfigurationService configurationService,
+        FoundryConnectConfigurationDocument configuration,
+        ConnectRuntimeSecrets secrets)
     {
         HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
         builder.Logging.ClearProviders();
         builder.Logging.SetMinimumLevel(LogLevel.Trace);
         builder.Logging.AddSerilog(dispose: false);
         builder.Services.AddSingleton(startup);
+        builder.Services.AddSingleton(configurationService);
+        builder.Services.AddSingleton(configuration);
+        builder.Services.AddSingleton(secrets);
         builder.Services.AddFoundryConnectApplicationServices(args);
         builder.Services.AddSingleton(remoteDiagnosticsService);
         return builder.Build();
@@ -183,7 +240,7 @@ public static class Program
 
     private static void InitializeRemoteDiagnostics(IServiceProvider services, IRemoteDiagnosticsService remoteDiagnosticsService)
     {
-        TelemetrySettings settings = services.GetRequiredService<FoundryConnectConfiguration>().Telemetry;
+        TelemetrySettings settings = services.GetRequiredService<FoundryConnectConfigurationDocument>().Telemetry;
         TelemetryContext context = services.GetRequiredService<TelemetryContext>();
         RemoteDiagnosticsLifecycle.Initialize(remoteDiagnosticsService, settings, context);
     }
@@ -209,7 +266,9 @@ public static class Program
         }
         catch (Exception exception)
         {
-            transportLogger.Warning(exception, "Remote diagnostics shutdown did not complete within the shutdown budget.");
+            transportLogger.Warning(
+                "Remote diagnostics shutdown did not complete within the shutdown budget. FailureType={FailureType}, ErrorCode={ErrorCode}",
+                exception.GetType().Name, exception.HResult);
         }
     }
 

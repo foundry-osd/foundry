@@ -312,7 +312,7 @@ Detaljer: Åtkomst nekad vid montering av bild till målsökväg.
     <value>Fortsätt</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>Ange teknikerns lösenord för att fortsätta.</value>
+    <value>Ange distributionslösenordet för att fortsätta.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>Lösenord krävs</value>

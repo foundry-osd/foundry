@@ -4,9 +4,9 @@
 
 using System.Security.Cryptography;
 using Foundry.Deploy.Models.Configuration;
-using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Security;
+using SecretEnvelope = Foundry.Core.Models.Configuration.SecretEnvelope;
 
 namespace Foundry.Deploy.Tests;
 

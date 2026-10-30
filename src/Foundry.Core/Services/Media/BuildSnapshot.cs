@@ -162,12 +162,19 @@ public sealed class BuildSnapshot : IDisposable
         }
     }
 
-    /// <summary>Generates Connect only from captured credentials and private dependency copies.</summary>
-    public FoundryConnectProvisioningBundle CreateConnectProvisioningBundle(string stagingDirectoryPath, TelemetrySettings? telemetryOverride = null)
+    /// <summary>
+    /// Generates Connect only from captured credentials and private dependency copies; network secrets are encrypted with the
+    /// deployment key of <paramref name="protection"/>, and refused when its Password protection is off.
+    /// </summary>
+    public FoundryConnectProvisioningBundle CreateConnectProvisioningBundle(
+        string stagingDirectoryPath,
+        DeploymentMediaProtectionMaterial protection,
+        TelemetrySettings? telemetryOverride = null)
     {
         ObjectDisposedException.ThrowIf(isDisposed, this);
+        ArgumentNullException.ThrowIfNull(protection);
         return new ConnectConfigurationGenerator().CreateProvisioningBundle(
-            CreateGenerationDocument(telemetryOverride), CreateGenerationInputs(), stagingDirectoryPath, authoringVersion);
+            CreateGenerationDocument(telemetryOverride), CreateGenerationInputs(), stagingDirectoryPath, authoringVersion, protection);
     }
 
     /// <summary>Retains existing Deploy protection and account validation rules while using captured session material.</summary>
@@ -338,10 +345,24 @@ public sealed class BuildSnapshot : IDisposable
         bool wifiEnabled = network.WifiProvisioned && network.Wifi.IsEnabled;
         bool wifiProfileEnabled = wifiEnabled && network.Wifi.HasEnterpriseProfile;
         bool hardwareHashEnabled = sources.Autopilot.IsEnabled && sources.Autopilot.ProvisioningMode == AutopilotProvisioningMode.HardwareHashUpload;
+        // The flags only decide what a null reference means; a set reference that is unavailable always fails. The client slot may
+        // be empty (a feature can use trusted roots only, and the validator already reports a missing required certificate), while
+        // a null entry in a trusted root list can only come from a damaged document, so it fails closed. A disabled feature has no
+        // certificate left here (SelectActiveSources).
         Copy(network.Dot1x.ProfileTemplate, required: wiredEnabled);
-        Copy(network.Dot1x.Certificate, required: wiredEnabled && network.Dot1x.RequiresCertificate);
+        Copy(network.Dot1x.ClientCertificate, required: false);
+        foreach (AuthoringFileReference root in network.Dot1x.TrustedRootCertificates)
+        {
+            Copy(root, required: true);
+        }
+
         Copy(network.Wifi.EnterpriseProfileTemplate, required: wifiProfileEnabled);
-        Copy(network.Wifi.Certificate, required: wifiEnabled && network.Wifi.RequiresCertificate);
+        Copy(network.Wifi.ClientCertificate, required: false);
+        foreach (AuthoringFileReference root in network.Wifi.TrustedRootCertificates)
+        {
+            Copy(root, required: true);
+        }
+
         Copy(sources.Autopilot.HardwareHashUpload.BootMediaCertificate.Pfx, required: hardwareHashEnabled);
         foreach (UnattendFileSettings file in sources.Unattend.Files)
         {
@@ -556,11 +577,12 @@ public sealed class BuildSnapshot : IDisposable
         {
             Network = source.Network with
             {
-                Dot1x = source.Network.Dot1x.IsEnabled ? source.Network.Dot1x : source.Network.Dot1x with { ProfileTemplate = null, Certificate = null },
+                Dot1x = source.Network.Dot1x.IsEnabled ? source.Network.Dot1x : source.Network.Dot1x with { ProfileTemplate = null, ClientCertificate = null, TrustedRootCertificates = [] },
                 Wifi = source.Network.Wifi with
                 {
                     EnterpriseProfileTemplate = wifiEnabled && source.Network.Wifi.HasEnterpriseProfile ? source.Network.Wifi.EnterpriseProfileTemplate : null,
-                    Certificate = wifiEnabled ? source.Network.Wifi.Certificate : null
+                    ClientCertificate = wifiEnabled ? source.Network.Wifi.ClientCertificate : null,
+                    TrustedRootCertificates = wifiEnabled ? source.Network.Wifi.TrustedRootCertificates : []
                 }
             },
             Unattend = source.Unattend.IsEnabled ? source.Unattend : source.Unattend with { Files = [] },
