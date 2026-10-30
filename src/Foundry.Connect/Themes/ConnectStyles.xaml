@@ -26,7 +26,7 @@
             Value="1" />
         <Setter
             Property="BorderBrush"
-            Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+            Value="{DynamicResource ControlStrokeColorDefaultBrush}" />
         <Setter
             Property="VerticalAlignment"
             Value="Center" />
@@ -130,20 +130,39 @@
             Value="{Binding AutomationName}" />
     </Style>
 
+    <!--
+        A section title: it shares the vertical center of its title row (glyph, pill, chevron or refresh button), whose
+        MinHeight of 32 keeps every card's title at the same height.
+    -->
     <Style x:Key="ConnectSectionTitleTextBlockStyle"
         BasedOn="{StaticResource SubtitleTextBlockStyle}"
         TargetType="TextBlock">
         <Setter
             Property="TextWrapping"
             Value="Wrap" />
+        <Setter
+            Property="VerticalAlignment"
+            Value="Center" />
     </Style>
 
+    <!--  Label and value cells of a details grid: 12 px between the columns, 4 px between the rows.  -->
     <Style x:Key="ConnectFieldLabelTextBlockStyle"
         BasedOn="{StaticResource BodyStrongTextBlockStyle}"
         TargetType="TextBlock">
         <Setter
             Property="Margin"
             Value="0,0,12,4" />
+    </Style>
+
+    <Style x:Key="ConnectFieldValueTextBlockStyle"
+        BasedOn="{StaticResource BodyTextBlockStyle}"
+        TargetType="TextBlock">
+        <Setter
+            Property="Margin"
+            Value="0,0,0,4" />
+        <Setter
+            Property="TextWrapping"
+            Value="Wrap" />
     </Style>
 
     <Style x:Key="ConnectNoticeTextBlockStyle"
@@ -157,15 +176,13 @@
             Value="{DynamicResource TextFillColorSecondaryBrush}" />
     </Style>
 
+    <!--  Action buttons carry no margin: each placement sets its own gap (8 px in a button row, 16 px above a card action).  -->
     <Style x:Key="ConnectActionButtonStyle"
         BasedOn="{StaticResource {x:Type Button}}"
         TargetType="Button">
         <Setter
             Property="MinWidth"
             Value="120" />
-        <Setter
-            Property="Margin"
-            Value="0,0,8,8" />
     </Style>
 
     <Style x:Key="ConnectAccentActionButtonStyle"
@@ -174,11 +191,9 @@
         <Setter
             Property="MinWidth"
             Value="120" />
-        <Setter
-            Property="Margin"
-            Value="0,0,8,8" />
     </Style>
 
+    <!--  A section or list glyph: 20 px wide plus a 12 px gap, so the text after it starts 32 px in.  -->
     <Style x:Key="ConnectGlyphTextBlockStyle"
         TargetType="TextBlock">
         <Setter
@@ -188,7 +203,82 @@
             Property="FontSize"
             Value="20" />
         <Setter
+            Property="Width"
+            Value="20" />
+        <Setter
+            Property="Margin"
+            Value="0,0,12,0" />
+        <Setter
             Property="VerticalAlignment"
             Value="Center" />
+    </Style>
+
+    <!--
+        The Ethernet card's expander: one frame (the card's), no header or content border. The header toggle presents
+        the header as given (no theme or implicit toggle style), so the header draws its own chevron in its title row; the
+        details show under it when expanded.
+        Keyboard and automation behave as the theme's expander (same HeaderSite toggle bound to IsExpanded).
+    -->
+    <Style x:Key="ConnectCardExpanderStyle"
+        BasedOn="{StaticResource {x:Type Expander}}"
+        TargetType="Expander">
+        <Setter
+            Property="Padding"
+            Value="0" />
+        <Setter
+            Property="HorizontalContentAlignment"
+            Value="Stretch" />
+        <Setter
+            Property="VerticalContentAlignment"
+            Value="Top" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Expander">
+                    <DockPanel>
+                        <ToggleButton x:Name="HeaderSite"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Center"
+                            AutomationProperties.Name="{TemplateBinding AutomationProperties.Name}"
+                            Content="{TemplateBinding Header}"
+                            ContentTemplate="{TemplateBinding HeaderTemplate}"
+                            DockPanel.Dock="Top"
+                            FocusVisualStyle="{DynamicResource DefaultControlFocusVisualStyle}"
+                            Foreground="{TemplateBinding Foreground}"
+                            IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                            IsEnabled="{TemplateBinding IsEnabled}"
+                            OverridesDefaultStyle="True"
+                            Style="{x:Null}">
+                            <ToggleButton.Template>
+                                <ControlTemplate TargetType="ToggleButton">
+                                    <Border Background="Transparent">
+                                        <ContentPresenter
+                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            RecognizesAccessKey="True" />
+                                    </Border>
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+                        <ContentPresenter x:Name="ExpandSite"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            DockPanel.Dock="Bottom"
+                            Focusable="False"
+                            Visibility="Collapsed" />
+                    </DockPanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger
+                            Property="IsExpanded"
+                            Value="True">
+                            <Setter
+                                TargetName="ExpandSite"
+                                Property="Visibility"
+                                Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>

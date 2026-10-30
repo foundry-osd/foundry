@@ -209,6 +209,9 @@ Licencirano pod MIT licencom.</value>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Mrežni prolaz</value>
   </data>
+  <data name="Ethernet.IpAssignmentLabel" xml:space="preserve">
+    <value>Dodela IP adrese</value>
+  </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
   </data>

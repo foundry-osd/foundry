@@ -209,6 +209,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Vārteja</value>
   </data>
+  <data name="Ethernet.IpAssignmentLabel" xml:space="preserve">
+    <value>IP piešķiršana</value>
+  </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
   </data>

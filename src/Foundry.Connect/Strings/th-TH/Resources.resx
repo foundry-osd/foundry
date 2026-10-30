@@ -209,6 +209,9 @@
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>เกตเวย์</value>
   </data>
+  <data name="Ethernet.IpAssignmentLabel" xml:space="preserve">
+    <value>การกำหนด IP</value>
+  </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
   </data>

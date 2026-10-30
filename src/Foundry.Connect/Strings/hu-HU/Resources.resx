@@ -209,6 +209,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Átjáró</value>
   </data>
+  <data name="Ethernet.IpAssignmentLabel" xml:space="preserve">
+    <value>IP-hozzárendelés</value>
+  </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
   </data>

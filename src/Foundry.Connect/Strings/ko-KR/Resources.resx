@@ -209,6 +209,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>게이트웨이</value>
   </data>
+  <data name="Ethernet.IpAssignmentLabel" xml:space="preserve">
+    <value>IP 할당</value>
+  </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
   </data>

@@ -12,14 +12,14 @@ namespace Foundry.Connect.ViewModels;
 
 /// <summary>
 /// The Ethernet section: a compact header (glyph, status pill, one secondary line and the wired 802.1X row with its
-/// reason), the folded details (adapter, IPv4 address, gateway, configuration) and the one-line "not available on this
-/// device" text.
+/// reason), the folded details (adapter, IPv4 address, gateway, IP assignment) and, without an adapter, the card with
+/// the neutral "not available on this device" text.
 /// </summary>
 /// <remarks>
 /// Every text is derived from the last <see cref="EthernetState"/> given to <see cref="Apply"/> and resolved on demand,
 /// so <see cref="RefreshTexts"/> after a language change needs no network refresh. The details start collapsed and
 /// only the technician opens or closes them: <see cref="Apply"/> never touches <see cref="IsDetailsExpanded"/>. The
-/// "not available" line shows in every layout once the first observation exists. The view model reads no file and
+/// "not available" card shows in every layout once the first observation exists. The view model reads no file and
 /// does no I/O, and every member runs on the UI thread.
 /// </remarks>
 /// <param name="localization">Source of the texts.</param>
@@ -44,7 +44,7 @@ public sealed partial class EthernetSectionViewModel(ILocalizationService locali
     public bool ShowCard => _ethernet.HasAdapter;
 
     /// <summary>
-    /// Gets whether the one-line "not available on this device" text is shown: an observation exists and no Ethernet
+    /// Gets whether the card with the "not available on this device" text is shown: an observation exists and no Ethernet
     /// adapter is seen (a missing adapter or a failed Ethernet read). It stays hidden before the first observation.
     /// </summary>
     public bool ShowNoAdapterNotice => !_isChecking && !_ethernet.HasAdapter;
@@ -95,6 +95,11 @@ public sealed partial class EthernetSectionViewModel(ILocalizationService locali
         { HasUsableAddress: true, IpConfiguration: IpConfigurationKind.Static } => GetString("Ethernet.StaticConfigurationDetected"),
         _ => string.Empty
     };
+
+    /// <summary>
+    /// Gets whether the details show the IP assignment row: <see cref="ConfigurationText"/> is not empty.
+    /// </summary>
+    public bool HasConfiguration => ConfigurationText.Length > 0;
 
     /// <summary>
     /// Gets the name of the described adapter.
@@ -180,6 +185,7 @@ public sealed partial class EthernetSectionViewModel(ILocalizationService locali
         OnPropertyChanged(nameof(StatusText));
         OnPropertyChanged(nameof(SecondaryStatusText));
         OnPropertyChanged(nameof(ConfigurationText));
+        OnPropertyChanged(nameof(HasConfiguration));
         OnPropertyChanged(nameof(AdapterName));
         OnPropertyChanged(nameof(IpAddress));
         OnPropertyChanged(nameof(Gateway));

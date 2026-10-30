@@ -7,7 +7,9 @@
         - two columns: PageRoot at least 1100 x 700 and a two-column session (UsesTwoColumns); no page scroll, the left
         column scrolls on its own and the Wi-Fi list fills the right column;
         - one column wide: same size, one-column session; 980 px, the page scrolls when needed;
-        - narrow: below 1100 x 700; one column, 980 px, page scroll, the banner buttons under the text.
+        - narrow: below 1100 x 700; one column, 980 px, page scroll.
+        In every arrangement the page area copies Deploy's MainContentHost: a band of at most 900 px, centered in the
+        page, with the content at its top. The banner buttons stay at the right of the banner text.
         Document order is the Tab order (banner, Ethernet, provisioned Wi-Fi, Wi-Fi card), so no TabIndex is set.
     -->
     <ScrollViewer x:Name="PageScrollViewer"
@@ -43,21 +45,47 @@
             </Style>
         </ScrollViewer.Style>
 
-        <!--  Page area: a copy of Deploy's MainContentHost.  -->
+        <!--
+            Page area: a copy of Deploy's MainContentHost (at most 900 px high, centered). The equal star rows center the
+            area once the page is taller than the band; below that the area starts at the top and the page scrolls.
+        -->
         <Grid x:Name="PageHost"
             Margin="16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
             <Grid x:Name="PageArea"
                 Width="{Binding ActualWidth, ElementName=PageHost}"
-                HorizontalAlignment="Center">
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top">
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Setter
                             Property="MaxWidth"
                             Value="980" />
                         <Setter
-                            Property="VerticalAlignment"
-                            Value="Top" />
+                            Property="Grid.Row"
+                            Value="0" />
+                        <Setter
+                            Property="Grid.RowSpan"
+                            Value="3" />
                         <Style.Triggers>
+                            <!--  900 px band plus the 16 px host margins: the band fits, so it is centered.  -->
+                            <DataTrigger
+                                Binding="{Binding ActualHeight, ElementName=PageRoot, Converter={StaticResource WidthAtLeastConverter}, ConverterParameter=932}"
+                                Value="True">
+                                <Setter
+                                    Property="Grid.Row"
+                                    Value="1" />
+                                <Setter
+                                    Property="Grid.RowSpan"
+                                    Value="1" />
+                                <Setter
+                                    Property="MinHeight"
+                                    Value="900" />
+                            </DataTrigger>
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
                                     <Condition
@@ -79,9 +107,6 @@
                                 <Setter
                                     Property="MaxHeight"
                                     Value="900" />
-                                <Setter
-                                    Property="VerticalAlignment"
-                                    Value="Center" />
                             </MultiDataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -92,29 +117,26 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <!--  1. Status banner  -->
+                <!--
+                    1. Status banner: icon, title (with the connection pill) and one line, the buttons at the right.
+                    Every column is centered vertically, so a banner without a description keeps its compact height.
+                -->
                 <Border
                     Margin="0"
                     Style="{StaticResource ConnectBannerBorderStyle}">
-                    <Grid>
+                    <Grid VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="40" />
                             <ColumnDefinition Width="16" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
 
                         <!--  The shared ring and glyph are drawn at 180 px; the banner shows them at 40 px.  -->
                         <Viewbox
-                            Grid.RowSpan="2"
                             Width="40"
                             Height="40"
-                            VerticalAlignment="Top">
+                            VerticalAlignment="Center">
                             <Grid
                                 Width="180"
                                 Height="180">
@@ -132,36 +154,34 @@
                             </Grid>
                         </Viewbox>
 
-                        <WrapPanel
-                            Grid.Column="2"
-                            VerticalAlignment="Center">
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource SubtitleTextBlockStyle}"
-                                Text="{Binding HeroTitle}"
-                                TextWrapping="Wrap" />
-                            <Border
-                                Margin="12,0,0,0"
-                                Style="{StaticResource ConnectPillBorderStyle}"
-                                Visibility="{Binding HasConnectionChip, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <TextBlock
-                                    Style="{StaticResource ConnectPillTextBlockStyle}"
-                                    Text="{Binding ConnectionChipText}" />
-                            </Border>
-                        </WrapPanel>
-
                         <!--  The description and the countdown caption never show together (no description while online).  -->
                         <StackPanel
-                            Grid.Row="1"
                             Grid.Column="2"
-                            Margin="0,4,0,0">
+                            VerticalAlignment="Center">
+                            <WrapPanel>
+                                <TextBlock
+                                    Margin="0,0,12,0"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource SubtitleTextBlockStyle}"
+                                    Text="{Binding HeroTitle}"
+                                    TextWrapping="Wrap" />
+                                <Border
+                                    Style="{StaticResource ConnectPillBorderStyle}"
+                                    Visibility="{Binding HasConnectionChip, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <TextBlock
+                                        Style="{StaticResource ConnectPillTextBlockStyle}"
+                                        Text="{Binding ConnectionChipText}" />
+                                </Border>
+                            </WrapPanel>
                             <TextBlock
+                                Margin="0,4,0,0"
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{Binding HeroDescription}"
                                 TextWrapping="Wrap"
                                 Visibility="{Binding HasHeroDescription, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             <TextBlock
+                                Margin="0,4,0,0"
                                 DataContext="{Binding AutoContinue}"
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                 Style="{StaticResource BodyTextBlockStyle}"
@@ -170,51 +190,14 @@
                                 Visibility="{Binding HasCaption, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         </StackPanel>
 
-                        <WrapPanel x:Name="BannerActions">
-                            <WrapPanel.Style>
-                                <Style TargetType="WrapPanel">
-                                    <Setter
-                                        Property="Grid.Row"
-                                        Value="2" />
-                                    <Setter
-                                        Property="Grid.RowSpan"
-                                        Value="1" />
-                                    <Setter
-                                        Property="Grid.Column"
-                                        Value="2" />
-                                    <Setter
-                                        Property="Margin"
-                                        Value="0,12,0,0" />
-                                    <Style.Triggers>
-                                        <MultiDataTrigger>
-                                            <MultiDataTrigger.Conditions>
-                                                <Condition
-                                                    Binding="{Binding ActualWidth, ElementName=PageRoot, Converter={StaticResource WidthAtLeastConverter}, ConverterParameter=1100}"
-                                                    Value="True" />
-                                                <Condition
-                                                    Binding="{Binding ActualHeight, ElementName=PageRoot, Converter={StaticResource WidthAtLeastConverter}, ConverterParameter=700}"
-                                                    Value="True" />
-                                            </MultiDataTrigger.Conditions>
-                                            <Setter
-                                                Property="Grid.Row"
-                                                Value="0" />
-                                            <Setter
-                                                Property="Grid.RowSpan"
-                                                Value="2" />
-                                            <Setter
-                                                Property="Grid.Column"
-                                                Value="3" />
-                                            <Setter
-                                                Property="VerticalAlignment"
-                                                Value="Center" />
-                                            <Setter
-                                                Property="Margin"
-                                                Value="16,0,0,0" />
-                                        </MultiDataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </WrapPanel.Style>
+                        <!--  One row at the right; each visible button adds its 8 px gap, the panel the other 8 px.  -->
+                        <StackPanel x:Name="BannerActions"
+                            Grid.Column="3"
+                            Margin="8,0,0,0"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
                             <Button x:Name="ContinueButton"
+                                Margin="8,0,0,0"
                                 AutomationProperties.Name="{Binding Strings[Action.Continue]}"
                                 Command="{Binding AutoContinue.ContinueCommand}"
                                 Content="{Binding Strings[Action.Continue]}"
@@ -222,24 +205,27 @@
                                 Style="{StaticResource ConnectAccentActionButtonStyle}"
                                 Visibility="{Binding AutoContinue.CanContinue, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             <Button
+                                Margin="8,0,0,0"
                                 AutomationProperties.Name="{Binding Strings[Action.StayHere]}"
                                 Command="{Binding AutoContinue.StayHereCommand}"
                                 Content="{Binding Strings[Action.StayHere]}"
                                 Style="{StaticResource ConnectActionButtonStyle}"
                                 Visibility="{Binding AutoContinue.IsCounting, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             <Button x:Name="RetryButton"
+                                Margin="8,0,0,0"
                                 AutomationProperties.Name="{Binding Strings[Action.Retry]}"
                                 Command="{Binding RefreshCommand}"
                                 Content="{Binding Strings[Action.Retry]}"
                                 Style="{StaticResource ConnectAccentActionButtonStyle}"
                                 Visibility="{Binding ShowRetryActions, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             <Button
+                                Margin="8,0,0,0"
                                 AutomationProperties.Name="{Binding Strings[Diagnostics.ExportMenu]}"
                                 Command="{Binding Diagnostics.ExportDiagnosticsCommand}"
                                 Content="{Binding Strings[Diagnostics.ExportMenu]}"
                                 Style="{StaticResource ConnectActionButtonStyle}"
                                 Visibility="{Binding ShowRetryActions, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                        </WrapPanel>
+                        </StackPanel>
                     </Grid>
                 </Border>
 
@@ -255,7 +241,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <!--  Left column: Ethernet line, Ethernet card, provisioned Wi-Fi card.  -->
+                    <!--  Left column: Ethernet card, provisioned Wi-Fi card.  -->
                     <ScrollViewer x:Name="LeftColumnScroller"
                         Focusable="False"
                         HorizontalScrollBarVisibility="Disabled">
@@ -304,140 +290,199 @@
                         <StackPanel x:Name="LeftColumn"
                             VerticalAlignment="Top">
 
-                            <!--  2a. Ethernet: the neutral line without adapter, else the card  -->
-                            <Grid
-                                Margin="0,0,0,16"
+                            <!--  2a. Ethernet without adapter: the card with its neutral text, like the Wi-Fi card.  -->
+                            <Border x:Name="EthernetUnavailableCard"
                                 DataContext="{Binding Ethernet}"
+                                Style="{StaticResource SectionCardBorderStyle}"
                                 Visibility="{Binding ShowNoAdapterNotice, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <ContentControl
-                                    Style="{StaticResource ConnectSeverityGlyphStyle}"
-                                    Tag="{x:Static controls:InfoBarSeverity.Informational}" />
-                                <TextBlock
-                                    Grid.Column="1"
-                                    Style="{StaticResource ConnectNoticeTextBlockStyle}"
-                                    Text="{Binding NoAdapterText}" />
-                            </Grid>
+                                <StackPanel>
+                                    <Grid MinHeight="32">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            Style="{StaticResource ConnectGlyphTextBlockStyle}"
+                                            Text="&#xE839;" />
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            Style="{StaticResource ConnectSectionTitleTextBlockStyle}"
+                                            Text="{Binding Strings[Ethernet.Title]}" />
+                                    </Grid>
+                                    <Grid Margin="0,12,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <ContentControl
+                                            Style="{StaticResource ConnectSeverityGlyphStyle}"
+                                            Tag="{x:Static controls:InfoBarSeverity.Informational}" />
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            Style="{StaticResource ConnectNoticeTextBlockStyle}"
+                                            Text="{Binding NoAdapterText}" />
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+
+                            <!--  2b. Ethernet card: one frame; the header (title row, address, 802.1X) folds the details.  -->
                             <Border x:Name="EthernetCard"
                                 DataContext="{Binding Ethernet}"
                                 Style="{StaticResource SectionCardBorderStyle}"
                                 Visibility="{Binding ShowCard, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <Expander x:Name="EthernetExpander"
-                                    HorizontalContentAlignment="Stretch"
                                     AutomationProperties.Name="{Binding Strings[Ethernet.Title]}"
-                                    IsExpanded="{Binding IsDetailsExpanded, Mode=TwoWay}">
+                                    IsExpanded="{Binding IsDetailsExpanded, Mode=TwoWay}"
+                                    Style="{StaticResource ConnectCardExpanderStyle}">
                                     <Expander.Header>
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto" />
                                                 <ColumnDefinition Width="*" />
                                                 <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
                                             </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition
+                                                    Height="Auto"
+                                                    MinHeight="32" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+
+                                            <!--  Title row: glyph, title, status pill and chevron share one vertical center.  -->
                                             <TextBlock
-                                                Margin="0,0,12,0"
-                                                VerticalAlignment="Top"
                                                 Style="{StaticResource ConnectGlyphTextBlockStyle}"
                                                 Text="{Binding Glyph}" />
-                                            <StackPanel Grid.Column="1">
+                                            <TextBlock
+                                                Grid.Column="1"
+                                                Style="{StaticResource ConnectSectionTitleTextBlockStyle}"
+                                                Text="{Binding Strings[Ethernet.Title]}" />
+                                            <Border
+                                                Grid.Column="2"
+                                                Margin="12,0,0,0"
+                                                Style="{StaticResource ConnectPillBorderStyle}">
                                                 <TextBlock
-                                                    Style="{StaticResource ConnectSectionTitleTextBlockStyle}"
-                                                    Text="{Binding Strings[Ethernet.Title]}" />
+                                                    Style="{StaticResource ConnectPillTextBlockStyle}"
+                                                    Text="{Binding StatusText}" />
+                                            </Border>
+                                            <TextBlock
+                                                Grid.Column="3"
+                                                Margin="12,0,0,0"
+                                                VerticalAlignment="Center"
+                                                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                                FontSize="12"
+                                                Text="&#xE70D;">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger
+                                                                Binding="{Binding IsDetailsExpanded}"
+                                                                Value="True">
+                                                                <Setter
+                                                                    Property="Text"
+                                                                    Value="&#xE70E;" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+
+                                            <TextBlock
+                                                Grid.Row="1"
+                                                Grid.Column="1"
+                                                Grid.ColumnSpan="3"
+                                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                Text="{Binding SecondaryStatusText}"
+                                                TextWrapping="Wrap">
+                                                <TextBlock.Style>
+                                                    <Style
+                                                        BasedOn="{StaticResource BodyTextBlockStyle}"
+                                                        TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger
+                                                                Binding="{Binding SecondaryStatusText}"
+                                                                Value="">
+                                                                <Setter
+                                                                    Property="Visibility"
+                                                                    Value="Collapsed" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+
+                                            <!--  802.1X row: label, a small ring while authenticating or the severity glyph, then the status  -->
+                                            <Grid
+                                                Grid.Row="2"
+                                                Grid.Column="1"
+                                                Grid.ColumnSpan="3"
+                                                Margin="0,8,0,0"
+                                                Visibility="{Binding HasDot1x, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
                                                 <TextBlock
-                                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                    Text="{Binding SecondaryStatusText}"
-                                                    TextWrapping="Wrap">
-                                                    <TextBlock.Style>
+                                                    Margin="0,0,8,0"
+                                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                                    Text="{Binding Strings[Ethernet.Dot1xLabel]}" />
+                                                <Viewbox
+                                                    Grid.Column="1"
+                                                    Width="16"
+                                                    Height="16"
+                                                    Margin="0,2,8,0"
+                                                    VerticalAlignment="Top"
+                                                    Visibility="{Binding IsDot1xAuthenticating, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <controls:CustomProgressRing
+                                                        Width="120"
+                                                        Height="120"
+                                                        AutomationProperties.Name="{Binding Dot1xStatusText}"
+                                                        IsIndeterminate="True"
+                                                        ProgressBrush="{DynamicResource AccentFillColorDefaultBrush}"
+                                                        Thickness="16"
+                                                        TrackBrush="{DynamicResource ControlStrongFillColorDefaultBrush}" />
+                                                </Viewbox>
+                                                <ContentControl
+                                                    Grid.Column="1"
+                                                    Tag="{Binding Dot1xSeverity}">
+                                                    <ContentControl.Style>
                                                         <Style
-                                                            BasedOn="{StaticResource CaptionTextBlockStyle}"
-                                                            TargetType="TextBlock">
+                                                            BasedOn="{StaticResource ConnectSeverityGlyphStyle}"
+                                                            TargetType="ContentControl">
                                                             <Style.Triggers>
                                                                 <DataTrigger
-                                                                    Binding="{Binding SecondaryStatusText}"
-                                                                    Value="">
+                                                                    Binding="{Binding IsDot1xAuthenticating}"
+                                                                    Value="True">
                                                                     <Setter
                                                                         Property="Visibility"
                                                                         Value="Collapsed" />
                                                                 </DataTrigger>
                                                             </Style.Triggers>
                                                         </Style>
-                                                    </TextBlock.Style>
-                                                </TextBlock>
-
-                                                <!--  802.1X row: label, a small ring while authenticating or the severity glyph, then the status  -->
-                                                <Grid
-                                                    Margin="0,8,0,0"
-                                                    Visibility="{Binding HasDot1x, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="Auto" />
-                                                        <ColumnDefinition Width="Auto" />
-                                                        <ColumnDefinition Width="*" />
-                                                    </Grid.ColumnDefinitions>
-                                                    <TextBlock
-                                                        Margin="0,0,8,0"
-                                                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                                                        Text="{Binding Strings[Ethernet.Dot1xLabel]}" />
-                                                    <Viewbox
-                                                        Grid.Column="1"
-                                                        Width="16"
-                                                        Height="16"
-                                                        Margin="0,2,8,0"
-                                                        VerticalAlignment="Top"
-                                                        Visibility="{Binding IsDot1xAuthenticating, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                        <controls:CustomProgressRing
-                                                            Width="120"
-                                                            Height="120"
-                                                            AutomationProperties.Name="{Binding Dot1xStatusText}"
-                                                            IsIndeterminate="True"
-                                                            ProgressBrush="{DynamicResource AccentFillColorDefaultBrush}"
-                                                            Thickness="16"
-                                                            TrackBrush="{DynamicResource ControlStrongFillColorDefaultBrush}" />
-                                                    </Viewbox>
-                                                    <ContentControl
-                                                        Grid.Column="1"
-                                                        Tag="{Binding Dot1xSeverity}">
-                                                        <ContentControl.Style>
-                                                            <Style
-                                                                BasedOn="{StaticResource ConnectSeverityGlyphStyle}"
-                                                                TargetType="ContentControl">
-                                                                <Style.Triggers>
-                                                                    <DataTrigger
-                                                                        Binding="{Binding IsDot1xAuthenticating}"
-                                                                        Value="True">
-                                                                        <Setter
-                                                                            Property="Visibility"
-                                                                            Value="Collapsed" />
-                                                                    </DataTrigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </ContentControl.Style>
-                                                    </ContentControl>
-                                                    <TextBlock
-                                                        Grid.Column="2"
-                                                        Style="{StaticResource BodyTextBlockStyle}"
-                                                        Text="{Binding Dot1xStatusText}"
-                                                        TextWrapping="Wrap" />
-                                                </Grid>
+                                                    </ContentControl.Style>
+                                                </ContentControl>
                                                 <TextBlock
-                                                    Margin="0,4,0,0"
-                                                    Style="{StaticResource ConnectNoticeTextBlockStyle}"
-                                                    Text="{Binding Dot1xReasonText}"
-                                                    Visibility="{Binding HasDot1xReason, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                            </StackPanel>
-                                            <Border
-                                                Grid.Column="2"
-                                                Margin="12,0,0,0"
-                                                VerticalAlignment="Top"
-                                                Style="{StaticResource ConnectPillBorderStyle}">
-                                                <TextBlock
-                                                    Style="{StaticResource ConnectPillTextBlockStyle}"
-                                                    Text="{Binding StatusText}" />
-                                            </Border>
+                                                    Grid.Column="2"
+                                                    Style="{StaticResource BodyTextBlockStyle}"
+                                                    Text="{Binding Dot1xStatusText}"
+                                                    TextWrapping="Wrap" />
+                                            </Grid>
+                                            <TextBlock
+                                                Grid.Row="3"
+                                                Grid.Column="1"
+                                                Grid.ColumnSpan="3"
+                                                Margin="0,4,0,0"
+                                                Style="{StaticResource ConnectNoticeTextBlockStyle}"
+                                                Text="{Binding Dot1xReasonText}"
+                                                Visibility="{Binding HasDot1xReason, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                         </Grid>
                                     </Expander.Header>
-                                    <Grid Margin="0,8,0,0">
+
+                                    <!--  Details: one label column and one value column, aligned with the title.  -->
+                                    <Grid Margin="32,12,0,0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
@@ -453,9 +498,8 @@
                                             Text="{Binding Strings[Ethernet.AdapterLabel]}" />
                                         <TextBlock
                                             Grid.Column="1"
-                                            Style="{StaticResource BodyTextBlockStyle}"
-                                            Text="{Binding AdapterName}"
-                                            TextWrapping="Wrap" />
+                                            Style="{StaticResource ConnectFieldValueTextBlockStyle}"
+                                            Text="{Binding AdapterName}" />
                                         <TextBlock
                                             Grid.Row="1"
                                             Style="{StaticResource ConnectFieldLabelTextBlockStyle}"
@@ -463,9 +507,8 @@
                                         <TextBlock
                                             Grid.Row="1"
                                             Grid.Column="1"
-                                            Style="{StaticResource BodyTextBlockStyle}"
-                                            Text="{Binding IpAddress}"
-                                            TextWrapping="Wrap" />
+                                            Style="{StaticResource ConnectFieldValueTextBlockStyle}"
+                                            Text="{Binding IpAddress}" />
                                         <TextBlock
                                             Grid.Row="2"
                                             Style="{StaticResource ConnectFieldLabelTextBlockStyle}"
@@ -473,53 +516,40 @@
                                         <TextBlock
                                             Grid.Row="2"
                                             Grid.Column="1"
-                                            Style="{StaticResource BodyTextBlockStyle}"
-                                            Text="{Binding Gateway}"
-                                            TextWrapping="Wrap" />
+                                            Style="{StaticResource ConnectFieldValueTextBlockStyle}"
+                                            Text="{Binding Gateway}" />
+                                        <TextBlock
+                                            Grid.Row="3"
+                                            Style="{StaticResource ConnectFieldLabelTextBlockStyle}"
+                                            Text="{Binding Strings[Ethernet.IpAssignmentLabel]}"
+                                            Visibility="{Binding HasConfiguration, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                         <TextBlock
                                             Grid.Row="3"
                                             Grid.Column="1"
-                                            Margin="0,4,0,0"
-                                            Text="{Binding ConfigurationText}">
-                                            <TextBlock.Style>
-                                                <Style
-                                                    BasedOn="{StaticResource ConnectNoticeTextBlockStyle}"
-                                                    TargetType="TextBlock">
-                                                    <Style.Triggers>
-                                                        <DataTrigger
-                                                            Binding="{Binding ConfigurationText}"
-                                                            Value="">
-                                                            <Setter
-                                                                Property="Visibility"
-                                                                Value="Collapsed" />
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </TextBlock.Style>
-                                        </TextBlock>
+                                            Style="{StaticResource ConnectFieldValueTextBlockStyle}"
+                                            Text="{Binding ConfigurationText}"
+                                            Visibility="{Binding HasConfiguration, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </Grid>
                                 </Expander>
                             </Border>
 
-                            <!--  2b. Provisioned Wi-Fi card: one message and one action button  -->
+                            <!--  2c. Provisioned Wi-Fi card: one message and one action button  -->
                             <Border x:Name="ProvisionedCard"
                                 DataContext="{Binding ProvisionedWifi}"
                                 Style="{StaticResource SectionCardBorderStyle}"
                                 Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <StackPanel>
-                                    <Grid>
+                                    <Grid MinHeight="32">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
                                         <TextBlock
-                                            Margin="0,0,12,0"
                                             Style="{StaticResource ConnectGlyphTextBlockStyle}"
                                             Text="&#xF081;" />
                                         <TextBlock
                                             Grid.Column="1"
-                                            VerticalAlignment="Center"
                                             Style="{StaticResource ConnectSectionTitleTextBlockStyle}"
                                             Text="{Binding Strings[Wifi.ProvisionedTitle]}" />
                                         <Border
@@ -532,7 +562,7 @@
                                         </Border>
                                     </Grid>
                                     <TextBlock
-                                        Margin="0,8,0,0"
+                                        Margin="32,0,0,0"
                                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                         Style="{StaticResource BodyTextBlockStyle}"
                                         TextWrapping="Wrap">
@@ -554,7 +584,7 @@
                                             Text="{Binding MessageText}" />
                                     </Grid>
                                     <Button x:Name="ProvisionedActionButton"
-                                        Margin="0,12,0,0"
+                                        Margin="0,16,0,0"
                                         HorizontalAlignment="Left"
                                         AutomationProperties.Name="{Binding PrimaryActionAutomationName}"
                                         Command="{Binding PrimaryActionCommand}"
@@ -622,21 +652,22 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <Grid Margin="0,0,0,12">
+                            <Grid
+                                MinHeight="32"
+                                Margin="0,0,0,12">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock
-                                    Margin="0,0,12,0"
                                     Style="{StaticResource ConnectGlyphTextBlockStyle}"
                                     Text="&#xE701;" />
                                 <TextBlock
                                     Grid.Column="1"
-                                    VerticalAlignment="Center"
                                     Style="{StaticResource ConnectSectionTitleTextBlockStyle}"
                                     Text="{Binding Strings[Wifi.Title]}" />
+                                <!--  Refreshing only makes sense while Wi-Fi works: hidden with the neutral text.  -->
                                 <Button x:Name="WifiRefreshButton"
                                     Grid.Column="2"
                                     MinWidth="40"
@@ -644,7 +675,8 @@
                                     VerticalAlignment="Stretch"
                                     AutomationProperties.Name="{Binding Strings[Wifi.RefreshNetworks]}"
                                     Command="{Binding RefreshCommand}"
-                                    ToolTip="{Binding Strings[Wifi.RefreshNetworks]}">
+                                    ToolTip="{Binding Strings[Wifi.RefreshNetworks]}"
+                                    Visibility="{Binding IsListVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <TextBlock
                                         FontFamily="{StaticResource SymbolThemeFontFamily}"
                                         FontSize="14"
@@ -774,9 +806,9 @@
                             <!--  The panel under the list: name, password, one action button, one message.  -->
                             <StackPanel x:Name="WifiDetailsPanel"
                                 Grid.Row="2"
-                                Margin="0,12,0,0"
+                                Margin="0,16,0,0"
                                 Visibility="{Binding ShowDetails, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <Separator Margin="0,0,0,12" />
+                                <Separator Margin="0,0,0,16" />
                                 <TextBlock
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     TextWrapping="Wrap">
@@ -790,25 +822,24 @@
                                     Text="{Binding Strings[Wifi.PassphraseLabel]}"
                                     Visibility="{Binding ShowPassphrase, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                 <controls:PassphraseEditor x:Name="PassphraseInput"
-                                    Margin="0,4,0,8"
                                     AccessibleName="{Binding Strings[Wifi.PassphraseLabel]}"
                                     MaxLength="64"
                                     RevealButtonText="{Binding Strings[Wifi.TogglePassphraseVisibility]}"
                                     SubmitCommand="{Binding ConnectCommand}"
                                     Visibility="{Binding ShowPassphrase, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                 <StackPanel
-                                    Margin="0,8,0,0"
-                                    Orientation="Horizontal">
+                                    Margin="0,16,0,0"
+                                    Orientation="Horizontal"
+                                    Visibility="{Binding ShowPrimaryAction, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <Button x:Name="WifiActionButton"
                                         AutomationProperties.Name="{Binding PrimaryActionAutomationName}"
                                         Command="{Binding PrimaryActionCommand}"
                                         Content="{Binding PrimaryActionText}"
-                                        Style="{StaticResource ConnectAccentActionButtonStyle}"
-                                        Visibility="{Binding ShowPrimaryAction, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        Style="{StaticResource ConnectAccentActionButtonStyle}" />
                                     <Viewbox
                                         Width="16"
                                         Height="16"
-                                        Margin="0,0,0,8"
+                                        Margin="12,0,0,0"
                                         VerticalAlignment="Center"
                                         Visibility="{Binding IsConnecting, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <controls:CustomProgressRing
@@ -822,7 +853,7 @@
                                     </Viewbox>
                                 </StackPanel>
                                 <Grid
-                                    Margin="0,4,0,0"
+                                    Margin="0,12,0,0"
                                     Visibility="{Binding HasDetailMessage, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />

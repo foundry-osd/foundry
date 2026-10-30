@@ -33,6 +33,7 @@ public sealed class EthernetSectionViewModelTests
         Assert.True(viewModel.ShowCard);
         Assert.Equal(_localization.GetString(statusKey), viewModel.StatusText);
         Assert.Equal(configurationKey is null ? string.Empty : _localization.GetString(configurationKey), viewModel.ConfigurationText);
+        Assert.Equal(configurationKey is not null, viewModel.HasConfiguration);
         Assert.Equal(connected, viewModel.IsConnected);
         Assert.Equal("Ethernet 2", viewModel.AdapterName);
     }

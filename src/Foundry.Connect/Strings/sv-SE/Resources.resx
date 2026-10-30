@@ -209,6 +209,9 @@ Licensierad under MIT-licensen.</value>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Gateway</value>
   </data>
+  <data name="Ethernet.IpAssignmentLabel" xml:space="preserve">
+    <value>IP-tilldelning</value>
+  </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
   </data>
