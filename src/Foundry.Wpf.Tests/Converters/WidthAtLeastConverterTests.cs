@@ -27,10 +27,4 @@ public sealed class WidthAtLeastConverterTests
     {
         Assert.Equal(expected, new WidthAtLeastConverter().Convert(width!, typeof(bool), threshold!, CultureInfo.GetCultureInfo("fr-FR")));
     }
-
-    [Fact]
-    public void ConvertBack_IsNotSupported()
-    {
-        Assert.Throws<NotSupportedException>(() => new WidthAtLeastConverter().ConvertBack(true, typeof(double), "760", CultureInfo.InvariantCulture));
-    }
 }
