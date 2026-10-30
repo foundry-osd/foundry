@@ -12,12 +12,19 @@ using Microsoft.Extensions.Logging;
 namespace Foundry.Connect.ViewModels;
 
 /// <summary>
-/// The single Connect page: renders the live or simulated <see cref="NetworkState"/> into the hero, the connection chip,
-/// the notices and the five child view models, requests the focus on page status changes, switches debug scenarios,
-/// and owns the startup sequence (the wired unlock prompt, the provisioning, then the network monitor), the automatic
-/// unlock prompt of the provisioned Wi-Fi (<see cref="IConnectionCoordinator.UnlockRequested"/>) and its shutdown.
+/// The single Connect page: renders the live or simulated <see cref="NetworkState"/> into the banner, the connection
+/// chip and the five child view models, chooses the session layout, requests the focus on page status changes,
+/// switches debug scenarios, and owns the startup sequence (the wired unlock prompt, the provisioning, then the network
+/// monitor), the automatic unlock prompt of the provisioned Wi-Fi (<see cref="IConnectionCoordinator.UnlockRequested"/>)
+/// and its shutdown.
 /// </summary>
 /// <remarks>
+/// <para>
+/// The layout is chosen once, at the first rendered state that carries an observation: two columns when this media
+/// offers Wi-Fi (<see cref="ConnectPagePolicy.IsWifiOffered"/>), else one. A later lost Wi-Fi runtime or a failed WLAN
+/// read never switches it; the Wi-Fi card then shows its neutral text. Only <see cref="ApplyDebugScenario"/> decides
+/// again.
+/// </para>
 /// <para>
 /// <see cref="IConnectionCoordinator.StateChanged"/> arrives on any thread and its argument may be stale, so every
 /// notification is marshaled through <see cref="IUiDispatcher"/> and renders <see cref="IConnectionCoordinator.State"/>
@@ -45,6 +52,7 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
     private NetworkState? _liveState;
     private ConnectPageStatus? _lastStatus = ConnectPageStatus.Checking;
     private bool _hasInteraction;
+    private bool _isLayoutDecided;
     private bool _isInitialized;
     private bool _isDisposed;
     private Task? _monitorTask;
@@ -175,17 +183,17 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
     /// <summary>Gets whether the connection chip is shown.</summary>
     public bool HasConnectionChip => ConnectionChipText.Length > 0;
 
-    /// <summary>Gets whether the captive portal InfoBar is shown.</summary>
-    public bool ShowCaptivePortalNotice => BlockedReason == BlockedReason.CaptivePortal;
+    /// <summary>
+    /// Gets whether the session uses two columns (Ethernet and provisioned Wi-Fi on the left, the Wi-Fi card on the
+    /// right). Decided once, at the first rendered state that carries an observation; false before it.
+    /// </summary>
+    public bool UsesTwoColumns { get; private set; }
 
     /// <summary>
-    /// Gets the one-line notice that replaces the Wi-Fi cards when the WLAN runtime or the adapter is missing, or an
-    /// empty string.
+    /// Gets whether the banner shows Retry and Export diagnostics: the page is blocked, or it waits with no operation
+    /// running (wired 802.1X authenticating), where Retry means "check again".
     /// </summary>
-    public string WifiNoticeText => NetworkTextKeys.WifiNoticeKey(_renderedState.Wifi.Availability) is { } key ? LocalizationService.GetString(key) : string.Empty;
-
-    /// <summary>Gets whether the Wi-Fi notice is shown.</summary>
-    public bool HasWifiNotice => WifiNoticeText.Length > 0;
+    public bool ShowRetryActions => IsBlocked || (Status == ConnectPageStatus.Waiting && _renderedState.ActiveOperation is null);
 
     /// <summary>Gets whether a debug scenario replaces the live state.</summary>
     public bool IsSimulation { get; private set; }
@@ -196,8 +204,10 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
     /// <summary>Gets the state rendered last, live or simulated.</summary>
     internal NetworkState CurrentState => _renderedState;
 
+    private bool IsWifiSectionShown => ConnectPagePolicy.IsWifiSectionShown(UsesTwoColumns, _renderedState.Wifi.Availability);
+
     private (string TitleKey, string? DescriptionKey) HeroKeys =>
-        NetworkTextKeys.HeroKeys(Status, BlockedReason, _renderedState, ConnectPagePolicy.IsWifiOffered(_renderedState.Wifi.Availability));
+        NetworkTextKeys.HeroKeys(Status, BlockedReason, _renderedState, IsWifiSectionShown);
 
     /// <summary>
     /// Asks for the deployment password when wired 802.1X needs it, applies the provisioning once, shows its Wi-Fi
@@ -268,6 +278,10 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
         AutoContinue.IsSimulation = IsSimulation;
         _lastStatus = null;
         _hasInteraction = false;
+
+        // Each scenario, and the return to Live, chooses the layout again.
+        _isLayoutDecided = false;
+        UsesTwoColumns = false;
         OnPropertyChanged(nameof(ActiveDebugScenario));
         OnPropertyChanged(nameof(IsSimulation));
 
@@ -397,10 +411,17 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
         Status = status;
         BlockedReason = ConnectPagePolicy.ResolveBlockedReason(state);
 
-        // "Checking" for the sections means no observation yet, not the page status (which is Waiting during the startup provisioning).
-        Ethernet.Apply(state.Ethernet, state.Internet == InternetStatus.Checking);
+        // "Checking" means no observation yet, not the page status (which is Waiting during the startup provisioning).
+        bool hasObservation = state.Internet != InternetStatus.Checking;
+        if (!_isLayoutDecided && hasObservation)
+        {
+            _isLayoutDecided = true;
+            UsesTwoColumns = ConnectPagePolicy.IsWifiOffered(state.Wifi.Availability);
+        }
+
+        Ethernet.Apply(state.Ethernet, !hasObservation);
         ProvisionedWifi.Apply(state.Wifi, state.ActiveOperation, state.LastOutcome);
-        WifiNetworks.Apply(state.Wifi, state.ActiveOperation, ConnectPagePolicy.IsWifiOffered(state.Wifi.Availability));
+        WifiNetworks.Apply(state.Wifi, state.ActiveOperation, IsWifiSectionShown);
         AutoContinue.OnInternetStatusChanged(state.Internet);
         RaisePageProperties();
 
@@ -435,8 +456,7 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(IsHeroSuccess));
         OnPropertyChanged(nameof(ConnectionChipText));
         OnPropertyChanged(nameof(HasConnectionChip));
-        OnPropertyChanged(nameof(ShowCaptivePortalNotice));
-        OnPropertyChanged(nameof(WifiNoticeText));
-        OnPropertyChanged(nameof(HasWifiNotice));
+        OnPropertyChanged(nameof(UsesTwoColumns));
+        OnPropertyChanged(nameof(ShowRetryActions));
     }
 }

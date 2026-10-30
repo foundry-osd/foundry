@@ -192,27 +192,6 @@ public sealed class NetworkTextKeysTests
         Assert.All(keys, key => Assert.DoesNotContain("Wi-Fi", _localization.GetString(key), StringComparison.Ordinal));
     }
 
-    [Theory]
-    [InlineData(WifiAvailability.Available, null)]
-    [InlineData(WifiAvailability.Disabled, null)]
-    [InlineData(WifiAvailability.RuntimeMissing, "Wifi.UnavailableAtRuntime")]
-    [InlineData(WifiAvailability.NoAdapter, "Wifi.NoAdapterDetected")]
-    public void WifiNoticeKey_ExplainsOnlyAMissingWlanStack(WifiAvailability availability, string? expected)
-    {
-        Assert.Equal(expected, NetworkTextKeys.WifiNoticeKey(availability));
-    }
-
-    [Fact]
-    public void WifiNoticeKey_CoversEveryValue()
-    {
-        Assert.All(Enum.GetValues<WifiAvailability>(), availability =>
-        {
-            string? key = NetworkTextKeys.WifiNoticeKey(availability);
-            Assert.Equal(availability is WifiAvailability.RuntimeMissing or WifiAvailability.NoAdapter, key is not null);
-            Assert.True(key is null || ConnectResources.Exists(key), availability.ToString());
-        });
-    }
-
     [Fact]
     public void HeroKeys_CheckingAndReadyHaveNoDescription()
     {
