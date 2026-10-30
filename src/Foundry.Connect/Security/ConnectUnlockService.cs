@@ -16,7 +16,7 @@ namespace Foundry.Connect.Security;
 /// <summary>
 /// Runs the deployment password prompt loop: Deploy's retry delay after each wrong password, cancel → the secrets
 /// stay locked for the session, success → every locked secret is decrypted and the key is handed to
-/// Bootstrap once.
+/// Bootstrap once when the media carries a key check.
 /// </summary>
 /// <remarks>
 /// The password, its length and the key are never logged. The password is zeroed after each unwrap attempt and the key
@@ -110,7 +110,8 @@ public sealed class ConnectUnlockService(
                     trigger,
                     unlockedSecretCount);
                 LogUndecryptableContent();
-                if (!await TryHandOffAsync(key).ConfigureAwait(false))
+                // Deploy refuses a handed-off key that it cannot verify, so media without a key check skips the hand-off.
+                if (protection.KeyCheck is null || !await TryHandOffAsync(key).ConfigureAwait(false))
                 {
                     logger.LogInformation("The deployment key was not handed to Foundry Deploy; Foundry Deploy will ask for the password.");
                 }
@@ -149,7 +150,7 @@ public sealed class ConnectUnlockService(
     }
 
     /// <summary>
-    /// Decrypts the locked secrets. A key that fails the media key check (an inconsistent protection block) unlocks nothing
+    /// Decrypts the locked secrets. A key that fails the media's key check (an inconsistent protection block) unlocks nothing
     /// and is handled like a cancel: the secrets stay locked for the session and the key is not handed off.
     /// </summary>
     private bool TryUnlockSecrets(byte[] key, ConnectUnlockTrigger trigger, out int unlockedSecretCount)
@@ -164,8 +165,9 @@ public sealed class ConnectUnlockService(
             unlockedSecretCount = 0;
             secrets.MarkUnlockDeclined();
             logger.LogWarning(
-                "The unwrapped deployment key does not match the media key check; the protected network secrets stay locked. Trigger={Trigger}",
-                trigger);
+                "The unwrapped deployment key does not match the media's key check; the protected network secrets stay locked. Trigger={Trigger}, FailureCode={FailureCode}",
+                trigger,
+                "key_check_failed");
             return false;
         }
     }

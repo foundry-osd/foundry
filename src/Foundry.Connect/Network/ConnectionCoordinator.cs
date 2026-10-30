@@ -23,9 +23,11 @@ namespace Foundry.Connect.Network;
 /// deployment password never starts an attempt; the coordinator raises <see cref="UnlockRequested"/> once instead when the
 /// attempt would otherwise run, and <see cref="RefreshProvisionedWifiAsync"/> builds the profile after the unlock.
 /// </remarks>
-public sealed class ConnectionCoordinator : IConnectionCoordinator, IWifiConnectionHistory, IDisposable
+public sealed class ConnectionCoordinator : IConnectionCoordinator, IWifiConnectionHistory
 {
     private readonly object _stateLock = new();
+    // Never disposed: an operation still running at shutdown releases it afterwards, and it owns no wait handle because
+    // AvailableWaitHandle is never read.
     private readonly SemaphoreSlim _gate = new(1, 1);
     private readonly IProvisioningStep _provisioningStep;
     private readonly IWlanClient _wlan;
@@ -261,12 +263,6 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IWifiConnect
             _provisioning?.WifiProfile?.Clear();
             _profileReleased = true;
         }
-    }
-
-    /// <inheritdoc />
-    public void Dispose()
-    {
-        _gate.Dispose();
     }
 
     // The mode switch and its publish happen synchronously, before the returned task waits for the gate.

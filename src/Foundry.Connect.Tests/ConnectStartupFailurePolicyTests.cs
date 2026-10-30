@@ -18,6 +18,13 @@ public sealed class ConnectStartupFailurePolicyTests
         => Assert.Equal(expected, ConnectStartupFailurePolicy.Map(stage));
 
     [Theory]
+    [InlineData(ConnectStartupStage.UiStartup, false, ChildRuntimeExitCode.StartupFailure)]
+    [InlineData(ConnectStartupStage.UiStartup, true, ChildRuntimeExitCode.RuntimeFailure)]
+    [InlineData(ConnectStartupStage.Configuration, false, ChildRuntimeExitCode.ConfigurationFailure)]
+    public void MapFailure_OnceTheUiIsReady_IsARuntimeFailure(ConnectStartupStage stage, bool isUiReady, ChildRuntimeExitCode expected)
+        => Assert.Equal(expected, ConnectStartupFailurePolicy.MapFailure(stage, isUiReady));
+
+    [Theory]
     [InlineData(ChildRuntimeExitCode.Success, (int)ChildRuntimeExitCode.RuntimeFailure, (int)ChildRuntimeExitCode.Success)]
     [InlineData(ChildRuntimeExitCode.UserAborted, (int)ChildRuntimeExitCode.StartupFailure, (int)ChildRuntimeExitCode.UserAborted)]
     [InlineData(null, (int)ChildRuntimeExitCode.RuntimeFailure, (int)ChildRuntimeExitCode.RuntimeFailure)]

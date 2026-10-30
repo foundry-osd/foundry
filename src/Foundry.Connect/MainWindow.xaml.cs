@@ -57,7 +57,7 @@ public partial class MainWindow : Window
         catch (Exception ex)
         {
             _startup.ReportFailure(ex, "ui_initialization");
-            _applicationLifetimeService.TryExit(ConnectStartupFailurePolicy.Map(ConnectStartupStage.UiStartup));
+            _applicationLifetimeService.TryExit(ConnectStartupFailurePolicy.MapFailure(ConnectStartupStage.UiStartup, _startup.IsUiReady));
         }
     }
 

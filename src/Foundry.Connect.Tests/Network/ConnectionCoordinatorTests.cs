@@ -247,7 +247,7 @@ public sealed class ConnectionCoordinatorTests
         using Logger serilog = new LoggerConfiguration().MinimumLevel.Verbose().WriteTo.Sink(sink).CreateLogger();
         using ILoggerFactory factory = LoggerFactory.Create(builder => builder.SetMinimumLevel(LogLevel.Trace).AddSerilog(serilog, dispose: false));
         _wlan.ConnectResults.Enqueue(new WlanOperationResult(WlanOperationStatus.ConnectionFailed, 0, 0x00038005));
-        using var coordinator = new ConnectionCoordinator(new FakeProvisioningStep(ProvisioningOutcome.NotConfigured), _wlan,
+        var coordinator = new ConnectionCoordinator(new FakeProvisioningStep(ProvisioningOutcome.NotConfigured), _wlan,
             new ConnectNetworkOptions(true, TimeSpan.FromSeconds(10)), new NetworkRefreshSignal(), _clock, factory.CreateLogger<ConnectionCoordinator>());
         await coordinator.ApplyObservationAsync(Observation(InternetStatus.Online, Ssid, Ssid), Token);
 

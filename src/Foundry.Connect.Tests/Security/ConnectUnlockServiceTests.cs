@@ -23,7 +23,8 @@ public sealed class ConnectUnlockServiceTests
 
     private ConnectRuntimeSecrets LockedSecrets() => new(
         ConnectSecret.Locked(MediaSecretEnvelopeProtector.EncryptString("lab-passphrase", _key, MediaSecretEnvelopeProtector.DeploymentKeyId)),
-        ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned(), protection: new DeployProtectionSettings { IsEnabled = true });
+        ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned(),
+        protection: new DeployProtectionSettings { IsEnabled = true, KeyCheck = DeploymentKeyProtection.CreateKeyCheck(_key) });
 
     private ConnectUnlockService Create(ConnectRuntimeSecrets secrets) =>
         new(new FoundryConnectConfigurationDocument(), secrets, _prompt, new FakeUnwrapper(_key, "right password"), _handoff, _time, _logger);
@@ -88,6 +89,21 @@ public sealed class ConnectUnlockServiceTests
     }
 
     [Fact]
+    public async Task UnlockAsync_MediaWithoutAKeyCheck_UnlocksWithoutSendingTheKey()
+    {
+        var secrets = new ConnectRuntimeSecrets(
+            ConnectSecret.Locked(MediaSecretEnvelopeProtector.EncryptString("lab-passphrase", _key, MediaSecretEnvelopeProtector.DeploymentKeyId)),
+            ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned(), protection: new DeployProtectionSettings { IsEnabled = true });
+        _prompt.Answers.Enqueue("right password".ToCharArray());
+
+        ConnectUnlockResult result = await Create(secrets).UnlockAsync(ConnectUnlockTrigger.ManualWifi, TestContext.Current.CancellationToken);
+
+        Assert.Equal(ConnectUnlockResult.Unlocked, result);
+        Assert.Equal("lab-passphrase", new string(secrets.WifiPassphrase.Value));
+        Assert.Empty(_handoff.Sent);
+    }
+
+    [Fact]
     public async Task UnlockAsync_KeyThatFailsTheMediaKeyCheck_KeepsTheSecretsLockedAndSendsNothing()
     {
         var secrets = new ConnectRuntimeSecrets(
@@ -105,6 +121,7 @@ public sealed class ConnectUnlockServiceTests
         RecordedLogEntry warning = Assert.Single(_logger.Entries, static entry => entry.Level == LogLevel.Warning);
         Assert.Null(warning.Exception);
         Assert.Equal(ConnectUnlockTrigger.ManualWifi, warning.Properties["Trigger"]);
+        Assert.Equal("key_check_failed", warning.Properties["FailureCode"]);
     }
 
     [Fact]

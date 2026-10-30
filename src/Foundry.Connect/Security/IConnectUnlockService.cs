@@ -31,7 +31,7 @@ public enum ConnectUnlockResult
     Unlocked,
 
     /// <summary>
-    /// The technician cancelled the prompt, the prompt could not be shown, or the unwrapped key failed the media key check:
+    /// The technician cancelled the prompt, the prompt could not be shown, or the unwrapped key failed the media's key check:
     /// the secrets stay locked for the session and are not prompted for again automatically.
     /// </summary>
     Cancelled

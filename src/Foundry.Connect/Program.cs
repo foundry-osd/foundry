@@ -64,7 +64,9 @@ public static class Program
                 Log.Logger = FoundryLogConfiguration.CreateDebugLogger(
                     Identity.ApplicationId, DiagnosticSessionContext.CurrentSessionId,
                     Serilog.Events.LogEventLevel.Verbose, additionalSink: RemoteDiagnosticsSink.Instance);
-                Log.ForContext(typeof(Program)).Error(exception, "File logging initialization failed. Falling back to debugger output.");
+                Log.ForContext(typeof(Program)).Error(
+                    "File logging initialization failed. Falling back to debugger output. FailureType={FailureType}, ErrorCode={ErrorCode}",
+                    exception.GetType().Name, exception.HResult);
             }
 
             remoteDiagnosticsService = new PostHogRemoteDiagnosticsSink();
@@ -128,7 +130,12 @@ public static class Program
         finally
         {
             try { host?.Dispose(); }
-            catch (Exception exception) { programLogger.Warning(exception, "Application service disposal failed."); }
+            catch (Exception exception)
+            {
+                programLogger.Warning(
+                    "Application service disposal failed. FailureType={FailureType}, ErrorCode={ErrorCode}",
+                    exception.GetType().Name, exception.HResult);
+            }
             programLogger.Information("Foundry.Connect application shutdown completed. Closing diagnostics.");
             ShutdownDiagnostics(telemetryService, remoteDiagnosticsService);
             try { Task.Run(() => Log.CloseAndFlushAsync().AsTask()).WaitAsync(DiagnosticsShutdownTimeout).GetAwaiter().GetResult(); }
@@ -150,7 +157,7 @@ public static class Program
             return ChildRuntimeExitCode.StartupFailure;
         }
 
-        return ConnectStartupFailurePolicy.Map(startup?.IsUiReady == true ? ConnectStartupStage.Running : current);
+        return ConnectStartupFailurePolicy.MapFailure(current, startup?.IsUiReady == true);
     }
 
     private static void ReportFailure(RuntimeStartupDiagnostics? startup, Exception exception, string category)
@@ -259,7 +266,9 @@ public static class Program
         }
         catch (Exception exception)
         {
-            transportLogger.Warning(exception, "Remote diagnostics shutdown did not complete within the shutdown budget.");
+            transportLogger.Warning(
+                "Remote diagnostics shutdown did not complete within the shutdown budget. FailureType={FailureType}, ErrorCode={ErrorCode}",
+                exception.GetType().Name, exception.HResult);
         }
     }
 
