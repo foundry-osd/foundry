@@ -106,6 +106,18 @@ public sealed class NetworkMediaReadinessEvaluatorTests
         Assert.True(protectedMedia.IsConnectProvisioningReady);
     }
 
+    [Fact]
+    public void Evaluate_PersonalWifiWithAStaleEnterpriseFlag_RequiresThePassphrase()
+    {
+        NetworkSettings settings = CreatePersonalWifiSettings();
+        settings = settings with { Wifi = settings.Wifi with { HasEnterpriseProfile = true } };
+
+        NetworkMediaReadinessEvaluation evaluation = NetworkMediaReadinessEvaluator.Evaluate(settings, MediaInputs.None, isMediaProtected: true);
+
+        Assert.False(evaluation.AreRequiredSecretsReady);
+        Assert.False(evaluation.IsConnectProvisioningReady);
+    }
+
     private static MediaInputs WithPassphrase(string passphrase) =>
         MediaInputs.None with { Network = new NetworkSecrets { WifiPassphrase = passphrase } };
 

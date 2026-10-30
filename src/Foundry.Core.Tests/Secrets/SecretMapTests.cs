@@ -137,6 +137,21 @@ public sealed class SecretMapTests
     }
 
     [Fact]
+    public void RequiredIds_PersonalWifiWithAStaleEnterpriseFlag_RequiresThePassphrase()
+    {
+        var configuration = new FoundryConfigurationDocument
+        {
+            Network = new NetworkSettings
+            {
+                WifiProvisioned = true,
+                Wifi = new WifiSettings { IsEnabled = true, Ssid = "Office", SecurityType = "WPA2-Personal", HasEnterpriseProfile = true }
+            }
+        };
+
+        Assert.Contains(SecretIds.WifiPassphrase, SecretMap.RequiredIds(configuration));
+    }
+
+    [Fact]
     public void Merge_KeepsEntriesTheMapDoesNotOwnAndReplacesOwnedOnes()
     {
         var existing = new Dictionary<string, string>

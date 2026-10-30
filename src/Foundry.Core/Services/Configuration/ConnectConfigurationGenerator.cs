@@ -225,14 +225,17 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
             return ToRuntime(wifi, false, null, false, null, null, null);
         }
 
-        // Same classification as NetworkConfigurationValidator: only an enterprise profile uses a client certificate, and only a
-        // personal profile uses a passphrase, so a value left over from another security type is never staged.
-        bool isEnterprise = wifi.HasEnterpriseProfile || NetworkConfigurationValidator.IsEnterpriseSecurityType(wifi.SecurityType);
-        bool isPersonal = !isEnterprise && !string.IsNullOrWhiteSpace(secrets.WifiPassphrase) &&
-            string.Equals(
-                NetworkConfigurationValidator.NormalizeWifiSecurityType(wifi, hasPassphrase: true),
-                NetworkConfigurationValidator.WifiSecurityPersonal,
-                StringComparison.Ordinal);
+        // Same classification as NetworkConfigurationValidator.NormalizeWifiSecurityType: a personal security type is personal even
+        // when an enterprise profile is still recorded, and only an enterprise network uses the enterprise profile and a client
+        // certificate, so a value left over from another security type is never staged.
+        bool isPersonalType = string.Equals(
+            NetworkConfigurationValidator.NormalizeWifiSecurityType(wifi, hasPassphrase: true),
+            NetworkConfigurationValidator.WifiSecurityPersonal,
+            StringComparison.Ordinal);
+        bool isEnterprise = !isPersonalType &&
+            (wifi.HasEnterpriseProfile || NetworkConfigurationValidator.IsEnterpriseSecurityType(wifi.SecurityType));
+        bool isPersonal = isPersonalType && !string.IsNullOrWhiteSpace(secrets.WifiPassphrase);
+        wifi = wifi with { HasEnterpriseProfile = isEnterprise && wifi.HasEnterpriseProfile };
 
         string? templatePath = null;
         bool isTemplateProtected = false;

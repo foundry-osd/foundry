@@ -547,6 +547,34 @@ public sealed class ConnectConfigurationGeneratorTests
     }
 
     [Fact]
+    public void Generate_PersonalWifiWithAStaleEnterpriseProfile_StagesThePassphraseOnly()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        using DeploymentMediaProtectionMaterial protection = Protected();
+        FoundryConfigurationDocument source = CreateRuntimeFixtureSource(tempDirectory, enterpriseWifi: false);
+        AuthoringFileReference staleTemplate = TestFileReferences.For(tempDirectory.CreateFile("source", "stale-wifi.xml", "<WLANProfile />"));
+        source = source with
+        {
+            Network = source.Network with { Wifi = source.Network.Wifi with { HasEnterpriseProfile = true, EnterpriseProfileTemplate = staleTemplate } }
+        };
+
+        FoundryConnectProvisioningBundle bundle = new ConnectConfigurationGenerator().CreateProvisioningBundle(
+            source,
+            SourceInputs(tempDirectory, FixtureSecrets(false)),
+            tempDirectory.Path,
+            null,
+            protection);
+
+        Assert.NotNull(bundle.Configuration.Wifi.PassphraseSecret);
+        Assert.Equal(
+            "personal-passphrase",
+            MediaSecretEnvelopeProtector.DecryptString(bundle.Configuration.Wifi.PassphraseSecret!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
+        Assert.False(bundle.Configuration.Wifi.HasEnterpriseProfile);
+        Assert.Null(bundle.Configuration.Wifi.EnterpriseProfileTemplatePath);
+        Assert.DoesNotContain(bundle.AssetFiles, asset => asset.RelativeDestinationPath.Contains(@"\Wifi\", StringComparison.Ordinal));
+    }
+
+    [Fact]
     public void Generate_StalePassphraseOnEnterpriseWifi_IsNotStaged()
     {
         using var tempDirectory = new TemporaryDirectory();
