@@ -25,9 +25,9 @@ namespace Foundry.Connect.ViewModels;
 /// <param name="localization">Source of the texts.</param>
 public sealed partial class EthernetSectionViewModel(ILocalizationService localization) : LocalizedViewModelBase(localization)
 {
-    private const string ConnectedGlyph = "";
-    private const string WarningGlyph = "";
-    private const string ErrorGlyph = "";
+    private const string ConnectedGlyph = "\uE839";
+    private const string WarningGlyph = "\uEB56";
+    private const string ErrorGlyph = "\uEB55";
 
     private EthernetState _ethernet = EthernetState.Empty;
     private bool _isChecking = true;

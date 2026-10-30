@@ -92,12 +92,24 @@ public partial class ConnectPage : UserControl
         if (_window is not null)
         {
             _window.Activated -= OnWindowActivated;
+            _window.PreviewGotKeyboardFocus -= OnWindowPreviewGotKeyboardFocus;
         }
 
         _window = window;
         if (_window is not null)
         {
             _window.Activated += OnWindowActivated;
+            _window.PreviewGotKeyboardFocus += OnWindowPreviewGotKeyboardFocus;
+        }
+    }
+
+    // Focus that the technician moves to the banner or anywhere outside the sections ends the fallback's memory, so a
+    // later check never pulls the focus back into a section the technician already left.
+    private void OnWindowPreviewGotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+    {
+        if (e.NewFocus is DependencyObject focused && !Array.Exists(_sections, section => IsWithin(focused, section.Root)))
+        {
+            _lastFocusedSection = null;
         }
     }
 
@@ -216,9 +228,11 @@ public partial class ConnectPage : UserControl
     private void OnWifiActionFocusRequested(object? sender, EventArgs e) =>
         Dispatcher.BeginInvoke(DispatcherPriority.Input, () => ReturnFocusToAction(_sections[2]));
 
+    // An inactive window has no keyboard focus by design (WPF clears it on deactivation): nothing is lost then, and the
+    // Activated handler checks again when the window comes back.
     private void CheckLostFocus()
     {
-        if (_lastFocusedSection is { } section && IsFocusLost())
+        if (_window is { IsActive: true } && _lastFocusedSection is { } section && IsFocusLost())
         {
             FocusFallback(section);
         }
@@ -228,6 +242,11 @@ public partial class ConnectPage : UserControl
     // target the fallback chose while the button was disabled; any other focus the technician chose stays.
     private void ReturnFocusToAction(Section section)
     {
+        if (_window is not { IsActive: true })
+        {
+            return;
+        }
+
         if (!IsFocusLost() && !ReferenceEquals(Keyboard.FocusedElement, _interimFocus))
         {
             return;

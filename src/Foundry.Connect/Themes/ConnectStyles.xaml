@@ -40,59 +40,80 @@
             Value="NoWrap" />
     </Style>
 
-    <!--  Severity glyphs and brushes copied from Foundry.Wpf InfoBar; the severity is bound to Tag.  -->
-    <Style x:Key="ConnectSeverityGlyphTextBlockStyle"
-        TargetType="TextBlock">
+    <!--
+        Severity glyph drawn like Foundry.Wpf InfoBar: a filled circle in the severity brush with the mark on top in the
+        on-accent text brush. Use it on a ContentControl and bind the InfoBarSeverity to Tag.
+    -->
+    <Style x:Key="ConnectSeverityGlyphStyle"
+        TargetType="ContentControl">
         <Setter
-            Property="FontFamily"
-            Value="{StaticResource SymbolThemeFontFamily}" />
+            Property="Focusable"
+            Value="False" />
         <Setter
-            Property="FontSize"
-            Value="16" />
+            Property="IsTabStop"
+            Value="False" />
         <Setter
             Property="Margin"
             Value="0,2,8,0" />
         <Setter
             Property="VerticalAlignment"
             Value="Top" />
-        <Setter
-            Property="Text"
-            Value="&#xF13F;" />
-        <Setter
-            Property="Foreground"
-            Value="{DynamicResource SystemFillColorAttentionBrush}" />
-        <Style.Triggers>
-            <DataTrigger
-                Binding="{Binding Tag, RelativeSource={RelativeSource Self}}"
-                Value="{x:Static controls:InfoBarSeverity.Success}">
-                <Setter
-                    Property="Text"
-                    Value="&#xF13E;" />
-                <Setter
-                    Property="Foreground"
-                    Value="{DynamicResource SystemFillColorSuccessBrush}" />
-            </DataTrigger>
-            <DataTrigger
-                Binding="{Binding Tag, RelativeSource={RelativeSource Self}}"
-                Value="{x:Static controls:InfoBarSeverity.Warning}">
-                <Setter
-                    Property="Text"
-                    Value="&#xF13C;" />
-                <Setter
-                    Property="Foreground"
-                    Value="{DynamicResource SystemFillColorCautionBrush}" />
-            </DataTrigger>
-            <DataTrigger
-                Binding="{Binding Tag, RelativeSource={RelativeSource Self}}"
-                Value="{x:Static controls:InfoBarSeverity.Error}">
-                <Setter
-                    Property="Text"
-                    Value="&#xF13D;" />
-                <Setter
-                    Property="Foreground"
-                    Value="{DynamicResource SystemFillColorCriticalBrush}" />
-            </DataTrigger>
-        </Style.Triggers>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Grid>
+                        <TextBlock x:Name="Disc"
+                            FontFamily="{DynamicResource SymbolThemeFontFamily}"
+                            FontSize="16"
+                            Foreground="{DynamicResource SystemFillColorAttentionBrush}"
+                            Text="&#xF136;" />
+                        <TextBlock x:Name="Mark"
+                            FontFamily="{DynamicResource SymbolThemeFontFamily}"
+                            FontSize="16"
+                            Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"
+                            Text="&#xF13F;" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger
+                            Property="Tag"
+                            Value="{x:Static controls:InfoBarSeverity.Success}">
+                            <Setter
+                                TargetName="Disc"
+                                Property="Foreground"
+                                Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                            <Setter
+                                TargetName="Mark"
+                                Property="Text"
+                                Value="&#xF13E;" />
+                        </Trigger>
+                        <Trigger
+                            Property="Tag"
+                            Value="{x:Static controls:InfoBarSeverity.Warning}">
+                            <Setter
+                                TargetName="Disc"
+                                Property="Foreground"
+                                Value="{DynamicResource SystemFillColorCautionBrush}" />
+                            <Setter
+                                TargetName="Mark"
+                                Property="Text"
+                                Value="&#xF13C;" />
+                        </Trigger>
+                        <Trigger
+                            Property="Tag"
+                            Value="{x:Static controls:InfoBarSeverity.Error}">
+                            <Setter
+                                TargetName="Disc"
+                                Property="Foreground"
+                                Value="{DynamicResource SystemFillColorCriticalBrush}" />
+                            <Setter
+                                TargetName="Mark"
+                                Property="Text"
+                                Value="&#xF13D;" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="ConnectDenseListBoxItemStyle"

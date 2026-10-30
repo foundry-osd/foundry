@@ -259,10 +259,12 @@
                     <ScrollViewer x:Name="LeftColumnScroller"
                         Focusable="False"
                         HorizontalScrollBarVisibility="Disabled">
+                        <!--  Its own gutter: the shared gutter style reads the outer page scroller, not this one.  -->
                         <ScrollViewer.Style>
-                            <Style
-                                BasedOn="{StaticResource ScrollViewerContentGutterStyle}"
-                                TargetType="ScrollViewer">
+                            <Style TargetType="ScrollViewer">
+                                <Setter
+                                    Property="Padding"
+                                    Value="0" />
                                 <Setter
                                     Property="VerticalScrollBarVisibility"
                                     Value="Disabled" />
@@ -270,6 +272,13 @@
                                     Property="Grid.ColumnSpan"
                                     Value="3" />
                                 <Style.Triggers>
+                                    <Trigger
+                                        Property="ComputedVerticalScrollBarVisibility"
+                                        Value="Visible">
+                                        <Setter
+                                            Property="Padding"
+                                            Value="0,0,24,0" />
+                                    </Trigger>
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
                                             <Condition
@@ -304,8 +313,8 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock
-                                    Style="{StaticResource ConnectSeverityGlyphTextBlockStyle}"
+                                <ContentControl
+                                    Style="{StaticResource ConnectSeverityGlyphStyle}"
                                     Tag="{x:Static controls:InfoBarSeverity.Informational}" />
                                 <TextBlock
                                     Grid.Column="1"
@@ -386,13 +395,13 @@
                                                             Thickness="16"
                                                             TrackBrush="{DynamicResource ControlStrongFillColorDefaultBrush}" />
                                                     </Viewbox>
-                                                    <TextBlock
+                                                    <ContentControl
                                                         Grid.Column="1"
                                                         Tag="{Binding Dot1xSeverity}">
-                                                        <TextBlock.Style>
+                                                        <ContentControl.Style>
                                                             <Style
-                                                                BasedOn="{StaticResource ConnectSeverityGlyphTextBlockStyle}"
-                                                                TargetType="TextBlock">
+                                                                BasedOn="{StaticResource ConnectSeverityGlyphStyle}"
+                                                                TargetType="ContentControl">
                                                                 <Style.Triggers>
                                                                     <DataTrigger
                                                                         Binding="{Binding IsDot1xAuthenticating}"
@@ -403,8 +412,8 @@
                                                                     </DataTrigger>
                                                                 </Style.Triggers>
                                                             </Style>
-                                                        </TextBlock.Style>
-                                                    </TextBlock>
+                                                        </ContentControl.Style>
+                                                    </ContentControl>
                                                     <TextBlock
                                                         Grid.Column="2"
                                                         Style="{StaticResource BodyTextBlockStyle}"
@@ -536,8 +545,8 @@
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock
-                                            Style="{StaticResource ConnectSeverityGlyphTextBlockStyle}"
+                                        <ContentControl
+                                            Style="{StaticResource ConnectSeverityGlyphStyle}"
                                             Tag="{Binding MessageSeverity}" />
                                         <TextBlock
                                             Grid.Column="1"
@@ -651,8 +660,8 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock
-                                    Style="{StaticResource ConnectSeverityGlyphTextBlockStyle}"
+                                <ContentControl
+                                    Style="{StaticResource ConnectSeverityGlyphStyle}"
                                     Tag="{x:Static controls:InfoBarSeverity.Informational}" />
                                 <TextBlock
                                     Grid.Column="1"
@@ -665,23 +674,15 @@
                                 Text="{Binding EmptyText}"
                                 Visibility="{Binding ShowEmptyText, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                            <!--  Tab enters and leaves the list as one stop; the arrows move the selection only.  -->
-                            <ListBox x:Name="WifiNetworksList"
+                            <!--
+                                The host caps the list at 280 px, except in two columns where the list fills the column.
+                                The cap sits on a plain Grid, so the ListBox keeps the theme's implicit style untouched.
+                            -->
+                            <Grid x:Name="WifiListHost"
                                 Grid.Row="1"
-                                VerticalAlignment="Top"
-                                HorizontalContentAlignment="Stretch"
-                                AutomationProperties.Name="{Binding Strings[Wifi.NetworksListAutomationName]}"
-                                ItemContainerStyle="{StaticResource ConnectDenseListBoxItemStyle}"
-                                ItemsSource="{Binding Networks}"
-                                KeyboardNavigation.TabNavigation="Once"
-                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                SelectedItem="{Binding SelectedNetwork, Mode=TwoWay}"
-                                SelectionMode="Single"
-                                Visibility="{Binding ShowNetworkList, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <ListBox.Style>
-                                    <Style
-                                        BasedOn="{StaticResource {x:Type ListBox}}"
-                                        TargetType="ListBox">
+                                VerticalAlignment="Top">
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
                                         <Setter
                                             Property="MaxHeight"
                                             Value="280" />
@@ -704,57 +705,71 @@
                                             </MultiDataTrigger>
                                         </Style.Triggers>
                                     </Style>
-                                </ListBox.Style>
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid x:Name="NetworkRow">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock
-                                                Margin="0,0,12,0"
-                                                Style="{StaticResource ConnectGlyphTextBlockStyle}"
-                                                Text="{Binding SignalGlyph}" />
-                                            <TextBlock
-                                                Grid.Column="1"
-                                                VerticalAlignment="Center"
-                                                Style="{StaticResource BodyStrongTextBlockStyle}"
-                                                Text="{Binding DisplayName}"
-                                                TextTrimming="CharacterEllipsis"
-                                                TextWrapping="NoWrap"
-                                                ToolTip="{Binding DisplayName}" />
-                                            <TextBlock
-                                                Grid.Column="2"
-                                                Margin="12,0,0,0"
-                                                VerticalAlignment="Center"
-                                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                Style="{StaticResource CaptionTextBlockStyle}"
-                                                Text="{Binding SecurityText}" />
-                                            <TextBlock
-                                                Grid.Column="3"
-                                                Margin="12,0,0,0"
-                                                VerticalAlignment="Center"
-                                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                                Style="{StaticResource CaptionTextBlockStyle}"
-                                                Text="{Binding DataContext.Strings[Common.Connected], ElementName=WifiNetworksList}"
-                                                Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                        </Grid>
-                                        <DataTemplate.Triggers>
-                                            <DataTrigger
-                                                Binding="{Binding IsInRange}"
-                                                Value="False">
-                                                <Setter
-                                                    TargetName="NetworkRow"
-                                                    Property="Opacity"
-                                                    Value="0.6" />
-                                            </DataTrigger>
-                                        </DataTemplate.Triggers>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
+                                </Grid.Style>
+
+                                <!--  Tab enters and leaves the list as one stop; the arrows move the selection only.  -->
+                                <ListBox x:Name="WifiNetworksList"
+                                    VerticalAlignment="Top"
+                                    HorizontalContentAlignment="Stretch"
+                                    AutomationProperties.Name="{Binding Strings[Wifi.NetworksListAutomationName]}"
+                                    ItemContainerStyle="{StaticResource ConnectDenseListBoxItemStyle}"
+                                    ItemsSource="{Binding Networks}"
+                                    KeyboardNavigation.TabNavigation="Once"
+                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                    SelectedItem="{Binding SelectedNetwork, Mode=TwoWay}"
+                                    SelectionMode="Single"
+                                    Visibility="{Binding ShowNetworkList, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid x:Name="NetworkRow">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock
+                                                    Margin="0,0,12,0"
+                                                    Style="{StaticResource ConnectGlyphTextBlockStyle}"
+                                                    Text="{Binding SignalGlyph}" />
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    VerticalAlignment="Center"
+                                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                                    Text="{Binding DisplayName}"
+                                                    TextTrimming="CharacterEllipsis"
+                                                    TextWrapping="NoWrap"
+                                                    ToolTip="{Binding DisplayName}" />
+                                                <TextBlock
+                                                    Grid.Column="2"
+                                                    Margin="12,0,0,0"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                                    Text="{Binding SecurityText}" />
+                                                <TextBlock
+                                                    Grid.Column="3"
+                                                    Margin="12,0,0,0"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                                    Text="{Binding DataContext.Strings[Common.Connected], ElementName=WifiNetworksList}"
+                                                    Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                            </Grid>
+                                            <DataTemplate.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding IsInRange}"
+                                                    Value="False">
+                                                    <Setter
+                                                        TargetName="NetworkRow"
+                                                        Property="Opacity"
+                                                        Value="0.6" />
+                                                </DataTrigger>
+                                            </DataTemplate.Triggers>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </Grid>
 
                             <!--  The panel under the list: name, password, one action button, one message.  -->
                             <StackPanel x:Name="WifiDetailsPanel"
@@ -813,8 +828,8 @@
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock
-                                        Style="{StaticResource ConnectSeverityGlyphTextBlockStyle}"
+                                    <ContentControl
+                                        Style="{StaticResource ConnectSeverityGlyphStyle}"
                                         Tag="{Binding DetailMessageSeverity}" />
                                     <TextBlock
                                         Grid.Column="1"
