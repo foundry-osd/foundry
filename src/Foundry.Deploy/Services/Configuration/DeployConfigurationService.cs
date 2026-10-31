@@ -27,7 +27,7 @@ public sealed class DeployConfigurationService : IDeployConfigurationService
     }
 
     internal DeployConfigurationService(ILogger<DeployConfigurationService> logger, string configurationPath)
-        : this(logger, configurationPath, BootMediaRuntimeContext.Capture())
+        : this(logger, configurationPath, BootMediaRuntimeContext.Capture(typeof(DeployConfigurationService).Assembly.GetName().Version?.ToString()))
     {
     }
 

@@ -7,12 +7,14 @@ using System.Text;
 using System.Text.Json;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Models.Network;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Deploy.Models.Configuration;
-using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Network;
+using Foundry.Deploy.Services.Security;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using NetworkProfileRoamingTransportSettings = Foundry.Core.Models.Configuration.NetworkProfileRoamingTransportSettings;
+using SecretEnvelope = Foundry.Core.Models.Configuration.SecretEnvelope;
 
 namespace Foundry.Deploy.Tests;
 
@@ -37,6 +39,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             """);
         var service = new NetworkProfileRoamingArtifactService(
             new FakeMediaSecretKeyReader([]),
+            new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
@@ -49,11 +52,148 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             TestContext.Current.CancellationToken);
 
         Assert.NotNull(payload);
-        Assert.Contains(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "wifi-profile.xml"));
+        Assert.Contains(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "wifi-profile.xml") && file.IsSensitive);
         string importSettingsJson = Assert.Single(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "import-settings.json")).Content;
         using JsonDocument importSettings = JsonDocument.Parse(importSettingsJson);
         Assert.Equal(Path.Combine("NetworkProfiles", "wifi-profile.xml"), importSettings.RootElement.GetProperty("wifiProfileRelativePath").GetString());
         Assert.False(importSettings.RootElement.TryGetProperty("wiredDot1xProfileRelativePath", out _));
+    }
+
+    [Fact]
+    public async Task LoadAsync_WhenManifestListsSeveralWifiProfiles_StagesEveryProfileInOrder()
+    {
+        string artifactRoot = CreateArtifactRoot();
+        WriteText(Path.Combine(artifactRoot, "wifi-profile.xml"), "<WLANProfile>1</WLANProfile>");
+        WriteText(Path.Combine(artifactRoot, "wifi-profile-2.xml"), "<WLANProfile>2</WLANProfile>");
+        WriteText(Path.Combine(artifactRoot, "wifi-profile-3.xml"), "<WLANProfile>3</WLANProfile>");
+        WriteText(
+            Path.Combine(artifactRoot, "manifest.json"),
+            """
+            {
+              "schemaVersion": 2,
+              "wifiProfile": {
+                "relativePath": "wifi-profile.xml",
+                "source": "provisionedWifi",
+                "connectivityExpectation": "importOnly"
+              },
+              "wifiProfiles": [
+                { "relativePath": "wifi-profile.xml", "source": "provisionedWifi", "connectivityExpectation": "importOnly" },
+                { "relativePath": "wifi-profile-2.xml", "source": "manualWifi", "connectivityExpectation": "preOobeConnectable" },
+                { "relativePath": "wifi-profile-3.xml", "source": "manualWifi", "connectivityExpectation": "preOobeConnectable" }
+              ]
+            }
+            """);
+        var service = new NetworkProfileRoamingArtifactService(
+            new FakeMediaSecretKeyReader([]),
+            new FakeDeploymentSecretKeyProvider([]),
+            NullLogger<NetworkProfileRoamingArtifactService>.Instance);
+
+        var payload = await service.LoadAsync(
+            new DeployNetworkProfileRoamingSettings
+            {
+                Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true },
+                ArtifactRootPath = artifactRoot
+            },
+            Path.Combine(artifactRoot, "workspace"),
+            TestContext.Current.CancellationToken);
+
+        Assert.NotNull(payload);
+        Assert.Contains(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "wifi-profile-2.xml") && file.Bytes is not null);
+        Assert.Contains(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "wifi-profile-3.xml") && file.Bytes is not null);
+        string importSettingsJson = Assert.Single(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "import-settings.json")).Content;
+        using JsonDocument importSettings = JsonDocument.Parse(importSettingsJson);
+        Assert.Equal(Path.Combine("NetworkProfiles", "wifi-profile.xml"), importSettings.RootElement.GetProperty("wifiProfileRelativePath").GetString());
+        Assert.Equal("provisionedWifi", importSettings.RootElement.GetProperty("wifiProfileSource").GetString());
+        Assert.Equal("importOnly", importSettings.RootElement.GetProperty("wifiProfileConnectivityExpectation").GetString());
+        JsonElement[] profiles = [.. importSettings.RootElement.GetProperty("wifiProfiles").EnumerateArray()];
+        Assert.Equal(
+            [Path.Combine("NetworkProfiles", "wifi-profile.xml"), Path.Combine("NetworkProfiles", "wifi-profile-2.xml"), Path.Combine("NetworkProfiles", "wifi-profile-3.xml")],
+            profiles.Select(static profile => profile.GetProperty("relativePath").GetString()));
+        Assert.Equal(
+            ["provisionedWifi", "manualWifi", "manualWifi"],
+            profiles.Select(static profile => profile.GetProperty("source").GetString()));
+        Assert.Equal(
+            ["importOnly", "preOobeConnectable", "preOobeConnectable"],
+            profiles.Select(static profile => profile.GetProperty("connectivityExpectation").GetString()));
+    }
+
+    [Fact]
+    public async Task LoadAsync_WhenFirstListedWifiProfileIsMissing_PromotesTheNextOneToTheSingleEntry()
+    {
+        string artifactRoot = CreateArtifactRoot();
+        WriteText(Path.Combine(artifactRoot, "wifi-profile-2.xml"), "<WLANProfile>2</WLANProfile>");
+        WriteText(
+            Path.Combine(artifactRoot, "manifest.json"),
+            """
+            {
+              "schemaVersion": 2,
+              "wifiProfiles": [
+                { "relativePath": "wifi-profile.xml", "source": "provisionedWifi", "connectivityExpectation": "importOnly" },
+                { "relativePath": "wifi-profile-2.xml", "source": "manualWifi", "connectivityExpectation": "preOobeConnectable" }
+              ]
+            }
+            """);
+        var service = new NetworkProfileRoamingArtifactService(
+            new FakeMediaSecretKeyReader([]),
+            new FakeDeploymentSecretKeyProvider([]),
+            NullLogger<NetworkProfileRoamingArtifactService>.Instance);
+
+        var payload = await service.LoadAsync(
+            new DeployNetworkProfileRoamingSettings
+            {
+                Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true },
+                ArtifactRootPath = artifactRoot
+            },
+            Path.Combine(artifactRoot, "workspace"),
+            TestContext.Current.CancellationToken);
+
+        Assert.NotNull(payload);
+        string importSettingsJson = Assert.Single(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "import-settings.json")).Content;
+        using JsonDocument importSettings = JsonDocument.Parse(importSettingsJson);
+        Assert.Equal(Path.Combine("NetworkProfiles", "wifi-profile-2.xml"), importSettings.RootElement.GetProperty("wifiProfileRelativePath").GetString());
+        Assert.Equal("manualWifi", importSettings.RootElement.GetProperty("wifiProfileSource").GetString());
+        Assert.False(importSettings.RootElement.TryGetProperty("wifiProfiles", out _));
+    }
+
+    [Fact]
+    public async Task LoadAsync_WhenSchemaOneManifestHasOneWifiProfile_WritesOnlyTheSingleEntry()
+    {
+        string artifactRoot = CreateArtifactRoot();
+        WriteText(Path.Combine(artifactRoot, "wifi-profile.xml"), "<WLANProfile />");
+        WriteText(
+            Path.Combine(artifactRoot, "manifest.json"),
+            """
+            {
+              "schemaVersion": 1,
+              "wifiProfile": {
+                "relativePath": "wifi-profile.xml",
+                "source": "manualWifi",
+                "connectivityExpectation": "preOobeConnectable"
+              }
+            }
+            """);
+        var service = new NetworkProfileRoamingArtifactService(
+            new FakeMediaSecretKeyReader([]),
+            new FakeDeploymentSecretKeyProvider([]),
+            NullLogger<NetworkProfileRoamingArtifactService>.Instance);
+
+        var payload = await service.LoadAsync(
+            new DeployNetworkProfileRoamingSettings
+            {
+                Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true },
+                ArtifactRootPath = artifactRoot
+            },
+            Path.Combine(artifactRoot, "workspace"),
+            TestContext.Current.CancellationToken);
+
+        Assert.NotNull(payload);
+        Assert.Equal(2, payload.DataFiles.Count);
+        string importSettingsJson = Assert.Single(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "import-settings.json")).Content;
+        using JsonDocument importSettings = JsonDocument.Parse(importSettingsJson);
+        Assert.Equal(
+            ["wifiProfileRelativePath", "wifiProfileSource", "wifiProfileConnectivityExpectation", "certificates"],
+            importSettings.RootElement.EnumerateObject().Select(static property => property.Name));
+        Assert.Equal("preOobeConnectable", importSettings.RootElement.GetProperty("wifiProfileConnectivityExpectation").GetString());
     }
 
     [Fact]
@@ -81,6 +221,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             """);
         var service = new NetworkProfileRoamingArtifactService(
             new FakeMediaSecretKeyReader([]),
+            new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
@@ -99,7 +240,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
     public async Task LoadAsync_WhenPrivateKeyRoamingEnabled_StagesProfilesCertificatesAndPfxPassword()
     {
         string artifactRoot = CreateArtifactRoot();
-        byte[] mediaSecretKey = RandomNumberGenerator.GetBytes(DeployMediaSecretEnvelopeProtector.KeySizeBytes);
+        byte[] mediaSecretKey = RandomNumberGenerator.GetBytes(MediaSecretEnvelopeProtector.KeySizeBytes);
         WriteText(Path.Combine(artifactRoot, "wifi-profile.xml"), "<WLANProfile />");
         WriteText(Path.Combine(artifactRoot, "wired-dot1x-profile.xml"), "<LANProfile />");
         WriteBytes(Path.Combine(artifactRoot, "certificates", "Root", "root.cer"), [1, 2, 3]);
@@ -139,6 +280,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             """);
         var service = new NetworkProfileRoamingArtifactService(
             new FakeMediaSecretKeyReader(mediaSecretKey),
+            new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
@@ -152,8 +294,8 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             TestContext.Current.CancellationToken);
 
         Assert.NotNull(payload);
-        Assert.Contains(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "wifi-profile.xml"));
-        Assert.Contains(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "wired-dot1x-profile.xml"));
+        Assert.Contains(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "wifi-profile.xml") && file.IsSensitive);
+        Assert.Contains(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "wired-dot1x-profile.xml") && !file.IsSensitive);
         Assert.Contains(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "certificates", "Root", "root.cer") && file.Bytes is [1, 2, 3]);
         Assert.Contains(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "certificates", "My", "client.pfx") && file.IsSensitive);
         PreOobeDataFile passwordFile = Assert.Single(
@@ -173,6 +315,127 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             certificates.EnumerateArray(),
             certificate => certificate.TryGetProperty("passwordRelativePath", out JsonElement passwordRelativePath) &&
                 passwordRelativePath.GetString() == Path.Combine("NetworkProfiles", "certificates", "My", "client.pfx.password"));
+    }
+
+    [Fact]
+    public async Task LoadAsync_WhenProtectedPfxHasDeploymentKeyedPassword_DecryptsWithTheDeploymentKey()
+    {
+        string artifactRoot = CreateArtifactRoot();
+        byte[] deploymentKey = RandomNumberGenerator.GetBytes(MediaSecretEnvelopeProtector.KeySizeBytes);
+        byte[] pfxBytes = [4, 5, 6, 7];
+        WriteSecret(
+            Path.Combine(artifactRoot, "certificates", "My", "client.pfx"),
+            MediaSecretEnvelopeProtector.EncryptBytes(pfxBytes, deploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
+        WriteSecret(
+            Path.Combine(artifactRoot, "certificates", "My", "client.pfx.password.json"),
+            MediaSecretEnvelopeProtector.EncryptString("pfx-password", deploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
+        WriteText(
+            Path.Combine(artifactRoot, "manifest.json"),
+            """
+            {
+              "schemaVersion": 1,
+              "certificates": [
+                {
+                  "relativePath": "certificates\\My\\client.pfx",
+                  "kind": "pfxPrivateKey",
+                  "storeName": "My",
+                  "passwordSecretRelativePath": "certificates\\My\\client.pfx.password.json",
+                  "isContentProtected": true
+                }
+              ]
+            }
+            """);
+        var service = new NetworkProfileRoamingArtifactService(
+            new ThrowingMediaSecretKeyReader(),
+            new FakeDeploymentSecretKeyProvider(deploymentKey),
+            NullLogger<NetworkProfileRoamingArtifactService>.Instance);
+
+        var payload = await service.LoadAsync(
+            new DeployNetworkProfileRoamingSettings
+            {
+                Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true, IncludePrivateKeyMaterial = true },
+                ArtifactRootPath = artifactRoot
+            },
+            Path.Combine(artifactRoot, "workspace"),
+            TestContext.Current.CancellationToken);
+
+        Assert.NotNull(payload);
+        var pfxFile = Assert.Single(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "certificates", "My", "client.pfx"));
+        Assert.Equal(pfxBytes, pfxFile.Bytes);
+        Assert.True(pfxFile.IsSensitive);
+        var passwordFile = Assert.Single(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "certificates", "My", "client.pfx.password"));
+        Assert.Equal("pfx-password", passwordFile.Content);
+        Assert.True(passwordFile.IsSensitive);
+    }
+
+    [Theory]
+    [InlineData("certificate-tampered", nameof(CryptographicException))]
+    [InlineData("certificate-malformed", nameof(JsonException))]
+    [InlineData("password-tampered", nameof(CryptographicException))]
+    public async Task LoadAsync_WhenAProtectedPfxIsDamaged_SkipsItAndItsPasswordAndStagesTheRest(string damage, string expectedFailureType)
+    {
+        string artifactRoot = CreateArtifactRoot();
+        byte[] deploymentKey = RandomNumberGenerator.GetBytes(MediaSecretEnvelopeProtector.KeySizeBytes);
+        string pfxPath = Path.Combine(artifactRoot, "certificates", "My", "contoso-client.pfx.encrypted");
+        SecretEnvelope pfxEnvelope = MediaSecretEnvelopeProtector.EncryptBytes([4, 5, 6, 7], deploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId);
+        SecretEnvelope passwordEnvelope = MediaSecretEnvelopeProtector.EncryptString("pfx-password", deploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId);
+        if (damage == "certificate-malformed")
+        {
+            WriteText(pfxPath, "{ not json");
+        }
+        else
+        {
+            WriteSecret(pfxPath, damage == "certificate-tampered" ? pfxEnvelope with { Ciphertext = Base64UrlEncode([9, 9, 9, 9]) } : pfxEnvelope);
+        }
+
+        WriteSecret(
+            Path.Combine(artifactRoot, "certificates", "My", "contoso-client.pfx.encrypted.password.json"),
+            damage == "password-tampered" ? passwordEnvelope with { Tag = pfxEnvelope.Tag } : passwordEnvelope);
+        WriteText(Path.Combine(artifactRoot, "certificates", "Root", "root.cer"), "root-certificate");
+        WriteText(
+            Path.Combine(artifactRoot, "manifest.json"),
+            """
+            {
+              "schemaVersion": 1,
+              "certificates": [
+                {
+                  "relativePath": "certificates\\My\\contoso-client.pfx.encrypted",
+                  "kind": "pfxPrivateKey",
+                  "storeName": "My",
+                  "passwordSecretRelativePath": "certificates\\My\\contoso-client.pfx.encrypted.password.json",
+                  "isContentProtected": true
+                },
+                {
+                  "relativePath": "certificates\\Root\\root.cer",
+                  "kind": "publicCertificate",
+                  "storeName": "Root"
+                }
+              ]
+            }
+            """);
+        var logger = new CapturingLogger<NetworkProfileRoamingArtifactService>();
+        var service = new NetworkProfileRoamingArtifactService(
+            new ThrowingMediaSecretKeyReader(),
+            new FakeDeploymentSecretKeyProvider(deploymentKey),
+            logger);
+
+        var payload = await service.LoadAsync(
+            new DeployNetworkProfileRoamingSettings
+            {
+                Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true, IncludePrivateKeyMaterial = true },
+                ArtifactRootPath = artifactRoot
+            },
+            Path.Combine(artifactRoot, "workspace"),
+            TestContext.Current.CancellationToken);
+
+        Assert.NotNull(payload);
+        Assert.Contains(payload.DataFiles, file => file.FileName == Path.Combine("NetworkProfiles", "certificates", "Root", "root.cer"));
+        Assert.DoesNotContain(payload.DataFiles, file => file.FileName.Contains("contoso-client", StringComparison.OrdinalIgnoreCase));
+        CapturedWarning warning = Assert.Single(logger.Warnings);
+        Assert.Null(warning.Exception);
+        Assert.Equal(expectedFailureType, warning.Properties["FailureType"]);
+        Assert.Equal("pfxPrivateKey", warning.Properties["CertificateKind"]);
+        Assert.DoesNotContain("contoso-client", warning.Message, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -203,6 +466,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             """);
         var service = new NetworkProfileRoamingArtifactService(
             new FakeMediaSecretKeyReader([]),
+            new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
@@ -228,6 +492,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
         var logger = new CapturingLogger<NetworkProfileRoamingArtifactService>();
         var service = new NetworkProfileRoamingArtifactService(
             new FakeMediaSecretKeyReader([]),
+            new FakeDeploymentSecretKeyProvider([]),
             logger);
 
         var payload = await service.LoadAsync(
@@ -264,6 +529,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             """);
         var service = new NetworkProfileRoamingArtifactService(
             new FakeMediaSecretKeyReader([]),
+            new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
@@ -308,6 +574,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             """);
         var service = new NetworkProfileRoamingArtifactService(
             new FakeMediaSecretKeyReader([]),
+            new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
@@ -352,6 +619,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             """);
         var service = new NetworkProfileRoamingArtifactService(
             new FakeMediaSecretKeyReader([]),
+            new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
@@ -398,6 +666,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             """);
         var service = new NetworkProfileRoamingArtifactService(
             new FakeMediaSecretKeyReader([]),
+            new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
@@ -453,9 +722,9 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
         aes.Encrypt(nonce, plaintextBytes, ciphertext, tag);
         return new SecretEnvelope
         {
-            Kind = DeployMediaSecretEnvelopeProtector.Kind,
-            Algorithm = DeployMediaSecretEnvelopeProtector.Algorithm,
-            KeyId = DeployMediaSecretEnvelopeProtector.KeyId,
+            Kind = MediaSecretEnvelopeProtector.Kind,
+            Algorithm = MediaSecretEnvelopeProtector.Algorithm,
+            KeyId = MediaSecretEnvelopeProtector.KeyId,
             Nonce = Base64UrlEncode(nonce),
             Tag = Base64UrlEncode(tag),
             Ciphertext = Base64UrlEncode(ciphertext)
@@ -475,11 +744,32 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
         }
     }
 
+    // Proves the media key is never read: schema 6 media carry no media-secrets.key.
+    private sealed class ThrowingMediaSecretKeyReader : INetworkSecretKeyReader
+    {
+        public Task<byte[]> ReadAsync(string workspaceRootPath, CancellationToken cancellationToken = default)
+        {
+            throw new InvalidOperationException("The media secret key must not be read.");
+        }
+    }
+
+    private sealed class FakeDeploymentSecretKeyProvider(byte[] key) : IDeploymentSecretKeyProvider
+    {
+        public Task<byte[]> ReadAsync(string workspaceRootPath, CancellationToken cancellationToken = default)
+        {
+            return Task.FromResult(key.ToArray());
+        }
+    }
+
     private sealed record PreOobeDataFile(string FileName, string Content, bool IsSensitive);
+
+    private sealed record CapturedWarning(string Message, Exception? Exception, IReadOnlyDictionary<string, object?> Properties);
 
     private sealed class CapturingLogger<T> : ILogger<T>
     {
         public List<string> Messages { get; } = [];
+
+        public List<CapturedWarning> Warnings { get; } = [];
 
         public IDisposable? BeginScope<TState>(TState state)
             where TState : notnull
@@ -499,6 +789,16 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             if (logLevel == LogLevel.Warning)
             {
                 Messages.Add(formatter(state, exception));
+                var properties = new Dictionary<string, object?>(StringComparer.Ordinal);
+                if (state is IEnumerable<KeyValuePair<string, object?>> pairs)
+                {
+                    foreach ((string name, object? value) in pairs)
+                    {
+                        properties[name] = value;
+                    }
+                }
+
+                Warnings.Add(new CapturedWarning(formatter(state, exception), exception, properties));
             }
         }
     }

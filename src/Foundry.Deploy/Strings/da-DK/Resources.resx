@@ -312,7 +312,7 @@ Handling: Bekræft diskattributter, og prøv implementeringen igen.</value>
     <value>Fortsæt</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>Indtast teknikerens adgangskode for at fortsætte.</value>
+    <value>Indtast adgangskoden til installation for at fortsætte.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>Adgangskode påkrævet</value>

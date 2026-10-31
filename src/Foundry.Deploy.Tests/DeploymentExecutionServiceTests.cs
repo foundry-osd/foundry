@@ -9,6 +9,7 @@ using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Security;
 using Microsoft.Extensions.Logging.Abstractions;
 using Foundry.Deploy.Services.DomainJoin;
+using SecretEnvelope = Foundry.Core.Models.Configuration.SecretEnvelope;
 
 namespace Foundry.Deploy.Tests;
 

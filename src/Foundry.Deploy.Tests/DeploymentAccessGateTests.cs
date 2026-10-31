@@ -2,9 +2,12 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Services.WinPe;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Security;
+using Microsoft.Extensions.Logging.Abstractions;
+using SecretEnvelope = Foundry.Core.Models.Configuration.SecretEnvelope;
 
 namespace Foundry.Deploy.Tests;
 
@@ -27,7 +30,10 @@ public sealed class DeploymentAccessGateTests
             new FakeConfigurationService(new FoundryDeployConfigurationDocument()),
             new FakeUnlockService(),
             dialog,
-            new ImmediateRetryDelay());
+            new ImmediateRetryDelay(),
+            new FakeHandoff(),
+            new DeploymentSecretKeySession(),
+            NullLogger<DeploymentAccessGate>.Instance);
 
         bool authorized = await gate.AuthorizeAsync(TestContext.Current.CancellationToken);
 
@@ -46,7 +52,10 @@ public sealed class DeploymentAccessGateTests
             }),
             new FakeUnlockService("correct"),
             dialog,
-            new ImmediateRetryDelay());
+            new ImmediateRetryDelay(),
+            new FakeHandoff(),
+            new DeploymentSecretKeySession(),
+            NullLogger<DeploymentAccessGate>.Instance);
 
         bool authorized = await gate.AuthorizeAsync(TestContext.Current.CancellationToken);
 
@@ -67,7 +76,10 @@ public sealed class DeploymentAccessGateTests
             new FakeConfigurationService(new FoundryDeployConfigurationDocument(), configurationPath: configurationPath),
             new FakeUnlockService(),
             dialog,
-            new ImmediateRetryDelay());
+            new ImmediateRetryDelay(),
+            new FakeHandoff(),
+            new DeploymentSecretKeySession(),
+            NullLogger<DeploymentAccessGate>.Instance);
 
         bool authorized = await gate.AuthorizeAsync(TestContext.Current.CancellationToken);
 
@@ -89,7 +101,10 @@ public sealed class DeploymentAccessGateTests
             new FakeConfigurationService(document: null, exists: false, configurationPath: configurationPath),
             new FakeUnlockService(),
             dialog,
-            new ImmediateRetryDelay());
+            new ImmediateRetryDelay(),
+            new FakeHandoff(),
+            new DeploymentSecretKeySession(),
+            NullLogger<DeploymentAccessGate>.Instance);
 
         bool authorized = await gate.AuthorizeAsync(TestContext.Current.CancellationToken);
 
@@ -111,7 +126,10 @@ public sealed class DeploymentAccessGateTests
             }),
             unlock,
             dialog,
-            retryDelay);
+            retryDelay,
+            new FakeHandoff(),
+            new DeploymentSecretKeySession(),
+            NullLogger<DeploymentAccessGate>.Instance);
 
         bool authorized = await gate.AuthorizeAsync(TestContext.Current.CancellationToken);
 
@@ -131,7 +149,10 @@ public sealed class DeploymentAccessGateTests
             }),
             new FakeUnlockService(),
             new FakePasswordDialogService(),
-            new ImmediateRetryDelay());
+            new ImmediateRetryDelay(),
+            new FakeHandoff(),
+            new DeploymentSecretKeySession(),
+            NullLogger<DeploymentAccessGate>.Instance);
 
         bool authorized = await gate.AuthorizeAsync(TestContext.Current.CancellationToken);
 
@@ -145,11 +166,132 @@ public sealed class DeploymentAccessGateTests
             new FakeConfigurationService(document: null, exists: true),
             new FakeUnlockService(),
             new FakePasswordDialogService("unused"),
-            new ImmediateRetryDelay());
+            new ImmediateRetryDelay(),
+            new FakeHandoff(),
+            new DeploymentSecretKeySession(),
+            NullLogger<DeploymentAccessGate>.Instance);
 
         bool authorized = await gate.AuthorizeAsync(TestContext.Current.CancellationToken);
 
         Assert.False(authorized);
+    }
+
+    [Fact]
+    public async Task AuthorizeAsync_WhenHandedOffKeyPassesKeyCheck_DoesNotPrompt()
+    {
+        using DeploymentMediaProtectionMaterial material = DeploymentMediaProtectionService.CreateProtected("correct horse battery staple");
+        var dialog = new FakePasswordDialogService();
+        using var session = new DeploymentSecretKeySession();
+        var gate = new DeploymentAccessGate(
+            new FakeConfigurationService(new FoundryDeployConfigurationDocument
+            {
+                Protection = new DeployProtectionSettings { IsEnabled = true, KeyCheck = material.Settings.KeyCheck }
+            }),
+            new FakeUnlockService(),
+            dialog,
+            new ImmediateRetryDelay(),
+            new FakeHandoff(material.DeploymentKey.ToArray()),
+            session,
+            NullLogger<DeploymentAccessGate>.Instance);
+
+        Assert.True(await gate.AuthorizeAsync(TestContext.Current.CancellationToken));
+        Assert.Equal(0, dialog.PromptCount);
+        Assert.Equal(material.DeploymentKey, session.GetKeyCopy());
+    }
+
+    [Fact]
+    public async Task AuthorizeAsync_WhenHandedOffKeyFailsKeyCheck_PromptsAndZeroesKey()
+    {
+        using DeploymentMediaProtectionMaterial material = DeploymentMediaProtectionService.CreateProtected("correct horse battery staple");
+        var handoff = new FakeHandoff(Enumerable.Repeat((byte)7, 32).ToArray());
+        var dialog = new FakePasswordDialogService();
+        using var session = new DeploymentSecretKeySession();
+        var gate = new DeploymentAccessGate(
+            new FakeConfigurationService(new FoundryDeployConfigurationDocument
+            {
+                Protection = new DeployProtectionSettings { IsEnabled = true, KeyCheck = material.Settings.KeyCheck }
+            }),
+            new FakeUnlockService("correct"),
+            dialog,
+            new ImmediateRetryDelay(),
+            handoff,
+            session,
+            NullLogger<DeploymentAccessGate>.Instance);
+
+        // The prompt is cancelled: nothing but the rejected key could have unlocked the session.
+        Assert.False(await gate.AuthorizeAsync(TestContext.Current.CancellationToken));
+        Assert.Equal(1, dialog.PromptCount);
+        Assert.All(handoff.Handed!, static value => Assert.Equal(0, value));
+        Assert.False(session.IsUnlocked);
+    }
+
+    [Fact]
+    public async Task AuthorizeAsync_WhenKeyCheckIsMissing_IgnoresHandedOffKey()
+    {
+        var handoff = new FakeHandoff(Enumerable.Repeat((byte)7, 32).ToArray());
+        var dialog = new FakePasswordDialogService("correct");
+        using var session = new DeploymentSecretKeySession();
+        var gate = new DeploymentAccessGate(
+            new FakeConfigurationService(new FoundryDeployConfigurationDocument { Protection = new DeployProtectionSettings { IsEnabled = true } }),
+            new FakeUnlockService("correct"),
+            dialog,
+            new ImmediateRetryDelay(),
+            handoff,
+            session,
+            NullLogger<DeploymentAccessGate>.Instance);
+
+        Assert.True(await gate.AuthorizeAsync(TestContext.Current.CancellationToken));
+        Assert.Equal(1, dialog.PromptCount);
+        Assert.All(handoff.Handed!, static value => Assert.Equal(0, value));
+        Assert.False(session.IsUnlocked);
+    }
+
+    [Fact]
+    public async Task AuthorizeAsync_WhenProtectionIsDisabled_DoesNotReadTheHandoff()
+    {
+        var handoff = new FakeHandoff(new byte[32]);
+        var gate = new DeploymentAccessGate(
+            new FakeConfigurationService(new FoundryDeployConfigurationDocument()),
+            new FakeUnlockService(),
+            new FakePasswordDialogService(),
+            new ImmediateRetryDelay(),
+            handoff,
+            new DeploymentSecretKeySession(),
+            NullLogger<DeploymentAccessGate>.Instance);
+
+        Assert.True(await gate.AuthorizeAsync(TestContext.Current.CancellationToken));
+        Assert.Equal(0, handoff.Calls);
+    }
+
+    [Fact]
+    public async Task AuthorizeAsync_WhenOnlyAKeyCheckIsPresent_DoesNotReadTheHandoff()
+    {
+        using DeploymentMediaProtectionMaterial material = DeploymentMediaProtectionService.CreateProtected("correct horse battery staple");
+        var handoff = new FakeHandoff(material.DeploymentKey.ToArray());
+        var gate = new DeploymentAccessGate(
+            new FakeConfigurationService(new FoundryDeployConfigurationDocument { Protection = new DeployProtectionSettings { KeyCheck = material.Settings.KeyCheck } }),
+            new FakeUnlockService(),
+            new FakePasswordDialogService(),
+            new ImmediateRetryDelay(),
+            handoff,
+            new DeploymentSecretKeySession(),
+            NullLogger<DeploymentAccessGate>.Instance);
+
+        Assert.True(await gate.AuthorizeAsync(TestContext.Current.CancellationToken));
+        Assert.Equal(0, handoff.Calls);
+    }
+
+    private sealed class FakeHandoff(byte[]? key = null) : IDeploymentKeyHandoffReceiver
+    {
+        public int Calls { get; private set; }
+
+        public byte[]? Handed { get; } = key;
+
+        public Task<byte[]?> TryReceiveAsync(CancellationToken cancellationToken)
+        {
+            Calls++;
+            return Task.FromResult(Handed);
+        }
     }
 
     private sealed class FakeConfigurationService(

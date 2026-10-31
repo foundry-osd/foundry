@@ -337,9 +337,9 @@ public static class BootMediaTelemetryPropertyBuilder
         Dot1xSettings dot1x = network.Dot1x;
         WifiSettings wifi = network.Wifi;
         bool isDot1xProfileConfigured = dot1x.IsEnabled && dot1x.ProfileTemplate is not null;
-        bool isDot1xCertificateConfigured = dot1x.IsEnabled && dot1x.Certificate is not null;
+        bool isDot1xCertificateConfigured = dot1x.IsEnabled && NetworkCertificateShapes.HasCertificates(dot1x);
         bool isWifiEnterpriseProfileConfigured = wifi.IsEnabled && wifi.HasEnterpriseProfile && wifi.EnterpriseProfileTemplate is not null;
-        bool isWifiEnterpriseCertificateConfigured = wifi.IsEnabled && wifi.Certificate is not null;
+        bool isWifiEnterpriseCertificateConfigured = wifi.IsEnabled && NetworkCertificateShapes.HasCertificates(wifi);
 
         bool isAnyProfileRoamingEnabled = network.RoamWiredDot1xProfileToWindows || network.RoamWifiProfileToWindows;
         bool isAnyPrivateKeyRoamingEnabled = network.RoamWiredDot1xPrivateKeyMaterialToWindows || network.RoamWifiPrivateKeyMaterialToWindows;

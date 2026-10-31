@@ -63,8 +63,8 @@ public sealed class ConfigurationTransferTests : IDisposable
         {
             Network = new NetworkSettings
             {
-                Dot1x = new Dot1xSettings { ProfileTemplate = references[0], Certificate = references[1] },
-                Wifi = new WifiSettings { EnterpriseProfileTemplate = references[2], Certificate = references[3] }
+                Dot1x = new Dot1xSettings { ProfileTemplate = references[0], ClientCertificate = references[1] },
+                Wifi = new WifiSettings { EnterpriseProfileTemplate = references[2], TrustedRootCertificates = [references[3]] }
             },
             Autopilot = new AutopilotSettings
             {
@@ -86,7 +86,7 @@ public sealed class ConfigurationTransferTests : IDisposable
         AuthoringFileReference replaced = TestFileReferences.Detached("replaced.pfx");
         var configuration = new FoundryConfigurationDocument
         {
-            Network = new NetworkSettings { Dot1x = new Dot1xSettings { IsEnabled = true, RequiresCertificate = true, Certificate = certificate } }
+            Network = new NetworkSettings { Dot1x = new Dot1xSettings { IsEnabled = true, RequiresCertificate = true, ClientCertificate = certificate } }
         };
         var vault = new Dictionary<string, string>
         {
@@ -107,7 +107,7 @@ public sealed class ConfigurationTransferTests : IDisposable
         AuthoringFileReference stored = library.Import("<profile />"u8, "profile.xml");
         var configuration = new FoundryConfigurationDocument
         {
-            Network = new NetworkSettings { Dot1x = new Dot1xSettings { ProfileTemplate = stored, Certificate = TestFileReferences.Detached("missing.pfx") } }
+            Network = new NetworkSettings { Dot1x = new Dot1xSettings { ProfileTemplate = stored, ClientCertificate = TestFileReferences.Detached("missing.pfx") } }
         };
 
         ConfigurationExport export = ConfigurationTransfer.Export(configuration, new Dictionary<string, string>(), library, Passphrase, includePasswords: false, "PC-1");
@@ -162,7 +162,7 @@ public sealed class ConfigurationTransferTests : IDisposable
         Assert.True(preview.IncludesPasswords);
         Assert.Equal("Fixture export", preview.Name);
         Assert.Equal(Legacy.WifiPassphrase, preview.Payload.Secrets![SecretIds.WifiPassphrase]);
-        AuthoringFileReference certificate = Assert.IsType<AuthoringFileReference>(preview.Payload.Configuration.Network.Dot1x.Certificate);
+        AuthoringFileReference certificate = Assert.IsType<AuthoringFileReference>(preview.Payload.Configuration.Network.Dot1x.ClientCertificate);
         Assert.Equal(Convert.FromBase64String(Legacy.WiredCertificateBase64), preview.Payload.Files![certificate.ContentHash]);
         Assert.Equal(Legacy.WiredCertificatePassword, preview.Payload.Secrets[SecretIds.Dot1xCertificate(certificate.ContentHash)]);
     }
@@ -205,7 +205,7 @@ public sealed class ConfigurationTransferTests : IDisposable
         var reference = new FoundryConfigurationDocument
         {
             General = new GeneralSettings { IsoOutputPath = "C:\\Reference\\foundry.iso", DeploymentProtection = new DeploymentProtectionSettings { IsEnabled = true } },
-            Network = new NetworkSettings { Dot1x = new Dot1xSettings { IsEnabled = true, RequiresCertificate = true, Certificate = certificate } }
+            Network = new NetworkSettings { Dot1x = new Dot1xSettings { IsEnabled = true, RequiresCertificate = true, ClientCertificate = certificate } }
         };
         var referenceVault = new Dictionary<string, string>
         {
@@ -225,8 +225,8 @@ public sealed class ConfigurationTransferTests : IDisposable
         ImportOutcome outcome = ConfigurationTransfer.Apply(preview!, local, localVault, target, _ => true, _ => true, _ => true);
 
         Assert.Equal("REFERENCE-PC", preview!.Name);
-        Assert.True(target.IsAvailable(outcome.Configuration.Network.Dot1x.Certificate!));
-        Assert.Equal("certificate-bytes"u8.ToArray(), target.ReadVerified(outcome.Configuration.Network.Dot1x.Certificate!));
+        Assert.True(target.IsAvailable(outcome.Configuration.Network.Dot1x.ClientCertificate!));
+        Assert.Equal("certificate-bytes"u8.ToArray(), target.ReadVerified(outcome.Configuration.Network.Dot1x.ClientCertificate!));
         Assert.Equal("E:\\Local\\foundry.iso", outcome.Configuration.General.IsoOutputPath);
         Assert.Equal("pfx-secret", outcome.VaultEntries[SecretIds.Dot1xCertificate(certificate.ContentHash)]);
         Assert.Equal("reference-wifi", outcome.VaultEntries[SecretIds.WifiPassphrase]);

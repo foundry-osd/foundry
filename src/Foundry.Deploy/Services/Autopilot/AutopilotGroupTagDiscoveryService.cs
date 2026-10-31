@@ -5,6 +5,7 @@
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Runtime.InteropServices;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Security;
 
@@ -47,12 +48,14 @@ public sealed class AutopilotGroupTagDiscoveryService(
         char[]? pfxPassword = null;
         try
         {
-            pfxBytes = DeployMediaSecretEnvelopeProtector.DecryptDeployBytes(
+            pfxBytes = MediaSecretEnvelopeProtector.DecryptBytes(
                 settings.CertificatePfxSecret!,
-                deploymentKey);
-            pfxPassword = DeployMediaSecretEnvelopeProtector.DecryptDeployChars(
+                deploymentKey,
+                MediaSecretEnvelopeProtector.DeployKeyIds);
+            pfxPassword = MediaSecretEnvelopeProtector.DecryptChars(
                 settings.CertificatePfxPasswordSecret!,
-                deploymentKey);
+                deploymentKey,
+                MediaSecretEnvelopeProtector.DeployKeyIds);
 
             using X509Certificate2 certificate = AutopilotCertificateCredential.Load(
                 pfxBytes,

@@ -28,15 +28,16 @@ dotnet restore .\src\Foundry.slnx --nologo
 | --- | --- |
 | `Foundry` | WinUI 3 desktop authoring application |
 | `Foundry.Core` | Shared business logic, configuration, validation, media creation, and orchestration |
-| `Foundry.Bootstrap` | .NET console runtime for Windows PE boot orchestration, runtime payload preparation, and startup diagnostics |
+| `Foundry.Bootstrap` | .NET console runtime for Windows PE boot orchestration, runtime payload preparation, the deployment key relay between Foundry Connect and Foundry Deploy, and startup diagnostics |
 | `Foundry.Connect` | WPF network-provisioning runtime included in boot media |
 | `Foundry.Deploy` | WPF deployment runtime included in boot media |
 | `Foundry.PostInstall` | .NET console runtime for built-in and custom post-installation actions, restart/resume, and cleanup before OOBE |
 | `Foundry.Localization` | Shared cultures and resource-based localization |
 | `Foundry.Telemetry` | Shared telemetry contracts, privacy rules, and implementations |
 | `Foundry.Utilities` | Independent reusable technical mechanisms |
+| `Foundry.Wpf` | Shared WPF building blocks for the WPF runtimes: styles, controls, dialogs, motion, theme, and WPF localization services |
 
-Keep WinUI 3 concerns in `Foundry` and WPF concerns in their owning runtime. `Foundry.Core` must not depend on UI projects. `Foundry.Utilities` is a leaf project and must not reference another Foundry project. Runtime-specific workflows stay in the runtime that owns them.
+Keep WinUI 3 concerns in `Foundry`, shared WPF building blocks in `Foundry.Wpf`, and application-specific WPF concerns in the WPF runtime that owns them. `Foundry.Core` must not depend on UI projects. `Foundry.Utilities` is a leaf project and must not reference another Foundry project. Runtime-specific workflows stay in the runtime that owns them.
 
 ## Make a change
 

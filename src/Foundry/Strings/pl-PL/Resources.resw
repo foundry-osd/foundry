@@ -2215,12 +2215,6 @@ Licencjonowany na licencji MIT.</value>
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
     <value>Wspólne konto dołączania</value>
   </data>
-  <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>Plik certyfikatu zaufanego głównego urzędu certyfikacji</value>
-  </data>
-  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>Wybierz certyfikat 802.1X</value>
-  </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Włącz konfigurację Ethernet 802.1X</value>
   </data>
@@ -2246,7 +2240,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Potwierdź hasło</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Wymagaj hasła technika przed wdrożeniem. Osadzone sieciowe dane uwierzytelniające pozostają dostępne bez tego hasła.</value>
+    <value>Wymagaj hasła technika przed wdrożeniem. Ochrona hasłem jest wymagana, gdy nośnik udostępnia wpis tajny sieci, na przykład hasło Wi-Fi lub certyfikat klienta.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Ochrona hasłem</value>
@@ -2255,7 +2249,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Hasło</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Przechowuj to hasło w bezpiecznym miejscu. Chroni ono hasła lokalnych kont systemu Windows, poświadczenia dołączania do domeny, dane uwierzytelniające i profile Autopilot oraz niestandardowe pliki odpowiedzi.</value>
+    <value>Przechowuj to hasło w bezpiecznym miejscu. Chroni ono hasła lokalnych kont systemu Windows, poświadczenia dołączania do domeny, dane uwierzytelniające i profile Autopilot, niestandardowe pliki odpowiedzi oraz wpisy tajne sieci: osobiste hasło Wi-Fi, certyfikat klienta i jego hasło, a także firmowy profil Wi-Fi zawierający materiał klucza.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Hasło wdrożenia</value>
@@ -2710,8 +2704,23 @@ Licencjonowany na licencji MIT.</value>
   <data name="NavigationStatus.NotConfigured" xml:space="preserve">
     <value>Nie skonfigurowano</value>
   </data>
+  <data name="Network.AddTrustedRootCertificate" xml:space="preserve">
+    <value>Dodaj certyfikat</value>
+  </data>
+  <data name="Network.ClientCertificateDescription" xml:space="preserve">
+    <value>Certyfikat z kluczem prywatnym, który uwierzytelnia to urządzenie (EAP-TLS).</value>
+  </data>
+  <data name="Network.ClientCertificateLabel" xml:space="preserve">
+    <value>Certyfikat klienta (PFX)</value>
+  </data>
+  <data name="Network.ClientCertificatePickerTitle" xml:space="preserve">
+    <value>Wybierz certyfikat klienta</value>
+  </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>Zachowanie w przedsiębiorstwie zależy od szablonu profilu w tej kompilacji. Poświadczenia 802.1X wprowadzone podczas wdrażania nie są tutaj udostępniane.</value>
+  </data>
+  <data name="Network.ErrorMediaProtectionRequired" xml:space="preserve">
+    <value>Hasła Wi-Fi i certyfikaty klienta są chronione hasłem wdrożenia. Włącz ochronę hasłem na stronie Ogólne i ustaw hasło wdrożenia.</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
     <value>Nieobsługiwany typ zabezpieczeń Wi-Fi „{0}”.</value>
@@ -2723,10 +2732,10 @@ Licencjonowany na licencji MIT.</value>
     <value>Szablon profilu korporacyjnego Wi-Fi musi zawierać obsługiwaną wartość uwierzytelniania korporacyjnego.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>Nie znaleziono pliku certyfikatu zaufanego głównego urzędu certyfikacji przedsiębiorstwa Wi-Fi.</value>
+    <value>Nie znaleziono pliku certyfikatu dla firmowej sieci Wi-Fi. Wybierz go ponownie.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>Przedsiębiorstwo Wi-Fi wymaga pliku certyfikatu zaufanego głównego urzędu certyfikacji, gdy włączone jest zaufanie certyfikatów.</value>
+    <value>Firmowa sieć Wi-Fi wymaga certyfikatu klienta lub certyfikatu zaufanego głównego urzędu certyfikacji, gdy używane są certyfikaty.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
     <value>Nie znaleziono pliku szablonu profilu korporacyjnego Wi-Fi.</value>
@@ -2744,10 +2753,10 @@ Licencjonowany na licencji MIT.</value>
     <value>Konfiguracja Wi-Fi wymaga SSID.</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>Nie znaleziono pliku certyfikatu zaufanego głównego urzędu certyfikacji 802.1X w sieci przewodowej.</value>
+    <value>Nie znaleziono pliku certyfikatu dla przewodowego 802.1X. Wybierz go ponownie.</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>Wired 802.1X wymaga pliku certyfikatu zaufanego głównego urzędu certyfikacji, gdy włączone jest zaufanie certyfikatów.</value>
+    <value>Przewodowe 802.1X wymaga certyfikatu klienta lub certyfikatu zaufanego głównego urzędu certyfikacji, gdy używane są certyfikaty.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
     <value>Nie znaleziono pliku szablonu profilu przewodowego 802.1X.</value>
@@ -2755,14 +2764,26 @@ Licencjonowany na licencji MIT.</value>
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
     <value>Sieć przewodowa 802.1X wymaga szablonu profilu sieci przewodowej.</value>
   </data>
+  <data name="Network.NoTrustedRootCertificates" xml:space="preserve">
+    <value>Nie dodano certyfikatu zaufanego głównego urzędu certyfikacji.</value>
+  </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
     <value>Plik szablonu profilu</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
     <value>Wybierz szablon profilu sieciowego</value>
   </data>
+  <data name="Network.RemoveCertificate" xml:space="preserve">
+    <value>Usuń</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>Usuń certyfikat klienta</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Usuń wybrany certyfikat zaufanego głównego urzędu certyfikacji</value>
+  </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>Zaimportuj certyfikat zaufanego głównego urzędu certyfikacji</value>
+    <value>Używaj certyfikatów</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Kopiuje skonfigurowane certyfikaty klienta PFX do Windows i importuje je do osobistego magazynu certyfikatów LocalMachine przed OOBE.</value>
@@ -2772,6 +2793,15 @@ Licencjonowany na licencji MIT.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Przenieś profile sieciowe do Windows</value>
+  </data>
+  <data name="Network.TrustedRootCertificatePickerTitle" xml:space="preserve">
+    <value>Wybierz certyfikat zaufanego głównego urzędu certyfikacji</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesDescription" xml:space="preserve">
+    <value>Certyfikaty publiczne urzędów, które wystawiły certyfikat serwera uwierzytelniania.</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesLabel" xml:space="preserve">
+    <value>Certyfikaty zaufanych głównych urzędów certyfikacji</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>Zaawansowane przedsiębiorstwo Wi-Fi</value>
@@ -2783,7 +2813,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Foundry zapamiętuje hasło na tym komputerze w swoim lokalnym zaszyfrowanym magazynie. Opuszcza ono ten komputer tylko w eksporcie lub publikacji, gdy wybrano opcję „Uwzględnij hasła”.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>Importuje profil Wi-Fi zarządzany przez Foundry do Windows przed OOBE, aby zachować łączność wdrożeniową po WinPE.</value>
+    <value>Gdy ta opcja jest włączona, każda sieć Wi-Fi, z którą pomyślnie nawiązano połączenie w Foundry Connect, aprowizowana lub połączona ręcznie, jest importowana do Windows przed OOBE, począwszy od tej, która zapewniła dostęp do Internetu, aby zachować łączność po WinPE.</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Roaming profili Windows</value>
@@ -5072,12 +5102,6 @@ Zastosowanie aktualizacji uruchomi Foundry OSD ponownie.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Aktualizacja</value>
-  </data>
-  <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>Plik certyfikatu zaufanego głównego urzędu certyfikacji</value>
-  </data>
-  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>Wybierz certyfikat Wi-Fi</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Wstępnie udostępnij profil Wi-Fi</value>

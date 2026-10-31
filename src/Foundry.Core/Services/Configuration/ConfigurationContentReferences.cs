@@ -35,8 +35,8 @@ public static class ConfigurationContentReferences
     }
 
     /// <summary>
-    /// Gets the content hashes of every authoring file reference: the 802.1X and Wi-Fi profile templates and certificates, the
-    /// Autopilot boot media certificate and every answer file.
+    /// Gets the content hashes of every authoring file reference: the 802.1X and Wi-Fi profile templates, client certificates and
+    /// trusted roots, the Autopilot boot media certificate and every answer file.
     /// </summary>
     public static IReadOnlySet<string> AuthoringFileHashes(FoundryConfigurationDocument configuration) =>
         ToSet(AuthoringFiles(configuration).Select(reference => reference.ContentHash));
@@ -70,8 +70,18 @@ public static class ConfigurationContentReferences
         {
             Network = network with
             {
-                Dot1x = network.Dot1x with { ProfileTemplate = Map(network.Dot1x.ProfileTemplate), Certificate = Map(network.Dot1x.Certificate) },
-                Wifi = network.Wifi with { EnterpriseProfileTemplate = Map(network.Wifi.EnterpriseProfileTemplate), Certificate = Map(network.Wifi.Certificate) }
+                Dot1x = network.Dot1x with
+                {
+                    ProfileTemplate = Map(network.Dot1x.ProfileTemplate),
+                    ClientCertificate = Map(network.Dot1x.ClientCertificate),
+                    TrustedRootCertificates = MapAll(network.Dot1x.TrustedRootCertificates)
+                },
+                Wifi = network.Wifi with
+                {
+                    EnterpriseProfileTemplate = Map(network.Wifi.EnterpriseProfileTemplate),
+                    ClientCertificate = Map(network.Wifi.ClientCertificate),
+                    TrustedRootCertificates = MapAll(network.Wifi.TrustedRootCertificates)
+                }
             },
             Autopilot = configuration.Autopilot with
             {
@@ -88,6 +98,9 @@ public static class ConfigurationContentReferences
 
         AuthoringFileReference? Map(AuthoringFileReference? reference) =>
             string.IsNullOrWhiteSpace(reference?.ContentHash) ? reference : map(reference);
+
+        AuthoringFileReference[] MapAll(IReadOnlyList<AuthoringFileReference> references) =>
+            references.Select(reference => Map(reference)!).ToArray();
     }
 
     private static HashSet<string> ToSet(IEnumerable<string?> hashes) =>

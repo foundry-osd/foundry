@@ -34,6 +34,12 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Atsijungti</value>
   </data>
+  <data name="Action.Retry" xml:space="preserve">
+    <value>Bandyti dar kartą</value>
+  </data>
+  <data name="Action.StayHere" xml:space="preserve">
+    <value>Likti čia</value>
+  </data>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
@@ -58,23 +64,8 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Common.Close" xml:space="preserve">
     <value>Uždaryti</value>
   </data>
-  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
-    <value>Konfigūracija: integruoti numatytieji nustatymai</value>
-  </data>
-  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
-    <value>Konfigūracija: {0}</value>
-  </data>
   <data name="Common.Connected" xml:space="preserve">
     <value>Prisijungta</value>
-  </data>
-  <data name="Common.LastUpdateFormat" xml:space="preserve">
-    <value>Paskutinį kartą atnaujinta: {0:HH:mm:ss}</value>
-  </data>
-  <data name="Common.LastUpdatePending" xml:space="preserve">
-    <value>Paskutinį kartą atnaujinta: laukiama</value>
-  </data>
-  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
-    <value>Atnaujinama kas {0} sekundes</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nepasiekiamas</value>
@@ -82,14 +73,65 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Versija: {0}</value>
   </data>
-  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
-    <value>Rodyti tik Ethernet</value>
+  <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
+    <value>Ethernet: automatiškai priskirtas adresas</value>
   </data>
-  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
-    <value>Rodyti Ethernet + Wi-Fi</value>
+  <data name="Debug.Scenario.CaptivePortal" xml:space="preserve">
+    <value>Ethernet: prisijungimo puslapis</value>
   </data>
-  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
-    <value>Naudokite aptiktą išdėstymą</value>
+  <data name="Debug.Scenario.Checking" xml:space="preserve">
+    <value>Tikrinamas tinklas</value>
+  </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet: vyksta 802.1X autentifikacija</value>
+  </data>
+  <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
+    <value>Ethernet: 802.1X nepavyko</value>
+  </data>
+  <data name="Debug.Scenario.EthernetNoInternet" xml:space="preserve">
+    <value>Ethernet: nėra interneto</value>
+  </data>
+  <data name="Debug.Scenario.EthernetReady" xml:space="preserve">
+    <value>Ethernet: parengta</value>
+  </data>
+  <data name="Debug.Scenario.Live" xml:space="preserve">
+    <value>Tikras tinklas</value>
+  </data>
+  <data name="Debug.Scenario.NoAdapter" xml:space="preserve">
+    <value>Nėra tinklo adapterio</value>
+  </data>
+  <data name="Debug.Scenario.NoLink" xml:space="preserve">
+    <value>Ethernet: nėra kabelio</value>
+  </data>
+  <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
+    <value>Nėra Wi-Fi adapterio</value>
+  </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>Suteiktas Wi-Fi tinklas: reikalingas slaptažodis</value>
+  </data>
+  <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
+    <value>Suteiktas Wi-Fi tinklas nepasiekiamas</value>
+  </data>
+  <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
+    <value>Ethernet: laukiama adreso</value>
+  </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>Suteiktas Wi-Fi tinklas: jungiamasi</value>
+  </data>
+  <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
+    <value>Wi-Fi tinklai</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>Nėra Ethernet adapterio, Wi-Fi tinklai</value>
+  </data>
+  <data name="Debug.Scenario.WifiReady" xml:space="preserve">
+    <value>Wi-Fi: parengta</value>
+  </data>
+  <data name="Debug.Scenario.WifiRuntimeMissing" xml:space="preserve">
+    <value>Trūksta Wi-Fi palaikymo</value>
+  </data>
+  <data name="Debug.Scenarios" xml:space="preserve">
+    <value>Scenarijai</value>
   </data>
   <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
     <value>Pasirinkite, kur eksportuoti Foundry diagnostiką</value>
@@ -125,14 +167,50 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Ethernet.AdapterLabel" xml:space="preserve">
     <value>Adapteris</value>
   </data>
-  <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>Patikrinkite kabelio jungtį</value>
+  <data name="Ethernet.ApipaAddress" xml:space="preserve">
+    <value>Automatiškai priskirtas adresas</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>Aptikta DHCP nuoma</value>
   </data>
+  <data name="Ethernet.Dot1xAuthenticated" xml:space="preserve">
+    <value>Autentifikuota</value>
+  </data>
+  <data name="Ethernet.Dot1xAuthenticating" xml:space="preserve">
+    <value>Autentifikuojama</value>
+  </data>
+  <data name="Ethernet.Dot1xFailed" xml:space="preserve">
+    <value>Autentifikacija nepavyko</value>
+  </data>
+  <data name="Ethernet.Dot1xLabel" xml:space="preserve">
+    <value>802.1X</value>
+  </data>
+  <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
+    <value>Profilis pritaikytas</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
+    <value>Tinklas atmetė autentifikaciją. Patikrinkite sertifikatą ir komutatoriaus prievado parametrus.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileImportFailed" xml:space="preserve">
+    <value>Windows atmetė 802.1X profilį iš įkrovos laikmenos.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileTemplateMissing" xml:space="preserve">
+    <value>Įkrovos laikmenoje trūksta 802.1X profilio. Iš naujo sukurkite įkrovos laikmeną.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
+    <value>Nepavyksta nuskaityti 802.1X sertifikato slaptažodžio. Iš naujo sukurkite įkrovos laikmeną.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>Diegimo slaptažodis neįvestas, todėl 802.1X parametrai nepritaikyti.</value>
+  </data>
+  <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
+    <value>Nepasiekiama</value>
+  </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Šliuzas</value>
+  </data>
+  <data name="Ethernet.IpAssignmentLabel" xml:space="preserve">
+    <value>IP priskyrimas</value>
   </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
@@ -140,20 +218,17 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
     <value>Nėra aktyvaus ryšio</value>
   </data>
-  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>Neaptiktas Ethernet adapteris.</value>
-  </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>Aptikta statinė tinklo konfigūracija</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>Ethernet šiame įrenginyje nepasiekiamas.</value>
+  </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Laukiama tinklo konfigūracijos</value>
-  </data>
-  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>Laukiama DHCP arba statinės tinklo konfigūracijos</value>
   </data>
   <data name="Keyboard.OtherLanguages" xml:space="preserve">
     <value>Kitos kalbos</value>
@@ -273,43 +348,106 @@ Licencijuota pagal MIT licenciją.</value>
     <value>Ukrainiečių (Ukraina)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>Apie</value>
+    <value>_Apie</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>Derinimas</value>
+    <value>_Derinimas</value>
   </data>
   <data name="Menu.Keyboard" xml:space="preserve">
-    <value>Klaviatūra</value>
+    <value>K_laviatūra</value>
   </data>
   <data name="Menu.KeyboardFormat" xml:space="preserve">
-    <value>Klaviatūra ({0})</value>
+    <value>K_laviatūra ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
-    <value>Kalba</value>
+    <value>_Kalba</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>Tema</value>
+    <value>_Tema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
-    <value>Įrankiai</value>
+    <value>_Įrankiai</value>
+  </data>
+  <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
+    <value>Taikomi tinklo parametrai iš įkrovos laikmenos.</value>
+  </data>
+  <data name="Status.AutoContinueCancelled" xml:space="preserve">
+    <value>Automatinis tęsimas išjungtas. Kai būsite pasiruošę, pasirinkite Tęsti.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Tęsiama automatiškai {0}s</value>
   </data>
-  <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>Interneto prieiga patvirtinta. Dabar galite tęsti.</value>
+  <data name="Status.AutoContinuePaused" xml:space="preserve">
+    <value>Automatinis tęsimas pristabdytas, nes pakeitėte tinklo parametrus.</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
+    <value>Tinklas vietoj interneto prieigos pateikė prisijungimo puslapį. Prisijunkite iš kito įrenginio, jei tinklas tai leidžia, arba naudokite kitą tinklą, tada pasirinkite Bandyti dar kartą.</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>Tinklas vietoj interneto prieigos pateikė prisijungimo puslapį. Prisijunkite iš kito įrenginio, jei tinklas tai leidžia, tada pasirinkite Bandyti dar kartą.</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Reikia prisijungti</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>Priežastis rodoma Ethernet skyriuje.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>Laidinė 802.1X autentifikacija nepavyko</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>Prisijunkite prie Wi-Fi tinklo.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
+    <value>Patikrinkite Ethernet ir Wi-Fi skyrius, tada pasirinkite Bandyti dar kartą.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Nėra tinklo adapterio</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>Prijunkite Ethernet kabelį.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Nėra Ethernet kabelio</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>Patikrinkite Ethernet skyrių, tada pasirinkite Bandyti dar kartą.</value>
+  </data>
+  <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
+    <value>Tinklas prijungtas, bet negali pasiekti interneto. Patikrinkite užkardą arba tarpinį serverį, tada pasirinkite Bandyti dar kartą.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
+    <value>Patikrinkite šio tinklo DHCP, tada pasirinkite Bandyti dar kartą.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>Nėra IP adreso</value>
+  </data>
+  <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
+    <value>Prijunkite Ethernet kabelį arba prisijunkite prie Wi-Fi tinklo.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Nėra tinklo ryšio</value>
+  </data>
+  <data name="Status.BlockedTitle" xml:space="preserve">
+    <value>Nėra interneto prieigos</value>
+  </data>
+  <data name="Status.CheckingTitle" xml:space="preserve">
+    <value>Tikrinamas tinklas</value>
+  </data>
+  <data name="Status.ConnectingDescription" xml:space="preserve">
+    <value>Vykdomas tinklo veiksmas. Tai gali užtrukti iki 20 sekundžių.</value>
+  </data>
+  <data name="Status.ConnectingTitle" xml:space="preserve">
+    <value>Jungiamasi</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>Atsijungiama</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>Vyksta laidinė 802.1X autentifikacija.</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Tinklas paruoštas</value>
-  </data>
-  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
-    <value>Nepavyko atnaujinti tinklo</value>
-  </data>
-  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
-    <value>Prieiga prie interneto dar nepatvirtinta.</value>
-  </data>
-  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
-    <value>Laukiama tinklo</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>Tamsus</value>
@@ -326,14 +464,44 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Atnaujinti būseną</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>Tęsti</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>Norėdami tęsti, įveskite diegimo slaptažodį.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>Reikalingas slaptažodis</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>Slaptažodis neteisingas. Bandykite dar kartą.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>Diegimo slaptažodis</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>Apsaugoti tinklo parametrai</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>Rodyti arba slėpti slaptažodį</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>Nepavyko pritaikyti pateiktų tinklo nustatymų.</value>
   </data>
   <data name="Wifi.ActionConnectFailed" xml:space="preserve">
     <value>Nepavyko prisijungti. Patikrinkite slaptažodį arba tinklo nustatymus ir bandykite dar kartą.</value>
   </data>
+  <data name="Wifi.ActionConnectTimedOut" xml:space="preserve">
+    <value>Baigėsi prisijungimo bandymo laikas. Priartėkite prie prieigos taško ir bandykite dar kartą.</value>
+  </data>
   <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
     <value>Nepavyko atsijungti. Bandykite dar kartą.</value>
+  </data>
+  <data name="Wifi.ActionInvalidPassphrase" xml:space="preserve">
+    <value>Slaptažodis neatitinka šio tinklo reikalavimų.</value>
+  </data>
+  <data name="Wifi.ActionNetworkNotVisible" xml:space="preserve">
+    <value>Šis tinklas nebematomas. Atnaujinkite sąrašą ir bandykite dar kartą.</value>
   </data>
   <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
     <value>Nepavyko prisijungti prie numatyto Wi-Fi profilio. Bandykite dar kartą.</value>
@@ -350,14 +518,14 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
     <value>Nepavyko atlikti Wi-Fi veiksmo. Bandykite dar kartą.</value>
   </data>
-  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>Autentifikavimas</value>
-  </data>
-  <data name="Wifi.BootImageSettings" xml:space="preserve">
-    <value>Įkrovos atvaizdo nustatymai</value>
-  </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Sukonfigūruota apsauga</value>
+  </data>
+  <data name="Wifi.ConnectProvisionedAutomationName" xml:space="preserve">
+    <value>Prijungti suteiktą Wi-Fi tinklą</value>
+  </data>
+  <data name="Wifi.ConnectSelectedAutomationFormat" xml:space="preserve">
+    <value>Prisijungti prie {0}</value>
   </data>
   <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
     <value>Ethernet</value>
@@ -368,26 +536,29 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
     <value>Suteikta Wi-Fi · {0}</value>
   </data>
-  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
-    <value>Įmonės profilis</value>
+  <data name="Wifi.DisconnectProvisionedAutomationName" xml:space="preserve">
+    <value>Atjungti suteiktą Wi-Fi tinklą</value>
   </data>
-  <data name="Wifi.HiddenNetwork" xml:space="preserve">
-    <value>Paslėptas tinklas</value>
+  <data name="Wifi.DisconnectSelectedAutomationFormat" xml:space="preserve">
+    <value>Atsijungti nuo {0}</value>
   </data>
-  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>Nėra Wi-Fi adapterio.</value>
+  <data name="Wifi.NetworkAutomationFormat" xml:space="preserve">
+    <value>{0}, {1}, signalas {2} procentų</value>
   </data>
-  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>Šiuo metu neaptiktas Wi-Fi adapteris.</value>
+  <data name="Wifi.NetworkConnectedAutomationFormat" xml:space="preserve">
+    <value>{0}, {1}, signalas {2} procentų, prisijungta</value>
+  </data>
+  <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
+    <value>Matomi Wi-Fi tinklai</value>
   </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>Šiuo metu nėra matomų Wi-Fi tinklų.</value>
   </data>
-  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
-    <value>Šiame įkrovos paveikslėlyje nėra numatyto Wi-Fi profilio.</value>
+  <data name="Wifi.PassphraseLabel" xml:space="preserve">
+    <value>Wi-Fi slaptažodis</value>
   </data>
-  <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>Profilis</value>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>Suteiktas Wi-Fi tinklas apsaugotas diegimo slaptažodžiu. Norėdami jį įvesti, pasirinkite Prisijunkite.</value>
   </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>Šiam tinklui reikalingas Wi-Fi profilis.</value>
@@ -395,23 +566,32 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
     <value>Suteikta Wi-Fi</value>
   </data>
+  <data name="Wifi.ProvisionedUnavailableConfiguration" xml:space="preserve">
+    <value>Suteikto Wi-Fi tinklo parametrai negalioja. Iš naujo sukurkite įkrovos laikmeną.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailablePassphrase" xml:space="preserve">
+    <value>Suteikto Wi-Fi tinklo slaptažodis neatitinka tinklo reikalavimų. Iš naujo sukurkite įkrovos laikmeną.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
+    <value>Nepavyksta nuskaityti suteikto Wi-Fi tinklo slaptažodžio iš šios įkrovos laikmenos. Iš naujo sukurkite įkrovos laikmeną.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
+    <value>Įkrovos laikmenoje trūksta įmonės Wi-Fi profilio. Iš naujo sukurkite įkrovos laikmeną.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>Diegimo slaptažodis neįvestas. Norėdami jį įvesti, pasirinkite Prisijunkite.</value>
+  </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Atnaujinkite Wi-Fi tinklus</value>
   </data>
   <data name="Wifi.SecurityEnterprise" xml:space="preserve">
     <value>Įmonė</value>
   </data>
-  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
-    <value>{0} (mašina)</value>
-  </data>
-  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
-    <value>{0} (mašina arba naudotojas)</value>
-  </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
     <value>Atviras</value>
   </data>
-  <data name="Wifi.SecurityPersonal" xml:space="preserve">
-    <value>Asmeninis</value>
+  <data name="Wifi.SecurityOwe" xml:space="preserve">
+    <value>Atviras (patobulintas)</value>
   </data>
   <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
     <value>Priklausomai nuo pardavėjo</value>
@@ -425,17 +605,11 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
     <value>WPA2 asmeninis</value>
   </data>
-  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
-    <value>WPA2 / WPA3 įmonė</value>
-  </data>
   <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
     <value>WPA2/WPA3 Personal</value>
   </data>
   <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
     <value>WPA3 įmonė</value>
-  </data>
-  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
-    <value>WPA3 Enterprise 192 bitų</value>
   </data>
   <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
     <value>WPA3 asmeninis</value>
@@ -443,26 +617,20 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
     <value>WPA Įmonė</value>
   </data>
-  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
-    <value>WPA Nėra</value>
-  </data>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Asmeninis</value>
-  </data>
-  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
-    <value>{0} · Sertifikatas įtrauktas į įkrovos vaizdą</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Kitas Wi-Fi tinklas yra aktyvus</value>
   </data>
-  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
-    <value>Nėra Wi-Fi adapterio</value>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>Reikalingas slaptažodis</value>
+  </data>
+  <data name="Wifi.StatusNotInRange" xml:space="preserve">
+    <value>Ne ryšio zonoje</value>
   </data>
   <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
     <value>Paruošta prisijungti</value>
-  </data>
-  <data name="Wifi.StatusUnavailable" xml:space="preserve">
-    <value>Wi-Fi nepasiekiamas</value>
   </data>
   <data name="Wifi.Title" xml:space="preserve">
     <value>Wi-Fi</value>
@@ -470,8 +638,8 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
     <value>Rodyti arba slėpti Wi-Fi slaptažodį</value>
   </data>
-  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>Wi-Fi palaikymas negalimas šioje įkrovos aplinkoje.</value>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>Wi-Fi šiame įrenginyje nepasiekiamas.</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>Neįvardytas sudarytas profilis</value>

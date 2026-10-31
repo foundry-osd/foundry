@@ -5,7 +5,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using Foundry.Deploy.Motion;
+using Foundry.Wpf.Motion;
 using Foundry.Deploy.ViewModels;
 
 namespace Foundry.Deploy.Views;

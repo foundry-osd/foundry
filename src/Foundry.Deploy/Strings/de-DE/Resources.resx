@@ -312,7 +312,7 @@ Aktion: Überprüfen Sie die Datenträgerattribute, und wiederholen Sie die Bere
     <value>Fortfahren</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>Geben Sie das Technikerkennwort ein, um fortzufahren.</value>
+    <value>Geben Sie das Bereitstellungskennwort ein, um fortzufahren.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>Kennwort erforderlich</value>

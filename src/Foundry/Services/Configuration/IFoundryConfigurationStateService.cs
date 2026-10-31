@@ -210,6 +210,9 @@ public interface IFoundryConfigurationStateService
     /// <summary>Gets domain metadata and automatic credential/protection readiness for the active mode.</summary>
     bool IsDomainJoinConfigurationReady { get; }
 
+    /// <summary>Gets whether Password protection is on and its session password is valid, which network secrets require.</summary>
+    bool IsMediaProtected { get; }
+
     /// <summary>Persists the network cache settings and erases the passwords of accounts they no longer have.</summary>
     void UpdateNetworkCache(NetworkCacheSettings settings);
 

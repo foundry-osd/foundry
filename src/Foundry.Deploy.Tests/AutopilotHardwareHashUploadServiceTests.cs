@@ -7,11 +7,13 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Json;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Security;
 using Foundry.Deploy.Services.Deployment;
 using Microsoft.Extensions.Logging.Abstractions;
+using SecretEnvelope = Foundry.Core.Models.Configuration.SecretEnvelope;
 
 namespace Foundry.Deploy.Tests;
 
@@ -75,7 +77,7 @@ public sealed class AutopilotHardwareHashUploadServiceTests
         string root = Path.Combine(Path.GetTempPath(), $"foundry-upload-service-{Guid.NewGuid():N}");
         string diagnosticsRoot = Path.Combine(root, "Diagnostics");
         Directory.CreateDirectory(root);
-        byte[] mediaKey = RandomNumberGenerator.GetBytes(DeployMediaSecretEnvelopeProtector.KeySizeBytes);
+        byte[] mediaKey = RandomNumberGenerator.GetBytes(MediaSecretEnvelopeProtector.KeySizeBytes);
         using X509Certificate2 certificate = CreateCertificate();
         const string pfxPassword = "correct-password";
         byte[] pfxBytes = certificate.Export(X509ContentType.Pfx, pfxPassword);
@@ -132,7 +134,7 @@ public sealed class AutopilotHardwareHashUploadServiceTests
     {
         string root = Path.Combine(Path.GetTempPath(), $"foundry-upload-service-{Guid.NewGuid():N}");
         Directory.CreateDirectory(root);
-        byte[] mediaKey = RandomNumberGenerator.GetBytes(DeployMediaSecretEnvelopeProtector.KeySizeBytes);
+        byte[] mediaKey = RandomNumberGenerator.GetBytes(MediaSecretEnvelopeProtector.KeySizeBytes);
         using X509Certificate2 certificate = CreateCertificate();
         const string password = "test-password";
         byte[] pfxBytes = certificate.Export(X509ContentType.Pfx, password);
@@ -223,9 +225,9 @@ public sealed class AutopilotHardwareHashUploadServiceTests
 
         return new SecretEnvelope
         {
-            Kind = DeployMediaSecretEnvelopeProtector.Kind,
-            Algorithm = DeployMediaSecretEnvelopeProtector.Algorithm,
-            KeyId = DeployMediaSecretEnvelopeProtector.DeploymentKeyId,
+            Kind = MediaSecretEnvelopeProtector.Kind,
+            Algorithm = MediaSecretEnvelopeProtector.Algorithm,
+            KeyId = MediaSecretEnvelopeProtector.DeploymentKeyId,
             Nonce = Base64UrlEncode(nonce),
             Tag = Base64UrlEncode(tag),
             Ciphertext = Base64UrlEncode(ciphertext)
@@ -244,7 +246,7 @@ public sealed class AutopilotHardwareHashUploadServiceTests
     {
         public Task<byte[]> ReadAsync(string workspaceRootPath, CancellationToken cancellationToken = default)
         {
-            return Task.FromResult((key ?? new byte[DeployMediaSecretEnvelopeProtector.KeySizeBytes]).ToArray());
+            return Task.FromResult((key ?? new byte[MediaSecretEnvelopeProtector.KeySizeBytes]).ToArray());
         }
     }
 

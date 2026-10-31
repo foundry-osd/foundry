@@ -11,6 +11,7 @@ using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Files;
 using Foundry.Core.Services.Media;
+using Foundry.Core.Services.WinPe;
 using Foundry.Core.Tests.TestUtilities;
 
 namespace Foundry.Core.Tests.Media;
@@ -137,7 +138,8 @@ public sealed class BuildSnapshotTests : IDisposable
         using var secrets = new OobeAccountSecretState();
         using BuildSnapshot snapshot = await BuildSnapshot.CaptureAsync(
             new(), secrets, [], root, "26.10.3.1", TestContext.Current.CancellationToken);
-        FoundryConnectProvisioningBundle connect = snapshot.CreateConnectProvisioningBundle(Path.Combine(root, "connect"));
+        using DeploymentMediaProtectionMaterial protection = snapshot.CreateDeploymentProtectionMaterial();
+        FoundryConnectProvisioningBundle connect = snapshot.CreateConnectProvisioningBundle(Path.Combine(root, "connect"), protection);
         using JsonDocument connectJson = JsonDocument.Parse(connect.ConfigurationJson);
         using JsonDocument deployJson = JsonDocument.Parse(snapshot.GenerateDeployConfigurationJson());
         using JsonDocument authoringJson = JsonDocument.Parse(new FoundryConfigurationService().Serialize(snapshot.Configuration));
@@ -183,19 +185,14 @@ public sealed class BuildSnapshotTests : IDisposable
         Array.Clear(mediaPassword);
         using BuildSnapshot snapshot = await capture;
         using var protection = snapshot.CreateDeploymentProtectionMaterial();
-        FoundryConnectProvisioningBundle connect = snapshot.CreateConnectProvisioningBundle(Path.Combine(root, "connect"));
-        try
-        {
-            Assert.Equal("OriginalWifiPassword", MediaSecretEnvelopeProtector.DecryptString(connect.Configuration.Wifi.PassphraseSecret!, connect.MediaSecretsKey!));
-            string json = snapshot.GenerateDeployConfigurationJson(deploymentSecretsKey: protection.DeploymentKey, protectionSettings: protection.Settings);
-            FoundryDeployConfigurationDocument deploy = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
-            Assert.Equal("AdminPassword123!", MediaSecretEnvelopeProtector.DecryptString(deploy.Customization.Oobe.AdministratorPasswordSecret!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
-            Assert.DoesNotContain("OriginalWifiPassword", new FoundryConfigurationService().Serialize(snapshot.Configuration), StringComparison.Ordinal);
-        }
-        finally
-        {
-            CryptographicOperations.ZeroMemory(connect.MediaSecretsKey!);
-        }
+        FoundryConnectProvisioningBundle connect = snapshot.CreateConnectProvisioningBundle(Path.Combine(root, "connect"), protection);
+
+        Assert.Equal("OriginalWifiPassword", MediaSecretEnvelopeProtector.DecryptString(
+            connect.Configuration.Wifi.PassphraseSecret!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
+        string json = snapshot.GenerateDeployConfigurationJson(deploymentSecretsKey: protection.DeploymentKey, protectionSettings: protection.Settings);
+        FoundryDeployConfigurationDocument deploy = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
+        Assert.Equal("AdminPassword123!", MediaSecretEnvelopeProtector.DecryptString(deploy.Customization.Oobe.AdministratorPasswordSecret!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
+        Assert.DoesNotContain("OriginalWifiPassword", new FoundryConfigurationService().Serialize(snapshot.Configuration), StringComparison.Ordinal);
     }
 
     [Fact]
@@ -461,9 +458,9 @@ public sealed class BuildSnapshotTests : IDisposable
         {
             Network = new()
             {
-                Dot1x = new() { IsEnabled = true, ProfileTemplate = Reference(CreateSource("wired.xml", length)), Certificate = Reference(CreateSource("wired.pfx", length, fill: 2)), RequiresCertificate = true },
+                Dot1x = new() { IsEnabled = true, ProfileTemplate = Reference(CreateSource("wired.xml", length)), ClientCertificate = Reference(CreateSource("wired.pfx", length, fill: 2)), RequiresCertificate = true },
                 WifiProvisioned = true,
-                Wifi = new() { IsEnabled = true, Certificate = Reference(CreateSource("wifi.pfx", length, fill: 3)), RequiresCertificate = true }
+                Wifi = new() { IsEnabled = true, ClientCertificate = Reference(CreateSource("wifi.pfx", length, fill: 3)), RequiresCertificate = true }
             }
         };
 
@@ -480,15 +477,77 @@ public sealed class BuildSnapshotTests : IDisposable
         using var secrets = new OobeAccountSecretState();
         var selected = new FoundryConfigurationDocument
         {
-            Network = new() { Dot1x = new() { IsEnabled = true, ProfileTemplate = Reference(template), Certificate = Reference(certificate), RequiresCertificate = false } }
+            Network = new() { Dot1x = new() { IsEnabled = true, ProfileTemplate = Reference(template), ClientCertificate = Reference(certificate), RequiresCertificate = false } }
         };
 
         using (BuildSnapshot snapshot = await Capture(selected, secrets))
-            Assert.Equal(File.ReadAllBytes(certificate), File.ReadAllBytes(snapshot.ResolveCapturedFile(selected.Network.Dot1x.Certificate!)!));
+            Assert.Equal(File.ReadAllBytes(certificate), File.ReadAllBytes(snapshot.ResolveCapturedFile(selected.Network.Dot1x.ClientCertificate!)!));
 
-        FoundryConfigurationDocument unselected = selected with { Network = selected.Network with { Dot1x = selected.Network.Dot1x with { Certificate = null } } };
+        FoundryConfigurationDocument unselected = selected with { Network = selected.Network with { Dot1x = selected.Network.Dot1x with { ClientCertificate = null } } };
         using BuildSnapshot withoutCertificate = await Capture(unselected, secrets);
-        Assert.Null(withoutCertificate.ResolveCapturedFile(selected.Network.Dot1x.Certificate!));
+        Assert.Null(withoutCertificate.ResolveCapturedFile(selected.Network.Dot1x.ClientCertificate!));
+    }
+
+    [Fact]
+    public async Task CaptureAsync_CopiesTheClientCertificateAndEveryTrustedRoot()
+    {
+        AuthoringFileReference client = Reference(CreateSource("wired.pfx", 3, fill: 2));
+        AuthoringFileReference firstRoot = Reference(CreateSource("first.cer", 3, fill: 3));
+        AuthoringFileReference secondRoot = Reference(CreateSource("second.cer", 3, fill: 4));
+        using var secrets = new OobeAccountSecretState();
+        var document = new FoundryConfigurationDocument
+        {
+            Network = new()
+            {
+                Dot1x = new()
+                {
+                    IsEnabled = true,
+                    ProfileTemplate = Reference(CreateSource("wired.xml", 3)),
+                    RequiresCertificate = true,
+                    ClientCertificate = client,
+                    TrustedRootCertificates = [firstRoot, secondRoot]
+                }
+            }
+        };
+
+        using BuildSnapshot snapshot = await Capture(document, secrets);
+
+        Assert.All([client, firstRoot, secondRoot], reference =>
+            Assert.Equal(File.ReadAllBytes(library.GetAvailablePath(reference)!), File.ReadAllBytes(snapshot.ResolveCapturedFile(reference)!)));
+        Assert.Equal([firstRoot, secondRoot], snapshot.Configuration.Network.Dot1x.TrustedRootCertificates);
+    }
+
+    [Fact]
+    public async Task CaptureAsync_DisabledFeatures_DropTheirCertificates()
+    {
+        // The stale references point to no file: a disabled feature must neither require nor keep them.
+        using var secrets = new OobeAccountSecretState();
+        var document = new FoundryConfigurationDocument
+        {
+            Network = new()
+            {
+                WifiProvisioned = true,
+                Dot1x = new()
+                {
+                    IsEnabled = false,
+                    ClientCertificate = TestFileReferences.Detached("stale.pfx"),
+                    TrustedRootCertificates = [TestFileReferences.Detached("stale-wired.cer")]
+                },
+                Wifi = new()
+                {
+                    IsEnabled = false,
+                    ClientCertificate = TestFileReferences.Detached("stale-wifi.pfx"),
+                    TrustedRootCertificates = [TestFileReferences.Detached("stale-wifi.cer")]
+                }
+            }
+        };
+
+        using BuildSnapshot snapshot = await Capture(document, secrets);
+
+        Assert.Null(snapshot.Configuration.Network.Dot1x.ClientCertificate);
+        Assert.Empty(snapshot.Configuration.Network.Dot1x.TrustedRootCertificates);
+        Assert.Null(snapshot.Configuration.Network.Wifi.ClientCertificate);
+        Assert.Empty(snapshot.Configuration.Network.Wifi.TrustedRootCertificates);
     }
 
     [Theory]
@@ -524,15 +583,19 @@ public sealed class BuildSnapshotTests : IDisposable
     [InlineData("certificate", ".bin")]
     public async Task CaptureAsync_NamesPrivateCopiesWithGeneratedNamesAndWhitelistedExtensions(string sourceName, string expectedExtension)
     {
-        string certificate = CreateSource(sourceName, 3);
+        AuthoringFileReference certificate = Reference(CreateSource(sourceName, 3));
         using var secrets = new OobeAccountSecretState();
         var document = new FoundryConfigurationDocument
         {
-            Network = new() { Dot1x = new() { IsEnabled = true, ProfileTemplate = Reference(CreateSource("wired.xml", 3, fill: 2)), Certificate = Reference(certificate), RequiresCertificate = true } }
+            Network = new()
+            {
+                Dot1x = NetworkCertificateShapes.WithCertificate(
+                    new Dot1xSettings { IsEnabled = true, ProfileTemplate = Reference(CreateSource("wired.xml", 3, fill: 2)), RequiresCertificate = true }, certificate)
+            }
         };
 
         using BuildSnapshot snapshot = await Capture(document, secrets);
-        string captured = snapshot.ResolveCapturedFile(document.Network.Dot1x.Certificate!)!;
+        string captured = snapshot.ResolveCapturedFile(certificate)!;
         Assert.Equal(expectedExtension, Path.GetExtension(captured));
         Assert.True(Guid.TryParseExact(Path.GetFileNameWithoutExtension(captured), "N", out _));
         Assert.NotEqual(SourcesDirectory, Path.GetDirectoryName(captured));
@@ -548,23 +611,25 @@ public sealed class BuildSnapshotTests : IDisposable
         using var secrets = new OobeAccountSecretState();
         var document = new FoundryConfigurationDocument
         {
-            Network = new() { Dot1x = new() { IsEnabled = true, ProfileTemplate = template, RequiresCertificate = true, Certificate = certificate } }
+            General = new() { DeploymentProtection = new() { IsEnabled = true } },
+            Network = new() { Dot1x = new() { IsEnabled = true, ProfileTemplate = template, RequiresCertificate = true, ClientCertificate = certificate } }
         };
 
         using BuildSnapshot snapshot = await BuildSnapshot.CaptureAsync(
             document, Sources(new NetworkSecrets { WiredCertificatePfxPassword = "pfx-password" }),
-            secrets, null, [], Path.Combine(root, "snapshots"), null, TestContext.Current.CancellationToken);
+            secrets, null, "MediaPassword123!", Path.Combine(root, "snapshots"), null, TestContext.Current.CancellationToken);
         string capturedTemplate = snapshot.ResolveCapturedFile(template)!;
         string capturedCertificate = snapshot.ResolveCapturedFile(certificate)!;
         File.WriteAllBytes(library.GetAvailablePath(template)!, "<changed! />"u8.ToArray());
-        FoundryConnectProvisioningBundle connect = snapshot.CreateConnectProvisioningBundle(Path.Combine(root, "connect"));
+        using DeploymentMediaProtectionMaterial protection = snapshot.CreateDeploymentProtectionMaterial();
+        FoundryConnectProvisioningBundle connect = snapshot.CreateConnectProvisioningBundle(Path.Combine(root, "connect"), protection);
 
         Assert.StartsWith(Path.Combine(root, "snapshots") + Path.DirectorySeparatorChar, capturedTemplate);
         Assert.Equal("<LANProfile />"u8.ToArray(), File.ReadAllBytes(capturedTemplate));
         Assert.Equal([1, 2, 3], File.ReadAllBytes(capturedCertificate));
         Assert.Equal("<LANProfile />"u8.ToArray(), File.ReadAllBytes(connect.AssetFiles.Single(asset => asset.RelativeDestinationPath.Contains(@"\Wired\Profiles\", StringComparison.Ordinal)).SourcePath));
-        Assert.NotNull(connect.Configuration.Dot1x.CertificatePfxPasswordSecret);
-        CryptographicOperations.ZeroMemory(connect.MediaSecretsKey!);
+        Assert.Equal("pfx-password", MediaSecretEnvelopeProtector.DecryptString(
+            connect.Configuration.Dot1x.ClientCertificate!.PasswordSecret!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
     }
 
     [Fact]

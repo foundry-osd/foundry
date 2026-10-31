@@ -5,10 +5,12 @@
 using System.IO;
 using System.Security.Cryptography;
 using System.Text.Json;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Security;
+using SecretEnvelope = Foundry.Core.Models.Configuration.SecretEnvelope;
 
 namespace Foundry.Deploy.Services.Autopilot;
 
@@ -38,10 +40,10 @@ public sealed class AutopilotProfileContentService(IDeploymentSecretKeySession d
                 throw new InvalidDataException();
             }
 
-            return DeployMediaSecretEnvelopeProtector.DecryptBytes(
+            return MediaSecretEnvelopeProtector.DecryptBytes(
                 envelope,
                 deploymentKey,
-                DeployMediaSecretEnvelopeProtector.DeploymentKeyId);
+                MediaSecretEnvelopeProtector.DeploymentKeyId);
         }
         catch (OperationCanceledException)
         {

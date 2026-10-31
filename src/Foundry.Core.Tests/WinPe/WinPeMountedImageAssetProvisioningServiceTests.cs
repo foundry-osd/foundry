@@ -442,37 +442,11 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         Assert.True(root.TryGetProperty("capabilities", out _));
         Assert.True(root.TryGetProperty("dot1x", out _));
         Assert.True(root.TryGetProperty("wifi", out _));
-        Assert.True(root.TryGetProperty("internetProbe", out _));
+        Assert.False(root.TryGetProperty("internetProbe", out _));
         Assert.True(root.TryGetProperty("network", out JsonElement network));
         Assert.True(network.TryGetProperty("profileRoaming", out JsonElement profileRoaming));
         Assert.False(profileRoaming.GetProperty("wiredDot1x").GetProperty("isEnabled").GetBoolean());
         Assert.False(profileRoaming.GetProperty("wifi").GetProperty("isEnabled").GetBoolean());
-    }
-
-    [Fact]
-    public async Task ProvisionAsync_WhenMediaSecretKeyIsProvided_WritesSecretKeyUnderConfigSecrets()
-    {
-        using TempMountedImage image = TempMountedImage.Create();
-        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
-        File.WriteAllText(curlSourcePath, "curl");
-        byte[] secretKey = Enumerable.Range(0, 32).Select(static value => (byte)value).ToArray();
-
-        var service = new WinPeMountedImageAssetProvisioningService();
-
-        WinPeResult result = await service.ProvisionAsync(
-            new WinPeMountedImageAssetProvisioningOptions
-            {
-                MountedImagePath = image.MountedImagePath,
-                Architecture = WinPeArchitecture.X64,
-                CurlExecutableSourcePath = curlSourcePath,
-                IanaWindowsTimeZoneMapJson = "{}",
-                FoundryConnectConfigurationJson = CreateConnectConfigurationWithEncryptedSecret(),
-                NetworkSecretsKey = secretKey
-            },
-            CancellationToken.None);
-
-        Assert.True(result.IsSuccess, result.Error?.Details);
-        Assert.Equal(secretKey, await File.ReadAllBytesAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Secrets", "media-secrets.key"), TestContext.Current.CancellationToken));
     }
 
     [Fact]
@@ -502,33 +476,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     }
 
     [Fact]
-    public async Task ProvisionAsync_WhenMediaSecretKeyHasNoEncryptedSecret_ReturnsFailure()
-    {
-        using TempMountedImage image = TempMountedImage.Create();
-        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
-        File.WriteAllText(curlSourcePath, "curl");
-        byte[] secretKey = Enumerable.Range(0, 32).Select(static value => (byte)value).ToArray();
-
-        var service = new WinPeMountedImageAssetProvisioningService();
-
-        WinPeResult result = await service.ProvisionAsync(
-            new WinPeMountedImageAssetProvisioningOptions
-            {
-                MountedImagePath = image.MountedImagePath,
-                Architecture = WinPeArchitecture.X64,
-                CurlExecutableSourcePath = curlSourcePath,
-                IanaWindowsTimeZoneMapJson = "{}",
-                NetworkSecretsKey = secretKey
-            },
-            CancellationToken.None);
-
-        Assert.False(result.IsSuccess);
-        Assert.Contains("must not be provisioned without encrypted", result.Error?.Details, StringComparison.Ordinal);
-        Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Secrets")));
-    }
-
-    [Fact]
-    public async Task ProvisionAsync_WhenEncryptedSecretHasNoMediaSecretKey_ReturnsFailure()
+    public async Task ProvisionAsync_WhenConnectConfigurationHasMediaKeyedSecret_ReturnsFailure()
     {
         using TempMountedImage image = TempMountedImage.Create();
         string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
@@ -548,30 +496,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             CancellationToken.None);
 
         Assert.False(result.IsSuccess);
-        Assert.Contains("require a media secret key", result.Error?.Details, StringComparison.Ordinal);
-        Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Secrets")));
-    }
-
-    [Fact]
-    public async Task ProvisionAsync_WhenMediaSecretKeyIsMissing_DoesNotCreateSecretsDirectory()
-    {
-        using TempMountedImage image = TempMountedImage.Create();
-        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
-        File.WriteAllText(curlSourcePath, "curl");
-
-        var service = new WinPeMountedImageAssetProvisioningService();
-
-        WinPeResult result = await service.ProvisionAsync(
-            new WinPeMountedImageAssetProvisioningOptions
-            {
-                MountedImagePath = image.MountedImagePath,
-                Architecture = WinPeArchitecture.X64,
-                CurlExecutableSourcePath = curlSourcePath,
-                IanaWindowsTimeZoneMapJson = "{}"
-            },
-            CancellationToken.None);
-
-        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Contains("must not contain media-keyed secrets", result.Error?.Details, StringComparison.Ordinal);
         Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Secrets")));
     }
 

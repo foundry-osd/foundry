@@ -312,7 +312,7 @@ Ukrep: Preverite atribute diska in znova poskusite razmestiti.</value>
     <value>Nadaljuj</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>Za nadaljevanje vnesite geslo tehnika.</value>
+    <value>Za nadaljevanje vnesite geslo za uvajanje.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>Zahtevano je geslo</value>

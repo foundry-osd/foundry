@@ -36,6 +36,13 @@
                 HorizontalContentAlignment="Stretch"
                 IsEnabled="{x:Bind ViewModel.IsWifiProvisioned, Mode=OneWay}">
                 <StackPanel Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                    <InfoBar
+                        Title="{x:Bind ViewModel.NeedsAttentionText, Mode=OneWay}"
+                        IsClosable="False"
+                        IsOpen="{x:Bind ViewModel.HasWifiMediaProtectionIssue, Mode=OneWay}"
+                        Message="{x:Bind ViewModel.WifiMediaProtectionMessage, Mode=OneWay}"
+                        Severity="Error"
+                        Visibility="{x:Bind ViewModel.HasWifiMediaProtectionIssue, Mode=OneWay}" />
                     <wct:SettingsCard
                         Header="{x:Bind ViewModel.WifiConfiguredText, Mode=OneWay}"
                         IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}">
@@ -157,7 +164,8 @@
                     </wct:SettingsCard>
                     <wct:SettingsCard
                         HorizontalContentAlignment="Stretch"
-                        Header="{x:Bind ViewModel.WifiCertificateLabel, Mode=OneWay}"
+                        Description="{x:Bind ViewModel.ClientCertificateDescription, Mode=OneWay}"
+                        Header="{x:Bind ViewModel.ClientCertificateLabel, Mode=OneWay}"
                         Visibility="{x:Bind ViewModel.WifiCertificatePathVisibility, Mode=OneWay}">
                         <StackPanel
                             HorizontalAlignment="Right"
@@ -167,17 +175,24 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <TextBox
                                         Width="{ThemeResource FoundryWideInputMinWidth}"
-                                        AutomationProperties.Name="{x:Bind ViewModel.WifiCertificateLabel, Mode=OneWay}"
+                                        AutomationProperties.Name="{x:Bind ViewModel.ClientCertificateLabel, Mode=OneWay}"
                                         IsReadOnly="True"
-                                        Text="{x:Bind ViewModel.WifiCertificateFileName, Mode=OneWay}" />
+                                        Text="{x:Bind ViewModel.WifiClientCertificateFileName, Mode=OneWay}" />
                                     <Button
                                         Grid.Column="1"
                                         MinWidth="{StaticResource FoundryCompactActionMinWidth}"
-                                        Command="{x:Bind ViewModel.BrowseWifiCertificateCommand}"
+                                        Command="{x:Bind ViewModel.BrowseWifiClientCertificateCommand}"
                                         Content="{x:Bind ViewModel.BrowseButtonText, Mode=OneWay}" />
+                                    <Button
+                                        Grid.Column="2"
+                                        MinWidth="{StaticResource FoundryCompactActionMinWidth}"
+                                        AutomationProperties.Name="{x:Bind ViewModel.RemoveClientCertificateText, Mode=OneWay}"
+                                        Command="{x:Bind ViewModel.RemoveWifiClientCertificateCommand}"
+                                        Content="{x:Bind ViewModel.RemoveCertificateText, Mode=OneWay}" />
                                 </Grid>
                             </ContentControl>
                             <PasswordBox
@@ -185,7 +200,8 @@
                                 HorizontalAlignment="Left"
                                 Header="{x:Bind ViewModel.CertificatePasswordLabel, Mode=OneWay}"
                                 IsEnabled="{x:Bind Managed.ArePasswordsEditable, Mode=OneWay}"
-                                Password="{x:Bind ViewModel.WifiCertificatePassword, Mode=TwoWay}" />
+                                Password="{x:Bind ViewModel.WifiCertificatePassword, Mode=TwoWay}"
+                                Visibility="{x:Bind ViewModel.WifiClientCertificatePasswordVisibility, Mode=OneWay}" />
                             <TextBlock
                                 MaxWidth="{ThemeResource FoundryWideInputMinWidth}"
                                 HorizontalAlignment="Left"
@@ -194,6 +210,55 @@
                                 TextWrapping="WrapWholeWords"
                                 Visibility="{x:Bind ViewModel.WifiCertificateValidationVisibility, Mode=OneWay}" />
                         </StackPanel>
+                    </wct:SettingsCard>
+                    <wct:SettingsCard
+                        HorizontalContentAlignment="Stretch"
+                        ContentAlignment="Vertical"
+                        Description="{x:Bind ViewModel.TrustedRootCertificatesDescription, Mode=OneWay}"
+                        Header="{x:Bind ViewModel.TrustedRootCertificatesLabel, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.WifiCertificatePathVisibility, Mode=OneWay}">
+                        <ContentControl
+                            HorizontalContentAlignment="Stretch"
+                            IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}">
+                            <StackPanel Spacing="{ThemeResource FoundryContentGroupSpacing}">
+                                <StackPanel
+                                    Orientation="Horizontal"
+                                    Spacing="{ThemeResource FoundryInlineControlSpacing}">
+                                    <Button
+                                        Command="{x:Bind ViewModel.AddWifiTrustedRootCertificateCommand}"
+                                        Content="{x:Bind ViewModel.AddTrustedRootCertificateText, Mode=OneWay}"
+                                        Style="{StaticResource AccentButtonStyle}" />
+                                    <Button
+                                        AutomationProperties.Name="{x:Bind ViewModel.RemoveTrustedRootCertificateText, Mode=OneWay}"
+                                        Command="{x:Bind ViewModel.RemoveWifiTrustedRootCertificateCommand}"
+                                        Content="{x:Bind ViewModel.RemoveCertificateText, Mode=OneWay}" />
+                                </StackPanel>
+
+                                <TextBlock
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Style="{StaticResource FoundryBodyTextBlockStyle}"
+                                    Text="{x:Bind ViewModel.NoTrustedRootCertificatesText, Mode=OneWay}"
+                                    TextWrapping="WrapWholeWords"
+                                    Visibility="{x:Bind ViewModel.WifiNoTrustedRootCertificatesVisibility, Mode=OneWay}" />
+                                <ListView
+                                    MaxHeight="{ThemeResource FoundryTableMaxHeight}"
+                                    AutomationProperties.Name="{x:Bind ViewModel.TrustedRootCertificatesLabel, Mode=OneWay}"
+                                    ItemsSource="{x:Bind ViewModel.WifiTrustedRootCertificates}"
+                                    SelectedItem="{x:Bind ViewModel.SelectedWifiTrustedRootCertificate, Mode=TwoWay}"
+                                    SelectionMode="Single">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="viewModels:TrustedRootCertificateEntry">
+                                            <TextBlock
+                                                Padding="0,8"
+                                                Style="{StaticResource FoundryBodyTextBlockStyle}"
+                                                Text="{x:Bind FileName}"
+                                                TextTrimming="CharacterEllipsis"
+                                                ToolTipService.ToolTip="{x:Bind FileName}" />
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackPanel>
+                        </ContentControl>
                     </wct:SettingsCard>
 
                     <wct:SettingsExpander

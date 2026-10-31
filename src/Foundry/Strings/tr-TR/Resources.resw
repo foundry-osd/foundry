@@ -2215,12 +2215,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="DomainJoinSharedAccount.Header" xml:space="preserve">
     <value>Paylaşılan katılma hesabı</value>
   </data>
-  <data name="Dot1x.CertificateLabel" xml:space="preserve">
-    <value>Güvenilen kök CA sertifika dosyası</value>
-  </data>
-  <data name="Dot1x.CertificatePickerTitle" xml:space="preserve">
-    <value>802.1X sertifikasını seçin</value>
-  </data>
   <data name="EthernetDot1xPageEnableToggle.AutomationProperties.Name" xml:space="preserve">
     <value>Ethernet 802.1X yapılandırmasını etkinleştir</value>
   </data>
@@ -2246,7 +2240,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Parolayı doğrulayın</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Description" xml:space="preserve">
-    <value>Dağıtımdan önce teknisyen parolası isteyin. Gömülü ağ kimlik bilgileri bu parola olmadan erişilebilir durumda kalır.</value>
+    <value>Dağıtımdan önce teknisyen parolası isteyin. Medya bir ağ gizli bilgisi (ör. Wi-Fi parolası veya istemci sertifikası) sağladığında parola koruması gereklidir.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.Header" xml:space="preserve">
     <value>Parola koruması</value>
@@ -2255,7 +2249,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Parola</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Description" xml:space="preserve">
-    <value>Bu parolayı güvende tutun. Yerel Windows hesaplarının parolalarını, etki alanına katılma kimlik bilgilerini, Autopilot kimlik bilgilerini ve profillerini ve özel yanıt dosyalarını korur.</value>
+    <value>Bu parolayı güvende tutun. Yerel Windows hesaplarının parolalarını, etki alanına katılma kimlik bilgilerini, Autopilot kimlik bilgilerini ve profillerini, özel yanıt dosyalarını ve ağ gizli bilgilerini korur: kişisel Wi-Fi parolası, istemci sertifikası ve parolası ile anahtar malzemesi içeren kurumsal Wi-Fi profili.</value>
   </data>
   <data name="GeneralConfiguration.DeploymentProtection.PasswordCard.Header" xml:space="preserve">
     <value>Dağıtım parolası</value>
@@ -2710,8 +2704,23 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="NavigationStatus.NotConfigured" xml:space="preserve">
     <value>Yapılandırılmadı</value>
   </data>
+  <data name="Network.AddTrustedRootCertificate" xml:space="preserve">
+    <value>Sertifika ekle</value>
+  </data>
+  <data name="Network.ClientCertificateDescription" xml:space="preserve">
+    <value>Bu cihazın kimliğini doğrulayan, özel anahtarını içeren sertifika (EAP-TLS).</value>
+  </data>
+  <data name="Network.ClientCertificateLabel" xml:space="preserve">
+    <value>İstemci sertifikası (PFX)</value>
+  </data>
+  <data name="Network.ClientCertificatePickerTitle" xml:space="preserve">
+    <value>İstemci sertifikasını seçin</value>
+  </data>
   <data name="Network.EnterpriseTemplateDrivenHelperText" xml:space="preserve">
     <value>Kurumsal davranış, bu yapıdaki profil şablonu tarafından yönlendirilir. Dağıtım sırasında girilen 802.1X kimlik bilgileri burada sağlanmaz.</value>
+  </data>
+  <data name="Network.ErrorMediaProtectionRequired" xml:space="preserve">
+    <value>Wi-Fi parolaları ve istemci sertifikaları dağıtım parolasıyla korunur. "Genel" sayfasında parola korumasını etkinleştirin ve dağıtım parolasını belirleyin.</value>
   </data>
   <data name="Network.ErrorUnsupportedWifiSecurityTypeFormat" xml:space="preserve">
     <value>Desteklenmeyen Wi-Fi güvenlik türü '{0}'.</value>
@@ -2723,10 +2732,10 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Kurumsal Wi-Fi profil şablonu, desteklenen bir kurumsal kimlik doğrulama değeri içermelidir.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateMissing" xml:space="preserve">
-    <value>Kurumsal Wi-Fi güvenilen kök CA sertifika dosyası bulunamadı.</value>
+    <value>Kurumsal Wi-Fi sertifika dosyası bulunamadı. Yeniden seçin.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseCertificateRequired" xml:space="preserve">
-    <value>Kuruluş Wi-Fi, sertifika güveni etkinleştirildiğinde güvenilen bir kök CA sertifika dosyası gerektirir.</value>
+    <value>Kurumsal Wi-Fi, sertifikalar kullanıldığında bir istemci sertifikası veya güvenilen bir kök CA sertifikası gerektirir.</value>
   </data>
   <data name="Network.ErrorWifiEnterpriseProfileTemplateMissing" xml:space="preserve">
     <value>Kurumsal Wi-Fi profil şablon dosyası bulunamadı.</value>
@@ -2744,10 +2753,10 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Wi-Fi yapılandırması bir SSID gerektirir.</value>
   </data>
   <data name="Network.ErrorWiredCertificateMissing" xml:space="preserve">
-    <value>Kablolu 802.1X güvenilen kök CA sertifika dosyası bulunamadı.</value>
+    <value>Kablolu 802.1X sertifika dosyası bulunamadı. Yeniden seçin.</value>
   </data>
   <data name="Network.ErrorWiredCertificateRequired" xml:space="preserve">
-    <value>Kablolu 802.1X, sertifika güveni etkinleştirildiğinde güvenilen bir kök CA sertifika dosyası gerektirir.</value>
+    <value>Kablolu 802.1X, sertifikalar kullanıldığında bir istemci sertifikası veya güvenilen bir kök CA sertifikası gerektirir.</value>
   </data>
   <data name="Network.ErrorWiredProfileTemplateMissing" xml:space="preserve">
     <value>Kablolu 802.1X profil şablon dosyası bulunamadı.</value>
@@ -2755,14 +2764,26 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Network.ErrorWiredProfileTemplateRequired" xml:space="preserve">
     <value>Kablolu 802.1X, kablolu bir profil şablonu gerektirir.</value>
   </data>
+  <data name="Network.NoTrustedRootCertificates" xml:space="preserve">
+    <value>Güvenilen kök CA sertifikası eklenmedi.</value>
+  </data>
   <data name="Network.ProfileTemplateLabel" xml:space="preserve">
     <value>Profil şablon dosyası</value>
   </data>
   <data name="Network.ProfileTemplatePickerTitle" xml:space="preserve">
     <value>Bir ağ profili şablonu seçin</value>
   </data>
+  <data name="Network.RemoveCertificate" xml:space="preserve">
+    <value>Kaldır</value>
+  </data>
+  <data name="Network.RemoveClientCertificate" xml:space="preserve">
+    <value>İstemci sertifikasını kaldır</value>
+  </data>
+  <data name="Network.RemoveTrustedRootCertificate" xml:space="preserve">
+    <value>Seçili güvenilen kök CA sertifikasını kaldır</value>
+  </data>
   <data name="Network.RequiresCertificateLabel" xml:space="preserve">
-    <value>Güvenilen bir kök CA sertifikasını içe aktarın</value>
+    <value>Sertifikaları kullan</value>
   </data>
   <data name="Network.RoamPrivateKeyMaterialHelperText" xml:space="preserve">
     <value>Yapılandırılmış PFX istemci sertifikalarını Windows'a kopyalar ve OOBE öncesinde LocalMachine kişisel sertifika deposuna içe aktarır.</value>
@@ -2772,6 +2793,15 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Network.RoamProfilesLabel" xml:space="preserve">
     <value>Ağ profillerini Windows'a taşı</value>
+  </data>
+  <data name="Network.TrustedRootCertificatePickerTitle" xml:space="preserve">
+    <value>Güvenilen bir kök CA sertifikası seçin</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesDescription" xml:space="preserve">
+    <value>Kimlik doğrulama sunucusu sertifikasını veren yetkililerin genel sertifikaları.</value>
+  </data>
+  <data name="Network.TrustedRootCertificatesLabel" xml:space="preserve">
+    <value>Güvenilen kök CA sertifikaları</value>
   </data>
   <data name="Network.WifiEnterpriseAdvancedHeader" xml:space="preserve">
     <value>Gelişmiş kurumsal Wi-Fi</value>
@@ -2783,7 +2813,7 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
     <value>Foundry parola ifadesini bu bilgisayarda yerel şifreli kasasında hatırlar. Bu bilgisayardan yalnızca “Parolaları dahil et” seçildiğinde bir dışarı aktarma veya yayında çıkar.</value>
   </data>
   <data name="Network.WifiWindowsRoamingHelperText" xml:space="preserve">
-    <value>Foundry tarafından yönetilen Wi-Fi profilini OOBE öncesinde Windows'a içe aktararak dağıtım bağlantısının WinPE sonrasında korunmasını sağlar.</value>
+    <value>Bu seçenek açık olduğunda, Foundry Connect'te başarıyla bağlanılan her Wi-Fi ağı (sağlanmış veya el ile bağlanılmış), internet erişimi sağlayan ağdan başlayarak OOBE öncesinde Windows'a içe aktarılır; böylece bağlantı WinPE sonrasında korunur.</value>
   </data>
   <data name="Network.WifiWindowsRoamingSectionTitle" xml:space="preserve">
     <value>Windows profil dolaşımı</value>
@@ -5072,12 +5102,6 @@ Güncellemeyi uygulamak Foundry OSD'yi yeniden başlatır.</value>
   </data>
   <data name="UpdateFooter.Title" xml:space="preserve">
     <value>Güncelleme</value>
-  </data>
-  <data name="Wifi.CertificateLabel" xml:space="preserve">
-    <value>Güvenilen kök CA sertifika dosyası</value>
-  </data>
-  <data name="Wifi.CertificatePickerTitle" xml:space="preserve">
-    <value>Wi-Fi sertifikasını seçin</value>
   </data>
   <data name="Wifi.ConfigureLabel" xml:space="preserve">
     <value>Bir Wi-Fi profilinin ön hazırlığını yapın</value>

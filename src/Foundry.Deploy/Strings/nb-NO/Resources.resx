@@ -312,7 +312,7 @@ Handling: Bekreft diskattributter og prøv distribusjon på nytt.</value>
     <value>Fortsett</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>Skriv inn teknikerpassordet for å fortsette.</value>
+    <value>Skriv inn distribusjonspassordet for å fortsette.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>Passord kreves</value>

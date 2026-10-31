@@ -5,6 +5,7 @@
 using System.Security.Cryptography;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
+using Foundry.Core.Services.Security;
 using Foundry.Utilities.Security;
 
 namespace Foundry.Core.Services.WinPe;
@@ -54,7 +55,8 @@ public static class DeploymentMediaProtectionService
                 KeyDerivationAlgorithm = KeyDerivationAlgorithm,
                 Iterations = PasswordKeyDerivation.DefaultIterations,
                 Salt = Base64Url.Encode(salt),
-                ProtectedDeploymentKey = envelope
+                ProtectedDeploymentKey = envelope,
+                KeyCheck = DeploymentKeyProtection.CreateKeyCheck(deploymentKey)
             };
 
             return new DeploymentMediaProtectionMaterial(deploymentKey, settings);

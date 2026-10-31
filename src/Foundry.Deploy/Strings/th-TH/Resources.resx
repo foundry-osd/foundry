@@ -312,7 +312,7 @@
     <value>ดำเนินการต่อ</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>ป้อนรหัสผ่านของช่างเทคนิคเพื่อดำเนินการต่อ</value>
+    <value>ป้อนรหัสผ่านการปรับใช้เพื่อดำเนินการต่อ</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>ต้องใช้รหัสผ่าน</value>

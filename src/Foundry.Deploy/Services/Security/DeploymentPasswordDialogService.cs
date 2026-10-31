@@ -3,9 +3,9 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Windows;
-using Foundry.Deploy.Services.Localization;
-using Foundry.Deploy.Services.Runtime;
-using Foundry.Deploy.Views;
+using Foundry.Core.Services.Runtime;
+using Foundry.Wpf.Dialogs;
+using Foundry.Wpf.Localization;
 
 namespace Foundry.Deploy.Services.Security;
 
@@ -14,7 +14,7 @@ public sealed class DeploymentPasswordDialogService(ILocalizationService localiz
 {
     public DeploymentPasswordPromptResult Prompt(bool previousAttemptFailed)
     {
-        var dialog = new DeploymentPasswordDialog
+        var dialog = new PasswordPromptDialog
         {
             Title = localizationService.Strings["DeploymentAccess.Title"],
             HeadingText = localizationService.Strings["DeploymentAccess.Heading"],

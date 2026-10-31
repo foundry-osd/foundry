@@ -34,6 +34,12 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Action.Disconnect" xml:space="preserve">
     <value>Atvienot</value>
   </data>
+  <data name="Action.Retry" xml:space="preserve">
+    <value>Mēģināt vēlreiz</value>
+  </data>
+  <data name="Action.StayHere" xml:space="preserve">
+    <value>Palikt šeit</value>
+  </data>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
@@ -58,23 +64,8 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Common.Close" xml:space="preserve">
     <value>Aizvērt</value>
   </data>
-  <data name="Common.ConfigurationBuiltInDefaults" xml:space="preserve">
-    <value>Konfigurācija: iebūvētie noklusējuma iestatījumi</value>
-  </data>
-  <data name="Common.ConfigurationFromPathFormat" xml:space="preserve">
-    <value>Konfigurācija: {0}</value>
-  </data>
   <data name="Common.Connected" xml:space="preserve">
     <value>Savienots</value>
-  </data>
-  <data name="Common.LastUpdateFormat" xml:space="preserve">
-    <value>Pēdējo reizi atjaunināts: {0:HH:mm:ss}</value>
-  </data>
-  <data name="Common.LastUpdatePending" xml:space="preserve">
-    <value>Pēdējo reizi atjaunināts: gaida</value>
-  </data>
-  <data name="Common.RefreshIntervalFormat" xml:space="preserve">
-    <value>Atsvaidzina ik pēc {0} sekundēm</value>
   </data>
   <data name="Common.Unavailable" xml:space="preserve">
     <value>Nav pieejams</value>
@@ -82,14 +73,65 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Versija: {0}</value>
   </data>
-  <data name="Debug.ShowEthernetOnly" xml:space="preserve">
-    <value>Rādīt tikai Ethernet</value>
+  <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
+    <value>Ethernet: automātiski piešķirta adrese</value>
   </data>
-  <data name="Debug.ShowEthernetWifi" xml:space="preserve">
-    <value>Rādīt Ethernet + Wi-Fi</value>
+  <data name="Debug.Scenario.CaptivePortal" xml:space="preserve">
+    <value>Ethernet: pierakstīšanās lapa</value>
   </data>
-  <data name="Debug.UseRuntimeLayout" xml:space="preserve">
-    <value>Izmantojiet noteikto izkārtojumu</value>
+  <data name="Debug.Scenario.Checking" xml:space="preserve">
+    <value>Tiek pārbaudīts tīkls</value>
+  </data>
+  <data name="Debug.Scenario.Dot1xAuthenticating" xml:space="preserve">
+    <value>Ethernet: notiek 802.1X autentifikācija</value>
+  </data>
+  <data name="Debug.Scenario.Dot1xFailed" xml:space="preserve">
+    <value>Ethernet: 802.1X neizdevās</value>
+  </data>
+  <data name="Debug.Scenario.EthernetNoInternet" xml:space="preserve">
+    <value>Ethernet: nav interneta</value>
+  </data>
+  <data name="Debug.Scenario.EthernetReady" xml:space="preserve">
+    <value>Ethernet: gatavs</value>
+  </data>
+  <data name="Debug.Scenario.Live" xml:space="preserve">
+    <value>Reāls tīkls</value>
+  </data>
+  <data name="Debug.Scenario.NoAdapter" xml:space="preserve">
+    <value>Nav tīkla adaptera</value>
+  </data>
+  <data name="Debug.Scenario.NoLink" xml:space="preserve">
+    <value>Ethernet: nav kabeļa</value>
+  </data>
+  <data name="Debug.Scenario.NoWifiAdapter" xml:space="preserve">
+    <value>Nav Wi-Fi adaptera</value>
+  </data>
+  <data name="Debug.Scenario.ProvisionedWifiLocked" xml:space="preserve">
+    <value>Nodrošinātais Wi-Fi: nepieciešama parole</value>
+  </data>
+  <data name="Debug.Scenario.ProvisionedWifiUnavailable" xml:space="preserve">
+    <value>Nodrošinātais Wi-Fi nav pieejams</value>
+  </data>
+  <data name="Debug.Scenario.WaitingForAddress" xml:space="preserve">
+    <value>Ethernet: gaida adresi</value>
+  </data>
+  <data name="Debug.Scenario.WifiConnecting" xml:space="preserve">
+    <value>Nodrošinātais Wi-Fi: notiek savienošana</value>
+  </data>
+  <data name="Debug.Scenario.WifiNetworks" xml:space="preserve">
+    <value>Wi-Fi tīkli</value>
+  </data>
+  <data name="Debug.Scenario.WifiOnly" xml:space="preserve">
+    <value>Nav Ethernet adaptera, Wi-Fi tīkli</value>
+  </data>
+  <data name="Debug.Scenario.WifiReady" xml:space="preserve">
+    <value>Wi-Fi: gatavs</value>
+  </data>
+  <data name="Debug.Scenario.WifiRuntimeMissing" xml:space="preserve">
+    <value>Trūkst Wi-Fi atbalsta</value>
+  </data>
+  <data name="Debug.Scenarios" xml:space="preserve">
+    <value>Scenāriji</value>
   </data>
   <data name="Diagnostics.ExportDestinationTitle" xml:space="preserve">
     <value>Izvēlieties, kur eksportēt Foundry diagnostiku</value>
@@ -125,14 +167,50 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Ethernet.AdapterLabel" xml:space="preserve">
     <value>Adapteris</value>
   </data>
-  <data name="Ethernet.CheckCable" xml:space="preserve">
-    <value>Pārbaudiet kabeļa savienojumu</value>
+  <data name="Ethernet.ApipaAddress" xml:space="preserve">
+    <value>Automātiski piešķirta adrese</value>
   </data>
   <data name="Ethernet.DhcpLeaseDetected" xml:space="preserve">
     <value>Atklāta DHCP noma</value>
   </data>
+  <data name="Ethernet.Dot1xAuthenticated" xml:space="preserve">
+    <value>Autentificēts</value>
+  </data>
+  <data name="Ethernet.Dot1xAuthenticating" xml:space="preserve">
+    <value>Notiek autentifikācija</value>
+  </data>
+  <data name="Ethernet.Dot1xFailed" xml:space="preserve">
+    <value>Autentifikācija neizdevās</value>
+  </data>
+  <data name="Ethernet.Dot1xLabel" xml:space="preserve">
+    <value>802.1X</value>
+  </data>
+  <data name="Ethernet.Dot1xProfileApplied" xml:space="preserve">
+    <value>Profils lietots</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonAuthenticationFailed" xml:space="preserve">
+    <value>Tīkls noraidīja autentifikāciju. Pārbaudiet sertifikātu un komutatora porta iestatījumus.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileImportFailed" xml:space="preserve">
+    <value>Windows noraidīja 802.1X profilu no sāknēšanas datu nesēja.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonProfileTemplateMissing" xml:space="preserve">
+    <value>Sāknēšanas datu nesējā trūkst 802.1X profila. Izveidojiet sāknēšanas datu nesēju no jauna.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonSecretUnavailable" xml:space="preserve">
+    <value>Nevar nolasīt 802.1X sertifikāta paroli. Izveidojiet sāknēšanas datu nesēju no jauna.</value>
+  </data>
+  <data name="Ethernet.Dot1xReasonUnlockCancelled" xml:space="preserve">
+    <value>Izvietošanas parole netika ievadīta, tāpēc 802.1X iestatījumi netika lietoti.</value>
+  </data>
+  <data name="Ethernet.Dot1xUnavailable" xml:space="preserve">
+    <value>Nav pieejams</value>
+  </data>
   <data name="Ethernet.GatewayLabel" xml:space="preserve">
     <value>Vārteja</value>
+  </data>
+  <data name="Ethernet.IpAssignmentLabel" xml:space="preserve">
+    <value>IP piešķiršana</value>
   </data>
   <data name="Ethernet.Ipv4Label" xml:space="preserve">
     <value>IPv4</value>
@@ -140,20 +218,17 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Ethernet.NoActiveLink" xml:space="preserve">
     <value>Nav aktīva savienojuma</value>
   </data>
-  <data name="Ethernet.NoAdapterDetected" xml:space="preserve">
-    <value>Nav atrasts Ethernet adapteris.</value>
-  </data>
   <data name="Ethernet.StaticConfigurationDetected" xml:space="preserve">
     <value>Konstatēta statiskā tīkla konfigurācija</value>
   </data>
   <data name="Ethernet.Title" xml:space="preserve">
     <value>Ethernet</value>
   </data>
+  <data name="Ethernet.UnavailableOnDevice" xml:space="preserve">
+    <value>Ethernet šajā ierīcē nav pieejams.</value>
+  </data>
   <data name="Ethernet.WaitingConfiguration" xml:space="preserve">
     <value>Gaida tīkla konfigurāciju</value>
-  </data>
-  <data name="Ethernet.WaitingDhcp" xml:space="preserve">
-    <value>Gaida DHCP vai statisku tīkla konfigurāciju</value>
   </data>
   <data name="Keyboard.OtherLanguages" xml:space="preserve">
     <value>Citas valodas</value>
@@ -273,43 +348,106 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Ukraiņu (Ukraina)</value>
   </data>
   <data name="Menu.About" xml:space="preserve">
-    <value>Par</value>
+    <value>_Par</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
-    <value>Atkļūdošana</value>
+    <value>_Atkļūdošana</value>
   </data>
   <data name="Menu.Keyboard" xml:space="preserve">
-    <value>Tastatūra</value>
+    <value>Ta_statūra</value>
   </data>
   <data name="Menu.KeyboardFormat" xml:space="preserve">
-    <value>Tastatūra ({0})</value>
+    <value>Ta_statūra ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
-    <value>Valoda</value>
+    <value>_Valoda</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
-    <value>Tēma</value>
+    <value>_Tēma</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
-    <value>Rīki</value>
+    <value>_Rīki</value>
+  </data>
+  <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
+    <value>Tiek lietoti tīkla iestatījumi no sāknēšanas datu nesēja.</value>
+  </data>
+  <data name="Status.AutoContinueCancelled" xml:space="preserve">
+    <value>Automātiskā turpināšana ir izslēgta. Kad esat gatavs, atlasiet Turpināt.</value>
   </data>
   <data name="Status.AutoContinueFormat" xml:space="preserve">
     <value>Automātiski turpinās {0}s</value>
   </data>
-  <data name="Status.NetworkReadyDescription" xml:space="preserve">
-    <value>Interneta piekļuve ir apstiprināta. Jūs varat turpināt tagad.</value>
+  <data name="Status.AutoContinuePaused" xml:space="preserve">
+    <value>Automātiskā turpināšana ir pauzēta, jo mainījāt tīkla iestatījumus.</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalDescription" xml:space="preserve">
+    <value>Tīkls interneta piekļuves vietā atbildēja ar pierakstīšanās lapu. Pierakstieties no citas ierīces, ja tīkls to atļauj, vai izmantojiet citu tīklu, pēc tam atlasiet Mēģināt vēlreiz.</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalSignInDescription" xml:space="preserve">
+    <value>Tīkls interneta piekļuves vietā atbildēja ar pierakstīšanās lapu. Pierakstieties no citas ierīces, ja tīkls to atļauj, pēc tam atlasiet Mēģināt vēlreiz.</value>
+  </data>
+  <data name="Status.BlockedCaptivePortalTitle" xml:space="preserve">
+    <value>Nepieciešama pierakstīšanās</value>
+  </data>
+  <data name="Status.BlockedDot1xDescription" xml:space="preserve">
+    <value>Iemesls ir redzams sadaļā Ethernet.</value>
+  </data>
+  <data name="Status.BlockedDot1xTitle" xml:space="preserve">
+    <value>Vadu 802.1X autentifikācija neizdevās</value>
+  </data>
+  <data name="Status.BlockedJoinWifiDescription" xml:space="preserve">
+    <value>Pievienojieties Wi-Fi tīklam.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterDescription" xml:space="preserve">
+    <value>Pārbaudiet sadaļas Ethernet un Wi-Fi, pēc tam atlasiet Mēģināt vēlreiz.</value>
+  </data>
+  <data name="Status.BlockedNoAdapterTitle" xml:space="preserve">
+    <value>Nav tīkla adaptera</value>
+  </data>
+  <data name="Status.BlockedNoCableDescription" xml:space="preserve">
+    <value>Pievienojiet Ethernet kabeli.</value>
+  </data>
+  <data name="Status.BlockedNoCableTitle" xml:space="preserve">
+    <value>Nav Ethernet kabeļa</value>
+  </data>
+  <data name="Status.BlockedNoEthernetAdapterDescription" xml:space="preserve">
+    <value>Pārbaudiet sadaļu Ethernet, pēc tam atlasiet Mēģināt vēlreiz.</value>
+  </data>
+  <data name="Status.BlockedNoInternetDescription" xml:space="preserve">
+    <value>Tīkls ir savienots, bet nevar piekļūt internetam. Pārbaudiet ugunsmūri vai starpniekserveri, pēc tam atlasiet Mēģināt vēlreiz.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressDescription" xml:space="preserve">
+    <value>Pārbaudiet DHCP šajā tīklā, pēc tam atlasiet Mēģināt vēlreiz.</value>
+  </data>
+  <data name="Status.BlockedNoIpAddressTitle" xml:space="preserve">
+    <value>Nav IP adreses</value>
+  </data>
+  <data name="Status.BlockedNoLinkDescription" xml:space="preserve">
+    <value>Pievienojiet Ethernet kabeli vai pievienojieties Wi-Fi tīklam.</value>
+  </data>
+  <data name="Status.BlockedNoLinkTitle" xml:space="preserve">
+    <value>Nav tīkla savienojuma</value>
+  </data>
+  <data name="Status.BlockedTitle" xml:space="preserve">
+    <value>Nav interneta piekļuves</value>
+  </data>
+  <data name="Status.CheckingTitle" xml:space="preserve">
+    <value>Tiek pārbaudīts tīkls</value>
+  </data>
+  <data name="Status.ConnectingDescription" xml:space="preserve">
+    <value>Notiek tīkla darbība. Tas var ilgt līdz 20 sekundēm.</value>
+  </data>
+  <data name="Status.ConnectingTitle" xml:space="preserve">
+    <value>Notiek savienošana</value>
+  </data>
+  <data name="Status.DisconnectingTitle" xml:space="preserve">
+    <value>Notiek atvienošana</value>
+  </data>
+  <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
+    <value>Notiek vadu 802.1X autentifikācija.</value>
   </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Tīkls gatavs</value>
-  </data>
-  <data name="Status.NetworkRefreshFailedTitle" xml:space="preserve">
-    <value>Tīkla atsvaidzināšana neizdevās</value>
-  </data>
-  <data name="Status.WaitingForNetworkDescription" xml:space="preserve">
-    <value>Interneta piekļuve vēl nav apstiprināta.</value>
-  </data>
-  <data name="Status.WaitingForNetworkTitle" xml:space="preserve">
-    <value>Gaida tīklu</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>Tumšs</value>
@@ -326,14 +464,44 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Tools.RefreshStatus" xml:space="preserve">
     <value>Atsvaidzināt statusu</value>
   </data>
+  <data name="Unlock.Continue" xml:space="preserve">
+    <value>Turpināt</value>
+  </data>
+  <data name="Unlock.Description" xml:space="preserve">
+    <value>Lai turpinātu, ievadiet izvietošanas paroli.</value>
+  </data>
+  <data name="Unlock.Heading" xml:space="preserve">
+    <value>Nepieciešama parole</value>
+  </data>
+  <data name="Unlock.InvalidPassword" xml:space="preserve">
+    <value>Parole nav pareiza. Mēģiniet vēlreiz.</value>
+  </data>
+  <data name="Unlock.PasswordPlaceholder" xml:space="preserve">
+    <value>Izvietošanas parole</value>
+  </data>
+  <data name="Unlock.Title" xml:space="preserve">
+    <value>Aizsargāti tīkla iestatījumi</value>
+  </data>
+  <data name="Unlock.TogglePasswordVisibility" xml:space="preserve">
+    <value>Rādīt vai paslēpt paroli</value>
+  </data>
   <data name="Wifi.ActionApplyProvisionedFailed" xml:space="preserve">
     <value>Nevar lietot nodrošinātos tīkla iestatījumus.</value>
   </data>
   <data name="Wifi.ActionConnectFailed" xml:space="preserve">
     <value>Nevar izveidot savienojumu. Pārbaudiet paroli vai tīkla iestatījumus un mēģiniet vēlreiz.</value>
   </data>
+  <data name="Wifi.ActionConnectTimedOut" xml:space="preserve">
+    <value>Savienojuma mēģinājumam iestājās noildze. Pietuvojieties piekļuves punktam un mēģiniet vēlreiz.</value>
+  </data>
   <data name="Wifi.ActionDisconnectFailed" xml:space="preserve">
     <value>Nevar atvienot. Mēģiniet vēlreiz.</value>
+  </data>
+  <data name="Wifi.ActionInvalidPassphrase" xml:space="preserve">
+    <value>Parole neatbilst šī tīkla prasībām.</value>
+  </data>
+  <data name="Wifi.ActionNetworkNotVisible" xml:space="preserve">
+    <value>Šis tīkls vairs nav redzams. Atsvaidziniet sarakstu un mēģiniet vēlreiz.</value>
   </data>
   <data name="Wifi.ActionProvisionedConnectFailed" xml:space="preserve">
     <value>Nevar izveidot savienojumu ar nodrošināto Wi-Fi profilu. Mēģiniet vēlreiz.</value>
@@ -350,14 +518,14 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Wifi.ActionTryAgain" xml:space="preserve">
     <value>Nevar pabeigt Wi-Fi darbību. Mēģiniet vēlreiz.</value>
   </data>
-  <data name="Wifi.AuthenticationLabel" xml:space="preserve">
-    <value>Autentifikācija</value>
-  </data>
-  <data name="Wifi.BootImageSettings" xml:space="preserve">
-    <value>Sāknēšanas attēla iestatījumi</value>
-  </data>
   <data name="Wifi.ConfiguredProfile" xml:space="preserve">
     <value>Konfigurēta drošība</value>
+  </data>
+  <data name="Wifi.ConnectProvisionedAutomationName" xml:space="preserve">
+    <value>Savienot nodrošināto Wi-Fi</value>
+  </data>
+  <data name="Wifi.ConnectSelectedAutomationFormat" xml:space="preserve">
+    <value>Izveidot savienojumu ar {0}</value>
   </data>
   <data name="Wifi.ConnectionChipEthernet" xml:space="preserve">
     <value>Ethernet</value>
@@ -368,26 +536,29 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Wifi.ConnectionChipProvisionedFormat" xml:space="preserve">
     <value>Nodrošināts Wi-Fi · {0}</value>
   </data>
-  <data name="Wifi.EnterpriseProfile" xml:space="preserve">
-    <value>Uzņēmuma profils</value>
+  <data name="Wifi.DisconnectProvisionedAutomationName" xml:space="preserve">
+    <value>Atvienot nodrošināto Wi-Fi</value>
   </data>
-  <data name="Wifi.HiddenNetwork" xml:space="preserve">
-    <value>Slēpts tīkls</value>
+  <data name="Wifi.DisconnectSelectedAutomationFormat" xml:space="preserve">
+    <value>Atvienoties no {0}</value>
   </data>
-  <data name="Wifi.NoAdapterAvailable" xml:space="preserve">
-    <value>Nav pieejams Wi-Fi adapteris.</value>
+  <data name="Wifi.NetworkAutomationFormat" xml:space="preserve">
+    <value>{0}, {1}, signāls {2} procenti</value>
   </data>
-  <data name="Wifi.NoAdapterDetected" xml:space="preserve">
-    <value>Pašlaik nav atrasts neviens Wi-Fi adapteris.</value>
+  <data name="Wifi.NetworkConnectedAutomationFormat" xml:space="preserve">
+    <value>{0}, {1}, signāls {2} procenti, savienots</value>
+  </data>
+  <data name="Wifi.NetworksListAutomationName" xml:space="preserve">
+    <value>Redzamie Wi-Fi tīkli</value>
   </data>
   <data name="Wifi.NoNetworksVisible" xml:space="preserve">
     <value>Pašlaik nav redzams neviens Wi-Fi tīkls.</value>
   </data>
-  <data name="Wifi.NoProvisionedProfile" xml:space="preserve">
-    <value>Šajā sāknēšanas attēlā nav pieejams nodrošināts Wi-Fi profils.</value>
+  <data name="Wifi.PassphraseLabel" xml:space="preserve">
+    <value>Wi-Fi parole</value>
   </data>
-  <data name="Wifi.ProfileLabel" xml:space="preserve">
-    <value>Profils</value>
+  <data name="Wifi.ProvisionedLocked" xml:space="preserve">
+    <value>Nodrošinātais Wi-Fi ir aizsargāts ar izvietošanas paroli. Lai to ievadītu, atlasiet Savienot.</value>
   </data>
   <data name="Wifi.ProvisionedProfileRequired" xml:space="preserve">
     <value>Šim tīklam ir nepieciešams nodrošināts Wi-Fi profils.</value>
@@ -395,23 +566,32 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Wifi.ProvisionedTitle" xml:space="preserve">
     <value>Nodrošināts Wi-Fi</value>
   </data>
+  <data name="Wifi.ProvisionedUnavailableConfiguration" xml:space="preserve">
+    <value>Nodrošinātā Wi-Fi iestatījumi nav derīgi. Izveidojiet sāknēšanas datu nesēju no jauna.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailablePassphrase" xml:space="preserve">
+    <value>Nodrošinātā Wi-Fi parole neatbilst tīkla prasībām. Izveidojiet sāknēšanas datu nesēju no jauna.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableSecret" xml:space="preserve">
+    <value>Nodrošinātā Wi-Fi paroli nevar nolasīt no šī sāknēšanas datu nesēja. Izveidojiet sāknēšanas datu nesēju no jauna.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnavailableTemplate" xml:space="preserve">
+    <value>Sāknēšanas datu nesējā trūkst uzņēmuma Wi-Fi profila. Izveidojiet sāknēšanas datu nesēju no jauna.</value>
+  </data>
+  <data name="Wifi.ProvisionedUnlockCancelled" xml:space="preserve">
+    <value>Izvietošanas parole netika ievadīta. Lai to ievadītu, atlasiet Savienot.</value>
+  </data>
   <data name="Wifi.RefreshNetworks" xml:space="preserve">
     <value>Atsvaidziniet Wi-Fi tīklus</value>
   </data>
   <data name="Wifi.SecurityEnterprise" xml:space="preserve">
     <value>Uzņēmums</value>
   </data>
-  <data name="Wifi.SecurityMachineFormat" xml:space="preserve">
-    <value>{0} (mašīna)</value>
-  </data>
-  <data name="Wifi.SecurityMachineOrUserFormat" xml:space="preserve">
-    <value>{0} (iekārta vai lietotājs)</value>
-  </data>
   <data name="Wifi.SecurityOpen" xml:space="preserve">
     <value>Atvērts</value>
   </data>
-  <data name="Wifi.SecurityPersonal" xml:space="preserve">
-    <value>Personīgi</value>
+  <data name="Wifi.SecurityOwe" xml:space="preserve">
+    <value>Atvērts (uzlabots)</value>
   </data>
   <data name="Wifi.SecurityVendorSpecific" xml:space="preserve">
     <value>Konkrēts pārdevējam</value>
@@ -425,17 +605,11 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Wifi.SecurityWpa2Personal" xml:space="preserve">
     <value>WPA2 Personal</value>
   </data>
-  <data name="Wifi.SecurityWpa2Wpa3Enterprise" xml:space="preserve">
-    <value>WPA2/WPA3 Enterprise</value>
-  </data>
   <data name="Wifi.SecurityWpa2Wpa3Personal" xml:space="preserve">
     <value>WPA2/WPA3 Personal</value>
   </data>
   <data name="Wifi.SecurityWpa3Enterprise" xml:space="preserve">
     <value>WPA3 Enterprise</value>
-  </data>
-  <data name="Wifi.SecurityWpa3Enterprise192" xml:space="preserve">
-    <value>WPA3 Enterprise 192 bitu</value>
   </data>
   <data name="Wifi.SecurityWpa3Personal" xml:space="preserve">
     <value>WPA3 Personal</value>
@@ -443,26 +617,20 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Wifi.SecurityWpaEnterprise" xml:space="preserve">
     <value>WPA Enterprise</value>
   </data>
-  <data name="Wifi.SecurityWpaNone" xml:space="preserve">
-    <value>WPA Nav</value>
-  </data>
   <data name="Wifi.SecurityWpaPersonal" xml:space="preserve">
     <value>WPA Personiski</value>
-  </data>
-  <data name="Wifi.SourceWithCertificateFormat" xml:space="preserve">
-    <value>{0} · Sertifikāts ir iekļauts sāknēšanas attēlā</value>
   </data>
   <data name="Wifi.StatusAnotherNetworkActive" xml:space="preserve">
     <value>Cits Wi-Fi tīkls ir aktīvs</value>
   </data>
-  <data name="Wifi.StatusNoAdapter" xml:space="preserve">
-    <value>Nav pieejams Wi-Fi adapteris</value>
+  <data name="Wifi.StatusLocked" xml:space="preserve">
+    <value>Nepieciešama parole</value>
+  </data>
+  <data name="Wifi.StatusNotInRange" xml:space="preserve">
+    <value>Ārpus darbības zonas</value>
   </data>
   <data name="Wifi.StatusReadyToConnect" xml:space="preserve">
     <value>Gatavs savienojumam</value>
-  </data>
-  <data name="Wifi.StatusUnavailable" xml:space="preserve">
-    <value>Wi-Fi nav pieejams</value>
   </data>
   <data name="Wifi.Title" xml:space="preserve">
     <value>Wi-Fi</value>
@@ -470,8 +638,8 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Wifi.TogglePassphraseVisibility" xml:space="preserve">
     <value>Rādīt vai paslēpt Wi-Fi paroli</value>
   </data>
-  <data name="Wifi.UnavailableAtRuntime" xml:space="preserve">
-    <value>Wi-Fi atbalsts nav pieejams šajā sāknēšanas vidē.</value>
+  <data name="Wifi.UnavailableOnDevice" xml:space="preserve">
+    <value>Wi-Fi šajā ierīcē nav pieejams.</value>
   </data>
   <data name="Wifi.UnnamedProvisionedProfile" xml:space="preserve">
     <value>Nosaukts nodrošinātais profils</value>

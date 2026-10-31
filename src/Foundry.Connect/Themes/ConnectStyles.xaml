@@ -1,0 +1,284 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Foundry.Wpf.Controls;assembly=Foundry.Wpf">
+    <Style x:Key="ConnectBannerBorderStyle"
+        BasedOn="{StaticResource SectionCardBorderStyle}"
+        TargetType="Border">
+        <Setter
+            Property="Padding"
+            Value="16" />
+        <Setter
+            Property="MinHeight"
+            Value="80" />
+    </Style>
+
+    <Style x:Key="ConnectPillBorderStyle"
+        TargetType="Border">
+        <Setter
+            Property="CornerRadius"
+            Value="10" />
+        <Setter
+            Property="Padding"
+            Value="8,2" />
+        <Setter
+            Property="BorderThickness"
+            Value="1" />
+        <Setter
+            Property="BorderBrush"
+            Value="{DynamicResource ControlStrokeColorDefaultBrush}" />
+        <Setter
+            Property="VerticalAlignment"
+            Value="Center" />
+    </Style>
+
+    <Style x:Key="ConnectPillTextBlockStyle"
+        BasedOn="{StaticResource CaptionTextBlockStyle}"
+        TargetType="TextBlock">
+        <Setter
+            Property="TextWrapping"
+            Value="NoWrap" />
+    </Style>
+
+    <!--
+        Severity glyph drawn like Foundry.Wpf InfoBar: a filled circle in the severity brush with the mark on top in the
+        on-accent text brush. Use it on a ContentControl and bind the InfoBarSeverity to Tag.
+    -->
+    <Style x:Key="ConnectSeverityGlyphStyle"
+        TargetType="ContentControl">
+        <Setter
+            Property="Focusable"
+            Value="False" />
+        <Setter
+            Property="IsTabStop"
+            Value="False" />
+        <Setter
+            Property="Margin"
+            Value="0,2,8,0" />
+        <Setter
+            Property="VerticalAlignment"
+            Value="Top" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Grid>
+                        <TextBlock x:Name="Disc"
+                            FontFamily="{DynamicResource SymbolThemeFontFamily}"
+                            FontSize="16"
+                            Foreground="{DynamicResource SystemFillColorAttentionBrush}"
+                            Text="&#xF136;" />
+                        <TextBlock x:Name="Mark"
+                            FontFamily="{DynamicResource SymbolThemeFontFamily}"
+                            FontSize="16"
+                            Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"
+                            Text="&#xF13F;" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger
+                            Property="Tag"
+                            Value="{x:Static controls:InfoBarSeverity.Success}">
+                            <Setter
+                                TargetName="Disc"
+                                Property="Foreground"
+                                Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                            <Setter
+                                TargetName="Mark"
+                                Property="Text"
+                                Value="&#xF13E;" />
+                        </Trigger>
+                        <Trigger
+                            Property="Tag"
+                            Value="{x:Static controls:InfoBarSeverity.Warning}">
+                            <Setter
+                                TargetName="Disc"
+                                Property="Foreground"
+                                Value="{DynamicResource SystemFillColorCautionBrush}" />
+                            <Setter
+                                TargetName="Mark"
+                                Property="Text"
+                                Value="&#xF13C;" />
+                        </Trigger>
+                        <Trigger
+                            Property="Tag"
+                            Value="{x:Static controls:InfoBarSeverity.Error}">
+                            <Setter
+                                TargetName="Disc"
+                                Property="Foreground"
+                                Value="{DynamicResource SystemFillColorCriticalBrush}" />
+                            <Setter
+                                TargetName="Mark"
+                                Property="Text"
+                                Value="&#xF13D;" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ConnectDenseListBoxItemStyle"
+        BasedOn="{StaticResource {x:Type ListBoxItem}}"
+        TargetType="ListBoxItem">
+        <Setter
+            Property="Padding"
+            Value="12,4" />
+        <Setter
+            Property="MinHeight"
+            Value="40" />
+        <Setter
+            Property="AutomationProperties.Name"
+            Value="{Binding AutomationName}" />
+    </Style>
+
+    <!--
+        A section title: it shares the vertical center of its title row (glyph, pill, chevron or refresh button), whose
+        MinHeight of 32 keeps every card's title at the same height.
+    -->
+    <Style x:Key="ConnectSectionTitleTextBlockStyle"
+        BasedOn="{StaticResource SubtitleTextBlockStyle}"
+        TargetType="TextBlock">
+        <Setter
+            Property="TextWrapping"
+            Value="Wrap" />
+        <Setter
+            Property="VerticalAlignment"
+            Value="Center" />
+    </Style>
+
+    <!--  Label and value cells of a details grid: 12 px between the columns, 4 px between the rows.  -->
+    <Style x:Key="ConnectFieldLabelTextBlockStyle"
+        BasedOn="{StaticResource BodyStrongTextBlockStyle}"
+        TargetType="TextBlock">
+        <Setter
+            Property="Margin"
+            Value="0,0,12,4" />
+    </Style>
+
+    <Style x:Key="ConnectFieldValueTextBlockStyle"
+        BasedOn="{StaticResource BodyTextBlockStyle}"
+        TargetType="TextBlock">
+        <Setter
+            Property="Margin"
+            Value="0,0,0,4" />
+        <Setter
+            Property="TextWrapping"
+            Value="Wrap" />
+    </Style>
+
+    <Style x:Key="ConnectNoticeTextBlockStyle"
+        BasedOn="{StaticResource BodyTextBlockStyle}"
+        TargetType="TextBlock">
+        <Setter
+            Property="TextWrapping"
+            Value="Wrap" />
+        <Setter
+            Property="Foreground"
+            Value="{DynamicResource TextFillColorSecondaryBrush}" />
+    </Style>
+
+    <!--  Action buttons carry no margin: each placement sets its own gap (8 px in a button row, 16 px above a card action).  -->
+    <Style x:Key="ConnectActionButtonStyle"
+        BasedOn="{StaticResource {x:Type Button}}"
+        TargetType="Button">
+        <Setter
+            Property="MinWidth"
+            Value="120" />
+    </Style>
+
+    <Style x:Key="ConnectAccentActionButtonStyle"
+        BasedOn="{StaticResource AccentButtonStyle}"
+        TargetType="Button">
+        <Setter
+            Property="MinWidth"
+            Value="120" />
+    </Style>
+
+    <!--  A section or list glyph: 20 px wide plus a 12 px gap, so the text after it starts 32 px in.  -->
+    <Style x:Key="ConnectGlyphTextBlockStyle"
+        TargetType="TextBlock">
+        <Setter
+            Property="FontFamily"
+            Value="{StaticResource SymbolThemeFontFamily}" />
+        <Setter
+            Property="FontSize"
+            Value="20" />
+        <Setter
+            Property="Width"
+            Value="20" />
+        <Setter
+            Property="Margin"
+            Value="0,0,12,0" />
+        <Setter
+            Property="VerticalAlignment"
+            Value="Center" />
+    </Style>
+
+    <!--
+        The Ethernet card's expander: one frame (the card's), no header or content border. The header toggle presents
+        the header as given (no theme or implicit toggle style), so the header draws its own chevron in its title row; the
+        details show under it when expanded.
+        Keyboard and automation behave as the theme's expander (same HeaderSite toggle bound to IsExpanded).
+    -->
+    <Style x:Key="ConnectCardExpanderStyle"
+        BasedOn="{StaticResource {x:Type Expander}}"
+        TargetType="Expander">
+        <Setter
+            Property="Padding"
+            Value="0" />
+        <Setter
+            Property="HorizontalContentAlignment"
+            Value="Stretch" />
+        <Setter
+            Property="VerticalContentAlignment"
+            Value="Top" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Expander">
+                    <DockPanel>
+                        <ToggleButton x:Name="HeaderSite"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Center"
+                            AutomationProperties.Name="{TemplateBinding AutomationProperties.Name}"
+                            Content="{TemplateBinding Header}"
+                            ContentTemplate="{TemplateBinding HeaderTemplate}"
+                            DockPanel.Dock="Top"
+                            FocusVisualStyle="{DynamicResource DefaultControlFocusVisualStyle}"
+                            Foreground="{TemplateBinding Foreground}"
+                            IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                            IsEnabled="{TemplateBinding IsEnabled}"
+                            OverridesDefaultStyle="True"
+                            Style="{x:Null}">
+                            <ToggleButton.Template>
+                                <ControlTemplate TargetType="ToggleButton">
+                                    <Border Background="Transparent">
+                                        <ContentPresenter
+                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            RecognizesAccessKey="True" />
+                                    </Border>
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+                        <ContentPresenter x:Name="ExpandSite"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            DockPanel.Dock="Bottom"
+                            Focusable="False"
+                            Visibility="Collapsed" />
+                    </DockPanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger
+                            Property="IsExpanded"
+                            Value="True">
+                            <Setter
+                                TargetName="ExpandSite"
+                                Property="Visibility"
+                                Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

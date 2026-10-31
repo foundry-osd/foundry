@@ -5,8 +5,8 @@
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Drivers;
 using Foundry.Deploy.Services.Images;
-using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.ViewModels;
+using Foundry.Wpf.Localization;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Wizard;

@@ -4,7 +4,7 @@
 
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
-using Foundry.Deploy.Services.ApplicationShell;
+using Foundry.Wpf.Shell;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Utilities.Storage;
 using ComputerNameRules = Foundry.Core.Services.Configuration.ComputerNameRules;

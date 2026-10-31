@@ -42,7 +42,7 @@ public sealed class LegacyProfileMigrationTests : IDisposable
             [SecretIds.OobeAccount(Expected.OobeAccountId)] = Expected.OobeAccountPassword,
             [SecretIds.DomainAccount(Expected.DomainAccount)] = Expected.DomainPassword,
         }, result.VaultEntries);
-        Assert.Equal(WiredCertificateHash, result.Configuration.Network.Dot1x.Certificate?.ContentHash);
+        Assert.Equal(WiredCertificateHash, result.Configuration.Network.Dot1x.ClientCertificate?.ContentHash);
         Assert.Empty(result.Notices);
     }
 
@@ -75,7 +75,7 @@ public sealed class LegacyProfileMigrationTests : IDisposable
 
         LegacyMigrationResult result = LegacyProfileMigration.Migrate(profile.Configuration, profile, activeProfileLocked: false, Import);
 
-        AuthoringFileReference certificate = Assert.IsType<AuthoringFileReference>(result.Configuration.Network.Dot1x.Certificate);
+        AuthoringFileReference certificate = Assert.IsType<AuthoringFileReference>(result.Configuration.Network.Dot1x.ClientCertificate);
         Assert.Equal(Convert.FromBase64String(Expected.WiredCertificateBase64), library.ReadVerified(certificate));
         Assert.NotNull(result.Configuration.Network.Dot1x.ProfileTemplate);
         UnattendFileSettings answerFile = Assert.Single(result.Configuration.Unattend.Files);
@@ -89,14 +89,28 @@ public sealed class LegacyProfileMigrationTests : IDisposable
         AuthoringFileReference pathImport = library.Import("bytes found at the legacy host path"u8, "machine.pfx");
         FoundryConfigurationDocument json = profile.Configuration with
         {
-            Network = profile.Configuration.Network with { Dot1x = profile.Configuration.Network.Dot1x with { Certificate = pathImport } }
+            Network = profile.Configuration.Network with { Dot1x = profile.Configuration.Network.Dot1x with { ClientCertificate = pathImport } }
         };
 
         LegacyMigrationResult result = LegacyProfileMigration.Migrate(json, profile, activeProfileLocked: false, Import);
 
-        Assert.Equal(WiredCertificateHash, result.Configuration.Network.Dot1x.Certificate?.ContentHash);
+        Assert.Equal(WiredCertificateHash, result.Configuration.Network.Dot1x.ClientCertificate?.ContentHash);
         Assert.Equal(Expected.WiredCertificatePassword, result.VaultEntries[SecretIds.Dot1xCertificate(WiredCertificateHash)]);
         Assert.False(result.VaultEntries.ContainsKey(SecretIds.Dot1xCertificate(pathImport.ContentHash)));
+    }
+
+    [Fact]
+    public void Migrate_ProfileCertificateThatIsNotAPfx_BecomesTheSingleTrustedRoot()
+    {
+        LegacyConfigurationSnapshot profile = ReadProfile(Expected.ActiveLocalId);
+        profile = profile with { Files = [.. profile.Files, new LegacyFile(LegacyFileRole.WifiCertificate, null, "wifi-root.cer", "root"u8.ToArray())] };
+
+        LegacyMigrationResult result = LegacyProfileMigration.Migrate(profile.Configuration, profile, activeProfileLocked: false, Import);
+
+        Assert.Null(result.Configuration.Network.Wifi.ClientCertificate);
+        AuthoringFileReference root = Assert.Single(result.Configuration.Network.Wifi.TrustedRootCertificates);
+        Assert.Equal("wifi-root.cer", root.FileName);
+        Assert.Equal("root"u8.ToArray(), library.ReadVerified(root));
     }
 
     [Fact]

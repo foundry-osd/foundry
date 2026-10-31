@@ -7,6 +7,7 @@ using Foundry.Core.Services.NetworkCache;
 using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Localization;
+using Foundry.Wpf.Localization;
 
 namespace Foundry.Deploy.Tests;
 

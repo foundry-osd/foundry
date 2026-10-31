@@ -44,11 +44,11 @@ public sealed class NetworkAction(string root, string windowsRoot, IPreOobeProce
             if (result.TerminationUncertain || result.ExitCode == 1641) return BuiltInSettings.Observe(result);
             warning |= result.ExitCode != 0;
         }
-        string? wifi = Text(settings.RootElement, "wifiProfileRelativePath");
-        if (wifi is not null)
+        // Windows puts a newly added profile at the top of the preferred list, so the list (most preferred first) is
+        // imported last to first; only the most preferred connectable profile is connected.
+        IReadOnlyList<(string Path, bool Connect)> wifiProfiles = ReadWifiProfiles(settings.RootElement);
+        foreach ((string path, bool connect) in wifiProfiles.Reverse())
         {
-            string path = DataPath(wifi);
-            bool connect = string.Equals(Text(settings.RootElement, "wifiProfileConnectivityExpectation"), "preOobeConnectable", StringComparison.OrdinalIgnoreCase);
             if (connect)
             {
                 try { await File.WriteAllTextAsync(path, NormalizeWifi(await File.ReadAllTextAsync(path, cancellationToken).ConfigureAwait(false)), cancellationToken).ConfigureAwait(false); }
@@ -57,19 +57,41 @@ public sealed class NetworkAction(string root, string windowsRoot, IPreOobeProce
             ProcessOutcome result = await Netsh(["wlan", "add", "profile", "filename=" + path, "user=all"], cancellationToken).ConfigureAwait(false);
             if (result.TerminationUncertain || result.ExitCode == 1641) return BuiltInSettings.Observe(result);
             warning |= result.ExitCode != 0;
-            if (connect)
+        }
+        string? connectPath = wifiProfiles.FirstOrDefault(static profile => profile.Connect).Path;
+        if (connectPath is not null)
+        {
+            string? name = GetWifiName(await File.ReadAllTextAsync(connectPath, cancellationToken).ConfigureAwait(false));
+            if (!string.IsNullOrWhiteSpace(name))
             {
-                string? name = GetWifiName(await File.ReadAllTextAsync(path, cancellationToken).ConfigureAwait(false));
-                if (!string.IsNullOrWhiteSpace(name))
-                {
-                    result = await Netsh(["wlan", "connect", "name=" + name], cancellationToken).ConfigureAwait(false);
-                    if (result.TerminationUncertain || result.ExitCode == 1641) return BuiltInSettings.Observe(result);
-                    warning |= result.ExitCode != 0;
-                }
+                ProcessOutcome result = await Netsh(["wlan", "connect", "name=" + name], cancellationToken).ConfigureAwait(false);
+                if (result.TerminationUncertain || result.ExitCode == 1641) return BuiltInSettings.Observe(result);
+                warning |= result.ExitCode != 0;
             }
         }
         return new(true, HasWarnings: warning);
     }
+
+    // The ordered wifiProfiles list (several roamed profiles) wins; otherwise the single wifiProfile* fields.
+    private List<(string Path, bool Connect)> ReadWifiProfiles(JsonElement settings)
+    {
+        List<(string Path, bool Connect)> profiles = [];
+        if (settings.TryGetProperty("wifiProfiles", out JsonElement list) && list.ValueKind == JsonValueKind.Array)
+        {
+            foreach (JsonElement profile in list.EnumerateArray())
+            {
+                if (profile.ValueKind == JsonValueKind.Object && Text(profile, "relativePath") is string relative)
+                    profiles.Add((DataPath(relative), IsConnectable(Text(profile, "connectivityExpectation"))));
+            }
+            if (profiles.Count > 0) return profiles;
+        }
+        if (Text(settings, "wifiProfileRelativePath") is string single)
+            profiles.Add((DataPath(single), IsConnectable(Text(settings, "wifiProfileConnectivityExpectation"))));
+        return profiles;
+    }
+
+    private static bool IsConnectable(string? expectation) =>
+        string.Equals(expectation, "preOobeConnectable", StringComparison.OrdinalIgnoreCase);
 
     private string DataPath(string? relative) => OwnedPaths.Resolve(OwnedPaths.Resolve(root, "Payloads"),
         relative ?? throw new InvalidDataException("A network input path is missing."));

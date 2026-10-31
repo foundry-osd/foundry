@@ -312,7 +312,7 @@ Darbība: pārbaudiet diska atribūtus un mēģiniet atkārtoti izvietot.</value
     <value>Turpināt</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>Lai turpinātu, ievadiet tehniķa paroli.</value>
+    <value>Lai turpinātu, ievadiet izvietošanas paroli.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>Nepieciešama parole</value>

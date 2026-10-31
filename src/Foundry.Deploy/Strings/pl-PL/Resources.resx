@@ -312,7 +312,7 @@ Akcja: Sprawdź atrybuty dysku i ponów próbę wdrożenia.</value>
     <value>Kontynuuj</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>Wprowadź hasło technika, aby kontynuować.</value>
+    <value>Wprowadź hasło wdrożenia, aby kontynuować.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>Wymagane hasło</value>

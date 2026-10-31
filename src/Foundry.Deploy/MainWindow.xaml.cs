@@ -5,8 +5,8 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Threading;
-using Foundry.Deploy.Motion;
-using Foundry.Deploy.Services.Runtime;
+using Foundry.Wpf.Motion;
+using Foundry.Core.Services.Runtime;
 using Foundry.Deploy.ViewModels;
 
 namespace Foundry.Deploy;
@@ -21,6 +21,8 @@ public partial class MainWindow : Window
 
     public MainWindow(MainWindowViewModel viewModel, RuntimeStartupDiagnostics startup)
     {
+        // Before InitializeComponent so the first frame already uses the theme and language chosen in Foundry Connect.
+        viewModel.RestoreRuntimePreferencesHandoff();
         InitializeComponent();
         _viewModel = viewModel;
         _startup = startup;

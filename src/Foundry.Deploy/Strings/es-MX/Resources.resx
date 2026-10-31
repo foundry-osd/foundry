@@ -312,7 +312,7 @@ Acción: Verifique los atributos del disco y vuelva a intentar la implementació
     <value>Continuar</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>Ingresa la contraseña del técnico para continuar.</value>
+    <value>Ingresa la contraseña de implementación para continuar.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>Contraseña requerida</value>

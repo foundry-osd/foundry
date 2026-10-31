@@ -2,14 +2,12 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Reflection;
+using Foundry.Wpf.Shell;
 
 namespace Foundry.Connect;
 
 public static class FoundryConnectApplicationInfo
 {
-    private static readonly string AppVersion = ResolveVersion();
-
     public const string AppName = "Foundry Connect";
     public const string AboutTitle = "About Foundry Connect";
     public const string WindowTitle = "Foundry Connect";
@@ -18,20 +16,5 @@ public static class FoundryConnectApplicationInfo
     public const int DefaultAutoContinueDelaySeconds = 10;
     public const int DefaultRefreshIntervalSeconds = 10;
 
-    public static string Version => AppVersion;
-
-    private static string ResolveVersion()
-    {
-        Assembly assembly = typeof(FoundryConnectApplicationInfo).Assembly;
-        string? informationalVersion = assembly
-            .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
-            .InformationalVersion;
-
-        if (!string.IsNullOrWhiteSpace(informationalVersion))
-        {
-            return informationalVersion.Trim();
-        }
-
-        return assembly.GetName().Version?.ToString() ?? "0.0.0.0";
-    }
+    public static string Version { get; } = WpfApplicationIdentity.FromAssembly(typeof(App).Assembly).Version;
 }

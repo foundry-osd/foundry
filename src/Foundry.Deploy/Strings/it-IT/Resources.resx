@@ -312,7 +312,7 @@ Azione: verificare gli attributi del disco e riprovare la distribuzione.</value>
     <value>Continua</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>Inserisci la password del tecnico per continuare.</value>
+    <value>Inserisci la password di distribuzione per continuare.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>Password richiesta</value>

@@ -312,7 +312,7 @@ Ação: verifique os atributos do disco e tente novamente a implementação.</va
     <value>Continuar</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>Introduza a palavra-passe do técnico para continuar.</value>
+    <value>Introduza a palavra-passe de implementação para continuar.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>Palavra-passe necessária</value>

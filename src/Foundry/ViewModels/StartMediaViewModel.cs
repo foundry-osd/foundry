@@ -5,7 +5,6 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
-using System.Security.Cryptography;
 using System.Text;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Application;
@@ -1723,11 +1722,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.GenerateProvisioningPayloads);
             FoundryConnectProvisioningBundle connectBundle = snapshot.CreateConnectProvisioningBundle(
                 Path.Combine(operationLease.OperationDirectoryPath, "Provisioning"),
+                deploymentProtectionMaterial,
                 connectTelemetrySettings);
             logger.Debug(
-                "Generated local provisioning payloads. ConnectAssetFileCount={ConnectAssetFileCount}, HasMediaSecretsKey={HasMediaSecretsKey}, AutopilotProfileCount={AutopilotProfileCount}",
+                "Generated local provisioning payloads. ConnectAssetFileCount={ConnectAssetFileCount}, AutopilotProfileCount={AutopilotProfileCount}",
                 connectBundle.AssetFiles.Count,
-                connectBundle.MediaSecretsKey is { Length: > 0 },
                 options.IsAutopilotEnabled ? snapshot.Configuration.Autopilot.Profiles.Count : 0);
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.PrepareWinPeWorkspace);
@@ -1736,49 +1735,37 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     new Progress<WinPeWorkspacePreparationStage>(ReportWorkspacePreparationStage));
 
             ReportPhase(MediaCreationPhase.Preparing, 100);
-            WinPeResult<WinPeWorkspacePreparationResult> preparationResult;
-            WinPeMountedImageAssetProvisioningOptions assetProvisioning;
-            NetworkCacheContentSections networkCacheSections;
-            try
-            {
-                assetProvisioning = CreateAssetProvisioningOptions(options, snapshot, tools, connectBundle, deploymentProtectionMaterial,
-                    runtimePayloadProvisioning, deployTelemetrySettings, customImages, postInstallation, customDrivers, out networkCacheSections);
-                preparationResult = await workspacePreparationService.PrepareAsync(
-                    new WinPeWorkspacePreparationOptions
-                    {
-                        DriverArchiveCacheDirectoryPath = Constants.WinPeDriverCacheDirectoryPath,
-                        Artifact = artifact,
-                        Tools = tools,
-                        SignatureMode = options.SignatureMode,
-                        IncludeWirelessSupport = options.IncludeWirelessSupport,
-                        DriverCatalogUri = new WinPeDriverCatalogOptions().CatalogUri,
-                        DriverVendors = options.DriverVendors,
-                        CustomDriverDirectoryPath = options.CustomDriverDirectoryPath,
-                        WinPeLanguage = options.WinPeLanguage,
-                        WinPeKeyboardLayout = KeyboardLayoutSelection.Find(KeyboardLayoutCatalog.GetInstalled(), options.WinPeKeyboardLayoutId),
-                        AssetProvisioning = assetProvisioning,
-                        RuntimePayloadProvisioning = artifactRuntimePayloadProvisioning with
-                        {
-                            IncludePayloadsInImage = includeRuntimePayloadInImage
-                        },
-                        WindowsSourceCacheDirectoryPath = Constants.WindowsSourceCacheDirectoryPath,
-                        WinReCacheDirectoryPath = Constants.WinReCacheDirectoryPath,
-                        LegacyWindowsSourceDirectoryPath = Constants.WinReTempDirectoryPath,
-                        Progress = workspacePreparationProgress,
-                        DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(
-                            new Progress<WinPeDownloadProgress>(ReportDownloadProgress)),
-                        CustomizationProgress = telemetryProgressTracker.CreateCustomizationProgress(
-                            new Progress<WinPeMountedImageCustomizationProgress>(ReportCustomizationProgress))
-                    },
-                    cancellationToken);
-            }
-            finally
-            {
-                if (connectBundle.MediaSecretsKey is not null)
+            WinPeMountedImageAssetProvisioningOptions assetProvisioning = CreateAssetProvisioningOptions(options, snapshot, tools, connectBundle,
+                deploymentProtectionMaterial, runtimePayloadProvisioning, deployTelemetrySettings, customImages, postInstallation, customDrivers,
+                out NetworkCacheContentSections networkCacheSections);
+            WinPeResult<WinPeWorkspacePreparationResult> preparationResult = await workspacePreparationService.PrepareAsync(
+                new WinPeWorkspacePreparationOptions
                 {
-                    CryptographicOperations.ZeroMemory(connectBundle.MediaSecretsKey);
-                }
-            }
+                    DriverArchiveCacheDirectoryPath = Constants.WinPeDriverCacheDirectoryPath,
+                    Artifact = artifact,
+                    Tools = tools,
+                    SignatureMode = options.SignatureMode,
+                    IncludeWirelessSupport = options.IncludeWirelessSupport,
+                    DriverCatalogUri = new WinPeDriverCatalogOptions().CatalogUri,
+                    DriverVendors = options.DriverVendors,
+                    CustomDriverDirectoryPath = options.CustomDriverDirectoryPath,
+                    WinPeLanguage = options.WinPeLanguage,
+                    WinPeKeyboardLayout = KeyboardLayoutSelection.Find(KeyboardLayoutCatalog.GetInstalled(), options.WinPeKeyboardLayoutId),
+                    AssetProvisioning = assetProvisioning,
+                    RuntimePayloadProvisioning = artifactRuntimePayloadProvisioning with
+                    {
+                        IncludePayloadsInImage = includeRuntimePayloadInImage
+                    },
+                    WindowsSourceCacheDirectoryPath = Constants.WindowsSourceCacheDirectoryPath,
+                    WinReCacheDirectoryPath = Constants.WinReCacheDirectoryPath,
+                    LegacyWindowsSourceDirectoryPath = Constants.WinReTempDirectoryPath,
+                    Progress = workspacePreparationProgress,
+                    DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(
+                        new Progress<WinPeDownloadProgress>(ReportDownloadProgress)),
+                    CustomizationProgress = telemetryProgressTracker.CreateCustomizationProgress(
+                        new Progress<WinPeMountedImageCustomizationProgress>(ReportCustomizationProgress))
+                },
+                cancellationToken);
             EnsureSuccess(preparationResult);
             preparedBootImageSource = preparationResult.Value!.BootImageSource;
             if (preparedBootImageSource == WinPeBootImageSource.WinPe)
@@ -1868,7 +1855,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             },
             FoundryConnectConfigurationJson = connectBundle.ConfigurationJson,
             DeployConfigurationJson = deployConfigurationJson,
-            NetworkSecretsKey = connectBundle.MediaSecretsKey,
             DeploymentSecretsKey = deploymentProtectionMaterial.DeploymentKey,
             IsDeploymentProtectionEnabled = deploymentProtectionMaterial.Settings.IsEnabled,
             Unattend = snapshot.Configuration.Unattend,
@@ -2850,11 +2836,11 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         {
             WifiProvisioned = false,
             Wifi = new WifiSettings()
-        }, mediaInputs);
+        }, mediaInputs, foundryConfigurationStateService.IsMediaProtected);
         NetworkConfigurationValidationResult wifiValidation = NetworkConfigurationValidator.Validate(configuration.Network with
         {
             Dot1x = new Dot1xSettings()
-        }, mediaInputs);
+        }, mediaInputs, foundryConfigurationStateService.IsMediaProtected);
 
         return
         (StartConfigurationOverviewItemViewModel[])

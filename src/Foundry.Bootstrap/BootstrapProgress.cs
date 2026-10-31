@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Models.Runtime;
+
 namespace Foundry.Bootstrap;
 
 /// <summary>Ordered user-visible stages; application launch is distinct from readiness.</summary>
@@ -26,7 +28,7 @@ internal sealed record BootstrapResult(BootstrapOutcome Outcome, BootstrapStage 
     internal int ExitCode => Outcome switch
     {
         BootstrapOutcome.Succeeded => 0,
-        BootstrapOutcome.Cancelled => 20,
+        BootstrapOutcome.Cancelled => (int)ChildRuntimeExitCode.UserAborted,
         _ => 1
     };
 }

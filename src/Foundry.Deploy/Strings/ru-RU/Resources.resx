@@ -312,7 +312,7 @@
     <value>Продолжить</value>
   </data>
   <data name="DeploymentAccess.Description" xml:space="preserve">
-    <value>Введите пароль технического специалиста, чтобы продолжить.</value>
+    <value>Введите пароль развертывания, чтобы продолжить.</value>
   </data>
   <data name="DeploymentAccess.Heading" xml:space="preserve">
     <value>Требуется пароль</value>

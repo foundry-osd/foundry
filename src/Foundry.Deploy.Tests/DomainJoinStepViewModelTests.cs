@@ -5,7 +5,7 @@
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.DomainJoin;
-using Foundry.Deploy.Controls;
+using Foundry.Wpf.Controls;
 using Foundry.Deploy.Services.DomainJoin;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.ViewModels;

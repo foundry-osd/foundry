@@ -12,6 +12,7 @@ using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Foundry.Core.Services.DomainJoin;
+using Foundry.Core.Services.Runtime;
 using Foundry.Deploy;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
@@ -20,20 +21,22 @@ using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.DomainJoin;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
+using Foundry.Wpf.Runtime;
 using Foundry.Deploy.Services.Security;
 using Foundry.Deploy.Services.Startup;
-using Foundry.Deploy.Services.ApplicationShell;
-using Foundry.Deploy.Services.Localization;
+using Foundry.Wpf.Shell;
 using Foundry.Deploy.Services.System;
 using Foundry.Utilities.Globalization;
 using Foundry.Utilities.Networking;
-using Foundry.Deploy.Services.Theme;
+using Foundry.Wpf.Theme;
 using Foundry.Deploy.Services.Wizard;
 using Foundry.Localization;
 using Foundry.Telemetry;
+using Foundry.Wpf.Localization;
+using Foundry.Wpf.ViewModels;
 using ComputerNameRules = Foundry.Core.Services.Configuration.ComputerNameRules;
 using Microsoft.Extensions.Logging;
-using DeployThemeMode = Foundry.Deploy.Services.Theme.ThemeMode;
+using DeployThemeMode = Foundry.Wpf.Theme.ThemeMode;
 
 namespace Foundry.Deploy.ViewModels;
 
@@ -399,6 +402,47 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
 
         RefreshKeyboardMenu();
+    }
+
+    /// <summary>
+    /// Applies the theme and language chosen in Foundry Connect, which runs first. Call once, before the window's first layout.
+    /// A missing or invalid hand-off file leaves the defaults untouched, and a failure while applying it is logged as a
+    /// warning: the hand-off never fails Deploy's startup.
+    /// </summary>
+    public void RestoreRuntimePreferencesHandoff() => RestoreRuntimePreferencesHandoff(RuntimePreferencesHandoff.DefaultPath);
+
+    internal void RestoreRuntimePreferencesHandoff(string path)
+    {
+        if (!RuntimePreferencesHandoff.TryRead(path, out RuntimePreferences? preferences))
+        {
+            return;
+        }
+
+        try
+        {
+            _themeService.SetTheme(preferences.Theme switch
+            {
+                RuntimeThemePreference.Light => DeployThemeMode.Light,
+                RuntimeThemePreference.Dark => DeployThemeMode.Dark,
+                _ => DeployThemeMode.System
+            });
+            OnPropertyChanged(nameof(CurrentTheme));
+            LocalizationService.SetCulture(CultureInfo.GetCultureInfo(preferences.CultureName));
+        }
+        catch (Exception exception)
+        {
+            // The hand-off is a convenience: Deploy must start with what it has. The exception is not attached because
+            // every log level is mirrored remotely.
+            _logger.LogWarning(
+                "Theme and language from Foundry Connect could not be applied. FailureType={FailureType}",
+                exception.GetType().Name);
+            return;
+        }
+
+        _logger.LogInformation(
+            "Theme and language restored from Foundry Connect. Theme={Theme}, Culture={Culture}",
+            preferences.Theme,
+            preferences.CultureName);
     }
 
     private void RefreshKeyboardMenu()

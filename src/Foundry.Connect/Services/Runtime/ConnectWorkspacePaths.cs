@@ -3,17 +3,16 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using Foundry.Core.Services.Runtime;
 using Foundry.Utilities.Runtime;
 
 namespace Foundry.Connect.Services.Runtime;
 
 /// <summary>
-/// Resolves Foundry.Connect configuration, log, and temporary paths for WinPE and desktop runtimes.
+/// Resolves Foundry.Connect configuration, log, and network profile roaming paths for WinPE and desktop runtimes.
 /// </summary>
 internal static class ConnectWorkspacePaths
 {
-    private const string WinPeWorkspaceRoot = @"X:\Foundry";
-
     /// <summary>
     /// Gets a value indicating whether Foundry.Connect is running inside WinPE.
     /// </summary>
@@ -30,7 +29,7 @@ internal static class ConnectWorkspacePaths
     public static string GetConfigFilePath(string fileName)
     {
         return IsWinPeRuntime()
-            ? GetWinPeWorkspacePath("Config", fileName)
+            ? Path.Combine(WinPeWorkspaceLayout.ConfigDirectory, fileName)
             : Path.Combine(AppContext.BaseDirectory, fileName);
     }
 
@@ -42,26 +41,11 @@ internal static class ConnectWorkspacePaths
     {
         if (IsWinPeRuntime())
         {
-            yield return GetWinPeWorkspacePath("Logs");
+            yield return WinPeWorkspaceLayout.LogsDirectory;
         }
 
         yield return Path.Combine(Path.GetTempPath(), "Foundry", "Logs");
         yield return AppContext.BaseDirectory;
-    }
-
-    /// <summary>
-    /// Enumerates temporary directories suitable for application runtime files.
-    /// </summary>
-    /// <param name="applicationFolderName">Folder name used below the runtime temporary root.</param>
-    /// <returns>Candidate temporary directories in preferred order.</returns>
-    public static IEnumerable<string> EnumerateTemporaryDirectories(string applicationFolderName)
-    {
-        if (IsWinPeRuntime())
-        {
-            yield return GetWinPeWorkspacePath("Temp", applicationFolderName);
-        }
-
-        yield return Path.Combine(Path.GetTempPath(), applicationFolderName);
     }
 
     /// <summary>
@@ -71,18 +55,7 @@ internal static class ConnectWorkspacePaths
     public static string GetNetworkProfileRoamingDirectory()
     {
         return IsWinPeRuntime()
-            ? GetWinPeWorkspacePath("Runtime", "NetworkProfileRoaming")
+            ? Path.Combine(WinPeWorkspaceLayout.RuntimeDirectory, "NetworkProfileRoaming")
             : Path.Combine(Path.GetTempPath(), "Foundry", "Runtime", "NetworkProfileRoaming");
-    }
-
-    private static string GetWinPeWorkspacePath(params string[] relativeSegments)
-    {
-        string currentPath = WinPeWorkspaceRoot;
-        foreach (string segment in relativeSegments)
-        {
-            currentPath = Path.Combine(currentPath, segment);
-        }
-
-        return currentPath;
     }
 }

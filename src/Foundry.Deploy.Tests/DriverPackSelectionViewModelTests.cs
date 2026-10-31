@@ -7,6 +7,7 @@ using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Drivers;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.ViewModels;
+using Foundry.Wpf.Localization;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Foundry.Deploy.Tests;
@@ -18,7 +19,7 @@ public sealed class DriverPackSelectionViewModelTests
     {
         var viewModel = new DriverPackSelectionViewModel(
             new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance),
-            new LocalizationService(),
+            new ResourceLocalizationService(LocalizationText.ResourceManager),
             "x64");
         HardwareProfile hardware = new()
         {
@@ -45,7 +46,7 @@ public sealed class DriverPackSelectionViewModelTests
     {
         var viewModel = new DriverPackSelectionViewModel(
             new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance),
-            new LocalizationService(),
+            new ResourceLocalizationService(LocalizationText.ResourceManager),
             "x64");
         HardwareProfile hardware = new()
         {
@@ -75,7 +76,7 @@ public sealed class DriverPackSelectionViewModelTests
     {
         var viewModel = new DriverPackSelectionViewModel(
             new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance),
-            new LocalizationService(),
+            new ResourceLocalizationService(LocalizationText.ResourceManager),
             "x64");
         HardwareProfile hardware = new()
         {
@@ -112,7 +113,7 @@ public sealed class DriverPackSelectionViewModelTests
     {
         var viewModel = new DriverPackSelectionViewModel(
             new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance),
-            new LocalizationService(),
+            new ResourceLocalizationService(LocalizationText.ResourceManager),
             "x64");
         HardwareProfile hardware = new()
         {
@@ -156,7 +157,7 @@ public sealed class DriverPackSelectionViewModelTests
     public void UpdateSelectionContext_CustomImageInspectionAndIndexChangePreserveChosenDriverVersion(bool automaticOemSource)
     {
         using var model = new DriverPackSelectionViewModel(
-            new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance), new LocalizationService(), "x64");
+            new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance), new ResourceLocalizationService(LocalizationText.ResourceManager), "x64");
         var asset = new CustomImageAsset { Id = "image", DisplayName = "Image", ImagePath = @"D:\image.wim", VolumeRoot = @"D:\" };
         var index = new Foundry.Core.Models.Configuration.CustomImageIndex { Index = 1, Architecture = "x64", ProductType = "WinNT", Build = 26200 };
         HardwareProfile? hardware = automaticOemSource
@@ -187,7 +188,7 @@ public sealed class DriverPackSelectionViewModelTests
     public void UpdateSelectionContext_TargetReleaseChanges_SelectsPreferredDriverVersion(bool customImage)
     {
         using var model = new DriverPackSelectionViewModel(
-            new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance), new LocalizationService(), "x64");
+            new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance), new ResourceLocalizationService(LocalizationText.ResourceManager), "x64");
         var asset = new CustomImageAsset { Id = "image", DisplayName = "Image", ImagePath = @"D:\image.wim", VolumeRoot = @"D:\" };
         OperatingSystemMetadata initial = customImage
             ? new CustomImageSelection(asset, new() { Index = 1, Architecture = "x64", ProductType = "WinNT", Build = 26200 })
@@ -213,7 +214,7 @@ public sealed class DriverPackSelectionViewModelTests
     public void UpdateSelectionContext_TargetArchitectureChanges_ReevaluatesChosenDriverVersion()
     {
         using var model = new DriverPackSelectionViewModel(
-            new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance), new LocalizationService(), "x64");
+            new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance), new ResourceLocalizationService(LocalizationText.ResourceManager), "x64");
         var operatingSystem = new OperatingSystemCatalogItem { WindowsRelease = "11", ReleaseId = "25H2", Architecture = "x64" };
         var older = CreateCatalogItem("older", "24H2", new DateTimeOffset(2024, 1, 1, 0, 0, 0, TimeSpan.Zero));
         var newer = CreateCatalogItem("newer", "25H2", new DateTimeOffset(2026, 1, 1, 0, 0, 0, TimeSpan.Zero));
@@ -260,7 +261,7 @@ public sealed class DriverPackSelectionViewModelTests
     public void DefaultSetPreselectedOnVirtualMachine()
     {
         using var model = new DriverPackSelectionViewModel(
-            new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance), new LocalizationService(), "x64");
+            new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance), new ResourceLocalizationService(LocalizationText.ResourceManager), "x64");
         model.UpdateSelectionContext(
             new HardwareProfile { Manufacturer = "Microsoft Corporation", Model = "Virtual Machine", IsVirtualMachine = true },
             new OperatingSystemCatalogItem { WindowsRelease = "11", ReleaseId = "25H2", Architecture = "x64" },
@@ -352,7 +353,7 @@ public sealed class DriverPackSelectionViewModelTests
     private static DriverPackSelectionViewModel CreatePhysicalLenovoModel()
     {
         var model = new DriverPackSelectionViewModel(
-            new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance), new LocalizationService(), "x64");
+            new DriverPackSelectionService(NullLogger<DriverPackSelectionService>.Instance), new ResourceLocalizationService(LocalizationText.ResourceManager), "x64");
         model.UpdateSelectionContext(
             new HardwareProfile { Manufacturer = "Lenovo", Model = "ThinkPad T14 Gen 5", Product = "21ML" },
             new OperatingSystemCatalogItem { WindowsRelease = "11", ReleaseId = "25H2", Architecture = "x64" },

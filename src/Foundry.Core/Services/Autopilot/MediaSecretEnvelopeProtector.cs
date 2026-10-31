@@ -26,7 +26,7 @@ public static class MediaSecretEnvelopeProtector
     public const string Algorithm = "aes-gcm-v1";
 
     /// <summary>
-    /// Logical key identifier for the media secret key stored with generated boot media.
+    /// Logical key identifier for the media secret key, which exists on older (schema 5) media only.
     /// </summary>
     public const string KeyId = "media";
 
@@ -34,6 +34,12 @@ public static class MediaSecretEnvelopeProtector
     /// Logical key identifier for Deploy-only secrets.
     /// </summary>
     public const string DeploymentKeyId = "deployment";
+
+    /// <summary>
+    /// Logical key identifiers Deploy accepts for the secrets it decrypts at runtime: the Deploy-only
+    /// <see cref="DeploymentKeyId"/> and the shared <see cref="KeyId"/> media key identifier.
+    /// </summary>
+    public static readonly IReadOnlyCollection<string> DeployKeyIds = [DeploymentKeyId, KeyId];
 
     /// <summary>
     /// Required AES-256 media secret key length.
@@ -49,15 +55,6 @@ public static class MediaSecretEnvelopeProtector
     /// Required AES-GCM authentication tag length.
     /// </summary>
     public const int TagSizeBytes = AesGcmEncryption.TagSizeBytes;
-
-    /// <summary>
-    /// Creates a new random media secret key for generated boot media.
-    /// </summary>
-    /// <returns>A 32-byte media secret key.</returns>
-    public static byte[] GenerateMediaKey()
-    {
-        return AesGcmEncryption.GenerateKey();
-    }
 
     /// <summary>
     /// Encrypts a UTF-8 string into the shared media secret envelope format.
@@ -153,6 +150,12 @@ public static class MediaSecretEnvelopeProtector
     /// <param name="envelope">Encrypted secret envelope.</param>
     /// <param name="key">Media secret key.</param>
     /// <returns>Decrypted bytes. The caller is responsible for zeroing the returned buffer.</returns>
+    /// <exception cref="ArgumentException">
+    /// <paramref name="key"/> is not <see cref="KeySizeBytes"/> bytes long.
+    /// </exception>
+    /// <exception cref="CryptographicException">
+    /// The envelope is unsupported, incomplete, not valid base64url, or fails authentication.
+    /// </exception>
     public static byte[] DecryptBytes(SecretEnvelope envelope, byte[] key)
     {
         return DecryptBytes(envelope, key, KeyId);
@@ -161,6 +164,16 @@ public static class MediaSecretEnvelopeProtector
     /// <summary>
     /// Decrypts binary secret material with an explicit logical key identifier.
     /// </summary>
+    /// <param name="envelope">Encrypted secret envelope.</param>
+    /// <param name="key">Media secret key.</param>
+    /// <param name="keyId">Logical key identifier the envelope must carry.</param>
+    /// <returns>Decrypted bytes. The caller is responsible for zeroing the returned buffer.</returns>
+    /// <exception cref="ArgumentException">
+    /// <paramref name="key"/> is not <see cref="KeySizeBytes"/> bytes long, or <paramref name="keyId"/> is empty.
+    /// </exception>
+    /// <exception cref="CryptographicException">
+    /// The envelope is unsupported, incomplete, not valid base64url, or fails authentication.
+    /// </exception>
     public static byte[] DecryptBytes(SecretEnvelope envelope, byte[] key, string keyId)
     {
         ArgumentNullException.ThrowIfNull(envelope);
@@ -168,18 +181,82 @@ public static class MediaSecretEnvelopeProtector
         ValidateEnvelope(envelope, keyId);
         ValidateKey(key);
 
+        AesGcmPayload payload;
         try
         {
-            return AesGcmEncryption.Decrypt(
-                new AesGcmPayload(
-                    Base64Url.Decode(envelope.Nonce),
-                    Base64Url.Decode(envelope.Tag),
-                    Base64Url.Decode(envelope.Ciphertext)),
-                key);
+            payload = new AesGcmPayload(
+                Base64Url.Decode(envelope.Nonce),
+                Base64Url.Decode(envelope.Tag),
+                Base64Url.Decode(envelope.Ciphertext));
+        }
+        catch (FormatException ex)
+        {
+            throw new CryptographicException("Encrypted secret envelope contains invalid base64url data.", ex);
+        }
+
+        try
+        {
+            return AesGcmEncryption.Decrypt(payload, key);
         }
         catch (CryptographicException ex)
         {
             throw new CryptographicException("Encrypted secret could not be decrypted.", ex);
+        }
+    }
+
+    /// <summary>
+    /// Decrypts binary secret material from an envelope whose logical key identifier is one of the accepted identifiers.
+    /// </summary>
+    /// <param name="envelope">Encrypted secret envelope.</param>
+    /// <param name="key">Media secret key.</param>
+    /// <param name="acceptedKeyIds">Logical key identifiers the envelope may carry, compared ordinally.</param>
+    /// <returns>Decrypted bytes. The caller is responsible for zeroing the returned buffer.</returns>
+    /// <exception cref="ArgumentException">
+    /// <paramref name="key"/> is not <see cref="KeySizeBytes"/> bytes long, or <paramref name="acceptedKeyIds"/>
+    /// is empty or contains an empty key identifier.
+    /// </exception>
+    /// <exception cref="CryptographicException">
+    /// The envelope key identifier is not accepted, or the envelope is unsupported, incomplete,
+    /// not valid base64url, or fails authentication.
+    /// </exception>
+    public static byte[] DecryptBytes(SecretEnvelope envelope, byte[] key, IReadOnlyCollection<string> acceptedKeyIds)
+    {
+        ArgumentNullException.ThrowIfNull(envelope);
+        ValidateKeyIds(acceptedKeyIds);
+
+        return DecryptBytes(envelope, key, ResolveAcceptedKeyId(envelope, acceptedKeyIds));
+    }
+
+    /// <summary>
+    /// Decrypts a UTF-8 secret into a character buffer the caller can clear, without creating a managed string.
+    /// </summary>
+    /// <param name="envelope">Encrypted secret envelope.</param>
+    /// <param name="key">Media secret key.</param>
+    /// <param name="acceptedKeyIds">Logical key identifiers the envelope may carry, compared ordinally.</param>
+    /// <returns>Decrypted characters. The caller is responsible for clearing the returned buffer.</returns>
+    /// <remarks>
+    /// The intermediate plaintext byte buffer is zeroed before this method returns, including when decoding fails.
+    /// </remarks>
+    /// <exception cref="ArgumentException">
+    /// <paramref name="key"/> is not <see cref="KeySizeBytes"/> bytes long, or <paramref name="acceptedKeyIds"/>
+    /// is empty or contains an empty key identifier.
+    /// </exception>
+    /// <exception cref="CryptographicException">
+    /// The envelope key identifier is not accepted, or the envelope is unsupported, incomplete,
+    /// not valid base64url, or fails authentication.
+    /// </exception>
+    public static char[] DecryptChars(SecretEnvelope envelope, byte[] key, IReadOnlyCollection<string> acceptedKeyIds)
+    {
+        byte[] plaintext = DecryptBytes(envelope, key, acceptedKeyIds);
+        try
+        {
+            char[] characters = new char[Encoding.UTF8.GetCharCount(plaintext)];
+            Encoding.UTF8.GetChars(plaintext, characters);
+            return characters;
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(plaintext);
         }
     }
 
@@ -260,6 +337,33 @@ public static class MediaSecretEnvelopeProtector
             string.IsNullOrWhiteSpace(envelope.Ciphertext))
         {
             throw new CryptographicException("Encrypted secret envelope is incomplete.");
+        }
+    }
+
+    private static string ResolveAcceptedKeyId(SecretEnvelope envelope, IReadOnlyCollection<string> acceptedKeyIds)
+    {
+        foreach (string acceptedKeyId in acceptedKeyIds)
+        {
+            if (string.Equals(envelope.KeyId, acceptedKeyId, StringComparison.Ordinal))
+            {
+                return acceptedKeyId;
+            }
+        }
+
+        throw new CryptographicException("Encrypted secret envelope is not supported.");
+    }
+
+    private static void ValidateKeyIds(IReadOnlyCollection<string> acceptedKeyIds)
+    {
+        ArgumentNullException.ThrowIfNull(acceptedKeyIds);
+        if (acceptedKeyIds.Count == 0)
+        {
+            throw new ArgumentException("At least one accepted key identifier is required.", nameof(acceptedKeyIds));
+        }
+
+        foreach (string acceptedKeyId in acceptedKeyIds)
+        {
+            ValidateKeyId(acceptedKeyId);
         }
     }
 
