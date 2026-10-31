@@ -400,11 +400,13 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
     {
         StopInternetRecheck();
         _internetRecheckTicks = 0;
-        _internetRecheckTimer = _timeProvider.CreateTimer(
-            _ => _dispatcher.Run(OnInternetRecheckTick),
+        ITimer? timer = null;
+        timer = _timeProvider.CreateTimer(
+            _ => _dispatcher.Run(() => OnInternetRecheckTick(timer)),
             null,
             ConnectPagePolicy.InternetRecheckInterval,
             ConnectPagePolicy.InternetRecheckInterval);
+        _internetRecheckTimer = timer;
     }
 
     private void StopInternetRecheck()
@@ -413,10 +415,11 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
         _internetRecheckTimer = null;
     }
 
-    private void OnInternetRecheckTick()
+    private void OnInternetRecheckTick(ITimer? source)
     {
-        // A tick queued on the dispatcher can run after Dispose or after the re-check stopped.
-        if (_isDisposed || _internetRecheckTimer is null)
+        // A tick queued on the dispatcher can run after Dispose, after the re-check stopped, or after a new connection
+        // restarted it with another timer: only a tick of the running timer counts.
+        if (_isDisposed || source is null || !ReferenceEquals(source, _internetRecheckTimer))
         {
             return;
         }

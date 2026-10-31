@@ -696,6 +696,33 @@ public sealed class ConnectPageViewModelTests : IDisposable
     }
 
     [Fact]
+    public void Recheck_RestartedByANewConnection_IgnoresATickQueuedByTheEarlierOne()
+    {
+        var dispatcher = new QueuedUiDispatcher();
+        using ConnectPageViewModel page = CreatePage(new RecordingLogger<ConnectPageViewModel>(), dispatcher: dispatcher);
+        Publish(ConnectDebugScenario.WaitingForAddress);
+        dispatcher.RunAll();
+        Publish(ConnectDebugScenario.EthernetNoInternet);
+        dispatcher.RunAll();
+        Assert.Equal(ConnectPageStatus.Checking, page.Status);
+
+        // The new connection is queued before the first re-check tick, so the restart runs first.
+        _coordinator.Publish(ConnectedWithoutInternet(NetworkOperationKind.ConnectWifiNetwork));
+        _clock.Advance(TimeSpan.FromSeconds(2));
+        dispatcher.RunAll();
+        for (int tick = 0; tick < 4; tick++)
+        {
+            _clock.Advance(TimeSpan.FromSeconds(2));
+            dispatcher.RunAll();
+        }
+
+        Assert.Equal(ConnectPageStatus.Checking, page.Status);
+        _clock.Advance(TimeSpan.FromSeconds(2));
+        dispatcher.RunAll();
+        Assert.Equal(ConnectPageStatus.Blocked, page.Status);
+    }
+
+    [Fact]
     public void UnlockRequested_WhenThePromptFails_LogsTheFailureTypeOnly()
     {
         var logger = new RecordingLogger<ConnectPageViewModel>();
@@ -859,10 +886,10 @@ public sealed class ConnectPageViewModelTests : IDisposable
         return monitorTask;
     }
 
-    private ConnectPageViewModel CreatePage(RecordingLogger<ConnectPageViewModel> logger, FakeNetworkMonitor? monitor = null)
+    private ConnectPageViewModel CreatePage(RecordingLogger<ConnectPageViewModel> logger, FakeNetworkMonitor? monitor = null, IUiDispatcher? dispatcher = null)
     {
         var actions = new ConnectNetworkActions(_coordinator, _unlock, new RecordingLogger<ConnectNetworkActions>());
-        var dispatcher = new ImmediateUiDispatcher();
+        dispatcher ??= new ImmediateUiDispatcher();
         return new ConnectPageViewModel(
             _localization, _coordinator, monitor ?? _monitor, actions,
             new AutoContinueViewModel(_localization, _exit, new FakeApplicationLifetime(), _clock, dispatcher, new RecordingLogger<AutoContinueViewModel>(), isAutoContinueEnabled: false),
@@ -871,5 +898,21 @@ public sealed class ConnectPageViewModelTests : IDisposable
             new WifiNetworksViewModel(_localization, actions, _monitor),
             new DiagnosticsViewModel(_localization, new RecordingLogger<DiagnosticsViewModel>()),
             dispatcher, _clock, logger);
+    }
+
+    // Queues every action until RunAll, like a busy UI thread, so the order of queued work can be tested.
+    private sealed class QueuedUiDispatcher : IUiDispatcher
+    {
+        private readonly Queue<Action> _actions = new();
+
+        public void Run(Action action) => _actions.Enqueue(action);
+
+        public void RunAll()
+        {
+            while (_actions.TryDequeue(out Action? action))
+            {
+                action();
+            }
+        }
     }
 }
