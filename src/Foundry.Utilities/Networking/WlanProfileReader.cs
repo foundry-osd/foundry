@@ -17,16 +17,6 @@ public static class WlanProfileReader
         "http://www.microsoft.com/networking/WLAN/profile/v1";
 
     /// <summary>
-    /// Reads the first non-empty profile name from a WLAN profile.
-    /// </summary>
-    /// <param name="profilePath">Path to the WLAN profile XML file.</param>
-    /// <returns>The trimmed profile name, or <see langword="null"/> when it cannot be read.</returns>
-    public static string? TryReadName(string? profilePath)
-    {
-        return TryReadValue(profilePath, "name");
-    }
-
-    /// <summary>
     /// Reads the first non-empty authentication value from a WLAN profile.
     /// </summary>
     /// <param name="profilePath">Path to the WLAN profile XML file.</param>

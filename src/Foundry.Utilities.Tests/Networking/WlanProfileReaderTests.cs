@@ -10,22 +10,6 @@ namespace Foundry.Utilities.Tests.Networking;
 public sealed class WlanProfileReaderTests
 {
     [Fact]
-    public void TryReadName_WhenProfileContainsEntity_ReturnsTrimmedDecodedValue()
-    {
-        using var temporaryDirectory = new TemporaryDirectory();
-        string profilePath = temporaryDirectory.CreateProfile(
-            """
-            <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
-              <name>  Corp &amp; Guest  </name>
-            </WLANProfile>
-            """);
-
-        string? name = WlanProfileReader.TryReadName(profilePath);
-
-        Assert.Equal("Corp & Guest", name);
-    }
-
-    [Fact]
     public void TryReadAuthentication_WhenFirstValueIsBlank_ReturnsFirstNonBlankValue()
     {
         using var temporaryDirectory = new TemporaryDirectory();
@@ -49,23 +33,9 @@ public sealed class WlanProfileReaderTests
     }
 
     [Fact]
-    public void TryReadName_WhenElementIsMissing_ReturnsNull()
+    public void TryReadAuthentication_WhenPathIsBlank_ReturnsNull()
     {
-        using var temporaryDirectory = new TemporaryDirectory();
-        string profilePath = temporaryDirectory.CreateProfile(
-            """
-            <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1" />
-            """);
-
-        string? name = WlanProfileReader.TryReadName(profilePath);
-
-        Assert.Null(name);
-    }
-
-    [Fact]
-    public void TryReadName_WhenPathIsBlank_ReturnsNull()
-    {
-        Assert.Null(WlanProfileReader.TryReadName("  "));
+        Assert.Null(WlanProfileReader.TryReadAuthentication("  "));
     }
 
     [Fact]
@@ -90,36 +60,36 @@ public sealed class WlanProfileReaderTests
     }
 
     [Fact]
-    public void TryReadName_WhenNamespaceDoesNotMatch_ReturnsNull()
+    public void TryReadAuthentication_WhenNamespaceDoesNotMatch_ReturnsNull()
     {
         using var temporaryDirectory = new TemporaryDirectory();
         string profilePath = temporaryDirectory.CreateProfile(
             """
             <WLANProfile>
-              <name>Corp WiFi</name>
+              <authentication>WPA2PSK</authentication>
             </WLANProfile>
             """);
 
-        string? name = WlanProfileReader.TryReadName(profilePath);
+        string? authentication = WlanProfileReader.TryReadAuthentication(profilePath);
 
-        Assert.Null(name);
+        Assert.Null(authentication);
     }
 
     [Fact]
-    public void TryReadName_WhenDocumentContainsDtd_ReturnsNull()
+    public void TryReadAuthentication_WhenDocumentContainsDtd_ReturnsNull()
     {
         using var temporaryDirectory = new TemporaryDirectory();
         string profilePath = temporaryDirectory.CreateProfile(
             """
-            <!DOCTYPE WLANProfile [<!ENTITY profileName "Corp WiFi">]>
+            <!DOCTYPE WLANProfile [<!ENTITY authentication "WPA2PSK">]>
             <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
-              <name>&profileName;</name>
+              <authentication>&authentication;</authentication>
             </WLANProfile>
             """);
 
-        string? name = WlanProfileReader.TryReadName(profilePath);
+        string? authentication = WlanProfileReader.TryReadAuthentication(profilePath);
 
-        Assert.Null(name);
+        Assert.Null(authentication);
     }
 
     [Theory]
