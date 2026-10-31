@@ -57,15 +57,6 @@ public static class MediaSecretEnvelopeProtector
     public const int TagSizeBytes = AesGcmEncryption.TagSizeBytes;
 
     /// <summary>
-    /// Creates a new random 32-byte key. Generated media no longer store a media key; one exists on older (schema 5) media only.
-    /// </summary>
-    /// <returns>A 32-byte key.</returns>
-    public static byte[] GenerateMediaKey()
-    {
-        return AesGcmEncryption.GenerateKey();
-    }
-
-    /// <summary>
     /// Encrypts a UTF-8 string into the shared media secret envelope format.
     /// </summary>
     /// <param name="plaintext">Plaintext value to encrypt.</param>

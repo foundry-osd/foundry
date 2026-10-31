@@ -11,6 +11,7 @@ using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Runtime;
 using Foundry.Core.Services.WinPe;
+using Foundry.Utilities.Security;
 
 namespace Foundry.Connect.Tests.Support;
 
@@ -47,7 +48,7 @@ internal static class ConnectMediaFixtures
         string? wifiPfxPassword = null)
     {
         ArgumentNullException.ThrowIfNull(directory);
-        byte[] mediaKey = MediaSecretEnvelopeProtector.GenerateMediaKey();
+        byte[] mediaKey = AesGcmEncryption.GenerateKey();
         try
         {
             bool hasEnvelope = false;

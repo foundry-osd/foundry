@@ -171,22 +171,6 @@ public sealed class NetworkConfigurationValidatorTests
         Assert.Equal(NetworkConfigurationValidationCode.WifiEnterpriseCertificateMissing, result.Code);
     }
 
-    [Theory]
-    [InlineData("WPA2-Personal", NetworkConfigurationValidator.WifiSecurityLegacyWpa2Personal)]
-    [InlineData("WPA3-SAE", NetworkConfigurationValidator.WifiSecurityWpa3Personal)]
-    [InlineData("OWE", NetworkConfigurationValidator.WifiSecurityOwe)]
-    [InlineData("Open", NetworkConfigurationValidator.WifiSecurityOpen)]
-    [InlineData("WPA2-Enterprise", NetworkConfigurationValidator.WifiSecurityEnterprise)]
-    [InlineData("unknown", NetworkConfigurationValidator.WifiSecurityEnterprise)]
-    public void ResolveDiscoveredWifiSecurityType_MapsNativeAuthenticationToFoundrySecurityType(
-        string authentication,
-        string expected)
-    {
-        string result = NetworkConfigurationValidator.ResolveDiscoveredWifiSecurityType(authentication);
-
-        Assert.Equal(expected, result);
-    }
-
     [Fact]
     public void Validate_WiredTrustedRootOnly_SatisfiesRequiredCertificates()
     {

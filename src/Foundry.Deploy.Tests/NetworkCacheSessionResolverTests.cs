@@ -11,6 +11,7 @@ using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Security;
 using Foundry.Utilities.Networking;
+using Foundry.Utilities.Security;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Foundry.Deploy.Tests;
@@ -19,7 +20,7 @@ public sealed class NetworkCacheSessionResolverTests
 {
     private const string FirstShare = @"\\fs01\cache";
     private const string SecondShare = @"\\fs02\cache";
-    private static readonly byte[] Key = MediaSecretEnvelopeProtector.GenerateMediaKey();
+    private static readonly byte[] Key = AesGcmEncryption.GenerateKey();
 
     [Fact]
     public async Task Resolve_Disabled_ReturnsDisabled()

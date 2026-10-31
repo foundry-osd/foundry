@@ -12,6 +12,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Utilities.Networking;
+using Foundry.Utilities.Security;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect.Tests.Network;
@@ -360,7 +361,7 @@ public sealed class ProvisioningStepTests
     public async Task RunAsync_WifiLockedAfterCancel_IsLockedWithUnlockCancelled()
     {
         using var directory = new TemporaryDirectory();
-        byte[] key = MediaSecretEnvelopeProtector.GenerateMediaKey();
+        byte[] key = AesGcmEncryption.GenerateKey();
         var secrets = new ConnectRuntimeSecrets(
             ConnectSecret.Locked(MediaSecretEnvelopeProtector.EncryptString("lab-passphrase", key, MediaSecretEnvelopeProtector.DeploymentKeyId)),
             ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned(), protection: new DeployProtectionSettings { IsEnabled = true });
@@ -377,7 +378,7 @@ public sealed class ProvisioningStepTests
     public async Task RefreshWifiAsync_AfterUnlock_BuildsTheProfile()
     {
         using var directory = new TemporaryDirectory();
-        byte[] key = MediaSecretEnvelopeProtector.GenerateMediaKey();
+        byte[] key = AesGcmEncryption.GenerateKey();
         var secrets = new ConnectRuntimeSecrets(
             ConnectSecret.Locked(MediaSecretEnvelopeProtector.EncryptString("lab-passphrase", key, MediaSecretEnvelopeProtector.DeploymentKeyId)),
             ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned(), protection: new DeployProtectionSettings { IsEnabled = true });
@@ -397,7 +398,7 @@ public sealed class ProvisioningStepTests
     public async Task RefreshWifiAsync_ClearsWiredSecretsTheUnlockMadeAvailableAndKeepsWiredCancelled()
     {
         using var directory = new TemporaryDirectory();
-        byte[] key = MediaSecretEnvelopeProtector.GenerateMediaKey();
+        byte[] key = AesGcmEncryption.GenerateKey();
         FoundryConnectConfigurationDocument configuration = WiredConfiguration(directory) with
         {
             Capabilities = new ConnectNetworkCapabilitiesSettings { WifiProvisioned = true },
@@ -428,7 +429,7 @@ public sealed class ProvisioningStepTests
     public async Task RunAsync_WiredProtectedClientAndRoots_InstallsEveryCertificate()
     {
         using var directory = new TemporaryDirectory();
-        byte[] key = MediaSecretEnvelopeProtector.GenerateMediaKey();
+        byte[] key = AesGcmEncryption.GenerateKey();
         directory.CreateFile(@"Network\root1.cer", [1]);
         directory.CreateFile(@"Network\root2.crt", [2]);
         FoundryConnectConfigurationDocument configuration = WiredConfiguration(directory);
@@ -458,7 +459,7 @@ public sealed class ProvisioningStepTests
     public async Task RunAsync_WiredLocked_SkipsTheWiredProfile()
     {
         using var directory = new TemporaryDirectory();
-        byte[] key = MediaSecretEnvelopeProtector.GenerateMediaKey();
+        byte[] key = AesGcmEncryption.GenerateKey();
         var secrets = new ConnectRuntimeSecrets(ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned(),
             ConnectSecret.Locked(MediaSecretEnvelopeProtector.EncryptString("w", key, MediaSecretEnvelopeProtector.DeploymentKeyId)),
             protection: new DeployProtectionSettings { IsEnabled = true });
@@ -476,7 +477,7 @@ public sealed class ProvisioningStepTests
     public async Task RunAsync_WifiEnterpriseProtectedTemplateAndClient_UsesTheDecryptedContent()
     {
         using var directory = new TemporaryDirectory();
-        byte[] key = MediaSecretEnvelopeProtector.GenerateMediaKey();
+        byte[] key = AesGcmEncryption.GenerateKey();
         directory.CreateFile(@"Network\root.cer", [1]);
         byte[] template = Encoding.UTF8.GetBytes("""
             <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
@@ -524,8 +525,8 @@ public sealed class ProvisioningStepTests
     public async Task RunAsync_WifiProtectedTemplateTamperedAfterUnlock_IsSecretUnavailableWithOneFailure()
     {
         using var directory = new TemporaryDirectory();
-        byte[] key = MediaSecretEnvelopeProtector.GenerateMediaKey();
-        byte[] otherKey = MediaSecretEnvelopeProtector.GenerateMediaKey();
+        byte[] key = AesGcmEncryption.GenerateKey();
+        byte[] otherKey = AesGcmEncryption.GenerateKey();
         var logger = new RecordingLogger<ProvisioningStep>();
         FoundryConnectConfigurationDocument configuration = new()
         {
@@ -557,7 +558,7 @@ public sealed class ProvisioningStepTests
     public async Task RunAsync_WifiProtectedTemplateWithByteOrderMark_IsReady(string encodingName)
     {
         using var directory = new TemporaryDirectory();
-        byte[] key = MediaSecretEnvelopeProtector.GenerateMediaKey();
+        byte[] key = AesGcmEncryption.GenerateKey();
         Encoding encoding = encodingName switch
         {
             "utf-8-bom" => new UTF8Encoding(encoderShouldEmitUTF8Identifier: true),
@@ -589,7 +590,7 @@ public sealed class ProvisioningStepTests
     public async Task RunAsync_WifiLockedEnterprise_HasTheConfiguredSsidAndIsNotHidden()
     {
         using var directory = new TemporaryDirectory();
-        byte[] key = MediaSecretEnvelopeProtector.GenerateMediaKey();
+        byte[] key = AesGcmEncryption.GenerateKey();
         FoundryConnectConfigurationDocument configuration = ProtectedEnterpriseConfiguration();
         configuration = configuration with { Wifi = configuration.Wifi with { Ssid = " Corp " } };
         var secrets = new ConnectRuntimeSecrets(ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned(),
@@ -609,7 +610,7 @@ public sealed class ProvisioningStepTests
     public async Task RunAsync_WifiLocked_KeepsTheItemsThatAreAlreadyAvailable()
     {
         using var directory = new TemporaryDirectory();
-        byte[] key = MediaSecretEnvelopeProtector.GenerateMediaKey();
+        byte[] key = AesGcmEncryption.GenerateKey();
         var secrets = new ConnectRuntimeSecrets(
             ConnectSecret.NotProvisioned(),
             ConnectSecret.Available("media-keyed-password".ToCharArray()),

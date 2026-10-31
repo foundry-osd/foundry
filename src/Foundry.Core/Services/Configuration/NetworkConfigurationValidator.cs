@@ -156,43 +156,6 @@ public static class NetworkConfigurationValidator
     }
 
     /// <summary>
-    /// Maps native Wi-Fi discovery authentication text to a Foundry Wi-Fi security type.
-    /// </summary>
-    /// <param name="authentication">The native authentication text.</param>
-    /// <returns>The Foundry Wi-Fi security type.</returns>
-    public static string ResolveDiscoveredWifiSecurityType(string authentication)
-    {
-        if (authentication.Contains("enterprise", StringComparison.OrdinalIgnoreCase))
-        {
-            return WifiSecurityEnterprise;
-        }
-
-        if (authentication.Contains("open", StringComparison.OrdinalIgnoreCase))
-        {
-            return WifiSecurityOpen;
-        }
-
-        if (authentication.Contains("owe", StringComparison.OrdinalIgnoreCase))
-        {
-            return WifiSecurityOwe;
-        }
-
-        if (authentication.Contains("sae", StringComparison.OrdinalIgnoreCase) ||
-            authentication.Contains("wpa3", StringComparison.OrdinalIgnoreCase))
-        {
-            return WifiSecurityWpa3Personal;
-        }
-
-        if (authentication.Contains("personal", StringComparison.OrdinalIgnoreCase) ||
-            authentication.Contains("psk", StringComparison.OrdinalIgnoreCase))
-        {
-            return WifiSecurityLegacyWpa2Personal;
-        }
-
-        return WifiSecurityEnterprise;
-    }
-
-    /// <summary>
     /// Gets whether a security type represents an enterprise Wi-Fi profile.
     /// </summary>
     /// <param name="securityType">The security type to inspect.</param>

@@ -8,6 +8,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Security;
+using Foundry.Utilities.Security;
 
 namespace Foundry.Connect.Tests.Network;
 
@@ -68,7 +69,7 @@ public sealed class ConnectSecretTests
     [Fact]
     public void Locked_UnlocksOnlyWithTheDeploymentKey()
     {
-        byte[] key = MediaSecretEnvelopeProtector.GenerateMediaKey();
+        byte[] key = AesGcmEncryption.GenerateKey();
         SecretEnvelope envelope = MediaSecretEnvelopeProtector.EncryptString("lab-passphrase", key, MediaSecretEnvelopeProtector.DeploymentKeyId);
         ConnectSecret wrong = ConnectSecret.Locked(envelope), right = ConnectSecret.Locked(envelope);
 
@@ -83,7 +84,7 @@ public sealed class ConnectSecretTests
     [Fact]
     public void Clear_KeepsALockedSecretUnlockable()
     {
-        byte[] key = MediaSecretEnvelopeProtector.GenerateMediaKey();
+        byte[] key = AesGcmEncryption.GenerateKey();
         ConnectSecret secret = ConnectSecret.Locked(MediaSecretEnvelopeProtector.EncryptString("w", key, MediaSecretEnvelopeProtector.DeploymentKeyId));
 
         secret.Clear();
@@ -96,7 +97,7 @@ public sealed class ConnectSecretTests
     [Fact]
     public void ProtectedContent_UnlocksClearsAndNeverPrintsBytes()
     {
-        byte[] key = MediaSecretEnvelopeProtector.GenerateMediaKey();
+        byte[] key = AesGcmEncryption.GenerateKey();
         var content = ConnectProtectedContent.Locked(MediaSecretEnvelopeProtector.EncryptBytes([1, 2, 3], key, MediaSecretEnvelopeProtector.DeploymentKeyId));
 
         Assert.True(content.TryUnlock(key));
@@ -109,7 +110,7 @@ public sealed class ConnectSecretTests
     [Fact]
     public void RuntimeSecrets_UnlockEverythingOnce()
     {
-        byte[] key = MediaSecretEnvelopeProtector.GenerateMediaKey();
+        byte[] key = AesGcmEncryption.GenerateKey();
         SecretEnvelope Encrypt(string value) => MediaSecretEnvelopeProtector.EncryptString(value, key, MediaSecretEnvelopeProtector.DeploymentKeyId);
         var secrets = new ConnectRuntimeSecrets(ConnectSecret.Locked(Encrypt("p")), ConnectSecret.NotProvisioned(), ConnectSecret.Locked(Encrypt("w")),
             wiredClientCertificate: ConnectProtectedContent.Locked(MediaSecretEnvelopeProtector.EncryptBytes([9], key, MediaSecretEnvelopeProtector.DeploymentKeyId)));
@@ -125,7 +126,7 @@ public sealed class ConnectSecretTests
     [Fact]
     public void ProtectedContent_WrongKey_IsUnavailableWithTheFailureType()
     {
-        byte[] key = MediaSecretEnvelopeProtector.GenerateMediaKey();
+        byte[] key = AesGcmEncryption.GenerateKey();
         var content = ConnectProtectedContent.Locked(MediaSecretEnvelopeProtector.EncryptBytes([1, 2, 3], key, MediaSecretEnvelopeProtector.DeploymentKeyId));
 
         Assert.False(content.TryUnlock(new byte[32]));
@@ -138,7 +139,7 @@ public sealed class ConnectSecretTests
     [Fact]
     public void RuntimeSecrets_UnlockWithAWrongLengthKey_ThrowsAndChangesNothing()
     {
-        byte[] key = MediaSecretEnvelopeProtector.GenerateMediaKey();
+        byte[] key = AesGcmEncryption.GenerateKey();
         ConnectRuntimeSecrets secrets = LockedSecrets(key, protection: null);
 
         Assert.Throws<ArgumentException>(() => secrets.Unlock(new byte[16]));
@@ -149,9 +150,9 @@ public sealed class ConnectSecretTests
     [Fact]
     public void RuntimeSecrets_UnlockWithAWrongKeyAndNoKeyCheck_MakesTheLockedItemsUnavailable()
     {
-        ConnectRuntimeSecrets secrets = LockedSecrets(MediaSecretEnvelopeProtector.GenerateMediaKey(), protection: null);
+        ConnectRuntimeSecrets secrets = LockedSecrets(AesGcmEncryption.GenerateKey(), protection: null);
 
-        Assert.Equal(0, secrets.Unlock(MediaSecretEnvelopeProtector.GenerateMediaKey()));
+        Assert.Equal(0, secrets.Unlock(AesGcmEncryption.GenerateKey()));
         Assert.Equal(ConnectSecretFailure.DecryptionFailed, secrets.WifiPassphrase.Failure);
         Assert.Equal(ConnectSecretFailure.DecryptionFailed, secrets.WiredClientCertificate.Failure);
         Assert.False(secrets.IsWifiLocked);
@@ -161,10 +162,10 @@ public sealed class ConnectSecretTests
     [Fact]
     public void RuntimeSecrets_UnlockWithAKeyThatFailsTheKeyCheck_ThrowsAndChangesNothing()
     {
-        byte[] key = MediaSecretEnvelopeProtector.GenerateMediaKey();
+        byte[] key = AesGcmEncryption.GenerateKey();
         ConnectRuntimeSecrets secrets = LockedSecrets(key, new DeployProtectionSettings { IsEnabled = true, KeyCheck = DeploymentKeyProtection.CreateKeyCheck(key) });
 
-        Assert.Throws<ArgumentException>(() => secrets.Unlock(MediaSecretEnvelopeProtector.GenerateMediaKey()));
+        Assert.Throws<ArgumentException>(() => secrets.Unlock(AesGcmEncryption.GenerateKey()));
         Assert.True(secrets.IsWifiLocked);
         Assert.True(secrets.IsWiredLocked);
         Assert.Equal(2, secrets.Unlock(key));

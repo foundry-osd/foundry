@@ -9,13 +9,14 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Security;
+using Foundry.Utilities.Security;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect.Tests.Security;
 
 public sealed class ConnectUnlockServiceTests
 {
-    private readonly byte[] _key = MediaSecretEnvelopeProtector.GenerateMediaKey();
+    private readonly byte[] _key = AesGcmEncryption.GenerateKey();
     private readonly ManualTimeProvider _time = new();
     private readonly FakePrompt _prompt = new();
     private readonly FakeHandoff _handoff = new();
@@ -109,7 +110,7 @@ public sealed class ConnectUnlockServiceTests
         var secrets = new ConnectRuntimeSecrets(
             ConnectSecret.Locked(MediaSecretEnvelopeProtector.EncryptString("lab-passphrase", _key, MediaSecretEnvelopeProtector.DeploymentKeyId)),
             ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned(),
-            protection: new DeployProtectionSettings { IsEnabled = true, KeyCheck = DeploymentKeyProtection.CreateKeyCheck(MediaSecretEnvelopeProtector.GenerateMediaKey()) });
+            protection: new DeployProtectionSettings { IsEnabled = true, KeyCheck = DeploymentKeyProtection.CreateKeyCheck(AesGcmEncryption.GenerateKey()) });
         _prompt.Answers.Enqueue("right password".ToCharArray());
 
         ConnectUnlockResult result = await Create(secrets).UnlockAsync(ConnectUnlockTrigger.ManualWifi, TestContext.Current.CancellationToken);
@@ -131,7 +132,7 @@ public sealed class ConnectUnlockServiceTests
             ConnectSecret.Locked(MediaSecretEnvelopeProtector.EncryptString("lab-passphrase", _key, MediaSecretEnvelopeProtector.DeploymentKeyId)),
             ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned(),
             wiredClientCertificate: ConnectProtectedContent.Locked(
-                MediaSecretEnvelopeProtector.EncryptBytes([1, 2, 3], MediaSecretEnvelopeProtector.GenerateMediaKey(), MediaSecretEnvelopeProtector.DeploymentKeyId)),
+                MediaSecretEnvelopeProtector.EncryptBytes([1, 2, 3], AesGcmEncryption.GenerateKey(), MediaSecretEnvelopeProtector.DeploymentKeyId)),
             protection: new DeployProtectionSettings { IsEnabled = true });
         _prompt.Answers.Enqueue("right password".ToCharArray());
 
