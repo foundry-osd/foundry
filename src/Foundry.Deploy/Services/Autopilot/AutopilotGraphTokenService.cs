@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Json;
-using Foundry.Deploy.Services.Http;
+using Foundry.Core.Services.Http;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Autopilot;

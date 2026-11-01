@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Net.Http;
+using Foundry.Core.Services.Http;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Http;

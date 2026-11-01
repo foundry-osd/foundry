@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using Foundry.Core.Services.NetworkCache;
 using Foundry.Deploy.Services.Cache;
+using Foundry.Core.Services.Http;
 using Foundry.Deploy.Services.Http;
 using Foundry.Utilities.Networking;
 using Microsoft.Extensions.Logging;

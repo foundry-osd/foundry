@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Text.RegularExpressions;
-using Foundry.Deploy.Services.Http;
+using Foundry.Core.Services.Http;
 
 namespace Foundry.Deploy.Services.Localization;
 

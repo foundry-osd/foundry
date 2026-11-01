@@ -13,7 +13,7 @@ using System.Text;
 using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.DriverPacks;
-using Foundry.Deploy.Services.Http;
+using Foundry.Core.Services.Http;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Foundry.Deploy.Tests;

@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Text.Json;
 using Foundry.Core.Services.Runtime;
 using Foundry.Deploy.Services.Download;
+using Foundry.Core.Services.Http;
 using Foundry.Deploy.Services.Http;
 using Foundry.Deploy.Services.Images;
 using Foundry.Utilities.IO;

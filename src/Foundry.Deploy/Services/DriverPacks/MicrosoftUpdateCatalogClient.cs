@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
+using Foundry.Core.Services.Http;
 using Foundry.Deploy.Services.Http;
 using HtmlAgilityPack;
 using Microsoft.Extensions.Logging;

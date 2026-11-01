@@ -11,7 +11,7 @@ using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Network;
-using Foundry.Deploy.Services.Http;
+using Foundry.Core.Services.Http;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Telemetry;

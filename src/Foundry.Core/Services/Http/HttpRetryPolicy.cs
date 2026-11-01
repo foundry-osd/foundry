@@ -7,7 +7,7 @@ using System.Net;
 using System.Net.Http;
 using Microsoft.Extensions.Logging;
 
-namespace Foundry.Deploy.Services.Http;
+namespace Foundry.Core.Services.Http;
 
 public static class HttpRetryPolicy
 {

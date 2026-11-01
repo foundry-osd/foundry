@@ -6,7 +6,7 @@ using System.IO;
 using System.Net.Http;
 using System.Security.Cryptography;
 using Foundry.Deploy.Services.Download;
-using Foundry.Deploy.Services.Http;
+using Foundry.Core.Services.Http;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Logging;
 
