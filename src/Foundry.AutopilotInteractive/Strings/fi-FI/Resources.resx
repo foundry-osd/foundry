@@ -322,6 +322,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Registration.Failure.network_unavailable" xml:space="preserve">
     <value>Yhteyttä palveluun Microsoft Graph ei saatu. Tarkista verkkoyhteys ja yritä uudelleen.</value>
   </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>Tämä laite on rekisteröity palveluun Windows Autopilot, mutta sen ryhmän tunnistetta, tietokoneen nimeä tai määritettyä käyttäjää ei voitu ottaa käyttöön. Tarkista käyttäjänimi ja Intune-palvelu ja yritä uudelleen.</value>
+  </data>
   <data name="Registration.Failure.registration_failed" xml:space="preserve">
     <value>Rekisteröinti epäonnistui. Syynä voi olla tämän verkon välityspalvelin tai captive portal. Lisätietoja on lokissa; yritä uudelleen.</value>
   </data>

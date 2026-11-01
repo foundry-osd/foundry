@@ -322,6 +322,9 @@
   <data name="Registration.Failure.network_unavailable" xml:space="preserve">
     <value>Δεν ήταν δυνατή η πρόσβαση στο Microsoft Graph. Ελέγξτε τη σύνδεση δικτύου και δοκιμάστε ξανά.</value>
   </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>Αυτή η συσκευή είναι εγγεγραμμένη στο Windows Autopilot, αλλά δεν ήταν δυνατή η εφαρμογή της ετικέτας ομάδας, του ονόματος υπολογιστή ή του εκχωρημένου χρήστη. Ελέγξτε το όνομα χρήστη και το Intune και δοκιμάστε ξανά.</value>
+  </data>
   <data name="Registration.Failure.registration_failed" xml:space="preserve">
     <value>Η εγγραφή απέτυχε. Αιτία μπορεί να είναι ένας διακομιστής μεσολάβησης ή μια πύλη captive σε αυτό το δίκτυο. Οι λεπτομέρειες βρίσκονται στο αρχείο καταγραφής· δοκιμάστε ξανά.</value>
   </data>

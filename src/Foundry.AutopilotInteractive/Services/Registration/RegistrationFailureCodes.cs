@@ -32,6 +32,12 @@ public static class RegistrationFailureCodes
     /// <summary>Several Autopilot devices share the serial number.</summary>
     public const string DeviceAmbiguous = "device_ambiguous";
 
+    /// <summary>
+    /// The device is registered and visible, but its group tag, computer name or assigned user could not be applied or
+    /// confirmed.
+    /// </summary>
+    public const string PropertiesNotApplied = "properties_not_applied";
+
     /// <summary>The imported device did not become visible before the timeout.</summary>
     public const string RegistrationTimedOut = "registration_timed_out";
 
@@ -45,6 +51,15 @@ public static class RegistrationFailureCodes
     public const string RegistrationFailed = "registration_failed";
 
     private const string ResourceKeyPrefix = "Registration.Failure.";
+
+    // Failure codes of the shared Graph client for a visible device whose properties were rejected or not confirmed.
+    private static readonly string[] PropertyUpdateFailureCodes =
+    [
+        "AutopilotGroupTagUpdateFailed",
+        "AutopilotComputerNameUpdateFailed",
+        "AutopilotGroupTagUpdateTimedOut",
+        "AutopilotComputerNameUpdateTimedOut"
+    ];
 
     /// <summary>
     /// Gets the resource key of the localized message for a code.
@@ -98,6 +113,12 @@ public static class RegistrationFailureCodes
         if (string.Equals(result.FailureCode, "AutopilotDeviceAmbiguous", StringComparison.Ordinal))
         {
             return DeviceAmbiguous;
+        }
+
+        // Checked before the state: a property update that timed out also reports UploadTimedOut.
+        if (PropertyUpdateFailureCodes.Contains(result.FailureCode, StringComparer.Ordinal))
+        {
+            return PropertiesNotApplied;
         }
 
         return result.State == AutopilotHardwareHashUploadState.UploadTimedOut ? RegistrationTimedOut : RegistrationFailed;

@@ -322,6 +322,9 @@
   <data name="Registration.Failure.network_unavailable" xml:space="preserve">
     <value>無法連線到 Microsoft Graph。請檢查網路連線，然後重試。</value>
   </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>此裝置已在 Windows Autopilot 中註冊，但無法套用其群組標籤、電腦名稱或已指派的使用者。請檢查使用者名稱和 Intune，然後重試。</value>
+  </data>
   <data name="Registration.Failure.registration_failed" xml:space="preserve">
     <value>註冊失敗。此網路上的 Proxy 或強制入口網站可能導致此問題。詳細資料請參閱記錄檔；請重試。</value>
   </data>

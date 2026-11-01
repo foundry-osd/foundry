@@ -322,6 +322,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Registration.Failure.network_unavailable" xml:space="preserve">
     <value>Microsoft Graph kon niet worden bereikt. Controleer de netwerkverbinding en probeer het opnieuw.</value>
   </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>Dit apparaat is geregistreerd in Windows Autopilot, maar de groepstag, computernaam of toegewezen gebruiker kon niet worden toegepast. Controleer de gebruikersnaam en Intune en probeer het opnieuw.</value>
+  </data>
   <data name="Registration.Failure.registration_failed" xml:space="preserve">
     <value>De registratie is mislukt. Een proxy of een captive portal op dit netwerk kan de oorzaak zijn. Details staan in het logboek; probeer het opnieuw.</value>
   </data>

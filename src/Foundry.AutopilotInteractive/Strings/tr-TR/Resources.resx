@@ -322,6 +322,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Registration.Failure.network_unavailable" xml:space="preserve">
     <value>Microsoft Graph hizmetine ulaşılamadı. Ağ bağlantısını denetleyin, ardından yeniden deneyin.</value>
   </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>Bu cihaz Windows Autopilot hizmetine kayıtlı, ancak grup etiketi, bilgisayar adı veya atanan kullanıcısı uygulanamadı. Kullanıcı adını ve Intune hizmetini denetleyin, ardından yeniden deneyin.</value>
+  </data>
   <data name="Registration.Failure.registration_failed" xml:space="preserve">
     <value>Kayıt başarısız oldu. Bu ağdaki bir ara sunucu veya captive portal buna neden olabilir. Ayrıntılar günlükte yer alır; yeniden deneyin.</value>
   </data>

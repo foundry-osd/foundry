@@ -322,6 +322,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Registration.Failure.network_unavailable" xml:space="preserve">
     <value>Nepavyko susisiekti su Microsoft Graph. Patikrinkite tinklo ryšį ir bandykite dar kartą.</value>
   </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>Šis įrenginys užregistruotas Windows Autopilot paslaugoje, tačiau nepavyko pritaikyti jo grupės žymos, kompiuterio pavadinimo ar priskirto naudotojo. Patikrinkite naudotojo vardą ir Intune, tada bandykite dar kartą.</value>
+  </data>
   <data name="Registration.Failure.registration_failed" xml:space="preserve">
     <value>Registravimas nepavyko. Priežastis gali būti šio tinklo tarpinis serveris arba captive portalas. Išsami informacija pateikta žurnale; bandykite dar kartą.</value>
   </data>

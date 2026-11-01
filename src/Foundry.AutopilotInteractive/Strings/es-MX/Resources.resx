@@ -322,6 +322,9 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Registration.Failure.network_unavailable" xml:space="preserve">
     <value>No se pudo establecer conexión con Microsoft Graph. Compruebe la conexión de red y vuelva a intentarlo.</value>
   </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>Este dispositivo está registrado en Windows Autopilot, pero no se pudo aplicar su etiqueta de grupo, nombre de equipo o usuario asignado. Revise el nombre de usuario e Intune y vuelva a intentarlo.</value>
+  </data>
   <data name="Registration.Failure.registration_failed" xml:space="preserve">
     <value>Error en el registro. Puede deberse a un proxy o a un portal cautivo en esta red. Los detalles están en el registro; vuelva a intentarlo.</value>
   </data>

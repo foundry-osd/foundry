@@ -61,6 +61,16 @@ public sealed class RegistrationFailureCodesTests
             RegistrationFailureCodes.FromResult(Failed(AutopilotHardwareHashUploadState.UploadTimedOut, failureCode: "AutopilotDeviceTimedOut")));
     }
 
+    [Theory]
+    [InlineData(AutopilotHardwareHashUploadState.UploadFailed, "AutopilotGroupTagUpdateFailed")]
+    [InlineData(AutopilotHardwareHashUploadState.UploadFailed, "AutopilotComputerNameUpdateFailed")]
+    [InlineData(AutopilotHardwareHashUploadState.UploadTimedOut, "AutopilotGroupTagUpdateTimedOut")]
+    [InlineData(AutopilotHardwareHashUploadState.UploadTimedOut, "AutopilotComputerNameUpdateTimedOut")]
+    public void FromResult_MapsPropertyUpdateFailuresBeforeTheState(AutopilotHardwareHashUploadState state, string failureCode)
+    {
+        Assert.Equal(RegistrationFailureCodes.PropertiesNotApplied, RegistrationFailureCodes.FromResult(Failed(state, failureCode: failureCode)));
+    }
+
     [Fact]
     public void ResourceKey_PrefixesTheCode()
     {

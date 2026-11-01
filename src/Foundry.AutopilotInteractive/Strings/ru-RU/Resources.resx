@@ -322,6 +322,9 @@
   <data name="Registration.Failure.network_unavailable" xml:space="preserve">
     <value>Не удалось подключиться к Microsoft Graph. Проверьте подключение к сети и повторите попытку.</value>
   </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>Это устройство зарегистрировано в Windows Autopilot, но не удалось применить тег группы, имя компьютера или назначенного пользователя. Проверьте имя пользователя и Intune и повторите попытку.</value>
+  </data>
   <data name="Registration.Failure.registration_failed" xml:space="preserve">
     <value>Регистрация не удалась. Причиной может быть прокси-сервер или captive-портал в этой сети. Подробности есть в журнале; повторите попытку.</value>
   </data>

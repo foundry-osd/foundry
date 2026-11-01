@@ -322,6 +322,9 @@ Licencjonowany na licencji MIT.</value>
   <data name="Registration.Failure.network_unavailable" xml:space="preserve">
     <value>Nie można nawiązać połączenia z usługą Microsoft Graph. Sprawdź połączenie sieciowe, a następnie spróbuj ponownie.</value>
   </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>To urządzenie jest zarejestrowane w usłudze Windows Autopilot, ale nie udało się zastosować jego tagu grupy, nazwy komputera ani przypisanego użytkownika. Sprawdź nazwę użytkownika i usługę Intune, a następnie spróbuj ponownie.</value>
+  </data>
   <data name="Registration.Failure.registration_failed" xml:space="preserve">
     <value>Rejestracja nie powiodła się. Przyczyną może być serwer proxy lub portal captive w tej sieci. Szczegóły znajdują się w dzienniku; spróbuj ponownie.</value>
   </data>

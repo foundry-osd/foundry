@@ -936,6 +936,38 @@ public sealed class AutopilotGraphImportClientTests
         Assert.Contains("visible", result.Message);
     }
 
+    [Theory]
+    [InlineData(HttpStatusCode.Unauthorized)]
+    [InlineData(HttpStatusCode.Forbidden)]
+    public async Task ImportHardwareHashAsync_WhenPropertyUpdateIsRejectedWithAuthorizationStatus_Propagates(HttpStatusCode status)
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "imported-id", "state": { "deviceImportStatus": "complete" } }] }""");
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "device-id", "serialNumber": "SER123" }] }""");
+        handler.EnqueueText(status, "rejected");
+
+        HttpRequestException exception = await Assert.ThrowsAsync<HttpRequestException>(() => CreateClient(handler).ImportHardwareHashAsync(
+            new AutopilotGraphImportRequest("token", "SER123", "hash", "Sales", null, "import"), CancellationToken.None));
+
+        Assert.Equal(status, exception.StatusCode);
+        Assert.EndsWith("/updateDeviceProperties", handler.Requests[2].PathAndQuery, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task ImportHardwareHashAsync_WhenPropertyConfirmationIsUnauthorized_Propagates()
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "imported-id", "state": { "deviceImportStatus": "complete" } }] }""");
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "device-id", "serialNumber": "SER123" }] }""");
+        handler.EnqueueText(HttpStatusCode.NoContent, string.Empty);
+        handler.EnqueueText(HttpStatusCode.Unauthorized, "expired");
+
+        HttpRequestException exception = await Assert.ThrowsAsync<HttpRequestException>(() => CreateClient(handler).ImportHardwareHashAsync(
+            new AutopilotGraphImportRequest("token", "SER123", "hash", "Sales", null, "import"), CancellationToken.None));
+
+        Assert.Equal(HttpStatusCode.Unauthorized, exception.StatusCode);
+    }
+
     [Fact]
     public async Task FindDeviceBySerialNumber_ReturnsFound_WhenExactlyOneSerialMatchesAcrossPages()
     {

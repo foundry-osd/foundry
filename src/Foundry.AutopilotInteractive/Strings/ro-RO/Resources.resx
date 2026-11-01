@@ -322,6 +322,9 @@ Licențiat sub licența MIT.</value>
   <data name="Registration.Failure.network_unavailable" xml:space="preserve">
     <value>Microsoft Graph nu a putut fi accesat. Verificați conexiunea la rețea, apoi încercați din nou.</value>
   </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>Acest dispozitiv este înregistrat în Windows Autopilot, dar eticheta de grup, numele computerului sau utilizatorul atribuit nu au putut fi aplicate. Verificați numele de utilizator și Intune, apoi încercați din nou.</value>
+  </data>
   <data name="Registration.Failure.registration_failed" xml:space="preserve">
     <value>Înregistrarea a eșuat. O cauză posibilă este un proxy sau un portal captiv din această rețea. Detaliile se află în jurnal; încercați din nou.</value>
   </data>

@@ -322,6 +322,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Registration.Failure.network_unavailable" xml:space="preserve">
     <value>Nevarēja izveidot savienojumu ar Microsoft Graph. Pārbaudiet tīkla savienojumu un mēģiniet vēlreiz.</value>
   </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>Šī ierīce ir reģistrēta pakalpojumā Windows Autopilot, taču tās grupas atzīmi, datora nosaukumu vai piešķirto lietotāju nevarēja lietot. Pārbaudiet lietotājvārdu un Intune un mēģiniet vēlreiz.</value>
+  </data>
   <data name="Registration.Failure.registration_failed" xml:space="preserve">
     <value>Reģistrēšana neizdevās. Cēlonis var būt starpniekserveris vai captive portāls šajā tīklā. Detalizēta informācija ir žurnālā; mēģiniet vēlreiz.</value>
   </data>

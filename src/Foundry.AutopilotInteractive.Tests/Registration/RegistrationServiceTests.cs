@@ -57,6 +57,48 @@ public sealed class RegistrationServiceTests
     }
 
     [Fact]
+    public async Task Register_ReturnsPropertiesNotApplied_AndKeepsIdentifiers_WhenPropertyUpdateFails()
+    {
+        Harness harness = new(new FixedReader(), RespondToPropertyUpdate(HttpStatusCode.BadRequest));
+
+        RegistrationOutcome outcome = await harness.Service.RegisterAsync(
+            new RegistrationRequest("token", "Marketing", null, null),
+            new Progress<AutopilotHardwareHashUploadProgress>(),
+            CancellationToken.None);
+
+        Assert.False(outcome.Succeeded);
+        Assert.Equal(RegistrationFailureCodes.PropertiesNotApplied, outcome.FailureCode);
+        Assert.False(string.IsNullOrWhiteSpace(outcome.ImportId));
+        Assert.Equal("d1", outcome.AutopilotDeviceId);
+    }
+
+    [Fact]
+    public async Task Register_MapsForbiddenPropertyUpdate_ToGraphForbidden()
+    {
+        Harness harness = new(new FixedReader(), RespondToPropertyUpdate(HttpStatusCode.Forbidden));
+
+        RegistrationOutcome outcome = await harness.Service.RegisterAsync(
+            new RegistrationRequest("token", "Marketing", null, null),
+            new Progress<AutopilotHardwareHashUploadProgress>(),
+            CancellationToken.None);
+
+        Assert.Equal(RegistrationFailureCodes.GraphForbidden, outcome.FailureCode);
+    }
+
+    [Fact]
+    public async Task Register_PropagatesUnauthorizedPropertyUpdate()
+    {
+        Harness harness = new(new FixedReader(), RespondToPropertyUpdate(HttpStatusCode.Unauthorized));
+
+        HttpRequestException exception = await Assert.ThrowsAsync<HttpRequestException>(() => harness.Service.RegisterAsync(
+            new RegistrationRequest("token", "Marketing", null, null),
+            new Progress<AutopilotHardwareHashUploadProgress>(),
+            CancellationToken.None));
+
+        Assert.Equal(HttpStatusCode.Unauthorized, exception.StatusCode);
+    }
+
+    [Fact]
     public async Task Load_SetsGroupTagsUnavailable_WhenTagDiscoveryFails()
     {
         // The tag request is sent first; the device lookup request follows.
@@ -97,6 +139,17 @@ public sealed class RegistrationServiceTests
 
         Assert.Equal(HttpStatusCode.Unauthorized, exception.StatusCode);
     }
+
+    // The device becomes visible with the tag Sales; the update to another tag answers with the given status.
+    private static Func<HttpRequestMessage, string, HttpResponseMessage> RespondToPropertyUpdate(HttpStatusCode updateStatus) =>
+        (request, _) => request.RequestUri!.AbsolutePath switch
+        {
+            string path when path.EndsWith("/import", StringComparison.Ordinal) => FakeHttpMessageHandler.Json(
+                HttpStatusCode.OK,
+                "{ \"value\": [ { \"id\": \"imported-1\", \"state\": { \"deviceImportStatus\": \"complete\" } } ] }"),
+            string path when path.EndsWith("/updateDeviceProperties", StringComparison.Ordinal) => FakeHttpMessageHandler.Json(updateStatus, "{}"),
+            _ => FakeHttpMessageHandler.Json(HttpStatusCode.OK, DeviceListJson)
+        };
 
     private sealed class Harness
     {

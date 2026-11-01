@@ -322,6 +322,9 @@
   <data name="Registration.Failure.network_unavailable" xml:space="preserve">
     <value>ไม่สามารถเชื่อมต่อกับ Microsoft Graph ได้ ตรวจสอบการเชื่อมต่อเครือข่าย แล้วลองอีกครั้ง</value>
   </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>อุปกรณ์นี้ลงทะเบียนใน Windows Autopilot แล้ว แต่ไม่สามารถใช้แท็กกลุ่ม ชื่อคอมพิวเตอร์ หรือผู้ใช้ที่กำหนดได้ ตรวจสอบชื่อผู้ใช้และ Intune แล้วลองอีกครั้ง</value>
+  </data>
   <data name="Registration.Failure.registration_failed" xml:space="preserve">
     <value>การลงทะเบียนล้มเหลว สาเหตุอาจเกิดจากพร็อกซีหรือ Captive Portal ในเครือข่ายนี้ ดูรายละเอียดในบันทึก แล้วลองอีกครั้ง</value>
   </data>

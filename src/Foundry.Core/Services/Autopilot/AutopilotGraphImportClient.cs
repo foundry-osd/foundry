@@ -335,7 +335,7 @@ public sealed class AutopilotGraphImportClient(
                         progress,
                         cancellationToken).ConfigureAwait(false);
                 }
-                catch (Exception exception) when (exception is HttpRequestException or InvalidOperationException or JsonException)
+                catch (Exception exception) when (IsPropertyReconciliationFailure(exception))
                 {
                     return new AutopilotImportWaitResult(
                         importedIdentity,
@@ -725,6 +725,21 @@ public sealed class AutopilotGraphImportClient(
 
             progress?.Report(new AutopilotHardwareHashUploadProgress(message, detailFactory(remaining)));
         }
+    }
+
+    /// <summary>
+    /// Tells whether a failure of the property update phase becomes an <c>...UpdateFailed</c> result. HTTP 401 and 403 are
+    /// excluded and propagate like the same answers to the import request: the caller must sign in again or use another
+    /// account, which a property failure would hide.
+    /// </summary>
+    private static bool IsPropertyReconciliationFailure(Exception exception)
+    {
+        return exception switch
+        {
+            HttpRequestException { StatusCode: HttpStatusCode.Unauthorized or HttpStatusCode.Forbidden } => false,
+            HttpRequestException or InvalidOperationException or JsonException => true,
+            _ => false
+        };
     }
 
     private static bool IsImportError(string? status)

@@ -322,6 +322,9 @@
   <data name="Registration.Failure.network_unavailable" xml:space="preserve">
     <value>לא ניתן היה להגיע אל Microsoft Graph. בדוק את חיבור הרשת ונסה שוב.</value>
   </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>מכשיר זה רשום ב-Windows Autopilot, אך לא ניתן היה להחיל את תג הקבוצה, שם המחשב או המשתמש המוקצה שלו. בדוק את שם המשתמש ואת Intune ונסה שוב.</value>
+  </data>
   <data name="Registration.Failure.registration_failed" xml:space="preserve">
     <value>הרישום נכשל. ייתכן שהסיבה היא שרת proxy או פורטל captive ברשת זו. הפרטים נמצאים ביומן; נסה שוב.</value>
   </data>

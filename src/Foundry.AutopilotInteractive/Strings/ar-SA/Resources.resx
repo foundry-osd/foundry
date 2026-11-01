@@ -322,6 +322,9 @@
   <data name="Registration.Failure.network_unavailable" xml:space="preserve">
     <value>تعذر الوصول إلى Microsoft Graph. تحقق من اتصال الشبكة ثم حاول مرة أخرى.</value>
   </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>هذا الجهاز مسجّل في Windows Autopilot، لكن تعذّر تطبيق علامة المجموعة أو اسم الكمبيوتر أو المستخدم المعيّن. تحقق من اسم المستخدم ومن Intune، ثم حاول مرة أخرى.</value>
+  </data>
   <data name="Registration.Failure.registration_failed" xml:space="preserve">
     <value>فشل التسجيل. قد يكون السبب خادم وكيل أو بوابة مقيِّدة في هذه الشبكة. التفاصيل موجودة في السجل؛ حاول مرة أخرى.</value>
   </data>

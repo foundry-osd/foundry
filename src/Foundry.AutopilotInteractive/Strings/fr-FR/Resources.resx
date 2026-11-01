@@ -322,6 +322,9 @@ Sous licence MIT.</value>
   <data name="Registration.Failure.network_unavailable" xml:space="preserve">
     <value>Microsoft Graph est inaccessible. Vérifiez la connexion réseau, puis réessayez.</value>
   </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>Cet appareil est enregistré dans Windows Autopilot, mais sa balise de groupe, son nom d'ordinateur ou son utilisateur affecté n'a pas pu être appliqué. Vérifiez le nom d'utilisateur et Intune, puis réessayez.</value>
+  </data>
   <data name="Registration.Failure.registration_failed" xml:space="preserve">
     <value>L'enregistrement a échoué. Un proxy ou un portail captif sur ce réseau peut en être la cause. Les détails figurent dans le journal ; réessayez.</value>
   </data>

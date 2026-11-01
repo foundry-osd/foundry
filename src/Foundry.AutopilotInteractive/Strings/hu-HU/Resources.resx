@@ -322,6 +322,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Registration.Failure.network_unavailable" xml:space="preserve">
     <value>A Microsoft Graph nem érhető el. Ellenőrizze a hálózati kapcsolatot, majd próbálja újra.</value>
   </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>Az eszköz regisztrálva van a Windows Autopilot szolgáltatásban, de a csoportcímkéjét, a számítógépnevét vagy a hozzárendelt felhasználóját nem sikerült alkalmazni. Ellenőrizze a felhasználónevet és az Intune-t, majd próbálja újra.</value>
+  </data>
   <data name="Registration.Failure.registration_failed" xml:space="preserve">
     <value>A regisztráció sikertelen volt. Ezt a hálózaton lévő proxy vagy captive portal okozhatja. A részletek a naplóban találhatók; próbálja újra.</value>
   </data>

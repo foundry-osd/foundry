@@ -322,6 +322,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Registration.Failure.network_unavailable" xml:space="preserve">
     <value>Microsoft Graph に接続できませんでした。ネットワーク接続を確認してから、もう一度お試しください。</value>
   </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>このデバイスは Windows Autopilot に登録されていますが、グループタグ、コンピューター名、または割り当て済みユーザーを適用できませんでした。ユーザー名と Intune を確認してから、もう一度お試しください。</value>
+  </data>
   <data name="Registration.Failure.registration_failed" xml:space="preserve">
     <value>登録に失敗しました。このネットワークのプロキシまたはキャプティブ ポータルが原因の可能性があります。詳細はログに記録されています。もう一度お試しください。</value>
   </data>

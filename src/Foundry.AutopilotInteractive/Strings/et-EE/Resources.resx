@@ -322,6 +322,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Registration.Failure.network_unavailable" xml:space="preserve">
     <value>Teenusega Microsoft Graph ei õnnestunud ühendust luua. Kontrollige võrguühendust ja proovige uuesti.</value>
   </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>See seade on teenuses Windows Autopilot registreeritud, kuid selle rühmamärgendit, arvutinime või määratud kasutajat ei saanud rakendada. Kontrollige kasutajanime ja teenust Intune ning proovige uuesti.</value>
+  </data>
   <data name="Registration.Failure.registration_failed" xml:space="preserve">
     <value>Registreerimine ebaõnnestus. Põhjuseks võib olla selle võrgu puhverserver või captive portal. Üksikasjad on logis; proovige uuesti.</value>
   </data>

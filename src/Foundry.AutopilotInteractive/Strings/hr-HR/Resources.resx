@@ -322,6 +322,9 @@ Licenciran prema MIT licenci.</value>
   <data name="Registration.Failure.network_unavailable" xml:space="preserve">
     <value>Povezivanje s uslugom Microsoft Graph nije bilo moguće. Provjerite mrežnu vezu, a zatim pokušajte ponovno.</value>
   </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>Ovaj je uređaj registriran u usluzi Windows Autopilot, ali njegovu oznaku grupe, naziv računala ili dodijeljenog korisnika nije bilo moguće primijeniti. Provjerite korisničko ime i uslugu Intune, a zatim pokušajte ponovno.</value>
+  </data>
   <data name="Registration.Failure.registration_failed" xml:space="preserve">
     <value>Registracija nije uspjela. Uzrok može biti proxy poslužitelj ili captive portal u ovoj mreži. Pojedinosti se nalaze u zapisniku; pokušajte ponovno.</value>
   </data>
