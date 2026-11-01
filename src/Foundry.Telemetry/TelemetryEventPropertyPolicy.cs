@@ -100,6 +100,8 @@ public static class TelemetryEventPropertyPolicy
                 "boot_media_deploy_runtime_payload_source",
                 "autopilot_enabled",
                 "autopilot_provisioning_mode",
+                "autopilot_interactive_preselect_custom",
+                "autopilot_interactive_offer_assigned_user",
                 "domain_join_enabled",
                 "domain_join_mode",
                 "domain_join_domain_count",
