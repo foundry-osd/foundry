@@ -95,7 +95,7 @@
     <value>多个匹配的设备</value>
   </data>
   <data name="Debug.Scenario.SignInCode" xml:space="preserve">
-    <value>登录代码和二维码</value>
+    <value>登录代码和 QR 码</value>
   </data>
   <data name="Debug.Scenario.SignInError" xml:space="preserve">
     <value>登录错误及“重试”</value>

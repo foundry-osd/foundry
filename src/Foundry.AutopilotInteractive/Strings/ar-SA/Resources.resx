@@ -80,13 +80,13 @@
     <value>لا توجد علامات مجموعة</value>
   </data>
   <data name="Debug.Scenario.ProfileAssigned" xml:space="preserve">
-    <value>تم تعيين الملف الشخصي</value>
+    <value>تم تعيين ملف التعريف</value>
   </data>
   <data name="Debug.Scenario.ProfileTimeout" xml:space="preserve">
-    <value>انتهاء مهلة انتظار الملف الشخصي</value>
+    <value>انتهاء مهلة انتظار ملف التعريف</value>
   </data>
   <data name="Debug.Scenario.ProfileWait" xml:space="preserve">
-    <value>نجاح التحميل مع انتظار الملف الشخصي</value>
+    <value>نجاح التحميل مع انتظار ملف التعريف</value>
   </data>
   <data name="Debug.Scenario.SessionExpired" xml:space="preserve">
     <value>جلسة منتهية الصلاحية (401)</value>
@@ -335,22 +335,22 @@
     <value>لم يظهر الجهاز في Windows Autopilot خلال 15 دقيقة. تحقق من Intune ثم حاول مرة أخرى.</value>
   </data>
   <data name="Registration.Profile.Assigned" xml:space="preserve">
-    <value>تم تعيين ملف Autopilot الشخصي.</value>
+    <value>تم تعيين ملف تعريف Autopilot.</value>
   </data>
   <data name="Registration.Profile.Failed" xml:space="preserve">
-    <value>أبلغ Intune بأن تعيين ملف Autopilot الشخصي فشل. يستمر إعداد Windows.</value>
+    <value>أبلغ Intune بأن تعيين ملف تعريف Autopilot فشل. يستمر إعداد Windows.</value>
   </data>
   <data name="Registration.Profile.Skipped" xml:space="preserve">
-    <value>يستمر إعداد Windows دون انتظار تعيين الملف الشخصي.</value>
+    <value>يستمر إعداد Windows دون انتظار تعيين ملف التعريف.</value>
   </data>
   <data name="Registration.Profile.TimedOut" xml:space="preserve">
-    <value>لم يتم تعيين الملف الشخصي بعد؛ يستمر إعداد Windows.</value>
+    <value>لم يتم تعيين ملف التعريف بعد؛ يستمر إعداد Windows.</value>
   </data>
   <data name="Registration.Profile.Unavailable" xml:space="preserve">
-    <value>تعذرت قراءة حالة تعيين الملف الشخصي. يستمر إعداد Windows.</value>
+    <value>تعذرت قراءة حالة تعيين ملف التعريف. يستمر إعداد Windows.</value>
   </data>
   <data name="Registration.ProfileWaitFormat" xml:space="preserve">
-    <value>في انتظار تعيين ملف Autopilot الشخصي ({0})</value>
+    <value>في انتظار تعيين ملف تعريف Autopilot ({0})</value>
   </data>
   <data name="Registration.Status.Assigning" xml:space="preserve">
     <value>جارٍ تعيين علامة المجموعة واسم الكمبيوتر والمستخدم…</value>

@@ -314,7 +314,7 @@ Licencēts saskaņā ar MIT licenci.</value>
     <value>Šī ierīce jau ir reģistrēta pakalpojumā Windows Autopilot. Pārbaudiet ierīci pakalpojumā Intune un mēģiniet vēlreiz.</value>
   </data>
   <data name="Registration.Failure.graph_forbidden" xml:space="preserve">
-    <value>Kontā, kurā pierakstīts, nevar importēt Windows Autopilot ierīces. Pierakstieties kontā, kuram ir Intune loma ar atļauju importēt Autopilot ierīces.</value>
+    <value>Konts, kurā pierakstīts, nevar importēt Windows Autopilot ierīces. Pierakstieties kontā, kuram ir Intune loma ar atļauju importēt Autopilot ierīces.</value>
   </data>
   <data name="Registration.Failure.graph_unauthorized" xml:space="preserve">
     <value>Microsoft Graph noraidīja pierakstīšanos. Pierakstieties atkārtoti un mēģiniet vēlreiz.</value>

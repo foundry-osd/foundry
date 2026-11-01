@@ -413,7 +413,7 @@ Sous licence MIT.</value>
     <value>Réessayer</value>
   </data>
   <data name="SignIn.ScanCaption" xml:space="preserve">
-    <value>Scanner pour se connecter</value>
+    <value>Scannez pour vous connecter</value>
   </data>
   <data name="SignIn.Title" xml:space="preserve">
     <value>Connexion à Microsoft</value>

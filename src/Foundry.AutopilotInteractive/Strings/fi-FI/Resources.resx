@@ -314,7 +314,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Tämä laite on jo rekisteröity palveluun Windows Autopilot. Tarkista laite Intune-palvelussa ja yritä uudelleen.</value>
   </data>
   <data name="Registration.Failure.graph_forbidden" xml:space="preserve">
-    <value>Kirjautunut tili ei voi tuoda Windows Autopilot -laitteita. Kirjaudu tilillä, jolla on Intune-rooli, jolla saa tuoda Autopilot-laitteita.</value>
+    <value>Kirjautunut tili ei voi tuoda Windows Autopilot -laitteita. Kirjaudu tilillä, jolla on Intune-rooli, joka sallii Autopilot-laitteiden tuonnin.</value>
   </data>
   <data name="Registration.Failure.graph_unauthorized" xml:space="preserve">
     <value>Microsoft Graph hylkäsi kirjautumisen. Kirjaudu uudelleen ja yritä sitten uudelleen.</value>
@@ -371,7 +371,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Istuntosi on vanhentunut. Kirjaudu uudelleen uudella koodilla.</value>
   </data>
   <data name="SignIn.Banner.SignedOut" xml:space="preserve">
-    <value>Kirjauduttu ulos. Kirjaudu toisella tilillä uudella koodilla.</value>
+    <value>Olet kirjautunut ulos. Kirjaudu toisella tilillä uudella koodilla.</value>
   </data>
   <data name="SignIn.Banner.WaitingForNetwork" xml:space="preserve">
     <value>Verkko ei ole käytettävissä. Yritetään uudelleen 10 sekunnin välein…</value>
@@ -389,13 +389,13 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>Kirjautuminen hylättiin. Valitse Yritä uudelleen, jos haluat uuden koodin.</value>
   </data>
   <data name="SignIn.Error.Generic" xml:space="preserve">
-    <value>Kirjautuminen epäonnistui, koska Microsoft palautti odottamattoman vastauksen. Syynä voi olla tämän verkon välityspalvelin tai captive portal. Valitse Yritä uudelleen yrittääksesi uudelleen.</value>
+    <value>Kirjautuminen epäonnistui, koska Microsoft palautti odottamattoman vastauksen. Syynä voi olla tämän verkon välityspalvelin tai captive portal. Valitse Yritä uudelleen.</value>
   </data>
   <data name="SignIn.Error.SecureConnection" xml:space="preserve">
     <value>Suojattua yhteyttä Microsoftin palveluihin ei voitu muodostaa. Syynä voi olla HTTPS-liikennettä tarkastava välityspalvelin tai väärin asetettu järjestelmän kello. Valitse Yritä uudelleen.</value>
   </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
-    <value>Koodi vanhenee: {0}</value>
+    <value>Koodi vanhenee {0} kuluttua</value>
   </data>
   <data name="SignIn.LoadingGroupTags" xml:space="preserve">
     <value>Ladataan ryhmän tunnisteita…</value>

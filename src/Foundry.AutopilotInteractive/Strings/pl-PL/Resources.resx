@@ -146,7 +146,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Bieżący tag grupy: {0}. Przypisany użytkownik: {1}.</value>
   </data>
   <data name="GroupTag.SeveralMatches" xml:space="preserve">
-    <value>Ten numer seryjny ma kilka urządzeń Windows Autopilot. Rejestracja nie może zaktualizować niejednoznacznego urządzenia.</value>
+    <value>Kilka urządzeń Windows Autopilot ma ten sam numer seryjny. Rejestracja nie może zaktualizować niejednoznacznego urządzenia.</value>
   </data>
   <data name="GroupTag.SignedInAsFormat" xml:space="preserve">
     <value>Zalogowano jako {0}</value>
@@ -305,7 +305,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Czas przeznaczony na ten krok upłynął.</value>
   </data>
   <data name="Registration.Failure.device_ambiguous" xml:space="preserve">
-    <value>Ten numer seryjny ma kilka urządzeń Windows Autopilot. Usuń duplikaty w usłudze Intune, a następnie spróbuj ponownie.</value>
+    <value>Kilka urządzeń Windows Autopilot ma ten sam numer seryjny. Usuń duplikaty w usłudze Intune, a następnie spróbuj ponownie.</value>
   </data>
   <data name="Registration.Failure.device_assigned_to_other_tenant" xml:space="preserve">
     <value>To urządzenie jest zarejestrowane w innej dzierżawie. Inna dzierżawa lub sprzedawca musi anulować jego rejestrację, zanim będzie można je tutaj zarejestrować.</value>
